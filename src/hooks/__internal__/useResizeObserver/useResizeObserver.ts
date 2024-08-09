@@ -6,7 +6,7 @@ export default function useResizeObserver(
   /** Callback meant to be executed on element resize */
   onResize: () => void,
   /** Flag to indicate whether hook should be disabled  */
-  disabled?: boolean
+  disabled?: boolean,
 ): void {
   const observer = useRef<ResizeObserver>();
   const onResizeRef = useRef<() => void>(onResize);

@@ -39,9 +39,9 @@ describe("ValidationMessage component", () => {
           marginTop: "0px",
           marginBottom: "8px",
         },
-        wrapper.find(StyledValidationMessage)
+        wrapper.find(StyledValidationMessage),
       );
-    }
+    },
   );
 
   it.each(validationWithStrings)(
@@ -51,7 +51,7 @@ describe("ValidationMessage component", () => {
       const expected = error || warning;
 
       expect(wrapper.text()).toEqual(expected);
-    }
+    },
   );
 
   it.each(validationWithBooleans)(
@@ -59,7 +59,7 @@ describe("ValidationMessage component", () => {
     (error, warning) => {
       wrapper = render({ error, warning });
       expect(wrapper.text()).toEqual("");
-    }
+    },
   );
 
   it("does not render message when no props passed", () => {

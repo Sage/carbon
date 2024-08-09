@@ -70,7 +70,7 @@ test("closes top modal when the `escape` key is pressed", async () => {
     <>
       <Modal data-role="first-modal" open onCancel={onCancelFn} />
       <Modal data-role="second-modal" open onCancel={onCancelFnTwo} />
-    </>
+    </>,
   );
 
   await user.keyboard("{Escape}");
@@ -93,7 +93,7 @@ test("does not fire `onCancel` if the `escape` key is pressed and no modals are 
     <>
       <Modal data-role="first-modal" open={false} onCancel={onCancelFn} />
       <Modal data-role="second-modal" open={false} onCancel={onCancelFnTwo} />
-    </>
+    </>,
   );
 
   await user.keyboard("{Escape}");
@@ -114,7 +114,7 @@ test("does not fire `onCancel` if the `escape` key is pressed and `disableClose`
   render(
     <>
       <Modal data-role="first-modal" open disableClose onCancel={onCancelFn} />
-    </>
+    </>,
   );
 
   await user.keyboard("{Escape}");

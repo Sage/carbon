@@ -5,7 +5,7 @@ describe("Events", () => {
     describe("when event type matches passed type", () => {
       it("returns true", () => {
         expect(
-          Events.isEventType({ type: "click" } as Event, "click")
+          Events.isEventType({ type: "click" } as Event, "click"),
         ).toBeTruthy();
       });
     });
@@ -13,7 +13,7 @@ describe("Events", () => {
     describe("when event type does NOT match passed type", () => {
       it("returns false", () => {
         expect(
-          Events.isEventType({ type: "click" } as Event, "keyUp")
+          Events.isEventType({ type: "click" } as Event, "keyUp"),
         ).toBeFalsy();
       });
     });
@@ -23,7 +23,7 @@ describe("Events", () => {
       "returns true when event type is %s",
       (type) => {
         expect(Events.isKeyboardEvent({ type } as Event)).toBeTruthy();
-      }
+      },
     );
 
     it("returns false when event type is not a keyboard event type", () => {
@@ -35,7 +35,7 @@ describe("Events", () => {
     describe("when event is not a key up event", () => {
       it("returns false", () => {
         expect(
-          Events.isEnterOrSpaceKey({ type: "click" } as KeyboardEvent)
+          Events.isEnterOrSpaceKey({ type: "click" } as KeyboardEvent),
         ).toBeFalsy();
       });
     });
@@ -47,7 +47,7 @@ describe("Events", () => {
             Events.isEnterOrSpaceKey({
               type: "keyup",
               key: "Backspace",
-            } as KeyboardEvent)
+            } as KeyboardEvent),
           ).toBeFalsy();
         });
       });
@@ -58,7 +58,7 @@ describe("Events", () => {
             Events.isEnterOrSpaceKey({
               type: "keyup",
               key: "Enter",
-            } as KeyboardEvent)
+            } as KeyboardEvent),
           ).toBeTruthy();
         });
       });
@@ -69,7 +69,7 @@ describe("Events", () => {
             Events.isEnterOrSpaceKey({
               type: "keyup",
               key: " ",
-            } as KeyboardEvent)
+            } as KeyboardEvent),
           ).toBeTruthy();
         });
       });
@@ -85,20 +85,20 @@ describe("Events", () => {
       "returns true when a number is pressed (%s)",
       (key) => {
         expect(Events.isNumberKey({ key } as KeyboardEvent)).toBeTruthy();
-      }
+      },
     );
   });
 
   describe("isLeftKey", () => {
     it("returns false when the left key is not pressed", () => {
       expect(
-        Events.isLeftKey({ key: "Backspace" } as KeyboardEvent)
+        Events.isLeftKey({ key: "Backspace" } as KeyboardEvent),
       ).toBeFalsy();
     });
 
     it("returns true when the left key is pressed", () => {
       expect(
-        Events.isLeftKey({ key: "ArrowLeft" } as KeyboardEvent)
+        Events.isLeftKey({ key: "ArrowLeft" } as KeyboardEvent),
       ).toBeTruthy();
     });
   });
@@ -116,13 +116,13 @@ describe("Events", () => {
   describe("isRightKey", () => {
     it("returns false when the right key is not pressed", () => {
       expect(
-        Events.isRightKey({ key: "Backspace" } as KeyboardEvent)
+        Events.isRightKey({ key: "Backspace" } as KeyboardEvent),
       ).toBeFalsy();
     });
 
     it("returns true when the right key is pressed", () => {
       expect(
-        Events.isRightKey({ key: "ArrowRight" } as KeyboardEvent)
+        Events.isRightKey({ key: "ArrowRight" } as KeyboardEvent),
       ).toBeTruthy();
     });
   });
@@ -130,13 +130,13 @@ describe("Events", () => {
   describe("isDownKey", () => {
     it("returns false when the down key is not pressed", () => {
       expect(
-        Events.isDownKey({ key: "Backspace" } as KeyboardEvent)
+        Events.isDownKey({ key: "Backspace" } as KeyboardEvent),
       ).toBeFalsy();
     });
 
     it("returns true when the down key is pressed", () => {
       expect(
-        Events.isDownKey({ key: "ArrowDown" } as KeyboardEvent)
+        Events.isDownKey({ key: "ArrowDown" } as KeyboardEvent),
       ).toBeTruthy();
     });
   });
@@ -144,7 +144,7 @@ describe("Events", () => {
   describe("isEscKey", () => {
     it("returns false when the ESC key is not pressed", () => {
       expect(
-        Events.isEscKey({ key: "Backspace" } as KeyboardEvent)
+        Events.isEscKey({ key: "Backspace" } as KeyboardEvent),
       ).toBeFalsy();
     });
 
@@ -156,7 +156,7 @@ describe("Events", () => {
   describe("isEnterKey", () => {
     it("returns false when the Enter key is not pressed", () => {
       expect(
-        Events.isEnterKey({ key: "Backspace" } as KeyboardEvent)
+        Events.isEnterKey({ key: "Backspace" } as KeyboardEvent),
       ).toBeFalsy();
     });
 
@@ -168,7 +168,7 @@ describe("Events", () => {
   describe("isTabKey", () => {
     it("returns false when the Tab key is not pressed", () => {
       expect(
-        Events.isTabKey({ key: "Backspace" } as KeyboardEvent)
+        Events.isTabKey({ key: "Backspace" } as KeyboardEvent),
       ).toBeFalsy();
     });
 
@@ -184,7 +184,7 @@ describe("Events", () => {
 
     it("returns true when the Shift key is pressed", () => {
       expect(
-        Events.isShiftKey({ shiftKey: true } as KeyboardEvent)
+        Events.isShiftKey({ shiftKey: true } as KeyboardEvent),
       ).toBeTruthy();
     });
   });
@@ -285,7 +285,7 @@ describe("Events", () => {
         const path = [div, ul, li];
 
         assertion(path, li);
-      }
+      },
     );
   });
 });

@@ -100,7 +100,7 @@ ListHeight.storyName = "List Height";
 export const Controlled: Story = () => {
   const [value, setValue] = useState<string[]>([]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue((event.target.value as unknown) as string[]);
+    setValue(event.target.value as unknown as string[]);
   }
   return (
     <Box height={250}>
@@ -394,7 +394,7 @@ export const WithIsLoadingProp: Story = () => {
         label="color"
         value={value}
         onChange={(event) =>
-          setValue((event.target.value as unknown) as string[])
+          setValue(event.target.value as unknown as string[])
         }
         onOpen={() => loadList()}
         isLoading={isLoading}
@@ -502,7 +502,7 @@ export const ValidationsStringNewDesign: Story = () => {
               <Option text="Yellow" value="11" />
             </MultiSelect>
           </Box>
-        ))
+        )),
       )}
     </CarbonProvider>
   );

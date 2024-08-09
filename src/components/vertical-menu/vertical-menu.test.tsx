@@ -20,12 +20,12 @@ describe("VerticalMenu", () => {
     render(
       <VerticalMenu aria-label="test">
         <VerticalMenuItem title="Item1" />
-      </VerticalMenu>
+      </VerticalMenu>,
     );
 
     expect(screen.getByRole("navigation")).toHaveAttribute(
       "aria-label",
-      "test"
+      "test",
     );
   });
 
@@ -33,12 +33,12 @@ describe("VerticalMenu", () => {
     render(
       <VerticalMenu aria-labelledby="test">
         <VerticalMenuItem title="Item1" />
-      </VerticalMenu>
+      </VerticalMenu>,
     );
 
     expect(screen.getByRole("navigation")).toHaveAttribute(
       "aria-labelledby",
-      "test"
+      "test",
     );
   });
 
@@ -46,7 +46,7 @@ describe("VerticalMenu", () => {
     render(
       <VerticalMenu width="100px">
         <VerticalMenuItem title="Item1" />
-      </VerticalMenu>
+      </VerticalMenu>,
     );
 
     expect(screen.getByRole("navigation")).toHaveStyle({
@@ -58,7 +58,7 @@ describe("VerticalMenu", () => {
     render(
       <VerticalMenu height="100px">
         <VerticalMenuItem title="Item1" />
-      </VerticalMenu>
+      </VerticalMenu>,
     );
 
     expect(screen.getByRole("navigation")).toHaveStyle({
@@ -70,7 +70,7 @@ describe("VerticalMenu", () => {
     render(
       <VerticalMenu height="100px">
         <VerticalMenuItem title="Item1" />
-      </VerticalMenu>
+      </VerticalMenu>,
     );
 
     expect(screen.getByRole("navigation")).toHaveStyleRule(
@@ -78,7 +78,7 @@ describe("VerticalMenu", () => {
       "#cccccc",
       {
         modifier: "::-webkit-scrollbar-track",
-      }
+      },
     );
 
     expect(screen.getByRole("navigation")).toHaveStyleRule(
@@ -86,7 +86,7 @@ describe("VerticalMenu", () => {
       "#808080",
       {
         modifier: "::-webkit-scrollbar-thumb",
-      }
+      },
     );
 
     expect(screen.getByRole("navigation")).toHaveStyleRule("width", "12px", {
@@ -98,7 +98,7 @@ describe("VerticalMenu", () => {
     render(
       <VerticalMenu data-element="foo" data-role="bar">
         <VerticalMenuItem title="Item1" />
-      </VerticalMenu>
+      </VerticalMenu>,
     );
 
     const menu = screen.getByRole("navigation");

@@ -95,7 +95,7 @@ test("should render the presentation element with expected width when `size` is 
 
 test("should render the presentation element with expected width when `size` is 'medium'", () => {
   render(
-    <DateInput label="label" size="medium" onChange={() => {}} value="" />
+    <DateInput label="label" size="medium" onChange={() => {}} value="" />,
   );
   const presentation = screen.getAllByRole("presentation")[1];
 
@@ -117,7 +117,7 @@ test("should set 100% width on the presentation element when `inputWidth` is pas
       onChange={() => {}}
       value=""
       labelInline
-    />
+    />,
   );
   const presentation = screen.getAllByRole("presentation")[1];
 
@@ -126,7 +126,7 @@ test("should set 100% width on the presentation element when `inputWidth` is pas
 
 test("should set 100% width on the presentation element when `maxWidth` is passed", () => {
   render(
-    <DateInput label="label" maxWidth="200px" onChange={() => {}} value="" />
+    <DateInput label="label" maxWidth="200px" onChange={() => {}} value="" />,
   );
   const presentation = screen.getAllByRole("presentation")[1];
 
@@ -150,7 +150,7 @@ test("should accept ref as a callback and pass it to the input", () => {
 test("should set ref to empty after unmount", () => {
   const ref = { current: null };
   const { unmount } = render(
-    <DateInput label="label" ref={ref} onChange={() => {}} value="" />
+    <DateInput label="label" ref={ref} onChange={() => {}} value="" />,
   );
   unmount();
 
@@ -166,7 +166,7 @@ test("should render with the input focused and picker visible when `autoFocus` i
 
 test("should not render with the input focused or the picker visible when `autoFocus` is false", () => {
   render(
-    <DateInput label="label" autoFocus={false} onChange={() => {}} value="" />
+    <DateInput label="label" autoFocus={false} onChange={() => {}} value="" />,
   );
 
   expect(screen.getByRole("textbox")).not.toHaveFocus();
@@ -176,7 +176,7 @@ test("should not render with the input focused or the picker visible when `autoF
 test("should open the picker and call the `onFocus` callback if one passed when the input is focused by the user", () => {
   const onFocus = jest.fn();
   render(
-    <DateInput label="label" onChange={() => {}} value="" onFocus={onFocus} />
+    <DateInput label="label" onChange={() => {}} value="" onFocus={onFocus} />,
   );
   const input = screen.getByRole("textbox");
   input.focus();
@@ -196,7 +196,7 @@ test("should open the picker and call the `onClick` and `onFocus` callbacks if p
       value=""
       onFocus={onFocus}
       onClick={onClick}
-    />
+    />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -210,7 +210,7 @@ test("should open the picker and call the `onClick` callback if passed when the 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onClick = jest.fn();
   render(
-    <DateInput label="label" onChange={() => {}} value="" onClick={onClick} />
+    <DateInput label="label" onChange={() => {}} value="" onClick={onClick} />,
   );
   const icon = screen.getByTestId("icon");
   await user.click(icon);
@@ -238,7 +238,7 @@ test("should not trigger a focus event when the user clicks on the input and `di
       value=""
       disabled
       onFocus={onFocus}
-    />
+    />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -257,7 +257,7 @@ test("should not trigger a focus event when the user clicks on the input and `re
       value=""
       readOnly
       onFocus={onFocus}
-    />
+    />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -276,7 +276,7 @@ test("should call `onBlur` and `onChange` callbacks when the user clicks away fr
       onChange={onChange}
       onBlur={onBlur}
       value="010122"
-    />
+    />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -291,7 +291,7 @@ test("should call `onBlur` but not `onChange` callbacks when the user clicks awa
   const onBlur = jest.fn();
   const onChange = jest.fn();
   render(
-    <DateInput label="label" onChange={onChange} onBlur={onBlur} value="foo" />
+    <DateInput label="label" onChange={onChange} onBlur={onBlur} value="foo" />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -311,7 +311,7 @@ test("should call `onBlur` but not `onChange` callbacks when the user clicks awa
       onChange={onChange}
       onBlur={onBlur}
       value="2022-01-01"
-    />
+    />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -332,7 +332,7 @@ test("should not call `onBlur` or `onChange` callbacks when user clicks away fro
       onBlur={onBlur}
       value=""
       readOnly
-    />
+    />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -346,7 +346,7 @@ test("should not call `onBlur` when the user clicks on the input and then the in
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onBlur = jest.fn();
   render(
-    <DateInput label="label" onChange={() => {}} onBlur={onBlur} value="" />
+    <DateInput label="label" onChange={() => {}} onBlur={onBlur} value="" />,
   );
   const input = screen.getByRole("textbox");
   const icon = screen.getByTestId("input-icon-toggle");
@@ -412,7 +412,7 @@ test("should call `onChange` callback when user clears the input and clicks away
       onChange={onChange}
       initialValue="04/04/2019"
       allowEmptyValue
-    />
+    />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -451,7 +451,7 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
       onBlur={onBlur}
       value="04/04/2019"
       minDate="2019-04-04"
-    />
+    />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -564,7 +564,7 @@ test("should focus the next button and then the selected day element when the us
   expect(screen.getByRole("button", { name: "Next month" })).toHaveFocus();
   await user.tab();
   expect(
-    screen.getByRole("gridcell", { name: "Thu 4 Apr 2019" })
+    screen.getByRole("gridcell", { name: "Thu 4 Apr 2019" }),
   ).toHaveFocus();
   await user.tab();
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
@@ -590,7 +590,7 @@ test("should render the help icon when the `labelHelp` prop is passed and displa
       onChange={() => {}}
       value=""
       labelHelp="help text"
-    />
+    />,
   );
   const helpIcon = screen.getByRole("button", { name: "help" });
   await user.hover(helpIcon);
@@ -608,13 +608,13 @@ test("should render the input with the expected required attribute when the `req
 test("should render the picker as a descendant of the main presentation element when `disablePortal` is true", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <DateInput label="label" onChange={() => {}} value="" disablePortal />
+    <DateInput label="label" onChange={() => {}} value="" disablePortal />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
 
   expect(
-    within(screen.getAllByRole("presentation")[0]).getByRole("grid")
+    within(screen.getAllByRole("presentation")[0]).getByRole("grid"),
   ).toBeVisible();
 });
 
@@ -625,7 +625,7 @@ test("should not render the picker as a descendant of the main presentation elem
   await user.click(input);
 
   expect(
-    within(screen.getAllByRole("presentation")[0]).queryByRole("grid")
+    within(screen.getAllByRole("presentation")[0]).queryByRole("grid"),
   ).not.toBeInTheDocument();
   expect(screen.getByRole("grid")).toBeVisible();
 });
@@ -635,7 +635,7 @@ describe("when the `locale` is undefined", () => {
     render(
       <I18nProvider>
         <DateInput onChange={() => {}} value="2019-04-05" />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("05/04/2019");
@@ -646,7 +646,7 @@ describe("when the `locale` is undefined", () => {
     render(
       <I18nProvider>
         <MockComponent initialValue="04 04 2019" />
-      </I18nProvider>
+      </I18nProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
@@ -662,7 +662,7 @@ describe("when the `locale` is undefined", () => {
       render(
         <I18nProvider>
           <MockComponent initialValue="" />
-        </I18nProvider>
+        </I18nProvider>,
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
@@ -670,7 +670,7 @@ describe("when the `locale` is undefined", () => {
       await user.tab();
 
       expect(input).toHaveValue("04/04/2019");
-    }
+    },
   );
 });
 
@@ -684,7 +684,7 @@ describe("when the `locale` is 'en-GB''", () => {
         }}
       >
         <DateInput onChange={() => {}} value="2019-04-05" />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("05/04/2019");
@@ -700,7 +700,7 @@ describe("when the `locale` is 'en-GB''", () => {
         }}
       >
         <MockComponent initialValue="04 04 2019" />
-      </I18nProvider>
+      </I18nProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
@@ -721,7 +721,7 @@ describe("when the `locale` is 'en-GB''", () => {
           }}
         >
           <MockComponent initialValue="" />
-        </I18nProvider>
+        </I18nProvider>,
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
@@ -729,7 +729,7 @@ describe("when the `locale` is 'en-GB''", () => {
       await user.tab();
 
       expect(input).toHaveValue("04/04/2019");
-    }
+    },
   );
 });
 
@@ -743,7 +743,7 @@ describe("when the `locale` is 'de-DE'", () => {
         }}
       >
         <DateInput onChange={() => {}} value="2019-04-05" />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("05.04.2019");
@@ -759,7 +759,7 @@ describe("when the `locale` is 'de-DE'", () => {
         }}
       >
         <MockComponent initialValue="04 04 2019" />
-      </I18nProvider>
+      </I18nProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
@@ -780,7 +780,7 @@ describe("when the `locale` is 'de-DE'", () => {
           }}
         >
           <MockComponent initialValue="" />
-        </I18nProvider>
+        </I18nProvider>,
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
@@ -788,7 +788,7 @@ describe("when the `locale` is 'de-DE'", () => {
       await user.tab();
 
       expect(input).toHaveValue("04.04.2019");
-    }
+    },
   );
 });
 
@@ -802,7 +802,7 @@ describe("when the `locale` is 'es'", () => {
         }}
       >
         <DateInput onChange={() => {}} value="2019-04-05" />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("05/04/2019");
@@ -818,7 +818,7 @@ describe("when the `locale` is 'es'", () => {
         }}
       >
         <MockComponent initialValue="04 04 2019" />
-      </I18nProvider>
+      </I18nProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
@@ -839,7 +839,7 @@ describe("when the `locale` is 'es'", () => {
           }}
         >
           <MockComponent initialValue="" />
-        </I18nProvider>
+        </I18nProvider>,
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
@@ -847,7 +847,7 @@ describe("when the `locale` is 'es'", () => {
       await user.tab();
 
       expect(input).toHaveValue("04/04/2019");
-    }
+    },
   );
 });
 
@@ -861,7 +861,7 @@ describe("when the `locale` is 'en-ZA'", () => {
         }}
       >
         <DateInput onChange={() => {}} value="2019-04-05" />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("05/04/2019");
@@ -877,7 +877,7 @@ describe("when the `locale` is 'en-ZA'", () => {
         }}
       >
         <MockComponent initialValue="04 04 2019" />
-      </I18nProvider>
+      </I18nProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
@@ -898,7 +898,7 @@ describe("when the `locale` is 'en-ZA'", () => {
           }}
         >
           <MockComponent initialValue="" />
-        </I18nProvider>
+        </I18nProvider>,
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
@@ -906,7 +906,7 @@ describe("when the `locale` is 'en-ZA'", () => {
       await user.tab();
 
       expect(input).toHaveValue("04/04/2019");
-    }
+    },
   );
 });
 
@@ -920,7 +920,7 @@ describe("when the `locale` is 'fr-FR'", () => {
         }}
       >
         <DateInput onChange={() => {}} value="2019-04-05" />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("05/04/2019");
@@ -936,7 +936,7 @@ describe("when the `locale` is 'fr-FR'", () => {
         }}
       >
         <MockComponent initialValue="04 04 2019" />
-      </I18nProvider>
+      </I18nProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
@@ -957,7 +957,7 @@ describe("when the `locale` is 'fr-FR'", () => {
           }}
         >
           <MockComponent initialValue="" />
-        </I18nProvider>
+        </I18nProvider>,
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
@@ -965,7 +965,7 @@ describe("when the `locale` is 'fr-FR'", () => {
       await user.tab();
 
       expect(input).toHaveValue("04/04/2019");
-    }
+    },
   );
 });
 
@@ -979,7 +979,7 @@ describe("when the `locale` is 'fr-CA'", () => {
         }}
       >
         <DateInput onChange={() => {}} value="2019-04-05" />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("05/04/2019");
@@ -995,7 +995,7 @@ describe("when the `locale` is 'fr-CA'", () => {
         }}
       >
         <MockComponent initialValue="04 04 2019" />
-      </I18nProvider>
+      </I18nProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
@@ -1016,7 +1016,7 @@ describe("when the `locale` is 'fr-CA'", () => {
           }}
         >
           <MockComponent initialValue="" />
-        </I18nProvider>
+        </I18nProvider>,
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
@@ -1024,7 +1024,7 @@ describe("when the `locale` is 'fr-CA'", () => {
       await user.tab();
 
       expect(input).toHaveValue("04/04/2019");
-    }
+    },
   );
 });
 
@@ -1038,7 +1038,7 @@ describe("when the `locale` is 'en-CA'", () => {
         }}
       >
         <DateInput onChange={() => {}} value="2019-04-05" />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("04/05/2019");
@@ -1054,7 +1054,7 @@ describe("when the `locale` is 'en-CA'", () => {
         }}
       >
         <MockComponent initialValue="04 04 2019" />
-      </I18nProvider>
+      </I18nProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
@@ -1075,7 +1075,7 @@ describe("when the `locale` is 'en-CA'", () => {
           }}
         >
           <MockComponent initialValue="" />
-        </I18nProvider>
+        </I18nProvider>,
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
@@ -1083,7 +1083,7 @@ describe("when the `locale` is 'en-CA'", () => {
       await user.tab();
 
       expect(input).toHaveValue("04/04/2019");
-    }
+    },
   );
 });
 
@@ -1097,7 +1097,7 @@ describe("when the `locale` is 'en-US'", () => {
         }}
       >
         <DateInput onChange={() => {}} value="2019-04-05" />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("04/05/2019");
@@ -1113,7 +1113,7 @@ describe("when the `locale` is 'en-US'", () => {
         }}
       >
         <MockComponent initialValue="04/04/2019" />
-      </I18nProvider>
+      </I18nProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
@@ -1134,7 +1134,7 @@ describe("when the `locale` is 'en-US'", () => {
           }}
         >
           <MockComponent initialValue="" />
-        </I18nProvider>
+        </I18nProvider>,
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
@@ -1142,7 +1142,7 @@ describe("when the `locale` is 'en-US'", () => {
       await user.tab();
 
       expect(input).toHaveValue("04/04/2019");
-    }
+    },
   );
 });
 
@@ -1205,7 +1205,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
           value=""
           error="error message"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const input = screen.getByRole("textbox");
     const icon = screen.getByTestId("icon-error");
@@ -1227,7 +1227,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
           error="error message"
           validationOnLabel
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.hover(input);
@@ -1246,7 +1246,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
           error="error message"
           validationOnLabel
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const label = screen.getByText("label");
     await user.hover(label);
@@ -1259,7 +1259,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
     render(
       <CarbonProvider>
         <DateInput label="label" onChange={() => {}} value="" error />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.hover(input);
@@ -1279,7 +1279,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
           value=""
           warning="warning message"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const input = screen.getByRole("textbox");
     const icon = screen.getByTestId("icon-warning");
@@ -1295,7 +1295,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
     render(
       <CarbonProvider>
         <DateInput label="label" onChange={() => {}} value="" warning />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.hover(input);
@@ -1315,7 +1315,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
           value=""
           info="info message"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const input = screen.getByRole("textbox");
     const icon = screen.getByTestId("icon-info");
@@ -1331,7 +1331,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
     render(
       <CarbonProvider>
         <DateInput label="label" onChange={() => {}} value="" info />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const input = screen.getByRole("textbox");
     await user.hover(input);
@@ -1352,7 +1352,7 @@ describe("when the `validationRedesignOptIn` prop is true", () => {
           value=""
           error="error message"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const input = screen.getByRole("textbox");
 
@@ -1364,7 +1364,7 @@ describe("when the `validationRedesignOptIn` prop is true", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <DateInput label="label" onChange={() => {}} value="" error />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const input = screen.getByRole("textbox");
 
@@ -1381,7 +1381,7 @@ describe("when the `validationRedesignOptIn` prop is true", () => {
           value=""
           warning="warning message"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const input = screen.getByRole("textbox");
 
@@ -1393,7 +1393,7 @@ describe("when the `validationRedesignOptIn` prop is true", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <DateInput label="label" onChange={() => {}} value="" warning />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const input = screen.getByRole("textbox");
 

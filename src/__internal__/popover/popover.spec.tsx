@@ -173,7 +173,7 @@ describe("Popover", () => {
 
       expect(
         (createPortalSpy.mock.calls[0][0] as React.ReactElement).props.children
-          .props.children.props.id
+          .props.children.props.id,
       ).toBe("popover-children");
       expect(createPortalSpy.mock.calls[0][1].childNodes[0]).toEqual(provider);
       wrapper.unmount();
@@ -202,7 +202,7 @@ describe("Popover", () => {
     it("renders content as a child of backdrop when background is disabled", () => {
       wrapper = mount(<Component disableBackgroundUI />);
       expect(
-        wrapper.find(StyledBackdrop).find("#popover-children").exists()
+        wrapper.find(StyledBackdrop).find("#popover-children").exists(),
       ).toBe(true);
     });
 
@@ -216,7 +216,7 @@ describe("Popover", () => {
     it("calls useFloating with proper arguments", () => {
       useFloatingMock.mockClear();
       const wrapper = mount(
-        <Component isOpen placement="top" animationFrame />
+        <Component isOpen placement="top" animationFrame />,
       );
       act(() => {
         wrapper.update();
@@ -247,7 +247,7 @@ describe("Popover", () => {
       const dialog = wrapper.find("[role='dialog']");
       const appendChildSpy = jest.spyOn(
         dialog.at(2).getDOMNode(),
-        "appendChild"
+        "appendChild",
       );
 
       wrapper.setProps({ renderPopover: true });
@@ -264,7 +264,7 @@ describe("Popover", () => {
       const dialog = wrapper.find("[role='alertdialog']");
       const appendChildToDialogSpy = jest.spyOn(
         dialog.at(2).getDOMNode(),
-        "appendChild"
+        "appendChild",
       );
 
       const appendChildToBodySpy = jest.spyOn(document.body, "appendChild");

@@ -21,7 +21,7 @@ it("defaults to the 'en-gb' locale when no other locale is specified", () => {
   render(
     <I18nProvider>
       <TestComponent />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   const localeText = screen.getByText("en-GB");
@@ -32,7 +32,7 @@ it("should support overriding the default locale with 'de-DE'", () => {
   render(
     <I18nProvider locale={deDE}>
       <TestComponent />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   const localeText = screen.getByText("de-DE");
@@ -43,7 +43,7 @@ it("should support overriding the default locale with 'en-CA'", () => {
   render(
     <I18nProvider locale={enCA}>
       <TestComponent />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   const localeText = screen.getByText("en-CA");
@@ -54,7 +54,7 @@ it("should support overriding the default locale with 'en-US'", () => {
   render(
     <I18nProvider locale={enUS}>
       <TestComponent />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   const localeText = screen.getByText("en-US");
@@ -65,7 +65,7 @@ it("should support overriding the default locale with 'es-ES'", () => {
   render(
     <I18nProvider locale={esES}>
       <TestComponent />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   const localeText = screen.getByText("es-ES");
@@ -76,7 +76,7 @@ it("should support overriding the default locale with 'fr-CA'", () => {
   render(
     <I18nProvider locale={frCA}>
       <TestComponent />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   const localeText = screen.getByText("fr-CA");
@@ -87,7 +87,7 @@ it("should support overriding the default locale with 'fr-FR'", () => {
   render(
     <I18nProvider locale={frFR}>
       <TestComponent />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   const localeText = screen.getByText("fr-FR");
@@ -105,7 +105,7 @@ it("should support overriding the default locale with a spread locale object", (
       }}
     >
       <TestComponent />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   const localeText = screen.getByText("fr-FR");

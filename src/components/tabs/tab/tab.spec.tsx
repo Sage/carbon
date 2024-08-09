@@ -24,7 +24,7 @@ function render(props: Partial<TabProps> = {}) {
     >
       <p>TabContent 1</p>
       <p>TabContent 2</p>
-    </Tab>
+    </Tab>,
   );
 }
 
@@ -32,7 +32,7 @@ function renderWithValidation(
   props: Partial<TabProps> & {
     id?: string;
     validations: Record<string, string | boolean>;
-  }
+  },
 ) {
   return mount(
     <Tab
@@ -49,7 +49,7 @@ function renderWithValidation(
         id={props.id}
         {...props.validations}
       />
-    </Tab>
+    </Tab>,
   );
 }
 
@@ -84,7 +84,7 @@ describe("Tab", () => {
       {
         display: "none",
       },
-      wrapper.toJSON()
+      wrapper.toJSON(),
     );
   });
 
@@ -110,7 +110,7 @@ describe("Tab", () => {
   it("sets the aria-labelledby based on ariaLabelledBy prop", () => {
     wrapper = render({ ariaLabelledby: "ariaLabelledby" });
     expect(wrapper.find("[aria-labelledby='ariaLabelledby']").exists()).toEqual(
-      true
+      true,
     );
   });
 
@@ -136,7 +136,7 @@ describe("Tab", () => {
         {
           display: "block",
         },
-        wrapper.toJSON()
+        wrapper.toJSON(),
       );
     });
 
@@ -150,7 +150,7 @@ describe("Tab", () => {
           {
             width: "calc(80% + var(--spacing075))",
           },
-          wrapper.toJSON()
+          wrapper.toJSON(),
         );
       });
     });

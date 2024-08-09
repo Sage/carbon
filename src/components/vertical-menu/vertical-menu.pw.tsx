@@ -40,12 +40,12 @@ test.describe("should render Vertical Menu component", () => {
     page,
   }) => {
     await mount(
-      <VerticalMenuDefaultComponent aria-label={CHARACTERS.STANDARD} />
+      <VerticalMenuDefaultComponent aria-label={CHARACTERS.STANDARD} />,
     );
 
     await expect(verticalMenuComponent(page)).toHaveAttribute(
       "aria-label",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -54,12 +54,12 @@ test.describe("should render Vertical Menu component", () => {
     page,
   }) => {
     await mount(
-      <VerticalMenuDefaultComponent aria-labelledby={CHARACTERS.STANDARD} />
+      <VerticalMenuDefaultComponent aria-labelledby={CHARACTERS.STANDARD} />,
     );
 
     await expect(verticalMenuComponent(page)).toHaveAttribute(
       "aria-labelledby",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -70,27 +70,29 @@ test.describe("should render Vertical Menu component", () => {
       await assertCssValueIsApproximately(
         verticalMenuComponent(page),
         "width",
-        width
+        width,
       );
     });
   });
 
-  ([
-    ["30%", 230],
-    ["45%", 345],
-    ["95%", 729],
-  ] as const).forEach(([height, heightInPx]) => {
+  (
+    [
+      ["30%", 230],
+      ["45%", 345],
+      ["95%", 729],
+    ] as const
+  ).forEach(([height, heightInPx]) => {
     test(`should render with height if ${height}`, async ({ mount, page }) => {
       await mount(<VerticalMenuDefaultComponent height={height} />);
 
       await expect(verticalMenuComponent(page)).toHaveAttribute(
         "height",
-        height
+        height,
       );
       await assertCssValueIsApproximately(
         verticalMenuComponent(page),
         "height",
-        heightInPx
+        heightInPx,
       );
     });
   });
@@ -100,7 +102,7 @@ test.describe("should render Vertical Menu component", () => {
       await mount(<VerticalMenuItemCustom title={title} />);
 
       await expect(verticalMenuItem(page).locator("h3").first()).toHaveText(
-        title
+        title,
       );
     });
   });
@@ -139,7 +141,7 @@ test.describe("should render Vertical Menu component", () => {
 
     const backgroundColor = await page.evaluate(() => {
       const menuItem = document.querySelector(
-        `[data-component="vertical-menu-item"]`
+        `[data-component="vertical-menu-item"]`,
       );
       if (!menuItem) {
         return null;
@@ -167,7 +169,7 @@ test.describe("should render Vertical Menu component", () => {
 
     const borderRadius = await page.evaluate(() => {
       const menuItem = document.querySelector(
-        `[data-component="vertical-menu-item"]`
+        `[data-component="vertical-menu-item"]`,
       );
       if (!menuItem) {
         return null;
@@ -185,7 +187,7 @@ test.describe("should render Vertical Menu component", () => {
     await verticalMenuItem(page).click();
 
     await expect(
-      verticalMenuItem(page).nth(1).locator("..").locator("div").first()
+      verticalMenuItem(page).nth(1).locator("..").locator("div").first(),
     ).toBeVisible();
   });
 
@@ -195,7 +197,7 @@ test.describe("should render Vertical Menu component", () => {
     await verticalMenuItem(page).click();
 
     await expect(
-      verticalMenuItem(page).nth(1).locator("..").locator("a").first()
+      verticalMenuItem(page).nth(1).locator("..").locator("a").first(),
     ).toBeVisible();
   });
 
@@ -249,14 +251,14 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     page,
   }) => {
     await mount(
-      <VerticalMenuFullScreenCustom aria-label={CHARACTERS.STANDARD} />
+      <VerticalMenuFullScreenCustom aria-label={CHARACTERS.STANDARD} />,
     );
 
     await verticalMenuTrigger(page).click();
 
     await expect(verticalMenuFullScreen(page)).toHaveAttribute(
       "aria-label",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -265,14 +267,14 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     page,
   }) => {
     await mount(
-      <VerticalMenuFullScreenCustom aria-labelledby={CHARACTERS.STANDARD} />
+      <VerticalMenuFullScreenCustom aria-labelledby={CHARACTERS.STANDARD} />,
     );
 
     await verticalMenuTrigger(page).click();
 
     await expect(verticalMenuFullScreen(page)).toHaveAttribute(
       "aria-labelledby",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -286,7 +288,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
         onClose={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await verticalMenuTrigger(page).click();
@@ -325,11 +327,11 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
 
     await page.keyboard.press("Tab");
     await expect(
-      page.getByRole("button").filter({ hasText: "Button 1" })
+      page.getByRole("button").filter({ hasText: "Button 1" }),
     ).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(
-      page.getByRole("button").filter({ hasText: "Button 2" })
+      page.getByRole("button").filter({ hasText: "Button 2" }),
     ).toBeFocused();
   });
 
@@ -364,7 +366,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     page,
   }) => {
     await mount(
-      <VerticalMenuTrigger onClick={() => {}}>{testData}</VerticalMenuTrigger>
+      <VerticalMenuTrigger onClick={() => {}}>{testData}</VerticalMenuTrigger>,
     );
 
     await expect(verticalMenuTrigger(page)).toHaveText(testData);
@@ -381,7 +383,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await page.keyboard.press("Tab");
 
     await expect(
-      verticalMenuItem(page).filter({ hasText: "Item 3" })
+      verticalMenuItem(page).filter({ hasText: "Item 3" }),
     ).toBeFocused();
   });
 
@@ -398,7 +400,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await page.keyboard.press("Tab");
 
     await expect(
-      verticalMenuItem(page).filter({ hasText: "Item 5" })
+      verticalMenuItem(page).filter({ hasText: "Item 5" }),
     ).toBeFocused();
   });
 
@@ -413,7 +415,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await page.keyboard.press("Shift+Tab");
 
     await expect(
-      verticalMenuItem(page).filter({ hasText: "Item 4" })
+      verticalMenuItem(page).filter({ hasText: "Item 4" }),
     ).toBeFocused();
   });
 
@@ -423,7 +425,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await verticalMenuItem(page).nth(2).click();
 
     await expect(
-      verticalMenuItem(page).locator("h3").filter({ hasText: "Active Item" })
+      verticalMenuItem(page).locator("h3").filter({ hasText: "Active Item" }),
     ).toBeVisible();
   });
 
@@ -434,45 +436,45 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await verticalMenuItem(page).nth(2).click();
 
     await expect(
-      verticalMenuItem(page).locator("h3").filter({ hasText: "Active Item" })
+      verticalMenuItem(page).locator("h3").filter({ hasText: "Active Item" }),
     ).toBeHidden();
   });
 
-  ([
-    ["expand", keysToTrigger[0], 1],
-    ["expand", keysToTrigger[1], 1],
-    ["collapse", keysToTrigger[0], 2],
-    ["collapse", keysToTrigger[1], 2],
-  ] as [string, "Space" | "Enter", number][]).forEach(
-    ([action, key, index]) => {
-      test(`should ${action} Item 2 using ${key} key`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<VerticalMenuDefaultComponent />);
+  (
+    [
+      ["expand", keysToTrigger[0], 1],
+      ["expand", keysToTrigger[1], 1],
+      ["collapse", keysToTrigger[0], 2],
+      ["collapse", keysToTrigger[1], 2],
+    ] as [string, "Space" | "Enter", number][]
+  ).forEach(([action, key, index]) => {
+    test(`should ${action} Item 2 using ${key} key`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<VerticalMenuDefaultComponent />);
 
-        for (let i = 0; i < index; i++) {
-          await verticalMenuItem(page).nth(2).focus();
-          await page.keyboard.press(key);
-        }
+      for (let i = 0; i < index; i++) {
+        await verticalMenuItem(page).nth(2).focus();
+        await page.keyboard.press(key);
+      }
 
-        if (action === "expand") {
-          await expect(
-            verticalMenuItem(page)
-              .locator("h3")
-              .filter({ hasText: "Active Item" })
-          ).toBeVisible();
-        }
-        if (action === "collapse") {
-          await expect(
-            verticalMenuItem(page)
-              .locator("h3")
-              .filter({ hasText: "Active Item" })
-          ).toBeHidden();
-        }
-      });
-    }
-  );
+      if (action === "expand") {
+        await expect(
+          verticalMenuItem(page)
+            .locator("h3")
+            .filter({ hasText: "Active Item" }),
+        ).toBeVisible();
+      }
+      if (action === "collapse") {
+        await expect(
+          verticalMenuItem(page)
+            .locator("h3")
+            .filter({ hasText: "Active Item" }),
+        ).toBeHidden();
+      }
+    });
+  });
 
   test(`should navigate to the children element using Tab key`, async ({
     mount,
@@ -488,7 +490,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await page.keyboard.press("Tab");
 
     await expect(
-      verticalMenuItem(page).nth(4).filter({ hasText: "Active item" })
+      verticalMenuItem(page).nth(4).filter({ hasText: "Active item" }),
     ).toBeFocused();
   });
 
@@ -517,53 +519,46 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
 
     await expect(menuItem2).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
     );
     await expect(menuItem2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
   });
 });
 
-test.describe(
-  "VerticalMenuFullScreen test background scroll when tabbing",
-  () => {
-    test(`tabbing forward through the menu and back to the start should not make the background scroll to the bottom`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<VerticalMenuFullScreenBackgroundScrollTest />);
+test.describe("VerticalMenuFullScreen test background scroll when tabbing", () => {
+  test(`tabbing forward through the menu and back to the start should not make the background scroll to the bottom`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<VerticalMenuFullScreenBackgroundScrollTest />);
 
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
 
-      await expect(closeIconButton(page)).toBeFocused();
+    await expect(closeIconButton(page)).toBeFocused();
 
-      const offscreenText = page.getByText(
-        "I should not be scrolled into view"
-      );
-      await expect(offscreenText).not.toBeInViewport();
-    });
+    const offscreenText = page.getByText("I should not be scrolled into view");
+    await expect(offscreenText).not.toBeInViewport();
+  });
 
-    test(`tabbing backward through the menu and back to the start should not make the background scroll to the bottom`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<VerticalMenuFullScreenBackgroundScrollTest />);
+  test(`tabbing backward through the menu and back to the start should not make the background scroll to the bottom`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<VerticalMenuFullScreenBackgroundScrollTest />);
 
-      await page.keyboard.press("Shift+Tab");
-      await page.keyboard.press("Shift+Tab");
-      await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Shift+Tab");
 
-      await expect(closeIconButton(page)).toBeFocused();
+    await expect(closeIconButton(page)).toBeFocused();
 
-      const offscreenText = page.getByText(
-        "I should not be scrolled into view"
-      );
-      await expect(offscreenText).not.toBeInViewport();
-    });
-  }
-);
+    const offscreenText = page.getByText("I should not be scrolled into view");
+    await expect(offscreenText).not.toBeInViewport();
+  });
+});
 
 test.describe("Events test", () => {
   test(`should call onClick callback when a click event is triggered`, async ({
@@ -576,7 +571,7 @@ test.describe("Events test", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await verticalMenuTrigger(page).click();
@@ -598,7 +593,7 @@ test.describe("Events test", () => {
         onClose={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await verticalMenuTrigger(page).click();
@@ -622,7 +617,7 @@ test.describe("Events test", () => {
           onClose={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       await verticalMenuTrigger(page).click();

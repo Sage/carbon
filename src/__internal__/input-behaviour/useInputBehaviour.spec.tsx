@@ -90,7 +90,7 @@ describe("useInputBehaviour", () => {
       });
       wrapper.update();
       expect(
-        document.activeElement === wrapper.find(Input).getDOMNode()
+        document.activeElement === wrapper.find(Input).getDOMNode(),
       ).toEqual(true);
       rafSpy.mockRestore();
     });

@@ -44,7 +44,7 @@ test.describe("should check SettingsRow component properties", () => {
           headingType={heading}
           title="foo"
           description="bar"
-        />
+        />,
       );
 
       await expect(page.locator(heading)).toHaveText("foo");
@@ -57,7 +57,7 @@ test.describe("should check SettingsRow component properties", () => {
       page,
     }) => {
       await mount(
-        <SettingsRowDefault title="foo" description={characterVals} />
+        <SettingsRowDefault title="foo" description={characterVals} />,
       );
 
       await expect(settingsRowDescription(page)).toHaveText(characterVals);
@@ -71,7 +71,7 @@ test.describe("should check SettingsRow component properties", () => {
     const textDesc = "This is a link";
 
     await mount(
-      <SettingRowWithLinkDescription title="foo" description={textDesc} />
+      <SettingRowWithLinkDescription title="foo" description={textDesc} />,
     );
 
     await expect(settingsRowDescription(page)).toHaveText(textDesc);
@@ -87,32 +87,32 @@ test.describe("should check SettingsRow component properties", () => {
       if (dividerVals) {
         await expect(settingsRowPreview(page)).toHaveCSS(
           "border-bottom-color",
-          "rgb(230, 235, 237)"
+          "rgb(230, 235, 237)",
         );
 
         await expect(settingsRowPreview(page)).toHaveCSS(
           "border-bottom-style",
-          "solid"
+          "solid",
         );
 
         await expect(settingsRowPreview(page)).toHaveCSS(
           "padding-bottom",
-          "30px"
+          "30px",
         );
       } else {
         await expect(settingsRowPreview(page)).not.toHaveCSS(
           "border-bottom-color",
-          "rgb(230, 235, 237)"
+          "rgb(230, 235, 237)",
         );
 
         await expect(settingsRowPreview(page)).not.toHaveCSS(
           "border-bottom-style",
-          "solid"
+          "solid",
         );
 
         await expect(settingsRowPreview(page)).not.toHaveCSS(
           "padding-bottom",
-          "30px"
+          "30px",
         );
       }
     });

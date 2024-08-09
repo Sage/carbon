@@ -10,7 +10,7 @@ export const positionPropertyNames = [
 ];
 
 export default function filterStyledSystemPositionProps(
-  originalObject: Record<string, unknown> | PositionProps
+  originalObject: Record<string, unknown> | PositionProps,
 ): PositionProps {
   return filterObjectProperties(originalObject, positionPropertyNames);
 }

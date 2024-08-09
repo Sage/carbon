@@ -67,7 +67,7 @@ export interface SelectListProps {
   listMaxHeight?: number;
   /** A callback for when the Action Button is triggered */
   onListAction?: (
-    ev?: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    ev?: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => void;
   /** If true the loader animation is displayed below the last option */
   isLoading?: boolean;
@@ -130,7 +130,7 @@ const SelectList = React.forwardRef(
       virtualScrollOverscan = 5,
       ...listProps
     }: SelectListProps,
-    listContainerRef: React.ForwardedRef<HTMLDivElement>
+    listContainerRef: React.ForwardedRef<HTMLDivElement>,
   ) => {
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
     const [scrollbarWidth, setScrollbarWidth] = useState(0);
@@ -148,7 +148,7 @@ const SelectList = React.forwardRef(
       if (isOpen && !wasOpen) {
         (listContainerRef as React.RefObject<HTMLDivElement>).current?.scrollTo(
           0,
-          0
+          0,
         );
       }
     });
@@ -183,14 +183,15 @@ const SelectList = React.forwardRef(
 
     const items = virtualizer.getVirtualItems();
 
-    const childrenList = useMemo(() => React.Children.toArray(children), [
-      children,
-    ]) as React.ReactElement<OptionProps>[];
+    const childrenList = useMemo(
+      () => React.Children.toArray(children),
+      [children],
+    ) as React.ReactElement<OptionProps>[];
 
     // check if object values are equal
     function shallowEqual(
       objA: Record<string, unknown>,
-      objB: Record<string, unknown>
+      objB: Record<string, unknown>,
     ) {
       const keysA = Object.keys(objA);
 
@@ -203,7 +204,7 @@ const SelectList = React.forwardRef(
           if (child.props.value && typeof valueToMatch === "object") {
             return shallowEqual(
               child.props.value as Record<string, unknown>,
-              valueToMatch
+              valueToMatch,
             );
           }
           return (
@@ -211,7 +212,7 @@ const SelectList = React.forwardRef(
           );
         });
       },
-      [childrenList]
+      [childrenList],
     );
 
     // getVirtualItems returns an empty array of items if the select list is currently closed - which is correct visually but
@@ -254,7 +255,7 @@ const SelectList = React.forwardRef(
         setScrollbarWidth(
           tableRef.current
             ? tableRef.current.offsetWidth - tableRef.current.clientWidth
-            : /* istanbul ignore next */ 0
+            : /* istanbul ignore next */ 0,
         );
       }
     }, [multiColumn]);
@@ -263,7 +264,7 @@ const SelectList = React.forwardRef(
       () => ({
         current: anchorElement || null,
       }),
-      [anchorElement]
+      [anchorElement],
     );
 
     const handleSelect = useCallback(
@@ -274,11 +275,11 @@ const SelectList = React.forwardRef(
           selectionConfirmed: true,
         });
       },
-      [onSelect]
+      [onSelect],
     );
 
     const childElementRefs = useRef<HTMLElement[]>(
-      Array.from({ length: React.Children.count(children) })
+      Array.from({ length: React.Children.count(children) }),
     );
 
     const optionChildrenList = useMemo(
@@ -286,9 +287,9 @@ const SelectList = React.forwardRef(
         childrenList.filter(
           (child) =>
             React.isValidElement(child) &&
-            (child.type === Option || child.type === OptionRow)
+            (child.type === Option || child.type === OptionRow),
         ),
-      [childrenList]
+      [childrenList],
     );
 
     const { measureElement } = virtualizer;
@@ -340,7 +341,7 @@ const SelectList = React.forwardRef(
       childrenList,
       (child) =>
         React.isValidElement(child) &&
-        (child.type === Option || child.type === OptionRow)
+        (child.type === Option || child.type === OptionRow),
     );
 
     const getNextHighlightableItemIndex = useCallback(
@@ -355,7 +356,7 @@ const SelectList = React.forwardRef(
           key,
           indexOfHighlighted,
           lastIndex,
-          isLoading
+          isLoading,
         );
         const nextElement = childrenList[nextIndex];
 
@@ -370,7 +371,7 @@ const SelectList = React.forwardRef(
 
         return nextIndex;
       },
-      [childrenList, lastOptionIndex, isLoading]
+      [childrenList, lastOptionIndex, isLoading],
     );
 
     const highlightNextItem = useCallback(
@@ -389,9 +390,8 @@ const SelectList = React.forwardRef(
           return;
         }
 
-        const { text, value } = (childrenList[
-          nextIndex
-        ] as React.ReactElement).props;
+        const { text, value } = (childrenList[nextIndex] as React.ReactElement)
+          .props;
 
         onSelect({
           text,
@@ -408,7 +408,7 @@ const SelectList = React.forwardRef(
         getNextHighlightableItemIndex,
         highlightedValue,
         onSelect,
-      ]
+      ],
     );
 
     const handleActionButtonTab = useCallback(
@@ -420,7 +420,7 @@ const SelectList = React.forwardRef(
           listActionButtonRef.current?.focus();
         }
       },
-      [onSelect]
+      [onSelect],
     );
 
     const focusOnAnchor = useCallback(() => {
@@ -492,7 +492,7 @@ const SelectList = React.forwardRef(
         highlightNextItem,
         focusOnAnchor,
         isOpen,
-      ]
+      ],
     );
 
     const handleEscapeKey = useCallback(
@@ -501,7 +501,7 @@ const SelectList = React.forwardRef(
           onSelectListClose();
         }
       },
-      [onSelectListClose]
+      [onSelectListClose],
     );
 
     useModalManager({
@@ -524,7 +524,7 @@ const SelectList = React.forwardRef(
           onListScrollBottom();
         }
       },
-      [onListScrollBottom, isOpen]
+      [onListScrollBottom, isOpen],
     );
 
     useEffect(() => {
@@ -554,7 +554,7 @@ const SelectList = React.forwardRef(
         const match = getNextChildByText(
           filterText,
           childrenList,
-          previousIndex
+          previousIndex,
         );
 
         if (!match) {
@@ -633,7 +633,7 @@ const SelectList = React.forwardRef(
             ]
           : []),
       ],
-      [flipEnabled]
+      [flipEnabled],
     );
 
     const loader = isLoading ? (
@@ -726,7 +726,7 @@ const SelectList = React.forwardRef(
         </Popover>
       </SelectListContext.Provider>
     );
-  }
+  },
 );
 
 export default SelectList;

@@ -14,7 +14,7 @@ function renderComponent(props = {}) {
       <FlatTableBody {...props}>
         <tr />
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 }
 

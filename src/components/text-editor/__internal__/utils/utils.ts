@@ -29,7 +29,7 @@ Returns default block-level metadata for various block type. Empty object otherw
 */
 const getDefaultBlockData = (
   blockType: BlockType | "unstyled",
-  initialData = {}
+  initialData = {},
 ) => {
   switch (blockType) {
     case ORDERED_LIST:
@@ -46,7 +46,7 @@ Changes the block type of the current block.
 */
 export const resetBlockType = (
   value: EditorState,
-  newType: BlockType | "unstyled" = "unstyled"
+  newType: BlockType | "unstyled" = "unstyled",
 ) => {
   const contentState = value.getCurrentContent();
   const selectionState = value.getSelection();
@@ -71,7 +71,7 @@ export const resetBlockType = (
   return EditorState.push(
     value,
     newContentState as ContentState,
-    "change-block-type"
+    "change-block-type",
   );
 };
 
@@ -108,7 +108,7 @@ export const getSelection = (value: EditorState) => value.getSelection();
 export const getContentInfo = (value: EditorState) => {
   const content = getContent(value);
   const currentBlock = content.getBlockForKey(
-    getSelection(value).getStartKey()
+    getSelection(value).getStartKey(),
   );
   const blockType = currentBlock.getType();
   const blockLength = currentBlock.getLength();
@@ -159,9 +159,8 @@ export const getSelectedLength = (value: EditorState) => {
   let length = 0;
 
   if (!selection.isCollapsed()) {
-    const { startKey, endKey, startOffset, endOffset } = getSelectionInfo(
-      value
-    );
+    const { startKey, endKey, startOffset, endOffset } =
+      getSelectionInfo(value);
     const { content, blockLength } = getContentInfo(value);
     const startLength = blockLength - startOffset;
     const keyAfterEnd = content.getKeyAfter(endKey);
@@ -204,13 +203,13 @@ export function isASCIIChar(str: string) {
 export function replaceText(
   editorState: EditorState,
   text: string,
-  inlineStyle: DraftInlineStyle
+  inlineStyle: DraftInlineStyle,
 ) {
   const contentState = Modifier.replaceText(
     editorState.getCurrentContent(),
     editorState.getSelection(),
     text,
-    inlineStyle
+    inlineStyle,
   );
 
   return EditorState.push(editorState, contentState, "insert-characters");

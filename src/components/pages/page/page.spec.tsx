@@ -30,7 +30,7 @@ describe("Page", () => {
       </Page>
     ),
     { p: "30px 40px" },
-    (wrapper) => wrapper.find(StyledPageContent)
+    (wrapper) => wrapper.find(StyledPageContent),
   );
 
   const wrapper = shallow(
@@ -40,18 +40,19 @@ describe("Page", () => {
       data-element="carbon-page-content"
     >
       My Content
-    </Page>
+    </Page>,
   );
 
   it("renders a page with a full screen heading", () => {
     const fullScreenHeading = wrapper.find(FullScreenHeading);
     expect(wrapper.find(StyledPage).props()["data-element"]).toEqual(
-      "carbon-page-content"
+      "carbon-page-content",
     );
     expect(wrapper.find(StyledPage).props()["data-component"]).toEqual("page");
     expect(fullScreenHeading.props().children).toEqual("My Title");
     expect(
-      wrapper.find(StyledPage).props().children[1].props.children.props.children
+      wrapper.find(StyledPage).props().children[1].props.children.props
+        .children,
     ).toEqual("My Content");
   });
 });

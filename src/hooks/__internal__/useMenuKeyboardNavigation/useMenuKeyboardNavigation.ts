@@ -7,7 +7,7 @@ export default (
   mainControlRef: React.RefObject<HTMLButtonElement>,
   getButtonChildren: () => NodeListOf<HTMLButtonElement>,
   hide: () => void,
-  isOpen: boolean
+  isOpen: boolean,
 ) => {
   const refocusMainControl = useCallback(() => {
     hide();
@@ -21,7 +21,7 @@ export default (
         refocusMainControl();
       }
     },
-    [refocusMainControl]
+    [refocusMainControl],
   );
 
   // useModalmanager is used here to handle the escape key
@@ -43,9 +43,9 @@ export default (
 
       let nextIndex = -1;
 
-      const currentIndex = (Array.from(
-        buttonChildren
-      ) as HTMLElement[]).indexOf(document.activeElement as HTMLElement);
+      const currentIndex = (
+        Array.from(buttonChildren) as HTMLElement[]
+      ).indexOf(document.activeElement as HTMLElement);
 
       const arrowModifierPressed = ev.ctrlKey || ev.metaKey;
 
@@ -88,12 +88,12 @@ export default (
         if (currentIndex === (childrenLength as number) - 1) {
           const elements = Array.from(
             document.querySelectorAll(
-              defaultFocusableSelectors
-            ) as NodeListOf<HTMLElement>
+              defaultFocusableSelectors,
+            ) as NodeListOf<HTMLElement>,
           ).filter((el) => Number(el.tabIndex) !== -1);
 
           const indexOf = elements.indexOf(
-            mainControlRef.current as HTMLButtonElement
+            mainControlRef.current as HTMLButtonElement,
           );
 
           elements[indexOf + 1]?.focus();
@@ -108,7 +108,7 @@ export default (
         buttonChildren?.[nextIndex]?.focus();
       }
     },
-    [hide, refocusMainControl, mainControlRef, getButtonChildren]
+    [hide, refocusMainControl, mainControlRef, getButtonChildren],
   );
 
   return handleKeyDown;

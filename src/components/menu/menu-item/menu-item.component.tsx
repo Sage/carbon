@@ -32,7 +32,7 @@ interface MenuItemBaseProps
   onClick?: (
     event:
       | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Defines which direction the submenu will hang eg. left/right */
   submenuDirection?: string;
@@ -46,7 +46,7 @@ interface MenuItemBaseProps
   onKeyDown?: (
     event:
       | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** The target to use for the menu item. */
   target?: string;
@@ -117,12 +117,12 @@ export const MenuItem = ({
 }: MenuWithChildren | MenuWithIcon) => {
   invariant(
     icon || children,
-    "Either prop `icon` must be defined or this node must have `children`."
+    "Either prop `icon` must be defined or this node must have `children`.",
   );
 
   invariant(
     children || ariaLabel || typeof submenu === "string",
-    "If no text is provided an `ariaLabel` should be given to facilitate accessibility."
+    "If no text is provided an `ariaLabel` should be given to facilitate accessibility.",
   );
 
   const {
@@ -142,7 +142,7 @@ export const MenuItem = ({
     shiftTabPressed,
   } = submenuContext;
   const ref = useRef<HTMLAnchorElement & HTMLButtonElement & HTMLDivElement>(
-    null
+    null,
   );
   const focusFromMenu = focusId === menuItemId.current;
   const focusFromSubmenu = submenuFocusId
@@ -172,7 +172,7 @@ export const MenuItem = ({
 
   useEffect(() => {
     const inputIcon = ref.current?.querySelector(
-      "[data-element='input-icon-toggle']"
+      "[data-element='input-icon-toggle']",
     );
     if (!openSubmenuId && focusFromSubmenu === undefined && focusFromMenu) {
       /* istanbul ignore else */
@@ -213,7 +213,7 @@ export const MenuItem = ({
       }
 
       const inputIcon = ref.current?.querySelector(
-        "[data-element='input-icon-toggle']"
+        "[data-element='input-icon-toggle']",
       );
 
       const shouldFocusIcon =
@@ -234,7 +234,7 @@ export const MenuItem = ({
         handleSubmenuKeyDown(event);
       }
     },
-    [onKeyDown, handleSubmenuKeyDown]
+    [onKeyDown, handleSubmenuKeyDown],
   );
 
   const elementProps = {

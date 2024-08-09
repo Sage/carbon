@@ -36,7 +36,7 @@ type Story = StoryObj<typeof Note>;
 
 export const Default: Story = () => {
   const noteContent = EditorState.createWithContent(
-    ContentState.createFromText("Here is some plain text content")
+    ContentState.createFromText("Here is some plain text content"),
   );
   return (
     <div style={{ height: 200, width: "50%" }}>
@@ -59,7 +59,7 @@ export const WithRichText: Story = () => {
   const blocksFromHTML = convertFromHTML(html);
   const content = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap
+    blocksFromHTML.entityMap,
   );
   const noteContent = EditorState.createWithContent(content);
   return (
@@ -83,7 +83,7 @@ export const WithTitle: Story = () => {
   const blocksFromHTML = convertFromHTML(html);
   const content = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap
+    blocksFromHTML.entityMap,
   );
   const noteContent = EditorState.createWithContent(content);
   return (
@@ -108,7 +108,7 @@ export const WithInlineControls: Story = () => {
   const blocksFromHTML = convertFromHTML(html);
   const content = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap
+    blocksFromHTML.entityMap,
   );
   const noteContent = EditorState.createWithContent(content);
   const inlineControl = (
@@ -141,7 +141,7 @@ export const WithStatus: Story = () => {
   const blocksFromHTML = convertFromHTML(html);
   const content = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap
+    blocksFromHTML.entityMap,
   );
   const noteContent = EditorState.createWithContent(content);
   const inlineControl = (
@@ -231,7 +231,7 @@ WithPreviews.storyName = "With Previews";
 
 export const WithMargin: Story = () => {
   const noteContent = EditorState.createWithContent(
-    ContentState.createFromText("Here is some plain text content")
+    ContentState.createFromText("Here is some plain text content"),
   );
   return (
     <Box width="50%">

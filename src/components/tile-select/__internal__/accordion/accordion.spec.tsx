@@ -17,7 +17,7 @@ describe("Accordion", () => {
       {
         backgroundColor: "var(--colorsActionMinor050)",
       },
-      wrapper.find(StyledContentContainer)
+      wrapper.find(StyledContentContainer),
     );
 
     assertStyleMatch(
@@ -26,7 +26,7 @@ describe("Accordion", () => {
         position: "relative",
         zIndex: "200",
       },
-      wrapper.find(StyledContent)
+      wrapper.find(StyledContent),
     );
   });
 
@@ -39,7 +39,7 @@ describe("Accordion", () => {
           .spyOn(
             wrapper.find(StyledContent).getDOMNode(),
             "scrollHeight",
-            "get"
+            "get",
           )
           .mockImplementation(() => 200);
       });
@@ -63,7 +63,7 @@ describe("Accordion", () => {
         {
           maxHeight: `400px`,
         },
-        wrapper.find(StyledContentContainer)
+        wrapper.find(StyledContentContainer),
       );
     });
   });

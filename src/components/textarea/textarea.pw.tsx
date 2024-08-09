@@ -69,7 +69,7 @@ test.describe("Props tests for Textarea component", () => {
     await mount(<TextareaComponent data-element={CHARACTERS.STANDARD} />);
 
     await expect(
-      getDataElementByValue(page, CHARACTERS.STANDARD)
+      getDataElementByValue(page, CHARACTERS.STANDARD),
     ).toHaveAttribute("data-element", CHARACTERS.STANDARD);
   });
 
@@ -78,7 +78,7 @@ test.describe("Props tests for Textarea component", () => {
 
     await expect(getDataRoleByValue(page, CHARACTERS.STANDARD)).toHaveAttribute(
       "data-role",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -107,31 +107,31 @@ test.describe("Props tests for Textarea component", () => {
     await mount(<TextareaComponent labelInline />);
 
     const labelElementParent = getDataElementByValue(page, "label").locator(
-      ".."
+      "..",
     );
 
     await expect(labelElementParent).toHaveCSS("justify-content", "flex-end");
   });
 
-  ([
-    ["left", "flex-start"],
-    ["right", "flex-end"],
-  ] as [TextareaProps["labelAlign"], string][]).forEach(
-    ([labelAlign, cssValue]) => {
-      test(`should render with labelAlign prop set to ${labelAlign}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TextareaComponent labelInline labelAlign={labelAlign} />);
+  (
+    [
+      ["left", "flex-start"],
+      ["right", "flex-end"],
+    ] as [TextareaProps["labelAlign"], string][]
+  ).forEach(([labelAlign, cssValue]) => {
+    test(`should render with labelAlign prop set to ${labelAlign}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextareaComponent labelInline labelAlign={labelAlign} />);
 
-        const labelElementParent = getDataElementByValue(page, "label").locator(
-          ".."
-        );
+      const labelElementParent = getDataElementByValue(page, "label").locator(
+        "..",
+      );
 
-        await expect(labelElementParent).toHaveCSS("justify-content", cssValue);
-      });
-    }
-  );
+      await expect(labelElementParent).toHaveCSS("justify-content", cssValue);
+    });
+  });
 
   testData.forEach((labelHelp) => {
     test(`should render with labelHelp prop set to ${labelHelp}`, async ({
@@ -148,62 +148,64 @@ test.describe("Props tests for Textarea component", () => {
     });
   });
 
-  ([
-    [1, "8px"],
-    [2, "16px"],
-  ] as [TextareaProps["labelSpacing"], string][]).forEach(
-    ([spacing, padding]) => {
-      test(`should render with labelSpacing prop set to ${spacing}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TextareaComponent labelInline labelSpacing={spacing} />);
+  (
+    [
+      [1, "8px"],
+      [2, "16px"],
+    ] as [TextareaProps["labelSpacing"], string][]
+  ).forEach(([spacing, padding]) => {
+    test(`should render with labelSpacing prop set to ${spacing}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextareaComponent labelInline labelSpacing={spacing} />);
 
-        const labelElementParent = getDataElementByValue(page, "label").locator(
-          ".."
-        );
+      const labelElementParent = getDataElementByValue(page, "label").locator(
+        "..",
+      );
 
-        await expect(labelElementParent).toHaveCSS("padding-right", padding);
-      });
-    }
-  );
+      await expect(labelElementParent).toHaveCSS("padding-right", padding);
+    });
+  });
 
-  ([
-    [10, 90, 135, 1229],
-    [30, 70, 409, 956],
-    [80, 20, 1092, 273],
-  ] as [
-    TextareaProps["labelWidth"],
-    TextareaProps["inputWidth"],
-    number,
-    number
-  ][]).forEach(([label, input, labelRatio, inputRatio]) => {
+  (
+    [
+      [10, 90, 135, 1229],
+      [30, 70, 409, 956],
+      [80, 20, 1092, 273],
+    ] as [
+      TextareaProps["labelWidth"],
+      TextareaProps["inputWidth"],
+      number,
+      number,
+    ][]
+  ).forEach(([label, input, labelRatio, inputRatio]) => {
     test(`should use ${label} as labelWidth, ${input} as inputWidth and render it with correct label and input width ratios`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <TextareaComponent labelInline labelWidth={label} inputWidth={input} />
+        <TextareaComponent labelInline labelWidth={label} inputWidth={input} />,
       );
 
       const labelElementParent = getDataElementByValue(page, "label").locator(
-        ".."
+        "..",
       );
 
       await assertCssValueIsApproximately(
         labelElementParent,
         "width",
-        labelRatio
+        labelRatio,
       );
 
       const inputElementParent = getDataElementByValue(page, "input").locator(
-        ".."
+        "..",
       );
 
       await assertCssValueIsApproximately(
         inputElementParent,
         "width",
-        inputRatio
+        inputRatio,
       );
     });
   });
@@ -214,10 +216,12 @@ test.describe("Props tests for Textarea component", () => {
     await verifyRequiredAsteriskForLabel(page);
   });
 
-  ([
-    [11, 11, "rgba(0, 0, 0, 0.55)"],
-    [11, 10, "rgb(203, 55, 74)"],
-  ] as const).forEach(([charactersUsed, limit, color]) => {
+  (
+    [
+      [11, 11, "rgba(0, 0, 0, 0.55)"],
+      [11, 10, "rgb(203, 55, 74)"],
+    ] as const
+  ).forEach(([charactersUsed, limit, color]) => {
     test(`should input ${charactersUsed} characters and warn if over character limit of ${limit} in Textarea`, async ({
       mount,
       page,
@@ -236,7 +240,7 @@ test.describe("Props tests for Textarea component", () => {
           charactersUsed - limit
             ? `${charactersUsed - limit} ${overCharacters} too many`
             : `${charactersUsed - limit} ${underCharacters} left`
-        }`
+        }`,
       );
 
       await expect(characterCount(page)).toHaveCSS("color", color);
@@ -246,7 +250,7 @@ test.describe("Props tests for Textarea component", () => {
           charactersUsed - limit
             ? `${charactersUsed - limit} ${overCharacters} too many`
             : `${charactersUsed - limit} ${underCharacters} left`
-        }`
+        }`,
       );
     });
   });
@@ -267,7 +271,7 @@ test.describe("Props tests for Textarea component", () => {
     await mount(<TextareaComponent inputHint="" />);
 
     await expect(
-      getDataElementByValue(page, "input-hint")
+      getDataElementByValue(page, "input-hint"),
     ).not.toBeInViewport();
   });
 
@@ -292,9 +296,8 @@ test.describe("Props tests for Textarea component", () => {
   }) => {
     await mount(<TextareaComponent characterLimit={5} />);
 
-    const visuallyHiddenCharacterCountElement = visuallyHiddenCharacterCount(
-      page
-    );
+    const visuallyHiddenCharacterCountElement =
+      visuallyHiddenCharacterCount(page);
 
     await expect(visuallyHiddenCharacterCountElement).toBeVisible();
   });
@@ -305,9 +308,8 @@ test.describe("Props tests for Textarea component", () => {
   }) => {
     await mount(<TextareaComponent characterLimit={undefined} />);
 
-    const visuallyHiddenCharacterCountElement = visuallyHiddenCharacterCount(
-      page
-    );
+    const visuallyHiddenCharacterCountElement =
+      visuallyHiddenCharacterCount(page);
 
     await expect(visuallyHiddenCharacterCountElement).not.toBeVisible();
   });
@@ -367,7 +369,7 @@ test.describe("Props tests for Textarea component", () => {
 
     await expect(textareaChildren(page)).toHaveAttribute(
       "name",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -397,7 +399,7 @@ test.describe("Props tests for Textarea component", () => {
 
       await expect(textareaChildren(page)).toHaveAttribute(
         "placeholder",
-        placeholder
+        placeholder,
       );
     });
   });
@@ -417,7 +419,7 @@ test.describe("Props tests for Textarea component", () => {
 
     await expect(textarea(page)).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
   });
 
@@ -461,7 +463,7 @@ test.describe("Props tests for Textarea component", () => {
           {...{
             [type]: "Message",
           }}
-        />
+        />,
       );
 
       const textareaIcon = textarea(page).locator(ICON);
@@ -483,7 +485,7 @@ test.describe("Props tests for Textarea component", () => {
           {...{
             [type]: "Message",
           }}
-        />
+        />,
       );
 
       const labelParentIcon = getDataElementByValue(page, "label")
@@ -494,14 +496,16 @@ test.describe("Props tests for Textarea component", () => {
     });
   });
 
-  ([
-    [VALIDATION.ERROR, "error", true],
-    [VALIDATION.WARNING, "warning", true],
-    [VALIDATION.INFO, "info", true],
-    ["rgb(102, 132, 148)", "error", false],
-    ["rgb(102, 132, 148)", "warning", false],
-    ["rgb(102, 132, 148)", "info", false],
-  ] as const).forEach(([borderColor, type, bool]) => {
+  (
+    [
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      [VALIDATION.INFO, "info", true],
+      ["rgb(102, 132, 148)", "error", false],
+      ["rgb(102, 132, 148)", "warning", false],
+      ["rgb(102, 132, 148)", "info", false],
+    ] as const
+  ).forEach(([borderColor, type, bool]) => {
     test(`should verify component input border colour is ${borderColor} when validation is ${type} and boolean prop is ${bool}`, async ({
       mount,
       page,
@@ -513,21 +517,23 @@ test.describe("Props tests for Textarea component", () => {
           {...{
             [type]: bool,
           }}
-        />
+        />,
       );
 
       await expect(textarea(page)).toHaveCSS(
         "border-bottom-color",
-        borderColor
+        borderColor,
       );
     });
   });
 
-  ([
-    ["flex", 399],
-    ["flex", 400],
-    ["block", 401],
-  ] as const).forEach(([displayValue, breakpoint]) => {
+  (
+    [
+      ["flex", 399],
+      ["flex", 400],
+      ["block", 401],
+    ] as const
+  ).forEach(([displayValue, breakpoint]) => {
     test(`should check label alignment is ${displayValue} with adaptiveLabelBreakpoint ${breakpoint} and viewport 400`, async ({
       mount,
       page,
@@ -582,7 +588,7 @@ test.describe("Props tests for Textarea component", () => {
             error={CHARACTERS.STANDARD}
             tooltipPosition={position}
           />
-        </Box>
+        </Box>,
       );
 
       const errorIcon = getDataElementByValue(page, "error");
@@ -593,7 +599,7 @@ test.describe("Props tests for Textarea component", () => {
       await expect(tooltipPreviewElement).toHaveText(CHARACTERS.STANDARD);
       await expect(tooltipPreviewElement).toHaveAttribute(
         "data-placement",
-        position
+        position,
       );
     });
   });
@@ -603,12 +609,12 @@ test.describe("Props tests for Textarea component", () => {
       <TextareaComponent
         labelHelp="field help"
         helpAriaLabel={CHARACTERS.STANDARD}
-      />
+      />,
     );
 
     await expect(getComponent(page, "help")).toHaveAttribute(
       "aria-label",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -657,15 +663,17 @@ test.describe("Props tests for Textarea component", () => {
 
       await expect(textareaChildren(page)).toHaveAttribute(
         "rows",
-        String(rows)
+        String(rows),
       );
     });
   });
 
-  ([
-    [true, 92],
-    [false, 64],
-  ] as const).forEach(([expandableValue, height]) => {
+  (
+    [
+      [true, 92],
+      [false, 64],
+    ] as const
+  ).forEach(([expandableValue, height]) => {
     test(`should verify is displayed with expandable set to ${expandableValue}`, async ({
       mount,
       page,
@@ -698,7 +706,7 @@ test.describe("Event tests for Textarea component", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const textareaChildrenElement = textareaChildren(page);
@@ -717,7 +725,7 @@ test.describe("Event tests for Textarea component", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const textareaChildrenElement = textareaChildren(page);
@@ -737,7 +745,7 @@ test.describe("Event tests for Textarea component", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const textareaChildrenElement = textareaChildren(page);
@@ -756,7 +764,7 @@ test.describe("Event tests for Textarea component", () => {
         onFocus={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const textareaChildrenElement = textareaChildren(page);
@@ -775,7 +783,7 @@ test.describe("Event tests for Textarea component", () => {
         onMouseDown={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const textareaChildrenElement = textareaChildren(page);
@@ -797,7 +805,7 @@ test.describe("Event tests for Textarea component", () => {
           onKeyDown={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       const textareaChildrenElement = textareaChildren(page);
@@ -1009,7 +1017,7 @@ test("should have the expected custom border radius styling when an array is pas
   page,
 }) => {
   await mount(
-    <TextareaComponent borderRadius={["borderRadius400", "borderRadius010"]} />
+    <TextareaComponent borderRadius={["borderRadius400", "borderRadius010"]} />,
   );
 
   const inputElementParent = getElement(page, "input").locator("..");
@@ -1027,7 +1035,7 @@ test("should not have borders when hideBorders prop is passed", async ({
 
   await expect(inputElementParent).toHaveCSS(
     "border",
-    "1px solid rgba(0, 0, 0, 0)"
+    "1px solid rgba(0, 0, 0, 0)",
   );
 });
 

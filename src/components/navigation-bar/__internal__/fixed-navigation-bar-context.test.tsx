@@ -17,7 +17,7 @@ const mockNavbarElement = { offsetHeight: 40 } as HTMLElement;
 const navbarRef = { current: mockNavbarElement };
 
 const MockComponent = (
-  props: Omit<FixedNavigationBarContextProviderProps, "navbarRef">
+  props: Omit<FixedNavigationBarContextProviderProps, "navbarRef">,
 ) => {
   return (
     <FixedNavigationBarContextProvider navbarRef={navbarRef} {...props}>
@@ -32,18 +32,18 @@ describe("FixedNavigationBarContextProvider", () => {
     (position) => {
       it("does not provide a max-height", () => {
         render(
-          <MockComponent position={position} orientation="top" offset="20px" />
+          <MockComponent position={position} orientation="top" offset="20px" />,
         );
         const result = screen.getByTestId("output");
         expect(result).toHaveTextContent("");
       });
-    }
+    },
   );
 
   describe("when the position is fixed and the orientation is top", () => {
     it("computes the max height correctly", () => {
       render(
-        <MockComponent position="fixed" orientation="top" offset="20px" />
+        <MockComponent position="fixed" orientation="top" offset="20px" />,
       );
       const result = screen.getByTestId("output");
       expect(result).toHaveTextContent("calc(100vh - 40px - 20px)");
@@ -53,7 +53,7 @@ describe("FixedNavigationBarContextProvider", () => {
   describe("when the position is fixed and the orientation is bottom", () => {
     it("computes the max height correctly", () => {
       render(
-        <MockComponent position="fixed" orientation="bottom" offset="20px" />
+        <MockComponent position="fixed" orientation="bottom" offset="20px" />,
       );
       const result = screen.getByTestId("output");
       expect(result).toHaveTextContent("20px");
@@ -71,7 +71,7 @@ describe("FixedNavigationBarContextProvider", () => {
   describe("when the height of the navbar changes", () => {
     it("the max height is recalculated", () => {
       render(
-        <MockComponent position="fixed" orientation="top" offset="20px" />
+        <MockComponent position="fixed" orientation="top" offset="20px" />,
       );
       const result = screen.getByTestId("output");
       expect(result).toHaveTextContent("calc(100vh - 40px - 20px)");

@@ -35,7 +35,7 @@ describe("Search", () => {
   testStyledSystemMargin((props) => <Search value="" {...props} />);
 
   function renderSearch(
-    props: SearchProps & React.RefAttributes<HTMLInputElement>
+    props: SearchProps & React.RefAttributes<HTMLInputElement>,
   ) {
     return mount(<Search {...props} />);
   }
@@ -59,7 +59,7 @@ describe("Search", () => {
       wrapper = renderSearch({ defaultValue: "foo" });
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Search` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Search` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -75,7 +75,7 @@ describe("Search", () => {
           fontSize: "var(--fontSize100)",
           fontWeight: "700",
         },
-        renderSearch({ value: "" })
+        renderSearch({ value: "" }),
       );
     });
 
@@ -88,7 +88,7 @@ describe("Search", () => {
           fontWeight: "700",
           width: "100%",
         },
-        renderSearch({ value: "", searchWidth: undefined })
+        renderSearch({ value: "", searchWidth: undefined }),
       );
     });
 
@@ -101,7 +101,7 @@ describe("Search", () => {
           fontWeight: "700",
           width: "400px",
         },
-        renderSearch({ value: "", searchWidth: "400px" })
+        renderSearch({ value: "", searchWidth: "400px" }),
       );
     });
 
@@ -114,7 +114,7 @@ describe("Search", () => {
         {
           borderBottom: "var(--spacing025) solid var(--colorsUtilityMajor300)",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -126,7 +126,7 @@ describe("Search", () => {
           borderBottom: "var(--spacing025) solid var(--colorsUtilityYang080)",
           backgroundColor: "transparent",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -138,7 +138,7 @@ describe("Search", () => {
           borderBottom: undefined,
           backgroundColor: "transparent",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -151,20 +151,20 @@ describe("Search", () => {
           fontWeight: "700",
         },
         wrapper,
-        { modifier: `${StyledTextInput}` }
+        { modifier: `${StyledTextInput}` },
       );
     });
 
     it("applies the expected styling to the search button", () => {
       wrapper = renderSearch({ value: "FooBar", searchButton: true }).find(
-        StyledSearchButton
+        StyledSearchButton,
       );
       assertStyleMatch(
         {
           display: "inline-flex",
           borderBottom: "none",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -175,7 +175,7 @@ describe("Search", () => {
           marginBottom: "-1px",
         },
         wrapper,
-        { modifier: `${StyledInputIconToggle}` }
+        { modifier: `${StyledInputIconToggle}` },
       );
 
       assertStyleMatch(
@@ -183,7 +183,7 @@ describe("Search", () => {
           color: "var(--colorsActionMinor500)",
         },
         wrapper,
-        { modifier: `${StyledIcon}:not([data-element="search"])` }
+        { modifier: `${StyledIcon}:not([data-element="search"])` },
       );
 
       assertStyleMatch(
@@ -191,7 +191,7 @@ describe("Search", () => {
           color: "var(--colorsActionMinor600)",
         },
         wrapper,
-        { modifier: `${StyledIcon}:not([data-element="search"]):hover` }
+        { modifier: `${StyledIcon}:not([data-element="search"]):hover` },
       );
     });
 
@@ -202,7 +202,7 @@ describe("Search", () => {
           marginBottom: "-1px",
         },
         wrapper,
-        { modifier: `${StyledInputIconToggle}` }
+        { modifier: `${StyledInputIconToggle}` },
       );
 
       assertStyleMatch(
@@ -210,7 +210,7 @@ describe("Search", () => {
           color: "var(--colorsUtilityYang080)",
         },
         wrapper,
-        { modifier: `${StyledIcon}:not([data-element="search"])` }
+        { modifier: `${StyledIcon}:not([data-element="search"])` },
       );
 
       assertStyleMatch(
@@ -218,7 +218,7 @@ describe("Search", () => {
           color: "var(--colorsUtilityYang100)",
         },
         wrapper,
-        { modifier: `${StyledIcon}:not([data-element="search"]):hover` }
+        { modifier: `${StyledIcon}:not([data-element="search"]):hover` },
       );
     });
 
@@ -235,7 +235,7 @@ describe("Search", () => {
           marginBottom: "-1px",
         },
         wrapper,
-        { modifier: `${StyledInputIconToggle}` }
+        { modifier: `${StyledInputIconToggle}` },
       );
 
       assertStyleMatch(
@@ -243,7 +243,7 @@ describe("Search", () => {
           color: "var(--colorsUtilityYang080)",
         },
         wrapper,
-        { modifier: `${StyledIcon}:not([data-element="search"])` }
+        { modifier: `${StyledIcon}:not([data-element="search"])` },
       );
 
       assertStyleMatch(
@@ -251,7 +251,7 @@ describe("Search", () => {
           color: "var(--colorsUtilityYang100)",
         },
         wrapper,
-        { modifier: `${StyledIcon}:not([data-element="search"]):hover` }
+        { modifier: `${StyledIcon}:not([data-element="search"]):hover` },
       );
     });
 
@@ -261,7 +261,7 @@ describe("Search", () => {
         {
           borderRadius: "var(--borderRadius050)",
         },
-        wrapper.find(StyledInput)
+        wrapper.find(StyledInput),
       );
     });
 
@@ -273,7 +273,7 @@ describe("Search", () => {
           borderBottomRightRadius: "var(--borderRadius000)",
         },
         wrapper,
-        { modifier: `${StyledTextInput}` }
+        { modifier: `${StyledTextInput}` },
       );
 
       assertStyleMatch(
@@ -284,7 +284,7 @@ describe("Search", () => {
           borderBottomRightRadius: "var(--borderRadius050)",
         },
         wrapper.find(StyledSearchButton),
-        { modifier: `& ${StyledButton}` }
+        { modifier: `& ${StyledButton}` },
       );
     });
   });
@@ -361,7 +361,7 @@ describe("Search", () => {
         locale={{ search: { searchButtonText: () => "text override" } }}
       >
         <Search searchButton value="search" onChange={() => {}} />
-      </I18nProvider>
+      </I18nProvider>,
     );
     const searchButton = wrapper.find(Button);
     expect(searchButton.text()).toBe("text override");
@@ -673,7 +673,7 @@ describe("Search", () => {
         {
           maxWidth: "67%",
         },
-        renderSearch({ value: "search", maxWidth: "67%" })
+        renderSearch({ value: "search", maxWidth: "67%" }),
       );
     });
 
@@ -682,7 +682,7 @@ describe("Search", () => {
         {
           maxWidth: "100%",
         },
-        renderSearch({ value: "search", maxWidth: "" })
+        renderSearch({ value: "search", maxWidth: "" }),
       );
     });
   });
@@ -755,7 +755,7 @@ test("should call `onClick` when it and `triggerOnClear` props are passed and th
       searchButton
       name="foo"
       id="bar"
-    />
+    />,
   );
   const inputIcon = screen.getByTestId("input-icon-toggle");
   await user.click(inputIcon);
@@ -773,7 +773,7 @@ test("should not call `onClick` when prop is passed and the user clicks the cros
   const onClick = jest.fn();
   const user = userEvent.setup();
   render(
-    <Search value="foo" onClick={onClick} onChange={() => {}} searchButton />
+    <Search value="foo" onClick={onClick} onChange={() => {}} searchButton />,
   );
   const inputIcon = screen.getByTestId("input-icon-toggle");
   await user.click(inputIcon);

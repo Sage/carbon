@@ -22,7 +22,7 @@ const baseTheme = configureBase(palette);
 export default baseTheme;
 
 export const mergeWithBase = (
-  configureTheme: (p: BasePalette) => Partial<ThemeObject>
+  configureTheme: (p: BasePalette) => Partial<ThemeObject>,
 ): Partial<ThemeObject> => {
   const themeToMergeWithBase = configureTheme(palette);
 

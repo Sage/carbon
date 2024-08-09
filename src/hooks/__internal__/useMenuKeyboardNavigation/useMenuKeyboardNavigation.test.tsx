@@ -34,16 +34,16 @@ const MockComponent = ({ hideCb }: MockComponentProps) => {
       // DOM query is part of the mock component's implementation, and is not used by tests to find elements.
       // eslint-disable-next-line testing-library/no-node-access
       document.querySelectorAll<HTMLButtonElement>(
-        `[data-role="${containerID}"] button`
+        `[data-role="${containerID}"] button`,
       ),
-    []
+    [],
   );
 
   const handleKeyDown = useMenuKeyboardNavigation(
     mainRef,
     getButtonChildren,
     hideCb,
-    true
+    true,
   );
 
   return (
@@ -97,7 +97,7 @@ describe("useMenuKeyboardNavigation", () => {
         metaKey: modifier === "metaKey",
       });
       expect(screen.getByText(`${childButtonID}-0`)).toHaveFocus();
-    }
+    },
   );
 
   it("pressing ArrowDown key focuses the next child in the list and does not loop when last one is reached", () => {

@@ -22,7 +22,7 @@ describe("Content", () => {
     return render(
       <ThemeProvider theme={sageTheme}>
         <Content {...props}>Foo</Content>
-      </ThemeProvider>
+      </ThemeProvider>,
     );
   };
 
@@ -56,7 +56,7 @@ describe("Content", () => {
             marginTop: "15px",
           },
           wrapper,
-          { modifier: `& + ${StyledContent}` }
+          { modifier: `& + ${StyledContent}` },
         );
       });
 
@@ -72,9 +72,9 @@ describe("Content", () => {
             {
               textAlign: expected,
             },
-            wrapper
+            wrapper,
           );
-        }
+        },
       );
 
       it("if there is prop align", () => {
@@ -84,7 +84,7 @@ describe("Content", () => {
             marginTop: "15px",
           },
           wrapper,
-          { modifier: `& + ${StyledContent}` }
+          { modifier: `& + ${StyledContent}` },
         );
       });
 
@@ -94,7 +94,7 @@ describe("Content", () => {
           {
             marginTop: "15px",
           },
-          wrapper.find(StyledContentBody)
+          wrapper.find(StyledContentBody),
         );
       });
     });
@@ -107,7 +107,7 @@ describe("Content", () => {
             display: "block",
             fontWeight: "bold",
           },
-          wrapper.find(StyledContentTitle)
+          wrapper.find(StyledContentTitle),
         );
       });
 
@@ -117,7 +117,7 @@ describe("Content", () => {
           {
             width: "calc(50% - 30px)",
           },
-          wrapper.find(StyledContentTitle)
+          wrapper.find(StyledContentTitle),
         );
       });
 
@@ -127,7 +127,7 @@ describe("Content", () => {
           {
             textAlign: "center",
           },
-          wrapper.find(StyledContentTitle)
+          wrapper.find(StyledContentTitle),
         );
       });
 
@@ -138,7 +138,7 @@ describe("Content", () => {
             color: "var(--colorsUtilityYin055)",
             fontWeight: "normal",
           },
-          wrapper.find(StyledContentTitle)
+          wrapper.find(StyledContentTitle),
         );
       });
 
@@ -149,7 +149,7 @@ describe("Content", () => {
             textAlign: "right",
             width: "calc(50% - 30px)",
           },
-          wrapper.find(StyledContentTitle)
+          wrapper.find(StyledContentTitle),
         );
       });
     });
@@ -164,7 +164,7 @@ describe("Content", () => {
             whiteSpace: "pre-wrap",
             wordWrap: "break-word",
           },
-          wrapper.find(StyledContentBody)
+          wrapper.find(StyledContentBody),
         );
       });
 
@@ -179,7 +179,7 @@ describe("Content", () => {
             marginLeft: "30px",
             textAlign: "left",
           },
-          wrapper.find(StyledContentBody)
+          wrapper.find(StyledContentBody),
         );
       });
 
@@ -189,7 +189,7 @@ describe("Content", () => {
           {
             width: "50%",
           },
-          wrapper.find(StyledContentBody)
+          wrapper.find(StyledContentBody),
         );
       });
 
@@ -199,7 +199,7 @@ describe("Content", () => {
           {
             width: "100%",
           },
-          wrapper.find(StyledContentBody)
+          wrapper.find(StyledContentBody),
         );
       });
 
@@ -209,7 +209,7 @@ describe("Content", () => {
           {
             width: "10%",
           },
-          wrapper.find(StyledContentBody)
+          wrapper.find(StyledContentBody),
         );
       });
     });
@@ -221,7 +221,7 @@ describe("Content", () => {
         wrapper = shallow(
           <Content data-element="bar" data-role="baz">
             <div />
-          </Content>
+          </Content>,
         );
         rootTagTest(wrapper, "content", "bar", "baz");
       });

@@ -75,19 +75,19 @@ export const Switch = React.forwardRef(
       helpAriaLabel,
       ...rest
     }: SwitchProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const isControlled = checked !== undefined;
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
     const [checkedInternal, setCheckedInternal] = useState(
-      defaultChecked || false
+      defaultChecked || false,
     );
 
     if (!deprecateUncontrolledWarnTriggered && !onChange) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Switch` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Switch` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
@@ -96,7 +96,7 @@ export const Switch = React.forwardRef(
         setCheckedInternal(e.target.checked);
         onChange?.(e);
       },
-      [setCheckedInternal, onChange]
+      [setCheckedInternal, onChange],
     );
 
     const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
@@ -237,7 +237,7 @@ export const Switch = React.forwardRef(
         )}
       </>
     );
-  }
+  },
 );
 
 Switch.displayName = "Switch";

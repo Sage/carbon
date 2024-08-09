@@ -8,7 +8,7 @@ describe("MessageContent", () => {
   describe("when rendered", () => {
     it("should render correctly", () => {
       expect(
-        shallow(<MessageContent>children</MessageContent>)
+        shallow(<MessageContent>children</MessageContent>),
       ).toMatchSnapshot();
     });
   });
@@ -20,7 +20,7 @@ describe("MessageContent", () => {
       "padding changes should be correct when showCloseIcon is %s",
       (boolVal, paddingVal) => {
         const wrapper = mount(
-          <MessageContent showCloseIcon={boolVal}>children</MessageContent>
+          <MessageContent showCloseIcon={boolVal}>children</MessageContent>,
         );
 
         assertStyleMatch(
@@ -29,9 +29,9 @@ describe("MessageContent", () => {
             whiteSpace: "pre-wrap",
             flex: "1",
           },
-          wrapper.find(MessageContentStyle)
+          wrapper.find(MessageContentStyle),
         );
-      }
+      },
     );
   });
 });

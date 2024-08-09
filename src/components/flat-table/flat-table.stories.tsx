@@ -1282,7 +1282,7 @@ export const WithSortingHeaders: Story = {
     const sortByNumber = (
       dataToSort: BodyDataItems,
       sortByValue: SortValue,
-      type: SortType
+      type: SortType,
     ) => {
       const sortedData = dataToSort.sort((a, b) => {
         if (type === "ascending") {
@@ -1299,7 +1299,7 @@ export const WithSortingHeaders: Story = {
     const sortByString = (
       dataToSort: BodyDataItems,
       sortByValue: SortValue,
-      type: SortType
+      type: SortType,
     ) => {
       const sortedData = dataToSort.sort((a, b) => {
         const nameA = String(a[sortByValue]).toUpperCase();
@@ -1411,7 +1411,7 @@ export const WithSortingHeadersAndCustomAccessibleName: Story = {
     const sortByNumber = (
       dataToSort: BodyDataItems,
       sortByValue: SortValue,
-      type: SortType
+      type: SortType,
     ) => {
       const sortedData = dataToSort.sort((a, b) => {
         if (type === "ascending") {
@@ -1428,7 +1428,7 @@ export const WithSortingHeadersAndCustomAccessibleName: Story = {
     const sortByString = (
       dataToSort: BodyDataItems,
       sortByValue: SortValue,
-      type: SortType
+      type: SortType,
     ) => {
       const sortedData = dataToSort.sort((a, b) => {
         const nameA = String(a[sortByValue]).toUpperCase();
@@ -1599,7 +1599,7 @@ export const WithSelectableRows: Story = () => {
   };
 
   const selectedCount = Object.keys(selectedRows).filter((key) =>
-    Boolean(selectedRows[key as SelectedRow])
+    Boolean(selectedRows[key as SelectedRow]),
   ).length;
 
   return (
@@ -1785,7 +1785,7 @@ export const WithSelectableAndHighlightableRows: Story = () => {
   };
 
   const selectedCount = Object.keys(selectedRows).filter((key) =>
-    Boolean(selectedRows[key as SelectedRow])
+    Boolean(selectedRows[key as SelectedRow]),
   ).length;
 
   const handleHighlightRow = (id: HighlightedRow) => {
@@ -2482,7 +2482,7 @@ export const WhenAChildOfSidebar: Story = () => {
     setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
   };
   const selectedCount = Object.keys(selectedRows).filter((key) =>
-    Boolean(selectedRows[key as SelectedRow])
+    Boolean(selectedRows[key as SelectedRow]),
   ).length;
 
   const handleHighlightRow = (id: HighlightedRow) => {

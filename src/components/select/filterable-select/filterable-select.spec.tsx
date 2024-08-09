@@ -97,7 +97,7 @@ describe("FilterableSelect", () => {
       renderSelect({ defaultValue: "opt1" });
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Filterable Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Filterable Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -110,7 +110,7 @@ describe("FilterableSelect", () => {
     const wrapper = mount(
       <FilterableSelect name="testSelect" id="testSelect">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
 
     expect(wrapper.find(Option).length).toBe(1);
@@ -137,7 +137,7 @@ describe("FilterableSelect", () => {
           new KeyboardEvent("keydown", {
             key: "Enter",
             bubbles: true,
-          })
+          }),
         );
       });
     }).not.toThrow();
@@ -158,11 +158,11 @@ describe("FilterableSelect", () => {
             new KeyboardEvent("keydown", {
               key,
               bubbles: true,
-            })
+            }),
           );
         });
       }).not.toThrow();
-    }
+    },
   );
 
   describe("with a ref", () => {
@@ -235,7 +235,7 @@ describe("FilterableSelect", () => {
 
     it("then a label id based on randomly generated id should be passed to the SelectList component", () => {
       expect(wrapper.find(SelectList).prop("labelId")).toBe(
-        `${mockedGuid}-label`
+        `${mockedGuid}-label`,
       );
     });
 
@@ -251,7 +251,7 @@ describe("FilterableSelect", () => {
       simulateDropdownEvent(wrapper, "click");
       assertStyleMatch(
         { maxHeight: "120px" },
-        wrapper.find(StyledScrollableContainer)
+        wrapper.find(StyledScrollableContainer),
       );
     });
   });
@@ -260,7 +260,7 @@ describe("FilterableSelect", () => {
     const placeholder = "foobaz";
     const wrapper = renderSelect({ placeholder });
     expect(
-      wrapper.find("input[data-element='input']").prop("placeholder")
+      wrapper.find("input[data-element='input']").prop("placeholder"),
     ).toBe(placeholder);
   });
 
@@ -280,7 +280,7 @@ describe("FilterableSelect", () => {
             defaultValue="opt2"
           >
             <Option value="opt1" text="blue" key="blue" />
-          </FilterableSelect>
+          </FilterableSelect>,
         );
 
         wrapper.setProps({
@@ -313,7 +313,7 @@ describe("FilterableSelect", () => {
     it("the SelectList should not be rendered", () => {
       simulateSelectTextboxEvent(wrapper, "focus");
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).not.toBeVisible();
     });
 
@@ -323,7 +323,7 @@ describe("FilterableSelect", () => {
         it("the SelectList should be rendered", () => {
           simulateSelectTextboxEvent(wrapper, "keydown", { key });
           expect(
-            wrapper.find(StyledSelectListContainer).getDOMNode()
+            wrapper.find(StyledSelectListContainer).getDOMNode(),
           ).toBeVisible();
         });
 
@@ -332,11 +332,11 @@ describe("FilterableSelect", () => {
             wrapper.setProps({ readOnly: true });
             simulateSelectTextboxEvent(wrapper, "keydown", { key });
             expect(
-              wrapper.find(StyledSelectListContainer).getDOMNode()
+              wrapper.find(StyledSelectListContainer).getDOMNode(),
             ).not.toBeVisible();
           });
         });
-      }
+      },
     );
 
     describe("and the Enter key has been pressed", () => {
@@ -352,7 +352,7 @@ describe("FilterableSelect", () => {
           wrapper.setProps({ readOnly: true });
           simulateSelectTextboxEvent(wrapper, "keydown", { key: "Enter" });
           expect(
-            wrapper.find(StyledSelectListContainer).getDOMNode()
+            wrapper.find(StyledSelectListContainer).getDOMNode(),
           ).not.toBeVisible();
         });
       });
@@ -368,7 +368,7 @@ describe("FilterableSelect", () => {
         const selectList = wrapper.find(SelectList);
         const textbox = wrapper.find(Textbox);
         expect(selectList.prop("filterText")).toBe(
-          textbox.prop("formattedValue")
+          textbox.prop("formattedValue"),
         );
       });
     });
@@ -406,7 +406,7 @@ describe("FilterableSelect", () => {
             expect(wrapper.find(Textbox).prop("value")).toBe("");
           });
         });
-      }
+      },
     );
   });
 
@@ -416,7 +416,7 @@ describe("FilterableSelect", () => {
 
       simulateSelectTextboxEvent(wrapper, "click");
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).not.toBeVisible();
     });
 
@@ -436,10 +436,10 @@ describe("FilterableSelect", () => {
 
           simulateSelectTextboxEvent(wrapper, "click");
           expect(
-            wrapper.find(StyledSelectListContainer).getDOMNode()
+            wrapper.find(StyledSelectListContainer).getDOMNode(),
           ).not.toBeVisible();
         });
-      }
+      },
     );
 
     describe("and the onClick prop is passed", () => {
@@ -459,7 +459,7 @@ describe("FilterableSelect", () => {
         simulateDropdownEvent(wrapper, "click");
 
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
       });
 
@@ -471,9 +471,9 @@ describe("FilterableSelect", () => {
           simulateDropdownEvent(wrapper, "click");
 
           expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
-            listPlacement
+            listPlacement,
           );
-        }
+        },
       );
 
       it("the flipEnabled prop should be passed", () => {
@@ -494,7 +494,7 @@ describe("FilterableSelect", () => {
           simulateDropdownEvent(wrapper, "click");
 
           expect(
-            wrapper.find(StyledSelectListContainer).getDOMNode()
+            wrapper.find(StyledSelectListContainer).getDOMNode(),
           ).not.toBeVisible();
         });
       });
@@ -617,7 +617,7 @@ describe("FilterableSelect", () => {
       });
 
       expect(
-        (wrapper.find("input").getDOMNode() as HTMLInputElement).selectionStart
+        (wrapper.find("input").getDOMNode() as HTMLInputElement).selectionStart,
       ).toBe(3);
     });
   });
@@ -675,7 +675,7 @@ describe("FilterableSelect", () => {
         wrapper.update();
 
         expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
-      }
+      },
     );
   });
 
@@ -732,7 +732,7 @@ describe("FilterableSelect", () => {
         wrapper.update();
 
         expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
-      }
+      },
     );
   });
 
@@ -757,7 +757,7 @@ describe("FilterableSelect", () => {
       wrapper.update();
 
       expect(
-        wrapper.find(StyledOption).at(0).prop("isHighlighted")
+        wrapper.find(StyledOption).at(0).prop("isHighlighted"),
       ).toBeTruthy();
     });
   });
@@ -855,13 +855,13 @@ describe("FilterableSelect", () => {
         simulateDropdownEvent(wrapper, "click");
 
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).not.toBeVisible();
       });
     });
@@ -873,14 +873,14 @@ describe("FilterableSelect", () => {
         simulateDropdownEvent(wrapper, "click");
 
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(navigationKeyOptionObject);
         });
         wrapper.update();
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
         expect(wrapper.find(Textbox).prop("value")).toBe("Foo");
         expect(wrapper.find(Textbox).prop("formattedValue")).toBe("Bar");
@@ -955,13 +955,13 @@ describe("FilterableSelect", () => {
 
       simulateDropdownEvent(wrapper, "click");
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).toBeVisible();
       act(() => {
         wrapper.find(SelectList).prop("onSelectListClose")();
       });
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).not.toBeVisible();
     });
   });
@@ -978,7 +978,7 @@ describe("FilterableSelect", () => {
         simulateDropdownEvent(wrapper, "click");
 
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
         act(() => {
           wrapper
@@ -987,7 +987,7 @@ describe("FilterableSelect", () => {
             .dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
       });
     });
@@ -997,13 +997,13 @@ describe("FilterableSelect", () => {
         simulateDropdownEvent(wrapper, "click");
 
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
         act(() => {
           document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).not.toBeVisible();
       });
     });
@@ -1023,7 +1023,7 @@ describe("FilterableSelect", () => {
       expect(onKeyDownFn).toHaveBeenCalledWith(
         expect.objectContaining({
           ...expectedEventObject,
-        })
+        }),
       );
     });
   });
@@ -1047,7 +1047,7 @@ describe("FilterableSelect", () => {
 
     it("then that prop should be passed down to the SelectList component", () => {
       expect(wrapper.find(SelectList).props().listActionButton).toEqual(
-        mockButton
+        mockButton,
       );
       wrapper.unmount();
     });
@@ -1074,10 +1074,10 @@ describe("FilterableSelect", () => {
           document.body.dispatchEvent(tabKeyDownEvent);
         });
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
         expect(wrapper.find(SelectList).find("button").getDOMNode()).toBe(
-          document.activeElement
+          document.activeElement,
         );
       });
 
@@ -1091,13 +1091,13 @@ describe("FilterableSelect", () => {
 
         it("then the SelectList should be closed", () => {
           expect(
-            wrapper.find(StyledSelectListContainer).getDOMNode()
+            wrapper.find(StyledSelectListContainer).getDOMNode(),
           ).not.toBeVisible();
         });
 
         it("then the select input should be focused", () => {
           expect(wrapper.find("input").getDOMNode()).toBe(
-            document.activeElement
+            document.activeElement,
           );
         });
       });
@@ -1132,7 +1132,7 @@ describe("FilterableSelect", () => {
         simulateDropdownEvent(wrapper, "click");
 
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
@@ -1245,7 +1245,7 @@ describe("FilterableSelect", () => {
           marginLeft: "var(--spacing050)",
         },
         wrapper.find(StyledLabel),
-        { modifier: "::after" }
+        { modifier: "::after" },
       );
     });
   });
@@ -1321,7 +1321,7 @@ describe("FilterableSelect", () => {
 
         simulateSelectTextboxEvent(wrapper, "focus");
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
       });
 
@@ -1358,10 +1358,10 @@ describe("FilterableSelect", () => {
 
             simulateSelectTextboxEvent(wrapper, "focus");
             expect(
-              wrapper.find(StyledSelectListContainer).getDOMNode()
+              wrapper.find(StyledSelectListContainer).getDOMNode(),
             ).not.toBeVisible();
           });
-        }
+        },
       );
 
       describe('with the "onFocus" prop passed', () => {
@@ -1432,7 +1432,7 @@ describe("FilterableSelect", () => {
             simulateSelectTextboxEvent(wrapper, "focus");
             onOpenFn.mockReset();
             expect(
-              wrapper.find(StyledSelectListContainer).getDOMNode()
+              wrapper.find(StyledSelectListContainer).getDOMNode(),
             ).toBeVisible();
             simulateSelectTextboxEvent(wrapper, "focus");
             expect(onOpenFn).not.toHaveBeenCalled();
@@ -1471,7 +1471,7 @@ describe("FilterableSelect", () => {
           openOnFocus: true,
         },
         mount,
-        { attachTo: container }
+        { attachTo: container },
       );
 
       act(() => {
@@ -1524,12 +1524,12 @@ describe("FilterableSelect", () => {
     const wrapper = renderSelect({});
     assertStyleMatch(
       { borderRadius: "var(--borderRadius050)" },
-      wrapper.find(StyledInput)
+      wrapper.find(StyledInput),
     );
 
     assertStyleMatch(
       { borderRadius: "var(--borderRadius050)" },
-      wrapper.find(StyledSelectListContainer)
+      wrapper.find(StyledSelectListContainer),
     );
   });
 
@@ -1537,7 +1537,7 @@ describe("FilterableSelect", () => {
     const propWrapper = mount(
       <FilterableSelect name="testSelect" label="Select a colour" isOptional>
         <Option value="opt1" text="blue" key="blue" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
 
     assertStyleMatch(
@@ -1545,7 +1545,7 @@ describe("FilterableSelect", () => {
         content: '"(optional)"',
       },
       propWrapper.find(StyledLabelContainer),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -1562,7 +1562,7 @@ describe("FilterableSelect", () => {
         {
           maxWidth: "67%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
 
@@ -1573,7 +1573,7 @@ describe("FilterableSelect", () => {
         {
           maxWidth: "100%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
   });

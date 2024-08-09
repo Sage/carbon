@@ -34,19 +34,17 @@ interface MismatchedPairs {
 
 jest.mock("../../__internal__/utils/helpers/browser-type-check");
 
-const mockBrowserTypeCheck = (browserTypeCheck as unknown) as jest.MockedFunction<
+const mockBrowserTypeCheck = browserTypeCheck as unknown as jest.MockedFunction<
   () => boolean
 >;
-const mockIsSafari = (isSafari as unknown) as jest.MockedFunction<
-  () => boolean
->;
+const mockIsSafari = isSafari as unknown as jest.MockedFunction<() => boolean>;
 
 function renderIcon(props: Partial<IconProps>) {
   return <Icon type="add" {...props} />;
 }
 
 function renderStyles(
-  props: Partial<StyledIconProps> & StyledIconInternalProps
+  props: Partial<StyledIconProps> & StyledIconInternalProps,
 ) {
   return TestRenderer.create(<StyledIcon type="add" {...props} />);
 }
@@ -69,7 +67,7 @@ describe("Icon component", () => {
       mount(<Icon type="home" bgSize="extra-small" />);
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "The `extra-small` variant of the `bgSize` prop for `Icon` component has been deprecated and will soon be removed."
+        "The `extra-small` variant of the `bgSize` prop for `Icon` component has been deprecated and will soon be removed.",
       );
       expect(loggerSpy).toHaveBeenCalledTimes(1);
 
@@ -82,7 +80,7 @@ describe("Icon component", () => {
       mount(<Icon type="home" bgSize="small" fontSize="medium" />);
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        '[WARNING - Icon] The "small" `bgSize` is smaller than "medium" `fontSize`, the `bgSize` has been auto adjusted to a larger size.'
+        '[WARNING - Icon] The "small" `bgSize` is smaller than "medium" `fontSize`, the `bgSize` has been auto adjusted to a larger size.',
       );
       expect(consoleSpy).toHaveBeenCalledTimes(1);
 
@@ -100,7 +98,7 @@ describe("Icon component", () => {
           .exists();
         expect(elemExists).toEqual(true);
       });
-    }
+    },
   );
 
   describe("when the icon type is services", () => {
@@ -119,7 +117,7 @@ describe("Icon component", () => {
           marginTop: "-7px",
         },
         wrapper.toJSON(),
-        { modifier: "&::before" }
+        { modifier: "&::before" },
       );
     });
 
@@ -133,7 +131,7 @@ describe("Icon component", () => {
           marginTop: "-8px",
         },
         wrapper.toJSON(),
-        { modifier: "&::before" }
+        { modifier: "&::before" },
       );
     });
 
@@ -148,7 +146,7 @@ describe("Icon component", () => {
           marginTop: "-6px",
         },
         wrapper.toJSON(),
-        { modifier: "&::before" }
+        { modifier: "&::before" },
       );
     });
 
@@ -164,7 +162,7 @@ describe("Icon component", () => {
           marginTop: "-6px",
         },
         wrapper.toJSON(),
-        { modifier: "&::before" }
+        { modifier: "&::before" },
       );
     });
   });
@@ -198,7 +196,7 @@ describe("Icon component", () => {
           {
             color: renderedColor,
           },
-          wrapper.find(StyledIcon)
+          wrapper.find(StyledIcon),
         );
       });
 
@@ -211,7 +209,7 @@ describe("Icon component", () => {
         expect(wrapper.find(StyledIcon)).not.toHaveStyleRule(
           "color",
           shade(0.2, getColorValue(renderedColor)),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
@@ -222,7 +220,7 @@ describe("Icon component", () => {
             color={color}
             bg={color}
             tooltipMessage="tooltip message"
-          />
+          />,
         );
         const { color: renderedColor } = styledColor({
           theme: baseTheme,
@@ -232,13 +230,13 @@ describe("Icon component", () => {
           {
             color: renderedColor,
           },
-          wrapper.find(StyledIcon)
+          wrapper.find(StyledIcon),
         );
         assertStyleMatch(
           {
             backgroundColor: renderedColor,
           },
-          wrapper.find(StyledIcon)
+          wrapper.find(StyledIcon),
         );
       });
 
@@ -249,7 +247,7 @@ describe("Icon component", () => {
             color={color}
             bg={color}
             tooltipMessage="tooltip message"
-          />
+          />,
         );
         const { color: renderedColor } = styledColor({
           theme: baseTheme,
@@ -261,7 +259,7 @@ describe("Icon component", () => {
             color: shade(0.2, getColorValue(renderedColor)),
           },
           wrapper.find(StyledIcon),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
     });
@@ -277,13 +275,13 @@ describe("Icon component", () => {
           {
             backgroundColor,
           },
-          wrapper.find(StyledIcon)
+          wrapper.find(StyledIcon),
         );
       });
 
       it("renders properly colored Icon when hovered", () => {
         const wrapper = mount(
-          <Icon bg={color} type="message" tooltipMessage="test" />
+          <Icon bg={color} type="message" tooltipMessage="test" />,
         );
         const { backgroundColor } = styledColor({
           theme: baseTheme,
@@ -295,7 +293,7 @@ describe("Icon component", () => {
             backgroundColor: shade(0.2, getColorValue(backgroundColor)),
           },
           wrapper.find(StyledIcon),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
     });
@@ -349,7 +347,7 @@ describe("Icon component", () => {
         {
           color: "var(--colorsYin030)",
         },
-        wrapper.toJSON()
+        wrapper.toJSON(),
       );
     });
   });
@@ -362,7 +360,7 @@ describe("Icon component", () => {
           {
             backgroundColor: "transparent",
           },
-          wrapper.toJSON()
+          wrapper.toJSON(),
         );
       });
     });
@@ -385,7 +383,7 @@ describe("Icon component", () => {
             width: iconConfig.backgroundSize[size],
             height: iconConfig.backgroundSize[size],
           },
-          wrapper.toJSON()
+          wrapper.toJSON(),
         );
       });
     });
@@ -398,7 +396,7 @@ describe("Icon component", () => {
             width: iconConfig.backgroundSize.large,
             height: iconConfig.backgroundSize.large,
           },
-          wrapper.toJSON()
+          wrapper.toJSON(),
         );
       });
 
@@ -409,7 +407,7 @@ describe("Icon component", () => {
             width: iconConfig.backgroundSize.large,
             height: iconConfig.backgroundSize.large,
           },
-          wrapper.toJSON()
+          wrapper.toJSON(),
         );
       });
     });
@@ -422,7 +420,7 @@ describe("Icon component", () => {
         {
           borderRadius: iconConfig.backgroundShape[shape],
         },
-        wrapper.toJSON()
+        wrapper.toJSON(),
       );
     });
   });
@@ -445,7 +443,7 @@ describe("Icon component", () => {
     it("passes id to Tooltip when tooltipId prop is provided", () => {
       const tooltipId = "tooltip-id";
       const wrapper = mount(
-        <Icon type="home" tooltipId={tooltipId} tooltipMessage="foo" />
+        <Icon type="home" tooltipId={tooltipId} tooltipMessage="foo" />,
       );
       expect(wrapper.find(Tooltip).props().id).toEqual(tooltipId);
     });
@@ -453,7 +451,7 @@ describe("Icon component", () => {
     it("renders when a custom tooltipMessage is passed", () => {
       const customMessage = <span>foo</span>;
       const wrapper = mount(
-        <Icon type="home" tooltipMessage={customMessage} />
+        <Icon type="home" tooltipMessage={customMessage} />,
       );
       expect(wrapper.find(Tooltip).props().message).toEqual(customMessage);
     });
@@ -462,18 +460,18 @@ describe("Icon component", () => {
       "renders in a given tooltipPosition",
       (position) => {
         const wrapper = mount(
-          <Icon type="home" tooltipMessage="foo" tooltipPosition={position} />
+          <Icon type="home" tooltipMessage="foo" tooltipPosition={position} />,
         );
 
         expect(wrapper.find(Tooltip).props().position).toEqual(position);
-      }
+      },
     );
 
     it('tooltips "position" can be overriden by context', () => {
       const wrapper = mount(
         <TooltipProvider tooltipPosition="top">
           <Icon tooltipMessage="foo" type="home" tooltipPosition="left" />
-        </TooltipProvider>
+        </TooltipProvider>,
       );
 
       expect(wrapper.find(Tooltip).props().position).toBe("top");
@@ -483,7 +481,7 @@ describe("Icon component", () => {
       const wrapper = mount(
         <TooltipProvider tooltipVisible>
           <Icon tooltipMessage="foo" type="home" tooltipVisible={false} />
-        </TooltipProvider>
+        </TooltipProvider>,
       );
 
       expect(wrapper.find(Tooltip).props().isVisible).toBe(true);
@@ -491,7 +489,7 @@ describe("Icon component", () => {
 
     it("supports being controlled via tooltipVisible prop", () => {
       const wrapper = mount(
-        <Icon type="home" tooltipMessage="foo" tooltipVisible />
+        <Icon type="home" tooltipMessage="foo" tooltipVisible />,
       );
 
       expect(wrapper.find(Tooltip).props().isVisible).toEqual(true);
@@ -499,7 +497,7 @@ describe("Icon component", () => {
 
     it("does not display when icon is disabled", () => {
       const wrapper = mount(
-        <Icon type="home" tooltipMessage="foo" tooltipVisible disabled />
+        <Icon type="home" tooltipMessage="foo" tooltipVisible disabled />,
       );
 
       expect(wrapper.find(Tooltip).props().isVisible).toEqual(undefined);
@@ -512,26 +510,26 @@ describe("Icon component", () => {
           ariaLabel="home"
           tooltipMessage="foo"
           tooltipVisible
-        />
+        />,
       );
 
       expect(wrapper.find(StyledIcon).props()).toEqual(
         expect.objectContaining({
           "aria-label": "home",
           tabIndex: 0,
-        })
+        }),
       );
     });
 
     it("does not set the tabIndex when the disabled prop is set", () => {
       const wrapper = mount(
-        <Icon type="home" tooltipMessage="foo" tooltipVisible disabled />
+        <Icon type="home" tooltipMessage="foo" tooltipVisible disabled />,
       );
 
       expect(wrapper.find(StyledIcon).props()).toEqual(
         expect.objectContaining({
           tabIndex: undefined,
-        })
+        }),
       );
     });
 
@@ -544,7 +542,7 @@ describe("Icon component", () => {
           tooltipVisible
           role="region"
           tabIndex={-1}
-        />
+        />,
       );
 
       expect(wrapper.find(StyledIcon).prop("role")).toEqual("region");
@@ -570,7 +568,7 @@ describe("Icon component", () => {
             type="home"
             tooltipMessage="foo"
             tooltipFlipOverrides={["top", "bottom"]}
-          />
+          />,
         );
 
         // eslint-disable-next-line no-console
@@ -584,7 +582,7 @@ describe("Icon component", () => {
         const wrapper = mount(
           <TabTitleContext.Provider value={{ isInTab: true }}>
             <Icon type="home" tooltipMessage="foo" tabIndex={0} />
-          </TabTitleContext.Provider>
+          </TabTitleContext.Provider>,
         );
 
         expect(wrapper.find(StyledIcon).prop("tabIndex")).toBe(undefined);

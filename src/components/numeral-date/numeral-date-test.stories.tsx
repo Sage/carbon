@@ -176,7 +176,7 @@ export const NewDesignValidations = () => {
               m={4}
             />
           </div>
-        ))
+        )),
       )}
     </CarbonProvider>
   );

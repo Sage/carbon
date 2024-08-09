@@ -24,7 +24,7 @@ test("shows characters left when input is shorter than the character limit", () 
     <TestComponent
       value={valueShorterThanLimit}
       characterLimit={characterLimit}
-    />
+    />,
   );
 
   const elements = screen.getAllByText(expectedText);
@@ -43,7 +43,7 @@ test("shows characters too many when input is longer than the character limit", 
     <TestComponent
       value={valueLongerThanLimit}
       characterLimit={characterLimit}
-    />
+    />,
   );
 
   const elements = screen.getAllByText(expectedText);
@@ -54,7 +54,7 @@ test("does not return a character counter when no character limit is set", () =>
   render(<TestComponent value={MOCK_VALUE} />);
 
   const characterCountElement = screen.queryByText(
-    /characters left|characters too many/i
+    /characters left|characters too many/i,
   );
 
   expect(characterCountElement).not.toBeInTheDocument();
@@ -72,11 +72,11 @@ describe("Character count updates with debounce", () => {
 
   it("should update the visually hidden count to '2 characters left' after a delay of 2000ms", async () => {
     const { rerender } = render(
-      <TestComponent value="" characterLimit={CHARACTER_LIMIT} />
+      <TestComponent value="" characterLimit={CHARACTER_LIMIT} />,
     );
 
     rerender(
-      <TestComponent value={TEST_VALUE} characterLimit={CHARACTER_LIMIT} />
+      <TestComponent value={TEST_VALUE} characterLimit={CHARACTER_LIMIT} />,
     );
     act(() => {
       jest.advanceTimersByTime(2000);
@@ -88,11 +88,11 @@ describe("Character count updates with debounce", () => {
 
   it("should maintain the visually hidden count as '5 characters left' before a delay of 2000ms", async () => {
     const { rerender } = render(
-      <TestComponent value="" characterLimit={CHARACTER_LIMIT} />
+      <TestComponent value="" characterLimit={CHARACTER_LIMIT} />,
     );
 
     rerender(
-      <TestComponent value={TEST_VALUE} characterLimit={CHARACTER_LIMIT} />
+      <TestComponent value={TEST_VALUE} characterLimit={CHARACTER_LIMIT} />,
     );
     act(() => {
       jest.advanceTimersByTime(100);

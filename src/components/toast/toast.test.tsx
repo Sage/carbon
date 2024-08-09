@@ -49,7 +49,7 @@ const MockToast = ({
 
 describe("Toast component", () => {
   (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-    () => "guid-12345"
+    () => "guid-12345",
   );
 
   beforeEach(() => {
@@ -166,7 +166,7 @@ describe("Toast component", () => {
     render(
       <Toast open timeout={2000} onDismiss={onDismissMock}>
         foobar
-      </Toast>
+      </Toast>,
     );
 
     jest.advanceTimersByTime(2000);
@@ -179,7 +179,7 @@ describe("Toast component", () => {
     render(
       <Toast open={false} timeout={2000} onDismiss={onDismissMock}>
         foobar
-      </Toast>
+      </Toast>,
     );
 
     jest.advanceTimersByTime(2000);
@@ -199,7 +199,7 @@ describe("Toast component", () => {
     render(
       <Toast open onDismiss={() => {}}>
         foobar
-      </Toast>
+      </Toast>,
     );
 
     const closeButton = screen.getByRole("button", { name: "Close" });
@@ -211,7 +211,7 @@ describe("Toast component", () => {
     render(
       <Toast open className="exampleClass" data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("toast")).toHaveClass("exampleClass");
@@ -221,7 +221,7 @@ describe("Toast component", () => {
     render(
       <Toast open id="exampleId" data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("toast")).toHaveAttribute("id", "exampleId");
@@ -231,7 +231,7 @@ describe("Toast component", () => {
     render(
       <Toast open data-role="toast">
         <span>foobar</span>
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByText("foobar")).toBeInTheDocument();
@@ -241,7 +241,7 @@ describe("Toast component", () => {
     render(
       <Toast open data-element="toast-element" data-role="toast-role">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     const toast = screen.getByTestId("toast-role");
@@ -261,7 +261,7 @@ describe("Toast component", () => {
         }}
       >
         foobar
-      </Toast>
+      </Toast>,
     );
 
     const closeButton = screen.getByRole("button", { name: "Close" });
@@ -275,7 +275,7 @@ describe("Toast component", () => {
     render(
       <Toast open data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     jest.runAllTimers();
@@ -288,7 +288,7 @@ describe("Toast component", () => {
     render(
       <Toast open data-role="toast" disableAutoFocus>
         foobar
-      </Toast>
+      </Toast>,
     );
 
     const toast = screen.getByTestId("toast");
@@ -305,7 +305,7 @@ describe("Toast component", () => {
     render(
       <Toast open data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     const toast = screen.getByTestId("toast");
@@ -375,7 +375,7 @@ describe("Toast component", () => {
     render(
       <Toast maxWidth="200px" data-role="toast">
         Child
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("toast")).toHaveStyle({ maxWidth: "200px" });
@@ -385,7 +385,7 @@ describe("Toast component", () => {
     render(
       <Toast open variant="notice" data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     const toast = screen.getByTestId("toast");
@@ -412,7 +412,7 @@ describe("Toast component", () => {
     render(
       <Toast open variant="notice" data-role="toast" onDismiss={() => {}}>
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("toast-content")).toHaveStyle({
@@ -421,7 +421,7 @@ describe("Toast component", () => {
       padding: "11px 88px 11px 40px",
     });
     expect(screen.getByRole("button", { name: "Close" })).toHaveStyle(
-      "right: 55px"
+      "right: 55px",
     );
   });
 
@@ -435,7 +435,7 @@ describe("Toast component", () => {
         onDismiss={() => {}}
       >
         foobar
-      </Toast>
+      </Toast>,
     );
 
     const toast = screen.getByTestId("toast");
@@ -455,7 +455,7 @@ describe("Toast component", () => {
         onDismiss={() => {}}
       >
         foobar
-      </Toast>
+      </Toast>,
     );
 
     const toast = screen.getByTestId("toast");
@@ -469,7 +469,7 @@ describe("Toast component", () => {
     render(
       <Toast open variant="neutral">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("icon")).toHaveAttribute("type", "info");
@@ -479,7 +479,7 @@ describe("Toast component", () => {
     render(
       <Toast open variant="success">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("icon")).toHaveAttribute("type", "tick_circle");
@@ -489,7 +489,7 @@ describe("Toast component", () => {
     render(
       <Toast open variant="warning">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("icon")).toHaveAttribute("type", "warning");
@@ -499,7 +499,7 @@ describe("Toast component", () => {
     render(
       <Toast open variant="error">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("icon")).toHaveAttribute("type", "error");
@@ -509,7 +509,7 @@ describe("Toast component", () => {
     render(
       <Toast open variant="info">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("icon")).toHaveAttribute("type", "info");
@@ -519,7 +519,7 @@ describe("Toast component", () => {
     render(
       <Toast open variant="notification">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("icon")).toHaveAttribute("type", "alert");
@@ -530,7 +530,7 @@ describe("Toast component", () => {
       render(
         <Toast onDismiss={() => {}} ref={(ref) => ref}>
           foobar
-        </Toast>
+        </Toast>,
       );
     }).not.toThrow();
   });
@@ -540,7 +540,7 @@ describe("Toast component", () => {
     render(
       <Toast onDismiss={() => {}} ref={ref}>
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(ref.current).toBe(screen.getByTestId("toast-wrapper"));
@@ -550,7 +550,7 @@ describe("Toast component", () => {
     render(
       <Toast open align="right" data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("toast-wrapper")).toHaveStyle({
@@ -566,7 +566,7 @@ describe("Toast component", () => {
     render(
       <Toast open align="center" data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("toast-wrapper")).toHaveStyle({
@@ -582,7 +582,7 @@ describe("Toast component", () => {
     render(
       <Toast open align="left" data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("toast-wrapper")).toHaveStyle({
@@ -598,7 +598,7 @@ describe("Toast component", () => {
     render(
       <Toast alignY="top" data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     const toast = screen.getByTestId("toast");
@@ -613,7 +613,7 @@ describe("Toast component", () => {
     render(
       <Toast alignY="bottom" data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     const toast = screen.getByTestId("toast");
@@ -628,7 +628,7 @@ describe("Toast component", () => {
     render(
       <Toast alignY="center" align="left" data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("carbon-portal-exit")).toHaveStyle({
@@ -641,7 +641,7 @@ describe("Toast component", () => {
     render(
       <Toast alignY="center" data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("carbon-portal-exit")).toHaveStyle({

@@ -62,7 +62,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
         buttonFocusColor = shade(0.2, getColorValue(pillColor));
         contentColor = meetsContrastGuidelines(
           getColorValue(pillColor),
-          theme.compatibility.colorsUtilityYin090
+          theme.compatibility.colorsUtilityYin090,
         ).AAA
           ? "var(--colorsUtilityYin090)"
           : "var(--colorsUtilityYang100)";
@@ -78,7 +78,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(
-        `Error: [Pill] - Could not parse the string '${borderColor}', please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.`
+        `Error: [Pill] - Could not parse the string '${borderColor}', please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.`,
       );
     }
 

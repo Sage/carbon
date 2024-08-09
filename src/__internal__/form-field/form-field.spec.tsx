@@ -18,7 +18,7 @@ function render(formFieldProps: FormFieldProps) {
   return mount(
     <FormField {...formFieldProps}>
       <input id={formFieldProps.id} />
-    </FormField>
+    </FormField>,
   );
 }
 
@@ -28,7 +28,7 @@ function renderWithTabContext(formFieldProps: FormFieldProps) {
       <FormField {...formFieldProps}>
         <input id={formFieldProps.id} />
       </FormField>
-    </TabContext.Provider>
+    </TabContext.Provider>,
   );
 }
 
@@ -41,7 +41,7 @@ describe("FormField", () => {
         marginBottom: "var(--spacing500)",
       },
       wrapper.find(FormField),
-      { modifier: "&&&" }
+      { modifier: "&&&" },
     );
   });
 
@@ -76,9 +76,9 @@ describe("FormField", () => {
           {
             display,
           },
-          wrapper.find(FieldLineStyle)
+          wrapper.find(FieldLineStyle),
         );
-      }
+      },
     );
 
     it("renders label with htmlFor prop that is the id of the input", () => {
@@ -96,7 +96,7 @@ describe("FormField", () => {
       expect(
         render({ id: "mock-input", tooltipId, label: "test label" })
           .find(Label)
-          .prop("tooltipId")
+          .prop("tooltipId"),
       ).toBe(tooltipId);
     });
 
@@ -211,7 +211,7 @@ describe("FormField", () => {
           isRequired: true,
         });
       }).toThrowError(
-        "an input cannot be set to both required and optional at the same time"
+        "an input cannot be set to both required and optional at the same time",
       );
     });
 
@@ -270,10 +270,10 @@ describe("FormField", () => {
           id: "mock-input",
           disabled: true,
           [validation]: true,
-        })
+        }),
       ).toThrow(error);
 
       consoleSpy.mockRestore();
-    }
+    },
   );
 });

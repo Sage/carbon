@@ -43,7 +43,7 @@ test.describe("should render Fieldset component", () => {
             labelAlign="right"
             {...{ [type]: "Message" }}
           />
-        </Fieldset>
+        </Fieldset>,
       );
 
       const validationIcon = getDataElementByValue(page, "input")
@@ -68,7 +68,7 @@ test.describe("should render Fieldset component", () => {
             validationOnLabel
             {...{ [type]: "Message" }}
           />
-        </Fieldset>
+        </Fieldset>,
       );
 
       const validationIcon = getDataElementByValue(page, "label")
@@ -79,14 +79,16 @@ test.describe("should render Fieldset component", () => {
     });
   });
 
-  ([
-    [VALIDATION.ERROR, "error", true],
-    [VALIDATION.WARNING, "warning", true],
-    [VALIDATION.INFO, "info", true],
-    ["rgb(102, 132, 148)", "error", false],
-    ["rgb(102, 132, 148)", "warning", false],
-    ["rgb(102, 132, 148)", "info", false],
-  ] as [string, string, boolean][]).forEach(([borderColor, type, bool]) => {
+  (
+    [
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      [VALIDATION.INFO, "info", true],
+      ["rgb(102, 132, 148)", "error", false],
+      ["rgb(102, 132, 148)", "warning", false],
+      ["rgb(102, 132, 148)", "info", false],
+    ] as [string, string, boolean][]
+  ).forEach(([borderColor, type, bool]) => {
     test(`should verify input border color is ${borderColor} when validation is ${type} and boolean prop is ${bool}`, async ({
       mount,
       page,
@@ -99,7 +101,7 @@ test.describe("should render Fieldset component", () => {
             labelAlign="right"
             {...{ [type]: bool }}
           />
-        </Fieldset>
+        </Fieldset>,
       );
 
       const input = getDataElementByValue(page, "input").first().locator("..");
@@ -107,11 +109,13 @@ test.describe("should render Fieldset component", () => {
     });
   });
 
-  ([
-    [0, 0],
-    [32, 4],
-    [56, 7],
-  ] as [number, FormProps["fieldSpacing"]][]).forEach(([margin, spacing]) => {
+  (
+    [
+      [0, 0],
+      [32, 4],
+      [56, 7],
+    ] as [number, FormProps["fieldSpacing"]][]
+  ).forEach(([margin, spacing]) => {
     test(`should verify component is displayed inside a Form and field spacing is ${margin}`, async ({
       mount,
       page,
@@ -123,7 +127,7 @@ test.describe("should render Fieldset component", () => {
             <Textbox label="Fieldset 1 Field 2" labelInline />
           </Fieldset>
           <Textbox label="Separate Field" labelInline />
-        </Form>
+        </Form>,
       );
 
       const form = getDataElementByValue(page, "form").locator("fieldset");
@@ -174,7 +178,7 @@ test.describe("Accessibility tests for Fieldset component", () => {
             labelAlign="right"
             {...{ [type]: bool }}
           />
-        </Fieldset>
+        </Fieldset>,
       );
 
       await checkAccessibility(page);
@@ -193,7 +197,7 @@ test.describe("Accessibility tests for Fieldset component", () => {
             <Textbox label="Fieldset 1 Field 2" labelInline />
           </Fieldset>
           <Textbox label="Separate Field" labelInline />
-        </Form>
+        </Form>,
       );
       await checkAccessibility(page);
     });
@@ -212,7 +216,7 @@ test.describe("Accessibility tests for Fieldset component", () => {
             labelAlign="right"
             {...{ [type]: "Message" }}
           />
-        </Fieldset>
+        </Fieldset>,
       );
 
       await checkAccessibility(page);
@@ -233,7 +237,7 @@ test.describe("Accessibility tests for Fieldset component", () => {
             validationOnLabel
             {...{ [type]: "Message" }}
           />
-        </Fieldset>
+        </Fieldset>,
       );
 
       await checkAccessibility(page);

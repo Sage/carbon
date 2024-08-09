@@ -70,16 +70,12 @@ test.describe("Check props of Popover Container component", () => {
     });
   });
 
-  ([
-    ["left", 131, 670, 560, 345],
-    ["right", 131, 345, 560, 670],
-  ] as [
-    PopoverContainerProps["position"],
-    number,
-    number,
-    number,
-    number
-  ][]).forEach(([position, top, right, bottom, left]) => {
+  (
+    [
+      ["left", 131, 670, 560, 345],
+      ["right", 131, 345, 560, 670],
+    ] as [PopoverContainerProps["position"], number, number, number, number][]
+  ).forEach(([position, top, right, bottom, left]) => {
     test(`when position prop is ${position}, component should have correct absolute positioning`, async ({
       mount,
       page,
@@ -87,52 +83,48 @@ test.describe("Check props of Popover Container component", () => {
       await mount(
         <Box display="flex" justifyContent="center">
           <PopoverContainerComponent position={position} />
-        </Box>
+        </Box>,
       );
 
       const popoverContainerContentElement = popoverContainerContent(page);
 
       await expect(popoverContainerContentElement).toHaveCSS(
         "position",
-        "absolute"
+        "absolute",
       );
 
       await assertCssValueIsApproximately(
         popoverContainerContentElement,
         "top",
-        top
+        top,
       );
 
       await assertCssValueIsApproximately(
         popoverContainerContentElement,
         "right",
-        right
+        right,
       );
 
       await assertCssValueIsApproximately(
         popoverContainerContentElement,
         "bottom",
-        bottom
+        bottom,
       );
 
       await assertCssValueIsApproximately(
         popoverContainerContentElement,
         "left",
-        left
+        left,
       );
     });
   });
 
-  ([
-    ["left", 121, 685, 572, 335],
-    ["right", 121, 335, 572, 685],
-  ] as [
-    PopoverContainerProps["position"],
-    number,
-    number,
-    number,
-    number
-  ][]).forEach(([position, top, right, bottom, left]) => {
+  (
+    [
+      ["left", 121, 685, 572, 335],
+      ["right", 121, 335, 572, 685],
+    ] as [PopoverContainerProps["position"], number, number, number, number][]
+  ).forEach(([position, top, right, bottom, left]) => {
     test(`when position prop set to ${position} and a custom open component is used, expected absolute positioning is applied`, async ({
       mount,
       page,
@@ -147,37 +139,37 @@ test.describe("Check props of Popover Container component", () => {
               onClick: (ev: React.MouseEvent<HTMLElement>) => void;
             }) => <Portrait onClick={onClick} />}
           />
-        </Box>
+        </Box>,
       );
       const popoverContainerContentElement = popoverContainerContent(page);
 
       await expect(popoverContainerContentElement).toHaveCSS(
         "position",
-        "absolute"
+        "absolute",
       );
 
       await assertCssValueIsApproximately(
         popoverContainerContentElement,
         "top",
-        top
+        top,
       );
 
       await assertCssValueIsApproximately(
         popoverContainerContentElement,
         "right",
-        right
+        right,
       );
 
       await assertCssValueIsApproximately(
         popoverContainerContentElement,
         "bottom",
-        bottom
+        bottom,
       );
 
       await assertCssValueIsApproximately(
         popoverContainerContentElement,
         "left",
-        left
+        left,
       );
     });
   });
@@ -187,7 +179,7 @@ test.describe("Check props of Popover Container component", () => {
 
     await expect(popoverContainerContent(page)).toHaveAttribute(
       "aria-describedby",
-      testString
+      testString,
     );
   });
 
@@ -196,18 +188,18 @@ test.describe("Check props of Popover Container component", () => {
 
     await expect(popoverSettingsIcon(page)).toHaveAttribute(
       "aria-label",
-      testString
+      testString,
     );
   });
 
   test("should render with closeButtonAriaLabel", async ({ mount, page }) => {
     await mount(
-      <PopoverContainerComponent closeButtonAriaLabel={testString} />
+      <PopoverContainerComponent closeButtonAriaLabel={testString} />,
     );
 
     await expect(popoverCloseIcon(page)).toHaveAttribute(
       "aria-label",
-      testString
+      testString,
     );
   });
 
@@ -218,7 +210,7 @@ test.describe("Check props of Popover Container component", () => {
 
     await expect(popoverContainerContentElement).toHaveAttribute(
       "aria-label",
-      testString
+      testString,
     );
   });
 
@@ -259,10 +251,12 @@ test.describe("Check props of Popover Container component", () => {
   const getYValue = (locator: Locator) =>
     locator.evaluate((element) => element.getBoundingClientRect().y);
 
-  ([
-    [true, 102, 178],
-    [false, 132, 208],
-  ] as const).forEach(([coverButton, yAndTopValueMin, bottomValueMin]) => {
+  (
+    [
+      [true, 102, 178],
+      [false, 132, 208],
+    ] as const
+  ).forEach(([coverButton, yAndTopValueMin, bottomValueMin]) => {
     test(`should render with shouldCoverButton prop set to ${coverButton}`, async ({
       mount,
       page,
@@ -272,7 +266,7 @@ test.describe("Check props of Popover Container component", () => {
           <PopoverContainerComponentCoverButton
             shouldCoverButton={coverButton}
           />
-        </Box>
+        </Box>,
       );
 
       const popoverContainerContentElement = popoverContainerContent(page);
@@ -280,7 +274,7 @@ test.describe("Check props of Popover Container component", () => {
 
       const positionTop = await getTopValue(popoverContainerContentElement);
       const positionBottom = await getBottomValue(
-        popoverContainerContentElement
+        popoverContainerContentElement,
       );
       const positionY = await getYValue(popoverContainerContentElement);
 
@@ -293,7 +287,7 @@ test.describe("Check props of Popover Container component", () => {
   keysToTrigger.forEach((key) => {
     test(`should open using ${key} keyboard key`, async ({ mount, page }) => {
       await mount(
-        <PopoverContainer title="String is awesome">Contents</PopoverContainer>
+        <PopoverContainer title="String is awesome">Contents</PopoverContainer>,
       );
 
       const popoverSettingsIconElement = popoverSettingsIcon(page);
@@ -306,7 +300,7 @@ test.describe("Check props of Popover Container component", () => {
   keysToTrigger.forEach((key) => {
     test(`should close using ${key} keyboard key`, async ({ mount, page }) => {
       await mount(
-        <PopoverContainer title="String is awesome">Contents</PopoverContainer>
+        <PopoverContainer title="String is awesome">Contents</PopoverContainer>,
       );
 
       const popoverSettingsIconElement = popoverSettingsIcon(page);
@@ -320,7 +314,7 @@ test.describe("Check props of Popover Container component", () => {
 
   test("should close using escape keyboard key", async ({ mount, page }) => {
     await mount(
-      <PopoverContainer title="String is awesome">Contents</PopoverContainer>
+      <PopoverContainer title="String is awesome">Contents</PopoverContainer>,
     );
 
     const openButton = page.getByRole("button", { name: "String is awesome" });
@@ -399,7 +393,7 @@ test.describe("Check props of Popover Container component", () => {
           onOpen={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       const popoverSettingsIconElement = popoverSettingsIcon(page);
@@ -419,7 +413,7 @@ test.describe("Check props of Popover Container component", () => {
             onOpen={() => {
               callbackCount += 1;
             }}
-          />
+          />,
         );
 
         const popoverSettingsIconElement = popoverSettingsIcon(page);
@@ -440,7 +434,7 @@ test.describe("Check props of Popover Container component", () => {
             callbackCount += 1;
           }}
           open
-        />
+        />,
       );
 
       const popoverCloseIconElement = popoverCloseIcon(page);
@@ -461,7 +455,7 @@ test.describe("Check props of Popover Container component", () => {
               callbackCount += 1;
             }}
             open
-          />
+          />,
         );
 
         const popoverCloseIconElement = popoverCloseIcon(page);
@@ -482,7 +476,7 @@ test.describe("Check props of Popover Container component", () => {
             callbackCount += 1;
           }}
           open
-        />
+        />,
       );
 
       const popoverContainerElement = popoverContainerComponent(page);
@@ -502,7 +496,7 @@ test.describe("Check props of Popover Container component", () => {
             callbackCount += 1;
           }}
           open
-        />
+        />,
       );
 
       await page.locator("body").click();
@@ -521,7 +515,7 @@ test.describe("Check props of Popover Container component", () => {
             callbackCount += 1;
           }}
           open={false}
-        />
+        />,
       );
 
       await page.locator("body").click();
@@ -573,7 +567,7 @@ test.describe("Check props of Popover Container component", () => {
         <button type="button">First</button>
         <button type="button">Second</button>
         <button type="button">Third</button>
-      </CoverButton>
+      </CoverButton>,
     );
 
     const openButton = popoverSettingsIcon(page);
@@ -606,7 +600,7 @@ test.describe("Check props of Popover Container component", () => {
         <button type="button">First</button>
         <button type="button">Second</button>
         <button type="button">Third</button>
-      </CoverButton>
+      </CoverButton>,
     );
 
     const openButton = popoverSettingsIcon(page);
@@ -743,7 +737,7 @@ test.describe("Check props of Popover Container component", () => {
       await mainTextElement.click();
 
       const assertions = [0, 1, 2].map((index) =>
-        expect(getComponent(page, "pill").nth(index)).toBeVisible()
+        expect(getComponent(page, "pill").nth(index)).toBeVisible(),
       );
       await Promise.all(assertions);
 
@@ -762,7 +756,7 @@ test.describe("Check props of Popover Container component", () => {
 
       await expect(popoverContainerContentElement).toHaveCSS(
         "border-radius",
-        "8px"
+        "8px",
       );
     });
   });

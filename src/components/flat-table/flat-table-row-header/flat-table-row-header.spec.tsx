@@ -31,7 +31,7 @@ describe("FlatTableRowHeader", () => {
     ),
     { py: "10px", px: 3 },
     undefined,
-    { modifier: "&&&& > div" }
+    { modifier: "&&&& > div" },
   );
 
   describe("when a data prop is added", () => {
@@ -43,10 +43,10 @@ describe("FlatTableRowHeader", () => {
               <FlatTableRowHeader data-role="test" />
             </tr>
           </thead>
-        </table>
+        </table>,
       );
       expect(
-        wrapper.find(StyledFlatTableRowHeader).props()["data-role"]
+        wrapper.find(StyledFlatTableRowHeader).props()["data-role"],
       ).toEqual("test");
     });
   });
@@ -59,13 +59,13 @@ describe("FlatTableRowHeader", () => {
             <FlatTableRowHeader width={40} />
           </tr>
         </thead>
-      </table>
+      </table>,
     );
     assertStyleMatch(
       {
         width: "40px",
       },
-      wrapper.find(StyledFlatTableRowHeader)
+      wrapper.find(StyledFlatTableRowHeader),
     );
 
     assertStyleMatch(
@@ -73,7 +73,7 @@ describe("FlatTableRowHeader", () => {
         width: "40px",
       },
       wrapper.find(StyledFlatTableRowHeader),
-      { modifier: "&&&& > div" }
+      { modifier: "&&&& > div" },
     );
   });
 
@@ -86,7 +86,7 @@ describe("FlatTableRowHeader", () => {
               <FlatTableRowHeader colspan={2} />
             </tr>
           </thead>
-        </table>
+        </table>,
       )
         .find(StyledFlatTableRowHeader)
         .getDOMNode();
@@ -104,7 +104,7 @@ describe("FlatTableRowHeader", () => {
               <FlatTableRowHeader rowspan={2} />
             </tr>
           </thead>
-        </table>
+        </table>,
       )
         .find(StyledFlatTableRowHeader)
         .getDOMNode();
@@ -131,7 +131,7 @@ describe("FlatTableRowHeader", () => {
               </FlatTableRowContext.Provider>
             </tr>
           </thead>
-        </table>
+        </table>,
       );
 
       expect(wrapper.find(StyledIcon).exists()).toEqual(true);
@@ -158,7 +158,7 @@ describe("FlatTableRowHeader", () => {
                 </FlatTableRowContext.Provider>
               </tr>
             </thead>
-          </table>
+          </table>,
         );
 
         wrapper.find(StyledFlatTableRowHeader).props().onClick();
@@ -188,7 +188,7 @@ describe("FlatTableRowHeader", () => {
                 </FlatTableRowContext.Provider>
               </tr>
             </thead>
-          </table>
+          </table>,
         );
 
         wrapper.find(StyledFlatTableRowHeader).props().onKeyDown();
@@ -218,7 +218,7 @@ describe("FlatTableRowHeader", () => {
                 </FlatTableRowContext.Provider>
               </tr>
             </thead>
-          </table>
+          </table>,
         );
 
         wrapper.find(StyledFlatTableRowHeader).props().onClick();
@@ -246,7 +246,7 @@ describe("FlatTableRowHeader", () => {
                 </FlatTableRowContext.Provider>
               </tr>
             </thead>
-          </table>
+          </table>,
         );
 
         wrapper.find(StyledFlatTableRowHeader).props().onKeyDown();
@@ -266,7 +266,7 @@ describe("FlatTableRowHeader", () => {
               <FlatTableRowHeader truncate>Foo</FlatTableRowHeader>
             </tr>
           </thead>
-        </table>
+        </table>,
       );
     });
 
@@ -278,7 +278,7 @@ describe("FlatTableRowHeader", () => {
           whiteSpace: "nowrap",
         },
         wrapper.find(StyledFlatTableRowHeader),
-        { modifier: "&&&& > div" }
+        { modifier: "&&&& > div" },
       );
     });
 
@@ -297,7 +297,7 @@ describe("FlatTableRowHeader", () => {
                 </FlatTableRowHeader>
               </tr>
             </thead>
-          </table>
+          </table>,
         );
         expect(wrapper.find("div").props().title).toEqual("Bar");
       });
@@ -317,15 +317,15 @@ describe("FlatTableRowHeader", () => {
                 </FlatTableRowHeader>
               </tr>
             </thead>
-          </table>
+          </table>,
         )
           .find(StyledFlatTableRowHeader)
           .getDOMNode();
 
         expect(element.getAttribute("data-sticky-align")).toEqual(
-          stickyAlignment
+          stickyAlignment,
         );
-      }
+      },
     );
 
     it("increases the z-index of the sticky TH or TD if content is focused and they are part of a FlatTableBody", () => {
@@ -357,7 +357,7 @@ describe("FlatTableRowHeader", () => {
               <FlatTableCell>text content</FlatTableCell>
             </FlatTableRow>
           </FlatTableBody>
-        </FlatTable>
+        </FlatTable>,
       );
 
       const headerOne = screen.getByTestId("header-one");
@@ -406,7 +406,7 @@ describe("FlatTableRowHeader", () => {
             <Button>header one button</Button>
           </FlatTableRowHeader>
           <FlatTableCell>text content</FlatTableCell>
-        </FlatTableRow>
+        </FlatTableRow>,
       );
 
       const headerOne = screen.getByTestId("header-one");
@@ -427,7 +427,11 @@ describe("FlatTableRowHeader", () => {
     ["medium", "2px", "right"],
     ["large", "4px", "left"],
     ["large", "4px", "right"],
-  ] as [FlatTableRowHeaderProps["verticalBorder"], string, FlatTableRowHeaderProps["stickyAlignment"]][])(
+  ] as [
+    FlatTableRowHeaderProps["verticalBorder"],
+    string,
+    FlatTableRowHeaderProps["stickyAlignment"],
+  ][])(
     "when the verticalBorder prop is set to %s",
     (verticalBorder, expectedValue, stickyAlignment) => {
       let wrapper;
@@ -449,17 +453,17 @@ describe("FlatTableRowHeader", () => {
                 </FlatTableRowHeader>
               </tr>
             </thead>
-          </table>
+          </table>,
         );
         assertStyleMatch(
           {
             [targetedBorder]: expectedValue,
           },
           wrapper,
-          { modifier: "&&&&" }
+          { modifier: "&&&&" },
         );
       });
-    }
+    },
   );
 
   describe.each([
@@ -469,7 +473,10 @@ describe("FlatTableRowHeader", () => {
     ["#ffffff", "right"],
     ["--colorsUtilityMajor550", "left"],
     ["--colorsUtilityMajor550", "right"],
-  ] as [FlatTableRowHeaderProps["verticalBorderColor"], FlatTableRowHeaderProps["stickyAlignment"]][])(
+  ] as [
+    FlatTableRowHeaderProps["verticalBorderColor"],
+    FlatTableRowHeaderProps["stickyAlignment"],
+  ][])(
     "when the verticalBorderColor prop is set to %s and stickyAlignment is %s",
     (verticalBorderColor, stickyAlignment) => {
       let wrapper;
@@ -491,16 +498,16 @@ describe("FlatTableRowHeader", () => {
                 </FlatTableRowHeader>
               </tr>
             </thead>
-          </table>
+          </table>,
         );
         assertStyleMatch(
           {
             [targetedBorder]: verticalBorderColor,
           },
           wrapper,
-          { modifier: "&&&&" }
+          { modifier: "&&&&" },
         );
       });
-    }
+    },
   );
 });

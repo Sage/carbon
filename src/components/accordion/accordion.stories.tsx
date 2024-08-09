@@ -356,7 +356,7 @@ export const WithValidationIcon: Story = () => {
     id: Validations,
     type: ValidationObject,
     setter: React.Dispatch<React.SetStateAction<ValidationObject>>,
-    msg: string
+    msg: string,
   ) => {
     const update = type[id] ? undefined : msg;
     setter((previous) => ({ ...previous, [id]: update }));

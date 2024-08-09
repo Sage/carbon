@@ -39,7 +39,7 @@ test.each([
     const heading = screen.getByRole("heading", { level });
     expect(heading).toBeVisible();
     expect(heading).toHaveTextContent("foo");
-  }
+  },
 );
 
 test("renders with the correct description text when the `description` prop is passed", () => {
@@ -69,7 +69,7 @@ test("renders a divider when the `divider` prop is passed", () => {
   const settingsRow = screen.getByTestId("settings-row");
   expect(settingsRow).toHaveStyleRule(
     "border-bottom",
-    "1px solid var(--colorsUtilityMajor050)"
+    "1px solid var(--colorsUtilityMajor050)",
   );
   expect(settingsRow).toHaveStyleRule("padding-bottom", "30px");
 });

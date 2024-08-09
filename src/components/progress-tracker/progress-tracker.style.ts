@@ -39,10 +39,9 @@ const StyledProgressTracker = styled.div<
   text-align: center;
   white-space: nowrap;
 
-  ${({ length }) =>
-    css`
-      width: ${length};
-    `};
+  ${({ length }) => css`
+    width: ${length};
+  `};
   ${({ labelsPosition }) =>
     labelsPosition === "left" &&
     css`

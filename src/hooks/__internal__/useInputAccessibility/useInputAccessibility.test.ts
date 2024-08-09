@@ -32,11 +32,11 @@ test("returns ariaDescribedBy with fieldHelp and validationId combined when the 
       fieldHelp,
       error,
       validationRedesignOptIn: true,
-    })
+    }),
   ).toEqual(
     expect.objectContaining({
       ariaDescribedBy: `${id}-field-help ${id}-validation`,
-    })
+    }),
   );
 });
 
@@ -47,7 +47,7 @@ describe.each([error, info, warning])(
       expect(useInputAccessibility({ id, [key]: key })).toEqual(
         expect.objectContaining({
           validationId: `${id}-validation`,
-        })
+        }),
       );
     });
 
@@ -55,7 +55,7 @@ describe.each([error, info, warning])(
       expect(useInputAccessibility({ id, [key]: key })).toEqual(
         expect.objectContaining({
           ariaDescribedBy: undefined,
-        })
+        }),
       );
     });
 
@@ -65,12 +65,12 @@ describe.each([error, info, warning])(
           id,
           [key]: key,
           validationRedesignOptIn: true,
-        })
+        }),
       ).toEqual(
         expect.objectContaining({
           ariaDescribedBy: `${id}-validation`,
-        })
+        }),
       );
     });
-  }
+  },
 );

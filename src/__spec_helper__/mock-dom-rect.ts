@@ -13,10 +13,10 @@ const getDOMRect = (width: number, height: number): DOMRect => ({
 const mockDOMRect = (
   width: number,
   height: number,
-  elementIdentifier: string
+  elementIdentifier: string,
 ) => {
   Element.prototype.getBoundingClientRect = jest.fn(function (
-    this: HTMLElement
+    this: HTMLElement,
   ) {
     if (this.getAttribute("data-component") === elementIdentifier) {
       return getDOMRect(width, height);

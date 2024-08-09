@@ -99,7 +99,7 @@ test("renders custom no results message when no options match filterText and noR
 
 test("renders custom no results message when no option rows match filterText and noResultsMessage prop is provided", () => {
   render(
-    <FilterableTable filterText="xyz" noResultsMessage="custom message" />
+    <FilterableTable filterText="xyz" noResultsMessage="custom message" />,
   );
 
   expect(screen.queryAllByRole("option")).toHaveLength(0);

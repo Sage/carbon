@@ -23,7 +23,7 @@ export interface TileSelectGroupProps extends MarginProps {
   name: string;
   /** A callback triggered when one of tiles is selected - only for single select mode. */
   onChange?: (
-    ev: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    ev: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => void;
   /** A callback triggered when one of tiles is blurred - only for single select mode. */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;

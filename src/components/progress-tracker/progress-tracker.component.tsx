@@ -88,7 +88,7 @@ const ProgressTracker = ({
   ) {
     deprecatedAriaTagsWarnTriggered = true;
     Logger.deprecate(
-      "The 'aria-' attribute props in `ProgressTracker` have been deprecated and will soon be removed."
+      "The 'aria-' attribute props in `ProgressTracker` have been deprecated and will soon be removed.",
     );
   }
 
@@ -124,7 +124,7 @@ const ProgressTracker = ({
 
     const displayedCurrentProgressLabel = label(
       currentProgressLabel,
-      `${progress}%`
+      `${progress}%`,
     );
 
     const displayedMaxProgressLabel = label(maxProgressLabel, "100%");

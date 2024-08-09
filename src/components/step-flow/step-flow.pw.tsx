@@ -59,7 +59,7 @@ test.describe("Prop checks for StepFlow component", () => {
       page,
     }) => {
       await mount(
-        <StepFlowComponent title="foo" titleVariant={titleVariants} />
+        <StepFlowComponent title="foo" titleVariant={titleVariants} />,
       );
 
       await expect(page.locator(titleVariants)).toContainText("foo");
@@ -76,7 +76,7 @@ test.describe("Prop checks for StepFlow component", () => {
           title={
             <StepFlowTitle titleString="foo" titleVariant={titleVariants} />
           }
-        />
+        />,
       );
 
       await expect(page.locator(titleVariants)).toContainText("foo");
@@ -92,36 +92,40 @@ test.describe("Prop checks for StepFlow component", () => {
     await expect(stepFlowProgressIndicatorBar(page)).toBeVisible();
   });
 
-  ([
-    [1, 1],
-    [2, 1],
-    [2, 3],
-  ] as [Steps, Steps][]).forEach(([totalSteps, currentStep]) => {
+  (
+    [
+      [1, 1],
+      [2, 1],
+      [2, 3],
+    ] as [Steps, Steps][]
+  ).forEach(([totalSteps, currentStep]) => {
     test(`should render the correct label when the 'totalSteps' prop is passed as ${totalSteps} and 'currentStep' is ${currentStep}`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <StepFlowComponent totalSteps={totalSteps} currentStep={currentStep} />
+        <StepFlowComponent totalSteps={totalSteps} currentStep={currentStep} />,
       );
 
       if (totalSteps >= currentStep) {
         await expect(stepFlowLabel(page)).toHaveText(
-          `Step ${currentStep} of ${totalSteps}`
+          `Step ${currentStep} of ${totalSteps}`,
         );
       } else {
         await expect(stepFlowLabel(page)).toHaveText(
-          `Step ${totalSteps} of ${totalSteps}`
+          `Step ${totalSteps} of ${totalSteps}`,
         );
       }
     });
   });
 
-  ([
-    [1, 1],
-    [2, 1],
-    [2, 3],
-  ] as [Steps, Steps][]).forEach(([totalSteps, currentStep]) => {
+  (
+    [
+      [1, 1],
+      [2, 1],
+      [2, 3],
+    ] as [Steps, Steps][]
+  ).forEach(([totalSteps, currentStep]) => {
     test(`should render the correct visually hidden title when the 'totalSteps' prop is passed as ${totalSteps} and 'currentStep' is ${currentStep}, and the category and title props are also passed`, async ({
       mount,
       page,
@@ -135,16 +139,16 @@ test.describe("Prop checks for StepFlow component", () => {
           currentStep={currentStep}
           category={category}
           title={title}
-        />
+        />,
       );
 
       if (totalSteps >= currentStep) {
         await expect(stepFlowVisuallyHiddenTitleText(page)).toHaveText(
-          `${category}. ${title}. Step ${currentStep} of ${totalSteps}.`
+          `${category}. ${title}. Step ${currentStep} of ${totalSteps}.`,
         );
       } else {
         await expect(stepFlowVisuallyHiddenTitleText(page)).toHaveText(
-          `${category}. ${title}. Step ${totalSteps} of ${totalSteps}.`
+          `${category}. ${title}. Step ${totalSteps} of ${totalSteps}.`,
         );
       }
     });
@@ -156,7 +160,7 @@ test.describe("Prop checks for StepFlow component", () => {
       page,
     }) => {
       await mount(
-        <StepFlowComponent totalSteps={totalSteps} showProgressIndicator />
+        <StepFlowComponent totalSteps={totalSteps} showProgressIndicator />,
       );
 
       expect(await stepFlowProgressIndicator(page).count()).toEqual(totalSteps);
@@ -177,13 +181,17 @@ test.describe("Prop checks for StepFlow component", () => {
     page,
   }) => {
     await mount(
-      <StepFlowComponent currentStep={1} totalSteps={1} showProgressIndicator />
+      <StepFlowComponent
+        currentStep={1}
+        totalSteps={1}
+        showProgressIndicator
+      />,
     );
 
     const backgroundColorToken = await getDesignTokensByCssProperty(
       page,
       stepFlowProgressIndicator(page),
-      "background-color"
+      "background-color",
     );
 
     expect(backgroundColorToken[0]).toBe("--colorsUtilityYin090");
@@ -194,13 +202,17 @@ test.describe("Prop checks for StepFlow component", () => {
     page,
   }) => {
     await mount(
-      <StepFlowComponent currentStep={2} totalSteps={3} showProgressIndicator />
+      <StepFlowComponent
+        currentStep={2}
+        totalSteps={3}
+        showProgressIndicator
+      />,
     );
 
     const backgroundColorToken = await getDesignTokensByCssProperty(
       page,
       stepFlowProgressIndicator(page).nth(0),
-      "background-color"
+      "background-color",
     );
 
     expect(backgroundColorToken[0]).toBe("--colorsSemanticPositive500");
@@ -211,13 +223,17 @@ test.describe("Prop checks for StepFlow component", () => {
     page,
   }) => {
     await mount(
-      <StepFlowComponent currentStep={2} totalSteps={3} showProgressIndicator />
+      <StepFlowComponent
+        currentStep={2}
+        totalSteps={3}
+        showProgressIndicator
+      />,
     );
 
     const backgroundColorToken = await getDesignTokensByCssProperty(
       page,
       stepFlowProgressIndicator(page).nth(2),
-      "background-color"
+      "background-color",
     );
 
     expect(backgroundColorToken[0]).toBe("--colorsActionDisabled600");
@@ -236,7 +252,7 @@ test.describe("Event checks for StepFlow component", () => {
         onDismiss={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
     await stepFlowDismissIcon(page).click();
 
@@ -321,7 +337,11 @@ test.describe("Accessibility tests for StepFlow component", () => {
     page,
   }) => {
     await mount(
-      <StepFlowComponent showProgressIndicator currentStep={2} totalSteps={3} />
+      <StepFlowComponent
+        showProgressIndicator
+        currentStep={2}
+        totalSteps={3}
+      />,
     );
 
     await checkAccessibility(page);

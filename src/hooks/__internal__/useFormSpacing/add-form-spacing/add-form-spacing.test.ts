@@ -16,7 +16,7 @@ test.each(["mx", "marginX", "ml", "marginLeft", "mr", "marginRight"])(
       mb: "5px",
       mt: 0,
     });
-  }
+  },
 );
 
 test.each(["mt", "marginTop"])(
@@ -26,7 +26,7 @@ test.each(["mt", "marginTop"])(
       [marginProp]: "10px",
       mb: "5px",
     });
-  }
+  },
 );
 
 test.each(["mb", "marginBottom"])(
@@ -36,7 +36,7 @@ test.each(["mb", "marginBottom"])(
       [marginProp]: "10px",
       mt: 0,
     });
-  }
+  },
 );
 
 test.each(["my", "marginY", "m", "margin"])(
@@ -45,5 +45,5 @@ test.each(["my", "marginY", "m", "margin"])(
     expect(addFormSpacing({ [marginProp]: "10px" }, "5px")).toEqual({
       [marginProp]: "10px",
     });
-  }
+  },
 );

@@ -47,7 +47,7 @@ describe("Help", () => {
       const mockMessage = "Help Message";
 
       wrapper = mount(
-        renderHelp({ tooltipPosition: mockPosition, children: mockMessage })
+        renderHelp({ tooltipPosition: mockPosition, children: mockMessage }),
       );
 
       tooltip = wrapper.find(Tooltip);
@@ -88,7 +88,7 @@ describe("Help", () => {
 
       expect(wrapper.find(StyledHelp).prop("target")).toEqual("_blank");
       expect(wrapper.find(StyledHelp).prop("rel")).toEqual(
-        "noopener noreferrer"
+        "noopener noreferrer",
       );
       expect(wrapper.find(StyledHelp).prop("role")).toEqual(undefined);
       expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual("foo");
@@ -109,7 +109,7 @@ describe("Help", () => {
       renderHelp({
         "data-element": "bar",
         "data-role": "baz",
-      })
+      }),
     );
 
     it("include correct component, element and role data tags", () => {
@@ -193,7 +193,7 @@ describe("Help", () => {
         wrapper = mount(
           <div>
             <Help>mock message</Help>
-          </div>
+          </div>,
         );
       });
       domNode = wrapper.getDOMNode();

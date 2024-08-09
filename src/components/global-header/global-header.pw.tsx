@@ -40,7 +40,7 @@ test.describe("Global Header component", () => {
       (element) => {
         const style = getComputedStyle(element);
         return style.zIndex;
-      }
+      },
     );
 
     const globalIndex = parseInt(globalHeaderZIndex.toString());

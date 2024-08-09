@@ -39,7 +39,7 @@ const render = (props = {}, renderer = mount, locale?: Locale) => {
     <I18nProvider locale={locale}>
       <Toolbar {...combinedProps} />
     </I18nProvider>,
-    { attachTo: document.getElementById("enzymeContainer") }
+    { attachTo: document.getElementById("enzymeContainer") },
   );
 };
 
@@ -63,7 +63,7 @@ describe("Toolbar", () => {
           width: "100%",
           boxSizing: "border-box",
         },
-        render()
+        render(),
       );
     });
 
@@ -73,7 +73,7 @@ describe("Toolbar", () => {
           display: "inline-flex",
           gap: "8px",
         },
-        render().find(StyledEditorStyleControls)
+        render().find(StyledEditorStyleControls),
       );
     });
 
@@ -87,8 +87,8 @@ describe("Toolbar", () => {
           gap: "var(--spacing200)",
         },
         render({ toolbarElements: <Button>foo</Button> }).find(
-          StyledEditorActionControls
-        )
+          StyledEditorActionControls,
+        ),
       );
     });
   });
@@ -115,8 +115,8 @@ describe("Toolbar", () => {
         const newIndex = index < 3 ? index + 1 : 0;
         setTimeout(() =>
           expect(
-            wrapper.find(ToolbarButton).at(newIndex).getDOMNode()
-          ).toBeFocused()
+            wrapper.find(ToolbarButton).at(newIndex).getDOMNode(),
+          ).toBeFocused(),
         );
       });
     });
@@ -128,8 +128,8 @@ describe("Toolbar", () => {
         const newIndex = index === 0 ? 3 : index - 1;
         setTimeout(() =>
           expect(
-            wrapper.find(ToolbarButton).at(newIndex).getDOMNode()
-          ).toBeFocused()
+            wrapper.find(ToolbarButton).at(newIndex).getDOMNode(),
+          ).toBeFocused(),
         );
       });
     });
@@ -243,7 +243,7 @@ describe("Toolbar", () => {
           wrapper.find(ToolbarButton).at(i).simulate("mouseleave");
         });
         expect(wrapper.find(Tooltip).at(i).props().isVisible).toEqual(false);
-      }
+      },
     );
 
     it.each([0, 1, 2, 3])(
@@ -258,7 +258,7 @@ describe("Toolbar", () => {
           wrapper.find(ToolbarButton).at(i).simulate("blur");
         });
         expect(wrapper.find(Tooltip).at(i).props().isVisible).toEqual(false);
-      }
+      },
     );
   });
 
@@ -269,7 +269,7 @@ describe("Toolbar", () => {
       wrapper = render({ toolbarElements: exampleButton });
 
       expect(wrapper.find("[data-element='toolbar-button']").exists()).toBe(
-        true
+        true,
       );
     });
   });
@@ -309,7 +309,7 @@ describe("Toolbar", () => {
 
         expect(message).toEqual(translatedMessage);
         expect(ariaLabel).toEqual(translatedAriaLabel);
-      }
+      },
     );
   });
 });

@@ -8,13 +8,13 @@ test("returns false when the element is not an Option", () => {
 
 test("returns true when the element is an Option whose value property matches expectedValue", () => {
   expect(
-    isExpectedOption(<Option value="foo" text="bar" />, "foo")
+    isExpectedOption(<Option value="foo" text="bar" />, "foo"),
   ).toBeTruthy();
 });
 
 test("returns false when the element is an Option whose value property does not match expectedValue", () => {
   expect(
-    isExpectedOption(<Option value="foo" text="bar" />, "bar")
+    isExpectedOption(<Option value="foo" text="bar" />, "bar"),
   ).toBeFalsy();
 });
 
@@ -22,8 +22,8 @@ test("returns true when the element is an Option whose value property is an obje
   expect(
     isExpectedOption(
       <Option value={{ id: "foo", value: "foo" }} text="bar" />,
-      { id: "foo", value: "foo" }
-    )
+      { id: "foo", value: "foo" },
+    ),
   ).toBeTruthy();
 });
 
@@ -31,8 +31,8 @@ test("returns false when the element is an Option whose value property is an obj
   expect(
     isExpectedOption(
       <Option value={{ id: "foo", value: "foo" }} text="bar" />,
-      { id: "bar", value: "foo" }
-    )
+      { id: "bar", value: "foo" },
+    ),
   ).toBeFalsy();
 });
 
@@ -45,7 +45,7 @@ it.each([
   expect(
     isExpectedOption(
       <Option text="bar" value={{ id: "foo", value: "foo" }} />,
-      expectedValue
-    )
+      expectedValue,
+    ),
   ).toBe(false);
 });

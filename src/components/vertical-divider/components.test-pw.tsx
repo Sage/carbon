@@ -111,7 +111,7 @@ interface VerticalDividerArgs {
 }
 
 export const VerticalDividerComponent = (
-  props: Partial<VerticalDividerArgs>
+  props: Partial<VerticalDividerArgs>,
 ) => {
   return <VerticalDivider {...props} />;
 };

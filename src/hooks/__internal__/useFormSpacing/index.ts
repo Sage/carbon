@@ -8,12 +8,11 @@ import {
 import addFormSpacing from "./add-form-spacing";
 
 export default (props: Record<string, unknown> | MarginProps) => {
-  const { marginBottom } = useContext<FormSpacingContextProps>(
-    FormSpacingContext
-  );
+  const { marginBottom } =
+    useContext<FormSpacingContextProps>(FormSpacingContext);
   const marginProps = addFormSpacing(
     filterStyledSystemMarginProps(props),
-    marginBottom
+    marginBottom,
   );
 
   return marginProps;

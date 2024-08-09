@@ -11,7 +11,7 @@ describe("ScrollBlockManager's registerComponent method behavior", () => {
 
   it("should add the registered component's ID to the global variable window.__CARBON_INTERNALS_SCROLL_BLOCKERS", () => {
     expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS?.components[id1]).toBe(
-      true
+      true,
     );
   });
 });
@@ -96,7 +96,7 @@ describe("ScrollBlockManager's saveRestoreValuesCallback and getRestoreValuesCal
 
     scrollBlockManager.saveRestoreValuesCallback(callback);
     expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS?.restoreValues).toBe(
-      callback
+      callback,
     );
 
     expect(scrollBlockManager.getRestoreValuesCallback()).toBe(callback);

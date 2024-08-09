@@ -57,7 +57,7 @@ test("should change the aria-live region announcement text from hidden to shown 
   const liveRegion = screen.getByRole("status");
 
   expect(liveRegion).toHaveTextContent(
-    "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so."
+    "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so.",
   );
 });
 

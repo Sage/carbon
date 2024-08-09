@@ -8,19 +8,19 @@ describe("FlexTileContainer", () => {
     "renders with correct column gap when columnGap prop is %s",
     (gapValue) => {
       render(
-        <FlexTileContainer columnGap={gapValue}>content</FlexTileContainer>
+        <FlexTileContainer columnGap={gapValue}>content</FlexTileContainer>,
       );
       expect(screen.getByText("content")).toHaveStyle({
         columnGap: getGapValue(gapValue),
       });
-    }
+    },
   );
 
   it("does not render when falsy children are passed", () => {
     render(
       <FlexTileContainer data-role="flex-tile-container">
         {null}
-      </FlexTileContainer>
+      </FlexTileContainer>,
     );
 
     expect(screen.queryByTestId("flex-tile-container")).not.toBeInTheDocument();

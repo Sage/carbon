@@ -96,7 +96,7 @@ function renderFlatTableWithDiv(props = {}) {
           </FlatTableRow>
         </FlatTableBody>
       </FlatTable>
-    </div>
+    </div>,
   );
 }
 
@@ -114,7 +114,7 @@ describe("FlatTable", () => {
     const wrapper = renderFlatTable({ ariaDescribedby: customId });
 
     expect(wrapper.find(StyledFlatTable).prop("aria-describedby")).toBe(
-      customId
+      customId,
     );
   });
 
@@ -123,7 +123,7 @@ describe("FlatTable", () => {
       const wrapper = renderFlatTable({ "data-role": "test" });
 
       expect(wrapper.find(StyledFlatTableWrapper).props()["data-role"]).toEqual(
-        "test"
+        "test",
       );
     });
   });
@@ -138,7 +138,7 @@ describe("FlatTable", () => {
     it("should have the overflow-y css property set to to auto", () => {
       expect(wrapper.find(StyledFlatTableWrapper)).toHaveStyleRule(
         "overflow-y",
-        "auto"
+        "auto",
       );
     });
 
@@ -151,7 +151,7 @@ describe("FlatTable", () => {
           zIndex: "1005",
         },
         wrapper.find(StyledFlatTableWrapper),
-        { modifier: `${StyledFlatTableHead}` }
+        { modifier: `${StyledFlatTableHead}` },
       );
     });
 
@@ -167,7 +167,7 @@ describe("FlatTable", () => {
         },
 
         wrapper.find(StyledFlatTableWrapper),
-        { modifier: `${StyledFlatTableHeader}` }
+        { modifier: `${StyledFlatTableHeader}` },
       );
     });
 
@@ -182,7 +182,7 @@ describe("FlatTable", () => {
         },
 
         wrapper.find(StyledFlatTableWrapper),
-        { modifier: `${StyledFlatTableHeader}` }
+        { modifier: `${StyledFlatTableHeader}` },
       );
     });
 
@@ -197,7 +197,7 @@ describe("FlatTable", () => {
         },
 
         wrapper.find(StyledFlatTableWrapper),
-        { modifier: `${StyledFlatTableHeader}` }
+        { modifier: `${StyledFlatTableHeader}` },
       );
     });
 
@@ -212,7 +212,7 @@ describe("FlatTable", () => {
         },
 
         wrapper.find(StyledFlatTableWrapper),
-        { modifier: `${StyledFlatTableHeader}` }
+        { modifier: `${StyledFlatTableHeader}` },
       );
     });
   });
@@ -229,7 +229,7 @@ describe("FlatTable", () => {
               </tr>
             </tbody>
           </FlatTable>
-        </DrawerSidebarContext.Provider>
+        </DrawerSidebarContext.Provider>,
       );
     });
 
@@ -247,7 +247,7 @@ describe("FlatTable", () => {
           color: "var(--colorsUtilityYin090)",
         },
         wrapper.find(StyledFlatTableWrapper),
-        { modifier: `${modifierString}` }
+        { modifier: `${modifierString}` },
       );
     });
   });
@@ -265,10 +265,10 @@ describe("FlatTable", () => {
           wrapper.find(StyledFlatTable),
           {
             modifier: `${StyledFlatTableRow}:hover ${StyledFlatTableCheckbox}:not(th)`,
-          }
+          },
         );
       });
-    }
+    },
   );
 
   describe("when the caption prop is set", () => {
@@ -323,7 +323,7 @@ describe("FlatTable", () => {
         wrapper.find(StyledFlatTable),
         {
           modifier: `${StyledFlatTableRow}`,
-        }
+        },
       );
     });
   });
@@ -337,7 +337,7 @@ describe("FlatTable", () => {
         {
           boxSizing: "border-box",
         },
-        wrapper.find(StyledFlatTableWrapper)
+        wrapper.find(StyledFlatTableWrapper),
       );
     });
 
@@ -350,7 +350,7 @@ describe("FlatTable", () => {
         {
           maxHeight: "100%",
         },
-        wrapper.find(StyledFlatTableWrapper)
+        wrapper.find(StyledFlatTableWrapper),
       );
     });
 
@@ -363,7 +363,7 @@ describe("FlatTable", () => {
         {
           maxHeight: undefined,
         },
-        wrapper.find(StyledFlatTableWrapper)
+        wrapper.find(StyledFlatTableWrapper),
       );
     });
   });
@@ -389,7 +389,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>John Doe</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
       }).not.toThrow();
     });
@@ -413,14 +413,14 @@ describe("FlatTable", () => {
           bottom: "0px",
           zIndex: "1001",
         },
-        wrapper.find(StyledFlatTableFooter)
+        wrapper.find(StyledFlatTableFooter),
       );
     });
 
     it("sets the wrapper flex css props as expected", () => {
       wrapper = renderFlatTable({ footer: <Footer />, hasStickyFooter: true });
       expect(
-        wrapper.find(StyledFlatTableWrapper).prop("justifyContent")
+        wrapper.find(StyledFlatTableWrapper).prop("justifyContent"),
       ).toEqual("space-between");
     });
   });
@@ -437,14 +437,14 @@ describe("FlatTable", () => {
         {
           width: "300px",
         },
-        wrapper.find(StyledFlatTableWrapper)
+        wrapper.find(StyledFlatTableWrapper),
       );
 
       assertStyleMatch(
         {
           width: "300px",
         },
-        wrapper.find(StyledTableContainer)
+        wrapper.find(StyledTableContainer),
       );
     });
 
@@ -456,14 +456,14 @@ describe("FlatTable", () => {
           {
             overflowX: "hidden",
           },
-          wrapper.find(StyledFlatTableWrapper)
+          wrapper.find(StyledFlatTableWrapper),
         );
 
         assertStyleMatch(
           {
             overflowX: "auto",
           },
-          wrapper.find(StyledTableContainer)
+          wrapper.find(StyledTableContainer),
         );
       });
     });
@@ -499,7 +499,7 @@ describe("FlatTable", () => {
               <FlatTableCell>city</FlatTableCell>
             </FlatTableRow>
           </FlatTableBody>
-        </FlatTable>
+        </FlatTable>,
       );
     });
 
@@ -511,9 +511,9 @@ describe("FlatTable", () => {
             zIndex,
           },
           wrapper,
-          { modifier }
+          { modifier },
         );
-      }
+      },
     );
   });
 
@@ -531,7 +531,7 @@ describe("FlatTable", () => {
               <FlatTableCell>child one</FlatTableCell>
             </FlatTableRow>
           </FlatTableBody>
-        </FlatTable>
+        </FlatTable>,
       );
 
       assertStyleMatch(
@@ -541,7 +541,7 @@ describe("FlatTable", () => {
           borderBottomLeftRadius: "var(--borderRadius100)",
           borderBottomRightRadius: "var(--borderRadius100)",
         },
-        wrapper.find(StyledFlatTableWrapper)
+        wrapper.find(StyledFlatTableWrapper),
       );
 
       assertStyleMatch(
@@ -551,7 +551,7 @@ describe("FlatTable", () => {
         wrapper.find(StyledFlatTableWrapper),
         {
           modifier: `thead ${StyledFlatTableRow}:first-of-type th:first-of-type`,
-        }
+        },
       );
 
       assertStyleMatch(
@@ -561,7 +561,7 @@ describe("FlatTable", () => {
         wrapper.find(StyledFlatTableWrapper),
         {
           modifier: `thead ${StyledFlatTableRow}:first-of-type th:last-of-type`,
-        }
+        },
       );
 
       assertStyleMatch(
@@ -571,7 +571,7 @@ describe("FlatTable", () => {
         wrapper.find(StyledFlatTableWrapper),
         {
           modifier: `tbody ${StyledFlatTableRow}:last-of-type td:first-child`,
-        }
+        },
       );
 
       assertStyleMatch(
@@ -579,7 +579,7 @@ describe("FlatTable", () => {
           borderBottomRightRadius: "var(--borderRadius100)",
         },
         wrapper.find(StyledFlatTableWrapper),
-        { modifier: `tbody ${StyledFlatTableRow}:last-of-type td:last-child` }
+        { modifier: `tbody ${StyledFlatTableRow}:last-of-type td:last-child` },
       );
     });
 
@@ -596,7 +596,7 @@ describe("FlatTable", () => {
               <FlatTableCell>item one</FlatTableCell>
             </FlatTableRow>
           </FlatTableBody>
-        </FlatTable>
+        </FlatTable>,
       );
 
       const pager = screen.getByTestId("pager");
@@ -623,7 +623,7 @@ describe("FlatTable", () => {
               <FlatTableCell>child one</FlatTableCell>
             </FlatTableRow>
           </FlatTableBody>
-        </FlatTable>
+        </FlatTable>,
       );
 
       const tableWrapper = screen.getByRole("region");
@@ -656,7 +656,7 @@ describe("FlatTable", () => {
               <FlatTableCell>child one</FlatTableCell>
             </FlatTableRow>
           </FlatTableBody>
-        </FlatTable>
+        </FlatTable>,
       );
 
       assertStyleMatch(
@@ -666,7 +666,7 @@ describe("FlatTable", () => {
         wrapper.find(StyledFlatTableWrapper),
         {
           modifier: `tbody ${StyledFlatTableRow}:nth-of-type(1) td:first-child`,
-        }
+        },
       );
     });
 
@@ -687,7 +687,7 @@ describe("FlatTable", () => {
               <FlatTableCell>child one</FlatTableCell>
             </FlatTableRow>
           </FlatTableBody>
-        </FlatTable>
+        </FlatTable>,
       );
 
       assertStyleMatch(
@@ -697,7 +697,7 @@ describe("FlatTable", () => {
         wrapper.find(StyledFlatTableWrapper),
         {
           modifier: `tbody ${StyledFlatTableRow}:nth-of-type(1) td:last-child`,
-        }
+        },
       );
     });
   });
@@ -722,10 +722,10 @@ describe("FlatTable", () => {
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
         const tableWrapper = container.querySelectorAll(
-          "div"
+          "div",
         )[1] as HTMLElement;
         tableWrapper?.focus();
         expect(tableWrapper).toHaveFocus();
@@ -753,10 +753,10 @@ describe("FlatTable", () => {
                 </FlatTableRow>
               </FlatTableBody>
             </FlatTable>
-          </CarbonProvider>
+          </CarbonProvider>,
         );
         const tableWrapper = container.querySelectorAll(
-          "div"
+          "div",
         )[2] as HTMLElement;
         tableWrapper?.focus();
         expect(tableWrapper).toHaveFocus();
@@ -780,7 +780,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
         await waitFor(() => {
           expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("0");
@@ -801,14 +801,14 @@ describe("FlatTable", () => {
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
 
         expect(
-          wrapper.update().find(StyledFlatTableRow).at(0).prop("tabIndex")
+          wrapper.update().find(StyledFlatTableRow).at(0).prop("tabIndex"),
         ).toBe(-1);
         expect(
-          wrapper.update().find(StyledFlatTableRow).at(1).prop("tabIndex")
+          wrapper.update().find(StyledFlatTableRow).at(1).prop("tabIndex"),
         ).toBe(0);
       });
 
@@ -825,14 +825,14 @@ describe("FlatTable", () => {
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
 
         expect(
-          wrapper.update().find(StyledFlatTableRow).at(0).prop("tabIndex")
+          wrapper.update().find(StyledFlatTableRow).at(0).prop("tabIndex"),
         ).toBe(-1);
         expect(
-          wrapper.update().find(StyledFlatTableRow).at(1).prop("tabIndex")
+          wrapper.update().find(StyledFlatTableRow).at(1).prop("tabIndex"),
         ).toBe(0);
       });
 
@@ -857,7 +857,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
 
         const tableWrapper = await screen.findByRole("region");
@@ -898,7 +898,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
 
         const tableWrapper = await screen.findByRole("region");
@@ -939,7 +939,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
 
         const tableWrapper = await screen.findByRole("region");
@@ -971,7 +971,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
 
         const tableWrapper = await screen.findByRole("region");
@@ -1012,7 +1012,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
 
         const tableWrapper = await screen.findByRole("region");
@@ -1045,7 +1045,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
 
         const tableWrapper = await screen.findByRole("region");
@@ -1070,7 +1070,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
 
         const tableWrapper = await screen.findByRole("region");
@@ -1097,7 +1097,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
         await waitFor(() => {
           expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("0");
@@ -1118,7 +1118,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
         await waitFor(() => {
           expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("-1");
@@ -1139,7 +1139,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
         await waitFor(() => {
           expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("-1");
@@ -1164,7 +1164,7 @@ describe("FlatTable", () => {
                 <FlatTableCell id="four">four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
         await waitFor(() => {
           expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("0");
@@ -1189,7 +1189,7 @@ describe("FlatTable", () => {
                 <FlatTableCell id="four">four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
         await waitFor(() => {
           expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("-1");
@@ -1214,7 +1214,7 @@ describe("FlatTable", () => {
                 <FlatTableCell id="four">four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
         await waitFor(() => {
           expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("-1");
@@ -1243,7 +1243,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
 
         const tableWrapper = await screen.findByRole("region");
@@ -1284,7 +1284,7 @@ describe("FlatTable", () => {
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
-          </FlatTable>
+          </FlatTable>,
         );
 
         const tableWrapper = await screen.findByRole("region");

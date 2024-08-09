@@ -64,7 +64,7 @@ describe("Sort", () => {
     wrapper = mount(<Sort sortType="ascending">Accountants</Sort>);
 
     expect(wrapper.find(Typography).text()).toBe(
-      "Sort all Accountants in an ascending order."
+      "Sort all Accountants in an ascending order.",
     );
   });
 
@@ -72,7 +72,7 @@ describe("Sort", () => {
     wrapper = mount(<Sort>Accountants</Sort>);
 
     expect(wrapper.find(Typography).text()).toBe(
-      "Sort all Accountants in an ascending or descending order."
+      "Sort all Accountants in an ascending or descending order.",
     );
   });
 
@@ -81,7 +81,7 @@ describe("Sort", () => {
     wrapper = mount(<Sort sortType={sortType} />);
 
     expect(wrapper.find(Typography).text()).toBe(
-      "Sort all contents in an ascending order."
+      "Sort all contents in an ascending order.",
     );
   });
 
@@ -89,7 +89,7 @@ describe("Sort", () => {
     wrapper = mount(<Sort />);
 
     expect(wrapper.find(Typography).text()).toBe(
-      "Sort all contents in an ascending or descending order."
+      "Sort all contents in an ascending or descending order.",
     );
   });
 
@@ -133,14 +133,14 @@ describe("Sort", () => {
         value={{ colorTheme: "dark", getTabStopElementId: () => "" }}
       >
         <Sort sortType="ascending">Name</Sort>
-      </FlatTableContext.Provider>
+      </FlatTableContext.Provider>,
     );
 
     assertStyleMatch(
       {
         color: "var(--colorsActionMinorYang100)",
       },
-      wrapper.find(StyledIcon)
+      wrapper.find(StyledIcon),
     );
   });
 
@@ -156,15 +156,15 @@ describe("Sort", () => {
           value={{ colorTheme: color, getTabStopElementId: () => "" }}
         >
           <Sort sortType="ascending">Name</Sort>
-        </FlatTableContext.Provider>
+        </FlatTableContext.Provider>,
       );
 
       assertStyleMatch(
         {
           color: "var(--colorActionMinor500)",
         },
-        wrapper.find(StyledIcon)
+        wrapper.find(StyledIcon),
       );
-    }
+    },
   );
 });

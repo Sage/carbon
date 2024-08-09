@@ -92,12 +92,9 @@ test.describe("check props for Number component", () => {
     });
   });
 
-  ([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ] as NumberProps["tooltipPosition"][]).forEach((position) => {
+  (
+    ["top", "bottom", "left", "right"] as NumberProps["tooltipPosition"][]
+  ).forEach((position) => {
     test(`should render with tooltip positioned to the ${position}`, async ({
       mount,
       page,
@@ -108,14 +105,14 @@ test.describe("check props for Number component", () => {
             error={CHARACTERS.STANDARD}
             tooltipPosition={position}
           />
-        </Box>
+        </Box>,
       );
 
       await getDataElementByValue(page, "error").hover();
       await expect(tooltipPreview(page)).toHaveText(CHARACTERS.STANDARD);
       await expect(tooltipPreview(page)).toHaveAttribute(
         "data-placement",
-        position as string
+        position as string,
       );
     });
   });
@@ -125,14 +122,14 @@ test.describe("check props for Number component", () => {
       <NumberInputComponent
         labelHelp="fieldHelp"
         helpAriaLabel={CHARACTERS.STANDARD}
-      />
+      />,
     );
 
     const ariaHelpLabel = getDataComponentByValue(page, "help");
 
     await expect(ariaHelpLabel).toHaveAttribute(
       "aria-label",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -147,7 +144,7 @@ test.describe("check props for Number component", () => {
           labelAlign="right"
           validationOnLabel
           {...{ [type]: "Message" }}
-        />
+        />,
       );
 
       const labelParent = getDataElementByValue(page, "label").locator("..");
@@ -156,14 +153,16 @@ test.describe("check props for Number component", () => {
     });
   });
 
-  ([
-    [VALIDATION.ERROR, "error", true],
-    [VALIDATION.WARNING, "warning", true],
-    [VALIDATION.INFO, "info", true],
-    ["rgb(102, 132, 148)", "error", false],
-    ["rgb(102, 132, 148)", "warning", false],
-    ["rgb(102, 132, 148)", "info", false],
-  ] as [string, string, boolean][]).forEach(([borderColor, type, bool]) => {
+  (
+    [
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      [VALIDATION.INFO, "info", true],
+      ["rgb(102, 132, 148)", "error", false],
+      ["rgb(102, 132, 148)", "warning", false],
+      ["rgb(102, 132, 148)", "info", false],
+    ] as [string, string, boolean][]
+  ).forEach(([borderColor, type, bool]) => {
     test(`should render with ${borderColor} input border when validation type ${type} is ${bool}`, async ({
       mount,
       page,
@@ -173,7 +172,7 @@ test.describe("check props for Number component", () => {
           labelInline
           labelAlign="right"
           {...{ [type]: bool }}
-        />
+        />,
       );
 
       await expect(number(page)).toHaveCSS("border-bottom-color", borderColor);
@@ -201,29 +200,27 @@ test.describe("check props for Number component", () => {
 
       await expect(commonDataElementInputPreview(page)).toHaveAttribute(
         "placeholder",
-        placeholderValue
+        placeholderValue,
       );
     });
   });
 
-  ([
-    [1, "8px"],
-    [2, "16px"],
-  ] as [NumberProps["labelSpacing"], string][]).forEach(
-    ([spacing, padding]) => {
-      test(`should render with labelSpacing prop ${spacing}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <NumberInputComponent labelInline labelSpacing={spacing} />
-        );
+  (
+    [
+      [1, "8px"],
+      [2, "16px"],
+    ] as [NumberProps["labelSpacing"], string][]
+  ).forEach(([spacing, padding]) => {
+    test(`should render with labelSpacing prop ${spacing}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<NumberInputComponent labelInline labelSpacing={spacing} />);
 
-        const labelParent = getDataElementByValue(page, "label").locator("..");
-        await expect(labelParent).toHaveCSS("padding-right", padding);
-      });
-    }
-  );
+      const labelParent = getDataElementByValue(page, "label").locator("..");
+      await expect(labelParent).toHaveCSS("padding-right", padding);
+    });
+  });
 
   [
     ["foo", "with"],
@@ -244,10 +241,12 @@ test.describe("check props for Number component", () => {
     });
   });
 
-  ([
-    [11, 11, "rgba(0, 0, 0, 0.55)"],
-    [11, 10, "rgb(203, 55, 74)"],
-  ] as [number, number, string][]).forEach(([charactersUsed, limit, color]) => {
+  (
+    [
+      [11, 11, "rgba(0, 0, 0, 0.55)"],
+      [11, 10, "rgb(203, 55, 74)"],
+    ] as [number, number, string][]
+  ).forEach(([charactersUsed, limit, color]) => {
     test(`should input ${charactersUsed} characters and warn if over character limit of ${limit}`, async ({
       mount,
       page,
@@ -267,7 +266,7 @@ test.describe("check props for Number component", () => {
           charactersUsed - limit
             ? `${charactersUsed - limit} ${overCharacters} too many`
             : `${charactersUsed - limit} ${underCharacters} left`
-        }`
+        }`,
       );
       await expect(characterLimit(page)).toHaveCSS("color", color);
     });
@@ -277,7 +276,7 @@ test.describe("check props for Number component", () => {
     await mount(<NumberInputComponent data-component={CHARACTERS.STANDARD} />);
 
     await expect(
-      getDataComponentByValue(page, CHARACTERS.STANDARD)
+      getDataComponentByValue(page, CHARACTERS.STANDARD),
     ).toBeVisible();
   });
 
@@ -285,7 +284,7 @@ test.describe("check props for Number component", () => {
     await mount(<NumberInputComponent data-element={CHARACTERS.STANDARD} />);
 
     await expect(
-      getDataElementByValue(page, CHARACTERS.STANDARD)
+      getDataElementByValue(page, CHARACTERS.STANDARD),
     ).toBeVisible();
   });
 
@@ -317,35 +316,35 @@ test.describe("check props for Number component", () => {
     await expect(commonDataElementInputPreview(page)).not.toBeEditable();
   });
 
-  ([
-    [SIZE.SMALL, "32px", "--sizing400"],
-    [SIZE.MEDIUM, "40px", "--sizing500"],
-    [SIZE.LARGE, "48px", "--sizing600"],
-  ] as [NumberProps["size"], string, string][]).forEach(
-    ([size, height, token]) => {
-      test(`should render with ${size} size and ${height} height when size prop is ${size}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<NumberInputComponent size={size} />);
+  (
+    [
+      [SIZE.SMALL, "32px", "--sizing400"],
+      [SIZE.MEDIUM, "40px", "--sizing500"],
+      [SIZE.LARGE, "48px", "--sizing600"],
+    ] as [NumberProps["size"], string, string][]
+  ).forEach(([size, height, token]) => {
+    test(`should render with ${size} size and ${height} height when size prop is ${size}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<NumberInputComponent size={size} />);
 
-        await expect(number(page)).toHaveCSS("min-height", height);
-        const tokenValues = await getDesignTokensByCssProperty(
-          page,
-          number(page),
-          "min-height"
-        );
-        expect(tokenValues[0]).toBe(token);
-      });
-    }
-  );
+      await expect(number(page)).toHaveCSS("min-height", height);
+      const tokenValues = await getDesignTokensByCssProperty(
+        page,
+        number(page),
+        "min-height",
+      );
+      expect(tokenValues[0]).toBe(token);
+    });
+  });
 
   test("should render with name prop", async ({ mount, page }) => {
     await mount(<NumberInputComponent name={CHARACTERS.STANDARD} />);
 
     await expect(commonDataElementInputPreview(page)).toHaveAttribute(
       "name",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -367,28 +366,28 @@ test.describe("check props for Number component", () => {
     await expect(labelParent.locator("button")).toBeVisible();
   });
 
-  ([
-    ["flex", 399],
-    ["flex", 400],
-    ["block", 401],
-  ] as [string, NumberProps["adaptiveLabelBreakpoint"]][]).forEach(
-    ([displayValue, breakpoint]) => {
-      test(`should render with ${displayValue} label alignment when adaptiveLabelBreakpoint prop is ${breakpoint} with set viewport of 400`, async ({
-        mount,
-        page,
-      }) => {
-        await page.setViewportSize({ width: 400, height: 300 });
-        await mount(
-          <NumberInputComponent adaptiveLabelBreakpoint={breakpoint} />
-        );
+  (
+    [
+      ["flex", 399],
+      ["flex", 400],
+      ["block", 401],
+    ] as [string, NumberProps["adaptiveLabelBreakpoint"]][]
+  ).forEach(([displayValue, breakpoint]) => {
+    test(`should render with ${displayValue} label alignment when adaptiveLabelBreakpoint prop is ${breakpoint} with set viewport of 400`, async ({
+      mount,
+      page,
+    }) => {
+      await page.setViewportSize({ width: 400, height: 300 });
+      await mount(
+        <NumberInputComponent adaptiveLabelBreakpoint={breakpoint} />,
+      );
 
-        const labelParentParent = getDataElementByValue(page, "label")
-          .locator("..")
-          .locator("..");
-        await expect(labelParentParent).toHaveCSS("display", displayValue);
-      });
-    }
-  );
+      const labelParentParent = getDataElementByValue(page, "label")
+        .locator("..")
+        .locator("..");
+      await expect(labelParentParent).toHaveCSS("display", displayValue);
+    });
+  });
 
   test("should render as required", async ({ mount, page }) => {
     await mount(<NumberInputComponent required />);
@@ -409,39 +408,36 @@ test.describe("check props for Number component", () => {
     await expect(labelParent).toHaveCSS("-webkit-box-pack", "end");
   });
 
-  ([
-    ["left", "start"],
-    ["right", "end"],
-  ] as [NumberProps["labelAlign"], string][]).forEach(
-    ([alignment, cssProp]) => {
-      test(`should render with ${alignment} labelAlign prop and flex-${cssProp} css properties`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <NumberInputComponent labelInline labelAlign={alignment} />
-        );
+  (
+    [
+      ["left", "start"],
+      ["right", "end"],
+    ] as [NumberProps["labelAlign"], string][]
+  ).forEach(([alignment, cssProp]) => {
+    test(`should render with ${alignment} labelAlign prop and flex-${cssProp} css properties`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<NumberInputComponent labelInline labelAlign={alignment} />);
 
-        const labelParent = getDataElementByValue(page, "label").locator("..");
-        await expect(labelParent).toHaveCSS("-webkit-box-pack", cssProp);
-        await expect(labelParent).toHaveCSS(
-          "justify-content",
-          `flex-${cssProp}`
-        );
-      });
-    }
-  );
+      const labelParent = getDataElementByValue(page, "label").locator("..");
+      await expect(labelParent).toHaveCSS("-webkit-box-pack", cssProp);
+      await expect(labelParent).toHaveCSS("justify-content", `flex-${cssProp}`);
+    });
+  });
 
-  ([
-    [10, 90, 135, 1229],
-    [30, 70, 409, 956],
-    [80, 20, 1092, 273],
-  ] as [
-    NumberProps["labelWidth"],
-    NumberProps["inputWidth"],
-    number,
-    number
-  ][]).forEach(([label, input, labelRatio, inputRatio]) => {
+  (
+    [
+      [10, 90, 135, 1229],
+      [30, 70, 409, 956],
+      [80, 20, 1092, 273],
+    ] as [
+      NumberProps["labelWidth"],
+      NumberProps["inputWidth"],
+      number,
+      number,
+    ][]
+  ).forEach(([label, input, labelRatio, inputRatio]) => {
     test(`should render with correct ratios when labelWidth prop is ${label} and inputWidth prop is ${input}`, async ({
       mount,
       page,
@@ -451,7 +447,7 @@ test.describe("check props for Number component", () => {
           labelInline
           labelWidth={label}
           inputWidth={input}
-        />
+        />,
       );
 
       const labelParent = getDataElementByValue(page, "label").locator("..");
@@ -496,7 +492,7 @@ test.describe("check events", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await commonDataElementInputPreview(page).type(inputValue);
@@ -514,7 +510,7 @@ test.describe("check events", () => {
           onKeyDown={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       const elementInput = commonDataElementInputPreview(page);
@@ -535,7 +531,7 @@ test.describe("check events", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const elementInput = commonDataElementInputPreview(page);
@@ -555,7 +551,7 @@ test.describe("check events", () => {
         onMouseDown={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const elementInput = commonDataElementInputPreview(page);

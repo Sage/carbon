@@ -91,7 +91,7 @@ export const flatTableDraggableItemByPosition = (page: Page, index: number) =>
 export const flatTableCheckboxAsProp = (
   page: Page,
   index: number,
-  asVal: FlatTableCheckboxProps["as"]
+  asVal: FlatTableCheckboxProps["as"],
 ) =>
   page
     .locator(FLAT_TABLE_ROW)

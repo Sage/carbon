@@ -34,7 +34,7 @@ class ModalManagerInstance {
   addModal = (
     modal: HTMLElement | null,
     setTriggerRefocusFlag?: SetTriggerRefocusFlag,
-    topModalOverride?: boolean
+    topModalOverride?: boolean,
   ) => {
     if (!modal) {
       return;
