@@ -741,7 +741,7 @@ export const TruncationAndSubmenuWidth: Story = () => {
             <MenuItem
               maxWidth="240px"
               submenuMaxWidth="300px"
-              submenu="This is a very long menu item title "
+              submenu="This is a very long menu item title"
             >
               <MenuItem href="#">Item Submenu One</MenuItem>
               <MenuSegmentTitle text="segment title that should wrap when it will overflow">

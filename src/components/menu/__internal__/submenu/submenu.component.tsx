@@ -539,6 +539,7 @@ const Submenu = React.forwardRef<
           href={href}
           maxWidth={maxWidth}
           aria-expanded={submenuOpen}
+          data-role="submenu-parent-item"
         >
           {title}
         </StyledMenuItemWrapper>

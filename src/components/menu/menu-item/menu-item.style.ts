@@ -35,6 +35,47 @@ interface StyledMenuItemWrapperProps
   menuItemVariant?: Pick<MenuWithChildren, "variant">["variant"];
 }
 
+const BASE_SPACING = 16;
+
+const parsePadding = (props: Partial<PaddingProps>) => {
+  const { paddingRight } = props;
+  const paddingNumber = String(paddingRight)?.match(/\d+/)?.[0];
+
+  if (paddingRight === "var(--spacing000)" || paddingNumber === "0") {
+    return { padding: "var(--spacing200)", iconSpacing: "2px" };
+  }
+
+  switch (paddingRight) {
+    case "var(--spacing100)":
+      return { padding: "var(--spacing300)", iconSpacing: paddingRight };
+    case "var(--spacing200)":
+      return { padding: "var(--spacing400)", iconSpacing: paddingRight };
+    case "var(--spacing300)":
+      return { padding: "var(--spacing500)", iconSpacing: paddingRight };
+    case "var(--spacing400)":
+      return { padding: "var(--spacing600)", iconSpacing: paddingRight };
+    case "var(--spacing500)":
+      return { padding: "var(--spacing700)", iconSpacing: paddingRight };
+    case "var(--spacing600)":
+      return { padding: "var(--spacing800)", iconSpacing: paddingRight };
+    case "var(--spacing700)":
+      return { padding: "var(--spacing900)", iconSpacing: paddingRight };
+    case "var(--spacing800)":
+      return {
+        padding: "var(--spacing1000)",
+        iconSpacing: paddingRight,
+      };
+    default:
+      if (paddingNumber) {
+        return {
+          padding: `${BASE_SPACING + Number(paddingNumber)}px`,
+          iconSpacing: `${paddingNumber}px`,
+        };
+      }
+      return { padding: "var(--spacing400)", iconSpacing: "var(--spacing200)" };
+  }
+};
+
 const oldFocusStyling = `
   box-shadow: inset 0 0 0 var(--borderWidth300) var(--colorsSemanticFocus500);
 `;
@@ -58,11 +99,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
     asDiv,
     hasInput,
   }) => css`
-    ${!inFullscreenView &&
-    css`
-      ${padding}
-    `}
-
     display: flex;
     align-items: center;
     font-size: 14px;
@@ -347,9 +383,11 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
       ${showDropdownArrow &&
       css`
-        > a,
-        > button:not(${StyledIconButton}) {
-          padding-right: 32px;
+        &&& {
+          > a,
+          > button:not(${StyledIconButton}) {
+            padding-right: ${(props) => parsePadding(padding(props)).padding};
+          }
         }
 
         a::before,
@@ -358,7 +396,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
           margin-top: -2px;
           pointer-events: none;
           position: absolute;
-          right: 16px;
+          right: ${(props) => parsePadding(padding(props)).iconSpacing};
           top: 50%;
           z-index: 2;
           content: "";
@@ -450,6 +488,13 @@ const StyledMenuItemWrapper = styled.a.attrs({
       }
     `}
   `}
+
+  &&& {
+    > a,
+    > button {
+      ${padding}
+    }
+  }
 `;
 
 StyledMenuItemWrapper.defaultProps = { theme: baseTheme };

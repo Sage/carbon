@@ -80,7 +80,6 @@ interface MenuItemBaseProps
    * Renders MenuItem as a div element
    * */
   as?: "div";
-
   /** Sets the max-width of the submenu container element, accepts any valid CSS string */
   submenuMaxWidth?: string;
 }
