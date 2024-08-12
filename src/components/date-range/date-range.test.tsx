@@ -976,7 +976,9 @@ test("should only display the start input tooltip when the user hovers over it a
 
   const start = screen.getByRole("textbox", { name: "start" });
   await user.hover(start);
-  const startTooltip = screen.getByRole("tooltip", { name: "start error" });
+  const startTooltip = await screen.findByRole("tooltip", {
+    name: "start error",
+  });
   const endTooltip = screen.queryByRole("tooltip", { name: "end error" });
 
   expect(startTooltip).toBeVisible();

@@ -267,6 +267,7 @@ export const ActionPopover = ({
     <MenuButton
       id={parentID}
       data-component="action-popover-wrapper"
+      data-role="action-popover-wrapper"
       {...{ onKeyDown: onButtonKeyDown, onClick: onButtonClick, isOpen }}
       ref={buttonRef}
       {...rest}

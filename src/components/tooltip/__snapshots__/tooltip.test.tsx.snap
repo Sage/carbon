@@ -26,6 +26,7 @@ exports[`Tooltip controlled matches snapshot when isVisible is true 1`] = `
   <span
     class="c0"
     data-portal-entrance="guid-12345"
+    data-role="data-portal-entrance"
   />
 </div>
 `;

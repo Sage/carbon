@@ -1,5 +1,4 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
 import { ThemeProvider } from "styled-components";
 import { mount } from "enzyme";
 
@@ -13,15 +12,16 @@ import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 import StyledSwitchSlider from "./switch-slider.style";
 
 function render(props?: Partial<SwitchSliderProps>) {
-  return TestRenderer.create(<SwitchSlider {...props} />);
+  return mount(<SwitchSlider {...props} />, {
+    attachTo: document.getElementById("enzymeContainer"),
+  });
 }
 
 function renderWithTheme(
   props: Partial<SwitchSliderProps>,
-  theme?: string | Partial<ThemeObject>,
-  renderer = TestRenderer.create
+  theme?: string | Partial<ThemeObject>
 ) {
-  return renderer(
+  return mount(
     <ThemeProvider theme={theme}>
       <SwitchSlider {...props} />
     </ThemeProvider>
@@ -36,10 +36,10 @@ describe("SwitchSlider", () => {
 
     describe("Panel content", () => {
       describe("default", () => {
-        const panels = render().root.findAllByType(SwitchSliderPanel);
+        const panels = render().find(SwitchSliderPanel);
 
         it('renders the text "OFF" in the panel', () => {
-          expect(panels[0].props.children).toBe("OFF");
+          expect(panels.props().children).toBe("OFF");
         });
 
         it("renders only one panel", () => {
@@ -48,12 +48,10 @@ describe("SwitchSlider", () => {
       });
 
       describe("when checked=true", () => {
-        const panels = render({ checked: true }).root.findAllByType(
-          SwitchSliderPanel
-        );
+        const panels = render({ checked: true }).find(SwitchSliderPanel);
 
         it('renders the text "ON" in the panel', () => {
-          expect(panels[0].props.children).toBe("ON");
+          expect(panels.props().children).toBe("ON");
         });
 
         it("renders only one panel", () => {
@@ -62,12 +60,10 @@ describe("SwitchSlider", () => {
       });
 
       describe("when loading=true", () => {
-        const panels = render({ loading: true }).root.findAllByType(
-          SwitchSliderPanel
-        );
+        const panels = render({ loading: true }).find(SwitchSliderPanel);
 
         it("renders a Loader in the first panel", () => {
-          expect(panels[0].props.children.type).toBe(Loader);
+          expect(panels.props().children.type).toBe(Loader);
         });
 
         it("renders only one panel", () => {
@@ -77,7 +73,7 @@ describe("SwitchSlider", () => {
     });
 
     describe("when checked=true", () => {
-      const wrapper = render({ checked: true }).toJSON();
+      const wrapper = render({ checked: true }).find(StyledSwitchSlider);
 
       it("applies the correct base styles", () => {
         assertStyleMatch(
@@ -91,7 +87,7 @@ describe("SwitchSlider", () => {
       it("applies the correct ::before styles", () => {
         assertStyleMatch(
           {
-            transform: "translateX(36px)",
+            marginLeft: "calc( 100% - var(--spacing300) )",
           },
           wrapper,
           { modifier: "::before" }
@@ -100,7 +96,7 @@ describe("SwitchSlider", () => {
     });
 
     describe("when disabled=true", () => {
-      const wrapper = render({ disabled: true }).toJSON();
+      const wrapper = render({ disabled: true }).find(StyledSwitchSlider);
 
       it("applies the correct base styles", () => {
         assertStyleMatch(
@@ -135,7 +131,9 @@ describe("SwitchSlider", () => {
     });
 
     describe("when checked=true && disabled=true", () => {
-      const wrapper = render({ checked: true, disabled: true }).toJSON();
+      const wrapper = render({ checked: true, disabled: true }).find(
+        StyledSwitchSlider
+      );
 
       it("applies the correct SwitchSliderPanel styles", () => {
         assertStyleMatch(
@@ -152,13 +150,13 @@ describe("SwitchSlider", () => {
 
     describe("when size=large", () => {
       describe("default", () => {
-        const wrapper = render({ size: "large" }).toJSON();
+        const wrapper = render({ size: "large" }).find(StyledSwitchSlider);
 
         it("applies the correct ::before styles", () => {
           assertStyleMatch(
             {
-              height: "32px",
-              width: "32px",
+              height: "var(--spacing400)",
+              width: "var(--spacing400)",
             },
             wrapper,
             { modifier: "::before" }
@@ -167,12 +165,14 @@ describe("SwitchSlider", () => {
       });
 
       describe("and checked=true", () => {
-        const wrapper = render({ checked: true, size: "large" }).toJSON();
+        const wrapper = render({ checked: true, size: "large" }).find(
+          StyledSwitchSlider
+        );
 
         it("applies the correct ::before styles", () => {
           assertStyleMatch(
             {
-              transform: "translateX(38px)",
+              marginLeft: "calc( 100% - var(--spacing500) )",
             },
             wrapper,
             { modifier: "::before" }
@@ -184,7 +184,7 @@ describe("SwitchSlider", () => {
 
   describe("when the theme is set to sageTheme", () => {
     describe("default", () => {
-      const wrapper = renderWithTheme({}, sageTheme).toJSON();
+      const wrapper = renderWithTheme({}, sageTheme).find(StyledSwitchSlider);
 
       it("applies the correct base styles", () => {
         assertStyleMatch(
@@ -207,7 +207,9 @@ describe("SwitchSlider", () => {
     });
 
     describe("and checked=true", () => {
-      const wrapper = renderWithTheme({ checked: true }, sageTheme).toJSON();
+      const wrapper = renderWithTheme({ checked: true }, sageTheme).find(
+        StyledSwitchSlider
+      );
 
       it("applies the correct base styles", () => {
         assertStyleMatch(
@@ -220,7 +222,9 @@ describe("SwitchSlider", () => {
     });
 
     describe("and disabled=true", () => {
-      const wrapper = renderWithTheme({ disabled: true }, sageTheme).toJSON();
+      const wrapper = renderWithTheme({ disabled: true }, sageTheme).find(
+        StyledSwitchSlider
+      );
 
       it("applies the correct base styles", () => {
         assertStyleMatch(
@@ -248,7 +252,7 @@ describe("SwitchSlider", () => {
       const wrapper = renderWithTheme(
         { checked: true, disabled: true },
         sageTheme
-      ).toJSON();
+      ).find(StyledSwitchSlider);
 
       it("applies the correct base styles", () => {
         assertStyleMatch(
@@ -277,7 +281,7 @@ describe("SwitchSlider", () => {
     it.each<SwitchSliderProps["size"]>(["small", "large"])(
       "has the expected border radius styling when size is %s",
       (size) => {
-        const wrapper = render({ size }).toJSON();
+        const wrapper = render({ size }).find(StyledSwitchSlider);
         assertStyleMatch(
           {
             borderRadius: "var(--borderRadius400)",

@@ -742,3 +742,41 @@ describe("Search", () => {
     });
   });
 });
+
+test("should call `onClick` when it and `triggerOnClear` props are passed and the user clicks the cross icon", async () => {
+  const onClick = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <Search
+      value="foo"
+      onClick={onClick}
+      triggerOnClear
+      onChange={() => {}}
+      searchButton
+      name="foo"
+      id="bar"
+    />
+  );
+  const inputIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(inputIcon);
+
+  expect(onClick).toHaveBeenCalledWith({
+    target: {
+      name: "foo",
+      id: "bar",
+      value: "",
+    },
+  });
+});
+
+test("should not call `onClick` when prop is passed and the user clicks the cross icon but `triggerOnClear` is not set", async () => {
+  const onClick = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <Search value="foo" onClick={onClick} onChange={() => {}} searchButton />
+  );
+  const inputIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(inputIcon);
+
+  expect(onClick).not.toHaveBeenCalled();
+});

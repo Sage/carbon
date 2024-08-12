@@ -40,9 +40,7 @@ describe("Tooltip", () => {
       const tooltipTarget = screen.getByText("Target");
       fireEvent.mouseEnter(tooltipTarget);
 
-      await waitFor(() => {
-        expect(screen.getByRole("tooltip")).toBeVisible();
-      });
+      expect(await screen.findByRole("tooltip")).toBeVisible();
     });
 
     it("hides tooltip after mouse leaves the tooltip target", async () => {
@@ -56,21 +54,23 @@ describe("Tooltip", () => {
       });
     });
 
-    it("shows tooltip when tooltip target is focused", () => {
+    it("shows tooltip when tooltip target is focused", async () => {
       renderTooltip();
       const tooltipTarget = screen.getByText("Target");
       fireEvent.focus(tooltipTarget);
 
-      expect(screen.getByRole("tooltip")).toBeVisible();
+      expect(await screen.findByRole("tooltip")).toBeVisible();
     });
 
-    it("hides tooltip when tooltip target is blurred", () => {
+    it("hides tooltip when tooltip target is blurred", async () => {
       renderTooltip();
       const tooltipTarget = screen.getByText("Target");
       fireEvent.focus(tooltipTarget);
       fireEvent.blur(tooltipTarget);
 
-      expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+      });
     });
   });
 
@@ -273,7 +273,7 @@ describe("Tooltip", () => {
   });
 
   describe("Ref forwarding", () => {
-    it("should forward a ref object correctly", () => {
+    it("should forward a ref object correctly", async () => {
       const testRef = { current: null };
       render(
         <Tooltip message="foo" isVisible ref={testRef}>

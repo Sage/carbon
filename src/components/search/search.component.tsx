@@ -39,6 +39,11 @@ export interface SearchProps extends ValidationProps, MarginProps {
    *  `onClick` events are triggered when the `searchButton` is clicked
    */
   onClick?: (ev: SearchEvent) => void;
+
+  /**
+   * Sets whether the onClick action should be triggered when the Search cross icon is clicked.
+   */
+  triggerOnClear?: boolean;
   /** Prop for `onFocus` events */
   onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Prop for `onKeyDown` events */
@@ -101,6 +106,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       warning,
       info,
       tooltipPosition,
+      triggerOnClear,
       ...rest
     },
     ref
@@ -176,8 +182,16 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     const handleIconClick = () => {
       setSearchValue("");
 
-      if (onChange) {
-        onChange({
+      onChange?.({
+        target: {
+          ...(name && { name }),
+          ...(id && { id }),
+          value: "",
+        },
+      });
+
+      if (triggerOnClear) {
+        onClick?.({
           target: {
             ...(name && { name }),
             ...(id && { id }),

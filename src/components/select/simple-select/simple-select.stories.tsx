@@ -595,6 +595,40 @@ export const OptionGroups: Story = () => {
 OptionGroups.storyName = "Option Groups";
 OptionGroups.parameters = { chromatic: { disableSnapshot: true } };
 
+export const OptionGroupsWithComposedChildren: Story = () => {
+  return (
+    <Box height={250}>
+      <Select name="optGroups" id="optGroups" label="color">
+        <OptionGroupHeader>
+          <Icon type="individual" /> <h4>Group One Composed</h4>
+        </OptionGroupHeader>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <OptionGroupHeader>
+          <Icon type="shop" /> <h4>Group Two Composed</h4>
+        </OptionGroupHeader>
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <OptionGroupHeader>
+          <h4>Group Three Composed</h4>
+        </OptionGroupHeader>
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+};
+OptionGroupsWithComposedChildren.storyName =
+  "Option Groups with composed children";
+OptionGroupsWithComposedChildren.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
 export const EnablingAdaptiveBehaviour: Story = () => {
   return (
     <Box height={220}>

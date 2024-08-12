@@ -1,6 +1,5 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
-import { act } from "react-dom/test-utils";
 import {
   StyledProgressTracker,
   StyledProgressBar,
@@ -14,13 +13,9 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";
 import ProgressTracker from "./progress-tracker.component";
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
-
-const mockedUseResizeObserver = useResizeObserver as jest.Mock<() => void>;
 
 describe("ProgressTracker", () => {
   let wrapper: ReactWrapper;
@@ -60,25 +55,6 @@ describe("ProgressTracker", () => {
 
   testStyledSystemMargin((props) => <ProgressTracker {...props} />);
 
-  it("should display aria- attribute props deprecation warning once", () => {
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    wrapper = mount(
-      <ProgressTracker
-        progress={50}
-        aria-valuemin={100}
-        aria-valuenow={150}
-        aria-valuemax={200}
-        aria-valuetext="$150"
-      />
-    );
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "The 'aria-' attribute props in `ProgressTracker` have been deprecated and will soon be removed."
-    );
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-    loggerSpy.mockRestore();
-  });
-
   it("renders component as expected", () => {
     wrapper = mount(<ProgressTracker />);
     const innerBar = wrapper.find(InnerBar);
@@ -98,27 +74,6 @@ describe("ProgressTracker", () => {
         );
       }
     );
-  });
-
-  describe("when the outer bar is resized", () => {
-    it("the inner bar length is recalculated", () => {
-      wrapper = mount(<ProgressTracker progress={50} />);
-
-      act(() => {
-        mockedUseResizeObserver.mock.calls[
-          mockedUseResizeObserver.mock.calls.length - 1
-        ][1]();
-      });
-
-      wrapper.update();
-
-      assertStyleMatch(
-        {
-          width: "calc(256px * 0.5)",
-        },
-        wrapper.find(InnerBar)
-      );
-    });
   });
 
   describe("when size is not specified", () => {
@@ -148,7 +103,7 @@ describe("ProgressTracker", () => {
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsSemanticNeutral500)",
-          width: "calc(256px * 0.5)",
+          width: "50%",
           height: "var(--sizing100)",
           borderRadius: "var(--borderRadius400)",
         },
@@ -191,9 +146,7 @@ describe("ProgressTracker", () => {
 
   describe("when size is set to small", () => {
     beforeEach(() => {
-      wrapper = mount(
-        <ProgressTracker size="small" progress={50} showDefaultLabels />
-      );
+      wrapper = mount(<ProgressTracker size="small" progress={50} />);
     });
 
     it("applies proper width and height to outer bar", () => {
@@ -203,7 +156,7 @@ describe("ProgressTracker", () => {
     it("applies proper width and height to inner bar", () => {
       assertStyleMatch(
         {
-          width: "calc(256px * 0.5)",
+          width: "50%",
           height: "var(--sizing050)",
         },
         wrapper.find(InnerBar)
@@ -222,9 +175,7 @@ describe("ProgressTracker", () => {
 
   describe("when size is set to large", () => {
     beforeEach(() => {
-      wrapper = mount(
-        <ProgressTracker size="large" progress={50} showDefaultLabels />
-      );
+      wrapper = mount(<ProgressTracker size="large" progress={50} />);
     });
 
     it("applies proper width and min-height to outer bar", () => {
@@ -240,7 +191,7 @@ describe("ProgressTracker", () => {
     it("applies proper width and height to inner bar", () => {
       assertStyleMatch(
         {
-          width: "calc(256px * 0.5)",
+          width: "50%",
           height: "var(--sizing200)",
         },
         wrapper.find(InnerBar)
@@ -259,16 +210,14 @@ describe("ProgressTracker", () => {
 
   describe("when description is provided", () => {
     it("renders description as expected", () => {
-      wrapper = mount(
-        <ProgressTracker showDefaultLabels description="description" />
-      );
+      wrapper = mount(<ProgressTracker description="description" />);
       expect(wrapper.find(StyledDescription).text()).toEqual("description");
     });
   });
 
   describe("get a correct background of inner and outer bar color, when progress is 100 or the error occurs", () => {
     it("applies correct background color if progress is 100", () => {
-      wrapper = mount(<InnerBar progress={100} />);
+      wrapper = mount(<ProgressTracker progress={100} />);
       assertStyleMatch(
         { backgroundColor: "var(--colorsSemanticPositive500)" },
         wrapper.find(InnerBar)
@@ -336,45 +285,32 @@ describe("labels", () => {
     ).toEqual("bar");
   });
 
-  describe("when showDefaultLabels is set to true", () => {
-    it("shows the proper labels", () => {
-      wrapper = mount(<ProgressTracker progress={50} showDefaultLabels />);
+  it("only shows the currentProgressLabel that has a value", () => {
+    wrapper = mount(
+      <ProgressTracker progress={50} currentProgressLabel="foo" />
+    );
 
-      expect(
-        wrapper.find(StyledValuesLabel).find(StyledValue).first().text()
-      ).toEqual("50%");
+    expect(
+      wrapper.find(StyledValuesLabel).find(StyledValue).first().text()
+    ).toEqual("foo");
 
-      expect(
-        wrapper.find(StyledValuesLabel).find(StyledValue).last().text()
-      ).toEqual("100%");
-    });
+    expect(wrapper.find(StyledValuesLabel).find(StyledValue).length).toBe(1);
   });
 
-  describe("when showDefaultLabels is not set", () => {
-    it("only shows the currentProgressLabel that has a value", () => {
-      wrapper = mount(
-        <ProgressTracker progress={50} currentProgressLabel="foo" />
-      );
+  it("renders default labels if maxProgressLabel is set but no currentProgressLabel is provided", () => {
+    wrapper = mount(<ProgressTracker progress={50} maxProgressLabel="bar" />);
+    expect(
+      wrapper.find(StyledValuesLabel).find(StyledValue).first().text()
+    ).toEqual("50%");
 
-      expect(
-        wrapper.find(StyledValuesLabel).find(StyledValue).first().text()
-      ).toEqual("foo");
-
-      expect(wrapper.find(StyledValuesLabel).find(StyledValue).length).toBe(1);
-    });
-
-    it("does not show the maxProgressLabel if currentProgressLabel is not provided", () => {
-      wrapper = mount(<ProgressTracker progress={50} maxProgressLabel="bar" />);
-
-      expect(wrapper.find(StyledValuesLabel).find(StyledValue).length).toBe(0);
-    });
+    expect(
+      wrapper.find(StyledValuesLabel).find(StyledValue).last().text()
+    ).not.toEqual("bar");
   });
 
   describe("when labelsPosition is set", () => {
     it("renders labels above the progress bar", () => {
-      wrapper = mount(
-        <ProgressTracker progress={50} showDefaultLabels labelsPosition="top" />
-      );
+      wrapper = mount(<ProgressTracker progress={50} labelsPosition="top" />);
 
       assertStyleMatch(
         {
@@ -386,11 +322,7 @@ describe("labels", () => {
 
     it("renders labels below the progress bar", () => {
       wrapper = mount(
-        <ProgressTracker
-          progress={50}
-          showDefaultLabels
-          labelsPosition="bottom"
-        />
+        <ProgressTracker progress={50} labelsPosition="bottom" />
       );
 
       assertStyleMatch(
@@ -402,13 +334,7 @@ describe("labels", () => {
     });
 
     it("renders labels to the left of the progress bar", () => {
-      wrapper = mount(
-        <ProgressTracker
-          progress={50}
-          showDefaultLabels
-          labelsPosition="left"
-        />
-      );
+      wrapper = mount(<ProgressTracker progress={50} labelsPosition="left" />);
 
       assertStyleMatch(
         {
@@ -431,7 +357,6 @@ describe("labels", () => {
       wrapper = mount(
         <ProgressTracker
           progress={50}
-          showDefaultLabels
           labelsPosition="left"
           labelWidth="45px"
         />
@@ -455,38 +380,4 @@ it("applies the correct background colour when it is in progress", () => {
     },
     wrapper.find(InnerBar)
   );
-});
-
-describe("Accessibility", () => {
-  let wrapper: ReactWrapper;
-  beforeEach(() => {
-    wrapper = mount(
-      <ProgressTracker
-        progress={10}
-        aria-label="FooBar"
-        aria-describedby="Foo"
-        aria-valuemin={0}
-        aria-valuenow={10}
-        aria-valuemax={100}
-        aria-valuetext="Bar"
-      />
-    );
-  });
-
-  it("should allow an aria-label prop to be passed to the component", () => {
-    expect(wrapper.prop("aria-label")).toBe("FooBar");
-  });
-
-  it("should allow an aria-describedby prop to be passed to the component", () => {
-    expect(wrapper.prop("aria-describedby")).toBe("Foo");
-  });
-
-  it.each([
-    ["aria-valuemin", 0],
-    ["aria-valuenow", 10],
-    ["aria-valuemax", 100],
-    ["aria-valuetext", "Bar"],
-  ])("should allow a value to be passed to %s", (prop, value) => {
-    expect(wrapper.prop(prop)).toBe(value);
-  });
 });

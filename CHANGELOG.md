@@ -1,3 +1,114 @@
+## [142.0.0](https://github.com/Sage/carbon/compare/v141.4.4...v142.0.0) (2024-08-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **message:** `MessageContent` and `TypeIcon` subcomponents have been moved to an `__internal__`
+directory
+* **progress-tracker:** Aria attribute and `showDefaultLabel` props have been removed from
+`ProgressTracker`. This component can no longer be used without labels, default labels will
+now always be displayed if no valid `currentProgressLabel` is provided.
+
+### Features
+
+* **progress-tracker:** remove aria- attribute and showDefaultLabel  props ([8edfd4c](https://github.com/Sage/carbon/commit/8edfd4c0e67b166f7e4fcf9a60b821826b92b349)), closes [#6755](https://github.com/Sage/carbon/issues/6755)
+
+
+### Miscellaneous Chores
+
+* **message:** move subcomponents into an internal directory ([4f602c2](https://github.com/Sage/carbon/commit/4f602c275ee5f2ae7f816aac9b0124bfd5ffe526))
+
+### [141.4.4](https://github.com/Sage/carbon/compare/v141.4.3...v141.4.4) (2024-08-07)
+
+
+### Bug Fixes
+
+* **switch:** visual overflow with longer translation strings ([baf21b1](https://github.com/Sage/carbon/commit/baf21b12065973406b05722cd0dd27a644160f88))
+
+### [141.4.3](https://github.com/Sage/carbon/compare/v141.4.2...v141.4.3) (2024-08-02)
+
+
+### Bug Fixes
+
+* **multi-select:** ensure unique keys when options passed object values with duplicate text property ([5c3fd8c](https://github.com/Sage/carbon/commit/5c3fd8ce86cea9a49cdc9b5a78a28dd364901a58)), closes [#6843](https://github.com/Sage/carbon/issues/6843)
+
+### [141.4.2](https://github.com/Sage/carbon/compare/v141.4.1...v141.4.2) (2024-08-02)
+
+
+### Bug Fixes
+
+* **batch-selection:** ensure all button children are disabled when inside a disabled BatchSelection ([9ab48ab](https://github.com/Sage/carbon/commit/9ab48ab4ecf948f5016333098640b6449465916c))
+
+### [141.4.1](https://github.com/Sage/carbon/compare/v141.4.0...v141.4.1) (2024-08-02)
+
+
+### Reverts
+
+* Revert "chore(storybook): disable version picker addon" ([4a3269a](https://github.com/Sage/carbon/commit/4a3269a0ba37eff8779fbbf145401b8be05e065e))
+
+## [141.4.0](https://github.com/Sage/carbon/compare/v141.3.1...v141.4.0) (2024-08-01)
+
+
+### Features
+
+* **search:** add `triggerOnClear` prop to allow clicking `cross` icon to trigger `onClick` ([a77afe5](https://github.com/Sage/carbon/commit/a77afe55bf47f9b52befa3356c3affc755651b29)), closes [#6768](https://github.com/Sage/carbon/issues/6768)
+
+### [141.3.1](https://github.com/Sage/carbon/compare/v141.3.0...v141.3.1) (2024-08-01)
+
+
+### Bug Fixes
+
+* **heading:** the heading separator incorrectly has 1px black colour at the leftmost position ([b31fb1e](https://github.com/Sage/carbon/commit/b31fb1ea7ef0b59c87e885d61e8ec622ff1a0fa3))
+
+## [141.3.0](https://github.com/Sage/carbon/compare/v141.2.1...v141.3.0) (2024-07-31)
+
+
+### Features
+
+* **toast:** improve component screen reader behaviour ([5e945e3](https://github.com/Sage/carbon/commit/5e945e3003202867bc3962a68a8423db64ae2c57)), closes [#6729](https://github.com/Sage/carbon/issues/6729)
+
+### [141.2.1](https://github.com/Sage/carbon/compare/v141.2.0...v141.2.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* **flat-table:** flat table contents visible behind sticky header/footer ([4f84514](https://github.com/Sage/carbon/commit/4f845144d3f44376529bf8c2d706179a59b63534))
+
+## [141.2.0](https://github.com/Sage/carbon/compare/v141.1.1...v141.2.0) (2024-07-29)
+
+
+### Features
+
+* **step-flow:** allow component title to be compositional ([4d5d808](https://github.com/Sage/carbon/commit/4d5d808982e1557a7b0f2c964e302a7c30715cb6)), closes [#6732](https://github.com/Sage/carbon/issues/6732)
+
+### [141.1.1](https://github.com/Sage/carbon/compare/v141.1.0...v141.1.1) (2024-07-26)
+
+
+### Bug Fixes
+
+* **flat-table-row-header:** focus border partially covered in expanded rows ([d97caa8](https://github.com/Sage/carbon/commit/d97caa8ef195b485948b45a5f373731d477ad973)), closes [#6561](https://github.com/Sage/carbon/issues/6561)
+
+## [141.1.0](https://github.com/Sage/carbon/compare/v141.0.8...v141.1.0) (2024-07-25)
+
+
+### Features
+
+* **option-group-header:** add support for children to be passed to component ([9629f93](https://github.com/Sage/carbon/commit/9629f9388328626caab6ffad6f90694aa02eadd9)), closes [#6823](https://github.com/Sage/carbon/issues/6823)
+
+### [141.0.8](https://github.com/Sage/carbon/compare/v141.0.7...v141.0.8) (2024-07-25)
+
+
+### Bug Fixes
+
+* **popover-container:** popover position re-renders with controlled multiselect ([2783ace](https://github.com/Sage/carbon/commit/2783aceed1b13b5bdaee9cc7ec87ab8fea118b94)), closes [#6793](https://github.com/Sage/carbon/issues/6793)
+
+### [141.0.7](https://github.com/Sage/carbon/compare/v141.0.6...v141.0.7) (2024-07-25)
+
+
+### Bug Fixes
+
+* **button-toggle:** long text overflows button and update large icon padding ([265ff49](https://github.com/Sage/carbon/commit/265ff4992492341f550684a79e37986eb1c06de7)), closes [#6799](https://github.com/Sage/carbon/issues/6799)
+
 ### [141.0.6](https://github.com/Sage/carbon/compare/v141.0.5...v141.0.6) (2024-07-22)
 
 

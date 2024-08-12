@@ -3,7 +3,7 @@ import TranslationKeysTable from "../../../.storybook/utils/translation-keys-tab
 
 import * as ProgressTrackerStories from "./progress-tracker.stories";
 
-<Meta title="Progress Tracker" of={ProgressTrackerStories} />
+<Meta of={ProgressTrackerStories} />
 
 # ProgressTracker
 
@@ -24,7 +24,6 @@ In general, place a `ProgressTracker` in the centre and middle of the page or co
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
-- [Accessibility](#accessibility)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -38,8 +37,7 @@ import ProgressTracker from "carbon-react/lib/components/progress-tracker";
 
 ### Default
 
-This example of the `ProgressTracker` component demonstrates how it will appear as default. Please note by default the
-`progress` is set to `0`, but for the purpose of the demo it has been set to `50`.
+By default, the `ProgressTracker` component will display a progress bar with a percentage value out of 100% as a label.
 
 <Canvas of={ProgressTrackerStories.Default} />
 
@@ -57,61 +55,37 @@ This is an example of a large `ProgressTracker` component.
 
 ### Custom bar length
 
-The length of the bar can be set to any valid css property. This sets the width of a horizontal bar or the height of a vertical bar. The default is "256px".
+By default, the length of the component is "256px". However, you can use the `length` prop to override this with any valid css string. 
 
 <Canvas of={ProgressTrackerStories.CustomBarLength} />
 
 ### Color variants
 
-This is an example of a `ProgressTracker` component with different colors depending on progress.
+Depending on the progress or state of the component, the colour of the progress bar is automatically updated.
 
 <Canvas of={ProgressTrackerStories.ColorVariants} />
 
-### Default label values
-
-This is an example of a `ProgressTracker` component with `showDefaultLabels` set to `true`, which will render the labels as
-percentages.
-
-<Canvas of={ProgressTrackerStories.DefaultLabelValue} />
-
-It is possible to override the default `labelsPosition` to `"bottom"` or `"left"`.
-
-<Canvas of={ProgressTrackerStories.DefaultLabelValueLabelsPositionBottom} />
-
-When positioning the labels to the left, it is possible to use the `LabelWidth` prop to ensure consistent label lengths.
-This can also facilitate comparison between multiple `ProgressTrackers`.
-
-<Canvas of={ProgressTrackerStories.DefaultLabelValueLabelsPositionLeft} />
 
 ### Custom label values
 
-This is an example of a `ProgressTracker` component with `currentProgressLabel` and `maxProgressLabel` props.
+To set your own labels, you can set the `currentProgressLabel` and `maxProgressLabel` props. 
+
+Note that the preposition between the current and max labels will be 'of' by default, but you can override this by setting the `customValuePreposition` prop or making use of the `of` translation key.
+
+You can also use the `description` prop to provide additional context to the user.
 
 <Canvas of={ProgressTrackerStories.CustomLabelValues} />
 
-It is also possible to render the component with a mix of default and custom labels by only setting one of the `currentProgressLabel`
-and `maxProgressLabel` props and optionally setting the `showDefaultLabels` prop.
+### Label position
 
-<Canvas of={ProgressTrackerStories.DefaultAndCustomLabelValues} />
+By default, the position of the label is above the bar. To override this you can set the `labelsPosition` prop to `"bottom"` or `"left"`.
 
-## Accessibility
+<Canvas of={ProgressTrackerStories.LabelsPositionBottom} />
 
-This component has `aria-valuemin`, `aria-valuemax`, `aria-valuenow` and `aria-valuetext` props that can be utilised to enhance the experience for a user that requires a screenreader.
+When positioning the labels to the `"left"`, you can use the `labelWidth` prop to ensure consistent label lengths.
+This can also facilitate comparison between multiple `ProgressTracker` components.
 
-For more information on these props, please visit the W3 documentation on `role="progressbar"`. This can be accessed by clicking [here](https://www.w3.org/TR/wai-aria-1.1/#progressbar).
-
-Note that `aria-valuenow` will by default be calculated from the provided values for `aria-valuemin` (which defaults to 0), `aria-valuemax` (which defaults to 100), and `progress`. This
-default can be overridden if you provide this prop explicitly.
-
-### Example 1
-
-<Canvas of={ProgressTrackerStories.AccessibilityExample} />
-
-### Example 2
-
-This example shows the automatic calculation of `aria-valuenow` when not provided (inspect the DOM, or listen using a screenreader, to see the output).
-
-<Canvas of={ProgressTrackerStories.AccessibilityExampleTwo} />
+<Canvas of={ProgressTrackerStories.LabelPositionLeft} />
 
 ## Props
 
