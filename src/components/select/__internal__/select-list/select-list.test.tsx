@@ -8,6 +8,7 @@ import {
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import mockDOMRect from "__spec_helper__/mock-dom-rect";
 
 import SelectList, { SelectListProps } from "./select-list.component";
 import Option from "../../option";
@@ -15,10 +16,8 @@ import OptionRow from "../../option-row";
 
 beforeEach(() => {
   jest.useFakeTimers();
-  // Mock getBoundingClientRect to return an arbitrary non-zero value, since react-virtual depends on it
-  jest.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue({
-    height: 40,
-  } as DOMRect);
+  // Mock non-zero dimensions for the scrollable container. To ensure react-virtual renders the list options correctly.
+  mockDOMRect(40, 100, "select-list-scrollable-container");
 });
 
 afterEach(() => {
@@ -947,13 +946,15 @@ describe("virtualised options", () => {
   it("renders fewer options when virtual scrolling is enabled with limited overscan", () => {
     render(
       <SelectListWithInput enableVirtualScroll virtualScrollOverscan={1}>
-        <Option id="red" value="red" text="red" />
-        <Option id="green" value="green" text="green" />
-        <Option id="blue" value="blue" text="blue" />
+        <Option key="red" value="red" text="red" />
+        <Option key="green" value="green" text="green" />
+        <Option key="blue" value="blue" text="blue" />
+        <Option key="white" value="white" text="white" />
+        <Option key="black" value="black" text="black" />
       </SelectListWithInput>
     );
 
-    expect(screen.getAllByRole("option").length).toBeLessThan(3);
+    expect(screen.getAllByRole("option").length).toBeLessThan(5);
   });
 
   it("keeps selected option rendered", () => {

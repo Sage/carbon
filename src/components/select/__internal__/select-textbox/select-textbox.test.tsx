@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import SelectTextbox from ".";
 
-test("renders combobox", () => {
+test("renders as a combobox", () => {
   render(<SelectTextbox label="Select Colour" onChange={() => {}} />);
 
   expect(
@@ -12,10 +12,20 @@ test("renders combobox", () => {
   ).toBeVisible();
 });
 
-test("render textbox if readOnly prop is true", () => {
+test("renders as a readonly textbox if readOnly prop is true", () => {
   render(<SelectTextbox label="Select Colour" onChange={() => {}} readOnly />);
 
-  expect(screen.getByRole("textbox", { name: /Select Colour/i })).toBeVisible();
+  const input = screen.getByRole("textbox", { name: /Select Colour/i });
+  expect(input).toBeVisible();
+  expect(input).toHaveAttribute("readonly");
+});
+
+test("renders as a disabled combobox if disabled prop is true", () => {
+  render(<SelectTextbox label="Select Colour" onChange={() => {}} disabled />);
+
+  const input = screen.getByRole("combobox", { name: /Select Colour/i });
+  expect(input).toBeVisible();
+  expect(input).toBeDisabled();
 });
 
 test("combobox has correct accessible name when ariaLabel prop is provided", () => {
@@ -137,7 +147,7 @@ describe("when hasTextCursor prop is false", () => {
     expect(
       screen.getByRole("combobox", { name: "Textbox" })
     ).not.toHaveTextContent("foo");
-    expect(screen.getByText("foo")).toBeInTheDocument();
+    expect(screen.getByText("foo")).toBeVisible();
   });
 
   it("displays the placeholder text in an overlay when the combobox has no value", () => {
@@ -150,7 +160,7 @@ describe("when hasTextCursor prop is false", () => {
     );
 
     expect(screen.getByRole("combobox")).not.toHaveTextContent("foobaz");
-    expect(screen.getByText("foobaz")).toBeInTheDocument();
+    expect(screen.getByText("foobaz")).toBeVisible();
   });
 
   it("renders combobox without autocomplete", () => {

@@ -7,20 +7,16 @@ import ListActionButton from ".";
 
 test("button element can be accessed via a forwarded ref", async () => {
   const ref = jest.fn();
-  const user = userEvent.setup();
   render(<ListActionButton ref={ref} />);
-  const button = screen.getByRole("button", { name: "Add New Item" });
 
-  await user.click(button);
-
-  expect(ref).toHaveBeenCalledWith(button);
+  expect(ref).toHaveBeenCalledWith(
+    screen.getByRole("button", { name: "Add New Item" })
+  );
 });
 
 test("renders custom button when listActionButton prop is provided", () => {
   render(<ListActionButton listActionButton={<Button>Test Button</Button>} />);
-  expect(
-    screen.getByRole("button", { name: "Test Button" })
-  ).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Test Button" })).toBeVisible();
 });
 
 test("calls onListAction when custom button is clicked", async () => {

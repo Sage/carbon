@@ -10,7 +10,7 @@ test("renders combobox without text overlay", () => {
     </FilterableSelect>
   );
 
-  expect(screen.getByRole("combobox")).toBeInTheDocument();
+  expect(screen.getByRole("combobox")).toBeVisible();
   expect(screen.queryByTestId("select-text")).not.toBeInTheDocument();
 });
 
