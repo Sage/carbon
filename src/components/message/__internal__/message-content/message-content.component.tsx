@@ -21,6 +21,7 @@ const MessageContent = ({
       showCloseIcon={showCloseIcon}
       reduceLeftPadding={reduceLeftPadding}
       data-element="message-content"
+      data-role="message-content"
     >
       <Content title={title}>{children}</Content>
     </MessageContentStyle>
