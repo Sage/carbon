@@ -16,6 +16,11 @@ import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 import SidebarContext from "./__internal__/sidebar.context";
 
+// TODO FE-5408 will investigate why React.RefObject<T> produces a failed prop type when current = null
+type CustomRefObject<T> = {
+  current?: T | null;
+};
+
 export interface SidebarProps
   extends PaddingProps,
     Omit<TagProps, "data-component">,
@@ -76,7 +81,7 @@ export interface SidebarProps
     | "large"
     | "extra-large";
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the sidebar */
-  focusableContainers?: React.RefObject<HTMLElement>[];
+  focusableContainers?: CustomRefObject<HTMLElement>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** Padding to be set on the Sidebar header */

@@ -1,3 +1,7 @@
+type CustomRefObject<T> = {
+  current?: T | null;
+};
+
 const defaultFocusableSelectors =
   'button:not([disabled]), [href], input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]';
 
@@ -120,10 +124,10 @@ const getNextElement = (
 };
 
 const onTabGuardFocus = (
-  trapWrappers: React.RefObject<HTMLElement>[],
+  trapWrappers: CustomRefObject<HTMLElement>[],
   focusableSelectors: string | undefined,
   position: "top" | "bottom"
-) => (guardWrapperRef: React.RefObject<HTMLElement>) => () => {
+) => (guardWrapperRef: CustomRefObject<HTMLElement>) => () => {
   const isTop = position === "top";
   const currentIndex = trapWrappers.indexOf(guardWrapperRef);
   let index = currentIndex;

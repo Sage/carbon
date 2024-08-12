@@ -21,7 +21,7 @@ import {
 } from "./dialog.style";
 import { DialogSizes, TOP_MARGIN } from "./dialog.config";
 
-import FocusTrap from "../../__internal__/focus-trap";
+import FocusTrap, { CustomRefObject } from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -67,7 +67,7 @@ export interface DialogProps extends ModalProps, TagProps {
     lastElement?: HTMLElement
   ) => void;
   /** Optional reference to an element meant to be focused on open */
-  focusFirstElement?: React.RefObject<HTMLElement> | HTMLElement | null;
+  focusFirstElement?: CustomRefObject<HTMLElement> | HTMLElement | null;
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** Allows developers to specify a specific height for the dialog. */
@@ -95,7 +95,7 @@ export interface DialogProps extends ModalProps, TagProps {
   /** Change the background color of the content to grey */
   greyBackground?: boolean;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
-  focusableContainers?: React.RefObject<HTMLElement>[];
+  focusableContainers?: CustomRefObject<HTMLElement>[];
 }
 
 export type DialogHandle = {

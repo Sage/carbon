@@ -22,11 +22,16 @@ import TopModalContext from "../../components/carbon-provider/__internal__/top-m
 export const TAB_GUARD_TOP = "tab-guard-top";
 export const TAB_GUARD_BOTTOM = "tab-guard-bottom";
 
+// TODO investigate why React.RefObject<T> produces a failed prop type when current = null
+export type CustomRefObject<T> = {
+  current?: T | null;
+};
+
 export interface FocusTrapProps {
   children: React.ReactNode;
   autoFocus?: boolean;
   /** provide a custom first element to focus */
-  focusFirstElement?: React.RefObject<HTMLElement> | HTMLElement | null;
+  focusFirstElement?: CustomRefObject<HTMLElement> | HTMLElement | null;
   /** a custom callback that will override the default focus trap behaviour */
   bespokeTrap?: (
     ev: KeyboardEvent,
@@ -36,11 +41,11 @@ export interface FocusTrapProps {
   /** optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** a ref to the container wrapping the focusable elements */
-  wrapperRef: React.RefObject<HTMLElement>;
+  wrapperRef: CustomRefObject<HTMLElement>;
   /* whether the modal (etc.) component that the focus trap is inside is open or not */
   isOpen?: boolean;
   /** an optional array of refs to containers whose content should also be reachable from the FocusTrap */
-  additionalWrapperRefs?: React.RefObject<HTMLElement>[];
+  additionalWrapperRefs?: CustomRefObject<HTMLElement>[];
 }
 
 const FocusTrap = ({
