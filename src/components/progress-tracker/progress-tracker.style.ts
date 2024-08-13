@@ -52,9 +52,9 @@ const StyledProgressTracker = styled.div<
 `;
 
 const StyledProgressBar = styled.span<
-  Pick<ProgressTrackerProps, "size" | "progress" | "error">
+  Pick<ProgressTrackerProps, "progress" | "error">
 >`
-  ${({ size, progress, error, theme }) => css`
+  ${({ progress, error, theme }) => css`
     display: flex;
     position: relative;
     background-color: var(--colorsSemanticNeutral200);
@@ -111,16 +111,16 @@ const StyledValuesLabel = styled.span<
 `;
 
 const InnerBar = styled.span<
-  Pick<ProgressTrackerProps, "progress" | "size" | "length" | "error">
+  Required<Pick<ProgressTrackerProps, "progress" | "size" | "error">>
 >`
-  ${({ progress, size = "medium", length, error, theme }) => css`
+  ${({ progress, size, error, theme }) => css`
     position: relative;
     left: 0;
     background-color: ${getBackgroundColour({ progress, error })};
     border-radius: ${theme.roundedCornersOptOut
       ? "25px"
       : "var(--borderRadius400)"};
-    width: calc(${length} * ${progress && progress / 100});
+    width: ${progress}%;
     min-width: 2px;
     height: ${getHeight(size)};
   `}

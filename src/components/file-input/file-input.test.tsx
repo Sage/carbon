@@ -305,7 +305,7 @@ describe("with uploadStatus prop set", () => {
     }
   );
 
-  it("when the status is `uploading`, a progress bar or loader bar is rendered", () => {
+  it("when the status is `uploading` and progress is set, a progress tracker is rendered", () => {
     render(
       <FileInput
         uploadStatus={{
@@ -317,7 +317,8 @@ describe("with uploadStatus prop set", () => {
         onChange={() => {}}
       />
     );
-    expect(screen.getByRole("progressbar")).toBeVisible();
+    expect(screen.getByTestId("progress-tracker-bar")).toBeVisible();
+    expect(screen.getByTestId("inner-bar")).toHaveStyle({ width: "30%" });
   });
 
   it("when the status is `completed`, a link is rendered with the status message", () => {
