@@ -145,6 +145,7 @@ export const MultiSelect = React.forwardRef(
     const isClickTriggeredBySelect = useRef(false);
     const isMouseDownReported = useRef(false);
     const isMouseDownOnInput = useRef(false);
+    const isOpenedByFocus = useRef(false);
     const isControlled = useRef(value !== undefined);
     const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
     const [isOpen, setOpenState] = useState(false);
@@ -455,6 +456,20 @@ export const MultiSelect = React.forwardRef(
       if (onClick) {
         onClick(event);
       }
+
+      if (!openOnFocus || (openOnFocus && !isOpenedByFocus.current)) {
+        if (isOpen) {
+          setFilterText("");
+          setOpenState(false);
+          return;
+        }
+
+        onOpen?.();
+
+        setOpenState(true);
+      } else {
+        isOpenedByFocus.current = false;
+      }
     }
 
     function handleDropdownIconClick(
@@ -531,9 +546,13 @@ export const MultiSelect = React.forwardRef(
             }
 
             if (isMouseDownReported.current && !isMouseDownOnInput.current) {
+              isOpenedByFocus.current = false;
               return false;
             }
 
+            if (isMouseDownOnInput.current) {
+              isOpenedByFocus.current = true;
+            }
             return true;
           });
         });

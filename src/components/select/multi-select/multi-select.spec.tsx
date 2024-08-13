@@ -574,13 +574,28 @@ describe("MultiSelect", () => {
   );
 
   describe("when the Textbox Input is clicked", () => {
-    it("the SelectList should not be rendered", () => {
+    it("the SelectList should rendered", () => {
       const wrapper = renderSelect();
 
       simulateSelectTextboxEvent(wrapper, "click");
       expect(
         wrapper.find(StyledSelectListContainer).getDOMNode()
-      ).not.toBeVisible();
+      ).toBeVisible();
+    });
+
+    describe('and the "openOnFocus" prop is passed', () => {
+      describe("and the focus opens the SelectList", () => {
+        it("the SelectList should be visible", () => {
+          const wrapper = renderSelect({ openOnFocus: true });
+
+          simulateSelectTextboxEvent(wrapper, "mousedown");
+          simulateSelectTextboxEvent(wrapper, "focus");
+          simulateSelectTextboxEvent(wrapper, "click");
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).toBeVisible();
+        });
+      });
     });
 
     describe('and the "onClick" prop is passed', () => {
@@ -594,12 +609,12 @@ describe("MultiSelect", () => {
     });
 
     describe('and the "onOpen" prop is passed', () => {
-      it("then that prop should not be called", () => {
+      it("then that prop should be called", () => {
         const onOpenFn = jest.fn();
         const wrapper = renderSelect({ onOpen: onOpenFn });
 
         simulateSelectTextboxEvent(wrapper, "click");
-        expect(onOpenFn).not.toHaveBeenCalled();
+        expect(onOpenFn).toHaveBeenCalled();
       });
 
       describe("and the focus triggered by mouseDown on the input", () => {
@@ -703,6 +718,17 @@ describe("MultiSelect", () => {
         beforeEach(() => {
           onOpenFn = jest.fn();
           wrapper = renderSelect({ onOpen: onOpenFn, openOnFocus: true });
+        });
+
+        it("then clicking the Textbox Input should close the SelectList", () => {
+          simulateSelectTextboxEvent(wrapper, "focus");
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).toBeVisible();
+          wrapper.find("input").simulate("click");
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).not.toBeVisible();
         });
 
         it("then that prop should have been called", () => {
