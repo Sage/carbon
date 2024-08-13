@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import { MarginProps } from "styled-system";
 
 import MessageStyle from "./message.style";
-import TypeIcon from "./type-icon/type-icon.component";
-import MessageContent from "./message-content/message-content.component";
+import TypeIcon from "./__internal__/type-icon/type-icon.component";
+import MessageContent from "./__internal__/message-content/message-content.component";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Icon from "../icon";
 import IconButton from "../icon-button";

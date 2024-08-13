@@ -2,7 +2,10 @@ import React from "react";
 import Link, { LinkProps } from "../../../link";
 import ButtonMinor from "../../../button-minor";
 import StyledTypography from "../../../typography/typography.style";
-import ProgressTracker from "../../../progress-tracker";
+import {
+  StyledProgressBar,
+  InnerBar,
+} from "../../../progress-tracker/progress-tracker.style";
 import LoaderBar from "../../../loader-bar";
 import Icon, { IconType } from "../../../icon";
 import {
@@ -69,10 +72,22 @@ export const FileUploadStatus = ({
         (statusProps as StatusUploadingProps).progress === undefined ? (
           <LoaderBar />
         ) : (
-          <ProgressTracker
+          <StyledProgressBar
+            data-element="progress-tracker-bar"
+            data-role="progress-tracker-bar"
             progress={(statusProps as StatusUploadingProps).progress}
-            length="100%"
-          />
+            aria-hidden="true"
+          >
+            <InnerBar
+              data-element="inner-bar"
+              data-role="inner-bar"
+              size="medium"
+              progress={
+                (statusProps as StatusUploadingProps).progress as number
+              }
+              error={false}
+            />
+          </StyledProgressBar>
         );
       break;
     case "previously":

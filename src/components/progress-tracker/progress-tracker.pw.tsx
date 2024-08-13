@@ -17,36 +17,10 @@ import {
   checkCSSOutline,
 } from "../../../playwright/support/helper";
 import { ProgressTrackerProps } from "../progress-tracker";
-import {
-  AccessibilityExample,
-  AccessibilityExampleTwo,
-  ProgressTrackerComponent,
-} from "./components.test-pw";
+import ProgressTrackerComponent from "./components.test-pw";
 import { PROGRESS_TRACKER_SIZES } from "./progress-tracker.config";
 
 test.describe("Check props for ProgressTracker component", () => {
-  ([
-    ["aria-label", CHARACTERS.STANDARD],
-    ["aria-describedby", CHARACTERS.STANDARD],
-    ["aria-valuenow", 50],
-    ["aria-valuemin", 50],
-    ["aria-valuemax", 50],
-    ["aria-valuetext", CHARACTERS.STANDARD],
-  ] as const).forEach(([propName, value]) => {
-    test(`when ${propName} prop is passed, sets the correct ARIA attribute on the ProgressTracker`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ProgressTrackerComponent {...{ [propName]: value }} />);
-
-      const progressTrackerComponentElement = progressTrackerComponent(page);
-      await expect(progressTrackerComponentElement).toHaveAttribute(
-        propName,
-        String(value)
-      );
-    });
-  });
-
   ([
     [PROGRESS_TRACKER_SIZES[0], 4],
     [PROGRESS_TRACKER_SIZES[1], 8],
@@ -81,24 +55,22 @@ test.describe("Check props for ProgressTracker component", () => {
   });
 
   ([
-    [12, "rgb(51, 91, 112)"],
-    [47, "rgb(51, 91, 112)"],
-    [100, "rgb(0, 138, 33)"],
-  ] as const).forEach(([progress, color]) => {
+    [12, 30, "rgb(51, 91, 112)"],
+    [47, 120, "rgb(51, 91, 112)"],
+    [100, 256, "rgb(0, 138, 33)"],
+  ] as const).forEach(([progress, width, color]) => {
     test(`render component with ${progress}% of progress`, async ({
       mount,
       page,
     }) => {
       await mount(<ProgressTrackerComponent progress={progress} />);
 
-      const progressTrackerComponentElement = progressTrackerComponent(page);
-      await expect(progressTrackerComponentElement).toHaveAttribute(
-        "aria-valuenow",
-        String(progress)
-      );
-      await expect(progressTrackerComponentElement).toBeVisible();
-
       const progressTrackerLineElement = progressTrackerLine(page);
+      await assertCssValueIsApproximately(
+        progressTrackerLineElement,
+        "width",
+        width
+      );
       await expect(progressTrackerLineElement).toHaveCSS(
         "background-color",
         color
@@ -107,9 +79,7 @@ test.describe("Check props for ProgressTracker component", () => {
   });
 
   test("render component with error prop", async ({ mount, page }) => {
-    await mount(
-      <ProgressTrackerComponent error showDefaultLabels progress={35} />
-    );
+    await mount(<ProgressTrackerComponent error progress={35} />);
 
     const progressTrackerLineElement = progressTrackerLine(page);
     await expect(progressTrackerLineElement).toHaveCSS(
@@ -127,26 +97,6 @@ test.describe("Check props for ProgressTracker component", () => {
       "solid",
       "rgb(203, 55, 74)"
     );
-  });
-
-  test("should render label when showDefaultLabels prop is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ProgressTrackerComponent showDefaultLabels />);
-    const labelElement = page.getByText("50%");
-
-    await expect(labelElement).toBeInViewport();
-  });
-
-  test("should not render label when showDefaultLabels prop is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ProgressTrackerComponent showDefaultLabels={false} />);
-    const labelElement = page.getByText("50%");
-
-    await expect(labelElement).not.toBeInViewport();
   });
 
   ([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const).forEach(
@@ -176,7 +126,10 @@ test.describe("Check props for ProgressTracker component", () => {
         page,
       }) => {
         await mount(
-          <ProgressTrackerComponent maxProgressLabel={maxProgressLabel} />
+          <ProgressTrackerComponent
+            currentProgressLabel="foo"
+            maxProgressLabel={maxProgressLabel}
+          />
         );
 
         const progressTrackerMaxValElement = progressTrackerMaxVal(page);
@@ -194,7 +147,6 @@ test.describe("Check props for ProgressTracker component", () => {
         await mount(
           <ProgressTrackerComponent
             customValuePreposition={customValuePreposition}
-            showDefaultLabels
           />
         );
 
@@ -269,12 +221,7 @@ test.describe("Check props for ProgressTracker component", () => {
         mount,
         page,
       }) => {
-        await mount(
-          <ProgressTrackerComponent
-            showDefaultLabels
-            description={description}
-          />
-        );
+        await mount(<ProgressTrackerComponent description={description} />);
 
         const progressTrackerDescriptionElement = progressTrackerDescription(
           page
@@ -300,24 +247,6 @@ test.describe("Check props for ProgressTracker component", () => {
 });
 
 test.describe("Accessibility tests", () => {
-  test(`should check the accessibility of Accessibility Example`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccessibilityExample />);
-
-    await checkAccessibility(page);
-  });
-
-  test(`should check the accessibility of Accessibility Example Two`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccessibilityExampleTwo />);
-
-    await checkAccessibility(page);
-  });
-
   ([
     PROGRESS_TRACKER_SIZES[0],
     PROGRESS_TRACKER_SIZES[1],
@@ -359,21 +288,8 @@ test.describe("Accessibility tests", () => {
     mount,
     page,
   }) => {
-    await mount(
-      <ProgressTrackerComponent error showDefaultLabels progress={35} />
-    );
+    await mount(<ProgressTrackerComponent error progress={35} />);
     await checkAccessibility(page);
-  });
-
-  ([true, false] as const).forEach((boolean) => {
-    test(`should check the accessibility when component is rendered with showDefaultLabels is set to ${boolean}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ProgressTrackerComponent showDefaultLabels={boolean} />);
-
-      await checkAccessibility(page);
-    });
   });
 
   ([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const).forEach(
@@ -417,7 +333,6 @@ test.describe("Accessibility tests", () => {
         await mount(
           <ProgressTrackerComponent
             customValuePreposition={customValuePreposition}
-            showDefaultLabels
           />
         );
 

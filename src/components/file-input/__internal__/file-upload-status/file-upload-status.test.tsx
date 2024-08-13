@@ -63,7 +63,7 @@ describe("in uploading state", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("renders a progress bar with progress matching the progress prop", () => {
+  it("renders a progress tracker bar with the provided progress percentage if progress is set", () => {
     render(
       <FileUploadStatus
         status="uploading"
@@ -72,9 +72,9 @@ describe("in uploading state", () => {
         progress={30}
       />
     );
-    const progressBar = screen.queryByRole("progressbar");
-    expect(progressBar).toBeInTheDocument();
-    expect(progressBar).toHaveAttribute("aria-valuenow", "30");
+
+    expect(screen.getByTestId("progress-tracker-bar")).toBeVisible();
+    expect(screen.getByTestId("inner-bar")).toHaveStyle({ width: "30%" });
   });
 
   it("renders a loader bar if the progress prop is not provided", () => {
@@ -85,9 +85,8 @@ describe("in uploading state", () => {
         onAction={() => {}}
       />
     );
-    const progressBar = screen.queryByRole("progressbar");
-    expect(progressBar).toBeInTheDocument();
-    expect(progressBar).not.toHaveAttribute("aria-valuenow");
+
+    expect(screen.getByRole("progressbar")).toBeVisible();
   });
 });
 
