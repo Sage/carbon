@@ -1,3 +1,11 @@
+### [142.0.1](https://github.com/Sage/carbon/compare/v142.0.0...v142.0.1) (2024-08-13)
+
+
+### Bug Fixes
+
+* **heading:** ensure back link focus styling is consistent when rendered as a link or button ([5991d48](https://github.com/Sage/carbon/commit/5991d48bedcc400bf20c26a534f3071069dd66fb))
+* **heading:** ensure back link wrapper does not have additional focus styling ([041ff54](https://github.com/Sage/carbon/commit/041ff54345a5f0a60db1e0df8ab912501cb24bc1))
+
 ## [142.0.0](https://github.com/Sage/carbon/compare/v141.4.4...v142.0.0) (2024-08-09)
 
 
