@@ -1,3 +1,10 @@
+### [142.0.3](https://github.com/Sage/carbon/compare/v142.0.2...v142.0.3) (2024-08-14)
+
+
+### Bug Fixes
+
+* **simple-color-picker, advanced-color-picker:** ensure blur blocking works when switching colors ([c4434bb](https://github.com/Sage/carbon/commit/c4434bba81405cf1d200911a5a13107c9c4624a0)), closes [#6850](https://github.com/Sage/carbon/issues/6850)
+
 ### [142.0.2](https://github.com/Sage/carbon/compare/v142.0.1...v142.0.2) (2024-08-14)
 
 
