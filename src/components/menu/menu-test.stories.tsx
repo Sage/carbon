@@ -16,6 +16,9 @@ import Search from "../search";
 import Box from "../box";
 import NavigationBar, { NavigationBarProps } from "../navigation-bar";
 import GlobalHeader from "../global-header";
+import PopoverContainer from "../popover-container";
+import Button from "../button";
+import Icon from "../icon";
 
 const defaultOpenState = isChromatic();
 
@@ -30,6 +33,7 @@ const meta: Meta<typeof Menu> = {
     "MenuWithTwoSegments",
     "MenuFullScreenWithLargeMenuItems",
     "MenuComponentFullScreenWithLongSubmenuText",
+    "AsLinkWithAlternateVariant",
   ],
   parameters: {
     info: { disable: true },
@@ -139,6 +143,61 @@ export const MenuFullScreenStory = ({
     </Menu>
   );
 };
+
+export const AsLinkWithAlternateVariant = () => {
+  return (
+    <Menu menuType="black">
+      <MenuItem href="#">Menu Item One</MenuItem>
+      <MenuItem onClick={() => {}} submenu="Menu Item Two">
+        <MenuItem
+          href="#"
+          onClick={() => {
+            alert("clicked");
+          }}
+          variant="alternate"
+        >
+          Link
+        </MenuItem>
+        <MenuItem href="#">Submenu Item Two</MenuItem>
+      </MenuItem>
+      <MenuItem submenu="Search">
+        <MenuSegmentTitle text="My Title" variant="alternate">
+          <MenuItem>
+            <Search
+              key="business-search"
+              defaultValue=""
+              variant="dark"
+              placeholder="Search all businesses"
+              searchWidth="100%"
+            />
+          </MenuItem>
+          <MenuItem href="#">Submenu Item Two</MenuItem>
+        </MenuSegmentTitle>
+      </MenuItem>
+      <MenuItem>
+        <PopoverContainer
+          disableAnimation
+          containerAriaLabel="notifications"
+          closeButtonAriaLabel="closeContainerAriaLabel"
+          position="left"
+          shouldCoverButton
+          renderOpenComponent={() => (
+            <Box data-role="gblnav-notificationui-bell">
+              <Button aria-label="Notifications">
+                <Box px={2}>
+                  <Icon type="alert" />
+                  notifications
+                </Box>
+              </Button>
+            </Box>
+          )}
+        />
+      </MenuItem>
+      <MenuItem href="#">Menu Item Six</MenuItem>
+    </Menu>
+  );
+};
+AsLinkWithAlternateVariant.storyName = "as link with alternate variant";
 
 MenuFullScreenStory.storyName = "fullscreen menu";
 MenuFullScreenStory.story = {
