@@ -482,7 +482,11 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                       }
                     >
                       <FormSpacingProvider marginBottom={undefined}>
-                        <Typography mb="4px" id={labelId}>
+                        <Typography
+                          mb="4px"
+                          id={labelId}
+                          data-role="numeral-date-input-text"
+                        >
                           {getDateLabel(datePart, locale)}
                         </Typography>
                         <Textbox

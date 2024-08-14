@@ -33,7 +33,7 @@ Default.storyName = "Default";
 export const SizeSmall: Story = () => {
   return (
     <Box display="flex" justifyContent="space-around">
-      <ProgressTracker size="small" progress={50} showDefaultLabels />
+      <ProgressTracker size="small" progress={50} />
     </Box>
   );
 };
@@ -42,7 +42,7 @@ SizeSmall.storyName = "Size - Small";
 export const SizeLarge: Story = () => {
   return (
     <Box display="flex" justifyContent="space-around">
-      <ProgressTracker size="large" progress={50} showDefaultLabels />
+      <ProgressTracker size="large" progress={50} />
     </Box>
   );
 };
@@ -74,95 +74,6 @@ export const ColorVariants: Story = () => {
 };
 ColorVariants.storyName = "Color Variants";
 
-export const DefaultLabelValue: Story = () => {
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <ProgressTracker mt={2} progress={15} currentProgressLabel="15%" />
-      <ProgressTracker mt={2} progress={50} currentProgressLabel="50%" />
-      <ProgressTracker mt={2} progress={100} currentProgressLabel="100%" />
-      <ProgressTracker
-        mt={2}
-        progress={100}
-        error
-        currentProgressLabel="error"
-      />
-    </Box>
-  );
-};
-DefaultLabelValue.storyName = "Default Label Value";
-
-export const DefaultLabelValueLabelsPositionBottom: Story = () => {
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={15}
-        currentProgressLabel="15%"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={50}
-        currentProgressLabel="50%"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={100}
-        currentProgressLabel="100%"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={100}
-        error
-        currentProgressLabel="error"
-      />
-    </Box>
-  );
-};
-DefaultLabelValueLabelsPositionBottom.storyName =
-  "Default Label Value - labelsPosition Bottom";
-
-export const DefaultLabelValueLabelsPositionLeft: Story = () => {
-  return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={15}
-        currentProgressLabel="15%"
-        labelWidth="40px"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={50}
-        currentProgressLabel="50%"
-        labelWidth="40px"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={100}
-        currentProgressLabel="100%"
-        labelWidth="40px"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="left"
-        progress={100}
-        error
-        currentProgressLabel="error"
-        labelWidth="40px"
-      />
-    </Box>
-  );
-};
-DefaultLabelValueLabelsPositionLeft.storyName =
-  "Default Label Value - labelsPosition Left";
-
 export const CustomLabelValues: Story = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
@@ -190,55 +101,72 @@ export const CustomLabelValues: Story = () => {
 };
 CustomLabelValues.storyName = "Custom Label Values";
 
-export const DefaultAndCustomLabelValues: Story = () => {
+export const LabelsPositionBottom: Story = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <ProgressTracker progress={50} currentProgressLabel="50%" />
       <ProgressTracker
         mt={2}
-        progress={50}
-        currentProgressLabel="Step 3"
-        maxProgressLabel="5"
+        labelsPosition="bottom"
+        progress={15}
+        currentProgressLabel="15%"
       />
       <ProgressTracker
         mt={2}
+        labelsPosition="bottom"
         progress={50}
         currentProgressLabel="50%"
-        description="Adding VAT"
       />
       <ProgressTracker
         mt={2}
-        progress={50}
-        currentProgressLabel="Step 3"
-        maxProgressLabel="5"
-        description="Adding VAT"
+        labelsPosition="bottom"
+        progress={100}
+        currentProgressLabel="100%"
       />
-    </Box>
-  );
-};
-DefaultAndCustomLabelValues.storyName = "Default and Custom Label Values";
-
-export const AccessibilityExample: Story = () => {
-  return (
-    <Box display="flex" justifyContent="space-around">
       <ProgressTracker
-        currentProgressLabel="50%"
-        progress={50}
-        aria-valuemin={100}
-        aria-valuenow={150}
-        aria-valuemax={200}
-        aria-valuetext="$150"
+        mt={2}
+        labelsPosition="bottom"
+        progress={100}
+        error
+        currentProgressLabel="error"
       />
     </Box>
   );
 };
-AccessibilityExample.storyName = "Accessibility Example";
+LabelsPositionBottom.storyName = "Label Position Bottom";
 
-export const AccessibilityExampleTwo: Story = () => {
+export const LabelPositionLeft: Story = () => {
   return (
-    <Box display="flex" justifyContent="space-around">
-      <ProgressTracker progress={50} aria-valuemin={111} aria-valuemax={188} />
+    <Box display="flex" flexDirection="column" alignItems="center">
+      <ProgressTracker
+        mt={2}
+        labelsPosition="left"
+        progress={15}
+        currentProgressLabel="15%"
+        labelWidth="40px"
+      />
+      <ProgressTracker
+        mt={2}
+        labelsPosition="left"
+        progress={50}
+        currentProgressLabel="50%"
+        labelWidth="40px"
+      />
+      <ProgressTracker
+        mt={2}
+        labelsPosition="left"
+        progress={100}
+        currentProgressLabel="100%"
+        labelWidth="40px"
+      />
+      <ProgressTracker
+        mt={2}
+        labelsPosition="left"
+        progress={100}
+        error
+        currentProgressLabel="error"
+        labelWidth="40px"
+      />
     </Box>
   );
 };
-AccessibilityExampleTwo.storyName = "Accessibility Example Two";
+LabelPositionLeft.storyName = "Label Position Left";

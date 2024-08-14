@@ -33,7 +33,10 @@ const Square = styled.div<{ top: string; left: string }>`
 `;
 
 const Placeholder = () => (
-  <StyledPlaceHolder data-component="link preview image placeholder">
+  <StyledPlaceHolder
+    data-component="link preview image placeholder"
+    data-role="link preview image placeholder"
+  >
     <Circle />
     <Square color="var(--colorsUtilityMajor050)" top="120px" left="-64px" />
     <Square color="var(--colorsUtilityMajor150)" top="96px" left="16px" />
