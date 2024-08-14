@@ -1,3 +1,10 @@
+### [142.0.2](https://github.com/Sage/carbon/compare/v142.0.1...v142.0.2) (2024-08-14)
+
+
+### Bug Fixes
+
+* **menu:** variant type mismatch MenuItem and Link ([f3da8b4](https://github.com/Sage/carbon/commit/f3da8b41899ee59aa75539d96d16cbdfdb72c171)), closes [#6829](https://github.com/Sage/carbon/issues/6829)
+
 ### [142.0.1](https://github.com/Sage/carbon/compare/v142.0.0...v142.0.1) (2024-08-13)
 
 
