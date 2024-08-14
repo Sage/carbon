@@ -155,6 +155,7 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
       >
         <StyledBlock
           data-element="block"
+          data-role="pod-block"
           contentTriggersEdit={shouldContentHaveEditEvents}
           hasButtons={hasButtons}
           fullWidth={editContentFullWidth}
@@ -172,6 +173,7 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
           <StyledContent data-element="content" size={size}>
             {title && (
               <StyledHeader
+                data-role="pod-content-header"
                 alignTitle={alignTitle}
                 internalEditButton={internalEditButton}
                 size={size}
@@ -208,6 +210,7 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
         {hasButtons && (
           <StyledActionsContainer
             data-element="action-button-container"
+            data-role="action-button-container"
             internalEditButton={internalEditButton}
           >
             {softDelete && onUndo && (
