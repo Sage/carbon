@@ -215,3 +215,81 @@ WithTwoDifferentNodes.decorators = [
   ),
 ];
 WithTwoDifferentNodes.parameters = { chromatic: { disableSnapshot: false } };
+
+export const MaxSizeTest: StoryType = () => {
+  return (
+    <Dialog size="maximise" open title="Title" subtitle="Subtitle">
+      <Form
+        stickyFooter
+        leftSideButtons={<Button>Cancel</Button>}
+        saveButton={
+          <Button buttonType="primary" type="submit">
+            Save
+          </Button>
+        }
+      >
+        <Textbox label="First Name" />
+        <Textbox label="Middle Name" />
+        <Textbox label="Surname" />
+        <Textbox label="Birth Place" />
+        <Textbox label="Favourite Colour" />
+        <Textbox label="Address" />
+        <Textbox label="First Name" />
+        <Textbox label="Middle Name" />
+        <Textbox label="Surname" />
+        <Textbox label="Birth Place" />
+        <Textbox label="Favourite Colour" />
+        <Textbox label="Address" />
+      </Form>
+    </Dialog>
+  );
+};
+
+MaxSizeTest.storyName = "With Maximised Size";
+MaxSizeTest.decorators = [
+  (Story) => (
+    <div style={{ height: "100vh", width: "100vw" }}>
+      <Story />
+    </div>
+  ),
+];
+
+MaxSizeTest.parameters = {
+  themeProvider: { chromatic: { theme: "none" } },
+  chromatic: { disableSnapshot: false, viewports: [1200, 900] },
+  layout: "fullscreen",
+};
+
+export const MaxSizeTestNonOverflowedForm: StoryType = () => {
+  return (
+    <Dialog size="maximise" open title="Title" subtitle="Subtitle">
+      <Form
+        stickyFooter
+        leftSideButtons={<Button>Cancel</Button>}
+        saveButton={
+          <Button buttonType="primary" type="submit">
+            Save
+          </Button>
+        }
+      >
+        <Textbox label="First Name" />
+      </Form>
+    </Dialog>
+  );
+};
+
+MaxSizeTestNonOverflowedForm.storyName =
+  "With Maximised Size and a Non-Overflowed Form";
+MaxSizeTestNonOverflowedForm.decorators = [
+  (Story) => (
+    <div style={{ height: "100vh", width: "100vw" }}>
+      <Story />
+    </div>
+  ),
+];
+
+MaxSizeTestNonOverflowedForm.parameters = {
+  themeProvider: { chromatic: { theme: "none" } },
+  chromatic: { disableSnapshot: false, viewports: [1200, 900] },
+  layout: "fullscreen",
+};
