@@ -328,7 +328,7 @@ test("when a color input is clicked, it triggers the onChange callback", async (
   expect(onChange.mock.calls[0][0].target).toHaveAccessibleName("pink");
 });
 
-test("when a color input is clicked, it triggers the onBlur callback", async () => {
+test("when the user closes the component, it does trigger the onBlur callback", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   const onBlur = jest.fn();
@@ -337,15 +337,34 @@ test("when a color input is clicked, it triggers the onBlur callback", async () 
   await user.click(screen.getByRole("button", { name: "Change colour" }));
 
   expect(onBlur).not.toHaveBeenCalled();
-  // due to a bug with the component, the first click does not trigger the onBlur callback (https://github.com/Sage/carbon/issues/6850)
-  // To work around this, we fire 2 clicks - the first of these can be removed, and the assertions changed to assert that "orchid" was
-  // focused/blurred, once the bug is fixed
   await user.click(screen.getByRole("radio", { name: "white" }));
+
   expect(await screen.findByRole("radio", { name: "white" })).toBeFocused();
-  await user.click(screen.getByRole("radio", { name: "pink" }));
+
+  await user.click(screen.getByRole("button", { name: "Close" }));
+  jest.runAllTimers();
 
   expect(onBlur).toHaveBeenCalledTimes(1);
   expect(onBlur.mock.calls[0][0].target).toHaveAccessibleName("white");
+});
+
+test("when another color input is clicked, it does not trigger the onBlur callback", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  const onBlur = jest.fn();
+
+  render(<ControlledColorPicker selectedColor="#EBAEDE" onBlur={onBlur} />);
+  await user.click(screen.getByRole("button", { name: "Change colour" }));
+
+  expect(onBlur).not.toHaveBeenCalled();
+  await user.click(screen.getByRole("radio", { name: "white" }));
+
+  expect(await screen.findByRole("radio", { name: "white" })).toBeFocused();
+
+  await user.click(screen.getByRole("radio", { name: "pink" }));
+  jest.runAllTimers();
+
+  expect(onBlur).toHaveBeenCalledTimes(0);
 });
 
 test("when the 'open' prop is true, the dialog is open on mount", async () => {
