@@ -1,3 +1,10 @@
+### [142.0.4](https://github.com/Sage/carbon/compare/v142.0.3...v142.0.4) (2024-08-15)
+
+
+### Bug Fixes
+
+* **select:** consolidate hitbox across all Select variants ([297ce84](https://github.com/Sage/carbon/commit/297ce84f141ae5f3eae6f99c582e37c9dfe55816)), closes [#6841](https://github.com/Sage/carbon/issues/6841)
+
 ### [142.0.3](https://github.com/Sage/carbon/compare/v142.0.2...v142.0.3) (2024-08-14)
 
 
