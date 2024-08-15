@@ -411,13 +411,13 @@ describe("FilterableSelect", () => {
   });
 
   describe("when the Textbox Input has been clicked", () => {
-    it("the SelectList should not be rendered", () => {
+    it("the SelectList should be rendered", () => {
       const wrapper = renderSelect();
 
       simulateSelectTextboxEvent(wrapper, "click");
       expect(
         wrapper.find(StyledSelectListContainer).getDOMNode()
-      ).not.toBeVisible();
+      ).toBeVisible();
     });
 
     describe.each(["disabled", "readOnly"])(
@@ -449,6 +449,30 @@ describe("FilterableSelect", () => {
 
         simulateSelectTextboxEvent(wrapper, "click");
         expect(onClickFn).toHaveBeenCalled();
+      });
+    });
+
+    describe("and the onOpen prop is passed", () => {
+      it("then that prop should be called", () => {
+        const onOpenFn = jest.fn();
+        const wrapper = renderSelect({ onOpen: onOpenFn });
+
+        simulateSelectTextboxEvent(wrapper, "click");
+        expect(onOpenFn).toHaveBeenCalled();
+      });
+      describe("and with the SelectList already open", () => {
+        it("then that prop should not have been called", () => {
+          const onOpenFn = jest.fn();
+          const wrapper = renderSelect({ onOpen: onOpenFn });
+
+          simulateSelectTextboxEvent(wrapper, "click");
+          onOpenFn.mockReset();
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).toBeVisible();
+          simulateSelectTextboxEvent(wrapper, "click");
+          expect(onOpenFn).not.toHaveBeenCalled();
+        });
       });
     });
 

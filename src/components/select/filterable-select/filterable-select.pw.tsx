@@ -416,7 +416,7 @@ test.describe("FilterableSelect component", () => {
     await expect(selectListWrapper(page)).not.toBeVisible();
   });
 
-  test("should not open the list with mouse click on input", async ({
+  test("should open the list with mouse click on input", async ({
     mount,
     page,
   }) => {
@@ -425,8 +425,8 @@ test.describe("FilterableSelect component", () => {
     const inputElement = commonDataElementInputPreview(page);
     await inputElement.click();
     await expect(inputElement).toBeFocused();
-    await expect(inputElement).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(inputElement).toHaveAttribute("aria-expanded", "true");
+    await expect(selectListWrapper(page)).toBeVisible();
   });
 
   test("should open the list with mouse click on dropdown button", async ({
@@ -437,18 +437,6 @@ test.describe("FilterableSelect component", () => {
 
     await dropdownButton(page).click();
     await expect(selectListWrapper(page)).toBeVisible();
-  });
-
-  test("should close the list with mouse click on dropdown button", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
-
-    await dropdownButton(page).click();
-    await expect(selectListWrapper(page)).toBeVisible();
-    await dropdownButton(page).click();
-    await expect(selectListWrapper(page)).not.toBeVisible();
   });
 
   test("should close the list with the Tab key", async ({ mount, page }) => {
