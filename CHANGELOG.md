@@ -1,3 +1,10 @@
+## [142.1.0](https://github.com/Sage/carbon/compare/v142.0.4...v142.1.0) (2024-08-16)
+
+
+### Features
+
+* **link:** update styling of skip link variant ([79e44c9](https://github.com/Sage/carbon/commit/79e44c97b8df4ff544e8dc40b84ce3a884762244))
+
 ### [142.0.4](https://github.com/Sage/carbon/compare/v142.0.3...v142.0.4) (2024-08-15)
 
 
