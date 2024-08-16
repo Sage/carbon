@@ -1,3 +1,10 @@
+## [142.2.0](https://github.com/Sage/carbon/compare/v142.1.0...v142.2.0) (2024-08-16)
+
+
+### Features
+
+* **hr:** add the aria-hidden prop ([d84e37f](https://github.com/Sage/carbon/commit/d84e37f05b36889f33b59c7f842ea876f1cd7c5d))
+
 ## [142.1.0](https://github.com/Sage/carbon/compare/v142.0.4...v142.1.0) (2024-08-16)
 
 
