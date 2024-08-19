@@ -94,12 +94,14 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
           position: absolute;
           padding-left: var(--spacing300);
           padding-right: var(--spacing300);
-          line-height: 36px;
+          line-height: var(--sizing600);
           left: -999em;
           z-index: ${theme.zIndex.aboveAll};
-          box-shadow: inset 0 0 0 var(--spacing025) var(--colorsActionMajor500);
-          border: var(--spacing025) solid var(--colorsUtilityYang100);
-          font-size: var(--fontSizes200);
+          border: 3px solid var(--colorsUtilityYin100);
+          box-shadow: var(--boxShadow300);
+          border-radius: var(--spacing000) var(--spacing100) var(--spacing100)
+            var(--spacing000);
+          font-size: var(--fontSizes100);
           color: var(--colorsUtilityYin090);
 
           &:hover {
@@ -112,13 +114,20 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
           }
 
           &:focus {
-            background-color: var(--colorsUtilityYang100);
+            background-color: var(--colorsSemanticFocus500);
+            text-decoration: underline var(--colorsUtilityYin100);
+            text-decoration-thickness: 4px;
+            text-underline-offset: 3px;
+
+            -webkit-text-decoration: underline var(--colorsUtilityYin100);
+            -webkit-text-decoration-thickness: 4px;
+            -webkit-text-underline-offset: 3px;
           }
         }
 
         a:focus {
           top: var(--spacing100);
-          left: var(--spacing100);
+          left: 0;
         }
       `}
 
