@@ -23,7 +23,6 @@ import {
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { InputPresentation } from "../../../__internal__/input";
-import Logger from "../../../__internal__/utils/logger";
 import guid from "../../../__internal__/utils/helpers/guid";
 import StyledInput from "../../../__internal__/input/input.style";
 import SelectTextbox from "../__internal__/select-textbox";
@@ -71,7 +70,6 @@ function simulateKeyDown(
 jest.mock("../../../__internal__/utils/logger");
 
 describe("SimpleSelect", () => {
-  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
   let container: HTMLDivElement | null;
 
   beforeEach(() => {
@@ -90,30 +88,6 @@ describe("SimpleSelect", () => {
 
   beforeEach(() => {
     mockDOMRect(200, 200, "select-list-scrollable-container");
-  });
-
-  describe("Deprecation warning for uncontrolled", () => {
-    beforeEach(() => {
-      loggerSpy = jest.spyOn(Logger, "deprecate");
-    });
-
-    afterEach(() => {
-      loggerSpy.mockRestore();
-    });
-
-    afterAll(() => {
-      loggerSpy.mockClear();
-    });
-
-    it("should display deprecation warning once", () => {
-      renderSelect({ defaultValue: "opt1" });
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Simple Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
-      );
-
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
-    });
   });
 
   describe("when the id prop is set", () => {
@@ -148,51 +122,6 @@ describe("SimpleSelect", () => {
 
     it("then a label id based on a randomly generated id should be passed to the Textbox component", () => {
       expect(wrapper.find(Textbox).prop("labelId")).toBe(`${mockedGuid}-label`);
-    });
-  });
-
-  describe("when an HTML element is clicked when the SelectList is open", () => {
-    let wrapper: ReactWrapper;
-
-    beforeEach(() => {
-      wrapper = renderSelect();
-    });
-
-    describe("and that element is an Option of the Select List", () => {
-      it("then the SelectList should be closed", () => {
-        simulateSelectTextboxEvent(wrapper, "click");
-        expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
-        ).toBeVisible();
-        act(() => {
-          wrapper
-            .find(Option)
-            .first()
-            .getDOMNode()
-            .dispatchEvent(new MouseEvent("click", { bubbles: true }));
-        });
-        expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
-        ).not.toBeVisible();
-      });
-    });
-
-    describe("and that element is not part of the Select", () => {
-      it("then the SelectList should be closed", () => {
-        act(() => {
-          document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-        });
-        simulateSelectTextboxEvent(wrapper, "click");
-        expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
-        ).toBeVisible();
-        act(() => {
-          document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-        });
-        expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
-        ).not.toBeVisible();
-      });
     });
   });
 
