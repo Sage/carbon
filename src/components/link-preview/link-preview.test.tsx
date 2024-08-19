@@ -67,7 +67,7 @@ test("renders with a custom image and alt text via the `image` object prop", () 
         url: "https://irs.www.warnerbros.com/keyart-jpeg/heat_keyart.jpg",
         alt: "Heat 1995",
       }}
-    />
+    />,
   );
   const image = screen.getByRole("img", { name: "Heat 1995" });
 
@@ -81,7 +81,7 @@ test('renders with default alt text "Link preview image" when no `alt` is provid
       image={{
         url: "https://irs.www.warnerbros.com/keyart-jpeg/heat_keyart.jpg",
       }}
-    />
+    />,
   );
   const image = screen.getByRole("img", { name: "Link preview image" });
 

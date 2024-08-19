@@ -140,7 +140,7 @@ describe("when the `error` prop is passed a string value and `validationRedesign
 
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "error" }),
-      {}
+      {},
     );
 
     jest.runOnlyPendingTimers();
@@ -166,7 +166,7 @@ describe("when the `error` prop is passed a string value and `validationRedesign
 
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "error" }),
-      {}
+      {},
     );
 
     jest.runOnlyPendingTimers();
@@ -192,7 +192,7 @@ describe("when the `error` prop is passed a string value and `validationRedesign
 
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "error" }),
-      {}
+      {},
     );
 
     jest.runOnlyPendingTimers();
@@ -328,7 +328,7 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
 
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "warning" }),
-      {}
+      {},
     );
 
     jest.runOnlyPendingTimers();
@@ -354,7 +354,7 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
 
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "warning" }),
-      {}
+      {},
     );
 
     jest.runOnlyPendingTimers();
@@ -380,7 +380,7 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
 
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "warning" }),
-      {}
+      {},
     );
 
     jest.runOnlyPendingTimers();
@@ -504,7 +504,7 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
 
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "info" }),
-      {}
+      {},
     );
 
     jest.runOnlyPendingTimers();
@@ -530,7 +530,7 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
 
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "info" }),
-      {}
+      {},
     );
 
     jest.runOnlyPendingTimers();
@@ -556,7 +556,7 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
 
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "info" }),
-      {}
+      {},
     );
 
     jest.runOnlyPendingTimers();
@@ -765,7 +765,7 @@ test("should render the help icon and tooltip when `labelHelp` prop is set and `
 
   expect(Tooltip).toHaveBeenCalledWith(
     expect.objectContaining({ isVisible: true, message: "labelHelp" }),
-    {}
+    {},
   );
 
   jest.runOnlyPendingTimers();

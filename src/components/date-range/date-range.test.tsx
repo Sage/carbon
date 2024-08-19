@@ -986,11 +986,11 @@ test("should only display the start input tooltip when the user hovers over it a
 
   expect(Tooltip).toHaveBeenCalledWith(
     expect.objectContaining({ isVisible: true, message: "start error" }),
-    {}
+    {},
   );
   expect(Tooltip).toHaveBeenCalledWith(
     expect.objectContaining({ isVisible: false, message: "end error" }),
-    {}
+    {},
   );
   TooltipMock.mockClear();
 });
@@ -1015,11 +1015,11 @@ test("should only display the end input tooltip when the user hovers over it and
 
   expect(Tooltip).toHaveBeenCalledWith(
     expect.objectContaining({ isVisible: false, message: "start error" }),
-    {}
+    {},
   );
   expect(Tooltip).toHaveBeenCalledWith(
     expect.objectContaining({ isVisible: true, message: "end error" }),
-    {}
+    {},
   );
   TooltipMock.mockClear();
 });

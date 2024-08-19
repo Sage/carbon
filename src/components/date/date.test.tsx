@@ -604,7 +604,7 @@ test("should render the help icon when the `labelHelp` prop is passed and displa
 
   expect(Tooltip).toHaveBeenCalledWith(
     expect.objectContaining({ isVisible: true, message: "help text" }),
-    {}
+    {},
   );
   TooltipMock.mockClear();
 });
@@ -1226,7 +1226,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
     expect(icon).toBeInTheDocument();
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "error message" }),
-      {}
+      {},
     );
     TooltipMock.mockClear();
   });
@@ -1249,7 +1249,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
 
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "error message" }),
-      {}
+      {},
     );
     TooltipMock.mockClear();
   });
@@ -1272,7 +1272,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
 
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "error message" }),
-      {}
+      {},
     );
     TooltipMock.mockClear();
   });
@@ -1289,7 +1289,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
 
     expect(input).toHaveAttribute("aria-invalid", "true");
     expect(
-      screen.queryByTestId("validation-icon-error")
+      screen.queryByTestId("validation-icon-error"),
     ).not.toBeInTheDocument();
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
@@ -1314,7 +1314,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
     expect(icon).toBeInTheDocument();
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "warning message" }),
-      {}
+      {},
     );
     TooltipMock.mockClear();
   });
@@ -1331,7 +1331,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
 
     expect(input).toHaveAttribute("aria-invalid", "false");
     expect(
-      screen.queryByTestId("validation-icon-warning")
+      screen.queryByTestId("validation-icon-warning"),
     ).not.toBeInTheDocument();
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
@@ -1356,7 +1356,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
     expect(icon).toBeInTheDocument();
     expect(Tooltip).toHaveBeenCalledWith(
       expect.objectContaining({ isVisible: true, message: "info message" }),
-      {}
+      {},
     );
     TooltipMock.mockClear();
   });
@@ -1373,7 +1373,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
 
     expect(input).toHaveAttribute("aria-invalid", "false");
     expect(
-      screen.queryByTestId("validation-icon-info")
+      screen.queryByTestId("validation-icon-info"),
     ).not.toBeInTheDocument();
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });

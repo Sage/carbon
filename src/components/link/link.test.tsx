@@ -11,7 +11,7 @@ test("should render `Skip to main content` text inside of Link when `isSkipLink`
   render(
     <Link href="#test" isSkipLink>
       Test Content
-    </Link>
+    </Link>,
   );
 
   expect(screen.getByText("Skip to main content")).toBeInTheDocument();

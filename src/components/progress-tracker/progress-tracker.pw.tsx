@@ -21,11 +21,13 @@ import ProgressTrackerComponent from "./components.test-pw";
 import { PROGRESS_TRACKER_SIZES } from "./progress-tracker.config";
 
 test.describe("Check props for ProgressTracker component", () => {
-  ([
-    [PROGRESS_TRACKER_SIZES[0], 4],
-    [PROGRESS_TRACKER_SIZES[1], 8],
-    [PROGRESS_TRACKER_SIZES[2], 16],
-  ] as [ProgressTrackerProps["size"], number][]).forEach(([size, value]) => {
+  (
+    [
+      [PROGRESS_TRACKER_SIZES[0], 4],
+      [PROGRESS_TRACKER_SIZES[1], 8],
+      [PROGRESS_TRACKER_SIZES[2], 16],
+    ] as [ProgressTrackerProps["size"], number][]
+  ).forEach(([size, value]) => {
     test(`render component with ${size} size`, async ({ mount, page }) => {
       await mount(<ProgressTrackerComponent size={size} />);
 
@@ -54,11 +56,13 @@ test.describe("Check props for ProgressTracker component", () => {
     });
   });
 
-  ([
-    [12, 30, "rgb(51, 91, 112)"],
-    [47, 120, "rgb(51, 91, 112)"],
-    [100, 256, "rgb(0, 138, 33)"],
-  ] as const).forEach(([progress, width, color]) => {
+  (
+    [
+      [12, 30, "rgb(51, 91, 112)"],
+      [47, 120, "rgb(51, 91, 112)"],
+      [100, 256, "rgb(0, 138, 33)"],
+    ] as const
+  ).forEach(([progress, width, color]) => {
     test(`render component with ${progress}% of progress`, async ({
       mount,
       page,
@@ -69,7 +73,7 @@ test.describe("Check props for ProgressTracker component", () => {
       await assertCssValueIsApproximately(
         progressTrackerLineElement,
         "width",
-        width
+        width,
       );
       await expect(progressTrackerLineElement).toHaveCSS(
         "background-color",
@@ -128,7 +132,7 @@ test.describe("Check props for ProgressTracker component", () => {
           <ProgressTrackerComponent
             currentProgressLabel="foo"
             maxProgressLabel={maxProgressLabel}
-          />
+          />,
         );
 
         const progressTrackerMaxValElement = progressTrackerMaxVal(page);
@@ -146,7 +150,7 @@ test.describe("Check props for ProgressTracker component", () => {
         await mount(
           <ProgressTrackerComponent
             customValuePreposition={customValuePreposition}
-          />
+          />,
         );
 
         const progressTrackerCustomValuePrepositionElement =
@@ -243,11 +247,13 @@ test.describe("Check props for ProgressTracker component", () => {
 });
 
 test.describe("Accessibility tests", () => {
-  ([
-    PROGRESS_TRACKER_SIZES[0],
-    PROGRESS_TRACKER_SIZES[1],
-    PROGRESS_TRACKER_SIZES[2],
-  ] as ProgressTrackerProps["size"][]).forEach((size) => {
+  (
+    [
+      PROGRESS_TRACKER_SIZES[0],
+      PROGRESS_TRACKER_SIZES[1],
+      PROGRESS_TRACKER_SIZES[2],
+    ] as ProgressTrackerProps["size"][]
+  ).forEach((size) => {
     test(`should check the accessibility when component is rendered with ${size} size`, async ({
       mount,
       page,
@@ -329,7 +335,7 @@ test.describe("Accessibility tests", () => {
         await mount(
           <ProgressTrackerComponent
             customValuePreposition={customValuePreposition}
-          />
+          />,
         );
 
         await checkAccessibility(page);

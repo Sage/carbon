@@ -818,11 +818,11 @@ describe("isBlurBlocked deprecation warning", () => {
         legend="SimpleColorPicker Legend"
         name="test"
         isBlurBlocked
-      />
+      />,
     );
 
     expect(loggerSpy).toHaveBeenCalledWith(
-      "The 'isBlurBlocked' prop in SimpleColorPicker is deprecated and support will soon be removed."
+      "The 'isBlurBlocked' prop in SimpleColorPicker is deprecated and support will soon be removed.",
     );
 
     expect(loggerSpy).toHaveBeenCalledTimes(1);

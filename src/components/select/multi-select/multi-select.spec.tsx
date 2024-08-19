@@ -579,7 +579,7 @@ describe("MultiSelect", () => {
 
       simulateSelectTextboxEvent(wrapper, "click");
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).toBeVisible();
     });
 
@@ -592,7 +592,7 @@ describe("MultiSelect", () => {
           simulateSelectTextboxEvent(wrapper, "focus");
           simulateSelectTextboxEvent(wrapper, "click");
           expect(
-            wrapper.find(StyledSelectListContainer).getDOMNode()
+            wrapper.find(StyledSelectListContainer).getDOMNode(),
           ).toBeVisible();
         });
       });
@@ -723,11 +723,11 @@ describe("MultiSelect", () => {
         it("then clicking the Textbox Input should close the SelectList", () => {
           simulateSelectTextboxEvent(wrapper, "focus");
           expect(
-            wrapper.find(StyledSelectListContainer).getDOMNode()
+            wrapper.find(StyledSelectListContainer).getDOMNode(),
           ).toBeVisible();
           wrapper.find("input").simulate("click");
           expect(
-            wrapper.find(StyledSelectListContainer).getDOMNode()
+            wrapper.find(StyledSelectListContainer).getDOMNode(),
           ).not.toBeVisible();
         });
 

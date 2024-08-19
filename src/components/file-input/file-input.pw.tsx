@@ -354,7 +354,7 @@ test.describe("with uploadStatus prop", () => {
     await mount(<FileInputComponent uploadStatus={uploadingStatusProps} />);
 
     const progressTrackerBar = page.locator(
-      '[data-element="progress-tracker-bar"]'
+      '[data-element="progress-tracker-bar"]',
     );
     const innerBar = page.locator('[data-element="inner-bar"]');
 

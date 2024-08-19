@@ -743,7 +743,7 @@ test.describe("Event tests for group component", () => {
         onChange={(event, value) => {
           onChangeValue = value;
         }}
-      />
+      />,
     );
 
     await page.getByRole("button", { name: "foo" }).click();

@@ -263,7 +263,7 @@ export const SimpleColorPicker = React.forwardRef<
 
     setTimeout(() => {
       const hasBlurred = !gridItemRefs?.current?.find(
-        (colorRef) => colorRef === document.activeElement
+        (colorRef) => colorRef === document.activeElement,
       );
       /* istanbul ignore else */
       if (onBlur && hasBlurred && !blurBlocked) {
@@ -308,7 +308,7 @@ export const SimpleColorPicker = React.forwardRef<
   if (!isBlurBlockedDeprecateWarnTriggered && isBlurBlocked) {
     deprecateUncontrolledWarnTriggered = true;
     Logger.deprecate(
-      `The 'isBlurBlocked' prop in ${SimpleColorPicker.displayName} is deprecated and support will soon be removed.`
+      `The 'isBlurBlocked' prop in ${SimpleColorPicker.displayName} is deprecated and support will soon be removed.`,
     );
   }
 

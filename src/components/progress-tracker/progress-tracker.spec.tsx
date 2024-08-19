@@ -287,11 +287,11 @@ describe("labels", () => {
 
   it("only shows the currentProgressLabel that has a value", () => {
     wrapper = mount(
-      <ProgressTracker progress={50} currentProgressLabel="foo" />
+      <ProgressTracker progress={50} currentProgressLabel="foo" />,
     );
 
     expect(
-      wrapper.find(StyledValuesLabel).find(StyledValue).first().text()
+      wrapper.find(StyledValuesLabel).find(StyledValue).first().text(),
     ).toEqual("foo");
 
     expect(wrapper.find(StyledValuesLabel).find(StyledValue).length).toBe(1);
@@ -300,11 +300,11 @@ describe("labels", () => {
   it("renders default labels if maxProgressLabel is set but no currentProgressLabel is provided", () => {
     wrapper = mount(<ProgressTracker progress={50} maxProgressLabel="bar" />);
     expect(
-      wrapper.find(StyledValuesLabel).find(StyledValue).first().text()
+      wrapper.find(StyledValuesLabel).find(StyledValue).first().text(),
     ).toEqual("50%");
 
     expect(
-      wrapper.find(StyledValuesLabel).find(StyledValue).last().text()
+      wrapper.find(StyledValuesLabel).find(StyledValue).last().text(),
     ).not.toEqual("bar");
   });
 
@@ -322,7 +322,7 @@ describe("labels", () => {
 
     it("renders labels below the progress bar", () => {
       wrapper = mount(
-        <ProgressTracker progress={50} labelsPosition="bottom" />
+        <ProgressTracker progress={50} labelsPosition="bottom" />,
       );
 
       assertStyleMatch(

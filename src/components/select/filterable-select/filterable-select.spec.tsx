@@ -416,7 +416,7 @@ describe("FilterableSelect", () => {
 
       simulateSelectTextboxEvent(wrapper, "click");
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).toBeVisible();
     });
 
@@ -468,7 +468,7 @@ describe("FilterableSelect", () => {
           simulateSelectTextboxEvent(wrapper, "click");
           onOpenFn.mockReset();
           expect(
-            wrapper.find(StyledSelectListContainer).getDOMNode()
+            wrapper.find(StyledSelectListContainer).getDOMNode(),
           ).toBeVisible();
           simulateSelectTextboxEvent(wrapper, "click");
           expect(onOpenFn).not.toHaveBeenCalled();
