@@ -166,7 +166,7 @@ RequiredStory.storyName = "Required";
 export const IsOptionalStory: Story = () => {
   return <Textarea label="Textarea" isOptional />;
 };
-IsOptionalStory.storyName = "Required";
+IsOptionalStory.storyName = "isOptional";
 
 export const ValidationStringStory: Story = () => {
   return (
