@@ -1,3 +1,10 @@
+### [142.2.1](https://github.com/Sage/carbon/compare/v142.2.0...v142.2.1) (2024-08-19)
+
+
+### Bug Fixes
+
+* **icon:** ensure tooltip does not render when component is disabled ([c1cfd50](https://github.com/Sage/carbon/commit/c1cfd50c68efffafb72afffaae64662c24edb44d))
+
 ## [142.2.0](https://github.com/Sage/carbon/compare/v142.1.0...v142.2.0) (2024-08-16)
 
 
