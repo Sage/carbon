@@ -25,7 +25,7 @@ describe("calculateWidthValue", () => {
     const padding = { pl: "20px" };
     const computedWidth = calculateWidthValue(padding);
     expect(computedWidth).toBe(
-      `width: calc(100% + (20px + ${HORIZONTAL_PADDING}px));`
+      `width: calc(100% + (20px + ${HORIZONTAL_PADDING}px));`,
     );
   });
 
@@ -33,7 +33,7 @@ describe("calculateWidthValue", () => {
     const padding = { pr: "30px" };
     const computedWidth = calculateWidthValue(padding);
     expect(computedWidth).toBe(
-      `width: calc(100% + (${HORIZONTAL_PADDING}px + 30px));`
+      `width: calc(100% + (${HORIZONTAL_PADDING}px + 30px));`,
     );
   });
 
@@ -41,7 +41,7 @@ describe("calculateWidthValue", () => {
     const padding = {};
     const computedWidth = calculateWidthValue(padding);
     expect(computedWidth).toBe(
-      `width: calc(100% + (${HORIZONTAL_PADDING}px + ${HORIZONTAL_PADDING}px));`
+      `width: calc(100% + (${HORIZONTAL_PADDING}px + ${HORIZONTAL_PADDING}px));`,
     );
   });
 
@@ -83,7 +83,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         true,
-        "dialog"
+        "dialog",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -101,7 +101,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         true,
-        "dialog"
+        "dialog",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -119,7 +119,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         true,
-        "dialog"
+        "dialog",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -137,7 +137,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         true,
-        "dialog"
+        "dialog",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -155,7 +155,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         true,
-        "dialog"
+        "dialog",
       );
       expect(computedSpacing).toEqual({
         "margin-left": `calc(-1 * ${HORIZONTAL_PADDING}px)`,
@@ -173,7 +173,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         true,
-        "dialog"
+        "dialog",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -193,7 +193,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         true,
-        "sidebar"
+        "sidebar",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -210,7 +210,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         true,
-        "sidebar"
+        "sidebar",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -227,7 +227,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         true,
-        "sidebar"
+        "sidebar",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -244,7 +244,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         true,
-        "sidebar"
+        "sidebar",
       );
       expect(computedSpacing).toEqual({
         "margin-left": `calc(-1 * ${HORIZONTAL_PADDING}px)`,
@@ -261,7 +261,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         true,
-        "sidebar"
+        "sidebar",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -280,7 +280,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         false,
-        "dialog"
+        "dialog",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -294,7 +294,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         false,
-        "dialog"
+        "dialog",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -308,7 +308,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         false,
-        "dialog"
+        "dialog",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -322,7 +322,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         false,
-        "dialog"
+        "dialog",
       );
       expect(computedSpacing).toEqual({
         "margin-left": `calc(-1 * ${HORIZONTAL_PADDING}px)`,
@@ -336,7 +336,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         false,
-        "dialog"
+        "dialog",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -352,7 +352,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         false,
-        "sidebar"
+        "sidebar",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -370,7 +370,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         false,
-        "sidebar"
+        "sidebar",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -388,7 +388,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         false,
-        "sidebar"
+        "sidebar",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",
@@ -406,7 +406,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         false,
-        "sidebar"
+        "sidebar",
       );
       expect(computedSpacing).toEqual({
         "margin-left": `calc(-1 * ${HORIZONTAL_PADDING}px)`,
@@ -424,7 +424,7 @@ describe("calculateFormSpacingValues", () => {
       const computedSpacing = calculateFormSpacingValues(
         padding,
         false,
-        "sidebar"
+        "sidebar",
       );
       expect(computedSpacing).toEqual({
         "margin-left": "calc(-1 * 20px)",

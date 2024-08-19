@@ -47,7 +47,7 @@ const getLeftStickyStyling = (index: number, themeOptOut: boolean) =>
 const getRightStickyStyling = (
   index: number,
   totalChildren: number,
-  themeOptOut: boolean
+  themeOptOut: boolean,
 ) =>
   index === totalChildren - 1 &&
   /* istanbul ignore next */

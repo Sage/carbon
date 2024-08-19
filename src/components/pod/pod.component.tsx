@@ -45,15 +45,15 @@ export interface PodProps extends MarginProps {
   footer?: string | React.ReactNode;
   /** Supplies an edit action to the pod */
   onEdit?: (
-    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
   ) => void;
   /** Supplies a delete action to the pod */
   onDelete?: (
-    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
   ) => void;
   /** Supplies an undo action to the pod in soft delete state. */
   onUndo?: (
-    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
   ) => void;
   /** Sets softboolean; delete state */
   softDelete?: boolean;
@@ -94,7 +94,7 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
       variant = "primary",
       ...rest
     }: PodProps,
-    ref
+    ref,
   ) => {
     const [isEditFocused, setEditFocused] = useState(false);
     const [isEditHovered, setEditHovered] = useState(false);
@@ -106,31 +106,32 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
     const l = useLocale();
     const shouldContentHaveEditEvents = useMemo(
       () => !!(onEdit && (triggerEditOnContent || displayEditButtonOnHover)),
-      [displayEditButtonOnHover, onEdit, triggerEditOnContent]
+      [displayEditButtonOnHover, onEdit, triggerEditOnContent],
     );
-    const hasButtons = useMemo(() => !!(onEdit || onDelete || onUndo), [
-      onEdit,
-      onDelete,
-      onUndo,
-    ]);
+    const hasButtons = useMemo(
+      () => !!(onEdit || onDelete || onUndo),
+      [onEdit, onDelete, onUndo],
+    );
 
-    const processPodAction = (
-      action: React.EventHandler<
-        React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
-      >
-    ) => (
-      ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
-    ) => {
-      if (
-        Event.isKeyboardEvent(ev) &&
-        Event.isEventType(ev, "keydown") &&
-        !Event.isEnterKey(ev)
-      )
-        return;
+    const processPodAction =
+      (
+        action: React.EventHandler<
+          React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+        >,
+      ) =>
+      (
+        ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
+      ) => {
+        if (
+          Event.isKeyboardEvent(ev) &&
+          Event.isEventType(ev, "keydown") &&
+          !Event.isEnterKey(ev)
+        )
+          return;
 
-      ev.preventDefault();
-      action(ev);
-    };
+        ev.preventDefault();
+        action(ev);
+      };
 
     const editEvents = {
       onMouseEnter: () => setEditHovered(true),
@@ -271,7 +272,7 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
         )}
       </StyledPod>
     );
-  }
+  },
 );
 
 Pod.displayName = "Pod";

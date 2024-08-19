@@ -29,7 +29,7 @@ jest.mock("../../__internal__/utils/helpers/guid");
 
 describe("DialogFullScreen", () => {
   (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-    () => "guid-12345"
+    () => "guid-12345",
   );
 
   let wrapper: ReactWrapper;
@@ -63,14 +63,14 @@ describe("DialogFullScreen", () => {
           <Button>Button</Button>
           <Button>Button</Button>
         </DialogFullScreen>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     expect(
       wrapper
         .find(StyledDialogFullScreen)
         .getDOMNode()
-        .getAttribute("aria-modal")
+        .getAttribute("aria-modal"),
     ).toBe("true");
 
     wrapper.unmount();
@@ -83,14 +83,14 @@ describe("DialogFullScreen", () => {
           <Button>Button</Button>
           <Button>Button</Button>
         </DialogFullScreen>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     expect(
       wrapper
         .find(StyledDialogFullScreen)
         .getDOMNode()
-        .getAttribute("aria-modal")
+        .getAttribute("aria-modal"),
     ).toBe(null);
 
     wrapper.unmount();
@@ -134,13 +134,13 @@ describe("DialogFullScreen", () => {
       wrapper = mount(
         <DialogFullScreen open>
           <input type="text" />
-        </DialogFullScreen>
+        </DialogFullScreen>,
       );
 
       jest.runAllTimers();
 
       const dialogContainer = document.querySelector(
-        '[data-element="dialog-full-screen"]'
+        '[data-element="dialog-full-screen"]',
       );
       expect(document.activeElement).toBe(dialogContainer);
 
@@ -151,7 +151,7 @@ describe("DialogFullScreen", () => {
       wrapper = mount(
         <DialogFullScreen open disableAutoFocus>
           <input type="text" />
-        </DialogFullScreen>
+        </DialogFullScreen>,
       );
 
       jest.runAllTimers();
@@ -196,14 +196,14 @@ describe("DialogFullScreen", () => {
         disableContentPadding
       >
         <div>test content</div>
-      </DialogFullScreen>
+      </DialogFullScreen>,
     );
 
     assertStyleMatch(
       {
         padding: "0",
       },
-      wrapper.find(StyledContent)
+      wrapper.find(StyledContent),
     );
 
     wrapper.unmount();
@@ -220,7 +220,7 @@ describe("DialogFullScreen", () => {
         >
           <Button>Button</Button>
           <Button>Button</Button>
-        </DialogFullScreen>
+        </DialogFullScreen>,
       );
 
       expect(wrapper.find(Modal).find(Button).length).toEqual(2);
@@ -291,7 +291,7 @@ describe("DialogFullScreen", () => {
           .mockImplementationOnce(() => mockIds[0])
           .mockImplementationOnce(() => mockIds[1]);
         wrapper = mount(
-          <DialogFullScreen open title="my title" subtitle="my subtitle" />
+          <DialogFullScreen open title="my title" subtitle="my subtitle" />,
         );
         const heading = wrapper.find(Heading);
 
@@ -316,7 +316,7 @@ describe("DialogFullScreen", () => {
           >
             <Button>Button</Button>
             <Button>Button</Button>
-          </DialogFullScreen>
+          </DialogFullScreen>,
         );
       });
 
@@ -339,7 +339,7 @@ describe("DialogFullScreen", () => {
             open
             title="This is test title"
             help="this is help text"
-          />
+          />,
         );
 
         expect(wrapper.find(Help).exists()).toBe(true);
@@ -355,7 +355,7 @@ describe("DialogFullScreen", () => {
             open
             title="This is test title"
             help="this is help text"
-          />
+          />,
         );
 
         const headerContainer = wrapper.find(StyledHeaderContainer);
@@ -364,7 +364,7 @@ describe("DialogFullScreen", () => {
           {
             minWidth: "100%",
           },
-          headerContainer
+          headerContainer,
         );
 
         wrapper.unmount();
@@ -382,7 +382,7 @@ describe("DialogFullScreen", () => {
             title="Test"
             data-role="baz"
             data-element="bar"
-          />
+          />,
         );
 
         expect(wrapper.find(Modal).props()["data-element"]).toEqual("bar");
@@ -401,7 +401,7 @@ describe("DialogFullScreen", () => {
             "data-element": "foo",
             "data-role": "bar",
           }}
-        />
+        />,
       );
       rootTagTest(wrapper.find(StyledIconButton), "close", "foo", "bar");
     });
@@ -417,7 +417,7 @@ describe("DialogFullScreen", () => {
           data-role="baz"
           data-element="bar"
           showCloseIcon={false}
-        />
+        />,
       );
       expect(wrapper.find(IconButton).first().length).toEqual(0);
 
@@ -433,7 +433,7 @@ describe("DialogFullScreen", () => {
           title="Test"
           data-role="baz"
           data-element="bar"
-        />
+        />,
       );
       expect(wrapper.find(IconButton).first().length).toEqual(0);
 
@@ -450,7 +450,7 @@ describe("DialogFullScreen", () => {
           title="Test"
           data-role="baz"
           data-element="bar"
-        />
+        />,
       );
       expect(wrapper.find(IconButton).first().length).toEqual(1);
 
@@ -470,10 +470,10 @@ describe("DialogFullScreen", () => {
           data-role="baz"
           data-element="bar"
           headerChildren={HeaderChildren}
-        />
+        />,
       );
       expect(
-        wrapper.find(FullScreenHeading).find("#header-children").length
+        wrapper.find(FullScreenHeading).find("#header-children").length,
       ).toEqual(1);
 
       wrapper.unmount();
@@ -490,7 +490,7 @@ describe("DialogFullScreen", () => {
           data-role="baz"
           data-element="bar"
           pagesStyling
-        />
+        />,
       );
 
       const styles = wrapper.find(StyledDialogFullScreen);
@@ -500,7 +500,7 @@ describe("DialogFullScreen", () => {
           padding: "0",
         },
         styles,
-        { modifier: `${StyledContent}` }
+        { modifier: `${StyledContent}` },
       );
 
       assertStyleMatch(
@@ -512,7 +512,7 @@ describe("DialogFullScreen", () => {
           zIndex: "1",
         },
         styles,
-        { modifier: `${StyledIconButton}` }
+        { modifier: `${StyledIconButton}` },
       );
 
       assertStyleMatch(
@@ -520,7 +520,7 @@ describe("DialogFullScreen", () => {
           padding: "32px 32px 0",
         },
         styles,
-        { modifier: `${StyledFullScreenHeading}` }
+        { modifier: `${StyledFullScreenHeading}` },
       );
 
       assertStyleMatch(
@@ -529,7 +529,7 @@ describe("DialogFullScreen", () => {
           paddingTop: "4px",
         },
         styles,
-        { modifier: `${StyledHeading}` }
+        { modifier: `${StyledHeading}` },
       );
 
       assertStyleMatch(
@@ -539,7 +539,7 @@ describe("DialogFullScreen", () => {
           margin: "0 0 0 3px",
         },
         styles,
-        { modifier: `${StyledHeading} ${StyledHeader}` }
+        { modifier: `${StyledHeading} ${StyledHeader}` },
       );
 
       wrapper.unmount();
@@ -551,7 +551,7 @@ describe("DialogFullScreen", () => {
       wrapper = mount(
         <DialogFullScreen open>
           <Form stickyFooter />
-        </DialogFullScreen>
+        </DialogFullScreen>,
       );
 
       expect(wrapper.find(StyledContent)).not.toHaveStyleRule("overflow-y");
@@ -563,7 +563,7 @@ describe("DialogFullScreen", () => {
       wrapper = mount(
         <DialogFullScreen open>
           <Form />
-        </DialogFullScreen>
+        </DialogFullScreen>,
       );
 
       expect(wrapper.find(StyledContent)).toHaveStyleRule("overflow-y", "auto");
@@ -575,18 +575,21 @@ describe("DialogFullScreen", () => {
       wrapper = mount(
         <CarbonProvider>
           <DialogFullScreen open onCancel={() => {}} />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
 
       expect(
         wrapper
           .find("[data-element='dialog-full-screen']")
           .first()
-          .prop("aria-modal")
+          .prop("aria-modal"),
       ).toBe(true);
 
       expect(
-        wrapper.find("[data-element='dialog-full-screen']").first().prop("role")
+        wrapper
+          .find("[data-element='dialog-full-screen']")
+          .first()
+          .prop("role"),
       ).toBe("dialog");
 
       wrapper.unmount();
@@ -601,14 +604,14 @@ describe("DialogFullScreen", () => {
             data-role="baz"
             data-element="bar"
             title="Test"
-          />
+          />,
         );
 
         expect(
           wrapper
             .find("[data-element='dialog-full-screen']")
             .first()
-            .prop("aria-labelledby")
+            .prop("aria-labelledby"),
         ).toBe("guid-12345");
 
         wrapper.unmount();
@@ -624,14 +627,14 @@ describe("DialogFullScreen", () => {
             data-role="baz"
             data-element="bar"
             subtitle="Subtitle"
-          />
+          />,
         );
 
         expect(
           wrapper
             .find("[data-element='dialog-full-screen']")
             .first()
-            .prop("aria-describedby")
+            .prop("aria-describedby"),
         ).toBe("guid-12345");
 
         wrapper.unmount();
@@ -650,14 +653,14 @@ describe("DialogFullScreen", () => {
             data-role="baz"
             data-element="bar"
             title={<div id={titleId}>Foo</div>}
-          />
+          />,
         );
 
         expect(
           wrapper
             .find("[data-element='dialog-full-screen']")
             .first()
-            .prop("aria-labelledby")
+            .prop("aria-labelledby"),
         ).toBe(titleId);
 
         wrapper.unmount();
@@ -676,14 +679,14 @@ describe("DialogFullScreen", () => {
             data-role="baz"
             data-element="bar"
             subtitle={<div id={subtitleId}>Foo</div>}
-          />
+          />,
         );
 
         expect(
           wrapper
             .find("[data-element='dialog-full-screen']")
             .first()
-            .prop("aria-describedby")
+            .prop("aria-describedby"),
         ).toBe(subtitleId);
       });
     });
@@ -698,13 +701,13 @@ describe("DialogFullScreen", () => {
             data-role="baz"
             data-element="bar"
             role={dialogRole}
-          />
+          />,
         );
         expect(
           wrapper
             .find("[data-element='dialog-full-screen']")
             .first()
-            .prop("role")
+            .prop("role"),
         ).toBe(dialogRole);
 
         wrapper.unmount();
@@ -721,13 +724,13 @@ describe("DialogFullScreen", () => {
             data-role="baz"
             data-element="bar"
             aria-label={label}
-          />
+          />,
         );
         expect(
           wrapper
             .find("[data-element='dialog-full-screen']")
             .first()
-            .prop("aria-label")
+            .prop("aria-label"),
         ).toBe(label);
 
         wrapper.unmount();
@@ -759,7 +762,7 @@ describe("closeIcon", () => {
         title="Test"
         data-role="baz"
         data-element="bar"
-      />
+      />,
     );
   });
 

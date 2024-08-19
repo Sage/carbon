@@ -8,14 +8,14 @@ import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
 const render = (
   props = {},
   inputGroupContextValue = {},
-  inputContextValue = {}
+  inputContextValue = {},
 ) => {
   return mount(
     <InputGroupContext.Provider value={inputGroupContextValue}>
       <InputContext.Provider value={inputContextValue}>
         <HiddenCheckableInput type="test" {...props} />
       </InputContext.Provider>
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 };
 
@@ -73,7 +73,7 @@ describe("HiddenCheckableInput", () => {
         onFocus: contextOnFocus,
         onMouseEnter: contextOnMouseEnter,
         onMouseLeave: contextOnMouseLeave,
-      }
+      },
     );
   });
 

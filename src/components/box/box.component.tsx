@@ -101,7 +101,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       "aria-hidden": ariaHidden,
       ...rest
     }: BoxProps,
-    ref
+    ref,
   ) => {
     return (
       <StyledBox
@@ -134,7 +134,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         {children}
       </StyledBox>
     );
-  }
+  },
 );
 
 Box.displayName = "Box";

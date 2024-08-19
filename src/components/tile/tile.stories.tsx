@@ -29,7 +29,7 @@ const styledSystemProps = generateStyledSystemProps(
     spacing: true,
     width: true,
   },
-  { p: 3 }
+  { p: 3 },
 );
 
 const meta: Meta<typeof Tile> = {

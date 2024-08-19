@@ -23,7 +23,7 @@ test("should display deprecation warning once when rendered as uncontrolled", ()
   render(<Textarea name="my-textarea" defaultValue="test" />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
 
   expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -81,9 +81,9 @@ test.each([
     expect(screen.getByTestId("icon-test")).toHaveStyleRule(
       "padding-right",
       "var(--spacing500)",
-      { modifier: `& ${StyledInput}` }
+      { modifier: `& ${StyledInput}` },
     );
-  }
+  },
 );
 
 test.each([
@@ -101,9 +101,9 @@ test.each([
 
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "enterkeyhint",
-      keyHint
+      keyHint,
     );
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -113,7 +113,7 @@ test.each(["error", "warning", "info"])(
     const inputPresentationContainer = screen.getByRole("presentation");
     const validationIcon = screen.getByTestId(`icon-${validationProp}`);
     expect(inputPresentationContainer).toContainElement(validationIcon);
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -128,15 +128,15 @@ test.each(["error", "warning", "info"])(
           [validationProp]: "Message",
           tooltipPosition: "bottom",
         }}
-      />
+      />,
     );
 
     expect(useFloatingSpy).toHaveBeenCalledWith(
-      expect.objectContaining({ placement: "bottom" })
+      expect.objectContaining({ placement: "bottom" }),
     );
 
     useFloatingSpy.mockRestore();
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -149,12 +149,12 @@ test.each(["error", "warning", "info"])(
           [validationProp]: "Message",
           validationOnLabel: true,
         }}
-      />
+      />,
     );
     const labelContainer = screen.getByTestId("label-container");
     const validationIcon = screen.getByTestId(`icon-${validationProp}`);
     expect(labelContainer).toContainElement(validationIcon);
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -170,15 +170,15 @@ test.each(["error", "warning", "info"])(
           tooltipPosition: "bottom",
           validationOnLabel: true,
         }}
-      />
+      />,
     );
 
     expect(useFloatingSpy).toHaveBeenCalledWith(
-      expect.objectContaining({ placement: "bottom" })
+      expect.objectContaining({ placement: "bottom" }),
     );
 
     useFloatingSpy.mockRestore();
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -186,9 +186,9 @@ test.each(["error", "warning", "info"])(
   (validationProp) => {
     render(<Textarea {...{ [validationProp]: true }} />);
     expect(
-      screen.queryByTestId(`icon-${validationProp}`)
+      screen.queryByTestId(`icon-${validationProp}`),
     ).not.toBeInTheDocument();
-  }
+  },
 );
 
 test("should set the aria-label on the Help component to the value of the helpAriaLabel prop", () => {
@@ -212,7 +212,7 @@ test.each(["info", "warning", "error"])(
     textarea.focus();
 
     expect(textarea).toHaveAccessibleDescription("test");
-  }
+  },
 );
 
 test.each(["info", "warning", "error"])(
@@ -223,7 +223,7 @@ test.each(["info", "warning", "error"])(
     textarea.focus();
 
     expect(textarea).toHaveAccessibleDescription("test");
-  }
+  },
 );
 
 test("renders the hint when inputHint prop is provided", () => {
@@ -240,7 +240,7 @@ test("inputHint should have priority over labelHelp when both are passed", () =>
   render(
     <CarbonProvider validationRedesignOptIn>
       <Textarea labelHelp="labelHelp" inputHint="inputHint" error="foo" />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   expect(screen.getByText("inputHint")).toBeInTheDocument();
   expect(screen.queryByText("labelHelp")).not.toBeInTheDocument();
@@ -267,26 +267,30 @@ test.each(["info", "warning", "error"])(
         label="bar"
         fieldHelp="baz"
         {...{ [validationType]: "test" }}
-      />
+      />,
     );
     const textarea = screen.getByRole("textbox");
     textarea.focus();
 
     expect(textarea).toHaveAccessibleDescription("baz test");
-  }
+  },
 );
 
 test.each(["info", "warning", "error"])(
   "with id prop not provided, fieldHelp present, %s prop set as a string and the textarea element focused, the fieldHelp and the validation tooltip are combined to provide an accessible description for the textarea element",
   (validationType) => {
     render(
-      <Textarea label="bar" fieldHelp="baz" {...{ [validationType]: "test" }} />
+      <Textarea
+        label="bar"
+        fieldHelp="baz"
+        {...{ [validationType]: "test" }}
+      />,
     );
     const textarea = screen.getByRole("textbox");
     textarea.focus();
 
     expect(textarea).toHaveAccessibleDescription("baz test");
-  }
+  },
 );
 
 describe(`when the characterLimit prop is passed`, () => {
@@ -297,7 +301,7 @@ describe(`when the characterLimit prop is passed`, () => {
     expect(
       screen.getByText("1 character too many", {
         selector: '[aria-hidden="true"]',
-      })
+      }),
     ).toBeInTheDocument();
   });
 
@@ -308,7 +312,7 @@ describe(`when the characterLimit prop is passed`, () => {
     expect(
       screen.getByText("2 characters too many", {
         selector: '[aria-hidden="true"]',
-      })
+      }),
     ).toBeInTheDocument();
   });
 
@@ -319,7 +323,7 @@ describe(`when the characterLimit prop is passed`, () => {
     expect(
       screen.getByText("0 characters left", {
         selector: '[aria-hidden="true"]',
-      })
+      }),
     ).toBeInTheDocument();
   });
 
@@ -328,7 +332,9 @@ describe(`when the characterLimit prop is passed`, () => {
     render(<Textarea value={valueString} characterLimit={4} />);
 
     expect(
-      screen.getByText("1 character left", { selector: '[aria-hidden="true"]' })
+      screen.getByText("1 character left", {
+        selector: '[aria-hidden="true"]',
+      }),
     ).toBeInTheDocument();
   });
 
@@ -339,7 +345,7 @@ describe(`when the characterLimit prop is passed`, () => {
     expect(
       screen.getByText("2 characters left", {
         selector: '[aria-hidden="true"]',
-      })
+      }),
     ).toBeInTheDocument();
   });
 
@@ -348,7 +354,7 @@ describe(`when the characterLimit prop is passed`, () => {
     expect(
       screen.getByText("You can enter up to 73 characters", {
         selector: '[data-element="visually-hidden-hint"]',
-      })
+      }),
     ).toHaveAttribute("id", mockedGuid);
   });
 
@@ -422,7 +428,7 @@ test("renders a label that is linked to the TextArea, if the label prop is promo
   render(<Textarea label="This is a Text Area" />);
 
   expect(screen.getByLabelText("This is a Text Area")).toBe(
-    screen.getByRole("textbox")
+    screen.getByRole("textbox"),
   );
 });
 
@@ -461,14 +467,14 @@ test("when an expandable textarea unmounts, the event listener is removed from t
       expandable
       rows={10}
       characterLimit={100}
-    />
+    />,
   );
 
   unmount();
 
   expect(removeEventListenerSpy).toHaveBeenCalledWith(
     "resize",
-    expect.any(Function)
+    expect.any(Function),
   );
 
   removeEventListenerSpy.mockRestore();
@@ -494,7 +500,7 @@ describe("when a parent container scrolls vertically", () => {
             rows={10}
           />
         </div>
-      </div>
+      </div>,
     );
 
     const scrollWrapper = screen.getByTestId("scroll-wrapper");
@@ -520,14 +526,14 @@ test("when textarea cannot be expanded, it does not remove any event listener fr
       onChange={jest.fn()}
       label="Label"
       rows={10}
-    />
+    />,
   );
 
   unmount();
 
   expect(removeEventListenerSpy).not.toHaveBeenCalledWith(
     "resize",
-    expect.any(Function)
+    expect.any(Function),
   );
 
   removeEventListenerSpy.mockRestore();
@@ -545,11 +551,11 @@ describe("when rendered with new validations", () => {
       render(
         <CarbonProvider validationRedesignOptIn>
           <Textarea {...{ [validationType]: "bar" }} />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
 
       expect(screen.getByRole("textbox")).toHaveAccessibleDescription("bar");
-    }
+    },
   );
 
   it("ignores the labelInline and related styling props", () => {
@@ -562,7 +568,7 @@ describe("when rendered with new validations", () => {
           labelWidth={100}
           labelSpacing={1}
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const labelContainer = screen.getByTestId("label-container");
@@ -576,7 +582,7 @@ describe("when rendered with new validations", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <Textarea labelHelp="Example hint text" />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const hintText = screen.getByText("Example hint text");
     expect(hintText).toBeInTheDocument();
@@ -616,7 +622,7 @@ test("renders with the expected default border radius styling", () => {
   render(<Textarea />);
   expect(screen.getByRole("textbox")).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius050)"
+    "var(--borderRadius050)",
   );
 });
 
@@ -624,7 +630,7 @@ test("renders with the expected custom border radius styling", () => {
   render(<Textarea borderRadius="borderRadius200" />);
   expect(screen.getByRole("textbox")).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius200)"
+    "var(--borderRadius200)",
   );
 });
 
@@ -637,11 +643,11 @@ test("renders with the expected custom border radius styling as an array", () =>
         "borderRadius200",
         "borderRadius400",
       ]}
-    />
+    />,
   );
   expect(screen.getByRole("textbox")).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius050) var(--borderRadius100) var(--borderRadius200) var(--borderRadius400)"
+    "var(--borderRadius050) var(--borderRadius100) var(--borderRadius200) var(--borderRadius400)",
   );
 });
 
@@ -658,11 +664,11 @@ test("fires a console warning if more than four border-radius values are passed"
         "borderRadius400",
         "borderRadius050",
       ]}
-    />
+    />,
   );
 
   expect(consoleSpy).toHaveBeenCalledWith(
-    "The `borderRadius` prop in `Textarea` component only supports up to 4 values."
+    "The `borderRadius` prop in `Textarea` component only supports up to 4 values.",
   );
 
   consoleSpy.mockRestore();

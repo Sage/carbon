@@ -15,7 +15,7 @@ const index = 0;
 const render = (
   props: Omit<PicklistGroupProps, "children">,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderer: any = shallow
+  renderer: any = shallow,
 ) => {
   const defaultContextValues = {
     setElementToFocus,
@@ -31,7 +31,7 @@ const render = (
           Item content
         </PicklistItem>
       </PicklistGroup>
-    </FocusContext.Provider>
+    </FocusContext.Provider>,
   );
 };
 
@@ -44,11 +44,11 @@ describe("PicklistGroup component", () => {
           title: "Title",
           onChange: () => null,
         },
-        mount
+        mount,
       );
 
       expect(wrapper.find(StyledGroupButton).at(0).props().iconType).toEqual(
-        "add"
+        "add",
       );
     });
   });
@@ -61,11 +61,11 @@ describe("PicklistGroup component", () => {
           title: "Title",
           onChange: () => null,
         },
-        mount
+        mount,
       );
 
       expect(wrapper.find(StyledGroupButton).at(0).props().iconType).toEqual(
-        "remove"
+        "remove",
       );
     });
   });
@@ -86,7 +86,7 @@ describe("PicklistGroup component", () => {
             title: "Title",
             onChange: onChangeFn,
           },
-          mount
+          mount,
         );
 
         wrapper.find(StyledGroupButton).props().onClick();
@@ -104,7 +104,7 @@ describe("PicklistGroup component", () => {
             title: "Title",
             onChange: onChangeFn,
           },
-          mount
+          mount,
         );
 
         wrapper.find(StyledGroupButton).simulate("keydown", { key: "Enter" });
@@ -122,7 +122,7 @@ describe("PicklistGroup component", () => {
             title: "Title",
             onChange: onChangeFn,
           },
-          mount
+          mount,
         );
 
         wrapper.find(StyledGroupButton).simulate("keydown", { key: " " });
@@ -140,7 +140,7 @@ describe("PicklistGroup component", () => {
             title: "Title",
             onChange: onChangeFn,
           },
-          mount
+          mount,
         );
 
         wrapper.find(StyledGroupButton).simulate("keydown", { key: "a" });
@@ -159,7 +159,7 @@ describe("PicklistGroup component", () => {
               title: "Title",
               onChange: onChangeFn,
             },
-            mount
+            mount,
           );
 
           act(() => {
@@ -173,7 +173,7 @@ describe("PicklistGroup component", () => {
               background: "var(--colorsActionMajor600)",
             },
             wrapper,
-            { modifier: `${StyledButton}` }
+            { modifier: `${StyledButton}` },
           );
 
           act(() => {
@@ -186,7 +186,7 @@ describe("PicklistGroup component", () => {
             {
               background: "var(--colorsActionMajor500)",
             },
-            wrapper.find(PicklistItem).at(0).find(StyledButton)
+            wrapper.find(PicklistItem).at(0).find(StyledButton),
           );
         });
       });
@@ -199,7 +199,7 @@ describe("PicklistGroup component", () => {
               title: "Title",
               onChange: onChangeFn,
             },
-            mount
+            mount,
           );
 
           act(() => {
@@ -213,7 +213,7 @@ describe("PicklistGroup component", () => {
               background: "var(--colorsSemanticNegative600)",
             },
             wrapper,
-            { modifier: `${StyledButton}` }
+            { modifier: `${StyledButton}` },
           );
 
           act(() => {
@@ -226,7 +226,7 @@ describe("PicklistGroup component", () => {
             {
               background: "var(--colorsSemanticNegative500)",
             },
-            wrapper.find(PicklistItem).at(0).find(StyledButton)
+            wrapper.find(PicklistItem).at(0).find(StyledButton),
           );
         });
       });
@@ -241,7 +241,7 @@ describe("PicklistGroup component", () => {
               title: "Title",
               onChange: onChangeFn,
             },
-            mount
+            mount,
           );
 
           act(() => {
@@ -255,7 +255,7 @@ describe("PicklistGroup component", () => {
               background: "var(--colorsActionMajor600)",
             },
             wrapper,
-            { modifier: `${StyledButton}` }
+            { modifier: `${StyledButton}` },
           );
 
           act(() => {
@@ -268,7 +268,7 @@ describe("PicklistGroup component", () => {
             {
               background: "var(--colorsActionMajor500)",
             },
-            wrapper.find(PicklistItem).at(0).find(StyledButton)
+            wrapper.find(PicklistItem).at(0).find(StyledButton),
           );
         });
       });
@@ -281,7 +281,7 @@ describe("PicklistGroup component", () => {
               title: "Title",
               onChange: onChangeFn,
             },
-            mount
+            mount,
           );
 
           act(() => {
@@ -295,7 +295,7 @@ describe("PicklistGroup component", () => {
               background: "var(--colorsSemanticNegative600)",
             },
             wrapper,
-            { modifier: `${StyledButton}` }
+            { modifier: `${StyledButton}` },
           );
 
           act(() => {
@@ -308,7 +308,7 @@ describe("PicklistGroup component", () => {
             {
               background: "var(--colorsSemanticNegative500)",
             },
-            wrapper.find(PicklistItem).at(0).find(StyledButton)
+            wrapper.find(PicklistItem).at(0).find(StyledButton),
           );
         });
       });
@@ -333,7 +333,7 @@ describe("PicklistGroup component", () => {
             >
               invalid
             </PicklistGroup>
-          </FocusContext.Provider>
+          </FocusContext.Provider>,
         );
       }).not.toThrow();
     });
@@ -345,7 +345,7 @@ describe("PicklistGroup component", () => {
       const elementToFocus = (
         itemIndex?: number,
         listIndex?: number,
-        groupIndex?: number
+        groupIndex?: number,
       ) => {
         setFocused({ itemIndex, listIndex, groupIndex });
         setElementToFocus(itemIndex, listIndex, groupIndex);

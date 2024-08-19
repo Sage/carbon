@@ -54,7 +54,7 @@ test("should render as an `li` element with `aria-hidden` when inside a Menu", (
       }}
     >
       <VerticalDivider />
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const verticalDividerElement = screen.getByTestId("vertical-divider");
 

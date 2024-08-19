@@ -36,7 +36,7 @@ describe("LoaderBar", () => {
           height: "8px",
           borderRadius: "var(--borderRadius400)",
         },
-        wrapper.find(StyledLoaderBar)
+        wrapper.find(StyledLoaderBar),
       );
 
       assertStyleMatch(
@@ -45,7 +45,7 @@ describe("LoaderBar", () => {
           width: "128px",
           height: "8px",
         },
-        wrapper.find(InnerBar)
+        wrapper.find(InnerBar),
       );
     });
 
@@ -58,10 +58,10 @@ describe("LoaderBar", () => {
         const wrapper = mount(<LoaderBar size={size} />);
         assertStyleMatch(
           { width: "100%", height },
-          wrapper.find(StyledLoaderBar)
+          wrapper.find(StyledLoaderBar),
         );
         assertStyleMatch({ width: "128px", height }, wrapper.find(InnerBar));
-      }
+      },
     );
 
     it("root element has accessible name", () => {

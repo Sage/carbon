@@ -179,7 +179,7 @@ function renderBody(rowCount: number) {
 
 function processRowData(
   row: HeadRowData | Client,
-  cellType: "header" | "cell"
+  cellType: "header" | "cell",
 ) {
   return Object.keys(row).map((columnKey) => {
     let align = "left";

@@ -34,30 +34,30 @@ import {
 import { dataComponentButtonByText } from "../../../playwright/components/pages/index";
 
 test.describe("check props for Form component", () => {
-  ([
-    ["left", "start"],
-    ["right", "end"],
-  ] as [FormProps["buttonAlignment"], string][]).forEach(
-    ([buttonAlignment, webkitAlign]) => {
-      test(`should render with buttonAlignment ${buttonAlignment}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<FormComponent buttonAlignment={buttonAlignment} />);
+  (
+    [
+      ["left", "start"],
+      ["right", "end"],
+    ] as [FormProps["buttonAlignment"], string][]
+  ).forEach(([buttonAlignment, webkitAlign]) => {
+    test(`should render with buttonAlignment ${buttonAlignment}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FormComponent buttonAlignment={buttonAlignment} />);
 
-        await expect(getDataElementByValue(page, "form-footer")).toHaveCSS(
-          "-webkit-box-pack",
-          webkitAlign
-        );
-      });
-    }
-  );
+      await expect(getDataElementByValue(page, "form-footer")).toHaveCSS(
+        "-webkit-box-pack",
+        webkitAlign,
+      );
+    });
+  });
 
   test(`should render with children`, async ({ mount, page }) => {
     await mount(
       <Form>
         <Textbox label="Textbox" />
-      </Form>
+      </Form>,
     );
 
     await expect(getElement(page, "input")).toBeVisible();
@@ -77,24 +77,24 @@ test.describe("check props for Form component", () => {
     });
   });
 
-  ([
-    [0, 281],
-    [3, 329],
-    [5, 361],
-    [7, 401],
-  ] as [FormProps["fieldSpacing"], number][]).forEach(
-    ([fieldSpacing, formHeight]) => {
-      test(`should render with fieldSpacing as ${fieldSpacing}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<FormComponent fieldSpacing={fieldSpacing} />);
+  (
+    [
+      [0, 281],
+      [3, 329],
+      [5, 361],
+      [7, 401],
+    ] as [FormProps["fieldSpacing"], number][]
+  ).forEach(([fieldSpacing, formHeight]) => {
+    test(`should render with fieldSpacing as ${fieldSpacing}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FormComponent fieldSpacing={fieldSpacing} />);
 
-        const form = getComponent(page, "form");
-        await assertCssValueIsApproximately(form, "height", formHeight);
-      });
-    }
-  );
+      const form = getComponent(page, "form");
+      await assertCssValueIsApproximately(form, "height", formHeight);
+    });
+  });
 
   test(`should render with leftSideButtons`, async ({ mount, page }) => {
     await mount(<FormWithLeftSidedButtons />);
@@ -118,12 +118,12 @@ test.describe("check props for Form component", () => {
       if (noValidate) {
         await expect(getComponent(page, "form")).toHaveAttribute(
           "noValidate",
-          /.*/
+          /.*/,
         );
       } else {
         await expect(getComponent(page, "form")).not.toHaveAttribute(
           "noValidate",
-          /.*/
+          /.*/,
         );
       }
     });
@@ -139,7 +139,7 @@ test.describe("check props for Form component", () => {
         onSubmit={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const saveButton = page.getByRole("button");
@@ -167,10 +167,12 @@ test.describe("check props for Form component", () => {
     await expect(saveButton).toHaveText("Save");
   });
 
-  ([
-    [true, "rgba(0, 0, 0, 0.05) 0px -4px 12px 0px"],
-    [false, "none"],
-  ] as [FormProps["stickyFooter"], string][]).forEach(([bool, boxShadow]) => {
+  (
+    [
+      [true, "rgba(0, 0, 0, 0.05) 0px -4px 12px 0px"],
+      [false, "none"],
+    ] as [FormProps["stickyFooter"], string][]
+  ).forEach(([bool, boxShadow]) => {
     test(`should render with boxShadow value of ${boxShadow} when stickyFooter is ${bool}`, async ({
       mount,
       page,
@@ -179,7 +181,7 @@ test.describe("check props for Form component", () => {
 
       await expect(getDataElementByValue(page, "form-footer")).toHaveCSS(
         "box-shadow",
-        boxShadow
+        boxShadow,
       );
     });
   });
@@ -198,11 +200,13 @@ test.describe("check props for Form component", () => {
     });
   });
 
-  ([
-    ["30px", 30],
-    ["100px", 100],
-    ["200px", 200],
-  ] as [FormProps["height"], number][]).forEach(([height, heightVal]) => {
+  (
+    [
+      ["30px", 30],
+      ["100px", 100],
+      ["200px", 200],
+    ] as [FormProps["height"], number][]
+  ).forEach(([height, heightVal]) => {
     test(`should render with height of ${height}`, async ({ mount, page }) => {
       await mount(<FormComponent height={height} />);
 
@@ -211,24 +215,24 @@ test.describe("check props for Form component", () => {
     });
   });
 
-  ([
-    [false, 98],
-    [true, 1366],
-  ] as [FormProps["fullWidthButtons"], number][]).forEach(
-    ([bool, buttonWidth]) => {
-      test(`should render with buttonWidth of ${buttonWidth} when fullWidthButtons prop is ${bool}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<FormWithFullWidthButtons fullWidthButtons={bool} />);
+  (
+    [
+      [false, 98],
+      [true, 1366],
+    ] as [FormProps["fullWidthButtons"], number][]
+  ).forEach(([bool, buttonWidth]) => {
+    test(`should render with buttonWidth of ${buttonWidth} when fullWidthButtons prop is ${bool}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FormWithFullWidthButtons fullWidthButtons={bool} />);
 
-        const submitButton = getComponent(page, "button").filter({
-          hasText: "submit",
-        });
-        await assertCssValueIsApproximately(submitButton, "width", buttonWidth);
+      const submitButton = getComponent(page, "button").filter({
+        hasText: "submit",
       });
-    }
-  );
+      await assertCssValueIsApproximately(submitButton, "width", buttonWidth);
+    });
+  });
 });
 
 test.describe("Accessibility tests for Form component", () => {

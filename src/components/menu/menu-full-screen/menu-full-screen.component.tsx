@@ -34,7 +34,7 @@ export interface MenuFullscreenProps extends Omit<TagProps, "data-component"> {
     ev:
       | React.KeyboardEvent<HTMLButtonElement>
       | React.MouseEvent<HTMLButtonElement>
-      | KeyboardEvent
+      | KeyboardEvent,
   ) => void;
   /** Manually override the internal modal stacking order to set this as top */
   topModalOverride?: boolean;
@@ -72,7 +72,7 @@ export const MenuFullscreen = ({
       }
 
       return child;
-    })
+    }),
   );
 
   const closeModal = useCallback(
@@ -83,7 +83,7 @@ export const MenuFullscreen = ({
         onClose(ev);
       }
     },
-    [onClose]
+    [onClose],
   );
 
   useModalManager({

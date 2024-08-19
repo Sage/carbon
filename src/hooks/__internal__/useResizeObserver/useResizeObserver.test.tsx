@@ -47,13 +47,13 @@ describe("useResizeObserver hook functionality when enabled", () => {
     render(<TestComponent callback={callbackProp} disabled={false} />);
 
     expect(observeMock).toHaveBeenCalledWith(
-      screen.getByTestId("observed-node")
+      screen.getByTestId("observed-node"),
     );
   });
 
   it("should unobserve the element and disconnect the observer on component unmount when enabled", () => {
     const { unmount } = render(
-      <TestComponent callback={callbackProp} disabled={false} />
+      <TestComponent callback={callbackProp} disabled={false} />,
     );
 
     unmount();
@@ -102,7 +102,7 @@ describe("useResizeObserver hook functionality when disabled", () => {
 
   it("should not unobserve the element nor disconnect the observer on component unmount when disabled", () => {
     const { unmount } = render(
-      <TestComponent callback={callbackProp} disabled />
+      <TestComponent callback={callbackProp} disabled />,
     );
 
     unmount();

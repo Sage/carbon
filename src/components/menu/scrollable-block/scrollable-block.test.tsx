@@ -27,7 +27,7 @@ test("should have the correct styling when `menuType` is 'light' passed by MenuC
           <MenuItem href="#">Apple</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   expect(screen.getByTestId("scrollable-block")).toHaveStyle({
@@ -54,7 +54,7 @@ test("should have the correct styling when `menuType` is 'dark' passed by MenuCo
           <MenuItem href="#">Apple</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   expect(screen.getByTestId("scrollable-block")).toHaveStyle({
@@ -82,7 +82,7 @@ test("should have the correct styling when `menuType` is 'white' passed by MenuC
           <MenuItem href="#">Broccoli</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   expect(screen.getByTestId("scrollable-block")).toHaveStyle({
@@ -109,7 +109,7 @@ test("should have the correct styling when `menuType` is 'black' passed by MenuC
           <MenuItem href="#">Apple</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   expect(screen.getByTestId("scrollable-block")).toHaveStyle({
@@ -137,7 +137,7 @@ test("should apply the expected styling on the last menu item when they have `hr
           <MenuItem href="#">Pear</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const links = screen.getAllByRole("link");
   const firstLink = links.shift();
@@ -173,7 +173,7 @@ test("should apply the expected styling on the last menu item when they have `on
           <MenuItem onClick={() => {}}>Pear</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const buttons = screen.getAllByRole("button");
   const firstButton = buttons.shift();
@@ -209,7 +209,7 @@ test("should apply the expected styling on the last menu item when it has `href`
           <MenuItem href="#">Pear</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const button = screen.getByRole("button");
   const link = screen.getByRole("link");
@@ -244,7 +244,7 @@ test("should apply the expected styling on the last menu item when it has `onCli
           <MenuItem onClick={() => {}}>Pear</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const link = screen.getByRole("link");
   const button = screen.getByRole("button");
@@ -283,7 +283,7 @@ test("should render the `parent` item, wrapped in a MenuItem", () => {
           <MenuItem onClick={() => {}}>Pear</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const firstMenuItem = screen.getByTestId("scrollable-block-parent-menu-item");
 
@@ -313,10 +313,10 @@ test("should render the parent menu-item with the correct styling when `variant`
           <MenuItem onClick={() => {}}>Pear</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const parentMenuItem = screen.getByTestId(
-    "scrollable-block-parent-menu-item"
+    "scrollable-block-parent-menu-item",
   );
 
   expect(parentMenuItem).toHaveStyle({
@@ -348,10 +348,10 @@ test("should render the parent menu-item with the correct styling when `variant`
           <MenuItem onClick={() => {}}>Pear</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const parentMenuItem = screen.getByTestId(
-    "scrollable-block-parent-menu-item"
+    "scrollable-block-parent-menu-item",
   );
 
   expect(parentMenuItem).toHaveStyle({
@@ -383,10 +383,10 @@ test("should render the parent menu-item with the correct styling when `variant`
           <MenuItem onClick={() => {}}>Pear</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const parentMenuItem = screen.getByTestId(
-    "scrollable-block-parent-menu-item"
+    "scrollable-block-parent-menu-item",
   );
 
   expect(parentMenuItem).toHaveStyle({
@@ -418,13 +418,13 @@ test("should apply the `data-` tag props as attributes on the expected element",
           <MenuItem href="#">Pear</MenuItem>
         </ScrollableBlock>
       </SubmenuContext.Provider>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const scrollableBlock = screen.getByTestId("scrollable-block");
 
   expect(scrollableBlock).toHaveAttribute(
     "data-component",
-    "submenu-scrollable-block"
+    "submenu-scrollable-block",
   );
   expect(scrollableBlock).toHaveAttribute("data-element", "foo");
   expect(scrollableBlock).toHaveAttribute("data-role", "scrollable-block");

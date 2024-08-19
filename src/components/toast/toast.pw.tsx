@@ -90,14 +90,16 @@ test.describe("Toast component", () => {
     await expect(getDataComponentByValue(page, testData)).toBeVisible();
   });
 
-  ([
-    [TOAST_COLORS[0], colorTypes[0]],
-    [TOAST_COLORS[1], colorTypes[1]],
-    [TOAST_COLORS[2], colorTypes[2]],
-    [TOAST_COLORS[3], colorTypes[3]],
-    [TOAST_COLORS[4], colorTypes[4]],
-    [TOAST_COLORS[5], colorTypes[1]],
-  ] as [ToastProps["variant"], string][]).forEach(([variant, color]) => {
+  (
+    [
+      [TOAST_COLORS[0], colorTypes[0]],
+      [TOAST_COLORS[1], colorTypes[1]],
+      [TOAST_COLORS[2], colorTypes[2]],
+      [TOAST_COLORS[3], colorTypes[3]],
+      [TOAST_COLORS[4], colorTypes[4]],
+      [TOAST_COLORS[5], colorTypes[1]],
+    ] as [ToastProps["variant"], string][]
+  ).forEach(([variant, color]) => {
     test(`should render with ${variant} variant`, async ({ mount, page }) => {
       await mount(<ToastComponent variant={variant} />);
 
@@ -114,7 +116,7 @@ test.describe("Toast component", () => {
     await expect(toast).toHaveCSS("background-color", "rgb(51, 91, 112)");
     await expect(toast).toHaveCSS(
       "box-shadow",
-      "rgba(0, 20, 29, 0.1) 0px 10px 30px 0px, rgba(0, 20, 29, 0.1) 0px 30px 60px 0px"
+      "rgba(0, 20, 29, 0.1) 0px 10px 30px 0px, rgba(0, 20, 29, 0.1) 0px 30px 60px 0px",
     );
   });
 
@@ -174,7 +176,7 @@ test.describe("Toast component", () => {
 
     await expect(icon).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(icon).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
   });
@@ -202,7 +204,7 @@ test.describe("Toast component", () => {
 
       await expect(toastComponent(page).locator("..").locator("..")).toHaveCSS(
         "justify-content",
-        align
+        align,
       );
     });
   });
@@ -254,7 +256,7 @@ test.describe("check events for Toast component", () => {
         onDismiss={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
     await closeIconButton(page).click();
     expect(callbackCount).toBe(1);
@@ -270,7 +272,7 @@ test.describe("check events for Toast component", () => {
         onDismiss={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
     await page.keyboard.press("Escape");
     expect(callbackCount).toBe(1);
@@ -278,12 +280,14 @@ test.describe("check events for Toast component", () => {
 });
 
 test.describe("Accessibility tests for Toast component", () => {
-  ([
-    TOAST_COLORS[0],
-    TOAST_COLORS[1],
-    TOAST_COLORS[2],
-    TOAST_COLORS[3],
-  ] as ToastProps["variant"][]).forEach((variant) => {
+  (
+    [
+      TOAST_COLORS[0],
+      TOAST_COLORS[1],
+      TOAST_COLORS[2],
+      TOAST_COLORS[3],
+    ] as ToastProps["variant"][]
+  ).forEach((variant) => {
     test(`should render with ${variant} variant and check accessibility`, async ({
       mount,
       page,

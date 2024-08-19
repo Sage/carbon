@@ -67,11 +67,11 @@ test("should display deprecation warning once when rendered as uncontrolled", ()
         { value: "#AEECD6", label: "mint" },
       ]}
       defaultColor="#EBAEDE"
-    />
+    />,
   );
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Advanced Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Advanced Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 
@@ -112,14 +112,14 @@ test.each(["a", "b", "q", "t", "x", "4", "0"])(
     screen.getByRole("button", { name: "Change colour" }).focus();
     await user.keyboard(key);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-  }
+  },
 );
 
 test("the accessible description of the button includes the name of the currently selected color when none is selected", () => {
   render(<ControlledColorPicker selectedColor="#EBAEDE" />);
 
   expect(
-    screen.getByRole("button", { name: "Change colour" })
+    screen.getByRole("button", { name: "Change colour" }),
   ).toHaveAccessibleDescription("Current colour assigned: orchid");
 });
 
@@ -146,9 +146,9 @@ test.each([
     await user.click(screen.getByRole("button", { name: "Close" }));
 
     expect(
-      screen.getByRole("button", { name: "Change colour" })
+      screen.getByRole("button", { name: "Change colour" }),
     ).toHaveAccessibleDescription(`Current colour assigned: ${label}`);
-  }
+  },
 );
 
 test("the button has the correct background color matching the initially-selected color", () => {
@@ -183,7 +183,7 @@ test.each([
     expect(screen.getByRole("button", { name: "Change colour" })).toHaveStyle({
       backgroundColor: value,
     });
-  }
+  },
 );
 
 test("the button has the correct background image after the user selects the transparent color", async () => {
@@ -241,7 +241,7 @@ test.each([
     await waitFor(() => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
-  }
+  },
 );
 
 test.each(["a", "b", "q", "t", "x", "4", "0"])(
@@ -259,7 +259,7 @@ test.each(["a", "b", "q", "t", "x", "4", "0"])(
     jest.runAllTimers();
 
     expect(screen.getByRole("dialog")).toBeVisible();
-  }
+  },
 );
 
 test("tabbing from the close button should focus the selected color input", async () => {
@@ -318,7 +318,7 @@ test("when a color input is clicked, it triggers the onChange callback", async (
   const onChange = jest.fn();
 
   render(
-    <ControlledColorPicker selectedColor="#EBAEDE" open onChange={onChange} />
+    <ControlledColorPicker selectedColor="#EBAEDE" open onChange={onChange} />,
   );
 
   expect(onChange).not.toHaveBeenCalled();

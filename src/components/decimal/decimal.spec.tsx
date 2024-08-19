@@ -42,7 +42,7 @@ describe("Decimal", () => {
   function render(
     props: Partial<DecimalProps> = {},
     renderer = mount,
-    mockComponent?: JSX.Element
+    mockComponent?: JSX.Element,
   ) {
     const defaultProps = {
       onChange,
@@ -84,7 +84,7 @@ describe("Decimal", () => {
     const without = where.replace(/\|/g, "");
     if (without !== value()) {
       throw new Error(
-        `Testing error: where (${without}) does not match the current value (${value()})`
+        `Testing error: where (${without}) does not match the current value (${value()})`,
       );
     }
   };
@@ -103,7 +103,7 @@ describe("Decimal", () => {
   const press = (
     obj: Partial<ClipboardEvent> | Partial<KeyboardEvent>,
     where: string,
-    method = "keyPress"
+    method = "keyPress",
   ) => {
     checkWhere(where);
 
@@ -134,9 +134,9 @@ describe("Decimal", () => {
   }
 
   const paste = (obj: { key: string }, where: string) => {
-    const clipboardData = (new ClipboardData({
+    const clipboardData = new ClipboardData({
       "text/plain": obj.key,
-    }) as unknown) as DataTransfer;
+    }) as unknown as DataTransfer;
     return press({ clipboardData }, where, "paste");
   };
 
@@ -160,7 +160,7 @@ describe("Decimal", () => {
     (props) => <Decimal {...props} />,
     undefined,
     (component) => component.find(FormFieldStyle),
-    { modifier: "&&&" }
+    { modifier: "&&&" },
   );
 
   it("renders in ReactDOM", () => {
@@ -184,7 +184,7 @@ describe("Decimal", () => {
       enzymeMount(<Decimal defaultValue="0.01" />);
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
       expect(loggerSpy).toHaveBeenCalledTimes(1);
     });
@@ -261,7 +261,7 @@ describe("Decimal", () => {
                 rawValue: "-",
               },
             },
-          })
+          }),
         );
         expect(onBlur).toHaveBeenCalledWith(
           expect.objectContaining({
@@ -271,9 +271,9 @@ describe("Decimal", () => {
                 rawValue: "-",
               },
             },
-          })
+          }),
         );
-      }
+      },
     );
 
     describe("precision", () => {
@@ -318,7 +318,7 @@ describe("Decimal", () => {
           render({ defaultValue: decimalValue, precision: precisionValue });
           expect(value()).toBe(decimalValue);
           expect(hiddenValue()).toBe(decimalValue);
-        }
+        },
       );
     });
 
@@ -339,7 +339,7 @@ describe("Decimal", () => {
               rawValue: "12345.56",
             },
           },
-        })
+        }),
       );
     });
 
@@ -356,7 +356,7 @@ describe("Decimal", () => {
               rawValue: "12345.56",
             },
           },
-        })
+        }),
       );
     });
 
@@ -541,7 +541,7 @@ describe("Decimal", () => {
               rawValue: key,
             },
           },
-        })
+        }),
       );
     });
 
@@ -552,7 +552,7 @@ describe("Decimal", () => {
 
         const { preventDefault } = press({ key: "-" }, where);
         expect(preventDefault).not.toHaveBeenCalled();
-      }
+      },
     );
 
     it("allows the user to type a negative symbol at the start of the number", () => {
@@ -629,7 +629,7 @@ describe("Decimal", () => {
           const { preventDefault } = press({ key }, where);
           expect(preventDefault).not.toHaveBeenCalled();
         });
-      }
+      },
     );
 
     describe("i18n", () => {
@@ -652,7 +652,7 @@ describe("Decimal", () => {
                   rawValue,
                 },
               },
-            })
+            }),
           );
         });
       });
@@ -697,7 +697,7 @@ describe("Decimal", () => {
                   rawValue,
                 },
               },
-            })
+            }),
           );
         });
 
@@ -779,7 +779,7 @@ describe("Decimal", () => {
                   rawValue,
                 },
               },
-            })
+            }),
           );
         });
 
@@ -876,9 +876,9 @@ describe("Decimal", () => {
                     rawValue,
                   },
                 },
-              })
+              }),
             );
-          }
+          },
         );
 
         it("formats a value correctly when precision is 0 and allowEmptyValue is false", () => {
@@ -1016,7 +1016,7 @@ describe("Decimal", () => {
             render({ defaultValue: "12345", precision: 2, ...itProps });
             setProps({ precision: 1 });
             expect(consoleSpy).toHaveBeenCalledWith(
-              "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect."
+              "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect.",
             );
             consoleSpy.mockRestore();
           });
@@ -1046,7 +1046,7 @@ describe("Decimal", () => {
                     rawValue: "12345.566",
                   },
                 },
-              })
+              }),
             );
           });
 
@@ -1119,7 +1119,7 @@ describe("Decimal", () => {
                   rawValue: "12345.56",
                 },
               },
-            })
+            }),
           );
         });
 
@@ -1136,7 +1136,7 @@ describe("Decimal", () => {
                   rawValue: "12345.56",
                 },
               },
-            })
+            }),
           );
         });
 
@@ -1195,7 +1195,7 @@ describe("Decimal", () => {
               const { preventDefault } = press({ key }, where);
               expect(preventDefault).not.toHaveBeenCalled();
             });
-          }
+          },
         );
 
         it.each([
@@ -1223,7 +1223,7 @@ describe("Decimal", () => {
                     rawValue: "-",
                   },
                 },
-              })
+              }),
             );
             expect(onChange).toHaveBeenCalledWith(
               expect.objectContaining({
@@ -1233,7 +1233,7 @@ describe("Decimal", () => {
                     rawValue: "-",
                   },
                 },
-              })
+              }),
             );
             expect(onBlur).toHaveBeenCalledWith(
               expect.objectContaining({
@@ -1243,9 +1243,9 @@ describe("Decimal", () => {
                     rawValue: "-",
                   },
                 },
-              })
+              }),
             );
-          }
+          },
         );
       });
     });
@@ -1275,14 +1275,14 @@ describe("Decimal", () => {
       render({ onKeyPress });
       press({ key: "1" }, "0.00|");
       expect(onKeyPress).toHaveBeenCalledWith(
-        expect.objectContaining({ key: "1" })
+        expect.objectContaining({ key: "1" }),
       );
     });
 
     it("has the correct automation selectors", () => {
       render();
       expect(
-        wrapper.find(Textbox).getDOMNode().getAttribute("data-component")
+        wrapper.find(Textbox).getDOMNode().getAttribute("data-component"),
       ).toBe("decimal");
     });
 
@@ -1521,7 +1521,7 @@ describe("Decimal", () => {
               rawValue: "",
             },
           },
-        })
+        }),
       );
 
       onBlur.mockReset();
@@ -1537,7 +1537,7 @@ describe("Decimal", () => {
               rawValue: "1",
             },
           },
-        })
+        }),
       );
 
       onBlur.mockReset();
@@ -1553,7 +1553,7 @@ describe("Decimal", () => {
               rawValue: "",
             },
           },
-        })
+        }),
       );
     });
 
@@ -1578,7 +1578,7 @@ describe("Decimal", () => {
               rawValue: "0.00",
             },
           },
-        })
+        }),
       );
 
       onBlur.mockReset();
@@ -1594,7 +1594,7 @@ describe("Decimal", () => {
               rawValue: "1",
             },
           },
-        })
+        }),
       );
 
       onBlur.mockReset();
@@ -1610,7 +1610,7 @@ describe("Decimal", () => {
               rawValue: "0.00",
             },
           },
-        })
+        }),
       );
     });
   });
@@ -1652,7 +1652,7 @@ describe("Decimal", () => {
             }}
           >
             <Decimal />
-          </I18nProvider>
+          </I18nProvider>,
         );
         expect(value()).toBe("0,00");
         wrapper.setProps({
@@ -1723,9 +1723,9 @@ describe("Decimal", () => {
         content: '"(optional)"',
       },
       enzymeMount(<Decimal label="optional" isOptional />).find(
-        StyledLabelContainer
+        StyledLabelContainer,
       ),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -1745,7 +1745,7 @@ describe("Decimal", () => {
         {
           flexDirection: "row",
         },
-        wrapper.find(InputPresentationStyle)
+        wrapper.find(InputPresentationStyle),
       );
     });
   });
@@ -1758,7 +1758,7 @@ describe("Decimal", () => {
         {
           maxWidth: "67%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
 
@@ -1768,7 +1768,7 @@ describe("Decimal", () => {
         {
           maxWidth: "100%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
   });
@@ -1778,7 +1778,7 @@ describe("Decimal", () => {
       {
         borderRadius: "var(--borderRadius050)",
       },
-      enzymeMount(<Decimal />).find(StyledInput)
+      enzymeMount(<Decimal />).find(StyledInput),
     );
   });
 });

@@ -41,7 +41,7 @@ export const ToolbarButton = React.forwardRef<
       onFocus,
       onBlur,
     }: ToolbarButtonProps,
-    ref
+    ref,
   ) => {
     return (
       <StyledToolbarButton
@@ -60,7 +60,7 @@ export const ToolbarButton = React.forwardRef<
         {children}
       </StyledToolbarButton>
     );
-  }
+  },
 );
 
 ToolbarButton.displayName = "ToolbarButton";

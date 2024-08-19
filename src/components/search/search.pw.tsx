@@ -41,13 +41,12 @@ test.describe("When focused", () => {
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.focus();
-    const searchDefaultInputElementParent = searchDefaultInputElement.locator(
-      ".."
-    );
+    const searchDefaultInputElementParent =
+      searchDefaultInputElement.locator("..");
 
     await expect(searchDefaultInputElementParent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
   });
 
@@ -63,12 +62,11 @@ test.describe("When focused", () => {
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.focus();
-    const searchDefaultInputElementParent = searchDefaultInputElement.locator(
-      ".."
-    );
+    const searchDefaultInputElementParent =
+      searchDefaultInputElement.locator("..");
     await expect(searchDefaultInputElementParent).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 3px"
+      "rgb(255, 188, 25) solid 3px",
     );
   });
 
@@ -92,7 +90,7 @@ test.describe("When focused", () => {
 
     await expect(searchButtonElement).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
   });
 
@@ -116,7 +114,7 @@ test.describe("When focused", () => {
 
     await expect(searchButtonElement).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 3px"
+      "rgb(255, 188, 25) solid 3px",
     );
   });
 
@@ -138,7 +136,7 @@ test.describe("When focused", () => {
 
     await expect(searchCrossIconElementParent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
   });
 
@@ -160,7 +158,7 @@ test.describe("When focused", () => {
 
     await expect(searchCrossIconElementParent).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 3px"
+      "rgb(255, 188, 25) solid 3px",
     );
   });
 });
@@ -177,7 +175,7 @@ test.describe("Prop tests for Search component", () => {
 
       await expect(searchDefaultInputElement).toHaveAttribute(
         "placeholder",
-        placeholder
+        placeholder,
       );
     });
   });
@@ -192,7 +190,7 @@ test.describe("Prop tests for Search component", () => {
 
     await expect(searchDefaultInputElement).toHaveAttribute(
       "value",
-      testDataStandard
+      testDataStandard,
     );
   });
 
@@ -203,7 +201,7 @@ test.describe("Prop tests for Search component", () => {
 
     await expect(searchDefaultInputElement).toHaveAttribute(
       "value",
-      testDataStandard
+      testDataStandard,
     );
   });
 
@@ -222,7 +220,7 @@ test.describe("Prop tests for Search component", () => {
 
     await expect(searchDefaultElement).toHaveAttribute(
       "name",
-      testDataStandard
+      testDataStandard,
     );
   });
 
@@ -233,7 +231,7 @@ test.describe("Prop tests for Search component", () => {
 
     await expect(searchDefaultInputElement).toHaveAttribute(
       "aria-label",
-      testDataStandard
+      testDataStandard,
     );
   });
 
@@ -242,7 +240,7 @@ test.describe("Prop tests for Search component", () => {
     page,
   }) => {
     await mount(
-      <SearchComponent searchButton searchButtonAriaLabel={testDataStandard} />
+      <SearchComponent searchButton searchButtonAriaLabel={testDataStandard} />,
     );
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
@@ -251,7 +249,7 @@ test.describe("Prop tests for Search component", () => {
 
     await expect(searchButtonElement).toHaveAttribute(
       "aria-label",
-      testDataStandard
+      testDataStandard,
     );
   });
 
@@ -264,7 +262,7 @@ test.describe("Prop tests for Search component", () => {
         <Search
           searchButton={searchButtonBool}
           defaultValue={testDataStandard}
-        />
+        />,
       );
 
       const searchFindIconElement = searchIcon(page);
@@ -286,10 +284,12 @@ test.describe("Prop tests for Search component", () => {
     await expect(page.getByText("foo")).toBeVisible();
   });
 
-  ([
-    ["34%", 464],
-    ["70%", 956],
-  ] as const).forEach(([widthInPercentage, widthVal]) => {
+  (
+    [
+      ["34%", 464],
+      ["70%", 956],
+    ] as const
+  ).forEach(([widthInPercentage, widthVal]) => {
     test(`should render Search with searchWidth prop set to ${widthInPercentage} percentage`, async ({
       mount,
       page,
@@ -301,7 +301,7 @@ test.describe("Prop tests for Search component", () => {
       await assertCssValueIsApproximately(
         searchDefaultElement,
         "width",
-        widthVal
+        widthVal,
       );
     });
   });
@@ -319,12 +319,14 @@ test.describe("Prop tests for Search component", () => {
     });
   });
 
-  ([
-    ["10%", 135],
-    ["34%", 464],
-    ["70%", 956],
-    ["100%", 1366],
-  ] as const).forEach(([widthInPercentage, widthVal]) => {
+  (
+    [
+      ["10%", 135],
+      ["34%", 464],
+      ["70%", 956],
+      ["100%", 1366],
+    ] as const
+  ).forEach(([widthInPercentage, widthVal]) => {
     test(`should render Search with maxWidth prop set to ${widthInPercentage}`, async ({
       mount,
       page,
@@ -336,7 +338,7 @@ test.describe("Prop tests for Search component", () => {
       await assertCssValueIsApproximately(
         searchDefaultElement,
         "width",
-        widthVal
+        widthVal,
       );
     });
   });
@@ -353,42 +355,44 @@ test.describe("Prop tests for Search component", () => {
   });
 });
 
-([
-  ["default", "rgb(102, 132, 148)"],
-  ["dark", "rgba(255, 255, 255, 0.8)"],
-] as [SearchProps["variant"], string][]).forEach(
-  ([variant, backgroundColor]) => {
-    test(`should render Search with variant prop set to ${variant}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <Box width="700px" height="108px">
-          <div
-            style={{
-              padding: "32px",
-              backgroundColor: "#003349",
-            }}
-          >
-            <SearchComponent variant={variant} />
-          </div>
-        </Box>
-      );
+(
+  [
+    ["default", "rgb(102, 132, 148)"],
+    ["dark", "rgba(255, 255, 255, 0.8)"],
+  ] as [SearchProps["variant"], string][]
+).forEach(([variant, backgroundColor]) => {
+  test(`should render Search with variant prop set to ${variant}`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Box width="700px" height="108px">
+        <div
+          style={{
+            padding: "32px",
+            backgroundColor: "#003349",
+          }}
+        >
+          <SearchComponent variant={variant} />
+        </div>
+      </Box>,
+    );
 
-      const searchDefaultElement = searchDefault(page);
+    const searchDefaultElement = searchDefault(page);
 
-      await expect(searchDefaultElement).toHaveCSS(
-        "border-bottom-color",
-        backgroundColor
-      );
-    });
-  }
-);
+    await expect(searchDefaultElement).toHaveCSS(
+      "border-bottom-color",
+      backgroundColor,
+    );
+  });
+});
 
-([
-  ["default", "rgb(51, 91, 112)"],
-  ["dark", "rgb(255, 255, 255)"],
-] as [SearchProps["variant"], string][]).forEach(([variant, hoverColor]) => {
+(
+  [
+    ["default", "rgb(51, 91, 112)"],
+    ["dark", "rgb(255, 255, 255)"],
+  ] as [SearchProps["variant"], string][]
+).forEach(([variant, hoverColor]) => {
   test(`should render Search with variant prop set to ${variant} on hover`, async ({
     mount,
     page,
@@ -403,7 +407,7 @@ test.describe("Prop tests for Search component", () => {
         >
           <SearchComponent variant={variant} />
         </div>
-      </Box>
+      </Box>,
     );
 
     const searchDefaultInnerIconElement = searchDefaultInnerIcon(page);
@@ -412,7 +416,7 @@ test.describe("Prop tests for Search component", () => {
 
     await expect(searchDefaultElement).toHaveCSS(
       "border-bottom-color",
-      hoverColor
+      hoverColor,
     );
   });
 });
@@ -435,16 +439,15 @@ validationTypes.forEach(([type, colour]) => {
         {...{
           [type]: "Message",
         }}
-      />
+      />,
     );
 
-    const searchDefaultInputElementParent = searchDefaultInput(page).locator(
-      ".."
-    );
+    const searchDefaultInputElementParent =
+      searchDefaultInput(page).locator("..");
 
     await expect(searchDefaultInputElementParent).toHaveCSS(
       "border-color",
-      colour
+      colour,
     );
 
     const getDataElementByValueElementType = getDataElementByValue(page, type);
@@ -462,15 +465,14 @@ validationTypes.forEach((type) => {
         {...{
           [type[0]]: true,
         }}
-      />
+      />,
     );
-    const searchDefaultInputElementParent = searchDefaultInput(page).locator(
-      ".."
-    );
+    const searchDefaultInputElementParent =
+      searchDefaultInput(page).locator("..");
 
     await expect(searchDefaultInputElementParent).toHaveCSS(
       "border-color",
-      type[1]
+      type[1],
     );
   });
 });
@@ -484,12 +486,11 @@ test("should have the expected border radius styling when no search button enabl
   const searchDefaultInputElement = searchDefaultInput(page);
   await expect(searchDefaultInputElement).toHaveCSS("border-radius", "4px");
 
-  const searchDefaultInputElementParent = searchDefaultInput(page).locator(
-    ".."
-  );
+  const searchDefaultInputElementParent =
+    searchDefaultInput(page).locator("..");
   await expect(searchDefaultInputElementParent).toHaveCSS(
     "border-radius",
-    "4px"
+    "4px",
   );
 });
 
@@ -499,22 +500,18 @@ test("should have the expected border radius styling when search button enabled"
 }) => {
   await mount(<SearchComponent searchButton value="foo" />);
 
-  const searchDefaultInputElementParent = searchDefaultInput(page).locator(
-    ".."
-  );
+  const searchDefaultInputElementParent =
+    searchDefaultInput(page).locator("..");
 
   await expect(searchDefaultInputElementParent).toHaveCSS(
     "border-radius",
-    "4px 0px 0px 4px"
+    "4px 0px 0px 4px",
   );
 });
 
-([
-  "top",
-  "bottom",
-  "left",
-  "right",
-] as SearchProps["tooltipPosition"][]).forEach((tooltipPositionValue) => {
+(
+  ["top", "bottom", "left", "right"] as SearchProps["tooltipPosition"][]
+).forEach((tooltipPositionValue) => {
   test(`should render Search with the tooltip in the ${tooltipPositionValue} position`, async ({
     mount,
     page,
@@ -524,12 +521,12 @@ test("should have the expected border radius styling when search button enabled"
         m="250px"
         error={testDataStandard}
         tooltipPosition={tooltipPositionValue}
-      />
+      />,
     );
 
     const getDataElementByValueElementError = getDataElementByValue(
       page,
-      "error"
+      "error",
     );
     await getDataElementByValueElementError.hover();
     const tooltipPreviewElement = tooltipPreview(page);
@@ -537,7 +534,7 @@ test("should have the expected border radius styling when search button enabled"
     await expect(tooltipPreviewElement).toHaveText(testDataStandard);
     await expect(tooltipPreviewElement).toHaveAttribute(
       "data-placement",
-      String(tooltipPositionValue)
+      String(tooltipPositionValue),
     );
   });
 });
@@ -611,7 +608,7 @@ test.describe("Event tests for Search component", () => {
         }}
         defaultValue={testDataStandard}
         searchButton
-      />
+      />,
     );
 
     const searchButtonElement = searchButton(page);
@@ -630,7 +627,7 @@ test.describe("Event tests for Search component", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const searchDefaultInputElement = searchDefaultInput(page);
@@ -649,7 +646,7 @@ test.describe("Event tests for Search component", () => {
         onFocus={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const searchDefaultInputElement = searchDefaultInput(page);
@@ -668,7 +665,7 @@ test.describe("Event tests for Search component", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const searchDefaultInputElement = searchDefaultInput(page);
@@ -689,7 +686,7 @@ test.describe("Event tests for Search component", () => {
           onKeyDown={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       const searchDefaultInputElement = searchDefaultInput(page);
@@ -770,7 +767,7 @@ test.describe("Accessibility tests for Search", () => {
           {...{
             [type[0]]: true,
           }}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -782,7 +779,7 @@ test.describe("Accessibility tests for Search", () => {
     page,
   }) => {
     await mount(
-      <SearchComponent searchButton searchButtonAriaLabel={testDataStandard} />
+      <SearchComponent searchButton searchButtonAriaLabel={testDataStandard} />,
     );
 
     await checkAccessibility(page);
@@ -840,19 +837,16 @@ test.describe("Accessibility tests for Search", () => {
           {...{
             [type[0]]: "Message",
           }}
-        />
+        />,
       );
 
       await checkAccessibility(page);
     });
   });
 
-  ([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ] as SearchProps["tooltipPosition"][]).forEach((tooltipPositionValue) => {
+  (
+    ["top", "bottom", "left", "right"] as SearchProps["tooltipPosition"][]
+  ).forEach((tooltipPositionValue) => {
     test(`should check accessibility with the tooltip in the ${tooltipPositionValue} position`, async ({
       mount,
       page,
@@ -862,7 +856,7 @@ test.describe("Accessibility tests for Search", () => {
           m="250px"
           error={testDataStandard}
           tooltipPosition={tooltipPositionValue}
-        />
+        />,
       );
 
       const searchErrorIcon = getDataElementByValue(page, "error");
@@ -883,7 +877,7 @@ test.describe("Accessibility tests for Search", () => {
         await mount(
           <Box width="700px" height="108px" bg="#003349">
             <SearchComponent variant={variant} />
-          </Box>
+          </Box>,
         );
 
         await checkAccessibility(page);

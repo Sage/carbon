@@ -31,7 +31,7 @@ test.describe("check styling for Link Preview component", () => {
 
     await expect(previewElement).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
   });
 
@@ -43,7 +43,7 @@ test.describe("check styling for Link Preview component", () => {
       <LinkPreviewComponentTest aria-label={CHARACTERS.STANDARD} />,
       {
         hooksConfig: { focusRedesignOptOut: true },
-      }
+      },
     );
 
     const previewElement = linkPreview(page);
@@ -51,7 +51,7 @@ test.describe("check styling for Link Preview component", () => {
 
     await expect(previewElement).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 2px"
+      "rgb(255, 188, 25) solid 2px",
     );
   });
 
@@ -64,7 +64,7 @@ test.describe("check styling for Link Preview component", () => {
     await expect(linkPreview(page)).toHaveCSS("border-radius", "8px");
 
     await expect(
-      page.locator('[data-component="link preview image placeholder"]')
+      page.locator('[data-component="link preview image placeholder"]'),
     ).toHaveCSS("border-radius", "8px 0px 0px 8px");
   });
 });
@@ -121,7 +121,9 @@ test.describe("check props for Link Preview component", () => {
     page,
   }) => {
     await mount(
-      <LinkPreviewComponentTest image={{ url: urlProp, alt: testPlaywright }} />
+      <LinkPreviewComponentTest
+        image={{ url: urlProp, alt: testPlaywright }}
+      />,
     );
 
     await expect(page.locator("img")).toHaveAttribute("src", urlProp);
@@ -145,7 +147,7 @@ test.describe("check functionality for Link Preview component", () => {
 
     await expect(previewElement).toHaveCSS(
       "background-color",
-      "rgb(204, 214, 219)"
+      "rgb(204, 214, 219)",
     );
   });
 
@@ -170,7 +172,7 @@ test.describe("check functionality for Link Preview component", () => {
       <LinkPreviewComponentTest as="div" onClose={() => {}} />,
       {
         hooksConfig: { focusRedesignOptOut: true },
-      }
+      },
     );
 
     const closeButton = page.getByLabel("link preview close button");
@@ -192,7 +194,7 @@ test.describe("check events for Link Preview component", () => {
         onClose={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await linkPreviewCloseIcon(page).click();
@@ -213,7 +215,7 @@ test.describe("check events for Link Preview component", () => {
           onClose={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       await page.keyboard.press("Tab");

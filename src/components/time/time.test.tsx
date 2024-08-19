@@ -63,10 +63,10 @@ describe("Time component", () => {
     render(<Time value={{ hours: "", minutes: "" }} onChange={() => {}} />);
 
     expect(
-      screen.queryByRole("button", { name: "AM" })
+      screen.queryByRole("button", { name: "AM" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "PM" })
+      screen.queryByRole("button", { name: "PM" }),
     ).not.toBeInTheDocument();
   });
 
@@ -75,7 +75,7 @@ describe("Time component", () => {
       <Time
         value={{ hours: "", minutes: "", period: "AM" }}
         onChange={() => {}}
-      />
+      />,
     );
 
     const amToggle = screen.getByRole("button", { name: "AM", pressed: true });
@@ -90,7 +90,7 @@ describe("Time component", () => {
       <Time
         value={{ hours: "", minutes: "", period: "PM" }}
         onChange={() => {}}
-      />
+      />,
     );
 
     const amToggle = screen.getByRole("button", { name: "AM", pressed: false });
@@ -106,7 +106,7 @@ describe("Time component", () => {
         value={{ hours: "12", minutes: "30" }}
         onChange={() => {}}
         inputHint="hint text"
-      />
+      />,
     );
 
     expect(screen.getByText("hint text")).toBeVisible();
@@ -130,7 +130,7 @@ describe("Time component", () => {
       <Time
         value={{ hours: "12", minutes: "30", period: "AM" }}
         onChange={() => {}}
-      />
+      />,
     );
 
     const user = userEvent.setup({
@@ -156,7 +156,7 @@ describe("Time component", () => {
       <Time
         value={{ hours: "12", minutes: "30", period: "AM" }}
         onChange={() => {}}
-      />
+      />,
     );
 
     const user = userEvent.setup({
@@ -184,7 +184,7 @@ describe("Time component", () => {
         value={{ hours: "12", minutes: "30" }}
         onChange={() => {}}
         label="Time"
-      />
+      />,
     );
 
     const fieldset = screen.getByRole("group");
@@ -198,12 +198,11 @@ describe("Time component", () => {
       <Time
         value={{ hours: "12", minutes: "30", period: "AM" }}
         onChange={() => {}}
-      />
+      />,
     );
 
-    const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-      "presentation"
-    );
+    const [hrsInputPresentation, minsInputPresentation] =
+      screen.getAllByRole("presentation");
     const { height, horizontalPadding } = inputSizes.medium;
     const amToggle = screen.getByRole("button", { name: "AM" });
     const pmToggle = screen.getByRole("button", { name: "PM" });
@@ -236,12 +235,11 @@ describe("Time component", () => {
           value={{ hours: "12", minutes: "30", period: "AM" }}
           onChange={() => {}}
           size={size}
-        />
+        />,
       );
 
-      const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-        "presentation"
-      );
+      const [hrsInputPresentation, minsInputPresentation] =
+        screen.getAllByRole("presentation");
       const { height, horizontalPadding } = inputSizes[size];
       const amToggle = screen.getByRole("button", { name: "AM" });
       const pmToggle = screen.getByRole("button", { name: "PM" });
@@ -264,7 +262,7 @@ describe("Time component", () => {
         padding: `0 ${paddingConfig[size]}px`,
         "font-size": `${fontSizeConfig[size]}px`,
       });
-    }
+    },
   );
 
   it("should apply the custom id on the hours input when `hoursInputProps` has an `id` set", () => {
@@ -273,7 +271,7 @@ describe("Time component", () => {
         value={{ hours: "12", minutes: "30" }}
         onChange={() => {}}
         hoursInputProps={{ id: "foo" }}
-      />
+      />,
     );
 
     const hoursInput = screen.getByDisplayValue("12");
@@ -286,7 +284,7 @@ describe("Time component", () => {
         value={{ hours: "12", minutes: "30" }}
         onChange={() => {}}
         minutesInputProps={{ id: "foo" }}
-      />
+      />,
     );
 
     const minutesInput = screen.getByDisplayValue("30");
@@ -301,7 +299,7 @@ describe("Time component", () => {
         onChange={onChangeMock}
         hoursInputProps={{ id: "foo" }}
         minutesInputProps={{ id: "bar" }}
-      />
+      />,
     );
 
     const user = userEvent.setup({
@@ -319,7 +317,7 @@ describe("Time component", () => {
           id: "foo bar",
           value: { hours: "1", minutes: "", period: "AM" },
         },
-      })
+      }),
     );
   });
 
@@ -331,7 +329,7 @@ describe("Time component", () => {
         onChange={onChangeMock}
         hoursInputProps={{ id: "foo" }}
         minutesInputProps={{ id: "bar" }}
-      />
+      />,
     );
 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -345,7 +343,7 @@ describe("Time component", () => {
           id: "foo bar",
           value: { hours: "1", minutes: "" },
         },
-      })
+      }),
     );
   });
 
@@ -357,7 +355,7 @@ describe("Time component", () => {
         onChange={onChangeMock}
         hoursInputProps={{ id: "foo" }}
         minutesInputProps={{ id: "bar" }}
-      />
+      />,
     );
 
     const user = userEvent.setup({
@@ -375,7 +373,7 @@ describe("Time component", () => {
           id: "foo bar",
           value: { hours: "", minutes: "1", period: "AM" },
         },
-      })
+      }),
     );
   });
 
@@ -387,7 +385,7 @@ describe("Time component", () => {
         onChange={onChangeMock}
         hoursInputProps={{ id: "foo" }}
         minutesInputProps={{ id: "bar" }}
-      />
+      />,
     );
 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -402,7 +400,7 @@ describe("Time component", () => {
           id: "foo bar",
           value: { hours: "", minutes: "1" },
         },
-      })
+      }),
     );
   });
 
@@ -418,7 +416,7 @@ describe("Time component", () => {
         onChange={onChangeMock}
         hoursInputProps={{ id: "foo" }}
         minutesInputProps={{ id: "bar" }}
-      />
+      />,
     );
 
     const pmToggle = screen.getByRole("button", { name: "PM" });
@@ -432,7 +430,7 @@ describe("Time component", () => {
           id: "foo bar",
           value: { hours: "", minutes: "", period: "PM" },
         },
-      })
+      }),
     );
   });
 
@@ -448,7 +446,7 @@ describe("Time component", () => {
         onChange={onChangeMock}
         hoursInputProps={{ id: "foo" }}
         minutesInputProps={{ id: "bar" }}
-      />
+      />,
     );
 
     const amToggle = screen.getByRole("button", { name: "AM" });
@@ -465,7 +463,7 @@ describe("Time component", () => {
         value={{ hours: "12", minutes: "" }}
         onChange={() => {}}
         onBlur={onBlurMock}
-      />
+      />,
     );
 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -483,7 +481,7 @@ describe("Time component", () => {
         value={{ hours: "12", minutes: "" }}
         onChange={() => {}}
         onBlur={onBlurMock}
-      />
+      />,
     );
 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -501,7 +499,7 @@ describe("Time component", () => {
         value={{ hours: "", minutes: "12" }}
         onChange={() => {}}
         onBlur={onBlurMock}
-      />
+      />,
     );
 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -519,7 +517,7 @@ describe("Time component", () => {
         value={{ hours: "", minutes: "12" }}
         onChange={() => {}}
         onBlur={onBlurMock}
-      />
+      />,
     );
 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -536,7 +534,7 @@ describe("Time component", () => {
         value={{ hours: "", minutes: "" }}
         onChange={() => {}}
         hoursInputProps={{ error: "There is an error" }}
-      />
+      />,
     );
 
     expect(screen.getByText("There is an error")).toBeVisible();
@@ -548,7 +546,7 @@ describe("Time component", () => {
         value={{ hours: "", minutes: "" }}
         onChange={() => {}}
         minutesInputProps={{ error: "There is an error" }}
-      />
+      />,
     );
 
     expect(screen.getByText("There is an error")).toBeVisible();
@@ -561,13 +559,13 @@ describe("Time component", () => {
         onChange={() => {}}
         hoursInputProps={{ error: "There is an error in hours input." }}
         minutesInputProps={{ error: "There is an error in minutes input." }}
-      />
+      />,
     );
 
     expect(
       screen.getByText(
-        "There is an error in hours input. There is an error in minutes input."
-      )
+        "There is an error in hours input. There is an error in minutes input.",
+      ),
     ).toBeVisible();
   });
 
@@ -577,12 +575,11 @@ describe("Time component", () => {
         value={{ hours: "", minutes: "" }}
         onChange={() => {}}
         hoursInputProps={{ error: true }}
-      />
+      />,
     );
 
-    const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-      "presentation"
-    );
+    const [hrsInputPresentation, minsInputPresentation] =
+      screen.getAllByRole("presentation");
 
     expect(hrsInputPresentation).toHaveStyle({
       "box-shadow":
@@ -600,12 +597,11 @@ describe("Time component", () => {
         value={{ hours: "", minutes: "" }}
         onChange={() => {}}
         minutesInputProps={{ error: true }}
-      />
+      />,
     );
 
-    const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-      "presentation"
-    );
+    const [hrsInputPresentation, minsInputPresentation] =
+      screen.getAllByRole("presentation");
 
     expect(hrsInputPresentation).not.toHaveStyle({
       "box-shadow":
@@ -624,12 +620,11 @@ describe("Time component", () => {
         onChange={() => {}}
         hoursInputProps={{ error: true }}
         minutesInputProps={{ error: true }}
-      />
+      />,
     );
 
-    const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-      "presentation"
-    );
+    const [hrsInputPresentation, minsInputPresentation] =
+      screen.getAllByRole("presentation");
 
     expect(hrsInputPresentation).toHaveStyle({
       "box-shadow":
@@ -647,7 +642,7 @@ describe("Time component", () => {
         value={{ hours: "", minutes: "" }}
         onChange={() => {}}
         hoursInputProps={{ warning: "There is an warning" }}
-      />
+      />,
     );
 
     expect(screen.getByText("There is an warning")).toBeVisible();
@@ -659,7 +654,7 @@ describe("Time component", () => {
         value={{ hours: "", minutes: "" }}
         onChange={() => {}}
         minutesInputProps={{ warning: "There is an warning" }}
-      />
+      />,
     );
 
     expect(screen.getByText("There is an warning")).toBeVisible();
@@ -672,13 +667,13 @@ describe("Time component", () => {
         onChange={() => {}}
         hoursInputProps={{ warning: "There is an warning in hours input." }}
         minutesInputProps={{ warning: "There is an warning in minutes input." }}
-      />
+      />,
     );
 
     expect(
       screen.getByText(
-        "There is an warning in hours input. There is an warning in minutes input."
-      )
+        "There is an warning in hours input. There is an warning in minutes input.",
+      ),
     ).toBeVisible();
   });
 
@@ -688,12 +683,11 @@ describe("Time component", () => {
         value={{ hours: "", minutes: "" }}
         onChange={() => {}}
         hoursInputProps={{ warning: true }}
-      />
+      />,
     );
 
-    const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-      "presentation"
-    );
+    const [hrsInputPresentation, minsInputPresentation] =
+      screen.getAllByRole("presentation");
 
     expect(hrsInputPresentation).toHaveStyle({
       "border-color": "var(--colorsSemanticCaution500) !important",
@@ -709,12 +703,11 @@ describe("Time component", () => {
         value={{ hours: "", minutes: "" }}
         onChange={() => {}}
         minutesInputProps={{ warning: true }}
-      />
+      />,
     );
 
-    const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-      "presentation"
-    );
+    const [hrsInputPresentation, minsInputPresentation] =
+      screen.getAllByRole("presentation");
 
     expect(hrsInputPresentation).toHaveStyle({
       border: "1px solid var(--colorsUtilityMajor300)",
@@ -731,12 +724,11 @@ describe("Time component", () => {
         onChange={() => {}}
         hoursInputProps={{ warning: true }}
         minutesInputProps={{ warning: true }}
-      />
+      />,
     );
 
-    const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-      "presentation"
-    );
+    const [hrsInputPresentation, minsInputPresentation] =
+      screen.getAllByRole("presentation");
 
     expect(hrsInputPresentation).toHaveStyle({
       "border-color": "var(--colorsSemanticCaution500) !important",
@@ -753,7 +745,7 @@ describe("Time component", () => {
         onChange={() => {}}
         required
         label="Label"
-      />
+      />,
     );
 
     expect(screen.getByDisplayValue("12")).toBeRequired();
@@ -767,14 +759,14 @@ describe("Time component", () => {
         onChange={() => {}}
         isOptional
         label="Label"
-      />
+      />,
     );
 
     // use jest-styled-component's assertion as workaround for the pseudo element not being accessible
     expect(screen.getByText("Label")).toHaveStyleRule(
       "content",
       '"(optional)"',
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -784,7 +776,7 @@ describe("Time component", () => {
         value={{ hours: "", minutes: "", period: "AM" }}
         onChange={() => {}}
         label="Label"
-      />
+      />,
     );
 
     expect(screen.getByText("Hrs.")).toBeVisible();
@@ -801,7 +793,7 @@ describe("Time component", () => {
           onChange={() => {}}
           label="Label"
         />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(screen.getByText("foo-label")).toBeVisible();
@@ -822,7 +814,7 @@ describe("Time component", () => {
           onChange={() => {}}
           label="Label"
         />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(screen.getByText("hours prop string")).toBeVisible();
@@ -862,7 +854,7 @@ describe("Time component", () => {
           value={{ hours: "", minutes: "", period: "AM" }}
           onChange={onChangeMock}
           {...{ [prop]: true }}
-        />
+        />,
       );
 
       const pmToggle = screen.getByRole("button", { name: "PM" });
@@ -870,7 +862,7 @@ describe("Time component", () => {
       await user.click(pmToggle);
 
       expect(onChangeMock).not.toHaveBeenCalled();
-    }
+    },
   );
 
   it("should apply the expected styling when disabled prop is set", () => {
@@ -881,7 +873,7 @@ describe("Time component", () => {
         label="label"
         inputHint="hint"
         disabled
-      />
+      />,
     );
 
     const mainLabel = screen.getByText("label");
@@ -911,7 +903,7 @@ describe("Time component", () => {
         label="label"
         inputHint="hint"
         readOnly
-      />
+      />,
     );
 
     const hintText = screen.getByText("hint");
@@ -937,7 +929,7 @@ describe("Time component", () => {
         label="label"
         data-element="foo"
         data-role="bar"
-      />
+      />,
     );
 
     const fieldset = screen.getByRole("group", { name: "label" });
@@ -959,7 +951,7 @@ describe("Time component", () => {
           "data-element": "foo",
           "data-role": "minutes-input-wrapper",
         }}
-      />
+      />,
     );
 
     const hoursWrapper = screen.getByTestId("hours-input-wrapper");
@@ -989,14 +981,14 @@ describe("Time component", () => {
             "data-role": "pm-button-wrapper",
           },
         }}
-      />
+      />,
     );
 
     const fieldset = screen.getByRole("group", { name: "Time" });
     const toggleButtonGroup = within(fieldset).getByRole("group");
     expect(toggleButtonGroup).toHaveAttribute(
       "data-component",
-      "time-button-toggle-group"
+      "time-button-toggle-group",
     );
     expect(toggleButtonGroup).toHaveAttribute("data-element", "foo");
     expect(toggleButtonGroup).toHaveAttribute("data-role", "bar");
@@ -1004,14 +996,14 @@ describe("Time component", () => {
     const amButtonWrapper = screen.getByTestId("am-button-wrapper");
     expect(amButtonWrapper).toHaveAttribute(
       "data-component",
-      "am-button-toggle"
+      "am-button-toggle",
     );
     expect(amButtonWrapper).toHaveAttribute("data-element", "foo");
 
     const pmButtonWrapper = screen.getByTestId("pm-button-wrapper");
     expect(pmButtonWrapper).toHaveAttribute(
       "data-component",
-      "pm-button-toggle"
+      "pm-button-toggle",
     );
     expect(pmButtonWrapper).toHaveAttribute("data-element", "foo");
   });

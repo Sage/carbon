@@ -73,7 +73,7 @@ function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
     if (bgSizeValue < fontSizeValue) {
       // eslint-disable-next-line no-console
       console.warn(
-        `[WARNING - Icon] The "${bgSize}" \`bgSize\` is smaller than "${fontSize}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`
+        `[WARNING - Icon] The "${bgSize}" \`bgSize\` is smaller than "${fontSize}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`,
       );
       return iconConfig.backgroundSize[fontSize];
     }

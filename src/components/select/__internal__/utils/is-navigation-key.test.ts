@@ -4,7 +4,7 @@ it.each(["ArrowDown", "ArrowUp", "Home", "End", "PageUp", "PageDown"])(
   "returns true for '%s' key",
   (key) => {
     expect(isNavigationKey(key)).toBe(true);
-  }
+  },
 );
 
 it.each([

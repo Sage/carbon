@@ -47,8 +47,8 @@ Default.storyName = "Default";
 export const WithContent: Story = () => {
   const [value, setValue] = useState(
     EditorState.createWithContent(
-      ContentState.createFromText("Some initial content")
-    )
+      ContentState.createFromText("Some initial content"),
+    ),
   );
   return (
     <Box padding={1}>
@@ -149,7 +149,7 @@ CharacterCounterTranslations.storyName = "Character Counter Translations";
 
 export const WithValidation: Story = () => {
   const [value, setValue] = useState(
-    EditorState.createWithContent(ContentState.createFromText("Add content"))
+    EditorState.createWithContent(ContentState.createFromText("Add content")),
   );
   const limit = 16;
   const contentLength = value.getCurrentContent().getPlainText().length;
@@ -174,7 +174,7 @@ WithValidation.storyName = "With Validation";
 
 export const WithMultilineValidation: Story = () => {
   const [value, setValue] = useState(
-    EditorState.createWithContent(ContentState.createFromText("Add content"))
+    EditorState.createWithContent(ContentState.createFromText("Add content")),
   );
   const limit = 16;
   const contentLength = value.getCurrentContent().getPlainText().length;
@@ -202,7 +202,7 @@ WithMultilineValidation.storyName = "With Multiline Validation";
 
 export const WithNewValidation: Story = () => {
   const [value, setValue] = useState(
-    EditorState.createWithContent(ContentState.createFromText("Add content"))
+    EditorState.createWithContent(ContentState.createFromText("Add content")),
   );
   const limit = 16;
   const contentLength = value.getCurrentContent().getPlainText().length;
@@ -248,13 +248,13 @@ WithCustomRowHeight.storyName = "With Custom Row Height";
 
 export const WithLinkPreviews: Story = () => {
   const [value, setValue] = useState(
-    EditorState.createWithContent(ContentState.createFromText("www.sage.com"))
+    EditorState.createWithContent(ContentState.createFromText("www.sage.com")),
   );
   const firstRender = useRef(false);
   const previews = useRef<React.JSX.Element[]>([]);
   const removeUrl = (reportedUrl: string | undefined) => {
     previews.current = previews.current.filter(
-      (preview) => reportedUrl !== preview.props.url
+      (preview) => reportedUrl !== preview.props.url,
     );
   };
   if (!firstRender.current) {
@@ -266,13 +266,14 @@ export const WithLinkPreviews: Story = () => {
         url="https://www.sage.com"
         description="Captain, why are we out here chasing comets? I'd like to think that I haven't changed those things, sir. Computer, lights up! Not if I weaken first. Damage report! Yesterday I did not know how to eat gagh. The Federation's gone; the Borg is everywhere! We know you're dealing in stolen ore. But I wanna talk about the assassination attempt on Lieutenant Worf. Our neural pathways have become accustomed to your sensory input patterns. Wouldn't that bring about chaos?"
         key="key - 1"
-      />
+      />,
     );
   }
   const checkValidDomain = (url: string) => {
     const domainsWhitelist = [".com", ".co.uk", ".org", ".net"];
-    const result = domainsWhitelist.filter((domain) => url.endsWith(domain))
-      .length;
+    const result = domainsWhitelist.filter((domain) =>
+      url.endsWith(domain),
+    ).length;
     return !!result;
   };
   const addUrl = (reportedUrl: string) => {
@@ -316,8 +317,8 @@ WithLinkPreviews.storyName = "With Link Previews";
 export const Required: Story = () => {
   const [value, setValue] = useState(
     EditorState.createWithContent(
-      ContentState.createFromText("Some initial content")
-    )
+      ContentState.createFromText("Some initial content"),
+    ),
   );
   return (
     <Box padding={1}>
@@ -338,8 +339,8 @@ Required.storyName = "Required";
 export const IsOptional = () => {
   const [value, setValue] = useState(
     EditorState.createWithContent(
-      ContentState.createFromText("Some initial content")
-    )
+      ContentState.createFromText("Some initial content"),
+    ),
   );
   return (
     <Box padding={1}>

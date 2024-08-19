@@ -134,7 +134,7 @@ export const MultiSelect = React.forwardRef(
       required,
       ...textboxProps
     }: MultiSelectProps,
-    ref
+    ref,
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState();
     const selectListId = useRef(guid());
@@ -151,7 +151,7 @@ export const MultiSelect = React.forwardRef(
     const [isOpen, setOpenState] = useState(false);
     const [textValue, setTextValue] = useState("");
     const [selectedValue, setSelectedValue] = useState(
-      value || defaultValue || []
+      value || defaultValue || [],
     );
     const [highlightedValue, setHighlightedValue] = useState("");
     const [filterText, setFilterText] = useState("");
@@ -171,7 +171,7 @@ export const MultiSelect = React.forwardRef(
     if (!deprecateUncontrolledWarnTriggered && componentIsUncontrolled) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
@@ -198,7 +198,7 @@ export const MultiSelect = React.forwardRef(
 
         return customEvent as CustomSelectChangeEvent;
       },
-      [name, id]
+      [name, id],
     );
 
     /* generic value update function which can be used for both controlled and uncontrolled
@@ -208,12 +208,12 @@ export const MultiSelect = React.forwardRef(
     const updateValue = useCallback(
       (
         updateFunction: (
-          previousValue: string[] | Record<string, unknown>[]
+          previousValue: string[] | Record<string, unknown>[],
         ) => string[] | Record<string, unknown>[],
-        selectionConfirmed
+        selectionConfirmed,
       ) => {
         const newValue = updateFunction(
-          actualValue as string[] | Record<string, unknown>[]
+          actualValue as string[] | Record<string, unknown>[],
         );
         // only call onChange if an option has been selected or deselected
         if (onChange && newValue.length !== actualValue?.length) {
@@ -225,12 +225,12 @@ export const MultiSelect = React.forwardRef(
           setSelectedValue(updateFunction);
         }
       },
-      [createCustomEvent, onChange, actualValue]
+      [createCustomEvent, onChange, actualValue],
     );
 
     function findElementWithMatchingText(
       textToMatch: string,
-      list: React.ReactNode
+      list: React.ReactNode,
     ) {
       return React.Children.toArray(list).find((child) => {
         const { text } = (child as React.ReactElement).props;
@@ -244,7 +244,7 @@ export const MultiSelect = React.forwardRef(
         const newValue = event.target.value;
         const match = findElementWithMatchingText(
           newValue,
-          children
+          children,
         ) as React.ReactElement;
 
         if (match) {
@@ -255,7 +255,7 @@ export const MultiSelect = React.forwardRef(
         setTextValue(newValue);
         setOpen();
       },
-      [children, setOpen]
+      [children, setOpen],
     );
 
     const removeSelectedValue = useCallback(
@@ -272,7 +272,7 @@ export const MultiSelect = React.forwardRef(
           return newValue;
         }, true);
       },
-      [updateValue]
+      [updateValue],
     );
 
     const handleTextboxKeydown = useCallback(
@@ -298,7 +298,14 @@ export const MultiSelect = React.forwardRef(
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
       },
-      [onKeyDown, readOnly, filterText, textValue, setOpen, removeSelectedValue]
+      [
+        onKeyDown,
+        readOnly,
+        filterText,
+        textValue,
+        setOpen,
+        removeSelectedValue,
+      ],
     );
 
     const accessibilityLabel = useMemo(() => {
@@ -339,7 +346,7 @@ export const MultiSelect = React.forwardRef(
 
         isClickTriggeredBySelect.current = false;
       },
-      [isOpen]
+      [isOpen],
     );
 
     const mapValuesToPills = useMemo(() => {
@@ -353,7 +360,7 @@ export const MultiSelect = React.forwardRef(
       return actualValue.map((singleValue, index) => {
         const matchingOption = React.Children.toArray(children).find(
           (child) =>
-            React.isValidElement(child) && isExpectedOption(child, singleValue)
+            React.isValidElement(child) && isExpectedOption(child, singleValue),
         );
 
         let pillProps: Omit<PillProps, "children"> = {};
@@ -406,11 +413,11 @@ export const MultiSelect = React.forwardRef(
 
       invariant(
         isControlled.current === (value !== undefined),
-        modeSwitchedMessage
+        modeSwitchedMessage,
       );
       invariant(
         !isControlled.current || (isControlled.current && onChange),
-        onChangeMissingMessage
+        onChangeMissingMessage,
       );
     }, [value, onChange]);
 
@@ -437,7 +444,7 @@ export const MultiSelect = React.forwardRef(
     }, [handleGlobalClick]);
 
     const onFilterChange = useStableCallback(
-      onFilterChangeProp as (filterTextArg: unknown) => void
+      onFilterChangeProp as (filterTextArg: unknown) => void,
     );
     const isFirstRender = useRef(true);
     useEffect(() => {
@@ -473,7 +480,7 @@ export const MultiSelect = React.forwardRef(
     }
 
     function handleDropdownIconClick(
-      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) {
       isMouseDownReported.current = false;
 
@@ -598,7 +605,7 @@ export const MultiSelect = React.forwardRef(
           return [...previousValue, newValue];
         }, selectionConfirmed);
       },
-      [textboxRef, actualValue, updateValue]
+      [textboxRef, actualValue, updateValue],
     );
 
     const onSelectListClose = useCallback(() => {
@@ -620,7 +627,7 @@ export const MultiSelect = React.forwardRef(
           ref.current = element;
         }
       },
-      [ref]
+      [ref],
     );
 
     function getTextboxProps() {
@@ -717,7 +724,7 @@ export const MultiSelect = React.forwardRef(
         {selectList}
       </StyledSelectMultiSelect>
     );
-  }
+  },
 );
 
 export default MultiSelect;

@@ -82,7 +82,7 @@ export const WithInitialPageIndex: Story = () => {
   const initialpageIndex = 1;
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [pageIndex, setPageIndex] = useState(
-    Number(initialpageIndex) ? Number(initialpageIndex) : 0
+    Number(initialpageIndex) ? Number(initialpageIndex) : 0,
   );
   const [isDisabled, setIsDisabled] = useState(false);
   const handleCancel = () => {

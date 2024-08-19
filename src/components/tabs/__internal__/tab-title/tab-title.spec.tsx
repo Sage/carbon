@@ -26,7 +26,7 @@ function render(
   } = {},
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderer: any = shallow,
-  container = {}
+  container = {},
 ) {
   return renderer(
     <TabTitle
@@ -36,7 +36,7 @@ function render(
       dataTabId="uniqueid1"
       {...props}
     />,
-    container
+    container,
   );
 }
 
@@ -63,7 +63,7 @@ describe("TabTitle", () => {
         fontWeight: "bold",
         height: "var(--sizing500)",
       },
-      render({}, mount).find(StyledTabTitleButton)
+      render({}, mount).find(StyledTabTitleButton),
     );
   });
 
@@ -87,7 +87,7 @@ describe("TabTitle", () => {
     it('data-element equals "select-tab"', () => {
       wrapper = render();
       expect(wrapper.find("[data-element='select-tab']").exists()).toEqual(
-        true
+        true,
       );
     });
     it("data-tabid equals tabId", () => {
@@ -105,11 +105,11 @@ describe("TabTitle", () => {
       wrapper = render({ size: "large" }, mount);
       assertStyleMatch(
         { padding: "14px 24px" },
-        wrapper.find(StyledTitleContent)
+        wrapper.find(StyledTitleContent),
       );
       assertStyleMatch(
         { height: "var(--sizing600)" },
-        wrapper.find(StyledTabTitleButton)
+        wrapper.find(StyledTabTitleButton),
       );
     });
   });
@@ -135,7 +135,7 @@ describe("TabTitle", () => {
           onKeyDown={() => {}}
         >
           <StyledTitleContent />
-        </TabTitle>
+        </TabTitle>,
       );
 
       wrapper
@@ -169,7 +169,7 @@ describe("TabTitle", () => {
             borderLeft: "1px solid var(--colorsActionMinor100)",
             borderRight: "1px solid var(--colorsActionMinor100)",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -177,19 +177,19 @@ describe("TabTitle", () => {
             marginLeft: "-1px",
           },
           wrapper.find(StyledTabTitleButton),
-          { modifier: ":nth-of-type(n + 1):not(:first-of-type)" }
+          { modifier: ":nth-of-type(n + 1):not(:first-of-type)" },
         );
       });
 
       it('applies proper styling when size is "large" and isTabSelected is true', () => {
         wrapper = render(
           { size: "large", borders: true, isTabSelected: true },
-          mount
+          mount,
         );
 
         assertStyleMatch(
           { paddingBottom: "9px" },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -200,19 +200,19 @@ describe("TabTitle", () => {
             boxShadow:
               "inset 0px calc(-1 * var(--sizing050)) 0px var(--colorsActionMajor500)",
           },
-          wrapper.find(StyledSelectedIndicator)
+          wrapper.find(StyledSelectedIndicator),
         );
       });
 
       it('applies proper styling when size is not "large" and isTabSelected is true', () => {
         wrapper = render(
           { borders: true, isTabSelected: true, size: "default" },
-          mount
+          mount,
         );
 
         assertStyleMatch(
           { padding: "10px 16px" },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -223,7 +223,7 @@ describe("TabTitle", () => {
               "inset 0px calc(-1 * var(--sizing050)) 0px var(--colorsActionMajor500)",
             height: "var(--sizing050)",
           },
-          wrapper.find(StyledSelectedIndicator)
+          wrapper.find(StyledSelectedIndicator),
         );
       });
     });
@@ -241,7 +241,7 @@ describe("TabTitle", () => {
           height: "auto",
           marginLeft: "0px",
         },
-        wrapper.find(StyledTabTitleButton)
+        wrapper.find(StyledTabTitleButton),
       );
 
       assertStyleMatch(
@@ -249,7 +249,7 @@ describe("TabTitle", () => {
           background: "var(--colorsActionMinor100)",
         },
         wrapper.find(StyledTabTitleButton),
-        { modifier: ":hover" }
+        { modifier: ":hover" },
       );
 
       assertStyleMatch(
@@ -257,7 +257,7 @@ describe("TabTitle", () => {
           marginTop: "0",
         },
         wrapper.find(StyledTabTitleButton),
-        { modifier: ":first-child" }
+        { modifier: ":first-child" },
       );
     });
 
@@ -265,8 +265,8 @@ describe("TabTitle", () => {
       assertStyleMatch(
         { justifyContent: "flex-start", textAlign: "left" },
         render({ position: "left", align: "left" }, mount).find(
-          StyledTitleContent
-        )
+          StyledTitleContent,
+        ),
       );
     });
 
@@ -274,8 +274,8 @@ describe("TabTitle", () => {
       assertStyleMatch(
         { justifyContent: "flex-end", textAlign: "right" },
         render({ align: "right", position: "left" }, mount).find(
-          StyledTitleContent
-        )
+          StyledTitleContent,
+        ),
       );
     });
 
@@ -286,7 +286,7 @@ describe("TabTitle", () => {
         {
           padding: "14px 24px",
         },
-        wrapper.find(StyledTitleContent)
+        wrapper.find(StyledTitleContent),
       );
     });
 
@@ -296,7 +296,7 @@ describe("TabTitle", () => {
         () => {
           wrapper = render(
             { borders: true, isTabSelected: true, position: "left" },
-            mount
+            mount,
           );
 
           assertStyleMatch(
@@ -305,7 +305,7 @@ describe("TabTitle", () => {
               borderLeft: "1px solid var(--colorsActionMinor100)",
               borderBottom: "1px solid var(--colorsActionMinor100)",
             },
-            wrapper.find(StyledTitleContent)
+            wrapper.find(StyledTitleContent),
           );
 
           assertStyleMatch(
@@ -313,7 +313,7 @@ describe("TabTitle", () => {
               marginTop: "-1px",
             },
             wrapper.find(StyledTabTitleButton),
-            { modifier: ":nth-of-type(n + 1):not(:first-of-type)" }
+            { modifier: ":nth-of-type(n + 1):not(:first-of-type)" },
           );
 
           assertStyleMatch(
@@ -324,9 +324,9 @@ describe("TabTitle", () => {
               boxShadow:
                 "inset calc(-1 * var(--sizing050)) 0px 0px 0px var(--colorsActionMajor500)",
             },
-            wrapper.find(StyledSelectedIndicator)
+            wrapper.find(StyledSelectedIndicator),
           );
-        }
+        },
       );
     });
   });
@@ -344,7 +344,7 @@ describe("TabTitle", () => {
           color: "var(--colorsActionMajorYin090)",
           backgroundColor: "var(--colorsActionMajorYang100)",
         },
-        wrapper.find(StyledTabTitleButton)
+        wrapper.find(StyledTabTitleButton),
       );
 
       assertStyleMatch(
@@ -354,7 +354,7 @@ describe("TabTitle", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper.find(StyledTabTitleButton),
-        { modifier: ":hover" }
+        { modifier: ":hover" },
       );
     });
 
@@ -367,7 +367,7 @@ describe("TabTitle", () => {
     it("does not apply selected styling when it has error or warning when size is large", () => {
       wrapper = render(
         { isTabSelected: true, error: true, size: "large" },
-        mount
+        mount,
       );
 
       expect(wrapper.find(StyledSelectedIndicator).exists()).toBeFalsy();
@@ -381,7 +381,7 @@ describe("TabTitle", () => {
           {
             backgroundColor: "var(--colorsActionMajorYang100)",
           },
-          wrapper.find(StyledTabTitleButton)
+          wrapper.find(StyledTabTitleButton),
         );
 
         assertStyleMatch(
@@ -389,14 +389,14 @@ describe("TabTitle", () => {
             backgroundColor: "var(--colorsActionMajorYang100)",
           },
           wrapper.find(StyledTabTitleButton),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
       it("does not apply selected styling when it has error or warning", () => {
         wrapper = render(
           { isTabSelected: true, error: true, position: "left" },
-          mount
+          mount,
         );
 
         expect(wrapper.find(StyledSelectedIndicator).exists()).toBeFalsy();
@@ -405,7 +405,7 @@ describe("TabTitle", () => {
       it("does not apply selected styling when it has error or warning and size is large", () => {
         wrapper = render(
           { isTabSelected: true, error: true, position: "left", size: "large" },
-          mount
+          mount,
         );
 
         expect(wrapper.find(StyledSelectedIndicator).exists()).toBeFalsy();
@@ -425,7 +425,7 @@ describe("TabTitle", () => {
         {
           color: "var(--colorsActionMinorYin090)",
         },
-        wrapper.find(StyledTabTitleButton)
+        wrapper.find(StyledTabTitleButton),
       );
 
       assertStyleMatch(
@@ -435,7 +435,7 @@ describe("TabTitle", () => {
           outline: "none",
         },
         wrapper.find(StyledTabTitleButton),
-        { modifier: ":hover" }
+        { modifier: ":hover" },
       );
     });
   });
@@ -448,18 +448,18 @@ describe("TabTitle", () => {
           siblings: TEST_SIBLINGS,
           titlePosition: "before",
         },
-        mount
+        mount,
       );
 
       expect(wrapper.find(StyledTitleContent).props().hasSiblings).toEqual(
-        true
+        true,
       );
       expect(
-        wrapper.find(StyledTitleContent).props().children[0][0].props.children
+        wrapper.find(StyledTitleContent).props().children[0][0].props.children,
       ).toEqual("Tab 1");
       assertStyleMatch(
         { padding: "10px 16px" },
-        wrapper.find(StyledTitleContent)
+        wrapper.find(StyledTitleContent),
       );
     });
 
@@ -470,17 +470,17 @@ describe("TabTitle", () => {
           siblings: TEST_SIBLINGS,
           titlePosition: "after",
         },
-        mount
+        mount,
       );
 
       expect(
-        wrapper.find(StyledTitleContent).props().children[0][1].props.children
+        wrapper.find(StyledTitleContent).props().children[0][1].props.children,
       ).toEqual("Tab 1");
       assertStyleMatch(
         {
           padding: "10px 16px",
         },
-        wrapper.find(StyledTitleContent)
+        wrapper.find(StyledTitleContent),
       );
     });
 
@@ -493,18 +493,18 @@ describe("TabTitle", () => {
           isTabSelected: true,
           position: "left",
         },
-        mount
+        mount,
       );
 
       expect(wrapper.find(StyledTitleContent).props().hasSiblings).toEqual(
-        true
+        true,
       );
       expect(
-        wrapper.find(StyledTitleContent).props().children[0][0].props.children
+        wrapper.find(StyledTitleContent).props().children[0][0].props.children,
       ).toEqual("Tab 1");
       assertStyleMatch(
         { padding: "10px 16px" },
-        wrapper.find(StyledTitleContent)
+        wrapper.find(StyledTitleContent),
       );
     });
 
@@ -516,17 +516,17 @@ describe("TabTitle", () => {
           titlePosition: "before",
           size: "large",
         },
-        mount
+        mount,
       );
 
       expect(
-        wrapper.find(StyledTitleContent).props().children[0][0].props.children
+        wrapper.find(StyledTitleContent).props().children[0][0].props.children,
       ).toEqual("Tab 1");
       assertStyleMatch(
         {
           padding: "14px 24px",
         },
-        wrapper.find(StyledTitleContent)
+        wrapper.find(StyledTitleContent),
       );
     });
 
@@ -539,17 +539,17 @@ describe("TabTitle", () => {
           size: "large",
           position: "left",
         },
-        mount
+        mount,
       );
 
       expect(
-        wrapper.find(StyledTitleContent).props().children[0][0].props.children
+        wrapper.find(StyledTitleContent).props().children[0][0].props.children,
       ).toEqual("Tab 1");
       assertStyleMatch(
         {
           padding: "14px 24px",
         },
-        wrapper.find(StyledTitleContent)
+        wrapper.find(StyledTitleContent),
       );
     });
   });
@@ -566,7 +566,7 @@ describe("TabTitle", () => {
             outlineColor: "var(--colorsSemanticInfo500)",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -577,7 +577,7 @@ describe("TabTitle", () => {
             outlineColor: "var(--colorsSemanticInfo500)",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
@@ -591,7 +591,7 @@ describe("TabTitle", () => {
             outlineColor: "var(--colorsSemanticInfo500)",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -602,7 +602,7 @@ describe("TabTitle", () => {
             outlineColor: "var(--colorsSemanticInfo500)",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
@@ -626,7 +626,7 @@ describe("TabTitle", () => {
           wrapper.find(StyledLayoutWrapper),
           {
             modifier: `${StyledValidationIcon} ${StyledIcon}`,
-          }
+          },
         );
       });
     });
@@ -643,7 +643,7 @@ describe("TabTitle", () => {
             paddingRight: "18px",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -655,14 +655,14 @@ describe("TabTitle", () => {
             paddingRight: "18px",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
       it('applies proper styling when size is "large"', () => {
         wrapper = render(
           { position: "left", info: true, size: "large" },
-          mount
+          mount,
         );
         assertStyleMatch(
           {
@@ -673,7 +673,7 @@ describe("TabTitle", () => {
             paddingRight: "26px",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -685,7 +685,7 @@ describe("TabTitle", () => {
             paddingRight: "26px",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
     });
@@ -703,7 +703,7 @@ describe("TabTitle", () => {
             outlineColor: "var(--colorsSemanticCaution500)",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -714,7 +714,7 @@ describe("TabTitle", () => {
             outlineColor: "var(--colorsSemanticCaution500)",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
@@ -728,7 +728,7 @@ describe("TabTitle", () => {
             outlineColor: "var(--colorsSemanticCaution500)",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -739,7 +739,7 @@ describe("TabTitle", () => {
             outlineColor: "var(--colorsSemanticCaution500)",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
@@ -763,7 +763,7 @@ describe("TabTitle", () => {
           wrapper.find(StyledLayoutWrapper),
           {
             modifier: `${StyledValidationIcon} ${StyledIcon}`,
-          }
+          },
         );
       });
     });
@@ -780,7 +780,7 @@ describe("TabTitle", () => {
             paddingRight: "18px",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -792,14 +792,14 @@ describe("TabTitle", () => {
             paddingRight: "18px",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
       it('applies proper styling when size is "large"', () => {
         wrapper = render(
           { position: "left", warning: true, size: "large" },
-          mount
+          mount,
         );
         assertStyleMatch(
           {
@@ -810,7 +810,7 @@ describe("TabTitle", () => {
             paddingRight: "26px",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -822,7 +822,7 @@ describe("TabTitle", () => {
             paddingRight: "26px",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
     });
@@ -839,7 +839,7 @@ describe("TabTitle", () => {
             outlineOffset: "-2px",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -849,7 +849,7 @@ describe("TabTitle", () => {
             outlineOffset: "-2px",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
@@ -862,7 +862,7 @@ describe("TabTitle", () => {
             outlineOffset: "-2px",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -872,7 +872,7 @@ describe("TabTitle", () => {
             outlineOffset: "-2px",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
@@ -895,7 +895,7 @@ describe("TabTitle", () => {
           wrapper.find(StyledLayoutWrapper),
           {
             modifier: `${StyledValidationIcon} ${StyledIcon}`,
-          }
+          },
         );
       });
     });
@@ -911,7 +911,7 @@ describe("TabTitle", () => {
             paddingRight: "18px",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -922,14 +922,14 @@ describe("TabTitle", () => {
             paddingRight: "18px",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
       it('applies proper styling when size is "large"', () => {
         wrapper = render(
           { position: "left", error: true, size: "large" },
-          mount
+          mount,
         );
         assertStyleMatch(
           {
@@ -939,7 +939,7 @@ describe("TabTitle", () => {
             paddingRight: "26px",
             zIndex: "2",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -950,7 +950,7 @@ describe("TabTitle", () => {
             paddingRight: "26px",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
     });
@@ -965,12 +965,12 @@ describe("TabTitle", () => {
           borders: true,
           noLeftBorder: true,
         },
-        mount
+        mount,
       );
 
       assertStyleMatch(
         { borderLeft: "none" },
-        wrapper.find(StyledTitleContent)
+        wrapper.find(StyledTitleContent),
       );
     });
   });
@@ -984,12 +984,12 @@ describe("TabTitle", () => {
           borders: true,
           noRightBorder: true,
         },
-        mount
+        mount,
       );
 
       assertStyleMatch(
         { borderRight: "none" },
-        wrapper.find(StyledTitleContent)
+        wrapper.find(StyledTitleContent),
       );
     });
   });
@@ -1005,7 +1005,7 @@ describe("TabTitle", () => {
               backgroundColor: "var(--colorsActionMinor200)",
             },
             wrapper.find(StyledTabTitleButton),
-            { modifier: ":focus" }
+            { modifier: ":focus" },
           );
 
           assertStyleMatch(
@@ -1013,7 +1013,7 @@ describe("TabTitle", () => {
               backgroundColor: "var(--colorsActionMinor250)",
             },
             wrapper.find(StyledTabTitleButton),
-            { modifier: ":hover" }
+            { modifier: ":hover" },
           );
 
           assertStyleMatch(
@@ -1022,10 +1022,10 @@ describe("TabTitle", () => {
             },
             render(
               { alternateStyling: true, isTabSelected: true, size },
-              mount
-            ).find(StyledTabTitleButton)
+              mount,
+            ).find(StyledTabTitleButton),
           );
-        }
+        },
       );
 
       it('overrides the border-right-color when position is "left"', () => {
@@ -1036,7 +1036,7 @@ describe("TabTitle", () => {
             borderRightColor: "var(--colorsActionMinor100)",
           },
           wrapper.find(StyledTabTitleButton),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
@@ -1048,7 +1048,7 @@ describe("TabTitle", () => {
             position: "left",
             alternateStyling: true,
           },
-          mount
+          mount,
         );
 
         assertStyleMatch(
@@ -1057,21 +1057,14 @@ describe("TabTitle", () => {
             borderLeft: "1px solid var(--colorsActionMinor100)",
             borderBottom: "1px solid var(--colorsActionMinor100)",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
       });
 
       it('overrides the border-right-color when position is "left" and isTabSelected is true', () => {
         wrapper = render(
           { alternateStyling: true, position: "left", isTabSelected: true },
-          mount
-        );
-
-        assertStyleMatch(
-          {
-            borderRightColor: "var(--colorsActionMinor100)",
-          },
-          wrapper.find(StyledTabTitleButton)
+          mount,
         );
 
         assertStyleMatch(
@@ -1079,7 +1072,14 @@ describe("TabTitle", () => {
             borderRightColor: "var(--colorsActionMinor100)",
           },
           wrapper.find(StyledTabTitleButton),
-          { modifier: ":hover" }
+        );
+
+        assertStyleMatch(
+          {
+            borderRightColor: "var(--colorsActionMinor100)",
+          },
+          wrapper.find(StyledTabTitleButton),
+          { modifier: ":hover" },
         );
       });
     });
@@ -1097,7 +1097,7 @@ describe("TabTitle", () => {
       };
       wrapper = render(
         { onClick, ref: { current: { focus: jest.fn() } } },
-        mount
+        mount,
       );
 
       wrapper
@@ -1114,7 +1114,7 @@ describe("TabTitle", () => {
         wrapper = render({ customLayout: <div>foo</div> }, mount);
 
         expect(
-          wrapper.find(StyledTitleContent).props().hasCustomLayout
+          wrapper.find(StyledTitleContent).props().hasCustomLayout,
         ).toEqual(true);
 
         assertStyleMatch(
@@ -1122,25 +1122,25 @@ describe("TabTitle", () => {
             display: "flex",
             padding: "0px",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
       });
 
       it('renders the correct styles when size is "default" and isTabSelected is true', () => {
         wrapper = render(
           { customLayout: <div>foo</div>, isTabSelected: true },
-          mount
+          mount,
         );
 
         expect(
-          wrapper.find(StyledTitleContent).props().hasCustomLayout
+          wrapper.find(StyledTitleContent).props().hasCustomLayout,
         ).toEqual(true);
 
         assertStyleMatch(
           {
             paddingBottom: "0px",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
       });
 
@@ -1148,7 +1148,7 @@ describe("TabTitle", () => {
         wrapper = render({ customLayout: <div>foo</div>, error: true }, mount);
 
         expect(
-          wrapper.find(StyledTitleContent).props().hasCustomLayout
+          wrapper.find(StyledTitleContent).props().hasCustomLayout,
         ).toEqual(true);
 
         assertStyleMatch(
@@ -1156,7 +1156,7 @@ describe("TabTitle", () => {
             paddingBottom: "2px",
             paddingRight: "14px",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -1164,18 +1164,18 @@ describe("TabTitle", () => {
             paddingBottom: "2px",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
       it('renders the correct styles when size is "large"', () => {
         wrapper = render(
           { customLayout: <div>foo</div>, size: "large" },
-          mount
+          mount,
         );
 
         expect(
-          wrapper.find(StyledTitleContent).props().hasCustomLayout
+          wrapper.find(StyledTitleContent).props().hasCustomLayout,
         ).toEqual(true);
 
         assertStyleMatch(
@@ -1183,18 +1183,18 @@ describe("TabTitle", () => {
             display: "flex",
             padding: "2px",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
       });
 
       it('renders the correct styles when size is "large" and has warning', () => {
         wrapper = render(
           { customLayout: <div>foo</div>, size: "large", warning: true },
-          mount
+          mount,
         );
 
         expect(
-          wrapper.find(StyledTitleContent).props().hasCustomLayout
+          wrapper.find(StyledTitleContent).props().hasCustomLayout,
         ).toEqual(true);
 
         assertStyleMatch(
@@ -1202,7 +1202,7 @@ describe("TabTitle", () => {
             paddingBottom: "4px",
             paddingRight: "18px",
           },
-          wrapper.find(StyledTitleContent)
+          wrapper.find(StyledTitleContent),
         );
 
         assertStyleMatch(
@@ -1210,7 +1210,7 @@ describe("TabTitle", () => {
             paddingBottom: "4px",
           },
           wrapper.find(StyledTitleContent),
-          { modifier: ":hover" }
+          { modifier: ":hover" },
         );
       });
 
@@ -1218,11 +1218,11 @@ describe("TabTitle", () => {
         it('renders the correct styles when size is "default"', () => {
           wrapper = render(
             { customLayout: <div>foo</div>, position: "left" },
-            mount
+            mount,
           );
 
           expect(
-            wrapper.find(StyledTitleContent).props().hasCustomLayout
+            wrapper.find(StyledTitleContent).props().hasCustomLayout,
           ).toEqual(true);
 
           assertStyleMatch(
@@ -1230,7 +1230,7 @@ describe("TabTitle", () => {
               display: "flex",
               padding: "0px",
             },
-            wrapper.find(StyledTitleContent)
+            wrapper.find(StyledTitleContent),
           );
         });
 
@@ -1241,47 +1241,47 @@ describe("TabTitle", () => {
               position: "left",
               isTabSelected: true,
             },
-            mount
+            mount,
           );
 
           expect(
-            wrapper.find(StyledTitleContent).props().hasCustomLayout
+            wrapper.find(StyledTitleContent).props().hasCustomLayout,
           ).toEqual(true);
 
           assertStyleMatch(
             {
               paddingRight: "0px",
             },
-            wrapper.find(StyledTitleContent)
+            wrapper.find(StyledTitleContent),
           );
         });
 
         it('renders the correct styles when size is "default" and has error', () => {
           wrapper = render(
             { customLayout: <div>foo</div>, error: true, position: "left" },
-            mount
+            mount,
           );
 
           expect(
-            wrapper.find(StyledTitleContent).props().hasCustomLayout
+            wrapper.find(StyledTitleContent).props().hasCustomLayout,
           ).toEqual(true);
 
           assertStyleMatch(
             {
               paddingRight: "18px",
             },
-            wrapper.find(StyledTitleContent)
+            wrapper.find(StyledTitleContent),
           );
         });
 
         it('renders the correct styles when size is "large"', () => {
           wrapper = render(
             { customLayout: <div>foo</div>, position: "left", size: "large" },
-            mount
+            mount,
           );
 
           expect(
-            wrapper.find(StyledTitleContent).props().hasCustomLayout
+            wrapper.find(StyledTitleContent).props().hasCustomLayout,
           ).toEqual(true);
 
           assertStyleMatch(
@@ -1289,7 +1289,7 @@ describe("TabTitle", () => {
               display: "flex",
               padding: "2px",
             },
-            wrapper.find(StyledTitleContent)
+            wrapper.find(StyledTitleContent),
           );
         });
 
@@ -1301,18 +1301,18 @@ describe("TabTitle", () => {
               size: "large",
               warning: true,
             },
-            mount
+            mount,
           );
 
           expect(
-            wrapper.find(StyledTitleContent).props().hasCustomLayout
+            wrapper.find(StyledTitleContent).props().hasCustomLayout,
           ).toEqual(true);
 
           assertStyleMatch(
             {
               paddingRight: "26px",
             },
-            wrapper.find(StyledTitleContent)
+            wrapper.find(StyledTitleContent),
           );
         });
       });
@@ -1335,7 +1335,7 @@ describe("TabTitle", () => {
         mount,
         {
           attachTo: document.getElementById("enzymeContainer"),
-        }
+        },
       );
     });
 
@@ -1410,8 +1410,8 @@ describe("TabTitle", () => {
             };
       assertStyleMatch(
         radiusStyling,
-        render({ position }, mount).find(StyledTitleContent)
+        render({ position }, mount).find(StyledTitleContent),
       );
-    }
+    },
   );
 });

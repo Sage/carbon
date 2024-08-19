@@ -132,11 +132,11 @@ test.describe("Heading component", () => {
     await backLinkAnchor.focus();
     await expect(backLinkAnchor).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(backLinkAnchor).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
     await expect(linkWrapper).toHaveCSS("box-shadow", "none");
   });
@@ -150,12 +150,12 @@ test.describe("Heading component", () => {
         <HeadingComponent
           help="this is a title"
           helpAriaLabel={characterVals}
-        />
+        />,
       );
 
       await expect(headingHelp(page)).toHaveAttribute(
         "aria-label",
-        characterVals
+        characterVals,
       );
     });
   });
@@ -181,7 +181,7 @@ test.describe("Heading component", () => {
       if (dividerVals) {
         await expect(dividerPreview(page)).toHaveCSS(
           "background",
-          "rgb(204, 214, 219) none repeat scroll 0% 0% / auto padding-box border-box"
+          "rgb(204, 214, 219) none repeat scroll 0% 0% / auto padding-box border-box",
         );
       } else {
         expect(await dividerPreview(page).count()).toEqual(0);
@@ -199,7 +199,7 @@ test.describe("Heading component", () => {
       if (separatorVals) {
         const cssBorderWidth = await getStyle(
           separatorPreview(page),
-          "border-width"
+          "border-width",
         );
         const [first, second, third] = cssBorderWidth.split(" ");
 
@@ -224,159 +224,156 @@ test.describe("Heading component", () => {
   });
 });
 
-test.describe(
-  "should render Heading component and check accessibility issues",
-  () => {
-    test("default component should pass accessibility checks", async ({
+test.describe("should render Heading component and check accessibility issues", () => {
+  test("default component should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<HeadingComponent />);
+
+    await checkAccessibility(page);
+  });
+
+  specialCharacters.forEach((characterVals) => {
+    test(`should pass accessibility checks with ${characterVals} passed as children`, async ({
       mount,
       page,
     }) => {
-      await mount(<HeadingComponent />);
+      await mount(<HeadingComponent>{characterVals}</HeadingComponent>);
 
       await checkAccessibility(page);
     });
+  });
 
-    specialCharacters.forEach((characterVals) => {
-      test(`should pass accessibility checks with ${characterVals} passed as children`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent>{characterVals}</HeadingComponent>);
+  specialCharacters.forEach((characterVals) => {
+    test(`should pass accessibility checks when title is ${characterVals}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponent title={characterVals} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
+  });
 
-    specialCharacters.forEach((characterVals) => {
-      test(`should pass accessibility checks when title is ${characterVals}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent title={characterVals} />);
+  specialCharacters.forEach((characterVals) => {
+    test(`should pass accessibility checks when titleId is ${characterVals}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponent titleId={characterVals} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
+  });
 
-    specialCharacters.forEach((characterVals) => {
-      test(`should pass accessibility checks when titleId is ${characterVals}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent titleId={characterVals} />);
+  specialCharacters.forEach((characterVals) => {
+    test(`should pass accessibility checks when subheader is ${characterVals}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponent subheader={characterVals} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
+  });
 
-    specialCharacters.forEach((characterVals) => {
-      test(`should pass accessibility checks when subheader is ${characterVals}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent subheader={characterVals} />);
+  specialCharacters.forEach((characterVals) => {
+    test(`should pass accessibility checks when subtitleId is ${characterVals}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponent subtitleId={characterVals} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
+  });
 
-    specialCharacters.forEach((characterVals) => {
-      test(`should pass accessibility checks when subtitleId is ${characterVals}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent subtitleId={characterVals} />);
+  specialCharacters.forEach((characterVals) => {
+    test(`should pass accessibility checks when help text is ${characterVals}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponent help={characterVals} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
+  });
 
-    specialCharacters.forEach((characterVals) => {
-      test(`should pass accessibility checks when help text is ${characterVals}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent help={characterVals} />);
+  testData.forEach((helpLink) => {
+    test(`should pass accessibility checks when help link is ${helpLink}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponent helpLink={helpLink} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
+  });
 
-    testData.forEach((helpLink) => {
-      test(`should pass accessibility checks when help link is ${helpLink}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent helpLink={helpLink} />);
+  testData.forEach((backLink) => {
+    test(`should pass accessibility checks when back link is ${backLink}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponent backLink={backLink} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
+  });
 
-    testData.forEach((backLink) => {
-      test(`should pass accessibility checks when back link is ${backLink}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent backLink={backLink} />);
+  specialCharacters.forEach((characterVals) => {
+    test(`should pass accessibility checks when helpAriaLabel is ${characterVals}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponent helpAriaLabel={characterVals} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
+  });
 
-    specialCharacters.forEach((characterVals) => {
-      test(`should pass accessibility checks when helpAriaLabel is ${characterVals}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent helpAriaLabel={characterVals} />);
+  specialCharacters.forEach((characterVals) => {
+    test(`should pass accessibility checks when pill is rendered with ${characterVals} passed as pill text`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponentWithPills pills={characterVals} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
+  });
 
-    specialCharacters.forEach((characterVals) => {
-      test(`should pass accessibility checks when pill is rendered with ${characterVals} passed as pill text`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponentWithPills pills={characterVals} />);
+  dividerAndSeparatorValue.forEach(([dividerVals, renderState]) => {
+    test(`should pass accessibility checks when rendered ${renderState} a divider when the divider prop is ${dividerVals}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponent divider={dividerVals} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
+  });
 
-    dividerAndSeparatorValue.forEach(([dividerVals, renderState]) => {
-      test(`should pass accessibility checks when rendered ${renderState} a divider when the divider prop is ${dividerVals}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent divider={dividerVals} />);
+  dividerAndSeparatorValue.forEach(([separatorVals, renderState]) => {
+    test(`should pass accessibility checks when rendered ${renderState} a separator when the separator prop is ${separatorVals}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponent separator={separatorVals} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
+  });
 
-    dividerAndSeparatorValue.forEach(([separatorVals, renderState]) => {
-      test(`should pass accessibility checks when rendered ${renderState} a separator when the separator prop is ${separatorVals}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent separator={separatorVals} />);
+  headingType.forEach((heading) => {
+    test(`should pass accessibility checks when heading level is ${heading}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<HeadingComponent headingType={heading} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
-
-    headingType.forEach((heading) => {
-      test(`should pass accessibility checks when heading level is ${heading}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<HeadingComponent headingType={heading} />);
-
-        await checkAccessibility(page);
-      });
-    });
-  }
-);
+  });
+});

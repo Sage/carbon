@@ -76,7 +76,7 @@ function render(props: Partial<RadioButtonMapperProps>, theme = sageTheme) {
       >
         {children}
       </RadioButtonMapper>
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 }
 
@@ -86,7 +86,7 @@ function renderControlled(groupProps = {}, secondRadioProps = {}) {
 
 function renderUncontrolled(
   groupProps: Partial<RadioButtonMapperProps> = {},
-  secondRadioProps: Partial<MappedChildProps> = {}
+  secondRadioProps: Partial<MappedChildProps> = {},
 ) {
   return mount(
     <RadioButtonMapper
@@ -97,7 +97,7 @@ function renderUncontrolled(
       <RadioButton value="one" />
       <RadioButton value="two" {...secondRadioProps} />
       <RadioButton value="three" />
-    </RadioButtonMapper>
+    </RadioButtonMapper>,
   );
 }
 
@@ -117,7 +117,7 @@ describe("RadioButtonMapper", () => {
           {null}
           {false}
           {undefined}
-        </RadioButtonMapper>
+        </RadioButtonMapper>,
       );
     }).not.toThrow();
   });
@@ -167,7 +167,7 @@ describe("RadioButtonMapper", () => {
           const radioGroup = shallow(
             <RadioButtonMapper name={name}>
               <RadioButton defaultChecked value="foo" />
-            </RadioButtonMapper>
+            </RadioButtonMapper>,
           );
 
           const button = radioGroup.find(RadioButton);
@@ -217,7 +217,7 @@ describe("RadioButtonMapper", () => {
         <RadioButtonMapper name={name}>
           <RadioButton defaultChecked name="foo" value="foo" />
           <RadioButton name="bar" value="bar" />
-        </RadioButtonMapper>
+        </RadioButtonMapper>,
       );
 
       const button = getRadioButtons(radioGroup).at(0);
@@ -246,7 +246,7 @@ describe("RadioButtonMapper", () => {
         "is passed down to RadioButton[%#]",
         (radioButton) => {
           expect(radioButton.props.onBlur).toBe(onBlur);
-        }
+        },
       );
     });
   });
@@ -285,7 +285,7 @@ describe("RadioButtonMapper", () => {
             <RadioButton name="one" value="one" />
             <RadioButton name="two" value="two" />
             <RadioButton name="three" value="three" />
-          </RadioButtonMapper>
+          </RadioButtonMapper>,
         );
         let radio = getRadioButtons(wrapper);
 
@@ -309,7 +309,7 @@ describe("RadioButtonMapper", () => {
               "foo",
               <input key="radio2" name="bar" value="bar" />,
             ]}
-          </RadioButtonMapper>
+          </RadioButtonMapper>,
         );
 
         expect(radioGroup.find("input").at(0).props().checked).toBe(true);

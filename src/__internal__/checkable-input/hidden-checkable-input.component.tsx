@@ -57,7 +57,7 @@ const HiddenCheckableInput = React.forwardRef(
       validationIconId,
       ...props
     }: HiddenCheckableInputProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const {
       onBlur,
@@ -135,7 +135,7 @@ const HiddenCheckableInput = React.forwardRef(
         ref={ref}
       />
     );
-  }
+  },
 );
 
 HiddenCheckableInput.displayName = "HiddenCheckableInput";

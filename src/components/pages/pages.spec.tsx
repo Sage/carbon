@@ -24,7 +24,7 @@ const MockComponentWithOneChild = ({
   initialPageIndex,
 }: Pick<MockComponentProps, "initialPageIndex">) => {
   const [pageIndex, setPageIndex] = useState<number | undefined>(
-    initialPageIndex
+    initialPageIndex,
   );
   const moveToNextPageWithUndefinedValue = () => setPageIndex(undefined);
   const moveToNextPage = () => {
@@ -119,11 +119,11 @@ describe("Pages", () => {
       wrapper = mount(
         <Pages transition={transition}>
           <Page title="foo">Page</Page>
-        </Pages>
+        </Pages>,
       );
 
       expect(wrapper.find(CSSTransition).props().classNames).toBe(expected);
-    }
+    },
   );
 
   it("should not move page if pageIndex is 0", () => {
@@ -212,7 +212,7 @@ describe("Pages", () => {
           initialpageIndex={0}
         >
           <Page title="Foo">Bar</Page>
-        </Pages>
+        </Pages>,
       );
 
       it("include correct component, element and role data tags", () => {
@@ -227,7 +227,7 @@ describe("Pages", () => {
             <Page data-element="page" title="Foo">
               Bar
             </Page>
-          </Pages>
+          </Pages>,
         );
 
         wrapper.find('[data-element="page"]').exists();

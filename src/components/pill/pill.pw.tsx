@@ -59,13 +59,15 @@ test.describe("should render Pill component with props", () => {
     await expect(pillPreview(page)).toHaveAttribute("data-role", testData);
   });
 
-  ([
-    ["warning", warning],
-    ["neutral", neutral],
-    ["negative", negative],
-    ["positive", positive],
-    ["information", information],
-  ] as const).forEach(([color, output]) => {
+  (
+    [
+      ["warning", warning],
+      ["neutral", neutral],
+      ["negative", negative],
+      ["positive", positive],
+      ["information", information],
+    ] as const
+  ).forEach(([color, output]) => {
     test(`should render colorVariant prop as ${color}`, async ({
       mount,
       page,
@@ -77,22 +79,24 @@ test.describe("should render Pill component with props", () => {
         "2px",
         "border",
         "solid",
-        output
+        output,
       );
       await expect(pillPreview(page)).toHaveCSS(
         "background-color",
-        transparent
+        transparent,
       );
     });
   });
 
-  ([
-    ["warning", warning],
-    ["neutral", neutralDark],
-    ["negative", negativeDark],
-    ["positive", positiveDark],
-    ["information", informationDark],
-  ] as const).forEach(([color, output]) => {
+  (
+    [
+      ["warning", warning],
+      ["neutral", neutralDark],
+      ["negative", negativeDark],
+      ["positive", positiveDark],
+      ["information", informationDark],
+    ] as const
+  ).forEach(([color, output]) => {
     test(`renders with dark background colour when colorVariant is ${color} and isDarkBackground is true`, async ({
       mount,
       page,
@@ -102,7 +106,7 @@ test.describe("should render Pill component with props", () => {
           pillRole="status"
           colorVariant={color}
           isDarkBackground
-        />
+        />,
       );
 
       await checkCSSOutline(
@@ -110,28 +114,30 @@ test.describe("should render Pill component with props", () => {
         "2px",
         "border",
         "solid",
-        output
+        output,
       );
       await expect(pillPreview(page)).toHaveCSS(
         "background-color",
-        transparent
+        transparent,
       );
     });
   });
 
-  ([
-    ["warning", warning],
-    ["neutral", neutral],
-    ["negative", negative],
-    ["positive", positive],
-    ["information", information],
-  ] as const).forEach(([color, output]) => {
+  (
+    [
+      ["warning", warning],
+      ["neutral", neutral],
+      ["negative", negative],
+      ["positive", positive],
+      ["information", information],
+    ] as const
+  ).forEach(([color, output]) => {
     test(`should render colorVariant with color fill set as ${color}`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <PillComponent pillRole="status" colorVariant={color} fill />
+        <PillComponent pillRole="status" colorVariant={color} fill />,
       );
 
       await checkCSSOutline(
@@ -139,20 +145,22 @@ test.describe("should render Pill component with props", () => {
         "2px",
         "border",
         "solid",
-        output
+        output,
       );
       await expect(pillPreview(page)).toHaveCSS("background-color", output);
     });
   });
 
-  ([
-    ["warning", warning],
-    ["neutral", neutralDark],
-    ["negative", negativeDark],
-    ["positive", positiveDark],
-    ["information", informationDark],
-    ["neutralWhite", neutralWhite],
-  ] as const).forEach(([color, output]) => {
+  (
+    [
+      ["warning", warning],
+      ["neutral", neutralDark],
+      ["negative", negativeDark],
+      ["positive", positiveDark],
+      ["information", informationDark],
+      ["neutralWhite", neutralWhite],
+    ] as const
+  ).forEach(([color, output]) => {
     test(`renders with dark background colour when colorVariant is ${color}, fill is true and isDarkBackground is true`, async ({
       mount,
       page,
@@ -163,7 +171,7 @@ test.describe("should render Pill component with props", () => {
           colorVariant={color}
           fill
           isDarkBackground
-        />
+        />,
       );
 
       await checkCSSOutline(
@@ -171,16 +179,18 @@ test.describe("should render Pill component with props", () => {
         "2px",
         "border",
         "solid",
-        output
+        output,
       );
       await expect(pillPreview(page)).toHaveCSS("background-color", output);
     });
   });
 
-  ([
-    ["tag", tag],
-    ["status", status],
-  ] as [PillProps["pillRole"], string][]).forEach(([role, output]) => {
+  (
+    [
+      ["tag", tag],
+      ["status", status],
+    ] as [PillProps["pillRole"], string][]
+  ).forEach(([role, output]) => {
     test(`should render pillRole prop set as ${role}`, async ({
       mount,
       page,
@@ -192,19 +202,21 @@ test.describe("should render Pill component with props", () => {
         "2px",
         "border",
         "solid",
-        output
+        output,
       );
     });
   });
 
-  ([
-    [colorsSemanticCaution500, "rgb(239, 103, 0)"],
-    [blackOpacity65, "rgba(0, 0, 0, 0.65)"],
-    [brilliantGreenShade20, "rgb(0, 176, 0)"],
-    [red, "rgb(255, 0, 0)"],
-    [green, "rgb(0, 123, 10)"],
-    [hexBlue, "rgb(18, 52, 86)"],
-  ] as const).forEach(([color, output]) => {
+  (
+    [
+      [colorsSemanticCaution500, "rgb(239, 103, 0)"],
+      [blackOpacity65, "rgba(0, 0, 0, 0.65)"],
+      [brilliantGreenShade20, "rgb(0, 176, 0)"],
+      [red, "rgb(255, 0, 0)"],
+      [green, "rgb(0, 123, 10)"],
+      [hexBlue, "rgb(18, 52, 86)"],
+    ] as const
+  ).forEach(([color, output]) => {
     test(`should render borderColor prop set as ${output}`, async ({
       mount,
       page,
@@ -212,7 +224,7 @@ test.describe("should render Pill component with props", () => {
       await mount(
         <PillComponent pillRole="status" borderColor={color}>
           Pill
-        </PillComponent>
+        </PillComponent>,
       );
 
       await checkCSSOutline(
@@ -220,7 +232,7 @@ test.describe("should render Pill component with props", () => {
         "2px",
         "border",
         "solid",
-        output
+        output,
       );
     });
   });
@@ -237,12 +249,14 @@ test.describe("should render Pill component with props", () => {
     });
   });
 
-  ([
-    [small, "16px", "12px", "0px 8px"],
-    [medium, "20px", "14px", "0px 8px"],
-    [large, "24px", "14px", "0px 8px"],
-    [extraLarge, "28px", "16px", "0px 12px"],
-  ] as const).forEach(([size, height, fontSize, padding]) => {
+  (
+    [
+      [small, "16px", "12px", "0px 8px"],
+      [medium, "20px", "14px", "0px 8px"],
+      [large, "24px", "14px", "0px 8px"],
+      [extraLarge, "28px", "16px", "0px 12px"],
+    ] as const
+  ).forEach(([size, height, fontSize, padding]) => {
     test(`should render size prop set as ${size}`, async ({ mount, page }) => {
       await mount(<Pill size={size}>Pill</Pill>);
 
@@ -254,10 +268,12 @@ test.describe("should render Pill component with props", () => {
     });
   });
 
-  ([
-    [true, "break-spaces"],
-    [false, "nowrap"],
-  ] as const).forEach(([booleanState, cssValue]) => {
+  (
+    [
+      [true, "break-spaces"],
+      [false, "nowrap"],
+    ] as const
+  ).forEach(([booleanState, cssValue]) => {
     test(`should render wrapText prop set as ${booleanState}`, async ({
       mount,
       page,
@@ -265,7 +281,7 @@ test.describe("should render Pill component with props", () => {
       await mount(
         <Pill maxWidth="44px" wrapText={booleanState}>
           Wrapped pill
-        </Pill>
+        </Pill>,
       );
 
       const elementLocator = pillPreview(page);
@@ -285,21 +301,21 @@ test.describe("should check focus outlines and border radius", () => {
         await mount(
           <PillComponent size={size} onDelete={() => {}}>
             Pill
-          </PillComponent>
+          </PillComponent>,
         );
 
         const elementLocator = pillCloseIcon(page);
         await elementLocator.focus();
         await expect(elementLocator).toHaveCSS(
           "box-shadow",
-          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
         );
         await expect(elementLocator).toHaveCSS(
           "outline",
-          "rgba(0, 0, 0, 0) solid 3px"
+          "rgba(0, 0, 0, 0) solid 3px",
         );
       });
-    }
+    },
   );
 
   ([small, medium, large, extraLarge] as PillProps["size"][]).forEach(
@@ -314,17 +330,17 @@ test.describe("should check focus outlines and border radius", () => {
           </PillComponent>,
           {
             hooksConfig: { focusRedesignOptOut: true },
-          }
+          },
         );
 
         const elementLocator = pillCloseIcon(page);
         await elementLocator.focus();
         await expect(elementLocator).toHaveCSS(
           "box-shadow",
-          "rgb(255, 188, 25) 0px 0px 0px 3px"
+          "rgb(255, 188, 25) 0px 0px 0px 3px",
         );
       });
-    }
+    },
   );
 
   ([small, medium, large, extraLarge] as PillProps["size"][]).forEach(
@@ -336,7 +352,7 @@ test.describe("should check focus outlines and border radius", () => {
         await mount(
           <PillComponent size={size} onDelete={() => {}}>
             Pill
-          </PillComponent>
+          </PillComponent>,
         );
 
         const pillPreviewLocator = pillPreview(page);
@@ -347,10 +363,10 @@ test.describe("should check focus outlines and border radius", () => {
         await elementLocator.focus();
         await expect(elementLocator).toHaveCSS(
           "border-radius",
-          "0px 2px 2px 0px"
+          "0px 2px 2px 0px",
         );
       });
-    }
+    },
   );
 });
 
@@ -365,7 +381,7 @@ test.describe("should check for action events", () => {
         onDelete={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const cross = pillCloseIcon(page);
@@ -383,7 +399,7 @@ test.describe("should check for action events", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const cross = pillPreview(page);
@@ -404,13 +420,9 @@ test.describe("should check for Accessibility tests", () => {
     });
   });
 
-  ([
-    "warning",
-    "neutral",
-    "negative",
-    "positive",
-    "information",
-  ] as const).forEach((color) => {
+  (
+    ["warning", "neutral", "negative", "positive", "information"] as const
+  ).forEach((color) => {
     test(`should render colorVariant as ${color} for accessibility`, async ({
       mount,
       page,
@@ -421,13 +433,9 @@ test.describe("should check for Accessibility tests", () => {
     });
   });
 
-  ([
-    "warning",
-    "neutral",
-    "negative",
-    "positive",
-    "information",
-  ] as const).forEach((color) => {
+  (
+    ["warning", "neutral", "negative", "positive", "information"] as const
+  ).forEach((color) => {
     test(`renders with darker background colour when colorVariant is ${color} and isDarkBackground is true for accessibility`, async ({
       mount,
       page,
@@ -437,7 +445,7 @@ test.describe("should check for Accessibility tests", () => {
           pillRole="status"
           colorVariant={color}
           isDarkBackground
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -455,33 +463,31 @@ test.describe("should check for Accessibility tests", () => {
     });
   });
 
-  ([
-    "warning",
-    "neutral",
-    "negative",
-    "positive",
-    "information",
-  ] as const).forEach((color) => {
+  (
+    ["warning", "neutral", "negative", "positive", "information"] as const
+  ).forEach((color) => {
     test(`should render colorVariant with fill color as ${color} for accessibility`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <PillComponent pillRole="status" colorVariant={color} fill />
+        <PillComponent pillRole="status" colorVariant={color} fill />,
       );
 
       await checkAccessibility(page);
     });
   });
 
-  ([
-    "warning",
-    "neutral",
-    "negative",
-    "positive",
-    "information",
-    "neutralWhite",
-  ] as const).forEach((color) => {
+  (
+    [
+      "warning",
+      "neutral",
+      "negative",
+      "positive",
+      "information",
+      "neutralWhite",
+    ] as const
+  ).forEach((color) => {
     test(`should render colorVariant with fill as ${color} when isDarkBackground is set to true for accessibility `, async ({
       mount,
       page,
@@ -492,7 +498,7 @@ test.describe("should check for Accessibility tests", () => {
           colorVariant={color}
           fill
           isDarkBackground
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -521,14 +527,16 @@ test.describe("should check for Accessibility tests", () => {
     });
   });
 
-  ([
-    colorsSemanticCaution500,
-    blackOpacity65,
-    brilliantGreenShade20,
-    red,
-    hexBlue,
-    green,
-  ] as const).forEach((color) => {
+  (
+    [
+      colorsSemanticCaution500,
+      blackOpacity65,
+      brilliantGreenShade20,
+      red,
+      hexBlue,
+      green,
+    ] as const
+  ).forEach((color) => {
     test(`should render borderColor set as ${color} for accessibility`, async ({
       mount,
       page,
@@ -536,7 +544,7 @@ test.describe("should check for Accessibility tests", () => {
       await mount(
         <PillComponent pillRole="status" borderColor={color}>
           Pill
-        </PillComponent>
+        </PillComponent>,
       );
 
       await checkAccessibility(page);

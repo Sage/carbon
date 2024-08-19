@@ -37,7 +37,7 @@ const name = "test-group";
 function getComponent(
   props?: Partial<SimpleColorPickerProps> &
     React.RefAttributes<SimpleColorPickerRef>,
-  childProps?: Partial<SimpleColorProps>
+  childProps?: Partial<SimpleColorProps>,
 ) {
   const children = colorValues.map((color, index) => {
     return (
@@ -66,7 +66,7 @@ function getComponent(
 
 function render(
   props?: Partial<SimpleColorPickerProps>,
-  childProps?: Partial<SimpleColorProps>
+  childProps?: Partial<SimpleColorProps>,
 ) {
   return mount(getComponent(props, childProps), {
     attachTo: document.getElementById("enzymeContainer"),
@@ -93,7 +93,7 @@ describe("SimpleColorPicker", () => {
       mount(<SimpleColorPicker legend="uncontrolled" name="uncontrolled" />);
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -187,7 +187,7 @@ describe("SimpleColorPicker", () => {
                 .last()
                 .find("input")
                 .getDOMNode() as HTMLInputElement,
-              "click"
+              "click",
             );
 
             act(() => {
@@ -198,15 +198,17 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              (wrapper
-                .find(SimpleColor)
-                .last()
-                .find("input")
-                .getDOMNode() as HTMLInputElement).click
+              (
+                wrapper
+                  .find(SimpleColor)
+                  .last()
+                  .find("input")
+                  .getDOMNode() as HTMLInputElement
+              ).click,
             ).toHaveBeenCalled();
 
             expect(document.activeElement?.getAttribute("value")).toBe(
-              wrapper.find(SimpleColor).last().prop("value")
+              wrapper.find(SimpleColor).last().prop("value"),
             );
           });
         });
@@ -239,7 +241,7 @@ describe("SimpleColorPicker", () => {
                 .first()
                 .find("input")
                 .getDOMNode() as HTMLInputElement,
-              "click"
+              "click",
             );
             secondColor = wrapper.find(SimpleColor).at(1);
 
@@ -251,15 +253,17 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              (wrapper
-                .find(SimpleColor)
-                .first()
-                .find("input")
-                .getDOMNode() as HTMLInputElement).click
+              (
+                wrapper
+                  .find(SimpleColor)
+                  .first()
+                  .find("input")
+                  .getDOMNode() as HTMLInputElement
+              ).click,
             ).toHaveBeenCalled();
 
             expect(document.activeElement?.getAttribute("value")).toBe(
-              colorValues[0].color
+              colorValues[0].color,
             );
           });
         });
@@ -272,7 +276,7 @@ describe("SimpleColorPicker", () => {
                 .at(0)
                 .find("input")
                 .getDOMNode() as HTMLInputElement,
-              "click"
+              "click",
             );
             jest.spyOn(
               wrapper
@@ -280,7 +284,7 @@ describe("SimpleColorPicker", () => {
                 .at(1)
                 .find("input")
                 .getDOMNode() as HTMLInputElement,
-              "click"
+              "click",
             );
             secondColor = wrapper.find(SimpleColor).at(0);
 
@@ -293,22 +297,26 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              (wrapper
-                .find(SimpleColor)
-                .at(0)
-                .find("input")
-                .getDOMNode() as HTMLInputElement).click
+              (
+                wrapper
+                  .find(SimpleColor)
+                  .at(0)
+                  .find("input")
+                  .getDOMNode() as HTMLInputElement
+              ).click,
             ).not.toHaveBeenCalled();
             expect(
-              (wrapper
-                .find(SimpleColor)
-                .at(1)
-                .find("input")
-                .getDOMNode() as HTMLInputElement).click
+              (
+                wrapper
+                  .find(SimpleColor)
+                  .at(1)
+                  .find("input")
+                  .getDOMNode() as HTMLInputElement
+              ).click,
             ).not.toHaveBeenCalled();
 
             expect(document.activeElement?.getAttribute("value")).toBe(
-              colorValues[0].color
+              colorValues[0].color,
             );
             expect(onChange).not.toHaveBeenCalled();
           });
@@ -345,7 +353,7 @@ describe("SimpleColorPicker", () => {
                 .first()
                 .find("input")
                 .getDOMNode() as HTMLInputElement,
-              "click"
+              "click",
             );
 
             act(() => {
@@ -356,14 +364,16 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              (wrapper
-                .find(SimpleColor)
-                .first()
-                .find("input")
-                .getDOMNode() as HTMLInputElement).click
+              (
+                wrapper
+                  .find(SimpleColor)
+                  .first()
+                  .find("input")
+                  .getDOMNode() as HTMLInputElement
+              ).click,
             ).toHaveBeenCalled();
             expect(document.activeElement?.getAttribute("value")).toBe(
-              wrapper.find(SimpleColor).first().prop("value")
+              wrapper.find(SimpleColor).first().prop("value"),
             );
           });
         });
@@ -376,7 +386,7 @@ describe("SimpleColorPicker", () => {
                 .last()
                 .find("input")
                 .getDOMNode() as HTMLInputElement,
-              "click"
+              "click",
             );
             secondColor = wrapper.find(SimpleColor).at(1);
 
@@ -388,15 +398,17 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              (wrapper
-                .find(SimpleColor)
-                .last()
-                .find("input")
-                .getDOMNode() as HTMLInputElement).click
+              (
+                wrapper
+                  .find(SimpleColor)
+                  .last()
+                  .find("input")
+                  .getDOMNode() as HTMLInputElement
+              ).click,
             ).toHaveBeenCalled();
 
             expect(document.activeElement?.getAttribute("value")).toBe(
-              colorValues[2].color
+              colorValues[2].color,
             );
           });
         });
@@ -430,7 +442,7 @@ describe("SimpleColorPicker", () => {
                 .last()
                 .find("input")
                 .getDOMNode() as HTMLInputElement,
-              "click"
+              "click",
             );
             secondColor = wrapper.find(SimpleColor).at(1);
 
@@ -442,15 +454,17 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              (wrapper
-                .find(SimpleColor)
-                .last()
-                .find("input")
-                .getDOMNode() as HTMLInputElement).click
+              (
+                wrapper
+                  .find(SimpleColor)
+                  .last()
+                  .find("input")
+                  .getDOMNode() as HTMLInputElement
+              ).click,
             ).toHaveBeenCalled();
 
             expect(document.activeElement?.getAttribute("value")).toBe(
-              colorValues[2].color
+              colorValues[2].color,
             );
           });
         });
@@ -465,7 +479,7 @@ describe("SimpleColorPicker", () => {
                 .at(0)
                 .find("input")
                 .getDOMNode() as HTMLInputElement,
-              "click"
+              "click",
             );
             jest.spyOn(
               wrapper
@@ -473,7 +487,7 @@ describe("SimpleColorPicker", () => {
                 .at(1)
                 .find("input")
                 .getDOMNode() as HTMLInputElement,
-              "click"
+              "click",
             );
 
             act(() => {
@@ -485,21 +499,25 @@ describe("SimpleColorPicker", () => {
             });
 
             expect(
-              (wrapper
-                .find(SimpleColor)
-                .at(0)
-                .find("input")
-                .getDOMNode() as HTMLInputElement).click
+              (
+                wrapper
+                  .find(SimpleColor)
+                  .at(0)
+                  .find("input")
+                  .getDOMNode() as HTMLInputElement
+              ).click,
             ).not.toHaveBeenCalled();
             expect(
-              (wrapper
-                .find(SimpleColor)
-                .at(1)
-                .find("input")
-                .getDOMNode() as HTMLInputElement).click
+              (
+                wrapper
+                  .find(SimpleColor)
+                  .at(1)
+                  .find("input")
+                  .getDOMNode() as HTMLInputElement
+              ).click,
             ).not.toHaveBeenCalled();
             expect(document.activeElement?.getAttribute("value")).toBe(
-              colorValues[2].color
+              colorValues[2].color,
             );
             expect(onChange).not.toHaveBeenCalled();
           });
@@ -531,7 +549,7 @@ describe("SimpleColorPicker", () => {
         }
       });
       fireDocumentMousedown = () => {
-        const customEvent = ({ target: document } as unknown) as Event;
+        const customEvent = { target: document } as unknown as Event;
         act(() => {
           documentMousedownCallback(customEvent);
         });
@@ -599,9 +617,9 @@ describe("SimpleColorPicker", () => {
             .first()
             .find("input")
             .first();
-          const customEvent = ({
+          const customEvent = {
             target: firstSCinput.getDOMNode(),
-          } as unknown) as Event;
+          } as unknown as Event;
           documentMousedownCallback(customEvent);
           expect(onBlur).not.toHaveBeenCalled();
         });
@@ -652,7 +670,7 @@ describe("SimpleColorPicker", () => {
       it("renders validation icon by the input", () => {
         const wrapper = render({ [type]: "Message" });
         expect(
-          wrapper.find(StyledLegend).find(StyledValidationIcon).exists()
+          wrapper.find(StyledLegend).find(StyledValidationIcon).exists(),
         ).toBe(false);
         expect(wrapper.find(StyledValidationIcon).exists()).toBe(true);
       });
@@ -663,7 +681,7 @@ describe("SimpleColorPicker", () => {
           validationOnLegend: true,
         });
         expect(
-          wrapper.find(StyledLegend).find(StyledValidationIcon).exists()
+          wrapper.find(StyledLegend).find(StyledValidationIcon).exists(),
         ).toBe(true);
       });
 
@@ -673,7 +691,7 @@ describe("SimpleColorPicker", () => {
           {
             outline: `var(--borderWidth200) solid ${validationVariants[type]}`,
           },
-          wrapper.find(StyledColorOptions)
+          wrapper.find(StyledColorOptions),
         );
       });
     });
@@ -690,7 +708,7 @@ describe("SimpleColorPicker", () => {
           {
             outline: `var(--borderWidth200) solid ${validationVariants[type]}`,
           },
-          wrapper.find(StyledColorOptions)
+          wrapper.find(StyledColorOptions),
         );
       });
     });
@@ -706,10 +724,10 @@ describe("SimpleColorPicker", () => {
         <SimpleColorPicker name={name} legend="SimpleColorPicker Legend">
           <p>Invalid children</p>
           <p>Invalid children</p>
-        </SimpleColorPicker>
+        </SimpleColorPicker>,
       );
     }).toThrow(
-      "SimpleColorPicker accepts only children of type `SimpleColor`."
+      "SimpleColorPicker accepts only children of type `SimpleColor`.",
     );
 
     consoleSpy.mockRestore();
@@ -736,7 +754,7 @@ describe("SimpleColorPicker", () => {
     expect(outsideRef).toEqual(
       expect.objectContaining({
         gridItemRefs: expect.arrayContaining(inputs),
-      })
+      }),
     );
   });
 
@@ -772,7 +790,7 @@ describe("SimpleColorPicker", () => {
             {null}
             {false}
             {undefined}
-          </SimpleColorPicker>
+          </SimpleColorPicker>,
         );
       }).not.toThrow();
     });
@@ -800,11 +818,11 @@ describe("isBlurBlocked deprecation warning", () => {
         legend="SimpleColorPicker Legend"
         name="test"
         isBlurBlocked
-      />
+      />,
     );
 
     expect(loggerSpy).toHaveBeenCalledWith(
-      "The 'isBlurBlocked' prop in SimpleColorPicker is deprecated and support will soon be removed."
+      "The 'isBlurBlocked' prop in SimpleColorPicker is deprecated and support will soon be removed.",
     );
 
     expect(loggerSpy).toHaveBeenCalledTimes(1);

@@ -76,29 +76,29 @@ test.describe("Styling tests", () => {
     await toggleButton1.focus();
     await expect(toggleButton1).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(toggleButton1).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
     await toggleButton2.focus();
     await expect(toggleButton2).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(toggleButton2).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
     await toggleButton3.focus();
     await expect(toggleButton3).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(toggleButton3).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -119,15 +119,15 @@ test.describe("Styling tests", () => {
 
     await expect(buttonToggleButton(page).nth(0)).toHaveCSS(
       "border-radius",
-      "4px 0px 0px 4px"
+      "4px 0px 0px 4px",
     );
     await expect(buttonToggleButton(page).nth(1)).toHaveCSS(
       "border-radius",
-      "0px"
+      "0px",
     );
     await expect(buttonToggleButton(page).nth(2)).toHaveCSS(
       "border-radius",
-      "0px 4px 4px 0px"
+      "0px 4px 4px 0px",
     );
   });
 
@@ -139,15 +139,15 @@ test.describe("Styling tests", () => {
 
     await expect(buttonToggleButton(page).nth(0)).toHaveCSS(
       "border-radius",
-      "4px"
+      "4px",
     );
     await expect(buttonToggleButton(page).nth(1)).toHaveCSS(
       "border-radius",
-      "4px"
+      "4px",
     );
     await expect(buttonToggleButton(page).nth(2)).toHaveCSS(
       "border-radius",
-      "4px"
+      "4px",
     );
   });
 });
@@ -158,39 +158,39 @@ test.describe("Prop tests", () => {
 
     await expect(buttonToggleButton(page).first()).toHaveAttribute(
       "aria-label",
-      "playwright-aria"
+      "playwright-aria",
     );
   });
 
   test("should render with aria-labelledby prop", async ({ mount, page }) => {
     await mount(
-      <ButtonToggleComponent aria-labelledby={CHARACTERS.STANDARD} />
+      <ButtonToggleComponent aria-labelledby={CHARACTERS.STANDARD} />,
     );
 
     await expect(buttonToggleButton(page).first()).toHaveAttribute(
       "aria-labelledby",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
-  ([
-    [true, "true"],
-    [false, "false"],
-  ] as [ButtonToggleProps["pressed"], string][]).forEach(
-    ([state, ariaPressed]) => {
-      test(`should render with aria-pressed attribute ${ariaPressed} when pressed prop is ${state}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<ButtonToggleComponent pressed={state} />);
+  (
+    [
+      [true, "true"],
+      [false, "false"],
+    ] as [ButtonToggleProps["pressed"], string][]
+  ).forEach(([state, ariaPressed]) => {
+    test(`should render with aria-pressed attribute ${ariaPressed} when pressed prop is ${state}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ButtonToggleComponent pressed={state} />);
 
-        await expect(buttonToggleButton(page).first()).toHaveAttribute(
-          "aria-pressed",
-          ariaPressed
-        );
-      });
-    }
-  );
+      await expect(buttonToggleButton(page).first()).toHaveAttribute(
+        "aria-pressed",
+        ariaPressed,
+      );
+    });
+  });
 
   test("should render with data-component prop set to playwright_data", async ({
     mount,
@@ -199,7 +199,7 @@ test.describe("Prop tests", () => {
     await mount(<ButtonToggleComponent data-component={CHARACTERS.STANDARD} />);
 
     await expect(
-      buttonToggleButton(page).first().locator("..")
+      buttonToggleButton(page).first().locator(".."),
     ).toHaveAttribute("data-component", CHARACTERS.STANDARD);
   });
 
@@ -210,7 +210,7 @@ test.describe("Prop tests", () => {
     await mount(<ButtonToggleComponent data-element={CHARACTERS.STANDARD} />);
 
     await expect(
-      buttonToggleButton(page).first().locator("..")
+      buttonToggleButton(page).first().locator(".."),
     ).toHaveAttribute("data-element", CHARACTERS.STANDARD);
   });
 
@@ -221,30 +221,30 @@ test.describe("Prop tests", () => {
     await mount(<ButtonToggleComponent data-role={CHARACTERS.STANDARD} />);
 
     await expect(
-      buttonToggleButton(page).first().locator("..")
+      buttonToggleButton(page).first().locator(".."),
     ).toHaveAttribute("data-role", CHARACTERS.STANDARD);
   });
 
-  ([
-    [SIZE.SMALL, 24, 8],
-    [SIZE.MEDIUM, 32, 8],
-    [SIZE.LARGE, 40, 12],
-  ] as [ButtonToggleProps["size"], number, number][]).forEach(
-    ([size, height, padding]) => {
-      test(`should render button with height ${height} and padding ${padding} when size is ${size}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <ButtonToggleComponent size={size}>{size}</ButtonToggleComponent>
-        );
+  (
+    [
+      [SIZE.SMALL, 24, 8],
+      [SIZE.MEDIUM, 32, 8],
+      [SIZE.LARGE, 40, 12],
+    ] as [ButtonToggleProps["size"], number, number][]
+  ).forEach(([size, height, padding]) => {
+    test(`should render button with height ${height} and padding ${padding} when size is ${size}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <ButtonToggleComponent size={size}>{size}</ButtonToggleComponent>,
+      );
 
-        const firstButton = buttonToggleButton(page).nth(0);
-        await expect(firstButton).toHaveCSS("min-height", `${height}px`);
-        await expect(firstButton).toHaveCSS("padding", `0px ${padding}px`);
-      });
-    }
-  );
+      const firstButton = buttonToggleButton(page).nth(0);
+      await expect(firstButton).toHaveCSS("min-height", `${height}px`);
+      await expect(firstButton).toHaveCSS("padding", `0px ${padding}px`);
+    });
+  });
 
   (["add", "share", "tick"] as const).forEach((type) => {
     test(`should render with ${type} icon`, async ({ mount, page }) => {
@@ -252,64 +252,64 @@ test.describe("Prop tests", () => {
         <ButtonToggleComponent buttonIcon={type} buttonIconSize="large">
           {" "}
           {type}
-        </ButtonToggleComponent>
+        </ButtonToggleComponent>,
       );
 
       await expect(icon(page).nth(0)).toHaveAttribute("type", type);
     });
   });
 
-  ([
-    [SIZE.SMALL, 72, "8px"],
-    [SIZE.MEDIUM, 88, "8px 12px 0px"],
-    [SIZE.LARGE, 120, "8px 24px"],
-  ] as [ButtonToggleProps["size"], number, string][]).forEach(
-    ([size, height, padding]) => {
-      test(`should render button with height ${height} and padding ${padding} when size is ${size} and buttonIconSize is large`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <ButtonToggleComponent
-            buttonIcon="tick"
-            buttonIconSize="large"
-            size={size}
-          >
-            {size}
-          </ButtonToggleComponent>
-        );
+  (
+    [
+      [SIZE.SMALL, 72, "8px"],
+      [SIZE.MEDIUM, 88, "8px 12px 0px"],
+      [SIZE.LARGE, 120, "8px 24px"],
+    ] as [ButtonToggleProps["size"], number, string][]
+  ).forEach(([size, height, padding]) => {
+    test(`should render button with height ${height} and padding ${padding} when size is ${size} and buttonIconSize is large`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <ButtonToggleComponent
+          buttonIcon="tick"
+          buttonIconSize="large"
+          size={size}
+        >
+          {size}
+        </ButtonToggleComponent>,
+      );
 
-        const firstButton = buttonToggleButton(page).nth(0);
-        await expect(firstButton).toHaveCSS("min-height", `${height}px`);
-        await expect(firstButton).toHaveCSS("padding", `${padding}`);
-      });
-    }
-  );
+      const firstButton = buttonToggleButton(page).nth(0);
+      await expect(firstButton).toHaveCSS("min-height", `${height}px`);
+      await expect(firstButton).toHaveCSS("padding", `${padding}`);
+    });
+  });
 
-  ([
-    [SIZE.SMALL, 20],
-    [SIZE.LARGE, 32],
-  ] as [ButtonToggleProps["buttonIconSize"], number][]).forEach(
-    ([buttonIconSize, value]) => {
-      test(`should render icon with height and width ${value} when buttonIconSize is ${buttonIconSize}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <ButtonToggleComponent
-            buttonIcon="tick"
-            buttonIconSize={buttonIconSize}
-          >
-            {buttonIconSize}
-          </ButtonToggleComponent>
-        );
+  (
+    [
+      [SIZE.SMALL, 20],
+      [SIZE.LARGE, 32],
+    ] as [ButtonToggleProps["buttonIconSize"], number][]
+  ).forEach(([buttonIconSize, value]) => {
+    test(`should render icon with height and width ${value} when buttonIconSize is ${buttonIconSize}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <ButtonToggleComponent
+          buttonIcon="tick"
+          buttonIconSize={buttonIconSize}
+        >
+          {buttonIconSize}
+        </ButtonToggleComponent>,
+      );
 
-        const firstIcon = icon(page).nth(0);
-        await expect(firstIcon).toHaveCSS("height", `${value}px`);
-        await expect(firstIcon).toHaveCSS("width", `${value}px`);
-      });
-    }
-  );
+      const firstIcon = icon(page).nth(0);
+      await expect(firstIcon).toHaveCSS("height", `${value}px`);
+      await expect(firstIcon).toHaveCSS("width", `${value}px`);
+    });
+  });
 
   [...characters].forEach(([labelText]) => {
     test(`should render with text as ${labelText} when Children prop is ${labelText}`, async ({
@@ -330,7 +330,7 @@ test.describe("Prop tests", () => {
 
     await expect(buttonToggleButton(page).nth(0)).toHaveAttribute(
       "value",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 });
@@ -347,7 +347,7 @@ test.describe("Event tests", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await expect(buttonToggleButton(page).nth(0)).toBeDisabled();
@@ -365,7 +365,7 @@ test.describe("Event tests", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await buttonTogglePreview(page).nth(0).click();
@@ -382,7 +382,7 @@ test.describe("Event tests", () => {
         onFocus={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const toggleButton = buttonToggleButton(page).nth(0);
@@ -400,7 +400,7 @@ test.describe("Event tests", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const toggleButton = buttonToggleButton(page).nth(0);
@@ -438,17 +438,19 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  ([
-    [SIZE.SMALL, 24],
-    [SIZE.MEDIUM, 32],
-    [SIZE.LARGE, 40],
-  ] as [ButtonToggleProps["size"], number][]).forEach(([size]) => {
+  (
+    [
+      [SIZE.SMALL, 24],
+      [SIZE.MEDIUM, 32],
+      [SIZE.LARGE, 40],
+    ] as [ButtonToggleProps["size"], number][]
+  ).forEach(([size]) => {
     test(`should pass accessibility tests for Button-Toggle ${size}`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <ButtonToggleComponent size={size}> {size}</ButtonToggleComponent>
+        <ButtonToggleComponent size={size}> {size}</ButtonToggleComponent>,
       );
 
       await checkAccessibility(page);
@@ -465,12 +467,12 @@ test.describe("Accessibility tests", () => {
           <ButtonToggleComponent buttonIcon={type} buttonIconSize="large">
             {" "}
             {type}
-          </ButtonToggleComponent>
+          </ButtonToggleComponent>,
         );
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 });
 
@@ -483,7 +485,7 @@ test.describe("Prop tests for group component", () => {
 
     await expect(page.getByRole("group")).toHaveAttribute(
       "data-component",
-      testPropValue
+      testPropValue,
     );
   });
 
@@ -495,7 +497,7 @@ test.describe("Prop tests for group component", () => {
 
     await expect(buttonToggleGroup(page).nth(0)).toHaveAttribute(
       "data-element",
-      testPropValue
+      testPropValue,
     );
   });
 
@@ -507,7 +509,7 @@ test.describe("Prop tests for group component", () => {
 
     await expect(buttonToggleGroup(page).nth(0)).toHaveAttribute(
       "data-role",
-      testPropValue
+      testPropValue,
     );
   });
 
@@ -532,7 +534,7 @@ test.describe("Prop tests for group component", () => {
     await helpIcon.hover();
     await expect(getDataElementByValue(page, "tooltip")).toBeVisible();
     await expect(getDataElementByValue(page, "tooltip")).toHaveText(
-      testPropValue
+      testPropValue,
     );
   });
 
@@ -572,16 +574,16 @@ test.describe("Prop tests for group component", () => {
         <ButtonToggleGroupComponent
           fieldHelp="fieldHelpText"
           fieldHelpInline={state}
-        />
+        />,
       );
 
       if (state) {
         await expect(
-          getDataElementByValue(page, "help").locator("..").locator("..")
+          getDataElementByValue(page, "help").locator("..").locator(".."),
         ).toHaveAttribute("data-component", "button-toggle-group");
       } else {
         await expect(
-          getDataElementByValue(page, "help").locator("..")
+          getDataElementByValue(page, "help").locator(".."),
         ).toHaveAttribute("data-component", "button-toggle-group");
       }
     });
@@ -616,29 +618,27 @@ test.describe("Prop tests for group component", () => {
 
     await expect(buttonToggleButton(page).nth(1)).toHaveAttribute(
       "aria-pressed",
-      "true"
+      "true",
     );
   });
 
-  ([
-    [25, 341],
-    [50, 683],
-    [100, 1366],
-  ] as [ButtonToggleGroupProps["inputWidth"], number][]).forEach(
-    ([labelWidth, width]) => {
-      test(`should render with labelWidth prop of ${labelWidth} and width of ${width}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<ButtonToggleGroupNotInBox inputWidth={labelWidth} />);
+  (
+    [
+      [25, 341],
+      [50, 683],
+      [100, 1366],
+    ] as [ButtonToggleGroupProps["inputWidth"], number][]
+  ).forEach(([labelWidth, width]) => {
+    test(`should render with labelWidth prop of ${labelWidth} and width of ${width}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ButtonToggleGroupNotInBox inputWidth={labelWidth} />);
 
-        const buttonParent = buttonToggleButton(page)
-          .locator("..")
-          .locator("..");
-        await assertCssValueIsApproximately(buttonParent, "width", width);
-      });
-    }
-  );
+      const buttonParent = buttonToggleButton(page).locator("..").locator("..");
+      await assertCssValueIsApproximately(buttonParent, "width", width);
+    });
+  });
 
   test("should render with helpAriaLabel set to playwright_data", async ({
     mount,
@@ -648,24 +648,26 @@ test.describe("Prop tests for group component", () => {
 
     await expect(buttonToggleGroupHelpIcon(page)).toHaveAttribute(
       "aria-label",
-      testPropValue
+      testPropValue,
     );
   });
 
-  ([
-    ["8px", 1],
-    ["16px", 2],
-  ] as const).forEach(([padding, spacing]) => {
+  (
+    [
+      ["8px", 1],
+      ["16px", 2],
+    ] as const
+  ).forEach(([padding, spacing]) => {
     test(`should render with padding of ${padding} if labelSpacing prop is ${spacing}`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <ButtonToggleGroupComponent labelInline labelSpacing={spacing} />
+        <ButtonToggleGroupComponent labelInline labelSpacing={spacing} />,
       );
 
       await expect(
-        getDataElementByValue(page, "label").locator("..")
+        getDataElementByValue(page, "label").locator(".."),
       ).toHaveCSS("padding-right", padding);
     });
   });
@@ -675,7 +677,7 @@ test.describe("Prop tests for group component", () => {
 
     await expect(buttonTogglePreview(page).nth(0)).toHaveCSS(
       "flex",
-      "1 1 auto"
+      "1 1 auto",
     );
   });
 
@@ -688,7 +690,7 @@ test.describe("Prop tests for group component", () => {
     await assertCssValueIsApproximately(
       buttonToggleButton(page).nth(0),
       "width",
-      453
+      453,
     );
   });
 });
@@ -704,7 +706,7 @@ test.describe("Event tests for group component", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await buttonTogglePreview(page).nth(0).click();
@@ -722,7 +724,7 @@ test.describe("Event tests for group component", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await buttonTogglePreview(page).nth(0).click();
@@ -741,7 +743,7 @@ test.describe("Event tests for group component", () => {
         onChange={(event, value) => {
           onChangeValue = value;
         }}
-      />
+      />,
     );
 
     await page.getByRole("button", { name: "foo" }).click();
@@ -901,7 +903,7 @@ test.describe("Accessibility tests for group component", () => {
       page,
     }) => {
       await mount(
-        <ButtonToggleGroupComponent labelInline labelSpacing={spacing} />
+        <ButtonToggleGroupComponent labelInline labelSpacing={spacing} />,
       );
 
       await checkAccessibility(page);

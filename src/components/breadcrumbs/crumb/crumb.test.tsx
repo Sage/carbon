@@ -16,7 +16,7 @@ describe("Crumb", () => {
     render(
       <Crumb href="foo" data-role="crumb" isCurrent>
         Link text
-      </Crumb>
+      </Crumb>,
     );
 
     const anchor = screen.getByTestId("link-anchor");
@@ -33,7 +33,7 @@ describe("Crumb", () => {
     render(
       <Crumb href="#" onClick={handleClickFn}>
         Link text
-      </Crumb>
+      </Crumb>,
     );
 
     const link = screen.getByRole("link", { name: "Link text" });
@@ -47,7 +47,7 @@ describe("Crumb", () => {
     render(
       <Crumb href="#" onClick={handleClickFn} isCurrent>
         Link text
-      </Crumb>
+      </Crumb>,
     );
 
     const link = screen.getByText("Link text");

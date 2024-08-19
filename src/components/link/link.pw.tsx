@@ -55,7 +55,7 @@ test.describe("check props for Link component", () => {
     await mount(
       <LinkComponent disabled href="#">
         Test Content
-      </LinkComponent>
+      </LinkComponent>,
     );
 
     const linkElement = linkChildren(page);
@@ -71,23 +71,23 @@ test.describe("check props for Link component", () => {
     await expect(iconElement).toBeVisible();
   });
 
-  ([
-    ["left", 0],
-    ["right", 1],
-  ] as [LinkProps["iconAlign"], number][]).forEach(
-    ([iconAlign, iconPosition]) => {
-      test(`should render with iconAlign prop set to ${iconAlign}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<LinkComponent icon="add" iconAlign={iconAlign} />);
+  (
+    [
+      ["left", 0],
+      ["right", 1],
+    ] as [LinkProps["iconAlign"], number][]
+  ).forEach(([iconAlign, iconPosition]) => {
+    test(`should render with iconAlign prop set to ${iconAlign}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<LinkComponent icon="add" iconAlign={iconAlign} />);
 
-        const iconElement = link(page).locator("span").nth(iconPosition);
-        await expect(iconElement).toHaveAttribute("data-component", "icon");
-        await expect(iconElement).toBeVisible();
-      });
-    }
-  );
+      const iconElement = link(page).locator("span").nth(iconPosition);
+      await expect(iconElement).toHaveAttribute("data-component", "icon");
+      await expect(iconElement).toBeVisible();
+    });
+  });
 
   test("should render with href prop", async ({ mount, page }) => {
     await mount(<LinkComponent href={testPlaywright} />);
@@ -137,7 +137,7 @@ test.describe("check props for Link component", () => {
             tooltipMessage={testPlaywright}
             tooltipPosition={tooltipPosition}
           />
-        </Box>
+        </Box>,
       );
 
       const iconElement = icon(page);
@@ -147,7 +147,7 @@ test.describe("check props for Link component", () => {
       const tooltipElement = tooltipPreview(page);
       await expect(tooltipElement).toHaveAttribute(
         "data-placement",
-        tooltipPosition
+        tooltipPosition,
       );
     });
   });
@@ -191,14 +191,14 @@ test.describe("check props for Link component", () => {
     await expect(skipLinkElement).toBeVisible();
     await expect(skipLinkElement).toHaveCSS(
       "background-color",
-      "rgb(255, 188, 25)"
+      "rgb(255, 188, 25)",
     );
     await expect(skipLinkElement).toHaveCSS("font-size", "14px");
     await expect(skipLinkElement).toHaveCSS("padding-left", "24px");
     await expect(skipLinkElement).toHaveCSS("padding-right", "24px");
     await expect(skipLinkElement).toHaveCSS(
       "box-shadow",
-      "rgba(0, 20, 30, 0.1) 0px 10px 30px 0px, rgba(0, 20, 30, 0.1) 0px 30px 60px 0px"
+      "rgba(0, 20, 30, 0.1) 0px 10px 30px 0px, rgba(0, 20, 30, 0.1) 0px 30px 60px 0px",
     );
   });
 
@@ -215,17 +215,19 @@ test.describe("check props for Link component", () => {
     await expect(skipLinkElement).toHaveCSS("left", "0px");
     await expect(skipLinkElement).toHaveCSS(
       "text-decoration",
-      "underline 4px solid rgb(0, 0, 0)"
+      "underline 4px solid rgb(0, 0, 0)",
     );
     await expect(skipLinkElement).toHaveCSS("text-decoration-thickness", "4px");
     await expect(skipLinkElement).toHaveCSS("text-underline-offset", "3px");
   });
 
-  ([
-    ["default", "rgb(0, 126, 69)"],
-    ["negative", "rgb(203, 55, 74)"],
-    ["neutral", "rgba(0, 0, 0, 0.9)"],
-  ] as [LinkProps["variant"], string][]).forEach(([variant, defaultColor]) => {
+  (
+    [
+      ["default", "rgb(0, 126, 69)"],
+      ["negative", "rgb(203, 55, 74)"],
+      ["neutral", "rgba(0, 0, 0, 0.9)"],
+    ] as [LinkProps["variant"], string][]
+  ).forEach(([variant, defaultColor]) => {
     test(`should render with variant prop set to ${variant}`, async ({
       mount,
       page,
@@ -237,11 +239,13 @@ test.describe("check props for Link component", () => {
     });
   });
 
-  ([
-    ["default", "rgb(0, 103, 56)"],
-    ["negative", "rgb(162, 44, 59)"],
-    ["neutral", "rgb(0, 103, 56)"],
-  ] as [LinkProps["variant"], string][]).forEach(([variant, hoverColor]) => {
+  (
+    [
+      ["default", "rgb(0, 103, 56)"],
+      ["negative", "rgb(162, 44, 59)"],
+      ["neutral", "rgb(0, 103, 56)"],
+    ] as [LinkProps["variant"], string][]
+  ).forEach(([variant, hoverColor]) => {
     test(`should render with correct hover state with variant prop set to ${variant}`, async ({
       mount,
       page,
@@ -254,11 +258,13 @@ test.describe("check props for Link component", () => {
     });
   });
 
-  ([
-    ["default", "rgb(25, 142, 89)"],
-    ["negative", "rgb(208, 75, 92)"],
-    ["neutral", "rgb(25, 142, 89)"],
-  ] as [LinkProps["variant"], string][]).forEach(([variant, hoverColor]) => {
+  (
+    [
+      ["default", "rgb(25, 142, 89)"],
+      ["negative", "rgb(208, 75, 92)"],
+      ["neutral", "rgb(25, 142, 89)"],
+    ] as [LinkProps["variant"], string][]
+  ).forEach(([variant, hoverColor]) => {
     test(`should render with correct hover state with isDarkBackground prop set with ${variant} variant`, async ({
       mount,
       page,
@@ -286,7 +292,7 @@ test.describe("when focused", () => {
     await linkElement.focus();
     await expect(linkElement).toHaveCSS(
       "background-color",
-      "rgb(255, 218, 128)"
+      "rgb(255, 218, 128)",
     );
     await expect(linkElement).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
     await expect(linkElement).toHaveCSS("border-radius", "2px");
@@ -302,14 +308,14 @@ test.describe("when focused", () => {
     await linkElement.focus();
     await expect(linkElement).toHaveCSS(
       "background-color",
-      "rgb(255, 218, 128)"
+      "rgb(255, 218, 128)",
     );
     await expect(linkElement).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
     await expect(linkElement).toHaveCSS("border-radius", "2px");
     const linkWrapper = link(page);
     await expect(linkWrapper).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px"
+      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
     );
     await expect(linkWrapper).toHaveCSS("max-width", "fit-content");
   });
@@ -414,12 +420,9 @@ test.describe("should check accessibility for Link component", () => {
     await checkAccessibility(page);
   });
 
-  ([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ] as LinkProps["tooltipPosition"][]).forEach((tooltipPosition) => {
+  (
+    ["top", "bottom", "left", "right"] as LinkProps["tooltipPosition"][]
+  ).forEach((tooltipPosition) => {
     test(`should pass accessibility tests with tooltipPosition prop set to ${tooltipPosition}`, async ({
       mount,
       page,
@@ -431,7 +434,7 @@ test.describe("should check accessibility for Link component", () => {
             tooltipMessage={testPlaywright}
             tooltipPosition={tooltipPosition}
           />
-        </Box>
+        </Box>,
       );
 
       await checkAccessibility(page);
@@ -479,6 +482,6 @@ test.describe("should check accessibility for Link component", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 });

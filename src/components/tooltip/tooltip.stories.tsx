@@ -21,7 +21,7 @@ export const Default: Story = () => {
       <Button buttonType="primary" ref={ref}>
         {children}
       </Button>
-    )
+    ),
   );
   Component.displayName = "Example Button";
   return (
@@ -41,7 +41,7 @@ export const Controlled: Story = () => {
       <Button buttonType="primary" ref={ref}>
         {children}
       </Button>
-    )
+    ),
   );
   Component.displayName = "Example Button";
   return (
@@ -66,7 +66,7 @@ export const Positioning: Story = () => {
       <Button buttonType="primary" ref={ref}>
         {children}
       </Button>
-    )
+    ),
   );
   Component.displayName = "Example Button";
   return (
@@ -93,7 +93,7 @@ export const FlipBehaviourOverrides: Story = () => {
       <Button buttonType="primary" ref={ref}>
         {children}
       </Button>
-    )
+    ),
   );
   Component.displayName = "Example Button";
   return (
@@ -117,7 +117,7 @@ export const LargeTooltip: Story = () => {
       <Button buttonType="primary" ref={ref}>
         {children}
       </Button>
-    )
+    ),
   );
   Component.displayName = "Example Button";
   return (
@@ -137,7 +137,7 @@ export const Types: Story = () => {
       <Button buttonType="primary" ref={ref}>
         {children}
       </Button>
-    )
+    ),
   );
   Component.displayName = "Example Button";
   return (
@@ -162,7 +162,7 @@ export const ColorOverrides: Story = () => {
       <Button buttonType="primary" ref={ref}>
         {children}
       </Button>
-    )
+    ),
   );
   Component.displayName = "Example Button";
   return (

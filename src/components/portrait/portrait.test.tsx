@@ -52,7 +52,7 @@ test("logs a deprecation warning once when the `gravatar` prop is passed, and a 
     <>
       <Portrait gravatar="chris.barber@sage.com" />
       <Portrait gravatar="chris.barber@sage.com" />
-    </>
+    </>,
   );
 
   const portraits = screen.getAllByRole("img");
@@ -62,7 +62,7 @@ test("logs a deprecation warning once when the `gravatar` prop is passed, and a 
   });
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "The `gravatar` prop has been deprecated and will soon be removed."
+    "The `gravatar` prop has been deprecated and will soon be removed.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
   loggerSpy.mockRestore();
@@ -82,7 +82,7 @@ test("if a valid gravatar email is not found and an onError event is triggered, 
 
   await waitFor(() => expect(screen.getByTestId("icon")).toBeVisible());
   await waitFor(() =>
-    expect(screen.getByTestId("icon")).toHaveAttribute("type", "individual")
+    expect(screen.getByTestId("icon")).toHaveAttribute("type", "individual"),
   );
 });
 
@@ -107,7 +107,7 @@ test("if a valid src is not found and an onError event is triggered, the default
 
   await waitFor(() => expect(screen.getByTestId("icon")).toBeVisible());
   await waitFor(() =>
-    expect(screen.getByTestId("icon")).toHaveAttribute("type", "individual")
+    expect(screen.getByTestId("icon")).toHaveAttribute("type", "individual"),
   );
 });
 
@@ -118,7 +118,7 @@ test("when both the `gravatar` and `src` props are passed simultaneously, an inv
 
   expect(() => render(<Portrait src={src} gravatar={email} />)).toThrow(
     "The `src` prop cannot be used in conjunction with the `gravatar` prop." +
-      " Please use one or the other."
+      " Please use one or the other.",
   );
 
   consoleSpy.mockRestore();
@@ -152,7 +152,7 @@ test("if a consumer opts out to rounded corners, the `Portrait` shape is a squar
   render(
     <CarbonProvider roundedCornersOptOut>
       <Portrait data-role="portrait" />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const portrait = screen.getByTestId("portrait");
@@ -185,7 +185,7 @@ test("allows a custom tooltip id to be set via the `tooltipId` prop", () => {
       tooltipMessage="foo"
       tooltipIsVisible
       tooltipId="foo"
-    />
+    />,
   );
 
   const tooltip = screen.getByText("foo");

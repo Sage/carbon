@@ -19,7 +19,7 @@ test("Fieldset adds the required attribute to any child inputs when isRequired i
     <Fieldset required>
       <input />
       <input />
-    </Fieldset>
+    </Fieldset>,
   );
   const inputs = screen.getAllByRole("textbox");
   inputs.forEach((input) => expect(input).toBeRequired());
@@ -30,7 +30,7 @@ test("Fieldset does not add the required attribute to any child inputs when isRe
     <Fieldset>
       <input />
       <input />
-    </Fieldset>
+    </Fieldset>,
   );
   const inputs = screen.getAllByRole("textbox");
   inputs.forEach((input) => expect(input).not.toBeRequired());
@@ -42,7 +42,7 @@ test("Fieldset Legend adds an (optional) after the text when set to isOptional",
   render(
     <Fieldset legend="This is my custom legend" isOptional>
       <Textbox onChange={() => {}} />
-    </Fieldset>
+    </Fieldset>,
   );
 
   const legend = screen.getByText("This is my custom legend");
@@ -53,7 +53,7 @@ test("Fieldset Legend adds an asterisk after the text when the field is mandator
   render(
     <Fieldset legend="This is my custom legend" required>
       <Textbox onChange={() => {}} />
-    </Fieldset>
+    </Fieldset>,
   );
 
   const legend = screen.getByText("This is my custom legend");

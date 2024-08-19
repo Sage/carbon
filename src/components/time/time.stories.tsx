@@ -227,7 +227,7 @@ export const Sizes: Story = () => {
 
   const handleChange = (
     ev: TimeInputEvent,
-    size: "small" | "medium" | "large"
+    size: "small" | "medium" | "large",
   ) => {
     setValue((p) => ({
       ...p,

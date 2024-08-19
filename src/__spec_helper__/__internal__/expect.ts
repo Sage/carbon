@@ -33,7 +33,7 @@ expect.extend({
         diffString && diffString.includes("- Expect")
           ? `Difference:\n\n${diffString}`
           : `Expected: ${this.utils.printExpected(
-              expected
+              expected,
             )}\nReceived: ${this.utils.printReceived(DOMNode)}`
       }`;
     };

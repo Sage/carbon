@@ -48,7 +48,7 @@ test.describe("Test props for NavigationBar component", () => {
       page,
     }) => {
       await mount(
-        <NavigationBarComponent>{childrenValue}</NavigationBarComponent>
+        <NavigationBarComponent>{childrenValue}</NavigationBarComponent>,
       );
 
       await expect(navigationBar(page)).toHaveText(childrenValue);
@@ -80,7 +80,7 @@ test.describe("Test props for NavigationBar component", () => {
       await mount(
         <NavigationBarComponent isLoading={boolean}>
           {testData}
-        </NavigationBarComponent>
+        </NavigationBarComponent>,
       );
 
       const navigation = page.locator(`[data-component="navigation-bar"]`);
@@ -99,7 +99,7 @@ test.describe("Test props for NavigationBar component", () => {
       page,
     }) => {
       await mount(
-        <NavigationBarComponent position={position} orientation="top" />
+        <NavigationBarComponent position={position} orientation="top" />,
       );
 
       await expect(navigationBar(page)).toHaveCSS("position", position);
@@ -112,7 +112,7 @@ test.describe("Test props for NavigationBar component", () => {
       page,
     }) => {
       await mount(
-        <NavigationBarComponent position={position} orientation="bottom" />
+        <NavigationBarComponent position={position} orientation="bottom" />,
       );
 
       await expect(navigationBar(page)).toHaveCSS("position", position);
@@ -129,7 +129,7 @@ test.describe("Test props for NavigationBar component", () => {
           offset={`${offset}px`}
           orientation="top"
           position="fixed"
-        />
+        />,
       );
 
       await expect(navigationBar(page)).toHaveCSS("top", `${offset}px`);
@@ -146,7 +146,7 @@ test.describe("Test props for NavigationBar component", () => {
           offset={`${offset}px`}
           orientation="bottom"
           position="fixed"
-        />
+        />,
       );
 
       await expect(navigationBar(page)).toHaveCSS("bottom", `${offset}px`);
@@ -159,7 +159,7 @@ test.describe("Test props for NavigationBar component", () => {
       page,
     }) => {
       await mount(
-        <NavigationBarComponent orientation={orientation} position="fixed" />
+        <NavigationBarComponent orientation={orientation} position="fixed" />,
       );
 
       await expect(navigationBar(page)).toHaveCSS(orientation, "0px");
@@ -211,7 +211,7 @@ test.describe("Test props for NavigationBar component", () => {
                 </Menu>
               </Box>
             </NavigationBar>
-          </div>
+          </div>,
         );
 
         await expect(navigationBar(page).nth(0)).toBeVisible();
@@ -228,7 +228,7 @@ test.describe("Test props for NavigationBar component", () => {
 
         await expect(navigationBar(page).nth(1)).toBeVisible();
       });
-    }
+    },
   );
 
   test.describe("Accessibility tests for NavigationBar component", () => {

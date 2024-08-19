@@ -37,7 +37,7 @@ const DatePickerWithInput = (props: MockProps) => {
 const getWeekdayTranslations = (
   index: number,
   locale: Locale,
-  substringLimit = 3
+  substringLimit = 3,
 ) => {
   const startDay = locale.options?.weekStartsOn || 0;
 
@@ -59,7 +59,7 @@ test("should render the day element that matches the `selectedDate` when prop is
       selectedDays={new Date(2019, 3, 4)}
       setOpen={() => {}}
       open
-    />
+    />,
   );
   const selectedDay = screen.getByRole("gridcell", { name: "Thu 4 Apr 2019" });
 
@@ -73,7 +73,7 @@ test("should render the expected weekday with `aria-disabled=true` attribute whe
       minDate="2019-04-02"
       setOpen={() => {}}
       open
-    />
+    />,
   );
   const disabledDay = screen.getByRole("gridcell", { name: "Mon 1 Apr 2019" });
   const activeDay = screen.getByRole("gridcell", { name: "Tue 2 Apr 2019" });
@@ -89,7 +89,7 @@ test("should not render any of the current month's weekdays with `aria-disabled=
       minDate="2019-04-"
       setOpen={() => {}}
       open
-    />
+    />,
   );
   // need to filter out the weekdays that are not in the current month
   const currentMonthDays = screen.getAllByRole("gridcell", {
@@ -108,7 +108,7 @@ test("should not render any of the current month's weekdays with `aria-disabled=
       minDate=""
       setOpen={() => {}}
       open
-    />
+    />,
   );
   // need to filter out the weekdays that are not in the current month
   const currentMonthDays = screen.getAllByRole("gridcell", {
@@ -127,7 +127,7 @@ test("should render the expected weekday with `aria-disabled=true` attribute whe
       maxDate="2019-04-05"
       setOpen={() => {}}
       open
-    />
+    />,
   );
   const disabledDay = screen.getByRole("gridcell", { name: "Sat 6 Apr 2019" });
   const activeDay = screen.getByRole("gridcell", { name: "Fri 5 Apr 2019" });
@@ -143,7 +143,7 @@ test("should not render any of the current month's weekdays with `aria-disabled=
       maxDate="2019-04-"
       setOpen={() => {}}
       open
-    />
+    />,
   );
   // need to filter out the weekdays that are not in the current month
   const currentMonthDays = screen.getAllByRole("gridcell", {
@@ -162,7 +162,7 @@ test("should not render any of the current month's weekdays with `aria-disabled=
       maxDate=""
       setOpen={() => {}}
       open
-    />
+    />,
   );
   // need to filter out the weekdays that are not in the current month
   const currentMonthDays = screen.getAllByRole("gridcell", {
@@ -184,7 +184,7 @@ test("should not call `onDayClick` callback when a user clicks a disabled day", 
       setOpen={() => {}}
       open
       onDayClick={onDayClick}
-    />
+    />,
   );
   const disabledDay = screen.getByRole("gridcell", { name: "Mon 1 Apr 2019" });
   await user.click(disabledDay);
@@ -201,7 +201,7 @@ test("should call `onDayClick` callback when a user clicks a day that is not dis
       setOpen={() => {}}
       open
       onDayClick={onDayClick}
-    />
+    />,
   );
   const activeDay = screen.getByRole("gridcell", { name: "Tue 2 Apr 2019" });
   await user.click(activeDay);
@@ -213,7 +213,7 @@ test("should render with 'en-GB' translations by default when no `locale` passed
   render(
     <I18nProvider>
       <DatePickerWithInput setOpen={() => {}} open />
-    </I18nProvider>
+    </I18nProvider>,
   );
   const weekdays = screen.getAllByRole("columnheader");
 
@@ -237,7 +237,7 @@ test("should render with 'de-DE' translations when the `locale` is passed via I1
       }}
     >
       <DatePickerWithInput setOpen={() => {}} open />
-    </I18nProvider>
+    </I18nProvider>,
   );
   const weekdays = screen.getAllByRole("columnheader");
 
@@ -263,7 +263,7 @@ test("should render with 'es' translations when the `locale` is passed via I18nP
       }}
     >
       <DatePickerWithInput setOpen={() => {}} open />
-    </I18nProvider>
+    </I18nProvider>,
   );
   const weekdays = screen.getAllByRole("columnheader");
 
@@ -289,7 +289,7 @@ test("should render with 'en-CA' translations when the `locale` is passed via I1
       }}
     >
       <DatePickerWithInput setOpen={() => {}} open />
-    </I18nProvider>
+    </I18nProvider>,
   );
   const weekdays = screen.getAllByRole("columnheader");
 
@@ -315,7 +315,7 @@ test("should render with 'en-US' translations when the `locale` is passed via I1
       }}
     >
       <DatePickerWithInput setOpen={() => {}} open />
-    </I18nProvider>
+    </I18nProvider>,
   );
   const weekdays = screen.getAllByRole("columnheader");
 
@@ -341,7 +341,7 @@ test("should render with 'en-ZA' translations when the `locale` is passed via I1
       }}
     >
       <DatePickerWithInput setOpen={() => {}} open />
-    </I18nProvider>
+    </I18nProvider>,
   );
   const weekdays = screen.getAllByRole("columnheader");
 
@@ -367,7 +367,7 @@ test("should render with 'fr-FR' translations when the `locale` is passed via I1
       }}
     >
       <DatePickerWithInput setOpen={() => {}} open />
-    </I18nProvider>
+    </I18nProvider>,
   );
   const weekdays = screen.getAllByRole("columnheader");
 
@@ -393,7 +393,7 @@ test("should render with 'fr-CA' translations when the `locale` is passed via I1
       }}
     >
       <DatePickerWithInput setOpen={() => {}} open />
-    </I18nProvider>
+    </I18nProvider>,
   );
   const weekdays = screen.getAllByRole("columnheader");
 

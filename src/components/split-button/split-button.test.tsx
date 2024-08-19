@@ -53,13 +53,13 @@ test("should render with only the main and toggle buttons visible when only requ
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   expect(screen.getByRole("button", { name: "Main" })).toBeVisible();
   expect(screen.getByRole("button", { name: "Show more" })).toBeVisible();
   expect(
-    screen.queryByRole("button", { name: "Single Button" })
+    screen.queryByRole("button", { name: "Single Button" }),
   ).not.toBeInTheDocument();
 });
 
@@ -68,7 +68,7 @@ test("should render with the main, toggle and child buttons visible when require
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = await screen.findByRole("button", { name: "Show more" });
@@ -86,7 +86,7 @@ test("should render with the main, toggle and multiple child buttons visible whe
       <Button key="testKey1">Extra Button 1</Button>
       <Button key="testKey2">Extra Button 2</Button>
       <Button key="testKey3">Extra Button 3</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -95,25 +95,24 @@ test("should render with the main, toggle and multiple child buttons visible whe
   expect(screen.getByRole("button", { name: "Main" })).toBeVisible();
   expect(toggle).toBeVisible();
   expect(
-    await screen.findByRole("button", { name: "Extra Button 1" })
+    await screen.findByRole("button", { name: "Extra Button 1" }),
   ).toBeVisible();
   expect(
-    await screen.findByRole("button", { name: "Extra Button 2" })
+    await screen.findByRole("button", { name: "Extra Button 2" }),
   ).toBeVisible();
   expect(
-    await screen.findByRole("button", { name: "Extra Button 3" })
+    await screen.findByRole("button", { name: "Extra Button 3" }),
   ).toBeVisible();
 });
 
 test("should render with the correct styles when 'size' is 'small''", async () => {
-  const { fontSize, minHeight, paddingLeft, paddingRight } = buildSizeConfig(
-    "small"
-  );
+  const { fontSize, minHeight, paddingLeft, paddingRight } =
+    buildSizeConfig("small");
   const user = userEvent.setup();
   render(
     <SplitButton text="Main" size="small">
       <Button size="small">Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -140,14 +139,13 @@ test("should render with the correct styles when 'size' is 'small''", async () =
 });
 
 test("should render with the correct styles when 'size' is 'medium''", async () => {
-  const { fontSize, minHeight, paddingLeft, paddingRight } = buildSizeConfig(
-    "medium"
-  );
+  const { fontSize, minHeight, paddingLeft, paddingRight } =
+    buildSizeConfig("medium");
   const user = userEvent.setup();
   render(
     <SplitButton text="Main" size="medium">
       <Button size="medium">Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -174,14 +172,13 @@ test("should render with the correct styles when 'size' is 'medium''", async () 
 });
 
 test("should render with the correct styles when 'size' is 'large''", async () => {
-  const { fontSize, minHeight, paddingLeft, paddingRight } = buildSizeConfig(
-    "large"
-  );
+  const { fontSize, minHeight, paddingLeft, paddingRight } =
+    buildSizeConfig("large");
   const user = userEvent.setup();
   render(
     <SplitButton text="Main" size="large">
       <Button size="large">Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -211,7 +208,7 @@ test("should have correct default aria-label when no prop passed", () => {
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   expect(screen.getByLabelText("Show more")).toBeInTheDocument();
@@ -221,7 +218,7 @@ test("should render custom aria-label when 'aria-label' prop is passed", () => {
   render(
     <SplitButton text="Main" aria-label="Show more options">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   expect(screen.getByLabelText("Show more options")).toBeInTheDocument();
@@ -235,7 +232,7 @@ test("should render with custom aria-label set via 'locale'", () => {
       <SplitButton text="Main">
         <Button>Single Button</Button>
       </SplitButton>
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   expect(screen.getByLabelText("Show more options")).toBeInTheDocument();
@@ -245,7 +242,7 @@ test("should render with the correct data attributes on container", () => {
   render(
     <SplitButton text="Main" data-element="bar" data-role="baz">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const splitButton = screen.getByTestId("baz");
@@ -258,7 +255,7 @@ test("should render with the correct data attributes on the main button", () => 
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const mainButton = screen.getByRole("button", { name: "Main" });
@@ -270,7 +267,7 @@ test("should render with correct data attributes on the toggle button element", 
   render(
     <SplitButton text="Main" data-element="bar" data-role="baz">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -283,7 +280,7 @@ test("should render with correct data attributes on the additional button elemen
   render(
     <SplitButton text="Main" data-element="bar" data-role="baz">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -292,7 +289,7 @@ test("should render with correct data attributes on the additional button elemen
 
   expect(additionalButtons).toHaveAttribute(
     "data-element",
-    "additional-buttons"
+    "additional-buttons",
   );
 });
 
@@ -300,12 +297,12 @@ test("should render with custom id when 'id' prop is passed", () => {
   render(
     <SplitButton text="Main" id="custom-id">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   expect(screen.getByRole("button", { name: "Main" })).toHaveAttribute(
     "id",
-    "custom-id"
+    "custom-id",
   );
 });
 
@@ -313,11 +310,11 @@ test("should render with custom class when 'className' prop is passed", () => {
   render(
     <SplitButton text="Main" className="custom-class">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   expect(screen.getByRole("button", { name: "Main" })).toHaveClass(
-    "custom-class"
+    "custom-class",
   );
 });
 
@@ -325,7 +322,7 @@ test("should render with disabled state when 'disabled' prop is passed", () => {
   render(
     <SplitButton text="Main" disabled>
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   expect(screen.getByRole("button", { name: "Main" })).toBeDisabled();
@@ -345,7 +342,7 @@ test("should render with the correct styles when 'buttonType' prop is 'primary' 
   render(
     <SplitButton text="Main" buttonType="primary">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   expect(screen.getByRole("button", { name: "Show more" })).toHaveStyle({
@@ -357,7 +354,7 @@ test("should render with the correct styles when 'buttonType' prop is 'primary' 
   render(
     <SplitButton text="Main" buttonType="primary" disabled>
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   expect(screen.getByRole("button", { name: "Show more" })).not.toHaveStyle({
@@ -370,7 +367,7 @@ test("should render additional button text with align set to 'left'", async () =
   render(
     <SplitButton text="Main" align="left">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
@@ -385,7 +382,7 @@ test("should render additional button text with align set to 'right'", async () 
   render(
     <SplitButton text="Main" align="right">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
@@ -400,7 +397,7 @@ test("should render the child buttons when a click event detected on toggle butt
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
@@ -416,7 +413,7 @@ test("should not render the child buttons when a click event detected on toggle 
   render(
     <SplitButton text="Main" disabled>
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
@@ -430,7 +427,7 @@ test("should render the child buttons when a 'Enter' keydown event detected and 
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -449,7 +446,7 @@ test("should render the child buttons when a ' ' (space) keydown event detected 
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
   const toggle = screen.getByRole("button", { name: "Show more" });
   toggle.focus();
@@ -466,7 +463,7 @@ test("should not hide the additional buttons when already open and 'Enter' key p
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -485,7 +482,7 @@ test("should not hide the additional buttons when already open and ' ' (space) k
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -504,7 +501,7 @@ test("should render the child buttons when a 'ArrowDown' keydown event detected 
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = await screen.findByRole("button", { name: "Show more" });
@@ -521,7 +518,7 @@ test("should render the child buttons when a 'ArrowUp' keydown event detected an
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = await screen.findByRole("button", { name: "Show more" });
@@ -538,7 +535,7 @@ test("should not render the child buttons when a keydown event detected with unr
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = await screen.findByRole("button", { name: "Show more" });
@@ -556,7 +553,7 @@ test("should not render the child buttons when a 'Enter' keydown event detected 
   render(
     <SplitButton text="Main" onKeyDown={onKeyDownMock}>
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const main = await screen.findByRole("button", { name: "Main" });
@@ -566,7 +563,7 @@ test("should not render the child buttons when a 'Enter' keydown event detected 
   await user.keyboard("{Enter}");
   expect(onKeyDownMock).toHaveBeenCalled();
   expect(
-    screen.queryByRole("button", { name: "Single Button" })
+    screen.queryByRole("button", { name: "Single Button" }),
   ).not.toBeInTheDocument();
 });
 
@@ -576,7 +573,7 @@ test("should not render the child buttons when a 'Space' keydown event detected 
   render(
     <SplitButton text="Main" onKeyDown={onKeyDownMock}>
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const main = await screen.findByRole("button", { name: "Main" });
@@ -586,7 +583,7 @@ test("should not render the child buttons when a 'Space' keydown event detected 
   await user.keyboard("{space}");
   expect(onKeyDownMock).toHaveBeenCalled();
   expect(
-    screen.queryByRole("button", { name: "Single Button" })
+    screen.queryByRole("button", { name: "Single Button" }),
   ).not.toBeInTheDocument();
 });
 
@@ -596,7 +593,7 @@ test("should not render the child buttons when main button is clicked", async ()
   render(
     <SplitButton text="Main" onClick={onClickMock}>
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const main = await screen.findByRole("button", { name: "Main" });
@@ -604,7 +601,7 @@ test("should not render the child buttons when main button is clicked", async ()
 
   expect(onClickMock).toHaveBeenCalled();
   expect(
-    screen.queryByRole("button", { name: "Single Button" })
+    screen.queryByRole("button", { name: "Single Button" }),
   ).not.toBeInTheDocument();
 });
 
@@ -614,7 +611,7 @@ test("should not call the `onClick` handle when main button is clicked whilst di
   render(
     <SplitButton text="Main" onClick={onClickMock} disabled>
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   await user.click(screen.getByRole("button", { name: "Main" }));
@@ -627,7 +624,7 @@ test("should hide the additional buttons when a click event detected outside the
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -644,7 +641,7 @@ test("should hide the additional buttons when a 'Escape' keydown event detected 
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -665,7 +662,7 @@ test("should hide the additional buttons when a 'Escape' keydown event detected 
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = await screen.findByRole("button", { name: "Show more" });
@@ -684,7 +681,7 @@ test("should render with the correct styles when 'align' prop is 'right'", async
   render(
     <SplitButton text="Main" align="right">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -706,7 +703,7 @@ test("should render with the correct styles when 'align' prop is 'left'", async 
   render(
     <SplitButton text="Main" align="left">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -729,7 +726,7 @@ test("should call the relevant 'onClick' callback and hide the additional button
   render(
     <SplitButton text="Main" onClick={onClickMock}>
       <Button onClick={onClickOnChildMock}>Child Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = await screen.findByRole("button", { name: "Show more" });
@@ -748,7 +745,7 @@ test("should hide the additional buttons when the main button is clicked", async
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -772,7 +769,7 @@ test("should support navigating the additional buttons via down arrow key but st
       <Button key="testKey1">Extra Button 1</Button>
       <Button key="testKey2">Extra Button 2</Button>
       <Button key="testKey3">Extra Button 3</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -804,7 +801,7 @@ test("should support navigating the additional buttons via up arrow key but stop
       <Button key="testKey1">Extra Button 1</Button>
       <Button key="testKey2">Extra Button 2</Button>
       <Button key="testKey3">Extra Button 3</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -838,7 +835,7 @@ test("should support navigating to the last child button via end key", async () 
       <Button key="testKey1">Extra Button 1</Button>
       <Button key="testKey2">Extra Button 2</Button>
       <Button key="testKey3">Extra Button 3</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -863,7 +860,7 @@ test("should support navigating to the first child button via home key", async (
       <Button key="testKey1">Extra Button 1</Button>
       <Button key="testKey2">Extra Button 2</Button>
       <Button key="testKey3">Extra Button 3</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -890,7 +887,7 @@ test("should support navigating the additional buttons via tab key and hide the 
       <Button key="testKey1">Extra Button 1</Button>
       <Button key="testKey2">Extra Button 2</Button>
       <Button key="testKey3">Extra Button 3</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
@@ -923,7 +920,7 @@ test("should support navigating the additional buttons via shift+tab key, hide t
       <Button key="testKey1">Extra Button 1</Button>
       <Button key="testKey2">Extra Button 2</Button>
       <Button key="testKey3">Extra Button 3</Button>
-    </SplitButton>
+    </SplitButton>,
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });

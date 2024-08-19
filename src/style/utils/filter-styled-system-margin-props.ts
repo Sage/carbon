@@ -19,7 +19,7 @@ export const marginPropertyNames = [
 ];
 
 export default function filterStyledSystemMarginProps(
-  originalObject: Record<string, unknown> | MarginProps
+  originalObject: Record<string, unknown> | MarginProps,
 ): MarginProps {
   return filterObjectProperties(originalObject, marginPropertyNames);
 }

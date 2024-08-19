@@ -7,7 +7,7 @@ type FixedNavigationBarContextProps = {
 };
 
 const FixedNavigationBarContext = createContext<FixedNavigationBarContextProps>(
-  {}
+  {},
 );
 
 export interface FixedNavigationBarContextProviderProps
@@ -26,12 +26,12 @@ export const FixedNavigationBarContextProvider = ({
   navbarRef,
 }: FixedNavigationBarContextProviderProps) => {
   const [navbarHeight, setNavbarHeight] = useState(
-    navbarRef.current?.offsetHeight
+    navbarRef.current?.offsetHeight,
   );
 
   const updateHeight = useCallback(
     () => setNavbarHeight(navbarRef.current?.offsetHeight),
-    [navbarRef]
+    [navbarRef],
   );
 
   useEffect(() => {

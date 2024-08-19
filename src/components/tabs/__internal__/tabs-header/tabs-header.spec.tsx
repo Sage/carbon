@@ -17,7 +17,7 @@ function render(props: Partial<TabHeaderProps> = {}, renderer: any = shallow) {
     <TabsHeader {...props}>
       <TabTitle title="title-1" onClick={() => {}} onKeyDown={() => {}} />
       <TabTitle title="title-2" onClick={() => {}} onKeyDown={() => {}} />
-    </TabsHeader>
+    </TabsHeader>,
   );
 }
 
@@ -34,7 +34,7 @@ describe("TabsHeader", () => {
         listStyle: "none",
         padding: "3px",
       },
-      renderStyles()
+      renderStyles(),
     );
   });
 
@@ -44,7 +44,7 @@ describe("TabsHeader", () => {
 
   it("has the role of a role prop value", () => {
     expect(
-      render({ role: "tablist" }).find(StyledTabsHeaderList).props().role
+      render({ role: "tablist" }).find(StyledTabsHeaderList).props().role,
     ).toEqual("tablist");
   });
 
@@ -57,7 +57,7 @@ describe("TabsHeader", () => {
           flexDirection: "column",
           boxShadow: `none`,
         },
-        wrapper.find(StyledTabsHeaderList)
+        wrapper.find(StyledTabsHeaderList),
       );
 
       assertStyleMatch(
@@ -66,7 +66,7 @@ describe("TabsHeader", () => {
           overflowY: "auto",
           padding: "3px",
         },
-        wrapper.find(StyledTabsHeaderWrapper)
+        wrapper.find(StyledTabsHeaderWrapper),
       );
     });
 
@@ -75,7 +75,7 @@ describe("TabsHeader", () => {
         {
           boxShadow: "none",
         },
-        renderStyles({ position: "left", noRightBorder: true })
+        renderStyles({ position: "left", noRightBorder: true }),
       );
     });
 
@@ -99,7 +99,7 @@ describe("TabsHeader", () => {
           justifyContent: "flex-end",
           textAlign: "right",
         },
-        renderStyles({ align: "right" })
+        renderStyles({ align: "right" }),
       );
     });
 
@@ -108,7 +108,7 @@ describe("TabsHeader", () => {
         {
           justifyContent: "flex-start",
         },
-        renderStyles({ position: "left", align: "right" })
+        renderStyles({ position: "left", align: "right" }),
       );
     });
   });
@@ -119,7 +119,7 @@ describe("TabsHeader", () => {
         {
           width: "fit-content",
         },
-        renderStyles({ extendedLine: false })
+        renderStyles({ extendedLine: false }),
       );
     });
   });
@@ -130,7 +130,7 @@ describe("TabsHeader", () => {
       {
         minWidth: "100%",
       },
-      wrapper.find(StyledTabsHeaderWrapper)
+      wrapper.find(StyledTabsHeaderWrapper),
     );
   });
 
@@ -183,7 +183,7 @@ describe("TabsHeader", () => {
             marginRight: "-16px",
           },
           list,
-          { modifier: ":before" }
+          { modifier: ":before" },
         );
 
         assertStyleMatch(
@@ -204,7 +204,7 @@ describe("TabsHeader", () => {
             marginLeft: "-16px",
           },
           list,
-          { modifier: ":after" }
+          { modifier: ":after" },
         );
       });
 
@@ -235,9 +235,9 @@ describe("TabsHeader", () => {
               opacity,
             },
             list,
-            { modifier: ":before" }
+            { modifier: ":before" },
           );
-        }
+        },
       );
 
       it.each([
@@ -267,9 +267,9 @@ describe("TabsHeader", () => {
               opacity,
             },
             list,
-            { modifier: ":after" }
+            { modifier: ":after" },
           );
-        }
+        },
       );
     });
 

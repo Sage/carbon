@@ -20,9 +20,10 @@ export const TopModalProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     return () => {
-      window.__CARBON_INTERNALS_MODAL_SETTER_LIST = window.__CARBON_INTERNALS_MODAL_SETTER_LIST?.filter(
-        (setter) => setter !== setTopModal
-      );
+      window.__CARBON_INTERNALS_MODAL_SETTER_LIST =
+        window.__CARBON_INTERNALS_MODAL_SETTER_LIST?.filter(
+          (setter) => setter !== setTopModal,
+        );
     };
   }, []);
 

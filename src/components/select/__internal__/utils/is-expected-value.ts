@@ -1,6 +1,6 @@
 export default function isExpectedValue(
   currentValue: string | Record<string, unknown>,
-  expectedValue: string | Record<string, unknown>
+  expectedValue: string | Record<string, unknown>,
 ) {
   if (
     typeof currentValue === "object" &&

@@ -22,7 +22,7 @@ export const DefaultStory = ({
   ...args
 }: Omit<NoteProps, "noteContent">) => {
   const noteContent = EditorState.createWithContent(
-    ContentState.createFromText("Here is some plain text content")
+    ContentState.createFromText("Here is some plain text content"),
   );
   return (
     <Note
@@ -55,7 +55,7 @@ export const InlineControlMenuButton = ({
   const blocksFromHTML = convertFromHTML(html);
   const content = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap
+    blocksFromHTML.entityMap,
   );
   const noteContent = EditorState.createWithContent(content);
 

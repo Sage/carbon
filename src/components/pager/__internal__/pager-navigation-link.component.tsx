@@ -19,13 +19,13 @@ interface PagerNavigationLinkProps {
   onClick?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** onPagination Callback to process pagination  */
   onPagination?: (
     pageSize: number,
     currentPage: number,
-    origin: string
+    origin: string,
   ) => void;
 }
 
@@ -80,7 +80,7 @@ const PagerNavigationLink = ({
   const handleOnClick = (
     ev:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => {
     onClick?.(ev);
     onPagination?.(navLinkConfig[type].destination, pageSize, type);

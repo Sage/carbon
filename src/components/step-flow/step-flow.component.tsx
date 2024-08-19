@@ -46,7 +46,7 @@ export interface StepFlowProps extends MarginProps, TagProps {
   onDismiss?: (
     e:
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
 }
 
@@ -68,11 +68,11 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
       onDismiss,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const totalStepsArray = Array.from(
       { length: totalSteps },
-      (_, index) => index + 1
+      (_, index) => index + 1,
     );
 
     const validatedCurrentStep =
@@ -87,14 +87,14 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
       console.warn(
         "[WARNING] The `currentStep` prop should not be higher than the `totalSteps`prop in `StepFlow`." +
           " Please ensure `currentStep`s value does not exceed that of `totalSteps`, in the meantime" +
-          " we have set `currentStep` value to that of `totalSteps`, and all indicators have been marked as completed."
+          " we have set `currentStep` value to that of `totalSteps`, and all indicators have been marked as completed.",
       );
     }
     if (!noRefWarnTriggered && !ref) {
       noRefWarnTriggered = true;
       console.warn(
         "[WARNING] A `ref` should be provided to ensure focus is programmatically focused back to a title div," +
-          " this ensures screen reader users are informed regarding any changes and can navigate back down the page."
+          " this ensures screen reader users are informed regarding any changes and can navigate back down the page.",
       );
     }
 
@@ -145,7 +145,7 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
           titleRef.current?.focus();
         },
       }),
-      []
+      [],
     );
 
     const stepFlowTitle = (
@@ -216,7 +216,7 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
         )}
       </StyledStepFlow>
     );
-  }
+  },
 );
 
 export default StepFlow;

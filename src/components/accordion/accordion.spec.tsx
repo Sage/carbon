@@ -39,7 +39,7 @@ function expectIsExpanded(wrapper: ReactWrapper) {
     {
       transform: "rotate(180deg)",
     },
-    wrapper.find(StyledAccordionIcon)
+    wrapper.find(StyledAccordionIcon),
   );
   assertStyleMatch(
     {
@@ -47,7 +47,7 @@ function expectIsExpanded(wrapper: ReactWrapper) {
       maxHeight: `${contentHeight}px`,
       height: `${contentHeight}px`,
     },
-    wrapper.find(StyledAccordionContentContainer)
+    wrapper.find(StyledAccordionContentContainer),
   );
 }
 
@@ -56,7 +56,7 @@ function expectIsCollapsed(wrapper: ReactWrapper) {
     {
       transform: "rotate(0deg)",
     },
-    wrapper.find(StyledAccordionIcon)
+    wrapper.find(StyledAccordionIcon),
   );
   assertStyleMatch(
     {
@@ -64,14 +64,14 @@ function expectIsCollapsed(wrapper: ReactWrapper) {
       maxHeight: "0px",
       height: "0px",
     },
-    wrapper.find(StyledAccordionContentContainer)
+    wrapper.find(StyledAccordionContentContainer),
   );
 }
 
 testStyledSystemSpacing(
   (props) => <Accordion {...props} title="foo" />,
   {},
-  (wrapper: ReactWrapper) => wrapper.find(StyledAccordionContainer)
+  (wrapper: ReactWrapper) => wrapper.find(StyledAccordionContainer),
 );
 
 describe("Accordion", () => {
@@ -79,14 +79,14 @@ describe("Accordion", () => {
 
   const render = (
     props?: Pick<Partial<AccordionProps>, "title"> &
-      Omit<AccordionProps, "title">
+      Omit<AccordionProps, "title">,
   ) => {
     wrapper = mount(<Accordion title="Title" {...props} />);
     jest
       .spyOn(
         wrapper.find(StyledAccordionContent).getDOMNode(),
         "scrollHeight",
-        "get"
+        "get",
       )
       .mockImplementation(() => contentHeight);
   };
@@ -114,7 +114,7 @@ describe("Accordion", () => {
       render({ scheme: "transparent" });
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "The `scheme` prop for `Accordion` component is deprecated and will soon be removed."
+        "The `scheme` prop for `Accordion` component is deprecated and will soon be removed.",
       );
       expect(loggerSpy).toHaveBeenCalledTimes(1);
     });
@@ -123,7 +123,7 @@ describe("Accordion", () => {
       render({ buttonHeading: true });
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "The `buttonHeading` prop for `Accordion` component is deprecated and will soon be removed. Please use `subtle` variant instead."
+        "The `buttonHeading` prop for `Accordion` component is deprecated and will soon be removed. Please use `subtle` variant instead.",
       );
       expect(loggerSpy).toHaveBeenCalledTimes(1);
     });
@@ -136,7 +136,7 @@ describe("Accordion", () => {
       {
         padding: "0",
       },
-      wrapper.find(StyledAccordionContent)
+      wrapper.find(StyledAccordionContent),
     );
   });
 
@@ -157,7 +157,7 @@ describe("Accordion", () => {
         {
           padding: "var(--spacing300)",
         },
-        wrapper.find(StyledAccordionTitleContainer)
+        wrapper.find(StyledAccordionTitleContainer),
       );
     });
   });
@@ -193,7 +193,7 @@ describe("Accordion", () => {
         const ev = { key };
         wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")(ev);
         expect(onChange).toHaveBeenCalledWith(ev, true);
-      }
+      },
     );
   });
 
@@ -224,23 +224,27 @@ describe("Accordion", () => {
       "toggles expansion state when pressing %s key on the header area",
       (keyName, key) => {
         act(() =>
-          wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")({ key })
+          wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")({
+            key,
+          }),
         );
         wrapper.update();
         expectIsExpanded(wrapper);
         act(() =>
-          wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")({ key })
+          wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")({
+            key,
+          }),
         );
         wrapper.update();
         expectIsCollapsed(wrapper);
-      }
+      },
     );
 
     it("does not toggle expansion state when keys other than enter or space pressed on the header area", () => {
       act(() =>
         wrapper.find(StyledAccordionTitleContainer).prop("onKeyDown")({
           key: "a",
-        })
+        }),
       );
       wrapper.update();
       expectIsCollapsed(wrapper);
@@ -256,7 +260,7 @@ describe("Accordion", () => {
           {
             maxHeight: `${contentHeight}px`,
           },
-          wrapper.find(StyledAccordionContentContainer)
+          wrapper.find(StyledAccordionContentContainer),
         );
 
         const newContentHeight = 400;
@@ -265,7 +269,7 @@ describe("Accordion", () => {
           .spyOn(
             wrapper.find(StyledAccordionContent).getDOMNode(),
             "scrollHeight",
-            "get"
+            "get",
           )
           .mockImplementation(() => newContentHeight);
 
@@ -287,7 +291,7 @@ describe("Accordion", () => {
           {
             maxHeight: `${newContentHeight}px`,
           },
-          wrapper.find(StyledAccordionContentContainer)
+          wrapper.find(StyledAccordionContentContainer),
         );
       });
     });
@@ -302,7 +306,7 @@ describe("Accordion", () => {
           justifyContent: "flex-end",
           flexDirection: "row-reverse",
         },
-        wrapper.find(StyledAccordionTitleContainer)
+        wrapper.find(StyledAccordionTitleContainer),
       );
     });
 
@@ -311,7 +315,7 @@ describe("Accordion", () => {
         {
           justifyContent: "space-between",
         },
-        wrapper.find(StyledAccordionTitleContainer)
+        wrapper.find(StyledAccordionTitleContainer),
       );
     });
 
@@ -323,7 +327,7 @@ describe("Accordion", () => {
           borderLeft: "none",
           borderRight: "none",
         },
-        wrapper.find(StyledAccordionContainer)
+        wrapper.find(StyledAccordionContainer),
       );
     });
 
@@ -336,7 +340,7 @@ describe("Accordion", () => {
           borderLeft: "none",
           borderRight: "none",
         },
-        wrapper.find(StyledAccordionContainer)
+        wrapper.find(StyledAccordionContainer),
       );
     });
 
@@ -346,7 +350,7 @@ describe("Accordion", () => {
         {
           border: "1px solid var(--colorsUtilityMajor100)",
         },
-        wrapper.find(StyledAccordionContainer)
+        wrapper.find(StyledAccordionContainer),
       );
     });
 
@@ -356,7 +360,7 @@ describe("Accordion", () => {
         {
           border: "none",
         },
-        wrapper.find(StyledAccordionContainer)
+        wrapper.find(StyledAccordionContainer),
       );
     });
 
@@ -366,7 +370,7 @@ describe("Accordion", () => {
         {
           transform: "rotate(180deg)",
         },
-        wrapper.find(StyledAccordionIcon)
+        wrapper.find(StyledAccordionIcon),
       );
     });
 
@@ -376,7 +380,7 @@ describe("Accordion", () => {
         {
           transform: "rotate(-180deg)",
         },
-        wrapper.find(StyledAccordionIcon)
+        wrapper.find(StyledAccordionIcon),
       );
     });
 
@@ -385,7 +389,7 @@ describe("Accordion", () => {
         {
           visibility: "hidden",
         },
-        wrapper.find(StyledAccordionContentContainer)
+        wrapper.find(StyledAccordionContentContainer),
       );
     });
 
@@ -396,7 +400,7 @@ describe("Accordion", () => {
         {
           marginTop: "8px",
         },
-        subTitle
+        subTitle,
       );
       expect(subTitle.text()).toEqual("A sub title");
     });
@@ -412,7 +416,7 @@ describe("Accordion", () => {
         {
           padding: "var(--spacing300)",
         },
-        wrapper.find(StyledAccordionTitleContainer)
+        wrapper.find(StyledAccordionTitleContainer),
       );
     });
 
@@ -422,7 +426,7 @@ describe("Accordion", () => {
         {
           width: "500px",
         },
-        wrapper.find(StyledAccordionContainer)
+        wrapper.find(StyledAccordionContainer),
       );
     });
 
@@ -432,7 +436,7 @@ describe("Accordion", () => {
         (status) => {
           wrapper = mount(<Accordion title="Title" {...status} />);
           expect(wrapper.find(ValidationIcon).exists()).toEqual(true);
-        }
+        },
       );
 
       it("applies expected styling when the icon is not rendered", () => {
@@ -443,7 +447,7 @@ describe("Accordion", () => {
             display: "grid",
             gridTemplateRows: "auto auto",
           },
-          wrapper.find(StyledAccordionHeadingsContainer)
+          wrapper.find(StyledAccordionHeadingsContainer),
         );
       });
 
@@ -455,7 +459,7 @@ describe("Accordion", () => {
             display: "grid",
             gridTemplateColumns: "min-content auto",
           },
-          wrapper.find(StyledAccordionHeadingsContainer)
+          wrapper.find(StyledAccordionHeadingsContainer),
         );
 
         assertStyleMatch(
@@ -463,7 +467,7 @@ describe("Accordion", () => {
             gridColumn: "span 3",
           },
           wrapper.find(StyledAccordionHeadingsContainer),
-          { modifier: `${StyledAccordionSubTitle}` }
+          { modifier: `${StyledAccordionSubTitle}` },
         );
 
         assertStyleMatch(
@@ -473,7 +477,7 @@ describe("Accordion", () => {
             top: "2px",
           },
           wrapper.find(StyledAccordionHeadingsContainer),
-          { modifier: `${StyledValidationIcon}` }
+          { modifier: `${StyledValidationIcon}` },
         );
 
         assertStyleMatch(
@@ -482,7 +486,7 @@ describe("Accordion", () => {
           },
           wrapper
             .find(StyledAccordionHeadingsContainer)
-            .find(StyledValidationIcon)
+            .find(StyledValidationIcon),
         );
       });
     });
@@ -491,7 +495,7 @@ describe("Accordion", () => {
   describe("when buttonHeading set", () => {
     it("should apply the expected styling", () => {
       wrapper = mount(<Accordion title="Title" buttonHeading />).find(
-        StyledAccordionTitleContainer
+        StyledAccordionTitleContainer,
       );
 
       assertStyleMatch(
@@ -504,7 +508,7 @@ describe("Accordion", () => {
           color: "var(--colorsActionMajor500)",
           width: "150px",
         },
-        wrapper
+        wrapper,
       );
 
       assertStyleMatch(
@@ -512,7 +516,7 @@ describe("Accordion", () => {
           color: "var(--colorsActionMajor500)",
         },
         wrapper,
-        { modifier: `${StyledAccordionIcon}` }
+        { modifier: `${StyledAccordionIcon}` },
       );
 
       assertStyleMatch(
@@ -520,7 +524,7 @@ describe("Accordion", () => {
           color: "var(--colorsActionMajor600)",
         },
         wrapper,
-        { modifier: "&:hover" }
+        { modifier: "&:hover" },
       );
 
       assertStyleMatch(
@@ -528,7 +532,7 @@ describe("Accordion", () => {
           color: "var(--colorsActionMajor600)",
         },
         wrapper,
-        { modifier: `&:hover ${StyledAccordionIcon}` }
+        { modifier: `&:hover ${StyledAccordionIcon}` },
       );
     });
 
@@ -543,7 +547,7 @@ describe("Accordion", () => {
             title="Title"
             buttonHeading
             iconAlign={iconPosition as iconAlign}
-          />
+          />,
         ).find(StyledAccordionTitleContainer);
 
         assertStyleMatch(
@@ -551,7 +555,7 @@ describe("Accordion", () => {
             marginLeft: marginValue,
           },
           wrapper,
-          { modifier: `${StyledAccordionHeadingsContainer}` }
+          { modifier: `${StyledAccordionHeadingsContainer}` },
         );
 
         assertStyleMatch(
@@ -560,9 +564,9 @@ describe("Accordion", () => {
             [iconPosition]: "16px",
           },
           wrapper,
-          { modifier: `${StyledAccordionIcon}` }
+          { modifier: `${StyledAccordionIcon}` },
         );
-      }
+      },
     );
 
     describe("sets the width of the button to the value passed in via the buttonWidth prop", () => {
@@ -574,16 +578,16 @@ describe("Accordion", () => {
               title="Title"
               buttonHeading
               buttonWidth={mockButtonWidth}
-            />
+            />,
           ).find(StyledAccordionTitleContainer);
 
           assertStyleMatch(
             {
               width: `${mockButtonWidth}`,
             },
-            wrapper
+            wrapper,
           );
-        }
+        },
       );
 
       it("when passed as a number", () => {
@@ -593,14 +597,14 @@ describe("Accordion", () => {
             title="Title"
             buttonHeading
             buttonWidth={mockButtonWidth}
-          />
+          />,
         ).find(StyledAccordionTitleContainer);
 
         assertStyleMatch(
           {
             width: `${mockButtonWidth}px`,
           },
-          wrapper
+          wrapper,
         );
       });
     });
@@ -608,7 +612,7 @@ describe("Accordion", () => {
     describe("when openTitle prop set", () => {
       it("should display the title when closed", () => {
         wrapper = mount(
-          <Accordion title="Title" buttonHeading openTitle="Less info" />
+          <Accordion title="Title" buttonHeading openTitle="Less info" />,
         ).find(StyledAccordionTitleContainer);
         expect(wrapper.text()).toEqual("Title");
       });
@@ -620,7 +624,7 @@ describe("Accordion", () => {
             buttonHeading
             openTitle="Less info"
             expanded
-          />
+          />,
         ).find(StyledAccordionTitleContainer);
         expect(wrapper.text()).toEqual("Less info");
       });
@@ -629,7 +633,7 @@ describe("Accordion", () => {
     describe("when openTitle prop false", () => {
       it("should display the title when open", () => {
         wrapper = mount(
-          <Accordion title="Title" buttonHeading expanded />
+          <Accordion title="Title" buttonHeading expanded />,
         ).find(StyledAccordionTitleContainer);
         expect(wrapper.text()).toEqual("Title");
       });
@@ -641,7 +645,7 @@ describe("Accordion", () => {
       wrapper = mount(<Accordion title="Title" data-role="role" />);
 
       expect(wrapper.find(StyledAccordionContainer).props()["data-role"]).toBe(
-        "role"
+        "role",
       );
     });
   });
@@ -656,7 +660,7 @@ describe("Accordion", () => {
         {
           border: "none",
         },
-        wrapper.find(StyledAccordionContainer)
+        wrapper.find(StyledAccordionContainer),
       );
 
       assertStyleMatch(
@@ -664,7 +668,7 @@ describe("Accordion", () => {
           color: "var(--colorsActionMajor500)",
           padding: "var(--spacing025)",
         },
-        titleContainer
+        titleContainer,
       );
 
       assertStyleMatch(
@@ -673,7 +677,7 @@ describe("Accordion", () => {
           marginRight: "var(--spacing050)",
         },
         titleContainer,
-        { modifier: `${StyledAccordionIcon}` }
+        { modifier: `${StyledAccordionIcon}` },
       );
 
       assertStyleMatch(
@@ -681,7 +685,7 @@ describe("Accordion", () => {
           color: "var(--colorsActionMajor600)",
         },
         titleContainer,
-        { modifier: "&:hover" }
+        { modifier: "&:hover" },
       );
 
       assertStyleMatch(
@@ -689,7 +693,7 @@ describe("Accordion", () => {
           color: "var(--colorsActionMajor600)",
         },
         titleContainer,
-        { modifier: `&:hover ${StyledAccordionIcon}` }
+        { modifier: `&:hover ${StyledAccordionIcon}` },
       );
     });
 
@@ -701,7 +705,7 @@ describe("Accordion", () => {
         {
           marginBottom: "var(--spacing200)",
         },
-        wrapper.find(StyledAccordionTitleContainer)
+        wrapper.find(StyledAccordionTitleContainer),
       );
 
       assertStyleMatch(
@@ -710,7 +714,7 @@ describe("Accordion", () => {
           padding: "var(--spacing100) var(--spacing200) var(--spacing300)",
           borderLeft: "2px solid var(--colorsUtilityMajor100)",
         },
-        wrapper.find(StyledAccordionContent)
+        wrapper.find(StyledAccordionContent),
       );
     });
   });
@@ -745,7 +749,7 @@ describe("AccordionGroup", () => {
           />
         </Accordion>
       </AccordionGroup>,
-      { attachTo: document.getElementById("enzymeContainer") }
+      { attachTo: document.getElementById("enzymeContainer") },
     );
   };
 
@@ -787,12 +791,12 @@ describe("AccordionGroup", () => {
     "focuses on the next Accordion in a loop when down arrow is pressed",
     (focused, shouldBeFocused) => {
       simulate.keydown.pressArrowDown(
-        wrapper.find(StyledAccordionTitleContainer).at(focused)
+        wrapper.find(StyledAccordionTitleContainer).at(focused),
       );
       expect(
-        wrapper.find(StyledAccordionTitleContainer).at(shouldBeFocused)
+        wrapper.find(StyledAccordionTitleContainer).at(shouldBeFocused),
       ).toBeFocused();
-    }
+    },
   );
 
   it.each([
@@ -804,12 +808,12 @@ describe("AccordionGroup", () => {
     "focuses on the previous Accordion in a loop when up arrow is pressed",
     (focused, shouldBeFocused) => {
       simulate.keydown.pressArrowUp(
-        wrapper.find(StyledAccordionTitleContainer).at(focused)
+        wrapper.find(StyledAccordionTitleContainer).at(focused),
       );
       expect(
-        wrapper.find(StyledAccordionTitleContainer).at(shouldBeFocused)
+        wrapper.find(StyledAccordionTitleContainer).at(shouldBeFocused),
       ).toBeFocused();
-    }
+    },
   );
 
   it.each([
@@ -820,12 +824,12 @@ describe("AccordionGroup", () => {
     "focuses on the first Accordion when 'home' key is pressed",
     (focused, shouldBeFocused) => {
       simulate.keydown.pressHome(
-        wrapper.find(StyledAccordionTitleContainer).at(focused)
+        wrapper.find(StyledAccordionTitleContainer).at(focused),
       );
       expect(
-        wrapper.find(StyledAccordionTitleContainer).at(shouldBeFocused)
+        wrapper.find(StyledAccordionTitleContainer).at(shouldBeFocused),
       ).toBeFocused();
-    }
+    },
   );
 
   it.each([
@@ -836,12 +840,12 @@ describe("AccordionGroup", () => {
     "focuses on the last Accordion when 'end' key is pressed",
     (focused, shouldBeFocused) => {
       simulate.keydown.pressEnd(
-        wrapper.find(StyledAccordionTitleContainer).at(focused)
+        wrapper.find(StyledAccordionTitleContainer).at(focused),
       );
       expect(
-        wrapper.find(StyledAccordionTitleContainer).at(shouldBeFocused)
+        wrapper.find(StyledAccordionTitleContainer).at(shouldBeFocused),
       ).toBeFocused();
-    }
+    },
   );
 
   describe("when the incorrect children are passed", () => {
@@ -866,7 +870,7 @@ describe("AccordionGroup", () => {
           <AccordionGroup>
             <InvalidComponent />
             <InvalidComponent />
-          </AccordionGroup>
+          </AccordionGroup>,
         );
       }).toThrow("AccordionGroup accepts only children of type `Accordion`.");
     });
@@ -879,7 +883,7 @@ describe("AccordionGroup", () => {
           {null}
           {false}
           {undefined}
-        </AccordionGroup>
+        </AccordionGroup>,
       );
     }).not.toThrow();
   });

@@ -10,7 +10,7 @@ import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs
 
 jest.mock("../../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345"
+  () => "guid-12345",
 );
 
 const render = ({
@@ -33,7 +33,7 @@ const render = ({
           </tr>
         </tbody>
       )}
-    </table>
+    </table>,
   );
 };
 
@@ -43,7 +43,7 @@ describe("FlatTableCheckbox", () => {
       const wrapper = render({ "data-role": "test" });
 
       expect(
-        wrapper.find(StyledFlatTableCheckbox).props()["data-role"]
+        wrapper.find(StyledFlatTableCheckbox).props()["data-role"],
       ).toEqual("test");
     });
   });
@@ -55,9 +55,9 @@ describe("FlatTableCheckbox", () => {
       wrapper
         .find(Checkbox)
         ?.props()
-        .onClick?.(({
+        .onClick?.({
           stopPropagation,
-        } as unknown) as React.MouseEvent<HTMLInputElement>);
+        } as unknown as React.MouseEvent<HTMLInputElement>);
       expect(stopPropagation).toHaveBeenCalledTimes(1);
     });
 
@@ -67,10 +67,10 @@ describe("FlatTableCheckbox", () => {
       wrapper
         .find(Checkbox)
         ?.props()
-        .onKeyDown?.(({
+        .onKeyDown?.({
           key: "a",
           stopPropagation,
-        } as unknown) as React.KeyboardEvent<HTMLInputElement>);
+        } as unknown as React.KeyboardEvent<HTMLInputElement>);
       expect(stopPropagation).toHaveBeenCalledTimes(1);
     });
 
@@ -82,12 +82,12 @@ describe("FlatTableCheckbox", () => {
         wrapper
           .find(Checkbox)
           ?.props()
-          ?.onKeyDown?.(({
+          ?.onKeyDown?.({
             key,
             stopPropagation,
-          } as unknown) as React.KeyboardEvent<HTMLInputElement>);
+          } as unknown as React.KeyboardEvent<HTMLInputElement>);
         expect(stopPropagation).not.toHaveBeenCalled();
-      }
+      },
     );
   });
 
@@ -97,9 +97,9 @@ describe("FlatTableCheckbox", () => {
       wrapper
         .find(Checkbox)
         ?.props()
-        .onClick?.(({
+        .onClick?.({
           stopPropagation: () => {},
-        } as unknown) as React.MouseEvent<HTMLInputElement>);
+        } as unknown as React.MouseEvent<HTMLInputElement>);
     });
   });
 
@@ -110,7 +110,7 @@ describe("FlatTableCheckbox", () => {
 
     it('has the correct "data-element" when rendered as a "td"', () => {
       expect(
-        render({}).find(StyledFlatTableCheckbox).prop("data-element")
+        render({}).find(StyledFlatTableCheckbox).prop("data-element"),
       ).toEqual("flat-table-checkbox-cell");
     });
   });
@@ -124,7 +124,7 @@ describe("FlatTableCheckbox", () => {
       expect(
         render({ asTh: true })
           .find(StyledFlatTableCheckbox)
-          .prop("data-element")
+          .prop("data-element"),
       ).toEqual("flat-table-checkbox-header");
     });
   });
@@ -145,7 +145,7 @@ describe("FlatTableCheckbox", () => {
         wrapper.find(StyledFlatTableCheckbox),
         "flat-table-checkbox",
         "foo",
-        "bar"
+        "bar",
       );
     });
   });

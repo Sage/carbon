@@ -19,7 +19,7 @@ test("should focus the last item when 'End' key is pressed by user", async () =>
       <MenuItem href="#">test two</MenuItem>
       <MenuItem href="#">test three</MenuItem>
       <MenuItem href="#">test four</MenuItem>
-    </Menu>
+    </Menu>,
   );
   const firstMenuItem = screen.getByRole("link", { name: "test one" });
   firstMenuItem.focus();
@@ -37,7 +37,7 @@ test("should focus the first item when 'Home' key is pressed by user", async () 
       <MenuItem href="#">test two</MenuItem>
       <MenuItem href="#">test three</MenuItem>
       <MenuItem href="#">test four</MenuItem>
-    </Menu>
+    </Menu>,
   );
   const lastMenuItem = screen.getByRole("link", { name: "test four" });
   lastMenuItem.focus();
@@ -55,7 +55,7 @@ test("should focus the next item in sequence, and remove focus from menu on last
       <MenuItem href="#">test two</MenuItem>
       <MenuItem href="#">test three</MenuItem>
       <MenuItem href="#">test four</MenuItem>
-    </Menu>
+    </Menu>,
   );
   const items = screen.getAllByRole("link");
   items[0].focus();
@@ -78,7 +78,7 @@ test("should focus the previous item in sequence, and remove focus from menu on 
       <MenuItem href="#">test two</MenuItem>
       <MenuItem href="#">test three</MenuItem>
       <MenuItem href="#">test four</MenuItem>
-    </Menu>
+    </Menu>,
   );
   const items = screen.getAllByRole("link");
   items[3].focus();
@@ -101,7 +101,7 @@ test("should not focus the next item in sequence when 'arrowright' key is presse
       <MenuItem href="#">test two</MenuItem>
       <MenuItem href="#">test three</MenuItem>
       <MenuItem href="#">test four</MenuItem>
-    </Menu>
+    </Menu>,
   );
   const items = screen.getAllByRole("link");
   items[0].focus();
@@ -122,7 +122,7 @@ test("should not focus the previous item in sequence when 'arrowleft' key is pre
       <MenuItem href="#">test two</MenuItem>
       <MenuItem href="#">test three</MenuItem>
       <MenuItem href="#">test four</MenuItem>
-    </Menu>
+    </Menu>,
   );
   const items = screen.getAllByRole("link");
   items[3].focus();
@@ -141,7 +141,7 @@ test("should not throw an error when conditionally rendered `children` are passe
       <Menu>
         {true && <MenuItem href="#">test one</MenuItem>}
         {false && <MenuItem href="#">test two</MenuItem>}
-      </Menu>
+      </Menu>,
     );
   }).not.toThrow();
 });
@@ -159,7 +159,7 @@ test("should close any open submenus when a new submenu is opened", async () => 
         <MenuItem href="#">submenu 2 item 1</MenuItem>
         <MenuItem href="#">submenu 2 item 2</MenuItem>
       </MenuItem>
-    </Menu>
+    </Menu>,
   );
   const firstSubmenuItem = screen.getByRole("button", { name: "submenu 1" });
   const secondSubmenuItem = screen.getByRole("button", { name: "submenu 2" });
@@ -168,13 +168,13 @@ test("should close any open submenus when a new submenu is opened", async () => 
 
   expect(screen.getByRole("link", { name: "submenu 1 item 1" })).toBeVisible();
   expect(
-    screen.queryByRole("link", { name: "submenu 2 item 2" })
+    screen.queryByRole("link", { name: "submenu 2 item 2" }),
   ).not.toBeInTheDocument();
 
   await user.click(secondSubmenuItem);
 
   expect(
-    screen.queryByRole("link", { name: "submenu 1 item 1" })
+    screen.queryByRole("link", { name: "submenu 1 item 1" }),
   ).not.toBeInTheDocument();
   expect(screen.getByRole("link", { name: "submenu 2 item 2" })).toBeVisible();
 });
@@ -206,7 +206,7 @@ test("should apply the expected `data-` tags as attributes", () => {
   render(
     <Menu data-element="bar" data-role="baz">
       <MenuItem>Foo</MenuItem>
-    </Menu>
+    </Menu>,
   );
   const menu = screen.getByRole("list");
 

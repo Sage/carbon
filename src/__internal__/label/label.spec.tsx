@@ -21,14 +21,14 @@ function render(props?: LabelProps, renderer: any = mount) {
 function renderWithContext(
   props: LabelProps = {},
   inputGroupContextValue = {},
-  inputContextValue = {}
+  inputContextValue = {},
 ) {
   return mount(
     <InputGroupContext.Provider value={inputGroupContextValue}>
       <InputContext.Provider value={inputContextValue}>
         <Label {...props}>Name:</Label>
       </InputContext.Provider>
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 }
 
@@ -62,7 +62,7 @@ describe("Label", () => {
         {
           onMouseEnter: contextOnMouseEnter,
           onMouseLeave: contextOnMouseLeave,
-        }
+        },
       );
     });
 
@@ -109,7 +109,7 @@ describe("Label", () => {
           justifyContent: "flex-end",
           width: "30%",
         },
-        wrapper.find(StyledLabelContainer)
+        wrapper.find(StyledLabelContainer),
       );
     });
 
@@ -119,7 +119,7 @@ describe("Label", () => {
         {
           width: "30%",
         },
-        wrapper.find(StyledLabelContainer)
+        wrapper.find(StyledLabelContainer),
       );
     });
 
@@ -136,7 +136,7 @@ describe("Label", () => {
           marginLeft: "var(--spacing050)",
         },
         wrapper.find(StyledLabelContainer),
-        { modifier: "::after" }
+        { modifier: "::after" },
       );
     });
 
@@ -145,7 +145,7 @@ describe("Label", () => {
         {
           paddingRight: "var(--spacing200)",
         },
-        render({ inline: true, pr: 2 })
+        render({ inline: true, pr: 2 }),
       );
     });
 
@@ -154,7 +154,7 @@ describe("Label", () => {
         {
           paddingLeft: "var(--spacing200)",
         },
-        render({ inline: true, pl: 2 })
+        render({ inline: true, pl: 2 }),
       );
     });
 
@@ -172,7 +172,7 @@ describe("Label", () => {
           marginLeft: "var(--spacing050)",
         },
         wrapper.find(StyledLabel),
-        { modifier: "::after" }
+        { modifier: "::after" },
       );
     });
   });
@@ -184,7 +184,7 @@ describe("Label", () => {
         {
           justifyContent: "flex-start",
         },
-        wrapper.find(StyledLabelContainer)
+        wrapper.find(StyledLabelContainer),
       );
     });
   });
@@ -197,7 +197,7 @@ describe("Label", () => {
         {
           color: "var(--colorsUtilityYin030)",
         },
-        wrapper.find(StyledLabel)
+        wrapper.find(StyledLabel),
       );
     });
   });
@@ -210,7 +210,7 @@ describe("Label", () => {
         {
           color: "var(--colorsUtilityYin030)",
         },
-        wrapper.find(StyledLabel)
+        wrapper.find(StyledLabel),
       );
     });
   });
@@ -225,7 +225,7 @@ describe("Label", () => {
           outline: `2px solid var(--colorsSemanticFocus500)`,
         },
         wrapper,
-        { modifier: ":focus" }
+        { modifier: ":focus" },
       );
     });
   });
@@ -239,7 +239,7 @@ describe("Label", () => {
           {
             help: "Message",
           },
-          mount
+          mount,
         );
       });
 
@@ -274,7 +274,7 @@ describe("Label", () => {
       it("show validation icon", () => {
         const wrapper = render(
           { [vType]: "Message", useValidationIcon: true },
-          mount
+          mount,
         );
         const icon = wrapper.find(ValidationIcon);
 
@@ -285,13 +285,13 @@ describe("Label", () => {
         const validationIconId = "tooltip-test";
         const wrapper = render(
           { [vType]: "Message", useValidationIcon: true, validationIconId },
-          mount
+          mount,
         );
         expect(wrapper.find(ValidationIcon).props().tooltipId).toBe(
-          validationIconId
+          validationIconId,
         );
       });
-    }
+    },
   );
 
   describe.each(validationTypes)(
@@ -300,13 +300,13 @@ describe("Label", () => {
       it("do not show validation icon", () => {
         const wrapper = render(
           { [vType]: true, useValidationIcon: true },
-          mount
+          mount,
         );
         const icon = wrapper.find(ValidationIcon);
 
         expect(icon.exists()).toEqual(false);
       });
-    }
+    },
   );
 
   describe.each(validationTypes)(
@@ -315,12 +315,12 @@ describe("Label", () => {
       it('tooltip should render in position "top"', () => {
         const wrapper = render(
           { [vType]: "Message", useValidationIcon: true, inline: true },
-          mount
+          mount,
         );
         const icon = wrapper.find(ValidationIcon);
         expect(icon.prop("tooltipPosition")).toBe("top");
       });
-    }
+    },
   );
 
   describe.each(validationTypes)(
@@ -329,11 +329,11 @@ describe("Label", () => {
       it('tooltip should render in position "right"', () => {
         const wrapper = render(
           { [vType]: "Message", useValidationIcon: true },
-          mount
+          mount,
         );
         const icon = wrapper.find(ValidationIcon);
         expect(icon.prop("tooltipPosition")).toBe("right");
       });
-    }
+    },
   );
 });

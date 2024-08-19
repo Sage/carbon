@@ -18,7 +18,7 @@ export const flexboxPropertyNames = [
 ];
 
 export default function filterStyledSystemFlexboxProps(
-  originalObject: Record<string, unknown> | FlexboxProps
+  originalObject: Record<string, unknown> | FlexboxProps,
 ): FlexboxProps {
   return filterObjectProperties(originalObject, flexboxPropertyNames);
 }

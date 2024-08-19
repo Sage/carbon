@@ -30,7 +30,7 @@ function render(props: InlineInputsProps = {}) {
       <Textbox onChange={() => {}} />
       <Textbox onChange={() => {}} />
       <Checkbox onChange={() => {}} />
-    </InlineInputs>
+    </InlineInputs>,
   );
 }
 
@@ -66,7 +66,7 @@ describe("Inline Inputs", () => {
           flex: "0 0 auto",
         },
         wrapper,
-        { modifier: `${StyledLabelContainer}` }
+        { modifier: `${StyledLabelContainer}` },
       );
     });
   });
@@ -96,7 +96,7 @@ describe("Inline Inputs", () => {
       wrapper
         .find("input")
         .forEach((input) =>
-          expect(input.prop("aria-labelledby")).toEqual(undefined)
+          expect(input.prop("aria-labelledby")).toEqual(undefined),
         );
     });
   });
@@ -114,7 +114,7 @@ describe("Inline Inputs", () => {
           width: "1px",
         },
         wrapper,
-        { modifier: "input" }
+        { modifier: "input" },
       );
     });
   });
@@ -134,7 +134,7 @@ describe("Inline Inputs", () => {
         wrapper.find(StyledContentContainer),
         {
           modifier: `${StyledInlineInput} + ${StyledInlineInput} ${InputPresentation}`,
-        }
+        },
       );
     });
 
@@ -146,7 +146,7 @@ describe("Inline Inputs", () => {
         wrapper.find(StyledContentContainer),
         {
           modifier: `${StyledInlineInput}:not(:first-of-type):not(:last-of-type) ${InputPresentation}`,
-        }
+        },
       );
 
       assertStyleMatch(
@@ -159,7 +159,7 @@ describe("Inline Inputs", () => {
         wrapper.find(StyledContentContainer),
         {
           modifier: `${StyledInlineInput}:first-of-type:not(:last-of-type) ${InputPresentation}`,
-        }
+        },
       );
 
       assertStyleMatch(
@@ -172,7 +172,7 @@ describe("Inline Inputs", () => {
         wrapper.find(StyledContentContainer),
         {
           modifier: `${StyledInlineInput}:last-of-type:not(:first-of-type) ${InputPresentation}`,
-        }
+        },
       );
     });
   });
@@ -190,7 +190,7 @@ describe("Inline Inputs", () => {
           flex: `0 0 ${labelWidth}%`,
         },
         wrapper,
-        { modifier: `${StyledLabelContainer}` }
+        { modifier: `${StyledLabelContainer}` },
       );
     });
   });
@@ -202,7 +202,7 @@ describe("Inline Inputs", () => {
           <input />
           <input />
           <input />
-        </InlineInputs>
+        </InlineInputs>,
       ).find("input");
 
       inputNodes.forEach((inlineInputField) => {
@@ -222,9 +222,9 @@ describe("Inline Inputs", () => {
         mount(
           <InlineInputs required label="foo">
             <input />
-          </InlineInputs>
+          </InlineInputs>,
         ).find(StyledLabel),
-        { modifier: "::after" }
+        { modifier: "::after" },
       );
     });
   });
@@ -238,9 +238,9 @@ describe("Inline Inputs", () => {
         mount(
           <InlineInputs isOptional label="foo">
             <input />
-          </InlineInputs>
+          </InlineInputs>,
         ).find(StyledLabelContainer),
-        { modifier: "::after" }
+        { modifier: "::after" },
       );
     });
   });
@@ -255,7 +255,7 @@ describe("Inline Inputs", () => {
         {
           justifyContent: "flex-start",
         },
-        wrapper.find(Label)
+        wrapper.find(Label),
       );
     });
   });
@@ -270,7 +270,7 @@ describe("Inline Inputs", () => {
         {
           flex: "1",
         },
-        wrapper.find(StyledContentContainer)
+        wrapper.find(StyledContentContainer),
       );
     });
   });
@@ -287,7 +287,7 @@ describe("Inline Inputs", () => {
         {
           flex: `0 0 ${inputWidth}%`,
         },
-        wrapper.find(StyledContentContainer)
+        wrapper.find(StyledContentContainer),
       );
     });
   });
@@ -311,7 +311,7 @@ describe("Inline Inputs", () => {
         mount(<InlineInputs />)
           .find(StyledContentContainer)
           .find(FormSpacingProvider)
-          .prop("children")
+          .prop("children"),
       ).toBe(null);
     });
   });
@@ -332,11 +332,11 @@ describe("Inline Inputs", () => {
             <Textbox onChange={() => {}} />
             <Textbox onChange={() => {}} />
             <Checkbox onChange={() => {}} />
-          </InlineInputs>
+          </InlineInputs>,
         );
 
         expect(wrapper.find(StyledInlineInputs).props().labelInline).toEqual(
-          false
+          false,
         );
         expect(wrapper.find(Label).props().inline).toEqual(false);
       });
@@ -357,11 +357,11 @@ describe("Inline Inputs", () => {
             <Textbox onChange={() => {}} />
             <Textbox onChange={() => {}} />
             <Checkbox onChange={() => {}} />
-          </InlineInputs>
+          </InlineInputs>,
         );
 
         expect(wrapper.find(StyledInlineInputs).props().labelInline).toEqual(
-          true
+          true,
         );
         expect(wrapper.find(Label).props().inline).toEqual(true);
       });

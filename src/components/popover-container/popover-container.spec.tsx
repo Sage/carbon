@@ -40,14 +40,14 @@ jest.mock("../../__internal__/utils/helpers/guid");
 
 const render = (props?: PopoverContainerProps) => {
   return mount(
-    <PopoverContainer title="PopoverContainerSettings" {...props} />
+    <PopoverContainer title="PopoverContainerSettings" {...props} />,
   );
 };
 
 const renderAttached = (props?: PopoverContainerProps) => {
   return mount(
     <PopoverContainer title="PopoverContainerSettings" {...props} />,
-    { attachTo: document.getElementById("enzymeContainer") }
+    { attachTo: document.getElementById("enzymeContainer") },
   );
 };
 
@@ -59,7 +59,7 @@ describe("PopoverContainer", () => {
       </PopoverContainer>
     ),
     { p: "16px 24px" },
-    (wrapper) => wrapper.find(PopoverContainerContentStyle)
+    (wrapper) => wrapper.find(PopoverContainerContentStyle),
   );
 
   let wrapper: ReactWrapper;
@@ -91,14 +91,14 @@ describe("PopoverContainer", () => {
   it("should render correct title", () => {
     wrapper = render({ open: true });
     expect(wrapper.find(PopoverContainerTitleStyle).text()).toBe(
-      "PopoverContainerSettings"
+      "PopoverContainerSettings",
     );
   });
 
   it("should render correct `aria-describedby", () => {
     wrapper = render({ open: true, ariaDescribedBy: "myAriaDescribedBy" });
     expect(
-      wrapper.find(PopoverContainerContentStyle).prop("aria-describedby")
+      wrapper.find(PopoverContainerContentStyle).prop("aria-describedby"),
     ).toBe("myAriaDescribedBy");
   });
 
@@ -106,7 +106,7 @@ describe("PopoverContainer", () => {
     wrapper = mount(
       <PopoverContainer title="foo" open>
         <div id="myChildren">children</div>
-      </PopoverContainer>
+      </PopoverContainer>,
     );
 
     expect(wrapper.find("#myChildren").exists()).toBe(true);
@@ -137,27 +137,27 @@ describe("PopoverContainer", () => {
   it("should render correct `id` based on `guid()`", () => {
     wrapper = render({ open: true });
     expect(wrapper.find(PopoverContainerTitleStyle).props().id).toBe(
-      "PopoverContainer_guid-123"
+      "PopoverContainer_guid-123",
     );
   });
 
   it("should render correct `data-element` related to the component", () => {
     wrapper = render({ open: true });
     expect(wrapper.find(PopoverContainerTitleStyle).prop("data-element")).toBe(
-      "popover-container-title"
+      "popover-container-title",
     );
   });
 
   it("should render correct `data-component` related to the component", () => {
     expect(
-      wrapper.find(PopoverContainerWrapperStyle).prop("data-component")
+      wrapper.find(PopoverContainerWrapperStyle).prop("data-component"),
     ).toBe("popover-container");
   });
 
   it("should set the id for `PopoverContainerTitleStyle` when title has a value", () => {
     wrapper = render({ open: true });
     expect(wrapper.find(PopoverContainerTitleStyle).props().id).toBe(
-      "PopoverContainer_guid-123"
+      "PopoverContainer_guid-123",
     );
   });
 
@@ -185,7 +185,7 @@ describe("PopoverContainer", () => {
     wrapper.update();
 
     expect(wrapper.find(PopoverContainerContentStyle).props().modifiers).toBe(
-      undefined
+      undefined,
     );
   });
 
@@ -207,7 +207,7 @@ describe("PopoverContainer", () => {
       wrapper = render({ open: true });
 
       expect(
-        wrapper.find(Popover).find(PopoverContainerContentStyle).exists()
+        wrapper.find(Popover).find(PopoverContainerContentStyle).exists(),
       ).toBe(true);
     });
 
@@ -221,7 +221,7 @@ describe("PopoverContainer", () => {
       wrapper = render({ shouldCoverButton: true, open: true });
 
       expect(wrapper.find(Popover).props().middleware?.[0]?.options).not.toBe(
-        undefined
+        undefined,
       );
 
       const rects = { reference: { height: 40, width: 0, y: 0, x: 0 } };
@@ -229,7 +229,7 @@ describe("PopoverContainer", () => {
       expect(
         wrapper.find(Popover).props().middleware?.[0]?.options?.({
           rects,
-        })
+        }),
       ).toEqual({ mainAxis: -40 });
     });
 
@@ -270,7 +270,7 @@ describe("PopoverContainer", () => {
         wrapper = render({ position, open: true });
 
         expect(wrapper.find(Popover).props().placement).toEqual(placement);
-      }
+      },
     );
   });
 
@@ -390,7 +390,7 @@ describe("PopoverContainer", () => {
           new KeyboardEvent("keydown", {
             key: "Escape",
             bubbles: true,
-          })
+          }),
         );
       });
 
@@ -474,10 +474,10 @@ describe("PopoverContainer", () => {
       it("should render correct props", () => {
         expect(wrapper.find(MyOpenButton).props().tabIndex).toBe(0);
         expect(wrapper.find(MyOpenButton).prop("data-element")).toBe(
-          "popover-container-open-component"
+          "popover-container-open-component",
         );
         expect(wrapper.find(MyOpenButton).prop("aria-label")).toBe(
-          "render props"
+          "render props",
         );
         expect(wrapper.find(MyOpenButton).prop("aria-haspopup")).toBe("dialog");
         expect(wrapper.find(MyOpenButton).prop("aria-expanded")).toBe(false);
@@ -539,7 +539,7 @@ describe("PopoverContainer", () => {
 
       it("should set the id on the control when popover is closed", () => {
         expect(wrapper.find(MyOpenButton).prop("id")).toBe(
-          "PopoverContainer_guid-123"
+          "PopoverContainer_guid-123",
         );
       });
 
@@ -562,7 +562,7 @@ describe("PopoverContainer", () => {
       const MyCloseButton = forwardRef<HTMLButtonElement, MyCloseButtonProps>(
         (props: MyCloseButtonProps, ref) => (
           <button type="button" {...props} ref={ref} />
-        )
+        ),
       );
 
       MyCloseButton.displayName = "MyCloseButton";
@@ -603,7 +603,7 @@ describe("PopoverContainer", () => {
       it("should render correct props", () => {
         expect(wrapper.find(MyCloseButton).props().tabIndex).toBe(0);
         expect(wrapper.find(MyCloseButton).prop("data-element")).toBe(
-          "popover-container-close-component"
+          "popover-container-close-component",
         );
         expect(wrapper.find(MyCloseButton).prop("aria-label")).toBe("close");
       });
@@ -650,7 +650,7 @@ describe("PopoverContainerOpenIcon", () => {
     const wrapper = mount(
       <PopoverContainerOpenIcon onClick={() => {}}>
         <Icon type="settings" />
-      </PopoverContainerOpenIcon>
+      </PopoverContainerOpenIcon>,
     );
 
     assertStyleMatch(
@@ -660,7 +660,7 @@ describe("PopoverContainerOpenIcon", () => {
       wrapper,
       {
         modifier: `${StyledIcon}`,
-      }
+      },
     );
   });
 });
@@ -670,19 +670,19 @@ describe("PopoverContainerContentStyle", () => {
     const wrapper = render({ open: true });
 
     expect(
-      wrapper.find(PopoverContainerContentStyle).prop("data-element")
+      wrapper.find(PopoverContainerContentStyle).prop("data-element"),
     ).toBe("popover-container-content");
     expect(wrapper.find(PopoverContainerContentStyle).props().role).toBe(
-      "dialog"
+      "dialog",
     );
     expect(
-      wrapper.find(PopoverContainerContentStyle).prop("aria-labelledby")
+      wrapper.find(PopoverContainerContentStyle).prop("aria-labelledby"),
     ).toContain("PopoverContainer_guid-123");
     expect(
-      wrapper.find(PopoverContainerContentStyle).props().ariaDescribedBy
+      wrapper.find(PopoverContainerContentStyle).props().ariaDescribedBy,
     ).toBe(undefined);
     expect(
-      wrapper.find(PopoverContainerContentStyle).props().animationState
+      wrapper.find(PopoverContainerContentStyle).props().animationState,
     ).toBe("entering");
   });
 
@@ -695,10 +695,10 @@ describe("PopoverContainerContentStyle", () => {
     });
 
     expect(
-      wrapper.find(PopoverContainerContentStyle).prop("aria-labelledby")
+      wrapper.find(PopoverContainerContentStyle).prop("aria-labelledby"),
     ).toBe(undefined);
     expect(wrapper.find(PopoverContainerContentStyle).prop("aria-label")).toBe(
-      "bar"
+      "bar",
     );
   });
 
@@ -710,13 +710,13 @@ describe("PopoverContainerContentStyle", () => {
         {
           opacity: "0",
         },
-        wrapper
+        wrapper,
       );
     });
 
     it("if the animation has state `entered`", () => {
       const wrapper = mount(
-        <PopoverContainerContentStyle animationState="entered" />
+        <PopoverContainerContentStyle animationState="entered" />,
       );
 
       assertStyleMatch(
@@ -725,13 +725,13 @@ describe("PopoverContainerContentStyle", () => {
           transform: "translateY(0)",
           transition: "all 0.3s cubic-bezier(0.25,0.25,0,1.5)",
         },
-        wrapper
+        wrapper,
       );
     });
 
     it("if the animation has state `entering`", () => {
       const wrapper = mount(
-        <PopoverContainerContentStyle animationState="entering" />
+        <PopoverContainerContentStyle animationState="entering" />,
       );
 
       assertStyleMatch(
@@ -739,13 +739,13 @@ describe("PopoverContainerContentStyle", () => {
           opacity: "0",
           transform: "translateY(-8px)",
         },
-        wrapper
+        wrapper,
       );
     });
 
     it("if the animation has state `exiting`", () => {
       const wrapper = mount(
-        <PopoverContainerContentStyle animationState="exiting" />
+        <PopoverContainerContentStyle animationState="exiting" />,
       );
 
       assertStyleMatch(
@@ -754,7 +754,7 @@ describe("PopoverContainerContentStyle", () => {
           transform: "translateY(-8px)",
           transition: "all 0.3s cubic-bezier(0.25,0.25,0,1.5)",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -765,7 +765,7 @@ describe("PopoverContainerContentStyle", () => {
         {
           opacity: "1",
         },
-        wrapper.find(PopoverContainerContentStyle)
+        wrapper.find(PopoverContainerContentStyle),
       );
     });
   });
@@ -778,13 +778,13 @@ describe("open state when click event triggered", () => {
       wrapper.find(PopoverContainerOpenIcon).props().onClick();
     });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
-      undefined
+      undefined,
     );
     act(() => {
       document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
     });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
-      "PopoverContainer_guid-123"
+      "PopoverContainer_guid-123",
     );
   });
 
@@ -806,13 +806,13 @@ describe("open state when click event triggered", () => {
       wrapper.find(PopoverContainerOpenIcon).props().onClick();
     });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
-      undefined
+      undefined,
     );
     act(() => {
       wrapper?.find(PopoverContainer).simulate("click");
     });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
-      undefined
+      undefined,
     );
   });
 
@@ -850,7 +850,7 @@ describe("open state when click event triggered", () => {
         title="PopoverContainerSettings"
         open={false}
         onClose={onCloseFn}
-      />
+      />,
     );
 
     act(() => {
@@ -884,7 +884,7 @@ describe("open state when click event triggered", () => {
           detail: {
             enzymeTestingTarget: wrapper?.find(PopoverContainer).getDOMNode(),
           },
-        })
+        }),
       );
     });
     expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
@@ -913,11 +913,11 @@ describe("open state when click event triggered", () => {
         new KeyboardEvent("keydown", {
           key: "Escape",
           bubbles: true,
-        })
+        }),
       );
     });
     expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      false
+      false,
     );
     expect(onCloseFn).toHaveBeenCalled();
   });
@@ -953,11 +953,11 @@ describe("open state when click event triggered", () => {
       attachTo: document.getElementById("enzymeContainer"),
     });
     expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      true
+      true,
     );
 
     const selectInput = document.querySelector(
-      '[data-element="input"][aria-expanded="false"]'
+      '[data-element="input"][aria-expanded="false"]',
     );
 
     act(() => {
@@ -965,12 +965,12 @@ describe("open state when click event triggered", () => {
         new KeyboardEvent("keydown", {
           key: "Escape",
           bubbles: true,
-        })
+        }),
       );
     });
 
     expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      false
+      false,
     );
     expect(onCloseFn).toHaveBeenCalled();
 
@@ -1007,7 +1007,7 @@ describe("open state when click event triggered", () => {
       attachTo: document.getElementById("enzymeContainer"),
     });
     expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      true
+      true,
     );
 
     const selectText = wrapper.find('input[type="text"]').first();
@@ -1015,7 +1015,7 @@ describe("open state when click event triggered", () => {
     selectText.simulate("click");
 
     const expandedSelectInput = document.querySelector(
-      '[data-element="input"][aria-expanded="true"]'
+      '[data-element="input"][aria-expanded="true"]',
     );
 
     act(() => {
@@ -1023,12 +1023,12 @@ describe("open state when click event triggered", () => {
         new KeyboardEvent("keydown", {
           key: "Escape",
           bubbles: true,
-        })
+        }),
       );
     });
 
     expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      true
+      true,
     );
     expect(onCloseFn).not.toHaveBeenCalled();
 
@@ -1065,7 +1065,7 @@ describe("open state when click event triggered", () => {
       attachTo: document.getElementById("enzymeContainer"),
     });
     expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      true
+      true,
     );
 
     const selectText = wrapper.find('input[type="text"]').first();
@@ -1073,18 +1073,18 @@ describe("open state when click event triggered", () => {
     selectText.simulate("click");
 
     const expandedSelectInput = document.querySelector(
-      '[data-element="input"][aria-expanded="true"]'
+      '[data-element="input"][aria-expanded="true"]',
     );
 
     expandedSelectInput?.dispatchEvent(
       new KeyboardEvent("keydown", {
         key: "Escape",
         bubbles: true,
-      })
+      }),
     );
 
     expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      true
+      true,
     );
     expect(onCloseFn).not.toHaveBeenCalled();
 
@@ -1096,7 +1096,7 @@ describe("open state when click event triggered", () => {
       {
         borderRadius: "var(--borderRadius100)",
       },
-      render({ open: true }).find(PopoverContainerContentStyle)
+      render({ open: true }).find(PopoverContainerContentStyle),
     );
   });
 });

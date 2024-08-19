@@ -23,7 +23,7 @@ export interface CardProps
       | React.MouseEvent<HTMLAnchorElement>
       | React.MouseEvent<HTMLDivElement>
       | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLDivElement>
+      | React.KeyboardEvent<HTMLDivElement>,
   ) => void;
   /** Style value for width of card */
   width?: string;
@@ -84,7 +84,7 @@ const Card = ({
     footerWarningFired = true;
     // eslint-disable-next-line no-console
     console.warn(
-      "This `Card` is interactive you should use the `footer` prop to render a `CardFooter` to avoid potential accessibility issues"
+      "This `Card` is interactive you should use the `footer` prop to render a `CardFooter` to avoid potential accessibility issues",
     );
   }
 
