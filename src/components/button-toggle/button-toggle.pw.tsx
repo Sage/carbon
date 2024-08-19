@@ -1,5 +1,4 @@
 import React from "react";
-import sinon from "sinon";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import { ButtonToggle, ButtonToggleGroupProps, ButtonToggleProps } from ".";
 import {
@@ -730,23 +729,24 @@ test.describe("Event tests for group component", () => {
     expect(callbackCount).toBe(0);
   });
 
-  test("should call onChange callback with undefined when a click event is triggered on the currently-selected button and the allowDeselect prop is true", async ({
+  test("calls onChange callback with an undefined value, when the currently-selected button is clicked and the allowDeselect prop is true", async ({
     mount,
     page,
   }) => {
-    const callbackStub = sinon.stub();
+    let onChangeValue: unknown;
     await mount(
       <ButtonToggleGroupComponent
         value="foo"
         allowDeselect
-        onChange={callbackStub}
+        onChange={(event, value) => {
+          onChangeValue = value;
+        }}
       />
     );
 
-    await buttonTogglePreview(page).nth(0).click();
+    await page.getByRole("button", { name: "foo" }).click();
 
-    const onChangeCallArgs = callbackStub.getCall(0).args[1];
-    expect(onChangeCallArgs).toEqual(undefined);
+    expect(onChangeValue).toBeUndefined();
   });
 });
 

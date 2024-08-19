@@ -63,3 +63,10 @@ test("when adaptiveMxBreakpoint prop is set and when screen smaller than breakpo
     marginRight: "var(--spacing000)",
   });
 });
+
+test("should apply the 'aria-hidden' attribute when the `aria-hidden` prop is true", () => {
+  render(<Hr aria-hidden="true" />);
+  const hr = screen.getByTestId("hr");
+
+  expect(hr).toHaveAttribute("aria-hidden", "true");
+});
