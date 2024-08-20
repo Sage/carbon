@@ -1,3 +1,10 @@
+### [142.2.2](https://github.com/Sage/carbon/compare/v142.2.1...v142.2.2) (2024-08-20)
+
+
+### Bug Fixes
+
+* **batch-selection:** children are still clickable when hidden prop is true ([7364fb5](https://github.com/Sage/carbon/commit/7364fb52834f703498b56372948bcc06620cc2dd)), closes [#6858](https://github.com/Sage/carbon/issues/6858)
+
 ### [142.2.1](https://github.com/Sage/carbon/compare/v142.2.0...v142.2.1) (2024-08-19)
 
 
