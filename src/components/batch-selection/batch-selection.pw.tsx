@@ -53,7 +53,7 @@ test.describe("check BatchSelection component properties", () => {
     await mount(<BatchSelectionComponent hidden />);
     const batchSelection = batchSelectionComponent(page);
     await expect(batchSelection).toHaveAttribute("hidden", /.*/);
-    await expect(batchSelection).toHaveCSS("opacity", "0");
+    await expect(batchSelection).not.toBeVisible();
   });
 
   test("should check disabled BatchSelection", async ({ mount, page }) => {
