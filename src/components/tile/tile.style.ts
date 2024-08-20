@@ -3,6 +3,7 @@ import { space, SpaceProps } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import computeSizing from "../../style/utils/element-sizing";
 import { TileProps } from "./tile.component";
+import StyledTileContent from "./tile-content/tile-content.style";
 
 type StyledTileProps = Pick<
   TileProps,
@@ -89,12 +90,12 @@ const StyledTile = styled.div<StyledTileProps>`
     border-radius: ${getBorderRadius(roundness)};
     --tileBorderRadius: ${getBorderRadius(roundness)};
 
-    > *:first-child {
+    > *:first-child:not(${StyledTileContent}) {
       border-top-left-radius: calc(${getBorderRadius(roundness)} - 1px);
       border-top-right-radius: calc(${getBorderRadius(roundness)} - 1px);
     }
 
-    > *:last-child {
+    > *:last-child:not(${StyledTileContent}) {
       border-bottom-left-radius: calc(${getBorderRadius(roundness)} - 1px);
       border-bottom-right-radius: calc(${getBorderRadius(roundness)} - 1px);
     }
