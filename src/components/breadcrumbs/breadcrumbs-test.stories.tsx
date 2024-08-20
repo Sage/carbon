@@ -22,6 +22,11 @@ export default {
         type: "text",
       },
     },
+    isDarkBackground: {
+      control: {
+        type: "boolean",
+      },
+    },
   },
 };
 
