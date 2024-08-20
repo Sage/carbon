@@ -1021,3 +1021,117 @@ export const Align: Story = () => {
   );
 };
 Align.storyName = "Responsive Tile with Align Content";
+
+export const HighlightVariantGradientStory: Story = () => {
+  return (
+    <>
+      <Tile highlightVariant="gradient">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
+      <Tile highlightVariant="gradient" roundness="large">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+    </>
+  );
+};
+HighlightVariantGradientStory.storyName = "Highlight variant gradient story";
+
+export const HighlightVariantSuccessStory: Story = () => {
+  return (
+    <>
+      <Tile highlightVariant="success">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
+      <Tile highlightVariant="success" roundness="large">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+    </>
+  );
+};
+HighlightVariantSuccessStory.storyName = "Highlight variant success story";
+
+export const HighlightVariantNeutralStory: Story = () => {
+  return (
+    <>
+      <Tile highlightVariant="neutral">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
+      <Tile highlightVariant="neutral" roundness="large">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+    </>
+  );
+};
+HighlightVariantNeutralStory.storyName = "Highlight variant neutral story";
+
+export const HighlightVariantErrorStory: Story = () => {
+  return (
+    <>
+      <Tile highlightVariant="error">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
+      <Tile highlightVariant="error" roundness="large">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+    </>
+  );
+};
+HighlightVariantErrorStory.storyName = "Highlight variant error story";
+
+export const HighlightVariantWarningStory: Story = () => {
+  return (
+    <>
+      <Tile highlightVariant="warning">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
+      <Tile highlightVariant="warning" roundness="large">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+    </>
+  );
+};
+HighlightVariantWarningStory.storyName = "Highlight variant warning story";
+
+export const HighlightVariantInfoStory: Story = () => {
+  return (
+    <>
+      <Tile highlightVariant="info">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
+      <Tile highlightVariant="info" roundness="large">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+    </>
+  );
+};
+HighlightVariantInfoStory.storyName = "Highlight variant info story";

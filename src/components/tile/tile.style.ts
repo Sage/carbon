@@ -6,7 +6,13 @@ import { TileProps } from "./tile.component";
 
 type StyledTileProps = Pick<
   TileProps,
-  "borderWidth" | "borderVariant" | "variant" | "width" | "roundness" | "height"
+  | "borderWidth"
+  | "borderVariant"
+  | "variant"
+  | "width"
+  | "roundness"
+  | "height"
+  | "highlightVariant"
 > & { isHorizontal?: boolean } & SpaceProps;
 
 const getBorderColor = (
@@ -44,6 +50,24 @@ const getBorderRadius = (roundness: TileProps["roundness"]) => {
       return "var(--borderRadius050)";
     default:
       return "var(--borderRadius100)";
+  }
+};
+
+const getHeighlightVariant = (variant: TileProps["highlightVariant"]) => {
+  switch (variant) {
+    case "success":
+      return "var(--colorsSemanticPositive500)";
+    case "neutral":
+      return "var(--colorsSemanticNeutral500)";
+    case "error":
+      return "var(--colorsSemanticNegative500)";
+    case "warning":
+      return "var(--colorsSemanticCaution500)";
+    case "info":
+      return "var(--colorsSemanticInfo500)";
+    default:
+      // gradient is default
+      return "linear-gradient(0deg, rgb(143, 73, 254) 5%, rgb(0, 146, 219) 50%, rgb(19, 160, 56) 95%)";
   }
 };
 
@@ -108,5 +132,22 @@ const StyledTile = styled.div<StyledTileProps>`
 StyledTile.defaultProps = {
   theme: baseTheme,
 };
+
+export const StyledHighlight = styled.div<{
+  variant: Required<TileProps["highlightVariant"]>;
+  roundness: TileProps["roundness"];
+}>`
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: ${({ variant }) => getHeighlightVariant(variant)};
+  border-radius: ${({ roundness }) => getBorderRadius(roundness)};
+
+  ${StyledTile} {
+    border-left: 0;
+    left: 4px;
+    width: calc(100% - 4px);
+  }
+`;
 
 export default StyledTile;

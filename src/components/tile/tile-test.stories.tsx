@@ -4,6 +4,7 @@ import {
   TILE_BORDER_VARIANTS,
   TILE_ORIENTATIONS,
   TILE_THEMES,
+  TILE_HIGHLIGHT_VARIANTS,
 } from "./tile.config";
 import Box from "../box";
 import Textarea from "../textarea";
@@ -33,6 +34,12 @@ export default {
     },
     borderVariant: {
       options: TILE_BORDER_VARIANTS,
+      control: {
+        type: "select",
+      },
+    },
+    highlightVariant: {
+      options: [undefined, ...TILE_HIGHLIGHT_VARIANTS],
       control: {
         type: "select",
       },
