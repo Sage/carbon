@@ -65,6 +65,7 @@ const ProgressTracker = ({
 
     return (
       <StyledValuesLabel
+        data-role="values-label"
         labelsPosition={labelsPosition}
         size={size}
         labelWidth={labelWidth}
@@ -101,7 +102,12 @@ const ProgressTracker = ({
       labelsPosition={labelsPosition}
     >
       {prefixLabels && renderValueLabels()}
-      <StyledProgressBar progress={progress} error={error} aria-hidden="true">
+      <StyledProgressBar
+        data-role="progress-bar"
+        progress={progress}
+        error={error}
+        aria-hidden="true"
+      >
         <InnerBar
           data-element="inner-bar"
           data-role="inner-bar"

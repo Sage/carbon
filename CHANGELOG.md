@@ -1,3 +1,38 @@
+### [142.2.1](https://github.com/Sage/carbon/compare/v142.2.0...v142.2.1) (2024-08-19)
+
+
+### Bug Fixes
+
+* **icon:** ensure tooltip does not render when component is disabled ([c1cfd50](https://github.com/Sage/carbon/commit/c1cfd50c68efffafb72afffaae64662c24edb44d))
+
+## [142.2.0](https://github.com/Sage/carbon/compare/v142.1.0...v142.2.0) (2024-08-16)
+
+
+### Features
+
+* **hr:** add the aria-hidden prop ([d84e37f](https://github.com/Sage/carbon/commit/d84e37f05b36889f33b59c7f842ea876f1cd7c5d))
+
+## [142.1.0](https://github.com/Sage/carbon/compare/v142.0.4...v142.1.0) (2024-08-16)
+
+
+### Features
+
+* **link:** update styling of skip link variant ([79e44c9](https://github.com/Sage/carbon/commit/79e44c97b8df4ff544e8dc40b84ce3a884762244))
+
+### [142.0.4](https://github.com/Sage/carbon/compare/v142.0.3...v142.0.4) (2024-08-15)
+
+
+### Bug Fixes
+
+* **select:** consolidate hitbox across all Select variants ([297ce84](https://github.com/Sage/carbon/commit/297ce84f141ae5f3eae6f99c582e37c9dfe55816)), closes [#6841](https://github.com/Sage/carbon/issues/6841)
+
+### [142.0.3](https://github.com/Sage/carbon/compare/v142.0.2...v142.0.3) (2024-08-14)
+
+
+### Bug Fixes
+
+* **simple-color-picker, advanced-color-picker:** ensure blur blocking works when switching colors ([c4434bb](https://github.com/Sage/carbon/commit/c4434bba81405cf1d200911a5a13107c9c4624a0)), closes [#6850](https://github.com/Sage/carbon/issues/6850)
+
 ### [142.0.2](https://github.com/Sage/carbon/compare/v142.0.1...v142.0.2) (2024-08-14)
 
 

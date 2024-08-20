@@ -35,8 +35,8 @@ export const LoaderBar = ({ size = "medium", ...rest }: LoaderBarProps) => {
       {reduceMotion ? (
         l.loader.loading()
       ) : (
-        <StyledLoaderBar size={size}>
-          <InnerBar size={size} />
+        <StyledLoaderBar data-role="outer-bar" size={size}>
+          <InnerBar data-role="inner-bar" size={size} />
         </StyledLoaderBar>
       )}
     </StyledLoader>

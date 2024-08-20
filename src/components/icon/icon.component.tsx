@@ -190,7 +190,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
     };
 
     if (tooltipMessage) {
-      const visible = disabled ? undefined : shouldShowTooltip();
+      const visible = disabled ? false : shouldShowTooltip();
 
       return (
         <Tooltip
