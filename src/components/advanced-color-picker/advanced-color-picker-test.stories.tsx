@@ -3,7 +3,7 @@ import AdvancedColorPicker, { AdvancedColorPickerProps } from ".";
 
 export default {
   title: "Advanced Color Picker/Test",
-  includeStories: ["Default"],
+  includeStories: ["Default", "OnBlurExample"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -92,6 +92,34 @@ export const AdvancedColorPickerCustom = ({
       onBlur={() => {}}
       open={open}
       {...props}
+    />
+  );
+};
+
+const colors = [
+  { label: "red", value: "red" },
+  { label: "yellow", value: "yellow" },
+  { label: "green", value: "green" },
+  { label: "blue", value: "blue" },
+  { label: "hotpink", value: "hotpink" },
+];
+
+export const OnBlurExample = () => {
+  const [color, setColor] = useState("red");
+  const onChange = (e: { target: { value: React.SetStateAction<string> } }) => {
+    setColor(e.target.value);
+  };
+  const onBlur = () => {
+    console.log("onBlur called");
+  };
+  return (
+    <AdvancedColorPicker
+      availableColors={colors}
+      selectedColor={color}
+      onChange={onChange}
+      defaultColor=""
+      name="choose a colour"
+      onBlur={onBlur}
     />
   );
 };

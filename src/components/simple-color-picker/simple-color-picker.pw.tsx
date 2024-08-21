@@ -512,7 +512,23 @@ test.describe("Check events for SimpleColorPicker component", () => {
     });
   });
 
-  test("should call onBlur callback when a blur event is triggered", async ({
+  test("should call onBlur callback when a blur event is triggered on the component", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback: SimpleColorPickerProps["onBlur"] = () => {
+      callbackCount += 1;
+    };
+    await mount(<SimpleColorPickerCustom onBlur={callback} />);
+
+    const colorInput = simpleColorPickerInput(page, 5);
+    await colorInput.focus();
+    await page.locator("body").click({ position: { x: 0, y: 0 } });
+    await expect(callbackCount).toBe(1);
+  });
+
+  test("should not call onBlur callback when a blur event is triggered on a color", async ({
     mount,
     page,
   }) => {
@@ -525,7 +541,7 @@ test.describe("Check events for SimpleColorPicker component", () => {
     const colorInput = simpleColorPickerInput(page, 5);
     await colorInput.focus();
     await colorInput.blur();
-    await expect(callbackCount).toBe(1);
+    await expect(callbackCount).toBe(0);
   });
 
   test("should not call onBlur callback when a blur event is triggered and isBlurBlocked prop is true", async ({

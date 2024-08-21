@@ -81,6 +81,9 @@ function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
     return iconConfig.backgroundSize[bgSize];
   }
 
+  /* The below is ignored as removing it may cause regressions as some components import StyledIcon directly from this file 
+  however it cannot be tested in the Icon tests as these props always have a value. */
+  /* istanbul ignore next */
   return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
 }
 

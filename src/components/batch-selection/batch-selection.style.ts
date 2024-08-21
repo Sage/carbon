@@ -17,7 +17,7 @@ const StyledBatchSelection = styled.div<
     display: inline-flex;
     border-radius: var(--borderRadius100);
 
-    ${hidden && "opacity: 0;"}
+    ${hidden && "visibility: hidden;"}
 
     ${StyledIcon} {
       ${!disabled && `color: var(--colorsActionMajorYin065);`}

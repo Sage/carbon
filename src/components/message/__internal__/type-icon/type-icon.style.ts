@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { MessageVariant } from "../message.component";
+import { MessageVariant } from "../../message.component";
 
 const messageVariants = {
   error: "var(--colorsSemanticNegative500)",
@@ -12,9 +12,7 @@ const messageVariants = {
 };
 
 type TypeIconStyleProps = {
-  /** set background to be invisible */
   transparent?: boolean;
-  /** set type of message based on new DLS standard */
   variant: MessageVariant;
 };
 

@@ -64,7 +64,6 @@ export const LeftLabelWithLabelWidth = (args: ProgressTrackerProps) => {
         mt={2}
         labelsPosition="left"
         progress={10}
-        showDefaultLabels
         labelWidth="60%"
         {...args}
       />
@@ -72,7 +71,6 @@ export const LeftLabelWithLabelWidth = (args: ProgressTrackerProps) => {
         mt={2}
         labelsPosition="left"
         progress={30}
-        showDefaultLabels
         labelWidth="100px"
         {...args}
       />
@@ -80,7 +78,6 @@ export const LeftLabelWithLabelWidth = (args: ProgressTrackerProps) => {
         mt={2}
         labelsPosition="left"
         progress={40}
-        showDefaultLabels
         labelWidth="fit-content"
         {...args}
       />
@@ -92,10 +89,6 @@ LeftLabelWithLabelWidth.storyName = "left label with label width";
 
 LeftLabelWithLabelWidth.parameters = {
   themeProvider: { chromatic: { disableSnapshot: false, theme: "sage" } },
-};
-
-export const ProgressTrackerComponent = (props: ProgressTrackerProps) => {
-  return <ProgressTracker progress={50} showDefaultLabels {...props} />;
 };
 
 export const InsideFlexTile = () => {

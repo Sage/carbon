@@ -1,3 +1,80 @@
+### [142.2.2](https://github.com/Sage/carbon/compare/v142.2.1...v142.2.2) (2024-08-20)
+
+
+### Bug Fixes
+
+* **batch-selection:** children are still clickable when hidden prop is true ([7364fb5](https://github.com/Sage/carbon/commit/7364fb52834f703498b56372948bcc06620cc2dd)), closes [#6858](https://github.com/Sage/carbon/issues/6858)
+
+### [142.2.1](https://github.com/Sage/carbon/compare/v142.2.0...v142.2.1) (2024-08-19)
+
+
+### Bug Fixes
+
+* **icon:** ensure tooltip does not render when component is disabled ([c1cfd50](https://github.com/Sage/carbon/commit/c1cfd50c68efffafb72afffaae64662c24edb44d))
+
+## [142.2.0](https://github.com/Sage/carbon/compare/v142.1.0...v142.2.0) (2024-08-16)
+
+
+### Features
+
+* **hr:** add the aria-hidden prop ([d84e37f](https://github.com/Sage/carbon/commit/d84e37f05b36889f33b59c7f842ea876f1cd7c5d))
+
+## [142.1.0](https://github.com/Sage/carbon/compare/v142.0.4...v142.1.0) (2024-08-16)
+
+
+### Features
+
+* **link:** update styling of skip link variant ([79e44c9](https://github.com/Sage/carbon/commit/79e44c97b8df4ff544e8dc40b84ce3a884762244))
+
+### [142.0.4](https://github.com/Sage/carbon/compare/v142.0.3...v142.0.4) (2024-08-15)
+
+
+### Bug Fixes
+
+* **select:** consolidate hitbox across all Select variants ([297ce84](https://github.com/Sage/carbon/commit/297ce84f141ae5f3eae6f99c582e37c9dfe55816)), closes [#6841](https://github.com/Sage/carbon/issues/6841)
+
+### [142.0.3](https://github.com/Sage/carbon/compare/v142.0.2...v142.0.3) (2024-08-14)
+
+
+### Bug Fixes
+
+* **simple-color-picker, advanced-color-picker:** ensure blur blocking works when switching colors ([c4434bb](https://github.com/Sage/carbon/commit/c4434bba81405cf1d200911a5a13107c9c4624a0)), closes [#6850](https://github.com/Sage/carbon/issues/6850)
+
+### [142.0.2](https://github.com/Sage/carbon/compare/v142.0.1...v142.0.2) (2024-08-14)
+
+
+### Bug Fixes
+
+* **menu:** variant type mismatch MenuItem and Link ([f3da8b4](https://github.com/Sage/carbon/commit/f3da8b41899ee59aa75539d96d16cbdfdb72c171)), closes [#6829](https://github.com/Sage/carbon/issues/6829)
+
+### [142.0.1](https://github.com/Sage/carbon/compare/v142.0.0...v142.0.1) (2024-08-13)
+
+
+### Bug Fixes
+
+* **heading:** ensure back link focus styling is consistent when rendered as a link or button ([5991d48](https://github.com/Sage/carbon/commit/5991d48bedcc400bf20c26a534f3071069dd66fb))
+* **heading:** ensure back link wrapper does not have additional focus styling ([041ff54](https://github.com/Sage/carbon/commit/041ff54345a5f0a60db1e0df8ab912501cb24bc1))
+
+## [142.0.0](https://github.com/Sage/carbon/compare/v141.4.4...v142.0.0) (2024-08-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **message:** `MessageContent` and `TypeIcon` subcomponents have been moved to an `__internal__`
+directory
+* **progress-tracker:** Aria attribute and `showDefaultLabel` props have been removed from
+`ProgressTracker`. This component can no longer be used without labels, default labels will
+now always be displayed if no valid `currentProgressLabel` is provided.
+
+### Features
+
+* **progress-tracker:** remove aria- attribute and showDefaultLabel  props ([8edfd4c](https://github.com/Sage/carbon/commit/8edfd4c0e67b166f7e4fcf9a60b821826b92b349)), closes [#6755](https://github.com/Sage/carbon/issues/6755)
+
+
+### Miscellaneous Chores
+
+* **message:** move subcomponents into an internal directory ([4f602c2](https://github.com/Sage/carbon/commit/4f602c275ee5f2ae7f816aac9b0124bfd5ffe526))
+
 ### [141.4.4](https://github.com/Sage/carbon/compare/v141.4.3...v141.4.4) (2024-08-07)
 
 
