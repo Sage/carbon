@@ -345,6 +345,7 @@ export const Decimal = React.forwardRef(
           value={toStandardDecimal(stateValue)}
           type="hidden"
           data-component="hidden-input"
+          data-role="hidden-input"
         />
       </>
     );

@@ -161,7 +161,9 @@ export const GlobalLocalNavBarLayout: Story = () => {
       </GlobalHeader>
       <NavigationBar position="fixed" orientation="top" offset="40px">
         <Menu display="flex" flex="1">
-          <MenuItem flex="1">Menu Item One</MenuItem>
+          <MenuItem href="#" flex="1">
+            Menu Item One
+          </MenuItem>
           <MenuItem flex="0 0 auto" href="#">
             Menu Item Two
           </MenuItem>

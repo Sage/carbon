@@ -48,7 +48,7 @@ export const FlatTableCheckbox = ({
 
   const handleClick = (event: React.MouseEvent<HTMLInputElement>) => {
     event.stopPropagation();
-    if (onClick) onClick(event);
+    onClick?.(event);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
