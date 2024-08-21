@@ -728,3 +728,36 @@ export const FullscreenViewStory: Story = () => {
 };
 FullscreenViewStory.storyName = "Fullscreen View";
 FullscreenViewStory.parameters = { chromatic: { disableSnapshot: true } };
+
+export const TruncationAndSubmenuWidth: Story = () => {
+  return (
+    <Box mb={150}>
+      {menuTypes.map((menuType) => (
+        <Box key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem
+              maxWidth="240px"
+              submenuMaxWidth="300px"
+              submenu="This is a very long menu item title"
+            >
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuSegmentTitle text="segment title that should wrap when it will overflow">
+                <MenuItem href="#">Item Two</MenuItem>
+                <MenuItem href="#">
+                  This is a longer text string that will wrap when it will
+                  overflow the width of the submenu container
+                </MenuItem>
+              </MenuSegmentTitle>
+            </MenuItem>
+          </Menu>
+        </Box>
+      ))}
+    </Box>
+  );
+};
+
+TruncationAndSubmenuWidth.storyName = "Truncation and Submenu Width";
+TruncationAndSubmenuWidth.parameters = { chromatic: { disableSnapshot: true } };
