@@ -4,7 +4,11 @@ import { Menu, MenuItem } from "../menu";
 
 export default {
   title: "Navigation Bar/Test",
-  includeStories: ["DefaultStory", "NavigationBarWithSubmenuAndChangingHeight"],
+  includeStories: [
+    "DefaultStory",
+    "NavigationBarWithSubmenuAndChangingHeight",
+    "ResponsivePadding",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -22,8 +26,9 @@ DefaultStory.args = {
   navigationType: "light",
   isLoading: false,
   children: "Example content",
-  ariaLabel: undefined,
-  position: undefined,
+  ariaLabel: "",
+  position: "",
+  orientation: "",
   offset: "0",
 };
 
@@ -67,4 +72,15 @@ export const NavigationBarWithSubmenuAndChangingHeight = () => {
       </NavigationBar>
     </div>
   );
+};
+
+export const ResponsivePadding = () => {
+  return <NavigationBar>Example content</NavigationBar>;
+};
+
+ResponsivePadding.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+    viewports: [599, 959, 1259],
+  },
 };
