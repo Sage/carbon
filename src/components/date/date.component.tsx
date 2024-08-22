@@ -98,6 +98,7 @@ export interface DateInputProps
    * Name passed from DateRange to allow it to know which input is updating
    * */
   inputName?: InputName;
+  open?: boolean;
 }
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -129,6 +130,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       labelWidth,
       maxWidth,
       inputName,
+      open: openProp,
       ...rest
     }: DateInputProps,
     ref
@@ -146,6 +148,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     ]);
     const { inputRefMap, setInputRefMap } = useContext(DateRangeContext);
     const [open, setOpen] = useState(false);
+
+    const computedOpen = openProp ?? open;
+
     const [selectedDays, setSelectedDays] = useState(
       checkISOFormatAndLength(value)
         ? parseISODate(value)
@@ -188,7 +193,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     };
 
     const handleClickAway = () => {
-      if (open) {
+      if (open && openProp === undefined) {
         alreadyFocused.current = true;
         internalInputRef.current?.focus();
         isBlurBlocked.current = false;
@@ -227,8 +232,11 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           },
         })
       );
-      focusInput();
-      setOpen(false);
+      if (openProp === undefined) {
+        focusInput();
+
+        setOpen(false);
+      }
     };
 
     const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
@@ -282,11 +290,12 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       }
 
       isBlurBlocked.current = false;
-
-      if (!open && !alreadyFocused.current) {
-        setOpen(true);
-      } else {
-        alreadyFocused.current = false;
+      if (openProp === undefined) {
+        if (!open && !alreadyFocused.current) {
+          setOpen(true);
+        } else {
+          alreadyFocused.current = false;
+        }
       }
 
       if (onFocus) {
@@ -297,12 +306,12 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const handleKeyUp = useCallback(
       (ev) => {
         /* istanbul ignore else */
-        if (open && Events.isEscKey(ev)) {
+        if (openProp === undefined && open && Events.isEscKey(ev)) {
           setOpen(false);
           ev.stopPropagation();
         }
       },
-      [open]
+      [openProp, open]
     );
 
     const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
@@ -310,7 +319,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         onKeyDown(ev);
       }
 
-      if (open && Events.isTabKey(ev)) {
+      if (openProp === undefined && open && Events.isTabKey(ev)) {
         if (Events.isShiftKey(ev)) {
           setOpen(false);
         } else if (!disablePortal) {
@@ -320,6 +329,18 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           ) as HTMLElement)?.focus();
         }
         alreadyFocused.current = false;
+      }
+
+      if (
+        openProp &&
+        Events.isTabKey(ev) &&
+        !Events.isShiftKey(ev) &&
+        !disablePortal
+      ) {
+        ev.preventDefault();
+        (document?.querySelector(
+          `[id="${pickerTabGuardId.current}"]`
+        ) as HTMLElement)?.focus();
       }
     };
 
@@ -339,12 +360,13 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       }
 
       const { type } = ev.target as HTMLInputElement;
-
-      if (type !== "text") {
-        alreadyFocused.current = true;
-        setOpen((prev) => !prev);
-      } else if (!open) {
-        setOpen(true);
+      if (openProp === undefined) {
+        if (type !== "text") {
+          alreadyFocused.current = true;
+          setOpen((prev) => !prev);
+        } else if (!open) {
+          setOpen(true);
+        }
       }
     };
 
@@ -490,7 +512,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           minDate={minDate}
           maxDate={maxDate}
           pickerMouseDown={handlePickerMouseDown}
-          open={open}
+          open={computedOpen}
           setOpen={setOpen}
           pickerTabGuardId={pickerTabGuardId.current}
         />

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { zhCN, de } from "date-fns/locale";
 
+import Dialog from "../dialog";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -26,17 +27,88 @@ export default meta;
 type Story = StoryObj<typeof DateInput>;
 
 export const Default: Story = () => {
+  const ref = useRef<HTMLInputElement | null>(null);
   const [state, setState] = useState("04/04/2019");
+  const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
+  const handleFocus = () => {
+    setOpen(true);
+  }
+
+  const handleKeyDown = (ev) => {
+    if (ev.key === "Escape") {
+      setOpen(false);
+      ref.current?.focus();
+    }
+
+    if (ev.key === "Enter") {
+      setOpen(true)
+    }
+  }
+
+  useEffect(() => {
+    const clickAway = (ev) => {
+      if (ref.current && !ref.current.contains(ev.target)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("click", clickAway);
+
+    return () => {
+      document.removeEventListener("click", clickAway);
+    }
+  }, []);
+
+  const handleBlur = () => {
+    if (!open) {
+      setOpenDialog(true)
+    }
+  }
+
+  const handleClick = () => {
+    setOpen(p => !p)
+  }
+
+  const handleDayKeyDown = (day, mod, ev) => {
+    if (ev.key === "Tab" && ev.target.classList.contains("DayPicker-Day")) {
+      setOpen(false);
+      ev.preventDefault();
+      setOpenDialog(true);
+    }
+  }
   return (
+    <>
     <DateInput
+      ref={ref}
+      label="Date"
+      name="date-input"
+      value={state}
+      onChange={setValue}
+      open={open}
+      onFocus={handleFocus}
+      onKeyDown={handleKeyDown}
+      onBlur={handleBlur}
+      onClick={handleClick}
+      pickerProps={{ onDayKeyDown: handleDayKeyDown }}
+    />
+     <DateInput
       label="Date"
       name="date-input"
       value={state}
       onChange={setValue}
     />
+    <Dialog
+      open={openDialog}
+      title="Dialog"
+      onCancel={() => setOpenDialog(false)}
+      >
+        FOO
+      </Dialog>
+    </>
   );
 };
 Default.storyName = "Default";
