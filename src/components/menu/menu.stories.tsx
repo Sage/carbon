@@ -68,18 +68,22 @@ export const DefaultStory: Story = () => {
             {menuType}
           </Typography>
           <Menu menuType={menuType}>
-            <MenuItem className="foooooo" href="#">
+            <MenuItem icon="settings" className="foooooo" href="#">
               Menu Item One
             </MenuItem>
-            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem icon="settings" onClick={() => {}}>
+              Menu Item Two
+            </MenuItem>
             <MenuItem submenu="Menu Item Three">
               <MenuItem href="#">Item Submenu One</MenuItem>
               <MenuItem href="#">Item Submenu Two</MenuItem>
               <MenuDivider />
-              <MenuItem icon="settings" href="#">
+              <MenuItem icon="entry" href="#">
                 Item Submenu Three
               </MenuItem>
-              <MenuItem href="#">Item Submenu Four</MenuItem>
+              <MenuItem icon="settings" href="#">
+                Item Submenu Four
+              </MenuItem>
             </MenuItem>
             <MenuItem submenu="Menu Item Four" onClick={() => {}}>
               <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>

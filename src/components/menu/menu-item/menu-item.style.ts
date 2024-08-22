@@ -125,7 +125,10 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
     ${!maxWidth &&
     css`
-      :has([data-component="icon"]):not(:has(button)) ${StyledContent} {
+      a:has([data-component="icon"]):not(:has(button))
+        ${StyledContent},
+        button:has([data-component="icon"]):not(:has(button))
+        ${StyledContent} {
         position: relative;
         top: -2px;
       }
