@@ -7,13 +7,6 @@ import NumeralDate from "./numeral-date.component";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
-import Tooltip from "../tooltip";
-
-jest.mock("../tooltip", () => {
-  return jest.fn(() => null);
-});
-
-const TooltipMock = Tooltip as jest.MockedFunction<typeof Tooltip>;
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -138,14 +131,10 @@ describe("when the `error` prop is passed a string value and `validationRedesign
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     await user.hover(dayInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "error" }),
-      {}
-    );
+    expect(await screen.findByRole("tooltip", { name: "error" })).toBeVisible();
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    TooltipMock.mockClear();
   });
 
   it("should display the tooltip when the user hovers on the 'Month' input", async () => {
@@ -164,14 +153,10 @@ describe("when the `error` prop is passed a string value and `validationRedesign
     const monthInput = screen.getByRole("textbox", { name: "Month" });
     await user.hover(monthInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "error" }),
-      {}
-    );
+    expect(await screen.findByRole("tooltip", { name: "error" })).toBeVisible();
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    TooltipMock.mockClear();
   });
 
   it("should display the tooltip when the user hovers on the 'Year' input", async () => {
@@ -190,14 +175,10 @@ describe("when the `error` prop is passed a string value and `validationRedesign
     const yearInput = screen.getByRole("textbox", { name: "Year" });
     await user.hover(yearInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "error" }),
-      {}
-    );
+    expect(await screen.findByRole("tooltip", { name: "error" })).toBeVisible();
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    TooltipMock.mockClear();
   });
 });
 
@@ -326,14 +307,12 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     await user.hover(dayInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "warning" }),
-      {}
-    );
+    expect(
+      await screen.findByRole("tooltip", { name: "warning" })
+    ).toBeVisible();
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    TooltipMock.mockClear();
   });
 
   it("should display the tooltip when the user hovers on the 'Month' input", async () => {
@@ -352,14 +331,12 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
     const monthInput = screen.getByRole("textbox", { name: "Month" });
     await user.hover(monthInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "warning" }),
-      {}
-    );
+    expect(
+      await screen.findByRole("tooltip", { name: "warning" })
+    ).toBeVisible();
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    TooltipMock.mockClear();
   });
 
   it("should display the tooltip when the user hovers on the 'Year' input", async () => {
@@ -378,14 +355,12 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
     const yearInput = screen.getByRole("textbox", { name: "Year" });
     await user.hover(yearInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "warning" }),
-      {}
-    );
+    expect(
+      await screen.findByRole("tooltip", { name: "warning" })
+    ).toBeVisible();
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    TooltipMock.mockClear();
   });
 });
 
@@ -502,14 +477,10 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     await user.hover(dayInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "info" }),
-      {}
-    );
+    expect(await screen.findByRole("tooltip", { name: "info" })).toBeVisible();
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    TooltipMock.mockClear();
   });
 
   it("should display the tooltip when the user hovers on the 'Month' input", async () => {
@@ -528,14 +499,10 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
     const monthInput = screen.getByRole("textbox", { name: "Month" });
     await user.hover(monthInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "info" }),
-      {}
-    );
+    expect(await screen.findByRole("tooltip", { name: "info" })).toBeVisible();
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    TooltipMock.mockClear();
   });
 
   it("should display the tooltip when the user hovers on the 'Year' input", async () => {
@@ -554,14 +521,10 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
     const yearInput = screen.getByRole("textbox", { name: "Year" });
     await user.hover(yearInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "info" }),
-      {}
-    );
+    expect(await screen.findByRole("tooltip", { name: "info" })).toBeVisible();
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
-    TooltipMock.mockClear();
   });
 });
 
@@ -763,14 +726,12 @@ test("should render the help icon and tooltip when `labelHelp` prop is set and `
   const labelHelp = screen.getByRole("button", { name: "help" });
   await user.hover(labelHelp);
 
-  expect(Tooltip).toHaveBeenCalledWith(
-    expect.objectContaining({ isVisible: true, message: "labelHelp" }),
-    {}
-  );
+  expect(
+    await screen.findByRole("tooltip", { name: "labelHelp" })
+  ).toBeVisible();
 
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
-  TooltipMock.mockClear();
 });
 
 describe("when the `enableInternalError` prop is not set and `validationRedesignOptIn` is true", () => {
