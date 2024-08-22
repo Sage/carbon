@@ -1,3 +1,10 @@
+### [142.3.1](https://github.com/Sage/carbon/compare/v142.3.0...v142.3.1) (2024-08-22)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure correct alignment when onClick and icon props are set ([afa2759](https://github.com/Sage/carbon/commit/afa2759adac7b401708802d3fc0b759ba95246b1))
+
 ## [142.3.0](https://github.com/Sage/carbon/compare/v142.2.2...v142.3.0) (2024-08-21)
 
 
