@@ -63,16 +63,6 @@ import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 
 <Canvas of={CheckboxStories.Reversed} />
 
-### With fieldHelp
-
-<Canvas of={CheckboxStories.WithFieldHelp} />
-
-### With labelHelp
-
-**Note:** The `legendHelp` tooltip will be rendered as hint text if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
-
-<Canvas of={CheckboxStories.WithLabelHelp} />
-
 ### With custom labelWidth
 
 <Canvas of={CheckboxStories.WithCustomLabelWidth} />
@@ -81,40 +71,11 @@ import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 
 <Canvas of={CheckboxStories.CheckboxGroupStory} />
 
-### With inline legend
+### Inline Checkbock Group
 
-The legend can be made inline by passing the `legendInline` prop to `CheckboxGroup`. Its width can be changed with the `legendWidth` prop and its text alignment with `legendAlign`.
+A `Checkbox` in a `CheckboxGroup` can be displayed inline using the `inline` prop. 
 
-The spacing between the legend and the checkboxes can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, 
-so therefore `8px` or `16px`. The default is `2` for this prop.
-
-**Note:** The `legendInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
-
-<Canvas of={CheckboxStories.CheckboxGroupWithInlineLegend} />
-
-## Validations
-
-The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
-
-This is an example of `Checkbox` in a `CheckboxGroup` with validations passed as a string.
-
-**Note:** The `legendHelp` tooltip will be rendered as "Hint text".
-
-<Canvas of={ValidationStories.NewStringValidation} />
-
-This is an example of `Checkbox` in a `CheckboxGroup` displayed inline using the `inline` prop. 
-
-<Canvas of={ValidationStories.NewInline} />
-
-This is an example of `Checkbox` in a `CheckboxGroup` with validations passed as a string displayed inline.
-
-<Canvas of={ValidationStories.NewStringValidationInline} />
-
-This is an example of `Checkbox` with validations passed as boolean values.
-
-<Canvas of={ValidationStories.NewBooleanValidation} />
+<Canvas of={CheckboxStories.NewInline} />
 
 ### Required
 
@@ -133,6 +94,47 @@ an individual checkbox input or on the group level.
 <Canvas of={CheckboxStories.IsOptional} />
 
 <Canvas of={CheckboxStories.CheckboxGroupIsOptional} />
+
+## Validations
+
+The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
+
+This is an example of `Checkbox` in a `CheckboxGroup` with validations passed as a string.
+
+You can use the `legendHelp` prop to provide a hint text for the group.
+
+**Note:** The `labelHelp` and/or `fieldHelp` props will not be supported if a `Checkbox` is within a group.
+
+<Canvas of={ValidationStories.NewStringValidation} />
+
+This is an example of `Checkbox` in a `CheckboxGroup` with validations passed as a string displayed inline.
+
+<Canvas of={ValidationStories.NewStringValidationInline} />
+
+This is an example of `Checkbox` with validations passed as boolean values.
+
+<Canvas of={ValidationStories.NewBooleanValidation} />
+
+### With inline legend
+
+The legend can be made inline by passing the `legendInline` prop to `CheckboxGroup`. Its width can be changed with the `legendWidth` prop and its text alignment with `legendAlign`.
+
+The spacing between the legend and the checkboxes can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, 
+so therefore `8px` or `16px`. The default is `2` for this prop.
+
+**Note:** The `legendInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+
+<Canvas of={CheckboxStories.CheckboxGroupWithInlineLegend} />
+
+### With fieldHelp
+
+<Canvas of={CheckboxStories.WithFieldHelp} />
+
+### With labelHelp
+
+<Canvas of={CheckboxStories.WithLabelHelp} />
 
 ## Props
 
