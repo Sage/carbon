@@ -1,3 +1,10 @@
+## [142.4.0](https://github.com/Sage/carbon/compare/v142.3.2...v142.4.0) (2024-08-27)
+
+
+### Features
+
+* **loader-star:** create new loader-star component ([5ffe0e4](https://github.com/Sage/carbon/commit/5ffe0e41ec7fa673522c1e2f966a398c08a0c287))
+
 ### [142.3.2](https://github.com/Sage/carbon/compare/v142.3.1...v142.3.2) (2024-08-23)
 
 
