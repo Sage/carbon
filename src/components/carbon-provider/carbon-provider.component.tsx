@@ -15,6 +15,7 @@ export interface CarbonProviderProps extends NewValidationContextProps {
   children: React.ReactNode;
   /** Theme which specifies styles to apply to all child components. Set to `sageTheme` by default. */
   theme?: Partial<ThemeObject>;
+  ariaHidden?: "true" | "false";
 }
 
 export const CarbonProvider = ({
@@ -23,6 +24,7 @@ export const CarbonProvider = ({
   validationRedesignOptIn = false,
   roundedCornersOptOut = false,
   focusRedesignOptOut = false,
+  ariaHidden = "false",
 }: CarbonProviderProps) => {
   const {
     roundedCornersOptOut: existingRoundedCornersOptOut,
@@ -41,7 +43,7 @@ export const CarbonProvider = ({
         focusRedesignOptOut: focusRedesignOptOutValue,
       }}
     >
-      <CarbonScopedTokensProvider>
+      <CarbonScopedTokensProvider aria-hidden={ariaHidden}>
         <NewValidationContext.Provider
           value={{
             validationRedesignOptIn,
