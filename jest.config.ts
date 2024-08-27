@@ -10,7 +10,6 @@ const config: Config = {
   setupFilesAfterEnv: [
     "<rootDir>/src/__spec_helper__/__internal__/index.ts",
     "<rootDir>/src/__spec_helper__/__internal__/expect.ts",
-    "@testing-library/jest-dom",
     "jest-canvas-mock",
   ],
   snapshotSerializers: ["enzyme-to-json/serializer"],

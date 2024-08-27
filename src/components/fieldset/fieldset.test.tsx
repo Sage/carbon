@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import Fieldset from "./fieldset.component";
 import Textbox from "../textbox";
-import "@testing-library/jest-dom/extend-expect";
 
 test("Fieldset Legend is rendered if supplied", () => {
   render(<Fieldset legend="Legend" />);
