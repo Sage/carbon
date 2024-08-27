@@ -188,6 +188,7 @@ export const DialogFullScreen = ({
           <StyledContent
             hasHeader={title !== undefined}
             data-element="content"
+            data-role="dialog-full-screen-content"
             ref={contentRef}
             disableContentPadding={disableContentPadding}
           >
