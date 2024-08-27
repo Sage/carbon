@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import { PaddingProps } from "styled-system";
-import { TableBorderSize, TableCellAlign } from "..";
 
+import { TableBorderSize, TableCellAlign } from "..";
+import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import {
   StyledFlatTableCell,
   StyledCellContent,
@@ -10,7 +11,9 @@ import Icon from "../../icon";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useTableCell from "../__internal__/use-table-cell";
 
-export interface FlatTableCellProps extends PaddingProps {
+export interface FlatTableCellProps
+  extends PaddingProps,
+    Omit<TagProps, "data-component"> {
   /** Content alignment */
   align?: TableCellAlign;
   /** Cell content */
@@ -43,6 +46,8 @@ export const FlatTableCell = ({
   colspan,
   rowspan,
   id,
+  "data-element": dataElement,
+  "data-role": dataRole,
   ...rest
 }: FlatTableCellProps) => {
   const internalId = useRef(id || guid());
@@ -73,7 +78,9 @@ export const FlatTableCell = ({
       makeCellSticky={makeCellSticky}
       className={makeCellSticky ? "isSticky" : undefined}
       align={align}
-      data-element="flat-table-cell"
+      data-component="flat-table-cell"
+      data-element={dataElement || "flat-table-cell"}
+      data-role={dataRole}
       pl={pl}
       onClick={isExpandableCell ? onClick : undefined}
       tabIndex={isExpandableCell ? tabIndex : undefined}
@@ -94,6 +101,7 @@ export const FlatTableCell = ({
           truncate && !title && typeof children === "string" ? children : title
         }
         expandable={expandable}
+        data-role="flat-table-cell-content"
       >
         {expandable && isFirstCell && (
           <Icon type="chevron_down_thick" mr="8px" />
