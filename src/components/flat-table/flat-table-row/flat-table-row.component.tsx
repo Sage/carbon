@@ -239,6 +239,7 @@ export const FlatTableRow = React.forwardRef<
     function handleCellKeyDown(ev: React.KeyboardEvent<HTMLElement>) {
       const isEnterOrSpaceKey = Event.isEnterKey(ev) || Event.isSpaceKey(ev);
 
+      /* istanbul ignore else */
       if (isEnterOrSpaceKey) {
         ev.preventDefault();
         toggleExpanded();

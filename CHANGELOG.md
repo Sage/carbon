@@ -1,3 +1,18 @@
+### [142.3.2](https://github.com/Sage/carbon/compare/v142.3.1...v142.3.2) (2024-08-23)
+
+
+### Bug Fixes
+
+* **checkbox:** prevent labelHelp and fieldHelp from rendering in a group with new validation ([2f2f340](https://github.com/Sage/carbon/commit/2f2f340fcdfca1acb5b72bad6df7299eece3eb3e))
+* **radio-button:** prevent labelHelp and fieldHelp from rendering with new validation ([c9c4500](https://github.com/Sage/carbon/commit/c9c4500b7177ffd6151a9a4fe6adbe576c4d2f9c))
+
+### [142.3.1](https://github.com/Sage/carbon/compare/v142.3.0...v142.3.1) (2024-08-22)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure correct alignment when onClick and icon props are set ([afa2759](https://github.com/Sage/carbon/commit/afa2759adac7b401708802d3fc0b759ba95246b1))
+
 ## [142.3.0](https://github.com/Sage/carbon/compare/v142.2.2...v142.3.0) (2024-08-21)
 
 
