@@ -154,6 +154,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jest-fetch-mock": "^3.0.3",
     "jest-styled-components": "^6.3.4",
+    "jsdom": "^21.1.0",
     "jsdom-testing-mocks": "^1.11.0",
     "lint-staged": "^11.2.6",
     "mockdate": "^2.0.5",
@@ -205,7 +206,8 @@
   },
   "overrides": {
     "playwright-core": "$@playwright/experimental-ct-react17",
-    "@testing-library/dom": "$@testing-library/dom"
+    "@testing-library/dom": "$@testing-library/dom",
+    "jsdom": "$jsdom"
   },
   "config": {
     "commitizen": {
