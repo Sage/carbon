@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import {
   layout,
   flexbox,
-  padding,
   FlexboxProps,
   LayoutProps,
   PaddingProps,
@@ -16,7 +15,6 @@ import {
 import { StyledLink } from "../link/link.style";
 import { MenuProps } from "./menu.component";
 import { baseTheme } from "../../style/themes";
-import StyledMenuItemWrapper from "./menu-item/menu-item.style";
 
 interface StyledMenuProps
   extends Pick<MenuProps, "menuType">,
@@ -26,7 +24,6 @@ interface StyledMenuProps
 }
 
 const StyledMenuWrapper = styled.ul<StyledMenuProps>`
-  line-height: 40px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -96,10 +93,6 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
         white-space: normal;
       }
     `}
-
-  ${StyledMenuItemWrapper} {
-    ${padding}
-  }
 `;
 
 StyledMenuItem.defaultProps = {

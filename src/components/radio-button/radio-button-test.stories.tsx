@@ -4,15 +4,18 @@ import { StoryFn } from "@storybook/react";
 import { RadioButtonGroup, RadioButton } from ".";
 import { RadioButtonGroupProps } from "./radio-button-group/radio-button-group.component";
 import { RadioButtonProps } from "./radio-button.component";
+import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Radio Button/Test",
   includeStories: [
-    "Required",
+    "WithLabelHelp",
     "WithValidationsOnButtons",
     "WithValidationsOnRadioGroup",
     "WithTooltipPosition",
     "WithTooltipPositionOnRadioGroup",
+    "WithNewValidation",
+    "WithNewValidationGroup",
   ],
   parameters: {
     info: { disable: true },
@@ -20,23 +23,52 @@ export default {
       disableSnapshot: true,
     },
   },
+  argTypes: {
+    labelSpacing: {
+      options: [1, 2],
+      control: {
+        type: "select",
+      },
+    },
+    size: {
+      options: ["small", "large"],
+      control: {
+        type: "select",
+      },
+    },
+  },
 };
 
-export const Required: StoryFn<typeof RadioButton> = () => (
-  <RadioButtonGroup name="required" legend="Radio group legend" required>
-    <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
-    <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
-    <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
+export const WithLabelHelp: StoryFn<typeof RadioButton> = () => (
+  <RadioButtonGroup name="labelHelp" legend="Radio group legend">
+    <RadioButton
+      id="radio-1"
+      value="radio1"
+      label="Radio Option 1"
+      labelHelp="Radio 1"
+    />
+    <RadioButton
+      id="radio-2"
+      value="radio2"
+      label="Radio Option 2"
+      labelHelp="Radio 2"
+    />
+    <RadioButton
+      id="radio-3"
+      value="radio3"
+      label="Radio Option 3"
+      labelHelp="Radio 3"
+    />
   </RadioButtonGroup>
 );
 
-Required.storyName = "required";
+WithLabelHelp.storyName = "with labelHelp";
 
-export const WithValidationsOnButtons: StoryFn<typeof RadioButton> = () => (
+export const WithValidationsOnButtons = ({ ...args }) => (
   <RadioButtonGroup
     name="validations-on-buttons-group"
     onChange={() => console.log("change")}
-    legend="Radio group legend"
+    {...args}
   >
     <RadioButton
       id="validations-on-buttons-radio-1"
@@ -61,13 +93,18 @@ export const WithValidationsOnButtons: StoryFn<typeof RadioButton> = () => (
 );
 
 WithValidationsOnButtons.storyName = "with validations on RadioButton";
+WithValidationsOnButtons.args = {
+  legend: "Radio group legend",
+  legendInline: false,
+  required: false,
+  inline: false,
+};
 
-export const WithValidationsOnRadioGroup: StoryFn<typeof RadioButton> = () => (
+export const WithValidationsOnRadioGroup = ({ ...args }) => (
   <RadioButtonGroup
     name="validations-on-group"
     onChange={() => console.log("change")}
-    legend="Radio group legend"
-    error="Error message"
+    {...args}
   >
     <RadioButton
       id="validations-on-group-radio-1"
@@ -88,6 +125,14 @@ export const WithValidationsOnRadioGroup: StoryFn<typeof RadioButton> = () => (
 );
 
 WithValidationsOnRadioGroup.storyName = "with validations on RadioGroup";
+WithValidationsOnRadioGroup.args = {
+  error: "Error message",
+  warning: "",
+  legend: "Radio group legend",
+  legendInline: false,
+  required: false,
+  inline: false,
+};
 
 export const WithTooltipPosition: StoryFn<typeof RadioButton> = () => (
   <RadioButtonGroup
@@ -138,52 +183,52 @@ export const WithTooltipPositionOnRadioGroup: StoryFn<
 WithTooltipPositionOnRadioGroup.storyName =
   "with tooltip position on RadioGroup";
 
-const radioContainerWidth = 400;
-
-export const RadioButtonComponent = (props: Partial<RadioButtonProps>) => {
-  const [isChecked, setIsChecked] = React.useState(false);
+export const WithNewValidation = (props: Partial<RadioButtonProps>) => {
   return (
-    <div
-      style={{
-        marginTop: "64px",
-        marginLeft: "64px",
-        width: radioContainerWidth,
-      }}
-    >
+    <CarbonProvider validationRedesignOptIn>
       <RadioButton
         id="radio-1"
         value="radio1"
         label="Radiobutton 1"
-        checked={isChecked}
-        onChange={(e) => setIsChecked(e.target.checked)}
         {...props}
       />
-    </div>
+    </CarbonProvider>
   );
 };
 
-export const RadioButtonGroupComponent = ({
-  children,
+WithNewValidation.args = {
+  error: "Error message",
+  warning: "",
+  fieldHelp: "",
+  labelHelp: "",
+  required: false,
+  checked: false,
+  labelSpacing: 1,
+};
+
+export const WithNewValidationGroup = ({
   ...props
 }: Partial<RadioButtonGroupProps>) => {
   return (
-    <div
-      style={{
-        marginTop: "64px",
-        marginLeft: "64px",
-      }}
-    >
+    <CarbonProvider validationRedesignOptIn>
       <RadioButtonGroup
-        name="radiobuttongroup"
+        name="radio-button-group"
         legend="Radio group legend"
         {...props}
       >
         <RadioButton id="radio-1" value="radio1" label="Yes" />
         <RadioButton id="radio-2" value="radio2" label="No" />
         <RadioButton id="radio-3" value="radio3" label="Maybe" />
-
-        {children}
       </RadioButtonGroup>
-    </div>
+    </CarbonProvider>
   );
+};
+
+WithNewValidationGroup.args = {
+  error: "Error message",
+  warning: "",
+  legendHelp: "Legend help text",
+  legendInline: false,
+  required: true,
+  inline: false,
 };

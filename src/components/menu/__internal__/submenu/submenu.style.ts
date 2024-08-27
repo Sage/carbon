@@ -23,7 +23,7 @@ interface StyledSubmenuWrapperProps extends SharedStyleProps {
 
 interface StyledSubmenuProps
   extends SharedStyleProps,
-    Pick<SubmenuProps, "variant"> {
+    Pick<SubmenuProps, "variant" | "submenuMaxWidth"> {
   submenuDirection?: string;
   maxHeight?: string;
   applyFocusRadiusStyling: boolean;
@@ -66,6 +66,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     maxHeight,
     applyFocusRadiusStyling,
     applyFocusRadiusStylingToLastItem,
+    submenuMaxWidth,
   }) => css`
     ${!inFullscreenView &&
     menuType &&
@@ -75,6 +76,25 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       background-color: ${variant === "default"
         ? menuConfigVariants[menuType].submenuItemBackground
         : menuConfigVariants[menuType].background};
+
+      min-width: 100%;
+
+      ${submenuMaxWidth &&
+      css`
+        min-width: ${submenuMaxWidth};
+        max-width: ${submenuMaxWidth};
+
+        &&& {
+          a,
+          button,
+          ${StyledLink} a,
+          ${StyledLink} button {
+            white-space: normal;
+            height: auto;
+          }
+        }
+      `}
+
       a,
       button,
       ${StyledLink} a,
@@ -85,6 +105,8 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
 
     ${inFullscreenView &&
     css`
+      min-width: 100%;
+
       ${StyledMenuItem} {
         width: 100%;
       }
@@ -144,7 +166,6 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     list-style: none;
     margin: 0;
     padding: 0;
-    min-width: 100%;
 
     ${StyledMenuItemWrapper}:after, ${StyledMenuItemWrapper}:hover:after {
       display: none;
@@ -153,8 +174,6 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     ${StyledMenuItemWrapper} {
       display: flex;
       align-items: center;
-      height: 40px;
-      line-height: 40px;
       white-space: nowrap;
       cursor: pointer;
 
@@ -162,6 +181,12 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       css`
         white-space: normal;
         height: auto;
+      `}
+
+      ${submenuMaxWidth &&
+      css`
+        height: auto;
+        min-height: 40px;
       `}
 
       ${!inFullscreenView &&
@@ -182,6 +207,15 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
 
           > [data-component="icon"] {
             color: var(--colorsComponentsMenuYang100);
+          }
+        }
+
+        > a,
+        > button {
+          padding: 11px 16px 12px;
+
+          :has([data-component="icon"]) {
+            padding: 9px 16px 7px;
           }
         }
       `}

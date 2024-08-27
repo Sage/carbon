@@ -6,6 +6,7 @@ export interface SubmenuContextProps {
   handleKeyDown?: (event: React.KeyboardEvent<HTMLAnchorElement>) => void;
   shiftTabPressed?: boolean;
   blockIndex?: number;
+  submenuHasMaxWidth?: boolean;
 }
 
 const SubmenuContext = React.createContext<SubmenuContextProps>({});

@@ -28,25 +28,26 @@ const menuContextValues: MenuContextProps = {
 describe("When MenuItem has no submenu", () => {
   testStyledSystemPadding(
     (props) => <MenuItem {...props}>Foo</MenuItem>,
-    {},
-    (component) => component.find(StyledMenuItemWrapper)
+    undefined,
+    (component) => component.find(StyledMenuItemWrapper),
+    { modifier: "&&& > a" }
   );
   testStyledSystemLayout((props) => <MenuItem {...props}>Item One</MenuItem>);
   testStyledSystemFlexBox((props) => <MenuItem {...props}>Item One</MenuItem>);
 
-  test("should render children correctly", () => {
+  it("should render children correctly", () => {
     render(<MenuItem>Item One</MenuItem>);
 
     expect(screen.getByRole("listitem")).toHaveTextContent("Item One");
   });
 
-  test("should render an anchor element if `href` prop is set", () => {
+  it("should render an anchor element if `href` prop is set", () => {
     render(<MenuItem href="#">Item One</MenuItem>);
 
     expect(screen.getByRole("link", { name: "Item One" })).toBeVisible();
   });
 
-  test("should render a button element if `onClick` prop is set", () => {
+  it("should render a button element if `onClick` prop is set", () => {
     render(<MenuItem onClick={() => {}}>Item One</MenuItem>);
 
     expect(
@@ -54,7 +55,7 @@ describe("When MenuItem has no submenu", () => {
     ).toBeInTheDocument();
   });
 
-  test("should render an anchor element if both `href` and `onClick` props are set", () => {
+  it("should render an anchor element if both `href` and `onClick` props are set", () => {
     render(
       <MenuItem onClick={() => {}} href="#">
         Item One
@@ -64,7 +65,7 @@ describe("When MenuItem has no submenu", () => {
     expect(screen.getByRole("link", { name: "Item One" })).toBeInTheDocument();
   });
 
-  test("should render additional `carbon-menu-item--has-link` class if specified `href` prop is set", () => {
+  it("should render additional `carbon-menu-item--has-link` class if specified `href` prop is set", () => {
     render(<MenuItem href="#">Item One</MenuItem>);
 
     expect(screen.getByTestId("menu-item-wrapper")).toHaveClass(
@@ -72,7 +73,7 @@ describe("When MenuItem has no submenu", () => {
     );
   });
 
-  test("should render additional `carbon-menu-item--has-link` class if specified `onClick` prop is set", () => {
+  it("should render additional `carbon-menu-item--has-link` class if specified `onClick` prop is set", () => {
     render(<MenuItem onClick={() => {}}>Item One</MenuItem>);
 
     expect(screen.getByTestId("menu-item-wrapper")).toHaveClass(
@@ -80,7 +81,7 @@ describe("When MenuItem has no submenu", () => {
     );
   });
 
-  test("should add a `title` attribute with the full text when `maxWidth` prop is set", () => {
+  it("should add a `title` attribute with the full text when `maxWidth` prop is set", () => {
     render(<MenuItem maxWidth="100px">Item One</MenuItem>);
 
     expect(screen.getByRole("listitem", { name: "Item One" })).toHaveAttribute(
@@ -89,7 +90,7 @@ describe("When MenuItem has no submenu", () => {
     );
   });
 
-  test("should add the correct styles when `maxWidth` prop is set", () => {
+  it("should add the correct styles when `maxWidth` prop is set", () => {
     render(
       <MenuItem href="#" maxWidth="100px">
         Item One
@@ -105,7 +106,7 @@ describe("When MenuItem has no submenu", () => {
     });
   });
 
-  test("should apply the expected styles when `menuType` is set to 'light'", () => {
+  it("should apply the expected styles when `menuType` is set to 'light'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "light" }}>
         <MenuItem>Item One</MenuItem>
@@ -117,7 +118,7 @@ describe("When MenuItem has no submenu", () => {
     });
   });
 
-  test("should apply the expected styles when `menuType` is set to 'white'", () => {
+  it("should apply the expected styles when `menuType` is set to 'white'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "white" }}>
         <MenuItem>Item One</MenuItem>
@@ -129,7 +130,7 @@ describe("When MenuItem has no submenu", () => {
     });
   });
 
-  test("should apply the expected styles when `menuType` is set to 'dark'", () => {
+  it("should apply the expected styles when `menuType` is set to 'dark'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "dark" }}>
         <MenuItem>Item One</MenuItem>
@@ -141,7 +142,7 @@ describe("When MenuItem has no submenu", () => {
     });
   });
 
-  test("should apply the expected styles when `menuType` is set to 'black'", () => {
+  it("should apply the expected styles when `menuType` is set to 'black'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "black" }}>
         <MenuItem>Item One</MenuItem>
@@ -153,7 +154,7 @@ describe("When MenuItem has no submenu", () => {
     });
   });
 
-  test("should set the expected style overrides when an IconButton is rendered as a child", () => {
+  it("should set the expected style overrides when an IconButton is rendered as a child", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
         <MenuItem>
@@ -170,7 +171,7 @@ describe("When MenuItem has no submenu", () => {
     });
   });
 
-  test("should render the expected styles when a menu item is `selected` and `menuType` is 'light'", () => {
+  it("should render the expected styles when a menu item is `selected` and `menuType` is 'light'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
         <MenuItem selected>Item One</MenuItem>
@@ -182,7 +183,7 @@ describe("When MenuItem has no submenu", () => {
     });
   });
 
-  test("should render the expected styles when a menu item is `selected` and `menuType` is 'white'", () => {
+  it("should render the expected styles when a menu item is `selected` and `menuType` is 'white'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "white" }}>
         <MenuItem selected>Item One</MenuItem>
@@ -194,7 +195,7 @@ describe("When MenuItem has no submenu", () => {
     });
   });
 
-  test("should render the expected styles when a menu item is `selected` and `menuType` is 'dark'", () => {
+  it("should render the expected styles when a menu item is `selected` and `menuType` is 'dark'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "dark" }}>
         <MenuItem selected>Item One</MenuItem>
@@ -206,7 +207,7 @@ describe("When MenuItem has no submenu", () => {
     });
   });
 
-  test("should render the expected styles when a menu item is `selected` and `menuType` is 'black'", () => {
+  it("should render the expected styles when a menu item is `selected` and `menuType` is 'black'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "black" }}>
         <MenuItem selected>Item One</MenuItem>
@@ -218,7 +219,7 @@ describe("When MenuItem has no submenu", () => {
     });
   });
 
-  test("should call `onKeyDown` when the user presses a key and prop is set", () => {
+  it("should call `onKeyDown` when the user presses a key and prop is set", () => {
     const onKeyDown = jest.fn();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -236,7 +237,7 @@ describe("When MenuItem has no submenu", () => {
     expect(onKeyDown).toHaveBeenCalled();
   });
 
-  test("should add any passed `aria-label` to the underlying link element and remove one from any passed `icon`", () => {
+  it("should add any passed `aria-label` to the underlying link element and remove one from any passed `icon`", () => {
     render(
       <MenuItem icon="settings" href="#" ariaLabel="Item One">
         Item One
@@ -250,7 +251,7 @@ describe("When MenuItem has no submenu", () => {
     expect(screen.getByTestId("icon")).not.toHaveAttribute("aria-label");
   });
 
-  test("should add any passed `aria-label` to the underlying button element and remove one from any passed `icon`", () => {
+  it("should add any passed `aria-label` to the underlying button element and remove one from any passed `icon`", () => {
     render(
       <MenuItem icon="settings" onClick={() => {}} ariaLabel="Item One">
         Item One
@@ -264,7 +265,7 @@ describe("When MenuItem has no submenu", () => {
     expect(screen.getByTestId("icon")).not.toHaveAttribute("aria-label");
   });
 
-  test("should throw an error when `aria-label` is not set and menu item has no child text", () => {
+  it("should throw an error when `aria-label` is not set and menu item has no child text", () => {
     const consoleSpy = jest
       .spyOn(global.console, "error")
       .mockImplementation(() => {});
@@ -278,7 +279,7 @@ describe("When MenuItem has no submenu", () => {
     consoleSpy.mockRestore();
   });
 
-  test("should throw an error when when no `children` or `icon` are passed", () => {
+  it("should throw an error when when no `children` or `icon` are passed", () => {
     const consoleSpy = jest
       .spyOn(global.console, "error")
       .mockImplementation(() => {});
@@ -292,7 +293,7 @@ describe("When MenuItem has no submenu", () => {
     consoleSpy.mockRestore();
   });
 
-  test("should pass the `href`, `target` and `rel` props as attributes to the underlying HTML anchor element", () => {
+  it("should pass the `href`, `target` and `rel` props as attributes to the underlying HTML anchor element", () => {
     const href = "https://carbon.sage.com";
     const target = "_blank";
     const rel = "noopener";
@@ -308,7 +309,7 @@ describe("When MenuItem has no submenu", () => {
     expect(anchor).toHaveAttribute("rel", rel);
   });
 
-  test("should set the correct `data-` tags as attributes on the menu item", () => {
+  it("should set the correct `data-` tags as attributes on the menu item", () => {
     render(
       <MenuItem data-element="bar" data-role="baz">
         Item One
@@ -321,7 +322,7 @@ describe("When MenuItem has no submenu", () => {
     expect(item).toHaveAttribute("data-role", "baz");
   });
 
-  test("should set the set the expected override color when `overrideColor` is passed and `variant` is 'alternate'", async () => {
+  it("should set the set the expected override color when `overrideColor` is passed and `variant` is 'alternate'", async () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
         <MenuItem overrideColor variant="alternate">
@@ -337,7 +338,82 @@ describe("When MenuItem has no submenu", () => {
 });
 
 describe("when MenuItem has a submenu", () => {
-  test("should render with it closed when the prop is set", () => {
+  /** START OF TESTS ADDED FOR CODE COVERAGE */
+  it("should apply the expected spacing on the pseudo element when custom padding is passed value of '5px'", () => {
+    render(
+      <MenuItem href="#" submenu="submenu" px="5px">
+        <MenuItem>foo</MenuItem>
+      </MenuItem>
+    );
+
+    expect(screen.getByTestId("submenu-parent-item")).toHaveStyleRule(
+      "right",
+      "5px",
+      { modifier: "a::before" }
+    );
+  });
+
+  it("should apply the expected spacing on the pseudo element when no custom padding is passed'", () => {
+    render(
+      <MenuItem href="#" submenu="submenu">
+        <MenuItem>foo</MenuItem>
+      </MenuItem>
+    );
+
+    expect(screen.getByTestId("submenu-parent-item")).toHaveStyleRule(
+      "right",
+      "var(--spacing200)",
+      { modifier: "a::before" }
+    );
+  });
+
+  it("should apply the expected spacing on the pseudo element when custom padding is passed value of '0'", () => {
+    render(
+      <MenuItem href="#" submenu="submenu" px={0}>
+        <MenuItem>foo</MenuItem>
+      </MenuItem>
+    );
+
+    expect(screen.getByTestId("submenu-parent-item")).toHaveStyleRule(
+      "right",
+      "2px",
+      { modifier: "a::before" }
+    );
+  });
+
+  it("should apply the expected spacing on the pseudo element when custom padding is passed value of '1'", () => {
+    render(
+      <MenuItem href="#" submenu="submenu" px={1}>
+        <MenuItem>foo</MenuItem>
+      </MenuItem>
+    );
+
+    expect(screen.getByTestId("submenu-parent-item")).toHaveStyleRule(
+      "right",
+      "var(--spacing100)",
+      { modifier: "a::before" }
+    );
+  });
+
+  it.each([2, 3, 4, 5, 6, 7, 8])(
+    "should apply the expected spacing on the pseudo element when custom padding is passed value of '%s'",
+    (padding) => {
+      render(
+        <MenuItem href="#" submenu="submenu" px={padding}>
+          <MenuItem>foo</MenuItem>
+        </MenuItem>
+      );
+
+      expect(screen.getByTestId("submenu-parent-item")).toHaveStyleRule(
+        "right",
+        `var(--spacing${padding}00)`,
+        { modifier: "a::before" }
+      );
+    }
+  );
+  /** END OF TESTS ADDED FOR CODE COVERAGE */
+
+  it("should render with it closed when the prop is set", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
         <MenuItem submenu="Item One">
@@ -356,7 +432,7 @@ describe("when MenuItem has a submenu", () => {
     ).not.toBeInTheDocument();
   });
 
-  test("should focus the last item when the user presses the 'End' key and first when they press the 'Home' key", async () => {
+  it("should focus the last item when the user presses the 'End' key and first when they press the 'Home' key", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -383,7 +459,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[0]).toHaveFocus();
   });
 
-  test("should focus the expected item when the user presses 'arrowdown' key", async () => {
+  it("should focus the expected item when the user presses 'arrowdown' key", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -408,7 +484,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[2]).toHaveFocus();
   });
 
-  test("should focus the expected item when the user presses 'arrowup' key", async () => {
+  it("should focus the expected item when the user presses 'arrowup' key", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -435,7 +511,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[0]).toHaveFocus();
   });
 
-  test("should focus the expected item when the user presses 'home' and 'end' keys", async () => {
+  it("should focus the expected item when the user presses 'home' and 'end' keys", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -458,7 +534,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[0]).toHaveFocus();
   });
 
-  test("should focus the expected item when the user presses 'tab' key and moves focus out of submenu when pressed on last submenu item", async () => {
+  it("should focus the expected item when the user presses 'tab' key and moves focus out of submenu when pressed on last submenu item", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -483,7 +559,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[2]).not.toHaveFocus();
   });
 
-  test("should focus the expected item when the user presses 'shift+tab' keys and moves focus to parent item when pressed on first submenu item", async () => {
+  it("should focus the expected item when the user presses 'shift+tab' keys and moves focus to parent item when pressed on first submenu item", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -515,7 +591,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[0]).not.toHaveFocus();
   });
 
-  test("should focus the expected items when the user presses 'arrowdown' key and one item has an input child", async () => {
+  it("should focus the expected items when the user presses 'arrowdown' key and one item has an input child", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -540,7 +616,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[1]).toHaveFocus();
   });
 
-  test("should focus the expected items when the user presses 'arrowup' key and one item has an input child", async () => {
+  it("should focus the expected items when the user presses 'arrowup' key and one item has an input child", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -566,7 +642,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[0]).toHaveFocus();
   });
 
-  test("should focus the expected items when the user presses 'tab' key and one item has an input child", async () => {
+  it("should focus the expected items when the user presses 'tab' key and one item has an input child", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -593,7 +669,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[1]).toHaveFocus();
   });
 
-  test("should focus the expected item when the parent item is a link and the user opens the submenu and presses 'tab' key", async () => {
+  it("should focus the expected item when the parent item is a link and the user opens the submenu and presses 'tab' key", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -614,7 +690,7 @@ describe("when MenuItem has a submenu", () => {
     ).toHaveFocus();
   });
 
-  test("should focus the expected item when the parent item is a link and the user opens the submenu and presses 'a' character key", async () => {
+  it("should focus the expected item when the parent item is a link and the user opens the submenu and presses 'a' character key", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -633,7 +709,7 @@ describe("when MenuItem has a submenu", () => {
     expect(screen.getByRole("link", { name: "Item One" })).toHaveFocus();
   });
 
-  test("should call the `onClick` callback if one is passed and the user clicks the parent item", async () => {
+  it("should call the `onClick` callback if one is passed and the user clicks the parent item", async () => {
     const user = userEvent.setup();
     const onClick = jest.fn();
     render(
@@ -651,7 +727,7 @@ describe("when MenuItem has a submenu", () => {
     expect(onClick).toHaveBeenCalled();
   });
 
-  test("should focus the first item when parent has `href` user presses 'arrowdown' key twice", async () => {
+  it("should focus the first item when parent has `href` user presses 'arrowdown' key twice", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -672,7 +748,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItem).toHaveFocus();
   });
 
-  test("should focus the first item when parent has `href` user presses 'arrowup' key twice", async () => {
+  it("should focus the first item when parent has `href` user presses 'arrowup' key twice", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -693,7 +769,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItem).toHaveFocus();
   });
 
-  test("should focus the first item when `submenu` is initially opened via click, closed via mouseout and then 'arrowdown' key pressed", async () => {
+  it("should focus the first item when `submenu` is initially opened via click, closed via mouseout and then 'arrowdown' key pressed", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -713,7 +789,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItem).toHaveFocus();
   });
 
-  test("should focus the first item when `submenu` is initially initially opened via click, closed via mouseout and then 'arrowup' key pressed", async () => {
+  it("should focus the first item when `submenu` is initially initially opened via click, closed via mouseout and then 'arrowup' key pressed", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -733,7 +809,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItem).toHaveFocus();
   });
 
-  test("should focus the first item when initially opened via click, closed via mouseout and then 'tab' key pressed", async () => {
+  it("should focus the first item when initially opened via click, closed via mouseout and then 'tab' key pressed", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -753,7 +829,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItem).toHaveFocus();
   });
 
-  test("should not open the `submenu` when initially opened via click, closed via mouseout and then non-related key pressed", async () => {
+  it("should not open the `submenu` when initially opened via click, closed via mouseout and then non-related key pressed", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -775,7 +851,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItem).not.toBeInTheDocument();
   });
 
-  test("should not open if an unrelated key is pressed", async () => {
+  it("should not open if an unrelated key is pressed", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -793,7 +869,7 @@ describe("when MenuItem has a submenu", () => {
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
   });
 
-  test("should close when the user presses 'Escape'", async () => {
+  it("should close when the user presses 'Escape'", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -815,7 +891,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuParentItem).toHaveFocus();
   });
 
-  test("should not close when the user presses 'Enter' and focus is on input", async () => {
+  it("should not close when the user presses 'Enter' and focus is on input", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -837,7 +913,7 @@ describe("when MenuItem has a submenu", () => {
     expect(screen.getByRole("list")).toBeVisible();
   });
 
-  test("should close when the user presses 'Enter' and focus is not on input", async () => {
+  it("should close when the user presses 'Enter' and focus is not on input", async () => {
     jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
@@ -860,7 +936,7 @@ describe("when MenuItem has a submenu", () => {
     jest.useRealTimers();
   });
 
-  test("should not throw an error when a passed null `children`", () => {
+  it("should not throw an error when a passed null `children`", () => {
     expect(() => {
       render(
         <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -873,7 +949,7 @@ describe("when MenuItem has a submenu", () => {
     }).not.toThrow();
   });
 
-  test("should update the focused element when a user clicks a child item", async () => {
+  it("should update the focused element when a user clicks a child item", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -893,7 +969,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[2]).toHaveFocus();
   });
 
-  test("should call the `handleKeyDown` function when one is passed via `submenuContext`", () => {
+  it("should call the `handleKeyDown` function when one is passed via `submenuContext`", () => {
     const handleKeyDown = jest.fn();
     render(
       <MenuContext.Provider value={menuContextValues}>
@@ -908,7 +984,7 @@ describe("when MenuItem has a submenu", () => {
     expect(handleKeyDown).toHaveBeenCalled();
   });
 
-  test("should have the expected styling when a child item is `selected`", () => {
+  it("should have the expected styling when a child item is `selected`", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
         <MenuItem selected submenu="Item One">

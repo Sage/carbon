@@ -1,3 +1,33 @@
+### [142.3.2](https://github.com/Sage/carbon/compare/v142.3.1...v142.3.2) (2024-08-23)
+
+
+### Bug Fixes
+
+* **checkbox:** prevent labelHelp and fieldHelp from rendering in a group with new validation ([2f2f340](https://github.com/Sage/carbon/commit/2f2f340fcdfca1acb5b72bad6df7299eece3eb3e))
+* **radio-button:** prevent labelHelp and fieldHelp from rendering with new validation ([c9c4500](https://github.com/Sage/carbon/commit/c9c4500b7177ffd6151a9a4fe6adbe576c4d2f9c))
+
+### [142.3.1](https://github.com/Sage/carbon/compare/v142.3.0...v142.3.1) (2024-08-22)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure correct alignment when onClick and icon props are set ([afa2759](https://github.com/Sage/carbon/commit/afa2759adac7b401708802d3fc0b759ba95246b1))
+
+## [142.3.0](https://github.com/Sage/carbon/compare/v142.2.2...v142.3.0) (2024-08-21)
+
+
+### Features
+
+* **menu-item:** add `submenuMaxWidth` prop to allow setting of `max-width` on submenus ([0d57505](https://github.com/Sage/carbon/commit/0d575052a15fb8c065c0c24971aee42eeed80872))
+* **menu-item:** update so custom padding is set on the button or anchor element ([7a4f540](https://github.com/Sage/carbon/commit/7a4f540c0238bf0c80e142410bec81a57031365e))
+
+### [142.2.2](https://github.com/Sage/carbon/compare/v142.2.1...v142.2.2) (2024-08-20)
+
+
+### Bug Fixes
+
+* **batch-selection:** children are still clickable when hidden prop is true ([7364fb5](https://github.com/Sage/carbon/commit/7364fb52834f703498b56372948bcc06620cc2dd)), closes [#6858](https://github.com/Sage/carbon/issues/6858)
+
 ### [142.2.1](https://github.com/Sage/carbon/compare/v142.2.0...v142.2.1) (2024-08-19)
 
 
