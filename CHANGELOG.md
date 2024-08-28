@@ -1,3 +1,10 @@
+### [142.4.1](https://github.com/Sage/carbon/compare/v142.4.0...v142.4.1) (2024-08-28)
+
+
+### Bug Fixes
+
+* **menu-item, submenu:** remove min-width when submenuMaxWidth prop is set ([002c37d](https://github.com/Sage/carbon/commit/002c37d59611d18285b95b02ca316af1645277b0))
+
 ## [142.4.0](https://github.com/Sage/carbon/compare/v142.3.2...v142.4.0) (2024-08-27)
 
 
