@@ -1,3 +1,15 @@
+## [142.5.0](https://github.com/Sage/carbon/compare/v142.4.1...v142.5.0) (2024-08-28)
+
+
+### Features
+
+* **tile:** add support for adding highlight border via the highlightVariant prop ([467ebcc](https://github.com/Sage/carbon/commit/467ebccd26e7fe59dc8709904ea6d45c52399171))
+
+
+### Bug Fixes
+
+* **tile:** ensure border radius is only set on children when not in TileContent ([86f5cbd](https://github.com/Sage/carbon/commit/86f5cbdc7e14807e0e0208df7bc97266dc75ba26))
+
 ### [142.4.1](https://github.com/Sage/carbon/compare/v142.4.0...v142.4.1) (2024-08-28)
 
 
