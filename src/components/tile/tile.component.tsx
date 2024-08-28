@@ -1,14 +1,17 @@
 import React from "react";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { SpaceProps, WidthProps } from "styled-system";
-import StyledTile from "./tile.style";
+
+import StyledTile, { StyledHighlight } from "./tile.style";
 import TileContext from "./__internal__/tile.context";
 import filterStyledSystemPaddingProps from "../../style/utils/filter-styled-system-padding-props";
 import filterStyledSystemMarginProps from "../../style/utils/filter-styled-system-margin-props";
 import computeContentPadding from "./__internal__/compute-content-padding";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import { TILE_HIGHLIGHT_VARIANTS } from "./tile.config";
 
 type DesignTokensType = keyof typeof DesignTokens;
+type HighlightVariantType = typeof TILE_HIGHLIGHT_VARIANTS[number];
 
 export interface TileProps extends SpaceProps, WidthProps, TagProps {
   /** Sets the theme of the tile */
@@ -44,6 +47,8 @@ export interface TileProps extends SpaceProps, WidthProps, TagProps {
    * Set a percentage-based height for the whole Tile component, relative to its parent.
    */
   height?: string | number;
+  /** Sets the highlight variant */
+  highlightVariant?: HighlightVariantType;
 }
 
 export const Tile = ({
@@ -56,6 +61,7 @@ export const Tile = ({
   height,
   borderWidth,
   borderVariant,
+  highlightVariant,
   ...rest
 }: TileProps) => {
   const isHorizontal = orientation === "horizontal";
@@ -63,7 +69,7 @@ export const Tile = ({
   const marginProps = filterStyledSystemMarginProps(rest);
   const contentPaddingProps = computeContentPadding(paddingProps, isHorizontal);
 
-  return (
+  const tile = (
     <StyledTile
       variant={variant}
       width={width}
@@ -84,6 +90,21 @@ export const Tile = ({
       </TileContext.Provider>
     </StyledTile>
   );
+
+  if (highlightVariant) {
+    return (
+      <StyledHighlight
+        variant={highlightVariant}
+        roundness={roundness}
+        aria-hidden
+        data-role={`tile-${highlightVariant}-highlight`}
+      >
+        {tile}
+      </StyledHighlight>
+    );
+  }
+
+  return tile;
 };
 
 export default Tile;
