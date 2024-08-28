@@ -34,6 +34,7 @@ const meta: Meta<typeof Menu> = {
     "MenuFullScreenWithLargeMenuItems",
     "MenuComponentFullScreenWithLongSubmenuText",
     "AsLinkWithAlternateVariant",
+    "MenuWithSubmenuCustomPadding",
   ],
   parameters: {
     info: { disable: true },
@@ -184,7 +185,7 @@ export const AsLinkWithAlternateVariant = () => {
           renderOpenComponent={() => (
             <Box data-role="gblnav-notificationui-bell">
               <Button aria-label="Notifications">
-                <Box px={2}>
+                <Box alignItems="center" display="flex" px={2}>
                   <Icon type="alert" />
                   notifications
                 </Box>
@@ -437,3 +438,22 @@ export const MenuWithTwoSegments = () => {
     </Box>
   );
 };
+
+export const MenuWithSubmenuCustomPadding = () => (
+  <>
+    {[0, "5px", 1, 2, "17px", 3, 4, 5, 6, 7, 8].map((padding) => (
+      <Menu>
+        <MenuItem px={padding} href="#">
+          Item One
+        </MenuItem>
+        <MenuItem px={padding} submenu="Item Two">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuItem href="#">Item Submenu Three</MenuItem>
+        </MenuItem>
+      </Menu>
+    ))}
+  </>
+);
+
+MenuWithSubmenuCustomPadding.storyName = "Menu with submenu custom padding";

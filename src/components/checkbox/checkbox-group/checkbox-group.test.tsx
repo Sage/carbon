@@ -121,6 +121,27 @@ test("should render with expected styles when inline is true", () => {
   });
 });
 
+test("should not render labelHelp and fieldHelp passed to children when validationRedesignOptIn is true", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <CheckboxGroup legend="legend">
+        <Checkbox
+          value="1"
+          label="label"
+          labelHelp="labelHelp"
+          fieldHelp="fieldHelp"
+          onChange={() => {}}
+        />
+      </CheckboxGroup>
+    </CarbonProvider>
+  );
+
+  expect(
+    screen.queryByRole("button", { name: "help" })
+  ).not.toBeInTheDocument();
+  expect(screen.queryByText("fieldHelp")).not.toBeInTheDocument();
+});
+
 testStyledSystemMargin((props) => (
   <CheckboxGroup legend="legend" {...props}>
     <Checkbox value="1" label="label" onChange={() => {}} />

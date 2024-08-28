@@ -40,24 +40,9 @@ export const WithLegendAndLabels: Story = () => {
       onChange={() => console.log("change")}
       legend="Radio group legend"
     >
-      <RadioButton
-        id="radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        labelHelp="first option"
-      />
-      <RadioButton
-        id="radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        labelHelp="second option"
-      />
-      <RadioButton
-        id="radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        labelHelp="third option"
-      />
+      <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
+      <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
+      <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
     </RadioButtonGroup>
   );
 };
@@ -285,21 +270,18 @@ export const WithLargeRadioButtons: Story = () => {
         value="radio1"
         label="Radio Option 1"
         size="large"
-        fieldHelp="Some help text for this input."
       />
       <RadioButton
         id="large-radio-2"
         value="radio2"
         label="Radio Option 2"
         size="large"
-        fieldHelp="Some help text for this input."
       />
       <RadioButton
         id="large-radio-3"
         value="radio3"
         label="Radio Option 3"
         size="large"
-        fieldHelp="Some help text for this input."
       />
     </RadioButtonGroup>
   );
@@ -385,6 +367,7 @@ export const NewValidationDefaultGroup: Story = () => {
           legendHelp="Hint Text"
           name="error-validations-group"
           error="Error Message (Fix is required)"
+          required
         >
           <RadioButton
             id="radio-one-1"
@@ -409,6 +392,7 @@ export const NewValidationDefaultGroup: Story = () => {
           legendHelp="Hint Text"
           name="warning-validations-group"
           warning="Warning Message (Fix is optional)"
+          required
         >
           <RadioButton
             id="radio-two-1"

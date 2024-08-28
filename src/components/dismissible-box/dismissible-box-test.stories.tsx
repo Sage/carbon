@@ -11,9 +11,6 @@ export default {
   title: "Dismissible Box/Test",
   parameters: {
     info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
   },
   argTypes: {
     width: {
@@ -49,4 +46,36 @@ export const Default = (props: Partial<DismissibleBoxProps>) => {
   );
 };
 
-Default.storyName = "default";
+Default.storyName = "Default";
+
+export const DarkDefault = () => {
+  return (
+    <Box p={2}>
+      <DismissibleBox onClose={() => {}} variant="dark">
+        <Box display="flex">
+          <Typography mb={0}>Hello All!</Typography>
+          <VerticalDivider p={0} px={2} />
+          <Image alt="Example alt text" src={point} width="120px" />
+        </Box>
+      </DismissibleBox>
+    </Box>
+  );
+};
+
+DarkDefault.storyName = "Dark Variant";
+
+export const HasNoBorderLeftHighlight = () => {
+  return (
+    <Box p={2}>
+      <DismissibleBox onClose={() => {}} hasBorderLeftHighlight={false}>
+        <Box display="flex">
+          <Typography mb={0}>Hello All!</Typography>
+          <VerticalDivider p={0} px={2} />
+          <Image alt="Example alt text" src={point} width="120px" />
+        </Box>
+      </DismissibleBox>
+    </Box>
+  );
+};
+
+HasNoBorderLeftHighlight.storyName = "No Border Left Highlight";
