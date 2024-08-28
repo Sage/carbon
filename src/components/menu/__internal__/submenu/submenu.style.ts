@@ -81,7 +81,6 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
 
       ${submenuMaxWidth &&
       css`
-        min-width: ${submenuMaxWidth};
         max-width: ${submenuMaxWidth};
 
         &&& {
