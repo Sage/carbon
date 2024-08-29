@@ -258,7 +258,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
   }) => {
     await mount(<DuellingPicklistComponent />);
 
-    const rightSearch = getDataElementByValue(page, "picklist-right-label")
+    const rightSearch = getDataElementByValue(page, "picklist-right-control")
       .locator("div")
       .nth(0);
     await expect(rightSearch).toHaveAttribute("data-component", "search");

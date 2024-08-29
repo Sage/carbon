@@ -93,7 +93,7 @@ export const DuellingPicklist = ({
           <StyledControl data-element="picklist-left-control">
             {leftControls}
           </StyledControl>
-          <StyledControl data-element="picklist-right-label">
+          <StyledControl data-element="picklist-right-control">
             {rightControls}
           </StyledControl>
         </StyledControlsContainer>
