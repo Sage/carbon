@@ -54,7 +54,18 @@ type StyledDialogProps = {
   backgroundColor: string;
 };
 
-const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
+const StyledDialog = styled.div.attrs(
+  ({ topMargin, size }: StyledDialogProps) => {
+    const isDialogMaximised = size === "maximise";
+    const isDialogMaximisedSmallViewport = topMargin === 32;
+    const isDialogMaximisedLargeViewport = topMargin === 64;
+    return {
+      isDialogMaximised,
+      isDialogMaximisedSmallViewport,
+      isDialogMaximisedLargeViewport,
+    };
+  }
+)<StyledDialogProps & ContentPaddingInterface>`
   box-shadow: var(--boxShadow300);
   display: flex;
   flex-direction: column;
@@ -63,6 +74,7 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   top: 50%;
   z-index: ${({ theme }) => theme.zIndex.modal};
   max-height: ${({ topMargin }) => `calc(100vh - ${topMargin}px)`};
+  ${({ isDialogMaximised }) => isDialogMaximised && "height: 100%"};
 
   &:focus {
     outline: none;
@@ -73,10 +85,12 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
       background-color: ${backgroundColor};
     `}
 
-  ${({ size }) =>
+  ${({ size, topMargin }) =>
     size &&
     css`
-      max-width: ${dialogSizes[size]};
+      max-width: ${size === "maximise"
+        ? `calc(100vw - ${topMargin}px)`
+        : dialogSizes[size]};
       width: 100%;
     `}
 
@@ -86,7 +100,16 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
       height: ${dialogHeight}px;
     `}
 
+  /* We're overriding the max-height on the form content to account for a larger height when in a smaller viewport.
+  TODO: Remove this upon the completion of FE-6643. */
   ${StyledForm} {
+    ${({ isDialogMaximised, isDialogMaximisedSmallViewport }) =>
+      isDialogMaximised &&
+      css`
+        ${isDialogMaximisedSmallViewport && "max-height: calc(100vh - 184px);"}
+        height: 100%;
+      `}
+
     padding-bottom: 0px;
     box-sizing: border-box;
   }
