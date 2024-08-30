@@ -5,7 +5,7 @@ export type MenuType = "light" | "dark" | "white" | "black";
 export interface MenuContextProps {
   menuType: MenuType;
   openSubmenuId: string | null;
-  inMenu: boolean;
+  inMenu?: boolean;
   inFullscreenView?: boolean;
   setOpenSubmenuId: (id: string | null) => void;
   registerItem?: (id: string) => void;
@@ -15,7 +15,6 @@ export interface MenuContextProps {
 
 export default React.createContext<MenuContextProps>({
   menuType: "light",
-  inMenu: false,
   openSubmenuId: null,
   setOpenSubmenuId: /* istanbul ignore next */ () => {},
 });

@@ -61,3 +61,28 @@ test("should render as an `li` element with `aria-hidden` when inside a Menu", (
   expect(verticalDividerElement.tagName).toEqual("LI");
   expect(verticalDividerElement).toHaveAttribute("aria-hidden", "true");
 });
+
+test("should allow the `aria-hidden` attribute to be set when not in a menu", () => {
+  render(<VerticalDivider aria-hidden />);
+  const verticalDividerElement = screen.getByTestId("vertical-divider");
+
+  expect(verticalDividerElement).toHaveAttribute("aria-hidden", "true");
+});
+
+test("should not allow the `aria-hidden` attribute to be overridden when in a menu", () => {
+  render(
+    <MenuContext.Provider
+      value={{
+        menuType: "light",
+        inMenu: true,
+        openSubmenuId: null,
+        setOpenSubmenuId: () => {},
+      }}
+    >
+      <VerticalDivider aria-hidden={false} />
+    </MenuContext.Provider>
+  );
+  const verticalDividerElement = screen.getByTestId("vertical-divider");
+
+  expect(verticalDividerElement).toHaveAttribute("aria-hidden", "true");
+});
