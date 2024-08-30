@@ -1,3 +1,10 @@
+## [142.6.0](https://github.com/Sage/carbon/compare/v142.5.1...v142.6.0) (2024-08-30)
+
+
+### Features
+
+* **breadcrumbs:** add isDarkBackground prop ([25953d3](https://github.com/Sage/carbon/commit/25953d30e4cc5a2fba5d5ba3f7163c46a04d1121)), closes [#6724](https://github.com/Sage/carbon/issues/6724)
+
 ### [142.5.1](https://github.com/Sage/carbon/compare/v142.5.0...v142.5.1) (2024-08-30)
 
 
