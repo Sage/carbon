@@ -8,3 +8,11 @@ export const TILE_BORDER_VARIANTS = [
   "positive",
   "caution",
 ];
+export const TILE_HIGHLIGHT_VARIANTS = [
+  "gradient",
+  "success",
+  "neutral",
+  "error",
+  "warning",
+  "info",
+];

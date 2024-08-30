@@ -92,7 +92,10 @@ export interface FilterableSelectProps
   required?: boolean;
 }
 
-export const FilterableSelect = React.forwardRef(
+export const FilterableSelect = React.forwardRef<
+  HTMLInputElement,
+  FilterableSelectProps
+>(
   (
     {
       "aria-label": ariaLabel,
@@ -133,7 +136,7 @@ export const FilterableSelect = React.forwardRef(
       isOptional,
       required,
       ...textboxProps
-    }: FilterableSelectProps,
+    },
     ref
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState<string>();
@@ -596,14 +599,13 @@ export const FilterableSelect = React.forwardRef(
       onListAction?.();
     }
 
-    const assignInput = useCallback(
+    const assignInput = useCallback<React.RefCallback<HTMLInputElement>>(
       (element) => {
+        if (!element) return;
+
         setTextboxRef(element);
 
-        if (!ref) {
-          return;
-        }
-
+        if (!ref) return;
         if (typeof ref === "function") {
           ref(element);
         } else {
@@ -620,7 +622,6 @@ export const FilterableSelect = React.forwardRef(
         label,
         disabled,
         readOnly,
-        ref: assignInput,
         selectedValue,
         formattedValue: textValue,
         onClick: handleTextboxClick,
@@ -656,7 +657,6 @@ export const FilterableSelect = React.forwardRef(
       onListScrollBottom,
       tableHeader,
       multiColumn,
-      loaderDataRole: "filterable-select-list-loader",
       listPlacement,
       flipEnabled,
       isOpen,
@@ -687,6 +687,7 @@ export const FilterableSelect = React.forwardRef(
       >
         <div ref={containerRef}>
           <SelectTextbox
+            ref={assignInput}
             activeDescendantId={activeDescendantId}
             ariaLabel={ariaLabel}
             ariaLabelledby={ariaLabelledby}
@@ -694,7 +695,6 @@ export const FilterableSelect = React.forwardRef(
             aria-controls={selectListId.current}
             isOpen={isOpen}
             hasTextCursor
-            textboxRef={textboxRef}
             {...getTextboxProps()}
           />
         </div>

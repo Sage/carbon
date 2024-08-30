@@ -1,3 +1,29 @@
+## [142.5.0](https://github.com/Sage/carbon/compare/v142.4.1...v142.5.0) (2024-08-28)
+
+
+### Features
+
+* **tile:** add support for adding highlight border via the highlightVariant prop ([467ebcc](https://github.com/Sage/carbon/commit/467ebccd26e7fe59dc8709904ea6d45c52399171))
+
+
+### Bug Fixes
+
+* **tile:** ensure border radius is only set on children when not in TileContent ([86f5cbd](https://github.com/Sage/carbon/commit/86f5cbdc7e14807e0e0208df7bc97266dc75ba26))
+
+### [142.4.1](https://github.com/Sage/carbon/compare/v142.4.0...v142.4.1) (2024-08-28)
+
+
+### Bug Fixes
+
+* **menu-item, submenu:** remove min-width when submenuMaxWidth prop is set ([002c37d](https://github.com/Sage/carbon/commit/002c37d59611d18285b95b02ca316af1645277b0))
+
+## [142.4.0](https://github.com/Sage/carbon/compare/v142.3.2...v142.4.0) (2024-08-27)
+
+
+### Features
+
+* **loader-star:** create new loader-star component ([5ffe0e4](https://github.com/Sage/carbon/commit/5ffe0e41ec7fa673522c1e2f966a398c08a0c287))
+
 ### [142.3.2](https://github.com/Sage/carbon/compare/v142.3.1...v142.3.2) (2024-08-23)
 
 

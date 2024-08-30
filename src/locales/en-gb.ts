@@ -107,6 +107,9 @@ const enGB: Locale = {
   loaderSpinner: {
     loading: () => "Loading...",
   },
+  loaderStar: {
+    loading: () => "Loading...",
+  },
   menuFullscreen: {
     ariaLabels: { closeButton: () => "Close" },
   },
