@@ -1,3 +1,10 @@
+### [142.5.1](https://github.com/Sage/carbon/compare/v142.5.0...v142.5.1) (2024-08-30)
+
+
+### Bug Fixes
+
+* **textarea:** add minheight prop to Textarea ([cf1b651](https://github.com/Sage/carbon/commit/cf1b6514fdea19f7f70876158259eb18e3daa6ce)), closes [#6860](https://github.com/Sage/carbon/issues/6860)
+
 ## [142.5.0](https://github.com/Sage/carbon/compare/v142.4.1...v142.5.0) (2024-08-28)
 
 
