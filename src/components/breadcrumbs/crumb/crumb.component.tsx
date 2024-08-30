@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { LinkProps } from "../../link";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 import { StyledCrumb, Divider } from "./crumb.style";
+import BreadcrumbsContext from "../__internal__/breadcrumbs.context";
 
 export interface CrumbProps
   extends Omit<
@@ -28,24 +29,35 @@ export interface CrumbProps
 }
 
 const Crumb = React.forwardRef<HTMLLinkElement, CrumbProps>(
-  ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => (
-    <li>
-      <StyledCrumb
-        ref={ref}
-        isCurrent={isCurrent}
-        aria-current={isCurrent ? "page" : undefined}
-        {...tagComponent("crumb", rest)}
-        {...rest}
-        {...(!isCurrent && {
-          href,
-          onClick,
-        })}
-      >
-        {children}
-      </StyledCrumb>
-      {!isCurrent && <Divider />}
-    </li>
-  )
+  ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => {
+    const { isDarkBackground } = useContext(BreadcrumbsContext);
+
+    return (
+      <li>
+        <StyledCrumb
+          ref={ref}
+          isCurrent={isCurrent}
+          aria-current={isCurrent ? "page" : undefined}
+          isDarkBackground={isDarkBackground}
+          {...tagComponent("crumb", rest)}
+          {...rest}
+          {...(!isCurrent && {
+            href,
+            onClick,
+          })}
+        >
+          {children}
+        </StyledCrumb>
+        {!isCurrent && (
+          <Divider
+            data-role="crumb-divider"
+            aria-hidden="true"
+            isDarkBackground={isDarkBackground}
+          />
+        )}
+      </li>
+    );
+  }
 );
 
 Crumb.displayName = "Crumb";
