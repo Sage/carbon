@@ -1,3 +1,10 @@
+## [142.8.0](https://github.com/Sage/carbon/compare/v142.7.0...v142.8.0) (2024-08-30)
+
+
+### Features
+
+* **dialog:** add the "maximise" value to the `size` prop ([398ffb0](https://github.com/Sage/carbon/commit/398ffb0e18820d92ae1db7553f29d5b6bc516a6f))
+
 ## [142.7.0](https://github.com/Sage/carbon/compare/v142.6.0...v142.7.0) (2024-08-30)
 
 
