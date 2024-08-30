@@ -1,3 +1,10 @@
+## [142.7.0](https://github.com/Sage/carbon/compare/v142.6.0...v142.7.0) (2024-08-30)
+
+
+### Features
+
+* **vertical-divider:** add aria-hidden prop but prevent overriding when in menu ([7da78ff](https://github.com/Sage/carbon/commit/7da78ff9c8bd8b04faa6ff44e9c333c8e73a41b6))
+
 ## [142.6.0](https://github.com/Sage/carbon/compare/v142.5.1...v142.6.0) (2024-08-30)
 
 
