@@ -98,6 +98,9 @@ const deDE: Partial<Locale> = {
   loaderSpinner: {
     loading: () => "Laden...",
   },
+  loaderStar: {
+    loading: () => "Laden...",
+  },
   menuFullscreen: {
     ariaLabels: { closeButton: () => "Schließen" },
   },

@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
-import { Checkbox, CheckboxProps } from ".";
+import { Checkbox, CheckboxGroup, CheckboxGroupProps, CheckboxProps } from ".";
 import Box from "../box";
+import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Checkbox/Test",
-  includeStories: ["Default", "WithLongLabel"],
+  includeStories: [
+    "Default",
+    "WithLongLabel",
+    "WithNewValidation",
+    "WithNewValidationGroup",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -110,4 +116,43 @@ WithLongLabel.storyName = "With long label";
 WithLongLabel.args = {
   label: "A really long description that will wrap onto the next line.",
   size: "",
+};
+
+export const WithNewValidation = (props: Partial<CheckboxProps>) => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Checkbox label="Checkbox 1" {...props} />
+    </CarbonProvider>
+  );
+};
+
+WithNewValidation.args = {
+  error: "Error message",
+  warning: "",
+  fieldHelp: "field help text",
+  labelHelp: "label help text",
+  required: false,
+  checked: false,
+};
+
+export const WithNewValidationGroup = ({
+  ...props
+}: Partial<CheckboxGroupProps>) => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <CheckboxGroup legend="Checkbox legend" {...props}>
+        <Checkbox label="Checkbox 1" labelHelp="this shouldn't render" />
+        <Checkbox label="Checkbox 2" fieldHelp="this shouldn't render either" />
+        <Checkbox label="Checkbox 3" />
+      </CheckboxGroup>
+    </CarbonProvider>
+  );
+};
+
+WithNewValidationGroup.args = {
+  error: "Error message",
+  warning: "",
+  legendHelp: "Legend help text",
+  legendInline: false,
+  required: false,
 };

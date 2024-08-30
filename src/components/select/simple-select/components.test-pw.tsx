@@ -374,22 +374,22 @@ export const SimpleSelectWithLongWrappingTextComponent = () => (
   </Box>
 );
 
-export const SimpleSelectWithManyOptionsAndVirtualScrolling = () => (
+export const WithVirtualScrolling = () => (
   <SimpleSelect
-    name="virtualised"
-    id="virtualised"
-    label="choose an option"
-    labelInline
+    name="Virtualised"
+    id="Virtualised"
+    onChange={() => {}}
+    label="Choose an option"
     enableVirtualScroll
-    virtualScrollOverscan={10}
+    virtualScrollOverscan={1}
   >
-    {Array(10000)
+    {Array(20)
       .fill(undefined)
       .map((_, index) => (
         <Option
-          key={`option-${index + 1}`}
-          value={`${index}`}
-          text={`Option ${index + 1}.`}
+          key={`Option-${index + 1}`}
+          value={index.toString()}
+          text={`Option ${index + 1}`}
         />
       ))}
   </SimpleSelect>

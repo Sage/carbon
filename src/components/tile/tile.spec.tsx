@@ -1,5 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import { Tile, TileContent } from ".";
 import StyledTileContent from "./tile-content/tile-content.style";
 import {
@@ -11,6 +12,7 @@ import {
 import { TileProps } from "./tile.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledTile from "./tile.style";
+import { TILE_HIGHLIGHT_VARIANTS } from "./tile.config";
 
 function renderTile(props: TileProps) {
   return mount(
@@ -185,3 +187,16 @@ describe("Tile", () => {
     rootTagTest(wrapper.find(StyledTile), "tile", "foo", "bar");
   });
 });
+
+test.each<TileProps["highlightVariant"]>(TILE_HIGHLIGHT_VARIANTS)(
+  "should render with the highlight element when `highlightVariant` is passed %s",
+  (highlightVariant) => {
+    render(<Tile highlightVariant={highlightVariant} />);
+    const highlightElement = screen.getByTestId(
+      `tile-${highlightVariant}-highlight`
+    );
+
+    expect(highlightElement).toBeVisible();
+    expect(highlightElement).toHaveAttribute("aria-hidden");
+  }
+);

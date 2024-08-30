@@ -68,18 +68,22 @@ export const DefaultStory: Story = () => {
             {menuType}
           </Typography>
           <Menu menuType={menuType}>
-            <MenuItem className="foooooo" href="#">
+            <MenuItem icon="settings" className="foooooo" href="#">
               Menu Item One
             </MenuItem>
-            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem icon="settings" onClick={() => {}}>
+              Menu Item Two
+            </MenuItem>
             <MenuItem submenu="Menu Item Three">
               <MenuItem href="#">Item Submenu One</MenuItem>
               <MenuItem href="#">Item Submenu Two</MenuItem>
               <MenuDivider />
-              <MenuItem icon="settings" href="#">
+              <MenuItem icon="entry" href="#">
                 Item Submenu Three
               </MenuItem>
-              <MenuItem href="#">Item Submenu Four</MenuItem>
+              <MenuItem icon="settings" href="#">
+                Item Submenu Four
+              </MenuItem>
             </MenuItem>
             <MenuItem submenu="Menu Item Four" onClick={() => {}}>
               <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
@@ -728,3 +732,47 @@ export const FullscreenViewStory: Story = () => {
 };
 FullscreenViewStory.storyName = "Fullscreen View";
 FullscreenViewStory.parameters = { chromatic: { disableSnapshot: true } };
+
+export const TruncationAndSubmenuWidth: Story = () => {
+  return (
+    <Box mb={150}>
+      {menuTypes.map((menuType) => (
+        <Box key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem
+              maxWidth="240px"
+              submenuMaxWidth="300px"
+              submenu="This is a very long menu item title"
+            >
+              <MenuItem href="#">Item One</MenuItem>
+              <MenuItem p="2px 16px">
+                <Box minWidth="268px">
+                  <Search
+                    placeholder="placeholder"
+                    variant={
+                      ["white", "light"].includes(menuType) ? "default" : "dark"
+                    }
+                    defaultValue=""
+                  />
+                </Box>
+              </MenuItem>
+              <MenuSegmentTitle text="segment title that should wrap when it will overflow">
+                <MenuItem href="#">Item Two</MenuItem>
+                <MenuItem href="#">
+                  This is a longer text string that will wrap when it will
+                  overflow the width of the submenu container
+                </MenuItem>
+              </MenuSegmentTitle>
+            </MenuItem>
+          </Menu>
+        </Box>
+      ))}
+    </Box>
+  );
+};
+
+TruncationAndSubmenuWidth.storyName = "Truncation and Submenu Width";
+TruncationAndSubmenuWidth.parameters = { chromatic: { disableSnapshot: true } };

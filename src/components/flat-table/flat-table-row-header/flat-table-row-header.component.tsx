@@ -13,7 +13,9 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags/tags";
 import useTableCell from "../__internal__/use-table-cell";
 
-export interface FlatTableRowHeaderProps extends PaddingProps, TagProps {
+export interface FlatTableRowHeaderProps
+  extends PaddingProps,
+    Omit<TagProps, "data-component"> {
   /** Content alignment */
   align?: TableCellAlign;
   /** RowHeader content */
@@ -81,6 +83,7 @@ export const FlatTableRowHeader = ({
 
   const handleOnKeyDown = useCallback(
     (ev: React.KeyboardEvent<HTMLElement>) => {
+      /* istanbul ignore else */
       if (isExpandableCell && onKeyDown) {
         onKeyDown(ev);
       }
@@ -95,10 +98,6 @@ export const FlatTableRowHeader = ({
         stickyAlignment === "right" ? rightPosition || 0 : undefined
       }
       align={align}
-      {...tagComponent("flat-table-row-header", {
-        "data-element": "flat-table-row-header",
-        ...rest,
-      })}
       width={width}
       py={py || "10px"}
       px={px || 3}
@@ -112,15 +111,20 @@ export const FlatTableRowHeader = ({
       {...(rowspan !== undefined && { rowSpan: Number(rowspan) })}
       data-selected={isInSelectedRow && isExpandableCell}
       data-highlighted={isInHighlightedRow && isExpandableCell}
-      {...rest}
-      id={internalId.current}
       onFocus={handleOnFocus}
+      {...rest}
+      {...tagComponent("flat-table-row-header", {
+        "data-element": "flat-table-row-header",
+        ...rest,
+      })}
+      id={internalId.current}
     >
       <StyledFlatTableRowHeaderContent
         title={
           truncate && !title && typeof children === "string" ? children : title
         }
         expandable={expandable}
+        data-role="flat-table-row-header-content"
       >
         {expandable && isFirstCell && (
           <Icon type="chevron_down_thick" mr="8px" />
