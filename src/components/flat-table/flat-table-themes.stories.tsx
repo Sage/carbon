@@ -25,7 +25,7 @@ export const TransparentWhiteTheme: Story = () => {
       <FlatTable colorTheme="transparent-white">
         <FlatTableHead>
           <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
+            <FlatTableHeader alternativeBgColor>Name</FlatTableHeader>
             <FlatTableHeader>Location</FlatTableHeader>
             <FlatTableHeader>Relationship Status</FlatTableHeader>
             <FlatTableHeader>Dependents</FlatTableHeader>
@@ -69,7 +69,7 @@ export const TransparentBaseTheme: Story = () => {
     <FlatTable colorTheme="transparent-base">
       <FlatTableHead>
         <FlatTableRow>
-          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader alternativeBgColor>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
           <FlatTableHeader>Dependents</FlatTableHeader>
@@ -111,7 +111,7 @@ export const LightTheme: Story = () => {
     <FlatTable colorTheme="light">
       <FlatTableHead>
         <FlatTableRow>
-          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader alternativeBgColor>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
           <FlatTableHeader>Dependents</FlatTableHeader>

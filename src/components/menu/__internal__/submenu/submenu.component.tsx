@@ -69,8 +69,10 @@ export interface SubmenuProps {
       | React.MouseEvent<HTMLAnchorElement>
       | React.MouseEvent<HTMLButtonElement>
   ) => void;
-
+  /** Accessible label for when no text children are passed to menu item */
   ariaLabel?: string;
+  /** Sets the max-width of the submenu container element */
+  submenuMaxWidth?: string;
 }
 
 const Submenu = React.forwardRef<
@@ -94,6 +96,7 @@ const Submenu = React.forwardRef<
       onSubmenuOpen: onSubmenuOpenProp,
       onSubmenuClose,
       onClick,
+      submenuMaxWidth,
       ...rest
     }: SubmenuProps,
     ref
@@ -536,6 +539,7 @@ const Submenu = React.forwardRef<
           href={href}
           maxWidth={maxWidth}
           aria-expanded={submenuOpen}
+          data-role="submenu-parent-item"
         >
           {title}
         </StyledMenuItemWrapper>
@@ -550,6 +554,7 @@ const Submenu = React.forwardRef<
             maxHeight={submenuMaxHeight}
             applyFocusRadiusStyling={applyFocusRadius}
             applyFocusRadiusStylingToLastItem={applyFocusRadiusToLastItem}
+            submenuMaxWidth={submenuMaxWidth}
           >
             <SubmenuContext.Provider
               value={{
@@ -558,6 +563,7 @@ const Submenu = React.forwardRef<
                 blockIndex,
                 updateFocusId: setSubmenuFocusId,
                 shiftTabPressed: shiftTabPressed.current,
+                submenuHasMaxWidth: !!submenuMaxWidth,
               }}
             >
               {children}

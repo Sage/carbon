@@ -105,6 +105,9 @@ const esES: Partial<Locale> = {
   loaderSpinner: {
     loading: () => "Cargando...",
   },
+  loaderStar: {
+    loading: () => "Cargando...",
+  },
   menuFullscreen: {
     ariaLabels: { closeButton: () => "Cerrar" },
   },

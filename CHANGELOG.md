@@ -1,3 +1,80 @@
+## [142.8.0](https://github.com/Sage/carbon/compare/v142.7.0...v142.8.0) (2024-08-30)
+
+
+### Features
+
+* **dialog:** add the "maximise" value to the `size` prop ([398ffb0](https://github.com/Sage/carbon/commit/398ffb0e18820d92ae1db7553f29d5b6bc516a6f))
+
+## [142.7.0](https://github.com/Sage/carbon/compare/v142.6.0...v142.7.0) (2024-08-30)
+
+
+### Features
+
+* **vertical-divider:** add aria-hidden prop but prevent overriding when in menu ([7da78ff](https://github.com/Sage/carbon/commit/7da78ff9c8bd8b04faa6ff44e9c333c8e73a41b6))
+
+## [142.6.0](https://github.com/Sage/carbon/compare/v142.5.1...v142.6.0) (2024-08-30)
+
+
+### Features
+
+* **breadcrumbs:** add isDarkBackground prop ([25953d3](https://github.com/Sage/carbon/commit/25953d30e4cc5a2fba5d5ba3f7163c46a04d1121)), closes [#6724](https://github.com/Sage/carbon/issues/6724)
+
+### [142.5.1](https://github.com/Sage/carbon/compare/v142.5.0...v142.5.1) (2024-08-30)
+
+
+### Bug Fixes
+
+* **textarea:** add minheight prop to Textarea ([cf1b651](https://github.com/Sage/carbon/commit/cf1b6514fdea19f7f70876158259eb18e3daa6ce)), closes [#6860](https://github.com/Sage/carbon/issues/6860)
+
+## [142.5.0](https://github.com/Sage/carbon/compare/v142.4.1...v142.5.0) (2024-08-28)
+
+
+### Features
+
+* **tile:** add support for adding highlight border via the highlightVariant prop ([467ebcc](https://github.com/Sage/carbon/commit/467ebccd26e7fe59dc8709904ea6d45c52399171))
+
+
+### Bug Fixes
+
+* **tile:** ensure border radius is only set on children when not in TileContent ([86f5cbd](https://github.com/Sage/carbon/commit/86f5cbdc7e14807e0e0208df7bc97266dc75ba26))
+
+### [142.4.1](https://github.com/Sage/carbon/compare/v142.4.0...v142.4.1) (2024-08-28)
+
+
+### Bug Fixes
+
+* **menu-item, submenu:** remove min-width when submenuMaxWidth prop is set ([002c37d](https://github.com/Sage/carbon/commit/002c37d59611d18285b95b02ca316af1645277b0))
+
+## [142.4.0](https://github.com/Sage/carbon/compare/v142.3.2...v142.4.0) (2024-08-27)
+
+
+### Features
+
+* **loader-star:** create new loader-star component ([5ffe0e4](https://github.com/Sage/carbon/commit/5ffe0e41ec7fa673522c1e2f966a398c08a0c287))
+
+### [142.3.2](https://github.com/Sage/carbon/compare/v142.3.1...v142.3.2) (2024-08-23)
+
+
+### Bug Fixes
+
+* **checkbox:** prevent labelHelp and fieldHelp from rendering in a group with new validation ([2f2f340](https://github.com/Sage/carbon/commit/2f2f340fcdfca1acb5b72bad6df7299eece3eb3e))
+* **radio-button:** prevent labelHelp and fieldHelp from rendering with new validation ([c9c4500](https://github.com/Sage/carbon/commit/c9c4500b7177ffd6151a9a4fe6adbe576c4d2f9c))
+
+### [142.3.1](https://github.com/Sage/carbon/compare/v142.3.0...v142.3.1) (2024-08-22)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure correct alignment when onClick and icon props are set ([afa2759](https://github.com/Sage/carbon/commit/afa2759adac7b401708802d3fc0b759ba95246b1))
+
+## [142.3.0](https://github.com/Sage/carbon/compare/v142.2.2...v142.3.0) (2024-08-21)
+
+
+### Features
+
+* **menu-item:** add `submenuMaxWidth` prop to allow setting of `max-width` on submenus ([0d57505](https://github.com/Sage/carbon/commit/0d575052a15fb8c065c0c24971aee42eeed80872))
+* **menu-item:** update so custom padding is set on the button or anchor element ([7a4f540](https://github.com/Sage/carbon/commit/7a4f540c0238bf0c80e142410bec81a57031365e))
+
 ### [142.2.2](https://github.com/Sage/carbon/compare/v142.2.1...v142.2.2) (2024-08-20)
 
 

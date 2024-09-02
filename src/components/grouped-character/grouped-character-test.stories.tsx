@@ -11,7 +11,12 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
   title: "Grouped Character/Test",
-  includeStories: ["Default", "NewValidation"],
+  includeStories: [
+    "Default",
+    "NewValidation",
+    "IsOptionalExample",
+    "MaxWidthExample",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -78,3 +83,43 @@ NewValidation.args = {
   separator: "-",
   ...getCommonTextboxArgs(),
 };
+
+export const IsOptionalExample = () => {
+  const [state, setState] = useState("12345678");
+  const onChange = (ev: CustomEvent) => {
+    setState(ev.target.value.rawValue);
+    action("change")(ev.target.value);
+  };
+  return (
+    <GroupedCharacter
+      value={state}
+      onChange={onChange}
+      groups={[2, 2, 4]}
+      separator="-"
+      label="Grouped Character"
+      isOptional
+    />
+  );
+};
+IsOptionalExample.storyName = "is optional example";
+IsOptionalExample.parameters = { chromatic: { disableSnaphot: false } };
+
+export const MaxWidthExample = () => {
+  const [state, setState] = useState("12345678");
+  const onChange = (ev: CustomEvent) => {
+    setState(ev.target.value.rawValue);
+    action("change")(ev.target.value);
+  };
+  return (
+    <GroupedCharacter
+      label="Grouped Character with max width"
+      value={state}
+      onChange={onChange}
+      groups={[2, 2, 4]}
+      separator="-"
+      maxWidth="200px"
+    />
+  );
+};
+MaxWidthExample.storyName = "max width example";
+MaxWidthExample.parameters = { chromatic: { disableSnaphot: false } };

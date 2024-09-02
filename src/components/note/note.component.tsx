@@ -61,10 +61,6 @@ export const Note = ({
   ...rest
 }: NoteProps) => {
   invariant(width > 0, "<Note> width must be greater than 0");
-  invariant(createdDate, "<Note> createdDate is required");
-  invariant(noteContent, "<Note> noteContent is required");
-  invariant(!status || status.text, "<Note> status.text is required");
-  invariant(!status || status.timeStamp, "<Note> status.timeStamp is required");
   invariant(
     !inlineControl ||
       (React.isValidElement(inlineControl) &&

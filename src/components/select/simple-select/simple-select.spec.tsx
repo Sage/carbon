@@ -208,26 +208,22 @@ describe("SimpleSelect", () => {
 
   describe("with a ref", () => {
     it("the input ref should be forwarded", () => {
-      let mockRef: React.MutableRefObject<HTMLElement | null> = {
-        current: null,
-      };
+      const getNode: React.RefCallback<HTMLInputElement> = jest.fn(
+        (element) => element
+      );
 
-      const WrapperComponent = () => {
-        mockRef = useRef(null);
-
-        return (
-          <SimpleSelect name="testSelect" id="testSelect" ref={mockRef}>
-            <Option value="opt1" text="red" />
-            <Option value="opt2" text="green" />
-            <Option value="opt3" text="blue" />
-            <Option value="opt4" text="black" />
-          </SimpleSelect>
-        );
-      };
+      const WrapperComponent = () => (
+        <SimpleSelect name="testSelect" id="testSelect" ref={getNode}>
+          <Option value="opt1" text="red" />
+          <Option value="opt2" text="green" />
+          <Option value="opt3" text="blue" />
+          <Option value="opt4" text="black" />
+        </SimpleSelect>
+      );
 
       const wrapper = mount(<WrapperComponent />);
 
-      expect(mockRef.current).toBe(wrapper.find("input").getDOMNode());
+      expect(getNode).toBeCalledWith(wrapper.find("input").getDOMNode());
     });
 
     it("the input callback ref should be called with the DOM element", () => {
@@ -943,7 +939,7 @@ describe("SimpleSelect", () => {
 
     describe("when parent re-renders", () => {
       const WrapperComponent = () => {
-        const mockRef = useRef();
+        const mockRef = useRef<HTMLInputElement>(null);
 
         return (
           <span>

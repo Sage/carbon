@@ -118,7 +118,6 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
             text-decoration: underline var(--colorsUtilityYin100);
             text-decoration-thickness: 4px;
             text-underline-offset: 3px;
-
             -webkit-text-decoration: underline var(--colorsUtilityYin100);
             -webkit-text-decoration-thickness: 4px;
             -webkit-text-underline-offset: 3px;
@@ -127,7 +126,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
 
         a:focus {
           top: var(--spacing100);
-          left: 0;
+          left: var(--spacing000);
         }
       `}
 

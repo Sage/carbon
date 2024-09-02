@@ -17,7 +17,7 @@ import Input from "../../__internal__/input/input.component";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import guid from "../../__internal__/utils/helpers/guid";
-import StyledTextarea, { MIN_HEIGHT } from "./textarea.style";
+import StyledTextarea, { DEFAULT_MIN_HEIGHT } from "./textarea.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
@@ -129,6 +129,8 @@ export interface TextareaProps
   borderRadius?: BorderRadiusType | BorderRadiusType[];
   /** Hides the borders for the component. Please note that validation and focus styling will still be applied */
   hideBorders?: boolean;
+  /** Specify the minimum height */
+  minHeight?: number;
 }
 
 let deprecateUncontrolledWarnTriggered = false;
@@ -177,11 +179,15 @@ export const Textarea = React.forwardRef(
       hideBorders = false,
       required,
       isOptional,
+      minHeight = DEFAULT_MIN_HEIGHT,
       ...rest
     }: TextareaProps,
     ref: React.ForwardedRef<HTMLTextAreaElement>
   ) => {
     const { validationRedesignOptIn } = useContext(NewValidationContext);
+    const [textareaMinHeight, setTextareaMinHeight] = useState(
+      DEFAULT_MIN_HEIGHT
+    );
     const computeLabelPropValues = <T,>(prop: T): undefined | T =>
       validationRedesignOptIn ? undefined : prop;
 
@@ -243,14 +249,12 @@ export const Textarea = React.forwardRef(
       warnBorderRadiusArrayTooLarge = true;
     }
 
-    const minHeight = useRef(MIN_HEIGHT);
-
-    const expandTextarea = () => {
+    const expandTextarea = useCallback(() => {
       const textarea = internalRef.current;
 
       if (
         textarea?.scrollHeight &&
-        textarea?.scrollHeight > minHeight.current
+        textarea?.scrollHeight > textareaMinHeight
       ) {
         // need to reset scroll position of the nearest parent which scrolls
         let scrollElement: HTMLElement | null = textarea;
@@ -264,14 +268,14 @@ export const Textarea = React.forwardRef(
         // Set the height so all content is shown
         textarea.style.height = `${Math.max(
           textarea.scrollHeight,
-          minHeight.current
+          textareaMinHeight
         )}px`;
 
         if (scrollElement && scrollPosition) {
           scrollElement.scrollTop = scrollPosition;
         }
       }
-    };
+    }, [textareaMinHeight]);
 
     const {
       labelId,
@@ -296,9 +300,13 @@ export const Textarea = React.forwardRef(
 
     useEffect(() => {
       if (rows) {
-        minHeight.current = internalRef?.current?.scrollHeight || 0;
+        setTextareaMinHeight(internalRef?.current?.scrollHeight || 0);
+      } else {
+        setTextareaMinHeight(
+          minHeight > DEFAULT_MIN_HEIGHT ? minHeight : DEFAULT_MIN_HEIGHT
+        );
       }
-    }, [rows]);
+    }, [minHeight, rows]);
 
     useEffect(() => {
       if (expandable) {
@@ -309,7 +317,7 @@ export const Textarea = React.forwardRef(
     useEffect(() => {
       if (expandable) {
         window.addEventListener("resize", expandTextarea);
-        minHeight.current = internalRef?.current?.clientHeight || 0;
+        setTextareaMinHeight(internalRef?.current?.clientHeight || 0);
         // need to also run expandTextarea when the Sage UI font completes loading, to prevent strange scroll
         // behaviour when it only loads after the component is rendered
         document.fonts?.addEventListener("loadingdone", expandTextarea);
@@ -321,7 +329,7 @@ export const Textarea = React.forwardRef(
           document.fonts?.removeEventListener("loadingdone", expandTextarea);
         }
       };
-    }, [expandable]);
+    }, [expandTextarea, expandable]);
 
     const hasIconInside = !!(inputIcon || (validationId && !validationOnLabel));
 
@@ -400,6 +408,7 @@ export const Textarea = React.forwardRef(
             data-role={dataRole}
             data-element={dataElement}
             hasIcon={hasIconInside}
+            minHeight={textareaMinHeight}
             {...marginProps}
           >
             <FormField

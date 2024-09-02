@@ -90,7 +90,7 @@ export const GroupedCharacter = React.forwardRef(
       const { target } = ev;
       const { selectionEnd } = target as HTMLInputElement;
 
-      let newCursorPos = selectionEnd ?? 0;
+      let newCursorPos = selectionEnd ?? /* istanbul ignore next */ 0;
 
       const rawValue = sanitizeValue(target.value);
       const formattedValue = formatValue(rawValue);

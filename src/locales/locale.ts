@@ -82,6 +82,9 @@ interface Locale {
   loaderSpinner: {
     loading: () => string;
   };
+  loaderStar: {
+    loading: () => string;
+  };
   menuFullscreen: {
     ariaLabels: {
       closeButton: () => string;

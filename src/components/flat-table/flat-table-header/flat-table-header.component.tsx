@@ -1,5 +1,6 @@
 import React, { useRef, useContext } from "react";
 import { PaddingProps } from "styled-system";
+import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import { TableBorderSize, TableCellAlign } from "..";
 
 import StyledFlatTableHeader from "./flat-table-header.style";
@@ -7,7 +8,9 @@ import FlatTableContext from "../__internal__/flat-table.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useTableCell from "../__internal__/use-table-cell";
 
-export interface FlatTableHeaderProps extends PaddingProps {
+export interface FlatTableHeaderProps
+  extends PaddingProps,
+    Omit<TagProps, "data-component"> {
   /** Content alignment */
   align?: TableCellAlign;
   /** If true sets alternative background color */
@@ -37,6 +40,8 @@ export const FlatTableHeader = ({
   py,
   px,
   id,
+  "data-element": dataElement,
+  "data-role": dataRole,
   ...rest
 }: FlatTableHeaderProps) => {
   const ref = useRef<HTMLTableCellElement>(null);
@@ -55,16 +60,18 @@ export const FlatTableHeader = ({
       className={makeCellSticky ? "isSticky" : undefined}
       align={align}
       colorTheme={colorTheme}
-      data-element="flat-table-header"
       {...(colspan !== undefined && { colSpan: Number(colspan) })}
       {...(rowspan !== undefined && { rowSpan: Number(rowspan) })}
       colWidth={width}
       py={py}
       px={px}
       {...rest}
+      data-component="flat-table-header"
+      data-element={dataElement || "flat-table-header"}
+      data-role={dataRole}
       id={internalId.current}
     >
-      <div>{children}</div>
+      <div data-role="flat-table-header-content">{children}</div>
     </StyledFlatTableHeader>
   );
 };
