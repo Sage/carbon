@@ -280,6 +280,18 @@ test.describe(`should render Duelling-Picklist component`, () => {
             "disabled",
             /.*/
           );
+          await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
+            "opacity",
+            "0.2"
+          );
+          await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
+            "pointer-events",
+            "none"
+          );
+          await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
+            "user-select",
+            "none"
+          );
         } else {
           await expect(
             getComponent(page, "duelling-picklist")

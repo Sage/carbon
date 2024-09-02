@@ -76,6 +76,7 @@ export const DuellingPicklist = ({
     <StyledDuellingPicklistOverlay
       disabled={disabled}
       data-component="duelling-picklist"
+      data-role="duelling-picklist-overlay"
       {...filterStyledSystemMarginProps(rest)}
     >
       {shouldDisplayLabels && (
