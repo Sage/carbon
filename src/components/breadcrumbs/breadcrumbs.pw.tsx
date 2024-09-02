@@ -9,6 +9,7 @@ import {
   Default,
   DefaultCrumb,
   FocusedCrumbBecomesCurrent,
+  OnDarkBackground,
 } from "./components.test-pw";
 import {
   checkAccessibility,
@@ -169,6 +170,19 @@ test.describe("should render Breadcrumbs component", async () => {
     );
   });
 
+  test("should have correct color when Crumb is current and isDarkBackground is true", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<OnDarkBackground />);
+
+    const currentCrumb = crumbAtIndex(page, 3).locator("a");
+    await expect(currentCrumb).toHaveCSS("color", "rgb(255, 255, 255)");
+    await currentCrumb.hover();
+    await expect(currentCrumb).toHaveCSS("color", "rgb(255, 255, 255)");
+    await expect(currentCrumb).toHaveCSS("cursor", "text");
+  });
+
   [
     {
       isCurrent: true,
@@ -219,24 +233,6 @@ test("when Crumb's isCurrent prop is true, Crumb divider should not exist", asyn
   await expect(crumbElement.locator("span").nth(1)).toHaveCSS(
     "color",
     "rgba(0, 0, 0, 0.9)"
-  );
-});
-
-test("when Crumb's isCurrent prop is false, Crumb divider should be visible", async ({
-  mount,
-  page,
-}) => {
-  await mount(<DefaultCrumb isCurrent={false} />);
-
-  const crumbElement = crumbAtIndex(page, 0);
-  await expect(crumbElement.locator("a")).toHaveAttribute("href", "#");
-  await expect(crumbElement.locator("span").nth(1)).toHaveCSS(
-    "color",
-    "rgb(0, 126, 69)"
-  );
-  await expect(crumbElement.locator("span").nth(2)).toHaveCSS(
-    "color",
-    "rgba(0, 0, 0, 0.55)"
   );
 });
 
@@ -301,6 +297,14 @@ test.describe("Accessibility tests for Breadcrumbs component", async () => {
     page,
   }) => {
     await mount(<DefaultCrumb />);
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility tests for Breadcrumbs dark background story", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<OnDarkBackground />);
     await checkAccessibility(page);
   });
 });

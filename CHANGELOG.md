@@ -1,3 +1,31 @@
+## [142.8.0](https://github.com/Sage/carbon/compare/v142.7.0...v142.8.0) (2024-08-30)
+
+
+### Features
+
+* **dialog:** add the "maximise" value to the `size` prop ([398ffb0](https://github.com/Sage/carbon/commit/398ffb0e18820d92ae1db7553f29d5b6bc516a6f))
+
+## [142.7.0](https://github.com/Sage/carbon/compare/v142.6.0...v142.7.0) (2024-08-30)
+
+
+### Features
+
+* **vertical-divider:** add aria-hidden prop but prevent overriding when in menu ([7da78ff](https://github.com/Sage/carbon/commit/7da78ff9c8bd8b04faa6ff44e9c333c8e73a41b6))
+
+## [142.6.0](https://github.com/Sage/carbon/compare/v142.5.1...v142.6.0) (2024-08-30)
+
+
+### Features
+
+* **breadcrumbs:** add isDarkBackground prop ([25953d3](https://github.com/Sage/carbon/commit/25953d30e4cc5a2fba5d5ba3f7163c46a04d1121)), closes [#6724](https://github.com/Sage/carbon/issues/6724)
+
+### [142.5.1](https://github.com/Sage/carbon/compare/v142.5.0...v142.5.1) (2024-08-30)
+
+
+### Bug Fixes
+
+* **textarea:** add minheight prop to Textarea ([cf1b651](https://github.com/Sage/carbon/commit/cf1b6514fdea19f7f70876158259eb18e3daa6ce)), closes [#6860](https://github.com/Sage/carbon/issues/6860)
+
 ## [142.5.0](https://github.com/Sage/carbon/compare/v142.4.1...v142.5.0) (2024-08-28)
 
 

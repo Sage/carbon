@@ -5,10 +5,11 @@ import StyledInput from "../../__internal__/input/input.style";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import BaseTheme from "../../style/themes/base";
+import { TextareaProps } from "./textarea.component";
 
-export const MIN_HEIGHT = 64;
+export const DEFAULT_MIN_HEIGHT = 64;
 
-export interface StyledTextAreaProps {
+export interface StyledTextAreaProps extends Pick<TextareaProps, "minHeight"> {
   /** When true, label is placed in line an input */
   labelInline?: boolean;
   /** When true, adjusts padding for icon */
@@ -21,7 +22,7 @@ const StyledTextarea = styled.div<StyledTextAreaProps>`
   ${StyledInput} {
     box-sizing: border-box;
     resize: none;
-    min-height: ${MIN_HEIGHT}px;
+    ${({ minHeight }) => `min-height: ${minHeight || DEFAULT_MIN_HEIGHT}px;`}
     padding: var(--spacing150) var(--spacing200);
 
     ${({ hasIcon }) => hasIcon && "padding-right: var(--spacing500)"}
