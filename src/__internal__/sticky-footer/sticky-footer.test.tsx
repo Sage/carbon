@@ -93,7 +93,7 @@ describe("StickyFooter component", () => {
       unmount();
 
       expect(remover).toHaveBeenCalledTimes(1);
-      expect(remover.mock.lastCall[0]).toEqual("scroll");
+      expect(remover.mock.lastCall?.[0]).toEqual("scroll");
     });
   });
 

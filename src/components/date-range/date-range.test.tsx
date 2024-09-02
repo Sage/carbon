@@ -5,13 +5,6 @@ import userEvent from "@testing-library/user-event";
 import DateRange, { DateRangeChangeEvent } from "./date-range.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
-import Tooltip from "../tooltip";
-
-jest.mock("../tooltip", () => {
-  return jest.fn(() => null);
-});
-
-const TooltipMock = Tooltip as jest.MockedFunction<typeof Tooltip>;
 
 testStyledSystemMargin((props) => (
   <DateRange
@@ -983,16 +976,13 @@ test("should only display the start input tooltip when the user hovers over it a
 
   const start = screen.getByRole("textbox", { name: "start" });
   await user.hover(start);
+  const startTooltip = await screen.findByRole("tooltip", {
+    name: "start error",
+  });
+  const endTooltip = screen.queryByRole("tooltip", { name: "end error" });
 
-  expect(Tooltip).toHaveBeenCalledWith(
-    expect.objectContaining({ isVisible: true, message: "start error" }),
-    {}
-  );
-  expect(Tooltip).toHaveBeenCalledWith(
-    expect.objectContaining({ isVisible: false, message: "end error" }),
-    {}
-  );
-  TooltipMock.mockClear();
+  expect(startTooltip).toBeVisible();
+  expect(endTooltip).not.toBeInTheDocument();
 });
 
 test("should only display the end input tooltip when the user hovers over it and both inputs have error strings passed with `validationRedesignOptIn` not set", async () => {
@@ -1012,16 +1002,11 @@ test("should only display the end input tooltip when the user hovers over it and
 
   const end = screen.getByRole("textbox", { name: "end" });
   await user.hover(end);
+  const tooltips = screen.getAllByRole("tooltip");
 
-  expect(Tooltip).toHaveBeenCalledWith(
-    expect.objectContaining({ isVisible: false, message: "start error" }),
-    {}
-  );
-  expect(Tooltip).toHaveBeenCalledWith(
-    expect.objectContaining({ isVisible: true, message: "end error" }),
-    {}
-  );
-  TooltipMock.mockClear();
+  expect(tooltips).toHaveLength(1);
+  expect(tooltips[0]).toBeVisible();
+  expect(tooltips[0]).toHaveTextContent("end error");
 });
 
 test("should display the error message for both inputs when strings are passed to the error props and `validationRedesignOptIn` is set", () => {

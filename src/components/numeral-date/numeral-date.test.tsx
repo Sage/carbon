@@ -7,13 +7,6 @@ import NumeralDate from "./numeral-date.component";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
-import Tooltip from "../tooltip";
-
-jest.mock("../tooltip", () => {
-  return jest.fn(() => null);
-});
-
-const TooltipMock = Tooltip as jest.MockedFunction<typeof Tooltip>;
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -23,6 +16,15 @@ testStyledSystemMargin(
   (component) => component.find(FormFieldStyle),
   { modifier: "&&&" }
 );
+
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
 
 test("should display deprecation warning once when used in an uncontrolled manner", () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -48,8 +50,7 @@ test("should display an error when invalid `dateFormat` prop passed", () => {
   expect(() =>
     render(
       <NumeralDate
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore:next-line testing incorrect date format
+        // @ts-expect-error testing incorrect date format
         dateFormat={["xx"]}
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
@@ -123,7 +124,6 @@ describe("when the `error` prop is passed a string value and `validationRedesign
   });
 
   it("should display the tooltip when the user hovers on the 'Day' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -138,18 +138,10 @@ describe("when the `error` prop is passed a string value and `validationRedesign
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     await user.hover(dayInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "error" }),
-      {}
-    );
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
-    TooltipMock.mockClear();
+    expect(await screen.findByRole("tooltip", { name: "error" })).toBeVisible();
   });
 
   it("should display the tooltip when the user hovers on the 'Month' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -164,18 +156,10 @@ describe("when the `error` prop is passed a string value and `validationRedesign
     const monthInput = screen.getByRole("textbox", { name: "Month" });
     await user.hover(monthInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "error" }),
-      {}
-    );
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
-    TooltipMock.mockClear();
+    expect(await screen.findByRole("tooltip", { name: "error" })).toBeVisible();
   });
 
   it("should display the tooltip when the user hovers on the 'Year' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -190,14 +174,7 @@ describe("when the `error` prop is passed a string value and `validationRedesign
     const yearInput = screen.getByRole("textbox", { name: "Year" });
     await user.hover(yearInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "error" }),
-      {}
-    );
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
-    TooltipMock.mockClear();
+    expect(await screen.findByRole("tooltip", { name: "error" })).toBeVisible();
   });
 });
 
@@ -223,7 +200,6 @@ describe("when the `error` prop is passed a boolean value and `validationRedesig
   });
 
   it("should not display the tooltip when the user hovers on the 'Day' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -239,13 +215,9 @@ describe("when the `error` prop is passed a boolean value and `validationRedesig
     await user.hover(dayInput);
 
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should not display the tooltip when the user hovers on the 'Month' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -261,13 +233,9 @@ describe("when the `error` prop is passed a boolean value and `validationRedesig
     await user.hover(monthInput);
 
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should not display the tooltip when the user hovers on the 'Year' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -283,9 +251,6 @@ describe("when the `error` prop is passed a boolean value and `validationRedesig
     await user.hover(yearInput);
 
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 });
 
@@ -311,7 +276,6 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
   });
 
   it("should display the tooltip when the user hovers on the 'Day' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -326,18 +290,12 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     await user.hover(dayInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "warning" }),
-      {}
-    );
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
-    TooltipMock.mockClear();
+    expect(
+      await screen.findByRole("tooltip", { name: "warning" })
+    ).toBeVisible();
   });
 
   it("should display the tooltip when the user hovers on the 'Month' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -352,18 +310,12 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
     const monthInput = screen.getByRole("textbox", { name: "Month" });
     await user.hover(monthInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "warning" }),
-      {}
-    );
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
-    TooltipMock.mockClear();
+    expect(
+      await screen.findByRole("tooltip", { name: "warning" })
+    ).toBeVisible();
   });
 
   it("should display the tooltip when the user hovers on the 'Year' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -378,14 +330,9 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
     const yearInput = screen.getByRole("textbox", { name: "Year" });
     await user.hover(yearInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "warning" }),
-      {}
-    );
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
-    TooltipMock.mockClear();
+    expect(
+      await screen.findByRole("tooltip", { name: "warning" })
+    ).toBeVisible();
   });
 });
 
@@ -411,7 +358,7 @@ describe("when the `warning` prop is passed a boolean value and `validationRedes
   });
 
   it("should not display the tooltip when the user hovers on the 'Day' input", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <NumeralDate
@@ -429,7 +376,7 @@ describe("when the `warning` prop is passed a boolean value and `validationRedes
   });
 
   it("should not display the tooltip when the user hovers on the 'Month' input", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <NumeralDate
@@ -447,7 +394,7 @@ describe("when the `warning` prop is passed a boolean value and `validationRedes
   });
 
   it("should not display the tooltip when the user hovers on the 'Year' input", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <NumeralDate
@@ -487,7 +434,6 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
   });
 
   it("should display the tooltip when the user hovers on the 'Day' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -502,18 +448,10 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     await user.hover(dayInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "info" }),
-      {}
-    );
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
-    TooltipMock.mockClear();
+    expect(await screen.findByRole("tooltip", { name: "info" })).toBeVisible();
   });
 
   it("should display the tooltip when the user hovers on the 'Month' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -528,18 +466,10 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
     const monthInput = screen.getByRole("textbox", { name: "Month" });
     await user.hover(monthInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "info" }),
-      {}
-    );
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
-    TooltipMock.mockClear();
+    expect(await screen.findByRole("tooltip", { name: "info" })).toBeVisible();
   });
 
   it("should display the tooltip when the user hovers on the 'Year' input", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
@@ -554,14 +484,7 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
     const yearInput = screen.getByRole("textbox", { name: "Year" });
     await user.hover(yearInput);
 
-    expect(Tooltip).toHaveBeenCalledWith(
-      expect.objectContaining({ isVisible: true, message: "info" }),
-      {}
-    );
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
-    TooltipMock.mockClear();
+    expect(await screen.findByRole("tooltip", { name: "info" })).toBeVisible();
   });
 });
 
@@ -587,7 +510,7 @@ describe("when the `info` prop is passed a boolean value and `validationRedesign
   });
 
   it("should not display the tooltip when the user hovers on the 'Day' input", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <NumeralDate
@@ -605,7 +528,7 @@ describe("when the `info` prop is passed a boolean value and `validationRedesign
   });
 
   it("should not display the tooltip when the user hovers on the 'Month' input", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <NumeralDate
@@ -623,7 +546,7 @@ describe("when the `info` prop is passed a boolean value and `validationRedesign
   });
 
   it("should not display the tooltip when the user hovers on the 'Year' input", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <NumeralDate
@@ -747,7 +670,6 @@ test("should render the `labelHelp` text as additional content and not render th
 });
 
 test("should render the help icon and tooltip when `labelHelp` prop is set and `validationRedesignOptIn` is not", async () => {
-  jest.useFakeTimers();
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <CarbonProvider>
@@ -763,19 +685,13 @@ test("should render the help icon and tooltip when `labelHelp` prop is set and `
   const labelHelp = screen.getByRole("button", { name: "help" });
   await user.hover(labelHelp);
 
-  expect(Tooltip).toHaveBeenCalledWith(
-    expect.objectContaining({ isVisible: true, message: "labelHelp" }),
-    {}
-  );
-
-  jest.runOnlyPendingTimers();
-  jest.useRealTimers();
-  TooltipMock.mockClear();
+  expect(
+    await screen.findByRole("tooltip", { name: "labelHelp" })
+  ).toBeVisible();
 });
 
 describe("when the `enableInternalError` prop is not set and `validationRedesignOptIn` is true", () => {
   it("should not render the validation message when the `Day` field is blurred and has a value greater than 31", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -796,13 +712,9 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     expect(
       screen.queryByText("Day should be a number within a 1-31 range.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should not render the validation message when the `Day` field is blurred and has a value less than 1", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -822,13 +734,9 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     expect(
       screen.queryByText("Day should be a number within a 1-31 range.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should not render the validation message when the `Month` field is blurred and has a value greater than 12", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -848,13 +756,9 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     expect(
       screen.queryByText("Month should be a number within a 1-12 range.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should not render the validation message when the `Month` field is blurred and has a value less than 1", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -874,15 +778,11 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     expect(
       screen.queryByText("Month should be a number within a 1-12 range.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 });
 
 describe("when the `enableInternalError` prop and `validationRedesignOptIn` are set", () => {
   it("should not render the validation message when the `Day` field is blurred and has a valid value", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -901,13 +801,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.queryByText("Day should be a number within a 1-31 range.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the user types a value in the `Day` field greater than 31 and tabs", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -931,13 +827,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.getByText("Day should be a number within a 1-31 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the user types a value in the `Day` field less than 1 and tabs", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -961,13 +853,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.getByText("Day should be a number within a 1-31 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the user types `02` in the `Month` field and tabs when the `Day` field has a value greater than 28", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -991,13 +879,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.getByText("Day in February should be a number within 1-28.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should not render the validation message when the user types '02' in the `Month` field and tabs when the `Day` field has a valid value", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1016,13 +900,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.queryByText("Day in February should be a number within 1-28.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should use the current year and not render the validation message when the user types '02' in the `Month` field and tabs when the `Day` field has a valid value", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1041,13 +921,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.queryByText("Day in February should be a number within 1-28.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the `Month` is blurred and has a value greater than 12", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1071,13 +947,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.getByText("Month should be a number within a 1-12 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the `Month` is blurred and has a value less than 1", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1101,13 +973,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.getByText("Month should be a number within a 1-12 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the `Year` is blurred and has a value less than 1800", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1131,13 +999,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.getByText("Year should be a number within a 1800-2200 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the `Year` is blurred and has a value greater than 2200", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1161,13 +1025,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.getByText("Year should be a number within a 1800-2200 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the appropriate validation message when the `Day` and `Month` fields are blurred and have values greater than the valid limits", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1191,13 +1051,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           "Month should be a number within a 1-12 range."
       )
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the appropriate validation message when the `Day` and `Year` fields are blurred and have values greater than the valid limits", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1221,13 +1077,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           "Year should be a number within a 1800-2200 range."
       )
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the appropriate validation message when the `Month` and `Year` fields are blurred and have values greater than the valid limits", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1251,13 +1103,9 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           "Year should be a number within a 1800-2200 range."
       )
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the appropriate validation message when the `Day`, `Month`, and `Year` fields are blurred and have values greater than the valid limits", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1284,15 +1132,11 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           "Year should be a number within a 1800-2200 range."
       )
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 });
 
 describe("when the `enableInternalWarning` prop is not set and `validationRedesignOptIn` is true", () => {
   it("should not render the validation message when the `Day` field is blurred and has a value greater than 31", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1313,13 +1157,9 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     expect(
       screen.queryByText("Day should be a number within a 1-31 range.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should not render the validation message when the `Day` field is blurred and has a value less than 1", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1339,13 +1179,9 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     expect(
       screen.queryByText("Day should be a number within a 1-31 range.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should not render the validation message when the `Month` field is blurred and has a value greater than 12", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1365,13 +1201,9 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     expect(
       screen.queryByText("Month should be a number within a 1-12 range.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should not render the validation message when the `Month` field is blurred and has a value less than 1", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1391,15 +1223,11 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     expect(
       screen.queryByText("Month should be a number within a 1-12 range.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 });
 
 describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` are set", () => {
   it("should not render the validation message when the `Day` field is blurred and has a valid value", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1418,13 +1246,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.queryByText("Day should be a number within a 1-31 range.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the user types a value in the `Day` field greater than 31 and tabs", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1448,13 +1272,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.getByText("Day should be a number within a 1-31 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the user types a value in the `Day` field less than 1 and tabs", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1478,13 +1298,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.getByText("Day should be a number within a 1-31 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the user types `02` in the `Month` field and tabs when the `Day` field has a value greater than 28", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1508,13 +1324,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.getByText("Day in February should be a number within 1-28.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should not render the validation message when the user types '02' in the `Month` field and tabs when the `Day` field has a valid value", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1533,13 +1345,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.queryByText("Day in February should be a number within 1-28.")
     ).not.toBeInTheDocument();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the `Month` is blurred and has a value greater than 12", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1563,13 +1371,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.getByText("Month should be a number within a 1-12 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the `Month` is blurred and has a value less than 1", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1593,13 +1397,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.getByText("Month should be a number within a 1-12 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the `Year` is blurred and has a value less than 1800", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1623,13 +1423,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.getByText("Year should be a number within a 1800-2200 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the validation message when the `Year` is blurred and has a value greater than 2200", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1653,13 +1449,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.getByText("Year should be a number within a 1800-2200 range.")
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the appropriate validation message when the `Day` and `Month` fields are blurred and have values greater than the valid limits", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1683,13 +1475,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           "Month should be a number within a 1-12 range."
       )
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the appropriate validation message when the `Day` and `Year` fields are blurred and have values greater than the valid limits", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1713,13 +1501,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           "Year should be a number within a 1800-2200 range."
       )
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the appropriate validation message when the `Month` and `Year` fields are blurred and have values greater than the valid limits", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1743,13 +1527,9 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           "Year should be a number within a 1800-2200 range."
       )
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   it("should render the appropriate validation message when the `Day`, `Month`, and `Year` fields are blurred and have values greater than the valid limits", async () => {
-    jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider validationRedesignOptIn>
@@ -1776,14 +1556,11 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           "Year should be a number within a 1800-2200 range."
       )
     ).toBeVisible();
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 });
 
 test("should submit the form when enter key is pressed", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onSubmit = jest.fn();
   render(
     <form onSubmit={onSubmit}>
@@ -1802,7 +1579,7 @@ test("should submit the form when enter key is pressed", async () => {
 });
 
 test("should update the input values when the delete key is pressed", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <NumeralDate
       value={{ dd: "11", mm: "11", yyyy: "2011" }}
@@ -1823,7 +1600,7 @@ test("should update the input values when the delete key is pressed", async () =
 });
 
 test("should update the input values when the backspace key is pressed", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <NumeralDate
       value={{ dd: "11", mm: "11", yyyy: "2011" }}
@@ -1844,7 +1621,7 @@ test("should update the input values when the backspace key is pressed", async (
 });
 
 test("should not update the input values when user presses non-numeric key", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
   );
@@ -1961,7 +1738,7 @@ test("should render the expected inputs when the `dateFormat` is set as 'mmyyyy'
 
 test("should call `onBlur` callback if prop is passed and user clicks outside of inputs", async () => {
   const onBlur = jest.fn();
-  jest.useFakeTimers();
+
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <NumeralDate
@@ -1977,14 +1754,11 @@ test("should call `onBlur` callback if prop is passed and user clicks outside of
   jest.runAllTimers();
 
   expect(onBlur).toHaveBeenCalled();
-
-  jest.runOnlyPendingTimers();
-  jest.useRealTimers();
 });
 
 test("should not call `onBlur` callback if prop is passed and user clicks from one input to another", async () => {
   const onBlur = jest.fn();
-  jest.useFakeTimers();
+
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <NumeralDate
@@ -2001,9 +1775,6 @@ test("should not call `onBlur` callback if prop is passed and user clicks from o
   jest.runAllTimers();
 
   expect(onBlur).not.toHaveBeenCalled();
-
-  jest.runOnlyPendingTimers();
-  jest.useRealTimers();
 });
 
 describe("when `dayRef` prop is passed", () => {
@@ -2143,7 +1914,7 @@ describe("when `yearRef` prop is passed", () => {
 
 test("should not call the onChange callback when the prop is set and the user types a value that exceeds the 'Day' input limit", async () => {
   const onChange = jest.fn();
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <NumeralDate value={{ dd: "12", mm: "", yyyy: "" }} onChange={onChange} />
   );
@@ -2157,7 +1928,7 @@ test("should not call the onChange callback when the prop is set and the user ty
 
 test("should not call the onChange callback when the prop is set and the user types a value that exceeds the 'Month' input limit", async () => {
   const onChange = jest.fn();
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <NumeralDate value={{ dd: "", mm: "12", yyyy: "" }} onChange={onChange} />
   );
@@ -2171,7 +1942,7 @@ test("should not call the onChange callback when the prop is set and the user ty
 
 test("should not call the onChange callback when the prop is set and the user types a value that exceeds the 'Year' input limit", async () => {
   const onChange = jest.fn();
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <NumeralDate value={{ dd: "", mm: "", yyyy: "2011" }} onChange={onChange} />
   );
