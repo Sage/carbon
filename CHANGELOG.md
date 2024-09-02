@@ -1,3 +1,10 @@
+### [142.8.1](https://github.com/Sage/carbon/compare/v142.8.0...v142.8.1) (2024-09-02)
+
+
+### Reverts
+
+* Revert "refactor(date, date-range, numeral-date): mock Tooltip due to latency issues in floating-ui" ([ccf86a8](https://github.com/Sage/carbon/commit/ccf86a84de612995e02afb09d175d77e24d07f42))
+
 ## [142.8.0](https://github.com/Sage/carbon/compare/v142.7.0...v142.8.0) (2024-08-30)
 
 
