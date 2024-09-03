@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`noneTheme has no accidentally modified tokens in compatibility section 1`] = `
-Object {
+{
   "borderRadius000": "0px",
   "borderRadius010": "1px",
   "borderRadius025": "2px",

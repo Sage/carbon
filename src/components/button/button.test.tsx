@@ -303,7 +303,13 @@ test("calls onClick when an 'href' is passed and the space key is pressed", asyn
   const user = userEvent.setup();
   const clickMock = jest.fn();
   render(
-    <Button onClick={clickMock} href="https://www.warnerbros.com/movies/heat">
+    <Button
+      onClick={(ev) => {
+        ev.preventDefault();
+        clickMock(ev);
+      }}
+      href="https://www.warnerbros.com/movies/heat"
+    >
       bar
     </Button>
   );
@@ -319,7 +325,13 @@ test("does not call onClick when a 'href' is passed and any other key is pressed
   const user = userEvent.setup();
   const clickMock = jest.fn();
   render(
-    <Button onClick={clickMock} href="https://www.warnerbros.com/movies/heat">
+    <Button
+      onClick={(ev) => {
+        ev.preventDefault();
+        clickMock(ev);
+      }}
+      href="https://www.warnerbros.com/movies/heat"
+    >
       bar
     </Button>
   );

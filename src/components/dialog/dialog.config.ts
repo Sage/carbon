@@ -7,6 +7,7 @@ export const DIALOG_SIZES = [
   "medium-large",
   "large",
   "extra-large",
+  "maximise",
 ] as const;
 export const TOP_MARGIN = 20;
 export const CONTENT_TOP_PADDING = 24;

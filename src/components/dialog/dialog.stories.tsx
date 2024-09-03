@@ -97,6 +97,52 @@ export const DefaultStory: Story = () => {
 };
 DefaultStory.storyName = "Default";
 
+export const MaxSize: Story = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+      <Dialog
+        size="maximise"
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Title"
+        subtitle="Subtitle"
+      >
+        <Form
+          stickyFooter
+          leftSideButtons={
+            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+          }
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Typography>
+            This is an example of a dialog with a Form as content
+          </Typography>
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+        </Form>
+      </Dialog>
+    </>
+  );
+};
+MaxSize.storyName = "With Max Size";
+MaxSize.parameters = { chromatic: { disableSnapshot: true } };
+
 export const Editable: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [isDisabled, setIsDisabled] = useState(true);

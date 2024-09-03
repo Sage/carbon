@@ -1,8 +1,8 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import { Breadcrumbs } from ".";
-import { Crumb } from "./crumb";
+import { Breadcrumbs, Crumb } from ".";
+import Box from "../box";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -33,3 +33,19 @@ export const Default: Story = () => {
   );
 };
 Default.storyName = "Default";
+
+export const OnDarkBackground: Story = () => {
+  return (
+    <Box p={2} bg="#000">
+      <Breadcrumbs isDarkBackground>
+        <Crumb href="#">Breadcrumb 1</Crumb>
+        <Crumb href="#">Breadcrumb 2</Crumb>
+        <Crumb href="#">Breadcrumb 3</Crumb>
+        <Crumb href="#" isCurrent>
+          Current Page
+        </Crumb>
+      </Breadcrumbs>
+    </Box>
+  );
+};
+OnDarkBackground.storyName = "On Dark Background";
