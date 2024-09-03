@@ -3,32 +3,46 @@ import { render, screen } from "@testing-library/react";
 import { GAP_VALUES, Gap, getGapValue } from "style/utils/box-gap";
 import FlexTileContainer from "./flex-tile-container.component";
 
-describe("FlexTileContainer", () => {
-  it.each<Gap>([...GAP_VALUES, "20px", "20%"])(
-    "renders with correct column gap when columnGap prop is %s",
-    (gapValue) => {
-      render(
-        <FlexTileContainer columnGap={gapValue}>content</FlexTileContainer>
-      );
-      expect(screen.getByText("content")).toHaveStyle({
-        columnGap: getGapValue(gapValue),
-      });
-    }
+test.each<Gap>([...GAP_VALUES, "20px", "20%"])(
+  "should render with correct column gap when columnGap prop is %s",
+  (gapValue) => {
+    render(<FlexTileContainer columnGap={gapValue}>content</FlexTileContainer>);
+    expect(screen.getByText("content")).toHaveStyle({
+      columnGap: getGapValue(gapValue),
+    });
+  }
+);
+
+test("should not render when falsy children are passed", () => {
+  render(
+    <FlexTileContainer data-role="flex-tile-container">
+      {null}
+    </FlexTileContainer>
   );
 
-  it("does not render when falsy children are passed", () => {
-    render(
-      <FlexTileContainer data-role="flex-tile-container">
-        {null}
-      </FlexTileContainer>
-    );
+  expect(screen.queryByTestId("flex-tile-container")).not.toBeInTheDocument();
+});
 
-    expect(screen.queryByTestId("flex-tile-container")).not.toBeInTheDocument();
+test("should render when children are passed", () => {
+  render(<FlexTileContainer>Tile Content</FlexTileContainer>);
+
+  expect(screen.getByText("Tile Content")).toBeVisible();
+});
+
+test("should have `overflow` 'hidden' by default", () => {
+  render(<FlexTileContainer>Tile Content</FlexTileContainer>);
+
+  expect(screen.getByText("Tile Content")).toHaveStyle({
+    overflow: "hidden",
   });
+});
 
-  it("renders when children are passed", () => {
-    render(<FlexTileContainer>Tile Content</FlexTileContainer>);
+test("should render with the expected `overflow` styling when prop is passed", () => {
+  render(
+    <FlexTileContainer overflow="visible">Tile Content</FlexTileContainer>
+  );
 
-    expect(screen.getByText("Tile Content")).toBeVisible();
+  expect(screen.getByText("Tile Content")).toHaveStyle({
+    overflow: "visible",
   });
 });
