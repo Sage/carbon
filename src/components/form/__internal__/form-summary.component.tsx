@@ -44,7 +44,11 @@ export const Summary = ({
     return (
       <>
         <StyledMessagePrefix>{message?.[0]}</StyledMessagePrefix>
-        <StyledInternalSummary type={type} data-element={`${type}s`}>
+        <StyledInternalSummary
+          type={type}
+          data-element={`${type}s`}
+          data-role="internal-summary"
+        >
           <Icon type={type} />
           <span>{message?.[1]}</span>
         </StyledInternalSummary>
@@ -59,6 +63,7 @@ const FormSummary = ({ fullWidth, ...props }: FormSummaryProps) => {
     <StyledFormSummary
       showSummary={!!(props.errorCount || props.warningCount)}
       data-element="form-summary"
+      data-role="form-summary"
       fullWidth={fullWidth}
     >
       <Summary type="error" {...props} />

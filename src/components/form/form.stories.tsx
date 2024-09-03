@@ -396,7 +396,7 @@ WithBothOptionalOrRequired.parameters = {
 };
 
 export const InDialog = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
@@ -423,10 +423,9 @@ export const InDialog = () => {
   );
 };
 InDialog.storyName = "In Dialog";
-InDialog.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogWithStickyFooter = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [date, setDate] = useState("04/04/2019");
   return (
     <>
@@ -529,10 +528,9 @@ export const InDialogWithStickyFooter = () => {
   );
 };
 InDialogWithStickyFooter.storyName = "In Dialog with Sticky Footer";
-InDialogWithStickyFooter.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreen = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
@@ -561,10 +559,9 @@ export const InDialogFullScreen = () => {
   );
 };
 InDialogFullScreen.storyName = "In Dialog Full Screen";
-InDialogFullScreen.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreenWithStickyFooter = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [date, setDate] = useState("04/04/2019");
   return (
     <>
@@ -620,9 +617,6 @@ export const InDialogFullScreenWithStickyFooter = () => {
 };
 InDialogFullScreenWithStickyFooter.storyName =
   "In Dialog Full Screen with Sticky Footer";
-InDialogFullScreenWithStickyFooter.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const FormAlignmentExample: Story = () => {
   const [date, setDate] = useState("04/04/2019");
