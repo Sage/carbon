@@ -189,6 +189,7 @@ const PagerNavigation = ({
         ) : (
           <StyledPagerNavLabel
             data-element="current-page-label"
+            data-role="current-page-label"
             id={currentPageId}
             aria-live="polite"
           >
