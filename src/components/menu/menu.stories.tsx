@@ -747,7 +747,18 @@ export const TruncationAndSubmenuWidth: Story = () => {
               submenuMaxWidth="300px"
               submenu="This is a very long menu item title"
             >
-              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item One</MenuItem>
+              <MenuItem p="2px 16px">
+                <Box minWidth="268px">
+                  <Search
+                    placeholder="placeholder"
+                    variant={
+                      ["white", "light"].includes(menuType) ? "default" : "dark"
+                    }
+                    defaultValue=""
+                  />
+                </Box>
+              </MenuItem>
               <MenuSegmentTitle text="segment title that should wrap when it will overflow">
                 <MenuItem href="#">Item Two</MenuItem>
                 <MenuItem href="#">

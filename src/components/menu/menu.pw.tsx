@@ -2261,7 +2261,6 @@ test(`should verify that submenu item text wraps when it would overflow the cont
   );
 
   await expect(submenuBlockElement).toHaveCSS("max-width", "300px");
-  await expect(lastItem).toHaveCSS("width", "300px");
   expect(parseInt(cssItemHeight)).toBeGreaterThan(40);
 });
 

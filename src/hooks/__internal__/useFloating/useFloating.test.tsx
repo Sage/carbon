@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { render, screen, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import * as floatingUi from "@floating-ui/dom";
 
 import useFloating, { UseFloatingProps } from "./useFloating";

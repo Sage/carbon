@@ -1,39 +1,35 @@
 {
-    // Use IntelliSense to learn about possible Node.js debug attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-
-      {
-        "name": "storybook",
-        "type": "chrome",
-        "request": "launch",
-        "url": "http://localhost:9001",
-        "webRoot": "${workspaceFolder}"
-      },
-      {
-        "name": "fixtures",
-        "type": "chrome",
-        "request": "launch",
-        "url": "http://localhost:9901",
-        "webRoot": "${workspaceFolder}"
-      },
-      {
-        "type": "node",
-        "request": "launch",
-        "name": "Run Current Spec",
-        "program": "${workspaceRoot}/node_modules/.bin/jest",
-        "args": [
-          "--config=./jest.config.json",
-          "${file}"
-        ],
-        "stopOnEntry": false,
-        "cwd": "${workspaceRoot}",
-        "sourceMaps": true,
-        "console": "integratedTerminal",
-        "internalConsoleOptions": "neverOpen",
-        "disableOptimisticBPs": true,
-      }
-    ]
-  }
+  // Use IntelliSense to learn about possible Node.js debug attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "storybook",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:9001",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "fixtures",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:9901",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Current Spec",
+      "program": "${workspaceRoot}/node_modules/.bin/jest",
+      "args": ["--config=./jest.config.ts", "${file}"],
+      "stopOnEntry": false,
+      "cwd": "${workspaceRoot}",
+      "sourceMaps": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true
+    }
+  ]
+}

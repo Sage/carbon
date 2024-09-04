@@ -1,3 +1,71 @@
+## [142.9.0](https://github.com/Sage/carbon/compare/v142.8.1...v142.9.0) (2024-09-03)
+
+
+### Features
+
+* **flex-tile-container:** add support for overriding the `overflow` styling ([64b0143](https://github.com/Sage/carbon/commit/64b014385afbd7b54430d2189f37dc482e165d77)), closes [#6868](https://github.com/Sage/carbon/issues/6868)
+
+### [142.8.1](https://github.com/Sage/carbon/compare/v142.8.0...v142.8.1) (2024-09-02)
+
+
+### Reverts
+
+* Revert "refactor(date, date-range, numeral-date): mock Tooltip due to latency issues in floating-ui" ([ccf86a8](https://github.com/Sage/carbon/commit/ccf86a84de612995e02afb09d175d77e24d07f42))
+
+## [142.8.0](https://github.com/Sage/carbon/compare/v142.7.0...v142.8.0) (2024-08-30)
+
+
+### Features
+
+* **dialog:** add the "maximise" value to the `size` prop ([398ffb0](https://github.com/Sage/carbon/commit/398ffb0e18820d92ae1db7553f29d5b6bc516a6f))
+
+## [142.7.0](https://github.com/Sage/carbon/compare/v142.6.0...v142.7.0) (2024-08-30)
+
+
+### Features
+
+* **vertical-divider:** add aria-hidden prop but prevent overriding when in menu ([7da78ff](https://github.com/Sage/carbon/commit/7da78ff9c8bd8b04faa6ff44e9c333c8e73a41b6))
+
+## [142.6.0](https://github.com/Sage/carbon/compare/v142.5.1...v142.6.0) (2024-08-30)
+
+
+### Features
+
+* **breadcrumbs:** add isDarkBackground prop ([25953d3](https://github.com/Sage/carbon/commit/25953d30e4cc5a2fba5d5ba3f7163c46a04d1121)), closes [#6724](https://github.com/Sage/carbon/issues/6724)
+
+### [142.5.1](https://github.com/Sage/carbon/compare/v142.5.0...v142.5.1) (2024-08-30)
+
+
+### Bug Fixes
+
+* **textarea:** add minheight prop to Textarea ([cf1b651](https://github.com/Sage/carbon/commit/cf1b6514fdea19f7f70876158259eb18e3daa6ce)), closes [#6860](https://github.com/Sage/carbon/issues/6860)
+
+## [142.5.0](https://github.com/Sage/carbon/compare/v142.4.1...v142.5.0) (2024-08-28)
+
+
+### Features
+
+* **tile:** add support for adding highlight border via the highlightVariant prop ([467ebcc](https://github.com/Sage/carbon/commit/467ebccd26e7fe59dc8709904ea6d45c52399171))
+
+
+### Bug Fixes
+
+* **tile:** ensure border radius is only set on children when not in TileContent ([86f5cbd](https://github.com/Sage/carbon/commit/86f5cbdc7e14807e0e0208df7bc97266dc75ba26))
+
+### [142.4.1](https://github.com/Sage/carbon/compare/v142.4.0...v142.4.1) (2024-08-28)
+
+
+### Bug Fixes
+
+* **menu-item, submenu:** remove min-width when submenuMaxWidth prop is set ([002c37d](https://github.com/Sage/carbon/commit/002c37d59611d18285b95b02ca316af1645277b0))
+
+## [142.4.0](https://github.com/Sage/carbon/compare/v142.3.2...v142.4.0) (2024-08-27)
+
+
+### Features
+
+* **loader-star:** create new loader-star component ([5ffe0e4](https://github.com/Sage/carbon/commit/5ffe0e41ec7fa673522c1e2f966a398c08a0c287))
+
 ### [142.3.2](https://github.com/Sage/carbon/compare/v142.3.1...v142.3.2) (2024-08-23)
 
 

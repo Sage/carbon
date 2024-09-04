@@ -107,6 +107,9 @@ const frCA: Partial<Locale> = {
   loaderSpinner: {
     loading: () => "Chargement...",
   },
+  loaderStar: {
+    loading: () => "Chargement...",
+  },
   menuFullscreen: {
     ariaLabels: { closeButton: () => "Fermer" },
   },

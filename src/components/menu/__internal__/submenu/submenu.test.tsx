@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import FixedNavigationBarContext from "components/navigation-bar/__internal__/fixed-navigation-bar.context";
@@ -326,13 +326,19 @@ test("should support focusing elements via the user typing a search string", asy
   await user.click(menuItem);
   await user.keyboard("ch");
 
+  act(() => {
+    jest.runAllTimers();
+  });
+
   expect(screen.getByRole("link", { name: "Cherry" })).toHaveFocus();
 
+  jest.runOnlyPendingTimers();
   jest.useRealTimers();
 });
 
-test("should reset the search string and focus the correct item when multiple character keys are pressed slowly", async () => {
-  jest.useFakeTimers("legacy");
+test("resets search string after 1.5s and focuses the correct item on next character key press", async () => {
+  jest.useFakeTimers();
+
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <MenuContext.Provider value={menuContextValues}>
@@ -348,11 +354,20 @@ test("should reset the search string and focus the correct item when multiple ch
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
   await user.keyboard("b");
-  jest.runAllTimers();
+
+  act(() => {
+    jest.advanceTimersByTime(1500);
+  });
+
   await user.keyboard("o");
+
+  act(() => {
+    jest.runAllTimers();
+  });
 
   expect(screen.getByRole("link", { name: "Orange" })).toHaveFocus();
 
+  jest.runOnlyPendingTimers();
   jest.useRealTimers();
 });
 
@@ -375,10 +390,20 @@ test("should focus the first item that matches when the search string matches mu
   await user.keyboard("m");
   const focusedItem = screen.getByRole("link", { name: "Mango" });
 
+  act(() => {
+    jest.runAllTimers();
+  });
+
   expect(focusedItem).toHaveFocus();
   await user.keyboard("m");
+
+  act(() => {
+    jest.runAllTimers();
+  });
+
   expect(focusedItem).toHaveFocus();
 
+  jest.runOnlyPendingTimers();
   jest.useRealTimers();
 });
 
@@ -401,8 +426,13 @@ test("should not focus a menu item when the search string does not match any ite
   const items = screen.getAllByRole("link");
   await user.keyboard("x");
 
+  act(() => {
+    jest.runAllTimers();
+  });
+
   items.forEach((item) => expect(item).not.toHaveFocus());
 
+  jest.runOnlyPendingTimers();
   jest.useRealTimers();
 });
 

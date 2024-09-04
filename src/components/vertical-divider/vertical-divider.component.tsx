@@ -117,6 +117,11 @@ export interface VerticalDividerProps extends SpaceProps {
   displayInline?: boolean;
   /** Custom tint of the divider, the supported rage is 1-100 */
   tint?: TintRange;
+  /**
+   * Set the divider to be hidden from screen readers.
+   * Please note that this cannot be overridden when inside a Menu.
+   * */
+  "aria-hidden"?: boolean;
 }
 
 export const VerticalDivider = ({
@@ -124,6 +129,7 @@ export const VerticalDivider = ({
   height,
   displayInline = false,
   tint = 80,
+  "aria-hidden": ariaHidden,
   ...props
 }: VerticalDividerProps): JSX.Element => {
   const { inMenu } = useContext(MenuContext);
@@ -137,7 +143,7 @@ export const VerticalDivider = ({
       displayInline={displayInline}
       {...props}
       as={inMenu ? "li" : "div"}
-      aria-hidden={!!inMenu}
+      aria-hidden={inMenu ?? ariaHidden}
     >
       <StyledDivider data-role="divider" tint={tint} />
     </StyledVerticalWrapper>

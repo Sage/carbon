@@ -1,11 +1,12 @@
 import styled, { css } from "styled-components";
 import sizes from "../../../../__internal__/input/input-sizes.style";
-import { SelectTextProps } from ".";
+import { SelectTextboxProps } from "./select-textbox.component";
 
 interface StyledSelectTextProps
-  extends Pick<SelectTextProps, "disabled" | "readOnly" | "transparent"> {
+  extends Required<
+    Pick<SelectTextboxProps, "disabled" | "readOnly" | "transparent" | "size">
+  > {
   hasPlaceholder: boolean;
-  size: NonNullable<SelectTextProps["size"]>;
 }
 
 const StyledSelectText = styled.span<StyledSelectTextProps>`

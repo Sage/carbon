@@ -16,11 +16,17 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "outDir": "./lib/",
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "es6"
   },
-  "include": ["./src/global.d.ts", "./src/**/*.ts*", "./docs/**/*.ts*"],
+  "include": [
+    "./src/global.d.ts",
+    "./src/**/*.ts*",
+    "./docs/**/*.ts*",
+    "./jest.config.ts"
+  ],
   "exclude": ["./node_modules", "./playwright", "./playwright-ct.config.ts"]
 }

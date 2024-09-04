@@ -107,6 +107,9 @@ const frFR: Partial<Locale> = {
   loaderSpinner: {
     loading: () => "Téléhargement...",
   },
+  loaderStar: {
+    loading: () => "Téléhargement...",
+  },
   menuFullscreen: {
     ariaLabels: { closeButton: () => "Fermer" },
   },

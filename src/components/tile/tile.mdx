@@ -188,6 +188,41 @@ Use `justifyContent` to place your content inside the width allocated to the cel
 
 <Canvas of={TileStories.Align} />
 
+### Responsive Tile with overflow visible
+
+Use the `overflow` prop to override the overflow styling, it is set to `"hidden"` by default. It is not 
+recommended to override this styling if you are rendering `FlexTileDivider` components.
+
+<Canvas of={TileStories.ResponsiveWithOverflowVisibleStory} />
+
+### Highlight variants
+
+Setting the `highlightVariant` prop will add a highlight to the Tile on the left border.
+
+#### Gradient
+
+<Canvas of={TileStories.HighlightVariantGradientStory} />
+
+#### Success
+
+<Canvas of={TileStories.HighlightVariantSuccessStory} />
+
+#### Neutral
+
+<Canvas of={TileStories.HighlightVariantNeutralStory} />
+
+#### Error
+
+<Canvas of={TileStories.HighlightVariantErrorStory} />
+
+#### Warning
+
+<Canvas of={TileStories.HighlightVariantWarningStory} />
+
+#### Info
+
+<Canvas of={TileStories.HighlightVariantInfoStory} />
+
 ### Tile
 
 <ArgTypes of={TileStories} />
