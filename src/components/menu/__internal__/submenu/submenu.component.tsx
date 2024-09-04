@@ -170,6 +170,14 @@ const Submenu = React.forwardRef<
       startCharacterTimeout();
     }, [startCharacterTimeout]);
 
+    useEffect(() => {
+      return () => {
+        if (characterTimer.current) {
+          clearTimeout(characterTimer.current);
+        }
+      };
+    }, []);
+
     const openSubmenu = useCallback(() => {
       setSubmenuOpen(true);
       setOpenSubmenuId(submenuId.current);

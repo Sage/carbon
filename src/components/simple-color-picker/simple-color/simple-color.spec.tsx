@@ -62,7 +62,7 @@ describe("ColorOption", () => {
     assertStyleMatch(
       {
         backgroundColor: "#eeeeee",
-        backgroundImage: "url()",
+        backgroundImage: "url(checker-board.svg)",
         backgroundSize: "14px 14px",
         backgroundPosition: "-2px -2px",
       },

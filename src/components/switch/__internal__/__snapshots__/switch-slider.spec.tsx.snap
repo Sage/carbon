@@ -95,14 +95,14 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
     <StyledComponent
       aria-hidden={true}
       forwardedComponent={
-        Object {
+        {
           "$$typeof": Symbol(react.forward_ref),
-          "attrs": Array [],
+          "attrs": [],
           "componentStyle": ComponentStyle {
             "componentId": "sc-bZQynM",
             "isStatic": false,
             "lastClassName": "c0",
-            "rules": Array [
+            "rules": [
               "
   ",
               [Function],
@@ -110,7 +110,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
 ",
             ],
           },
-          "foldedComponentIds": Array [],
+          "foldedComponentIds": [],
           "render": [Function],
           "styledComponentId": "sc-bZQynM",
           "target": "div",
@@ -132,9 +132,9 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   <styled.div
     data-component="slider"
     theme={
-      Object {
-        "colors": Object {
-          "destructive": Object {
+      {
+        "colors": {
+          "destructive": {
             "hover": "#9F2D3F",
           },
           "error": "#C7384F",
@@ -149,7 +149,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
           "warningText": "#BA5000",
           "white": "#FFFFFF",
         },
-        "compatibility": Object {
+        "compatibility": {
           "borderRadius000": "0px",
           "borderRadius010": "1px",
           "borderRadius025": "2px",
@@ -659,11 +659,11 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
           "typographyTooltipTextL": "400 16px/150% Sage UI",
           "typographyTooltipTextM": "400 14px/150% Sage UI",
         },
-        "disabled": Object {
+        "disabled": {
           "background": "#E6EBED",
         },
         "name": "base",
-        "palette": Object {
+        "palette": {
           "amethyst": "#582C83",
           "amethystShade": [Function],
           "amethystTint": [Function],
@@ -703,7 +703,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
           "slateTint": [Function],
           "whiteOpacity": [Function],
         },
-        "space": Array [
+        "space": [
           "var(--spacing000)",
           "var(--spacing100)",
           "var(--spacing200)",
@@ -717,7 +717,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
           "var(--spacing1000)",
         ],
         "spacing": 8,
-        "zIndex": Object {
+        "zIndex": {
           "aboveAll": 9999,
           "fullScreenModal": 5000,
           "globalNav": 2999,
@@ -735,12 +735,12 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
     <StyledComponent
       data-component="slider"
       forwardedComponent={
-        Object {
+        {
           "$$typeof": Symbol(react.forward_ref),
-          "_foldedDefaultProps": Object {
-            "theme": Object {
-              "colors": Object {
-                "destructive": Object {
+          "_foldedDefaultProps": {
+            "theme": {
+              "colors": {
+                "destructive": {
                   "hover": "#9F2D3F",
                 },
                 "error": "#C7384F",
@@ -755,7 +755,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
                 "warningText": "#BA5000",
                 "white": "#FFFFFF",
               },
-              "compatibility": Object {
+              "compatibility": {
                 "borderRadius000": "0px",
                 "borderRadius010": "1px",
                 "borderRadius025": "2px",
@@ -1265,11 +1265,11 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
                 "typographyTooltipTextL": "400 16px/150% Sage UI",
                 "typographyTooltipTextM": "400 14px/150% Sage UI",
               },
-              "disabled": Object {
+              "disabled": {
                 "background": "#E6EBED",
               },
               "name": "base",
-              "palette": Object {
+              "palette": {
                 "amethyst": "#582C83",
                 "amethystShade": [Function],
                 "amethystTint": [Function],
@@ -1309,7 +1309,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
                 "slateTint": [Function],
                 "whiteOpacity": [Function],
               },
-              "space": Array [
+              "space": [
                 "var(--spacing000)",
                 "var(--spacing100)",
                 "var(--spacing200)",
@@ -1323,7 +1323,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
                 "var(--spacing1000)",
               ],
               "spacing": 8,
-              "zIndex": Object {
+              "zIndex": {
                 "aboveAll": 9999,
                 "fullScreenModal": 5000,
                 "globalNav": 2999,
@@ -1337,12 +1337,12 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
               },
             },
           },
-          "attrs": Array [],
+          "attrs": [],
           "componentStyle": ComponentStyle {
             "componentId": "sc-EHOje",
             "isStatic": false,
             "lastClassName": "c1",
-            "rules": Array [
+            "rules": [
               "
   ",
               [Function],
@@ -1350,7 +1350,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
 ",
             ],
           },
-          "foldedComponentIds": Array [],
+          "foldedComponentIds": [],
           "render": [Function],
           "styledComponentId": "sc-EHOje",
           "target": "div",
@@ -1361,9 +1361,9 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
       }
       forwardedRef={null}
       theme={
-        Object {
-          "colors": Object {
-            "destructive": Object {
+        {
+          "colors": {
+            "destructive": {
               "hover": "#9F2D3F",
             },
             "error": "#C7384F",
@@ -1378,7 +1378,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
             "warningText": "#BA5000",
             "white": "#FFFFFF",
           },
-          "compatibility": Object {
+          "compatibility": {
             "borderRadius000": "0px",
             "borderRadius010": "1px",
             "borderRadius025": "2px",
@@ -1888,11 +1888,11 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
             "typographyTooltipTextL": "400 16px/150% Sage UI",
             "typographyTooltipTextM": "400 14px/150% Sage UI",
           },
-          "disabled": Object {
+          "disabled": {
             "background": "#E6EBED",
           },
           "name": "base",
-          "palette": Object {
+          "palette": {
             "amethyst": "#582C83",
             "amethystShade": [Function],
             "amethystTint": [Function],
@@ -1932,7 +1932,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
             "slateTint": [Function],
             "whiteOpacity": [Function],
           },
-          "space": Array [
+          "space": [
             "var(--spacing000)",
             "var(--spacing100)",
             "var(--spacing200)",
@@ -1946,7 +1946,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
             "var(--spacing1000)",
           ],
           "spacing": 8,
-          "zIndex": Object {
+          "zIndex": {
             "aboveAll": 9999,
             "fullScreenModal": 5000,
             "globalNav": 2999,
@@ -1970,14 +1970,14 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
         >
           <StyledComponent
             forwardedComponent={
-              Object {
+              {
                 "$$typeof": Symbol(react.forward_ref),
-                "attrs": Array [],
+                "attrs": [],
                 "componentStyle": ComponentStyle {
                   "componentId": "c2",
                   "isStatic": false,
                   "lastClassName": "c3",
-                  "rules": Array [
+                  "rules": [
                     "
   ",
                     [Function],
@@ -1985,7 +1985,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
 ",
                   ],
                 },
-                "foldedComponentIds": Array [],
+                "foldedComponentIds": [],
                 "render": [Function],
                 "styledComponentId": "c2",
                 "target": "div",

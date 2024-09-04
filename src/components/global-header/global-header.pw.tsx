@@ -13,7 +13,7 @@ import {
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 test.describe("Global Header component", () => {
-  test("should render without causing a ResiveObserver related error", async ({
+  test("should render without causing a ResizeObserver related error", async ({
     mount,
     page,
   }) => {
