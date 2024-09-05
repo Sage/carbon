@@ -28,7 +28,6 @@ import DatePicker, { PickerProps } from "./__internal__/date-picker";
 import DateRangeContext, {
   InputName,
 } from "../date-range/__internal__/date-range.context";
-import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -139,6 +138,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const alreadyFocused = useRef(false);
     const isBlurBlocked = useRef(false);
     const focusedViaPicker = useRef(false);
+    const blockClose = useRef(false);
     const locale = useLocale();
     const { dateFnsLocale } = locale.date;
     const { format, formats } = useMemo(() => getFormatData(dateFnsLocale()), [
@@ -187,21 +187,30 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       return customEvent;
     };
 
-    const handleClickAway = () => {
-      if (open) {
-        alreadyFocused.current = true;
-        internalInputRef.current?.focus();
-        isBlurBlocked.current = false;
-        internalInputRef.current?.blur();
-        setOpen(false);
-        alreadyFocused.current = false;
-      }
-    };
+    // Add  custom listener to prevent issues with regards to double calls within the Date component
+    // This is a temporary fix until the Date component is refactored more info can be found:
+    // TODO: FE-6757
+    useEffect(() => {
+      const handleClick = () => {
+        if (!blockClose.current) {
+          if (open) {
+            alreadyFocused.current = true;
+            internalInputRef.current?.focus();
+            isBlurBlocked.current = false;
+            internalInputRef.current?.blur();
+            setOpen(false);
+            alreadyFocused.current = false;
+          }
+        } else {
+          blockClose.current = false;
+        }
+      };
+      document.addEventListener("mousedown", handleClick);
 
-    const handleClickInside = useClickAwayListener(
-      handleClickAway,
-      "mousedown"
-    );
+      return function cleanup() {
+        document.removeEventListener("mousedown", handleClick);
+      };
+    }, [open]);
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
       isInitialValue.current = false;
@@ -332,7 +341,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     };
 
     const handleMouseDown = (ev: React.MouseEvent<HTMLElement>) => {
-      handleClickInside();
+      blockClose.current = true;
 
       if (setInputRefMap) {
         isBlurBlocked.current = true;
@@ -355,7 +364,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
     const handlePickerMouseDown = () => {
       isBlurBlocked.current = true;
-      handleClickInside();
+      blockClose.current = true;
     };
 
     const assignInput = useCallback(
