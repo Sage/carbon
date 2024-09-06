@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-conditional-expect */
 import React, { SyntheticEvent, useState } from "react";
 import {
   Editor,
@@ -486,10 +485,30 @@ describe("TextEditor", () => {
     });
 
     describe("Adding inline styling through keyboard shortcuts", () => {
-      it.each([
-        ["BOLD", "cmd + b"],
-        ["ITALIC", "cmd + i"],
-      ] as const)('%s toggles when "%s" pressed', (style) => {
+      it('BOLD toggles when "cmd + b" pressed', () => {
+        const style = "BOLD";
+        act(() => {
+          getEditor()
+            .props()
+            .handleKeyCommand?.(style.toLowerCase(), getEditorState(), 0);
+        });
+        act(() => {
+          wrapper.update();
+        });
+        expect(hasInlineStyle(style)).toBeTruthy();
+        act(() => {
+          getEditor()
+            .props()
+            .handleKeyCommand?.(style.toLowerCase(), getEditorState(), 0);
+        });
+        act(() => {
+          wrapper.update();
+        });
+        expect(hasInlineStyle(style)).toBeFalsy();
+      });
+
+      it('ITALIC toggles when "cmd + i" pressed', () => {
+        const style = "ITALIC";
         act(() => {
           getEditor()
             .props()
@@ -530,97 +549,84 @@ describe("TextEditor", () => {
         getEditorParent = () => wrapper.find(TextEditor);
       });
 
+      it('ordered-list-item is rendered when "1." is inputted', () => {
+        addOrderedBlockViaKeyboard();
+        act(() => {
+          wrapper.update();
+        });
+        expect(hasBlockStyle("ordered-list-item")).toBeTruthy();
+      });
+
       it.each([
         ["unordered-list-item", "*"],
-        ["ordered-list-item", "1."],
         ["unstyled", "@"],
       ] as const)('%s is rendered when "%s" is inputted', (block, key) => {
-        if (block === "ordered-list-item") {
-          addOrderedBlockViaKeyboard();
-        } else {
-          act(() => {
-            getEditor().props().handleBeforeInput?.(key, getEditorState(), 0);
-          });
-        }
+        act(() => {
+          getEditor().props().handleBeforeInput?.(key, getEditorState(), 0);
+        });
         act(() => {
           wrapper.update();
         });
         expect(hasBlockStyle(block)).toBeTruthy();
       });
 
-      it.each([
-        ["unordered-list-item", "*"],
-        ["ordered-list-item", "1."],
-      ] as const)(
-        '%s is not rendered when "%s" is inputted and there is already content before',
-        (block) => {
-          if (block === "ordered-list-item") {
-            addOrderedBlockViaKeyboard();
-            expect(hasBlockStyle(block)).toBeFalsy();
-            expect(hasBlockStyle("unstyled")).toBeTruthy();
-          } else {
-            act(() => {
-              getEditorParent()
-                .props()
-                .onChange(addToEditorState("foo", getEditor().props()));
-            });
-            act(() => {
-              wrapper.update();
-            });
-            act(() => {
-              getEditor().props().handleBeforeInput?.("*", getEditorState(), 0);
-            });
-            expect(hasBlockStyle(block)).toBeFalsy();
-            expect(hasBlockStyle("unstyled")).toBeTruthy();
-          }
-        }
-      );
+      it('unordered-list-item is not rendered when "*" is inputted and there is already content before', () => {
+        act(() => {
+          getEditorParent()
+            .props()
+            .onChange(addToEditorState("foo", getEditor().props()));
+        });
+        act(() => {
+          wrapper.update();
+        });
+        act(() => {
+          getEditor().props().handleBeforeInput?.("*", getEditorState(), 0);
+        });
+        expect(hasBlockStyle("unordered-list-item")).toBeFalsy();
+        expect(hasBlockStyle("unstyled")).toBeTruthy();
+      });
 
-      it.each([
-        ["unordered-list-item", "*"],
-        ["ordered-list-item", "1."],
-      ] as const)(
-        '%s is not rendered when "%s" is inputted consecutively',
-        (block) => {
-          if (block === "ordered-list-item") {
-            addOrderedBlockViaKeyboard();
-            act(() => {
-              wrapper.update();
-            });
-            expect(hasBlockStyle(block)).toBeTruthy();
-            act(() => {
-              getEditorParent()
-                .props()
-                .onChange(addToEditorState("1", getEditor().props()));
-            });
-            act(() => {
-              wrapper.update();
-            });
-            act(() => {
-              expect(
-                getEditor()
-                  .props()
-                  .handleBeforeInput?.(".", getEditorState(), 0)
-              ).toEqual("not-handled");
-            });
-          } else {
-            act(() => {
-              getEditor().props().handleBeforeInput?.("*", getEditorState(), 0);
-            });
-            act(() => {
-              wrapper.update();
-            });
-            expect(hasBlockStyle(block)).toBeTruthy();
-            act(() => {
-              expect(
-                getEditor()
-                  .props()
-                  .handleBeforeInput?.("*", getEditorState(), 0)
-              ).toEqual("not-handled");
-            });
-          }
-        }
-      );
+      it('ordered-list-item is not rendered when "1." is inputted and there is already content before', () => {
+        addOrderedBlockViaKeyboard();
+        expect(hasBlockStyle("ordered-list-item")).toBeFalsy();
+        expect(hasBlockStyle("unstyled")).toBeTruthy();
+      });
+
+      it('unordered-list-item is not rendered when "*" is inputted consecutively', () => {
+        act(() => {
+          getEditor().props().handleBeforeInput?.("*", getEditorState(), 0);
+        });
+        act(() => {
+          wrapper.update();
+        });
+        expect(hasBlockStyle("unordered-list-item")).toBeTruthy();
+        act(() => {
+          expect(
+            getEditor().props().handleBeforeInput?.("*", getEditorState(), 0)
+          ).toEqual("not-handled");
+        });
+      });
+
+      it('ordered-list-item is not rendered when "1." is inputted consecutively', () => {
+        addOrderedBlockViaKeyboard();
+        act(() => {
+          wrapper.update();
+        });
+        expect(hasBlockStyle("ordered-list-item")).toBeTruthy();
+        act(() => {
+          getEditorParent()
+            .props()
+            .onChange(addToEditorState("1", getEditor().props()));
+        });
+        act(() => {
+          wrapper.update();
+        });
+        act(() => {
+          expect(
+            getEditor().props().handleBeforeInput?.(".", getEditorState(), 0)
+          ).toEqual("not-handled");
+        });
+      });
     });
 
     describe("Double space key press", () => {
@@ -720,31 +726,49 @@ describe("TextEditor", () => {
     });
 
     describe("Deleting block styling via keyboard", () => {
-      it.each([
-        ["unordered-list-item", "backspace"],
-        ["ordered-list-item", "backspace"],
-        ["unordered-list-item", "split-block"],
-        ["ordered-list-item", "split-block"],
-      ] as const)("%s deleted when %s pressed", (style, command) => {
-        if (style === "ordered-list-item") {
+      it.each(["backspace", "split-block"] as const)(
+        "ordered-list-item deleted when %s pressed",
+        (command) => {
           addOrderedBlockViaKeyboard();
-        } else {
+
+          act(() => {
+            wrapper.update();
+          });
+          expect(hasBlockStyle("ordered-list-item")).toBeTruthy();
+          act(() => {
+            getEditor()
+              .props()
+              .handleKeyCommand?.(command, getEditorState(), 0);
+          });
+          act(() => {
+            wrapper.update();
+          });
+          expect(hasBlockStyle("ordered-list-item")).toBeFalsy();
+        }
+      );
+
+      it.each(["backspace", "split-block"] as const)(
+        "unordered-list-item deleted when %s pressed",
+        (command) => {
           act(() => {
             getEditor().props().handleBeforeInput?.("*", getEditorState(), 0);
           });
+
+          act(() => {
+            wrapper.update();
+          });
+          expect(hasBlockStyle("unordered-list-item")).toBeTruthy();
+          act(() => {
+            getEditor()
+              .props()
+              .handleKeyCommand?.(command, getEditorState(), 0);
+          });
+          act(() => {
+            wrapper.update();
+          });
+          expect(hasBlockStyle("unordered-list-item")).toBeFalsy();
         }
-        act(() => {
-          wrapper.update();
-        });
-        expect(hasBlockStyle(style)).toBeTruthy();
-        act(() => {
-          getEditor().props().handleKeyCommand?.(command, getEditorState(), 0);
-        });
-        act(() => {
-          wrapper.update();
-        });
-        expect(hasBlockStyle(style)).toBeFalsy();
-      });
+      );
 
       it.each([
         ["unordered-list-item", "backspace"],
