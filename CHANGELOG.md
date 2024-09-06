@@ -1,3 +1,10 @@
+## [142.9.0](https://github.com/Sage/carbon/compare/v142.8.1...v142.9.0) (2024-09-03)
+
+
+### Features
+
+* **flex-tile-container:** add support for overriding the `overflow` styling ([64b0143](https://github.com/Sage/carbon/commit/64b014385afbd7b54430d2189f37dc482e165d77)), closes [#6868](https://github.com/Sage/carbon/issues/6868)
+
 ### [142.8.1](https://github.com/Sage/carbon/compare/v142.8.0...v142.8.1) (2024-09-02)
 
 
