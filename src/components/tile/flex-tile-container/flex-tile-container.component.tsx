@@ -1,7 +1,8 @@
 import React from "react";
 import Box, { BoxProps } from "../../box";
 
-export interface FlexTileContainerProps extends Pick<BoxProps, "columnGap"> {
+export interface FlexTileContainerProps
+  extends Pick<BoxProps, "columnGap" | "overflow"> {
   /** The child elements of FlexTileContainer need to be FlexTileCell components. */
   children: React.ReactNode;
 }
@@ -9,6 +10,7 @@ export interface FlexTileContainerProps extends Pick<BoxProps, "columnGap"> {
 export const FlexTileContainer = ({
   children,
   columnGap = 2,
+  overflow = "hidden",
 }: FlexTileContainerProps): JSX.Element => {
   if (!children) {
     return <></>;
@@ -23,7 +25,7 @@ export const FlexTileContainer = ({
       flexWrap="wrap"
       columnGap={columnGap}
       justifyContent="flex-start"
-      overflow="hidden"
+      overflow={overflow}
       width="100%"
       data-component="flex-tile-container"
     >

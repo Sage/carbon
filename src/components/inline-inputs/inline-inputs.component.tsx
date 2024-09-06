@@ -39,7 +39,7 @@ export interface InlineInputsProps
   labelAlign?: "left" | "right";
   /**
    * Custom label id, could be used in combination with aria-labelledby prop of each input,
-   * to make them accesible for screen readers.
+   * to make them accessible for screen readers.
    */
   labelId?: string;
   /** Flag to configure component as mandatory. */
@@ -113,6 +113,7 @@ const InlineInputs = ({
     <StyledInlineInputs
       gutter={gutter}
       data-component="inline-inputs"
+      data-role="inline-inputs"
       className={className}
       labelWidth={labelWidth}
       labelInline={inlineLabel}
@@ -123,6 +124,7 @@ const InlineInputs = ({
       <StyledContentContainer
         gutter={gutter}
         data-element="inline-inputs-container"
+        data-role="inline-inputs-container"
         inputWidth={inputWidth}
       >
         <FormSpacingProvider marginBottom={undefined}>
