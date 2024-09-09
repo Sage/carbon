@@ -40,6 +40,7 @@ const CharacterCount = ({
     <StyledCharacterCountWrapper>
       <VisuallyHiddenHint
         data-element="visually-hidden-hint"
+        data-role="visually-hidden-hint"
         id={visuallyHiddenHintId}
       >
         {l.characterCount.visuallyHiddenHint(
@@ -50,6 +51,7 @@ const CharacterCount = ({
         aria-hidden="true"
         isOverLimit={isOverLimit}
         data-element="character-count"
+        data-role="character-count"
       >
         {!isOverLimit
           ? l.characterCount.charactersLeft(
