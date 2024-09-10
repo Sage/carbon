@@ -72,7 +72,7 @@ const StyledSelectListTableHeader = styled.thead<StyledSelectListTableHeaderProp
     padding: var(--spacing200);
     background-color: white;
     text-align: left;
-    font-weight: 900;
+    font-weight: 500;
     font-size: 12px;
     text-transform: uppercase;
     color: var(--colorsUtilityYin055);

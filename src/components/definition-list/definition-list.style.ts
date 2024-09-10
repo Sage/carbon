@@ -34,7 +34,7 @@ export const StyledDt = styled.dt<
 >`
   ${space}
   font-size: var(--fontSizes100);
-  font-weight: 700;
+  font-weight: 500;
   color: var(--colorsUtilityYin090);
   ${({ asSingleColumn }) =>
     !asSingleColumn &&

@@ -38,7 +38,7 @@ const StyledFlatTableCheckbox = styled.td<StyledFlatTableCheckboxProps>`
       border-width: 0;
       border-bottom: 1px solid var(--colorsUtilityMajor100);
       box-sizing: border-box;
-      font-weight: 700;
+      font-weight: 500;
       left: auto;
       padding: 0;
       text-align: left;

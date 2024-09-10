@@ -87,7 +87,7 @@ export const StyledFileUploadStatus = styled.div<StyledFileUploadStatusProps>`
       ${hasError &&
       `&& ${StyledTypography} {
         color: var(--${colorToken});
-        font-weight: 500;
+        font-weight: 400;
       }`}
     `;
   }}

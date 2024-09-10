@@ -31,7 +31,7 @@ const LoaderStar = ({
   );
 
   const label = (
-    <StyledLabel data-role="visible-label" variant="span" fontWeight="500">
+    <StyledLabel data-role="visible-label" variant="span" fontWeight="400">
       {loaderStarLabel || locale.loaderStar.loading()}
     </StyledLabel>
   );

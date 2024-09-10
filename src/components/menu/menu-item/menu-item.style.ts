@@ -102,7 +102,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
     display: flex;
     align-items: center;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 500;
     min-height: 40px;
     position: relative;
     box-shadow: none;
@@ -270,7 +270,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
       ${StyledLink} a,
       ${StyledLink} button,
       ${StyledLink} [data-component="icon"] {
-        font-weight: 700;
+        font-weight: 500;
         text-decoration: none;
         ${!hasInput && `color: ${menuConfigVariants[menuType].color};`}
       }

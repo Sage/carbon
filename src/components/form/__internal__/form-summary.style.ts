@@ -11,7 +11,7 @@ export const StyledFormSummary = styled.div<StyledFormSummaryProps>`
   display: inline-flex;
   align-items: center;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
   margin: -8px;
   padding: 8px;
   white-space: nowrap;

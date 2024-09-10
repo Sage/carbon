@@ -10,7 +10,7 @@ export interface StyledLabelProps {
 const StyledLabel = styled.label<StyledLabelProps>`
   color: var(--colorsUtilityYin090);
   display: block;
-  font-weight: var(--fontWeights700);
+  font-weight: var(--fontWeights500);
 
   ${({ isRequired }) =>
     isRequired &&
@@ -18,7 +18,7 @@ const StyledLabel = styled.label<StyledLabelProps>`
       ::after {
         content: "*";
         color: var(--colorsSemanticNegative500);
-        font-weight: var(--fontWeights700);
+        font-weight: var(--fontWeights500);
         margin-left: var(--spacing050);
       }
     `}

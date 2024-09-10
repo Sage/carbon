@@ -114,7 +114,7 @@ export const Default = () => {
           <PicklistItem key={key} type={type} item={item} onChange={handler}>
             <div style={{ display: "flex", width: "100%" }}>
               <div style={{ width: "50%" }}>
-                <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+                <p style={{ fontWeight: 500, margin: 0, marginLeft: 24 }}>
                   {item.title}
                 </p>
               </div>

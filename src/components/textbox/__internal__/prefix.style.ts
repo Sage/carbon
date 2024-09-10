@@ -4,7 +4,7 @@ import { TextboxProps } from "../textbox.component";
 
 const StyledPrefix = styled.span<{ size: NonNullable<TextboxProps["size"]> }>`
   align-self: center;
-  font-weight: 900;
+  font-weight: 700;
   margin-left: ${({ size }) =>
     InputSizes[size]
       .horizontalPadding}; // margin must match the original component padding

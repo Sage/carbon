@@ -77,7 +77,7 @@ const fontSizes = {
 
 const StyledValue = styled.span`
   display: inline-block;
-  font-weight: bold;
+  font-weight: 500;
 `;
 
 const StyledDescription = styled.span`

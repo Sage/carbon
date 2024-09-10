@@ -265,7 +265,7 @@ test.describe("check Decimal input", () => {
       const textboxPrefixElement = textboxPrefix(page);
       await expect(textboxPrefixElement).toHaveText(prefix);
       await expect(textboxPrefixElement).toHaveCSS("font-size", "14px");
-      await expect(textboxPrefixElement).toHaveCSS("font-weight", "900");
+      await expect(textboxPrefixElement).toHaveCSS("font-weight", "700");
       await expect(textboxPrefixElement).toHaveCSS("margin-left", "12px");
     });
   });

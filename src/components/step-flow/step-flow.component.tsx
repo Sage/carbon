@@ -185,7 +185,7 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
           {category ? (
             <StyledStepContentText>
               <Typography
-                fontWeight="500"
+                fontWeight="400"
                 fontSize="var(--fontSizes100)"
                 lineHeight="var(--sizing250)"
                 variant="span"

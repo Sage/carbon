@@ -46,7 +46,7 @@ const StyledInlineControl = styled.div`
 `;
 
 const StyledTitle = styled.header`
-  font-weight: 900;
+  font-weight: 700;
   font-size: 16px;
   line-height: 21px;
   padding-bottom: 16px;
@@ -55,7 +55,7 @@ const StyledTitle = styled.header`
 const StyledFooterContent = styled.div<{ hasName: boolean }>`
   line-height: 21px;
   align-items: baseline;
-  font-weight: bold;
+  font-weight: 500;
 
   ${({ hasName }) => css`
     margin-top: var(--spacing200);

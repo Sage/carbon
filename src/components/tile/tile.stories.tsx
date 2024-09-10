@@ -92,7 +92,7 @@ export const WithTileFooter: Story = () => {
     <Box>
       <Tile orientation="vertical" width={400}>
         <TileContent>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Example header
           </Typography>
           <Typography>
@@ -113,7 +113,7 @@ export const WithTileFooter: Story = () => {
       <Tile px={0} pb={0} orientation="vertical" width={400}>
         <TileContent>
           <Box px={3}>
-            <Typography pb={2} variant="h4" fontWeight="bold">
+            <Typography pb={2} variant="h4" fontWeight="500">
               Example header
             </Typography>
             <Typography>
@@ -135,7 +135,7 @@ export const WithTileFooter: Story = () => {
       <Tile px={0} pb={0} orientation="vertical" width={425}>
         <TileContent>
           <Box px={3}>
-            <Typography pb={2} variant="h4" fontWeight="bold">
+            <Typography pb={2} variant="h4" fontWeight="500">
               Example header
             </Typography>
             <Typography>Labore ipsum nostrud quis aliquip</Typography>
@@ -185,7 +185,7 @@ export const WithTileFooter: Story = () => {
       <Tile px={0} pb={0} orientation="vertical" width={400}>
         <TileContent>
           <Box px={3}>
-            <Typography pb={2} variant="h4" fontWeight="bold">
+            <Typography pb={2} variant="h4" fontWeight="500">
               Example header
             </Typography>
             <Typography>
@@ -202,7 +202,7 @@ export const WithTileFooter: Story = () => {
       <Tile px={0} pb={0} orientation="vertical" width={400}>
         <TileContent>
           <Box px={3}>
-            <Typography pb={2} variant="h4" fontWeight="bold">
+            <Typography pb={2} variant="h4" fontWeight="500">
               Example header
             </Typography>
             <Typography>
@@ -231,7 +231,7 @@ export const WithTileHeader: Story = () => (
           <Typography display="inline">Example text</Typography>
         </TileHeader>
         <Box pt={2}>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Example tile body
           </Typography>
           <Typography>
@@ -253,7 +253,7 @@ export const WithTileHeader: Story = () => (
           <Typography display="inline">Example text</Typography>
         </TileHeader>
         <Box px={3} pt={3}>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Example tile body
           </Typography>
           <Typography>
@@ -270,7 +270,7 @@ export const WithTileHeader: Story = () => (
       <TileContent>
         <TileHeader p={2} variant="black" />
         <Box px={3} pt={3}>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Example tile body
           </Typography>
           <Typography>
@@ -287,7 +287,7 @@ export const WithTileHeader: Story = () => (
       <TileContent>
         <TileHeader p={2} variant="grey" />
         <Box px={3} pt={3}>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Example tile body
           </Typography>
           <Typography>
@@ -328,7 +328,7 @@ export const WithButtonInTileHeader: Story = () => {
           </Button>
         </TileHeader>
         <Box px={3} pt={3}>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Example tile body
           </Typography>
           <Typography>{content1}</Typography>
@@ -441,7 +441,7 @@ export const CustomBorders: Story = () => {
         borderVariant="selected"
       >
         <TileContent>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Selected variant
           </Typography>
           <Typography>
@@ -460,7 +460,7 @@ export const CustomBorders: Story = () => {
         borderVariant="positive"
       >
         <TileContent>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Positive variant
           </Typography>
           <Typography>
@@ -479,7 +479,7 @@ export const CustomBorders: Story = () => {
         borderVariant="negative"
       >
         <TileContent>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Negative variant
           </Typography>
           <Typography>
@@ -498,7 +498,7 @@ export const CustomBorders: Story = () => {
         borderVariant="caution"
       >
         <TileContent>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Caution variant
           </Typography>
           <Typography>
@@ -512,7 +512,7 @@ export const CustomBorders: Story = () => {
       <Box my={3} />
       <Tile orientation="vertical" width={400} borderWidth="borderWidth100">
         <TileContent>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Default/neutral variant
           </Typography>
           <Typography>
@@ -531,7 +531,7 @@ export const CustomBorders: Story = () => {
         borderVariant="info"
       >
         <TileContent>
-          <Typography pb={2} variant="h4" fontWeight="bold">
+          <Typography pb={2} variant="h4" fontWeight="500">
             Info variant
           </Typography>
           <Typography>

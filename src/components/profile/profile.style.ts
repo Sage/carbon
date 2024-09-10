@@ -14,7 +14,7 @@ interface ProfileSProps {
 }
 
 const ProfileNameStyle = styled.span<ProfileSProps>`
-  font-weight: bold;
+  font-weight: 500;
   font-size: ${({ size = "M" }) => profileConfigSizes[size].nameSize};
 `;
 

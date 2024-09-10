@@ -14,7 +14,7 @@ const StyledTitle = styled.h2<StyledTitleProps>`
     margin: 0px;
     padding: 16px 16px 8px;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
     text-transform: uppercase;
     line-height: 14px;
     cursor: default;

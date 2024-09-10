@@ -86,7 +86,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     outline-offset: 0;
     border: 2px solid transparent;
     box-sizing: border-box;
-    font-weight: 600;
+    font-weight: 500;
     text-decoration: none;
     border-radius: var(--borderRadius400);
 

@@ -34,7 +34,7 @@ const StyledCardFooter = styled.div<StyledCardFooterProps>`
     border-top-width: 1px;
     border-top-style: solid;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 500;
     margin: ${marginSizes[spacing]};
     display: flex;
     ${roundness === "default" &&
