@@ -345,6 +345,22 @@ test("should render with provided `data-` attributes", () => {
   expect(toast).toHaveAttribute("data-element", "toast-element");
 });
 
+test("should render with accessible name when Toast is open", () => {
+  render(<Toast open>foobar</Toast>);
+
+  const toast = screen.getByRole("region");
+
+  expect(toast).toHaveAccessibleName("Success foobar");
+});
+
+test("should not render an accessible region when Toast is closed", () => {
+  render(<Toast open={false}>foobar</Toast>);
+
+  const toast = screen.queryByRole("region");
+
+  expect(toast).not.toBeInTheDocument();
+});
+
 test("should allow custom data props to be passed to close button to be passed via `closeButtonDataProps`", () => {
   render(
     <Toast
