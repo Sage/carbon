@@ -269,7 +269,12 @@ export const Pager = ({
     showTotalRecords && l.pager.records(totalRecords);
 
   return (
-    <StyledPagerContainer data-component="pager" variant={variant} {...rest}>
+    <StyledPagerContainer
+      data-component="pager"
+      data-role="pager"
+      variant={variant}
+      {...rest}
+    >
       <StyledPagerSizeOptions>{renderPageSizeOptions()}</StyledPagerSizeOptions>
       <PagerNavigation
         pageSize={currentPageSize}
