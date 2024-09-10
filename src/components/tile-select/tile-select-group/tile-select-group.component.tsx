@@ -55,6 +55,7 @@ export const TileSelectGroup = ({
         onBlur={onBlur}
         onChange={onChange}
         value={value}
+        data-role="tile-select-group-radio-button-mapper"
       >
         {React.Children.map(children, (child) => {
           if (React.isValidElement(child)) {
