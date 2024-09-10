@@ -45,8 +45,6 @@ export interface StyledLabelContainerProps {
   width?: number;
 }
 
-const DEFAULT_CONTAINER_WIDTH = 30;
-
 export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
   display: flex;
   align-items: center;
@@ -66,7 +64,7 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
         padding-left: var(${pl === 1 ? "--spacing100" : "--spacing200"});
       `};
       justify-content: ${align === "right" ? "flex-end" : "flex-start"};
-      width: ${width || DEFAULT_CONTAINER_WIDTH}%;
+      width: ${width}%;
     `}
 
   ${({ optional }) =>
