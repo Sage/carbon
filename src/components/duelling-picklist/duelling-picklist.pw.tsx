@@ -258,7 +258,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
   }) => {
     await mount(<DuellingPicklistComponent />);
 
-    const rightSearch = getDataElementByValue(page, "picklist-right-label")
+    const rightSearch = getDataElementByValue(page, "picklist-right-control")
       .locator("div")
       .nth(0);
     await expect(rightSearch).toHaveAttribute("data-component", "search");
@@ -279,6 +279,18 @@ test.describe(`should render Duelling-Picklist component`, () => {
           await expect(getComponent(page, "duelling-picklist")).toHaveAttribute(
             "disabled",
             /.*/
+          );
+          await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
+            "opacity",
+            "0.2"
+          );
+          await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
+            "pointer-events",
+            "none"
+          );
+          await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
+            "user-select",
+            "none"
           );
         } else {
           await expect(

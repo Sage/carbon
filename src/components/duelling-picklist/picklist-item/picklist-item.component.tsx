@@ -121,6 +121,7 @@ export const PicklistItem = React.forwardRef<
           {children}
           {!locked && (
             <StyledButton
+              data-role="picklist-item-button"
               buttonType="primary"
               destructive={type === "remove"}
               iconType={type}
