@@ -17,11 +17,12 @@ jobs:
       - run: npm run type-check
 
   test:
-    name: Test with Node ${{ matrix.node }}
+    name: Test with Node ${{ matrix.node }} (${{ matrix.shard }}, 4)
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node: ["18.x", "20.x"]
+        node: ["18", "20"]
         shard: [1, 2, 3, 4]
 
     steps:
@@ -29,9 +30,83 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - run: npm ci
-      - run: |
-          npm test -- --ci --maxWorkers=4 --shard=${{ matrix.shard }} --colors
+          cache: npm
 
-        env:
-          CONTAINER: ${{ matrix.shard }}
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run test shard
+        run: |
+          npm test -- --ci --maxWorkers=4 --shard=${{ matrix.shard }}/4 --colors --coverage --coverageReporters="json"
+
+      - name: Rename shard coverage report
+        run: |
+          mv coverage/coverage-final.json coverage/${{ matrix.shard }}.json
+
+      - name: Upload coverage report for shard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-node-${{ matrix.node }}-shard-${{ matrix.shard }}
+          path: coverage/${{ matrix.shard }}.json
+          retention-days: 1
+
+  get-thresholds:
+    name: Get global coverage thresholds
+    runs-on: ubuntu-latest
+    needs: test
+    outputs:
+      globalThresholds: ${{ steps.extract-thresholds.outputs.globalThresholds }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: extract-thresholds
+        run: |
+          echo "globalThresholds=$(jq -r -c '.global' coverage-thresholds.json)" >> $GITHUB_OUTPUT
+
+  check-coverage:
+    name: Check global coverage with Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    needs: get-thresholds
+
+    env:
+      globalThresholds: ${{ needs.get-thresholds.outputs.globalThresholds }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["18", "20"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install nyc
+        run: npm install nyc@17.0.0 --save-dev
+
+      - name: Download shard coverage reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: coverage-node-${{ matrix.node }}-shard-*
+          path: coverage
+          merge-multiple: true
+
+      - name: Merge shard coverage reports
+        run: |
+          npx nyc merge coverage merged-coverage.json
+
+      - name: Output report
+        run: |
+          npx nyc report --temp-dir coverage --reporter text >> $GITHUB_STEP_SUMMARY
+
+      - name: Validate coverage threshold
+        run: |
+          npx nyc check-coverage --temp-dir coverage \
+            --functions ${{ fromJSON(env.globalThresholds).functions }} \
+            --branches ${{ fromJSON(env.globalThresholds).branches }} \
+            --lines ${{ fromJSON(env.globalThresholds).lines }} \
+            --statements ${{ fromJSON(env.globalThresholds).statements }} \
+            && (echo "✅ Global coverage meets global thresholds" && exit 0) \
+            || (echo "❌ Global coverage does not meet global thresholds!" && exit 1)

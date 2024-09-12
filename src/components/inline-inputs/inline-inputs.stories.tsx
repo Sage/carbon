@@ -133,7 +133,7 @@ export const IsOptional: Story = () => {
     </Box>
   );
 };
-IsOptional.storyName = "isoptional;";
+IsOptional.storyName = "Is Optional";
 IsOptional.parameters = { controls: { disable: true } };
 
 export const LabelAlign: Story = () => {

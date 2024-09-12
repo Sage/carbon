@@ -892,7 +892,9 @@ describe("when MenuItem has a submenu", () => {
   });
 
   it("should not close when the user presses 'Enter' and focus is on input", async () => {
-    const user = userEvent.setup();
+    jest.useFakeTimers();
+
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
         <MenuItem submenu="Item One">
@@ -911,10 +913,14 @@ describe("when MenuItem has a submenu", () => {
     await user.keyboard("{Enter}");
 
     expect(screen.getByRole("list")).toBeVisible();
+
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   it("should close when the user presses 'Enter' and focus is not on input", async () => {
     jest.useFakeTimers();
+
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -929,10 +935,13 @@ describe("when MenuItem has a submenu", () => {
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
     submenuParentItem.focus();
+
     await user.keyboard("{arrowdown}");
     await user.keyboard("{Enter}");
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
+
+    jest.runOnlyPendingTimers();
     jest.useRealTimers();
   });
 
