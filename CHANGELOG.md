@@ -1,3 +1,10 @@
+### [142.9.1](https://github.com/Sage/carbon/compare/v142.9.0...v142.9.1) (2024-09-12)
+
+
+### Bug Fixes
+
+* **duelling-picklist:** fix data-element attribute of right controls ([ea07dc5](https://github.com/Sage/carbon/commit/ea07dc51080693fc2e07632e92a36bd65d3aded2))
+
 ## [142.9.0](https://github.com/Sage/carbon/compare/v142.8.1...v142.9.0) (2024-09-03)
 
 
