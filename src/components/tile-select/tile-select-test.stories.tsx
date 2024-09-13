@@ -76,4 +76,4 @@ export const DefaultStory = () => {
   );
 };
 
-DefaultStory.storyName = "default";
+DefaultStory.storyName = "Default";
