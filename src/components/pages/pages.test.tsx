@@ -152,6 +152,33 @@ test("navigating to the next page should render the first page when currently on
   expect(screen.getByRole("heading")).toHaveTextContent("My First Page");
 });
 
+test("when attempting to navigate pages and there is only one page, it should not change the rendered content", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const WithSinglePage = () => {
+    const [pageIndex, setPageIndex] = useState(0);
+
+    return (
+      <Pages pageIndex={pageIndex}>
+        <Page title={<Heading title="Page 1" />}>
+          <Button onClick={() => setPageIndex((prev) => prev - 1)}>
+            Previous
+          </Button>
+          <Button onClick={() => setPageIndex((prev) => prev + 1)}>Next</Button>
+        </Page>
+      </Pages>
+    );
+  };
+  render(<WithSinglePage />);
+
+  await user.click(screen.getByRole("button", { name: "Previous" }));
+
+  expect(screen.getByRole("heading")).toHaveTextContent("Page 1");
+
+  await user.click(screen.getByRole("button", { name: "Next" }));
+
+  expect(screen.getByRole("heading")).toHaveTextContent("Page 1");
+});
+
 test("accepts `data-element` and `data-role` tags via props, and has the expected `data-component` tag", () => {
   render(
     <Pages data-element="bar" data-role="baz">
