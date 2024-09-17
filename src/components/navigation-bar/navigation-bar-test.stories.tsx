@@ -1,12 +1,14 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import NavigationBar, { NavigationBarProps } from ".";
 import { Menu, MenuItem } from "../menu";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 export default {
   title: "Navigation Bar/Test",
   includeStories: [
     "DefaultStory",
     "NavigationBarWithSubmenuAndChangingHeight",
+    "WithMediaQuery",
     "ResponsivePadding",
   ],
   parameters: {
@@ -71,6 +73,26 @@ export const NavigationBarWithSubmenuAndChangingHeight = () => {
         </Menu>
       </NavigationBar>
     </div>
+  );
+};
+
+export const WithMediaQuery = () => {
+  const isLargeScreen = useMediaQuery("(min-width: 600px)");
+  const rightPadding = isLargeScreen ? 2 : 1;
+  const [error, setError] = useState("");
+  useEffect(() => {
+    const handleError = (e: ErrorEvent) => {
+      setError(e.message);
+    };
+    window.addEventListener("error", handleError);
+
+    return () => window.removeEventListener("error", handleError);
+  }, []);
+  return (
+    <>
+      <NavigationBar pr={rightPadding} />
+      <div id="error-div">{error}</div>
+    </>
   );
 };
 
