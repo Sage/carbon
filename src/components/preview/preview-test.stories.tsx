@@ -1,8 +1,9 @@
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import Preview from "./preview.component";
 
-export default {
+const meta: Meta<typeof Preview> = {
   title: "Preview/Test",
+  component: Preview,
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -11,17 +12,13 @@ export default {
   },
 };
 
-export const Default = ({ children, ...args }: { children?: string }) => (
-  <Preview {...args}>{children}</Preview>
-);
+export default meta;
+type Story = StoryObj<typeof Preview>;
 
-Default.story = {
-  name: "default",
+export const Default: Story = {
   args: {
     children: "Text rendered as children component.",
-    height: "",
     lines: 1,
     loading: true,
-    width: "",
   },
 };

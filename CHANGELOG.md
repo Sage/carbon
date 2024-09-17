@@ -1,3 +1,10 @@
+## [142.10.0](https://github.com/Sage/carbon/compare/v142.9.1...v142.10.0) (2024-09-16)
+
+
+### Features
+
+* **preview:** add `shape` and `disableAnimation` props ([bd071fe](https://github.com/Sage/carbon/commit/bd071fe3347317ccfb0c4262e10566ad31443869))
+
 ### [142.9.1](https://github.com/Sage/carbon/compare/v142.9.0...v142.9.1) (2024-09-12)
 
 
