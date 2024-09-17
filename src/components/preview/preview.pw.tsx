@@ -86,6 +86,17 @@ test.describe("check Preview component properties", () => {
       expect(elementsCount).toBe(line);
     });
   });
+
+  test("should render with no animation when the user prefers reduced motion", async ({
+    mount,
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+
+    await mount(<Preview />);
+
+    await expect(lineComponent(page)).toHaveCSS("animation-name", "none");
+  });
 });
 
 test.describe("Border radius", () => {
@@ -95,7 +106,7 @@ test.describe("Border radius", () => {
   }) => {
     await mount(<Preview />);
 
-    await expect(lineComponent(page)).toHaveCSS("border-radius", "4px");
+    await expect(lineComponent(page)).toHaveCSS("border-radius", "8px");
   });
 
   test("should have the expected styling when roundedCornersOptOut is true", async ({

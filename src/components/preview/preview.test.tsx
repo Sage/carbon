@@ -41,12 +41,70 @@ test("renders the correct number of placeholders when `lines` prop is set", () =
   expect(screen.getAllByTestId("preview-placeholder")).toHaveLength(3);
 });
 
-test("renders with provided `width` and `height`", () => {
-  render(<Preview width="100px" height="100px" />);
+// coverage
+test("renders with the correct height, width and border-radius when `shape` is set to 'text'", () => {
+  render(<Preview shape="text" />);
 
-  expect(screen.getByTestId("preview-placeholder")).toHaveStyle({
-    width: "100px",
-    height: "100px",
+  const placeholder = screen.getByTestId("preview-placeholder");
+
+  expect(placeholder).toHaveStyleRule("height", "var(--sizing175)");
+  expect(placeholder).toHaveStyle({ width: "100%" });
+  expect(placeholder).toHaveStyleRule(
+    "border-radius",
+    "var(--borderRadius100)"
+  );
+});
+
+// coverage
+test("renders with the correct height, width and border-radius when `shape` is set to 'rectangle'", () => {
+  render(<Preview shape="rectangle" />);
+
+  const placeholder = screen.getByTestId("preview-placeholder");
+
+  expect(placeholder).toHaveStyleRule("height", "var(--sizing400)");
+  expect(placeholder).toHaveStyleRule("width", "var(--sizing1500)");
+  expect(placeholder).toHaveStyleRule(
+    "border-radius",
+    "var(--borderRadius100)"
+  );
+});
+
+// coverage
+test("renders with the correct height, width and border-radius when `shape` is set to 'rectangle-round'", () => {
+  render(<Preview shape="rectangle-round" />);
+
+  const placeholder = screen.getByTestId("preview-placeholder");
+
+  expect(placeholder).toHaveStyleRule("height", "var(--sizing400)");
+  expect(placeholder).toHaveStyleRule("width", "var(--sizing1500)");
+  expect(placeholder).toHaveStyleRule(
+    "border-radius",
+    "var(--borderRadius400)"
+  );
+});
+
+// coverage
+test("renders with the correct height, width and border-radius when `shape` is set to 'circle'", () => {
+  render(<Preview shape="circle" />);
+
+  const placeholder = screen.getByTestId("preview-placeholder");
+
+  expect(placeholder).toHaveStyleRule("height", "var(--sizing700)");
+  expect(placeholder).toHaveStyleRule("width", "var(--sizing700)");
+  expect(placeholder).toHaveStyleRule(
+    "border-radius",
+    "var(--borderRadiusCircle)"
+  );
+});
+
+// coverage
+test("renders with no animation when `disableAnimation` is true", () => {
+  render(<Preview disableAnimation />);
+
+  const placeholder = screen.getByTestId("preview-placeholder");
+
+  expect(placeholder).toHaveStyle({
+    animation: "none",
   });
 });
 
