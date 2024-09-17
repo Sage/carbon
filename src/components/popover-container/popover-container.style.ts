@@ -1,42 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { padding } from "styled-system";
 import { TransitionStatus } from "react-transition-group";
 
 import { baseTheme } from "../../style/themes";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
-
-function animationToRender({
-  animationState,
-  disableAnimation,
-}: {
-  animationState?: TransitionStatus;
-  disableAnimation?: boolean;
-}) {
-  if (disableAnimation) return "opacity: 1;";
-
-  switch (animationState) {
-    case "entering":
-      return `
-        opacity: 0;
-        transform: translateY(-8px);
-      `;
-    case "entered":
-      return `
-        opacity: 1; 
-        transform: translateY(0);
-        transition: all 0.3s cubic-bezier(0.25, 0.25, 0, 1.5);
-      `;
-    case "exiting":
-      return `
-        opacity: 0; 
-        transform: translateY(-8px);
-        transition: all 0.3s cubic-bezier(0.25, 0.25, 0, 1.5);
-      `;
-    default:
-      return "opacity: 0;";
-  }
-}
 
 const PopoverContainerWrapperStyle = styled.div`
   position: relative;
@@ -66,7 +34,39 @@ const PopoverContainerContentStyle = styled.div<PopoverContainerContentStyleProp
   position: absolute;
   z-index: ${({ theme }) => theme.zIndex.popover};
 
-  ${animationToRender}
+  ${({ disableAnimation }) =>
+    disableAnimation
+      ? css`
+          opacity: 1;
+          transform: none;
+        `
+      : css`
+          &.enter {
+            opacity: 0;
+            transform: translateY(-8px);
+          }
+
+          &.enter-done {
+            opacity: 1;
+            transform: translateY(0);
+            transition-property: opacity, transform;
+            transition-duration: 0.3s;
+            transition-timing-function: cubic-bezier(0.25, 0.25, 0, 1.5);
+          }
+
+          &.exit {
+            opacity: 0;
+            transform: translateY(-8px);
+            transition-property: opacity, transform;
+            transition-duration: 0.3s;
+            transition-timing-function: cubic-bezier(0.25, 0.25, 0, 1.5);
+          }
+
+          &.exit-done {
+            opacity: 0;
+            transform: translateY(0);
+          }
+        `}
 
   :focus {
     outline: none;

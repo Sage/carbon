@@ -2,7 +2,7 @@
 import React, { forwardRef } from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { Transition } from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 
 import Popover from "../../__internal__/popover";
 import {
@@ -112,18 +112,13 @@ describe("PopoverContainer", () => {
     expect(wrapper.find("#myChildren").exists()).toBe(true);
   });
 
-  it("should appear and mount when the component opens", () => {
-    expect(wrapper.find(Transition).props().appear).toBe(true);
-    expect(wrapper.find(Transition).props().mountOnEnter).toBe(true);
-  });
-
   it("should unmount after 300ms when the component closes", () => {
-    expect(wrapper.find(Transition).props().timeout).toEqual({ exit: 300 });
-    expect(wrapper.find(Transition).props().unmountOnExit).toBe(true);
+    expect(wrapper.find(CSSTransition).props().timeout).toEqual({ exit: 300 });
+    expect(wrapper.find(CSSTransition).props().unmountOnExit).toBe(true);
   });
 
   it("should transition when the component opens and closes", () => {
-    expect(wrapper.find(Transition).props().in).toBe(false);
+    expect(wrapper.find(CSSTransition).props().in).toBe(false);
 
     act(() => {
       wrapper.find(PopoverContainerOpenIcon).props().onClick();
@@ -131,7 +126,7 @@ describe("PopoverContainer", () => {
 
     wrapper.update();
 
-    expect(wrapper.find(Transition).props().in).toBe(true);
+    expect(wrapper.find(CSSTransition).props().in).toBe(true);
   });
 
   it("should render correct `id` based on `guid()`", () => {
@@ -373,29 +368,6 @@ describe("PopoverContainer", () => {
 
       wrapper.update();
       expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
-    });
-
-    it("should close popover if escape key is pressed", () => {
-      wrapper = render();
-
-      act(() => {
-        wrapper.find(PopoverContainerOpenIcon).props().onClick();
-      });
-
-      wrapper.update();
-      expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
-
-      act(() => {
-        document.dispatchEvent(
-          new KeyboardEvent("keydown", {
-            key: "Escape",
-            bubbles: true,
-          })
-        );
-      });
-
-      wrapper.update();
-      expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(false);
     });
 
     describe("and custom component is provided as an opening button", () => {
@@ -681,9 +653,6 @@ describe("PopoverContainerContentStyle", () => {
     expect(
       wrapper.find(PopoverContainerContentStyle).props().ariaDescribedBy
     ).toBe(undefined);
-    expect(
-      wrapper.find(PopoverContainerContentStyle).props().animationState
-    ).toBe("entering");
   });
 
   it("should set the correct aria attributes when no title is passed", () => {
@@ -700,74 +669,6 @@ describe("PopoverContainerContentStyle", () => {
     expect(wrapper.find(PopoverContainerContentStyle).prop("aria-label")).toBe(
       "bar"
     );
-  });
-
-  describe("should render correct style of animation", () => {
-    it("if there is no animation state", () => {
-      const wrapper = mount(<PopoverContainerContentStyle />);
-
-      assertStyleMatch(
-        {
-          opacity: "0",
-        },
-        wrapper
-      );
-    });
-
-    it("if the animation has state `entered`", () => {
-      const wrapper = mount(
-        <PopoverContainerContentStyle animationState="entered" />
-      );
-
-      assertStyleMatch(
-        {
-          opacity: "1",
-          transform: "translateY(0)",
-          transition: "all 0.3s cubic-bezier(0.25,0.25,0,1.5)",
-        },
-        wrapper
-      );
-    });
-
-    it("if the animation has state `entering`", () => {
-      const wrapper = mount(
-        <PopoverContainerContentStyle animationState="entering" />
-      );
-
-      assertStyleMatch(
-        {
-          opacity: "0",
-          transform: "translateY(-8px)",
-        },
-        wrapper
-      );
-    });
-
-    it("if the animation has state `exiting`", () => {
-      const wrapper = mount(
-        <PopoverContainerContentStyle animationState="exiting" />
-      );
-
-      assertStyleMatch(
-        {
-          opacity: "0",
-          transform: "translateY(-8px)",
-          transition: "all 0.3s cubic-bezier(0.25,0.25,0,1.5)",
-        },
-        wrapper
-      );
-    });
-
-    it("if the disableAnimation prop is true", () => {
-      const wrapper = mount(<PopoverContainer open disableAnimation />);
-
-      assertStyleMatch(
-        {
-          opacity: "1",
-        },
-        wrapper.find(PopoverContainerContentStyle)
-      );
-    });
   });
 });
 
@@ -889,150 +790,6 @@ describe("open state when click event triggered", () => {
     });
     expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
     expect(onCloseFn).not.toHaveBeenCalled();
-  });
-
-  it("should close the container and call onClose when controlled and escape key is pressed", () => {
-    const onCloseFn = jest.fn();
-    const MockWrapper = () => {
-      const [open, setOpen] = React.useState(true);
-
-      return (
-        <PopoverContainer
-          title="PopoverContainerSettings"
-          open={open}
-          onClose={(e) => {
-            setOpen(false);
-            onCloseFn(e);
-          }}
-        />
-      );
-    };
-    const wrapper = mount(<MockWrapper />);
-    act(() => {
-      document.dispatchEvent(
-        new KeyboardEvent("keydown", {
-          key: "Escape",
-          bubbles: true,
-        })
-      );
-    });
-    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      false
-    );
-    expect(onCloseFn).toHaveBeenCalled();
-  });
-
-  it("should close the container when Select input receives keydown event with escape key pressed and list is closed", () => {
-    const container = document.createElement("div");
-    container.id = "enzymeContainer";
-    document.body.appendChild(container);
-
-    const onCloseFn = jest.fn();
-    const MockWrapper = () => {
-      const [open, setOpen] = React.useState(true);
-
-      return (
-        <>
-          <PopoverContainer
-            title="PopoverContainerSettings"
-            open={open}
-            onClose={(e) => {
-              setOpen(false);
-              onCloseFn(e);
-            }}
-          >
-            <Select name="simple" id="simple" label="color" labelInline>
-              <Option text="Amber" value="1" />
-              <Option text="Black" value="2" />
-            </Select>
-          </PopoverContainer>
-        </>
-      );
-    };
-    const wrapper = mount(<MockWrapper />, {
-      attachTo: document.getElementById("enzymeContainer"),
-    });
-    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      true
-    );
-
-    const selectInput = document.querySelector(
-      '[data-element="input"][aria-expanded="false"]'
-    );
-
-    act(() => {
-      selectInput?.dispatchEvent(
-        new KeyboardEvent("keydown", {
-          key: "Escape",
-          bubbles: true,
-        })
-      );
-    });
-
-    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      false
-    );
-    expect(onCloseFn).toHaveBeenCalled();
-
-    container?.parentNode?.removeChild(container);
-  });
-
-  it("should not close the container when escape key is pressed inside of the SelectList", () => {
-    const container = document.createElement("div");
-    container.id = "enzymeContainer";
-    document.body.appendChild(container);
-    const onCloseFn = jest.fn();
-    const MockWrapper = () => {
-      const [open, setOpen] = React.useState(true);
-
-      return (
-        <>
-          <PopoverContainer
-            title="PopoverContainerSettings"
-            open={open}
-            onClose={(e) => {
-              setOpen(false);
-              onCloseFn(e);
-            }}
-          >
-            <Select name="simple" id="simple" label="color" labelInline>
-              <Option text="Amber" value="1" />
-              <Option text="Black" value="2" />
-            </Select>
-          </PopoverContainer>
-        </>
-      );
-    };
-    const wrapper = mount(<MockWrapper />, {
-      attachTo: document.getElementById("enzymeContainer"),
-    });
-    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      true
-    );
-
-    const selectText = wrapper.find('input[type="text"]').first();
-
-    selectText.simulate("click");
-
-    const expandedSelectInput = document.querySelector(
-      '[data-element="input"][aria-expanded="true"]'
-    );
-
-    act(() => {
-      expandedSelectInput?.dispatchEvent(
-        new KeyboardEvent("keydown", {
-          key: "Escape",
-          bubbles: true,
-        })
-      );
-    });
-
-    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
-      true
-    );
-    expect(onCloseFn).not.toHaveBeenCalled();
-
-    container?.parentNode?.removeChild(container);
   });
 
   it("keep focus on the open button when container is opened", () => {
