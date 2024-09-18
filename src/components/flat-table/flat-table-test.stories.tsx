@@ -36,6 +36,7 @@ export default {
     "FlatTableSizeFocus",
     "FlatTableInsideDrawer",
     "FlatRowHeaderWithNoPaddingAndButtons",
+    "MinimalDesign",
   ],
   parameters: {
     info: { disable: true },
