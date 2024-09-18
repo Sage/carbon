@@ -1,3 +1,10 @@
+## [142.11.0](https://github.com/Sage/carbon/compare/v142.10.0...v142.11.0) (2024-09-18)
+
+
+### Features
+
+* **flat-table:** add `hasOuterVerticalBorders` and `bottomBorderRadius` props ([866137a](https://github.com/Sage/carbon/commit/866137a13ddcad40be0ec2ca2da124eac400dd06))
+
 ## [142.10.0](https://github.com/Sage/carbon/compare/v142.9.1...v142.10.0) (2024-09-16)
 
 
