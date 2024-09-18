@@ -24,6 +24,7 @@ const ValidationMessage = ({
     <StyledValidationMessage
       id={validationId}
       isWarning={!!(!error && warning)}
+      data-role="validation-message"
     >
       {validation}
     </StyledValidationMessage>
