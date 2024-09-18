@@ -1,3 +1,11 @@
+### [142.11.1](https://github.com/Sage/carbon/compare/v142.11.0...v142.11.1) (2024-09-18)
+
+
+### Bug Fixes
+
+* **checkbox:** restore support for `labelHelp` and `fieldHelp` props ([b2fea4a](https://github.com/Sage/carbon/commit/b2fea4ac84f96252d12e2a0bbfbffe677a304938))
+* **radio-button:** restore support for `labelHelp` and `fieldHelp` props ([81dfeb2](https://github.com/Sage/carbon/commit/81dfeb299bf89cf59a25009f1ace9b1a5938039a))
+
 ## [142.11.0](https://github.com/Sage/carbon/compare/v142.10.0...v142.11.0) (2024-09-18)
 
 
