@@ -309,6 +309,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
               }
             `}
             ${!theme.focusRedesignOptOut &&
+            /* istanbul ignore next */
             css`
               position: -webkit-sticky;
               :after {
