@@ -1,3 +1,10 @@
+### [142.11.2](https://github.com/Sage/carbon/compare/v142.11.1...v142.11.2) (2024-09-19)
+
+
+### Bug Fixes
+
+* **form, dialog:** tabbing in FireFox - focus incorrect ([43ff681](https://github.com/Sage/carbon/commit/43ff681be9365ba1ba4315bf50f04e79b9e88545))
+
 ### [142.11.1](https://github.com/Sage/carbon/compare/v142.11.0...v142.11.1) (2024-09-18)
 
 
