@@ -4,7 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Button from "../button";
-import Preview from "./preview.component";
+import Preview from ".";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -58,3 +58,19 @@ export const WithHeight: Story = () => {
   return <Preview loading height="256px" />;
 };
 WithHeight.storyName = "With Height";
+
+export const Shapes: Story = () => {
+  return (
+    <>
+      <Preview mb={2} loading shape="rectangle" />
+      <Preview mb={2} loading shape="rectangle-round" />
+      <Preview loading shape="circle" />
+    </>
+  );
+};
+Shapes.storyName = "Shapes";
+
+export const DisableAnimation: Story = () => {
+  return <Preview loading disableAnimation />;
+};
+DisableAnimation.storyName = "Disable Animation";

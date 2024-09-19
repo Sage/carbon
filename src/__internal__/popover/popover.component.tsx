@@ -14,27 +14,47 @@ type CustomRefObject<T> = {
 };
 
 export interface PopoverProps {
-  // Element to be positioned, has to be a single node and has to accept `ref` and `style` props
+  /**
+   * Element to be positioned, has to be a single node and has to accept `ref` and `style` props.
+   */
   children: React.ReactElement;
-  // Placement of children in relation to the reference element
+  /**
+   * Placement of children in relation to the reference element.
+   */
   placement?: Placement;
-  // Disables interaction with background UI
+  /**
+   * Disables interaction with background UI.
+   */
   disableBackgroundUI?: boolean;
-  // Optional middleware array, for more information go to:
-  // https://floating-ui.com/docs/middleware
+  /**
+   * Optional middleware array, for more information go to:
+   * [https://floating-ui.com/docs/middleware](https://floating-ui.com/docs/middleware)
+   */
   middleware?: Middleware[];
-  // When true, children are not rendered in portal
+  /**
+   * When true, children are not rendered in portal.
+   */
   disablePortal?: boolean;
-  // Reference element, children will be positioned in relation to this element - should be a ref shaped object
+  /**
+   * Reference element, children will be positioned in relation to this element - should be a ref shaped object.
+   */
   reference: CustomRefObject<HTMLElement>;
-  // Determines if the popover is currently open/visible or not. Defaults to true.
+  /**
+   * Determines if the popover is currently open/visible or not. Defaults to true.
+   */
   isOpen?: boolean;
-  // Whether to update the position of the floating element on every animation frame if required. This is optimized for performance but can still be costly. Use with caution!
-  // https://floating-ui.com/docs/autoUpdate#animationframe
+  /**
+   * Whether to update the position of the floating element on every animation frame if required. This is optimized for performance but can still be costly. Use with caution!
+   * [https://floating-ui.com/docs/autoUpdate#animationframe](https://floating-ui.com/docs/autoUpdate#animationframe)
+   */
   animationFrame?: boolean;
-  // Optional strategy to use for positioning the floating element. Defaults to "absolute".
+  /**
+   * Optional strategy to use for positioning the floating element. Defaults to "absolute".
+   */
   popoverStrategy?: "absolute" | "fixed";
-  // Allows child ref to be set via a prop instead of dynamically finding it via children iteration
+  /**
+   * Allows child ref to be set via a prop instead of dynamically finding it via children iteration.
+   */
   childRefOverride?: MutableRefObject<HTMLDivElement | null>;
 }
 
@@ -108,7 +128,7 @@ const Popover = ({
   if (disableBackgroundUI) {
     content = (
       <StyledPopoverContent isOpen={isOpen}>
-        <StyledBackdrop>{content}</StyledBackdrop>
+        <StyledBackdrop data-role="popup-backdrop">{content}</StyledBackdrop>
       </StyledPopoverContent>
     );
   }
