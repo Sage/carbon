@@ -9,6 +9,8 @@ export default (
         acc[currentId] = 0;
       } else {
         const previousId = array[index - 1].getAttribute("id");
+
+        /* istanbul ignore else */
         if (previousId) {
           acc[currentId] = acc[previousId] + array[index - 1][propertyName];
         }
