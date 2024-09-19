@@ -1,3 +1,10 @@
+### [142.11.3](https://github.com/Sage/carbon/compare/v142.11.2...v142.11.3) (2024-09-19)
+
+
+### Bug Fixes
+
+* **tabs:** tab headers jump in width when navigating through them ([7c70261](https://github.com/Sage/carbon/commit/7c7026103f4f6b0f59b2c170f3f2523dd356832b)), closes [#6554](https://github.com/Sage/carbon/issues/6554)
+
 ### [142.11.2](https://github.com/Sage/carbon/compare/v142.11.1...v142.11.2) (2024-09-19)
 
 
