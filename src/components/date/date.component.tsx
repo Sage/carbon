@@ -293,7 +293,9 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       isBlurBlocked.current = false;
 
       if (!open && !alreadyFocused.current) {
-        setOpen(true);
+        setTimeout(() => {
+          setOpen(true);
+        }, 0);
       } else {
         alreadyFocused.current = false;
       }
@@ -351,9 +353,13 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
       if (type !== "text") {
         alreadyFocused.current = true;
-        setOpen((prev) => !prev);
+        setTimeout(() => {
+          setOpen((prev) => !prev);
+        }, 0);
       } else if (!open) {
-        setOpen(true);
+        setTimeout(() => {
+          setOpen(true);
+        }, 0);
       }
     };
 
