@@ -250,7 +250,7 @@ describe("Tabs", () => {
     describe.each(["35%", "100px", "5em"])(
       "and value of %s is provided",
       (headerWidth) => {
-        it("should render correct `width` in `TabsHeader` component, and `Tab` `width` should be `auto`", () => {
+        it("should render correct `width` in `TabsHeader` component, and `Tab` `width` should be computed based on the headerWidth", () => {
           const wrapper = mount(
             <Tabs position="left" headerWidth={headerWidth}>
               <Tab title="Tab Title 1" tabId="uniqueid1">
@@ -271,7 +271,7 @@ describe("Tabs", () => {
 
           assertStyleMatch(
             {
-              width: "auto",
+              width: `calc(100% - ${headerWidth})`,
             },
             wrapper,
             {
