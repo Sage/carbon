@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef, useState, useContext } from "react";
 import { MarginProps } from "styled-system";
+import * as DesignTokens from "@sage/design-tokens/js/base/common";
 
 import {
   StyledFlatTableWrapper,
@@ -36,6 +37,13 @@ export interface FlatTableProps extends MarginProps {
   size?: "compact" | "small" | "medium" | "large" | "extraLarge";
   /** Applies max-height of 100% to FlatTable if true */
   hasMaxHeight?: boolean;
+  /** Toggles the visibility of the table's outer left and right borders. When false, the left border of the first column and the right border of the last column are hidden.  */
+  hasOuterVerticalBorders?: boolean;
+  /** Sets the border radius of the first and last cells in the last row. */
+  bottomBorderRadius?: Extract<
+    keyof typeof DesignTokens,
+    `borderRadius${number}`
+  >;
   /** Set the overflow X of the table wrapper. Any valid CSS string */
   overflowX?: string;
   /** Width of the table. Any valid CSS string */
@@ -56,6 +64,8 @@ export const FlatTable = ({
   isZebra,
   size = "medium",
   hasMaxHeight = false,
+  hasOuterVerticalBorders = true,
+  bottomBorderRadius = "borderRadius100",
   ariaDescribedby,
   minHeight,
   overflowX,
@@ -219,6 +229,7 @@ export const FlatTable = ({
     <StyledFlatTableWrapper
       ref={wrapperRef}
       data-component="flat-table-wrapper"
+      data-role="flat-table-wrapper"
       isInSidebar={isInSidebar}
       hasStickyHead={hasStickyHead}
       colorTheme={colorTheme}
@@ -226,6 +237,8 @@ export const FlatTable = ({
       overflowY={hasStickyHead || hasStickyFooter ? "auto" : undefined}
       height={addDefaultHeight && !hasMaxHeight ? "99%" : height}
       maxHeight={hasMaxHeight ? "100%" : undefined}
+      hasOuterVerticalBorders={hasOuterVerticalBorders}
+      bottomBorderRadius={bottomBorderRadius}
       display="flex"
       flexDirection="column"
       justifyContent={hasStickyFooter || height ? "space-between" : undefined}

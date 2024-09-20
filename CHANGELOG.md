@@ -1,3 +1,39 @@
+### [142.11.4](https://github.com/Sage/carbon/compare/v142.11.3...v142.11.4) (2024-09-20)
+
+
+### Bug Fixes
+
+* **toast:** ensure closed toasts do not trigger axe warnings ([6183351](https://github.com/Sage/carbon/commit/6183351ff6ba00bd032506e3ef61f296f720b080))
+
+### [142.11.3](https://github.com/Sage/carbon/compare/v142.11.2...v142.11.3) (2024-09-19)
+
+
+### Bug Fixes
+
+* **tabs:** tab headers jump in width when navigating through them ([7c70261](https://github.com/Sage/carbon/commit/7c7026103f4f6b0f59b2c170f3f2523dd356832b)), closes [#6554](https://github.com/Sage/carbon/issues/6554)
+
+### [142.11.2](https://github.com/Sage/carbon/compare/v142.11.1...v142.11.2) (2024-09-19)
+
+
+### Bug Fixes
+
+* **form, dialog:** tabbing in FireFox - focus incorrect ([43ff681](https://github.com/Sage/carbon/commit/43ff681be9365ba1ba4315bf50f04e79b9e88545))
+
+### [142.11.1](https://github.com/Sage/carbon/compare/v142.11.0...v142.11.1) (2024-09-18)
+
+
+### Bug Fixes
+
+* **checkbox:** restore support for `labelHelp` and `fieldHelp` props ([b2fea4a](https://github.com/Sage/carbon/commit/b2fea4ac84f96252d12e2a0bbfbffe677a304938))
+* **radio-button:** restore support for `labelHelp` and `fieldHelp` props ([81dfeb2](https://github.com/Sage/carbon/commit/81dfeb299bf89cf59a25009f1ace9b1a5938039a))
+
+## [142.11.0](https://github.com/Sage/carbon/compare/v142.10.0...v142.11.0) (2024-09-18)
+
+
+### Features
+
+* **flat-table:** add `hasOuterVerticalBorders` and `bottomBorderRadius` props ([866137a](https://github.com/Sage/carbon/commit/866137a13ddcad40be0ec2ca2da124eac400dd06))
+
 ## [142.10.0](https://github.com/Sage/carbon/compare/v142.9.1...v142.10.0) (2024-09-16)
 
 

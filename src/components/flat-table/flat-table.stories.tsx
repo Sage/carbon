@@ -49,9 +49,10 @@ const meta: Meta<typeof FlatTable> = {
 export default meta;
 type Story = StoryObj<typeof FlatTable>;
 
-export const DefaultStory: Story = () => {
-  return (
-    <FlatTable>
+export const DefaultStory: Story = {
+  name: "Default",
+  render: (args) => (
+    <FlatTable {...args}>
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>
@@ -119,9 +120,8 @@ export const DefaultStory: Story = () => {
         </FlatTableRow>
       </FlatTableBody>
     </FlatTable>
-  );
+  ),
 };
-DefaultStory.storyName = "Default";
 
 export const WithRowHeader: Story = () => {
   return (
@@ -469,7 +469,7 @@ export const WithCustomHorizontalBorderSize: Story = () => {
   return (
     <FlatTable>
       <FlatTableHead>
-        <FlatTableRow>
+        <FlatTableRow horizontalBorderSize="large">
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
@@ -482,12 +482,6 @@ export const WithCustomHorizontalBorderSize: Story = () => {
           <FlatTableCell>London</FlatTableCell>
           <FlatTableCell>Single</FlatTableCell>
           <FlatTableCell>0</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow>
-          <FlatTableCell>Jane Doe</FlatTableCell>
-          <FlatTableCell>York</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
-          <FlatTableCell>2</FlatTableCell>
         </FlatTableRow>
         <FlatTableRow horizontalBorderSize="large">
           <FlatTableCell>John Smith</FlatTableCell>
@@ -549,6 +543,48 @@ export const WithCustomHorizontalBorderColor: Story = () => {
 };
 WithCustomHorizontalBorderColor.storyName =
   "With Custom Horizontal Border Color";
+
+export const WithCustomBottomBorderRadius: Story = () => {
+  return (
+    <FlatTable bottomBorderRadius="borderRadius000">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithCustomBottomBorderRadius.storyName = "With Custom Bottom Border Radius";
 
 export const WithCustomVerticalBorders: Story = () => {
   return (
@@ -1175,6 +1211,15 @@ export const WithHasMaxHeight: Story = () => {
 };
 WithHasMaxHeight.storyName = "With hasMaxHeight";
 WithHasMaxHeight.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithoutVerticalBorders: Story = {
+  ...DefaultStory,
+  args: {
+    hasOuterVerticalBorders: false,
+    bottomBorderRadius: "borderRadius000",
+  },
+  name: "Without outer vertical borders",
+};
 
 export const WithClickableRows: Story = () => {
   return (

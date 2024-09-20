@@ -23,7 +23,7 @@ const StyledTabs = styled.div<StyledTabsProps>`
         }
 
         ${StyledTab} {
-          width: auto;
+          width: ${`calc(100% - ${headerWidth})`};
         }
       `}
 

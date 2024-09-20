@@ -107,7 +107,11 @@ const StyledFlatTable = styled.table<
 interface StyledFlatTableWrapperProps
   extends Pick<
       FlatTableProps,
-      "hasStickyFooter" | "colorTheme" | "hasStickyHead" | "footer"
+      | "hasStickyFooter"
+      | "colorTheme"
+      | "hasStickyHead"
+      | "footer"
+      | "hasOuterVerticalBorders"
     >,
     Partial<DrawerSidebarContextProps> {
   hasHorizontalScrollbar: boolean;
@@ -115,17 +119,32 @@ interface StyledFlatTableWrapperProps
   lastColRowSpanIndex: number;
   firstColRowSpanIndex: number;
   isFocused: boolean;
+  bottomBorderRadius: NonNullable<FlatTableProps["bottomBorderRadius"]>;
 }
 
 const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
   border-top-left-radius: var(--borderRadius100);
   border-top-right-radius: var(--borderRadius100);
-  ${({ hasStickyFooter, hasHorizontalScrollbar }) =>
+
+  ${({ hasOuterVerticalBorders }) =>
+    !hasOuterVerticalBorders &&
+    css`
+      ${StyledFlatTableRow} {
+        & > ${StyledFlatTableCell}:first-child {
+          border-left-color: var(--colorsUtilityMajorTransparent);
+        }
+        & > ${StyledFlatTableCell}:last-child {
+          border-right-color: var(--colorsUtilityMajorTransparent);
+        }
+      }
+    `}
+
+  ${({ hasStickyFooter, hasHorizontalScrollbar, bottomBorderRadius }) =>
     !hasStickyFooter &&
     !hasHorizontalScrollbar &&
     css`
-      border-bottom-left-radius: var(--borderRadius100);
-      border-bottom-right-radius: var(--borderRadius100);
+      border-bottom-left-radius: var(--${bottomBorderRadius});
+      border-bottom-right-radius: var(--${bottomBorderRadius});
     `}
 
   ${({ isInSidebar, theme, isFocused }) =>
@@ -172,7 +191,6 @@ const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
           ${StyledFlatTableHeader},
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
             background-color: var(--colorsUtilityMajor025);
-            border-right: 1px solid var(--colorsUtilityMajor025);
             border-bottom-color: var(--colorsUtilityMajor100);
           }
           ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
@@ -188,7 +206,6 @@ const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
           ${StyledFlatTableHeader},
           ${StyledFlatTableHead} ${StyledFlatTableCheckbox} {
             background-color: var(--colorsUtilityYang100);
-            border-right: 1px solid var(--colorsUtilityYang100);
             border-bottom-color: var(--colorsUtilityMajor100);
           }
           ${StyledFlatTableHead} ${StyledFlatTableRowHeader} {
@@ -308,6 +325,7 @@ const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
     lastColRowSpanIndex,
     hasHorizontalScrollbar,
     hasVerticalScrollbar,
+    bottomBorderRadius,
   }) =>
     !footer &&
     css`
@@ -339,7 +357,7 @@ const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
           css`
             th:first-child,
             td:first-child {
-              border-bottom-left-radius: var(--borderRadius100);
+              border-bottom-left-radius: var(--${bottomBorderRadius});
             }
           `}
           ${!hasVerticalScrollbar &&
@@ -348,7 +366,7 @@ const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
           css`
             th:last-child,
             td:last-child {
-              border-bottom-right-radius: var(--borderRadius100);
+              border-bottom-right-radius: var(--${bottomBorderRadius});
             }
           `}
         }
