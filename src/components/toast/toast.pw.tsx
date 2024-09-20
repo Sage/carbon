@@ -5,6 +5,7 @@ import { ToastProps } from ".";
 import {
   ToastComponent,
   ToastWhenOtherModalRenders,
+  ToastWithConditionalContent,
   ToastAllAlign,
 } from "./components.test-pw";
 import {
@@ -319,5 +320,20 @@ test.describe("Accessibility tests for Toast component", () => {
     await mount(<ToastAllAlign />);
 
     await checkAccessibility(page);
+  });
+
+  test("passes accessibility checks when multiple Toasts only have content when opened", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ToastWithConditionalContent />);
+
+    // check accessibility when both toasts are closed and have undefined content
+    await checkAccessibility(page);
+
+    await button(page).nth(0).click();
+
+    // check accessibility when first toast is open and has defined content
+    await checkAccessibility(page, toastComponent(page));
   });
 });

@@ -8,7 +8,7 @@ import Dialog from "../dialog";
 
 export default {
   title: "Toast/Test",
-  includeStories: ["Default", "Visual", "ToastWhenOtherModalRenders"],
+  excludeStories: ["TopAndBottom"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -365,6 +365,26 @@ export const ToastWhenOtherModalRenders = () => {
       >
         Dialog
       </Dialog>
+    </>
+  );
+};
+
+export const ToastWithConditionalContent = ({
+  ...props
+}: Partial<ToastProps>) => {
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsOpen1(!isOpen1)}>Open Toast 1</Button>
+      <Button onClick={() => setIsOpen2(!isOpen2)}>Open Toast 2</Button>
+
+      <Toast open={isOpen1} {...props}>
+        {isOpen1 && "Toast 1"}
+      </Toast>
+      <Toast open={isOpen2} {...props}>
+        {isOpen2 && "Toast 2"}
+      </Toast>
     </>
   );
 };
