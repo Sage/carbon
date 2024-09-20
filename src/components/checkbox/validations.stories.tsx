@@ -131,11 +131,39 @@ export const NewStringValidationInline: Story = () => {
 };
 NewStringValidationInline.storyName = "New String Validation Inline";
 
+export const NewInline: Story = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <CheckboxGroup legend="Label" legendHelp="Hint Text" required inline>
+        <Checkbox
+          id="checkbox-one-new-inline"
+          key="checkbox-one-new-inline"
+          label="Example checkbox one"
+          name="checkbox-one-new-inline"
+        />
+        <Checkbox
+          id="checkbox-two-new-inline"
+          key="checkbox-two-new-inline"
+          label="Example checkbox two"
+          name="checkbox-two-new-inline"
+        />
+        <Checkbox
+          id="checkbox-three-new-inline"
+          key="checkbox-three-new-inline"
+          label="Example checkbox three"
+          name="checkbox-three-new-inline"
+        />
+      </CheckboxGroup>
+    </CarbonProvider>
+  );
+};
+NewInline.storyName = "New Inline";
+
 export const NewBooleanValidation: Story = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <Checkbox
-        error
+        error="message"
         id="checkbox-one-error-boolean"
         key="checkbox-one-error-boolean"
         label="Example checkbox one - Error"

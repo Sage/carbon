@@ -100,6 +100,7 @@ export const Form = ({
         className={stickyFooter ? "sticky" : ""}
         stickyFooter={stickyFooter}
         isInModal={isInModal}
+        tabIndex={-1}
       >
         <FormSpacingProvider marginBottom={formSpacing[fieldSpacing]}>
           {children}

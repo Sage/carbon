@@ -57,7 +57,6 @@ const RadioButtonMapper = ({
   const onChangeProp = useCallback(
     (event) => {
       onChange?.(event);
-      /* istanbul ignore else */
       if (!isControlled) {
         setCheckedValue(event.target.value);
       }

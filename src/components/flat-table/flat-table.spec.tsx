@@ -192,7 +192,6 @@ describe("FlatTable", () => {
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsUtilityMajor025)",
-          borderRight: "1px solid var(--colorsUtilityMajor025)",
           borderBottomColor: "var(--colorsUtilityMajor100)",
         },
 
@@ -207,7 +206,6 @@ describe("FlatTable", () => {
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsUtilityYang100)",
-          borderRight: "1px solid var(--colorsUtilityYang100)",
           borderBottomColor: "var(--colorsUtilityMajor100)",
         },
 
@@ -1305,4 +1303,83 @@ describe("FlatTable", () => {
       });
     });
   });
+});
+
+test("hides the leftmost and rightmost table borders when `hasOuterVerticalBorders` is false", () => {
+  rtlRender(
+    <FlatTable hasOuterVerticalBorders={false}>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Fruit</FlatTableHeader>
+          <FlatTableHeader>Colour</FlatTableHeader>
+          <FlatTableHeader>Planet</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>Apple</FlatTableCell>
+          <FlatTableCell>Purple</FlatTableCell>
+          <FlatTableCell>Pluto</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+
+  expect(screen.getByTestId("flat-table-wrapper")).toHaveStyleRule(
+    "border-left-color",
+    "var(--colorsUtilityMajorTransparent)",
+    {
+      modifier: `${StyledFlatTableRow} > ${StyledFlatTableCell}:first-child`,
+    }
+  );
+
+  expect(screen.getByTestId("flat-table-wrapper")).toHaveStyleRule(
+    "border-right-color",
+    "var(--colorsUtilityMajorTransparent)",
+    {
+      modifier: `${StyledFlatTableRow} > ${StyledFlatTableCell}:last-child`,
+    }
+  );
+});
+
+test("uses `bottomBorderRadius` prop to change the bottom left and right border radius of the table", () => {
+  rtlRender(
+    <FlatTable bottomBorderRadius="borderRadius000">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Fruit</FlatTableHeader>
+          <FlatTableHeader>Colour</FlatTableHeader>
+          <FlatTableHeader>Planet</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>Apple</FlatTableCell>
+          <FlatTableCell>Purple</FlatTableCell>
+          <FlatTableCell>Pluto</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Durian</FlatTableCell>
+          <FlatTableCell>Green</FlatTableCell>
+          <FlatTableCell>Mars</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+
+  expect(screen.getByTestId("flat-table-wrapper")).toHaveStyleRule(
+    "border-bottom-left-radius",
+    "var(--borderRadius000)",
+    {
+      modifier: `tbody ${StyledFlatTableRow}:last-of-type td:first-child`,
+    }
+  );
+
+  expect(screen.getByTestId("flat-table-wrapper")).toHaveStyleRule(
+    "border-bottom-right-radius",
+    "var(--borderRadius000)",
+    {
+      modifier: `tbody ${StyledFlatTableRow}:last-of-type td:last-child`,
+    }
+  );
 });

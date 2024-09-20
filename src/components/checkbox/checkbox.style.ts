@@ -59,13 +59,13 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
       css`
         border: 1px solid var(--colorsUtilityMajor300);
 
+        ${info && `border: 1px solid var(--colorsSemanticInfo500);`}
+        ${warning && `border: 1px solid var(--colorsSemanticCaution500);`}
         ${error && `border: 2px solid var(--colorsSemanticNegative500);`}
 
-        ${!applyNewValidation &&
-        css`
-          ${info && `border: 1px solid var(--colorsSemanticInfo500);`}
-          ${warning && `border: 1px solid var(--colorsSemanticCaution500);`}
-        `}
+        ${warning &&
+        applyNewValidation &&
+        `border: 1px solid var(--colorsUtilityMajor300);`}
       `}
     }
 
