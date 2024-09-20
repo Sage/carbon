@@ -1,3 +1,10 @@
+### [142.11.4](https://github.com/Sage/carbon/compare/v142.11.3...v142.11.4) (2024-09-20)
+
+
+### Bug Fixes
+
+* **toast:** ensure closed toasts do not trigger axe warnings ([6183351](https://github.com/Sage/carbon/commit/6183351ff6ba00bd032506e3ef61f296f720b080))
+
 ### [142.11.3](https://github.com/Sage/carbon/compare/v142.11.2...v142.11.3) (2024-09-19)
 
 
