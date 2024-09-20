@@ -114,6 +114,35 @@ test("should render tooltip with provided labelHelp and helpAriaLabel", async ()
   expect(helpTooltip).toHaveAccessibleDescription("labelHelp");
 });
 
+test("should render input with validation tooltip as its accessible description when the input is focused", async () => {
+  const user = userEvent.setup();
+  render(<Checkbox label="label" onChange={() => {}} error="error" />);
+
+  const checkbox = screen.getByRole("checkbox");
+  expect(checkbox).not.toHaveAttribute("aria-describedby");
+
+  await user.click(checkbox);
+  expect(checkbox).toHaveAccessibleDescription("error");
+});
+
+test("should append the validation tooltip to the input's accessible description when fieldHelp is set and the input is focused", async () => {
+  const user = userEvent.setup();
+  render(
+    <Checkbox
+      label="label"
+      onChange={() => {}}
+      fieldHelp="fieldHelp"
+      error="error"
+    />
+  );
+
+  const checkbox = screen.getByRole("checkbox");
+  expect(checkbox).toHaveAccessibleDescription("fieldHelp");
+
+  await user.click(checkbox);
+  expect(checkbox).toHaveAccessibleDescription("fieldHelp error");
+});
+
 test("should render a required checkbox when the required prop is true", () => {
   render(<Checkbox label="label" onChange={() => {}} required />);
 

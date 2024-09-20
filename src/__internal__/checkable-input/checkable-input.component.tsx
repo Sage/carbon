@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
 
 import {
   StyledCheckableInput,
@@ -12,7 +12,6 @@ import HiddenCheckableInput, {
 import guid from "../utils/helpers/guid";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import { ValidationProps } from "../validations";
-import NewValidationContext from "../../components/carbon-provider/__internal__/new-validation.context";
 
 export interface CommonCheckableInputProps
   extends ValidationProps,
@@ -21,10 +20,10 @@ export interface CommonCheckableInputProps
   disabled?: boolean;
   /** @private @ignore */
   loading?: boolean;
-  /** [Legacy] Help content to be displayed under an input */
+  /** Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
   /**
-   * [Legacy] If true, the FieldHelp will be displayed inline
+   * If true, the FieldHelp will be displayed inline
    * To be used with labelInline prop set to true
    */
   fieldHelpInline?: boolean;
@@ -34,7 +33,7 @@ export interface CommonCheckableInputProps
   inputWidth?: number;
   /** Label content */
   label?: React.ReactNode;
-  /** [Legacy] The content for the help tooltip, to appear next to the Label */
+  /** The content for the help tooltip, to appear next to the Label */
   labelHelp?: React.ReactNode;
   /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing?: 1 | 2;
@@ -101,7 +100,6 @@ const CheckableInput = React.forwardRef(
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const { current: id } = useRef(inputId || guid());
-    const { validationRedesignOptIn } = useContext(NewValidationContext);
 
     const {
       labelId,
@@ -139,7 +137,7 @@ const CheckableInput = React.forwardRef(
       // However, we still want the input element to receive the required prop
       isRequired: required,
       isOptional,
-      useValidationIcon: validationRedesignOptIn ? false : validationOnLabel,
+      useValidationIcon: validationOnLabel,
     };
 
     const inputProps = {

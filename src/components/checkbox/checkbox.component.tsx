@@ -24,13 +24,13 @@ export interface CheckboxProps extends CommonCheckableInputProps, MarginProps {
   "data-element"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-role"?: string;
-  /** [Legacy] Aria label for rendered help component */
+  /** Aria label for rendered help component */
   helpAriaLabel?: string;
   /** When true label is inline */
   labelInline?: boolean;
   /** Accepts a callback function which is triggered on click event */
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
-  /** [Legacy] Overrides the default tooltip position */
+  /** Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** The value of the checkbox, passed on form submit */
   value?: string;
@@ -97,15 +97,6 @@ export const Checkbox = React.forwardRef(
       );
     }
 
-    const commonProps = {
-      fieldHelpInline,
-      labelSpacing,
-      labelHelp,
-      fieldHelp,
-    };
-
-    const isInGroup = Object.keys(checkboxGroupContext).length !== 0;
-
     const inputProps = {
       ariaLabelledBy,
       onClick,
@@ -119,22 +110,27 @@ export const Checkbox = React.forwardRef(
       type: "checkbox",
       name,
       reverse: !reverse,
+      fieldHelp,
       autoFocus,
+      labelHelp,
+      labelSpacing,
       required,
       isOptional,
+      fieldHelpInline,
       checked,
       disabled,
       inputWidth,
       labelWidth,
       ref,
       ...rest,
-      ...(isInGroup && validationRedesignOptIn ? {} : { ...commonProps }),
     };
 
     const validationProps = {
       error: contextError || error,
       warning: contextWarning || warning,
-      info: contextInfo || info,
+      ...(validationRedesignOptIn
+        ? { validationOnLabel: false }
+        : { info: contextInfo || info }),
     };
 
     const marginProps = useFormSpacing(rest);

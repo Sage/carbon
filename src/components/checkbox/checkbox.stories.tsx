@@ -125,32 +125,6 @@ export const CheckboxGroupStory: Story = () => {
 };
 CheckboxGroupStory.storyName = "CheckboxGroup";
 
-export const NewInline: Story = () => {
-  return (
-    <CheckboxGroup legend="Label" inline>
-      <Checkbox
-        id="checkbox-one-new-inline"
-        key="checkbox-one-new-inline"
-        label="Example checkbox one"
-        name="checkbox-one-new-inline"
-      />
-      <Checkbox
-        id="checkbox-two-new-inline"
-        key="checkbox-two-new-inline"
-        label="Example checkbox two"
-        name="checkbox-two-new-inline"
-      />
-      <Checkbox
-        id="checkbox-three-new-inline"
-        key="checkbox-three-new-inline"
-        label="Example checkbox three"
-        name="checkbox-three-new-inline"
-      />
-    </CheckboxGroup>
-  );
-};
-NewInline.storyName = "Inline CheckboxGroup";
-
 export const CheckboxGroupWithInlineLegend: Story = () => {
   return (
     <CheckboxGroup

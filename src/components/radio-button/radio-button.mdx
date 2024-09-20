@@ -54,11 +54,28 @@ A legend can be set for the group, and each radio button can have a label.
 
 <Canvas of={RadioButtonStories.WithLegendAndLabels} />
 
+### With inline legend
+
+The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`.
+
+The spacing between the legend and the radio buttons can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, 
+so therefore `8px` or `16px`. The default is `2` for this prop.
+
+**Note:** The `legendInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+
+<Canvas of={RadioButtonStories.WithInlineLegend} />
+
 ### With left margin
 
 A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below components. This prop is a CSS string.
 
 <Canvas of={RadioButtonStories.WithLeftMargin} />
+
+### Enable adaptive behaviour
+
+Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props will enable the adaptive behaviour.
+
+<Canvas of={RadioButtonStories.EnableAdaptiveBehaviour} />
 
 ### Different label spacing
 
@@ -68,7 +85,7 @@ The spacing between radio buttons and their labels can be changed with the `labe
 
 ### Inline radio buttons
 
-The radio buttons can be displayed inline with the `inline` prop.
+The radio buttons can be made inline with the `inline` prop.
 
 <Canvas of={RadioButtonStories.InlineRadioButtons} />
 
@@ -86,6 +103,12 @@ The radio buttons and labels can be disabled using the `disabled` prop on each r
 
 <Canvas of={RadioButtonStories.DisableRadioButtons} />
 
+### With field help
+
+Help text for each input can be added with the `fieldHelp` prop on `RadioButton`. This can be made inline with the `fieldHelpInline` prop.
+
+<Canvas of={RadioButtonStories.WithFieldHelp} />
+
 ### With large radio buttons
 
 Passing in `large` for the `size` prop on each radio button will increase the size of the button.
@@ -94,7 +117,7 @@ Passing in `large` for the `size` prop on each radio button will increase the si
 
 ### With custom styled labels
 
-The `label` prop can be set to a ReactNode to allow for custom styling of the label.
+Labels could be customized using the Typography Component
 
 <Canvas of={RadioButtonStories.WithCustomStyledLabels} />
 
@@ -118,7 +141,7 @@ For more information check our [Validations](../?path=/docs/documentation-valida
 
 This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string.
 
-You can use the `legendHelp` prop to provide a hint text for the group.
+**Note:** The `legendHelp` tooltip will be rendered as "Hint text".
 
 <Canvas of={RadioButtonStories.NewValidationDefaultGroup} />
 
@@ -129,31 +152,6 @@ This is an example of `RadioButton` in a `RadioButtonGroup` with validations pas
 This is an example of `RadioButton` with validations passed as boolean values.
 
 <Canvas of={RadioButtonStories.NewValidationDefault} />
-
-### With inline legend
-
-The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`.
-
-The spacing between the legend and the radio buttons can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, 
-so therefore `8px` or `16px`. The default is `2` for this prop.
-
-**Note:** The `legendInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
-
-<Canvas of={RadioButtonStories.WithInlineLegend} />
-
-### Enable adaptive behaviour
-
-Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props will enable the adaptive behaviour.
-
-<Canvas of={RadioButtonStories.EnableAdaptiveBehaviour} />
-
-### With field help
-
-Help text for each input can be added with the `fieldHelp` prop on `RadioButton`. This can be made inline with the `fieldHelpInline` prop.
-
-**Note**: The `fieldHelp` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
-
-<Canvas of={RadioButtonStories.WithFieldHelp} />
 
 ## Props
 

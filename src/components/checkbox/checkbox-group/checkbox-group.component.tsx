@@ -17,8 +17,8 @@ export interface CheckboxGroupProps extends ValidationProps, MarginProps {
   /** The content for the CheckboxGroup Legend */
   legend?: string;
   /**
-   * The content for the CheckboxGroup hint text,
-   * will only be rendered when `validationRedesignOptIn` is true.
+   * The content for the CheckboxGroup Help tooltip,
+   * will be rendered as hint text when `validationRedesignOptIn` is true.
    */
   legendHelp?: string;
   /** [Legacy] When true, legend is placed inline with the checkboxes */
@@ -39,7 +39,7 @@ export interface CheckboxGroupProps extends ValidationProps, MarginProps {
   isOptional?: boolean;
   /** [Legacy] Overrides the default tooltip */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** When true, Checkboxes are inline */
+  /** When true, Checkboxes are in line */
   inline?: boolean;
 }
 
@@ -69,8 +69,12 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
         <Fieldset
           legend={legend}
           inline={legendInline}
+          legendWidth={legendWidth}
+          legendAlign={legendAlign}
+          legendSpacing={legendSpacing}
           error={error}
           warning={warning}
+          info={info}
           isRequired={required}
           isOptional={isOptional}
           {...tagComponent("checkboxgroup", props)}
@@ -86,6 +90,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
             <StyledCheckboxGroup
               data-component="checkbox-group"
               data-role="checkbox-group"
+              legendInline={legendInline}
               inline={inline}
             >
               <CheckboxGroupContext.Provider
@@ -122,7 +127,6 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
               data-component="checkbox-group"
               data-role="checkbox-group"
               legendInline={legendInline}
-              inline={inline}
             >
               <CheckboxGroupContext.Provider
                 value={{

@@ -237,7 +237,14 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
       ${StyledFlatTableHeader} {
         border-bottom: 1px solid ${borderColor(colorTheme)};
 
+        ${horizontalBorderSize !== "small" &&
+        css`
+          border-bottom: ${horizontalBorderSizes[horizontalBorderSize]} solid
+            var(--colorsUtilityMajor100);
+        `}
+
         ${!isInSidebar &&
+        !colorTheme?.includes("transparent") &&
         `
           :first-child {
             border-left: 1px solid ${borderColor(colorTheme)};
