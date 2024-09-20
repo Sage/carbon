@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import { space, padding } from "styled-system";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 
-import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
 import { FormButtonAlignment } from "./form.config";
 import StyledSearch from "../search/search.style";
@@ -33,6 +32,8 @@ interface ButtonProps extends StyledFormContentProps {
 export const StyledFormFooter = styled.div<ButtonProps>`
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--sizing200);
 
   ${({ buttonAlignment }) =>
     buttonAlignment === "right" &&
@@ -119,30 +120,17 @@ export const StyledForm = styled.form<StyledFormProps>`
 
 export const StyledRightButtons = styled.div<ButtonProps>`
   display: flex;
-  ${({ fullWidthButtons }) =>
-    fullWidthButtons ? `margin-left: 0px;` : `margin-left: 16px;`}
-  ${({ buttonAlignment }) => buttonAlignment === "left" && "flex-grow: 1"};
+  gap: var(--sizing200);
 
-  ${StyledButton}:last-child {
-    margin-right: 0;
-  }
-`;
-
-export const StyledFullWidthButtons = styled.div`
-  width: 100%;
-  display: flex;
+  ${({ buttonAlignment }) => buttonAlignment === "left" && "flex-grow: 1;"}
 `;
 
 export const StyledLeftButtons = styled.div<ButtonProps>`
   display: flex;
   justify-content: flex-end;
-  ${({ fullWidthButtons }) =>
-    fullWidthButtons ? `margin-right: 0px;` : `margin-right: 16px;`}
-  ${({ buttonAlignment }) => buttonAlignment === "right" && "flex-grow: 1"};
+  gap: var(--sizing200);
 
-  ${StyledButton}:last-child {
-    margin-right: 0;
-  }
+  ${({ buttonAlignment }) => buttonAlignment === "right" && "flex-grow: 1;"}
 `;
 
 StyledForm.defaultProps = {
