@@ -26,21 +26,44 @@ import Preview from "carbon-react/lib/components/preview";
 
 <Canvas of={PreviewStories.Default} />
 
-### Preview with Lines
+### With Lines
+
+You can use the `lines` prop to specify the number of placeholder shapes to render.
 
 <Canvas of={PreviewStories.WithLines} />
 
-### Preview with Children
+### With Children
+
+You can pass children to the component which will render when the `loading` prop is `false` or undefined.
 
 <Canvas of={PreviewStories.WithChildren} />
 
-### Preview with Custom Width
+### With Custom Width
+
+You can use the `width` prop to specify the width of the Preview.
 
 <Canvas of={PreviewStories.WithWidth} />
 
-### Preview with Custom Height
+### With Custom Height
+
+You can use the `height` prop to specify the height of the Preview.
 
 <Canvas of={PreviewStories.WithHeight} />
+
+### Shapes 
+
+By default, the shape of the Preview is "text", however you can use the `shape` prop to change this.
+You may also use the `lines` prop to render multiple Previews with the specified shape and the `width` and `height` props to change the default dimensions.
+
+Note that when the `shape` prop is set to "circle", the `height` prop will determine the diameter and the `width` prop will be ignored.
+
+<Canvas of={PreviewStories.Shapes} />
+
+### Disable Animation
+
+You can set the `disableAnimation` prop to true to disable the loading animation. This will automatically be set to true when prefer reduce-motion is enabled.
+
+<Canvas of={PreviewStories.DisableAnimation} />
 
 ## Props
 

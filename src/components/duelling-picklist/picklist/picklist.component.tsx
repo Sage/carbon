@@ -98,6 +98,7 @@ export const Picklist = ({
   return (
     <StyledPicklist
       data-element="picklist"
+      data-role="picklist"
       scrollVariant="light"
       onKeyDown={handleKeyDown}
     >

@@ -139,6 +139,7 @@ export const PicklistGroup = React.forwardRef<
             >
               {title}
               <StyledGroupButton
+                data-role="picklist-group-button"
                 buttonType="secondary"
                 destructive={type === "remove"}
                 iconType={type}

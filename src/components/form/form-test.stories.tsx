@@ -7,7 +7,7 @@ import Button from "../button";
 import { Tab, Tabs } from "../tabs";
 import Box from "../box";
 import Textbox from "../textbox";
-import Textarea from "../textarea";
+import Textarea, { TextareaProps } from "../textarea";
 import Fieldset from "../fieldset";
 import DateInput from "../date";
 import DateRange from "../date-range";
@@ -24,6 +24,7 @@ import Hr from "../hr";
 import InlineInputs from "../inline-inputs";
 import Pager from "../pager";
 import Password from "../password";
+import Search, { SearchProps } from "../search";
 
 export default {
   title: "Form/Test",
@@ -454,3 +455,33 @@ export const MockFormForAriaLiveDemo = () => {
 };
 
 MockFormForAriaLiveDemo.storyName = "Mock form for aria live demo";
+
+export const MarginTest = () => {
+  const [searchValue, setSearchValue] = useState("");
+  const [textareaValue, setTextareaValue] = useState("");
+  const handleSearchChange: SearchProps["onChange"] = (e) => {
+    setSearchValue(e.target.value);
+  };
+  const handleTextareaChange: TextareaProps["onChange"] = (e) => {
+    setTextareaValue(e.target.value);
+  };
+  return (
+    <Form fieldSpacing={0}>
+      <Search value={searchValue} onChange={handleSearchChange} />
+      <Textarea
+        label="textarea"
+        value={textareaValue}
+        onChange={handleTextareaChange}
+      />
+      <Hr />
+    </Form>
+  );
+};
+
+MarginTest.storyName = "margin test";
+MarginTest.parameters = {
+  chromatic: {
+    disableSnapshot: false, // we want chromatic to capture this to catch any future regressions
+  },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

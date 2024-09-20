@@ -96,9 +96,11 @@ export const Form = ({
     >
       <StyledFormContent
         data-element="form-content"
+        data-role="form-content"
         className={stickyFooter ? "sticky" : ""}
         stickyFooter={stickyFooter}
         isInModal={isInModal}
+        tabIndex={-1}
       >
         <FormSpacingProvider marginBottom={formSpacing[fieldSpacing]}>
           {children}
@@ -107,6 +109,7 @@ export const Form = ({
       {!fullWidthButtons && renderFooter && (
         <StyledFormFooter
           data-element="form-footer"
+          data-role="form-footer"
           className={classNames}
           ref={formFooterRef}
           stickyFooter={stickyFooter}
@@ -115,7 +118,10 @@ export const Form = ({
           {...footerPadding}
         >
           {leftSideButtons && (
-            <StyledLeftButtons buttonAlignment={buttonAlignment}>
+            <StyledLeftButtons
+              data-role="form-left-buttons"
+              buttonAlignment={buttonAlignment}
+            >
               {leftSideButtons}
             </StyledLeftButtons>
           )}
@@ -125,7 +131,10 @@ export const Form = ({
           </FormSummary>
 
           {rightSideButtons && (
-            <StyledRightButtons buttonAlignment={buttonAlignment}>
+            <StyledRightButtons
+              data-role="form-right-buttons"
+              buttonAlignment={buttonAlignment}
+            >
               {rightSideButtons}
             </StyledRightButtons>
           )}
@@ -134,6 +143,7 @@ export const Form = ({
       {fullWidthButtons && renderFooter && (
         <StyledFormFooter
           data-element="form-footer"
+          data-role="form-footer"
           className={classNames}
           ref={formFooterRef}
           stickyFooter={stickyFooter}
