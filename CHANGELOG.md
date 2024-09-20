@@ -1,3 +1,10 @@
+### [142.11.5](https://github.com/Sage/carbon/compare/v142.11.4...v142.11.5) (2024-09-20)
+
+
+### Bug Fixes
+
+* **navigation-bar:** move context provider to not wrap parent ([a265b1c](https://github.com/Sage/carbon/commit/a265b1cdc18d01c35c1ecf88299f9dc4fc76208c))
+
 ### [142.11.4](https://github.com/Sage/carbon/compare/v142.11.3...v142.11.4) (2024-09-20)
 
 
