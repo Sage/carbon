@@ -77,7 +77,7 @@ export interface MultiSelectProps
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;
   /** Placement of the select list in relation to the input element */
-  listPlacement?: Side;
+  listPlacement?: "top" | "bottom";
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
   /** Wraps the pill text when it would overflow the input width */

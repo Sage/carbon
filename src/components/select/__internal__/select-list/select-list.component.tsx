@@ -78,7 +78,7 @@ export interface SelectListProps {
   /** When true component will work in multi column mode, children should consist of OptionRow components in this mode */
   multiColumn?: boolean;
   /** Placement of the select list relative to the input element */
-  listPlacement?: Side;
+  listPlacement?: "top" | "bottom";
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
   /** @private @ignore

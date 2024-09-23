@@ -487,7 +487,7 @@ describe("FilterableSelect", () => {
         ).toBeVisible();
       });
 
-      it.each(["top", "bottom", "right", "left"])(
+      it.each(["top", "bottom"])(
         "the listPlacement prop should be passed",
         (listPlacement) => {
           const wrapper = renderSelect({ listPlacement });

@@ -78,7 +78,7 @@ export interface SimpleSelectProps
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;
   /** Placement of the select list in relation to the input element */
-  listPlacement?: Side;
+  listPlacement?: "top" | "bottom";
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
   /** Set this prop to enable a virtualised list of options. If it is not used then all options will be in the

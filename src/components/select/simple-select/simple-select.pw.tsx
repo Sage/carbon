@@ -929,8 +929,6 @@ test.describe("SimpleSelect component", () => {
   ([
     ["top", "300px", "0px", "200px", "20px"],
     ["bottom", "0px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "500px", "20px"],
-    ["right", "200px", "0px", "0px", "500px"],
   ] as const).forEach(([position, top, bottom, left, right]) => {
     test(`should render list in ${position} position when margins are top ${top}, bottom ${bottom}, left ${left} and right ${right}`, async ({
       mount,
@@ -959,8 +957,6 @@ test.describe("SimpleSelect component", () => {
   ([
     ["top", "0px", "0px", "0px", "20px"],
     ["bottom", "600px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "0px", "900px"],
-    ["right", "200px", "0px", "500px", "20px"],
   ] as [
     SimpleSelectProps["listPlacement"],
     string,
@@ -989,12 +985,6 @@ test.describe("SimpleSelect component", () => {
       }
       if (position === "bottom") {
         flipPosition = "top";
-      }
-      if (position === "left") {
-        flipPosition = "right";
-      }
-      if (position === "right") {
-        flipPosition = "left";
       }
       await selectText(page).click();
       const listElement = selectListPosition(page);
@@ -1784,8 +1774,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
   ([
     ["top", "300px", "0px", "200px", "20px"],
     ["bottom", "0px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "500px", "20px"],
-    ["right", "200px", "0px", "0px", "500px"],
   ] as [
     SimpleSelectProps["listPlacement"],
     string,
@@ -1815,8 +1803,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
   ([
     ["top", "0px", "0px", "0px", "20px"],
     ["bottom", "600px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "0px", "900px"],
-    ["right", "200px", "0px", "500px", "20px"],
   ] as [
     SimpleSelectProps["listPlacement"],
     string,
