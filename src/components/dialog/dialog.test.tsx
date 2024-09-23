@@ -8,7 +8,6 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import CarbonProvider from "../carbon-provider";
-import Form from "../form";
 import Dialog, { DialogHandle, DialogProps } from ".";
 
 beforeEach(() => jest.useFakeTimers());
@@ -306,19 +305,6 @@ test("renders with grey background when greyBackground prop is passed", () => {
   });
 });
 
-test("does not apply vertical overflow styling to the content container when it contains a Form with a sticky footer", () => {
-  render(
-    <Dialog open>
-      <Form stickyFooter />
-    </Dialog>
-  );
-
-  const content = screen.getByTestId("dialog-content");
-
-  expect(content).not.toHaveStyle("overflow-y: auto");
-  expect(content).not.toHaveStyle("overflow-y: scroll");
-});
-
 test("dialog is wrapped in a container, which has the correct class names set, when className prop is passed", () => {
   render(<Dialog open title="My dialog" className="special-dialog" />);
 
@@ -397,6 +383,15 @@ test("dialog does not position itself such that it goes off the left edge of the
   jest.restoreAllMocks();
 });
 
+test("prevents content from overflowing", () => {
+  render(
+    <Dialog open title="My dialog">
+      Content
+    </Dialog>
+  );
+  expect(screen.getByTestId("dialog-content")).toHaveStyle("overflow-y: auto");
+});
+
 test("no padding is rendered around dialog content, when zero padding is specified via contentPadding prop", () => {
   render(
     <Dialog open title="My dialog" contentPadding={{ p: 0 }}>
@@ -405,10 +400,8 @@ test("no padding is rendered around dialog content, when zero padding is specifi
   );
 
   const content = screen.getByTestId("dialog-content");
-  const innerContent = screen.getByTestId("dialog-inner-content");
 
   expect(content).toHaveStyle({ padding: "var(--spacing000)" });
-  expect(innerContent).toHaveStyle({ paddingTop: "0px" });
 });
 
 test("background scroll remains disabled when returning to outer dialog after closing inner dialog", async () => {

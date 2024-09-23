@@ -1,38 +1,24 @@
 import styled, { css } from "styled-components";
-import { PaddingProps } from "styled-system";
+import { PaddingProps, padding as paddingFn } from "styled-system";
 import computeSizing from "../../style/utils/element-sizing";
 
 import { SidebarProps } from "./sidebar.component";
 import baseTheme from "../../style/themes/base";
 import StyledIconButton from "../icon-button/icon-button.style";
-import {
-  calculateFormSpacingValues,
-  calculateWidthValue,
-} from "../../style/utils/form-style-utils";
-import { StyledFormContent, StyledFormFooter } from "../form/form.style";
+
 import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
+import resolvePaddingSides from "../../style/utils/resolve-padding-sides";
+import { StyledForm, StyledFormContent } from "../form/form.style";
 
 type StyledSidebarProps = Pick<
   SidebarProps,
   "onCancel" | "position" | "size" | "width"
-> &
-  PaddingProps;
+>;
 
 const StyledSidebar = styled.div<StyledSidebarProps>`
   // prevents outline being added in safari
   :focus {
     outline: none;
-  }
-
-  ${StyledFormContent} {
-    ${(props: StyledSidebarProps) =>
-      calculateFormSpacingValues(props, true, "sidebar")}
-  }
-
-  ${StyledFormFooter}.sticky {
-    ${calculateWidthValue}
-    ${(props: StyledSidebarProps) =>
-      calculateFormSpacingValues(props, false, "sidebar")}
   }
 
   ${({ onCancel, position, size, theme, width }) => css`
@@ -70,8 +56,43 @@ const StyledSidebar = styled.div<StyledSidebarProps>`
   `}
 `;
 
+const StyledSidebarContent = styled.div<PaddingProps>((props) => {
+  const {
+    paddingTop = "var(--spacing300)",
+    paddingRight = "var(--spacing400)",
+    paddingBottom = "var(--spacing400)",
+    paddingLeft = "var(--spacing400)",
+  } = resolvePaddingSides(props);
+
+  return css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+
+    flex: 1;
+
+    ${StyledForm}.sticky {
+      margin-top: calc(-1 * ${paddingTop});
+      margin-right: calc(-1 * ${paddingRight});
+      margin-bottom: calc(-1 * ${paddingBottom});
+      margin-left: calc(-1 * ${paddingLeft});
+
+      ${StyledFormContent} {
+        padding-top: ${paddingTop};
+        padding-right: ${paddingRight};
+        padding-bottom: ${paddingBottom};
+        padding-left: ${paddingLeft};
+      }
+    }
+
+    padding: ${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft};
+    ${paddingFn}
+  `;
+});
+
 StyledSidebar.defaultProps = {
   theme: baseTheme,
 };
 
-export default StyledSidebar;
+export { StyledSidebar, StyledSidebarContent };
