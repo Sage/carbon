@@ -31,10 +31,12 @@ const Accordion = ({
       aria-expanded={expanded}
       isExpanded={expanded}
       maxHeight={contentHeight}
+      data-role="tile-select-accordion-content-container"
     >
       <StyledContent
         role="region"
         data-element="tile-select-accordion-content"
+        data-role="tile-select-accordion-content"
         ref={contentRef}
         id={contentId}
         aria-labelledby={controlId}

@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-disabled-tests */
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import type { Locator } from "@playwright/test";
@@ -35,7 +34,6 @@ import {
   FlatTableFirstColumnHasRowspan,
   FlatTableLastColumnHasRowspan,
 } from "./components.test-pw";
-import { FlatTableProps } from "./flat-table.component";
 import Icon from "../icon";
 import { getDataElementByValue } from "../../../playwright/components";
 import {
@@ -90,39 +88,43 @@ import {
 } from "../../../playwright/support/helper";
 import { HooksConfig } from "../../../playwright";
 
-const sizes: [FlatTableProps["size"], string, string, number][] = [
+const sizes = [
   ["compact", "8px", "13px", 24],
   ["small", "16px", "14px", 32],
   ["medium", "16px", "14px", 40],
   ["large", "16px", "16px", 48],
   ["extraLarge", "16px", "16px", 64],
-];
+] as const;
 
 const borderSizeSmall = "1px";
 const borderSizeMedium = "2px";
 const borderSizeLarge = "4px";
 
-const heightWidth = [150, 250, 600, 1000];
-const heights = [150, 249, 250, 251, 300];
-const overflows = ["visible", "hidden", "clip", "scroll", "auto"];
-const arrowsToPress = ["ArrowLeft", "ArrowRight"];
+const heightWidth = [150, 250, 600, 1000] as const;
+const heights = [150, 249, 250, 251, 300] as const;
+const overflows = ["visible", "hidden", "clip", "scroll", "auto"] as const;
+const arrowsToPress = ["ArrowLeft", "ArrowRight"] as const;
 const itemsPerPage = [
   [1, 0],
   [5, 1],
-];
-const tableSorting: ["first" | "second", string, number, number][] = [
+] as const;
+const tableSorting = [
   ["first", "desc", 1, 0],
   ["first", "asc", 2, 0],
   ["second", "desc", 1, 1],
   ["second", "asc", 2, 1],
-];
+] as const;
 
-const colorThemes: [FlatTableProps["colorTheme"], string, string][] = [
+const basicColorThemes = [
   ["dark", "rgb(51, 91, 112)", "rgb(102, 132, 148)"],
   ["light", "rgb(204, 214, 219)", "rgb(179, 194, 201)"],
+] as const;
+
+const colorThemes = [
+  ...basicColorThemes,
   ["transparent-base", "rgb(242, 245, 246)", "rgb(242, 245, 246)"],
   ["transparent-white", "rgb(255, 255, 255)", "rgb(255, 255, 255)"],
-];
+] as const;
 
 const gold = "rgb(255, 188, 25)";
 const black = "rgba(0, 0, 0, 0.9)";
@@ -426,7 +428,7 @@ test.describe("Prop tests", () => {
     }
   });
 
-  [...colorThemes].forEach(([colorTheme, bgColor, brColor]) => {
+  [...basicColorThemes].forEach(([colorTheme, bgColor, brColor]) => {
     test(`should render in the ${colorTheme} theme`, async ({
       mount,
       page,

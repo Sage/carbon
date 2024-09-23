@@ -52,6 +52,7 @@ const Pages = ({
       transitionName,
       timeout: TRANSITION_TIME,
       "data-element": "visible-page",
+      "data-role": "visible-page",
       className: visiblePage.props.className,
     };
 

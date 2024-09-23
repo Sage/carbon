@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
-import { StyledPreview } from "../preview/preview.style";
-import { StyledPreviewPlaceholder } from "../preview/__internal__/preview-placeholder.style";
+import {
+  StyledPreview,
+  StyledPreviewPlaceholder,
+} from "../preview/preview.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
 

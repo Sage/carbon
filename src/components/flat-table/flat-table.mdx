@@ -122,6 +122,10 @@ Setting a custom background color will also override hover, highlight and row se
 
 <Canvas of={FlatTableStories.WithCustomHorizontalBorderColor} />
 
+### With custom bottom border radius
+
+<Canvas of={FlatTableStories.WithCustomBottomBorderRadius} />
+
 ### With custom vertical borders
 
 <Canvas of={FlatTableStories.WithCustomVerticalBorders} />
@@ -166,6 +170,12 @@ remains sticky.
 By using the `hasMaxHeight` prop you can automatically apply a max-height of 100% to the FlatTable.
 
 <Canvas of={FlatTableStories.WithHasMaxHeight} />
+
+### Removing outer vertical borders
+
+Setting the `hasOuterVerticalBorders` prop to `false` removes the table's outermost vertical borders by hiding the left border of the first column and the right border of the last column.
+
+<Canvas of={FlatTableStories.WithoutVerticalBorders} />
 
 ### With clickable rows
 

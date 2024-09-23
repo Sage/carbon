@@ -111,6 +111,9 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     const focusedElementBeforeOpening = useRef<HTMLElement | null>(null);
 
     const [tabIndex, setTabIndex] = useState<number | undefined>(0);
+    const ariaLabelledBy = `${!isNotice && toastIconId.current} ${
+      toastContentId.current
+    }`;
 
     let refToPass = toastRef;
     if (ref && typeof ref === "object" && "current" in ref) {
@@ -266,9 +269,8 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
           isNotice={isNotice}
           data-role="toast-wrapper"
           role="region"
-          aria-labelledby={`${!isNotice && toastIconId.current} ${
-            toastContentId.current
-          }`}
+          aria-hidden={!open}
+          aria-labelledby={open ? ariaLabelledBy : undefined}
         >
           <TransitionGroup>{renderToastContent()}</TransitionGroup>
         </ToastWrapper>

@@ -127,7 +127,10 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
       });
 
     const renderActionButton = () => (
-      <StyledDeselectWrapper hasActionAdornment={!!actionButtonAdornment}>
+      <StyledDeselectWrapper
+        data-role="deselect-wrapper"
+        hasActionAdornment={!!actionButtonAdornment}
+      >
         {customActionButton && customActionButton(handleDeselect)}
         {!customActionButton && checked && (
           <Button
@@ -161,7 +164,11 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
         {...tagComponent("tile-select", rest)}
         {...filterStyledSystemMarginProps(rest)}
       >
-        <StyledFocusWrapper hasFocus={hasFocus} checked={checked}>
+        <StyledFocusWrapper
+          data-role="focus-wrapper"
+          hasFocus={hasFocus}
+          checked={checked}
+        >
           <StyledTileSelectInput
             onChange={onChange}
             onBlur={(ev) => {
@@ -210,6 +217,7 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
                   {titleAdornment && (
                     <StyledAdornment
                       hasAdditionalInformation={!!additionalInformation}
+                      data-role="title-adornment"
                     >
                       {titleAdornment && <div>{titleAdornment}</div>}
                     </StyledAdornment>
@@ -221,10 +229,15 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
                 >
                   {description}
                 </StyledDescription>
-                {footer && <StyledFooterWrapper>{footer}</StyledFooterWrapper>}
+                {footer && (
+                  <StyledFooterWrapper data-role="tile-select-footer">
+                    {footer}
+                  </StyledFooterWrapper>
+                )}
                 {accordionContent && accordionControl && (
                   <StyledAccordionFooterWrapper
                     accordionExpanded={accordionExpanded}
+                    data-role="accordion-footer"
                   >
                     {accordionControl(controlId, contentId)}
                   </StyledAccordionFooterWrapper>
@@ -233,6 +246,7 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
               {prefixAdornment && (
                 <Box
                   data-element="prefix-adornment"
+                  data-role="prefix-adornment"
                   mr={3}
                   opacity={disabled ? "0.3" : undefined}
                 >

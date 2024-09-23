@@ -2,7 +2,6 @@ import React, { useState, useRef, useImperativeHandle } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledSearch from "./search.style";
 import StyledSearchButton from "./search-button.style";
 import Icon from "../icon";
@@ -245,7 +244,8 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         variant={variant}
         mb={0}
         {...filterStyledSystemMarginProps(rest)}
-        {...tagComponent("search", rest)}
+        data-component="search"
+        data-role="search"
         id={id}
         name={name}
         {...rest}
