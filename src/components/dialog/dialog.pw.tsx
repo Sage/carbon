@@ -11,6 +11,7 @@ import {
   DialogWithAutoFocusSelect,
   DialogComponentFocusableSelectors,
   DefaultStory,
+  DefaultNestedStory,
   Editable,
   WithHelp,
   LoadingContent,
@@ -247,6 +248,78 @@ test.describe("Testing Dialog component properties", () => {
     await expect(
       page.getByRole("button").filter({ hasText: "Press me" })
     ).toBeFocused();
+  });
+
+  test("when Dialog is opened and then closed, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultStory />);
+
+    const button = page.getByRole("button").filter({ hasText: "Open Dialog" });
+    const dialog = page.getByRole("dialog");
+    await expect(button).not.toBeFocused();
+    await expect(dialog).not.toBeVisible();
+
+    await button.click();
+    await expect(dialog).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(button).toBeFocused();
+    await expect(dialog).not.toBeVisible();
+  });
+
+  test("when Dialog is open on render, then closed, opened and then closed again, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultStory open />);
+
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+
+    const button = page.getByRole("button").filter({ hasText: "Open Dialog" });
+    await expect(button).not.toBeFocused();
+    await expect(dialog).not.toBeVisible();
+
+    await button.click();
+    await expect(dialog).toBeVisible();
+    await closeButton.click();
+    await expect(button).toBeFocused();
+  });
+
+  test("when nested Dialog's are opened/closed their respective call to action elements should be focused correctly", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultNestedStory />);
+
+    const firstButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open First Dialog" });
+    const firstDialog = page.getByRole("dialog").first();
+    await expect(firstButton).not.toBeFocused();
+    await expect(firstDialog).not.toBeVisible();
+
+    await firstButton.click();
+    await expect(firstDialog).toBeVisible();
+    const secondButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Nested Dialog" });
+    await expect(secondButton).not.toBeFocused();
+    await secondButton.click();
+    const secondDialog = page.getByRole("dialog").last();
+    await expect(secondDialog).toBeVisible();
+
+    const secondCloseButton = page.getByLabel("Close").last();
+    await secondCloseButton.click();
+    await expect(secondButton).toBeFocused();
+
+    const firstCloseButton = page.getByLabel("Close").first();
+    await firstCloseButton.click();
+    await expect(firstButton).toBeFocused();
   });
 
   test("when disableAutoFocus prop is passed, the first focusable element should not be focused", async ({

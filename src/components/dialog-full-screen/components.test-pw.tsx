@@ -25,12 +25,14 @@ const nestedDialogTitle = "Nested Dialog";
 
 export const DialogFullScreenComponent = ({
   children = "This is an example",
+  open = true,
   ...props
 }: Partial<DialogFullScreenProps>) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(open);
   const ref = useRef<HTMLButtonElement | null>(null);
   return (
     <>
+      <Button onClick={() => setIsOpen(true)}>Open Dialog Full Screen</Button>
       <DialogFullScreen
         focusFirstElement={ref}
         open={isOpen}
