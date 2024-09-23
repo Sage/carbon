@@ -3,6 +3,9 @@ import { expect, test } from "@playwright/experimental-ct-react17";
 import type { Page } from "@playwright/test";
 import {
   DialogFullScreenComponent,
+  DefaultStory,
+  DefaultOpenStory,
+  DefaultNestedStory,
   NestedDialog,
   MultipleDialogsInDifferentProviders,
   DialogFullScreenWithHeaderChildren,
@@ -301,6 +304,82 @@ test.describe("render DialogFullScreen component and check properties", () => {
       "outline",
       "rgba(0, 0, 0, 0) solid 3px"
     );
+  });
+
+  test("when Dialog Full Screen is opened and then closed, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultStory />);
+
+    const button = page
+      .getByRole("button")
+      .filter({ hasText: "Open Dialog Full Screen" });
+    const dialogFullScreen = page.getByRole("dialog");
+    await expect(button).not.toBeFocused();
+    await expect(dialogFullScreen).not.toBeVisible();
+
+    await button.click();
+    await expect(dialogFullScreen).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(button).toBeFocused();
+    await expect(dialogFullScreen).not.toBeVisible();
+  });
+
+  test("when Dialog Full Screen is open on render, then closed, opened and then closed again, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultOpenStory />);
+
+    const dialogFullScreen = page.getByRole("dialog");
+    await expect(dialogFullScreen).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+
+    const button = page
+      .getByRole("button")
+      .filter({ hasText: "Open Dialog Full Screen" });
+    await expect(button).not.toBeFocused();
+    await expect(dialogFullScreen).not.toBeVisible();
+
+    await button.click();
+    await expect(dialogFullScreen).toBeVisible();
+    await closeButton.click();
+    await expect(button).toBeFocused();
+  });
+
+  test("when nested Dialog's are open/closed their respective call to action elements should be focused correctly", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultNestedStory />);
+
+    const firstButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open First Dialog Full Screen" });
+    const firstDialog = page.getByRole("dialog").first();
+    await expect(firstButton).not.toBeFocused();
+    await expect(firstDialog).not.toBeVisible();
+
+    await firstButton.click();
+    await expect(firstDialog).toBeVisible();
+    const secondButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Nested Dialog Full Screen" });
+    await expect(secondButton).not.toBeFocused();
+    await secondButton.click();
+    const secondDialog = page.getByRole("dialog").last();
+    await expect(secondDialog).toBeVisible();
+
+    const secondCloseButton = page.getByLabel("Close").last();
+    await secondCloseButton.click();
+    await expect(secondButton).toBeFocused();
+
+    const firstCloseButton = page.getByLabel("Close").first();
+    await firstCloseButton.click();
+    await expect(firstButton).toBeFocused();
   });
 
   test("should render component with autofocus disabled", async ({

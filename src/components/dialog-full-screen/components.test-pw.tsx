@@ -54,6 +54,93 @@ export const DialogFullScreenComponent = ({
   );
 };
 
+export const DefaultStory = ({
+  children = "This is an example",
+  ...props
+}: Partial<DialogFullScreenProps>) => {
+  const [isDialogFullScreenOpen, setIsDialogFullScreenOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setIsDialogFullScreenOpen(true)}>
+        Open Dialog Full Screen
+      </Button>
+      <DialogFullScreen
+        open={isDialogFullScreenOpen}
+        showCloseIcon
+        title="First Dialog Full Screen"
+        aria-label="aria-label"
+        onCancel={() => setIsDialogFullScreenOpen(false)}
+        {...props}
+      >
+        {children}
+      </DialogFullScreen>
+    </>
+  );
+};
+
+export const DefaultOpenStory = ({
+  children = "This is an example",
+  ...props
+}: Partial<DialogFullScreenProps>) => {
+  const [isDialogFullScreenOpen, setIsDialogFullScreenOpen] = useState(true);
+
+  return (
+    <>
+      <Button onClick={() => setIsDialogFullScreenOpen(true)}>
+        Open Dialog Full Screen
+      </Button>
+      <DialogFullScreen
+        open={isDialogFullScreenOpen}
+        showCloseIcon
+        title="First Dialog Full Screen"
+        aria-label="aria-label"
+        onCancel={() => setIsDialogFullScreenOpen(false)}
+        {...props}
+      >
+        {children}
+      </DialogFullScreen>
+    </>
+  );
+};
+
+export const DefaultNestedStory = ({
+  children = "This is an example",
+  ...props
+}: Partial<DialogFullScreenProps>) => {
+  const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false);
+  const [isNestedDialogOpen, setIsNestedDialogOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsFirstDialogOpen(true)}>
+        Open First Dialog Full Screen
+      </Button>
+      <DialogFullScreen
+        open={isFirstDialogOpen}
+        showCloseIcon
+        title="First Dialog Full Screen"
+        aria-label="aria-label"
+        onCancel={() => setIsFirstDialogOpen(false)}
+        {...props}
+      >
+        <Button onClick={() => setIsNestedDialogOpen(true)}>
+          Open Nested Dialog Full Screen
+        </Button>
+        <DialogFullScreen
+          open={isNestedDialogOpen}
+          showCloseIcon
+          title="Nested Dialog Full Screen"
+          aria-label="aria-label"
+          onCancel={() => setIsNestedDialogOpen(false)}
+          {...props}
+        >
+          <Textbox label="Nested Dialog Textbox" />
+        </DialogFullScreen>
+      </DialogFullScreen>
+    </>
+  );
+};
+
 export const NestedDialog = () => {
   const [mainDialogOpen, setMainDialogOpen] = React.useState(false);
   const [nestedDialogOpen, setNestedDialogOpen] = React.useState(false);

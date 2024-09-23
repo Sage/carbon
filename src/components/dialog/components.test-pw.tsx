@@ -254,6 +254,79 @@ export const DefaultStory = () => {
   );
 };
 
+export const DefaultOpenStory = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+      <Dialog
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Title"
+        subtitle="Subtitle"
+      >
+        <Form
+          stickyFooter
+          height="500px"
+          leftSideButtons={
+            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+          }
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Typography>
+            This is an example of a dialog with a Form as content
+          </Typography>
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+        </Form>
+      </Dialog>
+    </>
+  );
+};
+
+export const DefaultNestedStory = () => {
+  const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false);
+  const [isNestedDialogOpen, setIsNestedDialogOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setIsFirstDialogOpen(true)}>
+        Open First Dialog
+      </Button>
+      <Dialog
+        open={isFirstDialogOpen}
+        onCancel={() => setIsFirstDialogOpen(false)}
+        title="First Dialog"
+      >
+        <Button onClick={() => setIsNestedDialogOpen(true)}>
+          Open Nested Dialog
+        </Button>
+        <Dialog
+          open={isNestedDialogOpen}
+          onCancel={() => setIsNestedDialogOpen(false)}
+          title="Nested Dialog"
+        >
+          <Textbox label="Nested Dialog Textbox" />
+        </Dialog>
+      </Dialog>
+    </>
+  );
+};
+
 export const Editable = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [isDisabled, setIsDisabled] = useState(true);

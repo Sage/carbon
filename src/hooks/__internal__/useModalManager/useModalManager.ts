@@ -8,6 +8,7 @@ type UseModalManagerArgs = {
   setTriggerRefocusFlag?: (flag: boolean) => void;
   triggerRefocusOnClose?: boolean;
   topModalOverride?: boolean;
+  focusCallToActionElement?: HTMLElement;
 };
 
 const useModalManager = ({
@@ -17,9 +18,12 @@ const useModalManager = ({
   setTriggerRefocusFlag,
   triggerRefocusOnClose = true,
   topModalOverride = false,
+  focusCallToActionElement,
 }: UseModalManagerArgs) => {
   const listenerAdded = useRef(false);
   const modalRegistered = useRef(false);
+  const lastFocusedElement = useRef<HTMLElement | null>(null);
+  const modalOpenOnRender = useRef(false);
 
   const handleClose = useCallback(
     (ev: KeyboardEvent) => {
@@ -63,6 +67,17 @@ const useModalManager = ({
     };
   }, [removeListener]);
 
+  useEffect(() => {
+    if (
+      !lastFocusedElement.current &&
+      !modalOpenOnRender.current &&
+      focusCallToActionElement &&
+      open
+    ) {
+      lastFocusedElement.current = focusCallToActionElement;
+    }
+  }, [open, focusCallToActionElement]);
+
   const registerModal = useCallback(
     (ref: HTMLElement | null) => {
       /* istanbul ignore else */
@@ -80,6 +95,13 @@ const useModalManager = ({
       if (modalRegistered.current) {
         ModalManager.removeModal(ref, triggerRefocusOnClose);
 
+        if (lastFocusedElement.current) {
+          setTimeout(() => {
+            lastFocusedElement.current?.focus();
+            lastFocusedElement.current = null;
+          }, 0);
+        }
+
         modalRegistered.current = false;
       }
     },
@@ -87,10 +109,17 @@ const useModalManager = ({
   );
 
   useEffect(() => {
+    if (open) {
+      modalOpenOnRender.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
     const ref = modalRef.current;
     if (open) {
       registerModal(ref);
     } else {
+      modalOpenOnRender.current = false;
       unregisterModal(ref);
     }
   }, [modalRef, open, registerModal, unregisterModal]);

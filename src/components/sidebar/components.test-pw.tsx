@@ -29,6 +29,63 @@ export const Default = (args: Partial<SidebarProps>) => {
   );
 };
 
+export const DefaultClosed = (args: Partial<SidebarProps>) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onCancel = () => {
+    setIsOpen(false);
+  };
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar {...args} aria-label="sidebar" open={isOpen} onCancel={onCancel}>
+        <Box mb={2}>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </Box>
+        <Box mb="3000px">Main content</Box>
+      </Sidebar>
+    </>
+  );
+};
+
+export const DefaultNested = ({
+  children = "This is an example",
+  ...props
+}: Partial<SidebarProps>) => {
+  const [isFirstSidebarOpen, setIsFirstSidebarOpen] = useState(false);
+  const [isNestedSidebarOpen, setIsNestedSidebarOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsFirstSidebarOpen(true)}>
+        Open First Sidebar
+      </Button>
+      <Sidebar
+        open={isFirstSidebarOpen}
+        onCancel={() => setIsFirstSidebarOpen(false)}
+        {...props}
+      >
+        <Button onClick={() => setIsNestedSidebarOpen(true)}>
+          Open Nested Sidebar
+        </Button>
+        <Sidebar
+          open={isNestedSidebarOpen}
+          onCancel={() => setIsNestedSidebarOpen(false)}
+          {...props}
+        >
+          <Box mb={2}>
+            <Button buttonType="primary">Test</Button>
+            <Button buttonType="secondary" ml={2}>
+              Last
+            </Button>
+          </Box>
+        </Sidebar>
+      </Sidebar>
+    </>
+  );
+};
+
 export const SidebarComponent = (props: Partial<SidebarProps>) => {
   return (
     <>
