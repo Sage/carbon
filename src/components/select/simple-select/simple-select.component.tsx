@@ -6,14 +6,15 @@ import React, {
   useMemo,
 } from "react";
 import invariant from "invariant";
-import { Side } from "@floating-ui/dom";
 
 import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
 import StyledSelect from "../select.style";
 import SelectTextbox, {
   FormInputPropTypes,
 } from "../__internal__/select-textbox";
-import SelectList from "../__internal__/select-list/select-list.component";
+import SelectList, {
+  ListPlacement,
+} from "../__internal__/select-list/select-list.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
@@ -78,7 +79,7 @@ export interface SimpleSelectProps
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;
   /** Placement of the select list in relation to the input element */
-  listPlacement?: "top" | "bottom";
+  listPlacement?: ListPlacement;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
   /** Set this prop to enable a virtualised list of options. If it is not used then all options will be in the
@@ -96,6 +97,8 @@ export interface SimpleSelectProps
   onChange?: (
     ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
   ) => void;
+  /** Override the default width of the list element. Number passed is converted into pixel value */
+  listWidth?: number;
 }
 
 export const SimpleSelect = React.forwardRef<
@@ -137,6 +140,7 @@ export const SimpleSelect = React.forwardRef<
       virtualScrollOverscan,
       isOptional,
       required,
+      listWidth,
       ...props
     },
     ref
@@ -490,6 +494,20 @@ export const SimpleSelect = React.forwardRef<
         ...filterOutStyledSystemSpacingProps(props),
       };
     }
+
+    let placement: ListPlacement;
+
+    switch (listPlacement) {
+      case "top":
+        placement = "top-end";
+        break;
+      case "bottom":
+        placement = "bottom-end";
+        break;
+      default:
+        placement = listPlacement;
+    }
+
     const selectList = (
       <SelectList
         ref={listboxRef}
@@ -505,11 +523,12 @@ export const SimpleSelect = React.forwardRef<
         onListScrollBottom={onListScrollBottom}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
-        listPlacement={listPlacement}
+        listPlacement={listWidth !== undefined ? placement : listPlacement}
         flipEnabled={flipEnabled}
         isOpen={isOpen}
         enableVirtualScroll={enableVirtualScroll}
         virtualScrollOverscan={virtualScrollOverscan}
+        listWidth={listWidth}
       >
         {children}
       </SelectList>

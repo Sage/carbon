@@ -603,3 +603,30 @@ export const WithObjectAsValue = () => {
     </>
   );
 };
+
+export const ListWidth = ({
+  listPlacement,
+  listWidth,
+  margin,
+}: Partial<SimpleSelectProps>) => {
+  const [value, setValue] = useState("");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
+  return (
+    <Box width="200px" margin={margin}>
+      <Select
+        label="label"
+        value={value}
+        onChange={handleChange}
+        listPlacement={listPlacement}
+        listWidth={listWidth}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+    </Box>
+  );
+};

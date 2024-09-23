@@ -487,7 +487,7 @@ describe("FilterableSelect", () => {
         ).toBeVisible();
       });
 
-      it.each(["top", "bottom"])(
+      it.each(["top", "bottom", "top-end", "bottom-end"])(
         "the listPlacement prop should be passed",
         (listPlacement) => {
           const wrapper = renderSelect({ listPlacement });
@@ -496,6 +496,18 @@ describe("FilterableSelect", () => {
 
           expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
             listPlacement
+          );
+        }
+      );
+
+      it.each(["top", "bottom"])(
+        "the listPlacement prop should be overridden when listWidth is set",
+        (listPlacement) => {
+          const wrapper = renderSelect({ listPlacement, listWidth: 100 });
+
+          simulateDropdownEvent(wrapper, "click");
+          expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
+            `${listPlacement}-end`
           );
         }
       );

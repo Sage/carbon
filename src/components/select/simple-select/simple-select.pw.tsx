@@ -18,6 +18,7 @@ import {
   SelectWithDynamicallyAddedOption,
   SimpleSelectControlled,
   WithObjectAsValue,
+  ListWidth,
 } from "./components.test-pw";
 import {
   commonDataElementInputPreview,
@@ -995,6 +996,91 @@ test.describe("SimpleSelect component", () => {
       await expect(listElement).toBeVisible();
     });
   });
+
+  ([
+    ["top", "100px 300px", 150, 2],
+    ["bottom", "0px 300px", 150, 68],
+    ["top-end", "100px 300px", 150, 2],
+    ["bottom-end", "0px 300px", 150, 68],
+    ["top-start", "100px 0px", 0, 2],
+    ["bottom-start", "100px 0px", 0, 168],
+  ] as [
+    NonNullable<SimpleSelectProps["listPlacement"]>,
+    string,
+    number,
+    number
+  ][]).forEach(([position, margin, left, top]) => {
+    test(`should render list wider than the input when listWidth is 350 and positioned based on listPlacement of ${position}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <ListWidth margin={margin} listPlacement={position} listWidth={350} />
+      );
+
+      const positionValue =
+        !position.includes("end") && !position.includes("start")
+          ? `${position}-end`
+          : position;
+      await selectText(page).click();
+      const listElement = selectListPosition(page);
+      const { inputWidth } = await selectText(page).evaluate((el) => ({
+        inputWidth: window
+          .getComputedStyle(el.parentElement as HTMLElement)
+          .getPropertyValue("width"),
+      }));
+      const { listLeftPosition, listTopPosition } = await listElement.evaluate(
+        (el) => ({
+          listLeftPosition: el.getBoundingClientRect().left,
+          listTopPosition: el.getBoundingClientRect().top,
+        })
+      );
+
+      await expect(listElement).toHaveAttribute(
+        "data-floating-placement",
+        positionValue
+      );
+      await expect(listElement).toBeVisible();
+      await expect(listElement).toHaveCSS("width", "350px");
+      expect(inputWidth).toBe("200px");
+
+      // sub-pixel rendering means this is not always exact
+      expect(listLeftPosition).toBeCloseTo(left);
+      expect(listTopPosition).toBeCloseTo(top);
+    });
+  });
+
+  ([
+    ["top", "0px"],
+    ["top-end", "0px"],
+  ] as [NonNullable<SimpleSelectProps["listPlacement"]>, string][]).forEach(
+    ([position, margin]) => {
+      test(`should render list wider than the input when listWidth is 350 and flip the placement based on original listPlacement of ${position} when there's no space to render it`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <ListWidth margin={margin} listPlacement={position} listWidth={350} />
+        );
+
+        await selectText(page).click();
+        const listElement = selectListPosition(page);
+        const { inputWidth } = await selectText(page).evaluate((el) => ({
+          inputWidth: window
+            .getComputedStyle(el.parentElement as HTMLElement)
+            .getPropertyValue("width"),
+        }));
+
+        await expect(listElement).toHaveAttribute(
+          "data-floating-placement",
+          "bottom-start"
+        );
+        await expect(listElement).toBeVisible();
+        await expect(listElement).toHaveCSS("width", "350px");
+        expect(inputWidth).toBe("200px");
+      });
+    }
+  );
 
   [
     ["bottom", "0px", "0px", "0px", "20px"],

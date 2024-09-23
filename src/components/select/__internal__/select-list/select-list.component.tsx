@@ -6,7 +6,7 @@ import React, {
   useRef,
   useMemo,
 } from "react";
-import { flip, offset, size, Side } from "@floating-ui/dom";
+import { flip, offset, size } from "@floating-ui/dom";
 import {
   useVirtualizer,
   defaultRangeExtractor,
@@ -37,6 +37,14 @@ import ListActionButton from "../list-action-button";
 import Loader from "../../../loader";
 import Option, { OptionProps } from "../../option";
 import SelectListContext from "./select-list.context";
+
+export type ListPlacement =
+  | "top"
+  | "bottom"
+  | "top-start"
+  | "bottom-start"
+  | "top-end"
+  | "bottom-end";
 
 export interface SelectListProps {
   /** The ID for the parent <div> */
@@ -78,7 +86,7 @@ export interface SelectListProps {
   /** When true component will work in multi column mode, children should consist of OptionRow components in this mode */
   multiColumn?: boolean;
   /** Placement of the select list relative to the input element */
-  listPlacement?: "top" | "bottom";
+  listPlacement?: ListPlacement;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
   /** @private @ignore
@@ -96,6 +104,8 @@ export interface SelectListProps {
   virtualScrollOverscan?: number;
   /** @private @ignore A callback for when a mouseDown event occurs on the component */
   onMouseDown?: () => void;
+  /** Override the default width of the list element. Number passed is converted into pixel value */
+  listWidth?: number;
 }
 
 const TABLE_HEADER_HEIGHT = 48;
@@ -125,6 +135,7 @@ const SelectList = React.forwardRef(
       multiselectValues,
       enableVirtualScroll,
       virtualScrollOverscan = 5,
+      listWidth,
       ...listProps
     }: SelectListProps,
     listContainerRef: React.ForwardedRef<HTMLDivElement>
@@ -614,7 +625,7 @@ const SelectList = React.forwardRef(
         size({
           apply({ rects, elements }) {
             Object.assign(elements.floating.style, {
-              width: `${rects.reference.width}px`,
+              width: `${listWidth ?? rects.reference.width}px`,
             });
           },
         }),
@@ -626,7 +637,7 @@ const SelectList = React.forwardRef(
             ]
           : []),
       ],
-      [flipEnabled]
+      [listWidth, flipEnabled]
     );
 
     const loader = isLoading ? (

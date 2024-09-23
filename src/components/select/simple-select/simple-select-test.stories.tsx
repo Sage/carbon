@@ -34,7 +34,14 @@ export default {
     "data-element": { table: { disable: true }, control: false },
     "data-role": { table: { disable: true }, control: false },
     listPlacement: {
-      options: ["bottom", "top"],
+      options: [
+        "top",
+        "bottom",
+        "top-start",
+        "bottom-start",
+        "top-end",
+        "bottom-end",
+      ],
       control: {
         type: "select",
       },
@@ -92,6 +99,7 @@ Default.args = {
   mt: 0,
   listPlacement: undefined,
   flipEnabled: true,
+  listWidth: undefined,
 };
 
 export const DelayedReposition = () => {

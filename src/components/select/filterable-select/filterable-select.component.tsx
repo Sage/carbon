@@ -11,6 +11,7 @@ import withFilter from "../__internal__/utils/with-filter.hoc";
 import StyledSelect from "../select.style";
 import SelectList, {
   SelectListProps,
+  ListPlacement,
 } from "../__internal__/select-list/select-list.component";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
@@ -72,7 +73,7 @@ export interface FilterableSelectProps
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;
   /** Placement of the select list in relation to the input element */
-  listPlacement?: "top" | "bottom";
+  listPlacement?: ListPlacement;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
   /** Set this prop to enable a virtualised list of options. If it is not used then all options will be in the
@@ -93,6 +94,8 @@ export interface FilterableSelectProps
   onChange?: (
     ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
   ) => void;
+  /** Override the default width of the list element. Number passed is converted into pixel value */
+  listWidth?: number;
 }
 
 export const FilterableSelect = React.forwardRef<
@@ -138,6 +141,7 @@ export const FilterableSelect = React.forwardRef<
       disableDefaultFiltering = false,
       isOptional,
       required,
+      listWidth,
       ...textboxProps
     },
     ref
@@ -642,6 +646,19 @@ export const FilterableSelect = React.forwardRef<
       };
     }
 
+    let placement: ListPlacement;
+
+    switch (listPlacement) {
+      case "top":
+        placement = "top-end";
+        break;
+      case "bottom":
+        placement = "bottom-end";
+        break;
+      default:
+        placement = listPlacement;
+    }
+
     const selectListProps = {
       ref: listboxRef,
       id: selectListId.current,
@@ -660,11 +677,12 @@ export const FilterableSelect = React.forwardRef<
       onListScrollBottom,
       tableHeader,
       multiColumn,
-      listPlacement,
+      listPlacement: listWidth !== undefined ? placement : listPlacement,
       flipEnabled,
       isOpen,
       enableVirtualScroll,
       virtualScrollOverscan,
+      listWidth,
     };
 
     const selectList = disableDefaultFiltering ? (
