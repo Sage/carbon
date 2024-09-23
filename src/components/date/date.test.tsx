@@ -1401,3 +1401,24 @@ describe("when the `validationRedesignOptIn` prop is true", () => {
     expect(screen.queryByText("warning message")).not.toBeInTheDocument();
   });
 });
+
+test("should call `onPickerOpen` callback when the user opens the DatePicker and `onPickerClose` callback when the user closes the DatePicker", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const onPickerOpen = jest.fn();
+  const onPickerClose = jest.fn();
+  render(
+    <DateInput
+      label="label"
+      onChange={() => {}}
+      onPickerOpen={onPickerOpen}
+      onPickerClose={onPickerClose}
+      value="010122"
+    />
+  );
+  const input = screen.getByRole("textbox");
+  await user.click(input);
+  expect(onPickerOpen).toHaveBeenCalled();
+
+  await user.click(document.body);
+  expect(onPickerClose).toHaveBeenCalled();
+});
