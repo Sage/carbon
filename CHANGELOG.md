@@ -1,3 +1,10 @@
+### [142.11.6](https://github.com/Sage/carbon/compare/v142.11.5...v142.11.6) (2024-09-23)
+
+
+### Bug Fixes
+
+* **date:** prevent multiple instances of date picker opening at the same time ([d34c4e2](https://github.com/Sage/carbon/commit/d34c4e2053d7212705421aa9953ff61e3078421c))
+
 ### [142.11.5](https://github.com/Sage/carbon/compare/v142.11.4...v142.11.5) (2024-09-20)
 
 
