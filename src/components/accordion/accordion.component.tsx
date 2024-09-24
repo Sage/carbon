@@ -182,6 +182,7 @@ export const Accordion = React.forwardRef<
       <StyledAccordionContainer
         id={accordionId}
         data-component="accordion"
+        data-role="accordion-container"
         width={width}
         borders={variant === "subtle" ? "none" : borders}
         scheme={scheme}
@@ -257,10 +258,12 @@ export const Accordion = React.forwardRef<
         <StyledAccordionContentContainer
           isExpanded={isExpanded}
           maxHeight={contentHeight}
+          data-role="accordion-content-container"
         >
           <StyledAccordionContent
             role="region"
             data-element="accordion-content"
+            data-role="accordion-content"
             id={contentId}
             aria-labelledby={headerId}
             ref={accordionContent}
