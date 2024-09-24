@@ -41,7 +41,11 @@ export const Detail = ({
     </StyledDetailContent>
 
     {footnote && (
-      <StyledDetailFootnote data-element="footnote" hasIcon={!!icon}>
+      <StyledDetailFootnote
+        data-element="footnote"
+        data-role="footnote"
+        hasIcon={!!icon}
+      >
         {footnote}
       </StyledDetailFootnote>
     )}
