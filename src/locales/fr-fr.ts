@@ -102,13 +102,13 @@ const frFR: Partial<Locale> = {
     skipLinkLabel: () => "Passer au contenu principal",
   },
   loader: {
-    loading: () => "Téléhargement",
+    loading: () => "Chargement en cours",
   },
   loaderSpinner: {
-    loading: () => "Téléhargement...",
+    loading: () => "Chargement en cours...",
   },
   loaderStar: {
-    loading: () => "Téléhargement...",
+    loading: () => "Chargement en cours...",
   },
   menuFullscreen: {
     ariaLabels: { closeButton: () => "Fermer" },
