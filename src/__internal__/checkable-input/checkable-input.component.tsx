@@ -171,7 +171,7 @@ const CheckableInput = React.forwardRef(
       >
         <InputBehaviour>
           <FormField {...formFieldProps} my={0}>
-            <StyledCheckableInput>
+            <StyledCheckableInput data-role="checkable-input">
               <HiddenCheckableInput {...inputProps} />
               {children}
             </StyledCheckableInput>
