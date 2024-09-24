@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavigationBar, { NavigationBarProps } from ".";
 import { Menu, MenuDivider, MenuItem } from "../menu";
 import Box from "../box";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 export const NavigationBarComponent = ({
   children,
@@ -214,6 +215,8 @@ Fixed.parameters = {
 export const NavigationBarWithErrorHandler = ({
   ...props
 }: NavigationBarProps) => {
+  const isLargeScreen = useMediaQuery("(min-width: 600px)");
+  const rightPadding = isLargeScreen ? 2 : 1;
   const [error, setError] = useState("");
   useEffect(() => {
     const handleError = (e: ErrorEvent) => {
@@ -225,7 +228,7 @@ export const NavigationBarWithErrorHandler = ({
   });
   return (
     <>
-      <NavigationBar {...props} />
+      <NavigationBar pr={rightPadding} {...props} />
       <div id="error-div">{error}</div>
     </>
   );

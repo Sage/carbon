@@ -1,3 +1,38 @@
+### [142.11.6](https://github.com/Sage/carbon/compare/v142.11.5...v142.11.6) (2024-09-23)
+
+
+### Bug Fixes
+
+* **date:** prevent multiple instances of date picker opening at the same time ([d34c4e2](https://github.com/Sage/carbon/commit/d34c4e2053d7212705421aa9953ff61e3078421c))
+
+### [142.11.5](https://github.com/Sage/carbon/compare/v142.11.4...v142.11.5) (2024-09-20)
+
+
+### Bug Fixes
+
+* **navigation-bar:** move context provider to not wrap parent ([a265b1c](https://github.com/Sage/carbon/commit/a265b1cdc18d01c35c1ecf88299f9dc4fc76208c))
+
+### [142.11.4](https://github.com/Sage/carbon/compare/v142.11.3...v142.11.4) (2024-09-20)
+
+
+### Bug Fixes
+
+* **toast:** ensure closed toasts do not trigger axe warnings ([6183351](https://github.com/Sage/carbon/commit/6183351ff6ba00bd032506e3ef61f296f720b080))
+
+### [142.11.3](https://github.com/Sage/carbon/compare/v142.11.2...v142.11.3) (2024-09-19)
+
+
+### Bug Fixes
+
+* **tabs:** tab headers jump in width when navigating through them ([7c70261](https://github.com/Sage/carbon/commit/7c7026103f4f6b0f59b2c170f3f2523dd356832b)), closes [#6554](https://github.com/Sage/carbon/issues/6554)
+
+### [142.11.2](https://github.com/Sage/carbon/compare/v142.11.1...v142.11.2) (2024-09-19)
+
+
+### Bug Fixes
+
+* **form, dialog:** tabbing in FireFox - focus incorrect ([43ff681](https://github.com/Sage/carbon/commit/43ff681be9365ba1ba4315bf50f04e79b9e88545))
+
 ### [142.11.1](https://github.com/Sage/carbon/compare/v142.11.0...v142.11.1) (2024-09-18)
 
 
