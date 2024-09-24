@@ -49,8 +49,17 @@ export const VersionPicker = () => {
     }
 
     const getData = async () => {
-      const data = await fetchData();
-      setVersions(data.versions);
+      try {
+        const data = await fetchData();
+        if (data) {
+          setVersions(data.versions);
+        } else {
+          throw new Error("Failed to fetch metadata");
+        }
+      } catch (error) {
+        console.error("Failed to retrieve version data:", error);
+        setVersions(undefined);
+      }
     };
 
     getData();
