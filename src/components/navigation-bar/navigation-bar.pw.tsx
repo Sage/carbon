@@ -39,7 +39,7 @@ test.describe("Test props for NavigationBar component", () => {
   }) => {
     await mount(<NavigationBarWithErrorHandler />);
 
-    await expect(page.locator("#error-div")).toContainText("");
+    await expect(page.locator("#error-div")).toHaveText("");
   });
 
   specialCharacters.forEach((childrenValue) => {

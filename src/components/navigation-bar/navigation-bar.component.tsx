@@ -40,27 +40,27 @@ export const NavigationBar = ({
   const navbarRef = useRef(null);
 
   return (
-    <FixedNavigationBarContextProvider
+    <StyledNavigationBar
+      role="navigation"
+      data-component={isGlobal ? "global-header" : "navigation-bar"}
+      aria-label={isGlobal ? "Global Header" : ariaLabel}
+      navigationType={isGlobal ? "black" : navigationType}
       orientation={isGlobal ? "top" : orientation}
       offset={isGlobal ? "0px" : offset}
       position={isGlobal ? "fixed" : position}
-      navbarRef={navbarRef}
+      {...props}
+      isGlobal={isGlobal}
+      ref={navbarRef}
     >
-      <StyledNavigationBar
-        role="navigation"
-        data-component={isGlobal ? "global-header" : "navigation-bar"}
-        aria-label={isGlobal ? "Global Header" : ariaLabel}
-        navigationType={isGlobal ? "black" : navigationType}
+      <FixedNavigationBarContextProvider
         orientation={isGlobal ? "top" : orientation}
         offset={isGlobal ? "0px" : offset}
         position={isGlobal ? "fixed" : position}
-        {...props}
-        isGlobal={isGlobal}
-        ref={navbarRef}
+        navbarRef={navbarRef}
       >
         {!isLoading && children}
-      </StyledNavigationBar>
-    </FixedNavigationBarContextProvider>
+      </FixedNavigationBarContextProvider>
+    </StyledNavigationBar>
   );
 };
 

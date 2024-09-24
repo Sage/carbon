@@ -3,22 +3,30 @@ import * as FlatTableThemesStories from "./flat-table-themes.stories";
 
 <Meta of={FlatTableThemesStories} />
 
-# Table Header Color Themes
+# FlatTable color theming
 
 ## Examples
 
-### With transparent-white theme
+### With white header row
 
-To create a transparent effect for the header, the background-color is set to match a white background
+Setting `FlatTable`'s `colorTheme` prop to "transparent-white" will make both the header row and body rows white:
 
 <Canvas of={FlatTableThemesStories.TransparentWhiteTheme} />
 
-### With transparent-base theme
+### With light grey header row
 
-To create a transparent effect for the header, the background-color is set to match the base app background
+Setting `FlatTable`'s `colorTheme` prop to "transparent-base" will make the header row light grey:
 
 <Canvas of={FlatTableThemesStories.TransparentBaseTheme} />
 
-### With light theme
+### With grey header row
+
+Setting `FlatTable`'s `colorTheme` prop to "light" will make the header row grey:
 
 <Canvas of={FlatTableThemesStories.LightTheme} />
+
+### Minimal design
+
+Here is an example of a minimalistic design using a combination of `FlatTable` props:
+
+<Canvas of={FlatTableThemesStories.MinimalDesign}/>
