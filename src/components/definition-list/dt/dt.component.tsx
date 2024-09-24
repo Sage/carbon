@@ -14,6 +14,7 @@ const Dt = ({ children, ...rest }: DtProps) => {
   return (
     <StyledDt
       data-element="dt"
+      data-role="dt"
       mb={mb || asSingleColumn ? undefined : 2}
       pr={pr || asSingleColumn ? undefined : 3}
       dtTextAlign={dtTextAlign}

@@ -26,6 +26,7 @@ const Dl = ({
     <StyledDl
       w={w}
       data-component="dl"
+      data-role="dl"
       asSingleColumn={asSingleColumn}
       {...rest}
     >

@@ -14,6 +14,7 @@ const Dd = ({ children, ...rest }: DdProps) => {
   return (
     <StyledDd
       data-element="dd"
+      data-role="dd"
       asSingleColumn={asSingleColumn}
       ddTextAlign={ddTextAlign}
       mb={mb || 2}
