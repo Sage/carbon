@@ -40,6 +40,7 @@ export const Content = ({
         variant={variant}
         inline={inline}
         data-element="content-title"
+        data-role="content-title"
         titleWidth={titleWidth}
         align={align}
       >
@@ -50,6 +51,7 @@ export const Content = ({
         variant={variant}
         inline={inline}
         data-element="content-body"
+        data-role="content-body"
         bodyFullWidth={bodyFullWidth}
         titleWidth={titleWidth}
         align={align}
