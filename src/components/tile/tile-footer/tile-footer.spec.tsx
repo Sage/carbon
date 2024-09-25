@@ -6,7 +6,7 @@ import {
   testStyledSystemPadding,
 } from "../../../__spec_helper__/__internal__/test-utils";
 import StyledTileFooter from "./tile-footer.style";
-import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
+import rootTagTest from "../../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("TileFooter", () => {
   let wrapper: ReactWrapper;
