@@ -214,9 +214,7 @@ export const SimpleSelect = React.forwardRef<
             return previousValue;
           }
 
-          if (onChange) {
-            onChange(createCustomEvent(match.props.value));
-          }
+          onChange?.(createCustomEvent(match.props.value));
 
           if (isControlled.current) {
             return previousValue;
@@ -258,21 +256,15 @@ export const SimpleSelect = React.forwardRef<
       (event) => {
         const { key } = event;
 
-        if (onKeyDown) {
-          onKeyDown(event);
-        }
+        onKeyDown?.(event);
 
-        if (readOnly) {
-          return;
-        }
+        if (readOnly) return;
 
         if (key === " " || isNavigationKey(key)) {
           event.preventDefault();
 
           setOpenState((isAlreadyOpen) => {
-            if (!isAlreadyOpen && onOpen) {
-              onOpen();
-            }
+            if (!isAlreadyOpen) onOpen?.();
 
             return true;
           });
@@ -351,18 +343,14 @@ export const SimpleSelect = React.forwardRef<
     function handleTextboxClick(event: React.MouseEvent<HTMLInputElement>) {
       isMouseDownReported.current = false;
 
-      if (onClick) {
-        onClick(event);
-      }
+      onClick?.(event);
 
       setOpenState((isAlreadyOpen) => {
         if (isAlreadyOpen) {
           return false;
         }
 
-        if (onOpen) {
-          onOpen();
-        }
+        onOpen?.();
 
         return true;
       });
@@ -383,9 +371,7 @@ export const SimpleSelect = React.forwardRef<
         return;
       }
 
-      if (onBlur) {
-        onBlur(event);
-      }
+      onBlur?.(event);
     }
 
     function handleTextboxMouseDown() {
@@ -397,9 +383,7 @@ export const SimpleSelect = React.forwardRef<
         return;
       }
 
-      if (onFocus) {
-        onFocus(event);
-      }
+      onFocus?.(event);
 
       if (isMouseDownReported.current) {
         isMouseDownReported.current = false;
@@ -420,9 +404,7 @@ export const SimpleSelect = React.forwardRef<
               return true;
             }
 
-            if (onOpen) {
-              onOpen();
-            }
+            onOpen?.();
 
             return true;
           });
@@ -440,9 +422,7 @@ export const SimpleSelect = React.forwardRef<
         setTextValue(text);
       }
 
-      if (onChange) {
-        onChange(createCustomEvent(newValue, selectionConfirmed));
-      }
+      onChange?.(createCustomEvent(newValue, selectionConfirmed));
     }
 
     function onSelectOption(optionData: OptionData) {
