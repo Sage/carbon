@@ -26,7 +26,7 @@ import Icon from "../icon";
 import guid from "../../__internal__/utils/helpers/guid";
 import { Select, Option } from "../select";
 import useMediaQuery from "../../hooks/useMediaQuery";
-import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
+import rootTagTest from "../../__internal__/utils/helpers/tags/tags-specs";
 
 jest.mock("../../hooks/useMediaQuery", () => {
   return {
