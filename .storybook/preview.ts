@@ -108,6 +108,7 @@ const preview: Preview = {
   decorators,
   globalTypes,
   loaders,
+  tags: ["autodocs"],
 };
 
 export default preview;

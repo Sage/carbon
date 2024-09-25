@@ -67,7 +67,7 @@
     "@babel/preset-typescript": "^7.23.3",
     "@babel/template": "^7.22.15",
     "@babel/types": "^7.23.4",
-    "@chromatic-com/storybook": "^2.0.2",
+    "@chromatic-com/storybook": "^1.9.0",
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
     "@playwright/experimental-ct-react17": "~1.47.0",
