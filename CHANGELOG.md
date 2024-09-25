@@ -1,3 +1,10 @@
+### [142.11.7](https://github.com/Sage/carbon/compare/v142.11.6...v142.11.7) (2024-09-25)
+
+
+### Bug Fixes
+
+* **loader:** translations for france ([e2f0a46](https://github.com/Sage/carbon/commit/e2f0a464139fb73e77b10be6c664223bf4258a5a))
+
 ### [142.11.6](https://github.com/Sage/carbon/compare/v142.11.5...v142.11.6) (2024-09-23)
 
 
