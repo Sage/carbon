@@ -264,7 +264,6 @@ export const Textarea = React.forwardRef(
 
         const scrollPosition = scrollElement?.scrollTop;
 
-        textarea.style.height = "0px";
         // Set the height so all content is shown
         textarea.style.height = `${Math.max(
           textarea.scrollHeight,
