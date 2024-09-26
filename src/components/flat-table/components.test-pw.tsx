@@ -3006,3 +3006,28 @@ export const HighlightedRowWithLoadingState = (
     </div>
   );
 };
+
+export const FlatTableWithStickyColumn = () => (
+  <FlatTable width="260px" overflowX="auto">
+    <FlatTableHead>
+      <FlatTableRow>
+        <FlatTableHeader>Foo</FlatTableHeader>
+        <FlatTableRowHeader>Foo</FlatTableRowHeader>
+        <FlatTableHeader>Foo</FlatTableHeader>
+        <FlatTableHeader>Foo</FlatTableHeader>
+        <FlatTableHeader>Foo</FlatTableHeader>
+      </FlatTableRow>
+    </FlatTableHead>
+    <FlatTableBody>
+      <FlatTableRow>
+        <FlatTableCell>Bar</FlatTableCell>
+        <FlatTableRowHeader>Bar</FlatTableRowHeader>
+        <FlatTableCell>Bar</FlatTableCell>
+        <FlatTableCell>Bar</FlatTableCell>
+        <FlatTableCell>
+          <input />
+        </FlatTableCell>
+      </FlatTableRow>
+    </FlatTableBody>
+  </FlatTable>
+);

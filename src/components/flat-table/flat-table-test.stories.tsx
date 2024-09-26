@@ -36,7 +36,8 @@ export default {
     "FlatTableSizeFocus",
     "FlatTableInsideDrawer",
     "FlatRowHeaderWithNoPaddingAndButtons",
-    "MinimalDesign",
+    "FlatTableThemesWithAlternateHeaderBackground",
+    "FlatTableThemesWithStickyHead",
   ],
   parameters: {
     info: { disable: true },
@@ -789,4 +790,83 @@ export const FlatRowHeaderWithNoPaddingAndButtons = () => {
       </FlatTableBody>
     </FlatTable>
   );
+};
+
+const themes: Array<FlatTableProps["colorTheme"]> = [
+  "dark",
+  "light",
+  "transparent-base",
+  "transparent-white",
+];
+
+export const FlatTableThemesWithAlternateHeaderBackground = () => (
+  <>
+    {themes.map((ftTheme, index) => (
+      <React.Fragment key={`${ftTheme}-with-alt-background-${index + 1}`}>
+        <FlatTable
+          aria-label={`${ftTheme}-with-alt-background`}
+          mt={1}
+          colorTheme={ftTheme}
+        >
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader alternativeBgColor>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </React.Fragment>
+    ))}
+  </>
+);
+FlatTableThemesWithAlternateHeaderBackground.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const FlatTableThemesWithStickyHead = () => (
+  <>
+    {themes.map((ftTheme, index) => (
+      <React.Fragment key={`${ftTheme}-with-sticky-head-${index + 1}`}>
+        <FlatTable
+          aria-label={`${ftTheme}-with-sticky-head`}
+          height="100px"
+          mt={1}
+          colorTheme={ftTheme}
+          hasStickyHead
+        >
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>John Doe</FlatTableCell>
+              <FlatTableCell>London</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      </React.Fragment>
+    ))}
+  </>
+);
+FlatTableThemesWithStickyHead.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };

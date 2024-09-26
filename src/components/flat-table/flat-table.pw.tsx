@@ -33,6 +33,7 @@ import {
   FlatTableCheckboxComponent,
   FlatTableFirstColumnHasRowspan,
   FlatTableLastColumnHasRowspan,
+  FlatTableWithStickyColumn,
 } from "./components.test-pw";
 import Icon from "../icon";
 import { getDataElementByValue } from "../../../playwright/components";
@@ -664,6 +665,38 @@ test.describe("Prop tests", () => {
     await expect(
       flatTableBodyRowByPosition(page, 1).locator("th").nth(0)
     ).toBeInViewport();
+  });
+
+  test("should render with sticky columns when FlatTableRowHeader is used", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableWithStickyColumn />);
+
+    const bodyCell1 = flatTableBodyRowByPosition(page, 0).locator("td").nth(0);
+    const bodyStickyCell = flatTableBodyRowByPosition(page, 0)
+      .locator("th")
+      .nth(0);
+    const input = flatTable(page).locator("input");
+
+    await expect(
+      flatTableHeaderRowByPosition(page, 0).locator("th").nth(0)
+    ).toHaveCSS("position", "sticky");
+    await expect(
+      flatTableHeaderRowByPosition(page, 0).locator("th").nth(1)
+    ).toHaveCSS("position", "sticky");
+    await expect(bodyCell1).toHaveCSS("position", "sticky");
+    await expect(bodyStickyCell).toHaveCSS("position", "sticky");
+
+    await expect(bodyCell1).toBeInViewport();
+    await expect(bodyStickyCell).toBeInViewport();
+    await expect(input).not.toBeInViewport();
+
+    await input.focus();
+
+    await expect(bodyCell1).toBeInViewport();
+    await expect(bodyStickyCell).toBeInViewport();
+    await expect(input).toBeInViewport();
   });
 
   test(`should render with colSpan set to make cells span 4 columns`, async ({
