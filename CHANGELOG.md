@@ -1,3 +1,10 @@
+## [142.12.0](https://github.com/Sage/carbon/compare/v142.11.8...v142.12.0) (2024-09-26)
+
+
+### Features
+
+* **version-picker:** reintroduce the version picker for storybook ([9d8ccf0](https://github.com/Sage/carbon/commit/9d8ccf040d32e09e10a806d5eb503438e60b7007))
+
 ### [142.11.8](https://github.com/Sage/carbon/compare/v142.11.7...v142.11.8) (2024-09-26)
 
 
