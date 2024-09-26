@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
+import { StoryObj } from "@storybook/react/*";
 import Textarea, { TextareaProps } from ".";
 import Dialog from "../dialog";
 import Form from "../form";
 import Button from "../button";
+import isChromatic from "../../../.storybook/isChromatic";
 
 interface TextareaTestProps extends TextareaProps {
   labelHelp?: string;
@@ -11,7 +13,7 @@ interface TextareaTestProps extends TextareaProps {
 
 export default {
   title: "Textarea/Test",
-  includeStories: ["Default", "InScrollableContainer"],
+  includeStories: ["Default", "InScrollableContainer", "WithExpandableAndRows"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -201,4 +203,58 @@ export const InScrollableContainer = () => {
       </Form>
     </Dialog>
   );
+};
+
+const defaultOpenState = isChromatic();
+type StoryType = StoryObj<typeof Textarea>;
+
+export const WithExpandableAndRows: StoryType = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  const [value, setValue] = useState("Generic text");
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+      <Dialog
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Title"
+        subtitle="Subtitle"
+        size="small"
+      >
+        <Form
+          stickyFooter
+          height="300px"
+          leftSideButtons={
+            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+          }
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Textarea
+            value={value}
+            onChange={({ target }) => setValue(target.value)}
+            expandable
+            rows={11}
+          />
+        </Form>
+      </Dialog>
+    </>
+  );
+};
+
+WithExpandableAndRows.storyName =
+  "With expandable and rows in a dialog with form";
+WithExpandableAndRows.decorators = [
+  (Story) => (
+    <div style={{ height: "100vh", width: "100vw" }}>
+      <Story />
+    </div>
+  ),
+];
+WithExpandableAndRows.parameters = {
+  chromatic: { disableSnapshot: false },
 };
