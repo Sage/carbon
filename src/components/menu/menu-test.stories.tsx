@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Meta } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { userEvent, waitFor, within } from "@storybook/test";
 import { allModes } from "../../../.storybook/modes";
 import isChromatic from "../../../.storybook/isChromatic";
 import {
@@ -20,6 +21,7 @@ import GlobalHeader from "../global-header";
 import PopoverContainer from "../popover-container";
 import Button from "../button";
 import Icon from "../icon";
+import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 const defaultOpenState = isChromatic();
 
@@ -37,6 +39,8 @@ const meta: Meta<typeof Menu> = {
     "AsLinkWithAlternateVariant",
     "MenuWithSubmenuCustomPadding",
     "WhenMenuItemsWrap",
+    "MenuInteractionHover",
+    "MenuInteractionKeyboard",
   ],
   parameters: {
     info: { disable: true },
@@ -509,3 +513,73 @@ export const WhenMenuItemsWrap = () => {
   );
 };
 WhenMenuItemsWrap.storyName = "When menu items wrap";
+
+// Play Functions
+export { meta };
+
+type Story = StoryObj<typeof Menu>;
+
+const MenuPlayStory = () => {
+  return (
+    <Box mb={150}>
+      <Menu menuType="light">
+        <MenuItem className="foooooo" href="#">
+          Menu Item One
+        </MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#">
+            Item Submenu Three
+          </MenuItem>
+          <MenuItem href="#">Item Submenu Four</MenuItem>
+        </MenuItem>
+        <MenuItem submenu="Menu Item Four" onClick={() => {}}>
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+};
+
+export const MenuInteractionHover: Story = {
+  render: () => <MenuPlayStory />,
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const MenuItemThreeElement = canvas.getByText("Menu Item Three");
+
+    await userEvent.hover(MenuItemThreeElement);
+  },
+};
+
+MenuInteractionHover.storyName = "Menu Interaction Hover";
+
+export const MenuInteractionKeyboard: Story = {
+  render: () => <MenuPlayStory />,
+  play: async () => {
+    await userEvent.tab();
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.tab();
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.tab();
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowDown}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowDown}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowDown}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowDown}");
+  },
+};
+
+MenuInteractionKeyboard.storyName = "Menu Interaction Keyboard";

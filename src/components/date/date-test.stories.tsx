@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, waitFor, within } from "@storybook/test";
 
-import { StoryObj } from "@storybook/react";
 import DateInput, { DateChangeEvent } from "./date.component";
 import {
   CommonTextboxArgs,
@@ -12,6 +13,8 @@ import {
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Box from "../box";
 import Confirm from "../confirm";
+import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
+import styledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 export default {
   title: "Date Input/Test",
@@ -148,3 +151,84 @@ export const MultipleDates: StoryObj<typeof DateInput> = () => {
 MultipleDates.storyName =
   "Multiple Dates with onPickerOpen and onPickerClose callbacks";
 MultipleDates.parameters = { chromatic: { disableSnapshot: true } };
+// Play Functions
+const meta: Meta<typeof DateInput> = {
+  title: "DateInput",
+  component: DateInput,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof Date>;
+
+const DateInputDefaultComponent = () => {
+  const [state, setState] = useState("2019-04-04");
+  const setValue = (ev: DateChangeEvent) => {
+    action("onChange")(ev.target.value);
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <DateInput
+      name="dateinput"
+      value={state}
+      onChange={setValue}
+      onBlur={(ev) => {
+        action("onBlur")(ev.target.value);
+      }}
+      onKeyDown={(ev) =>
+        action("onKeyDown")((ev.target as HTMLInputElement).value)
+      }
+      onClick={(ev) => action("onClick")((ev.target as HTMLInputElement).value)}
+    />
+  );
+};
+
+export const DateInputClick: Story = {
+  render: () => <DateInputDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const dateInputElement = canvas.getByRole("textbox");
+
+    await userEvent.click(dateInputElement);
+  },
+};
+
+DateInputClick.storyName = "Date Input Click";
+
+export const DateInputKeyboardInteraction: Story = {
+  render: () => <DateInputDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const dateInputElement = canvas.getByRole("textbox");
+
+    await userEvent.click(dateInputElement);
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.tab();
+    await userEvent.tab();
+    await userEvent.tab();
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowdown}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowdown}");
+    await waitFor(() => userInteractionPause(300));
+  },
+};
+
+DateInputKeyboardInteraction.storyName = "Date Input Keyboard Interaction";
+
+export const DateInputTyped: Story = {
+  render: () => <DateInputDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const dateInputElement = canvas.getByRole("textbox");
+
+    await userEvent.click(dateInputElement);
+  },
+};

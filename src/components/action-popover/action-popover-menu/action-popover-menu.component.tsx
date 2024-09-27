@@ -264,6 +264,7 @@ const ActionPopoverMenu = React.forwardRef<
     return (
       <Menu
         data-component="action-popover"
+        data-role="action-popover-menu"
         isOpen={isOpen}
         onKeyDown={onKeyDown}
         id={menuID}

@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/test";
+
 import Button from "../button";
 import Box from "../box";
 import PopoverContainer, {
@@ -11,6 +14,7 @@ import Typography from "../typography";
 import Search from "../search";
 import IconButton from "../icon-button";
 import Icon from "../icon";
+import styledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 export default {
   title: "Popover Container/Test",
@@ -22,6 +26,8 @@ export default {
     "InsideMenu",
     "InsideMenuWithOpenButton",
     "WithFullWidthButton",
+    "InSideMenu",
+    "PopoverContainerInteraction",
   ],
   parameters: {
     info: { disable: true },
@@ -245,4 +251,47 @@ export const WithFullWidthButton = () => {
       Content
     </PopoverContainer>
   );
+};
+
+// Play Functions
+const meta: Meta<typeof PopoverContainer> = {
+  title: "PopoverContainer",
+  component: PopoverContainer,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof PopoverContainer>;
+
+const DefaultPopoverContainerComponent = () => {
+  const [open, setOpen] = useState(false);
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+  return (
+    <div style={{ height: 100 }}>
+      <PopoverContainer
+        title="Cover Button"
+        shouldCoverButton
+        open={open}
+        onClose={onClose}
+        onOpen={onOpen}
+      >
+        Content
+      </PopoverContainer>
+    </div>
+  );
+};
+
+export const PopoverContainerInteraction: Story = {
+  render: () => <DefaultPopoverContainerComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const ButtonComponent = canvas.getByRole("button");
+
+    await userEvent.click(ButtonComponent);
+  },
 };

@@ -1,5 +1,8 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
+import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, waitFor, within } from "@storybook/test";
+
 import MultiActionButton, {
   MultiActionButtonProps,
 } from "./multi-action-button.component";
@@ -11,10 +14,16 @@ import {
   MULTI_ACTION_BUTTON_THEMES,
   MULTI_ACTION_BUTTON_POSITIONS,
 } from "./multi-action-button.config";
+import styledSystemProps from "../../../.storybook/utils/styled-system-props";
+import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 export default {
   title: "Multi Action Button/Test",
-  includeStories: ["MultiActionButtonStory"],
+  includeStories: [
+    "MultiActionButtonStory",
+    "MultiActionButtonClick",
+    "MultiActionButtonKeyboard",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -86,5 +95,59 @@ MultiActionButtonStory.story = {
     subtext: "",
     text: "Multi Action Button",
     position: "left",
+  },
+};
+
+// Play Functions
+const meta: Meta<typeof MultiActionButton> = {
+  title: "MultiActionButton",
+  component: MultiActionButton,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof MultiActionButton>;
+
+const MultiActionButtonDefaultComponent = () => {
+  return (
+    <MultiActionButton text="Multi Action Button">
+      <Button href="#">Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </MultiActionButton>
+  );
+};
+
+export const MultiActionButtonClick: Story = {
+  render: () => <MultiActionButtonDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const ButtonComponent = canvas.getByRole("button");
+
+    await userEvent.click(ButtonComponent);
+  },
+};
+
+export const MultiActionButtonKeyboard: Story = {
+  render: () => <MultiActionButtonDefaultComponent />,
+  play: async () => {
+    await userEvent.tab();
+    await userEvent.keyboard("{arrowdown}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowdown}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowdown}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowup}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowup}");
   },
 };

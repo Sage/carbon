@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { action } from "@storybook/addon-actions";
+import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, waitFor, within } from "@storybook/test";
 
 import {
   ActionPopover,
@@ -17,11 +19,19 @@ import {
   FlatTableHeader,
   FlatTableCell,
 } from "../flat-table";
+import styledSystemProps from "../../../.storybook/utils/styled-system-props";
+import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 import Box from "../box";
 
 export default {
   title: "Action Popover/Test",
-  includeStories: ["Default", "LongMenuExample"],
+  includeStories: [
+    "Default",
+    "LongMenuExample",
+    "ActionPopoverClick",
+    "ActionPopoverSubmenuClick",
+    "ActionPopoverKeyboard",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -800,3 +810,116 @@ export const LongMenuExample = () => {
     </Box>
   );
 };
+
+// Play Functions
+const meta: Meta<typeof ActionPopover> = {
+  title: "ActionPopover",
+  component: ActionPopover,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof ActionPopover>;
+
+const ActionPopoverDefaultComponent = () => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem disabled onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+  return (
+    <Box mt={40} height={275}>
+      <ActionPopover onOpen={() => {}} onClose={() => {}}>
+        <ActionPopoverItem
+          disabled
+          icon="graph"
+          submenu={submenu}
+          onClick={() => {}}
+        >
+          Business
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          data-role="print-invoice"
+          icon="print"
+          onClick={() => {}}
+          submenu={submenu}
+        >
+          Print Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem icon="delete" onClick={() => {}}>
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
+  );
+};
+
+export const ActionPopoverClick: Story = {
+  render: () => <ActionPopoverDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const actionPopoverButtons = canvas.getAllByRole("button");
+    await userEvent.click(actionPopoverButtons[0]);
+  },
+};
+
+ActionPopoverClick.storyName = "ActionPopover Click";
+ActionPopoverClick.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+export const ActionPopoverSubmenuClick: Story = {
+  render: () => <ActionPopoverDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    // This is required due to a known issue with the canvasElement not being the parent of the component when a Portal is used.
+    // https://github.com/storybookjs/storybook/issues/26963
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const canvas = within(canvasElement.parentElement!);
+    const actionPopoverButtons = canvas.getAllByRole("button");
+    await userEvent.click(actionPopoverButtons[0]);
+    await waitFor(() => userInteractionPause(300));
+
+    const elementWithSubmenu = canvas.getByRole("button", {
+      name: "Print Invoice",
+    });
+    await userEvent.hover(elementWithSubmenu);
+  },
+};
+
+ActionPopoverSubmenuClick.storyName = "ActionPopover Submenu Click";
+ActionPopoverSubmenuClick.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+export const ActionPopoverKeyboard: Story = {
+  render: () => <ActionPopoverDefaultComponent />,
+  play: async () => {
+    await userEvent.tab();
+    await waitFor(() => userInteractionPause(300));
+    await userEvent.keyboard("{enter}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowdown}");
+    await waitFor(() => userInteractionPause(300));
+    await userEvent.keyboard("{arrowright}");
+  },
+};
+
+ActionPopoverKeyboard.storyName = "ActionPopover Keyboard";
