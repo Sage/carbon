@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import { userEvent, within } from "@storybook/test";
+import { Meta, StoryObj } from "@storybook/react";
+
 import Alert from ".";
 import Button from "../button";
+import styledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 export default {
   title: "Alert/Test",
-  includeStories: ["DefaultStory"],
+  includeStories: ["DefaultStory", "AlertClick"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -109,4 +113,49 @@ export const AlertComponentTest = ({
       </Alert>
     </>
   );
+};
+
+// Play Functions
+const meta: Meta<typeof Alert> = {
+  title: "Alert",
+  component: Alert,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof Alert>;
+
+export const DefaultAlertComponent = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Alert</Button>
+      <Alert
+        onCancel={() => setIsOpen(false)}
+        title="Title"
+        disableEscKey={false}
+        height=""
+        subtitle="Subtitle"
+        showCloseIcon
+        size="extra-small"
+        open={isOpen}
+      >
+        This is an example of an alert
+      </Alert>
+    </>
+  );
+};
+
+export const AlertClick: Story = {
+  render: () => <DefaultAlertComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const ButtonComponent = canvas.getByRole("button");
+
+    await userEvent.click(ButtonComponent);
+  },
 };
