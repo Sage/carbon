@@ -41,6 +41,7 @@ const config: StorybookConfig = {
         },
       },
     },
+    "@storybook/addon-interactions",
     "@storybook/addon-toolbars",
     "@storybook/addon-viewport",
     "@storybook/addon-webpack5-compiler-swc",

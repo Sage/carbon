@@ -1,3 +1,4 @@
+import { configure } from "@storybook/test";
 import withGlobalStyles from "./with-global-styles";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
 import withLocaleSelector from "./with-locale-selector";
@@ -7,6 +8,9 @@ import sageStorybookTheme from "./sage-storybook-theme";
 import "../src/style/fonts.css";
 import isChromatic from "./isChromatic";
 import { Preview } from "@storybook/react";
+
+// Configure the testIdAttribute to look for data-role when querying elements using `getByTestId`.
+configure({ testIdAttribute: "data-role" });
 
 const customViewports = {
   xsm: { name: "Extra small", styles: { width: "320px", height: "900px" } },
