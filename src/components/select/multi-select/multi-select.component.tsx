@@ -288,9 +288,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         const { key } = event;
         const isDeleteKey = key === "Backspace" || key === "Delete";
 
-        if (onKeyDown) {
-          onKeyDown(event);
-        }
+        onKeyDown?.(event);
 
         if (readOnly) {
           return;
@@ -449,8 +447,8 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     );
     const isFirstRender = useRef(true);
     useEffect(() => {
-      if (onFilterChange && !isFirstRender.current) {
-        onFilterChange(filterText);
+      if (!isFirstRender.current) {
+        onFilterChange?.(filterText);
       }
     }, [onFilterChange, filterText]);
 
@@ -461,9 +459,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     function handleTextboxClick(event: React.MouseEvent<HTMLInputElement>) {
       isMouseDownReported.current = false;
 
-      if (onClick) {
-        onClick(event);
-      }
+      onClick?.(event);
 
       if (!openOnFocus || (openOnFocus && !isOpenedByFocus.current)) {
         if (isOpen) {
@@ -485,9 +481,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     ) {
       isMouseDownReported.current = false;
 
-      if (onClick) {
-        onClick(event as React.MouseEvent<HTMLInputElement>);
-      }
+      onClick?.(event as React.MouseEvent<HTMLInputElement>);
 
       setOpenState((isAlreadyOpen) => {
         if (isAlreadyOpen) {
@@ -495,9 +489,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           return false;
         }
 
-        if (onOpen) {
-          onOpen();
-        }
+        onOpen?.();
 
         return true;
       });
@@ -512,9 +504,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
       isInputFocused.current = false;
 
-      if (onBlur) {
-        onBlur(event);
-      }
+      onBlur?.(event);
     }
 
     function handleTextboxMouseDown(event: React.MouseEvent<HTMLElement>) {
@@ -530,8 +520,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     }
 
     function handleTextboxFocus(event: React.FocusEvent<HTMLInputElement>) {
-      const triggerFocus = () => onFocus?.(event);
-
       if (openOnFocus) {
         if (focusTimer.current) {
           clearTimeout(focusTimer.current);
@@ -545,11 +533,10 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
               return true;
             }
 
-            if (onOpen) {
-              onOpen();
-            }
+            onOpen?.();
+
             if (onFocus && !isInputFocused.current) {
-              triggerFocus();
+              onFocus?.(event);
               isInputFocused.current = true;
             }
 
@@ -565,7 +552,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           });
         });
       } else if (onFocus && !isInputFocused.current) {
-        triggerFocus();
+        onFocus?.(event);
         isInputFocused.current = true;
       }
     }
