@@ -6,7 +6,7 @@ import React, {
   useMemo,
 } from "react";
 import { PaddingProps } from "styled-system";
-import { Transition, TransitionStatus } from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 import { flip, offset } from "@floating-ui/dom";
 
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -210,15 +210,13 @@ export const PopoverContainer = ({
         | React.KeyboardEvent<HTMLElement>
         | KeyboardEvent
     ) => {
-      if (!isControlled) {
-        setIsOpenInternal(false);
-      }
-      if (onClose) {
-        onClose(ev);
-      }
-      if (isOpen && openButtonRef.current) {
-        openButtonRef.current.focus();
-      }
+      /* istanbul ignore else */
+      if (!isControlled) setIsOpenInternal(false);
+
+      onClose?.(ev);
+
+      /* istanbul ignore else */
+      if (isOpen) openButtonRef.current?.focus();
     },
     [isControlled, isOpen, onClose]
   );
@@ -251,12 +249,12 @@ export const PopoverContainer = ({
   const handleOpenButtonClick = (
     e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
   ) => {
+    /* istanbul ignore else */
     if (!isControlled) setIsOpenInternal(!isOpen);
 
     // We want the open button to close the popover if it is already open
-    if (!isOpen) {
-      if (onOpen) onOpen(e);
-    } else if (onClose) onClose(e);
+    if (!isOpen) onOpen?.(e);
+    else onClose?.(e);
   };
 
   const handleCloseButtonClick = (
@@ -294,17 +292,16 @@ export const PopoverContainer = ({
 
   const handleClickAway = (e: Event) => {
     if (!isControlled) setIsOpenInternal(false);
-    if (onClose && isOpen) onClose(e);
+    if (isOpen) onClose?.(e);
   };
 
   const handleClick = useClickAwayListener(handleClickAway, "mousedown");
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
-  const popover = (state: TransitionStatus) => (
+  const popover = () => (
     <PopoverContainerContentStyle
       data-element="popover-container-content"
       role="dialog"
-      animationState={state}
       aria-labelledby={popoverContainerId}
       aria-label={containerAriaLabel}
       aria-describedby={ariaDescribedBy}
@@ -327,15 +324,15 @@ export const PopoverContainer = ({
     </PopoverContainerContentStyle>
   );
 
-  const childrenToRender = (state: TransitionStatus) =>
+  const childrenToRender = () =>
     shouldCoverButton ? (
       <ModalContext.Provider value={{ isAnimationComplete }}>
         <FocusTrap wrapperRef={popoverContentNodeRef} isOpen={isOpen}>
-          {popover(state)}
+          {popover()}
         </FocusTrap>
       </ModalContext.Provider>
     ) : (
-      popover(state)
+      popover()
     );
 
   return (
@@ -346,13 +343,11 @@ export const PopoverContainer = ({
       <div ref={popoverReference}>
         {renderOpenComponent(renderOpenComponentProps)}
       </div>
-      <Transition
-        in={isOpen}
-        timeout={{ exit: 300 }}
-        appear
-        mountOnEnter
-        unmountOnExit
+      <CSSTransition
         nodeRef={popoverContentNodeRef}
+        timeout={{ exit: disableAnimation ? 0 : 300 }}
+        in={isOpen}
+        unmountOnExit
         onEntered={
           shouldCoverButton
             ? /* istanbul ignore next */ () => setIsAnimationComplete(true)
@@ -364,22 +359,18 @@ export const PopoverContainer = ({
             : undefined
         }
       >
-        {(state: TransitionStatus) =>
-          isOpen && (
-            <Popover
-              reference={popoverReference}
-              placement={position === "right" ? "bottom-start" : "bottom-end"}
-              popoverStrategy={
-                disableAnimation || reduceMotion ? "fixed" : "absolute"
-              }
-              middleware={popoverMiddleware}
-              childRefOverride={popoverContentNodeRef}
-            >
-              {childrenToRender(state)}
-            </Popover>
-          )
-        }
-      </Transition>
+        <Popover
+          reference={popoverReference}
+          placement={position === "right" ? "bottom-start" : "bottom-end"}
+          popoverStrategy={
+            disableAnimation || reduceMotion ? "fixed" : "absolute"
+          }
+          middleware={popoverMiddleware}
+          childRefOverride={popoverContentNodeRef}
+        >
+          {childrenToRender()}
+        </Popover>
+      </CSSTransition>
     </PopoverContainerWrapperStyle>
   );
 };
