@@ -19,6 +19,7 @@ test("does not pass href to the anchor element when isCurrent is true", () => {
   );
 
   const anchor = screen.getByTestId("link-anchor");
+
   expect(anchor).not.toHaveAttribute("href", "foo");
 });
 
