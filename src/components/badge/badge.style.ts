@@ -29,6 +29,8 @@ const StyledCounter = styled.div`
 
 interface StyledBadgeProps {
   color: string;
+  isFocused?: boolean;
+  isHovered?: boolean;
 }
 
 const StyledBadge = styled.span.attrs(({ onClick }) => ({
@@ -52,7 +54,7 @@ const StyledBadge = styled.span.attrs(({ onClick }) => ({
     border: none;
   }
 
-  ${({ onClick, color, theme }) => css`
+  ${({ onClick, color, theme, isFocused, isHovered }) => css`
     ${onClick &&
     `
       ${commonStyles}
@@ -65,27 +67,32 @@ const StyledBadge = styled.span.attrs(({ onClick }) => ({
       }
 
       border-color: ${toColor(theme, color)};
-      color: ${toColor(theme, color)};      
+      color: ${toColor(theme, color)};
 
-      &:hover,
-      &:focus {
-        background: ${toColor(theme, color)};
-        border: none;
-        ${StyledCounter} {
-          display: none;
-        }
+      ${
+        (isFocused || isHovered) &&
+        `
+        && {
+          background: ${toColor(theme, color)};
+          border: none;
+          ${StyledCounter} {
+            display: none;
+          }
 
-        ${StyledIcon} {
-          display: block;
-          width: auto;
-          height: auto;
-          margin-right: 0;
+          ${StyledIcon} {
+            display: block;
+            width: auto;
+            height: auto;
+            margin-right: 0;
 
-          :before {
-            font-size: 20px;
-            color: var(--colorsActionMajorYang100);
+            :before {
+              font-size: 20px;
+              color: var(--colorsActionMajorYang100);
+            }
           }
         }
+      `
+      }
       }
     `}
   `}
