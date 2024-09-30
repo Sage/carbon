@@ -10,6 +10,7 @@ test("when no I18nProvider exists, it should return a translation function that 
     return <span>{l.locale()}</span>;
   };
   render(<TestComponent />);
+
   expect(screen.getByText("en-GB")).toBeInTheDocument();
 });
 
@@ -30,5 +31,6 @@ test("when I18nProvider exists, it should return a translation function that pro
       <TestComponent />
     </I18nProvider>
   );
+
   expect(screen.getByText("test")).toBeInTheDocument();
 });
