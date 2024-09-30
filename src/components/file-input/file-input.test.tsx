@@ -7,13 +7,16 @@ import FileInput, { FileUploadStatusProps } from ".";
 describe("rendering with no file uploaded", () => {
   it("renders a hidden HTML file input element", () => {
     render(<FileInput label="file input" onChange={() => {}} />);
+
     const hiddenInput = screen.getByLabelText("file input");
+
     expect(hiddenInput).toBeInTheDocument();
     expect(hiddenInput).not.toBeVisible();
   });
 
   it("renders an HTML button to choose a file to add", () => {
     render(<FileInput onChange={() => {}} />);
+
     expect(screen.getByRole("button", { name: "Select file" })).toBeVisible();
   });
 
@@ -21,29 +24,37 @@ describe("rendering with no file uploaded", () => {
     render(
       <FileInput label="file input" accept="image/*,.pdf" onChange={() => {}} />
     );
+
     const hiddenInput = screen.getByLabelText("file input");
+
     expect(hiddenInput).toHaveAttribute("accept", "image/*,.pdf");
   });
 
   it("accepts a buttonText prop to change the button text", () => {
     render(<FileInput buttonText="add a file" onChange={() => {}} />);
+
     expect(screen.getByRole("button", { name: "add a file" })).toBeVisible();
   });
 
   it("accepts a dragAndDropText prop to change the main text", () => {
     render(<FileInput dragAndDropText="drop zone" onChange={() => {}} />);
+
     expect(screen.getByText("drop zone")).toBeVisible();
   });
 
   it("accepts a label prop and renders it as a visible label", () => {
     render(<FileInput label="file input" onChange={() => {}} />);
+
     const label = screen.getByText("file input");
+
     expect(label).toBeVisible();
   });
 
   it("accepts an inputHint prop", () => {
     render(<FileInput inputHint="help" onChange={() => {}} />);
+
     const hintText = screen.getByText("help");
+
     expect(hintText).toBeVisible();
   });
 
@@ -55,14 +66,18 @@ describe("rendering with no file uploaded", () => {
         onChange={() => {}}
       />
     );
+
     const rootContainer = screen.getByTestId("role-test");
+
     expect(rootContainer).toHaveAttribute("data-component", "file-input");
     expect(rootContainer).toHaveAttribute("data-element", "element-test");
   });
 
   it("renders with red, dashed border when error prop is true", () => {
     render(<FileInput error onChange={() => {}} />);
+
     const inputArea = screen.getByTestId("file-input-presentation");
+
     expect(inputArea).toHaveStyle(
       "border: var(--borderWidth200) dashed var(--colorsSemanticNegative500)"
     );
@@ -83,7 +98,9 @@ describe("rendering with no file uploaded", () => {
     render(
       <FileInput label="file input" name="input-name" onChange={() => {}} />
     );
+
     const hiddenInput = screen.getByLabelText("file input");
+
     expect(hiddenInput).toHaveAttribute("name", "input-name");
   });
 
@@ -122,7 +139,9 @@ describe("rendering with no file uploaded", () => {
     render(
       <FileInput label="file input" ref={refObject} onChange={() => {}} />
     );
+
     const hiddenInput = screen.getByLabelText("file input");
+
     expect(refObject.current).toStrictEqual(hiddenInput);
   });
 
@@ -131,7 +150,9 @@ describe("rendering with no file uploaded", () => {
     render(
       <FileInput label="file input" ref={callbackRef} onChange={() => {}} />
     );
+
     const hiddenInput = screen.getByLabelText("file input");
+
     expect(callbackRef).toHaveBeenCalledTimes(1);
     expect(callbackRef).toHaveBeenCalledWith(hiddenInput);
   });
@@ -142,7 +163,9 @@ describe("interactions", () => {
     const user = userEvent.setup();
     const inputOnClick = jest.spyOn(HTMLInputElement.prototype, "click");
     render(<FileInput onChange={() => {}} />);
+
     await user.click(screen.getByRole("button", { name: "Select file" }));
+
     expect(inputOnClick).toHaveBeenCalledTimes(1);
   });
 
@@ -153,8 +176,10 @@ describe("interactions", () => {
     });
     const onChange = jest.fn();
     render(<FileInput label="file input" onChange={onChange} />);
+
     const hiddenInput = screen.getByLabelText("file input");
     await user.upload(hiddenInput, file);
+
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange.mock.calls[0][0][0]).toBe(file);
   });
@@ -298,8 +323,10 @@ describe("with uploadStatus prop set", () => {
           onChange={() => {}}
         />
       );
+
       const hiddenInput = screen.queryByLabelText("file input");
       const button = screen.queryByRole("button", { name: "Select file" });
+
       expect(hiddenInput).not.toBeInTheDocument();
       expect(button).not.toBeInTheDocument();
     }
@@ -317,6 +344,7 @@ describe("with uploadStatus prop set", () => {
         onChange={() => {}}
       />
     );
+
     expect(screen.getByTestId("progress-tracker-bar")).toBeVisible();
     expect(screen.getByTestId("inner-bar")).toHaveStyle({ width: "30%" });
   });
@@ -333,6 +361,7 @@ describe("with uploadStatus prop set", () => {
         onChange={() => {}}
       />
     );
+
     expect(screen.getByRole("link", { name: "foo.pdf" })).toBeVisible();
     expect(screen.getByText("File upload status")).toBeVisible();
   });
@@ -349,6 +378,7 @@ describe("with uploadStatus prop set", () => {
         onChange={() => {}}
       />
     );
+
     expect(screen.getByRole("link", { name: "foo.pdf" })).toBeVisible();
     expect(screen.queryByText("File upload status")).not.toBeInTheDocument();
   });
