@@ -64,8 +64,11 @@ afterEach(() => {
 
 test("adds the event listener on mount and removes on unmount", () => {
   const { unmount } = render(<MockComponent handleClickAway={jest.fn()} />);
+
   expect(addListenerSpy).toHaveBeenCalled();
+
   unmount();
+
   expect(removeListenerSpy).toHaveBeenCalled();
 });
 
@@ -73,19 +76,25 @@ test("calls handleClickAway when mousedown is outside of wrapper element", () =>
   render(
     <MockComponent handleClickAway={handleClickAway} eventTypeId="mousedown" />
   );
+
   fireEvent.mouseDown(document);
+
   expect(handleClickAway).toHaveBeenCalledTimes(1);
 });
 
 test("invokes handleClickAway on external 'click'", () => {
   render(<MockComponent handleClickAway={handleClickAway} />);
+
   fireEvent.click(document);
+
   expect(handleClickAway).toHaveBeenCalledTimes(1);
 });
 
 test("does not invoke handleClickAway on internal 'click'", () => {
   render(<MockComponent handleClickAway={handleClickAway} />);
+
   fireEvent.click(screen.getByRole("button"));
+
   expect(handleClickAway).not.toHaveBeenCalled();
 });
 
@@ -93,6 +102,8 @@ test("does not invoke handleClickAway on internal 'mousedown'", () => {
   render(
     <MockComponent handleClickAway={handleClickAway} eventTypeId="mousedown" />
   );
+
   fireEvent.click(screen.getByRole("button"));
+
   expect(handleClickAway).not.toHaveBeenCalled();
 });
