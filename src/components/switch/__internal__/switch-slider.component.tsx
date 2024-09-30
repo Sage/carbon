@@ -61,7 +61,7 @@ const SwitchSlider = ({
   };
 
   const sliderContent = (
-    <SwitchSliderPanel {...sliderPanelStyleProps}>
+    <SwitchSliderPanel data-role="slider-panel" {...sliderPanelStyleProps}>
       {loading ? <Loader {...loaderProps} /> : panelContent}
     </SwitchSliderPanel>
   );
@@ -71,7 +71,11 @@ const SwitchSlider = ({
       <HiddenContent size={size} aria-hidden>
         {longestText}
       </HiddenContent>
-      <StyledSwitchSlider data-component="slider" {...switchSliderStyleProps}>
+      <StyledSwitchSlider
+        data-component="slider"
+        data-role="slider"
+        {...switchSliderStyleProps}
+      >
         {sliderContent}
         {useValidationIcon && (
           <ValidationIcon

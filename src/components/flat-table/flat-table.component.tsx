@@ -11,8 +11,11 @@ import {
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import Events from "../../__internal__/utils/helpers/events/events";
 import FlatTableContext from "./__internal__/flat-table.context";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface FlatTableProps extends MarginProps {
+export interface FlatTableProps
+  extends MarginProps,
+    Omit<TagProps, "data-component"> {
   /** The HTML id of the element that contains a description of this table. */
   ariaDescribedby?: string;
   /** A string to render as the table's caption */
@@ -188,6 +191,7 @@ export const FlatTable = ({
         // it may be that an element within the row currently has focus
         const index = findParentIndexOfFocusedChild(focusableElementsArray);
 
+        /* istanbul ignore else */
         if (index !== -1 && index < focusableElementsArray.length) {
           (focusableElementsArray[index + 1] as HTMLElement)?.focus();
         }
@@ -228,7 +232,6 @@ export const FlatTable = ({
   return (
     <StyledFlatTableWrapper
       ref={wrapperRef}
-      data-component="flat-table-wrapper"
       data-role="flat-table-wrapper"
       isInSidebar={isInSidebar}
       hasStickyHead={hasStickyHead}
@@ -254,6 +257,7 @@ export const FlatTable = ({
       onKeyDown={handleKeyDown}
       isFocused={focused}
       {...rest}
+      data-component="flat-table-wrapper"
     >
       <StyledTableContainer
         ref={container}
@@ -266,6 +270,7 @@ export const FlatTable = ({
         tabIndex={0}
         overflowX={overflowX}
         width={width}
+        data-role="flat-table-container"
       >
         <StyledFlatTable
           ref={tableRef}
@@ -285,7 +290,10 @@ export const FlatTable = ({
         </StyledFlatTable>
       </StyledTableContainer>
       {footer && (
-        <StyledFlatTableFooter hasStickyFooter={hasStickyFooter}>
+        <StyledFlatTableFooter
+          hasStickyFooter={hasStickyFooter}
+          data-role="flat-table-footer"
+        >
           {footer}
         </StyledFlatTableFooter>
       )}

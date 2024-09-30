@@ -7,10 +7,10 @@ import Icon from "../icon";
 import Pill from "../pill";
 import Typography from "../typography";
 import Box from "../box";
+import { ElementAlignment } from "./__internal__/dl.context";
 
 export default {
   title: "Definition-list/Test",
-  includeStories: ["DefaultStory", "UsingBoxToOverrideBackgroundColor"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -130,5 +130,94 @@ export const UsingBoxToOverrideBackgroundColor = () => (
 );
 
 UsingBoxToOverrideBackgroundColor.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+export const TextAlignExamples = () => {
+  return (
+    <>
+      {(["left", "center", "right"] as ElementAlignment[]).map(
+        (textAlignValue) => {
+          return (
+            <Dl
+              dtTextAlign={textAlignValue}
+              ddTextAlign={textAlignValue}
+              key={textAlignValue}
+            >
+              <Dt>Title</Dt>
+              <Dd>Description</Dd>
+            </Dl>
+          );
+        }
+      )}
+    </>
+  );
+};
+
+TextAlignExamples.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+export const CustomStylingDd = () => {
+  return (
+    <Dl>
+      <Dt>Title</Dt>
+      <Dd mb={3}>Description</Dd>
+      <Dt>Title</Dt>
+      <Dd>Description</Dd>
+    </Dl>
+  );
+};
+
+CustomStylingDd.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+export const CustomSpacingStylingDt = () => {
+  return (
+    <Dl>
+      <Dt mb={4} pr={2}>
+        Title
+      </Dt>
+      <Dd>Description</Dd>
+      <Dt>Title</Dt>
+      <Dd>Description</Dd>
+    </Dl>
+  );
+};
+
+CustomSpacingStylingDt.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+export const AsSingleColumnCustomDtStyling = () => {
+  return (
+    <Box width="max-content">
+      <Dl asSingleColumn>
+        <Dt mb={3} pr={5}>
+          Title
+        </Dt>
+        <Dd>Description</Dd>
+        <Dt>Title</Dt>
+        <Dd>Description</Dd>
+      </Dl>
+    </Box>
+  );
+};
+
+AsSingleColumnCustomDtStyling.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+export const customWidthExample = () => {
+  return (
+    <Dl w={45}>
+      <Dt>Title</Dt>
+      <Dd>Description</Dd>
+    </Dl>
+  );
+};
+
+customWidthExample.parameters = {
   chromatic: { disableSnapshot: false },
 };

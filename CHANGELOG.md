@@ -1,3 +1,24 @@
+## [142.12.0](https://github.com/Sage/carbon/compare/v142.11.8...v142.12.0) (2024-09-26)
+
+
+### Features
+
+* **version-picker:** reintroduce the version picker for storybook ([9d8ccf0](https://github.com/Sage/carbon/commit/9d8ccf040d32e09e10a806d5eb503438e60b7007))
+
+### [142.11.8](https://github.com/Sage/carbon/compare/v142.11.7...v142.11.8) (2024-09-26)
+
+
+### Bug Fixes
+
+* **textarea:** ensure that correct height is applied when rows and expandable prop are used together ([835fac8](https://github.com/Sage/carbon/commit/835fac8b70e25b6bb4706c53fc9e96a91bd1558f)), closes [#6961](https://github.com/Sage/carbon/issues/6961)
+
+### [142.11.7](https://github.com/Sage/carbon/compare/v142.11.6...v142.11.7) (2024-09-25)
+
+
+### Bug Fixes
+
+* **loader:** translations for france ([e2f0a46](https://github.com/Sage/carbon/commit/e2f0a464139fb73e77b10be6c664223bf4258a5a))
+
 ### [142.11.6](https://github.com/Sage/carbon/compare/v142.11.5...v142.11.6) (2024-09-23)
 
 

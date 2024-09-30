@@ -7,9 +7,10 @@ import React, {
   useLayoutEffect,
 } from "react";
 import invariant from "invariant";
-import { TableBorderSize } from "..";
 
 import Event from "../../../__internal__/utils/helpers/events";
+import { TagProps } from "../../../__internal__/utils/helpers/tags";
+import { TableBorderSize } from "..";
 import StyledFlatTableRow from "./flat-table-row.style";
 import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
 import FlatTableRowHeader from "../flat-table-row-header";
@@ -23,7 +24,7 @@ import SubRowProvider, { SubRowContext } from "./__internal__/sub-row-provider";
 import { buildPositionMap } from "../__internal__";
 import FlatTableHeadContext from "../flat-table-head/__internal__/flat-table-head.context";
 
-export interface FlatTableRowProps {
+export interface FlatTableRowProps extends Omit<TagProps, "data-component"> {
   /** Overrides default cell color, provide design token, any color from palette or any valid css color value. */
   bgColor?: string;
   /** Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. */
@@ -82,6 +83,8 @@ export const FlatTableRow = React.forwardRef<
       draggable,
       findItem,
       moveItem,
+      "data-element": dataElement,
+      "data-role": dataRole,
       ...rest
     }: FlatTableRowProps,
     ref
@@ -269,13 +272,20 @@ export const FlatTableRow = React.forwardRef<
 
     const isFirstSubRow = firstRowId === internalId.current;
 
+    const getDataElement = () => {
+      if (dataElement) return dataElement;
+
+      return isSubRow ? "flat-table-sub-row" : "flat-table-row";
+    };
+
     const rowComponent = () => (
       <StyledFlatTableRow
         isInSidebar={isInSidebar}
         expandable={expandable}
         isSubRow={isSubRow}
         isFirstSubRow={isFirstSubRow}
-        data-element={isSubRow ? "flat-table-sub-row" : "flat-table-row"}
+        data-element={getDataElement()}
+        data-role={dataRole}
         highlighted={highlighted}
         selected={selected}
         onClick={handleClick}
@@ -297,6 +307,7 @@ export const FlatTableRow = React.forwardRef<
         rowHeight={rowRef?.current?.offsetHeight}
         {...interactiveRowProps}
         {...rest}
+        data-component="flat-table-row"
       >
         <FlatTableRowContext.Provider
           value={{

@@ -10,7 +10,7 @@ import {
   testStyledSystemHeight,
 } from "../../__spec_helper__/__internal__/test-utils";
 import { TileProps } from "./tile.component";
-import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
+import rootTagTest from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledTile from "./tile.style";
 import { TILE_HIGHLIGHT_VARIANTS } from "./tile.config";
 

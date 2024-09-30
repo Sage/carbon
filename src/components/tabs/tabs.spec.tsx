@@ -5,7 +5,7 @@ import { act } from "react-dom/test-utils";
 import TabTitle from "./__internal__/tab-title/tab-title.component";
 import { Tabs, Tab, TabsProps } from ".";
 import TabContext from "./tab/__internal__/tab.context";
-import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
+import rootTagTest from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledTabs, { StyledTabsProps } from "./tabs.style";
 import StyledTab from "./tab/tab.style";
 import { StyledTabTitleButton } from "./__internal__/tab-title/tab-title.style";

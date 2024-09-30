@@ -101,6 +101,8 @@ export const Switch = React.forwardRef(
 
     const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
     let shouldLabelBeInline: boolean | undefined = labelInline;
+    // Coverage has been ignored here as this functionality is covered in a Playwright test.
+    /* istanbul ignore next */
     if (adaptiveLabelBreakpoint) {
       shouldLabelBeInline = largeScreen;
     }
@@ -208,14 +210,21 @@ export const Switch = React.forwardRef(
         {validationRedesignOptIn ? (
           <StyledSwitch {...switchStylePropsForNewValidation}>
             <Label>
-              <Box mb={labelHelp ? 0 : 1}>
+              <Box data-role="hint-text-wrapper" mb={labelHelp ? 0 : 1}>
                 {label}
-                {labelHelp && <StyledHintText>{labelHelp}</StyledHintText>}
+                {labelHelp && (
+                  <StyledHintText data-role="hint-text">
+                    {labelHelp}
+                  </StyledHintText>
+                )}
               </Box>
               <Box position="relative">
                 <ValidationMessage error={error} warning={warning} />
                 {applyValidation && (
-                  <ErrorBorder warning={!!(!error && warning)} />
+                  <ErrorBorder
+                    data-role="error-border"
+                    warning={!!(!error && warning)}
+                  />
                 )}
                 <CheckableInput {...inputPropsForNewValidation}>
                   <SwitchSlider {...switchSliderPropsForNewValidation} />
