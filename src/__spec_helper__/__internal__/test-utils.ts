@@ -425,26 +425,6 @@ const testStyledSystemSpacing = (
   );
 };
 
-const testStyledSystemColor = (
-  // https://stackoverflow.com/questions/53711454/styled-system-props-typing-with-typescript
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component: (colorProperties?: any) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => void
-) => {
-  describe.each(colorProps)(
-    'when a prop is specified using the "%s" styled system props',
-    (styledSystemProp, propName, value) => {
-      it(`then ${propName} should have been set correctly`, () => {
-        const props = { [styledSystemProp]: value };
-        const wrapper = mount(component({ ...props }));
-        const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-        // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
-        expect(StyleElement).toHaveStyleRule(propName, value);
-      });
-    }
-  );
-};
-
 const testStyledSystemWidth = (
   component: (widthProperties?: { width: string }) => JSX.Element,
   styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
@@ -763,6 +743,26 @@ const testStyledSystemSpacingRTL = (
   );
 };
 
+const testStyledSystemColor = (
+  // https://stackoverflow.com/questions/53711454/styled-system-props-typing-with-typescript
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  component: (colorProperties?: any) => JSX.Element,
+  elementQuery: () => HTMLElement
+) => {
+  describe.each(colorProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledSystemProp]: value };
+        render(component({ ...props }));
+        const StyleElement = elementQuery();
+        // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
+        expect(StyleElement).toHaveStyleRule(propName, value);
+      });
+    }
+  );
+};
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -780,7 +780,6 @@ export {
   testStyledSystemSpacing,
   testStyledSystemMargin,
   testStyledSystemPadding,
-  testStyledSystemColor,
   testStyledSystemWidth,
   testStyledSystemHeight,
   testStyledSystemLayout,
@@ -792,4 +791,5 @@ export {
   testStyledSystemSpacingRTL,
   testStyledSystemMarginRTL,
   testStyledSystemPaddingRTL,
+  testStyledSystemColor,
 };

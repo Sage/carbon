@@ -15,7 +15,10 @@ testStyledSystemSpacingRTL(
   (props) => <Box data-role="box" {...props} />,
   () => screen.getByTestId("box")
 );
-testStyledSystemColor((props) => <Box {...props} />);
+testStyledSystemColor(
+  (props) => <Box data-role="box" {...props} />,
+  () => screen.getByTestId("box")
+);
 testStyledSystemLayout((props) => <Box {...props} />);
 testStyledSystemFlexBox((props) => <Box {...props} />);
 testStyledSystemGrid((props) => <Box {...props} />);
