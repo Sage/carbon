@@ -27,7 +27,10 @@ testStyledSystemFlexBox(
   (props) => <Box data-role="box" {...props} />,
   () => screen.getByTestId("box")
 );
-testStyledSystemGrid((props) => <Box {...props} />);
+testStyledSystemGrid(
+  (props) => <Box data-role="box" {...props} />,
+  () => screen.getByTestId("box")
+);
 testStyledSystemPosition((props) => <Box {...props} />);
 
 test("renders Box with 'break-word' overflowWrap style when overflowWrap prop is set to 'break-word'", () => {

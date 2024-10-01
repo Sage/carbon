@@ -457,19 +457,16 @@ const testStyledSystemHeight = (
 
 const testStyledSystemGrid = (
   component: (gridProperties?: GridProps) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
+  elementQuery: () => HTMLElement
 ) => {
   describe.each(gridProps)(
     'when a prop is specified using the "%s" styled system props',
     (styledSystemProp, propName, value) => {
       it(`then ${propName} should have been set correctly`, () => {
         const props = { [styledSystemProp]: value };
-        const wrapper = mount(component(props));
+        render(component(props));
 
-        assertStyleMatch(
-          { [propName]: value },
-          styleContainer ? styleContainer(wrapper) : wrapper
-        );
+        assertStyleMatch({ [propName]: value }, elementQuery());
       });
     }
   );
