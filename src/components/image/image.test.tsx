@@ -12,7 +12,10 @@ testStyledSystemMarginRTL(
   (props) => <Image data-role="image" {...props} />,
   () => screen.getByTestId("image")
 );
-testStyledSystemLayout((props) => <Image {...props} />);
+testStyledSystemLayout(
+  (props) => <Image data-role="image" {...props} />,
+  () => screen.getByTestId("image")
+);
 testStyledSystemBackground((props) => <Image {...props} />);
 testStyledSystemPaddingRTL(
   (props) => <Image data-role="image" {...props} />,

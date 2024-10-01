@@ -455,24 +455,6 @@ const testStyledSystemHeight = (
   });
 };
 
-const testStyledSystemLayout = (
-  component: (layoutProperties?: LayoutProps) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
-) => {
-  describe.each(layoutProps)(
-    'when a prop is specified using the "%s" styled system props',
-    (styledSystemProp, propName, value) => {
-      it(`then ${propName} should have been set correctly`, () => {
-        const props = { [styledSystemProp]: value };
-        const wrapper = mount(component({ ...props }));
-        const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-        // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
-        expect(StyleElement).toHaveStyleRule(propName, value);
-      });
-    }
-  );
-};
-
 const testStyledSystemFlexBox = (
   component: (flexboxProperties?: FlexboxProps) => JSX.Element,
   styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
@@ -791,6 +773,24 @@ const testStyledSystemHeightRTL = (
       expect(StyleElement).toHaveStyleRule(propName, value);
     });
   });
+};
+
+const testStyledSystemLayout = (
+  component: (layoutProperties?: LayoutProps) => JSX.Element,
+  elementQuery: () => HTMLElement
+) => {
+  describe.each(layoutProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledSystemProp]: value };
+        render(component({ ...props }));
+        const StyleElement = elementQuery();
+        // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
+        expect(StyleElement).toHaveStyleRule(propName, value);
+      });
+    }
+  );
 };
 
 export {

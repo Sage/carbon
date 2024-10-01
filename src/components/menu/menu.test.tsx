@@ -8,7 +8,10 @@ import {
   testStyledSystemFlexBox,
 } from "../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemLayout((props) => <Menu {...props}>Foo</Menu>);
+testStyledSystemLayout(
+  (props) => <Menu {...props}>Foo</Menu>,
+  () => screen.getByRole("list")
+);
 testStyledSystemFlexBox((props) => <Menu {...props}>Foo</Menu>);
 
 test("should focus the last item when 'End' key is pressed by user", async () => {
