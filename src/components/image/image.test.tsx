@@ -16,7 +16,10 @@ testStyledSystemLayout(
   (props) => <Image data-role="image" {...props} />,
   () => screen.getByTestId("image")
 );
-testStyledSystemBackground((props) => <Image {...props} />);
+testStyledSystemBackground(
+  (props) => <Image data-role="image" {...props} />,
+  () => screen.getByTestId("image")
+);
 testStyledSystemPaddingRTL(
   (props) => <Image data-role="image" {...props} />,
   () => screen.getByTestId("image")
