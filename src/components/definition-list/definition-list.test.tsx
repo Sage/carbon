@@ -3,14 +3,17 @@ import { render, screen } from "@testing-library/react";
 import Dl from "./dl.component";
 import Dt from "./dt/dt.component";
 import Dd from "./dd/dd.component";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemSpacingRTL } from "../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemSpacing((props) => (
-  <Dl {...props}>
-    <Dt>Description</Dt>
-    <Dd>This is a test</Dd>
-  </Dl>
-));
+testStyledSystemSpacingRTL(
+  (props) => (
+    <Dl {...props}>
+      <Dt>Description</Dt>
+      <Dd>This is a test</Dd>
+    </Dl>
+  ),
+  () => screen.getByTestId("dl")
+);
 
 test("component should render correctly if composed with a React Fragment", () => {
   render(

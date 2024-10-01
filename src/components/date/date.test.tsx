@@ -12,7 +12,7 @@ import frCALocale from "date-fns/locale/fr-CA";
 import enUSLocale from "date-fns/locale/en-US";
 
 import CarbonProvider from "../carbon-provider";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 
 import DateInput, { DateChangeEvent } from "./date.component";
 import I18nProvider from "../i18n-provider";
@@ -22,9 +22,10 @@ const ariaLabels = {
   previousMonthButton: () => "foo",
 };
 
-testStyledSystemMargin((props) => (
-  <DateInput onChange={() => {}} value="" {...props} />
-));
+testStyledSystemMarginRTL(
+  (props) => <DateInput onChange={() => {}} value="" {...props} />,
+  () => screen.getAllByRole("presentation")[0]
+);
 
 const VALID_INPUT_STRINGS = [
   "040419",
@@ -70,12 +71,15 @@ const MockComponent = ({
 // temporatrily running timers on every spec as we have issues
 // around how slow the tests that open the calendar are.
 // FE-6724 raised to investigate and implement a better solution
-beforeEach(() => {
+beforeAll(() => {
   jest.useFakeTimers();
 });
 
 afterEach(() => {
   jest.runOnlyPendingTimers();
+});
+
+afterAll(() => {
   jest.useRealTimers();
 });
 

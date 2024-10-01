@@ -7,7 +7,7 @@ import {
   waitFor,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemPadding } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPaddingRTL } from "../../__spec_helper__/__internal__/test-utils";
 
 import PopoverContainer from "./popover-container.component";
 import { Select, Option } from "../select";
@@ -531,12 +531,12 @@ describe("closing the popup", () => {
   });
 });
 
-testStyledSystemPadding(
+testStyledSystemPaddingRTL(
   (props) => (
     <PopoverContainer open title="My popup" {...props}>
       Ta da!
     </PopoverContainer>
   ),
-  { p: "16px 24px" },
-  (wrapper) => wrapper.find("[role='dialog']")
+  () => screen.getByRole("dialog"),
+  { p: "16px 24px" }
 );

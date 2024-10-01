@@ -2,7 +2,7 @@ import React from "react";
 import { getGapValue } from "style/utils/box-gap";
 import { render, screen } from "@testing-library/react";
 import {
-  testStyledSystemSpacing,
+  testStyledSystemSpacingRTL,
   testStyledSystemColor,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
@@ -11,7 +11,10 @@ import {
 } from "../../__spec_helper__/__internal__/test-utils";
 import Box from "./box.component";
 
-testStyledSystemSpacing((props) => <Box {...props} />);
+testStyledSystemSpacingRTL(
+  (props) => <Box data-role="box" {...props} />,
+  () => screen.getByTestId("box")
+);
 testStyledSystemColor((props) => <Box {...props} />);
 testStyledSystemLayout((props) => <Box {...props} />);
 testStyledSystemFlexBox((props) => <Box {...props} />);

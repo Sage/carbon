@@ -7,7 +7,7 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
-  testStyledSystemPadding,
+  testStyledSystemPaddingRTL,
   testStyledSystemWidth,
 } from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
@@ -311,16 +311,21 @@ testStyledSystemWidth(
   (component) => component.find("[role='dialog']")
 );
 
-testStyledSystemPadding(
+testStyledSystemPaddingRTL(
   (props) => (
     <Sidebar open {...props}>
       Content
     </Sidebar>
   ),
+  () => {
+    const sidebars = screen.getAllByTestId("sidebar-content");
+
+    // the use of Portal means there is two instances of the sidebar content
+    return sidebars[sidebars.length - 1];
+  },
   {
     pt: "var(--spacing300)",
     pb: "var(--spacing400)",
     px: "var(--spacing400)",
-  },
-  (component) => component.find("[data-element='sidebar-content']")
+  }
 );

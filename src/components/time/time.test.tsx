@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Time, TimeHandle } from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import inputSizes from "../../__internal__/input/input-sizes.style";
 import {
   heightConfig,
@@ -55,9 +55,12 @@ describe("Time component", () => {
   beforeEach(() => jest.useFakeTimers());
   afterEach(() => jest.useRealTimers());
 
-  testStyledSystemMargin((props) => (
-    <Time value={{ hours: "", minutes: "" }} onChange={() => {}} {...props} />
-  ));
+  testStyledSystemMarginRTL(
+    (props) => (
+      <Time value={{ hours: "", minutes: "" }} onChange={() => {}} {...props} />
+    ),
+    () => screen.getByRole("group")
+  );
 
   it("should not display the AM/PM toggle by default", () => {
     render(<Time value={{ hours: "", minutes: "" }} onChange={() => {}} />);

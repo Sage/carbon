@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import * as floatingUi from "@floating-ui/dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import sageTheme from "../../style/themes/sage";
 import {
   ActionPopover,
@@ -34,15 +34,18 @@ afterEach(() => {
   jest.runAllTimers();
 });
 
-testStyledSystemMargin((props) => (
-  <ThemeProvider theme={sageTheme}>
-    <ActionPopover {...props}>
-      <ActionPopoverItem href="#" download>
-        test download
-      </ActionPopoverItem>
-    </ActionPopover>
-  </ThemeProvider>
-));
+testStyledSystemMarginRTL(
+  (props) => (
+    <ThemeProvider theme={sageTheme}>
+      <ActionPopover {...props}>
+        <ActionPopoverItem href="#" download>
+          test download
+        </ActionPopoverItem>
+      </ActionPopover>
+    </ThemeProvider>
+  ),
+  () => screen.getByTestId("action-popover-wrapper")
+);
 
 describe("if download prop and href prop are provided", () => {
   it("should render as a link component", async () => {

@@ -5,7 +5,7 @@ import { EditorState } from "draft-js";
 import Note from ".";
 import LinkPreview from "../link-preview";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should render with required props", () => {
   render(
@@ -156,10 +156,14 @@ test("should throw when width is 0", () => {
   spy.mockRestore();
 });
 
-testStyledSystemMargin((props) => (
-  <Note
-    {...props}
-    createdDate="23 May 2020, 12:08 PM"
-    noteContent={EditorState.createEmpty()}
-  />
-));
+testStyledSystemMarginRTL(
+  (props) => (
+    <Note
+      {...props}
+      data-role="note"
+      createdDate="23 May 2020, 12:08 PM"
+      noteContent={EditorState.createEmpty()}
+    />
+  ),
+  () => screen.getByTestId("note")
+);

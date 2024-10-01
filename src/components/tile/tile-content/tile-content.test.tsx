@@ -4,15 +4,20 @@ import { PaddingProps } from "styled-system";
 import TileContent from "./tile-content.component";
 import {
   testStyledSystemHeight,
-  testStyledSystemSpacing,
+  testStyledSystemSpacingRTL,
   testStyledSystemWidth,
 } from "../../../__spec_helper__/__internal__/test-utils";
 import TileContext from "../__internal__/tile.context";
 
 describe("TileContent", () => {
-  testStyledSystemSpacing((props) => (
-    <TileContent {...props}>Test</TileContent>
-  ));
+  testStyledSystemSpacingRTL(
+    (props) => (
+      <TileContent data-role="tile-content" {...props}>
+        Test
+      </TileContent>
+    ),
+    () => screen.getByTestId("tile-content")
+  );
   testStyledSystemWidth((props) => <TileContent {...props}>Test</TileContent>);
   testStyledSystemHeight((props) => <TileContent {...props}>Test</TileContent>);
 

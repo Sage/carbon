@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SimpleColor, SimpleColorPicker } from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
@@ -27,11 +27,14 @@ test("should display deprecation warning once when rendered as uncontrolled", ()
   loggerSpy.mockClear();
 });
 
-testStyledSystemMargin((props) => (
-  <SimpleColorPicker legend="SimpleColorPicker Legend" name="test" {...props}>
-    <SimpleColor id="foo" key="bar" value="#00A376" defaultChecked />
-  </SimpleColorPicker>
-));
+testStyledSystemMarginRTL(
+  (props) => (
+    <SimpleColorPicker legend="SimpleColorPicker Legend" name="test" {...props}>
+      <SimpleColor id="foo" key="bar" value="#00A376" defaultChecked />
+    </SimpleColorPicker>
+  ),
+  () => screen.getByRole("radiogroup")
+);
 
 test("the `onKeyDown` callback prop is called when the user presses a key", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });

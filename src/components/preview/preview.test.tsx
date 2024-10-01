@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Preview from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders placeholder by default", () => {
   render(<Preview />);
@@ -108,4 +108,7 @@ test("renders with no animation when `disableAnimation` is true", () => {
   });
 });
 
-testStyledSystemMargin((props) => <Preview {...props} />);
+testStyledSystemMarginRTL(
+  (props) => <Preview {...props} />,
+  () => screen.getByTestId("preview-wrapper")
+);

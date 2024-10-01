@@ -3,16 +3,20 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import DateRange, { DateRangeChangeEvent } from "./date-range.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
 
-testStyledSystemMargin((props) => (
-  <DateRange
-    value={["10/10/2016", "11/11/2016"]}
-    onChange={() => {}}
-    {...props}
-  />
-));
+testStyledSystemMarginRTL(
+  (props) => (
+    <DateRange
+      data-role="date-range"
+      value={["10/10/2016", "11/11/2016"]}
+      onChange={() => {}}
+      {...props}
+    />
+  ),
+  () => screen.getByTestId("date-range")
+);
 
 test("should update the input values to match the 'en-GB' locale's format when initialised with valid ISO strings", () => {
   render(

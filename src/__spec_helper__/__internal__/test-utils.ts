@@ -2,6 +2,7 @@
 /* eslint-disable jest/no-identical-title */
 /* eslint-disable jest/no-export */
 import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
+import { render } from "@testing-library/react";
 import { sprintf } from "sprintf-js";
 import {
   LayoutProps,
@@ -610,6 +611,158 @@ const expectConsoleOutput = (
   };
 };
 
+const testStyledSystemMarginRTL = (
+  component: (spacingProps?: MarginProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+  defaults?: MarginProps,
+  assertOpts?: jest.Options
+) => {
+  describe("default props", () => {
+    let StyleElement: HTMLElement;
+
+    beforeAll(() => {
+      render(component({ ...defaults }));
+      StyleElement = elementQuery();
+    });
+
+    it("should set the correct margins", () => {
+      let margin;
+      let marginLeft;
+      let marginRight;
+      let marginTop;
+      let marginBottom;
+
+      if (defaults) {
+        margin = getDefaultValue(defaults.m);
+        marginLeft = getDefaultValue(defaults.ml || defaults.mx);
+        marginRight = getDefaultValue(defaults.mr || defaults.mx);
+        marginTop = getDefaultValue(defaults.mt || defaults.my);
+        marginBottom = getDefaultValue(defaults.mb || defaults.my);
+
+        assertStyleMatch(
+          {
+            margin,
+            marginLeft,
+            marginRight,
+            marginTop,
+            marginBottom,
+          },
+          StyleElement,
+          assertOpts
+        );
+      } else {
+        expect(StyleElement).not.toHaveStyleRule("marginLeft");
+        expect(StyleElement).not.toHaveStyleRule("marginRight");
+        expect(StyleElement).not.toHaveStyleRule("marginTop");
+        expect(StyleElement).not.toHaveStyleRule("marginBottom");
+        expect(StyleElement).not.toHaveStyleRule("margin");
+      }
+    });
+  });
+
+  describe.each(marginProps)(
+    'when a custom spacing is specified using the "%s" styled system props',
+    (styledSystemProp, propName) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledSystemProp]: 2 };
+        render(component({ ...props }));
+
+        assertStyleMatch(
+          { [propName]: "var(--spacing200)" },
+          elementQuery(),
+          assertOpts
+        );
+      });
+    }
+  );
+};
+
+const testStyledSystemPaddingRTL = (
+  component: (spacingProps?: PaddingProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+  defaults?: PaddingProps,
+  assertOpts?: jest.Options
+) => {
+  describe("default props", () => {
+    let StyleElement: HTMLElement;
+
+    beforeAll(() => {
+      render(component({ ...defaults }));
+      StyleElement = elementQuery();
+    });
+
+    it("should set the correct paddings", () => {
+      let padding;
+      let paddingLeft;
+      let paddingRight;
+      let paddingTop;
+      let paddingBottom;
+
+      if (defaults) {
+        padding = getDefaultValue(defaults.p);
+        paddingLeft = getDefaultValue(defaults.pl || defaults.px);
+        paddingRight = getDefaultValue(defaults.pr || defaults.px);
+        paddingTop = getDefaultValue(defaults.pt || defaults.py);
+        paddingBottom = getDefaultValue(defaults.pb || defaults.py);
+
+        assertStyleMatch(
+          {
+            padding,
+            paddingLeft,
+            paddingRight,
+            paddingTop,
+            paddingBottom,
+          },
+          StyleElement,
+          assertOpts
+        );
+      } else {
+        expect(StyleElement).not.toHaveStyleRule("paddingLeft");
+        expect(StyleElement).not.toHaveStyleRule("paddingRight");
+        expect(StyleElement).not.toHaveStyleRule("paddingTop");
+        expect(StyleElement).not.toHaveStyleRule("paddingBottom");
+        expect(StyleElement).not.toHaveStyleRule("padding");
+      }
+    });
+  });
+
+  describe.each(paddingProps)(
+    'when a custom spacing is specified using the "%s" styled system props',
+    (styledSystemProp, propName) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledSystemProp]: 2 };
+        render(component({ ...props }));
+
+        assertStyleMatch(
+          { [propName]: "var(--spacing200)" },
+          elementQuery(),
+          assertOpts
+        );
+      });
+    }
+  );
+};
+
+const testStyledSystemSpacingRTL = (
+  component: (spacingProps?: MarginProps | PaddingProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+  defaults?: MarginProps | PaddingProps,
+  assertOpts?: jest.Options
+) => {
+  testStyledSystemMarginRTL(
+    component,
+    elementQuery,
+    defaults as MarginProps,
+    assertOpts
+  );
+  testStyledSystemPaddingRTL(
+    component,
+    elementQuery,
+    defaults as PaddingProps,
+    assertOpts
+  );
+};
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -636,4 +789,7 @@ export {
   testStyledSystemBackground,
   testStyledSystemPosition,
   expectConsoleOutput,
+  testStyledSystemSpacingRTL,
+  testStyledSystemMarginRTL,
+  testStyledSystemPaddingRTL,
 };
