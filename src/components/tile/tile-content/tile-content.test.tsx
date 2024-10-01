@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { PaddingProps } from "styled-system";
 import TileContent from "./tile-content.component";
 import {
-  testStyledSystemHeight,
+  testStyledSystemHeightRTL,
   testStyledSystemSpacingRTL,
   testStyledSystemWidthRTL,
 } from "../../../__spec_helper__/__internal__/test-utils";
@@ -26,7 +26,14 @@ describe("TileContent", () => {
     ),
     () => screen.getByTestId("tile-content")
   );
-  testStyledSystemHeight((props) => <TileContent {...props}>Test</TileContent>);
+  testStyledSystemHeightRTL(
+    (props) => (
+      <TileContent data-role="tile-content" {...props}>
+        Test
+      </TileContent>
+    ),
+    () => screen.getByTestId("tile-content")
+  );
 
   it("does not render when no children are passed", () => {
     render(<TileContent data-role="tile-content" />);

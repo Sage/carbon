@@ -778,6 +778,21 @@ const testStyledSystemWidthRTL = (
   });
 };
 
+const testStyledSystemHeightRTL = (
+  component: (heightProperties?: { height: string }) => JSX.Element,
+  elementQuery: () => HTMLElement
+) => {
+  describe("when a height prop is specified using styled system props", () => {
+    it("should set the height styling correctly", () => {
+      const [styledSystemProp, propName, value] = heightProps;
+      const props = { [styledSystemProp]: value };
+      render(component({ ...props }));
+      const StyleElement = elementQuery();
+      expect(StyleElement).toHaveStyleRule(propName, value);
+    });
+  });
+};
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -795,6 +810,7 @@ export {
   testStyledSystemSpacing,
   testStyledSystemMargin,
   testStyledSystemPadding,
+  testStyledSystemColor,
   testStyledSystemWidth,
   testStyledSystemHeight,
   testStyledSystemLayout,
@@ -806,6 +822,6 @@ export {
   testStyledSystemSpacingRTL,
   testStyledSystemMarginRTL,
   testStyledSystemPaddingRTL,
-  testStyledSystemColor,
   testStyledSystemWidthRTL,
+  testStyledSystemHeightRTL,
 };
