@@ -8,7 +8,7 @@ import {
 import userEvent from "@testing-library/user-event";
 import {
   testStyledSystemPaddingRTL,
-  testStyledSystemWidth,
+  testStyledSystemWidthRTL,
 } from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
 import Form from "../form";
@@ -302,13 +302,13 @@ test("does not control styling of overflowing content when there is a child Form
   expect(sidebarContent).not.toHaveStyle("overflow: auto");
 });
 
-testStyledSystemWidth(
+testStyledSystemWidthRTL(
   (props) => (
     <Sidebar open {...props}>
       Content
     </Sidebar>
   ),
-  (component) => component.find("[role='dialog']")
+  () => screen.getByRole("dialog")
 );
 
 testStyledSystemPaddingRTL(

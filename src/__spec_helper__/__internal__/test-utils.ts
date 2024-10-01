@@ -763,6 +763,21 @@ const testStyledSystemColor = (
   );
 };
 
+const testStyledSystemWidthRTL = (
+  component: (widthProperties?: { width: string }) => JSX.Element,
+  elementQuery: () => HTMLElement
+) => {
+  describe("when a width prop is specified using styled system props", () => {
+    it("should set the width styling correctly", () => {
+      const [styledSystemProp, propName, value] = widthProps;
+      const props = { [styledSystemProp]: value };
+      render(component({ ...props }));
+      const StyleElement = elementQuery();
+      expect(StyleElement).toHaveStyleRule(propName, value);
+    });
+  });
+};
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -792,4 +807,5 @@ export {
   testStyledSystemMarginRTL,
   testStyledSystemPaddingRTL,
   testStyledSystemColor,
+  testStyledSystemWidthRTL,
 };

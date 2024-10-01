@@ -5,7 +5,7 @@ import TileContent from "./tile-content.component";
 import {
   testStyledSystemHeight,
   testStyledSystemSpacingRTL,
-  testStyledSystemWidth,
+  testStyledSystemWidthRTL,
 } from "../../../__spec_helper__/__internal__/test-utils";
 import TileContext from "../__internal__/tile.context";
 
@@ -18,7 +18,14 @@ describe("TileContent", () => {
     ),
     () => screen.getByTestId("tile-content")
   );
-  testStyledSystemWidth((props) => <TileContent {...props}>Test</TileContent>);
+  testStyledSystemWidthRTL(
+    (props) => (
+      <TileContent data-role="tile-content" {...props}>
+        Test
+      </TileContent>
+    ),
+    () => screen.getByTestId("tile-content")
+  );
   testStyledSystemHeight((props) => <TileContent {...props}>Test</TileContent>);
 
   it("does not render when no children are passed", () => {
