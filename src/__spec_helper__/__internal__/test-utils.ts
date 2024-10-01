@@ -462,7 +462,7 @@ const testStyledSystemGrid = (
   describe.each(gridProps)(
     'when a prop is specified using the "%s" styled system props',
     (styledSystemProp, propName, value) => {
-      it(`then ${propName} should have been set correctly`, () => {
+      it(`should set ${propName} styling correctly`, () => {
         const props = { [styledSystemProp]: value };
         render(component(props));
 
@@ -494,19 +494,16 @@ const testStyledSystemBackground = (
 
 const testStyledSystemPosition = (
   component: (positionProperties?: PositionProps) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
+  elementQuery: () => HTMLElement
 ) => {
   describe.each(positionProps)(
     'when a prop is specified using the "%s" styled system props',
     (styledSystemProp, value) => {
       it(`then ${styledSystemProp} should have been set correctly`, () => {
         const props = { [styledSystemProp]: value };
-        const wrapper = mount(component({ ...props }));
+        render(component({ ...props }));
 
-        assertStyleMatch(
-          { [styledSystemProp]: value },
-          styleContainer ? styleContainer(wrapper) : wrapper
-        );
+        assertStyleMatch({ [styledSystemProp]: value }, elementQuery());
       });
     }
   );
