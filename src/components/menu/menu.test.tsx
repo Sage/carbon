@@ -12,7 +12,10 @@ testStyledSystemLayout(
   (props) => <Menu {...props}>Foo</Menu>,
   () => screen.getByRole("list")
 );
-testStyledSystemFlexBox((props) => <Menu {...props}>Foo</Menu>);
+testStyledSystemFlexBox(
+  (props) => <Menu {...props}>Foo</Menu>,
+  () => screen.getByRole("list")
+);
 
 test("should focus the last item when 'End' key is pressed by user", async () => {
   const user = userEvent.setup();

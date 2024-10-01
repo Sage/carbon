@@ -43,7 +43,14 @@ describe("When MenuItem has no submenu", () => {
     ),
     () => screen.getByRole("listitem")
   );
-  testStyledSystemFlexBox((props) => <MenuItem {...props}>Item One</MenuItem>);
+  testStyledSystemFlexBox(
+    (props) => (
+      <MenuItem href="#" {...props}>
+        Foo
+      </MenuItem>
+    ),
+    () => screen.getByRole("listitem")
+  );
 
   it("should render children correctly", () => {
     render(<MenuItem>Item One</MenuItem>);

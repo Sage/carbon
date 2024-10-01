@@ -12,9 +12,10 @@ describe("FlexTileCell", () => {
     (props) => <FlexTileCell {...props}>Test</FlexTileCell>,
     () => screen.getByText("Test")
   );
-  testStyledSystemFlexBox((props) => (
-    <FlexTileCell {...props}>Test</FlexTileCell>
-  ));
+  testStyledSystemFlexBox(
+    (props) => <FlexTileCell {...props}>Test</FlexTileCell>,
+    () => screen.getByText("Test")
+  );
 
   it("does not render when falsy children are passed", () => {
     render(<FlexTileCell data-role="flex-tile-cell">{null}</FlexTileCell>);

@@ -23,7 +23,10 @@ testStyledSystemLayout(
   (props) => <Box data-role="box" {...props} />,
   () => screen.getByTestId("box")
 );
-testStyledSystemFlexBox((props) => <Box {...props} />);
+testStyledSystemFlexBox(
+  (props) => <Box data-role="box" {...props} />,
+  () => screen.getByTestId("box")
+);
 testStyledSystemGrid((props) => <Box {...props} />);
 testStyledSystemPosition((props) => <Box {...props} />);
 

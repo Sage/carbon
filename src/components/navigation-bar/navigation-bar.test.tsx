@@ -145,6 +145,7 @@ testStyledSystemPaddingRTL(
   { modifier: "&&" }
 );
 
-testStyledSystemFlexBox((props) => (
-  <NavigationBar {...props}>test content</NavigationBar>
-));
+testStyledSystemFlexBox(
+  (props) => <NavigationBar {...props}>test content</NavigationBar>,
+  () => screen.getByRole("navigation")
+);
