@@ -71,7 +71,7 @@ const StyledAccordionTitle = styled.h3<StyledAccordionTitleProps>`
     size === "small" || variant === "subtle"
       ? "var(--fontSizes200)"
       : "var(--fontSizes400)"};
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1;
   user-select: none;
   margin: 0;
@@ -213,7 +213,7 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
     ${buttonHeading &&
     css`
       box-sizing: border-box;
-      font-weight: 600;
+      font-weight: 500;
       text-decoration: none;
       font-size: var(--fontSizes100);
       min-height: var(--spacing500);

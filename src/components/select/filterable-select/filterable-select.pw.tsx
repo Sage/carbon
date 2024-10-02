@@ -971,7 +971,7 @@ test.describe("FilterableSelect component", () => {
         "text-decoration-style",
         "solid"
       );
-      await expect(highlightedValue).toHaveCSS("font-weight", "700");
+      await expect(highlightedValue).toHaveCSS("font-weight", "500");
     });
   });
 

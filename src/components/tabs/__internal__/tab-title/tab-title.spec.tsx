@@ -60,7 +60,7 @@ describe("TabTitle", () => {
       {
         backgroundColor: "transparent",
         display: "inline-block",
-        fontWeight: "bold",
+        fontWeight: "500",
         height: "var(--sizing500)",
       },
       render({}, mount).find(StyledTabTitleButton)

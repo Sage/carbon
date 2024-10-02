@@ -52,7 +52,7 @@ const StyledContentTitle = styled.div<StyledContentTitleProps>`
   ${({ titleWidth, inline, variant, align }) => {
     return css`
       display: ${inline ? "inline-block" : "block"};
-      font-weight: bold;
+      font-weight: 500;
       width: ${titleWidth && `calc(${titleWidth}% - 30px)`};
       text-align: ${!inline && align};
 

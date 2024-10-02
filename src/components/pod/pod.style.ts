@@ -406,7 +406,7 @@ const StyledSubtitle = styled.h5`
 const StyledTitle = styled.h4`
   display: inline;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
 `;
 
 StyledPod.defaultProps = {

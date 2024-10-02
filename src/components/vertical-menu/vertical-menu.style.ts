@@ -29,7 +29,7 @@ export const StyledVerticalMenuItem = styled.div<StyledVerticalMenuProps>`
   display: flex;
   border: none;
   align-items: center;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   cursor: pointer;
   color: var(--colorsComponentsLeftnavWinterStandardContent);
@@ -81,7 +81,7 @@ export const StyledVerticalMenuItem = styled.div<StyledVerticalMenuProps>`
 StyledVerticalMenuItem.defaultProps = { theme: baseTheme };
 
 export const StyledTitle = styled.h3`
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   line-height: 21px;
   margin: 0;

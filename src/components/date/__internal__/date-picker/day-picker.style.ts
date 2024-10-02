@@ -265,7 +265,7 @@ const StyledDayPicker = styled.div`
     border: none;
     //font-family: var(--fontFamiliesDefault); font assets to be updated part of FE-4975
     //font: var(--typographyDatePickerCalendarDateM); font assets to be updated part of FE-4975
-    font-weight: var(--fontWeights700);
+    font-weight: var(--fontWeights500);
     font-size: var(--fontSizes100);
     line-height: var(--lineHeights500);
     border-radius: var(--borderRadius400);

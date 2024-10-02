@@ -18,7 +18,7 @@ type StyledPortraitProps = {
 export const StyledPortraitInitials = styled.div<
   Pick<StyledPortraitProps, "size">
 >`
-  font-weight: bold;
+  font-weight: 500;
   font-size: ${({ size }) => profileConfigSizes[size].initialSize};
   display: flex;
   white-space: nowrap;

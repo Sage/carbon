@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledComponentHeader = styled.header`
-  align-items:${({ centerAlign }) => centerAlign ? 'center' : 'flex-start'};
-  text-align:${({ centerAlign }) => centerAlign ? 'center' : 'left'};
+  align-items: ${({ centerAlign }) => (centerAlign ? "center" : "flex-start")};
+  text-align: ${({ centerAlign }) => (centerAlign ? "center" : "left")};
   display: flex;
   flex-direction: column;
   margin-bottom: 60px;
@@ -23,7 +23,7 @@ export const StyledHeading = styled.h2`
 
   span {
     color: #000;
-    font-weight: 700;
+    font-weight: 500;
   }
 `;
 

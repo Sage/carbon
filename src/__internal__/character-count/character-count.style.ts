@@ -18,7 +18,7 @@ const StyledCharacterCount = styled.div<{ isOverLimit: boolean }>`
   ${({ isOverLimit }) =>
     isOverLimit &&
     css`
-      font-weight: var(--fontWeights700);
+      font-weight: var(--fontWeights500);
     `}
 `;
 
