@@ -264,6 +264,8 @@ export const Textarea = React.forwardRef(
 
         const scrollPosition = scrollElement?.scrollTop;
 
+        // Reset height to allow shrinking when lines are removed
+        textarea.style.height = "auto";
         // Set the height so all content is shown
         textarea.style.height = `${Math.max(
           textarea.scrollHeight,
