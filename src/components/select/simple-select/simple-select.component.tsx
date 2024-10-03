@@ -94,6 +94,10 @@ export interface SimpleSelectProps
   isOptional?: boolean;
   /** Flag to configure component as mandatory */
   isRequired?: boolean;
+  /** Specify a callback triggered on change */
+  onChange?: (
+    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
+  ) => void;
 }
 
 export const SimpleSelect = React.forwardRef<
