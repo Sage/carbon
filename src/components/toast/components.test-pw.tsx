@@ -5,6 +5,7 @@ import Dialog from "../dialog";
 
 export const ToastComponent = ({
   children = "Toast",
+  onDismiss,
   ...props
 }: Partial<ToastProps>) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -13,7 +14,10 @@ export const ToastComponent = ({
       variant="info"
       id="toast"
       open={isOpen}
-      onDismiss={() => setIsOpen(!isOpen)}
+      onDismiss={(ev) => {
+        onDismiss?.(ev);
+        setIsOpen(!isOpen);
+      }}
       {...props}
     >
       {children}
