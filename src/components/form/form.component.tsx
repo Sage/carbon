@@ -10,7 +10,6 @@ import {
   StyledFormFooter,
   StyledLeftButtons,
   StyledRightButtons,
-  StyledFullWidthButtons,
 } from "./form.style";
 import { FormButtonAlignment, formSpacing } from "./form.config";
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
@@ -106,7 +105,7 @@ export const Form = ({
           {children}
         </FormSpacingProvider>
       </StyledFormContent>
-      {!fullWidthButtons && renderFooter && (
+      {renderFooter && (
         <StyledFormFooter
           data-element="form-footer"
           data-role="form-footer"
@@ -114,6 +113,7 @@ export const Form = ({
           ref={formFooterRef}
           stickyFooter={stickyFooter}
           buttonAlignment={buttonAlignment}
+          fullWidthButtons={fullWidthButtons}
           isInModal={isInModal}
           {...footerPadding}
         >
@@ -126,7 +126,11 @@ export const Form = ({
             </StyledLeftButtons>
           )}
 
-          <FormSummary errorCount={errorCount} warningCount={warningCount}>
+          <FormSummary
+            fullWidth={fullWidthButtons}
+            errorCount={errorCount}
+            warningCount={warningCount}
+          >
             {saveButton}
           </FormSummary>
 
@@ -138,38 +142,6 @@ export const Form = ({
               {rightSideButtons}
             </StyledRightButtons>
           )}
-        </StyledFormFooter>
-      )}
-      {fullWidthButtons && renderFooter && (
-        <StyledFormFooter
-          data-element="form-footer"
-          data-role="form-footer"
-          className={classNames}
-          ref={formFooterRef}
-          stickyFooter={stickyFooter}
-          buttonAlignment={buttonAlignment}
-          fullWidthButtons={fullWidthButtons}
-          {...footerPadding}
-        >
-          {leftSideButtons && (
-            <StyledLeftButtons fullWidthButtons={fullWidthButtons}>
-              {leftSideButtons}
-            </StyledLeftButtons>
-          )}
-          {rightSideButtons && (
-            <StyledRightButtons fullWidthButtons={fullWidthButtons}>
-              {rightSideButtons}
-            </StyledRightButtons>
-          )}
-          <StyledFullWidthButtons>
-            <FormSummary
-              fullWidth={fullWidthButtons}
-              errorCount={errorCount}
-              warningCount={warningCount}
-            >
-              {saveButton}
-            </FormSummary>
-          </StyledFullWidthButtons>
         </StyledFormFooter>
       )}
     </StyledForm>

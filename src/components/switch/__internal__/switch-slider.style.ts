@@ -26,7 +26,7 @@ const StyledSwitchSlider = styled.div`
   }: StyledSwitchSliderProps) => css`
     display: flex;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 500;
     height: 28px;
     left: 0;
     letter-spacing: 1px;

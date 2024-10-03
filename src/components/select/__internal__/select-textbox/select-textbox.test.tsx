@@ -264,7 +264,7 @@ describe("when hasTextCursor prop is false", () => {
 
     expect(screen.getByTestId("select-text")).toHaveStyle({
       textAlign: "right",
-      fontWeight: "900",
+      fontWeight: "500",
     });
   });
 });

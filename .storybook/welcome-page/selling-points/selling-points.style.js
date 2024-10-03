@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Wrapper = styled.div`
   margin: 0 auto;
@@ -55,7 +55,7 @@ export const Image = styled.img`
 
 export const Heading = styled.h3`
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.22em;
   margin-bottom: 0.5em;
 `;

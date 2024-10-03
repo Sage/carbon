@@ -27,7 +27,7 @@ test.describe("User prefers reduced motion", () => {
     await mount(<DefaultLoaderStar />);
 
     await expect(loaderStarVisibleLabel(page)).toHaveText("Loading...");
-    await expect(loaderStarVisibleLabel(page)).toHaveCSS("font-weight", "500");
+    await expect(loaderStarVisibleLabel(page)).toHaveCSS("font-weight", "400");
     await expect(loaderStarVisibleLabel(page)).toHaveCSS("display", "flex");
     await expect(loaderStarVisibleLabel(page)).toHaveCSS(
       "justify-content",

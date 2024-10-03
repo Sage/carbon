@@ -71,7 +71,7 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
   box-sizing: border-box;
   max-width: 100%;
 
-  font-weight: 700;
+  font-weight: 500;
   background-color: transparent;
   cursor: pointer;
   text-align: center;

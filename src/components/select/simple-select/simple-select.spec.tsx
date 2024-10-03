@@ -987,7 +987,7 @@ describe("SimpleSelect", () => {
         {
           content: '"*"',
           color: "var(--colorsSemanticNegative500)",
-          fontWeight: "var(--fontWeights700)",
+          fontWeight: "var(--fontWeights500)",
           marginLeft: "var(--spacing050)",
         },
         wrapper.find(StyledLabel),

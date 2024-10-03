@@ -19,7 +19,7 @@ const StyledNavigationItem = styled.li<StyledNavigationItemProps>`
     color: var(--colorsUtilityYin090);
     background-color: transparent;
     border-left: var(--sizing050) solid var(--colorsActionMinor100);
-    font-weight: 700;
+    font-weight: 500;
     padding: 12px 24px;
     border-top-right-radius: var(--borderRadius100);
     border-bottom-right-radius: var(--borderRadius100);

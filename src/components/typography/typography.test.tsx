@@ -22,7 +22,7 @@ test("should render with expected styles when variant is 'h1-large'", () => {
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "32px",
     lineHeight: "40px",
-    fontWeight: "900",
+    fontWeight: "700",
     textTransform: "none",
     textDecoration: "none",
     margin: "0",
@@ -35,7 +35,7 @@ test("should render with expected styles when variant is 'h1'", () => {
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "24px",
     lineHeight: "31px",
-    fontWeight: "900",
+    fontWeight: "700",
     textTransform: "none",
     textDecoration: "none",
     margin: "0",
@@ -48,7 +48,7 @@ test("should render with expected styles when variant is 'h2'", () => {
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "22px",
     lineHeight: "29px",
-    fontWeight: "700",
+    fontWeight: "500",
     textTransform: "none",
     textDecoration: "none",
     margin: "0",
@@ -61,7 +61,7 @@ test("should render with expected styles when variant is 'h3'", () => {
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "20px",
     lineHeight: "26px",
-    fontWeight: "700",
+    fontWeight: "500",
     textTransform: "none",
     textDecoration: "none",
     margin: "0",
@@ -100,7 +100,7 @@ test("should render with expected styles when variant is 'segment-header'", () =
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "20px",
     lineHeight: "26px",
-    fontWeight: "900",
+    fontWeight: "700",
     textTransform: "none",
     textDecoration: "none",
     margin: "0",
@@ -113,7 +113,7 @@ test("should render with expected styles when variant is 'segment-header-small'"
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "18px",
     lineHeight: "23px",
-    fontWeight: "900",
+    fontWeight: "700",
     textTransform: "none",
     textDecoration: "none",
     margin: "0",
@@ -126,7 +126,7 @@ test("should render with expected styles when variant is 'segment-subheader'", (
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "16px",
     lineHeight: "31px",
-    fontWeight: "700",
+    fontWeight: "500",
     textTransform: "none",
     textDecoration: "none",
     margin: "0",
@@ -139,7 +139,7 @@ test("should render with expected styles when variant is 'segment-subheader-alt'
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "14px",
     lineHeight: "21px",
-    fontWeight: "700",
+    fontWeight: "500",
     textTransform: "uppercase",
     textDecoration: "none",
     margin: "0",
@@ -219,7 +219,7 @@ test("should render with expected styles when variant is 'strong'", () => {
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "14px",
     lineHeight: "21px",
-    fontWeight: "700",
+    fontWeight: "500",
     textTransform: "none",
     textDecoration: "none",
     margin: "0",
@@ -232,7 +232,7 @@ test("should render with expected styles when variant is 'b'", () => {
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "14px",
     lineHeight: "21px",
-    fontWeight: "700",
+    fontWeight: "500",
     textTransform: "none",
     textDecoration: "none",
     margin: "0",
@@ -245,7 +245,7 @@ test("should render with expected styles when variant is 'em'", () => {
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "14px",
     lineHeight: "21px",
-    fontWeight: "700",
+    fontWeight: "500",
     textTransform: "none",
     textDecoration: "underline",
     margin: "0",

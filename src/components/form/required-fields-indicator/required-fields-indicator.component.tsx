@@ -15,7 +15,7 @@ const StyledIndicatorContainer = styled(Box)`
   ::after {
     content: "*";
     color: var(--colorsSemanticNegative500);
-    font-weight: 700;
+    font-weight: 500;
     margin-left: var(--spacing050);
   }
 `;

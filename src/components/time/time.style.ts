@@ -3,7 +3,7 @@ import Label from "../../__internal__/label";
 
 export const StyledLabel = styled(Label)`
   label {
-    font-weight: var(--fontWeights500);
+    font-weight: var(--fontWeights400);
   }
 `;
 

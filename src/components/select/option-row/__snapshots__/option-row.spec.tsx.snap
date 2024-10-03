@@ -20,7 +20,7 @@ exports[`OptionRow renders properly 1`] = `
 }
 
 .c0 td:first-child {
-  font-weight: 700;
+  font-weight: 500;
 }
 
 <table>

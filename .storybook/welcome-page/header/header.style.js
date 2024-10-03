@@ -17,7 +17,7 @@ export const HeadingContentWrapper = styled.div`
   color: #fff;
 
   h1 {
-    font-weight: 900
+    font-weight: 700
     font-size: 40px;
     line-height: normal;
     margin: 0 auto;
@@ -25,7 +25,7 @@ export const HeadingContentWrapper = styled.div`
   }
 
   h2 {
-    font-weight: 700;
+    font-weight: 500;
     font-size: 22px;
     line-height: normal;
     margin-top: 16px;

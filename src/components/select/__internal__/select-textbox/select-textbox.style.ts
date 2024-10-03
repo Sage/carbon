@@ -23,7 +23,7 @@ const StyledSelectText = styled.span<StyledSelectTextProps>`
 
     ${transparent &&
     css`
-      font-weight: 900;
+      font-weight: 500;
       text-align: right;
       flex-direction: row-reverse;
     `}

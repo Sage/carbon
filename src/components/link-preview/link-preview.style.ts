@@ -74,7 +74,7 @@ const StyledPreviewWrapper = styled.div<{ isLoading: boolean }>`
 const StyledTitle = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 14px;
   line-height: 21px;
 `;

@@ -10,7 +10,7 @@ const StyledFlatTableHead = styled.thead`
       border-right: none;
     }
     ${StyledFlatTableRowHeader}, ${StyledFlatTableCheckbox} {
-      font-weight: 700;
+      font-weight: 500;
     }
   }
 `;

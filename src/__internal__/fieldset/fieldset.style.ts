@@ -36,7 +36,7 @@ const StyledLegendContent = styled.span<StyledLegendContentProps>`
         content: "*";
         line-height: 24px;
         color: var(--colorsSemanticNegative500);
-        font-weight: var(--fontWeights700);
+        font-weight: var(--fontWeights500);
         margin-left: var(--spacing050);
         position: relative;
         top: 1px;
@@ -76,7 +76,7 @@ const StyledLegend = styled.legend<StyledLegendProps>`
   align-items: center;
   margin-bottom: var(--spacing100);
   padding: 0;
-  font-weight: var(--fontWeights700);
+  font-weight: var(--fontWeights500);
   color: var(--colorsUtilityYin090);
   ${({ inline, width, align, rightPadding }) =>
     inline &&
