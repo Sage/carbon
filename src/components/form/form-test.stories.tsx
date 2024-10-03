@@ -37,7 +37,7 @@ export default {
   },
 };
 
-export const DefaultWithStickyFooter = () => (
+export const DefaultWithStickyFooter = ({ ...props }) => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -48,7 +48,7 @@ export const DefaultWithStickyFooter = () => (
         Save
       </Button>
     }
-    stickyFooter
+    {...props}
   >
     <Tabs mb={2}>
       <Tab
@@ -72,6 +72,12 @@ export const DefaultWithStickyFooter = () => (
 );
 
 DefaultWithStickyFooter.storyName = "default";
+DefaultWithStickyFooter.args = {
+  stickyFooter: true,
+  errorCount: 0,
+  warningCount: 0,
+  buttonAlignment: "right",
+};
 
 export const FormAlignmentCustomMarginsTextInputs = () => {
   return (
@@ -484,4 +490,41 @@ MarginTest.parameters = {
     disableSnapshot: false, // we want chromatic to capture this to catch any future regressions
   },
   themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const FullWidthWithLeftAndRight = () => {
+  return (
+    <Form
+      fullWidthButtons
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")} fullWidth>
+          Cancel
+        </Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit" fullWidth>
+          Save
+        </Button>
+      }
+      rightSideButtons={
+        <Button onClick={() => console.log("other")} fullWidth>
+          Other
+        </Button>
+      }
+      errorCount={3}
+      warningCount={2}
+    >
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+    </Form>
+  );
+};
+
+FullWidthWithLeftAndRight.storyName = "left and right fullWith buttons";
+FullWidthWithLeftAndRight.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+  },
+  themeProvider: { chromatic: { theme: "sage" }, viewports: [1200, 900, 320] },
 };
