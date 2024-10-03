@@ -1,6 +1,8 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Option, { OptionProps } from ".";
 import SelectListContext from "../__internal__/select-list/select-list.context";
 import guid from "../../../__internal__/utils/helpers/guid";
@@ -70,7 +72,7 @@ describe("Option", () => {
       const wrapper = renderOption(props, mount);
       wrapper.simulate("click");
 
-      expect(onSelect).not.toBeCalled();
+      expect(onSelect).not.toHaveBeenCalled();
     });
   });
 
@@ -108,7 +110,7 @@ describe("Option", () => {
   });
 
   describe("when the element is clicked", () => {
-    it("then onSelect should be called with text and value", () => {
+    it("calls onSelect with text and value", () => {
       const onSelect = jest.fn();
       const props = { value: "1", text: "foo", onSelect };
       const wrapper = renderOption(props, mount);
@@ -119,6 +121,38 @@ describe("Option", () => {
         value: props.value,
         id: mockedGuid,
       });
+    });
+
+    it("both onClick and onSelect should be called if both are passed", async () => {
+      const user = userEvent.setup();
+      const onSelect = jest.fn();
+      const onClick = jest.fn();
+      const props = { value: "1", text: "foo", onSelect, onClick };
+      render(
+        <ul>
+          <Option {...props}>Foo</Option>
+        </ul>
+      );
+      await user.click(screen.getByRole("option"));
+
+      expect(onSelect).toHaveBeenCalled();
+      expect(onClick).toHaveBeenCalledWith(props.value);
+    });
+
+    it("neither onClick and onSelect should be called if both are passed but no value is set", async () => {
+      const user = userEvent.setup();
+      const onSelect = jest.fn();
+      const onClick = jest.fn();
+      const props = { text: "foo", onSelect, onClick };
+      render(
+        <ul>
+          <Option {...props}>Foo</Option>
+        </ul>
+      );
+      await user.click(screen.getByRole("option"));
+
+      expect(onSelect).not.toHaveBeenCalled();
+      expect(onClick).not.toHaveBeenCalled();
     });
   });
 
@@ -141,4 +175,14 @@ describe("Option", () => {
       expect(wrapper.getDOMNode().getAttribute("data-role")).toEqual("baz");
     });
   });
+});
+
+test("should not render with cursor style pointer when no value or text is passed", () => {
+  render(
+    <ul>
+      <Option>Foo</Option>
+    </ul>
+  );
+
+  expect(screen.getByRole("option")).not.toHaveStyle("cursor: pointer");
 });
