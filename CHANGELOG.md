@@ -1,3 +1,10 @@
+### [142.13.1](https://github.com/Sage/carbon/compare/v142.13.0...v142.13.1) (2024-10-03)
+
+
+### Bug Fixes
+
+* **form:** allow form-footer content to be responsive ([c7d55e1](https://github.com/Sage/carbon/commit/c7d55e14a44245609a5bd94df8993eb5a6f4b2ba)), closes [#6658](https://github.com/Sage/carbon/issues/6658)
+
 ## [142.13.0](https://github.com/Sage/carbon/compare/v142.12.0...v142.13.0) (2024-10-02)
 
 
