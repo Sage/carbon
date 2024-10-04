@@ -1,3 +1,10 @@
+### [142.13.3](https://github.com/Sage/carbon/compare/v142.13.2...v142.13.3) (2024-10-04)
+
+
+### Bug Fixes
+
+* **badge:** investigate failing RTL test ([5e1d7d6](https://github.com/Sage/carbon/commit/5e1d7d6f6482b533c6fa9afe88f927293e3576c0))
+
 ### [142.13.2](https://github.com/Sage/carbon/compare/v142.13.1...v142.13.2) (2024-10-04)
 
 
