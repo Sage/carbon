@@ -5,6 +5,7 @@ import { Checkbox } from "../checkbox";
 import Box from "../box";
 import Icon from "../icon";
 import Pill from "../pill";
+import Button from "../button";
 
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 
@@ -649,6 +650,25 @@ export const Responsive = () => {
         {tabsData.map((tabData) => (
           <Tab {...tabData} key={tabData.key} />
         ))}
+      </Tabs>
+    </Box>
+  );
+};
+
+export const WithUpdatingChild = () => {
+  const [updated, setUpdated] = useState(false);
+  const onButtonClick = () => setUpdated((prev) => !prev);
+
+  return (
+    <Box p="4px">
+      <Tabs align="left" position="top" selectedTabId="tab-2">
+        <Tab tabId="tab-1" title="Tab 1">
+          Content for tab 1
+        </Tab>
+        <Tab tabId="tab-2" title="Tab 2">
+          Content for tab 2{updated ? "Foo" : "Bar"}
+          <Button onClick={onButtonClick}>Update</Button>
+        </Tab>
       </Tabs>
     </Box>
   );

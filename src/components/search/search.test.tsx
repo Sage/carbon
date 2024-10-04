@@ -381,7 +381,7 @@ test("applies the correct width specified by the user", () => {
 
   expect(screen.getByTestId("search")).toHaveStyle({
     display: "inline-flex",
-    "font-weight": "700",
+    "font-weight": "500",
     width: "400px",
   });
   expect(screen.getByTestId("search")).toHaveStyleRule(

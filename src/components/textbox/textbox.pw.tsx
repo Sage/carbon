@@ -553,7 +553,7 @@ test.describe("Prop checks for Textbox component", () => {
 
       await expect(textboxPrefix(page)).toHaveText(prefix);
       await expect(textboxPrefix(page)).toHaveCSS("font-size", "14px");
-      await expect(textboxPrefix(page)).toHaveCSS("font-weight", "900");
+      await expect(textboxPrefix(page)).toHaveCSS("font-weight", "700");
       await expect(textboxPrefix(page)).toHaveCSS("margin-left", "12px");
     });
   });

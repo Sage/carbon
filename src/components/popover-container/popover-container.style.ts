@@ -96,7 +96,7 @@ const PopoverContainerCloseIcon = styled(IconButton)<AdditionalIconButtonProps>`
 
 const PopoverContainerTitleStyle = styled.div`
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 500;
 `;
 
 PopoverContainerContentStyle.defaultProps = {

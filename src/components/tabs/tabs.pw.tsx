@@ -19,6 +19,7 @@ import {
   WithCustomLayout,
   WithStringValidationsSummarised,
   Responsive,
+  WithUpdatingChild,
 } from "./components.test-pw";
 import {
   getDataElementByValue,
@@ -818,5 +819,17 @@ test.describe("Tabs component", () => {
         );
       });
     });
+  });
+
+  test("when the children of a Tab update, the selected tab does not change", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithUpdatingChild />);
+
+    await page.getByRole("button").click();
+
+    await expect(page.getByText("Content for tab 2")).toBeVisible();
+    await expect(page.getByText("Content for tab 1")).not.toBeVisible();
   });
 });

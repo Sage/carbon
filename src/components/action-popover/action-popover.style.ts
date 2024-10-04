@@ -170,7 +170,7 @@ const StyledMenuItem = styled.button<Omit<StyledMenuItemProps, "variant">>`
   width: 100%;
   color: var(--colorsUtilityYin090);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
 
   &:focus {
     ${({ theme }) =>

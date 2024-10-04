@@ -44,7 +44,7 @@ export const StepFlowTitle = ({
         data-element="title-text"
       >
         <Typography
-          fontWeight="900"
+          fontWeight="700"
           fontSize="var(--fontSizes600)"
           lineHeight="var(--sizing375)"
           variant="span"

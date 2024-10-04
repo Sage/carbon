@@ -85,7 +85,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
     return css`
       font-size: 12px;
       letter-spacing: 0.7px;
-      font-weight: 700;
+      font-weight: 500;
       position: relative;
       display: inline-flex;
       text-align: center;

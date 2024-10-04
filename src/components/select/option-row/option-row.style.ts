@@ -30,7 +30,7 @@ const StyledOptionRow = styled.tr<StyledOptionRowProps>`
     padding: 12px 16px;
 
     &:first-child {
-      font-weight: 700;
+      font-weight: 500;
     }
   }
 

@@ -41,7 +41,7 @@ const StyledFlatTableHeader = styled.th<StyledFlatTableHeaderProps>`
     background-color: transparent;
     border-width: 0;
     box-sizing: border-box;
-    font-weight: 700;
+    font-weight: 500;
     left: auto;
     text-align: ${align};
     user-select: none;

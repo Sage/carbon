@@ -123,7 +123,7 @@ export const DuellingPicklistComponent = (
           >
             <div style={{ display: "flex", width: "100%" }}>
               <div style={{ width: "50%" }}>
-                <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+                <p style={{ fontWeight: 500, margin: 0, marginLeft: 24 }}>
                   {item.title}
                 </p>
               </div>
@@ -290,7 +290,7 @@ export const DuellingPicklistComponentAssigned = (
           >
             <div style={{ display: "flex", width: "100%" }}>
               <div style={{ width: "50%" }}>
-                <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+                <p style={{ fontWeight: 500, margin: 0, marginLeft: 24 }}>
                   {item.title}
                 </p>
               </div>
@@ -444,7 +444,7 @@ export const AlternativeSearch = () => {
           <PicklistItem key={key} type={type} item={item} onChange={handler}>
             <div style={{ display: "flex", width: "100%" }}>
               <div style={{ width: "50%" }}>
-                <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+                <p style={{ fontWeight: 500, margin: 0, marginLeft: 24 }}>
                   {item.title}
                 </p>
               </div>
@@ -583,7 +583,7 @@ export const Grouped = () => {
       return (
         <PicklistItem key={item.key} type={type} item={item} onChange={handler}>
           <div style={{ display: "flex", width: "100%" }}>
-            <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+            <p style={{ fontWeight: 500, margin: 0, marginLeft: 24 }}>
               {item.title}
             </p>
           </div>
@@ -666,7 +666,7 @@ export const AddItem = () => (
     <PicklistItem type="add" item={1} onChange={() => null}>
       <div style={{ display: "flex", width: "100%" }}>
         <div style={{ width: "50%" }}>
-          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+          <p style={{ fontWeight: 500, margin: 0, marginLeft: 24 }}>
             Title for Item
           </p>
         </div>
@@ -680,7 +680,7 @@ export const RemoveItem = () => (
     <PicklistItem type="remove" item={1} onChange={() => null}>
       <div style={{ display: "flex", width: "100%" }}>
         <div style={{ width: "50%" }}>
-          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+          <p style={{ fontWeight: 500, margin: 0, marginLeft: 24 }}>
             Title for Item
           </p>
         </div>
@@ -694,7 +694,7 @@ export const Locked = () => (
     <PicklistItem type="add" item={1} onChange={() => null} locked>
       <div style={{ display: "flex", width: "100%" }}>
         <div style={{ width: "50%" }}>
-          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+          <p style={{ fontWeight: 500, margin: 0, marginLeft: 24 }}>
             Title for Item
           </p>
         </div>
@@ -714,7 +714,7 @@ export const CustomTooltipMessage = () => (
     >
       <div style={{ display: "flex", width: "100%" }}>
         <div style={{ width: "50%" }}>
-          <p style={{ fontWeight: 700, margin: 0, marginLeft: 24 }}>
+          <p style={{ fontWeight: 500, margin: 0, marginLeft: 24 }}>
             Title for Item
           </p>
         </div>

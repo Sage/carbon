@@ -294,7 +294,7 @@ const tabTitleStyles = css<TabTitleProps>`
   display: inline-block;
   border-top-left-radius: var(--borderRadius100);
   border-top-right-radius: var(--borderRadius100);
-  font-weight: bold;
+  font-weight: 500;
   position: relative;
   border: none;
   cursor: pointer;

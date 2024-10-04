@@ -30,7 +30,7 @@ test("returns React element with a matching part highlighted", () => {
   const matchedText = screen.getByTestId("matching-text");
   expect(matchedText).toHaveTextContent("foo");
   expect(matchedText).toHaveStyle({
-    fontWeight: 700,
+    fontWeight: 500,
     textDecoration: "underline",
   });
 });

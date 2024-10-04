@@ -9,7 +9,7 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const StyledTitle = styled.h3`
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 700;
   margin: 0;
   margin-right: 16px;
   margin-bottom: 8px;
@@ -18,7 +18,7 @@ const StyledTitle = styled.h3`
 
 const StyledSubtitle = styled.h4`
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   margin: 0;
   margin-right: 16px;
   margin-bottom: 8px;

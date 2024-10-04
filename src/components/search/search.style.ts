@@ -41,7 +41,7 @@ const StyledSearch = styled.div<StyledSearchProps>`
       background-color: transparent;
       display: inline-flex;
       font-size: var(--fontSize100);
-      font-weight: 700;
+      font-weight: 500;
 
       ${!showSearchButton &&
       css`
@@ -138,7 +138,7 @@ const StyledSearch = styled.div<StyledSearchProps>`
 
         flex: 1;
         font-size: var(--fontSize100);
-        font-weight: 700;
+        font-weight: 500;
         padding-bottom: var(--spacing025);
         padding-top: 1px;
         cursor: pointer;

@@ -75,7 +75,7 @@ export const LoaderSpinner = ({
     <StyledLabel
       data-role="visible-label"
       variant="span"
-      fontWeight="500"
+      fontWeight="400"
       size={size}
       color={
         isLabelDark

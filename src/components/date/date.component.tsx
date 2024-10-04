@@ -97,6 +97,10 @@ export interface DateInputProps
    * Name passed from DateRange to allow it to know which input is updating
    * */
   inputName?: InputName;
+  /** Callback triggered when the picker is opened */
+  onPickerOpen?: () => void;
+  /** Callback triggered when the picker is closed */
+  onPickerClose?: () => void;
 }
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -128,6 +132,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       labelWidth,
       maxWidth,
       inputName,
+      onPickerClose,
+      onPickerOpen,
       ...rest
     }: DateInputProps,
     ref
@@ -199,6 +205,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
             isBlurBlocked.current = false;
             internalInputRef.current?.blur();
             setOpen(false);
+            onPickerClose?.();
             alreadyFocused.current = false;
           }
         } else {
@@ -295,6 +302,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       if (!open && !alreadyFocused.current) {
         setTimeout(() => {
           setOpen(true);
+          onPickerOpen?.();
         }, 0);
       } else {
         alreadyFocused.current = false;
@@ -310,10 +318,11 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         /* istanbul ignore else */
         if (open && Events.isEscKey(ev)) {
           setOpen(false);
+          onPickerClose?.();
           ev.stopPropagation();
         }
       },
-      [open]
+      [onPickerClose, open]
     );
 
     const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
@@ -324,6 +333,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       if (open && Events.isTabKey(ev)) {
         if (Events.isShiftKey(ev)) {
           setOpen(false);
+          onPickerClose?.();
         } else if (!disablePortal) {
           ev.preventDefault();
           (document?.querySelector(
@@ -354,11 +364,22 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       if (type !== "text") {
         alreadyFocused.current = true;
         setTimeout(() => {
-          setOpen((prev) => !prev);
+          setOpen((prev) => {
+            const nextState = !prev;
+
+            if (!nextState) {
+              onPickerClose?.();
+            } else {
+              onPickerOpen?.();
+            }
+
+            return nextState;
+          });
         }, 0);
       } else if (!open) {
         setTimeout(() => {
           setOpen(true);
+          onPickerOpen?.();
         }, 0);
       }
     };
@@ -508,6 +529,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           open={open}
           setOpen={setOpen}
           pickerTabGuardId={pickerTabGuardId.current}
+          onPickerClose={onPickerClose}
         />
       </StyledDateInput>
     );

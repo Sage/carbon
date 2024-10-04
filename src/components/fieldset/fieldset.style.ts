@@ -38,7 +38,7 @@ const StyledLegend = styled.legend<StyledFieldsetProps>`
   align-items: center;
   margin-bottom: 32px;
   font-size: 20px;
-  font-weight: var(--fontWeights700);
+  font-weight: var(--fontWeights500);
   color: var(--colorsUtilityYin090);
   line-height: 24px;
   margin-right: 4px;
@@ -50,7 +50,7 @@ const StyledLegend = styled.legend<StyledFieldsetProps>`
         content: "*";
         line-height: 24px;
         color: var(--colorsSemanticNegative500);
-        font-weight: var(--fontWeights700);
+        font-weight: var(--fontWeights500);
         margin-left: var(--spacing100);
         position: relative;
         top: 1px;

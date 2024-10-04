@@ -31,7 +31,7 @@ const StyledLabelContainer = styled.div`
 `;
 
 const StyledLabel = styled.p`
-  font-weight: bold;
+  font-weight: 500;
   font-size: 12px;
   letter-spacing: 1;
   margin: 0;

@@ -60,7 +60,7 @@ export const DefaultStory: Story = {
         </CardRow>
         <CardRow>
           <CardColumn>
-            <Typography fontSize="16px" m={0} fontWeight="bold">
+            <Typography fontSize="16px" m={0} fontWeight="500">
               Body text
             </Typography>
             <Heading title="More text" divider={false} />
@@ -100,7 +100,7 @@ export const SmallSpacing: Story = () => {
       </CardRow>
       <CardRow>
         <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
           <Heading title="More text" divider={false} />
@@ -139,7 +139,7 @@ export const LargeSpacing: Story = () => {
       </CardRow>
       <CardRow>
         <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
           <Heading title="More text" divider={false} />
@@ -178,7 +178,7 @@ export const WithWidthProvided: Story = () => {
       </CardRow>
       <CardRow>
         <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
           <Heading title="More text" divider={false} />
@@ -217,7 +217,7 @@ export const WithCustomHeight: Story = () => {
       </CardRow>
       <CardRow>
         <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
           <Heading title="More text" divider={false} />
@@ -256,7 +256,7 @@ export const WithExtraRoundness: Story = () => {
       </CardRow>
       <CardRow>
         <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
           <Heading title="More text" divider={false} />
@@ -349,7 +349,7 @@ export const WithCustomBoxShadow: Story = () => {
       </CardRow>
       <CardRow>
         <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
           <Heading title="More text" divider={false} />
@@ -387,7 +387,7 @@ export const DifferentCardRowPadding: Story = () => {
       </CardRow>
       <CardRow pt={0} pb={4}>
         <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
           <Heading title="More text" divider={false} />
@@ -396,7 +396,7 @@ export const DifferentCardRowPadding: Story = () => {
       </CardRow>
       <CardRow pt={0} pb={4}>
         <CardColumn>
-          <Typography fontSize="16px" m={0} fontWeight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
           <Heading title="More text" divider={false} />
@@ -430,7 +430,7 @@ export const DifferentCardFooterPadding: Story = () => {
       >
         <CardRow>
           <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
               Here is some text
             </Typography>
           </CardColumn>
@@ -454,7 +454,7 @@ export const DifferentCardFooterPadding: Story = () => {
       >
         <CardRow>
           <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
               Here is some text
             </Typography>
           </CardColumn>
@@ -478,7 +478,7 @@ export const DifferentCardFooterPadding: Story = () => {
       >
         <CardRow>
           <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
               Here is some text
             </Typography>
           </CardColumn>
@@ -502,7 +502,7 @@ export const DifferentCardFooterPadding: Story = () => {
       >
         <CardRow>
           <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
               Here is some text
             </Typography>
           </CardColumn>
@@ -526,7 +526,7 @@ export const DifferentCardFooterPadding: Story = () => {
       >
         <CardRow>
           <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
               Here is some text
             </Typography>
           </CardColumn>
@@ -550,7 +550,7 @@ export const DifferentCardFooterPadding: Story = () => {
       >
         <CardRow>
           <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
               Here is some text
             </Typography>
           </CardColumn>
@@ -602,7 +602,7 @@ export const MoreExamplesOfCardFooter: Story = () => {
       >
         <CardRow>
           <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
               Here is some text
             </Typography>
           </CardColumn>
@@ -652,7 +652,7 @@ export const MoreExamplesOfCardFooter: Story = () => {
       >
         <CardRow>
           <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
               Here is some text
             </Typography>
           </CardColumn>
@@ -702,7 +702,7 @@ export const MoreExamplesOfCardFooter: Story = () => {
       >
         <CardRow>
           <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
               Here is some text
             </Typography>
           </CardColumn>
@@ -721,7 +721,7 @@ export const MoreExamplesOfCardFooter: Story = () => {
       >
         <CardRow>
           <CardColumn>
-            <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            <Typography fontSize="16px" mt={2} mb={0} fontWeight="500">
               Here is some text
             </Typography>
           </CardColumn>

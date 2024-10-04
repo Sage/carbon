@@ -22,7 +22,7 @@ const StyledBadgeWrapper = styled.div`
 `;
 
 const StyledCounter = styled.div`
-  font-weight: 700;
+  font-weight: 500;
   font-size: 12px;
   margin-top: -1px;
 `;
