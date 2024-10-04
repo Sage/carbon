@@ -1,3 +1,10 @@
+### [142.13.2](https://github.com/Sage/carbon/compare/v142.13.1...v142.13.2) (2024-10-04)
+
+
+### Bug Fixes
+
+* **date:** add callback to be called when component blurs and picker is closed ([2a7e50e](https://github.com/Sage/carbon/commit/2a7e50e4551b0bff1848dd3fd7424d39eca6f196)), closes [#6788](https://github.com/Sage/carbon/issues/6788)
+
 ### [142.13.1](https://github.com/Sage/carbon/compare/v142.13.0...v142.13.1) (2024-10-03)
 
 
