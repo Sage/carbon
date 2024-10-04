@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Badge from "./badge.component";
 
 const renderComponent = (props = {}) => render(<Badge {...props}>Foo</Badge>);
@@ -32,9 +33,40 @@ describe("Badge", () => {
   it("should render as a button element when onClick is set", () => {
     renderComponent({ counter: 9, onClick: () => {} });
 
-    // FIXME: FE-6575 investigate why toBeVisible() fails to find "9"
-    expect(screen.getByText("9")).toBeInTheDocument();
+    expect(screen.getByText("9")).toBeVisible();
     expect(screen.getByRole("button")).toBeVisible();
+  });
+
+  it("should hide the counter text when the badge is focused and it shows it when it is not focused", () => {
+    renderComponent({ counter: 9, onClick: () => {} });
+
+    const badgeButton = screen.getByRole("button");
+    const badgeText = screen.getByText("9");
+
+    badgeButton.focus();
+
+    expect(badgeText).not.toBeVisible();
+
+    badgeButton.blur();
+
+    expect(badgeText).toBeVisible();
+  });
+
+  it("should hide the counter text when the badge is hovered and it shows it when it is unhovered", async () => {
+    const user = userEvent.setup();
+
+    renderComponent({ counter: 9, onClick: () => {} });
+
+    const badgeButton = screen.getByRole("button");
+    const badgeText = screen.getByText("9");
+
+    await user.hover(badgeButton);
+
+    expect(badgeText).not.toBeVisible();
+
+    await user.unhover(badgeButton);
+
+    expect(badgeText).toBeVisible();
   });
 
   it("should not render as a button if onClick is not set", () => {

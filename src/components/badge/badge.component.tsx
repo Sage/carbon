@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyledBadgeWrapper,
   StyledCrossIcon,
@@ -28,6 +28,8 @@ export const Badge = ({
 }: BadgeProps) => {
   const shouldDisplayCounter = +counter > 0;
   const counterToDisplay = +counter > 99 ? 99 : counter;
+  const [isFocused, setIsFocused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const renderCorrectBadge = () => {
     const props = onClick
@@ -46,6 +48,20 @@ export const Badge = ({
           data-component="badge"
           color={color}
           {...props}
+          onFocus={() => {
+            setIsFocused(true);
+          }}
+          onBlur={() => {
+            setIsFocused(false);
+          }}
+          onMouseEnter={() => {
+            setIsHovered(true);
+          }}
+          onMouseLeave={() => {
+            setIsHovered(false);
+          }}
+          isFocused={isFocused}
+          isHovered={isHovered}
         >
           {onClick && (
             <StyledCrossIcon data-element="badge-cross-icon" type="cross" />
