@@ -175,6 +175,7 @@ const TabTitle = React.forwardRef(
     const titleChildren = (
       <>
         <StyledTitleContent
+          data-role="tab-title-content"
           error={error}
           warning={warning}
           info={info}
@@ -218,6 +219,7 @@ const TabTitle = React.forwardRef(
         {!(hasFailedValidation || hasAlternateStyling) && isTabSelected && (
           <StyledSelectedIndicator
             data-element="tab-selected-indicator"
+            data-role="tab-selected-indicator"
             position={position}
           />
         )}

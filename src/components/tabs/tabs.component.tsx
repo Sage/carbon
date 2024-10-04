@@ -182,6 +182,8 @@ const Tabs = ({
 
   /** Handles the changing of tabs with the mouse */
   const handleTabClick = (ev: React.MouseEvent<HTMLElement>) => {
+    // istanbul ignore if
+    // (code doesn't seem to be ever reached - FE-6835 raised to investigate and hopefully remove this)
     if (Event.isEventType(ev, "keydown")) {
       return;
     }
@@ -381,6 +383,7 @@ const Tabs = ({
     <StyledTabs
       className={className}
       position={isInSidebar ? "left" : position}
+      data-role="tabs"
       {...tagComponent("tabs", rest)}
       isInSidebar={isInSidebar}
       headerWidth={headerWidth}
