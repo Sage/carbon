@@ -57,6 +57,8 @@ export interface DatePickerProps {
   setOpen: (isOpen: boolean) => void;
   /** Id passed to tab guard element */
   pickerTabGuardId?: string;
+  /** Callback triggered when the picker is closed */
+  onPickerClose?: () => void;
 }
 
 const popoverMiddleware = [
@@ -78,6 +80,7 @@ export const DatePicker = ({
   open,
   setOpen,
   pickerTabGuardId,
+  onPickerClose,
 }: DatePickerProps) => {
   const locale = useLocale();
   const { localize, options } = locale.date.dateFnsLocale();
@@ -156,6 +159,7 @@ export const DatePicker = ({
         name,
       } as HTMLInputElement;
       onDayClick?.(date, ev);
+      onPickerClose?.();
     }
   };
 
@@ -165,10 +169,11 @@ export const DatePicker = ({
       if (open && Events.isEscKey(ev)) {
         inputElement.current?.querySelector("input")?.focus();
         setOpen(false);
+        onPickerClose?.();
         ev.stopPropagation();
       }
     },
-    [inputElement, open, setOpen]
+    [inputElement, onPickerClose, open, setOpen]
   );
 
   const handleOnKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
@@ -181,6 +186,7 @@ export const DatePicker = ({
     ) {
       ev.preventDefault();
       setOpen(false);
+      onPickerClose?.();
       inputElement.current?.querySelector("input")?.focus();
     }
   };
@@ -195,6 +201,7 @@ export const DatePicker = ({
     if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
       ev.preventDefault();
       setOpen(false);
+      onPickerClose?.();
       const input = inputElement.current?.querySelector("input");
 
       /* istanbul ignore else */
