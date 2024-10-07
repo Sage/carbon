@@ -90,6 +90,10 @@ export interface FilterableSelectProps
   isOptional?: boolean;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  /** Specify a callback triggered on change */
+  onChange?: (
+    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
+  ) => void;
 }
 
 export const FilterableSelect = React.forwardRef<

@@ -1,3 +1,17 @@
+### [142.13.4](https://github.com/Sage/carbon/compare/v142.13.3...v142.13.4) (2024-10-07)
+
+
+### Bug Fixes
+
+* **select:** prevent deprecation warning about uncontrolled textbox from being fired ([6de179c](https://github.com/Sage/carbon/commit/6de179cbae24f36ef8d7a7b122b7ccb8d13ec634)), closes [#6883](https://github.com/Sage/carbon/issues/6883)
+
+### [142.13.3](https://github.com/Sage/carbon/compare/v142.13.2...v142.13.3) (2024-10-04)
+
+
+### Bug Fixes
+
+* **badge:** investigate failing RTL test ([5e1d7d6](https://github.com/Sage/carbon/commit/5e1d7d6f6482b533c6fa9afe88f927293e3576c0))
+
 ### [142.13.2](https://github.com/Sage/carbon/compare/v142.13.1...v142.13.2) (2024-10-04)
 
 
