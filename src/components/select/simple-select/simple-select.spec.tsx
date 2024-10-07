@@ -112,7 +112,7 @@ describe("SimpleSelect", () => {
         "Uncontrolled behaviour in `Simple Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
       );
 
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
     });
   });
 
