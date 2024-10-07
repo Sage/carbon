@@ -693,12 +693,14 @@ test("should render the expected input styling when the hours input has a warnin
     "presentation"
   );
 
-  expect(hrsInputPresentation).toHaveStyle({
-    "border-color": "var(--colorsSemanticCaution500) !important",
-  });
-  expect(minsInputPresentation).toHaveStyle({
-    border: "1px solid var(--colorsUtilityMajor300)",
-  });
+  expect(hrsInputPresentation).toHaveStyleRule(
+    "border-color",
+    "var(--colorsSemanticCaution500) !important"
+  );
+  expect(minsInputPresentation).toHaveStyleRule(
+    "border",
+    "1px solid var(--colorsUtilityMajor300)"
+  );
 });
 
 test("should render the expected input styling when the minutes input has a warning passed as a truthy boolean value", () => {
@@ -714,12 +716,14 @@ test("should render the expected input styling when the minutes input has a warn
     "presentation"
   );
 
-  expect(hrsInputPresentation).toHaveStyle({
-    border: "1px solid var(--colorsUtilityMajor300)",
-  });
-  expect(minsInputPresentation).toHaveStyle({
-    "border-color": "var(--colorsSemanticCaution500) !important",
-  });
+  expect(hrsInputPresentation).toHaveStyleRule(
+    "border",
+    "1px solid var(--colorsUtilityMajor300)"
+  );
+  expect(minsInputPresentation).toHaveStyleRule(
+    "border-color",
+    "var(--colorsSemanticCaution500) !important"
+  );
 });
 
 test("should render the expected input styling when the hours and minutes inputs have warnings passed as truthy boolean values", () => {
@@ -736,12 +740,14 @@ test("should render the expected input styling when the hours and minutes inputs
     "presentation"
   );
 
-  expect(hrsInputPresentation).toHaveStyle({
-    "border-color": "var(--colorsSemanticCaution500) !important",
-  });
-  expect(minsInputPresentation).toHaveStyle({
-    "border-color": "var(--colorsSemanticCaution500) !important",
-  });
+  expect(hrsInputPresentation).toHaveStyleRule(
+    "border-color",
+    "var(--colorsSemanticCaution500) !important"
+  );
+  expect(minsInputPresentation).toHaveStyleRule(
+    "border-color",
+    "var(--colorsSemanticCaution500) !important"
+  );
 });
 
 test("should set the required attribute on the inputs when the prop is set", () => {
