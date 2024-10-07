@@ -20,13 +20,21 @@ import ActionPopoverContext, {
 export interface ActionPopoverMenuBaseProps {
   /** Children for the menu */
   children?: React.ReactNode;
-  /** Index to control which item is focused */
+  /**
+   * @ignore
+   * @private
+   * @internal
+   * Index to control which item is focused */
   focusIndex?: number;
   /** Flag to indicate whether a menu should open */
   isOpen?: boolean;
   /** A unique ID for the menu */
   menuID?: string;
-  /** Callback to set the index of the focused item */
+  /**
+   * @ignore
+   * @private
+   * @internal
+   * Callback to set the index of the focused item */
   setFocusIndex?: (args: number) => void;
   /** Callback to set the isOpen flag */
   setOpen?: (args: boolean) => void;
