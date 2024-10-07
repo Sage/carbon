@@ -135,13 +135,16 @@ test("should render with disabled child buttons and expected styles when disable
 
   expect(screen.getByRole("button", { name: "Foo" })).toBeDisabled();
   expect(screen.getByRole("button", { name: "Bar" })).toBeDisabled();
-  expect(screen.getByRole("group")).toHaveStyle({
-    cursor: "not-allowed",
-    boxShadow: "inset 0px 0px 0px 1px var(--colorsActionDisabled600)",
-  });
-  expect(screen.getByText("Group Hint Text")).toHaveStyle({
-    color: "var(--colorsUtilityYin030)",
-  });
+  expect(screen.getByRole("group")).toHaveStyleRule(
+    "box-shadow",
+    "inset 0px 0px 0px 1px var(--colorsActionDisabled600)"
+  );
+  expect(screen.getByRole("group")).toHaveStyleRule("cursor: not-allowed");
+
+  expect(screen.getByText("Group Hint Text")).toHaveStyleRule(
+    "color",
+    "var(--colorsUtilityYin030)"
+  );
 });
 
 test("should render with expected styles when fullWidth prop is set", () => {
