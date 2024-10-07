@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { allModes } from "../../../.storybook/modes";
 import isChromatic from "../../../.storybook/isChromatic";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -36,11 +35,6 @@ const meta: Meta<typeof Form> = {
   },
   parameters: {
     controls: { disable: true },
-    chromatic: {
-      modes: {
-        desktop: allModes.chromatic,
-      },
-    },
   },
   decorators: [
     (Story) => (
@@ -94,7 +88,7 @@ export const WithFullWidthButtons: Story = () => (
       onSubmit={() => console.log("submit")}
       stickyFooter
       leftSideButtons={
-        <Button mb={3} onClick={() => console.log("cancel")} fullWidth>
+        <Button onClick={() => console.log("cancel")} fullWidth>
           Cancel
         </Button>
       }
@@ -179,6 +173,9 @@ export const WithErrorsSummary: Story = () => (
   </Form>
 );
 WithErrorsSummary.storyName = "With Errors Summary";
+WithErrorsSummary.parameters = {
+  chromatic: { viewports: [1200, 900, 320] },
+};
 
 export const WithWarningsSummary: Story = () => (
   <Form
@@ -197,6 +194,9 @@ export const WithWarningsSummary: Story = () => (
   </Form>
 );
 WithWarningsSummary.storyName = "With Warnings Summary";
+WithWarningsSummary.parameters = {
+  chromatic: { viewports: [1200, 900, 320] },
+};
 
 export const WithBothErrorsAndWarningsSummary: Story = () => (
   <Form
@@ -217,6 +217,9 @@ export const WithBothErrorsAndWarningsSummary: Story = () => (
 );
 WithBothErrorsAndWarningsSummary.storyName =
   "With Both Errors and Warnings Summary";
+WithBothErrorsAndWarningsSummary.parameters = {
+  chromatic: { viewports: [1200, 900, 320] },
+};
 
 export const WithAdditionalButtons: Story = () => (
   <Form
@@ -224,9 +227,7 @@ export const WithAdditionalButtons: Story = () => (
     leftSideButtons={
       <>
         <Button onClick={() => console.log("cancel")}>Other</Button>
-        <Button onClick={() => console.log("cancel")} ml={2}>
-          Cancel
-        </Button>
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
       </>
     }
     saveButton={
@@ -237,9 +238,7 @@ export const WithAdditionalButtons: Story = () => (
     rightSideButtons={
       <>
         <Button onClick={() => console.log("cancel")}>Reset</Button>
-        <Button onClick={() => console.log("cancel")} ml={2}>
-          Other
-        </Button>
+        <Button onClick={() => console.log("cancel")}>Other</Button>
       </>
     }
   >
@@ -254,9 +253,7 @@ export const WithButtonsAlignedToTheLeft: Story = () => (
     leftSideButtons={
       <>
         <Button onClick={() => console.log("cancel")}>Other</Button>
-        <Button onClick={() => console.log("cancel")} ml={2}>
-          Cancel
-        </Button>
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
       </>
     }
     saveButton={
@@ -267,9 +264,7 @@ export const WithButtonsAlignedToTheLeft: Story = () => (
     rightSideButtons={
       <>
         <Button onClick={() => console.log("cancel")}>Reset</Button>
-        <Button onClick={() => console.log("cancel")} ml={2}>
-          Other
-        </Button>
+        <Button onClick={() => console.log("cancel")}>Other</Button>
       </>
     }
     buttonAlignment="left"

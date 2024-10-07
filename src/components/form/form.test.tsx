@@ -162,7 +162,7 @@ test("form summary and footer have correct styles when the `fullWidthButtons` pr
 });
 
 // for coverage: stickyFooter prop styles are covered by Chromatic and Playwright
-test("has the corrrect styles when the `stickyFooter` prop is set", () => {
+test("has the correct styles when the `stickyFooter` prop is set", () => {
   render(
     <Form
       aria-label="form-example"
