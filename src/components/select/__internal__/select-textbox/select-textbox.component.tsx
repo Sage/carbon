@@ -1,6 +1,5 @@
 import React from "react";
 
-import { CustomSelectChangeEvent } from "../../simple-select/simple-select.component";
 import { SelectTextboxContext } from "./select-textbox.context";
 import {
   StyledSelectText,
@@ -40,10 +39,6 @@ export interface FormInputPropTypes
   name?: string;
   /** Specify a callback triggered on blur */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
-  /** Specify a callback triggered on change */
-  onChange?: (
-    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
-  ) => void;
   /** Specify a callback triggered on click */
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on focus */
@@ -114,7 +109,6 @@ const SelectTextbox = React.forwardRef(
       onClick,
       onFocus,
       onBlur,
-      onChange,
       formattedValue = "",
       selectedValue,
       required,
@@ -182,7 +176,8 @@ const SelectTextbox = React.forwardRef(
           inputIcon="dropdown"
           autoComplete="off"
           size={size}
-          onChange={onChange}
+          // prevent uncontrolled warning being fired
+          onChange={() => {}}
           formattedValue={formattedValue}
           value={
             hasStringValue ? (selectedValue as string | string[]) : undefined

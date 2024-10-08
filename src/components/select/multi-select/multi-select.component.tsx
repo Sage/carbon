@@ -91,6 +91,10 @@ export interface MultiSelectProps
   virtualScrollOverscan?: number;
   /** Flag to configure component as optional. */
   isOptional?: boolean;
+  /** Specify a callback triggered on change */
+  onChange?: (
+    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
+  ) => void;
 }
 
 export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(

@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 
 import SimpleSelect from ".";
 import Option from "../option";
+import Logger from "../../../__internal__/utils/logger";
 
 test("renders combobox and text overlay that is hidden from assistive technologies", () => {
   render(
@@ -82,4 +83,35 @@ test("combobox has correct accessible name when aria-labelledby prop is provided
   );
 
   expect(screen.getByRole("combobox")).toHaveAccessibleName("My Select");
+});
+
+test("should not display deprecation about uncontrolled Textbox when parent component is controlled", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(
+    <SimpleSelect
+      label="Colour"
+      onChange={() => {}}
+      value="1"
+      placeholder="Select a colour"
+    >
+      <Option text="Amber" value="1" />
+    </SimpleSelect>
+  );
+
+  expect(loggerSpy).not.toHaveBeenCalled();
+  loggerSpy.mockClear();
+});
+
+test("should not display deprecation about uncontrolled Textbox when parent component is not controlled", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(
+    <SimpleSelect label="Colour" placeholder="Select a colour">
+      <Option text="Amber" value="1" />
+    </SimpleSelect>
+  );
+
+  expect(loggerSpy).not.toHaveBeenCalledWith(
+    "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+  );
+  loggerSpy.mockClear();
 });
