@@ -65,6 +65,7 @@ import {
   Submenu,
   SubmenuPositionedRight,
   ActionPopoverNestedInDialog,
+  LongMenuExample,
 } from "../../../src/components/action-popover/components.test-pw";
 
 const keyToTrigger = ["Enter", " ", "End", "ArrowDown", "ArrowUp"] as const;
@@ -101,6 +102,21 @@ test.describe("check functionality for ActionPopover component", () => {
       const focusedElement = await page.locator("*:focus");
       await expect(focusedElement).toContainText(elementText);
     });
+  });
+
+  test("should open and focus last element when up keyboard key is used to open menu", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<LongMenuExample />);
+    await page.setViewportSize({ width: 600, height: 600 });
+
+    const actionPopoverButtonElement = actionPopoverButton(page).first();
+    await actionPopoverButtonElement.press("ArrowUp");
+    const focusedElement = await page.locator("*:focus");
+
+    await expect(focusedElement).toContainText("Download CSV");
+    await expect(focusedElement).toBeVisible();
   });
 
   [keyToTrigger[0], keyToTrigger[1], keyToTrigger[3]].forEach((key) => {
