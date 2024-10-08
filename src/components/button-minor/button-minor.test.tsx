@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ButtonMinor from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should render with children", () => {
   render(<ButtonMinor>foo</ButtonMinor>);
@@ -128,4 +128,7 @@ test("should set `ref` to empty after unmount", () => {
   expect(ref.current).toBeNull();
 });
 
-testStyledSystemMargin((props) => <ButtonMinor {...props}>foo</ButtonMinor>);
+testStyledSystemMarginRTL(
+  (props) => <ButtonMinor {...props}>foo</ButtonMinor>,
+  () => screen.getByRole("button", { name: "foo" })
+);

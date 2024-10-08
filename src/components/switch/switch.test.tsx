@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Switch from "./switch.component";
 import Logger from "../../__internal__/utils/logger";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../../components/i18n-provider";
 import CarbonProvider from "../../components/carbon-provider";
 
@@ -24,9 +24,10 @@ test("should display deprecation warning once", () => {
   loggerSpy.mockRestore();
 });
 
-describe("Styled System", () => {
-  testStyledSystemMargin((props) => <Switch {...props} />);
-});
+testStyledSystemMarginRTL(
+  (props) => <Switch data-role="swtich-wrapper" {...props} />,
+  () => screen.getByTestId("swtich-wrapper")
+);
 
 test("accepts ref as a ref object", () => {
   const ref = { current: null };

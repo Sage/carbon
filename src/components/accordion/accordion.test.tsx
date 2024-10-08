@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { StyledAccordionHeadingsContainer } from "./accordion.style";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Textbox from "../textbox";
 import { Accordion } from ".";
@@ -312,19 +312,50 @@ describe("Accordion", () => {
 });
 
 describe("AccordionGroup", () => {
-  testStyledSystemMargin((props) => (
-    <AccordionGroup {...props}>
-      <Accordion title="Title_1" defaultExpanded>
-        <Textbox label="Textbox in an Accordion" value="" onChange={() => {}} />
-      </Accordion>
-      <Accordion title="Title_2" defaultExpanded>
-        <Textbox label="Textbox in an Accordion" value="" onChange={() => {}} />
-      </Accordion>
-      <Accordion title="Title_3" defaultExpanded>
-        <Textbox label="Textbox in an Accordion" value="" onChange={() => {}} />
-      </Accordion>
-    </AccordionGroup>
-  ));
+  testStyledSystemMarginRTL(
+    (props) => (
+      <AccordionGroup data-role="accordion-group" {...props}>
+        <Accordion title="Title_1" defaultExpanded>
+          <Textbox
+            label="Textbox in an Accordion"
+            value=""
+            onChange={() => {}}
+          />
+        </Accordion>
+        <Accordion title="Title_2" defaultExpanded>
+          <Textbox
+            label="Textbox in an Accordion"
+            value=""
+            onChange={() => {}}
+          />
+        </Accordion>
+        <Accordion title="Title_3" defaultExpanded>
+          <Textbox
+            label="Textbox in an Accordion"
+            value=""
+            onChange={() => {}}
+          />
+        </Accordion>
+      </AccordionGroup>
+    ),
+    () => screen.getByTestId("accordion-group")
+  );
+
+  it("renders with expected `data-` attributes on the root element", () => {
+    render(
+      <AccordionGroup
+        data-element="accordion-group-element"
+        data-role="accordion-group-role"
+      />
+    );
+    const rootElement = screen.getByTestId("accordion-group-role");
+
+    expect(rootElement).toHaveAttribute("data-component", "accordion-group");
+    expect(rootElement).toHaveAttribute(
+      "data-element",
+      "accordion-group-element"
+    );
+  });
 
   it("focuses on the next Accordion in the group when the down arrow key is pressed", async () => {
     const user = userEvent.setup();

@@ -2,9 +2,9 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 
 import FlatTableCell from "./flat-table-cell.component";
-import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemPadding(
+testStyledSystemPaddingRTL(
   (props) => (
     <table>
       <tbody>
@@ -14,7 +14,7 @@ testStyledSystemPadding(
       </tbody>
     </table>
   ),
-  {},
+  () => screen.getByRole("cell"),
   undefined,
   { modifier: "&&&& > div" }
 );

@@ -63,10 +63,18 @@ export const Preview = ({
       );
     }
 
-    return <StyledPreview {...marginProps}>{placeholders}</StyledPreview>;
+    return (
+      <StyledPreview data-role="preview-wrapper" {...marginProps}>
+        {placeholders}
+      </StyledPreview>
+    );
   }
 
-  return <StyledPreview {...marginProps}>{children}</StyledPreview>;
+  return (
+    <StyledPreview data-role="preview-wrapper" {...marginProps}>
+      {children}
+    </StyledPreview>
+  );
 };
 
 export default Preview;

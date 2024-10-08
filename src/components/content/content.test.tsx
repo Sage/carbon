@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import Content from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders the provided `title` as a string", () => {
   render(<Content title="Title" />);
@@ -92,4 +92,11 @@ test("renders with expected styles when `inline` is true and `bodyFullWidth` is 
   expect(body).toHaveStyle({ marginTop: "15px" });
 });
 
-testStyledSystemMargin((props) => <Content {...props}>Foo</Content>);
+testStyledSystemMarginRTL(
+  (props) => (
+    <Content data-role="content" {...props}>
+      Foo
+    </Content>
+  ),
+  () => screen.getByTestId("content")
+);

@@ -2,16 +2,20 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import {
   mockMatchMedia,
-  testStyledSystemMargin,
+  testStyledSystemMarginRTL,
 } from "../../__spec_helper__/__internal__/test-utils";
 
 import Hr from "./hr.component";
 import CarbonProvider from "../carbon-provider";
 
-testStyledSystemMargin((props) => <Hr {...props} />, {
-  mt: "24px",
-  mb: "24px",
-});
+testStyledSystemMarginRTL(
+  (props) => <Hr {...props} />,
+  () => screen.getByRole("separator"),
+  {
+    mt: "24px",
+    mb: "24px",
+  }
+);
 
 test("should apply the expected margin top", () => {
   render(

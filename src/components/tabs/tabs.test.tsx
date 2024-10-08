@@ -4,38 +4,44 @@ import userEvent from "@testing-library/user-event";
 import { Tabs, Tab } from ".";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import StyledTab from "./tab/tab.style";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import Drawer from "../drawer";
 import Textbox from "../textbox";
 import NumeralDate from "../numeral-date";
 
-testStyledSystemMargin((props) => (
-  <Tabs {...props}>
-    <Tab
-      errorMessage=""
-      warningMessage=""
-      infoMessage=""
-      title="Tab Title 1"
-      tabId="uniqueid1"
-    >
-      TabContent
-    </Tab>
-  </Tabs>
-));
+testStyledSystemMarginRTL(
+  (props) => (
+    <Tabs {...props}>
+      <Tab
+        errorMessage=""
+        warningMessage=""
+        infoMessage=""
+        title="Tab Title 1"
+        tabId="uniqueid1"
+      >
+        TabContent
+      </Tab>
+    </Tabs>
+  ),
+  () => screen.getByTestId("tabs")
+);
 
-testStyledSystemMargin((props) => (
-  <Tabs {...props} position="left">
-    <Tab
-      errorMessage=""
-      warningMessage=""
-      infoMessage=""
-      title="Tab Title 1"
-      tabId="uniqueid1"
-    >
-      TabContent
-    </Tab>
-  </Tabs>
-));
+testStyledSystemMarginRTL(
+  (props) => (
+    <Tabs {...props} position="left">
+      <Tab
+        errorMessage=""
+        warningMessage=""
+        infoMessage=""
+        title="Tab Title 1"
+        tabId="uniqueid1"
+      >
+        TabContent
+      </Tab>
+    </Tabs>
+  ),
+  () => screen.getByTestId("tabs")
+);
 
 test("should not throw an error when rendered with NumeralDate as a child", () => {
   expect(() => {

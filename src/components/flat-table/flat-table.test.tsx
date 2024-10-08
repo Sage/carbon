@@ -11,7 +11,7 @@ import FlatTableHeader from "./flat-table-header/flat-table-header.component";
 import FlatTableCell from "./flat-table-cell/flat-table-cell.component";
 import FlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.component";
 import FlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
@@ -20,26 +20,29 @@ import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import Pager from "../pager/pager.component";
 import CarbonProvider from "../carbon-provider";
 
-testStyledSystemMargin((props) => (
-  <FlatTable {...props}>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableRowHeader>row header</FlatTableRowHeader>
-        <FlatTableHeader>header1</FlatTableHeader>
-        <FlatTableHeader>header2</FlatTableHeader>
-        <FlatTableHeader>header3</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow id="row-1">
-        <FlatTableRowHeader>row header</FlatTableRowHeader>
-        <FlatTableCell>cell1</FlatTableCell>
-        <FlatTableCell>cell2</FlatTableCell>
-        <FlatTableCell rowspan="2">cell3</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-));
+testStyledSystemMarginRTL(
+  (props) => (
+    <FlatTable {...props}>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableRowHeader>row header</FlatTableRowHeader>
+          <FlatTableHeader>header1</FlatTableHeader>
+          <FlatTableHeader>header2</FlatTableHeader>
+          <FlatTableHeader>header3</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow id="row-1">
+          <FlatTableRowHeader>row header</FlatTableRowHeader>
+          <FlatTableCell>cell1</FlatTableCell>
+          <FlatTableCell>cell2</FlatTableCell>
+          <FlatTableCell rowspan="2">cell3</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  ),
+  () => screen.getByTestId("flat-table-wrapper")
+);
 
 describe("when rows are interactive", () => {
   it("should apply the expected focus styling to the wrapper element when it is focused and `focusRedesignOptOut` is not set", () => {

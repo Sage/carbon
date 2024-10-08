@@ -3,8 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ButtonToggle, ButtonToggleGroup } from "..";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
-import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
-import FormFieldStyle from "../../../__internal__/form-field/form-field.style";
+import { testStyledSystemMarginRTL } from "../../../__spec_helper__/__internal__/test-utils";
 
 test("should render with provided children", () => {
   render(
@@ -353,18 +352,20 @@ test("should not change focus when a non arrow key is pressed", async () => {
   expect(screen.getByRole("button", { name: "Bar" })).toHaveFocus();
 });
 
-testStyledSystemMargin(
+testStyledSystemMarginRTL(
   (props) => (
     <ButtonToggleGroup
-      data-role="button-toggle"
       id="button-toggle-group-id"
       onChange={() => {}}
+      data-role="button-toggle-group"
       {...props}
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
     </ButtonToggleGroup>
   ),
+  // we are setting the data- attributes on more than one element
+  // FE-6834 raised to address this
+  () => screen.getAllByTestId("button-toggle-group")[0],
   undefined,
-  (component) => component.find(FormFieldStyle),
   { modifier: "&&&" }
 );

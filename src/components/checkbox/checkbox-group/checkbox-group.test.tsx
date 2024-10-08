@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Checkbox, CheckboxGroup } from "..";
 import CarbonProvider from "../../carbon-provider";
-import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../../__spec_helper__/__internal__/test-utils";
 
 test("should render with the provided children", () => {
   render(
@@ -121,8 +121,15 @@ test("should render with expected styles when inline is true", () => {
   });
 });
 
-testStyledSystemMargin((props) => (
-  <CheckboxGroup legend="legend" {...props}>
-    <Checkbox value="1" label="label" onChange={() => {}} />
-  </CheckboxGroup>
-));
+testStyledSystemMarginRTL(
+  (props) => (
+    <CheckboxGroup
+      data-role="checkbox-group-wrapper"
+      legend="legend"
+      {...props}
+    >
+      <Checkbox value="1" label="label" onChange={() => {}} />
+    </CheckboxGroup>
+  ),
+  () => screen.getByTestId("checkbox-group-wrapper")
+);

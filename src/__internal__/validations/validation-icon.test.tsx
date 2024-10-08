@@ -4,9 +4,12 @@ import userEvent from "@testing-library/user-event";
 
 import ValidationIcon from "./validation-icon.component";
 import { InputContext, InputGroupContext } from "../input-behaviour";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemMargin((props) => <ValidationIcon {...props} error="error" />);
+testStyledSystemMarginRTL(
+  (props) => <ValidationIcon {...props} error="error" />,
+  () => screen.getByTestId("validation-icon-wrapper")
+);
 
 test("renders an icon with the error type when the `error` prop is a string", () => {
   render(<ValidationIcon error="error" />);

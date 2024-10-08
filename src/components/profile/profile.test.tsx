@@ -2,10 +2,13 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import MD5 from "crypto-js/md5";
 
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import Profile from "./profile.component";
 
-testStyledSystemMargin((props) => <Profile name="John Doe" {...props} />);
+testStyledSystemMarginRTL(
+  (props) => <Profile data-role="profile" name="John Doe" {...props} />,
+  () => screen.getByTestId("profile")
+);
 
 test("renders with set data tags", () => {
   render(
