@@ -1,3 +1,10 @@
+### [142.13.5](https://github.com/Sage/carbon/compare/v142.13.4...v142.13.5) (2024-10-08)
+
+
+### Bug Fixes
+
+* **textarea:** ensure expandable height shrinks when new lines are removed ([bdd32df](https://github.com/Sage/carbon/commit/bdd32df7017abfa75403fb9ad21b68386b019a3f))
+
 ### [142.13.4](https://github.com/Sage/carbon/compare/v142.13.3...v142.13.4) (2024-10-07)
 
 
