@@ -5,7 +5,6 @@ import React, {
   useCallback,
   useImperativeHandle,
   forwardRef,
-  useState,
 } from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
@@ -140,10 +139,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const containerRef = useRef<HTMLDivElement>(null);
     const innerContentRef = useRef(null);
     const titleRef = useRef(null);
-    const [breakpointOffset, setBreakpointOffset] = useState<
-      number | undefined
-    >(undefined);
-    const isDialogMaximised = size === "maximise";
     const listenersAdded = useRef(false);
     const { current: titleId } = useRef(createGuid());
     const { current: subtitleId } = useRef(createGuid());
@@ -166,6 +161,8 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         return;
       }
 
+      if (size === "maximise") return;
+
       const {
         width: dialogWidth,
         height: dialogHeight,
@@ -185,16 +182,9 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         midPointX = 0;
       }
 
-      if (isDialogMaximised) {
-        const breakPoint = window.innerWidth > 960 ? 32 : 16;
-        midPointX = breakPoint;
-        midPointY = breakPoint;
-        setBreakpointOffset(breakPoint);
-      }
-
       containerRef.current.style.top = `${midPointY}px`;
       containerRef.current.style.left = `${midPointX}px`;
-    }, [isDialogMaximised]);
+    }, [size]);
 
     useResizeObserver(innerContentRef, centerDialog, !open);
 
@@ -319,11 +309,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
             data-role={dataRole}
             aria-modal={isTopModal ? true : undefined}
             ref={containerRef}
-            topMargin={
-              isDialogMaximised && breakpointOffset
-                ? breakpointOffset * 2
-                : TOP_MARGIN
-            }
             {...dialogProps}
             role={role}
             tabIndex={-1}

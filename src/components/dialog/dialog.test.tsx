@@ -317,36 +317,15 @@ test("dialog is wrapped in a container, which has the correct class names set, w
   expect(modalWrapper).toHaveClass("carbon-dialog special-dialog");
 });
 
-test("renders dialog with 'left' set to 32px when 'size' is 'maximise' and window width is greater than 960px", () => {
-  window.innerWidth = 1000;
-  render(<Dialog open title="my dialog" size="maximise" />);
+test("dialog is positioned correctly, when size prop is maximise", () => {
+  render(<Dialog open title="My dialog" size="maximise" />);
 
-  const dialog = screen.getByRole("dialog", { name: /my dialog/i });
-  expect(dialog).toHaveStyle({ left: "32px" });
-});
-
-test("renders dialog with 'top' set to 32px when 'size' is 'maximise' and window width is greater than 960px", () => {
-  window.innerWidth = 1000;
-  render(<Dialog open title="my dialog" size="maximise" />);
-
-  const dialog = screen.getByRole("dialog", { name: /my dialog/i });
-  expect(dialog).toHaveStyle({ top: "32px" });
-});
-
-test("renders dialog with 'left' set to 16px when 'size' is 'maximise' and window width is less than 960px", () => {
-  window.innerWidth = 700;
-  render(<Dialog open title="my dialog" size="maximise" />);
-
-  const dialog = screen.getByRole("dialog", { name: /my dialog/i });
-  expect(dialog).toHaveStyle({ left: "16px" });
-});
-
-test("renders dialog with 'top' set to 16px when 'size' is 'maximise' and window width is less than 960px", () => {
-  window.innerWidth = 700;
-  render(<Dialog open title="my dialog" size="maximise" />);
-
-  const dialog = screen.getByRole("dialog", { name: /my dialog/i });
-  expect(dialog).toHaveStyle({ top: "16px" });
+  const dialog = screen.getByRole("dialog");
+  expect(dialog).toHaveStyle(`
+    position: fixed;
+    inset: 0;
+    margin: 16px;
+  `);
 });
 
 test("dialog does not position itself any closer than 20px from the top of the viewport", () => {

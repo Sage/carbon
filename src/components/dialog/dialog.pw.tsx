@@ -603,6 +603,32 @@ test("dialog re-centres itself in the viewport, when viewport size changes", asy
   expect(boundingBox.y).toBeCloseTo(expectedYPosition);
 });
 
+test("dialog is positioned correctly when size is 'maximise' and viewport width is greater than 960px", async ({
+  mount,
+  page,
+}) => {
+  await page.setViewportSize({ width: 961, height: 600 });
+  await mount(<DialogComponent size="maximise" />);
+
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toHaveCSS("position", "fixed");
+  await expect(dialog).toHaveCSS("inset", "0px");
+  await expect(dialog).toHaveCSS("margin", "32px");
+});
+
+test("dialog is positioned correctly when size is 'maximise' and viewport width is less than 960px", async ({
+  mount,
+  page,
+}) => {
+  await page.setViewportSize({ width: 959, height: 600 });
+  await mount(<DialogComponent size="maximise" />);
+
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toHaveCSS("position", "fixed");
+  await expect(dialog).toHaveCSS("inset", "0px");
+  await expect(dialog).toHaveCSS("margin", "16px");
+});
+
 test.describe(
   "Accessibility tests for playwright mock components and storybook stories",
   () => {
