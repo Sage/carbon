@@ -86,7 +86,7 @@ export const Default: Story = () => {
           Download CSV
         </ActionPopoverItem>
         <ActionPopoverDivider />
-        <ActionPopoverItem icon="delete" onClick={() => {}}>
+        <ActionPopoverItem disabled icon="delete" onClick={() => {}}>
           Delete
         </ActionPopoverItem>
       </ActionPopover>
