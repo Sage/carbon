@@ -10,9 +10,8 @@ import {
   HORIZONTAL_PADDING,
   CONTENT_TOP_PADDING,
   CONTENT_BOTTOM_PADDING,
-  DialogSizes,
 } from "./dialog.config";
-import { ContentPaddingInterface } from "./dialog.component";
+import { ContentPaddingInterface, DialogProps } from "./dialog.component";
 import resolvePaddingSides from "../../style/utils/resolve-padding-sides";
 import {
   StyledFormContent,
@@ -31,29 +30,43 @@ const dialogSizes = {
   "extra-large": "1080px",
 };
 
-type StyledDialogProps = {
-  topMargin: number;
-  size?: DialogSizes;
+type StyledDialogProps = Required<Pick<DialogProps, "size">> & {
   dialogHeight?: string;
   backgroundColor: string;
 };
 
-const StyledDialog = styled.div.attrs(({ size }: StyledDialogProps) => {
-  const isDialogMaximised = size === "maximise";
-  return {
-    isDialogMaximised,
-  };
-})<StyledDialogProps & ContentPaddingInterface>`
+const DialogPositioner = styled.div`
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: ${({ theme }) => theme.zIndex.modal};
+`;
+
+const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   box-shadow: var(--boxShadow300);
   display: flex;
   flex-direction: column;
+  position: relative;
   border-radius: var(--borderRadius200);
-  position: fixed;
-  top: 50%;
-  z-index: ${({ theme }) => theme.zIndex.modal};
-  max-height: ${({ topMargin }) => `calc(100vh - ${topMargin}px)`};
 
-  ${({ isDialogMaximised }) => isDialogMaximised && "height: 100%"};
+  ${({ size }) =>
+    size === "maximise"
+      ? css`
+          height: calc(100% - var(--spacing400));
+          width: calc(100% - var(--spacing400));
+
+          @media screen and (min-width: 960px) {
+            height: calc(100% - var(--spacing800));
+            width: calc(100% - var(--spacing800));
+          }
+        `
+      : css`
+          max-height: 90vh;
+          max-width: ${dialogSizes[size]};
+          width: 100%;
+        `};
 
   &:focus {
     outline: none;
@@ -62,15 +75,6 @@ const StyledDialog = styled.div.attrs(({ size }: StyledDialogProps) => {
   ${({ backgroundColor }) =>
     css`
       background-color: ${backgroundColor};
-    `}
-
-  ${({ size, topMargin }) =>
-    size &&
-    css`
-      max-width: ${size === "maximise"
-        ? `calc(100vw - ${topMargin}px)`
-        : dialogSizes[size]};
-      width: 100%;
     `}
 
   ${({ dialogHeight }) =>
@@ -161,7 +165,7 @@ const StyledDialogContent = styled.div<ContentPaddingInterface>((props) => {
   `;
 });
 
-StyledDialog.defaultProps = {
+DialogPositioner.defaultProps = {
   theme: baseTheme,
 };
 
@@ -169,4 +173,9 @@ StyledDialogContent.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledDialog, StyledDialogTitle, StyledDialogContent };
+export {
+  DialogPositioner,
+  StyledDialog,
+  StyledDialogTitle,
+  StyledDialogContent,
+};
