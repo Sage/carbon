@@ -364,17 +364,19 @@ test("renders `labelHelp` as hint text when `validationRedesignOptIn` flag is tr
   expect(screen.getByText("hint text")).toBeVisible();
 });
 
-// Required for coverage
-test("renders the expected margin-bottom value when `labelHelp` is present", () => {
+test("should render with correct accessible name and description when `validationRedesignOptIn` flag is true", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Switch label="foo" labelHelp="hint text" warning="this is a warning" />
+      <Switch label="foo" labelHelp="hint text" error="this is an error" />
     </CarbonProvider>
   );
 
-  const hintTextWrapper = screen.getByTestId("hint-text-wrapper");
+  const switchElement = screen.getByRole("switch");
 
-  expect(hintTextWrapper).toHaveStyleRule("margin-bottom: var(--spacing000)");
+  expect(switchElement).toHaveAccessibleName("foo");
+  expect(switchElement).toHaveAccessibleDescription(
+    "hint text this is an error"
+  );
 });
 
 test("the expected translations are correctly applied for on", () => {
