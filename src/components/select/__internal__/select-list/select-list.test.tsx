@@ -109,23 +109,26 @@ describe("rendered content", () => {
     ).toBeVisible();
   });
 
-  it("renders list with correct positioning", async () => {
-    const { rerender } = render(
-      <SelectListWithInput>
-        <Option id="red" value="red" text="red" />
-      </SelectListWithInput>
-    );
-    rerender(
-      <SelectListWithInput>
-        <Option id="red" value="red" text="red" />
-      </SelectListWithInput>
-    );
+  it.each(["top", "bottom", "left", "right"] as const)(
+    "computes correct position for list when listPlacement prop is %s",
+    async (listPlacement) => {
+      const { rerender } = render(
+        <SelectListWithInput listPlacement={listPlacement}>
+          <Option id="red" value="red" text="red" />
+        </SelectListWithInput>
+      );
+      rerender(
+        <SelectListWithInput listPlacement={listPlacement}>
+          <Option id="red" value="red" text="red" />
+        </SelectListWithInput>
+      );
 
-    expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
-      "data-floating-placement",
-      "bottom"
-    );
-  });
+      expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
+        "data-floating-placement",
+        listPlacement
+      );
+    }
+  );
 
   it("highlights the correct selected option when highlightedValue prop is provided", () => {
     render(

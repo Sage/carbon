@@ -24,8 +24,6 @@ import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibi
 
 let deprecateUncontrolledWarnTriggered = false;
 
-type TimerId = ReturnType<typeof setTimeout>;
-
 export interface OptionData {
   text?: string;
   value?: string | Record<string, unknown>;
@@ -146,7 +144,7 @@ export const SimpleSelect = React.forwardRef<
     const selectListId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
-    const filterTimer = useRef<TimerId>();
+    const filterTimer = useRef<number | undefined>(undefined);
     const isMouseDownReported = useRef<boolean>();
     const isControlled = useRef(value !== undefined);
     const isTimerCounting = useRef<boolean>();
@@ -164,7 +162,7 @@ export const SimpleSelect = React.forwardRef<
       id: inputId.current,
       label,
     });
-    const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
+    const focusTimer = useRef<number | undefined>(undefined);
 
     const componentIsUncontrolled =
       !isControlled || (!onChange && defaultValue);
@@ -214,9 +212,7 @@ export const SimpleSelect = React.forwardRef<
             return previousValue;
           }
 
-          if (onChange) {
-            onChange(createCustomEvent(match.props.value));
-          }
+          onChange?.(createCustomEvent(match.props.value));
 
           if (isControlled.current) {
             return previousValue;
@@ -237,16 +233,16 @@ export const SimpleSelect = React.forwardRef<
 
           filterText.current = newVal;
           selectValueStartingWithText(newVal);
-          clearTimeout(filterTimer.current as TimerId);
+          window.clearTimeout(filterTimer.current);
         } else {
           filterText.current = newCharacter;
           selectValueStartingWithText(newCharacter);
         }
 
         isTimerCounting.current = true;
-        clearTimeout(filterTimer.current as TimerId);
+        window.clearTimeout(filterTimer.current);
 
-        filterTimer.current = setTimeout(() => {
+        filterTimer.current = window.setTimeout(() => {
           isTimerCounting.current = false;
           filterText.current = "";
         }, 500);
@@ -258,21 +254,15 @@ export const SimpleSelect = React.forwardRef<
       (event) => {
         const { key } = event;
 
-        if (onKeyDown) {
-          onKeyDown(event);
-        }
+        onKeyDown?.(event);
 
-        if (readOnly) {
-          return;
-        }
+        if (readOnly) return;
 
         if (key === " " || isNavigationKey(key)) {
           event.preventDefault();
 
           setOpenState((isAlreadyOpen) => {
-            if (!isAlreadyOpen && onOpen) {
-              onOpen();
-            }
+            if (!isAlreadyOpen) onOpen?.();
 
             return true;
           });
@@ -344,25 +334,22 @@ export const SimpleSelect = React.forwardRef<
 
     useEffect(() => {
       return function cleanup() {
-        clearTimeout(filterTimer.current as TimerId);
+        window.clearTimeout(filterTimer.current);
+        window.clearTimeout(focusTimer.current);
       };
     }, []);
 
     function handleTextboxClick(event: React.MouseEvent<HTMLInputElement>) {
       isMouseDownReported.current = false;
 
-      if (onClick) {
-        onClick(event);
-      }
+      onClick?.(event);
 
       setOpenState((isAlreadyOpen) => {
         if (isAlreadyOpen) {
           return false;
         }
 
-        if (onOpen) {
-          onOpen();
-        }
+        onOpen?.();
 
         return true;
       });
@@ -383,9 +370,7 @@ export const SimpleSelect = React.forwardRef<
         return;
       }
 
-      if (onBlur) {
-        onBlur(event);
-      }
+      onBlur?.(event);
     }
 
     function handleTextboxMouseDown() {
@@ -397,9 +382,7 @@ export const SimpleSelect = React.forwardRef<
         return;
       }
 
-      if (onFocus) {
-        onFocus(event);
-      }
+      onFocus?.(event);
 
       if (isMouseDownReported.current) {
         isMouseDownReported.current = false;
@@ -408,21 +391,17 @@ export const SimpleSelect = React.forwardRef<
       }
 
       if (openOnFocus) {
-        if (focusTimer.current) {
-          clearTimeout(focusTimer.current);
-        }
+        window.clearTimeout(focusTimer.current);
 
         // we need to use a timeout here as there is a race condition when rendered in a modal
         // whereby the select list isn't visible when the select is auto focused straight away
-        focusTimer.current = setTimeout(() => {
+        focusTimer.current = window.setTimeout(() => {
           setOpenState((isAlreadyOpen) => {
             if (isAlreadyOpen) {
               return true;
             }
 
-            if (onOpen) {
-              onOpen();
-            }
+            onOpen?.();
 
             return true;
           });
@@ -440,9 +419,7 @@ export const SimpleSelect = React.forwardRef<
         setTextValue(text);
       }
 
-      if (onChange) {
-        onChange(createCustomEvent(newValue, selectionConfirmed));
-      }
+      onChange?.(createCustomEvent(newValue, selectionConfirmed));
     }
 
     function onSelectOption(optionData: OptionData) {
