@@ -150,7 +150,9 @@ const withFilter = <T extends WrappedComponentProps>(
             }
 
             return (
-              <StyledOption>{noResultsMessage || noResultsText}</StyledOption>
+              <StyledOption isInteractive>
+                {noResultsMessage || noResultsText}
+              </StyledOption>
             );
           }
 
