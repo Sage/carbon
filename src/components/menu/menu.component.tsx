@@ -7,7 +7,18 @@ import MenuContext, { MenuType } from "./__internal__/menu.context";
 import { menuKeyboardNavigation } from "./__internal__/keyboard-navigation";
 import { MENU_ITEM_CHILDREN_LOCATOR } from "./__internal__/locators";
 
-export interface MenuProps extends TagProps, LayoutProps, FlexboxProps {
+export interface MenuProps
+  extends TagProps,
+    Pick<
+      LayoutProps,
+      | "width"
+      | "minWidth"
+      | "maxWidth"
+      | "overflow"
+      | "overflowX"
+      | "verticalAlign"
+    >,
+    FlexboxProps {
   /** Children elements */
   children: React.ReactNode;
   /** Defines the color scheme of the component */

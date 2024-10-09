@@ -2,10 +2,11 @@ import styled, { css } from "styled-components";
 
 import FieldHelpStyle from "../field-help/field-help.style";
 import { FieldLineStyle } from "../form-field/form-field.style";
-import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
 import LabelStyle, { StyledLabelContainer } from "../label/label.style";
-import StyledHelp from "../../components/help/help.style";
 import StyledValidationIcon from "../validations/validation-icon.style";
+import StyledHelp from "../../components/help/help.style";
+
+import HiddenCheckableInputStyle from "./hidden-checkable-input.style";
 
 const StyledCheckableInput = styled.div`
   display: inline-block;
@@ -30,6 +31,8 @@ const StyledCheckableInputWrapper = styled.div<StyledCheckableInputWrapperProps>
     labelInline,
     reverse,
   }) => css`
+    width: 100% !important;
+
     ${FieldLineStyle} {
       display: flex;
     }
@@ -105,6 +108,7 @@ const StyledCheckableInputWrapper = styled.div<StyledCheckableInputWrapperProps>
     css`
       ${StyledCheckableInput} {
         width: ${inputWidth}% !important;
+        min-width: 67px;
       }
     `}
 

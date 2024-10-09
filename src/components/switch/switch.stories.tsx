@@ -300,279 +300,190 @@ export const NewValidationString: Story = () => {
 };
 NewValidationString.storyName = "Single Switch - New Validation";
 
-export const NewValidationInlineSwitch: Story = () => {
+export const NewValidationInlineDefault: Story = () => {
   return (
     <Box m={2}>
       <CarbonProvider validationRedesignOptIn>
-        <h1>Switch: New Validation</h1>
-        <h2>Default</h2>
-        <h3>Inline</h3>
         <Switch label="Example switch" labelInline />
-        <h3>With hint</h3>
-        <Switch label="Example switch" labelInline labelHelp="Hint text" />
-        <h3>With field help</h3>
-        <Switch label="Example switch" labelInline fieldHelp="Field help" />
-        <h3>With field help and hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          fieldHelp="Field help"
-        />
-        <h3>With long field help and normal hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          fieldHelp="Field help which could be of a significant length"
-        />
-        <h3>With normal field help and long hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text which could be of a significant length"
-          fieldHelp="Field help"
-        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineDefault.storyName = "New Validation - Inline";
 
-        <h2>Reversed</h2>
-        <h3>Inline</h3>
-        <Switch label="Example switch" labelInline reverse={false} />
-        <h3>With hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          reverse={false}
-        />
-        <h3>With field help</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          fieldHelp="Field help"
-          reverse={false}
-        />
-        <h3>With field help and hint</h3>
+export const NewValidationInlineDefaultWithOptions: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
         <Switch
           label="Example switch"
           labelInline
           labelHelp="Hint text"
           fieldHelp="Field help"
-          reverse={false}
-        />
-        <h3>With long field help and normal hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          fieldHelp="Field help which could be of a significant length"
-          reverse={false}
-        />
-        <h3>With normal field help and long hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text which could be of a significant length"
-          fieldHelp="Field help"
-          reverse={false}
-        />
-
-        <h2>Warning</h2>
-        <h3>Inline</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          warning="Warning message (change may be needed)"
-        />
-        <h3>With hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          warning="Warning message (change may be needed)"
-        />
-        <h3>With field help</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          fieldHelp="Field help"
-          warning="Warning message (change may be needed)"
-        />
-        <h3>With field help and hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          fieldHelp="Field help"
-          warning="Warning message (change may be needed)"
-        />
-        <h3>With long field help and normal hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          fieldHelp="Field help which could be of a significant length"
-          warning="Warning message (change may be needed)"
-        />
-        <h3>With normal field help and long hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text which could be of a significant length"
-          fieldHelp="Field help"
-          warning="Warning message (change may be needed)"
-        />
-
-        <h2>Warning</h2>
-        <h3>Reversed</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          warning="Warning message (change may be needed)"
-          reverse={false}
-        />
-        <h3>With hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          warning="Warning message (change may be needed)"
-          reverse={false}
-        />
-        <h3>With field help</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          fieldHelp="Field help"
-          warning="Warning message (change may be needed)"
-          reverse={false}
-        />
-        <h3>With field help and hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          fieldHelp="Field help"
-          warning="Warning message (change may be needed)"
-          reverse={false}
-        />
-        <h3>With long field help and normal hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          fieldHelp="Field help which could be of a significant length"
-          warning="Warning message (change may be needed)"
-          reverse={false}
-        />
-        <h3>With normal field help and long hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text which could be of a significant length"
-          fieldHelp="Field help"
-          warning="Warning message (change may be needed)"
-          reverse={false}
-        />
-
-        <h2>Error</h2>
-        <h3>Inline</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          error="Error message (Fix is required)"
-        />
-        <h3>With hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          error="Error message (Fix is required)"
-        />
-        <h3>With field help</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          fieldHelp="Field help"
-          error="Error message (Fix is required)"
-        />
-        <h3>With field help and hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          fieldHelp="Field help"
-          error="Error message (Fix is required)"
-        />
-        <h3>With long field help and normal hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          fieldHelp="Field help which could be of a significant length"
-          error="Error message (Fix is required)"
-        />
-        <h3>With normal field help and long hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text which could be of a significant length"
-          fieldHelp="Field help"
-          error="Error message (Fix is required)"
-        />
-
-        <h2>Error</h2>
-        <h3>Reversed</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          error="Error message (Fix is required)"
-          reverse={false}
-        />
-        <h3>With hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          error="Error message (Fix is required)"
-          reverse={false}
-        />
-        <h3>With field help</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          fieldHelp="Field help"
-          error="Error message (Fix is required)"
-          reverse={false}
-        />
-        <h3>With field help and hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          fieldHelp="Field help"
-          error="Error message (Fix is required)"
-          reverse={false}
-        />
-        <h3>With long field help and normal hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text"
-          fieldHelp="Field help which could be of a significant length"
-          error="Error message (Fix is required)"
-          reverse={false}
-        />
-        <h3>With normal field help and long hint</h3>
-        <Switch
-          label="Example switch"
-          labelInline
-          labelHelp="Hint text which could be of a significant length"
-          fieldHelp="Field help"
-          error="Error message (Fix is required)"
-          reverse={false}
         />
       </CarbonProvider>
     </Box>
   );
 };
-NewValidationInlineSwitch.storyName = "Single Switch - Inline - New Validation";
+NewValidationInlineDefaultWithOptions.storyName =
+  "New Validation - Inline with options";
+
+export const NewValidationInlineDefaultWithOptionsAndCustomWidths: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="90% Width"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+          inputWidth={90}
+        />
+        <Switch
+          label="70% Width"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+          inputWidth={70}
+        />
+        <Switch
+          label="20% Width"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+          inputWidth={20}
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineDefaultWithOptionsAndCustomWidths.storyName =
+  "New Validation - Inline with options and custom widths";
+
+export const NewValidationInlineError: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch (error state)"
+          labelInline
+          error="Error message (Fix is required)"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineError.storyName = "New Validation - Inline with error";
+
+export const NewValidationInlineErrorAndOptions: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch (error state)"
+          labelInline
+          error="Error message (Fix is required)"
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineErrorAndOptions.storyName =
+  "New Validation - Inline with error and options";
+
+export const NewValidationInlineWarning: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch (warning state)"
+          labelInline
+          warning="Warning message (Fix is required)"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWarning.storyName = "New Validation - Inline with warning";
+
+export const NewValidationInlineWithOverflowHintText: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Really long hint text that should wrap to the next line if it gets too long"
+          fieldHelp="Field help"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWithOverflowHintText.storyName =
+  "New Validation - Inline with overflowing hint text";
+
+export const NewValidationInlineWithOverflowFieldHelp: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Really long field help that should extend beyond the control regardless of length"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWithOverflowFieldHelp.storyName =
+  "New Validation - Inline with overflowing field help";
+
+export const NewValidationInlineWithDarkMode: Story = () => {
+  return (
+    <Box m={2} padding={3} backgroundColor="#000000">
+      <CarbonProvider validationRedesignOptIn>
+        <Switch label="Example switch" labelInline isDarkBackground />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWithDarkMode.storyName =
+  "New Validation - Inline with dark background support";
+
+export const NewValidationInlineWithDarkModeAndError: Story = () => {
+  return (
+    <Box m={2} padding={3} backgroundColor="#000000">
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch (error state)"
+          labelInline
+          isDarkBackground
+          error="Error message (Fix is required)"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWithDarkModeAndError.storyName =
+  "New Validation - Inline with dark background support and error";
+
+export const NewValidationInlineWithDarkModeAndHintText: Story = () => {
+  return (
+    <Box m={2} padding={3} backgroundColor="#000000">
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch (error state)"
+          labelInline
+          isDarkBackground
+          labelHelp="A helpful hint for the user"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWithDarkModeAndHintText.storyName =
+  "New Validation - Inline with dark background support and hint text";

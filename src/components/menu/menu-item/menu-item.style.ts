@@ -33,6 +33,7 @@ interface StyledMenuItemWrapperProps
   asDiv?: boolean;
   hasInput?: boolean;
   menuItemVariant?: Pick<MenuWithChildren, "variant">["variant"];
+  inSubmenu?: boolean;
 }
 
 const BASE_SPACING = 16;
@@ -98,6 +99,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
     asPassiveItem,
     asDiv,
     hasInput,
+    inSubmenu,
   }) => css`
     display: flex;
     align-items: center;
@@ -110,6 +112,9 @@ const StyledMenuItemWrapper = styled.a.attrs({
     a,
     button {
       cursor: pointer;
+      min-height: 40px;
+      height: 100%;
+      box-sizing: border-box;
     }
 
     a:focus,
@@ -130,7 +135,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
         button:has([data-component="icon"]):not(:has(button))
         ${StyledContent} {
         position: relative;
-        top: -2px;
+        top: -1px;
       }
     `}
 
@@ -155,11 +160,16 @@ const StyledMenuItemWrapper = styled.a.attrs({
     ${!inFullscreenView &&
     css`
       max-width: inherit;
+      width: inherit;
+      height: inherit;
 
       > a,
       > button {
         display: flex;
         align-items: center;
+        ${!inSubmenu ? "justify-content: center;" : ""}
+        width: inherit;
+        max-width: inherit;
       }
 
       && {
@@ -211,15 +221,29 @@ const StyledMenuItemWrapper = styled.a.attrs({
         ${
           !inFullscreenView &&
           `
-          > a:not(:has(button)) {
-            padding: 11px 16px 12px;
-          }
+            > a:not(:has(button)) {
+              padding: 11px 16px;
+            }
 
-          > a ${StyledButton}:not(.search-button) {
-            min-height: 17px;
-            padding: 9px 0px 11px; 
-          }
-        `
+            > a:has(${StyledButton}:not(.search-button)) {
+             height: 100%;
+             
+             ${StyledContent} {
+                height: inherit;
+
+                div {
+                  height: inherit;
+                }
+              }
+
+              ${StyledButton} {
+                min-height: 40px;
+                padding: 10px 0px;
+                box-sizing: border-box;
+                height: 100%;
+              }
+            }
+          `
         }
 
         ${StyledIconButton} {
@@ -237,22 +261,31 @@ const StyledMenuItemWrapper = styled.a.attrs({
         }
       `
       : `
-        a,
-        ${StyledLink} a,
-        button,
-        ${StyledLink} button {
-       
-          padding: ${inFullscreenView ? "0px 16px" : "11px 16px 12px"};
-
-          :has([data-component="icon"]) {
-            padding: 9px 16px 7px;
-          }
+        ${
+          hasSubmenu || maxWidth
+            ? `
+              a,
+              ${StyledLink} a,
+              button,
+              ${StyledLink} button {
+                padding: 11px 16px ${hasSubmenu && maxWidth ? "12px" : "10px"};
+              }
+            `
+            : `
+              a,
+              ${StyledLink} a,
+              button,
+              ${StyledLink} button {
+                padding: ${!inFullscreenView ? "11px" : "0px"} 16px;
+              }
+            `
         }
       `}
 
     button,
-    ${StyledLink} button {
-      height: 40px;
+    ${StyledLink} button,
+    a,
+    ${StyledLink} a {
       margin: 0px;
       text-align: left;
 
@@ -260,6 +293,10 @@ const StyledMenuItemWrapper = styled.a.attrs({
       css`
         height: auto;
         white-space: normal;
+
+        ${StyledIcon} {
+          top: -2px;
+        }
       `}
     }
 
@@ -279,6 +316,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
       css`
         a > ${StyledIcon}, button > ${StyledIcon} {
           display: inline-block;
+          height: 18px;
+          top: -2px;
         }
       `}
     }
@@ -396,7 +435,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
         a::before,
         button::before {
           display: block;
-          margin-top: -2px;
+          margin-top: -1px;
           pointer-events: none;
           position: absolute;
           right: ${(props) => parsePadding(padding(props)).iconSpacing};

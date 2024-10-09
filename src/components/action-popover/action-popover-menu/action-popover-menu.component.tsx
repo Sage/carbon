@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useMemo,
-  useContext,
-  useState,
-  useEffect,
-} from "react";
+import React, { useCallback, useMemo, useContext, useState } from "react";
 import invariant from "invariant";
 
 import { Menu } from "../action-popover.style";
@@ -16,6 +10,12 @@ import ActionPopoverDivider from "../action-popover-divider/action-popover-divid
 import ActionPopoverContext, {
   Alignment,
 } from "../__internal__/action-popover.context";
+import {
+  findFirstFocusableItem,
+  findLastFocusableItem,
+  getItems,
+  isItemDisabled,
+} from "../__internal__/action-popover-utils";
 
 export interface ActionPopoverMenuBaseProps {
   /** Children for the menu */
@@ -120,46 +120,16 @@ const ActionPopoverMenu = React.forwardRef<
         ` and \`${ActionPopoverDivider.displayName}\`.`
     );
 
-    const items = useMemo(() => {
-      return React.Children.toArray(children).filter((child) => {
-        return React.isValidElement(child) && child.type === ActionPopoverItem;
-      });
-    }, [children]);
+    const items = useMemo(() => getItems(children), [children]);
 
-    const isItemDisabled = useCallback(
-      (value: number) => {
-        const item = items[value];
-        // The invariant will be triggered before this else path can be explored, hence the ignore else.
-        // istanbul ignore else
-        return React.isValidElement(item) && item.props.disabled;
-      },
+    const checkItemDisabled = useCallback(
+      (value) => isItemDisabled(items[value]),
       [items]
     );
 
-    const firstFocusableItem = items.findIndex(
-      (_, index) => !isItemDisabled(index)
-    );
+    const firstFocusableItem = findFirstFocusableItem(items);
 
-    // FIX-ME: FE-6248
-    // Once we no longer support Node 16, this function can be removed and `findLastIndex()` can be used in it's place.
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex
-    function findLastFocusableItem() {
-      let lastFocusableItem = -1;
-      for (let i = items.length - 1; i >= 0; i--) {
-        if (!isItemDisabled(i)) {
-          lastFocusableItem = i;
-          break;
-        }
-      }
-      return lastFocusableItem;
-    }
-
-    const lastFocusableItem = findLastFocusableItem();
-
-    useEffect(() => {
-      if (isOpen && firstFocusableItem !== -1)
-        setFocusIndex(firstFocusableItem);
-    }, [isOpen, firstFocusableItem, setFocusIndex]);
+    const lastFocusableItem = findLastFocusableItem(items);
 
     const onKeyDown = useCallback(
       (e) => {
@@ -173,7 +143,7 @@ const ActionPopoverMenu = React.forwardRef<
           e.preventDefault();
           e.stopPropagation();
           let indexValue = focusIndex + 1;
-          while (indexValue < items.length && isItemDisabled(indexValue)) {
+          while (indexValue < items.length && checkItemDisabled(indexValue)) {
             indexValue += 1;
           }
           if (indexValue >= items.length) {
@@ -187,7 +157,7 @@ const ActionPopoverMenu = React.forwardRef<
           let indexValue = focusIndex - 1;
           while (
             indexValue >= firstFocusableItem &&
-            isItemDisabled(indexValue)
+            checkItemDisabled(indexValue)
           ) {
             indexValue -= 1;
           }
@@ -216,7 +186,7 @@ const ActionPopoverMenu = React.forwardRef<
           items.forEach((item, index) => {
             if (
               React.isValidElement(item) &&
-              !isItemDisabled(index) &&
+              !checkItemDisabled(index) &&
               item.props.children.toLowerCase().startsWith(e.key.toLowerCase())
             ) {
               // istanbul ignore else
@@ -241,7 +211,7 @@ const ActionPopoverMenu = React.forwardRef<
         setOpen,
         focusIndex,
         items,
-        isItemDisabled,
+        checkItemDisabled,
         setFocusIndex,
         firstFocusableItem,
         lastFocusableItem,

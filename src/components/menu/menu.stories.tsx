@@ -19,10 +19,14 @@ import {
   MenuFullscreen,
 } from ".";
 
-const styledSystemProps = generateStyledSystemProps({
-  flexBox: true,
-  layout: true,
-});
+const styledSystemProps = generateStyledSystemProps(
+  {
+    flexBox: true,
+    layout: true,
+  },
+  undefined,
+  ["height", "minHeight", "maxHeight", "size", "display", "overflowY"]
+);
 
 const defaultOpenState = isChromatic();
 
@@ -368,7 +372,7 @@ SplitSubmenuIntoSeparateComponentStory.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const SubmeuIconAndTextAlignment: Story = () => {
+export const SubmenuIconAndTextAlignment: Story = () => {
   return (
     <Box minHeight="250px">
       <Menu menuType="dark">
@@ -391,8 +395,8 @@ export const SubmeuIconAndTextAlignment: Story = () => {
     </Box>
   );
 };
-SubmeuIconAndTextAlignment.storyName = "Submeu Icon and Text Alignment";
-SubmeuIconAndTextAlignment.parameters = {
+SubmenuIconAndTextAlignment.storyName = "Submeu Icon and Text Alignment";
+SubmenuIconAndTextAlignment.parameters = {
   chromatic: { disableSnapshot: true },
 };
 

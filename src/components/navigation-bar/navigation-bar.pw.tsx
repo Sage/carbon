@@ -185,7 +185,7 @@ test.describe("Test props for NavigationBar component", () => {
               aria-label="header"
             >
               <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-                <Menu display="flex" flex="1">
+                <Menu flex="1">
                   <MenuItem flex="1" onClick={() => {}}>
                     Menu Item One
                   </MenuItem>
@@ -204,7 +204,7 @@ test.describe("Test props for NavigationBar component", () => {
               aria-label="footer"
             >
               <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-                <Menu display="flex" flex="1">
+                <Menu flex="1">
                   <MenuItem flex="1" onClick={() => {}}>
                     Menu Item One
                   </MenuItem>
