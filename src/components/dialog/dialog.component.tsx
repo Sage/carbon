@@ -18,7 +18,6 @@ import {
   StyledDialog,
   StyledDialogTitle,
   StyledDialogContent,
-  StyledDialogInnerContent,
 } from "./dialog.style";
 import { DialogSizes, TOP_MARGIN } from "./dialog.config";
 
@@ -195,7 +194,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 
       containerRef.current.style.top = `${midPointY}px`;
       containerRef.current.style.left = `${midPointX}px`;
-    }, [size]);
+    }, [isDialogMaximised]);
 
     useResizeObserver(innerContentRef, centerDialog, !open);
 
@@ -341,14 +340,9 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
               {...contentPadding}
               data-role="dialog-content"
               tabIndex={-1}
+              ref={innerContentRef}
             >
-              <StyledDialogInnerContent
-                data-role="dialog-inner-content"
-                ref={innerContentRef}
-                {...contentPadding}
-              >
-                {children}
-              </StyledDialogInnerContent>
+              {children}
             </StyledDialogContent>
           </StyledDialog>
         </FocusTrap>
