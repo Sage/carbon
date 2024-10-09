@@ -3,9 +3,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 import Textbox, { TextboxProps } from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import { EnterKeyHintTypes } from "../../__internal__/input";
-import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
@@ -46,10 +45,10 @@ test("should display deprecation warning once when rendered as uncontrolled", ()
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 });
 
-testStyledSystemMargin(
-  (props) => <Textbox {...props} />,
+testStyledSystemMarginRTL(
+  (props) => <Textbox data-role="textbox-wrapper" {...props} />,
+  () => screen.getByTestId("textbox-wrapper"),
   undefined,
-  (component) => component.find(FormFieldStyle),
   { modifier: "&&&" }
 );
 

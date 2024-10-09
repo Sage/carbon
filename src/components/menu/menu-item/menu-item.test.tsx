@@ -6,9 +6,8 @@ import { MenuItem } from "..";
 import {
   testStyledSystemLayout,
   testStyledSystemFlexBox,
-  testStyledSystemPadding,
+  testStyledSystemPaddingRTL,
 } from "../../../__spec_helper__/__internal__/test-utils";
-import StyledMenuItemWrapper from "./menu-item.style";
 import MenuContext, { MenuContextProps } from "../__internal__/menu.context";
 import Icon from "../../icon/icon.component";
 import menuConfigVariants from "../menu.config";
@@ -26,14 +25,32 @@ const menuContextValues: MenuContextProps = {
 };
 
 describe("When MenuItem has no submenu", () => {
-  testStyledSystemPadding(
-    (props) => <MenuItem {...props}>Foo</MenuItem>,
+  testStyledSystemPaddingRTL(
+    (props) => (
+      <MenuItem href="#" {...props}>
+        Foo
+      </MenuItem>
+    ),
+    () => screen.getByTestId("menu-item-wrapper"),
     undefined,
-    (component) => component.find(StyledMenuItemWrapper),
     { modifier: "&&& > a" }
   );
-  testStyledSystemLayout((props) => <MenuItem {...props}>Item One</MenuItem>);
-  testStyledSystemFlexBox((props) => <MenuItem {...props}>Item One</MenuItem>);
+  testStyledSystemLayout(
+    (props) => (
+      <MenuItem href="#" {...props}>
+        Foo
+      </MenuItem>
+    ),
+    () => screen.getByRole("listitem")
+  );
+  testStyledSystemFlexBox(
+    (props) => (
+      <MenuItem href="#" {...props}>
+        Foo
+      </MenuItem>
+    ),
+    () => screen.getByRole("listitem")
+  );
 
   it("should render children correctly", () => {
     render(<MenuItem>Item One</MenuItem>);

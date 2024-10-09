@@ -4,7 +4,7 @@ import InlineInputs from ".";
 import Textbox from "../textbox";
 import {
   mockMatchMedia,
-  testStyledSystemMargin,
+  testStyledSystemMarginRTL,
 } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders single child", () => {
@@ -128,4 +128,7 @@ test("renders with expected styles when inputWidth is provided", () => {
   });
 });
 
-testStyledSystemMargin((props) => <InlineInputs {...props} />);
+testStyledSystemMarginRTL(
+  (props) => <InlineInputs label="label" {...props} />,
+  () => screen.getByTestId("inline-inputs")
+);

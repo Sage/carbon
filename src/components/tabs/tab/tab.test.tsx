@@ -3,19 +3,31 @@ import { render, screen } from "@testing-library/react";
 import Tab from ".";
 import Textbox from "../../textbox";
 import StyledTab from "./tab.style";
-import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemPadding((props) => (
-  <Tab title="Tab Title 1" tabId="foo" isTabSelected {...props}>
-    TabContent
-  </Tab>
-));
+testStyledSystemPaddingRTL(
+  (props) => (
+    <Tab title="Tab Title 1" tabId="foo" isTabSelected {...props}>
+      TabContent
+    </Tab>
+  ),
+  () => screen.getByRole("tabpanel")
+);
 
-testStyledSystemPadding((props) => (
-  <Tab position="left" title="Tab Title 1" tabId="foo" isTabSelected {...props}>
-    TabContent
-  </Tab>
-));
+testStyledSystemPaddingRTL(
+  (props) => (
+    <Tab
+      position="left"
+      title="Tab Title 1"
+      tabId="foo"
+      isTabSelected
+      {...props}
+    >
+      TabContent
+    </Tab>
+  ),
+  () => screen.getByRole("tabpanel")
+);
 
 test("has a role of `tabpanel` if none is specified", () => {
   render(<Tab tabId="foo">tab content</Tab>);

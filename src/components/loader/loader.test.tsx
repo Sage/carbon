@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import Loader from ".";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
@@ -9,7 +9,10 @@ jest.mock("../../hooks/useMediaQuery", () => ({
   default: jest.fn().mockReturnValue(false),
 }));
 
-testStyledSystemMargin((props) => <Loader {...props} />);
+testStyledSystemMarginRTL(
+  (props) => <Loader {...props} />,
+  () => screen.getByRole("progressbar")
+);
 
 test("when the user disallows animations or their preference cannot be determined, alternative loading text is rendered", () => {
   render(<Loader />);

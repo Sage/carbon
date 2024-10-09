@@ -2,13 +2,16 @@ import React from "react";
 import { screen, render } from "@testing-library/react";
 import Breadcrumbs from "./breadcrumbs.component";
 import Crumb from "./crumb/crumb.component";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemSpacingRTL } from "../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemSpacing((props) => (
-  <Breadcrumbs {...props}>
-    <Crumb href="#">Breadcrumb</Crumb>
-  </Breadcrumbs>
-));
+testStyledSystemSpacingRTL(
+  (props) => (
+    <Breadcrumbs {...props}>
+      <Crumb href="#">Breadcrumb</Crumb>
+    </Breadcrumbs>
+  ),
+  () => screen.getByRole("navigation")
+);
 
 test("renders children as expected", () => {
   render(

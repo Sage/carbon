@@ -1,17 +1,29 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import {
-  testStyledSystemMargin,
+  testStyledSystemMarginRTL,
   testStyledSystemLayout,
   testStyledSystemBackground,
-  testStyledSystemPadding,
+  testStyledSystemPaddingRTL,
 } from "../../__spec_helper__/__internal__/test-utils";
 import Image from "./image.component";
 
-testStyledSystemMargin((props) => <Image {...props} />);
-testStyledSystemLayout((props) => <Image {...props} />);
-testStyledSystemBackground((props) => <Image {...props} />);
-testStyledSystemPadding((props) => <Image {...props} />);
+testStyledSystemMarginRTL(
+  (props) => <Image data-role="image" {...props} />,
+  () => screen.getByTestId("image")
+);
+testStyledSystemLayout(
+  (props) => <Image data-role="image" {...props} />,
+  () => screen.getByTestId("image")
+);
+testStyledSystemBackground(
+  (props) => <Image data-role="image" {...props} />,
+  () => screen.getByTestId("image")
+);
+testStyledSystemPaddingRTL(
+  (props) => <Image data-role="image" {...props} />,
+  () => screen.getByTestId("image")
+);
 
 test("renders", () => {
   render(<Image data-role="image" />);

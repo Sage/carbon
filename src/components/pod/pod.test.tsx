@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pod from ".";
 import Typography from "../typography";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders with `title` as a string", () => {
   render(<Pod title="Title" />);
@@ -477,4 +477,7 @@ test("renders block with correct padding when `border` is false and a button is 
   expect(block).toHaveStyle({ padding: "0" });
 });
 
-testStyledSystemMargin((props) => <Pod {...props} />);
+testStyledSystemMarginRTL(
+  (props) => <Pod data-role="pod" {...props} />,
+  () => screen.getByTestId("pod")
+);

@@ -219,6 +219,7 @@ export const AdvancedColorPicker = ({
     <StyledAdvancedColorPickerWrapper
       m="15px auto auto 15px"
       {...filterStyledSystemMarginProps(props)}
+      data-role="advanced-color-picker-wrapper"
     >
       <StyledAdvancedColorPickerCell
         data-element="color-picker-cell"
