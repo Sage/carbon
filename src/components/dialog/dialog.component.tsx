@@ -1,24 +1,16 @@
-import React, {
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-  useImperativeHandle,
-  forwardRef,
-} from "react";
+import React, { useRef, useImperativeHandle, forwardRef } from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 
 import {
   StyledDialog,
   StyledDialogTitle,
   StyledDialogContent,
 } from "./dialog.style";
-import { DialogSizes, TOP_MARGIN } from "./dialog.config";
+import { DialogSizes } from "./dialog.config";
 
 import FocusTrap, { CustomRefObject } from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
@@ -139,7 +131,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const containerRef = useRef<HTMLDivElement>(null);
     const innerContentRef = useRef(null);
     const titleRef = useRef(null);
-    const listenersAdded = useRef(false);
     const { current: titleId } = useRef(createGuid());
     const { current: subtitleId } = useRef(createGuid());
 
@@ -154,74 +145,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       }),
       []
     );
-
-    const centerDialog = useCallback(() => {
-      /* istanbul ignore if */
-      if (!containerRef.current) {
-        return;
-      }
-
-      if (size === "maximise") return;
-
-      const {
-        width: dialogWidth,
-        height: dialogHeight,
-      } = containerRef.current.getBoundingClientRect();
-
-      let midPointY = window.innerHeight / 2;
-      let midPointX = window.innerWidth / 2;
-
-      midPointY -= dialogHeight / 2;
-      midPointX -= dialogWidth / 2;
-
-      if (midPointY < TOP_MARGIN) {
-        midPointY = TOP_MARGIN;
-      }
-
-      if (midPointX < 0) {
-        midPointX = 0;
-      }
-
-      containerRef.current.style.top = `${midPointY}px`;
-      containerRef.current.style.left = `${midPointX}px`;
-    }, [size]);
-
-    useResizeObserver(innerContentRef, centerDialog, !open);
-
-    const addListeners = useCallback(() => {
-      /* istanbul ignore else */
-      if (!listenersAdded.current) {
-        window.addEventListener("resize", centerDialog);
-        listenersAdded.current = true;
-      }
-    }, [centerDialog]);
-
-    const removeListeners = useCallback(() => {
-      if (listenersAdded.current) {
-        window.removeEventListener("resize", centerDialog);
-        listenersAdded.current = false;
-      }
-    }, [centerDialog]);
-
-    useEffect(() => {
-      if (open) {
-        addListeners();
-      }
-
-      if (!open) {
-        removeListeners();
-      }
-
-      return () => {
-        removeListeners();
-      };
-    }, [open, addListeners, removeListeners]);
-
-    useLayoutEffect(() => {
-      if (open) {
-        centerDialog();
-      }
-    }, [centerDialog, open, height]);
 
     const closeIcon = () => {
       if (!showCloseIcon || !onCancel) return null;

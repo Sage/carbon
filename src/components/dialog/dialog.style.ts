@@ -11,7 +11,6 @@ import {
   CONTENT_TOP_PADDING,
   CONTENT_BOTTOM_PADDING,
   DialogSizes,
-  TOP_MARGIN,
 } from "./dialog.config";
 import { ContentPaddingInterface } from "./dialog.component";
 import resolvePaddingSides from "../../style/utils/resolve-padding-sides";
@@ -38,31 +37,30 @@ type StyledDialogProps = {
   backgroundColor: string;
 };
 
-const StyledDialog = styled.div.attrs(({ size }: StyledDialogProps) => {
-  const isDialogMaximised = size === "maximise";
-  return {
-    isDialogMaximised,
-  };
-})<StyledDialogProps & ContentPaddingInterface>`
+const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   box-shadow: var(--boxShadow300);
   display: flex;
   flex-direction: column;
   border-radius: var(--borderRadius200);
   position: fixed;
-  top: 50%;
   z-index: ${({ theme }) => theme.zIndex.modal};
-  max-height: calc(100vh - ${TOP_MARGIN}px);
 
-  ${({ isDialogMaximised }) =>
-    isDialogMaximised &&
-    css`
-      inset: 0;
-      margin: 16px;
+  ${({ size }) =>
+    size === "maximise"
+      ? css`
+          inset: 0;
+          margin: 16px;
 
-      @media screen and (min-width: 960px) {
-        margin: 32px;
-      }
-    `};
+          @media screen and (min-width: 960px) {
+            margin: 32px;
+          }
+        `
+      : css`
+          max-height: 90vh;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        `};
 
   &:focus {
     outline: none;
