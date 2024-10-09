@@ -44,7 +44,7 @@ test("has the expected border radius styling", () => {
 
   const dialog = screen.getByRole("alertdialog", { name: "Alert title" });
 
-  expect(dialog).toHaveStyle({ borderRadius: "var(--borderRadius200)" });
+  expect(dialog).toHaveStyleRule("border-radius", "var(--borderRadius200)");
 });
 
 test("should allow custom data props on close button to be assigned", () => {

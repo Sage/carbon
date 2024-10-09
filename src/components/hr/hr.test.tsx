@@ -25,14 +25,14 @@ test("should apply the expected margin top", () => {
   );
   const hr = screen.getByRole("separator");
 
-  expect(hr).toHaveStyle({ marginTop: "var(--spacing700)" });
+  expect(hr).toHaveStyleRule("margin-top", "var(--spacing700)");
 });
 
 test("should apply the expected margin bottom", () => {
   render(<Hr mb={7} />);
   const hr = screen.getByRole("separator");
 
-  expect(hr).toHaveStyle({ marginBottom: "var(--spacing700)" });
+  expect(hr).toHaveStyleRule("margin-bottom", "var(--spacing700)");
 });
 
 test("should apply the expected margin left", () => {
@@ -62,10 +62,8 @@ test("when adaptiveMxBreakpoint prop is set and when screen smaller than breakpo
   render(<Hr ml="10%" mr="20%" adaptiveMxBreakpoint={1000} />);
   const hr = screen.getByRole("separator");
 
-  expect(hr).toHaveStyle({
-    marginLeft: "var(--spacing000)",
-    marginRight: "var(--spacing000)",
-  });
+  expect(hr).toHaveStyleRule("margin-left", "var(--spacing000)");
+  expect(hr).toHaveStyleRule("margin-right", "var(--spacing000)");
 });
 
 test("should apply the 'aria-hidden' attribute when the `aria-hidden` prop is true", () => {
