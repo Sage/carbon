@@ -15,6 +15,15 @@ import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
 import TextEditor from "../text-editor";
 
+import Box from "../box";
+import Typography from "../typography";
+import {
+  FlexTileCell,
+  FlexTileContainer,
+  FlexTileDivider,
+  Tile,
+} from "../tile";
+
 export default {
   title: "Dialog/Test",
   component: Dialog,
@@ -292,4 +301,162 @@ MaxSizeTestNonOverflowedForm.parameters = {
   themeProvider: { chromatic: { theme: "none" } },
   chromatic: { disableSnapshot: false, viewports: [1200, 900] },
   layout: "fullscreen",
+};
+
+export const DialogWithLongHeaderContent: StoryType = {
+  render: ({ size, ...args }) => (
+    <Dialog
+      {...args}
+      size={size || "maximise"}
+      open
+      title={
+        <Box width="100%">
+          <Icon type="ledger" />
+          <Typography variant="h1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </Typography>
+          <Typography>
+            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam.
+          </Typography>
+        </Box>
+      }
+    >
+      <Form
+        stickyFooter
+        leftSideButtons={<Button buttonType="primary">Submit</Button>}
+      >
+        <Box height="800px">
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+        </Box>
+      </Form>
+    </Dialog>
+  ),
 };
