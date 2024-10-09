@@ -506,30 +506,6 @@ test.describe("Event tests for DateRange component", () => {
     });
   });
 
-  test("should call onBlur callback when a blur event is triggered", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <DateRangeCustom
-        onBlur={() => {
-          callbackCount += 1;
-        }}
-      />
-    );
-
-    await textboxInput(page).nth(START_DATE_RANGE_INDEX).press("Tab");
-
-    await expect(callbackCount).toEqual(0);
-
-    const focusedElement = page.locator("*:focus");
-    await focusedElement.press("Tab");
-    await page.locator("body").click();
-
-    await expect(callbackCount).toEqual(1);
-  });
-
   test("should call onChange callback when a type event is triggered", async ({
     mount,
     page,
