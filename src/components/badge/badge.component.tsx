@@ -78,8 +78,8 @@ export const Badge = ({
 
   return (
     <StyledBadgeWrapper>
-      {renderCorrectBadge()}
       {children}
+      {renderCorrectBadge()}
     </StyledBadgeWrapper>
   );
 };
