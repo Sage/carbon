@@ -90,6 +90,8 @@ Default.args = {
   value: "test-value",
   disabled: false,
   size: "small",
+  required: false,
+  isOptional: false,
 };
 
 export const NewDefault = ({
@@ -133,6 +135,8 @@ NewDefault.args = {
   value: "test-value",
   disabled: false,
   size: "small",
+  required: false,
+  isOptional: false,
 };
 
 export const WithLongTextStrings = () => (
