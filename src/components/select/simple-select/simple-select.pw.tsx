@@ -787,7 +787,7 @@ test.describe("SimpleSelect component", () => {
     await expect(selectListWrapper(page)).toBeVisible();
     await expect(selectListOptionGroup(page).locator("..")).toHaveAttribute(
       "data-component",
-      "group-header"
+      "option-group-header"
     );
   });
 

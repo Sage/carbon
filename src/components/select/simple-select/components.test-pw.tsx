@@ -306,7 +306,6 @@ export const SimpleSelectGroupComponent = (
         id="groupHeader1"
         label="Group one"
         icon="individual"
-        data-component="group-header"
         data-role="group-header"
         data-element="group-header"
       />
