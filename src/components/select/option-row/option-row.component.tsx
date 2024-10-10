@@ -5,7 +5,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import StyledOptionRow from "./option-row.style";
 import SelectListContext from "../__internal__/select-list/select-list.context";
 
-export interface OptionRowProps extends TagProps {
+export interface OptionRowProps extends Omit<TagProps, "data-component"> {
   /** The option's visible text, displayed within <Textbox> of <Select> */
   text: string;
   /** Row content, should consist of multiple td elements */
@@ -84,7 +84,6 @@ const OptionRow = React.forwardRef(
         ref={ref}
         aria-selected={isSelected}
         aria-disabled={disabled}
-        data-component="option-row"
         isDisabled={disabled}
         onClick={handleClick}
         isHighlighted={selectListContext.currentOptionsListIndex === index}
@@ -92,6 +91,7 @@ const OptionRow = React.forwardRef(
         hidden={hidden}
         style={style}
         {...rest}
+        data-component="option-row"
       >
         {children}
       </StyledOptionRow>

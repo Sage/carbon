@@ -5,7 +5,8 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import StyledOptionGroupHeader from "./option-group-header.style";
 import Icon, { IconProps } from "../../icon";
 
-export interface OptionGroupHeaderProps extends TagProps {
+export interface OptionGroupHeaderProps
+  extends Omit<TagProps, "data-component"> {
   /**
    * Unique identifier for the component.
    * Will use a randomly generated GUID if none is provided.
@@ -47,6 +48,7 @@ const OptionGroupHeader = React.forwardRef(
         id={internalIdRef.current}
         {...rest}
         ref={ref}
+        data-component="option-group-header"
       >
         {children || (
           <>
