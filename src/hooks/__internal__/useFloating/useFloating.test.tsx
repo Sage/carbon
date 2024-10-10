@@ -105,9 +105,7 @@ test("when using size middleware, the original width and height are restored aft
     }),
   ];
 
-  const { rerender } = await render(
-    <MockComponent isOpen middleware={middleWare} />
-  );
+  const { rerender } = render(<MockComponent isOpen middleware={middleWare} />);
 
   const floatingElement = await screen.findByTestId("floating-element");
   const positionedStyle = window.getComputedStyle(floatingElement);
