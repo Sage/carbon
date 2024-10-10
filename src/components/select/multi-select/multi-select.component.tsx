@@ -169,7 +169,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       id: inputId.current,
       label,
     });
-    const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
+    const focusTimer = useRef<number | undefined>(undefined);
 
     const actualValue = isControlled.current ? value : selectedValue;
 
@@ -445,7 +445,9 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const onFilterChange = useStableCallback(
       onFilterChangeProp as (filterTextArg: unknown) => void
     );
+
     const isFirstRender = useRef(true);
+
     useEffect(() => {
       if (!isFirstRender.current) {
         onFilterChange?.(filterText);
@@ -454,6 +456,10 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
     useEffect(() => {
       isFirstRender.current = false;
+
+      return () => {
+        window.clearTimeout(focusTimer.current);
+      };
     }, []);
 
     function handleTextboxClick(event: React.MouseEvent<HTMLInputElement>) {
@@ -521,13 +527,11 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
     function handleTextboxFocus(event: React.FocusEvent<HTMLInputElement>) {
       if (openOnFocus) {
-        if (focusTimer.current) {
-          clearTimeout(focusTimer.current);
-        }
+        window.clearTimeout(focusTimer.current);
 
         // we need to use a timeout here as there is a race condition when rendered in a modal
         // whereby the select list isn't visible when the select is auto focused straight away
-        focusTimer.current = setTimeout(() => {
+        focusTimer.current = window.setTimeout(() => {
           setOpenState((isAlreadyOpen) => {
             if (isAlreadyOpen) {
               return true;
