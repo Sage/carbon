@@ -9,7 +9,7 @@ export interface OptionProps
       React.InputHTMLAttributes<HTMLLIElement>,
       "value" | "onSelect" | "onClick"
     >,
-    TagProps {
+    Omit<TagProps, "data-component"> {
   /**
    * Unique identifier for the component.
    * Will use a randomly generated GUID if none is provided.
@@ -91,7 +91,6 @@ const Option = React.forwardRef(
         ref={ref}
         aria-selected={isSelected}
         aria-disabled={disabled}
-        data-component="option"
         isDisabled={disabled}
         onClick={handleClick}
         isHighlighted={selectListContext.currentOptionsListIndex === index}
@@ -99,6 +98,7 @@ const Option = React.forwardRef(
         hidden={hidden}
         style={style}
         {...{ ...rest, fill: undefined }}
+        data-component="option"
       >
         {children || text}
       </StyledOption>
