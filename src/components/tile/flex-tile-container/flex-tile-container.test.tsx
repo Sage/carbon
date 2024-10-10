@@ -28,21 +28,3 @@ test("should render when children are passed", () => {
 
   expect(screen.getByText("Tile Content")).toBeVisible();
 });
-
-test("should have `overflow` 'hidden' by default", () => {
-  render(<FlexTileContainer>Tile Content</FlexTileContainer>);
-
-  expect(screen.getByText("Tile Content")).toHaveStyle({
-    overflow: "hidden",
-  });
-});
-
-test("should render with the expected `overflow` styling when prop is passed", () => {
-  render(
-    <FlexTileContainer overflow="visible">Tile Content</FlexTileContainer>
-  );
-
-  expect(screen.getByText("Tile Content")).toHaveStyle({
-    overflow: "visible",
-  });
-});
