@@ -142,7 +142,9 @@ export const MaxSize: Story = () => {
   );
 };
 MaxSize.storyName = "With Max Size";
-MaxSize.parameters = { chromatic: { disableSnapshot: true } };
+MaxSize.parameters = {
+  chromatic: { viewports: [1200, 320] },
+};
 
 export const Editable: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);

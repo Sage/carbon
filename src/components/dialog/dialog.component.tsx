@@ -9,6 +9,7 @@ import {
   StyledDialog,
   StyledDialogTitle,
   StyledDialogContent,
+  DialogPositioner,
 } from "./dialog.style";
 import { DialogSizes } from "./dialog.config";
 
@@ -146,49 +147,41 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       []
     );
 
-    const closeIcon = () => {
-      if (!showCloseIcon || !onCancel) return null;
+    const closeIcon = showCloseIcon && onCancel && (
+      <IconButton
+        aria-label={locale.dialog.ariaLabels.close()}
+        onClick={onCancel}
+        disabled={disableClose}
+        {...tagComponent("close", {
+          "data-element": "close",
+          ...closeButtonDataProps,
+        })}
+      >
+        <Icon type="close" />
+      </IconButton>
+    );
 
-      return (
-        <IconButton
-          aria-label={locale.dialog.ariaLabels.close()}
-          onClick={onCancel}
-          disabled={disableClose}
-          {...tagComponent("close", {
-            "data-element": "close",
-            ...closeButtonDataProps,
-          })}
-        >
-          <Icon type="close" />
-        </IconButton>
-      );
-    };
-
-    const dialogTitle = () => {
-      if (!title) return null;
-
-      return (
-        <StyledDialogTitle
-          showCloseIcon={showCloseIcon}
-          hasSubtitle={!!subtitle}
-          ref={titleRef}
-        >
-          {typeof title === "string" ? (
-            <Heading
-              data-element="dialog-title"
-              title={title}
-              titleId={titleId}
-              subheader={subtitle}
-              subtitleId={subtitleId}
-              divider={false}
-              help={help}
-            />
-          ) : (
-            title
-          )}
-        </StyledDialogTitle>
-      );
-    };
+    const dialogTitle = title && (
+      <StyledDialogTitle
+        showCloseIcon={showCloseIcon}
+        hasSubtitle={!!subtitle}
+        ref={titleRef}
+      >
+        {typeof title === "string" ? (
+          <Heading
+            data-element="dialog-title"
+            title={title}
+            titleId={titleId}
+            subheader={subtitle}
+            subtitleId={subtitleId}
+            divider={false}
+            help={help}
+          />
+        ) : (
+          title
+        )}
+      </StyledDialogTitle>
+    );
 
     let dialogHeight = height;
 
@@ -226,33 +219,35 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           isOpen={open}
           additionalWrapperRefs={focusableContainers}
         >
-          <StyledDialog
-            data-component={dataComponent}
-            data-element={dataElement}
-            data-role={dataRole}
-            aria-modal={isTopModal ? true : undefined}
-            ref={containerRef}
-            {...dialogProps}
-            role={role}
-            tabIndex={-1}
-            {...contentPadding}
-            backgroundColor={
-              greyBackground
-                ? "var(--colorsUtilityMajor025)"
-                : "var(--colorsUtilityYang100)"
-            }
-          >
-            {dialogTitle()}
-            {closeIcon()}
-            <StyledDialogContent
-              {...contentPadding}
-              data-role="dialog-content"
+          <DialogPositioner>
+            <StyledDialog
+              data-component={dataComponent}
+              data-element={dataElement}
+              data-role={dataRole}
+              aria-modal={isTopModal ? true : undefined}
+              ref={containerRef}
+              {...dialogProps}
+              role={role}
               tabIndex={-1}
-              ref={innerContentRef}
+              {...contentPadding}
+              backgroundColor={
+                greyBackground
+                  ? "var(--colorsUtilityMajor025)"
+                  : "var(--colorsUtilityYang100)"
+              }
             >
-              {children}
-            </StyledDialogContent>
-          </StyledDialog>
+              {dialogTitle}
+              {closeIcon}
+              <StyledDialogContent
+                {...contentPadding}
+                data-role="dialog-content"
+                tabIndex={-1}
+                ref={innerContentRef}
+              >
+                {children}
+              </StyledDialogContent>
+            </StyledDialog>
+          </DialogPositioner>
         </FocusTrap>
       </Modal>
     );
