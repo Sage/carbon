@@ -4,21 +4,24 @@ import MultiSelect from ".";
 import Option from "../option";
 import Logger from "../../../__internal__/utils/logger";
 
-test("renders combobox without text overlay", () => {
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
+test("displays input", () => {
   render(
     <MultiSelect label="Colour" onChange={() => {}} value={[]}>
-      <Option text="Amber" value="1" />
+      <Option text="amber" value="amber" />
     </MultiSelect>
   );
 
-  expect(screen.getByRole("combobox")).toBeInTheDocument();
-  expect(screen.queryByTestId("select-text")).not.toBeInTheDocument();
+  expect(screen.getByRole("combobox")).toBeVisible();
 });
 
-test("initially renders combobox with placeholder text", () => {
+test("displays default placeholder text when no value is selected", () => {
   render(
     <MultiSelect label="Colour" onChange={() => {}} value={[]}>
-      <Option text="Amber" value="1" />
+      <Option text="amber" value="amber" />
     </MultiSelect>
   );
 
@@ -28,7 +31,7 @@ test("initially renders combobox with placeholder text", () => {
   );
 });
 
-test("initially renders combobox with custom placeholder when placeholder prop is passed", () => {
+test("displays custom text when placeholder prop is provided and no value is selected", () => {
   render(
     <MultiSelect
       label="Colour"
@@ -36,7 +39,7 @@ test("initially renders combobox with custom placeholder when placeholder prop i
       value={[]}
       placeholder="Select a colour"
     >
-      <Option text="Amber" value="1" />
+      <Option text="amber" value="amber" />
     </MultiSelect>
   );
 
@@ -46,60 +49,78 @@ test("initially renders combobox with custom placeholder when placeholder prop i
   );
 });
 
-test("combobox has correct accessible name when label prop is provided", () => {
-  render(
-    <MultiSelect label="Colour" onChange={() => {}} value={[]}>
-      <Option text="Amber" value="1" />
-    </MultiSelect>
-  );
-
-  expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
-});
-
-test("combobox has correct accessible name when aria-labelledby prop is provided", () => {
-  render(
-    <>
-      <h2 id="my-select-heading">My Select</h2>
-      <MultiSelect
-        aria-labelledby="my-select-heading"
-        onChange={() => {}}
-        value={[]}
-      >
-        <Option text="Amber" value="1" />
+describe("accessible name of the input", () => {
+  it("is set to the label prop when provided", () => {
+    render(
+      <MultiSelect label="Colour" onChange={() => {}} value={[]}>
+        <Option text="amber" value="amber" />
       </MultiSelect>
-    </>
-  );
+    );
 
-  expect(screen.getByRole("combobox")).toHaveAccessibleName("My Select");
+    expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
+  });
+
+  it("is set to the text referenced by the aria-labelledby prop when provided", () => {
+    render(
+      <>
+        <h2 id="my-select-heading">My Select</h2>
+        <MultiSelect
+          aria-labelledby="my-select-heading"
+          onChange={() => {}}
+          value={[]}
+        >
+          <Option text="amber" value="amber" />
+        </MultiSelect>
+      </>
+    );
+
+    expect(screen.getByRole("combobox")).toHaveAccessibleName("My Select");
+  });
 });
 
-test("should not display deprecation about uncontrolled Textbox when parent component is controlled", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(
-    <MultiSelect
-      label="Colour"
-      onChange={() => {}}
-      value={["1"]}
-      placeholder="Select a colour"
-    >
-      <Option text="Amber" value="1" />
-    </MultiSelect>
-  );
+describe("deprecation warnings", () => {
+  it("raises deprecation warning when component is used with defaultValue and no onChange (uncontrolled usage)", () => {
+    jest.spyOn(console, "warn").mockImplementation(() => {});
 
-  expect(loggerSpy).not.toHaveBeenCalled();
-  loggerSpy.mockClear();
-});
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <MultiSelect label="Colour" onChange={undefined} defaultValue={["amber"]}>
+        <Option text="amber" value="amber" />
+      </MultiSelect>
+    );
 
-test("should not display deprecation about uncontrolled Textbox when parent component is not controlled", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(
-    <MultiSelect label="Colour" placeholder="Select a colour">
-      <Option text="Amber" value="1" />
-    </MultiSelect>
-  );
+    expect(loggerSpy).toHaveBeenNthCalledWith(
+      1,
+      "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    );
+  });
 
-  expect(loggerSpy).not.toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
-  );
-  loggerSpy.mockClear();
+  it("should not display deprecation about uncontrolled Textbox when parent component is controlled", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <MultiSelect
+        label="Colour"
+        onChange={() => {}}
+        value={["amber"]}
+        placeholder="Select a colour"
+      >
+        <Option text="amber" value="amber" />
+      </MultiSelect>
+    );
+
+    expect(loggerSpy).not.toHaveBeenCalled();
+  });
+
+  it("should not display deprecation about uncontrolled Textbox when parent component is not controlled", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(
+      <MultiSelect label="Colour" placeholder="Select a colour">
+        <Option text="amber" value="amber" />
+      </MultiSelect>
+    );
+
+    expect(loggerSpy).not.toHaveBeenCalledWith(
+      "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    );
+  });
 });
