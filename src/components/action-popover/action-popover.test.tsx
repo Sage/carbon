@@ -552,9 +552,7 @@ test.each(["ArrowDown", "Space", "Enter"] as const)(
   }
 );
 
-// test left in, but skipped, pending investigation/decision on https://github.com/Sage/carbon/issues/6826
-// eslint-disable-next-line jest/no-disabled-tests
-test.skip("pressing ArrowUp key when focused on the menu button selects the last focusable item", async () => {
+test("pressing ArrowUp key when focused on the menu button selects the last focusable item", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
@@ -590,11 +588,14 @@ test.each([
     screen.getByRole("button").focus();
     await user.keyboard("{Enter}");
 
+    expect(
+      screen.getByRole("button", { name: "example item 1" })
+    ).toBeFocused();
+
     await user.keyboard(keycode);
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
     expect(onClose).toHaveBeenCalledTimes(1);
-    // TODO - add test for correct element being focused if functionality is fixed (see FE-6424)
   }
 );
 
