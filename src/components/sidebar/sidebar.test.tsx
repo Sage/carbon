@@ -294,7 +294,7 @@ test("ensures overflowing content is scrollable", () => {
 test("does not control styling of overflowing content when there is a child Form with a sticky footer", () => {
   render(
     <Sidebar open>
-      <Form stickyFooter />
+      <Form stickyFooter rightSideButtons={<span>foo</span>} />
     </Sidebar>
   );
 
