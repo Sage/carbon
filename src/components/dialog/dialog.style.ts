@@ -1,16 +1,5 @@
 import styled, { css } from "styled-components";
-import { padding as paddingFn } from "styled-system";
-
 import baseTheme from "../../style/themes/base";
-import {
-  calculateFormSpacingValues,
-  calculateWidthValue,
-} from "../../style/utils/form-style-utils";
-import {
-  StyledForm,
-  StyledFormFooter,
-  StyledFormContent,
-} from "../form/form.style";
 import {
   StyledHeaderContent,
   StyledHeading,
@@ -21,9 +10,14 @@ import {
   HORIZONTAL_PADDING,
   CONTENT_TOP_PADDING,
   CONTENT_BOTTOM_PADDING,
-  DialogSizes,
 } from "./dialog.config";
-import { ContentPaddingInterface } from "./dialog.component";
+import { ContentPaddingInterface, DialogProps } from "./dialog.component";
+import resolvePaddingSides from "../../style/utils/resolve-padding-sides";
+import {
+  StyledFormContent,
+  StyledForm,
+  StyledFormFooter,
+} from "../form/form.style";
 
 const dialogSizes = {
   auto: "fit-content",
@@ -36,45 +30,43 @@ const dialogSizes = {
   "extra-large": "1080px",
 };
 
-const calculatePaddingTopInnerContent = ({
-  py,
-  p,
-}: {
-  py?: ContentPaddingInterface["py"];
-  p?: ContentPaddingInterface["p"];
-}) =>
-  [py, p].some((padding) => padding !== undefined)
-    ? 0
-    : `${CONTENT_TOP_PADDING}px`;
-
-type StyledDialogProps = {
-  topMargin: number;
-  size?: DialogSizes;
+type StyledDialogProps = Required<Pick<DialogProps, "size">> & {
   dialogHeight?: string;
   backgroundColor: string;
 };
 
-const StyledDialog = styled.div.attrs(
-  ({ topMargin, size }: StyledDialogProps) => {
-    const isDialogMaximised = size === "maximise";
-    const isDialogMaximisedSmallViewport = topMargin === 32;
-    const isDialogMaximisedLargeViewport = topMargin === 64;
-    return {
-      isDialogMaximised,
-      isDialogMaximisedSmallViewport,
-      isDialogMaximisedLargeViewport,
-    };
-  }
-)<StyledDialogProps & ContentPaddingInterface>`
+const DialogPositioner = styled.div`
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: ${({ theme }) => theme.zIndex.modal};
+`;
+
+const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   box-shadow: var(--boxShadow300);
   display: flex;
   flex-direction: column;
+  position: relative;
   border-radius: var(--borderRadius200);
-  position: fixed;
-  top: 50%;
-  z-index: ${({ theme }) => theme.zIndex.modal};
-  max-height: ${({ topMargin }) => `calc(100vh - ${topMargin}px)`};
-  ${({ isDialogMaximised }) => isDialogMaximised && "height: 100%"};
+
+  ${({ size }) =>
+    size === "maximise"
+      ? css`
+          height: calc(100% - var(--spacing400));
+          width: calc(100% - var(--spacing400));
+
+          @media screen and (min-width: 960px) {
+            height: calc(100% - var(--spacing800));
+            width: calc(100% - var(--spacing800));
+          }
+        `
+      : css`
+          max-height: 90vh;
+          max-width: ${dialogSizes[size]};
+          width: 100%;
+        `};
 
   &:focus {
     outline: none;
@@ -85,46 +77,12 @@ const StyledDialog = styled.div.attrs(
       background-color: ${backgroundColor};
     `}
 
-  ${({ size, topMargin }) =>
-    size &&
-    css`
-      max-width: ${size === "maximise"
-        ? `calc(100vw - ${topMargin}px)`
-        : dialogSizes[size]};
-      width: 100%;
-    `}
-
   ${({ dialogHeight }) =>
     dialogHeight &&
     css`
       height: ${dialogHeight}px;
     `}
-
-  /* We're overriding the max-height on the form content to account for a larger height when in a smaller viewport.
-  TODO: Remove this upon the completion of FE-6643. */
-  ${StyledForm} {
-    ${({ isDialogMaximised, isDialogMaximisedSmallViewport }) =>
-      isDialogMaximised &&
-      css`
-        ${isDialogMaximisedSmallViewport && "max-height: calc(100vh - 184px);"}
-        height: 100%;
-      `}
-
-    padding-bottom: 0px;
-    box-sizing: border-box;
-  }
-
-  ${StyledFormContent}.sticky {
-    ${(props) => calculateFormSpacingValues(props, true)}
-  }
-
-  ${StyledFormFooter}.sticky {
-    ${calculateWidthValue}
-    ${(props) => calculateFormSpacingValues(props, false)}
-    border-bottom-right-radius: var(--borderRadius200);
-    border-bottom-left-radius: var(--borderRadius200);
-  }
-
+  
   > ${StyledIconButton} {
     margin: 0;
     position: absolute;
@@ -168,30 +126,46 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   }
 `;
 
-const StyledDialogContent = styled.div<ContentPaddingInterface>`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
+const StyledDialogContent = styled.div<ContentPaddingInterface>((props) => {
+  const {
+    paddingTop = `${CONTENT_TOP_PADDING}px`,
+    paddingRight = `${HORIZONTAL_PADDING}px`,
+    paddingBottom = `${CONTENT_BOTTOM_PADDING}px`,
+    paddingLeft = `${HORIZONTAL_PADDING}px`,
+  } = resolvePaddingSides(props);
 
-  /* Delegate handling overflow to child form if it has a sticky footer */
-  &:has(${StyledFormContent}.sticky) {
-    overflow-y: inherit;
-  }
+  const negate = (value: string) => `calc(-1 * ${value})`;
 
-  width: 100%;
-  flex: 1;
-  padding: 0px ${HORIZONTAL_PADDING}px ${CONTENT_BOTTOM_PADDING}px;
-  ${paddingFn}
-`;
+  return css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 
-const StyledDialogInnerContent = styled.div<ContentPaddingInterface>`
-  position: relative;
-  flex: 1;
-  padding-top: ${calculatePaddingTopInnerContent};
-`;
+    width: 100%;
+    flex: 1;
 
-StyledDialog.defaultProps = {
+    ${StyledForm}.sticky {
+      margin-top: ${negate(paddingTop)};
+      margin-right: ${negate(paddingRight)};
+      margin-bottom: ${negate(paddingBottom)};
+      margin-left: ${negate(paddingLeft)};
+
+      ${StyledFormContent} {
+        padding: ${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft};
+      }
+
+      ${StyledFormFooter} {
+        border-bottom-right-radius: var(--borderRadius200);
+        border-bottom-left-radius: var(--borderRadius200);
+      }
+    }
+
+    padding: ${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft};
+  `;
+});
+
+DialogPositioner.defaultProps = {
   theme: baseTheme,
 };
 
@@ -200,8 +174,8 @@ StyledDialogContent.defaultProps = {
 };
 
 export {
+  DialogPositioner,
   StyledDialog,
   StyledDialogTitle,
   StyledDialogContent,
-  StyledDialogInnerContent,
 };

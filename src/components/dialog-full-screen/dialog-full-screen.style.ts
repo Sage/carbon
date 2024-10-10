@@ -8,7 +8,6 @@ import {
   StyledHeaderContent,
   StyledHeading,
 } from "../heading/heading.style";
-import { StyledForm } from "../form/form.style";
 
 const StyledDialogFullScreen = styled.div<{ pagesStyling?: boolean }>`
   :focus {
@@ -26,10 +25,6 @@ const StyledDialogFullScreen = styled.div<{ pagesStyling?: boolean }>`
       .fullScreenModal}; // TODO (tokens): implement elevation tokens - FE-4437
   display: flex;
   flex-direction: column;
-
-  ${StyledForm} {
-    min-height: 100%;
-  }
 
   ${StyledHeaderContent} {
     align-items: baseline;

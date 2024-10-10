@@ -6,12 +6,12 @@ import {
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { sageTheme } from "../../style/themes";
 import {
   testStyledSystemPaddingRTL,
   testStyledSystemWidthRTL,
 } from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
-import Form from "../form";
 
 import Sidebar, { SidebarProps } from ".";
 
@@ -288,44 +288,32 @@ test("ensures overflowing content is scrollable", () => {
   render(<Sidebar open />);
 
   const sidebarContent = screen.getByTestId("sidebar-content");
-  expect(sidebarContent).toHaveStyle("overflow: auto");
-});
-
-test("does not control styling of overflowing content when there is a child Form with a sticky footer", () => {
-  render(
-    <Sidebar open>
-      <Form stickyFooter />
-    </Sidebar>
-  );
-
-  const sidebarContent = screen.getByTestId("sidebar-content");
-  expect(sidebarContent).not.toHaveStyle("overflow: auto");
+  expect(sidebarContent).toHaveStyle("overflow-y: auto");
 });
 
 testStyledSystemWidthRTL(
   (props) => (
-    <Sidebar open {...props}>
-      Content
-    </Sidebar>
+    <CarbonProvider theme={sageTheme}>
+      <Sidebar open {...props}>
+        Content
+      </Sidebar>
+    </CarbonProvider>
   ),
   () => screen.getByRole("dialog")
 );
 
 testStyledSystemPaddingRTL(
   (props) => (
-    <Sidebar open {...props}>
-      Content
-    </Sidebar>
+    <CarbonProvider theme={sageTheme}>
+      <Sidebar open {...props}>
+        Content
+      </Sidebar>
+    </CarbonProvider>
   ),
   () => {
     const sidebars = screen.getAllByTestId("sidebar-content");
 
     // the use of Portal means there is two instances of the sidebar content
     return sidebars[sidebars.length - 1];
-  },
-  {
-    pt: "var(--spacing300)",
-    pb: "var(--spacing400)",
-    px: "var(--spacing400)",
   }
 );

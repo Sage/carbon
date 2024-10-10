@@ -31,7 +31,6 @@ import {
   boldedAndUnderlinedValue,
   dropdownButton,
   filterableSelectAddElementButton,
-  filterableSelectAddNewButton,
   filterableSelectButtonIcon,
   multiColumnsSelectListBody,
   multiColumnsSelectListHeader,
@@ -1080,19 +1079,26 @@ test.describe("FilterableSelect component", () => {
     mount,
     page,
   }) => {
+    const newOption = "New10";
     await mount(<FilterableSelectWithActionButtonComponent />);
 
-    const newOption = "New10";
-    await dropdownButton(page).click();
-    await expect(selectListWrapper(page)).toBeVisible();
-    const addElementButtonElement = filterableSelectAddElementButton(page);
-    await expect(addElementButtonElement).toBeVisible();
+    // open select list
+    const input = page.getByRole("combobox");
+    await input.click();
+    await expect(page.getByRole("listbox")).toBeVisible();
+
+    const addElementButtonElement = page.getByRole("button", {
+      name: "Add a New Element",
+    });
     await addElementButtonElement.click();
-    await expect(alertDialogPreview(page)).toBeVisible();
-    const addNewButtonElement = filterableSelectAddNewButton(page);
-    await expect(addNewButtonElement).toBeVisible();
-    await addNewButtonElement.click();
-    await expect(getDataElementByValue(page, "input")).toHaveValue(newOption);
+
+    const alert = page.getByRole("dialog");
+    await expect(alert).toBeVisible();
+
+    const alertAddNewButton = page.getByRole("button", { name: "Add new" });
+    await alertAddNewButton.click();
+
+    await expect(input).toHaveValue(newOption);
   });
 
   test("should have correct hover state of list option", async ({

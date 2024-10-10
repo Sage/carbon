@@ -1,7 +1,6 @@
 import React from "react";
 import { expect, test } from "@playwright/experimental-ct-react17";
 import dayjs from "dayjs";
-import Confirm from "../confirm";
 import {
   DateInputCustom,
   DateInputValidationNewDesign,
@@ -784,26 +783,48 @@ test.describe("Functionality tests", () => {
     await expect(wrapper).toBeVisible();
   });
 
-  [true, false].forEach((state) => {
-    test(`should render with disablePortal prop ${state}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <Confirm open height="60px" onConfirm={() => {}}>
-          <DateInputCustom disablePortal={state} />
-        </Confirm>
-      );
+  test("date picker does not float above the rest of the page, when disablePortal prop is true", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <div
+        id="clipping-container"
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          border: "1px solid black",
+        }}
+      >
+        <DateInputCustom disablePortal />
+      </div>
+    );
 
-      const input = getDataElementByValue(page, "input");
-      await input.click();
-      const wrapper = dayPickerWrapper(page);
-      if (state) {
-        await expect(wrapper).not.toBeInViewport();
-      } else {
-        await expect(wrapper).toBeInViewport();
-      }
-    });
+    const input = page.getByLabel("Date");
+    await input.click();
+    const datePicker = dayPickerWrapper(page);
+    await expect(datePicker).not.toBeInViewport();
+  });
+  test("date picker floats above the rest of the page, when disablePortal prop is false", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <div
+        id="clipping-container"
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          border: "1px solid black",
+        }}
+      >
+        <DateInputCustom disablePortal={false} />
+      </div>
+    );
+    const input = page.getByLabel("Date");
+    await input.click();
+    const datePicker = dayPickerWrapper(page);
+    await expect(datePicker).toBeInViewport();
   });
 
   test(`should have the expected border radius styling`, async ({

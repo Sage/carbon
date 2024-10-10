@@ -78,6 +78,7 @@ export const DefaultWithStickyFooter: Story = () => (
 );
 DefaultWithStickyFooter.storyName = "Default with sticky footer";
 DefaultWithStickyFooter.parameters = {
+  chromatic: { viewports: [1200, 320] },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
@@ -523,6 +524,10 @@ export const InDialogWithStickyFooter = () => {
   );
 };
 InDialogWithStickyFooter.storyName = "In Dialog with Sticky Footer";
+InDialogWithStickyFooter.parameters = {
+  chromatic: { viewports: [1200, 320] },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
 export const InDialogFullScreen = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -612,6 +617,10 @@ export const InDialogFullScreenWithStickyFooter = () => {
 };
 InDialogFullScreenWithStickyFooter.storyName =
   "In Dialog Full Screen with Sticky Footer";
+InDialogFullScreenWithStickyFooter.parameters = {
+  chromatic: { viewports: [1200, 320] },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
 export const FormAlignmentExample: Story = () => {
   const [date, setDate] = useState("04/04/2019");

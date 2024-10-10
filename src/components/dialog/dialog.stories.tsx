@@ -20,13 +20,12 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 import type { DialogHandle } from ".";
 import Dialog from ".";
 
-const defaultOpenState = isChromatic();
-
 const meta: Meta<typeof Dialog> = {
   title: "Dialog",
   component: Dialog,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
+    layout: isChromatic() ? "fullscreen" : "padded",
     controls: { disable: true },
     chromatic: {
       modes: {
@@ -37,8 +36,8 @@ const meta: Meta<typeof Dialog> = {
   decorators: [
     (Story) => (
       <>
-        {defaultOpenState ? (
-          <Box width="100%" height={900}>
+        {isChromatic() ? (
+          <Box width="100vw" height="100vh">
             <Story />
           </Box>
         ) : (
@@ -51,6 +50,8 @@ const meta: Meta<typeof Dialog> = {
 
 export default meta;
 type Story = StoryObj<typeof Dialog>;
+
+const defaultOpenState = isChromatic();
 
 export const DefaultStory: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -141,7 +142,9 @@ export const MaxSize: Story = () => {
   );
 };
 MaxSize.storyName = "With Max Size";
-MaxSize.parameters = { chromatic: { disableSnapshot: true } };
+MaxSize.parameters = {
+  chromatic: { viewports: [1200, 320] },
+};
 
 export const Editable: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
