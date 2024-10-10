@@ -1,8 +1,10 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import Badge, { BadgeProps } from "./badge.component";
+import Badge from ".";
 import Box from "../box";
 import Button from "../button";
+import MultiActionButton from "../multi-action-button";
+import SplitButton from "../split-button";
 
 export default {
   title: "Badge/Test",
@@ -31,6 +33,8 @@ export const DefaultStory = ({ counter, ...args }: BadgeStoryProps) => {
     </div>
   );
 };
+DefaultStory.storyName = "default";
+DefaultStory.args = { counter: 1, color: "--colorsActionMajor500" };
 
 export const DisplayOnlyStory = ({ counter, ...args }: BadgeStoryProps) => {
   return (
@@ -43,21 +47,29 @@ export const DisplayOnlyStory = ({ counter, ...args }: BadgeStoryProps) => {
     </Box>
   );
 };
-
-DefaultStory.storyName = "default";
-DefaultStory.args = { counter: 1, color: "--colorsActionMajor500" };
-
 DisplayOnlyStory.storyName = "display only";
 DisplayOnlyStory.args = { counter: 1, color: "--colorsActionMajor500" };
 
-export const BadgeComponent = (props: Partial<BadgeProps>) => {
+export const WithOtherButtons = () => {
   return (
-    <Box margin="40px">
-      <Badge {...props}>
-        <Button mr={0} buttonType="tertiary">
-          Filter
-        </Button>
+    <>
+      <Badge counter={2} onClick={() => {}}>
+        <MultiActionButton text="Multi action">
+          <Button onClick={() => {}}>Action</Button>
+          <Button onClick={() => {}}>Action</Button>
+        </MultiActionButton>
       </Badge>
-    </Box>
+
+      <Badge counter={2} onClick={() => {}}>
+        <SplitButton text="Split button">
+          <Button href="#">Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Badge>
+    </>
   );
+};
+WithOtherButtons.parameters = {
+  chromatic: { disableSnapshot: false },
 };
