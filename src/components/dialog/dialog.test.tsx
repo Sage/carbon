@@ -322,9 +322,8 @@ test("dialog is positioned correctly, when size prop is maximise", () => {
 
   const dialog = screen.getByRole("dialog");
   expect(dialog).toHaveStyle(`
-    position: fixed;
-    inset: 0;
-    margin: 16px;
+    height: calc(100% - var(--spacing400));
+    width: calc(100% - var(--spacing400));
   `);
 });
 
