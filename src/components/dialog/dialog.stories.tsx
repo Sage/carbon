@@ -29,7 +29,7 @@ const meta: Meta<typeof Dialog> = {
     controls: { disable: true },
     chromatic: {
       modes: {
-        desktop: allModes.chromatic,
+        lg: allModes.lg,
       },
     },
   },
@@ -143,7 +143,12 @@ export const MaxSize: Story = () => {
 };
 MaxSize.storyName = "With Max Size";
 MaxSize.parameters = {
-  chromatic: { viewports: [1200, 320] },
+  chromatic: {
+    modes: {
+      xsm: allModes.xsm,
+      lg: allModes.lg,
+    },
+  },
 };
 
 export const Editable: Story = () => {
