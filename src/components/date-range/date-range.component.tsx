@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useContext,
+} from "react";
 import { MarginProps } from "styled-system";
 import {
   formatToISO,
@@ -21,6 +27,7 @@ import DateRangeContext, {
   InputName,
   SetInputRefMapValue,
 } from "./__internal__/date-range.context";
+import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 
 interface DateInputValue {
   formattedValue: string;
@@ -128,6 +135,11 @@ export const DateRange = ({
   isOptional,
   ...rest
 }: DateRangeProps) => {
+  const { validationRedesignOptIn } = useContext(NewValidationContext);
+  const labelsInlineWithNewValidation = validationRedesignOptIn
+    ? false
+    : labelsInline;
+
   const l = useLocale();
   const { dateFnsLocale } = l.date;
   const { format } = useMemo(() => getFormatData(dateFnsLocale()), [
@@ -324,7 +336,7 @@ export const DateRange = ({
 
     return {
       label: rest[`${propsKey}Label`],
-      labelInline: labelsInline,
+      labelInline: labelsInlineWithNewValidation,
       value: inputValue,
       error: rest[`${propsKey}Error`],
       warning: rest[`${propsKey}Warning`],
@@ -343,7 +355,7 @@ export const DateRange = ({
   return (
     <StyledDateRange
       {...tagComponent("date-range", rest)}
-      labelsInline={labelsInline}
+      labelsInline={labelsInlineWithNewValidation}
       {...filterStyledSystemMarginProps(rest)}
     >
       <DateRangeContext.Provider

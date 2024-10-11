@@ -259,6 +259,10 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   const locale = useLocale();
   const { validationRedesignOptIn } = useContext(NewValidationContext);
 
+  const labelInlineWithNewValidation = validationRedesignOptIn
+    ? false
+    : labelInline;
+
   const { current: uniqueId } = useRef(id || guid());
   const isControlled = useRef(value !== undefined);
   const initialValue = isControlled.current ? value : defaultValue;
@@ -403,7 +407,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
           warning={internalWarning}
           info={info}
           label={label}
-          labelInline={labelInline}
+          labelInline={labelInlineWithNewValidation}
           labelWidth={labelWidth}
           labelAlign={labelAlign}
           labelHelp={!validationRedesignOptIn && labelHelp}

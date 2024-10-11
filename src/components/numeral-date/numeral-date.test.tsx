@@ -669,6 +669,24 @@ test("should render the `labelHelp` text as additional content and not render th
   expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
 });
 
+test("should have the default styling when the `labelsInline` prop is set and `validationRedesignOptIn` is set", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <NumeralDate
+        label="label"
+        value={{ dd: "02", mm: "01", yyyy: "2020" }}
+        onChange={() => {}}
+        labelHelp="labelHelp"
+        labelInline
+      />
+    </CarbonProvider>
+  );
+
+  const fields = screen.getAllByTestId("field-line");
+
+  expect(fields[0]).toHaveStyle("display: block");
+});
+
 test("should render the help icon and tooltip when `labelHelp` prop is set and `validationRedesignOptIn` is not", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(

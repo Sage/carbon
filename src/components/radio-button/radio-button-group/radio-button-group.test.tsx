@@ -296,4 +296,29 @@ describe("when `validationRedesignOptIn` flag is true", () => {
     expect(screen.getAllByRole("radio")).toHaveLength(2);
     expect(screen.getByText("foo")).toBeVisible();
   });
+
+  it("renders legend with default styling when `legendInline` is set", () => {
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <RadioButtonGroup
+          name="group"
+          data-role="radio-group-inline"
+          onChange={() => {}}
+          legendInline
+        >
+          {[
+            <RadioButton key="radio1" value="radio1" label="Radio Button 1" />,
+            null,
+            undefined,
+            "foo",
+            <RadioButton key="radio2" value="radio2" label="Radio Button 2" />,
+          ]}
+        </RadioButtonGroup>
+      </CarbonProvider>
+    );
+
+    expect(screen.getByTestId("radio-group-inline")).not.toHaveStyle({
+      marginTop: "4px",
+    });
+  });
 });

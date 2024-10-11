@@ -589,6 +589,8 @@ describe("when rendered with new validations", () => {
     expect(labelContainer).toHaveStyle({ justifyContent: undefined });
     expect(labelContainer).toHaveStyle({ paddingLeft: undefined });
     expect(labelContainer).toHaveStyle({ paddingRight: undefined });
+    expect(labelContainer).not.toHaveStyle({ paddingTop: "6px" });
+    expect(labelContainer).not.toHaveStyle({ alignItems: "flex-start" });
   });
 
   it("renders the hint text with the correct styling when the labelHelp prop is passed", () => {

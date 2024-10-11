@@ -4,6 +4,8 @@ import { StoryFn } from "@storybook/react";
 import { RadioButtonGroup, RadioButton } from ".";
 import { RadioButtonGroupProps } from "./radio-button-group/radio-button-group.component";
 import { RadioButtonProps } from "./radio-button.component";
+import CarbonProvider from "../carbon-provider";
+import Box from "../box";
 
 export default {
   title: "Radio Button/Test",
@@ -13,6 +15,7 @@ export default {
     "WithValidationsOnRadioGroup",
     "WithTooltipPosition",
     "WithTooltipPositionOnRadioGroup",
+    "WithNewValidationLegendInline",
   ],
   parameters: {
     info: { disable: true },
@@ -187,3 +190,62 @@ export const RadioButtonGroupComponent = ({
     </div>
   );
 };
+
+export const WithNewValidationLegendInline = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <RadioButtonGroup
+          legend="Label"
+          legendHelp="Hint Text"
+          name="error-validations-group-inline"
+          error="Error Message (Fix is required)"
+          legendInline
+        >
+          <RadioButton
+            id="radio-one-1"
+            value="radioOne1"
+            label="Radio Option 1"
+          />
+          <RadioButton
+            id="radio-one-2"
+            value="radioOne2"
+            label="Radio Option 2"
+          />
+          <RadioButton
+            id="radio-one-3"
+            value="radioOne3"
+            label="Radio Option 3"
+          />
+        </RadioButtonGroup>
+
+        <RadioButtonGroup
+          mt={2}
+          legend="Label"
+          legendHelp="Hint Text"
+          name="warning-validations-group-inline"
+          warning="Warning Message (Fix is optional)"
+        >
+          <RadioButton
+            id="radio-two-1"
+            value="radioTwo1"
+            label="Radio Option 1"
+          />
+          <RadioButton
+            id="radio-two-2"
+            value="radioTwo2"
+            label="Radio Option 2"
+          />
+          <RadioButton
+            id="radio-two-3"
+            value="radioTwo3"
+            label="Radio Option 3"
+          />
+        </RadioButtonGroup>
+      </CarbonProvider>
+    </Box>
+  );
+};
+
+WithNewValidationLegendInline.storyName =
+  "with new validation - legend inline ";
