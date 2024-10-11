@@ -11,27 +11,18 @@ export const getItems = (
     (child) => React.isValidElement(child) && child.type === ActionPopoverItem
   );
 
-export const isItemDisabled = (items: ReactItem[]) => (
-  value: number
-): boolean => {
-  const item = items[value];
-  return React.isValidElement(item) && !!item.props?.disabled;
-};
+export const isItemDisabled = (item: ReactItem) =>
+  React.isValidElement(item) && !!item.props?.disabled;
 
-export const findFirstFocusableItem = (
-  items: ReactItem[],
-  checkItemIsDisabled: (index: number) => boolean
-): number => items.findIndex((_, index) => !checkItemIsDisabled(index));
+export const findFirstFocusableItem = (items: ReactItem[]): number =>
+  items.findIndex((_, index) => !isItemDisabled(items[index]));
 
 // FIX-ME: FE-6248
 // Once we no longer support Node 16, this function can be removed and `findLastIndex()` can be used in its place.
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex
-export const findLastFocusableItem = (
-  items: ReactItem[],
-  checkItemIsDisabled: (index: number) => boolean
-): number => {
+export const findLastFocusableItem = (items: ReactItem[]): number => {
   for (let i = items.length - 1; i >= 0; i--) {
-    if (!checkItemIsDisabled(i)) {
+    if (!isItemDisabled(items[i])) {
       return i;
     }
   }

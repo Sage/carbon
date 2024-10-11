@@ -28,7 +28,6 @@ import {
   findFirstFocusableItem,
   findLastFocusableItem,
   getItems,
-  isItemDisabled,
 } from "./__internal__/action-popover-utils";
 
 export interface RenderButtonProps {
@@ -107,14 +106,9 @@ export const ActionPopover = ({
 
   const items = useMemo(() => getItems(children), [children]);
 
-  const checkItemDisabled = useCallback(
-    (value) => isItemDisabled(items)(value),
-    [items]
-  );
+  const firstFocusableItem = findFirstFocusableItem(items);
 
-  const firstFocusableItem = findFirstFocusableItem(items, checkItemDisabled);
-
-  const lastFocusableItem = findLastFocusableItem(items, checkItemDisabled);
+  const lastFocusableItem = findLastFocusableItem(items);
 
   invariant(
     hasProperChildren,
@@ -230,6 +224,19 @@ export const ActionPopover = ({
       document.removeEventListener(event, handler, { capture: true });
     };
   }, [setOpen]);
+
+  // Coverage has been ignored as this functionality is tested in Playwright.
+  // istanbul ignore next
+  useEffect(() => {
+    const { activeElement } = document;
+
+    if (isOpen) {
+      activeElement?.scrollIntoView({
+        block: "center",
+        inline: "center",
+      });
+    }
+  });
 
   const menuButton = (menuID: string) => {
     if (renderButton) {

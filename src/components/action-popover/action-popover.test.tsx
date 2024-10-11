@@ -24,6 +24,7 @@ jest.mock("../../__internal__/utils/helpers/guid");
 
 beforeAll(() => {
   jest.useFakeTimers();
+  Element.prototype.scrollIntoView = jest.fn();
 });
 
 afterAll(() => {

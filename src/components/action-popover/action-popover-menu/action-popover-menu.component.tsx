@@ -115,13 +115,13 @@ const ActionPopoverMenu = React.forwardRef<
     const items = useMemo(() => getItems(children), [children]);
 
     const checkItemDisabled = useCallback(
-      (value) => isItemDisabled(items)(value),
+      (value) => isItemDisabled(items[value]),
       [items]
     );
 
-    const firstFocusableItem = findFirstFocusableItem(items, checkItemDisabled);
+    const firstFocusableItem = findFirstFocusableItem(items);
 
-    const lastFocusableItem = findLastFocusableItem(items, checkItemDisabled);
+    const lastFocusableItem = findLastFocusableItem(items);
 
     const onKeyDown = useCallback(
       (e) => {
