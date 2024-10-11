@@ -130,7 +130,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const locale = useLocale();
 
     const containerRef = useRef<HTMLDivElement>(null);
-    const innerContentRef = useRef(null);
     const titleRef = useRef(null);
     const { current: titleId } = useRef(createGuid());
     const { current: subtitleId } = useRef(createGuid());
@@ -242,7 +241,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
                 {...contentPadding}
                 data-role="dialog-content"
                 tabIndex={-1}
-                ref={innerContentRef}
               >
                 {children}
               </StyledDialogContent>

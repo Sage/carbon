@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import { useArgs } from "@storybook/preview-api";
 
 import isChromatic from "../../../.storybook/isChromatic";
 import { allModes } from "../../../.storybook/modes";
@@ -53,100 +54,74 @@ type Story = StoryObj<typeof Dialog>;
 
 const defaultOpenState = isChromatic();
 
-export const DefaultStory: Story = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Title"
-        subtitle="Subtitle"
-      >
-        <Form
-          stickyFooter
-          height="500px"
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
+export const DefaultStory: Story = {
+  name: "Default",
+  args: {
+    open: isChromatic(),
+    title: "Title",
+    subtitle: "Subtitle",
+  },
+  render: function DefaultStory({ onCancel, ...args }) {
+    const [{ open }, updateArgs] = useArgs();
+    return (
+      <>
+        <Button onClick={() => updateArgs({ open: true })}>Open Dialog</Button>
+        <Dialog
+          {...args}
+          open={open}
+          onCancel={(ev) => {
+            onCancel?.(ev);
+            updateArgs({ open: false });
+          }}
         >
-          <Typography>
-            This is an example of a dialog with a Form as content
-          </Typography>
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
-        </Form>
-      </Dialog>
-    </>
-  );
+          <Form
+            stickyFooter
+            leftSideButtons={
+              <Button onClick={() => updateArgs({ open: false })}>
+                Cancel
+              </Button>
+            }
+            saveButton={
+              <Button buttonType="primary" type="submit">
+                Save
+              </Button>
+            }
+          >
+            <Typography>
+              This is an example of a dialog with a Form as content
+            </Typography>
+            <Textbox label="First Name" />
+            <Textbox label="Middle Name" />
+            <Textbox label="Surname" />
+            <Textbox label="Birth Place" />
+            <Textbox label="Favourite Colour" />
+            <Textbox label="Address" />
+            <Textbox label="First Name" />
+            <Textbox label="Middle Name" />
+            <Textbox label="Surname" />
+            <Textbox label="Birth Place" />
+            <Textbox label="Favourite Colour" />
+            <Textbox label="Address" />
+          </Form>
+        </Dialog>
+      </>
+    );
+  },
 };
-DefaultStory.storyName = "Default";
 
-export const MaxSize: Story = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
-      <Dialog
-        size="maximise"
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Title"
-        subtitle="Subtitle"
-      >
-        <Form
-          stickyFooter
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          <Typography>
-            This is an example of a dialog with a Form as content
-          </Typography>
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
-        </Form>
-      </Dialog>
-    </>
-  );
-};
-MaxSize.storyName = "With Max Size";
-MaxSize.parameters = {
-  chromatic: {
-    modes: {
-      xsm: allModes.xsm,
-      lg: allModes.lg,
+export const MaxSize: Story = {
+  ...DefaultStory,
+  name: "With Max Size",
+  args: {
+    ...DefaultStory.args,
+    size: "maximise",
+  },
+  parameters: {
+    chromatic: {
+      modes: {
+        xsm: allModes.xsm,
+        lg: allModes.lg,
+      },
     },
   },
 };
@@ -166,7 +141,6 @@ export const Editable: Story = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -234,7 +208,6 @@ export const WithHelp: Story = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -362,51 +335,14 @@ FocusingADifferentFirstElement.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const OverridingContentPadding: Story = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Title"
-        subtitle="Subtitle"
-        contentPadding={{ p: 0 }}
-      >
-        <Form
-          stickyFooter
-          height="500px"
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          <Typography>
-            This is an example of a dialog with a Form as content
-          </Typography>
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
-        </Form>
-      </Dialog>
-    </>
-  );
+export const OverridingContentPadding: Story = {
+  ...DefaultStory,
+  name: "Overriding Content Padding",
+  args: {
+    ...DefaultStory.args,
+    contentPadding: { p: 0 },
+  },
 };
-OverridingContentPadding.storyName = "Overriding Content Padding";
 
 export const OtherFocusableContainers: Story = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -427,7 +363,6 @@ export const OtherFocusableContainers: Story = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
           }
@@ -503,7 +438,6 @@ export const Responsive: Story = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -625,48 +559,11 @@ export const TopModalOverride: Story = () => {
 };
 TopModalOverride.storyName = "Top Modal Override";
 
-export const GreyBackground: Story = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Title"
-        subtitle="Subtitle"
-        greyBackground
-      >
-        <Form
-          stickyFooter
-          height="500px"
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          <Typography>
-            This is an example of a dialog with a Form as content
-          </Typography>
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
-        </Form>
-      </Dialog>
-    </>
-  );
+export const GreyBackground: Story = {
+  ...DefaultStory,
+  name: "Grey Background",
+  args: {
+    ...DefaultStory.args,
+    greyBackground: true,
+  },
 };
-GreyBackground.storyName = "Grey Background";

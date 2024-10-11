@@ -24,7 +24,7 @@ export const Default: StoryType = {
     return <DialogFullScreen {...rest}>{children}</DialogFullScreen>;
   },
   args: {
-    children: "Content",
+    children: <Button onClick={() => {}}>Button</Button>,
     open: true,
     title: "Example Dialog",
     subtitle: "Example Subtitle",
@@ -215,4 +215,34 @@ WithTwoDifferentNodes.decorators = [
 ];
 WithTwoDifferentNodes.parameters = {
   layout: "fullscreen",
+};
+
+export const WithWrappedStickyForm: StoryType = {
+  args: {
+    children: (
+      <Box p="0px 40px" minHeight="0">
+        <Form
+          stickyFooter
+          leftSideButtons={<Button onClick={() => {}}>Cancel</Button>}
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+        </Form>
+      </Box>
+    ),
+    open: true,
+    onCancel: () => {},
+    title: "Title",
+    subtitle: "Subtitle",
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
 };

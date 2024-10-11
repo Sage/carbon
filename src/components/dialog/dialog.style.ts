@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { padding as paddingFn } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import {
   StyledHeaderContent,
@@ -6,13 +7,7 @@ import {
   StyledHeadingTitle,
 } from "../heading/heading.style";
 import StyledIconButton from "../icon-button/icon-button.style";
-import {
-  HORIZONTAL_PADDING,
-  CONTENT_TOP_PADDING,
-  CONTENT_BOTTOM_PADDING,
-} from "./dialog.config";
 import { ContentPaddingInterface, DialogProps } from "./dialog.component";
-import resolvePaddingSides from "../../style/utils/resolve-padding-sides";
 import {
   StyledFormContent,
   StyledForm,
@@ -103,7 +98,7 @@ type StyledDialogTitleProps = {
 
 const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   background-color: var(--colorsUtilityYang100);
-  padding: 23px ${HORIZONTAL_PADDING}px 0;
+  padding: 23px 32px 0;
   border-bottom: 1px solid #ccd6db;
   border-top-right-radius: var(--borderRadius200);
   border-top-left-radius: var(--borderRadius200);
@@ -126,33 +121,25 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   }
 `;
 
-const StyledDialogContent = styled.div<ContentPaddingInterface>((props) => {
-  const {
-    paddingTop = `${CONTENT_TOP_PADDING}px`,
-    paddingRight = `${HORIZONTAL_PADDING}px`,
-    paddingBottom = `${CONTENT_BOTTOM_PADDING}px`,
-    paddingLeft = `${HORIZONTAL_PADDING}px`,
-  } = resolvePaddingSides(props);
+const StyledDialogContent = styled.div<ContentPaddingInterface>`
+  box-sizing: border-box;
+  display: block;
+  overflow-y: auto;
+  width: 100%;
+  flex-grow: 1;
 
-  const negate = (value: string) => `calc(-1 * ${value})`;
+  padding: 24px 32px 30px;
+  ${paddingFn}
 
-  return css`
-    box-sizing: border-box;
+  &:has(${StyledForm}.sticky) {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-
-    width: 100%;
-    flex: 1;
+    padding: 0;
 
     ${StyledForm}.sticky {
-      margin-top: ${negate(paddingTop)};
-      margin-right: ${negate(paddingRight)};
-      margin-bottom: ${negate(paddingBottom)};
-      margin-left: ${negate(paddingLeft)};
-
       ${StyledFormContent} {
-        padding: ${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft};
+        padding: 24px 32px 30px;
+        ${paddingFn}
       }
 
       ${StyledFormFooter} {
@@ -160,10 +147,8 @@ const StyledDialogContent = styled.div<ContentPaddingInterface>((props) => {
         border-bottom-left-radius: var(--borderRadius200);
       }
     }
-
-    padding: ${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft};
-  `;
-});
+  }
+`;
 
 DialogPositioner.defaultProps = {
   theme: baseTheme,

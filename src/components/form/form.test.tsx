@@ -186,17 +186,11 @@ test("has the correct styles when the `stickyFooter` prop is set", () => {
     "background-color",
     "var(--colorsUtilityYang100)"
   );
-  expect(screen.getByTestId("form-content")).toHaveStyle({
-    flex: "1",
-  });
   expect(screen.getByRole("form")).toHaveStyle({
     display: "flex",
     "flex-direction": "column",
   });
   expect(screen.getByRole("form")).not.toHaveStyle("overflow-y: auto");
-  expect(screen.getByTestId("form-content")).not.toHaveStyle(
-    "overflow-y: auto"
-  );
 });
 
 // for coverage: stickyFooter prop styles are covered by Chromatic and Playwright
@@ -211,7 +205,6 @@ test("applies overflow styling when `stickyFooter` is set and form is in a Dialo
     </Dialog>
   );
 
-  expect(screen.getByRole("form")).toHaveStyle({ overflowY: "auto" });
   expect(screen.getByTestId("form-content")).toHaveStyle({
     overflowY: "auto",
   });

@@ -23,6 +23,7 @@ import {
   FlexTileDivider,
   Tile,
 } from "../tile";
+import { allModes } from "../../../.storybook/modes";
 
 export default {
   title: "Dialog/Test",
@@ -299,11 +300,34 @@ MaxSizeTestNonOverflowedForm.decorators = [
 
 MaxSizeTestNonOverflowedForm.parameters = {
   themeProvider: { chromatic: { theme: "none" } },
-  chromatic: { disableSnapshot: false, viewports: [1200, 900] },
+  chromatic: {
+    disableSnapshot: false,
+    modes: {
+      lg: allModes.lg,
+      xsm: allModes.xsm,
+    },
+  },
   layout: "fullscreen",
 };
 
 export const DialogWithLongHeaderContent: StoryType = {
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+      modes: {
+        lg: allModes.lg,
+        xsm: allModes.xsm,
+      },
+    },
+    layout: "fullscreen",
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ height: "100vh", width: "100vw" }}>
+        <Story />
+      </div>
+    ),
+  ],
   render: ({ size, ...args }) => (
     <Dialog
       {...args}
@@ -459,4 +483,14 @@ export const DialogWithLongHeaderContent: StoryType = {
       </Form>
     </Dialog>
   ),
+};
+
+export const WithButton = {
+  render: () => {
+    return (
+      <Dialog open title="Dialog with Button">
+        <Button onClick={() => {}}>This is a button</Button>
+      </Dialog>
+    );
+  },
 };

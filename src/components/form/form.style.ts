@@ -13,12 +13,16 @@ interface StyledFormContentProps {
   isInModal?: boolean;
 }
 
-export const StyledFormContent = styled.div<StyledFormContentProps>`
-  ${({ stickyFooter, isInModal }) => css`
-    ${stickyFooter && `flex: 1`}
-    ${stickyFooter && isInModal && `overflow-y: auto;`}
-  `}
-`;
+export const StyledFormContent = styled.div<StyledFormContentProps>(
+  ({ stickyFooter, isInModal }) =>
+    stickyFooter &&
+    isInModal &&
+    css`
+      flex-grow: 1;
+      min-height: 0;
+      overflow-y: auto;
+    `
+);
 
 interface StyledFormFooterProps {
   stickyFooter?: boolean;
@@ -89,8 +93,6 @@ export const StyledForm = styled.form<StyledFormProps>`
     margin-bottom: var(--spacing000);
   }
 
-  flex: 1;
-
   ${({ stickyFooter, isInModal }) =>
     stickyFooter &&
     css`
@@ -100,7 +102,9 @@ export const StyledForm = styled.form<StyledFormProps>`
 
       ${isInModal &&
       css`
-        overflow-y: auto;
+        flex-grow: 1;
+        min-height: 0;
+        height: 100%;
       `}
     `}
 `;
