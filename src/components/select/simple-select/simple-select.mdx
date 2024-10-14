@@ -127,6 +127,10 @@ This prop will be called every time a user scrolls to the bottom of the list.
 
 ### Custom Option content
 
+It is also possible to render non-interactive content within the `Option` component.
+This can be achieved by passing `children` with no `value` or `text` props set. However, 
+we recommend checking that there are no accessibility issues with this approach before using it.
+
 <Canvas of={SimpleSelectStories.CustomOptionChildren} />
 
 ### With multiple columns
