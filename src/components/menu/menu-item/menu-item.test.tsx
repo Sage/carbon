@@ -4,7 +4,6 @@ import userEvent from "@testing-library/user-event";
 
 import { MenuItem } from "..";
 import {
-  testStyledSystemLayout,
   testStyledSystemFlexBox,
   testStyledSystemPaddingRTL,
 } from "../../../__spec_helper__/__internal__/test-utils";
@@ -35,14 +34,7 @@ describe("When MenuItem has no submenu", () => {
     undefined,
     { modifier: "&&& > a" }
   );
-  testStyledSystemLayout(
-    (props) => (
-      <MenuItem href="#" {...props}>
-        Foo
-      </MenuItem>
-    ),
-    () => screen.getByRole("listitem")
-  );
+
   testStyledSystemFlexBox(
     (props) => (
       <MenuItem href="#" {...props}>
@@ -51,6 +43,30 @@ describe("When MenuItem has no submenu", () => {
     ),
     () => screen.getByRole("listitem")
   );
+
+  it("should apply the expected styling when `width` prop passed", () => {
+    render(<MenuItem width="50%">Item One</MenuItem>);
+
+    expect(screen.getByRole("listitem")).toHaveStyle({
+      width: "50%",
+    });
+  });
+
+  it("should apply the expected styling when `maxWidth` prop passed", () => {
+    render(<MenuItem maxWidth="50%">Item One</MenuItem>);
+
+    expect(screen.getByRole("listitem")).toHaveStyle({
+      maxWidth: "50%",
+    });
+  });
+
+  it("should apply the expected styling when `minWidth` prop passed", () => {
+    render(<MenuItem minWidth="50%">Item One</MenuItem>);
+
+    expect(screen.getByRole("listitem")).toHaveStyle({
+      minWidth: "50%",
+    });
+  });
 
   it("should render children correctly", () => {
     render(<MenuItem>Item One</MenuItem>);
@@ -615,7 +631,7 @@ describe("when MenuItem has a submenu", () => {
         <MenuItem submenu="Item One">
           <MenuItem href="#">Submenu Item One</MenuItem>
           <MenuItem>
-            <Search defaultValue="foo" />
+            <Search value="foo" onChange={() => {}} />
           </MenuItem>
           <MenuItem href="#">Submenu Item Three</MenuItem>
         </MenuItem>
@@ -640,7 +656,7 @@ describe("when MenuItem has a submenu", () => {
         <MenuItem submenu="Item One">
           <MenuItem href="#">Submenu Item One</MenuItem>
           <MenuItem>
-            <Search defaultValue="foo" />
+            <Search value="foo" onChange={() => {}} />
           </MenuItem>
           <MenuItem href="#">Submenu Item Three</MenuItem>
         </MenuItem>
@@ -666,7 +682,7 @@ describe("when MenuItem has a submenu", () => {
         <MenuItem submenu="Item One">
           <MenuItem href="#">Submenu Item One</MenuItem>
           <MenuItem>
-            <Search defaultValue="foo" />
+            <Search value="foo" onChange={() => {}} />
           </MenuItem>
           <MenuItem href="#">Submenu Item Three</MenuItem>
         </MenuItem>
@@ -893,7 +909,7 @@ describe("when MenuItem has a submenu", () => {
         <MenuItem submenu="Item One">
           <MenuItem href="#">Submenu Item One</MenuItem>
           <MenuItem>
-            <Search defaultValue="foo" />
+            <Search value="foo" onChange={() => {}} />
           </MenuItem>
           <MenuItem href="#">Submenu Item Three</MenuItem>
         </MenuItem>
@@ -917,7 +933,7 @@ describe("when MenuItem has a submenu", () => {
         <MenuItem submenu="Item One">
           <MenuItem href="#">Submenu Item One</MenuItem>
           <MenuItem>
-            <Search defaultValue="foo" />
+            <Search value="foo" onChange={() => {}} />
           </MenuItem>
           <MenuItem href="#">Submenu Item Three</MenuItem>
         </MenuItem>
@@ -944,7 +960,7 @@ describe("when MenuItem has a submenu", () => {
         <MenuItem submenu="Item One">
           <MenuItem href="#">Submenu Item One</MenuItem>
           <MenuItem>
-            <Search defaultValue="foo" />
+            <Search value="foo" onChange={() => {}} />
           </MenuItem>
           <MenuItem href="#">Submenu Item Three</MenuItem>
         </MenuItem>
@@ -1023,6 +1039,22 @@ describe("when MenuItem has a submenu", () => {
 
     expect(screen.getByRole("button", { name: "Item One" })).toHaveStyle({
       backgroundColor: menuConfigVariants.light.selected,
+    });
+  });
+
+  it("should apply the expected padding when the item also has `maxWidth` set", () => {
+    render(
+      <MenuContext.Provider value={{ ...menuContextValues }}>
+        <MenuItem submenu="Item One" maxWidth="100px">
+          <MenuItem>Submenu Item One</MenuItem>
+          <MenuItem>Submenu Item Two</MenuItem>
+          <MenuItem>Submenu Item Three</MenuItem>
+        </MenuItem>
+      </MenuContext.Provider>
+    );
+
+    expect(screen.getByRole("button", { name: "Item One" })).toHaveStyle({
+      padding: "11px 16px 12px",
     });
   });
 });

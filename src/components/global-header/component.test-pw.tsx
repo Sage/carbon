@@ -7,7 +7,7 @@ import NavigationBar from "../navigation-bar";
 export const FullMenuExample = () => (
   <>
     <GlobalHeader>
-      <Menu menuType="black" display="flex" flex="1">
+      <Menu menuType="black" flex="1">
         <MenuItem flex="1" submenu="Product Switcher">
           <MenuItem href="#">Product A</MenuItem>
         </MenuItem>
@@ -22,7 +22,7 @@ export const FullMenuExample = () => (
       </Menu>
     </GlobalHeader>
     <NavigationBar position="fixed" orientation="top" offset="40px">
-      <Menu display="flex" flex="1">
+      <Menu flex="1">
         <MenuItem flex="1">Menu Item One</MenuItem>
         <MenuItem flex="0 0 auto" href="#">
           Menu Item Two

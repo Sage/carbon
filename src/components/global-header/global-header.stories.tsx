@@ -55,7 +55,7 @@ export const BasicMenu: Story = () => {
 
   return (
     <GlobalHeader logo={<Logo />}>
-      <Menu menuType="black" display="flex" flex="1">
+      <Menu menuType="black" flex="1">
         <MenuItem flex="1" submenu="Product Switcher">
           <MenuItem>Product A</MenuItem>
         </MenuItem>
@@ -112,7 +112,7 @@ export const ResponsiveMenu: Story = () => {
 
   return (
     <GlobalHeader logo={<Logo />}>
-      <Menu menuType="black" display="flex" flex="1">
+      <Menu menuType="black" flex="1">
         {fullscreenViewBreakPoint ? (
           <>
             <MenuItem
@@ -145,7 +145,7 @@ export const GlobalLocalNavBarLayout: Story = () => {
   return (
     <>
       <GlobalHeader logo={<Logo />}>
-        <Menu menuType="black" display="flex" flex="1">
+        <Menu menuType="black" flex="1">
           <MenuItem flex="1" submenu="Product Switcher">
             <MenuItem href="#">Product A</MenuItem>
           </MenuItem>
@@ -160,7 +160,7 @@ export const GlobalLocalNavBarLayout: Story = () => {
         </Menu>
       </GlobalHeader>
       <NavigationBar position="fixed" orientation="top" offset="40px">
-        <Menu display="flex" flex="1">
+        <Menu flex="1">
           <MenuItem href="#" flex="1">
             Menu Item One
           </MenuItem>

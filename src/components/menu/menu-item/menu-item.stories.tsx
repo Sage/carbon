@@ -7,11 +7,25 @@ import MenuItem from "./menu-item.component";
  * It contains the tag: ["hideInSidebar"] so that it is not included in the sidebar.
  */
 
-const styledSystemProps = generateStyledSystemProps({
-  flexBox: true,
-  layout: true,
-  padding: true,
-});
+const styledSystemProps = generateStyledSystemProps(
+  {
+    flexBox: true,
+    layout: true,
+    padding: true,
+  },
+  undefined,
+  [
+    "height",
+    "minHeight",
+    "maxHeight",
+    "size",
+    "display",
+    "overflowY",
+    "overflowX",
+    "overflow",
+    "verticalAlign",
+  ]
+);
 
 const meta: Meta<typeof MenuItem> = {
   title: "Menu Item",

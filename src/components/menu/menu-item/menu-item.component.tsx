@@ -23,7 +23,7 @@ export type VariantType = "default" | "alternate";
 
 interface MenuItemBaseProps
   extends Omit<TagProps, "data-component">,
-    LayoutProps,
+    Pick<LayoutProps, "width" | "maxWidth" | "minWidth">,
     FlexboxProps,
     PaddingProps {
   /** Custom className */
@@ -330,6 +330,7 @@ export const MenuItem = ({
         {...paddingProps}
         asDiv={hasInput || as === "div"}
         hasInput={hasInput}
+        inSubmenu={!!handleSubmenuKeyDown}
       >
         {children}
       </StyledMenuItemWrapper>
