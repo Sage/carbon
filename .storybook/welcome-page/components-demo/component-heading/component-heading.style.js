@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledComponentHeader = styled.header`
+export const StyledComponentHeader = styled.div`
   align-items: ${({ centerAlign }) => (centerAlign ? "center" : "flex-start")};
   text-align: ${({ centerAlign }) => (centerAlign ? "center" : "left")};
   display: flex;
