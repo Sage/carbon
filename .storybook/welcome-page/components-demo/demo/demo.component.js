@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import Button from "../../../../src/components/button";
-import Textbox from "../../../../src/components/textbox";
-import NumberInput from "../../../../src/components/number";
-import Decimal from "../../../../src/components/decimal";
-import { Select, Option } from "../../../../src/components/select";
+
+import Heading from "../component-heading";
 import { Wrapper, ContentWrapper } from "../../common.style";
+import Button from "../../../../src/components/button";
+import DateRange from "../../../../src/components/date-range";
+import Decimal from "../../../../src/components/decimal";
+import NumberInput from "../../../../src/components/number";
+import { Select, Option } from "../../../../src/components/select";
+import Textbox from "../../../../src/components/textbox";
+
+import DemoTable from "./demo-table";
 import {
   ComponentShowcaseWrapper,
   StyledDemoWrapper,
   StyledDemoRow,
   StyledComponentWrapper,
 } from "./demo.style";
-import DemoTable from "./demo-table";
-import DateRange from "../../../../src/components/date-range";
-import Heading from "../component-heading";
 
 const Demo = () => {
   const [numberValue, setNumberValue] = useState("0");
@@ -62,30 +64,50 @@ const Demo = () => {
             </StyledDemoRow>
             <StyledDemoRow styling={{ display: "flex" }}>
               <StyledComponentWrapper styling={{ width: "30%", padding: "1%" }}>
-                <Textbox placeholder="Carbon Textbox" inputIcon="search" />
+                <Textbox
+                  placeholder="Carbon Textbox"
+                  inputIcon="search"
+                  aria-label="An example textbox component with spyglass input icon"
+                />
               </StyledComponentWrapper>
               <StyledComponentWrapper styling={{ width: "30%", padding: "1%" }}>
                 <NumberInput
                   value={numberValue}
                   onChange={(e) => setNumberValue(e.target.value)}
+                  aria-label="An example numerical input component"
                 />
               </StyledComponentWrapper>
               <StyledComponentWrapper styling={{ width: "30%", padding: "1%" }}>
-                <Decimal />
+                <Decimal aria-label="An example decimal input component" />
               </StyledComponentWrapper>
             </StyledDemoRow>
             <StyledDemoRow styling={{ display: "flex" }}>
               <StyledComponentWrapper
                 styling={{ width: "100%", padding: "1.5%" }}
               >
-                <DateRange value={dateValue} onChange={handleDateChange} />
+                <DateRange
+                  value={dateValue}
+                  onChange={handleDateChange}
+                  endDateProps={{
+                    "aria-label":
+                      "The end date input of the example date range component",
+                  }}
+                  startDateProps={{
+                    "aria-label":
+                      "The start date input of the example date range component",
+                  }}
+                />
               </StyledComponentWrapper>
             </StyledDemoRow>
             <StyledDemoRow styling={{ display: "flex" }}>
               <StyledComponentWrapper
                 styling={{ width: "95%", padding: "1.5%" }}
               >
-                <Select defaultValue="" placeholder="Carbon Select">
+                <Select
+                  defaultValue=""
+                  placeholder="Carbon Select"
+                  aria-label="An example select component with two options"
+                >
                   <Option value="1" text="Red" />
                   <Option value="2" text="Blue" />
                 </Select>
