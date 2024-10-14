@@ -12,7 +12,6 @@ export const Wrapper = styled.div`
 `;
 
 export const LovesCarbonWrapper = styled.div`
-  /* background-color: #e6ebed; */
   width: 100%;
 
   && ${StyledLink} a {
