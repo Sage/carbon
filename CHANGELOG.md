@@ -1,3 +1,10 @@
+### [143.0.2](https://github.com/Sage/carbon/compare/v143.0.1...v143.0.2) (2024-10-14)
+
+
+### Bug Fixes
+
+* **action-popover-menu:** investigate focusIndex and setFocusIndex props on ActionPopoverMenu ([6d9cb82](https://github.com/Sage/carbon/commit/6d9cb82f3b0ff5f7fd3f5865c98b80455d3b81ba))
+
 ### [143.0.1](https://github.com/Sage/carbon/compare/v143.0.0...v143.0.1) (2024-10-14)
 
 
