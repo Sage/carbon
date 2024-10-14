@@ -225,19 +225,6 @@ export const ActionPopover = ({
     };
   }, [setOpen]);
 
-  // Coverage has been ignored as this functionality is tested in Playwright.
-  // istanbul ignore next
-  useEffect(() => {
-    const { activeElement } = document;
-
-    if (isOpen) {
-      activeElement?.scrollIntoView({
-        block: "center",
-        inline: "center",
-      });
-    }
-  });
-
   const menuButton = (menuID: string) => {
     if (renderButton) {
       return renderButton({
