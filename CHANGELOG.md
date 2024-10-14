@@ -1,3 +1,10 @@
+## [143.1.0](https://github.com/Sage/carbon/compare/v143.0.2...v143.1.0) (2024-10-14)
+
+
+### Features
+
+* **storybook:** upgrade storybook to 8.3 ([362e4e0](https://github.com/Sage/carbon/commit/362e4e0b91d0e59bb4e7e97a63e612251f5ae144))
+
 ### [143.0.2](https://github.com/Sage/carbon/compare/v143.0.1...v143.0.2) (2024-10-14)
 
 
