@@ -4,10 +4,10 @@ import { OptionProps } from ".";
 interface StyledOptionProps extends Pick<OptionProps, "id"> {
   isHighlighted?: boolean;
   isDisabled?: boolean;
+  isInteractive: boolean;
 }
 
 const StyledOption = styled.li<StyledOptionProps>`
-  cursor: pointer;
   box-sizing: border-box;
   line-height: 16px;
   padding: 12px 16px;
@@ -18,17 +18,20 @@ const StyledOption = styled.li<StyledOptionProps>`
   left: 0;
   width: 100%;
 
-  ${({ isHighlighted }) =>
-    isHighlighted &&
+  ${({ isInteractive, isHighlighted }) =>
+    isInteractive &&
     css`
-      background-color: var(--colorsUtilityMajor200);
+      cursor: pointer;
+      :hover {
+        background-color: var(--colorsUtilityMajor100);
+      }
+      ${isHighlighted &&
+      css`
+        background-color: var(--colorsUtilityMajor200);
+      `}
     `}
 
   ${({ hidden }) => hidden && "display: none;"}
-
-  :hover {
-    background-color: var(--colorsUtilityMajor100);
-  }
 
   ${({ isDisabled }) =>
     isDisabled &&
