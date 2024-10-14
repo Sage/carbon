@@ -29,6 +29,8 @@ const StyledMenuWrapper = styled.ul<StyledMenuProps>`
   padding: 0;
   outline: none;
   display: flex;
+  align-items: stretch;
+  min-height: 40px;
 
   ${layout}
   ${flexbox}
@@ -60,6 +62,13 @@ interface StyledMenuItemProps
 }
 
 const StyledMenuItem = styled.li<StyledMenuItemProps>`
+  display: flex;
+  ${({ maxWidth }) =>
+    maxWidth &&
+    css`
+      align-items: stretch;
+    `}
+
   ${layout}
   ${flexbox}
 
@@ -71,6 +80,11 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
     ${inSubmenu &&
     css`
       display: list-item;
+    `}
+
+    ${!inSubmenu &&
+    css`
+      height: inherit;
     `}
   `}
 
