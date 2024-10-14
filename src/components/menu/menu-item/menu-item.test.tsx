@@ -1058,3 +1058,21 @@ describe("when MenuItem has a submenu", () => {
     });
   });
 });
+
+test("should throw when `children` passed and `submenu` is an empty string", () => {
+  const consoleSpy = jest
+    .spyOn(global.console, "error")
+    .mockImplementation(() => {});
+
+  expect(() => {
+    render(
+      <MenuContext.Provider value={{ ...menuContextValues }}>
+        <MenuItem submenu="">Item One</MenuItem>
+      </MenuContext.Provider>
+    );
+  }).toThrow(
+    "You should not pass `children` when `submenu` is an empty string"
+  );
+
+  consoleSpy.mockRestore();
+});
