@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   ActionPopover,
   ActionPopoverItem,
@@ -18,7 +19,7 @@ const DemoTable = () => (
       <FlatTableRow>
         <FlatTableHeader>First Name</FlatTableHeader>
         <FlatTableHeader>Second Name</FlatTableHeader>
-        <FlatTableHeader>&nbsp;</FlatTableHeader>
+        <FlatTableHeader align="center">Actions</FlatTableHeader>
       </FlatTableRow>
     </FlatTableHead>
     <FlatTableBody>
