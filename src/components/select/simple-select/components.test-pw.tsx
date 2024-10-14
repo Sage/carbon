@@ -306,7 +306,6 @@ export const SimpleSelectGroupComponent = (
         id="groupHeader1"
         label="Group one"
         icon="individual"
-        data-component="group-header"
         data-role="group-header"
         data-element="group-header"
       />
@@ -601,5 +600,32 @@ export const WithObjectAsValue = () => {
         ))}
       </Select>
     </>
+  );
+};
+
+export const ListWidth = ({
+  listPlacement,
+  listWidth,
+  margin,
+}: Partial<SimpleSelectProps>) => {
+  const [value, setValue] = useState("");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
+  return (
+    <Box width="200px" margin={margin}>
+      <Select
+        label="label"
+        value={value}
+        onChange={handleChange}
+        listPlacement={listPlacement}
+        listWidth={listWidth}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+    </Box>
   );
 };

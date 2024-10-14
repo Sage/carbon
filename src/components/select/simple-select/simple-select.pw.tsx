@@ -18,6 +18,7 @@ import {
   SelectWithDynamicallyAddedOption,
   SimpleSelectControlled,
   WithObjectAsValue,
+  ListWidth,
 } from "./components.test-pw";
 import {
   commonDataElementInputPreview,
@@ -786,7 +787,7 @@ test.describe("SimpleSelect component", () => {
     await expect(selectListWrapper(page)).toBeVisible();
     await expect(selectListOptionGroup(page).locator("..")).toHaveAttribute(
       "data-component",
-      "group-header"
+      "option-group-header"
     );
   });
 
@@ -929,8 +930,6 @@ test.describe("SimpleSelect component", () => {
   ([
     ["top", "300px", "0px", "200px", "20px"],
     ["bottom", "0px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "500px", "20px"],
-    ["right", "200px", "0px", "0px", "500px"],
   ] as const).forEach(([position, top, bottom, left, right]) => {
     test(`should render list in ${position} position when margins are top ${top}, bottom ${bottom}, left ${left} and right ${right}`, async ({
       mount,
@@ -959,8 +958,6 @@ test.describe("SimpleSelect component", () => {
   ([
     ["top", "0px", "0px", "0px", "20px"],
     ["bottom", "600px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "0px", "900px"],
-    ["right", "200px", "0px", "500px", "20px"],
   ] as [
     SimpleSelectProps["listPlacement"],
     string,
@@ -990,12 +987,6 @@ test.describe("SimpleSelect component", () => {
       if (position === "bottom") {
         flipPosition = "top";
       }
-      if (position === "left") {
-        flipPosition = "right";
-      }
-      if (position === "right") {
-        flipPosition = "left";
-      }
       await selectText(page).click();
       const listElement = selectListPosition(page);
       await expect(listElement).toHaveAttribute(
@@ -1005,6 +996,91 @@ test.describe("SimpleSelect component", () => {
       await expect(listElement).toBeVisible();
     });
   });
+
+  ([
+    ["top", "100px 300px", 150, 2],
+    ["bottom", "0px 300px", 150, 68],
+    ["top-end", "100px 300px", 150, 2],
+    ["bottom-end", "0px 300px", 150, 68],
+    ["top-start", "100px 0px", 0, 2],
+    ["bottom-start", "100px 0px", 0, 168],
+  ] as [
+    NonNullable<SimpleSelectProps["listPlacement"]>,
+    string,
+    number,
+    number
+  ][]).forEach(([position, margin, left, top]) => {
+    test(`should render list wider than the input when listWidth is 350 and positioned based on listPlacement of ${position}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <ListWidth margin={margin} listPlacement={position} listWidth={350} />
+      );
+
+      const positionValue =
+        !position.includes("end") && !position.includes("start")
+          ? `${position}-end`
+          : position;
+      await selectText(page).click();
+      const listElement = selectListPosition(page);
+      const { inputWidth } = await selectText(page).evaluate((el) => ({
+        inputWidth: window
+          .getComputedStyle(el.parentElement as HTMLElement)
+          .getPropertyValue("width"),
+      }));
+      const { listLeftPosition, listTopPosition } = await listElement.evaluate(
+        (el) => ({
+          listLeftPosition: el.getBoundingClientRect().left,
+          listTopPosition: el.getBoundingClientRect().top,
+        })
+      );
+
+      await expect(listElement).toHaveAttribute(
+        "data-floating-placement",
+        positionValue
+      );
+      await expect(listElement).toBeVisible();
+      await expect(listElement).toHaveCSS("width", "350px");
+      expect(inputWidth).toBe("200px");
+
+      // sub-pixel rendering means this is not always exact
+      expect(listLeftPosition).toBeCloseTo(left);
+      expect(listTopPosition).toBeCloseTo(top);
+    });
+  });
+
+  ([
+    ["top", "0px"],
+    ["top-end", "0px"],
+  ] as [NonNullable<SimpleSelectProps["listPlacement"]>, string][]).forEach(
+    ([position, margin]) => {
+      test(`should render list wider than the input when listWidth is 350 and flip the placement based on original listPlacement of ${position} when there's no space to render it`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <ListWidth margin={margin} listPlacement={position} listWidth={350} />
+        );
+
+        await selectText(page).click();
+        const listElement = selectListPosition(page);
+        const { inputWidth } = await selectText(page).evaluate((el) => ({
+          inputWidth: window
+            .getComputedStyle(el.parentElement as HTMLElement)
+            .getPropertyValue("width"),
+        }));
+
+        await expect(listElement).toHaveAttribute(
+          "data-floating-placement",
+          "bottom-start"
+        );
+        await expect(listElement).toBeVisible();
+        await expect(listElement).toHaveCSS("width", "350px");
+        expect(inputWidth).toBe("200px");
+      });
+    }
+  );
 
   [
     ["bottom", "0px", "0px", "0px", "20px"],
@@ -1784,8 +1860,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
   ([
     ["top", "300px", "0px", "200px", "20px"],
     ["bottom", "0px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "500px", "20px"],
-    ["right", "200px", "0px", "0px", "500px"],
   ] as [
     SimpleSelectProps["listPlacement"],
     string,
@@ -1815,8 +1889,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
   ([
     ["top", "0px", "0px", "0px", "20px"],
     ["bottom", "600px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "0px", "900px"],
-    ["right", "200px", "0px", "500px", "20px"],
   ] as [
     SimpleSelectProps["listPlacement"],
     string,

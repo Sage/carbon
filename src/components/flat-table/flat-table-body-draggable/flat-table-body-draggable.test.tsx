@@ -371,7 +371,7 @@ it("calls getOrder callback when the order is changed and getOrder prop is set",
   expect(getOrder).toHaveBeenCalledWith([0, 1, 2]);
 });
 
-describe("mulitple draggable tables", () => {
+describe("multiple draggable tables", () => {
   it("should drag items within table 1", () => {
     render(<MultipleDraggableTables />);
 

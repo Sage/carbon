@@ -61,10 +61,11 @@ describe("When ButtonBar children are Button components", () => {
     });
 
     buttonChildren.forEach((button) => {
-      expect(button).toHaveStyle({
-        fontSize: "var(--fontSizes100)",
-        minHeight: "40px",
-      });
+      expect(button).toHaveStyle("min-height: 40px");
+    });
+
+    buttonChildren.forEach((button) => {
+      expect(button).toHaveStyleRule("font-size", "var(--fontSizes100)");
     });
   });
 

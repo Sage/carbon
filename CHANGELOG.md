@@ -1,3 +1,15 @@
+## [143.0.0](https://github.com/Sage/carbon/compare/v142.13.5...v143.0.0) (2024-10-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* **select:** `listPlacement` prop only supports `top` and `bottom` now
+
+### Features
+
+* **select, filterable-select, multi-select:** add support for overriding the list width ([c3853cd](https://github.com/Sage/carbon/commit/c3853cd139c229a7f73c787413efe61825426351)), closes [#6861](https://github.com/Sage/carbon/issues/6861)
+* **select:** remove support for rendering list to left and right of input ([4094117](https://github.com/Sage/carbon/commit/40941172da3ed07ae77ef145e9f777f55269f3a3))
+
 ### [142.13.5](https://github.com/Sage/carbon/compare/v142.13.4...v142.13.5) (2024-10-08)
 
 
