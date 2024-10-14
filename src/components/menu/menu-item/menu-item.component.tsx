@@ -131,6 +131,13 @@ export const MenuItem = ({
     "If no text is provided an `ariaLabel` should be given to facilitate accessibility."
   );
 
+  invariant(
+    typeof submenu === "boolean" ||
+      submenu === undefined ||
+      (children && typeof submenu === "string" && submenu.length),
+    "You should not pass `children` when `submenu` is an empty string"
+  );
+
   const {
     inFullscreenView,
     registerItem,
