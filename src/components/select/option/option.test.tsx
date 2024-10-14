@@ -81,6 +81,16 @@ test("should set `id` on the element when passed", () => {
   );
 });
 
+test("should not render with cursor style pointer when no value or text is passed", () => {
+  render(
+    <ul>
+      <Option>Foo</Option>
+    </ul>
+  );
+
+  expect(screen.getByRole("option")).not.toHaveStyle("cursor: pointer");
+});
+
 describe("when `disabled` prop is set", () => {
   it("should have expected style", () => {
     render(
@@ -202,6 +212,22 @@ describe("when `disabled` prop is not set", () => {
       text: "bar",
       value: "baz",
     });
+  });
+
+  it("should not call onClick and onSelect if both are passed but no value is set", async () => {
+    const user = userEvent.setup();
+    const onSelect = jest.fn();
+    const onClick = jest.fn();
+    const props = { text: "foo", onSelect, onClick };
+    render(
+      <ul>
+        <Option {...props}>Foo</Option>
+      </ul>
+    );
+    await user.click(screen.getByRole("option"));
+
+    expect(onSelect).not.toHaveBeenCalled();
+    expect(onClick).not.toHaveBeenCalled();
   });
 });
 

@@ -629,3 +629,52 @@ export const ListWidth = ({
     </Box>
   );
 };
+
+export const ComplexCustomChildren = () => {
+  return (
+    <Box height={220}>
+      <Select
+        mb={0}
+        key="key"
+        id="id"
+        label="Select"
+        aria-label="aria label"
+        name="name"
+        value="value"
+        isLoading={false}
+        readOnly={false}
+        placeholder="placeholder"
+        onChange={() => {}}
+        onOpen={() => {}}
+        onListScrollBottom={() => {}}
+      >
+        <Option>
+          <Box
+            width="100%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            mt={2}
+            mb={3}
+            flexDirection="column"
+            as="span"
+          >
+            <Box display="flex" mx={2}>
+              <Icon type="error" color="errorRed" />
+              <Box ml={1} width="100%">
+                <Box mb={1}>
+                  <Typography variant="b" color="errorRed">
+                    Something went wrong
+                  </Typography>
+                </Box>
+                <Typography variant="p" color="errorRed" mb={0}>
+                  We couldn't load the data. Please try again later.
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Option>
+      </Select>
+    </Box>
+  );
+};

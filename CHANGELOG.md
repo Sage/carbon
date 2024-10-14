@@ -1,3 +1,25 @@
+## [143.1.0](https://github.com/Sage/carbon/compare/v143.0.2...v143.1.0) (2024-10-14)
+
+
+### Features
+
+* **storybook:** upgrade storybook to 8.3 ([362e4e0](https://github.com/Sage/carbon/commit/362e4e0b91d0e59bb4e7e97a63e612251f5ae144))
+
+### [143.0.2](https://github.com/Sage/carbon/compare/v143.0.1...v143.0.2) (2024-10-14)
+
+
+### Bug Fixes
+
+* **action-popover-menu:** investigate focusIndex and setFocusIndex props on ActionPopoverMenu ([6d9cb82](https://github.com/Sage/carbon/commit/6d9cb82f3b0ff5f7fd3f5865c98b80455d3b81ba))
+
+### [143.0.1](https://github.com/Sage/carbon/compare/v143.0.0...v143.0.1) (2024-10-14)
+
+
+### Bug Fixes
+
+* **option:** makes `value` and `text` props optional ([fb37215](https://github.com/Sage/carbon/commit/fb372157e93cc171fa596ca9d74b299851db216c)), closes [#6939](https://github.com/Sage/carbon/issues/6939)
+* **select:** upgrade tanstack react-virtual to latest ([c51688f](https://github.com/Sage/carbon/commit/c51688fce6c25b7559e475fb09eef583689d1274)), closes [#6978](https://github.com/Sage/carbon/issues/6978)
+
 ## [143.0.0](https://github.com/Sage/carbon/compare/v142.13.5...v143.0.0) (2024-10-10)
 
 

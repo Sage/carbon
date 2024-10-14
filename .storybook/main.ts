@@ -1,7 +1,10 @@
-import path from "path";
-import glob from "glob";
-import remarkGfm from "remark-gfm";
 import { StorybookConfig } from "@storybook/react-webpack5";
+
+import path from "path";
+
+import glob from "glob";
+
+import remarkGfm from "remark-gfm";
 
 const projectRoot = path.resolve(__dirname, "../");
 const ignoreTests = process.env.IGNORE_TESTS === "true";
@@ -15,15 +18,18 @@ const getStories = () =>
 
 const config: StorybookConfig = {
   framework: "@storybook/react-webpack5",
+
   stories: [
     "./welcome-page/welcome.stories.js",
     "../docs/*.mdx",
     "../docs/*.stories.tsx",
     ...getStories(),
   ],
+
   core: {
     disableTelemetry: true,
   },
+
   addons: [
     "@storybook/addon-a11y",
     "@storybook/addon-actions",
@@ -41,8 +47,11 @@ const config: StorybookConfig = {
     "@storybook/addon-toolbars",
     "@storybook/addon-viewport",
     "@storybook/addon-webpack5-compiler-swc",
+    "@chromatic-com/storybook",
   ],
+
   staticDirs: ["../.assets", "../logo"],
+
   webpackFinal: async (config) => ({
     ...config,
     module: {
@@ -59,6 +68,7 @@ const config: StorybookConfig = {
       ],
     },
   }),
+
   ...(isChromatic && {
     previewHead: (head) => `
       ${head}
@@ -69,10 +79,13 @@ const config: StorybookConfig = {
       <meta name="robots" content="noindex">
   `,
   }),
+
   typescript: {
     check: false,
     reactDocgen: "react-docgen-typescript",
   },
+
+  docs: {},
 };
 
 export default config;
