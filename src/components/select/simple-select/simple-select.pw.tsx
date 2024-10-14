@@ -19,6 +19,7 @@ import {
   SimpleSelectControlled,
   WithObjectAsValue,
   ListWidth,
+  ComplexCustomChildren,
 } from "./components.test-pw";
 import {
   commonDataElementInputPreview,
@@ -1130,6 +1131,26 @@ test.describe("SimpleSelect component", () => {
 
     await expect(selectInput(page)).toHaveCSS("border-radius", "4px");
     await expect(selectListWrapper(page)).toHaveCSS("border-radius", "4px");
+  });
+
+  test("should display the custom option in full when list is opened", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ComplexCustomChildren />);
+
+    await selectText(page).click();
+    const customOptionContent = selectListCustomChild(page, 1).nth(0);
+    const wrapper = selectListWrapper(page);
+    const customOptionHeight = await selectList(page)
+      .locator("li")
+      .evaluate((element) => element.getBoundingClientRect().height);
+    const wrapperHeight = await wrapper.evaluate(
+      (element) => element.getBoundingClientRect().height
+    );
+
+    await expect(customOptionContent).toBeVisible();
+    expect(wrapperHeight).toBe(customOptionHeight);
   });
 });
 
