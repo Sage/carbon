@@ -1,3 +1,10 @@
+## [143.2.0](https://github.com/Sage/carbon/compare/v143.1.0...v143.2.0) (2024-10-15)
+
+
+### Features
+
+* **tile:** review changes - to be flattened ([8dc5a7c](https://github.com/Sage/carbon/commit/8dc5a7c9ae2d84caf646f1080949beabf935eba5))
+
 ## [143.1.0](https://github.com/Sage/carbon/compare/v143.0.2...v143.1.0) (2024-10-14)
 
 
