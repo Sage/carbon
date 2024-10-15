@@ -82,7 +82,7 @@ export const WithIsSkipLink: Story = () => {
         <MenuItem href="#">Menu Item 5</MenuItem>
       </Menu>
       <Box py={2} id="main-content">
-        <Typography mb={1} variant="h1">
+        <Typography mb={1} variant="h2">
           {" "}
           This is header of main content container{" "}
         </Typography>
