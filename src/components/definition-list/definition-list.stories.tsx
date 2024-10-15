@@ -104,7 +104,7 @@ AsASingleColumn.storyName = "As a single column";
 export const MultipleSingleColumnsWithSegments: Story = () => (
   <Box width="65%" px={2} pt={4} pb={3}>
     <Box width="90%">
-      <Typography color="rgba(0,0,0,0.55)" variant="segment-subheader-alt">
+      <Typography color="rgba(0,0,0,0.55)" variant="h4">
         Segment Header
       </Typography>
       <Hr ml={0} mt={2} />
