@@ -629,6 +629,7 @@ export const CustomSidebar: Story = (args: DrawerProps) => {
                 ]}
               />
             }
+            title="Custom Sidebar - FlatTable component as sidebar content"
           >
             <FlatTableHead>
               <FlatTableRow>
@@ -669,7 +670,7 @@ export const CustomContent: Story = (args: DrawerProps) => (
       }
       {...args}
     >
-      <FlatTable>
+      <FlatTable title="Table for Custom Content - FlatTable component as drawer content">
         <FlatTableHead>
           <FlatTableRow>
             <FlatTableHeader>Client</FlatTableHeader>

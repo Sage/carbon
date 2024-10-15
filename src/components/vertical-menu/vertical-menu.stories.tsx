@@ -63,7 +63,7 @@ const Link = ({ to, children, className }: LinkProps) => {
 
 export const Default: Story = () => (
   <Box height="100vh">
-    <VerticalMenu>
+    <VerticalMenu aria-label="Default vertical menu">
       <VerticalMenuItem
         iconType="analysis"
         adornment={(isOpen) =>
@@ -145,7 +145,11 @@ export const Default: Story = () => (
 Default.storyName = "Default";
 
 export const CustomWidthAndHeight: Story = () => (
-  <VerticalMenu width="500px" height="100vh">
+  <VerticalMenu
+    width="500px"
+    height="100vh"
+    aria-label="Vertical menu with custom width and height"
+  >
     <VerticalMenuItem
       iconType="analysis"
       adornment={
@@ -163,7 +167,7 @@ export const CustomWidthAndHeight: Story = () => (
 CustomWidthAndHeight.storyName = "Custom Width and Height";
 
 export const Adornment: Story = () => (
-  <VerticalMenu>
+  <VerticalMenu aria-label="Vertical menu with adornment">
     <VerticalMenuItem
       iconType="analysis"
       adornment={(isOpen) =>
@@ -191,7 +195,7 @@ export const Adornment: Story = () => (
 Adornment.storyName = "Adornment";
 
 export const Active: Story = () => (
-  <VerticalMenu>
+  <VerticalMenu aria-label="Active vertical menu">
     <VerticalMenuItem
       iconType="analysis"
       active={(isOpen) => !isOpen}
@@ -205,21 +209,21 @@ export const Active: Story = () => (
 Active.storyName = "Active";
 
 export const CustomItemPadding: Story = () => (
-  <VerticalMenu>
+  <VerticalMenu aria-label="Vertical menu with custom item padding">
     <VerticalMenuItem iconType="analysis" title="Item 1" padding="0 0 0 80px" />
   </VerticalMenu>
 );
 CustomItemPadding.storyName = "Custom Item Padding";
 
 export const CustomItemHeight: Story = () => (
-  <VerticalMenu>
+  <VerticalMenu aria-label="Vertical menu with custom item height">
     <VerticalMenuItem height="100px" iconType="analysis" title="Item 1" />
   </VerticalMenu>
 );
 CustomItemHeight.storyName = "Custom Item Height";
 
 export const CustomComponent: Story = () => (
-  <VerticalMenu>
+  <VerticalMenu aria-label="Custom vertical menu component">
     <VerticalMenuItem
       iconType="analysis"
       title="Item 1"
@@ -309,6 +313,10 @@ export const FullScreen: Story = () => {
     );
   }
 
-  return <VerticalMenu>{menuItems}</VerticalMenu>;
+  return (
+    <VerticalMenu aria-label="Full-screen vertical menu">
+      {menuItems}
+    </VerticalMenu>
+  );
 };
 FullScreen.storyName = "Full Screen";

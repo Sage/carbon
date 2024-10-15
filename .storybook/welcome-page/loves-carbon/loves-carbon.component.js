@@ -1,8 +1,10 @@
 import React from "react";
+
 import Heading from "../components-demo/component-heading";
-import { Wrapper, LovesCarbonWrapper, Image } from "./loves-carbon.style";
-import devices from "./devices.png";
 import Link from "../../../src/components/link";
+
+import devices from "./devices.png";
+import { Wrapper, LovesCarbonWrapper, Image } from "./loves-carbon.style";
 
 const LovesCarbon = () => (
   <LovesCarbonWrapper>
@@ -18,7 +20,10 @@ const LovesCarbon = () => (
           Learn more about Sage
         </Link>
       </div>
-      <Image src={devices} />
+      <Image
+        src={devices}
+        alt="Carbon in use across devices of varying sizes"
+      />
     </Wrapper>
   </LovesCarbonWrapper>
 );

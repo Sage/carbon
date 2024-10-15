@@ -51,6 +51,8 @@ export interface FlatTableProps
   overflowX?: string;
   /** Width of the table. Any valid CSS string */
   width?: string;
+  /** The title to describe the table when one or more tables are used on a single page */
+  title?: string;
 }
 
 const FOCUSABLE_ROW_AND_CELL_QUERY =
@@ -73,6 +75,7 @@ export const FlatTable = ({
   minHeight,
   overflowX,
   width,
+  title,
   ...rest
 }: FlatTableProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -254,6 +257,7 @@ export const FlatTable = ({
       isFocused={focused}
       {...rest}
       data-component="flat-table-wrapper"
+      title={title}
     >
       <StyledTableContainer
         ref={container}
