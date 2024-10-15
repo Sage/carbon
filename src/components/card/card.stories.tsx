@@ -63,7 +63,7 @@ export const DefaultStory: Story = {
             <Typography fontSize="16px" m={0} fontWeight="500">
               Body text
             </Typography>
-            <Heading title="More text" divider={false} />
+            <Heading title="More text" headingType="h2" divider={false} />
             <Typography>Even more text</Typography>
           </CardColumn>
         </CardRow>
@@ -103,7 +103,7 @@ export const SmallSpacing: Story = () => {
           <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
-          <Heading title="More text" divider={false} />
+          <Heading title="More text" headingType="h2" divider={false} />
           <Typography>Even more text</Typography>
         </CardColumn>
       </CardRow>
@@ -142,7 +142,7 @@ export const LargeSpacing: Story = () => {
           <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
-          <Heading title="More text" divider={false} />
+          <Heading title="More text" headingType="h2" divider={false} />
           <Typography>Even more text</Typography>
         </CardColumn>
       </CardRow>
@@ -181,7 +181,7 @@ export const WithWidthProvided: Story = () => {
           <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
-          <Heading title="More text" divider={false} />
+          <Heading title="More text" headingType="h2" divider={false} />
           <Typography>Even more text</Typography>
         </CardColumn>
       </CardRow>
@@ -220,7 +220,7 @@ export const WithCustomHeight: Story = () => {
           <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
-          <Heading title="More text" divider={false} />
+          <Heading title="More text" headingType="h2" divider={false} />
           <Typography>Even more text</Typography>
         </CardColumn>
       </CardRow>
@@ -259,7 +259,7 @@ export const WithExtraRoundness: Story = () => {
           <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
-          <Heading title="More text" divider={false} />
+          <Heading title="More text" headingType="h2" divider={false} />
           <Typography>Even more text</Typography>
         </CardColumn>
       </CardRow>
@@ -352,7 +352,7 @@ export const WithCustomBoxShadow: Story = () => {
           <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
-          <Heading title="More text" divider={false} />
+          <Heading title="More text" headingType="h2" divider={false} />
           <Typography>Even more text</Typography>
         </CardColumn>
       </CardRow>
@@ -390,7 +390,7 @@ export const DifferentCardRowPadding: Story = () => {
           <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
-          <Heading title="More text" divider={false} />
+          <Heading title="More text" headingType="h2" divider={false} />
           <Typography>Even more text</Typography>
         </CardColumn>
       </CardRow>
@@ -399,7 +399,7 @@ export const DifferentCardRowPadding: Story = () => {
           <Typography fontSize="16px" m={0} fontWeight="500">
             Body text
           </Typography>
-          <Heading title="More text" divider={false} />
+          <Heading title="More text" headingType="h2" divider={false} />
           <Typography>Even more text</Typography>
         </CardColumn>
       </CardRow>
