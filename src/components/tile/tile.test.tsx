@@ -3,17 +3,31 @@ import { render, screen } from "@testing-library/react";
 import { Tile, TileContent } from ".";
 import { TileProps } from "./tile.component";
 import {
-  testStyledSystemSpacing,
-  testStyledSystemWidth,
-  testStyledSystemHeight,
+  testStyledSystemSpacingRTL,
+  testStyledSystemWidthRTL,
+  testStyledSystemHeightRTL,
 } from "../../__spec_helper__/__internal__/test-utils";
 import { TILE_HIGHLIGHT_VARIANTS } from "./tile.config";
 
-testStyledSystemSpacing((props) => <Tile {...props}>Test</Tile>, { p: 3 });
+testStyledSystemSpacingRTL(
+  (props) => <Tile data-role="tile" {...props} />,
+  () => screen.getByTestId("tile"),
+  { p: 3 }
+);
 
-testStyledSystemWidth((props) => <Tile {...props}>Test</Tile>);
+testStyledSystemWidthRTL(
+  (props) => (
+    <Tile data-role="tile" {...props}>
+      Test
+    </Tile>
+  ),
+  () => screen.getByTestId("tile")
+);
 
-testStyledSystemHeight((props) => <Tile {...props} />);
+testStyledSystemHeightRTL(
+  (props) => <Tile data-role="tile" {...props} />,
+  () => screen.getByTestId("tile")
+);
 
 test("renders only one TileContent when a child element returns null", () => {
   const children = [
@@ -109,15 +123,23 @@ test('renders with expected background and border styles when variant is "grey"'
 
   const tileElement = screen.getByTestId("tile");
 
-  expect(tileElement).toHaveStyle({
-    backgroundColor: "var(--colorsUtilityMajor025)",
-    border: "var(--borderWidth100) solid var(--colorsUtilityMajor200)",
-  });
+  expect(tileElement).toHaveStyleRule(
+    "background-color",
+    "var(--colorsUtilityMajor025)"
+  );
+  expect(tileElement).toHaveStyleRule(
+    "border",
+    "var(--borderWidth100) solid var(--colorsUtilityMajor200)"
+  );
 });
 
-test.each<TileProps["roundness"]>(["default", "large", "small"])(
+test.each([
+  ["default", "var(--borderRadius100)"],
+  ["large", "var(--borderRadius200)"],
+  ["small", "var(--borderRadius050)"],
+] as const)(
   "renders with the expected border radius when roundness is %s",
-  (roundness) => {
+  (roundness, expectedBorderRadius) => {
     render(
       <Tile roundness={roundness} data-role="tile">
         <TileContent>Child 1</TileContent>
@@ -126,21 +148,7 @@ test.each<TileProps["roundness"]>(["default", "large", "small"])(
     );
 
     const tileElement = screen.getByTestId("tile");
-    let expectedBorderRadius: string;
-
-    switch (roundness) {
-      case "small":
-        expectedBorderRadius = "var(--borderRadius050)";
-        break;
-      case "large":
-        expectedBorderRadius = "var(--borderRadius200)";
-        break;
-      default:
-        expectedBorderRadius = "var(--borderRadius100)";
-        break;
-    }
-
-    expect(tileElement).toHaveStyle(`border-radius: ${expectedBorderRadius}`);
+    expect(tileElement).toHaveStyleRule("border-radius", expectedBorderRadius);
   }
 );
 

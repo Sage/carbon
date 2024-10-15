@@ -1,9 +1,12 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import TileFooter, { TileFooterProps } from ".";
-import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemPadding((props) => <TileFooter {...props} />);
+testStyledSystemPaddingRTL(
+  (props) => <TileFooter data-role="footer" {...props} />,
+  () => screen.getByTestId("footer")
+);
 
 test.each<[TileFooterProps["variant"], string, string]>([
   ["default", "var(--colorsUtilityMajor100)", "var(--colorsUtilityMajor100)"],

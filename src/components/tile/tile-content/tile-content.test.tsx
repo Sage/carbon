@@ -49,3 +49,15 @@ test("renders when children are passed", () => {
 
   expect(screen.getByText("Tile Content")).toBeVisible();
 });
+
+test("has proper data attributes applied", () => {
+  render(
+    <TileContent data-element="foo" data-role="bar">
+      Tile Content
+    </TileContent>
+  );
+  const element = screen.getByText("Tile Content");
+  expect(element).toHaveAttribute("data-component", "tile-content");
+  expect(element).toHaveAttribute("data-element", "foo");
+  expect(element).toHaveAttribute("data-role", "bar");
+});

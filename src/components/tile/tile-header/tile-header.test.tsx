@@ -1,9 +1,12 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import TileHeader, { TileHeaderProps } from ".";
-import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemPadding((props) => <TileHeader {...props} />);
+testStyledSystemPaddingRTL(
+  (props) => <TileHeader data-role="header" {...props} />,
+  () => screen.getByTestId("header")
+);
 
 test.each<[TileHeaderProps["variant"], string, string]>([
   ["default", "var(--colorsUtilityMajor100)", "var(--colorsUtilityMajor100)"],
@@ -21,10 +24,11 @@ test.each<[TileHeaderProps["variant"], string, string]>([
 
     const tileHeaderElement = screen.getByTestId("tile-header");
 
-    expect(tileHeaderElement).toHaveStyle({
-      background,
-      borderBottom: `1px solid ${borderBottomColor}`,
-    });
+    expect(tileHeaderElement).toHaveStyleRule("background", background);
+    expect(tileHeaderElement).toHaveStyleRule(
+      "border-bottom",
+      `1px solid ${borderBottomColor}`
+    );
   }
 );
 
