@@ -41,6 +41,7 @@ export const WithTooltip: Story = () => {
         type="add"
         tooltipMessage="Hey I'm a default tooltip!"
         ariaLabel="Icon with tooltip"
+        role="img"
       />
       <Icon
         mr={8}
@@ -51,6 +52,7 @@ export const WithTooltip: Story = () => {
           </>
         }
         ariaLabel="Icon with tooltip"
+        role="img"
       />
       <Icon
         mr={8}
@@ -58,6 +60,7 @@ export const WithTooltip: Story = () => {
         tooltipMessage="Hey I'm a tooltip with a different position!"
         tooltipPosition="bottom"
         ariaLabel="Icon with tooltip"
+        role="img"
       />
       <Icon
         mr={8}
@@ -66,12 +69,14 @@ export const WithTooltip: Story = () => {
         tooltipBgColor="lightblue"
         tooltipFontColor="black"
         ariaLabel="Icon with tooltip"
+        role="img"
       />
       <Icon
         type="add"
         tooltipMessage="Hey I'm a tooltip with flip behaviour overrides!"
         tooltipFlipOverrides={["right", "left"]}
         ariaLabel="Icon with tooltip"
+        role="img"
       />
     </Box>
   );
