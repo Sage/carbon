@@ -51,7 +51,14 @@ export default meta;
 type Story = StoryObj<typeof StepFlow>;
 
 export const DefaultStory: Story = () => {
-  return <StepFlow title="Step title" currentStep={1} totalSteps={6} />;
+  return (
+    <StepFlow
+      title="Step title"
+      titleVariant="h2"
+      currentStep={1}
+      totalSteps={6}
+    />
+  );
 };
 DefaultStory.storyName = "Default";
 
@@ -63,7 +70,14 @@ export const TitleNodeStory: Story = () => {
     </Box>
   );
 
-  return <StepFlow title={titleNode} currentStep={1} totalSteps={6} />;
+  return (
+    <StepFlow
+      title={titleNode}
+      titleVariant="h2"
+      currentStep={1}
+      totalSteps={6}
+    />
+  );
 };
 TitleNodeStory.storyName = "Title Node";
 
@@ -71,6 +85,7 @@ export const TitleNodeStoryWithScreenReaderOnlyTitle: Story = () => {
   const titleNode = (
     <Box display="flex" alignItems="center">
       <StepFlowTitle
+        titleVariant="h2"
         titleString="Step title"
         screenReaderOnlyTitle="Step Title with a pointer image"
       />
@@ -93,6 +108,7 @@ export const CategoryStory: Story = () => {
       title="Step title"
       currentStep={1}
       totalSteps={6}
+      titleVariant="h2"
     />
   );
 };
@@ -106,6 +122,7 @@ export const ShowProgressIndicatorStory: Story = () => {
       currentStep={1}
       totalSteps={6}
       showProgressIndicator
+      titleVariant="h2"
     />
   );
 };
@@ -119,6 +136,7 @@ export const CurrentStepStory: Story = () => {
       currentStep={5}
       totalSteps={6}
       showProgressIndicator
+      titleVariant="h2"
     />
   );
 };
@@ -132,6 +150,7 @@ export const TotalStepsStory: Story = () => {
       currentStep={5}
       totalSteps={8}
       showProgressIndicator
+      titleVariant="h2"
     />
   );
 };
@@ -149,6 +168,7 @@ export const ShowCloseIconStory: Story = () => {
       totalSteps={6}
       showCloseIcon
       onDismiss={() => ""}
+      titleVariant="h2"
     />
   );
 };
@@ -191,6 +211,7 @@ export const ExampleImplementation: Story = () => {
             showCloseIcon
             onDismiss={() => setIsOpen(false)}
             mb="20px"
+            titleVariant="h2"
           />
         }
       >
@@ -265,6 +286,7 @@ export const ExampleImplementationWithTitleNode: Story = () => {
             showCloseIcon
             onDismiss={() => setIsOpen(false)}
             mb="20px"
+            titleVariant="h2"
           />
         }
       >
