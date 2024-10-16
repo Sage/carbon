@@ -232,7 +232,7 @@ const SelectList = React.forwardRef(
       if (currentIndex > -1) {
         // only index property is required with the item not visible so the following type assertion, even though incorrect,
         // should be OK
-        items.push({ index: currentIndex } as VirtualItem);
+        items.push({ index: currentIndex } as VirtualItem<Element>);
       }
     }
 
