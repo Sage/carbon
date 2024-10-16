@@ -484,3 +484,13 @@ export const DialogWithLongHeaderContent: StoryType = {
     </Dialog>
   ),
 };
+
+export const WithButton = {
+  render: () => {
+    return (
+      <Dialog open title="Dialog with Button">
+        <Button onClick={() => {}}>This is a button</Button>
+      </Dialog>
+    );
+  },
+};

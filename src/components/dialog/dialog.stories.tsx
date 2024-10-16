@@ -76,7 +76,6 @@ export const DefaultStory: Story = {
         >
           <Form
             stickyFooter
-            height="500px"
             leftSideButtons={
               <Button onClick={() => updateArgs({ open: false })}>
                 Cancel
@@ -142,7 +141,6 @@ export const Editable: Story = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -210,7 +208,6 @@ export const WithHelp: Story = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -366,7 +363,6 @@ export const OtherFocusableContainers: Story = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
           }
@@ -442,7 +438,6 @@ export const Responsive: Story = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
