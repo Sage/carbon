@@ -338,123 +338,6 @@ const testStyledSystemMargin = (
   );
 };
 
-const testStyledSystemPadding = (
-  component: (spacingProps?: PaddingProps) => JSX.Element,
-  defaults?: PaddingProps,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper,
-  assertOpts?: jest.Options
-) => {
-  describe("default props", () => {
-    let wrapper: ReactWrapper;
-    let StyleElement: ReactWrapper;
-
-    beforeAll(() => {
-      wrapper = mount(component({ ...defaults }));
-      StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-    });
-
-    it("should set the correct paddings", () => {
-      let padding;
-      let paddingLeft;
-      let paddingRight;
-      let paddingTop;
-      let paddingBottom;
-
-      if (defaults) {
-        padding = getDefaultValue(defaults.p);
-        paddingLeft = getDefaultValue(defaults.pl || defaults.px);
-        paddingRight = getDefaultValue(defaults.pr || defaults.px);
-        paddingTop = getDefaultValue(defaults.pt || defaults.py);
-        paddingBottom = getDefaultValue(defaults.pb || defaults.py);
-
-        assertStyleMatch(
-          {
-            padding,
-            paddingLeft,
-            paddingRight,
-            paddingTop,
-            paddingBottom,
-          },
-          StyleElement,
-          assertOpts
-        );
-      } else {
-        expect(StyleElement).not.toHaveStyleRule("paddingLeft");
-        expect(StyleElement).not.toHaveStyleRule("paddingRight");
-        expect(StyleElement).not.toHaveStyleRule("paddingTop");
-        expect(StyleElement).not.toHaveStyleRule("paddingBottom");
-        expect(StyleElement).not.toHaveStyleRule("padding");
-      }
-    });
-  });
-
-  describe.each(paddingProps)(
-    'when a custom spacing is specified using the "%s" styled system props',
-    (styledSystemProp, propName) => {
-      it(`then that ${propName} should have been set correctly`, () => {
-        const props = { [styledSystemProp]: 2 };
-        const wrapper = mount(component({ ...props }));
-
-        assertStyleMatch(
-          { [propName]: "var(--spacing200)" },
-          styleContainer ? styleContainer(wrapper) : wrapper,
-          assertOpts
-        );
-      });
-    }
-  );
-};
-
-const testStyledSystemSpacing = (
-  component: (spacingProps?: MarginProps | PaddingProps) => JSX.Element,
-  defaults?: MarginProps | PaddingProps,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper,
-  assertOpts?: jest.Options
-) => {
-  testStyledSystemMargin(
-    component,
-    defaults as MarginProps,
-    styleContainer,
-    assertOpts
-  );
-  testStyledSystemPadding(
-    component,
-    defaults as PaddingProps,
-    styleContainer,
-    assertOpts
-  );
-};
-
-const testStyledSystemWidth = (
-  component: (widthProperties?: { width: string }) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
-) => {
-  describe("when a width prop is specified using styled system props", () => {
-    it("then width should have been set correctly", () => {
-      const [styledSystemProp, propName, value] = widthProps;
-      const props = { [styledSystemProp]: value };
-      const wrapper = mount(component({ ...props }));
-      const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-      expect(StyleElement).toHaveStyleRule(propName, value);
-    });
-  });
-};
-
-const testStyledSystemHeight = (
-  component: (heightProperties?: { height: string }) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
-) => {
-  describe("when a height prop is specified using styled system props", () => {
-    it("then height should have been set correctly", () => {
-      const [styledSystemProp, propName, value] = heightProps;
-      const props = { [styledSystemProp]: value };
-      const wrapper = mount(component({ ...props }));
-      const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-      expect(StyleElement).toHaveStyleRule(propName, value);
-    });
-  });
-};
-
 const testStyledSystemGrid = (
   component: (gridProperties?: GridProps) => JSX.Element,
   elementQuery: () => HTMLElement
@@ -795,12 +678,8 @@ export {
   click,
   simulate,
   mockMatchMedia,
-  testStyledSystemSpacing,
   testStyledSystemMargin,
-  testStyledSystemPadding,
   testStyledSystemColor,
-  testStyledSystemWidth,
-  testStyledSystemHeight,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
   testStyledSystemGrid,

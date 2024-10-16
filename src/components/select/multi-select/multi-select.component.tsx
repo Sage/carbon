@@ -6,7 +6,6 @@ import React, {
   useMemo,
 } from "react";
 import invariant from "invariant";
-import { Side } from "@floating-ui/dom";
 
 import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
 import SelectTextbox, {
@@ -14,7 +13,9 @@ import SelectTextbox, {
 } from "../__internal__/select-textbox";
 import guid from "../../../__internal__/utils/helpers/guid";
 import withFilter from "../__internal__/utils/with-filter.hoc";
-import SelectList from "../__internal__/select-list/select-list.component";
+import SelectList, {
+  ListPlacement,
+} from "../__internal__/select-list/select-list.component";
 import {
   StyledSelectPillContainer,
   StyledSelectMultiSelect,
@@ -77,7 +78,7 @@ export interface MultiSelectProps
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;
   /** Placement of the select list in relation to the input element */
-  listPlacement?: Side;
+  listPlacement?: ListPlacement;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
   /** Wraps the pill text when it would overflow the input width */
@@ -95,6 +96,8 @@ export interface MultiSelectProps
   onChange?: (
     ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
   ) => void;
+  /** Override the default width of the list element. Number passed is converted into pixel value */
+  listWidth?: number;
 }
 
 export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
@@ -136,6 +139,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       virtualScrollOverscan,
       isOptional,
       required,
+      listWidth,
       ...textboxProps
     },
     ref
@@ -653,6 +657,19 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       };
     }
 
+    let placement: ListPlacement;
+
+    switch (listPlacement) {
+      case "top":
+        placement = "top-end";
+        break;
+      case "bottom":
+        placement = "bottom-end";
+        break;
+      default:
+        placement = listPlacement;
+    }
+
     const selectList = (
       <FilterableSelectList
         ref={listboxRef}
@@ -668,13 +685,14 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         isLoading={isLoading}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
-        listPlacement={listPlacement}
+        listPlacement={listWidth !== undefined ? placement : listPlacement}
         listMaxHeight={listMaxHeight}
         flipEnabled={flipEnabled}
         multiselectValues={actualValue}
         isOpen={isOpen}
         enableVirtualScroll={enableVirtualScroll}
         virtualScrollOverscan={virtualScrollOverscan}
+        listWidth={listWidth}
       >
         {children}
       </FilterableSelectList>

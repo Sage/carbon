@@ -198,6 +198,54 @@ test("associates the dropdown list with the correct accessible name from the lab
   expect(await screen.findByRole("listbox")).toHaveAccessibleName("Colour");
 });
 
+test.each(["top", "bottom"] as const)(
+  "should override the data attribute on the list when listWidth is set and placement is %s",
+  async (listPlacement) => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect
+        listPlacement={listPlacement}
+        listWidth={100}
+        label="Colour"
+        onChange={() => {}}
+      >
+        <Option text="amber" value="amber" />
+      </SimpleSelect>
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
+      "data-floating-placement",
+      `${listPlacement}-end`
+    );
+  }
+);
+
+test.each(["top-end", "bottom-end", "top-start", "bottom-start"] as const)(
+  "should not override the data attribute on the list when listWidth is set and placement is %s",
+  async (listPlacement) => {
+    const user = userEvent.setup();
+    render(
+      <SimpleSelect
+        listPlacement={listPlacement}
+        listWidth={100}
+        label="Colour"
+        onChange={() => {}}
+      >
+        <Option text="amber" value="amber" />
+      </SimpleSelect>
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
+      "data-floating-placement",
+      listPlacement
+    );
+  }
+);
+
 describe("typing into the input", () => {
   it("selects the first option with text starting with the typed printable character", async () => {
     const user = userEvent.setup();

@@ -735,8 +735,6 @@ test.describe("MultiSelect component", () => {
   ([
     ["top", "0px", "0px", "0px", "20px"],
     ["bottom", "600px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "0px", "900px"],
-    ["right", "200px", "0px", "500px", "20px"],
   ] as [
     MultiSelectProps["listPlacement"],
     string,
@@ -765,12 +763,6 @@ test.describe("MultiSelect component", () => {
       }
       if (position === "bottom") {
         flipPosition = "top";
-      }
-      if (position === "left") {
-        flipPosition = "right";
-      }
-      if (position === "right") {
-        flipPosition = "left";
       }
       await dropdownButton(page).click();
       const listElement = selectListPosition(page);
@@ -1838,8 +1830,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
   ([
     ["top", "0px", "0px", "0px", "20px"],
     ["bottom", "600px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "0px", "900px"],
-    ["right", "200px", "0px", "500px", "20px"],
   ] as [
     MultiSelectProps["listPlacement"],
     string,

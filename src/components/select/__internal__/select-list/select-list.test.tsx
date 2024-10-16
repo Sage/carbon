@@ -109,7 +109,7 @@ describe("rendered content", () => {
     ).toBeVisible();
   });
 
-  it.each(["top", "bottom", "left", "right"] as const)(
+  it.each(["top", "bottom"] as const)(
     "computes correct position for list when listPlacement prop is %s",
     async (listPlacement) => {
       const { rerender } = render(
