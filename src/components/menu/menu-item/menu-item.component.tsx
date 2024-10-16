@@ -23,7 +23,7 @@ export type VariantType = "default" | "alternate";
 
 interface MenuItemBaseProps
   extends Omit<TagProps, "data-component">,
-    LayoutProps,
+    Pick<LayoutProps, "width" | "maxWidth" | "minWidth">,
     FlexboxProps,
     PaddingProps {
   /** Custom className */
@@ -129,6 +129,13 @@ export const MenuItem = ({
   invariant(
     children || ariaLabel || typeof submenu === "string",
     "If no text is provided an `ariaLabel` should be given to facilitate accessibility."
+  );
+
+  invariant(
+    typeof submenu === "boolean" ||
+      submenu === undefined ||
+      (children && typeof submenu === "string" && submenu.length),
+    "You should not pass `children` when `submenu` is an empty string"
   );
 
   const {
@@ -330,6 +337,7 @@ export const MenuItem = ({
         {...paddingProps}
         asDiv={hasInput || as === "div"}
         hasInput={hasInput}
+        inSubmenu={!!handleSubmenuKeyDown}
       >
         {children}
       </StyledMenuItemWrapper>

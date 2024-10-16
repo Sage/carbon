@@ -34,6 +34,7 @@ const StyledSubmenuWrapper = styled.div<StyledSubmenuWrapperProps>`
   position: relative;
   width: fit-content;
   max-width: inherit;
+  height: inherit;
 
   ${({ isSubmenuOpen, theme }) =>
     isSubmenuOpen &&
@@ -41,8 +42,8 @@ const StyledSubmenuWrapper = styled.div<StyledSubmenuWrapperProps>`
       z-index: ${theme.zIndex.popover};
     `}
 
-  ${({ inFullscreenView, menuType, asPassiveItem }) =>
-    inFullscreenView &&
+  ${({ inFullscreenView, menuType, asPassiveItem }) => css`
+    ${inFullscreenView &&
     css`
       width: 100%;
 
@@ -55,6 +56,11 @@ const StyledSubmenuWrapper = styled.div<StyledSubmenuWrapperProps>`
         }
       `}
     `}
+    ${!inFullscreenView &&
+    css`
+      display: flex;
+    `}
+  `}
 `;
 
 const StyledSubmenu = styled.ul<StyledSubmenuProps>`
@@ -73,6 +79,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     css`
       box-shadow: var(--boxShadow100);
       position: absolute;
+      top: 100%;
       background-color: ${variant === "default"
         ? menuConfigVariants[menuType].submenuItemBackground
         : menuConfigVariants[menuType].background};
@@ -212,10 +219,6 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
         > a,
         > button {
           padding: 11px 16px 12px;
-
-          :has([data-component="icon"]) {
-            padding: 9px 16px 7px;
-          }
         }
       `}
 
