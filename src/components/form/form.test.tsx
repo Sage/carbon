@@ -2,15 +2,17 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 
 import {
-  testStyledSystemSpacing,
-  testStyledSystemPadding,
+  testStyledSystemSpacingRTL,
+  testStyledSystemPaddingRTL,
 } from "../../__spec_helper__/__internal__/test-utils";
 import Form from "./form.component";
-import { StyledFormFooter } from "./form.style";
 import Button from "../button";
 import Dialog from "../dialog";
 
-testStyledSystemSpacing((props) => <Form {...props} />);
+testStyledSystemSpacingRTL(
+  (props) => <Form aria-label="form-example" {...props} />,
+  () => screen.getByRole("form")
+);
 
 test("the form footer is not rendered by default", () => {
   render(<Form />);
@@ -213,12 +215,11 @@ test("has the correct overflow styling when a sticky footer is applied inside a 
 
 // for coverage - `footerPadding` prop is covered by Chromatic
 describe("when the `footerPadding` prop is set", () => {
-  testStyledSystemPadding(
+  testStyledSystemPaddingRTL(
     (props) => (
       <Form saveButton={<Button>Save</Button>} footerPadding={props} />
     ),
-    undefined,
-    (component) => component.find(StyledFormFooter)
+    () => screen.getByTestId("form-footer")
   );
 });
 

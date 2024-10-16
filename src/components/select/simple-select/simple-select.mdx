@@ -68,6 +68,16 @@ You can use `listMaxHeight` prop to override default max height value of select 
 
 <Canvas of={SimpleSelectStories.ListHeight} />
 
+### List width
+
+You can use `listWidth` prop to override the width of the select list. By default the list 
+will have the same width as the input.
+
+<Canvas
+  name="list width"
+  of={SimpleSelectStories.ListWidth}
+/>
+
 ### Controlled usage
 
 <Canvas of={SimpleSelectStories.Controlled} />
@@ -116,6 +126,10 @@ This prop will be called every time a user scrolls to the bottom of the list.
 <Canvas of={SimpleSelectStories.Transparent} />
 
 ### Custom Option content
+
+It is also possible to render non-interactive content within the `Option` component.
+This can be achieved by passing `children` with no `value` or `text` props set. However, 
+we recommend checking that there are no accessibility issues with this approach before using it.
 
 <Canvas of={SimpleSelectStories.CustomOptionChildren} />
 

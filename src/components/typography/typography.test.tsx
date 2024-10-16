@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Typography, { List, ListItem } from ".";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemSpacingRTL } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should render with variant as 'p' by default", () => {
   render(<Typography>Test</Typography>);
@@ -313,4 +313,7 @@ test("should render List with variant set to 'ol' and listStyleType set to 'deci
   expect(screen.getAllByRole("listitem")).toHaveLength(3);
 });
 
-testStyledSystemSpacing((props) => <Typography {...props} />);
+testStyledSystemSpacingRTL(
+  (props) => <Typography {...props}>Test</Typography>,
+  () => screen.getByText("Test")
+);

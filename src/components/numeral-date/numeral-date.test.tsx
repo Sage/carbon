@@ -1,19 +1,19 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 
 import NumeralDate from "./numeral-date.component";
-import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
 
-testStyledSystemMargin(
-  (props) => <NumeralDate {...props} />,
+testStyledSystemMarginRTL(
+  (props) => <NumeralDate data-role="numeral-date" {...props} />,
+  // can be updated to use role="group" when FE-6832 is resolved
+  () => screen.getByTestId("numeral-date"),
   undefined,
-  (component) => component.find(FormFieldStyle),
   { modifier: "&&&" }
 );
 

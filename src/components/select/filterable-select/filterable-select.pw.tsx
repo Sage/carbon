@@ -833,8 +833,6 @@ test.describe("FilterableSelect component", () => {
   ([
     ["top", "0px", "0px", "0px", "20px"],
     ["bottom", "600px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "0px", "900px"],
-    ["right", "200px", "0px", "500px", "20px"],
   ] as [
     FilterableSelectProps["listPlacement"],
     string,
@@ -863,12 +861,6 @@ test.describe("FilterableSelect component", () => {
       }
       if (position === "bottom") {
         flipPosition = "top";
-      }
-      if (position === "left") {
-        flipPosition = "right";
-      }
-      if (position === "right") {
-        flipPosition = "left";
       }
       await dropdownButton(page).click();
       const listElement = selectListPosition(page);
@@ -2005,8 +1997,6 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
   ([
     ["top", "0px", "0px", "0px", "20px"],
     ["bottom", "600px", "0px", "0px", "20px"],
-    ["left", "200px", "0px", "0px", "900px"],
-    ["right", "200px", "0px", "500px", "20px"],
   ] as [
     FilterableSelectProps["listPlacement"],
     string,

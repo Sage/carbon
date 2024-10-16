@@ -41,6 +41,7 @@ const Page = ({ role, title, children, ...rest }: PageProps) => {
         <FullScreenHeading hasContent>{title}</FullScreenHeading>
         <StyledPageContent
           data-element="carbon-page-content"
+          data-role="page-content"
           p="34px 40px"
           {...filterStyledSystemPaddingProps(rest)}
         >

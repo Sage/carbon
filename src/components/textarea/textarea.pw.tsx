@@ -673,17 +673,45 @@ test.describe("Props tests for Textarea component", () => {
       await mount(<TextareaComponent expandable={expandableValue} />);
 
       const textareaChildrenElement = textareaChildren(page);
-      await textareaChildrenElement.type("t");
+      await textareaChildrenElement.press("t");
       await textareaChildrenElement.press("Enter");
-      await textareaChildrenElement.type("e");
+      await textareaChildrenElement.press("e");
       await textareaChildrenElement.press("Enter");
-      await textareaChildrenElement.type("s");
+      await textareaChildrenElement.press("s");
       await textareaChildrenElement.press("Enter");
-      await textareaChildrenElement.type("t");
+      await textareaChildrenElement.press("t");
 
       await expect(textareaChildrenElement).toHaveCSS("height", `${height}px`);
     });
   });
+});
+
+test(`should verify expandable Textarea shrinks back to original height when lines are removed`, async ({
+  mount,
+  page,
+}) => {
+  await mount(<TextareaComponent expandable />);
+
+  const textareaChildrenElement = textareaChildren(page);
+  await textareaChildrenElement.press("t");
+  await textareaChildrenElement.press("Enter");
+  await textareaChildrenElement.press("e");
+  await textareaChildrenElement.press("Enter");
+  await textareaChildrenElement.press("s");
+  await textareaChildrenElement.press("Enter");
+  await textareaChildrenElement.press("t");
+
+  await expect(textareaChildrenElement).toHaveCSS("height", "92px");
+
+  await textareaChildrenElement.press("Backspace");
+  await textareaChildrenElement.press("Backspace");
+
+  await expect(textareaChildrenElement).toHaveCSS("height", "75px");
+
+  await textareaChildrenElement.press("Backspace");
+  await textareaChildrenElement.press("Backspace");
+
+  await expect(textareaChildrenElement).toHaveCSS("height", "64px");
 });
 
 test.describe("Event tests for Textarea component", () => {
@@ -702,7 +730,7 @@ test.describe("Event tests for Textarea component", () => {
     );
 
     const textareaChildrenElement = textareaChildren(page);
-    await textareaChildrenElement.type(inputValue);
+    await textareaChildrenElement.fill(inputValue);
 
     expect(callbackCount).toEqual(1);
   });
@@ -1042,7 +1070,7 @@ test("should not change the scroll position of a scrollable container when typin
   const textareaChildrenElement = textareaChildren(page);
   await textareaChildrenElement.click();
   await textareaChildrenElement.press("ArrowRight");
-  await textareaChildrenElement.type("foo");
+  await textareaChildrenElement.press("f");
 
   const scrollTop = await formContentElement.evaluate((el) => el.scrollTop);
 

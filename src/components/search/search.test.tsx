@@ -3,13 +3,16 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Search, { SearchHandle } from "./search.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 import I18nProvider from "../i18n-provider";
 
 jest.mock("../../__internal__/utils/logger");
 
-testStyledSystemMargin((props) => <Search value="" {...props} />);
+testStyledSystemMarginRTL(
+  (props) => <Search value="" {...props} />,
+  () => screen.getByTestId("search")
+);
 
 test("a deprecation warning should be displayed once if the component is uncontrolled", () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");

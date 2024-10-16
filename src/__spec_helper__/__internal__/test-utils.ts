@@ -2,6 +2,7 @@
 /* eslint-disable jest/no-identical-title */
 /* eslint-disable jest/no-export */
 import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
+import { render } from "@testing-library/react";
 import { sprintf } from "sprintf-js";
 import {
   LayoutProps,
@@ -337,196 +338,18 @@ const testStyledSystemMargin = (
   );
 };
 
-const testStyledSystemPadding = (
-  component: (spacingProps?: PaddingProps) => JSX.Element,
-  defaults?: PaddingProps,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper,
-  assertOpts?: jest.Options
-) => {
-  describe("default props", () => {
-    let wrapper: ReactWrapper;
-    let StyleElement: ReactWrapper;
-
-    beforeAll(() => {
-      wrapper = mount(component({ ...defaults }));
-      StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-    });
-
-    it("should set the correct paddings", () => {
-      let padding;
-      let paddingLeft;
-      let paddingRight;
-      let paddingTop;
-      let paddingBottom;
-
-      if (defaults) {
-        padding = getDefaultValue(defaults.p);
-        paddingLeft = getDefaultValue(defaults.pl || defaults.px);
-        paddingRight = getDefaultValue(defaults.pr || defaults.px);
-        paddingTop = getDefaultValue(defaults.pt || defaults.py);
-        paddingBottom = getDefaultValue(defaults.pb || defaults.py);
-
-        assertStyleMatch(
-          {
-            padding,
-            paddingLeft,
-            paddingRight,
-            paddingTop,
-            paddingBottom,
-          },
-          StyleElement,
-          assertOpts
-        );
-      } else {
-        expect(StyleElement).not.toHaveStyleRule("paddingLeft");
-        expect(StyleElement).not.toHaveStyleRule("paddingRight");
-        expect(StyleElement).not.toHaveStyleRule("paddingTop");
-        expect(StyleElement).not.toHaveStyleRule("paddingBottom");
-        expect(StyleElement).not.toHaveStyleRule("padding");
-      }
-    });
-  });
-
-  describe.each(paddingProps)(
-    'when a custom spacing is specified using the "%s" styled system props',
-    (styledSystemProp, propName) => {
-      it(`then that ${propName} should have been set correctly`, () => {
-        const props = { [styledSystemProp]: 2 };
-        const wrapper = mount(component({ ...props }));
-
-        assertStyleMatch(
-          { [propName]: "var(--spacing200)" },
-          styleContainer ? styleContainer(wrapper) : wrapper,
-          assertOpts
-        );
-      });
-    }
-  );
-};
-
-const testStyledSystemSpacing = (
-  component: (spacingProps?: MarginProps | PaddingProps) => JSX.Element,
-  defaults?: MarginProps | PaddingProps,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper,
-  assertOpts?: jest.Options
-) => {
-  testStyledSystemMargin(
-    component,
-    defaults as MarginProps,
-    styleContainer,
-    assertOpts
-  );
-  testStyledSystemPadding(
-    component,
-    defaults as PaddingProps,
-    styleContainer,
-    assertOpts
-  );
-};
-
-const testStyledSystemColor = (
-  // https://stackoverflow.com/questions/53711454/styled-system-props-typing-with-typescript
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component: (colorProperties?: any) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => void
-) => {
-  describe.each(colorProps)(
-    'when a prop is specified using the "%s" styled system props',
-    (styledSystemProp, propName, value) => {
-      it(`then ${propName} should have been set correctly`, () => {
-        const props = { [styledSystemProp]: value };
-        const wrapper = mount(component({ ...props }));
-        const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-        // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
-        expect(StyleElement).toHaveStyleRule(propName, value);
-      });
-    }
-  );
-};
-
-const testStyledSystemWidth = (
-  component: (widthProperties?: { width: string }) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
-) => {
-  describe("when a width prop is specified using styled system props", () => {
-    it("then width should have been set correctly", () => {
-      const [styledSystemProp, propName, value] = widthProps;
-      const props = { [styledSystemProp]: value };
-      const wrapper = mount(component({ ...props }));
-      const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-      expect(StyleElement).toHaveStyleRule(propName, value);
-    });
-  });
-};
-
-const testStyledSystemHeight = (
-  component: (heightProperties?: { height: string }) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
-) => {
-  describe("when a height prop is specified using styled system props", () => {
-    it("then height should have been set correctly", () => {
-      const [styledSystemProp, propName, value] = heightProps;
-      const props = { [styledSystemProp]: value };
-      const wrapper = mount(component({ ...props }));
-      const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-      expect(StyleElement).toHaveStyleRule(propName, value);
-    });
-  });
-};
-
-const testStyledSystemLayout = (
-  component: (layoutProperties?: LayoutProps) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
-) => {
-  describe.each(layoutProps)(
-    'when a prop is specified using the "%s" styled system props',
-    (styledSystemProp, propName, value) => {
-      it(`then ${propName} should have been set correctly`, () => {
-        const props = { [styledSystemProp]: value };
-        const wrapper = mount(component({ ...props }));
-        const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-        // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
-        expect(StyleElement).toHaveStyleRule(propName, value);
-      });
-    }
-  );
-};
-
-const testStyledSystemFlexBox = (
-  component: (flexboxProperties?: FlexboxProps) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
-) => {
-  describe.each(flexBoxProps)(
-    'when a prop is specified using the "%s" styled system props',
-    (styledSystemProp, propName, value) => {
-      it(`then ${propName} should have been set correctly`, () => {
-        const props = { [styledSystemProp]: value };
-        const wrapper = mount(component(props));
-
-        assertStyleMatch(
-          { [propName]: value },
-          styleContainer ? styleContainer(wrapper) : wrapper
-        );
-      });
-    }
-  );
-};
-
 const testStyledSystemGrid = (
   component: (gridProperties?: GridProps) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
+  elementQuery: () => HTMLElement
 ) => {
   describe.each(gridProps)(
     'when a prop is specified using the "%s" styled system props',
     (styledSystemProp, propName, value) => {
-      it(`then ${propName} should have been set correctly`, () => {
+      it(`should set ${propName} styling correctly`, () => {
         const props = { [styledSystemProp]: value };
-        const wrapper = mount(component(props));
+        render(component(props));
 
-        assertStyleMatch(
-          { [propName]: value },
-          styleContainer ? styleContainer(wrapper) : wrapper
-        );
+        assertStyleMatch({ [propName]: value }, elementQuery());
       });
     }
   );
@@ -534,19 +357,16 @@ const testStyledSystemGrid = (
 
 const testStyledSystemBackground = (
   component: (backgroundProperties?: BackgroundProps) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
+  elementQuery: () => HTMLElement
 ) => {
   describe.each(backgroundProps)(
     'when a prop is specified using the "%s" styled system props',
     (styledSystemProp, propName, value) => {
-      it(`then ${propName} should have been set correctly`, () => {
+      it(`should set ${propName} styling correctly`, () => {
         const props = { [styledSystemProp]: value };
-        const wrapper = mount(component({ ...props }));
+        render(component({ ...props }));
 
-        assertStyleMatch(
-          { [styledSystemProp]: value },
-          styleContainer ? styleContainer(wrapper) : wrapper
-        );
+        assertStyleMatch({ [styledSystemProp]: value }, elementQuery());
       });
     }
   );
@@ -554,19 +374,16 @@ const testStyledSystemBackground = (
 
 const testStyledSystemPosition = (
   component: (positionProperties?: PositionProps) => JSX.Element,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
+  elementQuery: () => HTMLElement
 ) => {
   describe.each(positionProps)(
     'when a prop is specified using the "%s" styled system props',
     (styledSystemProp, value) => {
       it(`then ${styledSystemProp} should have been set correctly`, () => {
         const props = { [styledSystemProp]: value };
-        const wrapper = mount(component({ ...props }));
+        render(component({ ...props }));
 
-        assertStyleMatch(
-          { [styledSystemProp]: value },
-          styleContainer ? styleContainer(wrapper) : wrapper
-        );
+        assertStyleMatch({ [styledSystemProp]: value }, elementQuery());
       });
     }
   );
@@ -610,6 +427,243 @@ const expectConsoleOutput = (
   };
 };
 
+const testStyledSystemMarginRTL = (
+  component: (spacingProps?: MarginProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+  defaults?: MarginProps,
+  assertOpts?: jest.Options
+) => {
+  describe("default props", () => {
+    let StyleElement: HTMLElement;
+
+    beforeAll(() => {
+      render(component({ ...defaults }));
+      StyleElement = elementQuery();
+    });
+
+    it("should set the correct margins", () => {
+      let margin;
+      let marginLeft;
+      let marginRight;
+      let marginTop;
+      let marginBottom;
+
+      if (defaults) {
+        margin = getDefaultValue(defaults.m);
+        marginLeft = getDefaultValue(defaults.ml || defaults.mx);
+        marginRight = getDefaultValue(defaults.mr || defaults.mx);
+        marginTop = getDefaultValue(defaults.mt || defaults.my);
+        marginBottom = getDefaultValue(defaults.mb || defaults.my);
+
+        assertStyleMatch(
+          {
+            margin,
+            marginLeft,
+            marginRight,
+            marginTop,
+            marginBottom,
+          },
+          StyleElement,
+          assertOpts
+        );
+      } else {
+        expect(StyleElement).not.toHaveStyleRule("marginLeft");
+        expect(StyleElement).not.toHaveStyleRule("marginRight");
+        expect(StyleElement).not.toHaveStyleRule("marginTop");
+        expect(StyleElement).not.toHaveStyleRule("marginBottom");
+        expect(StyleElement).not.toHaveStyleRule("margin");
+      }
+    });
+  });
+
+  describe.each(marginProps)(
+    'when a custom spacing is specified using the "%s" styled system props',
+    (styledSystemProp, propName) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledSystemProp]: 2 };
+        render(component({ ...props }));
+
+        assertStyleMatch(
+          { [propName]: "var(--spacing200)" },
+          elementQuery(),
+          assertOpts
+        );
+      });
+    }
+  );
+};
+
+const testStyledSystemPaddingRTL = (
+  component: (spacingProps?: PaddingProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+  defaults?: PaddingProps,
+  assertOpts?: jest.Options
+) => {
+  describe("default props", () => {
+    let StyleElement: HTMLElement;
+
+    beforeAll(() => {
+      render(component({ ...defaults }));
+      StyleElement = elementQuery();
+    });
+
+    it("should set the correct paddings", () => {
+      let padding;
+      let paddingLeft;
+      let paddingRight;
+      let paddingTop;
+      let paddingBottom;
+
+      if (defaults) {
+        padding = getDefaultValue(defaults.p);
+        paddingLeft = getDefaultValue(defaults.pl || defaults.px);
+        paddingRight = getDefaultValue(defaults.pr || defaults.px);
+        paddingTop = getDefaultValue(defaults.pt || defaults.py);
+        paddingBottom = getDefaultValue(defaults.pb || defaults.py);
+
+        assertStyleMatch(
+          {
+            padding,
+            paddingLeft,
+            paddingRight,
+            paddingTop,
+            paddingBottom,
+          },
+          StyleElement,
+          assertOpts
+        );
+      } else {
+        expect(StyleElement).not.toHaveStyleRule("paddingLeft");
+        expect(StyleElement).not.toHaveStyleRule("paddingRight");
+        expect(StyleElement).not.toHaveStyleRule("paddingTop");
+        expect(StyleElement).not.toHaveStyleRule("paddingBottom");
+        expect(StyleElement).not.toHaveStyleRule("padding");
+      }
+    });
+  });
+
+  describe.each(paddingProps)(
+    'when a custom spacing is specified using the "%s" styled system props',
+    (styledSystemProp, propName) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledSystemProp]: 2 };
+        render(component({ ...props }));
+
+        assertStyleMatch(
+          { [propName]: "var(--spacing200)" },
+          elementQuery(),
+          assertOpts
+        );
+      });
+    }
+  );
+};
+
+const testStyledSystemSpacingRTL = (
+  component: (spacingProps?: MarginProps | PaddingProps) => JSX.Element,
+  elementQuery: () => HTMLElement,
+  defaults?: MarginProps | PaddingProps,
+  assertOpts?: jest.Options
+) => {
+  testStyledSystemMarginRTL(
+    component,
+    elementQuery,
+    defaults as MarginProps,
+    assertOpts
+  );
+  testStyledSystemPaddingRTL(
+    component,
+    elementQuery,
+    defaults as PaddingProps,
+    assertOpts
+  );
+};
+
+const testStyledSystemColor = (
+  // https://stackoverflow.com/questions/53711454/styled-system-props-typing-with-typescript
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  component: (colorProperties?: any) => JSX.Element,
+  elementQuery: () => HTMLElement
+) => {
+  describe.each(colorProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledSystemProp]: value };
+        render(component({ ...props }));
+        const StyleElement = elementQuery();
+        // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
+        expect(StyleElement).toHaveStyleRule(propName, value);
+      });
+    }
+  );
+};
+
+const testStyledSystemWidthRTL = (
+  component: (widthProperties?: { width: string }) => JSX.Element,
+  elementQuery: () => HTMLElement
+) => {
+  describe("when a width prop is specified using styled system props", () => {
+    it("should set the width styling correctly", () => {
+      const [styledSystemProp, propName, value] = widthProps;
+      const props = { [styledSystemProp]: value };
+      render(component({ ...props }));
+      const StyleElement = elementQuery();
+      expect(StyleElement).toHaveStyleRule(propName, value);
+    });
+  });
+};
+
+const testStyledSystemHeightRTL = (
+  component: (heightProperties?: { height: string }) => JSX.Element,
+  elementQuery: () => HTMLElement
+) => {
+  describe("when a height prop is specified using styled system props", () => {
+    it("should set the height styling correctly", () => {
+      const [styledSystemProp, propName, value] = heightProps;
+      const props = { [styledSystemProp]: value };
+      render(component({ ...props }));
+      const StyleElement = elementQuery();
+      expect(StyleElement).toHaveStyleRule(propName, value);
+    });
+  });
+};
+
+const testStyledSystemLayout = (
+  component: (layoutProperties?: LayoutProps) => JSX.Element,
+  elementQuery: () => HTMLElement
+) => {
+  describe.each(layoutProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledSystemProp]: value };
+        render(component({ ...props }));
+        const StyleElement = elementQuery();
+        // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
+        expect(StyleElement).toHaveStyleRule(propName, value);
+      });
+    }
+  );
+};
+
+const testStyledSystemFlexBox = (
+  component: (flexboxProperties?: FlexboxProps) => JSX.Element,
+  elementQuery: () => HTMLElement
+) => {
+  describe.each(flexBoxProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`should set ${propName} styling correctly`, () => {
+        const props = { [styledSystemProp]: value };
+        render(component(props));
+
+        assertStyleMatch({ [propName]: value }, elementQuery());
+      });
+    }
+  );
+};
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -624,16 +678,17 @@ export {
   click,
   simulate,
   mockMatchMedia,
-  testStyledSystemSpacing,
   testStyledSystemMargin,
-  testStyledSystemPadding,
   testStyledSystemColor,
-  testStyledSystemWidth,
-  testStyledSystemHeight,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
   testStyledSystemGrid,
   testStyledSystemBackground,
   testStyledSystemPosition,
   expectConsoleOutput,
+  testStyledSystemSpacingRTL,
+  testStyledSystemMarginRTL,
+  testStyledSystemPaddingRTL,
+  testStyledSystemWidthRTL,
+  testStyledSystemHeightRTL,
 };

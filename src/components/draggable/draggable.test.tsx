@@ -2,16 +2,11 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
-  testStyledSystemMargin,
-  testStyledSystemPadding,
+  testStyledSystemMarginRTL,
+  testStyledSystemPaddingRTL,
 } from "../../__spec_helper__/__internal__/test-utils";
 
 import { DraggableContainer, DraggableItem } from ".";
-
-import {
-  StyledDraggableContainer,
-  StyledDraggableItem,
-} from "./draggable-item/draggable-item.style";
 
 test("dragging an item and dropping it after another item within the target container should reorder the items", () => {
   render(
@@ -172,17 +167,17 @@ test("throws error when DraggableContainer contains a child which is not Draggab
   jest.restoreAllMocks();
 });
 
-testStyledSystemMargin(
+testStyledSystemMarginRTL(
   (props) => (
     <DraggableContainer {...props}>
       <DraggableItem id="apple">Apple</DraggableItem>
     </DraggableContainer>
   ),
-  undefined,
-  (component) => component.find(StyledDraggableContainer)
+  () => screen.getByTestId("draggable-container"),
+  undefined
 );
 
-testStyledSystemPadding(
+testStyledSystemPaddingRTL(
   (props) => (
     <DraggableContainer>
       <DraggableItem id="apple" {...props}>
@@ -190,6 +185,6 @@ testStyledSystemPadding(
       </DraggableItem>
     </DraggableContainer>
   ),
-  { py: "8px" },
-  (component) => component.find(StyledDraggableItem)
+  () => screen.getByTestId("draggable-item"),
+  { py: "8px" }
 );

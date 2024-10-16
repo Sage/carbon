@@ -3,8 +3,7 @@ import { render, screen } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import FormFieldStyle from "../../__internal__/form-field/form-field.style";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
@@ -49,10 +48,17 @@ afterEach(() => {
   jest.useRealTimers();
 });
 
-testStyledSystemMargin(
-  (props) => <GroupedCharacter groups={[2, 2, 3]} separator="-" {...props} />,
+testStyledSystemMarginRTL(
+  (props) => (
+    <GroupedCharacter
+      data-role="grouped-character"
+      groups={[2, 2, 3]}
+      separator="-"
+      {...props}
+    />
+  ),
+  () => screen.getByTestId("grouped-character"),
   undefined,
-  (wrapper) => wrapper.find(FormFieldStyle),
   { modifier: "&&&" }
 );
 

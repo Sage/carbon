@@ -1,12 +1,14 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemSpacingRTL } from "../../__spec_helper__/__internal__/test-utils";
 import VerticalDivider from ".";
 import MenuContext from "../menu/__internal__/menu.context";
 
-testStyledSystemSpacing((props) => <VerticalDivider {...props} />, {
-  p: 3,
-});
+testStyledSystemSpacingRTL(
+  (props) => <VerticalDivider {...props} />,
+  () => screen.getByTestId("vertical-divider"),
+  { p: 3 }
+);
 
 test("should apply the expected height when `h` prop is passed a value of `100`", () => {
   render(<VerticalDivider h={200} />);

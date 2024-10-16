@@ -129,6 +129,7 @@ export const ValidationIcon = ({
         if (onBlur) onBlur(e);
       }}
       isPartOfInput={isPartOfInput}
+      data-role="validation-icon-wrapper"
       {...filterStyledSystemMarginProps(rest)}
     >
       <Icon

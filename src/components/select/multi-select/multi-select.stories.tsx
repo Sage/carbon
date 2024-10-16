@@ -6,7 +6,7 @@ import generateStyledSystemProps from "../../../../.storybook/utils/styled-syste
 import Button from "../../button";
 import CarbonProvider from "../../carbon-provider";
 import Box from "../../box";
-import { MultiSelect, Option, OptionRow } from "..";
+import { MultiSelect, MultiSelectProps, Option, OptionRow } from "..";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -569,3 +569,51 @@ export const Virtualised: Story = () => {
   );
 };
 Virtualised.storyName = "Virtualised";
+
+export const ListWidth: Story = () => {
+  const [listPlacement, setListPlacement] = useState<
+    MultiSelectProps["listPlacement"]
+  >("bottom-end");
+  const [value, setValue] = useState<string[]>([]);
+  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    const { value: updatedValue } = ev.target;
+
+    if (Array.isArray(updatedValue)) {
+      setValue(updatedValue);
+    }
+  };
+  return (
+    <>
+      <Button mr={1} onClick={() => setListPlacement("top-end")}>
+        Top end
+      </Button>
+      <Button mr={1} onClick={() => setListPlacement("bottom-end")}>
+        Bottom end
+      </Button>
+      <Button mr={1} onClick={() => setListPlacement("top-start")}>
+        Top start
+      </Button>
+      <Button onClick={() => setListPlacement("bottom-start")}>
+        Bottom start
+      </Button>
+      <Box mt="200px" ml="200px" width="200px">
+        <MultiSelect
+          name="listWidth"
+          id="listWidth"
+          label="color"
+          labelInline
+          listWidth={350}
+          listPlacement={listPlacement}
+          value={value}
+          onChange={handleChange}
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+        </MultiSelect>
+      </Box>
+    </>
+  );
+};
+ListWidth.storyName = "List width";
+ListWidth.parameters = { chromatic: { disableSnapshot: true } };

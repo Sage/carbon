@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pill from ".";
 import CarbonProvider from "../carbon-provider";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import { baseTheme } from "../../style/themes";
 import { toColor } from "../../style/utils/color";
 
@@ -506,4 +506,7 @@ test("should output a console warning when the neutralWhite colorVariant is used
   consoleSpy.mockRestore();
 });
 
-testStyledSystemMargin((props) => <Pill {...props}>test content</Pill>);
+testStyledSystemMarginRTL(
+  (props) => <Pill {...props}>test content</Pill>,
+  () => screen.getByText("test content")
+);

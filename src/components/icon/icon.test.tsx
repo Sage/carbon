@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import Icon from "./icon.component";
 import { BackgroundShape } from "./icon.style";
 import iconConfig from "./icon-config";
@@ -241,4 +241,7 @@ test("renders with the correct margin-top when rendered in chrome or firefox and
   expect(icon).toHaveStyleRule("margin-top", "-8px", { modifier: "&::before" });
 });
 
-testStyledSystemMargin((props) => <Icon type="add" {...props} />);
+testStyledSystemMarginRTL(
+  (props) => <Icon type="add" {...props} />,
+  () => screen.getByTestId("icon")
+);

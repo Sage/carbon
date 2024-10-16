@@ -6,14 +6,15 @@ import React, {
   useMemo,
 } from "react";
 import invariant from "invariant";
-import { Side } from "@floating-ui/dom";
 
 import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
 import StyledSelect from "../select.style";
 import SelectTextbox, {
   FormInputPropTypes,
 } from "../__internal__/select-textbox";
-import SelectList from "../__internal__/select-list/select-list.component";
+import SelectList, {
+  ListPlacement,
+} from "../__internal__/select-list/select-list.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
@@ -23,8 +24,6 @@ import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 
 let deprecateUncontrolledWarnTriggered = false;
-
-type TimerId = ReturnType<typeof setTimeout>;
 
 export interface OptionData {
   text?: string;
@@ -80,7 +79,7 @@ export interface SimpleSelectProps
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;
   /** Placement of the select list in relation to the input element */
-  listPlacement?: Side;
+  listPlacement?: ListPlacement;
   /** Use the opposite list placement if the set placement does not fit */
   flipEnabled?: boolean;
   /** Set this prop to enable a virtualised list of options. If it is not used then all options will be in the
@@ -98,6 +97,8 @@ export interface SimpleSelectProps
   onChange?: (
     ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
   ) => void;
+  /** Override the default width of the list element. Number passed is converted into pixel value */
+  listWidth?: number;
 }
 
 export const SimpleSelect = React.forwardRef<
@@ -139,6 +140,7 @@ export const SimpleSelect = React.forwardRef<
       virtualScrollOverscan,
       isOptional,
       required,
+      listWidth,
       ...props
     },
     ref
@@ -146,7 +148,7 @@ export const SimpleSelect = React.forwardRef<
     const selectListId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
-    const filterTimer = useRef<TimerId>();
+    const filterTimer = useRef<number | undefined>(undefined);
     const isMouseDownReported = useRef<boolean>();
     const isControlled = useRef(value !== undefined);
     const isTimerCounting = useRef<boolean>();
@@ -164,7 +166,7 @@ export const SimpleSelect = React.forwardRef<
       id: inputId.current,
       label,
     });
-    const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
+    const focusTimer = useRef<number | undefined>(undefined);
 
     const componentIsUncontrolled =
       !isControlled || (!onChange && defaultValue);
@@ -214,9 +216,7 @@ export const SimpleSelect = React.forwardRef<
             return previousValue;
           }
 
-          if (onChange) {
-            onChange(createCustomEvent(match.props.value));
-          }
+          onChange?.(createCustomEvent(match.props.value));
 
           if (isControlled.current) {
             return previousValue;
@@ -237,16 +237,16 @@ export const SimpleSelect = React.forwardRef<
 
           filterText.current = newVal;
           selectValueStartingWithText(newVal);
-          clearTimeout(filterTimer.current as TimerId);
+          window.clearTimeout(filterTimer.current);
         } else {
           filterText.current = newCharacter;
           selectValueStartingWithText(newCharacter);
         }
 
         isTimerCounting.current = true;
-        clearTimeout(filterTimer.current as TimerId);
+        window.clearTimeout(filterTimer.current);
 
-        filterTimer.current = setTimeout(() => {
+        filterTimer.current = window.setTimeout(() => {
           isTimerCounting.current = false;
           filterText.current = "";
         }, 500);
@@ -258,21 +258,15 @@ export const SimpleSelect = React.forwardRef<
       (event) => {
         const { key } = event;
 
-        if (onKeyDown) {
-          onKeyDown(event);
-        }
+        onKeyDown?.(event);
 
-        if (readOnly) {
-          return;
-        }
+        if (readOnly) return;
 
         if (key === " " || isNavigationKey(key)) {
           event.preventDefault();
 
           setOpenState((isAlreadyOpen) => {
-            if (!isAlreadyOpen && onOpen) {
-              onOpen();
-            }
+            if (!isAlreadyOpen) onOpen?.();
 
             return true;
           });
@@ -344,25 +338,22 @@ export const SimpleSelect = React.forwardRef<
 
     useEffect(() => {
       return function cleanup() {
-        clearTimeout(filterTimer.current as TimerId);
+        window.clearTimeout(filterTimer.current);
+        window.clearTimeout(focusTimer.current);
       };
     }, []);
 
     function handleTextboxClick(event: React.MouseEvent<HTMLInputElement>) {
       isMouseDownReported.current = false;
 
-      if (onClick) {
-        onClick(event);
-      }
+      onClick?.(event);
 
       setOpenState((isAlreadyOpen) => {
         if (isAlreadyOpen) {
           return false;
         }
 
-        if (onOpen) {
-          onOpen();
-        }
+        onOpen?.();
 
         return true;
       });
@@ -383,9 +374,7 @@ export const SimpleSelect = React.forwardRef<
         return;
       }
 
-      if (onBlur) {
-        onBlur(event);
-      }
+      onBlur?.(event);
     }
 
     function handleTextboxMouseDown() {
@@ -397,9 +386,7 @@ export const SimpleSelect = React.forwardRef<
         return;
       }
 
-      if (onFocus) {
-        onFocus(event);
-      }
+      onFocus?.(event);
 
       if (isMouseDownReported.current) {
         isMouseDownReported.current = false;
@@ -408,21 +395,17 @@ export const SimpleSelect = React.forwardRef<
       }
 
       if (openOnFocus) {
-        if (focusTimer.current) {
-          clearTimeout(focusTimer.current);
-        }
+        window.clearTimeout(focusTimer.current);
 
         // we need to use a timeout here as there is a race condition when rendered in a modal
         // whereby the select list isn't visible when the select is auto focused straight away
-        focusTimer.current = setTimeout(() => {
+        focusTimer.current = window.setTimeout(() => {
           setOpenState((isAlreadyOpen) => {
             if (isAlreadyOpen) {
               return true;
             }
 
-            if (onOpen) {
-              onOpen();
-            }
+            onOpen?.();
 
             return true;
           });
@@ -440,9 +423,7 @@ export const SimpleSelect = React.forwardRef<
         setTextValue(text);
       }
 
-      if (onChange) {
-        onChange(createCustomEvent(newValue, selectionConfirmed));
-      }
+      onChange?.(createCustomEvent(newValue, selectionConfirmed));
     }
 
     function onSelectOption(optionData: OptionData) {
@@ -513,6 +494,20 @@ export const SimpleSelect = React.forwardRef<
         ...filterOutStyledSystemSpacingProps(props),
       };
     }
+
+    let placement: ListPlacement;
+
+    switch (listPlacement) {
+      case "top":
+        placement = "top-end";
+        break;
+      case "bottom":
+        placement = "bottom-end";
+        break;
+      default:
+        placement = listPlacement;
+    }
+
     const selectList = (
       <SelectList
         ref={listboxRef}
@@ -528,11 +523,12 @@ export const SimpleSelect = React.forwardRef<
         onListScrollBottom={onListScrollBottom}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
-        listPlacement={listPlacement}
+        listPlacement={listWidth !== undefined ? placement : listPlacement}
         flipEnabled={flipEnabled}
         isOpen={isOpen}
         enableVirtualScroll={enableVirtualScroll}
         virtualScrollOverscan={virtualScrollOverscan}
+        listWidth={listWidth}
       >
         {children}
       </SelectList>

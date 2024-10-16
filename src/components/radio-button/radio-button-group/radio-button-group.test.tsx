@@ -252,9 +252,9 @@ describe("when `validationRedesignOptIn` flag is true", () => {
     expect(hintText).toHaveStyle({
       marginTop: "-4px",
       marginBottom: "8px",
-      color: "var(--colorsUtilityYin055)",
       fontSize: "14px",
     });
+    expect(hintText).toHaveStyleRule("color", "var(--colorsUtilityYin055)");
   });
 
   it("renders ErrorBorder with expected styles when `inline` is true", () => {

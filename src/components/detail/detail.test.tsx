@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import Detail from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders children", () => {
   render(<Detail>foo</Detail>);
@@ -51,4 +51,11 @@ test("renders with expected styles when `icon` and `footnote` are passed", () =>
   expect(footnote).toHaveStyle("margin-left: 26px");
 });
 
-testStyledSystemMargin((props) => <Detail {...props}>foo</Detail>);
+testStyledSystemMarginRTL(
+  (props) => (
+    <Detail data-role="detail" {...props}>
+      foo
+    </Detail>
+  ),
+  () => screen.getByTestId("detail")
+);

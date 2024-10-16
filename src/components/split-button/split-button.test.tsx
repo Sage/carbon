@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import SplitButton from "./split-button.component";
 import Button from "../button";
 import { SizeOptions } from "../button/button.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
@@ -43,11 +43,14 @@ const buildSizeConfig = (size: SizeOptions): SizeConfig => {
   };
 };
 
-testStyledSystemMargin((props) => (
-  <SplitButton text="Test" {...props}>
-    <Button>Test</Button>
-  </SplitButton>
-));
+testStyledSystemMarginRTL(
+  (props) => (
+    <SplitButton data-role="split-button-container" text="Test" {...props}>
+      <Button>Test</Button>
+    </SplitButton>
+  ),
+  () => screen.getByTestId("split-button-container")
+);
 
 test("should render with only the main and toggle buttons visible when only required props passed", () => {
   render(

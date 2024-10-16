@@ -3,20 +3,32 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import TileSelect, { TileSelectProps } from "./tile-select.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
 import TileSelectGroup, {
   TileSelectGroupProps,
 } from "./tile-select-group/tile-select-group.component";
 import Button from "../button";
 import Icon from "../icon";
 
-testStyledSystemMargin((props) => <TileSelect {...props} />);
+testStyledSystemMarginRTL(
+  (props) => <TileSelect data-role="tile-select-wrapper" {...props} />,
+  // we are setting the data- attributes on more than one element
+  // FE-6834 raised to address this
+  () => screen.getAllByTestId("tile-select-wrapper")[0]
+);
 
-testStyledSystemMargin((props) => (
-  <TileSelectGroup name="tile-select-group" {...props}>
-    <TileSelect name="test" />
-  </TileSelectGroup>
-));
+testStyledSystemMarginRTL(
+  (props) => (
+    <TileSelectGroup
+      data-role="tile-select-group"
+      name="tile-select-group"
+      {...props}
+    >
+      <TileSelect name="test" />
+    </TileSelectGroup>
+  ),
+  () => screen.getByTestId("tile-select-group")
+);
 
 test("the deselect action button is rendered when TileSelect is checked", () => {
   render(<TileSelect checked />);

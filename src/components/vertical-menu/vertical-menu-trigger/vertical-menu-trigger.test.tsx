@@ -5,11 +5,10 @@ import { ThemeProvider } from "styled-components";
 
 import sageTheme from "../../../style/themes/sage";
 import { VerticalMenuTrigger } from "..";
-import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
-import { StyledVerticalMenuItem } from "../vertical-menu.style";
+import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
 
 describe("VerticalMenuTrigger", () => {
-  testStyledSystemPadding(
+  testStyledSystemPaddingRTL(
     (props) => (
       <ThemeProvider theme={sageTheme}>
         <VerticalMenuTrigger {...props} onClick={() => {}}>
@@ -17,8 +16,7 @@ describe("VerticalMenuTrigger", () => {
         </VerticalMenuTrigger>
       </ThemeProvider>
     ),
-    undefined,
-    (component) => component.find(StyledVerticalMenuItem)
+    () => screen.getByRole("button")
   );
 
   it("should render proper height when height prop is passed", () => {
