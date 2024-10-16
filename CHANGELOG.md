@@ -1,3 +1,10 @@
+### [143.2.1](https://github.com/Sage/carbon/compare/v143.2.0...v143.2.1) (2024-10-16)
+
+
+### Bug Fixes
+
+* **badge:** ensure badge does not appear under child components ([d88d3ec](https://github.com/Sage/carbon/commit/d88d3ec2d79419827aeacf27549b76e9c753c82b)), closes [#6765](https://github.com/Sage/carbon/issues/6765)
+
 ## [143.2.0](https://github.com/Sage/carbon/compare/v143.1.0...v143.2.0) (2024-10-15)
 
 
