@@ -447,7 +447,7 @@ test("clicking the menu button focuses the first focusable element", async () =>
   );
 
   await user.click(screen.getByRole("button"));
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "example item" })).toBeFocused();
 });
@@ -522,7 +522,7 @@ test.each(["ArrowDown", "Space", "Enter", "ArrowUp"] as const)(
     screen.getByRole("button").focus();
     const userEventKeyCode = key === "Space" ? " " : `{${key}}`;
     await user.keyboard(userEventKeyCode);
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(screen.getByRole("list")).toBeVisible();
     expect(onOpen).toHaveBeenCalledTimes(1);
@@ -544,7 +544,7 @@ test.each(["ArrowDown", "Space", "Enter"] as const)(
     screen.getByRole("button").focus();
     const userEventKeyCode = key === "Space" ? " " : `{${key}}`;
     await user.keyboard(userEventKeyCode);
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 1" })
@@ -564,7 +564,7 @@ test("pressing ArrowUp key when focused on the menu button selects the last focu
 
   screen.getByRole("button").focus();
   await user.keyboard("{ArrowUp}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "example item 2" })).toBeFocused();
 });
@@ -588,14 +588,14 @@ test.each([
 
     screen.getByRole("button").focus();
     await user.keyboard("{Enter}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 1" })
     ).toBeFocused();
 
     await user.keyboard(keycode);
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
     expect(onClose).toHaveBeenCalledTimes(1);
@@ -632,19 +632,19 @@ test("pressing the Down Arrow key when the menu is open focuses the next item an
   );
 
   await user.click(screen.getByRole("button"));
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 1" })).toBeFocused();
 
   await user.keyboard("{ArrowDown}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 2" })).toBeFocused();
 
   await user.keyboard("{ArrowDown}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 3" })).toBeFocused();
 
   await user.keyboard("{ArrowDown}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 1" })).toBeFocused();
 });
 
@@ -660,19 +660,19 @@ test("pressing the Up Arrow key when the menu is open focuses the previous item 
   );
 
   await user.click(screen.getByRole("button"));
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 1" })).toBeFocused();
 
   await user.keyboard("{ArrowUp}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 3" })).toBeFocused();
 
   await user.keyboard("{ArrowUp}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 2" })).toBeFocused();
 
   await user.keyboard("{ArrowUp}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 1" })).toBeFocused();
 });
 
@@ -689,34 +689,34 @@ test("pressing the Home key when the menu is open focuses the first item, no mat
   );
 
   await user.click(screen.getByRole("button"));
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 1" })).toBeFocused();
 
   await user.keyboard("{ArrowDown}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 2" })).toBeFocused();
   await user.keyboard("{Home}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 1" })).toBeFocused();
 
   await user.keyboard("{ArrowDown}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   await user.keyboard("{ArrowDown}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 3" })).toBeFocused();
   await user.keyboard("{Home}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 1" })).toBeFocused();
 
   await user.keyboard("{ArrowDown}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   await user.keyboard("{ArrowDown}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   await user.keyboard("{ArrowDown}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 4" })).toBeFocused();
   await user.keyboard("{Home}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
   expect(screen.getByRole("button", { name: "example item 1" })).toBeFocused();
 });
 
@@ -733,33 +733,33 @@ test("pressing the End key when the menu is open focuses the last item, no matte
   );
 
   await user.click(screen.getByRole("button"));
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "example item 1" })).toBeFocused();
 
   await user.keyboard("{End}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "example item 4" })).toBeFocused();
 
   await user.keyboard("{ArrowUp}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "example item 3" })).toBeFocused();
   await user.keyboard("{End}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "example item 4" })).toBeFocused();
 
   await user.keyboard("{ArrowUp}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   await user.keyboard("{ArrowUp}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "example item 2" })).toBeFocused();
   await user.keyboard("{End}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "example item 4" })).toBeFocused();
 });
@@ -776,13 +776,13 @@ test("pressing Space when the menu is open does nothing", async () => {
   );
 
   await user.click(screen.getByRole("button"));
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("list")).toBeVisible();
   expect(screen.getByRole("button", { name: "example item 1" })).toBeFocused();
 
   await user.keyboard(" ");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("list")).toBeVisible();
   expect(screen.getByRole("button", { name: "example item 1" })).toBeFocused();
@@ -802,29 +802,29 @@ test("pressing an alphabet character when the menu is open selects the next sele
     </ActionPopover>
   );
   await user.click(screen.getByRole("button"));
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   // moves to first element starting with P
   await user.keyboard("p");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "Print Invoice" })).toBeFocused();
 
   // moves to next element starting with D - noting that it skips the disabled "Disabled" item
   await user.keyboard("d");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "Download CSV" })).toBeFocused();
 
   // moves to next element starting with D, it loops to the start
   await user.keyboard("d");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "Download PDF" })).toBeFocused();
 
   // does nothing when there are no matches
   await user.keyboard("z");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("button", { name: "Download PDF" })).toBeFocused();
 });
@@ -841,13 +841,13 @@ test("pressing a non-printable character key when the menu is open does nothing"
   );
 
   await user.click(screen.getByRole("button"));
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("list")).toBeVisible();
   expect(screen.getByRole("button", { name: "first item" })).toBeFocused();
 
   await user.keyboard("{F1}");
-  jest.advanceTimersByTime(1);
+  jest.runOnlyPendingTimers();
 
   expect(screen.getByRole("list")).toBeVisible();
   expect(screen.getByRole("button", { name: "first item" })).toBeFocused();
@@ -941,7 +941,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     );
 
     act(() => {
-      jest.advanceTimersByTime(1);
+      jest.runOnlyPendingTimers();
     });
 
     expect(
@@ -1018,7 +1018,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
       screen.getByRole("button", { name: "example item with submenu" })
     );
     act(() => {
-      jest.advanceTimersByTime(1);
+      jest.runOnlyPendingTimers();
     });
 
     expect(
@@ -1027,7 +1027,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
 
     await user.hover(screen.getByRole("button", { name: "example item 2" }));
     act(() => {
-      jest.advanceTimersByTime(1);
+      jest.runOnlyPendingTimers();
     });
 
     expect(
@@ -1105,11 +1105,11 @@ describe("when an item has a submenu with default (left) alignment", () => {
     );
 
     await user.click(screen.getByRole("button"));
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
     await user.keyboard("{ArrowLeft}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     const firstItem = screen.getByRole("button", { name: "submenu item 1" });
     expect(firstItem).toBeVisible();
@@ -1178,18 +1178,18 @@ describe("when an item has a submenu with default (left) alignment", () => {
     );
 
     await user.click(screen.getByRole("button"));
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
     await user.keyboard("{ArrowLeft}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "submenu item 1" })
     ).toBeVisible();
 
     await user.keyboard("z");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "submenu item 1" })
@@ -1220,11 +1220,11 @@ describe("when an item has a submenu with default (left) alignment", () => {
     );
 
     await user.click(screen.getByRole("button"));
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
     await user.keyboard("{Enter}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     const firstItem = screen.getByRole("button", { name: "submenu item 1" });
     expect(firstItem).toBeVisible();
@@ -1283,19 +1283,19 @@ describe("when an item has a submenu with default (left) alignment", () => {
     );
 
     await user.click(screen.getByRole("button"));
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
 
     await user.keyboard("{ArrowLeft}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "submenu item 1" })
     ).toBeFocused();
 
     await user.keyboard("{Escape}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
     expect(screen.getByRole("button")).toBeFocused();
@@ -1333,7 +1333,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     );
 
     act(() => {
-      jest.advanceTimersByTime(1);
+      jest.runOnlyPendingTimers();
     });
 
     expect(
@@ -1511,11 +1511,11 @@ describe("when there isn't enough space on the screen to render a submenu on the
     );
 
     await user.click(screen.getByRole("button"));
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
     await user.keyboard("{ArrowRight}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     const firstItem = screen.getByRole("button", { name: "submenu item 1" });
     expect(firstItem).toBeVisible();
@@ -1620,11 +1620,11 @@ describe("when the submenuPosition prop is set to 'right'", () => {
     );
 
     await user.click(screen.getByRole("button"));
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
     await user.keyboard("{ArrowRight}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     const firstItem = screen.getByRole("button", { name: "submenu item 1" });
     expect(firstItem).toBeVisible();
@@ -1746,11 +1746,11 @@ describe("when the submenuPosition prop is set to 'right' and there isn't enough
     );
 
     await user.click(screen.getByRole("button"));
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     screen.getByRole("button", { name: "example item with submenu" }).focus();
     await user.keyboard("{ArrowLeft}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     const firstItem = screen.getByRole("button", { name: "submenu item 1" });
     expect(firstItem).toBeVisible();
@@ -1926,13 +1926,13 @@ describe("When ActionPopoverMenu contains multiple disabled items", () => {
     );
 
     await user.click(screen.getByRole("button"));
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 1" })
     ).toBeFocused();
     await user.keyboard("{ArrowDown}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 4" })
@@ -1954,19 +1954,19 @@ describe("When ActionPopoverMenu contains multiple disabled items", () => {
     );
 
     await user.click(screen.getByRole("button"));
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 1" })
     ).toBeFocused();
     await user.keyboard("{ArrowDown}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 4" })
     ).toBeFocused();
     await user.keyboard("{ArrowUp}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 1" })
@@ -1988,25 +1988,25 @@ describe("When ActionPopoverMenu contains multiple disabled items", () => {
     );
 
     await user.click(screen.getByRole("button"));
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 2" })
     ).toBeFocused();
     await user.keyboard("{ArrowDown}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 4" })
     ).toBeFocused();
     await user.keyboard("{ArrowDown}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 5" })
     ).toBeFocused();
     await user.keyboard("{Home}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 2" })
@@ -2028,13 +2028,13 @@ describe("When ActionPopoverMenu contains multiple disabled items", () => {
     );
 
     await user.click(screen.getByRole("button"));
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 2" })
     ).toBeFocused();
     await user.keyboard("{End}");
-    jest.advanceTimersByTime(1);
+    jest.runOnlyPendingTimers();
 
     expect(
       screen.getByRole("button", { name: "example item 5" })
