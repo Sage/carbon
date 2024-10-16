@@ -1,3 +1,10 @@
+### [143.2.2](https://github.com/Sage/carbon/compare/v143.2.1...v143.2.2) (2024-10-16)
+
+
+### Bug Fixes
+
+* **switch:** fix screen reader announcements with new validation ([aed0ba0](https://github.com/Sage/carbon/commit/aed0ba027d8a640e8c253bce71f1911d40ce2b96)), closes [#6901](https://github.com/Sage/carbon/issues/6901)
+
 ### [143.2.1](https://github.com/Sage/carbon/compare/v143.2.0...v143.2.1) (2024-10-16)
 
 
