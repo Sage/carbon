@@ -89,6 +89,7 @@ const Modal = ({
     modalRef: ref,
     setTriggerRefocusFlag,
     topModalOverride,
+    focusCallToActionElement: document.activeElement as HTMLElement,
   });
 
   let background;

@@ -304,6 +304,30 @@ export const MenuComponentFullScreen = (
   );
 };
 
+export const MenuComponentFullScreenSimple = ({
+  open = true,
+}: {
+  open?: boolean;
+}) => {
+  const [menuOpen, setMenuOpen] = useState(open);
+
+  return (
+    <Menu menuType="light">
+      <MenuItem key="menu-item" onClick={() => setMenuOpen(true)}>
+        Menu
+      </MenuItem>
+      <MenuFullscreen
+        key="menu"
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+      >
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+      </MenuFullscreen>
+    </Menu>
+  );
+};
+
 export const MenuComponentFullScreenWithLongSubmenuText = (
   props: Partial<MenuFullscreenProps>
 ) => {
