@@ -291,11 +291,12 @@ const SelectList = React.forwardRef(
 
     const optionChildrenList = useMemo(
       () =>
-        childrenList.filter(
-          (child) =>
+        childrenList.filter((child) => {
+          return (
             React.isValidElement(child) &&
             (child.type === Option || child.type === OptionRow)
-        ),
+          );
+        }),
       [childrenList]
     );
 

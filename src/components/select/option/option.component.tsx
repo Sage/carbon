@@ -9,18 +9,18 @@ export interface OptionProps
       React.InputHTMLAttributes<HTMLLIElement>,
       "value" | "onSelect" | "onClick"
     >,
-    TagProps {
+    Omit<TagProps, "data-component"> {
   /**
    * Unique identifier for the component.
    * Will use a randomly generated GUID if none is provided.
    */
   id?: string;
   /** The option's visible text, displayed within `<Textbox>` of `<Select>`, and used for filtering */
-  text: string;
-  /** Optional: alternative rendered content, displayed within `<SelectList>` of `<Select>` (eg: an icon, an image, etc) */
+  text?: string;
+  /** Alternative rendered content, displayed within `<SelectList>` of `<Select>` (eg: an icon, an image, etc) */
   children?: React.ReactNode;
-  /** The option's invisible internal value */
-  value: string | Record<string, unknown>;
+  /** The option's invisible internal value, if this is not passed the option will not be treated as interactive or selectable */
+  value?: string | Record<string, unknown>;
   /** MultiSelect only - custom Pill border color - provide any color from palette or any valid css color value. */
   borderColor?: string;
   /** MultiSelect only - fill Pill background with color */
@@ -69,12 +69,12 @@ const Option = React.forwardRef(
     let isSelected = selectListContext.currentOptionsListIndex === index;
     const internalIdRef = useRef(id || guid());
 
-    if (selectListContext.multiselectValues) {
+    if (selectListContext.multiselectValues && value) {
       isSelected = selectListContext.multiselectValues.includes(value);
     }
 
     function handleClick() {
-      if (disabled) {
+      if (disabled || !value) {
         return;
       }
       if (!onClick) {
@@ -91,14 +91,15 @@ const Option = React.forwardRef(
         ref={ref}
         aria-selected={isSelected}
         aria-disabled={disabled}
-        data-component="option"
         isDisabled={disabled}
         onClick={handleClick}
         isHighlighted={selectListContext.currentOptionsListIndex === index}
         role="option"
         hidden={hidden}
         style={style}
+        isInteractive={!!value}
         {...{ ...rest, fill: undefined }}
+        data-component="option"
       >
         {children || text}
       </StyledOption>
