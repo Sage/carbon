@@ -13,13 +13,11 @@ const StyledNoteContent = styled.div<{
   ${({ hasPreview }) => css`
     div.DraftEditor-root {
       min-height: inherit;
-      height: 100%;
     }
 
     div.DraftEditor-editorContainer,
     div.public-DraftEditor-content {
       min-height: inherit;
-      height: 100%;
       background-color: var(--colorsUtilityYang100);
       line-height: 21px;
     }
