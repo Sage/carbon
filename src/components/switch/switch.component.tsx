@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useState, useCallback, useContext, useRef } from "react";
 import { MarginProps } from "styled-system";
 
 import StyledSwitch, { ErrorBorder, StyledHintText } from "./switch.style";
@@ -14,6 +14,7 @@ import NewValidationContext from "../carbon-provider/__internal__/new-validation
 import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
 import Box from "../box";
 import Label from "../../__internal__/label";
+import guid from "../../__internal__/utils/helpers/guid";
 
 export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -57,6 +58,8 @@ export const Switch = React.forwardRef(
       disabled,
       loading,
       reverse = true,
+      required,
+      isOptional,
       validationOnLabel = false,
       labelInline = false,
       labelSpacing,
@@ -79,6 +82,10 @@ export const Switch = React.forwardRef(
   ) => {
     const isControlled = checked !== undefined;
     const { validationRedesignOptIn } = useContext(NewValidationContext);
+
+    const labelId = useRef(`${guid()}-label`);
+    const inputHintId = useRef(`${guid()}-hint`);
+    const validationMessageId = useRef(`${guid()}-message`);
 
     const [checkedInternal, setCheckedInternal] = useState(
       defaultChecked || false
@@ -161,6 +168,8 @@ export const Switch = React.forwardRef(
       reverse: !reverse, // switched to preserve backward compatibility
       validationOnLabel: shouldValidationBeOnLabel && !disabled,
       ref,
+      required,
+      isOptional,
       ...rest,
     };
 
@@ -186,8 +195,8 @@ export const Switch = React.forwardRef(
 
     const inputPropsForNewValidation = {
       autoFocus,
-      error,
-      warning,
+      // set aria-invalid but prevent validationIconId from being added to aria-describedby
+      error: !!error,
       disabled: disabled || loading,
       loading,
       checked: isControlled ? checked : checkedInternal,
@@ -200,37 +209,57 @@ export const Switch = React.forwardRef(
       type: "checkbox",
       role: "switch",
       ref,
+      required,
+      isOptional,
       ...rest,
     };
 
     const applyValidation = error || warning;
 
+    const ariaDescribedBy = [
+      labelHelp && inputHintId.current,
+      applyValidation && validationMessageId.current,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
     return (
       <>
         {validationRedesignOptIn ? (
           <StyledSwitch {...switchStylePropsForNewValidation}>
-            <Label>
-              <Box data-role="hint-text-wrapper" mb={labelHelp ? 0 : 1}>
-                {label}
-                {labelHelp && (
-                  <StyledHintText data-role="hint-text">
-                    {labelHelp}
-                  </StyledHintText>
-                )}
-              </Box>
-              <Box position="relative">
-                <ValidationMessage error={error} warning={warning} />
-                {applyValidation && (
-                  <ErrorBorder
-                    data-role="error-border"
-                    warning={!!(!error && warning)}
-                  />
-                )}
-                <CheckableInput {...inputPropsForNewValidation}>
-                  <SwitchSlider {...switchSliderPropsForNewValidation} />
-                </CheckableInput>
-              </Box>
+            <Label
+              labelId={labelId.current}
+              disabled={disabled}
+              isRequired={required}
+              optional={isOptional}
+            >
+              {label}
             </Label>
+            {labelHelp && (
+              <StyledHintText data-role="hint-text" id={inputHintId.current}>
+                {labelHelp}
+              </StyledHintText>
+            )}
+            <Box position="relative">
+              <ValidationMessage
+                error={error}
+                warning={warning}
+                validationId={validationMessageId.current}
+              />
+              {applyValidation && (
+                <ErrorBorder
+                  data-role="error-border"
+                  warning={!!(!error && warning)}
+                />
+              )}
+              <CheckableInput
+                ariaLabelledBy={`${label && labelId.current}`}
+                ariaDescribedBy={ariaDescribedBy}
+                {...inputPropsForNewValidation}
+              >
+                <SwitchSlider {...switchSliderPropsForNewValidation} />
+              </CheckableInput>
+            </Box>
           </StyledSwitch>
         ) : (
           <TooltipProvider

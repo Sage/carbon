@@ -44,6 +44,7 @@ const StyledBadge = styled.span.attrs(({ onClick }) => ({
   width: 22px;
   min-height: 22px;
   border: solid 2px transparent;
+  z-index: 2;
 
   ${({ color, theme }) => css`
     border-color: ${toColor(theme, color)};
