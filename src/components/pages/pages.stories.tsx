@@ -50,7 +50,12 @@ export const Default: Story = () => {
   return (
     <>
       <Button onClick={handleOpen}>Open Preview</Button>
-      <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+      <DialogFullScreen
+        pagesStyling
+        open={isOpen}
+        onCancel={handleCancel}
+        aria-label="Full-screen dialog"
+      >
         <Pages pageIndex={pageIndex}>
           <Page title={<Heading title="My First Page" />}>
             <Button onClick={handleOnClick} disabled={isDisabled}>

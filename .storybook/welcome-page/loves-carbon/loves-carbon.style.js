@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { StyledComponentHeader } from "../components-demo/component-heading/component-heading.style";
 import { StyledLink } from "../../../src/components/link/link.style";
 
@@ -11,7 +12,6 @@ export const Wrapper = styled.div`
 `;
 
 export const LovesCarbonWrapper = styled.div`
-  background-color: #e6ebed;
   width: 100%;
 
   && ${StyledLink} a {

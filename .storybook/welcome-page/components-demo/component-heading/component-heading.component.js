@@ -1,11 +1,26 @@
-import React from 'react';
-import { StyledComponentHeader, StyledHeading, StyledText } from './component-heading.style';
+import React from "react";
 
-const ComponentHeading = ({ centerAlign, title, titleSuffix, text, divider }) => (
-  <StyledComponentHeader centerAlign={ centerAlign }>
-    { title && <StyledHeading>{ title } { titleSuffix && <span>{ titleSuffix } </span> }</StyledHeading> }
-    { divider && <hr /> }
-    { text && <StyledText>{ text }</StyledText> }
+import {
+  StyledComponentHeader,
+  StyledHeading,
+  StyledText,
+} from "./component-heading.style";
+
+const ComponentHeading = ({
+  centerAlign,
+  title,
+  titleSuffix,
+  text,
+  divider,
+}) => (
+  <StyledComponentHeader centerAlign={centerAlign} title={title}>
+    {title && (
+      <StyledHeading>
+        {title} {titleSuffix && <span>{titleSuffix} </span>}
+      </StyledHeading>
+    )}
+    {divider && <hr />}
+    {text && <StyledText>{text}</StyledText>}
   </StyledComponentHeader>
 );
 

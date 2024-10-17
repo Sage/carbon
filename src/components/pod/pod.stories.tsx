@@ -311,7 +311,7 @@ export const AddressExample: Story = () => {
   return (
     <Pod internalEditButton variant="tertiary">
       <Box>
-        <Typography variant="h5" fontWeight="500">
+        <Typography variant="h4" fontWeight="500">
           Unit 1
         </Typography>
         <Typography m={0}>South Nelson Industrial Estate</Typography>
