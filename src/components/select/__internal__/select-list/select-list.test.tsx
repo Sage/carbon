@@ -61,106 +61,115 @@ const SelectListWithInput = ({
   );
 };
 
-describe("rendered content", () => {
-  it("renders custom action button when listActionButton prop is provided", () => {
-    render(
-      <SelectListWithInput
-        listActionButton={<button type="button">Click me</button>}
-      >
-        <Option id="red" value="red" text="red" />
-      </SelectListWithInput>
-    );
-    const button = screen.getByRole("button", { name: /Click me/i });
-    expect(button).toBeVisible();
-  });
+test("renders custom action button when listActionButton prop is provided", () => {
+  render(
+    <SelectListWithInput
+      listActionButton={<button type="button">Click me</button>}
+    >
+      <Option id="red" value="red" text="red" />
+    </SelectListWithInput>
+  );
+  const button = screen.getByRole("button", { name: /Click me/i });
+  expect(button).toBeVisible();
+});
 
-  it("renders loading indicator when isLoading prop is true", () => {
-    render(
-      <SelectListWithInput isLoading>
-        <Option id="red" value="red" text="red" />
-      </SelectListWithInput>
-    );
-
-    expect(screen.getByRole("progressbar", { name: "Loading" })).toBeVisible();
-  });
-
-  it("renders options in a table layout when multiColumn prop is true", () => {
-    render(
-      <SelectListWithInput multiColumn>
-        <OptionRow id="dark-red" value="dark-red" text="dark red">
-          <td>dark</td>
-          <td>red</td>
-        </OptionRow>
-        <OptionRow id="light-blue" value="light-blue" text="light blue">
-          <td>light</td>
-          <td>blue</td>
-        </OptionRow>
-      </SelectListWithInput>
-    );
-
-    const table = screen.getByRole("table");
-
-    expect(table).toBeVisible();
-    expect(
-      within(table).getByRole("option", { name: /dark red/i })
-    ).toBeVisible();
-    expect(
-      within(table).getByRole("option", { name: /light blue/i })
-    ).toBeVisible();
-  });
-
-  it.each(["top", "bottom"] as const)(
-    "computes correct position for list when listPlacement prop is %s",
-    async (listPlacement) => {
-      const { rerender } = render(
-        <SelectListWithInput listPlacement={listPlacement}>
-          <Option id="red" value="red" text="red" />
-        </SelectListWithInput>
-      );
-      rerender(
-        <SelectListWithInput listPlacement={listPlacement}>
-          <Option id="red" value="red" text="red" />
-        </SelectListWithInput>
-      );
-
-      expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
-        "data-floating-placement",
-        listPlacement
-      );
-    }
+test("renders loading indicator when isLoading prop is true", () => {
+  render(
+    <SelectListWithInput isLoading>
+      <Option id="red" value="red" text="red" />
+    </SelectListWithInput>
   );
 
-  it("highlights the correct selected option when highlightedValue prop is provided", () => {
-    render(
-      <SelectListWithInput highlightedValue="green">
+  expect(screen.getByRole("progressbar", { name: "Loading" })).toBeVisible();
+});
+
+test("renders options in a table layout when multiColumn prop is true", () => {
+  render(
+    <SelectListWithInput multiColumn>
+      <OptionRow id="dark-red" value="dark-red" text="dark red">
+        <td>dark</td>
+        <td>red</td>
+      </OptionRow>
+      <OptionRow id="light-blue" value="light-blue" text="light blue">
+        <td>light</td>
+        <td>blue</td>
+      </OptionRow>
+    </SelectListWithInput>
+  );
+
+  const table = screen.getByRole("table");
+
+  expect(table).toBeVisible();
+  expect(
+    within(table).getByRole("option", { name: /dark red/i })
+  ).toBeVisible();
+  expect(
+    within(table).getByRole("option", { name: /light blue/i })
+  ).toBeVisible();
+});
+
+test.each(["top", "bottom"] as const)(
+  "computes correct position for list when listPlacement prop is %s",
+  async (listPlacement) => {
+    const { rerender } = render(
+      <SelectListWithInput listPlacement={listPlacement}>
         <Option id="red" value="red" text="red" />
-        <Option id="green" value="green" text="green" />
+      </SelectListWithInput>
+    );
+    rerender(
+      <SelectListWithInput listPlacement={listPlacement}>
+        <Option id="red" value="red" text="red" />
       </SelectListWithInput>
     );
 
-    const greenOption = screen.getByRole("option", { name: /green/i });
-    expect(greenOption).toHaveAttribute("aria-selected", "true");
-    expect(greenOption).toHaveStyleRule(
-      "background-color",
-      "var(--colorsUtilityMajor200)"
+    expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
+      "data-floating-placement",
+      listPlacement
     );
-  });
+  }
+);
 
-  it("highlights the correct selected option when highlightedValue prop is provided and option has an object value", () => {
-    render(
-      <SelectListWithInput highlightedValue={{ id: "green", value: 2 }}>
-        <Option id="red" value={{ id: "red", value: 1 }} text="red" />
-        <Option id="green" value={{ id: "green", value: 2 }} text="green" />
-      </SelectListWithInput>
-    );
+test("highlights the correct selected option when highlightedValue prop is provided", () => {
+  render(
+    <SelectListWithInput highlightedValue="green">
+      <Option id="red" value="red" text="red" />
+      <Option id="green" value="green" text="green" />
+    </SelectListWithInput>
+  );
 
-    const greenOption = screen.getByRole("option", { name: /green/i });
-    expect(greenOption).toHaveAttribute("aria-selected", "true");
-    expect(greenOption).toHaveStyleRule(
-      "background-color",
-      "var(--colorsUtilityMajor200)"
-    );
-  });
+  const greenOption = screen.getByRole("option", { name: /green/i });
+  expect(greenOption).toHaveAttribute("aria-selected", "true");
+  expect(greenOption).toHaveStyleRule(
+    "background-color",
+    "var(--colorsUtilityMajor200)"
+  );
+});
+
+test("highlights the correct selected option when highlightedValue prop is provided and option has an object value", () => {
+  render(
+    <SelectListWithInput highlightedValue={{ id: "green", value: 2 }}>
+      <Option id="red" value={{ id: "red", value: 1 }} text="red" />
+      <Option id="green" value={{ id: "green", value: 2 }} text="green" />
+    </SelectListWithInput>
+  );
+
+  const greenOption = screen.getByRole("option", { name: /green/i });
+  expect(greenOption).toHaveAttribute("aria-selected", "true");
+  expect(greenOption).toHaveStyleRule(
+    "background-color",
+    "var(--colorsUtilityMajor200)"
+  );
+});
+
+test("sets its max height according to the listMaxHeight prop", () => {
+  render(
+    <SelectListWithInput listMaxHeight={100}>
+      <Option id="red" value="red" text="red" />
+    </SelectListWithInput>
+  );
+
+  const scrollableArea = screen.getByTestId("select-list-scrollable-container");
+  expect(scrollableArea).toHaveStyle("max-height: 100px");
 });
 
 describe("behaviour on option click", () => {
