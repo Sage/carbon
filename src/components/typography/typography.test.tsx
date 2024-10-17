@@ -34,7 +34,7 @@ test("should render with expected styles when variant is 'h1'", () => {
 
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "24px",
-    lineHeight: "31px",
+    lineHeight: "30px",
     fontWeight: "700",
     textTransform: "none",
     textDecoration: "none",
@@ -47,7 +47,7 @@ test("should render with expected styles when variant is 'h2'", () => {
 
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "22px",
-    lineHeight: "29px",
+    lineHeight: "27.5px",
     fontWeight: "500",
     textTransform: "none",
     textDecoration: "none",
@@ -60,7 +60,7 @@ test("should render with expected styles when variant is 'h3'", () => {
 
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "20px",
-    lineHeight: "26px",
+    lineHeight: "25px",
     fontWeight: "500",
     textTransform: "none",
     textDecoration: "none",
@@ -73,7 +73,7 @@ test("should render with expected styles when variant is 'h4'", () => {
 
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "18px",
-    lineHeight: "23px",
+    lineHeight: "22.5px",
     fontWeight: "400",
     textTransform: "none",
     textDecoration: "none",
@@ -86,7 +86,7 @@ test("should render with expected styles when variant is 'h5'", () => {
 
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "16px",
-    lineHeight: "21px",
+    lineHeight: "20px",
     fontWeight: "400",
     textTransform: "none",
     textDecoration: "none",
@@ -99,7 +99,7 @@ test("should render with expected styles when variant is 'segment-header'", () =
 
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "20px",
-    lineHeight: "26px",
+    lineHeight: "25px",
     fontWeight: "700",
     textTransform: "none",
     textDecoration: "none",
@@ -112,7 +112,7 @@ test("should render with expected styles when variant is 'segment-header-small'"
 
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "18px",
-    lineHeight: "23px",
+    lineHeight: "22.5px",
     fontWeight: "700",
     textTransform: "none",
     textDecoration: "none",
@@ -125,7 +125,7 @@ test("should render with expected styles when variant is 'segment-subheader'", (
 
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "16px",
-    lineHeight: "31px",
+    lineHeight: "24px",
     fontWeight: "500",
     textTransform: "none",
     textDecoration: "none",
