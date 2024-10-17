@@ -168,3 +168,21 @@ test("renders with expected styles when `inline` is true and `align` is 'left'",
     justifyContent: "flex-start",
   });
 });
+
+// coverage
+test("renders with dark background styles when `isDarkBackground` is true", () => {
+  render(<Label isDarkBackground>foo</Label>);
+
+  expect(screen.getByTestId("label-container").childNodes[0]).toHaveStyle({
+    color: "var(--colorsUtilityYang100)",
+  });
+});
+
+// coverage
+test("renders with normal styles when `isDarkBackground` is false", () => {
+  render(<Label isDarkBackground={false}>foo</Label>);
+
+  expect(screen.getByTestId("label-container").childNodes[0]).toHaveStyle({
+    color: "var(--colorsUtilityYin090)",
+  });
+});
