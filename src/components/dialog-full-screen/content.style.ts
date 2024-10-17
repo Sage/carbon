@@ -6,59 +6,45 @@ type StyledContentProps = {
   disableContentPadding?: boolean;
 };
 
-const generatePaddingVariables = (px: number) => css`
-  padding-top: 0;
-  padding-left: ${px}px;
-  padding-right: ${px}px;
-  padding-bottom: 0;
-`;
-
-const stickyFormOverrides = (px: number) => css`
-  ${StyledForm}.sticky {
-    margin-left: calc(-1 * ${px}px);
-    margin-right: calc(-1 * ${px}px);
-
-    ${StyledFormContent} {
-      ${generatePaddingVariables(px)};
+function computePadding() {
+  return css`
+    padding: 0 16px;
+    @media screen and (min-width: 600px) {
+      padding: 0 24px;
     }
-  }
-`;
+    @media screen and (min-width: 960px) {
+      padding: 0 32px;
+    }
+    @media screen and (min-width: 1260px) {
+      padding: 0 40px;
+    }
+  `;
+}
 
 const StyledContent = styled.div<StyledContentProps>`
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+  display: block;
   overflow-y: auto;
 
   flex: 1;
   width: 100%;
 
-  ${generatePaddingVariables(16)}
-  ${stickyFormOverrides(16)}
+  ${({ disableContentPadding }) =>
+    disableContentPadding ? "padding: 0" : computePadding()}
 
-  ${({ disableContentPadding }) => css`
-    ${!disableContentPadding &&
-    css`
-      @media screen and (min-width: 600px) {
-        ${generatePaddingVariables(24)}
-        ${stickyFormOverrides(24)}
-      }
-      @media screen and (min-width: 960px) {
-        ${generatePaddingVariables(32)}
-        ${stickyFormOverrides(32)}
-      }
-      @media screen and (min-width: 1260px) {
-        ${generatePaddingVariables(40)}
-        ${stickyFormOverrides(40)}
-      }
-    `}
+  &:has(${StyledForm}.sticky) {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    padding: 0;
 
-    ${disableContentPadding &&
-    css`
-      ${generatePaddingVariables(0)}
-      ${stickyFormOverrides(0)}
-    `}
-  `}
+    ${StyledForm}.sticky {
+      ${StyledFormContent} {
+        ${({ disableContentPadding }) =>
+          disableContentPadding ? "padding: 0" : computePadding()}
+      }
+    }
+  }
 
   ${({ hasHeader }) =>
     !hasHeader &&
