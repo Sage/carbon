@@ -7,7 +7,7 @@ import {
   StyledNoteContent,
   StyledNoteMain,
   StyledInlineControl,
-  StyledTitle,
+  StyledTitleWrapper,
   StyledFooter,
   StyledFooterContent,
 } from "./note.style";
@@ -16,6 +16,7 @@ import { ActionPopover } from "../action-popover";
 import { getDecoratedValue } from "../text-editor/__internal__/utils";
 import EditorContext from "../text-editor/__internal__/editor.context";
 import LinkPreview, { LinkPreviewProps } from "../link-preview";
+import Typography from "../typography";
 
 export interface NoteProps extends MarginProps {
   /** Adds a created on date to the Note footer */
@@ -36,7 +37,7 @@ export interface NoteProps extends MarginProps {
     timeStamp: string;
   };
   /** Adds a Title to the Note */
-  title?: string;
+  title?: React.ReactNode;
   /** Set a percentage-based width for the whole Note component, relative to its parent. */
   width?: number;
 }
@@ -87,7 +88,21 @@ export const Note = ({
       <StyledNote width={width} {...rest} data-component="note">
         <StyledNoteMain>
           <StyledNoteContent>
-            {title && <StyledTitle>{title}</StyledTitle>}
+            {title &&
+              (typeof title === "string" ? (
+                <Typography
+                  data-role="note-title"
+                  fontWeight="700"
+                  fontSize="16px"
+                  lineHeight="21px"
+                  paddingBottom="16px"
+                  variant="h2"
+                >
+                  {title}
+                </Typography>
+              ) : (
+                <StyledTitleWrapper>{title}</StyledTitleWrapper>
+              ))}
             <Editor
               readOnly
               editorState={getDecoratedValue(noteContent)}
