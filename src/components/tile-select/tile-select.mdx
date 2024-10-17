@@ -95,6 +95,9 @@ It is possible to render an `Accordion` footer for the `TileSelect`. Pass a desi
 and a use the `accordionControl` render prop to supply the control for the expanded state of the accordion by toggling the
 `accordionExpanded` prop.
 
+To ensure proper screen reader behaviour, please pass the `aria-controls` and `aria-expanded` props to the control for the 
+Accordion as shown in the example. 
+
 <Canvas of={TileSelectStories.WithAccordionFooter} />
 
 ### With custom spacing
