@@ -1,19 +1,22 @@
 import React, { useState, useCallback, useContext } from "react";
+
 import { MarginProps } from "styled-system";
 
-import StyledSwitch, { ErrorBorder, StyledHintText } from "./switch.style";
+import Box from "../box";
 import CheckableInput, {
   CommonCheckableInputProps,
 } from "../../__internal__/checkable-input";
-import SwitchSlider from "./__internal__/switch-slider.component";
-import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import Logger from "../../__internal__/utils/logger";
-import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
-import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
-import Box from "../box";
 import Label from "../../__internal__/label";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
+import Logger from "../../__internal__/utils/logger";
+import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
+import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
+
+import StyledSwitch, { ErrorBorder, StyledHintText } from "./switch.style";
+
+import SwitchSlider from "./__internal__/switch-slider.component";
 
 export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -38,6 +41,8 @@ export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
+  /** Whether this component resides on a dark background */
+  isDarkBackground?: boolean;
 }
 
 let deprecateUncontrolledWarnTriggered = false;
@@ -73,6 +78,7 @@ export const Switch = React.forwardRef(
       "data-element": dataElement,
       "data-role": dataRole,
       helpAriaLabel,
+      isDarkBackground = false,
       ...rest
     }: SwitchProps,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -117,6 +123,7 @@ export const Switch = React.forwardRef(
       "data-role": dataRole,
       "data-element": dataElement,
       checked: isControlled ? checked : checkedInternal,
+      isDarkBackground,
       fieldHelpInline,
       labelInline: shouldLabelBeInline,
       labelSpacing,
@@ -129,6 +136,7 @@ export const Switch = React.forwardRef(
       checked: isControlled ? checked : checkedInternal,
       disabled: disabled || loading,
       loading,
+      isDarkBackground,
       size,
       error,
       warning,
@@ -151,6 +159,7 @@ export const Switch = React.forwardRef(
       labelInline: shouldLabelBeInline,
       labelSpacing,
       onBlur,
+      isDarkBackground,
       onFocus,
       onChange: isControlled ? onChange : onChangeInternal,
       id,
@@ -172,6 +181,7 @@ export const Switch = React.forwardRef(
       "data-element": dataElement,
       checked: isControlled ? checked : checkedInternal,
       labelInline: shouldLabelBeInline,
+      isDarkBackground,
       size,
       ...marginProps,
     };
@@ -180,6 +190,7 @@ export const Switch = React.forwardRef(
       checked: isControlled ? checked : checkedInternal,
       disabled: disabled || loading,
       loading,
+      isDarkBackground,
       size,
       error,
       warning,
@@ -193,6 +204,7 @@ export const Switch = React.forwardRef(
       loading,
       checked: isControlled ? checked : checkedInternal,
       onBlur,
+      isDarkBackground,
       onFocus,
       onChange: isControlled ? onChange : onChangeInternal,
       id,
@@ -237,7 +249,7 @@ export const Switch = React.forwardRef(
             alignItems="flex-start"
             flexDirection={!reverse ? reverseDirection : direction}
           >
-            <Label>
+            <Label isDarkBackground={isDarkBackground}>
               <Box
                 data-role="hint-text-wrapper"
                 mb={labelHelp ? 0 : 1}
@@ -246,7 +258,10 @@ export const Switch = React.forwardRef(
               >
                 {label}
                 {labelHelp && (
-                  <StyledHintText data-role="hint-text">
+                  <StyledHintText
+                    data-role="hint-text"
+                    isDarkBackground={isDarkBackground}
+                  >
                     {labelHelp}
                   </StyledHintText>
                 )}
@@ -275,7 +290,18 @@ export const Switch = React.forwardRef(
           </Box>
         </StyledSwitch>
 
-        {labelInline && rest.fieldHelp && <Box mt={1}>{rest.fieldHelp}</Box>}
+        {labelInline && rest.fieldHelp && (
+          <Box
+            mt={1}
+            color={
+              isDarkBackground
+                ? "var(--colorsUtilityYang100)"
+                : "var(--colorsUtilityYin090)"
+            }
+          >
+            {rest.fieldHelp}
+          </Box>
+        )}
       </>
     );
   }

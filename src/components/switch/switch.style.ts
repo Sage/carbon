@@ -23,6 +23,10 @@ interface StyledSwitchProps
   theme: ThemeObject;
 }
 
+interface StyledHintTextProps {
+  isDarkBackground?: boolean;
+}
+
 const oldFocusStyling = `
   outline: solid 3px var(--colorsSemanticFocus500);
 `;
@@ -42,13 +46,19 @@ export const ErrorBorder = styled.span`
     `}
 `;
 
-export const StyledHintText = styled.div`
+export const StyledHintText = styled.div<StyledHintTextProps>`
   margin-top: 8px;
   margin-bottom: 8px;
-  color: var(--colorsUtilityYin055);
   font-size: 14px;
   font-weight: 400;
   max-width: 160px;
+  ${({ isDarkBackground }) =>
+    isDarkBackground &&
+    css`
+      color: ${isDarkBackground
+        ? "var(--colorsUtilityYang065)"
+        : "var(--colorsUtilityYin055)"};
+    `}
 `;
 
 const StyledSwitch = styled.div`

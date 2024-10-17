@@ -571,6 +571,32 @@ export const NewValidationInlineSwitch: Story = () => {
           error="Error message (Fix is required)"
           reverse={false}
         />
+
+        <h2>Dark Background</h2>
+        <h3>Default</h3>
+        <Box backgroundColor="#000000" p={2}>
+          <Switch isDarkBackground label="Example switch" labelInline />
+        </Box>
+        <h3>Error</h3>
+        <Box backgroundColor="#000000" p={2}>
+          <Switch
+            isDarkBackground
+            label="Example switch"
+            labelInline
+            error="Error message (Fix is required)"
+          />
+        </Box>
+
+        <h3>With field help and hint</h3>
+        <Box backgroundColor="#000000" p={2}>
+          <Switch
+            isDarkBackground
+            label="Example switch"
+            labelInline
+            labelHelp="Hint text"
+            fieldHelp="Field help"
+          />
+        </Box>
       </CarbonProvider>
     </Box>
   );
