@@ -7,7 +7,6 @@ import baseTheme from "../../style/themes/base";
 import StyledIconButton from "../icon-button/icon-button.style";
 
 import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
-import resolvePaddingSides from "../../style/utils/resolve-padding-sides";
 import { StyledForm, StyledFormContent } from "../form/form.style";
 
 type StyledSidebarProps = Pick<
@@ -56,40 +55,29 @@ const StyledSidebar = styled.div<StyledSidebarProps>`
   `}
 `;
 
-const StyledSidebarContent = styled.div<PaddingProps>((props) => {
-  const {
-    paddingTop = "var(--spacing300)",
-    paddingRight = "var(--spacing400)",
-    paddingBottom = "var(--spacing400)",
-    paddingLeft = "var(--spacing400)",
-  } = resolvePaddingSides(props);
+const StyledSidebarContent = styled.div<PaddingProps>`
+  box-sizing: border-box;
+  display: block;
+  overflow-y: auto;
+  flex-grow: 1;
 
-  return css`
-    box-sizing: border-box;
+  padding: var(--spacing300) var(--spacing400) var(--spacing400);
+  ${paddingFn}
+
+  &:has(${StyledForm}.sticky) {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-
-    flex: 1;
+    overflow-y: hidden;
+    padding: 0;
 
     ${StyledForm}.sticky {
-      margin-top: calc(-1 * ${paddingTop});
-      margin-right: calc(-1 * ${paddingRight});
-      margin-bottom: calc(-1 * ${paddingBottom});
-      margin-left: calc(-1 * ${paddingLeft});
-
       ${StyledFormContent} {
-        padding-top: ${paddingTop};
-        padding-right: ${paddingRight};
-        padding-bottom: ${paddingBottom};
-        padding-left: ${paddingLeft};
+        padding: var(--spacing300) var(--spacing400) var(--spacing400);
+        ${paddingFn}
       }
     }
-
-    padding: ${paddingTop} ${paddingRight} ${paddingBottom} ${paddingLeft};
-    ${paddingFn}
-  `;
-});
+  }
+`;
 
 StyledSidebar.defaultProps = {
   theme: baseTheme,
