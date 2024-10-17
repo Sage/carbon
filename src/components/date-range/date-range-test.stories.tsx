@@ -144,3 +144,41 @@ export const DateRangeNewValidation = () => {
     </CarbonProvider>
   );
 };
+
+export const DateRangeNewValidationWithLabelsInline = () => {
+  const [state, setState] = React.useState(["01/10/2016", "30/10/2016"]);
+
+  const handleChange = ({ target }: DateRangeChangeEvent) => {
+    const newValue = [
+      target.value[0].formattedValue,
+      target.value[1].formattedValue,
+    ];
+    setState(newValue);
+  };
+
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      {[
+        {
+          startError: "Start error with long text string",
+          endError: "End error",
+        },
+        {
+          startWarning: "Start warning",
+          endWarning: "End warning with long text string",
+        },
+      ].map((validation) => (
+        <DateRange
+          key={`${Object.keys(validation)[0]}-string-component`}
+          startLabel="Start"
+          endLabel="End"
+          onChange={handleChange}
+          value={state}
+          {...validation}
+          labelsInline
+          m={4}
+        />
+      ))}
+    </CarbonProvider>
+  );
+};

@@ -184,6 +184,30 @@ export const NewDesignValidations = () => {
 
 NewDesignValidations.storyName = "new design validations";
 
+export const NewDesignValidationsWithLabelInline = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <h4>New designs validation</h4>
+      {["error", "warning"].map((validationType) =>
+        ["small", "medium", "large"].map((size) => (
+          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+            <NumeralDate
+              label={`${size} - ${validationType}`}
+              {...{ [validationType]: "Message" }}
+              size={size as NumeralDateProps["size"]}
+              m={4}
+              labelInline
+            />
+          </div>
+        ))
+      )}
+    </CarbonProvider>
+  );
+};
+
+NewDesignValidationsWithLabelInline.storyName =
+  "new design validations with labelInline";
+
 export const Required = () => {
   return <NumeralDate label="Date of Birth" required />;
 };
