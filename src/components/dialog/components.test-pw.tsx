@@ -223,7 +223,6 @@ export const DefaultStory = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -269,7 +268,6 @@ export const Editable = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -335,7 +333,6 @@ export const WithHelp = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -470,7 +467,6 @@ export const OverridingContentPadding = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -520,7 +516,6 @@ export const OtherFocusableContainers = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
           }
@@ -592,7 +587,6 @@ export const Responsive = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }

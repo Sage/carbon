@@ -24,7 +24,7 @@ export const Default: StoryType = {
     return <DialogFullScreen {...rest}>{children}</DialogFullScreen>;
   },
   args: {
-    children: "Content",
+    children: <Button onClick={() => {}}>Button</Button>,
     open: true,
     title: "Example Dialog",
     subtitle: "Example Subtitle",
