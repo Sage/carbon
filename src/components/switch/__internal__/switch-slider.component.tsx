@@ -13,6 +13,7 @@ export interface SwitchSliderProps extends ValidationProps {
   loading?: boolean;
   size?: "small" | "large";
   useValidationIcon?: boolean;
+  isDarkBackground?: boolean;
 }
 
 const SwitchSlider = ({
@@ -24,6 +25,7 @@ const SwitchSlider = ({
   warning,
   info,
   useValidationIcon,
+  isDarkBackground,
 }: SwitchSliderProps) => {
   const locale = useLocale();
   const onText = locale.switch.on();
@@ -45,6 +47,7 @@ const SwitchSlider = ({
     error,
     warning,
     info,
+    isDarkBackground,
   };
 
   const sliderPanelStyleProps = {
@@ -52,6 +55,7 @@ const SwitchSlider = ({
     size,
     type: checked ? "on" : "off",
     disabled,
+    isDarkBackground,
   };
 
   const loaderProps = {
