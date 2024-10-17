@@ -171,6 +171,7 @@ export const Switch = React.forwardRef(
       "data-role": dataRole,
       "data-element": dataElement,
       checked: isControlled ? checked : checkedInternal,
+      labelInline: shouldLabelBeInline,
       size,
       ...marginProps,
     };
@@ -205,34 +206,9 @@ export const Switch = React.forwardRef(
 
     const applyValidation = error || warning;
 
-    return (
-      <>
-        {validationRedesignOptIn ? (
-          <StyledSwitch {...switchStylePropsForNewValidation}>
-            <Label>
-              <Box data-role="hint-text-wrapper" mb={labelHelp ? 0 : 1}>
-                {label}
-                {labelHelp && (
-                  <StyledHintText data-role="hint-text">
-                    {labelHelp}
-                  </StyledHintText>
-                )}
-              </Box>
-              <Box position="relative">
-                <ValidationMessage error={error} warning={warning} />
-                {applyValidation && (
-                  <ErrorBorder
-                    data-role="error-border"
-                    warning={!!(!error && warning)}
-                  />
-                )}
-                <CheckableInput {...inputPropsForNewValidation}>
-                  <SwitchSlider {...switchSliderPropsForNewValidation} />
-                </CheckableInput>
-              </Box>
-            </Label>
-          </StyledSwitch>
-        ) : (
+    if (!validationRedesignOptIn) {
+      return (
+        <>
           <TooltipProvider
             helpAriaLabel={helpAriaLabel}
             tooltipPosition={tooltipPosition}
@@ -243,7 +219,63 @@ export const Switch = React.forwardRef(
               </CheckableInput>
             </StyledSwitch>
           </TooltipProvider>
-        )}
+        </>
+      );
+    }
+
+    const errorMargin = labelInline && (error || warning) ? 2 : 1;
+    const direction = labelInline ? "row" : "column";
+    const reverseDirection = labelInline ? "row-reverse" : "column";
+
+    return (
+      <>
+        <StyledSwitch {...switchStylePropsForNewValidation}>
+          <Box
+            data-role="field-reverse-wrapper"
+            display="flex"
+            flexWrap="wrap"
+            alignItems="flex-start"
+            flexDirection={!reverse ? reverseDirection : direction}
+          >
+            <Label>
+              <Box
+                data-role="hint-text-wrapper"
+                mb={labelHelp ? 0 : 1}
+                mr={reverse ? 0 : 1}
+                ml={reverse ? 0 : 1}
+              >
+                {label}
+                {labelHelp && (
+                  <StyledHintText data-role="hint-text">
+                    {labelHelp}
+                  </StyledHintText>
+                )}
+              </Box>
+            </Label>
+            <Box
+              ml={reverse ? errorMargin : rest.ml}
+              mr={!reverse ? errorMargin : rest.mr}
+              position="relative"
+            >
+              <ValidationMessage error={error} warning={warning} />
+              {applyValidation && (
+                <ErrorBorder
+                  data-role="error-border"
+                  warning={!!(!error && warning)}
+                  reverse={!reverse}
+                />
+              )}
+              <CheckableInput
+                {...inputPropsForNewValidation}
+                fieldHelp={labelInline ? undefined : rest.fieldHelp}
+              >
+                <SwitchSlider {...switchSliderPropsForNewValidation} />
+              </CheckableInput>
+            </Box>
+          </Box>
+        </StyledSwitch>
+
+        {labelInline && rest.fieldHelp && <Box mt={1}>{rest.fieldHelp}</Box>}
       </>
     );
   }

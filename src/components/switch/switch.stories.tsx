@@ -299,3 +299,280 @@ export const NewValidationString: Story = () => {
   );
 };
 NewValidationString.storyName = "Single Switch - New Validation";
+
+export const NewValidationInlineSwitch: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <h1>Switch: New Validation</h1>
+        <h2>Default</h2>
+        <h3>Inline</h3>
+        <Switch label="Example switch" labelInline />
+        <h3>With hint</h3>
+        <Switch label="Example switch" labelInline labelHelp="Hint text" />
+        <h3>With field help</h3>
+        <Switch label="Example switch" labelInline fieldHelp="Field help" />
+        <h3>With field help and hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+        />
+        <h3>With long field help and normal hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help which could be of a significant length"
+        />
+        <h3>With normal field help and long hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text which could be of a significant length"
+          fieldHelp="Field help"
+        />
+
+        <h2>Reversed</h2>
+        <h3>Inline</h3>
+        <Switch label="Example switch" labelInline reverse={false} />
+        <h3>With hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          reverse={false}
+        />
+        <h3>With field help</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          fieldHelp="Field help"
+          reverse={false}
+        />
+        <h3>With field help and hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+          reverse={false}
+        />
+        <h3>With long field help and normal hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help which could be of a significant length"
+          reverse={false}
+        />
+        <h3>With normal field help and long hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text which could be of a significant length"
+          fieldHelp="Field help"
+          reverse={false}
+        />
+
+        <h2>Warning</h2>
+        <h3>Inline</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          warning="Warning message (change may be needed)"
+        />
+        <h3>With hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          warning="Warning message (change may be needed)"
+        />
+        <h3>With field help</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          fieldHelp="Field help"
+          warning="Warning message (change may be needed)"
+        />
+        <h3>With field help and hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+          warning="Warning message (change may be needed)"
+        />
+        <h3>With long field help and normal hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help which could be of a significant length"
+          warning="Warning message (change may be needed)"
+        />
+        <h3>With normal field help and long hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text which could be of a significant length"
+          fieldHelp="Field help"
+          warning="Warning message (change may be needed)"
+        />
+
+        <h2>Warning</h2>
+        <h3>Reversed</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          warning="Warning message (change may be needed)"
+          reverse={false}
+        />
+        <h3>With hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          warning="Warning message (change may be needed)"
+          reverse={false}
+        />
+        <h3>With field help</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          fieldHelp="Field help"
+          warning="Warning message (change may be needed)"
+          reverse={false}
+        />
+        <h3>With field help and hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+          warning="Warning message (change may be needed)"
+          reverse={false}
+        />
+        <h3>With long field help and normal hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help which could be of a significant length"
+          warning="Warning message (change may be needed)"
+          reverse={false}
+        />
+        <h3>With normal field help and long hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text which could be of a significant length"
+          fieldHelp="Field help"
+          warning="Warning message (change may be needed)"
+          reverse={false}
+        />
+
+        <h2>Error</h2>
+        <h3>Inline</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          error="Error message (Fix is required)"
+        />
+        <h3>With hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          error="Error message (Fix is required)"
+        />
+        <h3>With field help</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          fieldHelp="Field help"
+          error="Error message (Fix is required)"
+        />
+        <h3>With field help and hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+          error="Error message (Fix is required)"
+        />
+        <h3>With long field help and normal hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help which could be of a significant length"
+          error="Error message (Fix is required)"
+        />
+        <h3>With normal field help and long hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text which could be of a significant length"
+          fieldHelp="Field help"
+          error="Error message (Fix is required)"
+        />
+
+        <h2>Error</h2>
+        <h3>Reversed</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          error="Error message (Fix is required)"
+          reverse={false}
+        />
+        <h3>With hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          error="Error message (Fix is required)"
+          reverse={false}
+        />
+        <h3>With field help</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          fieldHelp="Field help"
+          error="Error message (Fix is required)"
+          reverse={false}
+        />
+        <h3>With field help and hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+          error="Error message (Fix is required)"
+          reverse={false}
+        />
+        <h3>With long field help and normal hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help which could be of a significant length"
+          error="Error message (Fix is required)"
+          reverse={false}
+        />
+        <h3>With normal field help and long hint</h3>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text which could be of a significant length"
+          fieldHelp="Field help"
+          error="Error message (Fix is required)"
+          reverse={false}
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineSwitch.storyName = "Single Switch - Inline - New Validation";
