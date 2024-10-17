@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import { StyledLinkPreview } from "../link-preview/link-preview.style";
+import { VARIANT_TYPES } from "../typography/typography.component";
 
 const StyledNoteContent = styled.div<{
   hasPreview?: boolean;
@@ -45,11 +46,17 @@ const StyledInlineControl = styled.div`
   min-width: fit-content;
 `;
 
-const StyledTitle = styled.header`
+const StyledTitleWrapper = styled.div`
+  ${VARIANT_TYPES.map(
+    (variant) => `
+${variant}{
   font-weight: 700;
   font-size: 16px;
   line-height: 21px;
   padding-bottom: 16px;
+}
+  `
+  )}
 `;
 
 const StyledFooterContent = styled.div<{ hasName: boolean }>`
@@ -141,7 +148,7 @@ export {
   StyledNoteContent,
   StyledNoteMain,
   StyledInlineControl,
-  StyledTitle,
+  StyledTitleWrapper,
   StyledFooter,
   StyledFooterContent,
 };

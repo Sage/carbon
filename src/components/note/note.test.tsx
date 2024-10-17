@@ -6,6 +6,7 @@ import Note from ".";
 import LinkPreview from "../link-preview";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import Typography from "../typography";
 
 test("should render with required props", () => {
   render(
@@ -18,7 +19,7 @@ test("should render with required props", () => {
   expect(screen.getByText("23 May 2020, 12:08 PM")).toBeVisible();
 });
 
-test("should render with provided `title` prop", () => {
+test("renders a Typography component with h2 `variant` and `title` as its child when `title` prop is a string", () => {
   render(
     <Note
       createdDate="23 May 2020, 12:08 PM"
@@ -27,7 +28,29 @@ test("should render with provided `title` prop", () => {
     />
   );
 
-  expect(screen.getByRole("banner")).toHaveTextContent("Title");
+  const titleElement = screen.getByRole("heading", { level: 2 });
+
+  expect(titleElement).toHaveTextContent("Title");
+  expect(titleElement).toHaveAttribute("data-role", "note-title");
+});
+
+test("renders the `title` node when `title` prop is a React node", () => {
+  render(
+    <Note
+      createdDate="23 May 2020, 12:08 PM"
+      noteContent={EditorState.createEmpty()}
+      title={
+        <Typography data-role="note-node" variant="h4">
+          Title
+        </Typography>
+      }
+    />
+  );
+
+  const titleNode = screen.getByRole("heading", { level: 4 });
+
+  expect(titleNode).toHaveTextContent("Title");
+  expect(titleNode).toHaveAttribute("data-role", "note-node");
 });
 
 test("should render with provided `name` prop", () => {
