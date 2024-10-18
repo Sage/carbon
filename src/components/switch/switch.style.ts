@@ -53,7 +53,6 @@ export const StyledHintText = styled.div<StyledHintTextProps>`
   font-weight: 400;
   max-width: 160px;
   ${({ isDarkBackground }) =>
-    isDarkBackground &&
     css`
       color: ${isDarkBackground
         ? "var(--colorsUtilityYang065)"

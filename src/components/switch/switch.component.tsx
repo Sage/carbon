@@ -265,36 +265,39 @@ export const Switch = React.forwardRef(
             alignItems="flex-start"
             flexDirection={!reverse ? reverseDirection : direction}
           >
-            <Label
-              isDarkBackground={isDarkBackground}
-              labelId={labelId.current}
-              disabled={disabled}
-              isRequired={required}
-              optional={isOptional}
-            >
-              <Box
-                data-role="hint-text-wrapper"
-                mb={labelHelp ? 0 : 1}
-                mr={reverse ? 0 : 1}
-                ml={reverse ? 0 : 1}
+            <Box id="flow-control">
+              <Label
+                isDarkBackground={isDarkBackground}
+                labelId={labelId.current}
+                disabled={disabled}
+                isRequired={required}
+                optional={isOptional}
               >
-                {label}
-                {labelHelp && (
-                  <StyledHintText
-                    data-role="hint-text"
-                    id={inputHintId.current}
-                  >
-                    {labelHelp}
-                  </StyledHintText>
-                )}
-              </Box>
-            </Label>
+                <Box
+                  data-role="hint-text-wrapper"
+                  mb={labelHelp ? 0 : 1}
+                  mr={reverse ? 0 : 1}
+                  ml={reverse ? 0 : 1}
+                >
+                  {label}
+                </Box>
+              </Label>
+              {labelHelp && (
+                <StyledHintText data-role="hint-text" id={inputHintId.current}>
+                  {labelHelp}
+                </StyledHintText>
+              )}
+            </Box>
             <Box
               ml={reverse ? errorMargin : rest.ml}
               mr={!reverse ? errorMargin : rest.mr}
               position="relative"
             >
-              <ValidationMessage error={error} warning={warning} />
+              <ValidationMessage
+                error={error}
+                warning={warning}
+                validationId={validationMessageId.current}
+              />
               {applyValidation && (
                 <ErrorBorder
                   data-role="error-border"
@@ -316,7 +319,6 @@ export const Switch = React.forwardRef(
 
         {labelInline && rest.fieldHelp && (
           <Box
-            mt={1}
             color={
               isDarkBackground
                 ? "var(--colorsUtilityYang100)"

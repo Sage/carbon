@@ -419,3 +419,31 @@ test("the expected translations are correctly applied for off", () => {
 
   expect(i18nText[0]).toBeVisible();
 });
+
+// coverage
+test("renders with normal styles when `isDarkBackground` is false", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch isDarkBackground={false} />
+    </CarbonProvider>
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule(
+    "color: var(--colorsActionMinorYang100)"
+  );
+});
+
+// coverage
+test("renders with dark background styles when `isDarkBackground` is true", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch isDarkBackground />
+    </CarbonProvider>
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("color: black");
+});
