@@ -18,6 +18,7 @@ import {
 import LinkPreview from "../link-preview";
 import Box from "../box";
 import Note from "./note.component";
+import Typography from "../typography";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -86,10 +87,12 @@ export const WithTitle: Story = () => {
     blocksFromHTML.entityMap
   );
   const noteContent = EditorState.createWithContent(content);
+  const titleNode = <Typography variant="h3">Here is a Title Node</Typography>;
+
   return (
     <Box height={300} width="50%">
       <Note
-        title="Here is a Title"
+        title={titleNode}
         noteContent={noteContent}
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
