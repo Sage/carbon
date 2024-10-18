@@ -11,6 +11,7 @@ import {
 } from "../../style/utils/form-style-utils";
 import { StyledFormContent, StyledFormFooter } from "../form/form.style";
 import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
+import Box from "../box";
 
 type StyledSidebarProps = Pick<
   SidebarProps,
@@ -68,6 +69,12 @@ const StyledSidebar = styled.div<StyledSidebarProps>`
       }
     `}
   `}
+`;
+
+export const StyledSidebarContent = styled(Box)`
+  &:not(:has(${StyledFormFooter}.sticky)) {
+    overflow-y: auto;
+  }
 `;
 
 StyledSidebar.defaultProps = {
