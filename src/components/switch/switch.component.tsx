@@ -251,7 +251,7 @@ export const Switch = React.forwardRef(
       );
     }
 
-    const errorMargin = labelInline && (error || warning) ? 2 : 1;
+    const errorMargin = labelInline && (error || warning) ? 3 : 1;
     const direction = labelInline ? "row" : "column";
     const reverseDirection = labelInline ? "row-reverse" : "column";
 
