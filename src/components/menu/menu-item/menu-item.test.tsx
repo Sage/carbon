@@ -1041,6 +1041,22 @@ describe("when MenuItem has a submenu", () => {
       backgroundColor: menuConfigVariants.light.selected,
     });
   });
+
+  it("should apply the expected padding when the item also has `maxWidth` set", () => {
+    render(
+      <MenuContext.Provider value={{ ...menuContextValues }}>
+        <MenuItem submenu="Item One" maxWidth="100px">
+          <MenuItem>Submenu Item One</MenuItem>
+          <MenuItem>Submenu Item Two</MenuItem>
+          <MenuItem>Submenu Item Three</MenuItem>
+        </MenuItem>
+      </MenuContext.Provider>
+    );
+
+    expect(screen.getByRole("button", { name: "Item One" })).toHaveStyle({
+      padding: "11px 16px 12px",
+    });
+  });
 });
 
 test("should throw when `children` passed and `submenu` is an empty string", () => {

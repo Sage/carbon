@@ -112,6 +112,9 @@ const StyledMenuItemWrapper = styled.a.attrs({
     a,
     button {
       cursor: pointer;
+      min-height: 40px;
+      height: 100%;
+      box-sizing: border-box;
     }
 
     a:focus,
@@ -218,15 +221,29 @@ const StyledMenuItemWrapper = styled.a.attrs({
         ${
           !inFullscreenView &&
           `
-          > a:not(:has(button)) {
-            padding: 11px 16px;
-          }
+            > a:not(:has(button)) {
+              padding: 11px 16px;
+            }
 
-          > a ${StyledButton}:not(.search-button) {
-            min-height: 17px;
-            padding: 9px 0px 11px; 
-          }
-        `
+            > a:has(${StyledButton}:not(.search-button)) {
+             height: 100%;
+             
+             ${StyledContent} {
+                height: inherit;
+
+                div {
+                  height: inherit;
+                }
+              }
+
+              ${StyledButton} {
+                min-height: 40px;
+                padding: 10px 0px;
+                box-sizing: border-box;
+                height: 100%;
+              }
+            }
+          `
         }
 
         ${StyledIconButton} {
@@ -245,27 +262,21 @@ const StyledMenuItemWrapper = styled.a.attrs({
       `
       : `
         ${
-          hasSubmenu
+          hasSubmenu || maxWidth
             ? `
               a,
               ${StyledLink} a,
               button,
               ${StyledLink} button {
-                height: 100%;
-                padding: 0px 16px;
+                padding: 11px 16px ${hasSubmenu && maxWidth ? "12px" : "10px"};
               }
             `
             : `
+              a,
+              ${StyledLink} a,
               button,
               ${StyledLink} button {
-                height: 100%;
                 padding: ${!inFullscreenView ? "11px" : "0px"} 16px;
-              }
-
-              a,
-              ${StyledLink} a {
-                height: 100%;
-                padding: ${maxWidth && !inFullscreenView ? "10px" : "0px"} 16px;
               }
             `
         }
@@ -424,7 +435,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
         a::before,
         button::before {
           display: block;
-          margin-top: -2px;
+          margin-top: -1px;
           pointer-events: none;
           position: absolute;
           right: ${(props) => parsePadding(padding(props)).iconSpacing};
