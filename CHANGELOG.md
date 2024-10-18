@@ -1,3 +1,10 @@
+### [143.2.5](https://github.com/Sage/carbon/compare/v143.2.4...v143.2.5) (2024-10-18)
+
+
+### Bug Fixes
+
+* **tile-select:** remove not allowed aria-expanded from accordion ([d43951d](https://github.com/Sage/carbon/commit/d43951d5b038da7019c974e7bbaa39cd21913bf1))
+
 ### [143.2.4](https://github.com/Sage/carbon/compare/v143.2.3...v143.2.4) (2024-10-18)
 
 
