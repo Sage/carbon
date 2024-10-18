@@ -102,12 +102,18 @@ export const SplitButton = ({
     ...filterOutStyledSystemSpacingProps(rest),
   };
 
+  const handleToggleClick = () => {
+    // ensure button is focused when clicked (Safari)
+    toggleButton.current?.focus();
+    showButtons();
+  };
+
   const toggleButtonProps = {
     disabled,
     displayed: showAdditionalButtons,
     onTouchStart: showButtons,
     onKeyDown: handleToggleButtonKeyDown,
-    onClick: showButtons,
+    onClick: handleToggleClick,
     buttonType,
     size,
   };
