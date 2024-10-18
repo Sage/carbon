@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useState, useCallback, useContext, useRef } from "react";
 
 import { MarginProps } from "styled-system";
 
@@ -13,7 +13,7 @@ import Logger from "../../__internal__/utils/logger";
 import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-
+import guid from "../../__internal__/utils/helpers/guid";
 import StyledSwitch, { ErrorBorder, StyledHintText } from "./switch.style";
 
 import SwitchSlider from "./__internal__/switch-slider.component";
@@ -58,6 +58,8 @@ export const Switch = React.forwardRef(
       onFocus,
       value,
       checked,
+      required,
+      isOptional,
       defaultChecked,
       disabled,
       loading,
@@ -85,6 +87,10 @@ export const Switch = React.forwardRef(
   ) => {
     const isControlled = checked !== undefined;
     const { validationRedesignOptIn } = useContext(NewValidationContext);
+
+    const labelId = useRef(`${guid()}-label`);
+    const inputHintId = useRef(`${guid()}-hint`);
+    const validationMessageId = useRef(`${guid()}-message`);
 
     const [checkedInternal, setCheckedInternal] = useState(
       defaultChecked || false
@@ -170,6 +176,8 @@ export const Switch = React.forwardRef(
       reverse: !reverse, // switched to preserve backward compatibility
       validationOnLabel: shouldValidationBeOnLabel && !disabled,
       ref,
+      required,
+      isOptional,
       ...rest,
     };
 
@@ -198,7 +206,8 @@ export const Switch = React.forwardRef(
 
     const inputPropsForNewValidation = {
       autoFocus,
-      error,
+      // set aria-invalid but prevent validationIconId from being added to aria-describedby
+      error: !!error,
       warning,
       disabled: disabled || loading,
       loading,
@@ -213,10 +222,19 @@ export const Switch = React.forwardRef(
       type: "checkbox",
       role: "switch",
       ref,
+      required,
+      isOptional,
       ...rest,
     };
 
     const applyValidation = error || warning;
+
+    const ariaDescribedBy = [
+      labelHelp && inputHintId.current,
+      applyValidation && validationMessageId.current,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
     if (!validationRedesignOptIn) {
       return (
@@ -249,7 +267,13 @@ export const Switch = React.forwardRef(
             alignItems="flex-start"
             flexDirection={!reverse ? reverseDirection : direction}
           >
-            <Label isDarkBackground={isDarkBackground}>
+            <Label
+              isDarkBackground={isDarkBackground}
+              labelId={labelId.current}
+              disabled={disabled}
+              isRequired={required}
+              optional={isOptional}
+            >
               <Box
                 data-role="hint-text-wrapper"
                 mb={labelHelp ? 0 : 1}
@@ -260,7 +284,7 @@ export const Switch = React.forwardRef(
                 {labelHelp && (
                   <StyledHintText
                     data-role="hint-text"
-                    isDarkBackground={isDarkBackground}
+                    id={inputHintId.current}
                   >
                     {labelHelp}
                   </StyledHintText>
@@ -281,6 +305,8 @@ export const Switch = React.forwardRef(
                 />
               )}
               <CheckableInput
+                ariaLabelledBy={`${label && labelId.current}`}
+                ariaDescribedBy={ariaDescribedBy}
                 {...inputPropsForNewValidation}
                 fieldHelp={labelInline ? undefined : rest.fieldHelp}
               >

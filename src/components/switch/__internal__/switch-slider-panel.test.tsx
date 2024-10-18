@@ -71,3 +71,21 @@ describe("when the theme is set to sageTheme", () => {
     );
   });
 });
+
+// coverage
+test("renders with normal styles when `isDarkBackground` is false", () => {
+  render(<Switch isDarkBackground={false} />);
+
+  const switchPanel = screen.getByTestId("slider-panel");
+
+  expect(switchPanel).toHaveStyleRule("color: var(--colorsActionMinorYang100)");
+});
+
+// coverage
+test("renders with dark background styles when `isDarkBackground` is true", () => {
+  render(<Switch isDarkBackground />);
+
+  const switchPanel = screen.getByTestId("slider-panel");
+
+  expect(switchPanel).toHaveStyleRule("color: black");
+});

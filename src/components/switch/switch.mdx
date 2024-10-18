@@ -83,7 +83,7 @@ You can use the `isOptional` prop to indicate if the field is optional.
 
 ### With labelInline
 
-**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
 
 <Canvas of={SwitchStories.WithLabelInline} name="With labelInline" />
 
@@ -160,6 +160,14 @@ The folowing examples use the new validation pattern that is available by settin
 <Canvas
   of={SwitchStories.NewValidationString}
   name="single switch - new string validation"
+/>
+
+#### Using the new validation pattern with `labelInline`
+
+
+<Canvas
+  of={SwitchStories.NewValidationInlineSwitch}
+  name="single switch - inline validation"
 />
 
 ## Props
