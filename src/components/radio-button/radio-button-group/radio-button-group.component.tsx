@@ -86,6 +86,10 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
 
   const { validationRedesignOptIn } = useContext(NewValidationContext);
 
+  const legendInlineWithNewValidation = validationRedesignOptIn
+    ? false
+    : legendInline;
+
   if (!deprecateUncontrolledWarnTriggered && !onChange) {
     deprecateUncontrolledWarnTriggered = true;
     Logger.deprecate(
@@ -103,7 +107,7 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
     adaptiveSpacingBreakpoint
   );
 
-  let inlineLegend = legendInline;
+  let inlineLegend = legendInlineWithNewValidation;
   if (adaptiveLegendBreakpoint) {
     inlineLegend = !!isAboveLegendBreakpoint;
   }
