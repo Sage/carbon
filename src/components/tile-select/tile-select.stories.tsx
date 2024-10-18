@@ -515,6 +515,7 @@ export const WithAccordionFooter: Story = () => {
           px={1}
           mt={2}
           aria-controls={contentId}
+          aria-expanded={expanded}
           id={controlId}
         >
           {expanded ? "Close" : "Open"} accordion
