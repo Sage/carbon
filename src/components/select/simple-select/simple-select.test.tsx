@@ -327,6 +327,7 @@ describe("typing into the input", () => {
 
     expect(screen.getByText("green", { ignore: "li" })).toBeVisible();
 
+    jest.runOnlyPendingTimers();
     jest.useRealTimers();
   });
 
@@ -859,6 +860,7 @@ test("does not call onOpen, when openOnFocus is true and the input is refocused 
 
   expect(onOpen).not.toHaveBeenCalled();
 
+  jest.runOnlyPendingTimers();
   jest.useRealTimers();
 });
 

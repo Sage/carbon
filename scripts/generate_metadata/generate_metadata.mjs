@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import fs from "fs";
 import fetch from "node-fetch";
 import semver from "semver";
@@ -47,7 +46,7 @@ export const writeFile = (jsonString) => {
     if (err) {
       throw err;
     } else {
-      console.log("Successfully created metadata.json file.");
+      global.console.log("Successfully created metadata.json file.");
     }
   });
 };
@@ -58,8 +57,8 @@ export const generateMetadata = async () => {
   try {
     versions = await fetchVersions();
   } catch (err) {
-    console.error(err);
-    process.exit(1);
+    global.console.error(err);
+    return;
   }
 
   const formattedVersions = formatVersions(versions);

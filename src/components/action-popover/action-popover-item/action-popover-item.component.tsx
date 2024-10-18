@@ -216,10 +216,13 @@ export const ActionPopoverItem = ({
     }
   }, [alignSubmenu, submenu]);
 
-  // focuses item on opening of actionPopover submenu
+  // Focuses item on opening of actionPopover submenu, but we want to do this once the Popover has finished opening
+  // We always want the focused item to be in the user's view for accessibility purposes, and without the initial unexpected scroll to top of page when used in a table.
   useEffect(() => {
     if (focusItem) {
-      ref.current?.focus({ preventScroll: true });
+      setTimeout(() => {
+        ref.current?.focus();
+      }, 0);
     }
   }, [focusItem]);
 

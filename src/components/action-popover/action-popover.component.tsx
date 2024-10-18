@@ -24,6 +24,11 @@ import ActionPopoverContext, {
   Alignment,
 } from "./__internal__/action-popover.context";
 import useModalManager from "../../hooks/__internal__/useModalManager";
+import {
+  findFirstFocusableItem,
+  findLastFocusableItem,
+  getItems,
+} from "./__internal__/action-popover-utils";
 
 export interface RenderButtonProps {
   tabIndex: number;
@@ -82,12 +87,6 @@ export const ActionPopover = ({
   const buttonRef = useRef<HTMLDivElement>(null);
   const menu = useRef<HTMLUListElement>(null);
 
-  const itemCount = useMemo(() => {
-    return React.Children.toArray(children).filter((child) => {
-      return React.isValidElement(child) && child.type === ActionPopoverItem;
-    }).length;
-  }, [children]);
-
   const hasProperChildren = useMemo(() => {
     const incorrectChild = React.Children.toArray(children).find(
       (child: React.ReactNode) => {
@@ -104,6 +103,12 @@ export const ActionPopover = ({
 
     return !incorrectChild;
   }, [children]);
+
+  const items = useMemo(() => getItems(children), [children]);
+
+  const firstFocusableItem = findFirstFocusableItem(items);
+
+  const lastFocusableItem = findLastFocusableItem(items);
 
   invariant(
     hasProperChildren,
@@ -152,13 +157,14 @@ export const ActionPopover = ({
     (e) => {
       e.stopPropagation();
       const isOpening = !isOpen;
+      setFocusIndex(firstFocusableItem);
       setOpen(isOpening);
       if (!isOpening) {
         // Closing the menu should focus the MenuButton
         focusButton();
       }
     },
-    [isOpen, setOpen, focusButton]
+    [isOpen, firstFocusableItem, setOpen, focusButton]
   );
 
   // Keyboard commands implemented as recommended by WAI-ARIA best practices
@@ -169,16 +175,16 @@ export const ActionPopover = ({
       if (Events.isSpaceKey(e) || Events.isDownKey(e) || Events.isEnterKey(e)) {
         e.preventDefault();
         e.stopPropagation();
-        setFocusIndex(0);
+        setFocusIndex(firstFocusableItem);
         setOpen(true);
       } else if (Events.isUpKey(e)) {
         e.preventDefault();
         e.stopPropagation();
-        setFocusIndex(itemCount - 1);
+        setFocusIndex(lastFocusableItem);
         setOpen(true);
       }
     },
-    [itemCount, setOpen]
+    [firstFocusableItem, lastFocusableItem, setOpen]
   );
 
   const handleEscapeKey = useCallback(
@@ -200,7 +206,7 @@ export const ActionPopover = ({
 
   useEffect(() => {
     const handler = ({ target }: MouseEvent) => {
-      // If the event didn't came from part of this component, close the menu.
+      // If the event didn't come from part of this component, close the menu.
       // There will be multiple document click listeners but we cant prevent propagation because it will interfere with
       // other instances on the same page
 

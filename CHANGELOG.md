@@ -1,3 +1,31 @@
+### [143.2.4](https://github.com/Sage/carbon/compare/v143.2.3...v143.2.4) (2024-10-18)
+
+
+### Bug Fixes
+
+* **action-popover:** ensure that opening using the up arrow focuses last element in the menu ([38aaed9](https://github.com/Sage/carbon/commit/38aaed9f7abaa7c5fe7750d9f9a61b60c3a3b0f3)), closes [#6826](https://github.com/Sage/carbon/issues/6826)
+
+### [143.2.3](https://github.com/Sage/carbon/compare/v143.2.2...v143.2.3) (2024-10-18)
+
+
+### Bug Fixes
+
+* downgrade @tanstack/react-virtual to version 3.10.1 ([b1cd42f](https://github.com/Sage/carbon/commit/b1cd42ffc258b9fda8db76009876128cd3b7c2bb))
+
+### [143.2.2](https://github.com/Sage/carbon/compare/v143.2.1...v143.2.2) (2024-10-16)
+
+
+### Bug Fixes
+
+* **switch:** fix screen reader announcements with new validation ([aed0ba0](https://github.com/Sage/carbon/commit/aed0ba027d8a640e8c253bce71f1911d40ce2b96)), closes [#6901](https://github.com/Sage/carbon/issues/6901)
+
+### [143.2.1](https://github.com/Sage/carbon/compare/v143.2.0...v143.2.1) (2024-10-16)
+
+
+### Bug Fixes
+
+* **badge:** ensure badge does not appear under child components ([d88d3ec](https://github.com/Sage/carbon/commit/d88d3ec2d79419827aeacf27549b76e9c753c82b)), closes [#6765](https://github.com/Sage/carbon/issues/6765)
+
 ## [143.2.0](https://github.com/Sage/carbon/compare/v143.1.0...v143.2.0) (2024-10-15)
 
 

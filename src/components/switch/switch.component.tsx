@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useContext, useRef } from "react";
-
 import { MarginProps } from "styled-system";
 
 import Box from "../box";
@@ -13,10 +12,9 @@ import Logger from "../../__internal__/utils/logger";
 import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-import guid from "../../__internal__/utils/helpers/guid";
 import StyledSwitch, { ErrorBorder, StyledHintText } from "./switch.style";
-
 import SwitchSlider from "./__internal__/switch-slider.component";
+import guid from "../../__internal__/utils/helpers/guid";
 
 export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -58,12 +56,12 @@ export const Switch = React.forwardRef(
       onFocus,
       value,
       checked,
-      required,
-      isOptional,
       defaultChecked,
       disabled,
       loading,
       reverse = true,
+      required,
+      isOptional,
       validationOnLabel = false,
       labelInline = false,
       labelSpacing,
