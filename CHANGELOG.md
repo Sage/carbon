@@ -1,3 +1,17 @@
+### [143.2.4](https://github.com/Sage/carbon/compare/v143.2.3...v143.2.4) (2024-10-18)
+
+
+### Bug Fixes
+
+* **action-popover:** ensure that opening using the up arrow focuses last element in the menu ([38aaed9](https://github.com/Sage/carbon/commit/38aaed9f7abaa7c5fe7750d9f9a61b60c3a3b0f3)), closes [#6826](https://github.com/Sage/carbon/issues/6826)
+
+### [143.2.3](https://github.com/Sage/carbon/compare/v143.2.2...v143.2.3) (2024-10-18)
+
+
+### Bug Fixes
+
+* downgrade @tanstack/react-virtual to version 3.10.1 ([b1cd42f](https://github.com/Sage/carbon/commit/b1cd42ffc258b9fda8db76009876128cd3b7c2bb))
+
 ### [143.2.2](https://github.com/Sage/carbon/compare/v143.2.1...v143.2.2) (2024-10-16)
 
 
