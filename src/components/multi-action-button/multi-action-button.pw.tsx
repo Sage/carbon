@@ -15,7 +15,6 @@ import {
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
-  continuePressingTAB,
 } from "../../../playwright/support/helper";
 import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
 import {
@@ -265,7 +264,6 @@ test.describe("Functional tests", () => {
     const listButton1 = getDataElementByValue(page, "additional-buttons")
       .getByRole("button")
       .nth(0);
-    await continuePressingTAB(page, 2);
     await page.keyboard.press("ArrowUp");
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("ArrowUp");
@@ -290,8 +288,8 @@ test.describe("Functional tests", () => {
     const listButton2 = getDataElementByValue(page, "additional-buttons")
       .getByRole("button")
       .nth(1);
-    await continuePressingTAB(page, 2);
-    await expect(listButton2).toBeFocused();
+
+    await listButton2.focus();
     await page.keyboard.press("Shift+Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("Shift+Tab");
@@ -313,8 +311,8 @@ test.describe("Functional tests", () => {
     const listButton3 = getDataElementByValue(page, "additional-buttons")
       .getByRole("button")
       .nth(2);
-    await continuePressingTAB(page, 3);
-    await expect(listButton3).toBeFocused();
+
+    await listButton3.focus();
     await page.keyboard.press("ArrowDown");
     await expect(listButton3).toBeFocused();
   });
@@ -325,7 +323,10 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionTwoButtons />);
 
-    await page.keyboard.press("Tab");
+    const actionButton = getComponent(page, "multi-action-button")
+      .first()
+      .locator("button");
+    await actionButton.click();
     const listButton1 = getDataElementByValue(page, "additional-buttons")
       .getByRole("button")
       .nth(0);
@@ -335,7 +336,8 @@ test.describe("Functional tests", () => {
     const listButton3 = getDataElementByValue(page, "additional-buttons")
       .getByRole("button")
       .nth(2);
-    await page.keyboard.press("Space");
+
+    await page.keyboard.press("Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(listButton2).toBeFocused();
@@ -363,8 +365,8 @@ test.describe("Functional tests", () => {
     const listButton3 = getDataElementByValue(page, "additional-buttons")
       .getByRole("button")
       .nth(2);
-    await continuePressingTAB(page, 3);
-    await expect(listButton3).toBeFocused();
+
+    await listButton3.focus();
     await page.keyboard.down("Meta");
     await page.keyboard.press("ArrowUp");
     await page.keyboard.up("Meta");
@@ -387,8 +389,8 @@ test.describe("Functional tests", () => {
     const listButton3 = getDataElementByValue(page, "additional-buttons")
       .getByRole("button")
       .nth(2);
-    await continuePressingTAB(page, 3);
-    await expect(listButton3).toBeFocused();
+
+    await listButton3.focus();
     await page.keyboard.down("Control");
     await page.keyboard.press("ArrowUp");
     await page.keyboard.up("Control");
@@ -411,8 +413,8 @@ test.describe("Functional tests", () => {
     const listButton3 = getDataElementByValue(page, "additional-buttons")
       .getByRole("button")
       .nth(2);
-    await continuePressingTAB(page, 3);
-    await expect(listButton3).toBeFocused();
+
+    await listButton3.focus();
     await page.keyboard.press("Home");
     await expect(listButton1).toBeFocused();
   });
@@ -545,7 +547,7 @@ test.describe(
       const listButton1 = getDataElementByValue(page, "additional-buttons")
         .getByRole("button")
         .nth(0);
-      await continuePressingTAB(page, 2);
+
       await page.keyboard.press("ArrowUp");
       await expect(listButton1).toBeFocused();
       await page.keyboard.press("ArrowUp");
@@ -570,8 +572,8 @@ test.describe(
       const listButton2 = getDataElementByValue(page, "additional-buttons")
         .getByRole("button")
         .nth(1);
-      await continuePressingTAB(page, 2);
-      await expect(listButton2).toBeFocused();
+
+      await listButton2.focus();
       await page.keyboard.press("Shift+Tab");
       await expect(listButton1).toBeFocused();
       await page.keyboard.press("Shift+Tab");
@@ -593,8 +595,8 @@ test.describe(
       const listButton3 = getDataElementByValue(page, "additional-buttons")
         .getByRole("button")
         .nth(2);
-      await continuePressingTAB(page, 3);
-      await expect(listButton3).toBeFocused();
+
+      await listButton3.focus();
       await page.keyboard.press("ArrowDown");
       await expect(listButton3).toBeFocused();
     });
@@ -605,7 +607,10 @@ test.describe(
     }) => {
       await mount(<WithWrapperTwoButtons />);
 
-      await page.keyboard.press("Tab");
+      const actionButton = getComponent(page, "multi-action-button")
+        .first()
+        .locator("button");
+      await actionButton.click();
       const listButton1 = getDataElementByValue(page, "additional-buttons")
         .getByRole("button")
         .nth(0);
@@ -615,7 +620,8 @@ test.describe(
       const listButton3 = getDataElementByValue(page, "additional-buttons")
         .getByRole("button")
         .nth(2);
-      await page.keyboard.press("Space");
+
+      await page.keyboard.press("Tab");
       await expect(listButton1).toBeFocused();
       await page.keyboard.press("Tab");
       await expect(listButton2).toBeFocused();
@@ -643,8 +649,8 @@ test.describe(
       const listButton3 = getDataElementByValue(page, "additional-buttons")
         .getByRole("button")
         .nth(2);
-      await continuePressingTAB(page, 3);
-      await expect(listButton3).toBeFocused();
+
+      await listButton3.focus();
       await page.keyboard.down("Meta");
       await page.keyboard.press("ArrowUp");
       await page.keyboard.up("Meta");
@@ -667,8 +673,8 @@ test.describe(
       const listButton3 = getDataElementByValue(page, "additional-buttons")
         .getByRole("button")
         .nth(2);
-      await continuePressingTAB(page, 3);
-      await expect(listButton3).toBeFocused();
+
+      await listButton3.focus();
       await page.keyboard.down("Control");
       await page.keyboard.press("ArrowUp");
       await page.keyboard.up("Control");
@@ -691,8 +697,8 @@ test.describe(
       const listButton3 = getDataElementByValue(page, "additional-buttons")
         .getByRole("button")
         .nth(2);
-      await continuePressingTAB(page, 3);
-      await expect(listButton3).toBeFocused();
+
+      await listButton3.focus();
       await page.keyboard.press("Home");
       await expect(listButton1).toBeFocused();
     });

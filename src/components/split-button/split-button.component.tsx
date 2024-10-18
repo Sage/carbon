@@ -74,6 +74,7 @@ export const SplitButton = ({
   const theme = useContext(ThemeContext) || baseTheme;
   const buttonLabelId = useRef(guid());
 
+  const mainButtonRef = useRef<HTMLButtonElement>(null);
   const toggleButton = useRef<HTMLButtonElement>(null);
 
   const {
@@ -86,20 +87,33 @@ export const SplitButton = ({
     contextValue,
   } = useChildButtons(toggleButton, CONTENT_WIDTH_RATIO);
 
+  const handleMainClick = (
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
+    // ensure button is focused when clicked (Safari)
+    mainButtonRef.current?.focus();
+    if (onClick) {
+      onClick(ev as React.MouseEvent<HTMLButtonElement>);
+    }
+  };
+
   const mainButtonProps = {
-    onMouseEnter: hideButtons,
     onFocus: hideButtons,
     onTouchStart: hideButtons,
     iconPosition,
     buttonType,
     disabled,
     iconType,
-    onClick: onClick as React.MouseEventHandler<
-      HTMLButtonElement | HTMLAnchorElement
-    >,
+    onClick: handleMainClick,
     size,
     subtext,
     ...filterOutStyledSystemSpacingProps(rest),
+  };
+
+  const handleToggleClick = () => {
+    // ensure button is focused when clicked (Safari)
+    toggleButton.current?.focus();
+    showButtons();
   };
 
   const toggleButtonProps = {
@@ -107,7 +121,7 @@ export const SplitButton = ({
     displayed: showAdditionalButtons,
     onTouchStart: showButtons,
     onKeyDown: handleToggleButtonKeyDown,
-    onClick: showButtons,
+    onClick: handleToggleClick,
     buttonType,
     size,
   };
@@ -134,6 +148,7 @@ export const SplitButton = ({
         data-element="main-button"
         key="main-button"
         id={buttonLabelId.current}
+        ref={mainButtonRef}
         {...mainButtonProps}
       >
         {text}
