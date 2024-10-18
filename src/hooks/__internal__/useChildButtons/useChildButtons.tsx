@@ -8,10 +8,13 @@ const useChildButtons = (
 ) => {
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
   const [minWidth, setMinWidth] = useState(0);
+  const [
+    focusFirstChildButtonOnOpen,
+    setFocusFirstChildButtonOnOpen,
+  ] = useState(false);
 
   const buttonNode = useRef<HTMLDivElement>(null);
   const childrenContainer = useRef<HTMLUListElement>(null);
-  const focusFirstChildButtonOnOpen = useRef(false);
 
   const hideButtons = useCallback(() => {
     setShowAdditionalButtons(false);
@@ -38,32 +41,28 @@ const useChildButtons = (
 
   useEffect(() => {
     const firstChild = getButtonChildren()?.[0];
-    if (
-      focusFirstChildButtonOnOpen.current &&
-      showAdditionalButtons &&
-      firstChild
-    ) {
-      focusFirstChildButtonOnOpen.current = false;
+    if (focusFirstChildButtonOnOpen && showAdditionalButtons && firstChild) {
+      setFocusFirstChildButtonOnOpen(false);
       firstChild.focus();
     }
-  }, [showAdditionalButtons, getButtonChildren]);
+  }, [showAdditionalButtons, getButtonChildren, focusFirstChildButtonOnOpen]);
 
   const handleToggleButtonKeyDown = (
     ev: React.KeyboardEvent<HTMLButtonElement>
   ) => {
-    if (
+    const isToggleKey =
       Events.isEnterKey(ev) ||
       Events.isSpaceKey(ev) ||
       Events.isDownKey(ev) ||
-      Events.isUpKey(ev)
-    ) {
-      ev.preventDefault();
+      Events.isUpKey(ev);
 
-      if (!showAdditionalButtons) {
+    if (isToggleKey || (showAdditionalButtons && Events.isTabKey(ev))) {
+      ev.preventDefault();
+      setFocusFirstChildButtonOnOpen(true);
+
+      if (isToggleKey && !showAdditionalButtons) {
         showButtons();
       }
-
-      focusFirstChildButtonOnOpen.current = true;
     }
   };
 
