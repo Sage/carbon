@@ -8,4 +8,19 @@ export const allModes = {
       width: 900,
     },
   },
+  xsm: {
+    viewport: "xsm",
+  },
+  sm: {
+    viewport: "sm",
+  },
+  md: {
+    viewport: "md",
+  },
+  lg: {
+    viewport: "lg",
+  },
+  xl: {
+    viewport: "xl",
+  },
 };
