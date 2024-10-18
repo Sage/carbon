@@ -299,3 +299,142 @@ export const NewValidationString: Story = () => {
   );
 };
 NewValidationString.storyName = "Single Switch - New Validation";
+
+export const NewValidationInlineDefault: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch label="Example switch" labelInline />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineDefault.storyName = "New Validation - Inline";
+
+export const NewValidationInlineDefaultWithOptions: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineDefaultWithOptions.storyName =
+  "New Validation - Inline with options";
+
+export const NewValidationInlineError: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch (error state)"
+          labelInline
+          error="Error message (Fix is required)"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineError.storyName = "New Validation - Inline with error";
+
+export const NewValidationInlineErrorAndOptions: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch (error state)"
+          labelInline
+          error="Error message (Fix is required)"
+          labelHelp="Hint text"
+          fieldHelp="Field help"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineErrorAndOptions.storyName =
+  "New Validation - Inline with error and options";
+
+export const NewValidationInlineWarning: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch (warning state)"
+          labelInline
+          warning="Warning message (Fix is required)"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWarning.storyName = "New Validation - Inline with warning";
+
+export const NewValidationInlineWithOverflowHintText: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Really long hint text that should wrap to the next line if it gets too long"
+          fieldHelp="Field help"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWithOverflowHintText.storyName =
+  "New Validation - Inline with overflowing hint text";
+
+export const NewValidationInlineWithOverflowFieldHelp: Story = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch"
+          labelInline
+          labelHelp="Hint text"
+          fieldHelp="Really long field help that should extend beyond the control regardless of length"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWithOverflowFieldHelp.storyName =
+  "New Validation - Inline with overflowing field help";
+
+export const NewValidationInlineWithDarkMode: Story = () => {
+  return (
+    <Box m={2} padding={3} backgroundColor="#000000">
+      <CarbonProvider validationRedesignOptIn>
+        <Switch label="Example switch" labelInline isDarkBackground />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWithDarkMode.storyName =
+  "New Validation - Inline with dark background support";
+
+export const NewValidationInlineWithDarkModeAndError: Story = () => {
+  return (
+    <Box m={2} padding={3} backgroundColor="#000000">
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch (error state)"
+          labelInline
+          isDarkBackground
+          error="Error message (Fix is required)"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWithDarkModeAndError.storyName =
+  "New Validation - Inline with dark background support and error";
