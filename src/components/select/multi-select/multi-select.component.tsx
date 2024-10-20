@@ -149,7 +149,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const accessibilityLabelId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
-    const isInputFocused = useRef(false);
     const isClickTriggeredBySelect = useRef(false);
     const isMouseDownReported = useRef(false);
     const isMouseDownOnInput = useRef(false);
@@ -514,8 +513,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         return;
       }
 
-      isInputFocused.current = false;
-
       onBlur?.(event);
     }
 
@@ -532,6 +529,8 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     }
 
     function handleTextboxFocus(event: React.FocusEvent<HTMLInputElement>) {
+      onFocus?.(event);
+
       if (openOnFocus) {
         window.clearTimeout(focusTimer.current);
 
@@ -541,11 +540,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           if (open) return;
 
           onOpen?.();
-
-          if (onFocus && !isInputFocused.current) {
-            onFocus?.(event);
-            isInputFocused.current = true;
-          }
 
           if (isMouseDownReported.current && !isMouseDownOnInput.current) {
             isOpenedByFocus.current = false;
@@ -558,9 +552,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           }
           setOpen(true);
         });
-      } else if (onFocus && !isInputFocused.current) {
-        onFocus?.(event);
-        isInputFocused.current = true;
       }
     }
 
