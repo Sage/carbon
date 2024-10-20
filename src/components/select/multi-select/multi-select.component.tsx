@@ -488,24 +488,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       }
     }
 
-    function handleDropdownIconClick(
-      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
-    ) {
-      isMouseDownReported.current = false;
-
-      onClick?.(event as React.MouseEvent<HTMLInputElement>);
-
-      if (open) {
-        setFilterText("");
-        setOpen(false);
-        return;
-      }
-
-      onOpen?.();
-
-      setOpen(true);
-    }
-
     function handleTextboxBlur(event: React.FocusEvent<HTMLInputElement>) {
       isMouseDownOnInput.current = false;
 
@@ -516,12 +498,9 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       onBlur?.(event);
     }
 
-    function handleTextboxMouseDown(event: React.MouseEvent<HTMLElement>) {
+    function handleTextboxMouseDown() {
       isMouseDownReported.current = true;
-
-      if ((event.target as HTMLInputElement).dataset.element === "input") {
-        isMouseDownOnInput.current = true;
-      }
+      isMouseDownOnInput.current = true;
     }
 
     function handleListMouseDown() {
@@ -630,8 +609,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         onMouseDown: handleTextboxMouseDown,
         onFocus: handleTextboxFocus,
         onBlur: handleTextboxBlur,
-        iconOnClick: handleDropdownIconClick,
-        iconOnMouseDown: handleTextboxMouseDown,
         onKeyDown: handleTextboxKeydown,
         onChange: handleTextboxChange,
         tooltipPosition,

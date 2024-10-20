@@ -522,6 +522,19 @@ describe("dropdown list", () => {
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
     );
   });
+
+  it("does not close accidentially when clicking on the input and openOnFocus prop is true", async () => {
+    const user = userEvent.setup();
+    render(
+      <MultiSelect label="Colour" onChange={() => {}} openOnFocus>
+        <Option text="amber" value="amber" />
+      </MultiSelect>
+    );
+
+    await user.click(screen.getByRole("combobox"));
+
+    expect(await screen.findByRole("listbox")).toBeVisible();
+  });
 });
 
 describe("when dropdown list is opened", () => {
