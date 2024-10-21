@@ -767,6 +767,21 @@ test.describe("should render Box component", () => {
       "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px"
     );
   });
+
+  test("should render without a visible focus outline, when focused with a set `tabIndex`", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Default tabIndex={0} />);
+    const boxElement = getDataElementByValue(page, "box");
+
+    await boxElement.focus();
+    await expect(boxElement).toBeFocused();
+    await expect(boxElement).toHaveCSS(
+      "outline",
+      "rgb(255, 255, 255) none 0px"
+    );
+  });
 });
 
 test.describe("Accessibility tests for Box", () => {
