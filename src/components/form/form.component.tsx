@@ -107,6 +107,7 @@ export const Form = ({
       </StyledFormContent>
       {renderFooter && (
         <StyledFormFooter
+          data-component="form-footer"
           data-element="form-footer"
           data-role="form-footer"
           className={classNames}
