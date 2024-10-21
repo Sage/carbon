@@ -20,6 +20,8 @@ import {
   waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import {
+  Default,
+  DefaultNested,
   SidebarBackgroundScrollTestComponent,
   SidebarBackgroundScrollWithOtherFocusableContainers,
   SidebarComponent,
@@ -268,6 +270,78 @@ test.describe("Prop tests for Sidebar component", () => {
     const closeIconButtonElement = closeIconButton(page).nth(1);
 
     await expect(closeIconButtonElement).toBeFocused();
+  });
+
+  test("when Sidebar is opened and then closed, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Default open={false} />);
+
+    const button = page.getByRole("button").filter({ hasText: "Open sidebar" });
+    const sidebar = sidebarPreview(page);
+    await expect(button).not.toBeFocused();
+    await expect(sidebar).not.toBeVisible();
+
+    await button.click();
+    await expect(sidebar).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(button).toBeFocused();
+    await expect(sidebar).not.toBeVisible();
+  });
+
+  test("when Sidebar is open on render, then closed, opened and then closed again, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Default />);
+
+    const sidebar = sidebarPreview(page);
+    await expect(sidebar).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+
+    const button = page.getByRole("button").filter({ hasText: "Open sidebar" });
+    await expect(button).not.toBeFocused();
+    await expect(sidebar).not.toBeVisible();
+
+    await button.click();
+    await expect(sidebar).toBeVisible();
+    await closeButton.click();
+    await expect(button).toBeFocused();
+  });
+
+  test("when nested Sidebar's are opened/closed their respective call to action elements should be focused correctly", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultNested />);
+
+    const firstButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open First Sidebar" });
+    const firstSidebar = sidebarPreview(page).first();
+    await expect(firstButton).not.toBeFocused();
+    await expect(firstSidebar).not.toBeVisible();
+
+    await firstButton.click();
+    await expect(firstSidebar).toBeVisible();
+    const secondButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Nested Sidebar" });
+    await expect(secondButton).not.toBeFocused();
+    await secondButton.click();
+    const secondSidebar = sidebarPreview(page).last();
+    await expect(secondSidebar).toBeVisible();
+
+    const secondCloseButton = page.getByLabel("Close").last();
+    await secondCloseButton.click();
+    await expect(secondButton).toBeFocused();
+
+    const firstCloseButton = page.getByLabel("Close").first();
+    await firstCloseButton.click();
+    await expect(firstButton).toBeFocused();
   });
 
   test("should call onCancel callback when a click event is triggered", async ({
