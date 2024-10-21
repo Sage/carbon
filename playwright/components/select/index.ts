@@ -14,7 +14,6 @@ import {
   SELECT_LIST_SCROLLABLE_WRAPPER,
 } from "./locators";
 import { PILL_PREVIEW } from "../pill/locators";
-import { ALERT_DIALOG } from "../dialog/locators";
 import { getDataElementByValue } from "..";
 
 // component preview locators
@@ -101,9 +100,6 @@ export const filterableSelectAddElementButton = (page: Page) =>
 
 export const filterableSelectButtonIcon = (page: Page) =>
   filterableSelectAddElementButton(page).locator("span:nth-child(2)");
-
-export const filterableSelectAddNewButton = (page: Page) =>
-  page.locator(ALERT_DIALOG).locator("div:nth-child(3) > div > button");
 
 export const selectResetButton = (page: Page) =>
   page.locator(SELECT_RESET_BUTTON);

@@ -8,7 +8,6 @@ import {
 import userEvent from "@testing-library/user-event";
 
 import CarbonProvider from "../carbon-provider";
-import Form from "../form";
 import Dialog, { DialogHandle, DialogProps } from ".";
 
 beforeEach(() => jest.useFakeTimers());
@@ -264,10 +263,10 @@ test("height prop controls the dialog's height", () => {
   expect(screen.getByRole("dialog")).toHaveStyle({ height: "500px" });
 });
 
-test("dialog has correct max-height", () => {
+test("maximum height of the dialog is 90% of the viewport height", () => {
   render(<Dialog open title="My dialog" />);
   expect(screen.getByRole("dialog")).toHaveStyle({
-    maxHeight: "calc(100vh - 20px)",
+    maxHeight: "90vh",
   });
 });
 
@@ -306,19 +305,6 @@ test("renders with grey background when greyBackground prop is passed", () => {
   });
 });
 
-test("does not apply vertical overflow styling to the content container when it contains a Form with a sticky footer", () => {
-  render(
-    <Dialog open>
-      <Form stickyFooter />
-    </Dialog>
-  );
-
-  const content = screen.getByTestId("dialog-content");
-
-  expect(content).not.toHaveStyle("overflow-y: auto");
-  expect(content).not.toHaveStyle("overflow-y: scroll");
-});
-
 test("dialog is wrapped in a container, which has the correct class names set, when className prop is passed", () => {
   render(<Dialog open title="My dialog" className="special-dialog" />);
 
@@ -331,70 +317,23 @@ test("dialog is wrapped in a container, which has the correct class names set, w
   expect(modalWrapper).toHaveClass("carbon-dialog special-dialog");
 });
 
-test("renders dialog with 'left' set to 32px when 'size' is 'maximise' and window width is greater than 960px", () => {
-  window.innerWidth = 1000;
-  render(<Dialog open title="my dialog" size="maximise" />);
-
-  const dialog = screen.getByRole("dialog", { name: /my dialog/i });
-  expect(dialog).toHaveStyle({ left: "32px" });
-});
-
-test("renders dialog with 'top' set to 32px when 'size' is 'maximise' and window width is greater than 960px", () => {
-  window.innerWidth = 1000;
-  render(<Dialog open title="my dialog" size="maximise" />);
-
-  const dialog = screen.getByRole("dialog", { name: /my dialog/i });
-  expect(dialog).toHaveStyle({ top: "32px" });
-});
-
-test("renders dialog with 'left' set to 16px when 'size' is 'maximise' and window width is less than 960px", () => {
-  window.innerWidth = 700;
-  render(<Dialog open title="my dialog" size="maximise" />);
-
-  const dialog = screen.getByRole("dialog", { name: /my dialog/i });
-  expect(dialog).toHaveStyle({ left: "16px" });
-});
-
-test("renders dialog with 'top' set to 16px when 'size' is 'maximise' and window width is less than 960px", () => {
-  window.innerWidth = 700;
-  render(<Dialog open title="my dialog" size="maximise" />);
-
-  const dialog = screen.getByRole("dialog", { name: /my dialog/i });
-  expect(dialog).toHaveStyle({ top: "16px" });
-});
-
-test("dialog does not position itself any closer than 20px from the top of the viewport", () => {
-  const originalInnerHeight = window.innerHeight;
-  window.innerHeight = 300;
-  jest
-    .spyOn(Element.prototype, "getBoundingClientRect")
-    .mockReturnValue({ height: 361 } as DOMRect);
-
-  render(<Dialog open title="My dialog" />);
+test("dialog is positioned correctly, when size prop is maximise", () => {
+  render(<Dialog open title="My dialog" size="maximise" />);
 
   const dialog = screen.getByRole("dialog");
-
-  expect(dialog).toHaveStyle({ top: "20px" });
-
-  window.innerHeight = originalInnerHeight;
-  jest.restoreAllMocks();
+  expect(dialog).toHaveStyle(`
+    height: calc(100% - var(--spacing400));
+    width: calc(100% - var(--spacing400));
+  `);
 });
 
-test("dialog does not position itself such that it goes off the left edge of the viewport", () => {
-  const originalInnerWidth = window.innerWidth;
-  window.innerWidth = 300;
-  jest
-    .spyOn(Element.prototype, "getBoundingClientRect")
-    .mockReturnValue({ width: 301 } as DOMRect);
-
-  render(<Dialog open title="My dialog" />);
-
-  const dialog = screen.getByRole("dialog");
-
-  expect(dialog).toHaveStyle({ left: "0px" });
-
-  window.innerWidth = originalInnerWidth;
-  jest.restoreAllMocks();
+test("prevents content from overflowing", () => {
+  render(
+    <Dialog open title="My dialog">
+      Content
+    </Dialog>
+  );
+  expect(screen.getByTestId("dialog-content")).toHaveStyle("overflow-y: auto");
 });
 
 test("no padding is rendered around dialog content, when zero padding is specified via contentPadding prop", () => {
@@ -405,10 +344,8 @@ test("no padding is rendered around dialog content, when zero padding is specifi
   );
 
   const content = screen.getByTestId("dialog-content");
-  const innerContent = screen.getByTestId("dialog-inner-content");
 
   expect(content).toHaveStyle({ padding: "var(--spacing000)" });
-  expect(innerContent).toHaveStyle({ paddingTop: "0px" });
 });
 
 test("background scroll remains disabled when returning to outer dialog after closing inner dialog", async () => {

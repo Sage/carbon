@@ -3,10 +3,7 @@ import { margin } from "styled-system";
 import StyledAdvancedColorPickerCell from "./advanced-color-picker-cell.style";
 import { StyledColorOptions } from "../simple-color-picker/simple-color-picker.style";
 import { StyledSimpleColor } from "../simple-color-picker/simple-color/simple-color.style";
-import {
-  StyledDialogContent,
-  StyledDialogInnerContent,
-} from "../dialog/dialog.style";
+import { StyledDialogContent } from "../dialog/dialog.style";
 import Dialog from "../dialog/dialog.component";
 import StyledIconButton from "../icon-button/icon-button.style";
 import checkerBoardSvg from "../simple-color-picker/simple-color/checker-board.svg";
@@ -57,10 +54,6 @@ const StyledAdvancedColorPickerPreview = styled.div`
 const DialogStyle = styled(Dialog)`
   ${StyledDialogContent} {
     padding: var(--spacing200);
-  }
-
-  ${StyledDialogInnerContent} {
-    padding: 0;
   }
 
   ${StyledColorOptions} {

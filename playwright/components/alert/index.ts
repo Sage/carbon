@@ -27,15 +27,4 @@ const alertDialog = (page: Page) => {
   return page.locator(ALERT_DIALOG);
 };
 
-const alertChildren = (page: Page) => {
-  return page.locator('[data-component="alert"] div:nth-of-type(2) div');
-};
-
-export {
-  alert,
-  alertCrossIcon,
-  alertTitle,
-  alertSubtitle,
-  alertDialog,
-  alertChildren,
-};
+export { alert, alertCrossIcon, alertTitle, alertSubtitle, alertDialog };
