@@ -55,6 +55,28 @@ it("displays heading when title prop is provided", () => {
   ).toBeVisible();
 });
 
+it("has accessible name on the sidebar when sidebarAriaLabel prop is provided", () => {
+  render(
+    <Drawer sidebarAriaLabel="test" sidebar="Sidebar content">
+      Foobar
+    </Drawer>
+  );
+
+  expect(screen.getByTestId("drawer-content")).toHaveAccessibleName("test");
+});
+
+it("renders sidebar with accessible name set to the `title` when provided", () => {
+  render(
+    <Drawer title={<h2>Test title</h2>} sidebar="Sidebar content">
+      Foobar
+    </Drawer>
+  );
+
+  expect(screen.getByTestId("drawer-content")).toHaveAccessibleName(
+    "Test title"
+  );
+});
+
 it("renders sidebar header as sticky when stickyHeader prop is true", () => {
   render(
     <Drawer stickyHeader expanded title="Test title" sidebar="Sidebar content">

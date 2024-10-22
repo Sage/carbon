@@ -28,15 +28,20 @@ import Pager from "../pager";
 const meta: Meta<typeof Drawer> = {
   title: "Drawer",
   component: Drawer,
-  parameters: { chromatic: { disableSnapshot: true } },
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Drawer>;
 
-export const Default: Story = () => (
+export const Default: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
+      sidebarAriaLabel="default"
       expandedWidth="40%"
       animationDuration="0.5s"
       sidebar={
@@ -46,6 +51,7 @@ export const Default: Story = () => (
           <li>link c</li>
         </ul>
       }
+      {...args}
     >
       content body content body content body content body content body content
       body content body
@@ -75,6 +81,7 @@ CustomHeight.storyName = "Custom Height";
 CustomHeight.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
+  sidebarAriaLabel: "custom height",
 };
 
 export const BackgroundColorRed: Story = (args: DrawerProps) => (
@@ -98,6 +105,7 @@ BackgroundColorRed.storyName = "Background Color Red";
 BackgroundColorRed.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
+  sidebarAriaLabel: "custom background color red",
   backgroundColor: "#FF0000",
 };
 
@@ -122,6 +130,7 @@ BackgroundColorWhite.storyName = "Background Color White";
 BackgroundColorWhite.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
+  sidebarAriaLabel: "custom background color white",
   backgroundColor: "#FFFFFF",
 };
 
@@ -146,10 +155,11 @@ BackgroundColorTransparent.storyName = "Background Color Transparent";
 BackgroundColorTransparent.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
+  sidebarAriaLabel: "custom background color transparent",
   backgroundColor: "transparent",
 };
 
-export const Title: Story = () => (
+export const Title: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
       expandedWidth="40%"
@@ -162,6 +172,7 @@ export const Title: Story = () => (
           <li>link c</li>
         </ul>
       }
+      {...args}
     >
       content body content body content body content body content body content
       body content body
@@ -169,6 +180,28 @@ export const Title: Story = () => (
   </Box>
 );
 Title.storyName = "Title";
+
+export const WithSidebarAriaLabel: Story = (args: DrawerProps) => (
+  <Box height="200px">
+    <Drawer
+      expandedWidth="40%"
+      animationDuration="0.5s"
+      sidebarAriaLabel="sidebar aria label"
+      sidebar={
+        <ul>
+          <li>link a</li>
+          <li>link b</li>
+          <li>link c</li>
+        </ul>
+      }
+      {...args}
+    >
+      content body content body content body content body content body content
+      body content body
+    </Drawer>
+  </Box>
+);
+WithSidebarAriaLabel.storyName = "Sidebar Aria Label";
 
 export const WithControls: Story = (args: DrawerProps) => (
   <Box height="200px">
@@ -192,12 +225,13 @@ WithControls.storyName = "With Controls";
 WithControls.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
+  sidebarAriaLabel: "with controls",
 };
 
 export const WithStickyHeader: Story = () => (
   <Box height="400px">
     <Drawer
-      title={<Typography variant="h2">Drawer title</Typography>}
+      title={<Typography variant="h2">Sticky Header</Typography>}
       stickyHeader
       showControls
       expandedWidth="40%"
@@ -272,7 +306,7 @@ WithStickyHeader.storyName = "With Sticky Header";
 export const WithFooter: Story = () => (
   <Box height="400px">
     <Drawer
-      title={<Typography variant="h2">Drawer title</Typography>}
+      title={<Typography variant="h2">With Footer</Typography>}
       stickyHeader
       showControls
       expandedWidth="40%"
@@ -355,7 +389,7 @@ WithFooter.storyName = "With Footer";
 export const WithStickyFooter: Story = () => (
   <Box height="400px">
     <Drawer
-      title={<Typography variant="h2">Drawer title</Typography>}
+      title={<Typography variant="h2">Sticky Footer</Typography>}
       stickyHeader
       stickyFooter
       showControls
@@ -619,11 +653,13 @@ CustomSidebar.storyName = "Custom Sidebar";
 CustomSidebar.args = {
   expandedWidth: "35%",
   animationDuration: "0.5s",
+  sidebarAriaLabel: "custom sidebar",
 };
 
 export const CustomContent: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
+      sidebarAriaLabel="custom content"
       sidebar={
         <ul>
           <li>link a</li>
@@ -741,7 +777,7 @@ export const DifferentExpandedWidth: Story = () => {
       </p>
       <Box height="200px">
         <Drawer
-          title={<h2>Controllage Usage Drawer</h2>}
+          title={<h2>Custom Expanded Width</h2>}
           showControls
           expandedWidth="62%"
           expanded
@@ -776,7 +812,7 @@ export const DifferentAnimationSpeed: Story = () => {
       </p>
       <Box height="200px">
         <Drawer
-          title={<h2>Controllage Usage Drawer</h2>}
+          title={<h2>Custom Animation Duration</h2>}
           showControls
           expandedWidth="40%"
           animationDuration="3s"
@@ -978,6 +1014,7 @@ export const SideViewNavigation: Story = () => {
       <StyledDrawer
         expandedWidth="50%"
         animationDuration="0.5s"
+        sidebarAriaLabel="side view navigation"
         expanded={isExpanded}
         onChange={onChangeHandler}
         sidebar={
@@ -1040,7 +1077,7 @@ export const SideViewNavigation: Story = () => {
 SideViewNavigation.storyName = "Side View Navigation";
 
 export const WithTabControls: Story = () => {
-  const [active, setAcitve] = useState("tab-1");
+  const [active, setActive] = useState("tab-1");
   const [errors, setErrors] = useState({
     one: false,
     two: false,
@@ -1059,7 +1096,7 @@ export const WithTabControls: Story = () => {
     three: false,
     four: false,
   });
-  const vaidationStatus = {
+  const validationStatus = {
     "tab-1": { error: errors.one, warning: warnings.one, info: infos.one },
     "tab-2": { error: errors.two, warning: warnings.two, info: infos.two },
     "tab-3": {
@@ -1077,11 +1114,12 @@ export const WithTabControls: Story = () => {
     <Box height="200px">
       <Drawer
         expandedWidth="30%"
+        sidebarAriaLabel="with tab controls"
         sidebar={
           <Tabs
-            onTabChange={(id) => setAcitve(id)}
+            onTabChange={(id) => setActive(id)}
             borders="no sides"
-            validationStatusOverride={vaidationStatus}
+            validationStatusOverride={validationStatus}
           >
             <Tab
               errorMessage="error"

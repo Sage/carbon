@@ -113,7 +113,7 @@ interface StyledDrawerContentProps {
   expandedWidth: string;
 }
 
-const StyledDrawerContent = styled.div<StyledDrawerContentProps>`
+const StyledDrawerContent = styled.aside<StyledDrawerContentProps>`
   display: flex;
   flex-direction: column;
   min-width: ${defaultExpandedWidth};
