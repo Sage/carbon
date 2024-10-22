@@ -21,7 +21,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disableSnapshot: false,
+      disableSnapshot: true,
     },
   },
 };

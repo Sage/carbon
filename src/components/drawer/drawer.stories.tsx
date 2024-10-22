@@ -28,13 +28,17 @@ import Pager from "../pager";
 const meta: Meta<typeof Drawer> = {
   title: "Drawer",
   component: Drawer,
-  parameters: { chromatic: { disableSnapshot: true } },
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Drawer>;
 
-export const Default: Story = () => (
+export const Default: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
       expandedWidth="40%"
@@ -46,6 +50,7 @@ export const Default: Story = () => (
           <li>link c</li>
         </ul>
       }
+      {...args}
     >
       content body content body content body content body content body content
       body content body
@@ -149,7 +154,7 @@ BackgroundColorTransparent.args = {
   backgroundColor: "transparent",
 };
 
-export const Title: Story = () => (
+export const Title: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
       expandedWidth="40%"
@@ -162,6 +167,7 @@ export const Title: Story = () => (
           <li>link c</li>
         </ul>
       }
+      {...args}
     >
       content body content body content body content body content body content
       body content body
@@ -169,6 +175,28 @@ export const Title: Story = () => (
   </Box>
 );
 Title.storyName = "Title";
+
+export const WithSidebarAriaLabel: Story = (args: DrawerProps) => (
+  <Box height="200px">
+    <Drawer
+      expandedWidth="40%"
+      animationDuration="0.5s"
+      sidebarAriaLabel="list of items"
+      sidebar={
+        <ul>
+          <li>link a</li>
+          <li>link b</li>
+          <li>link c</li>
+        </ul>
+      }
+      {...args}
+    >
+      content body content body content body content body content body content
+      body content body
+    </Drawer>
+  </Box>
+);
+WithSidebarAriaLabel.storyName = "Sidebar Aria Label";
 
 export const WithControls: Story = (args: DrawerProps) => (
   <Box height="200px">

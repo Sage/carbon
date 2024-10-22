@@ -11,6 +11,7 @@ import {
   drawerToggle,
   drawerSidebar,
   drawerSidebarContentInnerElement,
+  drawerAsideContent,
 } from "../../../playwright/components/drawer";
 import { stickyFooter } from "../../../playwright/components/index";
 import {
@@ -180,12 +181,7 @@ test.describe("check props for Drawer component", () => {
   }) => {
     await mount(<DrawerCustom expandedWidth="65%" />);
 
-    const drawerElement = drawer(page);
-    await assertCssValueIsApproximately(
-      drawerElement.locator("div").first(),
-      "width",
-      887
-    );
+    await assertCssValueIsApproximately(drawerAsideContent(page), "width", 887);
   });
 
   test("should render component with custom backgroundColor", async ({
@@ -195,9 +191,9 @@ test.describe("check props for Drawer component", () => {
     await mount(<DrawerCustom backgroundColor="#FF0000" />);
 
     const color = "rgb(255, 0, 0)";
-    const drawerElement = drawer(page).locator("div").first();
-    await expect(drawerElement).toHaveCSS("background-color", color);
-    await expect(drawerElement).toHaveCSS("border-right-color", color);
+    const asideContent = drawerAsideContent(page);
+    await expect(asideContent).toHaveCSS("background-color", color);
+    await expect(asideContent).toHaveCSS("border-right-color", color);
   });
 
   test("should render component with custom height", async ({
@@ -213,8 +209,8 @@ test.describe("check props for Drawer component", () => {
   test("should render component with custom title", async ({ mount, page }) => {
     await mount(<DrawerCustom title="playwright_title" />);
 
-    const drawerElement = drawer(page).locator("div").locator("div").first();
-    await expect(drawerElement).toHaveText("playwright_title");
+    const drawerTitle = drawerAsideContent(page).locator("div").first();
+    await expect(drawerTitle).toHaveText("playwright_title");
   });
 
   test("should render component with toggle control when showControls prop is true", async ({
@@ -291,13 +287,9 @@ test.describe("check props for Drawer component", () => {
 
     const footer = stickyFooter(page);
     await footer.scrollIntoViewIfNeeded();
-    const drawerSelected = drawer(page)
-      .locator("div")
-      .locator("div")
-      .locator("div")
-      .first();
-    await expect(drawerSelected).toHaveText("Drawer title");
-    await expect(drawerSelected).toBeVisible();
+    const drawerTitle = drawerAsideContent(page).locator("div").first();
+    await expect(drawerTitle).toHaveText("Drawer title");
+    await expect(drawerTitle).toBeVisible();
   });
 });
 
