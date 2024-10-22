@@ -1581,7 +1581,12 @@ test("should submit the form when enter key is pressed", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onSubmit = jest.fn();
   render(
-    <form onSubmit={onSubmit}>
+    <form
+      onSubmit={(ev) => {
+        ev.preventDefault();
+        onSubmit(ev);
+      }}
+    >
       <NumeralDate
         value={{ dd: "11", mm: "11", yyyy: "2011" }}
         onChange={() => {}}

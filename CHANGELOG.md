@@ -1,3 +1,39 @@
+## [144.0.0](https://github.com/Sage/carbon/compare/v143.2.5...v144.0.0) (2024-10-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu, menu-item:** `Menu` no longer supports `height`, `minHeight`, `maxHeight`, `size`,
+`overflowY` and `display` props. `MenuItem` no longer supports `height`, `minHeight`,
+`maxHeight`, `size`, `verticalAlign`, `overflow`, `overflowY`, `overflowX` and
+`display` props.
+
+### Bug Fixes
+
+* **menu-item:** ensure that it does not render children when `submenu` is an empty string ([975d5c6](https://github.com/Sage/carbon/commit/975d5c659ab99193bb94a194c3b8de834a94c0b6)), closes [#7010](https://github.com/Sage/carbon/issues/7010)
+* **menu, menu-item:** ensure that menu-items all remain the same height if any wrap to new lines ([501337c](https://github.com/Sage/carbon/commit/501337c4651d5bdd4713e986c207e453bb6beb68)), closes [#6934](https://github.com/Sage/carbon/issues/6934) [#7000](https://github.com/Sage/carbon/issues/7000)
+
+### [143.2.5](https://github.com/Sage/carbon/compare/v143.2.4...v143.2.5) (2024-10-18)
+
+
+### Bug Fixes
+
+* **tile-select:** remove not allowed aria-expanded from accordion ([d43951d](https://github.com/Sage/carbon/commit/d43951d5b038da7019c974e7bbaa39cd21913bf1))
+
+### [143.2.4](https://github.com/Sage/carbon/compare/v143.2.3...v143.2.4) (2024-10-18)
+
+
+### Bug Fixes
+
+* **action-popover:** ensure that opening using the up arrow focuses last element in the menu ([38aaed9](https://github.com/Sage/carbon/commit/38aaed9f7abaa7c5fe7750d9f9a61b60c3a3b0f3)), closes [#6826](https://github.com/Sage/carbon/issues/6826)
+
+### [143.2.3](https://github.com/Sage/carbon/compare/v143.2.2...v143.2.3) (2024-10-18)
+
+
+### Bug Fixes
+
+* downgrade @tanstack/react-virtual to version 3.10.1 ([b1cd42f](https://github.com/Sage/carbon/commit/b1cd42ffc258b9fda8db76009876128cd3b7c2bb))
+
 ### [143.2.2](https://github.com/Sage/carbon/compare/v143.2.1...v143.2.2) (2024-10-16)
 
 
