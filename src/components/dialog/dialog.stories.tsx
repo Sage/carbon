@@ -63,15 +63,19 @@ export const DefaultStory: Story = {
   },
   render: function DefaultStory({ onCancel, ...args }) {
     const [{ open }, updateArgs] = useArgs();
+    const buttonRef = useRef<HTMLButtonElement>(null);
     return (
       <>
-        <Button onClick={() => updateArgs({ open: true })}>Open Dialog</Button>
+        <Button ref={buttonRef} onClick={() => updateArgs({ open: true })}>
+          Open Dialog
+        </Button>
         <Dialog
           {...args}
           open={open}
           onCancel={(ev) => {
             onCancel?.(ev);
             updateArgs({ open: false });
+            setTimeout(() => buttonRef.current?.focus(), 0);
           }}
         >
           <Form
