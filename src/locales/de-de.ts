@@ -106,6 +106,11 @@ const deDE: Partial<Locale> = {
   },
   message: {
     closeButtonAriaLabel: () => "Schließen",
+    error: () => "Fehler",
+    info: () => "Informationen",
+    success: () => "Erfolg",
+    warning: () => "Warnung",
+    neutral: () => "Informationen",
   },
   numeralDate: {
     validation: {

@@ -115,6 +115,11 @@ const enGB: Locale = {
   },
   message: {
     closeButtonAriaLabel: () => "Close",
+    error: () => "Error",
+    info: () => "Information",
+    success: () => "Success",
+    warning: () => "Warning",
+    neutral: () => "Information",
   },
   numeralDate: {
     validation: {

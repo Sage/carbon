@@ -24,6 +24,11 @@ test("when I18nProvider exists, it should return a translation function that pro
       locale={{
         locale: () => "en-GB",
         message: {
+          info: () => "Information",
+          success: () => "Success",
+          warning: () => "Warning",
+          neutral: () => "Neutral",
+          error: () => "Error",
           closeButtonAriaLabel: () => "test",
         },
       }}

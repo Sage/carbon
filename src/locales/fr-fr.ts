@@ -115,6 +115,11 @@ const frFR: Partial<Locale> = {
   },
   message: {
     closeButtonAriaLabel: () => "Fermer",
+    error: () => "Erreur",
+    info: () => "Information",
+    success: () => "Action réussie",
+    warning: () => "Avertissement",
+    neutral: () => "Information",
   },
   numeralDate: {
     validation: {

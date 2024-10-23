@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { MarginProps } from "styled-system";
 
+import Typography from "../typography";
 import MessageStyle from "./message.style";
 import TypeIcon from "./__internal__/type-icon/type-icon.component";
 import MessageContent from "./__internal__/message-content/message-content.component";
@@ -93,6 +94,7 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
         tabIndex={-1}
       >
         <TypeIcon variant={variant} transparent={transparent} />
+        <Typography screenReaderOnly>{l.message[variant]()}</Typography>
         <MessageContent
           showCloseIcon={showCloseIcon}
           title={title}
