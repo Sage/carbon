@@ -19,8 +19,3 @@ export const SIDEBAR_SIZES = [
 ];
 
 export const SIDEBAR_ALIGNMENTS = ["left", "right"];
-
-export const SIDEBAR_TOP_SPACING = "27px";
-export const SIDEBAR_BOTTOM_SPACING = "var(--spacing400)";
-export const SIDEBAR_LEFT_PADDING = "var(--spacing400)";
-export const SIDEBAR_RIGHT_PADDING = "var(--spacing400)";
