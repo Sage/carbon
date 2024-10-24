@@ -1,3 +1,27 @@
+### [144.0.1](https://github.com/Sage/carbon/compare/v144.0.0...v144.0.1) (2024-10-23)
+
+
+### Bug Fixes
+
+* **dialog:** ensure height never exceeds 90% of the viewport height ([619a651](https://github.com/Sage/carbon/commit/619a6516ac3b0ac05e55219e79df529b491a9031))
+* prevent sticky footer form content from overflowing in Carbon modal components ([cb77fb7](https://github.com/Sage/carbon/commit/cb77fb78f72d866458df49964c08f567b971a110)), closes [#6969](https://github.com/Sage/carbon/issues/6969)
+* resolve layout issues with sticky footer forms inside Carbon modal components ([0fe249d](https://github.com/Sage/carbon/commit/0fe249db3d2e598f73eaccd3388e6feea61c2c80))
+
+## [144.0.0](https://github.com/Sage/carbon/compare/v143.2.5...v144.0.0) (2024-10-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu, menu-item:** `Menu` no longer supports `height`, `minHeight`, `maxHeight`, `size`,
+`overflowY` and `display` props. `MenuItem` no longer supports `height`, `minHeight`,
+`maxHeight`, `size`, `verticalAlign`, `overflow`, `overflowY`, `overflowX` and
+`display` props.
+
+### Bug Fixes
+
+* **menu-item:** ensure that it does not render children when `submenu` is an empty string ([975d5c6](https://github.com/Sage/carbon/commit/975d5c659ab99193bb94a194c3b8de834a94c0b6)), closes [#7010](https://github.com/Sage/carbon/issues/7010)
+* **menu, menu-item:** ensure that menu-items all remain the same height if any wrap to new lines ([501337c](https://github.com/Sage/carbon/commit/501337c4651d5bdd4713e986c207e453bb6beb68)), closes [#6934](https://github.com/Sage/carbon/issues/6934) [#7000](https://github.com/Sage/carbon/issues/7000)
+
 ### [143.2.5](https://github.com/Sage/carbon/compare/v143.2.4...v143.2.5) (2024-10-18)
 
 

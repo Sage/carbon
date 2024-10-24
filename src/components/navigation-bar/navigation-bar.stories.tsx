@@ -83,7 +83,7 @@ export const ContentMaxWidthBox: Story = () => {
   return (
     <NavigationBar>
       <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-        <Menu display="flex" flex="1">
+        <Menu flex="1">
           <MenuItem flex="1" onClick={() => {}}>
             Menu Item One
           </MenuItem>
@@ -127,7 +127,7 @@ export const Sticky: Story = () => {
         aria-label="header"
       >
         <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-          <Menu display="flex" flex="1">
+          <Menu flex="1">
             <MenuItem flex="1" onClick={() => {}}>
               Menu Item One
             </MenuItem>
@@ -158,7 +158,7 @@ export const Sticky: Story = () => {
         aria-label="footer"
       >
         <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-          <Menu display="flex" flex="1">
+          <Menu flex="1">
             <MenuItem flex="1" onClick={() => {}}>
               Menu Item One
             </MenuItem>
@@ -189,7 +189,7 @@ export const Fixed: Story = () => {
         offset="25px"
         aria-label="header"
       >
-        <Menu display="flex" flex="1">
+        <Menu flex="1">
           <MenuItem flex="1" onClick={() => {}}>
             Menu Item One
           </MenuItem>
@@ -218,7 +218,7 @@ export const Fixed: Story = () => {
         offset="25px"
         aria-label="footer"
       >
-        <Menu display="flex" flex="1">
+        <Menu flex="1">
           <MenuItem flex="1" onClick={() => {}}>
             Menu Item One
           </MenuItem>

@@ -1,38 +1,23 @@
 import styled, { css } from "styled-components";
-import { PaddingProps } from "styled-system";
+import { PaddingProps, padding as paddingFn } from "styled-system";
 import computeSizing from "../../style/utils/element-sizing";
 
 import { SidebarProps } from "./sidebar.component";
 import baseTheme from "../../style/themes/base";
 import StyledIconButton from "../icon-button/icon-button.style";
-import {
-  calculateFormSpacingValues,
-  calculateWidthValue,
-} from "../../style/utils/form-style-utils";
-import { StyledFormContent, StyledFormFooter } from "../form/form.style";
+
 import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
+import { StyledForm, StyledFormContent } from "../form/form.style";
 
 type StyledSidebarProps = Pick<
   SidebarProps,
   "onCancel" | "position" | "size" | "width"
-> &
-  PaddingProps;
+>;
 
 const StyledSidebar = styled.div<StyledSidebarProps>`
   // prevents outline being added in safari
   :focus {
     outline: none;
-  }
-
-  ${StyledFormContent} {
-    ${(props: StyledSidebarProps) =>
-      calculateFormSpacingValues(props, true, "sidebar")}
-  }
-
-  ${StyledFormFooter}.sticky {
-    ${calculateWidthValue}
-    ${(props: StyledSidebarProps) =>
-      calculateFormSpacingValues(props, false, "sidebar")}
   }
 
   ${({ onCancel, position, size, theme, width }) => css`
@@ -70,8 +55,32 @@ const StyledSidebar = styled.div<StyledSidebarProps>`
   `}
 `;
 
+const StyledSidebarContent = styled.div<PaddingProps>`
+  box-sizing: border-box;
+  display: block;
+  overflow-y: auto;
+  flex-grow: 1;
+
+  padding: var(--spacing300) var(--spacing400) var(--spacing400);
+  ${paddingFn}
+
+  &:has(${StyledForm}.sticky) {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    padding: 0;
+
+    ${StyledForm}.sticky {
+      ${StyledFormContent} {
+        padding: var(--spacing300) var(--spacing400) var(--spacing400);
+        ${paddingFn}
+      }
+    }
+  }
+`;
+
 StyledSidebar.defaultProps = {
   theme: baseTheme,
 };
 
-export default StyledSidebar;
+export { StyledSidebar, StyledSidebarContent };

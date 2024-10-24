@@ -1,8 +1,6 @@
-import React, { useRef, useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { SpaceProps, PaddingProps } from "styled-system";
 
-import SidebarContext from "../sidebar/__internal__/sidebar.context";
-import ModalContext from "../modal/__internal__/modal.context";
 import FormSummary from "./__internal__/form-summary.component";
 import {
   StyledForm,
@@ -13,6 +11,7 @@ import {
 } from "./form.style";
 import { FormButtonAlignment, formSpacing } from "./form.config";
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
+import ModalContext from "../modal/__internal__/modal.context";
 
 export interface FormProps extends SpaceProps {
   /** Alignment of buttons */
@@ -62,11 +61,9 @@ export const Form = ({
   footerPadding = {},
   ...rest
 }: FormProps) => {
-  const { isInSidebar } = useContext(SidebarContext);
-  const { isInModal } = useContext(ModalContext);
   const formRef = useRef<HTMLFormElement>(null);
   const formFooterRef = useRef<HTMLDivElement>(null);
-  const hasPadding = !!Object.keys(footerPadding).length;
+  const { isInModal } = useContext(ModalContext);
 
   const renderFooter = !!(
     saveButton ||
@@ -76,19 +73,15 @@ export const Form = ({
     warningCount
   );
 
-  const classNames = `${stickyFooter ? "sticky" : ""} ${
-    hasPadding ? "padded" : ""
-  }`.trimEnd();
-
   return (
     <StyledForm
       ref={formRef}
+      className={stickyFooter ? "sticky" : ""}
       stickyFooter={stickyFooter}
       onSubmit={onSubmit}
       data-component="form"
       fieldSpacing={fieldSpacing}
       noValidate={noValidate}
-      isInSidebar={isInSidebar}
       height={height}
       isInModal={isInModal}
       {...rest}
@@ -96,10 +89,9 @@ export const Form = ({
       <StyledFormContent
         data-element="form-content"
         data-role="form-content"
-        className={stickyFooter ? "sticky" : ""}
         stickyFooter={stickyFooter}
-        isInModal={isInModal}
         tabIndex={-1}
+        isInModal={isInModal}
       >
         <FormSpacingProvider marginBottom={formSpacing[fieldSpacing]}>
           {children}
@@ -109,12 +101,10 @@ export const Form = ({
         <StyledFormFooter
           data-element="form-footer"
           data-role="form-footer"
-          className={classNames}
           ref={formFooterRef}
           stickyFooter={stickyFooter}
           buttonAlignment={buttonAlignment}
           fullWidthButtons={fullWidthButtons}
-          isInModal={isInModal}
           {...footerPadding}
         >
           {leftSideButtons && (

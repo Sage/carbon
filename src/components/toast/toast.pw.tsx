@@ -274,6 +274,8 @@ test.describe("check events for Toast component", () => {
       />
     );
     await page.keyboard.press("Escape");
+
+    await expect(page.getByText("Toast")).not.toBeVisible();
     expect(callbackCount).toBe(1);
   });
 });

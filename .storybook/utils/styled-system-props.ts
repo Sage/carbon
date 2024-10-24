@@ -992,9 +992,15 @@ const generateStyledSystemPositionProps = (defaults: StyledSystemDefaults) => {
   ];
 };
 
+const filterProps = (
+  props: Record<string, unknown>[],
+  excludes: string[] = []
+) => props.filter((prop) => !excludes.includes(Object.keys(prop)[0]));
+
 const generateStyledSystemProps = (
   props: StyledSystemProps,
-  defaults?: StyledSystemDefaults
+  defaults?: StyledSystemDefaults,
+  excludes?: string[]
 ): ArgTypes<StyledSystemProps> => {
   const {
     spacing,
@@ -1011,37 +1017,70 @@ const generateStyledSystemProps = (
   const result: Props = {};
 
   if (spacing) {
-    Object.assign(result, ...generateStyledSystemSpacingProps(defaults || {}));
+    Object.assign(
+      result,
+      ...filterProps(generateStyledSystemSpacingProps(defaults || {}), excludes)
+    );
   }
   if (margin) {
-    Object.assign(result, ...generateStyledSystemMarginProps(defaults || {}));
+    Object.assign(
+      result,
+      ...filterProps(generateStyledSystemMarginProps(defaults || {}), excludes)
+    );
   }
   if (padding) {
-    Object.assign(result, ...generateStyledSystemPaddingProps(defaults || {}));
+    Object.assign(
+      result,
+      ...filterProps(generateStyledSystemPaddingProps(defaults || {}), excludes)
+    );
   }
   if (color) {
-    Object.assign(result, ...generateStyledSystemColorProps(defaults || {}));
+    Object.assign(
+      result,
+      ...filterProps(generateStyledSystemColorProps(defaults || {}), excludes)
+    );
   }
   if (layout) {
-    Object.assign(result, ...generateStyledSystemLayoutProps(defaults || {}));
+    Object.assign(
+      result,
+      ...filterProps(generateStyledSystemLayoutProps(defaults || {}), excludes)
+    );
   }
   if (width) {
-    Object.assign(result, ...generateStyledSystemWidthProps(defaults || {}));
+    Object.assign(
+      result,
+      ...filterProps(generateStyledSystemWidthProps(defaults || {}), excludes)
+    );
   }
   if (flexBox) {
-    Object.assign(result, ...generateStyledSystemFlexBoxProps(defaults || {}));
+    Object.assign(
+      result,
+      ...filterProps(generateStyledSystemFlexBoxProps(defaults || {}), excludes)
+    );
   }
   if (grid) {
-    Object.assign(result, ...generateStyledSystemGridProps(defaults || {}));
+    Object.assign(
+      result,
+      ...filterProps(generateStyledSystemGridProps(defaults || {}), excludes)
+    );
   }
   if (background) {
     Object.assign(
       result,
-      ...generateStyledSystemBackgroundProps(defaults || {})
+      ...filterProps(
+        generateStyledSystemBackgroundProps(defaults || {}),
+        excludes
+      )
     );
   }
   if (position) {
-    Object.assign(result, ...generateStyledSystemPositionProps(defaults || {}));
+    Object.assign(
+      result,
+      ...filterProps(
+        generateStyledSystemPositionProps(defaults || {}),
+        excludes
+      )
+    );
   }
 
   return result;
