@@ -60,6 +60,7 @@ describe("style", () => {
       palette = generatePalette(config);
     });
 
+    // eslint-disable-next-line jest/expect-expect
     it("produces the correct color mix", () => {
       assertCorrectColorMix(colorConfig, palette);
     });
