@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import invariant from "invariant";
 
+import { ButtonProps } from "../../button";
 import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
 import SelectTextbox, {
   FormInputPropTypes,
@@ -55,6 +56,8 @@ export interface MultiSelectProps
   defaultValue?: string[] | Record<string, unknown>[];
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
+  /** True for default text button or a Button Component to be rendered */
+  listActionButton?: boolean | React.ReactElement<ButtonProps>;
   /** When true component will work in multi column mode.
    * Children should consist of OptionRow components in this mode
    */
@@ -65,6 +68,8 @@ export interface MultiSelectProps
   onFilterChange?: (filterText: string) => void;
   /** A custom callback for when the dropdown menu opens */
   onOpen?: () => void;
+  /** A callback for when the Action Button is triggered */
+  onListAction?: () => void;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
   /** SelectList table header, should consist of multiple th elements.
@@ -122,7 +127,9 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       onKeyDown,
       openOnFocus = false,
       noResultsMessage,
+      listActionButton,
       placeholder,
+      onListAction,
       isLoading,
       tableHeader,
       multiColumn,
@@ -444,6 +451,17 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       };
     }, [handleGlobalClick]);
 
+    useEffect(() => {
+      const hasListActionButton = listActionButton !== undefined;
+      const onListActionMissingMessage =
+        "onListAction prop required when using listActionButton prop";
+
+      invariant(
+        !hasListActionButton || (hasListActionButton && onListAction),
+        onListActionMissingMessage
+      );
+    }, [listActionButton, onListAction]);
+
     const onFilterChange = useStableCallback(
       onFilterChangeProp as (filterTextArg: unknown) => void
     );
@@ -527,6 +545,11 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
     function handleListMouseDown() {
       isMouseDownReported.current = true;
+    }
+
+    function handleOnListAction() {
+      setOpenState(false);
+      onListAction?.();
     }
 
     function handleTextboxFocus(event: React.FocusEvent<HTMLInputElement>) {
@@ -682,11 +705,13 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         filterText={filterText.trim()}
         highlightedValue={highlightedValue}
         noResultsMessage={noResultsMessage}
+        listActionButton={listActionButton}
         isLoading={isLoading}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
         listPlacement={listWidth !== undefined ? placement : listPlacement}
         listMaxHeight={listMaxHeight}
+        onListAction={handleOnListAction}
         flipEnabled={flipEnabled}
         multiselectValues={actualValue}
         isOpen={isOpen}

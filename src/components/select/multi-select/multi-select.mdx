@@ -96,6 +96,14 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 
 <Canvas of={MultiSelectStories.WithObjectAsValue} />
 
+### With Action Button
+
+Setting the `listActionButton` prop to `true` renders a default `"Add New Item"` `Button`. However, a custom `Button` component can be passed as the `listActionButton` value via a node.
+
+We recommend this pattern for loading/adding new options to the `MultiSelect`.
+
+<Canvas of={MultiSelectStories.WithActionButton} />
+
 ### With isLoading prop
 
 When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.

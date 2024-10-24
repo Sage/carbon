@@ -284,6 +284,65 @@ export const MultiSelectMultiColumnsComponent = (
   );
 };
 
+export const MultiSelectWithActionButtonComponent = () => {
+  const [value, setValue] = useState<string[]>([]);
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue((event.target.value as unknown) as string[]);
+  }
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const [optionList, setOptionList] = useState([
+    <Option text="Amber" value="amber" key="Amber" />,
+    <Option text="Black" value="black" key="Black" />,
+    <Option text="Blue" value="blue" key="Blue" />,
+    <Option text="Brown" value="brown" key="Brown" />,
+    <Option text="Green" value="green" key="Green" />,
+    <Option text="Amber" value="amber1" key="Amber1" />,
+    <Option text="Black" value="black1" key="Black1" />,
+    <Option text="Blue" value="blue1" key="Blue1" />,
+    <Option text="Brown" value="brown1" key="Brown1" />,
+    <Option text="Green" value="green1" key="Green1" />,
+  ]);
+  function addNew() {
+    const counter = optionList.length.toString();
+    setOptionList((newOptionList) => [
+      ...newOptionList,
+      <Option
+        text={`New${counter}`}
+        value={`val${counter}`}
+        key={`New${counter}`}
+      />,
+    ]);
+    setIsOpen(false);
+    setValue((prevValue) => [...prevValue, `val${counter}`]);
+  }
+  return (
+    <>
+      <MultiSelect
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+        listActionButton={
+          <Button iconType="add" iconPosition="after">
+            Add a New Element
+          </Button>
+        }
+        onListAction={() => setIsOpen(true)}
+      >
+        {optionList}
+      </MultiSelect>
+      <Dialog
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Dialog component triggered on action"
+      >
+        <Button onClick={addNew}>Add new</Button>
+      </Dialog>
+    </>
+  );
+};
+
 export const MultiSelectMaxOptionsComponent = (
   props: Partial<MultiSelectProps>
 ) => {
@@ -361,6 +420,29 @@ export const MultiSelectCustomColorComponent = (
       <Option text="Red" value="9" borderColor="red" fill />
       <Option text="White" value="10" borderColor="white" />
       <Option text="Yellow" value="11" borderColor="yellow" fill />
+    </MultiSelect>
+  );
+};
+
+export const MultiSelectListActionEventComponent = (
+  props: Partial<MultiSelectProps>
+) => {
+  return (
+    <MultiSelect
+      label="color"
+      labelInline
+      {...props}
+      listActionButton={
+        <Button iconType="add" iconPosition="after">
+          Add a New Element
+        </Button>
+      }
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
     </MultiSelect>
   );
 };

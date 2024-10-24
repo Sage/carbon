@@ -6,6 +6,7 @@ import generateStyledSystemProps from "../../../../.storybook/utils/styled-syste
 import Button from "../../button";
 import CarbonProvider from "../../carbon-provider";
 import Box from "../../box";
+import Dialog from "../../dialog";
 import { MultiSelect, MultiSelectProps, Option, OptionRow } from "..";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -354,6 +355,63 @@ export const WithObjectAsValue: Story = () => {
 };
 WithObjectAsValue.storyName = "With Object as Value";
 WithObjectAsValue.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithActionButton: Story = () => {
+  const [value, setValue] = useState<string[]>([]);
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue((event.target.value as unknown) as string[]);
+  }
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [optionList, setOptionList] = useState([
+    <Option text="Amber" value="amber" key="Amber" />,
+    <Option text="Black" value="black" key="Black" />,
+    <Option text="Blue" value="blue" key="Blue" />,
+    <Option text="Brown" value="brown" key="Brown" />,
+    <Option text="Green" value="green" key="Green" />,
+  ]);
+
+  function addNew() {
+    const counter = optionList.length.toString();
+    setOptionList((previousOptionList) => [
+      ...previousOptionList,
+      <Option
+        text={`New${counter}`}
+        value={`val${counter}`}
+        key={`New${counter}`}
+      />,
+    ]);
+    setIsOpen(false);
+    setValue((prevValue) => [...prevValue, `val${counter}`]);
+  }
+
+  return (
+    <Box height={300}>
+      <MultiSelect
+        name="action"
+        id="action"
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+        listActionButton
+        onListAction={() => setIsOpen(true)}
+      >
+        {optionList}
+      </MultiSelect>
+      <Dialog
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Dialog component triggered on action"
+      >
+        <Button onClick={addNew}>Add a New Element</Button>
+      </Dialog>
+    </Box>
+  );
+};
+
+WithActionButton.storyName = "With Action Button";
+WithActionButton.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIsLoadingProp: Story = () => {
   const preventLoading = useRef(false);

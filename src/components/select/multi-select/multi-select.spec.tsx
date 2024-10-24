@@ -23,6 +23,8 @@ import {
   StyledSelectListContainer,
   StyledScrollableContainer,
 } from "../__internal__/select-list/select-list.style";
+import Button from "../../button";
+
 import Pill from "../../pill";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { InputPresentation } from "../../../__internal__/input";
@@ -485,6 +487,82 @@ describe("MultiSelect", () => {
           ...expectedEventObject,
         })
       );
+    });
+  });
+
+  describe("when the listActionButton prop is provided", () => {
+    let wrapper: ReactWrapper;
+    const onListActionFn = jest.fn();
+    const mockButton = <Button>mock button</Button>;
+
+    beforeEach(() => {
+      wrapper = renderSelect({
+        listActionButton: mockButton,
+        onListAction: onListActionFn,
+      });
+      simulateDropdownEvent(wrapper, "click");
+    });
+
+    afterEach(() => {
+      wrapper.detach();
+    });
+
+    it("then that prop should be passed down to the SelectList component", () => {
+      expect(wrapper.find(SelectList).props().listActionButton).toEqual(
+        mockButton
+      );
+      wrapper.unmount();
+    });
+
+    describe("and onListAction has been called in the SelectList", () => {
+      it("then the onListAction prop should have been called", () => {
+        onListActionFn.mockClear();
+        act(() => {
+          wrapper.find(SelectList).props().onListAction?.();
+        });
+        expect(onListActionFn).toHaveBeenCalled();
+        wrapper.unmount();
+      });
+    });
+
+    describe("and the Tab key has been pressed", () => {
+      const tabKeyDownEvent = new KeyboardEvent("keydown", {
+        key: "Tab",
+        bubbles: true,
+      });
+
+      it("then the rendered button should be focused", () => {
+        act(() => {
+          document.body.dispatchEvent(tabKeyDownEvent);
+        });
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
+        expect(wrapper.find(SelectList).find("button").getDOMNode()).toBe(
+          document.activeElement
+        );
+      });
+
+      describe("with the rendered button already focused", () => {
+        beforeEach(() => {
+          act(() => {
+            (wrapper.find("button").getDOMNode() as HTMLButtonElement).focus();
+            document.body.dispatchEvent(tabKeyDownEvent);
+          });
+        });
+
+        it("then the SelectList should be closed", () => {
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).not.toBeVisible();
+        });
+
+        it("then the select input should be focused", () => {
+          expect(wrapper.find("input").getDOMNode()).toBe(
+            document.activeElement
+          );
+        });
+      });
     });
   });
 

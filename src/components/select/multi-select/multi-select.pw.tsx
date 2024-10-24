@@ -9,9 +9,11 @@ import {
   MultiSelectLazyLoadTwiceComponent,
   MultiSelectObjectAsValueComponent,
   MultiSelectMultiColumnsComponent,
+  MultiSelectWithActionButtonComponent,
   MultiSelectCustomColorComponent,
   MultiSelectLongPillComponent,
   MultiSelectOnFilterChangeEventComponent,
+  MultiSelectListActionEventComponent,
   MultiSelectWithManyOptionsAndVirtualScrolling,
   MultiSelectNestedInDialog,
   MultiSelectErrorOnChangeNewValidation,
@@ -893,6 +895,82 @@ test.describe("MultiSelect component", () => {
     ).toBeVisible();
   });
 
+  test("should render list options with an action button and trigger Dialog on action", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MultiSelectWithActionButtonComponent />);
+
+    await dropdownButton(page).click();
+    await expect(selectListWrapper(page)).toBeVisible();
+    const addElementButtonElement = page.locator('[data-component="button"]');
+    await expect(addElementButtonElement).toBeVisible();
+    await expect(addElementButtonElement).toHaveText("Add a New Element");
+    const iconElement = page.locator('[type="add"]');
+    await expect(iconElement).toBeVisible();
+    await addElementButtonElement.click();
+    await expect(alertDialogPreview(page)).toBeVisible();
+  });
+
+  test("should render list options with an action button that is visible without scrolling and without affecting the list height", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MultiSelectWithActionButtonComponent />);
+
+    await dropdownButton(page).click();
+    await expect(selectListWrapper(page)).toBeVisible();
+    await expect(page.locator('[data-component="button"]')).toBeInViewport();
+    const selectListHeight = await selectListWrapper(
+      page
+    ).evaluate((wrapperElement) =>
+      parseInt(
+        window.getComputedStyle(wrapperElement).getPropertyValue("height")
+      )
+    );
+    await expect(selectListHeight).toBeGreaterThan(220);
+    await expect(selectListHeight).toBeLessThan(250);
+  });
+
+  test("when navigating with the keyboard, the selected option is not hidden behind an action button", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MultiSelectWithActionButtonComponent />);
+
+    await dropdownButton(page).click();
+    const inputElement = commonDataElementInputPreview(page);
+    for (let i = 0; i < 5; i++) {
+      // eslint-disable-next-line no-await-in-loop
+      await inputElement.focus();
+      // eslint-disable-next-line no-await-in-loop
+      await inputElement.press("ArrowDown");
+    }
+    await expect(selectOptionByText(page, "Green").nth(0)).toBeInViewport();
+  });
+
+  test("should add new list option from Add new Dialog", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MultiSelectWithActionButtonComponent />);
+
+    const newOption = "New10";
+    await dropdownButton(page).click();
+    await expect(selectListWrapper(page)).toBeVisible();
+    const addElementButtonElement = page.locator('[data-component="button"]')
+    await expect(addElementButtonElement).toBeVisible();
+    await addElementButtonElement.click();
+    await expect(alertDialogPreview(page)).toBeVisible();
+    const addNewButtonElement = page.locator("div:nth-child(3) > div > button");
+    await expect(addNewButtonElement).toBeVisible();
+    await addNewButtonElement.click();
+    await expect(multiSelectPill(page)).toHaveAttribute(
+      "title",
+      newOption
+    );
+  });
+
   [
     ["3", "Blue"],
     ["7", "Pink"],
@@ -1272,6 +1350,23 @@ test.describe("Check events for MultiSelect component", () => {
     await inputElement.type(text);
     await expect(callbackArguments.length).toBe(1);
     await expect(callbackArguments[0]).toBe(text);
+  });
+
+  test("should call onListAction event when the Action Button is clicked", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback = () => {
+      callbackCount += 1;
+    };
+    await mount(
+      <MultiSelectListActionEventComponent onListAction={callback} />
+    );
+
+    await dropdownButton(page).click();
+    await page.locator('[data-component="button"]').click();
+    await expect(callbackCount).toBe(1);
   });
 });
 
@@ -1897,6 +1992,16 @@ test.describe("Accessibility tests for MultiSelect component", () => {
       await selectOption(page, positionOfElement(option)).click();
       await checkAccessibility(page, undefined, "scrollable-region-focusable");
     });
+  });
+
+  test("should pass accessibility tests with an action button and trigger Dialog on action", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MultiSelectWithActionButtonComponent />);
+
+    await dropdownButton(page).click();
+    await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
   test("should pass accessibility tests with virtual scrolling", async ({
