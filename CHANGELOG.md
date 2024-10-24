@@ -1,3 +1,10 @@
+## [144.1.0](https://github.com/Sage/carbon/compare/v144.0.1...v144.1.0) (2024-10-24)
+
+
+### Features
+
+* **typography:** update line heights to align with DS ([fb6762f](https://github.com/Sage/carbon/commit/fb6762f49caafb73d11285f954c18dcf73d328cf)), closes [#6335](https://github.com/Sage/carbon/issues/6335)
+
 ### [144.0.1](https://github.com/Sage/carbon/compare/v144.0.0...v144.0.1) (2024-10-23)
 
 
