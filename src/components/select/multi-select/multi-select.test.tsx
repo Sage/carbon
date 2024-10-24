@@ -1,8 +1,9 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import MultiSelect from ".";
 import Option from "../option";
 import Logger from "../../../__internal__/utils/logger";
+import Modal from "../../modal";
 
 test("renders combobox without text overlay", () => {
   render(
@@ -102,4 +103,25 @@ test("should not display deprecation about uncontrolled Textbox when parent comp
     "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
   );
   loggerSpy.mockClear();
+});
+
+test("dropdown list is open on initial render, when autoFocus and openOnFocus props are true, and component is inside a Carbon Modal", () => {
+  jest.useFakeTimers();
+  render(
+    <Modal open>
+      <MultiSelect label="Colour" onChange={() => {}} autoFocus openOnFocus>
+        <Option text="amber" value="amber" />
+      </MultiSelect>
+    </Modal>
+  );
+
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
+
+  expect(screen.getByRole("combobox")).toHaveFocus();
+  expect(screen.getByRole("listbox")).toBeInTheDocument();
+
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
 });
