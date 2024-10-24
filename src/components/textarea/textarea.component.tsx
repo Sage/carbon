@@ -185,6 +185,11 @@ export const Textarea = React.forwardRef(
     ref: React.ForwardedRef<HTMLTextAreaElement>
   ) => {
     const { validationRedesignOptIn } = useContext(NewValidationContext);
+
+    const labelInlineWithNewValidation = validationRedesignOptIn
+      ? false
+      : labelInline;
+
     const [textareaMinHeight, setTextareaMinHeight] = useState(
       DEFAULT_MIN_HEIGHT
     );
@@ -404,7 +409,7 @@ export const Textarea = React.forwardRef(
       >
         <InputBehaviour>
           <StyledTextarea
-            labelInline={labelInline}
+            labelInline={labelInlineWithNewValidation}
             data-component={dataComponent}
             data-role={dataRole}
             data-element={dataElement}
@@ -422,7 +427,7 @@ export const Textarea = React.forwardRef(
               labelId={labelId}
               disabled={disabled}
               id={id}
-              labelInline={computeLabelPropValues(labelInline)}
+              labelInline={computeLabelPropValues(labelInlineWithNewValidation)}
               labelAlign={computeLabelPropValues(labelAlign)}
               labelWidth={computeLabelPropValues(labelWidth)}
               labelHelp={computeLabelPropValues(labelHelp)}
