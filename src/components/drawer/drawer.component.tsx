@@ -22,6 +22,8 @@ export interface DrawerProps extends Omit<TagProps, "data-component"> {
   animationDuration?: string;
   /** Specify an aria-label for the Drawer component */
   "aria-label"?: string;
+  /** Specify an aria-label for the Drawer sidebar */
+  sidebarAriaLabel?: string;
   /** Sets color of sidebar's background */
   backgroundColor?: string;
   children: React.ReactNode;
@@ -54,6 +56,7 @@ export interface DrawerProps extends Omit<TagProps, "data-component"> {
 
 export const Drawer = ({
   "aria-label": ariaLabel,
+  sidebarAriaLabel,
   "data-element": dataElement,
   "data-role": dataRole = "drawer",
   defaultExpanded = true,
@@ -168,6 +171,7 @@ export const Drawer = ({
 
   const guid = useRef(createGuid());
   const sidebarId = `DrawerSidebar_${guid.current}`;
+  const titleId = `DrawerTitle_${guid.current}`;
 
   const getClassNames = useCallback(() => {
     const classes = [isExpanded ? "open" : "closed"];
@@ -217,19 +221,25 @@ export const Drawer = ({
         backgroundColor={backgroundColor}
         data-element="drawer-content"
         data-role="drawer-content"
+        aria-label={sidebarAriaLabel}
+        aria-labelledby={title ? titleId : undefined}
       >
         {stickyHeader && (
           <StyledSidebarHeader
             data-role="drawer-sidebar-header"
             isExpanded={isExpanded}
           >
-            {title && <StyledSidebarTitle>{title}</StyledSidebarTitle>}
+            {title && (
+              <StyledSidebarTitle id={titleId}>{title}</StyledSidebarTitle>
+            )}
             {getControls()}
           </StyledSidebarHeader>
         )}
         {!stickyHeader && (
           <>
-            {title && <StyledSidebarTitle>{title}</StyledSidebarTitle>}
+            {title && (
+              <StyledSidebarTitle id={titleId}>{title}</StyledSidebarTitle>
+            )}
             {getControls()}
           </>
         )}
@@ -237,7 +247,6 @@ export const Drawer = ({
           hasControls={!!showControls}
           id={sidebarId}
           isExpanded={isExpanded}
-          role="navigation"
           overflowY={isExpanded ? "auto" : undefined}
           scrollVariant="light"
           ref={scrollableContentRef}
