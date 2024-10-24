@@ -152,7 +152,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const isClickTriggeredBySelect = useRef(false);
     const isMouseDownReported = useRef(false);
     const isMouseDownOnInput = useRef(false);
-    const isOpenedByFocus = useRef(false);
+    const [isOpenedByFocus, setIsOpenedByFocus] = useState(false);
     const isControlled = useRef(value !== undefined);
     const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
     const [open, setOpen] = useState(false);
@@ -167,7 +167,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       id: inputId.current,
       label,
     });
-    const focusTimer = useRef<number | undefined>(undefined);
 
     const actualValue = isControlled.current ? value : selectedValue;
 
@@ -451,10 +450,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
     useEffect(() => {
       isFirstRender.current = false;
-
-      return () => {
-        window.clearTimeout(focusTimer.current);
-      };
     }, []);
 
     function handleTextboxClick(event: React.MouseEvent<HTMLInputElement>) {
@@ -462,18 +457,17 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
       onClick?.(event);
 
-      if (!openOnFocus || (openOnFocus && !isOpenedByFocus.current)) {
-        if (open) {
-          setTextValue("");
-          setOpen(false);
-          return;
-        }
+      if (openOnFocus && isOpenedByFocus) {
+        setIsOpenedByFocus(false);
+        return;
+      }
 
-        onOpen?.();
-
-        setOpen(true);
+      if (open) {
+        setTextValue("");
+        setOpen(false);
       } else {
-        isOpenedByFocus.current = false;
+        onOpen?.();
+        setOpen(true);
       }
     }
 
@@ -485,6 +479,9 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       }
 
       onBlur?.(event);
+
+      setTextValue("");
+      setOpen(false);
     }
 
     function handleTextboxMouseDown() {
@@ -500,26 +497,14 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       onFocus?.(event);
 
       if (openOnFocus) {
-        window.clearTimeout(focusTimer.current);
+        if (open) return;
 
-        // we need to use a timeout here as there is a race condition when rendered in a modal
-        // whereby the select list isn't visible when the select is auto focused straight away
-        focusTimer.current = window.setTimeout(() => {
-          if (open) return;
+        onOpen?.();
 
-          onOpen?.();
-
-          if (isMouseDownReported.current && !isMouseDownOnInput.current) {
-            isOpenedByFocus.current = false;
-            setOpen(false);
-            return;
-          }
-
-          if (isMouseDownOnInput.current) {
-            isOpenedByFocus.current = true;
-          }
-          setOpen(true);
-        });
+        if (isMouseDownOnInput.current) {
+          setIsOpenedByFocus(true);
+        }
+        setOpen(true);
       }
     }
 
