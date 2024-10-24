@@ -13,23 +13,24 @@ interface StyledFormContentProps {
   isInModal?: boolean;
 }
 
-export const StyledFormContent = styled.div<StyledFormContentProps>`
-  ${({ stickyFooter, isInModal }) => css`
-    ${stickyFooter &&
+export const StyledFormContent = styled.div<StyledFormContentProps>(
+  ({ stickyFooter, isInModal }) =>
+    stickyFooter &&
+    isInModal &&
     css`
-      /* Take responsibility for handling overflow away from parent modal */
-      overflow-y: ${isInModal ? "auto" : "inherit"};
-      flex: 1;
-    `}
-  `}
-`;
+      flex-grow: 1;
+      min-height: 0;
+      overflow-y: auto;
+    `
+);
 
-interface ButtonProps extends StyledFormContentProps {
-  buttonAlignment?: FormButtonAlignment;
+interface StyledFormFooterProps {
+  stickyFooter?: boolean;
   fullWidthButtons?: boolean;
+  buttonAlignment?: FormButtonAlignment;
 }
 
-export const StyledFormFooter = styled.div<ButtonProps>`
+export const StyledFormFooter = styled.div<StyledFormFooterProps>`
   align-items: center;
   display: flex;
   flex-wrap: wrap;
@@ -41,7 +42,7 @@ export const StyledFormFooter = styled.div<ButtonProps>`
       justify-content: flex-end;
     `}
 
-  ${({ stickyFooter, fullWidthButtons, isInModal }) => css`
+  ${({ stickyFooter, fullWidthButtons }) => css`
     ${!stickyFooter &&
     css`
       margin-top: 48px;
@@ -55,10 +56,7 @@ export const StyledFormFooter = styled.div<ButtonProps>`
       padding: 16px 32px;
       width: 100%;
       z-index: 1000;
-      ${!isInModal &&
-      css`
-        position: sticky;
-      `}
+      position: sticky;
       bottom: 0;
     `}
 
@@ -76,13 +74,9 @@ StyledFormFooter.defaultProps = {
   theme: baseTheme,
 };
 
-// Accounts for height of the header of Modal parent, the height form footer and some additional spacing
-const HEIGHT_SPACING = 216;
-
 interface StyledFormProps extends StyledFormContentProps {
   height?: string;
   fieldSpacing: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
-  isInSidebar?: boolean;
 }
 
 export const StyledForm = styled.form<StyledFormProps>`
@@ -99,7 +93,7 @@ export const StyledForm = styled.form<StyledFormProps>`
     margin-bottom: var(--spacing000);
   }
 
-  ${({ stickyFooter, isInModal, isInSidebar }) =>
+  ${({ stickyFooter, isInModal }) =>
     stickyFooter &&
     css`
       display: flex;
@@ -108,24 +102,25 @@ export const StyledForm = styled.form<StyledFormProps>`
 
       ${isInModal &&
       css`
-        max-height: calc(100vh - ${HEIGHT_SPACING}px);
-      `}
-
-      ${isInSidebar &&
-      css`
-        min-height: 100%;
+        flex-grow: 1;
+        min-height: 0;
+        height: 100%;
       `}
     `}
 `;
 
-export const StyledRightButtons = styled.div<ButtonProps>`
+export const StyledRightButtons = styled.div<{
+  buttonAlignment?: FormButtonAlignment;
+}>`
   display: flex;
   gap: var(--sizing200);
 
   ${({ buttonAlignment }) => buttonAlignment === "left" && "flex-grow: 1;"}
 `;
 
-export const StyledLeftButtons = styled.div<ButtonProps>`
+export const StyledLeftButtons = styled.div<{
+  buttonAlignment?: FormButtonAlignment;
+}>`
   display: flex;
   justify-content: flex-end;
   gap: var(--sizing200);

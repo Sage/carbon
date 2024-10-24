@@ -1,3 +1,12 @@
+### [144.0.1](https://github.com/Sage/carbon/compare/v144.0.0...v144.0.1) (2024-10-23)
+
+
+### Bug Fixes
+
+* **dialog:** ensure height never exceeds 90% of the viewport height ([619a651](https://github.com/Sage/carbon/commit/619a6516ac3b0ac05e55219e79df529b491a9031))
+* prevent sticky footer form content from overflowing in Carbon modal components ([cb77fb7](https://github.com/Sage/carbon/commit/cb77fb78f72d866458df49964c08f567b971a110)), closes [#6969](https://github.com/Sage/carbon/issues/6969)
+* resolve layout issues with sticky footer forms inside Carbon modal components ([0fe249d](https://github.com/Sage/carbon/commit/0fe249db3d2e598f73eaccd3388e6feea61c2c80))
+
 ## [144.0.0](https://github.com/Sage/carbon/compare/v143.2.5...v144.0.0) (2024-10-21)
 
 

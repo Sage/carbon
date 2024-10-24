@@ -1,14 +1,12 @@
-import React, { useCallback, useRef, useMemo } from "react";
+import React, { useCallback, useRef } from "react";
 import { PaddingProps, WidthProps } from "styled-system";
 
 import Modal, { ModalProps } from "../modal";
-import StyledSidebar from "./sidebar.style";
+import { StyledSidebar, StyledSidebarContent } from "./sidebar.style";
 import IconButton from "../icon-button";
 import Icon from "../icon";
-import { FormProps } from "../form";
 import FocusTrap from "../../__internal__/focus-trap";
 import SidebarHeader from "./__internal__/sidebar-header";
-import Box from "../box";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
@@ -119,14 +117,6 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
   ) => {
     const locale = useLocale();
     const { current: headerId } = useRef<string>(createGuid());
-    const hasStickyFooter = useMemo(
-      () =>
-        React.Children.toArray(children).some(
-          (child) =>
-            React.isValidElement<FormProps>(child) && child.props.stickyFooter
-        ),
-      [children]
-    );
 
     const sidebarRef = useRef<HTMLDivElement | null>(null);
 
@@ -171,7 +161,6 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         size={size}
         onCancel={onCancel}
         role={role}
-        {...filterStyledSystemPaddingProps(rest)}
         width={width}
       >
         {header && (
@@ -184,21 +173,15 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
           </SidebarHeader>
         )}
         {!header && closeIcon()}
-        <Box
+        <StyledSidebarContent
           data-element="sidebar-content"
           data-role="sidebar-content"
-          pt="var(--spacing300)"
-          pb="var(--spacing400)"
-          px="var(--spacing400)"
           {...filterStyledSystemPaddingProps(rest)}
-          scrollVariant="light"
-          overflow={hasStickyFooter ? undefined : "auto"}
-          flex="1"
         >
           <SidebarContext.Provider value={{ isInSidebar: true }}>
             {children}
           </SidebarContext.Provider>
-        </Box>
+        </StyledSidebarContent>
       </StyledSidebar>
     );
 

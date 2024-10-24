@@ -1,26 +1,17 @@
-import React, {
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-  useImperativeHandle,
-  forwardRef,
-  useState,
-} from "react";
+import React, { useRef, useImperativeHandle, forwardRef } from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 
 import {
   StyledDialog,
   StyledDialogTitle,
   StyledDialogContent,
-  StyledDialogInnerContent,
+  DialogPositioner,
 } from "./dialog.style";
-import { DialogSizes, TOP_MARGIN } from "./dialog.config";
+import { DialogSizes } from "./dialog.config";
 
 import FocusTrap, { CustomRefObject } from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
@@ -139,13 +130,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const locale = useLocale();
 
     const containerRef = useRef<HTMLDivElement>(null);
-    const innerContentRef = useRef(null);
     const titleRef = useRef(null);
-    const [breakpointOffset, setBreakpointOffset] = useState<
-      number | undefined
-    >(undefined);
-    const isDialogMaximised = size === "maximise";
-    const listenersAdded = useRef(false);
     const { current: titleId } = useRef(createGuid());
     const { current: subtitleId } = useRef(createGuid());
 
@@ -161,122 +146,41 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       []
     );
 
-    const centerDialog = useCallback(() => {
-      /* istanbul ignore if */
-      if (!containerRef.current) {
-        return;
-      }
+    const closeIcon = showCloseIcon && onCancel && (
+      <IconButton
+        aria-label={locale.dialog.ariaLabels.close()}
+        onClick={onCancel}
+        disabled={disableClose}
+        {...tagComponent("close", {
+          "data-element": "close",
+          ...closeButtonDataProps,
+        })}
+      >
+        <Icon type="close" />
+      </IconButton>
+    );
 
-      const {
-        width: dialogWidth,
-        height: dialogHeight,
-      } = containerRef.current.getBoundingClientRect();
-
-      let midPointY = window.innerHeight / 2;
-      let midPointX = window.innerWidth / 2;
-
-      midPointY -= dialogHeight / 2;
-      midPointX -= dialogWidth / 2;
-
-      if (midPointY < TOP_MARGIN) {
-        midPointY = TOP_MARGIN;
-      }
-
-      if (midPointX < 0) {
-        midPointX = 0;
-      }
-
-      if (isDialogMaximised) {
-        const breakPoint = window.innerWidth > 960 ? 32 : 16;
-        midPointX = breakPoint;
-        midPointY = breakPoint;
-        setBreakpointOffset(breakPoint);
-      }
-
-      containerRef.current.style.top = `${midPointY}px`;
-      containerRef.current.style.left = `${midPointX}px`;
-    }, [size]);
-
-    useResizeObserver(innerContentRef, centerDialog, !open);
-
-    const addListeners = useCallback(() => {
-      /* istanbul ignore else */
-      if (!listenersAdded.current) {
-        window.addEventListener("resize", centerDialog);
-        listenersAdded.current = true;
-      }
-    }, [centerDialog]);
-
-    const removeListeners = useCallback(() => {
-      if (listenersAdded.current) {
-        window.removeEventListener("resize", centerDialog);
-        listenersAdded.current = false;
-      }
-    }, [centerDialog]);
-
-    useEffect(() => {
-      if (open) {
-        addListeners();
-      }
-
-      if (!open) {
-        removeListeners();
-      }
-
-      return () => {
-        removeListeners();
-      };
-    }, [open, addListeners, removeListeners]);
-
-    useLayoutEffect(() => {
-      if (open) {
-        centerDialog();
-      }
-    }, [centerDialog, open, height]);
-
-    const closeIcon = () => {
-      if (!showCloseIcon || !onCancel) return null;
-
-      return (
-        <IconButton
-          aria-label={locale.dialog.ariaLabels.close()}
-          onClick={onCancel}
-          disabled={disableClose}
-          {...tagComponent("close", {
-            "data-element": "close",
-            ...closeButtonDataProps,
-          })}
-        >
-          <Icon type="close" />
-        </IconButton>
-      );
-    };
-
-    const dialogTitle = () => {
-      if (!title) return null;
-
-      return (
-        <StyledDialogTitle
-          showCloseIcon={showCloseIcon}
-          hasSubtitle={!!subtitle}
-          ref={titleRef}
-        >
-          {typeof title === "string" ? (
-            <Heading
-              data-element="dialog-title"
-              title={title}
-              titleId={titleId}
-              subheader={subtitle}
-              subtitleId={subtitleId}
-              divider={false}
-              help={help}
-            />
-          ) : (
-            title
-          )}
-        </StyledDialogTitle>
-      );
-    };
+    const dialogTitle = title && (
+      <StyledDialogTitle
+        showCloseIcon={showCloseIcon}
+        hasSubtitle={!!subtitle}
+        ref={titleRef}
+      >
+        {typeof title === "string" ? (
+          <Heading
+            data-element="dialog-title"
+            title={title}
+            titleId={titleId}
+            subheader={subtitle}
+            subtitleId={subtitleId}
+            divider={false}
+            help={help}
+          />
+        ) : (
+          title
+        )}
+      </StyledDialogTitle>
+    );
 
     let dialogHeight = height;
 
@@ -314,43 +218,34 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           isOpen={open}
           additionalWrapperRefs={focusableContainers}
         >
-          <StyledDialog
-            data-component={dataComponent}
-            data-element={dataElement}
-            data-role={dataRole}
-            aria-modal={isTopModal ? true : undefined}
-            ref={containerRef}
-            topMargin={
-              isDialogMaximised && breakpointOffset
-                ? breakpointOffset * 2
-                : TOP_MARGIN
-            }
-            {...dialogProps}
-            role={role}
-            tabIndex={-1}
-            {...contentPadding}
-            backgroundColor={
-              greyBackground
-                ? "var(--colorsUtilityMajor025)"
-                : "var(--colorsUtilityYang100)"
-            }
-          >
-            {dialogTitle()}
-            {closeIcon()}
-            <StyledDialogContent
-              {...contentPadding}
-              data-role="dialog-content"
+          <DialogPositioner>
+            <StyledDialog
+              data-component={dataComponent}
+              data-element={dataElement}
+              data-role={dataRole}
+              aria-modal={isTopModal ? true : undefined}
+              ref={containerRef}
+              {...dialogProps}
+              role={role}
               tabIndex={-1}
+              {...contentPadding}
+              backgroundColor={
+                greyBackground
+                  ? "var(--colorsUtilityMajor025)"
+                  : "var(--colorsUtilityYang100)"
+              }
             >
-              <StyledDialogInnerContent
-                data-role="dialog-inner-content"
-                ref={innerContentRef}
+              {dialogTitle}
+              {closeIcon}
+              <StyledDialogContent
                 {...contentPadding}
+                data-role="dialog-content"
+                tabIndex={-1}
               >
                 {children}
-              </StyledDialogInnerContent>
-            </StyledDialogContent>
-          </StyledDialog>
+              </StyledDialogContent>
+            </StyledDialog>
+          </DialogPositioner>
         </FocusTrap>
       </Modal>
     );
