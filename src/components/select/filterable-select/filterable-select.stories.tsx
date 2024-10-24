@@ -370,11 +370,7 @@ export const WithActionButton: Story = () => {
         label="color"
         value={value}
         onChange={(event) => setValue(event.target.value)}
-        listActionButton={
-          <Button iconType="add" iconPosition="after">
-            Add a New Element
-          </Button>
-        }
+        listActionButton
         onListAction={() => setIsOpen(true)}
       >
         {optionList}
@@ -384,7 +380,7 @@ export const WithActionButton: Story = () => {
         onCancel={() => setIsOpen(false)}
         title="Dialog component triggered on action"
       >
-        <Button onClick={addNew}>Add new</Button>
+        <Button onClick={addNew}>Add a New Element</Button>
       </Dialog>
     </Box>
   );

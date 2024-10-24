@@ -83,9 +83,9 @@ will have the same width as the input.
 
 ### With Action Button
 
-Default Action Button will be rendered when the `listActionButton` prop is set to `true` on the Component.
+Setting the `listActionButton` prop to `true` renders a default `"Add New Item"` `Button`. However, a custom `Button` component can be passed as the `listActionButton` value via a node.
 
-A custom `Button` Component could be passed as the `listActionButton` value.
+We recommend this pattern for loading/adding new options to the `FilterableSelect`.
 
 <Canvas of={FilterableSelectStories.WithActionButton} />
 
