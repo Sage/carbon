@@ -102,6 +102,39 @@ test.describe("When focused", () => {
 });
 
 test.describe("FilterableSelect component", () => {
+  test("should not select an option when the user types non-matching filter text in the input and then presses the Enter key", async ({
+    page,
+    mount,
+  }) => {
+    await mount(<FilterableSelectComponent />);
+
+    await selectInput(page).fill("f");
+    await selectInput(page).press("Enter");
+    await expect(getDataElementByValue(page, "input")).toHaveValue("");
+  });
+
+  test("should not select an option when the user types non-matching filter text and then presses ArrowDown key", async ({
+    page,
+    mount,
+  }) => {
+    await mount(<FilterableSelectComponent />);
+
+    await selectInput(page).fill("f");
+    await selectInput(page).press("ArrowDown");
+    await expect(getDataElementByValue(page, "input")).toHaveValue("f");
+  });
+
+  test("should not select an option when the user types non-matching filter text and then presses ArrowUp key", async ({
+    page,
+    mount,
+  }) => {
+    await mount(<FilterableSelectComponent />);
+
+    await selectInput(page).fill("f");
+    await selectInput(page).press("ArrowUp");
+    await expect(getDataElementByValue(page, "input")).toHaveValue("f");
+  });
+
   testData.forEach((labelValue) => {
     test(`should render label using ${labelValue} special characters`, async ({
       mount,
