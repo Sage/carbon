@@ -163,6 +163,17 @@ describe("rendered content", () => {
   });
 });
 
+test("sets its max height according to the listMaxHeight prop", () => {
+  render(
+    <SelectListWithInput listMaxHeight={100}>
+      <Option id="red" value="red" text="red" />
+    </SelectListWithInput>
+  );
+
+  const scrollableArea = screen.getByTestId("select-list-scrollable-container");
+  expect(scrollableArea).toHaveStyle("max-height: 100px");
+});
+
 describe("behaviour on option click", () => {
   it("calls onSelect to confirm selection when an option is clicked", async () => {
     const onSelect = jest.fn();
