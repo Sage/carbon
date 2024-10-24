@@ -149,27 +149,24 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const accessibilityLabelId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
-    const isInputFocused = useRef(false);
     const isClickTriggeredBySelect = useRef(false);
     const isMouseDownReported = useRef(false);
     const isMouseDownOnInput = useRef(false);
-    const isOpenedByFocus = useRef(false);
+    const [isOpenedByFocus, setIsOpenedByFocus] = useState(false);
     const isControlled = useRef(value !== undefined);
     const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
-    const [isOpen, setOpenState] = useState(false);
+    const [open, setOpen] = useState(false);
     const [textValue, setTextValue] = useState("");
     const [selectedValue, setSelectedValue] = useState(
       value || defaultValue || []
     );
     const [highlightedValue, setHighlightedValue] = useState("");
-    const [filterText, setFilterText] = useState("");
     const [placeholderOverride, setPlaceholderOverride] = useState<string>();
     const inputId = useRef(id || guid());
     const { labelId } = useInputAccessibility({
       id: inputId.current,
       label,
     });
-    const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
 
     const actualValue = isControlled.current ? value : selectedValue;
 
@@ -182,16 +179,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
       );
     }
-
-    const setOpen = useCallback(() => {
-      setOpenState((isAlreadyOpen) => {
-        if (!isAlreadyOpen && onOpen) {
-          onOpen();
-        }
-
-        return true;
-      });
-    }, [onOpen]);
 
     const createCustomEvent = useCallback(
       (newValue, selectionConfirmed) => {
@@ -259,11 +246,15 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           setHighlightedValue(match.props.value);
         }
 
-        setFilterText(newValue);
         setTextValue(newValue);
-        setOpen();
+
+        if (!open) {
+          onOpen?.();
+        }
+
+        setOpen(true);
       },
-      [children, setOpen]
+      [children, open, onOpen]
     );
 
     const removeSelectedValue = useCallback(
@@ -288,9 +279,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         const { key } = event;
         const isDeleteKey = key === "Backspace" || key === "Delete";
 
-        if (onKeyDown) {
-          onKeyDown(event);
-        }
+        onKeyDown?.(event);
 
         if (readOnly) {
           return;
@@ -298,15 +287,19 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
         if (!event.defaultPrevented && isNavigationKey(key)) {
           event.preventDefault();
-          setOpen();
+
+          if (!open) {
+            onOpen?.();
+          }
+
+          setOpen(true);
         }
 
-        if (isDeleteKey && (filterText === "" || textValue === "")) {
+        if (isDeleteKey && textValue === "") {
           removeSelectedValue(-1);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       },
-      [onKeyDown, readOnly, filterText, textValue, setOpen, removeSelectedValue]
+      [onKeyDown, readOnly, textValue, open, onOpen, removeSelectedValue]
     );
 
     const accessibilityLabel = useMemo(() => {
@@ -328,7 +321,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       (event) => {
         isMouseDownReported.current = false;
 
-        if (!isOpen) {
+        if (!open) {
           return;
         }
 
@@ -340,14 +333,13 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
         if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
           setTextValue("");
-          setFilterText("");
           setHighlightedValue("");
-          setOpenState(false);
+          setOpen(false);
         }
 
         isClickTriggeredBySelect.current = false;
       },
-      [isOpen]
+      [open]
     );
 
     const mapValuesToPills = useMemo(() => {
@@ -447,12 +439,14 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const onFilterChange = useStableCallback(
       onFilterChangeProp as (filterTextArg: unknown) => void
     );
+
     const isFirstRender = useRef(true);
+
     useEffect(() => {
-      if (onFilterChange && !isFirstRender.current) {
-        onFilterChange(filterText);
+      if (!isFirstRender.current) {
+        onFilterChange?.(textValue);
       }
-    }, [onFilterChange, filterText]);
+    }, [onFilterChange, textValue]);
 
     useEffect(() => {
       isFirstRender.current = false;
@@ -461,46 +455,20 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     function handleTextboxClick(event: React.MouseEvent<HTMLInputElement>) {
       isMouseDownReported.current = false;
 
-      if (onClick) {
-        onClick(event);
+      onClick?.(event);
+
+      if (openOnFocus && isOpenedByFocus) {
+        setIsOpenedByFocus(false);
+        return;
       }
 
-      if (!openOnFocus || (openOnFocus && !isOpenedByFocus.current)) {
-        if (isOpen) {
-          setFilterText("");
-          setOpenState(false);
-          return;
-        }
-
-        onOpen?.();
-
-        setOpenState(true);
+      if (open) {
+        setTextValue("");
+        setOpen(false);
       } else {
-        isOpenedByFocus.current = false;
+        onOpen?.();
+        setOpen(true);
       }
-    }
-
-    function handleDropdownIconClick(
-      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
-    ) {
-      isMouseDownReported.current = false;
-
-      if (onClick) {
-        onClick(event as React.MouseEvent<HTMLInputElement>);
-      }
-
-      setOpenState((isAlreadyOpen) => {
-        if (isAlreadyOpen) {
-          setFilterText("");
-          return false;
-        }
-
-        if (onOpen) {
-          onOpen();
-        }
-
-        return true;
-      });
     }
 
     function handleTextboxBlur(event: React.FocusEvent<HTMLInputElement>) {
@@ -510,19 +478,15 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         return;
       }
 
-      isInputFocused.current = false;
+      onBlur?.(event);
 
-      if (onBlur) {
-        onBlur(event);
-      }
+      setTextValue("");
+      setOpen(false);
     }
 
-    function handleTextboxMouseDown(event: React.MouseEvent<HTMLElement>) {
+    function handleTextboxMouseDown() {
       isMouseDownReported.current = true;
-
-      if ((event.target as HTMLInputElement).dataset.element === "input") {
-        isMouseDownOnInput.current = true;
-      }
+      isMouseDownOnInput.current = true;
     }
 
     function handleListMouseDown() {
@@ -530,43 +494,17 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     }
 
     function handleTextboxFocus(event: React.FocusEvent<HTMLInputElement>) {
-      const triggerFocus = () => onFocus?.(event);
+      onFocus?.(event);
 
       if (openOnFocus) {
-        if (focusTimer.current) {
-          clearTimeout(focusTimer.current);
+        if (open) return;
+
+        onOpen?.();
+
+        if (isMouseDownOnInput.current) {
+          setIsOpenedByFocus(true);
         }
-
-        // we need to use a timeout here as there is a race condition when rendered in a modal
-        // whereby the select list isn't visible when the select is auto focused straight away
-        focusTimer.current = setTimeout(() => {
-          setOpenState((isAlreadyOpen) => {
-            if (isAlreadyOpen) {
-              return true;
-            }
-
-            if (onOpen) {
-              onOpen();
-            }
-            if (onFocus && !isInputFocused.current) {
-              triggerFocus();
-              isInputFocused.current = true;
-            }
-
-            if (isMouseDownReported.current && !isMouseDownOnInput.current) {
-              isOpenedByFocus.current = false;
-              return false;
-            }
-
-            if (isMouseDownOnInput.current) {
-              isOpenedByFocus.current = true;
-            }
-            return true;
-          });
-        });
-      } else if (onFocus && !isInputFocused.current) {
-        triggerFocus();
-        isInputFocused.current = true;
+        setOpen(true);
       }
     }
 
@@ -610,8 +548,8 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     );
 
     const onSelectListClose = useCallback(() => {
-      setOpenState(false);
-      setFilterText("");
+      setOpen(false);
+      setTextValue("");
     }, []);
 
     const assignInput = useCallback<React.RefCallback<HTMLInputElement>>(
@@ -645,8 +583,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         onMouseDown: handleTextboxMouseDown,
         onFocus: handleTextboxFocus,
         onBlur: handleTextboxBlur,
-        iconOnClick: handleDropdownIconClick,
-        iconOnMouseDown: handleTextboxMouseDown,
         onKeyDown: handleTextboxKeydown,
         onChange: handleTextboxChange,
         tooltipPosition,
@@ -679,7 +615,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         onSelect={onSelectOption}
         onSelectListClose={onSelectListClose}
         onMouseDown={handleListMouseDown}
-        filterText={filterText.trim()}
+        filterText={textValue.trim()}
         highlightedValue={highlightedValue}
         noResultsMessage={noResultsMessage}
         isLoading={isLoading}
@@ -689,7 +625,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         listMaxHeight={listMaxHeight}
         flipEnabled={flipEnabled}
         multiselectValues={actualValue}
-        isOpen={isOpen}
+        isOpen={open}
         enableVirtualScroll={enableVirtualScroll}
         virtualScrollOverscan={virtualScrollOverscan}
         listWidth={listWidth}
@@ -709,7 +645,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         data-component={dataComponent}
         data-role={dataRole}
         data-element={dataElement}
-        isOpen={isOpen}
+        isOpen={open}
         {...marginProps}
       >
         <div ref={containerRef}>
@@ -728,7 +664,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
             ariaLabel={ariaLabel}
             ariaLabelledby={ariaLabelledby}
             hasTextCursor
-            isOpen={isOpen}
+            isOpen={open}
             labelId={labelId}
             {...getTextboxProps()}
           />
