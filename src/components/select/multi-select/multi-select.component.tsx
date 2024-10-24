@@ -161,7 +161,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       value || defaultValue || []
     );
     const [highlightedValue, setHighlightedValue] = useState("");
-    const [filterText, setFilterText] = useState("");
     const [placeholderOverride, setPlaceholderOverride] = useState<string>();
     const inputId = useRef(id || guid());
     const { labelId } = useInputAccessibility({
@@ -248,7 +247,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           setHighlightedValue(match.props.value);
         }
 
-        setFilterText(newValue);
         setTextValue(newValue);
 
         if (!open) {
@@ -298,19 +296,11 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           setOpen(true);
         }
 
-        if (isDeleteKey && (filterText === "" || textValue === "")) {
+        if (isDeleteKey && textValue === "") {
           removeSelectedValue(-1);
         }
       },
-      [
-        onKeyDown,
-        readOnly,
-        filterText,
-        textValue,
-        open,
-        onOpen,
-        removeSelectedValue,
-      ]
+      [onKeyDown, readOnly, textValue, open, onOpen, removeSelectedValue]
     );
 
     const accessibilityLabel = useMemo(() => {
@@ -344,7 +334,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
         if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
           setTextValue("");
-          setFilterText("");
           setHighlightedValue("");
           setOpen(false);
         }
@@ -456,9 +445,9 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
     useEffect(() => {
       if (!isFirstRender.current) {
-        onFilterChange?.(filterText);
+        onFilterChange?.(textValue);
       }
-    }, [onFilterChange, filterText]);
+    }, [onFilterChange, textValue]);
 
     useEffect(() => {
       isFirstRender.current = false;
@@ -475,7 +464,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
       if (!openOnFocus || (openOnFocus && !isOpenedByFocus.current)) {
         if (open) {
-          setFilterText("");
+          setTextValue("");
           setOpen(false);
           return;
         }
@@ -575,7 +564,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
     const onSelectListClose = useCallback(() => {
       setOpen(false);
-      setFilterText("");
+      setTextValue("");
     }, []);
 
     const assignInput = useCallback<React.RefCallback<HTMLInputElement>>(
@@ -641,7 +630,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         onSelect={onSelectOption}
         onSelectListClose={onSelectListClose}
         onMouseDown={handleListMouseDown}
-        filterText={filterText.trim()}
+        filterText={textValue.trim()}
         highlightedValue={highlightedValue}
         noResultsMessage={noResultsMessage}
         isLoading={isLoading}
