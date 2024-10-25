@@ -583,3 +583,6 @@ export const MenuInteractionKeyboard: Story = {
 };
 
 MenuInteractionKeyboard.storyName = "Menu Interaction Keyboard";
+MenuInteractionKeyboard.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+};

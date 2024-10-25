@@ -1236,6 +1236,11 @@ export const ButtonClick: Story = {
   },
 };
 
+ButtonClick.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
+};
+
 export const ButtonHover: Story = {
   render: () => <ButtonDefaultComponent />,
   play: async ({ canvasElement }) => {
@@ -1244,4 +1249,9 @@ export const ButtonHover: Story = {
 
     await userEvent.hover(ButtonComponent);
   },
+};
+
+ButtonHover.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
 };

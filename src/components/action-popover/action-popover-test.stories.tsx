@@ -860,6 +860,7 @@ export const ActionPopoverClick: Story = {
 
 ActionPopoverClick.storyName = "ActionPopover Click";
 ActionPopoverClick.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
   chromatic: { disableSnapshot: false },
 };
 
@@ -883,6 +884,7 @@ export const ActionPopoverSubmenuClick: Story = {
 
 ActionPopoverSubmenuClick.storyName = "ActionPopover Submenu Click";
 ActionPopoverSubmenuClick.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
   chromatic: { disableSnapshot: false },
 };
 
