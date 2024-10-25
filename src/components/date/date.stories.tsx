@@ -522,3 +522,44 @@ LocaleOverrideExampleImplementation.storyName =
 LocaleOverrideExampleImplementation.parameters = {
   chromatic: { disableSnapshot: true },
 };
+
+export const LocaleFormatOverrideExampleImplementation: Story = ({
+  ...args
+}) => {
+  const [state, setState] = useState("2022-04-05");
+  const handleChange = (ev: DateChangeEvent) => {
+    console.log(ev.target.value);
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <div style={{ display: "flex" }}>
+      <I18nProvider
+        locale={{
+          locale: () => "de-DE",
+          date: {
+            dateFnsLocale: () => de,
+            ariaLabels: {
+              previousMonthButton: () => "Vorheriger Monat",
+              nextMonthButton: () => "Nächster Monat",
+            },
+            dateFormatOverride: args.dateFormatOverride || "dd-MM-yyyy",
+          },
+        }}
+      >
+        <DateInput
+          label="Date `DE` locale"
+          value={state}
+          onChange={handleChange}
+        />
+      </I18nProvider>
+    </div>
+  );
+};
+LocaleFormatOverrideExampleImplementation.storyName =
+  "Locale Format Override - Example Implementation";
+LocaleFormatOverrideExampleImplementation.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+LocaleFormatOverrideExampleImplementation.args = {
+  dateFormatOverride: "d-M-yyyy",
+};

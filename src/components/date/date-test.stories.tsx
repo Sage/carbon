@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
 import { StoryObj } from "@storybook/react";
+import deLocale from "date-fns/locale/de";
+
 import DateInput, { DateChangeEvent } from "./date.component";
 import {
   CommonTextboxArgs,
@@ -12,6 +13,7 @@ import {
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Box from "../box";
 import Confirm from "../confirm";
+import I18nProvider from "../i18n-provider";
 
 export default {
   title: "Date Input/Test",
@@ -148,3 +150,55 @@ export const MultipleDates: StoryObj<typeof DateInput> = () => {
 MultipleDates.storyName =
   "Multiple Dates with onPickerOpen and onPickerClose callbacks";
 MultipleDates.parameters = { chromatic: { disableSnapshot: true } };
+
+interface I18nArgs extends CommonTextboxArgs {
+  /** The format used to override te displayed date format */
+  dateFormatOverride?: string;
+}
+
+export const I18NStory = (args: I18nArgs) => {
+  const [state, setState] = useState("2019-04-05");
+  const setValue = (ev: DateChangeEvent) => {
+    action("onChange")(ev.target.value);
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <I18nProvider
+        locale={{
+          locale: () => "de-DE",
+          date: {
+            ariaLabels: {
+              nextMonthButton: () => "foo",
+              previousMonthButton: () => "foo",
+            },
+            dateFnsLocale: () => deLocale,
+            dateFormatOverride: args.dateFormatOverride || "dd/MM/yyyy",
+          },
+        }}
+      >
+        <DateInput
+          name="dateinput"
+          m={2}
+          value={state}
+          onChange={setValue}
+          onBlur={(ev) => {
+            action("onBlur")(ev.target.value);
+          }}
+          onKeyDown={(ev) =>
+            action("onKeyDown")((ev.target as HTMLInputElement).value)
+          }
+          onClick={(ev) =>
+            action("onClick")((ev.target as HTMLInputElement).value)
+          }
+          {...getCommonTextboxArgsWithSpecialCaracters(args)}
+        />
+      </I18nProvider>
+    </CarbonProvider>
+  );
+};
+I18NStory.storyName = "i18n Story";
+I18NStory.args = {
+  dateFormatOverride: "dd/MM/yyyy",
+  ...getCommonTextboxArgs(),
+};

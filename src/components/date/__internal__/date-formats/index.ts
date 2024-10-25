@@ -140,7 +140,36 @@ interface LocaleFormats {
   format: string;
 }
 
-const getFormatData = ({ code = "en-GB" }: DateFnsLocale): LocaleFormats => {
+const getFormatData = (
+  { code = "en-GB" }: DateFnsLocale,
+  dateFormatOverride?: string,
+): LocaleFormats => {
+  if (dateFormatOverride) {
+    const { format } = getOutputFormatForLocale(code);
+    let formatFromLocale;
+
+    switch (code) {
+      case "en-CA":
+      case "en-US":
+        formatFromLocale = "MM/dd/yyyy";
+        break;
+      case "ar-EG":
+      case "en-ZA":
+      case "fr-CA":
+        formatFromLocale = "dd/MM/yyyy";
+        break;
+      default:
+        formatFromLocale = format;
+    }
+
+    const formatsForLocale = getInputFormatsArrayForLocale(formatFromLocale);
+
+    return {
+      format: dateFormatOverride,
+      formats: generateFormats(formatsForLocale, "/"),
+    };
+  }
+
   if (["en-CA", "en-US"].includes(code)) {
     const format = "MM/dd/yyyy";
     const formats = getInputFormatsArrayForLocale(format);

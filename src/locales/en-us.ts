@@ -1,4 +1,5 @@
 import enUSDateLocale from "date-fns/locale/en-US";
+
 import Locale from "./locale";
 
 const enUS: Partial<Locale> = {

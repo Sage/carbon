@@ -1,4 +1,5 @@
 import esESDateLocale from "date-fns/locale/es";
+
 import Locale from "./locale";
 
 const isSingular = (count: string | number): boolean =>
