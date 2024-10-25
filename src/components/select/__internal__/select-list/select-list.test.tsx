@@ -878,7 +878,7 @@ describe("closing behaviour", () => {
     screen.getByRole("option", { name: /blue/i }).focus();
     await user.tab();
 
-    expect(screen.getByRole("button", { name: /Click me/i })).toBeFocused();
+    expect(screen.getByRole("button", { name: /Click me/i })).toHaveFocus();
     expect(screen.getByRole("listbox")).toBeVisible();
   });
 });
