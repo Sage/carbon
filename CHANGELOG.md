@@ -1,3 +1,17 @@
+### [144.1.1](https://github.com/Sage/carbon/compare/v144.1.0...v144.1.1) (2024-10-24)
+
+
+### Bug Fixes
+
+* **menu-full-screen, modal:** ensure the call to action element is focused on close ([0ca3949](https://github.com/Sage/carbon/commit/0ca39499bd54576c8a94a0e94abf3ce501197bb9)), closes [#6870](https://github.com/Sage/carbon/issues/6870)
+
+## [144.1.0](https://github.com/Sage/carbon/compare/v144.0.1...v144.1.0) (2024-10-24)
+
+
+### Features
+
+* **typography:** update line heights to align with DS ([fb6762f](https://github.com/Sage/carbon/commit/fb6762f49caafb73d11285f954c18dcf73d328cf)), closes [#6335](https://github.com/Sage/carbon/issues/6335)
+
 ### [144.0.1](https://github.com/Sage/carbon/compare/v144.0.0...v144.0.1) (2024-10-23)
 
 

@@ -55,12 +55,19 @@ type Story = StoryObj<typeof DialogFullScreen>;
 
 export const Default: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Open DialogFullScreen
+      </Button>
       <DialogFullScreen
         open={isOpen}
-        onCancel={() => setIsOpen(false)}
+        onCancel={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
         title="Title"
         subtitle="Subtitle"
       >
