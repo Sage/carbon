@@ -41,6 +41,10 @@ import Dialog from "carbon-react/lib/components/dialog";
 
 ### Default
 
+The call-to-action element should always be focused when the `Dialog` is closed. However, in some instances it may not receive focus
+due to specific browser design choices. The below example shows how to programmatically focus the call-to-action element when the `Dialog` is closed
+to ensure behaviour is consistent across all browsers.
+
 <Canvas of={DialogStories.DefaultStory} />
 
 ### With Maximum Size
