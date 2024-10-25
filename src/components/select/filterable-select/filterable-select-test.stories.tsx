@@ -8,11 +8,62 @@ import Button from "../../button";
 export default {
   component: FilterableSelect,
   title: "Select/Filterable/Test",
-  excludeStories: [],
   parameters: {
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
+    },
+    controls: {
+      exclude: [
+        "onChange",
+        "onChangeDeferred",
+        "onFilterChange",
+        "onListScrollBottom",
+        "onListAction",
+        "onOpen",
+        "onBlur",
+        "onClick",
+        "onFocus",
+        "onKeyDown",
+        "onMouseDown",
+        "iconOnClick",
+        "iconOnMouseDown",
+        "children",
+        "value",
+        "defaultValue",
+        "tableHeader",
+        "multiColumn",
+        "leftChildren",
+        "listActionButton",
+        "as",
+      ],
+    },
+  },
+  argTypes: {
+    error: {
+      control: {
+        type: "text",
+      },
+    },
+    warning: {
+      control: {
+        type: "text",
+      },
+    },
+    info: {
+      control: {
+        type: "text",
+      },
+    },
+    fieldHelp: {
+      control: {
+        type: "text",
+      },
+    },
+    labelHelp: {
+      control: {
+        type: "text",
+      },
     },
   },
 };

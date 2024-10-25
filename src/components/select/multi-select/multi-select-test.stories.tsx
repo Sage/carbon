@@ -10,11 +10,59 @@ import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 export default {
   component: MultiSelect,
   title: "Select/MultiSelect/Test",
-  excludeStories: [""],
   parameters: {
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
+    },
+    controls: {
+      exclude: [
+        "onChange",
+        "onChangeDeferred",
+        "onFilterChange",
+        "onOpen",
+        "onBlur",
+        "onClick",
+        "onFocus",
+        "onKeyDown",
+        "onMouseDown",
+        "iconOnClick",
+        "iconOnMouseDown",
+        "children",
+        "value",
+        "defaultValue",
+        "tableHeader",
+        "multiColumn",
+        "leftChildren",
+        "as",
+      ],
+    },
+  },
+  argTypes: {
+    error: {
+      control: {
+        type: "text",
+      },
+    },
+    warning: {
+      control: {
+        type: "text",
+      },
+    },
+    info: {
+      control: {
+        type: "text",
+      },
+    },
+    fieldHelp: {
+      control: {
+        type: "text",
+      },
+    },
+    labelHelp: {
+      control: {
+        type: "text",
+      },
     },
   },
 };

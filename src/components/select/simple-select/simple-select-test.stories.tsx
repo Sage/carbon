@@ -12,69 +12,59 @@ import { Select, Option, SimpleSelectProps } from "..";
 export default {
   component: Select,
   title: "Select/Test",
-  excludeStories: [""],
   parameters: {
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
     },
+    controls: {
+      exclude: [
+        "onChange",
+        "onChangeDeferred",
+        "onListScrollBottom",
+        "onOpen",
+        "onBlur",
+        "onClick",
+        "onFocus",
+        "onKeyDown",
+        "onMouseDown",
+        "iconOnClick",
+        "iconOnMouseDown",
+        "children",
+        "value",
+        "defaultValue",
+        "tableHeader",
+        "multiColumn",
+        "leftChildren",
+        "as",
+      ],
+    },
   },
   argTypes: {
-    value: { table: { disable: true }, control: false },
-    defaultValue: { table: { disable: true }, control: false },
-    children: { table: { disable: true }, control: false },
-    openOnFocus: { table: { disable: true }, control: false },
-    transparent: { table: { disable: true }, control: false },
-    tableHeader: { table: { disable: true }, control: false },
-    multiColumn: { table: { disable: true }, control: false },
-    isLoading: { table: { disable: true }, control: false },
-    onListScrollBottom: { table: { disable: true }, control: false },
-    tooltipPosition: { table: { disable: true }, control: false },
-    "data-component": { table: { disable: true }, control: false },
-    "data-element": { table: { disable: true }, control: false },
-    "data-role": { table: { disable: true }, control: false },
-    listPlacement: {
-      options: [
-        "top",
-        "bottom",
-        "top-start",
-        "bottom-start",
-        "top-end",
-        "bottom-end",
-      ],
+    error: {
       control: {
-        type: "select",
+        type: "text",
       },
     },
-    onOpen: {
-      action: "onOpen",
-      table: { disable: true },
-      control: false,
+    warning: {
+      control: {
+        type: "text",
+      },
     },
-    onChange: {
-      action: "onChange",
-      table: { disable: true },
-      control: false,
+    info: {
+      control: {
+        type: "text",
+      },
     },
-    onClick: {
-      action: "onClick",
-      table: { disable: true },
-      control: false,
+    fieldHelp: {
+      control: {
+        type: "text",
+      },
     },
-    onFocus: {
-      action: "onFocus",
-      table: { disable: true },
-      control: false,
-    },
-    onBlur: {
-      action: "onBlur",
-      table: { disable: true },
-      control: false,
-    },
-    onKeyDown: {
-      action: "onKeyDown",
-      table: { disable: true },
-      control: false,
+    labelHelp: {
+      control: {
+        type: "text",
+      },
     },
   },
 };
