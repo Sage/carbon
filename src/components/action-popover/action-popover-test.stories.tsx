@@ -728,19 +728,6 @@ export const LongMenuExample = () => {
       </ActionPopoverItem>
     </ActionPopoverMenu>
   );
-  const submenuWithIcons = (
-    <ActionPopoverMenu>
-      <ActionPopoverItem icon="graph" onClick={() => {}}>
-        Sub Menu 1
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="add" onClick={() => {}}>
-        Sub Menu 2
-      </ActionPopoverItem>
-      <ActionPopoverItem icon="print" disabled onClick={() => {}}>
-        Sub Menu 3
-      </ActionPopoverItem>
-    </ActionPopoverMenu>
-  );
   return (
     <Box mt={60} height={275}>
       <ActionPopover onOpen={() => {}} onClose={() => {}}>
@@ -779,7 +766,12 @@ export const LongMenuExample = () => {
         <ActionPopoverItem icon="email" onClick={() => {}}>
           Email Invoiceee
         </ActionPopoverItem>
-        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
+        <ActionPopoverItem
+          data-role="print-invoice"
+          icon="print"
+          onClick={() => {}}
+          submenu={submenu}
+        >
           Print Invoice
         </ActionPopoverItem>
         <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
@@ -791,20 +783,6 @@ export const LongMenuExample = () => {
         <ActionPopoverDivider />
         <ActionPopoverItem disabled icon="delete" onClick={() => {}}>
           Delete
-        </ActionPopoverItem>
-      </ActionPopover>
-      <ActionPopover>
-        <ActionPopoverItem icon="csv" onClick={() => {}}>
-          Download CSV
-        </ActionPopoverItem>
-      </ActionPopover>
-      <ActionPopover>
-        <ActionPopoverItem
-          icon="csv"
-          submenu={submenuWithIcons}
-          onClick={() => {}}
-        >
-          Download CSV
         </ActionPopoverItem>
       </ActionPopover>
     </Box>
