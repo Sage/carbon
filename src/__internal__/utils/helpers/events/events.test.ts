@@ -1,14 +1,14 @@
 import Events from "./events";
 
 describe("isEventType", () => {
-  test("Returns true when the event type and passed type match", () => {
+  it("returns true when the event type and passed type match", () => {
     const event = { type: "click" } as Event;
     const result = Events.isEventType(event, "click");
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type and passed type do not match", () => {
+  it("returns false when the event type and passed type do not match", () => {
     const event = { type: "click" } as Event;
     const result = Events.isEventType(event, "keyUp");
 
@@ -18,7 +18,7 @@ describe("isEventType", () => {
 
 describe("isKeyboardEvent", () => {
   test.each(["keyup", "keydown", "keypress"])(
-    "Returns true when the event type is a keyboard event type (%s)",
+    "returns true when the event type is a keyboard event type (%s)",
     (type) => {
       const event = { type } as Event;
       const result = Events.isKeyboardEvent(event);
@@ -27,7 +27,7 @@ describe("isKeyboardEvent", () => {
     }
   );
 
-  test("Returns false when the event type is not a keyboard event type", () => {
+  it("returns false when the event type is not a keyboard event type", () => {
     const event = { type: "click" } as Event;
     const result = Events.isKeyboardEvent(event);
 
@@ -36,28 +36,28 @@ describe("isKeyboardEvent", () => {
 });
 
 describe("isEnterOrSpaceKey", () => {
-  test("Returns true when the event type is a keyup event, and the key is the Enter key", () => {
+  it("returns true when the event type is a keyup event, and the key is the Enter key", () => {
     const event = { type: "keyup", key: "Enter" } as KeyboardEvent;
     const result = Events.isEnterOrSpaceKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns true when the event type is a keyup event, and the key is the Space key", () => {
+  it("returns true when the event type is a keyup event, and the key is the Space key", () => {
     const event = { type: "keyup", key: " " } as KeyboardEvent;
     const result = Events.isEnterOrSpaceKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type is a keyup event, but the key is not the Enter key or the Space key", () => {
+  it("returns false when the event type is a keyup event, but the key is not the Enter key or the Space key", () => {
     const event = { type: "keyup", key: "Backspace" } as KeyboardEvent;
     const result = Events.isEnterOrSpaceKey(event);
 
     expect(result).toBeFalsy();
   });
 
-  test("Returns false when the event type is not a keyup event", () => {
+  it("returns false when the event type is not a keyup event", () => {
     const event = { type: "keydown" } as KeyboardEvent;
     const result = Events.isEnterOrSpaceKey(event);
 
@@ -67,7 +67,7 @@ describe("isEnterOrSpaceKey", () => {
 
 describe("isNumberKey", () => {
   test.each(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"])(
-    "Returns true when the event type is a number key event (%s)",
+    "returns true when the event type is a number key event (%s)",
     (key) => {
       const event = { key } as KeyboardEvent;
       const result = Events.isNumberKey(event);
@@ -76,7 +76,7 @@ describe("isNumberKey", () => {
     }
   );
 
-  test("Returns false when the event type is not a number key event", () => {
+  it("returns false when the event type is not a number key event", () => {
     const event = { key: "a" } as KeyboardEvent;
     const result = Events.isNumberKey(event);
 
@@ -85,14 +85,14 @@ describe("isNumberKey", () => {
 });
 
 describe("isLeftKey", () => {
-  test("Returns false when the event type is not a left key event", () => {
+  it("returns false when the event type is not a left key event", () => {
     const event = { key: "Backspace" } as KeyboardEvent;
     const result = Events.isLeftKey(event);
 
     expect(result).toBeFalsy();
   });
 
-  test("Returns true when the event type is a left key event", () => {
+  it("returns true when the event type is a left key event", () => {
     const event = { key: "ArrowLeft" } as KeyboardEvent;
     const result = Events.isLeftKey(event);
 
@@ -101,14 +101,14 @@ describe("isLeftKey", () => {
 });
 
 describe("isUpKey", () => {
-  test("Returns true when the event type is an up key event", () => {
+  it("returns true when the event type is an up key event", () => {
     const event = { key: "ArrowUp" } as KeyboardEvent;
     const result = Events.isUpKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type is not an up key event", () => {
+  it("returns false when the event type is not an up key event", () => {
     const event = { key: "Backspace" } as KeyboardEvent;
     const result = Events.isUpKey(event);
 
@@ -117,14 +117,14 @@ describe("isUpKey", () => {
 });
 
 describe("isRightKey", () => {
-  test("Returns true when the event type is a right key event", () => {
+  it("returns true when the event type is a right key event", () => {
     const event = { key: "ArrowRight" } as KeyboardEvent;
     const result = Events.isRightKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type is not a right key event", () => {
+  it("returns false when the event type is not a right key event", () => {
     const event = { key: "Backspace" } as KeyboardEvent;
     const result = Events.isRightKey(event);
 
@@ -133,14 +133,14 @@ describe("isRightKey", () => {
 });
 
 describe("isDownKey", () => {
-  test("Returns true when the event type is a down key event", () => {
+  it("returns true when the event type is a down key event", () => {
     const event = { key: "ArrowDown" } as KeyboardEvent;
     const result = Events.isDownKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type is not a down key event", () => {
+  it("returns false when the event type is not a down key event", () => {
     const event = { key: "Backspace" } as KeyboardEvent;
     const result = Events.isDownKey(event);
 
@@ -149,14 +149,14 @@ describe("isDownKey", () => {
 });
 
 describe("isEscKey", () => {
-  test("Returns true when the event type is an Escape key event", () => {
+  it("returns true when the event type is an Escape key event", () => {
     const event = { key: "Escape" } as KeyboardEvent;
     const result = Events.isEscKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type is not an Escape key event", () => {
+  it("returns false when the event type is not an Escape key event", () => {
     const event = { key: "Backspace" } as KeyboardEvent;
     const result = Events.isEscKey(event);
 
@@ -165,14 +165,14 @@ describe("isEscKey", () => {
 });
 
 describe("isEnterKey", () => {
-  test("Returns true when the event type is an Enter key event", () => {
+  it("returns true when the event type is an Enter key event", () => {
     const event = { key: "Enter" } as KeyboardEvent;
     const result = Events.isEnterKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type is not an Enter key event", () => {
+  it("returns false when the event type is not an Enter key event", () => {
     const event = { key: "Backspace" } as KeyboardEvent;
     const result = Events.isEnterKey(event);
 
@@ -181,14 +181,14 @@ describe("isEnterKey", () => {
 });
 
 describe("isTabKey", () => {
-  test("Returns true when the event type is a Tab key event", () => {
+  it("returns true when the event type is a Tab key event", () => {
     const event = { key: "Tab" } as KeyboardEvent;
     const result = Events.isTabKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type is not a Tab key event", () => {
+  it("returns false when the event type is not a Tab key event", () => {
     const event = { key: "Backspace" } as KeyboardEvent;
     const result = Events.isTabKey(event);
 
@@ -197,14 +197,14 @@ describe("isTabKey", () => {
 });
 
 describe("isShiftKey", () => {
-  test("Returns true when the event type is a Shift key event", () => {
+  it("returns true when the event type is a Shift key event", () => {
     const event = { shiftKey: true } as KeyboardEvent;
     const result = Events.isShiftKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type is not a Shift key event", () => {
+  it("returns false when the event type is not a Shift key event", () => {
     const event = { key: "Tab" } as KeyboardEvent;
     const result = Events.isShiftKey(event);
 
@@ -213,14 +213,14 @@ describe("isShiftKey", () => {
 });
 
 describe("isSpaceKey", () => {
-  test("Returns true when the event type is a Space key event", () => {
+  it("returns true when the event type is a Space key event", () => {
     const event = { key: " " } as KeyboardEvent;
     const result = Events.isSpaceKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type is not a Space key event", () => {
+  it("returns false when the event type is not a Space key event", () => {
     const event = { key: "Tab" } as KeyboardEvent;
     const result = Events.isSpaceKey(event);
 
@@ -229,14 +229,14 @@ describe("isSpaceKey", () => {
 });
 
 describe("isHomeKey", () => {
-  test("Returns true when the event type is a Home key event", () => {
+  it("returns true when the event type is a Home key event", () => {
     const event = { key: "Home" } as KeyboardEvent;
     const result = Events.isHomeKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type is not a Home key event", () => {
+  it("returns false when the event type is not a Home key event", () => {
     const event = { key: "End" } as KeyboardEvent;
     const result = Events.isHomeKey(event);
 
@@ -245,14 +245,14 @@ describe("isHomeKey", () => {
 });
 
 describe("isEndKey", () => {
-  test("Returns true when the event type is an End key event", () => {
+  it("returns true when the event type is an End key event", () => {
     const event = { key: "End" } as KeyboardEvent;
     const result = Events.isEndKey(event);
 
     expect(result).toBeTruthy();
   });
 
-  test("Returns false when the event type is not an End key event", () => {
+  it("returns false when the event type is not an End key event", () => {
     const event = { key: "Home" } as KeyboardEvent;
     const result = Events.isEndKey(event);
 
@@ -261,28 +261,28 @@ describe("isEndKey", () => {
 });
 
 describe("composedPath", () => {
-  test("Returns an empty array if there is no target", () => {
+  it("returns an empty array if there is no target", () => {
     const event = new CustomEvent("click");
     const result = Events.composedPath(event);
 
     expect(result).toEqual([]);
   });
 
-  test("Returns an empty array if target is null", () => {
+  it("returns an empty array if target is null", () => {
     const event = { target: null } as CustomEvent;
     const result = Events.composedPath(event);
 
     expect(result).toEqual([]);
   });
 
-  test("Returns an empty array if there is no parent element", () => {
+  it("returns an empty array if there is no parent element", () => {
     const event = { target: document as EventTarget } as CustomEvent;
     const result = Events.composedPath(event);
 
     expect(result).toEqual([]);
   });
 
-  test("Returns the path from event.composedPath() if it is available", () => {
+  it("returns the path from event.composedPath() if it is available", () => {
     const path = Symbol("path");
     const composedPath = jest.fn();
     composedPath.mockReturnValue(path);
@@ -294,7 +294,7 @@ describe("composedPath", () => {
     expect(result).toBe(path);
   });
 
-  test("Builds path from DOM elements if event.composedPath is unavailable", () => {
+  it("builds path from DOM elements if event.composedPath is unavailable", () => {
     const div = document.createElement("div");
     const ul = document.createElement("ul");
     const li = document.createElement("li");
@@ -311,7 +311,7 @@ describe("composedPath", () => {
 
   /* TODO: FE-6826 Investigate if `composedPath` is still required post removal of Enzyme.  */
 
-  test("Builds the path if it is not available on the element from a ReactWrapper", () => {
+  it("builds the path if it is not available on the element from a ReactWrapper", () => {
     const div = document.createElement("div");
     const ul = document.createElement("ul");
     const li = document.createElement("li");
