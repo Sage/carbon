@@ -98,7 +98,7 @@ If you need to split out a submenu into a separate component, it must be done as
 
 In order to align text and icons within a submenu a `Box` component will need to be used to adjust the margin of the content.
 
-<Canvas of={MenuStories.SubmeuIconAndTextAlignment} />
+<Canvas of={MenuStories.SubmenuIconAndTextAlignment} />
 
 ### Scrollable submenu
 
@@ -150,6 +150,9 @@ at the different breakpoints.
 This story is best viewed in the `canvas` view and by adjusting the size of the window. The fullscreen menu behaviour will
 trigger when the screen size is smaller than `1200px`. Please note the `MenuItem`s are intended to have a width that fills the viewport,
 as such any `maxWidth` value passed will not be set when they are children of `MenuFullscreen`.
+
+The call-to-action `MenuItem` should always be focused when the `MenuFullscreen` is closed. However, in some instances it may not receive focus
+due to specific browser design choices.
 
 <Canvas of={MenuStories.FullscreenViewStory} />
 

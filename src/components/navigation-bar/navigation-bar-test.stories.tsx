@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import NavigationBar, { NavigationBarProps } from ".";
 import { Menu, MenuItem } from "../menu";
+import Pill from "../pill";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 export default {
@@ -10,6 +11,7 @@ export default {
     "NavigationBarWithSubmenuAndChangingHeight",
     "WithMediaQuery",
     "ResponsivePadding",
+    "WithPills",
   ],
   parameters: {
     info: { disable: true },
@@ -104,5 +106,37 @@ ResponsivePadding.parameters = {
   chromatic: {
     disableSnapshot: false,
     viewports: [599, 959, 1259],
+  },
+};
+
+export const WithPills = () => {
+  return (
+    <NavigationBar
+      navigationType="light"
+      position="fixed"
+      orientation="top"
+      offset="40px"
+    >
+      <Menu menuType="light">
+        <MenuItem onClick={() => {}}>
+          Menu 1
+          <Pill pillRole="status" colorVariant="warning" fill ml={1} size="M">
+            1
+          </Pill>
+        </MenuItem>
+        <MenuItem href="#">
+          Menu 2
+          <Pill pillRole="status" colorVariant="warning" fill ml={1} size="M">
+            1
+          </Pill>
+        </MenuItem>
+      </Menu>
+    </NavigationBar>
+  );
+};
+WithPills.storyName = "With pills";
+WithPills.parameters = {
+  chromatic: {
+    disableSnapshot: false,
   },
 };
