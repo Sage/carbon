@@ -1,3 +1,10 @@
+## [144.2.0](https://github.com/Sage/carbon/compare/v144.1.1...v144.2.0) (2024-10-25)
+
+
+### Features
+
+* **box:** adds a deprecation warning to the Box component for tabIndex ([b49e572](https://github.com/Sage/carbon/commit/b49e5722b58702f3d3bace17d3ea4ca7456481a0))
+
 ### [144.1.1](https://github.com/Sage/carbon/compare/v144.1.0...v144.1.1) (2024-10-24)
 
 
