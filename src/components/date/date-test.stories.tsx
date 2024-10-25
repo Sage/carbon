@@ -18,6 +18,7 @@ import styledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 export default {
   title: "Date Input/Test",
+  excludeStories: ["meta"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -199,6 +200,25 @@ export const DateInputClick: Story = {
 
 DateInputClick.storyName = "Date Input Click";
 
+export const DateInputDayClick: Story = {
+  render: () => <DateInputDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    // This is required due to a known issue with the canvasElement not being the parent of the component when a Portal is used.
+    // https://github.com/storybookjs/storybook/issues/26963
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const canvas = within(canvasElement.parentElement!);
+    const dateInputElement = canvas.getByRole("textbox");
+
+    await userEvent.click(dateInputElement);
+    await waitFor(() => userInteractionPause(300));
+
+    const dayElement = canvas.getByText("26");
+    await userEvent.click(dayElement);
+  },
+};
+
+DateInputDayClick.storyName = "Date Input Day Click";
+
 export const DateInputKeyboardInteraction: Story = {
   render: () => <DateInputDefaultComponent />,
   play: async ({ canvasElement }) => {
@@ -230,5 +250,12 @@ export const DateInputTyped: Story = {
     const dateInputElement = canvas.getByRole("textbox");
 
     await userEvent.click(dateInputElement);
+    await waitFor(() => userInteractionPause(300));
+    await userEvent.clear(dateInputElement);
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.type(dateInputElement, "22/2/1978", { delay: 100 });
+    await waitFor(() => userInteractionPause(300));
+    await userEvent.keyboard("{enter}");
   },
 };

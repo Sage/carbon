@@ -21,6 +21,7 @@ export default {
     "generateButtons",
     "generateFullWidthButtonsStory",
     "generateButtonsNoWrapStory",
+    "meta",
   ],
   parameters: {
     info: { disable: true },

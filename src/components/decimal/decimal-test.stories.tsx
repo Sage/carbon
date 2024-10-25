@@ -15,6 +15,7 @@ import styledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 export default {
   title: "Decimal Input/Test",
+  excludeStories: ["meta"],
   parameters: {
     info: { disable: true },
     chromatic: {
