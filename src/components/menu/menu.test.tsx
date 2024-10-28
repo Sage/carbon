@@ -32,7 +32,7 @@ test("should focus the last item when 'End' key is pressed by user", async () =>
   const lastMenuItem = screen.getByRole("link", { name: "test four" });
   await user.keyboard("{End}");
 
-  expect(lastMenuItem).toBeFocused();
+  expect(lastMenuItem).toHaveFocus();
 });
 
 test("should focus the first item when 'Home' key is pressed by user", async () => {
@@ -50,7 +50,7 @@ test("should focus the first item when 'Home' key is pressed by user", async () 
   const firstMenuItem = screen.getByRole("link", { name: "test one" });
   await user.keyboard("{Home}");
 
-  expect(firstMenuItem).toBeFocused();
+  expect(firstMenuItem).toHaveFocus();
 });
 
 test("should focus the next item in sequence, and remove focus from menu on last item, when 'Tab' key is pressed by user", async () => {
@@ -67,13 +67,13 @@ test("should focus the next item in sequence, and remove focus from menu on last
   items[0].focus();
   await user.tab();
 
-  expect(items[1]).toBeFocused();
+  expect(items[1]).toHaveFocus();
   await user.tab();
-  expect(items[2]).toBeFocused();
+  expect(items[2]).toHaveFocus();
   await user.tab();
-  expect(items[3]).toBeFocused();
+  expect(items[3]).toHaveFocus();
   await user.tab();
-  expect(document.body).toBeFocused();
+  expect(document.body).toHaveFocus();
 });
 
 test("should focus the previous item in sequence, and remove focus from menu on first item, when 'Shift+Tab' key is pressed by user", async () => {
@@ -90,13 +90,13 @@ test("should focus the previous item in sequence, and remove focus from menu on 
   items[3].focus();
   await user.tab({ shift: true });
 
-  expect(items[2]).toBeFocused();
+  expect(items[2]).toHaveFocus();
   await user.tab({ shift: true });
-  expect(items[1]).toBeFocused();
+  expect(items[1]).toHaveFocus();
   await user.tab({ shift: true });
-  expect(items[0]).toBeFocused();
+  expect(items[0]).toHaveFocus();
   await user.tab({ shift: true });
-  expect(document.body).toBeFocused();
+  expect(document.body).toHaveFocus();
 });
 
 test("should not focus the next item in sequence when 'arrowright' key is pressed by user", async () => {
@@ -113,11 +113,11 @@ test("should not focus the next item in sequence when 'arrowright' key is presse
   items[0].focus();
   await user.keyboard("{arrowright}");
 
-  expect(items[0]).toBeFocused();
+  expect(items[0]).toHaveFocus();
   await user.keyboard("{arrowright}");
-  expect(items[0]).toBeFocused();
+  expect(items[0]).toHaveFocus();
   await user.keyboard("{arrowright}");
-  expect(items[0]).toBeFocused();
+  expect(items[0]).toHaveFocus();
 });
 
 test("should not focus the previous item in sequence when 'arrowleft' key is pressed by user", async () => {
@@ -134,11 +134,11 @@ test("should not focus the previous item in sequence when 'arrowleft' key is pre
   items[3].focus();
   await user.keyboard("{arrowleft}");
 
-  expect(items[3]).toBeFocused();
+  expect(items[3]).toHaveFocus();
   await user.keyboard("{arrowleft}");
-  expect(items[3]).toBeFocused();
+  expect(items[3]).toHaveFocus();
   await user.keyboard("{arrowleft}");
-  expect(items[3]).toBeFocused();
+  expect(items[3]).toHaveFocus();
 });
 
 test("should not throw an error when conditionally rendered `children` are passed", () => {

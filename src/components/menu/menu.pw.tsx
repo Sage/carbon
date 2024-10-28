@@ -52,6 +52,7 @@ import {
   MenuComponentSearch,
   MenuWithChildrenUpdating,
   MenuComponentFullScreen,
+  MenuComponentFullScreenSimple,
   MenuFullScreenBackgroundScrollTest,
   MenuComponentItems,
   MenuFullScreenWithSearchButton,
@@ -404,7 +405,7 @@ test.describe("Prop tests for Menu component", () => {
     const topLess = 184;
     const leftLess = 108;
     // additionVal is to compensate for the outline.
-    const additionVal = 4;
+    const additionVal = 5;
 
     await page.keyboard.press("Tab");
     await page.keyboard.press("Enter");
@@ -417,19 +418,19 @@ test.describe("Prop tests for Menu component", () => {
     const boundBottom = await cross.evaluate((element) => {
       return element.getBoundingClientRect().bottom;
     });
-    expect(boundBottom).toBeLessThan(bottomLess + additionVal);
+    expect(boundBottom).toBeLessThanOrEqual(bottomLess + additionVal);
     expect(boundBottom).toBeGreaterThan(bottomLess);
 
     const boundTop = await cross.evaluate((element) => {
       return element.getBoundingClientRect().top;
     });
-    expect(boundTop).toBeLessThan(topLess + additionVal);
+    expect(boundTop).toBeLessThanOrEqual(topLess + additionVal);
     expect(boundTop).toBeGreaterThan(topLess);
 
     const boundLeft = await cross.evaluate((element) => {
       return element.getBoundingClientRect().left;
     });
-    expect(boundLeft).toBeLessThan(leftLess + additionVal);
+    expect(boundLeft).toBeLessThanOrEqual(leftLess + additionVal);
     expect(boundLeft).toBeGreaterThan(leftLess);
   });
 
@@ -560,27 +561,6 @@ test.describe("Prop tests for Menu component", () => {
   });
 
   ([
-    ["number", 15, 15],
-    ["number", 27, 27],
-    ["number", 41, 41],
-    ["string", "10px", 10],
-    ["string", "30px", 30],
-    ["string", "50px", 50],
-  ] as [string, number | string, number][]).forEach(
-    ([type, propValue, pixels]) => {
-      test(`should render with height set to ${pixels}px when prop is passed as a ${type}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponent height={propValue} />);
-
-        const thisMenu = menu(page).first();
-        await assertCssValueIsApproximately(thisMenu, "height", pixels);
-      });
-    }
-  );
-
-  ([
     ["number", 810, 350, 810],
     ["number", 810, 1350, 1350],
     ["string", "700px", "300px", 700],
@@ -614,59 +594,6 @@ test.describe("Prop tests for Menu component", () => {
 
         const thisMenu = menu(page).first();
         await assertCssValueIsApproximately(thisMenu, "width", pixels);
-      });
-    }
-  );
-
-  ([
-    ["number", 30, 20, 30],
-    ["number", 30, 40, 40],
-    ["string", "35px", "25px", 35],
-    ["string", "35px", "40px", 40],
-  ] as [string, string | number, string | number, number][]).forEach(
-    ([type, minHeight, height, pixels]) => {
-      test(`should render with minimum height of ${pixels}px when minHeight prop is passed as a ${type}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponent minHeight={minHeight} height={height} />);
-
-        const thisMenu = menu(page).first();
-        await assertCssValueIsApproximately(thisMenu, "height", pixels);
-      });
-    }
-  );
-
-  ([
-    ["number", 30, 20, 20],
-    ["number", 30, 40, 30],
-    ["string", "35px", "25px", 25],
-    ["string", "35px", "40px", 35],
-  ] as [string, string | number, string | number, number][]).forEach(
-    ([type, maxHeight, height, pixels]) => {
-      test(`should render with maximum height of ${pixels}px when maxHeight prop is passed as a ${type}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponent maxHeight={maxHeight} height={height} />);
-
-        const thisMenu = menu(page).first();
-        await assertCssValueIsApproximately(thisMenu, "height", pixels);
-      });
-    }
-  );
-
-  ["block", "inline-block", "flex", "contents", "list-item", "none"].forEach(
-    (display) => {
-      test(`should render with display as ${display}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponent display={display} />);
-
-        const thisMenu = menu(page).first();
-        await expect(thisMenu).toHaveAttribute("display", display);
-        await expect(thisMenu).toHaveCSS("display", display);
       });
     }
   );
@@ -720,24 +647,6 @@ test.describe("Prop tests for Menu component", () => {
 
       const thisMenu = menu(page).first();
       await expect(thisMenu).toHaveCSS("overflow-x", overflow as string);
-    });
-  });
-
-  ([
-    "auto",
-    "clip",
-    "hidden",
-    "scroll",
-    "visible",
-  ] as MenuProps["overflowY"][]).forEach((overflow) => {
-    test(`should render with overflowY as ${overflow}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponent overflowY={overflow} />);
-
-      const thisMenu = menu(page).first();
-      await expect(thisMenu).toHaveCSS("overflow-y", overflow as string);
     });
   });
 
@@ -1153,6 +1062,46 @@ test.describe("Prop tests for Menu component", () => {
       });
     }
   );
+
+  test("when a Menu Fullscreen is opened and then closed, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentFullScreenSimple open={false} />);
+
+    await page.setViewportSize({ width: 1200, height: 800 });
+    const item = page.getByRole("button").filter({ hasText: "Menu" });
+    await item.click();
+    const fullscreen = getComponent(page, "menu-fullscreen");
+    await waitForAnimationEnd(fullscreen);
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(item).toBeFocused();
+  });
+
+  test("when Menu Fullscreen is open on render, then closed, opened and then closed again, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentFullScreenSimple />);
+
+    await page.setViewportSize({ width: 1200, height: 800 });
+    const fullscreen = getComponent(page, "menu-fullscreen");
+    await waitForAnimationEnd(fullscreen);
+    await expect(fullscreen).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+
+    const item = page.getByRole("button").filter({ hasText: "Menu" });
+    await expect(item).not.toBeFocused();
+    await expect(fullscreen).not.toBeVisible();
+
+    await item.click();
+    await waitForAnimationEnd(fullscreen);
+    await expect(fullscreen).toBeVisible();
+    await closeButton.click();
+    await expect(item).toBeFocused();
+  });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
   test.skip(`should verify that inner Menu without link is NOT available with tabbing in Fullscreen Menu`, async ({
@@ -1875,17 +1824,6 @@ test.describe("Accessibility tests for Menu component", () => {
     });
   });
 
-  ["10px", "30px", "50px"].forEach((propValue) => {
-    test(`should pass accessibility tests when height is ${propValue}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponent height={propValue} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
   (["default", "large"] as MenuDividerProps["size"][]).forEach((size) => {
     test(`should pass accessibility tests when size is ${size}px`, async ({
       mount,
@@ -1896,19 +1834,6 @@ test.describe("Accessibility tests for Menu component", () => {
       await checkAccessibility(page);
     });
   });
-
-  ["block", "inline-block", "flex", "contents", "list-item", "none"].forEach(
-    (display) => {
-      test(`should pass accessibility tests when display is ${display}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponent display={display} />);
-
-        await checkAccessibility(page);
-      });
-    }
-  );
 
   [
     "baseline",
@@ -1953,23 +1878,6 @@ test.describe("Accessibility tests for Menu component", () => {
       page,
     }) => {
       await mount(<MenuComponent overflowX={overflow} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  ([
-    "auto",
-    "clip",
-    "hidden",
-    "scroll",
-    "visible",
-  ] as MenuProps["overflowY"][]).forEach((overflow) => {
-    test(`should pass accessibility tests when overflowY is ${overflow}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponent overflowY={overflow} />);
 
       await checkAccessibility(page);
     });

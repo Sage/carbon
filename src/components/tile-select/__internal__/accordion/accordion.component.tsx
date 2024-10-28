@@ -28,7 +28,6 @@ const Accordion = ({
 
   return (
     <StyledContentContainer
-      aria-expanded={expanded}
       isExpanded={expanded}
       maxHeight={contentHeight}
       data-role="tile-select-accordion-content-container"

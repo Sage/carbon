@@ -1324,10 +1324,10 @@ describe("when focus is lost to the document body and `topModalContext` has a va
     render(<ComponentWithTopModalContext trapIsTopModal />);
 
     await user.click(screen.getByText("I am some irrelevant text"));
-    expect(document.body).toBeFocused();
+    expect(document.body).toHaveFocus();
 
     await user.tab();
-    expect(screen.getByRole("button", { name: "One" })).toBeFocused();
+    expect(screen.getByRole("button", { name: "One" })).toHaveFocus();
   });
 
   it("should not do anything when the user tabs and the focus trap is not in the top modal", async () => {
@@ -1335,10 +1335,10 @@ describe("when focus is lost to the document body and `topModalContext` has a va
     render(<ComponentWithTopModalContext trapIsTopModal={false} />);
 
     await user.click(screen.getByText("I am some irrelevant text"));
-    expect(document.body).toBeFocused();
+    expect(document.body).toHaveFocus();
 
     await user.tab();
-    expect(screen.getByText("Outside button")).toBeFocused();
+    expect(screen.getByText("Outside button")).toHaveFocus();
   });
 });
 

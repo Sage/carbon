@@ -55,12 +55,19 @@ type Story = StoryObj<typeof DialogFullScreen>;
 
 export const Default: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Open DialogFullScreen
+      </Button>
       <DialogFullScreen
         open={isOpen}
-        onCancel={() => setIsOpen(false)}
+        onCancel={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
         title="Title"
         subtitle="Subtitle"
       >
@@ -718,47 +725,6 @@ WithHideableHeaderChildren.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const WithBox: Story = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open DialogFullScreen</Button>
-      <DialogFullScreen
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Title"
-        subtitle="Subtitle"
-      >
-        <Box p="0px 40px">
-          <Form
-            stickyFooter
-            leftSideButtons={
-              <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-            }
-            saveButton={
-              <Button buttonType="primary" type="submit">
-                Save
-              </Button>
-            }
-          >
-            <Box>
-              This is an example of a full screen Dialog with a Form as content
-            </Box>
-            <Textbox label="First Name" />
-            <Textbox label="Middle Name" />
-            <Textbox label="Surname" />
-            <Textbox label="Birth Place" />
-            <Textbox label="Favourite Colour" />
-            <Textbox label="Address" />
-          </Form>
-        </Box>
-      </DialogFullScreen>
-    </>
-  );
-};
-WithBox.storyName = "With Box";
-WithBox.parameters = { chromatic: { disableSnapshot: true } };
-
 export const FocusingADifferentFirstElement: Story = () => {
   const [isOpenOne, setIsOpenOne] = useState(false);
   const [isOpenTwo, setIsOpenTwo] = useState(false);
@@ -839,7 +805,6 @@ export const OtherFocusableContainers: Story = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
           }

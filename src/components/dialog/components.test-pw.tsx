@@ -210,8 +210,12 @@ export const DialogComponentFocusableSelectors = (
   );
 };
 
-export const DefaultStory = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
+export const DefaultStory = ({
+  open = defaultOpenState,
+}: {
+  open?: boolean;
+}) => {
+  const [isOpen, setIsOpen] = useState(open);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
@@ -223,7 +227,6 @@ export const DefaultStory = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -254,6 +257,35 @@ export const DefaultStory = () => {
   );
 };
 
+export const DefaultNestedStory = () => {
+  const [isFirstDialogOpen, setIsFirstDialogOpen] = useState(false);
+  const [isNestedDialogOpen, setIsNestedDialogOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setIsFirstDialogOpen(true)}>
+        Open First Dialog
+      </Button>
+      <Dialog
+        open={isFirstDialogOpen}
+        onCancel={() => setIsFirstDialogOpen(false)}
+        title="First Dialog"
+      >
+        <Button onClick={() => setIsNestedDialogOpen(true)}>
+          Open Nested Dialog
+        </Button>
+        <Dialog
+          open={isNestedDialogOpen}
+          onCancel={() => setIsNestedDialogOpen(false)}
+          title="Nested Dialog"
+        >
+          <Textbox label="Nested Dialog Textbox" />
+        </Dialog>
+      </Dialog>
+    </>
+  );
+};
+
 export const Editable = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -269,7 +301,6 @@ export const Editable = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -335,7 +366,6 @@ export const WithHelp = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -470,7 +500,6 @@ export const OverridingContentPadding = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
@@ -520,7 +549,6 @@ export const OtherFocusableContainers = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
           }
@@ -592,7 +620,6 @@ export const Responsive = () => {
       >
         <Form
           stickyFooter
-          height="500px"
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }

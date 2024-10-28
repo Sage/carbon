@@ -10,6 +10,7 @@ import {
   MenuFullscreenProps,
   MenuSegmentTitle,
   ScrollableBlock,
+  MenuDivider,
 } from ".";
 import { MenuType } from "./__internal__/menu.context";
 import Search from "../search";
@@ -35,6 +36,7 @@ const meta: Meta<typeof Menu> = {
     "MenuComponentFullScreenWithLongSubmenuText",
     "AsLinkWithAlternateVariant",
     "MenuWithSubmenuCustomPadding",
+    "WhenMenuItemsWrap",
   ],
   parameters: {
     info: { disable: true },
@@ -95,16 +97,25 @@ export const MenuFullScreenStory = ({
         isOpen={isOpen}
         onClose={onClose}
       >
-        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">
+          Menu item as link with icon
+          <Icon ml="4px" type="link" />
+        </MenuItem>
+        <MenuItem onClick={() => {}}>
+          Menu item as button with icon
+          <Icon ml="4px" type="link" />
+        </MenuItem>
         <MenuItem
           onClick={(evt) => action("submenu item clicked")(evt)}
-          submenu="Menu Item Two"
+          submenu="Menu item with submenu and onClick"
         >
           <MenuItem py={3} href="#">
-            Submenu Item One
+            Submenu item one as link with padding override and icon
+            <Icon ml="4px" type="link" />
           </MenuItem>
-          <MenuItem py={3} href="#">
-            Submenu Item Two
+          <MenuItem py={3} onClick={() => {}}>
+            Submenu item two as button with padding override and icon
+            <Icon ml="4px" type="link" />
           </MenuItem>
         </MenuItem>
         <MenuItem variant="alternate">
@@ -115,13 +126,18 @@ export const MenuFullScreenStory = ({
             searchButton={searchButton}
           />
         </MenuItem>
-        <MenuItem href="#">Menu Item Three</MenuItem>
-        <MenuItem href="#">Menu Item Four</MenuItem>
-        <MenuItem submenu="Menu Item Five">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
+        <MenuItem href="#">Menu item as link</MenuItem>
+        <MenuItem onClick={() => {}}>Menu item as button</MenuItem>
+        <MenuItem submenu="Menu item with submenu">
+          <MenuItem href="#">
+            Submenu item as link with icon
+            <Icon ml="4px" type="link" />
+          </MenuItem>
+          <MenuItem onClick={() => {}}>
+            Submenu item as button with icon
+            <Icon ml="4px" type="link" />
+          </MenuItem>
         </MenuItem>
-        <MenuItem href="#">Menu Item Six</MenuItem>
         <MenuItem onClick={() => {}}>
           Menu item as button with a really long topic where the text should not
           be truncated but instead it should be wrapped
@@ -455,5 +471,41 @@ export const MenuWithSubmenuCustomPadding = () => (
     ))}
   </>
 );
-
 MenuWithSubmenuCustomPadding.storyName = "Menu with submenu custom padding";
+
+export const WhenMenuItemsWrap = () => {
+  return (
+    <Box mb={150}>
+      <Menu width="400px">
+        <MenuItem
+          justifyContent="flex-start"
+          width="100px"
+          icon="settings"
+          className="foooooo"
+          href="#"
+        >
+          M
+        </MenuItem>
+        <MenuItem icon="settings" onClick={() => {}}>
+          Menu Item Two
+        </MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuDivider />
+          <MenuItem icon="entry" href="#">
+            Item Submenu Three
+          </MenuItem>
+          <MenuItem icon="settings" href="#">
+            Item Submenu Four
+          </MenuItem>
+        </MenuItem>
+        <MenuItem maxWidth="100px" submenu="Menu Item Four" onClick={() => {}}>
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+};
+WhenMenuItemsWrap.storyName = "When menu items wrap";

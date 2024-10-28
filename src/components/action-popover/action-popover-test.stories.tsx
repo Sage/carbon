@@ -17,10 +17,11 @@ import {
   FlatTableHeader,
   FlatTableCell,
 } from "../flat-table";
+import Box from "../box";
 
 export default {
   title: "Action Popover/Test",
-  includeStories: ["Default"],
+  includeStories: ["Default", "LongMenuExample"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -704,5 +705,98 @@ export const ActionPopoverPropsComponentAllDisabled = (
       <ActionPopoverItem disabled>Item 6</ActionPopoverItem>
       <ActionPopoverItem disabled>Item 7</ActionPopoverItem>
     </ActionPopover>
+  );
+};
+
+export const LongMenuExample = () => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem disabled onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+  const submenuWithIcons = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem icon="graph" onClick={() => {}}>
+        Sub Menu 1
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="add" onClick={() => {}}>
+        Sub Menu 2
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="print" disabled onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+  return (
+    <Box mt={60} height={275}>
+      <ActionPopover onOpen={() => {}} onClose={() => {}}>
+        <ActionPopoverItem
+          disabled
+          icon="graph"
+          submenu={submenu}
+          onClick={() => {}}
+        >
+          Business
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoiceee
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
+          Print Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoiceee
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
+          Print Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoiceee
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
+          Print Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="pdf" submenu={submenu} onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem disabled icon="delete" onClick={() => {}}>
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover>
+        <ActionPopoverItem icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover>
+        <ActionPopoverItem
+          icon="csv"
+          submenu={submenuWithIcons}
+          onClick={() => {}}
+        >
+          Download CSV
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
