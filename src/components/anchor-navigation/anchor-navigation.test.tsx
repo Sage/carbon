@@ -115,7 +115,7 @@ test("when navigation item is clicked, the item is selected and the section cont
     "var(--colorsActionMajor500)",
     { modifier: "& a" }
   );
-  expect(screen.getByTestId("section-2")).toBeFocused();
+  expect(screen.getByTestId("section-2")).toHaveFocus();
 });
 
 test("when Enter is pressed on a navigation item, the item is selected and the section container is focused", async () => {
@@ -141,7 +141,7 @@ test("when Enter is pressed on a navigation item, the item is selected and the s
     "var(--colorsActionMajor500)",
     { modifier: "& a" }
   );
-  expect(screen.getByTestId("section-2")).toBeFocused();
+  expect(screen.getByTestId("section-2")).toHaveFocus();
 });
 
 test("does not alter the tabindex of the container if it was already focusable", async () => {

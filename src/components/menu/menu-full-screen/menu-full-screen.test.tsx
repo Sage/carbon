@@ -399,7 +399,7 @@ test("should focus the root container, when menu is opened", () => {
     </CarbonProvider>
   );
 
-  expect(screen.getByRole("dialog")).toBeFocused();
+  expect(screen.getByRole("dialog")).toHaveFocus();
 });
 
 test("should not render a divider when menu contains a falsy values", () => {
