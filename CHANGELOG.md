@@ -1,3 +1,10 @@
+### [144.2.1](https://github.com/Sage/carbon/compare/v144.2.0...v144.2.1) (2024-10-28)
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** ensure child button are accessible ([a3e2302](https://github.com/Sage/carbon/commit/a3e2302def7e97e32d1f28053706d79a2a14d5d9)), closes [#7005](https://github.com/Sage/carbon/issues/7005)
+
 ## [144.2.0](https://github.com/Sage/carbon/compare/v144.1.1...v144.2.0) (2024-10-25)
 
 
