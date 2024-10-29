@@ -818,6 +818,21 @@ describe("keyboard navigation", () => {
 
     expect(onSelect).not.toHaveBeenCalled();
   });
+
+  it("does not call onSelect when attempting to navigate to non-Option/OptionRow list content", async () => {
+    const onSelect = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <SelectListWithInput onSelect={onSelect}>
+        <p>apple</p>
+      </SelectListWithInput>
+    );
+
+    await user.keyboard("{ArrowDown}");
+
+    expect(onSelect).not.toHaveBeenCalled();
+  });
 });
 
 describe("closing behaviour", () => {
