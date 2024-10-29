@@ -8,6 +8,7 @@ import Box from "../../box";
 import Icon from "../../icon";
 import Dialog from "../../dialog";
 import { Select, Option, SimpleSelectProps } from "..";
+import OptionGroup from "../option-group/option-group.component";
 
 export default {
   component: Select,
@@ -733,3 +734,20 @@ export const SimpleSelectWithAriaDescribedby = () => {
 
 SimpleSelectWithAriaDescribedby.storyName =
   "SimpleSelect with aria-describedby";
+  
+export const NewOptionGroups = () => {
+  return (
+    <Box height={250}>
+      <Select name="optGroups" id="optGroups" label="color">
+        <OptionGroup label="Group one" icon="individual">
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+        </OptionGroup>
+      </Select>
+    </Box>
+  );
+};
+NewOptionGroups.storyName = "New Option Groups";
+NewOptionGroups.parameters = { chromatic: { disableSnapshot: true } };
