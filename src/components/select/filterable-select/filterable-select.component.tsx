@@ -203,6 +203,7 @@ export const FilterableSelect = React.forwardRef<
         newValue: string | Record<string, unknown>,
         selectionConfirmed: boolean
       ) => {
+        /* istanbul ignore else */
         if (onChange) {
           onChange(createCustomEvent(newValue, selectionConfirmed));
         }
@@ -280,7 +281,12 @@ export const FilterableSelect = React.forwardRef<
 
         if (!matchingOption || matchingOption.props.text === undefined) {
           setTextValue(filterText || "");
-        } else if (
+
+          return;
+        }
+
+        /* istanbul ignore else */
+        if (
           isClosing ||
           matchingOption.props.text
             ?.toLowerCase()
@@ -432,7 +438,9 @@ export const FilterableSelect = React.forwardRef<
     const onFilterChange = useStableCallback(
       onFilterChangeProp as (filterTextArg: unknown) => void
     );
+
     const isFirstRender = useRef(true);
+
     useEffect(() => {
       if (onFilterChange && !isFirstRender.current) {
         onFilterChange(filterText);
@@ -536,6 +544,14 @@ export const FilterableSelect = React.forwardRef<
         return !isAlreadyOpen;
       });
     }
+
+    useEffect(() => {
+      return () => {
+        if (focusTimer.current) {
+          clearTimeout(focusTimer.current);
+        }
+      };
+    }, []);
 
     function handleTextboxFocus(event: React.FocusEvent<HTMLInputElement>) {
       const triggerFocus = () => onFocus?.(event);

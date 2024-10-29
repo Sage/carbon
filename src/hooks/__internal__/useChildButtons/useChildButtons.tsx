@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import Events from "../../../__internal__/utils/helpers/events";
 import useMenuKeyboardNavigation from "../useMenuKeyboardNavigation";
 
@@ -11,7 +11,6 @@ const useChildButtons = (
 
   const buttonNode = useRef<HTMLDivElement>(null);
   const childrenContainer = useRef<HTMLUListElement>(null);
-  const focusFirstChildButtonOnOpen = useRef(false);
 
   const hideButtons = useCallback(() => {
     setShowAdditionalButtons(false);
@@ -36,34 +35,26 @@ const useChildButtons = (
     []
   );
 
-  useEffect(() => {
-    const firstChild = getButtonChildren()?.[0];
-    if (
-      focusFirstChildButtonOnOpen.current &&
-      showAdditionalButtons &&
-      firstChild
-    ) {
-      focusFirstChildButtonOnOpen.current = false;
-      firstChild.focus();
-    }
-  }, [showAdditionalButtons, getButtonChildren]);
-
   const handleToggleButtonKeyDown = (
     ev: React.KeyboardEvent<HTMLButtonElement>
   ) => {
-    if (
+    const isToggleKey =
       Events.isEnterKey(ev) ||
       Events.isSpaceKey(ev) ||
       Events.isDownKey(ev) ||
-      Events.isUpKey(ev)
-    ) {
+      Events.isUpKey(ev) ||
+      (showAdditionalButtons && Events.isTabKey(ev));
+
+    if (isToggleKey) {
       ev.preventDefault();
 
       if (!showAdditionalButtons) {
         showButtons();
       }
 
-      focusFirstChildButtonOnOpen.current = true;
+      setTimeout(() => {
+        getButtonChildren()?.[0]?.focus();
+      });
     }
   };
 
