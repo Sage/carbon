@@ -5,6 +5,7 @@ import React, {
   useLayoutEffect,
   useRef,
   useMemo,
+  ReactElement,
 } from "react";
 import { flip, offset, size } from "@floating-ui/dom";
 import {
@@ -37,6 +38,7 @@ import ListActionButton from "../list-action-button";
 import Loader from "../../../loader";
 import Option, { OptionProps } from "../../option";
 import SelectListContext from "./select-list.context";
+import OptionGroup from "../../option-group/option-group.component";
 
 export type ListPlacement =
   | "top"
@@ -189,6 +191,8 @@ const SelectList = React.forwardRef(
       rangeExtractor,
     });
 
+    console.log("virtualizer: ", virtualizer);
+
     const items = virtualizer.getVirtualItems();
 
     const childrenList = useMemo(() => React.Children.toArray(children), [
@@ -235,6 +239,8 @@ const SelectList = React.forwardRef(
         items.push({ index: currentIndex } as VirtualItem);
       }
     }
+
+    console.log("items: ", items);
 
     const totalSize = virtualizer.getTotalSize();
     // virtualizer.getTotalSize() returns the total size in pixels for the virtualized items. If nothing is loaded,
@@ -294,11 +300,15 @@ const SelectList = React.forwardRef(
         childrenList.filter((child) => {
           return (
             React.isValidElement(child) &&
-            (child.type === Option || child.type === OptionRow)
+            (child.type === Option ||
+              child.type === OptionRow ||
+              child.type === OptionGroup)
           );
         }),
       [childrenList]
     );
+
+    console.log("optionChildrenList", optionChildrenList);
 
     const { measureElement } = virtualizer;
 
@@ -333,10 +343,50 @@ const SelectList = React.forwardRef(
             // needed to dynamically compute the size
             measureCallback(optionElement);
             // add the DOM element to the array of refs
+
             childElementRefs.current[index] = optionElement;
           },
           "data-index": index,
         };
+
+        if (child.type === OptionGroup) {
+          return React.cloneElement(child, {
+            ...child.props,
+            children: React.Children.map(
+              child.props.children,
+              (optionChild, optionIndex) => {
+                const optionGroupChildIndex = optionChildrenList.indexOf(
+                  optionChild as ReactElement<OptionProps, string>
+                );
+                const isOptionFromOptionGroup = optionChildIndex > -1;
+
+                const optionProps = {
+                  index: optionIndex,
+                  onSelect: handleSelect,
+                  hidden: isLoading && childrenList.length === 1,
+                  style: {
+                    transform: `translateY(${start}px)`,
+                  },
+                  "aria-setsize": isOptionFromOptionGroup
+                    ? optionChildrenList.length
+                    : undefined,
+                  "aria-posinset": isOptionFromOptionGroup
+                    ? optionGroupChildIndex + 1
+                    : undefined,
+                  ref: (optionElement: HTMLElement) => {
+                    measureCallback(optionElement);
+                    childElementRefs.current[optionIndex] = optionElement;
+                  },
+                  "data-index": optionIndex,
+                };
+
+                return React.isValidElement(optionChild)
+                  ? React.cloneElement(optionChild, optionProps)
+                  : optionChild;
+              }
+            ),
+          });
+        }
 
         return React.cloneElement(child, newProps);
       });
