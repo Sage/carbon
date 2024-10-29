@@ -1,3 +1,10 @@
+### [144.2.2](https://github.com/Sage/carbon/compare/v144.2.1...v144.2.2) (2024-10-29)
+
+
+### Bug Fixes
+
+* inline label props have unexpected behaviour with new validation ([922694f](https://github.com/Sage/carbon/commit/922694f654e3c8cd7f9f49c56892be29828fb1fd))
+
 ### [144.2.1](https://github.com/Sage/carbon/compare/v144.2.0...v144.2.1) (2024-10-28)
 
 
