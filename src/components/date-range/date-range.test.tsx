@@ -1117,3 +1117,22 @@ test("should have the expected styling when the `labelsInline` prop is set", () 
   expect(screen.getByTestId("start")).toHaveStyle("vertical-align: top");
   expect(screen.getByTestId("end")).toHaveStyle("vertical-align: top");
 });
+
+test("should have the default styling when the `labelsInline` prop is set and `validationRedesignOptIn` is set", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <DateRange
+        startLabel="start"
+        endLabel="end"
+        onChange={() => {}}
+        value={["10/10/2016", "11/11/2016"]}
+        labelsInline
+        startDateProps={{ "data-role": "start" }}
+        endDateProps={{ "data-role": "end" }}
+      />
+    </CarbonProvider>
+  );
+
+  expect(screen.getByTestId("start")).toHaveStyle("vertical-align: bottom");
+  expect(screen.getByTestId("end")).toHaveStyle("vertical-align: bottom");
+});
