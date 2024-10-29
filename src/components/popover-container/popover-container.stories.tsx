@@ -257,7 +257,7 @@ export const Filter: Story = () => {
   const updateCheckValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const temps = options;
     const findCorrectIndex = temps.findIndex(
-      (item) => item.value === e.target.value
+      (item) => item.value === e.target.value,
     );
     if (findCorrectIndex !== -1) {
       temps[findCorrectIndex].checked = !temps[findCorrectIndex].checked;

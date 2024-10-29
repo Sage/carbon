@@ -43,7 +43,7 @@ const iconIsFocused = async (page: Page, whichIcon: number) => {
   const closeIcon = getDataElementByValue(page, "close").nth(whichIcon);
   await expect(closeIcon).toHaveCSS(
     "box-shadow",
-    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
   );
   await expect(closeIcon).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
 };
@@ -83,11 +83,11 @@ test.describe("render DialogFullScreen component and check properties", () => {
         <DialogFullScreenComponent
           title="Dialog Full Screen Title"
           subtitle={subtitle}
-        />
+        />,
       );
 
       await expect(getDataElementByValue(page, "subtitle")).toHaveText(
-        subtitle
+        subtitle,
       );
     });
   });
@@ -98,11 +98,11 @@ test.describe("render DialogFullScreen component and check properties", () => {
       page,
     }) => {
       await mount(
-        <DialogFullScreenComponent>{childrenValue}</DialogFullScreenComponent>
+        <DialogFullScreenComponent>{childrenValue}</DialogFullScreenComponent>,
       );
 
       await expect(getDataElementByValue(page, "form-content")).toContainText(
-        childrenValue
+        childrenValue,
       );
     });
   });
@@ -138,7 +138,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
         onCancel={() => {
           called = true;
         }}
-      />
+      />,
     );
 
     const closeIcon = getDataElementByValue(page, "close").first();
@@ -199,7 +199,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
     await expect(fullDialog).not.toHaveAttribute("aria-modal", "true");
     await expect(page.getByRole("dialog")).toHaveAttribute(
       "aria-modal",
-      "true"
+      "true",
     );
   });
 
@@ -226,7 +226,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
     const closeIcon = getDataElementByValue(page, "close").nth(2);
     await expect(closeIcon).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(closeIcon).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
   });
@@ -245,7 +245,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
     await expect(fullDialog).not.toHaveAttribute("aria-modal", "true");
     await expect(page.getByRole("dialog")).toHaveAttribute(
       "aria-modal",
-      "true"
+      "true",
     );
   });
 
@@ -257,7 +257,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
 
     await expect(page.getByRole("dialog")).toHaveAttribute(
       "aria-describedby",
-      testAria
+      testAria,
     );
   });
 
@@ -266,7 +266,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
 
     await expect(page.getByRole("dialog")).toHaveAttribute(
       "aria-label",
-      testAria
+      testAria,
     );
   });
 
@@ -275,12 +275,12 @@ test.describe("render DialogFullScreen component and check properties", () => {
     page,
   }) => {
     await mount(
-      <DialogFullScreenWithTitleAsReactComponent aria-labelledby={testAria} />
+      <DialogFullScreenWithTitleAsReactComponent aria-labelledby={testAria} />,
     );
 
     await expect(page.getByRole("dialog")).toHaveAttribute(
       "aria-labelledby",
-      testAria
+      testAria,
     );
   });
 
@@ -295,11 +295,11 @@ test.describe("render DialogFullScreen component and check properties", () => {
       .filter({ hasText: "This should be focused first now" });
     await expect(focusedButton).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(focusedButton).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -390,7 +390,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
       .filter({ hasText: "This should be focused first now" });
     await expect(focusedButton).not.toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     const hasFocus = await focusedButton.focus();
     expect(hasFocus).toBeFalsy();
@@ -401,7 +401,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
       <DialogFullScreenComponent
         title="Sample DialogFullScreen"
         help="Some help text"
-      />
+      />,
     );
 
     const helpIcon = getDataElementByValue(page, "question");
@@ -413,7 +413,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
     await mount(<DialogFullScreenComponent role="dialog" />);
 
     await expect(
-      getDataElementByValue(page, "dialog-full-screen")
+      getDataElementByValue(page, "dialog-full-screen"),
     ).toHaveAttribute("role", "dialog");
   });
 
@@ -457,7 +457,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
       <DialogFullScreenComponent
         title="Dialog Full Screen Title"
         disableContentPadding
-      />
+      />,
     );
 
     const content = getDataElementByValue(page, "content");
@@ -475,7 +475,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
     const closeIcon = getDataElementByValue(page, "close").nth(1);
     await closeIcon.click();
     await expect(getDataElementByValue(page, "dialog-full-screen")).toHaveCount(
-      1
+      1,
     );
   });
 
@@ -694,7 +694,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
       .filter({ hasText: "Open DialogFullScreen" });
     await openButton.click();
     await expect(getDataElementByValue(page, "title")).toHaveText(
-      "Dialog Title"
+      "Dialog Title",
     );
 
     // color-contrast ignored until we can investigate and fix
@@ -713,7 +713,7 @@ test.describe("test background scroll when tabbing", () => {
     await continuePressingTAB(page, 3);
     await iconIsFocused(page, 0);
     await expect(
-      page.getByText("I should not be scrolled into view")
+      page.getByText("I should not be scrolled into view"),
     ).not.toBeInViewport();
   });
 
@@ -728,7 +728,7 @@ test.describe("test background scroll when tabbing", () => {
     await continuePressingSHIFTTAB(page, 2);
     await iconIsFocused(page, 0);
     await expect(
-      page.getByText("I should not be scrolled into view")
+      page.getByText("I should not be scrolled into view"),
     ).not.toBeInViewport();
   });
 
@@ -738,7 +738,7 @@ test.describe("test background scroll when tabbing", () => {
     page,
   }) => {
     await mount(
-      <DialogFullScreenBackgroundScrollWithOtherFocusableContainers />
+      <DialogFullScreenBackgroundScrollWithOtherFocusableContainers />,
     );
 
     await page.waitForTimeout(500);
@@ -747,7 +747,7 @@ test.describe("test background scroll when tabbing", () => {
     await continuePressingTAB(page, 5);
     await iconIsFocused(page, 0);
     await expect(
-      page.getByText("I should not be scrolled into view")
+      page.getByText("I should not be scrolled into view"),
     ).not.toBeInViewport();
   });
 
@@ -757,14 +757,14 @@ test.describe("test background scroll when tabbing", () => {
     page,
   }) => {
     await mount(
-      <DialogFullScreenBackgroundScrollWithOtherFocusableContainers />
+      <DialogFullScreenBackgroundScrollWithOtherFocusableContainers />,
     );
 
     await page.waitForTimeout(500);
     await continuePressingSHIFTTAB(page, 8);
     await iconIsFocused(page, 0);
     await expect(
-      page.getByText("I should not be scrolled into view")
+      page.getByText("I should not be scrolled into view"),
     ).not.toBeInViewport();
   });
 });

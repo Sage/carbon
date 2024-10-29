@@ -22,7 +22,7 @@ export interface CustomEvent
 
 const buildCustomTarget = (
   { target }: React.ChangeEvent<HTMLInputElement>,
-  value: EventValue
+  value: EventValue,
 ): CustomTarget => {
   const { name, id } = target;
   return {
@@ -61,7 +61,7 @@ export const GroupedCharacter = React.forwardRef(
       value: externalValue,
       ...rest
     }: GroupedCharacterProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const [internalValue, setInternalValue] = useState(defaultValue || "");
 
@@ -74,7 +74,7 @@ export const GroupedCharacter = React.forwardRef(
     if (!deprecateUncontrolledWarnTriggered && !isControlled) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
@@ -111,7 +111,7 @@ export const GroupedCharacter = React.forwardRef(
         newCursorPos += isDeleting ? -1 : 1;
       }
 
-      const modifiedEvent = (ev as unknown) as CustomEvent;
+      const modifiedEvent = ev as unknown as CustomEvent;
       modifiedEvent.target = buildCustomTarget(ev, {
         rawValue,
         formattedValue,
@@ -130,7 +130,7 @@ export const GroupedCharacter = React.forwardRef(
         const rawValue = sanitizeValue(target.value);
         const formattedValue = formatValue(rawValue);
 
-        const modifiedEvent = (ev as unknown) as CustomEvent;
+        const modifiedEvent = ev as unknown as CustomEvent;
         modifiedEvent.target = buildCustomTarget(ev, {
           rawValue,
           formattedValue,
@@ -161,7 +161,7 @@ export const GroupedCharacter = React.forwardRef(
         ref={ref}
       />
     );
-  }
+  },
 );
 
 GroupedCharacter.displayName = "GroupedCharacter";

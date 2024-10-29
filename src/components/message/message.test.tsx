@@ -22,7 +22,7 @@ test("does not render component when `open` prop is false", () => {
   render(
     <Message data-role="my-message" open={false}>
       Message
-    </Message>
+    </Message>,
   );
 
   expect(screen.queryByTestId("my-message")).not.toBeInTheDocument();
@@ -50,7 +50,7 @@ test("does not render close button if `onDismiss` is not provided", () => {
   render(<Message>Message</Message>);
 
   expect(
-    screen.queryByRole("button", { name: "Close" })
+    screen.queryByRole("button", { name: "Close" }),
   ).not.toBeInTheDocument();
 });
 
@@ -58,7 +58,7 @@ test("does no render close button if `showCloseIcon` is false", () => {
   render(<Message showCloseIcon={false}>Message</Message>);
 
   expect(
-    screen.queryByRole("button", { name: "Close" })
+    screen.queryByRole("button", { name: "Close" }),
   ).not.toBeInTheDocument();
 });
 
@@ -66,7 +66,7 @@ test("renders close button aria-label with provided `closeButtonAriaLabel`", () 
   render(
     <Message onDismiss={() => {}} closeButtonAriaLabel="my close button">
       Message
-    </Message>
+    </Message>,
   );
 
   expect(screen.getByRole("button", { name: "my close button" })).toBeVisible();
@@ -76,7 +76,7 @@ test("renders close button aria-label with default value from translations", () 
   render(
     <I18nProvider locale={enGB}>
       <Message onDismiss={() => {}}>Message</Message>
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   expect(screen.getByRole("button", { name: "Close" })).toBeVisible();
@@ -93,11 +93,11 @@ test("renders close button aria-label with custom value from translations", () =
       }}
     >
       <Message onDismiss={() => {}}>Message</Message>
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   expect(
-    screen.getByRole("button", { name: "test close button" })
+    screen.getByRole("button", { name: "test close button" }),
   ).toBeVisible();
 });
 
@@ -105,7 +105,7 @@ test("renders with provided `id`", () => {
   render(
     <Message data-role="my-message" id="message-id">
       Message
-    </Message>
+    </Message>,
   );
 
   expect(screen.getByTestId("my-message")).toHaveAttribute("id", "message-id");
@@ -115,7 +115,7 @@ test("renders with provided `className`", () => {
   render(
     <Message data-role="my-message" className="message-class">
       Message
-    </Message>
+    </Message>,
   );
 
   expect(screen.getByTestId("my-message")).toHaveClass("message-class");
@@ -126,7 +126,7 @@ test("renders with expected styles when `transparent` is true", () => {
   render(
     <Message data-role="my-message" transparent>
       Message
-    </Message>
+    </Message>,
   );
 
   expect(screen.getByTestId("my-message")).toHaveStyle({
@@ -167,5 +167,5 @@ testStyledSystemMarginRTL(
       Message
     </Message>
   ),
-  () => screen.getByTestId("my-message")
+  () => screen.getByTestId("my-message"),
 );

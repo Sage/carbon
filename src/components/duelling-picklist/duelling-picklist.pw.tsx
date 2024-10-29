@@ -37,10 +37,10 @@ test.describe(`should render Duelling-Picklist component`, () => {
     await mount(<DuellingPicklistComponent />);
 
     await expect(
-      getDataElementByValue(page, "picklist").nth(0).locator("li")
+      getDataElementByValue(page, "picklist").nth(0).locator("li"),
     ).toHaveCount(10);
     await expect(getDataElementByValue(page, "picklist-left-label")).toHaveText(
-      "List 1 (10)"
+      "List 1 (10)",
     );
   });
 
@@ -54,13 +54,13 @@ test.describe(`should render Duelling-Picklist component`, () => {
       getDataElementByValue(page, "picklist")
         .nth(1)
         .locator("li")
-        .filter({ hasText: "Content" })
+        .filter({ hasText: "Content" }),
     ).toHaveCount(0);
     await expect(
-      getDataElementByValue(page, "picklist-placeholder")
+      getDataElementByValue(page, "picklist-placeholder"),
     ).toHaveText("Nothing to see here");
     await expect(
-      getDataElementByValue(page, "picklist-right-label").nth(0)
+      getDataElementByValue(page, "picklist-right-label").nth(0),
     ).toHaveText("List 2 (0)");
   });
 
@@ -72,7 +72,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
 
     await expect(getComponent(page, "duelling-picklist")).not.toHaveAttribute(
       "disabled",
-      /.*/
+      /.*/,
     );
   });
 
@@ -92,16 +92,16 @@ test.describe(`should render Duelling-Picklist component`, () => {
         await addItemButton.click();
       }
       await expect(
-        getDataElementByValue(page, "picklist").nth(0).locator("li")
+        getDataElementByValue(page, "picklist").nth(0).locator("li"),
       ).toHaveCount(leftItems);
       await expect(
-        getDataElementByValue(page, "picklist-left-label").nth(0)
+        getDataElementByValue(page, "picklist-left-label").nth(0),
       ).toHaveText(`List 1 (${leftItems})`);
       await expect(
-        getDataElementByValue(page, "picklist").nth(1).locator("li")
+        getDataElementByValue(page, "picklist").nth(1).locator("li"),
       ).toHaveCount(items);
       await expect(
-        getDataElementByValue(page, "picklist-right-label").nth(0)
+        getDataElementByValue(page, "picklist-right-label").nth(0),
       ).toHaveText(`List 2 (${items})`);
     });
   });
@@ -121,19 +121,19 @@ test.describe(`should render Duelling-Picklist component`, () => {
       getDataElementByValue(page, "picklist")
         .nth(0)
         .locator("li")
-        .filter({ hasText: "Content" })
+        .filter({ hasText: "Content" }),
     ).toHaveCount(0);
     await expect(
-      getDataElementByValue(page, "picklist-placeholder")
+      getDataElementByValue(page, "picklist-placeholder"),
     ).toHaveText("Unassigned list empty");
     await expect(
-      getDataElementByValue(page, "picklist-left-label").nth(0)
+      getDataElementByValue(page, "picklist-left-label").nth(0),
     ).toHaveText(`List 1 (0)`);
     await expect(
-      getDataElementByValue(page, "picklist").nth(1).locator("li")
+      getDataElementByValue(page, "picklist").nth(1).locator("li"),
     ).toHaveCount(10);
     await expect(
-      getDataElementByValue(page, "picklist-right-label").nth(0)
+      getDataElementByValue(page, "picklist-right-label").nth(0),
     ).toHaveText(`List 2 (10)`);
   });
 
@@ -146,22 +146,22 @@ test.describe(`should render Duelling-Picklist component`, () => {
     const addItemButton = page.getByRole("button").first();
     await addItemButton.click();
     await expect(
-      getDataElementByValue(page, "picklist").nth(0).locator("li")
+      getDataElementByValue(page, "picklist").nth(0).locator("li"),
     ).toHaveCount(9);
     await expect(
-      getDataElementByValue(page, "picklist").nth(1).locator("li")
+      getDataElementByValue(page, "picklist").nth(1).locator("li"),
     ).toHaveCount(1);
 
     const removeItemButton = getDataElementByValue(page, "remove");
     await removeItemButton.click();
     await expect(
-      getDataElementByValue(page, "picklist").nth(0).locator("li")
+      getDataElementByValue(page, "picklist").nth(0).locator("li"),
     ).toHaveCount(10);
     await expect(
       getDataElementByValue(page, "picklist")
         .nth(1)
         .locator("li")
-        .filter({ hasText: "Content" })
+        .filter({ hasText: "Content" }),
     ).toHaveCount(0);
   });
 
@@ -175,10 +175,10 @@ test.describe(`should render Duelling-Picklist component`, () => {
       const addItemButton = page.getByRole("button").first();
       await addItemButton.press(pressed);
       await expect(
-        getDataElementByValue(page, "picklist").nth(0).locator("li")
+        getDataElementByValue(page, "picklist").nth(0).locator("li"),
       ).toHaveCount(9);
       await expect(
-        getDataElementByValue(page, "picklist").nth(1).locator("li")
+        getDataElementByValue(page, "picklist").nth(1).locator("li"),
       ).toHaveCount(1);
     });
   });
@@ -199,10 +199,10 @@ test.describe(`should render Duelling-Picklist component`, () => {
         getDataElementByValue(page, "picklist")
           .nth(0)
           .locator("li")
-          .filter({ hasText: "Content" })
+          .filter({ hasText: "Content" }),
       ).toHaveCount(0);
       await expect(
-        getDataElementByValue(page, "picklist").nth(1).locator("li")
+        getDataElementByValue(page, "picklist").nth(1).locator("li"),
       ).toHaveCount(10);
 
       const removeItemButton = getDataElementByValue(page, "remove").first();
@@ -210,22 +210,24 @@ test.describe(`should render Duelling-Picklist component`, () => {
         await removeItemButton.press(pressed);
       }
       await expect(
-        getDataElementByValue(page, "picklist").nth(0).locator("li")
+        getDataElementByValue(page, "picklist").nth(0).locator("li"),
       ).toHaveCount(10);
       await expect(
         getDataElementByValue(page, "picklist")
           .nth(1)
           .locator("li")
-          .filter({ hasText: "Content" })
+          .filter({ hasText: "Content" }),
       ).toHaveCount(0);
     });
   });
 
-  ([
-    ["Content", 10],
-    ["Content 1", 2],
-    ["Content 10", 1],
-  ] as [string, number][]).forEach(([searchString, results]) => {
+  (
+    [
+      ["Content", 10],
+      ["Content 1", 2],
+      ["Content 10", 1],
+    ] as [string, number][]
+  ).forEach(([searchString, results]) => {
     test(`should verify when ${searchString} is enterted into search field that ${results} results are displayed`, async ({
       mount,
       page,
@@ -235,7 +237,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
       const searchInput = page.getByLabel("search").first();
       await searchInput.fill(searchString);
       await expect(
-        getDataElementByValue(page, "picklist").nth(0).locator("li")
+        getDataElementByValue(page, "picklist").nth(0).locator("li"),
       ).toHaveCount(results);
     });
   });
@@ -264,42 +266,42 @@ test.describe(`should render Duelling-Picklist component`, () => {
     await expect(rightSearch).toHaveAttribute("data-component", "search");
   });
 
-  ([
-    ["disabled", true],
-    ["enabled", false],
-  ] as [string, DuellingPicklistProps["disabled"]][]).forEach(
-    ([state, bool]) => {
-      test(`should verify Duelling-Picklist is ${state} when disabled prop is ${bool}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<DuellingPicklistComponent disabled={bool} />);
+  (
+    [
+      ["disabled", true],
+      ["enabled", false],
+    ] as [string, DuellingPicklistProps["disabled"]][]
+  ).forEach(([state, bool]) => {
+    test(`should verify Duelling-Picklist is ${state} when disabled prop is ${bool}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<DuellingPicklistComponent disabled={bool} />);
 
-        if (bool) {
-          await expect(getComponent(page, "duelling-picklist")).toHaveAttribute(
-            "disabled",
-            /.*/
-          );
-          await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
-            "opacity",
-            "0.2"
-          );
-          await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
-            "pointer-events",
-            "none"
-          );
-          await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
-            "user-select",
-            "none"
-          );
-        } else {
-          await expect(
-            getComponent(page, "duelling-picklist")
-          ).not.toHaveAttribute("disabled", /.*/);
-        }
-      });
-    }
-  );
+      if (bool) {
+        await expect(getComponent(page, "duelling-picklist")).toHaveAttribute(
+          "disabled",
+          /.*/,
+        );
+        await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
+          "opacity",
+          "0.2",
+        );
+        await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
+          "pointer-events",
+          "none",
+        );
+        await expect(getComponent(page, "duelling-picklist")).toHaveCSS(
+          "user-select",
+          "none",
+        );
+      } else {
+        await expect(
+          getComponent(page, "duelling-picklist"),
+        ).not.toHaveAttribute("disabled", /.*/);
+      }
+    });
+  });
 
   test(`should verify unassigned picklist label is 'Left Label'`, async ({
     mount,
@@ -308,7 +310,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
     await mount(<DuellingPicklistComponent leftLabel="Left Label" />);
 
     await expect(getDataElementByValue(page, "picklist-left-label")).toHaveText(
-      "Left Label"
+      "Left Label",
     );
   });
 
@@ -319,7 +321,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
     await mount(<DuellingPicklistComponent rightLabel="Right Label" />);
 
     await expect(
-      getDataElementByValue(page, "picklist-right-label").nth(0)
+      getDataElementByValue(page, "picklist-right-label").nth(0),
     ).toHaveText("Right Label");
   });
 });
@@ -338,45 +340,42 @@ test.describe(`should render Duelling-Picklist to test Picklist props`, () => {
       }
 
       await expect(
-        getDataElementByValue(page, "picklist-placeholder")
+        getDataElementByValue(page, "picklist-placeholder"),
       ).toHaveText(chars);
     });
   });
 
-  ([
-    ["locked", true, "rgb(242, 245, 246)"],
-    ["unlocked", false, "rgb(255, 255, 255)"],
-  ] as [string, PicklistItemProps["locked"], string][]).forEach(
-    ([state, bool, backColor]) => {
-      test(`should verify picklist item is ${state} when locked prop is ${bool}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<DuellingPicklistComponent locked={bool} />);
+  (
+    [
+      ["locked", true, "rgb(242, 245, 246)"],
+      ["unlocked", false, "rgb(255, 255, 255)"],
+    ] as [string, PicklistItemProps["locked"], string][]
+  ).forEach(([state, bool, backColor]) => {
+    test(`should verify picklist item is ${state} when locked prop is ${bool}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<DuellingPicklistComponent locked={bool} />);
 
-        const picklistItem = getDataElementByValue(
-          page,
-          "picklist-item"
-        ).first();
-        await expect(picklistItem).toHaveCSS("background-color", backColor);
-        const picklistIcon = getDataElementByValue(page, "picklist-item")
-          .first()
-          .locator(ICON);
-        if (bool) {
-          await expect(picklistIcon).toHaveAttribute("data-element", state);
-        } else {
-          await expect(picklistIcon).not.toHaveAttribute("data-element", state);
-        }
-      });
-    }
-  );
+      const picklistItem = getDataElementByValue(page, "picklist-item").first();
+      await expect(picklistItem).toHaveCSS("background-color", backColor);
+      const picklistIcon = getDataElementByValue(page, "picklist-item")
+        .first()
+        .locator(ICON);
+      if (bool) {
+        await expect(picklistIcon).toHaveAttribute("data-element", state);
+      } else {
+        await expect(picklistIcon).not.toHaveAttribute("data-element", state);
+      }
+    });
+  });
 
   test(`should verify picklist tooltip is 'Item Locked' when locked prop is true`, async ({
     mount,
     page,
   }) => {
     await mount(
-      <DuellingPicklistComponent locked tooltipMessage="Item Locked" />
+      <DuellingPicklistComponent locked tooltipMessage="Item Locked" />,
     );
 
     const listItemIcon = getDataElementByValue(page, "picklist-item")
@@ -387,143 +386,124 @@ test.describe(`should render Duelling-Picklist to test Picklist props`, () => {
   });
 });
 
-test.describe(
-  `should render Duelling-Picklist with external searchbar and access checkbox`,
-  () => {
-    ([
+test.describe(`should render Duelling-Picklist with external searchbar and access checkbox`, () => {
+  (
+    [
       ["Content", 20],
       ["Content 1", 11],
       ["Content 10", 1],
-    ] as [string, number][]).forEach(([searchString, results]) => {
-      test(`should verify ${results} are found when search field is placed outside the component`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<AlternativeSearch />);
-
-        await page.getByLabel("search").fill(searchString);
-        await expect(
-          getDataElementByValue(page, "picklist").nth(0).locator("li")
-        ).toHaveCount(results);
-      });
-    });
-
-    test(`should verify component is disabled when access checkox is checked`, async ({
+    ] as [string, number][]
+  ).forEach(([searchString, results]) => {
+    test(`should verify ${results} are found when search field is placed outside the component`, async ({
       mount,
       page,
     }) => {
       await mount(<AlternativeSearch />);
 
-      const checkbox = page.getByRole("checkbox");
-      await checkbox.check();
-      await expect(getComponent(page, "duelling-picklist")).toHaveAttribute(
-        "disabled",
-        /.*/
-      );
-    });
-
-    test(`should verify component is re-enabled when access checkbox is unchecked`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<AlternativeSearch />);
-
-      const checkbox = page.getByRole("checkbox");
-      await checkbox.check();
-      await checkbox.uncheck();
-      await expect(getComponent(page, "duelling-picklist")).not.toHaveAttribute(
-        "disabled",
-        /.*/
-      );
-    });
-  }
-);
-
-test.describe(
-  `should render Duelling-Picklist with items grouped and a picklist divider`,
-  () => {
-    test(`should verify component is displayed with divider`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Grouped />);
-
+      await page.getByLabel("search").fill(searchString);
       await expect(
-        getDataElementByValue(page, "picklist-divider")
-      ).toBeAttached();
+        getDataElementByValue(page, "picklist").nth(0).locator("li"),
+      ).toHaveCount(results);
     });
+  });
 
-    test(`should verify component is displayed in groups with group label`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Grouped />);
+  test(`should verify component is disabled when access checkox is checked`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<AlternativeSearch />);
 
-      const group = getDataElementByValue(page, "picklist-group").first();
-      await expect(group).toHaveText("Group A");
-    });
+    const checkbox = page.getByRole("checkbox");
+    await checkbox.check();
+    await expect(getComponent(page, "duelling-picklist")).toHaveAttribute(
+      "disabled",
+      /.*/,
+    );
+  });
 
-    test(`should verify all items in a group are added to assigned picklist when group add button is clicked`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Grouped />);
+  test(`should verify component is re-enabled when access checkbox is unchecked`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<AlternativeSearch />);
 
-      const groupAddButton = getDataElementByValue(page, "picklist-group")
-        .first()
-        .locator("button");
-      await groupAddButton.click();
-      const group = getDataElementByValue(page, "picklist-group").nth(2);
-      await expect(group).toHaveText("Group A");
-      await expect(
-        getDataElementByValue(page, "picklist")
-          .nth(1)
-          .locator("li")
-          .locator("p")
-      ).toHaveCount(3);
-    });
+    const checkbox = page.getByRole("checkbox");
+    await checkbox.check();
+    await checkbox.uncheck();
+    await expect(getComponent(page, "duelling-picklist")).not.toHaveAttribute(
+      "disabled",
+      /.*/,
+    );
+  });
+});
 
-    test(`should verify all items in a group are removed from assigned picklist when group remove button is clicked`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Grouped />);
+test.describe(`should render Duelling-Picklist with items grouped and a picklist divider`, () => {
+  test(`should verify component is displayed with divider`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Grouped />);
 
-      const groupAddButton = getDataElementByValue(page, "picklist-group")
-        .first()
-        .locator("button");
-      await groupAddButton.click();
-      await expect(
-        getDataElementByValue(page, "picklist")
-          .nth(0)
-          .locator("li")
-          .locator("p")
-      ).toHaveCount(3);
-      await expect(
-        getDataElementByValue(page, "picklist")
-          .nth(1)
-          .locator("li")
-          .locator("p")
-      ).toHaveCount(3);
-      const groupRemoveButton = getDataElementByValue(page, "picklist-group")
-        .nth(2)
-        .locator("button");
-      await groupRemoveButton.click();
-      await expect(
-        getDataElementByValue(page, "picklist")
-          .nth(0)
-          .locator("li")
-          .locator("p")
-      ).toHaveCount(6);
-      await expect(
-        getDataElementByValue(page, "picklist")
-          .nth(1)
-          .locator("li")
-          .locator("p")
-      ).toHaveCount(0);
-    });
-  }
-);
+    await expect(
+      getDataElementByValue(page, "picklist-divider"),
+    ).toBeAttached();
+  });
+
+  test(`should verify component is displayed in groups with group label`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Grouped />);
+
+    const group = getDataElementByValue(page, "picklist-group").first();
+    await expect(group).toHaveText("Group A");
+  });
+
+  test(`should verify all items in a group are added to assigned picklist when group add button is clicked`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Grouped />);
+
+    const groupAddButton = getDataElementByValue(page, "picklist-group")
+      .first()
+      .locator("button");
+    await groupAddButton.click();
+    const group = getDataElementByValue(page, "picklist-group").nth(2);
+    await expect(group).toHaveText("Group A");
+    await expect(
+      getDataElementByValue(page, "picklist").nth(1).locator("li").locator("p"),
+    ).toHaveCount(3);
+  });
+
+  test(`should verify all items in a group are removed from assigned picklist when group remove button is clicked`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Grouped />);
+
+    const groupAddButton = getDataElementByValue(page, "picklist-group")
+      .first()
+      .locator("button");
+    await groupAddButton.click();
+    await expect(
+      getDataElementByValue(page, "picklist").nth(0).locator("li").locator("p"),
+    ).toHaveCount(3);
+    await expect(
+      getDataElementByValue(page, "picklist").nth(1).locator("li").locator("p"),
+    ).toHaveCount(3);
+    const groupRemoveButton = getDataElementByValue(page, "picklist-group")
+      .nth(2)
+      .locator("button");
+    await groupRemoveButton.click();
+    await expect(
+      getDataElementByValue(page, "picklist").nth(0).locator("li").locator("p"),
+    ).toHaveCount(6);
+    await expect(
+      getDataElementByValue(page, "picklist").nth(1).locator("li").locator("p"),
+    ).toHaveCount(0);
+  });
+});
 
 test.describe(`check events for Duelling-Picklist component`, () => {
   test(`should call onChange when add button clicked`, async ({
@@ -536,7 +516,7 @@ test.describe(`check events for Duelling-Picklist component`, () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const addItemButton = page.getByRole("button").first();
@@ -554,7 +534,7 @@ test.describe(`check events for Duelling-Picklist component`, () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const removeItemButton = page.getByRole("button").first();
@@ -573,7 +553,7 @@ test.describe(`check events for Duelling-Picklist component`, () => {
           onChange={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       const addItemButton = page.getByRole("button").first();
@@ -593,7 +573,7 @@ test.describe(`check events for Duelling-Picklist component`, () => {
           onChange={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       const removeItemButton = page.getByRole("button").first();

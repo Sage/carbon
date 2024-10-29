@@ -80,7 +80,7 @@ test("calls container's getOrder callback with the correct arguments when an ite
       getOrder={(draggableItemIds, movedItemId) => {
         getOrderArgs = [draggableItemIds, movedItemId];
       }}
-    />
+    />,
   );
 
   const apple = page.getByText("Apple");
@@ -102,7 +102,7 @@ test("calls fruit container's getOrder callback with correct arguments when a pl
       getOrder={(draggableItemIds, movedItemId) => {
         getOrderArgs = [draggableItemIds, movedItemId];
       }}
-    />
+    />,
   );
 
   const pluto = page.getByText("Pluto");

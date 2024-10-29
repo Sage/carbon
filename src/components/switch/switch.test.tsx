@@ -17,7 +17,7 @@ test("should display deprecation warning once", () => {
   render(<Switch name="my-switch" defaultValue="test" />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Switch` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Switch` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 
@@ -26,7 +26,7 @@ test("should display deprecation warning once", () => {
 
 testStyledSystemMarginRTL(
   (props) => <Switch data-role="swtich-wrapper" {...props} />,
-  () => screen.getByTestId("swtich-wrapper")
+  () => screen.getByTestId("swtich-wrapper"),
 );
 
 test("accepts ref as a ref object", () => {
@@ -72,7 +72,7 @@ test("when component is uncontrolled, it changes internal state and passes event
       target: expect.objectContaining({
         checked: true,
       }),
-    })
+    }),
   );
   expect(switchElement).toBeChecked();
 });
@@ -135,7 +135,7 @@ test("when `reverse` is false and `fieldHelpInline` is true, the correct FieldHe
       fieldHelp="This text provides help"
       fieldHelpInline
       label="label"
-    />
+    />,
   );
 
   const fieldHelp = screen.getByText("This text provides help");
@@ -151,7 +151,7 @@ test("when `labelInline` is true, fieldHelpInline is false and `reverse` is fals
       fieldHelpInline={false}
       labelInline
       reverse={false}
-    />
+    />,
   );
   const fieldHelp = screen.getByText("This text provides help");
 
@@ -160,7 +160,11 @@ test("when `labelInline` is true, fieldHelpInline is false and `reverse` is fals
 
 test("when `fieldHelpInline` is true, the correct FieldHelp component styles are applied", () => {
   render(
-    <Switch fieldHelpInline fieldHelp="This text provides help" label="label" />
+    <Switch
+      fieldHelpInline
+      fieldHelp="This text provides help"
+      label="label"
+    />,
   );
 
   const fieldHelp = screen.getByText("This text provides help");
@@ -183,7 +187,7 @@ test("when `fieldHelpInline` is true and `labelInline` is true, the correct Chec
       fieldHelp="This text provides help"
       fieldHelpInline
       labelInline
-    />
+    />,
   );
 
   const checkableInput = screen.getByTestId("checkable-input");
@@ -198,7 +202,7 @@ test("when `fieldHelpInline` true and `labelInline` true, the correct Label comp
       fieldHelp="This text provides help"
       fieldHelpInline
       labelInline
-    />
+    />,
   );
 
   const labelContainer = screen.getByTestId("label-container");
@@ -213,7 +217,7 @@ test("when `fieldHelpInline` true and `labelInline` true, the correct FieldHelp 
       fieldHelp="This text provides help"
       fieldHelpInline
       labelInline
-    />
+    />,
   );
 
   const fieldHelp = screen.getByText("This text provides help");
@@ -255,7 +259,7 @@ test("when `size` is large and `reverse` is false, the correct FieldHelp compone
       label="label"
       reverse={false}
       fieldHelp="this is field help"
-    />
+    />,
   );
 
   const fieldHelp = screen.getByText("this is field help");
@@ -309,7 +313,7 @@ test("the correct border colour is applied when `error` validation is true", () 
   const switchSlider = screen.getByTestId("slider");
 
   expect(switchSlider).toHaveStyleRule(
-    "border-color: var(--colorsSemanticNegative500)"
+    "border-color: var(--colorsSemanticNegative500)",
   );
 });
 
@@ -320,7 +324,7 @@ test("the correct border colour is applied when `warning` validation is true", (
   const switchSlider = screen.getByTestId("slider");
 
   expect(switchSlider).toHaveStyleRule(
-    "border-color: var(--colorsSemanticCaution500)"
+    "border-color: var(--colorsSemanticCaution500)",
   );
 });
 
@@ -329,13 +333,13 @@ test("the correct background colour is applied to the `ErrorBorder` element when
   render(
     <CarbonProvider validationRedesignOptIn>
       <Switch error="this is an error" />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const switchSlider = screen.getByTestId("error-border");
 
   expect(switchSlider).toHaveStyleRule(
-    "background-color: var(--colorsSemanticNegative500)"
+    "background-color: var(--colorsSemanticNegative500)",
   );
 });
 
@@ -344,13 +348,13 @@ test("the correct background colour is applied to the `ErrorBorder` element when
   render(
     <CarbonProvider validationRedesignOptIn>
       <Switch warning="this is a warning" />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const switchSlider = screen.getByTestId("error-border");
 
   expect(switchSlider).toHaveStyleRule(
-    "background-color: var(--colorsSemanticCaution500)"
+    "background-color: var(--colorsSemanticCaution500)",
   );
 });
 
@@ -359,7 +363,7 @@ test("renders `labelHelp` as hint text when `validationRedesignOptIn` flag is tr
   render(
     <CarbonProvider validationRedesignOptIn>
       <Switch label="foo" labelHelp="hint text" warning="this is a warning" />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getByText("hint text")).toBeVisible();
@@ -369,14 +373,14 @@ test("should render with correct accessible name and description when `validatio
   render(
     <CarbonProvider validationRedesignOptIn>
       <Switch label="foo" labelHelp="hint text" error="this is an error" />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const switchElement = screen.getByRole("switch");
 
   expect(switchElement).toHaveAccessibleName("foo");
   expect(switchElement).toHaveAccessibleDescription(
-    "hint text this is an error"
+    "hint text this is an error",
   );
 });
 
@@ -392,7 +396,7 @@ test("the expected translations are correctly applied for on", () => {
       }}
     >
       <Switch checked onChange={() => {}} />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   const i18nText = screen.getAllByText("sur");
@@ -412,7 +416,7 @@ test("the expected translations are correctly applied for off", () => {
       }}
     >
       <Switch onChange={() => {}} />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   const i18nText = screen.getAllByText("de");

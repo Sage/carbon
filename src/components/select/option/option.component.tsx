@@ -63,7 +63,7 @@ const Option = React.forwardRef(
       style,
       ...rest
     }: OptionProps,
-    ref: React.ForwardedRef<HTMLLIElement>
+    ref: React.ForwardedRef<HTMLLIElement>,
   ) => {
     const selectListContext = useContext(SelectListContext);
     let isSelected = selectListContext.currentOptionsListIndex === index;
@@ -104,7 +104,7 @@ const Option = React.forwardRef(
         {children || text}
       </StyledOption>
     );
-  }
+  },
 );
 
 Option.displayName = "Option";

@@ -207,22 +207,24 @@ test.describe("Prop tests for Menu component", () => {
     for (let i = 0; i < position.length; i++) {
       await expect(innerMenu(page, position[i], span).first()).toHaveAttribute(
         "data-component",
-        "link"
+        "link",
       );
     }
     const menuItemDivider = innerMenu(page, 3, div).first();
     await expect(menuItemDivider).toHaveAttribute(
       "data-component",
-      "menu-divider"
+      "menu-divider",
     );
   });
 
-  ([
-    ["white", "rgb(230, 235, 237)", 0],
-    ["light", "rgb(255, 255, 255)", 2],
-    ["dark", "rgb(0, 25, 38)", 4],
-    ["black", "rgb(38, 38, 38)", 6],
-  ] as [string, string, number][]).forEach(([colorName, color, menuNumber]) => {
+  (
+    [
+      ["white", "rgb(230, 235, 237)", 0],
+      ["light", "rgb(255, 255, 255)", 2],
+      ["dark", "rgb(0, 25, 38)", 4],
+      ["black", "rgb(38, 38, 38)", 6],
+    ] as [string, string, number][]
+  ).forEach(([colorName, color, menuNumber]) => {
     test(`should verify the ${menuNumber}th submenu background color is ${colorName}`, async ({
       mount,
       page,
@@ -236,12 +238,14 @@ test.describe("Prop tests for Menu component", () => {
     });
   });
 
-  ([
-    ["white", "rgb(255, 255, 255)", 0],
-    ["light", "rgb(230, 235, 237)", 4],
-    ["dark", "rgb(0, 50, 76)", 8],
-    ["black", "rgb(0, 0, 0)", 12],
-  ] as [string, string, number][]).forEach(([colorName, color, menuNumber]) => {
+  (
+    [
+      ["white", "rgb(255, 255, 255)", 0],
+      ["light", "rgb(230, 235, 237)", 4],
+      ["dark", "rgb(0, 50, 76)", 8],
+      ["black", "rgb(0, 0, 0)", 12],
+    ] as [string, string, number][]
+  ).forEach(([colorName, color, menuNumber]) => {
     test(`should verify the ${menuNumber}th menu background color is ${colorName}`, async ({
       mount,
       page,
@@ -253,12 +257,14 @@ test.describe("Prop tests for Menu component", () => {
     });
   });
 
-  ([
-    ["white", "rgba(0, 0, 0, 0.9)"],
-    ["light", "rgba(0, 0, 0, 0.9)"],
-    ["dark", "rgb(255, 255, 255)"],
-    ["black", "rgb(255, 255, 255)"],
-  ] as [MenuProps["menuType"], string][]).forEach(([menuType, color]) => {
+  (
+    [
+      ["white", "rgba(0, 0, 0, 0.9)"],
+      ["light", "rgba(0, 0, 0, 0.9)"],
+      ["dark", "rgb(255, 255, 255)"],
+      ["black", "rgb(255, 255, 255)"],
+    ] as [MenuProps["menuType"], string][]
+  ).forEach(([menuType, color]) => {
     test(`should verify icon color is ${color} when menuType prop is ${menuType}`, async ({
       mount,
       page,
@@ -268,7 +274,7 @@ test.describe("Prop tests for Menu component", () => {
           <MenuItem onClick={() => {}} icon="home">
             Foo
           </MenuItem>
-        </Menu>
+        </Menu>,
       );
 
       await page.keyboard.press("Tab");
@@ -276,10 +282,12 @@ test.describe("Prop tests for Menu component", () => {
     });
   });
 
-  ([
-    ["default", 1],
-    ["large", 4],
-  ] as [MenuDividerProps["size"], number][]).forEach(([size, height]) => {
+  (
+    [
+      ["default", 1],
+      ["large", 4],
+    ] as [MenuDividerProps["size"], number][]
+  ).forEach(([size, height]) => {
     test(`should verify Menu Divider has the proper height when the size is ${size}`, async ({
       mount,
       page,
@@ -331,11 +339,11 @@ test.describe("Prop tests for Menu component", () => {
     await expect(subMenuBlock).toHaveCount(2);
     await expect(innerMenu(page, 1, span).first()).toHaveAttribute(
       "data-component",
-      "link"
+      "link",
     );
     await expect(innerMenu(page, 2, span).first()).toHaveAttribute(
       "data-component",
-      "link"
+      "link",
     );
   });
 
@@ -354,19 +362,21 @@ test.describe("Prop tests for Menu component", () => {
       await expect(subMenuBlock).toHaveCount(2);
       await expect(innerMenu(page, 1, span).first()).toHaveAttribute(
         "data-component",
-        "link"
+        "link",
       );
       await expect(innerMenu(page, 2, span).first()).toHaveAttribute(
         "data-component",
-        "link"
+        "link",
       );
     });
   });
 
-  ([
-    ["ArrowDown", 0],
-    ["ArrowUp", 2],
-  ] as [string, number][]).forEach(([key, tabs]) => {
+  (
+    [
+      ["ArrowDown", 0],
+      ["ArrowUp", 2],
+    ] as [string, number][]
+  ).forEach(([key, tabs]) => {
     test(`should verify the Search component is focusable by pressing the ${key} key`, async ({
       mount,
       page,
@@ -509,14 +519,14 @@ test.describe("Prop tests for Menu component", () => {
             </MenuItem>
           </MenuItem>
         </Menu>
-      </Box>
+      </Box>,
     );
 
     const subMenu = submenu(page).first();
     await subMenu.hover();
     const subMenuBlock = innerMenu(page, 2, span).first();
     const cssWidth = await subMenuBlock.evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue("width")
+      window.getComputedStyle(el).getPropertyValue("width"),
     );
     expect(parseInt(cssWidth)).toBeLessThanOrEqual(395);
     expect(parseInt(cssWidth)).toBeGreaterThanOrEqual(385);
@@ -532,23 +542,25 @@ test.describe("Prop tests for Menu component", () => {
     await subMenu.hover();
     const subMenuBlock = innerMenu(page, 2, span).first();
     const cssWidth = await subMenuBlock.evaluate((el) =>
-      window.getComputedStyle(el).getPropertyValue("width")
+      window.getComputedStyle(el).getPropertyValue("width"),
     );
     expect(parseInt(cssWidth)).toBeLessThanOrEqual(500);
     expect(parseInt(cssWidth)).toBeGreaterThanOrEqual(490);
   });
 
-  ([
-    ["float", 0.3, 409],
-    ["float", 0.6, 819],
-    ["float", 1.0, 1366],
-    ["number", 350, 350],
-    ["number", 900, 900],
-    ["number", 1350, 1350],
-    ["string", "450px", 450],
-    ["string", "675px", 675],
-    ["string", "1200px", 1200],
-  ] as [string, number | string, number][]).forEach(([type, width, pixels]) => {
+  (
+    [
+      ["float", 0.3, 409],
+      ["float", 0.6, 819],
+      ["float", 1.0, 1366],
+      ["number", 350, 350],
+      ["number", 900, 900],
+      ["number", 1350, 1350],
+      ["string", "450px", 450],
+      ["string", "675px", 675],
+      ["string", "1200px", 1200],
+    ] as [string, number | string, number][]
+  ).forEach(([type, width, pixels]) => {
     test(`should render with width set to ${pixels}px when prop is passed as a ${type}`, async ({
       mount,
       page,
@@ -560,43 +572,43 @@ test.describe("Prop tests for Menu component", () => {
     });
   });
 
-  ([
-    ["number", 810, 350, 810],
-    ["number", 810, 1350, 1350],
-    ["string", "700px", "300px", 700],
-    ["string", "700px", "1200px", 1200],
-  ] as [string, string | number, string | number, number][]).forEach(
-    ([type, minWidth, width, pixels]) => {
-      test(`should render with minimum width of ${pixels}px when minWidth prop is passed as a ${type}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponent minWidth={minWidth} width={width} />);
+  (
+    [
+      ["number", 810, 350, 810],
+      ["number", 810, 1350, 1350],
+      ["string", "700px", "300px", 700],
+      ["string", "700px", "1200px", 1200],
+    ] as [string, string | number, string | number, number][]
+  ).forEach(([type, minWidth, width, pixels]) => {
+    test(`should render with minimum width of ${pixels}px when minWidth prop is passed as a ${type}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent minWidth={minWidth} width={width} />);
 
-        const thisMenu = menu(page).first();
-        await assertCssValueIsApproximately(thisMenu, "width", pixels);
-      });
-    }
-  );
+      const thisMenu = menu(page).first();
+      await assertCssValueIsApproximately(thisMenu, "width", pixels);
+    });
+  });
 
-  ([
-    ["number", 810, 350, 350],
-    ["number", 810, 1350, 810],
-    ["string", "700px", "300px", 300],
-    ["string", "700px", "1200px", 700],
-  ] as [string, string | number, string | number, number][]).forEach(
-    ([type, maxWidth, width, pixels]) => {
-      test(`should render with maximum width of ${pixels}px when maxWidth prop is passed as a ${type}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponent maxWidth={maxWidth} width={width} />);
+  (
+    [
+      ["number", 810, 350, 350],
+      ["number", 810, 1350, 810],
+      ["string", "700px", "300px", 300],
+      ["string", "700px", "1200px", 700],
+    ] as [string, string | number, string | number, number][]
+  ).forEach(([type, maxWidth, width, pixels]) => {
+    test(`should render with maximum width of ${pixels}px when maxWidth prop is passed as a ${type}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent maxWidth={maxWidth} width={width} />);
 
-        const thisMenu = menu(page).first();
-        await assertCssValueIsApproximately(thisMenu, "width", pixels);
-      });
-    }
-  );
+      const thisMenu = menu(page).first();
+      await assertCssValueIsApproximately(thisMenu, "width", pixels);
+    });
+  });
 
   [
     "baseline",
@@ -632,13 +644,9 @@ test.describe("Prop tests for Menu component", () => {
     });
   });
 
-  ([
-    "auto",
-    "clip",
-    "hidden",
-    "scroll",
-    "visible",
-  ] as MenuProps["overflowX"][]).forEach((overflow) => {
+  (
+    ["auto", "clip", "hidden", "scroll", "visible"] as MenuProps["overflowX"][]
+  ).forEach((overflow) => {
     test(`should render with overflowX as ${overflow}`, async ({
       mount,
       page,
@@ -661,7 +669,7 @@ test.describe("Prop tests for Menu component", () => {
         const thisMenu = menu(page).first();
         await expect(thisMenu).toHaveCSS("align-items", alignment);
       });
-    }
+    },
   );
 
   [
@@ -738,15 +746,17 @@ test.describe("Prop tests for Menu component", () => {
         const thisMenu = menu(page).first();
         await expect(thisMenu).toHaveCSS("flex-wrap", wrap as string);
       });
-    }
+    },
   );
 
-  ([
-    "column",
-    "column-reverse",
-    "row",
-    "row-reverse",
-  ] as MenuProps["flexDirection"][]).forEach((direction) => {
+  (
+    [
+      "column",
+      "column-reverse",
+      "row",
+      "row-reverse",
+    ] as MenuProps["flexDirection"][]
+  ).forEach((direction) => {
     test(`should render with flexDirection as ${direction}`, async ({
       mount,
       page,
@@ -766,14 +776,16 @@ test.describe("Prop tests for Menu component", () => {
         const thisMenu = menu(page).first();
         await expect(thisMenu).toHaveCSS("flex-basis", flex);
       });
-    }
+    },
   );
 
-  ([
-    [10, "10"],
-    [50, "50"],
-    [100, "100"],
-  ] as [MenuProps["flexGrow"], string][]).forEach(([value, growText]) => {
+  (
+    [
+      [10, "10"],
+      [50, "50"],
+      [100, "100"],
+    ] as [MenuProps["flexGrow"], string][]
+  ).forEach(([value, growText]) => {
     test(`should render with flexGrow as ${value}`, async ({ mount, page }) => {
       await mount(<MenuComponent flex="auto" flexGrow={value} />);
 
@@ -782,11 +794,13 @@ test.describe("Prop tests for Menu component", () => {
     });
   });
 
-  ([
-    [10, "10"],
-    [50, "50"],
-    [100, "100"],
-  ] as [MenuProps["flexShrink"], string][]).forEach(([value, shrinkText]) => {
+  (
+    [
+      [10, "10"],
+      [50, "50"],
+      [100, "100"],
+    ] as [MenuProps["flexShrink"], string][]
+  ).forEach(([value, shrinkText]) => {
     test(`should render with flexShrink as ${value}`, async ({
       mount,
       page,
@@ -809,7 +823,7 @@ test.describe("Prop tests for Menu component", () => {
         const thisMenu = menu(page).first();
         await expect(thisMenu).toHaveCSS("flex-basis", basis);
       });
-    }
+    },
   );
 
   [
@@ -854,11 +868,13 @@ test.describe("Prop tests for Menu component", () => {
     });
   });
 
-  ([
-    [10, "10"],
-    [50, "50"],
-    [100, "100"],
-  ] as [MenuProps["order"], string][]).forEach(([value, orderText]) => {
+  (
+    [
+      [10, "10"],
+      [50, "50"],
+      [100, "100"],
+    ] as [MenuProps["order"], string][]
+  ).forEach(([value, orderText]) => {
     test(`should render with order as ${value}`, async ({ mount, page }) => {
       await mount(<MenuComponent order={value} />);
 
@@ -875,27 +891,27 @@ test.describe("Prop tests for Menu component", () => {
 
     const item = menuItem(page).nth(0);
     const itemClass = await item.evaluate((element) =>
-      element.getAttribute("class")
+      element.getAttribute("class"),
     );
     expect(itemClass).toContain(CHARACTERS.STANDARD);
   });
 
-  ([
-    ["selected", true, "rgb(230, 235, 237)"],
-    ["not selected", false, "rgb(255, 255, 255)"],
-  ] as [string, MenuWithChildren["selected"], string][]).forEach(
-    ([state, boolVal, color]) => {
-      test(`should render with first Menu Item ${state}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponentItems selected={boolVal} />);
+  (
+    [
+      ["selected", true, "rgb(230, 235, 237)"],
+      ["not selected", false, "rgb(255, 255, 255)"],
+    ] as [string, MenuWithChildren["selected"], string][]
+  ).forEach(([state, boolVal, color]) => {
+    test(`should render with first Menu Item ${state}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentItems selected={boolVal} />);
 
-        const subMenu = submenu(page).first().locator("span").first();
-        await expect(subMenu).toHaveCSS("background-color", color);
-      });
-    }
-  );
+      const subMenu = submenu(page).first().locator("span").first();
+      await expect(subMenu).toHaveCSS("background-color", color);
+    });
+  });
 
   [
     CHARACTERS.STANDARD,
@@ -923,27 +939,29 @@ test.describe("Prop tests for Menu component", () => {
     await expect(item).toHaveAttribute("target", CHARACTERS.STANDARD);
   });
 
-  ([
-    [true, 32],
-    [false, 16],
-  ] as [MenuWithChildren["showDropdownArrow"], number][]).forEach(
-    ([boolVal, padding]) => {
-      test(`should render with padding of ${padding}px on menu item when showDropdownArrow prop is ${boolVal}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponentItems showDropdownArrow={boolVal} />);
+  (
+    [
+      [true, 32],
+      [false, 16],
+    ] as [MenuWithChildren["showDropdownArrow"], number][]
+  ).forEach(([boolVal, padding]) => {
+    test(`should render with padding of ${padding}px on menu item when showDropdownArrow prop is ${boolVal}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentItems showDropdownArrow={boolVal} />);
 
-        const subMenu = submenu(page).first().locator("button");
-        await expect(subMenu).toHaveCSS("padding-right", `${padding}px`);
-      });
-    }
-  );
+      const subMenu = submenu(page).first().locator("button");
+      await expect(subMenu).toHaveCSS("padding-right", `${padding}px`);
+    });
+  });
 
-  ([
-    ["default", "rgb(255, 255, 255)"],
-    ["alternate", "rgb(217, 224, 228)"],
-  ] as [MenuWithChildren["variant"], string][]).forEach(([variant, color]) => {
+  (
+    [
+      ["default", "rgb(255, 255, 255)"],
+      ["alternate", "rgb(217, 224, 228)"],
+    ] as [MenuWithChildren["variant"], string][]
+  ).forEach(([variant, color]) => {
     test(`should render with ${variant} Menu Item variant`, async ({
       mount,
       page,
@@ -965,103 +983,103 @@ test.describe("Prop tests for Menu component", () => {
     await expect(subMenu).toHaveAttribute("aria-label", CHARACTERS.STANDARD);
   });
 
-  ([
-    ["default", 1, 16, 121],
-    ["large", 4, 0, 153],
-  ] as [MenuDividerProps["size"], number, number, number][]).forEach(
-    ([size, height, margin, width]) => {
-      test(`should render with Menu size ${size}`, async ({ mount, page }) => {
-        await mount(
-          <Box mb={150}>
-            <Menu menuType="white">
-              <MenuItem submenu="Menu">
-                <MenuItem href="#">Submenu Item One</MenuItem>
-                <MenuDivider size={size} />
-                <MenuItem href="#">Submenu Item Two</MenuItem>
+  (
+    [
+      ["default", 1, 16, 121],
+      ["large", 4, 0, 153],
+    ] as [MenuDividerProps["size"], number, number, number][]
+  ).forEach(([size, height, margin, width]) => {
+    test(`should render with Menu size ${size}`, async ({ mount, page }) => {
+      await mount(
+        <Box mb={150}>
+          <Menu menuType="white">
+            <MenuItem submenu="Menu">
+              <MenuItem href="#">Submenu Item One</MenuItem>
+              <MenuDivider size={size} />
+              <MenuItem href="#">Submenu Item Two</MenuItem>
+            </MenuItem>
+          </Menu>
+        </Box>,
+      );
+
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const divider = menuDivider(page);
+      await assertCssValueIsApproximately(divider, "height", height);
+      await assertCssValueIsApproximately(divider, "margin-left", margin);
+      await assertCssValueIsApproximately(divider, "width", width);
+    });
+  });
+
+  (
+    [
+      [100, 100],
+      [200, 200],
+      ["150px", 150],
+      ["250px", 250],
+    ] as [ScrollableBlockProps["height"], number][]
+  ).forEach(([height, pixels]) => {
+    test(`should render with scroll block height of ${pixels}px when height prop is passed as a number or string`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollable height={height} />);
+
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const block = scrollBlock(page);
+      await assertCssValueIsApproximately(block, "height", pixels);
+    });
+  });
+
+  (
+    [
+      ["default", "rgb(230, 235, 237)"],
+      ["alternate", "rgb(217, 224, 228)"],
+    ] as [ScrollableBlockProps["variant"], string][]
+  ).forEach(([variant, color]) => {
+    test(`should render Menu scroll block with ${variant} background color using variant prop`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollable variant={variant} />);
+
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const block = scrollBlock(page).locator("span").first();
+      await expect(block).toHaveCSS("background-color", color);
+    });
+  });
+
+  (
+    [
+      ["default", "rgba(0, 0, 0, 0)"],
+      ["alternate", "rgb(217, 224, 228)"],
+    ] as [ScrollableBlockProps["variant"], string][]
+  ).forEach(([variant, color]) => {
+    test(`should render segment title with ${variant} variant background color`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <Box mb={150}>
+          <Menu menuType="white">
+            <MenuItem submenu="Menu Item One">
+              <MenuItem href="#">
+                Item Submenu One Is A Very Long Submenu Item Indeed
               </MenuItem>
-            </Menu>
-          </Box>
-        );
+              <MenuSegmentTitle variant={variant} text="Segment Title" />
+            </MenuItem>
+          </Menu>
+        </Box>,
+      );
 
-        const subMenu = submenu(page).first();
-        await subMenu.hover();
-        const divider = menuDivider(page);
-        await assertCssValueIsApproximately(divider, "height", height);
-        await assertCssValueIsApproximately(divider, "margin-left", margin);
-        await assertCssValueIsApproximately(divider, "width", width);
-      });
-    }
-  );
-
-  ([
-    [100, 100],
-    [200, 200],
-    ["150px", 150],
-    ["250px", 250],
-  ] as [ScrollableBlockProps["height"], number][]).forEach(
-    ([height, pixels]) => {
-      test(`should render with scroll block height of ${pixels}px when height prop is passed as a number or string`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponentScrollable height={height} />);
-
-        const subMenu = submenu(page).first();
-        await subMenu.hover();
-        const block = scrollBlock(page);
-        await assertCssValueIsApproximately(block, "height", pixels);
-      });
-    }
-  );
-
-  ([
-    ["default", "rgb(230, 235, 237)"],
-    ["alternate", "rgb(217, 224, 228)"],
-  ] as [ScrollableBlockProps["variant"], string][]).forEach(
-    ([variant, color]) => {
-      test(`should render Menu scroll block with ${variant} background color using variant prop`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponentScrollable variant={variant} />);
-
-        const subMenu = submenu(page).first();
-        await subMenu.hover();
-        const block = scrollBlock(page).locator("span").first();
-        await expect(block).toHaveCSS("background-color", color);
-      });
-    }
-  );
-
-  ([
-    ["default", "rgba(0, 0, 0, 0)"],
-    ["alternate", "rgb(217, 224, 228)"],
-  ] as [ScrollableBlockProps["variant"], string][]).forEach(
-    ([variant, color]) => {
-      test(`should render segment title with ${variant} variant background color`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <Box mb={150}>
-            <Menu menuType="white">
-              <MenuItem submenu="Menu Item One">
-                <MenuItem href="#">
-                  Item Submenu One Is A Very Long Submenu Item Indeed
-                </MenuItem>
-                <MenuSegmentTitle variant={variant} text="Segment Title" />
-              </MenuItem>
-            </Menu>
-          </Box>
-        );
-
-        const subMenu = submenu(page).first();
-        await subMenu.hover();
-        const title = segmentTitle(page);
-        await expect(title).toHaveCSS("background-color", color);
-      });
-    }
-  );
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const title = segmentTitle(page);
+      await expect(title).toHaveCSS("background-color", color);
+    });
+  });
 
   test("when a Menu Fullscreen is opened and then closed, the call to action element should be focused", async ({
     mount,
@@ -1129,9 +1147,9 @@ test.describe("Prop tests for Menu component", () => {
     await expect(subMenu).toHaveAttribute("href", CHARACTERS.STANDARD);
   });
 
-  ([["noopener"], ["noreferrer"], ["opener"]] as [
-    MenuWithChildren["rel"]
-  ][]).forEach(([rel]) => {
+  (
+    [["noopener"], ["noreferrer"], ["opener"]] as [MenuWithChildren["rel"]][]
+  ).forEach(([rel]) => {
     test(`should render Menu Item with rel prop set to ${rel}`, async ({
       mount,
       page,
@@ -1155,30 +1173,27 @@ test.describe("Prop tests for Menu component", () => {
     await expect(scrollBlockParent).toHaveCount(1);
   });
 
-  ([
-    ["default", "rgb(255, 255, 255)"],
-    ["alternate", "rgb(230, 235, 237)"],
-  ] as [ScrollableBlockProps["parentVariant"], string][]).forEach(
-    ([variant, color]) => {
-      test(`should render scrollable block with ${variant} variant background color`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MenuComponentScrollableParent parentVariant={variant} />);
+  (
+    [
+      ["default", "rgb(255, 255, 255)"],
+      ["alternate", "rgb(230, 235, 237)"],
+    ] as [ScrollableBlockProps["parentVariant"], string][]
+  ).forEach(([variant, color]) => {
+    test(`should render scrollable block with ${variant} variant background color`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollableParent parentVariant={variant} />);
 
-        const subMenu = submenu(page).first();
-        await subMenu.hover();
-        const parentBackground = getComponent(page, "scrollable-block-parent")
-          .locator("span")
-          .nth(0);
-        await expect(parentBackground).toHaveAttribute(
-          "data-component",
-          "link"
-        );
-        await expect(parentBackground).toHaveCSS("background-color", color);
-      });
-    }
-  );
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const parentBackground = getComponent(page, "scrollable-block-parent")
+        .locator("span")
+        .nth(0);
+      await expect(parentBackground).toHaveAttribute("data-component", "link");
+      await expect(parentBackground).toHaveCSS("background-color", color);
+    });
+  });
 });
 
 test.describe("Prop tests for Menu Fullscreen component", () => {
@@ -1242,7 +1257,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(closeIcon).toBeFocused();
     await expect(closeIcon).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(closeIcon).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
   });
@@ -1297,7 +1312,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
       (element) => {
         const style = window.getComputedStyle(element);
         return style.getPropertyValue("background-color");
-      }
+      },
     );
     expect(fullMenuItemBackgroundColor).toContain("rgb(0, 126, 69)");
 
@@ -1338,7 +1353,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
       (element) => {
         const style = window.getComputedStyle(element);
         return style.getPropertyValue("background-color");
-      }
+      },
     );
     expect(fullMenuItemBackgroundColor).toContain("rgb(0, 126, 69)");
 
@@ -1372,7 +1387,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
       (element) => {
         const style = window.getComputedStyle(element);
         return style.getPropertyValue("text-wrap");
-      }
+      },
     );
 
     const fullSubmenuItemHeight = await fullSubmenuItem.evaluate((element) => {
@@ -1389,14 +1404,14 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
       (element) => {
         const style = window.getComputedStyle(element);
         return style.getPropertyValue("text-wrap");
-      }
+      },
     );
 
     const fullMenuItemWrapperHeight = await fullMenuItemWrapper.evaluate(
       (element) => {
         const style = window.getComputedStyle(element);
         return style.getPropertyValue("height");
-      }
+      },
     );
 
     expect(fullMenuItemWrapperTextWrap).toEqual("wrap");
@@ -1437,27 +1452,27 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(item).not.toBeFocused();
   });
 
-  ([
-    ["open", true],
-    ["closed", false],
-  ] as [string, MenuFullscreenProps["isOpen"]][]).forEach(
-    ([value, boolVal]) => {
-      test(`should render with Menu Fullscreen ${value} when isOpen prop is ${boolVal}`, async ({
-        mount,
-        page,
-      }) => {
-        await page.setViewportSize({ width: 1200, height: 800 });
-        await mount(<MenuComponentFullScreen isOpen={boolVal} />);
+  (
+    [
+      ["open", true],
+      ["closed", false],
+    ] as [string, MenuFullscreenProps["isOpen"]][]
+  ).forEach(([value, boolVal]) => {
+    test(`should render with Menu Fullscreen ${value} when isOpen prop is ${boolVal}`, async ({
+      mount,
+      page,
+    }) => {
+      await page.setViewportSize({ width: 1200, height: 800 });
+      await mount(<MenuComponentFullScreen isOpen={boolVal} />);
 
-        const fullScreenMenu = getComponent(page, "menu-fullscreen").nth(3);
-        if (boolVal) {
-          await expect(fullScreenMenu).toBeVisible();
-        } else {
-          await expect(fullScreenMenu).not.toBeVisible();
-        }
-      });
-    }
-  );
+      const fullScreenMenu = getComponent(page, "menu-fullscreen").nth(3);
+      if (boolVal) {
+        await expect(fullScreenMenu).toBeVisible();
+      } else {
+        await expect(fullScreenMenu).not.toBeVisible();
+      }
+    });
+  });
 
   test(`should verify that Menu Fullscreen has no effect on the tab order when isOpen prop is false`, async ({
     mount,
@@ -1513,7 +1528,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(button).toBeFocused();
     await expect(button).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await page.keyboard.press("Tab");
     const item2 = menuItem(page).last().locator("a");
@@ -1528,7 +1543,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
       <MenuFullScreenWithSearchButton searchValue="foo" />,
       {
         hooksConfig: { focusRedesignOptOut: true },
-      }
+      },
     );
 
     const item = menuItem(page).first().locator("a");
@@ -1572,7 +1587,7 @@ test.describe("Event tests for Menu component", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const menuComp = menuComponent(page, 1);
@@ -1591,7 +1606,7 @@ test.describe("Event tests for Menu component", () => {
           callbackCount += 1;
         }}
         submenu="Menu Item One"
-      />
+      />,
     );
 
     const subMenu = submenu(page).first();
@@ -1611,7 +1626,7 @@ test.describe("Event tests for Menu component", () => {
           callbackCount += 1;
         }}
         submenu="Menu Item One"
-      />
+      />,
     );
 
     const menuComp = menuComponent(page, 1);
@@ -1632,7 +1647,7 @@ test.describe("Event tests for Menu component", () => {
             callbackCount += 1;
           }}
           submenu="Menu Item One"
-        />
+        />,
       );
 
       await page.keyboard.press("Tab");
@@ -1652,7 +1667,7 @@ test.describe("Event tests for Menu component", () => {
           callbackCount += 1;
         }}
         submenu="Menu Item Three"
-      />
+      />,
     );
 
     await page.keyboard.press("Tab");
@@ -1672,7 +1687,7 @@ test.describe("Event tests for Menu component", () => {
         onClose={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const item = menuItem(page).first();
@@ -1783,7 +1798,7 @@ test.describe("Accessibility tests for Menu component", () => {
             </MenuItem>
           </MenuItem>
         </Menu>
-      </Box>
+      </Box>,
     );
 
     const subMenu = submenu(page).first();
@@ -1805,7 +1820,7 @@ test.describe("Accessibility tests for Menu component", () => {
             </MenuItem>
           </MenuItem>
         </Menu>
-      </Box>
+      </Box>,
     );
 
     const subMenu = submenu(page).first();
@@ -1866,13 +1881,9 @@ test.describe("Accessibility tests for Menu component", () => {
     });
   });
 
-  ([
-    "auto",
-    "clip",
-    "hidden",
-    "scroll",
-    "visible",
-  ] as MenuProps["overflowX"][]).forEach((overflow) => {
+  (
+    ["auto", "clip", "hidden", "scroll", "visible"] as MenuProps["overflowX"][]
+  ).forEach((overflow) => {
     test(`should pass accessibility tests when overflowX is ${overflow}`, async ({
       mount,
       page,
@@ -1893,7 +1904,7 @@ test.describe("Accessibility tests for Menu component", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   [
@@ -1966,15 +1977,17 @@ test.describe("Accessibility tests for Menu component", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
-  ([
-    "column",
-    "column-reverse",
-    "row",
-    "row-reverse",
-  ] as MenuProps["flexDirection"][]).forEach((direction) => {
+  (
+    [
+      "column",
+      "column-reverse",
+      "row",
+      "row-reverse",
+    ] as MenuProps["flexDirection"][]
+  ).forEach((direction) => {
     test(`should pass accessibility tests when flexDirection is ${direction}`, async ({
       mount,
       page,
@@ -1995,7 +2008,7 @@ test.describe("Accessibility tests for Menu component", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   [10, 50, 100].forEach((value) => {
@@ -2030,7 +2043,7 @@ test.describe("Accessibility tests for Menu component", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   [
@@ -2101,7 +2114,7 @@ test.describe("Accessibility tests for Menu component", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   (["default", "alternate"] as ScrollableBlockProps["variant"][]).forEach(
@@ -2117,7 +2130,7 @@ test.describe("Accessibility tests for Menu component", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   test(`should pass accessibility tests for Menu with parent item`, async ({
@@ -2165,7 +2178,7 @@ test(`should verify that submenu item text wraps when it would overflow the cont
   const submenuBlockElement = submenuBlock(page).first();
 
   const cssItemHeight = await lastItem.evaluate((el) =>
-    window.getComputedStyle(el).getPropertyValue("height")
+    window.getComputedStyle(el).getPropertyValue("height"),
   );
 
   await expect(submenuBlockElement).toHaveCSS("max-width", "300px");
@@ -2202,7 +2215,7 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
         .first()
         .locator("a")
         .first()
-        .locator("span")
+        .locator("span"),
     ).toHaveText("Menu Item One");
     const closeIcon = closeIconButton(page).first();
     await closeIcon.click();
@@ -2241,361 +2254,339 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
         await waitForAnimationEnd(fullscreen);
         await checkAccessibility(page);
       });
-    }
+    },
   );
 });
 
-test.describe(
-  "Styling, Scrolling & Navigation Bar Tests for Menu Component",
-  () => {
-    test(`should render menu items with the expected focus styling when focusRedesignOptOut is true`, async ({
-      mount,
-      page,
-    }) => {
-      await page.setViewportSize({ width: 1200, height: 800 });
-      await mount<HooksConfig>(<MenuComponent />, {
-        hooksConfig: { focusRedesignOptOut: true },
-      });
-
-      const item1 = menuItem(page).first().locator("a");
-      await item1.focus();
-      await expect(item1).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px inset"
-      );
-
-      const item2 = menuItem(page).last().locator("button");
-      await item2.focus();
-      await expect(item2).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px inset"
-      );
-      await item2.click();
-
-      const subMenu1 = submenu(page).last().locator("button").first();
-      await subMenu1.focus();
-      await expect(subMenu1).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px inset"
-      );
-
-      const subMenu2 = submenu(page).last().locator("a").first();
-      await subMenu2.focus();
-      await expect(subMenu2).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px inset"
-      );
+test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", () => {
+  test(`should render menu items with the expected focus styling when focusRedesignOptOut is true`, async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await mount<HooksConfig>(<MenuComponent />, {
+      hooksConfig: { focusRedesignOptOut: true },
     });
 
-    test(`should render menu items with the expected focus styling when focusRedesignOptOut is false`, async ({
-      mount,
-      page,
-    }) => {
-      await page.setViewportSize({ width: 1200, height: 800 });
-      await mount(<MenuComponent />);
+    const item1 = menuItem(page).first().locator("a");
+    await item1.focus();
+    await expect(item1).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px inset",
+    );
 
-      const item1 = menuItem(page).first().locator("a");
-      await item1.focus();
-      await expect(item1).toHaveCSS(
-        "box-shadow",
-        "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
-      );
-      await expect(item1).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+    const item2 = menuItem(page).last().locator("button");
+    await item2.focus();
+    await expect(item2).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px inset",
+    );
+    await item2.click();
 
-      const item2 = menuItem(page).last().locator("button");
-      await item2.focus();
-      await expect(item2).toHaveCSS(
-        "box-shadow",
-        "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
-      );
-      await expect(item2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
-      await item2.click();
+    const subMenu1 = submenu(page).last().locator("button").first();
+    await subMenu1.focus();
+    await expect(subMenu1).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px inset",
+    );
 
-      const subMenu1 = submenu(page).last().locator("button").first();
-      await subMenu1.focus();
-      await expect(subMenu1).toHaveCSS(
-        "box-shadow",
-        "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
-      );
-      await expect(subMenu1).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+    const subMenu2 = submenu(page).last().locator("a").first();
+    await subMenu2.focus();
+    await expect(subMenu2).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px inset",
+    );
+  });
 
-      const subMenu2 = submenu(page).last().locator("a").first();
-      await subMenu2.focus();
-      await expect(subMenu2).toHaveCSS(
-        "box-shadow",
-        "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
-      );
-      await expect(subMenu2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+  test(`should render menu items with the expected focus styling when focusRedesignOptOut is false`, async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await mount(<MenuComponent />);
+
+    const item1 = menuItem(page).first().locator("a");
+    await item1.focus();
+    await expect(item1).toHaveCSS(
+      "box-shadow",
+      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
+    );
+    await expect(item1).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+
+    const item2 = menuItem(page).last().locator("button");
+    await item2.focus();
+    await expect(item2).toHaveCSS(
+      "box-shadow",
+      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
+    );
+    await expect(item2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+    await item2.click();
+
+    const subMenu1 = submenu(page).last().locator("button").first();
+    await subMenu1.focus();
+    await expect(subMenu1).toHaveCSS(
+      "box-shadow",
+      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
+    );
+    await expect(subMenu1).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+
+    const subMenu2 = submenu(page).last().locator("a").first();
+    await subMenu2.focus();
+    await expect(subMenu2).toHaveCSS(
+      "box-shadow",
+      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
+    );
+    await expect(subMenu2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+  });
+
+  test(`should render with the expected border radius styling on the Submenu`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponent />);
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    const subMenuBlock = submenuBlock(page).first();
+    await expect(subMenuBlock).toHaveCSS("border-radius", "0px 0px 8px 8px");
+    const subMenu2 = submenu(page).locator("a").last();
+    await expect(subMenu2).toHaveCSS("border-radius", "0px 0px 8px 8px");
+  });
+
+  test(`should render with the expected border radius styling on the last MenuItem in a segment block`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuSegmentTitleComponent />);
+
+    const subMenu = submenu(page).nth(1);
+    await subMenu.hover();
+    const lastMenuItem = submenu(page).locator("a").last();
+    await lastMenuItem.focus();
+    await expect(lastMenuItem).toHaveCSS("border-radius", "0px 0px 8px 8px");
+  });
+
+  test(`should render with the expected border radius styling on the last MenuItem in a segment block when it is not the last menu item in the whole submenu`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuSegmentTitleComponentWithAdditionalMenuItem />);
+
+    const subMenu = submenu(page).nth(1);
+    await subMenu.hover();
+    const lastMenuItemInLastSegment = page.getByRole("link", {
+      name: "Last Segment Child",
     });
+    await lastMenuItemInLastSegment.focus();
+    await expect(lastMenuItemInLastSegment).toHaveCSS("border-radius", "0px");
 
-    test(`should render with the expected border radius styling on the Submenu`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponent />);
+    const lastMenuItem = submenu(page).locator("a").last();
+    await lastMenuItem.focus();
+    await expect(lastMenuItem).toHaveCSS("border-radius", "0px 0px 8px 8px");
+  });
 
-      const subMenu = submenu(page).first();
-      await subMenu.hover();
-      const subMenuBlock = submenuBlock(page).first();
-      await expect(subMenuBlock).toHaveCSS("border-radius", "0px 0px 8px 8px");
-      const subMenu2 = submenu(page).locator("a").last();
-      await expect(subMenu2).toHaveCSS("border-radius", "0px 0px 8px 8px");
-    });
+  test(`should render with the expected border radius styling on the Submenu Scrollable Block`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentScrollable />);
 
-    test(`should render with the expected border radius styling on the last MenuItem in a segment block`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuSegmentTitleComponent />);
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    const scrollableBlock = scrollBlock(page).first();
+    await expect(scrollableBlock).toHaveCSS("border-radius", "0px 0px 0px 8px");
+    const scrollableItem = scrollBlock(page).locator("a").last();
+    await expect(scrollableItem).toHaveCSS("border-radius", "0px 0px 0px 8px");
+  });
 
-      const subMenu = submenu(page).nth(1);
-      await subMenu.hover();
-      const lastMenuItem = submenu(page).locator("a").last();
-      await lastMenuItem.focus();
-      await expect(lastMenuItem).toHaveCSS("border-radius", "0px 0px 8px 8px");
-    });
+  test(`renders last MenuItem in a scrollable block without rounded corner, if there is no overflow in the block`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentScrollableWithSearch />);
 
-    test(`should render with the expected border radius styling on the last MenuItem in a segment block when it is not the last menu item in the whole submenu`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuSegmentTitleComponentWithAdditionalMenuItem />);
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    const searchInput = searchDefaultInput(page);
+    await searchInput.fill("app");
+    const scrollableBlock = scrollBlock(page);
 
-      const subMenu = submenu(page).nth(1);
-      await subMenu.hover();
-      const lastMenuItemInLastSegment = page.getByRole("link", {
-        name: "Last Segment Child",
-      });
-      await lastMenuItemInLastSegment.focus();
-      await expect(lastMenuItemInLastSegment).toHaveCSS("border-radius", "0px");
+    await expect(scrollableBlock).toHaveCSS("border-radius", "0px 0px 0px 8px");
 
-      const lastMenuItem = submenu(page).locator("a").last();
-      await lastMenuItem.focus();
-      await expect(lastMenuItem).toHaveCSS("border-radius", "0px 0px 8px 8px");
-    });
+    const scrollableItem = scrollBlock(page).locator("a").last();
 
-    test(`should render with the expected border radius styling on the Submenu Scrollable Block`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponentScrollable />);
+    await expect(scrollableItem).toHaveCSS("border-radius", "0px");
+  });
 
-      const subMenu = submenu(page).first();
-      await subMenu.hover();
-      const scrollableBlock = scrollBlock(page).first();
-      await expect(scrollableBlock).toHaveCSS(
-        "border-radius",
-        "0px 0px 0px 8px"
-      );
-      const scrollableItem = scrollBlock(page).locator("a").last();
-      await expect(scrollableItem).toHaveCSS(
-        "border-radius",
-        "0px 0px 0px 8px"
-      );
-    });
+  test(`renders last MenuItem in a scrollable block with rounded corner, if there is overflow within the block`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentScrollableWithSearch />);
 
-    test(`renders last MenuItem in a scrollable block without rounded corner, if there is no overflow in the block`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponentScrollableWithSearch />);
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    const searchInput = searchDefaultInput(page);
+    await searchInput.fill("r");
+    const scrollableBlock = scrollBlock(page);
 
-      const subMenu = submenu(page).first();
-      await subMenu.hover();
-      const searchInput = searchDefaultInput(page);
-      await searchInput.fill("app");
-      const scrollableBlock = scrollBlock(page);
+    await expect(scrollableBlock).toHaveCSS("border-radius", "0px 0px 0px 8px");
 
-      await expect(scrollableBlock).toHaveCSS(
-        "border-radius",
-        "0px 0px 0px 8px"
-      );
+    const scrollableItem = scrollBlock(page).locator("a").last();
 
-      const scrollableItem = scrollBlock(page).locator("a").last();
+    await expect(scrollableItem).toHaveCSS("border-radius", "0px 0px 0px 8px");
+  });
 
-      await expect(scrollableItem).toHaveCSS("border-radius", "0px");
-    });
+  test("should apply the expected styling to the scrollbar when menuType is white", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentScrollable />);
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    const scrollableBlock = scrollBlock(page).first();
 
-    test(`renders last MenuItem in a scrollable block with rounded corner, if there is overflow within the block`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponentScrollableWithSearch />);
+    await expect(scrollableBlock).toHaveCSS(
+      "scrollbar-color",
+      "rgb(89, 122, 139) rgb(242, 245, 246)",
+    );
+  });
 
-      const subMenu = submenu(page).first();
-      await subMenu.hover();
-      const searchInput = searchDefaultInput(page);
-      await searchInput.fill("r");
-      const scrollableBlock = scrollBlock(page);
+  test("should apply the expected styling to the scrollbar when menuType is light", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentScrollable />);
+    const subMenu = submenu(page).nth(2);
+    await subMenu.hover();
+    const scrollableBlock = scrollBlock(page).first();
 
-      await expect(scrollableBlock).toHaveCSS(
-        "border-radius",
-        "0px 0px 0px 8px"
-      );
+    await expect(scrollableBlock).toHaveCSS(
+      "scrollbar-color",
+      "rgb(89, 122, 139) rgb(242, 245, 246)",
+    );
+  });
 
-      const scrollableItem = scrollBlock(page).locator("a").last();
+  test("should apply the expected styling to the scrollbar when menuType is dark", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentScrollable />);
+    const subMenu = submenu(page).nth(5);
+    await subMenu.hover();
+    const scrollableBlock = scrollBlock(page).first();
 
-      await expect(scrollableItem).toHaveCSS(
-        "border-radius",
-        "0px 0px 0px 8px"
-      );
-    });
+    await expect(scrollableBlock).toHaveCSS(
+      "scrollbar-color",
+      "rgb(89, 122, 139) rgb(242, 245, 246)",
+    );
+  });
 
-    test("should apply the expected styling to the scrollbar when menuType is white", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponentScrollable />);
-      const subMenu = submenu(page).first();
-      await subMenu.hover();
-      const scrollableBlock = scrollBlock(page).first();
+  test("should apply the expected styling to the scrollbar when menuType is black", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentScrollable />);
+    const subMenu = submenu(page).nth(6);
+    await subMenu.hover();
+    const scrollableBlock = scrollBlock(page).first();
 
-      await expect(scrollableBlock).toHaveCSS(
-        "scrollbar-color",
-        "rgb(89, 122, 139) rgb(242, 245, 246)"
-      );
-    });
+    await expect(scrollableBlock).toHaveCSS(
+      "scrollbar-color",
+      "rgb(204, 204, 204) rgb(128, 128, 128)",
+    );
+  });
 
-    test("should apply the expected styling to the scrollbar when menuType is light", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponentScrollable />);
-      const subMenu = submenu(page).nth(2);
-      await subMenu.hover();
-      const scrollableBlock = scrollBlock(page).first();
+  test(`should verify that tabbing forward through the menu and back to the start should not make the background scroll to the bottom`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuFullScreenBackgroundScrollTest />);
 
-      await expect(scrollableBlock).toHaveCSS(
-        "scrollbar-color",
-        "rgb(89, 122, 139) rgb(242, 245, 246)"
-      );
-    });
+    await continuePressingTAB(page, 4);
 
-    test("should apply the expected styling to the scrollbar when menuType is dark", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponentScrollable />);
-      const subMenu = submenu(page).nth(5);
-      await subMenu.hover();
-      const scrollableBlock = scrollBlock(page).first();
+    const closeIcon = closeIconButton(page);
+    await expect(closeIcon).toBeFocused();
 
-      await expect(scrollableBlock).toHaveCSS(
-        "scrollbar-color",
-        "rgb(89, 122, 139) rgb(242, 245, 246)"
-      );
-    });
+    const offscreenText = page.getByText("I should not be scrolled into view");
+    await expect(offscreenText).not.toBeInViewport();
+  });
 
-    test("should apply the expected styling to the scrollbar when menuType is black", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuComponentScrollable />);
-      const subMenu = submenu(page).nth(6);
-      await subMenu.hover();
-      const scrollableBlock = scrollBlock(page).first();
+  test(`should verify that tabbing backward through the menu and back to the start should not make the background scroll to the bottom`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuFullScreenBackgroundScrollTest />);
 
-      await expect(scrollableBlock).toHaveCSS(
-        "scrollbar-color",
-        "rgb(204, 204, 204) rgb(128, 128, 128)"
-      );
-    });
+    await continuePressingSHIFTTAB(page, 3);
 
-    test(`should verify that tabbing forward through the menu and back to the start should not make the background scroll to the bottom`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuFullScreenBackgroundScrollTest />);
+    const closeIcon = closeIconButton(page);
+    await expect(closeIcon).toBeFocused();
 
-      await continuePressingTAB(page, 4);
+    const offscreenText = page.getByText("I should not be scrolled into view");
+    await expect(offscreenText).not.toBeInViewport();
+  });
 
-      const closeIcon = closeIconButton(page);
-      await expect(closeIcon).toBeFocused();
+  test(`should render with all the content of a long submenu accessible with the keyboard while remaining visible`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<InGlobalHeaderStory />);
 
-      const offscreenText = page.getByText(
-        "I should not be scrolled into view"
-      );
-      await expect(offscreenText).not.toBeInViewport();
-    });
-
-    test(`should verify that tabbing backward through the menu and back to the start should not make the background scroll to the bottom`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuFullScreenBackgroundScrollTest />);
-
-      await continuePressingSHIFTTAB(page, 3);
-
-      const closeIcon = closeIconButton(page);
-      await expect(closeIcon).toBeFocused();
-
-      const offscreenText = page.getByText(
-        "I should not be scrolled into view"
-      );
-      await expect(offscreenText).not.toBeInViewport();
-    });
-
-    test(`should render with all the content of a long submenu accessible with the keyboard while remaining visible`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<InGlobalHeaderStory />);
-
-      await page.setViewportSize({ width: 1000, height: 500 });
-      await page.keyboard.press("Tab");
+    await page.setViewportSize({ width: 1000, height: 500 });
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("ArrowDown");
+    const subMenuItem = submenuItem(page, 1);
+    await expect(subMenuItem).toHaveCount(20);
+    for (let i = 0; i < 20; i++) {
       await page.keyboard.press("ArrowDown");
-      const subMenuItem = submenuItem(page, 1);
-      await expect(subMenuItem).toHaveCount(20);
-      for (let i = 0; i < 20; i++) {
-        await page.keyboard.press("ArrowDown");
-      }
-      const focusedElement = page.locator("*:focus");
-      await expect(focusedElement).toHaveText("Foo 20");
-      const subMenu = page.locator(
-        '[data-component="submenu-wrapper"] ul > li:nth-child(20)'
-      );
-      await expect(subMenu).toBeInViewport();
-    });
+    }
+    const focusedElement = page.locator("*:focus");
+    await expect(focusedElement).toHaveText("Foo 20");
+    const subMenu = page.locator(
+      '[data-component="submenu-wrapper"] ul > li:nth-child(20)',
+    );
+    await expect(subMenu).toBeInViewport();
+  });
 
-    test(`should render with all the content of a long submenu accessible with the keyboard while remaining visible if the navbar height changes`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<NavigationBarWithSubmenuAndChangingHeight />);
+  test(`should render with all the content of a long submenu accessible with the keyboard while remaining visible if the navbar height changes`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<NavigationBarWithSubmenuAndChangingHeight />);
 
-      await page.setViewportSize({ width: 1000, height: 500 });
-      await page.keyboard.press("Tab");
+    await page.setViewportSize({ width: 1000, height: 500 });
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("ArrowDown");
+    const subMenuItem = submenuItem(page, 1);
+    await expect(subMenuItem).toHaveCount(21);
+    for (let i = 0; i < 3; i++) {
       await page.keyboard.press("ArrowDown");
-      const subMenuItem = submenuItem(page, 1);
-      await expect(subMenuItem).toHaveCount(21);
-      for (let i = 0; i < 3; i++) {
-        await page.keyboard.press("ArrowDown");
-      }
-      await page.keyboard.press("Enter");
+    }
+    await page.keyboard.press("Enter");
 
-      await page.waitForTimeout(100);
-      await page.keyboard.press("Tab");
+    await page.waitForTimeout(100);
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("ArrowDown");
+    for (let i = 0; i < 21; i++) {
       await page.keyboard.press("ArrowDown");
-      for (let i = 0; i < 21; i++) {
-        await page.keyboard.press("ArrowDown");
-      }
-      const subMenu = page.locator(
-        '[data-component="submenu-wrapper"] ul > li:nth-child(21)'
-      );
-      await expect(subMenu).toBeInViewport();
-    });
+    }
+    const subMenu = page.locator(
+      '[data-component="submenu-wrapper"] ul > li:nth-child(21)',
+    );
+    await expect(subMenu).toBeInViewport();
+  });
 
-    test("should render the menu with the expected styling when menu item has a PopoverContainer child with renderOpenComponent passed", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MenuItemWithPopoverContainerChild />);
+  test("should render the menu with the expected styling when menu item has a PopoverContainer child with renderOpenComponent passed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuItemWithPopoverContainerChild />);
 
-      const menuItemAnchor = menuItem(page).first().locator("a");
-      const buttonChild = menuItemAnchor.locator("button");
+    const menuItemAnchor = menuItem(page).first().locator("a");
+    const buttonChild = menuItemAnchor.locator("button");
 
-      await expect(menuItemAnchor).toHaveCSS("height", "40px");
-      await expect(buttonChild).toHaveCSS("height", "40px");
-    });
-  }
-);
+    await expect(menuItemAnchor).toHaveCSS("height", "40px");
+    await expect(buttonChild).toHaveCSS("height", "40px");
+  });
+});

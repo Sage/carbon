@@ -16,7 +16,7 @@ testStyledSystemPaddingRTL(
   ),
   () => screen.getByRole("cell"),
   undefined,
-  { modifier: "&&&& > div" }
+  { modifier: "&&&& > div" },
 );
 
 test("should render with proper `width` styling on cell and first child when prop is passed", () => {
@@ -27,7 +27,7 @@ test("should render with proper `width` styling on cell and first child when pro
           <FlatTableCell width={40} />
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("cell");
   const content = screen.getByTestId("flat-table-cell-content");
@@ -49,7 +49,7 @@ test("should render with expected `data-` attributes on root element", () => {
           </FlatTableCell>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("cell");
 
@@ -66,7 +66,7 @@ test("should apply expected styling and set the `title` attribute when `truncate
           <FlatTableCell truncate>Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
   const content = screen.getByTestId("flat-table-cell-content");
 
@@ -88,12 +88,12 @@ test("should override the default behaviour when `title` and `truncate` props ar
           </FlatTableCell>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByTestId("flat-table-cell-content")).toHaveAttribute(
     "title",
-    "Bar"
+    "Bar",
   );
 });
 
@@ -105,13 +105,13 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableCell verticalBorder="small">Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyleRule(
     "border-right",
     "1px solid var(--colorsUtilityMajor300)",
-    { modifier: "&&&&" }
+    { modifier: "&&&&" },
   );
 });
 
@@ -123,13 +123,13 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableCell verticalBorder="medium">Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyleRule(
     "border-right",
     "2px solid var(--colorsUtilityMajor300)",
-    { modifier: "&&&&" }
+    { modifier: "&&&&" },
   );
 });
 
@@ -141,13 +141,13 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableCell verticalBorder="large">Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyleRule(
     "border-right",
     "4px solid var(--colorsUtilityMajor300)",
-    { modifier: "&&&&" }
+    { modifier: "&&&&" },
   );
 });
 
@@ -164,7 +164,7 @@ test("should render the expected border colour when `verticalBorderColor` is pas
           </FlatTableCell>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyle("border-right-color: #FFBC1A");
@@ -183,7 +183,7 @@ test("should render the expected border colour when `verticalBorderColor` is pas
           </FlatTableCell>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyle("border-right-color: #000000");
@@ -202,11 +202,11 @@ test("should render the expected border colour when `verticalBorderColor` is pas
           </FlatTableCell>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyle(
-    "border-right-color: rgb(1,1,1)"
+    "border-right-color: rgb(1,1,1)",
   );
 });
 
@@ -218,7 +218,7 @@ test("should set the expected attribute when the `colspan` prop is passed", () =
           <FlatTableCell colspan={2}>Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("cell")).toHaveAttribute("colspan", "2");
@@ -232,7 +232,7 @@ test("should set the expected attribute when the `rowspan` prop is passed", () =
           <FlatTableCell rowspan={2}>Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("cell")).toHaveAttribute("rowspan", "2");

@@ -54,7 +54,7 @@ test("does not render, as an invariant is fired due to no text children or 'icon
   const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
   expect(() => render(<Button />)).toThrow(
-    "Either prop `iconType` must be defined or this node must have children."
+    "Either prop `iconType` must be defined or this node must have children.",
   );
 
   consoleSpy.mockRestore();
@@ -67,8 +67,8 @@ test("does not render, as an invariant is fired when the 'size' prop is 'small' 
     render(
       <Button subtext="bar" size="small">
         foo
-      </Button>
-    )
+      </Button>,
+    ),
   ).toThrow("subtext prop has no effect unless the button is large");
 
   consoleSpy.mockRestore();
@@ -81,8 +81,8 @@ test("does not render, as an invariant is fired when the 'size' prop is 'medium'
     render(
       <Button subtext="bar" size="medium">
         foo
-      </Button>
-    )
+      </Button>,
+    ),
   ).toThrow("subtext prop has no effect unless the button is large");
 
   consoleSpy.mockRestore();
@@ -101,7 +101,7 @@ test("sets the 'aria-labelledby' attribute correctly when a custom value is pass
     <>
       <span id="foo">this labels the button</span>
       <Button aria-labelledby="foo">bar</Button>
-    </>
+    </>,
   );
 
   const button = screen.getByRole("button", { name: "this labels the button" });
@@ -114,7 +114,7 @@ test("sets the 'aria-describedby' attribute correctly when a custom value is pas
     <>
       <span id="foo">this describes the button</span>
       <Button aria-describedby="foo">bar</Button>
-    </>
+    </>,
   );
 
   const button = screen.getByRole("button", { name: "bar" });
@@ -127,7 +127,7 @@ test("sets the correct icon colour when 'gradient-white' is passed to the 'butto
   render(
     <Button aria-label="button" buttonType="gradient-white" iconType="bin">
       foo
-    </Button>
+    </Button>,
   );
 
   const icon = screen.getByTestId("icon");
@@ -140,7 +140,7 @@ test("sets the correct icon colour when 'gradient-grey' is passed to the 'button
   render(
     <Button aria-label="button" buttonType="gradient-grey" iconType="bin">
       foo
-    </Button>
+    </Button>,
   );
 
   const icon = screen.getByTestId("icon");
@@ -152,7 +152,7 @@ test("sets the correct height when 'services' is passed to the 'buttonType' prop
   render(
     <Button aria-label="button" iconType="services" size="large">
       foo
-    </Button>
+    </Button>,
   );
 
   const icon = screen.getByTestId("icon");
@@ -204,14 +204,14 @@ test("sets the correct styling attributes when the 'destructive' and 'disabled' 
   render(
     <Button destructive disabled>
       foo
-    </Button>
+    </Button>,
   );
 
   const button = screen.getByRole("button", { name: "foo" });
 
   expect(button).toHaveStyleRule("color: var(--colorsActionMajorYin030)");
   expect(button).toHaveStyleRule(
-    "background-color: var(--colorsActionMajorYin030)"
+    "background-color: var(--colorsActionMajorYin030)",
   );
   expect(button).toHaveStyleRule("background: var(--colorsActionDisabled500)");
 });
@@ -237,7 +237,7 @@ test("sets the 'target' attribute correctly when a custom value is passed to the
   render(
     <Button href="https://www.warnerbros.com/movies/heat" target="_blank">
       bar
-    </Button>
+    </Button>,
   );
 
   const button = screen.getByRole("link", { name: "bar" });
@@ -252,7 +252,7 @@ test("sets the 'rel' attribute correctly when a custom value is passed to the 'r
       rel="noopener noreferrer"
     >
       bar
-    </Button>
+    </Button>,
   );
 
   const button = screen.getByRole("link", { name: "bar" });
@@ -283,7 +283,7 @@ test("sets the text content of the 'subtext' element when the 'size' prop is 'la
   render(
     <Button size="large" subtext="some context about the foo">
       foo
-    </Button>
+    </Button>,
   );
 
   const subtext = screen.getByText("some context about the foo");
@@ -311,7 +311,7 @@ test("calls onClick when an 'href' is passed and the space key is pressed", asyn
       href="https://www.warnerbros.com/movies/heat"
     >
       bar
-    </Button>
+    </Button>,
   );
 
   const button = screen.getByRole("link", { name: "bar" });
@@ -333,7 +333,7 @@ test("does not call onClick when a 'href' is passed and any other key is pressed
       href="https://www.warnerbros.com/movies/heat"
     >
       bar
-    </Button>
+    </Button>,
   );
 
   const button = screen.getByRole("link", { name: "bar" });

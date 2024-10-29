@@ -38,16 +38,16 @@ test.describe("Hr component", () => {
           ml="10%"
           mr="40%"
           adaptiveMxBreakpoint={breakpoint}
-        />
+        />,
       );
 
       await expect(hrComponent(page)).toHaveCSS(
         "margin-left",
-        `${leftMargin}px`
+        `${leftMargin}px`,
       );
       await expect(hrComponent(page)).toHaveCSS(
         "margin-right",
-        `${rightMargin}px`
+        `${rightMargin}px`,
       );
     });
   });

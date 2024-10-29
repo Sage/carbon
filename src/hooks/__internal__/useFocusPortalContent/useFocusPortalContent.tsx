@@ -5,14 +5,14 @@ import { defaultFocusableSelectors } from "../../../__internal__/focus-trap/focu
 export default (
   container?: RefObject<HTMLElement>,
   target?: RefObject<HTMLElement>,
-  focusCallback?: (ev: KeyboardEvent) => void
+  focusCallback?: (ev: KeyboardEvent) => void,
 ) => {
   useEffect(() => {
     const handleFocusPortalContent = (ev: KeyboardEvent) => {
       if (container?.current && target?.current) {
         const focusableElementsInContainer: HTMLElement[] = Array.from(
           container.current?.querySelectorAll(defaultFocusableSelectors) ||
-            /* istanbul ignore next */ []
+            /* istanbul ignore next */ [],
         );
 
         if (target?.current === document.activeElement) {
@@ -47,10 +47,10 @@ export default (
 
             const allFocusableElements: HTMLElement[] = Array.from(
               document.querySelectorAll(defaultFocusableSelectors) ||
-                /* istanbul ignore next */ []
+                /* istanbul ignore next */ [],
             );
             const filteredElements = allFocusableElements.filter(
-              (el) => el === target.current || Number(el.tabIndex) !== -1
+              (el) => el === target.current || Number(el.tabIndex) !== -1,
             );
             const nextIndex = filteredElements.indexOf(target.current) + 1;
 

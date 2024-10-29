@@ -46,7 +46,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
 
   invariant(
     hasProperChildren,
-    `AccordionGroup accepts only children of type \`${Accordion.displayName}\`.`
+    `AccordionGroup accepts only children of type \`${Accordion.displayName}\`.`,
   );
 
   const filteredChildren = useMemo(
@@ -56,15 +56,15 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
       }) as React.FunctionComponentElement<
         AccordionProps & AccordionInternalProps
       >[],
-    [children]
+    [children],
   );
 
   const refs = useMemo<React.RefObject<HTMLDivElement>[]>(
     () =>
       filteredChildren.map(
-        (child) => child.ref || React.createRef<HTMLDivElement>()
+        (child) => child.ref || React.createRef<HTMLDivElement>(),
       ),
-    [filteredChildren]
+    [filteredChildren],
   );
 
   const focusAccordion = useCallback(
@@ -79,7 +79,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
         refs[index].current?.focus();
       }
     },
-    [refs]
+    [refs],
   );
 
   const handleKeyboardAccessibility = useCallback(
@@ -97,7 +97,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
         focusAccordion(ev, refs.length - 1);
       }
     },
-    [focusAccordion, refs]
+    [focusAccordion, refs],
   );
 
   return (
@@ -108,7 +108,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
           ref: refs[index],
           index,
           handleKeyboardAccessibility,
-        })
+        }),
       )}
     </StyledAccordionGroup>
   );

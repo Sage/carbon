@@ -2,7 +2,7 @@ import React from "react";
 
 function findElementStartingWithText(
   textToMatch: string,
-  list: React.ReactElement[]
+  list: React.ReactElement[],
 ) {
   return list.findIndex((child) => {
     return child.props.text
@@ -13,7 +13,7 @@ function findElementStartingWithText(
 
 function getListOfMatches(
   arrayOfChildren: React.ReactElement[],
-  lastCharacter: string
+  lastCharacter: string,
 ) {
   return arrayOfChildren.reduce((acc: number[], child, index) => {
     if (
@@ -43,7 +43,7 @@ function getIndexOfNextElement(listOfMatches: number[], previousIndex: number) {
 export default function getNextChildByText(
   textToMatch: string,
   arrayOfChildren: React.ReactElement[],
-  previousIndex = -1
+  previousIndex = -1,
 ) {
   const lastCharacter = textToMatch.slice(-1);
   const isTheSameCharacter = textToMatch

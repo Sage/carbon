@@ -116,7 +116,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       toggleProps = {},
       ...rest
     },
-    ref
+    ref,
   ) => {
     const {
       id: hoursInputId,
@@ -136,7 +136,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     const internalMinsId = useRef(minutesInputId || guid());
     const inputHintId = useRef(guid());
     const internalId = useRef(
-      `${internalHrsId.current} ${internalMinsId.current}`
+      `${internalHrsId.current} ${internalMinsId.current}`,
     );
     const {
       hours: hourValue,
@@ -157,7 +157,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
 
     const computedValidations = (
       hrs?: string | boolean,
-      mins?: string | boolean
+      mins?: string | boolean,
     ) => {
       const hoursIsString = typeof hrs === "string";
       const minutesIsString = typeof mins === "string";
@@ -201,12 +201,12 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
           minsRef.current?.focus();
         },
       }),
-      []
+      [],
     );
 
     const handleChange = (
       ev: React.ChangeEvent<HTMLInputElement>,
-      inputName: "hrs" | "mins"
+      inputName: "hrs" | "mins",
     ) => {
       const hours = inputName === "hrs" ? ev.target.value : inputValues[0];
       const minutes = inputName === "mins" ? ev.target.value : inputValues[1];
@@ -244,7 +244,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
           }
         });
       },
-      [onBlur]
+      [onBlur],
     );
 
     return (
@@ -355,7 +355,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         </Box>
       </Fieldset>
     );
-  }
+  },
 );
 
 Time.displayName = "Time";

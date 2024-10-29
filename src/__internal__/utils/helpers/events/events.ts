@@ -23,7 +23,7 @@ const Events = {
    * Determines if event is a keyboard event
    */
   isKeyboardEvent: (
-    ev: React.SyntheticEvent | Event
+    ev: React.SyntheticEvent | Event,
   ): ev is React.KeyboardEvent | KeyboardEvent => {
     return ["keydown", "keypress", "keyup"].includes(ev.type);
   },

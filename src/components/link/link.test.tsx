@@ -11,7 +11,7 @@ test("should render `Skip to main content` text inside of Link when `isSkipLink`
   render(
     <Link href="#test" isSkipLink>
       Test Content
-    </Link>
+    </Link>,
   );
 
   expect(screen.getByText("Skip to main content")).toBeInTheDocument();
@@ -23,7 +23,7 @@ test("should not call the onClick function when `disabled` prop is true and clic
   render(
     <Link disabled onClick={spy}>
       Test Content
-    </Link>
+    </Link>,
   );
 
   const linkButtonElement = screen.getByRole("button", {
@@ -78,7 +78,7 @@ test("should render an `Icon` correctly with the `basket` value", () => {
   render(
     <Link href="#test" icon="basket">
       Test Content
-    </Link>
+    </Link>,
   );
 
   const iconElement = screen.getByTestId("icon");
@@ -141,7 +141,7 @@ test("when a link is rendered with an icon aligned right and has content, expect
   render(
     <Link icon="home" href="www.sage.com" iconAlign="right">
       Has Content
-    </Link>
+    </Link>,
   );
 
   const iconElement = screen.getByTestId("icon");
@@ -221,7 +221,7 @@ test("when `removeAriaLabelOnIcon` is true, it should set aria-label as undefine
       icon="home"
       aria-label="test"
       removeAriaLabelOnIcon
-    />
+    />,
   );
 
   const iconElement = screen.getByTestId("icon");
@@ -238,7 +238,7 @@ test("neutral `variant` has the expected styling when `isDarkBackground` is fals
       icon="home"
       variant="neutral"
       data-role="link"
-    />
+    />,
   );
 
   const linkElement = screen.getByTestId("link");
@@ -258,7 +258,7 @@ test("neutral `variant` has the expected styling when `isDarkBackground` is fals
       icon="home"
       variant="neutral"
       data-role="link"
-    />
+    />,
   );
 
   const linkElement = screen.getByTestId("link");
@@ -280,7 +280,7 @@ test("neutral `variant` has the expected styling when `isDarkBackground` is fals
       icon="home"
       variant="neutral"
       data-role="link"
-    />
+    />,
   );
 
   const linkElement = screen.getByTestId("link");
@@ -304,7 +304,7 @@ test("negative `variant` has the expected styling when `isDarkBackground` is fal
       icon="home"
       variant="negative"
       data-role="link"
-    />
+    />,
   );
 
   const linkElement = screen.getByTestId("link");
@@ -324,7 +324,7 @@ test("negative `variant` has the expected styling when `isDarkBackground` is fal
       icon="home"
       variant="neutral"
       data-role="link"
-    />
+    />,
   );
 
   const linkElement = screen.getByTestId("link");
@@ -340,7 +340,7 @@ test("negative `variant` has the expected styling when `isDarkBackground` is fal
 describe("isDarkBackground", () => {
   it("matches the expected styling with default `variant`", () => {
     render(
-      <Link href="foo.com" isDarkBackground icon="home" data-role="link" />
+      <Link href="foo.com" isDarkBackground icon="home" data-role="link" />,
     );
 
     const linkElement = screen.getByTestId("link");
@@ -353,7 +353,7 @@ describe("isDarkBackground", () => {
   it("matches the expected styling with default `variant` when hovered over", async () => {
     const user = userEvent.setup();
     render(
-      <Link href="foo.com" isDarkBackground icon="home" data-role="link" />
+      <Link href="foo.com" isDarkBackground icon="home" data-role="link" />,
     );
 
     const linkElement = screen.getByTestId("link");
@@ -368,7 +368,7 @@ describe("isDarkBackground", () => {
   it("matches the expected styling with default `variant` when focused", async () => {
     const user = userEvent.setup();
     render(
-      <Link href="foo.com" isDarkBackground icon="home" data-role="link" />
+      <Link href="foo.com" isDarkBackground icon="home" data-role="link" />,
     );
 
     const linkElement = screen.getByTestId("link");
@@ -399,7 +399,7 @@ describe("isDarkBackground", () => {
         icon="home"
         variant="negative"
         data-role="link"
-      />
+      />,
     );
 
     const linkElement = screen.getByTestId("link");
@@ -418,7 +418,7 @@ describe("isDarkBackground", () => {
         icon="home"
         variant="negative"
         data-role="link"
-      />
+      />,
     );
 
     const linkElement = screen.getByTestId("link");
@@ -439,7 +439,7 @@ describe("isDarkBackground", () => {
         icon="home"
         variant="negative"
         data-role="link"
-      />
+      />,
     );
 
     const linkElement = screen.getByTestId("link");
@@ -462,7 +462,7 @@ describe("isDarkBackground", () => {
         icon="home"
         variant="neutral"
         data-role="link"
-      />
+      />,
     );
 
     const linkElement = screen.getByTestId("link");
@@ -480,7 +480,7 @@ describe("isDarkBackground", () => {
         icon="home"
         variant="neutral"
         data-role="link"
-      />
+      />,
     );
 
     const linkElement = screen.getByTestId("link");
@@ -498,7 +498,7 @@ describe("isDarkBackground", () => {
         icon="home"
         variant="neutral"
         data-role="link"
-      />
+      />,
     );
 
     const linkElement = screen.getByTestId("link");
@@ -525,7 +525,7 @@ describe("link display styling", () => {
         }}
       >
         <Link href="foo.com" />
-      </MenuContext.Provider>
+      </MenuContext.Provider>,
     );
 
     const linkElement = screen.getByRole("link");

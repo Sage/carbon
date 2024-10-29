@@ -4,6 +4,5 @@ export type SelectTextboxContextProps = {
   isInputInSelect?: boolean;
 };
 
-export const SelectTextboxContext = React.createContext<SelectTextboxContextProps>(
-  {}
-);
+export const SelectTextboxContext =
+  React.createContext<SelectTextboxContextProps>({});

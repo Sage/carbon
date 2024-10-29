@@ -19,7 +19,7 @@ function characterNavigation(inputString?: string, focusableItems?: Element[]) {
 
     return (
       [MENU_ITEM, SCROLLABLE_BLOCK_PARENT].includes(
-        item.getAttribute("data-component") as string
+        item.getAttribute("data-component") as string,
       ) && getMenuText(item)?.startsWith(inputString.toLowerCase())
     );
   });
@@ -29,7 +29,7 @@ function characterNavigation(inputString?: string, focusableItems?: Element[]) {
 
 function menuKeyboardNavigation(
   event: React.KeyboardEvent,
-  focusableItems: Element[]
+  focusableItems: Element[],
 ) {
   if (Events.isHomeKey(event)) {
     event.preventDefault();

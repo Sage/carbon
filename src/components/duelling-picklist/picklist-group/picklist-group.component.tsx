@@ -48,7 +48,7 @@ export const PicklistGroup = React.forwardRef<
       isLastGroup,
       ...transitionGroupProps
     }: PicklistGroupProps,
-    ref
+    ref,
   ) => {
     const { setElementToFocus, elementToFocus } = useContext(FocusContext);
     const [highlighted, setHighlighted] = useState(false);
@@ -68,7 +68,7 @@ export const PicklistGroup = React.forwardRef<
           setElementToFocus(index, listIndex);
         }
       },
-      [index, listIndex, onChange, setElementToFocus]
+      [index, listIndex, onChange, setElementToFocus],
     );
 
     const refs = useMemo(
@@ -77,9 +77,9 @@ export const PicklistGroup = React.forwardRef<
           {
             length: filteredChildren.length,
           },
-          () => React.createRef<HTMLLIElement>()
+          () => React.createRef<HTMLLIElement>(),
         ),
-      [filteredChildren.length]
+      [filteredChildren.length],
     );
 
     const content = React.Children.map<React.ReactNode, React.ReactNode>(
@@ -99,7 +99,7 @@ export const PicklistGroup = React.forwardRef<
         };
 
         return React.cloneElement(child, props);
-      }
+      },
     );
 
     useEffect(() => {
@@ -156,7 +156,7 @@ export const PicklistGroup = React.forwardRef<
         </StyledGroupWrapper>
       </CSSTransition>
     );
-  }
+  },
 );
 
 PicklistGroup.displayName = "PicklistGroup";

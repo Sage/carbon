@@ -65,12 +65,9 @@ test.describe("Tooltip component", () => {
     await expect(getDataElementByValue(page, "tooltip")).not.toBeVisible();
   });
 
-  (["bottom", "left", "right", "top"] as [
-    "bottom",
-    "left",
-    "right",
-    "top"
-  ]).forEach((position) => {
+  (
+    ["bottom", "left", "right", "top"] as ["bottom", "left", "right", "top"]
+  ).forEach((position) => {
     test(`should render with tooltip position set to ${position}`, async ({
       mount,
       page,
@@ -80,7 +77,7 @@ test.describe("Tooltip component", () => {
       await expect(getDataElementByValue(page, "tooltip")).toBeVisible();
       await expect(getDataElementByValue(page, "tooltip")).toHaveAttribute(
         "data-placement",
-        position
+        position,
       );
     });
   });
@@ -94,7 +91,7 @@ test.describe("Tooltip component", () => {
 
       await expect(getDataElementByValue(page, "tooltip")).toHaveAttribute(
         "type",
-        type
+        type,
       );
     });
   });
@@ -108,7 +105,7 @@ test.describe("Tooltip component", () => {
 
       await expect(getDataElementByValue(page, "tooltip")).toHaveCSS(
         "background-color",
-        color
+        color,
       );
     });
   });
@@ -122,15 +119,17 @@ test.describe("Tooltip component", () => {
 
       await expect(getDataElementByValue(page, "tooltip")).toHaveCSS(
         "color",
-        color
+        color,
       );
     });
   });
 
-  ([
-    [SIZE.MEDIUM, 14],
-    [SIZE.LARGE, 16],
-  ] as [TooltipProps["size"], number][]).forEach(([size, fontSize]) => {
+  (
+    [
+      [SIZE.MEDIUM, 14],
+      [SIZE.LARGE, 16],
+    ] as [TooltipProps["size"], number][]
+  ).forEach(([size, fontSize]) => {
     test(`should render with size prop set to ${size}`, async ({
       mount,
       page,
@@ -139,7 +138,7 @@ test.describe("Tooltip component", () => {
 
       await expect(getDataElementByValue(page, "tooltip")).toHaveCSS(
         "font-size",
-        `${fontSize}px`
+        `${fontSize}px`,
       );
     });
   });
@@ -166,7 +165,7 @@ test.describe("Tooltip component", () => {
   }) => {
     await page.setViewportSize({ height: 120, width: 700 });
     await mount(
-      <TooltipComponent flipOverrides={["left"]} position="bottom" />
+      <TooltipComponent flipOverrides={["left"]} position="bottom" />,
     );
 
     const tooltip = page.getByRole("tooltip");
@@ -184,7 +183,7 @@ test.describe("Tooltip component", () => {
   }) => {
     await page.setViewportSize({ height: 120, width: 700 });
     await mount(
-      <TooltipComponent flipOverrides={["right"]} position="bottom" />
+      <TooltipComponent flipOverrides={["right"]} position="bottom" />,
     );
 
     const tooltip = page.getByRole("tooltip");
@@ -196,17 +195,19 @@ test.describe("Tooltip component", () => {
     expect(await getXValue(tooltip)).toBeGreaterThan(await getXValue(button));
   });
 
-  ([
-    [SIZE.SMALL, 15],
-    [SIZE.MEDIUM, 14],
-    [SIZE.LARGE, 10],
-  ] as [TooltipProps["inputSize"], number][]).forEach(([inputSize, offset]) => {
+  (
+    [
+      [SIZE.SMALL, 15],
+      [SIZE.MEDIUM, 14],
+      [SIZE.LARGE, 10],
+    ] as [TooltipProps["inputSize"], number][]
+  ).forEach(([inputSize, offset]) => {
     test(`should have correct styles applied when inputSize is ${inputSize} and tooltip position is set to top`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <TooltipComponent isPartOfInput inputSize={inputSize} position="top" />
+        <TooltipComponent isPartOfInput inputSize={inputSize} position="top" />,
       );
 
       const element = getDataElementByValue(page, "tooltip");
@@ -214,11 +215,13 @@ test.describe("Tooltip component", () => {
     });
   });
 
-  ([
-    [SIZE.SMALL, 5],
-    [SIZE.MEDIUM, 6],
-    [SIZE.LARGE, 10],
-  ] as [TooltipProps["inputSize"], number][]).forEach(([inputSize, offset]) => {
+  (
+    [
+      [SIZE.SMALL, 5],
+      [SIZE.MEDIUM, 6],
+      [SIZE.LARGE, 10],
+    ] as [TooltipProps["inputSize"], number][]
+  ).forEach(([inputSize, offset]) => {
     test(`should have correct styles applied when inputSize is ${inputSize} and tooltip position is set to bottom`, async ({
       mount,
       page,
@@ -228,7 +231,7 @@ test.describe("Tooltip component", () => {
           isPartOfInput
           inputSize={inputSize}
           position="bottom"
-        />
+        />,
       );
 
       const buttonRect = await page
@@ -239,22 +242,28 @@ test.describe("Tooltip component", () => {
       await assertCssValueIsApproximately(
         element,
         "top",
-        buttonRect.top + buttonRect.height + offset
+        buttonRect.top + buttonRect.height + offset,
       );
     });
   });
 
-  ([
-    [SIZE.SMALL, 47],
-    [SIZE.MEDIUM, 44],
-    [SIZE.LARGE, 40],
-  ] as [TooltipProps["inputSize"], number][]).forEach(([inputSize, offset]) => {
+  (
+    [
+      [SIZE.SMALL, 47],
+      [SIZE.MEDIUM, 44],
+      [SIZE.LARGE, 40],
+    ] as [TooltipProps["inputSize"], number][]
+  ).forEach(([inputSize, offset]) => {
     test(`should have correct styles applied when inputSize is ${inputSize} and tooltip position is set to left`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <TooltipComponent isPartOfInput inputSize={inputSize} position="left" />
+        <TooltipComponent
+          isPartOfInput
+          inputSize={inputSize}
+          position="left"
+        />,
       );
 
       const element = getDataElementByValue(page, "tooltip");
@@ -262,11 +271,13 @@ test.describe("Tooltip component", () => {
     });
   });
 
-  ([
-    [SIZE.SMALL, 5],
-    [SIZE.MEDIUM, 8],
-    [SIZE.LARGE, 12],
-  ] as [TooltipProps["inputSize"], number][]).forEach(([inputSize, offset]) => {
+  (
+    [
+      [SIZE.SMALL, 5],
+      [SIZE.MEDIUM, 8],
+      [SIZE.LARGE, 12],
+    ] as [TooltipProps["inputSize"], number][]
+  ).forEach(([inputSize, offset]) => {
     test(`should have correct styles applied when inputSize is ${inputSize} and tooltip position is set to right`, async ({
       mount,
       page,
@@ -276,7 +287,7 @@ test.describe("Tooltip component", () => {
           isPartOfInput
           inputSize={inputSize}
           position="right"
-        />
+        />,
       );
 
       const buttonRect = await page
@@ -287,7 +298,7 @@ test.describe("Tooltip component", () => {
       await assertCssValueIsApproximately(
         element,
         "left",
-        buttonRect.left + buttonRect.width + offset
+        buttonRect.left + buttonRect.width + offset,
       );
     });
   });
@@ -372,7 +383,7 @@ test.describe("Tooltip component", () => {
 
     await expect(getDataElementByValue(page, "tooltip")).toHaveCSS(
       "border-radius",
-      "4px"
+      "4px",
     );
   });
 });
@@ -417,12 +428,14 @@ test.describe("Accessibility tests for Tooltip component", () => {
     await checkAccessibility(page);
   });
 
-  ([
-    ["top", 0],
-    ["bottom", 1],
-    ["left", 2],
-    ["right", 3],
-  ] as [string, number][]).forEach(([position, button]) => {
+  (
+    [
+      ["top", 0],
+      ["bottom", 1],
+      ["left", 2],
+      ["right", 3],
+    ] as [string, number][]
+  ).forEach(([position, button]) => {
     // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
     test.skip(`should pass accessibility tests for Positioning story when position is set to ${position}`, async ({
       mount,

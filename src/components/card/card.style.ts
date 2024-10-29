@@ -103,7 +103,7 @@ const StyledCardContent = styled.div.attrs(
     }
 
     return {};
-  }
+  },
 )<StyledCardContentProps>`
   ${({ interactive, theme }) =>
     interactive &&

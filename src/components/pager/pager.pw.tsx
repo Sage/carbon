@@ -70,11 +70,11 @@ test.describe("Styling tests", () => {
 
     await expect(inputParent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(inputParent).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -91,7 +91,7 @@ test.describe("Styling tests", () => {
 
     await expect(inputParent).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 3px"
+      "rgb(255, 188, 25) solid 3px",
     );
   });
 
@@ -115,7 +115,7 @@ test.describe("Prop tests", () => {
 
       await expect(currentPageInput(page)).toHaveAttribute(
         "value",
-        `${currentPage}`
+        `${currentPage}`,
       );
     });
   });
@@ -142,7 +142,7 @@ test.describe("Prop tests", () => {
       page,
     }) => {
       await mount(
-        <PagerComponent pageSize={pageSizeVal} showPageSizeSelection />
+        <PagerComponent pageSize={pageSizeVal} showPageSizeSelection />,
       );
 
       await expect(pageSelect(page)).toHaveAttribute("value", `${pageSizeVal}`);
@@ -159,13 +159,13 @@ test.describe("Prop tests", () => {
         <PagerComponentRecords
           pageSizeSelectionOptions={[record]}
           showPageSizeSelection
-        />
+        />,
       );
 
       await inputIconToggle(page).click();
 
       await expect(
-        selectListWrapper(page).locator("ul").locator("li")
+        selectListWrapper(page).locator("ul").locator("li"),
       ).toHaveAttribute("data-component", "option");
     });
   });
@@ -194,7 +194,7 @@ test.describe("Prop tests", () => {
         <PagerComponent
           showPageSizeLabelBefore={showBefore}
           showPageSizeSelection
-        />
+        />,
       );
 
       if (showBefore) {
@@ -215,7 +215,7 @@ test.describe("Prop tests", () => {
         <PagerComponent
           showPageSizeLabelAfter={showAfter}
           showPageSizeSelection
-        />
+        />,
       );
 
       if (showAfter) {
@@ -291,39 +291,39 @@ test.describe("Prop tests", () => {
     });
   });
 
-  ([
-    ["default", "rgb(250, 251, 251)"],
-    ["alternate", "rgb(237, 241, 242)"],
-  ] as [PagerProps["variant"], string][]).forEach(
-    ([variant, backgroundColor]) => {
-      test(`should render with variant prop set to ${variant}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<PagerComponent variant={variant} />);
+  (
+    [
+      ["default", "rgb(250, 251, 251)"],
+      ["alternate", "rgb(237, 241, 242)"],
+    ] as [PagerProps["variant"], string][]
+  ).forEach(([variant, backgroundColor]) => {
+    test(`should render with variant prop set to ${variant}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PagerComponent variant={variant} />);
 
-        if (variant === "default") {
-          await expect(pager(page)).toHaveCSS(
-            "background-color",
-            backgroundColor
-          );
-          await expect(pager(page)).toHaveCSS(
-            "border-color",
-            "rgb(204, 214, 219)"
-          );
-        } else {
-          await expect(pager(page)).toHaveCSS(
-            "background-color",
-            backgroundColor
-          );
-          await expect(pager(page)).toHaveCSS(
-            "border-color",
-            "rgb(204, 214, 219)"
-          );
-        }
-      });
-    }
-  );
+      if (variant === "default") {
+        await expect(pager(page)).toHaveCSS(
+          "background-color",
+          backgroundColor,
+        );
+        await expect(pager(page)).toHaveCSS(
+          "border-color",
+          "rgb(204, 214, 219)",
+        );
+      } else {
+        await expect(pager(page)).toHaveCSS(
+          "background-color",
+          backgroundColor,
+        );
+        await expect(pager(page)).toHaveCSS(
+          "border-color",
+          "rgb(204, 214, 219)",
+        );
+      }
+    });
+  });
 
   [true, false].forEach((hideElements) => {
     test(`should render links as intended when hideDisabledElements is set to ${hideElements} and currentPage is 1`, async ({
@@ -331,7 +331,7 @@ test.describe("Prop tests", () => {
       page,
     }) => {
       await mount(
-        <PagerComponent currentPage={1} hideDisabledElements={hideElements} />
+        <PagerComponent currentPage={1} hideDisabledElements={hideElements} />,
       );
 
       if (hideElements) {
@@ -350,7 +350,7 @@ test.describe("Prop tests", () => {
       page,
     }) => {
       await mount(
-        <PagerComponent currentPage={10} hideDisabledElements={hideElements} />
+        <PagerComponent currentPage={10} hideDisabledElements={hideElements} />,
       );
 
       if (hideElements) {
@@ -379,7 +379,7 @@ test.describe("Prop tests", () => {
       page,
     }) => {
       await mount(
-        <PagerComponent currentPage={1} interactivePageNumber={pageNumber} />
+        <PagerComponent currentPage={1} interactivePageNumber={pageNumber} />,
       );
 
       if (pageNumber) {
@@ -396,7 +396,7 @@ test.describe("Prop tests", () => {
       page,
     }) => {
       await mount(
-        <PagerComponent currentPage={1} interactivePageNumber={pageNumber} />
+        <PagerComponent currentPage={1} interactivePageNumber={pageNumber} />,
       );
 
       if (pageNumber) {
@@ -412,7 +412,7 @@ test.describe("Prop tests", () => {
     page,
   }) => {
     await mount(
-      <PagerComponent currentPage={1} interactivePageNumber={false} />
+      <PagerComponent currentPage={1} interactivePageNumber={false} />,
     );
 
     const labelWrapper = currentPageLabelWrapper(page);
@@ -574,7 +574,7 @@ test.describe("Events test", () => {
         }}
         showPageSizeSelection
         currentPage={5}
-      />
+      />,
     );
 
     await pageSelectElement(page).click();
@@ -596,7 +596,7 @@ test.describe("Events test", () => {
         onNext={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await nextArrow(page).click();
@@ -615,7 +615,7 @@ test.describe("Events test", () => {
           onNext={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       await page.keyboard.press("Tab");
@@ -637,7 +637,7 @@ test.describe("Events test", () => {
           callbackCount += 1;
         }}
         currentPage={5}
-      />
+      />,
     );
 
     await previousArrow(page).click();
@@ -657,7 +657,7 @@ test.describe("Events test", () => {
             callbackCount += 1;
           }}
           currentPage={5}
-        />
+        />,
       );
 
       await page.keyboard.press("Tab");
@@ -679,7 +679,7 @@ test.describe("Events test", () => {
           callbackCount += 1;
         }}
         currentPage={5}
-      />
+      />,
     );
 
     await firstArrow(page).click();
@@ -699,7 +699,7 @@ test.describe("Events test", () => {
             callbackCount += 1;
           }}
           currentPage={5}
-        />
+        />,
       );
 
       await page.keyboard.press("Tab");
@@ -720,7 +720,7 @@ test.describe("Events test", () => {
           callbackCount += 1;
         }}
         currentPage={5}
-      />
+      />,
     );
 
     await lastArrow(page).click();
@@ -739,7 +739,7 @@ test.describe("Events test", () => {
           onLast={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       await page.keyboard.press("Tab");
@@ -781,7 +781,7 @@ test.describe("Accessibility tests", () => {
       page,
     }) => {
       await mount(
-        <PagerComponent pageSize={pageSizeVal} showPageSizeSelection />
+        <PagerComponent pageSize={pageSizeVal} showPageSizeSelection />,
       );
 
       await checkAccessibility(page);
@@ -795,7 +795,7 @@ test.describe("Accessibility tests", () => {
     await mount(
       <PagerComponentRecords
         pageSizeSelectionOptions={[{ id: "25", name: 25 }]}
-      />
+      />,
     );
 
     await inputIconToggle(page).click();
@@ -823,7 +823,7 @@ test.describe("Accessibility tests", () => {
         <PagerComponent
           showPageSizeLabelAfter={showAfter}
           showPageSizeSelection
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -891,7 +891,7 @@ test.describe("Accessibility tests", () => {
       page,
     }) => {
       await mount(
-        <PagerComponent currentPage={1} hideDisabledElements={showElements} />
+        <PagerComponent currentPage={1} hideDisabledElements={showElements} />,
       );
 
       await checkAccessibility(page);
@@ -904,7 +904,7 @@ test.describe("Accessibility tests", () => {
       page,
     }) => {
       await mount(
-        <PagerComponent currentPage={10} hideDisabledElements={showElements} />
+        <PagerComponent currentPage={10} hideDisabledElements={showElements} />,
       );
 
       await checkAccessibility(page);
@@ -974,7 +974,7 @@ test.describe("Accessibility tests", () => {
         <PagerComponent
           showPageSizeLabelBefore={showBefore}
           showPageSizeSelection
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -987,7 +987,7 @@ test.describe("Accessibility tests", () => {
       page,
     }) => {
       await mount(
-        <PagerComponent currentPage={1} interactivePageNumber={pageNumber} />
+        <PagerComponent currentPage={1} interactivePageNumber={pageNumber} />,
       );
 
       await checkAccessibility(page);

@@ -57,7 +57,7 @@ const Crumb = React.forwardRef<HTMLLinkElement, CrumbProps>(
         )}
       </li>
     );
-  }
+  },
 );
 
 Crumb.displayName = "Crumb";

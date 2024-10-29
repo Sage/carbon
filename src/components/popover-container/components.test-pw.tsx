@@ -16,7 +16,7 @@ export const Default = ({ title, open }: { title?: string; open: boolean }) => (
 );
 
 export const PopoverContainerComponent = (
-  props: Partial<PopoverContainerProps>
+  props: Partial<PopoverContainerProps>,
 ) => {
   const [isOpen, setIsOpen] = useState(true);
   const onOpen = () => setIsOpen(isOpen);
@@ -39,7 +39,7 @@ export const PopoverContainerComponent = (
 };
 
 export const PopoverContainerComponentCoverButton = (
-  props: Partial<PopoverContainerProps>
+  props: Partial<PopoverContainerProps>,
 ) => {
   return (
     <Box height="150px" margin="100px">
@@ -278,7 +278,7 @@ export const Filter = () => {
   const updateCheckValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const temps = options;
     const findCorrectIndex = temps.findIndex(
-      (item) => item.value === e.target.value
+      (item) => item.value === e.target.value,
     );
     if (findCorrectIndex !== -1) {
       temps[findCorrectIndex].checked = !temps[findCorrectIndex].checked;
@@ -412,7 +412,7 @@ export const WithRenderCloseButtonComponent = () => (
 );
 
 export const PopoverContainerFocusOrder = (
-  props: Partial<PopoverContainerProps>
+  props: Partial<PopoverContainerProps>,
 ) => {
   const [isOpen, setIsOpen] = useState(true);
   const onOpen = () => setIsOpen(isOpen);

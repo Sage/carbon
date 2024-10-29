@@ -15,7 +15,7 @@ test("does not pass href to the anchor element when isCurrent is true", () => {
   render(
     <Crumb href="foo" data-role="crumb" isCurrent>
       Link text
-    </Crumb>
+    </Crumb>,
   );
 
   const anchor = screen.getByTestId("link-anchor");
@@ -29,7 +29,7 @@ test("calls onClick callback when the crumb link is clicked", async () => {
   render(
     <Crumb href="#" onClick={onClick}>
       Link text
-    </Crumb>
+    </Crumb>,
   );
 
   const link = screen.getByRole("link", { name: "Link text" });
@@ -44,7 +44,7 @@ test("does not call onClick callback when isCurrent is true", async () => {
   render(
     <Crumb href="#" onClick={onClick} isCurrent>
       Link text
-    </Crumb>
+    </Crumb>,
   );
 
   const link = screen.getByText("Link text");

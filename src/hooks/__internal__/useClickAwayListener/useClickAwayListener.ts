@@ -6,7 +6,7 @@ import { useEffect, useRef, useCallback } from "react";
 
 export default (
   handleClickAway: (ev: Event) => void,
-  eventTypeId: "mousedown" | "click" = "click"
+  eventTypeId: "mousedown" | "click" = "click",
 ) => {
   const clickIsInside = useRef(false);
 
@@ -19,7 +19,7 @@ export default (
 
       handleClickAway(ev);
     },
-    [handleClickAway]
+    [handleClickAway],
   );
 
   const onInsideClick = useCallback(() => {

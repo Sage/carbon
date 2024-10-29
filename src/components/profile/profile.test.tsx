@@ -7,7 +7,7 @@ import Profile from "./profile.component";
 
 testStyledSystemMarginRTL(
   (props) => <Profile data-role="profile" name="John Doe" {...props} />,
-  () => screen.getByTestId("profile")
+  () => screen.getByTestId("profile"),
 );
 
 test("renders with set data tags", () => {
@@ -16,7 +16,7 @@ test("renders with set data tags", () => {
       data-role="profile"
       data-component="profile"
       data-element="profile"
-    />
+    />,
   );
 
   const profile = screen.getByTestId("profile");
@@ -54,7 +54,7 @@ test.each([
 
     const avatar = screen.getByText(initials);
     expect(avatar).toBeVisible();
-  }
+  },
 );
 
 test("renders avatar with a maximum of three initials when `name` prop has more than three words", () => {
@@ -85,7 +85,7 @@ test("sets alt attribute on avatar to `name` prop value if `alt` prop is not pas
     <Profile
       name="John Doe"
       src="https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg"
-    />
+    />,
   );
 
   const avatar = screen.getByAltText("John Doe");
@@ -131,12 +131,12 @@ test("warns if the `email` or `text` props are passed without the `name` prop", 
     <>
       <Profile email="chris.barber@sage.com" />
       <Profile text="Software Engineer" />
-    </>
+    </>,
   );
 
   expect(consoleSpy).toHaveBeenCalledWith(
     "[WARNING] The `email` or `text` prop should not be used without the `name` prop in `Profile`." +
-      " Please use the `name` prop as well as `email` or `text`."
+      " Please use the `name` prop as well as `email` or `text`.",
   );
   expect(consoleSpy).toHaveBeenCalledTimes(1);
   consoleSpy.mockRestore();
@@ -176,7 +176,7 @@ test("renders with dark background styling when `darkBackground` prop is passed"
       name="John Doe"
       email={emailAddress}
       text="Software Engineer"
-    />
+    />,
   );
 
   const profile = screen.getByTestId("profile");
@@ -185,7 +185,7 @@ test("renders with dark background styling when `darkBackground` prop is passed"
   expect(profile).toHaveStyleRule("color", "var(--colorsUtilityReadOnly600)");
   expect(profile).toHaveStyleRule(
     "background-color",
-    "var(--colorsUtilityYin090)"
+    "var(--colorsUtilityYin090)",
   );
   expect(emailLink).toHaveStyleRule("color", "var(--colorsActionMajor350)", {
     modifier: "a",

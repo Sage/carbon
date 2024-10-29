@@ -30,7 +30,7 @@ export const VARIANT_TYPES = [
   "ul",
   "ol",
 ] as const;
-export type VariantTypes = typeof VARIANT_TYPES[number];
+export type VariantTypes = (typeof VARIANT_TYPES)[number];
 export interface TypographyProps extends SpaceProps, TagProps {
   /** Override the variant component */
   as?: React.ElementType;

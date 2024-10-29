@@ -40,12 +40,11 @@ export const Divider = styled.span<DividerProps>`
     margin: 0px var(--spacing050) 0px var(--spacing100);
     line-height: 16px;
     font: var(--typographyBreadcrumbSeparatorM);
-    ${({ isDarkBackground }) =>
-      css`
-        color: ${isDarkBackground
-          ? "var(--colorsUtilityYang100)"
-          : "var(--colorsUtilityYin055)"};
-      `}
+    ${({ isDarkBackground }) => css`
+      color: ${isDarkBackground
+        ? "var(--colorsUtilityYang100)"
+        : "var(--colorsUtilityYin055)"};
+    `}
   }
 `;
 

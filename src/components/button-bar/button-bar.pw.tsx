@@ -66,7 +66,7 @@ test.describe("check props for Button-Bar component", () => {
     await mount(<ButtonBarCustom fullWidth />);
     await expect(buttonDataComponent(page).locator("..")).toHaveCSS(
       "width",
-      "1366px"
+      "1366px",
     );
   });
 });
@@ -82,7 +82,7 @@ test.describe("accessibility tests", async () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   [BUTTON_BAR_ICON_POSITIONS[0], BUTTON_BAR_ICON_POSITIONS[1]].forEach(
@@ -95,7 +95,7 @@ test.describe("accessibility tests", async () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   test("should check the accessibility of Button-Bar with full width", async ({
@@ -126,64 +126,61 @@ test("should verify ButtonBar with wrapped components can be navigated using key
   await expect(buttonAtIndex(1)).not.toBeFocused();
 });
 
-test.describe(
-  "when custom Button wrapper components are used as children in ButtonBar",
-  async () => {
-    test("Button size is small when the size prop is set to small and passed to ButtonBar", async ({
+test.describe("when custom Button wrapper components are used as children in ButtonBar", async () => {
+  test("Button size is small when the size prop is set to small and passed to ButtonBar", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ButtonBarWithWrapper size="small" />);
+
+    const buttonWidthPromises = [0, 1, 2].map((i) =>
+      getStyle(buttonDataComponent(page).nth(i), "width"),
+    );
+    const buttonWidths = await Promise.all(buttonWidthPromises);
+    buttonWidths.forEach((width) =>
+      expect(parseFloat(width)).toBeCloseTo(86, 0),
+    );
+  });
+
+  [
+    { iconPosition: "before" as const, expectedMargin: "margin-right" },
+    { iconPosition: "after" as const, expectedMargin: "margin-left" },
+  ].forEach(({ iconPosition, expectedMargin }) => {
+    test(`Button Icon position is ${iconPosition} text when the iconPosition is set and passed to ButtonBar`, async ({
       mount,
       page,
     }) => {
-      await mount(<ButtonBarWithWrapper size="small" />);
-
-      const buttonWidthPromises = [0, 1, 2].map((i) =>
-        getStyle(buttonDataComponent(page).nth(i), "width")
-      );
-      const buttonWidths = await Promise.all(buttonWidthPromises);
-      buttonWidths.forEach((width) =>
-        expect(parseFloat(width)).toBeCloseTo(86, 0)
-      );
+      await mount(<ButtonBarWithWrapper iconPosition={iconPosition} />);
+      await expect(icon(page).nth(0)).toHaveCSS(expectedMargin, "8px");
+      await expect(icon(page).nth(1)).toHaveCSS(expectedMargin, "8px");
+      await expect(icon(page).nth(2)).toHaveCSS(expectedMargin, "8px");
     });
+  });
 
-    [
-      { iconPosition: "before" as const, expectedMargin: "margin-right" },
-      { iconPosition: "after" as const, expectedMargin: "margin-left" },
-    ].forEach(({ iconPosition, expectedMargin }) => {
-      test(`Button Icon position is ${iconPosition} text when the iconPosition is set and passed to ButtonBar`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<ButtonBarWithWrapper iconPosition={iconPosition} />);
-        await expect(icon(page).nth(0)).toHaveCSS(expectedMargin, "8px");
-        await expect(icon(page).nth(1)).toHaveCSS(expectedMargin, "8px");
-        await expect(icon(page).nth(2)).toHaveCSS(expectedMargin, "8px");
-      });
-    });
+  test("should verify ButtonBar with wrapped components can be navigated using keyboard", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ButtonBarWithWrapper />);
 
-    test("should verify ButtonBar with wrapped components can be navigated using keyboard", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ButtonBarWithWrapper />);
+    const buttonAtIndex = (index: number) =>
+      buttonDataComponent(page).nth(index);
 
-      const buttonAtIndex = (index: number) =>
-        buttonDataComponent(page).nth(index);
+    await buttonAtIndex(0).focus();
+    await buttonAtIndex(0).press("Tab");
+    await expect(buttonAtIndex(1)).toBeFocused();
+    await expect(buttonAtIndex(0)).not.toBeFocused();
 
-      await buttonAtIndex(0).focus();
-      await buttonAtIndex(0).press("Tab");
-      await expect(buttonAtIndex(1)).toBeFocused();
-      await expect(buttonAtIndex(0)).not.toBeFocused();
+    await buttonAtIndex(1).press("Tab");
+    await expect(buttonAtIndex(2)).toBeFocused();
+    await expect(buttonAtIndex(1)).not.toBeFocused();
 
-      await buttonAtIndex(1).press("Tab");
-      await expect(buttonAtIndex(2)).toBeFocused();
-      await expect(buttonAtIndex(1)).not.toBeFocused();
+    await buttonAtIndex(2).press("Tab");
 
-      await buttonAtIndex(2).press("Tab");
-
-      await expect(page.getByLabel("csv")).toBeFocused();
-      await expect(buttonAtIndex(2)).not.toBeFocused();
-    });
-  }
-);
+    await expect(page.getByLabel("csv")).toBeFocused();
+    await expect(buttonAtIndex(2)).not.toBeFocused();
+  });
+});
 
 test.describe("renders with ButtonMinor children", async () => {
   const indexes = [0, 1, 2];
@@ -199,13 +196,13 @@ test.describe("renders with ButtonMinor children", async () => {
       const minorButton = buttonMinorComponent(page, index);
       await expect(minorButton).toHaveCSS(
         "background-color",
-        "rgba(0, 0, 0, 0)"
+        "rgba(0, 0, 0, 0)",
       );
 
       await minorButton.hover();
       await expect(minorButton).toHaveCSS(
         "background-color",
-        "rgb(51, 91, 112)"
+        "rgb(51, 91, 112)",
       );
     });
 

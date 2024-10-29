@@ -22,7 +22,7 @@ export const layoutPropertyNames = [
 ];
 
 export default function filterStyledSystemLayoutProps(
-  originalObject: Record<string, unknown> | LayoutProps | PositionProps
+  originalObject: Record<string, unknown> | LayoutProps | PositionProps,
 ): LayoutProps | PositionProps {
   return filterObjectProperties(originalObject, layoutPropertyNames);
 }

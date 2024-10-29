@@ -105,7 +105,7 @@ test.describe("Prop checks for ButtonMinor component", () => {
 
     await expect(buttonMinorComponent(page)).toHaveAttribute(
       "aria-controls",
-      id
+      id,
     );
   });
 
@@ -173,7 +173,7 @@ test.describe("Prop checks for ButtonMinor component", () => {
 
     await expect(buttonMinorComponent(page)).toHaveAttribute(
       "aria-label",
-      "Show password"
+      "Show password",
     );
   });
 
@@ -187,7 +187,7 @@ test.describe("Prop checks for ButtonMinor component", () => {
 
     await expect(buttonMinorComponent(page)).toHaveAttribute(
       "aria-label",
-      "Hide password"
+      "Hide password",
     );
   });
 
@@ -200,19 +200,19 @@ test.describe("Prop checks for ButtonMinor component", () => {
     await expect(buttonMinorComponent(page)).toBeVisible();
     await expect(buttonMinorComponent(page)).toHaveCSS(
       "background-color",
-      transparent
+      transparent,
     );
 
     await expect(buttonMinorComponent(page)).toHaveCSS(
       "color",
-      colorsActionMinor500
+      colorsActionMinor500,
     );
 
     const colorToken = (
       await getDesignTokensByCssProperty(
         page,
         buttonMinorComponent(page),
-        "color"
+        "color",
       )
     ).pop();
 
@@ -229,19 +229,19 @@ test.describe("Prop checks for ButtonMinor component", () => {
     await expect(buttonMinorComponent(page)).toBeVisible();
     await expect(buttonMinorComponent(page)).toHaveCSS(
       "background-color",
-      transparent
+      transparent,
     );
 
     await expect(buttonMinorComponent(page)).toHaveCSS(
       "color",
-      colorsActionMinor500
+      colorsActionMinor500,
     );
 
     const colorToken = (
       await getDesignTokensByCssProperty(
         page,
         buttonMinorComponent(page),
-        "color"
+        "color",
       )
     ).pop();
 
@@ -302,7 +302,7 @@ test.describe("aria-live region checks", () => {
 
     const hiddenStatus = page.getByRole("status");
     await expect(hiddenStatus).toHaveText(
-      "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so."
+      "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so.",
     );
   });
 
@@ -316,7 +316,7 @@ test.describe("aria-live region checks", () => {
     await expect(hiddenStatus).toBeVisible();
     await expect(hiddenStatus).toHaveCSS(
       "border",
-      "0px none rgba(0, 0, 0, 0.9)"
+      "0px none rgba(0, 0, 0, 0.9)",
     );
     await expect(hiddenStatus).toHaveCSS("height", "1px");
     await expect(hiddenStatus).toHaveCSS("margin", "-1px");
@@ -328,30 +328,30 @@ test.describe("aria-live region checks", () => {
 });
 
 test.describe("Prop checks for rendered Textbox", () => {
-  ([
-    [SIZE.SMALL, "32px", "--sizing400"],
-    [SIZE.MEDIUM, "40px", "--sizing500"],
-    [SIZE.LARGE, "48px", "--sizing600"],
-  ] as [TextboxProps["size"], string, string][]).forEach(
-    ([size, height, token]) => {
-      test(`should render with ${size} size and ${height} height when size prop is ${size}`, async ({
-        mount,
+  (
+    [
+      [SIZE.SMALL, "32px", "--sizing400"],
+      [SIZE.MEDIUM, "40px", "--sizing500"],
+      [SIZE.LARGE, "48px", "--sizing600"],
+    ] as [TextboxProps["size"], string, string][]
+  ).forEach(([size, height, token]) => {
+    test(`should render with ${size} size and ${height} height when size prop is ${size}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PasswordComponent size={size} />);
+
+      await expect(password(page)).toHaveCSS("min-height", height);
+
+      const tokenValues = await getDesignTokensByCssProperty(
         page,
-      }) => {
-        await mount(<PasswordComponent size={size} />);
+        password(page),
+        "min-height",
+      );
 
-        await expect(password(page)).toHaveCSS("min-height", height);
-
-        const tokenValues = await getDesignTokensByCssProperty(
-          page,
-          password(page),
-          "min-height"
-        );
-
-        expect(tokenValues[0]).toBe(token);
-      });
-    }
-  );
+      expect(tokenValues[0]).toBe(token);
+    });
+  });
 
   specialCharacters.forEach((specificValue) => {
     test(`should render with label prop as ${specificValue}`, async ({
@@ -406,22 +406,22 @@ test.describe("Prop checks for rendered Textbox", () => {
     await expect(passwordInput(page)).toBeFocused();
   });
 
-  ([
-    ["left", "start"],
-    ["right", "end"],
-  ] as [TextboxProps["labelAlign"], string][]).forEach(
-    ([labelAlign, cssValue]) => {
-      test(`should render with ${labelAlign} labelAlign prop`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<PasswordComponent labelInline labelAlign={labelAlign} />);
+  (
+    [
+      ["left", "start"],
+      ["right", "end"],
+    ] as [TextboxProps["labelAlign"], string][]
+  ).forEach(([labelAlign, cssValue]) => {
+    test(`should render with ${labelAlign} labelAlign prop`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PasswordComponent labelInline labelAlign={labelAlign} />);
 
-        const labelParent = getDataElementByValue(page, "label").locator("..");
-        await expect(labelParent).toHaveCSS("-webkit-box-pack", cssValue);
-      });
-    }
-  );
+      const labelParent = getDataElementByValue(page, "label").locator("..");
+      await expect(labelParent).toHaveCSS("-webkit-box-pack", cssValue);
+    });
+  });
 
   ["10%", "30%", "50%", "80%", "100%"].forEach((maxWidth) => {
     test(`should render with ${maxWidth} max-width`, async ({

@@ -31,7 +31,7 @@ test.describe("User prefers reduced motion", () => {
     await expect(loaderStarVisibleLabel(page)).toHaveCSS("display", "flex");
     await expect(loaderStarVisibleLabel(page)).toHaveCSS(
       "justify-content",
-      "center"
+      "center",
     );
   });
 });

@@ -152,7 +152,7 @@ const StyledTypography = styled.span.attrs(
       lineHeight: lineHeight || getLineHeight(variant),
       defaultMargin: variant === "p" ? "0 0 16px" : "0",
     };
-  }
+  },
 )<TypographyProps>`
   ${({
     size,
@@ -193,7 +193,7 @@ const StyledTypography = styled.span.attrs(
     ${variant === "sup" && "vertical-align: super;"};
     ${variant === "sub" && "vertical-align: sub;"};
     ${display && `display: ${display};`};
-    ${listStyleType && `list-style-type: ${listStyleType};`}; ;
+    ${listStyleType && `list-style-type: ${listStyleType};`};
   `}
   ${space}
     ${({ color, bg, backgroundColor, ...rest }) =>

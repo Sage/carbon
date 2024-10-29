@@ -17,7 +17,7 @@ export const DefaultStory = () => {
   const [value, setValue] = useState("bar");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string
+    selectedValue?: string,
   ) {
     setValue(selectedValue as string);
     action("value set")(selectedValue);

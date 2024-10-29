@@ -148,7 +148,7 @@ export const TextAlignExamples = () => {
               <Dd>Description</Dd>
             </Dl>
           );
-        }
+        },
       )}
     </>
   );

@@ -35,9 +35,10 @@ const RadioButtonMapper = ({
   onKeyDown,
   value,
 }: RadioButtonMapperProps) => {
-  const filteredChildren = useMemo(() => React.Children.toArray(children), [
-    children,
-  ]);
+  const filteredChildren = useMemo(
+    () => React.Children.toArray(children),
+    [children],
+  );
   const anyChecked = useMemo(() => {
     let result = false;
     filteredChildren.forEach((child) => {
@@ -61,7 +62,7 @@ const RadioButtonMapper = ({
         setCheckedValue(event.target.value);
       }
     },
-    [onChange, setCheckedValue, isControlled]
+    [onChange, setCheckedValue, isControlled],
   );
 
   const buttons = filteredChildren.map((child) => {

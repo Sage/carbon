@@ -54,7 +54,7 @@ test.describe("NumeralDate component", () => {
     await mount(<NumeralDateComponent data-component={CHARACTERS.STANDARD} />);
 
     await expect(
-      getDataComponentByValue(page, CHARACTERS.STANDARD)
+      getDataComponentByValue(page, CHARACTERS.STANDARD),
     ).toBeVisible();
   });
 
@@ -65,7 +65,7 @@ test.describe("NumeralDate component", () => {
     await mount(<NumeralDateComponent data-element={CHARACTERS.STANDARD} />);
 
     await expect(
-      getDataElementByValue(page, CHARACTERS.STANDARD)
+      getDataElementByValue(page, CHARACTERS.STANDARD),
     ).toBeVisible();
   });
 
@@ -104,34 +104,32 @@ test.describe("NumeralDate component", () => {
     await mount(<NumeralDateComponent labelInline />);
 
     const labelParent = await getDataElementByValue(page, "label").locator(
-      ".."
+      "..",
     );
     await expect(labelParent).toHaveCSS("justify-content", "flex-end");
   });
 
-  ([
-    ["left", "start"],
-    ["right", "end"],
-  ] as [NumeralDateProps["labelAlign"], string][]).forEach(
-    ([labelAlign, cssValue]) => {
-      test(`should render NumeralDate with labelAlign prop set to ${labelAlign}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <NumeralDateComponent labelInline labelAlign={labelAlign} />
-        );
+  (
+    [
+      ["left", "start"],
+      ["right", "end"],
+    ] as [NumeralDateProps["labelAlign"], string][]
+  ).forEach(([labelAlign, cssValue]) => {
+    test(`should render NumeralDate with labelAlign prop set to ${labelAlign}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<NumeralDateComponent labelInline labelAlign={labelAlign} />);
 
-        const labelParent = await getDataElementByValue(page, "label").locator(
-          ".."
-        );
-        await expect(labelParent).toHaveCSS(
-          "justify-content",
-          `flex-${cssValue}`
-        );
-      });
-    }
-  );
+      const labelParent = await getDataElementByValue(page, "label").locator(
+        "..",
+      );
+      await expect(labelParent).toHaveCSS(
+        "justify-content",
+        `flex-${cssValue}`,
+      );
+    });
+  });
 
   testData.forEach((labelHelp) => {
     test(`should render NumeralDate with labelHelp prop set to ${labelHelp}`, async ({
@@ -147,42 +145,40 @@ test.describe("NumeralDate component", () => {
     });
   });
 
-  ([
-    [1, "8px"],
-    [2, "16px"],
-  ] as [NumeralDateProps["labelSpacing"], string][]).forEach(
-    ([spacing, padding]) => {
-      test(`should render NumeralDate with labelSpacing prop set to ${spacing}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <NumeralDateComponent labelInline labelSpacing={spacing} />
-        );
+  (
+    [
+      [1, "8px"],
+      [2, "16px"],
+    ] as [NumeralDateProps["labelSpacing"], string][]
+  ).forEach(([spacing, padding]) => {
+    test(`should render NumeralDate with labelSpacing prop set to ${spacing}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<NumeralDateComponent labelInline labelSpacing={spacing} />);
 
-        const labelParent = getDataElementByValue(page, "label").locator("..");
-        await expect(labelParent).toHaveCSS("padding-right", padding);
-      });
-    }
-  );
+      const labelParent = getDataElementByValue(page, "label").locator("..");
+      await expect(labelParent).toHaveCSS("padding-right", padding);
+    });
+  });
 
-  ([
-    [10, 135],
-    [30, 409],
-    [80, 1092],
-  ] as [NumeralDateProps["labelWidth"], number][]).forEach(
-    ([label, labelRatio]) => {
-      test(`should use ${label} as labelWidth and render it with the correct ratio`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<NumeralDateComponent labelInline labelWidth={label} />);
+  (
+    [
+      [10, 135],
+      [30, 409],
+      [80, 1092],
+    ] as [NumeralDateProps["labelWidth"], number][]
+  ).forEach(([label, labelRatio]) => {
+    test(`should use ${label} as labelWidth and render it with the correct ratio`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<NumeralDateComponent labelInline labelWidth={label} />);
 
-        const labelParent = getDataElementByValue(page, "label").locator("..");
-        await assertCssValueIsApproximately(labelParent, "width", labelRatio);
-      });
-    }
-  );
+      const labelParent = getDataElementByValue(page, "label").locator("..");
+      await assertCssValueIsApproximately(labelParent, "width", labelRatio);
+    });
+  });
 
   test("should render NumeralDate with required prop", async ({
     mount,
@@ -198,7 +194,7 @@ test.describe("NumeralDate component", () => {
 
     await expect(numeralDateComponent(page)).toHaveAttribute(
       "name",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -232,7 +228,7 @@ test.describe("NumeralDate component", () => {
           labelInline
           labelAlign="right"
           {...{ [type]: "Message" }}
-        />
+        />,
       );
 
       const input = await numeralDateInput(page, 2).locator("..");
@@ -251,7 +247,7 @@ test.describe("NumeralDate component", () => {
           labelAlign="right"
           validationOnLabel
           {...{ [type]: "Message" }}
-        />
+        />,
       );
 
       const labelParent = getDataElementByValue(page, "label").locator("..");
@@ -279,7 +275,7 @@ test.describe("NumeralDate component", () => {
     page,
   }) => {
     await mount(
-      <NumeralDate defaultValue={{ dd: "10", mm: "12", yyyy: "2022" }} />
+      <NumeralDate defaultValue={{ dd: "10", mm: "12", yyyy: "2022" }} />,
     );
 
     await expect(numeralDateInput(page, 0)).toHaveValue("10");
@@ -287,32 +283,32 @@ test.describe("NumeralDate component", () => {
     await expect(numeralDateInput(page, 2)).toHaveValue("2022");
   });
 
-  ([
-    [0, "Day should be a number within a 1-31 range.", "Day"],
-    [1, "Month should be a number within a 1-12 range.", "Month"],
-    [2, "Year should be a number within a 1800-2200 range.", "Year"],
-  ] as [number, string, string][]).forEach(
-    ([inputIndex, tooltipText, field]) => {
-      test(`should render NumeralDate with error message for ${field} with enableInternalError prop`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<NumeralDateComponent enableInternalError />);
+  (
+    [
+      [0, "Day should be a number within a 1-31 range.", "Day"],
+      [1, "Month should be a number within a 1-12 range.", "Month"],
+      [2, "Year should be a number within a 1800-2200 range.", "Year"],
+    ] as [number, string, string][]
+  ).forEach(([inputIndex, tooltipText, field]) => {
+    test(`should render NumeralDate with error message for ${field} with enableInternalError prop`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<NumeralDateComponent enableInternalError />);
 
-        const errorInput = "55";
+      const errorInput = "55";
 
-        const input = numeralDateInput(page, inputIndex);
-        await input.fill(errorInput);
-        await input.blur();
+      const input = numeralDateInput(page, inputIndex);
+      await input.fill(errorInput);
+      await input.blur();
 
-        const errorIcon = numeralDateInput(page, 2).locator("..").locator(ICON);
-        await expect(errorIcon).toHaveAttribute("data-element", "error");
+      const errorIcon = numeralDateInput(page, 2).locator("..").locator(ICON);
+      await expect(errorIcon).toHaveAttribute("data-element", "error");
 
-        await errorIcon.hover();
-        await expect(tooltipPreview(page)).toHaveText(tooltipText);
-      });
-    }
-  );
+      await errorIcon.hover();
+      await expect(tooltipPreview(page)).toHaveText(tooltipText);
+    });
+  });
 
   dynamicValidations.forEach(([month, day, year, validationString]) => {
     test(`should display dynamic internal error message in tooltip when validationRedesignOptIn is false, month is ${month}, day is ${day} and year is ${year}`, async ({
@@ -323,7 +319,7 @@ test.describe("NumeralDate component", () => {
         <NumeralDateComponent
           enableInternalError
           value={{ dd: "", mm: month, yyyy: year }}
-        />
+        />,
       );
 
       const input = numeralDateInput(page, 0);
@@ -347,7 +343,7 @@ test.describe("NumeralDate component", () => {
         <NumeralDateComponent
           enableInternalWarning
           value={{ dd: "", mm: month, yyyy: year }}
-        />
+        />,
       );
 
       const input = numeralDateInput(page, 0);
@@ -372,7 +368,7 @@ test.describe("NumeralDate component", () => {
           enableInternalError
           value={{ dd: "", mm: month, yyyy: year }}
         />,
-        { hooksConfig: { validationRedesignOptIn: true } }
+        { hooksConfig: { validationRedesignOptIn: true } },
       );
 
       const input = numeralDateInput(page, 0);
@@ -394,7 +390,7 @@ test.describe("NumeralDate component", () => {
           enableInternalWarning
           value={{ dd: "", mm: month, yyyy: year }}
         />,
-        { hooksConfig: { validationRedesignOptIn: true } }
+        { hooksConfig: { validationRedesignOptIn: true } },
       );
 
       const input = numeralDateInput(page, 0);
@@ -406,34 +402,32 @@ test.describe("NumeralDate component", () => {
     });
   });
 
-  ([
-    [0, "Day should be a number within a 1-31 range.", "Day"],
-    [1, "Month should be a number within a 1-12 range.", "Month"],
-    [2, "Year should be a number within a 1800-2200 range.", "Year"],
-  ] as [number, string, string][]).forEach(
-    ([inputIndex, tooltipText, field]) => {
-      test(`should render NumeralDate with warning message for ${field} with enableInternalWarning prop`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<NumeralDateComponent enableInternalWarning />);
+  (
+    [
+      [0, "Day should be a number within a 1-31 range.", "Day"],
+      [1, "Month should be a number within a 1-12 range.", "Month"],
+      [2, "Year should be a number within a 1800-2200 range.", "Year"],
+    ] as [number, string, string][]
+  ).forEach(([inputIndex, tooltipText, field]) => {
+    test(`should render NumeralDate with warning message for ${field} with enableInternalWarning prop`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<NumeralDateComponent enableInternalWarning />);
 
-        const warningInput = "55";
+      const warningInput = "55";
 
-        const input = numeralDateInput(page, inputIndex);
-        await input.fill(warningInput);
-        await input.blur();
+      const input = numeralDateInput(page, inputIndex);
+      await input.fill(warningInput);
+      await input.blur();
 
-        const warningIcon = numeralDateInput(page, 2)
-          .locator("..")
-          .locator(ICON);
-        await expect(warningIcon).toHaveAttribute("data-element", "warning");
+      const warningIcon = numeralDateInput(page, 2).locator("..").locator(ICON);
+      await expect(warningIcon).toHaveAttribute("data-element", "warning");
 
-        await warningIcon.hover();
-        await expect(tooltipPreview(page)).toHaveText(tooltipText);
-      });
-    }
-  );
+      await warningIcon.hover();
+      await expect(tooltipPreview(page)).toHaveText(tooltipText);
+    });
+  });
 
   test('should render NumeralDate with `["dd", "mm", "yyyy"]` dateFormat prop', async ({
     mount,
@@ -490,14 +484,16 @@ test.describe("NumeralDate component", () => {
     await expect(numeralDateInputLabel(page, 2)).not.toBeVisible();
   });
 
-  ([
-    [VALIDATION.ERROR, "error", true],
-    [VALIDATION.WARNING, "warning", true],
-    [VALIDATION.INFO, "info", true],
-    ["rgb(102, 132, 148)", "error", false],
-    ["rgb(102, 132, 148)", "warning", false],
-    ["rgb(102, 132, 148)", "info", false],
-  ] as [string, string, boolean][]).forEach(([borderColor, type, bool]) => {
+  (
+    [
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      [VALIDATION.INFO, "info", true],
+      ["rgb(102, 132, 148)", "error", false],
+      ["rgb(102, 132, 148)", "warning", false],
+      ["rgb(102, 132, 148)", "info", false],
+    ] as [string, string, boolean][]
+  ).forEach(([borderColor, type, bool]) => {
     test(`should render with ${borderColor} input border when validation type ${type} is ${bool}`, async ({
       mount,
       page,
@@ -507,7 +503,7 @@ test.describe("NumeralDate component", () => {
           labelInline
           labelAlign="right"
           {...{ [type]: bool }}
-        />
+        />,
       );
 
       const inputParent = numeralDateInput(page, 2).locator("..");
@@ -519,11 +515,13 @@ test.describe("NumeralDate component", () => {
     });
   });
 
-  ([
-    [SIZE.SMALL, 30],
-    [SIZE.MEDIUM, 38],
-    [SIZE.LARGE, 46],
-  ] as [NumeralDateProps["size"], number][]).forEach(([size, height]) => {
+  (
+    [
+      [SIZE.SMALL, 30],
+      [SIZE.MEDIUM, 38],
+      [SIZE.LARGE, 46],
+    ] as [NumeralDateProps["size"], number][]
+  ).forEach(([size, height]) => {
     test(`should use ${size} as size and render NumeralDate with ${height} as height`, async ({
       mount,
       page,
@@ -535,28 +533,28 @@ test.describe("NumeralDate component", () => {
     });
   });
 
-  ([
-    ["flex", 399],
-    ["flex", 400],
-    ["block", 401],
-  ] as [string, NumeralDateProps["adaptiveLabelBreakpoint"]][]).forEach(
-    ([displayValue, breakpoint]) => {
-      test(`should render NumeralDate with ${displayValue} label alignment when the adaptiveLabelBreakpoint prop is ${breakpoint} with a set viewport of 400`, async ({
-        mount,
-        page,
-      }) => {
-        await page.setViewportSize({ width: 400, height: 300 });
-        await mount(
-          <NumeralDateComponent adaptiveLabelBreakpoint={breakpoint} />
-        );
+  (
+    [
+      ["flex", 399],
+      ["flex", 400],
+      ["block", 401],
+    ] as [string, NumeralDateProps["adaptiveLabelBreakpoint"]][]
+  ).forEach(([displayValue, breakpoint]) => {
+    test(`should render NumeralDate with ${displayValue} label alignment when the adaptiveLabelBreakpoint prop is ${breakpoint} with a set viewport of 400`, async ({
+      mount,
+      page,
+    }) => {
+      await page.setViewportSize({ width: 400, height: 300 });
+      await mount(
+        <NumeralDateComponent adaptiveLabelBreakpoint={breakpoint} />,
+      );
 
-        const labelParentParent = getDataElementByValue(page, "label")
-          .locator("..")
-          .locator("..");
-        await expect(labelParentParent).toHaveCSS("display", displayValue);
-      });
-    }
-  );
+      const labelParentParent = getDataElementByValue(page, "label")
+        .locator("..")
+        .locator("..");
+      await expect(labelParentParent).toHaveCSS("display", displayValue);
+    });
+  });
 
   testData.forEach(([fieldHelp]) => {
     test(`should render NumeralDate with fieldHelp prop ${fieldHelp}`, async ({
@@ -569,12 +567,9 @@ test.describe("NumeralDate component", () => {
     });
   });
 
-  ([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ] as NumeralDateProps["tooltipPosition"][]).forEach((position) => {
+  (
+    ["top", "bottom", "left", "right"] as NumeralDateProps["tooltipPosition"][]
+  ).forEach((position) => {
     test(`should render NumeralDate with tooltip positioned to the ${position}`, async ({
       mount,
       page,
@@ -585,7 +580,7 @@ test.describe("NumeralDate component", () => {
             error={CHARACTERS.STANDARD}
             tooltipPosition={position}
           />
-        </Box>
+        </Box>,
       );
 
       await getDataElementByValue(page, "error").hover();
@@ -593,7 +588,7 @@ test.describe("NumeralDate component", () => {
       await expect(tooltipPreview(page)).toHaveText(CHARACTERS.STANDARD);
       await expect(tooltipPreview(page)).toHaveAttribute(
         "data-placement",
-        position as string
+        position as string,
       );
     });
   });
@@ -606,7 +601,7 @@ test.describe("NumeralDate component", () => {
       <NumeralDateComponent
         labelHelp="fieldHelp"
         helpAriaLabel={CHARACTERS.STANDARD}
-      />
+      />,
     );
 
     const help = getDataComponentByValue(page, "help");
@@ -626,7 +621,7 @@ test.describe("NumeralDate component", () => {
           onChange={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       await numeralDateInput(page, 0).type(inputValue);
@@ -644,7 +639,7 @@ test.describe("NumeralDate component", () => {
           onBlur={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       const input = numeralDateInput(page, 0);
@@ -677,13 +672,15 @@ test.describe("NumeralDate component", () => {
       await checkAccessibility(page);
     });
 
-    ([
-      ["dd", "mm", "yyyy"],
-      ["mm", "dd", "yyyy"],
-      ["dd", "mm"],
-      ["mm", "dd"],
-      ["mm", "yyyy"],
-    ] as NumeralDateProps["dateFormat"][]).forEach((dateFormat) => {
+    (
+      [
+        ["dd", "mm", "yyyy"],
+        ["mm", "dd", "yyyy"],
+        ["dd", "mm"],
+        ["mm", "dd"],
+        ["mm", "yyyy"],
+      ] as NumeralDateProps["dateFormat"][]
+    ).forEach((dateFormat) => {
       test(`should pass accessibility tests for NumeralDate when dateFormat prop is ${dateFormat}`, async ({
         mount,
         page,
@@ -735,7 +732,11 @@ test.describe("NumeralDate component", () => {
       page,
     }) => {
       await mount(
-        <NumeralDateControlled labelInline labelAlign="right" labelWidth={30} />
+        <NumeralDateControlled
+          labelInline
+          labelAlign="right"
+          labelWidth={30}
+        />,
       );
 
       await checkAccessibility(page);
@@ -755,7 +756,7 @@ test.describe("NumeralDate component", () => {
           labelAlign="right"
           labelWidth={30}
           adaptiveLabelBreakpoint={960}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -769,7 +770,7 @@ test.describe("NumeralDate component", () => {
         <NumeralDateControlled
           labelHelp="Label help"
           helpAriaLabel="Label help"
-        />
+        />,
       );
 
       const question = getDataElementByValue(page, "question");
@@ -797,7 +798,7 @@ test.describe("NumeralDate component", () => {
 
           await checkAccessibility(page);
         });
-      }
+      },
     );
   });
 });

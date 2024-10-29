@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps(
   {
     padding: true,
   },
-  { py: "8px" }
+  { py: "8px" },
 );
 
 const meta: Meta<typeof DraggableItem> = {

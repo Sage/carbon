@@ -116,10 +116,10 @@ const result = (format: string, value = "01-01-2022") =>
   value.replace(/-/g, separator(format));
 
 const yearValuesLessThan69 = Array.from({ length: 68 }).map((_, i) =>
-  i < 9 ? `0${i + 1}` : `${i + 1}`
+  i < 9 ? `0${i + 1}` : `${i + 1}`,
 );
 const yearValuesGreaterThan69 = Array.from({ length: 30 }).map(
-  (_, i) => `${i + 1 + 69}`
+  (_, i) => `${i + 1 + 69}`,
 );
 
 const invalidISOMin = "01/01/2022";
@@ -147,7 +147,7 @@ test.each(parseParameters())(
   "should return a valid date for %s format when %s string passed to `parseDate`",
   (value, format) => {
     expect(isDateValid(parseDate(format, value))).toBe(true);
-  }
+  },
 );
 
 test("should return false when `parseDate` passed invalid date string", () => {
@@ -199,7 +199,7 @@ test.each([
   "should return the expected ISO formatted string when %s format and %s reference date is passed to `formatToISO`",
   (formatString, referenceDate, expected) => {
     expect(formatToISO(formatString, referenceDate)).toEqual(expected);
-  }
+  },
 );
 
 test("should return null if an invalid reference date is passed to `formatToISO`", () => {
@@ -210,9 +210,9 @@ test.each(["ddMMyyyy", "dd.MM.yyyy", "dd,MM,yyyy", "dd-MM-yyyy", "dd/MM/yyyy"])(
   "should return a valid formatted date string when a valid date and %s format is passed to `formattedValue`",
   (format) => {
     expect(formattedValue(format, new Date("2022-01-01"))).toEqual(
-      result(format)
+      result(format),
     );
-  }
+  },
 );
 
 test("should return an empty string when no date passed to `formattedValue`", () => {
@@ -265,9 +265,9 @@ describe.each(yearValuesLessThan69)(
       "returns expected output when format is `%s` and reference date is `%s`",
       (format, referenceDate, expected) => {
         expect(additionalYears(format, referenceDate)).toEqual(expected);
-      }
+      },
     );
-  }
+  },
 );
 
 describe.each(yearValuesGreaterThan69)(
@@ -304,9 +304,9 @@ describe.each(yearValuesGreaterThan69)(
       "returns expected output when format is `%s` and reference date is `%s`",
       (format, referenceDate, expected) => {
         expect(additionalYears(format, referenceDate)).toEqual(expected);
-      }
+      },
     );
-  }
+  },
 );
 
 // when no separator is used it will return whitespace separated format and value due to bug in date-fns
@@ -326,12 +326,12 @@ test.each([
   (format, value, formatResult, valueResult) => {
     const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
       value,
-      formats
+      formats,
     );
 
     expect(matchedFormat).toEqual(formatResult);
     expect(matchedValue).toEqual(valueResult);
-  }
+  },
 );
 
 test.each([
@@ -351,12 +351,12 @@ test.each([
   (format, value, formatResult, valueResult) => {
     const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
       value,
-      formats
+      formats,
     );
 
     expect(matchedFormat).toEqual(formatResult);
     expect(matchedValue).toEqual(valueResult);
-  }
+  },
 );
 
 test.each([
@@ -372,12 +372,12 @@ test.each([
   (format, value, formatResult, valueResult) => {
     const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
       value,
-      formats
+      formats,
     );
 
     expect(matchedFormat).toEqual(formatResult);
     expect(matchedValue).toEqual(valueResult);
-  }
+  },
 );
 
 test.each([
@@ -393,12 +393,12 @@ test.each([
   (format, value, formatResult, valueResult) => {
     const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
       value,
-      formats
+      formats,
     );
 
     expect(matchedFormat).toEqual(formatResult);
     expect(matchedValue).toEqual(valueResult);
-  }
+  },
 );
 
 test("should genereate a valid date when `parseISODate` passed a valid string value", () => {
@@ -444,5 +444,5 @@ test.each(["foo", "2022-1-1", "2022-01-1", "22-01-01", " "])(
   "should return false when invalid ISO string %s passed to `checkISOFormatAndLength`",
   (value) => {
     expect(checkISOFormatAndLength(value)).toEqual(false);
-  }
+  },
 );

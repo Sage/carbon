@@ -87,7 +87,7 @@ export const FlatTableRow = React.forwardRef<
       "data-role": dataRole,
       ...rest
     }: FlatTableRowProps,
-    ref
+    ref,
   ) => {
     const internalId = useRef(id ? String(id) : guid());
     const [isExpanded, setIsExpanded] = useState(expanded);
@@ -97,7 +97,7 @@ export const FlatTableRow = React.forwardRef<
     }
     const firstColumnExpandable = expandableArea === "firstColumn";
     const [leftPositions, setLeftPositions] = useState<Record<string, number>>(
-      {}
+      {},
     );
     const [rightPositions, setRightPositions] = useState<
       Record<string, number>
@@ -113,7 +113,7 @@ export const FlatTableRow = React.forwardRef<
     useLayoutEffect(() => {
       const checkForPositionUpdates = (
         updated: Record<string, number>,
-        current: Record<string, number>
+        current: Record<string, number>,
       ) => {
         const updatedKeys = Object.keys(updated);
         const currentKeys = Object.keys(current);
@@ -132,13 +132,13 @@ export const FlatTableRow = React.forwardRef<
       setCellsArray(cellArray);
 
       const firstIndex = cellArray.findIndex(
-        (cell) => cell.getAttribute("data-component") !== "flat-table-checkbox"
+        (cell) => cell.getAttribute("data-component") !== "flat-table-checkbox",
       );
       const lhsIndex = cellArray.findIndex(
-        (cell) => cell.getAttribute("data-sticky-align") === "left"
+        (cell) => cell.getAttribute("data-sticky-align") === "left",
       );
       const rhsIndex = cellArray.findIndex(
-        (cell) => cell.getAttribute("data-sticky-align") === "right"
+        (cell) => cell.getAttribute("data-sticky-align") === "right",
       );
 
       setLhsRowHeaderIndex(lhsIndex);
@@ -153,7 +153,7 @@ export const FlatTableRow = React.forwardRef<
       if (lhsIndex !== -1) {
         const updatedLeftPositions = buildPositionMap(
           cellArray.slice(0, lhsRowHeaderIndex + 1),
-          "offsetWidth"
+          "offsetWidth",
         );
 
         if (checkForPositionUpdates(updatedLeftPositions, leftPositions)) {
@@ -163,7 +163,7 @@ export const FlatTableRow = React.forwardRef<
       if (rhsIndex !== -1) {
         const updatedRightPositions = buildPositionMap(
           cellArray.slice(rhsRowHeaderIndex, cellArray.length).reverse(),
-          "offsetWidth"
+          "offsetWidth",
         );
 
         if (checkForPositionUpdates(updatedRightPositions, rightPositions)) {
@@ -188,18 +188,17 @@ export const FlatTableRow = React.forwardRef<
 
     invariant(
       noStickyColumnsOverlap,
-      `Do not render a right hand side \`${FlatTableRowHeader.displayName}\` before left hand side \`${FlatTableRowHeader.displayName}\``
+      `Do not render a right hand side \`${FlatTableRowHeader.displayName}\` before left hand side \`${FlatTableRowHeader.displayName}\``,
     );
 
-    const { colorTheme, size, getTabStopElementId } = useContext(
-      FlatTableContext
-    );
+    const { colorTheme, size, getTabStopElementId } =
+      useContext(FlatTableContext);
     const { isInSidebar } = useContext(DrawerSidebarContext);
     const { stickyOffsets } = useContext(FlatTableHeadContext);
     const toggleExpanded = () => setIsExpanded(!isExpanded);
 
     function onKeyDown(
-      ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+      ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
     ) {
       const isEnterOrSpaceKey =
         Event.isEnterKey(ev as React.KeyboardEvent<HTMLElement>) ||
@@ -257,9 +256,8 @@ export const FlatTableRow = React.forwardRef<
       setTabIndex(getTabStopElementId() === internalId.current ? 0 : -1);
     }, [getTabStopElementId]);
 
-    const { isSubRow, firstRowId, addRow, removeRow } = useContext(
-      SubRowContext
-    );
+    const { isSubRow, firstRowId, addRow, removeRow } =
+      useContext(SubRowContext);
 
     useEffect(() => {
       const rowId = internalId.current;
@@ -344,7 +342,7 @@ export const FlatTableRow = React.forwardRef<
         {isExpanded && subRows && <SubRowProvider>{subRows}</SubRowProvider>}
       </>
     );
-  }
+  },
 );
 
 FlatTableRow.displayName = "FlatTableRow";

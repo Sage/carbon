@@ -7,7 +7,7 @@ type Callback = (...args: any[]) => void;
 
 const useThrottle = <T extends Callback>(
   callback: T,
-  delay: number
+  delay: number,
 ): DebouncedFunc<T> => {
   const callbackRef = useRef(callback);
 
@@ -17,7 +17,7 @@ const useThrottle = <T extends Callback>(
 
   const throttledCallback = useMemo(
     () => throttle(callbackRef.current, delay),
-    [delay]
+    [delay],
   );
 
   useEffect(() => {

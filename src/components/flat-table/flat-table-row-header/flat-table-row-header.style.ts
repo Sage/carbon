@@ -17,7 +17,7 @@ const StyledFlatTableRowHeader = styled.th.attrs(
     stickyAlignment,
   }: {
     stickyAlignment: FlatTableRowHeaderProps["stickyAlignment"];
-  }) => ({ "data-sticky-align": stickyAlignment })
+  }) => ({ "data-sticky-align": stickyAlignment }),
 )<
   FlatTableRowHeaderProps & {
     expandable?: boolean;
@@ -86,8 +86,8 @@ const StyledFlatTableRowHeader = styled.th.attrs(
       ${verticalBorder &&
       css`
         border-${stickyAlignment === "right" ? "left" : "right"}-width: ${
-        verticalBorderSizes[verticalBorder]
-      };
+          verticalBorderSizes[verticalBorder]
+        };
       `}
 
       ${verticalBorderColor &&

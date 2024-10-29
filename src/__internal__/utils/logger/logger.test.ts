@@ -18,7 +18,7 @@ test("should output a warning to the console with a deprecation prefix when logg
   Logger.deprecate("This is a deprecation message");
 
   expect(consoleWarnSpy).toHaveBeenCalledWith(
-    "[Deprecation] This is a deprecation message"
+    "[Deprecation] This is a deprecation message",
   );
   consoleWarnSpy.mockReset();
 });

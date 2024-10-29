@@ -31,7 +31,7 @@ test("should render with the expected `data-` attributes on the root element whe
           <FlatTableCell>cell2</FlatTableCell>
         </FlatTableRow>
       </tbody>
-    </table>
+    </table>,
   );
   const row = screen.getByRole("row");
 
@@ -50,7 +50,7 @@ describe("when the `onClick` prop is passed", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const row = screen.getByRole("row");
 
@@ -66,7 +66,7 @@ describe("when the `onClick` prop is passed", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const row = screen.getByRole("row");
 
@@ -84,7 +84,7 @@ describe("when the `onClick` prop is passed", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const row = screen.getByRole("row");
     await user.click(row);
@@ -103,7 +103,7 @@ describe("when the `onClick` prop is passed", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const row = screen.getByRole("row");
     row.focus();
@@ -123,7 +123,7 @@ describe("when the `onClick` prop is passed", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const row = screen.getByRole("row");
     row.focus();
@@ -143,7 +143,7 @@ describe("when the `onClick` prop is passed", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const row = screen.getByRole("row");
     row.focus();
@@ -163,7 +163,7 @@ describe("when no `onClick` prop is passed", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const row = screen.getByRole("row");
 
@@ -179,7 +179,7 @@ describe("when no `onClick` prop is passed", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const row = screen.getByRole("row");
 
@@ -196,7 +196,7 @@ test("should render with `data-selected` attribute set to 'true' when `selected`
           <FlatTableCell>cell2</FlatTableCell>
         </FlatTableRow>
       </tbody>
-    </table>
+    </table>,
   );
   const row = screen.getByRole("row");
 
@@ -212,7 +212,7 @@ test("should render with `data-selected` attribute set to 'false' when `selected
           <FlatTableCell>cell2</FlatTableCell>
         </FlatTableRow>
       </tbody>
-    </table>
+    </table>,
   );
   const row = screen.getByRole("row");
 
@@ -228,7 +228,7 @@ test("should render with `data-selected` attribute not set when `selected` prop 
           <FlatTableCell>cell2</FlatTableCell>
         </FlatTableRow>
       </tbody>
-    </table>
+    </table>,
   );
   const row = screen.getByRole("row");
 
@@ -244,7 +244,7 @@ test("should render with `data-highlighted` attribute set to 'true' when `highli
           <FlatTableCell>cell2</FlatTableCell>
         </FlatTableRow>
       </tbody>
-    </table>
+    </table>,
   );
   const row = screen.getByRole("row");
 
@@ -260,7 +260,7 @@ test("should render with `data-highlighted` attribute set to 'false' when `highl
           <FlatTableCell>cell2</FlatTableCell>
         </FlatTableRow>
       </tbody>
-    </table>
+    </table>,
   );
   const row = screen.getByRole("row");
 
@@ -276,7 +276,7 @@ test("should render with `data-highlighted` attribute not set when `highlighted`
           <FlatTableCell>cell2</FlatTableCell>
         </FlatTableRow>
       </tbody>
-    </table>
+    </table>,
   );
   const row = screen.getByRole("row");
 
@@ -294,7 +294,7 @@ test("should render the first and last cells with the expected border styling wh
           </FlatTableRow>
         </tbody>
       </table>
-    </DrawerSidebarContext.Provider>
+    </DrawerSidebarContext.Provider>,
   );
   const firstCell = screen.getByRole("cell", { name: "cell1" });
   const lastCell = screen.getByRole("cell", { name: "cell2" });
@@ -313,7 +313,7 @@ describe("when FlatTableRowHeader children are passed", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const cell = screen.getByRole("columnheader", { name: "cell1" });
 
@@ -330,7 +330,7 @@ describe("when FlatTableRowHeader children are passed", () => {
             {false && <FlatTableRowHeader>cell3</FlatTableRowHeader>}
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const cell = screen.getByRole("cell", { name: "cell1" });
 
@@ -350,7 +350,7 @@ describe("when FlatTableRowHeader children are passed", () => {
             <FlatTableCell>cell6</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     const cell1 = screen.getByRole("columnheader", { name: "cell1" });
     const cell2 = screen.getByRole("cell", { name: "cell2" });
@@ -383,7 +383,7 @@ describe("when FlatTableRowHeader children are passed", () => {
             <FlatTableCell>cell6</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     const cell1 = screen.getByRole("columnheader", { name: "cell1" });
     const cell2 = screen.getByRole("cell", { name: "cell2" });
@@ -417,7 +417,7 @@ describe("when FlatTableRowHeader children are passed", () => {
             </FlatTableRow>
           </thead>
         </table>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const cell1 = screen.getByRole("cell", { name: "cell1" });
     const cell2 = screen.getByRole("cell", { name: "cell2" });
@@ -444,7 +444,7 @@ describe("when FlatTableRowHeader children are passed", () => {
             <FlatTableCell>cell6</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
 
     const cell1 = screen.getByRole("columnheader", { name: "cell1" });
@@ -486,7 +486,7 @@ describe("when FlatTableRowHeader children are passed", () => {
               <FlatTableCell>cell6</FlatTableCell>
             </FlatTableRow>
           </thead>
-        </table>
+        </table>,
       );
     }).toThrow(errorMessage);
 
@@ -504,7 +504,7 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const row = screen.getByRole("row", { name: "cell1 cell2" });
 
@@ -520,7 +520,7 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const row = screen.getByRole("row");
 
@@ -536,7 +536,7 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </tbody>
-      </table>
+      </table>,
     );
     const row = screen.getByRole("row");
     const cell = screen.getByRole("cell", { name: "cell1" });
@@ -566,7 +566,7 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     const cell1 = screen.getByRole("cell", { name: "cell1" });
     const icon = within(cell1).getByTestId("icon");
@@ -599,7 +599,7 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     const cell2 = screen.getByRole("cell", { name: "cell2" });
     const icon = within(cell2).getByTestId("icon");
@@ -629,7 +629,7 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     const cell1 = screen.getByRole("cell", { name: "cell1" });
     const icon = within(cell1).getByTestId("icon");
@@ -659,7 +659,7 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     const subRow1 = screen.queryByRole("row", { name: "sub1cell1 sub1cell2" });
     const subRow2 = screen.queryByRole("row", { name: "sub2cell1 sub2cell2" });
@@ -691,16 +691,16 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     await user.click(screen.getByRole("row", { name: "cell1 cell2" }));
     jest.advanceTimersByTime(300);
 
     expect(
-      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" })
+      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).toBeVisible();
     expect(
-      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" })
+      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).toBeVisible();
     jest.useRealTimers();
   });
@@ -728,17 +728,17 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("row", { name: "cell1 cell2" }).focus();
     await user.keyboard("{Enter}");
     jest.advanceTimersByTime(300);
 
     expect(
-      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" })
+      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).toBeVisible();
     expect(
-      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" })
+      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).toBeVisible();
     jest.useRealTimers();
   });
@@ -766,17 +766,17 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("row", { name: "cell1 cell2" }).focus();
     await user.keyboard(" ");
     jest.advanceTimersByTime(300);
 
     expect(
-      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" })
+      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).toBeVisible();
     expect(
-      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" })
+      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).toBeVisible();
     jest.useRealTimers();
   });
@@ -803,16 +803,16 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("row", { name: "cell1 cell2" }).focus();
     await user.keyboard("{ArrowRight}");
 
     expect(
-      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).not.toBeInTheDocument();
   });
 
@@ -838,14 +838,14 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
 
     expect(
-      screen.getByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.getByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).toBeVisible();
     expect(
-      screen.getByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.getByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).toBeVisible();
   });
 
@@ -873,16 +873,16 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     await user.click(screen.getByRole("row", { name: "cell1 cell2" }));
     jest.advanceTimersByTime(300);
 
     expect(
-      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).not.toBeInTheDocument();
     jest.useRealTimers();
   });
@@ -911,17 +911,17 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("row", { name: "cell1 cell2" }).focus();
     await user.keyboard("{Enter}");
     jest.advanceTimersByTime(300);
 
     expect(
-      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).not.toBeInTheDocument();
     jest.useRealTimers();
   });
@@ -950,17 +950,17 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("row", { name: "cell1 cell2" }).focus();
     await user.keyboard("{Enter}");
     jest.advanceTimersByTime(300);
 
     expect(
-      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).not.toBeInTheDocument();
     jest.useRealTimers();
   });
@@ -988,16 +988,16 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("row", { name: "cell1 cell2" }).focus();
     await user.keyboard("{ArrowRight}");
 
     expect(
-      screen.getByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.getByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).toBeVisible();
     expect(
-      screen.getByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.getByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).toBeVisible();
   });
 
@@ -1023,14 +1023,14 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
 
     expect(screen.getByRole("cell", { name: "cell1" })).toHaveStyle(
-      "cursor: pointer"
+      "cursor: pointer",
     );
     expect(screen.getByRole("cell", { name: "cell2" })).not.toHaveStyle(
-      "cursor: pointer"
+      "cursor: pointer",
     );
   });
 
@@ -1058,16 +1058,16 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     await user.click(screen.getByRole("cell", { name: "cell1" }));
     jest.advanceTimersByTime(300);
 
     expect(
-      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" })
+      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).toBeVisible();
     expect(
-      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" })
+      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).toBeVisible();
     jest.useRealTimers();
   });
@@ -1096,17 +1096,17 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("cell", { name: "cell1" }).focus();
     await user.keyboard("{Enter}");
     jest.advanceTimersByTime(300);
 
     expect(
-      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" })
+      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).toBeVisible();
     expect(
-      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" })
+      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).toBeVisible();
     jest.useRealTimers();
   });
@@ -1135,17 +1135,17 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("cell", { name: "cell1" }).focus();
     await user.keyboard(" ");
     jest.advanceTimersByTime(300);
 
     expect(
-      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" })
+      await screen.findByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).toBeVisible();
     expect(
-      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" })
+      await screen.findByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).toBeVisible();
     jest.useRealTimers();
   });
@@ -1173,15 +1173,15 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     await user.click(screen.getByRole("cell", { name: "cell2" }));
 
     expect(
-      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).not.toBeInTheDocument();
   });
 
@@ -1208,16 +1208,16 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("cell", { name: "cell2" }).focus();
     await user.keyboard("{ArrowRight}");
 
     expect(
-      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).not.toBeInTheDocument();
   });
 
@@ -1246,16 +1246,16 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     await user.click(screen.getByRole("cell", { name: "cell1" }));
     jest.advanceTimersByTime(300);
 
     expect(
-      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).not.toBeInTheDocument();
     jest.useRealTimers();
   });
@@ -1285,17 +1285,17 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("cell", { name: "cell1" }).focus();
     await user.keyboard("{Enter}");
     jest.advanceTimersByTime(300);
 
     expect(
-      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).not.toBeInTheDocument();
     jest.useRealTimers();
   });
@@ -1325,17 +1325,17 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("cell", { name: "cell1" }).focus();
     await user.keyboard(" ");
     jest.advanceTimersByTime(300);
 
     expect(
-      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.queryByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.queryByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).not.toBeInTheDocument();
     jest.useRealTimers();
   });
@@ -1364,15 +1364,15 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     await user.click(screen.getByRole("cell", { name: "cell2" }));
 
     expect(
-      screen.getByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.getByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).toBeVisible();
     expect(
-      screen.getByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.getByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).toBeVisible();
   });
 
@@ -1400,16 +1400,16 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell2</FlatTableCell>
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
     screen.getByRole("cell", { name: "cell1" }).focus();
     await user.keyboard("{ArrowRight}");
 
     expect(
-      screen.getByRole("row", { name: "sub1cell1 sub1cell2" })
+      screen.getByRole("row", { name: "sub1cell1 sub1cell2" }),
     ).toBeVisible();
     expect(
-      screen.getByRole("row", { name: "sub2cell1 sub2cell2" })
+      screen.getByRole("row", { name: "sub2cell1 sub2cell2" }),
     ).toBeVisible();
   });
 
@@ -1453,7 +1453,7 @@ describe("when the row is `expandable`", () => {
             <FlatTableCell>cell3</FlatTableCell>
           </FlatTableRow>
         </FlatTableBodyDraggable>
-      </table>
+      </table>,
     );
     const row1 = screen.getByRole("row", { name: "cell1" });
     const row2 = screen.getByRole("row", { name: "cell2" });
@@ -1471,10 +1471,10 @@ describe("when the row is `expandable`", () => {
     jest.advanceTimersByTime(300);
 
     expect(
-      screen.queryByRole("row", { name: "sub1cell1" })
+      screen.queryByRole("row", { name: "sub1cell1" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("row", { name: "sub2cell1" })
+      screen.queryByRole("row", { name: "sub2cell1" }),
     ).not.toBeInTheDocument();
     jest.useRealTimers();
   });
@@ -1502,7 +1502,7 @@ describe("when the row is `expandable`", () => {
             <FlatTableCheckbox onChange={() => {}} />
           </FlatTableRow>
         </thead>
-      </table>
+      </table>,
     );
 
     expect(screen.getByTestId("cell1")).toHaveStyle("cursor: pointer");
@@ -1532,7 +1532,7 @@ describe("when the row is `expandable`", () => {
             </FlatTableRow>
           </thead>
         </table>
-      </FlatTableContext.Provider>
+      </FlatTableContext.Provider>,
     );
     const subRowCell1 = screen.getByRole("cell", { name: "sub1cell1" });
     const content1 = within(subRowCell1).getByTestId("flat-table-cell-content");
@@ -1558,11 +1558,11 @@ describe("with a ref", () => {
             <FlatTableHeader>cell4</FlatTableHeader>
           </FlatTableRow>
         </FlatTableBodyDraggable>
-      </table>
+      </table>,
     );
 
     expect(mockRef.current).toBe(
-      screen.getByRole("row", { name: "cell1 cell2 cell3 cell4" })
+      screen.getByRole("row", { name: "cell1 cell2 cell3 cell4" }),
     );
   });
 
@@ -1579,11 +1579,11 @@ describe("with a ref", () => {
             <FlatTableHeader>cell4</FlatTableHeader>
           </FlatTableRow>
         </FlatTableBodyDraggable>
-      </table>
+      </table>,
     );
 
     expect(mockRef).toHaveBeenCalledWith(
-      screen.getByRole("row", { name: "cell1 cell2 cell3 cell4" })
+      screen.getByRole("row", { name: "cell1 cell2 cell3 cell4" }),
     );
   });
 });
@@ -1599,7 +1599,7 @@ test("should render the expected background color styles when `bgColor` prop is 
           <FlatTableRowHeader>cell3</FlatTableRowHeader>
         </FlatTableRow>
       </tbody>
-    </table>
+    </table>,
   );
   const cell1 = screen.getByRole("cell", { name: "cell1" });
   const cell2 = screen.getByTestId("cell2");
@@ -1621,7 +1621,7 @@ test("should render the expected border bottom color styles when `horizontalBord
           <FlatTableRowHeader>cell3</FlatTableRowHeader>
         </FlatTableRow>
       </tbody>
-    </table>
+    </table>,
   );
   const cell1 = screen.getByRole("cell", { name: "cell1" });
   const cell2 = screen.getByTestId("cell2");
@@ -1641,14 +1641,14 @@ test("should render the expected border bottom color styles when `horizontalBord
           <FlatTableCell>cell1</FlatTableCell>
         </FlatTableRow>
       </tbody>
-    </table>
+    </table>,
   );
   const row = screen.getByRole("row", { name: "cell1" });
 
   expect(row).toHaveStyleRule(
     "border-bottom",
     "2px solid var(--colorsUtilityMajor100)",
-    { modifier: `${StyledFlatTableCell}` }
+    { modifier: `${StyledFlatTableCell}` },
   );
 });
 
@@ -1669,7 +1669,7 @@ test("should apply the expected border styling when row is dragged and table is 
           </FlatTableRow>
         </FlatTableBodyDraggable>
       </table>
-    </DrawerSidebarContext.Provider>
+    </DrawerSidebarContext.Provider>,
   );
   const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
@@ -1680,7 +1680,7 @@ test("should apply the expected border styling when row is dragged and table is 
   await waitFor(() => {
     expect(elementToDrag).toHaveStyleRule(
       "border",
-      "var(--colorsUtilityMajor300) 2px solid"
+      "var(--colorsUtilityMajor300) 2px solid",
     );
   });
 });

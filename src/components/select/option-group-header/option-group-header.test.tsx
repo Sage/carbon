@@ -13,12 +13,12 @@ test("should not render the `label` and `icon` when `children` are passed", () =
   render(
     <OptionGroupHeader label="foo" icon="shop">
       <h2>bar</h2>
-    </OptionGroupHeader>
+    </OptionGroupHeader>,
   );
 
   expect(screen.getByRole("heading", { name: "bar", level: 2 })).toBeVisible();
   expect(
-    screen.queryByRole("heading", { name: "foo", level: 4 })
+    screen.queryByRole("heading", { name: "foo", level: 4 }),
   ).not.toBeInTheDocument();
   expect(screen.queryByTestId("icon")).not.toBeInTheDocument();
 });
@@ -30,14 +30,14 @@ test("should render with the expected `data-` attributes", () => {
       icon="shop"
       data-element="bar"
       data-role="baz"
-    />
+    />,
   );
 
   const optionGroupHeader = screen.getByTestId("baz");
 
   expect(optionGroupHeader).toHaveAttribute(
     "data-component",
-    "option-group-header"
+    "option-group-header",
   );
   expect(optionGroupHeader).toHaveAttribute("data-element", "bar");
 });
@@ -47,7 +47,7 @@ test("should trigger a console warning when no label or children are provided", 
   render(<OptionGroupHeader />);
 
   expect(spy).toHaveBeenCalledWith(
-    "OptionGroupHeader requires either a label or children to be provided"
+    "OptionGroupHeader requires either a label or children to be provided",
   );
   spy.mockRestore();
 });

@@ -68,7 +68,7 @@ const dragFile = async ({
       bufferData: `data:application/octet-stream;base64,${buffer}`,
       localFileName: fileName,
       localFileType: fileType,
-    }
+    },
   );
 
   await page.dispatchEvent(selector, eventName, { dataTransfer });
@@ -196,7 +196,7 @@ test.describe("FileInput component", () => {
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("border-color")
+          .getPropertyValue("border-color"),
       );
     // TODO: should check token value (--colorsSemanticNegative500), rewrite this when we have the equivalent playwright util merged in
     await expect(borderColor).toBe("rgb(203, 55, 74)");
@@ -209,7 +209,7 @@ test.describe("FileInput component", () => {
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("border-color")
+          .getPropertyValue("border-color"),
       );
     // TODO: should check token value (--colorsSemanticNegative500), rewrite this when we have the equivalent playwright util merged in
     await expect(borderColor).toBe("rgb(203, 55, 74)");
@@ -234,7 +234,7 @@ test.describe("FileInput component", () => {
       await mount(<FileInputComponent name={testVal} />);
       await expect(hiddenInput(page, "File input")).toHaveAttribute(
         "name",
-        testVal
+        testVal,
       );
     });
   });
@@ -285,7 +285,7 @@ test.describe("with uploadStatus prop", () => {
       await mount(
         <FileInputComponent
           uploadStatus={{ ...statusProps, iconType: "pdf" }}
-        />
+        />,
       );
 
       const icon = page.getByTestId("icon");
@@ -328,7 +328,7 @@ test.describe("with uploadStatus prop", () => {
     await mount(
       <FileInputComponent
         uploadStatus={{ ...uploadingStatusProps, onAction }}
-      />
+      />,
     );
     const actionButton = await page.getByRole("button", {
       name: "Cancel upload",
@@ -354,7 +354,7 @@ test.describe("with uploadStatus prop", () => {
     await mount(<FileInputComponent uploadStatus={uploadingStatusProps} />);
 
     const progressTrackerBar = page.locator(
-      '[data-element="progress-tracker-bar"]'
+      '[data-element="progress-tracker-bar"]',
     );
     const innerBar = page.locator('[data-element="inner-bar"]');
 
@@ -369,7 +369,7 @@ test.describe("with uploadStatus prop", () => {
     await mount(
       <FileInputComponent
         uploadStatus={{ ...uploadingStatusProps, progress: undefined }}
-      />
+      />,
     );
     const loaderBar = await page.getByRole("progressbar");
     await expect(loaderBar).toBeVisible();
@@ -395,7 +395,7 @@ test.describe("with uploadStatus prop", () => {
     await mount(
       <FileInputComponent
         uploadStatus={{ ...completedStatusProps, onAction }}
-      />
+      />,
     );
     const actionButton = await page.getByRole("button", {
       name: "Delete file",
@@ -456,7 +456,7 @@ test.describe("with uploadStatus prop", () => {
     await mount(
       <FileInputComponent
         uploadStatus={{ ...previouslyStatusProps, onAction }}
-      />
+      />,
     );
     const actionButton = await page.getByRole("button", {
       name: "Delete file",
@@ -491,7 +491,7 @@ test.describe("with uploadStatus prop", () => {
       clickCount += 1;
     };
     await mount(
-      <FileInputComponent uploadStatus={{ ...errorStatusProps, onAction }} />
+      <FileInputComponent uploadStatus={{ ...errorStatusProps, onAction }} />,
     );
     const actionButton = await page.getByRole("button", { name: "Clear" });
     await expect(actionButton).toBeVisible();
@@ -532,7 +532,7 @@ test.describe("interactions", () => {
     await selectFileButton(page).click();
     const fileChooser = await fileChooserPromise;
     await fileChooser.setFiles(
-      path.join(process.cwd(), "playwright", "README.md")
+      path.join(process.cwd(), "playwright", "README.md"),
     );
     await expect(onChangeCalls.length).toBe(1);
     await expect(onChangeCalls[0]).toMatchObject({
@@ -585,7 +585,7 @@ test.describe("interactions", () => {
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("border-width")
+          .getPropertyValue("border-width"),
       );
     await expect(borderWidth).toBe("2px");
   });
@@ -616,7 +616,7 @@ test.describe("interactions", () => {
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("border-width")
+          .getPropertyValue("border-width"),
       );
     await expect(borderWidth).toBe("1px");
   });
@@ -647,7 +647,7 @@ test.describe("interactions", () => {
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("border-width")
+          .getPropertyValue("border-width"),
       );
     await expect(borderWidth).toBe("1px");
   });
@@ -670,7 +670,7 @@ test.describe("interactions", () => {
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("border-color")
+          .getPropertyValue("border-color"),
       );
     // TODO: should check token value (--colorsSemanticNegative600), rewrite this when we have the equivalent playwright util merged in
     await expect(borderColor).toBe("rgb(162, 44, 59)");
@@ -694,7 +694,7 @@ test.describe("interactions", () => {
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("background-color")
+          .getPropertyValue("background-color"),
       );
     await expect(backgroundColor).toBe("rgb(204, 214, 219)");
   });

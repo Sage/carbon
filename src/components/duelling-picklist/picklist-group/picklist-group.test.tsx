@@ -18,7 +18,7 @@ const ComponentWithFocusContext = ({
   const elementToFocus = (
     itemIndex?: number,
     listIndex?: number,
-    groupIndex?: number
+    groupIndex?: number,
   ) => {
     setFocused({ itemIndex, listIndex, groupIndex });
     setElementToFocus(itemIndex, listIndex, groupIndex);
@@ -63,7 +63,7 @@ test("when the group button is clicked, the onChange callback prop and the setEl
           Item content
         </PicklistItem>
       </PicklistGroup>
-    </FocusContext.Provider>
+    </FocusContext.Provider>,
   );
 
   await user.click(screen.getByTestId("picklist-group-button"));
@@ -89,7 +89,7 @@ test("when the enter key is pressed with the group button focused, the onChange 
           Item content
         </PicklistItem>
       </PicklistGroup>
-    </FocusContext.Provider>
+    </FocusContext.Provider>,
   );
 
   screen.getByTestId("picklist-group-button").focus();
@@ -116,7 +116,7 @@ test("when the space key is pressed with the group button focused, the onChange 
           Item content
         </PicklistItem>
       </PicklistGroup>
-    </FocusContext.Provider>
+    </FocusContext.Provider>,
   );
 
   screen.getByTestId("picklist-group-button").focus();
@@ -143,7 +143,7 @@ test("when a key other than space or enter is pressed with the group button focu
           Item content
         </PicklistItem>
       </PicklistGroup>
-    </FocusContext.Provider>
+    </FocusContext.Provider>,
   );
 
   screen.getByTestId("picklist-group-button").focus();
@@ -160,7 +160,7 @@ test("when an 'add' button is hovered over, it should change the background colo
       <PicklistItem type="add" onChange={() => {}} item={1}>
         Item content
       </PicklistItem>
-    </PicklistGroup>
+    </PicklistGroup>,
   );
 
   await user.hover(screen.getByTestId("picklist-group-button"));
@@ -168,7 +168,7 @@ test("when an 'add' button is hovered over, it should change the background colo
   expect(screen.getAllByRole("listitem")[0]).toHaveStyleRule(
     "background",
     "var(--colorsActionMajor600)",
-    { modifier: `${StyledButton}` }
+    { modifier: `${StyledButton}` },
   );
 
   await user.unhover(screen.getByTestId("picklist-group-button"));
@@ -176,7 +176,7 @@ test("when an 'add' button is hovered over, it should change the background colo
   expect(screen.getAllByRole("listitem")[0]).not.toHaveStyleRule(
     "background",
     "var(--colorsActionMajor600)",
-    { modifier: `${StyledButton}` }
+    { modifier: `${StyledButton}` },
   );
 });
 
@@ -187,7 +187,7 @@ test("when a 'remove' button is hovered over, it should change the background co
       <PicklistItem type="remove" onChange={() => {}} item={1}>
         Item content
       </PicklistItem>
-    </PicklistGroup>
+    </PicklistGroup>,
   );
 
   await user.hover(screen.getByTestId("picklist-group-button"));
@@ -195,7 +195,7 @@ test("when a 'remove' button is hovered over, it should change the background co
   expect(screen.getAllByRole("listitem")[0]).toHaveStyleRule(
     "background",
     "var(--colorsSemanticNegative600)",
-    { modifier: `${StyledButton}` }
+    { modifier: `${StyledButton}` },
   );
 
   await user.unhover(screen.getByTestId("picklist-group-button"));
@@ -203,7 +203,7 @@ test("when a 'remove' button is hovered over, it should change the background co
   expect(screen.getAllByRole("listitem")[0]).not.toHaveStyleRule(
     "background",
     "var(--colorsSemanticNegative600)",
-    { modifier: `${StyledButton}` }
+    { modifier: `${StyledButton}` },
   );
 });
 
@@ -214,7 +214,7 @@ test("when an 'add' button is focused, it should change the background colour of
       <PicklistItem type="add" onChange={() => {}} item={1}>
         Item content
       </PicklistItem>
-    </PicklistGroup>
+    </PicklistGroup>,
   );
 
   screen.getByTestId("picklist-group-button").focus();
@@ -222,7 +222,7 @@ test("when an 'add' button is focused, it should change the background colour of
   expect(screen.getAllByRole("listitem")[0]).toHaveStyleRule(
     "background",
     "var(--colorsActionMajor600)",
-    { modifier: `${StyledButton}` }
+    { modifier: `${StyledButton}` },
   );
 
   await user.tab();
@@ -230,7 +230,7 @@ test("when an 'add' button is focused, it should change the background colour of
   expect(screen.getAllByRole("listitem")[0]).not.toHaveStyleRule(
     "background",
     "var(--colorsActionMajor600)",
-    { modifier: `${StyledButton}` }
+    { modifier: `${StyledButton}` },
   );
 });
 
@@ -241,7 +241,7 @@ test("when a 'remove' button is focused, it should change the background colour 
       <PicklistItem type="remove" onChange={() => {}} item={1}>
         Item content
       </PicklistItem>
-    </PicklistGroup>
+    </PicklistGroup>,
   );
 
   screen.getByTestId("picklist-group-button").focus();
@@ -249,7 +249,7 @@ test("when a 'remove' button is focused, it should change the background colour 
   expect(screen.getAllByRole("listitem")[0]).toHaveStyleRule(
     "background",
     "var(--colorsSemanticNegative600)",
-    { modifier: `${StyledButton}` }
+    { modifier: `${StyledButton}` },
   );
 
   await user.tab();
@@ -257,7 +257,7 @@ test("when a 'remove' button is focused, it should change the background colour 
   expect(screen.getAllByRole("listitem")[0]).not.toHaveStyleRule(
     "background",
     "var(--colorsSemanticNegative600)",
-    { modifier: `${StyledButton}` }
+    { modifier: `${StyledButton}` },
   );
 });
 
@@ -270,7 +270,7 @@ test("no error is thrown when incorrect children are provided", () => {
         <PicklistGroup title="Title" onChange={() => {}} type="add">
           invalid
         </PicklistGroup>
-      </FocusContext.Provider>
+      </FocusContext.Provider>,
     );
   }).not.toThrow();
 });
@@ -290,7 +290,7 @@ it.each([
     expect(setElementToFocus).toHaveBeenCalledWith(
       itemIndex,
       listIndex,
-      groupIndex
+      groupIndex,
     );
-  }
+  },
 );

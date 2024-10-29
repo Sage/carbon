@@ -60,69 +60,57 @@ const keysToPress = [
 const destructive = "rgb(162, 44, 59)";
 const transparent = "rgba(0, 0, 0, 0)";
 
-test.describe(
-  "check Focus Outline & Border Radius for Button Minor Component",
-  () => {
-    test("should have the expected styling when the focusRedesignOptOut is false", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ButtonMinorCustom />);
+test.describe("check Focus Outline & Border Radius for Button Minor Component", () => {
+  test("should have the expected styling when the focusRedesignOptOut is false", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ButtonMinorCustom />);
 
-      const outlined = buttonMinorComponent(page, 0).nth(0);
-      await outlined.focus();
-      await expect(outlined).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
-      );
-      await expect(outlined).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+    const outlined = buttonMinorComponent(page, 0).nth(0);
+    await outlined.focus();
+    await expect(outlined).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
+    await expect(outlined).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
+  });
+
+  test("should have the expected styling when the focusRedesignOptOut is true", async ({
+    mount,
+    page,
+  }) => {
+    await mount<HooksConfig>(<ButtonMinorCustom />, {
+      hooksConfig: {
+        focusRedesignOptOut: true,
+      },
     });
 
-    test("should have the expected styling when the focusRedesignOptOut is true", async ({
-      mount,
-      page,
-    }) => {
-      await mount<HooksConfig>(<ButtonMinorCustom />, {
-        hooksConfig: {
-          focusRedesignOptOut: true,
-        },
-      });
+    const outlined = buttonMinorComponent(page, 0).nth(0);
+    await outlined.focus();
+    await expect(outlined).toHaveCSS("outline", "rgb(255, 188, 25) solid 3px");
+  });
 
-      const outlined = buttonMinorComponent(page, 0).nth(0);
-      await outlined.focus();
-      await expect(outlined).toHaveCSS(
-        "outline",
-        "rgb(255, 188, 25) solid 3px"
-      );
+  test("should have the expected styling when roundedCornersOptOut is false", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ButtonMinor>Foo</ButtonMinor>);
+
+    await expect(buttonMinorComponent(page)).toHaveCSS("border-radius", "4px");
+  });
+
+  test("should have the expected styling when roundedCornersOptOut is true", async ({
+    mount,
+    page,
+  }) => {
+    await mount<HooksConfig>(<ButtonMinor>Foo</ButtonMinor>, {
+      hooksConfig: { roundedCornersOptOut: true },
     });
 
-    test("should have the expected styling when roundedCornersOptOut is false", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ButtonMinor>Foo</ButtonMinor>);
-
-      await expect(buttonMinorComponent(page)).toHaveCSS(
-        "border-radius",
-        "4px"
-      );
-    });
-
-    test("should have the expected styling when roundedCornersOptOut is true", async ({
-      mount,
-      page,
-    }) => {
-      await mount<HooksConfig>(<ButtonMinor>Foo</ButtonMinor>, {
-        hooksConfig: { roundedCornersOptOut: true },
-      });
-
-      await expect(buttonMinorComponent(page)).toHaveCSS(
-        `border-radius`,
-        "0px"
-      );
-    });
-  }
-);
+    await expect(buttonMinorComponent(page)).toHaveCSS(`border-radius`, "0px");
+  });
+});
 
 test.describe("Check props for Button Minor component", () => {
   test("should render Button Minor with aria-label prop", async ({
@@ -133,7 +121,7 @@ test.describe("Check props for Button Minor component", () => {
 
     await expect(buttonMinorComponent(page, 0)).toHaveAttribute(
       "aria-label",
-      "playwright-aria"
+      "playwright-aria",
     );
   });
 
@@ -156,11 +144,11 @@ test.describe("Check props for Button Minor component", () => {
       await mount(
         <ButtonMinor size="large" subtext={subtext}>
           Title
-        </ButtonMinor>
+        </ButtonMinor>,
       );
 
       await expect(
-        buttonMinorComponent(page, 0).locator("span").locator("span").nth(1)
+        buttonMinorComponent(page, 0).locator("span").locator("span").nth(1),
       ).toHaveText(subtext);
     });
   });
@@ -197,7 +185,7 @@ test.describe("Check props for Button Minor component", () => {
           iconType="bin"
           iconTooltipMessage={tooltipMessage}
           m="100px"
-        />
+        />,
       );
       await page.getByRole("button").locator(ICON).hover({ force: true });
       await expect(tooltipPreview(page)).toHaveText(tooltipMessage);
@@ -214,11 +202,13 @@ test.describe("Check props for Button Minor component", () => {
     await expect(icon(page)).toHaveCSS("position", "absolute");
   });
 
-  ([
-    ["small", 32],
-    ["medium", 40],
-    ["large", 48],
-  ] as [ButtonMinorProps["size"], number][]).forEach(([size, minHeight]) => {
+  (
+    [
+      ["small", 32],
+      ["medium", 40],
+      ["large", 48],
+    ] as [ButtonMinorProps["size"], number][]
+  ).forEach(([size, minHeight]) => {
     test(`should render Button Minor in ${size} size`, async ({
       mount,
       page,
@@ -227,28 +217,28 @@ test.describe("Check props for Button Minor component", () => {
 
       await expect(buttonMinorComponent(page, 0)).toHaveCSS(
         "min-height",
-        `${minHeight}px`
+        `${minHeight}px`,
       );
     });
   });
 
-  ([
-    [BUTTON_ICON_POSITIONS[0], "right"],
-    [BUTTON_ICON_POSITIONS[1], "left"],
-  ] as [ButtonMinorProps["iconPosition"], string][]).forEach(
-    ([iconPosition, margin]) => {
-      test(`should set position to ${iconPosition} for icon in a button`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <ButtonMinorCustom iconType="add" iconPosition={iconPosition} />
-        );
+  (
+    [
+      [BUTTON_ICON_POSITIONS[0], "right"],
+      [BUTTON_ICON_POSITIONS[1], "left"],
+    ] as [ButtonMinorProps["iconPosition"], string][]
+  ).forEach(([iconPosition, margin]) => {
+    test(`should set position to ${iconPosition} for icon in a button`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <ButtonMinorCustom iconType="add" iconPosition={iconPosition} />,
+      );
 
-        await expect(icon(page)).toHaveCSS(`margin-${margin}`, "8px");
-      });
-    }
-  );
+      await expect(icon(page)).toHaveCSS(`margin-${margin}`, "8px");
+    });
+  });
 
   test("should render Button Minor with full width", async ({
     mount,
@@ -259,7 +249,7 @@ test.describe("Check props for Button Minor component", () => {
     await assertCssValueIsApproximately(
       buttonMinorComponent(page, 0),
       "width",
-      1365
+      1365,
     );
   });
 
@@ -268,34 +258,34 @@ test.describe("Check props for Button Minor component", () => {
 
     await expect(buttonMinorComponent(page, 0)).toHaveAttribute(
       "href",
-      "https://carbon.sage.com/"
+      "https://carbon.sage.com/",
     );
   });
 
-  ([
-    [true, "white-space"],
-    [false, "flex-wrap"],
-  ] as [ButtonMinorProps["noWrap"], string][]).forEach(
-    ([booleanState, cssValue]) => {
-      test(`should render the Button Minor text with noWrap prop set to ${booleanState}`, async ({
-        mount,
-        page,
-      }) => {
-        const assertion = booleanState ? "nowrap" : "wrap";
-        await mount(
-          <ButtonMinor noWrap={Boolean(booleanState)}>
-            {" "}
-            Long long long long long text{" "}
-          </ButtonMinor>
-        );
+  (
+    [
+      [true, "white-space"],
+      [false, "flex-wrap"],
+    ] as [ButtonMinorProps["noWrap"], string][]
+  ).forEach(([booleanState, cssValue]) => {
+    test(`should render the Button Minor text with noWrap prop set to ${booleanState}`, async ({
+      mount,
+      page,
+    }) => {
+      const assertion = booleanState ? "nowrap" : "wrap";
+      await mount(
+        <ButtonMinor noWrap={Boolean(booleanState)}>
+          {" "}
+          Long long long long long text{" "}
+        </ButtonMinor>,
+      );
 
-        await expect(buttonMinorComponent(page, 0)).toHaveCSS(
-          cssValue,
-          assertion
-        );
-      });
-    }
-  );
+      await expect(buttonMinorComponent(page, 0)).toHaveCSS(
+        cssValue,
+        assertion,
+      );
+    });
+  });
 
   ([...buttonPositions] as [string, number][]).forEach(([position, index]) => {
     test(`should check Button Minor is disabled for the ${position} button`, async ({
@@ -319,37 +309,35 @@ test.describe("Check props for Button Minor component", () => {
     });
   });
 
-  ([
-    ["1st", "primary", 0],
-    ["2nd", "secondary", 1],
-    ["3rd", "tertiary", 2],
-  ] as [string, ButtonMinorProps["buttonType"], number][]).forEach(
-    ([position, type, index]) => {
-      test(`should check Button Minor is destructive for the ${position} button when buttonType is ${type}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <ButtonMinorDifferentTypes buttonType={type} destructive />
-        );
+  (
+    [
+      ["1st", "primary", 0],
+      ["2nd", "secondary", 1],
+      ["3rd", "tertiary", 2],
+    ] as [string, ButtonMinorProps["buttonType"], number][]
+  ).forEach(([position, type, index]) => {
+    test(`should check Button Minor is destructive for the ${position} button when buttonType is ${type}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ButtonMinorDifferentTypes buttonType={type} destructive />);
 
-        await buttonMinorComponent(page, index).hover({ force: true });
+      await buttonMinorComponent(page, index).hover({ force: true });
 
-        await expect(buttonMinorComponent(page, index)).toHaveCSS(
-          "background",
-          `${destructive} none repeat scroll 0% 0% / auto padding-box border-box`
-        );
-        await expect(buttonMinorComponent(page, index)).toHaveCSS(
-          "border-color",
-          transparent
-        );
-        await expect(buttonMinorComponent(page, index)).toHaveCSS(
-          "color",
-          "rgb(255, 255, 255)"
-        );
-      });
-    }
-  );
+      await expect(buttonMinorComponent(page, index)).toHaveCSS(
+        "background",
+        `${destructive} none repeat scroll 0% 0% / auto padding-box border-box`,
+      );
+      await expect(buttonMinorComponent(page, index)).toHaveCSS(
+        "border-color",
+        transparent,
+      );
+      await expect(buttonMinorComponent(page, index)).toHaveCSS(
+        "color",
+        "rgb(255, 255, 255)",
+      );
+    });
+  });
 
   ["_blank", "_self", "_parent", "_top"].forEach((target) => {
     test(`should render Button Minor with target prop set to ${target}`, async ({
@@ -360,7 +348,7 @@ test.describe("Check props for Button Minor component", () => {
 
       await expect(buttonMinorComponent(page, 0)).toHaveAttribute(
         "target",
-        target
+        target,
       );
     });
   });
@@ -408,7 +396,7 @@ test.describe("check events for Button Minor component", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const button = buttonMinorComponent(page, 0);
@@ -426,7 +414,7 @@ test.describe("check events for Button Minor component", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const elementToFocus = buttonMinorComponent(page, 0);
@@ -447,7 +435,7 @@ test.describe("check events for Button Minor component", () => {
           onKeyDown={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
       const elementToFocus = buttonMinorComponent(page, 0);
       await elementToFocus.focus();
@@ -466,7 +454,7 @@ test.describe("check events for Button Minor component", () => {
         onFocus={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const elementToFocus = buttonMinorComponent(page, 0);

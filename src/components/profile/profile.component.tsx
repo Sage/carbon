@@ -85,7 +85,7 @@ export const Profile = ({
     useOfNoNameWarnTriggered = true;
     console.warn(
       "[WARNING] The `email` or `text` prop should not be used without the `name` prop in `Profile`." +
-        " Please use the `name` prop as well as `email` or `text`."
+        " Please use the `name` prop as well as `email` or `text`.",
     );
   }
 

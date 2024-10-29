@@ -119,14 +119,14 @@ const SelectTextbox = React.forwardRef(
       onKeyDown,
       ...restProps
     }: SelectTextboxProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const l = useLocale();
     const placeholder = customPlaceholder || l.select.placeholder();
     const showPlaceholder = !disabled && !readOnly && !formattedValue;
 
     function handleTextboxClick(
-      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) {
       onClick?.(event as React.MouseEvent<HTMLInputElement>);
     }
@@ -208,7 +208,7 @@ const SelectTextbox = React.forwardRef(
         </Textbox>
       </SelectTextboxContext.Provider>
     );
-  }
+  },
 );
 
 SelectTextbox.displayName = "SelectTextbox";

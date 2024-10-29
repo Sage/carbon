@@ -88,7 +88,7 @@ export const SplitButton = ({
   } = useChildButtons(toggleButton, CONTENT_WIDTH_RATIO);
 
   const handleMainClick = (
-    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
     // ensure button is focused when clicked (Safari)
     mainButtonRef.current?.focus();

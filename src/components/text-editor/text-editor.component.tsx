@@ -111,7 +111,7 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
       isOptional,
       ...rest
     }: TextEditorProps,
-    ref
+    ref,
   ) => {
     const { validationRedesignOptIn } = useContext(NewValidationContext);
     const [isFocused, setIsFocused] = useState(false);
@@ -142,7 +142,7 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
     const [characterCount, visuallyHiddenHintId] = useCharacterCount(
       getContent(value).getPlainText(""),
       characterLimit,
-      isFocused ? "polite" : "off"
+      isFocused ? "polite" : "off",
     );
 
     const combinedAriaDescribedBy = [
@@ -156,7 +156,7 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
     if (rows && (typeof rows !== "number" || rows < 2)) {
       // eslint-disable-next-line no-console
       console.warn(
-        `Prop rows must be a number value that is 2 or greater to override the min-height of the \`${TextEditor.displayName}\``
+        `Prop rows must be a number value that is 2 or greater to override the min-height of the \`${TextEditor.displayName}\``,
       );
     }
 
@@ -275,12 +275,12 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
         const newContentState = Modifier.insertText(
           getContent(value),
           value.getSelection(),
-          pastedText.substring(0, characterLimit - contentLength)
+          pastedText.substring(0, characterLimit - contentLength),
         );
         const newState = EditorState.push(
           value,
           newContentState,
-          "insert-fragment"
+          "insert-fragment",
         );
 
         onChange(newState);
@@ -334,14 +334,14 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
         }
         setIsFocused(focusValue);
       },
-      [editor]
+      [editor],
     );
 
     const handleInlineStyleChange = (
       ev:
         | React.MouseEvent<HTMLButtonElement>
         | React.KeyboardEvent<HTMLButtonElement>,
-      style: InlineStyleType
+      style: InlineStyleType,
     ) => {
       ev.preventDefault();
       setActiveInlines({
@@ -356,7 +356,7 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
       ev:
         | React.MouseEvent<HTMLButtonElement, MouseEvent>
         | React.KeyboardEvent<HTMLButtonElement>,
-      newBlockType: BlockType
+      newBlockType: BlockType,
     ) => {
       ev.preventDefault();
       handleEditorFocus(true);
@@ -401,7 +401,7 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
 
     const handlePreviewClose = (
       onClose: (url: string) => void,
-      url?: string
+      url?: string,
     ) => {
       // istanbul ignore else
       if (url) onClose(url);
@@ -415,7 +415,7 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
     useEffect(() => {
       if (required) {
         const editableElement = wrapper.current?.querySelector(
-          "div[contenteditable='true']"
+          "div[contenteditable='true']",
         );
         editableElement?.setAttribute("required", "");
         editableElement?.setAttribute("aria-required", "true");
@@ -483,13 +483,13 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
                   handleBeforeInput={
                     handleBeforeInput as (
                       chars: string,
-                      state: EditorState
+                      state: EditorState,
                     ) => DraftHandleValue
                   }
                   handlePastedText={handlePastedText}
                   handleKeyCommand={
                     handleKeyCommand as (
-                      command: EditorCommand
+                      command: EditorCommand,
                     ) => DraftHandleValue
                   }
                   ariaLabelledBy={labelId}
@@ -528,7 +528,7 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
         </StyledEditorWrapper>
       </EditorContext.Provider>
     );
-  }
+  },
 );
 
 export const TextEditorState = EditorState;

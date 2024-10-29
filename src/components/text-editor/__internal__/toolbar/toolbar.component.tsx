@@ -22,14 +22,14 @@ export interface ToolbarProps {
     ev:
       | React.KeyboardEvent<HTMLButtonElement>
       | React.MouseEvent<HTMLButtonElement>,
-    inlineType: InlineStyleType
+    inlineType: InlineStyleType,
   ) => void;
   /** Callback to handle setting the block styles */
   setBlockStyle: (
     ev:
       | React.KeyboardEvent<HTMLButtonElement>
       | React.MouseEvent<HTMLButtonElement>,
-    blockType: BlockType
+    blockType: BlockType,
   ) => void;
   /** Additional elements to be rendered in the Toolbar, e.g. Save and Cancel Button */
   toolbarElements?: React.ReactNode;
@@ -60,11 +60,11 @@ const Toolbar = ({
       ev:
         | React.MouseEvent<HTMLButtonElement>
         | React.KeyboardEvent<HTMLButtonElement>,
-      inlineType: InlineStyleType
+      inlineType: InlineStyleType,
     ) => {
       setInlineStyle(ev, inlineType);
     },
-    [setInlineStyle]
+    [setInlineStyle],
   );
 
   const handleBlockType = useCallback(
@@ -72,17 +72,17 @@ const Toolbar = ({
       ev:
         | React.MouseEvent<HTMLButtonElement>
         | React.KeyboardEvent<HTMLButtonElement>,
-      blockType: BlockType
+      blockType: BlockType,
     ) => {
       setBlockStyle(ev, blockType);
     },
-    [setBlockStyle]
+    [setBlockStyle],
   );
 
   const handleKeyDown = useCallback(
     (
       ev: React.KeyboardEvent<HTMLButtonElement>,
-      type: InlineStyleType | BlockType
+      type: InlineStyleType | BlockType,
     ) => {
       if (Events.isTabKey(ev)) {
         setFocusIndex(null);
@@ -115,7 +115,7 @@ const Toolbar = ({
         setTabbable(false);
       }
     },
-    [focusIndex, handleBlockType, handleInlineStyleChange]
+    [focusIndex, handleBlockType, handleInlineStyleChange],
   );
 
   useEffect(() => {

@@ -33,7 +33,7 @@ test.each([
 
     const input = screen.getByRole("textbox");
     expect(input).toHaveAttribute("enterKeyHint", keyHint);
-  }
+  },
 );
 
 test("should invoke the `inputRef` callback from the input context provider, when the input is rendered", () => {
@@ -41,7 +41,7 @@ test("should invoke the `inputRef` callback from the input context provider, whe
   render(
     <InputContext.Provider value={{ inputRef }}>
       <Input />
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
 
   expect(inputRef).toHaveBeenCalled();
@@ -62,7 +62,7 @@ test("triggers a passed function via the `onFocus` prop from the input context p
   render(
     <InputContext.Provider value={{ onFocus: onFocusMock }}>
       <Input />
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
 
   const input = screen.getByRole("textbox");
@@ -89,7 +89,7 @@ test("triggers a passed function via the `onBlur` prop from the input context pr
   render(
     <InputContext.Provider value={{ onBlur: onBlurMock }}>
       <Input />
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
 
   const user = userEvent.setup();

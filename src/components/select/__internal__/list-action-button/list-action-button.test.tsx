@@ -10,7 +10,7 @@ test("button element can be accessed via a forwarded ref", async () => {
   render(<ListActionButton ref={ref} />);
 
   expect(ref).toHaveBeenCalledWith(
-    screen.getByRole("button", { name: "Add New Item" })
+    screen.getByRole("button", { name: "Add New Item" }),
   );
 });
 
@@ -26,7 +26,7 @@ test("calls onListAction when custom button is clicked", async () => {
     <ListActionButton
       listActionButton={<Button>Test Button</Button>}
       onListAction={onListAction}
-    />
+    />,
   );
 
   await user.click(screen.getByRole("button", { name: "Test Button" }));

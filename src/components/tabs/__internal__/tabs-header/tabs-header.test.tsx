@@ -10,7 +10,7 @@ test("renders children correctly", () => {
     <TabsHeader>
       <TabTitle title="title-1" onClick={() => {}} onKeyDown={() => {}} />
       <TabTitle title="title-2" onClick={() => {}} onKeyDown={() => {}} />
-    </TabsHeader>
+    </TabsHeader>,
   );
 
   expect(screen.getAllByRole("tab")).toHaveLength(2);
@@ -23,7 +23,7 @@ test("accepts a `role` prop", () => {
     <TabsHeader role="tablist">
       <TabTitle title="title-1" onClick={() => {}} onKeyDown={() => {}} />
       <TabTitle title="title-2" onClick={() => {}} onKeyDown={() => {}} />
-    </TabsHeader>
+    </TabsHeader>,
   );
 
   expect(screen.getByRole("tablist")).toBeVisible();
@@ -36,7 +36,7 @@ test("renders before element with correct opacity when scroll position is not at
     <TabsHeader role="tablist">
       <TabTitle title="title-1" onClick={() => {}} onKeyDown={() => {}} />
       <TabTitle title="title-2" onClick={() => {}} onKeyDown={() => {}} />
-    </TabsHeader>
+    </TabsHeader>,
   );
 
   const mockScrollValues = {
@@ -65,7 +65,7 @@ test("applies proper styles when the `extendedLine` prop is `false`", () => {
     <TabsHeader role="tablist" extendedLine={false}>
       <TabTitle title="title-1" onClick={() => {}} onKeyDown={() => {}} />
       <TabTitle title="title-2" onClick={() => {}} onKeyDown={() => {}} />
-    </TabsHeader>
+    </TabsHeader>,
   );
 
   expect(screen.getByRole("tablist")).toHaveStyle({ width: "fit-content" });
@@ -77,7 +77,7 @@ test("applies proper styles when the `align` prop is `right`", () => {
     <TabsHeader role="tablist" align="right">
       <TabTitle title="title-1" onClick={() => {}} onKeyDown={() => {}} />
       <TabTitle title="title-2" onClick={() => {}} onKeyDown={() => {}} />
-    </TabsHeader>
+    </TabsHeader>,
   );
 
   expect(screen.getByRole("tablist")).toHaveStyle({
@@ -92,7 +92,7 @@ test("applies proper styles when the `noRightBorder` prop is `true` and `positio
     <TabsHeader role="tablist" noRightBorder position="left">
       <TabTitle title="title-1" onClick={() => {}} onKeyDown={() => {}} />
       <TabTitle title="title-2" onClick={() => {}} onKeyDown={() => {}} />
-    </TabsHeader>
+    </TabsHeader>,
   );
 
   expect(screen.getByRole("tablist")).toHaveStyle({
@@ -106,7 +106,7 @@ test("applies proper styles when the `align` prop is `right` and `position` is `
     <TabsHeader role="tablist" align="right" position="left">
       <TabTitle title="title-1" onClick={() => {}} onKeyDown={() => {}} />
       <TabTitle title="title-2" onClick={() => {}} onKeyDown={() => {}} />
-    </TabsHeader>
+    </TabsHeader>,
   );
 
   expect(screen.getByRole("tablist")).toHaveStyle({

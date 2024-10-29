@@ -1,6 +1,6 @@
 export default (
   array: HTMLElement[],
-  propertyName: "offsetWidth" | "offsetHeight"
+  propertyName: "offsetWidth" | "offsetHeight",
 ) =>
   array.reduce((acc: Record<string, number>, _, index) => {
     const currentId = array[index].getAttribute("id");

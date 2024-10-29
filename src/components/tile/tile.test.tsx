@@ -12,7 +12,7 @@ import { TILE_HIGHLIGHT_VARIANTS } from "./tile.config";
 testStyledSystemSpacingRTL(
   (props) => <Tile data-role="tile" {...props} />,
   () => screen.getByTestId("tile"),
-  { p: 3 }
+  { p: 3 },
 );
 
 testStyledSystemWidthRTL(
@@ -21,12 +21,12 @@ testStyledSystemWidthRTL(
       Test
     </Tile>
   ),
-  () => screen.getByTestId("tile")
+  () => screen.getByTestId("tile"),
 );
 
 testStyledSystemHeightRTL(
   (props) => <Tile data-role="tile" {...props} />,
-  () => screen.getByTestId("tile")
+  () => screen.getByTestId("tile"),
 );
 
 test("renders only one TileContent when a child element returns null", () => {
@@ -50,7 +50,7 @@ test("has proper data attributes applied to elements", () => {
   render(
     <Tile data-element="foo" data-role="bar">
       content
-    </Tile>
+    </Tile>,
   );
 
   const styledTile = screen.getByTestId("bar");
@@ -63,12 +63,12 @@ test.each(TILE_HIGHLIGHT_VARIANTS)(
   (highlightVariant) => {
     render(<Tile highlightVariant={highlightVariant} />);
     const highlightElement = screen.getByTestId(
-      `tile-${highlightVariant}-highlight`
+      `tile-${highlightVariant}-highlight`,
     );
 
     expect(highlightElement).toBeVisible();
     expect(highlightElement).toHaveAttribute("aria-hidden");
-  }
+  },
 );
 
 /* tests for coverage */
@@ -85,16 +85,16 @@ test.each<[TileProps["borderVariant"], string]>([
       <Tile borderVariant={borderVariant} data-role="tile">
         <TileContent>Child 1</TileContent>
         <TileContent>Child 2</TileContent>
-      </Tile>
+      </Tile>,
     );
 
     const tileElement = screen.getByTestId("tile");
 
     expect(tileElement).toHaveStyleRule(
       "border",
-      `var(--borderWidth100) solid var(--${borderVariantToken})`
+      `var(--borderWidth100) solid var(--${borderVariantToken})`,
     );
-  }
+  },
 );
 
 test('renders with expected background and border styles when variant is "active"', () => {
@@ -102,7 +102,7 @@ test('renders with expected background and border styles when variant is "active
     <Tile variant="active" data-role="tile">
       <TileContent>Child 1</TileContent>
       <TileContent>Child 2</TileContent>
-    </Tile>
+    </Tile>,
   );
 
   const tileElement = screen.getByTestId("tile");
@@ -118,18 +118,18 @@ test('renders with expected background and border styles when variant is "grey"'
     <Tile variant="grey" data-role="tile">
       <TileContent>Child 1</TileContent>
       <TileContent>Child 2</TileContent>
-    </Tile>
+    </Tile>,
   );
 
   const tileElement = screen.getByTestId("tile");
 
   expect(tileElement).toHaveStyleRule(
     "background-color",
-    "var(--colorsUtilityMajor025)"
+    "var(--colorsUtilityMajor025)",
   );
   expect(tileElement).toHaveStyleRule(
     "border",
-    "var(--borderWidth100) solid var(--colorsUtilityMajor200)"
+    "var(--borderWidth100) solid var(--colorsUtilityMajor200)",
   );
 });
 
@@ -144,12 +144,12 @@ test.each([
       <Tile roundness={roundness} data-role="tile">
         <TileContent>Child 1</TileContent>
         <TileContent>Child 2</TileContent>
-      </Tile>
+      </Tile>,
     );
 
     const tileElement = screen.getByTestId("tile");
     expect(tileElement).toHaveStyleRule("border-radius", expectedBorderRadius);
-  }
+  },
 );
 
 test("sets the correct flex-direction on the main wrapper when the orientation is horizontal", () => {
@@ -157,7 +157,7 @@ test("sets the correct flex-direction on the main wrapper when the orientation i
     <Tile orientation="horizontal" data-role="tile">
       <TileContent>Child 1</TileContent>
       <TileContent>Child 2</TileContent>
-    </Tile>
+    </Tile>,
   );
 
   const tileElement = screen.getByTestId("tile");
@@ -170,7 +170,7 @@ test("sets the correct flex-direction on the main wrapper when the orientation i
     <Tile orientation="vertical" data-role="tile">
       <TileContent>Child 1</TileContent>
       <TileContent>Child 2</TileContent>
-    </Tile>
+    </Tile>,
   );
 
   const tileElement = screen.getByTestId("tile");
@@ -183,7 +183,7 @@ test('renders a transparent background when variant prop is "transparent"', () =
     <Tile variant="transparent" data-role="tile">
       <TileContent>Child 1</TileContent>
       <TileContent>Child 2</TileContent>
-    </Tile>
+    </Tile>,
   );
 
   const tileElement = screen.getByTestId("tile");

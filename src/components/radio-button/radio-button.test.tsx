@@ -17,7 +17,7 @@ test("calls `onClick` when provided and the radio button is clicked", async () =
   const user = userEvent.setup();
   const onClick = jest.fn();
   render(
-    <RadioButton value="radio1" label="Radio Button 1" onClick={onClick} />
+    <RadioButton value="radio1" label="Radio Button 1" onClick={onClick} />,
   );
 
   const radioButton = screen.getByRole("radio");
@@ -31,7 +31,7 @@ test("calls `onChange` when provided and the radio button is clicked", async () 
   const user = userEvent.setup();
   const onChange = jest.fn();
   render(
-    <RadioButton value="radio1" label="Radio Button 1" onChange={onChange} />
+    <RadioButton value="radio1" label="Radio Button 1" onChange={onChange} />,
   );
 
   const radioButton = screen.getByRole("radio");
@@ -45,7 +45,7 @@ test("calls `onFocus` when provided and the radio button is focused", async () =
   const user = userEvent.setup();
   const onFocus = jest.fn();
   render(
-    <RadioButton value="radio1" label="Radio Button 1" onFocus={onFocus} />
+    <RadioButton value="radio1" label="Radio Button 1" onFocus={onFocus} />,
   );
 
   const radioButton = screen.getByRole("radio", { name: "Radio Button 1" });
@@ -74,7 +74,7 @@ test("calls `onMouseEnter` when provided and the radio button is hovered", async
       value="radio1"
       label="Radio Button 1"
       onMouseEnter={onMouseEnter}
-    />
+    />,
   );
 
   const radioButton = screen.getByRole("radio");
@@ -92,7 +92,7 @@ test("calls `onMouseLeave` when provided and the radio button is no longer hover
       value="radio1"
       label="Radio Button 1"
       onMouseLeave={onMouseLeave}
-    />
+    />,
   );
 
   const radioButton = screen.getByRole("radio");
@@ -121,11 +121,11 @@ test("throws an error if children are passed", () => {
     render(
       <RadioButton value="radio1" label="Radio Button 1">
         <div>child</div>
-      </RadioButton>
+      </RadioButton>,
     );
   }).toThrow(
     "This component is meant to be used as a self-closing tag. " +
-      "You should probably use the label prop instead."
+      "You should probably use the label prop instead.",
   );
 
   consoleError.mockRestore();
@@ -150,7 +150,7 @@ test("renders checked when `checked` prop is true", () => {
 test("renders with a help tooltip if `labelHelp` is provided", async () => {
   const user = userEvent.setup();
   render(
-    <RadioButton value="radio1" label="Radio Button 1" labelHelp="labelHelp" />
+    <RadioButton value="radio1" label="Radio Button 1" labelHelp="labelHelp" />,
   );
 
   const helpIcon = screen.getByRole("button", { name: "help" });
@@ -168,7 +168,7 @@ test("sets the aria-label of the help icon to the provided `helpAriaLabel`", () 
       label="Radio Button 1"
       labelHelp="labelHelp"
       helpAriaLabel="helpAriaLabel"
-    />
+    />,
   );
 
   const helpIcon = screen.getByRole("button", { name: "helpAriaLabel" });
@@ -197,7 +197,7 @@ test("renders with expected styles when `reverse` prop is true", () => {
       label="Radio Button 1"
       fieldHelp="fieldHelp"
       reverse
-    />
+    />,
   );
 
   expect(screen.getByText("fieldHelp")).toHaveStyle({
@@ -217,7 +217,7 @@ test("renders `fieldHelp` with expected styles when `size` is 'large' and `rever
       size="large"
       fieldHelp="fieldHelp"
       reverse
-    />
+    />,
   );
 
   expect(screen.getByText("fieldHelp")).toHaveStyle({

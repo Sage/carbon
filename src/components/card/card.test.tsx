@@ -6,7 +6,7 @@ test("renders with correct data attributes", () => {
   render(
     <Card data-element="foo" data-role="bar">
       <CardRow>Row</CardRow>
-    </Card>
+    </Card>,
   );
 
   const card = screen.getByTestId("bar");
@@ -21,7 +21,7 @@ test("child content is rendered inside the card", () => {
   render(
     <Card data-element="foo" data-role="bar">
       {text}
-    </Card>
+    </Card>,
   );
 
   const card = screen.getByTestId("bar");
@@ -35,7 +35,7 @@ test.each<CardProps["roundness"]>(["default", "large"])(
     render(
       <Card roundness={roundness} data-role="card">
         Content
-      </Card>
+      </Card>,
     );
     const borderRadiusValue = roundness === "default" ? "100" : "200";
     const radius = `var(--borderRadius${borderRadiusValue})`;
@@ -43,7 +43,7 @@ test.each<CardProps["roundness"]>(["default", "large"])(
     const cardElement = screen.getByTestId("card");
 
     expect(cardElement).toHaveStyleRule("border-radius", radius);
-  }
+  },
 );
 
 test("when width prop is not passed, component width fills containing element", () => {
@@ -63,13 +63,13 @@ test.each([
     render(
       <Card width={width} data-role="card">
         Foobar
-      </Card>
+      </Card>,
     );
 
     const cardElement = screen.getByTestId("card");
 
     expect(cardElement).toHaveStyle({ width });
-  }
+  },
 );
 
 test("underlying element for Card should have data-element and data-role attributes when provided", () => {
@@ -79,7 +79,7 @@ test("underlying element for Card should have data-element and data-role attribu
   render(
     <Card data-element={dataElement} data-role={dataRole}>
       Foobar
-    </Card>
+    </Card>,
   );
 
   const cardElement = screen.getByTestId(dataRole);
@@ -102,19 +102,19 @@ test.each([
       <Card {...props}>
         <CardRow>foo</CardRow>
         <CardFooter>foo</CardFooter>
-      </Card>
+      </Card>,
     );
 
     expect(consoleSpy).toHaveBeenCalled();
     consoleSpy.mockReset();
-  }
+  },
 );
 
 test("when draggable prop is true cursor changes to move icon when Card is hovered over", () => {
   render(
     <Card draggable data-role="card">
       Content
-    </Card>
+    </Card>,
   );
 
   const cardElement = screen.getByTestId("card");

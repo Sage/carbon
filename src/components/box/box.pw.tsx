@@ -208,7 +208,7 @@ test.describe("should render Box component", () => {
       await assertCssValueIsApproximately(
         boxElement,
         "height",
-        parseInt(height)
+        parseInt(height),
       );
     });
   });
@@ -224,7 +224,7 @@ test.describe("should render Box component", () => {
       await assertCssValueIsApproximately(
         boxElement,
         "height",
-        parseInt(height)
+        parseInt(height),
       );
     });
   });
@@ -239,12 +239,12 @@ test.describe("should render Box component", () => {
       await assertCssValueIsApproximately(
         boxElement,
         "width",
-        parseInt(pixels)
+        parseInt(pixels),
       );
       await assertCssValueIsApproximately(
         boxElement,
         "height",
-        parseInt(pixels)
+        parseInt(pixels),
       );
     });
   });
@@ -259,12 +259,12 @@ test.describe("should render Box component", () => {
       await assertCssValueIsApproximately(
         boxElement,
         "width",
-        parseInt(pixels)
+        parseInt(pixels),
       );
       await assertCssValueIsApproximately(
         boxElement,
         "height",
-        parseInt(pixels)
+        parseInt(pixels),
       );
     });
   });
@@ -277,7 +277,7 @@ test.describe("should render Box component", () => {
         await expect(boxElement).toHaveAttribute("display", display);
         await expect(boxElement).toHaveCSS("display", display);
       });
-    }
+    },
   );
 
   [
@@ -319,7 +319,7 @@ test.describe("should render Box component", () => {
         const boxElement = await getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("overflow-x", overflow);
       });
-    }
+    },
   );
 
   (["auto", "clip", "hidden", "scroll", "visible"] as const).forEach(
@@ -332,7 +332,7 @@ test.describe("should render Box component", () => {
         const boxElement = await getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("overflow-y", overflow);
       });
-    }
+    },
   );
 
   [
@@ -349,10 +349,12 @@ test.describe("should render Box component", () => {
     });
   });
 
-  ([
-    ["200px", 300],
-    ["400px", 400],
-  ] as [string, number][]).forEach(([width, actualWidth]) => {
+  (
+    [
+      ["200px", 300],
+      ["400px", 400],
+    ] as [string, number][]
+  ).forEach(([width, actualWidth]) => {
     test(`when minWidth prop is 300 and width prop is the string ${width}, the calculated width should be ${actualWidth}`, async ({
       mount,
       page,
@@ -391,10 +393,12 @@ test.describe("should render Box component", () => {
     });
   });
 
-  ([
-    ["400px", 400],
-    ["800px", 600],
-  ] as [string, number][]).forEach(([width, actualWidth]) => {
+  (
+    [
+      ["400px", 400],
+      ["800px", 600],
+    ] as [string, number][]
+  ).forEach(([width, actualWidth]) => {
     test(`when maxWidth prop is 600 and width prop is the string ${width}, the calculated width should be ${actualWidth}`, async ({
       mount,
       page,
@@ -433,10 +437,12 @@ test.describe("should render Box component", () => {
     });
   });
 
-  ([
-    ["400px", 600],
-    ["800px", 800],
-  ] as [string, number][]).forEach(([height, actualHeight]) => {
+  (
+    [
+      ["400px", 600],
+      ["800px", 800],
+    ] as [string, number][]
+  ).forEach(([height, actualHeight]) => {
     test(`when minHeight prop is 600 and height prop is the string ${height}, the calculated width should be ${actualHeight}`, async ({
       mount,
       page,
@@ -461,10 +467,12 @@ test.describe("should render Box component", () => {
     });
   });
 
-  ([
-    ["400px", 400],
-    ["800px", 600],
-  ] as [string, number][]).forEach(([height, actualHeight]) => {
+  (
+    [
+      ["400px", 400],
+      ["800px", 600],
+    ] as [string, number][]
+  ).forEach(([height, actualHeight]) => {
     test(`when maxHeight prop is 600 and height prop is the string ${height}, the calculated width should be ${actualHeight}`, async ({
       mount,
       page,
@@ -485,7 +493,7 @@ test.describe("should render Box component", () => {
         const boxElement = await getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("align-items", alignment);
       });
-    }
+    },
   );
 
   [
@@ -566,7 +574,7 @@ test.describe("should render Box component", () => {
         const boxElement = await getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("flex-direction", direction);
       });
-    }
+    },
   );
 
   ["auto", "content", "fit-content", "max-content", "min-content"].forEach(
@@ -576,14 +584,16 @@ test.describe("should render Box component", () => {
         const boxElement = await getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("flex-basis", flex);
       });
-    }
+    },
   );
 
-  ([
-    [10, "10"],
-    [50, "50"],
-    [100, "100"],
-  ] as [number, string][]).forEach(([value, growText]) => {
+  (
+    [
+      [10, "10"],
+      [50, "50"],
+      [100, "100"],
+    ] as [number, string][]
+  ).forEach(([value, growText]) => {
     test(`should verify flex grow is ${value}`, async ({ mount, page }) => {
       await mount(<BoxComponentMulti flex="auto" flexGrow={value} />);
       const boxElement = await getDataElementByValue(page, "box");
@@ -591,11 +601,13 @@ test.describe("should render Box component", () => {
     });
   });
 
-  ([
-    [10, "10"],
-    [50, "50"],
-    [100, "100"],
-  ] as [number, string][]).forEach(([value, shrinkText]) => {
+  (
+    [
+      [10, "10"],
+      [50, "50"],
+      [100, "100"],
+    ] as [number, string][]
+  ).forEach(([value, shrinkText]) => {
     test(`should verify flex shrink is ${value}`, async ({ mount, page }) => {
       await mount(<BoxComponentMulti flex="auto" flexShrink={value} />);
       const boxElement = await getDataElementByValue(page, "box");
@@ -610,7 +622,7 @@ test.describe("should render Box component", () => {
         const boxElement = await getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("flex-basis", basis);
       });
-    }
+    },
   );
 
   [
@@ -647,11 +659,13 @@ test.describe("should render Box component", () => {
     });
   });
 
-  ([
-    [10, "10"],
-    [50, "50"],
-    [100, "100"],
-  ] as [number, string][]).forEach(([value, orderText]) => {
+  (
+    [
+      [10, "10"],
+      [50, "50"],
+      [100, "100"],
+    ] as [number, string][]
+  ).forEach(([value, orderText]) => {
     test(`should verify order is ${value}`, async ({ mount, page }) => {
       await mount(<BoxComponentMulti order={value} />);
       const boxElement = await getDataElementByValue(page, "box");
@@ -667,10 +681,12 @@ test.describe("should render Box component", () => {
     });
   });
 
-  ([
-    ["light", "rgb(102, 132, 148) rgb(242, 245, 246)"],
-    ["dark", "rgb(153, 173, 183) rgb(51, 91, 112)"],
-  ] as const).forEach(([variant, scrollbarColor]) => {
+  (
+    [
+      ["light", "rgb(102, 132, 148) rgb(242, 245, 246)"],
+      ["dark", "rgb(153, 173, 183) rgb(51, 91, 112)"],
+    ] as const
+  ).forEach(([variant, scrollbarColor]) => {
     test(`scrollbar has correct colours when scrollVariant prop is ${variant}`, async ({
       mount,
       page,
@@ -682,7 +698,7 @@ test.describe("should render Box component", () => {
           overflow="auto"
           scrollVariant={variant}
           mr="20px"
-        />
+        />,
       );
       const box = page.getByText(/Supercalifrajilisticexpialidocious Word/);
       await expect(box).toHaveCSS("scrollbar-color", scrollbarColor);
@@ -699,7 +715,7 @@ test.describe("should render Box component", () => {
             right="0px"
             bottom="0px"
             position={value}
-          />
+          />,
         );
         const boxElement = await getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("top", "0px");
@@ -708,7 +724,7 @@ test.describe("should render Box component", () => {
         await expect(boxElement).toHaveCSS("left", "0px");
         await expect(boxElement).toHaveCSS("position", value);
       });
-    }
+    },
   );
 
   ([0, 1, 2, 3, 4, 5, 6, 7, 8, "20%", "20px"] as const).forEach((gap) => {
@@ -720,11 +736,11 @@ test.describe("should render Box component", () => {
       const boxElement = await getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS(
         "row-gap",
-        typeof gap === "number" ? `${gap * 8}px` : gap
+        typeof gap === "number" ? `${gap * 8}px` : gap,
       );
       await expect(boxElement).toHaveCSS(
         "column-gap",
-        typeof gap === "number" ? `${gap * 8}px` : gap
+        typeof gap === "number" ? `${gap * 8}px` : gap,
       );
     });
   });
@@ -738,7 +754,7 @@ test.describe("should render Box component", () => {
       const boxElement = await getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS(
         "row-gap",
-        typeof rowGap === "number" ? `${rowGap * 8}px` : rowGap
+        typeof rowGap === "number" ? `${rowGap * 8}px` : rowGap,
       );
       await expect(boxElement).toHaveCSS("column-gap", "64px");
     });
@@ -754,7 +770,7 @@ test.describe("should render Box component", () => {
       await expect(boxElement).toHaveCSS("row-gap", "64px");
       await expect(boxElement).toHaveCSS(
         "column-gap",
-        typeof columnGap === "number" ? `${columnGap * 8}px` : columnGap
+        typeof columnGap === "number" ? `${columnGap * 8}px` : columnGap,
       );
     });
   });
@@ -764,7 +780,7 @@ test.describe("should render Box component", () => {
     const boxElement = await getDataElementByValue(page, "box");
     await expect(boxElement).toHaveCSS(
       "box-shadow",
-      "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px"
+      "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px",
     );
   });
 });
@@ -851,22 +867,22 @@ test.describe("Accessibility tests for Box", () => {
   });
 });
 
-([
-  [undefined, "0px"],
-  ["borderRadius025", "2px"],
-  ["borderRadius050", "4px"],
-  ["borderRadius100", "8px"],
-  ["borderRadius200", "16px"],
-  ["borderRadius400", "32px"],
-] as [BoxProps["borderRadius"], string][]).forEach(
-  ([borderRadius, expected]) => {
-    test(`applies the expected border radius when ${borderRadius} passed to borderRadius prop`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Default borderRadius={borderRadius} />);
-      const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveCSS("border-radius", expected);
-    });
-  }
-);
+(
+  [
+    [undefined, "0px"],
+    ["borderRadius025", "2px"],
+    ["borderRadius050", "4px"],
+    ["borderRadius100", "8px"],
+    ["borderRadius200", "16px"],
+    ["borderRadius400", "32px"],
+  ] as [BoxProps["borderRadius"], string][]
+).forEach(([borderRadius, expected]) => {
+  test(`applies the expected border radius when ${borderRadius} passed to borderRadius prop`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Default borderRadius={borderRadius} />);
+    const boxElement = await getDataElementByValue(page, "box");
+    await expect(boxElement).toHaveCSS("border-radius", expected);
+  });
+});

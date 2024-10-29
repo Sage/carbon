@@ -8,7 +8,7 @@ test("should render children", () => {
   render(
     <LabelWrapper onClick={() => {}}>
       <Label>Test Children</Label>
-    </LabelWrapper>
+    </LabelWrapper>,
   );
 
   expect(screen.getByText("Test Children")).toBeVisible();
@@ -20,7 +20,7 @@ test("should call the `onClick` function prop when clicked", async () => {
   render(
     <LabelWrapper onClick={onClick}>
       <Label>Test Children</Label>
-    </LabelWrapper>
+    </LabelWrapper>,
   );
   expect(onClick).not.toHaveBeenCalled();
 

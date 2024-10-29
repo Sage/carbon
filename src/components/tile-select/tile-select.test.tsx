@@ -14,7 +14,7 @@ testStyledSystemMarginRTL(
   (props) => <TileSelect data-role="tile-select-wrapper" {...props} />,
   // we are setting the data- attributes on more than one element
   // FE-6834 raised to address this
-  () => screen.getAllByTestId("tile-select-wrapper")[0]
+  () => screen.getAllByTestId("tile-select-wrapper")[0],
 );
 
 testStyledSystemMarginRTL(
@@ -27,7 +27,7 @@ testStyledSystemMarginRTL(
       <TileSelect name="test" />
     </TileSelectGroup>
   ),
-  () => screen.getByTestId("tile-select-group")
+  () => screen.getByTestId("tile-select-group"),
 );
 
 test("the deselect action button is rendered when TileSelect is checked", () => {
@@ -142,11 +142,11 @@ test("renders actionButtonAdornment with expected styling", () => {
         </Button>
       )}
       actionButtonAdornment={<Icon type="info" />}
-    />
+    />,
   );
 
   expect(screen.getByTestId("deselect-wrapper")).toHaveStyleRule(
-    "margin-right: var(--sizing200)"
+    "margin-right: var(--sizing200)",
   );
 });
 
@@ -169,7 +169,7 @@ test("clicking the customActionButton invokes the passed onChange callback", asy
           iconType="close"
         />
       )}
-    />
+    />,
   );
 
   const actionButtonElement = screen.getByRole("button", {
@@ -248,7 +248,7 @@ describe("TileSelectGroup", () => {
     render(<TileSelectGroupComponent multiSelect />);
 
     expect(
-      screen.queryByTestId("tile-select-group-radio-button-mapper")
+      screen.queryByTestId("tile-select-group-radio-button-mapper"),
     ).not.toBeInTheDocument();
 
     screen.getAllByRole("checkbox").forEach((checkbox) => {
@@ -263,7 +263,7 @@ describe("TileSelectGroup", () => {
       render(
         <TileSelectGroup name="TileSelectGroup" legend="Radio Tile Group">
           string
-        </TileSelectGroup>
+        </TileSelectGroup>,
       );
     }).not.toThrow();
 
@@ -279,11 +279,11 @@ test("`additionalInformation` prop renders the passed in node", () => {
       title="foo"
       titleAdornment={<div>bar</div>}
       additionalInformation={<MyComp />}
-    />
+    />,
   );
 
   expect(screen.getByTestId("title-adornment")).toHaveStyle(
-    "margin-bottom: 4px"
+    "margin-bottom: 4px",
   );
 });
 
@@ -295,13 +295,13 @@ test("when input becomes disabled, the focus outline is removed", async () => {
   await user.click(inputElement);
 
   expect(screen.getByTestId("focus-wrapper")).toHaveStyleRule(
-    "box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)"
+    "box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
   );
 
   rerender(<TileSelect disabled />);
 
   expect(screen.getByTestId("focus-wrapper")).not.toHaveStyleRule(
-    "box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)"
+    "box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
   );
 });
 
@@ -314,7 +314,7 @@ test("when the `footer` prop is rendered, the component renders with the expecte
           <Button>Foo</Button>
         </>
       }
-    />
+    />,
   );
 
   expect(screen.getByTestId("tile-select-footer")).toHaveStyle({
@@ -345,7 +345,7 @@ test("Accordion footer renders the node passed in via the accordionContent prop 
   const MyComp = () => <div>foo</div>;
   const AccordionControl: TileSelectProps["accordionControl"] = (
     controlId,
-    contentId
+    contentId,
   ) => (
     <Button aria-controls={contentId} id={controlId}>
       Foo
@@ -357,7 +357,7 @@ test("Accordion footer renders the node passed in via the accordionContent prop 
       accordionControl={AccordionControl}
       checked
       accordionContent={<MyComp />}
-    />
+    />,
   );
 
   expect(screen.getByTestId("accordion-footer")).toHaveStyle({
@@ -370,6 +370,6 @@ test("Accordion footer renders the node passed in via the accordionContent prop 
   expect(screen.getByTestId("accordion-footer")).toHaveStyleRule(
     "transform",
     "rotate(-90deg)",
-    { modifier: 'span[data-element="chevron_down"]' }
+    { modifier: 'span[data-element="chevron_down"]' },
   );
 });

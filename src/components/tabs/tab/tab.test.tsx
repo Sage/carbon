@@ -11,7 +11,7 @@ testStyledSystemPaddingRTL(
       TabContent
     </Tab>
   ),
-  () => screen.getByRole("tabpanel")
+  () => screen.getByRole("tabpanel"),
 );
 
 testStyledSystemPaddingRTL(
@@ -26,7 +26,7 @@ testStyledSystemPaddingRTL(
       TabContent
     </Tab>
   ),
-  () => screen.getByRole("tabpanel")
+  () => screen.getByRole("tabpanel"),
 );
 
 test("has a role of `tabpanel` if none is specified", () => {
@@ -45,7 +45,7 @@ test("is visible when selected", () => {
   render(
     <Tab tabId="foo" isTabSelected>
       tab content
-    </Tab>
+    </Tab>,
   );
 
   expect(screen.getByRole("tabpanel")).toBeVisible();
@@ -61,12 +61,12 @@ test("passes the `className` prop to the element", () => {
   render(
     <Tab tabId="foo" className="foo-class bar-class">
       tab content
-    </Tab>
+    </Tab>,
   );
 
   expect(screen.getByRole("tabpanel", { hidden: true })).toHaveClass(
     "foo-class",
-    "bar-class"
+    "bar-class",
   );
 });
 
@@ -74,7 +74,7 @@ test("can be given a custom role via the `role` prop", () => {
   render(
     <Tab tabId="foo" role="article">
       tab content
-    </Tab>
+    </Tab>,
   );
 
   expect(screen.getByText("tab content")).toHaveAttribute("role", "article");
@@ -85,11 +85,11 @@ test("accepts an `ariaLabelledBy` prop to set the accessible name", () => {
     <Tab tabId="foo" ariaLabelledby="bar" isTabSelected>
       tab content
       <p id="bar">an accessible name</p>
-    </Tab>
+    </Tab>,
   );
 
   expect(screen.getByRole("tabpanel")).toHaveAccessibleName(
-    "an accessible name"
+    "an accessible name",
   );
 });
 
@@ -97,11 +97,11 @@ test("the `title` prop is not passed to the DOM element", () => {
   render(
     <Tab tabId="foo" title="here is a title">
       tab content
-    </Tab>
+    </Tab>,
   );
 
   expect(screen.getByRole("tabpanel", { hidden: true })).not.toHaveAttribute(
-    "title"
+    "title",
   );
 });
 
@@ -109,7 +109,7 @@ test("does not render the children if the `href` prop is passed", () => {
   render(
     <Tab tabId="foo" href="#">
       tab content
-    </Tab>
+    </Tab>,
   );
 
   expect(screen.queryByText("tab content")).not.toBeInTheDocument();
@@ -120,7 +120,7 @@ test("calls the `updateErrors` function prop when an error is present in a child
   render(
     <Tab tabId="foo" updateErrors={updateErrors}>
       <Textbox onChange={() => {}} id="bar" error />
-    </Tab>
+    </Tab>,
   );
 
   expect(updateErrors).toHaveBeenCalledWith("foo", { bar: true });
@@ -131,7 +131,7 @@ test("calls the `updateWarnings` function prop when a warning is present in a ch
   render(
     <Tab tabId="foo" updateWarnings={updateWarnings}>
       <Textbox onChange={() => {}} id="bar" warning />
-    </Tab>
+    </Tab>,
   );
 
   expect(updateWarnings).toHaveBeenCalledWith("foo", { bar: true });

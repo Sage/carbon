@@ -25,7 +25,7 @@ import Portal from "../portal";
 
 function preserveRef<ElementType>(
   ref: React.ForwardedRef<ElementType | null>,
-  node: ElementType
+  node: ElementType,
 ) {
   if (!ref) return;
   if (typeof ref === "function") {
@@ -91,7 +91,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
       target,
       ...rest
     }: TooltipProps,
-    ref
+    ref,
   ) => {
     const targetInternalRef = useRef<HTMLElement | null>(null);
 
@@ -170,7 +170,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
         }
         return mainAxisOffset;
       },
-      [inputSize, isPartOfInput]
+      [inputSize, isPartOfInput],
     );
 
     const defaultMiddleware = useMemo(
@@ -191,7 +191,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
         }),
         arrow({ element: arrowReference }),
       ],
-      [calculateOffset, arrowReference]
+      [calculateOffset, arrowReference],
     );
 
     const {
@@ -220,10 +220,10 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
         preserveRef(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (children as any).ref as React.ForwardedRef<HTMLElement | null>,
-          node
+          node,
         );
       },
-      [reference, children, target]
+      [reference, children, target],
     );
 
     const handleFloatingRef = useCallback(
@@ -231,7 +231,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
         floating(node);
         preserveRef(ref, node);
       },
-      [floating, ref]
+      [floating, ref],
     );
 
     const staticSide = {
@@ -252,12 +252,12 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
       !flipOverrides ||
       (Array.isArray(flipOverrides) &&
         flipOverrides.every((placement) =>
-          TOOLTIP_POSITIONS.includes(placement)
+          TOOLTIP_POSITIONS.includes(placement),
         ));
 
     invariant(
       isFlipOverridesValid,
-      `The flipOverrides prop supplied to Tooltip must be an array containing some or all of ["top", "bottom", "left", "right"].`
+      `The flipOverrides prop supplied to Tooltip must be an array containing some or all of ["top", "bottom", "left", "right"].`,
     );
 
     return (
@@ -297,7 +297,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
         ) : null}
       </>
     );
-  }
+  },
 );
 
 Tooltip.displayName = "Tooltip";

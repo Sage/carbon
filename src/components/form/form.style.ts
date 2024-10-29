@@ -21,7 +21,7 @@ export const StyledFormContent = styled.div<StyledFormContentProps>(
       flex-grow: 1;
       min-height: 0;
       overflow-y: auto;
-    `
+    `,
 );
 
 interface StyledFormFooterProps {

@@ -56,7 +56,7 @@ test.describe("Prop checks for Pages component", () => {
       await waitForAnimationEnd(getComponent(page, "page"));
 
       await expect(getDataElementByValue(page, "title")).toHaveText(
-        "My Second Page"
+        "My Second Page",
       );
     });
   });
@@ -88,7 +88,7 @@ test.describe("Prop checks for Pages component", () => {
     await dataComponentButtonByText(page, "Go to second page").click();
 
     await expect(getDataElementByValue(page, "title").nth(0)).toHaveText(
-      "My Second Page"
+      "My Second Page",
     );
   });
 
@@ -102,7 +102,7 @@ test.describe("Prop checks for Pages component", () => {
     await dataComponentButtonByText(page, "Go to third page").click();
 
     await expect(getDataElementByValue(page, "title").nth(0)).toHaveText(
-      "My Third Page"
+      "My Third Page",
     );
   });
 
@@ -116,7 +116,7 @@ test.describe("Prop checks for Pages component", () => {
     await backArrow(page).click();
 
     await expect(getDataElementByValue(page, "title").nth(0)).toHaveText(
-      "My Second Page"
+      "My Second Page",
     );
   });
 
@@ -130,7 +130,7 @@ test.describe("Prop checks for Pages component", () => {
     await backArrow(page).click();
 
     await expect(getDataElementByValue(page, "title").nth(0)).toHaveText(
-      "My First Page"
+      "My First Page",
     );
   });
 
@@ -148,7 +148,7 @@ test.describe("Prop checks for Pages component", () => {
 
         await expect(pageComponent).toHaveText(`${testTitle}`);
       });
-    }
+    },
   );
 });
 

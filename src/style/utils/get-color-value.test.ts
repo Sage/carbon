@@ -12,5 +12,5 @@ it.each(colors)(
   "for the color `%s` return the correct value `%s`",
   (color, expectedColor) => {
     expect(getColorValue(color)).toEqual(expectedColor);
-  }
+  },
 );

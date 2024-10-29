@@ -7,7 +7,7 @@ test("renders with provided `children`", () => {
   render(
     <Fieldset>
       <input />
-    </Fieldset>
+    </Fieldset>,
   );
 
   const input = within(screen.getByRole("group")).getByRole("textbox");
@@ -19,7 +19,7 @@ test("renders fieldset with provided `legend`", () => {
   render(
     <Fieldset legend="Legend">
       <input />
-    </Fieldset>
+    </Fieldset>,
   );
 
   const fieldset = screen.getByRole("group", { name: "Legend" });
@@ -32,7 +32,7 @@ test("sets child inputs as required when `isRequired` is true", () => {
     <Fieldset isRequired>
       <input />
       <input />
-    </Fieldset>
+    </Fieldset>,
   );
 
   const inputs = screen.getAllByRole("textbox");
@@ -45,7 +45,7 @@ test("renders validation icon when `legend` and `error` are provided", () => {
   render(
     <Fieldset legend="Legend" error="error">
       <input />
-    </Fieldset>
+    </Fieldset>,
   );
 
   const icon = screen.getByTestId("icon-error");
@@ -57,7 +57,7 @@ test("renders validation icon when `legend` and `warning` are provided", () => {
   render(
     <Fieldset legend="Legend" warning="warning">
       <input />
-    </Fieldset>
+    </Fieldset>,
   );
 
   const icon = screen.getByTestId("icon-warning");
@@ -69,7 +69,7 @@ test("renders validation icon when `legend` and `info` are provided", () => {
   render(
     <Fieldset legend="Legend" info="info">
       <input />
-    </Fieldset>
+    </Fieldset>,
   );
 
   const icon = screen.getByTestId("icon-info");
@@ -82,7 +82,7 @@ test("renders legend with provided `legendWidth` when `inline` is true", () => {
   render(
     <Fieldset legend="Legend" inline legendWidth={30}>
       <input />
-    </Fieldset>
+    </Fieldset>,
   );
 
   const legend = screen.getByTestId("legend");
@@ -95,7 +95,7 @@ test("renders with expected styles when `inline` is true and `align` is 'left'",
   render(
     <Fieldset legend="Legend" inline legendAlign="left">
       <input />
-    </Fieldset>
+    </Fieldset>,
   );
 
   const legend = screen.getByTestId("legend");
@@ -108,7 +108,7 @@ test("renders with expected padding when `inline` is true and `legendSpacing` is
   render(
     <Fieldset legend="Legend" inline legendSpacing={1}>
       <input />
-    </Fieldset>
+    </Fieldset>,
   );
 
   const legend = screen.getByTestId("legend");
@@ -122,5 +122,5 @@ testStyledSystemMarginRTL(
       <input />
     </Fieldset>
   ),
-  () => screen.getByRole("group")
+  () => screen.getByRole("group"),
 );

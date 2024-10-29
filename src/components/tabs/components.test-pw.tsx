@@ -10,7 +10,7 @@ import Button from "../button";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 
 export const TabsComponent = (
-  props: Partial<TabsProps> & Partial<TabProps>
+  props: Partial<TabsProps> & Partial<TabProps>,
 ) => {
   return (
     <Box p="4px">
@@ -278,7 +278,7 @@ export const TabsValidationOverride = () => {
 };
 
 export const TabsInSidebar = (
-  props: Partial<TabsProps> & Partial<TabProps>
+  props: Partial<TabsProps> & Partial<TabProps>,
 ) => {
   return (
     <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>

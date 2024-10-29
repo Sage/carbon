@@ -73,7 +73,7 @@ export interface ButtonProps extends SpaceProps, TagProps {
   onKeyDown?: (ev: React.KeyboardEvent<HTMLButtonElement>) => void;
   /** onClick handler */
   onClick?: (
-    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
+    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
   ) => void;
   /** Assigns a size to the button: "small" | "medium" | "large" */
   size?: SizeOptions;
@@ -212,7 +212,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       target,
       ...rest
     }: ButtonProps,
-    ref
+    ref,
   ) => {
     const {
       buttonType: buttonTypeContext,
@@ -230,25 +230,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     invariant(
       children !== undefined || !!iconType,
-      "Either prop `iconType` must be defined or this node must have children."
+      "Either prop `iconType` must be defined or this node must have children.",
     );
     if (subtext) {
       invariant(
         size === "large",
-        "subtext prop has no effect unless the button is large."
+        "subtext prop has no effect unless the button is large.",
       );
     }
 
     const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
 
-    const { inSplitButton, onChildButtonClick } = useContext(
-      SplitButtonContext
-    );
+    const { inSplitButton, onChildButtonClick } =
+      useContext(SplitButtonContext);
 
     let paddingX;
 
     const handleLinkKeyDown = (
-      event: React.KeyboardEvent<HTMLButtonElement>
+      event: React.KeyboardEvent<HTMLButtonElement>,
     ) => {
       // If space key click link
       if (event.key === " ") {
@@ -275,7 +274,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         if (typeof ref === "object") ref.current = reference;
         if (typeof ref === "function") ref(reference);
       },
-      [ref]
+      [ref],
     );
 
     const isValidChildren = children !== undefined && children !== false;
@@ -324,7 +323,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         })}
       </StyledButton>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

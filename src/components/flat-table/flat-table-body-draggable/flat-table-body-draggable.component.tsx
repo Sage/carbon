@@ -52,7 +52,7 @@ export const FlatTableBodyDraggable = ({
   ...rest
 }: FlatTableBodyDraggableProps) => {
   const [draggableItems, setDraggableItems] = useState(
-    React.Children.toArray(children)
+    React.Children.toArray(children),
   );
   const isFirstRender = useRef(true);
 
@@ -66,7 +66,7 @@ export const FlatTableBodyDraggable = ({
 
   const findItem = (id: string | number) => {
     const draggableItem = draggableItems.filter(
-      (item) => React.isValidElement(item) && `${item.props.id}` === id
+      (item) => React.isValidElement(item) && `${item.props.id}` === id,
     )[0];
 
     return {
@@ -92,7 +92,7 @@ export const FlatTableBodyDraggable = ({
 
     const draggableItemIds = draggableItems.map(
       (draggableItem) =>
-        React.isValidElement(draggableItem) && draggableItem.props.id
+        React.isValidElement(draggableItem) && draggableItem.props.id,
     );
 
     getOrder(draggableItemIds);
@@ -117,8 +117,8 @@ export const FlatTableBodyDraggable = ({
                   <StyledIcon type="drag" />
                 </FlatTableCell>,
                 item.props.children,
-              ]
-            )
+              ],
+            ),
         )}
       </DropTarget>
     </DndProvider>

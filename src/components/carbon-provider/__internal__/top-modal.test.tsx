@@ -25,7 +25,7 @@ test("TopModalContextProvider adds a second setter to the global list if a secon
     <>
       <MockComponent providerOpen />
       <MockComponent providerOpen />
-    </>
+    </>,
   );
 
   expect(window.__CARBON_INTERNALS_MODAL_SETTER_LIST?.length).toBe(2);

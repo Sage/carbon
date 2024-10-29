@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps(
   {
     spacing: true,
   },
-  { mb: 2 }
+  { mb: 2 },
 );
 
 const meta: Meta<typeof Dd> = {

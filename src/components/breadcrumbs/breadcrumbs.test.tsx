@@ -10,7 +10,7 @@ testStyledSystemSpacingRTL(
       <Crumb href="#">Breadcrumb</Crumb>
     </Breadcrumbs>
   ),
-  () => screen.getByRole("navigation")
+  () => screen.getByRole("navigation"),
 );
 
 test("renders children as expected", () => {
@@ -21,7 +21,7 @@ test("renders children as expected", () => {
       <Crumb href="#" isCurrent>
         Breadcrumb 3
       </Crumb>
-    </Breadcrumbs>
+    </Breadcrumbs>,
   );
 
   expect(screen.getByRole("link", { name: "Breadcrumb 1" })).toBeVisible();
@@ -38,7 +38,7 @@ test("renders children with expected colour when isDarkBackground is false", () 
       <Crumb href="#" isCurrent data-role="current-crumb">
         Breadcrumb 3
       </Crumb>
-    </Breadcrumbs>
+    </Breadcrumbs>,
   );
 
   const currentCrumb = screen.getByTestId("current-crumb");
@@ -49,7 +49,7 @@ test("renders children with expected colour when isDarkBackground is false", () 
   expect(screen.getAllByTestId("crumb-divider")[0]).toHaveStyleRule(
     "color",
     "var(--colorsUtilityYin055)",
-    { modifier: "::after" }
+    { modifier: "::after" },
   );
 });
 
@@ -62,7 +62,7 @@ test("renders children with expected colour when isDarkBackground is true", () =
       <Crumb href="#" isCurrent data-role="current-crumb">
         Breadcrumb 3
       </Crumb>
-    </Breadcrumbs>
+    </Breadcrumbs>,
   );
 
   const currentCrumb = screen.getByTestId("current-crumb");
@@ -73,6 +73,6 @@ test("renders children with expected colour when isDarkBackground is true", () =
   expect(screen.getAllByTestId("crumb-divider")[0]).toHaveStyleRule(
     "color",
     "var(--colorsUtilityYang100)",
-    { modifier: "::after" }
+    { modifier: "::after" },
   );
 });

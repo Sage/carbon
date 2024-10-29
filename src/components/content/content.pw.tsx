@@ -36,7 +36,7 @@ test.describe("check Content component properties", () => {
       page,
     }) => {
       await mount(
-        <ContentComponent title="Title">{children}</ContentComponent>
+        <ContentComponent title="Title">{children}</ContentComponent>,
       );
 
       await expect(contentBody(page)).toHaveText(children);
@@ -74,10 +74,12 @@ test.describe("check Content component properties", () => {
     });
   });
 
-  ([
-    [70, (totalWidth * 70) / 100],
-    [50, (totalWidth * 50) / 100],
-  ] as [number, number][]).forEach(([titleWidth, computedWidth]) => {
+  (
+    [
+      [70, (totalWidth * 70) / 100],
+      [50, (totalWidth * 50) / 100],
+    ] as [number, number][]
+  ).forEach(([titleWidth, computedWidth]) => {
     test(`should check titleWidth as ${titleWidth} for Content component`, async ({
       mount,
       page,
@@ -89,10 +91,12 @@ test.describe("check Content component properties", () => {
     });
   });
 
-  ([
-    [true, 70, totalWidth],
-    [false, 50, totalWidth],
-  ] as [boolean, number, number][]).forEach(([bodyFullWidth, titleWidth]) => {
+  (
+    [
+      [true, 70, totalWidth],
+      [false, 50, totalWidth],
+    ] as [boolean, number, number][]
+  ).forEach(([bodyFullWidth, titleWidth]) => {
     test(`should check Content component has bodyFullWidth as ${bodyFullWidth}`, async ({
       mount,
       page,
@@ -101,7 +105,7 @@ test.describe("check Content component properties", () => {
         <ContentComponent
           bodyFullWidth={bodyFullWidth}
           titleWidth={titleWidth}
-        />
+        />,
       );
       const cssWidth = await getStyle(contentBody(page), "width");
       if (bodyFullWidth === true) {

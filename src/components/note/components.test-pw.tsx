@@ -34,7 +34,7 @@ const NoteComponentWithInlineControl = () => {
   const blocksFromHTML = convertFromHTML(html);
   const content = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap
+    blocksFromHTML.entityMap,
   );
   const noteContentVal = EditorState.createWithContent(content);
   const inlineControl = (
@@ -55,7 +55,7 @@ const NoteComponentWithInlineControl = () => {
 
 const NoteComponentWithPreviews = () => {
   const noteContent = EditorState.createWithContent(
-    ContentState.createFromText("Here is some plain text content")
+    ContentState.createFromText("Here is some plain text content"),
   );
   const previews = [
     <LinkPreview

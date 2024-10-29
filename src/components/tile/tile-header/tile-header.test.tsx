@@ -5,7 +5,7 @@ import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal_
 
 testStyledSystemPaddingRTL(
   (props) => <TileHeader data-role="header" {...props} />,
-  () => screen.getByTestId("header")
+  () => screen.getByTestId("header"),
 );
 
 test.each<[TileHeaderProps["variant"], string, string]>([
@@ -19,7 +19,7 @@ test.each<[TileHeaderProps["variant"], string, string]>([
     render(
       <TileHeader variant={tileVariant} data-role="tile-header">
         content
-      </TileHeader>
+      </TileHeader>,
     );
 
     const tileHeaderElement = screen.getByTestId("tile-header");
@@ -27,16 +27,16 @@ test.each<[TileHeaderProps["variant"], string, string]>([
     expect(tileHeaderElement).toHaveStyleRule("background", background);
     expect(tileHeaderElement).toHaveStyleRule(
       "border-bottom",
-      `1px solid ${borderBottomColor}`
+      `1px solid ${borderBottomColor}`,
     );
-  }
+  },
 );
 
 test("has proper data attributes applied to elements", () => {
   render(
     <TileHeader data-element="foo" data-role="tile-header">
       content
-    </TileHeader>
+    </TileHeader>,
   );
 
   const tileHeaderElement = screen.getByTestId("tile-header");

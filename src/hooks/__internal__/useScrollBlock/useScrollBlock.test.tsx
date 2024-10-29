@@ -54,7 +54,7 @@ test("sets proper styles on the body element on mount and resets them on unmount
 test("should save a restoreValues callback when TestComponent is mounted", () => {
   const saveRestoreValuesCallbackSpy = jest.spyOn(
     ScrollBlockManager.prototype,
-    "saveRestoreValuesCallback"
+    "saveRestoreValuesCallback",
   );
   const { unmount } = render(<TestComponent />);
   expect(saveRestoreValuesCallbackSpy).toHaveBeenCalled();
@@ -68,11 +68,11 @@ test("should invoke and clear restoreValues callback if it exists when TestCompo
     .mockImplementation(() => restoreValuesMock);
   const saveRestoreValuesCallbackSpy = jest.spyOn(
     ScrollBlockManager.prototype,
-    "saveRestoreValuesCallback"
+    "saveRestoreValuesCallback",
   );
   const getOriginalValuesSpy = jest.spyOn(
     ScrollBlockManager.prototype,
-    "getOriginalValues"
+    "getOriginalValues",
   );
 
   const { unmount } = render(<TestComponent />);
@@ -93,11 +93,11 @@ test("should not invoke getOriginalValues if restoreValues callback exists when 
     .mockImplementation(() => restoreValuesMock);
   const saveRestoreValuesCallbackSpy = jest.spyOn(
     ScrollBlockManager.prototype,
-    "saveRestoreValuesCallback"
+    "saveRestoreValuesCallback",
   );
   const getOriginalValuesSpy = jest.spyOn(
     ScrollBlockManager.prototype,
-    "getOriginalValues"
+    "getOriginalValues",
   );
 
   const { unmount } = render(<TestComponent />);
@@ -112,7 +112,7 @@ test("should not invoke getOriginalValues if restoreValues callback exists when 
 test("should invoke getOriginalValues if restoreValues callback does not exist when TestComponent is unmounted", () => {
   const getOriginalValuesSpy = jest.spyOn(
     ScrollBlockManager.prototype,
-    "getOriginalValues"
+    "getOriginalValues",
   );
   const { unmount } = render(<TestComponent />);
   if (window.__CARBON_INTERNALS_SCROLL_BLOCKERS) {

@@ -44,7 +44,7 @@ const CharacterCount = ({
         id={visuallyHiddenHintId}
       >
         {l.characterCount.visuallyHiddenHint(
-          getFormatNumber(limit, l.locale())
+          getFormatNumber(limit, l.locale()),
         )}
       </VisuallyHiddenHint>
       <StyledCharacterCount
@@ -56,11 +56,11 @@ const CharacterCount = ({
         {!isOverLimit
           ? l.characterCount.charactersLeft(
               limitMinusValue,
-              getFormatNumber(limitMinusValue, l.locale())
+              getFormatNumber(limitMinusValue, l.locale()),
             )
           : l.characterCount.tooManyCharacters(
               valueMinusLimit,
-              getFormatNumber(valueMinusLimit, l.locale())
+              getFormatNumber(valueMinusLimit, l.locale()),
             )}
       </StyledCharacterCount>
       <VisuallyHiddenCharacterCount
@@ -71,11 +71,11 @@ const CharacterCount = ({
         {!isDebouncedOverLimit
           ? l.characterCount.charactersLeft(
               debouncedLimitMinusValue,
-              getFormatNumber(debouncedLimitMinusValue, l.locale())
+              getFormatNumber(debouncedLimitMinusValue, l.locale()),
             )
           : l.characterCount.tooManyCharacters(
               debouncedValueMinusLimit,
-              getFormatNumber(debouncedValueMinusLimit, l.locale())
+              getFormatNumber(debouncedValueMinusLimit, l.locale()),
             )}
       </VisuallyHiddenCharacterCount>
     </StyledCharacterCountWrapper>

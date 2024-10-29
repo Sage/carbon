@@ -17,7 +17,7 @@ test("calls `onMouseEnter` and `onMouseLeave` callbacks passed from InputContext
   render(
     <InputContext.Provider value={{ onMouseEnter, onMouseLeave }}>
       <Label>foo</Label>
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
 
   const label = screen.getByText("foo");
@@ -37,7 +37,7 @@ test("calls `onMouseEnter` and `onMouseLeave` callbacks passed from InputGroupCo
   render(
     <InputGroupContext.Provider value={{ onMouseEnter, onMouseLeave }}>
       <Label>foo</Label>
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 
   const label = screen.getByText("foo");
@@ -78,7 +78,7 @@ test("renders Help tooltip with provided `tooltipId`", async () => {
   render(
     <Label help="bar" tooltipId="baz">
       foo
-    </Label>
+    </Label>,
   );
 
   await user.hover(screen.getByRole("button", { name: "help" }));
@@ -104,7 +104,7 @@ test("does not render validation icon when `disabled` prop is true", () => {
   render(
     <Label error="error" disabled>
       foo
-    </Label>
+    </Label>,
   );
 
   expect(screen.queryByTestId("icon-error")).not.toBeInTheDocument();
@@ -120,7 +120,7 @@ test("does not render with `htmlFor` when not rendered as a `<label>` element", 
   render(
     <Label as="span" htmlFor="baz">
       foo
-    </Label>
+    </Label>,
   );
 
   expect(screen.getByText("foo")).not.toHaveAttribute("for");
@@ -133,14 +133,14 @@ test.each(["error", "warning", "info"])(
     render(
       <Label inline {...{ [validationProp]: "Message" }}>
         foo
-      </Label>
+      </Label>,
     );
     await user.hover(screen.getByTestId(`icon-${validationProp}`));
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "data-placement",
-      "top"
+      "top",
     );
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -151,9 +151,9 @@ test.each(["error", "warning", "info"])(
     await user.hover(screen.getByTestId(`icon-${validationProp}`));
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "data-placement",
-      "right"
+      "right",
     );
-  }
+  },
 );
 
 // coverage
@@ -161,7 +161,7 @@ test("renders with expected styles when `inline` is true and `align` is 'left'",
   render(
     <Label inline align="left">
       foo
-    </Label>
+    </Label>,
   );
 
   expect(screen.getByTestId("label-container")).toHaveStyle({

@@ -67,10 +67,9 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
     outline: none;
   }
 
-  ${({ backgroundColor }) =>
-    css`
-      background-color: ${backgroundColor};
-    `}
+  ${({ backgroundColor }) => css`
+    background-color: ${backgroundColor};
+  `}
 
   ${({ dialogHeight }) =>
     dialogHeight &&

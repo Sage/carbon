@@ -45,7 +45,7 @@ export interface DialogFullScreenProps extends ModalProps {
   bespokeFocusTrap?: (
     ev: KeyboardEvent,
     firstElement?: HTMLElement,
-    lastElement?: HTMLElement
+    lastElement?: HTMLElement,
   ) => void;
   /** Container for components to be displayed in the header */
   headerChildren?: React.ReactNode;
@@ -69,7 +69,7 @@ export interface DialogFullScreenProps extends ModalProps {
   focusableSelectors?: string;
   /** A custom close event handler */
   onCancel?: (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>,
   ) => void;
 }
 

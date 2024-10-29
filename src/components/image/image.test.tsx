@@ -10,19 +10,19 @@ import Image from "./image.component";
 
 testStyledSystemMarginRTL(
   (props) => <Image data-role="image" {...props} />,
-  () => screen.getByTestId("image")
+  () => screen.getByTestId("image"),
 );
 testStyledSystemLayout(
   (props) => <Image data-role="image" {...props} />,
-  () => screen.getByTestId("image")
+  () => screen.getByTestId("image"),
 );
 testStyledSystemBackground(
   (props) => <Image data-role="image" {...props} />,
-  () => screen.getByTestId("image")
+  () => screen.getByTestId("image"),
 );
 testStyledSystemPaddingRTL(
   (props) => <Image data-role="image" {...props} />,
-  () => screen.getByTestId("image")
+  () => screen.getByTestId("image"),
 );
 
 test("renders", () => {
@@ -37,7 +37,7 @@ test("renders with the 'src' prop", () => {
       data-role="image"
       src="https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg"
       alt="Heat poster"
-    />
+    />,
   );
 
   expect(screen.getByRole("img")).toBeVisible();
@@ -50,7 +50,7 @@ test("renders with the 'src' and 'decorative' props", () => {
       src="https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg"
       alt=""
       decorative
-    />
+    />,
   );
 
   expect(screen.getByRole("img")).toBeVisible();
@@ -73,10 +73,10 @@ test("does not render, as an invariant is fired due to children being passed as 
         alt="Heat poster"
       >
         Children
-      </Image>
-    )
+      </Image>,
+    ),
   ).toThrow(
-    "The 'Image' component renders as an 'img' element when the 'src' prop is used and therefore does not accept children."
+    "The 'Image' component renders as an 'img' element when the 'src' prop is used and therefore does not accept children.",
   );
 
   consoleSpy.mockRestore();
@@ -87,10 +87,10 @@ test("does not render, as an invariant is fired due to the 'src' prop being pass
 
   expect(() =>
     render(
-      <Image src="https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg" />
-    )
+      <Image src="https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg" />,
+    ),
   ).toThrow(
-    "Please use the 'decorative' prop if the 'alt' text should be an empty value or provide an 'alt' string when rendering the 'Image' component as an 'img' element."
+    "Please use the 'decorative' prop if the 'alt' text should be an empty value or provide an 'alt' string when rendering the 'Image' component as an 'img' element.",
   );
 
   consoleSpy.mockRestore();
@@ -104,10 +104,10 @@ test("does not render, as an invariant is fired due to the 'src' prop being pass
       <Image
         src="https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg"
         alt=""
-      />
-    )
+      />,
+    ),
   ).toThrow(
-    "Please use the 'decorative' prop if the 'alt' text should be an empty value or provide an 'alt' string when rendering the 'Image' component as an 'img' element."
+    "Please use the 'decorative' prop if the 'alt' text should be an empty value or provide an 'alt' string when rendering the 'Image' component as an 'img' element.",
   );
 
   consoleSpy.mockRestore();
@@ -119,7 +119,7 @@ test("sets the 'alt' attribute correctly when a custom value is passed to the 'a
       data-role="image"
       src="https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg"
       alt="Heat poster"
-    />
+    />,
   );
 
   expect(screen.getByRole("img")).toHaveAccessibleName("Heat poster");
@@ -132,7 +132,7 @@ test("sets the 'hidden' attribute correctly when the 'hidden' prop is true", () 
       src="https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg"
       alt="Heat poster"
       hidden
-    />
+    />,
   );
 
   expect(screen.queryByRole("img")).not.toBeInTheDocument();

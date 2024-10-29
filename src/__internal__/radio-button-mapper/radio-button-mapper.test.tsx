@@ -29,7 +29,7 @@ test("renders RadioButton children with expected `name` prop", () => {
     <RadioButtonMapper name="test">
       <RadioButton id="radio-1" value="one" />
       <RadioButton id="radio-2" value="two" />
-    </RadioButtonMapper>
+    </RadioButtonMapper>,
   );
 
   const radioButtons = screen.getAllByRole("radio");
@@ -65,7 +65,7 @@ test("checks and unchecks correct RadioButtons when inputs are uncontrolled", as
     <RadioButtonMapper name="test">
       <RadioButton id="radio-1" value="one" label="One" />
       <RadioButton id="radio-2" value="two" label="Two" />
-    </RadioButtonMapper>
+    </RadioButtonMapper>,
   );
 
   const radio1 = screen.getByRole("radio", { name: "One" });
@@ -91,7 +91,7 @@ test("checks and unchecks correct RadioButtons when `defaultChecked` is set", as
     <RadioButtonMapper name="test">
       <RadioButton id="radio-1" value="one" defaultChecked label="One" />
       <RadioButton id="radio-2" value="two" label="Two" />
-    </RadioButtonMapper>
+    </RadioButtonMapper>,
   );
 
   const radio1 = screen.getByRole("radio", { name: "One" });
@@ -113,7 +113,7 @@ test("calls `onChange` callback when a RadioButton child is clicked", async () =
     <RadioButtonMapper name="test" onChange={onChange}>
       <RadioButton id="radio-1" value="one" label="One" />
       <RadioButton id="radio-2" value="two" label="Two" />
-    </RadioButtonMapper>
+    </RadioButtonMapper>,
   );
 
   const radio1 = screen.getByRole("radio", { name: "One" });
@@ -121,7 +121,7 @@ test("calls `onChange` callback when a RadioButton child is clicked", async () =
 
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenCalledWith(
-    expect.objectContaining({ target: radio1 })
+    expect.objectContaining({ target: radio1 }),
   );
 });
 
@@ -132,7 +132,7 @@ test("calls `onBlur` callback when a RadioButton child is blurred", async () => 
     <RadioButtonMapper name="test" onBlur={onBlur}>
       <RadioButton id="radio-1" value="one" label="One" />
       <RadioButton id="radio-2" value="two" label="Two" />
-    </RadioButtonMapper>
+    </RadioButtonMapper>,
   );
 
   const radio1 = screen.getByRole("radio", { name: "One" });
@@ -142,7 +142,7 @@ test("calls `onBlur` callback when a RadioButton child is blurred", async () => 
 
   expect(onBlur).toHaveBeenCalledTimes(1);
   expect(onBlur).toHaveBeenCalledWith(
-    expect.objectContaining({ target: radio1 })
+    expect.objectContaining({ target: radio1 }),
   );
 });
 
@@ -157,7 +157,7 @@ test("accepts non-RadioButton children", () => {
           null,
           false,
         ]}
-      </RadioButtonMapper>
+      </RadioButtonMapper>,
     );
   }).not.toThrow();
 });

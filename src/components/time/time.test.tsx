@@ -58,7 +58,7 @@ testStyledSystemMarginRTL(
   (props) => (
     <Time value={{ hours: "", minutes: "" }} onChange={() => {}} {...props} />
   ),
-  () => screen.getByRole("group")
+  () => screen.getByRole("group"),
 );
 
 test("should not display the AM/PM toggle by default", () => {
@@ -73,7 +73,7 @@ test("should display the AM/PM toggle and highlight the first button when toggle
     <Time
       value={{ hours: "", minutes: "", period: "AM" }}
       onChange={() => {}}
-    />
+    />,
   );
 
   const amToggle = screen.getByRole("button", { name: "AM", pressed: true });
@@ -88,7 +88,7 @@ test("should display the AM/PM toggle and highlight the second button when toggl
     <Time
       value={{ hours: "", minutes: "", period: "PM" }}
       onChange={() => {}}
-    />
+    />,
   );
 
   const amToggle = screen.getByRole("button", { name: "AM", pressed: false });
@@ -104,7 +104,7 @@ test("should render the input hint text when prop is set", () => {
       value={{ hours: "12", minutes: "30" }}
       onChange={() => {}}
       inputHint="hint text"
-    />
+    />,
   );
 
   expect(screen.getByText("hint text")).toBeVisible();
@@ -128,7 +128,7 @@ test("should focus each input in the expected order when user is tabbing", async
     <Time
       value={{ hours: "12", minutes: "30", period: "AM" }}
       onChange={() => {}}
-    />
+    />,
   );
 
   const user = userEvent.setup({
@@ -154,7 +154,7 @@ test("should focus each input in the expected order when user is shift tabbing",
     <Time
       value={{ hours: "12", minutes: "30", period: "AM" }}
       onChange={() => {}}
-    />
+    />,
   );
 
   const user = userEvent.setup({
@@ -182,7 +182,7 @@ test("should verify fieldset uses visible legend text as its accessible name", (
       value={{ hours: "12", minutes: "30" }}
       onChange={() => {}}
       label="Time"
-    />
+    />,
   );
 
   const fieldset = screen.getByRole("group");
@@ -196,12 +196,11 @@ test("should apply the `medium` `size` styling to inputs and toggles by default"
     <Time
       value={{ hours: "12", minutes: "30", period: "AM" }}
       onChange={() => {}}
-    />
+    />,
   );
 
-  const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-    "presentation"
-  );
+  const [hrsInputPresentation, minsInputPresentation] =
+    screen.getAllByRole("presentation");
   const { height, horizontalPadding } = inputSizes.medium;
   const amToggle = screen.getByRole("button", { name: "AM" });
   const pmToggle = screen.getByRole("button", { name: "PM" });
@@ -234,12 +233,11 @@ it.each(["small", "medium", "large"] as const)(
         value={{ hours: "12", minutes: "30", period: "AM" }}
         onChange={() => {}}
         size={size}
-      />
+      />,
     );
 
-    const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-      "presentation"
-    );
+    const [hrsInputPresentation, minsInputPresentation] =
+      screen.getAllByRole("presentation");
     const { height, horizontalPadding } = inputSizes[size];
     const amToggle = screen.getByRole("button", { name: "AM" });
     const pmToggle = screen.getByRole("button", { name: "PM" });
@@ -262,7 +260,7 @@ it.each(["small", "medium", "large"] as const)(
       padding: `0 ${paddingConfig[size]}px`,
       "font-size": `${fontSizeConfig[size]}px`,
     });
-  }
+  },
 );
 
 test("should apply the custom id on the hours input when `hoursInputProps` has an `id` set", () => {
@@ -271,7 +269,7 @@ test("should apply the custom id on the hours input when `hoursInputProps` has a
       value={{ hours: "12", minutes: "30" }}
       onChange={() => {}}
       hoursInputProps={{ id: "foo" }}
-    />
+    />,
   );
 
   const hoursInput = screen.getByDisplayValue("12");
@@ -284,7 +282,7 @@ test("should apply the custom id on the minutes input when `minutesInputProps` h
       value={{ hours: "12", minutes: "30" }}
       onChange={() => {}}
       minutesInputProps={{ id: "foo" }}
-    />
+    />,
   );
 
   const minutesInput = screen.getByDisplayValue("30");
@@ -299,7 +297,7 @@ test("should call onChange when a user types in the hours input and toggle is re
       onChange={onChangeMock}
       hoursInputProps={{ id: "foo" }}
       minutesInputProps={{ id: "bar" }}
-    />
+    />,
   );
 
   const user = userEvent.setup({
@@ -317,7 +315,7 @@ test("should call onChange when a user types in the hours input and toggle is re
         id: "foo bar",
         value: { hours: "1", minutes: "", period: "AM" },
       },
-    })
+    }),
   );
 });
 
@@ -329,7 +327,7 @@ test("should call onChange when a user types in the hours input and toggle is no
       onChange={onChangeMock}
       hoursInputProps={{ id: "foo" }}
       minutesInputProps={{ id: "bar" }}
-    />
+    />,
   );
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -343,7 +341,7 @@ test("should call onChange when a user types in the hours input and toggle is no
         id: "foo bar",
         value: { hours: "1", minutes: "" },
       },
-    })
+    }),
   );
 });
 
@@ -355,7 +353,7 @@ test("should call onChange when a user types in the minutes input and toggle is 
       onChange={onChangeMock}
       hoursInputProps={{ id: "foo" }}
       minutesInputProps={{ id: "bar" }}
-    />
+    />,
   );
 
   const user = userEvent.setup({
@@ -373,7 +371,7 @@ test("should call onChange when a user types in the minutes input and toggle is 
         id: "foo bar",
         value: { hours: "", minutes: "1", period: "AM" },
       },
-    })
+    }),
   );
 });
 
@@ -385,7 +383,7 @@ test("should call onChange when a user types in the minutes input and toggle is 
       onChange={onChangeMock}
       hoursInputProps={{ id: "foo" }}
       minutesInputProps={{ id: "bar" }}
-    />
+    />,
   );
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -400,7 +398,7 @@ test("should call onChange when a user types in the minutes input and toggle is 
         id: "foo bar",
         value: { hours: "", minutes: "1" },
       },
-    })
+    }),
   );
 });
 
@@ -416,7 +414,7 @@ test("should call onChange when a user clicks the toggle that is not currently s
       onChange={onChangeMock}
       hoursInputProps={{ id: "foo" }}
       minutesInputProps={{ id: "bar" }}
-    />
+    />,
   );
 
   const pmToggle = screen.getByRole("button", { name: "PM" });
@@ -430,7 +428,7 @@ test("should call onChange when a user clicks the toggle that is not currently s
         id: "foo bar",
         value: { hours: "", minutes: "", period: "PM" },
       },
-    })
+    }),
   );
 });
 
@@ -446,7 +444,7 @@ test("should not call onChange when a user clicks the toggle that is currently s
       onChange={onChangeMock}
       hoursInputProps={{ id: "foo" }}
       minutesInputProps={{ id: "bar" }}
-    />
+    />,
   );
 
   const amToggle = screen.getByRole("button", { name: "AM" });
@@ -463,7 +461,7 @@ test("should call onBlur when the hours input is focused and the user presses sh
       value={{ hours: "12", minutes: "" }}
       onChange={() => {}}
       onBlur={onBlurMock}
-    />
+    />,
   );
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -481,7 +479,7 @@ test("should not call onBlur when the hours input is focused and the user presse
       value={{ hours: "12", minutes: "" }}
       onChange={() => {}}
       onBlur={onBlurMock}
-    />
+    />,
   );
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -499,7 +497,7 @@ test("should call onBlur when the minutes input is focused and the user presses 
       value={{ hours: "", minutes: "12" }}
       onChange={() => {}}
       onBlur={onBlurMock}
-    />
+    />,
   );
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -517,7 +515,7 @@ test("should not call onBlur when the minutes input is focused and the user pres
       value={{ hours: "", minutes: "12" }}
       onChange={() => {}}
       onBlur={onBlurMock}
-    />
+    />,
   );
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -534,7 +532,7 @@ test("should render the validation message text when the hours input has an erro
       value={{ hours: "", minutes: "" }}
       onChange={() => {}}
       hoursInputProps={{ error: "There is an error" }}
-    />
+    />,
   );
 
   expect(screen.getByText("There is an error")).toBeVisible();
@@ -546,7 +544,7 @@ test("should render the validation message text when the minutes input has an er
       value={{ hours: "", minutes: "" }}
       onChange={() => {}}
       minutesInputProps={{ error: "There is an error" }}
-    />
+    />,
   );
 
   expect(screen.getByText("There is an error")).toBeVisible();
@@ -559,13 +557,13 @@ test("should render the validation message text when both the hours and minutes 
       onChange={() => {}}
       hoursInputProps={{ error: "There is an error in hours input." }}
       minutesInputProps={{ error: "There is an error in minutes input." }}
-    />
+    />,
   );
 
   expect(
     screen.getByText(
-      "There is an error in hours input. There is an error in minutes input."
-    )
+      "There is an error in hours input. There is an error in minutes input.",
+    ),
   ).toBeVisible();
 });
 
@@ -575,12 +573,11 @@ test("should render the expected input styling when the hours input has an error
       value={{ hours: "", minutes: "" }}
       onChange={() => {}}
       hoursInputProps={{ error: true }}
-    />
+    />,
   );
 
-  const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-    "presentation"
-  );
+  const [hrsInputPresentation, minsInputPresentation] =
+    screen.getAllByRole("presentation");
 
   expect(hrsInputPresentation).toHaveStyle({
     "box-shadow":
@@ -598,12 +595,11 @@ test("should render the expected input styling when the minutes input has an err
       value={{ hours: "", minutes: "" }}
       onChange={() => {}}
       minutesInputProps={{ error: true }}
-    />
+    />,
   );
 
-  const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-    "presentation"
-  );
+  const [hrsInputPresentation, minsInputPresentation] =
+    screen.getAllByRole("presentation");
 
   expect(hrsInputPresentation).not.toHaveStyle({
     "box-shadow":
@@ -622,12 +618,11 @@ test("should render the expected input styling when both the hours and minutes i
       onChange={() => {}}
       hoursInputProps={{ error: true }}
       minutesInputProps={{ error: true }}
-    />
+    />,
   );
 
-  const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-    "presentation"
-  );
+  const [hrsInputPresentation, minsInputPresentation] =
+    screen.getAllByRole("presentation");
 
   expect(hrsInputPresentation).toHaveStyle({
     "box-shadow":
@@ -645,7 +640,7 @@ test("should render the validation message text when the hours input has a warni
       value={{ hours: "", minutes: "" }}
       onChange={() => {}}
       hoursInputProps={{ warning: "There is an warning" }}
-    />
+    />,
   );
 
   expect(screen.getByText("There is an warning")).toBeVisible();
@@ -657,7 +652,7 @@ test("should render the validation message text when the minutes input has a war
       value={{ hours: "", minutes: "" }}
       onChange={() => {}}
       minutesInputProps={{ warning: "There is an warning" }}
-    />
+    />,
   );
 
   expect(screen.getByText("There is an warning")).toBeVisible();
@@ -670,13 +665,13 @@ test("should render the validation message text when both the hours and minutes 
       onChange={() => {}}
       hoursInputProps={{ warning: "There is an warning in hours input." }}
       minutesInputProps={{ warning: "There is an warning in minutes input." }}
-    />
+    />,
   );
 
   expect(
     screen.getByText(
-      "There is an warning in hours input. There is an warning in minutes input."
-    )
+      "There is an warning in hours input. There is an warning in minutes input.",
+    ),
   ).toBeVisible();
 });
 
@@ -686,20 +681,19 @@ test("should render the expected input styling when the hours input has a warnin
       value={{ hours: "", minutes: "" }}
       onChange={() => {}}
       hoursInputProps={{ warning: true }}
-    />
+    />,
   );
 
-  const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-    "presentation"
-  );
+  const [hrsInputPresentation, minsInputPresentation] =
+    screen.getAllByRole("presentation");
 
   expect(hrsInputPresentation).toHaveStyleRule(
     "border-color",
-    "var(--colorsSemanticCaution500) !important"
+    "var(--colorsSemanticCaution500) !important",
   );
   expect(minsInputPresentation).toHaveStyleRule(
     "border",
-    "1px solid var(--colorsUtilityMajor300)"
+    "1px solid var(--colorsUtilityMajor300)",
   );
 });
 
@@ -709,20 +703,19 @@ test("should render the expected input styling when the minutes input has a warn
       value={{ hours: "", minutes: "" }}
       onChange={() => {}}
       minutesInputProps={{ warning: true }}
-    />
+    />,
   );
 
-  const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-    "presentation"
-  );
+  const [hrsInputPresentation, minsInputPresentation] =
+    screen.getAllByRole("presentation");
 
   expect(hrsInputPresentation).toHaveStyleRule(
     "border",
-    "1px solid var(--colorsUtilityMajor300)"
+    "1px solid var(--colorsUtilityMajor300)",
   );
   expect(minsInputPresentation).toHaveStyleRule(
     "border-color",
-    "var(--colorsSemanticCaution500) !important"
+    "var(--colorsSemanticCaution500) !important",
   );
 });
 
@@ -733,20 +726,19 @@ test("should render the expected input styling when the hours and minutes inputs
       onChange={() => {}}
       hoursInputProps={{ warning: true }}
       minutesInputProps={{ warning: true }}
-    />
+    />,
   );
 
-  const [hrsInputPresentation, minsInputPresentation] = screen.getAllByRole(
-    "presentation"
-  );
+  const [hrsInputPresentation, minsInputPresentation] =
+    screen.getAllByRole("presentation");
 
   expect(hrsInputPresentation).toHaveStyleRule(
     "border-color",
-    "var(--colorsSemanticCaution500) !important"
+    "var(--colorsSemanticCaution500) !important",
   );
   expect(minsInputPresentation).toHaveStyleRule(
     "border-color",
-    "var(--colorsSemanticCaution500) !important"
+    "var(--colorsSemanticCaution500) !important",
   );
 });
 
@@ -757,7 +749,7 @@ test("should set the required attribute on the inputs when the prop is set", () 
       onChange={() => {}}
       required
       label="Label"
-    />
+    />,
   );
 
   expect(screen.getByDisplayValue("12")).toBeRequired();
@@ -771,7 +763,7 @@ test("should append the optional text on the label when isOptional prop is set",
       onChange={() => {}}
       isOptional
       label="Label"
-    />
+    />,
   );
 
   // use jest-styled-component's assertion as workaround for the pseudo element not being accessible
@@ -786,7 +778,7 @@ test("should render with the default translations if no overrides are provided",
       value={{ hours: "", minutes: "", period: "AM" }}
       onChange={() => {}}
       label="Label"
-    />
+    />,
   );
 
   expect(screen.getByText("Hrs.")).toBeVisible();
@@ -803,7 +795,7 @@ test("should render with the overridden translations if provided", () => {
         onChange={() => {}}
         label="Label"
       />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   expect(screen.getByText("foo-label")).toBeVisible();
@@ -824,7 +816,7 @@ test("should render the labels for the hours and minutes inputs if provided inst
         onChange={() => {}}
         label="Label"
       />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   expect(screen.getByText("hours prop string")).toBeVisible();
@@ -864,7 +856,7 @@ it.each(["disabled", "readOnly"])(
         value={{ hours: "", minutes: "", period: "AM" }}
         onChange={onChangeMock}
         {...{ [prop]: true }}
-      />
+      />,
     );
 
     const pmToggle = screen.getByRole("button", { name: "PM" });
@@ -872,7 +864,7 @@ it.each(["disabled", "readOnly"])(
     await user.click(pmToggle);
 
     expect(onChangeMock).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test("should apply the expected styling when disabled prop is set", () => {
@@ -883,7 +875,7 @@ test("should apply the expected styling when disabled prop is set", () => {
       label="label"
       inputHint="hint"
       disabled
-    />
+    />,
   );
 
   const mainLabel = screen.getByText("label");
@@ -905,7 +897,7 @@ test("should apply the expected styling when readOnly prop is set", () => {
       label="label"
       inputHint="hint"
       readOnly
-    />
+    />,
   );
 
   const hintText = screen.getByText("hint");
@@ -925,7 +917,7 @@ test("should have the expected `data-` attributes set on the root element", () =
       label="label"
       data-element="foo"
       data-role="bar"
-    />
+    />,
   );
 
   const fieldset = screen.getByRole("group", { name: "label" });
@@ -947,7 +939,7 @@ test("should apply the custom `data-` attributes on the input wrappers when they
         "data-element": "foo",
         "data-role": "minutes-input-wrapper",
       }}
-    />
+    />,
   );
 
   const hoursWrapper = screen.getByTestId("hours-input-wrapper");
@@ -977,14 +969,14 @@ test("should apply the custom `data-` attributes on the toggle component wrapper
           "data-role": "pm-button-wrapper",
         },
       }}
-    />
+    />,
   );
 
   const fieldset = screen.getByRole("group", { name: "Time" });
   const toggleButtonGroup = within(fieldset).getByRole("group");
   expect(toggleButtonGroup).toHaveAttribute(
     "data-component",
-    "time-button-toggle-group"
+    "time-button-toggle-group",
   );
   expect(toggleButtonGroup).toHaveAttribute("data-element", "foo");
   expect(toggleButtonGroup).toHaveAttribute("data-role", "bar");

@@ -13,7 +13,7 @@ import { ThemeObject } from "../themes/base";
  */
 
 const debugTheme = (
-  themeProperties: Partial<ThemeObject>
+  themeProperties: Partial<ThemeObject>,
 ): Record<string, string[]> =>
   Object.fromEntries(
     Object.entries(themeProperties).map(([key, value]) => {
@@ -47,7 +47,7 @@ const debugTheme = (
       }
 
       return [key, ""];
-    })
+    }),
   );
 
 export default {

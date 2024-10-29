@@ -53,7 +53,7 @@ test.describe("Testing Dialog component properties", () => {
     await mount(<DialogComponent height="1200px" />);
 
     const actualDialogHeight = parseInt(
-      await getStyle(page.getByRole("dialog"), "height")
+      await getStyle(page.getByRole("dialog"), "height"),
     );
 
     expect(actualDialogHeight).toBeLessThanOrEqual(1000);
@@ -76,7 +76,7 @@ test.describe("Testing Dialog component properties", () => {
       page,
     }) => {
       await mount(
-        <DialogComponent title="Sample dialog" subtitle={subtitle} />
+        <DialogComponent title="Sample dialog" subtitle={subtitle} />,
       );
 
       await expect(page.getByText(subtitle)).toBeAttached();
@@ -160,7 +160,7 @@ test.describe("Testing Dialog component properties", () => {
         onCancel={() => {
           called = true;
         }}
-      />
+      />,
     );
 
     await page.getByLabel("Close").click();
@@ -186,7 +186,7 @@ test.describe("Testing Dialog component properties", () => {
 
     await expect(page.getByRole("dialog")).toHaveAttribute(
       "aria-label",
-      "aria label for dialog"
+      "aria label for dialog",
     );
   });
 
@@ -198,7 +198,7 @@ test.describe("Testing Dialog component properties", () => {
 
     await expect(page.getByRole("dialog")).toHaveAttribute(
       "aria-describedby",
-      "aria description"
+      "aria description",
     );
   });
 
@@ -207,12 +207,12 @@ test.describe("Testing Dialog component properties", () => {
     page,
   }) => {
     await mount(
-      <DialogComponent title={undefined} aria-labelledby="label-element-id" />
+      <DialogComponent title={undefined} aria-labelledby="label-element-id" />,
     );
 
     await expect(page.getByRole("dialog")).toHaveAttribute(
       "aria-labelledby",
-      "label-element-id"
+      "label-element-id",
     );
   });
 
@@ -230,7 +230,7 @@ test.describe("Testing Dialog component properties", () => {
     page,
   }) => {
     await mount(
-      <DialogComponent title="Sample Dialog" help="Some help text" />
+      <DialogComponent title="Sample Dialog" help="Some help text" />,
     );
 
     const helpIcon = page.getByLabel("help");
@@ -246,7 +246,7 @@ test.describe("Testing Dialog component properties", () => {
     await mount(<DialogWithFirstFocusableElement />);
 
     await expect(
-      page.getByRole("button").filter({ hasText: "Press me" })
+      page.getByRole("button").filter({ hasText: "Press me" }),
     ).toBeFocused();
   });
 
@@ -329,7 +329,7 @@ test.describe("Testing Dialog component properties", () => {
     await mount(<DialogWithFirstFocusableElement disableAutoFocus />);
 
     await expect(
-      page.getByRole("button").filter({ hasText: "Press me" })
+      page.getByRole("button").filter({ hasText: "Press me" }),
     ).not.toBeFocused();
   });
 
@@ -411,7 +411,7 @@ test.describe("Testing Dialog component properties", () => {
 
     await expect(closeButton).toBeFocused();
     await expect(
-      page.getByText("I should not be scrolled into view")
+      page.getByText("I should not be scrolled into view"),
     ).not.toBeInViewport();
   });
 
@@ -432,7 +432,7 @@ test.describe("Testing Dialog component properties", () => {
 
     await expect(closeButton).toBeFocused();
     await expect(
-      page.getByText("I should not be scrolled into view")
+      page.getByText("I should not be scrolled into view"),
     ).not.toBeInViewport();
   });
 
@@ -478,110 +478,107 @@ test.describe("Testing Dialog component properties", () => {
   });
 });
 
-test.describe(
-  "when there is a button inside Dialog, which opens a Toast",
-  () => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("clicking button moves focus out of Dialog to the newly-opened Toast", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithToast />);
+test.describe("when there is a button inside Dialog, which opens a Toast", () => {
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("clicking button moves focus out of Dialog to the newly-opened Toast", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DialogWithToast />);
 
-      const openToastButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Toast" });
-      await page.waitForTimeout(250);
-      await openToastButton.click();
+    const openToastButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Toast" });
+    await page.waitForTimeout(250);
+    await openToastButton.click();
 
-      const toast = toastComponent(page);
-      await waitForAnimationEnd(toast);
-      await expect(toast).toBeFocused();
-    });
+    const toast = toastComponent(page);
+    await waitForAnimationEnd(toast);
+    await expect(toast).toBeFocused();
+  });
 
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("when Toast is opened and focus on it is lost, pressing Tab key traps focus back inside the Dialog", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithToast />);
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("when Toast is opened and focus on it is lost, pressing Tab key traps focus back inside the Dialog", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DialogWithToast />);
 
-      const dialog = page.getByRole("dialog");
-      const openToastButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Toast" });
-      await page.waitForTimeout(250);
-      await openToastButton.click();
+    const dialog = page.getByRole("dialog");
+    const openToastButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Toast" });
+    await page.waitForTimeout(250);
+    await openToastButton.click();
 
-      await page.mouse.click(0, 0); // click outside Toast and Dialog
+    await page.mouse.click(0, 0); // click outside Toast and Dialog
 
-      await dialog.press("Tab");
+    await dialog.press("Tab");
 
-      await expect(openToastButton).toBeFocused();
-    });
+    await expect(openToastButton).toBeFocused();
+  });
 
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("when tabbing through Dialog content and two opened Toasts, the background scroll should not scroll to the bottom of the page", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithOpenToastsBackgroundScrollTest />);
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("when tabbing through Dialog content and two opened Toasts, the background scroll should not scroll to the bottom of the page", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DialogWithOpenToastsBackgroundScrollTest />);
 
-      const dialog = page.getByRole("dialog");
-      const dialogCloseButton = dialog.getByLabel("Close");
-      const textbox = page.getByLabel("Textbox");
-      const toast1CloseButton = toastComponent(page)
-        .filter({ hasText: "Toast message 1" })
-        .getByLabel("Close");
-      const toast2CloseButton = toastComponent(page)
-        .filter({ hasText: "Toast message 2" })
-        .getByLabel("Close");
+    const dialog = page.getByRole("dialog");
+    const dialogCloseButton = dialog.getByLabel("Close");
+    const textbox = page.getByLabel("Textbox");
+    const toast1CloseButton = toastComponent(page)
+      .filter({ hasText: "Toast message 1" })
+      .getByLabel("Close");
+    const toast2CloseButton = toastComponent(page)
+      .filter({ hasText: "Toast message 2" })
+      .getByLabel("Close");
 
-      await page.waitForTimeout(250);
-      await dialog.press("Tab");
-      await dialogCloseButton.press("Tab");
-      await textbox.press("Tab");
-      await toast1CloseButton.press("Tab");
-      await toast2CloseButton.press("Tab");
+    await page.waitForTimeout(250);
+    await dialog.press("Tab");
+    await dialogCloseButton.press("Tab");
+    await textbox.press("Tab");
+    await toast1CloseButton.press("Tab");
+    await toast2CloseButton.press("Tab");
 
-      await expect(dialogCloseButton).toBeFocused();
-      await expect(
-        page.getByText("I should not be scrolled into view")
-      ).not.toBeInViewport();
-    });
+    await expect(dialogCloseButton).toBeFocused();
+    await expect(
+      page.getByText("I should not be scrolled into view"),
+    ).not.toBeInViewport();
+  });
 
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip("when shift tabbing through Dialog content and two opened Toasts, the background scroll should not scroll to the bottom of the page", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithOpenToastsBackgroundScrollTest />);
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("when shift tabbing through Dialog content and two opened Toasts, the background scroll should not scroll to the bottom of the page", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DialogWithOpenToastsBackgroundScrollTest />);
 
-      const dialog = page.getByRole("dialog");
-      const dialogCloseButton = dialog.getByLabel("Close");
-      const textbox = page.getByLabel("Textbox");
-      const toast1CloseButton = page
-        .locator('[data-component="toast"]')
-        .filter({ hasText: "Toast message 1" })
-        .getByLabel("Close");
-      const toast2CloseButton = page
-        .locator('[data-component="toast"]')
-        .filter({ hasText: "Toast message 2" })
-        .getByLabel("Close");
+    const dialog = page.getByRole("dialog");
+    const dialogCloseButton = dialog.getByLabel("Close");
+    const textbox = page.getByLabel("Textbox");
+    const toast1CloseButton = page
+      .locator('[data-component="toast"]')
+      .filter({ hasText: "Toast message 1" })
+      .getByLabel("Close");
+    const toast2CloseButton = page
+      .locator('[data-component="toast"]')
+      .filter({ hasText: "Toast message 2" })
+      .getByLabel("Close");
 
-      await page.waitForTimeout(250);
-      await dialog.press("Shift+Tab");
-      await toast2CloseButton.press("Shift+Tab");
-      await toast1CloseButton.press("Shift+Tab");
-      await textbox.press("Shift+Tab");
+    await page.waitForTimeout(250);
+    await dialog.press("Shift+Tab");
+    await toast2CloseButton.press("Shift+Tab");
+    await toast1CloseButton.press("Shift+Tab");
+    await textbox.press("Shift+Tab");
 
-      await expect(dialogCloseButton).toBeFocused();
-      await expect(
-        page.getByText("I should not be scrolled into view")
-      ).not.toBeInViewport();
-    });
-  }
-);
+    await expect(dialogCloseButton).toBeFocused();
+    await expect(
+      page.getByText("I should not be scrolled into view"),
+    ).not.toBeInViewport();
+  });
+});
 
 test("Dialog should have rounded corners", async ({ mount, page }) => {
   await mount(<DialogComponent />);
@@ -676,193 +673,190 @@ test("dialog re-centres itself in the viewport, when viewport size changes", asy
   expect(boundingBox.y).toBeCloseTo(expectedYPosition);
 });
 
-test.describe(
-  "Accessibility tests for playwright mock components and storybook stories",
-  () => {
-    test("DialogComponent mock component should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogComponent />);
+test.describe("Accessibility tests for playwright mock components and storybook stories", () => {
+  test("DialogComponent mock component should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DialogComponent />);
 
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
+  });
 
-    test("DialogWithFirstFocusableElement mock component should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithFirstFocusableElement />);
+  test("DialogWithFirstFocusableElement mock component should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DialogWithFirstFocusableElement />);
 
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
+  });
 
-    test("DialogWithToast mock component should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DialogWithToast />);
+  test("DialogWithToast mock component should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DialogWithToast />);
 
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
+  });
 
-    test("Default story should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DefaultStory />);
+  test("Default story should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultStory />);
 
-      const openDialogButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Dialog" });
-      await openDialogButton.click();
+    const openDialogButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Dialog" });
+    await openDialogButton.click();
 
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
+  });
 
-    test("Editable story should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Editable />);
+  test("Editable story should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Editable />);
 
-      const openDialogButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Dialog" });
-      await openDialogButton.click();
+    const openDialogButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Dialog" });
+    await openDialogButton.click();
 
-      await checkAccessibility(page);
+    await checkAccessibility(page);
 
-      const activateAddressButton = page
-        .getByRole("button")
-        .filter({ hasText: "Activate Address" });
-      await activateAddressButton.click();
+    const activateAddressButton = page
+      .getByRole("button")
+      .filter({ hasText: "Activate Address" });
+    await activateAddressButton.click();
 
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
+  });
 
-    test("WithHelp story should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<WithHelp />);
+  test("WithHelp story should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithHelp />);
 
-      const openDialogButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Dialog" });
-      await openDialogButton.click();
+    const openDialogButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Dialog" });
+    await openDialogButton.click();
 
-      await checkAccessibility(page);
+    await checkAccessibility(page);
 
-      const helpIcon = page.getByLabel("help");
-      await helpIcon.hover();
+    const helpIcon = page.getByLabel("help");
+    await helpIcon.hover();
 
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
+  });
 
-    test("LoadingContent story should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<LoadingContent />);
+  test("LoadingContent story should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<LoadingContent />);
 
-      const openDialogButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Dialog" });
-      await openDialogButton.click();
+    const openDialogButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Dialog" });
+    await openDialogButton.click();
 
-      await checkAccessibility(page);
+    await checkAccessibility(page);
 
-      await page.getByLabel("Textbox 1").waitFor();
-      await checkAccessibility(page);
-    });
+    await page.getByLabel("Textbox 1").waitFor();
+    await checkAccessibility(page);
+  });
 
-    test("FocusingADifferentFirstElement story should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FocusingADifferentFirstElement />);
+  test("FocusingADifferentFirstElement story should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FocusingADifferentFirstElement />);
 
-      const focusFirstElementDemoButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Demo using focusFirstElement" });
-      await focusFirstElementDemoButton.click();
+    const focusFirstElementDemoButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Demo using focusFirstElement" });
+    await focusFirstElementDemoButton.click();
 
-      await checkAccessibility(page);
+    await checkAccessibility(page);
 
-      await page.getByRole("dialog").press("Escape");
-      const autoFocusDemoButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Demo using autoFocus" });
-      await autoFocusDemoButton.click();
+    await page.getByRole("dialog").press("Escape");
+    const autoFocusDemoButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Demo using autoFocus" });
+    await autoFocusDemoButton.click();
 
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
+  });
 
-    test("OverridingContentPadding story should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<OverridingContentPadding />);
+  test("OverridingContentPadding story should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<OverridingContentPadding />);
 
-      const openDialogButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Dialog" });
-      await openDialogButton.click();
+    const openDialogButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Dialog" });
+    await openDialogButton.click();
 
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
+  });
 
-    test("OtherFocusableContainers story should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<OtherFocusableContainers />);
+  test("OtherFocusableContainers story should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<OtherFocusableContainers />);
 
-      const openDialogButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Dialog" });
-      const firstToastButton = page
-        .getByRole("button")
-        .filter({ hasText: "Show first toast" });
-      const secondToastButton = page
-        .getByRole("button")
-        .filter({ hasText: "Show second toast" });
+    const openDialogButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Dialog" });
+    const firstToastButton = page
+      .getByRole("button")
+      .filter({ hasText: "Show first toast" });
+    const secondToastButton = page
+      .getByRole("button")
+      .filter({ hasText: "Show second toast" });
 
-      await openDialogButton.click();
-      await firstToastButton.click();
-      await secondToastButton.click();
+    await openDialogButton.click();
+    await firstToastButton.click();
+    await secondToastButton.click();
 
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
+  });
 
-    test("Responsive story should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Responsive />);
+  test("Responsive story should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Responsive />);
 
-      const openDialogButton = page
-        .getByRole("button")
-        .filter({ hasText: "Open Dialog" });
-      await openDialogButton.click();
+    const openDialogButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open Dialog" });
+    await openDialogButton.click();
 
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page);
+  });
 
-    test("UsingHandle story should pass accessibility checks", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<UsingHandle />);
+  test("UsingHandle story should pass accessibility checks", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<UsingHandle />);
 
-      await page.getByRole("button").filter({ hasText: "Open Dialog" }).click();
+    await page.getByRole("button").filter({ hasText: "Open Dialog" }).click();
 
-      await checkAccessibility(page);
+    await checkAccessibility(page);
 
-      await page.getByRole("button").filter({ hasText: "Submit" }).click();
+    await page.getByRole("button").filter({ hasText: "Submit" }).click();
 
-      await checkAccessibility(page);
-    });
-  }
-);
+    await checkAccessibility(page);
+  });
+});

@@ -156,7 +156,7 @@ test.describe("Functionality tests", () => {
 
       await expect(textEditorToolbar(page, buttonType)).toHaveCSS(
         "background-color",
-        "rgb(0, 50, 76)"
+        "rgb(0, 50, 76)",
       );
     });
   });
@@ -178,7 +178,7 @@ test.describe("Functionality tests", () => {
 
       await expect(textEditorToolbar(page, buttonType)).toHaveCSS(
         "background-color",
-        "rgb(0, 50, 76)"
+        "rgb(0, 50, 76)",
       );
     });
   });
@@ -319,18 +319,18 @@ test.describe("Functionality tests", () => {
 
         const stylingButton = getComponent(
           page,
-          "text-editor-toolbar-button"
+          "text-editor-toolbar-button",
         ).nth(buttonNumber);
         await stylingButton.hover();
         await expect(stylingButton).toHaveCSS(
           "background-color",
-          "rgb(204, 214, 219)"
+          "rgb(204, 214, 219)",
         );
         await expect(getDataElementByValue(page, "tooltip")).toHaveText(
-          tooltipText
+          tooltipText,
         );
       });
-    }
+    },
   );
 
   test(`should focus optional buttons by tabbing from the input area`, async ({
@@ -345,11 +345,11 @@ test.describe("Functionality tests", () => {
     await expect(textEditorToolbar(page, "bold")).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(
-      page.getByRole("button").filter({ hasText: "Cancel" })
+      page.getByRole("button").filter({ hasText: "Cancel" }),
     ).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(
-      page.getByRole("button").filter({ hasText: "Save" })
+      page.getByRole("button").filter({ hasText: "Save" }),
     ).toBeFocused();
   });
 
@@ -441,11 +441,11 @@ test.describe("Prop tests", () => {
     await textInput.focus();
     await getComponent(page, "icon").first().hover();
     await expect(getDataElementByValue(page, "tooltip")).toHaveText(
-      "There is an error"
+      "There is an error",
     );
 
     expect(
-      await getStyle(getDataElementByValue(page, "error"), "color", "before")
+      await getStyle(getDataElementByValue(page, "error"), "color", "before"),
     ).toBe(VALIDATION.ERROR);
 
     const iconColor = await page.evaluate(() => {
@@ -455,7 +455,7 @@ test.describe("Prop tests", () => {
       }
       const beforePseudoElement = window.getComputedStyle(
         validationIcon,
-        "::before"
+        "::before",
       );
       return beforePseudoElement ? beforePseudoElement.color : null;
     });
@@ -476,11 +476,11 @@ test.describe("Prop tests", () => {
 
     await getComponent(page, "icon").first().hover();
     await expect(getDataElementByValue(page, "tooltip")).toHaveText(
-      "There is a warning"
+      "There is a warning",
     );
 
     expect(
-      await getStyle(getDataElementByValue(page, "warning"), "color", "before")
+      await getStyle(getDataElementByValue(page, "warning"), "color", "before"),
     ).toBe(VALIDATION.WARNING);
 
     const iconColor = await page.evaluate(() => {
@@ -490,7 +490,7 @@ test.describe("Prop tests", () => {
       }
       const beforePseudoElement = window.getComputedStyle(
         validationIcon,
-        "::before"
+        "::before",
       );
       return beforePseudoElement ? beforePseudoElement.color : null;
     });
@@ -508,11 +508,11 @@ test.describe("Prop tests", () => {
 
     await getComponent(page, "icon").first().hover();
     await expect(getDataElementByValue(page, "tooltip")).toHaveText(
-      "There is an info"
+      "There is an info",
     );
 
     expect(
-      await getStyle(getDataElementByValue(page, "info"), "color", "before")
+      await getStyle(getDataElementByValue(page, "info"), "color", "before"),
     ).toBe(VALIDATION.INFO);
 
     const iconColor = await page.evaluate(() => {
@@ -522,7 +522,7 @@ test.describe("Prop tests", () => {
       }
       const beforePseudoElement = window.getComputedStyle(
         validationIcon,
-        "::before"
+        "::before",
       );
       return beforePseudoElement ? beforePseudoElement.color : null;
     });
@@ -537,13 +537,13 @@ test.describe("Prop tests", () => {
       await mount(
         <CarbonProvider validationRedesignOptIn>
           <TextEditorCustom {...{ [validationType]: validationType }} />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
       await textEditorInput(page).focus();
 
       await expect(textEditorContainer(page).locator("..")).toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
       );
     });
   });
@@ -560,17 +560,17 @@ test.describe("Prop tests", () => {
       await mount(
         <CarbonProvider focusRedesignOptOut>
           <TextEditorCustom {...{ [validationType]: validationType }} />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
       await textEditorInput(page).focus();
 
       await expect(textEditorContainer(page).locator("..")).toHaveCSS(
         "outline",
-        "rgb(255, 188, 25) solid 3px"
+        "rgb(255, 188, 25) solid 3px",
       );
       await expect(textEditorContainer(page).locator("..")).toHaveCSS(
         "outline-offset",
-        outlineOffset
+        outlineOffset,
       );
     });
   });
@@ -587,7 +587,7 @@ test.describe("Prop tests", () => {
 
       await expect(textEditorContainer(page)).toHaveCSS(
         "min-height",
-        `${px}px`
+        `${px}px`,
       );
     });
   });
@@ -608,7 +608,7 @@ test.describe("Events tests", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await textEditorInput(page).fill("t");
@@ -626,7 +626,7 @@ test.describe("Events tests", () => {
         onLinkAdded={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await textEditorInput(page).fill("https://carbon.s");
@@ -644,19 +644,19 @@ test.describe("Styling tests", () => {
 
     await expect(textEditorToolbar(page, "bold")).toHaveCSS(
       "border-radius",
-      "8px"
+      "8px",
     );
     await expect(textEditorToolbar(page, "italic")).toHaveCSS(
       "border-radius",
-      "8px"
+      "8px",
     );
     await expect(textEditorToolbar(page, "bullet-list")).toHaveCSS(
       "border-radius",
-      "8px"
+      "8px",
     );
     await expect(textEditorToolbar(page, "number-list")).toHaveCSS(
       "border-radius",
-      "8px"
+      "8px",
     );
   });
 
@@ -671,7 +671,7 @@ test.describe("Styling tests", () => {
     await textEditorInput(page).focus();
     await expect(textEditorContainer(page).locator("..")).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 3px"
+      "rgb(255, 188, 25) solid 3px",
     );
 
     await textEditorToolbar(page, "bold").focus();
@@ -702,54 +702,54 @@ test.describe("Styling tests", () => {
     await textEditorInput(page).focus();
     await expect(editorParent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(editorParent).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
 
     await toolbarBold.focus();
     await expect(toolbarBold).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(toolbarBold).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
     await expect(toolbarBold).toHaveCSS("position", "relative");
 
     await toolbarItalic.focus();
     await expect(toolbarItalic).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(toolbarItalic).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
     await expect(toolbarItalic).toHaveCSS("position", "relative");
 
     await toolbarBullet.focus();
     await expect(toolbarBullet).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(toolbarBullet).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
     await expect(toolbarBullet).toHaveCSS("position", "relative");
 
     await toolbarNumber.focus();
     await expect(toolbarNumber).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(toolbarNumber).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
     await expect(toolbarNumber).toHaveCSS("position", "relative");
   });
@@ -1331,7 +1331,7 @@ test.describe("Substitute unit tests", () => {
     await textEditorInput(page).focus();
     // copy text to clipboard
     await page.evaluate(() =>
-      navigator.clipboard.writeText("12345678901234567890")
+      navigator.clipboard.writeText("12345678901234567890"),
     );
 
     if (process.env.CI) {

@@ -9,15 +9,14 @@ test("renders presentational div and presentation container elements", () => {
   render(<InputPresentation>Children</InputPresentation>);
 
   const inputPresentationContainer = screen.getByTestId(
-    "input-presentation-container"
+    "input-presentation-container",
   );
   const inputPresentation = within(inputPresentationContainer).getByRole(
-    "presentation"
+    "presentation",
   );
 
-  const inputPresentationChildren = within(inputPresentation).getByText(
-    "Children"
-  );
+  const inputPresentationChildren =
+    within(inputPresentation).getByText("Children");
   expect(inputPresentationChildren).toBeVisible();
 });
 
@@ -25,15 +24,15 @@ test("renders a passed node via the `positionedChildren` prop before any other c
   render(
     <InputPresentation positionedChildren="Favourite Child.">
       Middle Child.
-    </InputPresentation>
+    </InputPresentation>,
   );
 
   const inputPresentationContainer = screen.getByTestId(
-    "input-presentation-container"
+    "input-presentation-container",
   );
 
   expect(inputPresentationContainer).toHaveTextContent(
-    "Favourite Child.Middle Child."
+    "Favourite Child.Middle Child.",
   );
 });
 
@@ -43,7 +42,7 @@ test("triggers a passed function via the `onMouseEnter` prop when the input is h
   render(
     <InputContext.Provider value={{ onMouseEnter: onMouseEnterMock }}>
       <InputPresentation>sample children</InputPresentation>
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
 
   const user = userEvent.setup();
@@ -60,7 +59,7 @@ test("triggers a passed function via the `onMouseEnter` prop from the input cont
   render(
     <InputGroupContext.Provider value={{ onMouseEnter: onMouseEnterMock }}>
       <InputPresentation>sample children</InputPresentation>
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 
   const user = userEvent.setup();
@@ -77,7 +76,7 @@ test("triggers a passed function via the `onMouseLeave` prop when the input is h
   render(
     <InputContext.Provider value={{ onMouseLeave: onMouseLeaveMock }}>
       <InputPresentation>sample children</InputPresentation>
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
 
   const user = userEvent.setup();
@@ -95,7 +94,7 @@ test("triggers a passed function via the `onMouseLeave` prop from the input cont
   render(
     <InputGroupContext.Provider value={{ onMouseLeave: onMouseLeaveMock }}>
       <InputPresentation>sample children</InputPresentation>
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 
   const user = userEvent.setup();
@@ -115,11 +114,11 @@ test.each(["left", "right"])(
     render(
       <InputPresentation hasIcon align={alignValue}>
         <Input />
-      </InputPresentation>
+      </InputPresentation>,
     );
 
     const inputPresentation = screen.getByRole("presentation");
     const input = within(inputPresentation).getByRole("textbox");
     expect(input).toHaveStyle(`padding-${alignValue}: 0`);
-  }
+  },
 );

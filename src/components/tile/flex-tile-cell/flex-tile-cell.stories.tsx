@@ -12,7 +12,7 @@ const styledSystemProps = generateStyledSystemProps(
     padding: true,
     flexBox: true,
   },
-  { flexGrow: 1, flexShrink: 0, flexBasis: "160px" }
+  { flexGrow: 1, flexShrink: 0, flexBasis: "160px" },
 );
 
 const meta: Meta<typeof FlexTileCell> = {

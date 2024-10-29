@@ -103,7 +103,7 @@ const InlineInputs = ({
   useEffect(() => {
     if (required) {
       const elements = Array.from(
-        ref.current?.querySelectorAll("input") || /* istanbul ignore next */ []
+        ref.current?.querySelectorAll("input") || /* istanbul ignore next */ [],
       );
       elements.forEach((el) => el.setAttribute("required", ""));
     }

@@ -7,7 +7,7 @@ jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");
 
 test("should render the component with expected title and subtitle", () => {
   render(
-    <Confirm open title="Title" subtitle="Subtitle" onConfirm={() => {}} />
+    <Confirm open title="Title" subtitle="Subtitle" onConfirm={() => {}} />,
   );
 
   expect(screen.getByText("Title")).toBeVisible();
@@ -42,7 +42,7 @@ test("should render the confirm and cancel buttons with the provided labels", ()
       onCancel={() => {}}
       confirmLabel="Confirm"
       cancelLabel="Cancel"
-    />
+    />,
   );
 
   expect(screen.getByRole("button", { name: "Confirm" })).toBeVisible();
@@ -51,7 +51,7 @@ test("should render the confirm and cancel buttons with the provided labels", ()
 
 test("should render the close icon if showCloseIcon is set", () => {
   render(
-    <Confirm open onConfirm={() => {}} onCancel={() => {}} showCloseIcon />
+    <Confirm open onConfirm={() => {}} onCancel={() => {}} showCloseIcon />,
   );
 
   expect(screen.getByRole("button", { name: "Close" })).toBeVisible();
@@ -61,7 +61,7 @@ test("should call onCancel when close icon button is clicked", async () => {
   const onCancel = jest.fn();
   const user = userEvent.setup();
   render(
-    <Confirm open onConfirm={() => {}} onCancel={onCancel} showCloseIcon />
+    <Confirm open onConfirm={() => {}} onCancel={onCancel} showCloseIcon />,
   );
 
   await user.click(screen.getByRole("button", { name: "Close" }));
@@ -82,7 +82,7 @@ test("should render disabled cancel button and close icon when disableCancel is 
       onCancel={() => {}}
       showCloseIcon
       disableCancel
-    />
+    />,
   );
 
   expect(screen.getByRole("button", { name: "No" })).toBeDisabled();
@@ -99,7 +99,7 @@ test("should not call onCancel when disableCancel is set and ESC key is pressed"
       onCancel={() => {}}
       showCloseIcon
       disableCancel
-    />
+    />,
   );
 
   await user.keyboard("{esc}");
@@ -113,7 +113,7 @@ test("should render disabled confirm button with Loader if isLoadingConfirm is s
       onConfirm={() => {}}
       isLoadingConfirm
       confirmButtonDataProps={{ "data-role": "confirm-button" }}
-    />
+    />,
   );
 
   expect(screen.queryByRole("button", { name: "Yes" })).not.toBeInTheDocument();
@@ -156,45 +156,45 @@ test("should render buttons with expected data tags", () => {
         "data-role": "close-button",
         "data-element": "baz",
       }}
-    />
+    />,
   );
 
   expect(screen.getByRole("button", { name: "Yes" })).toHaveAttribute(
     "data-role",
-    "confirm-button"
+    "confirm-button",
   );
   expect(screen.getByRole("button", { name: "Yes" })).toHaveAttribute(
     "data-element",
-    "foo"
+    "foo",
   );
 
   expect(screen.getByRole("button", { name: "No" })).toHaveAttribute(
     "data-role",
-    "cancel-button"
+    "cancel-button",
   );
   expect(screen.getByRole("button", { name: "No" })).toHaveAttribute(
     "data-element",
-    "bar"
+    "bar",
   );
 
   expect(screen.getByRole("button", { name: "Close" })).toHaveAttribute(
     "data-role",
-    "close-button"
+    "close-button",
   );
   expect(screen.getByRole("button", { name: "Close" })).toHaveAttribute(
     "data-element",
-    "baz"
+    "baz",
   );
 });
 
 test("should render with aria-labelledby set to the title's id when title and iconType props are set", () => {
   render(
-    <Confirm open title="Title" iconType="warning" onConfirm={() => {}} />
+    <Confirm open title="Title" iconType="warning" onConfirm={() => {}} />,
   );
   expect(screen.getByText("Title")).toHaveAttribute("id", "guid-12345");
   expect(screen.getByRole("alertdialog")).toHaveAttribute(
     "aria-labelledby",
-    "guid-12345"
+    "guid-12345",
   );
 });
 
@@ -206,12 +206,12 @@ test("should render with aria-describedby set to the subtitle's id when subtitle
       subtitle="Subtitle"
       iconType="warning"
       onConfirm={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByText("Subtitle")).toHaveAttribute("id", "guid-12345");
   expect(screen.getByRole("alertdialog")).toHaveAttribute(
     "aria-describedby",
-    "guid-12345"
+    "guid-12345",
   );
 });

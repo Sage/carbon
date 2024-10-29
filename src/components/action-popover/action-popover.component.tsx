@@ -98,7 +98,7 @@ export const ActionPopover = ({
           child.type !== ActionPopoverItem &&
           child.type !== ActionPopoverDivider
         );
-      }
+      },
     );
 
     return !incorrectChild;
@@ -113,7 +113,7 @@ export const ActionPopover = ({
   invariant(
     hasProperChildren,
     `ActionPopover only accepts children of type \`${ActionPopoverItem.displayName}\`` +
-      ` and \`${ActionPopoverDivider.displayName}\`.`
+      ` and \`${ActionPopoverDivider.displayName}\`.`,
   );
 
   const mappedPlacement = useMemo(() => {
@@ -142,12 +142,12 @@ export const ActionPopover = ({
       }
       setOpenState(value);
     },
-    [isOpen, onOpen, onClose]
+    [isOpen, onOpen, onClose],
   );
 
   const focusButton = useCallback(() => {
     const button = buttonRef.current?.querySelector<HTMLElement>(
-      "[data-element='action-popover-button']"
+      "[data-element='action-popover-button']",
     );
 
     button?.focus();
@@ -164,7 +164,7 @@ export const ActionPopover = ({
         focusButton();
       }
     },
-    [isOpen, firstFocusableItem, setOpen, focusButton]
+    [isOpen, firstFocusableItem, setOpen, focusButton],
   );
 
   // Keyboard commands implemented as recommended by WAI-ARIA best practices
@@ -184,7 +184,7 @@ export const ActionPopover = ({
         setOpen(true);
       }
     },
-    [firstFocusableItem, lastFocusableItem, setOpen]
+    [firstFocusableItem, lastFocusableItem, setOpen],
   );
 
   const handleEscapeKey = useCallback(
@@ -195,7 +195,7 @@ export const ActionPopover = ({
         focusButton();
       }
     },
-    [setOpen, focusButton]
+    [setOpen, focusButton],
   );
 
   useModalManager({

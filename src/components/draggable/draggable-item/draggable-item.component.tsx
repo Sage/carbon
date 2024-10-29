@@ -18,16 +18,17 @@ export interface DraggableItemProps extends PaddingProps {
    * @private
    * @ignore
    */
-  findItem?: (
-    id: string | number
-  ) => { DraggableItemProps: React.ReactElement; index: number };
+  findItem?: (id: string | number) => {
+    DraggableItemProps: React.ReactElement;
+    index: number;
+  };
   /**
    * @private
    * @ignore
    */
   moveItem?: (
     droppedId: string | number,
-    overIndex: number | undefined
+    overIndex: number | undefined,
   ) => void;
 }
 

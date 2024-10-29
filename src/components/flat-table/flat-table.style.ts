@@ -147,26 +147,25 @@ const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
       border-bottom-right-radius: var(--${bottomBorderRadius});
     `}
 
-  ${({ isInSidebar, theme, isFocused }) =>
+  ${({ isInSidebar, theme, isFocused }) => css`
+    box-sizing: border-box;
+
+    /* istanbul ignore next */
+    ${theme.focusRedesignOptOut &&
+    isFocused &&
+    /* istanbul ignore next */
     css`
-      box-sizing: border-box;
+      ${oldFocusStyling}
+    `}
 
-      /* istanbul ignore next */
-      ${theme.focusRedesignOptOut &&
-      isFocused &&
-      /* istanbul ignore next */
-      css`
-        ${oldFocusStyling}
-      `}
-
-      ${!theme.focusRedesignOptOut &&
-      isFocused &&
-      css`
-        ${addFocusStyling()}
-      `}
+    ${!theme.focusRedesignOptOut &&
+    isFocused &&
+    css`
+      ${addFocusStyling()}
+    `}
 
       ${isInSidebar ? "min-width: fit-content;" : ""}
-    `}
+  `}
 
   ${({ colorTheme }) => {
     switch (colorTheme) {

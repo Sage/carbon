@@ -16,7 +16,7 @@ test("has the correct data-component tag", () => {
   // getAllByTestId and take the first element
   expect(screen.getAllByTestId("test-example")[0]).toHaveAttribute(
     "data-component",
-    "simple-color"
+    "simple-color",
   );
 });
 
@@ -26,12 +26,12 @@ test("accepts data values passed as a props", () => {
       value="#0073C2"
       data-element="custom-element"
       data-role="custom-role"
-    />
+    />,
   );
 
   expect(screen.getAllByTestId("custom-role")[0]).toHaveAttribute(
     "data-element",
-    "custom-element"
+    "custom-element",
   );
 });
 
@@ -41,7 +41,7 @@ test("renders a white icon when the background color is dark", () => {
   expect(screen.getByTestId("icon")).toHaveStyleRule(
     "color",
     "var(--colorsUtilityYang100)",
-    { modifier: "::before" }
+    { modifier: "::before" },
   );
 });
 
@@ -51,7 +51,7 @@ test("renders a black icon when the background color is light", () => {
   expect(screen.getByTestId("icon")).toHaveStyleRule(
     "color",
     "var(--colorsUtilityYin090)",
-    { modifier: "::before" }
+    { modifier: "::before" },
   );
 });
 

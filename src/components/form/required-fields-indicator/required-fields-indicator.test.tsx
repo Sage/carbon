@@ -10,6 +10,6 @@ describe("RequiredFieldsIndicator", () => {
         children
       </RequiredFieldsIndicator>
     ),
-    () => screen.getByTestId("required-fields")
+    () => screen.getByTestId("required-fields"),
   );
 });

@@ -117,7 +117,7 @@ export const Confirm = ({
         onClick={
           onCancel as (
             // TODO: Remove assertion after Button/Button with href interface is fixed
-            ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+            ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
           ) => void
         }
         buttonType={cancelButtonType}
@@ -140,7 +140,7 @@ export const Confirm = ({
       onClick={
         onConfirm as (
           // TODO: Remove assertion after Button/Button with href interface is fixed
-          ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+          ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
         ) => void
       }
       buttonType={confirmButtonType}

@@ -29,7 +29,7 @@ test("should render with correct colour when 'light' `menuType` received from co
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -51,7 +51,7 @@ test("should render with correct colour when 'dark' `menuType` received from con
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -73,7 +73,7 @@ test("should render with correct colour when 'white' `menuType` received from co
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -95,7 +95,7 @@ test("should render with correct colour when 'black' `menuType` received from co
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -116,14 +116,14 @@ test("should render title as an h2 heading element by default and render list it
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
   const segmentList = screen.getByTestId("menu-segment-children");
 
   expect(
-    screen.getByRole("heading", { level: 2, name: "Title" })
+    screen.getByRole("heading", { level: 2, name: "Title" }),
   ).toBeVisible();
   expect(segmentList).toContainElement(screen.getByText("bar"));
 });
@@ -139,14 +139,14 @@ test("should render title `as` an 'h2' heading element and render list items as 
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
   const segmentList = screen.getByTestId("menu-segment-children");
 
   expect(
-    screen.getByRole("heading", { level: 2, name: "Title" })
+    screen.getByRole("heading", { level: 2, name: "Title" }),
   ).toBeVisible();
   expect(segmentList).toContainElement(screen.getByText("bar"));
 });
@@ -162,14 +162,14 @@ test("should render title `as` an 'h3' heading element and render list items as 
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
   const segmentList = screen.getByTestId("menu-segment-children");
 
   expect(
-    screen.getByRole("heading", { level: 3, name: "Title" })
+    screen.getByRole("heading", { level: 3, name: "Title" }),
   ).toBeVisible();
   expect(segmentList).toContainElement(screen.getByText("bar"));
 });
@@ -185,14 +185,14 @@ test("should render title `as` an 'h4' heading element and render list items as 
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
   const segmentList = screen.getByTestId("menu-segment-children");
 
   expect(
-    screen.getByRole("heading", { level: 4, name: "Title" })
+    screen.getByRole("heading", { level: 4, name: "Title" }),
   ).toBeVisible();
   expect(segmentList).toContainElement(screen.getByText("bar"));
 });
@@ -208,14 +208,14 @@ test("should render title `as` an 'h5' heading element and render list items as 
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
   const segmentList = screen.getByTestId("menu-segment-children");
 
   expect(
-    screen.getByRole("heading", { level: 5, name: "Title" })
+    screen.getByRole("heading", { level: 5, name: "Title" }),
   ).toBeVisible();
   expect(segmentList).toContainElement(screen.getByText("bar"));
 });
@@ -231,14 +231,14 @@ test("should render title `as` an 'h6' heading element and render list items as 
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
   const segmentList = screen.getByTestId("menu-segment-children");
 
   expect(
-    screen.getByRole("heading", { level: 6, name: "Title" })
+    screen.getByRole("heading", { level: 6, name: "Title" }),
   ).toBeVisible();
   expect(segmentList).toContainElement(screen.getByText("bar"));
 });
@@ -255,7 +255,7 @@ test("should render title with expected styling when `variant` is 'alternate' an
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -277,7 +277,7 @@ test("should render title with expected styling when `variant` is 'alternate' an
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -299,7 +299,7 @@ test("should render title with expected styling when `variant` is 'alternate' an
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -321,7 +321,7 @@ test("should render title with expected styling when `variant` is 'alternate' an
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -335,12 +335,12 @@ test("should apply expected `data-` attributes", () => {
   render(
     <MenuSegmentTitle text="foo" data-element="bar" data-role="baz">
       <li>bar</li>
-    </MenuSegmentTitle>
+    </MenuSegmentTitle>,
   );
 
   expect(screen.getByText("foo")).toHaveAttribute(
     "data-component",
-    "menu-segment-title"
+    "menu-segment-title",
   );
   expect(screen.getByText("foo")).toHaveAttribute("data-element", "bar");
   expect(screen.getByText("foo")).toHaveAttribute("data-role", "baz");
@@ -357,12 +357,12 @@ test("should not wrap when the submenu parent has no max-width set", async () =>
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   await user.click(screen.getByText("Item One"));
 
   expect(
-    await screen.findByRole("heading", { level: 2, name: "Title" })
+    await screen.findByRole("heading", { level: 2, name: "Title" }),
   ).toHaveStyle("white-space: nowrap");
 });
 
@@ -377,11 +377,11 @@ test("should wrap when the submenu parent has a max-width set", async () => {
           </MenuSegmentTitle>
         </MenuItem>
       </ul>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   await user.click(screen.getByText("Item One"));
 
   expect(
-    await screen.findByRole("heading", { level: 2, name: "Title" })
+    await screen.findByRole("heading", { level: 2, name: "Title" }),
   ).toHaveStyle("white-space: normal");
 });

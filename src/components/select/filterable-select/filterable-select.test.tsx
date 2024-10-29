@@ -29,7 +29,7 @@ testStyledSystemMarginRTL(
       <Option text="Amber" value="1" />
     </FilterableSelect>
   ),
-  () => screen.getByTestId("my-select")
+  () => screen.getByTestId("my-select"),
 );
 
 const FilterableSelectWithState = ({
@@ -64,11 +64,11 @@ test("should display a deprecation warning only once for all instances of compon
       <FilterableSelect label="two" defaultValue="opt1">
         <Option value="opt1" text="red" />
       </FilterableSelect>
-    </>
+    </>,
   );
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Filterable Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Filterable Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
   loggerSpy.mockClear();
@@ -84,7 +84,7 @@ test("should not display deprecation warning about uncontrolled Textbox when par
       placeholder="Select a colour"
     >
       <Option text="Amber" value="1" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(loggerSpy).not.toHaveBeenCalled();
@@ -96,11 +96,11 @@ test("should not display deprecation warning about uncontrolled Textbox when par
   render(
     <FilterableSelect label="Colour" placeholder="Select a colour">
       <Option text="Amber" value="1" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(loggerSpy).not.toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
   loggerSpy.mockClear();
 });
@@ -111,7 +111,7 @@ test("should update the input value when user clicks an option and the component
   render(
     <FilterableSelect>
       <Option value="opt1" text="red" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   const input = screen.getByRole("combobox");
@@ -129,7 +129,7 @@ test("should update the input value to highlight any matching option text when u
   render(
     <FilterableSelect>
       <Option value="opt1" text="green" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   const input = screen.getByRole("combobox") as HTMLInputElement;
@@ -145,7 +145,7 @@ test("should render combobox without text overlay", () => {
   render(
     <FilterableSelect label="Colour" onChange={() => {}} value="">
       <Option text="Amber" value="1" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(screen.getByRole("combobox")).toBeVisible();
@@ -156,12 +156,12 @@ test("should initially render combobox with placeholder text when props is not p
   render(
     <FilterableSelect label="Colour" onChange={() => {}} value="">
       <Option text="Amber" value="1" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAttribute(
     "placeholder",
-    "Please Select..."
+    "Please Select...",
   );
 });
 
@@ -174,12 +174,12 @@ test("should initially render combobox with custom `placeholder` when prop is pa
       placeholder="Select a colour"
     >
       <Option text="Amber" value="1" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAttribute(
     "placeholder",
-    "Select a colour"
+    "Select a colour",
   );
 });
 
@@ -187,7 +187,7 @@ test("should render combobox with correct accessible name when `label` prop is p
   render(
     <FilterableSelect label="Colour" onChange={() => {}} value="">
       <Option text="Amber" value="1" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
@@ -197,7 +197,7 @@ test("should render combobox with correct accessible name when `aria-label` prop
   render(
     <FilterableSelect aria-label="Colour" onChange={() => {}} value="">
       <Option text="Amber" value="1" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
@@ -214,7 +214,7 @@ test("combobox has correct accessible name when `aria-labelledby` prop is provid
       >
         <Option text="Amber" value="1" />
       </FilterableSelect>
-    </>
+    </>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAccessibleName("My Select");
@@ -224,7 +224,7 @@ test("should render combobox with no accessible name when none of the relevant p
   render(
     <FilterableSelect onChange={() => {}} value="">
       <Option text="Amber" value="1" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(screen.getByRole("combobox")).not.toHaveAccessibleName();
@@ -239,7 +239,7 @@ test("should render the input with `type` attribute of 'text'", () => {
       value=""
     >
       <Option value="opt1" text="red" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAttribute("type", "text");
@@ -311,7 +311,7 @@ describe("when the `id` prop is set", () => {
         value=""
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
 
     expect(screen.getByRole("combobox")).toHaveAttribute("id", mockId);
@@ -326,11 +326,11 @@ describe("when the `id` prop is set", () => {
         value=""
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     expect(screen.getByText("filterable-select")).toHaveAttribute(
       "id",
-      `${mockId}-label`
+      `${mockId}-label`,
     );
   });
 
@@ -344,7 +344,7 @@ describe("when the `id` prop is set", () => {
         value=""
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
     const list = await screen.findByRole("listbox");
@@ -360,7 +360,7 @@ describe("when the `id` prop is not set", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
 
     expect(screen.getByRole("combobox")).toHaveAttribute("id", mockedGuid);
@@ -370,12 +370,12 @@ describe("when the `id` prop is not set", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
 
     expect(screen.getByText("filterable-select")).toHaveAttribute(
       "id",
-      `${mockedGuid}-label`
+      `${mockedGuid}-label`,
     );
   });
 
@@ -384,7 +384,7 @@ describe("when the `id` prop is not set", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
     const list = await screen.findByRole("listbox");
@@ -404,11 +404,11 @@ test("should override the default list 'max-height' when `listMaxHeight` passed"
       value=""
     >
       <Option value="opt1" text="red" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
   screen.getByRole("combobox").focus();
   const listContainer = await screen.findByTestId(
-    "select-list-scrollable-container"
+    "select-list-scrollable-container",
   );
 
   await waitFor(() => {
@@ -425,12 +425,12 @@ test("should set the `placeholder` text when prop is passed", () => {
       placeholder="Select a colour"
     >
       <Option value="opt1" text="red" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAttribute(
     "placeholder",
-    "Select a colour"
+    "Select a colour",
   );
 });
 
@@ -443,7 +443,7 @@ describe("when controlled", () => {
         value="opt1"
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
 
     expect(screen.getByRole("combobox")).toHaveValue("red");
@@ -458,7 +458,7 @@ describe("when controlled", () => {
         onChange={() => {}}
       >
         <Option value="opt1" text="blue" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
 
     expect(screen.getByRole("combobox")).toHaveValue("");
@@ -468,7 +468,7 @@ describe("when controlled", () => {
     const { rerender } = render(
       <FilterableSelectWithState value="opt2">
         <Option value="opt1" text="blue" />
-      </FilterableSelectWithState>
+      </FilterableSelectWithState>,
     );
 
     expect(screen.getByRole("combobox")).toHaveValue("");
@@ -477,7 +477,7 @@ describe("when controlled", () => {
       <FilterableSelectWithState>
         <Option value="opt1" text="blue" />
         <Option value="opt2" text="red" />
-      </FilterableSelectWithState>
+      </FilterableSelectWithState>,
     );
 
     expect(screen.getByRole("combobox")).toHaveValue("red");
@@ -495,7 +495,7 @@ test("should call `onFocus` callback when input is focused", () => {
       onFocus={onFocusFn}
     >
       <Option value="opt1" text="red" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
   screen.getByRole("combobox").focus();
   act(() => jest.runOnlyPendingTimers());
@@ -516,7 +516,7 @@ test("should call `onFocus` callback when input is focused and `openOnFocus` is 
       onFocus={onFocusFn}
     >
       <Option value="opt1" text="red" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
   screen.getByRole("combobox").focus();
   act(() => jest.runOnlyPendingTimers());
@@ -535,7 +535,7 @@ test("should call `onBlur` callback when input is blurred", () => {
       onBlur={onBlurFn}
     >
       <Option value="opt1" text="red" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
   screen.getByRole("combobox").focus();
   screen.getByRole("combobox").blur();
@@ -555,7 +555,7 @@ test("should not call `onBlur` when the user clicks on an option", async () => {
       onBlur={onBlurFn}
     >
       <Option value="opt1" text="red" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
   screen.getByRole("combobox").focus();
   await user.click(await screen.findByRole("option", { name: "red" }));
@@ -575,7 +575,7 @@ test("should call `onChange` callback when the user types in the input", async (
       value=""
     >
       <Option value="opt1" text="red" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
   await user.type(screen.getByRole("combobox"), "r");
 
@@ -592,7 +592,7 @@ describe("when the input is focused", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
 
@@ -609,7 +609,7 @@ describe("when the input is focused", () => {
         openOnFocus
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
     act(() => jest.runOnlyPendingTimers());
@@ -629,12 +629,12 @@ describe("when the input is focused", () => {
           value=""
         >
           <Option value="opt1" text="red" />
-        </FilterableSelect>
+        </FilterableSelect>,
       );
       await user.type(screen.getByRole("combobox"), key);
 
       expect(await screen.findByRole("listbox")).toBeVisible();
-    }
+    },
   );
 
   it.each(["ArrowDown", "ArrowUp", "Home", "End"])(
@@ -649,12 +649,12 @@ describe("when the input is focused", () => {
           value=""
         >
           <Option value="opt1" text="red" />
-        </FilterableSelect>
+        </FilterableSelect>,
       );
       await user.type(screen.getByRole("textbox"), key);
 
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-    }
+    },
   );
 
   it("should not display the list when the user presses the 'Enter' key", async () => {
@@ -662,7 +662,7 @@ describe("when the input is focused", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.type(screen.getByRole("combobox"), "{Enter}");
 
@@ -674,7 +674,7 @@ describe("when the input is focused", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.type(screen.getByRole("combobox"), "r");
 
@@ -687,7 +687,7 @@ describe("when the input is focused", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.type(screen.getByRole("combobox"), "x");
 
@@ -702,7 +702,7 @@ describe("when the user clicks on the input", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
@@ -720,7 +720,7 @@ describe("when the user clicks on the input", () => {
         onClick={onClickFn}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
@@ -738,7 +738,7 @@ describe("when the user clicks on the input", () => {
         onOpen={onOpenFn}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
@@ -751,7 +751,7 @@ describe("when the user clicks on the input", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
     onOpenFn.mockReset();
@@ -770,7 +770,7 @@ describe("when the user clicks on the input", () => {
         value=""
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("textbox"));
 
@@ -787,7 +787,7 @@ describe("when the user clicks on the input", () => {
         value=""
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
@@ -799,7 +799,7 @@ describe("when the user clicks on the input", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
     await user.click(screen.getByRole("combobox"));
@@ -814,7 +814,7 @@ describe("when the user clicks on the input icon", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const icon = within(screen.getByRole("presentation")).getByTestId("icon");
     await user.click(icon);
@@ -832,7 +832,7 @@ describe("when the user clicks on the input icon", () => {
         value=""
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const icon = within(screen.getByRole("presentation")).getByTestId("icon");
     fireEvent.mouseDown(icon);
@@ -847,7 +847,7 @@ describe("when the user clicks on the input icon", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const icon = within(screen.getByRole("presentation")).getByTestId("icon");
     await user.click(icon);
@@ -867,7 +867,7 @@ describe("when the user clicks on the input icon", () => {
         onClick={onClickFn}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const icon = within(screen.getByRole("presentation")).getByTestId("icon");
     await user.click(icon);
@@ -882,13 +882,13 @@ describe("the placement of the list element", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "bottom"
+      "bottom",
     );
   });
 
@@ -902,13 +902,13 @@ describe("the placement of the list element", () => {
         listPlacement="top"
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "top"
+      "top",
     );
   });
 
@@ -922,13 +922,13 @@ describe("the placement of the list element", () => {
         listPlacement="bottom"
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "bottom"
+      "bottom",
     );
   });
 
@@ -942,13 +942,13 @@ describe("the placement of the list element", () => {
         listPlacement="top-end"
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "top-end"
+      "top-end",
     );
   });
 
@@ -962,13 +962,13 @@ describe("the placement of the list element", () => {
         listPlacement="bottom-end"
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "bottom-end"
+      "bottom-end",
     );
   });
 
@@ -982,13 +982,13 @@ describe("the placement of the list element", () => {
         listPlacement="top-start"
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "top-start"
+      "top-start",
     );
   });
 
@@ -1002,13 +1002,13 @@ describe("the placement of the list element", () => {
         listPlacement="bottom-start"
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "bottom-start"
+      "bottom-start",
     );
   });
 
@@ -1022,13 +1022,13 @@ describe("the placement of the list element", () => {
         listWidth={100}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "bottom-end"
+      "bottom-end",
     );
   });
 
@@ -1043,13 +1043,13 @@ describe("the placement of the list element", () => {
         listWidth={100}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "top-end"
+      "top-end",
     );
   });
 
@@ -1064,13 +1064,13 @@ describe("the placement of the list element", () => {
         listWidth={100}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "bottom-end"
+      "bottom-end",
     );
   });
 
@@ -1085,13 +1085,13 @@ describe("the placement of the list element", () => {
         listWidth={100}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "top-start"
+      "top-start",
     );
   });
 
@@ -1106,13 +1106,13 @@ describe("the placement of the list element", () => {
         listWidth={100}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "top-end"
+      "top-end",
     );
   });
 
@@ -1127,13 +1127,13 @@ describe("the placement of the list element", () => {
         listWidth={100}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "bottom-start"
+      "bottom-start",
     );
   });
 
@@ -1148,13 +1148,13 @@ describe("the placement of the list element", () => {
         listWidth={100}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      "bottom-end"
+      "bottom-end",
     );
   });
 });
@@ -1169,7 +1169,7 @@ describe("when the user types in the input", () => {
         value="opt1"
       >
         <Option value="opt1" text="abc" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const input = screen.getByRole("combobox");
     await user.type(input, "{Delete}");
@@ -1186,7 +1186,7 @@ describe("when the user types in the input", () => {
         value="opt1"
       >
         <Option value="opt1" text="abc" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const input = screen.getByRole("combobox") as HTMLInputElement;
     await user.click(input);
@@ -1201,7 +1201,7 @@ describe("when the user types in the input", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const input = screen.getByRole("combobox") as HTMLInputElement;
     await user.type(screen.getByRole("combobox"), "gree");
@@ -1215,7 +1215,7 @@ describe("when the user types in the input", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const input = screen.getByRole("combobox") as HTMLInputElement;
     await user.type(screen.getByRole("combobox"), "green");
@@ -1229,7 +1229,7 @@ describe("when the user types in the input", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const input = screen.getByRole("combobox") as HTMLInputElement;
     await user.type(screen.getByRole("combobox"), "   gre");
@@ -1244,13 +1244,13 @@ describe("when the user types in the input", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.type(screen.getByRole("combobox"), "gre");
 
     expect(await screen.findByRole("option")).toHaveAttribute(
       "aria-selected",
-      "true"
+      "true",
     );
   });
 
@@ -1259,7 +1259,7 @@ describe("when the user types in the input", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="black and white" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const input = screen.getByRole("combobox") as HTMLInputElement;
     await user.type(screen.getByRole("combobox"), "black ");
@@ -1272,13 +1272,13 @@ describe("when the user types in the input", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.type(screen.getByRole("combobox"), "gre   ");
 
     expect(await screen.findByRole("option")).toHaveAttribute(
       "aria-selected",
-      "true"
+      "true",
     );
   });
 
@@ -1287,7 +1287,7 @@ describe("when the user types in the input", () => {
     render(
       <FilterableSelect label="filterable-select" onChange={() => {}} value="">
         <Option value="opt1" text="black" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const input = screen.getByRole("combobox") as HTMLInputElement;
     await user.type(screen.getByRole("combobox"), "   ");
@@ -1306,7 +1306,7 @@ describe("when the user types in the input", () => {
         onFilterChange={onFilterChangeFn}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     await user.type(screen.getByRole("combobox"), "foo");
 
@@ -1323,7 +1323,7 @@ describe("when the user types in the input", () => {
         onFilterChange={onFilterChangeFn}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
 
     rerender(
@@ -1334,7 +1334,7 @@ describe("when the user types in the input", () => {
         onFilterChange={onFilterChangeFn}
       >
         <Option value="opt1" text="red" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
 
     expect(onFilterChangeFn).not.toHaveBeenCalled();
@@ -1350,7 +1350,7 @@ describe("when the user types in the input", () => {
       >
         <Option value="opt1" text="blue" />
         <Option value="opt2" text="black" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const input = screen.getByRole("combobox") as HTMLInputElement;
     await user.type(screen.getByRole("combobox"), "bla");
@@ -1366,7 +1366,7 @@ describe("when the user selects an option", () => {
       <FilterableSelectWithState value="opt1">
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
-      </FilterableSelectWithState>
+      </FilterableSelectWithState>,
     );
     await user.click(screen.getByRole("combobox"));
     await user.click(await screen.findByRole("option", { name: "green" }));
@@ -1385,7 +1385,7 @@ describe("when the user selects an option", () => {
         onSelect={onSelectFn}
       >
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     const input = screen.getByRole("combobox");
     await user.click(input);
@@ -1405,7 +1405,7 @@ describe("when the user selects an option", () => {
         onSelect={onSelectFn}
       >
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
     await user.keyboard("{ArrowDown}");
@@ -1426,7 +1426,7 @@ describe("when the user selects an option", () => {
         onSelect={onSelectFn}
       >
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
     await user.keyboard("{ArrowDown}");
@@ -1448,7 +1448,7 @@ describe("when the user selects an option", () => {
       >
         <Option value="opt1" text="green" />
         <Option value="opt2" text="blue" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
     await user.keyboard("{ArrowDown}");
@@ -1471,7 +1471,7 @@ describe("when the user selects an option", () => {
       >
         <Option value="opt1" text="green" />
         <Option value="opt2" text="blue" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
     await user.keyboard("{ArrowUp}");
@@ -1493,7 +1493,7 @@ test("should close the list when the user presses `Escape` key", async () => {
       value=""
     >
       <Option value="opt1" text="green" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
   screen.getByRole("combobox").focus();
   await user.keyboard("{ArrowDown}");
@@ -1507,7 +1507,7 @@ test("should close the list when the user clicks outside the component", async (
   render(
     <FilterableSelect label="filterable-select" onChange={() => {}} value="">
       <Option value="opt1" text="green" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
   screen.getByRole("combobox").focus();
   await user.keyboard("{ArrowDown}");
@@ -1527,7 +1527,7 @@ test("should call the `onKeyDown` callback when the user presses a key and the i
       onKeyDown={onKeyDownFn}
     >
       <Option value="opt1" text="green" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
   screen.getByRole("combobox").focus();
   await user.keyboard("{ArrowDown}");
@@ -1547,12 +1547,12 @@ describe("when the `listActionButton` is passed", () => {
         listActionButton={<button type="button">mock button</button>}
       >
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
 
     expect(
-      await screen.findByRole("button", { name: "mock button" })
+      await screen.findByRole("button", { name: "mock button" }),
     ).toBeVisible();
   });
 
@@ -1569,11 +1569,11 @@ describe("when the `listActionButton` is passed", () => {
         onListAction={onListActionFn}
       >
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
     await user.click(
-      await screen.findByRole("button", { name: "mock button" })
+      await screen.findByRole("button", { name: "mock button" }),
     );
 
     expect(onListActionFn).toHaveBeenCalled();
@@ -1591,13 +1591,13 @@ describe("when the `listActionButton` is passed", () => {
         listActionButton={<button type="button">mock button</button>}
       >
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
     await user.tab();
 
     expect(
-      await screen.findByRole("button", { name: "mock button" })
+      await screen.findByRole("button", { name: "mock button" }),
     ).toHaveFocus();
   });
 
@@ -1614,7 +1614,7 @@ describe("when the `listActionButton` is passed", () => {
         listActionButton={<button type="button">mock button</button>}
       >
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
     await user.tab();
@@ -1636,7 +1636,7 @@ describe("when the `listActionButton` is passed", () => {
         listActionButton={<button type="button">mock button</button>}
       >
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
     await user.tab();
@@ -1660,7 +1660,7 @@ describe("when the `listActionButton` is passed", () => {
         listActionButton={<button type="button">mock button</button>}
       >
         <Option value="opt1" text="green" />
-      </FilterableSelect>
+      </FilterableSelect>,
     );
     screen.getByRole("combobox").focus();
     await user.tab();
@@ -1679,7 +1679,7 @@ test("should set the `required` attribute on the input when the prop is passed",
       required
     >
       <Option value="opt1" text="green" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(screen.getByRole("combobox")).toBeRequired();
@@ -1697,7 +1697,7 @@ test("should not be call `onListScrollBottom` callback when an option is clicked
       value=""
     >
       <Option value="opt1" text="green" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
   screen.getByRole("combobox").focus();
   await user.click(await screen.findByRole("option", { name: "green" }));
@@ -1714,13 +1714,13 @@ test("should apply the expected border radius styling to the list element", () =
       value=""
     >
       <Option value="opt1" text="green" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
   screen.getByRole("combobox").focus();
 
   expect(screen.getByTestId("select-list-wrapper")).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius050)"
+    "var(--borderRadius050)",
   );
 });
 
@@ -1733,11 +1733,11 @@ test("should apply the expected `maxWidth` styling when the prop is passed", () 
       maxWidth="69%"
     >
       <Option value="opt1" text="green" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(screen.getByTestId("input-presentation-container")).toHaveStyle(
-    "max-width: 69%"
+    "max-width: 69%",
   );
 });
 
@@ -1745,11 +1745,11 @@ test("should apply the expected `maxWidth` styling when the prop is not passed",
   render(
     <FilterableSelect label="filterable-select" onChange={() => {}} value="">
       <Option value="opt1" text="green" />
-    </FilterableSelect>
+    </FilterableSelect>,
   );
 
   expect(screen.getByTestId("input-presentation-container")).toHaveStyle(
-    "max-width: 100%"
+    "max-width: 100%",
   );
 });
 
@@ -1760,7 +1760,7 @@ test("should show all options when `disableDefaultFiltering` is true and the use
       <Option value="opt1" text="a" />
       <Option value="opt2" text="b" />
       <Option value="opt3" text="c" />
-    </FilterableSelectWithState>
+    </FilterableSelectWithState>,
   );
   await user.type(screen.getByRole("combobox"), "a");
 
@@ -1774,7 +1774,7 @@ test("should hide any non-matching options when `disableDefaultFiltering` is fal
       <Option value="opt1" text="a" />
       <Option value="opt2" text="b" />
       <Option value="opt3" text="c" />
-    </FilterableSelectWithState>
+    </FilterableSelectWithState>,
   );
   await user.type(screen.getByRole("combobox"), "a");
 
@@ -1788,7 +1788,7 @@ test("should hide any non-matching options when `disableDefaultFiltering` is not
       <Option value="opt1" text="a" />
       <Option value="opt2" text="b" />
       <Option value="opt3" text="c" />
-    </FilterableSelectWithState>
+    </FilterableSelectWithState>,
   );
   await user.type(screen.getByRole("combobox"), "a");
 

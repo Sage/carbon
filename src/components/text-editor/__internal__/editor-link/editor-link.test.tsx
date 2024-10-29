@@ -18,7 +18,7 @@ test("derives the url from the`contentState` and `entityKey`", () => {
         <div>foo</div>
         <div>bar</div>
       </EditorLink>
-    </EditorContext.Provider>
+    </EditorContext.Provider>,
   );
 
   const link = screen.getByRole("link");
@@ -34,7 +34,7 @@ test("derives the url from the first child element when no `contentState` is pro
         <ChildComponent text="foo" />
         <ChildComponent text="bar" />
       </EditorLink>
-    </EditorContext.Provider>
+    </EditorContext.Provider>,
   );
 
   const link = screen.getByRole("link");
@@ -56,7 +56,7 @@ test("derives the url from the first child element when no `entityKey` is provid
         <ChildComponent text="foo" />
         <ChildComponent text="bar" />
       </EditorLink>
-    </EditorContext.Provider>
+    </EditorContext.Provider>,
   );
 
   const link = screen.getByRole("link");
@@ -72,7 +72,7 @@ test("does not append `https://` to the url when it contains `http://`", () => {
         <ChildComponent text="http://foo" />
         <ChildComponent text="bar" />
       </EditorLink>
-    </EditorContext.Provider>
+    </EditorContext.Provider>,
   );
 
   const link = screen.getByRole("link");
@@ -89,7 +89,7 @@ test("the `onLinkAdded` callback prop is called with the computed url when the c
         <ChildComponent text="foo" />
         <ChildComponent text="bar" />
       </EditorLink>
-    </EditorContext.Provider>
+    </EditorContext.Provider>,
   );
 
   expect(onLinkAdded).toHaveBeenCalledWith("https://foo");
@@ -104,7 +104,7 @@ test("when the `editMode` prop is `true`, the anchor element should not have a `
         <ChildComponent text="foo" />
         <ChildComponent text="bar" />
       </EditorLink>
-    </EditorContext.Provider>
+    </EditorContext.Provider>,
   );
 
   expect(screen.queryByRole("link")).not.toBeInTheDocument();

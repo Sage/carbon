@@ -53,7 +53,7 @@ ${variant}{
   line-height: 21px;
   padding-bottom: 16px;
 }
-  `
+  `,
   )}
 `;
 

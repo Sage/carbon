@@ -93,18 +93,18 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
   if (!deprecateUncontrolledWarnTriggered && !onChange) {
     deprecateUncontrolledWarnTriggered = true;
     Logger.deprecate(
-      "Uncontrolled behaviour in `Radio Button` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      "Uncontrolled behaviour in `Radio Button` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
     );
   }
 
   const marginProps = filterStyledSystemMarginProps(props);
 
   const isAboveLegendBreakpoint = useIsAboveBreakpoint(
-    adaptiveLegendBreakpoint
+    adaptiveLegendBreakpoint,
   );
 
   const isAboveSpacingBreakpoint = useIsAboveBreakpoint(
-    adaptiveSpacingBreakpoint
+    adaptiveSpacingBreakpoint,
   );
 
   let inlineLegend = legendInlineWithNewValidation;

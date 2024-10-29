@@ -65,7 +65,7 @@ export const StepFlowTitle = ({
               screenReaderOnlyTitle || titleString,
               validatedCurrentStep,
               totalSteps,
-              category
+              category,
             )}
           </Typography>
         )}

@@ -10,7 +10,7 @@ import SubmenuContext from "../__internal__/submenu/submenu.context";
 
 const AS_VALUES = ["h2", "h3", "h4", "h5", "h6"] as const;
 
-type AllowedAsValues = typeof AS_VALUES[number];
+type AllowedAsValues = (typeof AS_VALUES)[number];
 export interface MenuTitleProps extends TagProps {
   children?: React.ReactNode;
   text: string;
@@ -23,7 +23,7 @@ export interface MenuTitleProps extends TagProps {
 const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
   (
     { children, variant = "default", text, as = "h2", ...rest }: MenuTitleProps,
-    ref
+    ref,
   ) => {
     const menuContext = useContext(MenuContext);
     const { submenuHasMaxWidth } = useContext(SubmenuContext);
@@ -47,7 +47,7 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
         )}
       </StyledMenuItem>
     );
-  }
+  },
 );
 
 MenuSegmentTitle.displayName = "MenuSegmentTitle";

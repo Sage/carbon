@@ -34,7 +34,7 @@ export const Number = React.forwardRef(
       validationOnLabel = LABEL_VALIDATION_DEFAULT,
       ...rest
     }: NumberProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const selectionStart = useRef<null | number>(null);
     const selectionEnd = useRef<null | number>(null);
@@ -42,7 +42,7 @@ export const Number = React.forwardRef(
     if (!deprecateUncontrolledWarnTriggered && !onChange) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Number` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Number` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
@@ -53,13 +53,15 @@ export const Number = React.forwardRef(
         event.target.value = value || "";
         event.target.setSelectionRange(
           selectionStart.current,
-          selectionEnd.current
+          selectionEnd.current,
         );
       }
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-      selectionStart.current = (event.target as HTMLInputElement).selectionStart;
+      selectionStart.current = (
+        event.target as HTMLInputElement
+      ).selectionStart;
       selectionEnd.current = (event.target as HTMLInputElement).selectionEnd;
 
       if (onKeyDown) {
@@ -79,7 +81,7 @@ export const Number = React.forwardRef(
         validationOnLabel={validationOnLabel}
       />
     );
-  }
+  },
 );
 
 Number.displayName = "Number";

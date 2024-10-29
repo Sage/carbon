@@ -25,25 +25,25 @@ export interface PagerProps {
   onNext?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Callback function for first link */
   onFirst?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Callback function for previous link */
   onPrevious?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Callback function for last link */
   onLast?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Current visible page */
   currentPage?: number | string;
@@ -139,7 +139,7 @@ export const Pager = ({
     (
       e:
         | React.MouseEvent<HTMLButtonElement>
-        | React.KeyboardEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
     ) => {
       setPage(1);
 
@@ -147,14 +147,14 @@ export const Pager = ({
         onFirst(e);
       }
     },
-    [onFirst]
+    [onFirst],
   );
 
   const handleOnLast = useCallback(
     (
       e:
         | React.MouseEvent<HTMLButtonElement>
-        | React.KeyboardEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
     ) => {
       setPage(pageCount);
 
@@ -162,14 +162,14 @@ export const Pager = ({
         onLast(e);
       }
     },
-    [pageCount, onLast]
+    [pageCount, onLast],
   );
 
   const handleOnNext = useCallback(
     (
       e:
         | React.MouseEvent<HTMLButtonElement>
-        | React.KeyboardEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
     ) => {
       const nextPage = page + 1;
       setPage(nextPage);
@@ -178,14 +178,14 @@ export const Pager = ({
         onNext(e);
       }
     },
-    [onNext, page]
+    [onNext, page],
   );
 
   const handleOnPrevious = useCallback(
     (
       e:
         | React.MouseEvent<HTMLButtonElement>
-        | React.KeyboardEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
     ) => {
       const previousPage = page - 1;
       setPage(previousPage);
@@ -194,7 +194,7 @@ export const Pager = ({
         onPrevious(e);
       }
     },
-    [page, onPrevious]
+    [page, onPrevious],
   );
 
   const handleOnPagination = useCallback(
@@ -203,14 +203,14 @@ export const Pager = ({
       setCurrentPageSize(+selectedValue);
       onPagination(1, +selectedValue, "page-select");
     },
-    [onPagination]
+    [onPagination],
   );
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) =>
       Events.isEnterKey(e) &&
       handleOnPagination((e.target as HTMLInputElement).value),
-    [handleOnPagination]
+    [handleOnPagination],
   );
 
   const sizeSelector = () => {
@@ -258,7 +258,7 @@ export const Pager = ({
           {showPageSizeLabelAfter &&
             wrapper(
               !showPageSizeLabelBefore,
-              l.pager.records(currentPageSize, false)
+              l.pager.records(currentPageSize, false),
             )}
         </StyledPagerSizeOptionsInner>
       )

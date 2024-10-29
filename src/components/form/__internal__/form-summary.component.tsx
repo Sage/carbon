@@ -37,7 +37,7 @@ export const Summary = ({
   };
   const message = useMemo(
     () => l.errors.messages.formSummary(errorCount, warningCount, type),
-    [l.errors.messages, errorCount, warningCount, type]
+    [l.errors.messages, errorCount, warningCount, type],
   );
 
   if (messages[`${type}Count`]) {

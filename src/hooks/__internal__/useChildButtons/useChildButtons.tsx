@@ -4,7 +4,7 @@ import useMenuKeyboardNavigation from "../useMenuKeyboardNavigation";
 
 const useChildButtons = (
   toggleButtonRef: React.RefObject<HTMLButtonElement>,
-  widthRatio = 1
+  widthRatio = 1,
 ) => {
   const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
   const [minWidth, setMinWidth] = useState(0);
@@ -22,7 +22,7 @@ const useChildButtons = (
     /* istanbul ignore else */
     if (buttonNode.current) {
       setMinWidth(
-        widthRatio * buttonNode.current.getBoundingClientRect().width
+        widthRatio * buttonNode.current.getBoundingClientRect().width,
       );
     }
   }
@@ -30,13 +30,13 @@ const useChildButtons = (
   const getButtonChildren = useCallback(
     () =>
       childrenContainer.current?.querySelectorAll(
-        '[data-component="button"]'
+        '[data-component="button"]',
       ) as NodeListOf<HTMLButtonElement>,
-    []
+    [],
   );
 
   const handleToggleButtonKeyDown = (
-    ev: React.KeyboardEvent<HTMLButtonElement>
+    ev: React.KeyboardEvent<HTMLButtonElement>,
   ) => {
     const isToggleKey =
       Events.isEnterKey(ev) ||
@@ -62,16 +62,16 @@ const useChildButtons = (
     toggleButtonRef,
     getButtonChildren,
     hideButtons,
-    showAdditionalButtons
+    showAdditionalButtons,
   );
 
-  const onChildButtonClick = (
-    childOnClick?: React.MouseEventHandler<HTMLButtonElement>
-  ) => (ev: React.MouseEvent<HTMLButtonElement>) => {
-    childOnClick?.(ev);
-    hideButtons();
-    toggleButtonRef.current?.focus();
-  };
+  const onChildButtonClick =
+    (childOnClick?: React.MouseEventHandler<HTMLButtonElement>) =>
+    (ev: React.MouseEvent<HTMLButtonElement>) => {
+      childOnClick?.(ev);
+      hideButtons();
+      toggleButtonRef.current?.focus();
+    };
 
   const wrapperProps = {
     "data-element": "additional-buttons",

@@ -51,5 +51,5 @@ it.each([
 
     expect(outerBar).toHaveStyle(`height: ${height}`);
     expect(innerBar).toHaveStyle(`height: ${height}`);
-  }
+  },
 );

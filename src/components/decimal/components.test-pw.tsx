@@ -4,7 +4,7 @@ import Decimal, { DecimalProps, CustomEvent } from ".";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export const DefaultStory = (
-  args: Partial<DecimalProps> & { message?: string | boolean }
+  args: Partial<DecimalProps> & { message?: string | boolean },
 ) => {
   const [state, setState] = useState("0.01");
   const setValue = ({ target }: CustomEvent) => {
@@ -48,11 +48,10 @@ export const LabelAlign = () => {
     right: "0.01",
     left: "0.01",
   });
-  const handleChange = (alignment: DecimalProps["labelAlign"]) => (
-    e: CustomEvent
-  ) => {
-    setState({ ...state, [alignment || "left"]: e.target.value.rawValue });
-  };
+  const handleChange =
+    (alignment: DecimalProps["labelAlign"]) => (e: CustomEvent) => {
+      setState({ ...state, [alignment || "left"]: e.target.value.rawValue });
+    };
   return (["right", "left"] as const).map((alignment) => (
     <Decimal
       label="Decimal"
@@ -83,7 +82,7 @@ export const WithCustomPrecision = () => {
 export const LabelInline = () => <DefaultStory labelInline />;
 
 export const WithCustomLabelWidthAndInputWidth = (
-  props: Partial<DecimalProps>
+  props: Partial<DecimalProps>,
 ) => <DefaultStory labelWidth={10} inputWidth={90} labelInline {...props} />;
 
 export const WithCustomMaxWidth = () => <DefaultStory maxWidth="50%" />;
@@ -103,7 +102,7 @@ export const LeftAligned = () => <DefaultStory align="left" />;
 type Validation = "error" | "warning" | "info";
 
 export const Validations = (
-  args: Partial<DecimalProps> & { message?: string | boolean }
+  args: Partial<DecimalProps> & { message?: string | boolean },
 ) => {
   const [state, setState] = useState({
     error: "0.01",
@@ -181,7 +180,7 @@ export const ValidationsRedesign = () => {
               m={4}
             />
           </div>
-        ))
+        )),
       )}
     </CarbonProvider>
   );

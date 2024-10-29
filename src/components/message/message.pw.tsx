@@ -26,27 +26,27 @@ import { VALIDATION, CHARACTERS } from "../../../playwright/support/constants";
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 test.describe("Tests for Message component properties", () => {
-  ([
-    ["info", "rgb(0, 96, 167)"],
-    ["error", VALIDATION.ERROR],
-    ["success", "rgb(0, 138, 33)"],
-    ["warning", VALIDATION.WARNING],
-    ["neutral", "rgb(51, 91, 112)"],
-  ] as [MessageProps["variant"], string][]).forEach(
-    ([variant, backgroundColor]) => {
-      test(`should check ${variant} as variant for Message components`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<MessageComponent variant={variant} />);
+  (
+    [
+      ["info", "rgb(0, 96, 167)"],
+      ["error", VALIDATION.ERROR],
+      ["success", "rgb(0, 138, 33)"],
+      ["warning", VALIDATION.WARNING],
+      ["neutral", "rgb(51, 91, 112)"],
+    ] as [MessageProps["variant"], string][]
+  ).forEach(([variant, backgroundColor]) => {
+    test(`should check ${variant} as variant for Message components`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MessageComponent variant={variant} />);
 
-        await expect(variantPreview(page)).toHaveCSS(
-          "background-color",
-          backgroundColor
-        );
-      });
-    }
-  );
+      await expect(variantPreview(page)).toHaveCSS(
+        "background-color",
+        backgroundColor,
+      );
+    });
+  });
 
   testData.forEach((children) => {
     test(`should check ${children} as children for Message component`, async ({
@@ -115,10 +115,12 @@ test.describe("Tests for Message component properties", () => {
     });
   });
 
-  ([
-    [true, "rgba(0, 0, 0, 0)"],
-    [false, "rgb(255, 255, 255)"],
-  ] as [boolean, string][]).forEach(([boolVal, backgroundColor]) => {
+  (
+    [
+      [true, "rgba(0, 0, 0, 0)"],
+      [false, "rgb(255, 255, 255)"],
+    ] as [boolean, string][]
+  ).forEach(([boolVal, backgroundColor]) => {
     test(`should apply expected styling when transparent is ${boolVal}`, async ({
       mount,
       page,
@@ -127,15 +129,17 @@ test.describe("Tests for Message component properties", () => {
 
       await expect(messagePreview(page)).toHaveCSS(
         "background-color",
-        backgroundColor
+        backgroundColor,
       );
     });
   });
 
-  ([
-    [true, 50],
-    [false, 20],
-  ] as [boolean, number][]).forEach(([boolVal, paddingVal]) => {
+  (
+    [
+      [true, 50],
+      [false, 20],
+    ] as [boolean, number][]
+  ).forEach(([boolVal, paddingVal]) => {
     test(`should check showCloseIcon when it's ${boolVal} for Message component`, async ({
       mount,
       page,
@@ -146,13 +150,13 @@ test.describe("Tests for Message component properties", () => {
         await expect(messageDismissIcon(page)).toBeVisible();
         await expect(messageContent(page)).toHaveCSS(
           "padding",
-          `15px ${paddingVal}px 15px 20px`
+          `15px ${paddingVal}px 15px 20px`,
         );
       } else {
         await expect(messageDismissIcon(page)).not.toBeVisible();
         await expect(messageContent(page)).toHaveCSS(
           "padding",
-          `15px ${paddingVal}px`
+          `15px ${paddingVal}px`,
         );
       }
     });
@@ -167,7 +171,7 @@ test.describe("Tests for Message component properties", () => {
 
       await expect(messageDismissIconButton(page)).toHaveAttribute(
         "aria-label",
-        ariaLabel
+        ariaLabel,
       );
     });
   });
@@ -182,7 +186,7 @@ test.describe("Tests for Message component properties", () => {
         onDismiss={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
     await messageDismissIcon(page).click();
     expect(callbackCount).toBe(1);
@@ -210,12 +214,9 @@ test.describe("Tests for Message component properties", () => {
 });
 
 test.describe("Accessibility tests for Message component", () => {
-  ([
-    "info",
-    "error",
-    "success",
-    "warning",
-  ] as MessageProps["variant"][]).forEach((variant) => {
+  (
+    ["info", "error", "success", "warning"] as MessageProps["variant"][]
+  ).forEach((variant) => {
     test(`should check ${variant} as variant for accessibility tests`, async ({
       mount,
       page,

@@ -36,32 +36,31 @@ interface StyledDrawerSidebarProps {
 }
 
 const StyledDrawerSidebar = styled(Box)<StyledDrawerSidebarProps>`
-  ${({ hasControls, isExpanded }) =>
+  ${({ hasControls, isExpanded }) => css`
+    ${!isExpanded &&
     css`
-      ${!isExpanded &&
-      css`
-        display: none;
-        opacity: 0;
-      `}
+      display: none;
+      opacity: 0;
+    `}
 
-      ${isExpanded &&
-      css`
-        display: flex;
-        flex-direction: column;
-        flex: 1 1 0%;
-      `}
+    ${isExpanded &&
+    css`
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 0%;
+    `}
 
       ${hasControls &&
-      css`
-        ${StyledTabs} {
-          margin-top: 48px;
-          ${!isExpanded &&
-          css`
-            display: none;
-          `}
-        }
-      `}
+    css`
+      ${StyledTabs} {
+        margin-top: 48px;
+        ${!isExpanded &&
+        css`
+          display: none;
+        `}
+      }
     `}
+  `}
 
   &::-webkit-scrollbar {
     width: 12px;

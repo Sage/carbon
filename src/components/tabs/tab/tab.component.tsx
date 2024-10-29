@@ -44,7 +44,7 @@ export interface TabProps extends PaddingProps {
   /** @private @ignore */
   updateWarnings?: (
     id: string,
-    warnings: Record<string, string | boolean>
+    warnings: Record<string, string | boolean>,
   ) => void;
   /** @private @ignore */
   updateInfos?: (id: string, infos: Record<string, string | boolean>) => void;
@@ -76,19 +76,19 @@ export const Tab = ({
 
   const setError = useCallback((childId, error) => {
     setTabErrors((state) =>
-      state[childId] !== error ? { ...state, [childId]: error } : state
+      state[childId] !== error ? { ...state, [childId]: error } : state,
     );
   }, []);
 
   const setWarning = useCallback((childId, warning) => {
     setTabWarnings((state) =>
-      state[childId] !== warning ? { ...state, [childId]: warning } : state
+      state[childId] !== warning ? { ...state, [childId]: warning } : state,
     );
   }, []);
 
   const setInfo = useCallback((childId, info) => {
     setTabInfos((state) =>
-      state[childId] !== info ? { ...state, [childId]: info } : state
+      state[childId] !== info ? { ...state, [childId]: info } : state,
     );
   }, []);
 

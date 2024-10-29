@@ -28,7 +28,7 @@ export default (id: string) => {
     ev:
       | React.MouseEvent<HTMLElement, MouseEvent>
       | React.FocusEvent<HTMLElement>,
-    tagName: "TD" | "TH"
+    tagName: "TD" | "TH",
   ) => {
     /* istanbul ignore if */
     if (
@@ -56,7 +56,7 @@ export default (id: string) => {
 
     // get all the th and td elements that are sticky
     const stickyCells = Array.from(
-      (tableBody as HTMLElement).querySelectorAll("th, td")
+      (tableBody as HTMLElement).querySelectorAll("th, td"),
     ).filter((el) => {
       return (
         el.getAttribute("data-sticky-align") === "left" ||
@@ -73,14 +73,14 @@ export default (id: string) => {
 
     // find the current cell in the path
     const cell = path.find(
-      (el) => el instanceof HTMLElement && el.tagName === tagName
+      (el) => el instanceof HTMLElement && el.tagName === tagName,
     );
 
     // if the current cell is sticky, increase the z-index value
     const cellIndex = stickyCells.indexOf(cell as HTMLTableCellElement);
     if (cellIndex !== -1) {
       (stickyCells[cellIndex] as HTMLTableCellElement).classList.add(
-        "bringToFront"
+        "bringToFront",
       );
     }
   };

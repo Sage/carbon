@@ -29,7 +29,7 @@ export interface PillProps extends StyledPillProps {
   onDelete?: (
     ev?:
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Sets the type of pill in use. */
   pillRole?: "tag" | "status";
@@ -66,7 +66,7 @@ export const Pill = ({
     // eslint-disable-next-line no-console
     console.warn(
       "[WARNING] The `neutralWhite` variant should only be used on dark backgrounds with fill set to true. " +
-        "Please set the `isDarkBackground` and `fill` props to true or use another color variant."
+        "Please set the `isDarkBackground` and `fill` props to true or use another color variant.",
     );
   }
 

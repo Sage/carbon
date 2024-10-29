@@ -10,4 +10,4 @@ export const DIALOG_SIZES = [
   "maximise",
 ] as const;
 
-export type DialogSizes = typeof DIALOG_SIZES[number];
+export type DialogSizes = (typeof DIALOG_SIZES)[number];

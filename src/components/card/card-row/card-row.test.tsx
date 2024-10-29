@@ -26,20 +26,20 @@ test.each<[Exclude<CardContextProps["spacing"], undefined>, string]>([
         <CardRow data-role="card-row">
           <div />
         </CardRow>
-      </CardContext.Provider>
+      </CardContext.Provider>,
     );
 
     const cardRowElement = screen.getByTestId("card-row");
     expect(cardRowElement).toHaveStyleRule("padding-top", expected);
     expect(cardRowElement).toHaveStyleRule("padding-bottom", expected);
-  }
+  },
 );
 
 test("should have expected data attributes", () => {
   render(
     <CardRow data-element="card-row" data-role="card-row">
       <div />
-    </CardRow>
+    </CardRow>,
   );
 
   const cardRowElement = screen.getByTestId("card-row");
@@ -49,7 +49,7 @@ test("should have expected data attributes", () => {
   render(
     <CardRow data-element="foo" data-role="bar">
       <div />
-    </CardRow>
+    </CardRow>,
   );
 
   const cardRowElementWithAttributes = screen.getByTestId("bar");

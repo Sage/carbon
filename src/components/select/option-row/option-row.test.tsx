@@ -17,7 +17,7 @@ test("renders with children content visible", () => {
           <td>bar</td>
         </OptionRow>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("option", { name: "bar" })).toBeVisible();
@@ -31,7 +31,7 @@ test("should not render when hidden prop is set", () => {
           <td>bar</td>
         </OptionRow>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.queryByRole("option", { name: "bar" })).not.toBeInTheDocument();
@@ -45,12 +45,12 @@ test("should set guid as `id` on the element when none passed", () => {
           <td>bar</td>
         </OptionRow>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("option", { name: "bar" })).toHaveAttribute(
     "id",
-    mockedGuid
+    mockedGuid,
   );
 });
 
@@ -62,12 +62,12 @@ test("should set custom `id` on the element when passed", () => {
           <td>baz</td>
         </OptionRow>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("option", { name: "baz" })).toHaveAttribute(
     "id",
-    "foo"
+    "foo",
   );
 });
 
@@ -80,7 +80,7 @@ describe("when `disabled` prop is set", () => {
             <td>bar</td>
           </OptionRow>
         </tbody>
-      </table>
+      </table>,
     );
     const optionRow = screen.getByRole("option", { name: "bar" });
 
@@ -96,7 +96,7 @@ describe("when `disabled` prop is set", () => {
             <td>bar</td>
           </OptionRow>
         </tbody>
-      </table>
+      </table>,
     );
     const optionRow = screen.getByRole("option", { name: "bar" });
 
@@ -113,7 +113,7 @@ describe("when `disabled` prop is set", () => {
             <td>bar</td>
           </OptionRow>
         </tbody>
-      </table>
+      </table>,
     );
     const optionRow = screen.getByRole("option", { name: "bar" });
     await user.click(optionRow);
@@ -131,13 +131,13 @@ describe("when `disabled` prop is not set", () => {
             <td>bar</td>
           </OptionRow>
         </tbody>
-      </table>
+      </table>,
     );
     const optionRow = screen.getByRole("option", { name: "bar" });
 
     expect(optionRow).not.toHaveStyleRule(
       "color",
-      "var(--colorsUtilityYin030)"
+      "var(--colorsUtilityYin030)",
     );
     expect(optionRow).toHaveStyle("cursor: pointer");
   });
@@ -150,7 +150,7 @@ describe("when `disabled` prop is not set", () => {
             <td>bar</td>
           </OptionRow>
         </tbody>
-      </table>
+      </table>,
     );
     const optionRow = screen.getByRole("option", { name: "bar" });
 
@@ -167,7 +167,7 @@ describe("when `disabled` prop is not set", () => {
             <td>bar</td>
           </OptionRow>
         </tbody>
-      </table>
+      </table>,
     );
     const optionRow = screen.getByRole("option", { name: "bar" });
     await user.click(optionRow);
@@ -189,7 +189,7 @@ describe("when `disabled` prop is not set", () => {
             <td>bar</td>
           </OptionRow>
         </tbody>
-      </table>
+      </table>,
     );
     const optionRow = screen.getByRole("option", { name: "bar" });
     await user.click(optionRow);
@@ -210,7 +210,7 @@ test("should render with `data-` attributes set when props are passed", () => {
           <td>bar</td>
         </OptionRow>
       </tbody>
-    </table>
+    </table>,
   );
   const optionRow = screen.getByRole("option", { name: "bar" });
 
@@ -230,12 +230,12 @@ describe("when the `multiSelectValues` list is passed via context", () => {
             </OptionRow>
           </tbody>
         </table>
-      </SelectListContext.Provider>
+      </SelectListContext.Provider>,
     );
 
     expect(screen.getByRole("option", { name: "foo" })).toHaveAttribute(
       "aria-selected",
-      "true"
+      "true",
     );
   });
 
@@ -249,12 +249,12 @@ describe("when the `multiSelectValues` list is passed via context", () => {
             </OptionRow>
           </tbody>
         </table>
-      </SelectListContext.Provider>
+      </SelectListContext.Provider>,
     );
 
     expect(screen.getByRole("option", { name: "foo" })).toHaveAttribute(
       "aria-selected",
-      "false"
+      "false",
     );
   });
 
@@ -268,12 +268,12 @@ describe("when the `multiSelectValues` list is passed via context", () => {
             </OptionRow>
           </tbody>
         </table>
-      </SelectListContext.Provider>
+      </SelectListContext.Provider>,
     );
 
     expect(screen.getByRole("option", { name: "foo" })).toHaveAttribute(
       "aria-selected",
-      "false"
+      "false",
     );
   });
 });

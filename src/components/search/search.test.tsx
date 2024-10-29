@@ -11,7 +11,7 @@ jest.mock("../../__internal__/utils/logger");
 
 testStyledSystemMarginRTL(
   (props) => <Search value="" {...props} />,
-  () => screen.getByTestId("search")
+  () => screen.getByTestId("search"),
 );
 
 test("a deprecation warning should be displayed once if the component is uncontrolled", () => {
@@ -19,7 +19,7 @@ test("a deprecation warning should be displayed once if the component is uncontr
   render(<Search defaultValue="foo" />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Search` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Search` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
 
   expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -44,12 +44,12 @@ test("when the `searchButton` prop is `true`, a button with search icon is shown
   expect(searchButton).toBeVisible();
   expect(within(searchButton).getByTestId("icon")).toHaveAttribute(
     "type",
-    "search"
+    "search",
   );
   expect(
     within(screen.getByTestId("input-presentation-container")).queryByTestId(
-      "icon"
-    )
+      "icon",
+    ),
   ).not.toBeInTheDocument();
 });
 
@@ -61,12 +61,12 @@ test("when the `searchButton` prop is a string value, a button with search icon 
   expect(searchButton).toHaveTextContent("custom search button");
   expect(within(searchButton).getByTestId("icon")).toHaveAttribute(
     "type",
-    "search"
+    "search",
   );
   expect(
     within(screen.getByTestId("input-presentation-container")).queryByTestId(
-      "icon"
-    )
+      "icon",
+    ),
   ).not.toBeInTheDocument();
 });
 
@@ -74,12 +74,12 @@ test("when the `searchButton` prop is not passed, no button with is shown, and a
   render(<Search value="" />);
 
   expect(
-    screen.queryByRole("button", { name: "search button" })
+    screen.queryByRole("button", { name: "search button" }),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByTestId("input-presentation-container")).getByTestId(
-      "icon"
-    )
+      "icon",
+    ),
   ).toHaveAttribute("type", "search");
 });
 
@@ -89,7 +89,7 @@ test("the search button text can be overridden via the locale context", () => {
       locale={{ search: { searchButtonText: () => "text override" } }}
     >
       <Search searchButton value="" />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   expect(screen.getByRole("button")).toHaveTextContent("text override");
@@ -107,7 +107,7 @@ test("the `searchButtonAriaLabel` prop passes a custom accessible name to the se
       defaultValue=""
       searchButton
       searchButtonAriaLabel="foobar button"
-    />
+    />,
   );
 
   expect(screen.getByRole("button")).toHaveAccessibleName("foobar button");
@@ -160,7 +160,7 @@ test("when the cross icon is clicked, the input value is cleared", async () => {
 
   expect(screen.getByRole("textbox")).toHaveValue("");
   expect(onChange).toHaveBeenCalledWith(
-    expect.objectContaining({ target: { value: "", name: "bar", id: "baz" } })
+    expect.objectContaining({ target: { value: "", name: "bar", id: "baz" } }),
   );
 });
 
@@ -175,7 +175,7 @@ test("when the cross icon is clicked, and the `triggerOnClear` props is passed, 
       onClick={onClick}
       name="bar"
       id="baz"
-    />
+    />,
   );
   await user.click(screen.getByTestId("input-icon-toggle"));
 
@@ -198,7 +198,7 @@ test("when the cross icon is clicked, and the `triggerOnClear` props is not pass
       onClick={onClick}
       name="bar"
       id="baz"
-    />
+    />,
   );
   await user.click(screen.getByTestId("input-icon-toggle"));
 
@@ -225,7 +225,9 @@ test("when the input value changes, the `onChange` callback prop is called", asy
   await user.type(screen.getByRole("textbox"), "a");
   expect(onChange).toHaveBeenCalledTimes(1);
   expect(onChange).toHaveBeenCalledWith(
-    expect.objectContaining({ target: expect.objectContaining({ value: "a" }) })
+    expect.objectContaining({
+      target: expect.objectContaining({ value: "a" }),
+    }),
   );
 });
 
@@ -239,7 +241,7 @@ test("when the component is controlled, the `onClick` callback prop is called wi
       name="Search"
       onClick={onClick}
       searchButton
-    />
+    />,
   );
 
   await user.click(screen.getByRole("button", { name: "search button" }));
@@ -247,7 +249,7 @@ test("when the component is controlled, the `onClick` callback prop is called wi
   expect(onClick).toHaveBeenCalledWith(
     expect.objectContaining({
       target: { value: "FooBar", id: "Search", name: "Search" },
-    })
+    }),
   );
 });
 
@@ -261,7 +263,7 @@ test("when the component is uncontrolled, the `onClick` callback prop is called 
       name="Search"
       onClick={onClick}
       searchButton
-    />
+    />,
   );
 
   await user.click(screen.getByRole("button", { name: "search button" }));
@@ -269,7 +271,7 @@ test("when the component is uncontrolled, the `onClick` callback prop is called 
   expect(onClick).toHaveBeenCalledWith(
     expect.objectContaining({
       target: { value: "FooBar", id: "Search", name: "Search" },
-    })
+    }),
   );
 });
 
@@ -278,7 +280,7 @@ test("the component's wrapper element has the appropriate `data-component` tag",
 
   expect(screen.getByTestId("search")).toHaveAttribute(
     "data-component",
-    "search"
+    "search",
   );
 });
 
@@ -308,7 +310,7 @@ test("when a character key is pressed, propagation of the event to parent elemen
   render(
     <button type="button" aria-label="foo" onKeyDown={outerOnKeyDown}>
       <Search defaultValue="" />
-    </button>
+    </button>,
   );
 
   await user.type(screen.getByRole("textbox"), "a");
@@ -321,7 +323,7 @@ test("when a number key is pressed, propagation of the event to parent elements 
   render(
     <button type="button" aria-label="foo" onKeyDown={outerOnKeyDown}>
       <Search defaultValue="" />
-    </button>
+    </button>,
   );
 
   await user.type(screen.getByRole("textbox"), "2");
@@ -334,12 +336,12 @@ test("when a non-alphanumeric key is pressed, propagation of the event to parent
   render(
     <button type="button" aria-label="foo" onKeyDown={outerOnKeyDown}>
       <Search defaultValue="" />
-    </button>
+    </button>,
   );
 
   await user.type(screen.getByRole("textbox"), "{Tab}");
   expect(outerOnKeyDown).toHaveBeenCalledWith(
-    expect.objectContaining({ key: "Tab" })
+    expect.objectContaining({ key: "Tab" }),
   );
 });
 
@@ -374,7 +376,7 @@ test("should render the bottom border when variant is dark, the input is not foc
   });
   expect(screen.getByTestId("search")).toHaveStyleRule(
     "border-bottom",
-    "var(--spacing025) solid var(--colorsUtilityYang080)"
+    "var(--spacing025) solid var(--colorsUtilityYang080)",
   );
 });
 
@@ -389,11 +391,11 @@ test("applies the correct width specified by the user", () => {
   });
   expect(screen.getByTestId("search")).toHaveStyleRule(
     "border-bottom",
-    "var(--spacing025) solid var(--colorsUtilityMajor300)"
+    "var(--spacing025) solid var(--colorsUtilityMajor300)",
   );
   expect(screen.getByTestId("search")).toHaveStyleRule(
     "font-size",
-    "var(--fontSize100)"
+    "var(--fontSize100)",
   );
 });
 

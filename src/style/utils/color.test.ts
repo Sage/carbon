@@ -4,13 +4,13 @@ import { baseTheme } from "../themes";
 
 const assert = (
   props: Record<string, string>,
-  result: Record<string, string>
+  result: Record<string, string>,
 ) => {
   expect(
     color({
       theme: baseTheme,
       ...props,
-    })
+    }),
   ).toEqual(result);
 };
 
@@ -30,7 +30,7 @@ describe.each([
       },
       {
         [css]: "#FFB500",
-      }
+      },
     );
   });
 
@@ -41,7 +41,7 @@ describe.each([
       },
       {
         [css]: "#008200",
-      }
+      },
     );
   });
 
@@ -52,7 +52,7 @@ describe.each([
       },
       {
         [css]: "#61E961",
-      }
+      },
     );
   });
 
@@ -63,7 +63,7 @@ describe.each([
       },
       {
         [css]: "rgba(0,0,0,0.10)",
-      }
+      },
     );
   });
 
@@ -74,7 +74,7 @@ describe.each([
       },
       {
         [css]: "rgba(255,255,255,0.10)",
-      }
+      },
     );
   });
 
@@ -85,7 +85,7 @@ describe.each([
       },
       {
         [css]: "blue",
-      }
+      },
     );
 
     assert(
@@ -94,7 +94,7 @@ describe.each([
       },
       {
         [css]: "#eee",
-      }
+      },
     );
   });
 
@@ -105,7 +105,7 @@ describe.each([
       },
       {
         [css]: "var(--colorsYang100)",
-      }
+      },
     );
   });
 });

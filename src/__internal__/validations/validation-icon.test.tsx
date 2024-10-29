@@ -8,7 +8,7 @@ import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/te
 
 testStyledSystemMarginRTL(
   (props) => <ValidationIcon {...props} error="error" />,
-  () => screen.getByTestId("validation-icon-wrapper")
+  () => screen.getByTestId("validation-icon-wrapper"),
 );
 
 test("renders an icon with the error type when the `error` prop is a string", () => {
@@ -57,7 +57,7 @@ test("renders a tooltip if the `hasFocus` prop is true on the input context prov
   render(
     <InputContext.Provider value={{ hasFocus: true }}>
       <ValidationIcon error="error" />
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
   const tooltip = screen.getByRole("tooltip");
   expect(tooltip).toBeVisible();
@@ -67,7 +67,7 @@ test("renders a tooltip if the `hasMouseOver` prop is true on the input context 
   render(
     <InputContext.Provider value={{ hasMouseOver: true }}>
       <ValidationIcon error="error" />
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
   const tooltip = screen.getByRole("tooltip");
   expect(tooltip).toBeVisible();
@@ -77,7 +77,7 @@ test("renders a tooltip if the `hasFocus` prop is true on the input group contex
   render(
     <InputGroupContext.Provider value={{ hasFocus: true }}>
       <ValidationIcon error="error" />
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
   const tooltip = screen.getByRole("tooltip");
   expect(tooltip).toBeVisible();
@@ -87,7 +87,7 @@ test("renders a tooltip if the `hasMouseOver` prop is true on the input group co
   render(
     <InputGroupContext.Provider value={{ hasMouseOver: true }}>
       <ValidationIcon error="error" />
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
   const tooltip = screen.getByRole("tooltip");
   expect(tooltip).toBeVisible();
@@ -188,7 +188,7 @@ test("throws an error when `tooltipFlipOverride` props value is not an array", (
         /* @ts-expect-error testing invalid prop value */
         tooltipFlipOverrides="top"
         error="error"
-      />
+      />,
     );
   }).toThrow(errorMessage);
 
@@ -208,7 +208,7 @@ test("throws an error when the `tooltipFlipOverride` props value is an array, bu
         /* @ts-expect-error testing invalid prop value */
         tooltipFlipOverrides={["top", "foo"]}
         error="error"
-      />
+      />,
     );
   }).toThrow(errorMessage);
 

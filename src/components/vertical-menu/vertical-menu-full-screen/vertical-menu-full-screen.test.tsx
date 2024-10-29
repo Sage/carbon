@@ -11,11 +11,11 @@ import Logger from "../../../__internal__/utils/logger";
 const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 jest.mock("../../portal", () =>
-  jest.fn(({ children }) => <div>{children}</div>)
+  jest.fn(({ children }) => <div>{children}</div>),
 );
 
 jest.mock("../../../__internal__/focus-trap/focus-trap.component", () =>
-  jest.fn(({ children }) => <div>{children}</div>)
+  jest.fn(({ children }) => <div>{children}</div>),
 );
 
 describe("VerticalMenuFullScreen", () => {
@@ -31,12 +31,12 @@ describe("VerticalMenuFullScreen", () => {
     render(
       <VerticalMenuFullScreen isOpen onClose={() => {}} aria-label="test">
         <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>
+      </VerticalMenuFullScreen>,
     );
 
     expect(screen.getByRole("navigation")).toHaveAttribute(
       "aria-label",
-      "test"
+      "test",
     );
   });
 
@@ -44,12 +44,12 @@ describe("VerticalMenuFullScreen", () => {
     render(
       <VerticalMenuFullScreen isOpen onClose={() => {}} aria-labelledby="test">
         <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>
+      </VerticalMenuFullScreen>,
     );
 
     expect(screen.getByRole("navigation")).toHaveAttribute(
       "aria-labelledby",
-      "test"
+      "test",
     );
   });
 
@@ -57,7 +57,7 @@ describe("VerticalMenuFullScreen", () => {
     render(
       <VerticalMenuFullScreen isOpen onClose={() => {}}>
         <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>
+      </VerticalMenuFullScreen>,
     );
 
     expect(Portal).toHaveBeenCalled();
@@ -67,7 +67,7 @@ describe("VerticalMenuFullScreen", () => {
     render(
       <VerticalMenuFullScreen isOpen onClose={() => {}}>
         <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>
+      </VerticalMenuFullScreen>,
     );
 
     expect(FocusTrap).toHaveBeenCalled();
@@ -79,7 +79,7 @@ describe("VerticalMenuFullScreen", () => {
     render(
       <VerticalMenuFullScreen isOpen={false} onClose={() => {}}>
         <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>
+      </VerticalMenuFullScreen>,
     );
 
     expect(screen.getByRole("navigation", { hidden: true })).toHaveStyle({
@@ -94,7 +94,7 @@ describe("VerticalMenuFullScreen", () => {
     render(
       <VerticalMenuFullScreen isOpen onClose={() => {}}>
         <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>
+      </VerticalMenuFullScreen>,
     );
 
     expect(screen.getByRole("navigation")).toHaveStyle({
@@ -108,7 +108,7 @@ describe("VerticalMenuFullScreen", () => {
     render(
       <VerticalMenuFullScreen isOpen={false} onClose={() => {}}>
         <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>
+      </VerticalMenuFullScreen>,
     );
 
     const menu = screen.queryByRole("navigation");
@@ -120,7 +120,7 @@ describe("VerticalMenuFullScreen", () => {
     render(
       <VerticalMenuFullScreen isOpen onClose={() => {}}>
         <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>
+      </VerticalMenuFullScreen>,
     );
 
     expect(screen.getByRole("navigation")).toHaveStyleRule(
@@ -128,7 +128,7 @@ describe("VerticalMenuFullScreen", () => {
       "#cccccc",
       {
         modifier: "::-webkit-scrollbar-track",
-      }
+      },
     );
 
     expect(screen.getByRole("navigation")).toHaveStyleRule(
@@ -136,7 +136,7 @@ describe("VerticalMenuFullScreen", () => {
       "#808080",
       {
         modifier: "::-webkit-scrollbar-thumb",
-      }
+      },
     );
 
     expect(screen.getByRole("navigation")).toHaveStyleRule("width", "12px", {
@@ -151,7 +151,7 @@ describe("VerticalMenuFullScreen", () => {
     render(
       <VerticalMenuFullScreen isOpen onClose={onClose}>
         <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>
+      </VerticalMenuFullScreen>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -163,7 +163,7 @@ describe("VerticalMenuFullScreen", () => {
     render(
       <VerticalMenuFullScreen isOpen onClose={onClose}>
         <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>
+      </VerticalMenuFullScreen>,
     );
 
     fireEvent.keyDown(screen.getByRole("navigation"), {
@@ -185,7 +185,7 @@ describe("VerticalMenuFullScreen", () => {
         onClose={() => {}}
       >
         <VerticalMenuItem title="Item1" />
-      </VerticalMenuFullScreen>
+      </VerticalMenuFullScreen>,
     );
 
     const menu = screen.getByRole("navigation");

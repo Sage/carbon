@@ -332,7 +332,7 @@ export const NewDesignsValidation: Story = () => {
                 {...{ [validationType]: "Message" }}
               />
             </Box>
-          ))
+          )),
         )}
       </CarbonProvider>
     </Box>

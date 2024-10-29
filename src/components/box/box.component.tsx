@@ -104,12 +104,12 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       "aria-hidden": ariaHidden,
       ...rest
     }: BoxProps,
-    ref
+    ref,
   ) => {
     if (!deprecatedTabIndex && tabIndex !== undefined) {
       deprecatedTabIndex = true;
       Logger.deprecate(
-        "The `tabIndex` prop for `Box` component has been deprecated and will soon be removed."
+        "The `tabIndex` prop for `Box` component has been deprecated and will soon be removed.",
       );
     }
 
@@ -144,7 +144,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         {children}
       </StyledBox>
     );
-  }
+  },
 );
 
 Box.displayName = "Box";

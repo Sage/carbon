@@ -121,19 +121,19 @@ const FormField = ({
     if (!(disabled && !loading)) return undefined;
 
     return Object.keys(validationProps).find(
-      (propName) => validationProps[propName]
+      (propName) => validationProps[propName],
     );
   }, [error, warning, info, disabled]);
 
   invariant(
     invalidValidationProp === undefined,
     `Prop \`${invalidValidationProp}\` cannot be used in conjunction with \`disabled\`. ` +
-      "Use `readOnly` if you require users to see validations with a non-interactive field"
+      "Use `readOnly` if you require users to see validations with a non-interactive field",
   );
 
   invariant(
     !(isRequired && isOptional),
-    "an input cannot be set to both required and optional at the same time"
+    "an input cannot be set to both required and optional at the same time",
   );
 
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
@@ -142,9 +142,8 @@ const FormField = ({
     inlineLabel = largeScreen;
   }
 
-  const { setError, setWarning, setInfo } = useContext<TabContextProps>(
-    TabContext
-  );
+  const { setError, setWarning, setInfo } =
+    useContext<TabContextProps>(TabContext);
   const marginProps = useFormSpacing(rest);
   const isMounted = useRef(false);
 

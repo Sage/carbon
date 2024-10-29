@@ -30,7 +30,7 @@ export interface MessageProps extends MarginProps {
   onDismiss?: (
     e:
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** show message component */
   open?: boolean;
@@ -59,7 +59,7 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
       showCloseIcon = true,
       ...props
     }: MessageProps,
-    ref
+    ref,
   ) => {
     const messageRef = useRef<HTMLDivElement | null>(null);
     const refToPass = ref || messageRef;
@@ -103,7 +103,7 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
         {renderCloseIcon()}
       </MessageStyle>
     ) : null;
-  }
+  },
 );
 
 Message.displayName = "Message";

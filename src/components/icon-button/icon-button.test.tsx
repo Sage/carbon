@@ -11,7 +11,7 @@ test("should render with an `Icon` child", () => {
   render(
     <IconButton aria-label="icon-button">
       <Icon type="bin" />
-    </IconButton>
+    </IconButton>,
   );
 
   const iconButton = screen.getByRole("button", { name: "icon-button" });
@@ -25,7 +25,7 @@ test("sets the 'aria-label' attribute correctly when a custom value is passed to
   render(
     <IconButton aria-label="alternative-aria-label">
       <Icon type="bin" />
-    </IconButton>
+    </IconButton>,
   );
 
   const iconButton = screen.getByRole("button", {
@@ -39,7 +39,7 @@ test("sets the 'aria-label' attribute as the `Icon` child's type, when a custom 
   render(
     <IconButton>
       <Icon type="bin" />
-    </IconButton>
+    </IconButton>,
   );
 
   const iconButton = screen.getByRole("button", { name: "bin" });
@@ -51,7 +51,7 @@ test("should render as disabled when the `disabled` prop is true", () => {
   render(
     <IconButton disabled aria-label="icon-button">
       <Icon type="bin" />
-    </IconButton>
+    </IconButton>,
   );
 
   const iconButton = screen.getByRole("button", { name: "icon-button" });
@@ -64,7 +64,7 @@ test("accepts ref as a ref object", () => {
   render(
     <IconButton aria-label="icon-button" ref={mockRef}>
       <Icon type="bin" />
-    </IconButton>
+    </IconButton>,
   );
 
   const button = screen.getByRole("button", { name: "icon-button" });
@@ -77,7 +77,7 @@ test("accepts ref as a ref callback", () => {
   render(
     <IconButton aria-label="icon-button" ref={mockRef}>
       <Icon type="bin" />
-    </IconButton>
+    </IconButton>,
   );
 
   const button = screen.getByRole("button", { name: "icon-button" });
@@ -90,7 +90,7 @@ test("sets ref to empty after unmount", () => {
   const { unmount } = render(
     <IconButton aria-label="icon-button">
       <Icon type="bin" />
-    </IconButton>
+    </IconButton>,
   );
 
   unmount();
@@ -106,5 +106,5 @@ testStyledSystemSpacingRTL(
   ),
   () => screen.getByRole("button"),
   { p: 0 },
-  { modifier: "&&" }
+  { modifier: "&&" },
 );
