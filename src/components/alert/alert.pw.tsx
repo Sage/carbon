@@ -4,7 +4,6 @@ import {
   alertCrossIcon,
   alertTitle,
   alertSubtitle,
-  alertChildren,
   alertDialog,
 } from "../../../playwright/components/alert";
 import {
@@ -50,9 +49,7 @@ test.describe("should render Alert component", () => {
     test(`with ${text} as children`, async ({ mount, page }) => {
       await mount(<AlertComponent title="title">{text}</AlertComponent>);
 
-      const children = alertChildren(page);
-      const alertChildrenText = await children.textContent();
-      expect(alertChildrenText).toEqual(text);
+      await expect(page.getByText(text)).toBeVisible();
     });
   });
 

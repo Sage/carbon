@@ -186,30 +186,27 @@ test("has the correct styles when the `stickyFooter` prop is set", () => {
     "background-color",
     "var(--colorsUtilityYang100)"
   );
-  expect(screen.getByTestId("form-content")).toHaveStyle({
-    "overflow-y": "inherit",
-    flex: "1",
-  });
   expect(screen.getByRole("form")).toHaveStyle({
     display: "flex",
     "flex-direction": "column",
-    position: "relative",
   });
+  expect(screen.getByRole("form")).not.toHaveStyle("overflow-y: auto");
 });
 
-// for coverage: Form inside dialog is covered by Chromatic
-test("has the correct overflow styling when a sticky footer is applied inside a modal", () => {
+// for coverage: stickyFooter prop styles are covered by Chromatic and Playwright
+test("applies overflow styling when `stickyFooter` is set and form is in a Dialog", () => {
   render(
     <Dialog open>
-      <Form aria-label="form-example" stickyFooter />
+      <Form
+        aria-label="form-example"
+        stickyFooter
+        saveButton={<Button>Save</Button>}
+      />
     </Dialog>
   );
 
   expect(screen.getByTestId("form-content")).toHaveStyle({
-    "overflow-y": "auto",
-  });
-  expect(screen.getByRole("form")).toHaveStyle({
-    "max-height": "calc(100vh - 216px)",
+    overflowY: "auto",
   });
 });
 

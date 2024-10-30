@@ -59,23 +59,27 @@ const getLineHeight = (variant?: VariantTypes) => {
     case "h1-large":
       return "40px";
     case "h1":
-    case "segment-subheader":
-      return "31px";
+      return "30px";
     case "h2":
-      return "29px";
+      return "27.5px";
     case "h3":
+      return "25px";
+    case "h4":
+      return "22.5px";
+    case "h5":
+      return "20px";
     case "segment-header":
-      return "26px";
+      return "25px";
+    case "segment-header-small":
+      return "22.5px";
+    case "segment-subheader":
+      return "24px";
     case "big":
       return "24px";
-    case "h4":
-    case "segment-header-small":
-      return "23px";
     case "small":
     case "sub":
     case "sup":
       return "20px";
-    case "h5":
     case "segment-subheader-alt":
     case "p":
     case "span":

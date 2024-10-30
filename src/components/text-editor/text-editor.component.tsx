@@ -424,7 +424,11 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
 
     return (
       <EditorContext.Provider value={{ onLinkAdded, editMode: true }}>
-        <StyledEditorWrapper ref={wrapper} {...rest}>
+        <StyledEditorWrapper
+          ref={wrapper}
+          data-role="text-editor-wrapper"
+          {...rest}
+        >
           <LabelWrapper onClick={() => handleEditorFocus(true)}>
             <Label
               labelId={labelId}
@@ -452,7 +456,11 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
                 )}
               </>
             )}
-            <StyledEditorOutline isFocused={isFocused} hasError={!!error}>
+            <StyledEditorOutline
+              isFocused={isFocused}
+              hasError={!!error}
+              data-role="editor-outline"
+            >
               <StyledEditorContainer
                 data-component="text-editor-container"
                 hasError={!!error}

@@ -32,6 +32,10 @@ import DialogFullScreen from "carbon-react/lib/components/dialog-full-screen";
 
 ### Default
 
+The call-to-action element should always be focused when the `DialogFullScreen` is closed. However, in some instances it may not receive focus
+due to specific browser design choices. The below example shows how to programmatically focus the call-to-action element when the `DialogFullScreen` is closed
+to ensure behaviour is consistent across all browsers.
+
 <Canvas of={DialogFullScreenStories.Default} />
 
 ### With complex example
@@ -56,10 +60,6 @@ to have a possibility to manage active `Tabs` group
 ### With hideable header children
 
 <Canvas of={DialogFullScreenStories.WithHideableHeaderChildren} />
-
-### With `Box`
-
-<Canvas of={DialogFullScreenStories.WithBox} />
 
 ### Overriding the first focused element
 

@@ -52,7 +52,6 @@ import {
   ValidationStringExample,
   ValidationStringPositionExample,
 } from "./components.test-pw";
-import { FORM_CONTENT } from "../../../playwright/components/textarea/locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -1059,22 +1058,29 @@ test("should not have borders when hideBorders prop is passed", async ({
   );
 });
 
-test("should not change the scroll position of a scrollable container when typing", async ({
+test("typing in the textarea should not change scroll position of the parent container", async ({
   mount,
   page,
 }) => {
   await mount(<InScrollableContainer />);
 
-  const formContentElement = page.locator(FORM_CONTENT);
-  await formContentElement.evaluate((element) => element.scrollTo(0, 2000));
-  const textareaChildrenElement = textareaChildren(page);
-  await textareaChildrenElement.click();
-  await textareaChildrenElement.press("ArrowRight");
-  await textareaChildrenElement.press("f");
+  const textareaElement = page.getByRole("textbox");
+  const scrollableBox = page.getByTestId("scrollable-box");
 
-  const scrollTop = await formContentElement.evaluate((el) => el.scrollTop);
+  // Select all textarea text, then move cursor to the end, to ensure that the box is scrolled to the bottom
+  await textareaElement.selectText();
+  await textareaElement.press("ArrowRight");
 
-  expect(scrollTop).toBeGreaterThan(1000);
+  const initialScrollPosition = await scrollableBox.evaluate(
+    (element) => element.scrollTop
+  );
+
+  await textareaElement.press("a");
+
+  const finalScrollPosition = await scrollableBox.evaluate(
+    (element) => element.scrollTop
+  );
+  expect(finalScrollPosition).toBeCloseTo(initialScrollPosition);
 });
 
 test("should set aria-live attribute on Character Count to `polite` when component is focused and then change back to `off` when component is blurred", async ({

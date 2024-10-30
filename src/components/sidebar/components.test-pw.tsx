@@ -8,15 +8,15 @@ import Toast from "../toast";
 import Textbox from "../textbox";
 import Dialog from "../dialog";
 
-export const Default = (args: Partial<SidebarProps>) => {
-  const [isOpen, setIsOpen] = useState(true);
+export const Default = ({ open = true }: { open?: boolean }) => {
+  const [isOpen, setIsOpen] = useState(open);
   const onCancel = () => {
     setIsOpen(false);
   };
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-      <Sidebar {...args} aria-label="sidebar" open={isOpen} onCancel={onCancel}>
+      <Sidebar aria-label="sidebar" open={isOpen} onCancel={onCancel}>
         <Box mb={2}>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>
@@ -24,6 +24,37 @@ export const Default = (args: Partial<SidebarProps>) => {
           </Button>
         </Box>
         <Box mb="3000px">Main content</Box>
+      </Sidebar>
+    </>
+  );
+};
+
+export const DefaultNested = () => {
+  const [isFirstSidebarOpen, setIsFirstSidebarOpen] = useState(false);
+  const [isNestedSidebarOpen, setIsNestedSidebarOpen] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setIsFirstSidebarOpen(true)}>
+        Open First Sidebar
+      </Button>
+      <Sidebar
+        open={isFirstSidebarOpen}
+        onCancel={() => setIsFirstSidebarOpen(false)}
+      >
+        <Button onClick={() => setIsNestedSidebarOpen(true)}>
+          Open Nested Sidebar
+        </Button>
+        <Sidebar
+          open={isNestedSidebarOpen}
+          onCancel={() => setIsNestedSidebarOpen(false)}
+        >
+          <Box mb={2}>
+            <Button buttonType="primary">Test</Button>
+            <Button buttonType="secondary" ml={2}>
+              Last
+            </Button>
+          </Box>
+        </Sidebar>
       </Sidebar>
     </>
   );

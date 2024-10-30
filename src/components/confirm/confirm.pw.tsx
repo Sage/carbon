@@ -14,6 +14,7 @@ import {
   assertCssValueIsApproximately,
   checkAccessibility,
   checkDialogIsInDOM,
+  getStyle,
   waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
@@ -105,28 +106,30 @@ test.describe("should render Confirm component", () => {
     });
   });
 
-  heights.forEach(([heightnumber, heightstring]) => {
-    test(`should check Confirm height is ${heightstring}px`, async ({
+  ["0px", "100px", "500px"].forEach((height) => {
+    test(`height of Confirm dialog is ${height} when height prop is ${height}`, async ({
       mount,
       page,
     }) => {
-      await mount(<ConfirmComponent height={heightstring} />);
+      await page.setViewportSize({ width: 600, height: 1000 });
+      await mount(<ConfirmComponent height={height} />);
 
-      const viewportHeight = 768;
-
-      let resultHeight: number;
-      if (heightnumber >= viewportHeight - 20) {
-        resultHeight = viewportHeight - 20;
-      } else {
-        resultHeight = heightnumber;
-      }
-
-      await assertCssValueIsApproximately(
-        page.getByRole("alertdialog"),
-        "height",
-        resultHeight
-      );
+      await expect(page.getByRole("alertdialog")).toHaveCSS("height", height);
     });
+  });
+
+  test("Confirm dialog's height does not exceed the height of the viewport", async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 600, height: 1000 });
+    await mount(<ConfirmComponent height="1200px" />);
+
+    const actualDialogHeight = parseInt(
+      await getStyle(page.getByRole("alertdialog"), "height")
+    );
+
+    expect(actualDialogHeight).toBeLessThanOrEqual(1000);
   });
 
   ([

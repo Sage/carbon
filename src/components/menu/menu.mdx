@@ -151,6 +151,9 @@ This story is best viewed in the `canvas` view and by adjusting the size of the 
 trigger when the screen size is smaller than `1200px`. Please note the `MenuItem`s are intended to have a width that fills the viewport,
 as such any `maxWidth` value passed will not be set when they are children of `MenuFullscreen`.
 
+The call-to-action `MenuItem` should always be focused when the `MenuFullscreen` is closed. However, in some instances it may not receive focus
+due to specific browser design choices.
+
 <Canvas of={MenuStories.FullscreenViewStory} />
 
 ## Props

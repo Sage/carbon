@@ -148,7 +148,7 @@ test("focuses the back link on mousedown", () => {
   const backLink = screen.getByRole("link", { name: "Back" });
   fireEvent.mouseDown(backLink);
 
-  expect(backLink).toBeFocused();
+  expect(backLink).toHaveFocus();
 });
 
 test("renders a back button, when the `backLink` prop is a function", () => {
@@ -165,7 +165,7 @@ test("focuses the back button on mousedown", async () => {
   const backLink = screen.getByRole("button", { name: "Back" });
   await user.click(backLink);
 
-  expect(backLink).toBeFocused();
+  expect(backLink).toHaveFocus();
 });
 
 test("renders a divider when the `divider` prop is true", () => {

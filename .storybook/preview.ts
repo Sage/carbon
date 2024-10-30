@@ -9,41 +9,11 @@ import isChromatic from "./isChromatic";
 import { Preview } from "@storybook/react";
 
 const customViewports = {
-  extraSmall: {
-    name: "Smart Phones",
-    styles: {
-      width: "320px",
-      height: "599px",
-    },
-  },
-  small: {
-    name: "Portrait Tablets",
-    styles: {
-      width: "600px",
-      height: "959px",
-    },
-  },
-  medium: {
-    name: "Landscape Tablets & Low-Res Laptops",
-    styles: {
-      width: "960px",
-      height: "1259px",
-    },
-  },
-  large: {
-    name: "High-Res Laptops & Monitors",
-    styles: {
-      width: "1260px",
-      height: "1920px",
-    },
-  },
-  extraLarge: {
-    name: "Ultra High-Res Monitors",
-    styles: {
-      width: "1921px",
-      height: "2500px",
-    },
-  },
+  xsm: { name: "Extra small", styles: { width: "320px", height: "900px" } },
+  sm: { name: "Small", styles: { width: "640px", height: "900px" } },
+  md: { name: "Medium", styles: { width: "768px", height: "900px" } },
+  lg: { name: "Large", styles: { width: "1024px", height: "900px" } },
+  xl: { name: "Extra large", styles: { width: "1280px", height: "900px" } },
 };
 
 const parameters = {

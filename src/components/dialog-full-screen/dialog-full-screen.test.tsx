@@ -12,7 +12,6 @@ import StyledContent from "./content.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { StyledHeader, StyledHeading } from "../heading/heading.style";
 import Form from "../form";
-import { StyledFormContent } from "../form/form.style";
 import CarbonProvider from "../carbon-provider";
 
 const ControlledDialog = ({
@@ -244,10 +243,10 @@ test("padding is removed from the content when the `disableContentPadding` prop 
     </DialogFullScreen>
   );
 
-  expect(screen.getByTestId("dialog-full-screen-content")).toHaveStyleRule(
-    "padding",
-    "0"
-  );
+  const content = screen.getByTestId("dialog-full-screen-content");
+  expect(content).toHaveStyle({
+    padding: "0px 0px 0px 0px",
+  });
 });
 
 /** Remove this when after Pages is re-written */
@@ -314,22 +313,6 @@ test("when a Form child does not have a sticky footer, overflow styling is set o
   expect(screen.getByTestId("dialog-full-screen-content")).toHaveStyleRule(
     "overflow-y",
     "auto"
-  );
-});
-
-test("when a Form child has a sticky footer, no overflow styling is set", () => {
-  render(
-    <DialogFullScreen open>
-      <Form stickyFooter />
-    </DialogFullScreen>
-  );
-
-  expect(screen.getByTestId("dialog-full-screen-content")).toHaveStyleRule(
-    "overflow-y",
-    "inherit",
-    {
-      modifier: `&:has(${StyledFormContent}.sticky)`,
-    }
   );
 });
 

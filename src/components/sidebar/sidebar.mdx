@@ -43,6 +43,10 @@ import Sidebar from "carbon-react/lib/components/sidebar";
 
 ### Default
 
+The call-to-action element should always be focused when the `Sidebar` is closed. However, in some instances it may not receive focus
+due to specific browser design choices. The below example shows how to programmatically focus the call-to-action element when the `Sidebar` is closed
+to ensure behaviour is consistent across all browsers.
+
 <Canvas of={SidebarStories.DefaultStory} />
 
 ### Custom padding around content

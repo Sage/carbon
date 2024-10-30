@@ -17,6 +17,7 @@ import {
 } from "../../style/utils";
 import StyledBox from "./box.style";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
 
 export type OverflowWrap = "break-word" | "anywhere";
 export type ScrollVariant = "light" | "dark";
@@ -50,7 +51,7 @@ export interface BoxProps
   scrollVariant?: ScrollVariant;
   /** Set the box-sizing attribute of the Box component */
   boxSizing?: BoxSizing;
-  /** Allows a tabindex to be specified */
+  /** (Deprecated) Allows a tabindex to be specified */
   tabIndex?: number;
   /** Gap, an integer multiplier of the base spacing constant (8px) or any valid CSS string." */
   gap?: Gap;
@@ -75,6 +76,8 @@ export interface BoxProps
   /** Set the container to be hidden from screen readers */
   "aria-hidden"?: "true" | "false";
 }
+
+let deprecatedTabIndex = false;
 
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
   (
@@ -103,6 +106,13 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
     }: BoxProps,
     ref
   ) => {
+    if (!deprecatedTabIndex && tabIndex !== undefined) {
+      deprecatedTabIndex = true;
+      Logger.deprecate(
+        "The `tabIndex` prop for `Box` component has been deprecated and will soon be removed."
+      );
+    }
+
     return (
       <StyledBox
         as={as}

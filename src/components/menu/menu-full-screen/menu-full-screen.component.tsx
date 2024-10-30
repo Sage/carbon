@@ -91,6 +91,7 @@ export const MenuFullscreen = ({
     closeModal,
     modalRef: menuRef,
     topModalOverride,
+    focusCallToActionElement: document.activeElement as HTMLElement,
   });
 
   return (

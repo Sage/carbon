@@ -15,6 +15,16 @@ import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
 import TextEditor from "../text-editor";
 
+import Box from "../box";
+import Typography from "../typography";
+import {
+  FlexTileCell,
+  FlexTileContainer,
+  FlexTileDivider,
+  Tile,
+} from "../tile";
+import { allModes } from "../../../.storybook/modes";
+
 export default {
   title: "Dialog/Test",
   component: Dialog,
@@ -290,6 +300,197 @@ MaxSizeTestNonOverflowedForm.decorators = [
 
 MaxSizeTestNonOverflowedForm.parameters = {
   themeProvider: { chromatic: { theme: "none" } },
-  chromatic: { disableSnapshot: false, viewports: [1200, 900] },
+  chromatic: {
+    disableSnapshot: false,
+    modes: {
+      lg: allModes.lg,
+      xsm: allModes.xsm,
+    },
+  },
   layout: "fullscreen",
+};
+
+export const DialogWithLongHeaderContent: StoryType = {
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+      modes: {
+        lg: allModes.lg,
+        xsm: allModes.xsm,
+      },
+    },
+    layout: "fullscreen",
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ height: "100vh", width: "100vw" }}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: ({ size, ...args }) => (
+    <Dialog
+      {...args}
+      size={size || "maximise"}
+      open
+      title={
+        <Box width="100%">
+          <Icon type="ledger" />
+          <Typography variant="h1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </Typography>
+          <Typography>
+            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam.
+          </Typography>
+        </Box>
+      }
+    >
+      <Form
+        stickyFooter
+        leftSideButtons={<Button buttonType="primary">Submit</Button>}
+      >
+        <Box height="800px">
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+          <Tile mb={1} py={0}>
+            <FlexTileContainer columnGap={6}>
+              <FlexTileCell>
+                <FlexTileDivider />
+                <Box>1</Box>
+              </FlexTileCell>
+            </FlexTileContainer>
+          </Tile>
+        </Box>
+      </Form>
+    </Dialog>
+  ),
+};
+
+export const WithButton = {
+  render: () => {
+    return (
+      <Dialog open title="Dialog with Button">
+        <Button onClick={() => {}}>This is a button</Button>
+      </Dialog>
+    );
+  },
 };

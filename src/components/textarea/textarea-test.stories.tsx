@@ -6,6 +6,8 @@ import Dialog from "../dialog";
 import Form from "../form";
 import Button from "../button";
 import isChromatic from "../../../.storybook/isChromatic";
+import Box from "../box";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 interface TextareaTestProps extends TextareaProps {
   labelHelp?: string;
@@ -13,7 +15,12 @@ interface TextareaTestProps extends TextareaProps {
 
 export default {
   title: "Textarea/Test",
-  includeStories: ["Default", "InScrollableContainer", "WithExpandableAndRows"],
+  includeStories: [
+    "Default",
+    "InScrollableContainer",
+    "WithExpandableAndRows",
+    "NewDesignValidationStoryWithLableInline",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -258,3 +265,31 @@ WithExpandableAndRows.decorators = [
 WithExpandableAndRows.parameters = {
   chromatic: { disableSnapshot: false },
 };
+
+export const NewDesignValidationStoryWithLableInline: StoryType = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      {["error", "warning"].map((validationType) => (
+        <Box width={296} key={`${validationType}-string-component`}>
+          <Textarea
+            label={`${validationType}`}
+            inputHint="Hint text (optional)."
+            {...{ [validationType]: "Message" }}
+            m={4}
+            labelInline
+          />
+          <Textarea
+            label={`readOnly - ${validationType}`}
+            inputHint="Hint text (optional)."
+            readOnly
+            {...{ [validationType]: "Message" }}
+            m={4}
+            labelInline
+          />
+        </Box>
+      ))}
+    </CarbonProvider>
+  );
+};
+NewDesignValidationStoryWithLableInline.storyName =
+  "Validations - String - New Design - Label Inline";

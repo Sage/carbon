@@ -1,3 +1,47 @@
+### [144.2.2](https://github.com/Sage/carbon/compare/v144.2.1...v144.2.2) (2024-10-29)
+
+
+### Bug Fixes
+
+* inline label props have unexpected behaviour with new validation ([922694f](https://github.com/Sage/carbon/commit/922694f654e3c8cd7f9f49c56892be29828fb1fd))
+
+### [144.2.1](https://github.com/Sage/carbon/compare/v144.2.0...v144.2.1) (2024-10-28)
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** ensure child button are accessible ([a3e2302](https://github.com/Sage/carbon/commit/a3e2302def7e97e32d1f28053706d79a2a14d5d9)), closes [#7005](https://github.com/Sage/carbon/issues/7005)
+
+## [144.2.0](https://github.com/Sage/carbon/compare/v144.1.1...v144.2.0) (2024-10-25)
+
+
+### Features
+
+* **box:** adds a deprecation warning to the Box component for tabIndex ([b49e572](https://github.com/Sage/carbon/commit/b49e5722b58702f3d3bace17d3ea4ca7456481a0))
+
+### [144.1.1](https://github.com/Sage/carbon/compare/v144.1.0...v144.1.1) (2024-10-24)
+
+
+### Bug Fixes
+
+* **menu-full-screen, modal:** ensure the call to action element is focused on close ([0ca3949](https://github.com/Sage/carbon/commit/0ca39499bd54576c8a94a0e94abf3ce501197bb9)), closes [#6870](https://github.com/Sage/carbon/issues/6870)
+
+## [144.1.0](https://github.com/Sage/carbon/compare/v144.0.1...v144.1.0) (2024-10-24)
+
+
+### Features
+
+* **typography:** update line heights to align with DS ([fb6762f](https://github.com/Sage/carbon/commit/fb6762f49caafb73d11285f954c18dcf73d328cf)), closes [#6335](https://github.com/Sage/carbon/issues/6335)
+
+### [144.0.1](https://github.com/Sage/carbon/compare/v144.0.0...v144.0.1) (2024-10-23)
+
+
+### Bug Fixes
+
+* **dialog:** ensure height never exceeds 90% of the viewport height ([619a651](https://github.com/Sage/carbon/commit/619a6516ac3b0ac05e55219e79df529b491a9031))
+* prevent sticky footer form content from overflowing in Carbon modal components ([cb77fb7](https://github.com/Sage/carbon/commit/cb77fb78f72d866458df49964c08f567b971a110)), closes [#6969](https://github.com/Sage/carbon/issues/6969)
+* resolve layout issues with sticky footer forms inside Carbon modal components ([0fe249d](https://github.com/Sage/carbon/commit/0fe249db3d2e598f73eaccd3388e6feea61c2c80))
+
 ## [144.0.0](https://github.com/Sage/carbon/compare/v143.2.5...v144.0.0) (2024-10-21)
 
 

@@ -1,3 +1,4 @@
+/* eslint-disable jest/expect-expect */
 import color from "./color";
 import { baseTheme } from "../themes";
 

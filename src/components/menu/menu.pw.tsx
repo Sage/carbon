@@ -52,6 +52,7 @@ import {
   MenuComponentSearch,
   MenuWithChildrenUpdating,
   MenuComponentFullScreen,
+  MenuComponentFullScreenSimple,
   MenuFullScreenBackgroundScrollTest,
   MenuComponentItems,
   MenuFullScreenWithSearchButton,
@@ -1061,6 +1062,46 @@ test.describe("Prop tests for Menu component", () => {
       });
     }
   );
+
+  test("when a Menu Fullscreen is opened and then closed, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentFullScreenSimple open={false} />);
+
+    await page.setViewportSize({ width: 1200, height: 800 });
+    const item = page.getByRole("button").filter({ hasText: "Menu" });
+    await item.click();
+    const fullscreen = getComponent(page, "menu-fullscreen");
+    await waitForAnimationEnd(fullscreen);
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(item).toBeFocused();
+  });
+
+  test("when Menu Fullscreen is open on render, then closed, opened and then closed again, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentFullScreenSimple />);
+
+    await page.setViewportSize({ width: 1200, height: 800 });
+    const fullscreen = getComponent(page, "menu-fullscreen");
+    await waitForAnimationEnd(fullscreen);
+    await expect(fullscreen).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+
+    const item = page.getByRole("button").filter({ hasText: "Menu" });
+    await expect(item).not.toBeFocused();
+    await expect(fullscreen).not.toBeVisible();
+
+    await item.click();
+    await waitForAnimationEnd(fullscreen);
+    await expect(fullscreen).toBeVisible();
+    await closeButton.click();
+    await expect(item).toBeFocused();
+  });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
   test.skip(`should verify that inner Menu without link is NOT available with tabbing in Fullscreen Menu`, async ({
