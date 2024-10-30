@@ -116,8 +116,6 @@ const TabTitle = React.forwardRef(
     const handleKeyDown = (
       ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
-      ev.stopPropagation();
-
       if (href && Events.isEnterOrSpaceKey(ev)) {
         return window.open(href, "_blank");
       }

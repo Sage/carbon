@@ -1622,3 +1622,31 @@ test("leaves the same tab content visible when the already-selected tab is click
   expect(screen.getByText("Content for tab 1")).toBeVisible();
   expect(screen.getByText("Content for tab 2")).not.toBeVisible();
 });
+
+test("renders the tabs with the correct size when the `size` prop is set to default", () => {
+  render(
+    <Tabs size="default">
+      <Tab tabId="1" title="Test 1">
+        Content
+      </Tab>
+      <Tab tabId="2" title="Test 2">
+        Content
+      </Tab>
+    </Tabs>,
+  );
+  expect(screen.getByTestId("tab-container")).toHaveStyle("height: 42px");
+});
+
+test("renders the tabs with the correct size when the `size` prop is set to large", () => {
+  render(
+    <Tabs size="large">
+      <Tab tabId="1" title="Test 1">
+        Content
+      </Tab>
+      <Tab tabId="2" title="Test 2">
+        Content
+      </Tab>
+    </Tabs>,
+  );
+  expect(screen.getByTestId("tab-container")).toHaveStyle("height: 50px");
+});
