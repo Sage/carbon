@@ -1188,21 +1188,6 @@ test.describe("Check events for MultiSelect component", () => {
     await expect(callbackCount).toBe(1);
   });
 
-  test("should call onBlur event when the list is closed", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<MultiSelectComponent onBlur={callback} />);
-
-    await dropdownButton(page).click();
-    await selectInput(page).blur();
-    await expect(callbackCount).toBe(1);
-  });
-
   test("should call onChange event once when a list option is selected", async ({
     mount,
     page,

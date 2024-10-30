@@ -124,7 +124,7 @@ test("pressing the left arrow key when focused on the first color changes select
       target: expect.objectContaining({ value: "#582C83" }),
     })
   );
-  expect(screen.getAllByRole("radio")[2]).toBeFocused();
+  expect(screen.getAllByRole("radio")[2]).toHaveFocus();
 });
 
 test("pressing the right arrow key changes selection to the next color", async () => {
@@ -151,7 +151,7 @@ test("pressing the right arrow key changes selection to the next color", async (
       target: expect.objectContaining({ value: "#582C83" }),
     })
   );
-  expect(screen.getAllByRole("radio")[2]).toBeFocused();
+  expect(screen.getAllByRole("radio")[2]).toHaveFocus();
 });
 
 test("pressing the right arrow key when focused on the last color changes selection to the first color", async () => {
@@ -178,7 +178,7 @@ test("pressing the right arrow key when focused on the last color changes select
       target: expect.objectContaining({ value: "#00A376" }),
     })
   );
-  expect(screen.getAllByRole("radio")[0]).toBeFocused();
+  expect(screen.getAllByRole("radio")[0]).toHaveFocus();
 });
 
 test("when the input has multiple rows, pressing the up arrow key changes selection to the color immediately above", async () => {
@@ -207,7 +207,7 @@ test("when the input has multiple rows, pressing the up arrow key changes select
       target: expect.objectContaining({ value: "#00A376" }),
     })
   );
-  expect(screen.getAllByRole("radio")[0]).toBeFocused();
+  expect(screen.getAllByRole("radio")[0]).toHaveFocus();
 });
 
 test("when focus is already on the top row, pressing the up arrow key does not change selection", async () => {
@@ -231,7 +231,7 @@ test("when focus is already on the top row, pressing the up arrow key does not c
   await user.keyboard("{ArrowUp}");
 
   expect(onChange).not.toHaveBeenCalled();
-  expect(screen.getAllByRole("radio")[1]).toBeFocused();
+  expect(screen.getAllByRole("radio")[1]).toHaveFocus();
 });
 
 test("when the input has multiple rows, pressing the down arrow key changes selection to the color immediately below", async () => {
@@ -260,7 +260,7 @@ test("when the input has multiple rows, pressing the down arrow key changes sele
       target: expect.objectContaining({ value: "#582C83" }),
     })
   );
-  expect(screen.getAllByRole("radio")[2]).toBeFocused();
+  expect(screen.getAllByRole("radio")[2]).toHaveFocus();
 });
 
 test("when focus is already on the bottom row, pressing the down arrow key does not change selection", async () => {
@@ -285,7 +285,7 @@ test("when focus is already on the bottom row, pressing the down arrow key does 
   await user.keyboard("{ArrowDown}");
 
   expect(onChange).not.toHaveBeenCalled();
-  expect(screen.getAllByRole("radio")[3]).toBeFocused();
+  expect(screen.getAllByRole("radio")[3]).toHaveFocus();
 });
 
 test("focus is not changed if a non-arrow key is pressed", async () => {
@@ -307,7 +307,7 @@ test("focus is not changed if a non-arrow key is pressed", async () => {
   await user.keyboard("{Control}");
 
   expect(onChange).not.toHaveBeenCalled();
-  expect(screen.getAllByRole("radio")[0]).toBeFocused();
+  expect(screen.getAllByRole("radio")[0]).toHaveFocus();
 });
 
 test("the `onBlur` callback prop should not be called if focus moves from one color input to another", async () => {
