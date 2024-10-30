@@ -3,7 +3,6 @@ import StyledIcon from "../../icon/icon.style";
 
 const StyledOptionGroupHeader = styled.div`
   box-sizing: border-box;
-  position: absolute;
   height: 40px;
   padding-left: 16px;
   padding-top: 16px;

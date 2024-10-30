@@ -349,45 +349,6 @@ const SelectList = React.forwardRef(
           "data-index": index,
         };
 
-        if (child.type === OptionGroup) {
-          return React.cloneElement(child, {
-            ...child.props,
-            children: React.Children.map(
-              child.props.children,
-              (optionChild, optionIndex) => {
-                const optionGroupChildIndex = optionChildrenList.indexOf(
-                  optionChild as ReactElement<OptionProps, string>
-                );
-                const isOptionFromOptionGroup = optionChildIndex > -1;
-
-                const optionProps = {
-                  index: optionIndex,
-                  onSelect: handleSelect,
-                  hidden: isLoading && childrenList.length === 1,
-                  style: {
-                    transform: `translateY(${start}px)`,
-                  },
-                  "aria-setsize": isOptionFromOptionGroup
-                    ? optionChildrenList.length
-                    : undefined,
-                  "aria-posinset": isOptionFromOptionGroup
-                    ? optionGroupChildIndex + 1
-                    : undefined,
-                  ref: (optionElement: HTMLElement) => {
-                    measureCallback(optionElement);
-                    childElementRefs.current[optionIndex] = optionElement;
-                  },
-                  "data-index": optionIndex,
-                };
-
-                return React.isValidElement(optionChild)
-                  ? React.cloneElement(optionChild, optionProps)
-                  : optionChild;
-              }
-            ),
-          });
-        }
-
         return React.cloneElement(child, newProps);
       });
 
