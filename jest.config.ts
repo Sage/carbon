@@ -32,6 +32,7 @@ const config: Config = {
     "^.+\\.(js|mjs|jsx|ts|tsx)$": "babel-jest",
     "^.+\\.svg$": "<rootDir>/svgTransform.mjs",
   },
+  transformIgnorePatterns: ["/node_modules/(?!react-dnd|dnd-core|@react-dnd)"],
 };
 
 export default config;

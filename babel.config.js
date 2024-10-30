@@ -28,6 +28,7 @@ module.exports = (api) => {
       "@babel/plugin-proposal-class-properties",
       "@babel/plugin-transform-classes",
       "babel-plugin-dev-expression",
+      "@babel/plugin-transform-modules-commonjs",
     ].filter(Boolean),
   };
 };
