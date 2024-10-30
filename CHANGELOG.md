@@ -1,3 +1,10 @@
+## [144.3.0](https://github.com/Sage/carbon/compare/v144.2.2...v144.3.0) (2024-10-30)
+
+
+### Features
+
+* **drawer:** add sidebarAriaLabel prop ([3c80c1c](https://github.com/Sage/carbon/commit/3c80c1cf18b3da494025c8cde10d3ea200352f29))
+
 ### [144.2.2](https://github.com/Sage/carbon/compare/v144.2.1...v144.2.2) (2024-10-29)
 
 
