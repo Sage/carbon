@@ -5,6 +5,7 @@ interface StyledOptionProps extends Pick<OptionProps, "id"> {
   isHighlighted?: boolean;
   isDisabled?: boolean;
   isInteractive: boolean;
+  isInGroup?: boolean;
 }
 
 const StyledOption = styled.li<StyledOptionProps>`
@@ -13,7 +14,6 @@ const StyledOption = styled.li<StyledOptionProps>`
   padding: 12px 16px;
   width: 100%;
   user-select: none;
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -42,6 +42,8 @@ const StyledOption = styled.li<StyledOptionProps>`
         background-color: var(--colorsUtilityYang100);
       }
     `}
+  
+  ${({ isInGroup }) => !isInGroup && "position: absolute;"}
 `;
 
 export default StyledOption;

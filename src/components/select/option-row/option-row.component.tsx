@@ -43,6 +43,11 @@ export interface OptionRowProps extends Omit<TagProps, "data-component"> {
    * @ignore
    * object containing CSS styles to be passed to the underlying DOM element */
   style?: CSSProperties;
+  /**
+   * @private
+   * @ignore
+   */
+  isInGroup?: boolean;
 }
 
 const OptionRow = React.forwardRef(
@@ -57,6 +62,7 @@ const OptionRow = React.forwardRef(
       index,
       hidden,
       style,
+      isInGroup,
       ...rest
     }: OptionRowProps,
     ref: React.ForwardedRef<HTMLTableRowElement>,
@@ -92,6 +98,7 @@ const OptionRow = React.forwardRef(
         style={style}
         {...rest}
         data-component="option-row"
+        isInGroup={isInGroup}
       >
         {children}
       </StyledOptionRow>

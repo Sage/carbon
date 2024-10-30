@@ -46,6 +46,11 @@ export interface OptionProps
    * @ignore
    */
   index?: number;
+  /**
+   * @private
+   * @ignore
+   */
+  isInGroup?: boolean;
 }
 
 const Option = React.forwardRef(
@@ -61,6 +66,7 @@ const Option = React.forwardRef(
       hidden,
       onClick,
       style,
+      isInGroup,
       ...rest
     }: OptionProps,
     ref: React.ForwardedRef<HTMLLIElement>,
@@ -100,6 +106,7 @@ const Option = React.forwardRef(
         isInteractive={!!value}
         {...{ ...rest, fill: undefined }}
         data-component="option"
+        isInGroup={isInGroup}
       >
         {children || text}
       </StyledOption>

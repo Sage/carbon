@@ -745,9 +745,58 @@ export const NewOptionGroups = () => {
           <Option text="Blue" value="3" />
           <Option text="Brown" value="4" />
         </OptionGroup>
+        <OptionGroup label="Group two" icon="individual">
+          <Option text="Amber1" value="5" />
+          <Option text="Black1" value="6" />
+          <Option text="Blue1" value="7" />
+          <Option text="Brown1" value="8" />
+        </OptionGroup>
       </Select>
     </Box>
   );
 };
 NewOptionGroups.storyName = "New Option Groups";
 NewOptionGroups.parameters = { chromatic: { disableSnapshot: true } };
+
+export const NewOptionGroupsWithRows = () => {
+  return (
+    <Box height={250}>
+      <Select name="optGroups" id="optGroups" label="color" multiColumn
+        tableHeader={
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Occupation</th>
+          </tr>
+        }
+      >
+        <OptionGroup label="Group one" icon="individual">
+          <OptionRow id="1" value="1" text="John Doe">
+            <td>John</td>
+            <td>Doe</td>
+            <td>Welder</td>
+          </OptionRow>
+          <OptionRow id="2" value="2" text="Joe Vick">
+            <td>Joe</td>
+            <td>Vick</td>
+            <td>Accountant</td>
+          </OptionRow>
+        </OptionGroup>
+        <OptionGroup label="Group two" icon="individual">
+          <OptionRow id="3" value="3" text="John Doe">
+            <td>John1</td>
+            <td>Doe1</td>
+            <td>Welder1</td>
+          </OptionRow>
+          <OptionRow id="4" value="4" text="Joe Vick">
+            <td>Joe1</td>
+            <td>Vick1</td>
+            <td>Accountant1</td>
+          </OptionRow>
+        </OptionGroup>
+      </Select>
+    </Box>
+  );
+};
+NewOptionGroupsWithRows.storyName = "New Option Groups with option rows";
+NewOptionGroupsWithRows.parameters = { chromatic: { disableSnapshot: true } };

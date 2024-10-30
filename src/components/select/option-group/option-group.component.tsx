@@ -3,6 +3,8 @@ import { TagProps } from "__internal__/utils/helpers/tags";
 import StyledOptionGroup from "./option-group.style";
 import { IconProps } from "../../icon";
 import OptionGroupHeader from "../option-group-header";
+import type { OptionProps } from "../option";
+import type { OptionRowProps } from "../option-row";
 
 export interface OptionGroupProps extends Omit<TagProps, "data-component"> {
   /**
@@ -26,22 +28,26 @@ export interface OptionGroupProps extends Omit<TagProps, "data-component"> {
   children?: React.ReactNode;
 }
 
-const OptionGroup = ({
+const OptionGroup = React.forwardRef(({
   style,
   icon,
   label,
   id,
   children,
-}: OptionGroupProps) => {
+  ...rest
+}: OptionGroupProps, ref: React.ForwardedRef<HTMLDivElement>) => {
+  const clonedChildren = React.Children.map(children, (child) => {
+    return React.isValidElement(child) ? React.cloneElement(child as React.ReactElement<OptionProps | OptionGroupProps>, { isInGroup: true }) : child;
+  });
   return (
-    <StyledOptionGroup role="group" data-component="option-group">
-      <OptionGroupHeader style={style} icon={icon} id={id}>
+    <StyledOptionGroup role="group" data-component="option-group" ref={ref} style={style} {...rest}>
+      <OptionGroupHeader icon={icon} id={id}>
         {label}
       </OptionGroupHeader>
-      {children}
+      {clonedChildren}
     </StyledOptionGroup>
   );
-};
+});
 
 OptionGroup.displayName = "OptionGroup";
 export default OptionGroup;

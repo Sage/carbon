@@ -4,12 +4,12 @@ import { OptionRowProps } from ".";
 interface StyledOptionRowProps extends Pick<OptionRowProps, "hidden"> {
   isHighlighted?: boolean;
   isDisabled?: boolean;
+  isInGroup?: boolean;
 }
 
 const StyledOptionRow = styled.tr<StyledOptionRowProps>`
   cursor: pointer;
   width: 100%;
-  position: absolute;
   top: 0;
   left: 0;
 
@@ -43,6 +43,8 @@ const StyledOptionRow = styled.tr<StyledOptionRowProps>`
         background-color: var(--colorsUtilityYang100);
       }
     `}
+
+  ${({ isInGroup }) => !isInGroup && "position: absolute;"}
 `;
 
 export default StyledOptionRow;
