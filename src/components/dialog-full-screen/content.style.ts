@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
 import { StyledForm, StyledFormContent } from "../form/form.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 type StyledContentProps = {
   hasHeader: boolean;
   disableContentPadding?: boolean;
+  hasTitle?: boolean;
 };
 
 function computePadding() {
@@ -27,7 +29,13 @@ const StyledContent = styled.div<StyledContentProps>`
   overflow-y: auto;
 
   flex: 1;
-  width: 100%;
+
+  &:focus-visible {
+    margin: var(--spacing075);
+    ${({ hasTitle }) =>
+      !hasTitle && "border-top-left-radius: var(--borderRadius200)"};
+    ${addFocusStyling()}
+  }
 
   ${({ disableContentPadding }) =>
     disableContentPadding ? "padding: 0" : computePadding()}

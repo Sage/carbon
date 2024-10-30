@@ -190,6 +190,7 @@ export const DialogFullScreen = ({
             data-element="content"
             data-role="dialog-full-screen-content"
             ref={contentRef}
+            hasTitle={!!title}
             disableContentPadding={disableContentPadding}
           >
             {children}

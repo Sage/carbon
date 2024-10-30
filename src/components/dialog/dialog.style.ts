@@ -13,6 +13,7 @@ import {
   StyledForm,
   StyledFormFooter,
 } from "../form/form.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const dialogSizes = {
   auto: "fit-content",
@@ -120,12 +121,23 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   }
 `;
 
-const StyledDialogContent = styled.div<ContentPaddingInterface>`
+interface styledDialogContentProps extends ContentPaddingInterface {
+  hasTitle?: boolean;
+}
+
+const StyledDialogContent = styled.div<styledDialogContentProps>`
   box-sizing: border-box;
   display: block;
   overflow-y: auto;
   width: 100%;
   flex-grow: 1;
+
+  &:focus-visible {
+    border-bottom-left-radius: var(--borderRadius200);
+    ${({ hasTitle }) =>
+      !hasTitle && "border-top-left-radius: var(--borderRadius200)"};
+    ${addFocusStyling()}
+  }
 
   padding: 24px 32px 30px;
   ${paddingFn}

@@ -9,6 +9,7 @@ import userEvent from "@testing-library/user-event";
 
 import CarbonProvider from "../carbon-provider";
 import Dialog, { DialogHandle, DialogProps } from ".";
+import Button from "../button";
 
 beforeEach(() => jest.useFakeTimers());
 afterEach(() => {
@@ -256,6 +257,34 @@ test("first focusable element is not focused when disableAutoFocus prop is passe
 
   const button = screen.getByRole("button", { name: /Focus me/i });
   expect(button).not.toHaveFocus();
+});
+
+test("should add dialog content to the tabbing order when scrollable with no other interactive elements", () => {
+  render(<Dialog open>test</Dialog>);
+
+  const container = screen.getByTestId("dialog-content");
+  jest.spyOn(container, "clientHeight", "get").mockImplementation(() => 1000);
+  jest.spyOn(container, "scrollHeight", "get").mockImplementation(() => 1500);
+
+  jest.runAllTimers();
+
+  expect(container).toHaveAttribute("tabindex", "0");
+});
+
+test("should not add dialog content to the tabbing order when scrollable with other interactive elements", () => {
+  render(
+    <Dialog open>
+      <Button>Test</Button>test
+    </Dialog>,
+  );
+
+  const container = screen.getByTestId("dialog-content");
+  jest.spyOn(container, "clientHeight", "get").mockImplementation(() => 1000);
+  jest.spyOn(container, "scrollHeight", "get").mockImplementation(() => 1500);
+
+  jest.runAllTimers();
+
+  expect(container).toHaveAttribute("tabindex", "-1");
 });
 
 test("height prop controls the dialog's height", () => {

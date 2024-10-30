@@ -14,6 +14,7 @@ import {
 import CarbonProvider from "../carbon-provider";
 
 import Sidebar, { SidebarProps } from ".";
+import Button from "../button";
 
 beforeEach(() => {
   jest.useFakeTimers();
@@ -242,6 +243,38 @@ test("focus is not trapped within sidebar when enableBackgroundUI is true", asyn
   await user.tab();
 
   expect(firstButton).not.toHaveFocus();
+});
+
+test("should add sidebar content to the tabbing order when scrollable with no other interactive elements", async () => {
+  render(<Sidebar open>test</Sidebar>);
+
+  const container = screen.getByTestId("sidebar-content");
+  jest.spyOn(container, "clientHeight", "get").mockImplementation(() => 1000);
+  jest.spyOn(container, "scrollHeight", "get").mockImplementation(() => 1500);
+
+  jest.runAllTimers();
+
+  await waitFor(() => {
+    expect(container).toHaveAttribute("tabindex", "0");
+  });
+});
+
+test("should not add sidebar content to the tabbing order when scrollable with other interactive elements", async () => {
+  render(
+    <Sidebar open>
+      <Button>Test</Button>test
+    </Sidebar>,
+  );
+
+  const container = screen.getByTestId("sidebar-content");
+  jest.spyOn(container, "clientHeight", "get").mockImplementation(() => 1000);
+  jest.spyOn(container, "scrollHeight", "get").mockImplementation(() => 1500);
+
+  jest.runAllTimers();
+
+  await waitFor(() => {
+    expect(container).not.toHaveAttribute("tabindex");
+  });
 });
 
 test("can refocus sidebar container using a forwarded ref", async () => {

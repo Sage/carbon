@@ -1,6 +1,7 @@
 import React from "react";
 import { expect, test } from "@playwright/experimental-ct-react17";
 import type { Page } from "@playwright/test";
+import DialogFullScreen from ".";
 import {
   DialogFullScreenComponent,
   NestedDialog,
@@ -25,12 +26,14 @@ import {
   tooltipPreview,
   getComponent,
 } from "../../../playwright/components/index";
+import dialogFullScreenContent from "../../../playwright/components/dialog-full-screen";
 import {
   continuePressingTAB,
   continuePressingSHIFTTAB,
   checkAccessibility,
   waitForAnimationEnd,
   waitForElementFocus,
+  getStyle,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
@@ -564,6 +567,63 @@ test.describe("render DialogFullScreen component and check properties", () => {
 
     await expect(secondInputElement).not.toBeFocused();
     await expect(openToastElement).toBeFocused();
+  });
+});
+
+test.describe("when dialog full screen content is scrollable and has no interactive elements", () => {
+  test("should have the expected styling when the dialog full screen content is focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <DialogFullScreen open>
+        {Array.from({ length: 30 }, (_, i) => (
+          <p key={i}>Line {i + 1}</p>
+        ))}
+      </DialogFullScreen>,
+    );
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await expect(dialogFullScreenContent(page)).toBeFocused();
+    await expect(dialogFullScreenContent(page)).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
+    await expect(dialogFullScreenContent(page)).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
+  });
+
+  test("should have the expected styling when the dialog full screen content is focused and no title is passed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <DialogFullScreen open>
+        {Array.from({ length: 30 }, (_, i) => (
+          <p key={i}>Line {i + 1}</p>
+        ))}
+      </DialogFullScreen>,
+    );
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await expect(dialogFullScreenContent(page)).toBeFocused();
+    await expect(dialogFullScreenContent(page)).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
+    await expect(dialogFullScreenContent(page)).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
+
+    const borderTopLeftRadius = await getStyle(
+      dialogFullScreenContent(page),
+      "border-top-left-radius",
+      "focus-visible",
+    );
+    await expect(borderTopLeftRadius).toBe("16px");
   });
 });
 

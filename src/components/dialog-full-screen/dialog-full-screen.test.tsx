@@ -13,6 +13,7 @@ import StyledIconButton from "../icon-button/icon-button.style";
 import { StyledHeader, StyledHeading } from "../heading/heading.style";
 import Form from "../form";
 import CarbonProvider from "../carbon-provider";
+import Button from "../button";
 
 const ControlledDialog = ({
   onCancel,
@@ -112,6 +113,38 @@ test("when the focusFirstElement prop is passed, the corresponding element shoul
 
   await waitFor(() => {
     expect(screen.getByLabelText("should be focused")).toHaveFocus();
+  });
+});
+
+test("should add dialog full screen content to the tabbing order when scrollable with no other interactive elements", async () => {
+  render(<DialogFullScreen open>test</DialogFullScreen>);
+
+  const container = screen.getByTestId("dialog-full-screen-content");
+  jest.spyOn(container, "clientHeight", "get").mockImplementation(() => 10000);
+  jest.spyOn(container, "scrollHeight", "get").mockImplementation(() => 15000);
+
+  jest.runAllTimers();
+
+  await waitFor(() => {
+    expect(container).toHaveAttribute("tabindex", "0");
+  });
+});
+
+test("should not add dialog full screen content to the tabbing order when scrollable with other interactive elements", async () => {
+  render(
+    <DialogFullScreen open>
+      <Button>Test</Button>test
+    </DialogFullScreen>,
+  );
+
+  const container = screen.getByTestId("dialog-full-screen-content");
+  jest.spyOn(container, "clientHeight", "get").mockImplementation(() => 1000);
+  jest.spyOn(container, "scrollHeight", "get").mockImplementation(() => 1500);
+
+  jest.runAllTimers();
+
+  await waitFor(() => {
+    expect(container).not.toHaveAttribute("tabindex");
   });
 });
 

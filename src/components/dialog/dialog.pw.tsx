@@ -1,6 +1,7 @@
 import React from "react";
 import { expect, test } from "@playwright/experimental-ct-react17";
 
+import Dialog from ".";
 import {
   DialogComponent,
   DialogWithFirstFocusableElement,
@@ -21,6 +22,7 @@ import {
   Responsive,
   UsingHandle,
 } from "./components.test-pw";
+import { dialogContent } from "../../../playwright/components/dialog";
 import { toastComponent } from "../../../playwright/components/toast";
 import {
   checkAccessibility,
@@ -584,6 +586,63 @@ test("Dialog should have rounded corners", async ({ mount, page }) => {
   await mount(<DialogComponent />);
 
   await expect(page.getByRole("dialog")).toHaveCSS("border-radius", "16px");
+});
+
+test.describe("when dialog content is scrollable and has no interactive elements", () => {
+  test("should have the expected styling when the dialog content is focused and a title is passed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Dialog title="Hello World" open>
+        {Array.from({ length: 30 }, (_, i) => (
+          <p key={i}>Line {i + 1}</p>
+        ))}
+      </Dialog>,
+    );
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await expect(dialogContent(page)).toBeFocused();
+    await expect(dialogContent(page)).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
+    await expect(dialogContent(page)).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
+  });
+
+  test("should have the expected styling when the dialog content is focused and no title is passed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Dialog open>
+        {Array.from({ length: 30 }, (_, i) => (
+          <p key={i}>Line {i + 1}</p>
+        ))}
+      </Dialog>,
+    );
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await expect(dialogContent(page)).toBeFocused();
+    await expect(dialogContent(page)).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
+    await expect(dialogContent(page)).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
+
+    const borderTopLeftRadius = await getStyle(
+      dialogContent(page),
+      "border-top-left-radius",
+      "focus-visible",
+    );
+    await expect(borderTopLeftRadius).toBe("16px");
+  });
 });
 
 // TODO: Skipped due to flaky focus behaviour. To review in FE-6428

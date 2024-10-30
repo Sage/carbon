@@ -10,6 +10,7 @@ import { CLOSE_ICON_BUTTON } from "../../../playwright/components/locators";
 import {
   sidebarComponent,
   sidebarPreview,
+  sidebarContent,
 } from "../../../playwright/components/sidebar";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
@@ -30,7 +31,7 @@ import {
   SidebarComponentWithOnCancel,
   TopModalOverride,
 } from "./components.test-pw";
-import { SidebarProps } from "./sidebar.component";
+import { Sidebar, SidebarProps } from "./sidebar.component";
 import { SIDEBAR_SIZES, SIDEBAR_SIZES_CSS } from "./sidebar.config";
 
 test.describe("Prop tests for Sidebar component", () => {
@@ -386,6 +387,30 @@ test.describe("Prop tests for Sidebar component", () => {
 
     await expect(DialogCloseIconButton).toBeFocused();
   });
+});
+
+test("should style focused scrollable sidebar content with no interactive elements correctly", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <Sidebar open>
+      {Array.from({ length: 30 }, (_, i) => (
+        <p key={i}>Line {i + 1}</p>
+      ))}
+    </Sidebar>,
+  );
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Tab");
+  await expect(sidebarContent(page)).toBeFocused();
+  await expect(sidebarContent(page)).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(sidebarContent(page)).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test.describe("Accessibility tests for Sidebar component", () => {

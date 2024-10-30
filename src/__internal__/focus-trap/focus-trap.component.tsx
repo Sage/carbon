@@ -9,6 +9,7 @@ import React, {
 
 import {
   defaultFocusableSelectors,
+  defaultScrollableSelectors,
   setElementFocus,
   onTabGuardFocus,
   trapFunction,
@@ -145,11 +146,29 @@ const FocusTrap = ({
       trapWrappers.forEach((ref) => {
         // istanbul ignore else
         if (ref.current) {
-          elements.push(
-            ...Array.from(ref.current.querySelectorAll(selector)).filter(
-              (el) => Number((el as HTMLElement).tabIndex) !== -1,
-            ),
+          const focusableElements = Array.from(
+            ref.current.querySelectorAll(selector),
+          ).filter((el) => Number((el as HTMLElement).tabIndex) !== -1);
+
+          elements.push(...focusableElements);
+
+          const scrollableElements = Array.from(
+            ref.current.querySelectorAll(defaultScrollableSelectors),
+          ).filter(
+            (el) =>
+              el.scrollHeight > el.clientHeight &&
+              (window.getComputedStyle(el).overflowY === "scroll" ||
+                window.getComputedStyle(el).overflowY === "auto"),
           );
+
+          scrollableElements.forEach((el) => {
+            const focusableElementsInContainer = el.querySelectorAll(
+              defaultFocusableSelectors,
+            );
+            if (focusableElementsInContainer.length === 0) {
+              el.setAttribute("tabindex", "0");
+            }
+          });
         }
       });
       return elements as HTMLElement[];

@@ -8,6 +8,7 @@ import StyledIconButton from "../icon-button/icon-button.style";
 
 import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
 import { StyledForm, StyledFormContent } from "../form/form.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 type StyledSidebarProps = Pick<
   SidebarProps,
@@ -61,6 +62,11 @@ const StyledSidebarContent = styled.div<PaddingProps>`
   display: block;
   overflow-y: auto;
   flex-grow: 1;
+
+  &:focus-visible {
+    margin: var(--spacing075);
+    ${addFocusStyling()}
+  }
 
   padding: var(--spacing300) var(--spacing400) var(--spacing400);
   ${paddingFn}

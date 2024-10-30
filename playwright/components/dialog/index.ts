@@ -5,6 +5,7 @@ import {
   DIALOG_SUBTITLE,
   OPEN_PREVIEW,
   DIALOG_ARIALABEL,
+  DIALOG_CONTENT,
 } from "./locators";
 
 // component preview locators
@@ -24,10 +25,15 @@ const dialogAriaLabel = (page: Page) => {
   return page.locator(DIALOG_ARIALABEL);
 };
 
+const dialogContent = (page: Page) => {
+  return page.locator(DIALOG_CONTENT);
+};
+
 export {
   alertDialogPreview,
   dialogTitle,
   dialogSubtitle,
   openPreviewButton,
   dialogAriaLabel,
+  dialogContent,
 };
