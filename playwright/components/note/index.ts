@@ -11,7 +11,7 @@ const noteComponent = (page: Page) => {
   return page.locator(NOTE_COMPONENT);
 };
 const noteHeader = (page: Page) => {
-  return page.locator(NOTE_COMPONENT).locator("header");
+  return page.locator(NOTE_COMPONENT).locator("h2");
 };
 const noteContent = (page: Page) => {
   return page.locator(DATA_CONTENTS);
