@@ -12,16 +12,16 @@ test("has the expected data attributes when they are passed in", () => {
   render(
     <CardColumn data-element="foo" data-role="bar">
       <div>content</div>
-    </CardColumn>
+    </CardColumn>,
   );
   const cardColumnElementWithAttributes = screen.getByTestId("bar");
   expect(cardColumnElementWithAttributes).toHaveAttribute(
     "data-component",
-    "card-column"
+    "card-column",
   );
   expect(cardColumnElementWithAttributes).toHaveAttribute(
     "data-element",
-    "foo"
+    "foo",
   );
   expect(cardColumnElementWithAttributes).toHaveAttribute("data-role", "bar");
 });

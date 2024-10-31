@@ -121,7 +121,7 @@ export const Default = (args: TabsProps) => {
 Default.storyName = "default";
 
 export const TabsInSidebar = (
-  props: Partial<TabsProps> & Partial<TabProps>
+  props: Partial<TabsProps> & Partial<TabProps>,
 ) => {
   return (
     <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
@@ -193,7 +193,7 @@ TabsInSidebar.parameters = {
 };
 
 export const TabsInSidebarPositionedLeft = (
-  props: Partial<TabsProps> & Partial<TabProps>
+  props: Partial<TabsProps> & Partial<TabProps>,
 ) => {
   return (
     <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>

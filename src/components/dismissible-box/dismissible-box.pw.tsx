@@ -20,26 +20,24 @@ import {
 } from "../../../playwright/support/helper";
 
 test.describe("DismissibleBox component", () => {
-  ([
-    [true, "rgba(0, 0, 0, 0.9)"],
-    [false, "rgb(204, 214, 219)"],
-  ] as [DismissibleBoxProps["hasBorderLeftHighlight"], string][]).forEach(
-    ([boolValue, color]) => {
-      test(`should apply correct styling when hasBorderLeftHighlight prop set to ${boolValue}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <DefaultDismissibleBox hasBorderLeftHighlight={boolValue} />
-        );
+  (
+    [
+      [true, "rgba(0, 0, 0, 0.9)"],
+      [false, "rgb(204, 214, 219)"],
+    ] as [DismissibleBoxProps["hasBorderLeftHighlight"], string][]
+  ).forEach(([boolValue, color]) => {
+    test(`should apply correct styling when hasBorderLeftHighlight prop set to ${boolValue}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<DefaultDismissibleBox hasBorderLeftHighlight={boolValue} />);
 
-        await expect(dismissibleBoxDataComponent(page)).toHaveCSS(
-          "border-left-color",
-          color
-        );
-      });
-    }
-  );
+      await expect(dismissibleBoxDataComponent(page)).toHaveCSS(
+        "border-left-color",
+        color,
+      );
+    });
+  });
 
   [150, 350].forEach((width) => {
     test(`should apply correct width to component when width prop set to ${width}`, async ({
@@ -50,69 +48,69 @@ test.describe("DismissibleBox component", () => {
 
       await expect(dismissibleBoxDataComponent(page)).toHaveAttribute(
         "width",
-        `${width}px`
+        `${width}px`,
       );
 
       await assertCssValueIsApproximately(
         dismissibleBoxDataComponent(page),
         "width",
-        width
+        width,
       );
     });
   });
 
-  ([
-    ["light", "rgb(255, 255, 255)"],
-    ["dark", "rgb(230, 235, 237)"],
-  ] as [DismissibleBoxProps["variant"], string][]).forEach(
-    ([variant, color]) => {
-      test(`should apply correct styling to component with variant prop set to ${variant}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<DefaultDismissibleBox variant={variant} />);
+  (
+    [
+      ["light", "rgb(255, 255, 255)"],
+      ["dark", "rgb(230, 235, 237)"],
+    ] as [DismissibleBoxProps["variant"], string][]
+  ).forEach(([variant, color]) => {
+    test(`should apply correct styling to component with variant prop set to ${variant}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<DefaultDismissibleBox variant={variant} />);
 
-        await expect(dismissibleBoxDataComponent(page)).toHaveCSS(
-          "background-color",
-          color
-        );
-      });
-    }
-  );
+      await expect(dismissibleBoxDataComponent(page)).toHaveCSS(
+        "background-color",
+        color,
+      );
+    });
+  });
 
-  ([
-    [undefined, "8px"],
-    ["borderRadius000", "0px"],
-    ["borderRadius025", "2px"],
-    ["borderRadius050", "4px"],
-    ["borderRadius200", "16px"],
-    ["borderRadius400", "32px"],
-  ] as [DismissibleBoxProps["borderRadius"], string][]).forEach(
-    ([borderRadius, expected]) => {
-      test(`applies the expected border radius when ${borderRadius} passed to borderRadius prop`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<DefaultDismissibleBox borderRadius={borderRadius} />);
-        await expect(dismissibleBoxDataComponent(page)).toHaveCSS(
-          "border-radius",
-          expected
-        );
-      });
-    }
-  );
+  (
+    [
+      [undefined, "8px"],
+      ["borderRadius000", "0px"],
+      ["borderRadius025", "2px"],
+      ["borderRadius050", "4px"],
+      ["borderRadius200", "16px"],
+      ["borderRadius400", "32px"],
+    ] as [DismissibleBoxProps["borderRadius"], string][]
+  ).forEach(([borderRadius, expected]) => {
+    test(`applies the expected border radius when ${borderRadius} passed to borderRadius prop`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<DefaultDismissibleBox borderRadius={borderRadius} />);
+      await expect(dismissibleBoxDataComponent(page)).toHaveCSS(
+        "border-radius",
+        expected,
+      );
+    });
+  });
 
   test("should have the expected data-role attribute on the IconButton, when a custom data-role is provided", async ({
     mount,
     page,
   }) => {
     await mount(
-      <DefaultDismissibleBox closeButtonDataProps={{ "data-role": "Foo" }} />
+      <DefaultDismissibleBox closeButtonDataProps={{ "data-role": "Foo" }} />,
     );
 
     const closeButton = getDataElementByValue(
       page,
-      "close-button-wrapper"
+      "close-button-wrapper",
     ).locator("button");
 
     await expect(closeButton).toHaveAttribute("data-role", "Foo");
@@ -123,12 +121,14 @@ test.describe("DismissibleBox component", () => {
     page,
   }) => {
     await mount(
-      <DefaultDismissibleBox closeButtonDataProps={{ "data-element": "Bar" }} />
+      <DefaultDismissibleBox
+        closeButtonDataProps={{ "data-element": "Bar" }}
+      />,
     );
 
     const closeButton = getDataElementByValue(
       page,
-      "close-button-wrapper"
+      "close-button-wrapper",
     ).locator("button");
 
     await expect(closeButton).toHaveAttribute("data-element", "Bar");
@@ -146,7 +146,7 @@ test.describe("Check events", () => {
         onClose={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await icon(page).click();
@@ -165,7 +165,7 @@ test.describe("Check events", () => {
           onClose={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       await page.keyboard.press("Tab");

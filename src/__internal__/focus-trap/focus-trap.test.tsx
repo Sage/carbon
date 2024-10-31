@@ -153,14 +153,14 @@ test("refocuses the last element that had focus within the trap when `triggerRef
       autoFocus: false,
       triggerRefocusFlag: false,
       tabIndex: undefined,
-    })
+    }),
   );
   const buttonTwo = screen.getByRole("button", { name: "Two" });
   buttonTwo.focus();
   buttonTwo.blur();
 
   rerender(
-    mockComponentToRender({ autoFocus: false, triggerRefocusFlag: true })
+    mockComponentToRender({ autoFocus: false, triggerRefocusFlag: true }),
   );
 
   expect(buttonTwo).toHaveFocus();
@@ -172,7 +172,7 @@ test("refocuses the wrapper element when the `triggerRefocusFlag` is set, if the
       autoFocus: false,
       triggerRefocusFlag: false,
       tabIndex: -1,
-    })
+    }),
   );
 
   rerender(
@@ -180,7 +180,7 @@ test("refocuses the wrapper element when the `triggerRefocusFlag` is set, if the
       autoFocus: false,
       triggerRefocusFlag: true,
       tabIndex: -1,
-    })
+    }),
   );
 
   expect(screen.getByRole("dialog")).toHaveFocus();
@@ -189,13 +189,13 @@ test("refocuses the wrapper element when the `triggerRefocusFlag` is set, if the
 // FIXME FE-6427: Assertion does not match the test description. Currently, the refocused element will differ depending on if the wrapper is blurred or not
 test("refocuses the container within the trap when the `triggerRefocusFlag` is set, if the wrapper has no tabindex", () => {
   const { rerender } = render(
-    mockComponentToRender({ autoFocus: false, triggerRefocusFlag: false })
+    mockComponentToRender({ autoFocus: false, triggerRefocusFlag: false }),
   );
   // need to blur the wrapper to remove the tabindex
   fireEvent.blur(screen.getByRole("dialog"));
 
   rerender(
-    mockComponentToRender({ autoFocus: false, triggerRefocusFlag: true })
+    mockComponentToRender({ autoFocus: false, triggerRefocusFlag: true }),
   );
 
   expect(screen.getByRole("button", { name: "One" })).toHaveFocus();
@@ -206,7 +206,7 @@ test("when `triggerRefocusFlag` is set, the container is refocused if last eleme
     <MockComponent autoFocus={false} triggerRefocusFlag={false}>
       <button type="button">One</button>
       <button type="button">Two</button>
-    </MockComponent>
+    </MockComponent>,
   );
 
   screen.getByRole("button", { name: "Two" }).focus();
@@ -217,7 +217,7 @@ test("when `triggerRefocusFlag` is set, the container is refocused if last eleme
       <button type="button" disabled>
         Two
       </button>
-    </MockComponent>
+    </MockComponent>,
   );
 
   expect(screen.getByRole("dialog")).toHaveFocus();
@@ -279,7 +279,7 @@ test("when a bespokeTrap is provided, it calls the function with expected argume
   expect(trapFunction).toHaveBeenCalledWith(
     expect.objectContaining({ key: "Tab", type: "keydown" }),
     screen.getByRole("button", { name: "One" }),
-    screen.getByRole("button", { name: "Two" })
+    screen.getByRole("button", { name: "Two" }),
   );
 });
 
@@ -297,7 +297,7 @@ test("when a bespokeTrap is provided, it calls the function with expected argume
       type: "keydown",
     }),
     screen.getByRole("button", { name: "One" }),
-    screen.getByRole("button", { name: "Two" })
+    screen.getByRole("button", { name: "Two" }),
   );
 });
 
@@ -402,7 +402,7 @@ it("only allows non-disabled elements to be focused", async () => {
       <button type="button" disabled>
         Disabled button two
       </button>
-    </MockComponent>
+    </MockComponent>,
   );
 
   const buttonOne = screen.getByRole("button", { name: "One" });
@@ -704,7 +704,7 @@ describe("when trap contains only one focusable element", () => {
     render(
       <MockComponent>
         <button type="button">One</button>
-      </MockComponent>
+      </MockComponent>,
     );
 
     await user.tab();
@@ -717,7 +717,7 @@ describe("when trap contains only one focusable element", () => {
     render(
       <MockComponent>
         <button type="button">One</button>
-      </MockComponent>
+      </MockComponent>,
     );
 
     await user.tab({ shift: true });
@@ -842,7 +842,7 @@ test("should not throw error if wrapper ref isn't found", () => {
         <FocusTrap wrapperRef={wrapperRef}>
           <div id="myComponent">Content</div>
         </FocusTrap>
-      </ModalContext.Provider>
+      </ModalContext.Provider>,
     );
   }).not.toThrow();
 });
@@ -855,12 +855,12 @@ test("when `additionalWrapperRefs` are specified, tab should cycle through focus
 
   await user.tab();
   expect(
-    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_ONE })
+    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_ONE }),
   ).toHaveFocus();
 
   await user.tab();
   expect(
-    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_TWO })
+    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_TWO }),
   ).toHaveFocus();
 
   await user.tab();
@@ -875,12 +875,12 @@ test("when `additionalWrapperRefs` are specified, shift-tab should cycle through
 
   await user.tab({ shift: true });
   expect(
-    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_TWO })
+    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_TWO }),
   ).toHaveFocus();
 
   await user.tab({ shift: true });
   expect(
-    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_ONE })
+    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_ONE }),
   ).toHaveFocus();
 
   await user.tab({ shift: true });
@@ -895,17 +895,17 @@ test("when `additionalWrapperRefs` are specified, tabbing continues to work both
 
   await user.tab();
   expect(
-    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_ONE })
+    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_ONE }),
   ).toHaveFocus();
 
   await user.tab();
   expect(
-    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_TWO })
+    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_TWO }),
   ).toHaveFocus();
 
   await user.tab();
   expect(
-    screen.getByRole("button", { name: BUTTON_IN_CONDITIONAL_WRAPPER })
+    screen.getByRole("button", { name: BUTTON_IN_CONDITIONAL_WRAPPER }),
   ).toHaveFocus();
 
   await user.tab();
@@ -913,17 +913,17 @@ test("when `additionalWrapperRefs` are specified, tabbing continues to work both
 
   await user.tab({ shift: true });
   expect(
-    screen.getByRole("button", { name: BUTTON_IN_CONDITIONAL_WRAPPER })
+    screen.getByRole("button", { name: BUTTON_IN_CONDITIONAL_WRAPPER }),
   ).toHaveFocus();
 
   await user.tab({ shift: true });
   expect(
-    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_TWO })
+    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_TWO }),
   ).toHaveFocus();
 
   await user.tab({ shift: true });
   expect(
-    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_ONE })
+    screen.getByRole("button", { name: BUTTON_IN_ADDITIONAL_WRAPPER_ONE }),
   ).toHaveFocus();
 
   await user.tab({ shift: true });
@@ -1082,7 +1082,7 @@ test("only focuses elements which meet the custom selector, when tabbing both fo
       <button type="button" className="focusable">
         Three
       </button>
-    </MockComponent>
+    </MockComponent>,
   );
 
   const buttonOne = screen.getByRole("button", { name: "One" });
@@ -1111,7 +1111,7 @@ test("when multiple focus traps are open at once, focus moves correctly between 
         <button type="button">Three</button>
         <button type="button">Four</button>
       </MockComponent>
-    </>
+    </>,
   );
   const buttonOne = screen.getByRole("button", { name: "One" });
   const buttonTwo = screen.getByRole("button", { name: "Two" });
@@ -1152,7 +1152,7 @@ test("when multiple focus traps are open at once, focus moves correctly between 
           Six
         </button>
       </MockComponent>
-    </>
+    </>,
   );
   const buttonOne = screen.getByRole("button", { name: "One" });
   buttonOne.focus();
@@ -1220,7 +1220,7 @@ test("should focus the first focusable element when the the focus is on a non fo
       <button type="button" tabIndex={-1}>
         Three
       </button>
-    </MockComponent>
+    </MockComponent>,
   );
   screen.getByRole("button", { name: "Three" }).focus();
 
@@ -1238,7 +1238,7 @@ test("should focus the last focusable element when the the focus is on a non foc
       </button>
       <button type="button">Two</button>
       <button type="button">Three</button>
-    </MockComponent>
+    </MockComponent>,
   );
   screen.getByRole("button", { name: "One" }).focus();
 
@@ -1252,7 +1252,7 @@ test("when focusableSelectors is not used, preventDefault is not called upon tab
     <MockComponent>
       <button type="button">One</button>
       <button type="button">Two</button>
-    </MockComponent>
+    </MockComponent>,
   );
   const buttonOne = screen.getByRole("button", { name: "One" });
   const firstKeydownEvent = createEvent.keyDown(buttonOne, { key: "Tab" });
@@ -1269,7 +1269,7 @@ test("when focusableSelectors is used, preventDefault is called when needed to p
       <button type="button" className="focusable">
         Two
       </button>
-    </MockComponent>
+    </MockComponent>,
   );
   const buttonOne = screen.getByRole("button", { name: "One" });
   const keydownEvent = createEvent.keyDown(buttonOne, { key: "Tab" });
@@ -1379,7 +1379,7 @@ test("should focus the first input that has the `autoFocus` prop set on it", () 
         <Option value="1" text="one" />
       </Select>
       <Checkbox label="Do not autofocus me" autoFocus />
-    </MockComponent>
+    </MockComponent>,
   );
 
   expect(screen.getByRole("combobox")).toHaveFocus();
@@ -1393,7 +1393,7 @@ test("should loop to the last element when there is elements with tabIndex of -1
         <Option value="1" text="one" />
       </Select>
       <Checkbox label="Do not autofocus me" autoFocus />
-    </MockComponent>
+    </MockComponent>,
   );
 
   expect(screen.getByRole("combobox")).toHaveFocus();
@@ -1413,7 +1413,7 @@ test("should set focus on the `focusFirstElement` when it and an input with `aut
         </Select>
       ),
       shouldFocusFirstElement: true,
-    })
+    }),
   );
 
   expect(screen.getByRole("button", { name: "first" })).toHaveFocus();

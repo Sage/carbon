@@ -25,9 +25,10 @@ export const Picklist = ({
 }: PicklistProps) => {
   const { elementToFocus, setElementToFocus } = useContext(FocusContext);
 
-  const isEmpty = useMemo(() => !React.Children.toArray(children).length, [
-    children,
-  ]);
+  const isEmpty = useMemo(
+    () => !React.Children.toArray(children).length,
+    [children],
+  );
 
   const filteredChildren = React.Children.toArray(children);
 
@@ -37,9 +38,9 @@ export const Picklist = ({
         {
           length: filteredChildren.length,
         },
-        () => React.createRef<HTMLLIElement>()
+        () => React.createRef<HTMLLIElement>(),
       ),
-    [filteredChildren.length]
+    [filteredChildren.length],
   );
 
   const focusItem = useCallback(
@@ -47,7 +48,7 @@ export const Picklist = ({
       ev.preventDefault();
       refs[itemIndex].current?.focus();
     },
-    [refs]
+    [refs],
   );
 
   const handleKeyDown = useCallback(
@@ -58,7 +59,7 @@ export const Picklist = ({
         focusItem(ev, refs.length - 1);
       }
     },
-    [focusItem, refs]
+    [focusItem, refs],
   );
 
   const content = filteredChildren.map<React.ReactNode>((child, childIndex) => {

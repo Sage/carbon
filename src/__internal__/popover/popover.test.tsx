@@ -6,7 +6,7 @@ import { baseTheme } from "../../style/themes";
 import Dialog from "../../components/dialog";
 
 const PopoverWithButton = (
-  props: Omit<PopoverProps, "children" | "reference">
+  props: Omit<PopoverProps, "children" | "reference">,
 ) => {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
 
@@ -26,7 +26,7 @@ test("popup content is visible by default", () => {
   render(
     <Popover reference={{ current: null }}>
       <div>I float!</div>
-    </Popover>
+    </Popover>,
   );
 
   expect(screen.getByText("I float!")).toBeVisible();
@@ -36,7 +36,7 @@ test("popup content is visible when isOpen prop is true", () => {
   render(
     <Popover isOpen reference={{ current: null }}>
       <div>I float!</div>
-    </Popover>
+    </Popover>,
   );
 
   expect(screen.getByText("I float!")).toBeVisible();
@@ -46,7 +46,7 @@ test("popup content is hidden when isOpen prop is false", () => {
   render(
     <Popover isOpen={false} reference={{ current: null }}>
       <div>I float!</div>
-    </Popover>
+    </Popover>,
   );
 
   expect(screen.getByText("I float!")).not.toBeVisible();
@@ -56,7 +56,7 @@ test("renders popup in the document body to avoid any ancestors affecting its la
   render(
     <main>
       <PopoverWithButton />
-    </main>
+    </main>,
   );
 
   expect(document.body).toHaveTextContent(/I float!/);
@@ -67,7 +67,7 @@ test("renders popup within the component's ancestor as normal when disablePortal
   render(
     <main>
       <PopoverWithButton disablePortal />
-    </main>
+    </main>,
   );
 
   expect(screen.getByRole("main")).toHaveTextContent(/I float!/);
@@ -128,10 +128,10 @@ test("applies popup styling to the element specified via the childRefOverride pr
   await user.click(screen.getByRole("button", { name: /Toggle popup/ }));
 
   expect(screen.getByRole("article")).not.toHaveAttribute(
-    "data-floating-placement"
+    "data-floating-placement",
   );
   expect(screen.getByText("I float!")).toHaveAttribute(
-    "data-floating-placement"
+    "data-floating-placement",
   );
 });
 
@@ -140,7 +140,7 @@ test("renders popup within a transparent backdrop to prevent scrolling outside t
     <main>
       <PopoverWithButton disableBackgroundUI />
       <p>Lorem ipsum dolor sit amet...</p>
-    </main>
+    </main>,
   );
 
   const backdrop = screen.getByTestId("popup-backdrop");
@@ -160,7 +160,7 @@ test("does not render a backdrop when disableBackgroundUI is false", () => {
     <main>
       <PopoverWithButton />
       <p>Lorem ipsum dolor sit amet...</p>
-    </main>
+    </main>,
   );
 
   expect(screen.queryByTestId("popup-backdrop")).not.toBeInTheDocument();

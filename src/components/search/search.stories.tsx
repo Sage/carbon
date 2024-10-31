@@ -241,33 +241,34 @@ export const ValidationsStringComponent: Story = () => {
 };
 ValidationsStringComponent.storyName = "Validations - String";
 
-export const ValidationsStringWithTooltipPositionOverridenComponent: Story = () => {
-  const [state, setState] = useState({
-    error: "<foo>",
-    warning: "<foo>",
-    info: "<foo>",
-  });
+export const ValidationsStringWithTooltipPositionOverridenComponent: Story =
+  () => {
+    const [state, setState] = useState({
+      error: "<foo>",
+      warning: "<foo>",
+      info: "<foo>",
+    });
 
-  const handleChange = (validation: Validation) => (e: SearchEvent) => {
-    setState({ ...state, [validation]: e.target.value });
+    const handleChange = (validation: Validation) => (e: SearchEvent) => {
+      setState({ ...state, [validation]: e.target.value });
+    };
+
+    return (
+      <>
+        {VALIDATIONS.map((validationType) => (
+          <Box key={`${validationType}-string-component`}>
+            <Search
+              value={state[validationType]}
+              onChange={handleChange(validationType)}
+              searchButton
+              {...{ [validationType]: "Invalid characters" }}
+              tooltipPosition="bottom"
+            />
+          </Box>
+        ))}
+      </>
+    );
   };
-
-  return (
-    <>
-      {VALIDATIONS.map((validationType) => (
-        <Box key={`${validationType}-string-component`}>
-          <Search
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            searchButton
-            {...{ [validationType]: "Invalid characters" }}
-            tooltipPosition="bottom"
-          />
-        </Box>
-      ))}
-    </>
-  );
-};
 ValidationsStringWithTooltipPositionOverridenComponent.storyName =
   "Validations - String with Tooltip Position Overriden";
 

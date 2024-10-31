@@ -4,7 +4,7 @@ export default function getNextIndexByKey(
   key: string,
   currentIndex: number,
   lastIndex: number,
-  isLoading?: boolean
+  isLoading?: boolean,
 ) {
   const isNoOptionSelected = currentIndex === -1;
   let newIndex = currentIndex;

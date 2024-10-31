@@ -47,7 +47,7 @@ export interface AccordionProps
   /** Callback fired when expansion state changes */
   onChange?: (
     event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-    isExpanded: boolean
+    isExpanded: boolean,
   ) => void;
   /** When the Accordion is open the title can change to this */
   openTitle?: string;
@@ -63,7 +63,7 @@ export interface AccordionInternalProps {
   /** @ignore @private */
   handleKeyboardAccessibility?: (
     ev: React.KeyboardEvent<HTMLElement>,
-    index?: number
+    index?: number,
   ) => void;
   /** @ignore @private */
   index?: number;
@@ -104,30 +104,30 @@ export const Accordion = React.forwardRef<
       variant = "standard",
       ...rest
     }: AccordionProps & AccordionInternalProps,
-    ref
+    ref,
   ) => {
     if (!deprecatedSchemeWarnTriggered && scheme === "transparent") {
       deprecatedSchemeWarnTriggered = true;
       Logger.deprecate(
-        "The `scheme` prop for `Accordion` component is deprecated and will soon be removed."
+        "The `scheme` prop for `Accordion` component is deprecated and will soon be removed.",
       );
     }
 
     if (!deprecatedButtonHeadingWarnTriggered && buttonHeading) {
       deprecatedButtonHeadingWarnTriggered = true;
       Logger.deprecate(
-        "The `buttonHeading` prop for `Accordion` component is deprecated and will soon be removed. Please use `subtle` variant instead."
+        "The `buttonHeading` prop for `Accordion` component is deprecated and will soon be removed. Please use `subtle` variant instead.",
       );
     }
 
     const isControlled = expanded !== undefined;
 
     const [isExpandedInternal, setIsExpandedInternal] = useState(
-      defaultExpanded || false
+      defaultExpanded || false,
     );
 
     const [contentHeight, setContentHeight] = useState<string | number>(
-      isExpandedInternal ? "auto" : 0
+      isExpandedInternal ? "auto" : 0,
     );
 
     const accordionContent = useRef<HTMLDivElement>(null);
@@ -149,7 +149,7 @@ export const Accordion = React.forwardRef<
         }
         if (onChange) onChange(ev, !isExpanded);
       },
-      [isControlled, isExpanded, onChange]
+      [isControlled, isExpanded, onChange],
     );
 
     const handleKeyDown = useCallback(
@@ -162,7 +162,7 @@ export const Accordion = React.forwardRef<
           toggleAccordion(ev);
         }
       },
-      [handleKeyboardAccessibility, index, toggleAccordion]
+      [handleKeyboardAccessibility, index, toggleAccordion],
     );
 
     const guid = useRef(createGuid());
@@ -275,7 +275,7 @@ export const Accordion = React.forwardRef<
         </StyledAccordionContentContainer>
       </StyledAccordionContainer>
     );
-  }
+  },
 );
 
 Accordion.displayName = "Accordion";

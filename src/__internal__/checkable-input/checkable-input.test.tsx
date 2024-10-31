@@ -19,7 +19,7 @@ test("renders input with provided `aria-labelledby`", () => {
 
   expect(screen.getByRole("checkbox")).toHaveAttribute(
     "aria-labelledby",
-    "foo"
+    "foo",
   );
 });
 
@@ -52,7 +52,7 @@ test("appends the id of the validation tooltip to the input's 'aria-describedby'
       fieldHelp="fieldHelp"
       id="foo"
       error="error"
-    />
+    />,
   );
 
   const input = screen.getByRole("checkbox");
@@ -63,7 +63,7 @@ test("appends the id of the validation tooltip to the input's 'aria-describedby'
 
   expect(input).toHaveAttribute(
     "aria-describedby",
-    "foo-field-help foo-validation"
+    "foo-field-help foo-validation",
   );
 });
 

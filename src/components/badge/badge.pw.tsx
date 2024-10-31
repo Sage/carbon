@@ -73,7 +73,7 @@ test.describe("should render Badge component", () => {
         onClick={() => {}}
         counter={99}
         color="--colorsSemanticNegative500"
-      />
+      />,
     );
 
     await badgeCounter(page).hover();
@@ -92,7 +92,7 @@ test.describe("should render Badge component", () => {
 
     await expect(badgeElement).toHaveCSS(
       "background-color",
-      "rgb(255, 255, 255)"
+      "rgb(255, 255, 255)",
     );
     await expect(badgeCrossIcon(page)).not.toBeVisible();
   });
@@ -111,7 +111,7 @@ test.describe("should render Badge component", () => {
           // @ts-ignore
           messages.push(data);
         }}
-      />
+      />,
     );
 
     const badgeToClick = badge(page);

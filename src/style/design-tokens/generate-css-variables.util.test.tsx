@@ -3,7 +3,7 @@ import generateCssVariables from "./generate-css-variables.util";
 
 const assertTokenValues = (
   tokens: ThemeObject | Record<string, string>,
-  optOut: boolean | undefined
+  optOut: boolean | undefined,
 ) => {
   const resultAsArray = generateCssVariables(tokens, optOut).split(/\r\n/);
 

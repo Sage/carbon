@@ -40,7 +40,7 @@ let addListenerSpy: jest.SpyInstance<
   [
     string,
     EventListenerOrEventListenerObject,
-    (boolean | AddEventListenerOptions)?
+    (boolean | AddEventListenerOptions)?,
   ]
 >;
 let removeListenerSpy: jest.SpyInstance<
@@ -48,7 +48,7 @@ let removeListenerSpy: jest.SpyInstance<
   [
     string,
     EventListenerOrEventListenerObject,
-    (boolean | AddEventListenerOptions)?
+    (boolean | AddEventListenerOptions)?,
   ]
 >;
 
@@ -74,7 +74,7 @@ test("adds the event listener on mount and removes on unmount", () => {
 
 test("calls handleClickAway when mousedown is outside of wrapper element", () => {
   render(
-    <MockComponent handleClickAway={handleClickAway} eventTypeId="mousedown" />
+    <MockComponent handleClickAway={handleClickAway} eventTypeId="mousedown" />,
   );
 
   fireEvent.mouseDown(document);
@@ -100,7 +100,7 @@ test("does not invoke handleClickAway on internal 'click'", () => {
 
 test("does not invoke handleClickAway on internal 'mousedown'", () => {
   render(
-    <MockComponent handleClickAway={handleClickAway} eventTypeId="mousedown" />
+    <MockComponent handleClickAway={handleClickAway} eventTypeId="mousedown" />,
   );
 
   fireEvent.click(screen.getByRole("button"));

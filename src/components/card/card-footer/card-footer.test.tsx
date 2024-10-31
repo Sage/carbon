@@ -7,7 +7,7 @@ test("when variant prop is `transparent`, render with transparent background", (
   render(
     <CardFooter variant="transparent" data-role="card-footer">
       <div id="non-interactive">View Stripe Dashboard</div>
-    </CardFooter>
+    </CardFooter>,
   );
 
   const cardFooterElement = screen.getByTestId("card-footer");
@@ -27,32 +27,32 @@ test.each<CardFooterProps["roundness"]>(["default", "large"])(
         }}
       >
         <CardFooter data-role="card-footer">foo</CardFooter>
-      </CardContext.Provider>
+      </CardContext.Provider>,
     );
 
     const cardFooterElement = screen.getByTestId("card-footer");
     expect(cardFooterElement).toHaveStyleRule(
       "border-bottom-left-radius",
-      `var(--borderRadius${roundness === "default" ? "1" : "2"}00)`
+      `var(--borderRadius${roundness === "default" ? "1" : "2"}00)`,
     );
     expect(cardFooterElement).toHaveStyleRule(
       "border-bottom-right-radius",
-      `var(--borderRadius${roundness === "default" ? "1" : "2"}00)`
+      `var(--borderRadius${roundness === "default" ? "1" : "2"}00)`,
     );
-  }
+  },
 );
 
 test("has the expected data attributes when they are passed in", () => {
   render(
     <CardFooter data-element="foo" data-role="bar">
       <div />
-    </CardFooter>
+    </CardFooter>,
   );
 
   const cardFooterElementWithAttributes = screen.getByTestId("bar");
   expect(cardFooterElementWithAttributes).toHaveAttribute(
     "data-element",
-    "foo"
+    "foo",
   );
   expect(cardFooterElementWithAttributes).toHaveAttribute("data-role", "bar");
 });

@@ -63,7 +63,8 @@ type SelectedRowsParentOnlySelectableStory = {
   three: boolean;
   four: boolean;
 };
-type SelectedRowsParentOnlySelectableStoryKey = keyof SelectedRowsParentOnlySelectableStory;
+type SelectedRowsParentOnlySelectableStoryKey =
+  keyof SelectedRowsParentOnlySelectableStory;
 type SubRowsShapeChildrenOnlySelectableStory = {
   subOne: boolean;
   subTwo: boolean;
@@ -74,11 +75,13 @@ type SelectedRowsChildrenOnlySelectableStory = {
   three: SubRowsShapeChildrenOnlySelectableStory;
   four: SubRowsShapeChildrenOnlySelectableStory;
 };
-type SelectedRowsChildrenOnlySelectableStoryKey = keyof SelectedRowsChildrenOnlySelectableStory;
-type SubRowsShapeChildrenOnlySelectableStoryKey = keyof SubRowsShapeChildrenOnlySelectableStory;
+type SelectedRowsChildrenOnlySelectableStoryKey =
+  keyof SelectedRowsChildrenOnlySelectableStory;
+type SubRowsShapeChildrenOnlySelectableStoryKey =
+  keyof SubRowsShapeChildrenOnlySelectableStory;
 
 export const FlatTableComponent = (
-  props: Partial<FlatTableProps> & Partial<FlatTableRowProps>
+  props: Partial<FlatTableProps> & Partial<FlatTableRowProps>,
 ) => {
   return (
     <div
@@ -437,7 +440,7 @@ export const FlatTableSpanComponent = (props: Partial<FlatTableProps>) => {
 };
 
 export const FlatTableCellColSpanComponent = (
-  props: Partial<FlatTableProps>
+  props: Partial<FlatTableProps>,
 ) => {
   return (
     <div
@@ -467,7 +470,7 @@ export const FlatTableCellColSpanComponent = (
 };
 
 export const FlatTableCellRowSpanComponent = (
-  props: Partial<FlatTableProps>
+  props: Partial<FlatTableProps>,
 ) => {
   return (
     <div
@@ -504,7 +507,7 @@ export const FlatTableCellRowSpanComponent = (
 };
 
 export const FlatTableMultipleStickyComponent = (
-  props: Partial<FlatTableProps>
+  props: Partial<FlatTableProps>,
 ) => {
   return (
     <div
@@ -663,7 +666,7 @@ export const FlatTableMultipleStickyComponent = (
 };
 
 export const FlatTableCustomPaddingComponent = (
-  props: Partial<FlatTableProps>
+  props: Partial<FlatTableProps>,
 ) => {
   return (
     <div
@@ -704,7 +707,7 @@ export const FlatTableCustomPaddingComponent = (
 };
 
 export const FlatTableTruncateBgComponent = (
-  props: Partial<FlatTableProps>
+  props: Partial<FlatTableProps>,
 ) => {
   return (
     <div
@@ -741,7 +744,7 @@ export const FlatTableTruncateBgComponent = (
 };
 
 export const FlatTableTruncateHeaderComponent = (
-  props: Partial<FlatTableProps>
+  props: Partial<FlatTableProps>,
 ) => {
   return (
     <div
@@ -780,7 +783,7 @@ export const FlatTableTruncateHeaderComponent = (
 };
 
 export const FlatTableColorRowSelectableComponent = (
-  props: Partial<FlatTableProps> & Partial<FlatTableCheckboxProps>
+  props: Partial<FlatTableProps> & Partial<FlatTableCheckboxProps>,
 ) => {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState<SelectedRows>({
@@ -808,7 +811,7 @@ export const FlatTableColorRowSelectableComponent = (
   };
 
   const selectedCount = Object.keys(selectedRows).filter((key) =>
-    Boolean(selectedRows[key as SelectedRow])
+    Boolean(selectedRows[key as SelectedRow]),
   ).length;
 
   return (
@@ -906,7 +909,7 @@ export const FlatTableColorRowSelectableComponent = (
 };
 
 export const FlatTableCheckboxComponent = (
-  props: Partial<FlatTableCheckboxProps>
+  props: Partial<FlatTableCheckboxProps>,
 ) => {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState<SelectedRows>({
@@ -934,7 +937,7 @@ export const FlatTableCheckboxComponent = (
   };
 
   const selectedCount = Object.keys(selectedRows).filter((key) =>
-    Boolean(selectedRows[key as SelectedRow])
+    Boolean(selectedRows[key as SelectedRow]),
   ).length;
 
   return (
@@ -1036,7 +1039,7 @@ export const FlatTableCheckboxComponent = (
 };
 
 export const FlatTableHighlightableComponent = (
-  props: Partial<FlatTableProps>
+  props: Partial<FlatTableProps>,
 ) => {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState<SelectedRows>({
@@ -1066,7 +1069,7 @@ export const FlatTableHighlightableComponent = (
   };
 
   const selectedCount = Object.keys(selectedRows).filter((key) =>
-    Boolean(selectedRows[key as SelectedRow])
+    Boolean(selectedRows[key as SelectedRow]),
   ).length;
 
   const handleHighlightRow = (id: SelectedRow) => {
@@ -1187,7 +1190,7 @@ export const FlatTableHighlightableComponent = (
 };
 
 export const FlatTableCustomBordersComponent = (
-  props: Partial<FlatTableProps>
+  props: Partial<FlatTableProps>,
 ) => {
   return (
     <div
@@ -1294,7 +1297,7 @@ export const FlatTableCustomBordersComponent = (
 };
 
 export const FlatTableTitleAlignComponent = (
-  props: Partial<FlatTableProps>
+  props: Partial<FlatTableProps>,
 ) => {
   return (
     <div
@@ -1410,7 +1413,7 @@ export const FlatTableTitleAlignComponent = (
 export const FlatTableSortingComponent = (
   props: Partial<FlatTableProps> &
     FlatTableCellProps &
-    Partial<FlatTableRowContextProps>
+    Partial<FlatTableRowContextProps>,
 ) => {
   const headDataItems: HeadDataItems = [
     {
@@ -1447,7 +1450,7 @@ export const FlatTableSortingComponent = (
   const sortByNumber = (
     dataToSort: BodyDataItems,
     sortByValue: SortValue,
-    type: SortType
+    type: SortType,
   ) => {
     const sortedData = dataToSort.sort((a, b) => {
       if (type === "ascending") {
@@ -1466,7 +1469,7 @@ export const FlatTableSortingComponent = (
   const sortByString = (
     dataToSort: BodyDataItems,
     sortByValue: SortValue,
-    type: SortType
+    type: SortType,
   ) => {
     const sortedData = dataToSort.sort((a, b) => {
       const nameA = String(a[sortByValue]).toUpperCase();
@@ -1562,7 +1565,7 @@ export const FlatTableSortingComponent = (
 };
 
 export const FlatTableNoAccSubRowComponent = (
-  props: Partial<FlatTableCellProps>
+  props: Partial<FlatTableCellProps>,
 ) => {
   const SubRows = [
     <FlatTableRow key="subrow-1">
@@ -1892,7 +1895,7 @@ export const FlatTableAllSubrowSelectableComponent = () => {
 
   const handleSelectRow = (
     row: SelectedRowsKeyAllRowsInteractive,
-    subRow: SubRowKeyAllRowsInteractive
+    subRow: SubRowKeyAllRowsInteractive,
   ) => {
     if (selectedRows[row][subRow]) {
       setSelectAll(false);
@@ -1909,7 +1912,7 @@ export const FlatTableAllSubrowSelectableComponent = () => {
 
   const selectedCount = Object.values(selectedRows).reduce((acc, values) => {
     const count = Object.keys(values).filter((key) =>
-      Boolean(values[key as SubRowKeyAllRowsInteractive])
+      Boolean(values[key as SubRowKeyAllRowsInteractive]),
     ).length;
     return acc + count;
   }, 0);
@@ -2109,7 +2112,7 @@ export const FlatTableParentSubrowSelectableComponent = () => {
   };
 
   const selectedCount = Object.keys(selectedRows).filter((key) =>
-    Boolean(selectedRows[key as SelectedRowsParentOnlySelectableStoryKey])
+    Boolean(selectedRows[key as SelectedRowsParentOnlySelectableStoryKey]),
   ).length;
 
   const handleHighlightRow = (id: string) => {
@@ -2263,27 +2266,25 @@ export const FlatTableParentSubrowSelectableComponent = () => {
 
 export const FlatTableChildSubrowSelectableComponent = () => {
   const [selectAll, setSelectAll] = useState(false);
-  const [
-    selectedRows,
-    setSelectedRows,
-  ] = useState<SelectedRowsChildrenOnlySelectableStory>({
-    one: {
-      subOne: false,
-      subTwo: false,
-    },
-    two: {
-      subOne: false,
-      subTwo: false,
-    },
-    three: {
-      subOne: false,
-      subTwo: false,
-    },
-    four: {
-      subOne: false,
-      subTwo: false,
-    },
-  });
+  const [selectedRows, setSelectedRows] =
+    useState<SelectedRowsChildrenOnlySelectableStory>({
+      one: {
+        subOne: false,
+        subTwo: false,
+      },
+      two: {
+        subOne: false,
+        subTwo: false,
+      },
+      three: {
+        subOne: false,
+        subTwo: false,
+      },
+      four: {
+        subOne: false,
+        subTwo: false,
+      },
+    });
   const [highlightedRow, setHighlightedRow] = useState("");
 
   const handleSelectAllRows = () => {
@@ -2300,7 +2301,7 @@ export const FlatTableChildSubrowSelectableComponent = () => {
 
   const handleSelectRow = (
     row: SelectedRowsChildrenOnlySelectableStoryKey,
-    subRow: SubRowsShapeChildrenOnlySelectableStoryKey
+    subRow: SubRowsShapeChildrenOnlySelectableStoryKey,
   ) => {
     if (selectedRows[row][subRow]) {
       setSelectAll(false);
@@ -2325,7 +2326,7 @@ export const FlatTableChildSubrowSelectableComponent = () => {
 
   const selectedCount = Object.values(selectedRows).reduce((acc, values) => {
     const count = Object.keys(values).filter((key) =>
-      Boolean(values[key as SubRowsShapeChildrenOnlySelectableStoryKey])
+      Boolean(values[key as SubRowsShapeChildrenOnlySelectableStoryKey]),
     ).length;
     return acc + count;
   }, 0);
@@ -2487,7 +2488,7 @@ export const FlatTableChildSubrowSelectableComponent = () => {
 };
 
 export const FlatTableDraggableComponent = (
-  props: Partial<FlatTableBodyDraggableProps>
+  props: Partial<FlatTableBodyDraggableProps>,
 ) => {
   const rows = [
     {
@@ -2793,7 +2794,7 @@ export const FlatTableLastColumnHasRowspan = () => {
 };
 
 export const KeyboardNavigationWithPagination = (
-  props: Partial<FlatTableProps> & { highlighted?: boolean }
+  props: Partial<FlatTableProps> & { highlighted?: boolean },
 ) => {
   const { highlighted, ...rest } = props;
   const rows = [
@@ -2921,7 +2922,7 @@ export const KeyboardNavigationWithPagination = (
 export const HighlightedRowWithLoadingState = (
   props: Partial<FlatTableProps> & {
     expandableArea: "wholeRow" | "firstColumn";
-  }
+  },
 ) => {
   const { expandableArea, ...rest } = props;
   const [highlighted, setHighlighted] = useState(true);

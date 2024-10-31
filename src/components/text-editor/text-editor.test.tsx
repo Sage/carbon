@@ -28,7 +28,7 @@ jest.mock("../tooltip", () =>
       {children}
       {isVisible ? <div role="tooltip">{message}</div> : null}
     </>
-  ))
+  )),
 );
 
 beforeAll(() => {
@@ -36,7 +36,7 @@ beforeAll(() => {
   window.scrollTo = jest.fn();
   // need to mock isSafari to return false in order to meet coverage
   (isSafari as jest.MockedFunction<typeof isSafari>).mockImplementation(
-    () => false
+    () => false,
   );
 });
 
@@ -49,7 +49,7 @@ const ControlledTextEditor = (props: Partial<TextEditorProps>) => {
   // due to issues with the interaction of draftJS and jsdom, things don't work properly when starting with an empty editor.
   // We therefore start with some text (just a single space) in, and add to this in the tests.
   const [value, setValue] = useState(() =>
-    EditorState.createWithContent(TextEditorContentState.createFromText(" "))
+    EditorState.createWithContent(TextEditorContentState.createFromText(" ")),
   );
   return (
     <TextEditor
@@ -80,7 +80,7 @@ testStyledSystemMarginRTL(
       {...props}
     />
   ),
-  () => screen.getByTestId("text-editor-wrapper")
+  () => screen.getByTestId("text-editor-wrapper"),
 );
 
 test("pressing Tab with the text editor focused moves focus to the first Toolbar button", async () => {
@@ -90,7 +90,7 @@ test("pressing Tab with the text editor focused moves focus to the first Toolbar
       value={TextEditorState.createEmpty()}
       labelText="Text Editor Label"
       onChange={() => {}}
-    />
+    />,
   );
 
   screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
@@ -106,13 +106,13 @@ test("clicking the label sets focus on the text editor", async () => {
       value={TextEditorState.createEmpty()}
       labelText="Text Editor Label"
       onChange={() => {}}
-    />
+    />,
   );
 
   await user.click(screen.getByText("Text Editor Label"));
 
   expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" })
+    screen.getByRole("textbox", { name: "Text Editor Label" }),
   ).toHaveFocus();
 });
 
@@ -123,7 +123,7 @@ test("pressing shift+Tab with the text editor focused does not move focus to the
       value={TextEditorState.createEmpty()}
       labelText="Text Editor Label"
       onChange={() => {}}
-    />
+    />,
   );
 
   screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
@@ -148,12 +148,12 @@ test.each([
     <TextEditor
       value={TextEditorState.createWithContent(
         TextEditorContentState.createFromText(
-          `this is a link with text before - ${url} - and after`
-        )
+          `this is a link with text before - ${url} - and after`,
+        ),
       )}
       labelText="Text Editor Label"
       onChange={() => {}}
-    />
+    />,
   );
 
   const link = screen.getByTestId("link-anchor"); // can't use getByRole("link") as the `a` tag has no href
@@ -176,11 +176,11 @@ test.each([
   render(
     <TextEditor
       value={TextEditorState.createWithContent(
-        TextEditorContentState.createFromText(fullText)
+        TextEditorContentState.createFromText(fullText),
       )}
       labelText="Text Editor Label"
       onChange={() => {}}
-    />
+    />,
   );
 
   expect(screen.queryByTestId("link-anchor")).not.toBeInTheDocument();
@@ -209,14 +209,14 @@ test.each([
 
     await user.type(
       screen.getByRole("textbox", { name: "Text Editor Label" }),
-      `this is a link with text before - ${url} - and after`
+      `this is a link with text before - ${url} - and after`,
     );
 
     const link = screen.getByTestId("link-anchor"); // can't use getByRole("link") as the `a` tag has no href
     expect(link).toBeVisible();
     expect(link).toHaveTextContent(url);
     expect(link).toHaveStyle({ "text-decoration": "underline" });
-  }
+  },
 );
 
 test.each([
@@ -237,7 +237,7 @@ test.each([
     const fullText = `this is not actually a link with text before - ${invalidUrl} - and after`;
     await user.type(
       screen.getByRole("textbox", { name: "Text Editor Label" }),
-      fullText
+      fullText,
     );
 
     expect(screen.queryByTestId("link-anchor")).not.toBeInTheDocument();
@@ -245,7 +245,7 @@ test.each([
     expect(screen.getByText(fullText)).not.toHaveStyle({
       "text-decoration": "underline",
     });
-  }
+  },
 );
 
 test("renders the elements passed in the `previews` prop", () => {
@@ -258,12 +258,12 @@ test("renders the elements passed in the `previews` prop", () => {
         <div>I am a link preview</div>,
         <button type="button">I am a second link preview</button>,
       ]}
-    />
+    />,
   );
 
   expect(screen.getByText("I am a link preview")).toBeVisible();
   expect(
-    screen.getByRole("button", { name: "I am a second link preview" })
+    screen.getByRole("button", { name: "I am a second link preview" }),
   ).toBeVisible();
 });
 
@@ -274,7 +274,7 @@ test("does not render previews that are a simple number or string", () => {
       labelText="Text Editor Label"
       onChange={() => {}}
       previews={[123, "foo", 456]}
-    />
+    />,
   );
 
   expect(screen.queryByText("123")).not.toBeInTheDocument();
@@ -311,11 +311,11 @@ test.each([
 
     await user.type(
       screen.getByRole("textbox", { name: "Text Editor Label" }),
-      `this is a link with text before - ${enteredUrl} - and after`
+      `this is a link with text before - ${enteredUrl} - and after`,
     );
 
     expect(onLinkAdded).toHaveBeenCalledWith(builtUrl);
-  }
+  },
 );
 
 test.each([
@@ -337,11 +337,11 @@ test.each([
     const fullText = `this is not actually a link with text before - ${invalidUrl} - and after`;
     await user.type(
       screen.getByRole("textbox", { name: "Text Editor Label" }),
-      fullText
+      fullText,
     );
 
     expect(onLinkAdded).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test("calls the `onClose` callback of a `LinkPreview` component if clicked", async () => {
@@ -357,11 +357,11 @@ test("calls the `onClose` callback of a `LinkPreview` component if clicked", asy
         <EditorLinkPreview key="2" />,
         <EditorLinkPreview key="3" />,
       ]}
-    />
+    />,
   );
 
   await user.click(
-    screen.getByRole("button", { name: "link preview close button" })
+    screen.getByRole("button", { name: "link preview close button" }),
   );
   expect(onClose).toHaveBeenCalledWith("foo");
   expect(onClose).toHaveBeenCalledTimes(1);
@@ -374,11 +374,11 @@ test("renders as required when the `required` prop is set", () => {
       labelText="Text Editor Label"
       onChange={() => {}}
       required
-    />
+    />,
   );
 
   expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" })
+    screen.getByRole("textbox", { name: "Text Editor Label" }),
   ).toBeRequired();
 });
 
@@ -394,15 +394,15 @@ test.each(["error", "warning"])(
           characterLimit={10}
           {...{ [validationType]: "Validation message" }}
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     expect(
-      screen.getByRole("textbox", { name: "Text Editor Label" })
+      screen.getByRole("textbox", { name: "Text Editor Label" }),
     ).toHaveAccessibleDescription(
-      "Validation message You can enter up to 10 characters"
+      "Validation message You can enter up to 10 characters",
     );
-  }
+  },
 );
 
 test("has the `inputHint` prop together with character limit as accessible description", () => {
@@ -413,13 +413,13 @@ test("has the `inputHint` prop together with character limit as accessible descr
       onChange={() => {}}
       characterLimit={10}
       inputHint="here is a hint"
-    />
+    />,
   );
 
   expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" })
+    screen.getByRole("textbox", { name: "Text Editor Label" }),
   ).toHaveAccessibleDescription(
-    "here is a hint You can enter up to 10 characters"
+    "here is a hint You can enter up to 10 characters",
   );
 });
 
@@ -435,10 +435,10 @@ test("fires a console warning when the `rows` prop is passed as a number less th
       labelText="Text Editor Label"
       onChange={() => {}}
       rows={1}
-    />
+    />,
   );
   expect(consoleSpy).toHaveBeenCalledWith(
-    "Prop rows must be a number value that is 2 or greater to override the min-height of the `EditorWithRowsError`"
+    "Prop rows must be a number value that is 2 or greater to override the min-height of the `EditorWithRowsError`",
   );
   expect(consoleSpy).toHaveBeenCalledTimes(1);
   // clean up mocks
@@ -455,7 +455,7 @@ test("can enter text after clicking the `bold` toolbar button", async () => {
   await user.click(screen.getByRole("button", { name: "bold" }));
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "bold text"
+    "bold text",
   );
   expect(screen.getByText("old textb")).toBeVisible();
 });
@@ -469,7 +469,7 @@ test("can enter text after clicking the `italic` toolbar button", async () => {
   await user.click(screen.getByRole("button", { name: "italic" }));
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "italic text"
+    "italic text",
   );
   expect(screen.getByText("talic texti")).toBeVisible();
 });
@@ -483,7 +483,7 @@ test("can enter text after clicking the `bullet-list` toolbar button", async () 
   await user.click(screen.getByRole("button", { name: "bullet-list" }));
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "list item"
+    "list item",
   );
   expect(screen.getByRole("listitem")).toHaveTextContent("ist iteml");
 });
@@ -497,7 +497,7 @@ test("can enter text after clicking the `number-list` toolbar button", async () 
   await user.click(screen.getByRole("button", { name: "number-list" }));
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "list item"
+    "list item",
   );
   expect(screen.getByRole("listitem")).toHaveTextContent("ist iteml");
 });
@@ -512,11 +512,11 @@ test.each(["error", "warning", "info"])(
         labelText="Text Editor Label"
         onChange={() => {}}
         {...{ [validationType]: "Validation message" }}
-      />
+      />,
     );
 
     expect(screen.getByTestId(`icon-${validationType}`)).toBeVisible();
-  }
+  },
 );
 
 // coverage only - focus styles, both with and without the optout flag, are tested in Playwright
@@ -528,14 +528,14 @@ test("has correct styles when focused and `focusRedesignOptOut` is true", () => 
         labelText="Text Editor Label"
         onChange={() => {}}
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
 
   expect(screen.getByTestId("editor-outline")).toHaveStyleRule(
     "outline",
-    "3px solid var(--colorsSemanticFocus500)"
+    "3px solid var(--colorsSemanticFocus500)",
   );
   expect(screen.getByTestId("editor-outline")).toHaveStyle({
     "outline-offset": "1px",
@@ -552,14 +552,14 @@ test("has correct styles when focused and `focusRedesignOptOut` is true when the
         onChange={() => {}}
         error="error"
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
 
   expect(screen.getByTestId("editor-outline")).toHaveStyleRule(
     "outline",
-    "3px solid var(--colorsSemanticFocus500)"
+    "3px solid var(--colorsSemanticFocus500)",
   );
   expect(screen.getByTestId("editor-outline")).toHaveStyle({
     "outline-offset": "2px",
@@ -576,7 +576,7 @@ test("can enter text after using the keyboard shortcut for bold styling", async 
   await user.keyboard("{Control>}b{/Control}");
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "bold text"
+    "bold text",
   );
 
   expect(screen.getByText("old textb")).toBeVisible();
@@ -598,7 +598,7 @@ test("double-space is entered when triggering handleBeforeInput", async () => {
       bubbles: true,
       composed: false,
       which: 65, // a
-    }
+    },
   );
   fireEvent.keyPress(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
@@ -607,7 +607,7 @@ test("double-space is entered when triggering handleBeforeInput", async () => {
       bubbles: true,
       composed: false,
       which: 32, // space
-    }
+    },
   );
   fireEvent.keyPress(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
@@ -616,7 +616,7 @@ test("double-space is entered when triggering handleBeforeInput", async () => {
       bubbles: true,
       composed: false,
       which: 32, // space
-    }
+    },
   );
   fireEvent.keyPress(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
@@ -625,14 +625,14 @@ test("double-space is entered when triggering handleBeforeInput", async () => {
       bubbles: true,
       composed: false,
       which: 66, // b
-    }
+    },
   );
   // note: waitFor is to avoid "state update on unmounted component" warning, as fireEvent is not async
   await waitFor(() => {
     // not sure why the text content is not as expected, but this is only for coverage anyway, Playwright tests prove everything works
     // as expected
     expect(
-      screen.getByRole("textbox", { name: "Text Editor Label" })
+      screen.getByRole("textbox", { name: "Text Editor Label" }),
     ).toHaveTextContent("A");
   });
 });
@@ -648,7 +648,7 @@ test("text over the characterLimit is lost when triggering handleBeforeInput", a
       bubbles: true,
       composed: false,
       which: 65, // a
-    }
+    },
   );
   fireEvent.keyPress(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
@@ -657,11 +657,11 @@ test("text over the characterLimit is lost when triggering handleBeforeInput", a
       bubbles: true,
       composed: false,
       which: 65, // a
-    }
+    },
   );
 
   expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" })
+    screen.getByRole("textbox", { name: "Text Editor Label" }),
   ).toHaveTextContent("A");
 });
 
@@ -677,7 +677,7 @@ test("`1.` keyboard shortcut triggers a list block", () => {
         blockType: "unstyled",
         blockLength: 1,
         blockText: "1",
-      } as ReturnType<typeof utils.getContentInfo>)
+      }) as ReturnType<typeof utils.getContentInfo>,
   );
   fireEvent.keyPress(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
@@ -686,7 +686,7 @@ test("`1.` keyboard shortcut triggers a list block", () => {
       bubbles: true,
       composed: false,
       which: 46, // .
-    }
+    },
   );
 
   expect(screen.getAllByRole("listitem")).toHaveLength(1);
@@ -709,7 +709,7 @@ test("typing `1.` when already in a list block does nothing", async () => {
         blockType: "unstyled",
         blockLength: 1,
         blockText: "1",
-      } as ReturnType<typeof utils.getContentInfo>)
+      }) as ReturnType<typeof utils.getContentInfo>,
   );
   fireEvent.keyPress(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
@@ -718,7 +718,7 @@ test("typing `1.` when already in a list block does nothing", async () => {
       bubbles: true,
       composed: false,
       which: 46, // .
-    }
+    },
   );
 
   expect(screen.getAllByRole("listitem")).toHaveLength(1);
@@ -736,7 +736,7 @@ test("typing a `.` at the start of a line does nothing", async () => {
         blockType: "unstyled",
         blockLength: 0,
         blockText: "",
-      } as ReturnType<typeof utils.getContentInfo>)
+      }) as ReturnType<typeof utils.getContentInfo>,
   );
   fireEvent.keyPress(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
@@ -745,7 +745,7 @@ test("typing a `.` at the start of a line does nothing", async () => {
       bubbles: true,
       composed: false,
       which: 46, // .
-    }
+    },
   );
 
   expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
@@ -764,7 +764,7 @@ test("can paste text if it does not exceed the character limit", () => {
     },
   });
   expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" })
+    screen.getByRole("textbox", { name: "Text Editor Label" }),
   ).toHaveTextContent("text");
 });
 
@@ -780,7 +780,7 @@ test("pasted text is truncated if it exceeds the character limit", () => {
     },
   });
   expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" })
+    screen.getByRole("textbox", { name: "Text Editor Label" }),
   ).toHaveTextContent("text is t");
 });
 
@@ -791,12 +791,12 @@ test("content is not affected when the input is blurred", async () => {
 
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "some text"
+    "some text",
   );
   await user.tab();
 
   expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" })
+    screen.getByRole("textbox", { name: "Text Editor Label" }),
   ).toHaveTextContent("some text");
 });
 
@@ -809,7 +809,7 @@ test("can enter text with both block and inline styles", async () => {
   await user.click(screen.getByRole("button", { name: "bullet-list" }));
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "foo"
+    "foo",
   );
   expect(screen.getByRole("listitem")).toHaveTextContent("oof");
 });
@@ -820,10 +820,10 @@ test("allows inline style button to be clicked with text highlighted", async () 
   // the only way to get the component to recognise non-collapsed selection in jsdom apparently is to
   // force the selection in the mock component
   const ControlledTextEditorWithForcedSelection = (
-    props: Partial<TextEditorProps>
+    props: Partial<TextEditorProps>,
   ) => {
     const [value, setValue] = useState(() =>
-      EditorState.createWithContent(TextEditorContentState.createFromText(" "))
+      EditorState.createWithContent(TextEditorContentState.createFromText(" ")),
     );
     const onChange = (val: EditorState) => {
       setValue(val);
@@ -831,7 +831,7 @@ test("allows inline style button to be clicked with text highlighted", async () 
     const selectAll = () => {
       const valueWithSelection = TextEditorState.forceSelection(
         value,
-        value.getSelection().merge({ anchorOffset: 0, focusOffset: 4 })
+        value.getSelection().merge({ anchorOffset: 0, focusOffset: 4 }),
       );
       setValue(valueWithSelection);
     };
@@ -853,13 +853,13 @@ test("allows inline style button to be clicked with text highlighted", async () 
   render(<ControlledTextEditorWithForcedSelection />);
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "some text"
+    "some text",
   );
   await user.click(screen.getByRole("button", { name: "Select All" }));
   await user.click(screen.getByRole("button", { name: "bold" }));
 
   expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" })
+    screen.getByRole("textbox", { name: "Text Editor Label" }),
   ).toHaveTextContent("some text");
 });
 
@@ -880,11 +880,11 @@ test("can enter text after using the keyboard shortcut for bold styling when han
       key: "B",
       keyCode: 66,
       ctrlKey: true,
-    }
+    },
   );
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "bold text"
+    "bold text",
   );
 
   expect(screen.getByText("old textb")).toBeVisible();
@@ -898,14 +898,14 @@ test("pressing Enter in a list block when at the character limit does not start 
   await user.click(screen.getByRole("button", { name: "bullet-list" }));
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "foo"
+    "foo",
   );
   fireEvent.keyDown(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
     {
       key: "Enter",
       keyCode: 13,
-    }
+    },
   );
 
   expect(screen.getAllByRole("listitem")).toHaveLength(1);
@@ -920,14 +920,14 @@ test("pressing backspace when at the start of a list item removes the item", asy
   expect(screen.getAllByRole("listitem")).toHaveLength(1);
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "{Backspace}"
+    "{Backspace}",
   ); // to remove the starting space character
   fireEvent.keyDown(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
     {
       key: "Backspace",
       keyCode: 8,
-    }
+    },
   );
 
   expect(screen.queryAllByRole("listitem")).toHaveLength(0);
@@ -941,7 +941,7 @@ test("pressing backspace when not at the start of a list item leaves the item in
   await user.click(screen.getByRole("button", { name: "bullet-list" }));
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "foo"
+    "foo",
   );
   expect(screen.getAllByRole("listitem")).toHaveLength(1);
   fireEvent.keyDown(
@@ -949,7 +949,7 @@ test("pressing backspace when not at the start of a list item leaves the item in
     {
       key: "Backspace",
       keyCode: 8,
-    }
+    },
   );
 
   expect(screen.getAllByRole("listitem")).toHaveLength(1);

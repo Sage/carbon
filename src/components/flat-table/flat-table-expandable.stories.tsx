@@ -40,7 +40,8 @@ type SelectedRowsParentOnlySelectableStory = {
   three: boolean;
   four: boolean;
 };
-type SelectedRowsParentOnlySelectableStoryKey = keyof SelectedRowsParentOnlySelectableStory;
+type SelectedRowsParentOnlySelectableStoryKey =
+  keyof SelectedRowsParentOnlySelectableStory;
 type SubRowsShapeChildrenOnlySelectableStory = {
   subOne: boolean;
   subTwo: boolean;
@@ -51,8 +52,10 @@ type SelectedRowsChildrenOnlySelectableStory = {
   three: SubRowsShapeChildrenOnlySelectableStory;
   four: SubRowsShapeChildrenOnlySelectableStory;
 };
-type SelectedRowsChildrenOnlySelectableStoryKey = keyof SelectedRowsChildrenOnlySelectableStory;
-type SubRowsShapeChildrenOnlySelectableStoryKey = keyof SubRowsShapeChildrenOnlySelectableStory;
+type SelectedRowsChildrenOnlySelectableStoryKey =
+  keyof SelectedRowsChildrenOnlySelectableStory;
+type SubRowsShapeChildrenOnlySelectableStoryKey =
+  keyof SubRowsShapeChildrenOnlySelectableStory;
 
 const meta: Meta<typeof FlatTable> = {
   title: "Flat Table/Expandable",
@@ -651,7 +654,7 @@ export const BothParentAndChildrenSelectable: Story = () => {
   };
   const handleSelectRow = (
     row: SelectedRowsKeyAllRowsInteractive,
-    subRow: SubRowKeyAllRowsInteractive
+    subRow: SubRowKeyAllRowsInteractive,
   ) => {
     if (selectedRows[row][subRow]) {
       setSelectAll(false);
@@ -666,7 +669,7 @@ export const BothParentAndChildrenSelectable: Story = () => {
   };
   const selectedCount = Object.values(selectedRows).reduce((acc, values) => {
     const count = Object.keys(values).filter((key) =>
-      Boolean(values[key as SubRowKeyAllRowsInteractive])
+      Boolean(values[key as SubRowKeyAllRowsInteractive]),
     ).length;
     return acc + count;
   }, 0);
@@ -865,7 +868,7 @@ export const ParentOnlySelectable: Story = () => {
     setSelectedRows({ ...selectedRows, [id]: !selectedRows[id] });
   };
   const selectedCount = Object.keys(selectedRows).filter((key) =>
-    Boolean(selectedRows[key as SelectedRowsParentOnlySelectableStoryKey])
+    Boolean(selectedRows[key as SelectedRowsParentOnlySelectableStoryKey]),
   ).length;
   const handleHighlightRow = (id: string) => {
     if (highlightedRow === id) {
@@ -1019,27 +1022,25 @@ ParentOnlySelectable.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ChildrenOnlySelectable: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
-  const [
-    selectedRows,
-    setSelectedRows,
-  ] = useState<SelectedRowsChildrenOnlySelectableStory>({
-    one: {
-      subOne: false,
-      subTwo: false,
-    },
-    two: {
-      subOne: false,
-      subTwo: false,
-    },
-    three: {
-      subOne: false,
-      subTwo: false,
-    },
-    four: {
-      subOne: false,
-      subTwo: false,
-    },
-  });
+  const [selectedRows, setSelectedRows] =
+    useState<SelectedRowsChildrenOnlySelectableStory>({
+      one: {
+        subOne: false,
+        subTwo: false,
+      },
+      two: {
+        subOne: false,
+        subTwo: false,
+      },
+      three: {
+        subOne: false,
+        subTwo: false,
+      },
+      four: {
+        subOne: false,
+        subTwo: false,
+      },
+    });
   const [highlightedRow, setHighlightedRow] = useState("");
   const handleSelectAllRows = () => {
     const newState = { ...selectedRows };
@@ -1054,7 +1055,7 @@ export const ChildrenOnlySelectable: Story = () => {
   };
   const handleSelectRow = (
     row: SelectedRowsChildrenOnlySelectableStoryKey,
-    subRow: SubRowsShapeChildrenOnlySelectableStoryKey
+    subRow: SubRowsShapeChildrenOnlySelectableStoryKey,
   ) => {
     if (selectedRows[row][subRow]) {
       setSelectAll(false);
@@ -1076,7 +1077,7 @@ export const ChildrenOnlySelectable: Story = () => {
   };
   const selectedCount = Object.values(selectedRows).reduce((acc, values) => {
     const count = Object.keys(values).filter((key) =>
-      Boolean(values[key as SubRowsShapeChildrenOnlySelectableStoryKey])
+      Boolean(values[key as SubRowsShapeChildrenOnlySelectableStoryKey]),
     ).length;
     return acc + count;
   }, 0);
@@ -1376,31 +1377,29 @@ Controlled.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Sizes: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
-  const [
-    selectedRows,
-    setSelectedRows,
-  ] = useState<SelectedRowsAllRowsInteractive>({
-    one: {
-      parent: false,
-      subOne: false,
-      subTwo: false,
-    },
-    two: {
-      parent: false,
-      subOne: false,
-      subTwo: false,
-    },
-    three: {
-      parent: false,
-      subOne: false,
-      subTwo: false,
-    },
-    four: {
-      parent: false,
-      subOne: false,
-      subTwo: false,
-    },
-  });
+  const [selectedRows, setSelectedRows] =
+    useState<SelectedRowsAllRowsInteractive>({
+      one: {
+        parent: false,
+        subOne: false,
+        subTwo: false,
+      },
+      two: {
+        parent: false,
+        subOne: false,
+        subTwo: false,
+      },
+      three: {
+        parent: false,
+        subOne: false,
+        subTwo: false,
+      },
+      four: {
+        parent: false,
+        subOne: false,
+        subTwo: false,
+      },
+    });
   const handleSelectAllRows = () => {
     const newState = { ...selectedRows };
     Object.keys(selectedRows).forEach((key) => {
@@ -1415,7 +1414,7 @@ export const Sizes: Story = () => {
   };
   const handleSelectRow = (
     row: SelectedRowsKeyAllRowsInteractive,
-    subRow: SubRowKeyAllRowsInteractive
+    subRow: SubRowKeyAllRowsInteractive,
   ) => {
     if (selectedRows[row][subRow]) {
       setSelectAll(false);

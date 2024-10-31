@@ -87,11 +87,11 @@ test.describe("When SimpleColorPicker is focused", () => {
     const focusedColor = simpleColorDiv(page, 0);
     await expect(focusedColor).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
     );
     await expect(focusedColor).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -111,7 +111,7 @@ test.describe("When SimpleColorPicker is focused", () => {
 
     await expect(focusedColor).toHaveCSS(
       "box-shadow",
-      "rgb(255, 255, 255) 0px 0px 0px 2px inset"
+      "rgb(255, 255, 255) 0px 0px 0px 2px inset",
     );
   });
 });
@@ -126,7 +126,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
       await expect(colorInput).toHaveAttribute("value", colors[index].color);
       await expect(colorInput).toHaveAttribute(
         "aria-label",
-        colors[index].label
+        colors[index].label,
       );
     };
 
@@ -150,7 +150,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
 
       const allInputs = await commonDataElementInputPreview(page).all();
       const allAssertions = allInputs.map((locator) =>
-        expect(locator).toHaveAttribute("name", name)
+        expect(locator).toHaveAttribute("name", name),
       );
 
       await Promise.all(allAssertions);
@@ -179,7 +179,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await simpleColorPickerInput(page, 3).press("ArrowRight");
     await expect(simpleColorPickerInput(page, 4)).toHaveAttribute(
       "aria-checked",
-      "true"
+      "true",
     );
   });
 
@@ -205,7 +205,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await simpleColorPickerInput(page, 3).press("ArrowLeft");
     await expect(simpleColorPickerInput(page, 2)).toHaveAttribute(
       "aria-checked",
-      "true"
+      "true",
     );
   });
 
@@ -218,7 +218,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await simpleColorPickerInput(page, 3).press("ArrowDown");
     await expect(simpleColorPickerInput(page, 8)).toHaveAttribute(
       "aria-checked",
-      "true"
+      "true",
     );
   });
 
@@ -231,7 +231,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await simpleColorPickerInput(page, 8).press("ArrowUp");
     await expect(simpleColorPickerInput(page, 3)).toHaveAttribute(
       "aria-checked",
-      "true"
+      "true",
     );
   });
 
@@ -248,10 +248,12 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     });
   });
 
-  ([
-    [250, "232px"],
-    [450, "406px"],
-  ] as [number, string][]).forEach(([maxWidth, cssWidth]) => {
+  (
+    [
+      [250, "232px"],
+      [450, "406px"],
+    ] as [number, string][]
+  ).forEach(([maxWidth, cssWidth]) => {
     test(`should render with maxWidth prop set to ${maxWidth}`, async ({
       mount,
       page,
@@ -259,41 +261,38 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
       await mount(<SimpleColorPickerCustom maxWidth={maxWidth} />);
 
       await expect(
-        simpleColorDiv(page, 0).locator("..").locator("..")
+        simpleColorDiv(page, 0).locator("..").locator(".."),
       ).toHaveCSS("max-width", cssWidth);
     });
   });
 
-  ([
-    ["300", "75", 89, 33, 233],
-    ["100", "60", 321, 265, 1],
-  ] as [string, string, number, number, number][]).forEach(
-    ([maxWidth, childWidth, bottomLess, topLess, leftLess]) => {
-      test(`should render properly with childWidth prop set to ${childWidth} and maxWidth prop set to ${maxWidth}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <SimpleColorPickerCustom
-            maxWidth={maxWidth}
-            childWidth={childWidth}
-          />
-        );
+  (
+    [
+      ["300", "75", 89, 33, 233],
+      ["100", "60", 321, 265, 1],
+    ] as [string, string, number, number, number][]
+  ).forEach(([maxWidth, childWidth, bottomLess, topLess, leftLess]) => {
+    test(`should render properly with childWidth prop set to ${childWidth} and maxWidth prop set to ${maxWidth}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <SimpleColorPickerCustom maxWidth={maxWidth} childWidth={childWidth} />,
+      );
 
-        const additionVal = 2;
-        const colorCell = simpleColor(page, 4);
-        const { top, bottom, left } = await colorCell.evaluate((element) =>
-          element.getBoundingClientRect()
-        );
-        await expect(bottom).toBeLessThan(bottomLess + additionVal);
-        await expect(bottom).toBeGreaterThan(bottomLess);
-        await expect(top).toBeLessThan(topLess + additionVal);
-        await expect(top).toBeGreaterThan(topLess);
-        await expect(left).toBeLessThan(leftLess + additionVal);
-        await expect(left).toBeGreaterThan(leftLess);
-      });
-    }
-  );
+      const additionVal = 2;
+      const colorCell = simpleColor(page, 4);
+      const { top, bottom, left } = await colorCell.evaluate((element) =>
+        element.getBoundingClientRect(),
+      );
+      await expect(bottom).toBeLessThan(bottomLess + additionVal);
+      await expect(bottom).toBeGreaterThan(bottomLess);
+      await expect(top).toBeLessThan(topLess + additionVal);
+      await expect(top).toBeGreaterThan(topLess);
+      await expect(left).toBeLessThan(leftLess + additionVal);
+      await expect(left).toBeGreaterThan(leftLess);
+    });
+  });
 
   test("should render with required prop", async ({ mount, page }) => {
     await mount(<SimpleColorPickerCustom required />);
@@ -301,18 +300,20 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await verifyRequiredAsteriskForLegend(page);
   });
 
-  ([
-    ["error", VALIDATION.ERROR],
-    ["warning", VALIDATION.WARNING],
-    ["info", VALIDATION.INFO],
-  ] as const).forEach(([type, color]) => {
+  (
+    [
+      ["error", VALIDATION.ERROR],
+      ["warning", VALIDATION.WARNING],
+      ["info", VALIDATION.INFO],
+    ] as const
+  ).forEach(([type, color]) => {
     test(`should render with ${type} as a string`, async ({ mount, page }) => {
       await mount(
         <SimpleColorPickerCustom
           {...{
             [type]: "Message",
           }}
-        />
+        />,
       );
 
       await simpleColorPickerComponent(page)
@@ -320,22 +321,24 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
         .locator(`[data-element="${type}"]`)
         .hover();
       await expect(getDataElementByValue(page, "tooltip")).toHaveText(
-        "Message"
+        "Message",
       );
       await expect(
-        simpleColorDiv(page, 0).locator("..").locator("..")
+        simpleColorDiv(page, 0).locator("..").locator(".."),
       ).toHaveCSS("outline-color", color);
       await expect(
-        await getStyle(getDataElementByValue(page, type), "color", "before")
+        await getStyle(getDataElementByValue(page, type), "color", "before"),
       ).toBe(color);
     });
   });
 
-  ([
-    ["error", VALIDATION.ERROR],
-    ["warning", VALIDATION.WARNING],
-    ["info", VALIDATION.INFO],
-  ] as const).forEach(([type, color]) => {
+  (
+    [
+      ["error", VALIDATION.ERROR],
+      ["warning", VALIDATION.WARNING],
+      ["info", VALIDATION.INFO],
+    ] as const
+  ).forEach(([type, color]) => {
     test(`should render with ${type} as a string and validationOnLegend prop`, async ({
       mount,
       page,
@@ -346,7 +349,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
             [type]: "Message",
           }}
           validationOnLegend
-        />
+        />,
       );
 
       await simpleColorPickerComponent(page)
@@ -354,36 +357,38 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
         .locator(`[data-element="${type}"]`)
         .hover();
       await expect(getDataElementByValue(page, "tooltip")).toHaveText(
-        "Message"
+        "Message",
       );
       await expect(
-        simpleColorDiv(page, 0).locator("..").locator("..")
+        simpleColorDiv(page, 0).locator("..").locator(".."),
       ).toHaveCSS("outline-color", color);
       await expect(
-        await getStyle(getDataElementByValue(page, type), "color", "before")
+        await getStyle(getDataElementByValue(page, type), "color", "before"),
       ).toBe(color);
     });
   });
 
-  ([
-    ["error", VALIDATION.ERROR],
-    ["warning", VALIDATION.WARNING],
-    ["info", VALIDATION.INFO],
-  ] as const).forEach(([type, color]) => {
+  (
+    [
+      ["error", VALIDATION.ERROR],
+      ["warning", VALIDATION.WARNING],
+      ["info", VALIDATION.INFO],
+    ] as const
+  ).forEach(([type, color]) => {
     test(`should render with ${type} as a boolean`, async ({ mount, page }) => {
       await mount(
         <SimpleColorPickerCustom
           {...{
             [type]: true,
           }}
-        />
+        />,
       );
 
       await expect(
-        simpleColorPickerComponent(page).locator(`[data-element="${type}"]`)
+        simpleColorPickerComponent(page).locator(`[data-element="${type}"]`),
       ).not.toBeVisible();
       await expect(
-        simpleColorDiv(page, 0).locator("..").locator("..")
+        simpleColorDiv(page, 0).locator("..").locator(".."),
       ).toHaveCSS("outline-color", color);
     });
   });
@@ -479,19 +484,21 @@ test.describe("Check events for SimpleColorPicker component", () => {
       await expect(simpleColorPickerInput(page, focusedIndex)).toBeFocused();
       await expect(simpleColorPickerInput(page, focusedIndex)).toHaveAttribute(
         "value",
-        colors[focusedIndex].color
+        colors[focusedIndex].color,
       );
       await expect(callbackCount).toBe(1);
     });
   });
 
-  ([
-    [0, 5],
-    [1, 6],
-    [2, 7],
-    [3, 8],
-    [4, 9],
-  ] as const).forEach(([indexPress, focusedIndex]) => {
+  (
+    [
+      [0, 5],
+      [1, 6],
+      [2, 7],
+      [3, 8],
+      [4, 9],
+    ] as const
+  ).forEach(([indexPress, focusedIndex]) => {
     test(`should call onChange callback and focus the correct item when the down arrow key is pressed from the element with index ${indexPress}`, async ({
       mount,
       page,
@@ -506,7 +513,7 @@ test.describe("Check events for SimpleColorPicker component", () => {
       await expect(simpleColorPickerInput(page, focusedIndex)).toBeFocused();
       await expect(simpleColorPickerInput(page, focusedIndex)).toHaveAttribute(
         "value",
-        colors[focusedIndex].color
+        colors[focusedIndex].color,
       );
       await expect(callbackCount).toBe(1);
     });
@@ -567,7 +574,7 @@ test.describe("Check functionality for SimpleColor component", () => {
 
     await expect(simpleColorPickerInput(page, 0)).toHaveAttribute(
       "value",
-      colors[7].color
+      colors[7].color,
     );
   });
 
@@ -576,7 +583,7 @@ test.describe("Check functionality for SimpleColor component", () => {
 
     await expect(simpleColorPickerInput(page, 0)).toHaveAttribute(
       "name",
-      testPropValue
+      testPropValue,
     );
   });
 
@@ -585,7 +592,7 @@ test.describe("Check functionality for SimpleColor component", () => {
 
     await containsClass(
       simpleColorPickerInput(page, 0).locator(".."),
-      testPropValue
+      testPropValue,
     );
   });
 
@@ -702,7 +709,7 @@ test.describe("Check accessibility for SimpleColorPicker component", () => {
       page,
     }) => {
       await mount(
-        <SimpleColorPickerCustom maxWidth={maxWidth} childWidth={childWidth} />
+        <SimpleColorPickerCustom maxWidth={maxWidth} childWidth={childWidth} />,
       );
 
       await checkAccessibility(page);
@@ -728,7 +735,7 @@ test.describe("Check accessibility for SimpleColorPicker component", () => {
           {...{
             [type]: "Message",
           }}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -746,7 +753,7 @@ test.describe("Check accessibility for SimpleColorPicker component", () => {
             [type]: "Message",
           }}
           validationOnLegend
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -763,7 +770,7 @@ test.describe("Check accessibility for SimpleColorPicker component", () => {
           {...{
             [type]: true,
           }}
-        />
+        />,
       );
 
       await checkAccessibility(page);

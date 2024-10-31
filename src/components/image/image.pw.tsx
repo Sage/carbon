@@ -42,7 +42,7 @@ test.describe("check props for Image component", () => {
         const imageElement = page.locator("img");
         await expect(imageElement).toHaveCSS("position", positionValue);
       });
-    }
+    },
   );
 
   (["10px", "5%", "auto"] as const).forEach((topValue) => {

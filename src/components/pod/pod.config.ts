@@ -14,6 +14,6 @@ export const POD_VARIANTS = [
   "transparent",
 ] as const;
 
-export type PodSize = typeof POD_SIZES[number];
-export type PodAlignment = typeof POD_ALIGNMENTS[number];
-export type PodVariant = typeof POD_VARIANTS[number];
+export type PodSize = (typeof POD_SIZES)[number];
+export type PodAlignment = (typeof POD_ALIGNMENTS)[number];
+export type PodVariant = (typeof POD_VARIANTS)[number];

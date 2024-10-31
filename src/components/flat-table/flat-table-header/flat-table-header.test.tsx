@@ -12,7 +12,7 @@ test("should render with proper `width` styling on cell and first child when pro
           <FlatTableHeader width={40} />
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
   const content = screen.getByTestId("flat-table-header-content");
@@ -34,7 +34,7 @@ test("should render with expected `data-` attributes on root element", () => {
           </FlatTableHeader>
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -51,7 +51,7 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableHeader verticalBorder="small" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -66,7 +66,7 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableHeader verticalBorder="medium" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -81,7 +81,7 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableHeader verticalBorder="large" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -96,7 +96,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
           <FlatTableHeader verticalBorderColor="#000000" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -111,7 +111,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
           <FlatTableHeader verticalBorderColor="rgb(1,1,1)" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -126,7 +126,7 @@ test("should render the element witht the `rowspan` attribute when prop is set",
           <FlatTableHeader rowspan={2} />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -141,7 +141,7 @@ test("should render the element with the `colspan` attribute when prop is set", 
           <FlatTableHeader colspan={2} />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -161,14 +161,14 @@ test("should render with the expected background-color when `alternativeBgColor`
           </tr>
         </thead>
       </table>
-    </FlatTableContext.Provider>
+    </FlatTableContext.Provider>,
   );
   const cell = screen.getByRole("columnheader");
 
   expect(cell).toHaveStyleRule(
     "background-color",
     getAlternativeBackgroundColor("dark"),
-    { modifier: "&&&" }
+    { modifier: "&&&" },
   );
 });
 
@@ -185,14 +185,14 @@ test("should render with the expected background-color when `alternativeBgColor`
           </tr>
         </thead>
       </table>
-    </FlatTableContext.Provider>
+    </FlatTableContext.Provider>,
   );
   const cell = screen.getByRole("columnheader");
 
   expect(cell).toHaveStyleRule(
     "background-color",
     getAlternativeBackgroundColor("light"),
-    { modifier: "&&&" }
+    { modifier: "&&&" },
   );
 });
 
@@ -209,14 +209,14 @@ test("should render with the expected background-color when `alternativeBgColor`
           </tr>
         </thead>
       </table>
-    </FlatTableContext.Provider>
+    </FlatTableContext.Provider>,
   );
   const cell = screen.getByRole("columnheader");
 
   expect(cell).toHaveStyleRule(
     "background-color",
     getAlternativeBackgroundColor("transparent-white"),
-    { modifier: "&&&" }
+    { modifier: "&&&" },
   );
 });
 
@@ -233,13 +233,13 @@ test("should render with the expected background-color when `alternativeBgColor`
           </tr>
         </thead>
       </table>
-    </FlatTableContext.Provider>
+    </FlatTableContext.Provider>,
   );
   const cell = screen.getByRole("columnheader");
 
   expect(cell).toHaveStyleRule(
     "background-color",
     getAlternativeBackgroundColor("transparent-base"),
-    { modifier: "&&&" }
+    { modifier: "&&&" },
   );
 });

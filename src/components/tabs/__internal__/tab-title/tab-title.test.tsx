@@ -5,7 +5,7 @@ import TabTitle from "./tab-title.component";
 
 test("renders the component as a tab with text passed as `title` prop", () => {
   render(
-    <TabTitle title="example title" onClick={() => {}} onKeyDown={() => {}} />
+    <TabTitle title="example title" onClick={() => {}} onKeyDown={() => {}} />,
   );
 
   const tabTitle = screen.getByRole("tab");
@@ -19,7 +19,7 @@ test("accepts `className` as a prop", () => {
       className="class1 class2"
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   const tabTitle = screen.getByRole("tab");
@@ -38,12 +38,12 @@ test("renders with `data-tabid` attribute set to `dataTabId` prop", () => {
       dataTabId="unique-tab-id"
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByRole("tab")).toHaveAttribute(
     "data-tabid",
-    "unique-tab-id"
+    "unique-tab-id",
   );
 });
 
@@ -53,12 +53,12 @@ test("renders with `data-role` attribute set to the prop value", () => {
       data-role="custom-data-role"
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByRole("tab")).toHaveAttribute(
     "data-role",
-    "custom-data-role"
+    "custom-data-role",
   );
 });
 
@@ -73,7 +73,7 @@ test.each([
       .mockImplementation(() => null);
     const user = userEvent.setup();
     render(
-      <TabTitle href="randomUrl" onClick={() => {}} onKeyDown={() => {}} />
+      <TabTitle href="randomUrl" onClick={() => {}} onKeyDown={() => {}} />,
     );
 
     screen.getByRole("tab").focus();
@@ -81,7 +81,7 @@ test.each([
 
     expect(globalOpenMock).toHaveBeenCalledWith("randomUrl", "_blank");
     globalOpenMock.mockRestore();
-  }
+  },
 );
 
 test("when the `href` prop is provided, the specified URL should open in a new tab on click", async () => {
@@ -114,7 +114,7 @@ test.each([
 
     expect(globalOpenMock).not.toHaveBeenCalled();
     globalOpenMock.mockRestore();
-  }
+  },
 );
 
 test("when the `isTabSelected` prop is set, the `aria-selected` attribute is set to `true`", () => {
@@ -137,7 +137,7 @@ test("`siblings` are rendered after the title when `titlePosition` is `before`",
       titlePosition="before"
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByTestId("sibling")).toBeVisible();
@@ -153,7 +153,7 @@ test("`siblings` are rendered before the title when `titlePosition` is `after`",
       titlePosition="after"
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByTestId("sibling")).toBeVisible();
@@ -168,7 +168,7 @@ test("`siblings` are rendered after the title when `titlePosition` is not passed
       siblings={<span data-role="sibling">bar</span>}
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByTestId("sibling")).toBeVisible();
@@ -180,7 +180,7 @@ test("calls the `onClick` prop when clicked", async () => {
   const user = userEvent.setup();
   const onClick = jest.fn();
   render(
-    <TabTitle onClick={onClick} dataTabId="uniqueid1" onKeyDown={() => {}} />
+    <TabTitle onClick={onClick} dataTabId="uniqueid1" onKeyDown={() => {}} />,
   );
 
   await user.click(screen.getByRole("tab"));
@@ -189,7 +189,7 @@ test("calls the `onClick` prop when clicked", async () => {
   expect(onClick).toHaveBeenCalledWith(
     expect.objectContaining({
       target: expect.objectContaining({ dataset: { tabid: "uniqueid1" } }),
-    })
+    }),
   );
 });
 
@@ -205,16 +205,16 @@ test.each(["error", "warning", "info"])(
           [`${validationType}Message`]: "validation message",
           [validationType]: true,
         }}
-      />
+      />,
     );
 
     screen.getByRole("tab").focus();
 
     expect(screen.getByTestId("tooltip")).toBeVisible();
     expect(screen.getByTestId("tooltip")).toHaveTextContent(
-      "validation message"
+      "validation message",
     );
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -231,7 +231,7 @@ test.each(["error", "warning", "info"])(
           [`${validationType}Message`]: "validation message",
           [validationType]: true,
         }}
-      />
+      />,
     );
 
     screen.getByRole("tab").focus();
@@ -239,7 +239,7 @@ test.each(["error", "warning", "info"])(
 
     expect(screen.queryByTestId("tooltip")).not.toBeInTheDocument();
     expect(screen.queryByText("validation message")).not.toBeInTheDocument();
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -254,16 +254,16 @@ test.each(["error", "warning", "info"])(
           [`${validationType}Message`]: "validation message",
           [validationType]: true,
         }}
-      />
+      />,
     );
 
     await user.hover(screen.getByRole("tab"));
 
     expect(screen.getByTestId("tooltip")).toBeVisible();
     expect(screen.getByTestId("tooltip")).toHaveTextContent(
-      "validation message"
+      "validation message",
     );
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -278,7 +278,7 @@ test.each(["error", "warning", "info"])(
           [`${validationType}Message`]: "validation message",
           [validationType]: true,
         }}
-      />
+      />,
     );
 
     await user.hover(screen.getByRole("tab"));
@@ -286,7 +286,7 @@ test.each(["error", "warning", "info"])(
 
     expect(screen.queryByTestId("tooltip")).not.toBeInTheDocument();
     expect(screen.queryByText("validation message")).not.toBeInTheDocument();
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -301,7 +301,7 @@ test.each(["error", "warning", "info"])(
           [`${validationType}Message`]: "validation message",
           [validationType]: true,
         }}
-      />
+      />,
     );
 
     await user.hover(screen.getByRole("tab"));
@@ -310,9 +310,9 @@ test.each(["error", "warning", "info"])(
 
     expect(screen.getByTestId("tooltip")).toBeVisible();
     expect(screen.getByTestId("tooltip")).toHaveTextContent(
-      "validation message"
+      "validation message",
     );
-  }
+  },
 );
 
 // coverage
@@ -325,7 +325,7 @@ test("renders the correct styles when a custom layout is used", () => {
       isTabSelected
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByTestId("my-custom-layout")).toBeVisible();
@@ -340,7 +340,7 @@ test("renders as expected when `position` prop is `left` and `align` prop is `ri
       align="right"
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyle({
@@ -356,7 +356,7 @@ test("renders as expected when `size` prop is `large` and `position` prop is `to
       position="top"
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyle({
@@ -373,7 +373,7 @@ test("renders as expected when `size` prop is `large` and `position` prop is `le
       position="left"
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyle({
@@ -392,18 +392,23 @@ test("does not apply selected styling when it has error or warning", () => {
       borders
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(
-    screen.queryByTestId("tab-selected-indicator")
+    screen.queryByTestId("tab-selected-indicator"),
   ).not.toBeInTheDocument();
 });
 
 // coverage
 test("applies proper styling when `position` prop is `left` and there is a warning message", () => {
   render(
-    <TabTitle position="left" warning onClick={() => {}} onKeyDown={() => {}} />
+    <TabTitle
+      position="left"
+      warning
+      onClick={() => {}}
+      onKeyDown={() => {}}
+    />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyle({
@@ -415,33 +420,37 @@ test("applies proper styling when `position` prop is `left` and there is a warni
   });
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "outline-color",
-    "var(--colorsSemanticCaution500)"
+    "var(--colorsSemanticCaution500)",
   );
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-right-color",
     "transparent",
     {
       modifier: ":hover",
-    }
+    },
   );
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "outline",
     "1px solid",
-    { modifier: ":hover" }
+    { modifier: ":hover" },
   );
-  expect(
-    screen.getByTestId("tab-title-content")
-  ).toHaveStyleRule("outline-offset", "-1px", { modifier: ":hover" });
+  expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
+    "outline-offset",
+    "-1px",
+    { modifier: ":hover" },
+  );
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "outline-color",
     "var(--colorsSemanticCaution500)",
     {
       modifier: ":hover",
-    }
+    },
   );
-  expect(
-    screen.getByTestId("tab-title-content")
-  ).toHaveStyleRule("padding-right", "18px", { modifier: ":hover" });
+  expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
+    "padding-right",
+    "18px",
+    { modifier: ":hover" },
+  );
 });
 
 // coverage
@@ -452,16 +461,18 @@ test("renders the correct styles when an error is present and a custom layout is
       error
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyle({
     "padding-bottom": "2px",
     "padding-right": "14px",
   });
-  expect(
-    screen.getByTestId("tab-title-content")
-  ).toHaveStyleRule("padding-bottom", "2px", { modifier: ":hover" });
+  expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
+    "padding-bottom",
+    "2px",
+    { modifier: ":hover" },
+  );
 });
 
 // coverage
@@ -473,7 +484,7 @@ test("renders the correct styles when size is `large`, a warning is present and 
       warning
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyle({
@@ -481,9 +492,11 @@ test("renders the correct styles when size is `large`, a warning is present and 
     "padding-right": "18px",
   });
 
-  expect(
-    screen.getByTestId("tab-title-content")
-  ).toHaveStyleRule("padding-bottom", "4px", { modifier: ":hover" });
+  expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
+    "padding-bottom",
+    "4px",
+    { modifier: ":hover" },
+  );
 });
 
 // coverage
@@ -497,7 +510,7 @@ test("renders the correct styles when size is `large`, position is `left`, a war
       isTabSelected
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyle({
@@ -517,40 +530,50 @@ test("the `noLeftBorder` prop removes the left border", () => {
 // coverage
 test("applies proper styling when `borders` prop is true and `position` is `left`", () => {
   render(
-    <TabTitle borders position="left" onClick={() => {}} onKeyDown={() => {}} />
+    <TabTitle
+      borders
+      position="left"
+      onClick={() => {}}
+      onKeyDown={() => {}}
+    />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-top",
-    "1px solid var(--colorsActionMinor100)"
+    "1px solid var(--colorsActionMinor100)",
   );
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-left",
-    "1px solid var(--colorsActionMinor100)"
+    "1px solid var(--colorsActionMinor100)",
   );
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-bottom",
-    "1px solid var(--colorsActionMinor100)"
+    "1px solid var(--colorsActionMinor100)",
   );
 });
 
 // coverage
 test("applies proper styling when `borders` prop is true and `size` is `large`", () => {
   render(
-    <TabTitle borders position="left" onClick={() => {}} onKeyDown={() => {}} />
+    <TabTitle
+      borders
+      position="left"
+      onClick={() => {}}
+      onKeyDown={() => {}}
+    />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-top",
-    "1px solid var(--colorsActionMinor100)"
+    "1px solid var(--colorsActionMinor100)",
   );
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-left",
-    "1px solid var(--colorsActionMinor100)"
+    "1px solid var(--colorsActionMinor100)",
   );
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "border-bottom",
-    "1px solid var(--colorsActionMinor100)"
+    "1px solid var(--colorsActionMinor100)",
   );
 });
 
@@ -562,20 +585,20 @@ test("overrides the border-right-color when `alternateStyling` prop is `true` an
       position="left"
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByRole("tab")).toHaveStyleRule(
     "border-right-color",
     "var(--colorsActionMinor100)",
-    { modifier: ":hover" }
+    { modifier: ":hover" },
   );
 });
 
 // coverage
 test("sets border-left to `none` when the `noLeftBorder` prop is set", () => {
   render(
-    <TabTitle borders noLeftBorder onClick={() => {}} onKeyDown={() => {}} />
+    <TabTitle borders noLeftBorder onClick={() => {}} onKeyDown={() => {}} />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyle({
@@ -586,7 +609,7 @@ test("sets border-left to `none` when the `noLeftBorder` prop is set", () => {
 // coverage
 test("sets border-right to `none` when the `noRightBorder` prop is set", () => {
   render(
-    <TabTitle borders noRightBorder onClick={() => {}} onKeyDown={() => {}} />
+    <TabTitle borders noRightBorder onClick={() => {}} onKeyDown={() => {}} />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyle({
@@ -602,11 +625,11 @@ test("renders the correct styles when a custom layout is used, `size` is `defaul
       isTabSelected
       onClick={() => {}}
       onKeyDown={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByTestId("tab-title-content")).toHaveStyleRule(
     "padding-bottom",
-    "0px"
+    "0px",
   );
 });

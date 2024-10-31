@@ -16,7 +16,7 @@ test("should render with 'data-component' set to 'global-header'", () => {
 
   expect(screen.getByRole("navigation")).toHaveAttribute(
     "data-component",
-    "global-header"
+    "global-header",
   );
 });
 

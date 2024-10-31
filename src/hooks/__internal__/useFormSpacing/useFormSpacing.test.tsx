@@ -18,7 +18,7 @@ test("applies the form spacing when no custom value exists", () => {
   render(
     <FormSpacingProvider marginBottom="10px">
       <MockComponent />
-    </FormSpacingProvider>
+    </FormSpacingProvider>,
   );
 
   expect(screen.getByText("foo")).toHaveStyle({
@@ -31,7 +31,7 @@ test("applies the form spacing when custom values exist that don't override top 
   render(
     <FormSpacingProvider marginBottom="10px">
       <MockComponent mx="10px" />
-    </FormSpacingProvider>
+    </FormSpacingProvider>,
   );
 
   expect(screen.getByText("foo")).toHaveStyle({
@@ -46,7 +46,7 @@ test("does not apply the form spacing when custom `my` value exists", () => {
   render(
     <FormSpacingProvider marginBottom="10px">
       <MockComponent my="5px" />
-    </FormSpacingProvider>
+    </FormSpacingProvider>,
   );
 
   expect(screen.getByText("foo")).toHaveStyle({
@@ -59,7 +59,7 @@ test("does not apply the form spacing when custom `m` exists", () => {
   render(
     <FormSpacingProvider marginBottom="10px">
       <MockComponent m="5px" />
-    </FormSpacingProvider>
+    </FormSpacingProvider>,
   );
 
   expect(screen.getByText("foo")).toHaveStyle({
@@ -72,7 +72,7 @@ test("does not apply the form spacing for top margin when custom `mt` value exis
   render(
     <FormSpacingProvider marginBottom="10px">
       <MockComponent mt="5px" />
-    </FormSpacingProvider>
+    </FormSpacingProvider>,
   );
 
   expect(screen.getByText("foo")).toHaveStyle({
@@ -85,7 +85,7 @@ test("does not apply the form spacing for bottom margin when custom `mb` value e
   render(
     <FormSpacingProvider marginBottom="10px">
       <MockComponent mb="5px" />
-    </FormSpacingProvider>
+    </FormSpacingProvider>,
   );
 
   expect(screen.getByText("foo")).toHaveStyle({

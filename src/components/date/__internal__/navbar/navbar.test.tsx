@@ -13,7 +13,7 @@ test("should call `onPreviousClick` when the user clicks the previous button", a
       onPreviousClick={onPreviousClick}
       onNextClick={onNextClick}
       className="custom-class"
-    />
+    />,
   );
   const prevButton = screen.getByRole("button", { name: "Previous month" });
   await user.click(prevButton);
@@ -30,7 +30,7 @@ test("should call `onNextClick` when the user clicks the next button", async () 
       onPreviousClick={onPreviousClick}
       onNextClick={onNextClick}
       className="custom-class"
-    />
+    />,
   );
   const nextButton = screen.getByRole("button", { name: "Next month" });
   await user.click(nextButton);
@@ -44,7 +44,7 @@ test("should apply the custom class passed via `className` prop", () => {
       onPreviousClick={jest.fn()}
       onNextClick={jest.fn()}
       className="custom-class"
-    />
+    />,
   );
 
   expect(screen.getByTestId("date-navbar")).toHaveClass("custom-class");

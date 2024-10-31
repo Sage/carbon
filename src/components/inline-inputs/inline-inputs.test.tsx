@@ -11,7 +11,7 @@ test("renders single child", () => {
   render(
     <InlineInputs>
       <Textbox onChange={() => {}} />
-    </InlineInputs>
+    </InlineInputs>,
   );
 
   expect(screen.getByRole("textbox")).toBeVisible();
@@ -22,7 +22,7 @@ test("renders multiple children", () => {
     <InlineInputs>
       <Textbox onChange={() => {}} />
       <Textbox onChange={() => {}} />
-    </InlineInputs>
+    </InlineInputs>,
   );
 
   expect(screen.getAllByRole("textbox")).toHaveLength(2);
@@ -32,7 +32,7 @@ test("renders with provided label", () => {
   render(
     <InlineInputs label="Inputs Label">
       <Textbox onChange={() => {}} />
-    </InlineInputs>
+    </InlineInputs>,
   );
 
   expect(screen.getByText("Inputs Label")).toBeVisible();
@@ -42,12 +42,12 @@ test("renders with provided labelId", () => {
   render(
     <InlineInputs label="Inputs Label" labelId="inputs-label">
       <Textbox onChange={() => {}} />
-    </InlineInputs>
+    </InlineInputs>,
   );
 
   expect(screen.getByText("Inputs Label")).toHaveAttribute(
     "id",
-    "inputs-label"
+    "inputs-label",
   );
 });
 
@@ -55,7 +55,7 @@ test("renders with provided htmlFor", () => {
   render(
     <InlineInputs label="Inputs Label" htmlFor="inputs">
       <Textbox onChange={() => {}} />
-    </InlineInputs>
+    </InlineInputs>,
   );
 
   expect(screen.getByText("Inputs Label")).toHaveAttribute("for", "inputs");
@@ -65,7 +65,7 @@ test("renders required children when required prop is true", () => {
   render(
     <InlineInputs required>
       <Textbox onChange={() => {}} />
-    </InlineInputs>
+    </InlineInputs>,
   );
 
   expect(screen.getByRole("textbox")).toBeRequired();
@@ -77,7 +77,7 @@ test("should render with expected styles when adaptiveLabelBreakpoint set and sc
   render(
     <InlineInputs label="Inputs Label" adaptiveLabelBreakpoint={1000}>
       <Textbox onChange={() => {}} />
-    </InlineInputs>
+    </InlineInputs>,
   );
 
   expect(screen.getByTestId("inline-inputs")).toHaveStyle({
@@ -94,7 +94,7 @@ test("should render with expected styles when adaptiveLabelBreakpoint set and sc
   render(
     <InlineInputs label="Inputs Label" adaptiveLabelBreakpoint={1000}>
       <Textbox onChange={() => {}} />
-    </InlineInputs>
+    </InlineInputs>,
   );
 
   expect(screen.getByTestId("inline-inputs")).toHaveStyle({
@@ -107,7 +107,7 @@ test("renders with expected styles when labelWidth is provided", () => {
   render(
     <InlineInputs label="Inputs Label" labelWidth={50}>
       <Textbox onChange={() => {}} />
-    </InlineInputs>
+    </InlineInputs>,
   );
 
   expect(screen.getByTestId("label-container")).toHaveStyle({
@@ -120,7 +120,7 @@ test("renders with expected styles when inputWidth is provided", () => {
   render(
     <InlineInputs inputWidth={50}>
       <Textbox onChange={() => {}} />
-    </InlineInputs>
+    </InlineInputs>,
   );
 
   expect(screen.getByTestId("inline-inputs-container")).toHaveStyle({
@@ -130,5 +130,5 @@ test("renders with expected styles when inputWidth is provided", () => {
 
 testStyledSystemMarginRTL(
   (props) => <InlineInputs label="label" {...props} />,
-  () => screen.getByTestId("inline-inputs")
+  () => screen.getByTestId("inline-inputs"),
 );

@@ -6,21 +6,13 @@ export default (marginProps: MarginProps, formMarginBottom?: string) => {
   }
   const copiedProps = { ...marginProps };
 
-  const {
-    mb,
-    marginBottom,
-    mt,
-    marginTop,
-    my,
-    marginY,
-    m,
-    margin,
-  } = copiedProps;
+  const { mb, marginBottom, mt, marginTop, my, marginY, m, margin } =
+    copiedProps;
   const hasCustomMarginBottom = [mb, marginBottom, my, marginY, m, margin].some(
-    (prop) => prop !== undefined
+    (prop) => prop !== undefined,
   );
   const hasCustomMarginTop = [mt, marginTop, my, marginY, m, margin].some(
-    (prop) => prop !== undefined
+    (prop) => prop !== undefined,
   );
 
   if (!hasCustomMarginBottom) {

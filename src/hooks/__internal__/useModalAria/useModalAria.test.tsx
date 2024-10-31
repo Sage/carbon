@@ -114,7 +114,7 @@ describe("with one dialog", () => {
     await user.click(screen.getByRole("button", { name: "open" }));
 
     expect(
-      screen.queryByRole("button", { name: "open" })
+      screen.queryByRole("button", { name: "open" }),
     ).not.toBeInTheDocument();
   });
 
@@ -146,10 +146,10 @@ describe("with nested dialogs", () => {
   it("verifies only the first dialog open button is accessible when no dialogs are open", () => {
     render(<NestedModals />, { wrapper: CarbonProvider });
     expect(
-      screen.getByRole("button", { name: "Open modal 1" })
+      screen.getByRole("button", { name: "Open modal 1" }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Open modal 2" })
+      screen.queryByRole("button", { name: "Open modal 2" }),
     ).not.toBeInTheDocument();
   });
 
@@ -161,13 +161,13 @@ describe("with nested dialogs", () => {
 
     expect(screen.getByRole("dialog", { name: "dialog 1" })).toHaveAttribute(
       "aria-modal",
-      "true"
+      "true",
     );
     expect(
-      screen.getByRole("button", { name: "Open modal 2" })
+      screen.getByRole("button", { name: "Open modal 2" }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Open modal 1" })
+      screen.queryByRole("button", { name: "Open modal 1" }),
     ).not.toBeInTheDocument();
   });
 
@@ -180,20 +180,20 @@ describe("with nested dialogs", () => {
 
     expect(screen.getByRole("dialog", { name: "dialog 2" })).toHaveAttribute(
       "aria-modal",
-      "true"
+      "true",
     );
     expect(
-      screen.getByRole("button", { name: "Close modal 2" })
+      screen.getByRole("button", { name: "Close modal 2" }),
     ).toBeInTheDocument();
     expect(screen.queryByRole("dialog", { name: "dialog 1" })).toHaveAttribute(
       "aria-modal",
-      "false"
+      "false",
     );
     expect(
-      screen.queryByRole("button", { name: "Open modal 1" })
+      screen.queryByRole("button", { name: "Open modal 1" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Open modal 2" })
+      screen.queryByRole("button", { name: "Open modal 2" }),
     ).not.toBeInTheDocument();
   });
 
@@ -207,16 +207,16 @@ describe("with nested dialogs", () => {
 
     expect(screen.getByRole("dialog", { name: "dialog 1" })).toHaveAttribute(
       "aria-modal",
-      "true"
+      "true",
     );
     expect(
-      screen.getByRole("button", { name: "Open modal 2" })
+      screen.getByRole("button", { name: "Open modal 2" }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("dialog", { name: "dialog 2" })
+      screen.queryByRole("dialog", { name: "dialog 2" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Open modal 1" })
+      screen.queryByRole("button", { name: "Open modal 1" }),
     ).not.toBeInTheDocument();
   });
 
@@ -230,12 +230,12 @@ describe("with nested dialogs", () => {
     await user.click(screen.getByRole("button", { name: "Close modal 1" }));
 
     expect(
-      screen.getByRole("button", { name: "Open modal 1" })
+      screen.getByRole("button", { name: "Open modal 1" }),
     ).toBeInTheDocument();
     await waitFor(() =>
       expect(
-        screen.queryByRole("button", { name: "Open modal 2" })
-      ).not.toBeInTheDocument()
+        screen.queryByRole("button", { name: "Open modal 2" }),
+      ).not.toBeInTheDocument(),
     );
   });
 });
@@ -249,7 +249,7 @@ it("overrides any pre-existing aria-hidden and inert properties when modal is op
       {/* @ts-expect-error inert property not recognised by React. Support to be added in React 19 https://github.com/facebook/react/pull/24730 */}
       <div data-role="old-inert" inert="foo" />
     </>,
-    { wrapper: CarbonProvider }
+    { wrapper: CarbonProvider },
   );
 
   await user.click(screen.getByRole("button", { name: "open" }));
@@ -257,11 +257,11 @@ it("overrides any pre-existing aria-hidden and inert properties when modal is op
   await waitFor(() =>
     expect(screen.getByTestId("old-aria-hidden")).toHaveAttribute(
       "aria-hidden",
-      "true"
-    )
+      "true",
+    ),
   );
   await waitFor(() =>
-    expect(screen.getByTestId("old-inert")).toHaveAttribute("inert", "")
+    expect(screen.getByTestId("old-inert")).toHaveAttribute("inert", ""),
   );
 });
 
@@ -274,7 +274,7 @@ it("restores any previously-overridden aria-hidden and inert properties when mod
       {/* @ts-expect-error inert property not recognised by React. Support to be added in React 19 https://github.com/facebook/react/pull/24730 */}
       <div data-role="old-inert" inert="foo" />
     </>,
-    { wrapper: CarbonProvider }
+    { wrapper: CarbonProvider },
   );
 
   await user.click(screen.getByRole("button", { name: "open" }));
@@ -283,11 +283,11 @@ it("restores any previously-overridden aria-hidden and inert properties when mod
   await waitFor(() =>
     expect(screen.getByTestId("old-aria-hidden")).toHaveAttribute(
       "aria-hidden",
-      "false"
-    )
+      "false",
+    ),
   );
   await waitFor(() =>
-    expect(screen.getByTestId("old-inert")).toHaveAttribute("inert", "foo")
+    expect(screen.getByTestId("old-inert")).toHaveAttribute("inert", "foo"),
   );
 });
 
@@ -299,7 +299,7 @@ describe("with additional content in a portal", () => {
     await user.click(screen.getByRole("button", { name: "open modal" }));
 
     expect(
-      screen.queryByRole("button", { name: "button inside portal" })
+      screen.queryByRole("button", { name: "button inside portal" }),
     ).not.toBeInTheDocument();
   });
 
@@ -312,7 +312,7 @@ describe("with additional content in a portal", () => {
     await user.click(screen.getByRole("button", { name: "open modal" }));
 
     expect(
-      screen.getByRole("button", { name: "button inside portal" })
+      screen.getByRole("button", { name: "button inside portal" }),
     ).toBeInTheDocument();
   });
 });

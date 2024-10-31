@@ -95,35 +95,36 @@ export const ValidationsStringComponent: Story = () => {
 };
 ValidationsStringComponent.storyName = "Validations (string)";
 
-export const ValidationsStringWithTooltipPositionOverriddenComponent: Story = () => {
-  const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
-  const handleChange = (ev: DateRangeChangeEvent) => {
-    const newValue = [
-      ev.target.value[0].formattedValue,
-      ev.target.value[1].formattedValue,
-    ];
-    setState(newValue);
+export const ValidationsStringWithTooltipPositionOverriddenComponent: Story =
+  () => {
+    const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
+    const handleChange = (ev: DateRangeChangeEvent) => {
+      const newValue = [
+        ev.target.value[0].formattedValue,
+        ev.target.value[1].formattedValue,
+      ];
+      setState(newValue);
+    };
+    return (
+      <>
+        {[
+          { startError: "Start Error", endError: "End Error" },
+          { startWarning: "Start Warning", endWarning: "End Warning" },
+          { startInfo: "Start Info", endInfo: "End Info" },
+        ].map((validation) => (
+          <DateRange
+            key={`${Object.keys(validation)[0]}-string-component`}
+            startLabel="Start"
+            endLabel="End"
+            value={state}
+            onChange={handleChange}
+            {...validation}
+            tooltipPosition="top"
+          />
+        ))}
+      </>
+    );
   };
-  return (
-    <>
-      {[
-        { startError: "Start Error", endError: "End Error" },
-        { startWarning: "Start Warning", endWarning: "End Warning" },
-        { startInfo: "Start Info", endInfo: "End Info" },
-      ].map((validation) => (
-        <DateRange
-          key={`${Object.keys(validation)[0]}-string-component`}
-          startLabel="Start"
-          endLabel="End"
-          value={state}
-          onChange={handleChange}
-          {...validation}
-          tooltipPosition="top"
-        />
-      ))}
-    </>
-  );
-};
 ValidationsStringWithTooltipPositionOverriddenComponent.storyName =
   "Validations (string) with tooltip position overridden";
 ValidationsStringWithTooltipPositionOverriddenComponent.parameters = {
@@ -161,36 +162,37 @@ export const ValidationsStringLabel: Story = () => {
 };
 ValidationsStringLabel.storyName = "Validations (string) with label";
 
-export const ValidationsStringWithTooltipPositionOverriddenLabel: Story = () => {
-  const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
-  const handleChange = (ev: DateRangeChangeEvent) => {
-    const newValue = [
-      ev.target.value[0].formattedValue,
-      ev.target.value[1].formattedValue,
-    ];
-    setState(newValue);
+export const ValidationsStringWithTooltipPositionOverriddenLabel: Story =
+  () => {
+    const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
+    const handleChange = (ev: DateRangeChangeEvent) => {
+      const newValue = [
+        ev.target.value[0].formattedValue,
+        ev.target.value[1].formattedValue,
+      ];
+      setState(newValue);
+    };
+    return (
+      <>
+        {[
+          { startError: "Start Error", endError: "End Error" },
+          { startWarning: "Start Warning", endWarning: "End Warning" },
+          { startInfo: "Start Info", endInfo: "End Info" },
+        ].map((validation) => (
+          <DateRange
+            key={`${Object.keys(validation)[0]}-string-label`}
+            startLabel="Start"
+            endLabel="End"
+            value={state}
+            onChange={handleChange}
+            validationOnLabel
+            {...validation}
+            tooltipPosition="top"
+          />
+        ))}
+      </>
+    );
   };
-  return (
-    <>
-      {[
-        { startError: "Start Error", endError: "End Error" },
-        { startWarning: "Start Warning", endWarning: "End Warning" },
-        { startInfo: "Start Info", endInfo: "End Info" },
-      ].map((validation) => (
-        <DateRange
-          key={`${Object.keys(validation)[0]}-string-label`}
-          startLabel="Start"
-          endLabel="End"
-          value={state}
-          onChange={handleChange}
-          validationOnLabel
-          {...validation}
-          tooltipPosition="top"
-        />
-      ))}
-    </>
-  );
-};
 ValidationsStringWithTooltipPositionOverriddenLabel.storyName =
   "Validations (string) with label and tooltip position overridden";
 ValidationsStringWithTooltipPositionOverriddenLabel.parameters = {

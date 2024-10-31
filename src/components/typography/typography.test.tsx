@@ -281,7 +281,7 @@ test("should override 'display' property when passed", () => {
   render(
     <Typography variant="b" display="block">
       Test
-    </Typography>
+    </Typography>,
   );
 
   expect(screen.getByText("Test")).toHaveStyle({ display: "block" });
@@ -293,7 +293,7 @@ test("should render List with variant as 'ul' by default and listStyleType set t
       <ListItem>List Item 1</ListItem>
       <ListItem>List Item 2</ListItem>
       <ListItem>List Item 3</ListItem>
-    </List>
+    </List>,
   );
 
   expect(screen.getByRole("list")).toHaveStyle({ listStyleType: "square" });
@@ -306,7 +306,7 @@ test("should render List with variant set to 'ol' and listStyleType set to 'deci
       <ListItem>List Item 1</ListItem>
       <ListItem>List Item 2</ListItem>
       <ListItem>List Item 3</ListItem>
-    </List>
+    </List>,
   );
 
   expect(screen.getByRole("list")).toHaveStyle({ listStyleType: "decimal" });
@@ -315,5 +315,5 @@ test("should render List with variant set to 'ol' and listStyleType set to 'deci
 
 testStyledSystemSpacingRTL(
   (props) => <Typography {...props}>Test</Typography>,
-  () => screen.getByText("Test")
+  () => screen.getByText("Test"),
 );

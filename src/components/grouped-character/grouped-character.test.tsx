@@ -59,7 +59,7 @@ testStyledSystemMarginRTL(
   ),
   () => screen.getByTestId("grouped-character"),
   undefined,
-  { modifier: "&&&" }
+  { modifier: "&&&" },
 );
 
 test("deprecation warning for uncontrolled should display warning once", () => {
@@ -68,7 +68,7 @@ test("deprecation warning for uncontrolled should display warning once", () => {
   render(<GroupedCharacter groups={[2, 2, 3]} separator="-" />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
 
   expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -83,7 +83,7 @@ test("when component is uncontrolled, it should set the default input value same
       separator="-"
       defaultValue="aabbcccc"
       groups={[2, 2, 4]}
-    />
+    />,
   );
 
   const input = screen.getByRole("textbox");
@@ -101,7 +101,7 @@ test("when component is uncontrolled, it should invoke the provided onChange han
       defaultValue="aabbcccc"
       groups={[2, 2, 4]}
       onChange={onChange}
-    />
+    />,
   );
 
   await user.type(screen.getByRole("textbox"), "cc-aa-aabb");
@@ -114,13 +114,13 @@ test("when component is uncontrolled, it should invoke the provided onChange han
           rawValue: "ccaaaabb",
         },
       }),
-    })
+    }),
   );
 });
 
 test("the component takes configuration for how characters should be grouped", () => {
   render(
-    <GroupedCharacter separator="-" value="12345678" groups={[2, 2, 4]} />
+    <GroupedCharacter separator="-" value="12345678" groups={[2, 2, 4]} />,
   );
 
   expect(screen.getByRole("textbox")).toHaveValue("12-34-5678");
@@ -146,7 +146,7 @@ test("emits a formatted string on change event", async () => {
           rawValue: "123456",
         }),
       }),
-    })
+    }),
   );
 });
 
@@ -164,7 +164,7 @@ test("invokes provided onChange handler with proper event target name and id if 
           name: "nice_name",
         });
       }}
-    />
+    />,
   );
 
   const input = screen.getByRole("textbox");
@@ -181,7 +181,7 @@ test("invokes provided onChange handler with proper event target name and id if 
         formattedValue: "1",
         rawValue: "1",
       },
-    })
+    }),
   );
 });
 
@@ -195,7 +195,7 @@ test("emits a formatted string on blur event", async () => {
       onBlur={(ev) => {
         onBlur?.(ev.target.value);
       }}
-    />
+    />,
   );
 
   const input = screen.getByRole("textbox");
@@ -209,7 +209,7 @@ test("emits a formatted string on blur event", async () => {
     expect.objectContaining({
       formattedValue: "12-34-56",
       rawValue: "123456",
-    })
+    }),
   );
 });
 
@@ -225,7 +225,7 @@ test("does nothing if onBlur is not provided", async () => {
       value="12345678"
       groups={[2, 2, 4]}
       onBlur={undefined}
-    />
+    />,
   );
 
   const input = screen.getByRole("textbox");
@@ -240,7 +240,7 @@ test("does nothing if onBlur is not provided", async () => {
 
 test("does not allow values of length greater than that allowed by the group config", () => {
   render(
-    <GroupedCharacter separator="-" value="1234567890" groups={[2, 2, 4]} />
+    <GroupedCharacter separator="-" value="1234567890" groups={[2, 2, 4]} />,
   );
 
   expect(screen.getByRole("textbox")).toHaveValue("12-34-5678");
@@ -372,7 +372,7 @@ test("pressing backspace when the cursor is at one position beyond the separator
     <ControlledGroupedCharacter
       initialValue="1234567"
       groupsConfig={[2, 2, 3]}
-    />
+    />,
   );
 
   const input = screen.getByRole("textbox") as HTMLInputElement;
@@ -405,7 +405,7 @@ test("the required prop is passed to the input", () => {
       value="12345678"
       groups={[2, 2, 4]}
       required
-    />
+    />,
   );
 
   expect(screen.getByRole("textbox")).toBeRequired();
@@ -420,7 +420,7 @@ describe("refs", () => {
         value="12345678"
         groups={[2, 2, 4]}
         ref={ref}
-      />
+      />,
     );
 
     expect(ref.current).toBe(screen.getByRole("textbox"));
@@ -435,7 +435,7 @@ describe("refs", () => {
         value="12345678"
         groups={[2, 2, 4]}
         ref={ref}
-      />
+      />,
     );
 
     expect(ref).toHaveBeenCalledWith(screen.getByRole("textbox"));
@@ -450,7 +450,7 @@ describe("refs", () => {
         value="12345678"
         groups={[2, 2, 4]}
         ref={ref}
-      />
+      />,
     );
 
     unmount();

@@ -51,7 +51,7 @@ test("renders with the correct height, width and border-radius when `shape` is s
   expect(placeholder).toHaveStyle({ width: "100%" });
   expect(placeholder).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius100)"
+    "var(--borderRadius100)",
   );
 });
 
@@ -65,7 +65,7 @@ test("renders with the correct height, width and border-radius when `shape` is s
   expect(placeholder).toHaveStyleRule("width", "var(--sizing1500)");
   expect(placeholder).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius100)"
+    "var(--borderRadius100)",
   );
 });
 
@@ -79,7 +79,7 @@ test("renders with the correct height, width and border-radius when `shape` is s
   expect(placeholder).toHaveStyleRule("width", "var(--sizing1500)");
   expect(placeholder).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius400)"
+    "var(--borderRadius400)",
   );
 });
 
@@ -93,7 +93,7 @@ test("renders with the correct height, width and border-radius when `shape` is s
   expect(placeholder).toHaveStyleRule("width", "var(--sizing700)");
   expect(placeholder).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadiusCircle)"
+    "var(--borderRadiusCircle)",
   );
 });
 
@@ -110,5 +110,5 @@ test("renders with no animation when `disableAnimation` is true", () => {
 
 testStyledSystemMarginRTL(
   (props) => <Preview {...props} />,
-  () => screen.getByTestId("preview-wrapper")
+  () => screen.getByTestId("preview-wrapper"),
 );

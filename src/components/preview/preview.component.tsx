@@ -41,7 +41,7 @@ export const Preview = ({
   };
 
   const reduceMotion = !useMediaQuery(
-    "screen and (prefers-reduced-motion: no-preference)"
+    "screen and (prefers-reduced-motion: no-preference)",
   );
 
   if (hasPlaceholder) {
@@ -59,7 +59,7 @@ export const Preview = ({
           shape={shape}
           disableAnimation={disableAnimation || reduceMotion}
           {...props}
-        />
+        />,
       );
     }
 

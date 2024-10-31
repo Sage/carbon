@@ -41,7 +41,7 @@ testStyledSystemMarginRTL(
       </FlatTableBody>
     </FlatTable>
   ),
-  () => screen.getByTestId("flat-table-wrapper")
+  () => screen.getByTestId("flat-table-wrapper"),
 );
 
 describe("when rows are interactive", () => {
@@ -58,7 +58,7 @@ describe("when rows are interactive", () => {
             <FlatTableCell>four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const tableWrapper = screen.getByRole("region");
     const focusableTableContainer = screen.getByTestId("flat-table-container");
@@ -68,7 +68,7 @@ describe("when rows are interactive", () => {
     expect(tableWrapper).toHaveStyleRule("outline", "transparent 3px solid");
     expect(tableWrapper).toHaveStyleRule(
       "box-shadow",
-      "0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)"
+      "0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
     );
   });
 
@@ -87,7 +87,7 @@ describe("when rows are interactive", () => {
             </FlatTableRow>
           </FlatTableBody>
         </FlatTable>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     const tableWrapper = screen.getByRole("region");
     const focusableTableContainer = screen.getByTestId("flat-table-container");
@@ -96,7 +96,7 @@ describe("when rows are interactive", () => {
     expect(focusableTableContainer).toHaveFocus();
     expect(tableWrapper).toHaveStyleRule(
       "outline",
-      "2px solid var(--colorsSemanticFocus500)"
+      "2px solid var(--colorsSemanticFocus500)",
     );
   });
 
@@ -114,7 +114,7 @@ describe("when rows are interactive", () => {
             <FlatTableCell>four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const focusableTableContainer = screen.getByTestId("flat-table-container");
     focusableTableContainer.focus();
@@ -140,20 +140,20 @@ describe("when rows are interactive", () => {
             <FlatTableCell>four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
 
     await waitFor(() => {
       expect(screen.getByRole("row", { name: "one two" })).toHaveAttribute(
         "tabindex",
-        "0"
+        "0",
       );
     });
 
     await waitFor(() => {
       expect(screen.getByRole("row", { name: "three four" })).toHaveAttribute(
         "tabindex",
-        "-1"
+        "-1",
       );
     });
   });
@@ -180,7 +180,7 @@ describe("when rows are interactive", () => {
             <FlatTableCell>eight</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const focusableTableContainer = screen.getByTestId("flat-table-container");
     const firstRow = screen.getByRole("row", { name: "one two" });
@@ -223,7 +223,7 @@ describe("when rows are interactive", () => {
             <FlatTableCell>eight</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const firstRow = screen.getByRole("row", { name: "one two" });
     const secondRow = screen.getByRole("row", { name: "three four" });
@@ -264,7 +264,7 @@ describe("when rows are interactive", () => {
             <FlatTableCell>eight</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const fourthRow = screen.getByRole("row", { name: "seven eight" });
     fourthRow?.focus();
@@ -296,7 +296,7 @@ describe("when rows are interactive", () => {
             <FlatTableCell>eight</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const firstRow = screen.getByRole("row", { name: "one two" });
     const secondRow = screen.getByRole("row", { name: "three four" });
@@ -337,7 +337,7 @@ describe("when rows are interactive", () => {
             <FlatTableCell>eight</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const firstRow = screen.getByRole("row", { name: "one two" });
     const secondRow = screen.getByRole("row", { name: "three four" });
@@ -370,7 +370,7 @@ describe("when rows are interactive", () => {
             <FlatTableCell>four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const secondRow = screen.getByRole("row", { name: "three four" });
     const checkbox = screen.getByRole("checkbox");
@@ -395,7 +395,7 @@ describe("when rows are interactive", () => {
             <FlatTableCell>four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const firstRow = screen.getByRole("row", { name: "one two" });
     const checkbox = screen.getByRole("checkbox");
@@ -421,7 +421,7 @@ describe("when the first column is expandable", () => {
             <FlatTableCell>four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     await waitFor(() => {
       expect(screen.getByTestId("one")).toHaveAttribute("tabindex", "0");
@@ -445,20 +445,20 @@ describe("when the first column is expandable", () => {
             <FlatTableCell>four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
 
     await waitFor(() => {
       expect(screen.getByRole("cell", { name: "one" })).toHaveAttribute(
         "tabindex",
-        "-1"
+        "-1",
       );
     });
 
     await waitFor(() => {
       expect(screen.getByRole("cell", { name: "three" })).toHaveAttribute(
         "tabindex",
-        "0"
+        "0",
       );
     });
   });
@@ -476,20 +476,20 @@ describe("when the first column is expandable", () => {
             <FlatTableCell>four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
 
     await waitFor(() => {
       expect(screen.getByRole("cell", { name: "one" })).toHaveAttribute(
         "tabindex",
-        "-1"
+        "-1",
       );
     });
 
     await waitFor(() => {
       expect(screen.getByRole("cell", { name: "three" })).toHaveAttribute(
         "tabindex",
-        "0"
+        "0",
       );
     });
   });
@@ -507,19 +507,19 @@ describe("when the first column is expandable", () => {
             <FlatTableCell id="four">four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
 
     await waitFor(() => {
       expect(screen.getByRole("columnheader", { name: "one" })).toHaveAttribute(
         "tabindex",
-        "0"
+        "0",
       );
     });
 
     await waitFor(() => {
       expect(
-        screen.getByRole("columnheader", { name: "three" })
+        screen.getByRole("columnheader", { name: "three" }),
       ).toHaveAttribute("tabindex", "-1");
     });
   });
@@ -537,19 +537,19 @@ describe("when the first column is expandable", () => {
             <FlatTableCell id="four">four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
 
     await waitFor(() => {
       expect(screen.getByRole("columnheader", { name: "one" })).toHaveAttribute(
         "tabindex",
-        "-1"
+        "-1",
       );
     });
 
     await waitFor(() => {
       expect(
-        screen.getByRole("columnheader", { name: "three" })
+        screen.getByRole("columnheader", { name: "three" }),
       ).toHaveAttribute("tabindex", "0");
     });
   });
@@ -567,19 +567,19 @@ describe("when the first column is expandable", () => {
             <FlatTableCell id="four">four</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
 
     await waitFor(() => {
       expect(screen.getByRole("columnheader", { name: "one" })).toHaveAttribute(
         "tabindex",
-        "-1"
+        "-1",
       );
     });
 
     await waitFor(() => {
       expect(
-        screen.getByRole("columnheader", { name: "three" })
+        screen.getByRole("columnheader", { name: "three" }),
       ).toHaveAttribute("tabindex", "0");
     });
   });
@@ -606,7 +606,7 @@ describe("when the first column is expandable", () => {
             <FlatTableCell>eight</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const firstFocusableCell = screen.getByRole("cell", { name: "one" });
     const secondFocusableCell = screen.getByRole("cell", { name: "three" });
@@ -647,7 +647,7 @@ describe("when the first column is expandable", () => {
             <FlatTableCell>eight</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const firstFocusableCell = screen.getByRole("cell", { name: "one" });
     const secondFocusableCell = screen.getByRole("cell", { name: "three" });
@@ -688,7 +688,7 @@ describe("when the first column is expandable", () => {
             <FlatTableCell>eight</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const fourthFocusableCell = screen.getByRole("cell", { name: "seven" });
     fourthFocusableCell.focus();
@@ -715,10 +715,10 @@ test("should ensure the table has an accessible desctription when `ariaDescribed
           </FlatTableRow>
         </FlatTableBody>
       </FlatTable>
-    </>
+    </>,
   );
   expect(screen.getByRole("table")).toHaveAccessibleDescription(
-    "here is some text to describe the table"
+    "here is some text to describe the table",
   );
 });
 
@@ -735,7 +735,7 @@ test("should set the `data-` attributes on the root element when the props are p
           <FlatTableCell>child one</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
   const tableWrapper = screen.getByTestId("ft-data-role");
 
@@ -752,7 +752,7 @@ describe("when `hasStickyHead` is set", () => {
             <FlatTableCell>one</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const tableWrapper = screen.getByTestId("ft-wrapper");
 
@@ -767,7 +767,7 @@ describe("when `hasStickyHead` is set", () => {
             <FlatTableCell>one</FlatTableCell>
           </FlatTableRow>
         </FlatTableHead>
-      </FlatTable>
+      </FlatTable>,
     );
 
     expect(screen.getByRole("rowgroup")).toHaveStyle({
@@ -792,7 +792,7 @@ test("should render the `caption` element and set the accessible name of the tab
           <FlatTableCell>child one</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByRole("table")).toHaveAccessibleName("this is a caption");
@@ -814,11 +814,11 @@ test("should apply the expeced box sizing styling to the wrapper element when it
           </FlatTableRow>
         </FlatTableBody>
       </FlatTable>
-    </div>
+    </div>,
   );
 
   expect(screen.getByTestId("ft-wrapper")).toHaveStyle(
-    "box-sizing: border-box"
+    "box-sizing: border-box",
   );
 });
 
@@ -836,7 +836,7 @@ test("should apply the expected max height on the wrapper element when the `hasM
           <FlatTableCell>three</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("ft-wrapper")).toHaveStyle("max-height: 100%");
@@ -856,7 +856,7 @@ test("should not apply max height styling on the wrapper element when the `hasMa
           <FlatTableCell>three</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("ft-wrapper")).not.toHaveStyle("max-height: 100%");
@@ -870,7 +870,7 @@ test("should render the `footer` element when prop is passed", () => {
           <FlatTableCell>one</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByText("foo")).toBeVisible();
@@ -884,7 +884,7 @@ test("should render the `footer` element with the expected styling when `hasStic
           <FlatTableCell>one</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("flat-table-footer")).toHaveStyle({
@@ -902,11 +902,11 @@ test("should set the expected flex styling on the wrapper when `footer` and `has
           <FlatTableCell>one</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("ft-wrapper")).toHaveStyle(
-    "justify-content: space-between"
+    "justify-content: space-between",
   );
 });
 
@@ -918,12 +918,12 @@ test("should apply the expected `width` styling to the wrapper and container ele
           <FlatTableCell>one</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("ft-wrapper")).toHaveStyle("width: 300px");
   expect(screen.getByTestId("flat-table-container")).toHaveStyle(
-    "width: 300px"
+    "width: 300px",
   );
 });
 
@@ -935,12 +935,12 @@ test("should apply the expected `overflowX` styling to the wrapper and container
           <FlatTableCell>one</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("ft-wrapper")).toHaveStyle("overflow-x: hidden");
   expect(screen.getByTestId("flat-table-container")).toHaveStyle(
-    "overflow-x: auto"
+    "overflow-x: auto",
   );
 });
 
@@ -958,53 +958,53 @@ describe("rounded corners are enabled", () => {
             <FlatTableCell>child one</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const wrapper = screen.getByTestId("ft-wrapper");
 
     expect(wrapper).toHaveStyleRule(
       "border-top-left-radius",
-      "var(--borderRadius100)"
+      "var(--borderRadius100)",
     );
     expect(wrapper).toHaveStyleRule(
       "border-top-right-radius",
-      "var(--borderRadius100)"
+      "var(--borderRadius100)",
     );
     expect(wrapper).toHaveStyleRule(
       "border-bottom-left-radius",
-      "var(--borderRadius100)"
+      "var(--borderRadius100)",
     );
     expect(wrapper).toHaveStyleRule(
       "border-bottom-right-radius",
-      "var(--borderRadius100)"
+      "var(--borderRadius100)",
     );
     expect(wrapper).toHaveStyleRule(
       "border-top-left-radius",
       "var(--borderRadius100)",
       {
         modifier: `thead ${StyledFlatTableRow}:first-of-type th:first-of-type`,
-      }
+      },
     );
     expect(wrapper).toHaveStyleRule(
       "border-top-right-radius",
       "var(--borderRadius100)",
       {
         modifier: `thead ${StyledFlatTableRow}:first-of-type th:last-of-type`,
-      }
+      },
     );
     expect(wrapper).toHaveStyleRule(
       "border-bottom-left-radius",
       "var(--borderRadius100)",
       {
         modifier: `tbody ${StyledFlatTableRow}:last-of-type td:first-child`,
-      }
+      },
     );
     expect(wrapper).toHaveStyleRule(
       "border-bottom-right-radius",
       "var(--borderRadius100)",
       {
         modifier: `tbody ${StyledFlatTableRow}:last-of-type td:last-child`,
-      }
+      },
     );
   });
 
@@ -1021,7 +1021,7 @@ describe("rounded corners are enabled", () => {
             <FlatTableCell>item one</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const pager = screen.getByTestId("pager");
 
@@ -1048,7 +1048,7 @@ describe("rounded corners are enabled", () => {
             <FlatTableCell>child one</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
     const tableWrapper = screen.getByRole("region");
     const pager = screen.getByTestId("pager");
@@ -1080,7 +1080,7 @@ describe("rounded corners are enabled", () => {
             <FlatTableCell>child one</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
 
     expect(screen.getByTestId("ft-wrapper")).toHaveStyleRule(
@@ -1088,7 +1088,7 @@ describe("rounded corners are enabled", () => {
       "var(--borderRadius100)",
       {
         modifier: `tbody ${StyledFlatTableRow}:nth-of-type(1) td:first-child`,
-      }
+      },
     );
   });
 
@@ -1109,7 +1109,7 @@ describe("rounded corners are enabled", () => {
             <FlatTableCell>child one</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
 
     expect(screen.getByTestId("ft-wrapper")).toHaveStyleRule(
@@ -1117,7 +1117,7 @@ describe("rounded corners are enabled", () => {
       "var(--borderRadius100)",
       {
         modifier: `tbody ${StyledFlatTableRow}:nth-of-type(1) td:last-child`,
-      }
+      },
     );
   });
 });
@@ -1137,11 +1137,11 @@ test("should apply the exected min-width styling when rendered inside the drawer
           </FlatTableRow>
         </FlatTableBody>
       </FlatTable>
-    </DrawerSidebarContext.Provider>
+    </DrawerSidebarContext.Provider>,
   );
 
   expect(screen.getByTestId("ft-wrapper")).toHaveStyle(
-    "min-width: fit-content"
+    "min-width: fit-content",
   );
 });
 
@@ -1164,7 +1164,7 @@ test("should set the expected background colour on the rows hover when `isZebra`
           <FlatTableCell>child one</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByRole("table")).toHaveStyleRule(
@@ -1172,7 +1172,7 @@ test("should set the expected background colour on the rows hover when `isZebra`
     "var(--colorsUtilityMajor025)",
     {
       modifier: `${StyledFlatTableRow}:hover ${StyledFlatTableCheckbox}:not(th)`,
-    }
+    },
   );
 });
 
@@ -1199,7 +1199,7 @@ test("should set the expected background colour on the header cells when `colorT
           <FlatTableCell colspan="2">cell1</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("ft-wrapper")).toHaveStyleRule(
@@ -1207,7 +1207,7 @@ test("should set the expected background colour on the header cells when `colorT
     "var(--colorsUtilityMajor400)",
     {
       modifier: `${StyledFlatTableHeader}`,
-    }
+    },
   );
 });
 
@@ -1234,7 +1234,7 @@ test("should set the expected background colour on the header cells when `colorT
           <FlatTableCell colspan="2">cell1</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("ft-wrapper")).toHaveStyleRule(
@@ -1242,7 +1242,7 @@ test("should set the expected background colour on the header cells when `colorT
     "var(--colorsUtilityMajor100)",
     {
       modifier: `${StyledFlatTableHeader}`,
-    }
+    },
   );
 });
 
@@ -1269,7 +1269,7 @@ test("should set the expected background colour on the header cells when `colorT
           <FlatTableCell colspan="2">cell1</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("ft-wrapper")).toHaveStyleRule(
@@ -1277,7 +1277,7 @@ test("should set the expected background colour on the header cells when `colorT
     "var(--colorsUtilityMajor025)",
     {
       modifier: `${StyledFlatTableHeader}`,
-    }
+    },
   );
 });
 
@@ -1304,7 +1304,7 @@ test("should set the expected background colour on the header cells when `colorT
           <FlatTableCell colspan="2">cell1</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("ft-wrapper")).toHaveStyleRule(
@@ -1312,7 +1312,7 @@ test("should set the expected background colour on the header cells when `colorT
     "var(--colorsUtilityYang100)",
     {
       modifier: `${StyledFlatTableHeader}`,
-    }
+    },
   );
 });
 
@@ -1333,7 +1333,7 @@ test("hides the leftmost and rightmost table borders when `hasOuterVerticalBorde
           <FlatTableCell>Pluto</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("flat-table-wrapper")).toHaveStyleRule(
@@ -1341,7 +1341,7 @@ test("hides the leftmost and rightmost table borders when `hasOuterVerticalBorde
     "var(--colorsUtilityMajorTransparent)",
     {
       modifier: `${StyledFlatTableRow} > ${StyledFlatTableCell}:first-child`,
-    }
+    },
   );
 
   expect(screen.getByTestId("flat-table-wrapper")).toHaveStyleRule(
@@ -1349,7 +1349,7 @@ test("hides the leftmost and rightmost table borders when `hasOuterVerticalBorde
     "var(--colorsUtilityMajorTransparent)",
     {
       modifier: `${StyledFlatTableRow} > ${StyledFlatTableCell}:last-child`,
-    }
+    },
   );
 });
 
@@ -1370,7 +1370,7 @@ test("should apply the expected class name to elements preceding left aligned st
           <FlatTableCell>body three</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
   const firstHeaderCell = screen.getByRole("columnheader", {
     name: "heading one",
@@ -1404,7 +1404,7 @@ test("should apply the expected class name to elements following right aligned s
           <FlatTableCell>body three</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
   const secondHeaderCell = screen.getByRole("columnheader", {
     name: "heading two",
@@ -1437,7 +1437,7 @@ test("should not throw an error when FlatTableHead rows have only one child", ()
             <FlatTableCell>John Doe</FlatTableCell>
           </FlatTableRow>
         </FlatTableBody>
-      </FlatTable>
+      </FlatTable>,
     );
   }).not.toThrow();
 });

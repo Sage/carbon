@@ -59,12 +59,12 @@ const SwitchSliderPanel = styled.div`
           height: 100%;
 
           ${StyledLoaderSquare} {
-            height: ${size === "large"
-              ? "var(--sizing200)"
-              : "var(--sizing150)"};
-            width: ${size === "large"
-              ? "var(--sizing200)"
-              : "var(--sizing150)"};
+            height: ${
+              size === "large" ? "var(--sizing200)" : "var(--sizing150)"
+            };
+            width: ${
+              size === "large" ? "var(--sizing200)" : "var(--sizing150)"
+            };
           }
         }
       }

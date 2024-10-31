@@ -863,7 +863,7 @@ export const WithDraggable: Story = () => {
         prevState.map((card) => ({
           ...card,
           column: card.id === id ? column : card.column,
-        }))
+        })),
       );
     };
 

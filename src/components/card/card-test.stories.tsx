@@ -33,7 +33,7 @@ export default {
 } as Meta<typeof Card>;
 
 export const DefaultStory = (
-  args: Omit<CardProps, "onClick" | "children" | "footer">
+  args: Omit<CardProps, "onClick" | "children" | "footer">,
 ) => {
   return (
     <Card
@@ -224,7 +224,7 @@ export const DraggableExample = () => {
       prevState.map((card) => ({
         ...card,
         column: card.id === id ? column : card.column,
-      }))
+      })),
     );
   };
 

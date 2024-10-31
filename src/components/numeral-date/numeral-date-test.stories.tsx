@@ -176,7 +176,7 @@ export const NewDesignValidations = () => {
               m={4}
             />
           </div>
-        ))
+        )),
       )}
     </CarbonProvider>
   );
@@ -199,7 +199,7 @@ export const NewDesignValidationsWithLabelInline = () => {
               labelInline
             />
           </div>
-        ))
+        )),
       )}
     </CarbonProvider>
   );

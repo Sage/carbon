@@ -22,7 +22,7 @@ test("should render 'sort_down' Icon if `sortType` is 'descending'", () => {
 
   expect(screen.getByTestId("icon")).toHaveAttribute(
     "data-element",
-    "sort_down"
+    "sort_down",
   );
 });
 
@@ -32,7 +32,7 @@ test("should render the correct accessible name when the `accessibleName` prop i
   render(
     <Sort accessibleName={customAccessibleName} sortType="ascending">
       Name
-    </Sort>
+    </Sort>,
   );
 
   expect(screen.getByRole("button")).toHaveAccessibleName(customAccessibleName);
@@ -42,7 +42,7 @@ test("should render a default accessible name when a child and the `sortType` pr
   render(<Sort sortType="ascending">Name</Sort>);
 
   expect(screen.getByRole("button")).toHaveAccessibleName(
-    "Sort all Name in an ascending order."
+    "Sort all Name in an ascending order.",
   );
 });
 
@@ -50,7 +50,7 @@ test("should render a default accessible name when just a child is passed", () =
   render(<Sort>Name</Sort>);
 
   expect(screen.getByRole("button")).toHaveAccessibleName(
-    "Sort all Name in an ascending or descending order."
+    "Sort all Name in an ascending or descending order.",
   );
 });
 
@@ -58,7 +58,7 @@ test("should render a default accessible name when just the `sortType` prop is p
   render(<Sort sortType="ascending" />);
 
   expect(screen.getByRole("button")).toHaveAccessibleName(
-    "Sort all contents in an ascending order."
+    "Sort all contents in an ascending order.",
   );
 });
 
@@ -66,7 +66,7 @@ test("should render a default accessible name when neither a child or the `sortT
   render(<Sort />);
 
   expect(screen.getByRole("button")).toHaveAccessibleName(
-    "Sort all contents in an ascending or descending order."
+    "Sort all contents in an ascending or descending order.",
   );
 });
 
@@ -130,12 +130,12 @@ test("should render the expected Icon styling when `colorTheme` is 'dark'", () =
       }}
     >
       <Sort sortType="ascending">Name</Sort>
-    </FlatTableContext.Provider>
+    </FlatTableContext.Provider>,
   );
 
   expect(screen.getByTestId("icon")).toHaveStyleRule(
     "color",
-    "var(--colorsActionMinorYang100)"
+    "var(--colorsActionMinorYang100)",
   );
 });
 
@@ -149,11 +149,11 @@ test.each<FlatTableProps["colorTheme"]>([
       value={{ colorTheme: color, getTabStopElementId: () => "" }}
     >
       <Sort sortType="ascending">Name</Sort>
-    </FlatTableContext.Provider>
+    </FlatTableContext.Provider>,
   );
 
   expect(screen.getByTestId("icon")).toHaveStyleRule(
     "color",
-    "var(--colorActionMinor500)"
+    "var(--colorActionMinor500)",
   );
 });

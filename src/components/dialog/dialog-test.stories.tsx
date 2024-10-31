@@ -57,7 +57,7 @@ export const Default = ({
   const [date, setDate] = useState("01/06/2020");
   const [isOpen, setIsOpen] = useState(true);
   const handleCancel = (
-    evt: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+    evt: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
   ) => {
     setIsOpen(false);
     action("cancel")(evt);
@@ -191,7 +191,7 @@ Default.args = {
 type StoryType = StoryObj<typeof Dialog>;
 
 export const WithTwoDifferentNodes: StoryType = (
-  props: Partial<DialogProps>
+  props: Partial<DialogProps>,
 ) => {
   const [isOpen, setIsOpen] = useState(true);
   return (

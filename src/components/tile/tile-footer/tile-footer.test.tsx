@@ -5,7 +5,7 @@ import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal_
 
 testStyledSystemPaddingRTL(
   (props) => <TileFooter data-role="footer" {...props} />,
-  () => screen.getByTestId("footer")
+  () => screen.getByTestId("footer"),
 );
 
 test.each<[TileFooterProps["variant"], string, string]>([
@@ -19,7 +19,7 @@ test.each<[TileFooterProps["variant"], string, string]>([
     render(
       <TileFooter variant={tileVariant} data-role="tile-footer">
         content
-      </TileFooter>
+      </TileFooter>,
     );
 
     const tileFooterElement = screen.getByTestId("tile-footer");
@@ -28,14 +28,14 @@ test.each<[TileFooterProps["variant"], string, string]>([
       background,
       borderTop: `1px solid ${borderTopColor}`,
     });
-  }
+  },
 );
 
 test("has proper data attributes applied to elements", () => {
   render(
     <TileFooter data-element="foo" data-role="tile-footer">
       content
-    </TileFooter>
+    </TileFooter>,
   );
 
   const tileFooterElement = screen.getByTestId("tile-footer");

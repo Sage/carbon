@@ -27,7 +27,7 @@ export const Default = ({ title, children, ...args }: MessageProps) => {
   const onDismiss = (
     evt:
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => {
     setIsOpen(false);
     action("click")(evt);

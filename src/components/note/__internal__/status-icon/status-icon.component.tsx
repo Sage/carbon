@@ -18,7 +18,7 @@ const StatusIcon = React.forwardRef<HTMLDivElement, StatusIconProps>(
         </StyledStatusIconWrapper>
       </Tooltip>
     );
-  }
+  },
 );
 
 StatusIcon.displayName = "StatusIcon";

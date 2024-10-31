@@ -24,7 +24,7 @@ describe("isKeyboardEvent", () => {
       const result = Events.isKeyboardEvent(event);
 
       expect(result).toBeTruthy();
-    }
+    },
   );
 
   it("returns false when the event type is not a keyboard event type", () => {
@@ -73,7 +73,7 @@ describe("isNumberKey", () => {
       const result = Events.isNumberKey(event);
 
       expect(result).toBeTruthy();
-    }
+    },
   );
 
   it("returns false when the event type is not a number key event", () => {
@@ -303,7 +303,7 @@ describe("composedPath", () => {
     div.appendChild(ul);
 
     const path = [div, ul, li];
-    const event = ({ target: li } as unknown) as CustomEvent;
+    const event = { target: li } as unknown as CustomEvent;
     const result = Events.composedPath(event);
 
     expect(result).toEqual(path);

@@ -46,7 +46,7 @@ export const paddingPropertyNames = [
 ];
 
 export default function filterStyledSystemPaddingProps(
-  props: Record<string, unknown> | PaddingProps
+  props: Record<string, unknown> | PaddingProps,
 ): PaddingProps {
   return filterObjectProperties(props, paddingPropertyNames);
 }

@@ -68,7 +68,7 @@ describe("rendered content", () => {
         listActionButton={<button type="button">Click me</button>}
       >
         <Option id="red" value="red" text="red" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
     const button = screen.getByRole("button", { name: /Click me/i });
     expect(button).toBeVisible();
@@ -78,7 +78,7 @@ describe("rendered content", () => {
     render(
       <SelectListWithInput isLoading>
         <Option id="red" value="red" text="red" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     expect(screen.getByRole("progressbar", { name: "Loading" })).toBeVisible();
@@ -95,17 +95,17 @@ describe("rendered content", () => {
           <td>light</td>
           <td>blue</td>
         </OptionRow>
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     const table = screen.getByRole("table");
 
     expect(table).toBeVisible();
     expect(
-      within(table).getByRole("option", { name: /dark red/i })
+      within(table).getByRole("option", { name: /dark red/i }),
     ).toBeVisible();
     expect(
-      within(table).getByRole("option", { name: /light blue/i })
+      within(table).getByRole("option", { name: /light blue/i }),
     ).toBeVisible();
   });
 
@@ -115,19 +115,19 @@ describe("rendered content", () => {
       const { rerender } = render(
         <SelectListWithInput listPlacement={listPlacement}>
           <Option id="red" value="red" text="red" />
-        </SelectListWithInput>
+        </SelectListWithInput>,
       );
       rerender(
         <SelectListWithInput listPlacement={listPlacement}>
           <Option id="red" value="red" text="red" />
-        </SelectListWithInput>
+        </SelectListWithInput>,
       );
 
       expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
         "data-floating-placement",
-        listPlacement
+        listPlacement,
       );
-    }
+    },
   );
 
   it("highlights the correct selected option when highlightedValue prop is provided", () => {
@@ -135,14 +135,14 @@ describe("rendered content", () => {
       <SelectListWithInput highlightedValue="green">
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     const greenOption = screen.getByRole("option", { name: /green/i });
     expect(greenOption).toHaveAttribute("aria-selected", "true");
     expect(greenOption).toHaveStyleRule(
       "background-color",
-      "var(--colorsUtilityMajor200)"
+      "var(--colorsUtilityMajor200)",
     );
   });
 
@@ -151,14 +151,14 @@ describe("rendered content", () => {
       <SelectListWithInput highlightedValue={{ id: "green", value: 2 }}>
         <Option id="red" value={{ id: "red", value: 1 }} text="red" />
         <Option id="green" value={{ id: "green", value: 2 }} text="green" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     const greenOption = screen.getByRole("option", { name: /green/i });
     expect(greenOption).toHaveAttribute("aria-selected", "true");
     expect(greenOption).toHaveStyleRule(
       "background-color",
-      "var(--colorsUtilityMajor200)"
+      "var(--colorsUtilityMajor200)",
     );
   });
 });
@@ -167,7 +167,7 @@ test("sets its max height according to the listMaxHeight prop", () => {
   render(
     <SelectListWithInput listMaxHeight={100}>
       <Option id="red" value="red" text="red" />
-    </SelectListWithInput>
+    </SelectListWithInput>,
   );
 
   const scrollableArea = screen.getByTestId("select-list-scrollable-container");
@@ -184,7 +184,7 @@ describe("behaviour on option click", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.click(screen.getByRole("option", { name: /red/i }));
@@ -194,7 +194,7 @@ describe("behaviour on option click", () => {
         value: "red",
         selectionConfirmed: true,
         selectionType: "click",
-      })
+      }),
     );
   });
 
@@ -212,7 +212,7 @@ describe("behaviour on option click", () => {
           <td>light</td>
           <td>blue</td>
         </OptionRow>
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.click(screen.getByRole("option", { name: /dark red/i }));
@@ -222,7 +222,7 @@ describe("behaviour on option click", () => {
         value: "dark-red",
         selectionConfirmed: true,
         selectionType: "click",
-      })
+      }),
     );
   });
 
@@ -234,7 +234,7 @@ describe("behaviour on option click", () => {
       <SelectListWithInput onSelect={onSelect}>
         <Option id="red" value={{ id: "red", value: 1 }} text="red" />
         <Option id="green" value={{ id: "green", value: 2 }} text="green" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.click(screen.getByRole("option", { name: /red/i }));
@@ -244,7 +244,7 @@ describe("behaviour on option click", () => {
         value: { id: "red", value: 1 },
         selectionConfirmed: true,
         selectionType: "click",
-      })
+      }),
     );
   });
 
@@ -255,7 +255,7 @@ describe("behaviour on option click", () => {
     render(
       <SelectListWithInput onSelect={onSelect}>
         <option value="apple">apple</option>
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     const appleOption = screen.getByRole("option", { name: /apple/i });
@@ -271,7 +271,7 @@ describe("behaviour on option click", () => {
     render(
       <SelectListWithInput onSelect={onSelect}>
         <Option id="red" value="red" text="red" disabled />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     const redOption = screen.getByRole("option", { name: /red/i });
@@ -290,14 +290,14 @@ describe("filtering options", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     const greenOption = screen.getByRole("option", { name: /green/i });
     expect(greenOption).toHaveAttribute("aria-selected", "true");
     expect(greenOption).toHaveStyleRule(
       "background-color",
-      "var(--colorsUtilityMajor200)"
+      "var(--colorsUtilityMajor200)",
     );
   });
 
@@ -308,27 +308,27 @@ describe("filtering options", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     expect(screen.getByRole("option", { name: /red/i })).toHaveAttribute(
       "aria-selected",
-      "false"
+      "false",
     );
     expect(screen.getByRole("option", { name: /green/i })).toHaveAttribute(
       "aria-selected",
-      "false"
+      "false",
     );
     expect(screen.getByRole("option", { name: /blue/i })).toHaveAttribute(
       "aria-selected",
-      "false"
+      "false",
     );
   });
 });
 
 test("no error thrown when no options are passed but a highlightedValue is provided", () => {
   expect(() =>
-    render(<SelectListWithInput highlightedValue="red" />)
+    render(<SelectListWithInput highlightedValue="red" />),
   ).not.toThrow();
 });
 
@@ -336,7 +336,7 @@ test("hides the selected option if it is the only list item and the list is load
   render(
     <SelectListWithInput highlightedValue="green" isLoading>
       <Option id="green" value="green" text="green" />
-    </SelectListWithInput>
+    </SelectListWithInput>,
   );
 
   const hiddenOption = screen.getByRole("option", {
@@ -355,7 +355,7 @@ describe("keyboard navigation", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{Enter}");
@@ -365,7 +365,7 @@ describe("keyboard navigation", () => {
         value: "red",
         selectionConfirmed: true,
         selectionType: "enterKey",
-      })
+      }),
     );
   });
 
@@ -387,7 +387,7 @@ describe("keyboard navigation", () => {
           <td>light</td>
           <td>blue</td>
         </OptionRow>
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{Enter}");
@@ -397,7 +397,7 @@ describe("keyboard navigation", () => {
         value: "dark-red",
         selectionConfirmed: true,
         selectionType: "enterKey",
-      })
+      }),
     );
   });
 
@@ -408,7 +408,7 @@ describe("keyboard navigation", () => {
     render(
       <SelectListWithInput onSelect={onSelect} highlightedValue="red">
         <Option id="red" value="red" text="red" disabled />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{Enter}");
@@ -425,7 +425,7 @@ describe("keyboard navigation", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ArrowDown}");
@@ -435,7 +435,7 @@ describe("keyboard navigation", () => {
         value: "red",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -452,7 +452,7 @@ describe("keyboard navigation", () => {
           <td>light</td>
           <td>blue</td>
         </OptionRow>
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ArrowDown}");
@@ -462,7 +462,7 @@ describe("keyboard navigation", () => {
         value: "dark-red",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -475,7 +475,7 @@ describe("keyboard navigation", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ArrowUp}");
@@ -485,7 +485,7 @@ describe("keyboard navigation", () => {
         value: "blue",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -503,7 +503,7 @@ describe("keyboard navigation", () => {
           <td>light</td>
           <td>blue</td>
         </OptionRow>
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ArrowUp}");
@@ -513,7 +513,7 @@ describe("keyboard navigation", () => {
         value: "light-blue",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -526,7 +526,7 @@ describe("keyboard navigation", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ArrowDown}");
@@ -536,7 +536,7 @@ describe("keyboard navigation", () => {
         value: "red",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -558,7 +558,7 @@ describe("keyboard navigation", () => {
           <td>light</td>
           <td>blue</td>
         </OptionRow>
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ArrowDown}");
@@ -568,7 +568,7 @@ describe("keyboard navigation", () => {
         value: "dark-red",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -581,7 +581,7 @@ describe("keyboard navigation", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ArrowUp}");
@@ -591,7 +591,7 @@ describe("keyboard navigation", () => {
         value: "blue",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -613,7 +613,7 @@ describe("keyboard navigation", () => {
           <td>light</td>
           <td>blue</td>
         </OptionRow>
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ArrowUp}");
@@ -623,7 +623,7 @@ describe("keyboard navigation", () => {
         value: "light-blue",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -636,7 +636,7 @@ describe("keyboard navigation", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{Home}");
@@ -646,7 +646,7 @@ describe("keyboard navigation", () => {
         value: "red",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -664,7 +664,7 @@ describe("keyboard navigation", () => {
           <td>light</td>
           <td>blue</td>
         </OptionRow>
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{Home}");
@@ -674,7 +674,7 @@ describe("keyboard navigation", () => {
         value: "dark-red",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -687,7 +687,7 @@ describe("keyboard navigation", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{End}");
@@ -697,7 +697,7 @@ describe("keyboard navigation", () => {
         value: "blue",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -719,7 +719,7 @@ describe("keyboard navigation", () => {
           <td>light</td>
           <td>blue</td>
         </OptionRow>
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{End}");
@@ -729,7 +729,7 @@ describe("keyboard navigation", () => {
         value: "light-blue",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -742,7 +742,7 @@ describe("keyboard navigation", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{a}");
@@ -758,7 +758,7 @@ describe("keyboard navigation", () => {
       <SelectListWithInput onSelect={onSelect}>
         <Option id="red" value="red" text="red" disabled />
         <Option id="green" value="green" text="green" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ArrowDown}");
@@ -768,7 +768,7 @@ describe("keyboard navigation", () => {
         value: "green",
         selectionConfirmed: false,
         selectionType: "navigationKey",
-      })
+      }),
     );
   });
 
@@ -782,7 +782,7 @@ describe("keyboard navigation", () => {
         listActionButton={<button type="button">Click me</button>}
       >
         <Option id="red" value="red" text="red" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     const actionButton = screen.getByRole("button", { name: /Click me/i });
@@ -794,7 +794,7 @@ describe("keyboard navigation", () => {
       expect.objectContaining({
         selectionType: "tab",
         selectionConfirmed: false,
-      })
+      }),
     );
   });
 
@@ -811,7 +811,7 @@ describe("keyboard navigation", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ArrowDown}");
@@ -826,7 +826,7 @@ describe("keyboard navigation", () => {
     render(
       <SelectListWithInput onSelect={onSelect}>
         <p>apple</p>
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ArrowDown}");
@@ -842,7 +842,7 @@ describe("closing behaviour", () => {
     render(
       <SelectListWithInput>
         <Option id="red" value="red" text="red" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     await user.keyboard("{ }");
@@ -858,15 +858,15 @@ describe("closing behaviour", () => {
       render(
         <SelectListWithInput>
           <Option id="red" value="red" text="red" />
-        </SelectListWithInput>
+        </SelectListWithInput>,
       );
 
       await user.keyboard(`{${key}}`);
 
       await waitFor(() =>
-        expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
+        expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
       );
-    }
+    },
   );
 
   it("does not close when navigating away from custom action button by pressing Tab", async () => {
@@ -877,7 +877,7 @@ describe("closing behaviour", () => {
         listActionButton={<button type="button">Click me</button>}
       >
         <Option id="red" value="red" text="red" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     const actionButton = screen.getByRole("button", { name: /Click me/i });
@@ -898,7 +898,7 @@ describe("closing behaviour", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     screen.getByRole("option", { name: /blue/i }).focus();
@@ -916,11 +916,11 @@ describe("scroll behaviour", () => {
     render(
       <SelectListWithInput onListScrollBottom={onListScrollBottom}>
         <Option id="red" value="red" text="red" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     const scrollableContainer = screen.getByTestId(
-      "select-list-scrollable-container"
+      "select-list-scrollable-container",
     );
     jest.spyOn(scrollableContainer, "scrollHeight", "get").mockReturnValue(120);
     jest.spyOn(scrollableContainer, "clientHeight", "get").mockReturnValue(40);
@@ -940,11 +940,11 @@ describe("scroll behaviour", () => {
     render(
       <SelectListWithInput onListScrollBottom={onListScrollBottom}>
         <Option id="red" value="red" text="red" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     const scrollableContainer = screen.getByTestId(
-      "select-list-scrollable-container"
+      "select-list-scrollable-container",
     );
     jest.spyOn(scrollableContainer, "scrollHeight", "get").mockReturnValue(120);
     jest.spyOn(scrollableContainer, "clientHeight", "get").mockReturnValue(40);
@@ -966,7 +966,7 @@ describe("virtualised options", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     expect(screen.getAllByRole("option")).toHaveLength(3);
@@ -980,7 +980,7 @@ describe("virtualised options", () => {
         <Option key="blue" value="blue" text="blue" />
         <Option key="white" value="white" text="white" />
         <Option key="black" value="black" text="black" />
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     expect(screen.getAllByRole("option").length).toBeLessThan(5);
@@ -1002,12 +1002,12 @@ describe("virtualised options", () => {
               text={`${index + 1}`}
             />
           ))}
-      </SelectListWithInput>
+      </SelectListWithInput>,
     );
 
     expect(screen.getAllByRole("option").length).toBeLessThan(20);
     expect(
-      screen.getByRole("option", { name: /20/i, selected: true })
+      screen.getByRole("option", { name: /20/i, selected: true }),
     ).toBeVisible();
   });
 });
@@ -1017,16 +1017,16 @@ test("each rendered option has aria-setsize attribute set to the total number of
     <SelectListWithInput>
       <Option id="red" value="red" text="red" />
       <Option id="green" value="green" text="green" />
-    </SelectListWithInput>
+    </SelectListWithInput>,
   );
 
   expect(screen.getByRole("option", { name: "red" })).toHaveAttribute(
     "aria-setsize",
-    "2"
+    "2",
   );
   expect(screen.getByRole("option", { name: "green" })).toHaveAttribute(
     "aria-setsize",
-    "2"
+    "2",
   );
 });
 
@@ -1035,15 +1035,15 @@ test("each rendered option has aria-posinset attribute set to its index in the l
     <SelectListWithInput>
       <Option id="red" value="red" text="red" />
       <Option id="green" value="green" text="green" />
-    </SelectListWithInput>
+    </SelectListWithInput>,
   );
 
   expect(screen.getByRole("option", { name: "red" })).toHaveAttribute(
     "aria-posinset",
-    "1"
+    "1",
   );
   expect(screen.getByRole("option", { name: "green" })).toHaveAttribute(
     "aria-posinset",
-    "2"
+    "2",
   );
 });

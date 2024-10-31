@@ -13,7 +13,7 @@ test("renders with `text` content visible", () => {
   render(
     <ul>
       <Option text="foo" value="1" />
-    </ul>
+    </ul>,
   );
 
   expect(screen.getByRole("option", { name: "foo" })).toBeVisible();
@@ -25,7 +25,7 @@ test("renders with `children` content visible instead of `text` when both are pa
       <Option text="foo" value="1">
         bar
       </Option>
-    </ul>
+    </ul>,
   );
 
   expect(screen.getByRole("option", { name: "bar" })).toBeVisible();
@@ -35,7 +35,7 @@ test("does not render when `hidden` prop is set", () => {
   render(
     <ul>
       <Option text="foo" value="1" hidden />
-    </ul>
+    </ul>,
   );
 
   expect(screen.queryByRole("option", { name: "foo" })).not.toBeInTheDocument();
@@ -45,7 +45,7 @@ test("should set the expected `data-` attributes when props passed", () => {
   render(
     <ul>
       <Option text="foo" value="1" data-element="bar" data-role="baz" />
-    </ul>
+    </ul>,
   );
 
   const option = screen.getByRole("option", { name: "foo" });
@@ -59,12 +59,12 @@ test("should set guid as `id` on the element when none passed", () => {
   render(
     <ul>
       <Option text="foo" value="1" />
-    </ul>
+    </ul>,
   );
 
   expect(screen.getByRole("option", { name: "foo" })).toHaveAttribute(
     "id",
-    mockedGuid
+    mockedGuid,
   );
 });
 
@@ -72,12 +72,12 @@ test("should set `id` on the element when passed", () => {
   render(
     <ul>
       <Option text="foo" value="1" id="bar" />
-    </ul>
+    </ul>,
   );
 
   expect(screen.getByRole("option", { name: "foo" })).toHaveAttribute(
     "id",
-    "bar"
+    "bar",
   );
 });
 
@@ -85,7 +85,7 @@ test("should not render with cursor style pointer when no value or text is passe
   render(
     <ul>
       <Option>Foo</Option>
-    </ul>
+    </ul>,
   );
 
   expect(screen.getByRole("option")).not.toHaveStyle("cursor: pointer");
@@ -96,7 +96,7 @@ describe("when `disabled` prop is set", () => {
     render(
       <ul>
         <Option text="foo" value="1" disabled />
-      </ul>
+      </ul>,
     );
     const option = screen.getByRole("option", { name: "foo" });
 
@@ -108,7 +108,7 @@ describe("when `disabled` prop is set", () => {
     render(
       <ul>
         <Option text="foo" value="1" disabled />
-      </ul>
+      </ul>,
     );
     const option = screen.getByRole("option", { name: "foo" });
 
@@ -128,7 +128,7 @@ describe("when `disabled` prop is set", () => {
           onSelect={onSelect}
           disabled
         />
-      </ul>
+      </ul>,
     );
 
     await user.click(screen.getByRole("option", { name: "foo" }));
@@ -143,7 +143,7 @@ describe("when `disabled` prop is not set", () => {
     render(
       <ul>
         <Option text="foo" value="1" />
-      </ul>
+      </ul>,
     );
     const option = screen.getByRole("option", { name: "foo" });
 
@@ -155,7 +155,7 @@ describe("when `disabled` prop is not set", () => {
     render(
       <ul>
         <Option text="foo" value="1" />
-      </ul>
+      </ul>,
     );
     const option = screen.getByRole("option", { name: "foo" });
 
@@ -169,7 +169,7 @@ describe("when `disabled` prop is not set", () => {
     render(
       <ul>
         <Option text="foo" value="1" onClick={onClick} onSelect={onSelect} />
-      </ul>
+      </ul>,
     );
 
     await user.click(screen.getByRole("option", { name: "foo" }));
@@ -184,7 +184,7 @@ describe("when `disabled` prop is not set", () => {
     render(
       <ul>
         <Option text="foo" value="bar" onSelect={onSelect} />
-      </ul>
+      </ul>,
     );
 
     await user.click(screen.getByRole("option", { name: "foo" }));
@@ -202,7 +202,7 @@ describe("when `disabled` prop is not set", () => {
     render(
       <ul>
         <Option id="foo" text="bar" value="baz" onSelect={onSelect} />
-      </ul>
+      </ul>,
     );
 
     await user.click(screen.getByRole("option", { name: "bar" }));
@@ -222,7 +222,7 @@ describe("when `disabled` prop is not set", () => {
     render(
       <ul>
         <Option {...props}>Foo</Option>
-      </ul>
+      </ul>,
     );
     await user.click(screen.getByRole("option"));
 
@@ -238,12 +238,12 @@ describe("when the `multiSelectValues` list is passed via context", () => {
         <ul>
           <Option text="foo" value="1" />
         </ul>
-      </SelectListContext.Provider>
+      </SelectListContext.Provider>,
     );
 
     expect(screen.getByRole("option", { name: "foo" })).toHaveAttribute(
       "aria-selected",
-      "true"
+      "true",
     );
   });
 
@@ -253,12 +253,12 @@ describe("when the `multiSelectValues` list is passed via context", () => {
         <ul>
           <Option text="foo" value="1" />
         </ul>
-      </SelectListContext.Provider>
+      </SelectListContext.Provider>,
     );
 
     expect(screen.getByRole("option", { name: "foo" })).toHaveAttribute(
       "aria-selected",
-      "false"
+      "false",
     );
   });
 
@@ -268,12 +268,12 @@ describe("when the `multiSelectValues` list is passed via context", () => {
         <ul>
           <Option text="foo" value="1" />
         </ul>
-      </SelectListContext.Provider>
+      </SelectListContext.Provider>,
     );
 
     expect(screen.getByRole("option", { name: "foo" })).toHaveAttribute(
       "aria-selected",
-      "false"
+      "false",
     );
   });
 });

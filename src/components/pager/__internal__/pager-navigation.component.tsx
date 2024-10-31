@@ -25,25 +25,25 @@ export interface PagerNavigationProps {
   onNext?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Callback function for first link */
   onFirst?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Callback function for previous link */
   onPrevious?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Callback function for last link */
   onLast?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** onPagination Callback triggered when a change is triggered */
   onPagination: (currentPage: number, pageSize: number, origin: string) => void;
@@ -79,7 +79,7 @@ const PagerNavigation = ({
   const guid = useRef(createGuid());
   const currentPageId = `Pager_${guid.current}`;
   const navLabelString = `${l.pager.pageX()} ${currentPage.toString()} ${l.pager.ofY(
-    pageCount
+    pageCount,
   )}`;
   const hasOnePage = pageCount <= 1;
   const hasTwoPages = pageCount === 2;
@@ -93,7 +93,7 @@ const PagerNavigation = ({
   const handlePageInputChange = (
     ev:
       | React.KeyboardEvent<HTMLInputElement>
-      | React.FocusEvent<HTMLInputElement>
+      | React.FocusEvent<HTMLInputElement>,
   ) => {
     const pageNumber = +(ev.target as HTMLInputElement).value;
     if (pageCount === 0) {

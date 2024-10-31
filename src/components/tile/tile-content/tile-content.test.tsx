@@ -13,7 +13,7 @@ testStyledSystemSpacingRTL(
       Test
     </TileContent>
   ),
-  () => screen.getByTestId("tile-content")
+  () => screen.getByTestId("tile-content"),
 );
 testStyledSystemWidthRTL(
   (props) => (
@@ -21,7 +21,7 @@ testStyledSystemWidthRTL(
       Test
     </TileContent>
   ),
-  () => screen.getByTestId("tile-content")
+  () => screen.getByTestId("tile-content"),
 );
 testStyledSystemHeightRTL(
   (props) => (
@@ -29,7 +29,7 @@ testStyledSystemHeightRTL(
       Test
     </TileContent>
   ),
-  () => screen.getByTestId("tile-content")
+  () => screen.getByTestId("tile-content"),
 );
 
 test("does not render when no children are passed", () => {
@@ -54,7 +54,7 @@ test("has proper data attributes applied", () => {
   render(
     <TileContent data-element="foo" data-role="bar">
       Tile Content
-    </TileContent>
+    </TileContent>,
   );
   const element = screen.getByText("Tile Content");
   expect(element).toHaveAttribute("data-component", "tile-content");

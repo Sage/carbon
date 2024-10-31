@@ -44,7 +44,7 @@ test.describe("Functionality tests for DateRange component", () => {
 
       const dateRangeStartDateLabelElement = dateRangeComponentLabel(
         page,
-        START_DATE_RANGE_INDEX
+        START_DATE_RANGE_INDEX,
       );
 
       await expect(dateRangeStartDateLabelElement).toHaveText(startLabel);
@@ -58,13 +58,11 @@ test.describe("Functionality tests for DateRange component", () => {
     }) => {
       await mount(<DateRangeCustom endLabel={endLabel} />);
 
-      const dateRangeComponentLabelElementEndDateRange = dateRangeComponentLabel(
-        page,
-        END_DATE_RANGE_INDEX
-      );
+      const dateRangeComponentLabelElementEndDateRange =
+        dateRangeComponentLabel(page, END_DATE_RANGE_INDEX);
 
       await expect(dateRangeComponentLabelElementEndDateRange).toHaveText(
-        endLabel
+        endLabel,
       );
     });
   });
@@ -85,7 +83,7 @@ test.describe("Functionality tests for DateRange component", () => {
       await checkElementBorderColours(
         page,
         dateRangeComponentInput(page, START_DATE_RANGE_INDEX).locator(".."),
-        VALIDATION.ERROR
+        VALIDATION.ERROR,
       );
     });
   });
@@ -106,7 +104,7 @@ test.describe("Functionality tests for DateRange component", () => {
       await checkElementBorderColours(
         page,
         dateRangeComponentInput(page, END_DATE_RANGE_INDEX).locator(".."),
-        VALIDATION.ERROR
+        VALIDATION.ERROR,
       );
     });
   });
@@ -127,7 +125,7 @@ test.describe("Functionality tests for DateRange component", () => {
       await checkElementBorderColours(
         page,
         dateRangeComponentInput(page, START_DATE_RANGE_INDEX).locator(".."),
-        VALIDATION.WARNING
+        VALIDATION.WARNING,
       );
     });
   });
@@ -148,7 +146,7 @@ test.describe("Functionality tests for DateRange component", () => {
       await checkElementBorderColours(
         page,
         dateRangeComponentInput(page, END_DATE_RANGE_INDEX).locator(".."),
-        VALIDATION.WARNING
+        VALIDATION.WARNING,
       );
     });
   });
@@ -169,7 +167,7 @@ test.describe("Functionality tests for DateRange component", () => {
       await checkElementBorderColours(
         page,
         dateRangeComponentInput(page, START_DATE_RANGE_INDEX).locator(".."),
-        VALIDATION.INFO
+        VALIDATION.INFO,
       );
     });
   });
@@ -190,7 +188,7 @@ test.describe("Functionality tests for DateRange component", () => {
       await checkElementBorderColours(
         page,
         dateRangeComponentInput(page, END_DATE_RANGE_INDEX).locator(".."),
-        VALIDATION.INFO
+        VALIDATION.INFO,
       );
     });
   });
@@ -201,7 +199,7 @@ test.describe("Functionality tests for DateRange component", () => {
     await checkElementBorderColours(
       page,
       dateRangeComponentInput(page, START_DATE_RANGE_INDEX).locator(".."),
-      VALIDATION.ERROR
+      VALIDATION.ERROR,
     );
   });
 
@@ -211,7 +209,7 @@ test.describe("Functionality tests for DateRange component", () => {
     await checkElementBorderColours(
       page,
       dateRangeComponentInput(page, END_DATE_RANGE_INDEX).locator(".."),
-      VALIDATION.ERROR
+      VALIDATION.ERROR,
     );
   });
 
@@ -221,7 +219,7 @@ test.describe("Functionality tests for DateRange component", () => {
     await checkElementBorderColours(
       page,
       dateRangeComponentInput(page, START_DATE_RANGE_INDEX).locator(".."),
-      VALIDATION.WARNING
+      VALIDATION.WARNING,
     );
   });
 
@@ -231,7 +229,7 @@ test.describe("Functionality tests for DateRange component", () => {
     await checkElementBorderColours(
       page,
       dateRangeComponentInput(page, END_DATE_RANGE_INDEX).locator(".."),
-      VALIDATION.WARNING
+      VALIDATION.WARNING,
     );
   });
 
@@ -241,7 +239,7 @@ test.describe("Functionality tests for DateRange component", () => {
     await checkElementBorderColours(
       page,
       dateRangeComponentInput(page, START_DATE_RANGE_INDEX).locator(".."),
-      VALIDATION.INFO
+      VALIDATION.INFO,
     );
   });
 
@@ -251,7 +249,7 @@ test.describe("Functionality tests for DateRange component", () => {
     await checkElementBorderColours(
       page,
       dateRangeComponentInput(page, END_DATE_RANGE_INDEX).locator(".."),
-      VALIDATION.INFO
+      VALIDATION.INFO,
     );
   });
 
@@ -266,7 +264,7 @@ test.describe("Functionality tests for DateRange component", () => {
           startError={error}
           endError={error}
           validationOnLabel
-        />
+        />,
       );
 
       const dateRangeComponentLabelElementStartDateIcon = page
@@ -301,7 +299,7 @@ test.describe("Functionality tests for DateRange component", () => {
           startWarning={warning}
           endWarning={warning}
           validationOnLabel
-        />
+        />,
       );
 
       const dateRangeComponentLabelElementStartDateIcon = page
@@ -332,7 +330,7 @@ test.describe("Functionality tests for DateRange component", () => {
       page,
     }) => {
       await mount(
-        <DateRangeCustom startInfo={info} endInfo={info} validationOnLabel />
+        <DateRangeCustom startInfo={info} endInfo={info} validationOnLabel />,
       );
 
       const dateRangeComponentLabelElementStartDateIcon = page
@@ -357,10 +355,12 @@ test.describe("Functionality tests for DateRange component", () => {
     });
   });
 
-  ([
-    [true, "top", "flex"],
-    [false, "bottom", "block"],
-  ] as const).forEach(([boolean, cssValue, displayValue]) => {
+  (
+    [
+      [true, "top", "flex"],
+      [false, "bottom", "block"],
+    ] as const
+  ).forEach(([boolean, cssValue, displayValue]) => {
     test(`should check the labelsInline prop is set to ${boolean}`, async ({
       mount,
       page,
@@ -371,32 +371,28 @@ test.describe("Functionality tests for DateRange component", () => {
 
       await expect(startDateElement).toHaveCSS("vertical-align", cssValue);
 
-      const dateRangeComponentLabelElementStartDateParent = dateRangeComponentLabel(
-        page,
-        START_DATE_RANGE_INDEX
-      )
-        .locator("..")
-        .locator("..");
+      const dateRangeComponentLabelElementStartDateParent =
+        dateRangeComponentLabel(page, START_DATE_RANGE_INDEX)
+          .locator("..")
+          .locator("..");
 
       await expect(dateRangeComponentLabelElementStartDateParent).toHaveCSS(
         "display",
-        displayValue
+        displayValue,
       );
 
       const endDateElement = page.locator(END_DATE);
 
       await expect(endDateElement).toHaveCSS("vertical-align", cssValue);
 
-      const dateRangeComponentLabelElementEndDateIndexParent = dateRangeComponentLabel(
-        page,
-        END_DATE_RANGE_INDEX
-      )
-        .locator("..")
-        .locator("..");
+      const dateRangeComponentLabelElementEndDateIndexParent =
+        dateRangeComponentLabel(page, END_DATE_RANGE_INDEX)
+          .locator("..")
+          .locator("..");
 
       await expect(dateRangeComponentLabelElementEndDateIndexParent).toHaveCSS(
         "display",
-        displayValue
+        displayValue,
       );
     });
   });
@@ -407,11 +403,11 @@ test.describe("Functionality tests for DateRange component", () => {
         startDateProps={{
           disabled: true,
         }}
-      />
+      />,
     );
 
     const startDateInput = getDataElementByValue(page, "input").nth(
-      START_DATE_RANGE_INDEX
+      START_DATE_RANGE_INDEX,
     );
 
     await expect(startDateInput).toHaveAttribute("disabled", "");
@@ -423,11 +419,11 @@ test.describe("Functionality tests for DateRange component", () => {
         endDateProps={{
           disabled: true,
         }}
-      />
+      />,
     );
 
     const endDateInput = getDataElementByValue(page, "input").nth(
-      END_DATE_RANGE_INDEX
+      END_DATE_RANGE_INDEX,
     );
 
     await expect(endDateInput).toHaveAttribute("disabled", "");
@@ -443,7 +439,7 @@ test.describe("Functionality tests for DateRange component", () => {
           m={9}
           tooltipPosition={position}
           startError={testText}
-        />
+        />,
       );
 
       const iconElement = icon(page);
@@ -451,7 +447,7 @@ test.describe("Functionality tests for DateRange component", () => {
 
       await expect(tooltipPreview(page)).toHaveAttribute(
         "data-placement",
-        position
+        position,
       );
 
       await page.hover("body"); // hover on body to close the tooltip
@@ -471,13 +467,11 @@ test.describe("Event tests for DateRange component", () => {
           onChange={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
-      const getDataElementByValueElementInputEqInputIndex = getDataElementByValue(
-        page,
-        "input"
-      ).nth(inputIndex);
+      const getDataElementByValueElementInputEqInputIndex =
+        getDataElementByValue(page, "input").nth(inputIndex);
       await getDataElementByValueElementInputEqInputIndex.clear();
 
       await expect(callbackCount).toEqual(1);
@@ -496,7 +490,7 @@ test.describe("Event tests for DateRange component", () => {
             onChange={() => {
               callbackCount += 1;
             }}
-          />
+          />,
         );
 
         await textboxInput(page).nth(inputIndex).type(value);
@@ -518,7 +512,7 @@ test.describe("Event tests for DateRange component", () => {
         }}
         name={testText}
         id={testText}
-      />
+      />,
     );
 
     await textboxInput(page).nth(START_DATE_RANGE_INDEX).type("1");
@@ -626,7 +620,7 @@ test.describe("Accessibility tests for Date Range", () => {
           startError={error}
           endError={error}
           validationOnLabel
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -643,7 +637,7 @@ test.describe("Accessibility tests for Date Range", () => {
           startWarning={warning}
           endWarning={warning}
           validationOnLabel
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -656,19 +650,16 @@ test.describe("Accessibility tests for Date Range", () => {
       page,
     }) => {
       await mount(
-        <DateRangeCustom startInfo={info} endInfo={info} validationOnLabel />
+        <DateRangeCustom startInfo={info} endInfo={info} validationOnLabel />,
       );
 
       await checkAccessibility(page);
     });
   });
 
-  ([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ] as DateRangeProps["tooltipPosition"][]).forEach((position) => {
+  (
+    ["top", "bottom", "left", "right"] as DateRangeProps["tooltipPosition"][]
+  ).forEach((position) => {
     test(`should check accessibility with tooltipPosition set to ${position}`, async ({
       mount,
       page,
@@ -678,7 +669,7 @@ test.describe("Accessibility tests for Date Range", () => {
           m={9}
           tooltipPosition={position}
           startError={testText}
-        />
+        />,
       );
       const errorIconElement = getDataElementByValue(page, "error");
       await errorIconElement.hover();
@@ -763,7 +754,7 @@ test.describe("Accessibility tests for Date Range", () => {
         startDateProps={{
           disabled: true,
         }}
-      />
+      />,
     );
 
     await checkAccessibility(page);
@@ -778,7 +769,7 @@ test.describe("Accessibility tests for Date Range", () => {
         endDateProps={{
           disabled: true,
         }}
-      />
+      />,
     );
 
     await checkAccessibility(page);

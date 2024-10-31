@@ -38,22 +38,22 @@ const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const variantTypes2: VariantTypes[] = ["h2", "h3", "p", "em", "b"];
 
 test.describe("Prop tests for Pod", () => {
-  ([
-    [true, "1px", "solid", "rgb(204, 214, 219)"],
-    [false, "0px", "none", "rgba(0, 0, 0, 0.9)"],
-  ] as [PodProps["border"], string, string, string][]).forEach(
-    ([boolVal, borderVal, style, color]) => {
-      test(`should render with border value as ${borderVal} when border prop is ${boolVal}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<PodExample border={boolVal} />);
+  (
+    [
+      [true, "1px", "solid", "rgb(204, 214, 219)"],
+      [false, "0px", "none", "rgba(0, 0, 0, 0.9)"],
+    ] as [PodProps["border"], string, string, string][]
+  ).forEach(([boolVal, borderVal, style, color]) => {
+    test(`should render with border value as ${borderVal} when border prop is ${boolVal}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PodExample border={boolVal} />);
 
-        const elem = podBlock(page);
-        await checkCSSOutline(elem, borderVal, "border", style, color);
-      });
-    }
-  );
+      const elem = podBlock(page);
+      await checkCSSOutline(elem, borderVal, "border", style, color);
+    });
+  });
 
   specialCharacters.forEach((children) => {
     test(`should render with ${children} as children`, async ({
@@ -78,55 +78,55 @@ test.describe("Prop tests for Pod", () => {
     });
   });
 
-  ([
-    [SIZE.EXTRASMALL, 120, 66],
-    [SIZE.SMALL, 120, 66],
-    [SIZE.MEDIUM, 136, 82],
-    [SIZE.LARGE, 184, 98],
-    [SIZE.EXTRALARGE, 216, 130],
-  ] as [PodProps["size"], number, number][]).forEach(
-    ([size, expectedHeight, expectedWidth]) => {
-      test(`should render with ${size} as size and ${expectedHeight} as height and ${expectedWidth} as width`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<PodExample size={size} />);
+  (
+    [
+      [SIZE.EXTRASMALL, 120, 66],
+      [SIZE.SMALL, 120, 66],
+      [SIZE.MEDIUM, 136, 82],
+      [SIZE.LARGE, 184, 98],
+      [SIZE.EXTRALARGE, 216, 130],
+    ] as [PodProps["size"], number, number][]
+  ).forEach(([size, expectedHeight, expectedWidth]) => {
+    test(`should render with ${size} as size and ${expectedHeight} as height and ${expectedWidth} as width`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PodExample size={size} />);
 
-        await assertCssValueIsApproximately(
-          podBlock(page),
-          "height",
-          expectedHeight
-        );
+      await assertCssValueIsApproximately(
+        podBlock(page),
+        "height",
+        expectedHeight,
+      );
 
-        await assertCssValueIsApproximately(
-          podBlock(page),
-          "width",
-          expectedWidth
-        );
-      });
-    }
-  );
+      await assertCssValueIsApproximately(
+        podBlock(page),
+        "width",
+        expectedWidth,
+      );
+    });
+  });
 
-  ([
-    ["primary", "rgb(255, 255, 255)", "none"],
-    ["secondary", "rgb(242, 245, 246)", "none"],
-    ["tertiary", "rgb(237, 241, 242)", "none"],
-    ["tile", "rgb(255, 255, 255)", "rgba(2, 18, 36, 0.2) 0px 2px 3px 0px"],
-    ["transparent", "rgba(0, 0, 0, 0)", "none"],
-  ] as [PodProps["variant"], string, string][]).forEach(
-    ([variant, color, boxShadow]) => {
-      test(`should render with ${variant} as variant when color is ${color} and boxShadow is ${boxShadow}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<PodExample variant={variant} />);
+  (
+    [
+      ["primary", "rgb(255, 255, 255)", "none"],
+      ["secondary", "rgb(242, 245, 246)", "none"],
+      ["tertiary", "rgb(237, 241, 242)", "none"],
+      ["tile", "rgb(255, 255, 255)", "rgba(2, 18, 36, 0.2) 0px 2px 3px 0px"],
+      ["transparent", "rgba(0, 0, 0, 0)", "none"],
+    ] as [PodProps["variant"], string, string][]
+  ).forEach(([variant, color, boxShadow]) => {
+    test(`should render with ${variant} as variant when color is ${color} and boxShadow is ${boxShadow}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PodExample variant={variant} />);
 
-        await expect(podBlock(page)).toHaveCSS("background-color", `${color}`);
+      await expect(podBlock(page)).toHaveCSS("background-color", `${color}`);
 
-        await expect(podBlock(page)).toHaveCSS("box-shadow", boxShadow);
-      });
-    }
-  );
+      await expect(podBlock(page)).toHaveCSS("box-shadow", boxShadow);
+    });
+  });
 
   specialCharacters.forEach((title) => {
     test(`should render with ${title} as title`, async ({ mount, page }) => {
@@ -178,10 +178,9 @@ test.describe("Prop tests for Pod", () => {
     });
   });
 
-  (["left", "center", "right"] as (
-    | PodProps["alignTitle"]
-    | undefined
-  )[]).forEach((alignTitle) => {
+  (
+    ["left", "center", "right"] as (PodProps["alignTitle"] | undefined)[]
+  ).forEach((alignTitle) => {
     test(`should render when text is aligned to the ${
       alignTitle || "default"
     }`, async ({ mount, page }) => {
@@ -217,50 +216,50 @@ test.describe("Prop tests for Pod", () => {
     });
   });
 
-  ([
-    [false, 82],
-    [true, 1308],
-  ] as [PodProps["editContentFullWidth"], number][]).forEach(
-    ([boolVal, expectedWidth]) => {
-      test(`should render with editContentFullWidth as ${boolVal}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<PodExample editContentFullWidth={boolVal} />);
+  (
+    [
+      [false, 82],
+      [true, 1308],
+    ] as [PodProps["editContentFullWidth"], number][]
+  ).forEach(([boolVal, expectedWidth]) => {
+    test(`should render with editContentFullWidth as ${boolVal}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PodExample editContentFullWidth={boolVal} />);
 
-        await assertCssValueIsApproximately(
-          podBlock(page),
-          "width",
-          expectedWidth
-        );
-      });
-    }
-  );
+      await assertCssValueIsApproximately(
+        podBlock(page),
+        "width",
+        expectedWidth,
+      );
+    });
+  });
 
-  ([
-    [true, "rgb(0, 103, 56)"],
-    [false, "rgb(255, 255, 255)"],
-  ] as [PodProps["triggerEditOnContent"], string][]).forEach(
-    ([boolVal, color]) => {
-      test(`should render with correct background color when triggerEditOnContent is ${boolVal} and hovered`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<PodExample triggerEditOnContent={boolVal} />);
+  (
+    [
+      [true, "rgb(0, 103, 56)"],
+      [false, "rgb(255, 255, 255)"],
+    ] as [PodProps["triggerEditOnContent"], string][]
+  ).forEach(([boolVal, color]) => {
+    test(`should render with correct background color when triggerEditOnContent is ${boolVal} and hovered`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PodExample triggerEditOnContent={boolVal} />);
 
-        await expect(podBlock(page)).toHaveCSS(
-          "background-color",
-          "rgb(255, 255, 255)"
-        );
+      await expect(podBlock(page)).toHaveCSS(
+        "background-color",
+        "rgb(255, 255, 255)",
+      );
 
-        await podBlock(page).hover();
+      await podBlock(page).hover();
 
-        await expect(podBlock(page)).toHaveCSS("background-color", color);
+      await expect(podBlock(page)).toHaveCSS("background-color", color);
 
-        await expect(podEdit(page)).toHaveCSS("background-color", color);
-      });
-    }
-  );
+      await expect(podEdit(page)).toHaveCSS("background-color", color);
+    });
+  });
 
   test.describe("check styling for Pod component", () => {
     test("should render with expected border radius styling on the main container also with edit and delete buttons", async ({
@@ -283,7 +282,7 @@ test.describe("Prop tests for Pod", () => {
       await mount(
         <PodExample onUndo={() => {}} softDelete>
           Foo
-        </PodExample>
+        </PodExample>,
       );
 
       await expect(podUndo(page)).toHaveCSS("border-radius", "8px");
@@ -301,7 +300,7 @@ test.describe("when onDelete prop is passed", () => {
         onDelete={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
     const deleteButton = podDelete(page);
     await deleteButton.click();
@@ -315,18 +314,18 @@ test.describe("when onDelete prop is passed", () => {
     await mount(
       <Pod onDelete={() => {}} internalEditButton>
         Content
-      </Pod>
+      </Pod>,
     );
 
     await podDelete(page).focus();
     await expect(podDelete(page)).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 3px"
+      "rgb(255, 188, 25) solid 3px",
     );
 
     await expect(podBlock(page)).toHaveCSS(
       "border",
-      "1px solid rgb(204, 214, 219)"
+      "1px solid rgb(204, 214, 219)",
     );
   });
 
@@ -337,18 +336,18 @@ test.describe("when onDelete prop is passed", () => {
     await mount(
       <Pod onDelete={() => {}} internalEditButton>
         Content
-      </Pod>
+      </Pod>,
     );
 
     await podDelete(page).hover();
 
     await expect(podDelete(page)).not.toHaveCSS(
       "background-color",
-      "rgb(164, 45, 60)"
+      "rgb(164, 45, 60)",
     );
     await expect(podDeleteIcon(page)).not.toHaveCSS(
       "color",
-      "rgb(255, 255, 255)"
+      "rgb(255, 255, 255)",
     );
   });
 });
@@ -361,7 +360,7 @@ test.describe("when onEdit prop is passed", () => {
     await mount(
       <Pod onEdit={() => {}} displayEditButtonOnHover>
         Content
-      </Pod>
+      </Pod>,
     );
 
     await expect(podEdit(page)).not.toBeVisible();
@@ -377,7 +376,7 @@ test.describe("when onEdit prop is passed", () => {
     await mount(
       <Pod onEdit={() => {}} displayEditButtonOnHover>
         Content
-      </Pod>
+      </Pod>,
     );
 
     await expect(podEdit(page)).not.toBeVisible();
@@ -393,7 +392,7 @@ test.describe("when onEdit prop is passed", () => {
     await mount(
       <Pod onEdit={() => {}} displayEditButtonOnHover>
         Content
-      </Pod>
+      </Pod>,
     );
 
     await expect(podEdit(page)).not.toBeVisible();
@@ -418,74 +417,76 @@ test.describe("when onEdit prop is passed", () => {
     await mount(
       <Pod onEdit={() => {}} internalEditButton>
         Content
-      </Pod>
+      </Pod>,
     );
 
     await podEdit(page).hover();
 
     await expect(podEdit(page)).not.toHaveCSS(
       "background-color",
-      "rgb(0, 103, 56)"
+      "rgb(0, 103, 56)",
     );
 
     await expect(podEditIcon(page)).not.toHaveCSS(
       "color",
-      "rgb(255, 255, 255)"
+      "rgb(255, 255, 255)",
     );
   });
 
-  ([
-    [true, 1366],
-    [false, 82],
-  ] as [PodProps["internalEditButton"], number][]).forEach(
-    ([boolVal, expectedWidth]) => {
-      test(`when internalEditButton is ${boolVal}, width value is correct`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<PodExample internalEditButton={boolVal} />);
+  (
+    [
+      [true, 1366],
+      [false, 82],
+    ] as [PodProps["internalEditButton"], number][]
+  ).forEach(([boolVal, expectedWidth]) => {
+    test(`when internalEditButton is ${boolVal}, width value is correct`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PodExample internalEditButton={boolVal} />);
 
-        await assertCssValueIsApproximately(
-          podBlock(page),
-          "width",
-          expectedWidth
-        );
-      });
-    }
-  );
+      await assertCssValueIsApproximately(
+        podBlock(page),
+        "width",
+        expectedWidth,
+      );
+    });
+  });
 
-  ([
-    [true, "rgba(0, 0, 0, 0)"],
-    [false, "rgb(0, 103, 56)"],
-  ] as [PodProps["internalEditButton"], string][]).forEach(
-    ([boolVal, color]) => {
-      test(`when internalEditButton is ${boolVal} and edit button is hovered, Pod background colours are correct`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <Pod onEdit={() => {}} internalEditButton={boolVal}>
-            Content
-          </Pod>
-        );
+  (
+    [
+      [true, "rgba(0, 0, 0, 0)"],
+      [false, "rgb(0, 103, 56)"],
+    ] as [PodProps["internalEditButton"], string][]
+  ).forEach(([boolVal, color]) => {
+    test(`when internalEditButton is ${boolVal} and edit button is hovered, Pod background colours are correct`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <Pod onEdit={() => {}} internalEditButton={boolVal}>
+          Content
+        </Pod>,
+      );
 
-        await expect(podBlock(page)).toHaveCSS(
-          "background-color",
-          "rgb(255, 255, 255)"
-        );
+      await expect(podBlock(page)).toHaveCSS(
+        "background-color",
+        "rgb(255, 255, 255)",
+      );
 
-        await podEdit(page).hover();
-        await expect(podEdit(page)).toHaveCSS("background-color", color);
-      });
-    }
-  );
+      await podEdit(page).hover();
+      await expect(podEdit(page)).toHaveCSS("background-color", color);
+    });
+  });
 });
 
 test.describe("when onUndo and softDelete props are passed", () => {
-  ([
-    [true, "be.visible"],
-    [false, "not.exist"],
-  ] as [PodProps["softDelete"], string][]).forEach(([boolVal, state]) => {
+  (
+    [
+      [true, "be.visible"],
+      [false, "not.exist"],
+    ] as [PodProps["softDelete"], string][]
+  ).forEach(([boolVal, state]) => {
     test(`should render when softDelete is ${boolVal} that undo button is ${state}`, async ({
       mount,
       page,
@@ -510,7 +511,7 @@ test.describe("when onUndo and softDelete props are passed", () => {
         onUndo={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
     const undo = podUndo(page);
     await undo.click();
@@ -524,19 +525,19 @@ test.describe("when onUndo and softDelete props are passed", () => {
     await mount(
       <Pod onUndo={() => {}} softDelete internalEditButton>
         Content
-      </Pod>
+      </Pod>,
     );
 
     await podUndo(page).hover();
 
     await expect(podUndo(page)).not.toHaveCSS(
       "background-color",
-      "rgb(0, 103, 56)"
+      "rgb(0, 103, 56)",
     );
 
     await expect(podUndoIcon(page)).not.toHaveCSS(
       "color",
-      "rgb(255, 255, 255)"
+      "rgb(255, 255, 255)",
     );
   });
 
@@ -550,7 +551,7 @@ test.describe("when onUndo and softDelete props are passed", () => {
 
     await expect(podBlock(page)).toHaveCSS(
       "background-color",
-      blockBackgroundColor
+      blockBackgroundColor,
     );
   });
 
@@ -565,7 +566,7 @@ test.describe("when onUndo and softDelete props are passed", () => {
     await expect(page.getByText("Content")).toHaveCSS("color", childrenColor);
     await expect(page.getByText("More content")).toHaveCSS(
       "color",
-      childrenColor
+      childrenColor,
     );
   });
 });
@@ -584,7 +585,7 @@ test.describe("Accessibility tests", () => {
     await mount(
       <Pod onDelete={() => {}} internalEditButton>
         Content
-      </Pod>
+      </Pod>,
     );
 
     await podDelete(page).focus();

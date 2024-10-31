@@ -45,10 +45,10 @@ test("computePosition is called with the correct arguments when MockComponent is
   render(<MockComponent isOpen strategy="fixed" placement="top" />);
 
   expect(computePositionSpy.mock.calls[0][0]).toBe(
-    screen.getByTestId("reference-element")
+    screen.getByTestId("reference-element"),
   );
   expect(computePositionSpy.mock.calls[0][1]).toBe(
-    screen.getByTestId("floating-element")
+    screen.getByTestId("floating-element"),
   );
   expect(computePositionSpy.mock.calls[0][2]).toMatchObject({
     strategy: "fixed",
@@ -62,10 +62,10 @@ test("autoUpdate is invoked with proper arguments across different states", () =
   const { rerender } = render(<MockComponent isOpen />);
 
   expect(autoUpdateSpy.mock.calls[0][0]).toBe(
-    screen.getByTestId("reference-element")
+    screen.getByTestId("reference-element"),
   );
   expect(autoUpdateSpy.mock.calls[0][1]).toBe(
-    screen.getByTestId("floating-element")
+    screen.getByTestId("floating-element"),
   );
   expect(autoUpdateSpy.mock.calls[0][3]).toMatchObject({
     animationFrame: undefined,
@@ -122,19 +122,19 @@ test("when using size middleware, the original width and height are restored aft
 
 test("data-floating-placement attribute is added with correct placement when open and removed when closed", async () => {
   const { rerender } = render(
-    <MockComponent isOpen strategy="fixed" placement="top" />
+    <MockComponent isOpen strategy="fixed" placement="top" />,
   );
 
   await waitFor(() => {
     expect(screen.getByTestId("floating-element")).toHaveAttribute(
       "data-floating-placement",
-      "top"
+      "top",
     );
   });
 
   rerender(<MockComponent strategy="fixed" placement="top" />);
 
   expect(screen.getByTestId("floating-element")).not.toHaveAttribute(
-    "data-floating-placement"
+    "data-floating-placement",
   );
 });

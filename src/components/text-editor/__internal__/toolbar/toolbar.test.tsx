@@ -13,7 +13,7 @@ jest.mock("../../../tooltip", () =>
       {children}
       {isVisible ? <div role="tooltip">{message}</div> : null}
     </>
-  ))
+  )),
 );
 
 test("when the `canFocus` prop is true, pressing the right arrow key cycles focus through all the buttons from left to right and then wraps back to the first", async () => {
@@ -29,7 +29,7 @@ test("when the `canFocus` prop is true, pressing the right arrow key cycles focu
       }}
       setInlineStyle={() => {}}
       setBlockStyle={() => {}}
-    />
+    />,
   );
   screen.getByRole("button", { name: "bold" }).focus();
 
@@ -59,7 +59,7 @@ test("when the `canFocus` prop is true, pressing the left arrow key wraps focus 
       }}
       setInlineStyle={() => {}}
       setBlockStyle={() => {}}
-    />
+    />,
   );
   screen.getByRole("button", { name: "bold" }).focus();
 
@@ -94,15 +94,15 @@ test.each(["bold", "italic", "bullet-list", "number-list"])(
           setBlockStyle={() => {}}
         />
         <button type="button">I will receive focus</button>
-      </>
+      </>,
     );
     screen.getByRole("button", { name: buttonName }).focus();
 
     await user.tab();
     expect(
-      screen.getByRole("button", { name: "I will receive focus" })
+      screen.getByRole("button", { name: "I will receive focus" }),
     ).toHaveFocus();
-  }
+  },
 );
 
 test.each(["bold", "italic"])(
@@ -122,18 +122,18 @@ test.each(["bold", "italic"])(
         }}
         setInlineStyle={setInlineStyle}
         setBlockStyle={setBlockStyle}
-      />
+      />,
     );
 
     await user.click(screen.getByRole("button", { name: buttonName }));
 
     expect(setInlineStyle).toHaveBeenCalledWith(
       expect.anything(),
-      buttonName.toUpperCase()
+      buttonName.toUpperCase(),
     );
     expect(setInlineStyle).toHaveBeenCalledTimes(1);
     expect(setBlockStyle).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test.each([
@@ -156,7 +156,7 @@ test.each([
         }}
         setInlineStyle={setInlineStyle}
         setBlockStyle={setBlockStyle}
-      />
+      />,
     );
 
     await user.click(screen.getByRole("button", { name: buttonName }));
@@ -164,7 +164,7 @@ test.each([
     expect(setBlockStyle).toHaveBeenCalledWith(expect.anything(), blockType);
     expect(setBlockStyle).toHaveBeenCalledTimes(1);
     expect(setInlineStyle).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test.each(["bold", "italic"])(
@@ -184,7 +184,7 @@ test.each(["bold", "italic"])(
         }}
         setInlineStyle={setInlineStyle}
         setBlockStyle={setBlockStyle}
-      />
+      />,
     );
 
     screen.getByRole("button", { name: buttonName }).focus();
@@ -192,11 +192,11 @@ test.each(["bold", "italic"])(
 
     expect(setInlineStyle).toHaveBeenCalledWith(
       expect.anything(),
-      buttonName.toUpperCase()
+      buttonName.toUpperCase(),
     );
     expect(setInlineStyle).toHaveBeenCalledTimes(1);
     expect(setBlockStyle).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test.each([
@@ -219,7 +219,7 @@ test.each([
         }}
         setInlineStyle={setInlineStyle}
         setBlockStyle={setBlockStyle}
-      />
+      />,
     );
 
     screen.getByRole("button", { name: buttonName }).focus();
@@ -228,7 +228,7 @@ test.each([
     expect(setBlockStyle).toHaveBeenCalledWith(expect.anything(), blockType);
     expect(setBlockStyle).toHaveBeenCalledTimes(1);
     expect(setInlineStyle).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test.each(["bold", "italic"])(
@@ -248,7 +248,7 @@ test.each(["bold", "italic"])(
         }}
         setInlineStyle={setInlineStyle}
         setBlockStyle={setBlockStyle}
-      />
+      />,
     );
 
     screen.getByRole("button", { name: buttonName }).focus();
@@ -256,11 +256,11 @@ test.each(["bold", "italic"])(
 
     expect(setInlineStyle).toHaveBeenCalledWith(
       expect.anything(),
-      buttonName.toUpperCase()
+      buttonName.toUpperCase(),
     );
     expect(setInlineStyle).toHaveBeenCalledTimes(1);
     expect(setBlockStyle).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test.each([
@@ -283,7 +283,7 @@ test.each([
         }}
         setInlineStyle={setInlineStyle}
         setBlockStyle={setBlockStyle}
-      />
+      />,
     );
 
     screen.getByRole("button", { name: buttonName }).focus();
@@ -292,7 +292,7 @@ test.each([
     expect(setBlockStyle).toHaveBeenCalledWith(expect.anything(), blockType);
     expect(setBlockStyle).toHaveBeenCalledTimes(1);
     expect(setInlineStyle).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test.each(["bold", "italic", "bullet-list", "number-list"])(
@@ -312,7 +312,7 @@ test.each(["bold", "italic", "bullet-list", "number-list"])(
         }}
         setInlineStyle={setInlineStyle}
         setBlockStyle={setBlockStyle}
-      />
+      />,
     );
 
     screen.getByRole("button", { name: buttonName }).focus();
@@ -320,7 +320,7 @@ test.each(["bold", "italic", "bullet-list", "number-list"])(
 
     expect(setInlineStyle).not.toHaveBeenCalled();
     expect(setBlockStyle).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test.each([
@@ -343,17 +343,17 @@ test.each([
         }}
         setInlineStyle={() => {}}
         setBlockStyle={() => {}}
-      />
+      />,
     );
 
     await user.hover(screen.getByRole("button", { name: buttonName }));
     expect(
-      await screen.findByRole("tooltip", { name: tooltipText })
+      await screen.findByRole("tooltip", { name: tooltipText }),
     ).toBeVisible();
 
     await user.unhover(screen.getByRole("button", { name: buttonName }));
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  }
+  },
 );
 
 test.each([
@@ -375,18 +375,18 @@ test.each([
         }}
         setInlineStyle={() => {}}
         setBlockStyle={() => {}}
-      />
+      />,
     );
 
     screen.getByRole("button", { name: buttonName }).focus();
 
     expect(
-      await screen.findByRole("tooltip", { name: tooltipText })
+      await screen.findByRole("tooltip", { name: tooltipText }),
     ).toBeVisible();
 
     screen.getByRole("button", { name: buttonName }).blur();
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
-  }
+  },
 );
 
 test("additional elements passed via the `toolbarElements` prop are rendered", () => {
@@ -405,14 +405,14 @@ test("additional elements passed via the `toolbarElements` prop are rendered", (
         <Button key="additional">Additional button</Button>,
         <Button key="another">Yet another button</Button>,
       ]}
-    />
+    />,
   );
 
   expect(
-    screen.getByRole("button", { name: "Additional button" })
+    screen.getByRole("button", { name: "Additional button" }),
   ).toBeVisible();
   expect(
-    screen.getByRole("button", { name: "Yet another button" })
+    screen.getByRole("button", { name: "Yet another button" }),
   ).toBeVisible();
 });
 
@@ -450,7 +450,7 @@ test.each(["bold", "italic", "bulletList", "numberList"] as const)(
           setInlineStyle={() => {}}
           setBlockStyle={() => {}}
         />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     const buttonName = locale.textEditor.ariaLabels[localeProperty]();
@@ -458,7 +458,7 @@ test.each(["bold", "italic", "bulletList", "numberList"] as const)(
     await user.hover(screen.getByRole("button", { name: buttonName }));
 
     expect(
-      await screen.findByRole("tooltip", { name: tooltipText })
+      await screen.findByRole("tooltip", { name: tooltipText }),
     ).toBeVisible();
-  }
+  },
 );

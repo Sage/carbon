@@ -31,7 +31,7 @@ it("sets correct data-* props on main dialog element", () => {
   render(
     <Drawer data-element="foo" data-role="bar">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
   const drawer = screen.getByTestId("bar");
 
@@ -48,10 +48,10 @@ it("displays heading when title prop is provided", () => {
   render(
     <Drawer title={<h2>Test title</h2>} sidebar="Sidebar content">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
   expect(
-    screen.getByRole("heading", { name: "Test title", level: 2 })
+    screen.getByRole("heading", { name: "Test title", level: 2 }),
   ).toBeVisible();
 });
 
@@ -59,7 +59,7 @@ it("has accessible name on the sidebar when sidebarAriaLabel prop is provided", 
   render(
     <Drawer sidebarAriaLabel="test" sidebar="Sidebar content">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
 
   expect(screen.getByTestId("drawer-content")).toHaveAccessibleName("test");
@@ -69,11 +69,11 @@ it("renders sidebar with accessible name set to the `title` when provided", () =
   render(
     <Drawer title={<h2>Test title</h2>} sidebar="Sidebar content">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
 
   expect(screen.getByTestId("drawer-content")).toHaveAccessibleName(
-    "Test title"
+    "Test title",
   );
 });
 
@@ -81,7 +81,7 @@ it("renders sidebar header as sticky when stickyHeader prop is true", () => {
   render(
     <Drawer stickyHeader expanded title="Test title" sidebar="Sidebar content">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
   expect(screen.getByTestId("drawer-sidebar-header")).toHaveStyle({
     position: "sticky",
@@ -94,7 +94,7 @@ it("renders sidebar footer when footer prop is provided", () => {
   render(
     <Drawer footer="Test footer" sidebar="Sidebar content">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
   expect(screen.getByText("Test footer")).toBeVisible();
 });
@@ -103,7 +103,7 @@ it("renders sidebar footer as sticky when stickyFooter prop is true", () => {
   render(
     <Drawer stickyFooter footer="Test footer" sidebar="Sidebar content">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
   expect(screen.getByText("Test footer")).toHaveStyle({
     position: "sticky",
@@ -117,7 +117,7 @@ it("calls onChange callback when provided with isExpanded value as false, when s
   render(
     <Drawer animationDuration="500ms" showControls onChange={onChange}>
       Foobar
-    </Drawer>
+    </Drawer>,
   );
 
   const button = screen.getByRole("button", { name: "toggle sidebar" });
@@ -138,7 +138,7 @@ it("calls onChange callback when provided with isExpanded value as true, when si
   render(
     <Drawer defaultExpanded={false} showControls onChange={onChange}>
       Foobar
-    </Drawer>
+    </Drawer>,
   );
 
   const button = screen.getByRole("button", { name: "toggle sidebar" });
@@ -165,7 +165,7 @@ it("triggers opening animation sequence with correct timing, when animationDurat
   render(
     <Drawer expanded={false} showControls animationDuration="500">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
 
   const button = screen.getByRole("button", { name: "toggle sidebar" });
@@ -187,7 +187,7 @@ it("triggers closing animation sequence with correct timing, when animationDurat
   render(
     <Drawer expanded showControls animationDuration="500">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
 
   const button = screen.getByRole("button", { name: "toggle sidebar" });
@@ -209,7 +209,7 @@ it("triggers opening animation sequence with correct timing, when animationDurat
   render(
     <Drawer expanded={false} showControls animationDuration="500ms">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
 
   const button = screen.getByRole("button", { name: "toggle sidebar" });
@@ -231,7 +231,7 @@ it("triggers closing animation sequence with correct timing, when animationDurat
   render(
     <Drawer expanded showControls animationDuration="500ms">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
 
   const button = screen.getByRole("button", { name: "toggle sidebar" });
@@ -253,7 +253,7 @@ it("triggers opening animation sequence with correct timing, when animationDurat
   render(
     <Drawer expanded={false} showControls animationDuration="0.5s">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
 
   const button = screen.getByRole("button", { name: "toggle sidebar" });
@@ -282,7 +282,7 @@ it("triggers closing animation sequence with correct timing, when animationDurat
       animationDuration="0.5s"
     >
       Foobar
-    </Drawer>
+    </Drawer>,
   );
 
   const button = screen.getByRole("button", { name: "toggle sidebar" });
@@ -364,7 +364,7 @@ it("interrupts opening animation sequence, when user clicks on toggle button bef
   render(
     <Drawer expanded={false} showControls animationDuration="500">
       Foobar
-    </Drawer>
+    </Drawer>,
   );
 
   const button = screen.getByRole("button", { name: "toggle sidebar" });
@@ -399,7 +399,7 @@ describe("uncontrolled behaviour", () => {
     render(
       <Drawer defaultExpanded={false} sidebar="Sidebar content">
         Foobar
-      </Drawer>
+      </Drawer>,
     );
     expect(screen.getByText("Sidebar content")).not.toBeVisible();
   });
@@ -413,7 +413,7 @@ describe("uncontrolled behaviour", () => {
     expect(() => {
       rerender(<Drawer expanded>Foobar</Drawer>);
     }).toThrow(
-      "Drawer should not switch from uncontrolled to controlled (or vice versa). Decide between using a controlled or uncontrolled Drawer element for the lifetime of the component"
+      "Drawer should not switch from uncontrolled to controlled (or vice versa). Decide between using a controlled or uncontrolled Drawer element for the lifetime of the component",
     );
 
     consoleSpy.mockRestore();
@@ -425,7 +425,7 @@ describe("controlled behaviour", () => {
     render(
       <Drawer expanded sidebar="I am visible!">
         Foobar
-      </Drawer>
+      </Drawer>,
     );
     expect(screen.getByText("I am visible!")).toBeVisible();
   });
@@ -434,7 +434,7 @@ describe("controlled behaviour", () => {
     render(
       <Drawer expanded={false} sidebar="I am hidden...">
         Foobar
-      </Drawer>
+      </Drawer>,
     );
     expect(screen.getByText("I am hidden...")).not.toBeVisible();
   });
@@ -448,7 +448,7 @@ describe("controlled behaviour", () => {
     expect(() => {
       rerender(<Drawer expanded={undefined}>Foobar</Drawer>);
     }).toThrow(
-      "Drawer should not switch from uncontrolled to controlled (or vice versa). Decide between using a controlled or uncontrolled Drawer element for the lifetime of the component"
+      "Drawer should not switch from uncontrolled to controlled (or vice versa). Decide between using a controlled or uncontrolled Drawer element for the lifetime of the component",
     );
 
     consoleSpy.mockRestore();

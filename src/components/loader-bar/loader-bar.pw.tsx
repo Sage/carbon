@@ -10,11 +10,13 @@ import {
 } from "../../../playwright/support/helper";
 
 test.describe("LoaderBar component tests", () => {
-  ([
-    [LOADER_BAR_SIZES[0], 4],
-    [LOADER_BAR_SIZES[1], 8],
-    [LOADER_BAR_SIZES[2], 16],
-  ] as [LoaderBarProps["size"], number][]).forEach(([size, height]) => {
+  (
+    [
+      [LOADER_BAR_SIZES[0], 4],
+      [LOADER_BAR_SIZES[1], 8],
+      [LOADER_BAR_SIZES[2], 16],
+    ] as [LoaderBarProps["size"], number][]
+  ).forEach(([size, height]) => {
     test(`should render with ${size} size`, async ({ mount, page }) => {
       await mount(<LoaderBarComponent size={size} mt={2} />);
 
@@ -28,7 +30,7 @@ test.describe("LoaderBar component tests", () => {
       const duration = await getStyle(progressBarTimer, "animation-duration");
       const playState = await getStyle(
         progressBarTimer,
-        "animation-play-state"
+        "animation-play-state",
       );
       expect(duration).toEqual("2s");
       expect(playState).toEqual("running");
@@ -47,11 +49,13 @@ test.describe("LoaderBar component tests", () => {
 });
 
 test.describe("Accessibility tests for LoaderBar", () => {
-  ([
-    LOADER_BAR_SIZES[0],
-    LOADER_BAR_SIZES[1],
-    LOADER_BAR_SIZES[2],
-  ] as LoaderBarProps["size"][]).forEach((size) => {
+  (
+    [
+      LOADER_BAR_SIZES[0],
+      LOADER_BAR_SIZES[1],
+      LOADER_BAR_SIZES[2],
+    ] as LoaderBarProps["size"][]
+  ).forEach((size) => {
     test(`should pass tests for ${size} size`, async ({ mount, page }) => {
       await mount(<LoaderBarComponent size={size} />);
 

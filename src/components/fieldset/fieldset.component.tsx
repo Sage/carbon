@@ -31,7 +31,7 @@ export const Fieldset = ({
   useEffect(() => {
     if (ref && required) {
       Array.from(
-        ref.querySelectorAll("input") || /* istanbul ignore next */ []
+        ref.querySelectorAll("input") || /* istanbul ignore next */ [],
       ).forEach((el) => {
         el.setAttribute("required", "");
       });

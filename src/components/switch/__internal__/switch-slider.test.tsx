@@ -70,7 +70,7 @@ test("when `disabled` is true, the correct ::before styles are applied", () => {
     "var(--colorsActionDisabled600)",
     {
       modifier: "::before",
-    }
+    },
   );
 });
 
@@ -85,7 +85,7 @@ test("when `checked` is true and `size` is large, the correct ::before styles ar
     "calc( 100% - var(--spacing500) )",
     {
       modifier: "::before",
-    }
+    },
   );
 });
 
@@ -105,7 +105,7 @@ test("when `checked` true and `disabled` true, the correct styles are applied", 
 
   expect(wrapper).toHaveStyleRule(
     "background-color",
-    "var(--colorsActionDisabled500)"
+    "var(--colorsActionDisabled500)",
   );
 });
 
@@ -114,7 +114,7 @@ test("when the consumer has opted out of rounded corners styling, the correct bo
   render(
     <CarbonProvider roundedCornersOptOut>
       <SwitchSlider />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const switchPanel = screen.getByTestId("slider");
@@ -127,7 +127,7 @@ test("when `size` is large and the consumer has opted out of rounded corners sty
   render(
     <CarbonProvider roundedCornersOptOut>
       <SwitchSlider size="large" />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const switchPanel = screen.getByTestId("slider");

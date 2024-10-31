@@ -325,7 +325,7 @@ MultiSelect.storyName = "Multi Select";
 export const SingleTile: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);
@@ -350,7 +350,7 @@ SingleTile.storyName = "Single Tile";
 export const WithAFooter: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);
@@ -388,7 +388,7 @@ WithAFooter.storyName = "With a Footer";
 export const WithAPrefixAdornment: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);
@@ -422,7 +422,7 @@ WithAPrefixAdornment.storyName = "With a Prefix Adornment";
 export const WithAdditionalInformation: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);
@@ -461,7 +461,7 @@ export const WithAccordionFooter: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [expanded, setExpanded] = useState(true);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);

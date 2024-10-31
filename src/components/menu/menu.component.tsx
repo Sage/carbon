@@ -47,14 +47,14 @@ export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
     /* istanbul ignore else */
     if (ref.current) {
       const focusableItems = ref.current.querySelectorAll(
-        MENU_ITEM_CHILDREN_LOCATOR
+        MENU_ITEM_CHILDREN_LOCATOR,
       );
 
       /* istanbul ignore else */
       if (focusableItems) {
         const newIndex = menuKeyboardNavigation(
           event,
-          Array.from(focusableItems)
+          Array.from(focusableItems),
         );
 
         /* istanbul ignore else */

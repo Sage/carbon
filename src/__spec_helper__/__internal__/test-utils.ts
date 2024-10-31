@@ -34,7 +34,7 @@ const assertStyleMatch: any = <Props>(
     | ReactTestRendererJSON[]
     | null
     | HTMLElement,
-  opts?: jest.Options
+  opts?: jest.Options,
 ) => {
   Object.entries(styleSpec).forEach(([attr, value]) => {
     expect(component).toHaveStyleRule(toCSSCase(attr), value, opts);
@@ -66,27 +66,36 @@ const keys = [
   "1",
 ];
 
-const keyboard = keys.reduce((acc, key) => {
-  const methodName = `press${key === " " ? "Space" : key}`;
-  acc[methodName] = () => dispatchKeyPress(key);
-  return acc;
-}, {} as Record<string, () => void>);
+const keyboard = keys.reduce(
+  (acc, key) => {
+    const methodName = `press${key === " " ? "Space" : key}`;
+    acc[methodName] = () => dispatchKeyPress(key);
+    return acc;
+  },
+  {} as Record<string, () => void>,
+);
 
 // Build an object of Enzyme simulate helpers
 // e.g. simulate.keydown.pressTab(target, { shiftKey: true })
 // e.g. simulate.keydown.pressEscape(target)
-const keydown = keys.reduce((acc, key) => {
-  const methodName = `press${key === " " ? "Space" : key}`;
+const keydown = keys.reduce(
+  (acc, key) => {
+    const methodName = `press${key === " " ? "Space" : key}`;
 
-  acc[methodName] = (target, { shiftKey } = { shiftKey: false }) => {
-    target.simulate("keydown", {
-      shiftKey,
-      key,
-    });
-  };
-  return acc;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}, {} as Record<string, (target: ReactWrapper<any>, { shiftKey }?: { shiftKey: boolean }) => void>);
+    acc[methodName] = (target, { shiftKey } = { shiftKey: false }) => {
+      target.simulate("keydown", {
+        shiftKey,
+        key,
+      });
+    };
+    return acc;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  },
+  {} as Record<
+    string,
+    (target: ReactWrapper<any>, { shiftKey }?: { shiftKey: boolean }) => void
+  >,
+);
 
 const simulate = {
   keydown,
@@ -110,40 +119,37 @@ const isUnique = (val: number, index: number, self: number[]) =>
 const isSelectableGiven = (nonSelectables: number[]) => (i: number) =>
   !nonSelectables.includes(i);
 
-const selectedItemReducer = (
-  method: (wrapper: ReactWrapper) => (i: number) => void
-) => (wrapper: ReactWrapper) => (acc: number[], i: number) => {
-  method(wrapper)(i);
-  return [...acc, selectedItemOf(wrapper)];
-};
+const selectedItemReducer =
+  (method: (wrapper: ReactWrapper) => (i: number) => void) =>
+  (wrapper: ReactWrapper) =>
+  (acc: number[], i: number) => {
+    method(wrapper)(i);
+    return [...acc, selectedItemOf(wrapper)];
+  };
 
 const arraysEqual = (arr1: number[], arr2: number[]) =>
   arr1.sort().join(",") === arr2.sort().join(",");
 
-const assertCorrectTraversal = (
-  method: (wrapper: ReactWrapper) => (i: number) => void
-) => (expect: jest.Expect) => ({
-  num,
-  nonSelectables = [],
-}: {
-  num: number;
-  nonSelectables?: number[];
-}) => (wrapper: ReactWrapper) => {
-  const array = makeArrayKeys(num);
-  const validIndexes = array.filter(isSelectableGiven(nonSelectables));
+const assertCorrectTraversal =
+  (method: (wrapper: ReactWrapper) => (i: number) => void) =>
+  (expect: jest.Expect) =>
+  ({ num, nonSelectables = [] }: { num: number; nonSelectables?: number[] }) =>
+  (wrapper: ReactWrapper) => {
+    const array = makeArrayKeys(num);
+    const validIndexes = array.filter(isSelectableGiven(nonSelectables));
 
-  const selectedItem = selectedItemOf(wrapper);
-  const indexesThatWereSelected = array
-    .reduce(selectedItemReducer(method)(wrapper), [selectedItem])
-    .filter(isUnique);
-  expect(arraysEqual(validIndexes, indexesThatWereSelected)).toBeTruthy();
-};
+    const selectedItem = selectedItemOf(wrapper);
+    const indexesThatWereSelected = array
+      .reduce(selectedItemReducer(method)(wrapper), [selectedItem])
+      .filter(isUnique);
+    expect(arraysEqual(validIndexes, indexesThatWereSelected)).toBeTruthy();
+  };
 
 const assertKeyboardTraversal = assertCorrectTraversal(
-  () => keyboard.pressArrowDown
+  () => keyboard.pressArrowDown,
 )(expect);
 const assertHoverTraversal = assertCorrectTraversal((wrapper: ReactWrapper) =>
-  hoverList(wrapper)
+  hoverList(wrapper),
 )(expect);
 
 const marginProps = [
@@ -159,7 +165,7 @@ const marginProps = [
 ] as const;
 
 type MarginProps = {
-  [K in typeof marginProps[number][0]]?: string | number;
+  [K in (typeof marginProps)[number][0]]?: string | number;
 };
 
 const paddingProps = [
@@ -175,7 +181,7 @@ const paddingProps = [
 ] as const;
 
 type PaddingProps = {
-  [K in typeof paddingProps[number][0]]?: string | number;
+  [K in (typeof paddingProps)[number][0]]?: string | number;
 };
 
 const colorProps = [
@@ -275,7 +281,7 @@ const testStyledSystemMargin = (
   component: (spacingProps?: MarginProps) => JSX.Element,
   defaults?: MarginProps,
   styleContainer?: (wrapper: ReactWrapper) => ReactWrapper,
-  assertOpts?: jest.Options
+  assertOpts?: jest.Options,
 ) => {
   describe("default props", () => {
     let wrapper: ReactWrapper;
@@ -309,7 +315,7 @@ const testStyledSystemMargin = (
             marginBottom,
           },
           StyleElement,
-          assertOpts
+          assertOpts,
         );
       } else {
         expect(StyleElement).not.toHaveStyleRule("marginLeft");
@@ -331,16 +337,16 @@ const testStyledSystemMargin = (
         assertStyleMatch(
           { [propName]: "var(--spacing200)" },
           styleContainer ? styleContainer(wrapper) : wrapper,
-          assertOpts
+          assertOpts,
         );
       });
-    }
+    },
   );
 };
 
 const testStyledSystemGrid = (
   component: (gridProperties?: GridProps) => JSX.Element,
-  elementQuery: () => HTMLElement
+  elementQuery: () => HTMLElement,
 ) => {
   describe.each(gridProps)(
     'when a prop is specified using the "%s" styled system props',
@@ -351,13 +357,13 @@ const testStyledSystemGrid = (
 
         assertStyleMatch({ [propName]: value }, elementQuery());
       });
-    }
+    },
   );
 };
 
 const testStyledSystemBackground = (
   component: (backgroundProperties?: BackgroundProps) => JSX.Element,
-  elementQuery: () => HTMLElement
+  elementQuery: () => HTMLElement,
 ) => {
   describe.each(backgroundProps)(
     'when a prop is specified using the "%s" styled system props',
@@ -368,13 +374,13 @@ const testStyledSystemBackground = (
 
         assertStyleMatch({ [styledSystemProp]: value }, elementQuery());
       });
-    }
+    },
   );
 };
 
 const testStyledSystemPosition = (
   component: (positionProperties?: PositionProps) => JSX.Element,
-  elementQuery: () => HTMLElement
+  elementQuery: () => HTMLElement,
 ) => {
   describe.each(positionProps)(
     'when a prop is specified using the "%s" styled system props',
@@ -385,14 +391,14 @@ const testStyledSystemPosition = (
 
         assertStyleMatch({ [styledSystemProp]: value }, elementQuery());
       });
-    }
+    },
   );
 };
 
 // this util will catch that a console output occurred without polluting the output when running the unit tests
 const expectConsoleOutput = (
   message: string,
-  type: "warn" | "error" = "error"
+  type: "warn" | "error" = "error",
 ) => {
   if (!message) {
     throw new Error(`no ${type} message provided`);
@@ -431,7 +437,7 @@ const testStyledSystemMarginRTL = (
   component: (spacingProps?: MarginProps) => JSX.Element,
   elementQuery: () => HTMLElement,
   defaults?: MarginProps,
-  assertOpts?: jest.Options
+  assertOpts?: jest.Options,
 ) => {
   describe("default props", () => {
     let StyleElement: HTMLElement;
@@ -464,7 +470,7 @@ const testStyledSystemMarginRTL = (
             marginBottom,
           },
           StyleElement,
-          assertOpts
+          assertOpts,
         );
       } else {
         expect(StyleElement).not.toHaveStyleRule("marginLeft");
@@ -486,10 +492,10 @@ const testStyledSystemMarginRTL = (
         assertStyleMatch(
           { [propName]: "var(--spacing200)" },
           elementQuery(),
-          assertOpts
+          assertOpts,
         );
       });
-    }
+    },
   );
 };
 
@@ -497,7 +503,7 @@ const testStyledSystemPaddingRTL = (
   component: (spacingProps?: PaddingProps) => JSX.Element,
   elementQuery: () => HTMLElement,
   defaults?: PaddingProps,
-  assertOpts?: jest.Options
+  assertOpts?: jest.Options,
 ) => {
   describe("default props", () => {
     let StyleElement: HTMLElement;
@@ -530,7 +536,7 @@ const testStyledSystemPaddingRTL = (
             paddingBottom,
           },
           StyleElement,
-          assertOpts
+          assertOpts,
         );
       } else {
         expect(StyleElement).not.toHaveStyleRule("paddingLeft");
@@ -552,10 +558,10 @@ const testStyledSystemPaddingRTL = (
         assertStyleMatch(
           { [propName]: "var(--spacing200)" },
           elementQuery(),
-          assertOpts
+          assertOpts,
         );
       });
-    }
+    },
   );
 };
 
@@ -563,19 +569,19 @@ const testStyledSystemSpacingRTL = (
   component: (spacingProps?: MarginProps | PaddingProps) => JSX.Element,
   elementQuery: () => HTMLElement,
   defaults?: MarginProps | PaddingProps,
-  assertOpts?: jest.Options
+  assertOpts?: jest.Options,
 ) => {
   testStyledSystemMarginRTL(
     component,
     elementQuery,
     defaults as MarginProps,
-    assertOpts
+    assertOpts,
   );
   testStyledSystemPaddingRTL(
     component,
     elementQuery,
     defaults as PaddingProps,
-    assertOpts
+    assertOpts,
   );
 };
 
@@ -583,7 +589,7 @@ const testStyledSystemColor = (
   // https://stackoverflow.com/questions/53711454/styled-system-props-typing-with-typescript
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: (colorProperties?: any) => JSX.Element,
-  elementQuery: () => HTMLElement
+  elementQuery: () => HTMLElement,
 ) => {
   describe.each(colorProps)(
     'when a prop is specified using the "%s" styled system props',
@@ -595,13 +601,13 @@ const testStyledSystemColor = (
         // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
         expect(StyleElement).toHaveStyleRule(propName, value);
       });
-    }
+    },
   );
 };
 
 const testStyledSystemWidthRTL = (
   component: (widthProperties?: { width: string }) => JSX.Element,
-  elementQuery: () => HTMLElement
+  elementQuery: () => HTMLElement,
 ) => {
   describe("when a width prop is specified using styled system props", () => {
     it("should set the width styling correctly", () => {
@@ -616,7 +622,7 @@ const testStyledSystemWidthRTL = (
 
 const testStyledSystemHeightRTL = (
   component: (heightProperties?: { height: string }) => JSX.Element,
-  elementQuery: () => HTMLElement
+  elementQuery: () => HTMLElement,
 ) => {
   describe("when a height prop is specified using styled system props", () => {
     it("should set the height styling correctly", () => {
@@ -631,7 +637,7 @@ const testStyledSystemHeightRTL = (
 
 const testStyledSystemLayout = (
   component: (layoutProperties?: LayoutProps) => JSX.Element,
-  elementQuery: () => HTMLElement
+  elementQuery: () => HTMLElement,
 ) => {
   describe.each(layoutProps)(
     'when a prop is specified using the "%s" styled system props',
@@ -643,13 +649,13 @@ const testStyledSystemLayout = (
         // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
         expect(StyleElement).toHaveStyleRule(propName, value);
       });
-    }
+    },
   );
 };
 
 const testStyledSystemFlexBox = (
   component: (flexboxProperties?: FlexboxProps) => JSX.Element,
-  elementQuery: () => HTMLElement
+  elementQuery: () => HTMLElement,
 ) => {
   describe.each(flexBoxProps)(
     'when a prop is specified using the "%s" styled system props',
@@ -660,7 +666,7 @@ const testStyledSystemFlexBox = (
 
         assertStyleMatch({ [propName]: value }, elementQuery());
       });
-    }
+    },
   );
 };
 

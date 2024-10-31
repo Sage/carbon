@@ -17,7 +17,7 @@ export interface TagProps {
  */
 function tagComponent(
   componentName: string | undefined,
-  props: TagProps & RestProps
+  props: TagProps & RestProps,
 ): TagProps {
   const tagProps: TagProps = {
     "data-component": componentName,

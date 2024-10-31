@@ -84,27 +84,27 @@ const Tabs = ({
   if (position !== "left" && headerWidth !== undefined) {
     // eslint-disable-next-line no-console
     console.error(
-      "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left"
+      "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left",
     );
   }
 
   /** The children nodes converted into an Array */
   const filteredChildren = useMemo(
     () => Children.toArray(children).filter((child) => child),
-    [children]
+    [children],
   ) as ReactElement[];
 
   /** Array of the tabIds for the child nodes */
   const tabIds = useMemo(
     () => filteredChildren.map((child) => child.props.tabId),
-    [filteredChildren]
+    [filteredChildren],
   );
 
   /** Array of refs to the TabTitle nodes */
   const tabRefs = useMemo<React.RefObject<HTMLElement>[]>(
     () =>
       Array.from({ length: filteredChildren.length }).map(() => createRef()),
-    [filteredChildren.length]
+    [filteredChildren.length],
   );
 
   const previousSelectedTabId = useRef(selectedTabId);
@@ -136,9 +136,10 @@ const Tabs = ({
   }, []);
 
   /** Returns true/false for if the given tab id is selected. */
-  const isTabSelected = useCallback((tabId) => tabId === selectedTabIdState, [
-    selectedTabIdState,
-  ]);
+  const isTabSelected = useCallback(
+    (tabId) => tabId === selectedTabIdState,
+    [selectedTabIdState],
+  );
 
   /** Updates the currently visible tab */
   const updateVisibleTab = useCallback(
@@ -150,7 +151,7 @@ const Tabs = ({
         onTabChange(tabid);
       }
     },
-    [onTabChange, isTabSelected]
+    [onTabChange, isTabSelected],
   );
 
   const blurPreviousSelectedTab = useCallback(() => {
@@ -273,10 +274,10 @@ const Tabs = ({
 
       const getValidationMessage = (
         message: string | undefined,
-        validations: Record<string, string | boolean> = {}
+        validations: Record<string, string | boolean> = {},
       ): string | undefined => {
         const summaryOfMessages = Object.values(validations).filter(
-          (value) => value && typeof value === "string"
+          (value) => value && typeof value === "string",
         ) as string[];
 
         if (!showValidationsSummary || !summaryOfMessages.length) {
@@ -345,7 +346,7 @@ const Tabs = ({
 
     if (!renderHiddenTabs) {
       const tab = filteredChildren.find((child) =>
-        isTabSelected(child.props.tabId)
+        isTabSelected(child.props.tabId),
       );
 
       return (

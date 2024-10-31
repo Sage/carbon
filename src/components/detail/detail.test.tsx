@@ -13,7 +13,7 @@ test("renders with provided `footnote`", () => {
   render(<Detail footnote="extra info">foo</Detail>);
 
   const footnoteText = within(screen.getByTestId("footnote")).getByText(
-    "extra info"
+    "extra info",
   );
 
   expect(footnoteText).toBeVisible();
@@ -32,7 +32,7 @@ test("renders with provided data- tags", () => {
   render(
     <Detail data-element="bar" data-role="baz">
       foo
-    </Detail>
+    </Detail>,
   );
 
   expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
@@ -43,7 +43,7 @@ test("renders with expected styles when `icon` and `footnote` are passed", () =>
   render(
     <Detail icon="bin" footnote="extra info">
       foo
-    </Detail>
+    </Detail>,
   );
 
   const footnote = screen.getByTestId("footnote");
@@ -57,5 +57,5 @@ testStyledSystemMarginRTL(
       foo
     </Detail>
   ),
-  () => screen.getByTestId("detail")
+  () => screen.getByTestId("detail"),
 );

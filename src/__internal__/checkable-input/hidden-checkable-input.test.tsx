@@ -66,7 +66,7 @@ test("calls `onFocus` callback from InputContext when input is focused", async (
   render(
     <InputContext.Provider value={{ onFocus }}>
       <HiddenCheckableInput type="checkbox" />
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
 
   await user.tab();
@@ -80,7 +80,7 @@ test("calls `onBlur` callback from InputContext when input is blurred", async ()
   render(
     <InputContext.Provider value={{ onBlur }}>
       <HiddenCheckableInput type="checkbox" />
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
 
   await user.tab();
@@ -95,7 +95,7 @@ test("calls `onMouseEnter` callback from InputContext when input is hovered", as
   render(
     <InputContext.Provider value={{ onMouseEnter }}>
       <HiddenCheckableInput type="checkbox" />
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
 
   await user.hover(screen.getByRole("checkbox"));
@@ -109,7 +109,7 @@ test("calls `onMouseLeave` callback from InputContext when input is unhovered", 
   render(
     <InputContext.Provider value={{ onMouseLeave }}>
       <HiddenCheckableInput type="checkbox" />
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
 
   const checkbox = screen.getByRole("checkbox");
@@ -126,7 +126,7 @@ test("calls `onFocus` callback from InputGroupContext when input is focused", as
   render(
     <InputGroupContext.Provider value={{ onFocus }}>
       <HiddenCheckableInput type="checkbox" />
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 
   await user.tab();
@@ -140,7 +140,7 @@ test("calls `onBlur` callback from InputGroupContext when input is blurred", asy
   render(
     <InputGroupContext.Provider value={{ onBlur }}>
       <HiddenCheckableInput type="checkbox" />
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 
   await user.tab();
@@ -155,7 +155,7 @@ test("calls `onMouseEnter` callback from InputGroupContext when input is hovered
   render(
     <InputGroupContext.Provider value={{ onMouseEnter }}>
       <HiddenCheckableInput type="checkbox" />
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 
   await user.hover(screen.getByRole("checkbox"));
@@ -169,7 +169,7 @@ test("calls `onMouseLeave` callback from InputGroupContext when input is unhover
   render(
     <InputGroupContext.Provider value={{ onMouseLeave }}>
       <HiddenCheckableInput type="checkbox" />
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 
   const checkbox = screen.getByRole("checkbox");

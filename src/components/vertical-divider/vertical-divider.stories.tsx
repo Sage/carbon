@@ -27,7 +27,7 @@ const styledSystemProps = generateStyledSystemProps(
   {
     spacing: true,
   },
-  { p: "3" }
+  { p: "3" },
 );
 
 const meta: Meta<typeof VerticalDivider> = {

@@ -128,21 +128,21 @@ test("should set the expected data- attributes on the table body", () => {
           <FlatTableCell>Germany</FlatTableCell>
         </FlatTableRow>
       </FlatTableBodyDraggable>
-    </FlatTable>
+    </FlatTable>,
   );
   const ftDraggableBody = screen.getByRole("rowgroup");
 
   expect(ftDraggableBody).toHaveAttribute(
     "data-component",
-    "flat-table-body-draggable"
+    "flat-table-body-draggable",
   );
   expect(ftDraggableBody).toHaveAttribute(
     "data-element",
-    "ft-draggable-data-element"
+    "ft-draggable-data-element",
   );
   expect(ftDraggableBody).toHaveAttribute(
     "data-role",
-    "ft-draggable-data-role"
+    "ft-draggable-data-role",
   );
 });
 
@@ -203,7 +203,7 @@ describe("drag and drop functionality", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("flat-table-body-draggable")).toHaveStyle(
-        "cursor: grabbing"
+        "cursor: grabbing",
       );
     });
   });
@@ -359,7 +359,7 @@ it("calls getOrder callback when the order is changed and getOrder prop is set",
           <FlatTableCell>Row three</FlatTableCell>
         </FlatTableRow>
       </FlatTableBodyDraggable>
-    </FlatTable>
+    </FlatTable>,
   );
   const elementToDrag = screen.getByRole("row", { name: "Row one" });
 

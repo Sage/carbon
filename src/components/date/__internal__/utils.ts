@@ -33,7 +33,7 @@ function hasMatchedFormat(
   formatString: string,
   valueString: string,
   fullFormat: string[],
-  fullValue: string[]
+  fullValue: string[],
 ) {
   if (formatString.includes("d")) {
     return (
@@ -66,7 +66,7 @@ export function additionalYears(formatString: string, value: string) {
   let year = value.substring(yearStringStartIndex, yearStringEndIndex);
   const dayAndMonth = value.substring(
     dayAndMonthStringStartIndex,
-    dayAndMonthStringEndIndex
+    dayAndMonthStringEndIndex,
   );
   const yearAsNumber = Number(year);
 
@@ -95,7 +95,7 @@ function makeSeparatedValues(arr: number[], str: string) {
 
 function checkForCompleteMatch(formatArray: string[], valueArray: string[]) {
   return formatArray.every((formatString, i) =>
-    hasMatchedFormat(formatString, valueArray[i], formatArray, valueArray)
+    hasMatchedFormat(formatString, valueArray[i], formatArray, valueArray),
   );
 }
 
@@ -122,7 +122,7 @@ function findMatchWithNoSeparators(valueString: string, formatString: string) {
 function findMatchWithSeparators(
   valueString: string,
   formatString: string,
-  separator: string
+  separator: string,
 ) {
   const formatArray = formatString.split(separator);
   const valueArray = valueString.split(separator);
@@ -144,7 +144,7 @@ export const getSeparator = (value: string) => {
 
 export function findMatchedFormatAndValue(
   valueString: string,
-  formats: string[]
+  formats: string[],
 ) {
   if (!valueString) {
     return ["", ""];
@@ -154,7 +154,7 @@ export function findMatchedFormatAndValue(
   const filteredFormats = formats.filter(
     (formatString) =>
       formatString.length === valueString.length &&
-      getSeparator(formatString) === valueSeparator
+      getSeparator(formatString) === valueSeparator,
   );
 
   const matchedFormatAndValue = filteredFormats.reduce(
@@ -178,7 +178,7 @@ export function findMatchedFormatAndValue(
         const match = findMatchWithSeparators(
           valueString,
           formatString,
-          valueSeparator
+          valueSeparator,
         );
 
         if (match) {
@@ -187,7 +187,7 @@ export function findMatchedFormatAndValue(
       }
       return acc;
     },
-    []
+    [],
   );
 
   return matchedFormatAndValue;
@@ -219,7 +219,7 @@ export function checkISOFormatAndLength(value: string) {
  */
 export function getDisabledDays(
   minDate = "",
-  maxDate = ""
+  maxDate = "",
 ): Modifier | Modifier[] {
   const days = [];
 

@@ -15,7 +15,7 @@ testStyledSystemPaddingRTL(
     </Page>
   ),
   () => screen.getByTestId("page-content"),
-  { p: "30px 40px" }
+  { p: "30px 40px" },
 );
 
 test("renders both heading and children", () => {

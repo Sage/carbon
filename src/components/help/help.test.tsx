@@ -75,7 +75,7 @@ test("composed content is rendered inside the tooltip", async () => {
     <Help>
       <Icon type="info" />
       <span>foo</span>
-    </Help>
+    </Help>,
   );
 
   await user.hover(screen.getByRole("button", { name: "help" }));
@@ -103,7 +103,7 @@ test("renders as a link when `href` is provided", () => {
 
   expect(screen.getByRole("link")).toHaveAttribute(
     "href",
-    "http://carbon.sage.com"
+    "http://carbon.sage.com",
   );
 });
 
@@ -118,7 +118,7 @@ test("renders with provided `helpId` and `tooltipId`", async () => {
   render(
     <Help helpId="foo" tooltipId="bar">
       foo
-    </Help>
+    </Help>,
   );
 
   const helpButton = screen.getByRole("button", { name: "help" });
@@ -129,6 +129,6 @@ test("renders with provided `helpId` and `tooltipId`", async () => {
 
   expect(screen.getByRole("tooltip", { name: "foo" })).toHaveAttribute(
     "id",
-    "bar"
+    "bar",
   );
 });

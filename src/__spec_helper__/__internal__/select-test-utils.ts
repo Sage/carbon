@@ -31,7 +31,7 @@ export function simulateSelectTextboxEvent(
 
 export function simulateDropdownEvent(
   container: ReactWrapper,
-  eventType: string
+  eventType: string,
 ) {
   const dropdown = container.find('[type="dropdown"]').first();
 

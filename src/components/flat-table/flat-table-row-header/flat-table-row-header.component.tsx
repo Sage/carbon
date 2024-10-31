@@ -74,7 +74,7 @@ export const FlatTableRowHeader = ({
     (ev: React.MouseEvent<HTMLElement>) => {
       if (isExpandableCell && onClick) onClick(ev);
     },
-    [isExpandableCell, onClick]
+    [isExpandableCell, onClick],
   );
 
   const handleOnFocus = (ev: React.FocusEvent<HTMLElement>) => {
@@ -88,7 +88,7 @@ export const FlatTableRowHeader = ({
         onKeyDown(ev);
       }
     },
-    [isExpandableCell, onKeyDown]
+    [isExpandableCell, onKeyDown],
   );
 
   return (

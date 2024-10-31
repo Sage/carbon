@@ -23,7 +23,7 @@ export const ButtonMinor = React.forwardRef<
       fullWidth: fullWidthProp = false,
       ...rest
     }: ButtonMinorProps,
-    ref
+    ref,
   ) => {
     const {
       buttonType: buttonTypeContext,
@@ -52,7 +52,7 @@ export const ButtonMinor = React.forwardRef<
         {...rest}
       />
     );
-  }
+  },
 );
 
 ButtonMinor.displayName = "ButtonMinor";

@@ -11,7 +11,7 @@ jest.mock("../../hooks/useMediaQuery", () => ({
 
 testStyledSystemMarginRTL(
   (props) => <Loader {...props} />,
-  () => screen.getByRole("progressbar")
+  () => screen.getByRole("progressbar"),
 );
 
 test("when the user disallows animations or their preference cannot be determined, alternative loading text is rendered", () => {
@@ -46,7 +46,7 @@ describe("when the user allows animations", () => {
     render(<Loader aria-label="Still loading" />);
 
     expect(screen.getByRole("progressbar")).toHaveAccessibleName(
-      "Still loading"
+      "Still loading",
     );
   });
 });

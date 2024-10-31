@@ -25,18 +25,17 @@ const oldFocusStyling = `
 `;
 
 export const ErrorBorder = styled.span`
-  ${({ warning }: { warning: boolean }) =>
-    css`
-      position: absolute;
-      z-index: 6;
-      width: 2px;
-      background-color: ${warning
-        ? "var(--colorsSemanticCaution500)"
-        : "var(--colorsSemanticNegative500)"};
-      left: -12px;
-      bottom: -4px;
-      top: 2px;
-    `}
+  ${({ warning }: { warning: boolean }) => css`
+    position: absolute;
+    z-index: 6;
+    width: 2px;
+    background-color: ${warning
+      ? "var(--colorsSemanticCaution500)"
+      : "var(--colorsSemanticNegative500)"};
+    left: -12px;
+    bottom: -4px;
+    top: 2px;
+  `}
 `;
 
 export const StyledHintText = styled.div`

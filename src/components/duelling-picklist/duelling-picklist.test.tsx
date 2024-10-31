@@ -14,13 +14,13 @@ import {
 
 const reducer = (
   oldState: { selected: number[]; unselected: number[] },
-  action: { type: "add" | "remove"; item: number }
+  action: { type: "add" | "remove"; item: number },
 ) => {
   const { selected, unselected } = oldState;
   switch (action.type) {
     case "add": {
       const index = unselected.findIndex(
-        (listItem) => listItem === action.item
+        (listItem) => listItem === action.item,
       );
       const selectedItem = unselected[index];
       const tempNotSelectedItems = [...unselected];
@@ -105,7 +105,7 @@ const groupReducer = (
     selected: { groupA: number[]; groupB: number[] };
     unselected: { groupA: number[]; groupB: number[] };
   },
-  action: { type: "add" | "remove"; group: "groupA" | "groupB" }
+  action: { type: "add" | "remove"; group: "groupA" | "groupB" },
 ) => {
   const { selected, unselected } = oldState;
   const { type, group } = action;
@@ -264,7 +264,7 @@ test("an item that is added to the selected items has an animation", async () =>
   await user.click(screen.getAllByRole("button", { name: "add" })[0]);
 
   expect(
-    within(screen.getAllByTestId("picklist")[1]).getAllByRole("listitem")[3]
+    within(screen.getAllByTestId("picklist")[1]).getAllByRole("listitem")[3],
   ).toHaveClass("picklist-item-enter");
 });
 
@@ -275,7 +275,7 @@ test("an item that is removed from the selected items has no animation", async (
   await user.click(screen.getAllByRole("button", { name: "remove" })[0]);
 
   expect(
-    within(screen.getAllByTestId("picklist")[0]).getAllByRole("listitem")[3]
+    within(screen.getAllByTestId("picklist")[0]).getAllByRole("listitem")[3],
   ).not.toHaveClass("picklist-item-enter");
 });
 
@@ -284,7 +284,7 @@ test("when the end key is pressed, the last item in the currently-focused list i
   render(<FullComponentExample />);
 
   const buttonsInFirstList = within(
-    screen.getAllByTestId("picklist")[0]
+    screen.getAllByTestId("picklist")[0],
   ).getAllByRole("button", { name: "add" });
   buttonsInFirstList[0].focus();
 
@@ -298,7 +298,7 @@ test("when the home key is pressed, the first item in the currently-focused list
   render(<FullComponentExample />);
 
   const buttonsInFirstList = within(
-    screen.getAllByTestId("picklist")[0]
+    screen.getAllByTestId("picklist")[0],
   ).getAllByRole("button", { name: "add" });
   buttonsInFirstList[2].focus();
 
@@ -312,7 +312,7 @@ test("when the a key other than home/end is pressed, focus is not changed", asyn
   render(<FullComponentExample />);
 
   const buttonsInFirstList = within(
-    screen.getAllByTestId("picklist")[0]
+    screen.getAllByTestId("picklist")[0],
   ).getAllByRole("button", { name: "add" });
   buttonsInFirstList[1].focus();
 
@@ -347,7 +347,7 @@ test.each([
 
     expect(onAdd).toHaveBeenCalledTimes(1);
     expect(onAdd).toHaveBeenCalledWith(1);
-  }
+  },
 );
 
 test("the Picklist component renders a custom empty placeholder when no children are present", () => {
@@ -360,13 +360,13 @@ test("the Picklist component renders a PicklistPlaceholder component if specifie
   render(
     <Picklist
       placeholder={<PicklistPlaceholder text="nothing to see here" />}
-    />
+    />,
   );
 
   expect(screen.getByText("nothing to see here")).toBeVisible();
   expect(screen.getByText("nothing to see here")).toHaveAttribute(
     "data-element",
-    "picklist-placeholder"
+    "picklist-placeholder",
   );
 });
 
@@ -376,7 +376,7 @@ test("the left label is rendered when the `leftLabel` prop is provided", () => {
   expect(screen.getByText("Left Label")).toBeVisible();
   expect(screen.getByText("Left Label")).toHaveAttribute(
     "data-element",
-    "picklist-left-label"
+    "picklist-left-label",
   );
 });
 
@@ -386,7 +386,7 @@ test("the right label is rendered when the `rightLabel` prop is provided", () =>
   expect(screen.getByText("Right Label")).toBeVisible();
   expect(screen.getByText("Right Label")).toHaveAttribute(
     "data-element",
-    "picklist-right-label"
+    "picklist-right-label",
   );
 });
 
@@ -394,13 +394,13 @@ test("the left controls are rendered when the `leftControls` prop is provided", 
   render(
     <DuellingPicklist
       leftControls={<p data-element="custom-left-controls">left controls</p>}
-    />
+    />,
   );
 
   expect(screen.getByText("left controls")).toBeVisible();
   expect(screen.getByText("left controls")).toHaveAttribute(
     "data-element",
-    "custom-left-controls"
+    "custom-left-controls",
   );
 });
 
@@ -408,13 +408,13 @@ test("the right controls are rendered when the `rightControls` prop is provided"
   render(
     <DuellingPicklist
       rightControls={<p data-element="custom-right-controls">right controls</p>}
-    />
+    />,
   );
 
   expect(screen.getByText("right controls")).toBeVisible();
   expect(screen.getByText("right controls")).toHaveAttribute(
     "data-element",
-    "custom-right-controls"
+    "custom-right-controls",
   );
 });
 
@@ -423,7 +423,7 @@ test("no error is thrown when incorrect children are provided to the `Picklist` 
     render(
       <DuellingPicklist>
         <Picklist>invalid</Picklist>
-      </DuellingPicklist>
+      </DuellingPicklist>,
     );
   }).not.toThrow();
 });
@@ -433,12 +433,12 @@ test("when the add button is clicked on an item, focus moves to the next item in
   render(<FullComponentExample />);
 
   const buttonsInFirstList = within(
-    screen.getAllByTestId("picklist")[0]
+    screen.getAllByTestId("picklist")[0],
   ).getAllByRole("button", { name: "add" });
   await user.click(buttonsInFirstList[1]);
 
   const remainingButtonsInFirstList = within(
-    screen.getAllByTestId("picklist")[0]
+    screen.getAllByTestId("picklist")[0],
   ).getAllByRole("button", { name: "add" });
   expect(remainingButtonsInFirstList[1]).toHaveFocus();
 });
@@ -448,14 +448,14 @@ test("when the last item button in the first picklist is clicked, focus moves to
   render(<FullComponentExample />);
 
   const allSourceButtons = within(
-    screen.getAllByTestId("picklist")[0]
+    screen.getAllByTestId("picklist")[0],
   ).getAllByRole("button", { name: "add" });
   await user.click(allSourceButtons[allSourceButtons.length - 1]);
 
   expect(
     within(screen.getAllByTestId("picklist")[1]).getAllByRole("button", {
       name: "remove",
-    })[0]
+    })[0],
   ).toHaveFocus();
 });
 
@@ -464,14 +464,14 @@ test("when the last item button in the second picklist is clicked, focus moves t
   render(<FullComponentExample />);
 
   const allSourceButtons = within(
-    screen.getAllByTestId("picklist")[1]
+    screen.getAllByTestId("picklist")[1],
   ).getAllByRole("button", { name: "remove" });
   await user.click(allSourceButtons[allSourceButtons.length - 1]);
 
   expect(
     within(screen.getAllByTestId("picklist")[0]).getAllByRole("button", {
       name: "add",
-    })[0]
+    })[0],
   ).toHaveFocus();
 });
 
@@ -485,7 +485,7 @@ test.each([
     render(<FullComponentExample />);
 
     const allSourceButtons = within(
-      screen.getAllByTestId("picklist")[0]
+      screen.getAllByTestId("picklist")[0],
     ).getAllByRole("button", { name: "add" });
     allSourceButtons[allSourceButtons.length - 1].focus();
     await user.keyboard(key);
@@ -493,9 +493,9 @@ test.each([
     expect(
       within(screen.getAllByTestId("picklist")[1]).getAllByRole("button", {
         name: "remove",
-      })[0]
+      })[0],
     ).toHaveFocus();
-  }
+  },
 );
 
 test.each([
@@ -508,7 +508,7 @@ test.each([
     render(<FullComponentExample />);
 
     const allSourceButtons = within(
-      screen.getAllByTestId("picklist")[1]
+      screen.getAllByTestId("picklist")[1],
     ).getAllByRole("button", { name: "remove" });
     allSourceButtons[allSourceButtons.length - 1].focus();
     await user.keyboard(key);
@@ -516,9 +516,9 @@ test.each([
     expect(
       within(screen.getAllByTestId("picklist")[0]).getAllByRole("button", {
         name: "add",
-      })[0]
+      })[0],
     ).toHaveFocus();
-  }
+  },
 );
 
 test("when the add button is clicked for an entire group, focus moves to the next group's add button", async () => {
@@ -526,13 +526,13 @@ test("when the add button is clicked for an entire group, focus moves to the nex
   render(<FullGroupedComponentExample />);
 
   const groupAddButtons = within(
-    screen.getAllByTestId("picklist")[0]
+    screen.getAllByTestId("picklist")[0],
   ).getAllByTestId("picklist-group-button");
   expect(groupAddButtons).toHaveLength(2);
   await user.click(groupAddButtons[0]);
 
   const remainingGroupAddButtons = within(
-    screen.getAllByTestId("picklist")[0]
+    screen.getAllByTestId("picklist")[0],
   ).getAllByTestId("picklist-group-button");
   expect(remainingGroupAddButtons).toHaveLength(1);
   expect(remainingGroupAddButtons[0]).toHaveFocus();
@@ -543,14 +543,14 @@ test("when the last group button in the first picklist is clicked, and the list 
   render(<FullGroupedComponentExample />);
 
   const allSourceGroupButtons = within(
-    screen.getAllByTestId("picklist")[0]
+    screen.getAllByTestId("picklist")[0],
   ).getAllByTestId("picklist-group-button");
   await user.click(allSourceGroupButtons[allSourceGroupButtons.length - 1]);
 
   expect(
     within(screen.getAllByTestId("picklist")[1]).getAllByTestId(
-      "picklist-group-button"
-    )[0]
+      "picklist-group-button",
+    )[0],
   ).toHaveFocus();
 });
 
@@ -559,14 +559,14 @@ test("when the last group button in the second picklist is clicked, and the list
   render(<FullGroupedComponentExample />);
 
   const allSourceGroupButtons = within(
-    screen.getAllByTestId("picklist")[1]
+    screen.getAllByTestId("picklist")[1],
   ).getAllByTestId("picklist-group-button");
   await user.click(allSourceGroupButtons[allSourceGroupButtons.length - 1]);
 
   expect(
     within(screen.getAllByTestId("picklist")[0]).getAllByTestId(
-      "picklist-group-button"
-    )[0]
+      "picklist-group-button",
+    )[0],
   ).toHaveFocus();
 });
 
@@ -580,17 +580,17 @@ test.each([
     render(<FullGroupedComponentExample />);
 
     const allSourceGroupButtons = within(
-      screen.getAllByTestId("picklist")[0]
+      screen.getAllByTestId("picklist")[0],
     ).getAllByTestId("picklist-group-button");
     allSourceGroupButtons[allSourceGroupButtons.length - 1].focus();
     await user.keyboard(key);
 
     expect(
       within(screen.getAllByTestId("picklist")[1]).getAllByTestId(
-        "picklist-group-button"
-      )[0]
+        "picklist-group-button",
+      )[0],
     ).toHaveFocus();
-  }
+  },
 );
 
 test.each([
@@ -603,17 +603,17 @@ test.each([
     render(<FullGroupedComponentExample />);
 
     const allSourceGroupButtons = within(
-      screen.getAllByTestId("picklist")[1]
+      screen.getAllByTestId("picklist")[1],
     ).getAllByTestId("picklist-group-button");
     allSourceGroupButtons[allSourceGroupButtons.length - 1].focus();
     await user.keyboard(key);
 
     expect(
       within(screen.getAllByTestId("picklist")[0]).getAllByTestId(
-        "picklist-group-button"
-      )[0]
+        "picklist-group-button",
+      )[0],
     ).toHaveFocus();
-  }
+  },
 );
 
 // for coverage (styles are also tested in Playwright)

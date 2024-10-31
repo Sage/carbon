@@ -28,7 +28,7 @@ testStyledSystemMarginRTL(
   (props) => <Decimal data-role="decimal" {...props} />,
   () => screen.getByTestId("decimal"),
   undefined,
-  { modifier: "&&&" }
+  { modifier: "&&&" },
 );
 
 describe("when the component is uncontrolled", () => {
@@ -37,7 +37,7 @@ describe("when the component is uncontrolled", () => {
     render(<Decimal defaultValue="0.01" />);
 
     expect(loggerSpy).toHaveBeenCalledWith(
-      "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
     );
     expect(loggerSpy).toHaveBeenCalledTimes(1);
 
@@ -142,7 +142,7 @@ describe("when the component is uncontrolled", () => {
 
     rerender(<Decimal precision={1} />);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect."
+      "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect.",
     );
     consoleSpy.mockRestore();
   });
@@ -186,11 +186,11 @@ describe("when the component is uncontrolled", () => {
     "formats the default value correctly when the precision is (%s)",
     (precisionValue, decimalValue) => {
       render(
-        <Decimal defaultValue={decimalValue} precision={precisionValue} />
+        <Decimal defaultValue={decimalValue} precision={precisionValue} />,
       );
       expect(screen.getByRole("textbox")).toHaveValue(decimalValue);
       expect(screen.getByTestId("hidden-input")).toHaveValue(decimalValue);
-    }
+    },
   );
 
   it("pads the value with 0s if the precision is greater than the number of decimal places", () => {
@@ -215,7 +215,7 @@ describe("when the component is uncontrolled", () => {
             rawValue: "12345.56",
           },
         },
-      })
+      }),
     );
   });
 
@@ -236,7 +236,7 @@ describe("when the component is uncontrolled", () => {
             rawValue: "12345.56",
           },
         },
-      })
+      }),
     );
   });
 
@@ -426,9 +426,9 @@ describe("when the component is uncontrolled", () => {
               rawValue: pastedText,
             },
           },
-        })
+        }),
       );
-    }
+    },
   );
 
   it.each([
@@ -449,7 +449,7 @@ describe("when the component is uncontrolled", () => {
 
       expect(decimalInput).toHaveValue(result);
       expect(screen.getByTestId("hidden-input")).toHaveValue(result);
-    }
+    },
   );
 
   // insertions at start and end have to be handled separately from the cases above, as setting the
@@ -540,7 +540,7 @@ describe("when the component is uncontrolled", () => {
 
       expect(decimalInput).toHaveValue(rawValue);
       expect(screen.getByTestId("hidden-input")).toHaveValue(sanitisedValue);
-    }
+    },
   );
 
   // as above, a simple cursor placement (no selection) at the start or end need special handling
@@ -627,7 +627,7 @@ describe("when the component is uncontrolled", () => {
 
       expect(decimalInput).toHaveValue(rawValue);
       expect(screen.getByTestId("hidden-input")).toHaveValue(sanitisedValue);
-    }
+    },
   );
 
   // as above, a simple cursor placement (no selection) at the start or end need special handling
@@ -669,7 +669,7 @@ describe("when the component is uncontrolled", () => {
 
       expect(screen.getByRole("textbox")).toHaveValue(input);
       expect(screen.getByTestId("hidden-input")).toHaveValue(input);
-    }
+    },
   );
 
   it("calls the onKeyPress callback when a key is pressed", async () => {
@@ -682,7 +682,7 @@ describe("when the component is uncontrolled", () => {
     await user.keyboard("1");
 
     expect(onKeyPress).toHaveBeenCalledWith(
-      expect.objectContaining({ key: "1" })
+      expect.objectContaining({ key: "1" }),
     );
   });
 
@@ -690,7 +690,7 @@ describe("when the component is uncontrolled", () => {
     render(<Decimal data-role="test-data-tag" />);
     expect(screen.getByTestId("test-data-tag")).toHaveAttribute(
       "data-component",
-      "decimal"
+      "decimal",
     );
   });
 
@@ -741,9 +741,9 @@ describe("when the component is uncontrolled", () => {
               rawValue,
             },
           },
-        })
+        }),
       );
-    }
+    },
   );
 
   it.each([
@@ -759,7 +759,7 @@ describe("when the component is uncontrolled", () => {
 
       expect(screen.getByRole("textbox")).toHaveValue(formatted);
       expect(screen.getByTestId("hidden-input")).toHaveValue(input);
-    }
+    },
   );
 
   it.each([
@@ -793,9 +793,9 @@ describe("when the component is uncontrolled", () => {
               rawValue,
             },
           },
-        })
+        }),
       );
-    }
+    },
   );
 
   it("formats an empty value correctly when precision is 0, allowEmptyValue is false, and the `es-ES` locale is set", async () => {
@@ -806,7 +806,7 @@ describe("when the component is uncontrolled", () => {
         defaultValue="123.45"
         allowEmptyValue={false}
         locale="es-ES"
-      />
+      />,
     );
 
     screen.getByRole("textbox").focus();
@@ -825,7 +825,7 @@ describe("when the component is uncontrolled", () => {
         defaultValue="123.45"
         allowEmptyValue={false}
         locale="es-ES"
-      />
+      />,
     );
 
     screen.getByRole("textbox").focus();
@@ -849,7 +849,7 @@ describe("when the component is uncontrolled", () => {
 
       expect(screen.getByRole("textbox")).toHaveValue(formatted);
       expect(screen.getByTestId("hidden-input")).toHaveValue(input);
-    }
+    },
   );
 
   it.each([
@@ -880,9 +880,9 @@ describe("when the component is uncontrolled", () => {
               rawValue,
             },
           },
-        })
+        }),
       );
-    }
+    },
   );
 
   it("correctly handles a value that has white-spaces when the `pt-PT` locale is set", async () => {
@@ -937,7 +937,7 @@ describe("when the component is uncontrolled", () => {
         defaultValue="123.45"
         allowEmptyValue={false}
         locale="pt-PT"
-      />
+      />,
     );
 
     screen.getByRole("textbox").focus();
@@ -956,7 +956,7 @@ describe("when the component is uncontrolled", () => {
         defaultValue="123.45"
         allowEmptyValue={false}
         locale="pt-PT"
-      />
+      />,
     );
 
     screen.getByRole("textbox").focus();
@@ -984,7 +984,7 @@ describe("when the component is uncontrolled", () => {
             rawValue: "11111.25",
           },
         },
-      })
+      }),
     );
   });
 
@@ -996,7 +996,7 @@ describe("when the component is uncontrolled", () => {
         defaultValue="123.45"
         allowEmptyValue={false}
         locale="fr"
-      />
+      />,
     );
 
     screen.getByRole("textbox").focus();
@@ -1015,7 +1015,7 @@ describe("when the component is uncontrolled", () => {
         defaultValue="123.45"
         allowEmptyValue={false}
         locale="fr"
-      />
+      />,
     );
 
     screen.getByRole("textbox").focus();
@@ -1088,7 +1088,7 @@ describe("when the component is uncontrolled", () => {
         defaultValue="123.45"
         allowEmptyValue={false}
         locale="it"
-      />
+      />,
     );
 
     screen.getByRole("textbox").focus();
@@ -1107,7 +1107,7 @@ describe("when the component is uncontrolled", () => {
         defaultValue="123.45"
         allowEmptyValue={false}
         locale="it"
-      />
+      />,
     );
 
     screen.getByRole("textbox").focus();
@@ -1161,7 +1161,7 @@ describe("when the component is controlled", () => {
         precision={0}
         startingValue=""
         allowEmptyValue={false}
-      />
+      />,
     );
 
     screen.getByRole("textbox").focus();
@@ -1178,7 +1178,7 @@ describe("when the component is controlled", () => {
         precision={1}
         startingValue=""
         allowEmptyValue={false}
-      />
+      />,
     );
 
     screen.getByRole("textbox").focus();
@@ -1264,7 +1264,7 @@ describe("when the component is controlled", () => {
     const onBlur = jest.fn();
     const user = userEvent.setup();
     render(
-      <ControlledDecimal startingValue="1" onBlur={onBlur} allowEmptyValue />
+      <ControlledDecimal startingValue="1" onBlur={onBlur} allowEmptyValue />,
     );
 
     const decimalInput = screen.getByRole("textbox");
@@ -1282,7 +1282,7 @@ describe("when the component is controlled", () => {
             rawValue: "",
           },
         },
-      })
+      }),
     );
   });
 
@@ -1306,7 +1306,7 @@ describe("when the component is controlled", () => {
             rawValue: "0.00",
           },
         },
-      })
+      }),
     );
   });
 });
@@ -1345,7 +1345,7 @@ test("when wrapped in an I18nProvider, the appropriate locale is used, and the f
       }}
     >
       <Decimal />
-    </I18nProvider>
+    </I18nProvider>,
   );
   expect(screen.getByRole("textbox")).toHaveValue("0,00");
 
@@ -1356,7 +1356,7 @@ test("when wrapped in an I18nProvider, the appropriate locale is used, and the f
       }}
     >
       <Decimal />
-    </I18nProvider>
+    </I18nProvider>,
   );
   screen.getByRole("textbox").focus();
   await user.tab();

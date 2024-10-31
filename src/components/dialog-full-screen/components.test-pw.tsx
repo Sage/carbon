@@ -190,32 +190,43 @@ export const DialogFullScreenBackgroundScrollTestComponent = () => {
   );
 };
 
-export const DialogFullScreenBackgroundScrollWithOtherFocusableContainers = () => {
-  const toast1Ref = useRef(null);
-  const toast2Ref = useRef(null);
-  return (
-    <Form>
-      <DialogFullScreen
-        open
-        onCancel={() => {}}
-        focusableContainers={[toast1Ref, toast2Ref]}
-      >
-        <Textbox label="textbox" />
-        <Box height="2000px" position="relative">
-          <Box height="100px" position="absolute" bottom="0px">
-            I should not be scrolled into view
+export const DialogFullScreenBackgroundScrollWithOtherFocusableContainers =
+  () => {
+    const toast1Ref = useRef(null);
+    const toast2Ref = useRef(null);
+    return (
+      <Form>
+        <DialogFullScreen
+          open
+          onCancel={() => {}}
+          focusableContainers={[toast1Ref, toast2Ref]}
+        >
+          <Textbox label="textbox" />
+          <Box height="2000px" position="relative">
+            <Box height="100px" position="absolute" bottom="0px">
+              I should not be scrolled into view
+            </Box>
           </Box>
-        </Box>
-      </DialogFullScreen>
-      <Toast open onDismiss={() => {}} ref={toast1Ref} targetPortalId="stacked">
-        Toast message 1
-      </Toast>
-      <Toast open onDismiss={() => {}} ref={toast2Ref} targetPortalId="stacked">
-        Toast message 2
-      </Toast>
-    </Form>
-  );
-};
+        </DialogFullScreen>
+        <Toast
+          open
+          onDismiss={() => {}}
+          ref={toast1Ref}
+          targetPortalId="stacked"
+        >
+          Toast message 1
+        </Toast>
+        <Toast
+          open
+          onDismiss={() => {}}
+          ref={toast2Ref}
+          targetPortalId="stacked"
+        >
+          Toast message 2
+        </Toast>
+      </Form>
+    );
+  };
 
 export const WithHelp = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -495,7 +506,7 @@ export const OtherFocusableContainers = () => {
 };
 
 export const DialogFullScreenWithTitleAsReactComponent = (
-  props: Partial<DialogFullScreenProps>
+  props: Partial<DialogFullScreenProps>,
 ) => {
   const TitleComponent = () => (
     <div>
@@ -966,7 +977,7 @@ export const DialogFullScreenWithAutoFocusSelect = () => {
 };
 
 export const DialogFSComponentFocusableSelectors = (
-  props: Partial<DialogFullScreenProps>
+  props: Partial<DialogFullScreenProps>,
 ) => {
   const [setIsDialogOpen] = React.useState(false);
   const [isToastOpen, setIsToastOpen] = React.useState(false);

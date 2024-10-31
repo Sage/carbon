@@ -30,7 +30,7 @@ const Pages = ({
   ...props
 }: PagesProps) => {
   const [pageIndex, setPageIndex] = useState(
-    Number(incomingPageIndex) || Number(initialpageIndex)
+    Number(incomingPageIndex) || Number(initialpageIndex),
   );
   const transitionDirection = useRef(NEXT);
 
@@ -77,7 +77,7 @@ const Pages = ({
 
       return newIndex;
     },
-    [numOfPages]
+    [numOfPages],
   );
 
   useEffect(() => {

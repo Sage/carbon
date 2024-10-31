@@ -5,5 +5,5 @@ export interface FormSpacingContextProps {
 }
 
 export const FormSpacingContext = React.createContext<FormSpacingContextProps>(
-  {}
+  {},
 );

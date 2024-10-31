@@ -56,7 +56,7 @@ beforeAll(() => {
     .fn()
     .mockImplementation(function mockView(
       this: HTMLDivElement,
-      options: ScrollIntoViewOptions
+      options: ScrollIntoViewOptions,
     ) {
       return { element: this, options };
     });
@@ -78,11 +78,11 @@ test("has proper data attributes applied to elements", () => {
   render(<MockComponent />);
   expect(screen.getByTestId("test-component")).toHaveAttribute(
     "data-component",
-    "anchor-navigation"
+    "anchor-navigation",
   );
   expect(screen.getByRole("list")).toHaveAttribute(
     "data-element",
-    "anchor-sticky-navigation"
+    "anchor-sticky-navigation",
   );
 
   const anchorNavigationLinks = screen.getAllByRole("link");
@@ -108,12 +108,12 @@ test("when navigation item is clicked, the item is selected and the section cont
   expect(selectedItem).toHaveStyleRule(
     "background-color",
     "var(--colorsActionMajorYang100)",
-    { modifier: "& a" }
+    { modifier: "& a" },
   );
   expect(selectedItem).toHaveStyleRule(
     "border-left-color",
     "var(--colorsActionMajor500)",
-    { modifier: "& a" }
+    { modifier: "& a" },
   );
   expect(screen.getByTestId("section-2")).toHaveFocus();
 });
@@ -134,12 +134,12 @@ test("when Enter is pressed on a navigation item, the item is selected and the s
   expect(selectedItem).toHaveStyleRule(
     "background-color",
     "var(--colorsActionMajorYang100)",
-    { modifier: "& a" }
+    { modifier: "& a" },
   );
   expect(selectedItem).toHaveStyleRule(
     "border-left-color",
     "var(--colorsActionMajor500)",
-    { modifier: "& a" }
+    { modifier: "& a" },
   );
   expect(screen.getByTestId("section-2")).toHaveFocus();
 });
@@ -173,12 +173,12 @@ test("does nothing if a key other than tab or enter is pressed", async () => {
   expect(originallySelectedItem).toHaveStyleRule(
     "background-color",
     "var(--colorsActionMajorYang100)",
-    { modifier: "& a" }
+    { modifier: "& a" },
   );
   expect(originallySelectedItem).toHaveStyleRule(
     "border-left-color",
     "var(--colorsActionMajor500)",
-    { modifier: "& a" }
+    { modifier: "& a" },
   );
 });
 
@@ -196,21 +196,21 @@ test.each([
     const topEdgeOffsets = [400, 800, 1200, 1600, 2000];
     const SECTION_VISIBILITY_OFFSET = 200;
     const sections = [1, 2, 3].map((sectionNumber) =>
-      screen.getByTestId(`section-${sectionNumber}`)
+      screen.getByTestId(`section-${sectionNumber}`),
     );
 
     sections.forEach((section, index) => {
       jest
         .spyOn(section, "getBoundingClientRect")
         .mockImplementation(
-          () => ({ top: topEdgeOffsets[index] - scrollPosition } as DOMRect)
+          () => ({ top: topEdgeOffsets[index] - scrollPosition }) as DOMRect,
         );
     });
 
     jest
       .spyOn(screen.getByRole("list"), "getBoundingClientRect")
       .mockImplementation(
-        () => ({ top: SECTION_VISIBILITY_OFFSET } as DOMRect)
+        () => ({ top: SECTION_VISIBILITY_OFFSET }) as DOMRect,
       );
 
     act(() => {
@@ -224,14 +224,14 @@ test.each([
     expect(selectedItem).toHaveStyleRule(
       "background-color",
       "var(--colorsActionMajorYang100)",
-      { modifier: "& a" }
+      { modifier: "& a" },
     );
     expect(selectedItem).toHaveStyleRule(
       "border-left-color",
       "var(--colorsActionMajor500)",
-      { modifier: "& a" }
+      { modifier: "& a" },
     );
-  }
+  },
 );
 
 test("cleans up event listeners after unmounting", () => {
@@ -241,7 +241,7 @@ test("cleans up event listeners after unmounting", () => {
   unmount();
 
   expect(
-    addEventListenerSpy.mock.calls.filter((call) => call[0] === "scroll")
+    addEventListenerSpy.mock.calls.filter((call) => call[0] === "scroll"),
   ).toHaveLength(1);
 });
 
@@ -269,7 +269,7 @@ describe("validates incorrect stickyNavigation prop content", () => {
               <p>Invalid children</p>
             </>
           }
-        />
+        />,
       );
     }).toThrow(error);
   });
@@ -286,7 +286,7 @@ describe("validates incorrect stickyNavigation prop content", () => {
               <AnchorNavigationItem>First</AnchorNavigationItem>
             </div>
           }
-        />
+        />,
       );
     }).toThrow(error);
   });
@@ -298,7 +298,7 @@ test("renders not selected navigation item with proper background when hovered",
   expect(screen.getAllByRole("listitem")[1]).toHaveStyleRule(
     "background-color",
     "var(--colorsActionMinor100)",
-    { modifier: "& a:hover" }
+    { modifier: "& a:hover" },
   );
 });
 
@@ -310,7 +310,7 @@ test("renders selected navigation item with proper background when hovered", asy
     undefined,
     {
       modifier: "& a:hover",
-    }
+    },
   );
 });
 
@@ -322,12 +322,12 @@ test("has the expected border radius styling on the navigation items", () => {
     expect(item).toHaveStyleRule(
       "border-top-right-radius",
       "var(--borderRadius100)",
-      { modifier: "& a" }
+      { modifier: "& a" },
     );
     expect(item).toHaveStyleRule(
       "border-bottom-right-radius",
       "var(--borderRadius100)",
-      { modifier: "& a" }
+      { modifier: "& a" },
     );
   });
 });

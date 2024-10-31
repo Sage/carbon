@@ -160,7 +160,7 @@ describe("Event tests", () => {
     render(
       <Toast open timeout={2000} onDismiss={onDismissMock}>
         foobar
-      </Toast>
+      </Toast>,
     );
 
     jest.advanceTimersByTime(2000);
@@ -173,7 +173,7 @@ describe("Event tests", () => {
     render(
       <Toast open={false} timeout={2000} onDismiss={onDismissMock}>
         foobar
-      </Toast>
+      </Toast>,
     );
 
     jest.advanceTimersByTime(2000);
@@ -185,7 +185,7 @@ describe("Event tests", () => {
     render(
       <Toast open data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     jest.runAllTimers();
@@ -198,7 +198,7 @@ describe("Event tests", () => {
     render(
       <Toast open disableAutoFocus>
         foobar
-      </Toast>
+      </Toast>,
     );
 
     jest.runAllTimers();
@@ -213,7 +213,7 @@ describe("Event tests", () => {
     render(
       <Toast open data-role="toast">
         foobar
-      </Toast>
+      </Toast>,
     );
 
     const toast = screen.getByTestId("toast");
@@ -296,7 +296,7 @@ test("should render close button when `onDismiss` prop is set", () => {
   render(
     <Toast open onDismiss={() => {}}>
       foobar
-    </Toast>
+    </Toast>,
   );
 
   const closeButton = screen.getByRole("button", { name: "Close" });
@@ -308,7 +308,7 @@ test("should render with any custom classes passed via the `className` prop", ()
   render(
     <Toast open data-role="toast" className="exampleClass">
       foobar
-    </Toast>
+    </Toast>,
   );
 
   expect(screen.getByTestId("toast")).toHaveClass("exampleClass");
@@ -318,7 +318,7 @@ test("should render with provided custom id passed via `id` prop", () => {
   render(
     <Toast open data-role="toast" id="exampleId">
       foobar
-    </Toast>
+    </Toast>,
   );
 
   expect(screen.getByTestId("toast")).toHaveAttribute("id", "exampleId");
@@ -328,7 +328,7 @@ test("should render any child content passed via the `children` prop", () => {
   render(
     <Toast open>
       <span>foobar</span>
-    </Toast>
+    </Toast>,
   );
 
   expect(screen.getByText("foobar")).toBeVisible();
@@ -338,7 +338,7 @@ test("should render with provided `data-` attributes", () => {
   render(
     <Toast open data-element="toast-element" data-role="toast-role">
       foobar
-    </Toast>
+    </Toast>,
   );
 
   const toast = screen.getByTestId("toast-role");
@@ -372,7 +372,7 @@ test("should allow custom data props to be passed to close button to be passed v
       }}
     >
       foobar
-    </Toast>
+    </Toast>,
   );
 
   const closeButton = screen.getByRole("button", { name: "Close" });
@@ -385,7 +385,7 @@ test("should render content container with correct expected styling when `maxWid
   render(
     <Toast maxWidth="200px" data-role="toast">
       Child
-    </Toast>
+    </Toast>,
   );
 
   expect(screen.getByTestId("toast")).toHaveStyle({ maxWidth: "200px" });
@@ -395,7 +395,7 @@ test("should render with correct styling when `variant` prop is set to 'notice' 
   render(
     <Toast open variant="notice" data-role="toast">
       foobar
-    </Toast>
+    </Toast>,
   );
 
   const toast = screen.getByTestId("toast");
@@ -411,7 +411,7 @@ test("should render with correct styling when `variant` prop is set to 'notice' 
   });
   expect(toast).toHaveStyleRule(
     "background-color",
-    "var(--colorsUtilityMajor400)"
+    "var(--colorsUtilityMajor400)",
   );
   expect(toast).toHaveStyleRule("color", "var(--colorsSemanticNeutralYang100)");
 
@@ -428,7 +428,7 @@ test("should render with correct styling when `variant` prop is set to 'notice' 
   render(
     <Toast open variant="notice" onDismiss={() => {}}>
       foobar
-    </Toast>
+    </Toast>,
   );
 
   expect(screen.getByTestId("toast-content")).toHaveStyle({
@@ -452,7 +452,7 @@ test("should render with correct styling when `variant` prop is set to 'notice' 
       onDismiss={() => {}}
     >
       foobar
-    </Toast>
+    </Toast>,
   );
 
   const toast = screen.getByTestId("toast");
@@ -472,7 +472,7 @@ test("should render with correct styling when `variant` prop is set to 'notice' 
       onDismiss={() => {}}
     >
       foobar
-    </Toast>
+    </Toast>,
   );
 
   const toast = screen.getByTestId("toast");
@@ -495,11 +495,11 @@ test.each<[ToastProps["variant"], string]>([
     render(
       <Toast open variant={variant}>
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(screen.getByTestId("icon")).toHaveAttribute("type", iconType);
-  }
+  },
 );
 
 test("should not throw when ref is a function", () => {
@@ -507,7 +507,7 @@ test("should not throw when ref is a function", () => {
     render(
       <Toast onDismiss={() => {}} ref={(ref) => ref}>
         foobar
-      </Toast>
+      </Toast>,
     );
   }).not.toThrow();
 });
@@ -517,7 +517,7 @@ test("should pass ref to the wrapper element", () => {
   render(
     <Toast onDismiss={() => {}} ref={ref}>
       foobar
-    </Toast>
+    </Toast>,
   );
 
   expect(ref.current).toBe(screen.getByTestId("toast-wrapper"));
@@ -527,7 +527,7 @@ test("should render with expected styling when `align` prop is 'right'", () => {
   render(
     <Toast open align="right" data-role="toast">
       foobar
-    </Toast>
+    </Toast>,
   );
 
   expect(screen.getByRole("region")).toHaveStyle({
@@ -544,7 +544,7 @@ test("should render with expected styling when `align` prop is 'center'", () => 
   render(
     <Toast open align="center" data-role="toast">
       foobar
-    </Toast>
+    </Toast>,
   );
 
   expect(screen.getByRole("region")).toHaveStyle({
@@ -560,7 +560,7 @@ test("should render with expected styling when `align` prop is 'left'", () => {
   render(
     <Toast open align="left" data-role="toast">
       foobar
-    </Toast>
+    </Toast>,
   );
 
   expect(screen.getByRole("region")).toHaveStyle({
@@ -576,7 +576,7 @@ test("should render with expected styling when `alignY` prop is set to 'top'", (
   render(
     <Toast alignY="top" data-role="toast">
       foobar
-    </Toast>
+    </Toast>,
   );
 
   const toast = screen.getByTestId("toast");
@@ -591,7 +591,7 @@ test("should render with expected styling when `alignY` prop is set to 'bottom'"
   render(
     <Toast alignY="bottom" data-role="toast">
       foobar
-    </Toast>
+    </Toast>,
   );
 
   const toast = screen.getByTestId("toast");
@@ -606,7 +606,7 @@ test("should render with expected styling when `alignY` prop is 'center' and `al
   render(
     <Toast alignY="center" align="left" data-role="toast">
       foobar
-    </Toast>
+    </Toast>,
   );
 
   expect(screen.getByTestId("carbon-portal-exit")).toHaveStyle({
@@ -619,7 +619,7 @@ test("should render with expected styling when `alignY` prop is 'center' and `al
   render(
     <Toast alignY="center" data-role="toast">
       foobar
-    </Toast>
+    </Toast>,
   );
 
   expect(screen.getByTestId("carbon-portal-exit")).toHaveStyle({

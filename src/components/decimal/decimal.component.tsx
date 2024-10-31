@@ -89,7 +89,7 @@ export const Decimal = React.forwardRef(
       value,
       ...rest
     }: DecimalProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const l = useContext(LocaleContext);
 
@@ -100,7 +100,7 @@ export const Decimal = React.forwardRef(
           .formatToParts(numberWithGroupAndDecimalSeparator)
           .find((part) => part.type === separatorType)?.value;
       },
-      [l, locale]
+      [l, locale],
     );
 
     const isNaN = useCallback((valueToTest) => {
@@ -143,7 +143,7 @@ export const Decimal = React.forwardRef(
         }
         return formattedNumber;
       },
-      [getSeparator, isNaN, l, locale, precision]
+      [getSeparator, isNaN, l, locale, precision],
     );
 
     const emptyValue = allowEmptyValue
@@ -155,18 +155,18 @@ export const Decimal = React.forwardRef(
         // We're intentionally preventing the use of number values to help prevent any unintentional rounding issues
         invariant(
           typeof initialValue === "string",
-          "Decimal `value` prop must be a string"
+          "Decimal `value` prop must be a string",
         );
 
         if (initialValue && !allowEmptyValue) {
           invariant(
             initialValue !== "",
-            "Decimal `value` must not be an empty string. Please use `allowEmptyValue` or specify a non-empty initialValue"
+            "Decimal `value` must not be an empty string. Please use `allowEmptyValue` or specify a non-empty initialValue",
           );
         }
         return initialValue;
       },
-      [allowEmptyValue]
+      [allowEmptyValue],
     );
 
     /**
@@ -178,7 +178,7 @@ export const Decimal = React.forwardRef(
       if (prevPrecisionValue && prevPrecisionValue !== precision) {
         // eslint-disable-next-line no-console
         console.error(
-          "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect."
+          "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect.",
         );
       }
     }, [precision, prevPrecisionValue]);
@@ -187,11 +187,11 @@ export const Decimal = React.forwardRef(
       (valueToFormat) => {
         const delimiterMatcher = new RegExp(
           `[\\${getSeparator("group")} ]*`,
-          "g"
+          "g",
         );
         return valueToFormat.replace(delimiterMatcher, "");
       },
-      [getSeparator]
+      [getSeparator],
     );
 
     /**
@@ -210,12 +210,12 @@ export const Decimal = React.forwardRef(
     formatValue function, before the delimiters can be removed. */
         const errorsWithDelimiter = new RegExp(
           `([^A-Za-z0-9]{2,})|(^[^A-Za-z0-9-]+)|([^0-9a-z-,.])|([^0-9-,.]+)|([W,.])$`,
-          "g"
+          "g",
         );
         const separator = getSeparator("decimal") as string;
         const separatorRegex = new RegExp(
           separator === "." ? `\\${separator}` : separator,
-          "g"
+          "g",
         );
         if (
           valueWithoutNBS.match(errorsWithDelimiter) ||
@@ -227,17 +227,17 @@ export const Decimal = React.forwardRef(
         const withoutDelimiters = removeDelimiters(valueWithoutNBS);
         return withoutDelimiters.replace(
           new RegExp(`\\${separator}`, "g"),
-          "."
+          ".",
         );
       },
-      [getSeparator, removeDelimiters]
+      [getSeparator, removeDelimiters],
     );
 
     const decimalValue = getSafeValueProp(defaultValue || value || emptyValue);
     const [stateValue, setStateValue] = useState(
       isNaN(toStandardDecimal(decimalValue))
         ? decimalValue
-        : formatValue(decimalValue)
+        : formatValue(decimalValue),
     );
 
     const createEvent = (formatted: string, raw?: string): CustomEvent => {
@@ -321,7 +321,7 @@ export const Decimal = React.forwardRef(
     if (!deprecateUncontrolledWarnTriggered && !isControlled) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
@@ -349,7 +349,7 @@ export const Decimal = React.forwardRef(
         />
       </>
     );
-  }
+  },
 );
 
 Decimal.displayName = "Decimal";

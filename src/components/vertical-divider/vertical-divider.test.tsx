@@ -7,7 +7,7 @@ import MenuContext from "../menu/__internal__/menu.context";
 testStyledSystemSpacingRTL(
   (props) => <VerticalDivider {...props} />,
   () => screen.getByTestId("vertical-divider"),
-  { p: 3 }
+  { p: 3 },
 );
 
 test("should apply the expected height when `h` prop is passed a value of `100`", () => {
@@ -56,7 +56,7 @@ test("should render as an `li` element with `aria-hidden` when inside a Menu", (
       }}
     >
       <VerticalDivider />
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const verticalDividerElement = screen.getByTestId("vertical-divider");
 
@@ -82,7 +82,7 @@ test("should not allow the `aria-hidden` attribute to be overridden when in a me
       }}
     >
       <VerticalDivider aria-hidden={false} />
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const verticalDividerElement = screen.getByTestId("vertical-divider");
 

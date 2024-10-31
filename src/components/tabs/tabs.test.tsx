@@ -23,7 +23,7 @@ testStyledSystemMarginRTL(
       </Tab>
     </Tabs>
   ),
-  () => screen.getByTestId("tabs")
+  () => screen.getByTestId("tabs"),
 );
 
 testStyledSystemMarginRTL(
@@ -40,7 +40,7 @@ testStyledSystemMarginRTL(
       </Tab>
     </Tabs>
   ),
-  () => screen.getByTestId("tabs")
+  () => screen.getByTestId("tabs"),
 );
 
 test("should not throw an error when rendered with NumeralDate as a child", () => {
@@ -57,7 +57,7 @@ test("should not throw an error when rendered with NumeralDate as a child", () =
           />
           <Textbox error="error" onChange={() => {}} />
         </Tab>
-      </Tabs>
+      </Tabs>,
     );
   }).not.toThrow();
 });
@@ -72,11 +72,11 @@ test("should throw an error if rendered with `headerWidth` prop and `position` p
       <Tab title="Tab Title 1" tabId="uniqueid1">
         TabContent
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(consoleSpy).toHaveBeenCalledWith(
-    "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left"
+    "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left",
   );
 
   consoleSpy.mockRestore();
@@ -86,12 +86,12 @@ test("passes the `className` prop down to the element", () => {
   render(
     <Tabs className="custom-class-1 custom-class-2">
       <Tab tabId="foo" />
-    </Tabs>
+    </Tabs>,
   );
 
   expect(screen.getByTestId("tabs")).toHaveClass(
     "custom-class-1",
-    "custom-class-2"
+    "custom-class-2",
   );
 });
 
@@ -107,7 +107,7 @@ test("the `selectedTabId` prop determines which child `Tab` is displayed", () =>
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(screen.getByText("Content for tab 1")).not.toBeVisible();
@@ -127,7 +127,7 @@ test("when the `renderHiddenTabs` prop is false, only the currently visible tab 
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(screen.queryByText("Content for tab 1")).not.toBeInTheDocument();
@@ -158,20 +158,20 @@ test.each(["error", "warning", "info"] as const)(
         >
           <Textbox onChange={() => {}} {...{ [validation]: true }} />
         </Tab>
-      </Tabs>
+      </Tabs>,
     );
 
     expect(
       within(screen.getByRole("tab", { name: "Tab Title 1" })).getByTestId(
-        `icon-${validation}`
-      )
+        `icon-${validation}`,
+      ),
     ).toBeVisible();
     expect(
       within(screen.getByRole("tab", { name: "Tab Title 2" })).queryByTestId(
-        `icon-${validation}`
-      )
+        `icon-${validation}`,
+      ),
     ).not.toBeInTheDocument();
-  }
+  },
 );
 
 test("when the `renderHiddenTabs` prop is true, all tabs are rendered in the DOM with only the first visible", () => {
@@ -186,7 +186,7 @@ test("when the `renderHiddenTabs` prop is true, all tabs are rendered in the DOM
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(screen.getByText("Content for tab 1")).toBeVisible();
@@ -207,7 +207,7 @@ test("when a tab title is clicked, the associated tab becomes the visible one", 
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
   expect(screen.getByText("Content for tab 1")).toBeVisible();
   expect(screen.getByText("Content for tab 2")).not.toBeVisible();
@@ -231,7 +231,7 @@ test("when a tab title is clicked, the `onTabChange` callback prop gets called w
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   await user.click(screen.getByRole("tab", { name: "Tab 2" }));
@@ -251,7 +251,7 @@ test("updates the selected tab when the `selectedTabId` prop is updated", () => 
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
   expect(screen.getByText("Content for tab 1")).toBeVisible();
   expect(screen.getByText("Content for tab 2")).not.toBeVisible();
@@ -267,7 +267,7 @@ test("updates the selected tab when the `selectedTabId` prop is updated", () => 
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
   expect(screen.getByText("Content for tab 1")).not.toBeVisible();
   expect(screen.getByText("Content for tab 2")).toBeVisible();
@@ -285,7 +285,7 @@ test("blurs the previously-selected tab title when the `selectedTabId` prop is u
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
   screen.getByRole("tab", { name: "Tab 1" }).focus();
 
@@ -300,7 +300,7 @@ test("blurs the previously-selected tab title when the `selectedTabId` prop is u
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
   expect(screen.getByRole("tab", { name: "Tab 1" })).not.toHaveFocus();
 });
@@ -319,7 +319,7 @@ test("does not call the `onTabChange` callback when rerendered with the selected
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
   await user.click(screen.getByRole("tab", { name: "Tab 2" }));
   expect(onTabChange).toHaveBeenCalledTimes(1);
@@ -335,7 +335,7 @@ test("does not call the `onTabChange` callback when rerendered with the selected
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
   expect(onTabChange).toHaveBeenCalledTimes(1);
 });
@@ -353,7 +353,7 @@ test("when the position is `top` (the default), pressing the right arrow key foc
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   screen.getByRole("tab", { name: "Tab 1" }).focus();
@@ -378,7 +378,7 @@ test("when the position is `top` (the default), pressing the right arrow key whe
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   screen.getByRole("tab", { name: "Tab 3" }).focus();
@@ -400,7 +400,7 @@ test("when the position is `top` (the default), pressing the left arrow key focu
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   screen.getByRole("tab", { name: "Tab 3" }).focus();
@@ -425,7 +425,7 @@ test("when the position is `top` (the default), pressing the left arrow key when
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   screen.getByRole("tab", { name: "Tab 1" }).focus();
@@ -447,7 +447,7 @@ test("when the position is `left`, pressing the down arrow key focuses the next 
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   screen.getByRole("tab", { name: "Tab 1" }).focus();
@@ -472,7 +472,7 @@ test("when the position is `left`, pressing the down arrow key when focused on t
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   screen.getByRole("tab", { name: "Tab 3" }).focus();
@@ -494,7 +494,7 @@ test("when the position is `left`, pressing the up arrow key focuses the previou
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   screen.getByRole("tab", { name: "Tab 3" }).focus();
@@ -519,7 +519,7 @@ test("when the position is `left`, pressing the up arrow key when focused on the
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   screen.getByRole("tab", { name: "Tab 1" }).focus();
@@ -541,7 +541,7 @@ test("when the Enter key is pressed on a tab title, the associated tab becomes t
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
   expect(screen.getByText("Content for tab 1")).toBeVisible();
   expect(screen.getByText("Content for tab 2")).not.toBeVisible();
@@ -565,7 +565,7 @@ test("when a non-Enter, non-arrow key is pressed on a tab title, neither the vis
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
   expect(screen.getByText("Content for tab 1")).toBeVisible();
   expect(screen.getByText("Content for tab 2")).not.toBeVisible();
@@ -598,7 +598,7 @@ test("when rendered in a Drawer sidebar, pressing the down arrow key focuses the
       }
     >
       drawer content
-    </Drawer>
+    </Drawer>,
   );
   screen.getByRole("tab", { name: "Tab 1" }).focus();
 
@@ -628,7 +628,7 @@ test("when rendered in a Drawer sidebar`, pressing the down arrow key when focus
       }
     >
       drawer content
-    </Drawer>
+    </Drawer>,
   );
 
   screen.getByRole("tab", { name: "Tab 3" }).focus();
@@ -656,7 +656,7 @@ test("when rendered in a Drawer sidebar, pressing the up arrow key focuses the p
       }
     >
       drawer content
-    </Drawer>
+    </Drawer>,
   );
 
   screen.getByRole("tab", { name: "Tab 3" }).focus();
@@ -687,7 +687,7 @@ test("when rendered in a Drawer sidebar, pressing the up arrow key when focused 
       }
     >
       drawer content
-    </Drawer>
+    </Drawer>,
   );
 
   screen.getByRole("tab", { name: "Tab 1" }).focus();
@@ -717,38 +717,38 @@ test("when there is no validation issue in a tab, no validation icon is displaye
       >
         <Textbox onChange={() => {}} />
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
 });
 
@@ -773,36 +773,38 @@ test("when there is an error in a tab, an error icon is displayed in the corresp
       >
         <Textbox error onChange={() => {}} />
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
-    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId("icon-error")
+    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId(
+      "icon-error",
+    ),
   ).toBeVisible();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
 });
 
@@ -828,36 +830,38 @@ test("when errors and warnings are both present in a tab, only the error icon is
         <Textbox error onChange={() => {}} />
         <Textbox warning onChange={() => {}} />
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
-    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId("icon-error")
+    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId(
+      "icon-error",
+    ),
   ).toBeVisible();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
 });
 
@@ -884,36 +888,38 @@ test("when errors, warnings and infos are all present in a tab, only the error i
         <Textbox warning onChange={() => {}} />
         <Textbox info onChange={() => {}} />
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
-    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId("icon-error")
+    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId(
+      "icon-error",
+    ),
   ).toBeVisible();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
 });
 
@@ -938,38 +944,38 @@ test("when a tab has warnings and no errors, a warning icon is displayed in the 
       >
         <Textbox warning onChange={() => {}} />
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).toBeVisible();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
 });
 
@@ -994,36 +1000,36 @@ test("when a tab has info and no errors or warnings, an info icon is displayed i
       >
         <Textbox info onChange={() => {}} />
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
   expect(
-    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId("icon-info")
+    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId("icon-info"),
   ).toBeVisible();
 });
 
@@ -1054,36 +1060,38 @@ test("an error icon is displayed in the corresponding tab title when specified b
       >
         <Textbox onChange={() => {}} />
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
-    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId("icon-error")
+    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId(
+      "icon-error",
+    ),
   ).toBeVisible();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
 });
 
@@ -1114,38 +1122,38 @@ test("a warning icon is displayed in the corresponding tab title when specified 
       >
         <Textbox onChange={() => {}} />
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).toBeVisible();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
 });
 
@@ -1176,36 +1184,36 @@ test("an info icon is displayed in the corresponding tab title when specified by
       >
         <Textbox onChange={() => {}} />
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-error"
-    )
+      "icon-error",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 2" })).queryByTestId(
-      "icon-warning"
-    )
+      "icon-warning",
+    ),
   ).not.toBeInTheDocument();
   expect(
     within(screen.getByRole("tab", { name: "Tab 1" })).queryByTestId(
-      "icon-info"
-    )
+      "icon-info",
+    ),
   ).not.toBeInTheDocument();
   expect(
-    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId("icon-info")
+    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId("icon-info"),
   ).toBeVisible();
 });
 
@@ -1295,7 +1303,7 @@ test("has the expected `data-component` attribute", () => {
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(screen.getByTestId("tabs")).toHaveAttribute("data-component", "tabs");
@@ -1313,7 +1321,7 @@ test("accepts `data-element` and `data-role` props", () => {
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   expect(screen.getByTestId("bar")).toHaveAttribute("data-element", "foo");
@@ -1323,7 +1331,7 @@ test("child Tab components accept a `data-role` prop via `titleProps` which is a
   render(
     <Tabs>
       <Tab tabId="tab-id" titleProps={{ "data-role": "foo" }} />
-    </Tabs>
+    </Tabs>,
   );
 
   expect(screen.getByRole("tab")).toHaveAttribute("data-role", "foo");
@@ -1349,18 +1357,18 @@ test.each(["error", "warning", "info"])(
             {...{ [validation]: "third validation message" }}
           />
         </Tab>
-      </Tabs>
+      </Tabs>,
     );
 
     await user.hover(
       within(screen.getByRole("tab", { name: "Test" })).getByTestId(
-        `icon-${validation}`
-      )
+        `icon-${validation}`,
+      ),
     );
     expect(screen.getByRole("tooltip")).toHaveTextContent(
-      "• first validation message • second validation message • third validation message"
+      "• first validation message • second validation message • third validation message",
     );
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -1380,18 +1388,18 @@ test.each(["error", "warning", "info"])(
             {...{ [validation]: "third validation message" }}
           />
         </Tab>
-      </Tabs>
+      </Tabs>,
     );
 
     await user.hover(
       within(screen.getByRole("tab", { name: "Test" })).getByTestId(
-        `icon-${validation}`
-      )
+        `icon-${validation}`,
+      ),
     );
     expect(screen.getByRole("tooltip")).toHaveTextContent(
-      "• first validation message • third validation message"
+      "• first validation message • third validation message",
     );
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -1406,18 +1414,18 @@ test.each(["error", "warning", "info"])(
             {...{ [validation]: "first validation message" }}
           />
         </Tab>
-      </Tabs>
+      </Tabs>,
     );
 
     await user.hover(
       within(screen.getByRole("tab", { name: "Test" })).getByTestId(
-        `icon-${validation}`
-      )
+        `icon-${validation}`,
+      ),
     );
     expect(screen.getByRole("tooltip")).toHaveTextContent(
-      "first validation message"
+      "first validation message",
     );
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -1435,16 +1443,16 @@ test.each(["error", "warning", "info"])(
           <Textbox onChange={() => {}} {...{ [validation]: true }} />
           <Textbox onChange={() => {}} {...{ [validation]: true }} />
         </Tab>
-      </Tabs>
+      </Tabs>,
     );
 
     await user.hover(
       within(screen.getByRole("tab", { name: "Test" })).getByTestId(
-        `icon-${validation}`
-      )
+        `icon-${validation}`,
+      ),
     );
     expect(screen.getByRole("tooltip")).toHaveTextContent("a single message");
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -1471,16 +1479,16 @@ test.each(["error", "warning", "info"])(
             {...{ [validation]: "third validation message" }}
           />
         </Tab>
-      </Tabs>
+      </Tabs>,
     );
 
     await user.hover(
       within(screen.getByRole("tab", { name: "Test" })).getByTestId(
-        `icon-${validation}`
-      )
+        `icon-${validation}`,
+      ),
     );
     expect(screen.getByRole("tooltip")).toHaveTextContent("a single message");
-  }
+  },
 );
 
 // coverage - headerWidth prop tested in Chromatic
@@ -1492,7 +1500,7 @@ test.each(["35%", "100px", "5em"])(
         <Tab title="Tab Title 1" tabId="uniqueid1">
           TabContent
         </Tab>
-      </Tabs>
+      </Tabs>,
     );
 
     expect(screen.getByTestId("tabs")).toHaveStyleRule("width", headerWidth, {
@@ -1503,9 +1511,9 @@ test.each(["35%", "100px", "5em"])(
       `calc(100% - ${headerWidth})`,
       {
         modifier: `${StyledTab}`,
-      }
+      },
     );
-  }
+  },
 );
 
 // coverage
@@ -1522,7 +1530,7 @@ test("leaves the same tab content visible when the already-selected tab is click
       <Tab tabId="tab-3" title="Tab 3">
         Content for tab 3
       </Tab>
-    </Tabs>
+    </Tabs>,
   );
 
   await user.click(screen.getByRole("tab", { name: "Tab 1" }));

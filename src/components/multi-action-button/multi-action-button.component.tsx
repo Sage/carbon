@@ -56,7 +56,7 @@ export const MultiActionButton = ({
   const handleInsideClick = useClickAwayListener(hideButtons);
 
   const handleClick = (
-    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
     // ensure button is focused when clicked (Safari)
     buttonRef.current?.focus();

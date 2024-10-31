@@ -22,7 +22,7 @@ describe("Accordion", () => {
     render(<Accordion scheme="transparent" title="Title" />);
 
     expect(loggerSpy).toHaveBeenCalledWith(
-      "The `scheme` prop for `Accordion` component is deprecated and will soon be removed."
+      "The `scheme` prop for `Accordion` component is deprecated and will soon be removed.",
     );
     expect(loggerSpy).toHaveBeenCalledTimes(1);
 
@@ -37,7 +37,7 @@ describe("Accordion", () => {
     render(<Accordion buttonHeading title="Title" />);
 
     expect(loggerSpy).toHaveBeenCalledWith(
-      "The `buttonHeading` prop for `Accordion` component is deprecated and will soon be removed. Please use `subtle` variant instead."
+      "The `buttonHeading` prop for `Accordion` component is deprecated and will soon be removed. Please use `subtle` variant instead.",
     );
     expect(loggerSpy).toHaveBeenCalledTimes(1);
 
@@ -50,7 +50,7 @@ describe("Accordion", () => {
     expect(screen.getByText("Title content")).toBeVisible();
     expect(screen.getByText("Title content")).toHaveAttribute(
       "id",
-      "customTitle"
+      "customTitle",
     );
   });
 
@@ -58,7 +58,7 @@ describe("Accordion", () => {
     render(
       <Accordion expanded title="Title">
         child content
-      </Accordion>
+      </Accordion>,
     );
 
     expect(screen.getByText("child content")).toBeVisible();
@@ -68,7 +68,7 @@ describe("Accordion", () => {
     render(
       <Accordion expanded={false} title="Title">
         child content
-      </Accordion>
+      </Accordion>,
     );
 
     expect(screen.getByText("child content")).not.toBeVisible();
@@ -84,7 +84,7 @@ describe("Accordion", () => {
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith(
       expect.objectContaining({ target: header }),
-      true
+      true,
     );
   });
 
@@ -104,16 +104,16 @@ describe("Accordion", () => {
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenCalledWith(
         expect.objectContaining({ target: header }),
-        true
+        true,
       );
-    }
+    },
   );
 
   it("mounts expanded when `defaultExpanded` prop is passed as `true`", () => {
     render(
       <Accordion defaultExpanded title="Title">
         child content
-      </Accordion>
+      </Accordion>,
     );
 
     expect(screen.getByText("child content")).toBeVisible();
@@ -156,7 +156,7 @@ describe("Accordion", () => {
       header.focus();
       await user.keyboard(key);
       expect(screen.getByText("child content")).not.toBeVisible();
-    }
+    },
   );
 
   it("does not toggle the expansion state when keys other than enter or space are pressed when the header area is focused", async () => {
@@ -219,7 +219,7 @@ describe("Accordion", () => {
 
   it("should display the `openTitle` when open and the `openTitle` and `buttonHeading` props are provided", () => {
     render(
-      <Accordion title="Title" expanded buttonHeading openTitle="Less info" />
+      <Accordion title="Title" expanded buttonHeading openTitle="Less info" />,
     );
 
     expect(screen.getByRole("button")).toHaveTextContent("Less info");
@@ -237,7 +237,7 @@ describe("Accordion", () => {
 
     expect(screen.getByTestId("accordion-container")).toHaveStyleRule(
       "border",
-      "none"
+      "none",
     );
   });
 
@@ -257,7 +257,7 @@ describe("Accordion", () => {
     expect(screen.getByRole("button")).toHaveStyleRule(
       "margin-left",
       "var(--spacing100)",
-      { modifier: `${StyledAccordionHeadingsContainer}` }
+      { modifier: `${StyledAccordionHeadingsContainer}` },
     );
     expect(screen.getByTestId("icon")).toHaveStyle({
       position: "relative",
@@ -278,19 +278,19 @@ describe("Accordion", () => {
 
     expect(screen.getByRole("button")).toHaveStyleRule(
       "margin-bottom",
-      "var(--spacing200)"
+      "var(--spacing200)",
     );
     expect(screen.getByTestId("accordion-content")).toHaveStyleRule(
       "margin-left",
-      "var(--spacing150)"
+      "var(--spacing150)",
     );
     expect(screen.getByTestId("accordion-content")).toHaveStyleRule(
       "padding",
-      "var(--spacing100) var(--spacing200) var(--spacing300)"
+      "var(--spacing100) var(--spacing200) var(--spacing300)",
     );
     expect(screen.getByTestId("accordion-content")).toHaveStyleRule(
       "border-left",
-      "2px solid var(--colorsUtilityMajor100)"
+      "2px solid var(--colorsUtilityMajor100)",
     );
   });
 
@@ -338,7 +338,7 @@ describe("AccordionGroup", () => {
         </Accordion>
       </AccordionGroup>
     ),
-    () => screen.getByTestId("accordion-group")
+    () => screen.getByTestId("accordion-group"),
   );
 
   it("renders with expected `data-` attributes on the root element", () => {
@@ -346,14 +346,14 @@ describe("AccordionGroup", () => {
       <AccordionGroup
         data-element="accordion-group-element"
         data-role="accordion-group-role"
-      />
+      />,
     );
     const rootElement = screen.getByTestId("accordion-group-role");
 
     expect(rootElement).toHaveAttribute("data-component", "accordion-group");
     expect(rootElement).toHaveAttribute(
       "data-element",
-      "accordion-group-element"
+      "accordion-group-element",
     );
   });
 
@@ -364,7 +364,7 @@ describe("AccordionGroup", () => {
         <Accordion title="Title 1" />
         <Accordion title="Title 2" />
         <Accordion title="Title 3" />
-      </AccordionGroup>
+      </AccordionGroup>,
     );
 
     screen.getByRole("button", { name: "Title 2" }).focus();
@@ -379,7 +379,7 @@ describe("AccordionGroup", () => {
         <Accordion title="Title 1" />
         <Accordion title="Title 2" />
         <Accordion title="Title 3" />
-      </AccordionGroup>
+      </AccordionGroup>,
     );
 
     screen.getByRole("button", { name: "Title 3" }).focus();
@@ -394,7 +394,7 @@ describe("AccordionGroup", () => {
         <Accordion title="Title 1" />
         <Accordion title="Title 2" />
         <Accordion title="Title 3" />
-      </AccordionGroup>
+      </AccordionGroup>,
     );
 
     screen.getByRole("button", { name: "Title 2" }).focus();
@@ -409,7 +409,7 @@ describe("AccordionGroup", () => {
         <Accordion title="Title 1" />
         <Accordion title="Title 2" />
         <Accordion title="Title 3" />
-      </AccordionGroup>
+      </AccordionGroup>,
     );
 
     screen.getByRole("button", { name: "Title 1" }).focus();
@@ -430,13 +430,13 @@ describe("AccordionGroup", () => {
           <Accordion title="Title 1" />
           <Accordion title="Title 2" />
           <Accordion title="Title 3" />
-        </AccordionGroup>
+        </AccordionGroup>,
       );
 
       screen.getByRole("button", { name: `Title ${accordionNumber}` }).focus();
       await user.keyboard("{Home}");
       expect(screen.getByRole("button", { name: "Title 1" })).toHaveFocus();
-    }
+    },
   );
 
   it.each([
@@ -452,13 +452,13 @@ describe("AccordionGroup", () => {
           <Accordion title="Title 1" />
           <Accordion title="Title 2" />
           <Accordion title="Title 3" />
-        </AccordionGroup>
+        </AccordionGroup>,
       );
 
       screen.getByRole("button", { name: `Title ${accordionNumber}` }).focus();
       await user.keyboard("{End}");
       expect(screen.getByRole("button", { name: "Title 3" })).toHaveFocus();
-    }
+    },
   );
 
   it("throws an error if incorrect children are passed", () => {
@@ -472,7 +472,7 @@ describe("AccordionGroup", () => {
         <AccordionGroup>
           <div />
           <div />
-        </AccordionGroup>
+        </AccordionGroup>,
       );
     }).toThrow("AccordionGroup accepts only children of type `Accordion`.");
 
@@ -486,7 +486,7 @@ describe("AccordionGroup", () => {
           {null}
           {false}
           {undefined}
-        </AccordionGroup>
+        </AccordionGroup>,
       );
     }).not.toThrow();
   });

@@ -139,7 +139,7 @@ const Popover = ({
 
   return ReactDOM.createPortal(
     <CarbonScopedTokensProvider>{content}</CarbonScopedTokensProvider>,
-    elementDOM.current as HTMLDivElement
+    elementDOM.current as HTMLDivElement,
   );
 };
 

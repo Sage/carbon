@@ -90,7 +90,7 @@ test.describe("definition list", () => {
       await assertCssValueIsApproximately(
         dt,
         "width",
-        dtPixels - PADDING_RIGHT
+        dtPixels - PADDING_RIGHT,
       );
 
       await assertCssValueIsApproximately(dd, "width", ddPixels);
@@ -106,7 +106,7 @@ test.describe("definition list", () => {
         <Dl>
           <Dt>{text}</Dt>
           <Dd>Definition</Dd>
-        </Dl>
+        </Dl>,
       );
 
       const dt = getDataElementByValue(page, "dt");
@@ -123,7 +123,7 @@ test.describe("definition list", () => {
         <Dl>
           <Dt>Text</Dt>
           <Dd data-element="dd">{definition}</Dd>
-        </Dl>
+        </Dl>,
       );
 
       const dd = getDataElementByValue(page, "dd");
@@ -177,11 +177,11 @@ test.describe("definition list", () => {
             <Icon type="tick" />
           </Box>
         </Dd>
-      </Dl>
+      </Dl>,
     );
 
     const dd = getDataElementByValue(page, "dd").locator(
-      '[data-component="icon"]'
+      '[data-component="icon"]',
     );
 
     await expect(dd).toHaveAttribute("data-element", "tick");
@@ -270,7 +270,7 @@ test.describe("definition list", () => {
           <Dl>
             <Dt>{text}</Dt>
             <Dd>Definition</Dd>
-          </Dl>
+          </Dl>,
         );
 
         await checkAccessibility(page);
@@ -286,7 +286,7 @@ test.describe("definition list", () => {
           <Dl>
             <Dt>Text</Dt>
             <Dd data-element="dd">{definition}</Dd>
-          </Dl>
+          </Dl>,
         );
 
         await checkAccessibility(page);
@@ -315,7 +315,7 @@ test.describe("definition list", () => {
               <Icon type="tick" />
             </Box>
           </Dd>
-        </Dl>
+        </Dl>,
       );
 
       await checkAccessibility(page);

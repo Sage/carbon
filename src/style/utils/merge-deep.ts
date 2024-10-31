@@ -17,7 +17,7 @@ function merge(
       if (isObject(source[key])) {
         merge(
           _target[key] as Record<string, unknown>,
-          source[key] as Record<string, unknown>
+          source[key] as Record<string, unknown>,
         );
       } else {
         Object.assign(_target, { [key]: source[key] });

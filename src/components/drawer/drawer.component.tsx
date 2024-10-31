@@ -38,7 +38,7 @@ export interface DrawerProps extends Omit<TagProps, "data-component"> {
   /** Callback fired when expansion state changes, onChange(event: object, isExpanded: boolean) */
   onChange?: (
     e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-    isExpanded: boolean
+    isExpanded: boolean,
   ) => void;
   /* Sidebar object either html or react component */
   sidebar?: React.ReactNode;
@@ -81,7 +81,7 @@ export const Drawer = ({
   const [isOpening, setIsOpening] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [isExpanded, setIsExpanded] = useState(
-    isControlled.current ? expanded : defaultExpanded
+    isControlled.current ? expanded : defaultExpanded,
   );
   const timer = useRef<null | ReturnType<typeof setTimeout>>(null);
 
@@ -89,7 +89,7 @@ export const Drawer = ({
     if (animationDuration.indexOf("ms") !== -1) {
       const animationTime = animationDuration.substring(
         0,
-        animationDuration.length - 2
+        animationDuration.length - 2,
       );
       return parseInt(animationTime);
     }
@@ -100,7 +100,7 @@ export const Drawer = ({
     ) {
       const animationTime = animationDuration.substring(
         0,
-        animationDuration.length - 1
+        animationDuration.length - 1,
       );
       return parseFloat(animationTime) * 1000;
     }
@@ -166,7 +166,7 @@ export const Drawer = ({
 
       toggleAnimation();
     },
-    [toggleAnimation, isExpanded, onChange]
+    [toggleAnimation, isExpanded, onChange],
   );
 
   const guid = useRef(createGuid());

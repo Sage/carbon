@@ -10,7 +10,7 @@ test("should render with provided children", () => {
     <ButtonToggleGroup id="button-toggle-group-id" onChange={() => {}}>
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   expect(screen.getByRole("button", { name: "Foo" })).toBeVisible();
@@ -24,8 +24,8 @@ test("should throw an error when children are not of type ButtonToggle", () => {
     render(
       <ButtonToggleGroup id="button-toggle-group-id" onChange={() => {}}>
         <div>Foo</div>
-      </ButtonToggleGroup>
-    )
+      </ButtonToggleGroup>,
+    ),
   ).toThrow("`ButtonToggleGroup` only accepts children of type `ButtonToggle`");
 
   consoleSpy.mockRestore();
@@ -41,7 +41,7 @@ test("should render with provided label and use it as its accessible name", () =
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   expect(screen.getByText("Group Label")).toBeVisible();
@@ -57,7 +57,7 @@ test("should render with aria-label as its accessible name when the label is not
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   expect(screen.getByRole("group")).toHaveAccessibleName("Group Aria Label");
@@ -72,15 +72,15 @@ test("should render with provided hintText and use it as the accessible descript
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   expect(screen.getByText("Group Hint Text")).toBeVisible();
   expect(
-    screen.getByRole("button", { name: "Foo" })
+    screen.getByRole("button", { name: "Foo" }),
   ).toHaveAccessibleDescription("Group Hint Text");
   expect(
-    screen.getByRole("button", { name: "Bar" })
+    screen.getByRole("button", { name: "Bar" }),
   ).toHaveAccessibleDescription("Group Hint Text");
 });
 
@@ -91,7 +91,7 @@ test("should call onChange with the value of the ButtonToggle that is clicked", 
     <ButtonToggleGroup id="button-toggle-group-id" onChange={onChange}>
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   await user.click(screen.getByRole("button", { name: "Foo" }));
@@ -111,7 +111,7 @@ test("should call onChange with null value when allowDeselect is set and a selec
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   await user.click(screen.getByRole("button", { name: "Foo" }));
@@ -130,20 +130,20 @@ test("should render with disabled child buttons and expected styles when disable
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   expect(screen.getByRole("button", { name: "Foo" })).toBeDisabled();
   expect(screen.getByRole("button", { name: "Bar" })).toBeDisabled();
   expect(screen.getByRole("group")).toHaveStyleRule(
     "box-shadow",
-    "inset 0px 0px 0px 1px var(--colorsActionDisabled600)"
+    "inset 0px 0px 0px 1px var(--colorsActionDisabled600)",
   );
   expect(screen.getByRole("group")).toHaveStyleRule("cursor: not-allowed");
 
   expect(screen.getByText("Group Hint Text")).toHaveStyleRule(
     "color",
-    "var(--colorsUtilityYin030)"
+    "var(--colorsUtilityYin030)",
   );
 });
 
@@ -159,7 +159,7 @@ test("should render with expected styles when fullWidth prop is set", () => {
         Foo
       </ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   expect(screen.getByRole("group")).toHaveStyle({ width: "100%" });
@@ -176,7 +176,7 @@ test("should render with expected styles when inputWidth prop is set", () => {
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   expect(screen.getByRole("group")).toHaveStyle({ width: "50%" });
@@ -192,7 +192,7 @@ test("should render with expected styles when labelInline prop is set", () => {
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   expect(screen.getByRole("group")).toHaveStyle({ flexWrap: "nowrap" });
@@ -211,7 +211,7 @@ test("should not render labelHelp or filedHelp when validationRedesignOptIn is t
         <ButtonToggle value="foo">Foo</ButtonToggle>
         <ButtonToggle value="bar">Bar</ButtonToggle>
       </ButtonToggleGroup>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.queryByText("Label Help")).not.toBeInTheDocument();
@@ -228,7 +228,7 @@ test("should only allow the first button to be tabbable when none are selected",
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   await user.tab();
@@ -249,7 +249,7 @@ test("should only allow a selected button to be tabbable", async () => {
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
       <ButtonToggle value="baz">Baz</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   await user.tab();
@@ -271,7 +271,7 @@ test("should focus the previous button of the currently focused button when the 
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
       <ButtonToggle value="baz">Baz</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   await user.tab();
@@ -290,7 +290,7 @@ test("should focus the last button when the first button is focused and the left
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
       <ButtonToggle value="baz">Baz</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   await user.tab();
@@ -309,7 +309,7 @@ test("should focus the next button of the currently focused button when the righ
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
       <ButtonToggle value="baz">Baz</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   await user.tab();
@@ -328,7 +328,7 @@ test("should focus the first button when the last button is focused and the righ
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
       <ButtonToggle value="baz">Baz</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   await user.tab();
@@ -347,7 +347,7 @@ test("should not change focus when a non arrow key is pressed", async () => {
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
       <ButtonToggle value="baz">Baz</ButtonToggle>
-    </ButtonToggleGroup>
+    </ButtonToggleGroup>,
   );
 
   await user.tab();
@@ -370,5 +370,5 @@ testStyledSystemMarginRTL(
   // FE-6834 raised to address this
   () => screen.getAllByTestId("button-toggle-group")[0],
   undefined,
-  { modifier: "&&&" }
+  { modifier: "&&&" },
 );

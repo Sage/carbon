@@ -14,14 +14,14 @@ testStyledSystemMarginRTL(
   {
     mt: "24px",
     mb: "24px",
-  }
+  },
 );
 
 test("should apply the expected margin top", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
       <Hr mt={7} />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const hr = screen.getByRole("separator");
 

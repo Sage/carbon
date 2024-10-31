@@ -41,7 +41,7 @@ export interface ActionPopoverItemProps {
   onClick?: (
     ev:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Submenu component for item */
   submenu?: React.ReactNode;
@@ -84,7 +84,7 @@ function calculateSubmenuPosition(
   ref: React.RefObject<HTMLElement>,
   submenuRef: React.RefObject<HTMLElement>,
   submenuPosition: Alignment,
-  currentSubmenuPosition?: Alignment
+  currentSubmenuPosition?: Alignment,
 ) {
   /* istanbul ignore if */
 
@@ -125,20 +125,16 @@ export const ActionPopoverItem = ({
 
   invariant(
     context,
-    "ActionPopoverItem must be used within an ActionPopover component"
+    "ActionPopoverItem must be used within an ActionPopover component",
   );
 
   invariant(
     React.isValidElement(submenu) ? submenu.type === ActionPopoverMenu : true,
-    "ActionPopoverItem only accepts submenu of type `ActionPopoverMenu`"
+    "ActionPopoverItem only accepts submenu of type `ActionPopoverMenu`",
   );
 
-  const {
-    setOpenPopover,
-    isOpenPopover,
-    focusButton,
-    submenuPosition,
-  } = context;
+  const { setOpenPopover, isOpenPopover, focusButton, submenuPosition } =
+    context;
   const isHref = !!href;
   const [containerPosition, setContainerPosition] = useState<
     ContainerPosition | undefined
@@ -173,7 +169,7 @@ export const ActionPopoverItem = ({
       ref,
       submenuRef,
       submenuPosition,
-      currentSubmenuPosition
+      currentSubmenuPosition,
     );
 
     setCurrentSubmenuPosition?.(checkCalculatedSubmenuPosition);
@@ -246,7 +242,7 @@ export const ActionPopoverItem = ({
     (
       e:
         | React.MouseEvent<HTMLButtonElement>
-        | React.KeyboardEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
     ) => {
       e.stopPropagation();
       if (!disabled) {
@@ -260,7 +256,7 @@ export const ActionPopoverItem = ({
         e.preventDefault();
       }
     },
-    [disabled, focusButton, onClickProp, setOpenPopover]
+    [disabled, focusButton, onClickProp, setOpenPopover],
   );
 
   const onKeyDown = useCallback(
@@ -307,7 +303,7 @@ export const ActionPopoverItem = ({
         e.stopPropagation();
       }
     },
-    [disabled, download, isHref, onClick, submenu, currentSubmenuPosition]
+    [disabled, download, isHref, onClick, submenu, currentSubmenuPosition],
   );
 
   const itemSubmenuProps = {
@@ -379,7 +375,7 @@ export const ActionPopoverItem = ({
           hasSubmenu={!!submenu}
           childHasSubmenu={childHasSubmenu}
           {...(disabled && { "aria-disabled": true })}
-          {...(isHref && { as: ("a" as unknown) as undefined, download, href })}
+          {...(isHref && { as: "a" as unknown as undefined, download, href })}
           {...(submenu && itemSubmenuProps)}
         >
           {submenu && checkRef(ref) && currentSubmenuPosition === "left" ? (
@@ -426,7 +422,7 @@ export const ActionPopoverItem = ({
                 focusIndex,
                 isASubmenu: true,
                 horizontalAlignment,
-              }
+              },
             )
           : null}
       </div>

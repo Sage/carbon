@@ -53,7 +53,7 @@ describe("when the theme is set to sageTheme", () => {
     const switchPanel = screen.getByTestId("slider-panel");
 
     expect(switchPanel).toHaveStyleRule(
-      "color: var(--colorsActionMinorYang100)"
+      "color: var(--colorsActionMinorYang100)",
     );
   });
 
@@ -67,7 +67,7 @@ describe("when the theme is set to sageTheme", () => {
       "var(--colorsActionMinor500)",
       {
         modifier: '[type="off"]',
-      }
+      },
     );
   });
 });

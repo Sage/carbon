@@ -20,7 +20,7 @@ export const StepFlowComponentWithStepFlowTitleNode = () => {
 };
 
 export const StepFlowComponentWithRefAndButtons = (
-  props: Partial<StepFlowProps>
+  props: Partial<StepFlowProps>,
 ) => {
   const stepFlowHandle = useRef<StepFlowHandle>(null);
 
@@ -48,7 +48,7 @@ export const StepFlowComponentWithRefAndButtons = (
 };
 
 export const StepFlowComponentWithRefAndButtonsAndStepFlowTitleNode = (
-  props: Partial<StepFlowProps>
+  props: Partial<StepFlowProps>,
 ) => {
   const stepFlowHandle = useRef<StepFlowHandle>(null);
 

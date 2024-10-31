@@ -24,7 +24,7 @@ const MenuDivider = React.forwardRef<HTMLDivElement, MenuDividerProps>(
         />
       </StyledMenuItem>
     );
-  }
+  },
 );
 
 MenuDivider.displayName = "MenuDivider";

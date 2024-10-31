@@ -30,12 +30,12 @@ test("displays default placeholder text when no value is selected", () => {
   render(
     <MultiSelect label="Colour" onChange={() => {}} value={[]}>
       <Option text="amber" value="amber" />
-    </MultiSelect>
+    </MultiSelect>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAttribute(
     "placeholder",
-    "Please Select..."
+    "Please Select...",
   );
 });
 
@@ -48,12 +48,12 @@ test("displays custom text when placeholder prop is provided and no value is sel
       placeholder="Select a colour"
     >
       <Option text="amber" value="amber" />
-    </MultiSelect>
+    </MultiSelect>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAttribute(
     "placeholder",
-    "Select a colour"
+    "Select a colour",
   );
 });
 
@@ -67,7 +67,7 @@ describe("when value prop is provided", () => {
         placeholder="Select a colour"
       >
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
@@ -84,7 +84,7 @@ describe("when value prop is provided", () => {
         placeholder="Select a colour"
       >
         <Option text="amber" value={selectedOptions[0]} />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
@@ -100,7 +100,7 @@ describe("when value prop is provided", () => {
         placeholder="Select a colour"
       >
         <Option text="amber" value="amber" borderColor="red" fill />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
@@ -120,7 +120,7 @@ describe("when value prop is provided", () => {
       >
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     expect(screen.queryByTitle("green")).not.toBeInTheDocument();
@@ -135,7 +135,7 @@ describe("when value prop is provided", () => {
         placeholder="Select a colour"
       >
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     rerender(
@@ -146,7 +146,7 @@ describe("when value prop is provided", () => {
         placeholder="Select a colour"
       >
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     expect(screen.queryByTitle("amber")).not.toBeInTheDocument();
@@ -156,12 +156,12 @@ describe("when value prop is provided", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} value={["amber"]}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
     expect(
-      within(amberPill).getByRole("button", { name: "remove pill" })
+      within(amberPill).getByRole("button", { name: "remove pill" }),
     ).toBeVisible();
   });
 
@@ -174,12 +174,12 @@ describe("when value prop is provided", () => {
         disabled
       >
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
     expect(
-      within(amberPill).queryByRole("button", { name: "remove pill" })
+      within(amberPill).queryByRole("button", { name: "remove pill" }),
     ).not.toBeInTheDocument();
   });
 
@@ -192,12 +192,12 @@ describe("when value prop is provided", () => {
         readOnly
       >
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     const amberPill = screen.getByTitle("amber");
     expect(
-      within(amberPill).queryByRole("button", { name: "remove pill" })
+      within(amberPill).queryByRole("button", { name: "remove pill" }),
     ).not.toBeInTheDocument();
   });
 });
@@ -207,7 +207,7 @@ describe("accessible name of the input", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} value={[]}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
@@ -224,7 +224,7 @@ describe("accessible name of the input", () => {
         >
           <Option text="amber" value="amber" />
         </MultiSelect>
-      </>
+      </>,
     );
 
     expect(screen.getByRole("combobox")).toHaveAccessibleName("My Select");
@@ -242,7 +242,7 @@ describe("accessible name of the input", () => {
         >
           <Option text="amber" value="amber" />
         </MultiSelect>
-      </>
+      </>,
     );
 
     expect(screen.getByRole("combobox")).toHaveAccessibleName("My Select");
@@ -254,7 +254,7 @@ test("associates the dropdown list with the correct accessible name from the lab
   render(
     <MultiSelect label="Colour" onChange={() => {}} value={[]}>
       <Option text="amber" value="amber" />
-    </MultiSelect>
+    </MultiSelect>,
   );
 
   await user.click(screen.getByRole("combobox"));
@@ -274,16 +274,16 @@ test.each(["top", "bottom"] as const)(
         onChange={() => {}}
       >
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      `${listPlacement}-end`
+      `${listPlacement}-end`,
     );
-  }
+  },
 );
 
 test.each(["top-end", "bottom-end", "top-start", "bottom-start"] as const)(
@@ -298,16 +298,16 @@ test.each(["top-end", "bottom-end", "top-start", "bottom-start"] as const)(
         onChange={() => {}}
       >
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      listPlacement
+      listPlacement,
     );
-  }
+  },
 );
 
 describe("dropdown list", () => {
@@ -316,7 +316,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -329,7 +329,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByTestId("input-icon-toggle"));
@@ -344,14 +344,14 @@ describe("dropdown list", () => {
       render(
         <MultiSelect label="Colour" onChange={() => {}}>
           <Option text="amber" value="amber" />
-        </MultiSelect>
+        </MultiSelect>,
       );
 
       await user.tab();
       await user.keyboard(key);
 
       expect(await screen.findByRole("listbox")).toBeVisible();
-    }
+    },
   );
 
   it.each(["Enter", "a"] as const)(
@@ -361,14 +361,14 @@ describe("dropdown list", () => {
       render(
         <MultiSelect label="Colour" onChange={() => {}}>
           <Option text="amber" value="amber" />
-        </MultiSelect>
+        </MultiSelect>,
       );
 
       await user.tab();
       await user.keyboard(`[${key}]`);
 
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-    }
+    },
   );
 
   it("does not open, when input is disabled and is clicked", async () => {
@@ -376,7 +376,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} disabled>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -389,7 +389,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} disabled>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -403,7 +403,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} readOnly>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("textbox"));
@@ -416,7 +416,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} readOnly>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -430,7 +430,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} openOnFocus>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -443,7 +443,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} openOnFocus={false}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -456,7 +456,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -470,7 +470,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -488,14 +488,14 @@ describe("dropdown list", () => {
           <Option text="amber" value="amber" />
         </MultiSelect>
         <p>Outside content</p>
-      </>
+      </>,
     );
 
     await user.click(screen.getByRole("combobox"));
     await user.click(screen.getByText("Outside content"));
 
     await waitFor(() =>
-      expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
     );
   });
 
@@ -504,14 +504,14 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
     await user.click(screen.getByRole("combobox"));
 
     await waitFor(() =>
-      expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
     );
   });
 
@@ -520,7 +520,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByTestId("input-icon-toggle"));
@@ -536,7 +536,7 @@ describe("dropdown list", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} openOnFocus>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -552,14 +552,14 @@ describe("when dropdown list is opened", () => {
       <MultiSelect label="Colour" onChange={() => {}} openOnFocus>
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.tab();
     await user.keyboard("{ArrowDown}");
 
     expect(
-      await screen.findByRole("option", { name: "amber" })
+      await screen.findByRole("option", { name: "amber" }),
     ).toHaveStyleRule("background-color", "var(--colorsUtilityMajor200)");
   });
 
@@ -569,7 +569,7 @@ describe("when dropdown list is opened", () => {
       <MultiSelect label="Colour" onChange={() => {}} openOnFocus>
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -577,7 +577,7 @@ describe("when dropdown list is opened", () => {
 
     expect(await screen.findByRole("option", { name: "blue" })).toHaveStyleRule(
       "background-color",
-      "var(--colorsUtilityMajor200)"
+      "var(--colorsUtilityMajor200)",
     );
   });
 
@@ -595,7 +595,7 @@ describe("when dropdown list is opened", () => {
           id="colour"
           value={value}
           onChange={(event) => {
-            setValue((event.target.value as unknown) as string[]);
+            setValue(event.target.value as unknown as string[]);
             onChange(event);
           }}
         >
@@ -616,7 +616,7 @@ describe("when dropdown list is opened", () => {
           id: "colour",
           value: ["amber"],
         }),
-      })
+      }),
     );
   });
 
@@ -627,7 +627,7 @@ describe("when dropdown list is opened", () => {
       <MultiSelect label="Colour" onChange={onChange} openOnFocus>
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -647,7 +647,7 @@ describe("when dropdown list is opened", () => {
       <MultiSelect label="Colour" onChange={onChange} value={["amber"]}>
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -661,7 +661,7 @@ describe("when dropdown list is opened", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
     await user.type(screen.getByRole("combobox"), "x");
     await screen.findByText('No results for "x"');
@@ -685,7 +685,7 @@ test.each(["Backspace", "Delete"])(
           label="Colour"
           value={value}
           onChange={(event) => {
-            setValue((event.target.value as unknown) as string[]);
+            setValue(event.target.value as unknown as string[]);
           }}
         >
           <Option text="amber" value="amber" />
@@ -700,7 +700,7 @@ test.each(["Backspace", "Delete"])(
 
     const amberPill = screen.queryByTitle("amber");
     expect(amberPill).not.toBeInTheDocument();
-  }
+  },
 );
 
 test("a selected option, that renders dimissible pill, can be removed by clicking the dismiss button", async () => {
@@ -713,7 +713,7 @@ test("a selected option, that renders dimissible pill, can be removed by clickin
         label="Colour"
         value={value}
         onChange={(event) => {
-          setValue((event.target.value as unknown) as string[]);
+          setValue(event.target.value as unknown as string[]);
         }}
       >
         <Option text="amber" value="amber" />
@@ -742,7 +742,7 @@ test("calls onChange prop when a previously selected option is removed", async (
         label="Colour"
         value={value}
         onChange={(ev) => {
-          setValue((ev.target.value as unknown) as string[]);
+          setValue(ev.target.value as unknown as string[]);
           onChange(ev);
         }}
       >
@@ -761,7 +761,7 @@ test("calls onChange prop when a previously selected option is removed", async (
       target: expect.objectContaining({
         value: ["amber"],
       }),
-    })
+    }),
   );
 });
 
@@ -776,7 +776,7 @@ test("does not call onChange prop, when Backspace key is pressed but nothing has
         label="Colour"
         value={value}
         onChange={(ev) => {
-          setValue((ev.target.value as unknown) as string[]);
+          setValue(ev.target.value as unknown as string[]);
           onChange(ev);
         }}
       >
@@ -801,7 +801,7 @@ test("clears the input after clicking away from it", async () => {
         <Option text="amber" value="amber" />
       </MultiSelect>
       <p>Outside content</p>
-    </>
+    </>,
   );
 
   await user.type(screen.getByRole("combobox"), "a");
@@ -815,7 +815,7 @@ test("clears the input after an option is selected", async () => {
   render(
     <MultiSelect label="Colour" onChange={() => {}}>
       <Option text="amber" value="amber" />
-    </MultiSelect>
+    </MultiSelect>,
   );
 
   await user.type(screen.getByRole("combobox"), "amber");
@@ -831,7 +831,7 @@ describe("when onClick prop is passed", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} onClick={onClick}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -850,7 +850,7 @@ describe("when onClick prop is passed", () => {
         onClick={onClick}
       >
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -869,7 +869,7 @@ describe("when onClick prop is passed", () => {
         onClick={onClick}
       >
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("textbox"));
@@ -885,7 +885,7 @@ describe("when onOpen prop is passed", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} onOpen={onOpen}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -899,7 +899,7 @@ describe("when onOpen prop is passed", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} onOpen={onOpen}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "a");
@@ -918,7 +918,7 @@ describe("when onOpen prop is passed", () => {
         openOnFocus
       >
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.tab();
@@ -932,7 +932,7 @@ describe("when onOpen prop is passed", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} onOpen={onOpen}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.click(screen.getByTestId("input-icon-toggle"));
@@ -947,7 +947,7 @@ test("calls onFocus prop when input is focused", async () => {
   render(
     <MultiSelect label="Colour" onChange={() => {}} onFocus={onFocus}>
       <Option text="amber" value="amber" />
-    </MultiSelect>
+    </MultiSelect>,
   );
 
   await user.tab();
@@ -961,7 +961,7 @@ test("calls onBlur prop when input loses focus", async () => {
   render(
     <MultiSelect label="Colour" onChange={() => {}} onBlur={onBlur}>
       <Option text="amber" value="amber" />
-    </MultiSelect>
+    </MultiSelect>,
   );
 
   await user.tab();
@@ -976,7 +976,7 @@ test("does not call onBlur, when input temporarily loses focus due to an option 
   render(
     <MultiSelect label="Colour" onChange={() => {}} onBlur={onBlur}>
       <Option text="amber" value="amber" />
-    </MultiSelect>
+    </MultiSelect>,
   );
 
   await user.click(screen.getByRole("combobox"));
@@ -991,7 +991,7 @@ test("calls onKeyDown prop when input is focused and a key is pressed", async ()
   render(
     <MultiSelect label="Colour" onChange={() => {}} onKeyDown={onKeyDown}>
       <Option text="amber" value="amber" />
-    </MultiSelect>
+    </MultiSelect>,
   );
 
   await user.tab();
@@ -1010,7 +1010,7 @@ test("calls onFilterChange prop when input text changes", async () => {
       onFilterChange={onFilterChange}
     >
       <Option text="amber" value="amber" />
-    </MultiSelect>
+    </MultiSelect>,
   );
 
   await user.type(screen.getByRole("combobox"), "a");
@@ -1024,7 +1024,7 @@ describe("when typing into the input", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="red" value="red" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "   red");
@@ -1037,7 +1037,7 @@ describe("when typing into the input", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}}>
         <Option text="red" value="red" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "red   ");
@@ -1052,7 +1052,7 @@ describe("forwarded ref", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} ref={mockRef}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     expect(mockRef).toHaveBeenNthCalledWith(1, screen.getByRole("combobox"));
@@ -1063,7 +1063,7 @@ describe("forwarded ref", () => {
     render(
       <MultiSelect label="Colour" onChange={() => {}} ref={mockRef}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     expect(mockRef.current).toBe(screen.getByRole("combobox"));
@@ -1078,12 +1078,12 @@ describe("deprecation warnings", () => {
     render(
       <MultiSelect label="Colour" onChange={undefined} defaultValue={["amber"]}>
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     expect(loggerSpy).toHaveBeenNthCalledWith(
       1,
-      "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
     );
   });
 
@@ -1097,7 +1097,7 @@ describe("deprecation warnings", () => {
         placeholder="Select a colour"
       >
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     expect(loggerSpy).not.toHaveBeenCalled();
@@ -1108,11 +1108,11 @@ describe("deprecation warnings", () => {
     render(
       <MultiSelect label="Colour" placeholder="Select a colour">
         <Option text="amber" value="amber" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     expect(loggerSpy).not.toHaveBeenCalledWith(
-      "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
     );
   });
 });
@@ -1121,7 +1121,7 @@ test("marks input as required when required prop is true", () => {
   render(
     <MultiSelect label="Colour" onChange={() => {}} required>
       <Option text="amber" value="amber" />
-    </MultiSelect>
+    </MultiSelect>,
   );
 
   expect(screen.getByRole("combobox")).toBeRequired();
@@ -1132,7 +1132,7 @@ test("does not call onOpen, when openOnFocus is true and the input is refocused 
   render(
     <MultiSelect label="Colour" onChange={() => {}} onOpen={onOpen} openOnFocus>
       <Option text="amber" value="amber" />
-    </MultiSelect>
+    </MultiSelect>,
   );
 
   const input = screen.getByRole("combobox");
@@ -1154,7 +1154,7 @@ test("dropdown list is open on initial render, when autoFocus and openOnFocus pr
       <MultiSelect label="Colour" onChange={() => {}} autoFocus openOnFocus>
         <Option text="amber" value="amber" />
       </MultiSelect>
-    </Modal>
+    </Modal>,
   );
 
   act(() => {
@@ -1179,5 +1179,5 @@ testStyledSystemMarginRTL(
       <Option text="amber" value="amber" />
     </MultiSelect>
   ),
-  () => screen.getByTestId("my-select")
+  () => screen.getByTestId("my-select"),
 );

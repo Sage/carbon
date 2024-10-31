@@ -98,5 +98,5 @@ testStyledSystemMarginRTL(
       Foo
     </Content>
   ),
-  () => screen.getByTestId("content")
+  () => screen.getByTestId("content"),
 );

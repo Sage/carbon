@@ -21,7 +21,7 @@ test("renders and appends to an element with the 'id' attribute set to `root`", 
   render(
     <PortalContext.Provider value={{ renderInRoot: true }}>
       <Portal />
-    </PortalContext.Provider>
+    </PortalContext.Provider>,
   );
 
   const rootElement = screen.getByTestId("root-element");
@@ -70,7 +70,7 @@ test("renders one portal exit parent which contains all passed children, when mu
     <>
       <Portal id="foo">Portal Content</Portal>
       <Portal id="foo">Portal Content</Portal>
-    </>
+    </>,
   );
 
   const portalExit = screen.getAllByTestId("carbon-portal-exit");
@@ -91,7 +91,7 @@ test("renders with the 'data-not-inert' attribute set to true on the portal exit
   render(
     <ThemeProvider theme={sageTheme}>
       <Portal inertOptOut />
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 
   const portalExit = screen.getByTestId("carbon-portal-exit");

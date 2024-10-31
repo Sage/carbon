@@ -94,7 +94,7 @@ export interface MultiSelectProps
   isOptional?: boolean;
   /** Specify a callback triggered on change */
   onChange?: (
-    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
+    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
   ) => void;
   /** Override the default width of the list element. Number passed is converted into pixel value */
   listWidth?: number;
@@ -142,7 +142,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       listWidth,
       ...textboxProps
     },
-    ref
+    ref,
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState();
     const selectListId = useRef(guid());
@@ -158,7 +158,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const [open, setOpen] = useState(false);
     const [textValue, setTextValue] = useState("");
     const [selectedValue, setSelectedValue] = useState(
-      value || defaultValue || []
+      value || defaultValue || [],
     );
     const [highlightedValue, setHighlightedValue] = useState("");
     const [placeholderOverride, setPlaceholderOverride] = useState<string>();
@@ -176,7 +176,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     if (!deprecateUncontrolledWarnTriggered && componentIsUncontrolled) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
@@ -193,7 +193,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
         return customEvent as CustomSelectChangeEvent;
       },
-      [name, id]
+      [name, id],
     );
 
     /* generic value update function which can be used for both controlled and uncontrolled
@@ -203,12 +203,12 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const updateValue = useCallback(
       (
         updateFunction: (
-          previousValue: string[] | Record<string, unknown>[]
+          previousValue: string[] | Record<string, unknown>[],
         ) => string[] | Record<string, unknown>[],
-        selectionConfirmed
+        selectionConfirmed,
       ) => {
         const newValue = updateFunction(
-          actualValue as string[] | Record<string, unknown>[]
+          actualValue as string[] | Record<string, unknown>[],
         );
         // only call onChange if an option has been selected or deselected
         if (onChange && newValue.length !== actualValue?.length) {
@@ -220,12 +220,12 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           setSelectedValue(updateFunction);
         }
       },
-      [createCustomEvent, onChange, actualValue]
+      [createCustomEvent, onChange, actualValue],
     );
 
     function findElementWithMatchingText(
       textToMatch: string,
-      list: React.ReactNode
+      list: React.ReactNode,
     ) {
       return React.Children.toArray(list).find((child) => {
         const { text } = (child as React.ReactElement).props;
@@ -239,7 +239,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         const newValue = event.target.value;
         const match = findElementWithMatchingText(
           newValue,
-          children
+          children,
         ) as React.ReactElement;
 
         if (match) {
@@ -254,7 +254,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
         setOpen(true);
       },
-      [children, open, onOpen]
+      [children, open, onOpen],
     );
 
     const removeSelectedValue = useCallback(
@@ -271,7 +271,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           return newValue;
         }, true);
       },
-      [updateValue]
+      [updateValue],
     );
 
     const handleTextboxKeydown = useCallback(
@@ -299,7 +299,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           removeSelectedValue(-1);
         }
       },
-      [onKeyDown, readOnly, textValue, open, onOpen, removeSelectedValue]
+      [onKeyDown, readOnly, textValue, open, onOpen, removeSelectedValue],
     );
 
     const accessibilityLabel = useMemo(() => {
@@ -339,7 +339,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
         isClickTriggeredBySelect.current = false;
       },
-      [open]
+      [open],
     );
 
     const mapValuesToPills = useMemo(() => {
@@ -353,7 +353,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       return actualValue.map((singleValue, index) => {
         const matchingOption = React.Children.toArray(children).find(
           (child) =>
-            React.isValidElement(child) && isExpectedOption(child, singleValue)
+            React.isValidElement(child) && isExpectedOption(child, singleValue),
         );
 
         let pillProps: Omit<PillProps, "children"> = {};
@@ -406,11 +406,11 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
       invariant(
         isControlled.current === (value !== undefined),
-        modeSwitchedMessage
+        modeSwitchedMessage,
       );
       invariant(
         !isControlled.current || (isControlled.current && onChange),
-        onChangeMissingMessage
+        onChangeMissingMessage,
       );
     }, [value, onChange]);
 
@@ -437,7 +437,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     }, [handleGlobalClick]);
 
     const onFilterChange = useStableCallback(
-      onFilterChangeProp as (filterTextArg: unknown) => void
+      onFilterChangeProp as (filterTextArg: unknown) => void,
     );
 
     const isFirstRender = useRef(true);
@@ -544,7 +544,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           return [...previousValue, newValue];
         }, selectionConfirmed);
       },
-      [textboxRef, actualValue, updateValue]
+      [textboxRef, actualValue, updateValue],
     );
 
     const onSelectListClose = useCallback(() => {
@@ -565,7 +565,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           ref.current = element;
         }
       },
-      [ref]
+      [ref],
     );
 
     function getTextboxProps() {
@@ -672,7 +672,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         {selectList}
       </StyledSelectMultiSelect>
     );
-  }
+  },
 );
 
 export default MultiSelect;

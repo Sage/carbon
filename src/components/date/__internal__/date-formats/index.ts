@@ -61,12 +61,12 @@ const SEPARATORS = ["", ".", ",", "-", "/", ":"] as const;
 
 const STANDARD_FORMAT_LENGTH = 10;
 
-type Separator = typeof SEPARATORS[number];
+type Separator = (typeof SEPARATORS)[number];
 
 const generateFormats = (
   formatArray: string[],
   separator: Separator,
-  trailingChar?: string
+  trailingChar?: string,
 ): string[] => {
   const separators = SEPARATORS.includes(separator)
     ? SEPARATORS
@@ -161,7 +161,7 @@ const getFormatData = ({ code = "en-GB" }: DateFnsLocale): LocaleFormats => {
     formats: generateFormats(
       formatsForLocale,
       separator,
-      getTrailingChar(format)
+      getTrailingChar(format),
     ),
   };
 };

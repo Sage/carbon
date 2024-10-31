@@ -75,11 +75,11 @@ test.describe("When focused", () => {
     await inputElement.focus();
     await expect(inputElement.locator("..")).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(inputElement.locator("..")).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -96,7 +96,7 @@ test.describe("When focused", () => {
     await inputElement.focus();
     await expect(inputElement.locator("..")).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 3px"
+      "rgb(255, 188, 25) solid 3px",
     );
   });
 });
@@ -167,7 +167,7 @@ test.describe("FilterableSelect component", () => {
 
       await expect(selectInput(page)).toHaveAttribute(
         "placeholder",
-        placeholderValue
+        placeholderValue,
       );
     });
   });
@@ -180,7 +180,7 @@ test.describe("FilterableSelect component", () => {
 
     await expect(commonDataElementInputPreview(page)).toHaveAttribute(
       "name",
-      testPropValue
+      testPropValue,
     );
   });
 
@@ -200,7 +200,7 @@ test.describe("FilterableSelect component", () => {
     await mount(<FilterableSelectComponent data-component={testPropValue} />);
 
     await expect(
-      selectElementInput(page).locator("..").locator("..")
+      selectElementInput(page).locator("..").locator(".."),
     ).toHaveAttribute("data-component", testPropValue);
   });
 
@@ -211,7 +211,7 @@ test.describe("FilterableSelect component", () => {
     await mount(<FilterableSelectComponent data-element={testPropValue} />);
 
     await expect(
-      selectElementInput(page).locator("..").locator("..")
+      selectElementInput(page).locator("..").locator(".."),
     ).toHaveAttribute("data-element", testPropValue);
   });
 
@@ -222,16 +222,18 @@ test.describe("FilterableSelect component", () => {
     await mount(<FilterableSelectComponent data-role={testPropValue} />);
 
     await expect(
-      selectElementInput(page).locator("..").locator("..")
+      selectElementInput(page).locator("..").locator(".."),
     ).toHaveAttribute("data-role", testPropValue);
   });
 
-  ([
-    ["top", "200px", "0px", "0px", "0px"],
-    ["bottom", "0px", "0px", "0px", "0px"],
-    ["left", "200px", "0px", "200px", "0px"],
-    ["right", "200px", "0px", "0px", "200px"],
-  ] as const).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
+  (
+    [
+      ["top", "200px", "0px", "0px", "0px"],
+      ["bottom", "0px", "0px", "0px", "0px"],
+      ["left", "200px", "0px", "200px", "0px"],
+      ["right", "200px", "0px", "0px", "200px"],
+    ] as const
+  ).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
     test(`should render the help tooltip in the ${tooltipPositionValue} position`, async ({
       mount,
       page,
@@ -244,7 +246,7 @@ test.describe("FilterableSelect component", () => {
           mb={bottom}
           ml={left}
           mr={right}
-        />
+        />,
       );
 
       await helpIcon(page).hover();
@@ -252,7 +254,7 @@ test.describe("FilterableSelect component", () => {
       await expect(tooltipElement).toBeVisible();
       await expect(tooltipElement).toHaveAttribute(
         "data-placement",
-        tooltipPositionValue
+        tooltipPositionValue,
       );
     });
   });
@@ -271,7 +273,7 @@ test.describe("FilterableSelect component", () => {
     await expect(dropdownButtonElement).toBeVisible();
     await expect(dropdownButtonElement).toHaveCSS(
       "color",
-      "rgba(0, 0, 0, 0.3)"
+      "rgba(0, 0, 0, 0.3)",
     );
   });
 
@@ -290,15 +292,17 @@ test.describe("FilterableSelect component", () => {
     await expect(dropdownButtonElement).toBeVisible();
     await expect(dropdownButtonElement).toHaveCSS(
       "color",
-      "rgba(0, 0, 0, 0.3)"
+      "rgba(0, 0, 0, 0.3)",
     );
   });
 
-  ([
-    [SIZE.SMALL, "32px"],
-    [SIZE.MEDIUM, "40px"],
-    [SIZE.LARGE, "48px"],
-  ] as [FilterableSelectProps["size"], string][]).forEach(([size, height]) => {
+  (
+    [
+      [SIZE.SMALL, "32px"],
+      [SIZE.MEDIUM, "40px"],
+      [SIZE.LARGE, "48px"],
+    ] as [FilterableSelectProps["size"], string][]
+  ).forEach(([size, height]) => {
     test(`should use ${size} as size and render with ${height} as height`, async ({
       mount,
       page,
@@ -307,7 +311,7 @@ test.describe("FilterableSelect component", () => {
 
       await expect(commonDataElementInputPreview(page).locator("..")).toHaveCSS(
         "min-height",
-        height
+        height,
       );
     });
   });
@@ -329,15 +333,17 @@ test.describe("FilterableSelect component", () => {
 
     await expect(getDataElementByValue(page, "label").locator("..")).toHaveCSS(
       "-webkit-box-pack",
-      "end"
+      "end",
     );
   });
 
-  ([
-    ["flex", 399],
-    ["flex", 400],
-    ["block", 401],
-  ] as [string, number][]).forEach(([displayValue, breakpoint]) => {
+  (
+    [
+      ["flex", 399],
+      ["flex", 400],
+      ["block", 401],
+    ] as [string, number][]
+  ).forEach(([displayValue, breakpoint]) => {
     test(`should check label alignment is ${displayValue} with adaptiveLabelBreakpoint ${breakpoint} and viewport 400`, async ({
       mount,
       page,
@@ -350,39 +356,39 @@ test.describe("FilterableSelect component", () => {
         <FilterableSelectComponent
           labelInline
           adaptiveLabelBreakpoint={breakpoint}
-        />
+        />,
       );
 
       await expect(
-        getDataElementByValue(page, "label").locator("..").locator("..")
+        getDataElementByValue(page, "label").locator("..").locator(".."),
       ).toHaveCSS("display", displayValue);
     });
   });
 
-  ([
-    ["right", "end"],
-    ["left", "start"],
-  ] as [FilterableSelectProps["labelAlign"], string][]).forEach(
-    ([alignment, cssProp]) => {
-      test(`should use ${alignment} as labelAligment and render with flex-${cssProp} as css properties`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <FilterableSelectComponent labelInline labelAlign={alignment} />
-        );
+  (
+    [
+      ["right", "end"],
+      ["left", "start"],
+    ] as [FilterableSelectProps["labelAlign"], string][]
+  ).forEach(([alignment, cssProp]) => {
+    test(`should use ${alignment} as labelAligment and render with flex-${cssProp} as css properties`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <FilterableSelectComponent labelInline labelAlign={alignment} />,
+      );
 
-        const labelParentElement = getDataElementByValue(page, "label").locator(
-          ".."
-        );
-        await expect(labelParentElement).toHaveCSS("-webkit-box-pack", cssProp);
-        await expect(labelParentElement).toHaveCSS(
-          "justify-content",
-          `flex-${cssProp}`
-        );
-      });
-    }
-  );
+      const labelParentElement = getDataElementByValue(page, "label").locator(
+        "..",
+      );
+      await expect(labelParentElement).toHaveCSS("-webkit-box-pack", cssProp);
+      await expect(labelParentElement).toHaveCSS(
+        "justify-content",
+        `flex-${cssProp}`,
+      );
+    });
+  });
 
   [
     [10, 90, 135, 1229],
@@ -398,18 +404,18 @@ test.describe("FilterableSelect component", () => {
           labelInline
           labelWidth={label}
           inputWidth={input}
-        />
+        />,
       );
 
       await assertCssValueIsApproximately(
         getDataElementByValue(page, "label").locator(".."),
         "width",
-        labelRatio
+        labelRatio,
       );
       await assertCssValueIsApproximately(
         getDataElementByValue(page, "input").locator(".."),
         "width",
-        inputRatio
+        inputRatio,
       );
     });
   });
@@ -419,7 +425,7 @@ test.describe("FilterableSelect component", () => {
       await mount(<FilterableSelectComponent maxWidth={maxWidth} />);
 
       await expect(
-        getDataElementByValue(page, "input").locator("..").locator("..")
+        getDataElementByValue(page, "input").locator("..").locator(".."),
       ).toHaveCSS("max-width", maxWidth);
     });
   });
@@ -431,7 +437,7 @@ test.describe("FilterableSelect component", () => {
     await mount(<FilterableSelectComponent maxWidth="" />);
 
     await expect(
-      getDataElementByValue(page, "input").locator("..").locator("..")
+      getDataElementByValue(page, "input").locator("..").locator(".."),
     ).toHaveCSS("max-width", "100%");
   });
 
@@ -614,7 +620,7 @@ test.describe("FilterableSelect component", () => {
     await dropdownButton(page).click();
     await expect(selectListWrapper(page)).toBeVisible();
     await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible())
+      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
     );
   });
 
@@ -630,7 +636,7 @@ test.describe("FilterableSelect component", () => {
     await buttonElement.click();
     await expect(wrapperElement).toBeVisible();
     await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible())
+      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
     );
     await expect(selectOptionByText(page, option)).toBeVisible();
     await buttonElement.click();
@@ -638,7 +644,7 @@ test.describe("FilterableSelect component", () => {
     await buttonElement.click();
     await expect(wrapperElement).toBeVisible();
     await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible())
+      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
     );
   });
 
@@ -653,7 +659,7 @@ test.describe("FilterableSelect component", () => {
     await dropdownButton(page).click();
     await expect(selectListWrapperElement).toBeVisible();
     await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible())
+      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
     );
     await expect(selectOptionByText(page, option)).toHaveCount(0);
     await page.waitForTimeout(2000);
@@ -662,7 +668,7 @@ test.describe("FilterableSelect component", () => {
     });
     await page.waitForTimeout(250);
     await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).not.toBeVisible())
+      [0, 1, 2].map((i) => expect(loader(page, i)).not.toBeVisible()),
     );
     await expect(await selectOptionByText(page, option)).toBeVisible();
   });
@@ -687,12 +693,12 @@ test.describe("FilterableSelect component", () => {
     await dropdownButton(page).click();
     await scrollableWrapper.evaluate((wrapper) => wrapper.scrollBy(0, 500));
     const scrollPositionBeforeLoad = await scrollableWrapper.evaluate(
-      (element) => element.scrollTop
+      (element) => element.scrollTop,
     );
 
     await selectOptionByText(page, "Lazy Loaded A1").waitFor();
     const scrollPositionAfterLoad = await scrollableWrapper.evaluate(
-      (element) => element.scrollTop
+      (element) => element.scrollTop,
     );
     await expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
   });
@@ -785,7 +791,7 @@ test.describe("FilterableSelect component", () => {
 
     await expect(optionElement).toHaveCSS(
       "background-color",
-      "rgb(153, 173, 183)"
+      "rgb(153, 173, 183)",
     );
   });
 
@@ -807,7 +813,7 @@ test.describe("FilterableSelect component", () => {
     const optionElement = selectOptionByText(page, "Green");
     await expect(optionElement).toHaveCSS(
       "background-color",
-      "rgba(0, 0, 0, 0)"
+      "rgba(0, 0, 0, 0)",
     );
   });
 
@@ -829,7 +835,7 @@ test.describe("FilterableSelect component", () => {
     const optionElement = selectOptionByText(page, "Green");
     await expect(optionElement).toHaveCSS(
       "background-color",
-      "rgba(0, 0, 0, 0)"
+      "rgba(0, 0, 0, 0)",
     );
   });
 
@@ -862,16 +868,18 @@ test.describe("FilterableSelect component", () => {
     await expect(wrapperElement).toBeVisible();
   });
 
-  ([
-    ["top", "0px", "0px", "0px", "20px"],
-    ["bottom", "600px", "0px", "0px", "20px"],
-  ] as [
-    FilterableSelectProps["listPlacement"],
-    string,
-    string,
-    string,
-    string
-  ][]).forEach(([position, top, bottom, left, right]) => {
+  (
+    [
+      ["top", "0px", "0px", "0px", "20px"],
+      ["bottom", "600px", "0px", "0px", "20px"],
+    ] as [
+      FilterableSelectProps["listPlacement"],
+      string,
+      string,
+      string,
+      string,
+    ][]
+  ).forEach(([position, top, bottom, left, right]) => {
     test(`should flip list to opposite position when there is not enough space to render in ${position} position`, async ({
       mount,
       page,
@@ -884,7 +892,7 @@ test.describe("FilterableSelect component", () => {
           mb={bottom}
           ml={left}
           mr={right}
-        />
+        />,
       );
 
       let flipPosition = "";
@@ -898,7 +906,7 @@ test.describe("FilterableSelect component", () => {
       const listElement = selectListPosition(page);
       await expect(listElement).toHaveAttribute(
         "data-floating-placement",
-        flipPosition
+        flipPosition,
       );
       await expect(listElement).toBeVisible();
     });
@@ -915,14 +923,14 @@ test.describe("FilterableSelect component", () => {
       page,
     }) => {
       await mount(
-        <FilterableSelectComponent mt={top} mb={bottom} ml={left} mr={right} />
+        <FilterableSelectComponent mt={top} mb={bottom} ml={left} mr={right} />,
       );
 
       await dropdownButton(page).click();
       const listElement = selectListPosition(page);
       await expect(listElement).toHaveAttribute(
         "data-floating-placement",
-        position
+        position,
       );
       await expect(listElement).toBeVisible();
     });
@@ -950,7 +958,7 @@ test.describe("FilterableSelect component", () => {
     }
     await expect(multiColumnsSelectListRow(page)).toHaveCSS(
       "background-color",
-      "rgb(153, 173, 183)"
+      "rgb(153, 173, 183)",
     );
   });
 
@@ -989,11 +997,11 @@ test.describe("FilterableSelect component", () => {
       const highlightedValue = boldedAndUnderlinedValue(page, text);
       await expect(highlightedValue).toHaveCSS(
         "text-decoration-line",
-        "underline"
+        "underline",
       );
       await expect(highlightedValue).toHaveCSS(
         "text-decoration-style",
-        "solid"
+        "solid",
       );
       await expect(highlightedValue).toHaveCSS("font-weight", "500");
     });
@@ -1019,7 +1027,7 @@ test.describe("FilterableSelect component", () => {
     }
     await Promise.all(assertions);
     await expect(
-      multiColumnsSelectListNoResultsMessage(page, text)
+      multiColumnsSelectListNoResultsMessage(page, text),
     ).toBeVisible();
   });
 
@@ -1080,12 +1088,11 @@ test.describe("FilterableSelect component", () => {
     await dropdownButton(page).click();
     await expect(selectListWrapper(page)).toBeVisible();
     await expect(filterableSelectAddElementButton(page)).toBeInViewport();
-    const selectListHeight = await selectListWrapper(
-      page
-    ).evaluate((wrapperElement) =>
-      parseInt(
-        window.getComputedStyle(wrapperElement).getPropertyValue("height")
-      )
+    const selectListHeight = await selectListWrapper(page).evaluate(
+      (wrapperElement) =>
+        parseInt(
+          window.getComputedStyle(wrapperElement).getPropertyValue("height"),
+        ),
     );
     await expect(selectListHeight).toBeGreaterThan(220);
     await expect(selectListHeight).toBeLessThan(250);
@@ -1146,7 +1153,7 @@ test.describe("FilterableSelect component", () => {
     await optionElement.hover();
     await expect(optionElement).toHaveCSS(
       "background-color",
-      "rgb(204, 214, 219)"
+      "rgb(204, 214, 219)",
     );
   });
 
@@ -1175,7 +1182,7 @@ test.describe("FilterableSelect component", () => {
 
     await dropdownButton(page).click();
     await expect(
-      multiColumnsSelectListBody(page).locator("..")
+      multiColumnsSelectListBody(page).locator(".."),
     ).toHaveAttribute("data-component", "option-row");
   });
 
@@ -1187,7 +1194,7 @@ test.describe("FilterableSelect component", () => {
 
     await dropdownButton(page).click();
     await expect(
-      multiColumnsSelectListBody(page).locator("..")
+      multiColumnsSelectListBody(page).locator(".."),
     ).toHaveAttribute("data-role", "option-row");
   });
 
@@ -1199,7 +1206,7 @@ test.describe("FilterableSelect component", () => {
 
     await dropdownButton(page).click();
     await expect(
-      multiColumnsSelectListBody(page).locator("..")
+      multiColumnsSelectListBody(page).locator(".."),
     ).toHaveAttribute("data-element", "option-row");
   });
 
@@ -1219,7 +1226,7 @@ test.describe("FilterableSelect component", () => {
     await dropdownButton(page).click();
     await expect(selectOptionByText(page, listOption)).toHaveAttribute(
       "data-component",
-      "option"
+      "option",
     );
   });
 
@@ -1232,7 +1239,7 @@ test.describe("FilterableSelect component", () => {
     await dropdownButton(page).click();
     await expect(selectOptionByText(page, listOption)).toHaveAttribute(
       "data-role",
-      "option1"
+      "option1",
     );
   });
 
@@ -1245,7 +1252,7 @@ test.describe("FilterableSelect component", () => {
     await dropdownButton(page).click();
     await expect(selectOptionByText(page, listOption)).toHaveAttribute(
       "data-element",
-      "option1"
+      "option1",
     );
   });
 });
@@ -1376,7 +1383,7 @@ test.describe("Check events for FilterableSelect component", () => {
       callbackArguments.push(e);
     };
     await mount(
-      <FilterableSelectOnChangeEventComponent onFilterChange={callback} />
+      <FilterableSelectOnChangeEventComponent onFilterChange={callback} />,
     );
 
     const text = "B";
@@ -1396,7 +1403,7 @@ test.describe("Check events for FilterableSelect component", () => {
       callbackCount += 1;
     };
     await mount(
-      <FilterableSelectListActionEventComponent onListAction={callback} />
+      <FilterableSelectListActionEventComponent onListAction={callback} />,
     );
 
     await dropdownButton(page).click();
@@ -1416,7 +1423,7 @@ test.describe("Check events for FilterableSelect component", () => {
 
     await dropdownButton(page).click();
     await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500)
+      wrapper.scrollBy(0, 500),
     );
     await page.waitForTimeout(250);
     await expect(callbackCount).toBe(1);
@@ -1450,7 +1457,7 @@ test.describe("Check events for FilterableSelect component", () => {
 
     await dropdownButton(page).click();
     await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500)
+      wrapper.scrollBy(0, 500),
     );
     await selectOption(page, positionOfElement("first")).click();
     await dropdownButton(page).click();
@@ -1481,7 +1488,7 @@ test.describe("Check virtual scrolling", () => {
 
     await dropdownButton(page).click();
     await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollTo(0, 750)
+      wrapper.scrollTo(0, 750),
     );
     await page.waitForTimeout(250);
     await expect(selectOptionByText(page, "Option 1.")).toHaveCount(0);
@@ -1568,23 +1575,23 @@ test.describe("Selection confirmed", () => {
     await dropdownButton(page).click();
     await selectOptionByText(page, "One").click();
     await expect(
-      page.locator('[data-element="confirmed-selection-1"]')
+      page.locator('[data-element="confirmed-selection-1"]'),
     ).toBeVisible();
     await dropdownButton(page).click();
     await selectOptionByText(page, "Five").click();
     await expect(
-      page.locator('[data-element="confirmed-selection-1"]')
+      page.locator('[data-element="confirmed-selection-1"]'),
     ).not.toBeVisible();
     await expect(
-      page.locator('[data-element="confirmed-selection-5"]')
+      page.locator('[data-element="confirmed-selection-5"]'),
     ).toBeVisible();
     await dropdownButton(page).click();
     await selectOptionByText(page, "Seven").click();
     await expect(
-      page.locator('[data-element="confirmed-selection-5"]')
+      page.locator('[data-element="confirmed-selection-5"]'),
     ).not.toBeVisible();
     await expect(
-      page.locator('[data-element="confirmed-selection-7"]')
+      page.locator('[data-element="confirmed-selection-7"]'),
     ).toBeVisible();
   });
 
@@ -1599,7 +1606,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("ArrowDown");
     await inputElement.press("Enter");
     await expect(
-      page.locator('[data-element="confirmed-selection-1"]')
+      page.locator('[data-element="confirmed-selection-1"]'),
     ).toBeVisible();
     // to work around a race condition in the keydown handler, we fire a click first to ensure React knows the SelectList is open.
     // This ensures the down-arrow press moves to the next option when the test runs.
@@ -1608,29 +1615,29 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("ArrowDown");
     await inputElement.press("Enter");
     await expect(
-      page.locator('[data-element="confirmed-selection-1"]')
+      page.locator('[data-element="confirmed-selection-1"]'),
     ).not.toBeVisible();
     await expect(
-      page.locator('[data-element="confirmed-selection-3"]')
+      page.locator('[data-element="confirmed-selection-3"]'),
     ).toBeVisible();
     await dropdownButton(page).click();
     await inputElement.press("ArrowDown");
     await inputElement.press("ArrowDown");
     await inputElement.press("Enter");
     await expect(
-      page.locator('[data-element="confirmed-selection-3"]')
+      page.locator('[data-element="confirmed-selection-3"]'),
     ).not.toBeVisible();
     await expect(
-      page.locator('[data-element="confirmed-selection-5"]')
+      page.locator('[data-element="confirmed-selection-5"]'),
     ).toBeVisible();
     await dropdownButton(page).click();
     await inputElement.press("ArrowDown");
     await inputElement.press("Enter");
     await expect(
-      page.locator('[data-element="confirmed-selection-5"]')
+      page.locator('[data-element="confirmed-selection-5"]'),
     ).not.toBeVisible();
     await expect(
-      page.locator('[data-element="confirmed-selection-6"]')
+      page.locator('[data-element="confirmed-selection-6"]'),
     ).toBeVisible();
   });
 
@@ -1645,7 +1652,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("ArrowUp");
     await inputElement.press("Enter");
     await expect(
-      page.locator('[data-element="confirmed-selection-9"]')
+      page.locator('[data-element="confirmed-selection-9"]'),
     ).toBeVisible();
     // to work around a race condition in the keydown handler, we fire a click first to ensure React knows the SelectList is open.
     // This ensures the up-arrow press moves to the next option when the test runs.
@@ -1654,29 +1661,29 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("ArrowUp");
     await inputElement.press("Enter");
     await expect(
-      page.locator('[data-element="confirmed-selection-9"]')
+      page.locator('[data-element="confirmed-selection-9"]'),
     ).not.toBeVisible();
     await expect(
-      page.locator('[data-element="confirmed-selection-7"]')
+      page.locator('[data-element="confirmed-selection-7"]'),
     ).toBeVisible();
     await dropdownButton(page).click();
     await inputElement.press("ArrowUp");
     await inputElement.press("ArrowUp");
     await inputElement.press("Enter");
     await expect(
-      page.locator('[data-element="confirmed-selection-7"]')
+      page.locator('[data-element="confirmed-selection-7"]'),
     ).not.toBeVisible();
     await expect(
-      page.locator('[data-element="confirmed-selection-5"]')
+      page.locator('[data-element="confirmed-selection-5"]'),
     ).toBeVisible();
     await dropdownButton(page).click();
     await inputElement.press("ArrowUp");
     await inputElement.press("Enter");
     await expect(
-      page.locator('[data-element="confirmed-selection-5"]')
+      page.locator('[data-element="confirmed-selection-5"]'),
     ).not.toBeVisible();
     await expect(
-      page.locator('[data-element="confirmed-selection-4"]')
+      page.locator('[data-element="confirmed-selection-4"]'),
     ).toBeVisible();
   });
 
@@ -1690,11 +1697,11 @@ test.describe("Selection confirmed", () => {
     const inputElement = selectInput(page);
     await inputElement.type("th");
     await expect(
-      page.locator('[data-element="confirmed-selection-3"]')
+      page.locator('[data-element="confirmed-selection-3"]'),
     ).not.toBeVisible();
     await inputElement.press("Enter");
     await expect(
-      page.locator('[data-element="confirmed-selection-3"]')
+      page.locator('[data-element="confirmed-selection-3"]'),
     ).toBeVisible();
   });
 
@@ -1711,7 +1718,7 @@ test.describe("Selection confirmed", () => {
     // the span with the data-element prop exists but has size 0 due to having no text content - which Playwright
     // counts as not being visible
     await expect(
-      await page.locator('[data-element^="confirmed-selection-"]').count()
+      await page.locator('[data-element^="confirmed-selection-"]').count(),
     ).toBe(0);
   });
 });
@@ -1721,7 +1728,7 @@ test("should not throw when filter text does not match option text", async ({
   page,
 }) => {
   await mount(
-    <FilterableSelectComponent value={undefined} onChange={undefined} />
+    <FilterableSelectComponent value={undefined} onChange={undefined} />,
   );
 
   await commonDataElementInputPreview(page).type("abc");
@@ -1740,12 +1747,12 @@ test("should not select a disabled option when a filter is typed", async ({
   await inputElement.type("t");
   await inputElement.press("Enter");
   await expect(
-    page.locator('[data-element="confirmed-selection-2"]')
+    page.locator('[data-element="confirmed-selection-2"]'),
   ).not.toBeVisible();
   await inputElement.press("ArrowDown");
   await inputElement.press("Enter");
   await expect(
-    page.locator('[data-element="confirmed-selection-3"]')
+    page.locator('[data-element="confirmed-selection-3"]'),
   ).toBeVisible();
 });
 
@@ -1759,7 +1766,7 @@ test.describe("Test for scroll bug regression", () => {
     const dropdownButtonElement = dropdownButton(page);
     await dropdownButtonElement.click();
     await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500)
+      wrapper.scrollBy(0, 500),
     );
     await commonDataElementInputPreview(page).press("Escape");
     await dropdownButtonElement.click();
@@ -1815,18 +1822,20 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     });
   });
 
-  ([
-    ["top", "200px", "0px", "0px", "0px"],
-    ["bottom", "0px", "0px", "0px", "0px"],
-    ["left", "200px", "0px", "200px", "0px"],
-    ["right", "200px", "0px", "0px", "200px"],
-  ] as [
-    FilterableSelectProps["tooltipPosition"],
-    string,
-    string,
-    string,
-    string
-  ][]).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
+  (
+    [
+      ["top", "200px", "0px", "0px", "0px"],
+      ["bottom", "0px", "0px", "0px", "0px"],
+      ["left", "200px", "0px", "200px", "0px"],
+      ["right", "200px", "0px", "0px", "200px"],
+    ] as [
+      FilterableSelectProps["tooltipPosition"],
+      string,
+      string,
+      string,
+      string,
+    ][]
+  ).forEach(([tooltipPositionValue, top, bottom, left, right]) => {
     test(`should pass accessibility tests with tooltip prop in the ${tooltipPositionValue} position`, async ({
       mount,
       page,
@@ -1839,7 +1848,7 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
           mb={bottom}
           ml={left}
           mr={right}
-        />
+        />,
       );
 
       await helpIcon(page).hover();
@@ -1867,11 +1876,9 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     await checkAccessibility(page);
   });
 
-  ([
-    SIZE.SMALL,
-    SIZE.MEDIUM,
-    SIZE.LARGE,
-  ] as FilterableSelectProps["size"][]).forEach((size) => {
+  (
+    [SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE] as FilterableSelectProps["size"][]
+  ).forEach((size) => {
     test(`should pass accessibility tests with size prop as ${size}`, async ({
       mount,
       page,
@@ -1922,7 +1929,7 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
         <FilterableSelectComponent
           labelInline
           adaptiveLabelBreakpoint={breakpoint}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -1936,12 +1943,12 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
         page,
       }) => {
         await mount(
-          <FilterableSelectComponent labelInline labelAlign={alignment} />
+          <FilterableSelectComponent labelInline labelAlign={alignment} />,
         );
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   [
@@ -1958,7 +1965,7 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
           labelInline
           labelWidth={label}
           inputWidth={input}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -1998,7 +2005,7 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     // wait for content to finish loading before scrolling
     await expect(selectOptionByText(page, "Amber")).toBeVisible();
     await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500)
+      wrapper.scrollBy(0, 500),
     );
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
@@ -2033,16 +2040,18 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
-  ([
-    ["top", "0px", "0px", "0px", "20px"],
-    ["bottom", "600px", "0px", "0px", "20px"],
-  ] as [
-    FilterableSelectProps["listPlacement"],
-    string,
-    string,
-    string,
-    string
-  ][]).forEach(([position, top, bottom, left, right]) => {
+  (
+    [
+      ["top", "0px", "0px", "0px", "20px"],
+      ["bottom", "600px", "0px", "0px", "20px"],
+    ] as [
+      FilterableSelectProps["listPlacement"],
+      string,
+      string,
+      string,
+      string,
+    ][]
+  ).forEach(([position, top, bottom, left, right]) => {
     test(`should pass accessibility tests with flipEnabled prop and listPlacement set to ${position}`, async ({
       mount,
       page,
@@ -2055,7 +2064,7 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
           mb={bottom}
           ml={left}
           mr={right}
-        />
+        />,
       );
 
       await dropdownButton(page).click();

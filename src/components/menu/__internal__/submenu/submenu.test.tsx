@@ -38,7 +38,7 @@ test("should render the last menu item with the correct styles", async () => {
         </MenuSegmentTitle>
         <MenuItem href="#">Menu Item 4</MenuItem>
       </MenuItem>
-    </Menu>
+    </Menu>,
   );
 
   const menuItem = screen.getByRole("button", { name: "Menu Item" });
@@ -74,7 +74,7 @@ test("should render the scrollable block with the correct styles on its last men
           <MenuItem href="#">Item Submenu Twelve</MenuItem>
         </ScrollableBlock>
       </MenuItem>
-    </Menu>
+    </Menu>,
   );
 
   const menuItem = screen.getByRole("button", { name: "Menu Item Three" });
@@ -113,7 +113,7 @@ test("should render the scrollable block with the correct styles on the last men
         </ScrollableBlock>
         <MenuItem href="#">Menu Item Last</MenuItem>
       </MenuItem>
-    </Menu>
+    </Menu>,
   );
 
   const menuItem = screen.getByRole("button", { name: "Menu Item Three" });
@@ -142,7 +142,7 @@ test("should not render submenu when closed", () => {
         <MenuItem>Apple</MenuItem>
         <MenuItem>Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   expect(screen.queryByRole("menu")).not.toBeInTheDocument();
@@ -156,7 +156,7 @@ test("should render submenu when user hovers over on parent menu item", async ()
         <MenuItem>Apple</MenuItem>
         <MenuItem>Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.hover(menuItem);
@@ -173,7 +173,7 @@ test("should remove submenu element from the document when it's closed by the us
         <MenuItem>Apple</MenuItem>
         <MenuItem>Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.hover(menuItem);
@@ -191,7 +191,7 @@ test("should render submenu when parent item is clicked", async () => {
         <MenuItem>Apple</MenuItem>
         <MenuItem>Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -208,7 +208,7 @@ test("should not display submenu when user hovers over parent menu item and `cli
         <MenuItem>Apple</MenuItem>
         <MenuItem>Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.hover(menuItem);
@@ -226,7 +226,7 @@ test("should call the `onSubmenuOpen` callback when the submenu opens and prop h
         <MenuItem>Apple</MenuItem>
         <MenuItem>Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -243,7 +243,7 @@ test("should call the `onSubmenuClose` callback when the submenu closes and prop
         <MenuItem>Apple</MenuItem>
         <MenuItem>Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -260,7 +260,7 @@ test("should render submenu with the correct styles when `submenuDirection` is s
         <MenuItem>Apple</MenuItem>
         <MenuItem>Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -279,7 +279,7 @@ test("should render submenu with the correct styles when `submenuDirection` is s
         <MenuItem>Apple</MenuItem>
         <MenuItem>Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -298,7 +298,7 @@ test("should close submenu when the user clicks outside of the component boundar
         <MenuItem>Apple</MenuItem>
         <MenuItem>Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -320,7 +320,7 @@ test("should support focusing elements via the user typing a search string", asy
         <MenuItem href="#">Orange</MenuItem>
         <MenuItem href="#">Strawberry</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -349,7 +349,7 @@ test("resets search string after 1.5s and focuses the correct item on next chara
         <MenuItem href="#">Orange</MenuItem>
         <MenuItem href="#">Strawberry</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -383,7 +383,7 @@ test("should focus the first item that matches when the search string matches mu
         <MenuItem href="#">Melon</MenuItem>
         <MenuItem href="#">Strawberry</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -419,7 +419,7 @@ test("should not focus a menu item when the search string does not match any ite
         <MenuItem href="#">Orange</MenuItem>
         <MenuItem href="#">Strawberry</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -450,7 +450,7 @@ test("should render submenu with role list when a ScrollableBlock with a `parent
         <MenuItem href="#">Mango</MenuItem>
         <MenuItem href="#">Melon</MenuItem>
       </Submenu>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -479,7 +479,7 @@ test("should render the menu with a max-height set when the `maxHeight` prop is 
           <MenuItem href="#">Item 10</MenuItem>
         </Submenu>
       </MenuContext.Provider>
-    </FixedNavigationBarContext.Provider>
+    </FixedNavigationBarContext.Provider>,
   );
   const parentMenuItem = screen.getByRole("button", { name: "title" });
   await user.click(parentMenuItem);

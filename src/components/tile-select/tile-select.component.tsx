@@ -55,7 +55,7 @@ export interface TileSelectProps extends MarginProps {
   name?: string;
   /** Callback triggered when user selects or deselects this tile */
   onChange?: (
-    ev: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    ev: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => void;
   /** Callback triggered when the user blurs this tile */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
@@ -112,7 +112,7 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
       accordionExpanded,
       ...rest
     }: TileSelectProps,
-    ref
+    ref,
   ) => {
     const l = useLocale();
     const [hasFocus, setHasFocus] = useState(false);
@@ -267,7 +267,7 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
         </StyledFocusWrapper>
       </StyledTileSelectContainer>
     );
-  }
+  },
 );
 
 TileSelect.displayName = "TileSelect";

@@ -51,7 +51,7 @@ export const ButtonToggleComponent = ({
 };
 
 export const ButtonToggleGroupComponent = (
-  props: Partial<ButtonToggleGroupProps>
+  props: Partial<ButtonToggleGroupProps>,
 ) => (
   <Box margin={4} display="flex" flexWrap="nowrap">
     <ButtonToggleGroup
@@ -79,7 +79,7 @@ export const ButtonToggleGroupComponent = (
 );
 
 export const ButtonToggleGroupNotInBox = (
-  props: Partial<ButtonToggleGroupProps>
+  props: Partial<ButtonToggleGroupProps>,
 ) => (
   <ButtonToggleGroup
     id="button-toggle-group-id"
