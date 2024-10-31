@@ -163,6 +163,17 @@ describe("rendered content", () => {
   });
 });
 
+test("sets its max height according to the listMaxHeight prop", () => {
+  render(
+    <SelectListWithInput listMaxHeight={100}>
+      <Option id="red" value="red" text="red" />
+    </SelectListWithInput>
+  );
+
+  const scrollableArea = screen.getByTestId("select-list-scrollable-container");
+  expect(scrollableArea).toHaveStyle("max-height: 100px");
+});
+
 describe("behaviour on option click", () => {
   it("calls onSelect to confirm selection when an option is clicked", async () => {
     const onSelect = jest.fn();
@@ -800,6 +811,21 @@ describe("keyboard navigation", () => {
         <Option id="red" value="red" text="red" />
         <Option id="green" value="green" text="green" />
         <Option id="blue" value="blue" text="blue" />
+      </SelectListWithInput>
+    );
+
+    await user.keyboard("{ArrowDown}");
+
+    expect(onSelect).not.toHaveBeenCalled();
+  });
+
+  it("does not call onSelect when attempting to navigate to non-Option/OptionRow list content", async () => {
+    const onSelect = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+    render(
+      <SelectListWithInput onSelect={onSelect}>
+        <p>apple</p>
       </SelectListWithInput>
     );
 

@@ -1,3 +1,22 @@
+## [144.4.0](https://github.com/Sage/carbon/compare/v144.3.0...v144.4.0) (2024-10-31)
+
+
+### Features
+
+* **note:** allow `title` prop to be passed as a node ([e1ee942](https://github.com/Sage/carbon/commit/e1ee942f6f58b9f3a1c514a9a9ecc8f5ca3cca3c))
+
+
+### Bug Fixes
+
+* **note:** remove 100% height from the draft editor to avoid visual regression ([6aacb15](https://github.com/Sage/carbon/commit/6aacb15ee9b7837ef37df5cc1bd86fb0c1449b08))
+
+## [144.3.0](https://github.com/Sage/carbon/compare/v144.2.2...v144.3.0) (2024-10-30)
+
+
+### Features
+
+* **drawer:** add sidebarAriaLabel prop ([3c80c1c](https://github.com/Sage/carbon/commit/3c80c1cf18b3da494025c8cde10d3ea200352f29))
+
 ### [144.2.2](https://github.com/Sage/carbon/compare/v144.2.1...v144.2.2) (2024-10-29)
 
 

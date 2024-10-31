@@ -636,7 +636,7 @@ const SelectList = React.forwardRef(
                 fallbackStrategy: "initialPlacement",
               }),
             ]
-          : []),
+          : /* istanbul ignore next: covered by Playwright tests for reliable positioning in a real browser */ []),
       ],
       [listWidth, flipEnabled]
     );
