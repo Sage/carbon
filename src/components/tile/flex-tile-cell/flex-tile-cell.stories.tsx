@@ -9,8 +9,13 @@ import FlexTileCell from "./flex-tile-cell.component";
 
 const styledSystemProps = generateStyledSystemProps(
   {
+    margin: true,
     padding: true,
     flexBox: true,
+    spacing: true,
+    grid: true,
+    layout: true,
+    position: true,
   },
   { flexGrow: 1, flexShrink: 0, flexBasis: "160px" },
 );
