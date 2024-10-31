@@ -338,8 +338,9 @@ const SelectList = React.forwardRef(
           "data-index": index,
         };
 
-        return React.cloneElement(child, newProps);
-      });
+        return child !== undefined ? React.cloneElement(child, newProps) : null;
+      })
+      .filter((el) => el !== null);
 
     const lastOptionIndex = findLastIndex(
       childrenList,
