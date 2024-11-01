@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 import FlatTableRowHeader from "./flat-table-row-header.component";
 import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row.context";
 import FlatTable from "../flat-table.component";
@@ -11,7 +11,7 @@ import FlatTableRow from "../flat-table-row/flat-table-row.component";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 import Button from "../../button/button.component";
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <table>
       <thead>

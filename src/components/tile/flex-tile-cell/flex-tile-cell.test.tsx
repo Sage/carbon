@@ -3,17 +3,17 @@ import { render, screen } from "@testing-library/react";
 import FlexTileCell from "./flex-tile-cell.component";
 import {
   testStyledSystemFlexBox,
-  testStyledSystemPaddingRTL,
-  testStyledSystemMarginRTL,
+  testStyledSystemPadding,
+  testStyledSystemMargin,
 } from "../../../__spec_helper__/__internal__/test-utils";
 import FlexTileDivider from "../flex-tile-divider";
 
 describe("FlexTileCell", () => {
-  testStyledSystemMarginRTL(
+  testStyledSystemMargin(
     (props) => <FlexTileCell {...props}>Test</FlexTileCell>,
     () => screen.getByText("Test"),
   );
-  testStyledSystemPaddingRTL(
+  testStyledSystemPadding(
     (props) => <FlexTileCell {...props}>Test</FlexTileCell>,
     () => screen.getByText("Test"),
   );

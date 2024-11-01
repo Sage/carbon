@@ -3,7 +3,7 @@ import { render, screen, within } from "@testing-library/react";
 
 import Icon from "../icon";
 import IconButton from ".";
-import { testStyledSystemSpacingRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -98,7 +98,7 @@ test("sets ref to empty after unmount", () => {
   expect(mockRef.current).toBe(null);
 });
 
-testStyledSystemSpacingRTL(
+testStyledSystemSpacing(
   (props) => (
     <IconButton onClick={() => {}} {...props}>
       <Icon type="home" />

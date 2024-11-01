@@ -2,9 +2,9 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 
 import FlatTableCell from "./flat-table-cell.component";
-import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <table>
       <tbody>

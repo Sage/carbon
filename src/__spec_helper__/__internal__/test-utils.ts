@@ -254,7 +254,7 @@ const expectConsoleOutput = (
   };
 };
 
-const testStyledSystemMarginRTL = (
+const testStyledSystemMargin = (
   component: (spacingProps?: MarginProps) => JSX.Element,
   elementQuery: () => HTMLElement,
   defaults?: MarginProps,
@@ -320,7 +320,7 @@ const testStyledSystemMarginRTL = (
   );
 };
 
-const testStyledSystemPaddingRTL = (
+const testStyledSystemPadding = (
   component: (spacingProps?: PaddingProps) => JSX.Element,
   elementQuery: () => HTMLElement,
   defaults?: PaddingProps,
@@ -386,19 +386,19 @@ const testStyledSystemPaddingRTL = (
   );
 };
 
-const testStyledSystemSpacingRTL = (
+const testStyledSystemSpacing = (
   component: (spacingProps?: MarginProps | PaddingProps) => JSX.Element,
   elementQuery: () => HTMLElement,
   defaults?: MarginProps | PaddingProps,
   assertOpts?: jest.Options,
 ) => {
-  testStyledSystemMarginRTL(
+  testStyledSystemMargin(
     component,
     elementQuery,
     defaults as MarginProps,
     assertOpts,
   );
-  testStyledSystemPaddingRTL(
+  testStyledSystemPadding(
     component,
     elementQuery,
     defaults as PaddingProps,
@@ -426,7 +426,7 @@ const testStyledSystemColor = (
   );
 };
 
-const testStyledSystemWidthRTL = (
+const testStyledSystemWidth = (
   component: (widthProperties?: { width: string }) => JSX.Element,
   elementQuery: () => HTMLElement,
 ) => {
@@ -441,7 +441,7 @@ const testStyledSystemWidthRTL = (
   });
 };
 
-const testStyledSystemHeightRTL = (
+const testStyledSystemHeight = (
   component: (heightProperties?: { height: string }) => JSX.Element,
   elementQuery: () => HTMLElement,
 ) => {
@@ -503,9 +503,9 @@ export {
   testStyledSystemBackground,
   testStyledSystemPosition,
   expectConsoleOutput,
-  testStyledSystemSpacingRTL,
-  testStyledSystemMarginRTL,
-  testStyledSystemPaddingRTL,
-  testStyledSystemWidthRTL,
-  testStyledSystemHeightRTL,
+  testStyledSystemSpacing,
+  testStyledSystemMargin,
+  testStyledSystemPadding,
+  testStyledSystemWidth,
+  testStyledSystemHeight,
 };
