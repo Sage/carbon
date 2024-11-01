@@ -5,14 +5,12 @@ const isCI = process.env.CI === "true";
 
 const config: Config = {
   notify: false,
-  setupFiles: ["raf/polyfill", "<rootDir>/enzyme.config.js"],
+  setupFiles: ["raf/polyfill"],
   testEnvironment: "jsdom",
   setupFilesAfterEnv: [
     "<rootDir>/src/__spec_helper__/__internal__/index.ts",
-    "<rootDir>/src/__spec_helper__/__internal__/expect.ts",
     "jest-canvas-mock",
   ],
-  snapshotSerializers: ["enzyme-to-json/serializer"],
   testMatch: ["**/?(*.)+(spec|test).[jt]s?(x)"],
   testPathIgnorePatterns: ["node_modules", "lib", "esm"],
   moduleDirectories: ["src", "node_modules"],

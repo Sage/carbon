@@ -1,7 +1,6 @@
 /* eslint-disable jest/no-conditional-expect */
 /* eslint-disable jest/no-identical-title */
 /* eslint-disable jest/no-export */
-import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { render } from "@testing-library/react";
 import { sprintf } from "sprintf-js";
 import {
@@ -25,11 +24,9 @@ const toCSSCase = (str: string) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const assertStyleMatch: any = <Props>(
+const assertStyleMatch: any = (
   styleSpec: { [key: string]: string | number | undefined },
   component:
-    | ReactWrapper<Props>
-    | ShallowWrapper<Props>
     | ReactTestRendererJSON
     | ReactTestRendererJSON[]
     | null
@@ -42,115 +39,6 @@ const assertStyleMatch: any = <Props>(
 };
 
 const makeArrayKeys = (n: number) => [...Array(n).keys()];
-
-const dispatchKeyPress = (code: string) => {
-  const ev = new KeyboardEvent("keydown", { key: code });
-  document.dispatchEvent(ev);
-};
-
-const keys = [
-  "ArrowUp",
-  "ArrowDown",
-  "ArrowRight",
-  "ArrowLeft",
-  "Enter",
-  "Tab",
-  " ",
-  "Escape",
-  "End",
-  "Home",
-  "D",
-  "E",
-  "P",
-  "Z",
-  "1",
-];
-
-const keyboard = keys.reduce(
-  (acc, key) => {
-    const methodName = `press${key === " " ? "Space" : key}`;
-    acc[methodName] = () => dispatchKeyPress(key);
-    return acc;
-  },
-  {} as Record<string, () => void>,
-);
-
-// Build an object of Enzyme simulate helpers
-// e.g. simulate.keydown.pressTab(target, { shiftKey: true })
-// e.g. simulate.keydown.pressEscape(target)
-const keydown = keys.reduce(
-  (acc, key) => {
-    const methodName = `press${key === " " ? "Space" : key}`;
-
-    acc[methodName] = (target, { shiftKey } = { shiftKey: false }) => {
-      target.simulate("keydown", {
-        shiftKey,
-        key,
-      });
-    };
-    return acc;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  },
-  {} as Record<
-    string,
-    (target: ReactWrapper<any>, { shiftKey }?: { shiftKey: boolean }) => void
-  >,
-);
-
-const simulate = {
-  keydown,
-};
-
-const listFrom = (wrapper: ReactWrapper): ReactWrapper => wrapper.find("ul");
-const childrenFrom = (node: ReactWrapper): ReactWrapper => node.children();
-
-const hoverList = (wrapper: ReactWrapper) => (item: number) => {
-  childrenFrom(listFrom(wrapper)).at(item).simulate("mouseover");
-};
-
-const simulateEvent = (eventName: string) => (wrapper: ReactWrapper) =>
-  wrapper.simulate(eventName);
-const click: unknown = simulateEvent("click");
-
-const selectedItemOf = (wrapper: ReactWrapper) =>
-  (wrapper.state() as { selectedItem: number }).selectedItem;
-const isUnique = (val: number, index: number, self: number[]) =>
-  self.indexOf(val) === index;
-const isSelectableGiven = (nonSelectables: number[]) => (i: number) =>
-  !nonSelectables.includes(i);
-
-const selectedItemReducer =
-  (method: (wrapper: ReactWrapper) => (i: number) => void) =>
-  (wrapper: ReactWrapper) =>
-  (acc: number[], i: number) => {
-    method(wrapper)(i);
-    return [...acc, selectedItemOf(wrapper)];
-  };
-
-const arraysEqual = (arr1: number[], arr2: number[]) =>
-  arr1.sort().join(",") === arr2.sort().join(",");
-
-const assertCorrectTraversal =
-  (method: (wrapper: ReactWrapper) => (i: number) => void) =>
-  (expect: jest.Expect) =>
-  ({ num, nonSelectables = [] }: { num: number; nonSelectables?: number[] }) =>
-  (wrapper: ReactWrapper) => {
-    const array = makeArrayKeys(num);
-    const validIndexes = array.filter(isSelectableGiven(nonSelectables));
-
-    const selectedItem = selectedItemOf(wrapper);
-    const indexesThatWereSelected = array
-      .reduce(selectedItemReducer(method)(wrapper), [selectedItem])
-      .filter(isUnique);
-    expect(arraysEqual(validIndexes, indexesThatWereSelected)).toBeTruthy();
-  };
-
-const assertKeyboardTraversal = assertCorrectTraversal(
-  () => keyboard.pressArrowDown,
-)(expect);
-const assertHoverTraversal = assertCorrectTraversal((wrapper: ReactWrapper) =>
-  hoverList(wrapper),
-)(expect);
 
 const marginProps = [
   ["m", "margin"],
@@ -275,73 +163,6 @@ export const getDefaultValue = (value?: string | number) => {
     return `${parsedValue * 8}px`;
   }
   return value;
-};
-
-const testStyledSystemMargin = (
-  component: (spacingProps?: MarginProps) => JSX.Element,
-  defaults?: MarginProps,
-  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper,
-  assertOpts?: jest.Options,
-) => {
-  describe("default props", () => {
-    let wrapper: ReactWrapper;
-    let StyleElement: ReactWrapper;
-
-    beforeAll(() => {
-      wrapper = mount(component({ ...defaults }));
-      StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
-    });
-
-    it("should set the correct margins", () => {
-      let margin;
-      let marginLeft;
-      let marginRight;
-      let marginTop;
-      let marginBottom;
-
-      if (defaults) {
-        margin = getDefaultValue(defaults.m);
-        marginLeft = getDefaultValue(defaults.ml || defaults.mx);
-        marginRight = getDefaultValue(defaults.mr || defaults.mx);
-        marginTop = getDefaultValue(defaults.mt || defaults.my);
-        marginBottom = getDefaultValue(defaults.mb || defaults.my);
-
-        assertStyleMatch(
-          {
-            margin,
-            marginLeft,
-            marginRight,
-            marginTop,
-            marginBottom,
-          },
-          StyleElement,
-          assertOpts,
-        );
-      } else {
-        expect(StyleElement).not.toHaveStyleRule("marginLeft");
-        expect(StyleElement).not.toHaveStyleRule("marginRight");
-        expect(StyleElement).not.toHaveStyleRule("marginTop");
-        expect(StyleElement).not.toHaveStyleRule("marginBottom");
-        expect(StyleElement).not.toHaveStyleRule("margin");
-      }
-    });
-  });
-
-  describe.each(marginProps)(
-    'when a custom spacing is specified using the "%s" styled system props',
-    (styledSystemProp, propName) => {
-      it(`then that ${propName} should have been set correctly`, () => {
-        const props = { [styledSystemProp]: 2 };
-        const wrapper = mount(component({ ...props }));
-
-        assertStyleMatch(
-          { [propName]: "var(--spacing200)" },
-          styleContainer ? styleContainer(wrapper) : wrapper,
-          assertOpts,
-        );
-      });
-    },
-  );
 };
 
 const testStyledSystemGrid = (
@@ -673,18 +494,8 @@ const testStyledSystemFlexBox = (
 export {
   assertStyleMatch,
   toCSSCase,
-  hoverList,
-  selectedItemOf,
-  childrenFrom,
   makeArrayKeys,
-  keyboard,
-  assertKeyboardTraversal,
-  assertHoverTraversal,
-  listFrom,
-  click,
-  simulate,
   mockMatchMedia,
-  testStyledSystemMargin,
   testStyledSystemColor,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
