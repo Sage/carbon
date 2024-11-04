@@ -51,6 +51,7 @@ export const ToolbarButton = React.forwardRef<
         onMouseDown={onMouseDown}
         isActive={activated}
         aria-label={ariaLabel}
+        aria-pressed={activated}
         {...(!tabbable && { tabIndex: -1 })}
         onMouseOver={onMouseOver}
         onMouseLeave={onMouseLeave}
