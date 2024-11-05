@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { expect } from "@playwright/experimental-ct-react17";
+import { expect } from "@playwright/experimental-ct-react";
 import { label, legendSpan } from "../components/index";
 
 const OPEN_MODAL = '[data-state="open"]';
