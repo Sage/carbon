@@ -1,10 +1,10 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { testStyledSystemSpacingRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 import VerticalDivider from ".";
 import MenuContext from "../menu/__internal__/menu.context";
 
-testStyledSystemSpacingRTL(
+testStyledSystemSpacing(
   (props) => <VerticalDivider {...props} />,
   () => screen.getByTestId("vertical-divider"),
   { p: 3 },

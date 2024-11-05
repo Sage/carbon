@@ -11,7 +11,7 @@ import FlatTableHeader from "./flat-table-header/flat-table-header.component";
 import FlatTableCell from "./flat-table-cell/flat-table-cell.component";
 import FlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.component";
 import FlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.component";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
@@ -20,7 +20,7 @@ import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import Pager from "../pager/pager.component";
 import CarbonProvider from "../carbon-provider";
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <FlatTable {...props}>
       <FlatTableHead>

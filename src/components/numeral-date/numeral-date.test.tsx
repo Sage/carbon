@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 import NumeralDate from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -9,7 +9,7 @@ import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <NumeralDate data-role="numeral-date" {...props} />,
   // can be updated to use role="group" when FE-6832 is resolved
   () => screen.getByTestId("numeral-date"),

@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import TileHeader, { TileHeaderProps } from ".";
-import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => <TileHeader data-role="header" {...props} />,
   () => screen.getByTestId("header"),
 );

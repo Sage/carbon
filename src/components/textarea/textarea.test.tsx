@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Textarea from ".";
 import { EnterKeyHintTypes } from "../../__internal__/input";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -53,7 +53,7 @@ test("should not render a placeholder if disabled", () => {
   expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "");
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Textarea data-role="textarea-wrapper" {...props} />,
   () => screen.getByTestId("textarea-wrapper"),
 );

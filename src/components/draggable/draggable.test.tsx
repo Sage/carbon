@@ -2,8 +2,8 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
-  testStyledSystemMarginRTL,
-  testStyledSystemPaddingRTL,
+  testStyledSystemMargin,
+  testStyledSystemPadding,
 } from "../../__spec_helper__/__internal__/test-utils";
 
 import { DraggableContainer, DraggableItem } from ".";
@@ -167,7 +167,7 @@ test("throws error when DraggableContainer contains a child which is not Draggab
   jest.restoreAllMocks();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <DraggableContainer {...props}>
       <DraggableItem id="apple">Apple</DraggableItem>
@@ -177,7 +177,7 @@ testStyledSystemMarginRTL(
   undefined,
 );
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <DraggableContainer>
       <DraggableItem id="apple" {...props}>

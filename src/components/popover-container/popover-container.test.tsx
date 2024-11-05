@@ -7,7 +7,7 @@ import {
   waitFor,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemPaddingRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPadding } from "../../__spec_helper__/__internal__/test-utils";
 
 import PopoverContainer from "./popover-container.component";
 import { Select, Option } from "../select";
@@ -531,7 +531,7 @@ describe("closing the popup", () => {
   });
 });
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <PopoverContainer open title="My popup" {...props}>
       Ta da!

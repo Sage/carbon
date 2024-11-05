@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import * as floatingUi from "@floating-ui/dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import sageTheme from "../../style/themes/sage";
 import {
   ActionPopover,
@@ -34,7 +34,7 @@ afterEach(() => {
   jest.runOnlyPendingTimers();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <ThemeProvider theme={sageTheme}>
       <ActionPopover {...props}>
