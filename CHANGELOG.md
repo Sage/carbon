@@ -1,3 +1,10 @@
+### [144.4.1](https://github.com/Sage/carbon/compare/v144.4.0...v144.4.1) (2024-11-05)
+
+
+### Bug Fixes
+
+* **text-editor:** add aria-pressed attribute to toolbar buttons ([dab512a](https://github.com/Sage/carbon/commit/dab512a956d83b9183f2ebfccd96091fddc7fe6d)), closes [#7038](https://github.com/Sage/carbon/issues/7038)
+
 ## [144.4.0](https://github.com/Sage/carbon/compare/v144.3.0...v144.4.0) (2024-10-31)
 
 
