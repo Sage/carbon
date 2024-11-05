@@ -10,7 +10,7 @@ import {
 import userEvent from "@testing-library/user-event";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 import Logger from "../../../__internal__/utils/logger";
-import { testStyledSystemMarginRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
 import MultiSelect from ".";
 import { Option } from "..";
@@ -1168,7 +1168,7 @@ test("dropdown list is open on initial render, when autoFocus and openOnFocus pr
   jest.useRealTimers();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <MultiSelect
       {...props}

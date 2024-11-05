@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { StyledAccordionHeadingsContainer } from "./accordion.style";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Textbox from "../textbox";
 import { Accordion } from ".";
@@ -312,7 +312,7 @@ describe("Accordion", () => {
 });
 
 describe("AccordionGroup", () => {
-  testStyledSystemMarginRTL(
+  testStyledSystemMargin(
     (props) => (
       <AccordionGroup data-role="accordion-group" {...props}>
         <Accordion title="Title_1" defaultExpanded>

@@ -3,9 +3,9 @@ import { render, screen } from "@testing-library/react";
 import Tab from ".";
 import Textbox from "../../textbox";
 import StyledTab from "./tab.style";
-import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <Tab title="Tab Title 1" tabId="foo" isTabSelected {...props}>
       TabContent
@@ -14,7 +14,7 @@ testStyledSystemPaddingRTL(
   () => screen.getByRole("tabpanel"),
 );
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <Tab
       position="left"

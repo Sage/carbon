@@ -3,13 +3,13 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Search, { SearchHandle } from "./search.component";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 import I18nProvider from "../i18n-provider";
 
 jest.mock("../../__internal__/utils/logger");
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Search value="" {...props} />,
   () => screen.getByTestId("search"),
 );

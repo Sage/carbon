@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import Fieldset from ".";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders with provided `children`", () => {
   render(
@@ -116,7 +116,7 @@ test("renders with expected padding when `inline` is true and `legendSpacing` is
   expect(legend).toHaveStyleRule("padding-right", "var(--spacing100)");
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <Fieldset {...props}>
       <input />

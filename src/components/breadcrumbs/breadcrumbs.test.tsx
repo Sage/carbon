@@ -2,9 +2,9 @@ import React from "react";
 import { screen, render } from "@testing-library/react";
 import Breadcrumbs from "./breadcrumbs.component";
 import Crumb from "./crumb/crumb.component";
-import { testStyledSystemSpacingRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemSpacingRTL(
+testStyledSystemSpacing(
   (props) => (
     <Breadcrumbs {...props}>
       <Crumb href="#">Breadcrumb</Crumb>

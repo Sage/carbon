@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import { MenuItem } from "..";
 import {
   testStyledSystemFlexBox,
-  testStyledSystemPaddingRTL,
+  testStyledSystemPadding,
 } from "../../../__spec_helper__/__internal__/test-utils";
 import MenuContext, { MenuContextProps } from "../__internal__/menu.context";
 import Icon from "../../icon/icon.component";
@@ -24,7 +24,7 @@ const menuContextValues: MenuContextProps = {
 };
 
 describe("When MenuItem has no submenu", () => {
-  testStyledSystemPaddingRTL(
+  testStyledSystemPadding(
     (props) => (
       <MenuItem href="#" {...props}>
         Foo

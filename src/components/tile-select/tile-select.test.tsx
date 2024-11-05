@@ -3,21 +3,21 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import TileSelect, { TileSelectProps } from "./tile-select.component";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import TileSelectGroup, {
   TileSelectGroupProps,
 } from "./tile-select-group/tile-select-group.component";
 import Button from "../button";
 import Icon from "../icon";
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <TileSelect data-role="tile-select-wrapper" {...props} />,
   // we are setting the data- attributes on more than one element
   // FE-6834 raised to address this
   () => screen.getAllByTestId("tile-select-wrapper")[0],
 );
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <TileSelectGroup
       data-role="tile-select-group"

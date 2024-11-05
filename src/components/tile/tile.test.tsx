@@ -3,19 +3,19 @@ import { render, screen } from "@testing-library/react";
 import { Tile, TileContent } from ".";
 import { TileProps } from "./tile.component";
 import {
-  testStyledSystemSpacingRTL,
-  testStyledSystemWidthRTL,
-  testStyledSystemHeightRTL,
+  testStyledSystemSpacing,
+  testStyledSystemWidth,
+  testStyledSystemHeight,
 } from "../../__spec_helper__/__internal__/test-utils";
 import { TILE_HIGHLIGHT_VARIANTS } from "./tile.config";
 
-testStyledSystemSpacingRTL(
+testStyledSystemSpacing(
   (props) => <Tile data-role="tile" {...props} />,
   () => screen.getByTestId("tile"),
   { p: 3 },
 );
 
-testStyledSystemWidthRTL(
+testStyledSystemWidth(
   (props) => (
     <Tile data-role="tile" {...props}>
       Test
@@ -24,7 +24,7 @@ testStyledSystemWidthRTL(
   () => screen.getByTestId("tile"),
 );
 
-testStyledSystemHeightRTL(
+testStyledSystemHeight(
   (props) => <Tile data-role="tile" {...props} />,
   () => screen.getByTestId("tile"),
 );

@@ -6,7 +6,7 @@ import { Checkbox } from ".";
 import CarbonProvider from "../carbon-provider";
 import {
   mockMatchMedia,
-  testStyledSystemMarginRTL,
+  testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should display a deprecation warning for uncontrolled behaviour which is triggered only once", () => {
@@ -350,7 +350,7 @@ test("should render with expected styles when adaptiveSpacingBreakpoint set and 
   expect(screen.getByTestId("checkbox-1")).toHaveStyle({ marginLeft: "10%" });
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <Checkbox
       label="label"
