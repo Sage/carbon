@@ -14,7 +14,7 @@ export interface InputContextProps {
 }
 
 const useInputBehaviour = (
-  blockGroupBehaviour?: boolean
+  blockGroupBehaviour?: boolean,
 ): InputContextProps => {
   const [hasFocus, setHasFocus] = useState(false);
   const [hasMouseOver, setHasMouseOver] = useState(false);
@@ -29,7 +29,7 @@ const useInputBehaviour = (
     (input: { current: HTMLInputElement | HTMLTextAreaElement | null }) => {
       inputRef.current = input.current;
     },
-    []
+    [],
   );
 
   // use mouse down rather than click to accommodate click and drag events too
@@ -66,7 +66,7 @@ const useInputBehaviour = (
       onMouseEnter,
       onMouseLeave,
       assignInput,
-    ]
+    ],
   );
 
   return contextValue;

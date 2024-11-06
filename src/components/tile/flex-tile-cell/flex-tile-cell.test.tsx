@@ -3,18 +3,23 @@ import { render, screen } from "@testing-library/react";
 import FlexTileCell from "./flex-tile-cell.component";
 import {
   testStyledSystemFlexBox,
-  testStyledSystemPaddingRTL,
+  testStyledSystemPadding,
+  testStyledSystemMargin,
 } from "../../../__spec_helper__/__internal__/test-utils";
 import FlexTileDivider from "../flex-tile-divider";
 
 describe("FlexTileCell", () => {
-  testStyledSystemPaddingRTL(
+  testStyledSystemMargin(
     (props) => <FlexTileCell {...props}>Test</FlexTileCell>,
-    () => screen.getByText("Test")
+    () => screen.getByText("Test"),
+  );
+  testStyledSystemPadding(
+    (props) => <FlexTileCell {...props}>Test</FlexTileCell>,
+    () => screen.getByText("Test"),
   );
   testStyledSystemFlexBox(
     (props) => <FlexTileCell {...props}>Test</FlexTileCell>,
-    () => screen.getByText("Test")
+    () => screen.getByText("Test"),
   );
 
   it("does not render when falsy children are passed", () => {
@@ -34,7 +39,7 @@ describe("FlexTileCell", () => {
       <FlexTileCell data-element="foo" data-role="bar">
         <FlexTileDivider />
         Cell Content
-      </FlexTileCell>
+      </FlexTileCell>,
     );
     const element = screen.getByText("Cell Content");
     expect(element).toHaveAttribute("data-component", "flex-tile-cell");

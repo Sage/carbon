@@ -91,9 +91,8 @@ type Locale = {
   control: { type: string };
 };
 
-export const Locale: StoryFn<
-  CommonTextboxArgs & { locale: Locale }
-> = DecimalStory.bind({});
+export const Locale: StoryFn<CommonTextboxArgs & { locale: Locale }> =
+  DecimalStory.bind({});
 Locale.storyName = "locale";
 Locale.args = { ...commonArgs, locale: undefined };
 Locale.argTypes = {

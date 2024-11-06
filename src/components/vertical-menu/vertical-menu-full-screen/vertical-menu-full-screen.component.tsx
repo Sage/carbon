@@ -29,7 +29,7 @@ export interface VerticalMenuFullScreenProps extends TagProps {
   onClose: (
     ev:
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
 }
 
@@ -52,7 +52,7 @@ export const VerticalMenuFullScreen = ({
         onClose(ev);
       }
     },
-    [onClose]
+    [onClose],
   );
 
   // TODO remove this as part of FE-5650

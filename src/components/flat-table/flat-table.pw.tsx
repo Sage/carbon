@@ -141,20 +141,20 @@ const lightBlue = "rgb(51, 92, 220)";
 
 const checkFocus = async (locator: Locator) => {
   const contentValue = await locator.evaluate((el) =>
-    window.getComputedStyle(el, "after").getPropertyValue("border")
+    window.getComputedStyle(el, "after").getPropertyValue("border"),
   );
   expect(contentValue).toBe(`2px solid ${gold}`);
 };
 
 const checkNewFocusStyling = async (locator: Locator) => {
   const shadowValue = await locator.evaluate((el) =>
-    window.getComputedStyle(el, "after").getPropertyValue("box-shadow")
+    window.getComputedStyle(el, "after").getPropertyValue("box-shadow"),
   );
   const outlineValue = await locator.evaluate((el) =>
-    window.getComputedStyle(el, "after").getPropertyValue("outline")
+    window.getComputedStyle(el, "after").getPropertyValue("outline"),
   );
   expect(shadowValue).toBe(
-    `rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset`
+    `rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset`,
   );
   expect(outlineValue).toBe(`rgba(0, 0, 0, 0) solid 3px`);
 };
@@ -168,7 +168,7 @@ test.describe("Prop tests", () => {
 
     await expect(flatTable(page)).toHaveAttribute(
       "aria-describedby",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -182,7 +182,7 @@ test.describe("Prop tests", () => {
 
         await expect(flatTableCaption(page)).toHaveText(captionValue);
       });
-    }
+    },
   );
 
   test(`should render with head and body nodes as children`, async ({
@@ -213,7 +213,7 @@ test.describe("Prop tests", () => {
     for await (const i of indexes(4)) {
       await expect(flatTableHeaderCellsIcon(page).nth(i)).toHaveAttribute(
         "data-component",
-        "icon"
+        "icon",
       );
     }
   });
@@ -222,12 +222,12 @@ test.describe("Prop tests", () => {
     await mount(
       <FlatTableComponent>
         <Icon type="business" color="white" />
-      </FlatTableComponent>
+      </FlatTableComponent>,
     );
 
     await expect(flatTable(page).locator("span").first()).toHaveAttribute(
       "data-component",
-      "icon"
+      "icon",
     );
   });
 
@@ -240,7 +240,7 @@ test.describe("Prop tests", () => {
     await expect(flatTableHeaderCells(page).nth(0)).toHaveText("Name");
     await expect(flatTableHeaderCells(page).nth(1)).toHaveText("Location ");
     await expect(flatTableHeaderCells(page).nth(2)).toHaveText(
-      "Relationship Status "
+      "Relationship Status ",
     );
     await expect(flatTableHeaderCells(page).nth(3)).toHaveText("Dependents ");
   });
@@ -264,7 +264,7 @@ test.describe("Prop tests", () => {
 
     for await (const i of indexes(4)) {
       await expect(
-        flatTableBodyRowByPosition(page, 0).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 0).locator("td").nth(i),
       ).toHaveCount(1);
     }
   });
@@ -278,7 +278,7 @@ test.describe("Prop tests", () => {
     for await (const i of indexes(5)) {
       if (i !== 1) {
         await expect(
-          flatTableHeader(page).nth(0).locator("th").nth(i)
+          flatTableHeader(page).nth(0).locator("th").nth(i),
         ).toHaveAttribute("data-element", "flat-table-header");
       }
     }
@@ -291,7 +291,7 @@ test.describe("Prop tests", () => {
     await mount(<FlatTableSpanComponent />);
 
     await expect(
-      flatTableHeader(page).nth(0).locator("th").nth(1)
+      flatTableHeader(page).nth(0).locator("th").nth(1),
     ).toHaveAttribute("data-element", "flat-table-row-header");
   });
 
@@ -302,7 +302,7 @@ test.describe("Prop tests", () => {
     await mount(<FlatTableSpanComponent />);
 
     await expect(
-      flatTableRowHeader(page).nth(0).locator("span")
+      flatTableRowHeader(page).nth(0).locator("span"),
     ).toHaveAttribute("data-component", "icon");
   });
 
@@ -341,7 +341,7 @@ test.describe("Prop tests", () => {
     await mount(<FlatTableColorRowSelectableComponent />);
 
     await expect(
-      flatTableHeaderCells(page).nth(0).locator("input")
+      flatTableHeaderCells(page).nth(0).locator("input"),
     ).toHaveAttribute("aria-labelledby", CHARACTERS.STANDARD);
   });
 
@@ -349,13 +349,13 @@ test.describe("Prop tests", () => {
     await mount(
       <div style={{ height: "150px" }}>
         <FlatTableComponent hasStickyHead />
-      </div>
+      </div>,
     );
 
     await expect(flatTable(page)).toHaveCount(1);
     await expect(flatTable(page).locator("thead")).toHaveCSS(
       "position",
-      "sticky"
+      "sticky",
     );
 
     for await (const i of indexes(5)) {
@@ -385,14 +385,14 @@ test.describe("Prop tests", () => {
     await mount(
       <div style={{ height: "150px" }}>
         <FlatTableSpanComponent hasStickyHead />
-      </div>
+      </div>,
     );
 
     await expect(
-      flatTableHeaderRowByPosition(page, 0).locator("th").first()
+      flatTableHeaderRowByPosition(page, 0).locator("th").first(),
     ).toHaveCSS("top", "0px");
     await expect(
-      flatTableHeaderRowByPosition(page, 1).locator("th").first()
+      flatTableHeaderRowByPosition(page, 1).locator("th").first(),
     ).toHaveCSS("top", "40px");
   });
 
@@ -401,7 +401,7 @@ test.describe("Prop tests", () => {
 
     await expect(flatTablePager(page).locator("..")).toHaveCSS(
       "position",
-      "sticky"
+      "sticky",
     );
 
     for await (const i of indexes(5)) {
@@ -444,7 +444,7 @@ test.describe("Prop tests", () => {
           "1px",
           "border-right",
           "solid",
-          brColor
+          brColor,
         );
       }
     });
@@ -456,11 +456,11 @@ test.describe("Prop tests", () => {
     for await (const i of indexes(4)) {
       if (i === 0 || i === 2) {
         await expect(
-          flatTableBodyRowByPosition(page, i).locator("td").nth(0)
+          flatTableBodyRowByPosition(page, i).locator("td").nth(0),
         ).toHaveCSS("background-color", "rgb(255, 255, 255)");
       } else {
         await expect(
-          flatTableBodyRowByPosition(page, i).locator("td").nth(0)
+          flatTableBodyRowByPosition(page, i).locator("td").nth(0),
         ).toHaveCSS("background-color", "rgb(250, 251, 251)");
       }
     }
@@ -473,7 +473,7 @@ test.describe("Prop tests", () => {
       await assertCssValueIsApproximately(
         flatTableHeader(page),
         "height",
-        rowHeight
+        rowHeight,
       );
 
       for await (const i of indexes(4)) {
@@ -498,7 +498,7 @@ test.describe("Prop tests", () => {
       await assertCssValueIsApproximately(
         flatTableWrapper(page),
         "height",
-        height
+        height,
       );
     });
   });
@@ -509,7 +509,7 @@ test.describe("Prop tests", () => {
       page,
     }) => {
       await mount(
-        <FlatTableComponent height={`${height}px`} minHeight="250px" />
+        <FlatTableComponent height={`${height}px`} minHeight="250px" />,
       );
 
       if (height < 250) {
@@ -518,7 +518,7 @@ test.describe("Prop tests", () => {
         await assertCssValueIsApproximately(
           flatTableWrapper(page),
           "height",
-          height
+          height,
         );
       }
     });
@@ -540,7 +540,7 @@ test.describe("Prop tests", () => {
       await assertCssValueIsApproximately(
         flatTableWrapper(page),
         "width",
-        width
+        width,
       );
     });
   });
@@ -554,7 +554,7 @@ test.describe("Prop tests", () => {
 
       await expect(flatTable(page).locator("..")).toHaveCSS(
         "overflow-x",
-        overflow
+        overflow,
       );
     });
   });
@@ -568,7 +568,7 @@ test.describe("Prop tests", () => {
     for await (const i of indexes(4)) {
       if (i !== 2) {
         await expect(
-          flatTableHeaderRowByPosition(page, 0).locator("th").nth(i)
+          flatTableHeaderRowByPosition(page, 0).locator("th").nth(i),
         ).toHaveAttribute("rowspan", "2");
       }
     }
@@ -583,7 +583,7 @@ test.describe("Prop tests", () => {
     for await (const i of indexes(5, 2)) {
       if (i === 2 || i === 4) {
         await expect(
-          flatTableHeaderRowByPosition(page, 0).locator("th").nth(i)
+          flatTableHeaderRowByPosition(page, 0).locator("th").nth(i),
         ).toHaveAttribute("colspan", "2");
       }
     }
@@ -597,17 +597,17 @@ test.describe("Prop tests", () => {
     await mount(<FlatTableSpanComponent />);
 
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("td").nth(0)
+      flatTableBodyRowByPosition(page, 1).locator("td").nth(0),
     ).toHaveCSS("position", "sticky");
     await expect(flatTableBodyRowByPosition(page, 1).locator("th")).toHaveCSS(
       "position",
-      "sticky"
+      "sticky",
     );
     const position4 = flatTableBodyRowByPosition(page, 1).locator("td").nth(4);
     await expect(position4).not.toBeInViewport();
     await position4.scrollIntoViewIfNeeded();
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("th")
+      flatTableBodyRowByPosition(page, 1).locator("th"),
     ).toBeInViewport();
   });
 
@@ -620,28 +620,28 @@ test.describe("Prop tests", () => {
     await mount(<FlatTableMultipleStickyComponent />);
 
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("td").nth(0)
+      flatTableBodyRowByPosition(page, 1).locator("td").nth(0),
     ).toHaveCSS("position", "sticky");
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("th").nth(0)
+      flatTableBodyRowByPosition(page, 1).locator("th").nth(0),
     ).toHaveCSS("position", "sticky");
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("th").nth(1)
+      flatTableBodyRowByPosition(page, 1).locator("th").nth(1),
     ).toHaveCSS("position", "sticky");
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("td").nth(7)
+      flatTableBodyRowByPosition(page, 1).locator("td").nth(7),
     ).toHaveCSS("position", "sticky");
 
     for await (const i of indexes(7, 1)) {
       await waitForAnimationEnd(flatTable(page));
       if (i < 4) {
         await expect(
-          flatTableBodyRowByPosition(page, 1).locator("td").nth(i)
+          flatTableBodyRowByPosition(page, 1).locator("td").nth(i),
         ).toBeInViewport();
       }
       if (i === 4 || i === 5 || i === 6) {
         await expect(
-          flatTableBodyRowByPosition(page, 1).locator("td").nth(i)
+          flatTableBodyRowByPosition(page, 1).locator("td").nth(i),
         ).not.toBeInViewport();
       }
     }
@@ -652,18 +652,18 @@ test.describe("Prop tests", () => {
     for await (const i of indexes(7, 1)) {
       if (i > 2) {
         await expect(
-          flatTableBodyRowByPosition(page, 1).locator("td").nth(i)
+          flatTableBodyRowByPosition(page, 1).locator("td").nth(i),
         ).toBeInViewport();
       }
       if (i === 1 || i === 2) {
         await expect(
-          flatTableBodyRowByPosition(page, 1).locator("td").nth(i)
+          flatTableBodyRowByPosition(page, 1).locator("td").nth(i),
         ).not.toBeInViewport();
       }
     }
 
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("th").nth(0)
+      flatTableBodyRowByPosition(page, 1).locator("th").nth(0),
     ).toBeInViewport();
   });
 
@@ -680,10 +680,10 @@ test.describe("Prop tests", () => {
     const input = flatTable(page).locator("input");
 
     await expect(
-      flatTableHeaderRowByPosition(page, 0).locator("th").nth(0)
+      flatTableHeaderRowByPosition(page, 0).locator("th").nth(0),
     ).toHaveCSS("position", "sticky");
     await expect(
-      flatTableHeaderRowByPosition(page, 0).locator("th").nth(1)
+      flatTableHeaderRowByPosition(page, 0).locator("th").nth(1),
     ).toHaveCSS("position", "sticky");
     await expect(bodyCell1).toHaveCSS("position", "sticky");
     await expect(bodyStickyCell).toHaveCSS("position", "sticky");
@@ -731,17 +731,19 @@ test.describe("Prop tests", () => {
       await assertCssValueIsApproximately(
         flatTableHeaderCells(page).nth(column),
         "width",
-        width
+        width,
       );
     });
   });
 
-  ([
-    [0, "left"],
-    [1, "left"],
-    [2, "center"],
-    [3, "right"],
-  ] as const).forEach(([column, alignment]) => {
+  (
+    [
+      [0, "left"],
+      [1, "left"],
+      [2, "center"],
+      [3, "right"],
+    ] as const
+  ).forEach(([column, alignment]) => {
     test(`should render column index ${column} with ${alignment} alignment`, async ({
       mount,
       page,
@@ -750,7 +752,7 @@ test.describe("Prop tests", () => {
 
       await expect(flatTableHeaderCells(page).nth(column)).toHaveCSS(
         "text-align",
-        alignment
+        alignment,
       );
     });
   });
@@ -763,7 +765,7 @@ test.describe("Prop tests", () => {
 
     await expect(flatTableHeader(page).locator("th").nth(2)).toHaveCSS(
       "background-color",
-      "rgb(25, 71, 94)"
+      "rgb(25, 71, 94)",
     );
   });
 
@@ -775,15 +777,15 @@ test.describe("Prop tests", () => {
 
     await expect(flatTableHeader(page).locator("th").nth(0)).toHaveCSS(
       "border-right-width",
-      borderSizeSmall
+      borderSizeSmall,
     );
     await expect(flatTableHeader(page).locator("th").nth(1)).toHaveCSS(
       "border-right-width",
-      borderSizeMedium
+      borderSizeMedium,
     );
     await expect(flatTableHeader(page).locator("th").nth(2)).toHaveCSS(
       "border-right-width",
-      borderSizeLarge
+      borderSizeLarge,
     );
 
     for await (const i of indexes(3)) {
@@ -802,7 +804,7 @@ test.describe("Prop tests", () => {
       await expect(position2).toHaveCSS("border-right-color", lightGold);
       await expect(position3).toHaveCSS(
         "border-right",
-        `${borderSizeLarge} solid ${darkGrey}`
+        `${borderSizeLarge} solid ${darkGrey}`,
       );
     }
   });
@@ -818,7 +820,7 @@ test.describe("Prop tests", () => {
       .nth(1);
     await expect(headerPosition1).toHaveCSS(
       "border-right-width",
-      borderSizeSmall
+      borderSizeSmall,
     );
     await expect(headerPosition1).toHaveCSS("border-right-color", lightBlue);
 
@@ -826,7 +828,7 @@ test.describe("Prop tests", () => {
       const bodyPosition1 = flatTableBodyRowByPosition(page, i).locator("th");
       await expect(bodyPosition1).toHaveCSS(
         "border-right-width",
-        borderSizeSmall
+        borderSizeSmall,
       );
       await expect(bodyPosition1).toHaveCSS("border-right-color", black);
     }
@@ -835,7 +837,7 @@ test.describe("Prop tests", () => {
       const bodyPosition2 = flatTableBodyRowByPosition(page, i).locator("th");
       await expect(bodyPosition2).toHaveCSS(
         "border-right-width",
-        borderSizeMedium
+        borderSizeMedium,
       );
       await expect(bodyPosition2).toHaveCSS("border-right-color", lightGold);
     }
@@ -844,7 +846,7 @@ test.describe("Prop tests", () => {
       const bodyPosition3 = flatTableBodyRowByPosition(page, i).locator("th");
       await expect(bodyPosition3).toHaveCSS(
         "border-right",
-        `${borderSizeLarge} solid ${mediumGrey}`
+        `${borderSizeLarge} solid ${mediumGrey}`,
       );
     }
   });
@@ -857,16 +859,16 @@ test.describe("Prop tests", () => {
 
     for await (const i of indexes(4)) {
       await expect(
-        flatTableBodyRowByPosition(page, 0).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 0).locator("td").nth(i),
       ).toHaveCSS("border-bottom", `${borderSizeMedium} solid ${lightGold}`);
       await expect(
-        flatTableBodyRowByPosition(page, 1).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 1).locator("td").nth(i),
       ).toHaveCSS("border-bottom", `${borderSizeSmall} solid ${blue}`);
       await expect(
-        flatTableBodyRowByPosition(page, 2).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 2).locator("td").nth(i),
       ).toHaveCSS("border-bottom", `${borderSizeLarge} solid ${black}`);
       await expect(
-        flatTableBodyRowByPosition(page, 3).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 3).locator("td").nth(i),
       ).toHaveCSS("border-bottom", `${borderSizeSmall} solid ${mediumGrey}`);
     }
   });
@@ -875,10 +877,10 @@ test.describe("Prop tests", () => {
     await mount(<FlatTableColorRowSelectableComponent />);
 
     await expect(
-      flatTableBodyRowByPosition(page, 0).locator("td").first()
+      flatTableBodyRowByPosition(page, 0).locator("td").first(),
     ).toHaveCSS("background-color", green);
     await expect(
-      flatTableBodyRowByPosition(page, 2).locator("td").first()
+      flatTableBodyRowByPosition(page, 2).locator("td").first(),
     ).toHaveCSS("background-color", green);
   });
 
@@ -899,16 +901,16 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(checkboxParent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
 
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("td").first()
+      flatTableBodyRowByPosition(page, 1).locator("td").first(),
     ).toHaveCSS("background-color", lightGrey);
     await expect(batchSelectionCounter(page)).toHaveText("1 selected");
     for await (const i of indexes(3)) {
       await expect(
-        batchSelectionComponent(page).locator("button").nth(i).locator("span")
+        batchSelectionComponent(page).locator("button").nth(i).locator("span"),
       ).toHaveCSS("color", greyBlack);
     }
   });
@@ -928,20 +930,20 @@ test.describe("Prop tests", () => {
         .locator("input")
         .locator("..")
         .locator("..")
-        .locator("div:nth-child(2)")
+        .locator("div:nth-child(2)"),
     ).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
 
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("td").first()
+      flatTableBodyRowByPosition(page, 1).locator("td").first(),
     ).toHaveCSS("background-color", lightGrey);
 
     await expect(batchSelectionCounter(page)).toHaveText("1 selected");
     for await (const i of indexes(3)) {
       await expect(
-        batchSelectionComponent(page).locator("button").nth(i).locator("span")
+        batchSelectionComponent(page).locator("button").nth(i).locator("span"),
       ).toHaveCSS("color", greyBlack);
     }
   });
@@ -974,33 +976,33 @@ test.describe("Prop tests", () => {
         .locator("input")
         .locator("..")
         .locator("..")
-        .locator("div:nth-child(2)")
+        .locator("div:nth-child(2)"),
     ).toHaveCSS("box-shadow", `${gold} 0px 0px 0px 3px`);
     for await (const i of indexes(4)) {
       await expect(
-        flatTableCheckboxCell(page, i).locator("input")
+        flatTableCheckboxCell(page, i).locator("input"),
       ).toBeChecked();
     }
 
     for await (const i of indexes(5, 1)) {
       await expect(
-        flatTableBodyRowByPosition(page, 0).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 0).locator("td").nth(i),
       ).toHaveCSS("background-color", green);
       await expect(
-        flatTableBodyRowByPosition(page, 1).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 1).locator("td").nth(i),
       ).toHaveCSS("background-color", lightGrey);
       await expect(
-        flatTableBodyRowByPosition(page, 2).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 2).locator("td").nth(i),
       ).toHaveCSS("background-color", green);
       await expect(
-        flatTableBodyRowByPosition(page, 3).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 3).locator("td").nth(i),
       ).toHaveCSS("background-color", lightGrey);
     }
 
     await expect(batchSelectionCounter(page)).toHaveText("4 selected");
     for await (const i of indexes(3)) {
       await expect(
-        batchSelectionComponent(page).locator("button").nth(i).locator("span")
+        batchSelectionComponent(page).locator("button").nth(i).locator("span"),
       ).toHaveCSS("color", greyBlack);
     }
   });
@@ -1019,36 +1021,36 @@ test.describe("Prop tests", () => {
         .locator("input")
         .locator("..")
         .locator("..")
-        .locator("div:nth-child(2)")
+        .locator("div:nth-child(2)"),
     ).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     for await (const i of indexes(4)) {
       await expect(
-        flatTableCheckboxCell(page, i).locator("input")
+        flatTableCheckboxCell(page, i).locator("input"),
       ).toBeChecked();
     }
 
     for await (const i of indexes(5, 1)) {
       await expect(
-        flatTableBodyRowByPosition(page, 0).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 0).locator("td").nth(i),
       ).toHaveCSS("background-color", green);
       await expect(
-        flatTableBodyRowByPosition(page, 1).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 1).locator("td").nth(i),
       ).toHaveCSS("background-color", lightGrey);
       await expect(
-        flatTableBodyRowByPosition(page, 2).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 2).locator("td").nth(i),
       ).toHaveCSS("background-color", green);
       await expect(
-        flatTableBodyRowByPosition(page, 3).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 3).locator("td").nth(i),
       ).toHaveCSS("background-color", lightGrey);
     }
 
     await expect(batchSelectionCounter(page)).toHaveText("4 selected");
     for await (const i of indexes(3)) {
       await expect(
-        batchSelectionComponent(page).locator("button").nth(i).locator("span")
+        batchSelectionComponent(page).locator("button").nth(i).locator("span"),
       ).toHaveCSS("color", greyBlack);
     }
   });
@@ -1068,36 +1070,36 @@ test.describe("Prop tests", () => {
         .locator("input")
         .locator("..")
         .locator("..")
-        .locator("div:nth-child(2)")
+        .locator("div:nth-child(2)"),
     ).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     for await (const i of indexes(4)) {
       await expect(
-        flatTableCheckboxCell(page, i).locator("input")
+        flatTableCheckboxCell(page, i).locator("input"),
       ).toBeChecked();
     }
 
     for await (const i of indexes(5, 1)) {
       await expect(
-        flatTableBodyRowByPosition(page, 0).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 0).locator("td").nth(i),
       ).toHaveCSS("background-color", green);
       await expect(
-        flatTableBodyRowByPosition(page, 1).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 1).locator("td").nth(i),
       ).toHaveCSS("background-color", lightGrey);
       await expect(
-        flatTableBodyRowByPosition(page, 2).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 2).locator("td").nth(i),
       ).toHaveCSS("background-color", green);
       await expect(
-        flatTableBodyRowByPosition(page, 3).locator("td").nth(i)
+        flatTableBodyRowByPosition(page, 3).locator("td").nth(i),
       ).toHaveCSS("background-color", lightGrey);
     }
 
     await expect(batchSelectionCounter(page)).toHaveText("4 selected");
     for await (const i of indexes(3)) {
       await expect(
-        batchSelectionComponent(page).locator("button").nth(i).locator("span")
+        batchSelectionComponent(page).locator("button").nth(i).locator("span"),
       ).toHaveCSS("color", greyBlack);
     }
   });
@@ -1125,7 +1127,7 @@ test.describe("Prop tests", () => {
     const bodyRow = flatTableBodyRows(page).first();
     await bodyRow.click();
     await expect(
-      flatTableBodyRows(page).first().locator("td").first()
+      flatTableBodyRows(page).first().locator("td").first(),
     ).toHaveCSS("background-color", vlightGrey);
   });
 
@@ -1138,7 +1140,7 @@ test.describe("Prop tests", () => {
     const bodyRow = flatTableBodyRows(page).first();
     await bodyRow.click();
     await expect(
-      flatTableBodyRows(page).first().locator("td").first()
+      flatTableBodyRows(page).first().locator("td").first(),
     ).toHaveCSS("background-color", vlightGrey);
 
     const bodyRowPosition = flatTableBodyRowByPosition(page, 0)
@@ -1155,15 +1157,15 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(bodyRowParent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(
-      flatTableBodyRows(page).first().locator("td").first()
+      flatTableBodyRows(page).first().locator("td").first(),
     ).toHaveCSS("background-color", lightGrey);
 
     await flatTableBodyRowByPosition(page, 1).click();
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("td").first()
+      flatTableBodyRowByPosition(page, 1).locator("td").first(),
     ).toHaveCSS("background-color", vlightGrey);
   });
 
@@ -1176,7 +1178,7 @@ test.describe("Prop tests", () => {
     const bodyRow = flatTableBodyRows(page).first();
     await bodyRow.press("Space");
     await expect(
-      flatTableBodyRows(page).first().locator("td").first()
+      flatTableBodyRows(page).first().locator("td").first(),
     ).toHaveCSS("background-color", vlightGrey);
   });
 
@@ -1189,7 +1191,7 @@ test.describe("Prop tests", () => {
     const bodyRow = flatTableBodyRows(page).first();
     await bodyRow.press("Enter");
     await expect(
-      flatTableBodyRows(page).first().locator("td").first()
+      flatTableBodyRows(page).first().locator("td").first(),
     ).toHaveCSS("background-color", vlightGrey);
   });
 
@@ -1233,7 +1235,7 @@ test.describe("Prop tests", () => {
     await mount(<FlatTableTitleAlignComponent />);
 
     await expect(
-      flatTableRowHeader(page).nth(1).locator("div")
+      flatTableRowHeader(page).nth(1).locator("div"),
     ).toHaveAttribute("title", CHARACTERS.DIACRITICS);
   });
 
@@ -1242,7 +1244,7 @@ test.describe("Prop tests", () => {
 
     await expect(flatTableCell(page, 0).locator("div")).toHaveAttribute(
       "title",
-      CHARACTERS.DIACRITICS
+      CHARACTERS.DIACRITICS,
     );
   });
 
@@ -1251,7 +1253,7 @@ test.describe("Prop tests", () => {
 
     await expect(flatTableRowHeader(page).nth(1).locator("div")).toHaveCSS(
       "width",
-      "50px"
+      "50px",
     );
   });
 
@@ -1260,7 +1262,7 @@ test.describe("Prop tests", () => {
 
     await expect(flatTableCell(page, 0).locator("div")).toHaveCSS(
       "width",
-      "60px"
+      "60px",
     );
   });
 
@@ -1269,19 +1271,19 @@ test.describe("Prop tests", () => {
 
     await expect(flatTableRowHeader(page).nth(1).locator("div")).toHaveCSS(
       "text-align",
-      "left"
+      "left",
     );
     await expect(flatTableRowHeader(page).nth(2).locator("div")).toHaveCSS(
       "text-align",
-      "center"
+      "center",
     );
     await expect(flatTableRowHeader(page).nth(3).locator("div")).toHaveCSS(
       "text-align",
-      "right"
+      "right",
     );
     await expect(flatTableRowHeader(page).nth(4).locator("div")).toHaveCSS(
       "text-align",
-      "left"
+      "left",
     );
   });
 
@@ -1289,25 +1291,27 @@ test.describe("Prop tests", () => {
     await mount(<FlatTableTitleAlignComponent />);
 
     await expect(
-      flatTableBodyRowByPosition(page, 0).locator("td").nth(0)
+      flatTableBodyRowByPosition(page, 0).locator("td").nth(0),
     ).toHaveCSS("text-align", "left");
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("td").nth(0)
+      flatTableBodyRowByPosition(page, 1).locator("td").nth(0),
     ).toHaveCSS("text-align", "center");
     await expect(
-      flatTableBodyRowByPosition(page, 2).locator("td").nth(0)
+      flatTableBodyRowByPosition(page, 2).locator("td").nth(0),
     ).toHaveCSS("text-align", "right");
     await expect(
-      flatTableBodyRowByPosition(page, 3).locator("td").nth(0)
+      flatTableBodyRowByPosition(page, 3).locator("td").nth(0),
     ).toHaveCSS("text-align", "left");
   });
 
-  ([
-    [0, "8px"],
-    [1, "16px"],
-    [2, "24px"],
-    [3, "32px"],
-  ] as const).forEach(([row, customPad]) => {
+  (
+    [
+      [0, "8px"],
+      [1, "16px"],
+      [2, "24px"],
+      [3, "32px"],
+    ] as const
+  ).forEach(([row, customPad]) => {
     test(`should render row ${row} with ${customPad} custom padding`, async ({
       mount,
       page,
@@ -1376,7 +1380,7 @@ test.describe("Prop tests", () => {
       if (colPosition === "first" && sortOrder === "desc") {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_down"
+          "sort_down",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell1).toHaveText(valueOne);
@@ -1390,7 +1394,7 @@ test.describe("Prop tests", () => {
       } else if (colPosition === "first" && sortOrder === "asc") {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_up"
+          "sort_up",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell1).toHaveText(valueFour);
@@ -1404,7 +1408,7 @@ test.describe("Prop tests", () => {
       } else if (colPosition === "second" && sortOrder === "desc") {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_down"
+          "sort_down",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalFour);
@@ -1418,7 +1422,7 @@ test.describe("Prop tests", () => {
       } else {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_up"
+          "sort_up",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalOne);
@@ -1468,7 +1472,7 @@ test.describe("Prop tests", () => {
       if (colPosition === "first" && sortOrder === "desc") {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_down"
+          "sort_down",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell1).toHaveText(valueOne);
@@ -1482,7 +1486,7 @@ test.describe("Prop tests", () => {
       } else if (colPosition === "first" && sortOrder === "asc") {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_up"
+          "sort_up",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell1).toHaveText(valueFour);
@@ -1496,7 +1500,7 @@ test.describe("Prop tests", () => {
       } else if (colPosition === "second" && sortOrder === "desc") {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_down"
+          "sort_down",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalFour);
@@ -1510,7 +1514,7 @@ test.describe("Prop tests", () => {
       } else {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_up"
+          "sort_up",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalOne);
@@ -1560,7 +1564,7 @@ test.describe("Prop tests", () => {
       if (colPosition === "first" && sortOrder === "desc") {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_down"
+          "sort_down",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell1).toHaveText(valueOne);
@@ -1574,7 +1578,7 @@ test.describe("Prop tests", () => {
       } else if (colPosition === "first" && sortOrder === "asc") {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_up"
+          "sort_up",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell1).toHaveText(valueFour);
@@ -1588,7 +1592,7 @@ test.describe("Prop tests", () => {
       } else if (colPosition === "second" && sortOrder === "desc") {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_down"
+          "sort_down",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalFour);
@@ -1602,7 +1606,7 @@ test.describe("Prop tests", () => {
       } else {
         await expect(headerCellsIcon).toHaveAttribute(
           "data-element",
-          "sort_up"
+          "sort_up",
         );
         await expect(headerCellsIcon).toBeVisible();
         await expect(cell2).toHaveText(totalOne);
@@ -1627,7 +1631,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
 
@@ -1652,7 +1656,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
 
@@ -1679,7 +1683,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
     await expect(flatTableSubrows(page)).toHaveCount(0);
@@ -1694,7 +1698,7 @@ test.describe("Prop tests", () => {
     await bodyRowByPosition.press("ArrowDown");
     await page.waitForTimeout(250);
     await expect(
-      flatTableBodyRowByPosition(page, 3).locator("td").nth(3)
+      flatTableBodyRowByPosition(page, 3).locator("td").nth(3),
     ).toHaveCSS("border-right", `2px solid ${gold}`);
   });
 
@@ -1706,7 +1710,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
     await expect(flatTableSubrows(page)).toHaveCount(0);
@@ -1733,7 +1737,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
     await expect(flatTableSubrows(page)).toHaveCount(0);
@@ -1748,7 +1752,7 @@ test.describe("Prop tests", () => {
     await bodyRowByPosition.press("ArrowDown");
     await page.waitForTimeout(250);
     await expect(
-      flatTableBodyRowByPosition(page, 3).locator("td").nth(3)
+      flatTableBodyRowByPosition(page, 3).locator("td").nth(3),
     ).toHaveCSS("border-right", `2px solid ${gold}`);
   });
 
@@ -1760,7 +1764,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
     await expect(flatTableSubrows(page)).toHaveCount(0);
@@ -1798,7 +1802,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
     await expect(flatTableSubrows(page)).toHaveCount(0);
@@ -1814,11 +1818,11 @@ test.describe("Prop tests", () => {
       .nth(3);
     await expect(bodyRowByPosition1).toHaveCSS(
       "border-right",
-      `2px solid ${gold}`
+      `2px solid ${gold}`,
     );
     await bodyRowByPosition1.press("ArrowDown");
     await expect(
-      flatTableBodyRowByPosition(page, 2).locator("td").nth(3)
+      flatTableBodyRowByPosition(page, 2).locator("td").nth(3),
     ).toHaveCSS("border-right", `2px solid ${gold}`);
   });
 
@@ -1830,7 +1834,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
 
@@ -1886,7 +1890,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
 
@@ -1906,7 +1910,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
     await expect(flatTableSubrows(page)).toHaveCount(0);
@@ -1929,7 +1933,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
     await expect(flatTableSubrows(page)).toHaveCount(0);
@@ -1949,7 +1953,7 @@ test.describe("Prop tests", () => {
 
     const transformValue = await getStyle(
       flatTableExpandableIcon(page, 0),
-      "transform"
+      "transform",
     );
     expect(getRotationAngle(transformValue)).toBe(-90);
     await expect(flatTableSubrows(page)).toHaveCount(0);
@@ -1969,19 +1973,19 @@ test.describe("Prop tests", () => {
 
     await expect(flatTableExpandableIcon(page, 0)).toHaveCSS(
       "transform",
-      "none"
+      "none",
     );
     await expect(flatTableExpandableIcon(page, 12)).toHaveCSS(
       "transform",
-      "none"
+      "none",
     );
     await expect(flatTableExpandableIcon(page, 24)).toHaveCSS(
       "transform",
-      "none"
+      "none",
     );
     await expect(flatTableExpandableIcon(page, 36)).toHaveCSS(
       "transform",
-      "none"
+      "none",
     );
     await expect(flatTableSubrows(page)).toHaveCount(8);
   });
@@ -2020,7 +2024,7 @@ test.describe("Prop tests", () => {
     await expect(flatTableSubrows(page)).toHaveCount(2);
 
     const bodyRowByPosition0Input = flatTableBodyRowByPosition(page, 0).locator(
-      "input"
+      "input",
     );
     await bodyRowByPosition0Input.click();
     await expect(bodyRowByPosition0Input).toBeChecked();
@@ -2032,11 +2036,11 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(bodyRowByPosition0Parent).toHaveCSS(
       "box-shadow",
-      `${gold} 0px 0px 0px 3px`
+      `${gold} 0px 0px 0px 3px`,
     );
 
     const bodyRowByPosition1Input = flatTableBodyRowByPosition(page, 1).locator(
-      "input"
+      "input",
     );
     await bodyRowByPosition1Input.click();
     await expect(bodyRowByPosition1Input).toBeChecked();
@@ -2048,7 +2052,7 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(bodyRowByPosition1Parent).toHaveCSS(
       "box-shadow",
-      `${gold} 0px 0px 0px 3px`
+      `${gold} 0px 0px 0px 3px`,
     );
   });
 
@@ -2063,7 +2067,7 @@ test.describe("Prop tests", () => {
     await expect(flatTableSubrows(page)).toHaveCount(2);
 
     const bodyRowByPosition0Input = flatTableBodyRowByPosition(page, 0).locator(
-      "input"
+      "input",
     );
     await bodyRowByPosition0Input.click();
     await expect(bodyRowByPosition0Input).toBeChecked();
@@ -2075,11 +2079,11 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(bodyRowByPosition0Parent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
 
     const bodyRowByPosition1Input = flatTableBodyRowByPosition(page, 1).locator(
-      "input"
+      "input",
     );
     await bodyRowByPosition1Input.click();
     await expect(bodyRowByPosition1Input).toBeChecked();
@@ -2091,7 +2095,7 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(bodyRowByPosition1Parent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
   });
 
@@ -2108,7 +2112,7 @@ test.describe("Prop tests", () => {
     await expect(flatTableSubrows(page)).toHaveCount(2);
 
     const bodyRowByPosition0Input = flatTableBodyRowByPosition(page, 0).locator(
-      "input"
+      "input",
     );
     await bodyRowByPosition0Input.click();
     await expect(bodyRowByPosition0Input).toBeChecked();
@@ -2120,11 +2124,11 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(bodyRowByPosition0Parent).toHaveCSS(
       "box-shadow",
-      `${gold} 0px 0px 0px 3px`
+      `${gold} 0px 0px 0px 3px`,
     );
 
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("input")
+      flatTableBodyRowByPosition(page, 1).locator("input"),
     ).toHaveCount(0);
   });
 
@@ -2139,7 +2143,7 @@ test.describe("Prop tests", () => {
     await expect(flatTableSubrows(page)).toHaveCount(2);
 
     const bodyRowByPosition0Input = flatTableBodyRowByPosition(page, 0).locator(
-      "input"
+      "input",
     );
     await bodyRowByPosition0Input.click();
     await expect(bodyRowByPosition0Input).toBeChecked();
@@ -2151,10 +2155,10 @@ test.describe("Prop tests", () => {
       .locator("div:nth-child(2)");
     await expect(bodyRowByPosition0Parent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(
-      flatTableBodyRowByPosition(page, 1).locator("input")
+      flatTableBodyRowByPosition(page, 1).locator("input"),
     ).toHaveCount(0);
   });
 
@@ -2170,11 +2174,11 @@ test.describe("Prop tests", () => {
     await bodyRowByPosition0.click();
     await expect(flatTableSubrows(page)).toHaveCount(2);
     await expect(
-      flatTableBodyRowByPosition(page, 0).locator("input")
+      flatTableBodyRowByPosition(page, 0).locator("input"),
     ).toHaveCount(0);
 
     const bodyRowByPosition1Input = flatTableBodyRowByPosition(page, 1).locator(
-      "input"
+      "input",
     );
     await bodyRowByPosition1Input.click();
     await expect(bodyRowByPosition1Input).toBeChecked();
@@ -2183,7 +2187,7 @@ test.describe("Prop tests", () => {
         .locator("input")
         .locator("..")
         .locator("..")
-        .locator("div:nth-child(2)")
+        .locator("div:nth-child(2)"),
     ).toHaveCSS("box-shadow", `${gold} 0px 0px 0px 3px`);
   });
 
@@ -2197,11 +2201,11 @@ test.describe("Prop tests", () => {
     await bodyRowByPosition0.click();
     await expect(flatTableSubrows(page)).toHaveCount(2);
     await expect(
-      flatTableBodyRowByPosition(page, 0).locator("input")
+      flatTableBodyRowByPosition(page, 0).locator("input"),
     ).toHaveCount(0);
 
     const bodyRowByPosition1Input = flatTableBodyRowByPosition(page, 1).locator(
-      "input"
+      "input",
     );
     await bodyRowByPosition1Input.click();
     await expect(bodyRowByPosition1Input).toBeChecked();
@@ -2210,10 +2214,10 @@ test.describe("Prop tests", () => {
         .locator("input")
         .locator("..")
         .locator("..")
-        .locator("div:nth-child(2)")
+        .locator("div:nth-child(2)"),
     ).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
   });
 
@@ -2257,7 +2261,7 @@ test.describe("Prop tests", () => {
       <FlatTablePartiallySelectedOrHighlightedRows selected />,
       {
         hooksConfig: { focusRedesignOptOut: true },
-      }
+      },
     );
 
     await page.keyboard.press("Tab");
@@ -2286,7 +2290,7 @@ test.describe("Prop tests", () => {
       <FlatTablePartiallySelectedOrHighlightedRows highlighted />,
       {
         hooksConfig: { focusRedesignOptOut: true },
-      }
+      },
     );
 
     await page.keyboard.press("Tab");
@@ -2320,7 +2324,7 @@ test.describe("Prop tests", () => {
     await checkFocus(flatTableBodyRowByPosition(page, 0));
     await page.keyboard.press("Tab");
     await expect(
-      flatTableBodyRowByPosition(page, 0).locator("input")
+      flatTableBodyRowByPosition(page, 0).locator("input"),
     ).toBeFocused();
     await page.keyboard.press("ArrowDown");
     await checkFocus(flatTableBodyRowByPosition(page, 1));
@@ -2343,7 +2347,7 @@ test.describe("Prop tests", () => {
     await checkNewFocusStyling(flatTableBodyRowByPosition(page, 0));
     await page.keyboard.press("Tab");
     await expect(
-      flatTableBodyRowByPosition(page, 0).locator("input")
+      flatTableBodyRowByPosition(page, 0).locator("input"),
     ).toBeFocused();
     await page.keyboard.press("ArrowDown");
     await checkNewFocusStyling(flatTableBodyRowByPosition(page, 1));
@@ -2609,7 +2613,7 @@ test.describe("Prop tests", () => {
     page,
   }) => {
     await mount(
-      <HighlightedRowWithLoadingState expandableArea="firstColumn" />
+      <HighlightedRowWithLoadingState expandableArea="firstColumn" />,
     );
 
     await page.waitForTimeout(300);
@@ -2662,72 +2666,72 @@ test.describe("Prop tests", () => {
     await expect(popover).toHaveCount(1);
   });
 
-  ([
-    ["UK", 0, 1],
-    ["UK", 0, 2],
-    ["UK", 0, 3],
-    ["Germany", 1, 2],
-    ["Germany", 1, 3],
-    ["Germany", 1, 0],
-    ["China", 2, 3],
-    ["China", 2, 0],
-    ["China", 2, 1],
-    ["US", 3, 0],
-    ["US", 3, 1],
-    ["US", 3, 2],
-  ] as [string, number, number][]).forEach(
-    ([record, position, destinationId]) => {
-      test(`should drag FlatTable draggable row ${record} and re-order to position ${destinationId}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<FlatTableDraggableComponent />);
+  (
+    [
+      ["UK", 0, 1],
+      ["UK", 0, 2],
+      ["UK", 0, 3],
+      ["Germany", 1, 2],
+      ["Germany", 1, 3],
+      ["Germany", 1, 0],
+      ["China", 2, 3],
+      ["China", 2, 0],
+      ["China", 2, 1],
+      ["US", 3, 0],
+      ["US", 3, 1],
+      ["US", 3, 2],
+    ] as [string, number, number][]
+  ).forEach(([record, position, destinationId]) => {
+    test(`should drag FlatTable draggable row ${record} and re-order to position ${destinationId}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FlatTableDraggableComponent />);
 
-        const draggableItem = flatTableDraggableItem(page, position);
-        const dropPosition = flatTableDraggableItemByPosition(
-          page,
-          destinationId
+      const draggableItem = flatTableDraggableItem(page, position);
+      const dropPosition = flatTableDraggableItemByPosition(
+        page,
+        destinationId,
+      );
+      await draggableItem.dragTo(dropPosition);
+      await expect(
+        flatTableDraggableItemByPosition(page, destinationId),
+      ).toHaveText(record);
+    });
+  });
+
+  (
+    [
+      ["large", 700, 345],
+      ["small", 700, 240],
+    ] as [string, number, number][]
+  ).forEach(([size, tableWidth, tableHeight]) => {
+    test(`should render with pager and sticky header in ${size} viewport`, async ({
+      mount,
+      page,
+    }) => {
+      await page.setViewportSize({ width: tableWidth, height: tableHeight });
+      await mount(<FlatTablePagerStickyHeaderComponent />);
+
+      await flatTablePageSizeSelect(page).click();
+
+      if (size === "large") {
+        const selectListPos = flatTablePageSelectListPosition(page);
+        await expect(selectListPos).toHaveAttribute(
+          "data-floating-placement",
+          "bottom",
         );
-        await draggableItem.dragTo(dropPosition);
-        await expect(
-          flatTableDraggableItemByPosition(page, destinationId)
-        ).toHaveText(record);
-      });
-    }
-  );
-
-  ([
-    ["large", 700, 345],
-    ["small", 700, 240],
-  ] as [string, number, number][]).forEach(
-    ([size, tableWidth, tableHeight]) => {
-      test(`should render with pager and sticky header in ${size} viewport`, async ({
-        mount,
-        page,
-      }) => {
-        await page.setViewportSize({ width: tableWidth, height: tableHeight });
-        await mount(<FlatTablePagerStickyHeaderComponent />);
-
-        await flatTablePageSizeSelect(page).click();
-
-        if (size === "large") {
-          const selectListPos = flatTablePageSelectListPosition(page);
-          await expect(selectListPos).toHaveAttribute(
-            "data-floating-placement",
-            "bottom"
-          );
-          await expect(selectListPos).toBeInViewport();
-        } else {
-          const selectListPos = flatTablePageSelectListPosition(page);
-          await expect(selectListPos).toHaveAttribute(
-            "data-floating-placement",
-            "top"
-          );
-          await expect(selectListPos).toBeInViewport();
-        }
-      });
-    }
-  );
+        await expect(selectListPos).toBeInViewport();
+      } else {
+        const selectListPos = flatTablePageSelectListPosition(page);
+        await expect(selectListPos).toHaveAttribute(
+          "data-floating-placement",
+          "top",
+        );
+        await expect(selectListPos).toBeInViewport();
+      }
+    });
+  });
 
   [...itemsPerPage].forEach(([numberOfItems, option]) => {
     test(`should render with ${numberOfItems} items when selected with the mouse`, async ({
@@ -2995,7 +2999,7 @@ test.describe("Prop tests", () => {
 
       for await (const i of indexes(4)) {
         await expect(
-          flatTableCheckboxAsProp(page, i, asPropVal).first()
+          flatTableCheckboxAsProp(page, i, asPropVal).first(),
         ).toHaveAttribute("data-element", "flat-table-checkbox-header");
       }
     });
@@ -3013,7 +3017,7 @@ test.describe("Event tests", () => {
         getOrder={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await page.waitForTimeout(1000);
@@ -3034,7 +3038,7 @@ test.describe("Event tests", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await flatTableBodyRowByPosition(page, 0).click();
@@ -3051,7 +3055,7 @@ test.describe("Event tests", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await flatTableCheckboxCell(page, 1).locator("input").click();
@@ -3068,7 +3072,7 @@ test.describe("Event tests", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await flatTableCheckboxCell(page, 1).locator("input").click();
@@ -3085,7 +3089,7 @@ test.describe("Event tests", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await flatTableSortable(page).nth(0).click();
@@ -3113,7 +3117,7 @@ test.describe("Accessibility tests", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   // a11y error!scrollable-region-focusable on 1 Node. Ticket FE-5764 logged to investigate
@@ -3152,7 +3156,7 @@ test.describe("Accessibility tests", () => {
     await mount(
       <div style={{ height: "150px" }}>
         <FlatTableComponent hasStickyHead />
-      </div>
+      </div>,
     );
 
     await expect(flatTable(page)).toHaveCount(1);
@@ -3217,7 +3221,7 @@ test.describe("Accessibility tests", () => {
       page,
     }) => {
       await mount(
-        <FlatTableComponent height={`${height}px`} minHeight="250px" />
+        <FlatTableComponent height={`${height}px`} minHeight="250px" />,
       );
 
       await checkAccessibility(page);
@@ -3466,19 +3470,19 @@ test.describe("Rounded corner tests", () => {
     await expect(flatTableWrapper(page)).toHaveCSS("border-radius", "8px");
     await expect(flatTableHeaderCells(page).first()).toHaveCSS(
       "border-radius",
-      "8px 0px 0px"
+      "8px 0px 0px",
     );
     await expect(flatTableHeaderCells(page).last()).toHaveCSS(
       "border-radius",
-      "0px 8px 0px 0px"
+      "0px 8px 0px 0px",
     );
     await expect(flatTableCell(page, 20)).toHaveCSS(
       "border-radius",
-      "0px 0px 0px 8px"
+      "0px 0px 0px 8px",
     );
     await expect(flatTableCell(page, 23)).toHaveCSS(
       "border-radius",
-      "0px 0px 8px"
+      "0px 0px 8px",
     );
   });
 
@@ -3490,15 +3494,15 @@ test.describe("Rounded corner tests", () => {
 
     await expect(flatTableWrapper(page)).toHaveCSS(
       "border-radius",
-      "8px 8px 0px 0px"
+      "8px 8px 0px 0px",
     );
     await expect(flatTableHeaderCells(page).first()).toHaveCSS(
       "border-radius",
-      "8px 0px 0px"
+      "8px 0px 0px",
     );
     await expect(flatTableHeaderCells(page).last()).toHaveCSS(
       "border-radius",
-      "0px"
+      "0px",
     );
     await expect(flatTableCell(page, 16)).toHaveCSS("border-radius", "0px");
     await expect(flatTableCell(page, 19)).toHaveCSS("border-radius", "0px");
@@ -3514,7 +3518,7 @@ test.describe("Rounded corner tests", () => {
         width="200px"
         overflowX="auto"
         aria-label="scroll table"
-      />
+      />,
     );
 
     await expect(flatTableCell(page, 6)).toHaveCSS("border-radius", "0px");
@@ -3529,12 +3533,12 @@ test.describe("Rounded corner tests", () => {
 
     await expect(flatTableCell(page, 0)).toHaveCSS(
       "border-radius",
-      "0px 0px 0px 8px"
+      "0px 0px 0px 8px",
     );
     await expect(flatTableCell(page, 3)).toHaveCSS("border-radius", "0px");
     await expect(flatTableCell(page, 4)).toHaveCSS(
       "border-radius",
-      "0px 0px 8px"
+      "0px 0px 8px",
     );
   });
 
@@ -3546,11 +3550,11 @@ test.describe("Rounded corner tests", () => {
 
     await expect(flatTableCell(page, 2)).toHaveCSS(
       "border-radius",
-      "0px 0px 8px"
+      "0px 0px 8px",
     );
     await expect(flatTableCell(page, 3)).toHaveCSS(
       "border-radius",
-      "0px 0px 0px 8px"
+      "0px 0px 0px 8px",
     );
     await expect(flatTableCell(page, 4)).toHaveCSS("border-radius", "0px");
   });

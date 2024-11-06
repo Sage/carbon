@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { ThemeProvider } from "styled-components";
 
 import sageTheme from "../../../style/themes/sage";
-import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 import Icon from "../../icon";
 import { VerticalMenuItem, VerticalMenuFullScreen } from "..";
 import Logger from "../../../__internal__/utils/logger";
@@ -27,7 +27,7 @@ describe("VerticalMenuItem", () => {
     loggerSpy.mockRestore();
   });
 
-  testStyledSystemPaddingRTL(
+  testStyledSystemPadding(
     (props) => (
       <ThemeProvider theme={sageTheme}>
         <VerticalMenuItem title="Item1" {...props}>
@@ -35,7 +35,7 @@ describe("VerticalMenuItem", () => {
         </VerticalMenuItem>
       </ThemeProvider>
     ),
-    () => screen.getByRole("button")
+    () => screen.getByRole("button"),
   );
 
   describe("when is rendered without children", () => {
@@ -45,7 +45,7 @@ describe("VerticalMenuItem", () => {
           data-role="item-wrapper"
           title="Item1"
           height="100px"
-        />
+        />,
       );
 
       expect(screen.getByTestId("item-wrapper")).toHaveStyle({
@@ -60,28 +60,28 @@ describe("VerticalMenuItem", () => {
 
     it("should render adornment passed as a node", () => {
       render(
-        <VerticalMenuItem title="Item1" adornment={<div>Adornment</div>} />
+        <VerticalMenuItem title="Item1" adornment={<div>Adornment</div>} />,
       );
       expect(screen.getByText("Adornment")).toBeVisible();
     });
 
     it("should render passed active state as boolean", () => {
       render(
-        <VerticalMenuItem data-role="item-wrapper" title="Item1" active />
+        <VerticalMenuItem data-role="item-wrapper" title="Item1" active />,
       );
       expect(screen.getByTestId("item-wrapper")).toHaveStyleRule(
         "background",
         "var(--colorsComponentsLeftnavWinterStandardSelected)",
         {
           modifier: ":before",
-        }
+        },
       );
     });
 
     it("should override active state when mouseover detected", async () => {
       const user = userEvent.setup();
       render(
-        <VerticalMenuItem data-role="item-wrapper" title="Item1" active />
+        <VerticalMenuItem data-role="item-wrapper" title="Item1" active />,
       );
 
       await user.hover(screen.getByRole("listitem"));
@@ -91,7 +91,7 @@ describe("VerticalMenuItem", () => {
         "var(--colorsComponentsLeftnavWinterStandardHover)",
         {
           modifier: ":hover:before",
-        }
+        },
       );
     });
 
@@ -99,7 +99,7 @@ describe("VerticalMenuItem", () => {
       render(<VerticalMenuItem title="Item1" iconType="add" />);
       expect(Icon).toHaveBeenCalledWith(
         expect.objectContaining({ type: "add" }),
-        {}
+        {},
       );
 
       IconMock.mockClear();
@@ -133,7 +133,7 @@ describe("VerticalMenuItem", () => {
           title="Item1"
           component={CustomComponent}
           customComponentTitle="Custom component"
-        />
+        />,
       );
       expect(screen.getByText("Custom component")).toBeVisible();
     });
@@ -144,7 +144,7 @@ describe("VerticalMenuItem", () => {
       render(
         <VerticalMenuItem title="Item1">
           <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>
+        </VerticalMenuItem>,
       );
       expect(screen.getByRole("button")).toBeVisible();
     });
@@ -153,7 +153,7 @@ describe("VerticalMenuItem", () => {
       render(
         <VerticalMenuItem title="Item1">
           <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>
+        </VerticalMenuItem>,
       );
       expect(screen.queryByText("ChildItem1")).not.toBeInTheDocument();
     });
@@ -164,7 +164,7 @@ describe("VerticalMenuItem", () => {
       render(
         <VerticalMenuItem title="Item1">
           <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>
+        </VerticalMenuItem>,
       );
       expect(screen.queryByText("ChildItem1")).not.toBeInTheDocument();
       await user.click(screen.getByText("Item1"));
@@ -182,14 +182,14 @@ describe("VerticalMenuItem", () => {
         render(
           <VerticalMenuItem title="Item1">
             <VerticalMenuItem title="ChildItem1" />
-          </VerticalMenuItem>
+          </VerticalMenuItem>,
         );
 
         expect(screen.queryByText("ChildItem1")).not.toBeInTheDocument();
         await user.tab();
         await user.keyboard(`{${key}}`);
         expect(screen.getByText("ChildItem1")).toBeVisible();
-      }
+      },
     );
 
     it("should render chevron icon", async () => {
@@ -198,19 +198,19 @@ describe("VerticalMenuItem", () => {
       render(
         <VerticalMenuItem title="Item1">
           <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>
+        </VerticalMenuItem>,
       );
 
       expect(Icon).toHaveBeenCalledWith(
         expect.objectContaining({ type: "chevron_down_thick" }),
-        {}
+        {},
       );
 
       IconMock.mockClear();
       await user.click(screen.getByText("Item1"));
       expect(Icon).toHaveBeenCalledWith(
         expect.objectContaining({ type: "chevron_up_thick" }),
-        {}
+        {},
       );
     });
 
@@ -225,7 +225,7 @@ describe("VerticalMenuItem", () => {
               title="GrandChildItem1"
             />
           </VerticalMenuItem>
-        </VerticalMenuItem>
+        </VerticalMenuItem>,
       );
 
       expect(screen.getByTestId("item")).toHaveStyle({
@@ -255,7 +255,7 @@ describe("VerticalMenuItem", () => {
           adornment={(isOpen) => !isOpen && <div>Adornment</div>}
         >
           <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>
+        </VerticalMenuItem>,
       );
 
       expect(screen.getByText("Adornment")).toBeVisible();
@@ -273,7 +273,7 @@ describe("VerticalMenuItem", () => {
           active={(isOpen) => !isOpen}
         >
           <VerticalMenuItem data-role="child-item" title="ChildItem1" />
-        </VerticalMenuItem>
+        </VerticalMenuItem>,
       );
 
       expect(screen.getByTestId("item")).toHaveStyleRule(
@@ -281,7 +281,7 @@ describe("VerticalMenuItem", () => {
         "var(--colorsComponentsLeftnavWinterStandardSelected)",
         {
           modifier: ":before",
-        }
+        },
       );
 
       await user.click(screen.getByText("Item1"));
@@ -290,7 +290,7 @@ describe("VerticalMenuItem", () => {
         "var(--colorsComponentsLeftnavWinterStandardSelected)",
         {
           modifier: ":before",
-        }
+        },
       );
     });
   });
@@ -304,7 +304,7 @@ describe("VerticalMenuItem", () => {
               <VerticalMenuItem title="GrandChildItem1" />
             </VerticalMenuItem>
           </VerticalMenuItem>
-        </VerticalMenuFullScreen>
+        </VerticalMenuFullScreen>,
       );
 
       expect(screen.getByText("Item1")).toBeVisible();
@@ -318,7 +318,7 @@ describe("VerticalMenuItem", () => {
       render(
         <VerticalMenuItem title="Item1" defaultOpen>
           <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>
+        </VerticalMenuItem>,
       );
 
       expect(screen.getByText("ChildItem1")).toBeVisible();
@@ -332,7 +332,7 @@ describe("VerticalMenuItem", () => {
         data-element="foo"
         data-role="bar"
         href="foo"
-      />
+      />,
     );
 
     const anchor = within(screen.getByRole("listitem")).getByRole("link");
@@ -351,7 +351,7 @@ describe("VerticalMenuItem", () => {
       "var(--borderRadius100)",
       {
         modifier: ":before",
-      }
+      },
     );
   });
 });

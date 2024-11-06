@@ -69,7 +69,7 @@ WithSelect.story = {
 export const WithMultiSelect = () => {
   const [value, setValue] = useState<string[]>([]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue((event.target.value as unknown) as string[]);
+    setValue(event.target.value as unknown as string[]);
   }
 
   return (

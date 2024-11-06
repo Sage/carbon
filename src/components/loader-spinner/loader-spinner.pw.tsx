@@ -31,7 +31,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
     page,
   }) => {
     await mount(
-      <LoaderSpinnerComponent spinnerLabel="bar" showSpinnerLabel={false} />
+      <LoaderSpinnerComponent spinnerLabel="bar" showSpinnerLabel={false} />,
     );
 
     await expect(loaderSpinnerHiddenLabel(page)).toHaveText("bar");
@@ -56,10 +56,10 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
         await expect(loaderSpinnerWrapper(page)).toHaveCSS(
           "flex-direction",
-          "column"
+          "column",
         );
       });
-    }
+    },
   );
 
   sizes.forEach((spinnerSizes) => {
@@ -71,7 +71,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
       await expect(loaderSpinnerSvg(page)).toHaveCSS(
         "height",
-        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
+        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`,
       );
     });
   });
@@ -85,7 +85,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
       await expect(loaderSpinnerSvg(page)).toHaveCSS(
         "min-height",
-        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
+        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`,
       );
     });
   });
@@ -99,7 +99,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
       await expect(loaderSpinnerInnerArc(page)).toHaveCSS(
         "stroke-width",
-        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].strokeWidth}px`
+        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].strokeWidth}px`,
       );
     });
   });
@@ -113,7 +113,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
       await expect(loaderSpinnerOuterArc(page)).toHaveCSS(
         "stroke-width",
-        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].strokeWidth}px`
+        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].strokeWidth}px`,
       );
     });
   });
@@ -126,7 +126,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
     await expect(loaderSpinnerVisibleLabel(page)).toHaveCSS(
       "margin-left",
-      "8px"
+      "8px",
     );
   });
 
@@ -140,10 +140,10 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
         await expect(loaderSpinnerVisibleLabel(page)).toHaveCSS(
           "margin-top",
-          `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].labelMarginTop}px`
+          `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].labelMarginTop}px`,
         );
       });
-    }
+    },
   );
 
   test("when 'showSpinnerLabel' is `true` the label is rendered", async ({
@@ -173,13 +173,15 @@ test.describe("Prop checks for Loader Spinner component", () => {
     await expect(loaderSpinnerHiddenLabel(page)).toHaveText("Loading...");
   });
 
-  ([
-    "rgb(179, 217, 200)",
-    "rgb(204, 214, 219)",
-    "rgb(255, 255, 255)",
-    "rgba(0, 0, 0, 0.1)",
-    "rgb(255, 255, 255)",
-  ] as string[]).forEach((strokeValues, index) => {
+  (
+    [
+      "rgb(179, 217, 200)",
+      "rgb(204, 214, 219)",
+      "rgb(255, 255, 255)",
+      "rgba(0, 0, 0, 0.1)",
+      "rgb(255, 255, 255)",
+    ] as string[]
+  ).forEach((strokeValues, index) => {
     test(`when the 'variant' prop is passed as '${variants[index]}' the correct outer arc stroke (color) value is rendered`, async ({
       mount,
       page,
@@ -188,7 +190,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
       await expect(loaderSpinnerOuterArc(page)).toHaveCSS(
         "stroke",
-        strokeValues
+        strokeValues,
       );
     });
   });
@@ -201,17 +203,19 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
     await expect(loaderSpinnerOuterArc(page)).toHaveCSS(
       "stroke-opacity",
-      "0.3"
+      "0.3",
     );
   });
 
-  ([
-    "rgb(0, 126, 69)",
-    "rgb(51, 91, 112)",
-    "rgb(255, 255, 255)",
-    "rgb(0, 214, 57)",
-    "rgb(0, 214, 57)",
-  ] as string[]).forEach((strokeValues, index) => {
+  (
+    [
+      "rgb(0, 126, 69)",
+      "rgb(51, 91, 112)",
+      "rgb(255, 255, 255)",
+      "rgb(0, 214, 57)",
+      "rgb(0, 214, 57)",
+    ] as string[]
+  ).forEach((strokeValues, index) => {
     test(`when the 'variant' prop is passed as '${variants[index]}' the correct inner arc svg stroke (color) value is rendered`, async ({
       mount,
       page,
@@ -220,18 +224,20 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
       await expect(loaderSpinnerInnerArc(page)).toHaveCSS(
         "stroke",
-        strokeValues
+        strokeValues,
       );
     });
   });
 
-  ([
-    "rgba(0, 0, 0, 0.9)",
-    "rgba(0, 0, 0, 0.9)",
-    "rgb(255, 255, 255)",
-    "rgba(0, 0, 0, 0.9)",
-    "rgb(255, 255, 255)",
-  ] as string[]).forEach((labelColorValues, index) => {
+  (
+    [
+      "rgba(0, 0, 0, 0.9)",
+      "rgba(0, 0, 0, 0.9)",
+      "rgb(255, 255, 255)",
+      "rgba(0, 0, 0, 0.9)",
+      "rgb(255, 255, 255)",
+    ] as string[]
+  ).forEach((labelColorValues, index) => {
     test(`when the 'variant' prop is passed as '${variants[index]}' the correct font color is rendered`, async ({
       mount,
       page,
@@ -240,7 +246,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
       await expect(loaderSpinnerVisibleLabel(page)).toHaveCSS(
         "color",
-        labelColorValues
+        labelColorValues,
       );
     });
   });

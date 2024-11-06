@@ -168,7 +168,7 @@ export const WithMargin: Story = () => {
   });
 
   const displayButton = Object.values({ ...isOpen }).every(
-    (value) => value === false
+    (value) => value === false,
   );
   return (
     <>

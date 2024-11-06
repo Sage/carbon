@@ -11,7 +11,7 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { TILE_HIGHLIGHT_VARIANTS } from "./tile.config";
 
 type DesignTokensType = keyof typeof DesignTokens;
-type HighlightVariantType = typeof TILE_HIGHLIGHT_VARIANTS[number];
+type HighlightVariantType = (typeof TILE_HIGHLIGHT_VARIANTS)[number];
 
 export interface TileProps extends SpaceProps, WidthProps, TagProps {
   /** Sets the theme of the tile */

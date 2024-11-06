@@ -44,7 +44,7 @@ test.describe("check BatchSelection component properties", () => {
       await mount(<BatchSelectionComponent selectedCount={selectedCount} />);
 
       await expect(batchSelectionCounter(page)).toHaveText(
-        `${selectedCount} selected`
+        `${selectedCount} selected`,
       );
     });
   });
@@ -93,13 +93,15 @@ test.describe("check BatchSelection component properties", () => {
     await expect(link).not.toBeFocused();
   });
 
-  ([
-    [0, "IconButton"],
-    [1, "Button"],
-    [2, "ButtonMinor"],
-    [3, "Link"],
-    [4, "LinkButton"],
-  ] as [number, string][]).forEach(([iconIndex, supportedChildren]) => {
+  (
+    [
+      [0, "IconButton"],
+      [1, "Button"],
+      [2, "ButtonMinor"],
+      [3, "Link"],
+      [4, "LinkButton"],
+    ] as [number, string][]
+  ).forEach(([iconIndex, supportedChildren]) => {
     test(`${supportedChildren}'s icon color matches disabled styling in a disabled BatchSelection`, async ({
       mount,
       page,
@@ -150,29 +152,29 @@ test.describe("check BatchSelection component properties", () => {
     await expect(link).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
   });
 
-  ([
-    [BATCH_SELECTION_COLOR[0], "rgb(0, 50, 76)"],
-    [BATCH_SELECTION_COLOR[1], "rgb(179, 194, 201)"],
-    [BATCH_SELECTION_COLOR[2], "rgb(255, 255, 255)"],
-    [BATCH_SELECTION_COLOR[3], "rgba(0, 0, 0, 0)"],
-  ] as [BatchSelectionProps["colorTheme"], string][]).forEach(
-    ([colorTheme, backgroundColor]) => {
-      test(`check background color is ${backgroundColor} when colorTheme is ${colorTheme}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <BatchSelectionComponent colorTheme={colorTheme} selectedCount={0} />
-        );
+  (
+    [
+      [BATCH_SELECTION_COLOR[0], "rgb(0, 50, 76)"],
+      [BATCH_SELECTION_COLOR[1], "rgb(179, 194, 201)"],
+      [BATCH_SELECTION_COLOR[2], "rgb(255, 255, 255)"],
+      [BATCH_SELECTION_COLOR[3], "rgba(0, 0, 0, 0)"],
+    ] as [BatchSelectionProps["colorTheme"], string][]
+  ).forEach(([colorTheme, backgroundColor]) => {
+    test(`check background color is ${backgroundColor} when colorTheme is ${colorTheme}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <BatchSelectionComponent colorTheme={colorTheme} selectedCount={0} />,
+      );
 
-        const batchSelection = getComponent(page, "batch-selection");
-        await expect(batchSelection).toHaveCSS(
-          "background-color",
-          backgroundColor
-        );
-      });
-    }
-  );
+      const batchSelection = getComponent(page, "batch-selection");
+      await expect(batchSelection).toHaveCSS(
+        "background-color",
+        backgroundColor,
+      );
+    });
+  });
 });
 
 test.describe("check BatchSelection buttons are focused", () => {
@@ -187,7 +189,7 @@ test.describe("check BatchSelection buttons are focused", () => {
 
       const elementLocator = batchSelectionButtonsByPosition(
         page,
-        positionOfElement(index)
+        positionOfElement(index),
       );
 
       const element = elementLocator;
@@ -207,19 +209,19 @@ test.describe("check BatchSelection buttons are focused", () => {
 
       const elementLocator = batchSelectionButtonsByPosition(
         page,
-        positionOfElement(index)
+        positionOfElement(index),
       );
       const element = elementLocator;
       await element.focus();
 
       await expect(elementLocator).toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
       );
 
       await expect(elementLocator).toHaveCSS(
         "outline",
-        "rgba(0, 0, 0, 0) solid 3px"
+        "rgba(0, 0, 0, 0) solid 3px",
       );
     });
   });
@@ -240,7 +242,7 @@ test.describe("rounded corners", () => {
 
       await expect(batchSelectionComponent(page)).toHaveCSS(
         "border-radius",
-        "8px"
+        "8px",
       );
     });
   });
@@ -258,7 +260,7 @@ test.describe("Accessibility tests for Batch Selection", () => {
       page,
     }) => {
       await mount(
-        <BatchSelectionComponent colorTheme={colorTheme} selectedCount={3} />
+        <BatchSelectionComponent colorTheme={colorTheme} selectedCount={3} />,
       );
 
       await checkAccessibility(page);

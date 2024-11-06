@@ -4,7 +4,7 @@ import generatePalette, { PaletteFunction } from "./palette";
 
 const assertCorrectColorMix = (
   colorConfig: Record<string, string>,
-  paletteObject: Record<string, PaletteFunction>
+  paletteObject: Record<string, PaletteFunction>,
 ) => {
   Object.keys(colorConfig).forEach((color) => {
     const match = color.match(/([a-z]+)([\d]{0,2})/i);
@@ -69,37 +69,37 @@ describe("style", () => {
   describe("mix", () => {
     it("defaults to a weight of 50", () => {
       expect(mix(config.genericGreen, "FFFFFF")).toEqual(
-        `#${colorConfig.genericGreenTint50}`
+        `#${colorConfig.genericGreenTint50}`,
       );
     });
 
     it("accepts colors without a hash symbol", () => {
       expect(mix(config.genericGreen, "FFFFFF")).toEqual(
-        `#${colorConfig.genericGreenTint50}`
+        `#${colorConfig.genericGreenTint50}`,
       );
     });
 
     it("accepts colors with a hash symbol", () => {
       expect(mix(`#${config.genericGreen}`, "#FFFFFF")).toEqual(
-        `#${colorConfig.genericGreenTint50}`
+        `#${colorConfig.genericGreenTint50}`,
       );
     });
 
     it("accepts three-digit hashes", () => {
       expect(mix(config.genericGreen, "FFF")).toEqual(
-        `#${colorConfig.genericGreenTint50}`
+        `#${colorConfig.genericGreenTint50}`,
       );
       expect(mix("FFF", config.genericGreen)).toEqual(
-        `#${colorConfig.genericGreenTint50}`
+        `#${colorConfig.genericGreenTint50}`,
       );
     });
 
     it("accepts colors with combinations of with and without hash symbols", () => {
       expect(mix(`#${config.genericGreen}`, "FFFFFF")).toEqual(
-        `#${colorConfig.genericGreenTint50}`
+        `#${colorConfig.genericGreenTint50}`,
       );
       expect(mix(config.genericGreen, "#FFFFFF")).toEqual(
-        `#${colorConfig.genericGreenTint50}`
+        `#${colorConfig.genericGreenTint50}`,
       );
     });
 

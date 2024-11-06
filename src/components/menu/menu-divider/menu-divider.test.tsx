@@ -22,7 +22,7 @@ test("should apply the 'light' background-color passed as `menuType` via context
       <MenuItem submenu="Item One">
         <MenuDivider data-role="divider" />
       </MenuItem>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -40,7 +40,7 @@ test("should apply the 'dark' background-color passed as `menuType` via context"
       <MenuItem submenu="Item One">
         <MenuDivider data-role="divider" />
       </MenuItem>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -58,7 +58,7 @@ test("should apply the 'white' background-color passed as `menuType` via context
       <MenuItem submenu="Item One">
         <MenuDivider data-role="divider" />
       </MenuItem>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -76,7 +76,7 @@ test("should apply the 'black' background-color passed as `menuType` via context
       <MenuItem submenu="Item One">
         <MenuDivider data-role="divider" />
       </MenuItem>
-    </MenuContext.Provider>
+    </MenuContext.Provider>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -109,7 +109,7 @@ test("should have the expected 'data-' attributes", () => {
 
   expect(screen.getByTestId("divider")).toHaveAttribute(
     "data-component",
-    "menu-divider"
+    "menu-divider",
   );
   expect(screen.getByTestId("divider")).toHaveAttribute("data-element", "foo");
   expect(screen.getByTestId("divider")).toHaveAttribute("data-role", "divider");

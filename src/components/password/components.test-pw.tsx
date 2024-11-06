@@ -155,7 +155,7 @@ export const PasswordNewDesignsValidation = () => {
                 {...{ [validationType]: "Message" }}
               />
             </div>
-          ))
+          )),
         )}
       </CarbonProvider>
     </Box>

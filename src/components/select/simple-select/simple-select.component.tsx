@@ -95,7 +95,7 @@ export interface SimpleSelectProps
   isRequired?: boolean;
   /** Specify a callback triggered on change */
   onChange?: (
-    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
+    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
   ) => void;
   /** Override the default width of the list element. Number passed is converted into pixel value */
   listWidth?: number;
@@ -143,7 +143,7 @@ export const SimpleSelect = React.forwardRef<
       listWidth,
       ...props
     },
-    ref
+    ref,
   ) => {
     const selectListId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
@@ -174,13 +174,14 @@ export const SimpleSelect = React.forwardRef<
     if (!deprecateUncontrolledWarnTriggered && componentIsUncontrolled) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Simple Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Simple Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
-    const childOptions = useMemo(() => React.Children.toArray(children), [
-      children,
-    ]) as React.ReactElement[];
+    const childOptions = useMemo(
+      () => React.Children.toArray(children),
+      [children],
+    ) as React.ReactElement[];
 
     const createCustomEvent = useCallback(
       (newValue, selectionConfirmed = false) => {
@@ -195,7 +196,7 @@ export const SimpleSelect = React.forwardRef<
 
         return customEvent as CustomSelectChangeEvent;
       },
-      [name, id]
+      [name, id],
     );
 
     const selectValueStartingWithText = useCallback(
@@ -204,12 +205,12 @@ export const SimpleSelect = React.forwardRef<
           const previousIndex = childOptions.findIndex(
             (child) =>
               React.isValidElement(child) &&
-              isExpectedOption(child, previousValue)
+              isExpectedOption(child, previousValue),
           );
           const match = getNextChildByText(
             newFilterText,
             childOptions,
-            previousIndex
+            previousIndex,
           );
 
           if (!match) {
@@ -227,7 +228,7 @@ export const SimpleSelect = React.forwardRef<
           return match.props.value;
         });
       },
-      [childOptions, createCustomEvent, onChange]
+      [childOptions, createCustomEvent, onChange],
     );
 
     const triggerFilterChange = useCallback(
@@ -251,7 +252,7 @@ export const SimpleSelect = React.forwardRef<
           filterText.current = "";
         }, 500);
       },
-      [selectValueStartingWithText]
+      [selectValueStartingWithText],
     );
 
     const handleTextboxKeydown = useCallback(
@@ -274,7 +275,7 @@ export const SimpleSelect = React.forwardRef<
           triggerFilterChange(key);
         }
       },
-      [triggerFilterChange, onKeyDown, onOpen, readOnly]
+      [triggerFilterChange, onKeyDown, onOpen, readOnly],
     );
 
     const handleGlobalClick = useCallback((event) => {
@@ -301,11 +302,11 @@ export const SimpleSelect = React.forwardRef<
 
       invariant(
         isControlled.current === (value !== undefined),
-        modeSwitchedMessage
+        modeSwitchedMessage,
       );
       invariant(
         !isControlled.current || (isControlled.current && onChange),
-        onChangeMissingMessage
+        onChangeMissingMessage,
       );
 
       if (isControlled.current) {
@@ -315,7 +316,7 @@ export const SimpleSelect = React.forwardRef<
 
     useEffect(() => {
       const matchingOption = childOptions.find((child) =>
-        isExpectedOption(child, selectedValue)
+        isExpectedOption(child, selectedValue),
       );
       let newText = "";
 
@@ -360,7 +361,7 @@ export const SimpleSelect = React.forwardRef<
     }
 
     function handleDropdownIconClick(
-      event: React.MouseEvent<HTMLInputElement>
+      event: React.MouseEvent<HTMLInputElement>,
     ) {
       handleTextboxClick(event);
     }
@@ -416,7 +417,7 @@ export const SimpleSelect = React.forwardRef<
     function updateValue(
       newValue?: string | Record<string, unknown>,
       text?: string,
-      selectionConfirmed?: boolean
+      selectionConfirmed?: boolean,
     ) {
       if (!isControlled.current) {
         setSelectedValue(newValue);
@@ -466,7 +467,7 @@ export const SimpleSelect = React.forwardRef<
           ref.current = element;
         }
       },
-      [ref]
+      [ref],
     );
 
     function getTextboxProps() {
@@ -479,7 +480,7 @@ export const SimpleSelect = React.forwardRef<
         formattedValue: textValue,
         onClick: handleTextboxClick,
         iconOnClick: handleDropdownIconClick as (
-          ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+          ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
         ) => void,
         label,
         labelId,
@@ -561,7 +562,7 @@ export const SimpleSelect = React.forwardRef<
         {selectList}
       </StyledSelect>
     );
-  }
+  },
 );
 
 export default SimpleSelect;

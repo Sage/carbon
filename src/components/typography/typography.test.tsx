@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Typography, { List, ListItem } from ".";
-import { testStyledSystemSpacingRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should render with variant as 'p' by default", () => {
   render(<Typography>Test</Typography>);
@@ -281,7 +281,7 @@ test("should override 'display' property when passed", () => {
   render(
     <Typography variant="b" display="block">
       Test
-    </Typography>
+    </Typography>,
   );
 
   expect(screen.getByText("Test")).toHaveStyle({ display: "block" });
@@ -293,7 +293,7 @@ test("should render List with variant as 'ul' by default and listStyleType set t
       <ListItem>List Item 1</ListItem>
       <ListItem>List Item 2</ListItem>
       <ListItem>List Item 3</ListItem>
-    </List>
+    </List>,
   );
 
   expect(screen.getByRole("list")).toHaveStyle({ listStyleType: "square" });
@@ -306,14 +306,14 @@ test("should render List with variant set to 'ol' and listStyleType set to 'deci
       <ListItem>List Item 1</ListItem>
       <ListItem>List Item 2</ListItem>
       <ListItem>List Item 3</ListItem>
-    </List>
+    </List>,
   );
 
   expect(screen.getByRole("list")).toHaveStyle({ listStyleType: "decimal" });
   expect(screen.getAllByRole("listitem")).toHaveLength(3);
 });
 
-testStyledSystemSpacingRTL(
+testStyledSystemSpacing(
   (props) => <Typography {...props}>Test</Typography>,
-  () => screen.getByText("Test")
+  () => screen.getByText("Test"),
 );

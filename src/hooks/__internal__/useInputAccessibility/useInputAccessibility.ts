@@ -23,7 +23,7 @@ export default function useInputAccessibility({
   const labelId = label ? `${id}-label` : undefined;
 
   const validationId = [error, warning, info].filter(
-    (validation) => validation && typeof validation === "string"
+    (validation) => validation && typeof validation === "string",
   ).length
     ? `${id}-validation`
     : undefined;

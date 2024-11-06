@@ -45,7 +45,7 @@ export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
 };
 
 export const SimpleSelectWithLazyLoadingComponent = (
-  props: Partial<SimpleSelectProps>
+  props: Partial<SimpleSelectProps>,
 ) => {
   const preventLoading = useRef(false);
   const [value, setValue] = useState("black");
@@ -91,7 +91,7 @@ export const SimpleSelectWithLazyLoadingComponent = (
 };
 
 export const SimpleSelectWithInfiniteScrollComponent = (
-  props: Partial<SimpleSelectProps>
+  props: Partial<SimpleSelectProps>,
 ) => {
   const preventLoading = useRef(false);
   const preventLazyLoading = useRef(false);
@@ -174,7 +174,7 @@ export const SimpleSelectWithInfiniteScrollComponent = (
 };
 
 export const SimpleSelectObjectAsValueComponent = (
-  props: Partial<SimpleSelectProps>
+  props: Partial<SimpleSelectProps>,
 ) => {
   const optionListValues = [
     { id: "Amber", value: 1, text: "Amber" },
@@ -191,11 +191,11 @@ export const SimpleSelectObjectAsValueComponent = (
   ];
 
   const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues[4]
+    optionListValues[4],
   );
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue((event.target.value as unknown) as Record<string, unknown>);
+    setValue(event.target.value as unknown as Record<string, unknown>);
   }
   return (
     <SimpleSelect
@@ -213,7 +213,7 @@ export const SimpleSelectObjectAsValueComponent = (
 };
 
 export const SimpleSelectMultipleColumnsComponent = (
-  props: Partial<SimpleSelectProps>
+  props: Partial<SimpleSelectProps>,
 ) => {
   return (
     <SimpleSelect
@@ -267,7 +267,7 @@ export const SimpleSelectMultipleColumnsComponent = (
 };
 
 export const SimpleSelectCustomOptionChildrenComponent = (
-  props: Partial<SimpleSelectProps>
+  props: Partial<SimpleSelectProps>,
 ) => {
   return (
     <SimpleSelect
@@ -298,7 +298,7 @@ export const SimpleSelectCustomOptionChildrenComponent = (
 };
 
 export const SimpleSelectGroupComponent = (
-  props: Partial<SimpleSelectProps>
+  props: Partial<SimpleSelectProps>,
 ) => {
   return (
     <SimpleSelect name="optGroups" id="optGroups" {...props}>
@@ -572,7 +572,7 @@ export const WithObjectAsValue = () => {
   ];
 
   const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues[4]
+    optionListValues[4],
   );
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {

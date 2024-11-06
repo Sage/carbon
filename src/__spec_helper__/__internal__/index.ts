@@ -7,6 +7,14 @@ import setupResizeObserverMock from "../mock-resize-observer";
 import setupScrollToMock from "../mock-element-scrollto";
 
 import "@testing-library/jest-dom";
+import "jest-styled-components";
+
+const isNotCI = process.env.CI !== "true";
+
+// we don't need to increase the timeout when run on CI
+if (isNotCI) {
+  jest.setTimeout(7500);
+}
 
 failOnConsole({
   shouldFailOnError: true,

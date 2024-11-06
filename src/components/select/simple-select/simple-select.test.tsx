@@ -9,7 +9,7 @@ import {
 import userEvent from "@testing-library/user-event";
 import Box from "components/box/box.component";
 import Button from "components/button/button.component";
-import { testStyledSystemMarginRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 import Logger from "../../../__internal__/utils/logger";
 
@@ -29,7 +29,7 @@ test("renders a visually-hidden input box", () => {
   render(
     <SimpleSelect label="Colour" onChange={() => {}}>
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   const input = screen.getByRole("combobox");
@@ -41,7 +41,7 @@ test("renders input with a textbox role when readOnly prop is true", () => {
   render(
     <SimpleSelect label="Colour" onChange={() => {}} readOnly>
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -52,7 +52,7 @@ test("applies transparent background and no border to input, when transparent pr
   render(
     <SimpleSelect label="Colour" onChange={() => {}} transparent>
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   expect(screen.getByRole("combobox")).toHaveStyle(`
@@ -65,7 +65,7 @@ test("displays the selected option text, when value prop matches an option", () 
   render(
     <SimpleSelect label="Colour" onChange={() => {}} value="amber">
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   expect(screen.getByText("amber", { ignore: "li" })).toBeVisible();
@@ -75,12 +75,12 @@ test("clears option selection when value prop is set to an empty string", () => 
   const { rerender } = render(
     <SimpleSelect label="Colour" onChange={() => {}} value="amber">
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
   rerender(
     <SimpleSelect label="Colour" onChange={() => {}} value="">
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   expect(screen.getByText("Please Select...")).toBeVisible();
@@ -91,7 +91,7 @@ test("displays default placeholder text when no value is selected", () => {
   render(
     <SimpleSelect label="Colour" onChange={() => {}} value="">
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   expect(screen.getByText("Please Select...")).toBeVisible();
@@ -106,7 +106,7 @@ test("displays custom text when placeholder prop is provided and no value is sel
       placeholder="Select a colour"
     >
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   expect(screen.getByText("Select a colour")).toBeVisible();
@@ -116,12 +116,12 @@ test("hides select text overlay from screen readers using aria-hidden", () => {
   render(
     <SimpleSelect label="Colour" onChange={() => {}}>
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   expect(screen.getByTestId("select-text")).toHaveAttribute(
     "aria-hidden",
-    "true"
+    "true",
   );
 });
 
@@ -130,7 +130,7 @@ describe("accessible name of the input", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
@@ -140,7 +140,7 @@ describe("accessible name of the input", () => {
     render(
       <SimpleSelect aria-label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
@@ -150,7 +150,7 @@ describe("accessible name of the input", () => {
     render(
       <SimpleSelect label="foobar" onChange={() => {}} aria-label="Colour">
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
@@ -163,7 +163,7 @@ describe("accessible name of the input", () => {
         <SimpleSelect aria-labelledby="my-select-heading" onChange={() => {}}>
           <Option text="amber" value="amber" />
         </SimpleSelect>
-      </>
+      </>,
     );
 
     expect(screen.getByRole("combobox")).toHaveAccessibleName("My Select");
@@ -180,7 +180,7 @@ describe("accessible name of the input", () => {
         >
           <Option text="amber" value="amber" />
         </SimpleSelect>
-      </>
+      </>,
     );
 
     expect(screen.getByRole("combobox")).toHaveAccessibleName("My Select");
@@ -192,7 +192,7 @@ test("associates the dropdown list with the correct accessible name from the lab
   render(
     <SimpleSelect label="Colour" onChange={() => {}}>
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   await user.click(screen.getByRole("combobox"));
@@ -212,16 +212,16 @@ test.each(["top", "bottom"] as const)(
         onChange={() => {}}
       >
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      `${listPlacement}-end`
+      `${listPlacement}-end`,
     );
-  }
+  },
 );
 
 test.each(["top-end", "bottom-end", "top-start", "bottom-start"] as const)(
@@ -236,16 +236,16 @@ test.each(["top-end", "bottom-end", "top-start", "bottom-start"] as const)(
         onChange={() => {}}
       >
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
 
     expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
       "data-floating-placement",
-      listPlacement
+      listPlacement,
     );
-  }
+  },
 );
 
 describe("typing into the input", () => {
@@ -256,7 +256,7 @@ describe("typing into the input", () => {
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "b");
@@ -271,7 +271,7 @@ describe("typing into the input", () => {
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "bb");
@@ -286,7 +286,7 @@ describe("typing into the input", () => {
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "bx");
@@ -301,7 +301,7 @@ describe("typing into the input", () => {
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
         <Option text="brown" value="brown" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "bla");
@@ -319,7 +319,7 @@ describe("typing into the input", () => {
         <Option text="black" value="black" />
         <Option text="brown" value="brown" />
         <Option text="green" value="green" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     const input = screen.getByRole("combobox");
@@ -342,14 +342,14 @@ describe("typing into the input", () => {
           <Option text="amber" value="amber" />
           <Option text="blue" value="blue" />
           <Option text="black" value="black" />
-        </SimpleSelect>
+        </SimpleSelect>,
       );
 
       // Hold special key down while typing 'b'
       await user.type(screen.getByRole("combobox"), `{${specialKey}>}b`);
 
       expect(screen.getByText("Please Select...")).toBeVisible();
-    }
+    },
   );
 
   it("does not change selected option when value prop is set (controlled usage)", async () => {
@@ -358,13 +358,13 @@ describe("typing into the input", () => {
       <SimpleSelect label="Colour" onChange={() => {}} value="amber">
         <Option text="amber" value="amber" />
         <Option text="blue" value="blue" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "blue");
 
     expect(
-      screen.queryByText("blue", { ignore: "li" })
+      screen.queryByText("blue", { ignore: "li" }),
     ).not.toBeInTheDocument();
   });
 
@@ -376,7 +376,7 @@ describe("typing into the input", () => {
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
         <Option text="brown" value="brown" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "bla");
@@ -397,7 +397,7 @@ describe("typing into the input", () => {
         <Option text="blue" value="blue" />
         <Option text="black" value="black" />
         <Option text="brown" value="brown" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.type(screen.getByRole("combobox"), "b");
@@ -406,7 +406,7 @@ describe("typing into the input", () => {
       expect.objectContaining({
         target: { value: "blue", name: "colour", id: "colour" },
         selectionConfirmed: false,
-      })
+      }),
     );
   });
 });
@@ -417,7 +417,7 @@ describe("dropdown list", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -430,7 +430,7 @@ describe("dropdown list", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}}>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByTestId("input-icon-toggle"));
@@ -445,14 +445,14 @@ describe("dropdown list", () => {
       render(
         <SimpleSelect label="Colour" onChange={() => {}}>
           <Option text="amber" value="amber" />
-        </SimpleSelect>
+        </SimpleSelect>,
       );
 
       await user.tab();
       await user.keyboard(`[${key}]`);
 
       expect(await screen.findByRole("listbox")).toBeVisible();
-    }
+    },
   );
 
   it.each(["Enter", "a"] as const)(
@@ -462,14 +462,14 @@ describe("dropdown list", () => {
       render(
         <SimpleSelect label="Colour" onChange={() => {}}>
           <Option text="amber" value="amber" />
-        </SimpleSelect>
+        </SimpleSelect>,
       );
 
       await user.tab();
       await user.keyboard(`[${key}]`);
 
       expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-    }
+    },
   );
 
   it("does not open, when input is disabled and is clicked", async () => {
@@ -477,7 +477,7 @@ describe("dropdown list", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} disabled>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -490,7 +490,7 @@ describe("dropdown list", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} disabled>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.tab();
@@ -504,7 +504,7 @@ describe("dropdown list", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} readOnly>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("textbox"));
@@ -517,7 +517,7 @@ describe("dropdown list", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} readOnly>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.tab();
@@ -531,7 +531,7 @@ describe("dropdown list", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} openOnFocus>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.tab();
@@ -544,7 +544,7 @@ describe("dropdown list", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} openOnFocus={false}>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.tab();
@@ -557,7 +557,7 @@ describe("dropdown list", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} value="">
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -573,7 +573,7 @@ describe("dropdown list", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} value="">
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -590,7 +590,7 @@ describe("dropdown list", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} value="">
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -609,7 +609,7 @@ describe("dropdown list", () => {
           <Option text="amber" value="amber" />
         </SimpleSelect>
         <p>Outside content</p>
-      </>
+      </>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -628,7 +628,7 @@ describe("when onClick prop is passed", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} onClick={onClick}>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -647,7 +647,7 @@ describe("when onClick prop is passed", () => {
         disabled
       >
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -666,7 +666,7 @@ describe("when onClick prop is passed", () => {
         readOnly
       >
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("textbox"));
@@ -681,7 +681,7 @@ test("calls onOpen when list is opened", async () => {
   render(
     <SimpleSelect label="Colour" onChange={() => {}} onOpen={onOpen}>
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   await user.click(screen.getByRole("combobox"));
@@ -695,7 +695,7 @@ test("calls onKeyDown prop with details of the pressed key, when typing a charac
   render(
     <SimpleSelect label="Colour" onChange={() => {}} onKeyDown={onKeyDown}>
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   await user.type(screen.getByRole("combobox"), "{c}");
@@ -709,7 +709,7 @@ test("calls onFocus prop when input is focused", async () => {
   render(
     <SimpleSelect label="Colour" onChange={() => {}} onFocus={onFocus}>
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   await user.tab();
@@ -724,7 +724,7 @@ describe("when onBlur prop is passed", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} onBlur={onBlur}>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.tab();
@@ -739,7 +739,7 @@ describe("when onBlur prop is passed", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} onBlur={onBlur}>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     await user.click(screen.getByRole("combobox"));
@@ -756,7 +756,7 @@ describe("forwarded ref", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} ref={mockRef}>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     expect(mockRef).toHaveBeenNthCalledWith(1, screen.getByRole("combobox"));
@@ -767,7 +767,7 @@ describe("forwarded ref", () => {
     render(
       <SimpleSelect label="Colour" onChange={() => {}} ref={mockRef}>
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     expect(mockRef.current).toBe(screen.getByRole("combobox"));
@@ -782,12 +782,12 @@ describe("deprecation warnings", () => {
     render(
       <SimpleSelect label="Colour" onChange={undefined} defaultValue="amber">
         <Option text="amber" value="amber" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     expect(loggerSpy).toHaveBeenNthCalledWith(
       1,
-      "Uncontrolled behaviour in `Simple Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      "Uncontrolled behaviour in `Simple Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
     );
   });
 
@@ -801,7 +801,7 @@ describe("deprecation warnings", () => {
         placeholder="Select a colour"
       >
         <Option text="Amber" value="1" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     expect(loggerSpy).not.toHaveBeenCalled();
@@ -813,11 +813,11 @@ describe("deprecation warnings", () => {
     render(
       <SimpleSelect label="Colour" placeholder="Select a colour">
         <Option text="Amber" value="1" />
-      </SimpleSelect>
+      </SimpleSelect>,
     );
 
     expect(loggerSpy).not.toHaveBeenCalledWith(
-      "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
     );
     loggerSpy.mockClear();
   });
@@ -827,7 +827,7 @@ it("marks input as required when required prop is true", () => {
   render(
     <SimpleSelect label="Colour" onChange={() => {}} required>
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   expect(screen.getByRole("combobox")).toBeRequired();
@@ -845,7 +845,7 @@ test("does not call onOpen, when openOnFocus is true and the input is refocused 
       openOnFocus
     >
       <Option text="amber" value="amber" />
-    </SimpleSelect>
+    </SimpleSelect>,
   );
 
   const input = screen.getByRole("combobox");
@@ -912,7 +912,7 @@ test("the options are cleared when the reset button is pressed", async () => {
   expect(screen.queryByRole("option")).not.toBeInTheDocument();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <SimpleSelect
       {...props}
@@ -923,5 +923,5 @@ testStyledSystemMarginRTL(
       <Option text="amber" value="amber" />
     </SimpleSelect>
   ),
-  () => screen.getByTestId("my-select")
+  () => screen.getByTestId("my-select"),
 );

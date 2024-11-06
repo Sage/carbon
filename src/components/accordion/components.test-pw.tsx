@@ -383,7 +383,7 @@ export const AccordionGroupValidation = () => {
     id: Validations,
     type: ValidationObject,
     setter: React.Dispatch<React.SetStateAction<ValidationObject>>,
-    msg: string
+    msg: string,
   ) => {
     const update = type[id] ? undefined : msg;
     setter((previous: ValidationObject) => ({ ...previous, [id]: update }));

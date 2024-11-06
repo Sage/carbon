@@ -34,7 +34,7 @@ export const ButtonAsASiblingExample = ({
 
 export const generateButtons = (
   buttonType: ButtonTypes,
-  iconPosition: ButtonIconPosition
+  iconPosition: ButtonIconPosition,
 ) => {
   return (
     <Box>

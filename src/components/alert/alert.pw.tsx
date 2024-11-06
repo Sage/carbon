@@ -60,7 +60,7 @@ test.describe("should render Alert component", () => {
     await mount(
       <AlertComponent title="title" disableEscKey>
         Alert
-      </AlertComponent>
+      </AlertComponent>,
     );
 
     await checkDialogIsInDOM(page);
@@ -103,7 +103,7 @@ test.describe("should render Alert component", () => {
       await mount(
         <AlertComponent title="title" height={`${height}px`}>
           Alert
-        </AlertComponent>
+        </AlertComponent>,
       );
 
       const viewportHeight = viewport?.height || 0;
@@ -128,7 +128,7 @@ test.describe("should render Alert component", () => {
       await mount(
         <AlertComponent title="title" size={size}>
           Alert
-        </AlertComponent>
+        </AlertComponent>,
       );
 
       const alertElement = alertDialog(page);
@@ -146,7 +146,7 @@ test.describe("should render Alert component", () => {
         onCancel={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const cross = alertCrossIcon(page);

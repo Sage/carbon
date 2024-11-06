@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Page from "./page.component";
-import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <Page
       transitionName={() => "fade"}
@@ -15,7 +15,7 @@ testStyledSystemPaddingRTL(
     </Page>
   ),
   () => screen.getByTestId("page-content"),
-  { p: "30px 40px" }
+  { p: "30px 40px" },
 );
 
 test("renders both heading and children", () => {

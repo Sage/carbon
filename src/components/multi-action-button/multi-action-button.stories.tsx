@@ -57,7 +57,7 @@ export const Sizes: Story = () => {
           <Button size={size}>Button 3</Button>
         </MultiActionButton>
       </Box>
-    )
+    ),
   );
 };
 Sizes.storyName = "Sizes";
@@ -90,7 +90,7 @@ export const ButtonTypes: Story = () => {
           <Button>Button 3</Button>
         </MultiActionButton>
       </Box>
-    )
+    ),
   );
 };
 ButtonTypes.storyName = "Button Types";
@@ -131,7 +131,7 @@ export const Alignment: Story = () => {
           <Button>Button 3</Button>
         </MultiActionButton>
       </Box>
-    )
+    ),
   );
 };
 Alignment.storyName = "Alignment";

@@ -73,7 +73,7 @@ const useScrollBlock = (): {
       return;
     }
     const originalValues = rules.map(
-      ({ element, property }) => element.style[property]
+      ({ element, property }) => element.style[property],
     );
 
     originalValuesRef.current = originalValues;

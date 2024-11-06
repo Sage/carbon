@@ -615,7 +615,7 @@ export const WithObjectAsValue: Story = () => {
   ]);
 
   const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues.current[4]
+    optionListValues.current[4],
   );
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -696,7 +696,7 @@ export const ValidationsStringNewDesign: Story = () => {
               <Option text="Yellow" value="11" />
             </FilterableSelect>
           </Box>
-        ))
+        )),
       )}
     </CarbonProvider>
   );
@@ -806,9 +806,9 @@ export const CustomFilterAndOptionStyle: Story = () => {
         ({ text }) =>
           !filterText ||
           (filterText.trim().length &&
-            text.toLowerCase().includes(filterText.trim().toLowerCase()))
+            text.toLowerCase().includes(filterText.trim().toLowerCase())),
       ),
-    [filterText]
+    [filterText],
   );
 
   const handleChange = useCallback((e: CustomSelectChangeEvent) => {
@@ -853,9 +853,8 @@ CustomFilterAndOptionStyle.parameters = {
 };
 
 export const ListWidth: Story = () => {
-  const [listPlacement, setListPlacement] = useState<
-    FilterableSelectProps["listPlacement"]
-  >("bottom-end");
+  const [listPlacement, setListPlacement] =
+    useState<FilterableSelectProps["listPlacement"]>("bottom-end");
   const [value, setValue] = useState<string>("");
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setValue(ev.target.value);

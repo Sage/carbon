@@ -59,7 +59,7 @@ const OptionRow = React.forwardRef(
       style,
       ...rest
     }: OptionRowProps,
-    ref: React.ForwardedRef<HTMLTableRowElement>
+    ref: React.ForwardedRef<HTMLTableRowElement>,
   ) => {
     const internalIdRef = useRef(id || guid());
 
@@ -96,7 +96,7 @@ const OptionRow = React.forwardRef(
         {children}
       </StyledOptionRow>
     );
-  }
+  },
 );
 
 OptionRow.displayName = "OptionRow";

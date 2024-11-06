@@ -13,11 +13,11 @@ test("logs a deprecation warning for uncontrolled behaviour", () => {
   render(
     <RadioButtonGroup name="group">
       <RadioButton value="radio1" label="Radio Button 1" />
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Radio Button` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Radio Button` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 
@@ -28,7 +28,7 @@ test("renders with provided `RadioButton` children", () => {
   render(
     <RadioButtonGroup name="group" onChange={() => {}}>
       <RadioButton value="radio1" label="Radio Button 1" />
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   const radioButton = screen.getByRole("radio", { name: "Radio Button 1" });
@@ -46,7 +46,7 @@ test("renders with RadioButton and non-`RadioButton` children when passed as an 
         "foo",
         <RadioButton key="radio2" value="radio2" label="Radio Button 2" />,
       ]}
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   expect(screen.getAllByRole("radio")).toHaveLength(2);
@@ -61,7 +61,7 @@ test("renders fieldset with provided `legend`", () => {
       onChange={() => {}}
     >
       <RadioButton value="radio1" label="Radio Button 1" />
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   const fieldset = screen.getByRole("group", { name: "Radio Group Legend" });
@@ -74,7 +74,7 @@ test("checks the correct `RadioButton` child when a value is passed", () => {
     <RadioButtonGroup name="group" value="radio2" onChange={() => {}}>
       <RadioButton value="radio1" label="Radio Button 1" />
       <RadioButton value="radio2" label="Radio Button 2" />
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   const radio1 = screen.getByRole("radio", { name: "Radio Button 1" });
@@ -90,7 +90,7 @@ test("calls `onChange` when a `RadioButton` child is checked", async () => {
   render(
     <RadioButtonGroup name="group" onChange={onChange}>
       <RadioButton value="radio1" label="Radio Button 1" />
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   const radioButton = screen.getByRole("radio");
@@ -106,7 +106,7 @@ test("calls `onBlur` when a `RadioButton` child is blurred", async () => {
   render(
     <RadioButtonGroup name="group" onChange={() => {}} onBlur={onBlur}>
       <RadioButton value="radio1" label="Radio Button 1" />
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   await user.tab();
@@ -119,7 +119,7 @@ test("renders required `RadioButton` children when `required` prop is true", () 
   render(
     <RadioButtonGroup name="group" required onChange={() => {}}>
       <RadioButton value="radio1" label="Radio Button 1" />
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   const radioButton = screen.getByRole("radio", { name: "Radio Button 1" });
@@ -137,7 +137,7 @@ test("renders with inline legend when screen is larger than `adaptiveLegendBreak
       onChange={() => {}}
     >
       <RadioButton value="radio1" label="Radio Button 1" />
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   const legend = screen.getByTestId("legend");
@@ -155,7 +155,7 @@ test("renders with legend on top when screen is smaller than `adaptiveLegendBrea
       onChange={() => {}}
     >
       <RadioButton value="radio1" label="Radio Button 1" />
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   const legend = screen.getByTestId("legend");
@@ -173,7 +173,7 @@ test("renders with provided margin-left when screen is larger than `adaptiveSpac
       onChange={() => {}}
     >
       <RadioButton value="radio1" label="Radio Button 1" />
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   const fieldset = screen.getByRole("group");
@@ -191,7 +191,7 @@ test("does not render with provided margin-left when screen is smaller than `ada
       onChange={() => {}}
     >
       <RadioButton value="radio1" label="Radio Button 1" />
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 
   const fieldset = screen.getByRole("group");
@@ -211,7 +211,7 @@ describe("when `validationRedesignOptIn` flag is true", () => {
         >
           <RadioButton value="radio1" label="Radio Button 1" />
         </RadioButtonGroup>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     expect(screen.getByText("Error message")).toBeVisible();
@@ -227,7 +227,7 @@ describe("when `validationRedesignOptIn` flag is true", () => {
         >
           <RadioButton value="radio1" label="Radio Button 1" />
         </RadioButtonGroup>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     expect(screen.getByText("Warning message")).toBeVisible();
@@ -243,7 +243,7 @@ describe("when `validationRedesignOptIn` flag is true", () => {
         >
           <RadioButton value="radio1" label="Radio Button 1" />
         </RadioButtonGroup>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const hintText = screen.getByText("Hint message");
@@ -268,7 +268,7 @@ describe("when `validationRedesignOptIn` flag is true", () => {
         >
           <RadioButton value="radio1" label="Radio Button 1" />
         </RadioButtonGroup>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const errorBorder = screen.getByTestId("radio-error-border");
@@ -290,7 +290,7 @@ describe("when `validationRedesignOptIn` flag is true", () => {
             <RadioButton key="radio2" value="radio2" label="Radio Button 2" />,
           ]}
         </RadioButtonGroup>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     expect(screen.getAllByRole("radio")).toHaveLength(2);
@@ -314,7 +314,7 @@ describe("when `validationRedesignOptIn` flag is true", () => {
             <RadioButton key="radio2" value="radio2" label="Radio Button 2" />,
           ]}
         </RadioButtonGroup>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     expect(screen.getByTestId("radio-group-inline")).not.toHaveStyle({

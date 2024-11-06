@@ -54,64 +54,63 @@ const StyledBlock = styled.div<StyledBlockProps>`
     internalEditButton,
     isHovered,
     isFocused,
-  }) =>
+  }) => css`
+    box-sizing: border-box;
+    border-radius: var(--borderRadius100);
+    display: flex;
+    flex-direction: column;
+    background-color: ${blockBackgrounds[variant]};
+    width: 100%;
+    height: 100%;
+
+    ${variant === "tile" && "box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)"};
+
+    ${noBorder
+      ? "border: none"
+      : `border: 1px solid var(--colorsUtilityMajor100)`};
+
+    ${hasButtons && !(fullWidth || internalEditButton) && "width: auto;"};
+
+    ${contentTriggersEdit && "cursor: pointer"};
+
+    ${(isHovered || isFocused) &&
     css`
-      box-sizing: border-box;
-      border-radius: var(--borderRadius100);
-      display: flex;
-      flex-direction: column;
-      background-color: ${blockBackgrounds[variant]};
-      width: 100%;
-      height: 100%;
+      background-color: var(--colorsUtilityMajor075);
 
-      ${variant === "tile" && "box-shadow: 0 2px 3px 0 rgba(2, 18, 36, 0.2)"};
+      ${internalEditButton &&
+      variant === "tile" &&
+      "background-color: var(--colorsUtilityMajorTransparent);"}
 
-      ${noBorder
-        ? "border: none"
-        : `border: 1px solid var(--colorsUtilityMajor100)`};
-
-      ${hasButtons && !(fullWidth || internalEditButton) && "width: auto;"};
-
-      ${contentTriggersEdit && "cursor: pointer"};
-
-      ${(isHovered || isFocused) &&
+      ${contentTriggersEdit &&
       css`
-        background-color: var(--colorsUtilityMajor075);
-
-        ${internalEditButton &&
-        variant === "tile" &&
-        "background-color: var(--colorsUtilityMajorTransparent);"}
-
-        ${contentTriggersEdit &&
-        css`
-          background-color: var(--colorsActionMajor600);
-          * {
-            color: var(--colorsUtilityYang100);
-          }
-        `}
+        background-color: var(--colorsActionMajor600);
+        * {
+          color: var(--colorsUtilityYang100);
+        }
       `}
+    `}
 
-      ${(!internalEditButton || contentTriggersEdit) &&
-      (isFocused
-        ? css`
-            outline: 3px solid var(--colorsSemanticFocus500);
-            border: none;
-            padding: ${noBorder ? 0 : 1}px;
-          `
-        : css`
-            outline: none;
-          `)}
+    ${(!internalEditButton || contentTriggersEdit) &&
+    (isFocused
+      ? css`
+          outline: 3px solid var(--colorsSemanticFocus500);
+          border: none;
+          padding: ${noBorder ? 0 : 1}px;
+        `
+      : css`
+          outline: none;
+        `)}
 
       ${softDelete &&
-      css`
-        border: none;
-        background-color: var(--colorsActionDisabled500);
+    css`
+      border: none;
+      background-color: var(--colorsActionDisabled500);
 
-        & > * {
-          color: var(--colorsUtilityYin065);
-        }
-      `};
-    `}
+      & > * {
+        color: var(--colorsUtilityYin065);
+      }
+    `};
+  `}
 `;
 
 const contentPaddings = {

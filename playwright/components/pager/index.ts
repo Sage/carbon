@@ -38,22 +38,22 @@ export const currentPageInput = (page: Page) =>
 export const previousArrow = (page: Page) =>
   getDataElementByValue(
     page,
-    `${COMMON_PART_OF_PAGER_LINK}${PAGER_PREVIOUS_ARROW}`
+    `${COMMON_PART_OF_PAGER_LINK}${PAGER_PREVIOUS_ARROW}`,
   );
 export const nextArrow = (page: Page) =>
   getDataElementByValue(
     page,
-    `${COMMON_PART_OF_PAGER_LINK}${PAGER_NEXT_ARROW}`
+    `${COMMON_PART_OF_PAGER_LINK}${PAGER_NEXT_ARROW}`,
   );
 export const firstArrow = (page: Page) =>
   getDataElementByValue(
     page,
-    `${COMMON_PART_OF_PAGER_LINK}${PAGER_FIRST_ARROW}`
+    `${COMMON_PART_OF_PAGER_LINK}${PAGER_FIRST_ARROW}`,
   );
 export const lastArrow = (page: Page) =>
   getDataElementByValue(
     page,
-    `${COMMON_PART_OF_PAGER_LINK}${PAGER_LAST_ARROW}`
+    `${COMMON_PART_OF_PAGER_LINK}${PAGER_LAST_ARROW}`,
   );
 export const showLabelBefore = (page: Page) =>
   page

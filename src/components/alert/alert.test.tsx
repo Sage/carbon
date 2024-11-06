@@ -15,7 +15,7 @@ test("include correct component, element and role data tags", () => {
         "data-element": "foo",
         "data-role": "bar",
       }}
-    />
+    />,
   );
 
   const alert = screen.getByRole("alertdialog", { name: "Alert title" });
@@ -39,7 +39,7 @@ test("has the expected border radius styling", () => {
         "data-element": "foo",
         "data-role": "bar",
       }}
-    />
+    />,
   );
 
   const dialog = screen.getByRole("alertdialog", { name: "Alert title" });
@@ -60,7 +60,7 @@ test("should allow custom data props on close button to be assigned", () => {
         "data-element": "foo",
         "data-role": "bar",
       }}
-    />
+    />,
   );
 
   const closeButton = screen.getByRole("button", { name: /close/i });

@@ -32,7 +32,7 @@ function generateCurrentStepOverTotalStepsVariations(): [Steps, Steps][] {
 
 function calculateStepStateIndexes(
   totalSteps: number,
-  currentStepParam: number
+  currentStepParam: number,
 ) {
   let currentStep = currentStepParam;
 
@@ -54,7 +54,7 @@ test("should render the correct element and text when the category prop is passe
       totalSteps={6}
       category="bar"
       ref={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByText("bar")).toBeVisible();
@@ -68,7 +68,7 @@ test("when the 'title' prop is passed as a string, the correct element and text 
       totalSteps={6}
       category="bar"
       ref={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByText("baz")).toBeVisible();
@@ -87,7 +87,7 @@ test("when the 'title' prop is passed via the `StepFlowTitle` sub component, the
       totalSteps={6}
       category="bar"
       ref={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByText("node")).toBeVisible();
@@ -95,7 +95,7 @@ test("when the 'title' prop is passed via the `StepFlowTitle` sub component, the
 
 test("renders level one heading when the 'titleVariant' prop is not passed", () => {
   render(
-    <StepFlow title="Title" currentStep={5} totalSteps={6} ref={() => {}} />
+    <StepFlow title="Title" currentStep={5} totalSteps={6} ref={() => {}} />,
   );
 
   const heading = screen.getByRole("heading", { level: 1 });
@@ -116,13 +116,13 @@ it.each([
         totalSteps={6}
         titleVariant={titleVariant}
         ref={() => {}}
-      />
+      />,
     );
 
     const heading = screen.getByRole("heading", { level });
     expect(heading).toBeVisible();
     expect(heading).toHaveTextContent("foo");
-  }
+  },
 );
 
 test("renders progress indicator bar when 'showProgressIndicator' prop is true", () => {
@@ -133,7 +133,7 @@ test("renders progress indicator bar when 'showProgressIndicator' prop is true",
       totalSteps={6}
       showProgressIndicator
       ref={() => {}}
-    />
+    />,
   );
   expect(screen.getByTestId("progress-indicator-bar")).toBeVisible();
 });
@@ -152,13 +152,13 @@ it.each(generateLimitedVariations())(
         wrapper: ({ children }: { children: React.ReactNode }) => (
           <I18nProvider locale={enGB}>{children}</I18nProvider>
         ),
-      }
+      },
     );
 
     expect(
-      screen.getByText(`Step ${currentStep} of ${totalSteps}`)
+      screen.getByText(`Step ${currentStep} of ${totalSteps}`),
     ).toBeVisible();
-  }
+  },
 );
 
 it.each(generateCurrentStepOverTotalStepsVariations())(
@@ -175,13 +175,13 @@ it.each(generateCurrentStepOverTotalStepsVariations())(
         wrapper: ({ children }: { children: React.ReactNode }) => (
           <I18nProvider locale={enGB}>{children}</I18nProvider>
         ),
-      }
+      },
     );
 
     expect(
-      screen.getByText(`Step ${totalSteps} of ${totalSteps}`)
+      screen.getByText(`Step ${totalSteps} of ${totalSteps}`),
     ).toBeVisible();
-  }
+  },
 );
 
 it.each(generateLimitedVariations())(
@@ -199,12 +199,14 @@ it.each(generateLimitedVariations())(
         wrapper: ({ children }: { children: React.ReactNode }) => (
           <I18nProvider locale={enGB}>{children}</I18nProvider>
         ),
-      }
+      },
     );
 
     const title = screen.getByRole("heading", { level: 1 });
     expect(
-      within(title).getByText(`foo. bar. Step ${currentStep} of ${totalSteps}.`)
+      within(title).getByText(
+        `foo. bar. Step ${currentStep} of ${totalSteps}.`,
+      ),
     ).toHaveStyle({
       border: "0",
       height: "1px",
@@ -215,7 +217,7 @@ it.each(generateLimitedVariations())(
       width: "1px",
       "white-space": "nowrap",
     });
-  }
+  },
 );
 
 it.each(generateCurrentStepOverTotalStepsVariations())(
@@ -233,12 +235,12 @@ it.each(generateCurrentStepOverTotalStepsVariations())(
         wrapper: ({ children }: { children: React.ReactNode }) => (
           <I18nProvider locale={enGB}>{children}</I18nProvider>
         ),
-      }
+      },
     );
 
     const title = screen.getByRole("heading", { level: 1 });
     expect(
-      within(title).getByText(`foo. bar. Step ${totalSteps} of ${totalSteps}.`)
+      within(title).getByText(`foo. bar. Step ${totalSteps} of ${totalSteps}.`),
     ).toHaveStyle({
       border: "0",
       height: "1px",
@@ -249,7 +251,7 @@ it.each(generateCurrentStepOverTotalStepsVariations())(
       width: "1px",
       "white-space": "nowrap",
     });
-  }
+  },
 );
 
 test("when the 'showCloseIcon' prop is true, the correct element renders", () => {
@@ -260,7 +262,7 @@ test("when the 'showCloseIcon' prop is true, the correct element renders", () =>
       currentStep={1}
       showCloseIcon
       ref={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByLabelText("Close")).toBeVisible();
@@ -277,13 +279,13 @@ describe.each(generateLimitedVariations())(
           currentStep={currentStep}
           showProgressIndicator
           ref={() => {}}
-        />
+        />,
       );
 
       const inProgressIndicators = screen
         .getAllByTestId("progress-indicator")
         .filter(
-          (indicator) => indicator.getAttribute("data-state") === "in-progress"
+          (indicator) => indicator.getAttribute("data-state") === "in-progress",
         );
       expect(inProgressIndicators).toHaveLength(1);
     });
@@ -296,18 +298,19 @@ describe.each(generateLimitedVariations())(
           currentStep={currentStep}
           showProgressIndicator
           ref={() => {}}
-        />
+        />,
       );
 
       const completedIndicators = screen
         .getAllByTestId("progress-indicator")
         .filter(
-          (indicator) => indicator.getAttribute("data-state") === "is-completed"
+          (indicator) =>
+            indicator.getAttribute("data-state") === "is-completed",
         );
 
       const currentCount = calculateStepStateIndexes(
         totalSteps,
-        currentStep
+        currentStep,
       )[0];
 
       expect(completedIndicators).toHaveLength(currentCount);
@@ -321,24 +324,24 @@ describe.each(generateLimitedVariations())(
           currentStep={currentStep}
           showProgressIndicator
           ref={() => {}}
-        />
+        />,
       );
 
       const incompleteIndicators = screen
         .getAllByTestId("progress-indicator")
         .filter(
           (indicator) =>
-            indicator.getAttribute("data-state") === "not-completed"
+            indicator.getAttribute("data-state") === "not-completed",
         );
 
       const currentCount = calculateStepStateIndexes(
         totalSteps,
-        currentStep
+        currentStep,
       )[1];
 
       expect(incompleteIndicators).toHaveLength(currentCount);
     });
-  }
+  },
 );
 
 describe.each(generateCurrentStepOverTotalStepsVariations())(
@@ -352,13 +355,13 @@ describe.each(generateCurrentStepOverTotalStepsVariations())(
           currentStep={currentStep}
           showProgressIndicator
           ref={() => {}}
-        />
+        />,
       );
 
       const inProgressIndicators = screen
         .getAllByTestId("progress-indicator")
         .filter(
-          (indicator) => indicator.getAttribute("data-state") === "in-progress"
+          (indicator) => indicator.getAttribute("data-state") === "in-progress",
         );
 
       expect(inProgressIndicators).toHaveLength(1);
@@ -372,18 +375,19 @@ describe.each(generateCurrentStepOverTotalStepsVariations())(
           currentStep={currentStep}
           showProgressIndicator
           ref={() => {}}
-        />
+        />,
       );
 
       const completedIndicators = screen
         .getAllByTestId("progress-indicator")
         .filter(
-          (indicator) => indicator.getAttribute("data-state") === "is-completed"
+          (indicator) =>
+            indicator.getAttribute("data-state") === "is-completed",
         );
 
       const currentCount = calculateStepStateIndexes(
         totalSteps,
-        currentStep
+        currentStep,
       )[0];
 
       expect(completedIndicators).toHaveLength(currentCount);
@@ -397,19 +401,19 @@ describe.each(generateCurrentStepOverTotalStepsVariations())(
           currentStep={currentStep}
           showProgressIndicator
           ref={() => {}}
-        />
+        />,
       );
 
       const incompleteIndicators = screen
         .getAllByTestId("progress-indicator")
         .filter(
           (indicator) =>
-            indicator.getAttribute("data-state") === "not-completed"
+            indicator.getAttribute("data-state") === "not-completed",
         );
 
       expect(incompleteIndicators).toHaveLength(0);
     });
-  }
+  },
 );
 
 describe("when ref handle is passed", () => {
@@ -507,7 +511,7 @@ describe("console warning checks", () => {
 
   it("logs warning in the console once when currentStep is higher than totalSteps", () => {
     render(
-      <StepFlow currentStep={4} totalSteps={1} title="foo" ref={mockRef} />
+      <StepFlow currentStep={4} totalSteps={1} title="foo" ref={mockRef} />,
     );
 
     expect(consoleSpy).toHaveBeenCalledWith(currentStepWarnMessage);

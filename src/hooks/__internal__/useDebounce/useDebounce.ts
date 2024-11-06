@@ -7,7 +7,7 @@ type Callback = (...args: any[]) => void;
 
 const useDebounce = <T extends Callback>(
   callback: T,
-  delay: number
+  delay: number,
 ): DebouncedFunc<T> => {
   const callbackRef = useRef(callback);
 
@@ -17,7 +17,7 @@ const useDebounce = <T extends Callback>(
 
   const debouncedCallback = useMemo(
     () => debounce(callbackRef.current, delay),
-    [delay]
+    [delay],
   );
 
   useEffect(() => {

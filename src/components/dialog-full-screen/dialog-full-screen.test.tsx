@@ -37,7 +37,7 @@ test("dialog element has aria-modal attribute set to true when open", () => {
   render(
     <CarbonProvider>
       <DialogFullScreen open />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "true");
@@ -47,7 +47,7 @@ test("open dialog element does not have aria-modal attribute set to true when ro
   render(
     <CarbonProvider>
       <DialogFullScreen open role="main" />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getByRole("main")).not.toHaveAttribute("aria-modal");
@@ -61,7 +61,7 @@ test("the contentRef prop is forwarded to the dialog content", () => {
   render(<DialogFullScreen open contentRef={mockRef} />);
 
   expect(mockRef?.current).toBe(
-    screen.getByTestId("dialog-full-screen-content")
+    screen.getByTestId("dialog-full-screen-content"),
   );
 });
 
@@ -69,7 +69,7 @@ test("the dialog container should be focused when the dialog opens", async () =>
   render(
     <DialogFullScreen open>
       <input type="text" />
-    </DialogFullScreen>
+    </DialogFullScreen>,
   );
 
   await waitFor(() => {
@@ -82,7 +82,7 @@ test("the dialog container should not be focused when the dialog opens if the di
   render(
     <DialogFullScreen open disableAutoFocus>
       <input type="text" />
-    </DialogFullScreen>
+    </DialogFullScreen>,
   );
 
   // need to use fake timers here rather than waitFor to ensure that the test fails if the disableAutoFocus functionality
@@ -107,7 +107,7 @@ test("when the focusFirstElement prop is passed, the corresponding element shoul
         should be focused
         <input type="text" ref={inputRef} id="should-be-focused" />
       </label>
-    </DialogFullScreen>
+    </DialogFullScreen>,
   );
 
   await waitFor(() => {
@@ -123,7 +123,7 @@ test("all dialog children are rendered", () => {
       </button>
       <div data-role="second-child">second child</div>
       <p data-role="third-child">third child</p>
-    </DialogFullScreen>
+    </DialogFullScreen>,
   );
 
   expect(screen.getByTestId("first-child")).toBeVisible();
@@ -155,7 +155,7 @@ test("renders the `title` prop in a level 1 heading when passed as a string", ()
   render(<DialogFullScreen open title="my title" />);
 
   expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-    "my title"
+    "my title",
   );
 });
 
@@ -164,11 +164,11 @@ test("renders the specified element when the `title` prop is passed as a  React 
     <DialogFullScreen
       open
       title={<div data-role="custom-title-element">my title</div>}
-    />
+    />,
   );
 
   expect(screen.getByTestId("custom-title-element")).toHaveTextContent(
-    "my title"
+    "my title",
   );
 });
 
@@ -188,7 +188,7 @@ test("no close button is rendered if the `showCloseIcon` prop is set to `false`"
   render(<DialogFullScreen open onCancel={() => {}} showCloseIcon={false} />);
 
   expect(
-    screen.queryByRole("button", { name: "Close" })
+    screen.queryByRole("button", { name: "Close" }),
   ).not.toBeInTheDocument();
 });
 
@@ -196,7 +196,7 @@ test("no close button is rendered if the `onCancel` callback prop is not provide
   render(<DialogFullScreen open showCloseIcon />);
 
   expect(
-    screen.queryByRole("button", { name: "Close" })
+    screen.queryByRole("button", { name: "Close" }),
   ).not.toBeInTheDocument();
 });
 
@@ -215,7 +215,7 @@ test("allows custom data props to be passed to the close button", () => {
         "data-element": "foo",
         "data-role": "bar",
       }}
-    />
+    />,
   );
 
   const closeButton = screen.getByRole("button", { name: "Close" });
@@ -228,10 +228,10 @@ test("renders the element given in the `headerChildren` prop", () => {
     <DialogFullScreen
       open
       headerChildren={<a href="/foo">link as header child</a>}
-    />
+    />,
   );
   expect(
-    screen.getByRole("link", { name: "link as header child" })
+    screen.getByRole("link", { name: "link as header child" }),
   ).toBeVisible();
 });
 
@@ -240,7 +240,7 @@ test("padding is removed from the content when the `disableContentPadding` prop 
   render(
     <DialogFullScreen open disableContentPadding>
       <div>test content</div>
-    </DialogFullScreen>
+    </DialogFullScreen>,
   );
 
   const content = screen.getByTestId("dialog-full-screen-content");
@@ -307,12 +307,12 @@ test("when a Form child does not have a sticky footer, overflow styling is set o
   render(
     <DialogFullScreen open>
       <Form />
-    </DialogFullScreen>
+    </DialogFullScreen>,
   );
 
   expect(screen.getByTestId("dialog-full-screen-content")).toHaveStyleRule(
     "overflow-y",
-    "auto"
+    "auto",
   );
 });
 
@@ -333,7 +333,7 @@ test("when the `title` prop is a React element and the `aria-labelledby` prop is
     <>
       <h2 id="test-id">custom title</h2>
       <DialogFullScreen open title={<h2>test</h2>} aria-labelledby="test-id" />
-    </>
+    </>,
   );
 
   expect(screen.getByRole("dialog")).toHaveAccessibleName("custom title");
@@ -349,11 +349,11 @@ test("when the `subtitle` prop is a React element and the `aria-describedby` pro
         subtitle={<p>custom subtitle</p>}
         aria-describedby="test-id"
       />
-    </>
+    </>,
   );
 
   expect(screen.getByRole("dialog")).toHaveAccessibleDescription(
-    "custom description"
+    "custom description",
   );
 });
 
@@ -361,7 +361,7 @@ test("the role prop is passed to the dialog element", () => {
   render(
     <DialogFullScreen open role="alert">
       dialog content
-    </DialogFullScreen>
+    </DialogFullScreen>,
   );
 
   expect(screen.getByRole("alert")).toHaveTextContent("dialog content");

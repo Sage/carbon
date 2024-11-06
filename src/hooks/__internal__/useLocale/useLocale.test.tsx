@@ -29,7 +29,7 @@ test("when I18nProvider exists, it should return a translation function that pro
       }}
     >
       <TestComponent />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   expect(screen.getByText("test")).toBeInTheDocument();

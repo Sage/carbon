@@ -8,7 +8,7 @@ test("renders as a combobox", () => {
   render(<SelectTextbox label="Select Colour" />);
 
   expect(
-    screen.getByRole("combobox", { name: /Select Colour/i })
+    screen.getByRole("combobox", { name: /Select Colour/i }),
   ).toBeVisible();
 });
 
@@ -39,7 +39,7 @@ test("combobox has correct accessible name when ariaLabelledBy prop is provided"
     <>
       <h3 id="label">Label</h3>
       <SelectTextbox ariaLabelledby="label" />
-    </>
+    </>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAccessibleName("Label");
@@ -50,7 +50,7 @@ test("combobox has correct accessible name when accessibilityLabelId prop is pro
     <>
       <h3 id="label">Label</h3>
       <SelectTextbox accessibilityLabelId="label" />
-    </>
+    </>,
   );
 
   expect(screen.getByRole("combobox")).toHaveAccessibleName("Label");
@@ -96,7 +96,7 @@ test("combobox has placeholder text when it has no value and hasTextCursor prop 
 
   expect(screen.getByRole("combobox")).toHaveAttribute(
     "placeholder",
-    "Please Select..."
+    "Please Select...",
   );
 });
 
@@ -122,11 +122,11 @@ describe("when hasTextCursor prop is false", () => {
         label="Textbox"
         formattedValue="foo"
         hasTextCursor={false}
-      />
+      />,
     );
 
     expect(
-      screen.getByRole("combobox", { name: "Textbox" })
+      screen.getByRole("combobox", { name: "Textbox" }),
     ).not.toHaveTextContent("foo");
     expect(screen.getByText("foo")).toBeVisible();
   });
@@ -147,12 +147,12 @@ describe("when hasTextCursor prop is false", () => {
 
   it("hides the combobox overlay from assistive technologies", () => {
     render(
-      <SelectTextbox formattedValue="You can't see me" hasTextCursor={false} />
+      <SelectTextbox formattedValue="You can't see me" hasTextCursor={false} />,
     );
 
     expect(screen.getByTestId("select-text")).toHaveAttribute(
       "aria-hidden",
-      "true"
+      "true",
     );
   });
 
@@ -160,7 +160,7 @@ describe("when hasTextCursor prop is false", () => {
     const onClick = jest.fn();
     const user = userEvent.setup();
     render(
-      <SelectTextbox label="Textbox" onClick={onClick} hasTextCursor={false} />
+      <SelectTextbox label="Textbox" onClick={onClick} hasTextCursor={false} />,
     );
 
     await user.click(screen.getByText("Please Select..."));
@@ -180,7 +180,7 @@ describe("when hasTextCursor prop is false", () => {
 
   it("applies correct styles when disabled", () => {
     render(
-      <SelectTextbox disabled formattedValue="foo" hasTextCursor={false} />
+      <SelectTextbox disabled formattedValue="foo" hasTextCursor={false} />,
     );
 
     expect(screen.getByTestId("select-text")).toHaveStyle({
@@ -192,7 +192,7 @@ describe("when hasTextCursor prop is false", () => {
 
   it("applies correct styles when read-only", () => {
     render(
-      <SelectTextbox readOnly formattedValue="foo" hasTextCursor={false} />
+      <SelectTextbox readOnly formattedValue="foo" hasTextCursor={false} />,
     );
 
     expect(screen.getByTestId("select-text")).toHaveStyle({
@@ -204,7 +204,7 @@ describe("when hasTextCursor prop is false", () => {
 
   it("applies correct styles when transparent", () => {
     render(
-      <SelectTextbox transparent formattedValue="foo" hasTextCursor={false} />
+      <SelectTextbox transparent formattedValue="foo" hasTextCursor={false} />,
     );
 
     expect(screen.getByTestId("select-text")).toHaveStyle({

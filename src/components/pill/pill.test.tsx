@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pill from ".";
 import CarbonProvider from "../carbon-provider";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import { baseTheme } from "../../style/themes";
 import { toColor } from "../../style/utils/color";
 
@@ -39,11 +39,11 @@ test("should render remove button with custom aria-label when ariaLabelOfRemoveB
   render(
     <Pill onDelete={() => {}} ariaLabelOfRemoveButton="custom aria label">
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(
-    screen.getByRole("button", { name: "custom aria label" })
+    screen.getByRole("button", { name: "custom aria label" }),
   ).toBeVisible();
 });
 
@@ -51,7 +51,7 @@ test("should render with provided data tags", () => {
   render(
     <Pill data-element="bar" data-role="foo">
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   const pill = screen.getByText("Test Pill");
@@ -78,7 +78,7 @@ test("should render with expected styles when isDarkBackground is true", () => {
   render(
     <Pill isDarkBackground onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -93,7 +93,7 @@ test("should render with white text colour when borderColor set to 'red' to achi
   render(
     <Pill borderColor="red" fill onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -106,7 +106,7 @@ test("should render with black text colour when borderColor set to 'lightblue' t
   render(
     <Pill borderColor="lightblue" fill onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -120,7 +120,7 @@ test("should throw an error when an invalid value is passed to borderColor", () 
   render(<Pill borderColor="invalidColour">Test Pill</Pill>);
 
   expect(consoleSpy).toHaveBeenCalledWith(
-    "Error: [Pill] - Could not parse the string 'invalidColour', please provide the color as a string in hex, rgb, rgba, hsl or hsla notation."
+    "Error: [Pill] - Could not parse the string 'invalidColour', please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.",
   );
   expect(consoleSpy).toHaveBeenCalledTimes(1);
 
@@ -131,7 +131,7 @@ test("should render with expected styles when size is S and onDelete is set", ()
   render(
     <Pill size="S" onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -147,7 +147,7 @@ test("should render with expected styles when size is M and onDelete is set", ()
   render(
     <Pill size="M" onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -164,7 +164,7 @@ test("should render with expected styles when size is L and onDelete is set", ()
   render(
     <Pill size="L" onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -181,7 +181,7 @@ test("should render with expected styles when size is XL and onDelete is set", (
   render(
     <Pill size="XL" onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -200,7 +200,7 @@ test("should render with expected styles when size is S and roundedCornersOptOut
       <Pill size="S" onDelete={() => {}}>
         Test Pill
       </Pill>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({ borderRadius: "12px" });
@@ -215,7 +215,7 @@ test("should render with expected styles when size is M and roundedCornersOptOut
       <Pill size="M" onDelete={() => {}}>
         Test Pill
       </Pill>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({ borderRadius: "12px" });
@@ -230,7 +230,7 @@ test("should render with expected styles when size is L and roundedCornersOptOut
       <Pill size="L" onDelete={() => {}}>
         Test Pill
       </Pill>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({ borderRadius: "13px" });
@@ -245,7 +245,7 @@ test("should render with expected styles when size is XL and roundedCornersOptOu
       <Pill size="XL" onDelete={() => {}}>
         Test Pill
       </Pill>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({ borderRadius: "15px" });
@@ -259,7 +259,7 @@ test("should render with expected styles when colorVariant is neutral", async ()
   render(
     <Pill pillRole="status" colorVariant="neutral" fill onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -280,7 +280,7 @@ test("should render with expected styles when colorVariant is negative", async (
   render(
     <Pill pillRole="status" colorVariant="negative" fill onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -301,7 +301,7 @@ test("should render with expected styles when colorVariant is warning", async ()
   render(
     <Pill pillRole="status" colorVariant="warning" fill onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -322,7 +322,7 @@ test("should render with expected styles when colorVariant is positive", async (
   render(
     <Pill pillRole="status" colorVariant="warning" fill onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -343,7 +343,7 @@ test("should render with expected styles when colorVariant is information", asyn
   render(
     <Pill pillRole="status" colorVariant="information" fill onDelete={() => {}}>
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -370,7 +370,7 @@ test("should render with expected styles when colorVariant is neutral and isDark
       onDelete={() => {}}
     >
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -397,7 +397,7 @@ test("should render with expected styles when colorVariant is negative and isDar
       onDelete={() => {}}
     >
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -424,7 +424,7 @@ test("should render with expected styles when colorVariant is positive and isDar
       onDelete={() => {}}
     >
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -450,7 +450,7 @@ test("should render with expected styles when colorVariant is information and is
       onDelete={() => {}}
     >
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -477,7 +477,7 @@ test("should render with expected styles when colorVariant is neutralWhite and i
       onDelete={() => {}}
     >
       Test Pill
-    </Pill>
+    </Pill>,
   );
 
   expect(screen.getByText("Test Pill")).toHaveStyle({
@@ -499,14 +499,14 @@ test("should output a console warning when the neutralWhite colorVariant is used
 
   expect(consoleSpy).toHaveBeenCalledWith(
     "[WARNING] The `neutralWhite` variant should only be used on dark backgrounds with fill set to true. " +
-      "Please set the `isDarkBackground` and `fill` props to true or use another color variant."
+      "Please set the `isDarkBackground` and `fill` props to true or use another color variant.",
   );
   expect(consoleSpy).toHaveBeenCalledTimes(1);
 
   consoleSpy.mockRestore();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Pill {...props}>test content</Pill>,
-  () => screen.getByText("test content")
+  () => screen.getByText("test content"),
 );

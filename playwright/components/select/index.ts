@@ -63,7 +63,7 @@ export const multiColumnsSelectListRow = (page: Page) =>
 
 export const multiColumnsSelectListNoResultsMessage = (
   page: Page,
-  text: string
+  text: string,
 ) =>
   selectList(page)
     .locator("tbody > tr > td")

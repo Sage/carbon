@@ -85,7 +85,7 @@ export const VariousFontSizes: Story = () => {
       {(["small", "medium", "large", "extra-large"] as const).map(
         (fontSize) => (
           <Icon type="add" fontSize={fontSize} key={fontSize} />
-        )
+        ),
       )}
     </>
   );
@@ -119,22 +119,19 @@ export const BgSizesAndFontSizes: Story = () => {
     <>
       {(["small", "medium", "large", "extra-large"] as const).map(
         (fontSize) => {
-          return ([
-            "small",
-            "medium",
-            "large",
-            "extra-large",
-          ] as const).map((bgSize) => (
-            <Icon
-              type="add"
-              bg="#00b000"
-              fontSize={fontSize}
-              bgSize={bgSize}
-              mr={1}
-              key={`${fontSize}_${bgSize}`}
-            />
-          ));
-        }
+          return (["small", "medium", "large", "extra-large"] as const).map(
+            (bgSize) => (
+              <Icon
+                type="add"
+                bg="#00b000"
+                fontSize={fontSize}
+                bgSize={bgSize}
+                mr={1}
+                key={`${fontSize}_${bgSize}`}
+              />
+            ),
+          );
+        },
       )}
     </>
   );

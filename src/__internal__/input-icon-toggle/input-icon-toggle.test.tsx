@@ -14,14 +14,14 @@ test.each(["error", "warning", "info"])(
           useValidationIcon: true,
           inputIcon: "settings",
         }}
-      />
+      />,
     );
 
     const validationIcon = screen.getByTestId(`icon-${validationProp}`);
     const icon = screen.queryByTestId("icon");
     expect(validationIcon).toBeVisible();
     expect(icon).not.toBeInTheDocument();
-  }
+  },
 );
 
 test.each([
@@ -33,15 +33,15 @@ test.each([
     const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
 
     render(
-      <InputIconToggle align={tooltipAlign} useValidationIcon error="error" />
+      <InputIconToggle align={tooltipAlign} useValidationIcon error="error" />,
     );
 
     expect(useFloatingSpy).toHaveBeenCalledWith(
-      expect.objectContaining({ placement: tooltipPosition })
+      expect.objectContaining({ placement: tooltipPosition }),
     );
 
     useFloatingSpy.mockRestore();
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -55,14 +55,14 @@ test.each(["error", "warning", "info"])(
           readOnly: true,
           inputIcon: "settings",
         }}
-      />
+      />,
     );
 
     const validationIcon = screen.getByTestId(`icon-${validationProp}`);
     const icon = screen.queryByTestId("icon");
     expect(validationIcon).toBeVisible();
     expect(icon).not.toBeInTheDocument();
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -76,7 +76,7 @@ test.each(["error", "warning", "info"])(
           disabled: true,
           inputIcon: "settings",
         }}
-      />
+      />,
     );
 
     const validationIcon = screen.queryByTestId(`icon-${validationProp}`);
@@ -84,7 +84,7 @@ test.each(["error", "warning", "info"])(
     expect(validationIcon).not.toBeInTheDocument();
     expect(icon).toBeVisible();
     expect(icon).toHaveAttribute("type", "settings");
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -97,7 +97,7 @@ test.each(["error", "warning", "info"])(
           useValidationIcon: true,
           inputIcon: "settings",
         }}
-      />
+      />,
     );
 
     const validationIcon = screen.queryByTestId(`icon-${validationProp}`);
@@ -105,7 +105,7 @@ test.each(["error", "warning", "info"])(
     expect(validationIcon).not.toBeInTheDocument();
     expect(icon).toBeVisible();
     expect(icon).toHaveAttribute("type", "settings");
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -118,7 +118,7 @@ test.each(["error", "warning", "info"])(
           useValidationIcon: true,
           inputIcon: "settings",
         }}
-      />
+      />,
     );
 
     const validationIcon = screen.queryByTestId(`icon-${validationProp}`);
@@ -126,7 +126,7 @@ test.each(["error", "warning", "info"])(
     expect(validationIcon).not.toBeInTheDocument();
     expect(icon).toBeVisible();
     expect(icon).toHaveAttribute("type", "settings");
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -139,7 +139,7 @@ test.each(["error", "warning", "info"])(
           useValidationIcon: false,
           inputIcon: "settings",
         }}
-      />
+      />,
     );
 
     const validationIcon = screen.queryByTestId(`icon-${validationProp}`);
@@ -147,7 +147,7 @@ test.each(["error", "warning", "info"])(
     expect(validationIcon).not.toBeInTheDocument();
     expect(icon).toBeVisible();
     expect(icon).toHaveAttribute("type", "settings");
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -160,7 +160,7 @@ test.each(["error", "warning", "info"])(
           useValidationIcon: true,
           inputIcon: "settings",
         }}
-      />
+      />,
     );
 
     const validationIcon = screen.queryByTestId(`icon-${validationProp}`);
@@ -168,7 +168,7 @@ test.each(["error", "warning", "info"])(
     expect(validationIcon).not.toBeInTheDocument();
     expect(icon).toBeVisible();
     expect(icon).toHaveAttribute("type", "settings");
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -181,7 +181,7 @@ test.each(["error", "warning", "info"])(
           useValidationIcon: true,
           inputIcon: "settings",
         }}
-      />
+      />,
     );
 
     const validationIcon = screen.queryByTestId(`icon-${validationProp}`);
@@ -189,7 +189,7 @@ test.each(["error", "warning", "info"])(
     expect(validationIcon).not.toBeInTheDocument();
     expect(icon).toBeVisible();
     expect(icon).toHaveAttribute("type", "settings");
-  }
+  },
 );
 
 test("renders an input icon, when `disabled` prop is true, and no validation prop nor `useValidationIcon` is set", () => {
@@ -215,7 +215,7 @@ test("renders only an input icon when both `readOnly` and `disabled` props are t
       disabled
       inputIcon="settings"
       useValidationIcon={false}
-    />
+    />,
   );
 
   const icon = screen.getByTestId("icon");
@@ -235,7 +235,7 @@ test.each(["error", "warning", "info"])(
           disabled: true,
           inputIcon: "settings",
         }}
-      />
+      />,
     );
 
     const validationIcon = screen.queryByTestId(`icon-${validationProp}`);
@@ -243,7 +243,7 @@ test.each(["error", "warning", "info"])(
     expect(validationIcon).not.toBeInTheDocument();
     expect(icon).toBeVisible();
     expect(icon).toHaveAttribute("type", "settings");
-  }
+  },
 );
 
 test.each(["error", "warning", "info"])(
@@ -258,7 +258,7 @@ test.each(["error", "warning", "info"])(
           disabled: true,
           inputIcon: "settings",
         }}
-      />
+      />,
     );
 
     const validationIcon = screen.queryByTestId(`icon-${validationProp}`);
@@ -266,7 +266,7 @@ test.each(["error", "warning", "info"])(
     expect(validationIcon).not.toBeInTheDocument();
     expect(icon).toBeVisible();
     expect(icon).toHaveAttribute("type", "settings");
-  }
+  },
 );
 
 test.each([
@@ -283,7 +283,7 @@ test.each([
     fireEvent(icon, keydownEvent);
 
     expect(keydownEvent.defaultPrevented).toBeTruthy();
-  }
+  },
 );
 
 test.each([
@@ -300,13 +300,13 @@ test.each([
     fireEvent(icon, keydownEvent);
 
     expect(keydownEvent.defaultPrevented).toBeFalsy();
-  }
+  },
 );
 
 test("calls `onFocus` handler when the validation icon is focused", async () => {
   const mockOnFocus = jest.fn();
   render(
-    <InputIconToggle error="error" onFocus={mockOnFocus} useValidationIcon />
+    <InputIconToggle error="error" onFocus={mockOnFocus} useValidationIcon />,
   );
 
   const validationIcon = screen.getByTestId("icon-error");
@@ -318,7 +318,7 @@ test("calls `onFocus` handler when the validation icon is focused", async () => 
 test("calls `onBlur` handler when the validation icon loses focus", async () => {
   const mockOnBlur = jest.fn();
   render(
-    <InputIconToggle error="error" onBlur={mockOnBlur} useValidationIcon />
+    <InputIconToggle error="error" onBlur={mockOnBlur} useValidationIcon />,
   );
 
   const validationIcon = screen.getByTestId("icon-error");
@@ -338,7 +338,7 @@ test("passes `validationIconId` to the tooltip when hovering over the validation
       error="Error"
       validationIconId={validationIconId}
       useValidationIcon
-    />
+    />,
   );
 
   const user = userEvent.setup();

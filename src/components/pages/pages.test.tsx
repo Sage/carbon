@@ -75,9 +75,9 @@ test.each([
     jest.runAllTimers();
 
     expect(screen.getByTestId("visible-page")).toHaveClass(
-      `${expected}-enter-done`
+      `${expected}-enter-done`,
     );
-  }
+  },
 );
 
 test("when the `pageIndex` prop is greater than the number of `Page` children, the first page is rendered", () => {
@@ -86,7 +86,7 @@ test("when the `pageIndex` prop is greater than the number of `Page` children, t
       <Page title={<Heading title="Page 1" />}>First Page</Page>
       <Page title={<Heading title="Page 2" />}>Second Page</Page>
       <Page title={<Heading title="Page 3" />}>Third Page</Page>
-    </Pages>
+    </Pages>,
   );
 
   expect(screen.getByRole("heading")).toHaveTextContent("Page 1");
@@ -183,7 +183,7 @@ test("accepts `data-element` and `data-role` tags via props, and has the expecte
   render(
     <Pages data-element="bar" data-role="baz">
       <Page title="Foo">Bar</Page>
-    </Pages>
+    </Pages>,
   );
 
   const pagesWrapper = screen.getByTestId("baz");
@@ -195,7 +195,7 @@ test("the visible `Page` component has the `data-element` attribute set to `visi
   render(
     <Pages>
       <Page title="Foo">Bar</Page>
-    </Pages>
+    </Pages>,
   );
 
   const page = screen.getByTestId("visible-page");

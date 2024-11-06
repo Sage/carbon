@@ -13,7 +13,7 @@ describe("When ButtonBar children are Button components", () => {
         <Button aria-label="button-in-bar">foo</Button>
         <Button aria-label="button-in-bar">bar</Button>
         <Button aria-label="button-in-bar">baz</Button>
-      </ButtonBar>
+      </ButtonBar>,
     );
 
     const buttonChildren = screen.getAllByRole("button", {
@@ -35,7 +35,7 @@ describe("When ButtonBar children are Button components", () => {
         <Button aria-label="button-in-bar" iconType="bin">
           baz
         </Button>
-      </ButtonBar>
+      </ButtonBar>,
     );
 
     const buttonChildren = screen.getAllByRole("button", {
@@ -53,7 +53,7 @@ describe("When ButtonBar children are Button components", () => {
         <Button aria-label="button-in-bar">foo</Button>
         <Button aria-label="button-in-bar">bar</Button>
         <Button aria-label="button-in-bar">baz</Button>
-      </ButtonBar>
+      </ButtonBar>,
     );
 
     const buttonChildren = screen.getAllByRole("button", {
@@ -81,7 +81,7 @@ describe("When ButtonBar children are Button components", () => {
         <Button aria-label="button-in-bar" iconType="bin">
           baz
         </Button>
-      </ButtonBar>
+      </ButtonBar>,
     );
 
     const icons = screen.getAllByTestId("icon");
@@ -97,7 +97,7 @@ describe("When ButtonBar children are Button components", () => {
         <Button aria-label="button-in-bar">foo</Button>
         <Button aria-label="button-in-bar">bar</Button>
         <Button aria-label="button-in-bar">baz</Button>
-      </ButtonBar>
+      </ButtonBar>,
     );
 
     const buttonBar = screen.getByTestId("button-bar");
@@ -118,7 +118,7 @@ describe("When ButtonBar children are Button components", () => {
         <Button aria-label="button-in-bar">foo</Button>
         <Button aria-label="button-in-bar">bar</Button>
         <Button aria-label="button-in-bar">baz</Button>
-      </ButtonBar>
+      </ButtonBar>,
     );
 
     const buttonChildren = screen.getAllByRole("button", {
@@ -136,7 +136,7 @@ describe("When ButtonBar children are Button components", () => {
         <Button aria-label="button-in-bar">foo</Button>
         <Button aria-label="button-in-bar">bar</Button>
         <Button aria-label="button-in-bar">baz</Button>
-      </ButtonBar>
+      </ButtonBar>,
     );
 
     const buttonChildren = screen.getAllByRole("button", {
@@ -154,7 +154,7 @@ describe("When ButtonBar children are Button components", () => {
         <Button aria-label="button-in-bar">foo</Button>
         <Button aria-label="button-in-bar">bar</Button>
         <Button aria-label="button-in-bar">baz</Button>
-      </ButtonBar>
+      </ButtonBar>,
     );
 
     const buttonChildren = screen.getAllByRole("button", {
@@ -180,7 +180,7 @@ describe("When ButtonBar children are IconButton components", () => {
         <IconButton aria-label="icon-button-in-bar">
           <Icon type="bin" />
         </IconButton>
-      </ButtonBar>
+      </ButtonBar>,
     );
 
     const iconButtonChildren = screen.getAllByRole("button", {

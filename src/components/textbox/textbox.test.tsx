@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 import Textbox, { TextboxProps } from ".";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import { EnterKeyHintTypes } from "../../__internal__/input";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -16,7 +16,7 @@ const mockedGuid = "mocked-guid";
 jest.mock("../../__internal__/utils/helpers/guid");
 
 (createGuid as jest.MockedFunction<typeof createGuid>).mockReturnValue(
-  mockedGuid
+  mockedGuid,
 );
 
 let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
@@ -39,17 +39,17 @@ test("should display deprecation warning once when rendered as uncontrolled", ()
   render(<Textbox name="my-textbox" defaultValue="test" />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
 
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Textbox data-role="textbox-wrapper" {...props} />,
   () => screen.getByTestId("textbox-wrapper"),
   undefined,
-  { modifier: "&&&" }
+  { modifier: "&&&" },
 );
 
 describe(`when the characterLimit prop is passed`, () => {
@@ -71,8 +71,8 @@ describe(`when the characterLimit prop is passed`, () => {
                 valueString.length - characterLimit
               } ${overCharacters} too many`
         }`,
-        { selector: '[aria-hidden="true"]' }
-      )
+        { selector: '[aria-hidden="true"]' },
+      ),
     ).toBeInTheDocument();
   });
 
@@ -81,7 +81,7 @@ describe(`when the characterLimit prop is passed`, () => {
     expect(
       screen.getByText("You can enter up to 73 characters", {
         selector: '[data-element="visually-hidden-hint"]',
-      })
+      }),
     ).toHaveAttribute("id", mockedGuid);
   });
 
@@ -89,7 +89,7 @@ describe(`when the characterLimit prop is passed`, () => {
     render(<Textbox value="foo" characterLimit={73} />);
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
-      mockedGuid
+      mockedGuid,
     );
   });
 
@@ -99,7 +99,7 @@ describe(`when the characterLimit prop is passed`, () => {
     expect(
       screen.getByText("1 character too many", {
         selector: '[aria-hidden="true"]',
-      })
+      }),
     ).toHaveStyleRule("color", "var(--colorsSemanticNegative500)");
   });
 });
@@ -147,9 +147,9 @@ test.each([
     expect(screen.getByRole("presentation")).toHaveStyleRule(
       "padding-right",
       "0",
-      { modifier: `& ${StyledInput}` }
+      { modifier: `& ${StyledInput}` },
     );
-  }
+  },
 );
 
 test("supports a separate onClick handler passing for the icon", async () => {
@@ -165,7 +165,7 @@ test("supports a separate onClick handler passing for the icon", async () => {
       iconOnClick={iconOnClick}
     >
       normal children
-    </Textbox>
+    </Textbox>,
   );
   await user.click(screen.getByTestId("input-icon-toggle"));
   expect(iconOnClick).toHaveBeenCalled();
@@ -187,9 +187,9 @@ test.each([
 
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "enterkeyhint",
-      keyHints
+      keyHints,
     );
-  }
+  },
 );
 
 test.each(["disabled", "readOnly"])(
@@ -209,11 +209,11 @@ test.each(["disabled", "readOnly"])(
         readOnly={propName === "readOnly"}
       >
         normal children
-      </Textbox>
+      </Textbox>,
     );
     await user.click(screen.getByTestId("input-icon-toggle"));
     expect(iconOnClick).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test.each(["disabled", "readOnly"])(
@@ -233,11 +233,11 @@ test.each(["disabled", "readOnly"])(
         readOnly={propName === "readOnly"}
       >
         normal children
-      </Textbox>
+      </Textbox>,
     );
     await user.click(screen.getByTestId("input-icon-toggle"));
     expect(iconOnMouseDown).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test.each(["disabled", "readOnly"])(
@@ -255,11 +255,11 @@ test.each(["disabled", "readOnly"])(
         readOnly={propName === "readOnly"}
       >
         normal children
-      </Textbox>
+      </Textbox>,
     );
     await user.click(screen.getByTestId("input-icon-toggle"));
     expect(onClick).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test.each(["disabled", "readOnly"])(
@@ -277,11 +277,11 @@ test.each(["disabled", "readOnly"])(
         readOnly={propName === "readOnly"}
       >
         normal children
-      </Textbox>
+      </Textbox>,
     );
     await user.click(screen.getByTestId("input-icon-toggle"));
     expect(onMouseDown).not.toHaveBeenCalled();
-  }
+  },
 );
 
 test.each(validationTypes)(
@@ -291,7 +291,7 @@ test.each(validationTypes)(
     const inputPresentationContainer = screen.getByRole("presentation");
     const validationIcon = screen.getByTestId(`icon-${type}`);
     expect(inputPresentationContainer).toContainElement(validationIcon);
-  }
+  },
 );
 
 test.each(validationTypes)(
@@ -299,12 +299,12 @@ test.each(validationTypes)(
   as true render proper validation icon on the label`,
   (type) => {
     render(
-      <Textbox label="Label" {...{ [type]: "Message" }} validationOnLabel />
+      <Textbox label="Label" {...{ [type]: "Message" }} validationOnLabel />,
     );
     const labelContainer = screen.getByTestId("label-container");
     const validationIcon = screen.getByTestId(`icon-${type}`);
     expect(labelContainer).toContainElement(validationIcon);
-  }
+  },
 );
 
 test.each([
@@ -325,15 +325,15 @@ test.each([
         error="Message"
         validationOnLabel={onLabel}
         tooltipPosition={tooltipPosition}
-      />
+      />,
     );
 
     expect(useFloatingSpy).toHaveBeenCalledWith(
-      expect.objectContaining({ placement: tooltipPosition })
+      expect.objectContaining({ placement: tooltipPosition }),
     );
 
     useFloatingSpy.mockRestore();
-  }
+  },
 );
 
 describe("when the prefix prop is set", () => {
@@ -342,7 +342,7 @@ describe("when the prefix prop is set", () => {
     render(<Textbox value="foo" prefix={prefixValue} />);
     expect(screen.getByText(prefixValue)).toHaveAttribute(
       "data-element",
-      "textbox-prefix"
+      "textbox-prefix",
     );
   });
 
@@ -373,7 +373,7 @@ test("renders the positionChildren prop before the input", () => {
   const positionChildren = screen.getByText("positionedChildren content");
   const input = screen.getByRole("textbox");
   expect(positionChildren.compareDocumentPosition(input)).toEqual(
-    Node.DOCUMENT_POSITION_FOLLOWING
+    Node.DOCUMENT_POSITION_FOLLOWING,
   );
 });
 
@@ -385,7 +385,7 @@ test("passes the helpAriaLabel prop down to the help component", () => {
       label="label"
       labelHelp="some help"
       helpAriaLabel={text}
-    />
+    />,
   );
 
   expect(screen.getByRole("button")).toHaveAttribute("aria-label", text);
@@ -397,7 +397,7 @@ test("passes the aria-labelledby prop down to the input", () => {
 
   expect(screen.getByRole("textbox")).toHaveAttribute(
     "aria-labelledby",
-    labelId
+    labelId,
   );
 });
 
@@ -410,10 +410,10 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      "foo-validation"
+      "foo-validation",
     );
     expect(input).toHaveAttribute("aria-describedby", "foo-validation");
-  }
+  },
 );
 
 test.each(validationTypes)(
@@ -425,13 +425,13 @@ test.each(validationTypes)(
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      `${mockedGuid}-validation`
+      `${mockedGuid}-validation`,
     );
     expect(input).toHaveAttribute(
       "aria-describedby",
-      `${mockedGuid}-validation`
+      `${mockedGuid}-validation`,
     );
-  }
+  },
 );
 
 test("when id and fieldHelp are both present, the id of the field help is added to 'aria-describedby' in the input", () => {
@@ -440,7 +440,7 @@ test("when id and fieldHelp are both present, the id of the field help is added 
   expect(screen.getByText("baz")).toHaveAttribute("id", "foo-field-help");
   expect(screen.getByRole("textbox")).toHaveAttribute(
     "aria-describedby",
-    "foo-field-help"
+    "foo-field-help",
   );
 });
 
@@ -449,11 +449,11 @@ test("when fieldHelp is present and id is not present, the id of the field help 
 
   expect(screen.getByText("baz")).toHaveAttribute(
     "id",
-    `${mockedGuid}-field-help`
+    `${mockedGuid}-field-help`,
   );
   expect(screen.getByRole("textbox")).toHaveAttribute(
     "aria-describedby",
-    `${mockedGuid}-field-help`
+    `${mockedGuid}-field-help`,
   );
 });
 
@@ -466,45 +466,45 @@ test.each(validationTypes)(
         id="foo"
         fieldHelp="baz"
         {...{ [validationType]: "test" }}
-      />
+      />,
     );
     const input = screen.getByRole("textbox");
     input.focus();
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      "foo-validation"
+      "foo-validation",
     );
     expect(screen.getByText("baz")).toHaveAttribute("id", "foo-field-help");
     expect(input).toHaveAttribute(
       "aria-describedby",
-      "foo-field-help foo-validation"
+      "foo-field-help foo-validation",
     );
-  }
+  },
 );
 
 test.each(validationTypes)(
   'when id is not present, %s prop is set as a string, fieldHelp is present and the input is focused, the ids of both the validation tooltip are added to "aria-describedby" in the input',
   async (validationType) => {
     render(
-      <Textbox label="bar" fieldHelp="baz" {...{ [validationType]: "test" }} />
+      <Textbox label="bar" fieldHelp="baz" {...{ [validationType]: "test" }} />,
     );
     const input = screen.getByRole("textbox");
     input.focus();
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
-      `${mockedGuid}-validation`
+      `${mockedGuid}-validation`,
     );
     expect(screen.getByText("baz")).toHaveAttribute(
       "id",
-      `${mockedGuid}-field-help`
+      `${mockedGuid}-field-help`,
     );
     expect(input).toHaveAttribute(
       "aria-describedby",
-      `${mockedGuid}-field-help ${mockedGuid}-validation`
+      `${mockedGuid}-field-help ${mockedGuid}-validation`,
     );
-  }
+  },
 );
 
 describe("when inputHint prop is present", () => {
@@ -518,7 +518,7 @@ describe("when inputHint prop is present", () => {
     expect(screen.getByText("bar")).toHaveAttribute("id", mockedGuid);
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
-      mockedGuid
+      mockedGuid,
     );
   });
 
@@ -526,7 +526,7 @@ describe("when inputHint prop is present", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <Textbox labelHelp="labelHelp" inputHint="inputHint" error="foo" />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
     expect(screen.getByText("inputHint")).toBeInTheDocument();
     expect(screen.queryByText("labelHelp")).not.toBeInTheDocument();
@@ -538,7 +538,7 @@ describe("when rendered with new validations", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <Textbox {...props} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
   it('adds the id of the validation text to "aria-describedby" in the input', () => {
@@ -547,11 +547,11 @@ describe("when rendered with new validations", () => {
 
     expect(screen.getByText("bar")).toHaveAttribute(
       "id",
-      `${mockId}-validation`
+      `${mockId}-validation`,
     );
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
-      `${mockId}-validation`
+      `${mockId}-validation`,
     );
   });
 
@@ -588,6 +588,6 @@ test("renders with the expected border radius styling", () => {
   render(<Textbox />);
   expect(screen.getByRole("textbox")).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius050)"
+    "var(--borderRadius050)",
   );
 });

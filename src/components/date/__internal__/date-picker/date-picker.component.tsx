@@ -91,18 +91,18 @@ export const DatePicker = ({
         const month = localize?.month(i);
         return month[0].toUpperCase() + month.slice(1);
       }),
-    [localize]
+    [localize],
   );
   const monthsShort = useMemo(
     () =>
       Array.from({ length: 12 }).map((_, i) =>
-        localize?.month(i, { width: "abbreviated" }).substring(0, 3)
+        localize?.month(i, { width: "abbreviated" }).substring(0, 3),
       ),
-    [localize]
+    [localize],
   );
   const weekdaysLong = useMemo(
     () => Array.from({ length: 7 }).map((_, i) => localize?.day(i)),
-    [localize]
+    [localize],
   );
   const weekdaysShort = useMemo(() => {
     const isGivenLocale = (str: string) => locale.locale().includes(str);
@@ -112,9 +112,9 @@ export const DatePicker = ({
           i,
           ["de", "pl"].some(isGivenLocale)
             ? { width: "wide" }
-            : { width: "abbreviated" }
+            : { width: "abbreviated" },
         )
-        .substring(0, isGivenLocale("de") ? 2 : 3)
+        .substring(0, isGivenLocale("de") ? 2 : 3),
     );
   }, [locale, localize]);
   const ref = useRef<HTMLDivElement>(null);
@@ -134,7 +134,7 @@ export const DatePicker = ({
         ref.current?.querySelector(".DayPicker-Day--selected") ||
         ref.current?.querySelector(".DayPicker-Day--today");
       const firstDay = ref.current?.querySelector(
-        ".DayPicker-Day[tabindex='0']"
+        ".DayPicker-Day[tabindex='0']",
       );
 
       /* istanbul ignore else */
@@ -148,7 +148,7 @@ export const DatePicker = ({
   const handleDayClick = (
     date: Date,
     modifiers: DayModifiers,
-    ev: React.MouseEvent<HTMLDivElement>
+    ev: React.MouseEvent<HTMLDivElement>,
   ) => {
     if (!modifiers.disabled) {
       const { id, name } = inputElement?.current
@@ -173,7 +173,7 @@ export const DatePicker = ({
         ev.stopPropagation();
       }
     },
-    [inputElement, onPickerClose, open, setOpen]
+    [inputElement, onPickerClose, open, setOpen],
   );
 
   const handleOnKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
@@ -194,7 +194,7 @@ export const DatePicker = ({
   const handleOnDayKeyDown = (
     _day: Date,
     _modifiers: DayModifiers,
-    ev: React.KeyboardEvent<HTMLDivElement>
+    ev: React.KeyboardEvent<HTMLDivElement>,
   ) => {
     // we need to manually handle this as the picker may be in a Portal
     /* istanbul ignore else */
@@ -208,14 +208,14 @@ export const DatePicker = ({
       if (input) {
         const elements = Array.from(
           document.querySelectorAll(defaultFocusableSelectors) ||
-            /* istanbul ignore next */ []
+            /* istanbul ignore next */ [],
         ) as HTMLElement[];
         const elementsInPicker = Array.from(
           ref.current?.querySelectorAll("button, [tabindex]") ||
-            /* istanbul ignore next */ []
+            /* istanbul ignore next */ [],
         ) as HTMLElement[];
         const filteredElements = elements.filter(
-          (el) => Number(el.tabIndex) !== -1 && !elementsInPicker.includes(el)
+          (el) => Number(el.tabIndex) !== -1 && !elementsInPicker.includes(el),
         );
         const nextIndex = filteredElements.indexOf(input as HTMLElement) + 1;
         filteredElements[nextIndex]?.focus();

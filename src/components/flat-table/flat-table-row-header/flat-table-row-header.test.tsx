@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 import FlatTableRowHeader from "./flat-table-row-header.component";
 import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row.context";
 import FlatTable from "../flat-table.component";
@@ -11,7 +11,7 @@ import FlatTableRow from "../flat-table-row/flat-table-row.component";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 import Button from "../../button/button.component";
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <table>
       <thead>
@@ -23,7 +23,7 @@ testStyledSystemPaddingRTL(
   ),
   () => screen.getByRole("columnheader"),
   { py: "10px", px: 3 },
-  { modifier: "&&&& > div" }
+  { modifier: "&&&& > div" },
 );
 
 test("should render with the expected `data-` attributes when props are passed", () => {
@@ -37,14 +37,14 @@ test("should render with the expected `data-` attributes when props are passed",
           />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
   expect(cell).toHaveAttribute("data-component", "flat-table-row-header");
   expect(cell).toHaveAttribute(
     "data-element",
-    "flat-table-row-header-data-element"
+    "flat-table-row-header-data-element",
   );
   expect(cell).toHaveAttribute("data-role", "flat-table-row-header-data-role");
 });
@@ -57,7 +57,7 @@ test("should render with proper 'width' styling on cell and first child when pro
           <FlatTableRowHeader width={40} />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
   const content = screen.getByTestId("flat-table-row-header-content");
@@ -74,7 +74,7 @@ test("should render with expected 'colspan' attribute when prop is passed", () =
           <FlatTableRowHeader colspan={2} />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -89,7 +89,7 @@ test("should render with expected 'rowspan' attribute when prop is passed", () =
           <FlatTableRowHeader rowspan={2} />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -115,7 +115,7 @@ describe("when the `expandable` context prop is set", () => {
             </FlatTableRowContext.Provider>
           </tr>
         </thead>
-      </table>
+      </table>,
     );
     const icon = screen.getByTestId("icon");
 
@@ -143,7 +143,7 @@ describe("when the `expandable` context prop is set", () => {
             </FlatTableRowContext.Provider>
           </tr>
         </thead>
-      </table>
+      </table>,
     );
     const cell = screen.getByRole("columnheader");
     await user.click(cell);
@@ -172,7 +172,7 @@ describe("when the `expandable` context prop is set", () => {
             </FlatTableRowContext.Provider>
           </tr>
         </thead>
-      </table>
+      </table>,
     );
     const cell = screen.getByRole("columnheader");
     await user.type(cell, "{enter}");
@@ -198,7 +198,7 @@ describe("when the `expandable` context prop is not set", () => {
             </FlatTableRowContext.Provider>
           </tr>
         </thead>
-      </table>
+      </table>,
     );
     const icon = screen.queryByTestId("icon");
 
@@ -224,7 +224,7 @@ describe("when the `expandable` context prop is not set", () => {
             </FlatTableRowContext.Provider>
           </tr>
         </thead>
-      </table>
+      </table>,
     );
     const cell = screen.getByRole("columnheader");
     await user.click(cell);
@@ -242,7 +242,7 @@ describe("when the `truncate` prop is set", () => {
             <FlatTableRowHeader truncate>Foo</FlatTableRowHeader>
           </tr>
         </thead>
-      </table>
+      </table>,
     );
     const content = screen.getByTestId("flat-table-row-header-content");
 
@@ -259,12 +259,12 @@ describe("when the `truncate` prop is set", () => {
             <FlatTableRowHeader truncate>Foo</FlatTableRowHeader>
           </tr>
         </thead>
-      </table>
+      </table>,
     );
 
     expect(screen.getByTestId("flat-table-row-header-content")).toHaveAttribute(
       "title",
-      "Foo"
+      "Foo",
     );
   });
 
@@ -278,12 +278,12 @@ describe("when the `truncate` prop is set", () => {
             </FlatTableRowHeader>
           </tr>
         </thead>
-      </table>
+      </table>,
     );
 
     expect(screen.getByTestId("flat-table-row-header-content")).toHaveAttribute(
       "title",
-      "Bar"
+      "Bar",
     );
   });
 });
@@ -296,12 +296,12 @@ test("sets the data-sticky-align attribute to 'left' to match the `stickyAlignme
           <FlatTableRowHeader stickyAlignment="left">Foo</FlatTableRowHeader>
         </tr>
       </thead>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("columnheader")).toHaveAttribute(
     "data-sticky-align",
-    "left"
+    "left",
   );
 });
 
@@ -313,12 +313,12 @@ test("sets the data-sticky-align attribute to 'right' to match the `stickyAlignm
           <FlatTableRowHeader stickyAlignment="right">Foo</FlatTableRowHeader>
         </tr>
       </thead>
-    </table>
+    </table>,
   );
 
   expect(screen.getByRole("columnheader")).toHaveAttribute(
     "data-sticky-align",
-    "right"
+    "right",
   );
 });
 
@@ -351,7 +351,7 @@ test("should increase the z-index of the sticky TH or TD if `stickyAlignment` pr
           <FlatTableCell>text content</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
-    </FlatTable>
+    </FlatTable>,
   );
 
   const headerOne = screen.getByTestId("header-one");
@@ -404,7 +404,7 @@ test("should not increase the z-index of the sticky TH or TD if the `stickyAlign
           <FlatTableCell>text content</FlatTableCell>
         </FlatTableRow>
       </thead>
-    </table>
+    </table>,
   );
 
   const headerOne = screen.getByTestId("header-one");
@@ -425,7 +425,7 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableRowHeader verticalBorder="small" stickyAlignment="left" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -440,7 +440,7 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableRowHeader verticalBorder="small" stickyAlignment="right" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -455,7 +455,7 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableRowHeader verticalBorder="medium" stickyAlignment="left" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -470,7 +470,7 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableRowHeader verticalBorder="medium" stickyAlignment="right" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -485,7 +485,7 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableRowHeader verticalBorder="large" stickyAlignment="left" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -500,7 +500,7 @@ test("should render with the expected border width when `verticalBorder` prop is
           <FlatTableRowHeader verticalBorder="large" stickyAlignment="right" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -518,7 +518,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
           />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -536,7 +536,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
           />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -554,7 +554,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
           />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -572,7 +572,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
           />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const cell = screen.getByRole("columnheader");
 

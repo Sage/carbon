@@ -90,7 +90,7 @@ test.describe("InlineInputs", () => {
 
       await expect(inlineInputContainer(page)).toHaveCSS(
         "flex",
-        `0 0 ${inputWidth}%`
+        `0 0 ${inputWidth}%`,
       );
     });
   });
@@ -100,7 +100,7 @@ test.describe("InlineInputs", () => {
       await mount(
         <InlineInputs label="Inline Input">
           <Textbox>{children}</Textbox>
-        </InlineInputs>
+        </InlineInputs>,
       );
 
       await expect(inlineChildren(page)).toHaveText(children);
@@ -117,7 +117,7 @@ test.describe("InlineInputs", () => {
       await mount(<InlineInputComponent labelWidth={labelwidth} />);
       await expect(inlinelabelWidth(page)).toHaveCSS(
         "flex",
-        `0 0 ${labelwidth}%`
+        `0 0 ${labelwidth}%`,
       );
     });
   });
@@ -129,26 +129,26 @@ test.describe("InlineInputs", () => {
     });
   });
 
-  ([
-    ["left", "flex-start"],
-    ["right", "flex-end"],
-  ] as [InlineInputsProps["labelAlign"], string][]).forEach(
-    ([labelAlign, cssValue]) => {
-      test(`should render with labelAlign prop set to ${labelAlign}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <InlineInputComponent labelAlign={labelAlign} labelWidth={30} />
-        );
+  (
+    [
+      ["left", "flex-start"],
+      ["right", "flex-end"],
+    ] as [InlineInputsProps["labelAlign"], string][]
+  ).forEach(([labelAlign, cssValue]) => {
+    test(`should render with labelAlign prop set to ${labelAlign}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <InlineInputComponent labelAlign={labelAlign} labelWidth={30} />,
+      );
 
-        await expect(inlinelabelWidth(page)).toHaveCSS(
-          "justify-content",
-          cssValue
-        );
-      });
-    }
-  );
+      await expect(inlinelabelWidth(page)).toHaveCSS(
+        "justify-content",
+        cssValue,
+      );
+    });
+  });
 });
 
 test.describe("Accessibility tests for InlineInputs component", () => {
@@ -193,15 +193,15 @@ test.describe("rounded corners", () => {
       await mount(<InlineInputComponent gutter={gutter} />);
 
       await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').first()
+        inlineInputContainer(page).locator('[role="presentation"]').first(),
       ).toHaveCSS("border-radius", firstInputResult);
 
       await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').nth(1)
+        inlineInputContainer(page).locator('[role="presentation"]').nth(1),
       ).toHaveCSS("border-radius", middleInputResult);
 
       await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').last()
+        inlineInputContainer(page).locator('[role="presentation"]').last(),
       ).toHaveCSS("border-radius", lastInputResult);
     });
   });
@@ -223,15 +223,15 @@ test.describe("rounded corners", () => {
             }}
             value="0.00"
           />
-        </InlineInputs>
+        </InlineInputs>,
       );
 
       await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').first()
+        inlineInputContainer(page).locator('[role="presentation"]').first(),
       ).toHaveCSS("border-radius", firstInputResult);
 
       await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').last()
+        inlineInputContainer(page).locator('[role="presentation"]').last(),
       ).toHaveCSS("border-radius", lastInputResult);
     });
   });
@@ -244,11 +244,11 @@ test.describe("rounded corners", () => {
       await mount(
         <InlineInputs label="Inline Input" gutter={gutter}>
           <Textbox warning inputIcon="warning" />
-        </InlineInputs>
+        </InlineInputs>,
       );
 
       await expect(
-        inlineInputContainer(page).locator('[role="presentation"]').first()
+        inlineInputContainer(page).locator('[role="presentation"]').first(),
       ).toHaveCSS("border-radius", "4px");
     });
   });

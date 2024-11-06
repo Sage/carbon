@@ -42,7 +42,7 @@ test("the `next` and `last` buttons are disabled when on the last page", async (
       pageSize={10}
       currentPage={10}
       onPagination={onPagination}
-    />
+    />,
   );
 
   await user.click(screen.getByRole("button", { name: "Next" }));
@@ -59,7 +59,7 @@ test("the `previous` and `first` buttons are disabled when on the first page", a
       pageSize={10}
       currentPage={1}
       onPagination={onPagination}
-    />
+    />,
   );
 
   await user.click(screen.getByRole("button", { name: "Previous" }));
@@ -89,7 +89,7 @@ test("the `previous` and `first` buttons are hidden when on the first page if th
       pageSize={10}
       currentPage={1}
       onPagination={() => {}}
-    />
+    />,
   );
 
   // note: can't easily use getByRole("button") for these assertions because the buttons are disabled and
@@ -107,7 +107,7 @@ test("the `next` and `last` buttons are hidden when on the last page if the `hid
       pageSize={10}
       currentPage={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   // note: can't easily use getByRole("button") for these assertions because the buttons are disabled and
@@ -125,7 +125,7 @@ test("all buttons are visible if the `hideDisabledElements` prop is `true` and n
       pageSize={10}
       currentPage={3}
       onPagination={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByRole("button", { name: "First" })).toBeVisible();
@@ -138,7 +138,7 @@ test("when the `interactivePageNumber` prop is false, no input is rendered for t
   render(<Pager interactivePageNumber={false} onPagination={() => {}} />);
 
   expect(
-    screen.queryByRole("textbox", { name: "Page" })
+    screen.queryByRole("textbox", { name: "Page" }),
   ).not.toBeInTheDocument();
 });
 
@@ -152,13 +152,13 @@ test.each([1, 5, 10])(
         totalRecords={100}
         pageSize={10}
         onPagination={() => {}}
-      />
+      />,
     );
 
     expect(screen.getByTestId("current-page-label")).toHaveTextContent(
-      `Page ${pageIndex} of 10`
+      `Page ${pageIndex} of 10`,
     );
-  }
+  },
 );
 
 test("the `onFirst` callback prop is called when the user clicks the `First` button", async () => {
@@ -171,7 +171,7 @@ test("the `onFirst` callback prop is called when the user clicks the `First` but
       totalRecords={100}
       pageSize={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   await user.click(screen.getByRole("button", { name: "First" }));
@@ -188,7 +188,7 @@ test("the `onPrevious` callback prop is called when the user clicks the `Previou
       totalRecords={100}
       pageSize={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   await user.click(screen.getByRole("button", { name: "Previous" }));
@@ -205,7 +205,7 @@ test("the `onNext` callback prop is called when the user clicks the `Next` butto
       totalRecords={100}
       pageSize={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   await user.click(screen.getByRole("button", { name: "Next" }));
@@ -222,7 +222,7 @@ test("the `onLast` callback prop is called when the user clicks the `Last` butto
       totalRecords={100}
       pageSize={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   await user.click(screen.getByRole("button", { name: "Last" }));
@@ -237,7 +237,7 @@ test("when the `pageSize` prop updates, the value of the page-size select is upd
       pageSize={10}
       showPageSizeSelection
       onPagination={() => {}}
-    />
+    />,
   );
   expect(screen.getByRole("combobox", { name: "Show" })).toHaveValue("10");
 
@@ -248,7 +248,7 @@ test("when the `pageSize` prop updates, the value of the page-size select is upd
       pageSize={25}
       showPageSizeSelection
       onPagination={() => {}}
-    />
+    />,
   );
   expect(screen.getByRole("combobox", { name: "Show" })).toHaveValue("25");
 });
@@ -261,7 +261,7 @@ test("if a page number is entered that is greater than the number of pages, it r
       totalRecords={100}
       pageSize={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   await user.type(screen.getByRole("textbox", { name: "Page" }), "1234");
@@ -277,7 +277,7 @@ test("if a page number is entered that is less than 1, it reverts to the first p
       totalRecords={100}
       pageSize={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   await user.type(screen.getByRole("textbox", { name: "Page" }), "-1234");
@@ -301,7 +301,7 @@ test("the page size select is not shown by default", () => {
   render(<Pager onPagination={() => {}} />);
 
   expect(
-    screen.queryByRole("combobox", { name: "Show" })
+    screen.queryByRole("combobox", { name: "Show" }),
   ).not.toBeInTheDocument();
 });
 
@@ -321,7 +321,7 @@ test("the text before the page size select is not shown when the `showPageSizeLa
       showPageSizeSelection
       showPageSizeLabelBefore={false}
       onPagination={() => {}}
-    />
+    />,
   );
 
   expect(screen.queryByText("Show")).not.toBeInTheDocument();
@@ -333,7 +333,7 @@ test("the text after the page size select is not shown when the `showPageSizeLab
       showPageSizeSelection
       showPageSizeLabelAfter={false}
       onPagination={() => {}}
-    />
+    />,
   );
 
   expect(screen.queryByText("items")).not.toBeInTheDocument();
@@ -345,7 +345,7 @@ test("does not render the total number of records 'showTotalRecords' is false", 
       showTotalRecords={false}
       totalRecords={100}
       onPagination={() => {}}
-    />
+    />,
   );
 
   expect(screen.queryByText("100 items")).not.toBeInTheDocument();
@@ -363,14 +363,14 @@ test.each([
         showPageSizeLabelBefore={showPageSizeLabelBefore}
         showPageSizeLabelAfter={showPageSizeLabelAfter}
         onPagination={() => {}}
-      />
+      />,
     );
 
     const pageSizeSelect = screen.getByRole("combobox");
 
     expect(pageSizeSelect).toHaveAccessibleName(labelText);
     expect(pageSizeSelect).not.toHaveAttribute("aria-label");
-  }
+  },
 );
 
 test("when both `showPageSizeLabelBefore` and `showPageSizeLabelAfter` are false, the select has an accessible name of 'show' via an aria-label", () => {
@@ -380,7 +380,7 @@ test("when both `showPageSizeLabelBefore` and `showPageSizeLabelAfter` are false
       showPageSizeLabelBefore={false}
       showPageSizeLabelAfter={false}
       onPagination={() => {}}
-    />
+    />,
   );
 
   const pageSizeSelect = screen.getByRole("combobox");
@@ -404,21 +404,21 @@ test.each([
         pageSize={10}
         totalRecords={100}
         onPagination={() => {}}
-      />
+      />,
     );
 
     await user.click(screen.getByRole("button", { name: buttonName }));
     expect(screen.getByRole("textbox", { name: "Page" })).toHaveValue(
-      pageResult
+      pageResult,
     );
-  }
+  },
 );
 
 test("renders the `show` text correctly in the French locale", () => {
   render(
     <I18nProvider locale={frFR}>
       <Pager showPageSizeSelection onPagination={() => {}} />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   expect(screen.queryByText("Show")).not.toBeInTheDocument();
@@ -430,7 +430,7 @@ test("renders the items count correctly in the French locale", () => {
   render(
     <I18nProvider locale={frFR}>
       <Pager totalRecords={100} onPagination={() => {}} />
-    </I18nProvider>
+    </I18nProvider>,
   );
 
   expect(screen.queryByText("100 items")).not.toBeInTheDocument();
@@ -482,6 +482,6 @@ test("renders with correct styles when `variant` is `alternate`", () => {
 
   expect(screen.getByTestId("pager")).toHaveStyleRule(
     "background-color",
-    "var(--colorsUtilityMajor040)"
+    "var(--colorsUtilityMajor040)",
   );
 });

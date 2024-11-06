@@ -205,7 +205,7 @@ export const WithObjectAsValue: Story = () => {
   ];
 
   const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues[4]
+    optionListValues[4],
   );
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -705,7 +705,7 @@ export const ValidationsStringNewDesign: Story = () => {
               <Option text="Yellow" value="11" />
             </Select>
           </Box>
-        ))
+        )),
       )}
     </CarbonProvider>
   );
@@ -856,9 +856,8 @@ export const SelectWithDynamicallyAddedOption: Story = () => {
 SelectWithDynamicallyAddedOption.storyName = "Dynamically Adding Options";
 
 export const ListWidth: Story = () => {
-  const [listPlacement, setListPlacement] = useState<
-    SimpleSelectProps["listPlacement"]
-  >("bottom-end");
+  const [listPlacement, setListPlacement] =
+    useState<SimpleSelectProps["listPlacement"]>("bottom-end");
   const [value, setValue] = useState("");
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setValue(ev.target.value);

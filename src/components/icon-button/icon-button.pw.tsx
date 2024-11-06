@@ -6,53 +6,50 @@ import { CHARACTERS } from "../../../playwright/support/constants";
 import { HooksConfig } from "../../../playwright";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
-test.describe(
-  "check IconButton component focus outlines and border radius",
-  () => {
-    test(`should have the expected styling when the focusRedesignOptOut is false`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<IconButtonComponent />);
+test.describe("check IconButton component focus outlines and border radius", () => {
+  test(`should have the expected styling when the focusRedesignOptOut is false`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<IconButtonComponent />);
 
-      await iconButton(page).focus();
-      await expect(iconButton(page)).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
-      );
+    await iconButton(page).focus();
+    await expect(iconButton(page)).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
 
-      await expect(iconButton(page)).toHaveCSS(
-        "outline",
-        "rgba(0, 0, 0, 0) solid 3px"
-      );
+    await expect(iconButton(page)).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
+  });
+
+  test(`should have the expected styling when the focusRedesignOptOut is true`, async ({
+    mount,
+    page,
+  }) => {
+    await mount<HooksConfig>(<IconButtonComponent />, {
+      hooksConfig: { focusRedesignOptOut: true },
     });
 
-    test(`should have the expected styling when the focusRedesignOptOut is true`, async ({
-      mount,
-      page,
-    }) => {
-      await mount<HooksConfig>(<IconButtonComponent />, {
-        hooksConfig: { focusRedesignOptOut: true },
-      });
+    await iconButton(page).focus();
+    await expect(iconButton(page)).toHaveCSS(
+      "outline",
+      "rgb(255, 188, 25) solid 3px",
+    );
+  });
 
-      await iconButton(page).focus();
-      await expect(iconButton(page)).toHaveCSS(
-        "outline",
-        "rgb(255, 188, 25) solid 3px"
-      );
-    });
+  test(`should render with the expected border radius`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<IconButtonComponent />);
 
-    test(`should render with the expected border radius`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<IconButtonComponent />);
-
-      await iconButton(page).focus();
-      await expect(iconButton(page)).toHaveCSS("border-radius", "4px");
-    });
-  }
-);
+    await iconButton(page).focus();
+    await expect(iconButton(page)).toHaveCSS("border-radius", "4px");
+  });
+});
 
 test.describe("check props for IconButton component", () => {
   test(`should render with aria-label prop`, async ({ mount, page }) => {
@@ -60,7 +57,7 @@ test.describe("check props for IconButton component", () => {
 
     await expect(iconButton(page)).toHaveAttribute(
       "aria-label",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
     await expect(iconButton(page)).toBeVisible();
   });
@@ -89,7 +86,7 @@ test.describe("check events for IconButton component", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await iconButton(page).focus();
@@ -107,7 +104,7 @@ test.describe("check events for IconButton component", () => {
         onFocus={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await iconButton(page).focus();
@@ -124,7 +121,7 @@ test.describe("check events for IconButton component", () => {
         onMouseEnter={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await iconButton(page).hover();
@@ -141,7 +138,7 @@ test.describe("check events for IconButton component", () => {
         onMouseLeave={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await iconButton(page).hover();
@@ -159,7 +156,7 @@ test.describe("check events for IconButton component", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
     await iconButton(page).click();
     expect(callbackCount).toBe(1);
@@ -176,7 +173,7 @@ test.describe("check events for IconButton component", () => {
           onClick={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       await iconButton(page).press(key);

@@ -8,8 +8,8 @@ import {
 import userEvent from "@testing-library/user-event";
 import { sageTheme } from "../../style/themes";
 import {
-  testStyledSystemPaddingRTL,
-  testStyledSystemWidthRTL,
+  testStyledSystemPadding,
+  testStyledSystemWidth,
 } from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
 
@@ -28,7 +28,7 @@ test("sidebar element has aria-modal attribute set to true", () => {
   render(
     <CarbonProvider>
       <Sidebar open header="My sidebar" />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "true");
@@ -38,7 +38,7 @@ test("sidebar has aria-modal attribute set to false when enableBackgroundUI is t
   render(
     <CarbonProvider>
       <Sidebar open header="My sidebar" enableBackgroundUI />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "false");
@@ -48,7 +48,7 @@ test("renders with header when prop is provided", () => {
   render(<Sidebar open header={<h1>My sidebar</h1>} />);
 
   expect(
-    screen.getByRole("heading", { level: 1, name: "My sidebar" })
+    screen.getByRole("heading", { level: 1, name: "My sidebar" }),
   ).toBeVisible();
 });
 
@@ -62,7 +62,7 @@ test("sidebar uses aria-labelledby prop as accessible name when passed", () => {
   render(
     <Sidebar open aria-labelledby="my-heading">
       <h1 id="my-heading">My sidebar</h1>
-    </Sidebar>
+    </Sidebar>,
   );
 
   expect(screen.getByRole("dialog")).toHaveAccessibleName("My sidebar");
@@ -78,11 +78,11 @@ test("sidebar uses aria-describedby prop as accessible description when passed",
   render(
     <Sidebar open header="My sidebar" aria-describedby="my-description">
       <p id="my-description">My shiny sidebar</p>
-    </Sidebar>
+    </Sidebar>,
   );
 
   expect(screen.getByRole("dialog")).toHaveAccessibleDescription(
-    "My shiny sidebar"
+    "My shiny sidebar",
   );
 });
 
@@ -113,7 +113,7 @@ describe("closing behaviour", () => {
     render(
       <CarbonProvider>
         <MockApp onCancel={onCancel} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     await user.click(screen.getByRole("button", { name: "Close" }));
@@ -128,7 +128,7 @@ describe("closing behaviour", () => {
     render(
       <CarbonProvider>
         <MockApp onCancel={onCancel} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     await user.keyboard("{Escape}");
@@ -143,7 +143,7 @@ describe("closing behaviour", () => {
     render(
       <CarbonProvider>
         <MockApp onCancel={onCancel} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     screen.getByRole("button", { name: "Close" }).focus();
@@ -159,7 +159,7 @@ describe("closing behaviour", () => {
     render(
       <CarbonProvider>
         <MockApp onCancel={onCancel} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     screen.getByRole("button", { name: "Close" }).focus();
@@ -175,7 +175,7 @@ describe("closing behaviour", () => {
     render(
       <CarbonProvider>
         <MockApp onCancel={onCancel} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     screen.getByRole("button", { name: "Close" }).focus();
@@ -190,7 +190,7 @@ describe("closing behaviour", () => {
     render(
       <CarbonProvider>
         <MockApp onCancel={() => {}} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     await user.click(screen.getByRole("button", { name: "Close" }));
@@ -208,7 +208,7 @@ test("focus is trapped within sidebar when opened", async () => {
         <button type="button">First</button>
         <button type="button">Second</button>
       </Sidebar>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const firstButton = screen.getByRole("button", { name: "First" });
   firstButton.focus();
@@ -230,7 +230,7 @@ test("focus is not trapped within sidebar when enableBackgroundUI is true", asyn
         <button type="button">First</button>
         <button type="button">Second</button>
       </Sidebar>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const firstButton = screen.getByRole("button", { name: "First" });
   firstButton.focus();
@@ -259,7 +259,7 @@ test("can refocus sidebar container using a forwarded ref", async () => {
   render(
     <CarbonProvider>
       <MockApp />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   await user.click(screen.getByRole("button", { name: "Refocus sidebar" }));
@@ -291,7 +291,7 @@ test("ensures overflowing content is scrollable", () => {
   expect(sidebarContent).toHaveStyle("overflow-y: auto");
 });
 
-testStyledSystemWidthRTL(
+testStyledSystemWidth(
   (props) => (
     <CarbonProvider theme={sageTheme}>
       <Sidebar open {...props}>
@@ -299,10 +299,10 @@ testStyledSystemWidthRTL(
       </Sidebar>
     </CarbonProvider>
   ),
-  () => screen.getByRole("dialog")
+  () => screen.getByRole("dialog"),
 );
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <CarbonProvider theme={sageTheme}>
       <Sidebar open {...props}>
@@ -315,5 +315,5 @@ testStyledSystemPaddingRTL(
 
     // the use of Portal means there is two instances of the sidebar content
     return sidebars[sidebars.length - 1];
-  }
+  },
 );

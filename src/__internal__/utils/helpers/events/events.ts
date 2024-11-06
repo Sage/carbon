@@ -23,7 +23,7 @@ const Events = {
    * Determines if event is a keyboard event
    */
   isKeyboardEvent: (
-    ev: React.SyntheticEvent | Event
+    ev: React.SyntheticEvent | Event,
   ): ev is React.KeyboardEvent | KeyboardEvent => {
     return ["keydown", "keypress", "keyup"].includes(ev.type);
   },
@@ -126,11 +126,7 @@ const Events = {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
    */
   composedPath: (ev: CustomEvent): EventTarget[] => {
-    return (
-      (ev.detail?.enzymeTestingTarget && composedPath(ev)) ||
-      (ev.composedPath && ev.composedPath()) ||
-      composedPath(ev)
-    );
+    return ev.composedPath?.() || composedPath(ev);
   },
 };
 

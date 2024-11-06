@@ -14,7 +14,7 @@ test("calls the `onClose` callback when the close button is clicked", async () =
   await user.click(closeButton);
 
   expect(onCloseMock).toHaveBeenCalledWith(
-    expect.objectContaining({ type: "click" })
+    expect.objectContaining({ type: "click" }),
   );
 });
 
@@ -26,7 +26,7 @@ test("allows custom data props to be assigned to the close button", () => {
         "data-element": "bang",
         "data-role": "wallop",
       }}
-    />
+    />,
   );
 
   const closeButton = screen.getByRole("button", { name: "Close" });
@@ -42,13 +42,13 @@ test("applies the expected styles when `variant` is dark", () => {
       onClose={() => {}}
       variant="dark"
       data-role="dismissible-box"
-    />
+    />,
   );
 
   const dismissibleBoxElement = screen.getByTestId("dismissible-box");
 
   expect(dismissibleBoxElement).toHaveStyleRule(
     "background-color",
-    "var(--colorsUtilityMajor050)"
+    "var(--colorsUtilityMajor050)",
   );
 });

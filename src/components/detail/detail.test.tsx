@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import Detail from ".";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders children", () => {
   render(<Detail>foo</Detail>);
@@ -13,7 +13,7 @@ test("renders with provided `footnote`", () => {
   render(<Detail footnote="extra info">foo</Detail>);
 
   const footnoteText = within(screen.getByTestId("footnote")).getByText(
-    "extra info"
+    "extra info",
   );
 
   expect(footnoteText).toBeVisible();
@@ -32,7 +32,7 @@ test("renders with provided data- tags", () => {
   render(
     <Detail data-element="bar" data-role="baz">
       foo
-    </Detail>
+    </Detail>,
   );
 
   expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
@@ -43,7 +43,7 @@ test("renders with expected styles when `icon` and `footnote` are passed", () =>
   render(
     <Detail icon="bin" footnote="extra info">
       foo
-    </Detail>
+    </Detail>,
   );
 
   const footnote = screen.getByTestId("footnote");
@@ -51,11 +51,11 @@ test("renders with expected styles when `icon` and `footnote` are passed", () =>
   expect(footnote).toHaveStyle("margin-left: 26px");
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <Detail data-role="detail" {...props}>
       foo
     </Detail>
   ),
-  () => screen.getByTestId("detail")
+  () => screen.getByTestId("detail"),
 );

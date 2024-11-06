@@ -7,7 +7,7 @@ import {
   waitFor,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemPaddingRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPadding } from "../../__spec_helper__/__internal__/test-utils";
 
 import PopoverContainer from "./popover-container.component";
 import { Select, Option } from "../select";
@@ -36,7 +36,7 @@ describe("open button", () => {
 
     expect(screen.getByRole("button")).toHaveAttribute(
       "aria-haspopup",
-      "dialog"
+      "dialog",
     );
   });
 
@@ -62,7 +62,7 @@ describe("open button", () => {
         )}
       >
         Ta da!
-      </PopoverContainer>
+      </PopoverContainer>,
     );
 
     expect(screen.getByRole("button")).toHaveTextContent("Custom Open Button");
@@ -78,7 +78,7 @@ describe("open button", () => {
         )}
       >
         Ta da!
-      </PopoverContainer>
+      </PopoverContainer>,
     );
 
     const openButton = screen.getByRole("button");
@@ -95,7 +95,7 @@ describe("open button", () => {
         )}
       >
         Ta da!
-      </PopoverContainer>
+      </PopoverContainer>,
     );
 
     const openButton = screen.getByRole("button");
@@ -107,7 +107,7 @@ test("popup has a title when title prop is passed", () => {
   render(
     <PopoverContainer title="Custom Title" open>
       Ta da!
-    </PopoverContainer>
+    </PopoverContainer>,
   );
 
   expect(screen.getByRole("dialog")).toHaveTextContent("Custom Title");
@@ -117,7 +117,7 @@ test("popup uses title prop as its correct accessible name when passed", () => {
   render(
     <PopoverContainer title="Custom Title" open>
       Ta da!
-    </PopoverContainer>
+    </PopoverContainer>,
   );
 
   expect(screen.getByRole("dialog")).toHaveAccessibleName("Custom Title");
@@ -127,7 +127,7 @@ test("popup uses containerAriaLabel prop as its correct accessible name when pas
   render(
     <PopoverContainer containerAriaLabel="Custom Label" open>
       Ta da!
-    </PopoverContainer>
+    </PopoverContainer>,
   );
 
   expect(screen.getByRole("dialog")).toHaveAccessibleName("Custom Label");
@@ -140,11 +140,11 @@ test("popup has correct accessible description when ariaDescribedBy prop is pass
       <PopoverContainer ariaDescribedBy="subtitle" open>
         Ta da!
       </PopoverContainer>
-    </>
+    </>,
   );
 
   expect(screen.getByRole("dialog")).toHaveAccessibleDescription(
-    "Custom Subtitle"
+    "Custom Subtitle",
   );
 });
 
@@ -152,12 +152,12 @@ test("popup title has correct data tag", () => {
   render(
     <PopoverContainer title="Custom Title" open>
       Ta da!
-    </PopoverContainer>
+    </PopoverContainer>,
   );
 
   expect(screen.getByText("Custom Title")).toHaveAttribute(
     "data-element",
-    "popover-container-title"
+    "popover-container-title",
   );
 });
 
@@ -166,7 +166,7 @@ describe("close button", () => {
     render(
       <PopoverContainer onClose={() => {}} open>
         Ta da!
-      </PopoverContainer>
+      </PopoverContainer>,
     );
 
     expect(screen.getByRole("button", { name: "close" })).toBeVisible();
@@ -183,11 +183,11 @@ describe("close button", () => {
         )}
       >
         Ta da!
-      </PopoverContainer>
+      </PopoverContainer>,
     );
 
     expect(
-      screen.getByRole("button", { name: "Custom Close Button" })
+      screen.getByRole("button", { name: "Custom Close Button" }),
     ).toBeVisible();
   });
 
@@ -201,16 +201,16 @@ describe("close button", () => {
         }}
       >
         Content
-      </PopoverContainer>
+      </PopoverContainer>,
     );
 
     expect(screen.getByRole("button", { name: "close" })).toHaveAttribute(
       "data-element",
-      "foo"
+      "foo",
     );
     expect(screen.getByRole("button", { name: "close" })).toHaveAttribute(
       "data-role",
-      "bar"
+      "bar",
     );
   });
 });
@@ -255,7 +255,7 @@ test("popup traps focus when shouldCoverButton prop is true", async () => {
   render(
     <PopoverContainer shouldCoverButton open onClose={() => {}}>
       Content
-    </PopoverContainer>
+    </PopoverContainer>,
   );
 
   const closeButton = screen.getByRole("button", { name: "close" });
@@ -271,7 +271,7 @@ test("popup allows outside focus when shouldCoverButton prop is false", async ()
   render(
     <PopoverContainer shouldCoverButton={false} open onClose={() => {}}>
       Content
-    </PopoverContainer>
+    </PopoverContainer>,
   );
 
   const closeButton = screen.getByRole("button", { name: "close" });
@@ -295,9 +295,9 @@ test.each([
 
     expect(await screen.findByRole("dialog")).toHaveAttribute(
       "data-floating-placement",
-      placement
+      placement,
     );
-  }
+  },
 );
 
 test("popup visibility is controllable via open prop", async () => {
@@ -429,7 +429,7 @@ describe("closing the popup", () => {
       <>
         <PopoverContainer onClose={() => {}}>Content</PopoverContainer>
         <p>Outside popup</p>
-      </>
+      </>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -473,7 +473,7 @@ describe("closing the popup", () => {
     render(
       <PopoverContainer openButtonAriaLabel="open popup" onClose={() => {}}>
         Content
-      </PopoverContainer>
+      </PopoverContainer>,
     );
 
     const openButton = screen.getByRole("button", { name: "open popup" });
@@ -493,7 +493,7 @@ describe("closing the popup", () => {
           <Option text="Amber" value="1" />
           <Option text="Black" value="2" />
         </Select>
-      </PopoverContainer>
+      </PopoverContainer>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -531,12 +531,12 @@ describe("closing the popup", () => {
   });
 });
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <PopoverContainer open title="My popup" {...props}>
       Ta da!
     </PopoverContainer>
   ),
   () => screen.getByRole("dialog"),
-  { p: "16px 24px" }
+  { p: "16px 24px" },
 );

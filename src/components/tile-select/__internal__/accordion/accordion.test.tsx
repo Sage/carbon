@@ -10,12 +10,12 @@ test("the expected styles are applied to the component", () => {
   render(<Accordion>Content</Accordion>);
 
   const contentContainer = screen.getByTestId(
-    "tile-select-accordion-content-container"
+    "tile-select-accordion-content-container",
   );
   const content = screen.getByTestId("tile-select-accordion-content");
 
   expect(contentContainer).toHaveStyleRule(
-    "backgroundColor: var(--colorsActionMinor050)"
+    "backgroundColor: var(--colorsActionMinor050)",
   );
   expect(content).toHaveStyle({
     padding: "24px",
@@ -42,7 +42,7 @@ test("resize observer recalculates the content height", () => {
   });
 
   const contentContainer = screen.getByTestId(
-    "tile-select-accordion-content-container"
+    "tile-select-accordion-content-container",
   );
 
   expect(contentContainer).toHaveStyle({

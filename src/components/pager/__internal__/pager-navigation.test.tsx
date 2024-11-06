@@ -14,7 +14,7 @@ test("the `onFirst` callback prop is not called on click if the link is disabled
       pageCount={10}
       setCurrentPage={() => {}}
       onPagination={() => {}}
-    />
+    />,
   );
 
   await user.click(screen.getByRole("button", { name: "First" }));
@@ -31,7 +31,7 @@ test("the `setCurrentPage` callback prop is called with the values a user enters
       pageSize={10}
       pageCount={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   await user.type(screen.getByRole("textbox", { name: "Page" }), "2");
@@ -52,7 +52,7 @@ test("the `setCurrentPage` callback prop is not called when a non-numeric value 
       pageSize={10}
       pageCount={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   await user.type(screen.getByRole("textbox", { name: "Page" }), "a");
@@ -69,7 +69,7 @@ test("if there are 0 pages, the `setCurrentPage` callback is called with 0 on bl
       pageSize={10}
       pageCount={0}
       onPagination={() => {}}
-    />
+    />,
   );
 
   await user.type(screen.getByRole("textbox", { name: "Page" }), "2");
@@ -86,11 +86,11 @@ test("when the `showPageCount` prop is false, the page count input is not render
       pageSize={10}
       pageCount={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   expect(
-    screen.queryByRole("textbox", { name: "Page" })
+    screen.queryByRole("textbox", { name: "Page" }),
   ).not.toBeInTheDocument();
 });
 
@@ -103,14 +103,14 @@ test("when the `showFirstAndLastButtons` prop is false, neither the `first` or `
       pageSize={10}
       pageCount={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   expect(
-    screen.queryByRole("button", { name: "First" })
+    screen.queryByRole("button", { name: "First" }),
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByRole("button", { name: "Last" })
+    screen.queryByRole("button", { name: "Last" }),
   ).not.toBeInTheDocument();
 });
 
@@ -123,13 +123,13 @@ test("when the `showPreviousAndNextButtons` prop is false, neither the `previous
       pageSize={10}
       pageCount={10}
       onPagination={() => {}}
-    />
+    />,
   );
 
   expect(
-    screen.queryByRole("button", { name: "Previous" })
+    screen.queryByRole("button", { name: "Previous" }),
   ).not.toBeInTheDocument();
   expect(
-    screen.queryByRole("button", { name: "Next" })
+    screen.queryByRole("button", { name: "Next" }),
   ).not.toBeInTheDocument();
 });

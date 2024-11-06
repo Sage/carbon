@@ -11,7 +11,7 @@ const styledSystemProps = generateStyledSystemProps(
   {
     spacing: true,
   },
-  { py: 1, px: 3 }
+  { py: 1, px: 3 },
 );
 
 const meta: Meta<typeof FlatTableHeader> = {

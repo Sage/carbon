@@ -75,10 +75,8 @@ export const AdvancedColorPicker = ({
 }: AdvancedColorPickerProps) => {
   const [dialogOpen, setDialogOpen] = useState<boolean>();
   const currentColor = selectedColor || defaultColor;
-  const [
-    selectedColorRef,
-    setSelectedColorRef,
-  ] = useState<HTMLInputElement | null>(null);
+  const [selectedColorRef, setSelectedColorRef] =
+    useState<HTMLInputElement | null>(null);
 
   const descriptionId = useRef(guid());
   const l = useLocale();
@@ -102,7 +100,7 @@ export const AdvancedColorPicker = ({
 
   const currentSelectedColor = () => {
     const returnedColor = availableColors.find(
-      (color) => color.value === currentColor
+      (color) => color.value === currentColor,
     )?.label as string;
 
     return returnedColor || currentColor;
@@ -137,7 +135,7 @@ export const AdvancedColorPicker = ({
         }
       }
     },
-    [selectedColorRef]
+    [selectedColorRef],
   );
 
   const handleOnOpen = useCallback(
@@ -148,7 +146,7 @@ export const AdvancedColorPicker = ({
         onOpen(e);
       }
     },
-    [onOpen]
+    [onOpen],
   );
 
   const handleOnClose = useCallback(
@@ -159,7 +157,7 @@ export const AdvancedColorPicker = ({
         onClose(e);
       }
     },
-    [onClose]
+    [onClose],
   );
 
   const handleOnChange = useCallback(
@@ -176,7 +174,7 @@ export const AdvancedColorPicker = ({
         onChange(e);
       }
     },
-    [onChange, colors]
+    [onChange, colors],
   );
 
   const handleOnKeyDown = useCallback(
@@ -186,7 +184,7 @@ export const AdvancedColorPicker = ({
         handleOnOpen(e);
       }
     },
-    [handleOnOpen]
+    [handleOnOpen],
   );
 
   const handleColorOnKeyDown = useCallback(
@@ -196,7 +194,7 @@ export const AdvancedColorPicker = ({
         handleOnClose(e);
       }
     },
-    [handleOnClose]
+    [handleOnClose],
   );
 
   const handleOnBlur = useCallback(
@@ -205,13 +203,13 @@ export const AdvancedColorPicker = ({
         onBlur(e);
       }
     },
-    [onBlur]
+    [onBlur],
   );
 
   if (!deprecateUncontrolledWarnTriggered && !onChange) {
     deprecateUncontrolledWarnTriggered = true;
     Logger.deprecate(
-      "Uncontrolled behaviour in `Advanced Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      "Uncontrolled behaviour in `Advanced Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
     );
   }
 
@@ -236,7 +234,7 @@ export const AdvancedColorPicker = ({
       >
         <Dt>
           {l.advancedColorPicker.currentColorDescriptionTerm(
-            currentSelectedColor()
+            currentSelectedColor(),
           )}
         </Dt>
         <Dd>

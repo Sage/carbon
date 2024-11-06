@@ -45,7 +45,7 @@ export interface SubmenuProps {
   onKeyDown?: (
     event:
       | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** set the colour variant for a menuType */
   variant?: VariantType;
@@ -67,7 +67,7 @@ export interface SubmenuProps {
   onClick?: (
     event:
       | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Accessible label for when no text children are passed to menu item */
   ariaLabel?: string;
@@ -99,28 +99,22 @@ const Submenu = React.forwardRef<
       submenuMaxWidth,
       ...rest
     }: SubmenuProps,
-    ref
+    ref,
   ) => {
     const [submenuRef, setSubmenuRef] = useState<
       HTMLUListElement | HTMLDivElement | null
     >(null);
     const submenuId = useRef(guid());
     const menuContext = useContext(MenuContext);
-    const {
-      inFullscreenView,
-      openSubmenuId,
-      setOpenSubmenuId,
-      menuType,
-    } = menuContext;
+    const { inFullscreenView, openSubmenuId, setOpenSubmenuId, menuType } =
+      menuContext;
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusId, setSubmenuFocusId] = useState<string | null>(null);
     const [submenuItemIds, setSubmenuItemIds] = useState<(string | null)[]>([]);
     const [characterString, setCharacterString] = useState("");
     const [applyFocusRadius, setApplyFocusRadius] = useState<boolean>(false);
-    const [
-      applyFocusRadiusToLastItem,
-      setApplyFocusRadiusToLastItem,
-    ] = useState<boolean>(false);
+    const [applyFocusRadiusToLastItem, setApplyFocusRadiusToLastItem] =
+      useState<boolean>(false);
     const shiftTabPressed = useRef(false);
     const focusFirstMenuItemOnOpen = useRef(false);
 
@@ -137,7 +131,7 @@ const Submenu = React.forwardRef<
         const childrenArray = Array.from(items);
 
         const scrollableBlock = submenuRef?.querySelector(
-          `[data-component='${SCROLLABLE_BLOCK}']`
+          `[data-component='${SCROLLABLE_BLOCK}']`,
         );
 
         const index = scrollableBlock
@@ -145,7 +139,7 @@ const Submenu = React.forwardRef<
           : -1;
 
         return scrollableBlock?.querySelector(
-          `[data-component='${SCROLLABLE_BLOCK_PARENT}']`
+          `[data-component='${SCROLLABLE_BLOCK_PARENT}']`,
         )
           ? index + 1
           : index;
@@ -190,7 +184,7 @@ const Submenu = React.forwardRef<
         // Finds all ul elements that are not submenus
         const ulElements = Array.from(
           submenuRef?.querySelectorAll("ul:not([data-component='submenu'])") ||
-            /* istanbul ignore next */ []
+            /* istanbul ignore next */ [],
         );
 
         // Terminate early if there are no ul elements as we have nothing we need to apply styles to.
@@ -199,7 +193,7 @@ const Submenu = React.forwardRef<
         // Get the last menu item in the submenu
         const lastMenuItem = Array.from(
           submenuRef?.querySelectorAll("[data-component='menu-item']") ||
-            /* istanbul ignore next */ []
+            /* istanbul ignore next */ [],
         ).pop();
 
         lastMenuItemElement.current = lastMenuItem;
@@ -210,13 +204,13 @@ const Submenu = React.forwardRef<
         // Check if the last segment block is a scrollable block
         const isLastSegmentBlockScrollableBlock = Boolean(
           lastSegmentBlock?.parentElement?.dataset.component ===
-            SCROLLABLE_BLOCK
+            SCROLLABLE_BLOCK,
         );
 
         // Get all the menu items from the last segment block
         const segmentBlockMenuItems = Array.from(
           lastSegmentBlock?.querySelectorAll("[data-component='menu-item']") ||
-            /* istanbul ignore next */ []
+            /* istanbul ignore next */ [],
         );
 
         // Get the last menu item in the last segment block
@@ -243,7 +237,7 @@ const Submenu = React.forwardRef<
           (menuItemsMatch && !isLastSegmentBlockScrollableBlock) ||
             (menuItemsMatch &&
               isLastSegmentBlockScrollableBlock &&
-              !isLastMenuItemInSegmentBlockVisible)
+              !isLastMenuItemInSegmentBlockVisible),
         );
       };
 
@@ -280,7 +274,7 @@ const Submenu = React.forwardRef<
 
         return index;
       },
-      [submenuItemIds]
+      [submenuItemIds],
     );
 
     const handleKeyDown = useCallback(
@@ -390,7 +384,7 @@ const Submenu = React.forwardRef<
             (p) =>
               (p as HTMLElement).getAttribute("data-element") === "input" ||
               (p as HTMLElement).getAttribute("data-element") ===
-                "input-icon-toggle"
+                "input-icon-toggle",
           );
 
           if (!eventIsFromInput) {
@@ -419,7 +413,7 @@ const Submenu = React.forwardRef<
         characterString,
         restartCharacterTimeout,
         startCharacterTimeout,
-      ]
+      ],
     );
 
     useEffect(() => {
@@ -430,7 +424,7 @@ const Submenu = React.forwardRef<
         /* istanbul ignore else */
         if (items) {
           setSubmenuItemIds(
-            Array.from(items).map((item) => item.getAttribute("id"))
+            Array.from(items).map((item) => item.getAttribute("id")),
           );
         }
       }
@@ -580,7 +574,7 @@ const Submenu = React.forwardRef<
         )}
       </StyledSubmenuWrapper>
     );
-  }
+  },
 );
 
 Submenu.displayName = "submenu";

@@ -8,7 +8,7 @@ const guid = "guid-12345";
 jest.mock("../../../__internal__/utils/helpers/guid");
 
 (createGuid as jest.MockedFunction<typeof createGuid>).mockImplementation(
-  () => guid
+  () => guid,
 );
 
 interface Props {

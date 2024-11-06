@@ -7,7 +7,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 
 jest.mock("../../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345"
+  () => "guid-12345",
 );
 
 test("should stop propagation when the user clicks on the input element", async () => {
@@ -21,7 +21,7 @@ test("should stop propagation when the user clicks on the input element", async 
           <FlatTableCheckbox onChange={() => {}} onClick={childOnClick} />
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   await user.click(screen.getByRole("checkbox"));
@@ -40,7 +40,7 @@ test("should stop propagation when the user presses a key that is not up or down
           <FlatTableCheckbox onChange={() => {}} />
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   screen.getByRole("checkbox").focus();
@@ -59,7 +59,7 @@ test("should not stop propagation when the user presses down arrow key", async (
           <FlatTableCheckbox onChange={() => {}} />
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   screen.getByRole("checkbox").focus();
@@ -78,7 +78,7 @@ test("should not stop propagation when the user presses up arrow key", async () 
           <FlatTableCheckbox onChange={() => {}} />
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   screen.getByRole("checkbox").focus();
@@ -95,13 +95,13 @@ test("should render a 'td' element by default and have the expected data-element
           <FlatTableCheckbox onChange={() => {}} />
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
   const checkboxCell = screen.getByRole("cell");
 
   expect(checkboxCell).toHaveAttribute(
     "data-element",
-    "flat-table-checkbox-cell"
+    "flat-table-checkbox-cell",
   );
 });
 
@@ -113,13 +113,13 @@ test("should render an element to match the `as` prop value when it is set and h
           <FlatTableCheckbox onChange={() => {}} as="th" />
         </tr>
       </thead>
-    </table>
+    </table>,
   );
   const checkboxCell = screen.getByRole("columnheader");
 
   expect(checkboxCell).toHaveAttribute(
     "data-element",
-    "flat-table-checkbox-header"
+    "flat-table-checkbox-header",
   );
 });
 
@@ -131,7 +131,7 @@ test("should not render the checkbox when the selectable prop is false", () => {
           <FlatTableCheckbox onChange={() => {}} selectable={false} />
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
 
   expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
@@ -149,14 +149,14 @@ test("should render the component with the expeced `data-attributes`", () => {
           />
         </tr>
       </tbody>
-    </table>
+    </table>,
   );
   const checkboxCell = screen.getByRole("cell");
 
   expect(checkboxCell).toHaveAttribute("data-component", "flat-table-checkbox");
   expect(checkboxCell).toHaveAttribute(
     "data-element",
-    "overridden-data-element"
+    "overridden-data-element",
   );
   expect(checkboxCell).toHaveAttribute("data-role", "ft-checkbox");
 });

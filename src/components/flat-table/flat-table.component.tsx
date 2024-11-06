@@ -106,12 +106,8 @@ export const FlatTable = ({
     /* istanbul ignore else */
     if (wrapperRef.current && tableRef.current) {
       const { offsetHeight, offsetWidth } = wrapperRef.current;
-      const {
-        top,
-        bottom,
-        right,
-        left,
-      } = tableRef.current?.getBoundingClientRect();
+      const { top, bottom, right, left } =
+        tableRef.current?.getBoundingClientRect();
       setHasVerticalScrollbar(bottom - top > offsetHeight);
       setHasHorizontalScrollbar(right - left > offsetWidth);
 
@@ -122,19 +118,19 @@ export const FlatTable = ({
       const { length } = bodyRows;
       const targetRowFirstCol = findRow(
         bodyRows.slice(0, length - 1).reverse(),
-        true
+        true,
       );
       const targetRowLastCol = findRow(bodyRows.slice(0, length - 1).reverse());
 
       if (targetRowFirstCol) {
         setFirstColRowSpanIndex(
-          bodyRows.indexOf(targetRowFirstCol as HTMLTableRowElement)
+          bodyRows.indexOf(targetRowFirstCol as HTMLTableRowElement),
         );
       }
 
       if (targetRowLastCol) {
         setLastColRowSpanIndex(
-          bodyRows.indexOf(targetRowLastCol as HTMLTableRowElement)
+          bodyRows.indexOf(targetRowLastCol as HTMLTableRowElement),
         );
       }
     }
@@ -143,7 +139,7 @@ export const FlatTable = ({
   const findParentIndexOfFocusedChild = (array: Element[]) =>
     array.findIndex((el) => {
       const focusableRowElements = el.querySelectorAll(
-        "button, input, a, [tabindex]"
+        "button, input, a, [tabindex]",
       );
 
       /* istanbul ignore else */
@@ -152,7 +148,7 @@ export const FlatTable = ({
 
         if (
           focusableRowElementsArray.find(
-            (el2) => el2 === document.activeElement
+            (el2) => el2 === document.activeElement,
           )
         ) {
           return true;
@@ -164,11 +160,11 @@ export const FlatTable = ({
 
   const handleKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
     const focusableElements = tableRef.current?.querySelectorAll(
-      FOCUSABLE_ROW_AND_CELL_QUERY
+      FOCUSABLE_ROW_AND_CELL_QUERY,
     );
 
     const focusableElementsArray = Array.from(
-      focusableElements || /* istanbul ignore next */ []
+      focusableElements || /* istanbul ignore next */ [],
     );
 
     /* istanbul ignore if */
@@ -177,7 +173,7 @@ export const FlatTable = ({
     }
 
     const currentFocusIndex = focusableElementsArray.findIndex(
-      (el) => el === document.activeElement
+      (el) => el === document.activeElement,
     );
 
     if (Events.isDownKey(ev)) {
@@ -214,7 +210,7 @@ export const FlatTable = ({
   const getTabStopElementId = () => {
     const focusableElements = Array.from(
       tableRef.current?.querySelectorAll(FOCUSABLE_ROW_AND_CELL_QUERY) ||
-        /* istanbul ignore next */ []
+        /* istanbul ignore next */ [],
     );
 
     // if no other row is selected/ highlighted, we need to make the first row/ cell a tab stop
@@ -222,7 +218,7 @@ export const FlatTable = ({
       focusableElements.find(
         (el) =>
           el.getAttribute("data-selected") === "true" ||
-          el.getAttribute("data-highlighted") === "true"
+          el.getAttribute("data-highlighted") === "true",
       ) || focusableElements[0];
     const currentlySelectedId = focusableElement?.getAttribute("id") || "";
 

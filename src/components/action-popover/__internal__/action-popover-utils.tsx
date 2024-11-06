@@ -5,10 +5,10 @@ import { ActionPopoverItem } from "../action-popover-item/action-popover-item.co
 type ReactItem = React.ReactChild | React.ReactFragment | React.ReactPortal;
 
 export const getItems = (
-  children: React.ReactNode | React.ReactNode[]
+  children: React.ReactNode | React.ReactNode[],
 ): ReactItem[] =>
   React.Children.toArray(children).filter(
-    (child) => React.isValidElement(child) && child.type === ActionPopoverItem
+    (child) => React.isValidElement(child) && child.type === ActionPopoverItem,
   );
 
 export const isItemDisabled = (item: ReactItem) =>

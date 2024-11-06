@@ -12,7 +12,7 @@ test("when `status` is uploading, the component renders the provided status mess
       onAction={() => {}}
       progress={30}
       message="my status message"
-    />
+    />,
   );
 
   expect(screen.getByText("my status message")).toBeVisible();
@@ -25,7 +25,7 @@ test("when `status` is uploading, the component renders the default status messa
       filename="foo.pdf"
       onAction={() => {}}
       progress={30}
-    />
+    />,
   );
 
   expect(screen.getByText("File upload status")).toBeVisible();
@@ -40,7 +40,7 @@ test("when `status` is uploading, the component renders a button with the cancel
       filename="foo.pdf"
       onAction={onAction}
       progress={30}
-    />
+    />,
   );
 
   const actionButton = screen.getByRole("button", {
@@ -58,12 +58,12 @@ test("when `status` is uploading, the component renders the file name, but not a
       filename="foo.pdf"
       onAction={() => {}}
       progress={30}
-    />
+    />,
   );
 
   expect(screen.getByText("foo.pdf")).toBeVisible();
   expect(
-    screen.queryByRole("link", { name: "foo.pdf" })
+    screen.queryByRole("link", { name: "foo.pdf" }),
   ).not.toBeInTheDocument();
 });
 
@@ -74,7 +74,7 @@ test("when `status` is uploading, the component renders a progress tracker bar w
       filename="foo.pdf"
       onAction={() => {}}
       progress={30}
-    />
+    />,
   );
 
   expect(screen.getByTestId("progress-tracker-bar")).toBeVisible();
@@ -87,7 +87,7 @@ test("when `status` is uploading, the component renders a loader bar if the prog
       status="uploading"
       filename="foo.pdf"
       onAction={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByRole("progressbar")).toBeVisible();
@@ -101,7 +101,7 @@ test("when `status` is completed, the component renders the provided status mess
       href="http://carbon.sage.com"
       onAction={() => {}}
       message="my status message"
-    />
+    />,
   );
 
   expect(screen.getByText("my status message")).toBeVisible();
@@ -114,7 +114,7 @@ test("when `status` is completed, the component renders the default status messa
       filename="foo.pdf"
       href="http://carbon.sage.com"
       onAction={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByText("File upload status")).toBeVisible();
@@ -129,7 +129,7 @@ test("when `status` is completed, the component renders a button with the delete
       filename="foo.pdf"
       href="http://carbon.sage.com"
       onAction={onAction}
-    />
+    />,
   );
 
   const actionButton = screen.getByRole("button", { name: "Delete file" });
@@ -147,7 +147,7 @@ test("when `status` is completed, the component renders the file name as a link 
       target="_blank"
       rel="noreferrer"
       onAction={() => {}}
-    />
+    />,
   );
 
   const link = screen.queryByRole("link", { name: "foo.pdf" });
@@ -165,7 +165,7 @@ test("when `status` is completed, the component does not render a progress bar",
       filename="foo.pdf"
       href="http://carbon.sage.com"
       onAction={() => {}}
-    />
+    />,
   );
 
   expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
@@ -179,7 +179,7 @@ test("when `status` is previously, the component does not render a status messag
       href="http://carbon.sage.com"
       onAction={() => {}}
       message="my status message"
-    />
+    />,
   );
 
   expect(screen.queryByText("my status message")).not.toBeInTheDocument();
@@ -194,7 +194,7 @@ test("when `status` is previously, the component renders the file name as a link
       target="_blank"
       rel="noreferrer"
       onAction={() => {}}
-    />
+    />,
   );
 
   const link = screen.queryByRole("link", { name: "foo.pdf" });
@@ -214,7 +214,7 @@ test("when `status` is previously, the component renders a button with the delet
       filename="foo.pdf"
       href="http://carbon.sage.com"
       onAction={onAction}
-    />
+    />,
   );
 
   const actionButton = screen.getByRole("button", { name: "Delete file" });
@@ -230,7 +230,7 @@ test("when `status` is previously, the component does not render a progress bar"
       filename="foo.pdf"
       href="http://carbon.sage.com"
       onAction={() => {}}
-    />
+    />,
   );
 
   expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
@@ -243,7 +243,7 @@ test("when `status` is error, the component renders the provided status message"
       filename="foo.pdf"
       onAction={() => {}}
       message="my status message"
-    />
+    />,
   );
 
   expect(screen.getByText("my status message")).toBeVisible();
@@ -251,7 +251,7 @@ test("when `status` is error, the component renders the provided status message"
 
 test("when `status` is error, the component renders the default status message if none is provided", () => {
   render(
-    <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />
+    <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />,
   );
 
   expect(screen.getByText("File upload status")).toBeVisible();
@@ -266,7 +266,7 @@ test("when `status` is error, the component renders a button with the clear text
       filename="foo.pdf"
       onAction={onAction}
       message="my status message"
-    />
+    />,
   );
 
   const actionButton = screen.getByRole("button", { name: "Clear" });
@@ -277,18 +277,18 @@ test("when `status` is error, the component renders a button with the clear text
 
 test("when `status` is error, the component renders the file name, but not as a link", () => {
   render(
-    <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />
+    <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />,
   );
 
   expect(screen.getByText("foo.pdf")).toBeVisible();
   expect(
-    screen.queryByRole("link", { name: "foo.pdf" })
+    screen.queryByRole("link", { name: "foo.pdf" }),
   ).not.toBeInTheDocument();
 });
 
 test("when `status` is error, the component does not render a progress bar", () => {
   render(
-    <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />
+    <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />,
   );
 
   expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();

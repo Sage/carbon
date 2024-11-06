@@ -24,7 +24,7 @@ const styledSystemProps = generateStyledSystemProps(
     "overflowX",
     "overflow",
     "verticalAlign",
-  ]
+  ],
 );
 
 const meta: Meta<typeof MenuItem> = {

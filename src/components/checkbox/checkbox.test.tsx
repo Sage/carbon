@@ -6,7 +6,7 @@ import { Checkbox } from ".";
 import CarbonProvider from "../carbon-provider";
 import {
   mockMatchMedia,
-  testStyledSystemMarginRTL,
+  testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should display a deprecation warning for uncontrolled behaviour which is triggered only once", () => {
@@ -16,7 +16,7 @@ test("should display a deprecation warning for uncontrolled behaviour which is t
   render(<Checkbox />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Checkbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Checkbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
   loggerSpy.mockRestore();
@@ -92,7 +92,7 @@ test("should render with provided aria-labelledby", () => {
 
   expect(screen.getByRole("checkbox")).toHaveAttribute(
     "aria-labelledby",
-    "labelId"
+    "labelId",
   );
 });
 
@@ -104,7 +104,7 @@ test("should render tooltip with provided labelHelp and helpAriaLabel", async ()
       labelHelp="labelHelp"
       helpAriaLabel="helpAriaLabel"
       onChange={() => {}}
-    />
+    />,
   );
 
   const helpTooltip = screen.getByRole("button");
@@ -133,7 +133,7 @@ test("should append the validation tooltip to the input's accessible description
       onChange={() => {}}
       fieldHelp="fieldHelp"
       error="error"
-    />
+    />,
   );
 
   const checkbox = screen.getByRole("checkbox");
@@ -157,7 +157,7 @@ test("should append (optional) text on the label when isOptional prop is set", (
     '"(optional)"',
     {
       modifier: "::after",
-    }
+    },
   );
 });
 
@@ -180,7 +180,7 @@ test("should render fieldHelp with expected styles when inputWidth is set", () =
       fieldHelp="fieldHelp"
       onChange={() => {}}
       inputWidth={50}
-    />
+    />,
   );
 
   expect(screen.getByText("fieldHelp")).toHaveStyle({
@@ -196,7 +196,7 @@ test("should render fieldHelp with expected styles when inputWidth is set and re
       onChange={() => {}}
       inputWidth={50}
       reverse
-    />
+    />,
   );
 
   expect(screen.getByText("fieldHelp")).toHaveStyle({
@@ -211,7 +211,7 @@ test("should render fieldHelp with expected styles when labelSpacing is 2", () =
       fieldHelp="fieldHelp"
       onChange={() => {}}
       labelSpacing={2}
-    />
+    />,
   );
 
   expect(screen.getByText("fieldHelp")).toHaveStyle({
@@ -226,7 +226,7 @@ test("should render with expected styles when fieldHelpInline is true", () => {
       fieldHelp="fieldHelp"
       onChange={() => {}}
       fieldHelpInline
-    />
+    />,
   );
 
   expect(screen.getByText("label")).toHaveStyle({ flex: "0 1 auto" });
@@ -241,7 +241,7 @@ test("should render with expected styles when fieldHelpInline is true and revers
       onChange={() => {}}
       fieldHelpInline
       reverse
-    />
+    />,
   );
 
   expect(screen.getByText("fieldHelp")).toHaveStyle({ paddingLeft: "6px" });
@@ -254,7 +254,7 @@ test("should render with expected styles when size is large", () => {
       fieldHelp="fieldHelp"
       onChange={() => {}}
       size="large"
-    />
+    />,
   );
 
   expect(screen.getByText("fieldHelp")).toHaveStyle({ marginLeft: "24px" });
@@ -273,7 +273,7 @@ test("should render with expected styles when size is large and fieldHelpInline 
       onChange={() => {}}
       size="large"
       fieldHelpInline
-    />
+    />,
   );
 
   expect(screen.getByTestId("label-container")).toHaveStyle({
@@ -288,7 +288,7 @@ test("should render checkbox svg with expected styles when validation props are 
       <Checkbox label="label-1" onChange={() => {}} error />
       <Checkbox label="label-2" onChange={() => {}} warning />
       <Checkbox label="label-3" onChange={() => {}} info />
-    </>
+    </>,
   );
 
   const checkboxes = screen.getAllByTestId("checkable-svg");
@@ -308,7 +308,7 @@ test("should render checkbox svg with expected styles when validationRedesignOpt
     <CarbonProvider validationRedesignOptIn>
       <Checkbox label="label-1" onChange={() => {}} warning />
       <Checkbox label="label-2" onChange={() => {}} info />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const checkboxes = screen.getAllByTestId("checkable-svg");
@@ -329,7 +329,7 @@ test("should render with expected styles when adaptiveSpacingBreakpoint set and 
       onChange={() => {}}
       adaptiveSpacingBreakpoint={1000}
       ml="10%"
-    />
+    />,
   );
 
   expect(screen.getByTestId("checkbox-1")).toHaveStyle({ marginLeft: "0" });
@@ -344,13 +344,13 @@ test("should render with expected styles when adaptiveSpacingBreakpoint set and 
       onChange={() => {}}
       adaptiveSpacingBreakpoint={1000}
       ml="10%"
-    />
+    />,
   );
 
   expect(screen.getByTestId("checkbox-1")).toHaveStyle({ marginLeft: "10%" });
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <Checkbox
       label="label"
@@ -359,5 +359,5 @@ testStyledSystemMarginRTL(
       {...props}
     />
   ),
-  () => screen.getByTestId("checkbox-1")
+  () => screen.getByTestId("checkbox-1"),
 );

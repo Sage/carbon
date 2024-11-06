@@ -40,14 +40,14 @@ export const DefaultStory = ({
   const [pageIndex, setPageIndex] = useState(Number(initialPageIndex) || 0);
   const [isDisabled, setIsDisabled] = useState(false);
   const handleCancel = (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
   ) => {
     setIsOpen(false);
     setPageIndex(0);
     action("cancel")(ev);
   };
   const handleOpen = (
-    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
     setIsOpen(true);
     if (!initialPageIndex) {
@@ -56,7 +56,7 @@ export const DefaultStory = ({
     action("open")(event);
   };
   const handleOnClick = (
-    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
     setIsDisabled(true);
     setPageIndex(pageIndex + 1);
@@ -71,7 +71,7 @@ export const DefaultStory = ({
       | React.MouseEvent<HTMLAnchorElement>
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => {
     setIsDisabled(true);
     setTimeout(() => {

@@ -3,13 +3,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pod from ".";
 import Typography from "../typography";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders with `title` as a string", () => {
   render(<Pod title="Title" />);
 
   expect(
-    screen.getByRole("heading", { name: "Title", level: 4 })
+    screen.getByRole("heading", { name: "Title", level: 4 }),
   ).toBeVisible();
 });
 
@@ -17,7 +17,7 @@ test("renders with `title` as a node", () => {
   render(<Pod title={<Typography variant="h1">Title</Typography>} />);
 
   expect(
-    screen.getByRole("heading", { name: "Title", level: 1 })
+    screen.getByRole("heading", { name: "Title", level: 1 }),
   ).toBeVisible();
 });
 
@@ -25,7 +25,7 @@ test("renders with `subtitle` as a string", () => {
   render(<Pod title="Title" subtitle="Subtitle" />);
 
   expect(
-    screen.getByRole("heading", { name: "Subtitle", level: 5 })
+    screen.getByRole("heading", { name: "Subtitle", level: 5 }),
   ).toBeVisible();
 });
 
@@ -34,11 +34,11 @@ test("renders with `subtitle` as a node", () => {
     <Pod
       title="Title"
       subtitle={<Typography variant="h1">Subtitle</Typography>}
-    />
+    />,
   );
 
   expect(
-    screen.getByRole("heading", { name: "Subtitle", level: 1 })
+    screen.getByRole("heading", { name: "Subtitle", level: 1 }),
   ).toBeVisible();
 });
 
@@ -52,7 +52,7 @@ test("renders with children", () => {
   render(
     <Pod title="Title">
       <Typography variant="h1">Children</Typography>
-    </Pod>
+    </Pod>,
   );
 
   expect(screen.getByText("Children")).toBeVisible();
@@ -69,7 +69,7 @@ test("renders edit button when `displayEditButtonOnHover` is true and pod is hov
   render(<Pod title="Title" onEdit={() => {}} displayEditButtonOnHover />);
 
   expect(
-    screen.queryByRole("button", { name: "Edit" })
+    screen.queryByRole("button", { name: "Edit" }),
   ).not.toBeInTheDocument();
 
   await user.hover(screen.getByTestId("pod-block"));
@@ -235,12 +235,12 @@ test("renders content with focus border when edit button is focused and removes 
 
   const content = screen.getByTestId("pod-block");
   expect(content).toHaveStyleRule(
-    "border: 3px solid var(--colorsSemanticFocus500)"
+    "border: 3px solid var(--colorsSemanticFocus500)",
   );
 
   editButton.blur();
   expect(content).not.toHaveStyleRule(
-    "border: 3px solid var(--colorsSemanticFocus500)"
+    "border: 3px solid var(--colorsSemanticFocus500)",
   );
 });
 
@@ -253,12 +253,12 @@ test("renders content with focus border when delete button is focused and remove
 
   const content = screen.getByTestId("pod-block");
   expect(content).toHaveStyleRule(
-    "border: 3px solid var(--colorsSemanticFocus500)"
+    "border: 3px solid var(--colorsSemanticFocus500)",
   );
 
   deleteButton.blur();
   expect(content).not.toHaveStyleRule(
-    "border: 3px solid var(--colorsSemanticFocus500)"
+    "border: 3px solid var(--colorsSemanticFocus500)",
   );
 });
 
@@ -271,12 +271,12 @@ test("renders content with focus border when undo button is focused and removes 
 
   const content = screen.getByTestId("pod-block");
   expect(content).toHaveStyleRule(
-    "border: 3px solid var(--colorsSemanticFocus500)"
+    "border: 3px solid var(--colorsSemanticFocus500)",
   );
 
   undoButton.blur();
   expect(content).not.toHaveStyleRule(
-    "border: 3px solid var(--colorsSemanticFocus500)"
+    "border: 3px solid var(--colorsSemanticFocus500)",
   );
 });
 
@@ -379,7 +379,7 @@ test("renders with expected styles when `internalEditButton` is true", () => {
       onEdit={() => {}}
       onDelete={() => {}}
       internalEditButton
-    />
+    />,
   );
 
   const buttonContainer = screen.getByTestId("action-button-container");
@@ -393,13 +393,13 @@ test("renders with expected styles when `internalEditButton` is true", () => {
   const editButton = screen.getByRole("button", { name: "Edit" });
   expect(editButton).toHaveStyle({ border: "none" });
   expect(editButton).toHaveStyleRule(
-    "background: var(--colorsActionMajorTransparent)"
+    "background: var(--colorsActionMajorTransparent)",
   );
 
   const deleteButton = screen.queryByRole("button", { name: "Delete" });
   expect(deleteButton).toHaveStyle({ border: "none" });
   expect(deleteButton).toHaveStyleRule(
-    "background: var(--colorsActionMajorTransparent)"
+    "background: var(--colorsActionMajorTransparent)",
   );
 });
 
@@ -410,7 +410,7 @@ test("renders undo button with expected styles when `internalEditButton` is true
   const undoButton = screen.getByRole("button", { name: "Undo" });
   expect(undoButton).toHaveStyle({ border: "none" });
   expect(undoButton).toHaveStyleRule(
-    "background: var(--colorsActionMajorTransparent)"
+    "background: var(--colorsActionMajorTransparent)",
   );
 });
 
@@ -423,7 +423,7 @@ test("renders with expected styles when `variant` is 'tile'", () => {
 
   const footer = screen.getByText("Footer");
   expect(footer).toHaveStyleRule(
-    "border-top: 1px solid var(--colorsUtilityMajor100)"
+    "border-top: 1px solid var(--colorsUtilityMajor100)",
   );
 });
 
@@ -436,7 +436,7 @@ test("renders with expected styles when `align` is 'right' and `internalEditButt
       onDelete={() => {}}
       alignTitle="right"
       internalEditButton
-    />
+    />,
   );
 
   const header = screen.getByTestId("pod-content-header");
@@ -454,7 +454,7 @@ test("renders footer with correct colour when `softDelete` is true", () => {
 // coverage
 test("renders block with correct colour when `variant` is 'tile', `internalEditButton` is true and a button is focused", () => {
   render(
-    <Pod title="Title" variant="tile" onEdit={() => {}} internalEditButton />
+    <Pod title="Title" variant="tile" onEdit={() => {}} internalEditButton />,
   );
 
   const editButton = screen.getByRole("button", { name: "Edit" });
@@ -462,7 +462,7 @@ test("renders block with correct colour when `variant` is 'tile', `internalEditB
 
   const block = screen.getByTestId("pod-block");
   expect(block).toHaveStyleRule(
-    "background-color: var(--colorsActionMajorTransparent)"
+    "background-color: var(--colorsActionMajorTransparent)",
   );
 });
 
@@ -477,7 +477,7 @@ test("renders block with correct padding when `border` is false and a button is 
   expect(block).toHaveStyle({ padding: "0" });
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Pod data-role="pod" {...props} />,
-  () => screen.getByTestId("pod")
+  () => screen.getByTestId("pod"),
 );

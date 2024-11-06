@@ -12,7 +12,7 @@ export interface FlatTableHeadProps extends Omit<TagProps, "data-component"> {
 export const FlatTableHead = ({ children, ...rest }: FlatTableHeadProps) => {
   const ref = useRef<HTMLTableSectionElement>(null);
   const [stickyOffsets, setStickyOffsets] = useState<Record<string, number>>(
-    {}
+    {},
   );
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export const FlatTableHead = ({ children, ...rest }: FlatTableHeadProps) => {
     /* istanbul ignore else */
     if (headerRows) {
       setStickyOffsets(
-        buildPositionMap(Array.from(headerRows), "offsetHeight")
+        buildPositionMap(Array.from(headerRows), "offsetHeight"),
       );
     } else {
       setStickyOffsets({});

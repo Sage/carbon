@@ -18,15 +18,15 @@ test.describe("Grid component", () => {
 
     await expect(page.getByText("Item 1")).toHaveCSS(
       "grid-area",
-      "auto / 1 / auto / 13"
+      "auto / 1 / auto / 13",
     );
     await expect(page.getByText("Item 2")).toHaveCSS(
       "grid-area",
-      "2 / 1 / 3 / 6"
+      "2 / 1 / 3 / 6",
     );
     await expect(page.getByText("Item 3")).toHaveCSS(
       "grid-area",
-      "4 / 7 / 5 / 13"
+      "4 / 7 / 5 / 13",
     );
   });
 
@@ -38,17 +38,19 @@ test.describe("Grid component", () => {
 
     await expect(page.getByText("Item 1")).toHaveCSS(
       "grid-area",
-      "3 / 4 / 11 / 10"
+      "3 / 4 / 11 / 10",
     );
   });
 
-  ([
-    [599, "16px", "16px"],
-    [959, "24px", "16px"],
-    [1259, "32px", "24px"],
-    [1920, "40px", "24px"],
-    [1922, "40px", "40px"],
-  ] as const).forEach(([viewportWidth, padding, gutter]) => {
+  (
+    [
+      [599, "16px", "16px"],
+      [959, "24px", "16px"],
+      [1259, "32px", "24px"],
+      [1920, "40px", "24px"],
+      [1922, "40px", "40px"],
+    ] as const
+  ).forEach(([viewportWidth, padding, gutter]) => {
     test(`automatically sets correct padding and gutter size when viewport width is ${viewportWidth}`, async ({
       mount,
       page,
@@ -84,7 +86,7 @@ test.describe("Grid component", () => {
 
       await expect(page.getByText("Item 1")).toHaveCSS(
         "justify-self",
-        justification
+        justification,
       );
     });
   });

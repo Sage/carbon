@@ -20,7 +20,7 @@ test("dialog element has aria-modal attribute set to true when open", () => {
   render(
     <CarbonProvider>
       <Dialog open title="My dialog" />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "true");
 });
@@ -78,7 +78,7 @@ test("aria-labelledby prop is used as dialog's accessible name when passed", () 
       open
       title={<h1 id="title-id">Custom title</h1>}
       aria-labelledby="title-id"
-    />
+    />,
   );
   expect(screen.getByRole("dialog")).toHaveAccessibleName("Custom title");
 });
@@ -90,10 +90,10 @@ test("aria-describedby prop is used as dialog's accessible description when pass
       title="My dialog"
       subtitle={<h2 id="subtitle-id">Custom subtitle</h2>}
       aria-describedby="subtitle-id"
-    />
+    />,
   );
   expect(screen.getByRole("dialog")).toHaveAccessibleDescription(
-    "Custom subtitle"
+    "Custom subtitle",
   );
 });
 
@@ -116,7 +116,7 @@ test("close button is displayed when onCancel prop is passed", () => {
 test("close button is not rendered when showCloseIcon prop is false", () => {
   render(<Dialog open onCancel={() => {}} showCloseIcon={false} />);
   expect(
-    screen.queryByRole("button", { name: /Close/i })
+    screen.queryByRole("button", { name: /Close/i }),
   ).not.toBeInTheDocument();
 });
 
@@ -142,7 +142,7 @@ describe("closing behaviour", () => {
     render(
       <CarbonProvider>
         <MockApp onCancel={onCancel} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const closeButton = screen.getByRole("button", { name: /Close/i });
@@ -158,7 +158,7 @@ describe("closing behaviour", () => {
     render(
       <CarbonProvider>
         <MockApp onCancel={onCancel} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     await user.keyboard("{Escape}");
@@ -173,7 +173,7 @@ describe("closing behaviour", () => {
     render(
       <CarbonProvider>
         <MockApp onCancel={onCancel} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const closeButton = screen.getByRole("button", { name: /Close/i });
@@ -190,7 +190,7 @@ describe("closing behaviour", () => {
     render(
       <CarbonProvider>
         <MockApp onCancel={onCancel} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const closeButton = screen.getByRole("button", { name: /Close/i });
@@ -208,7 +208,7 @@ describe("closing behaviour", () => {
     render(
       <CarbonProvider>
         <MockApp onCancel={onCancel} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const closeButton = screen.getByRole("button", { name: /Close/i });
@@ -234,7 +234,7 @@ test("root container is refocused when the focus method of the component's ref h
   render(
     <CarbonProvider>
       <MockApp />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const button = screen.getByRole("button", { name: /Refocus dialog/i });
@@ -251,7 +251,7 @@ test("first focusable element is not focused when disableAutoFocus prop is passe
       <Dialog open title="My dialog" disableAutoFocus>
         <button type="button">Focus me</button>
       </Dialog>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const button = screen.getByRole("button", { name: /Focus me/i });
@@ -289,7 +289,7 @@ test("close button has correct data-* props, when the closeButtonDataProps prop 
         "data-element": "foo",
         "data-role": "bar",
       }}
-    />
+    />,
   );
 
   const closeButton = screen.getByRole("button", { name: /Close/i });
@@ -331,7 +331,7 @@ test("prevents content from overflowing", () => {
   render(
     <Dialog open title="My dialog">
       Content
-    </Dialog>
+    </Dialog>,
   );
   expect(screen.getByTestId("dialog-content")).toHaveStyle("overflow-y: auto");
 });
@@ -340,7 +340,7 @@ test("no padding is rendered around dialog content, when zero padding is specifi
   render(
     <Dialog open title="My dialog" contentPadding={{ p: 0 }}>
       Inner content
-    </Dialog>
+    </Dialog>,
   );
 
   const content = screen.getByTestId("dialog-content");
@@ -367,7 +367,7 @@ test("background scroll remains disabled when returning to outer dialog after cl
   render(
     <CarbonProvider>
       <MockApp />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   expect(screen.getByRole("dialog")).toHaveAccessibleName("Inner dialog");
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SimpleColor, SimpleColorPicker } from ".";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
@@ -20,20 +20,20 @@ test("should display deprecation warning once when rendered as uncontrolled", ()
   render(<SimpleColorPicker legend="uncontrolled" name="uncontrolled" />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 
   loggerSpy.mockClear();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <SimpleColorPicker legend="SimpleColorPicker Legend" name="test" {...props}>
       <SimpleColor id="foo" key="bar" value="#00A376" defaultChecked />
     </SimpleColorPicker>
   ),
-  () => screen.getByRole("radiogroup")
+  () => screen.getByRole("radiogroup"),
 );
 
 test("the `onKeyDown` callback prop is called when the user presses a key", async () => {
@@ -48,7 +48,7 @@ test("the `onKeyDown` callback prop is called when the user presses a key", asyn
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   screen.getAllByRole("radio")[0].focus();
@@ -64,14 +64,14 @@ test("when the `defaultChecked` prop is set on one of the `SimpleColor` children
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" defaultChecked />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   // an error is thrown for using toHaveValue on a radio button, so we need to directly check the `value` attribute
   // eslint-disable-next-line jest-dom/prefer-to-have-value
   expect(screen.getByRole("radio", { checked: true })).toHaveAttribute(
     "value",
-    "#0073C1"
+    "#0073C1",
   );
 });
 
@@ -89,7 +89,7 @@ test("the `data-down` attribute is set to `false` for colors on the bottom row, 
       <SimpleColor value="#ABCDEF" />
       <SimpleColor value="#654321" />
       <SimpleColor value="#BADA44" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   expect(screen.getAllByRole("radio")[0]).toHaveAttribute("data-down", "true");
@@ -112,7 +112,7 @@ test("pressing the left arrow key when focused on the first color changes select
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   screen.getAllByRole("radio")[0].focus();
@@ -122,7 +122,7 @@ test("pressing the left arrow key when focused on the first color changes select
   expect(onChange).toHaveBeenCalledWith(
     expect.objectContaining({
       target: expect.objectContaining({ value: "#582C83" }),
-    })
+    }),
   );
   expect(screen.getAllByRole("radio")[2]).toHaveFocus();
 });
@@ -139,7 +139,7 @@ test("pressing the right arrow key changes selection to the next color", async (
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   screen.getAllByRole("radio")[1].focus();
@@ -149,7 +149,7 @@ test("pressing the right arrow key changes selection to the next color", async (
   expect(onChange).toHaveBeenCalledWith(
     expect.objectContaining({
       target: expect.objectContaining({ value: "#582C83" }),
-    })
+    }),
   );
   expect(screen.getAllByRole("radio")[2]).toHaveFocus();
 });
@@ -166,7 +166,7 @@ test("pressing the right arrow key when focused on the last color changes select
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   screen.getAllByRole("radio")[2].focus();
@@ -176,7 +176,7 @@ test("pressing the right arrow key when focused on the last color changes select
   expect(onChange).toHaveBeenCalledWith(
     expect.objectContaining({
       target: expect.objectContaining({ value: "#00A376" }),
-    })
+    }),
   );
   expect(screen.getAllByRole("radio")[0]).toHaveFocus();
 });
@@ -195,7 +195,7 @@ test("when the input has multiple rows, pressing the up arrow key changes select
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   screen.getAllByRole("radio")[1].focus();
@@ -205,7 +205,7 @@ test("when the input has multiple rows, pressing the up arrow key changes select
   expect(onChange).toHaveBeenCalledWith(
     expect.objectContaining({
       target: expect.objectContaining({ value: "#00A376" }),
-    })
+    }),
   );
   expect(screen.getAllByRole("radio")[0]).toHaveFocus();
 });
@@ -224,7 +224,7 @@ test("when focus is already on the top row, pressing the up arrow key does not c
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   screen.getAllByRole("radio")[1].focus();
@@ -248,7 +248,7 @@ test("when the input has multiple rows, pressing the down arrow key changes sele
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   screen.getAllByRole("radio")[1].focus();
@@ -258,7 +258,7 @@ test("when the input has multiple rows, pressing the down arrow key changes sele
   expect(onChange).toHaveBeenCalledWith(
     expect.objectContaining({
       target: expect.objectContaining({ value: "#582C83" }),
-    })
+    }),
   );
   expect(screen.getAllByRole("radio")[2]).toHaveFocus();
 });
@@ -278,7 +278,7 @@ test("when focus is already on the bottom row, pressing the down arrow key does 
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
       <SimpleColor value="#ABCDEF" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   screen.getAllByRole("radio")[3].focus();
@@ -300,7 +300,7 @@ test("focus is not changed if a non-arrow key is pressed", async () => {
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   screen.getAllByRole("radio")[0].focus();
@@ -322,7 +322,7 @@ test("the `onBlur` callback prop should not be called if focus moves from one co
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   await user.click(screen.getAllByRole("radio")[0]);
@@ -345,7 +345,7 @@ test("the `onBlur` callback prop should not be called if the currently-focused c
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   await user.click(screen.getAllByRole("radio")[0]);
@@ -367,7 +367,7 @@ test("the `onBlur` callback prop should be called if an input is blurred by clic
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   await user.click(screen.getAllByRole("radio")[0]);
@@ -379,7 +379,7 @@ test("the `onBlur` callback prop should be called if an input is blurred by clic
   expect(onBlur).toHaveBeenCalledWith(
     expect.objectContaining({
       target: expect.objectContaining({ value: "#00A376" }),
-    })
+    }),
   );
 });
 
@@ -393,7 +393,7 @@ test("validates the incorrect children prop", () => {
       <SimpleColorPicker name="test" legend="SimpleColorPicker Legend">
         <p>Invalid children</p>
         <p>Invalid children</p>
-      </SimpleColorPicker>
+      </SimpleColorPicker>,
     );
   }).toThrow("SimpleColorPicker accepts only children of type `SimpleColor`.");
 
@@ -431,7 +431,7 @@ test("returns a list of inputs in the ref", () => {
   expect(outsideRef).toEqual(
     expect.objectContaining({
       gridItemRefs: expect.arrayContaining(inputs),
-    })
+    }),
   );
 });
 
@@ -441,7 +441,7 @@ test("the `required` prop is passed to the inputs", () => {
       <SimpleColor value="#00A376" />
       <SimpleColor value="#0073C1" />
       <SimpleColor value="#582C83" />
-    </SimpleColorPicker>
+    </SimpleColorPicker>,
   );
 
   screen.getAllByRole("radio").forEach((input) => {
@@ -456,7 +456,7 @@ test("empty children are accepted without error", () => {
         {null}
         {false}
         {undefined}
-      </SimpleColorPicker>
+      </SimpleColorPicker>,
     );
   }).not.toThrow();
 });
@@ -468,11 +468,11 @@ test("should display deprecation warning once when the `isBlurBlocked` prop is `
       isBlurBlocked
       legend="SimpleColorPicker Legend"
       name="test"
-    />
+    />,
   );
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'isBlurBlocked' prop in SimpleColorPicker is deprecated and support will soon be removed."
+    "The 'isBlurBlocked' prop in SimpleColorPicker is deprecated and support will soon be removed.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 
@@ -489,11 +489,11 @@ test.each(["error", "warning", "info"])(
         validationOnLegend
         legend="SimpleColorPicker Legend"
         name="test"
-      />
+      />,
     );
 
     expect(
-      within(screen.getByRole("radiogroup")).getByTestId(`icon-${type}`)
+      within(screen.getByRole("radiogroup")).getByTestId(`icon-${type}`),
     ).toBeVisible();
-  }
+  },
 );

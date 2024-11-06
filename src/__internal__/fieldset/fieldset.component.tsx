@@ -80,7 +80,7 @@ const Fieldset = ({
   useEffect(() => {
     if (ref && isRequired) {
       Array.from(
-        ref.querySelectorAll("input") || /* istanbul ignore next */ []
+        ref.querySelectorAll("input") || /* istanbul ignore next */ [],
       ).forEach((el) => {
         el.setAttribute("required", "");
       });

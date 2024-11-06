@@ -38,10 +38,10 @@ const isRadio = (element: HTMLElement) => {
 
 const getRadioElementToFocus = (groupName: string, shiftKey: boolean) => {
   const buttonsInGroup = document.querySelectorAll(
-    `input[type="radio"][name="${groupName}"]`
+    `input[type="radio"][name="${groupName}"]`,
   );
   const selectedButton = [...buttonsInGroup].find(
-    (button) => (button as HTMLInputElement).checked
+    (button) => (button as HTMLInputElement).checked,
   );
 
   if (selectedButton) {
@@ -55,7 +55,7 @@ const getRadioElementToFocus = (groupName: string, shiftKey: boolean) => {
 const getNextElement = (
   element: HTMLElement,
   focusableElements: HTMLElement[],
-  shiftKey: boolean
+  shiftKey: boolean,
 ) => {
   const currentIndex = focusableElements.indexOf(element);
 
@@ -90,7 +90,7 @@ const getNextElement = (
       if (isRadio(element) && document.activeElement !== element) {
         return getRadioElementToFocus(
           element.getAttribute("name") as string,
-          shiftKey
+          shiftKey,
         );
       }
       return element;
@@ -123,50 +123,53 @@ const getNextElement = (
   return foundElement as HTMLElement;
 };
 
-const onTabGuardFocus = (
-  trapWrappers: CustomRefObject<HTMLElement>[],
-  focusableSelectors: string | undefined,
-  position: "top" | "bottom"
-) => (guardWrapperRef: CustomRefObject<HTMLElement>) => () => {
-  const isTop = position === "top";
-  const currentIndex = trapWrappers.indexOf(guardWrapperRef);
-  let index = currentIndex;
-  let nextWrapper;
-  let allFocusableElementsInNextWrapper: Element[] | undefined;
+const onTabGuardFocus =
+  (
+    trapWrappers: CustomRefObject<HTMLElement>[],
+    focusableSelectors: string | undefined,
+    position: "top" | "bottom",
+  ) =>
+  (guardWrapperRef: CustomRefObject<HTMLElement>) =>
+  () => {
+    const isTop = position === "top";
+    const currentIndex = trapWrappers.indexOf(guardWrapperRef);
+    let index = currentIndex;
+    let nextWrapper;
+    let allFocusableElementsInNextWrapper: Element[] | undefined;
 
-  do {
-    index += isTop ? -1 : 1;
-    if (index < 0) {
-      index += trapWrappers.length;
-    }
-    if (index >= trapWrappers.length) {
-      index -= trapWrappers.length;
-    }
-    nextWrapper = trapWrappers[index];
-    allFocusableElementsInNextWrapper = Array.from(
-      nextWrapper?.current?.querySelectorAll(
-        focusableSelectors || defaultFocusableSelectors
-      ) || /* istanbul ignore next */ []
-    ).filter((el) => Number((el as HTMLElement).tabIndex) !== -1);
-  } while (
-    index !== currentIndex &&
-    !allFocusableElementsInNextWrapper?.length
-  );
-
-  const toFocus = allFocusableElementsInNextWrapper?.[
-    isTop ? allFocusableElementsInNextWrapper.length - 1 : 0
-  ] as HTMLElement;
-
-  if (isRadio(toFocus)) {
-    const radioToFocus = getRadioElementToFocus(
-      toFocus.getAttribute("name") as string,
-      isTop
+    do {
+      index += isTop ? -1 : 1;
+      if (index < 0) {
+        index += trapWrappers.length;
+      }
+      if (index >= trapWrappers.length) {
+        index -= trapWrappers.length;
+      }
+      nextWrapper = trapWrappers[index];
+      allFocusableElementsInNextWrapper = Array.from(
+        nextWrapper?.current?.querySelectorAll(
+          focusableSelectors || defaultFocusableSelectors,
+        ) || /* istanbul ignore next */ [],
+      ).filter((el) => Number((el as HTMLElement).tabIndex) !== -1);
+    } while (
+      index !== currentIndex &&
+      !allFocusableElementsInNextWrapper?.length
     );
-    setElementFocus(radioToFocus);
-  } else {
-    setElementFocus(toFocus);
-  }
-};
+
+    const toFocus = allFocusableElementsInNextWrapper?.[
+      isTop ? allFocusableElementsInNextWrapper.length - 1 : 0
+    ] as HTMLElement;
+
+    if (isRadio(toFocus)) {
+      const radioToFocus = getRadioElementToFocus(
+        toFocus.getAttribute("name") as string,
+        isTop,
+      );
+      setElementFocus(radioToFocus);
+    } else {
+      setElementFocus(toFocus);
+    }
+  };
 
 const trapFunction = (
   ev: KeyboardEvent,
@@ -176,12 +179,12 @@ const trapFunction = (
   bespokeTrap?: (
     event: KeyboardEvent,
     firstElement?: HTMLElement,
-    lastElement?: HTMLElement
-  ) => void
+    lastElement?: HTMLElement,
+  ) => void,
 ) => {
   const customFocusableElements = focusableSelectors
     ? defaultFocusableElements.filter((element) =>
-        element.matches(focusableSelectors)
+        element.matches(focusableSelectors),
       )
     : defaultFocusableElements;
 
@@ -222,13 +225,13 @@ const trapFunction = (
   const elementToFocus = getNextElement(
     isWrapperFocused ? elementWhenWrapperFocused : activeElement,
     customFocusableElements,
-    ev.shiftKey
+    ev.shiftKey,
   );
 
   const defaultNextElement = getNextElement(
     isWrapperFocused ? elementWhenWrapperFocused : activeElement,
     defaultFocusableElements as HTMLElement[],
-    ev.shiftKey
+    ev.shiftKey,
   );
 
   if (elementToFocus && elementToFocus !== defaultNextElement) {

@@ -14,7 +14,7 @@ import Box from "../box";
 import Pill from "../pill";
 
 export const VerticalMenuDefaultComponent = (
-  props: Partial<VerticalMenuProps>
+  props: Partial<VerticalMenuProps>,
 ) => {
   return (
     <Box height="100vh">
@@ -169,7 +169,7 @@ export const VerticalMenuItemCustomHref = ({
 };
 
 export const VerticalMenuTriggerCustom = (
-  props: Partial<VerticalMenuTriggerProps>
+  props: Partial<VerticalMenuTriggerProps>,
 ) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -186,7 +186,7 @@ export const VerticalMenuTriggerCustom = (
 };
 
 export const VerticalMenuFullScreenCustom = (
-  props: Partial<VerticalMenuFullScreenProps>
+  props: Partial<VerticalMenuFullScreenProps>,
 ) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 

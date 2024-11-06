@@ -24,7 +24,7 @@ describe("isKeyboardEvent", () => {
       const result = Events.isKeyboardEvent(event);
 
       expect(result).toBeTruthy();
-    }
+    },
   );
 
   it("returns false when the event type is not a keyboard event type", () => {
@@ -73,7 +73,7 @@ describe("isNumberKey", () => {
       const result = Events.isNumberKey(event);
 
       expect(result).toBeTruthy();
-    }
+    },
   );
 
   it("returns false when the event type is not a number key event", () => {
@@ -303,28 +303,7 @@ describe("composedPath", () => {
     div.appendChild(ul);
 
     const path = [div, ul, li];
-    const event = ({ target: li } as unknown) as CustomEvent;
-    const result = Events.composedPath(event);
-
-    expect(result).toEqual(path);
-  });
-
-  /* TODO: FE-6826 Investigate if `composedPath` is still required post removal of Enzyme.  */
-
-  it("builds the path if it is not available on the element from a ReactWrapper", () => {
-    const div = document.createElement("div");
-    const ul = document.createElement("ul");
-    const li = document.createElement("li");
-
-    ul.appendChild(li);
-    div.appendChild(ul);
-
-    const path = [div, ul, li];
-    const event = new CustomEvent("click", {
-      detail: {
-        enzymeTestingTarget: li,
-      },
-    });
+    const event = { target: li } as unknown as CustomEvent;
     const result = Events.composedPath(event);
 
     expect(result).toEqual(path);

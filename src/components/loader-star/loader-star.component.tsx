@@ -27,7 +27,7 @@ const LoaderStar = ({
   const locale = useLocale();
 
   const reduceMotion = !useMediaQuery(
-    "screen and (prefers-reduced-motion: no-preference)"
+    "screen and (prefers-reduced-motion: no-preference)",
   );
 
   const label = (

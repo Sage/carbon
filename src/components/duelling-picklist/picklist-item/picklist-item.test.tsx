@@ -22,7 +22,7 @@ test("the context callback is called with the expected arguments when isLastItem
       >
         Item content
       </PicklistItem>
-    </FocusContext.Provider>
+    </FocusContext.Provider>,
   );
 
   await user.click(screen.getByTestId("picklist-item-button"));
@@ -47,7 +47,7 @@ test("the context callback is called with the expected arguments when isLastItem
       >
         Item content
       </PicklistItem>
-    </FocusContext.Provider>
+    </FocusContext.Provider>,
   );
 
   await user.click(screen.getByTestId("picklist-item-button"));
@@ -71,7 +71,7 @@ test("the context callback is called with the expected arguments when isLastItem
       >
         Item content
       </PicklistItem>
-    </FocusContext.Provider>
+    </FocusContext.Provider>,
   );
 
   await user.click(screen.getByTestId("picklist-item-button"));
@@ -87,18 +87,18 @@ test("should render a locked icon with expected styling when the `locked` prop i
         Item content
       </PicklistItem>
       )
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getByTestId("icon")).toHaveStyleRule(
     "content",
     `"${iconUnicodes.locked}"`,
-    { modifier: "&::before" }
+    { modifier: "&::before" },
   );
 
   expect(screen.getByTestId("icon")).toHaveStyleRule(
     "outline",
     "2px solid var(--colorsSemanticFocus500)",
-    { modifier: ":focus" }
+    { modifier: ":focus" },
   );
 });

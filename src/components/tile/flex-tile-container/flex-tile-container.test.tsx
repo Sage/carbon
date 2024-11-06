@@ -10,14 +10,14 @@ test.each<Gap>([...GAP_VALUES, "20px", "20%"])(
     expect(screen.getByText("content")).toHaveStyle({
       columnGap: getGapValue(gapValue),
     });
-  }
+  },
 );
 
 test("should not render when falsy children are passed", () => {
   render(
     <FlexTileContainer data-role="flex-tile-container">
       {null}
-    </FlexTileContainer>
+    </FlexTileContainer>,
   );
 
   expect(screen.queryByTestId("flex-tile-container")).not.toBeInTheDocument();

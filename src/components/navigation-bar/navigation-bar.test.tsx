@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import NavigationBar from ".";
 import {
-  testStyledSystemPaddingRTL,
+  testStyledSystemPadding,
   testStyledSystemFlexBox,
 } from "../../__spec_helper__/__internal__/test-utils";
 
@@ -10,7 +10,7 @@ test("renders with children", () => {
   render(
     <NavigationBar>
       <div>test content</div>
-    </NavigationBar>
+    </NavigationBar>,
   );
 
   expect(screen.getByRole("navigation")).toHaveTextContent("test content");
@@ -21,7 +21,7 @@ test("does not render children when `isLoading` is true", () => {
   render(
     <NavigationBar isLoading>
       <div>test content</div>
-    </NavigationBar>
+    </NavigationBar>,
   );
 
   expect(screen.getByRole("navigation")).not.toHaveTextContent("test content");
@@ -31,12 +31,12 @@ test("renders with 'data-component' set to 'navigation-bar'", () => {
   render(
     <NavigationBar>
       <div>test content</div>
-    </NavigationBar>
+    </NavigationBar>,
   );
 
   expect(screen.getByRole("navigation")).toHaveAttribute(
     "data-component",
-    "navigation-bar"
+    "navigation-bar",
   );
 });
 
@@ -44,7 +44,7 @@ test("renders with provided `aria-label` as its accessible name", () => {
   render(
     <NavigationBar ariaLabel="test label">
       <div>test content</div>
-    </NavigationBar>
+    </NavigationBar>,
   );
 
   expect(screen.getByRole("navigation")).toHaveAccessibleName("test label");
@@ -55,16 +55,16 @@ test("renders with correct styles when `navigationType` is 'light'", () => {
   render(
     <NavigationBar navigationType="light">
       <div>test content</div>
-    </NavigationBar>
+    </NavigationBar>,
   );
 
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "background-color",
-    "var(--colorsComponentsMenuSpringStandard500)"
+    "var(--colorsComponentsMenuSpringStandard500)",
   );
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "border-bottom",
-    "var(--borderWidth100) solid var(--colorsComponentsMenuSpringChildAlt500)"
+    "var(--borderWidth100) solid var(--colorsComponentsMenuSpringChildAlt500)",
   );
 });
 
@@ -73,16 +73,16 @@ test("renders with correct styles when `navigationType` is 'dark'", () => {
   render(
     <NavigationBar navigationType="dark">
       <div>test content</div>
-    </NavigationBar>
+    </NavigationBar>,
   );
 
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "background-color",
-    "var(--colorsComponentsMenuAutumnStandard500)"
+    "var(--colorsComponentsMenuAutumnStandard500)",
   );
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "color",
-    "var(--colorsComponentsMenuYang100)"
+    "var(--colorsComponentsMenuYang100)",
   );
 });
 
@@ -91,16 +91,16 @@ test("renders with correct styles when `navigationType` is 'black'", () => {
   render(
     <NavigationBar navigationType="black">
       <div>test content</div>
-    </NavigationBar>
+    </NavigationBar>,
   );
 
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "background-color",
-    "var(--colorsComponentsMenuWinterStandard500)"
+    "var(--colorsComponentsMenuWinterStandard500)",
   );
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "color",
-    "var(--colorsComponentsMenuYang100)"
+    "var(--colorsComponentsMenuYang100)",
   );
 });
 
@@ -109,16 +109,16 @@ test("renders with correct styles when `navigationType` is 'white'", () => {
   render(
     <NavigationBar navigationType="white">
       <div>test content</div>
-    </NavigationBar>
+    </NavigationBar>,
   );
 
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "background-color",
-    "var(--colorsComponentsMenuSummerStandard500)"
+    "var(--colorsComponentsMenuSummerStandard500)",
   );
   expect(screen.getByRole("navigation")).toHaveStyleRule(
     "border-bottom",
-    "var(--borderWidth100) solid var(--colorsComponentsMenuSummerChildAlt500)"
+    "var(--borderWidth100) solid var(--colorsComponentsMenuSummerChildAlt500)",
   );
 });
 
@@ -127,7 +127,7 @@ test("renders with correct styles when `position` is 'fixed' and `orientation` i
   render(
     <NavigationBar position="fixed" orientation="top">
       <div>test content</div>
-    </NavigationBar>
+    </NavigationBar>,
   );
 
   expect(screen.getByRole("navigation")).toHaveStyle({
@@ -138,14 +138,14 @@ test("renders with correct styles when `position` is 'fixed' and `orientation` i
   });
 });
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => <NavigationBar {...props}>test content</NavigationBar>,
   () => screen.getByRole("navigation"),
   undefined,
-  { modifier: "&&" }
+  { modifier: "&&" },
 );
 
 testStyledSystemFlexBox(
   (props) => <NavigationBar {...props}>test content</NavigationBar>,
-  () => screen.getByRole("navigation")
+  () => screen.getByRole("navigation"),
 );

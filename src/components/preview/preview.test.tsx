@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Preview from ".";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders placeholder by default", () => {
   render(<Preview />);
@@ -51,7 +51,7 @@ test("renders with the correct height, width and border-radius when `shape` is s
   expect(placeholder).toHaveStyle({ width: "100%" });
   expect(placeholder).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius100)"
+    "var(--borderRadius100)",
   );
 });
 
@@ -65,7 +65,7 @@ test("renders with the correct height, width and border-radius when `shape` is s
   expect(placeholder).toHaveStyleRule("width", "var(--sizing1500)");
   expect(placeholder).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius100)"
+    "var(--borderRadius100)",
   );
 });
 
@@ -79,7 +79,7 @@ test("renders with the correct height, width and border-radius when `shape` is s
   expect(placeholder).toHaveStyleRule("width", "var(--sizing1500)");
   expect(placeholder).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadius400)"
+    "var(--borderRadius400)",
   );
 });
 
@@ -93,7 +93,7 @@ test("renders with the correct height, width and border-radius when `shape` is s
   expect(placeholder).toHaveStyleRule("width", "var(--sizing700)");
   expect(placeholder).toHaveStyleRule(
     "border-radius",
-    "var(--borderRadiusCircle)"
+    "var(--borderRadiusCircle)",
   );
 });
 
@@ -108,7 +108,7 @@ test("renders with no animation when `disableAnimation` is true", () => {
   });
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Preview {...props} />,
-  () => screen.getByTestId("preview-wrapper")
+  () => screen.getByTestId("preview-wrapper"),
 );

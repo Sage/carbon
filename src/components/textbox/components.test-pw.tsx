@@ -200,7 +200,7 @@ export const TextboxNewDesignsValidation = () => {
                 {...{ [validationType]: "Message" }}
               />
             </div>
-          ))
+          )),
         )}
       </CarbonProvider>
     </Box>

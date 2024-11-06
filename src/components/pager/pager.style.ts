@@ -32,12 +32,11 @@ const StyledPagerContainer = styled.div<Pick<PagerProps, "variant">>`
   border: 1px solid var(--colorsUtilityMajor100);
   border-radius: var(--borderRadius100);
 
-  ${({ variant }) =>
-    css`
-      background-color: ${variant === "alternate"
-        ? "var(--colorsUtilityMajor040)"
-        : "var(--colorsUtilityMajor010)"};
-    `}
+  ${({ variant }) => css`
+    background-color: ${variant === "alternate"
+      ? "var(--colorsUtilityMajor040)"
+      : "var(--colorsUtilityMajor010)"};
+  `}
 `;
 
 const StyledPagerSizeOptions = styled.div`

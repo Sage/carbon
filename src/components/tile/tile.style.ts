@@ -18,7 +18,7 @@ type StyledTileProps = Pick<
 
 const getBorderColor = (
   borderVariant: TileProps["borderVariant"],
-  variant: TileProps["variant"]
+  variant: TileProps["variant"],
 ) => {
   switch (borderVariant) {
     case "selected":

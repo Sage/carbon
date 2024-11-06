@@ -104,7 +104,7 @@ export const All = () => (
     {ICONS.map((type) =>
       ICON_FONT_SIZES.map((fontSize) => (
         <Icon type={type} fontSize={fontSize} key={`${type}_${fontSize}`} />
-      ))
+      )),
     )}
     {[true, false].map((disabled) =>
       ICON_FONT_SIZES.map((fontSize) => {
@@ -121,7 +121,7 @@ export const All = () => (
             />
           ));
         });
-      })
+      }),
     )}
     {/* Custom colors */}
     <Icon type="add" color="blackOpacity65" />

@@ -50,7 +50,7 @@ export interface FullDate extends DayMonthDate {
 export type NumeralDateObject = DayMonthDate | MonthYearDate | FullDate;
 
 export interface NumeralDateEvent<
-  DateType extends NumeralDateObject = FullDate
+  DateType extends NumeralDateObject = FullDate,
 > {
   target: {
     name?: string;
@@ -142,7 +142,7 @@ export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
   isOptional?: boolean;
 }
 
-export type ValidDateFormat = typeof ALLOWED_DATE_FORMATS[number];
+export type ValidDateFormat = (typeof ALLOWED_DATE_FORMATS)[number];
 
 const incorrectDateFormatMessage =
   "Forbidden prop dateFormat supplied to NumeralDate. " +
@@ -164,11 +164,11 @@ const getMonthsForLocale = (localeName: string) => {
 const validationMessages = (
   locale: Locale,
   month?: string,
-  daysInMonth?: string
+  daysInMonth?: string,
 ) => ({
   dd: locale.numeralDate.validation.day(
     month ? getMonthsForLocale(locale.locale())[+month - 1] : undefined,
-    daysInMonth
+    daysInMonth,
   ),
   mm: locale.numeralDate.validation.month(),
   yyyy: locale.numeralDate.validation.year(),
@@ -272,9 +272,9 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   const labelIds = useRef([guid(), guid(), guid()]);
 
   const [internalMessages, setInternalMessages] = useState<DateType>({
-    ...((Object.fromEntries(
-      dateFormat.map((datePart) => [datePart, ""])
-    ) as Partial<FullDate>) as DateType),
+    ...(Object.fromEntries(
+      dateFormat.map((datePart) => [datePart, ""]),
+    ) as Partial<FullDate> as DateType),
   });
 
   const hasCorrectDateFormat = useMemo(() => {
@@ -282,7 +282,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
       !dateFormat ||
       ALLOWED_DATE_FORMATS.find(
         (allowedDateFormat) =>
-          JSON.stringify(allowedDateFormat) === JSON.stringify(dateFormat)
+          JSON.stringify(allowedDateFormat) === JSON.stringify(dateFormat),
       );
     return isAllowed;
   }, [dateFormat]);
@@ -296,19 +296,19 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
 
     invariant(
       isControlled.current === (value !== undefined),
-      modeSwitchedMessage
+      modeSwitchedMessage,
     );
   }, [value]);
 
   const [dateValue, setDateValue] = useState<DateType>({
     ...((initialValue ||
       (Object.fromEntries(
-        dateFormat.map((datePart) => [datePart, ""])
+        dateFormat.map((datePart) => [datePart, ""]),
       ) as Partial<FullDate>)) as DateType),
   });
 
   const createCustomEventObject = (
-    newValue: DateType
+    newValue: DateType,
   ): NumeralDateEvent<DateType> => ({
     target: {
       name,
@@ -332,7 +332,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    datePart: keyof NumeralDateObject
+    datePart: keyof NumeralDateObject,
   ) => {
     const { value: newValue } = event.target;
 
@@ -362,7 +362,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     }
     setTimeout(() => {
       const hasBlurred = !refs.current.find(
-        (ref) => ref === document.activeElement
+        (ref) => ref === document.activeElement,
       );
       /* istanbul ignore else */
       if (onBlur && hasBlurred) {
@@ -371,14 +371,14 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     }, 5);
   };
 
-  const internalMessage = (Object.keys(
-    internalMessages
-  ) as (keyof DateType)[]).reduce(
+  const internalMessage = (
+    Object.keys(internalMessages) as (keyof DateType)[]
+  ).reduce(
     (combinedMessage, datePart) =>
       internalMessages[datePart]
         ? `${combinedMessage + internalMessages[datePart]}\n`
         : combinedMessage,
-    ""
+    "",
   );
   const internalError = enableInternalError ? internalMessage + error : error;
 
@@ -389,7 +389,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   if (!deprecateUncontrolledWarnTriggered && !isControlled.current) {
     deprecateUncontrolledWarnTriggered = true;
     Logger.deprecate(
-      "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
     );
   }
 

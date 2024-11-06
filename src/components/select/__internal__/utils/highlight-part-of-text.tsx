@@ -3,7 +3,7 @@ import MatchingText from "./matching-text.style";
 
 function highlightPartOfText(
   text: string,
-  partToHighlight: string
+  partToHighlight: string,
 ): React.ReactNode {
   if (!partToHighlight || !partToHighlight.length || !text) return text;
   const lowercaseText = text.toLowerCase();
@@ -17,11 +17,11 @@ function highlightPartOfText(
   const precedingText = text.slice(0, indexOfFirstMatch);
   const matchingText = text.slice(
     indexOfFirstMatch,
-    indexOfFirstMatch + partToHighlight.length
+    indexOfFirstMatch + partToHighlight.length,
   );
   const followingText = text.slice(
     indexOfFirstMatch + partToHighlight.length,
-    text.length
+    text.length,
   );
 
   let followingTextNode: React.ReactNode = followingText;
@@ -43,7 +43,7 @@ function highlightPartOfText(
 
 export default function highlightPartOfTextRecursive(
   child: React.ReactNode,
-  partToHighlight: string
+  partToHighlight: string,
 ): React.ReactNode {
   if (typeof child === "string") {
     return highlightPartOfText(child, partToHighlight);
@@ -54,7 +54,7 @@ export default function highlightPartOfTextRecursive(
   }
   const highlightedChildren = React.Children.map(
     child.props.children,
-    (grandChild) => highlightPartOfTextRecursive(grandChild, partToHighlight)
+    (grandChild) => highlightPartOfTextRecursive(grandChild, partToHighlight),
   );
   return React.cloneElement(child, { children: highlightedChildren });
 }

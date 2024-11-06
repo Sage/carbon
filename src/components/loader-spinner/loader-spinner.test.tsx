@@ -88,7 +88,7 @@ describe("when custom props are passed", () => {
       const wrapperElement = screen.getByRole("status");
 
       expect(wrapperElement).toHaveStyle("flex-direction: column");
-    }
+    },
   );
 
   it.each(sizes)(
@@ -98,9 +98,9 @@ describe("when custom props are passed", () => {
       const svgCircleElement = screen.getByRole("presentation");
 
       expect(svgCircleElement).toHaveStyle(
-        `height: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
+        `height: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`,
       );
-    }
+    },
   );
 
   it.each(sizes)(
@@ -110,9 +110,9 @@ describe("when custom props are passed", () => {
       const svgCircleElement = screen.getByRole("presentation");
 
       expect(svgCircleElement).toHaveStyle(
-        `min-height: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
+        `min-height: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`,
       );
-    }
+    },
   );
 
   it.each(sizes)(
@@ -122,9 +122,9 @@ describe("when custom props are passed", () => {
       const innerArcSvgElement = screen.getByTestId("inner-arc");
 
       expect(innerArcSvgElement).toHaveStyle(
-        `stroke-width: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].strokeWidth}px`
+        `stroke-width: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].strokeWidth}px`,
       );
-    }
+    },
   );
 
   it.each(sizes)(
@@ -134,9 +134,9 @@ describe("when custom props are passed", () => {
       const outerArcSvgElement = screen.getByTestId("outer-arc");
 
       expect(outerArcSvgElement).toHaveStyle(
-        `stroke-width: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].strokeWidth}px`
+        `stroke-width: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].strokeWidth}px`,
       );
-    }
+    },
   );
 
   it("when the 'size' prop is passed as 'extra-small' the label has the correct margin-left", () => {
@@ -157,7 +157,7 @@ describe("when custom props are passed", () => {
       expect(visibleLabelElement).toHaveStyle({
         marginTop: `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].labelMarginTop}px`,
       });
-    }
+    },
   );
 
   it("when 'showSpinnerLabel' is `true` the visible label is rendered in the live region container", () => {
@@ -200,7 +200,7 @@ describe("when custom props are passed", () => {
       const outerArcSvgElement = screen.getByTestId("outer-arc");
 
       expect(outerArcSvgElement).toHaveStyle(`stroke: ${strokeValues}`);
-    }
+    },
   );
 
   it("when the 'variant' prop is passed as `inverse` the outer arc stroke opacity is 0.3", () => {
@@ -223,7 +223,7 @@ describe("when custom props are passed", () => {
       const innerArcSvgElement = screen.getByTestId("inner-arc");
 
       expect(innerArcSvgElement).toHaveStyle(`stroke: ${strokeValues}`);
-    }
+    },
   );
 
   it.each([
@@ -240,7 +240,7 @@ describe("when custom props are passed", () => {
       const visibleLabelElement = screen.getByTestId("visible-label");
 
       expect(visibleLabelElement).toHaveStyle(`color: ${labelColorValues}`);
-    }
+    },
   );
 
   it("when 'hasMotion' is `true` animation should be present on the inner arc", () => {
@@ -248,7 +248,7 @@ describe("when custom props are passed", () => {
     const innerArcSvgElement = screen.getByTestId("inner-arc");
 
     expect(innerArcSvgElement).toHaveStyle(
-      "animation-iteration-count: infinite"
+      "animation-iteration-count: infinite",
     );
   });
 
@@ -266,9 +266,9 @@ describe("when custom props are passed", () => {
       const innerArcSvgElement = screen.getByTestId("inner-arc");
 
       expect(innerArcSvgElement).toHaveStyle(
-        "animation-name: untrackedAnimation, gradientAnimation"
+        "animation-name: untrackedAnimation, gradientAnimation",
       );
-    }
+    },
   );
 
   it.each(["gradient-grey", "gradient-white"] as const)(
@@ -278,9 +278,9 @@ describe("when custom props are passed", () => {
       const innerArcSvgElement = screen.getByTestId("inner-arc");
 
       expect(innerArcSvgElement).toHaveStyle(
-        "animation-name: untrackedAnimation, gradientAnimation"
+        "animation-name: untrackedAnimation, gradientAnimation",
       );
-    }
+    },
   );
 
   it("when 'isTracked' is `true` the tracked keyframe animation should be present on the rendered component", () => {
@@ -288,7 +288,7 @@ describe("when custom props are passed", () => {
     const innerArcSvgElement = screen.getByTestId("inner-arc");
 
     expect(innerArcSvgElement).toHaveStyle(
-      "animation-name: trackedAnimation, none"
+      "animation-name: trackedAnimation, none",
     );
   });
 
@@ -297,7 +297,7 @@ describe("when custom props are passed", () => {
     const innerArcSvgElement = screen.getByTestId("inner-arc");
 
     expect(innerArcSvgElement).toHaveStyle(
-      "animation-name: untrackedAnimation, none"
+      "animation-name: untrackedAnimation, none",
     );
   });
 
@@ -308,9 +308,9 @@ describe("when custom props are passed", () => {
       const innerArcSvgElement = screen.getByTestId("inner-arc");
 
       expect(innerArcSvgElement).toHaveStyle(
-        `animation-duration: ${animationTimes}s`
+        `animation-duration: ${animationTimes}s`,
       );
-    }
+    },
   );
 });
 

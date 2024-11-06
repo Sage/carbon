@@ -4,10 +4,11 @@ import { EditorState, ContentState, convertFromHTML } from "draft-js";
 import Note, { NoteProps } from "./note.component";
 
 import { ActionPopover, ActionPopoverMenuButton } from "../action-popover";
+import Box from "../box";
+import Typography from "../typography";
 
 export default {
   title: "Note/Test",
-  includeStories: ["DefaultStory", "InlineControlMenuButton"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -22,7 +23,7 @@ export const DefaultStory = ({
   ...args
 }: Omit<NoteProps, "noteContent">) => {
   const noteContent = EditorState.createWithContent(
-    ContentState.createFromText("Here is some plain text content")
+    ContentState.createFromText("Here is some plain text content"),
   );
   return (
     <Note
@@ -55,7 +56,7 @@ export const InlineControlMenuButton = ({
   const blocksFromHTML = convertFromHTML(html);
   const content = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap
+    blocksFromHTML.entityMap,
   );
   const noteContent = EditorState.createWithContent(content);
 
@@ -100,3 +101,62 @@ InlineControlMenuButton.story = {
 InlineControlMenuButton.parameters = {
   themeProvider: { chromatic: { disableSnapshot: false, theme: "sage" } },
 };
+
+export const TitleNodes = () => {
+  const noteContent = EditorState.createWithContent(
+    ContentState.createFromText("Here is some plain text content"),
+  );
+
+  const titleElements = (
+    <Box display="flex" flexWrap="wrap" gap="16px">
+      <Box flex="1 1 50%" display="flex" flexDirection="row" gap="8px">
+        <Typography variant="h1-large">Title</Typography>
+        <Typography variant="h1">Title</Typography>
+        <Typography variant="h2">Title</Typography>
+        <Typography variant="h3">Title</Typography>
+        <Typography variant="h4">Title</Typography>
+        <Typography variant="h5">Title</Typography>
+        <Typography variant="segment-header">Title</Typography>
+        <Typography variant="segment-header-small">Title</Typography>
+        <Typography variant="segment-subheader">Title</Typography>
+        <Typography variant="segment-subheader-alt">Title</Typography>
+      </Box>
+      <Box flex="1 1 50%" display="flex" flexDirection="row" gap="8px">
+        <Typography variant="p">Title</Typography>
+        <Typography variant="span">Title</Typography>
+        <Typography variant="small">Title</Typography>
+        <Typography variant="big">Title</Typography>
+        <Typography variant="sup">Title</Typography>
+        <Typography variant="sub">Title</Typography>
+        <Typography variant="strong">Title</Typography>
+        <Typography variant="b">Title</Typography>
+        <Typography variant="em">Title</Typography>
+      </Box>
+      <Box flex="1 1 50%" display="flex" flexDirection="row" gap="40px">
+        <Typography variant="ul">
+          <li>List item 1</li>
+          <li>List item 2</li>
+        </Typography>
+        <Typography variant="ol">
+          <li>List item 1</li>
+          <li>List item 2</li>
+        </Typography>
+      </Box>
+    </Box>
+  );
+
+  return (
+    <Note
+      name="Lauren Smith"
+      noteContent={noteContent}
+      createdDate="23 May 2020, 12:08 PM"
+      title={titleElements}
+    />
+  );
+};
+
+TitleNodes.story = {
+  name: "Title Nodes",
+};
+
+TitleNodes.parameters = { chromatic: { disableSnapshot: false } };

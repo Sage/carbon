@@ -34,7 +34,7 @@ test("visually hidden character counter is visually hidden", () => {
   render(<CharacterCount value={5} limit={10} isOverLimit={false} />);
 
   const visuallyHiddenCharacterCount = screen.getByTestId(
-    "visually-hidden-character-count"
+    "visually-hidden-character-count",
   );
   expect(visuallyHiddenCharacterCount).toHaveStyle({
     border: "0",
@@ -52,7 +52,7 @@ test("visually hidden character count renders with the 'aria-live' attribute set
   render(<CharacterCount value={5} limit={10} isOverLimit={false} />);
 
   const visuallyHiddenCharacterCount = screen.getByTestId(
-    "visually-hidden-character-count"
+    "visually-hidden-character-count",
   );
   expect(visuallyHiddenCharacterCount).toHaveAttribute("aria-live", "off");
 });
@@ -64,11 +64,11 @@ test("visually hidden character count renders with the 'aria-live' attribute set
       limit={10}
       isOverLimit={false}
       ariaLive="polite"
-    />
+    />,
   );
 
   const visuallyHiddenCharacterCount = screen.getByTestId(
-    "visually-hidden-character-count"
+    "visually-hidden-character-count",
   );
   expect(visuallyHiddenCharacterCount).toHaveAttribute("aria-live", "polite");
 });
@@ -77,7 +77,7 @@ test("visually hidden character count renders with '{count} character(s) left' t
   render(<CharacterCount value={5} limit={10} isOverLimit={false} />);
 
   const visuallyHiddenCharacterCount = screen.getByTestId(
-    "visually-hidden-character-count"
+    "visually-hidden-character-count",
   );
   expect(visuallyHiddenCharacterCount).toHaveTextContent("5 characters left");
 });
@@ -89,11 +89,11 @@ test("visually hidden character count renders with '{count} character(s) too man
       limit={5}
       isOverLimit={false}
       isDebouncedOverLimit
-    />
+    />,
   );
 
   const visuallyHiddenHint = screen.getByTestId(
-    "visually-hidden-character-count"
+    "visually-hidden-character-count",
   );
   expect(visuallyHiddenHint).toHaveTextContent("5 characters too many");
 });
@@ -119,6 +119,6 @@ test("visually hidden hint renders with 'you can enter up to {count} character(s
 
   const visuallyHiddenHint = screen.getByTestId("visually-hidden-hint");
   expect(visuallyHiddenHint).toHaveTextContent(
-    "You can enter up to 10 characters"
+    "You can enter up to 10 characters",
   );
 });

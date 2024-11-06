@@ -3,7 +3,7 @@ import React from "react";
 import { getGapValue } from "style/utils/box-gap";
 import { render, screen } from "@testing-library/react";
 import {
-  testStyledSystemSpacingRTL,
+  testStyledSystemSpacing,
   testStyledSystemColor,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
@@ -13,29 +13,29 @@ import {
 import Box from "./box.component";
 import Logger from "../../__internal__/utils/logger";
 
-testStyledSystemSpacingRTL(
+testStyledSystemSpacing(
   (props) => <Box data-role="box" {...props} />,
-  () => screen.getByTestId("box")
+  () => screen.getByTestId("box"),
 );
 testStyledSystemColor(
   (props) => <Box data-role="box" {...props} />,
-  () => screen.getByTestId("box")
+  () => screen.getByTestId("box"),
 );
 testStyledSystemLayout(
   (props) => <Box data-role="box" {...props} />,
-  () => screen.getByTestId("box")
+  () => screen.getByTestId("box"),
 );
 testStyledSystemFlexBox(
   (props) => <Box data-role="box" {...props} />,
-  () => screen.getByTestId("box")
+  () => screen.getByTestId("box"),
 );
 testStyledSystemGrid(
   (props) => <Box data-role="box" {...props} />,
-  () => screen.getByTestId("box")
+  () => screen.getByTestId("box"),
 );
 testStyledSystemPosition(
   (props) => <Box data-role="box" {...props} />,
-  () => screen.getByTestId("box")
+  () => screen.getByTestId("box"),
 );
 
 test("renders Box with 'break-word' overflowWrap style when overflowWrap prop is set to 'break-word'", () => {
@@ -85,11 +85,11 @@ test("logs a deprecation warning when the `tabIndex` prop is passed with a value
     <>
       <Box tabIndex={6} />
       <Box tabIndex={-1} />
-    </>
+    </>,
   );
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "The `tabIndex` prop for `Box` component has been deprecated and will soon be removed."
+    "The `tabIndex` prop for `Box` component has been deprecated and will soon be removed.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
   loggerSpy.mockRestore();

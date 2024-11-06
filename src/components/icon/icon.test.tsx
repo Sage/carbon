@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Icon from "./icon.component";
 import { BackgroundShape } from "./icon.style";
 import iconConfig from "./icon-config";
@@ -34,7 +34,7 @@ test.each([
 
     const icon = screen.getByTestId("icon");
     expect(icon).toHaveAttribute("type", newType);
-  }
+  },
 );
 
 test("renders with custom data tags", () => {
@@ -44,7 +44,7 @@ test("renders with custom data tags", () => {
       data-role="icon"
       data-component="icon"
       data-element="icon"
-    />
+    />,
   );
 
   const icon = screen.getByTestId("icon");
@@ -111,7 +111,7 @@ test("allows a tooltip to be shown via the `tooltipVisible` prop", () => {
 
 test("allows a custom 'id' attribute to be set on the tooltip via the `tooltipId` prop", () => {
   render(
-    <Icon type="home" tooltipMessage="foo" tooltipVisible tooltipId="foo" />
+    <Icon type="home" tooltipMessage="foo" tooltipVisible tooltipId="foo" />,
   );
 
   const tooltip = screen.getByText("foo");
@@ -126,12 +126,12 @@ test("does not render, as an invariant is fired due to the `tooltipFlipOverrides
         type="home"
         tooltipMessage="foo"
         tooltipFlipOverrides={
-          (["invalid-position"] as unknown) as TooltipPositions[]
+          ["invalid-position"] as unknown as TooltipPositions[]
         }
-      />
-    )
+      />,
+    ),
   ).toThrow(
-    `The tooltipFlipOverrides prop supplied to \`Icon\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
+    `The tooltipFlipOverrides prop supplied to \`Icon\` must be an array containing some or all of ["top", "bottom", "left", "right"].`,
   );
 
   consoleSpy.mockRestore();
@@ -146,11 +146,11 @@ test('logs a deprecation warning once when the `bgSize` prop is passed a value o
     <>
       <Icon type="home" bgSize="extra-small" />
       <Icon type="home" bgSize="extra-small" />
-    </>
+    </>,
   );
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "The `extra-small` variant of the `bgSize` prop for `Icon` component has been deprecated and will soon be removed."
+    "The `extra-small` variant of the `bgSize` prop for `Icon` component has been deprecated and will soon be removed.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
   loggerSpy.mockRestore();
@@ -165,7 +165,7 @@ test("logs a warning when the `fontSize` props value is larger than the `bgSize`
   render(<Icon type="home" bgSize={bgSizeValue} fontSize={fontSizeValue} />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    `[WARNING - Icon] The "${bgSizeValue}" \`bgSize\` is smaller than "${fontSizeValue}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`
+    `[WARNING - Icon] The "${bgSizeValue}" \`bgSize\` is smaller than "${fontSizeValue}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`,
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
   loggerSpy.mockRestore();
@@ -181,9 +181,9 @@ test("catches and logs a thrown error when the `color` prop is passed a value th
   expect(consoleErrorSpy).toHaveBeenCalledWith(
     expect.objectContaining({
       message: expect.stringContaining(
-        "Couldn't parse the color string. Please provide the color as a string in hex, rgb, rgba, hsl or hsla notation."
+        "Couldn't parse the color string. Please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.",
       ),
-    })
+    }),
   );
   consoleErrorSpy.mockRestore();
 });
@@ -198,9 +198,9 @@ test("catches and logs a thrown error when the `bg` prop is passed a value that 
   expect(consoleErrorSpy).toHaveBeenCalledWith(
     expect.objectContaining({
       message: expect.stringContaining(
-        "Couldn't parse the color string. Please provide the color as a string in hex, rgb, rgba, hsl or hsla notation."
+        "Couldn't parse the color string. Please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.",
       ),
-    })
+    }),
   );
   consoleErrorSpy.mockRestore();
 });
@@ -212,9 +212,9 @@ test.each(["circle", "rounded-rect", "square"] as BackgroundShape[])(
     render(<Icon type="home" bgShape={bgShape} />);
 
     expect(screen.getByTestId("icon")).toHaveStyleRule(
-      `border-radius: ${iconConfig.backgroundShape[bgShape]}`
+      `border-radius: ${iconConfig.backgroundShape[bgShape]}`,
     );
-  }
+  },
 );
 
 const mockBrowserTypeCheck = browserTypeCheck as jest.MockedFunction<
@@ -241,7 +241,7 @@ test("renders with the correct margin-top when rendered in chrome or firefox and
   expect(icon).toHaveStyleRule("margin-top", "-8px", { modifier: "&::before" });
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Icon type="add" {...props} />,
-  () => screen.getByTestId("icon")
+  () => screen.getByTestId("icon"),
 );

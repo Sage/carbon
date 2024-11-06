@@ -65,7 +65,7 @@ export interface InputProps extends CommonInputProps {
 }
 
 function selectTextOnFocus(
-  input: React.RefObject<HTMLInputElement | HTMLTextAreaElement>
+  input: React.RefObject<HTMLInputElement | HTMLTextAreaElement>,
 ) {
   // setTimeout is required so the dom has a chance to place the cursor in the input
   setTimeout(() => {
@@ -112,7 +112,7 @@ const Input = React.forwardRef<
       enterKeyHint,
       ...rest
     }: InputProps,
-    ref
+    ref,
   ): JSX.Element => {
     const context = useContext(InputContext);
     const groupContext = useContext(InputGroupContext);
@@ -140,7 +140,7 @@ const Input = React.forwardRef<
           element.setAttribute("enterkeyhint", enterKeyHint);
         }
       },
-      [autoFocus, ref, enterKeyHint]
+      [autoFocus, ref, enterKeyHint],
     );
 
     useEffect(() => {
@@ -247,7 +247,7 @@ const Input = React.forwardRef<
         inputBorderRadius={inputBorderRadius}
       />
     );
-  }
+  },
 );
 
 Input.displayName = "Input";

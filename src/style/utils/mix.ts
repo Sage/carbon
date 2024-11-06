@@ -15,7 +15,7 @@ const processHexes = (...hexes: string[]): string[] => {
 export default (
   inputColorA: string,
   inputColorB: string,
-  weight = 50
+  weight = 50,
 ): string => {
   const [colorA, colorB] = processHexes(inputColorA, inputColorB);
 
@@ -32,7 +32,7 @@ export default (
       const val2 = hexToDec(colorBPairs[i]);
 
       const combination = decToHex(
-        Math.round(val2 + (val1 - val2) * (weight / 100.0))
+        Math.round(val2 + (val1 - val2) * (weight / 100.0)),
       );
 
       return acc + combination.padStart(2, "0");

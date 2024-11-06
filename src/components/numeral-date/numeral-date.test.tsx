@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 import NumeralDate from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -9,12 +9,12 @@ import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <NumeralDate data-role="numeral-date" {...props} />,
   // can be updated to use role="group" when FE-6832 is resolved
   () => screen.getByTestId("numeral-date"),
   undefined,
-  { modifier: "&&&" }
+  { modifier: "&&&" },
 );
 
 beforeEach(() => {
@@ -31,7 +31,7 @@ test("should display deprecation warning once when used in an uncontrolled manne
   render(<NumeralDate />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
 
   expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -54,8 +54,8 @@ test("should display an error when invalid `dateFormat` prop passed", () => {
         dateFormat={["xx"]}
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
-      />
-    )
+      />,
+    ),
   ).toThrow(expected);
   consoleSpy.mockReset();
 });
@@ -65,7 +65,7 @@ test("should not throw an error if no `dateFormat` is passed", () => {
     .spyOn(global.console, "error")
     .mockImplementation(() => undefined);
   render(
-    <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
+    <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />,
   );
 
   expect(consoleSpy).not.toHaveBeenCalled();
@@ -81,7 +81,7 @@ test("should throw when component changes from uncontrolled to controlled", () =
     rerender(<NumeralDate value={{ dd: "02", mm: "01", yyyy: "2020" }} />);
   }).toThrow(
     "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-      "Decide between using a controlled or uncontrolled input element for the lifetime of the component"
+      "Decide between using a controlled or uncontrolled input element for the lifetime of the component",
   );
   consoleSpy.mockReset();
 });
@@ -91,13 +91,13 @@ test("should throw when component changes from controlled to uncontrolled", () =
     .spyOn(global.console, "error")
     .mockImplementation(() => undefined);
   const { rerender } = render(
-    <NumeralDate value={{ dd: "02", mm: "01", yyyy: "2020" }} />
+    <NumeralDate value={{ dd: "02", mm: "01", yyyy: "2020" }} />,
   );
   expect(() => {
     rerender(<NumeralDate value={undefined} />);
   }).toThrow(
     "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-      "Decide between using a controlled or uncontrolled input element for the lifetime of the component"
+      "Decide between using a controlled or uncontrolled input element for the lifetime of the component",
   );
   consoleSpy.mockReset();
 });
@@ -111,7 +111,7 @@ describe("when the `error` prop is passed a string value and `validationRedesign
           onChange={() => {}}
           error="error"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -132,7 +132,7 @@ describe("when the `error` prop is passed a string value and `validationRedesign
           onChange={() => {}}
           error="error"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -150,7 +150,7 @@ describe("when the `error` prop is passed a string value and `validationRedesign
           onChange={() => {}}
           error="error"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -168,7 +168,7 @@ describe("when the `error` prop is passed a string value and `validationRedesign
           onChange={() => {}}
           error="error"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -187,7 +187,7 @@ describe("when the `error` prop is passed a boolean value and `validationRedesig
           onChange={() => {}}
           error
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -208,7 +208,7 @@ describe("when the `error` prop is passed a boolean value and `validationRedesig
           onChange={() => {}}
           error
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -226,7 +226,7 @@ describe("when the `error` prop is passed a boolean value and `validationRedesig
           onChange={() => {}}
           error
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -244,7 +244,7 @@ describe("when the `error` prop is passed a boolean value and `validationRedesig
           onChange={() => {}}
           error
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -263,7 +263,7 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
           onChange={() => {}}
           warning="warning"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -284,14 +284,14 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
           onChange={() => {}}
           warning="warning"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
     await user.hover(dayInput);
 
     expect(
-      await screen.findByRole("tooltip", { name: "warning" })
+      await screen.findByRole("tooltip", { name: "warning" }),
     ).toBeVisible();
   });
 
@@ -304,14 +304,14 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
           onChange={() => {}}
           warning="warning"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
     await user.hover(monthInput);
 
     expect(
-      await screen.findByRole("tooltip", { name: "warning" })
+      await screen.findByRole("tooltip", { name: "warning" }),
     ).toBeVisible();
   });
 
@@ -324,14 +324,14 @@ describe("when the `warning` prop is passed a string value and `validationRedesi
           onChange={() => {}}
           warning="warning"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
     await user.hover(yearInput);
 
     expect(
-      await screen.findByRole("tooltip", { name: "warning" })
+      await screen.findByRole("tooltip", { name: "warning" }),
     ).toBeVisible();
   });
 });
@@ -345,7 +345,7 @@ describe("when the `warning` prop is passed a boolean value and `validationRedes
           onChange={() => {}}
           warning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -366,7 +366,7 @@ describe("when the `warning` prop is passed a boolean value and `validationRedes
           onChange={() => {}}
           warning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -384,7 +384,7 @@ describe("when the `warning` prop is passed a boolean value and `validationRedes
           onChange={() => {}}
           warning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -402,7 +402,7 @@ describe("when the `warning` prop is passed a boolean value and `validationRedes
           onChange={() => {}}
           warning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -421,7 +421,7 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
           onChange={() => {}}
           info="info"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -442,7 +442,7 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
           onChange={() => {}}
           info="info"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -460,7 +460,7 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
           onChange={() => {}}
           info="info"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -478,7 +478,7 @@ describe("when the `info` prop is passed a string value and `validationRedesignO
           onChange={() => {}}
           info="info"
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -497,7 +497,7 @@ describe("when the `info` prop is passed a boolean value and `validationRedesign
           onChange={() => {}}
           info
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -518,7 +518,7 @@ describe("when the `info` prop is passed a boolean value and `validationRedesign
           onChange={() => {}}
           info
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -536,7 +536,7 @@ describe("when the `info` prop is passed a boolean value and `validationRedesign
           onChange={() => {}}
           info
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -554,7 +554,7 @@ describe("when the `info` prop is passed a boolean value and `validationRedesign
           onChange={() => {}}
           info
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -572,7 +572,7 @@ test("should render the validation message when the `error` prop is passed a str
         onChange={() => {}}
         error="error"
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -593,7 +593,7 @@ test("should not render the validation message when the `error` prop is passed a
         onChange={() => {}}
         error
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -614,7 +614,7 @@ test("should render the validation message when `warning` prop is passed a strin
         onChange={() => {}}
         warning="warning"
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -635,7 +635,7 @@ test("should not render the validation message when `warning` prop is passed a b
         onChange={() => {}}
         warning
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -657,14 +657,14 @@ test("should render the `labelHelp` text as additional content and not render th
         onChange={() => {}}
         labelHelp="labelHelp"
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const labelHelpText = screen.getByText("labelHelp");
 
   expect(labelHelpText).toBeVisible();
   expect(
-    screen.queryByRole("button", { name: "help" })
+    screen.queryByRole("button", { name: "help" }),
   ).not.toBeInTheDocument();
   expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
 });
@@ -679,7 +679,7 @@ test("should have the default styling when the `labelsInline` prop is set and `v
         labelHelp="labelHelp"
         labelInline
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const fields = screen.getAllByTestId("field-line");
@@ -697,14 +697,14 @@ test("should render the help icon and tooltip when `labelHelp` prop is set and `
         onChange={() => {}}
         labelHelp="labelHelp"
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const labelHelp = screen.getByRole("button", { name: "help" });
   await user.hover(labelHelp);
 
   expect(
-    await screen.findByRole("tooltip", { name: "labelHelp" })
+    await screen.findByRole("tooltip", { name: "labelHelp" }),
   ).toBeVisible();
 });
 
@@ -714,7 +714,7 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     render(
       <CarbonProvider validationRedesignOptIn>
         <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -728,7 +728,7 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.queryByText("Day should be a number within a 1-31 range.")
+      screen.queryByText("Day should be a number within a 1-31 range."),
     ).not.toBeInTheDocument();
   });
 
@@ -737,7 +737,7 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     render(
       <CarbonProvider validationRedesignOptIn>
         <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -750,7 +750,7 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.queryByText("Day should be a number within a 1-31 range.")
+      screen.queryByText("Day should be a number within a 1-31 range."),
     ).not.toBeInTheDocument();
   });
 
@@ -759,7 +759,7 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     render(
       <CarbonProvider validationRedesignOptIn>
         <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -772,7 +772,7 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.queryByText("Month should be a number within a 1-12 range.")
+      screen.queryByText("Month should be a number within a 1-12 range."),
     ).not.toBeInTheDocument();
   });
 
@@ -781,7 +781,7 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     render(
       <CarbonProvider validationRedesignOptIn>
         <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -794,7 +794,7 @@ describe("when the `enableInternalError` prop is not set and `validationRedesign
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.queryByText("Month should be a number within a 1-12 range.")
+      screen.queryByText("Month should be a number within a 1-12 range."),
     ).not.toBeInTheDocument();
   });
 });
@@ -809,7 +809,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -817,7 +817,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     await user.tab();
 
     expect(
-      screen.queryByText("Day should be a number within a 1-31 range.")
+      screen.queryByText("Day should be a number within a 1-31 range."),
     ).not.toBeInTheDocument();
   });
 
@@ -830,7 +830,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -843,7 +843,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(monthInput).toBeInvalid();
     expect(yearInput).toBeInvalid();
     expect(
-      screen.getByText("Day should be a number within a 1-31 range.")
+      screen.getByText("Day should be a number within a 1-31 range."),
     ).toBeVisible();
   });
 
@@ -856,7 +856,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -869,7 +869,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(monthInput).toBeInvalid();
     expect(yearInput).toBeInvalid();
     expect(
-      screen.getByText("Day should be a number within a 1-31 range.")
+      screen.getByText("Day should be a number within a 1-31 range."),
     ).toBeVisible();
   });
 
@@ -882,7 +882,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -895,7 +895,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(monthInput).toBeInvalid();
     expect(yearInput).toBeInvalid();
     expect(
-      screen.getByText("Day in February should be a number within 1-28.")
+      screen.getByText("Day in February should be a number within 1-28."),
     ).toBeVisible();
   });
 
@@ -908,7 +908,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -916,7 +916,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     await user.tab();
 
     expect(
-      screen.queryByText("Day in February should be a number within 1-28.")
+      screen.queryByText("Day in February should be a number within 1-28."),
     ).not.toBeInTheDocument();
   });
 
@@ -929,7 +929,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -937,7 +937,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     await user.tab();
 
     expect(
-      screen.queryByText("Day in February should be a number within 1-28.")
+      screen.queryByText("Day in February should be a number within 1-28."),
     ).not.toBeInTheDocument();
   });
 
@@ -950,7 +950,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -963,7 +963,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(monthInput).toBeInvalid();
     expect(yearInput).toBeInvalid();
     expect(
-      screen.getByText("Month should be a number within a 1-12 range.")
+      screen.getByText("Month should be a number within a 1-12 range."),
     ).toBeVisible();
   });
 
@@ -976,7 +976,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -989,7 +989,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(monthInput).toBeInvalid();
     expect(yearInput).toBeInvalid();
     expect(
-      screen.getByText("Month should be a number within a 1-12 range.")
+      screen.getByText("Month should be a number within a 1-12 range."),
     ).toBeVisible();
   });
 
@@ -1002,7 +1002,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1015,7 +1015,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(monthInput).toBeInvalid();
     expect(yearInput).toBeInvalid();
     expect(
-      screen.getByText("Year should be a number within a 1800-2200 range.")
+      screen.getByText("Year should be a number within a 1800-2200 range."),
     ).toBeVisible();
   });
 
@@ -1028,7 +1028,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1041,7 +1041,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(monthInput).toBeInvalid();
     expect(yearInput).toBeInvalid();
     expect(
-      screen.getByText("Year should be a number within a 1800-2200 range.")
+      screen.getByText("Year should be a number within a 1800-2200 range."),
     ).toBeVisible();
   });
 
@@ -1054,7 +1054,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1066,8 +1066,8 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.getByText(
         "Day should be a number within a 1-31 range. " +
-          "Month should be a number within a 1-12 range."
-      )
+          "Month should be a number within a 1-12 range.",
+      ),
     ).toBeVisible();
   });
 
@@ -1080,7 +1080,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1092,8 +1092,8 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.getByText(
         "Day should be a number within a 1-31 range. " +
-          "Year should be a number within a 1800-2200 range."
-      )
+          "Year should be a number within a 1800-2200 range.",
+      ),
     ).toBeVisible();
   });
 
@@ -1106,7 +1106,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1118,8 +1118,8 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
     expect(
       screen.getByText(
         "Month should be a number within a 1-12 range. " +
-          "Year should be a number within a 1800-2200 range."
-      )
+          "Year should be a number within a 1800-2200 range.",
+      ),
     ).toBeVisible();
   });
 
@@ -1132,7 +1132,7 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
           onChange={() => {}}
           enableInternalError
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1147,8 +1147,8 @@ describe("when the `enableInternalError` prop and `validationRedesignOptIn` are 
       screen.getByText(
         "Day should be a number within a 1-31 range. " +
           "Month should be a number within a 1-12 range. " +
-          "Year should be a number within a 1800-2200 range."
-      )
+          "Year should be a number within a 1800-2200 range.",
+      ),
     ).toBeVisible();
   });
 });
@@ -1159,7 +1159,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     render(
       <CarbonProvider validationRedesignOptIn>
         <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1173,7 +1173,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.queryByText("Day should be a number within a 1-31 range.")
+      screen.queryByText("Day should be a number within a 1-31 range."),
     ).not.toBeInTheDocument();
   });
 
@@ -1182,7 +1182,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     render(
       <CarbonProvider validationRedesignOptIn>
         <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1195,7 +1195,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.queryByText("Day should be a number within a 1-31 range.")
+      screen.queryByText("Day should be a number within a 1-31 range."),
     ).not.toBeInTheDocument();
   });
 
@@ -1204,7 +1204,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     render(
       <CarbonProvider validationRedesignOptIn>
         <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1217,7 +1217,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.queryByText("Month should be a number within a 1-12 range.")
+      screen.queryByText("Month should be a number within a 1-12 range."),
     ).not.toBeInTheDocument();
   });
 
@@ -1226,7 +1226,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     render(
       <CarbonProvider validationRedesignOptIn>
         <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1239,7 +1239,7 @@ describe("when the `enableInternalWarning` prop is not set and `validationRedesi
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.queryByText("Month should be a number within a 1-12 range.")
+      screen.queryByText("Month should be a number within a 1-12 range."),
     ).not.toBeInTheDocument();
   });
 });
@@ -1254,7 +1254,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1262,7 +1262,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     await user.tab();
 
     expect(
-      screen.queryByText("Day should be a number within a 1-31 range.")
+      screen.queryByText("Day should be a number within a 1-31 range."),
     ).not.toBeInTheDocument();
   });
 
@@ -1275,7 +1275,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1288,7 +1288,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.getByText("Day should be a number within a 1-31 range.")
+      screen.getByText("Day should be a number within a 1-31 range."),
     ).toBeVisible();
   });
 
@@ -1301,7 +1301,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1314,7 +1314,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.getByText("Day should be a number within a 1-31 range.")
+      screen.getByText("Day should be a number within a 1-31 range."),
     ).toBeVisible();
   });
 
@@ -1327,7 +1327,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1340,7 +1340,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.getByText("Day in February should be a number within 1-28.")
+      screen.getByText("Day in February should be a number within 1-28."),
     ).toBeVisible();
   });
 
@@ -1353,7 +1353,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1361,7 +1361,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     await user.tab();
 
     expect(
-      screen.queryByText("Day in February should be a number within 1-28.")
+      screen.queryByText("Day in February should be a number within 1-28."),
     ).not.toBeInTheDocument();
   });
 
@@ -1374,7 +1374,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1387,7 +1387,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.getByText("Month should be a number within a 1-12 range.")
+      screen.getByText("Month should be a number within a 1-12 range."),
     ).toBeVisible();
   });
 
@@ -1400,7 +1400,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1413,7 +1413,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.getByText("Month should be a number within a 1-12 range.")
+      screen.getByText("Month should be a number within a 1-12 range."),
     ).toBeVisible();
   });
 
@@ -1426,7 +1426,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1439,7 +1439,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.getByText("Year should be a number within a 1800-2200 range.")
+      screen.getByText("Year should be a number within a 1800-2200 range."),
     ).toBeVisible();
   });
 
@@ -1452,7 +1452,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const yearInput = screen.getByRole("textbox", { name: "Year" });
@@ -1465,7 +1465,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(monthInput).not.toBeInvalid();
     expect(yearInput).not.toBeInvalid();
     expect(
-      screen.getByText("Year should be a number within a 1800-2200 range.")
+      screen.getByText("Year should be a number within a 1800-2200 range."),
     ).toBeVisible();
   });
 
@@ -1478,7 +1478,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1490,8 +1490,8 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.getByText(
         "Day should be a number within a 1-31 range. " +
-          "Month should be a number within a 1-12 range."
-      )
+          "Month should be a number within a 1-12 range.",
+      ),
     ).toBeVisible();
   });
 
@@ -1504,7 +1504,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1516,8 +1516,8 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.getByText(
         "Day should be a number within a 1-31 range. " +
-          "Year should be a number within a 1800-2200 range."
-      )
+          "Year should be a number within a 1800-2200 range.",
+      ),
     ).toBeVisible();
   });
 
@@ -1530,7 +1530,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -1542,8 +1542,8 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
     expect(
       screen.getByText(
         "Month should be a number within a 1-12 range. " +
-          "Year should be a number within a 1800-2200 range."
-      )
+          "Year should be a number within a 1800-2200 range.",
+      ),
     ).toBeVisible();
   });
 
@@ -1556,7 +1556,7 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
           onChange={() => {}}
           enableInternalWarning
         />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1571,8 +1571,8 @@ describe("when the `enableInternalWarning` prop and `validationRedesignOptIn` ar
       screen.getByText(
         "Day should be a number within a 1-31 range. " +
           "Month should be a number within a 1-12 range. " +
-          "Year should be a number within a 1800-2200 range."
-      )
+          "Year should be a number within a 1800-2200 range.",
+      ),
     ).toBeVisible();
   });
 });
@@ -1592,7 +1592,7 @@ test("should submit the form when enter key is pressed", async () => {
         onChange={() => {}}
       />
       <button type="submit">Submit</button>
-    </form>
+    </form>,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1607,7 +1607,7 @@ test("should update the input values when the delete key is pressed", async () =
     <NumeralDate
       value={{ dd: "11", mm: "11", yyyy: "2011" }}
       onChange={() => {}}
-    />
+    />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1628,7 +1628,7 @@ test("should update the input values when the backspace key is pressed", async (
     <NumeralDate
       value={{ dd: "11", mm: "11", yyyy: "2011" }}
       onChange={() => {}}
-    />
+    />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1646,7 +1646,7 @@ test("should update the input values when the backspace key is pressed", async (
 test("should not update the input values when user presses non-numeric key", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />
+    <NumeralDate value={{ dd: "", mm: "", yyyy: "" }} onChange={() => {}} />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1667,7 +1667,7 @@ test("should set the attribute on each input when the `required` prop is set", (
       value={{ dd: "", mm: "", yyyy: "" }}
       onChange={() => {}}
       required
-    />
+    />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1685,7 +1685,7 @@ test("should render the expected inputs when the `dateFormat` is set as 'mmddyyy
       value={{ dd: "", mm: "", yyyy: "" }}
       onChange={() => {}}
       dateFormat={["mm", "dd", "yyyy"]}
-    />
+    />,
   );
 
   const inputText = screen.getAllByTestId("numeral-date-input-text");
@@ -1701,7 +1701,7 @@ test("should render the expected inputs when the `dateFormat` is set as 'yyyymmd
       value={{ dd: "", mm: "", yyyy: "" }}
       onChange={() => {}}
       dateFormat={["yyyy", "mm", "dd"]}
-    />
+    />,
   );
 
   const inputText = screen.getAllByTestId("numeral-date-input-text");
@@ -1717,7 +1717,7 @@ test("should render the expected inputs when the `dateFormat` is set as 'ddmm'",
       value={{ dd: "", mm: "" }}
       onChange={() => {}}
       dateFormat={["dd", "mm"]}
-    />
+    />,
   );
 
   const inputText = screen.getAllByTestId("numeral-date-input-text");
@@ -1733,7 +1733,7 @@ test("should render the expected inputs when the `dateFormat` is set as 'mmdd'",
       value={{ dd: "", mm: "" }}
       onChange={() => {}}
       dateFormat={["mm", "dd"]}
-    />
+    />,
   );
 
   const inputText = screen.getAllByTestId("numeral-date-input-text");
@@ -1749,7 +1749,7 @@ test("should render the expected inputs when the `dateFormat` is set as 'mmyyyy'
       value={{ dd: "", mm: "" }}
       onChange={() => {}}
       dateFormat={["mm", "yyyy"]}
-    />
+    />,
   );
 
   const inputText = screen.getAllByTestId("numeral-date-input-text");
@@ -1768,7 +1768,7 @@ test("should call `onBlur` callback if prop is passed and user clicks outside of
       value={{ dd: "", mm: "", yyyy: "" }}
       onChange={() => {}}
       onBlur={onBlur}
-    />
+    />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1788,7 +1788,7 @@ test("should not call `onBlur` callback if prop is passed and user clicks from o
       value={{ dd: "", mm: "", yyyy: "" }}
       onChange={() => {}}
       onBlur={onBlur}
-    />
+    />,
   );
 
   const dayInput = screen.getByRole("textbox", { name: "Day" });
@@ -1808,7 +1808,7 @@ describe("when `dayRef` prop is passed", () => {
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
         dayRef={ref}
-      />
+      />,
     );
 
     expect(ref.current).toBe(screen.getByRole("textbox", { name: "Day" }));
@@ -1821,11 +1821,11 @@ describe("when `dayRef` prop is passed", () => {
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
         dayRef={ref}
-      />
+      />,
     );
 
     expect(ref).toHaveBeenCalledWith(
-      screen.getByRole("textbox", { name: "Day" })
+      screen.getByRole("textbox", { name: "Day" }),
     );
   });
 
@@ -1836,7 +1836,7 @@ describe("when `dayRef` prop is passed", () => {
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
         dayRef={ref}
-      />
+      />,
     );
 
     unmount();
@@ -1853,7 +1853,7 @@ describe("when `monthRef` prop is passed", () => {
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
         monthRef={ref}
-      />
+      />,
     );
 
     expect(ref.current).toBe(screen.getByRole("textbox", { name: "Month" }));
@@ -1866,11 +1866,11 @@ describe("when `monthRef` prop is passed", () => {
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
         monthRef={ref}
-      />
+      />,
     );
 
     expect(ref).toHaveBeenCalledWith(
-      screen.getByRole("textbox", { name: "Month" })
+      screen.getByRole("textbox", { name: "Month" }),
     );
   });
 
@@ -1881,7 +1881,7 @@ describe("when `monthRef` prop is passed", () => {
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
         monthRef={ref}
-      />
+      />,
     );
 
     unmount();
@@ -1898,7 +1898,7 @@ describe("when `yearRef` prop is passed", () => {
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
         yearRef={ref}
-      />
+      />,
     );
 
     expect(ref.current).toBe(screen.getByRole("textbox", { name: "Year" }));
@@ -1911,11 +1911,11 @@ describe("when `yearRef` prop is passed", () => {
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
         yearRef={ref}
-      />
+      />,
     );
 
     expect(ref).toHaveBeenCalledWith(
-      screen.getByRole("textbox", { name: "Year" })
+      screen.getByRole("textbox", { name: "Year" }),
     );
   });
 
@@ -1926,7 +1926,7 @@ describe("when `yearRef` prop is passed", () => {
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
         yearRef={ref}
-      />
+      />,
     );
 
     unmount();
@@ -1939,7 +1939,7 @@ test("should not call the onChange callback when the prop is set and the user ty
   const onChange = jest.fn();
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <NumeralDate value={{ dd: "12", mm: "", yyyy: "" }} onChange={onChange} />
+    <NumeralDate value={{ dd: "12", mm: "", yyyy: "" }} onChange={onChange} />,
   );
   const dayInput = screen.getByRole("textbox", { name: "Day" });
   await user.click(dayInput);
@@ -1953,7 +1953,7 @@ test("should not call the onChange callback when the prop is set and the user ty
   const onChange = jest.fn();
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <NumeralDate value={{ dd: "", mm: "12", yyyy: "" }} onChange={onChange} />
+    <NumeralDate value={{ dd: "", mm: "12", yyyy: "" }} onChange={onChange} />,
   );
   const monthInput = screen.getByRole("textbox", { name: "Month" });
   await user.click(monthInput);
@@ -1967,7 +1967,10 @@ test("should not call the onChange callback when the prop is set and the user ty
   const onChange = jest.fn();
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <NumeralDate value={{ dd: "", mm: "", yyyy: "2011" }} onChange={onChange} />
+    <NumeralDate
+      value={{ dd: "", mm: "", yyyy: "2011" }}
+      onChange={onChange}
+    />,
   );
   const yearInput = screen.getByRole("textbox", { name: "Year" });
   await user.click(yearInput);
@@ -1985,7 +1988,7 @@ test("should set the passed `data-` props as atributes on the root element", () 
       data-component="numeral-date-root"
       data-element="numeral-date-element"
       data-role="numeral-date-role"
-    />
+    />,
   );
   const rootElement = screen.getByTestId("numeral-date-role");
 
@@ -2001,7 +2004,7 @@ test("should pass the `helpAriaLabel` prop as `aria-label` attribute on the help
       onChange={() => {}}
       labelHelp="labelHelp"
       helpAriaLabel="help aria"
-    />
+    />,
   );
   const helpElement = screen.getByRole("button", { name: "help aria" });
 
@@ -2014,7 +2017,7 @@ test("should set the inputs to `disabled` when the prop is passed", () => {
       value={{ dd: "", mm: "", yyyy: "" }}
       onChange={() => {}}
       disabled
-    />
+    />,
   );
   const dayInput = screen.getByRole("textbox", { name: "Day" });
   const monthInput = screen.getByRole("textbox", { name: "Month" });
@@ -2031,7 +2034,7 @@ test("should set the inputs to `readOnly` when the prop is passed", () => {
       value={{ dd: "", mm: "", yyyy: "" }}
       onChange={() => {}}
       readOnly
-    />
+    />,
   );
   const dayInput = screen.getByRole("textbox", { name: "Day" });
   const monthInput = screen.getByRole("textbox", { name: "Month" });

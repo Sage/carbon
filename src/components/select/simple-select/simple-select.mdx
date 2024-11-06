@@ -70,7 +70,7 @@ You can use `listMaxHeight` prop to override default max height value of select 
 
 ### List width
 
-You can use `listWidth` prop to override the width of the select list. By default the list 
+You can use `listWidth` prop to override the width of the select list. By default the list
 will have the same width as the input.
 
 <Canvas
@@ -128,7 +128,7 @@ This prop will be called every time a user scrolls to the bottom of the list.
 ### Custom Option content
 
 It is also possible to render non-interactive content within the `Option` component.
-This can be achieved by passing `children` with no `value` or `text` props set. However, 
+This can be achieved by passing `children` with no `value` or `text` props set. However,
 we recommend checking that there are no accessibility issues with this approach before using it.
 
 <Canvas of={SimpleSelectStories.CustomOptionChildren} />
@@ -141,8 +141,8 @@ we recommend checking that there are no accessibility issues with this approach 
 
 <Canvas of={SimpleSelectStories.OptionGroups} />
 
-It is also possible to use the `children` prop to pass a composed layout to the 
-`OptionGroupHeader`. It should be noted it will override any values passed to the 
+It is also possible to use the `children` prop to pass a composed layout to the
+`OptionGroupHeader`. It should be noted it will override any values passed to the
 `icon` and `label` props.
 
 <Canvas of={SimpleSelectStories.OptionGroupsWithComposedChildren} />
@@ -159,7 +159,7 @@ The folowing examples use the new validation pattern that is available by settin
 
 For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
-**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
 
 <Canvas of={SimpleSelectStories.ValidationsStringNewDesign} />
 
@@ -209,6 +209,26 @@ for users who rely on assistive technology.
   name="dynamically adding options"
   of={SimpleSelectStories.SelectWithDynamicallyAddedOption}
 />
+
+## Testing with React Testing Library (RTL)
+
+If you use [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) in your project, you may need to mock the
+`getBoundingClientRect` method of the `Element` prototype in order to correctly test the `Select` component. You can do this manually in your
+test setup file, or import the `mockDOMRect` method to do it for you.
+
+```javascript
+import mockDOMRect from "carbon-react/lib/__spec_helper__/mock-dom-rect";
+
+describe("Select tests", () => {
+  beforeAll(() => {
+    mockDOMRect(200, 200, "select-list-scrollable-container");
+  });
+
+  test("should render", () => {
+    // your test code here
+  });
+})
+```
 
 ## Props
 

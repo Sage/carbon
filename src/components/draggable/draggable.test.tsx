@@ -2,8 +2,8 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
-  testStyledSystemMarginRTL,
-  testStyledSystemPaddingRTL,
+  testStyledSystemMargin,
+  testStyledSystemPadding,
 } from "../../__spec_helper__/__internal__/test-utils";
 
 import { DraggableContainer, DraggableItem } from ".";
@@ -14,7 +14,7 @@ test("dragging an item and dropping it after another item within the target cont
       <DraggableItem id="apple">Apple</DraggableItem>
       <DraggableItem id="mercury">Mercury</DraggableItem>
       <DraggableItem id="venus">Venus</DraggableItem>
-    </DraggableContainer>
+    </DraggableContainer>,
   );
 
   const apple = screen.getByText("Apple");
@@ -43,7 +43,7 @@ test("dragging an item and dropping it outside of the target container should no
         <DraggableItem id="venus">Venus</DraggableItem>
       </DraggableContainer>
       <p>Outer content</p>
-    </>
+    </>,
   );
 
   const apple = screen.getByText("Apple");
@@ -68,7 +68,7 @@ test("dragging and dropping an item in its current location does not change the 
       <DraggableItem id="apple">Apple</DraggableItem>
       <DraggableItem id="mercury">Mercury</DraggableItem>
       <DraggableItem id="venus">Venus</DraggableItem>
-    </DraggableContainer>
+    </DraggableContainer>,
   );
 
   const apple = screen.getByText("Apple");
@@ -92,7 +92,7 @@ test("calls getOrder callback, with an array of the new item order and the dragg
       <DraggableItem id="apple">Apple</DraggableItem>
       <DraggableItem id="mercury">Mercury</DraggableItem>
       <DraggableItem id="venus">Venus</DraggableItem>
-    </DraggableContainer>
+    </DraggableContainer>,
   );
 
   const apple = screen.getByText("Apple");
@@ -114,7 +114,7 @@ test("the actual rendered item element is hidden from view while the item is dra
   render(
     <DraggableContainer>
       <DraggableItem id="apple">Apple</DraggableItem>
-    </DraggableContainer>
+    </DraggableContainer>,
   );
 
   const apple = screen.getByText("Apple");
@@ -135,14 +135,14 @@ test("items are reordered when their order is manually changed", () => {
     <DraggableContainer>
       <DraggableItem id="apple">Apple</DraggableItem>
       <DraggableItem id="mercury">Mercury</DraggableItem>
-    </DraggableContainer>
+    </DraggableContainer>,
   );
 
   rerender(
     <DraggableContainer>
       <DraggableItem id="apple">Mercury</DraggableItem>
       <DraggableItem id="mercury">Apple</DraggableItem>
-    </DraggableContainer>
+    </DraggableContainer>,
   );
 
   const allItems = screen.getAllByTestId("draggable-item");
@@ -158,26 +158,26 @@ test("throws error when DraggableContainer contains a child which is not Draggab
     render(
       <DraggableContainer>
         <div>Not draggable</div>
-      </DraggableContainer>
+      </DraggableContainer>,
     );
   }).toThrow(
-    "`DraggableContainer` only accepts children of type `DraggableItem`."
+    "`DraggableContainer` only accepts children of type `DraggableItem`.",
   );
 
   jest.restoreAllMocks();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <DraggableContainer {...props}>
       <DraggableItem id="apple">Apple</DraggableItem>
     </DraggableContainer>
   ),
   () => screen.getByTestId("draggable-container"),
-  undefined
+  undefined,
 );
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <DraggableContainer>
       <DraggableItem id="apple" {...props}>
@@ -186,5 +186,5 @@ testStyledSystemPaddingRTL(
     </DraggableContainer>
   ),
   () => screen.getByTestId("draggable-item"),
-  { py: "8px" }
+  { py: "8px" },
 );

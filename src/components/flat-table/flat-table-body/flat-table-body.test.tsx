@@ -14,7 +14,7 @@ test("should render the expected data- attributes", () => {
           <td>foo</td>
         </tr>
       </FlatTableBody>
-    </table>
+    </table>,
   );
   const ftBody = screen.getByRole("rowgroup");
 
