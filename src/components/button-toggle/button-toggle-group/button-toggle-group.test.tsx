@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ButtonToggle, ButtonToggleGroup } from "..";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
-import { testStyledSystemMarginRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
 test("should render with provided children", () => {
   render(
@@ -355,7 +355,7 @@ test("should not change focus when a non arrow key is pressed", async () => {
   expect(screen.getByRole("button", { name: "Bar" })).toHaveFocus();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <ButtonToggleGroup
       id="button-toggle-group-id"

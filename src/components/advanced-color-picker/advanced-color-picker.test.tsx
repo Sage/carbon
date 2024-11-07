@@ -4,7 +4,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import AdvancedColorPicker, {
   AdvancedColorPickerProps,
 } from "./advanced-color-picker.component";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 
 const ControlledColorPicker = (props: Partial<AdvancedColorPickerProps>) => {
@@ -42,7 +42,7 @@ afterAll(() => {
   jest.useRealTimers();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <ControlledColorPicker name="advancedPicker" open {...props} />,
   () => screen.getByTestId("advanced-color-picker-wrapper"),
 );

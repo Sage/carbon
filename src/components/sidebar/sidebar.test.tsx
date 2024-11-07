@@ -8,8 +8,8 @@ import {
 import userEvent from "@testing-library/user-event";
 import { sageTheme } from "../../style/themes";
 import {
-  testStyledSystemPaddingRTL,
-  testStyledSystemWidthRTL,
+  testStyledSystemPadding,
+  testStyledSystemWidth,
 } from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
 
@@ -291,7 +291,7 @@ test("ensures overflowing content is scrollable", () => {
   expect(sidebarContent).toHaveStyle("overflow-y: auto");
 });
 
-testStyledSystemWidthRTL(
+testStyledSystemWidth(
   (props) => (
     <CarbonProvider theme={sageTheme}>
       <Sidebar open {...props}>
@@ -302,7 +302,7 @@ testStyledSystemWidthRTL(
   () => screen.getByRole("dialog"),
 );
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => (
     <CarbonProvider theme={sageTheme}>
       <Sidebar open {...props}>

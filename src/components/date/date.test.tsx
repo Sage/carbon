@@ -12,7 +12,7 @@ import frCALocale from "date-fns/locale/fr-CA";
 import enUSLocale from "date-fns/locale/en-US";
 
 import CarbonProvider from "../carbon-provider";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 import DateInput, { DateChangeEvent } from "./date.component";
 import I18nProvider from "../i18n-provider";
@@ -22,7 +22,7 @@ const ariaLabels = {
   previousMonthButton: () => "foo",
 };
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <DateInput onChange={() => {}} value="" {...props} />,
   () => screen.getAllByRole("presentation")[0],
 );

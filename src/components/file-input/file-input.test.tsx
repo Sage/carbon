@@ -294,7 +294,7 @@ describe("interactions", () => {
 });
 
 // there are more comprehensive tests for the FileUploadStatus subcomponent in that component's subfolder - this
-// is just to check that the prop on FileUpload does as it should. Using RTL not enzyme we can't directly check
+// is just to check that the prop on FileUpload does as it should. Using RTL we can't directly check
 // the props passed to the subcomponent so we have to check this indirectly.
 describe("with uploadStatus prop set", () => {
   it.each([

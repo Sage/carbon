@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { EditorState } from "draft-js";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import TextEditor, {
   TextEditorContentState,
   TextEditorProps,
@@ -71,7 +71,7 @@ As a result, most tests for TextEditor are now written in Playwright. If we ever
 moved back to unit tests.
 */
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <TextEditor
       value={TextEditorState.createEmpty()}

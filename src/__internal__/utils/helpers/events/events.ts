@@ -126,11 +126,7 @@ const Events = {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
    */
   composedPath: (ev: CustomEvent): EventTarget[] => {
-    return (
-      (ev.detail?.enzymeTestingTarget && composedPath(ev)) ||
-      (ev.composedPath && ev.composedPath()) ||
-      composedPath(ev)
-    );
+    return ev.composedPath?.() || composedPath(ev);
   },
 };
 

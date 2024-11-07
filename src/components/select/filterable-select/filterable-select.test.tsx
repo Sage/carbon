@@ -8,7 +8,7 @@ import {
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMarginRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import { FilterableSelect, Option, FilterableSelectProps } from "..";
 import guid from "../../../__internal__/utils/helpers/guid";
 import Logger from "../../../__internal__/utils/logger";
@@ -23,7 +23,7 @@ beforeAll(() => {
   mockDOMRect(200, 200, "select-list-scrollable-container");
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <FilterableSelect data-role="my-select" {...props}>
       <Option text="Amber" value="1" />

@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Time, TimeHandle } from ".";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import inputSizes from "../../__internal__/input/input-sizes.style";
 import {
   heightConfig,
@@ -54,7 +54,7 @@ const MockComponent = ({
 beforeEach(() => jest.useFakeTimers());
 afterEach(() => jest.useRealTimers());
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <Time value={{ hours: "", minutes: "" }} onChange={() => {}} {...props} />
   ),

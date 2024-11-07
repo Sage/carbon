@@ -4,10 +4,10 @@ import userEvent from "@testing-library/user-event";
 import MD5 from "crypto-js/md5";
 import Logger from "../../__internal__/utils/logger";
 import Portrait from ".";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Portrait data-role="portrait-wrapper" {...props} />,
   () => screen.getByTestId("portrait-wrapper"),
 );

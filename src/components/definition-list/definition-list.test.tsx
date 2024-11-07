@@ -3,9 +3,9 @@ import { render, screen } from "@testing-library/react";
 import Dl from "./dl.component";
 import Dt from "./dt/dt.component";
 import Dd from "./dd/dd.component";
-import { testStyledSystemSpacingRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemSpacingRTL(
+testStyledSystemSpacing(
   (props) => (
     <Dl {...props}>
       <Dt>Description</Dt>
