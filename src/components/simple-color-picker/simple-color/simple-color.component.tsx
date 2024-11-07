@@ -63,7 +63,6 @@ export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
           type="radio"
           role="radio"
           value={value}
-          aria-checked={checked}
           ref={ref}
           id={inputId}
           defaultChecked={defaultChecked}
