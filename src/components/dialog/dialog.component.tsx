@@ -241,6 +241,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
                 {...contentPadding}
                 hasTitle={!!title}
                 data-role="dialog-content"
+                data-component="dialog-content"
                 tabIndex={-1}
               >
                 {children}

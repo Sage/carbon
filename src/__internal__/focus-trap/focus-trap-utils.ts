@@ -6,7 +6,7 @@ const defaultFocusableSelectors =
   'button:not([disabled]), [href], input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]';
 
 const defaultScrollableSelectors =
-  'div[data-role="sidebar-content"], div[data-role="dialog-content"], div[data-role="dialog-full-screen-content"]';
+  'div[data-component="sidebar-content"], div[data-component="dialog-content"], div[data-component="dialog-full-screen-content"]';
 
 const INTERVAL = 10;
 const MAX_TIME = 100;

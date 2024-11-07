@@ -152,23 +152,24 @@ const FocusTrap = ({
 
           elements.push(...focusableElements);
 
-          const scrollableElements = Array.from(
-            ref.current.querySelectorAll(defaultScrollableSelectors),
-          ).filter(
-            (el) =>
-              el.scrollHeight > el.clientHeight &&
-              (window.getComputedStyle(el).overflowY === "scroll" ||
-                window.getComputedStyle(el).overflowY === "auto"),
+          const scrollableElement = ref.current.querySelector(
+            defaultScrollableSelectors,
           );
 
-          scrollableElements.forEach((el) => {
-            const focusableElementsInContainer = el.querySelectorAll(
-              defaultFocusableSelectors,
-            );
-            if (focusableElementsInContainer.length === 0) {
-              el.setAttribute("tabindex", "0");
-            }
-          });
+          if (!scrollableElement) {
+            return;
+          }
+
+          if (
+            scrollableElement.scrollHeight > scrollableElement.clientHeight &&
+            (window.getComputedStyle(scrollableElement).overflowY ===
+              "scroll" ||
+              window.getComputedStyle(scrollableElement).overflowY ===
+                "auto") &&
+            !focusableElements.some((el) => scrollableElement.contains(el))
+          ) {
+            scrollableElement.setAttribute("tabindex", "0");
+          }
         }
       });
       return elements as HTMLElement[];
