@@ -1,3 +1,10 @@
+## [144.5.0](https://github.com/Sage/carbon/compare/v144.4.1...v144.5.0) (2024-11-07)
+
+
+### Features
+
+* **switch:** enhances Switch component to allow inline variant in new validation redesign ([baf4ac5](https://github.com/Sage/carbon/commit/baf4ac5378d4ac5f805d5b2d9779d9d7f88a99ee))
+
 ### [144.4.1](https://github.com/Sage/carbon/compare/v144.4.0...v144.4.1) (2024-11-05)
 
 
