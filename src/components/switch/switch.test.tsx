@@ -423,3 +423,228 @@ test("the expected translations are correctly applied for off", () => {
 
   expect(i18nText[0]).toBeVisible();
 });
+
+// coverage
+test("renders with normal styles when `isDarkBackground` is false", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch isDarkBackground={false} />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule(
+    "color: var(--colorsActionMinorYang100)",
+  );
+});
+
+// coverage
+test("renders with dark background styles when `isDarkBackground` is true", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch isDarkBackground />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("color: var(--colorsUtilityYin100)");
+});
+
+// coverage
+test("renders correctly with inputWidth set to numerical value of between 0 and 1", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch inputWidth={0.5} />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});
+
+// coverage
+test("renders correctly with labelInline and new validation", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch labelInline />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});
+
+// coverage
+test("renders correctly with reverse flag set under erroneous state and new validation", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch reverse error="error" />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});
+
+// coverage
+test("renders correctly with no reverse flag set under erroneous state and new validation", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch reverse={false} error="error" />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});
+
+// coverage
+test("renders correctly with reverse flag not set and new validation", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch reverse={false} />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});
+
+// coverage
+test("renders correctly with hint text and dark background in new validation", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch labelHelp="hint text" isDarkBackground />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});
+
+// coverage
+test("renders correctly with hint text in new validation", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch labelHelp="hint text" />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});
+
+// coverage
+test("renders correctly with inline label and field help in new validation", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch labelInline fieldHelp="Field help" />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});
+
+// coverage
+test("renders correctly with inline label, dark background and field help in new validation", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch labelInline fieldHelp="Field help" isDarkBackground />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});
+
+// coverage
+test("renders correctly with inline label, dark background, error and field help in new validation", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch
+        labelInline
+        fieldHelp="Field help"
+        error="error"
+        isDarkBackground
+      />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});
+
+// coverage
+test("renders with the correct error colour when `isDarkBackground` is false", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch
+        labelInline
+        fieldHelp="Field help"
+        error="error"
+        isDarkBackground={false}
+      />
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByTestId("validation-message")).toHaveStyleRule(
+    "color: var(--colorsSemanticNegative500)",
+  );
+});
+
+// coverage
+test("renders with the correct error colour when `isDarkBackground` is true", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch
+        labelInline
+        fieldHelp="Field help"
+        error="error"
+        isDarkBackground
+      />
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByTestId("validation-message")).toHaveStyleRule(
+    "color: var(--colorsSemanticNegative450)",
+  );
+});
+
+// coverage
+test("renders correctly with inline label and hint text in new validation", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch labelInline labelHelp="Field help" />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});
+
+// coverage
+test("renders correctly with inline label and hint text in new validation when reversed", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch labelInline labelHelp="Field help" reverse={false} />
+    </CarbonProvider>,
+  );
+
+  const switchElement = screen.getByRole("switch");
+
+  expect(switchElement).toHaveStyleRule("width: 50%");
+});

@@ -134,3 +134,30 @@ test("when `size` is large and the consumer has opted out of rounded corners sty
 
   expect(switchPanel).toHaveStyle("border-radius: 30px");
 });
+
+// coverage
+test("renders with normal styles when `isDarkBackground` is false", () => {
+  render(<SwitchSlider isDarkBackground={false} />);
+
+  const switchPanel = screen.getByTestId("slider");
+
+  expect(switchPanel).toHaveStyleRule("color: var(--colorsActionMinorYang100)");
+});
+
+// coverage
+test("renders with dark background styles when `isDarkBackground` is true", () => {
+  render(<SwitchSlider isDarkBackground />);
+
+  const switchPanel = screen.getByTestId("slider");
+
+  expect(switchPanel).toHaveStyleRule("color: var(--colorsUtilityYin100)");
+});
+
+// coverage
+test("renders with dark background styles when `isDarkBackground` is true and checked is true", () => {
+  render(<SwitchSlider isDarkBackground checked />);
+
+  const switchPanel = screen.getByTestId("slider");
+
+  expect(switchPanel).toHaveStyleRule("color: var(--colorsUtilityYang100)");
+});
