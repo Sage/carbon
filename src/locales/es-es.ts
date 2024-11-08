@@ -114,6 +114,11 @@ const esES: Partial<Locale> = {
   },
   message: {
     closeButtonAriaLabel: () => "Cerrar",
+    error: () => "Error",
+    info: () => "Información",
+    success: () => "Acción realizada",
+    warning: () => "Aviso",
+    neutral: () => "Información",
   },
   numeralDate: {
     validation: {
