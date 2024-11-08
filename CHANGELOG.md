@@ -1,3 +1,10 @@
+### [144.7.1](https://github.com/Sage/carbon/compare/v144.7.0...v144.7.1) (2024-11-08)
+
+
+### Bug Fixes
+
+* remove aria-checked from checkbox/radio inputs ([d397fe7](https://github.com/Sage/carbon/commit/d397fe7d3de9bbe5b4a19e9442f2316e864ab9ad)), closes [#7047](https://github.com/Sage/carbon/issues/7047)
+
 ## [144.7.0](https://github.com/Sage/carbon/compare/v144.6.0...v144.7.0) (2024-11-08)
 
 
