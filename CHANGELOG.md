@@ -1,3 +1,10 @@
+## [144.6.0](https://github.com/Sage/carbon/compare/v144.5.0...v144.6.0) (2024-11-08)
+
+
+### Features
+
+* **date, date-range:** provides a mechanism that allows consumers to override the format of dates ([aed6c43](https://github.com/Sage/carbon/commit/aed6c43bb4d33b0b65bfa6898a3b25d1ce485ac0)), closes [#6930](https://github.com/Sage/carbon/issues/6930)
+
 ## [144.5.0](https://github.com/Sage/carbon/compare/v144.4.1...v144.5.0) (2024-11-07)
 
 
