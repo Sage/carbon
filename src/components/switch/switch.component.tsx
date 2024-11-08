@@ -1,19 +1,19 @@
 import React, { useState, useCallback, useContext, useRef } from "react";
 import { MarginProps } from "styled-system";
 
-import StyledSwitch, { ErrorBorder, StyledHintText } from "./switch.style";
+import Box from "../box";
 import CheckableInput, {
   CommonCheckableInputProps,
 } from "../../__internal__/checkable-input";
-import SwitchSlider from "./__internal__/switch-slider.component";
-import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import Logger from "../../__internal__/utils/logger";
-import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
-import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
-import Box from "../box";
 import Label from "../../__internal__/label";
+import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
+import Logger from "../../__internal__/utils/logger";
+import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
+import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
+import StyledSwitch, { ErrorBorder, StyledHintText } from "./switch.style";
+import SwitchSlider from "./__internal__/switch-slider.component";
 import guid from "../../__internal__/utils/helpers/guid";
 
 export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
@@ -39,6 +39,8 @@ export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
+  /** Whether this component resides on a dark background */
+  isDarkBackground?: boolean;
 }
 
 let deprecateUncontrolledWarnTriggered = false;
@@ -76,6 +78,7 @@ export const Switch = React.forwardRef(
       "data-element": dataElement,
       "data-role": dataRole,
       helpAriaLabel,
+      isDarkBackground = false,
       ...rest
     }: SwitchProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -124,6 +127,7 @@ export const Switch = React.forwardRef(
       "data-role": dataRole,
       "data-element": dataElement,
       checked: isControlled ? checked : checkedInternal,
+      isDarkBackground,
       fieldHelpInline,
       labelInline: shouldLabelBeInline,
       labelSpacing,
@@ -136,6 +140,7 @@ export const Switch = React.forwardRef(
       checked: isControlled ? checked : checkedInternal,
       disabled: disabled || loading,
       loading,
+      isDarkBackground,
       size,
       error,
       warning,
@@ -158,6 +163,7 @@ export const Switch = React.forwardRef(
       labelInline: shouldLabelBeInline,
       labelSpacing,
       onBlur,
+      isDarkBackground,
       onFocus,
       onChange: isControlled ? onChange : onChangeInternal,
       id,
@@ -180,6 +186,8 @@ export const Switch = React.forwardRef(
       "data-role": dataRole,
       "data-element": dataElement,
       checked: isControlled ? checked : checkedInternal,
+      labelInline: shouldLabelBeInline,
+      isDarkBackground,
       size,
       ...marginProps,
     };
@@ -188,6 +196,7 @@ export const Switch = React.forwardRef(
       checked: isControlled ? checked : checkedInternal,
       disabled: disabled || loading,
       loading,
+      isDarkBackground,
       size,
       error,
       warning,
@@ -197,10 +206,12 @@ export const Switch = React.forwardRef(
       autoFocus,
       // set aria-invalid but prevent validationIconId from being added to aria-describedby
       error: !!error,
+      warning,
       disabled: disabled || loading,
       loading,
       checked: isControlled ? checked : checkedInternal,
       onBlur,
+      isDarkBackground,
       onFocus,
       onChange: isControlled ? onChange : onChangeInternal,
       id,
@@ -223,45 +234,9 @@ export const Switch = React.forwardRef(
       .filter(Boolean)
       .join(" ");
 
-    return (
-      <>
-        {validationRedesignOptIn ? (
-          <StyledSwitch {...switchStylePropsForNewValidation}>
-            <Label
-              labelId={labelId.current}
-              disabled={disabled}
-              isRequired={required}
-              optional={isOptional}
-            >
-              {label}
-            </Label>
-            {labelHelp && (
-              <StyledHintText data-role="hint-text" id={inputHintId.current}>
-                {labelHelp}
-              </StyledHintText>
-            )}
-            <Box position="relative">
-              <ValidationMessage
-                error={error}
-                warning={warning}
-                validationId={validationMessageId.current}
-              />
-              {applyValidation && (
-                <ErrorBorder
-                  data-role="error-border"
-                  warning={!!(!error && warning)}
-                />
-              )}
-              <CheckableInput
-                ariaLabelledBy={`${label && labelId.current}`}
-                ariaDescribedBy={ariaDescribedBy}
-                {...inputPropsForNewValidation}
-              >
-                <SwitchSlider {...switchSliderPropsForNewValidation} />
-              </CheckableInput>
-            </Box>
-          </StyledSwitch>
-        ) : (
+    if (!validationRedesignOptIn) {
+      return (
+        <>
           <TooltipProvider
             helpAriaLabel={helpAriaLabel}
             tooltipPosition={tooltipPosition}
@@ -272,6 +247,103 @@ export const Switch = React.forwardRef(
               </CheckableInput>
             </StyledSwitch>
           </TooltipProvider>
+        </>
+      );
+    }
+
+    const defaultMargin = labelInline ? 1 : 0;
+    const defaultInputWrapperMargin = labelInline ? 3 : 0;
+    const errorMargin =
+      error || warning ? defaultInputWrapperMargin : defaultMargin;
+    const direction = labelInline ? "row" : "column";
+    const reverseDirection = labelInline ? "row-reverse" : "column";
+
+    return (
+      <>
+        <StyledSwitch {...switchStylePropsForNewValidation}>
+          <Box
+            data-role="field-reverse-wrapper"
+            display="flex"
+            flexWrap="wrap"
+            alignItems={error || warning ? "flex-start" : undefined}
+            flexDirection={!reverse ? reverseDirection : direction}
+            width={labelInline ? "100%" : "auto"}
+          >
+            <Box
+              data-role="label-wrapper"
+              // width={labelInline ? rest.labelWidth : 30}
+              // minWidth={label && labelInline ? "32px" : 0}
+            >
+              <Label
+                isDarkBackground={isDarkBackground}
+                labelId={labelId.current}
+                disabled={disabled}
+                isRequired={required}
+                optional={isOptional}
+              >
+                {label}
+              </Label>
+
+              {labelHelp && (
+                <Box
+                  data-role="hint-text-wrapper"
+                  mb={labelInline ? 0 : 1}
+                  mr={reverse ? 0 : 1}
+                  ml={reverse ? 0 : 1}
+                >
+                  <StyledHintText
+                    data-role="hint-text"
+                    id={inputHintId.current}
+                    isDarkBackground={isDarkBackground}
+                  >
+                    {labelHelp}
+                  </StyledHintText>
+                </Box>
+              )}
+            </Box>
+
+            <Box
+              ml={reverse ? errorMargin : defaultInputWrapperMargin}
+              mr={!reverse ? errorMargin : defaultInputWrapperMargin}
+              position="relative"
+              id="input-wrapper"
+            >
+              <ValidationMessage
+                error={error}
+                warning={warning}
+                validationId={validationMessageId.current}
+                isDarkBackground={isDarkBackground}
+              />
+              {applyValidation && (
+                <ErrorBorder
+                  data-role="error-border"
+                  warning={!!(!error && warning)}
+                  reverse={!reverse}
+                  isDarkBackground={isDarkBackground}
+                />
+              )}
+              <CheckableInput
+                ariaLabelledBy={`${label && labelId.current}`}
+                ariaDescribedBy={ariaDescribedBy}
+                {...inputPropsForNewValidation}
+                fieldHelp={labelInline ? undefined : rest.fieldHelp}
+              >
+                <SwitchSlider {...switchSliderPropsForNewValidation} />
+              </CheckableInput>
+            </Box>
+          </Box>
+        </StyledSwitch>
+
+        {labelInline && rest.fieldHelp && (
+          <Box
+            color={
+              isDarkBackground
+                ? "var(--colorsUtilityYang100)"
+                : "var(--colorsUtilityYin090)"
+            }
+          >
+            {rest.fieldHelp}
+          </Box>
         )}
       </>
     );

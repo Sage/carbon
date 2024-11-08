@@ -1441,3 +1441,25 @@ test("should not throw an error when FlatTableHead rows have only one child", ()
     );
   }).not.toThrow();
 });
+
+test("should set the title correctly", () => {
+  render(
+    <FlatTable title="this is a title">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>heading one</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>child one</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>,
+  );
+
+  expect(screen.getByTestId("flat-table-wrapper")).toHaveAttribute(
+    "title",
+    "this is a title",
+  );
+});

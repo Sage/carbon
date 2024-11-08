@@ -38,6 +38,8 @@ export interface LabelProps
   className?: string;
   /** Sets aria-label for label element */
   "aria-label"?: string;
+  /** Whether this component is shown against a dark background */
+  isDarkBackground?: boolean;
 }
 
 const shouldDisplayValidationIcon = ({
@@ -70,6 +72,7 @@ export const Label = ({
   htmlFor,
   info,
   inline,
+  isDarkBackground = false,
   isRequired,
   labelId,
   optional,
@@ -165,6 +168,7 @@ export const Label = ({
         isRequired={isRequired}
         as={as}
         aria-label={ariaLabel}
+        isDarkBackground={isDarkBackground}
       >
         {children}
       </StyledLabel>

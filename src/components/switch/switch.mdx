@@ -83,7 +83,7 @@ You can use the `isOptional` prop to indicate if the field is optional.
 
 ### With labelInline
 
-**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
 
 <Canvas of={SwitchStories.WithLabelInline} name="With labelInline" />
 
@@ -160,6 +160,49 @@ The folowing examples use the new validation pattern that is available by settin
 <Canvas
   of={SwitchStories.NewValidationString}
   name="single switch - new string validation"
+/>
+
+### Inline field layout with new validation
+#### Default usage
+
+<Canvas
+  of={SwitchStories.NewValidationInlineDefault}
+  name="single switch - inline validation"
+/>
+
+#### With optional props
+
+<Canvas
+  of={SwitchStories.NewValidationInlineDefaultWithOptions}
+  name="single switch - inline validation with options"
+/>
+
+#### With error
+
+<Canvas
+  of={SwitchStories.NewValidationInlineError}
+  name="single switch - inline validation with error"
+/>
+
+#### With overflowing hint text
+
+<Canvas
+  of={SwitchStories.NewValidationInlineWithOverflowHintText}
+  name="single switch - inline validation with overflowing hint text"
+/>
+
+#### On a dark background
+
+<Canvas
+  of={SwitchStories.NewValidationInlineWithDarkMode}
+  name="single switch - inline validation with dark background support"
+/>
+
+#### On a dark background and with an error
+
+<Canvas
+  of={SwitchStories.NewValidationInlineWithDarkModeAndError}
+  name="single switch - inline validation with dark background support and error"
 />
 
 ## Props

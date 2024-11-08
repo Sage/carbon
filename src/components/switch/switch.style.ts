@@ -1,16 +1,19 @@
 import styled, { css } from "styled-components";
+
 import { margin } from "styled-system";
 
-import baseTheme, { ThemeObject } from "../../style/themes/base";
-import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
-import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
-import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
-import StyledSwitchSlider from "./__internal__/switch-slider.style";
-import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
+import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
+import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
-import { SwitchProps } from "./switch.component";
+import { StyledLabelContainer } from "../../__internal__/label/label.style";
+import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
+import baseTheme, { ThemeObject } from "../../style/themes/base";
 import addFocusStyling from "../../style/utils/add-focus-styling";
+
+import { SwitchProps } from "./switch.component";
+
+import StyledSwitchSlider from "./__internal__/switch-slider.style";
 
 interface StyledSwitchProps
   extends Pick<
@@ -20,30 +23,53 @@ interface StyledSwitchProps
   theme: ThemeObject;
 }
 
+interface StyledHintTextProps {
+  isDarkBackground?: boolean;
+}
+
 const oldFocusStyling = `
   outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 export const ErrorBorder = styled.span`
-  ${({ warning }: { warning: boolean }) => css`
-    position: absolute;
-    z-index: 6;
-    width: 2px;
-    background-color: ${warning
-      ? "var(--colorsSemanticCaution500)"
-      : "var(--colorsSemanticNegative500)"};
-    left: -12px;
-    bottom: -4px;
-    top: 2px;
-  `}
+  ${({
+    reverse,
+    warning,
+    isDarkBackground,
+  }: {
+    reverse: boolean;
+    warning: boolean;
+    isDarkBackground: boolean;
+  }) => {
+    const darkBgColour = isDarkBackground
+      ? "var(--colorsSemanticNegative450)"
+      : "var(--colorsSemanticNegative500)";
+
+    return css`
+      position: absolute;
+      z-index: 6;
+      width: 2px;
+      background-color: ${warning
+        ? "var(--colorsSemanticCaution500)"
+        : darkBgColour};
+      ${reverse ? "right" : "left"}: -12px;
+      bottom: -4px;
+      top: 2px;
+    `;
+  }}
 `;
 
-export const StyledHintText = styled.div`
+export const StyledHintText = styled.div<StyledHintTextProps>`
   margin-top: 8px;
   margin-bottom: 8px;
-  color: var(--colorsUtilityYin055);
   font-size: 14px;
   font-weight: 400;
+  max-width: 160px;
+  ${({ isDarkBackground }) => css`
+    color: ${isDarkBackground
+      ? "var(--colorsUtilityYang065)"
+      : "var(--colorsUtilityYin055)"};
+  `}
 `;
 
 const StyledSwitch = styled.div`
@@ -66,6 +92,9 @@ const StyledSwitch = styled.div`
         grid-template-columns: max-content max-content;
       `}
     }
+
+    display: flex;
+    flex-flow: ${labelInline ? "row wrap" : "column wrap"};
 
     ${StyledCheckableInput}, ${HiddenCheckableInputStyle} {
       border: none;

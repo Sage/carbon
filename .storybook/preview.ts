@@ -1,12 +1,13 @@
-import withGlobalStyles from "./with-global-styles";
-import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
-import withLocaleSelector from "./with-locale-selector";
-import withPortalProvider from "./with-portal-provider";
-import sageStorybookTheme from "./sage-storybook-theme";
+import { Preview } from "@storybook/react";
 
 import "../src/style/fonts.css";
+
 import isChromatic from "./isChromatic";
-import { Preview } from "@storybook/react";
+import sageStorybookTheme from "./sage-storybook-theme";
+import withGlobalStyles from "./with-global-styles";
+import withLocaleSelector from "./with-locale-selector";
+import withPortalProvider from "./with-portal-provider";
+import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
 
 const customViewports = {
   xsm: { name: "Extra small", styles: { width: "320px", height: "900px" } },
