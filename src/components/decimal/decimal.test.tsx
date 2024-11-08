@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import Decimal from "./decimal.component";
 import type { DecimalProps, CustomEvent } from "./decimal.component";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
 import Logger from "../../__internal__/utils/logger";
 
@@ -24,7 +24,7 @@ const ControlledDecimal = ({
   return <Decimal value={value} onChange={handleChange} {...rest} />;
 };
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Decimal data-role="decimal" {...props} />,
   () => screen.getByTestId("decimal"),
   undefined,

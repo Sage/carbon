@@ -22,7 +22,7 @@ type Story = StoryObj<typeof Breadcrumbs>;
 
 export const Default: Story = () => {
   return (
-    <Breadcrumbs>
+    <Breadcrumbs aria-label="Default breadcrumbs">
       <Crumb href="#">Breadcrumb 1</Crumb>
       <Crumb href="#">Breadcrumb 2</Crumb>
       <Crumb href="#">Breadcrumb 3</Crumb>
@@ -37,7 +37,10 @@ Default.storyName = "Default";
 export const OnDarkBackground: Story = () => {
   return (
     <Box p={2} bg="#000">
-      <Breadcrumbs isDarkBackground>
+      <Breadcrumbs
+        isDarkBackground
+        aria-label="Breadcrumbs on a dark background"
+      >
         <Crumb href="#">Breadcrumb 1</Crumb>
         <Crumb href="#">Breadcrumb 2</Crumb>
         <Crumb href="#">Breadcrumb 3</Crumb>

@@ -3,8 +3,7 @@
 ## Contents
 
 - [Component tests](#component-tests)
-  - [Enzyme utilities](#enzyme-utilities)
-  - [React Testing Library test ID tests](#react-testing-library-test-id-tests)
+  - [Using test ID to query elements](#using-test-id-to-query-elements)
   - [Use of Snapshot tests](#use-of-snapshot-tests)
   - [Continuous Integration (CI)](#continuous-integration-ci)
 - [Browser-based component tests](#browser-based-component-tests)
@@ -18,35 +17,11 @@ This guide details Carbon's testing setup, common conventions, and utilities ava
 
 ## Component tests
 
-> **NOTE**: From March 2024, we're transitioning from Enzyme to [React Testing Library (RTL)](https://testing-library.com/docs/react-testing-library/intro/). Please use RTL where possible when testing new functionality.
+We use [Jest](https://jestjs.io/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) (RTL) for our component tests. Tests should describe the **behaviour of the components** rather than describe the implementation to keep the tests clean and reliable. All props, branches, and paths and each of their conditions need to be tested to meet Carbon's 100% coverage policy.
 
-We use the [Jest](https://jestjs.io/) framework and [Enzyme](https://enzymejs.github.io/enzyme/) library for our component tests. Tests should describe the **behaviour of the components** rather than describe the implementation to keep the tests clean and reliable. All props, branches, and paths and each of their conditions need to be tested to meet Carbon's 100% coverage policy.
+### Using test ID to query elements
 
-### Enzyme utilities
-
-To help with common testing scenarios, we have several custom utilities available in `/src/__spec_helper__` that can be imported directly into your tests.
-
-For example, the `assertStyleMatch` method asserts if all the expected CSS properties have been applied to a DOM element or React component:
-
-```tsx
-describe("FlatTableRow", () => {
-  it("then the element should have proper outline when focused", () => {
-    assertStyleMatch(
-      {
-        outline: `3px solid var(--colorsSemanticFocus500)`,
-      },
-      wrapper,
-      {
-        modifier: ":focus",
-      }
-    );
-  });
-});
-```
-
-### React Testing Library test ID tests
-
-[RTL](https://testing-library.com/docs/react-testing-library/intro/) follows a user-centric testing approach. To encourage this the library provides query functions for locating DOM elements by user-facing attributes like text, ARIA roles, etc.
+RTL follows a user-centric testing approach. To encourage this the library provides query functions for locating DOM elements by user-facing attributes like text, ARIA roles, etc.
 
 If you need to use [RTL's `*ByTestId()` query functions](https://testing-library.com/docs/queries/bytestid), we have configured RTL to locate the `data-role` attribute:
 

@@ -5,10 +5,10 @@ import { ThemeProvider } from "styled-components";
 
 import sageTheme from "../../../style/themes/sage";
 import { VerticalMenuTrigger } from "..";
-import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 
 describe("VerticalMenuTrigger", () => {
-  testStyledSystemPaddingRTL(
+  testStyledSystemPadding(
     (props) => (
       <ThemeProvider theme={sageTheme}>
         <VerticalMenuTrigger {...props} onClick={() => {}}>

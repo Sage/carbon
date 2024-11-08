@@ -4,9 +4,9 @@ import userEvent from "@testing-library/user-event";
 
 import ValidationIcon from "./validation-icon.component";
 import { InputContext, InputGroupContext } from "../input-behaviour";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <ValidationIcon {...props} error="error" />,
   () => screen.getByTestId("validation-icon-wrapper"),
 );

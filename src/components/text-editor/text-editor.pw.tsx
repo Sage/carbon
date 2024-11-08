@@ -837,6 +837,22 @@ test("should set aria-live attribute on Character Count to `polite` when compone
   await expect(CharacterCountElement).toHaveAttribute("aria-live", "off");
 });
 
+buttonNames.forEach((buttonType) => {
+  test(`should set 'aria-pressed' to true when ${buttonType} is selected and then false when deselected`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorCustom />);
+
+    const toolbarButton = textEditorToolbar(page, buttonType);
+    await expect(toolbarButton).toHaveAttribute("aria-pressed", "false");
+    await toolbarButton.click();
+    await expect(toolbarButton).toHaveAttribute("aria-pressed", "true");
+    await toolbarButton.click();
+    await expect(toolbarButton).toHaveAttribute("aria-pressed", "false");
+  });
+});
+
 /*
 Unfortunately draftjs (on which TextEditor is based) does not interact well with jsdom, so testing most behavioural features in RTL tests is not possible.
 (See https://github.com/testing-library/user-event/issues/858 for one of these - and note that the workaround suggested with textInput does not appear to work.

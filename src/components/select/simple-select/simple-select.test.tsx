@@ -7,7 +7,7 @@ import {
   waitFor,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMarginRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 import Logger from "../../../__internal__/utils/logger";
 
@@ -864,7 +864,7 @@ test("does not call onOpen, when openOnFocus is true and the input is refocused 
   jest.useRealTimers();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <SimpleSelect
       {...props}

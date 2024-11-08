@@ -43,3 +43,21 @@ test("sets the 'id' attribute to the value of the `validationId` prop", () => {
   const validationMessage = screen.getByTestId("validation-message");
   expect(validationMessage).toHaveAttribute("id", "foo");
 });
+
+// coverage
+test("renders with the correct colour when `isDarkBackground` is true", () => {
+  render(<ValidationMessage error="error" isDarkBackground />);
+
+  expect(screen.getByTestId("validation-message")).toHaveStyle({
+    color: "var(--colorsSemanticNegative450)",
+  });
+});
+
+// coverage
+test("renders with the correct colour when `isDarkBackground` is false", () => {
+  render(<ValidationMessage error="error" isDarkBackground={false} />);
+
+  expect(screen.getByTestId("validation-message")).toHaveStyle({
+    color: "var(--colorsSemanticNegative500)",
+  });
+});

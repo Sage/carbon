@@ -2,14 +2,14 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 
 import {
-  testStyledSystemSpacingRTL,
-  testStyledSystemPaddingRTL,
+  testStyledSystemSpacing,
+  testStyledSystemPadding,
 } from "../../__spec_helper__/__internal__/test-utils";
 import Form from "./form.component";
 import Button from "../button";
 import Dialog from "../dialog";
 
-testStyledSystemSpacingRTL(
+testStyledSystemSpacing(
   (props) => <Form aria-label="form-example" {...props} />,
   () => screen.getByRole("form"),
 );
@@ -212,7 +212,7 @@ test("applies overflow styling when `stickyFooter` is set and form is in a Dialo
 
 // for coverage - `footerPadding` prop is covered by Chromatic
 describe("when the `footerPadding` prop is set", () => {
-  testStyledSystemPaddingRTL(
+  testStyledSystemPadding(
     (props) => (
       <Form saveButton={<Button>Save</Button>} footerPadding={props} />
     ),
