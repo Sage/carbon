@@ -19,6 +19,7 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Typography from "../typography";
 import { Dl, Dt, Dd } from "../definition-list";
 import Toast from "../toast";
+import Hr from "../hr";
 
 import DialogFullScreen from ".";
 
@@ -119,7 +120,8 @@ Default.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithComplexExample: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const [activeTab, setActiveTab] = useState("tab-1");
+  const [activeTab1, setActiveTab1] = useState("tab-1");
+  const [activeTab2, setActiveTab2] = useState("tab-contact-4");
   const padding40 = useMediaQuery("(min-width: 1260px)");
   const padding32 = useMediaQuery("(min-width: 960px)");
   const padding24 = useMediaQuery("(min-width: 600px)");
@@ -164,10 +166,10 @@ export const WithComplexExample: Story = () => {
         </Typography>
       </Box>
       <Tabs
-        onTabChange={(id) => setActiveTab(id)}
+        onTabChange={(id) => setActiveTab1(id)}
         borders="no sides"
         align="left"
-        selectedTabId={activeTab}
+        selectedTabId={activeTab1}
         position="left"
       >
         <Tab
@@ -247,11 +249,11 @@ export const WithComplexExample: Story = () => {
         </Typography>
       </Box>
       <Tabs
-        onTabChange={(id) => setActiveTab(id)}
+        onTabChange={(id) => setActiveTab2(id)}
         borders="no sides"
         align="left"
         position="left"
-        selectedTabId={activeTab}
+        selectedTabId={activeTab2}
       >
         <Tab
           tabId="tab-contact-4"
@@ -476,14 +478,27 @@ export const WithComplexExample: Story = () => {
       </Accordion>
     </Box>
   );
-  const showCorrectContent = () => {
-    switch (activeTab) {
+
+  const showCorrectContent1 = () => {
+    switch (activeTab1) {
       case "tab-1":
         return ContentOne;
       case "tab-2":
         return ContentTwo;
       case "tab-3":
         return ContentThree;
+      default:
+        return "no content provided";
+    }
+  };
+  const showCorrectContent2 = () => {
+    switch (activeTab2) {
+      case "tab-contact-4":
+        return "No content to display for tab-4";
+      case "tab-contact-5":
+        return "No content to display for tab-5";
+      case "tab-contact-6":
+        return "No content to display for tab-6";
       default:
         return "no content provided";
     }
@@ -512,7 +527,9 @@ export const WithComplexExample: Story = () => {
         disableContentPadding
       >
         <Drawer sidebar={SidebarContent}>
-          <Box p={5}>{showCorrectContent()}</Box>
+          <Box p={5}>{showCorrectContent1()}</Box>
+          <Hr />
+          <Box p={5}>{showCorrectContent2()}</Box>
         </Drawer>
       </DialogFullScreen>
     </Box>
