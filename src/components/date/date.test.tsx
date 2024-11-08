@@ -783,6 +783,25 @@ describe("when the `locale` is 'en-GB''", () => {
       expect(input).toHaveValue("04/04/2019");
     },
   );
+
+  test("should render with the input value matching the expected format when `dateFormatOverride` is set", () => {
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "en-GB",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => enGBLocale,
+            dateFormatOverride: "y-m-ddd",
+          },
+        }}
+      >
+        <DateInput onChange={() => {}} value="2019-04-05" />
+      </I18nProvider>,
+    );
+
+    expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
 });
 
 describe("when the `locale` is 'de-DE'", () => {
@@ -844,6 +863,25 @@ describe("when the `locale` is 'de-DE'", () => {
       expect(input).toHaveValue("04.04.2019");
     },
   );
+
+  test("should render with the input value matching the expected format when `dateFormatOverride` is set", () => {
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "de-DE",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => deLocale,
+            dateFormatOverride: "y-m-ddd",
+          },
+        }}
+      >
+        <DateInput onChange={() => {}} value="2019-04-05" />
+      </I18nProvider>,
+    );
+
+    expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
 });
 
 describe("when the `locale` is 'es'", () => {
@@ -905,6 +943,25 @@ describe("when the `locale` is 'es'", () => {
       expect(input).toHaveValue("04/04/2019");
     },
   );
+
+  test("should render with the input value matching the expected format when `dateFormatOverride` is set", () => {
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "es",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => esLocale,
+            dateFormatOverride: "y-m-ddd",
+          },
+        }}
+      >
+        <DateInput onChange={() => {}} value="2019-04-05" />
+      </I18nProvider>,
+    );
+
+    expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
 });
 
 describe("when the `locale` is 'en-ZA'", () => {
@@ -966,6 +1023,25 @@ describe("when the `locale` is 'en-ZA'", () => {
       expect(input).toHaveValue("04/04/2019");
     },
   );
+
+  test("should render with the input value matching the expected format when `dateFormatOverride` is set", () => {
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "en-ZA",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => enZALocale,
+            dateFormatOverride: "y-m-ddd",
+          },
+        }}
+      >
+        <DateInput onChange={() => {}} value="2019-04-05" />
+      </I18nProvider>,
+    );
+
+    expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
 });
 
 describe("when the `locale` is 'fr-FR'", () => {
@@ -1027,6 +1103,25 @@ describe("when the `locale` is 'fr-FR'", () => {
       expect(input).toHaveValue("04/04/2019");
     },
   );
+
+  test("should render with the input value matching the expected format when `dateFormatOverride` is set", () => {
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "fr-FR",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => frLocale,
+            dateFormatOverride: "y-m-ddd",
+          },
+        }}
+      >
+        <DateInput onChange={() => {}} value="2019-04-05" />
+      </I18nProvider>,
+    );
+
+    expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
 });
 
 describe("when the `locale` is 'fr-CA'", () => {
@@ -1088,6 +1183,25 @@ describe("when the `locale` is 'fr-CA'", () => {
       expect(input).toHaveValue("04/04/2019");
     },
   );
+
+  test("should render with the input value matching the expected format when `dateFormatOverride` is set", () => {
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "fr-CA",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => frCALocale,
+            dateFormatOverride: "y-m-ddd",
+          },
+        }}
+      >
+        <DateInput onChange={() => {}} value="2019-04-05" />
+      </I18nProvider>,
+    );
+
+    expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
 });
 
 describe("when the `locale` is 'en-CA'", () => {
@@ -1149,6 +1263,25 @@ describe("when the `locale` is 'en-CA'", () => {
       expect(input).toHaveValue("04/04/2019");
     },
   );
+
+  test("should render with the input value matching the expected format when `dateFormatOverride` is set", () => {
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "en-CA",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => enCALocale,
+            dateFormatOverride: "y-m-ddd",
+          },
+        }}
+      >
+        <DateInput onChange={() => {}} value="2019-04-05" />
+      </I18nProvider>,
+    );
+
+    expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
 });
 
 describe("when the `locale` is 'en-US'", () => {
@@ -1210,6 +1343,25 @@ describe("when the `locale` is 'en-US'", () => {
       expect(input).toHaveValue("04/04/2019");
     },
   );
+
+  test("should render with the input value matching the expected format when `dateFormatOverride` is set", () => {
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "en-US",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => enUSLocale,
+            dateFormatOverride: "y-m-ddd",
+          },
+        }}
+      >
+        <DateInput onChange={() => {}} value="2019-04-05" />
+      </I18nProvider>,
+    );
+
+    expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
 });
 
 test("should update the input value and call `onChange` with expected parameters when the user types a string with a valid leap year and the input is blurred", async () => {
@@ -1490,4 +1642,32 @@ test("should call `onPickerOpen` callback when the user opens the DatePicker and
 
   await user.click(document.body);
   expect(onPickerClose).toHaveBeenCalled();
+});
+
+test("should select the correct date when the locale is overridden and a date is typed into the input", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const onChange = jest.fn();
+
+  render(
+    <I18nProvider
+      locale={{
+        locale: () => "de-DE",
+        date: {
+          ariaLabels,
+          dateFnsLocale: () => deLocale,
+          dateFormatOverride: "dd/MM/yyyy",
+        },
+      }}
+    >
+      <DateInput onChange={onChange} value="2019-04-05" />
+    </I18nProvider>,
+  );
+  const input = screen.getByRole("textbox");
+  await user.click(input);
+  jest.advanceTimersByTime(10);
+  await user.type(input, "05/04");
+  jest.advanceTimersByTime(10);
+
+  const grid = screen.getByRole("grid").childNodes[0].textContent;
+  expect(grid).toEqual("April 2019");
 });

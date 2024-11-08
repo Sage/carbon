@@ -101,6 +101,8 @@ export interface DateInputProps
   onPickerOpen?: () => void;
   /** Callback triggered when the picker is closed */
   onPickerClose?: () => void;
+  /** Date format string to be applied to the date inputs */
+  dateFormatOverride?: string;
 }
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -146,10 +148,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const focusedViaPicker = useRef(false);
     const blockClose = useRef(false);
     const locale = useLocale();
-    const { dateFnsLocale } = locale.date;
+    const { dateFnsLocale, dateFormatOverride } = locale.date;
     const { format, formats } = useMemo(
-      () => getFormatData(dateFnsLocale()),
-      [dateFnsLocale],
+      () => getFormatData(dateFnsLocale(), dateFormatOverride),
+      [dateFnsLocale, dateFormatOverride],
     );
     const { inputRefMap, setInputRefMap } = useContext(DateRangeContext);
     const [open, setOpen] = useState(false);
