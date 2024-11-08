@@ -1,4 +1,5 @@
 import enCADateLocale from "date-fns/locale/en-CA";
+
 import Locale from "./locale";
 
 const enCA: Partial<Locale> = {

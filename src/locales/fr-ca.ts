@@ -1,4 +1,5 @@
 import frCADateLocale from "date-fns/locale/fr-CA";
+
 import Locale from "./locale";
 
 const isSingular = (count: string | number): boolean =>
