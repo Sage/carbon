@@ -8,7 +8,6 @@ import {
   actionPopoverInnerItem,
   actionPopoverMenuItemChevron,
   actionPopoverMenuItemIcon,
-  actionPopoverMenuItemInnerText,
   actionPopoverSubmenu,
   actionPopoverSubmenuByIndex,
   actionPopoverWrapper,
@@ -16,10 +15,7 @@ import {
 import { buttonDataComponent } from "../../../playwright/components/button";
 import { alertDialogPreview } from "../../../playwright/components/dialog";
 import { getDataElementByValue } from "../../../playwright/components/index";
-import {
-  checkAccessibility,
-  getDesignTokensByCssProperty,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 import { Accordion } from "../../../src/components/accordion";
 import {
   ActionPopoverMenuButton,
@@ -30,14 +26,9 @@ import {
   ActionPopoverMenuWithProps,
   ActionPopoverPropsComponent,
   ActionPopoverWithIconsAndNoSubmenus,
-  ActionPopoverWithIconsAndSomeSubmenus,
-  ActionPopoverWithNoIconsOrSubmenus,
   ActionPopoverWithProps,
-  ActionPopoverWithSomeSubmenusAndNoIcons,
   ActionPopoverWithSubmenusAndIcons,
   ActionPopoverWithSubmenusAndNoIcons,
-  ActionPopoverWithSubmenusAndSomeIcons,
-  ActionPopoverWithVariableChildren,
   ActionPopoverWithRenderProp,
   ActionPopoverPropsComponentAllDisabled,
   ActionPopoverPropsComponentWithSomeDisabled,
@@ -65,6 +56,7 @@ import {
   SubmenuPositionedRight,
   ActionPopoverNestedInDialog,
   LongMenuExample,
+  ActionPopoverWithSomeSubmenusAndNoIcons,
 } from "../../../src/components/action-popover/components.test-pw";
 
 const keyToTrigger = ["Enter", " ", "End", "ArrowDown", "ArrowUp"] as const;
@@ -846,24 +838,51 @@ test.describe("check props for ActionPopover component", () => {
     expect(await actionPopoverMenuItemIconElement.count()).toBe(1);
   });
 
-  [
-    ["left", "start"],
-    ["right", "end"],
-  ].forEach(([position, attrValue]) => {
-    test(`should render with horizontalAlignment prop set to ${position}`, async ({
+  (["left", "right"] as const).forEach((horizontalAlignment) => {
+    test(`an item's text is aligned to the ${horizontalAlignment}, when horizontalAlignment prop is set to ${horizontalAlignment}`, async ({
       mount,
       page,
     }) => {
-      await mount(<ActionPopoverWithProps horizontalAlignment={position} />);
-      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-      await actionPopoverButtonElement.click();
-      const actionPopoverItem = actionPopover(page)
-        .first()
-        .locator("button")
-        .first();
-      await expect(actionPopoverItem).toHaveCSS(
-        "justify-content",
-        `flex-${attrValue}`,
+      await mount(
+        <ActionPopoverWithIconsAndNoSubmenus
+          horizontalAlignment={horizontalAlignment}
+        />,
+      );
+
+      const openButton = page.getByRole("button");
+      await openButton.click();
+
+      const firstItem = page.getByRole("listitem").first();
+      await firstItem.hover();
+
+      await expect(firstItem.getByRole("button")).toHaveCSS(
+        "text-align",
+        horizontalAlignment,
+      );
+    });
+  });
+
+  (["left", "right"] as const).forEach((horizontalAlignment) => {
+    test(`a submenu item's text is aligned to the ${horizontalAlignment}, when horizontalAlignment prop is set to ${horizontalAlignment}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <ActionPopoverWithSubmenusAndIcons
+          horizontalAlignment={horizontalAlignment}
+        />,
+      );
+
+      const openButton = page.getByRole("button");
+      await openButton.click();
+
+      const firstItem = page.getByRole("listitem").first();
+      await firstItem.hover();
+
+      const firstSubmenuItem = firstItem.getByRole("listitem").first();
+      await expect(firstSubmenuItem).toHaveCSS(
+        "text-align",
+        horizontalAlignment,
       );
     });
   });
@@ -1017,339 +1036,168 @@ test.describe("check events for ActionPopover component", () => {
   });
 });
 
-test.describe("padding checks on 'StyledMenuItemInnerText'", () => {
-  [
-    ["left", "left"],
-    ["left", "right"],
-    ["right", "left"],
-    ["right", "right"],
-  ].forEach(([alignment, position]) => {
-    test(`when horizontalAlignment is ${alignment} and submenuPosition is ${position}, then left and right padding is --spacing100`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ActionPopoverWithNoIconsOrSubmenus
-          horizontalAlignment={alignment}
-          submenuPosition={position}
-        />,
-      );
-      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-      await actionPopoverButtonElement.click();
-      const itemText = actionPopoverMenuItemInnerText(page).first();
-      await expect(itemText).toHaveCSS("padding-left", "8px");
-      const plTokens = await getDesignTokensByCssProperty(
-        page,
-        itemText,
-        "padding-left",
-      );
-      expect(plTokens[0]).toBe("--spacing100");
-      await expect(itemText).toHaveCSS("padding-right", "8px");
-      const prTokens = await getDesignTokensByCssProperty(
-        page,
-        itemText,
-        "padding-right",
-      );
-      expect(prTokens[0]).toBe("--spacing100");
-    });
-  });
+test("an item's icon is placed left of the item's text, when horizontalAlignment prop is set to 'left'", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <ActionPopoverWithIconsAndNoSubmenus horizontalAlignment="left" />,
+  );
 
-  test("when horizontalAlignment is left, submenuPosition is left and Menu Item children have some submenus and no icons, then padding-left is --spacing400", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <ActionPopoverWithSomeSubmenusAndNoIcons
-        horizontalAlignment="left"
-        submenuPosition="left"
-      />,
-    );
-    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.click();
-    const itemText = actionPopoverMenuItemInnerText(page).first();
-    await expect(itemText).toHaveCSS("padding-left", "32px");
-    const plTokens = await getDesignTokensByCssProperty(
-      page,
-      itemText,
-      "padding-left",
-    );
-    expect(plTokens[0]).toBe("--spacing400");
-  });
+  const openingButton = page.getByRole("button");
+  await openingButton.click();
 
-  test("when horizontalAlignment is right, submenuPosition is right and Menu Item children have some submenus and no icons, then padding-right is --spacing400", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <ActionPopoverWithSomeSubmenusAndNoIcons
-        horizontalAlignment="right"
-        submenuPosition="right"
-      />,
-    );
-    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.click();
-    const itemText = actionPopoverMenuItemInnerText(page).first();
-    await expect(itemText).toHaveCSS("padding-right", "32px");
-    const prTokens = await getDesignTokensByCssProperty(
-      page,
-      itemText,
-      "padding-right",
-    );
-    expect(prTokens[0]).toBe("--spacing400");
-  });
+  const businessItem = page
+    .getByRole("listitem")
+    .filter({ hasText: "Business" });
+  const icon = businessItem.getByTestId("item-icon");
+  const text = businessItem.getByText("Business");
 
-  test("when horizontalAlignment is left, submenuPosition is left and Menu Item children have submenus and some icons, then padding-left is --spacing600", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <ActionPopoverWithSubmenusAndSomeIcons
-        horizontalAlignment="left"
-        submenuPosition="left"
-      />,
-    );
-    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.click();
-    const itemText = actionPopoverMenuItemInnerText(page).first();
-    await expect(itemText).toHaveCSS("padding-left", "48px");
-    const plTokens = await getDesignTokensByCssProperty(
-      page,
-      itemText,
-      "padding-left",
-    );
-    expect(plTokens[0]).toBe("--spacing600");
-  });
+  const iconPosition = await icon.boundingBox();
+  const textPosition = await text.boundingBox();
 
-  test("when horizontalAlignment is right, submenuPosition is right and Menu Item children have submenus and some icons, then padding-right is --spacing600", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <ActionPopoverWithSubmenusAndSomeIcons
-        horizontalAlignment="right"
-        submenuPosition="right"
-      />,
-    );
-    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.click();
-    const itemText = actionPopoverMenuItemInnerText(page).first();
-    await expect(itemText).toHaveCSS("padding-right", "48px");
-    const prTokens = await getDesignTokensByCssProperty(
-      page,
-      itemText,
-      "padding-right",
-    );
-    expect(prTokens[0]).toBe("--spacing600");
-  });
+  if (!iconPosition) throw new Error("Icon isn't visible");
+  if (!textPosition) throw new Error("Text isn't visible");
 
-  test("when horizontalAlignment is left, submenuPosition is left and Menu Item children are variable, then padding-left is --spacing900", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <ActionPopoverWithVariableChildren
-        horizontalAlignment="left"
-        submenuPosition="left"
-      />,
-    );
-    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.click();
-    const itemText = actionPopoverMenuItemInnerText(page).first();
-    await expect(itemText).toHaveCSS("padding-left", "72px");
-    const plTokens = await getDesignTokensByCssProperty(
-      page,
-      itemText,
-      "padding-left",
-    );
-    expect(plTokens[0]).toBe("--spacing900");
-  });
-
-  test("when horizontalAlignment is right, submenuPosition is right and Menu Item children are variable, then padding-right is --spacing900", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <ActionPopoverWithVariableChildren
-        horizontalAlignment="right"
-        submenuPosition="right"
-      />,
-    );
-    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.click();
-    const itemText = actionPopoverMenuItemInnerText(page).first();
-    await expect(itemText).toHaveCSS("padding-right", "72px");
-    const prTokens = await getDesignTokensByCssProperty(
-      page,
-      itemText,
-      "padding-right",
-    );
-    expect(prTokens[0]).toBe("--spacing900");
-  });
-
-  (
-    [
-      ["left", "left", 1],
-      ["left", "right", 2],
-      ["right", "left", 3],
-      ["right", "right", 4],
-    ] as [string, string, number][]
-  ).forEach(([alignment, position, index]) => {
-    test(`when horizontalAlignment is ${alignment}, submenuPosition is ${position} and Menu Item child is a submenu, then left and right padding is --spacing000`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ActionPopoverMenuWithProps
-          horizontalAlignment={alignment}
-          submenuPosition={position}
-        />,
-      );
-      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-      await actionPopoverButtonElement.click();
-      const itemText = actionPopoverMenuItemInnerText(page).nth(index);
-      await expect(itemText).toHaveCSS("padding-left", "0px");
-      const plTokens = await getDesignTokensByCssProperty(
-        page,
-        itemText,
-        "padding-left",
-      );
-      expect(plTokens[0]).toBe("--spacing000");
-      await expect(itemText).toHaveCSS("padding-right", "0px");
-      const prTokens = await getDesignTokensByCssProperty(
-        page,
-        itemText,
-        "padding-right",
-      );
-      expect(prTokens[0]).toBe("--spacing000");
-    });
-  });
+  expect(iconPosition.x).toBeLessThan(textPosition.x);
 });
 
-test.describe("justify-content checks on 'StyledMenuItem'", () => {
-  [
-    ["left", "flex-start"],
-    ["right", "flex-end"],
-  ].forEach(([alignment, itemAlignment]) => {
-    test(`when horizontalAlignment is ${alignment} then content should be justified ${itemAlignment}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ActionPopoverWithProps horizontalAlignment={alignment} />);
-      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-      await actionPopoverButtonElement.click();
-      const menuItem = getDataElementByValue(page, "menu-item1");
-      await expect(menuItem).toHaveCSS("justify-content", itemAlignment);
-    });
-  });
+test("an item's icon is placed right of the item's text, when horizontalAlignment prop is set to 'right'", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <ActionPopoverWithIconsAndNoSubmenus horizontalAlignment="right" />,
+  );
 
-  [
-    ["left", "right", "space-between"],
-    ["right", "left", "flex-end"],
-  ].forEach(([alignment, position, itemAlignment]) => {
-    test(`when horizontalAlignment is ${alignment}, submenuPosition is ${position} and Menu Item children have no submenus, then content should be justified ${itemAlignment}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ActionPopoverWithProps
-          horizontalAlignment={alignment}
-          submenuPosition={position}
-        />,
-      );
-      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-      await actionPopoverButtonElement.click();
-      const menuItem = getDataElementByValue(page, "menu-item1");
-      await expect(menuItem).toHaveCSS("justify-content", itemAlignment);
-    });
-  });
+  const openingButton = page.getByRole("button");
+  await openingButton.click();
 
-  [
-    ["left", "right", "space-between"],
-    ["right", "left", "space-between"],
-  ].forEach(([alignment, position, itemAlignment]) => {
-    test(`when horizontalAlignment is ${alignment}, submenuPosition is ${position} and Menu Item children have a submenu, then content should be justified ${itemAlignment}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ActionPopoverWithSubmenusAndIcons
-          horizontalAlignment={alignment}
-          submenuPosition={position}
-        />,
-      );
-      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-      await actionPopoverButtonElement.click();
-      const menuItem = getDataElementByValue(page, "menu-item1");
-      await expect(menuItem).toHaveCSS("justify-content", itemAlignment);
-    });
-  });
+  const businessItem = page
+    .getByRole("listitem")
+    .filter({ hasText: "Business" });
+  const icon = businessItem.getByTestId("item-icon");
+  const text = businessItem.getByText("Business");
+
+  const iconPosition = await icon.boundingBox();
+  const textPosition = await text.boundingBox();
+
+  if (!iconPosition) throw new Error("Icon isn't visible");
+  if (!textPosition) throw new Error("Text isn't visible");
+
+  expect(iconPosition.x).toBeGreaterThan(textPosition.x);
 });
 
-test.describe("padding checks on 'MenuItemIcon'", () => {
-  test("padding is: --spacing100", async ({ mount, page }) => {
-    await mount(<ActionPopoverWithIconsAndNoSubmenus />);
-    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.click();
-    const icon = actionPopoverMenuItemIcon(page).nth(0);
-    await expect(icon).toHaveCSS("padding", "8px");
-    const paddingTokens = await getDesignTokensByCssProperty(
-      page,
-      icon,
-      "padding",
-    );
-    expect(paddingTokens.join(" ")).toEqual(
-      "--spacing100 --spacing100 --spacing100 --spacing100",
-    );
-  });
+test("a submenu item's icon is placed right of the item's text, when horizontalAlignment prop is set to 'right'", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <ActionPopoverWithSubmenusAndIcons horizontalAlignment="right" />,
+  );
 
-  [
-    [
-      "left",
-      "left",
-      "--spacing100 --spacing100 --spacing100 --spacing400",
-      "8px 8px 8px 32px",
-    ],
-    [
-      "left",
-      "right",
-      "--spacing100 --spacing100 --spacing100 --spacing100",
-      "8px",
-    ],
-    [
-      "right",
-      "left",
-      "--spacing100 --spacing100 --spacing100 --spacing100",
-      "8px",
-    ],
-    [
-      "right",
-      "right",
-      "--spacing100 --spacing400 --spacing100 --spacing100",
-      "8px 32px 8px 8px",
-    ],
-  ].forEach(([position, alignment, spacing, padding]) => {
-    test(`when horizontalAlignment is ${position} and submenuPosition is ${alignment} and Menu Item children have icons and some submenus, then padding is ${spacing}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ActionPopoverWithIconsAndSomeSubmenus
-          submenuPosition={position}
-          horizontalAlignment={alignment}
-        />,
-      );
-      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
-      await actionPopoverButtonElement.click();
-      const icon = actionPopoverMenuItemIcon(page).nth(0);
-      await expect(icon).toHaveCSS("padding", padding);
-      const paddingTokens = await getDesignTokensByCssProperty(
-        page,
-        icon,
-        "padding",
-      );
-      expect(paddingTokens.join(" ")).toEqual(spacing);
-    });
-  });
+  const openingButton = page.getByRole("button");
+  await openingButton.click();
+
+  const businessItem = page
+    .getByRole("listitem")
+    .filter({ hasText: "Business" });
+  await businessItem.hover();
+
+  const firstSubmenuItem = businessItem
+    .getByRole("listitem")
+    .filter({ hasText: "Sub Menu 1" });
+  const icon = firstSubmenuItem.getByTestId("item-icon");
+  const text = firstSubmenuItem.getByText("Sub Menu 1");
+
+  const iconPosition = await icon.boundingBox();
+  const textPosition = await text.boundingBox();
+
+  if (!iconPosition) throw new Error("Icon isn't visible");
+  if (!textPosition) throw new Error("Text isn't visible");
+
+  expect(iconPosition.x).toBeGreaterThan(textPosition.x);
+});
+
+test("a submenu item's icon is placed left of the item's text, when horizontalAlignment prop is set to 'left'", async ({
+  mount,
+  page,
+}) => {
+  await mount(<ActionPopoverWithSubmenusAndIcons horizontalAlignment="left" />);
+
+  const openingButton = page.getByRole("button");
+  await openingButton.click();
+
+  const businessItem = page
+    .getByRole("listitem")
+    .filter({ hasText: "Business" });
+  await businessItem.hover();
+
+  const firstSubmenuItem = businessItem
+    .getByRole("listitem")
+    .filter({ hasText: "Sub Menu 1" });
+  const icon = firstSubmenuItem.getByTestId("item-icon");
+  const text = firstSubmenuItem.getByText("Sub Menu 1");
+
+  const iconPosition = await icon.boundingBox();
+  const textPosition = await text.boundingBox();
+
+  if (!iconPosition) throw new Error("Icon isn't visible");
+  if (!textPosition) throw new Error("Text isn't visible");
+
+  expect(iconPosition.x).toBeLessThan(textPosition.x);
+});
+
+test("an item with a submenu has a chevron icon placed left of the item's text, when submenuPosition prop is set to 'left'", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <ActionPopoverWithSomeSubmenusAndNoIcons submenuPosition="left" />,
+  );
+
+  const openingButton = page.getByRole("button");
+  await openingButton.click();
+
+  const itemWithSubmenu = page
+    .getByRole("listitem")
+    .filter({ hasText: "Email Invoice" });
+  const chevronIcon = itemWithSubmenu.getByTestId("chevron-icon");
+  const text = itemWithSubmenu.getByText("Email Invoice");
+
+  const chevronPosition = await chevronIcon.boundingBox();
+  const textPosition = await text.boundingBox();
+
+  if (!chevronPosition) throw new Error("Chevron isn't visible");
+  if (!textPosition) throw new Error("Text isn't visible");
+
+  expect(chevronPosition.x).toBeLessThan(textPosition.x);
+});
+
+test("an item with a submenu has a chevron icon placed right of the item's text, when submenuPosition prop is set to 'right'", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <ActionPopoverWithSomeSubmenusAndNoIcons submenuPosition="right" />,
+  );
+
+  const openingButton = page.getByRole("button");
+  await openingButton.click();
+
+  const itemWithSubmenu = page
+    .getByRole("listitem")
+    .filter({ hasText: "Email Invoice" });
+  const chevronIcon = itemWithSubmenu.getByTestId("chevron-icon");
+  const text = itemWithSubmenu.getByText("Email Invoice");
+
+  const chevronPosition = await chevronIcon.boundingBox();
+  const textPosition = await text.boundingBox();
+
+  if (!chevronPosition) throw new Error("Chevron isn't visible");
+  if (!textPosition) throw new Error("Text isn't visible");
+
+  expect(chevronPosition.x).toBeGreaterThan(textPosition.x);
 });
 
 test.describe("rounded-corners", () => {
