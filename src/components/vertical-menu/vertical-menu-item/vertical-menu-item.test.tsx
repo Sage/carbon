@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { ThemeProvider } from "styled-components";
 
 import sageTheme from "../../../style/themes/sage";
-import { testStyledSystemPaddingRTL } from "../../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 import Icon from "../../icon";
 import { VerticalMenuItem, VerticalMenuFullScreen } from "..";
 import Logger from "../../../__internal__/utils/logger";
@@ -27,7 +27,7 @@ describe("VerticalMenuItem", () => {
     loggerSpy.mockRestore();
   });
 
-  testStyledSystemPaddingRTL(
+  testStyledSystemPadding(
     (props) => (
       <ThemeProvider theme={sageTheme}>
         <VerticalMenuItem title="Item1" {...props}>

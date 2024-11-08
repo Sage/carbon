@@ -1,4 +1,5 @@
 import enGBDateLocale from "date-fns/locale/en-GB";
+
 import Locale from "./locale";
 
 const isSingular = (count: string | number): boolean =>
@@ -46,6 +47,7 @@ const enGB: Locale = {
       previousMonthButton: () => "Previous month",
       nextMonthButton: () => "Next month",
     },
+    dateFormatOverride: undefined,
   },
   dialog: {
     ariaLabels: {
@@ -115,6 +117,11 @@ const enGB: Locale = {
   },
   message: {
     closeButtonAriaLabel: () => "Close",
+    error: () => "Error",
+    info: () => "Information",
+    success: () => "Success",
+    warning: () => "Warning",
+    neutral: () => "Information",
   },
   numeralDate: {
     validation: {

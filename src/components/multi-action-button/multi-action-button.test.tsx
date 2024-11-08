@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MultiActionButton from "./multi-action-button.component";
 import Button from "../button";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should render with provided 'text'", () => {
   render(
@@ -150,7 +150,7 @@ test("should render with expected styles when 'width' prop is set", () => {
   });
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <MultiActionButton data-role="multi-action-button" text="Test" {...props}>
       <Button>Test</Button>

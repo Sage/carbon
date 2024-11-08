@@ -5,7 +5,7 @@ import { EditorState } from "draft-js";
 import Note from ".";
 import LinkPreview from "../link-preview";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Typography from "../typography";
 
 test("should render with required props", () => {
@@ -179,7 +179,7 @@ test("should throw when width is 0", () => {
   spy.mockRestore();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <Note
       {...props}

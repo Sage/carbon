@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 import Textbox, { TextboxProps } from ".";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import { EnterKeyHintTypes } from "../../__internal__/input";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -45,7 +45,7 @@ test("should display deprecation warning once when rendered as uncontrolled", ()
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Textbox data-role="textbox-wrapper" {...props} />,
   () => screen.getByTestId("textbox-wrapper"),
   undefined,

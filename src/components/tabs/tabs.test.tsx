@@ -4,12 +4,12 @@ import userEvent from "@testing-library/user-event";
 import { Tabs, Tab } from ".";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import StyledTab from "./tab/tab.style";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Drawer from "../drawer";
 import Textbox from "../textbox";
 import NumeralDate from "../numeral-date";
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <Tabs {...props}>
       <Tab
@@ -26,7 +26,7 @@ testStyledSystemMarginRTL(
   () => screen.getByTestId("tabs"),
 );
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <Tabs {...props} position="left">
       <Tab

@@ -2,12 +2,12 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import TileContent from "./tile-content.component";
 import {
-  testStyledSystemHeightRTL,
-  testStyledSystemSpacingRTL,
-  testStyledSystemWidthRTL,
+  testStyledSystemHeight,
+  testStyledSystemSpacing,
+  testStyledSystemWidth,
 } from "../../../__spec_helper__/__internal__/test-utils";
 
-testStyledSystemSpacingRTL(
+testStyledSystemSpacing(
   (props) => (
     <TileContent data-role="tile-content" {...props}>
       Test
@@ -15,7 +15,7 @@ testStyledSystemSpacingRTL(
   ),
   () => screen.getByTestId("tile-content"),
 );
-testStyledSystemWidthRTL(
+testStyledSystemWidth(
   (props) => (
     <TileContent data-role="tile-content" {...props}>
       Test
@@ -23,7 +23,7 @@ testStyledSystemWidthRTL(
   ),
   () => screen.getByTestId("tile-content"),
 );
-testStyledSystemHeightRTL(
+testStyledSystemHeight(
   (props) => (
     <TileContent data-role="tile-content" {...props}>
       Test

@@ -52,7 +52,7 @@ type Story = StoryObj<typeof FlatTable>;
 export const DefaultStory: Story = {
   name: "Default",
   render: (args) => (
-    <FlatTable {...args}>
+    <FlatTable {...args} title="Table for Default Story">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>
@@ -125,7 +125,7 @@ export const DefaultStory: Story = {
 
 export const WithRowHeader: Story = () => {
   return (
-    <FlatTable width="380px" overflowX="auto">
+    <FlatTable width="380px" overflowX="auto" title="Table for Row Header">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>ID Number</FlatTableHeader>
@@ -173,7 +173,11 @@ WithRowHeader.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithMultipleRowHeaders: Story = () => {
   return (
-    <FlatTable width="680px" overflowX="auto">
+    <FlatTable
+      width="680px"
+      overflowX="auto"
+      title="Table for Multiple Row Headers"
+    >
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Sticky Column</FlatTableHeader>
@@ -299,6 +303,7 @@ export const HorizontalScrolling: Story = () => {
       width="380px"
       overflowX="auto"
       aria-label="Horizontal scroll table"
+      title="Table for Horizontal Scroll Table"
     >
       <FlatTableHead>
         <FlatTableRow>
@@ -342,7 +347,7 @@ HorizontalScrolling.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomCellPaddings: Story = () => {
   return (
-    <FlatTable>
+    <FlatTable title="Table for Custom Cell Paddings">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader px={1} py={2}>
@@ -376,7 +381,7 @@ WithCustomCellPaddings.storyName = "With Custom Cell Paddings";
 
 export const WithCustomColumnWidth: Story = () => {
   return (
-    <FlatTable>
+    <FlatTable title="Table for Custom Column Width">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader width={80}>Name</FlatTableHeader>
@@ -415,7 +420,7 @@ WithCustomColumnWidth.storyName = "With Custom Column Width";
 
 export const WithCustomRowBackgroundColor: Story = () => {
   return (
-    <FlatTable>
+    <FlatTable title="Table for Custom Row Backgroun Colour">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableRowHeader>No.</FlatTableRowHeader>
@@ -467,7 +472,7 @@ WithCustomRowBackgroundColor.storyName = "With Custom Row Background Color";
 
 export const WithCustomHorizontalBorderSize: Story = () => {
   return (
-    <FlatTable>
+    <FlatTable title="Table for Custom Horizontal Border Size">
       <FlatTableHead>
         <FlatTableRow horizontalBorderSize="large">
           <FlatTableHeader>Name</FlatTableHeader>
@@ -503,7 +508,7 @@ WithCustomHorizontalBorderSize.storyName = "With Custom Horizontal Border Size";
 
 export const WithCustomHorizontalBorderColor: Story = () => {
   return (
-    <FlatTable>
+    <FlatTable title="Table for Custom Horizontal Border Colour">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Name</FlatTableHeader>
@@ -546,7 +551,10 @@ WithCustomHorizontalBorderColor.storyName =
 
 export const WithCustomBottomBorderRadius: Story = () => {
   return (
-    <FlatTable bottomBorderRadius="borderRadius000">
+    <FlatTable
+      bottomBorderRadius="borderRadius000"
+      title="Table for Custom Bottom Border Radius"
+    >
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Name</FlatTableHeader>
@@ -588,7 +596,7 @@ WithCustomBottomBorderRadius.storyName = "With Custom Bottom Border Radius";
 
 export const WithCustomVerticalBorders: Story = () => {
   return (
-    <FlatTable>
+    <FlatTable title="Table for Custom Vertical Borders">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader verticalBorder="small" verticalBorderColor="#335CDC">
@@ -679,7 +687,7 @@ WithCustomVerticalBorders.storyName = "With Custom Vertical Borders";
 
 export const WithAlternativeHeaderBackground: Story = () => {
   return (
-    <FlatTable>
+    <FlatTable title="Table for Alternative Header Background">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader rowspan="2">Name</FlatTableHeader>
@@ -730,7 +738,7 @@ WithAlternativeHeaderBackground.storyName =
 
 export const WithTruncatedCellContent: Story = () => {
   return (
-    <FlatTable>
+    <FlatTable title="Table for Truncated Cell Content">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Name</FlatTableHeader>
@@ -761,7 +769,7 @@ WithTruncatedCellContent.storyName = "With Truncated Cell Content";
 export const WithStickyHead: Story = () => {
   return (
     <Box height="150px">
-      <FlatTable hasStickyHead>
+      <FlatTable hasStickyHead title="Table for Sticky Header">
         <FlatTableHead>
           <FlatTableRow>
             <FlatTableHeader>Name</FlatTableHeader>
@@ -811,7 +819,13 @@ WithStickyHead.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithStickyHeadRowSpanAndColspan: Story = () => {
   return (
-    <FlatTable hasStickyHead height="380px" width="310px" overflowX="auto">
+    <FlatTable
+      hasStickyHead
+      height="380px"
+      width="310px"
+      overflowX="auto"
+      title="Table for Sticky Header with Row and Column spans"
+    >
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader rowspan={2}>Name</FlatTableHeader>
@@ -1047,6 +1061,7 @@ export const WithStickyFooter: Story = () => {
   return (
     <Box height={220} marginBottom={16}>
       <FlatTable
+        title="Table for Sticky Footer"
         hasStickyHead
         hasStickyFooter
         footer={
@@ -1114,6 +1129,7 @@ export const WithStickyFooterInsideOfLargerDiv: Story = () => {
   return (
     <Box height="220px" marginBottom="16px">
       <FlatTable
+        title="Table for Sticky Footer inside large Div"
         hasStickyHead
         hasStickyFooter
         footer={
@@ -1181,6 +1197,7 @@ export const WithHasMaxHeight: Story = () => {
   return (
     <Box height="180px" marginBottom="16px">
       <FlatTable
+        title="Table for Max Height"
         hasMaxHeight
         footer={
           <Pager
@@ -1223,7 +1240,7 @@ export const WithoutVerticalBorders: Story = {
 
 export const WithClickableRows: Story = () => {
   return (
-    <FlatTable>
+    <FlatTable title="Table for Clickable Rows">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Name</FlatTableHeader>
@@ -1266,7 +1283,7 @@ WithClickableRows.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Zebra: Story = () => {
   return (
-    <FlatTable isZebra>
+    <FlatTable isZebra title="Table for Zebra">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Name</FlatTableHeader>
@@ -1404,7 +1421,7 @@ export const WithSortingHeaders: Story = {
     };
 
     return (
-      <FlatTable {...args}>
+      <FlatTable {...args} title="Table for sorting headers">
         <FlatTableHead>
           <FlatTableRow>
             {headData.map(({ name, isActive }) => {
@@ -1533,7 +1550,10 @@ export const WithSortingHeadersAndCustomAccessibleName: Story = {
     };
 
     return (
-      <FlatTable {...args}>
+      <FlatTable
+        {...args}
+        title="Table for sorting headers with custom accessible name"
+      >
         <FlatTableHead>
           <FlatTableRow>
             {headData.map(({ name, isActive }) => {
@@ -1567,7 +1587,7 @@ export const WithSortingHeadersAndCustomAccessibleName: Story = {
 
 export const WithColspan: Story = () => {
   return (
-    <FlatTable>
+    <FlatTable title="Table for Col Span">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Name</FlatTableHeader>
@@ -1590,7 +1610,7 @@ WithColspan.storyName = "With colspan";
 
 export const WithRowspan: Story = () => {
   return (
-    <FlatTable>
+    <FlatTable title="Table for Row Span">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Parent Name</FlatTableHeader>
@@ -1663,7 +1683,7 @@ export const WithSelectableRows: Story = () => {
           <Icon type="pdf" />
         </IconButton>
       </BatchSelection>
-      <FlatTable>
+      <FlatTable title="Table for Selectable Rows">
         <FlatTableHead>
           <FlatTableRow>
             <FlatTableCheckbox
@@ -1750,7 +1770,7 @@ export const WithHighlightableRows: Story = () => {
   };
 
   return (
-    <FlatTable>
+    <FlatTable title="Table for highlightable rows">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Name</FlatTableHeader>
@@ -1857,7 +1877,7 @@ export const WithSelectableAndHighlightableRows: Story = () => {
           <Icon type="pdf" />
         </IconButton>
       </BatchSelection>
-      <FlatTable>
+      <FlatTable title="Table for selectable and highlightable rows">
         <FlatTableHead>
           <FlatTableRow>
             <FlatTableCheckbox
@@ -2081,6 +2101,7 @@ export const Paginated: Story = () => {
 
   return (
     <FlatTable
+      title="Table for pagination"
       footer={
         <Pager
           totalRecords={rows.length}
@@ -2470,6 +2491,7 @@ export const PaginatedWithStickyHeader: Story = () => {
   return (
     <Box height="200px">
       <FlatTable
+        title="Table for pagination with sticky header and footer"
         hasStickyHead
         hasStickyFooter
         footer={
@@ -2555,7 +2577,7 @@ export const WhenAChildOfSidebar: Story = () => {
         </IconButton>
       </BatchSelection>
       <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
-        <FlatTable>
+        <FlatTable title="Table for child of sidebar">
           <FlatTableHead>
             <FlatTableRow>
               <FlatTableCheckbox
@@ -2653,7 +2675,11 @@ export const Sizes: Story = () => {
     <Box>
       {sizes.map((size) => (
         <Box mb={3} key={size}>
-          <FlatTable size={size} aria-label={`flat-table-${size}`}>
+          <FlatTable
+            size={size}
+            aria-label={`flat-table-${size}`}
+            title={`Table for ${size} Size`}
+          >
             <FlatTableHead>
               <FlatTableRow>
                 <FlatTableHeader>Name</FlatTableHeader>
@@ -2716,7 +2742,7 @@ export const WithDraggableRows: Story = () => {
     },
   ];
   return (
-    <FlatTable>
+    <FlatTable title="Table for draggable rows">
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader />
@@ -2745,7 +2771,11 @@ export const WrappingRowHeaders: Story = () => {
   FlatTableRowHeaderWrapper.displayName = FlatTableRowHeader.displayName;
 
   return (
-    <FlatTable width="310px" overflowX="auto">
+    <FlatTable
+      width="310px"
+      overflowX="auto"
+      title="Table for wrapping row headers"
+    >
       <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Name</FlatTableHeader>

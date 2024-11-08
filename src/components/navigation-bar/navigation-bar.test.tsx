@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import NavigationBar from ".";
 import {
-  testStyledSystemPaddingRTL,
+  testStyledSystemPadding,
   testStyledSystemFlexBox,
 } from "../../__spec_helper__/__internal__/test-utils";
 
@@ -138,7 +138,7 @@ test("renders with correct styles when `position` is 'fixed' and `orientation` i
   });
 });
 
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => <NavigationBar {...props}>test content</NavigationBar>,
   () => screen.getByRole("navigation"),
   undefined,

@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Loader from ".";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
@@ -9,7 +9,7 @@ jest.mock("../../hooks/useMediaQuery", () => ({
   default: jest.fn().mockReturnValue(false),
 }));
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Loader {...props} />,
   () => screen.getByRole("progressbar"),
 );

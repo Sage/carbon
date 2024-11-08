@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import Message from "./message.component";
 import I18nProvider from "../i18n-provider";
 import enGB from "../../locales/en-gb";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders with provided children", () => {
   render(<Message>Message</Message>);
@@ -88,6 +88,11 @@ test("renders close button aria-label with custom value from translations", () =
       locale={{
         ...enGB,
         message: {
+          info: () => "Information",
+          success: () => "Success",
+          warning: () => "Warning",
+          neutral: () => "Neutral",
+          error: () => "Error",
           closeButtonAriaLabel: () => "test close button",
         },
       }}
@@ -161,7 +166,7 @@ test("should set `ref` to empty after unmount", () => {
   expect(ref.current).toBeNull();
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <Message data-role="my-message" {...props}>
       Message

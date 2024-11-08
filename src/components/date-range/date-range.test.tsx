@@ -1,12 +1,15 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import enGBLocale from "date-fns/locale/en-GB";
+import deLocale from "date-fns/locale/de";
 
 import DateRange, { DateRangeChangeEvent } from "./date-range.component";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
+import I18nProvider from "../i18n-provider";
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => (
     <DateRange
       data-role="date-range"
@@ -1135,4 +1138,70 @@ test("should have the default styling when the `labelsInline` prop is set and `v
 
   expect(screen.getByTestId("start")).toHaveStyle("vertical-align: bottom");
   expect(screen.getByTestId("end")).toHaveStyle("vertical-align: bottom");
+});
+
+describe("Locale formatting overrides", () => {
+  test("should render with the input value matching the expected format when `dateFormatOverride` is set and the language is `de-DE`", () => {
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "de-DE",
+          date: {
+            ariaLabels: {
+              nextMonthButton: () => "foo",
+              previousMonthButton: () => "foo",
+            },
+            dateFnsLocale: () => deLocale,
+            dateFormatOverride: "y-m-ddd",
+          },
+        }}
+      >
+        <DateRange
+          startLabel="start"
+          endLabel="end"
+          value={["2016-10-10", "2016-11-11"]}
+          onChange={() => {}}
+        />
+      </I18nProvider>,
+    );
+
+    expect(screen.getByRole("textbox", { name: "start" })).toHaveValue(
+      "2016-0-010",
+    );
+    expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
+      "2016-0-011",
+    );
+  });
+
+  test("should render with the input value matching the expected format when `dateFormatOverride` is set and the language is `en-GB`", () => {
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "en-GB",
+          date: {
+            ariaLabels: {
+              nextMonthButton: () => "foo",
+              previousMonthButton: () => "foo",
+            },
+            dateFnsLocale: () => enGBLocale,
+            dateFormatOverride: "y-m-ddd",
+          },
+        }}
+      >
+        <DateRange
+          startLabel="start"
+          endLabel="end"
+          value={["2016-10-10", "2016-11-11"]}
+          onChange={() => {}}
+        />
+      </I18nProvider>,
+    );
+
+    expect(screen.getByRole("textbox", { name: "start" })).toHaveValue(
+      "2016-0-010",
+    );
+    expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
+      "2016-0-011",
+    );
+  });
 });

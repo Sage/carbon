@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import ProgressTracker from "./progress-tracker.component";
 import CarbonProvider from "../carbon-provider";
-import { testStyledSystemMarginRTL } from "../../__spec_helper__/__internal__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders with default labels", () => {
   render(<ProgressTracker />);
@@ -175,7 +175,7 @@ test("renders with correct border-radius when `roundedCornersOptOut` is true", (
   expect(screen.getByTestId("inner-bar")).toHaveStyle({ borderRadius: "25px" });
 });
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <ProgressTracker data-role="progress" {...props} />,
   () => screen.getByTestId("progress"),
 );

@@ -10,12 +10,15 @@ export interface ValidationMessageProps {
   /** Indicate that warning has occurred
   Pass string to display hint with warning */
   warning?: boolean | string;
+  /** Whether this component resides on a dark background */
+  isDarkBackground?: boolean;
 }
 
 const ValidationMessage = ({
   error,
   validationId,
   warning,
+  isDarkBackground,
 }: ValidationMessageProps) => {
   const validation = error || warning;
   const isStringValidation = typeof validation === "string";
@@ -25,6 +28,7 @@ const ValidationMessage = ({
       id={validationId}
       isWarning={!!(!error && warning)}
       data-role="validation-message"
+      isDarkBackground={isDarkBackground}
     >
       {validation}
     </StyledValidationMessage>

@@ -1,14 +1,14 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import {
-  testStyledSystemMarginRTL,
+  testStyledSystemMargin,
   testStyledSystemLayout,
   testStyledSystemBackground,
-  testStyledSystemPaddingRTL,
+  testStyledSystemPadding,
 } from "../../__spec_helper__/__internal__/test-utils";
 import Image from "./image.component";
 
-testStyledSystemMarginRTL(
+testStyledSystemMargin(
   (props) => <Image data-role="image" {...props} />,
   () => screen.getByTestId("image"),
 );
@@ -20,7 +20,7 @@ testStyledSystemBackground(
   (props) => <Image data-role="image" {...props} />,
   () => screen.getByTestId("image"),
 );
-testStyledSystemPaddingRTL(
+testStyledSystemPadding(
   (props) => <Image data-role="image" {...props} />,
   () => screen.getByTestId("image"),
 );

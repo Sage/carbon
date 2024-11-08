@@ -39,7 +39,7 @@ import DateRange from "carbon-react/lib/components/date-range";
 
 ### LabelsInline
 
-**Note:** The `labelsInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+**Note:** The `labelsInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
 
 <Canvas of={DateRangeStories.LabelsInline} />
 
@@ -109,6 +109,13 @@ The examples below illustrates how to override the locale passed into the DateRa
 the French locale. Required locales can be imported like so `import { fr } from 'date-fns/locale';`
 
 <Canvas of={DateRangeStories.LocaleOverrideExampleImplementation} />
+
+### Locale format override
+
+You can also override the format used to display dates in the date picker via the `dateFormatOverride` property. In the example below, the German locale is used
+but the date format has been overridden to `y-m-ddd` as opposed to the default `dd.MM.yyyy`.
+
+<Canvas of={DateRangeStories.LocaleFormatOverrideExampleImplementation} />
 
 ## Props
 
