@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
 
-import SwitchSliderPanel from "./switch-slider-panel.style";
 import StyledValidationIcon from "../../../__internal__/validations/validation-icon.style";
-import { SwitchSliderProps } from "./switch-slider.component";
 import baseTheme, { ThemeObject } from "../../../style/themes/base";
+
+import SwitchSliderPanel from "./switch-slider-panel.style";
+import { SwitchSliderProps } from "./switch-slider.component";
 
 interface StyledSwitchSliderProps
   extends Pick<
@@ -12,6 +13,7 @@ interface StyledSwitchSliderProps
   > {
   isLoading?: boolean;
   theme?: Partial<ThemeObject>;
+  isDarkBackground?: boolean;
 }
 
 const StyledSwitchSlider = styled.div`
@@ -23,6 +25,7 @@ const StyledSwitchSlider = styled.div`
     error,
     warning,
     theme,
+    isDarkBackground,
   }: StyledSwitchSliderProps) => css`
     display: flex;
     font-size: 12px;
@@ -39,14 +42,22 @@ const StyledSwitchSlider = styled.div`
       theme?.roundedCornersOptOut ? "90px" : "var(--borderRadius400)"
     };
     border-style: solid;
-    border-color: var(--colorsActionMinor400);
+    border-color: ${
+      isDarkBackground
+        ? "var(--colorsUtilityYang100)"
+        : "var(--colorsActionMinor400)"
+    };
     border-width: var(--borderWidth200);
     box-sizing: border-box;
     margin-top: ${size === "large" ? "-47px" : "-28px"};
     align-items: center;
 
     &::before {
-      background-color: var(--colorsActionMinor400);
+      background-color: ${
+        isDarkBackground
+          ? "var(--colorsUtilityYang100)"
+          : "var(--colorsActionMinor400)"
+      };
       bottom: 4px;
       content: "";
       height: ${size === "large" ? "var(--spacing400)" : "var(--spacing200)"};
@@ -61,7 +72,9 @@ const StyledSwitchSlider = styled.div`
     ${
       checked &&
       css`
-        background-color: var(--colorsActionMinor500);
+        background-color: ${isDarkBackground
+          ? "var(--colorsUtilityYang100)"
+          : "var(--colorsActionMinor500)"};
         border-color: var(--colorsActionMinorTransparent);
 
         &::before {
@@ -69,7 +82,9 @@ const StyledSwitchSlider = styled.div`
             100% -
               ${size === "large" ? "var(--spacing500)" : "var(--spacing300)"}
           );
-          background-color: var(--colorsActionMinorYang100);
+          background-color: ${isDarkBackground
+            ? "var(--colorsUtilityYin100)"
+            : "var(--colorsActionMinorYang100)"};
         }
       `
     }

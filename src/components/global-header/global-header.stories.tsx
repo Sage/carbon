@@ -39,14 +39,25 @@ export default meta;
 type Story = StoryObj<typeof GlobalHeader>;
 
 export const Default: Story = () => {
-  return <GlobalHeader>Example content</GlobalHeader>;
+  return (
+    <GlobalHeader aria-label="Default global header component">
+      Example content
+    </GlobalHeader>
+  );
 };
 Default.storyName = "Default";
 
 export const WithLogo: Story = () => {
   const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
 
-  return <GlobalHeader logo={<Logo />}>Example content</GlobalHeader>;
+  return (
+    <GlobalHeader
+      logo={<Logo />}
+      aria-label="Global header component with logo"
+    >
+      Example content
+    </GlobalHeader>
+  );
 };
 WithLogo.storyName = "With Logo";
 
@@ -54,7 +65,10 @@ export const BasicMenu: Story = () => {
   const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
 
   return (
-    <GlobalHeader logo={<Logo />}>
+    <GlobalHeader
+      logo={<Logo />}
+      aria-label="Global header component with basic menu"
+    >
       <Menu menuType="black" flex="1">
         <MenuItem flex="1" submenu="Product Switcher">
           <MenuItem>Product A</MenuItem>
@@ -111,7 +125,10 @@ export const ResponsiveMenu: Story = () => {
   const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
 
   return (
-    <GlobalHeader logo={<Logo />}>
+    <GlobalHeader
+      logo={<Logo />}
+      aria-label="Global header component with responsive menu"
+    >
       <Menu menuType="black" flex="1">
         {fullscreenViewBreakPoint ? (
           <>
@@ -144,8 +161,11 @@ export const GlobalLocalNavBarLayout: Story = () => {
 
   return (
     <>
-      <GlobalHeader logo={<Logo />}>
-        <Menu menuType="black" flex="1">
+      <GlobalHeader
+        logo={<Logo />}
+        aria-label="Global header component with local nav bar"
+      >
+        <Menu menuType="black" flex="1" aria-label="Menu bar">
           <MenuItem flex="1" submenu="Product Switcher">
             <MenuItem href="#">Product A</MenuItem>
           </MenuItem>
@@ -159,7 +179,12 @@ export const GlobalLocalNavBarLayout: Story = () => {
           </MenuItem>
         </Menu>
       </GlobalHeader>
-      <NavigationBar position="fixed" orientation="top" offset="40px">
+      <NavigationBar
+        position="fixed"
+        orientation="top"
+        offset="40px"
+        aria-label="Local nav bar"
+      >
         <Menu flex="1">
           <MenuItem href="#" flex="1">
             Menu Item One

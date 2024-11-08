@@ -5,10 +5,16 @@ export interface StyledLabelProps {
   disabled?: boolean;
   /** Flag to configure component as mandatory */
   isRequired?: boolean;
+  /** Flag to determine whether to use colours for dark backgrounds */
+  isDarkBackground?: boolean;
 }
 
 const StyledLabel = styled.label<StyledLabelProps>`
-  color: var(--colorsUtilityYin090);
+  ${({ isDarkBackground }) => css`
+    color: ${isDarkBackground
+      ? "var(--colorsUtilityYang100)"
+      : "var(--colorsUtilityYin090)"};
+  `}
   display: block;
   font-weight: var(--fontWeights500);
 
