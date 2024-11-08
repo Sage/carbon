@@ -48,8 +48,6 @@ export interface ActionPopoverMenuBaseProps {
   /** @ignore @private */
   role?: string;
   /** @ignore @private */
-  isASubmenu?: boolean;
-  /** @ignore @private */
   "data-element"?: string;
   /** @ignore @private */
   style?: {
@@ -78,8 +76,7 @@ const ActionPopoverMenu = React.forwardRef<
       setOpen,
       setFocusIndex,
       placement = "bottom",
-      horizontalAlignment,
-      isASubmenu,
+      horizontalAlignment = "left",
       ...rest
     }: ActionPopoverMenuBaseProps,
     ref,
@@ -208,8 +205,6 @@ const ActionPopoverMenu = React.forwardRef<
       ],
     );
 
-    const [childHasSubmenu, setChildHasSubmenu] = useState(false);
-    const [childHasIcon, setChildHasIcon] = useState(false);
     const [currentSubmenuPosition, setCurrentSubmenuPosition] =
       useState<Alignment>(submenuPosition);
 
@@ -224,13 +219,8 @@ const ActionPopoverMenu = React.forwardRef<
               focusItem: isOpen && focusIndex === index - 1,
               placement: child.props.submenu ? placement : undefined,
               horizontalAlignment,
-              childHasSubmenu,
-              setChildHasSubmenu,
-              childHasIcon,
-              setChildHasIcon,
               currentSubmenuPosition,
               setCurrentSubmenuPosition,
-              isASubmenu,
             },
           );
         }
@@ -243,21 +233,20 @@ const ActionPopoverMenu = React.forwardRef<
       isOpen,
       placement,
       horizontalAlignment,
-      childHasSubmenu,
-      childHasIcon,
       currentSubmenuPosition,
-      isASubmenu,
     ]);
 
     return (
       <Menu
         data-component="action-popover"
-        isOpen={isOpen}
+        isOpen={!!isOpen}
         onKeyDown={onKeyDown}
         id={menuID}
         aria-labelledby={parentID}
         ref={ref}
         role="list"
+        submenuLeft={currentSubmenuPosition === "left"}
+        iconLeft={horizontalAlignment === "left"}
         {...rest}
       >
         {clonedChildren}
