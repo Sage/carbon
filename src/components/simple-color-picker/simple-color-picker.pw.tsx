@@ -167,7 +167,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await lastInput.press("ArrowRight");
 
     const firstInput = simpleColorPickerInput(page, 0);
-    await expect(firstInput).toHaveAttribute("aria-checked", "true");
+    await expect(firstInput).toBeChecked();
   });
 
   test("should move selection to the next color when right arrow is pressed", async ({
@@ -177,10 +177,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await mount(<SimpleColorPickerCustom />);
 
     await simpleColorPickerInput(page, 3).press("ArrowRight");
-    await expect(simpleColorPickerInput(page, 4)).toHaveAttribute(
-      "aria-checked",
-      "true",
-    );
+    await expect(simpleColorPickerInput(page, 4)).toBeChecked();
   });
 
   test("should move selection to the last color when left arrow is pressed from the first color", async ({
@@ -193,7 +190,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await firstInput.press("ArrowLeft");
 
     const lastInput = simpleColorPickerInput(page, 9);
-    await expect(lastInput).toHaveAttribute("aria-checked", "true");
+    await expect(lastInput).toBeChecked();
   });
 
   test("should move selection to the previous color when left arrow is pressed", async ({
@@ -203,10 +200,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await mount(<SimpleColorPickerCustom />);
 
     await simpleColorPickerInput(page, 3).press("ArrowLeft");
-    await expect(simpleColorPickerInput(page, 2)).toHaveAttribute(
-      "aria-checked",
-      "true",
-    );
+    await expect(simpleColorPickerInput(page, 2)).toBeChecked();
   });
 
   test("should move selection to the color immediately below when down arrow is pressed", async ({
@@ -216,10 +210,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await mount(<SimpleColorPickerCustom />);
 
     await simpleColorPickerInput(page, 3).press("ArrowDown");
-    await expect(simpleColorPickerInput(page, 8)).toHaveAttribute(
-      "aria-checked",
-      "true",
-    );
+    await expect(simpleColorPickerInput(page, 8)).toBeChecked();
   });
 
   test("should move selection to the color immediately above when up arrow is pressed", async ({
@@ -229,10 +220,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await mount(<SimpleColorPickerCustom />);
 
     await simpleColorPickerInput(page, 8).press("ArrowUp");
-    await expect(simpleColorPickerInput(page, 3)).toHaveAttribute(
-      "aria-checked",
-      "true",
-    );
+    await expect(simpleColorPickerInput(page, 3)).toBeChecked();
   });
 
   [1, 2, 3].forEach((cellIndex) => {
@@ -244,7 +232,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
 
       const selectedColor = simpleColorPickerInput(page, cellIndex);
       await selectedColor.click();
-      await expect(selectedColor).toHaveAttribute("aria-checked", "true");
+      await expect(selectedColor).toBeChecked();
     });
   });
 

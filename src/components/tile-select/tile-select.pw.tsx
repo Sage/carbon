@@ -202,13 +202,13 @@ test.describe("check props for TileSelect component", () => {
   test("should check when tile is selected", async ({ mount, page }) => {
     await mount(<TileSelect checked />);
 
-    await expect(inputElement(page)).toHaveAttribute("aria-checked", "true");
+    await expect(inputElement(page)).toBeChecked();
   });
 
   test("should check when tile is not selected", async ({ mount, page }) => {
     await mount(<TileSelect checked={false} />);
 
-    await expect(inputElement(page)).toHaveAttribute("aria-checked", "false");
+    await expect(inputElement(page)).not.toBeChecked();
   });
 
   test("should render TileSelect component with className", async ({
@@ -320,29 +320,17 @@ test.describe("check props for MultiTileSelect component", () => {
     const multiSelectInputElement0 = inputElement(page).nth(0);
     await multiSelectInputElement0.click();
 
-    await expect(multiSelectInputElement0).toHaveAttribute(
-      "aria-checked",
-      "true",
-    );
+    await expect(multiSelectInputElement0).toBeChecked();
     const multiSelectInputElement1 = inputElement(page).nth(1);
     await multiSelectInputElement1.click();
 
-    await expect(multiSelectInputElement1).toHaveAttribute(
-      "aria-checked",
-      "true",
-    );
+    await expect(multiSelectInputElement1).toBeChecked();
     const multiSelectInputElement2 = inputElement(page).nth(2);
 
-    await expect(multiSelectInputElement2).toHaveAttribute(
-      "aria-checked",
-      "false",
-    );
+    await expect(multiSelectInputElement2).not.toBeChecked();
     const multiSelectInputElement3 = inputElement(page).nth(3);
 
-    await expect(multiSelectInputElement3).toHaveAttribute(
-      "aria-checked",
-      "false",
-    );
+    await expect(multiSelectInputElement3).not.toBeChecked();
   });
 
   test("should render with the expected border radius styling", async ({

@@ -120,7 +120,6 @@ const HiddenCheckableInput = React.forwardRef(
         aria-labelledby={ariaLabelledBy}
         autoFocus={autoFocus}
         data-has-autofocus={autoFocus ? true : undefined}
-        aria-checked={checked}
         checked={checked}
         name={name}
         role={role || type}
