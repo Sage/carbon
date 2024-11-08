@@ -1,3 +1,10 @@
+## [144.7.0](https://github.com/Sage/carbon/compare/v144.6.0...v144.7.0) (2024-11-08)
+
+
+### Features
+
+* **message:** add icon description for screen readers ([47c5a2c](https://github.com/Sage/carbon/commit/47c5a2cc200babbfc8af9038964bcb3aef7cb704)), closes [#7027](https://github.com/Sage/carbon/issues/7027)
+
 ## [144.6.0](https://github.com/Sage/carbon/compare/v144.5.0...v144.6.0) (2024-11-08)
 
 
