@@ -52,7 +52,13 @@ test("renders with header when prop is provided", () => {
   ).toBeVisible();
 });
 
-test("sidebar uses header prop as accessible name when provided", () => {
+test("sidebar uses header prop as accessible name when an HTML element is provided as header", () => {
+  render(<Sidebar open header={<h1>My sidebar</h1>} />);
+
+  expect(screen.getByRole("dialog")).toHaveAccessibleName("My sidebar");
+});
+
+test("sidebar uses header prop as accessible name when a string is provided", () => {
   render(<Sidebar open header="My sidebar" />);
 
   expect(screen.getByRole("dialog")).toHaveAccessibleName("My sidebar");
