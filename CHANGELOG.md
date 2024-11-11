@@ -1,3 +1,10 @@
+### [144.7.2](https://github.com/Sage/carbon/compare/v144.7.1...v144.7.2) (2024-11-11)
+
+
+### Bug Fixes
+
+* **select:** error displayed when select with infinite scroll is reset ([74491e1](https://github.com/Sage/carbon/commit/74491e194248b9dc90e60341cef5a6ef1ef887c8))
+
 ### [144.7.1](https://github.com/Sage/carbon/compare/v144.7.0...v144.7.1) (2024-11-08)
 
 
