@@ -18,33 +18,19 @@ export interface CarbonProviderProps extends NewValidationContextProps {
   theme?: Partial<ThemeObject>;
 }
 
-let deprecatedRoundedCornersOptOut = false;
 let deprecatedFocusRedesignOptOut = false;
 
 export const CarbonProvider = ({
   children,
   theme = sageTheme,
   validationRedesignOptIn = false,
-  roundedCornersOptOut = false,
   focusRedesignOptOut = false,
 }: CarbonProviderProps) => {
-  const {
-    roundedCornersOptOut: existingRoundedCornersOptOut,
-    focusRedesignOptOut: existingFocusRedesignOptOut,
-  } = useContext(NewValidationContext);
+  const { focusRedesignOptOut: existingFocusRedesignOptOut } =
+    useContext(NewValidationContext);
 
-  const roundedCornersOptOutValue =
-    existingRoundedCornersOptOut || roundedCornersOptOut;
   const focusRedesignOptOutValue =
     existingFocusRedesignOptOut || focusRedesignOptOut;
-
-  if (!deprecatedRoundedCornersOptOut && roundedCornersOptOutValue) {
-    deprecatedRoundedCornersOptOut = true;
-    Logger.deprecate(
-      "The `roundedCornersOptOut` feature flag has been deprecated and will soon be removed. " +
-        "Along with this feature flag, the legacy pre-rounded corners styling will also be removed. ",
-    );
-  }
 
   if (!deprecatedFocusRedesignOptOut && focusRedesignOptOutValue) {
     deprecatedFocusRedesignOptOut = true;
@@ -58,7 +44,6 @@ export const CarbonProvider = ({
     <ThemeProvider
       theme={{
         ...theme,
-        roundedCornersOptOut: roundedCornersOptOutValue,
         focusRedesignOptOut: focusRedesignOptOutValue,
       }}
     >
@@ -66,7 +51,6 @@ export const CarbonProvider = ({
         <NewValidationContext.Provider
           value={{
             validationRedesignOptIn,
-            roundedCornersOptOut: roundedCornersOptOutValue,
           }}
         >
           <TopModalProvider>{children}</TopModalProvider>

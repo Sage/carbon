@@ -1,7 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import ProgressTracker from "./progress-tracker.component";
-import CarbonProvider from "../carbon-provider";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders with default labels", () => {
@@ -159,20 +158,6 @@ test("renders with correct colour when progress is '100%'", () => {
     "background-color",
     "var(--colorsSemanticPositive500)",
   );
-});
-
-// coverage
-test("renders with correct border-radius when `roundedCornersOptOut` is true", () => {
-  render(
-    <CarbonProvider roundedCornersOptOut>
-      <ProgressTracker progress={100} />
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByTestId("progress-bar")).toHaveStyle({
-    borderRadius: "25px",
-  });
-  expect(screen.getByTestId("inner-bar")).toHaveStyle({ borderRadius: "25px" });
 });
 
 testStyledSystemMargin(

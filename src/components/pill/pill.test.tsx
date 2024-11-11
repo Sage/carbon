@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pill from ".";
-import CarbonProvider from "../carbon-provider";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import { baseTheme } from "../../style/themes";
 import { toColor } from "../../style/utils/color";
@@ -191,66 +190,6 @@ test("should render with expected styles when size is XL and onDelete is set", (
     width: "32px",
     padding: "0",
     lineHeight: "18px",
-  });
-});
-
-test("should render with expected styles when size is S and roundedCornersOptOut is true", () => {
-  render(
-    <CarbonProvider roundedCornersOptOut>
-      <Pill size="S" onDelete={() => {}}>
-        Test Pill
-      </Pill>
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByText("Test Pill")).toHaveStyle({ borderRadius: "12px" });
-  expect(screen.getByRole("button")).toHaveStyle({
-    borderRadius: "0 10px 10px 0",
-  });
-});
-
-test("should render with expected styles when size is M and roundedCornersOptOut is true", () => {
-  render(
-    <CarbonProvider roundedCornersOptOut>
-      <Pill size="M" onDelete={() => {}}>
-        Test Pill
-      </Pill>
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByText("Test Pill")).toHaveStyle({ borderRadius: "12px" });
-  expect(screen.getByRole("button")).toHaveStyle({
-    borderRadius: "0 10px 10px 0",
-  });
-});
-
-test("should render with expected styles when size is L and roundedCornersOptOut is true", () => {
-  render(
-    <CarbonProvider roundedCornersOptOut>
-      <Pill size="L" onDelete={() => {}}>
-        Test Pill
-      </Pill>
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByText("Test Pill")).toHaveStyle({ borderRadius: "13px" });
-  expect(screen.getByRole("button")).toHaveStyle({
-    borderRadius: "0 11px 11px 0",
-  });
-});
-
-test("should render with expected styles when size is XL and roundedCornersOptOut is true", () => {
-  render(
-    <CarbonProvider roundedCornersOptOut>
-      <Pill size="XL" onDelete={() => {}}>
-        Test Pill
-      </Pill>
-    </CarbonProvider>,
-  );
-
-  expect(screen.getByText("Test Pill")).toHaveStyle({ borderRadius: "15px" });
-  expect(screen.getByRole("button")).toHaveStyle({
-    borderRadius: "0 12px 12px 0",
   });
 });
 
