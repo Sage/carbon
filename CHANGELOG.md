@@ -1,3 +1,10 @@
+### [144.8.1](https://github.com/Sage/carbon/compare/v144.8.0...v144.8.1) (2024-11-11)
+
+
+### Bug Fixes
+
+* **sidebar:** ensure that component renders correctly at 400% zoom ([4750909](https://github.com/Sage/carbon/commit/4750909c029201940b2953635b5bdbabe5cf9d3c)), closes [#7035](https://github.com/Sage/carbon/issues/7035)
+
 ## [144.8.0](https://github.com/Sage/carbon/compare/v144.7.2...v144.8.0) (2024-11-11)
 
 
