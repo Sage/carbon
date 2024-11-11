@@ -471,13 +471,13 @@ Readonly.storyName = "Readonly";
 
 export const Transparent: Story = () => {
   return (
-    <Box height={250}>
+    <Box height={250} width={200}>
       <Select
         name="transparent"
         id="transparent"
-        defaultValue="4"
+        placeholder="Please select a colour"
         transparent
-        label="color"
+        label="Choose a colour"
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -495,6 +495,34 @@ export const Transparent: Story = () => {
   );
 };
 Transparent.storyName = "Transparent";
+
+export const TransparentDisabled: Story = () => {
+  return (
+    <Box height={250} width={150}>
+      <Select
+        name="transparent"
+        id="transparent"
+        defaultValue="4"
+        transparent
+        label="Choose a colour"
+        disabled
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+};
+TransparentDisabled.storyName = "Transparent disabled";
 
 export const CustomOptionChildren: Story = () => {
   return (

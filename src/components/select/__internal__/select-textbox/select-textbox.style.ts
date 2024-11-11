@@ -25,13 +25,14 @@ const StyledSelectText = styled.span<StyledSelectTextProps>`
     css`
       font-weight: 500;
       text-align: right;
-      flex-direction: row-reverse;
     `}
 
     ${hasPlaceholder &&
     css`
-      color: var(--colorsUtilityYin055);
-      font-weight: normal;
+      color: ${transparent
+        ? `var(--colorsUtilityYin100)`
+        : `var(--colorsUtilityYin055)`};
+      font-weight: ${transparent ? 500 : "normal"};
       user-select: none;
     `}
 
