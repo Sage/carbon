@@ -116,6 +116,8 @@ export interface DateRangeProps
   required?: boolean;
   /** Flag to configure component as optional. */
   isOptional?: boolean;
+  /** Date format string to be applied to the date inputs */
+  dateFormatOverride?: string;
 }
 
 export const DateRange = ({
@@ -141,10 +143,10 @@ export const DateRange = ({
     : labelsInline;
 
   const l = useLocale();
-  const { dateFnsLocale } = l.date;
+  const { dateFnsLocale, dateFormatOverride } = l.date;
   const { format } = useMemo(
-    () => getFormatData(dateFnsLocale()),
-    [dateFnsLocale],
+    () => getFormatData(dateFnsLocale(), dateFormatOverride),
+    [dateFnsLocale, dateFormatOverride],
   );
   const inlineLabelWidth = 40;
   const [lastChangedDate, setLastChangedDate] = useState("");

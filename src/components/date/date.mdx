@@ -66,7 +66,7 @@ be used to set the input value like in the example below, although the component
 
 ### With labelInline
 
-**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
 
 <Canvas of={DateStories.WithLabelInline} />
 
@@ -148,6 +148,13 @@ The examples below illustrate how to override the locale passed into the Date co
 the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale. Required locales can be imported like so `import { de, zhCN } from 'date-fns/locale';`
 
 <Canvas of={DateStories.LocaleOverrideExampleImplementation} />
+
+### Locale format override
+
+You can also override the format used to display dates in the date picker via the `dateFormatOverride` property. In the example below, the German locale is used
+but the date format has been overridden to `yyyy-M-d` as opposed to the default `dd.MM.yyyy`.
+
+<Canvas of={DateStories.LocaleFormatOverrideExampleImplementation} />
 
 ## Props
 

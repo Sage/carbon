@@ -1,3 +1,24 @@
+### [144.7.1](https://github.com/Sage/carbon/compare/v144.7.0...v144.7.1) (2024-11-08)
+
+
+### Bug Fixes
+
+* remove aria-checked from checkbox/radio inputs ([d397fe7](https://github.com/Sage/carbon/commit/d397fe7d3de9bbe5b4a19e9442f2316e864ab9ad)), closes [#7047](https://github.com/Sage/carbon/issues/7047)
+
+## [144.7.0](https://github.com/Sage/carbon/compare/v144.6.0...v144.7.0) (2024-11-08)
+
+
+### Features
+
+* **message:** add icon description for screen readers ([47c5a2c](https://github.com/Sage/carbon/commit/47c5a2cc200babbfc8af9038964bcb3aef7cb704)), closes [#7027](https://github.com/Sage/carbon/issues/7027)
+
+## [144.6.0](https://github.com/Sage/carbon/compare/v144.5.0...v144.6.0) (2024-11-08)
+
+
+### Features
+
+* **date, date-range:** provides a mechanism that allows consumers to override the format of dates ([aed6c43](https://github.com/Sage/carbon/commit/aed6c43bb4d33b0b65bfa6898a3b25d1ce485ac0)), closes [#6930](https://github.com/Sage/carbon/issues/6930)
+
 ## [144.5.0](https://github.com/Sage/carbon/compare/v144.4.1...v144.5.0) (2024-11-07)
 
 
