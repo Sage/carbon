@@ -1,3 +1,10 @@
+## [144.8.0](https://github.com/Sage/carbon/compare/v144.7.2...v144.8.0) (2024-11-11)
+
+
+### Features
+
+* **select:** update styles of transparent variant to align with frozen design system ([034926f](https://github.com/Sage/carbon/commit/034926fa6ee7f57dac418a4020a313f4e4157a8f))
+
 ### [144.7.2](https://github.com/Sage/carbon/compare/v144.7.1...v144.7.2) (2024-11-11)
 
 
