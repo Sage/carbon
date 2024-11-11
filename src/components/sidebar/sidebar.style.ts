@@ -29,6 +29,7 @@ const StyledSidebar = styled.div<StyledSidebarProps>`
     flex-direction: column;
     top: 0;
     z-index: ${theme.zIndex.fullScreenModal};
+    max-width: 100vw;
 
     ${!width &&
     size &&
