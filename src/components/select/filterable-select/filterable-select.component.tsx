@@ -20,7 +20,7 @@ import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import { CustomSelectChangeEvent } from "../simple-select";
-import { OptionData } from "../simple-select/simple-select.component";
+import { OptionData } from "../__internal__/shared-types";
 
 let deprecateUncontrolledWarnTriggered = false;
 
@@ -183,7 +183,10 @@ export const FilterableSelect = React.forwardRef<
     }
 
     const createCustomEvent = useCallback(
-      (newValue, selectionConfirmed) => {
+      (
+        newValue: string | Record<string, unknown>,
+        selectionConfirmed?: boolean,
+      ) => {
         const customEvent = {
           target: {
             ...(name && { name }),
@@ -271,7 +274,7 @@ export const FilterableSelect = React.forwardRef<
     );
 
     const setMatchingText = useCallback(
-      (newValue, isClosing = false) => {
+      (newValue?: string | Record<string, unknown>, isClosing = false) => {
         const matchingOption = (
           React.Children.toArray(children) as React.ReactElement[]
         ).find(
@@ -299,12 +302,13 @@ export const FilterableSelect = React.forwardRef<
     );
 
     const handleTextboxChange = useCallback(
-      (event) => {
+      (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
+        const { inputType } = event.nativeEvent as InputEvent;
         const isDeleteEvent =
-          event.nativeEvent.inputType === "deleteContentBackward" ||
-          event.nativeEvent.inputType === "deleteContentForward" ||
-          event.nativeEvent.inputType === "delete";
+          inputType === "deleteContentBackward" ||
+          inputType === "deleteContentForward" ||
+          inputType === "delete";
 
         updateValues(newValue, isDeleteEvent);
         setFilterText(newValue);
@@ -314,7 +318,7 @@ export const FilterableSelect = React.forwardRef<
     );
 
     const fillLastFilterCharacter = useCallback(
-      (key) => {
+      (key: string) => {
         setFilterText((previousFilterText) => {
           if (
             previousFilterText?.length === textValue?.length - 1 &&
@@ -330,7 +334,7 @@ export const FilterableSelect = React.forwardRef<
     );
 
     const handleTextboxKeydown = useCallback(
-      (event) => {
+      (event: React.KeyboardEvent<HTMLInputElement>) => {
         const { key } = event;
 
         if (onKeyDown) {
@@ -354,11 +358,13 @@ export const FilterableSelect = React.forwardRef<
     const valueToUse = isControlled.current ? value : selectedValue;
 
     const handleGlobalClick = useCallback(
-      (event) => {
+      (event: MouseEvent) => {
         const notInContainer =
-          containerRef.current && !containerRef.current.contains(event.target);
+          containerRef.current &&
+          !containerRef.current.contains(event.target as Node);
         const notInList =
-          listboxRef.current && !listboxRef.current.contains(event.target);
+          listboxRef.current &&
+          !listboxRef.current.contains(event.target as Node);
 
         isMouseDownReported.current = false;
 

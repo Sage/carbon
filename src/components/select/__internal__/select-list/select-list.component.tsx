@@ -37,6 +37,7 @@ import ListActionButton from "../list-action-button";
 import Loader from "../../../loader";
 import Option, { OptionProps } from "../../option";
 import SelectListContext from "./select-list.context";
+import { OptionData } from "../shared-types";
 
 export type ListPlacement =
   | "top"
@@ -56,13 +57,7 @@ export interface SelectListProps {
   /** DOM element to position the dropdown menu list relative to */
   anchorElement?: HTMLElement;
   /** A callback for when a child is selected */
-  onSelect: (target: {
-    text?: string;
-    value?: string | Record<string, unknown>;
-    id?: string;
-    selectionType: string;
-    selectionConfirmed: boolean;
-  }) => void;
+  onSelect: (target: OptionData) => void;
   /** A callback for when the list should be closed */
   onSelectListClose: () => void;
   /** Text value to highlight an option */
@@ -94,7 +89,7 @@ export interface SelectListProps {
    */
   isOpen?: boolean;
   /** array of selected values, if rendered as part of a MultiSelect */
-  multiselectValues?: string[] | Record<string, unknown>[];
+  multiselectValues?: (string | Record<string, unknown>)[];
   /** Set this prop to enable a virtualised list of options. If it is not used then all options will be in the
    * DOM at all times, which may cause performance problems on very large lists */
   enableVirtualScroll?: boolean;
@@ -213,7 +208,7 @@ const SelectList = React.forwardRef(
     }
 
     const getIndexOfMatch = useCallback(
-      (valueToMatch) => {
+      (valueToMatch?: string | Record<string, unknown>) => {
         return childrenList.findIndex((child) => {
           if (child.props.value && typeof valueToMatch === "object") {
             return shallowEqual(
@@ -282,7 +277,7 @@ const SelectList = React.forwardRef(
     );
 
     const handleSelect = useCallback(
-      (optionData) => {
+      (optionData?: OptionData) => {
         onSelect({
           ...optionData,
           selectionType: "click",
@@ -357,7 +352,7 @@ const SelectList = React.forwardRef(
     );
 
     const getNextHighlightableItemIndex = useCallback(
-      (key, indexOfHighlighted) => {
+      (key: string, indexOfHighlighted: number) => {
         const lastIndex = lastOptionIndex;
 
         if (lastIndex === -1) {
@@ -387,7 +382,7 @@ const SelectList = React.forwardRef(
     );
 
     const highlightNextItem = useCallback(
-      (key) => {
+      (key: string) => {
         let currentIndex = currentOptionsListIndex;
 
         if (highlightedValue) {
@@ -424,7 +419,7 @@ const SelectList = React.forwardRef(
     );
 
     const handleActionButtonTab = useCallback(
-      (event, isActionButtonFocused) => {
+      (event: KeyboardEvent, isActionButtonFocused: boolean) => {
         if (isActionButtonFocused) {
           onSelect({ selectionType: "tab", selectionConfirmed: false });
         } else {
@@ -442,7 +437,7 @@ const SelectList = React.forwardRef(
     }, [anchorElement]);
 
     const handleGlobalKeydown = useCallback(
-      (event) => {
+      (event: KeyboardEvent) => {
         if (!isOpen) {
           return;
         }
@@ -508,7 +503,7 @@ const SelectList = React.forwardRef(
     );
 
     const handleEscapeKey = useCallback(
-      (event) => {
+      (event: KeyboardEvent) => {
         if (event.key === "Escape") {
           onSelectListClose();
         }
@@ -524,8 +519,8 @@ const SelectList = React.forwardRef(
     });
 
     const handleListScroll = useCallback(
-      (event) => {
-        const element = event.target;
+      (event: Event) => {
+        const element = event.target as HTMLElement;
 
         /* istanbul ignore else */
         if (

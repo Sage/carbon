@@ -140,8 +140,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     }: DateInputProps,
     ref,
   ) => {
-    const wrapperRef = useRef(null);
-    const parentRef = useRef(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const parentRef = useRef<HTMLElement | null>(null);
     const internalInputRef = useRef<HTMLInputElement | null>(null);
     const alreadyFocused = useRef(false);
     const isBlurBlocked = useRef(false);
@@ -317,7 +317,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     };
 
     const handleKeyUp = useCallback(
-      (ev) => {
+      (ev: React.KeyboardEvent<HTMLInputElement>) => {
         /* istanbul ignore else */
         if (open && Events.isEscKey(ev)) {
           setOpen(false);
@@ -400,7 +400,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     };
 
     const assignInput = useCallback(
-      (inputElement) => {
+      (inputElement: HTMLInputElement) => {
         internalInputRef.current = inputElement;
         parentRef.current = inputElement?.parentElement;
 

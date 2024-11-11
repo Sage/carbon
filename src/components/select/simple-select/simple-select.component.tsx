@@ -22,16 +22,9 @@ import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
+import { OptionData } from "../__internal__/shared-types";
 
 let deprecateUncontrolledWarnTriggered = false;
-
-export interface OptionData {
-  text?: string;
-  value?: string | Record<string, unknown>;
-  id?: string;
-  selectionType: string;
-  selectionConfirmed?: boolean;
-}
 
 export interface CustomSelectChangeEvent
   extends React.ChangeEvent<HTMLInputElement> {
@@ -187,7 +180,10 @@ export const SimpleSelect = React.forwardRef<
     ) as React.ReactElement[];
 
     const createCustomEvent = useCallback(
-      (newValue, selectionConfirmed = false) => {
+      (
+        newValue?: string | Record<string, unknown>,
+        selectionConfirmed = false,
+      ) => {
         const customEvent = {
           target: {
             ...(name && { name }),
@@ -203,7 +199,7 @@ export const SimpleSelect = React.forwardRef<
     );
 
     const selectValueStartingWithText = useCallback(
-      (newFilterText) => {
+      (newFilterText: string) => {
         setSelectedValue((previousValue) => {
           const previousIndex = childOptions.findIndex(
             (child) =>
@@ -235,7 +231,7 @@ export const SimpleSelect = React.forwardRef<
     );
 
     const triggerFilterChange = useCallback(
-      (newCharacter) => {
+      (newCharacter: string) => {
         if (isTimerCounting.current) {
           const newVal = filterText.current + newCharacter;
 
@@ -259,7 +255,7 @@ export const SimpleSelect = React.forwardRef<
     );
 
     const handleTextboxKeydown = useCallback(
-      (event) => {
+      (event: React.KeyboardEvent<HTMLInputElement>) => {
         const { key } = event;
 
         onKeyDown?.(event);
@@ -281,11 +277,13 @@ export const SimpleSelect = React.forwardRef<
       [triggerFilterChange, onKeyDown, onOpen, readOnly],
     );
 
-    const handleGlobalClick = useCallback((event) => {
+    const handleGlobalClick = useCallback((event: MouseEvent) => {
       const notInContainer =
-        containerRef.current && !containerRef.current.contains(event.target);
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node);
       const notInList =
-        listboxRef.current && !listboxRef.current.contains(event.target);
+        listboxRef.current &&
+        !listboxRef.current.contains(event.target as Node);
 
       isMouseDownReported.current = false;
 

@@ -80,20 +80,15 @@ export const SimpleColorPicker = React.forwardRef<
     ...rest
   } = props;
 
-  const hasProperChildren = useMemo(() => {
-    let hasSimpleColorChildren = true;
-
-    React.Children.toArray(children).forEach((child) => {
-      if (
+  const hasProperChildren: boolean = useMemo(() => {
+    const invalidChild = React.Children.toArray(children).find((child) => {
+      return (
         typeof child === "string" ||
-        (React.isValidElement(child) &&
-          (child.type as React.FunctionComponent).displayName !== "SimpleColor")
-      ) {
-        hasSimpleColorChildren = false;
-      }
+        (React.isValidElement(child) && child.type !== SimpleColor)
+      );
     });
 
-    return hasSimpleColorChildren;
+    return !invalidChild;
   }, [children]);
 
   invariant(

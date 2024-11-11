@@ -125,7 +125,7 @@ const Input = React.forwardRef<
     }
 
     const callbackRef = useCallback(
-      (element) => {
+      (element: HTMLInputElement) => {
         input.current = element;
 
         if (typeof ref === "function") {

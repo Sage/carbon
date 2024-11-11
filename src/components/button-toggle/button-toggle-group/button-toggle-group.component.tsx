@@ -89,13 +89,8 @@ const ButtonToggleGroup = ({
 }: ButtonToggleGroupProps) => {
   const hasCorrectItemStructure = useMemo(() => {
     const incorrectChild = React.Children.toArray(children).find(
-      (child: React.ReactNode) => {
-        return (
-          !React.isValidElement(child) ||
-          (child.type as React.FunctionComponent).displayName !==
-            ButtonToggle.displayName
-        );
-      },
+      (child: React.ReactNode) =>
+        !React.isValidElement(child) || child.type !== ButtonToggle,
     );
     return !incorrectChild;
   }, [children]);

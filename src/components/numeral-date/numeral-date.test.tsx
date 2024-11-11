@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
@@ -1774,7 +1774,10 @@ test("should call `onBlur` callback if prop is passed and user clicks outside of
   const dayInput = screen.getByRole("textbox", { name: "Day" });
   await user.click(dayInput);
   await user.click(document.body);
-  jest.runAllTimers();
+
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
 
   expect(onBlur).toHaveBeenCalled();
 });
@@ -1795,7 +1798,10 @@ test("should not call `onBlur` callback if prop is passed and user clicks from o
   const monthInput = screen.getByRole("textbox", { name: "Month" });
   await user.click(dayInput);
   await user.click(monthInput);
-  jest.runAllTimers();
+
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
 
   expect(onBlur).not.toHaveBeenCalled();
 });

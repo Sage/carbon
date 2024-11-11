@@ -1220,7 +1220,10 @@ test("should call `onOpen` callback if prop is passed and navigation key opens s
     </MultiSelect>,
   );
   const input = screen.getByRole("combobox");
-  input.focus();
+
+  act(() => {
+    input.focus();
+  });
 
   await user.keyboard("{ArrowDown}");
 
@@ -1240,7 +1243,9 @@ test("should call `onFocus` callback when input is focused and `openOnFocus` is 
       <Option value="opt1" text="red" />
     </MultiSelect>,
   );
-  screen.getByRole("combobox").focus();
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
   act(() => jest.runOnlyPendingTimers());
 
   expect(onFocusFn).toHaveBeenCalled();

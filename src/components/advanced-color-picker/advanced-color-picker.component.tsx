@@ -46,9 +46,16 @@ export interface AdvancedColorPickerProps extends MarginProps {
   /** Prop for `onChange` event */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Prop for `onClose` event */
-  onClose?: (ev: React.MouseEvent<HTMLElement>) => void;
+  onClose?: (
+    ev:
+      | React.MouseEvent<HTMLElement>
+      | React.KeyboardEvent<HTMLElement>
+      | KeyboardEvent,
+  ) => void;
   /** Prop for `onOpen` event */
-  onOpen?: (ev: React.MouseEvent<HTMLElement>) => void;
+  onOpen?: (
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+  ) => void;
   /** Prop for `open` status */
   open?: boolean;
   /** The ARIA role to be applied to the component container */
@@ -118,7 +125,7 @@ export const AdvancedColorPicker = ({
   }, [colors, currentColor, dialogOpen, open]);
 
   const handleFocus = useCallback(
-    (e, firstFocusableElement) => {
+    (e: KeyboardEvent, firstFocusableElement?: HTMLElement) => {
       /* istanbul ignore else */
       if (e.key === "Tab") {
         if (e.shiftKey) {
@@ -130,7 +137,7 @@ export const AdvancedColorPicker = ({
             e.preventDefault();
           }
         } else if (document.activeElement === selectedColorRef) {
-          firstFocusableElement.focus();
+          firstFocusableElement?.focus();
           e.preventDefault();
         }
       }
@@ -139,7 +146,7 @@ export const AdvancedColorPicker = ({
   );
 
   const handleOnOpen = useCallback(
-    (e) => {
+    (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
       setDialogOpen(true);
 
       if (onOpen) {
@@ -150,7 +157,12 @@ export const AdvancedColorPicker = ({
   );
 
   const handleOnClose = useCallback(
-    (e) => {
+    (
+      e:
+        | React.MouseEvent<HTMLElement>
+        | React.KeyboardEvent<HTMLElement>
+        | KeyboardEvent,
+    ) => {
       setDialogOpen(false);
 
       if (onClose) {
@@ -161,7 +173,7 @@ export const AdvancedColorPicker = ({
   );
 
   const handleOnChange = useCallback(
-    (e) => {
+    (e: React.ChangeEvent<HTMLInputElement>) => {
       const newColor = colors?.find((c) => e.target.value === c.value);
 
       /* istanbul ignore else */
@@ -178,7 +190,7 @@ export const AdvancedColorPicker = ({
   );
 
   const handleOnKeyDown = useCallback(
-    (e) => {
+    (e: React.KeyboardEvent<HTMLElement>) => {
       if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {
         e.preventDefault();
         handleOnOpen(e);
@@ -188,7 +200,7 @@ export const AdvancedColorPicker = ({
   );
 
   const handleColorOnKeyDown = useCallback(
-    (e) => {
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {
         e.preventDefault();
         handleOnClose(e);
@@ -198,7 +210,7 @@ export const AdvancedColorPicker = ({
   );
 
   const handleOnBlur = useCallback(
-    (e) => {
+    (e: React.FocusEvent<HTMLInputElement>) => {
       if (onBlur) {
         onBlur(e);
       }

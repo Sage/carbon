@@ -30,6 +30,7 @@ import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import { CustomSelectChangeEvent } from "../simple-select";
+import { OptionData } from "../__internal__/shared-types";
 
 let deprecateUncontrolledWarnTriggered = false;
 
@@ -144,7 +145,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     },
     ref,
   ) => {
-    const [activeDescendantId, setActiveDescendantId] = useState();
+    const [activeDescendantId, setActiveDescendantId] = useState<string>("");
     const selectListId = useRef(guid());
     const accessibilityLabelId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
@@ -158,10 +159,12 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
     const [isOpen, setOpenState] = useState(false);
     const [textValue, setTextValue] = useState("");
-    const [selectedValue, setSelectedValue] = useState(
-      value || defaultValue || [],
-    );
-    const [highlightedValue, setHighlightedValue] = useState("");
+    const [selectedValue, setSelectedValue] = useState<
+      (string | Record<string, unknown>)[]
+    >(value || defaultValue || []);
+    const [highlightedValue, setHighlightedValue] = useState<
+      string | Record<string, unknown>
+    >("");
     const [filterText, setFilterText] = useState("");
     const [placeholderOverride, setPlaceholderOverride] = useState<string>();
     const inputId = useRef(id || guid());
@@ -194,7 +197,10 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     }, [onOpen]);
 
     const createCustomEvent = useCallback(
-      (newValue, selectionConfirmed) => {
+      (
+        newValue?: (string | Record<string, unknown>)[],
+        selectionConfirmed?: boolean,
+      ) => {
         const customEvent = {
           target: {
             ...(name && { name }),
@@ -204,7 +210,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           selectionConfirmed,
         };
 
-        return customEvent as CustomSelectChangeEvent;
+        return customEvent as unknown as CustomSelectChangeEvent;
       },
       [name, id],
     );
@@ -216,16 +222,16 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const updateValue = useCallback(
       (
         updateFunction: (
-          previousValue: string[] | Record<string, unknown>[],
-        ) => string[] | Record<string, unknown>[],
-        selectionConfirmed,
+          previousValue: (string | Record<string, unknown>)[],
+        ) => (string | Record<string, unknown>)[],
+        selectionConfirmed?: boolean,
       ) => {
         const newValue = updateFunction(
-          actualValue as string[] | Record<string, unknown>[],
+          actualValue as (string | Record<string, unknown>)[],
         );
         // only call onChange if an option has been selected or deselected
-        if (onChange && newValue.length !== actualValue?.length) {
-          onChange(createCustomEvent(newValue, selectionConfirmed));
+        if (newValue.length !== actualValue?.length) {
+          onChange?.(createCustomEvent(newValue, selectionConfirmed));
         }
 
         // no need to update selectedValue if the component is controlled: onChange should take care of updating the value
@@ -248,7 +254,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     }
 
     const handleTextboxChange = useCallback(
-      (event) => {
+      (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
         const match = findElementWithMatchingText(
           newValue,
@@ -267,7 +273,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     );
 
     const removeSelectedValue = useCallback(
-      (index) => {
+      (index: number) => {
         isClickTriggeredBySelect.current = true;
 
         updateValue((previousValue) => {
@@ -284,7 +290,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     );
 
     const handleTextboxKeydown = useCallback(
-      (event) => {
+      (event: React.KeyboardEvent<HTMLInputElement>) => {
         const { key } = event;
         const isDeleteKey = key === "Backspace" || key === "Delete";
 
@@ -332,7 +338,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     }, [children, actualValue]);
 
     const handleGlobalClick = useCallback(
-      (event) => {
+      (event: MouseEvent) => {
         isMouseDownReported.current = false;
 
         if (!isOpen) {
@@ -340,10 +346,12 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         }
 
         const notInContainer =
-          containerRef.current && !containerRef.current.contains(event.target);
+          containerRef.current &&
+          !containerRef.current.contains(event.target as Node);
 
         const notInList =
-          listboxRef.current && !listboxRef.current.contains(event.target);
+          listboxRef.current &&
+          !listboxRef.current.contains(event.target as Node);
 
         if (notInContainer && notInList && !isClickTriggeredBySelect.current) {
           setTextValue("");
@@ -581,9 +589,9 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     }
 
     const onSelectOption = useCallback(
-      (optionData) => {
+      (optionData: OptionData) => {
         const {
-          value: newValue,
+          value: newValue = "",
           selectionType,
           id: selectedOptionId,
           selectionConfirmed,
@@ -591,7 +599,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
         if (selectionType === "navigationKey") {
           setHighlightedValue(newValue);
-          setActiveDescendantId(selectedOptionId);
+          setActiveDescendantId(selectedOptionId ?? "");
           return;
         }
 

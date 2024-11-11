@@ -269,7 +269,7 @@ const Submenu = React.forwardRef<
     }, [openSubmenuId, closeSubmenu]);
 
     const findCurrentIndex = useCallback(
-      (id) => {
+      (id: string | null) => {
         const index = submenuItemIds.findIndex((itemId) => itemId === id);
 
         return index;
@@ -278,7 +278,11 @@ const Submenu = React.forwardRef<
     );
 
     const handleKeyDown = useCallback(
-      (event) => {
+      (
+        event:
+          | React.KeyboardEvent<HTMLAnchorElement>
+          | React.KeyboardEvent<HTMLButtonElement>,
+      ) => {
         if (!submenuOpen) {
           if (
             Events.isEnterKey(event) ||
@@ -380,11 +384,11 @@ const Submenu = React.forwardRef<
             setCharacterString("");
           }
 
-          const eventIsFromInput = Events.composedPath(event).find(
+          const eventIsFromInput = Events.composedPath(event.nativeEvent).find(
             (p) =>
-              (p as HTMLElement).getAttribute("data-element") === "input" ||
-              (p as HTMLElement).getAttribute("data-element") ===
-                "input-icon-toggle",
+              p instanceof HTMLElement &&
+              (p.getAttribute("data-element") === "input" ||
+                p.getAttribute("data-element") === "input-icon-toggle"),
           );
 
           if (!eventIsFromInput) {

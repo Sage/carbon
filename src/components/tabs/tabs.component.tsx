@@ -114,36 +114,45 @@ const Tabs = ({
 
   const { isInSidebar } = useContext(DrawerSidebarContext);
   const [tabsErrors, setTabsErrors] = useState<
-    Record<string, Record<string, string | boolean>>
+    Record<string, Record<string, undefined | string | boolean>>
   >({});
   const [tabsWarnings, setTabsWarnings] = useState<
-    Record<string, Record<string, string | boolean>>
+    Record<string, Record<string, undefined | string | boolean>>
   >({});
   const [tabsInfos, setTabsInfos] = useState<
-    Record<string, Record<string, string | boolean>>
+    Record<string, Record<string, undefined | string | boolean>>
   >({});
 
-  const updateErrors = useCallback((id, error) => {
-    setTabsErrors((state) => ({ ...state, [id]: error }));
-  }, []);
+  const updateErrors = useCallback(
+    (id: string, error: Record<string, undefined | string | boolean>) => {
+      setTabsErrors((state) => ({ ...state, [id]: error }));
+    },
+    [],
+  );
 
-  const updateWarnings = useCallback((id, warning) => {
-    setTabsWarnings((state) => ({ ...state, [id]: warning }));
-  }, []);
+  const updateWarnings = useCallback(
+    (id: string, warning: Record<string, undefined | string | boolean>) => {
+      setTabsWarnings((state) => ({ ...state, [id]: warning }));
+    },
+    [],
+  );
 
-  const updateInfos = useCallback((id, info) => {
-    setTabsInfos((state) => ({ ...state, [id]: info }));
-  }, []);
+  const updateInfos = useCallback(
+    (id: string, info: Record<string, undefined | string | boolean>) => {
+      setTabsInfos((state) => ({ ...state, [id]: info }));
+    },
+    [],
+  );
 
   /** Returns true/false for if the given tab id is selected. */
   const isTabSelected = useCallback(
-    (tabId) => tabId === selectedTabIdState,
+    (tabId: string) => tabId === selectedTabIdState,
     [selectedTabIdState],
   );
 
   /** Updates the currently visible tab */
   const updateVisibleTab = useCallback(
-    (tabid) => {
+    (tabid: string) => {
       if (!isTabSelected(tabid)) {
         setSelectedTabIdState(tabid);
       }
@@ -190,7 +199,7 @@ const Tabs = ({
     }
     const { tabid } = (ev.target as HTMLElement).dataset;
 
-    updateVisibleTab(tabid);
+    updateVisibleTab(tabid ?? "");
   };
 
   /** Focuses the tab for the reference specified */
@@ -274,7 +283,7 @@ const Tabs = ({
 
       const getValidationMessage = (
         message: string | undefined,
-        validations: Record<string, string | boolean> = {},
+        validations: Record<string, undefined | string | boolean> = {},
       ): string | undefined => {
         const summaryOfMessages = Object.values(validations).filter(
           (value) => value && typeof value === "string",

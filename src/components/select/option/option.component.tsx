@@ -3,6 +3,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import StyledOption from "./option.style";
 import SelectListContext from "../__internal__/select-list/select-list.context";
+import { OptionData } from "../__internal__/shared-types";
 
 export interface OptionProps
   extends Omit<
@@ -36,11 +37,7 @@ export interface OptionProps
    * @private
    * @ignore
    * OnSelect callback */
-  onSelect?: (target?: {
-    text?: string;
-    value?: string | Record<string, unknown>;
-    id?: string;
-  }) => void;
+  onSelect?: (target?: OptionData) => void;
   /**
    * @private
    * @ignore

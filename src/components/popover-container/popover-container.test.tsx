@@ -293,10 +293,14 @@ test.each([
 
     await user.click(screen.getByRole("button"));
 
-    expect(await screen.findByRole("dialog")).toHaveAttribute(
-      "data-floating-placement",
-      placement,
-    );
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+    const dialog = await screen.findByRole("dialog");
+
+    await waitFor(() => {
+      expect(dialog).toHaveAttribute("data-floating-placement", placement);
+    });
   },
 );
 
@@ -400,8 +404,9 @@ describe("closing the popup", () => {
     await user.click(screen.getByRole("button"));
 
     const closeButton = await screen.findByRole("button", { name: "close" });
-    closeButton.focus();
-
+    act(() => {
+      closeButton.focus();
+    });
     await user.keyboard("{Enter}");
 
     await waitFor(() => {

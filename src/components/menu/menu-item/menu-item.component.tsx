@@ -216,7 +216,11 @@ export const MenuItem = ({
   }, [updateSubmenuFocusId]);
 
   const handleKeyDown = useCallback(
-    (event) => {
+    (
+      event:
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
+    ) => {
       if (onKeyDown) {
         onKeyDown(event);
       }

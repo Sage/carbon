@@ -164,7 +164,7 @@ export const DatePicker = ({
   };
 
   const handleKeyUp = useCallback(
-    (ev) => {
+    (ev: any) => {
       /* istanbul ignore else */
       if (open && Events.isEscKey(ev)) {
         inputElement.current?.querySelector("input")?.focus();
