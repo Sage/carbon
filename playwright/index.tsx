@@ -9,7 +9,6 @@ import "../src/style/fonts.css";
 import * as dateLocales from "./support/date-fns-locales";
 
 export type HooksConfig = {
-  roundedCornersOptOut?: boolean;
   focusRedesignOptOut?: boolean;
   validationRedesignOptIn?: boolean;
   theme?: string;
@@ -43,7 +42,6 @@ const mountedTheme = (theme: string) => {
 // Setup required providers on mounted component before running test. See https://playwright.dev/docs/test-components#hooks
 beforeMount<HooksConfig>(async ({ App, hooksConfig }) => {
   const {
-    roundedCornersOptOut,
     focusRedesignOptOut,
     theme = "sage",
     localeName,
@@ -52,7 +50,6 @@ beforeMount<HooksConfig>(async ({ App, hooksConfig }) => {
   return (
     <CarbonProvider
       theme={mountedTheme(theme)}
-      roundedCornersOptOut={roundedCornersOptOut}
       focusRedesignOptOut={focusRedesignOptOut}
       validationRedesignOptIn={validationRedesignOptIn}
     >

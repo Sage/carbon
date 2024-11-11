@@ -14,12 +14,10 @@ const themes = [noTheme, sageTheme].reduce((themesObject, theme) => {
 const render = (
   Story,
   themeName,
-  roundedCornersOptOut,
   focusRedesignOptOut,
 ) => (
   <CarbonProvider
     theme={themes[themeName]}
-    roundedCornersOptOut={roundedCornersOptOut}
     focusRedesignOptOut={focusRedesignOptOut}
   >
     <Story themeName={themeName} />
@@ -63,7 +61,6 @@ const withThemeProvider = makeDecorator({
               {render(
                 Story,
                 themeName,
-                context.globals.roundedCorners === "off",
                 context.globals.focusRedesign === "off",
               )}
             </div>
@@ -77,7 +74,6 @@ const withThemeProvider = makeDecorator({
       isChromaticBuild && chromaticTheme
         ? chromaticTheme
         : context.globals.theme,
-      context.globals.roundedCorners === "off",
       context.globals.focusRedesign === "off",
     );
   },

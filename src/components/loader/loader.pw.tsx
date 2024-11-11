@@ -142,9 +142,7 @@ test.describe("check props for Loader component test", () => {
     mount,
     page,
   }) => {
-    await mount<HooksConfig>(<Loader />, {
-      hooksConfig: { roundedCornersOptOut: false },
-    });
+    await mount(<Loader />);
 
     const borderRadius = await getStyle(loader(page, 0), "border-radius");
 
