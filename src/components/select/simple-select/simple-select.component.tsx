@@ -40,6 +40,8 @@ export interface CustomSelectChangeEvent
 
 export interface SimpleSelectProps
   extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
+  /** Prop to specify the aria-describedby property of the component input */
+  "aria-describedby"?: string;
   /** Prop to specify the aria-label attribute of the component input */
   "aria-label"?: string;
   /** Prop to specify the aria-labelledby property of the component input */
@@ -107,6 +109,7 @@ export const SimpleSelect = React.forwardRef<
 >(
   (
     {
+      "aria-describedby": ariaDescribedBy,
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledby,
       value,
@@ -555,6 +558,7 @@ export const SimpleSelect = React.forwardRef<
             aria-controls={selectListId.current}
             activeDescendantId={activeDescendantId}
             ariaLabelledby={ariaLabelledby}
+            ariaDescribedBy={ariaDescribedBy}
             isOpen={isOpen}
             {...getTextboxProps()}
           />

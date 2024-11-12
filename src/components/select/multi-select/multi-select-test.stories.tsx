@@ -6,6 +6,7 @@ import Button from "../../button/button.component";
 import Dialog from "../../dialog";
 import Box from "../../box";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
+import Typography from "../../typography";
 
 export default {
   component: MultiSelect,
@@ -646,3 +647,47 @@ export const OptionsWithSameName = () => {
   );
 };
 OptionsWithSameName.storyName = "Options with same name";
+
+export const AriaDescribedByExample = () => {
+  const MAX_SELECTIONS_ALLOWED = 2;
+  const [selectedPills, setSelectedPills] = useState([] as string[]);
+  const handleActivityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length <= MAX_SELECTIONS_ALLOWED) {
+      setSelectedPills(event.target.value as unknown as string[]);
+      partialAction("onChange")();
+    }
+  };
+  return (
+    <>
+      <MultiSelect
+        aria-describedby="combo-box-description"
+        name="testing"
+        value={selectedPills}
+        onChange={handleActivityChange}
+        onOpen={partialAction("onOpen")}
+        onClick={partialAction("onClick")}
+        onFilterChange={partialAction("onFilterChange")}
+        onFocus={partialAction("onFocus")}
+        onBlur={partialAction("onBlur")}
+        onKeyDown={partialAction("onKeyDown")}
+        openOnFocus
+        label="Test"
+        placeholder=" "
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+        <Option value="4" text="Four" />
+        <Option value="5" text="Five" />
+        <Option value="6" text="Six" />
+        <Option value="7" text="Seven" />
+        <Option value="8" text="Eight" />
+        <Option value="9" text="Nine" />
+        <Option value="10" text="Ten" />
+      </MultiSelect>
+      <Typography my={5} id="combo-box-description">
+        This is a description of the select textbox
+      </Typography>
+    </>
+  );
+};
