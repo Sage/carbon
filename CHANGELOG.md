@@ -1,3 +1,10 @@
+## [144.9.0](https://github.com/Sage/carbon/compare/v144.8.1...v144.9.0) (2024-11-12)
+
+
+### Features
+
+* **carbon-provider:** add deprecation warning for roundedCornersOptOut & focusRedesignOptOut ([99410b5](https://github.com/Sage/carbon/commit/99410b55f562d5feba7cf15f3d234133ab6e225b))
+
 ### [144.8.1](https://github.com/Sage/carbon/compare/v144.8.0...v144.8.1) (2024-11-11)
 
 
