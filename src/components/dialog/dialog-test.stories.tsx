@@ -494,3 +494,17 @@ export const WithButton = {
     );
   },
 };
+
+export const WithOverflowingContent: StoryType = () => (
+  <Dialog title="With Overflowing Content" open onCancel={() => {}}>
+    {Array.from({ length: 30 }, (_, i) => (
+      <Typography key={i}>This is line {i + 1}</Typography>
+    ))}
+  </Dialog>
+);
+
+WithOverflowingContent.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};

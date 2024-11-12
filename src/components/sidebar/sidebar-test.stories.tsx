@@ -175,3 +175,24 @@ export const WithForm: StoryObj<typeof Sidebar> = {
     </Sidebar>
   ),
 };
+
+export const WithOverflowingContent: StoryObj<typeof Sidebar> = {
+  render: (args) => (
+    <Sidebar
+      {...args}
+      header={<Typography variant="h3">With overflowing content</Typography>}
+      open
+      onCancel={() => {}}
+    >
+      {Array.from({ length: 30 }, (_, i) => (
+        <Typography key={i}>This is line {i + 1}</Typography>
+      ))}
+    </Sidebar>
+  ),
+};
+
+WithOverflowingContent.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};

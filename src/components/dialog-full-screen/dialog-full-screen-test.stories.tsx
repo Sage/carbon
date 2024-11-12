@@ -9,6 +9,7 @@ import Icon from "../icon";
 import Textbox from "../textbox";
 import Box from "../box";
 import { StepFlow } from "../step-flow";
+import Typography from "../typography";
 
 export default {
   title: "Dialog Full Screen/Test",
@@ -245,4 +246,18 @@ export const WithWrappedStickyForm: StoryType = {
     subtitle: "Subtitle",
   },
   parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const WithOverflowingContent: StoryType = () => (
+  <DialogFullScreen title="With Overflowing Content" open onCancel={() => {}}>
+    {Array.from({ length: 30 }, (_, i) => (
+      <Typography key={i}>This is line {i + 1}</Typography>
+    ))}
+  </DialogFullScreen>
+);
+
+WithOverflowingContent.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
 };
