@@ -8,10 +8,6 @@ const transparentSvg =
   "45%22%3E%3Crect%20x%3D%22200%22%20width%3D%22200%22%20height%3D%22200%22%20%2" +
   "F%3E%3Crect%20y%3D%22200%22%20width%3D%22200%22%20height%3D%22200%22%20%2F%3E%3C%2Fsvg%3E";
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 const StyledAdvancedColorPickerCell = styled.button.attrs({ type: "button" })`
   display: block;
   width: 25px;
@@ -36,13 +32,7 @@ const StyledAdvancedColorPickerCell = styled.button.attrs({ type: "button" })`
   }
 
   &:focus {
-    ${({ theme }) => `
-      ${
-        !theme.focusRedesignOptOut
-          ? addFocusStyling()
-          : /* istanbul ignore next */ oldFocusStyling
-      }
-    `}
+    ${addFocusStyling()}
   }
 
   &::-moz-focus-inner {

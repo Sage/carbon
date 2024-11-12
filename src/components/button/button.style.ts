@@ -72,8 +72,6 @@ type StyledButtonProps = SpaceProps &
     buttonType: Required<ButtonProps>["buttonType"];
   };
 
-const oldFocusStyling = "outline: solid 3px var(--colorsSemanticFocus500);";
-
 const StyledButton = styled.button<StyledButtonProps>`
   ${space}
   ${({ disabled, noWrap, theme }) => css`
@@ -91,9 +89,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     border-radius: var(--borderRadius400);
 
     &:focus {
-      ${!theme.focusRedesignOptOut
-        ? addFocusStyling()
-        : /* istanbul ignore next */ oldFocusStyling}
+      ${addFocusStyling()}
     }
 
     ${stylingForType}

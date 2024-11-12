@@ -17,11 +17,6 @@ export const StyledSimpleColor = styled.div`
   }
 `;
 
-const oldFocusStyling = `
-  box-shadow: inset 0px 0px 0px var(--borderWidth200) var(--colorsUtilityYang100);
-  border: 2px solid var(--colorsSemanticFocus500);
-`;
-
 export const StyledColorSampleBox = styled.div<{ color: string }>`
   height: 100%;
   width: 100%;
@@ -29,9 +24,6 @@ export const StyledColorSampleBox = styled.div<{ color: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${({ theme }) =>
-    /* istanbul ignore next */
-    theme.focusRedesignOptOut && "border: 2px solid transparent;"}
 
   ${({ color }) =>
     color !== "transparent" &&
@@ -65,18 +57,7 @@ export const StyledSimpleColorInput = styled(Input)`
   }
 
   &:focus + ${StyledColorSampleBox} {
-    ${({ theme }) => css`
-      ${theme.focusRedesignOptOut &&
-      /* istanbul ignore next */
-      `
-        ${oldFocusStyling}
-      `}
-
-      ${!theme.focusRedesignOptOut &&
-      `
-        ${addFocusStyling(true)}
-      `}
-    `}
+    ${addFocusStyling(true)}
   }
 `;
 

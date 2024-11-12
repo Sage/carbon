@@ -2,7 +2,6 @@ import { expect, test } from "@playwright/experimental-ct-react17";
 import { TextareaProps } from "components/textarea";
 import React from "react";
 
-import { HooksConfig } from "../../../playwright";
 import {
   characterCount,
   fieldHelpPreview,
@@ -23,7 +22,6 @@ import { CHARACTERS, VALIDATION } from "../../../playwright/support/constants";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
-  checkGoldenOutline,
   verifyRequiredAsteriskForLabel,
   waitForAnimationEnd,
 } from "../../../playwright/support/helper";
@@ -403,15 +401,11 @@ test.describe("Props tests for Textarea component", () => {
     });
   });
 
-  test("should render with autoFocus prop and correct styling when focusRedesignOptOut is false", async ({
+  test("should render with autoFocus prop and correct styling", async ({
     mount,
     page,
   }) => {
-    await mount<HooksConfig>(<TextareaComponent autoFocus />, {
-      hooksConfig: {
-        focusRedesignOptOut: false,
-      },
-    });
+    await mount(<TextareaComponent autoFocus />);
 
     const textareaChildrenElement = textareaChildren(page);
     await expect(textareaChildrenElement).toBeFocused();
@@ -420,20 +414,6 @@ test.describe("Props tests for Textarea component", () => {
       "box-shadow",
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
-  });
-
-  test("should render with autoFocus prop and correct styling when focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<TextareaComponent autoFocus />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    await expect(textareaChildren(page)).toBeFocused();
-    await checkGoldenOutline(textarea(page));
   });
 
   test("should render with readOnly prop", async ({ mount, page }) => {

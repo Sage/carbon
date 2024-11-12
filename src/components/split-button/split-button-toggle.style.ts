@@ -58,16 +58,6 @@ const StyledSplitButtonToggle = styled(
 
     ${StyledButton} + & {
       margin-left: 0;
-
-      ${buttonType === "secondary" &&
-      /* istanbul ignore next */
-      theme.focusRedesignOptOut &&
-      /* istanbul ignore next */
-      css`
-        &:focus {
-          margin-left: -3px;
-        }
-      `}
     }
 
     ${StyledButton} + & ${StyledIcon} {

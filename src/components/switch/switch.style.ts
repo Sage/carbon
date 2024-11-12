@@ -27,10 +27,6 @@ interface StyledHintTextProps {
   isDarkBackground?: boolean;
 }
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 export const ErrorBorder = styled.span`
   ${({
     reverse,
@@ -114,9 +110,7 @@ const StyledSwitch = styled.div`
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus ~ ${StyledSwitchSlider} {
-        ${!theme.focusRedesignOptOut
-          ? addFocusStyling()
-          : /* istanbul ignore next */ oldFocusStyling}
+        ${addFocusStyling()}
       }
     }
 

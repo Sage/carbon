@@ -7,12 +7,8 @@ import {
   linkPreviewCloseIcon,
   linkPreviewAs,
 } from "../../../playwright/components/link-preview";
-import {
-  checkGoldenOutline,
-  checkAccessibility,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import { HooksConfig } from "../../../playwright";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPlaywright = "test-playwright";
@@ -20,10 +16,7 @@ const urlProp = "./carbon-by-sage-logo.png";
 const keysToTrigger = ["Space", "Enter"];
 
 test.describe("check styling for Link Preview component", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
+  test("should have the expected focus styling", async ({ mount, page }) => {
     await mount(<LinkPreviewComponentTest aria-label={CHARACTERS.STANDARD} />);
 
     const previewElement = linkPreview(page);
@@ -32,26 +25,6 @@ test.describe("check styling for Link Preview component", () => {
     await expect(previewElement).toHaveCSS(
       "box-shadow",
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(
-      <LinkPreviewComponentTest aria-label={CHARACTERS.STANDARD} />,
-      {
-        hooksConfig: { focusRedesignOptOut: true },
-      },
-    );
-
-    const previewElement = linkPreview(page);
-    await previewElement.focus();
-
-    await expect(previewElement).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 2px",
     );
   });
 
@@ -149,36 +122,6 @@ test.describe("check functionality for Link Preview component", () => {
       "background-color",
       "rgb(204, 214, 219)",
     );
-  });
-
-  test("should verify border outline color and width of Link Preview on focus", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<LinkPreviewComponentTest />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await linkPreview(page).focus();
-
-    await checkGoldenOutline(linkPreview(page), "2px");
-  });
-
-  test("should verify border outline color of close icon on focus", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(
-      <LinkPreviewComponentTest as="div" onClose={() => {}} />,
-      {
-        hooksConfig: { focusRedesignOptOut: true },
-      },
-    );
-
-    const closeButton = page.getByLabel("link preview close button");
-
-    await closeButton.focus();
-    await checkGoldenOutline(closeButton);
   });
 });
 

@@ -74,12 +74,7 @@ const StyledEditorOutline = styled.div<{
 
     ${isFocused &&
     css`
-      ${!theme.focusRedesignOptOut
-        ? addFocusStyling()
-        : `
-        outline: 3px solid var(--colorsSemanticFocus500);
-        outline-offset: ${hasError ? "2px" : "1px"};
-      `}
+      ${addFocusStyling()}
     `}
   `}
 `;

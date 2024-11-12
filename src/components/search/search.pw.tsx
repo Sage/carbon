@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { HooksConfig } from "../../../playwright";
 import {
   getDataElementByValue,
   tooltipPreview,
@@ -33,7 +32,7 @@ const validationTypes: [string, string][] = [
 ];
 
 test.describe("When focused", () => {
-  test("should have the expected styling for the input when the focusRedesignOptOut is false", async ({
+  test("should have the expected styling for the input", async ({
     mount,
     page,
   }) => {
@@ -50,35 +49,11 @@ test.describe("When focused", () => {
     );
   });
 
-  test("should have the expected styling for the input when the focusRedesignOptOut is true", async ({
+  test("should have the expected styling for the search icon", async ({
     mount,
     page,
   }) => {
-    await mount<HooksConfig>(<SearchComponent />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    const searchDefaultInputElement = searchDefaultInput(page);
-    await searchDefaultInputElement.focus();
-    const searchDefaultInputElementParent =
-      searchDefaultInputElement.locator("..");
-    await expect(searchDefaultInputElementParent).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
-
-  test("should have the expected styling for the search icon when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SearchComponent searchButton />, {
-      hooksConfig: {
-        focusRedesignOptOut: false,
-      },
-    });
+    await mount(<SearchComponent searchButton />);
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
@@ -94,39 +69,11 @@ test.describe("When focused", () => {
     );
   });
 
-  test("should have the expected styling for the search icon when the focusRedesignOptOut is true", async ({
+  test("should have the expected styling for the cross icon", async ({
     mount,
     page,
   }) => {
-    await mount<HooksConfig>(<SearchComponent searchButton />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    const searchDefaultInputElement = searchDefaultInput(page);
-    await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.fill(testDataStandard);
-    const searchButtonElement = searchButton(page);
-    await searchButtonElement.click({
-      force: true,
-    });
-
-    await expect(searchButtonElement).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
-
-  test("should have the expected styling for the cross icon when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SearchComponent searchButton />, {
-      hooksConfig: {
-        focusRedesignOptOut: false,
-      },
-    });
+    await mount(<SearchComponent searchButton />);
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
@@ -137,28 +84,6 @@ test.describe("When focused", () => {
     await expect(searchCrossIconElementParent).toHaveCSS(
       "box-shadow",
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-  });
-
-  test("should have the expected styling for the cross icon when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SearchComponent searchButton />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    const searchDefaultInputElement = searchDefaultInput(page);
-    await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.fill(testDataStandard);
-    await searchDefaultInputElement.press("Tab");
-    const searchCrossIconElementParent = searchCrossIcon(page).locator("..");
-
-    await expect(searchCrossIconElementParent).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
     );
   });
 });

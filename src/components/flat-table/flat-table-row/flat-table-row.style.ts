@@ -17,15 +17,6 @@ const horizontalBorderSizes = {
   large: "4px",
 };
 
-const oldFocusStyling = `
-  border: 2px solid var(--colorsSemanticFocus500);
-`;
-
-const firstColumnOldFocusStyling = `
-  outline: 2px solid var(--colorsSemanticFocus500);
-  outline-offset: -1px;
-`;
-
 const newFocusStyling = (theme: ThemeObject) => {
   return `
     ${addFocusStyling(true)}
@@ -59,11 +50,7 @@ const getRightStickyStyling = (
     }
   `;
 
-const stickyColumnFocusStyling = (theme: ThemeObject) => {
-  /* istanbul ignore else */
-  if (!theme.focusRedesignOptOut) return ``;
-  /* istanbul ignore next */
-  return `
+const stickyColumnFocusStyling = (theme: ThemeObject) => `
       width: calc(100% + 1px);
       z-index: ${theme.zIndex.overlay};
       :before {
@@ -80,7 +67,6 @@ const stickyColumnFocusStyling = (theme: ThemeObject) => {
       }
     }
   `;
-};
 
 const borderColor = (colorTheme: FlatTableProps["colorTheme"]) => {
   switch (colorTheme) {
@@ -274,9 +260,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
             right: 0px;
             top: 0;
             bottom: 0px;
-            ${!theme.focusRedesignOptOut
-              ? newFocusStyling(theme)
-              : /* istanbul ignore next */ oldFocusStyling}
+            ${newFocusStyling(theme)}
             pointer-events: none;
           }
 
@@ -296,40 +280,12 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
           /* Styling for safari. Position relative does not work on tr elements on Safari  */
           ${isSafari(navigator) &&
           css`
-            ${theme.focusRedesignOptOut &&
-            /* istanbul ignore next */
-            css`
-              outline: 2px solid var(--colorsSemanticFocus500);
-              outline-offset: -2px;
-              position: static;
-
-              :after {
-                content: none;
-                border: none;
-              }
-            `}
-            ${!theme.focusRedesignOptOut &&
-            /* istanbul ignore next */
-            css`
-              position: -webkit-sticky;
-              :after {
-                border: none;
-                content: "";
-                height: ${rowHeight}px;
-                ${newFocusStyling(theme)}
-              }
-            `}
-          `}
-
-          ${theme.focusRedesignOptOut &&
-          /* istanbul ignore next */
-          css`
-            td:first-of-type:not(:nth-child(${lhsRowHeaderIndex + 2}))::before {
-              border-left: 3px solid var(--colorsSemanticFocus500);
-            }
-
-            td:last-of-type:not(:nth-child(${rhsRowHeaderIndex})) {
-              border-right: 2px solid var(--colorsSemanticFocus500);
+            position: -webkit-sticky;
+            :after {
+              border: none;
+              content: "";
+              height: ${rowHeight}px;
+              ${newFocusStyling(theme)}
             }
           `}
 
@@ -366,9 +322,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
           cursor: pointer;
 
           :focus {
-            ${!theme.focusRedesignOptOut
-              ? newFocusStyling(theme)
-              : /* istanbul ignore next */ firstColumnOldFocusStyling}
+            ${newFocusStyling(theme)}
           }
 
           :hover {

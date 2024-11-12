@@ -24,10 +24,8 @@ import {
 import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
 import {
   assertCssValueIsApproximately,
-  checkGoldenOutline,
   checkAccessibility,
 } from "../../../playwright/support/helper";
-import { HooksConfig } from "../../../playwright";
 
 const characters = [
   CHARACTERS.STANDARD,
@@ -43,27 +41,7 @@ const helpAlignment: [string, boolean][] = [
 const testPropValue = CHARACTERS.STANDARD;
 
 test.describe("Styling tests", () => {
-  test("should render with the expected styling when opt out flag is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<ButtonToggleGroupComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const toggleButton1 = buttonToggleButton(page).nth(0);
-    const toggleButton2 = buttonToggleButton(page).nth(1);
-    const toggleButton3 = buttonToggleButton(page).nth(2);
-
-    await toggleButton1.focus();
-    await checkGoldenOutline(toggleButton1);
-    await toggleButton2.focus();
-    await checkGoldenOutline(toggleButton2);
-    await toggleButton3.focus();
-    await checkGoldenOutline(toggleButton3);
-  });
-
-  test("should render with the expected styling when opt out flag is false", async ({
+  test("should render with the expected focus styling", async ({
     mount,
     page,
   }) => {

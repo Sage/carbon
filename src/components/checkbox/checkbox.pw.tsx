@@ -41,52 +41,24 @@ import {
   verifyRequiredAsteriskForLegend,
   verifyRequiredAsteriskForLabel,
 } from "../../../playwright/support/helper";
-import { HooksConfig } from "../../../playwright";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const boolVals = [true, false];
 
-test.describe("should render Checkbox component and check focus outline", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<CheckboxComponent data-component={CHARACTERS.STANDARD} />);
+test("should have the expected focus styling", async ({ mount, page }) => {
+  await mount(<CheckboxComponent data-component={CHARACTERS.STANDARD} />);
 
-    const checkboxElement = checkboxRole(page);
-    await checkboxElement.focus();
-    const focusedElement = checkboxRole(page).locator("..").locator("div");
-    await expect(focusedElement).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(focusedElement).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(
-      <CheckboxComponent data-component={CHARACTERS.STANDARD} />,
-      {
-        hooksConfig: {
-          focusRedesignOptOut: true,
-        },
-      },
-    );
-
-    const checkboxElement = checkboxRole(page);
-    await checkboxElement.focus();
-    const focusedElement = checkboxRole(page).locator("..").locator("div");
-    await expect(focusedElement).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px",
-    );
-  });
+  const checkboxElement = checkboxRole(page);
+  await checkboxElement.focus();
+  const focusedElement = checkboxRole(page).locator("..").locator("div");
+  await expect(focusedElement).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(focusedElement).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test.describe("should render Checkbox component and check props", () => {

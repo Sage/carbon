@@ -48,7 +48,6 @@ import {
   selectOptionByText,
   selectText,
 } from "../../../../playwright/components/select";
-import { HooksConfig } from "../../../../playwright";
 import {
   checkAccessibility,
   assertCssValueIsApproximately,
@@ -61,41 +60,22 @@ const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
 const keyToTrigger = ["ArrowDown", "ArrowUp", "Space", "Home", "End"] as const;
 
-test.describe("When focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectComponent />);
+test("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<SimpleSelectComponent />);
 
-    const selectInputElement = commonDataElementInputPreview(page);
-    await selectInputElement.focus();
-    await expect(selectInputElement.locator("..")).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(selectInputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SimpleSelectComponent />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-    const selectInputElement = commonDataElementInputPreview(page);
-    await selectInputElement.focus();
-    await expect(selectInputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
+  const selectInputElement = commonDataElementInputPreview(page);
+  await selectInputElement.focus();
+  await expect(selectInputElement.locator("..")).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(selectInputElement.locator("..")).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test.describe("SimpleSelect component", () => {

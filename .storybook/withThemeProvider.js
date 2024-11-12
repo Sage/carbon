@@ -20,12 +20,10 @@ const render = (
   Story,
   themeName,
   roundedCornersOptOut,
-  focusRedesignOptOut
 ) => (
   <CarbonProvider
     theme={themes[themeName]}
     roundedCornersOptOut={roundedCornersOptOut}
-    focusRedesignOptOut={focusRedesignOptOut}
   >
     <Story themeName={themeName} />
   </CarbonProvider>
@@ -69,7 +67,6 @@ const withThemeProvider = makeDecorator({
                 Story,
                 themeName,
                 context.globals.roundedCorners === "off",
-                context.globals.focusRedesign === "off"
               )}
             </div>
           ))}
@@ -83,7 +80,6 @@ const withThemeProvider = makeDecorator({
         ? chromaticTheme
         : context.globals.theme,
       context.globals.roundedCorners === "off",
-      context.globals.focusRedesign === "off"
     );
   },
 });

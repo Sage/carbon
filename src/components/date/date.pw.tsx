@@ -17,7 +17,6 @@ import {
 import {
   verifyRequiredAsteriskForLabel,
   assertCssValueIsApproximately,
-  checkGoldenOutline,
   checkAccessibility,
   getStyle,
 } from "../../../playwright/support/helper";
@@ -846,36 +845,7 @@ test.describe("Functionality tests", () => {
     await expect(dayPickerNavButton2).toHaveCSS("border-radius", "4px");
   });
 
-  test(`should have the expected styling when opt out flag is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<DateInputCustom />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await page.focus("body");
-    await page.keyboard.press("Tab");
-    const inputParent = getDataElementByValue(page, "input").locator("..");
-    await checkGoldenOutline(inputParent);
-    const dayPicker1 = page.getByLabel("Sun 1 May 2022");
-    await dayPicker1.focus();
-    await checkGoldenOutline(dayPicker1);
-    const dayPicker2 = page.getByLabel("Mon 2 May 2022");
-    await dayPicker2.focus();
-    await checkGoldenOutline(dayPicker2);
-    const dayPickerNavButton1 = page.getByLabel("Previous month");
-    await dayPickerNavButton1.focus();
-    await checkGoldenOutline(dayPickerNavButton1);
-    const dayPickerNavButton2 = page.getByLabel("Next month");
-    await dayPickerNavButton2.focus();
-    await checkGoldenOutline(dayPickerNavButton2);
-  });
-
-  test(`should have the expected styling when opt out flag is false`, async ({
-    mount,
-    page,
-  }) => {
+  test(`should have the expected focus styling`, async ({ mount, page }) => {
     await mount(<DateInputCustom />);
 
     await page.focus("body");

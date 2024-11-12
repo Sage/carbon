@@ -37,11 +37,7 @@ const StyledMultiActionButton = styled.div<StyledMultiActionButtonProps>`
 
     &:focus {
       background-color: var(--colorsActionMajor700);
-      border: 3px solid
-        ${({ theme }) =>
-          !theme.focusRedesignOptOut
-            ? "var(--colorsActionMajor700)"
-            : /* istanbul ignore next */ "var(--colorsSemanticFocus500)"};
+      border: 3px solid var(--colorsActionMajor700);
       outline: none;
       margin: 0 -1px;
 
@@ -63,12 +59,6 @@ const StyledMultiActionButton = styled.div<StyledMultiActionButtonProps>`
         }
 
         &:focus {
-          ${({ theme }) =>
-            /* istanbul ignore next */
-            theme.focusRedesignOptOut &&
-            css`
-              border-color: var(--colorsSemanticFocus500);
-            `}
           margin: 0 -1px;
         }
       `}

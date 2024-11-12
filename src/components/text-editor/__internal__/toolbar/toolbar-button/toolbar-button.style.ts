@@ -14,23 +14,12 @@ const StyledToolbarButton = styled.button.attrs({ type: "button" })<{
   border: none;
   cursor: pointer;
 
-  ${({ isActive, theme }) => css`
+  ${({ isActive }) => css`
     :focus,
     :active {
       z-index: 1;
       position: relative;
-
-      ${theme.focusRedesignOptOut &&
-      /* istanbul ignore next */
-      css`
-        outline: 2px solid var(--colorsSemanticFocus500);
-        outline-offset: -2px;
-      `}
-
-      ${!theme.focusRedesignOptOut &&
-      css`
-        ${addFocusStyling()}
-      `}
+      ${addFocusStyling()}
     }
 
     :hover {

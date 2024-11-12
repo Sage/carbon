@@ -294,7 +294,7 @@ test.describe("should render Pill component with props", () => {
 test.describe("should check focus outlines and border radius", () => {
   ([small, medium, large, extraLarge] as PillProps["size"][]).forEach(
     (size) => {
-      test(`should have the expected styling when size is ${size} and focusRedesignOptOut is false`, async ({
+      test(`should have the expected focus styling when size is ${size}`, async ({
         mount,
         page,
       }) => {
@@ -313,31 +313,6 @@ test.describe("should check focus outlines and border radius", () => {
         await expect(elementLocator).toHaveCSS(
           "outline",
           "rgba(0, 0, 0, 0) solid 3px",
-        );
-      });
-    },
-  );
-
-  ([small, medium, large, extraLarge] as PillProps["size"][]).forEach(
-    (size) => {
-      test(`should have the expected styling when size is ${size} and focusRedesignOptOut is true`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <PillComponent size={size} onDelete={() => {}}>
-            Pill
-          </PillComponent>,
-          {
-            hooksConfig: { focusRedesignOptOut: true },
-          },
-        );
-
-        const elementLocator = pillCloseIcon(page);
-        await elementLocator.focus();
-        await expect(elementLocator).toHaveCSS(
-          "box-shadow",
-          "rgb(255, 188, 25) 0px 0px 0px 3px",
         );
       });
     },

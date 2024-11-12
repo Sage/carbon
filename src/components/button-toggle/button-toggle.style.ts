@@ -59,10 +59,6 @@ export interface StyledButtonToggleProps {
   allowDeselect?: boolean;
 }
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
   display: inline-flex;
   justify-content: center;
@@ -100,12 +96,7 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
     `}  
     
   &:focus {
-    ${({ theme }) =>
-      `${
-        !theme.focusRedesignOptOut
-          ? addFocusStyling()
-          : /* istanbul ignore next */ oldFocusStyling
-      }`}
+    ${addFocusStyling()}
     z-index: 100;
   }
 
