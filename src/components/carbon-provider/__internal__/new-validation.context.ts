@@ -5,10 +5,13 @@ export interface NewValidationContextProps {
    *
    * NOTE - Will eventually be set to `true` by default in the future. */
   validationRedesignOptIn?: boolean;
-  /** Feature flag for opting out of styling components to have rounded corners.
+  /** (Deprecated) Feature flag for opting out of styling components to have rounded corners.
    *
-   * NOTE - Will eventually be set to `false` by default in the future. */
+   * NOTE - This feature flag will soon be removed, along with the legacy styling. */
   roundedCornersOptOut?: boolean;
+  /** (Deprecated) Feature flag for opting out of the focus redesign.
+   *
+   * NOTE -  This feature flag will soon be removed, along with the legacy styling. */
   focusRedesignOptOut?: boolean;
 }
 
