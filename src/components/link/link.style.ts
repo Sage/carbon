@@ -212,7 +212,6 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
 
       ${!isSkipLink &&
       !disabled &&
-      !theme.focusRedesignOptOut &&
       hasFocus &&
       css`
         > a,

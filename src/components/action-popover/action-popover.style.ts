@@ -7,10 +7,6 @@ import StyledButton from "../button/button.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 const Menu = styled.ul`
   ${({ isOpen }: { isOpen?: boolean }) =>
     isOpen ? "display: block;" : "visibility: hidden;"}
@@ -177,12 +173,7 @@ const StyledMenuItem = styled.button<Omit<StyledMenuItemProps, "variant">>`
   font-weight: 500;
 
   &:focus {
-    ${({ theme }) =>
-      `${
-        !theme.focusRedesignOptOut
-          ? addFocusStyling()
-          : /* istanbul ignore next */ oldFocusStyling
-      }`}
+    ${addFocusStyling()}
     z-index: 1;
     border-radius: var(--borderRadius000);
   }
@@ -255,16 +246,9 @@ const ButtonIcon = styled(Icon)`
 `;
 
 const StyledButtonIcon = styled.div`
-  ${({ theme }) =>
-    `
-    &:focus {
-      ${
-        !theme.focusRedesignOptOut
-          ? addFocusStyling()
-          : /* istanbul ignore next */ oldFocusStyling
-      }
-    }    
-  `}
+  &:focus {
+    ${addFocusStyling()}
+  }
   border-radius: var(--borderRadius050);
 `;
 

@@ -8,7 +8,6 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import CarbonProvider from "components/carbon-provider";
 import FlatTableRow from "./flat-table-row.component";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
@@ -402,28 +401,25 @@ describe("when FlatTableRowHeader children are passed", () => {
   });
 
   // needed to hit coverage
-  it("should render with expected focus styling when first column is not sticky and row is interactive", () => {
+  it("applies correct sticky styling to specific table cells based on index", () => {
     render(
-      <CarbonProvider focusRedesignOptOut>
-        <table>
-          <thead>
-            <FlatTableRow onClick={() => {}}>
-              <FlatTableCell>cell1</FlatTableCell>
-              <FlatTableCell>cell2</FlatTableCell>
-              <FlatTableCheckbox onChange={() => {}} data-role="cell3" />
-              <FlatTableRowHeader>cell4</FlatTableRowHeader>
-              <FlatTableHeader>cell5</FlatTableHeader>
-              <FlatTableCell>cell6</FlatTableCell>
-            </FlatTableRow>
-          </thead>
-        </table>
-      </CarbonProvider>,
+      <table>
+        <thead>
+          <FlatTableRow onClick={() => {}}>
+            <FlatTableCell>cell1</FlatTableCell>
+            <FlatTableCell>cell2</FlatTableCell>
+            <FlatTableCheckbox onChange={() => {}} data-role="cell3" />
+            <FlatTableRowHeader>cell4</FlatTableRowHeader>
+            <FlatTableHeader>cell5</FlatTableHeader>
+            <FlatTableCell>cell6</FlatTableCell>
+          </FlatTableRow>
+        </thead>
+      </table>,
     );
     const cell1 = screen.getByRole("cell", { name: "cell1" });
     const cell2 = screen.getByRole("cell", { name: "cell2" });
     // using test-id here as there are other elements with same role etc
     const cell3 = screen.getByTestId("cell3");
-
     expect(cell1).toHaveStyle("width: calc(100% + 1px)");
     expect(cell2).toHaveStyle("width: calc(100% + 1px)");
     expect(cell3).toHaveStyle("width: calc(100% + 1px)");
