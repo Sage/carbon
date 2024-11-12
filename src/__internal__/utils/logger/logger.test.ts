@@ -1,6 +1,6 @@
 import Logger from ".";
 
-test("should not output a warning to the console when logging is disabled", () => {
+test("should not output a warning to the console when logging is disabled and a deprecation message is fired", () => {
   Logger.setEnabledState(false);
   const consoleWarnSpy = jest
     .spyOn(console, "warn")
