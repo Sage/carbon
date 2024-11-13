@@ -8,6 +8,7 @@ import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-
 import Drawer from "../drawer";
 import Textbox from "../textbox";
 import NumeralDate from "../numeral-date";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 testStyledSystemMargin(
   (props) => (
@@ -863,6 +864,90 @@ test("when errors and warnings are both present in a tab, only the error icon is
       "icon-info",
     ),
   ).not.toBeInTheDocument();
+});
+
+test("error and warning icons are displayed correctly when the new validation flag is present and the tabs have position top", async () => {
+  const user = userEvent.setup();
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Tabs selectedTabId="tab-1">
+        <Tab tabId="tab-1" title="Tab 1" errorMessage="error">
+          Content for tab 1
+          <Textbox error onChange={() => {}} />
+        </Tab>
+        <Tab tabId="tab-2" title="Tab 2" warningMessage="warning">
+          Content for tab 2
+          <Textbox warning onChange={() => {}} />
+        </Tab>
+      </Tabs>
+    </CarbonProvider>,
+  );
+
+  expect(
+    within(screen.getByRole("tab", { name: "Tab 1" })).getByTestId(
+      "icon-error",
+    ),
+  ).toBeInTheDocument();
+
+  expect(
+    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId(
+      "icon-warning",
+    ),
+  ).toBeInTheDocument();
+
+  await user.click(screen.getByRole("tab", { name: "Tab 1" }));
+
+  expect(screen.getByTestId("tab-selected-indicator")).toHaveStyle({
+    "--selected-indicator-color": "var(--colorsSemanticNegative500)",
+  });
+
+  await user.click(screen.getByRole("tab", { name: "Tab 2" }));
+
+  expect(screen.getByTestId("tab-selected-indicator")).toHaveStyle({
+    "--selected-indicator-color": "var(--colorsSemanticCaution500)",
+  });
+});
+
+test("error and warning icons are displayed correctly when the new validation flag is present and the tabs have position left", async () => {
+  const user = userEvent.setup();
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Tabs selectedTabId="tab-1" position="left">
+        <Tab tabId="tab-1" title="Tab 1" errorMessage="error">
+          Content for tab 1
+          <Textbox error onChange={() => {}} />
+        </Tab>
+        <Tab tabId="tab-2" title="Tab 2" warningMessage="warning">
+          Content for tab 2
+          <Textbox warning onChange={() => {}} />
+        </Tab>
+      </Tabs>
+    </CarbonProvider>,
+  );
+
+  expect(
+    within(screen.getByRole("tab", { name: "Tab 1" })).getByTestId(
+      "icon-error",
+    ),
+  ).toBeInTheDocument();
+
+  expect(
+    within(screen.getByRole("tab", { name: "Tab 2" })).getByTestId(
+      "icon-warning",
+    ),
+  ).toBeInTheDocument();
+
+  await user.click(screen.getByRole("tab", { name: "Tab 1" }));
+
+  expect(screen.getByTestId("tab-selected-indicator")).toHaveStyle({
+    "--selected-indicator-color": "var(--colorsSemanticNegative500)",
+  });
+
+  await user.click(screen.getByRole("tab", { name: "Tab 2" }));
+
+  expect(screen.getByTestId("tab-selected-indicator")).toHaveStyle({
+    "--selected-indicator-color": "var(--colorsSemanticCaution500)",
+  });
 });
 
 test("when errors, warnings and infos are all present in a tab, only the error icon is displayed in the corresponding tab title", () => {

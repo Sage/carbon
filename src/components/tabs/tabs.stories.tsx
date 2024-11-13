@@ -9,6 +9,7 @@ import Pill from "../pill";
 import Icon from "../icon";
 import Box from "../box";
 import { Tabs, Tab } from ".";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -889,6 +890,213 @@ export const WithValidationsPositionedTop: Story = () => {
 };
 WithValidationsPositionedTop.storyName = "With Validations Positioned Top";
 
+export const WithNewValidationRedesign: Story = () => {
+  const [errors, setErrors] = useState({
+    one: true,
+    two: false,
+    three: false,
+  });
+  const [warnings, setWarnings] = useState({
+    one: true,
+    two: true,
+    three: false,
+  });
+  const [infos, setInfos] = useState({ one: true, two: true, three: true });
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box p="4px">
+        <Tabs align="left" position="top">
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-1"
+            title="Tab 1"
+            key="tab-1"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.one}
+              onChange={() => setErrors({ ...errors, one: !errors.one })}
+              checked={errors.one}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.one}
+              onChange={() => setWarnings({ ...warnings, one: !warnings.one })}
+              checked={warnings.one}
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.one}
+              onChange={() => setInfos({ ...infos, one: !infos.one })}
+              checked={infos.one}
+            />
+          </Tab>
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-2"
+            title="Tab 2"
+            key="tab-2"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.two}
+              onChange={() => setErrors({ ...errors, two: !errors.two })}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.two}
+              onChange={() => setWarnings({ ...warnings, two: !warnings.two })}
+              checked={warnings.two}
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.two}
+              onChange={() => setInfos({ ...infos, two: !infos.two })}
+              checked={infos.two}
+            />
+          </Tab>
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-3"
+            title="Tab 3"
+            key="tab-3"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.three}
+              onChange={() => setErrors({ ...errors, three: !errors.three })}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.three}
+              onChange={() =>
+                setWarnings({ ...warnings, three: !warnings.three })
+              }
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.three}
+              onChange={() => setInfos({ ...infos, three: !infos.three })}
+              checked={infos.three}
+            />
+          </Tab>
+        </Tabs>
+      </Box>
+    </CarbonProvider>
+  );
+};
+WithNewValidationRedesign.storyName = "With New Validation Positioned Top";
+
+export const WithNewValidationsSizedLargePositionedTop: Story = () => {
+  const [errors, setErrors] = useState({
+    one: true,
+    two: false,
+    three: false,
+  });
+  const [warnings, setWarnings] = useState({
+    one: true,
+    two: true,
+    three: false,
+  });
+  const [infos, setInfos] = useState({ one: true, two: true, three: true });
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box p="4px">
+        <Tabs size="large" align="left" position="top">
+          <Tab
+            errorMessage="error"
+            warningMessage="warning"
+            infoMessage="info"
+            tabId="tab-1"
+            title="Tab 1"
+            key="tab-1"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.one}
+              onChange={() => setErrors({ ...errors, one: !errors.one })}
+              checked={errors.one}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.one}
+              onChange={() => setWarnings({ ...warnings, one: !warnings.one })}
+              checked={warnings.one}
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.one}
+              onChange={() => setInfos({ ...infos, one: !infos.one })}
+              checked={infos.one}
+            />
+          </Tab>
+          <Tab
+            errorMessage="error"
+            warningMessage="warning"
+            infoMessage="info"
+            tabId="tab-2"
+            title="Tab 2"
+            key="tab-2"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.two}
+              onChange={() => setErrors({ ...errors, two: !errors.two })}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.two}
+              onChange={() => setWarnings({ ...warnings, two: !warnings.two })}
+              checked={warnings.two}
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.two}
+              onChange={() => setInfos({ ...infos, two: !infos.two })}
+              checked={infos.two}
+            />
+          </Tab>
+          <Tab
+            errorMessage="error"
+            warningMessage="warning"
+            infoMessage="info"
+            tabId="tab-3"
+            title="Tab 3"
+            key="tab-3"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.three}
+              onChange={() => setErrors({ ...errors, three: !errors.three })}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.three}
+              onChange={() =>
+                setWarnings({ ...warnings, three: !warnings.three })
+              }
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.three}
+              onChange={() => setInfos({ ...infos, three: !infos.three })}
+              checked={infos.three}
+            />
+          </Tab>
+        </Tabs>
+      </Box>
+    </CarbonProvider>
+  );
+};
+WithNewValidationsSizedLargePositionedTop.storyName =
+  "With New Validations Sized Large Positioned Top";
+
 export const WithValidationsSizedLargePositionedTop: Story = () => {
   const [errors, setErrors] = useState({
     one: true,
@@ -1092,6 +1300,110 @@ export const WithValidationsPositionedLeft: Story = () => {
 };
 WithValidationsPositionedLeft.storyName = "With Validations Positioned Left";
 
+export const WithValidationsPositionedLeftRedesign: Story = () => {
+  const [errors, setErrors] = useState({
+    one: true,
+    two: false,
+    three: false,
+  });
+  const [warnings, setWarnings] = useState({
+    one: true,
+    two: true,
+    three: false,
+  });
+  const [infos, setInfos] = useState({ one: true, two: true, three: true });
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box p="4px">
+        <Tabs align="left" position="left">
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-1"
+            title="Tab 1"
+            key="tab-1"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.one}
+              onChange={() => setErrors({ ...errors, one: !errors.one })}
+              checked={errors.one}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.one}
+              onChange={() => setWarnings({ ...warnings, one: !warnings.one })}
+              checked={warnings.one}
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.one}
+              onChange={() => setInfos({ ...infos, one: !infos.one })}
+              checked={infos.one}
+            />
+          </Tab>
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-2"
+            title="Tab 2"
+            key="tab-2"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.two}
+              onChange={() => setErrors({ ...errors, two: !errors.two })}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.two}
+              onChange={() => setWarnings({ ...warnings, two: !warnings.two })}
+              checked={warnings.two}
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.two}
+              onChange={() => setInfos({ ...infos, two: !infos.two })}
+              checked={infos.two}
+            />
+          </Tab>
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-3"
+            title="Tab 3"
+            key="tab-3"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.three}
+              onChange={() => setErrors({ ...errors, three: !errors.three })}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.three}
+              onChange={() =>
+                setWarnings({ ...warnings, three: !warnings.three })
+              }
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.three}
+              onChange={() => setInfos({ ...infos, three: !infos.three })}
+              checked={infos.three}
+            />
+          </Tab>
+        </Tabs>
+      </Box>
+    </CarbonProvider>
+  );
+};
+WithValidationsPositionedLeftRedesign.storyName =
+  "With New Validation Positioned Left";
+
 export const WithValidationsSizedLargePositionedLeft: Story = () => {
   const [errors, setErrors] = useState({
     one: true,
@@ -1194,6 +1506,110 @@ export const WithValidationsSizedLargePositionedLeft: Story = () => {
 WithValidationsSizedLargePositionedLeft.storyName =
   "With Validations Sized Large Positioned Left";
 
+export const WithNewValidationsSizedLargePositionedLeft: Story = () => {
+  const [errors, setErrors] = useState({
+    one: true,
+    two: false,
+    three: false,
+  });
+  const [warnings, setWarnings] = useState({
+    one: true,
+    two: true,
+    three: false,
+  });
+  const [infos, setInfos] = useState({ one: true, two: true, three: true });
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box p="4px">
+        <Tabs size="large" align="left" position="left">
+          <Tab
+            errorMessage="error"
+            warningMessage="warning"
+            infoMessage="info"
+            tabId="tab-1"
+            title="Tab 1"
+            key="tab-1"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.one}
+              onChange={() => setErrors({ ...errors, one: !errors.one })}
+              checked={errors.one}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.one}
+              onChange={() => setWarnings({ ...warnings, one: !warnings.one })}
+              checked={warnings.one}
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.one}
+              onChange={() => setInfos({ ...infos, one: !infos.one })}
+              checked={infos.one}
+            />
+          </Tab>
+          <Tab
+            errorMessage="error"
+            warningMessage="warning"
+            infoMessage="info"
+            tabId="tab-2"
+            title="Tab 2"
+            key="tab-2"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.two}
+              onChange={() => setErrors({ ...errors, two: !errors.two })}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.two}
+              onChange={() => setWarnings({ ...warnings, two: !warnings.two })}
+              checked={warnings.two}
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.two}
+              onChange={() => setInfos({ ...infos, two: !infos.two })}
+              checked={infos.two}
+            />
+          </Tab>
+          <Tab
+            errorMessage="error"
+            warningMessage="warning"
+            infoMessage="info"
+            tabId="tab-3"
+            title="Tab 3"
+            key="tab-3"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.three}
+              onChange={() => setErrors({ ...errors, three: !errors.three })}
+            />
+            <Checkbox
+              label="Add warning"
+              warning={warnings.three}
+              onChange={() =>
+                setWarnings({ ...warnings, three: !warnings.three })
+              }
+            />
+            <Checkbox
+              label="Add info"
+              info={infos.three}
+              onChange={() => setInfos({ ...infos, three: !infos.three })}
+              checked={infos.three}
+            />
+          </Tab>
+        </Tabs>
+      </Box>
+    </CarbonProvider>
+  );
+};
+WithNewValidationsSizedLargePositionedLeft.storyName =
+  "With New Validations Sized Large Positioned Left";
+
 export const WithAdditionalTitleSiblings: Story = () => {
   const [errors, setErrors] = useState({
     one: true,
@@ -1266,6 +1682,82 @@ export const WithAdditionalTitleSiblings: Story = () => {
   );
 };
 WithAdditionalTitleSiblings.storyName = "With Additional Title Siblings";
+
+export const WithAdditionalTitleSiblingsRedesign: Story = () => {
+  const [errors, setErrors] = useState({
+    one: true,
+    two: false,
+    three: false,
+  });
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box p="4px">
+        <Tabs align="left" position="top">
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-1"
+            title="Tab 1"
+            key="tab-1"
+            siblings={[
+              <Pill size="S" pillRole="status" fill key="pill">
+                12
+              </Pill>,
+              <Icon type="home" key="icon" />,
+            ]}
+            titlePosition="before"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.one}
+              onChange={() => setErrors({ ...errors, one: !errors.one })}
+              checked={errors.one}
+            />
+          </Tab>
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-2"
+            title="Tab 2"
+            key="tab-2"
+            titlePosition="after"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.two}
+              onChange={() => setErrors({ ...errors, two: !errors.two })}
+            />
+          </Tab>
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-3"
+            title="Tab 3"
+            key="tab-3"
+            siblings={[
+              <Pill size="S" pillRole="status" fill key="pill">
+                12
+              </Pill>,
+              <Icon type="home" key="icon" />,
+            ]}
+            titlePosition="after"
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.three}
+              onChange={() => setErrors({ ...errors, three: !errors.three })}
+            />
+          </Tab>
+        </Tabs>
+      </Box>
+    </CarbonProvider>
+  );
+};
+WithAdditionalTitleSiblingsRedesign.storyName =
+  "With New Validation Additional Title Siblings";
 
 export const WithAdditionalTitleSiblingsSizeLarge: Story = () => {
   const [errors, setErrors] = useState({
@@ -1445,6 +1937,113 @@ export const WithCustomLayout: Story = () => {
   );
 };
 WithCustomLayout.storyName = "With Custom Layout";
+
+export const WithCustomLayoutRedesign: Story = () => {
+  const [errors, setErrors] = useState({
+    one: false,
+    two: false,
+    three: false,
+  });
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box p="4px">
+        <Tabs size="default" align="left" position="left">
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-1"
+            title="Tab 1"
+            key="tab-1"
+            customLayout={
+              <Box
+                width="calc(100% - 30px)"
+                display="flex"
+                flexDirection="column"
+                padding="4px 4px 22px 14px"
+              >
+                <Box display="flex" justifyContent="flex-end">
+                  <Icon type="settings" color="primary" />
+                  <Icon type="home" />
+                </Box>
+                <Box display="flex" justifyContent="flex-start">
+                  Tab 1
+                </Box>
+              </Box>
+            }
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.one}
+              onChange={() => setErrors({ ...errors, one: !errors.one })}
+            />
+          </Tab>
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-2"
+            title="Tab 2"
+            key="tab-2"
+            customLayout={
+              <Box
+                width="calc(100% - 30px)"
+                display="flex"
+                flexDirection="column"
+                padding="4px 4px 22px 14px"
+              >
+                <Box display="flex" justifyContent="flex-end">
+                  <Icon type="settings" color="primary" />
+                  <Icon type="home" />
+                </Box>
+                <Box display="flex" justifyContent="flex-start">
+                  Tab 2
+                </Box>
+              </Box>
+            }
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.two}
+              onChange={() => setErrors({ ...errors, two: !errors.two })}
+            />
+          </Tab>
+          <Tab
+            errorMessage="this is an error message"
+            warningMessage="this is a warning message"
+            infoMessage="info"
+            tabId="tab-3"
+            title="Tab 3"
+            key="tab-3"
+            customLayout={
+              <Box
+                width="calc(100% - 30px)"
+                display="flex"
+                flexDirection="column"
+                padding="4px 4px 22px 14px"
+              >
+                <Box display="flex" justifyContent="flex-end">
+                  <Icon type="settings" color="primary" />
+                  <Icon type="home" />
+                </Box>
+                <Box display="flex" justifyContent="flex-start">
+                  Tab 3
+                </Box>
+              </Box>
+            }
+          >
+            <Checkbox
+              label="Add error"
+              error={errors.three}
+              onChange={() => setErrors({ ...errors, three: !errors.three })}
+            />
+          </Tab>
+        </Tabs>
+      </Box>
+    </CarbonProvider>
+  );
+};
+WithCustomLayoutRedesign.storyName = "With New Validation Custom Layout";
 
 export const WithAlternateStyling: Story = () => {
   const [errors, setErrors] = useState({
