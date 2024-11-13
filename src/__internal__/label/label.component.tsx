@@ -62,7 +62,7 @@ const tooltipPosition = ({
 };
 
 export const Label = ({
-  align = "right",
+  align = "left",
   as = "label",
   children,
   disabled,

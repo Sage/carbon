@@ -149,7 +149,7 @@ test.describe("Prop checks for Textbox component", () => {
     await mount(<TextboxComponent labelInline />);
 
     const labelParent = getDataElementByValue(page, "label").locator("..");
-    await expect(labelParent).toHaveCSS("justify-content", "flex-end");
+    await expect(labelParent).toHaveCSS("justify-content", "flex-start");
   });
 
   (

@@ -109,7 +109,7 @@ test.describe("Props tests for Textarea component", () => {
       "..",
     );
 
-    await expect(labelElementParent).toHaveCSS("justify-content", "flex-end");
+    await expect(labelElementParent).toHaveCSS("justify-content", "flex-start");
   });
 
   (

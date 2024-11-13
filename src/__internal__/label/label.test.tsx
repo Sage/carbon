@@ -157,15 +157,19 @@ test.each(["error", "warning", "info"])(
 );
 
 // coverage
-test("renders with expected styles when `inline` is true and `align` is 'left'", () => {
-  render(
-    <Label inline align="left">
-      foo
-    </Label>,
-  );
+test("renders with expected styles `align` is 'left'", () => {
+  render(<Label align="left">foo</Label>);
 
   expect(screen.getByTestId("label-container")).toHaveStyle({
     justifyContent: "flex-start",
+  });
+});
+
+test("renders with expected styles `align` is 'right'", () => {
+  render(<Label align="right">foo</Label>);
+
+  expect(screen.getByTestId("label-container")).toHaveStyle({
+    justifyContent: "flex-end",
   });
 });
 
