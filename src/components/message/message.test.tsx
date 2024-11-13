@@ -88,6 +88,11 @@ test("renders close button aria-label with custom value from translations", () =
       locale={{
         ...enGB,
         message: {
+          info: () => "Information",
+          success: () => "Success",
+          warning: () => "Warning",
+          neutral: () => "Neutral",
+          error: () => "Error",
           closeButtonAriaLabel: () => "test close button",
         },
       }}

@@ -184,7 +184,6 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
             type={type}
             value={value}
             disabled={disabled}
-            aria-checked={checked}
             id={id}
             ref={ref}
             {...rest}

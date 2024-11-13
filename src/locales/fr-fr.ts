@@ -1,4 +1,5 @@
 import frFRDateLocale from "date-fns/locale/fr";
+
 import Locale from "./locale";
 
 const isSingular = (count: string | number): boolean =>
@@ -115,6 +116,11 @@ const frFR: Partial<Locale> = {
   },
   message: {
     closeButtonAriaLabel: () => "Fermer",
+    error: () => "Erreur",
+    info: () => "Information",
+    success: () => "Action réussie",
+    warning: () => "Avertissement",
+    neutral: () => "Information",
   },
   numeralDate: {
     validation: {

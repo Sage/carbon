@@ -1,3 +1,52 @@
+## [144.9.0](https://github.com/Sage/carbon/compare/v144.8.1...v144.9.0) (2024-11-12)
+
+
+### Features
+
+* **carbon-provider:** add deprecation warning for roundedCornersOptOut & focusRedesignOptOut ([99410b5](https://github.com/Sage/carbon/commit/99410b55f562d5feba7cf15f3d234133ab6e225b))
+
+### [144.8.1](https://github.com/Sage/carbon/compare/v144.8.0...v144.8.1) (2024-11-11)
+
+
+### Bug Fixes
+
+* **sidebar:** ensure that component renders correctly at 400% zoom ([4750909](https://github.com/Sage/carbon/commit/4750909c029201940b2953635b5bdbabe5cf9d3c)), closes [#7035](https://github.com/Sage/carbon/issues/7035)
+
+## [144.8.0](https://github.com/Sage/carbon/compare/v144.7.2...v144.8.0) (2024-11-11)
+
+
+### Features
+
+* **select:** update styles of transparent variant to align with frozen design system ([034926f](https://github.com/Sage/carbon/commit/034926fa6ee7f57dac418a4020a313f4e4157a8f))
+
+### [144.7.2](https://github.com/Sage/carbon/compare/v144.7.1...v144.7.2) (2024-11-11)
+
+
+### Bug Fixes
+
+* **select:** error displayed when select with infinite scroll is reset ([74491e1](https://github.com/Sage/carbon/commit/74491e194248b9dc90e60341cef5a6ef1ef887c8))
+
+### [144.7.1](https://github.com/Sage/carbon/compare/v144.7.0...v144.7.1) (2024-11-08)
+
+
+### Bug Fixes
+
+* remove aria-checked from checkbox/radio inputs ([d397fe7](https://github.com/Sage/carbon/commit/d397fe7d3de9bbe5b4a19e9442f2316e864ab9ad)), closes [#7047](https://github.com/Sage/carbon/issues/7047)
+
+## [144.7.0](https://github.com/Sage/carbon/compare/v144.6.0...v144.7.0) (2024-11-08)
+
+
+### Features
+
+* **message:** add icon description for screen readers ([47c5a2c](https://github.com/Sage/carbon/commit/47c5a2cc200babbfc8af9038964bcb3aef7cb704)), closes [#7027](https://github.com/Sage/carbon/issues/7027)
+
+## [144.6.0](https://github.com/Sage/carbon/compare/v144.5.0...v144.6.0) (2024-11-08)
+
+
+### Features
+
+* **date, date-range:** provides a mechanism that allows consumers to override the format of dates ([aed6c43](https://github.com/Sage/carbon/commit/aed6c43bb4d33b0b65bfa6898a3b25d1ce485ac0)), closes [#6930](https://github.com/Sage/carbon/issues/6930)
+
 ## [144.5.0](https://github.com/Sage/carbon/compare/v144.4.1...v144.5.0) (2024-11-07)
 
 

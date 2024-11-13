@@ -1,4 +1,5 @@
 import esESDateLocale from "date-fns/locale/es";
+
 import Locale from "./locale";
 
 const isSingular = (count: string | number): boolean =>
@@ -113,6 +114,11 @@ const esES: Partial<Locale> = {
   },
   message: {
     closeButtonAriaLabel: () => "Cerrar",
+    error: () => "Error",
+    info: () => "Información",
+    success: () => "Acción realizada",
+    warning: () => "Aviso",
+    neutral: () => "Información",
   },
   numeralDate: {
     validation: {

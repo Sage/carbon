@@ -70,10 +70,7 @@ test.describe("should render AdvancedColorPicker component and check functionali
 
       const picker = simpleColorPickerInput(page, 7);
       await picker.press(key);
-      await expect(simpleColorPickerInput(page, index)).toHaveAttribute(
-        "aria-checked",
-        "true",
-      );
+      await expect(simpleColorPickerInput(page, index)).toBeChecked();
     });
   });
 
@@ -87,10 +84,7 @@ test.describe("should render AdvancedColorPicker component and check functionali
     await picker.press("ArrowUp");
     const newPicker = simpleColorPickerInput(page, 2);
     await newPicker.press("ArrowDown");
-    await expect(simpleColorPickerInput(page, 7)).toHaveAttribute(
-      "aria-checked",
-      "true",
-    );
+    await expect(simpleColorPickerInput(page, 7)).toBeChecked();
   });
 
   test("should regain focus on color after second tab", async ({
@@ -130,10 +124,7 @@ test.describe("should render AdvancedColorPicker component and check functionali
 
       const input = simpleColorPickerInput(page, index);
       await input.click();
-      await expect(simpleColorPickerInput(page, index)).toHaveAttribute(
-        "aria-checked",
-        "true",
-      );
+      await expect(simpleColorPickerInput(page, index)).toBeChecked();
     });
   });
 });

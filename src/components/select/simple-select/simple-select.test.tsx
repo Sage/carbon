@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   act,
   fireEvent,
@@ -7,6 +7,8 @@ import {
   waitFor,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import Box from "components/box/box.component";
+import Button from "components/button/button.component";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 import Logger from "../../../__internal__/utils/logger";
@@ -862,6 +864,52 @@ test("does not call onOpen, when openOnFocus is true and the input is refocused 
 
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
+});
+
+test("the options are cleared when the reset button is pressed", async () => {
+  const user = userEvent.setup();
+  const SimpleSelectComponent = () => {
+    const [value, setValue] = useState("");
+    const [optionList, setOptionList] = useState([
+      <Option text="amber" value="amber" key="amber" />,
+    ]);
+
+    const clearData = () => {
+      setOptionList([]);
+      setValue("");
+    };
+
+    return (
+      <Box height={300}>
+        <Button onClick={clearData} mb={2}>
+          reset button
+        </Button>
+        <SimpleSelect
+          name="select"
+          id="select"
+          label="color"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+        >
+          {optionList}
+        </SimpleSelect>
+      </Box>
+    );
+  };
+
+  render(<SimpleSelectComponent />);
+
+  await user.click(screen.getByRole("combobox"));
+
+  await user.click(await screen.findByRole("option", { name: "amber" }));
+
+  expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+
+  await user.click(screen.getByText("reset button"));
+
+  await user.click(screen.getByRole("combobox"));
+
+  expect(screen.queryByRole("option")).not.toBeInTheDocument();
 });
 
 testStyledSystemMargin(

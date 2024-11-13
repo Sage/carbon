@@ -430,6 +430,18 @@ test.describe("Accessibility tests for Sidebar component", () => {
   });
 });
 
+test("check component has correctly styling when zoom is 400%", async ({
+  mount,
+  page,
+}) => {
+  await mount(<Default />);
+
+  // 4.0 zoom is equal to 400%
+  await page.evaluate("document.body.style.zoom=4.0");
+
+  await assertCssValueIsApproximately(sidebarPreview(page), "max-width", 1366);
+});
+
 test.describe("Check background scroll when tabbing", () => {
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
   test.skip("tabbing forward through the sidebar and back to the start should not make the background scroll to the bottom", async ({

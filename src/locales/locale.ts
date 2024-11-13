@@ -35,6 +35,7 @@ interface Locale {
       previousMonthButton: () => string;
       nextMonthButton: () => string;
     };
+    dateFormatOverride?: string;
   };
   dialog: {
     ariaLabels: {
@@ -92,6 +93,11 @@ interface Locale {
   };
   message: {
     closeButtonAriaLabel: () => string;
+    error: () => string;
+    info: () => string;
+    success: () => string;
+    warning: () => string;
+    neutral: () => string;
   };
   numeralDate: {
     validation: {

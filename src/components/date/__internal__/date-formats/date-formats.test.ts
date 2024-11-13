@@ -510,6 +510,36 @@ test("should default to en-GB locale if no locale code string passed to `getForm
   expect(format).toEqual(formatMap["en-GB"]);
 });
 
+describe("dateFormatOverride tests", () => {
+  const localeCodes = [
+    // handled locales
+    "en-CA",
+    "en-US",
+    "en-ZA",
+    "fr-CA",
+    "ar-EG",
+    // random locale to cover default switch scenario
+    "zh-HK",
+  ];
+  const dateFormatOverride = "dd Mo yyyy";
+
+  test.each(localeCodes)(
+    "should support %s locale code string passed to `getFormatData` when dateFormatOverride is provided",
+    (code: string) => {
+      const { formats, format } = getFormatData({ code }, dateFormatOverride);
+
+      const expectedFormats = getExpectedFormatForLocale(code);
+
+      expect(
+        expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
+          formats.length === expectedFormats.length,
+      ).toEqual(true);
+
+      expect(format).toEqual(dateFormatOverride);
+    },
+  );
+});
+
 describe.each(euLocales)(
   "when EU locales are passed to `getFormatData`",
   (locale: string) => {
