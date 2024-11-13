@@ -1,5 +1,5 @@
 import React from "react";
-import { expect, test } from "@playwright/experimental-ct-react17";
+import { expect, test } from "@playwright/experimental-ct-react";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import {
