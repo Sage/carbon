@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import IconButtonComponent from "./component.test-pw";
 import { button as iconButton } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
