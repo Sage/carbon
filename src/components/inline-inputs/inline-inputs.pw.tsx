@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import Textbox from "../textbox";
 import Decimal from "../decimal";
 import InlineInputs, { InlineInputsProps } from "./inline-inputs.component";
