@@ -1,5 +1,5 @@
 import React from "react";
-import { beforeMount } from "@playwright/experimental-ct-react17/hooks";
+import { beforeMount } from "@playwright/experimental-ct-react/hooks";
 import GlobalStyle from "../src/style/global-style";
 import CarbonProvider from "../src/components/carbon-provider/carbon-provider.component";
 import I18nProvider from "../src/components/i18n-provider/i18n-provider.component";

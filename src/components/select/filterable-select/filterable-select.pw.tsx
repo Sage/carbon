@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/experimental-ct-react17";
+import { expect, test } from "@playwright/experimental-ct-react";
 import React from "react";
 import { FilterableSelectProps } from "../../../../src/components/select";
 import {
