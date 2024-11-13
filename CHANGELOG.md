@@ -1,3 +1,10 @@
+### [144.9.1](https://github.com/Sage/carbon/compare/v144.9.0...v144.9.1) (2024-11-13)
+
+
+### Bug Fixes
+
+* **sidebar:** ensure that aria-labelledby is applied to the correct piece of content in the header ([84554e2](https://github.com/Sage/carbon/commit/84554e27730120ffeb767f79a76bfe6fe0cf0495)), closes [#7053](https://github.com/Sage/carbon/issues/7053)
+
 ## [144.9.0](https://github.com/Sage/carbon/compare/v144.8.1...v144.9.0) (2024-11-12)
 
 
