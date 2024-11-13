@@ -1,4 +1,4 @@
-import { defineConfig, devices } from "@playwright/experimental-ct-react17";
+import { defineConfig, devices } from "@playwright/experimental-ct-react";
 import { resolve } from "path";
 
 const playwrightDir = resolve(__dirname, "./playwright");
