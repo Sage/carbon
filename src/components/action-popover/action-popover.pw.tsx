@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import { expect, test } from "@playwright/experimental-ct-react17";
+import { expect, test } from "@playwright/experimental-ct-react";
 import React from "react";
 import { accordionDefaultTitle } from "../../../playwright/components/accordion";
 import {
