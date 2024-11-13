@@ -18,10 +18,12 @@ FormFieldStyle.defaultProps = {
 
 export interface FieldLineStyleProps {
   inline?: boolean;
+  maxWidth?: string;
 }
 const FieldLineStyle = styled.div<FieldLineStyleProps>`
-  ${({ inline }) => css`
+  ${({ inline, maxWidth }) => css`
     display: ${inline ? "flex" : "block"};
+    ${maxWidth && `max-width: ${maxWidth};`}
   `}
 `;
 
