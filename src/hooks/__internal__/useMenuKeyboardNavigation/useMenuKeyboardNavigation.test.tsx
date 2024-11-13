@@ -127,45 +127,6 @@ describe("useMenuKeyboardNavigation", () => {
     expect(screen.getByText(`${childButtonID}-0`)).toHaveFocus();
   });
 
-  it("pressing Tab key focuses the next child in the list, closes the list when the last one is reached and focuses the next element in the DOM", () => {
-    const hideCb = jest.fn();
-    render(<MockComponent hideCb={hideCb} />);
-
-    fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
-    expect(screen.getByText(`${childButtonID}-0`)).toHaveFocus();
-    fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
-    expect(screen.getByText(`${childButtonID}-1`)).toHaveFocus();
-    fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
-    expect(screen.getByText(`${childButtonID}-2`)).toHaveFocus();
-    fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
-    jest.runAllTimers();
-    expect(hideCb).toHaveBeenCalled();
-    expect(screen.getByTestId(nextDOMElementID)).toHaveFocus();
-  });
-
-  it("pressing Shift + Tab key focuses the previous child in the list, closes the list when the first one is reached and focuses the main button", () => {
-    const hideCb = jest.fn();
-    render(<MockComponent hideCb={hideCb} />);
-    screen.getByText(`${childButtonID}-2`).focus();
-    expect(screen.getByText(`${childButtonID}-2`)).toHaveFocus();
-    fireEvent.keyDown(screen.getByTestId(containerID), {
-      key: "Tab",
-      shiftKey: true,
-    });
-    expect(screen.getByText(`${childButtonID}-1`)).toHaveFocus();
-    fireEvent.keyDown(screen.getByTestId(containerID), {
-      key: "Tab",
-      shiftKey: true,
-    });
-    expect(screen.getByText(`${childButtonID}-0`)).toHaveFocus();
-    fireEvent.keyDown(screen.getByTestId(containerID), {
-      key: "Tab",
-      shiftKey: true,
-    });
-    expect(hideCb).toHaveBeenCalled();
-    expect(screen.getByTestId(mainButtonID)).toHaveFocus();
-  });
-
   it("pressing Escape key calls the hide callback and focuses the main button", () => {
     const hideCb = jest.fn();
     render(<MockComponent hideCb={hideCb} />);
@@ -190,6 +151,17 @@ describe("useMenuKeyboardNavigation", () => {
     render(<MockComponent hideCb={hideCb} />);
     const container = screen.getByTestId(containerID);
     const keyDownEvent = createEvent.keyDown(container, { key: " " });
+
+    fireEvent(container, keyDownEvent);
+
+    expect(keyDownEvent.defaultPrevented).toBe(false);
+  });
+
+  it("pressing Tab key does not trigger prevent default", () => {
+    const hideCb = jest.fn();
+    render(<MockComponent hideCb={hideCb} />);
+    const container = screen.getByTestId(containerID);
+    const keyDownEvent = createEvent.keyDown(container, { key: "Tab" });
 
     fireEvent(container, keyDownEvent);
 
@@ -238,5 +210,19 @@ describe("useMenuKeyboardNavigation", () => {
     fireEvent(container, keyDownEvent);
 
     expect(keyDownEvent.defaultPrevented).toBe(true);
+  });
+
+  it("calls hide callback when no child button in the menu is focused", () => {
+    const hideCb = jest.fn();
+    render(<MockComponent hideCb={hideCb} />);
+
+    fireEvent.focus(screen.getByRole("button", { name: "Main Button" }));
+
+    fireEvent.focus(screen.getByText(`${childButtonID}-0`));
+
+    fireEvent.focus(
+      screen.getByRole("button", { name: "Next Element in DOM" }),
+    );
+    expect(hideCb).toHaveBeenCalled();
   });
 });
