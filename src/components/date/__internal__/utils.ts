@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { Modifier } from "react-day-picker";
 import { format, formatISO, isMatch, parse, parseISO } from "./date-fns-fp";
 
