@@ -19,12 +19,13 @@ const SidebarHeader = ({
 }: SidebarHeaderProps) => (
   <StyledSidebarHeader
     hasClose={!!closeIcon}
-    id={id}
     data-component="sidebar-header"
     p="27px 32px 32px"
     {...rest}
   >
-    {children}
+    <div data-element="sidebar-heading" id={id}>
+      {children}
+    </div>
     {closeIcon}
   </StyledSidebarHeader>
 );
