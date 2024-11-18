@@ -165,11 +165,16 @@ const StyledVerticalTabsWrapper = styled.div<StyledVerticalTabsWrapperProps>`
   flex-direction: column;
 `;
 
-const StyledTabsBottomBorderWrapper = styled.div`
+const StyledTabsBottomBorderWrapper = styled.div<{
+  validationRedesignOptIn?: boolean;
+}>`
   position: absolute;
   width: 100%;
   height: auto;
-  bottom: 0;
+  bottom: 0px;
+  ${({ validationRedesignOptIn }) => css`
+    z-index: ${validationRedesignOptIn ? 2 : ""};
+  `}
 `;
 
 const StyledTabsBottomBorder = styled.div`

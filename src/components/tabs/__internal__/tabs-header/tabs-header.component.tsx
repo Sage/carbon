@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import {
   StyledTabsHeaderWrapper,
   StyledTabsHeaderList,
@@ -8,6 +8,7 @@ import {
   StyledVerticalTabsWrapper,
 } from "./tabs-header.style";
 import useThrottle from "../../../../hooks/__internal__/useThrottle";
+import NewValidationContext from "../../../carbon-provider/__internal__/new-validation.context";
 
 /*  In the original prototype the tabs have shadows that fade out as you scroll horizontally.
  *  This value is the closest replication to the way that the shadow disappears.
@@ -43,6 +44,8 @@ const TabsHeader = ({
 }: TabHeaderProps) => {
   const [leftScrollOpacity, setLeftScrollOpacity] = useState(0);
   const [rightScrollOpacity, setRightScrollOpacity] = useState(1);
+
+  const { validationRedesignOptIn } = useContext(NewValidationContext);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -83,7 +86,9 @@ const TabsHeader = ({
       >
         {position === "top" ? (
           <StyledTabsWrapper>
-            <StyledTabsBottomBorderWrapper>
+            <StyledTabsBottomBorderWrapper
+              validationRedesignOptIn={validationRedesignOptIn}
+            >
               <StyledTabsBottomBorder />
             </StyledTabsBottomBorderWrapper>
             {children}
