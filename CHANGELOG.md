@@ -1,3 +1,10 @@
+### [144.9.2](https://github.com/Sage/carbon/compare/v144.9.1...v144.9.2) (2024-11-18)
+
+
+### Bug Fixes
+
+* **tabs:** support for post-rebrand validation pattern ([7dff16c](https://github.com/Sage/carbon/commit/7dff16c2963aa2940bbbd2fa36eebec604c42ae8))
+
 ### [144.9.1](https://github.com/Sage/carbon/compare/v144.9.0...v144.9.1) (2024-11-13)
 
 
