@@ -74,7 +74,7 @@ type StyledButtonProps = SpaceProps &
 
 const StyledButton = styled.button<StyledButtonProps>`
   ${space}
-  ${({ disabled, noWrap, theme }) => css`
+  ${({ disabled, noWrap }) => css`
     align-items: center;
     cursor: ${disabled ? "not-allowed" : "pointer"};
     display: inline-flex;

@@ -265,12 +265,9 @@ const StyledDayPicker = styled.div`
       color: var(--colorsActionMajorYin090);
     }
 
-    ${({ theme }) =>
-      `
-      &:focus {
-        ${addFocusStyling(true)}
-      }
-    `}
+    &:focus {
+      ${addFocusStyling(true)}
+    }
 
     + * {
       border-left: 1px;

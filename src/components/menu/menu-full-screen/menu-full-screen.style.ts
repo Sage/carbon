@@ -64,7 +64,7 @@ const StyledMenuModal = styled.div<{ menuType: MenuType }>`
     }
   }
 
-  ${({ menuType, theme }) => css`
+  ${({ menuType }) => css`
     background-color: ${menuConfigVariants[menuType].background};
 
     && {

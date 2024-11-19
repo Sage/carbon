@@ -105,7 +105,7 @@ const StyledCardContent = styled.div.attrs(
     return {};
   },
 )<StyledCardContentProps>`
-  ${({ interactive, theme }) =>
+  ${({ interactive }) =>
     interactive &&
     css`
       cursor: pointer;

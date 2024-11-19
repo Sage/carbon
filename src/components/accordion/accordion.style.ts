@@ -153,7 +153,6 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
     iconAlign,
     size,
     hasButtonProps,
-    theme,
     isExpanded,
     variant,
   }) => css`

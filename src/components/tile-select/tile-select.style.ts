@@ -68,7 +68,7 @@ const StyledFocusWrapper = styled.div<{
   checked?: boolean;
   hasFocus: boolean;
 }>`
-  ${({ checked, hasFocus, theme }) => css`
+  ${({ checked, hasFocus }) => css`
     position: relative;
     border: 1px solid var(--colorsActionMinor250);
     border-radius: var(--borderRadius100);

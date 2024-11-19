@@ -79,7 +79,7 @@ test("the context callback is called with the expected arguments when isLastItem
 });
 
 // test purely for coverage - the `locked` prop is tested in both Chromatic and Playwright
-test("should render a locked icon with expected styling when the `locked` prop is set and the focusRedesignOptOut flag is set", () => {
+test("should render a locked icon with expected styling when the `locked` prop is set", () => {
   render(
     <PicklistItem type="add" onChange={() => {}} item={1} locked>
       Item content

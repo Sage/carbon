@@ -69,13 +69,7 @@ export const StyledHintText = styled.div<StyledHintTextProps>`
 `;
 
 const StyledSwitch = styled.div`
-  ${({
-    fieldHelpInline,
-    labelInline,
-    reverse,
-    size,
-    theme,
-  }: StyledSwitchProps) => css`
+  ${({ fieldHelpInline, labelInline, reverse, size }: StyledSwitchProps) => css`
     ${margin}
     ${FieldLineStyle} {
       display: flex;

@@ -19,7 +19,7 @@ type StyledSplitButtonToggleProps = {
 const StyledSplitButtonToggle = styled(
   StyledButton,
 )<StyledSplitButtonToggleProps>`
-  ${({ buttonType, disabled, displayed, size, theme }) => css`
+  ${({ buttonType, disabled, displayed, size }) => css`
     border-top-left-radius: var(--borderRadius000);
     border-bottom-left-radius: var(--borderRadius000);
 

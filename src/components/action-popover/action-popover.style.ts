@@ -246,12 +246,9 @@ const ButtonIcon = styled(Icon)`
 `;
 
 const StyledButtonIcon = styled.div`
-  ${({ theme }) =>
-    `
-    &:focus {
-      ${addFocusStyling()}
-    }    
-  `}
+  &:focus {
+    ${addFocusStyling()}
+  }
   border-radius: var(--borderRadius050);
 `;
 
