@@ -25,8 +25,6 @@ module.exports = (api) => {
       !inStorybookBuild &&
         inProduction &&
         "./plugins/generate-proptypes/index.mjs",
-      "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-transform-classes",
       "babel-plugin-dev-expression",
     ].filter(Boolean),
   };
