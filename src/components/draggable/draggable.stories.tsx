@@ -31,16 +31,16 @@ type Story = StoryObj<typeof DraggableContainer>;
 export const DefaultStory: Story = () => (
   <DraggableContainer>
     <DraggableItem key="1" id={1}>
-      Some content goes here
+      Some content goes here 1
     </DraggableItem>
     <DraggableItem key="2" id={2}>
-      Some content goes here
+      Some content goes here 2
     </DraggableItem>
     <DraggableItem key="3" id={3}>
-      Some content goes here
+      Some content goes here 3
     </DraggableItem>
     <DraggableItem key="4" id={4}>
-      Some content goes here
+      Some content goes here 4
     </DraggableItem>
   </DraggableContainer>
 );

@@ -1,6 +1,19 @@
-import React from "react";
-import { useDrop, useDrag } from "react-dnd";
+import React, { useState, useRef, useEffect } from "react";
 import { PaddingProps } from "styled-system";
+import {
+  draggable,
+  dropTargetForElements,
+} from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
+import {
+  attachClosestEdge,
+  extractClosestEdge,
+} from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
+
+import {
+  getDraggableItemData,
+  isDraggableItemData,
+} from "../__internal__/draggable-utils";
 
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import { StyledDraggableItem, StyledIcon } from "./draggable-item.style";
@@ -14,85 +27,112 @@ export interface DraggableItemProps extends PaddingProps {
   id: number | string;
   /** The content of the component. */
   children: React.ReactNode;
-  /**
-   * @private
-   * @ignore
-   */
-  findItem?: (id: string | number) => {
-    DraggableItemProps: React.ReactElement;
-    index: number;
-  };
-  /**
-   * @private
-   * @ignore
-   */
-  moveItem?: (
-    droppedId: string | number,
-    overIndex: number | undefined,
-  ) => void;
 }
+
+type Edge = "top" | "right" | "bottom" | "left";
+
+export type TaskState =
+  | { type: "idle" }
+  | { type: "preview"; container: HTMLElement }
+  | { type: "is-dragging" }
+  | { type: "is-dragging-over"; closestEdge: Edge | null };
 
 const DraggableItem = ({
   id,
-  findItem,
-  moveItem,
   children,
   py = 1,
   ...rest
 }: DraggableItemProps): JSX.Element => {
-  let originalIndex;
-  // istanbul ignore else
-  if (findItem) {
-    originalIndex = findItem(id)?.index;
-  }
-  const [{ isDragging }, drag] = useDrag({
-    type: "draggableItem",
-    item: { id, originalIndex },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-    end: (dropResult, monitor) => {
-      const { id: droppedId, originalIndex: oIndex } = monitor.getItem();
-      const didDrop = monitor.didDrop();
-      if (!didDrop && moveItem) {
-        moveItem(droppedId, oIndex);
-      }
-    },
-  });
-
-  interface DragItem {
-    index: number;
-    id: string;
-  }
-
-  const [, drop] = useDrop({
-    accept: "draggableItem",
-    canDrop: () => false,
-    hover(item: DragItem) {
-      if (item?.id !== id && findItem) {
-        const { index: overIndex } = findItem(id);
-        // istanbul ignore else
-        if (moveItem) {
-          moveItem(item?.id, overIndex);
-        }
-      }
-    },
-  });
+  const idle: TaskState = { type: "idle" };
+  const ref = useRef<HTMLElement | null>(null);
+  const [state, setState] = useState<TaskState>(idle);
 
   const paddingProps = filterStyledSystemPaddingProps(rest);
 
+  const draggableItemData = {
+    id,
+    content: children,
+  };
+
+  useEffect(() => {
+    const element = ref.current;
+
+    if (!element) {
+      return;
+    }
+
+    return combine(
+      draggable({
+        element,
+        getInitialData() {
+          return getDraggableItemData(draggableItemData);
+        },
+        onDragStart() {
+          setState({ type: "is-dragging" });
+        },
+        onDrop() {
+          setState(idle);
+        },
+      }),
+      dropTargetForElements({
+        element,
+        canDrop({ source }) {
+          if (source.element === element) {
+            return false;
+          }
+          return isDraggableItemData(source.data);
+        },
+        getData({ input }) {
+          const data = getDraggableItemData(draggableItemData);
+          return attachClosestEdge(data, {
+            element,
+            input,
+            allowedEdges: ["top", "bottom"],
+          });
+        },
+        getIsSticky() {
+          return true;
+        },
+        onDragEnter({ self }) {
+          const closestEdge = extractClosestEdge(self.data);
+          setState({ type: "is-dragging-over", closestEdge });
+        },
+        onDrag({ self }) {
+          const closestEdge = extractClosestEdge(self.data);
+
+          setState((current) => {
+            if (
+              current.type === "is-dragging-over" &&
+              current.closestEdge === closestEdge
+            ) {
+              return current;
+            }
+            return { type: "is-dragging-over", closestEdge };
+          });
+        },
+        onDragLeave() {
+          setState(idle);
+        },
+        onDrop() {
+          setState(idle);
+        },
+      }),
+    );
+  }, [id]);
+
   return (
-    <StyledDraggableItem
-      data-element="draggable"
-      data-role="draggable-item"
-      isDragging={isDragging}
-      ref={(node) => drag(drop(node))}
-      py={py}
-      {...paddingProps}
-    >
-      {children}
-      <StyledIcon type="drag" />
-    </StyledDraggableItem>
+      <StyledDraggableItem
+        data-element="draggable"
+        data-role="draggable-item"
+        data-id={id}
+        ref={ref}
+        dragState={state}
+        py={py}
+        {...paddingProps}
+      >
+        {children}
+        <StyledIcon type="drag" />
+      </StyledDraggableItem>
   );
 };
 
