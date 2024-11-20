@@ -67,6 +67,7 @@ const StyledHeadingBackButton = styled(Link)`
     display: block;
 
     &:focus {
+      background-color: transparent;
       ${addFocusStyling()}
     }
 
