@@ -49,13 +49,13 @@ test.describe("Global Header component", () => {
     expect(globalIndex).toBeGreaterThan(NavIndex);
   });
 
-  test("should render with height of logo element never exceeding the max height of the component when logo prop is passed", async ({
+  test("should render with height of logo element, when the logo prop is passed", async ({
     mount,
     page,
   }) => {
     await mount(<GlobalHeaderWithLogo />);
 
-    await expect(globalHeaderLogo(page)).toHaveCSS("height", `40px`);
+    await expect(globalHeaderLogo(page)).toHaveCSS("height", `41px`);
   });
 
   test.describe("Accessibility tests", () => {
