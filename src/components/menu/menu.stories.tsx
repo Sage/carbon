@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { allModes } from "../../../.storybook/modes";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import isChromatic from "../../../.storybook/isChromatic";
 
 import Box from "../box";
+import Message from "../message";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Search, { SearchEvent } from "../search";
 import Typography from "../typography";
@@ -736,6 +737,115 @@ export const FullscreenViewStory: Story = () => {
 };
 FullscreenViewStory.storyName = "Fullscreen View";
 FullscreenViewStory.parameters = { chromatic: { disableSnapshot: true } };
+
+export const FullscreenViewRestoreFocusOnCloseStory: Story = () => {
+  const [menuOpen, setMenuOpen] = useState({
+    light: false,
+    dark: false,
+    white: false,
+    black: false,
+  });
+
+  const [showMessage, setShowMessage] = useState(false);
+  const messageRef = useRef<HTMLDivElement>(null);
+
+  const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
+  const responsiveMenuItems = (
+    startPosition: "left" | "right",
+    menu: MenuType,
+  ) => {
+    if (fullscreenViewBreakPoint) {
+      return [
+        <MenuItem
+          key="fullscreen-menu-item-1"
+          onClick={() => {
+            setMenuOpen((state) => ({ ...state, [menu]: true }));
+            setShowMessage(false);
+          }}
+        >
+          Menu
+        </MenuItem>,
+        <MenuFullscreen
+          restoreFocusOnClose={false}
+          key="fullscreen-menu-1"
+          startPosition={startPosition}
+          isOpen={menuOpen[menu]}
+          onClose={() => {
+            setMenuOpen((state) => ({ ...state, [menu]: false }));
+            setShowMessage(true);
+            setTimeout(() => messageRef.current?.focus(), 1);
+          }}
+        >
+          <MenuItem href="#">Menu Item One</MenuItem>
+          <MenuItem onClick={() => {}} submenu="Menu Item Two">
+            <MenuItem href="#">Submenu Item One</MenuItem>
+            <MenuItem href="#">Submenu Item Two</MenuItem>
+          </MenuItem>
+          <MenuItem href="#">Menu Item Three</MenuItem>
+          <MenuItem href="#">Menu Item Four</MenuItem>
+          <MenuItem submenu="Menu Item Five">
+            <MenuItem href="#">Submenu Item One</MenuItem>
+            <MenuItem href="#">Submenu Item Two</MenuItem>
+          </MenuItem>
+          <MenuItem href="#">Menu Item Six</MenuItem>
+        </MenuFullscreen>,
+      ];
+    }
+    return [
+      <MenuItem key="default-menu-item-1" href="#">
+        Menu Item One
+      </MenuItem>,
+      <MenuItem key="default-menu-item-2" submenu="Menu Item Two">
+        <MenuItem href="#">Submenu Item One</MenuItem>
+        <MenuItem href="#">Submenu Item Two</MenuItem>
+      </MenuItem>,
+      <MenuItem key="default-menu-item-3" href="#">
+        Menu Item Three
+      </MenuItem>,
+      <MenuItem key="default-menu-item-4" href="#">
+        Menu Item Four
+      </MenuItem>,
+      <MenuItem key="default-menu-item-5" submenu="Menu Item Five">
+        <MenuItem href="#">Submenu Item One</MenuItem>
+        <MenuItem href="#">Submenu Item Two</MenuItem>
+      </MenuItem>,
+      <MenuItem key="default-menu-item-6" href="#">
+        Menu Item Six
+      </MenuItem>,
+    ];
+  };
+  return (
+    <Box>
+      {menuTypes.map((menuType) => (
+        <Box key={menuType} mb={menuType === "black" && showMessage ? 5 : 0}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            {React.Children.map(
+              responsiveMenuItems("left", menuType),
+              (items) => items,
+            )}
+          </Menu>
+        </Box>
+      ))}
+      {showMessage && (
+        <Message
+          ref={messageRef}
+          variant="error"
+          onDismiss={() => setShowMessage(false)}
+        >
+          Some custom message
+        </Message>
+      )}
+    </Box>
+  );
+};
+FullscreenViewRestoreFocusOnCloseStory.storyName =
+  "Fullscreen View and Restore Focus On Close";
+FullscreenViewRestoreFocusOnCloseStory.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const TruncationAndSubmenuWidth: Story = () => {
   return (

@@ -47,6 +47,13 @@ to ensure behaviour is consistent across all browsers.
 
 <Canvas of={DialogStories.DefaultStory} />
 
+### Preventing focus from being restored when Dialog closes
+
+When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `Dialog` was opened.
+Focus can instead be programmatically applied to another element if appropriate. 
+
+<Canvas of={DialogStories.RestoreFocusOnCloseStory} />
+
 ### With Maximum Size
 
 When the `size` prop is `"maximise"` the height and width of the `Dialog`'s modal extends to the majority of the viewport.

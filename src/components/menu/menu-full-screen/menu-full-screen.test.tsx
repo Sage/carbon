@@ -9,6 +9,31 @@ import MenuContext from "../__internal__/menu.context";
 import CarbonProvider from "../../carbon-provider";
 import { sageTheme } from "../../../style/themes";
 
+const MockFullScreenMenu = ({
+  restoreFocusOnClose,
+}: {
+  restoreFocusOnClose?: boolean;
+}) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <>
+      <MenuItem key="menu-item" onClick={() => setMenuOpen(true)}>
+        Menu
+      </MenuItem>
+      <MenuFullscreen
+        key="menu"
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        restoreFocusOnClose={restoreFocusOnClose}
+      >
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+      </MenuFullscreen>
+    </>
+  );
+};
+
 test("should not render the menu when `isOpen` is falsy", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
@@ -485,4 +510,30 @@ test("should maintain the state of any child items if items are added or removed
   expect(itemLink).toHaveTextContent("count 2");
 
   jest.useRealTimers();
+});
+
+test("should restore focus to the call to action element when `restoreFocusOnClose` is true", async () => {
+  render(<MockFullScreenMenu restoreFocusOnClose />);
+
+  const user = userEvent.setup();
+  const InitialMenuItem = screen.getByRole("button", { name: "Menu" });
+  await user.click(InitialMenuItem);
+
+  const closeButton = screen.getByLabelText("Close");
+  await user.click(closeButton);
+
+  expect(InitialMenuItem).toHaveFocus();
+});
+
+test("should not restore focus to the call to action element when `restoreFocusOnClose` is false", async () => {
+  render(<MockFullScreenMenu restoreFocusOnClose={false} />);
+
+  const user = userEvent.setup();
+  const InitialMenuItem = screen.getByRole("button", { name: "Menu" });
+  await user.click(InitialMenuItem);
+
+  const closeButton = screen.getByLabelText("Close");
+  await user.click(closeButton);
+
+  expect(InitialMenuItem).not.toHaveFocus();
 });

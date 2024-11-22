@@ -97,6 +97,7 @@ export const DialogFullScreen = ({
   focusableSelectors,
   topModalOverride,
   closeButtonDataProps,
+  restoreFocusOnClose = true,
   ...rest
 }: DialogFullScreenProps) => {
   const locale = useLocale();
@@ -164,6 +165,7 @@ export const DialogFullScreen = ({
       onCancel={onCancel}
       disableEscKey={disableEscKey}
       topModalOverride={topModalOverride}
+      restoreFocusOnClose={restoreFocusOnClose}
       {...componentTags}
     >
       <FocusTrap

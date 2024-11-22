@@ -212,8 +212,10 @@ export const DialogComponentFocusableSelectors = (
 
 export const DefaultStory = ({
   open = defaultOpenState,
+  restoreFocusOnClose,
 }: {
   open?: boolean;
+  restoreFocusOnClose?: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(open);
   return (
@@ -224,6 +226,7 @@ export const DefaultStory = ({
         onCancel={() => setIsOpen(false)}
         title="Title"
         subtitle="Subtitle"
+        restoreFocusOnClose={restoreFocusOnClose}
       >
         <Form
           stickyFooter

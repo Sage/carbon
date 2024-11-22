@@ -156,6 +156,13 @@ due to specific browser design choices.
 
 <Canvas of={MenuStories.FullscreenViewStory} />
 
+### Preventing focus from being restored when Menu with fullscreen view closes
+
+When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `MenuFullscreen` was opened.
+Focus can instead be programmatically applied to another element if appropriate. 
+
+<Canvas of={MenuStories.FullscreenViewRestoreFocusOnCloseStory} />
+
 ## Props
 
 ### Menu

@@ -30,6 +30,10 @@ export interface ModalProps extends Omit<TagProps, "data-component"> {
   timeout?: number;
   /** Manually override the internal modal stacking order to set this as top */
   topModalOverride?: boolean;
+  /** Enables the automatic restoration of focus to the element that invoked
+   * the modal when the modal is closed.
+   */
+  restoreFocusOnClose?: boolean;
 }
 
 const Modal = ({
@@ -43,6 +47,7 @@ const Modal = ({
   enableBackgroundUI = false,
   timeout = 300,
   topModalOverride,
+  restoreFocusOnClose = true,
   ...rest
 }: ModalProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -89,7 +94,9 @@ const Modal = ({
     modalRef: ref,
     setTriggerRefocusFlag,
     topModalOverride,
-    focusCallToActionElement: document.activeElement as HTMLElement,
+    focusCallToActionElement: restoreFocusOnClose
+      ? (document.activeElement as HTMLElement)
+      : undefined,
   });
 
   let background;
