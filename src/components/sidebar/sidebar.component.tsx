@@ -23,7 +23,7 @@ export interface SidebarProps
   extends PaddingProps,
     Omit<TagProps, "data-component">,
     WidthProps,
-    Pick<ModalProps, "topModalOverride"> {
+    Pick<ModalProps, "topModalOverride" | "restoreFocusOnClose"> {
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**
@@ -111,6 +111,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       width,
       headerPadding = {},
       topModalOverride,
+      restoreFocusOnClose = true,
       ...rest
     }: SidebarProps,
     ref,
@@ -192,6 +193,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         disableEscKey={disableEscKey}
         enableBackgroundUI={enableBackgroundUI}
         topModalOverride={topModalOverride}
+        restoreFocusOnClose={restoreFocusOnClose}
       >
         {enableBackgroundUI ? (
           sidebar

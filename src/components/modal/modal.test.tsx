@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { render, screen } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
@@ -18,6 +18,27 @@ mockedUseScrollBlock.mockReturnValue({
   allowScroll,
   blockScroll,
 });
+
+const MockModal = ({
+  restoreFocusOnClose,
+}: {
+  restoreFocusOnClose: boolean;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <button type="button" onClick={() => setIsOpen(true)}>
+        Open Modal
+      </button>
+      <Modal open={isOpen} restoreFocusOnClose={restoreFocusOnClose}>
+        <button type="button" onClick={() => setIsOpen(false)}>
+          Close Modal
+        </button>
+      </Modal>
+    </>
+  );
+};
 
 test("renders background overlay when enableBackgroundUI is false", () => {
   render(<Modal onCancel={() => {}} open enableBackgroundUI={false} />);
@@ -179,4 +200,30 @@ test("throws a deprecation warning if the 'className' prop is set", () => {
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 
   loggerSpy.mockRestore();
+});
+
+test("should restore focus to the call to action element when `restoreFocusOnClose` is true", async () => {
+  render(<MockModal restoreFocusOnClose />);
+
+  const user = userEvent.setup();
+  const button = screen.getByRole("button", { name: "Open Modal" });
+  await user.click(button);
+
+  const closeButton = screen.getByRole("button", { name: "Close Modal" });
+  await user.click(closeButton);
+
+  expect(button).toHaveFocus();
+});
+
+test("should not restore focus to the call to action element when `restoreFocusOnClose` is false", async () => {
+  render(<MockModal restoreFocusOnClose={false} />);
+
+  const user = userEvent.setup();
+  const button = screen.getByRole("button", { name: "Open Modal" });
+  await user.click(button);
+
+  const closeButton = screen.getByRole("button", { name: "Close Modal" });
+  await user.click(closeButton);
+
+  expect(button).not.toHaveFocus();
 });
