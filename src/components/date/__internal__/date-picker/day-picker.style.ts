@@ -2,10 +2,6 @@ import styled, { css } from "styled-components";
 import baseTheme from "../../../../style/themes/base";
 import addFocusStyling from "../../../../style/utils/add-focus-styling";
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 // Styles copied from https://github.com/gpbl/react-day-picker/blob/v6.1.1/src/style.css
 const addReactDayPickerStyles = () => `
   .DayPicker {
@@ -189,10 +185,7 @@ const StyledDayPicker = styled.div`
   width: 352px;
   ${({ theme }) => css`
     z-index: ${theme.zIndex.popover};
-    ${!theme.focusRedesignOptOut &&
-    `
-      margin-top: var(--spacing050);
-    `}
+    margin-top: var(--spacing050);
   `}
 
   .DayPicker {
@@ -225,10 +218,7 @@ const StyledDayPicker = styled.div`
   .DayPicker-wrapper {
     padding: 0;
     &:focus {
-      ${({ theme }) =>
-        !theme.focusRedesignOptOut
-          ? addFocusStyling()
-          : /* istanbul ignore next */ oldFocusStyling}
+      ${addFocusStyling()}
       border-radius: var(--borderRadius050);
     }
   }
@@ -275,16 +265,9 @@ const StyledDayPicker = styled.div`
       color: var(--colorsActionMajorYin090);
     }
 
-    ${({ theme }) =>
-      `
-      &:focus {
-        ${
-          !theme.focusRedesignOptOut
-            ? addFocusStyling(true)
-            : /* istanbul ignore next */ oldFocusStyling
-        }
-      }
-    `}
+    &:focus {
+      ${addFocusStyling(true)}
+    }
 
     + * {
       border-left: 1px;

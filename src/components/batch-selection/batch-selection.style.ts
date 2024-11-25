@@ -5,10 +5,6 @@ import StyledIcon from "../icon/icon.style";
 import { BatchSelectionProps } from ".";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 const StyledBatchSelection = styled.div<
   Pick<BatchSelectionProps, "disabled" | "colorTheme" | "hidden">
 >`
@@ -22,12 +18,7 @@ const StyledBatchSelection = styled.div<
     ${StyledIcon} {
       ${!disabled && `color: var(--colorsActionMajorYin065);`}
       &:focus {
-        ${({ theme }) =>
-          `${
-            !theme.focusRedesignOptOut
-              ? addFocusStyling()
-              : /* istanbul ignore next */ oldFocusStyling
-          }`}
+        ${addFocusStyling()}
       }
     }
 
@@ -73,12 +64,7 @@ const StyledBatchSelection = styled.div<
     ${StyledIconButton}:focus {
       border-radius: var(--borderRadius100);
       z-index: 1;
-      ${({ theme }) =>
-        `${
-          !theme.focusRedesignOptOut
-            ? addFocusStyling()
-            : /* istanbul ignore next */ oldFocusStyling
-        }`}
+      ${addFocusStyling()}
     }
 
     ${disabled &&

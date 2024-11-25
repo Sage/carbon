@@ -105,7 +105,7 @@ const StyledCardContent = styled.div.attrs(
     return {};
   },
 )<StyledCardContentProps>`
-  ${({ interactive, theme }) =>
+  ${({ interactive }) =>
     interactive &&
     css`
       cursor: pointer;
@@ -113,13 +113,10 @@ const StyledCardContent = styled.div.attrs(
       flex-direction: column;
       height: 100%;
 
-      ${!theme.focusRedesignOptOut &&
-      css`
-        :focus {
-          ${addFocusStyling()};
-          position: relative;
-        }
-      `}
+      :focus {
+        ${addFocusStyling()};
+        position: relative;
+      }
     `}
 
   align-items: stretch;

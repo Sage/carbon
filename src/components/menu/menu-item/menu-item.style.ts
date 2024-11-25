@@ -77,10 +77,6 @@ const parsePadding = (props: Partial<PaddingProps>) => {
   }
 };
 
-const oldFocusStyling = `
-  box-shadow: inset 0 0 0 var(--borderWidth300) var(--colorsSemanticFocus500);
-`;
-
 const StyledMenuItemWrapper = styled.a.attrs({
   as: Link,
 })<StyledMenuItemWrapperProps>`
@@ -119,13 +115,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
     a:focus,
     button:focus {
-      ${({ theme }) =>
-        `${
-          !theme.focusRedesignOptOut
-            ? addFocusStyling(true)
-            : /* istanbul ignore next */ oldFocusStyling
-        }
-      `}
+      ${addFocusStyling(true)}
     }
 
     ${!maxWidth &&

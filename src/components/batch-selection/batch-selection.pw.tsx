@@ -9,7 +9,6 @@ import {
 import {
   checkAccessibility,
   positionOfElement,
-  checkGoldenOutline,
 } from "../../../playwright/support/helper";
 
 import {
@@ -26,7 +25,6 @@ import {
   getComponent,
   icon as buttonIcon,
 } from "../../../playwright/components/index";
-import { HooksConfig } from "../../../playwright";
 
 const BATCH_SELECTION_COLOR = [
   "dark",
@@ -177,53 +175,29 @@ test.describe("check BatchSelection component properties", () => {
   });
 });
 
-test.describe("check BatchSelection buttons are focused", () => {
-  (["first", "second", "third"] as const).forEach((index) => {
-    test(`should check BatchSelection ${index} button has expected styling when focusRedesignOptOut is true`, async ({
-      mount,
+(["first", "second", "third"] as const).forEach((index) => {
+  test(`should check BatchSelection ${index} button has expected styling when BatchSelection buttons are focused`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<BatchSelectionComponent selectedCount={1} />);
+
+    const elementLocator = batchSelectionButtonsByPosition(
       page,
-    }) => {
-      await mount<HooksConfig>(<BatchSelectionComponent selectedCount={1} />, {
-        hooksConfig: { focusRedesignOptOut: true },
-      });
+      positionOfElement(index),
+    );
+    const element = elementLocator;
+    await element.focus();
 
-      const elementLocator = batchSelectionButtonsByPosition(
-        page,
-        positionOfElement(index),
-      );
+    await expect(elementLocator).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
 
-      const element = elementLocator;
-      await element.focus();
-
-      await checkGoldenOutline(elementLocator);
-      await expect(elementLocator).toBeVisible();
-    });
-  });
-
-  (["first", "second", "third"] as const).forEach((index) => {
-    test(`should check BatchSelection ${index} button has expected styling when focusRedesignOptOut is false`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<BatchSelectionComponent selectedCount={1} />);
-
-      const elementLocator = batchSelectionButtonsByPosition(
-        page,
-        positionOfElement(index),
-      );
-      const element = elementLocator;
-      await element.focus();
-
-      await expect(elementLocator).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-      );
-
-      await expect(elementLocator).toHaveCSS(
-        "outline",
-        "rgba(0, 0, 0, 0) solid 3px",
-      );
-    });
+    await expect(elementLocator).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
   });
 });
 

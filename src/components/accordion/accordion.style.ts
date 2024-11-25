@@ -146,10 +146,6 @@ interface StyledAccordionTitleContainerProps {
   variant?: "standard" | "subtle";
 }
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerProps>`
   ${({
     buttonHeading,
@@ -157,7 +153,6 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
     iconAlign,
     size,
     hasButtonProps,
-    theme,
     isExpanded,
     variant,
   }) => css`
@@ -177,9 +172,7 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
     z-index: 1;
 
     &:focus {
-      ${!theme.focusRedesignOptOut
-        ? addFocusStyling()
-        : /* istanbul ignore next */ oldFocusStyling}
+      ${addFocusStyling()}
     }
 
     ${variant === "subtle" &&

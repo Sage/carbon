@@ -19,24 +19,18 @@ export interface CarbonProviderProps extends NewValidationContextProps {
 }
 
 let deprecatedRoundedCornersOptOut = false;
-let deprecatedFocusRedesignOptOut = false;
 
 export const CarbonProvider = ({
   children,
   theme = sageTheme,
   validationRedesignOptIn = false,
   roundedCornersOptOut = false,
-  focusRedesignOptOut = false,
 }: CarbonProviderProps) => {
-  const {
-    roundedCornersOptOut: existingRoundedCornersOptOut,
-    focusRedesignOptOut: existingFocusRedesignOptOut,
-  } = useContext(NewValidationContext);
+  const { roundedCornersOptOut: existingRoundedCornersOptOut } =
+    useContext(NewValidationContext);
 
   const roundedCornersOptOutValue =
     existingRoundedCornersOptOut || roundedCornersOptOut;
-  const focusRedesignOptOutValue =
-    existingFocusRedesignOptOut || focusRedesignOptOut;
 
   if (!deprecatedRoundedCornersOptOut && roundedCornersOptOutValue) {
     deprecatedRoundedCornersOptOut = true;
@@ -46,20 +40,11 @@ export const CarbonProvider = ({
     );
   }
 
-  if (!deprecatedFocusRedesignOptOut && focusRedesignOptOutValue) {
-    deprecatedFocusRedesignOptOut = true;
-    Logger.deprecate(
-      "The `focusRedesignOptOut` feature flag has been deprecated and will soon be removed. " +
-        "Along with this feature flag, the legacy focus styling will also be removed. ",
-    );
-  }
-
   return (
     <ThemeProvider
       theme={{
         ...theme,
         roundedCornersOptOut: roundedCornersOptOutValue,
-        focusRedesignOptOut: focusRedesignOptOutValue,
       }}
     >
       <CarbonScopedTokensProvider>

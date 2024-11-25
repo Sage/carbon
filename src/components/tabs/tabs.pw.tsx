@@ -30,10 +30,8 @@ import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   checkAccessibility,
   assertCssValueIsApproximately,
-  checkGoldenOutline,
   getStyle,
 } from "../../../playwright/support/helper";
-import { HooksConfig } from "../../../playwright";
 
 const validationTypes = ["error", "warning", "info"] as const;
 
@@ -795,34 +793,18 @@ test.describe("Tabs component", () => {
     });
   });
 
-  test.describe("focus styles", () => {
-    [1, 2, 3, 4, 5].forEach((id) => {
-      test(`should render Tab ${id} with expected styles when focusRedesignOptOut is true`, async ({
-        mount,
-        page,
-      }) => {
-        await mount<HooksConfig>(<TabsComponent />, {
-          hooksConfig: { focusRedesignOptOut: true },
-        });
+  [1, 2, 3, 4, 5].forEach((id) => {
+    test(`should render Tab ${id} with expected focus styles`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TabsComponent />);
 
-        await tabById(page, id).focus();
-        await checkGoldenOutline(tabById(page, id));
-      });
-    });
-
-    [1, 2, 3, 4, 5].forEach((id) => {
-      test(`should render Tab ${id} with expected styles when focusRedesignOptOut is false`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TabsComponent />);
-
-        await tabById(page, id).focus();
-        await expect(tabById(page, id)).toHaveCSS(
-          "box-shadow",
-          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-        );
-      });
+      await tabById(page, id).focus();
+      await expect(tabById(page, id)).toHaveCSS(
+        "box-shadow",
+        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+      );
     });
   });
 

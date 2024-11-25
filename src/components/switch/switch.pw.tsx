@@ -1,6 +1,5 @@
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
-import type { HooksConfig } from "../../../playwright/index";
 import Box from "../box";
 import Switch, { SwitchProps } from ".";
 import {
@@ -39,13 +38,11 @@ const testData = CHARACTERS.STANDARD;
 
 test.describe("Prop tests for Switch component", () => {
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should have the expected styling when focused and the focusRedesignOptOut is false", async ({
+  test.skip("should have the expected styling when focused", async ({
     mount,
     page,
   }) => {
-    await mount<HooksConfig>(<SwitchComponent />, {
-      hooksConfig: { focusRedesignOptOut: false },
-    });
+    await mount(<SwitchComponent />);
 
     await switchInput(page).click();
 
@@ -57,23 +54,6 @@ test.describe("Prop tests for Switch component", () => {
     await expect(switchStyling(page)).toHaveCSS(
       "outline",
       "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SwitchComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await switchInput(page).click();
-
-    await expect(switchStyling(page)).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
     );
   });
 

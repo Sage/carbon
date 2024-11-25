@@ -15,7 +15,6 @@ import {
 import { alertDialogPreview } from "../../../playwright/components/dialog";
 import { TOAST_COLORS } from "./toast.config";
 
-import { HooksConfig } from "../../../playwright";
 import {
   getDataComponentByValue,
   button,
@@ -164,14 +163,11 @@ test.describe("Toast component", () => {
     await expect(toastComponent(page)).toHaveCSS("max-width", "250px");
   });
 
-  test("should render with focused close icon and correct style when focusRedesignOptOut is false", async ({
+  test("should render with focused close icon and correct style", async ({
     mount,
     page,
   }) => {
-    await mount<HooksConfig>(<ToastComponent />, {
-      hooksConfig: { focusRedesignOptOut: false },
-    });
-
+    await mount(<ToastComponent />);
     const icon = closeIconButton(page);
     await icon.focus();
 
@@ -180,20 +176,6 @@ test.describe("Toast component", () => {
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(icon).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
-  });
-
-  test("should render with focused close icon and correct style when focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<ToastComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const icon = closeIconButton(page);
-    await icon.focus();
-
-    await expect(icon).toHaveCSS("outline", "rgb(255, 188, 25) solid 3px");
   });
 
   (["left", "center", "right"] as const).forEach((align) => {

@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { HooksConfig } from "../../../playwright";
 import {
   commonDataElementInputPreview,
   getDataElementByValue,
@@ -75,45 +74,20 @@ const indexes = Array.from({
   length: colors.length,
 }).map((_, index) => index);
 
-test.describe("When SimpleColorPicker is focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleColorPickerCustom />);
+test("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<SimpleColorPickerCustom />);
 
-    await simpleColorPickerInput(page, 0).focus();
+  await simpleColorPickerInput(page, 0).focus();
 
-    const focusedColor = simpleColorDiv(page, 0);
-    await expect(focusedColor).toHaveCSS(
-      "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
-    );
-    await expect(focusedColor).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SimpleColorPickerCustom />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    await simpleColorPickerInput(page, 0).focus();
-
-    const focusedColor = simpleColorDiv(page, 0);
-
-    await expect(focusedColor).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 255, 255) 0px 0px 0px 2px inset",
-    );
-  });
+  const focusedColor = simpleColorDiv(page, 0);
+  await expect(focusedColor).toHaveCSS(
+    "box-shadow",
+    "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
+  );
+  await expect(focusedColor).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
 });
 
 test.describe("Check functionality for SimpleColorPicker component", () => {

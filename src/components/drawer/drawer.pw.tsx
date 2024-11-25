@@ -1,6 +1,5 @@
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
-import type { HooksConfig } from "../../../playwright/index";
 import {
   DrawerCustom,
   DrawerCustomFooterHeader,
@@ -21,53 +20,30 @@ import {
   waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 
-test.describe("check focus outline and border radius for Drawer component", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DrawerCustom showControls />);
+test("should have the expected focus styling", async ({ mount, page }) => {
+  await mount(<DrawerCustom showControls />);
 
-    const drawerToggleButton = drawerToggle(page);
-    await drawerToggleButton.focus();
-    await expect(drawerToggleButton).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(drawerToggleButton).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
+  const drawerToggleButton = drawerToggle(page);
+  await drawerToggleButton.focus();
+  await expect(drawerToggleButton).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(drawerToggleButton).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
+});
 
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<DrawerCustom showControls />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
+test("has the expected border radius styling on the sidebar control", async ({
+  mount,
+  page,
+}) => {
+  await mount(<DrawerCustom showControls />);
 
-    const drawerToggleButton = drawerToggle(page);
-    await drawerToggleButton.focus();
-    await expect(drawerToggleButton).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
-
-  test("has the expected border radius styling on the sidebar control", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DrawerCustom showControls />);
-
-    const drawerToggleButton = drawerToggle(page);
-    await drawerToggleButton.focus();
-    await expect(drawerToggleButton).toHaveCSS("border-radius", "4px");
-  });
+  const drawerToggleButton = drawerToggle(page);
+  await drawerToggleButton.focus();
+  await expect(drawerToggleButton).toHaveCSS("border-radius", "4px");
 });
 
 test.describe("check props for Drawer component", () => {

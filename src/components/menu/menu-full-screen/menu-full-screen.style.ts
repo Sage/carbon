@@ -10,11 +10,6 @@ import { MenuType } from "../__internal__/menu.context";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 import { StyledLink } from "../../link/link.style";
 
-const oldFocusStyling = `
-outline: solid 3px var(--colorsSemanticFocus500);
-box-shadow: none;
-`;
-
 const StyledMenuFullscreen = styled.div<{
   transitionDuration: number;
   startPosition: "left" | "right";
@@ -69,7 +64,7 @@ const StyledMenuModal = styled.div<{ menuType: MenuType }>`
     }
   }
 
-  ${({ menuType, theme }) => css`
+  ${({ menuType }) => css`
     background-color: ${menuConfigVariants[menuType].background};
 
     && {
@@ -88,9 +83,7 @@ const StyledMenuModal = styled.div<{ menuType: MenuType }>`
             border-bottom-right-radius: var(--borderRadius050);
             border-top-right-radius: var(--borderRadius050);
 
-            ${!theme.focusRedesignOptOut
-              ? addFocusStyling()
-              : /* istanbul ignore next */ oldFocusStyling}
+            ${addFocusStyling()}
           }
         }
       }

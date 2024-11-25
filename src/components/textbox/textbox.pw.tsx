@@ -1,11 +1,9 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import { TextboxProps } from "components/textbox";
 import React from "react";
-import { HooksConfig } from "../../../playwright";
 import {
   getDesignTokensByCssProperty,
   checkAccessibility,
-  checkGoldenOutline,
   verifyRequiredAsteriskForLabel,
   getStyle,
   assertCssValueIsApproximately,
@@ -426,13 +424,11 @@ test.describe("Prop checks for Textbox component", () => {
     });
   });
 
-  test("should render with autoFocus prop and correct styling when focusRedesignOpt out is false", async ({
+  test("should render with autoFocus prop and correct focus styling", async ({
     mount,
     page,
   }) => {
-    await mount<HooksConfig>(<TextboxComponent autoFocus />, {
-      hooksConfig: { focusRedesignOptOut: false },
-    });
+    await mount(<TextboxComponent autoFocus />);
 
     await expect(textboxInput(page)).toBeFocused();
     await expect(textbox(page)).toHaveCSS(
@@ -443,18 +439,6 @@ test.describe("Prop checks for Textbox component", () => {
       "outline",
       "rgba(0, 0, 0, 0) solid 3px",
     );
-  });
-
-  test("should render with autoFocus prop and correct styling when focusRedesignOpt out is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<TextboxComponent autoFocus />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await expect(textboxInput(page)).toBeFocused();
-    await checkGoldenOutline(textbox(page));
   });
 
   test("should render with readOnly prop", async ({ mount, page }) => {

@@ -9,10 +9,6 @@ export interface NewValidationContextProps {
    *
    * NOTE - This feature flag will soon be removed, along with the legacy styling. */
   roundedCornersOptOut?: boolean;
-  /** (Deprecated) Feature flag for opting out of the focus redesign.
-   *
-   * NOTE -  This feature flag will soon be removed, along with the legacy styling. */
-  focusRedesignOptOut?: boolean;
 }
 
 export default React.createContext<NewValidationContextProps>({});

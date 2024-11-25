@@ -8,10 +8,6 @@ interface StyledHelpProps {
   href?: string;
 }
 
-const oldFocusStyling = `
-  outline: solid 2px var(--colorsSemanticFocus500);
-`;
-
 const StyledHelp = styled.div<StyledHelpProps>`
   background: none;
   cursor: default;
@@ -43,12 +39,7 @@ const StyledHelp = styled.div<StyledHelpProps>`
 
   &:focus ${StyledIcon} {
     border-radius: var(--borderRadius050);
-    ${({ theme }) =>
-      `${
-        !theme.focusRedesignOptOut
-          ? addFocusStyling()
-          : /* istanbul ignore next */ oldFocusStyling
-      }`}
+    ${addFocusStyling()}
   }
 
   ${margin}

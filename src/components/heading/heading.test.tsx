@@ -1,7 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import CarbonProvider from "../carbon-provider";
 import Pill from "../pill";
 import Heading, { HeadingType } from ".";
 
@@ -212,22 +211,4 @@ test("alters the grid-column property on the subtitle node, when a back link/but
   const subtitle = screen.getByTestId("subtitle");
 
   expect(subtitle).toHaveStyle("grid-column: 2");
-});
-
-/* styling test for coverage */
-test("alters the outline property on the back link/button, when the back link is focused and consumers opt out of the focus redesign", () => {
-  render(
-    <CarbonProvider focusRedesignOptOut>
-      <Heading title="foo" backLink="https://www.warnerbros.com/movies/heat" />
-    </CarbonProvider>,
-  );
-
-  const backLink = screen.getByTestId("heading-back-button");
-  backLink.focus();
-
-  expect(backLink).toHaveStyleRule(
-    "outline",
-    "3px solid var(--colorsSemanticFocus500)",
-    { modifier: "button:focus" },
-  );
 });

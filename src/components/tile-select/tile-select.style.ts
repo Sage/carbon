@@ -64,15 +64,11 @@ const StyledTileSelect = styled.div<{
     `}
 `;
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 const StyledFocusWrapper = styled.div<{
   checked?: boolean;
   hasFocus: boolean;
 }>`
-  ${({ checked, hasFocus, theme }) => css`
+  ${({ checked, hasFocus }) => css`
     position: relative;
     border: 1px solid var(--colorsActionMinor250);
     border-radius: var(--borderRadius100);
@@ -86,9 +82,7 @@ const StyledFocusWrapper = styled.div<{
 
     ${hasFocus &&
     css`
-      ${!theme.focusRedesignOptOut
-        ? addFocusStyling()
-        : /* istanbul ignore next */ oldFocusStyling}
+      ${addFocusStyling()}
       z-index: 15;
     `}
   `}

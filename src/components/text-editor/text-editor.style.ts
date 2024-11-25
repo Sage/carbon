@@ -68,18 +68,13 @@ const StyledEditorOutline = styled.div<{
   isFocused?: boolean;
   hasError?: boolean;
 }>`
-  ${({ isFocused, hasError, theme }) => css`
+  ${({ isFocused, hasError }) => css`
     border-radius: var(--borderRadius050);
     outline: none;
 
     ${isFocused &&
     css`
-      ${!theme.focusRedesignOptOut
-        ? addFocusStyling()
-        : `
-        outline: 3px solid var(--colorsSemanticFocus500);
-        outline-offset: ${hasError ? "2px" : "1px"};
-      `}
+      ${addFocusStyling()}
     `}
   `}
 `;

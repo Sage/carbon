@@ -11,7 +11,6 @@ import {
 } from "../../../playwright/components/loader/index";
 import {
   checkAccessibility,
-  checkGoldenOutline,
   getStyle,
 } from "../../../playwright/support/helper";
 
@@ -151,26 +150,11 @@ test.describe("check props for Loader component test", () => {
     expect(borderRadius).toEqual("50%");
   });
 
-  test("should render Loader inside the Button component and be able to focus it with focusRedesignOptOut set", async ({
+  test("should render Loader inside the Button component and be able to focus it", async ({
     mount,
     page,
   }) => {
-    await mount<HooksConfig>(<LoaderInsideButton />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await loaderInsideButton(page).focus();
-
-    await checkGoldenOutline(loaderInsideButton(page));
-  });
-
-  test("should render Loader inside the Button component and be able to focus it with focusRedesignOptOut not set", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<LoaderInsideButton />, {
-      hooksConfig: { focusRedesignOptOut: false },
-    });
+    await mount(<LoaderInsideButton />);
 
     await loaderInsideButton(page).focus();
 

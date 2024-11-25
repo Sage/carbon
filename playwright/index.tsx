@@ -10,7 +10,6 @@ import * as dateLocales from "./support/date-fns-locales";
 
 export type HooksConfig = {
   roundedCornersOptOut?: boolean;
-  focusRedesignOptOut?: boolean;
   validationRedesignOptIn?: boolean;
   theme?: string;
   localeName?: keyof typeof dateLocales;
@@ -44,7 +43,6 @@ const mountedTheme = (theme: string) => {
 beforeMount<HooksConfig>(async ({ App, hooksConfig }) => {
   const {
     roundedCornersOptOut,
-    focusRedesignOptOut,
     theme = "sage",
     localeName,
     validationRedesignOptIn,
@@ -53,7 +51,6 @@ beforeMount<HooksConfig>(async ({ App, hooksConfig }) => {
     <CarbonProvider
       theme={mountedTheme(theme)}
       roundedCornersOptOut={roundedCornersOptOut}
-      focusRedesignOptOut={focusRedesignOptOut}
       validationRedesignOptIn={validationRedesignOptIn}
     >
       <GlobalStyle />
