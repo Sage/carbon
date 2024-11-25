@@ -1314,6 +1314,32 @@ test.describe("Check virtual scrolling", () => {
     await expect(lastOption).toBeAttached();
   });
 
+  test("when reopening the select after selecting an option, the selected option is visible", async ({
+    mount,
+    page,
+  }) => {
+    const maxHeight = 200;
+    await mount(<SimpleSelectComponent listMaxHeight={maxHeight} />);
+
+    await selectText(page).click();
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
+      wrapper.scrollBy(0, wrapper.scrollHeight),
+    );
+
+    await expect(selectOptionByText(page, "Yellow")).toBeInViewport();
+    await selectOptionByText(page, "Yellow").click();
+
+    await expect(selectOptionByText(page, "Yellow")).not.toBeVisible();
+
+    await selectText(page).click();
+    await expect(selectOptionByText(page, "Yellow")).toBeInViewport();
+
+    await page.locator("body").click();
+
+    await selectText(page).click();
+    await expect(selectOptionByText(page, "Yellow")).toBeInViewport();
+  });
+
   test("a selected option stays rendered even when out of view", async ({
     mount,
     page,
