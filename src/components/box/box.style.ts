@@ -30,11 +30,8 @@ const StyledBox = styled.div<BoxProps>`
   ${grid}
   ${calculatePosition}
 
-  ${({ theme, borderRadius = "borderRadius000" }) =>
-    !theme.roundedCornersOptOut &&
-    css`
-      border-radius: var(--${borderRadius});
-    `}
+  ${({ borderRadius = "borderRadius000" }) =>
+    `border-radius: var(--${borderRadius});`}
 
   ${({ color, bg, backgroundColor, ...rest }) =>
     styledColor({ color, bg, backgroundColor, ...rest })}

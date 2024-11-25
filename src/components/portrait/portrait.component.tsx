@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { MarginProps } from "styled-system";
 import MD5 from "crypto-js/md5";
 import invariant from "invariant";
@@ -16,7 +16,6 @@ import {
   StyledPortraitGravatar,
 } from "./portrait.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import RoundedCornersOptOutContext from "../carbon-provider/__internal__/new-validation.context";
 
 export type PortraitShapes = "circle" | "square";
 
@@ -70,7 +69,7 @@ const Portrait = ({
   gravatar = "",
   iconType = "individual",
   initials,
-  shape,
+  shape = "circle",
   size = "M",
   src,
   onClick,
@@ -85,8 +84,6 @@ const Portrait = ({
   ...rest
 }: PortraitProps) => {
   const [externalError, setExternalError] = useState(false);
-  const { roundedCornersOptOut } = useContext(RoundedCornersOptOutContext);
-  const defaultShape = roundedCornersOptOut ? "square" : "circle";
 
   invariant(
     !(src && gravatar),
@@ -170,7 +167,7 @@ const Portrait = ({
             {...tagProps}
             darkBackground={darkBackground}
             size={size}
-            shape={shape || defaultShape}
+            shape={shape}
           >
             {portrait}
           </StyledPortraitContainer>
@@ -185,7 +182,7 @@ const Portrait = ({
         {...tagProps}
         darkBackground={darkBackground}
         size={size}
-        shape={shape || defaultShape}
+        shape={shape}
       >
         {portrait}
       </StyledPortraitContainer>

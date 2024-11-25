@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
 import StyledValidationIcon from "../../../__internal__/validations/validation-icon.style";
-import baseTheme, { ThemeObject } from "../../../style/themes/base";
 
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import { SwitchSliderProps } from "./switch-slider.component";
@@ -12,7 +11,6 @@ interface StyledSwitchSliderProps
     "checked" | "disabled" | "size" | "error" | "warning"
   > {
   isLoading?: boolean;
-  theme?: Partial<ThemeObject>;
   isDarkBackground?: boolean;
 }
 
@@ -24,7 +22,6 @@ const StyledSwitchSlider = styled.div`
     size,
     error,
     warning,
-    theme,
     isDarkBackground,
   }: StyledSwitchSliderProps) => css`
     display: flex;
@@ -38,9 +35,7 @@ const StyledSwitchSlider = styled.div`
     top: 0;
     width: 100%
     z-index: 2;
-    border-radius: ${
-      theme?.roundedCornersOptOut ? "90px" : "var(--borderRadius400)"
-    };
+    border-radius: var(--borderRadius400);
     border-style: solid;
     border-color: ${
       isDarkBackground
@@ -120,13 +115,6 @@ const StyledSwitchSlider = styled.div`
     }
 
     ${
-      size === "large" &&
-      css`
-        ${theme?.roundedCornersOptOut ? "border-radius: 30px;" : ""}
-      `
-    }
-
-    ${
       isLoading &&
       css`
         &::before {
@@ -168,10 +156,6 @@ const HiddenContent = styled.div`
       : "var(--spacing500)"};
   `}
 `;
-
-StyledSwitchSlider.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledSwitchSlider, HiddenContent };
 export default StyledSwitchSlider;

@@ -15,9 +15,6 @@ const meta: Meta<typeof CarbonProvider> = {
     validationRedesignOptIn: {
       control: false,
     },
-    roundedCornersOptOut: {
-      control: false,
-    },
   },
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },

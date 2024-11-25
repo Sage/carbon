@@ -91,24 +91,13 @@ test.describe("check Focus Outline & Border Radius for Button Minor Component", 
     await expect(outlined).toHaveCSS("outline", "rgb(255, 188, 25) solid 3px");
   });
 
-  test("should have the expected styling when roundedCornersOptOut is false", async ({
+  test("should have the expected border radius styling", async ({
     mount,
     page,
   }) => {
     await mount(<ButtonMinor>Foo</ButtonMinor>);
 
     await expect(buttonMinorComponent(page)).toHaveCSS("border-radius", "4px");
-  });
-
-  test("should have the expected styling when roundedCornersOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<ButtonMinor>Foo</ButtonMinor>, {
-      hooksConfig: { roundedCornersOptOut: true },
-    });
-
-    await expect(buttonMinorComponent(page)).toHaveCSS(`border-radius`, "0px");
   });
 });
 
