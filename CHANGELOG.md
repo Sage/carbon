@@ -1,3 +1,10 @@
+### [144.9.4](https://github.com/Sage/carbon/compare/v144.9.3...v144.9.4) (2024-11-26)
+
+
+### Bug Fixes
+
+* **navigation-bar:** convert fixed height to min-height to allow wrapped text to extend correctly ([37f28ef](https://github.com/Sage/carbon/commit/37f28ef52d5c5447e3b4b2b53aa56bd729a94ee9)), closes [#7077](https://github.com/Sage/carbon/issues/7077)
+
 ### [144.9.3](https://github.com/Sage/carbon/compare/v144.9.2...v144.9.3) (2024-11-25)
 
 
