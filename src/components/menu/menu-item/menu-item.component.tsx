@@ -14,6 +14,9 @@ import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext, {
   SubmenuContextProps,
 } from "../__internal__/submenu/submenu.context";
+import MenuSegmentContext, {
+  MenuSegmentContextProps,
+} from "../menu-segment-title/menu-segment-title.context";
 import { StyledMenuItem } from "../menu.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 import { IconType } from "../../icon";
@@ -62,7 +65,7 @@ interface MenuItemBaseProps
   onSubmenuOpen?: () => void;
   /** Callback triggered when submenu closes. Only valid with submenu prop */
   onSubmenuClose?: () => void;
-  /** 
+  /**
     @ignore @private
     private prop, used inside ScrollableBlock to ensure the MenuItem's color variant overrides the CSS
     for other MenuItems inside the block
@@ -137,6 +140,9 @@ export const MenuItem = ({
       (children && typeof submenu === "string" && submenu.length),
     "You should not pass `children` when `submenu` is an empty string",
   );
+
+  const { isChildOfSegment, overriddenVariant } =
+    useContext<MenuSegmentContextProps>(MenuSegmentContext);
 
   const {
     inFullscreenView,
@@ -264,6 +270,15 @@ export const MenuItem = ({
     ref,
   };
 
+  if (
+    overriddenVariant === "alternate" &&
+    isChildOfSegment &&
+    variant === "alternate" &&
+    ["white", "black"].includes(menuType)
+  ) {
+    elementProps.overrideColor = true;
+  }
+
   const getTitle = (title: React.ReactNode) =>
     maxWidth && typeof title === "string" ? title : undefined;
 
@@ -344,7 +359,5 @@ export const MenuItem = ({
     </StyledMenuItem>
   );
 };
-
-MenuItem.displayName = "MenuItem";
 
 export default MenuItem;

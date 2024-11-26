@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { StyledTitle, StyledSegmentChildren } from "./menu-segment-title.style";
+
 import MenuContext from "../__internal__/menu.context";
 import { StyledMenuItem } from "../menu.style";
 import { VariantType } from "../menu-item";
@@ -7,6 +8,7 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
+import MenuSegmentContext from "./menu-segment-title.context";
 
 const AS_VALUES = ["h2", "h3", "h4", "h5", "h6"] as const;
 
@@ -28,6 +30,16 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
     const menuContext = useContext(MenuContext);
     const { submenuHasMaxWidth } = useContext(SubmenuContext);
 
+    const isChildOfFullscreenMenu = menuContext?.inFullscreenView || false;
+
+    const overriddenVariant = useMemo(() => {
+      return isChildOfFullscreenMenu &&
+        variant === "alternate" &&
+        ["white", "black"].includes(menuContext.menuType)
+        ? "default"
+        : variant;
+    }, [isChildOfFullscreenMenu, menuContext.menuType, variant]);
+
     return (
       <StyledMenuItem inSubmenu>
         <StyledTitle
@@ -35,14 +47,22 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
           {...tagComponent("menu-segment-title", rest)}
           menuType={menuContext.menuType}
           ref={ref}
-          variant={variant}
+          variant={overriddenVariant}
           shouldWrap={submenuHasMaxWidth}
         >
           {text}
         </StyledTitle>
         {children && (
-          <StyledSegmentChildren data-role="menu-segment-children">
-            {children}
+          <StyledSegmentChildren
+            data-role="menu-segment-children"
+            menuType={menuContext.menuType}
+            variant={overriddenVariant}
+          >
+            <MenuSegmentContext.Provider
+              value={{ isChildOfSegment: true, overriddenVariant }}
+            >
+              {children}
+            </MenuSegmentContext.Provider>
           </StyledSegmentChildren>
         )}
       </StyledMenuItem>
