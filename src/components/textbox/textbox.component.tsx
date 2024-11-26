@@ -268,7 +268,7 @@ export const Textbox = React.forwardRef(
         info={info}
         prefix={prefix}
         inputWidth={inputWidth || 100 - labelWidth}
-        maxWidth={maxWidth}
+        maxWidth={labelInline || labelAlign !== "right" ? maxWidth : undefined}
         positionedChildren={positionedChildren}
         hasIcon={hasIconInside}
       >
@@ -330,6 +330,9 @@ export const Textbox = React.forwardRef(
       >
         <InputBehaviour>
           <FormField
+            maxWidth={
+              !labelInline && labelAlign === "right" ? maxWidth : undefined
+            }
             disabled={disabled}
             fieldHelpId={fieldHelpId}
             fieldHelp={computeLabelPropValues(fieldHelp)}

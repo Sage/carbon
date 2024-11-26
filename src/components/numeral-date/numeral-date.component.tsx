@@ -397,6 +397,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     <TooltipProvider helpAriaLabel={helpAriaLabel}>
       <InputGroupBehaviour>
         <FormField
+          maxWidth="fit-content"
           data-component={dataComponent}
           data-element={dataElement}
           data-role={dataRole}
