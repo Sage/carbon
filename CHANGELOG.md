@@ -1,3 +1,10 @@
+### [144.9.3](https://github.com/Sage/carbon/compare/v144.9.2...v144.9.3) (2024-11-25)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure consistent padding within menu-full-screen ([0f61867](https://github.com/Sage/carbon/commit/0f61867ea92df83df60d4a8f1ce71d0dc1ab15a3)), closes [#7078](https://github.com/Sage/carbon/issues/7078)
+
 ### [144.9.2](https://github.com/Sage/carbon/compare/v144.9.1...v144.9.2) (2024-11-18)
 
 

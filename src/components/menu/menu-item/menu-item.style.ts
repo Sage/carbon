@@ -262,7 +262,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
       `
       : `
         ${
-          hasSubmenu || maxWidth
+          hasSubmenu || (maxWidth && !inFullscreenView)
             ? `
               a,
               ${StyledLink} a,
@@ -481,7 +481,10 @@ const StyledMenuItemWrapper = styled.a.attrs({
         asPassiveItem &&
         css`
           cursor: default;
-          padding: 0 16px;
+
+          a {
+            padding: 0 16px;
+          }
 
           :hover {
             background: transparent;
