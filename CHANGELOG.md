@@ -1,3 +1,10 @@
+### [144.9.5](https://github.com/Sage/carbon/compare/v144.9.4...v144.9.5) (2024-11-27)
+
+
+### Bug Fixes
+
+* **multi-select:** ensure that when the arrow icon is clicked with openOnFocus select list renders ([cf78fed](https://github.com/Sage/carbon/commit/cf78fed27658b6b9eca97c874d2737b702041c82)), closes [#7065](https://github.com/Sage/carbon/issues/7065)
+
 ### [144.9.4](https://github.com/Sage/carbon/compare/v144.9.3...v144.9.4) (2024-11-26)
 
 
