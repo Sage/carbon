@@ -57,7 +57,7 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
   margin-bottom: 8px;
 
   ${({ align }) => css`
-    justify-content: ${align === "right" ? "flex-end" : "flex-start"};
+    justify-content: ${align !== "right" ? "flex-start" : "flex-end"};
   `}
 
   ${({ inline, pr, pl, width }) =>

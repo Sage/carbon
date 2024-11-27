@@ -106,7 +106,7 @@ test.describe("NumeralDate component", () => {
     const labelParent = await getDataElementByValue(page, "label").locator(
       "..",
     );
-    await expect(labelParent).toHaveCSS("justify-content", "flex-start");
+    await expect(labelParent).toHaveCSS("justify-content", "flex-end");
   });
 
   (

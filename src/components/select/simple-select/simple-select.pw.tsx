@@ -283,7 +283,7 @@ test.describe("SimpleSelect component", () => {
 
     await expect(getDataElementByValue(page, "label").locator("..")).toHaveCSS(
       "-webkit-box-pack",
-      "start",
+      "end",
     );
   });
 

@@ -333,7 +333,7 @@ test.describe("FilterableSelect component", () => {
 
     await expect(getDataElementByValue(page, "label").locator("..")).toHaveCSS(
       "-webkit-box-pack",
-      "start",
+      "end",
     );
   });
 

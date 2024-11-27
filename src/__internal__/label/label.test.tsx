@@ -173,6 +173,22 @@ test("renders with expected styles `align` is 'right'", () => {
   });
 });
 
+test("renders with expected styles align is missing", () => {
+  render(<Label>foo</Label>);
+
+  expect(screen.getByTestId("label-container")).toHaveStyle({
+    justifyContent: "flex-start",
+  });
+});
+
+test("renders with expected styles `inline` is 'true' but align is missing", () => {
+  render(<Label inline>foo</Label>);
+
+  expect(screen.getByTestId("label-container")).toHaveStyle({
+    justifyContent: "flex-end",
+  });
+});
+
 // coverage
 test("renders with dark background styles when `isDarkBackground` is true", () => {
   render(<Label isDarkBackground>foo</Label>);

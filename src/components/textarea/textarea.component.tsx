@@ -87,7 +87,7 @@ export interface TextareaProps
   maxWidth?: string;
   /** The content of the label for the input */
   label?: string;
-  /** [Legacy] Inline label alignment */
+  /** Label alignment */
   labelAlign?: "left" | "right";
   /**
    * [Legacy] Text applied to label help tooltip. When opted into new design validations
@@ -423,7 +423,7 @@ export const Textarea = React.forwardRef(
               disabled={disabled}
               id={id}
               labelInline={computeLabelPropValues(labelInlineWithNewValidation)}
-              labelAlign={computeLabelPropValues(labelAlign)}
+              labelAlign={labelAlign}
               labelWidth={computeLabelPropValues(labelWidth)}
               labelHelp={computeLabelPropValues(labelHelp)}
               labelSpacing={labelSpacing}

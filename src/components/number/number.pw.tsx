@@ -405,7 +405,7 @@ test.describe("check props for Number component", () => {
     await mount(<NumberInputComponent labelInline />);
 
     const labelParent = getDataElementByValue(page, "label").locator("..");
-    await expect(labelParent).toHaveCSS("-webkit-box-pack", "start");
+    await expect(labelParent).toHaveCSS("-webkit-box-pack", "end");
   });
 
   (
