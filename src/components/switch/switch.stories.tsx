@@ -387,3 +387,20 @@ export const NewValidationInlineWithDarkModeAndError: Story = () => {
 };
 NewValidationInlineWithDarkModeAndError.storyName =
   "New Validation - Inline with dark background support and error";
+
+export const NewValidationInlineWithDarkModeAndHint: Story = () => {
+  return (
+    <Box m={2} padding={3} backgroundColor="#000000">
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="Example switch (error state)"
+          labelInline
+          isDarkBackground
+          labelHelp="Hint text to show on the Switch"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};
+NewValidationInlineWithDarkModeAndHint.storyName =
+  "New Validation - Inline with dark background support and hint text";
