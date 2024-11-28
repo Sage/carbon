@@ -1,3 +1,10 @@
+### [144.9.7](https://github.com/Sage/carbon/compare/v144.9.6...v144.9.7) (2024-11-28)
+
+
+### Reverts
+
+* Revert "chore: upgrade react-dnd to v16" ([65bc718](https://github.com/Sage/carbon/commit/65bc71892e185d06da5db155ae4a4f4f8c248151))
+
 ### [144.9.6](https://github.com/Sage/carbon/compare/v144.9.5...v144.9.6) (2024-11-28)
 
 
