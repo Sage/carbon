@@ -703,7 +703,7 @@ test.each(["Backspace", "Delete"])(
   },
 );
 
-test("a selected option, that renders dimissible pill, can be removed by clicking the dismiss button", async () => {
+test("a selected option, that renders dismissible pill, can be removed by clicking the dismiss button", async () => {
   const user = userEvent.setup();
   const ControlledMultiSelect = () => {
     const [value, setValue] = React.useState(["amber"]);
@@ -725,8 +725,8 @@ test("a selected option, that renders dimissible pill, can be removed by clickin
   await user.click(screen.getByRole("combobox"));
 
   const amberPill = await screen.findByTitle("amber");
-  const dimissButton = within(amberPill).getByRole("button");
-  await user.click(dimissButton);
+  const dismissButton = within(amberPill).getByRole("button");
+  await user.click(dismissButton);
 
   expect(amberPill).not.toBeInTheDocument();
 });
@@ -1166,6 +1166,150 @@ test("dropdown list is open on initial render, when autoFocus and openOnFocus pr
 
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
+});
+
+test("should not display the list when `openOnFocus` is set and mousedown is detected", () => {
+  jest.useFakeTimers();
+  render(
+    <MultiSelect openOnFocus label="multi-select" onChange={() => {}}>
+      <Option value="opt1" text="red" />
+    </MultiSelect>,
+  );
+
+  const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+  fireEvent.mouseDown(icon);
+
+  act(() => jest.runOnlyPendingTimers());
+
+  expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  jest.useRealTimers();
+});
+
+test("should display the list when `openOnFocus` is not set", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiSelect label="multi-select" onChange={() => {}}>
+      <Option value="opt1" text="red" />
+    </MultiSelect>,
+  );
+  const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+  await user.click(icon);
+
+  expect(await screen.findByRole("listbox")).toBeVisible();
+});
+
+test("should call `onOpen` callback if prop is passed", async () => {
+  const onOpenFn = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <MultiSelect onOpen={onOpenFn} label="multi-select" onChange={() => {}}>
+      <Option value="opt1" text="red" />
+    </MultiSelect>,
+  );
+  await user.click(screen.getByRole("combobox"));
+
+  expect(onOpenFn).toHaveBeenCalled();
+});
+
+test("should call `onOpen` callback if prop is passed and navigation key opens select list", async () => {
+  const onOpenFn = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <MultiSelect onOpen={onOpenFn} label="multi-select" onChange={() => {}}>
+      <Option value="opt1" text="red" />
+    </MultiSelect>,
+  );
+  const input = screen.getByRole("combobox");
+  input.focus();
+
+  await user.keyboard("{ArrowDown}");
+
+  expect(onOpenFn).toHaveBeenCalled();
+});
+
+test("should call `onFocus` callback when input is focused and `openOnFocus` is set", () => {
+  jest.useFakeTimers();
+  const onFocusFn = jest.fn();
+  render(
+    <MultiSelect
+      openOnFocus
+      label="multi-select"
+      onChange={() => {}}
+      onFocus={onFocusFn}
+    >
+      <Option value="opt1" text="red" />
+    </MultiSelect>,
+  );
+  screen.getByRole("combobox").focus();
+  act(() => jest.runOnlyPendingTimers());
+
+  expect(onFocusFn).toHaveBeenCalled();
+  jest.useRealTimers();
+});
+
+test("should close the list when the user clicks on the input icon and the list is already open", async () => {
+  const user = userEvent.setup();
+  const onClickFn = jest.fn();
+  render(
+    <MultiSelect label="multi-select" onChange={() => {}} onClick={onClickFn}>
+      <Option value="opt1" text="red" />
+    </MultiSelect>,
+  );
+  const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+  await user.click(icon);
+  await user.click(icon);
+
+  expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  expect(onClickFn).toHaveBeenCalledTimes(2);
+});
+
+// coverage
+test("should update the input value when the user presses 'Delete' and the text is highlighted", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiSelect label="multi-select" onChange={() => {}}>
+      <Option value="opt1" text="abc" />
+    </MultiSelect>,
+  );
+  const input = screen.getByRole("combobox");
+  await user.click(input);
+  await user.type(input, " ");
+  (input as HTMLInputElement).setSelectionRange(0, 0);
+  await user.keyboard("{Delete}");
+
+  expect(input).toHaveValue("");
+});
+
+// coverage
+test("should focus the input when mousedown event is fired on input", async () => {
+  jest.useFakeTimers();
+  render(
+    <MultiSelect label="multi-select" onChange={() => {}} openOnFocus>
+      <Option value="opt1" text="abc" />
+    </MultiSelect>,
+  );
+  const input = screen.getByRole("combobox");
+  fireEvent.mouseDown(input);
+  act(() => jest.runOnlyPendingTimers());
+
+  expect(input).toHaveFocus();
+  jest.useRealTimers();
+});
+
+// coverage
+test("the SelectList should stay visible if the input has received a mousedown event, then a click event and `openOnFocus` is true", () => {
+  render(
+    <MultiSelect label="multi-select" onChange={() => {}} openOnFocus>
+      <Option value="opt1" text="abc" />
+    </MultiSelect>,
+  );
+
+  const input = screen.getByRole("combobox");
+  fireEvent.mouseDown(input);
+  fireEvent.focus(input);
+  fireEvent.click(input);
+
+  expect(screen.getByRole("listbox")).toBeVisible();
 });
 
 testStyledSystemMargin(

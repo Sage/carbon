@@ -1,3 +1,24 @@
+### [144.9.5](https://github.com/Sage/carbon/compare/v144.9.4...v144.9.5) (2024-11-27)
+
+
+### Bug Fixes
+
+* **multi-select:** ensure that when the arrow icon is clicked with openOnFocus select list renders ([cf78fed](https://github.com/Sage/carbon/commit/cf78fed27658b6b9eca97c874d2737b702041c82)), closes [#7065](https://github.com/Sage/carbon/issues/7065)
+
+### [144.9.4](https://github.com/Sage/carbon/compare/v144.9.3...v144.9.4) (2024-11-26)
+
+
+### Bug Fixes
+
+* **navigation-bar:** convert fixed height to min-height to allow wrapped text to extend correctly ([37f28ef](https://github.com/Sage/carbon/commit/37f28ef52d5c5447e3b4b2b53aa56bd729a94ee9)), closes [#7077](https://github.com/Sage/carbon/issues/7077)
+
+### [144.9.3](https://github.com/Sage/carbon/compare/v144.9.2...v144.9.3) (2024-11-25)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure consistent padding within menu-full-screen ([0f61867](https://github.com/Sage/carbon/commit/0f61867ea92df83df60d4a8f1ce71d0dc1ab15a3)), closes [#7078](https://github.com/Sage/carbon/issues/7078)
+
 ### [144.9.2](https://github.com/Sage/carbon/compare/v144.9.1...v144.9.2) (2024-11-18)
 
 
