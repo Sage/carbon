@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, StoryObj } from "@storybook/react";
-import Form from "../form";
-import Textbox from "../textbox";
+import isChromatic from "../../../.storybook/isChromatic";
+import { allModes } from "../../../.storybook/modes";
+
+import Box from "../box";
 import Button from "../button";
+import Form from "../form";
 import Sidebar, { SidebarProps } from ".";
 import { SIDEBAR_ALIGNMENTS, SIDEBAR_SIZES } from "./sidebar.config";
-import Box from "../box";
+import { StepFlow } from "../step-flow";
+import Textbox from "../textbox";
 import Typography from "../typography";
 
 const meta: Meta<typeof Sidebar> = {
@@ -17,9 +21,9 @@ const meta: Meta<typeof Sidebar> = {
   },
   decorators: [
     (Story) => (
-      <div style={{ height: "900px" }}>
+      <Box width="100%" height={900}>
         <Story />
-      </div>
+      </Box>
     ),
   ],
   argTypes: {
@@ -174,4 +178,57 @@ export const WithForm: StoryObj<typeof Sidebar> = {
       </Form>
     </Sidebar>
   ),
+};
+
+const WithStepFlowExample = () => {
+  const [isOpen, setIsOpen] = useState(isChromatic());
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        aria-label="sidebar"
+        onCancel={() => setIsOpen(false)}
+        header={
+          <Box width="100%">
+            <StepFlow
+              title="My Step Flow"
+              totalSteps={2}
+              currentStep={1}
+              showProgressIndicator
+            />
+          </Box>
+        }
+        open={isOpen}
+      >
+        <Typography variant="p">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lectus
+          massa, suscipit vitae pellentesque quis, facilisis non ante. Curabitur
+          fringilla sapien non ante elementum venenatis. Curabitur viverra,
+          massa ac congue imperdiet, purus ligula dictum quam, id tincidunt diam
+          risus quis eros. Vivamus semper sem ac tempor malesuada. Proin nec
+          sollicitudin mi. Nunc egestas ipsum ac lorem pretium blandit. Quisque
+          ac ultricies lacus. Phasellus vel enim id est ornare finibus eget
+          vitae ipsum. Maecenas non accumsan dolor. Morbi sed mauris mollis
+          lorem finibus feugiat. Maecenas scelerisque nec orci ac finibus. Nulla
+          dictum, quam vel gravida lobortis, nisl eros vulputate augue, eget
+          malesuada lacus elit sed leo. In a ex id metus vulputate sollicitudin
+          at eget neque. Aliquam cursus quis odio in consequat.
+        </Typography>
+      </Sidebar>
+    </>
+  );
+};
+
+export const WithStepFlow: StoryObj<typeof Sidebar> = {
+  render: (args) => <WithStepFlowExample {...args} />,
+  parameters: {
+    chromatic: {
+      themeProvider: { chromatic: { theme: "sage" } },
+      disableSnapshot: false,
+      modes: {
+        desktop: allModes.chromatic,
+      },
+    },
+  },
 };
