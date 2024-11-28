@@ -1,14 +1,6 @@
 import { Config } from "jest";
 import coverageThresholds from "./coverage-thresholds.json";
 
-const esmOnlyPackages = [
-  "react-dnd",
-  "core-dnd",
-  "@react-dnd",
-  "dnd-core",
-  "react-dnd-html5-backend",
-];
-
 const isCI = process.env.CI === "true";
 
 const config: Config = {
@@ -38,9 +30,6 @@ const config: Config = {
     "^.+\\.(js|mjs|jsx|ts|tsx)$": "babel-jest",
     "^.+\\.svg$": "<rootDir>/svgTransform.mjs",
   },
-  transformIgnorePatterns: [
-    `<rootDir>/node_modules/(?!(${esmOnlyPackages.join("|")}))`,
-  ],
 };
 
 export default config;
