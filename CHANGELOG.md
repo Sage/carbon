@@ -1,3 +1,10 @@
+### [144.9.6](https://github.com/Sage/carbon/compare/v144.9.5...v144.9.6) (2024-11-28)
+
+
+### Bug Fixes
+
+* **select-list:** selected option not scrolled into view ([d842293](https://github.com/Sage/carbon/commit/d8422931196b07d5550899421a2e33842378f340))
+
 ### [144.9.5](https://github.com/Sage/carbon/compare/v144.9.4...v144.9.5) (2024-11-27)
 
 
