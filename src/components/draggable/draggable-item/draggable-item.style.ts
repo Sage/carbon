@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { padding, margin, PaddingProps } from "styled-system";
 
 import { baseTheme } from "../../../style/themes";
-import Icon from "../../icon";
 
 const StyledDraggableContainer = styled.div`
   ${margin}
@@ -10,6 +9,7 @@ const StyledDraggableContainer = styled.div`
 
 interface StyledDraggableItemProps extends PaddingProps {
   isDragging?: boolean;
+  flexDirection?: "row" | "row-reverse";
 }
 
 const StyledDraggableItem = styled.div<StyledDraggableItemProps>`
@@ -18,12 +18,9 @@ const StyledDraggableItem = styled.div<StyledDraggableItemProps>`
   border-bottom: 1px solid var(--colorsUtilityMajor050);
   ${padding}
   cursor: move;
-
+  justify-content: space-between;
+  flex-direction: ${({ flexDirection }) => flexDirection};
   opacity: ${({ isDragging }) => (isDragging ? "0" : "1")};
-`;
-
-const StyledIcon = styled(Icon)`
-  margin-left: auto;
 `;
 
 StyledDraggableContainer.defaultProps = {
@@ -34,4 +31,4 @@ StyledDraggableItem.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledDraggableContainer, StyledDraggableItem, StyledIcon };
+export { StyledDraggableContainer, StyledDraggableItem };
