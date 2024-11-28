@@ -1,3 +1,10 @@
+### [144.9.8](https://github.com/Sage/carbon/compare/v144.9.7...v144.9.8) (2024-11-28)
+
+
+### Bug Fixes
+
+* **select:** ensure that aria-describedby is applied to the select-textbox element ([bad8fe4](https://github.com/Sage/carbon/commit/bad8fe41b3db7701c0a65ce8131c6a448c526767)), closes [#7057](https://github.com/Sage/carbon/issues/7057)
+
 ### [144.9.7](https://github.com/Sage/carbon/compare/v144.9.6...v144.9.7) (2024-11-28)
 
 
