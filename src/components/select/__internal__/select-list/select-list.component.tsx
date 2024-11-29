@@ -189,6 +189,12 @@ const SelectList = React.forwardRef(
       rangeExtractor,
     });
 
+    useEffect(() => {
+      if (isOpen && currentOptionsListIndex > -1) {
+        virtualizer.scrollToIndex(currentOptionsListIndex, SCROLL_OPTIONS);
+      }
+    }, [currentOptionsListIndex, isOpen, virtualizer]);
+
     const items = virtualizer.getVirtualItems();
 
     const childrenList = useMemo(

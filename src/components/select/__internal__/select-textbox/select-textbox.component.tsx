@@ -152,6 +152,9 @@ const SelectTextbox = React.forwardRef(
       ...restProps,
     };
 
+    const { "aria-describedby": ariaDescribedBy, ...filteredRestProps } =
+      restProps;
+
     const inputAriaAttributes = {
       "aria-expanded": readOnly ? undefined : isOpen,
       "aria-labelledby": accessibilityLabelId
@@ -170,6 +173,7 @@ const SelectTextbox = React.forwardRef(
     return (
       <SelectTextboxContext.Provider value={{ isInputInSelect: true }}>
         <Textbox
+          ariaDescribedBy={ariaDescribedBy}
           aria-label={ariaLabel}
           data-element="select-input"
           data-role="select-textbox"
@@ -198,7 +202,7 @@ const SelectTextbox = React.forwardRef(
               readOnly={readOnly}
               transparent={transparent}
               size={size}
-              {...restProps}
+              {...filteredRestProps}
             >
               <StyledSelectTextChildrenWrapper>
                 {showPlaceholder ? placeholder : formattedValue}

@@ -1,3 +1,31 @@
+### [144.9.9](https://github.com/Sage/carbon/compare/v144.9.8...v144.9.9) (2024-11-29)
+
+
+### Bug Fixes
+
+* **sidebar:** make sidebar-heading element 100% width ([f26b6df](https://github.com/Sage/carbon/commit/f26b6df02435af732a158df50cdcd8d034262dfe)), closes [#7090](https://github.com/Sage/carbon/issues/7090)
+
+### [144.9.8](https://github.com/Sage/carbon/compare/v144.9.7...v144.9.8) (2024-11-28)
+
+
+### Bug Fixes
+
+* **select:** ensure that aria-describedby is applied to the select-textbox element ([bad8fe4](https://github.com/Sage/carbon/commit/bad8fe41b3db7701c0a65ce8131c6a448c526767)), closes [#7057](https://github.com/Sage/carbon/issues/7057)
+
+### [144.9.7](https://github.com/Sage/carbon/compare/v144.9.6...v144.9.7) (2024-11-28)
+
+
+### Reverts
+
+* Revert "chore: upgrade react-dnd to v16" ([65bc718](https://github.com/Sage/carbon/commit/65bc71892e185d06da5db155ae4a4f4f8c248151))
+
+### [144.9.6](https://github.com/Sage/carbon/compare/v144.9.5...v144.9.6) (2024-11-28)
+
+
+### Bug Fixes
+
+* **select-list:** selected option not scrolled into view ([d842293](https://github.com/Sage/carbon/commit/d8422931196b07d5550899421a2e33842378f340))
+
 ### [144.9.5](https://github.com/Sage/carbon/compare/v144.9.4...v144.9.5) (2024-11-27)
 
 

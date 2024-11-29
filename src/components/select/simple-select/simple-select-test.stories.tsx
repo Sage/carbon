@@ -701,3 +701,35 @@ export const ComplexCustomChildren = () => {
     </Box>
   );
 };
+
+export const SimpleSelectWithAriaDescribedby = () => {
+  return (
+    <Box m={3} width={300}>
+      <Select
+        name="simple"
+        id="simple"
+        label="color"
+        aria-label="color"
+        aria-describedby="combo-box-description"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+      <Typography my={5} id="combo-box-description">
+        This is a description of the select textbox
+      </Typography>
+    </Box>
+  );
+};
+
+SimpleSelectWithAriaDescribedby.storyName =
+  "SimpleSelect with aria-describedby";
