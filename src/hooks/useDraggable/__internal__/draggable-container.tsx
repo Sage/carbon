@@ -11,7 +11,7 @@ import { triggerPostMoveFlash } from "@atlaskit/pragmatic-drag-and-drop-flourish
 import { flushSync } from "react-dom";
 
 export interface DraggableItemProps {
-  id: string;
+  id?: string;
   children?: React.ReactNode;
 }
 
@@ -22,31 +22,8 @@ export interface DraggableContainerProps {
 const DraggableContainer = ({
   children,
 }: DraggableContainerProps): JSX.Element => {
-  const [draggableItems, setDraggableItems] = useState<
-    React.ReactElement<DraggableItemProps>[]
-  >(
-    React.Children.toArray(children).map((child, index) =>
-      React.isValidElement<DraggableItemProps>(child)
-        ? React.cloneElement(child, { id: index.toString() })
-        : (child as React.ReactElement<DraggableItemProps>),
-    ),
-  );
 
-  const isFirstRender = useRef(true);
-
-  useEffect(() => {
-    if (!isFirstRender.current) {
-      setDraggableItems(
-        React.Children.toArray(children).map((child, index) =>
-          React.isValidElement<DraggableItemProps>(child)
-            ? React.cloneElement(child, { id: index.toString() })
-            : (child as React.ReactElement<DraggableItemProps>),
-        ),
-      );
-    } else {
-      isFirstRender.current = false;
-    }
-  }, [children]);
+  const [childElements, setChildElements] = useState<React.ReactNode[]>(React.Children.toArray(children));
 
   useEffect(() => {
     return monitorForElements({
@@ -81,7 +58,7 @@ const DraggableContainer = ({
         // Update draggable items and reassign IDs
         flushSync(() => {
           const newOrder = reorderWithEdge({
-            list: draggableItems,
+            list: childElements,
             startIndex: indexOfSource,
             indexOfTarget,
             closestEdgeOfTarget,
@@ -92,7 +69,7 @@ const DraggableContainer = ({
               : item,
           );
 
-          setDraggableItems(newOrder);
+          setChildElements(newOrder);
         });
 
         const element = document.querySelector(
@@ -103,15 +80,13 @@ const DraggableContainer = ({
         }
       },
     });
-  }, [draggableItems]);
-
+  }, [children]);
 
   return (
-    <div>
-      {draggableItems.map((item, index) =>
-        React.cloneElement(item, { id: `${index}` }, [item.props.children]),
-      )}
+    <div id="wrapper">
+    {childElements}
     </div>
+  
   );
 };
 

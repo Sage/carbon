@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext, useLayoutEffect } from "react";
 import { PaddingProps } from "styled-system";
 import {
   draggable,
@@ -14,10 +14,10 @@ import {
   getDraggableItemData,
   isDraggableItemData,
 } from "../__internal__/draggable-utils";
+import { DraggableContainerContext } from "../draggable-container.component";
 
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import { StyledDraggableItem, StyledIcon } from "./draggable-item.style";
-import useDraggable from "../../../hooks/useDraggable/useDraggable";
 
 export interface DraggableItemProps extends PaddingProps {
   /**
@@ -25,7 +25,7 @@ export interface DraggableItemProps extends PaddingProps {
    *
    * Use this prop to make `Draggable` work
    */
-  id: number | string;
+  id?: number | string;
   /** The content of the component. */
   children: React.ReactNode;
 }
@@ -39,20 +39,22 @@ const DraggableItem = ({
 
   const paddingProps = filterStyledSystemPaddingProps(rest);
 
-  const [DraggableItem] = useDraggable();
-    
+  const { dragState } = useContext(DraggableContainerContext);
+  const dragStateType = dragState?.type;
+  const dragStateId = dragState?.id;
+
   return (
-    <DraggableItem>
       <StyledDraggableItem
         data-element="draggable"
         data-role="draggable-item"
         data-id={id}
         py={py}
+        dragState={dragStateId === id ? dragStateType : "idle"}
         {...paddingProps}
       >
+        {children}
         <StyledIcon type="drag" />
-      </StyledDraggableItem>
-      </DraggableItem>
+      </StyledDraggableItem> 
   );
 };
 

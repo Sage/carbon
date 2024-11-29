@@ -3,23 +3,23 @@ import { padding, margin, PaddingProps } from "styled-system";
 
 import { baseTheme } from "../../../style/themes";
 import Icon from "../../icon";
-import { TaskState } from "../draggable-item/draggable-item.component";
+import { DragState } from "../../../hooks/useDraggable/__internal__/draggable-utils";
 
 const StyledDraggableContainer = styled.div`
   ${margin}
 `;
 
 interface StyledDraggableItemProps extends PaddingProps {
-  dragState?: TaskState;
+  dragState?: string;
   ref?: any;
 }
 
-const genOpacity = (dragState?: TaskState) => {
-  if (dragState?.type === "is-dragging-over") {
+const genOpacity = (dragState?: string) => {
+  if (dragState === "is-dragging-over") {
     return "0";
-  } else if (dragState?.type === "is-dragging") {
+  } else if (dragState === "is-dragging") {
     return "1";
-  } else if (dragState?.type === "preview") {
+  } else if (dragState === "preview") {
     return "0.5";
   }
   return "1";

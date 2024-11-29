@@ -1,5 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
+import Button from "../button";
 
 import DraggableContainer, {
   DraggableContainerProps,
@@ -8,6 +9,7 @@ import DraggableItem from "./draggable-item/draggable-item.component";
 import { Checkbox } from "../checkbox";
 import Textbox from "../textbox";
 import Box from "../box";
+import useDraggable from "../../hooks/useDraggable/useDraggable";
 
 export default {
   title: "Draggable/Test",
@@ -107,3 +109,27 @@ export const DraggableDifferentContainers = ({
     </Box>
   );
 };
+
+export const DraggableHookPoc = ({
+  ...props
+}: DraggableContainerProps) => {
+
+  const buttons = [
+    <Button id="0">Button 1</Button>,
+    <Button id="1">Button 2</Button>,
+    <Button id="2">Button 3</Button>,
+    <Button id="3">Button 4</Button>,
+    <Button id="4">Button 5</Button>,
+    <Button id="5">Button 6</Button>,
+    <Button id="6">Button 7</Button>,
+  ];
+
+ const [DraggableContainer, dragState] = useDraggable(buttons);
+
+  return (
+    <div>
+      {DraggableContainer}
+    </div>
+  );
+};
+

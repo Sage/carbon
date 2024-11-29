@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   draggable,
   dropTargetForElements,
@@ -14,30 +14,24 @@ import {
   isDraggableItemData,
   DraggableItemData
 } from "../__internal__/draggable-utils";
-import guid from "../../../__internal__/utils/helpers/guid";
-import DraggableContext, { DragState } from "./draggable-context";
 
+import { DragState } from "./draggable-utils"
 export interface DraggableItemProps {
   children?: React.ReactNode;
-  id?: string | number;
+  id: string | number;
+  setDragState?: React.Dispatch<React.SetStateAction<DragState>>;
 }
-
-
 const DraggableItem = ({
   id,
-  children
+  children,
+  setDragState,
 }: DraggableItemProps): JSX.Element => {
   const idle: DragState = { type: "idle" };
   const ref = useRef<HTMLElement | null>(null);
-
-  const {
-    setDragState,
-  } = useContext(DraggableContext);
-
-  const internalId =  useRef(guid()).current;
+  const originalIdRef = useRef<string | number>(id);
 
   const draggableItemData: DraggableItemData = {
-    id: id || internalId,
+    id,
     content: children,
   };
 
@@ -55,7 +49,7 @@ const DraggableItem = ({
           return getDraggableItemData(draggableItemData);
         },
         onDragStart() {
-            setDragState && setDragState({ type: "is-dragging" });
+            setDragState && setDragState({ type: "is-dragging", id: originalIdRef.current });
         },
         onDrop() {
             setDragState && setDragState(idle);
@@ -82,7 +76,7 @@ const DraggableItem = ({
         },
         onDragEnter({ self }) {
           const closestEdge = extractClosestEdge(self.data);
-          setDragState && setDragState({ type: "is-dragging-over", closestEdge });
+          setDragState && setDragState({ type: "is-dragging-over", closestEdge, id: originalIdRef.current });
         },
         onDrag({ self }) {
           const closestEdge = extractClosestEdge(self.data);
@@ -94,7 +88,7 @@ const DraggableItem = ({
             ) {
               return current;
             }
-            return { type: "is-dragging-over", closestEdge };
+            return { type: "is-dragging-over", closestEdge, id: originalIdRef.current };
           });
         },
         onDragLeave() {
@@ -105,16 +99,9 @@ const DraggableItem = ({
         },
       }),
     );
-  }, [internalId]);
+  }, [id]);
 
-  return (
-      <div
-      >
-        {children}
-      </div>
-  );
+  return (<div ref={ref} id={`${id}`}>{children}</div>);
 };
-
-DraggableItem.displayName = "DraggableItem";
 
 export default DraggableItem;

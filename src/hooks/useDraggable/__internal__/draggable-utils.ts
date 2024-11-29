@@ -1,5 +1,13 @@
+type Edge = "top" | "right" | "bottom" | "left";
+
+ type DragState =
+  | { type: "idle"; id?: string | number }
+  | { type: "preview"; container: HTMLElement; id?: string | number }
+  | { type: "is-dragging"; id: string | number }
+  | { type: "is-dragging-over"; closestEdge: Edge | null; id: string | number };
+
 interface DraggableItemData {
-    id: number | string;
+    id: number | string | void;
     content: React.ReactNode
   }
   
@@ -22,4 +30,4 @@ interface DraggableItemData {
   }
   
   export { getDraggableItemData, isDraggableItemData };
-  export type { DraggableItemData };
+  export type { DraggableItemData, DragState };
