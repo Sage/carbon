@@ -1,3 +1,10 @@
+### [144.9.9](https://github.com/Sage/carbon/compare/v144.9.8...v144.9.9) (2024-11-29)
+
+
+### Bug Fixes
+
+* **sidebar:** make sidebar-heading element 100% width ([f26b6df](https://github.com/Sage/carbon/commit/f26b6df02435af732a158df50cdcd8d034262dfe)), closes [#7090](https://github.com/Sage/carbon/issues/7090)
+
 ### [144.9.8](https://github.com/Sage/carbon/compare/v144.9.7...v144.9.8) (2024-11-28)
 
 
