@@ -1,19 +1,5 @@
-import React, { useState, useRef, useEffect, useContext, useLayoutEffect } from "react";
+import React, { useContext } from "react";
 import { PaddingProps } from "styled-system";
-import {
-  draggable,
-  dropTargetForElements,
-} from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
-import {
-  attachClosestEdge,
-  extractClosestEdge,
-} from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
-
-import {
-  getDraggableItemData,
-  isDraggableItemData,
-} from "../__internal__/draggable-utils";
 import { DraggableContainerContext } from "../draggable-container.component";
 
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
@@ -47,7 +33,6 @@ const DraggableItem = ({
       <StyledDraggableItem
         data-element="draggable"
         data-role="draggable-item"
-        data-id={id}
         py={py}
         dragState={dragStateId === id ? dragStateType : "idle"}
         {...paddingProps}

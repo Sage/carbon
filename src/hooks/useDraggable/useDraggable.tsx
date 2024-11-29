@@ -1,15 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import DraggableContainer from "./__internal__/draggable-container";
 import DraggableItem from "./__internal__/draggable-item";
 import { DragState } from "./__internal__/draggable-utils";
 
 const useDraggable = (
-  draggableItems: React.ReactNode[] | React.ReactNode
-): [JSX.Element, DragState | undefined, (string | number)[] | undefined, string | number | undefined] => {
+  draggableItems: React.ReactNode[] | React.ReactNode,
+  getOrder?: (
+    draggableItemIds?: (string | number | undefined)[],
+    movedItemId?: string | number | undefined,
+  ) => void,
+): [JSX.Element, DragState] => {
 
   const [dragState, setDragState] = useState<DragState>({ type: "idle", id: undefined });
-  const [draggableItemIds, setDraggableItemIds] = useState<(string | number)[]>([]);
-  const [movedItemId, setMovedItemId] = useState<string | number | undefined>(undefined);
 
   // Draggable Items are passed as children and mapped with a unique Id and key.
   // Hook returns the container and some other useful states. These can be used to make design choices etc.
@@ -20,7 +22,7 @@ const useDraggable = (
   // also has the same id
 
   return [
-    <DraggableContainer>
+    <DraggableContainer getOrder={getOrder}>
       {Array.isArray(draggableItems) ? (
         draggableItems.map((item, index) => (
           <DraggableItem setDragState={setDragState} key={index} id={index}>
@@ -34,8 +36,6 @@ const useDraggable = (
       )}
     </DraggableContainer>,
     dragState,
-    draggableItemIds,
-    movedItemId,
   ];
 };
 

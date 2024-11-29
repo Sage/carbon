@@ -3,7 +3,6 @@ import { padding, margin, PaddingProps } from "styled-system";
 
 import { baseTheme } from "../../../style/themes";
 import Icon from "../../icon";
-import { DragState } from "../../../hooks/useDraggable/__internal__/draggable-utils";
 
 const StyledDraggableContainer = styled.div`
   ${margin}
@@ -15,14 +14,14 @@ interface StyledDraggableItemProps extends PaddingProps {
 }
 
 const genOpacity = (dragState?: string) => {
-  if (dragState === "is-dragging-over") {
-    return "0";
-  } else if (dragState === "is-dragging") {
-    return "1";
-  } else if (dragState === "preview") {
-    return "0.5";
+  switch (dragState) {
+    case "is-dragging-over":
+      return "0";
+    case "preview":
+      return "0.5";
+    default:
+      return "1";
   }
-  return "1";
 };
 
 const StyledDraggableItem = styled.div<StyledDraggableItemProps>`

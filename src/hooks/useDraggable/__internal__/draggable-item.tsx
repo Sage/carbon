@@ -16,6 +16,7 @@ import {
 } from "../__internal__/draggable-utils";
 
 import { DragState } from "./draggable-utils"
+
 export interface DraggableItemProps {
   children?: React.ReactNode;
   id: string | number;
@@ -27,7 +28,7 @@ const DraggableItem = ({
   setDragState,
 }: DraggableItemProps): JSX.Element => {
   const idle: DragState = { type: "idle" };
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const originalIdRef = useRef<string | number>(id);
 
   const draggableItemData: DraggableItemData = {
@@ -42,17 +43,21 @@ const DraggableItem = ({
       return;
     }
 
-    return combine(
+    combine(
       draggable({
         element,
         getInitialData() {
           return getDraggableItemData(draggableItemData);
         },
         onDragStart() {
-            setDragState && setDragState({ type: "is-dragging", id: originalIdRef.current });
+          if(setDragState){
+            setDragState({ type: "is-dragging", id: originalIdRef.current });
+          }
         },
         onDrop() {
-            setDragState && setDragState(idle);
+            if(setDragState){
+                setDragState(idle);
+            }
         },
       }),
       dropTargetForElements({
@@ -76,12 +81,15 @@ const DraggableItem = ({
         },
         onDragEnter({ self }) {
           const closestEdge = extractClosestEdge(self.data);
-          setDragState && setDragState({ type: "is-dragging-over", closestEdge, id: originalIdRef.current });
+          if(setDragState){
+            setDragState({ type: "is-dragging-over", closestEdge, id: originalIdRef.current });
+          }
         },
         onDrag({ self }) {
           const closestEdge = extractClosestEdge(self.data);
 
-          setDragState && setDragState((current) => {
+          if(setDragState) {
+            setDragState((current) => {
             if (
               current.type === "is-dragging-over" &&
               current.closestEdge === closestEdge
@@ -90,18 +98,23 @@ const DraggableItem = ({
             }
             return { type: "is-dragging-over", closestEdge, id: originalIdRef.current };
           });
+        }
         },
         onDragLeave() {
-            setDragState && setDragState(idle);
+            if(setDragState){
+                setDragState(idle);
+            }
         },
         onDrop() {
-            setDragState && setDragState(idle);
+            if(setDragState){
+                setDragState(idle);
+            }
         },
       }),
     );
   }, [id]);
 
-  return (<div ref={ref} id={`${id}`}>{children}</div>);
+  return (<div ref={ref} data-id={originalIdRef.current} id={`${id}`}>{children}</div>);
 };
 
 export default DraggableItem;

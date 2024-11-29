@@ -65,7 +65,7 @@ export const ComponentsAsChildrenStory: Story = () => (
 ComponentsAsChildrenStory.storyName = "Components As Children";
 
 export const GetOrderCallbackStory: Story = () => (
-  <DraggableContainer getOrder={() => {}}>
+  <DraggableContainer getOrder={(x,y) => {console.log(x,y)}}>
     <DraggableItem key="1" id={1}>
       <Checkbox label="Draggable Label One" />
     </DraggableItem>

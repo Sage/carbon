@@ -124,11 +124,11 @@ export const DraggableHookPoc = ({
     <Button id="6">Button 7</Button>,
   ];
 
- const [DraggableContainer, dragState] = useDraggable(buttons);
+ const [UseDraggableContainer] = useDraggable(buttons);
 
   return (
     <div>
-      {DraggableContainer}
+      {UseDraggableContainer}
     </div>
   );
 };

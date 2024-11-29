@@ -1,14 +1,10 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
-import { MarginProps } from "styled-system";
-
-import invariant from "invariant";
-import { isDraggableItemData } from "./draggable-utils";
+import React, { useEffect, useState } from "react";
 
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { extractClosestEdge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
 import { reorderWithEdge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge";
 import { triggerPostMoveFlash } from "@atlaskit/pragmatic-drag-and-drop-flourish/trigger-post-move-flash";
-import { flushSync } from "react-dom";
+import { isDraggableItemData } from "./draggable-utils";
 
 export interface DraggableItemProps {
   id?: string;
@@ -17,15 +13,21 @@ export interface DraggableItemProps {
 
 export interface DraggableContainerProps {
   children?: React.ReactNode;
+  getOrder?: (
+    draggableItemIds?: (string | number | undefined)[],
+    movedItemId?: string | number | undefined,
+  ) => void,
 }
 
 const DraggableContainer = ({
   children,
+  getOrder,
 }: DraggableContainerProps): JSX.Element => {
 
   const [childElements, setChildElements] = useState<React.ReactNode[]>(React.Children.toArray(children));
 
   useEffect(() => {
+    const dataIds = Array.from(document.querySelectorAll('[data-id]')).map(element => Number(element.getAttribute('data-id')));
     return monitorForElements({
       canMonitor({ source }) {
         return isDraggableItemData(source.data);
@@ -53,10 +55,12 @@ const DraggableContainer = ({
           return;
         }
 
+        if(getOrder){
+          getOrder(dataIds, indexOfSource);
+        }
+
         const closestEdgeOfTarget = extractClosestEdge(targetData);
 
-        // Update draggable items and reassign IDs
-        flushSync(() => {
           const newOrder = reorderWithEdge({
             list: childElements,
             startIndex: indexOfSource,
@@ -69,23 +73,22 @@ const DraggableContainer = ({
               : item,
           );
 
-          setChildElements(newOrder);
-        });
+          setChildElements(newOrder);      
 
         const element = document.querySelector(
-          `[data-id="${sourceData.taskId}"]`,
+          `[id="${sourceData.taskId}"]`,
         );
         if (element instanceof HTMLElement) {
           triggerPostMoveFlash(element);
         }
       },
     });
-  }, [children]);
+  }, [childElements]);
 
   return (
-    <div id="wrapper">
+    <>
     {childElements}
-    </div>
+    </>
   
   );
 };

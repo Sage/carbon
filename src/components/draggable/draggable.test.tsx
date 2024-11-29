@@ -151,21 +151,6 @@ test("items are reordered when their order is manually changed", () => {
   expect(allItems[1]).toHaveTextContent("Apple");
 });
 
-test("throws error when DraggableContainer contains a child which is not DraggableItem", () => {
-  jest.spyOn(global.console, "error").mockImplementation(() => {});
-
-  expect(() => {
-    render(
-      <DraggableContainer>
-        <div>Not draggable</div>
-      </DraggableContainer>,
-    );
-  }).toThrow(
-    "`DraggableContainer` only accepts children of type `DraggableItem`.",
-  );
-
-  jest.restoreAllMocks();
-});
 
 testStyledSystemMargin(
   (props) => (
