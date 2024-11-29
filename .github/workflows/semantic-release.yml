@@ -56,7 +56,7 @@ jobs:
       - run: npm ci
       - name: Generate metadata file
         run: npm run generate-metadata
-      - run: NODE_ENV=production IGNORE_TESTS=true STORYBOOK_VIEW_MODE=docs npm run build-storybook
+      - run: npm run build-storybook:prod
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
