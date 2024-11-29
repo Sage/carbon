@@ -1,3 +1,10 @@
+### [144.9.10](https://github.com/Sage/carbon/compare/v144.9.9...v144.9.10) (2024-11-29)
+
+
+### Bug Fixes
+
+* **switch:** fixes the invalid design token when using hint text on dark backgrounds ([56d5a02](https://github.com/Sage/carbon/commit/56d5a025e5f081c1b119a7236c988fc5ec0d3f75))
+
 ### [144.9.9](https://github.com/Sage/carbon/compare/v144.9.8...v144.9.9) (2024-11-29)
 
 
