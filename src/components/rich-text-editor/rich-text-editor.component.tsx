@@ -9,9 +9,16 @@ import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 // History component for Lexical
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 
+import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
+import { CodeNode } from "@lexical/code";
+import { LinkNode } from "@lexical/link";
+import { ListNode, ListItemNode } from "@lexical/list";
+import { HeadingNode, QuoteNode } from "@lexical/rich-text";
+import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
+
 import ContentEditor from "./__internal__/content-editor";
 import Placeholder from "./__internal__/placeholder";
-import OnChangePlugin from "./__internal__/plugins/on-change-plugin";
+import { OnChangePlugin, ToolbarPlugin } from "./__internal__/plugins";
 
 import StyledRichTextEditor from "./rich-text-editor.style";
 
@@ -24,7 +31,14 @@ function onError(error: any) {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RichTextEditorProps {}
 
-const theme = {};
+const theme = {
+  text: {
+    bold: "font-bold",
+    italic: "italic",
+    underline: "underline",
+    strikethrough: "line-through",
+  },
+};
 
 export const RichTextEditor = React.forwardRef(
   ({ ...rest }: RichTextEditorProps, ref) => {
@@ -32,6 +46,15 @@ export const RichTextEditor = React.forwardRef(
       namespace: "Carbon Rich Text Editor",
       theme,
       onError,
+      nodes: [
+        CodeNode,
+        LinkNode,
+        ListNode,
+        ListItemNode,
+        HeadingNode,
+        QuoteNode,
+        HorizontalRuleNode,
+      ],
     };
 
     return (
@@ -43,9 +66,9 @@ export const RichTextEditor = React.forwardRef(
             ErrorBoundary={LexicalErrorBoundary}
           />
           <HistoryPlugin />
-          <OnChangePlugin
-            onChange={(editorState) => console.log(editorState)}
-          />
+          <OnChangePlugin onChange={() => {}} />
+          <MarkdownShortcutPlugin />
+          <ToolbarPlugin />
         </LexicalComposer>
       </StyledRichTextEditor>
     );

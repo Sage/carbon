@@ -70,6 +70,7 @@
     "@chromatic-com/storybook": "^2.0.2",
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
+    "@lexical/selection": "^0.20.0",
     "@playwright/experimental-ct-react17": "~1.47.0",
     "@playwright/test": "~1.47.0",
     "@sage/design-tokens": "~4.29.0",
