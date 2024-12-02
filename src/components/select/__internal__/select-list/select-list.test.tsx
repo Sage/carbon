@@ -986,14 +986,10 @@ describe("virtualised options", () => {
     expect(screen.getAllByRole("option").length).toBeLessThan(5);
   });
 
-  it("keeps selected option rendered", () => {
+  it("keeps selected option rendered even when out of view", () => {
     render(
-      <SelectListWithInput
-        enableVirtualScroll
-        virtualScrollOverscan={1}
-        highlightedValue="20"
-      >
-        {Array(20)
+      <SelectListWithInput enableVirtualScroll highlightedValue="1">
+        {Array(50)
           .fill(undefined)
           .map((_, index) => (
             <Option
@@ -1005,10 +1001,21 @@ describe("virtualised options", () => {
       </SelectListWithInput>,
     );
 
-    expect(screen.getAllByRole("option").length).toBeLessThan(20);
+    const container = screen.getByTestId("select-list-scrollable-container");
+
+    jest.spyOn(container, "scrollHeight", "get").mockReturnValue(80);
+
+    // Scroll to the bottom of the list
+    fireEvent.scroll(container, {
+      target: { scrollTop: 20 },
+    });
+
     expect(
-      screen.getByRole("option", { name: /20/i, selected: true }),
-    ).toBeVisible();
+      screen.getByRole("option", {
+        name: /1/i,
+        selected: true,
+      }),
+    ).toBeInTheDocument();
   });
 });
 
