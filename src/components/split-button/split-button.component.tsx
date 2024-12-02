@@ -111,8 +111,6 @@ export const SplitButton = ({
   };
 
   const handleToggleClick = () => {
-    // ensure button is focused when clicked (Safari)
-    toggleButton.current?.focus();
     showButtons();
   };
 
@@ -178,6 +176,7 @@ export const SplitButton = ({
 
     return (
       <Popover
+        disablePortal
         placement={
           position === "left"
             ? /* istanbul ignore next */ "bottom-start"

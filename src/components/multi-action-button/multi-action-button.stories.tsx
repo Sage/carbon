@@ -19,6 +19,13 @@ const meta: Meta<typeof MultiActionButton> = {
   argTypes: {
     ...styledSystemProps,
   },
+  decorators: [
+    (Story) => (
+      <Box mb="150px">
+        <Story />
+      </Box>
+    ),
+  ],
 };
 
 export default meta;

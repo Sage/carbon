@@ -18,6 +18,13 @@ const meta: Meta<typeof SplitButton> = {
   argTypes: {
     ...styledSystemProps,
   },
+  decorators: [
+    (Story) => (
+      <Box mb="150px">
+        <Story />
+      </Box>
+    ),
+  ],
 };
 
 export default meta;

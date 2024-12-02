@@ -1,6 +1,5 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import Events from "../../../__internal__/utils/helpers/events";
-import { defaultFocusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";
 import useModalManager from "../useModalManager";
 
 export default (
@@ -34,7 +33,9 @@ export default (
 
   const handleKeyDown = useCallback(
     (ev) => {
-      if (!(Events.isEnterKey(ev) || Events.isSpaceKey(ev))) {
+      if (
+        !(Events.isEnterKey(ev) || Events.isSpaceKey(ev) || Events.isTabKey(ev))
+      ) {
         ev.preventDefault();
       }
 
@@ -75,41 +76,38 @@ export default (
         nextIndex = currentIndex + 1;
       }
 
-      const tabPressed = Events.isTabKey(ev);
-      const tabShiftPressed = tabPressed && Events.isShiftKey(ev);
-
-      if (tabShiftPressed) {
-        if (currentIndex === 0) {
-          refocusMainControl();
-        } else {
-          nextIndex = currentIndex - 1;
-        }
-      } else if (tabPressed) {
-        if (currentIndex === (childrenLength as number) - 1) {
-          const elements = Array.from(
-            document.querySelectorAll(
-              defaultFocusableSelectors,
-            ) as NodeListOf<HTMLElement>,
-          ).filter((el) => Number(el.tabIndex) !== -1);
-
-          const indexOf = elements.indexOf(
-            mainControlRef.current as HTMLButtonElement,
-          );
-
-          elements[indexOf + 1]?.focus();
-          // timeout enforces that the "hide" method will be run after browser focuses on the next element
-          setTimeout(hide, 0);
-        } else {
-          nextIndex = currentIndex + 1;
-        }
-      }
-
       if (nextIndex > -1) {
         buttonChildren?.[nextIndex]?.focus();
       }
     },
-    [hide, refocusMainControl, mainControlRef, getButtonChildren],
+    [getButtonChildren],
   );
+
+  // check if a child button is focused, if not hide the menu
+  const checkFocus = useCallback(() => {
+    const buttonChildren = getButtonChildren();
+
+    if (!buttonChildren) {
+      return;
+    }
+
+    const buttonChildrenFocused = Array.from(buttonChildren).some(
+      (button) => button === document.activeElement,
+    );
+
+    if (!buttonChildrenFocused) {
+      hide();
+    }
+  }, [getButtonChildren, hide]);
+
+  useEffect(() => {
+    document.addEventListener("focusin", checkFocus);
+    window.addEventListener("blur", hide);
+    return () => {
+      document.removeEventListener("focusin", checkFocus);
+      window.removeEventListener("blur", hide);
+    };
+  }, [checkFocus, hide]);
 
   return handleKeyDown;
 };

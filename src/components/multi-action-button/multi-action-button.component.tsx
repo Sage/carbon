@@ -58,8 +58,6 @@ export const MultiActionButton = ({
   const handleClick = (
     ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
-    // ensure button is focused when clicked (Safari)
-    buttonRef.current?.focus();
     showButtons();
     handleInsideClick();
     if (onClick) {
@@ -81,6 +79,7 @@ export const MultiActionButton = ({
 
   const renderAdditionalButtons = () => (
     <Popover
+      disablePortal
       placement={
         position === "left"
           ? "bottom-start"

@@ -8,7 +8,7 @@ const StyledSplitButton = styled.div`
   display: inline-block;
   position: relative;
 
-  ${StyledButton}:first-of-type {
+  & > ${StyledButton}:first-of-type {
     border-top-right-radius: var(--borderRadius000);
     border-bottom-right-radius: var(--borderRadius000);
   }

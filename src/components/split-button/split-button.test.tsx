@@ -338,7 +338,7 @@ test("should render non-Carbon Button children", async () => {
   render(<SplitButton text="Main">{spanElement}</SplitButton>);
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
-  expect(await screen.findByText("span-element")).toBeInTheDocument();
+  expect(await screen.findByText("span-element")).toBeVisible();
 });
 
 test("should render with the correct styles when 'buttonType' prop is 'primary' and not disabled", () => {
@@ -442,6 +442,7 @@ test("should render the child buttons when a 'Enter' keydown event detected and 
   });
 
   expect(childButton).toBeVisible();
+  expect(childButton).toHaveFocus();
 });
 
 test("should render the child buttons when a ' ' (space) keydown event detected and toggle button is focused", async () => {
@@ -459,44 +460,7 @@ test("should render the child buttons when a ' ' (space) keydown event detected 
   });
 
   expect(childButton).toBeVisible();
-});
-
-test("should not hide the additional buttons when already open and 'Enter' key pressed with toggle focused", async () => {
-  const user = userEvent.setup();
-  render(
-    <SplitButton text="Main">
-      <Button>Single Button</Button>
-    </SplitButton>,
-  );
-
-  const toggle = screen.getByRole("button", { name: "Show more" });
-  await user.click(toggle);
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
-  });
-
-  expect(childButton).toBeVisible();
-  await user.keyboard("{Enter}");
-  expect(childButton).toBeVisible();
-});
-
-test("should not hide the additional buttons when already open and ' ' (space) key pressed with toggle focused", async () => {
-  const user = userEvent.setup();
-  render(
-    <SplitButton text="Main">
-      <Button>Single Button</Button>
-    </SplitButton>,
-  );
-
-  const toggle = screen.getByRole("button", { name: "Show more" });
-  await user.click(toggle);
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
-  });
-
-  expect(childButton).toBeVisible();
-  await user.keyboard(" ");
-  expect(childButton).toBeVisible();
+  expect(childButton).toHaveFocus();
 });
 
 test("should render the child buttons when a 'ArrowDown' keydown event detected and toggle button is focused", async () => {
@@ -529,7 +493,7 @@ test("should render the child buttons when a 'ArrowUp' keydown event detected an
   expect(toggle).toHaveFocus();
   await user.keyboard("{arrowup}");
   const child = await screen.findByRole("button", { name: "Single Button" });
-
+  expect(child).toBeVisible();
   expect(child).toHaveFocus();
 });
 
@@ -677,49 +641,6 @@ test("should hide the additional buttons when a 'Escape' keydown event detected 
   expect(button1).toBeVisible();
   await user.keyboard("{Escape}");
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
-});
-
-test("should render with the correct styles when 'align' prop is 'right'", async () => {
-  const user = userEvent.setup();
-  render(
-    <SplitButton text="Main" align="right">
-      <Button>Single Button</Button>
-    </SplitButton>,
-  );
-
-  const toggle = screen.getByRole("button", { name: "Show more" });
-  toggle.focus();
-  await user.keyboard("{arrowDown}");
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
-  });
-
-  expect(childButton).toHaveStyle({
-    justifyContent: "right",
-    textAlign: "right",
-  });
-});
-
-test("should render with the correct styles when 'align' prop is 'left'", async () => {
-  const user = userEvent.setup();
-
-  render(
-    <SplitButton text="Main" align="left">
-      <Button>Single Button</Button>
-    </SplitButton>,
-  );
-
-  const toggle = screen.getByRole("button", { name: "Show more" });
-  toggle.focus();
-  await user.keyboard("{arrowDown}");
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
-  });
-
-  expect(childButton).toHaveStyle({
-    justifyContent: "left",
-    textAlign: "left",
-  });
 });
 
 test("should call the relevant 'onClick' callback and hide the additional buttons when a child button is clicked", async () => {
@@ -883,7 +804,7 @@ test("should support navigating to the first child button via home key", async (
   expect(button1).toHaveFocus();
 });
 
-test("should support navigating the additional buttons via tab key and hide the list when pressed on last button", async () => {
+test("should support navigating the additional buttons via tab key", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -912,8 +833,6 @@ test("should support navigating the additional buttons via tab key and hide the 
   await user.tab();
   expect(button3).toHaveFocus();
   await user.tab();
-
-  expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
 test("should support navigating the additional buttons via shift+tab key, hide the list when pressed on first button and refocus toggle", async () => {
