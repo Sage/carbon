@@ -28,7 +28,7 @@ const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
 
   & > * {
     box-sizing: border-box;
-    height: 40px;
+    min-height: 40px;
     vertical-align: middle;
   }
 

@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import NavigationBar, { NavigationBarProps } from ".";
 import { Menu, MenuItem } from "../menu";
 import Pill from "../pill";
+import Box from "../box";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 export default {
@@ -12,6 +13,7 @@ export default {
     "WithMediaQuery",
     "ResponsivePadding",
     "WithPills",
+    "WithMenuAndWrappedText",
   ],
   parameters: {
     info: { disable: true },
@@ -136,6 +138,27 @@ export const WithPills = () => {
 };
 WithPills.storyName = "With pills";
 WithPills.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+  },
+};
+
+export const WithMenuAndWrappedText = () => {
+  return (
+    <Box maxWidth="320px">
+      <NavigationBar>
+        <Menu>
+          <MenuItem href="#">Menu Item One Menu Item One</MenuItem>
+          <MenuItem href="#">
+            Menu Item Two Menu Item Two Menu Item Two
+          </MenuItem>
+        </Menu>
+      </NavigationBar>
+    </Box>
+  );
+};
+WithMenuAndWrappedText.storyName = "With menu and wrapped text";
+WithMenuAndWrappedText.parameters = {
   chromatic: {
     disableSnapshot: false,
   },

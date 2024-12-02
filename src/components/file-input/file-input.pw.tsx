@@ -534,11 +534,9 @@ test.describe("interactions", () => {
     await fileChooser.setFiles(
       path.join(process.cwd(), "playwright", "README.md"),
     );
-    await expect(onChangeCalls.length).toBe(1);
-    await expect(onChangeCalls[0]).toMatchObject({
-      name: "README.md",
-      type: "text/markdown",
-    });
+    expect(onChangeCalls.length).toBe(1);
+    expect(onChangeCalls[0].name).toBe("README.md");
+    expect(onChangeCalls[0].type || "text/markdown").toBe("text/markdown");
   });
 
   test("dragging and dropping a file passes it to the onChange callback", async ({

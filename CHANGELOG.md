@@ -1,3 +1,66 @@
+### [144.9.10](https://github.com/Sage/carbon/compare/v144.9.9...v144.9.10) (2024-11-29)
+
+
+### Bug Fixes
+
+* **switch:** fixes the invalid design token when using hint text on dark backgrounds ([56d5a02](https://github.com/Sage/carbon/commit/56d5a025e5f081c1b119a7236c988fc5ec0d3f75))
+
+### [144.9.9](https://github.com/Sage/carbon/compare/v144.9.8...v144.9.9) (2024-11-29)
+
+
+### Bug Fixes
+
+* **sidebar:** make sidebar-heading element 100% width ([f26b6df](https://github.com/Sage/carbon/commit/f26b6df02435af732a158df50cdcd8d034262dfe)), closes [#7090](https://github.com/Sage/carbon/issues/7090)
+
+### [144.9.8](https://github.com/Sage/carbon/compare/v144.9.7...v144.9.8) (2024-11-28)
+
+
+### Bug Fixes
+
+* **select:** ensure that aria-describedby is applied to the select-textbox element ([bad8fe4](https://github.com/Sage/carbon/commit/bad8fe41b3db7701c0a65ce8131c6a448c526767)), closes [#7057](https://github.com/Sage/carbon/issues/7057)
+
+### [144.9.7](https://github.com/Sage/carbon/compare/v144.9.6...v144.9.7) (2024-11-28)
+
+
+### Reverts
+
+* Revert "chore: upgrade react-dnd to v16" ([65bc718](https://github.com/Sage/carbon/commit/65bc71892e185d06da5db155ae4a4f4f8c248151))
+
+### [144.9.6](https://github.com/Sage/carbon/compare/v144.9.5...v144.9.6) (2024-11-28)
+
+
+### Bug Fixes
+
+* **select-list:** selected option not scrolled into view ([d842293](https://github.com/Sage/carbon/commit/d8422931196b07d5550899421a2e33842378f340))
+
+### [144.9.5](https://github.com/Sage/carbon/compare/v144.9.4...v144.9.5) (2024-11-27)
+
+
+### Bug Fixes
+
+* **multi-select:** ensure that when the arrow icon is clicked with openOnFocus select list renders ([cf78fed](https://github.com/Sage/carbon/commit/cf78fed27658b6b9eca97c874d2737b702041c82)), closes [#7065](https://github.com/Sage/carbon/issues/7065)
+
+### [144.9.4](https://github.com/Sage/carbon/compare/v144.9.3...v144.9.4) (2024-11-26)
+
+
+### Bug Fixes
+
+* **navigation-bar:** convert fixed height to min-height to allow wrapped text to extend correctly ([37f28ef](https://github.com/Sage/carbon/commit/37f28ef52d5c5447e3b4b2b53aa56bd729a94ee9)), closes [#7077](https://github.com/Sage/carbon/issues/7077)
+
+### [144.9.3](https://github.com/Sage/carbon/compare/v144.9.2...v144.9.3) (2024-11-25)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure consistent padding within menu-full-screen ([0f61867](https://github.com/Sage/carbon/commit/0f61867ea92df83df60d4a8f1ce71d0dc1ab15a3)), closes [#7078](https://github.com/Sage/carbon/issues/7078)
+
+### [144.9.2](https://github.com/Sage/carbon/compare/v144.9.1...v144.9.2) (2024-11-18)
+
+
+### Bug Fixes
+
+* **tabs:** support for post-rebrand validation pattern ([7dff16c](https://github.com/Sage/carbon/commit/7dff16c2963aa2940bbbd2fa36eebec604c42ae8))
+
 ### [144.9.1](https://github.com/Sage/carbon/compare/v144.9.0...v144.9.1) (2024-11-13)
 
 

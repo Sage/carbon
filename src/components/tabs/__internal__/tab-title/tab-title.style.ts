@@ -23,6 +23,7 @@ interface StyledTitleContentProps
   hasCustomLayout?: boolean;
   hasHref?: boolean;
   hasSiblings?: boolean;
+  validationRedesignOptIn?: boolean;
 }
 
 const oldFocusStyling = `
@@ -31,7 +32,7 @@ const oldFocusStyling = `
 
 const StyledTitleContent = styled.span<StyledTitleContentProps>`
   outline: none;
-  display: inline-block;
+  display: inline-flex;
   line-height: 20px;
   margin: 0;
   position: relative;
@@ -51,6 +52,7 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
     hasHref,
     alternateStyling,
     align,
+    validationRedesignOptIn,
   }) => css`
     text-align: ${align};
 
@@ -63,6 +65,12 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
       border-bottom-left-radius: var(--borderRadius100);
       border-bottom-right-radius: var(--borderRadius000);
       border-top-right-radius: var(--borderRadius000);
+    `}
+
+    ${position === "left" &&
+    validationRedesignOptIn &&
+    css`
+      justify-content: space-between;
     `}
 
     ${position === "top" &&
@@ -149,7 +157,7 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
     css`
       outline: 1px solid;
       outline-offset: -1px;
-      z-index: 2;
+      z-index: ${validationRedesignOptIn ? 1 : 2};
 
       ${info &&
       !warning &&
@@ -210,7 +218,7 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
     css`
       outline: 2px solid var(--colorsSemanticNegative500);
       outline-offset: -2px;
-      z-index: 2;
+      z-index: ${validationRedesignOptIn ? 1 : 2};
 
       ${position === "top" &&
       css`
@@ -289,7 +297,9 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
   `}
 `;
 
-const tabTitleStyles = css<TabTitleProps>`
+const tabTitleStyles = css<
+  TabTitleProps & { validationRedesignOptIn?: boolean }
+>`
   background-color: transparent;
   display: inline-block;
   border-top-left-radius: var(--borderRadius100);
@@ -328,6 +338,7 @@ const tabTitleStyles = css<TabTitleProps>`
     warning,
     info,
     isInSidebar,
+    validationRedesignOptIn,
   }) => css`
     height: ${size === "large" ? "var(--sizing600)" : "var(--sizing500)"};
 
@@ -360,9 +371,17 @@ const tabTitleStyles = css<TabTitleProps>`
     ${!isTabSelected &&
     css`
       color: var(--colorsActionMinorYin090);
+      ${validationRedesignOptIn &&
+      css`
+        background: transparent;
+      `}
 
       &:hover {
         background: var(--colorsActionMinor100);
+        ${validationRedesignOptIn &&
+        css`
+          background: var(--colorsUtilityMajor100);
+        `}
         color: var(--colorsActionMinorYin090);
         outline: none;
       }
@@ -415,7 +434,9 @@ const tabTitleStyles = css<TabTitleProps>`
       ${!isInSidebar &&
       !error &&
       css`
-        border-right: ${alternateStyling ? "1px" : "2px"} solid
+        --border-right-value: ${validationRedesignOptIn ? "0px" : "2px"}
+          border-right:
+          ${alternateStyling ? "1px" : "var(--border-right-value)"} solid
           var(--colorsActionMinor100);
       `}
 
@@ -443,6 +464,11 @@ const tabTitleStyles = css<TabTitleProps>`
         border-right: none;
       `}
 
+      ${!isTabSelected &&
+      css`
+        border-right-color: var(--colorsActionMinor100);
+      `}
+
       ${isTabSelected &&
       css`
         ${alternateStyling &&
@@ -456,7 +482,9 @@ const tabTitleStyles = css<TabTitleProps>`
           padding-bottom: 0px;
 
           ${StyledTitleContent} {
-            ${!(error || warning || info) && "margin-right: 2px;"}
+            ${!(error || warning || info) &&
+            !validationRedesignOptIn &&
+            "margin-right: 2px;"}
             border-right: none;
           }
         `}
@@ -510,6 +538,7 @@ interface StyledLayoutWrapperProps
   extends Pick<TabTitleProps, "titlePosition" | "position"> {
   hasCustomLayout?: boolean;
   hasCustomSibling?: boolean;
+  validationRedesignOptIn?: boolean;
 }
 
 const StyledLayoutWrapper = styled.div<StyledLayoutWrapperProps>`
@@ -518,6 +547,7 @@ const StyledLayoutWrapper = styled.div<StyledLayoutWrapperProps>`
     titlePosition = "before",
     hasCustomSibling,
     position,
+    validationRedesignOptIn,
   }) => css`
     ${hasCustomLayout &&
     css`
@@ -547,29 +577,61 @@ const StyledLayoutWrapper = styled.div<StyledLayoutWrapperProps>`
         z-index: 10;
 
         ${StyledIcon} {
-          height: 16px;
+          height: ${validationRedesignOptIn ? "0px" : "16px"};
           left: -2px;
-          top: ${position === "left" ? "1px" : "3px"};
         }
       }
     `}
   `}
 `;
 
-type StyledSelectedIndicatorProps = Pick<TabTitleProps, "position">;
+const StyledVerticalIndicator = styled.div`
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  box-shadow: inset calc(-1 * var(--sizing050)) 0px 0px 0px
+    var(--colorsActionMinor100);
+  width: 2px;
+  z-index: 1;
+`;
+
+type StyledSelectedIndicatorProps = Pick<
+  TabTitleProps,
+  "position" | "error" | "warning"
+> & {
+  validationRedesignOptIn?: boolean;
+};
 
 const StyledSelectedIndicator = styled.div<StyledSelectedIndicatorProps>`
   position: absolute;
   z-index: 1;
+  ${(validationRedesignOptIn) => css`
+    ${validationRedesignOptIn &&
+    css`
+      z-index: 2;
+    `}
+  `}
 
-  ${({ position = "top" }) => css`
+  ${({ position = "top", warning, error }) => css`
+    --selected-indicator-color: var(--colorsActionMajor500);
+
+    ${warning &&
+    css`
+      --selected-indicator-color: var(--colorsSemanticCaution500);
+    `}
+
+    ${error &&
+    css`
+      --selected-indicator-color: var(--colorsSemanticNegative500);
+    `}
     ${position === "top" &&
     css`
       bottom: 0px;
       left: 0px;
       right: 0px;
       box-shadow: inset 0px calc(-1 * var(--sizing050)) 0px
-        var(--colorsActionMajor500);
+        var(--selected-indicator-color);
       height: var(--sizing050);
     `}
 
@@ -579,7 +641,7 @@ const StyledSelectedIndicator = styled.div<StyledSelectedIndicatorProps>`
       bottom: 0px;
       right: 0px;
       box-shadow: inset calc(-1 * var(--sizing050)) 0px 0px 0px
-        var(--colorsActionMajor500);
+        var(--selected-indicator-color);
       width: var(--sizing050);
     `}
   `}
@@ -591,4 +653,5 @@ export {
   StyledTitleContent,
   StyledLayoutWrapper,
   StyledSelectedIndicator,
+  StyledVerticalIndicator,
 };

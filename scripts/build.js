@@ -33,7 +33,7 @@ async function run(bundle) {
     {
       cjs: "./lib",
       esm: "./esm",
-    }[bundle]
+    }[bundle],
   );
 
   const babelArgs = [
@@ -48,7 +48,7 @@ async function run(bundle) {
     `"${ignore.join('","')}"`,
   ];
 
-  const command = ["cross-env babel", ...babelArgs].join(" ");
+  const command = ["babel", ...babelArgs].join(" ");
 
   const { stderr } = await exec(command, {
     env: { ...process.env, ...env },

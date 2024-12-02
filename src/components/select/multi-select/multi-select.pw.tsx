@@ -351,7 +351,7 @@ test.describe("MultiSelect component", () => {
       ["left", "start"],
     ] as [MultiSelectProps["labelAlign"], string][]
   ).forEach(([alignment, cssProp]) => {
-    test(`should use ${alignment} as labelAligment and render with flex-${cssProp} as css properties`, async ({
+    test(`should use ${alignment} as labelAlignment and render with flex-${cssProp} as css properties`, async ({
       mount,
       page,
     }) => {

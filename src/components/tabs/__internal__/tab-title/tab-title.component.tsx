@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import {
   StyledTabTitleButton,
   StyledTabTitleLink,
   StyledTitleContent,
   StyledLayoutWrapper,
   StyledSelectedIndicator,
+  StyledVerticalIndicator,
 } from "./tab-title.style";
 import tagComponent from "../../../../__internal__/utils/helpers/tags/tags";
 import ValidationIcon from "../../../../__internal__/validations/validation-icon.component";
@@ -12,6 +13,8 @@ import Icon from "../../../icon";
 import Events from "../../../../__internal__/utils/helpers/events";
 import { TooltipProvider } from "../../../../__internal__/tooltip-provider";
 import TabTitleContext from "./tab-title.context";
+import Typography from "../../../typography";
+import NewValidationContext from "../../../carbon-provider/__internal__/new-validation.context";
 
 export interface TabTitleProps {
   /** Identifier used for testing purposes */
@@ -77,6 +80,7 @@ const TabTitle = React.forwardRef(
       onKeyDown,
       align,
       tabIndex,
+      id,
       ...tabTitleProps
     }: TabTitleProps,
     ref: React.ForwardedRef<HTMLElement>,
@@ -86,6 +90,14 @@ const TabTitle = React.forwardRef(
     const hasFailedValidation = error || warning || info;
     const [shouldShowTooltip, setShouldShowTooltip] = useState(false);
     const hasHover = useRef(false);
+    const { validationRedesignOptIn } = useContext(NewValidationContext);
+
+    let screenReaderMessage = "";
+    if (error) {
+      screenReaderMessage = errorMessage;
+    } else if (warning) {
+      screenReaderMessage = warningMessage;
+    }
 
     const showTooltip = () => {
       setShouldShowTooltip(true);
@@ -190,6 +202,7 @@ const TabTitle = React.forwardRef(
           alternateStyling={hasAlternateStyling}
           align={align}
           hasHref={!!href}
+          validationRedesignOptIn={validationRedesignOptIn}
         >
           {renderContent()}
           {isHref && <Icon type="link" />}
@@ -198,6 +211,7 @@ const TabTitle = React.forwardRef(
             <StyledLayoutWrapper
               position={position}
               hasCustomSibling={!!customLayout}
+              validationRedesignOptIn={validationRedesignOptIn}
             >
               {error && (
                 <ValidationIcon tooltipPosition="top" error={errorMessage} />
@@ -216,13 +230,20 @@ const TabTitle = React.forwardRef(
             </StyledLayoutWrapper>
           )}
         </StyledTitleContent>
-        {!(hasFailedValidation || hasAlternateStyling) && isTabSelected && (
-          <StyledSelectedIndicator
-            data-element="tab-selected-indicator"
-            data-role="tab-selected-indicator"
-            position={position}
-          />
+        {validationRedesignOptIn && position === "left" && (
+          <StyledVerticalIndicator />
         )}
+        {(!(hasFailedValidation || hasAlternateStyling) ||
+          validationRedesignOptIn) &&
+          isTabSelected && (
+            <StyledSelectedIndicator
+              warning={warning}
+              error={error}
+              data-element="tab-selected-indicator"
+              data-role="tab-selected-indicator"
+              position={position}
+            />
+          )}
       </>
     );
 
@@ -243,8 +264,9 @@ const TabTitle = React.forwardRef(
       borders,
       isInSidebar,
       tabIndex,
+      id,
       ...tabTitleProps,
-      ...tagComponent("tab-header", tabTitleProps),
+      ...tagComponent("tab-header", { id, ...tabTitleProps }),
       onKeyDown: handleKeyDown,
       onClick: handleClick,
       size,
@@ -258,6 +280,13 @@ const TabTitle = React.forwardRef(
       },
       onFocus: showTooltip,
       onBlur: hideTooltip,
+      ...(validationRedesignOptIn &&
+        hasFailedValidation && {
+          "aria-invalid": true,
+          "aria-errormessage": `${id}-message`,
+          "aria-describedby": `${id}-message`,
+        }),
+      validationRedesignOptIn,
     };
 
     const tabTitle = isHref ? (
@@ -280,10 +309,17 @@ const TabTitle = React.forwardRef(
     );
 
     return (
-      <TooltipProvider tooltipVisible={shouldShowTooltip}>
+      <TooltipProvider
+        tooltipVisible={validationRedesignOptIn ? false : shouldShowTooltip}
+      >
         <TabTitleContext.Provider value={{ isInTab: true }}>
           {tabTitle}
         </TabTitleContext.Provider>
+        {validationRedesignOptIn && hasFailedValidation && (
+          <Typography screenReaderOnly id={`${id}-message`}>
+            {screenReaderMessage}
+          </Typography>
+        )}
       </TooltipProvider>
     );
   },
