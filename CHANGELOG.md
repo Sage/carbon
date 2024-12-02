@@ -1,3 +1,10 @@
+### [144.9.11](https://github.com/Sage/carbon/compare/v144.9.10...v144.9.11) (2024-12-02)
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** ensure screen reader commands can navigate menu popup ([26e142a](https://github.com/Sage/carbon/commit/26e142a2fb62493942694c2a527230a1dece2ea5)), closes [#7054](https://github.com/Sage/carbon/issues/7054)
+
 ### [144.9.10](https://github.com/Sage/carbon/compare/v144.9.9...v144.9.10) (2024-11-29)
 
 
