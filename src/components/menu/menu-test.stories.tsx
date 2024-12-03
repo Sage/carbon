@@ -37,6 +37,7 @@ const meta: Meta<typeof Menu> = {
     "AsLinkWithAlternateVariant",
     "MenuWithSubmenuCustomPadding",
     "WhenMenuItemsWrap",
+    "MenuFullScreenWithMaxWidth",
   ],
   parameters: {
     info: { disable: true },
@@ -509,3 +510,35 @@ export const WhenMenuItemsWrap = () => {
   );
 };
 WhenMenuItemsWrap.storyName = "When menu items wrap";
+
+export const MenuFullScreenWithMaxWidth = () => {
+  return (
+    <Menu menuType="black">
+      <MenuFullscreen isOpen onClose={() => {}}>
+        <MenuItem href="#">Menu item with href set</MenuItem>
+        <MenuItem onClick={() => {}}>Menu with onClick set</MenuItem>
+        <MenuItem href="#" maxWidth="300px">
+          Menu with Max Width and href set
+        </MenuItem>
+        <MenuItem onClick={() => {}} maxWidth="300px">
+          Menu with Max Width and onClick set
+        </MenuItem>
+        <MenuItem maxWidth="300px">Menu with only Max Width set</MenuItem>
+        <MenuItem>Menu item on its own</MenuItem>
+        <MenuItem submenu="Submenu">
+          <MenuItem href="#">Menu item with href set</MenuItem>
+          <MenuItem onClick={() => {}}>Menu with onClick set</MenuItem>
+          <MenuItem href="#" maxWidth="300px">
+            Menu with Max Width and href set
+          </MenuItem>
+          <MenuItem onClick={() => {}} maxWidth="300px">
+            Menu with Max Width and onClick set
+          </MenuItem>
+          <MenuItem maxWidth="300px">Menu with only Max Width set</MenuItem>
+          <MenuItem>Menu item on its own</MenuItem>
+        </MenuItem>
+      </MenuFullscreen>
+    </Menu>
+  );
+};
+MenuFullScreenWithMaxWidth.storyName = "Menu Full Screen with Max Width";

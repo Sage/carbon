@@ -12,7 +12,7 @@ const themes = [noTheme, sageTheme].reduce((themesObject, theme) => {
   return themesObject;
 }, {});
 
-if (process.env.STORYBOOK_DEBUG_THEME === "true") {
+if (!isChromatic() && process.env.STORYBOOK_DEBUG_THEME === "true") {
   themes["sage-debug"] = sageDebugTheme;
 }
 
@@ -20,7 +20,7 @@ const render = (
   Story,
   themeName,
   roundedCornersOptOut,
-  focusRedesignOptOut
+  focusRedesignOptOut,
 ) => (
   <CarbonProvider
     theme={themes[themeName]}
@@ -50,7 +50,7 @@ const withThemeProvider = makeDecorator({
           fourColumnLayout: false,
         },
       },
-    }
+    },
   ) => {
     const { theme: chromaticTheme, fourColumnLayout } = parameters.chromatic;
     const isChromaticBuild = isChromatic();
@@ -69,7 +69,7 @@ const withThemeProvider = makeDecorator({
                 Story,
                 themeName,
                 context.globals.roundedCorners === "off",
-                context.globals.focusRedesign === "off"
+                context.globals.focusRedesign === "off",
               )}
             </div>
           ))}
@@ -83,7 +83,7 @@ const withThemeProvider = makeDecorator({
         ? chromaticTheme
         : context.globals.theme,
       context.globals.roundedCorners === "off",
-      context.globals.focusRedesign === "off"
+      context.globals.focusRedesign === "off",
     );
   },
 });
