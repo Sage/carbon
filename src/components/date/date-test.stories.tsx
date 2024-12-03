@@ -8,7 +8,7 @@ import {
   CommonTextboxArgs,
   commonTextboxArgTypes,
   getCommonTextboxArgs,
-  getCommonTextboxArgsWithSpecialCaracters,
+  getCommonTextboxArgsWithSpecialCharacters,
 } from "../textbox/textbox-test.stories";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Box from "../box";
@@ -44,7 +44,7 @@ export const DateStory = (args: CommonTextboxArgs) => {
         action("onKeyDown")((ev.target as HTMLInputElement).value)
       }
       onClick={(ev) => action("onClick")((ev.target as HTMLInputElement).value)}
-      {...getCommonTextboxArgsWithSpecialCaracters(args)}
+      {...getCommonTextboxArgsWithSpecialCharacters(args)}
     />
   );
 };
@@ -79,7 +79,7 @@ export const NewValidationStory = (args: CommonTextboxArgs) => {
         onClick={(ev) =>
           action("onClick")((ev.target as HTMLInputElement).value)
         }
-        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+        {...getCommonTextboxArgsWithSpecialCharacters(args)}
       />
     </CarbonProvider>
   );
@@ -191,7 +191,7 @@ export const I18NStory = (args: I18nArgs) => {
           onClick={(ev) =>
             action("onClick")((ev.target as HTMLInputElement).value)
           }
-          {...getCommonTextboxArgsWithSpecialCaracters(args)}
+          {...getCommonTextboxArgsWithSpecialCharacters(args)}
         />
       </I18nProvider>
     </CarbonProvider>

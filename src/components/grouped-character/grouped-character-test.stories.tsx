@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import {
   commonTextboxArgTypes,
   getCommonTextboxArgs,
-  getCommonTextboxArgsWithSpecialCaracters,
+  getCommonTextboxArgsWithSpecialCharacters,
   CommonTextboxArgs,
 } from "../textbox/textbox-test.stories";
 import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
@@ -45,7 +45,7 @@ export const Default = ({ separator, groups, ...args }: StoryArgs) => {
       onChange={onChange}
       groups={groups}
       separator={separator || " "}
-      {...getCommonTextboxArgsWithSpecialCaracters(args)}
+      {...getCommonTextboxArgsWithSpecialCharacters(args)}
     />
   );
 };
@@ -71,7 +71,7 @@ export const NewValidation = ({ separator, groups, ...args }: StoryArgs) => {
         onChange={onChange}
         groups={groups}
         separator={separator || " "}
-        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+        {...getCommonTextboxArgsWithSpecialCharacters(args)}
       />
     </CarbonProvider>
   );

@@ -24,6 +24,7 @@ export const getCommonTextboxArgs = (
       labelWidth: 30,
       inputWidth: 70,
       labelAlign: undefined,
+      tooltipId: "",
     }),
     size: "medium",
     inputIcon: undefined,
@@ -42,7 +43,7 @@ export interface CommonTextboxArgs {
   placeholder: string;
 }
 
-export const getCommonTextboxArgsWithSpecialCaracters = (
+export const getCommonTextboxArgsWithSpecialCharacters = (
   args: CommonTextboxArgs,
 ) => {
   const { prefix, fieldHelp, label, labelHelp, placeholder } = args;
@@ -93,6 +94,11 @@ export const commonTextboxArgTypes = (isNewValidation?: boolean) => ({
         step: 1,
       },
     },
+    tooltipId: {
+      control: {
+        type: "text",
+      },
+    },
   }),
   adaptiveLabelBreakpoint: {
     control: {
@@ -128,7 +134,7 @@ export const Default = (args: CommonTextboxArgs) => {
         iconOnClick={action("iconOnClick")}
         value={state}
         onChange={setValue}
-        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+        {...getCommonTextboxArgsWithSpecialCharacters(args)}
       />
     </div>
   );
@@ -139,8 +145,8 @@ Default.args = getCommonTextboxArgs();
 
 export const Multiple = (args: CommonTextboxArgs) => (
   <div style={{ width: "296px" }}>
-    <Textbox m={2} {...getCommonTextboxArgsWithSpecialCaracters(args)} />
-    <Textbox m={2} {...getCommonTextboxArgsWithSpecialCaracters(args)} />
+    <Textbox m={2} {...getCommonTextboxArgsWithSpecialCharacters(args)} />
+    <Textbox m={2} {...getCommonTextboxArgsWithSpecialCharacters(args)} />
   </div>
 );
 
@@ -160,7 +166,7 @@ export const NewValidation = (args: CommonTextboxArgs) => {
       <CarbonProvider validationRedesignOptIn>
         <Textbox
           m={2}
-          {...getCommonTextboxArgsWithSpecialCaracters(args)}
+          {...getCommonTextboxArgsWithSpecialCharacters(args)}
           value={state}
           onChange={setValue}
         />
