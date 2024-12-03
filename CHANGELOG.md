@@ -1,3 +1,11 @@
+## [144.10.0](https://github.com/Sage/carbon/compare/v144.9.11...v144.10.0) (2024-12-03)
+
+
+### Features
+
+* **numeral-date:** update component to render as a fieldset element ([2e7887b](https://github.com/Sage/carbon/commit/2e7887ba499a4d6f7870f2e2ba3986375fef27cb))
+* **textbox:** adds tooltipId prop ([840bbd6](https://github.com/Sage/carbon/commit/840bbd6797704023aea98ce1fa64d8be0af9818b))
+
 ### [144.9.11](https://github.com/Sage/carbon/compare/v144.9.10...v144.9.11) (2024-12-02)
 
 
