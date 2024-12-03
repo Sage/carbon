@@ -63,7 +63,11 @@ export interface TileSelectProps extends MarginProps {
   onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** determines if this tile is selected or unselected */
   checked?: boolean;
-  /** Custom class name passed to the root element of TileSelect */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** Type of the TileSelect input */
   type?: "radio" | "checkbox";

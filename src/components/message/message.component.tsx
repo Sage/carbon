@@ -21,7 +21,11 @@ export type MessageVariant =
 export interface MessageProps extends MarginProps {
   /** set content to component */
   children?: React.ReactNode;
-  /** set custom class to component */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** set custom aria label for message close button */
   closeButtonAriaLabel?: string;

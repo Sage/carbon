@@ -10,7 +10,11 @@ import { TagProps } from "../../__internal__/utils/helpers/tags";
 import ModalContext from "./__internal__/modal.context";
 
 export interface ModalProps extends Omit<TagProps, "data-component"> {
-  /** Custom class name  */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** Modal content */
   children?: React.ReactNode;

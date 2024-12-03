@@ -20,7 +20,11 @@ import TabTitle from "./__internal__/tab-title";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 
 export interface TabsProps extends MarginProps {
-  /** @ignore @private */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */
   renderHiddenTabs?: boolean;

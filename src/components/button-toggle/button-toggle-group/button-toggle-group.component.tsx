@@ -54,7 +54,9 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   /** Disable all user interaction. */
   disabled?: boolean;
   /**
-   * @private @ignore
+   * @private
+   * @internal
+   * @ignore
    * Set a class on the component
    */
   className?: string;

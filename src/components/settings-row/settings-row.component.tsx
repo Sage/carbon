@@ -21,7 +21,11 @@ export interface SettingsRowProps extends MarginProps {
   description?: React.ReactNode;
   /** Shows a divider below the component. */
   divider?: boolean;
-  /**  The CSS classes to apply to the component. */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
 }
 
