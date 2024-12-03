@@ -49,18 +49,6 @@ WithDisableContentPadding.parameters = {
   chromatic: { disableSnapshot: false },
 };
 
-export const Transparent: Story = () => {
-  return (
-    <Accordion scheme="transparent" title="Heading">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-};
-Transparent.storyName = "Transparent";
-Transparent.parameters = { chromatic: { disableSnapshot: false } };
-
 export const Small: Story = () => {
   return (
     <Accordion size="small" title="Heading">

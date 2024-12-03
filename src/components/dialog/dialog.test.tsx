@@ -10,17 +10,12 @@ import userEvent from "@testing-library/user-event";
 
 import CarbonProvider from "../carbon-provider";
 import Dialog, { DialogHandle, DialogProps } from ".";
-import Logger from "../../__internal__/utils/logger";
-
-let loggerSpy: jest.SpyInstance;
 
 beforeEach(() => {
-  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
   jest.useFakeTimers();
 });
 
 afterEach(() => {
-  loggerSpy.mockRestore();
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
 });
@@ -310,18 +305,6 @@ test("renders with grey background when greyBackground prop is passed", () => {
   expect(screen.getByRole("dialog")).toHaveStyle({
     backgroundColor: "var(--colorsUtilityMajor025)",
   });
-});
-
-test("dialog is wrapped in a container, which has the correct class names set, when className prop is passed", () => {
-  render(<Dialog open title="My dialog" className="special-dialog" />);
-
-  const modalWrapper = screen.getByTestId("modal");
-  const dialog = within(modalWrapper).getByRole("dialog", {
-    name: /My dialog/i,
-  });
-
-  expect(dialog).toBeInTheDocument();
-  expect(modalWrapper).toHaveClass("carbon-dialog special-dialog");
 });
 
 test("dialog is positioned correctly, when size prop is maximise", () => {
