@@ -32,7 +32,11 @@ export interface ContentPaddingInterface {
 let deprecatedClassNameWarningShown = false;
 
 export interface DialogProps extends ModalProps, TagProps {
-  /** Custom class name  */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** Prop to specify the aria-describedby property of the Dialog component */
   "aria-describedby"?: string;

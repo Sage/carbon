@@ -13,7 +13,11 @@ import Logger from "../../__internal__/utils/logger";
 let deprecatedClassNameWarningShown = false;
 
 export interface ModalProps extends Omit<TagProps, "data-component"> {
-  /** Custom class name  */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** Modal content */
   children?: React.ReactNode;

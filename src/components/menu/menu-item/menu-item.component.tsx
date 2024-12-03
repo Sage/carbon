@@ -32,7 +32,11 @@ interface MenuItemBaseProps
     Pick<LayoutProps, "width" | "maxWidth" | "minWidth">,
     FlexboxProps,
     PaddingProps {
-  /** Custom className */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** onClick handler */
   onClick?: (
