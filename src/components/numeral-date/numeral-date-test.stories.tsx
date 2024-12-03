@@ -14,10 +14,49 @@ import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Numeral Date/Test",
+  component: NumeralDate,
   parameters: {
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
+    },
+    controls: {
+      exclude: [
+        "value",
+        "defaultValue",
+        "onChange",
+        "onBlur",
+        "dayRef",
+        "monthRef",
+        "yearRef",
+      ],
+    },
+  },
+  argTypes: {
+    fieldHelp: {
+      control: {
+        type: "text",
+      },
+    },
+    labelHelp: {
+      control: {
+        type: "text",
+      },
+    },
+    error: {
+      control: {
+        type: "text",
+      },
+    },
+    warning: {
+      control: {
+        type: "text",
+      },
+    },
+    info: {
+      control: {
+        type: "text",
+      },
     },
   },
 };
@@ -162,7 +201,7 @@ export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
 
 Validations.storyName = "validations";
 
-export const NewDesignValidations = () => {
+export const NewDesignValidations = (args: NumeralDateProps) => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <h4>New designs validation</h4>
@@ -174,6 +213,7 @@ export const NewDesignValidations = () => {
               {...{ [validationType]: "Message" }}
               size={size as NumeralDateProps["size"]}
               m={4}
+              {...args}
             />
           </div>
         )),
@@ -183,30 +223,6 @@ export const NewDesignValidations = () => {
 };
 
 NewDesignValidations.storyName = "new design validations";
-
-export const NewDesignValidationsWithLabelInline = () => {
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <h4>New designs validation</h4>
-      {["error", "warning"].map((validationType) =>
-        ["small", "medium", "large"].map((size) => (
-          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
-            <NumeralDate
-              label={`${size} - ${validationType}`}
-              {...{ [validationType]: "Message" }}
-              size={size as NumeralDateProps["size"]}
-              m={4}
-              labelInline
-            />
-          </div>
-        )),
-      )}
-    </CarbonProvider>
-  );
-};
-
-NewDesignValidationsWithLabelInline.storyName =
-  "new design validations with labelInline";
 
 export const Required = () => {
   return <NumeralDate label="Date of Birth" required />;

@@ -77,6 +77,33 @@ test("renders validation icon when `legend` and `info` are provided", () => {
   expect(icon).toBeVisible();
 });
 
+test("renders help icon when `labelHelp` is provided", () => {
+  render(
+    <Fieldset legend="Legend" labelHelp="label help">
+      <input />
+    </Fieldset>,
+  );
+
+  const help = screen.getByRole("button", { name: "help" });
+
+  expect(help).toBeVisible();
+});
+
+// coverage - tested in Help component
+test("sets `aria-describedby` on help icon as tooltip content when focused and removes it on blur", () => {
+  render(
+    <Fieldset legend="Legend" labelHelp="label help">
+      <input />
+    </Fieldset>,
+  );
+
+  const help = screen.getByRole("button", { name: "help" });
+  help.focus();
+  expect(help).toHaveAccessibleDescription("label help");
+  help.blur();
+  expect(help).not.toHaveAttribute("aria-describedby");
+});
+
 // coverage
 test("renders legend with provided `legendWidth` when `inline` is true", () => {
   render(

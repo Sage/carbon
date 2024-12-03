@@ -1,7 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  testStyledSystemMargin,
+  mockMatchMedia,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 import NumeralDate from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -11,10 +14,7 @@ jest.mock("../../__internal__/utils/logger");
 
 testStyledSystemMargin(
   (props) => <NumeralDate data-role="numeral-date" {...props} />,
-  // can be updated to use role="group" when FE-6832 is resolved
-  () => screen.getByTestId("numeral-date"),
-  undefined,
-  { modifier: "&&&" },
+  () => screen.getByRole("group"),
 );
 
 beforeEach(() => {
@@ -175,6 +175,25 @@ describe("when the `error` prop is passed a string value and `validationRedesign
     await user.hover(yearInput);
 
     expect(await screen.findByRole("tooltip", { name: "error" })).toBeVisible();
+  });
+
+  // coverage
+  it("should render error icon beside the legend if 'validationOnLabel' is set to true", () => {
+    render(
+      <CarbonProvider>
+        <NumeralDate
+          value={{ dd: "02", mm: "01", yyyy: "2020" }}
+          onChange={() => {}}
+          error="error"
+          label="label"
+          validationOnLabel
+        />
+      </CarbonProvider>,
+    );
+
+    const icon = within(screen.getByTestId("legend")).getByTestId("icon-error");
+
+    expect(icon).toBeVisible();
   });
 });
 
@@ -687,7 +706,7 @@ test("should have the default styling when the `labelsInline` prop is set and `v
   expect(fields[0]).toHaveStyle("display: block");
 });
 
-test("should render the help icon and tooltip when `labelHelp` prop is set and `validationRedesignOptIn` is not", async () => {
+test("should render the help icon and tooltip when `labelHelp` prop is set and `validationRedesignOptIn` is not set", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <CarbonProvider>
@@ -706,6 +725,52 @@ test("should render the help icon and tooltip when `labelHelp` prop is set and `
   expect(
     await screen.findByRole("tooltip", { name: "labelHelp" }),
   ).toBeVisible();
+});
+
+test("should render provided `fieldHelp` text when the `validationRedesignOptIn` is not set", () => {
+  render(
+    <CarbonProvider>
+      <NumeralDate
+        value={{ dd: "02", mm: "01", yyyy: "2020" }}
+        onChange={() => {}}
+        fieldHelp="fieldHelp"
+      />
+    </CarbonProvider>,
+  );
+
+  const fieldHelpText = screen.getByText("fieldHelp");
+
+  expect(fieldHelpText).toBeVisible();
+});
+
+// coverage
+test("should not render with `labelInline` when `adaptiveLabelBreakpoint` set and screen is smaller than the breakpoint", () => {
+  mockMatchMedia(false);
+  render(
+    <CarbonProvider>
+      <NumeralDate label="label" labelInline adaptiveLabelBreakpoint={1000} />
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByRole("group")).not.toHaveStyle({
+    display: "flex",
+    alignItems: "center",
+  });
+});
+
+// coverage
+test("should render with `labelInline` when `adaptiveLabelBreakpoint` set and screen is bigger than the breakpoint", () => {
+  mockMatchMedia(true);
+  render(
+    <CarbonProvider>
+      <NumeralDate label="label" labelInline adaptiveLabelBreakpoint={1000} />
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByRole("group")).toHaveStyle({
+    display: "flex",
+    alignItems: "center",
+  });
 });
 
 describe("when the `enableInternalError` prop is not set and `validationRedesignOptIn` is true", () => {
@@ -1688,11 +1753,11 @@ test("should render the expected inputs when the `dateFormat` is set as 'mmddyyy
     />,
   );
 
-  const inputText = screen.getAllByTestId("numeral-date-input-text");
+  const inputs = screen.getAllByRole("textbox");
 
-  expect(inputText[0]).toHaveTextContent("Month");
-  expect(inputText[1]).toHaveTextContent("Day");
-  expect(inputText[2]).toHaveTextContent("Year");
+  expect(inputs[0]).toHaveAccessibleName("Month");
+  expect(inputs[1]).toHaveAccessibleName("Day");
+  expect(inputs[2]).toHaveAccessibleName("Year");
 });
 
 test("should render the expected inputs when the `dateFormat` is set as 'yyyymmdd'", () => {
@@ -1704,11 +1769,11 @@ test("should render the expected inputs when the `dateFormat` is set as 'yyyymmd
     />,
   );
 
-  const inputText = screen.getAllByTestId("numeral-date-input-text");
+  const inputs = screen.getAllByRole("textbox");
 
-  expect(inputText[0]).toHaveTextContent("Year");
-  expect(inputText[1]).toHaveTextContent("Month");
-  expect(inputText[2]).toHaveTextContent("Day");
+  expect(inputs[0]).toHaveAccessibleName("Year");
+  expect(inputs[1]).toHaveAccessibleName("Month");
+  expect(inputs[2]).toHaveAccessibleName("Day");
 });
 
 test("should render the expected inputs when the `dateFormat` is set as 'ddmm'", () => {
@@ -1720,11 +1785,11 @@ test("should render the expected inputs when the `dateFormat` is set as 'ddmm'",
     />,
   );
 
-  const inputText = screen.getAllByTestId("numeral-date-input-text");
+  const inputs = screen.getAllByRole("textbox");
 
-  expect(inputText).toHaveLength(2);
-  expect(inputText[0]).toHaveTextContent("Day");
-  expect(inputText[1]).toHaveTextContent("Month");
+  expect(inputs).toHaveLength(2);
+  expect(inputs[0]).toHaveAccessibleName("Day");
+  expect(inputs[1]).toHaveAccessibleName("Month");
 });
 
 test("should render the expected inputs when the `dateFormat` is set as 'mmdd'", () => {
@@ -1736,11 +1801,11 @@ test("should render the expected inputs when the `dateFormat` is set as 'mmdd'",
     />,
   );
 
-  const inputText = screen.getAllByTestId("numeral-date-input-text");
+  const inputs = screen.getAllByRole("textbox");
 
-  expect(inputText).toHaveLength(2);
-  expect(inputText[0]).toHaveTextContent("Month");
-  expect(inputText[1]).toHaveTextContent("Day");
+  expect(inputs).toHaveLength(2);
+  expect(inputs[0]).toHaveAccessibleName("Month");
+  expect(inputs[1]).toHaveAccessibleName("Day");
 });
 
 test("should render the expected inputs when the `dateFormat` is set as 'mmyyyy'", () => {
@@ -1752,11 +1817,11 @@ test("should render the expected inputs when the `dateFormat` is set as 'mmyyyy'
     />,
   );
 
-  const inputText = screen.getAllByTestId("numeral-date-input-text");
+  const inputs = screen.getAllByRole("textbox");
 
-  expect(inputText).toHaveLength(2);
-  expect(inputText[0]).toHaveTextContent("Month");
-  expect(inputText[1]).toHaveTextContent("Year");
+  expect(inputs).toHaveLength(2);
+  expect(inputs[0]).toHaveAccessibleName("Month");
+  expect(inputs[1]).toHaveAccessibleName("Year");
 });
 
 test("should call `onBlur` callback if prop is passed and user clicks outside of inputs", async () => {
@@ -1980,7 +2045,7 @@ test("should not call the onChange callback when the prop is set and the user ty
   expect(onChange).not.toHaveBeenCalled();
 });
 
-test("should set the passed `data-` props as atributes on the root element", () => {
+test("should set the passed `data-` props as attributes on the root element", () => {
   render(
     <NumeralDate
       value={{ dd: "", mm: "", yyyy: "" }}
@@ -2044,3 +2109,43 @@ test("should set the inputs to `readOnly` when the prop is passed", () => {
   expect(monthInput).toHaveAttribute("readonly");
   expect(yearInput).toHaveAttribute("readonly");
 });
+
+test.each(["error", "warning", "info"])(
+  "should render with expected accessible description when '%s' and 'fieldHelp' props are passed and 'validationRedesignOptIn' is false",
+  async (validation) => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <NumeralDate
+        value={{ dd: "", mm: "", yyyy: "" }}
+        onChange={() => {}}
+        fieldHelp="fieldHelp"
+        {...{ [validation]: "Message" }}
+      />,
+    );
+
+    const dayInput = screen.getByRole("textbox", { name: "Day" });
+    await user.click(dayInput);
+
+    const fieldset = screen.getByRole("group");
+    expect(fieldset).toHaveAccessibleDescription("fieldHelp Message");
+  },
+);
+
+test.each(["error", "warning"])(
+  "should render with expected accessible description when '%s' and 'labelHelp' props are passed and 'validationRedesignOptIn' is true",
+  (validation) => {
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <NumeralDate
+          value={{ dd: "", mm: "", yyyy: "" }}
+          onChange={() => {}}
+          labelHelp="labelHelp"
+          {...{ [validation]: "Message" }}
+        />
+      </CarbonProvider>,
+    );
+
+    const fieldset = screen.getByRole("group");
+    expect(fieldset).toHaveAccessibleDescription("Message labelHelp");
+  },
+);
