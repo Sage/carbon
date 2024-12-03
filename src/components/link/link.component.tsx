@@ -42,7 +42,11 @@ export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
   tooltipPosition?: "bottom" | "left" | "right" | "top";
   /** Child content to render in the link. */
   children?: React.ReactNode;
-  /** Classes to apply to the component. */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** Target property in which link should open ie: _blank, _self, _parent, _top */
   target?: string;
