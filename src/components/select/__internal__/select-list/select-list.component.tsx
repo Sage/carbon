@@ -37,7 +37,14 @@ import ListActionButton from "../list-action-button";
 import Loader from "../../../loader";
 import Option, { OptionProps } from "../../option";
 import SelectListContext from "./select-list.context";
-import { OptionData } from "../shared-types";
+
+type OnSelectData = {
+  id?: string;
+  text?: string;
+  value?: string | Record<string, unknown>;
+  selectionType: "click" | "navigationKey" | "enterKey" | "tab";
+  selectionConfirmed: boolean;
+};
 
 export type ListPlacement =
   | "top"
@@ -57,7 +64,7 @@ export interface SelectListProps {
   /** DOM element to position the dropdown menu list relative to */
   anchorElement?: HTMLElement;
   /** A callback for when a child is selected */
-  onSelect: (target: OptionData) => void;
+  onSelect: (data: OnSelectData) => void;
   /** A callback for when the list should be closed */
   onSelectListClose: () => void;
   /** Text value to highlight an option */
@@ -276,8 +283,8 @@ const SelectList = React.forwardRef(
       [anchorElement],
     );
 
-    const handleSelect = useCallback(
-      (optionData?: OptionData) => {
+    const handleSelect = useCallback<NonNullable<OptionProps["onSelect"]>>(
+      (optionData) => {
         onSelect({
           ...optionData,
           selectionType: "click",

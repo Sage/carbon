@@ -14,6 +14,7 @@ import SelectTextbox, {
 } from "../__internal__/select-textbox";
 import SelectList, {
   ListPlacement,
+  SelectListProps,
 } from "../__internal__/select-list/select-list.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
@@ -22,7 +23,6 @@ import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
-import { OptionData } from "../__internal__/shared-types";
 
 let deprecateUncontrolledWarnTriggered = false;
 
@@ -428,7 +428,9 @@ export const SimpleSelect = React.forwardRef<
       onChange?.(createCustomEvent(newValue, selectionConfirmed));
     }
 
-    function onSelectOption(optionData: OptionData) {
+    const onSelectOption: NonNullable<SelectListProps["onSelect"]> = (
+      optionData,
+    ) => {
       const {
         text,
         value: newValue,
@@ -449,7 +451,7 @@ export const SimpleSelect = React.forwardRef<
         isClickTriggeredBySelect.current = true;
         textboxRef?.focus();
       }
-    }
+    };
 
     const onSelectListClose = useCallback(() => {
       setOpenState(false);

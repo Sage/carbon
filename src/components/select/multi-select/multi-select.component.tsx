@@ -15,6 +15,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import withFilter from "../__internal__/utils/with-filter.hoc";
 import SelectList, {
   ListPlacement,
+  SelectListProps,
 } from "../__internal__/select-list/select-list.component";
 import {
   StyledSelectPillContainer,
@@ -30,7 +31,6 @@ import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import { CustomSelectChangeEvent } from "../simple-select";
-import { OptionData } from "../__internal__/shared-types";
 
 let deprecateUncontrolledWarnTriggered = false;
 
@@ -588,8 +588,10 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       }
     }
 
-    const onSelectOption = useCallback(
-      (optionData: OptionData) => {
+    const onSelectOption = useCallback<
+      NonNullable<SelectListProps["onSelect"]>
+    >(
+      (optionData) => {
         const {
           value: newValue = "",
           selectionType,

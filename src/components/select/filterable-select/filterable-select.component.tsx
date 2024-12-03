@@ -20,7 +20,6 @@ import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import { CustomSelectChangeEvent } from "../simple-select";
-import { OptionData } from "../__internal__/shared-types";
 
 let deprecateUncontrolledWarnTriggered = false;
 
@@ -485,8 +484,10 @@ export const FilterableSelect = React.forwardRef<
       }
     }, [textValue, filterText, textboxRef, disabled, readOnly]);
 
-    const onSelectOption = useCallback(
-      (optionData: OptionData) => {
+    const onSelectOption = useCallback<
+      NonNullable<SelectListProps["onSelect"]>
+    >(
+      (optionData) => {
         const {
           id: selectedOptionId,
           text,
