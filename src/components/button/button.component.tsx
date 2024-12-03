@@ -89,6 +89,7 @@ export interface ButtonProps extends SpaceProps, TagProps {
   /**
    * @private
    * @internal
+   * @ignore
    * Set a class name on the button element
    */
   className?: string;

@@ -31,7 +31,11 @@ export interface SimpleColorProps {
   checked?: boolean;
   /** determines if this color option is selected or unselected when component is used as uncontrolled */
   defaultChecked?: boolean;
-  /** [Legacy] Custom classname */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
 }
 

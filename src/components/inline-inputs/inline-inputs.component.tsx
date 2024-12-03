@@ -32,7 +32,11 @@ export interface InlineInputsProps
   adaptiveLabelBreakpoint?: number;
   /** Children elements */
   children?: React.ReactNode;
-  /** [Legacy prop] A custom class name for the component. */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** The id of the corresponding input control for the label */
   htmlFor?: string;
