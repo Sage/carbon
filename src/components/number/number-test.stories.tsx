@@ -6,7 +6,7 @@ import {
   CommonTextboxArgs,
   commonTextboxArgTypes,
   getCommonTextboxArgs,
-  getCommonTextboxArgsWithSpecialCaracters,
+  getCommonTextboxArgsWithSpecialCharacters,
 } from "../textbox/textbox-test.stories";
 
 export default {
@@ -49,7 +49,7 @@ export const Default = ({
       onChangeDeferred={
         onChangeDeferredEnabled ? action("onChangeDeferred") : undefined
       }
-      {...getCommonTextboxArgsWithSpecialCaracters(args)}
+      {...getCommonTextboxArgsWithSpecialCharacters(args)}
     />
   );
 };

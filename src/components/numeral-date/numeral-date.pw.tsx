@@ -10,7 +10,6 @@ import {
 import {
   numeralDateComponent,
   numeralDateInput,
-  numeralDateInputLabel,
 } from "../../../playwright/components/numeral-date";
 
 import Box from "../box";
@@ -25,7 +24,7 @@ import {
 
 import {
   checkAccessibility,
-  verifyRequiredAsteriskForLabel,
+  verifyRequiredAsteriskForLegend,
   assertCssValueIsApproximately,
 } from "../../../playwright/support/helper";
 
@@ -81,8 +80,8 @@ test.describe("NumeralDate component", () => {
   test("should render NumeralDate with id prop", async ({ mount, page }) => {
     await mount(<NumeralDateComponent id={CHARACTERS.STANDARD} />);
 
-    const input = await numeralDateInput(page, 0);
-    await expect(input).toHaveId(CHARACTERS.STANDARD);
+    const fieldset = page.locator("fieldset");
+    await expect(fieldset).toHaveId(CHARACTERS.STANDARD);
   });
 
   testData.forEach((label) => {
@@ -92,8 +91,8 @@ test.describe("NumeralDate component", () => {
     }) => {
       await mount(<NumeralDateComponent label={label} />);
 
-      const labelElement = await getDataElementByValue(page, "label");
-      await expect(labelElement).toHaveText(label);
+      const legend = getDataElementByValue(page, "legend");
+      await expect(legend).toHaveText(label);
     });
   });
 
@@ -103,10 +102,11 @@ test.describe("NumeralDate component", () => {
   }) => {
     await mount(<NumeralDateComponent labelInline />);
 
-    const labelParent = await getDataElementByValue(page, "label").locator(
-      "..",
-    );
-    await expect(labelParent).toHaveCSS("justify-content", "flex-end");
+    const fieldset = page.locator("fieldset");
+    await expect(fieldset).toHaveCSS("display", "flex");
+
+    const legend = getDataElementByValue(page, "legend");
+    await expect(legend).toHaveCSS("float", "left");
   });
 
   (
@@ -121,13 +121,8 @@ test.describe("NumeralDate component", () => {
     }) => {
       await mount(<NumeralDateComponent labelInline labelAlign={labelAlign} />);
 
-      const labelParent = await getDataElementByValue(page, "label").locator(
-        "..",
-      );
-      await expect(labelParent).toHaveCSS(
-        "justify-content",
-        `flex-${cssValue}`,
-      );
+      const legend = getDataElementByValue(page, "legend");
+      await expect(legend).toHaveCSS("justify-content", `flex-${cssValue}`);
     });
   });
 
@@ -157,8 +152,8 @@ test.describe("NumeralDate component", () => {
     }) => {
       await mount(<NumeralDateComponent labelInline labelSpacing={spacing} />);
 
-      const labelParent = getDataElementByValue(page, "label").locator("..");
-      await expect(labelParent).toHaveCSS("padding-right", padding);
+      const legend = getDataElementByValue(page, "legend");
+      await expect(legend).toHaveCSS("padding-right", padding);
     });
   });
 
@@ -175,8 +170,8 @@ test.describe("NumeralDate component", () => {
     }) => {
       await mount(<NumeralDateComponent labelInline labelWidth={label} />);
 
-      const labelParent = getDataElementByValue(page, "label").locator("..");
-      await assertCssValueIsApproximately(labelParent, "width", labelRatio);
+      const legend = getDataElementByValue(page, "legend");
+      await assertCssValueIsApproximately(legend, "width", labelRatio);
     });
   });
 
@@ -186,7 +181,7 @@ test.describe("NumeralDate component", () => {
   }) => {
     await mount(<NumeralDateComponent required />);
 
-    await verifyRequiredAsteriskForLabel(page);
+    await verifyRequiredAsteriskForLegend(page);
   });
 
   test("should render NumeralDate with name prop", async ({ mount, page }) => {
@@ -204,7 +199,7 @@ test.describe("NumeralDate component", () => {
   }) => {
     await mount(<NumeralDateComponent disabled />);
 
-    const input = await numeralDateInput(page, 0);
+    const input = numeralDateInput(page, 0);
     await expect(input).toBeDisabled();
   });
 
@@ -214,7 +209,7 @@ test.describe("NumeralDate component", () => {
   }) => {
     await mount(<NumeralDateComponent readOnly />);
 
-    const input = await numeralDateInput(page, 0);
+    const input = numeralDateInput(page, 0);
     await expect(input).not.toBeEditable();
   });
 
@@ -231,7 +226,7 @@ test.describe("NumeralDate component", () => {
         />,
       );
 
-      const input = await numeralDateInput(page, 2).locator("..");
+      const input = numeralDateInput(page, 2).locator("..");
       await expect(input.locator(ICON)).toHaveAttribute("data-element", type);
     });
   });
@@ -250,8 +245,8 @@ test.describe("NumeralDate component", () => {
         />,
       );
 
-      const labelParent = getDataElementByValue(page, "label").locator("..");
-      const validationIcon = labelParent.locator(`[data-element="${type}"]`);
+      const legend = getDataElementByValue(page, "legend");
+      const validationIcon = legend.locator(`[data-element="${type}"]`);
 
       await expect(validationIcon).toBeVisible();
     });
@@ -435,9 +430,9 @@ test.describe("NumeralDate component", () => {
   }) => {
     await mount(<NumeralDateComponent dateFormat={["dd", "mm", "yyyy"]} />);
 
-    await expect(numeralDateInputLabel(page, 0)).toHaveText("Day");
-    await expect(numeralDateInputLabel(page, 1)).toHaveText("Month");
-    await expect(numeralDateInputLabel(page, 2)).toHaveText("Year");
+    await expect(numeralDateInput(page, 0)).toHaveAccessibleName("Day");
+    await expect(numeralDateInput(page, 1)).toHaveAccessibleName("Month");
+    await expect(numeralDateInput(page, 2)).toHaveAccessibleName("Year");
   });
 
   test('should render NumeralDate with `["mm", "dd", "yyyy"]` dateFormat prop', async ({
@@ -446,9 +441,9 @@ test.describe("NumeralDate component", () => {
   }) => {
     await mount(<NumeralDateComponent dateFormat={["mm", "dd", "yyyy"]} />);
 
-    await expect(numeralDateInputLabel(page, 0)).toHaveText("Month");
-    await expect(numeralDateInputLabel(page, 1)).toHaveText("Day");
-    await expect(numeralDateInputLabel(page, 2)).toHaveText("Year");
+    await expect(numeralDateInput(page, 0)).toHaveAccessibleName("Month");
+    await expect(numeralDateInput(page, 1)).toHaveAccessibleName("Day");
+    await expect(numeralDateInput(page, 2)).toHaveAccessibleName("Year");
   });
 
   test('should render NumeralDate with `["dd", "mm"]` dateFormat prop', async ({
@@ -457,9 +452,9 @@ test.describe("NumeralDate component", () => {
   }) => {
     await mount(<NumeralDateComponent dateFormat={["dd", "mm"]} />);
 
-    await expect(numeralDateInputLabel(page, 0)).toHaveText("Day");
-    await expect(numeralDateInputLabel(page, 1)).toHaveText("Month");
-    await expect(numeralDateInputLabel(page, 2)).not.toBeVisible();
+    await expect(numeralDateInput(page, 0)).toHaveAccessibleName("Day");
+    await expect(numeralDateInput(page, 1)).toHaveAccessibleName("Month");
+    await expect(numeralDateInput(page, 2)).not.toBeVisible();
   });
 
   test('should render NumeralDate with `["mm", "dd"]` dateFormat prop', async ({
@@ -468,9 +463,9 @@ test.describe("NumeralDate component", () => {
   }) => {
     await mount(<NumeralDateComponent dateFormat={["mm", "dd"]} />);
 
-    await expect(numeralDateInputLabel(page, 0)).toHaveText("Month");
-    await expect(numeralDateInputLabel(page, 1)).toHaveText("Day");
-    await expect(numeralDateInputLabel(page, 2)).not.toBeVisible();
+    await expect(numeralDateInput(page, 0)).toHaveAccessibleName("Month");
+    await expect(numeralDateInput(page, 1)).toHaveAccessibleName("Day");
+    await expect(numeralDateInput(page, 2)).not.toBeVisible();
   });
 
   test('should render NumeralDate with `["mm", "yyyy"]` dateFormat prop', async ({
@@ -479,9 +474,9 @@ test.describe("NumeralDate component", () => {
   }) => {
     await mount(<NumeralDateComponent dateFormat={["mm", "yyyy"]} />);
 
-    await expect(numeralDateInputLabel(page, 0)).toHaveText("Month");
-    await expect(numeralDateInputLabel(page, 1)).toHaveText("Year");
-    await expect(numeralDateInputLabel(page, 2)).not.toBeVisible();
+    await expect(numeralDateInput(page, 0)).toHaveAccessibleName("Month");
+    await expect(numeralDateInput(page, 1)).toHaveAccessibleName("Year");
+    await expect(numeralDateInput(page, 2)).not.toBeVisible();
   });
 
   (
@@ -535,6 +530,44 @@ test.describe("NumeralDate component", () => {
 
   (
     [
+      [SIZE.SMALL, 44, 66],
+      [SIZE.MEDIUM, 50, 80],
+      [SIZE.LARGE, 64, 84],
+    ] as [NumeralDateProps["size"], number, number][]
+  ).forEach(([size, inputWidth, inputWidthYear]) => {
+    test(`should use ${size} as size and render inputs with expected widths`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<NumeralDateComponent size={size} />);
+
+      const day = page.getByRole("presentation").nth(0);
+      const month = page.getByRole("presentation").nth(1);
+      const year = page.getByRole("presentation").nth(2);
+      await expect(day).toHaveCSS("min-width", `${inputWidth}px`);
+      await expect(month).toHaveCSS("min-width", `${inputWidth}px`);
+      await expect(year).toHaveCSS("min-width", `${inputWidthYear}px`);
+    });
+  });
+
+  test("should render with expected width when validation tooltip renders within the Year field and size is small", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <NumeralDateComponent
+        size={SIZE.SMALL}
+        error="error"
+        validationOnLabel={false}
+      />,
+    );
+
+    const year = page.getByRole("presentation").nth(2);
+    await expect(year).toHaveCSS("min-width", "75px");
+  });
+
+  (
+    [
       ["flex", 399],
       ["flex", 400],
       ["block", 401],
@@ -549,10 +582,8 @@ test.describe("NumeralDate component", () => {
         <NumeralDateComponent adaptiveLabelBreakpoint={breakpoint} />,
       );
 
-      const labelParentParent = getDataElementByValue(page, "label")
-        .locator("..")
-        .locator("..");
-      await expect(labelParentParent).toHaveCSS("display", displayValue);
+      const fieldset = page.locator("fieldset");
+      await expect(fieldset).toHaveCSS("display", displayValue);
     });
   });
 
@@ -624,7 +655,7 @@ test.describe("NumeralDate component", () => {
         />,
       );
 
-      await numeralDateInput(page, 0).type(inputValue);
+      await numeralDateInput(page, 0).fill(inputValue);
 
       expect(callbackCount).toBe(1);
     });

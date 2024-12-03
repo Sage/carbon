@@ -507,6 +507,15 @@ test.each(validationTypes)(
   },
 );
 
+test("renders validation tooltip with provided 'tooltipId' prop", async () => {
+  render(<Textbox label="bar" error="baz" tooltipId="foo" />);
+  const input = screen.getByRole("textbox");
+  input.focus();
+
+  expect(await screen.findByRole("tooltip")).toHaveAttribute("id", "foo");
+  expect(input).toHaveAccessibleDescription("baz");
+});
+
 describe("when inputHint prop is present", () => {
   it("renders the hint", () => {
     render(<Textbox value="test string" inputHint="foo" />);

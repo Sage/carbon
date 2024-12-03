@@ -7,7 +7,7 @@ import {
   CommonTextboxArgs,
   commonTextboxArgTypes,
   getCommonTextboxArgs,
-  getCommonTextboxArgsWithSpecialCaracters,
+  getCommonTextboxArgsWithSpecialCharacters,
 } from "../textbox/textbox-test.stories";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
@@ -59,7 +59,7 @@ export const DecimalStory = (args: CommonTextboxArgs) => {
       value={state}
       onChange={handleChange}
       onBlur={handleBlur}
-      {...getCommonTextboxArgsWithSpecialCaracters(args)}
+      {...getCommonTextboxArgsWithSpecialCharacters(args)}
     />
   );
 };
@@ -79,7 +79,7 @@ export const UncontrolledDecimalStory = (args: CommonTextboxArgs) => {
       defaultValue="0.03"
       onChange={handleChange}
       onBlur={handleBlur}
-      {...getCommonTextboxArgsWithSpecialCaracters(args)}
+      {...getCommonTextboxArgsWithSpecialCharacters(args)}
     />
   );
 };
@@ -125,7 +125,7 @@ export const PostStory = ({
         value={state}
         onChange={handleChange}
         onBlur={handleBlur}
-        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+        {...getCommonTextboxArgsWithSpecialCharacters(args)}
       />
       <button type="submit">Submit</button>
     </form>
@@ -150,7 +150,7 @@ export const NewValidationStory = (args: CommonTextboxArgs) => {
         m={2}
         onChange={handleChange}
         onBlur={handleBlur}
-        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+        {...getCommonTextboxArgsWithSpecialCharacters(args)}
       />
     </CarbonProvider>
   );
@@ -180,7 +180,7 @@ export const DecimalCustomOnChangeStory = (args: CommonTextboxArgs) => {
         value={state}
         onChange={handleChange}
         onBlur={handleBlur}
-        {...getCommonTextboxArgsWithSpecialCaracters(args)}
+        {...getCommonTextboxArgsWithSpecialCharacters(args)}
       />
     </div>
   );

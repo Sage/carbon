@@ -6,5 +6,3 @@ export const numeralDateComponent = (page: Page) =>
   page.locator(NUMERAL_DATE_COMPONENT);
 export const numeralDateInput = (page: Page, index: number) =>
   page.locator(DATE_INPUT).nth(index);
-export const numeralDateInputLabel = (page: Page, index: number) =>
-  page.locator("p").nth(index);
