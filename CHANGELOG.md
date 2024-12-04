@@ -1,3 +1,10 @@
+## [144.12.0](https://github.com/Sage/carbon/compare/v144.11.0...v144.12.0) (2024-12-04)
+
+
+### Features
+
+* **tabs:** align tabs with (frozen) design system ([23c6db7](https://github.com/Sage/carbon/commit/23c6db7fe8b6b064b7321c46a3de76945518cba1))
+
 ## [144.11.0](https://github.com/Sage/carbon/compare/v144.10.0...v144.11.0) (2024-12-04)
 
 
