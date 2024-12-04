@@ -3,7 +3,8 @@ import { useDrop, useDrag } from "react-dnd";
 import { PaddingProps } from "styled-system";
 
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
-import { StyledDraggableItem, StyledIcon } from "./draggable-item.style";
+import { StyledDraggableItem } from "./draggable-item.style";
+import Icon from "../../icon";
 
 export interface DraggableItemProps extends PaddingProps {
   /**
@@ -30,6 +31,11 @@ export interface DraggableItemProps extends PaddingProps {
     droppedId: string | number,
     overIndex: number | undefined,
   ) => void;
+  /**
+   * @private
+   * @ignore
+   */
+  flexDirection?: "row" | "row-reverse";
 }
 
 const DraggableItem = ({
@@ -38,6 +44,7 @@ const DraggableItem = ({
   moveItem,
   children,
   py = 1,
+  flexDirection,
   ...rest
 }: DraggableItemProps): JSX.Element => {
   let originalIndex;
@@ -88,10 +95,11 @@ const DraggableItem = ({
       isDragging={isDragging}
       ref={(node) => drag(drop(node))}
       py={py}
+      flexDirection={flexDirection}
       {...paddingProps}
     >
       {children}
-      <StyledIcon type="drag" />
+      <Icon type="drag" />
     </StyledDraggableItem>
   );
 };

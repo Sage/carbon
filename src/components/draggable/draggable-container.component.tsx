@@ -23,6 +23,11 @@ export interface DraggableContainerProps
    * `<DraggableItem />` is required to make `Draggable` works
    */
   children?: React.ReactNode;
+  /**
+   * Defines the direction in which the draggable items contents are placed.
+   * Can be either "row" or "row-reverse".
+   */
+  flexDirection?: "row" | "row-reverse";
 }
 
 const DraggableContainer = ({
@@ -30,6 +35,7 @@ const DraggableContainer = ({
   "data-role": dataRole = "draggable-container",
   children,
   getOrder,
+  flexDirection = "row",
   ...rest
 }: DraggableContainerProps): JSX.Element => {
   const [draggableItems, setDraggableItems] = useState(
@@ -117,6 +123,7 @@ const DraggableContainer = ({
                 id: `${item.props.id}`,
                 findItem,
                 moveItem,
+                flexDirection,
               },
               [item.props.children],
             )

@@ -48,6 +48,35 @@ Default.story = {
   name: "default",
 };
 
+export const DraggableFlexDirection = () => {
+  const handleUpdate = (items?: (string | number | undefined)[]) => {
+    action("onUpdate")(items);
+  };
+  return (
+    <DraggableContainer getOrder={handleUpdate} flexDirection="row-reverse">
+      <DraggableItem key="1" id={1}>
+        <Checkbox label="Draggable Label One" />
+      </DraggableItem>
+      <DraggableItem key="2" id={2}>
+        <Checkbox label="Draggable Label Two" />
+      </DraggableItem>
+      <DraggableItem key="3" id={3}>
+        <Checkbox label="Draggable Label Three" />
+      </DraggableItem>
+      <DraggableItem key="4" id={4}>
+        <Checkbox label="Draggable Label Four" />
+      </DraggableItem>
+      <DraggableItem key="5" id={5}>
+        <Textbox label="Draggable Textbox" />
+      </DraggableItem>
+    </DraggableContainer>
+  );
+};
+
+DraggableFlexDirection.story = {
+  name: "Flex Direction",
+};
+
 export const DraggableCustom = ({
   getOrder,
   ...props
