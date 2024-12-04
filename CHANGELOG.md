@@ -1,3 +1,10 @@
+## [144.11.0](https://github.com/Sage/carbon/compare/v144.10.0...v144.11.0) (2024-12-04)
+
+
+### Features
+
+* **draggable-container:** add flexDirection prop ([49e37fb](https://github.com/Sage/carbon/commit/49e37fb6a83380f4572396378862389f9a708d39)), closes [#7089](https://github.com/Sage/carbon/issues/7089)
+
 ## [144.10.0](https://github.com/Sage/carbon/compare/v144.9.11...v144.10.0) (2024-12-03)
 
 
