@@ -496,13 +496,6 @@ export const FilterableSelect = React.forwardRef<
           selectionConfirmed,
         } = optionData;
 
-        if (selectionType === "tab") {
-          setOpen(false);
-          textboxRef?.focus();
-
-          return;
-        }
-
         if (!isControlled.current) {
           setSelectedValue(newValue);
           setHighlightedValue(newValue);

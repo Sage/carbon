@@ -42,7 +42,7 @@ type OnSelectData = {
   id?: string;
   text?: string;
   value?: string | Record<string, unknown>;
-  selectionType: "click" | "navigationKey" | "enterKey" | "tab";
+  selectionType: "click" | "navigationKey" | "enterKey";
   selectionConfirmed: boolean;
 };
 
@@ -428,13 +428,13 @@ const SelectList = React.forwardRef(
     const handleActionButtonTab = useCallback(
       (event: KeyboardEvent, isActionButtonFocused: boolean) => {
         if (isActionButtonFocused) {
-          onSelect({ selectionType: "tab", selectionConfirmed: false });
+          onSelectListClose();
         } else {
           event.preventDefault();
           listActionButtonRef.current?.focus();
         }
       },
-      [onSelect],
+      [onSelectListClose],
     );
 
     const focusOnAnchor = useCallback(() => {
