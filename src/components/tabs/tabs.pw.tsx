@@ -4,9 +4,12 @@ import { test, expect } from "@playwright/experimental-ct-react17";
 import { TabProps, TabsProps } from ".";
 import {
   tabList,
+  tabWrapper,
   tabById,
   tabContentById,
   tabTitleById,
+  navButtonWrapperById,
+  navButtonById,
 } from "../../../playwright/components/tabs";
 import {
   TabsComponent,
@@ -30,7 +33,6 @@ import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   checkAccessibility,
   assertCssValueIsApproximately,
-  checkGoldenOutline,
   getStyle,
 } from "../../../playwright/support/helper";
 import { HooksConfig } from "../../../playwright";
@@ -111,14 +113,17 @@ test.describe("Tabs component", () => {
     }) => {
       await mount(<TabsComponent align={align} />);
 
-      await expect(tabList(page)).toHaveCSS("text-align", textAlign);
-      await expect(tabList(page)).toHaveCSS("justify-content", justifyContent);
+      await expect(tabWrapper(page)).toHaveCSS("text-align", textAlign);
+      await expect(tabWrapper(page)).toHaveCSS(
+        "justify-content",
+        justifyContent,
+      );
     });
   });
 
   (
     [
-      ["top", "row", 40],
+      ["top", "row", 42],
       ["left", "column", 200],
     ] as [TabsProps["position"], string, number][]
   ).forEach(([pos, flex, height]) => {
@@ -155,7 +160,7 @@ test.describe("Tabs component", () => {
   (
     [
       [true, 1358],
-      [false, 340],
+      [false, 380],
     ] as [boolean, number][]
   ).forEach(([bool, width]) => {
     test(`should render Tabs with extendedLine prop set to ${bool}`, async ({
@@ -164,7 +169,7 @@ test.describe("Tabs component", () => {
     }) => {
       await mount(<TabsComponent extendedLine={bool} />);
 
-      const val = await getStyle(tabList(page), "width");
+      const val = await getStyle(tabWrapper(page), "width");
       expect(parseInt(val)).toBeGreaterThanOrEqual(width - 6);
       expect(parseInt(val)).toBeLessThanOrEqual(width + 4);
     });
@@ -806,7 +811,10 @@ test.describe("Tabs component", () => {
         });
 
         await tabById(page, id).focus();
-        await checkGoldenOutline(tabById(page, id));
+        await expect(tabById(page, id)).toHaveCSS(
+          "outline",
+          "rgb(255, 188, 25) solid 4px",
+        );
       });
     });
 
@@ -819,8 +827,8 @@ test.describe("Tabs component", () => {
 
         await tabById(page, id).focus();
         await expect(tabById(page, id)).toHaveCSS(
-          "box-shadow",
-          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+          "outline",
+          "rgb(0, 0, 0) solid 4px",
         );
       });
     });
@@ -836,5 +844,56 @@ test.describe("Tabs component", () => {
 
     await expect(page.getByText("Content for tab 2")).toBeVisible();
     await expect(page.getByText("Content for tab 1")).not.toBeVisible();
+  });
+
+  test("navigation buttons only appear when there are preceding or succeeding tab titles out of view", async ({
+    mount,
+    page,
+  }) => {
+    // Load the responsive page
+    await mount(<Responsive />);
+
+    // The left navigation button should not be visible
+    await expect(navButtonWrapperById(page, "left")).toHaveCSS(
+      "display",
+      "none",
+    );
+    // The right navigation button should be visible
+    await expect(navButtonWrapperById(page, "right")).toHaveCSS(
+      "display",
+      "block",
+    );
+
+    // Click the right navigation button
+    await navButtonById(page, `right`).click();
+
+    // Expect the left navigation button to have appeared
+    await expect(navButtonWrapperById(page, "left")).toHaveCSS(
+      "display",
+      "block",
+    );
+
+    // Click the right navigation button
+    await navButtonById(page, `right`).click();
+
+    // Expect the right navigation button to have disappeared
+    await expect(navButtonWrapperById(page, "right")).toHaveCSS(
+      "display",
+      "none",
+    );
+
+    // Click the left navigation button
+    await navButtonById(page, `left`).click();
+
+    // The right navigation button should be visible
+    await expect(navButtonWrapperById(page, "right")).toHaveCSS(
+      "display",
+      "block",
+    );
+    // The left navigation button should not be visible
+    await expect(navButtonWrapperById(page, "left")).toHaveCSS(
+      "display",
+      "none",
+    );
   });
 });

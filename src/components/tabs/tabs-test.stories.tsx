@@ -2,7 +2,6 @@ import React from "react";
 import { Tabs, Tab, TabsProps, TabProps } from ".";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import Box from "../box";
-import { allModes } from "../../../.storybook/modes";
 
 export default {
   title: "Tabs/Test",
@@ -261,31 +260,5 @@ TabsInSidebarPositionedLeft.parameters = {
   info: { disable: true },
   chromatic: {
     disableSnapshot: false,
-  },
-};
-
-export const WithHorizontalScrollbar = () => {
-  return (
-    <Tabs>
-      {Array.from({ length: 30 }).map((_, index) => (
-        <Tab
-          tabId={`tab-${index + 1}`}
-          title={`Tab ${index + 1}`}
-          key={`tab-${index + 1}`}
-        >
-          Content for tab {index + 1}
-        </Tab>
-      ))}
-    </Tabs>
-  );
-};
-
-WithHorizontalScrollbar.storyName = "With horizontal scrollbar";
-WithHorizontalScrollbar.parameters = {
-  chromatic: {
-    disableSnapshot: false,
-    modes: {
-      desktop: allModes.chromatic,
-    },
   },
 };

@@ -194,7 +194,24 @@ const Tabs = ({
   };
 
   /** Focuses the tab for the reference specified */
-  const focusTab = (ref: React.RefObject<HTMLElement>) => ref.current?.focus();
+  const focusTab = (ref: React.RefObject<HTMLElement>) => {
+    ref.current?.focus();
+    /* istanbul ignore next */
+    const rect = ref.current?.getBoundingClientRect();
+    /* istanbul ignore next */
+    if (rect) {
+      const isVisible =
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <=
+          (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <=
+          (window.innerWidth || document.documentElement.clientWidth);
+      if (!isVisible) {
+        ref.current?.scrollIntoView({ behavior: "auto", inline: "center" });
+      }
+    }
+  };
 
   /** Will trigger the tab at the given index. */
   const goToTab = (event: React.KeyboardEvent<HTMLElement>, index: number) => {
@@ -207,7 +224,6 @@ const Tabs = ({
       newIndex = 0;
     }
     const nextRef = tabRefs[newIndex];
-
     focusTab(nextRef);
   };
 
@@ -334,6 +350,7 @@ const Tabs = ({
         extendedLine={extendedLine}
         noRightBorder={["no right side", "no sides"].includes(borders)}
         isInSidebar={isInSidebar}
+        size={size || "default"}
       >
         {tabTitles}
       </TabsHeader>
