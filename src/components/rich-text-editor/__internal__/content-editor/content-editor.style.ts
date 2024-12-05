@@ -1,8 +1,7 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const StyledContentEditor = styled.div`
   .carbon-rte-editable {
-    width: 500px;
     height: 300px;
     border-radius: var(--borderRadius050);
     border-bottom-left-radius: 0;
@@ -11,7 +10,7 @@ const StyledContentEditor = styled.div`
     position: relative;
     background-color: var(--colorsUtilityYang100);
     outline: 1px solid var(--colorsUtilityMajor200);
-    margin: 8px 8px 0px;
+    margin: 8px 0px 0px;
     padding: 2px 8px;
   }
 `;

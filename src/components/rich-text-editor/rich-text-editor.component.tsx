@@ -15,10 +15,17 @@ import { LinkNode } from "@lexical/link";
 import { ListNode, ListItemNode } from "@lexical/list";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
+import { EditorState } from "lexical";
+
+import Label from "../../__internal__/label";
 
 import ContentEditor from "./__internal__/content-editor";
 import Placeholder from "./__internal__/placeholder";
-import { OnChangePlugin, ToolbarPlugin } from "./__internal__/plugins";
+import {
+  CharacterCountPlugin,
+  OnChangePlugin,
+  ToolbarPlugin,
+} from "./__internal__/plugins";
 
 import StyledRichTextEditor from "./rich-text-editor.style";
 
@@ -29,7 +36,13 @@ function onError(error: any) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RichTextEditorProps {}
+export interface RichTextEditorProps {
+  label: string;
+  isRequired?: boolean;
+  optional?: boolean;
+  characterLimit?: number;
+  showCommandButtons?: boolean;
+}
 
 const theme = {
   text: {
@@ -41,7 +54,16 @@ const theme = {
 };
 
 export const RichTextEditor = React.forwardRef(
-  ({ ...rest }: RichTextEditorProps, ref) => {
+  (
+    {
+      characterLimit = 0,
+      isRequired,
+      label,
+      optional,
+      showCommandButtons,
+    }: RichTextEditorProps,
+    ref,
+  ) => {
     const initialConfig = {
       namespace: "Carbon Rich Text Editor",
       theme,
@@ -57,20 +79,39 @@ export const RichTextEditor = React.forwardRef(
       ],
     };
 
+    const [editorState, setEditorState] = useState<EditorState | undefined>(
+      undefined,
+    );
+
     return (
-      <StyledRichTextEditor>
-        <LexicalComposer initialConfig={initialConfig}>
-          <RichTextPlugin
-            contentEditable={<ContentEditor />}
-            placeholder={<Placeholder />}
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-          <HistoryPlugin />
-          <OnChangePlugin onChange={() => {}} />
-          <MarkdownShortcutPlugin />
-          <ToolbarPlugin />
-        </LexicalComposer>
-      </StyledRichTextEditor>
+      <div>
+        <Label isRequired={isRequired} optional={optional}>
+          {label}
+        </Label>
+        <StyledRichTextEditor id="carbon-lexical-rich-text-editor">
+          <LexicalComposer initialConfig={initialConfig}>
+            <RichTextPlugin
+              contentEditable={<ContentEditor />}
+              placeholder={<Placeholder />}
+              ErrorBoundary={LexicalErrorBoundary}
+            />
+            <HistoryPlugin />
+            <OnChangePlugin
+              onChange={(newState) => {
+                setEditorState(newState);
+              }}
+            />
+            <MarkdownShortcutPlugin />
+            <ToolbarPlugin showCommandButtons={showCommandButtons} />
+            {characterLimit > 0 && (
+              <CharacterCountPlugin
+                editorState={editorState}
+                maxChars={characterLimit}
+              />
+            )}
+          </LexicalComposer>
+        </StyledRichTextEditor>
+      </div>
     );
   },
 );

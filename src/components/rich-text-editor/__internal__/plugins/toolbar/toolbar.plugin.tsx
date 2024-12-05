@@ -4,8 +4,6 @@ import {
   $getSelection,
   $isRangeSelection,
   FORMAT_TEXT_COMMAND,
-  REDO_COMMAND,
-  UNDO_COMMAND,
   TextFormatType,
   COMMAND_PRIORITY_LOW,
 } from "lexical";
@@ -20,15 +18,22 @@ import {
 } from "@lexical/list";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
-import StyledToolbar from "./toolbar.plugin.style";
+import {
+  StyledToolbar,
+  FormattingButtons,
+  CommandButtons,
+  FormattingButton,
+} from "./toolbar.plugin.style";
 import Button from "../../../../../components/button";
 
-const ToolbarPlugin = () => {
+interface ToolbarPluginProps {
+  showCommandButtons?: boolean;
+}
+
+const ToolbarPlugin = ({ showCommandButtons = false }: ToolbarPluginProps) => {
   const [editor] = useLexicalComposerContext();
   const [isBold, setIsBold] = useState(false);
-  const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
-  const [isUnderline, setIsUnderline] = useState(false);
   const [isUnorderedList, setIsUnorderedList] = useState(false);
   const [isOrderedList, setIsOrderedList] = useState(false);
 
@@ -62,9 +67,7 @@ const ToolbarPlugin = () => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
       setIsBold(selection.hasFormat("bold"));
-      setIsStrikethrough(selection.hasFormat("strikethrough"));
       setIsItalic(selection.hasFormat("italic"));
-      setIsUnderline(selection.hasFormat("underline"));
     }
   }, []);
 
@@ -80,13 +83,6 @@ const ToolbarPlugin = () => {
 
   const handleTextFormatClick = (format: TextFormatType) => {
     editor.dispatchCommand(FORMAT_TEXT_COMMAND, format);
-  };
-
-  const handleHistoryClick = (action: "undo" | "redo") => {
-    editor.dispatchCommand(
-      action === "undo" ? UNDO_COMMAND : REDO_COMMAND,
-      undefined,
-    );
   };
 
   const handleListClick = (action: "unordered" | "ordered") => {
@@ -126,70 +122,59 @@ const ToolbarPlugin = () => {
 
   return (
     <StyledToolbar>
-      <Button
-        buttonType={isBold ? "primary" : "tertiary"}
-        size="small"
-        aria-label="Bold"
-        onClick={() => handleTextFormatClick("bold")}
-      >
-        Bold
-      </Button>
-      <Button
-        buttonType={isStrikethrough ? "primary" : "tertiary"}
-        size="small"
-        aria-label="Strikethrough"
-        onClick={() => handleTextFormatClick("strikethrough")}
-      >
-        Strikethrough
-      </Button>
-      <Button
-        buttonType={isItalic ? "primary" : "tertiary"}
-        size="small"
-        aria-label="Italic"
-        onClick={() => handleTextFormatClick("italic")}
-      >
-        Italic
-      </Button>
-      <Button
-        buttonType={isUnderline ? "primary" : "tertiary"}
-        size="small"
-        aria-label="Underline"
-        onClick={() => handleTextFormatClick("underline")}
-      >
-        Underline
-      </Button>
-      <Button
-        buttonType="tertiary"
-        size="small"
-        aria-label="Undo"
-        onClick={() => handleHistoryClick("undo")}
-      >
-        Undo
-      </Button>
-      <Button
-        buttonType="tertiary"
-        size="small"
-        aria-label="Redo"
-        onClick={() => handleHistoryClick("redo")}
-      >
-        Redo
-      </Button>
-      <Button
-        buttonType={isOrderedList ? "primary" : "tertiary"}
-        size="small"
-        aria-label="Ordered List"
-        onClick={() => handleListClick("ordered")}
-      >
-        Ordered List
-      </Button>
-      <Button
-        buttonType={isUnorderedList ? "primary" : "tertiary"}
-        size="small"
-        aria-label="Unordered List"
-        onClick={() => handleListClick("unordered")}
-      >
-        Unordered List
-      </Button>
+      <FormattingButtons>
+        <FormattingButton
+          size="small"
+          aria-label="Bold"
+          onClick={() => handleTextFormatClick("bold")}
+          iconType="bold"
+          buttonType={isBold ? "primary" : "tertiary"}
+          isActive={isBold}
+        />
+        <FormattingButton
+          size="small"
+          aria-label="Italic"
+          onClick={() => handleTextFormatClick("italic")}
+          iconType="italic"
+          buttonType={isItalic ? "primary" : "tertiary"}
+          isActive={isItalic}
+        />
+        <FormattingButton
+          size="small"
+          aria-label="Ordered List"
+          onClick={() => handleListClick("ordered")}
+          iconType="bullet_list_numbers"
+          buttonType={isOrderedList ? "primary" : "tertiary"}
+          isActive={isOrderedList}
+        />
+        <FormattingButton
+          size="small"
+          aria-label="Unordered List"
+          onClick={() => handleListClick("ordered")}
+          iconType="bullet_list_dotted"
+          buttonType={isUnorderedList ? "primary" : "tertiary"}
+          isActive={isUnorderedList}
+        />
+      </FormattingButtons>
+      {showCommandButtons && (
+        <CommandButtons>
+          <Button
+            buttonType="tertiary"
+            aria-label="Cancel"
+            onClick={() => console.log("cancel")}
+          >
+            Cancel
+          </Button>
+
+          <Button
+            buttonType="primary"
+            aria-label="Save"
+            onClick={() => console.log("save")}
+          >
+            Save
+          </Button>
+        </CommandButtons>
+      )}
     </StyledToolbar>
   );
 };
