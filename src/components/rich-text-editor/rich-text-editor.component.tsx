@@ -15,7 +15,7 @@ import { LinkNode } from "@lexical/link";
 import { ListNode, ListItemNode } from "@lexical/list";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
-import { EditorState } from "lexical";
+import { EditorState, $getRoot } from "lexical";
 
 import Label from "../../__internal__/label";
 
@@ -37,10 +37,21 @@ function onError(error: any) {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RichTextEditorProps {
-  label: string;
-  isRequired?: boolean;
-  optional?: boolean;
+  /** The maximum number of characters for this rich text editor. */
   characterLimit?: number;
+  /** whether the value of this component is required */
+  isRequired?: boolean;
+  /** The label to attach to this rich text editor */
+  label: string;
+  /** Callback function to be called when the editor state changes */
+  onChange?: (value: string) => void;
+  /** Callback function to be called when the editor is saved via command button */
+  onSave?: () => void;
+  /** Callback function to be called when the editor is saved via command button */
+  onCancel?: () => void;
+  /** whether the value of this component is optional */
+  optional?: boolean;
+  /** Whether to show the command buttons in the toolbar */
   showCommandButtons?: boolean;
 }
 
@@ -57,10 +68,13 @@ export const RichTextEditor = React.forwardRef(
   (
     {
       characterLimit = 0,
-      isRequired,
+      isRequired = false,
       label,
-      optional,
-      showCommandButtons,
+      optional = false,
+      showCommandButtons = false,
+      onChange = undefined,
+      onSave = undefined,
+      onCancel = undefined,
     }: RichTextEditorProps,
     ref,
   ) => {
@@ -99,10 +113,20 @@ export const RichTextEditor = React.forwardRef(
             <OnChangePlugin
               onChange={(newState) => {
                 setEditorState(newState);
+                if (onChange) {
+                  const currentTextContent = newState.read(() =>
+                    $getRoot().getTextContent(),
+                  );
+                  onChange?.(currentTextContent);
+                }
               }}
             />
             <MarkdownShortcutPlugin />
-            <ToolbarPlugin showCommandButtons={showCommandButtons} />
+            <ToolbarPlugin
+              showCommandButtons={showCommandButtons}
+              onSave={onSave}
+              onCancel={onCancel}
+            />
             {characterLimit > 0 && (
               <CharacterCountPlugin
                 editorState={editorState}

@@ -27,10 +27,19 @@ import {
 import Button from "../../../../../components/button";
 
 interface ToolbarPluginProps {
+  /** Whether to show the command buttons */
   showCommandButtons?: boolean;
+  /** Callback function to be called when the editor is saved via command button */
+  onSave?: () => void;
+  /** Callback function to be called when the editor is saved via command button */
+  onCancel?: () => void;
 }
 
-const ToolbarPlugin = ({ showCommandButtons = false }: ToolbarPluginProps) => {
+const ToolbarPlugin = ({
+  showCommandButtons = false,
+  onSave = undefined,
+  onCancel = undefined,
+}: ToolbarPluginProps) => {
   const [editor] = useLexicalComposerContext();
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
@@ -161,7 +170,7 @@ const ToolbarPlugin = ({ showCommandButtons = false }: ToolbarPluginProps) => {
           <Button
             buttonType="tertiary"
             aria-label="Cancel"
-            onClick={() => console.log("cancel")}
+            onClick={() => onCancel?.()}
           >
             Cancel
           </Button>
@@ -169,7 +178,7 @@ const ToolbarPlugin = ({ showCommandButtons = false }: ToolbarPluginProps) => {
           <Button
             buttonType="primary"
             aria-label="Save"
-            onClick={() => console.log("save")}
+            onClick={() => onSave?.()}
           >
             Save
           </Button>

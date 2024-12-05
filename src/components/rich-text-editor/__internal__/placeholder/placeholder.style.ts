@@ -1,10 +1,10 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const StyledPlaceholder = styled.div`
   position: absolute;
   top: 16px;
   color: var(--colorsUtilityYin055);
-  left: 18px;
+  left: 10px;
 `;
 
 export default StyledPlaceholder;

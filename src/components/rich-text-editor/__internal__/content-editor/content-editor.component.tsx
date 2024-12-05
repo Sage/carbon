@@ -6,7 +6,10 @@ import StyledContentEditor from "./content-editor.style";
 const ContentEditor = () => {
   return (
     <StyledContentEditor>
-      <ContentEditable className="carbon-rte-editable" />
+      <ContentEditable
+        className="carbon-rte-editable"
+        ariaLabel="Rich text content editor"
+      />
     </StyledContentEditor>
   );
 };

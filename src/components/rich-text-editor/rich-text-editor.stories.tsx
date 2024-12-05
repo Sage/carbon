@@ -34,3 +34,16 @@ export const CommandButtons: Story = () => {
   return <RichTextEditor label="Rich Text Editor" showCommandButtons />;
 };
 CommandButtons.storyName = "With Command Buttons";
+
+export const OnChange: Story = () => {
+  const [state, setState] = React.useState<string | undefined>(undefined);
+  return (
+    <RichTextEditor
+      label="Rich Text Editor"
+      onChange={setState}
+      showCommandButtons
+      onSave={() => state && alert(state)}
+    />
+  );
+};
+OnChange.storyName = "With onChange Handler";
