@@ -195,6 +195,17 @@ const SelectList = React.forwardRef(
       }
     }, [currentOptionsListIndex, isOpen, virtualizer]);
 
+    // Due to a bug in FireFox where the virtualiser would not render any items if the list was opened with nothing be selected the first time.
+    // This ensures that the first option is always visible when the list is opened and nothing is selected.
+    const browserIsFirefox =
+      navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
+
+    useEffect(() => {
+      if (browserIsFirefox && isOpen && currentOptionsListIndex === -1) {
+        virtualizer.scrollBy(0, SCROLL_OPTIONS);
+      }
+    });
+
     const items = virtualizer.getVirtualItems();
 
     const childrenList = useMemo(
