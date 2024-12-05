@@ -145,7 +145,7 @@ export const FilterableSelect = React.forwardRef<
     },
     ref,
   ) => {
-    const [activeDescendantId, setActiveDescendantId] = useState<string>();
+    const [activeDescendantId, setActiveDescendantId] = useState<string>("");
     const selectListId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
@@ -491,7 +491,7 @@ export const FilterableSelect = React.forwardRef<
         const {
           id: selectedOptionId,
           text,
-          value: newValue = "",
+          value: newValue,
           selectionType,
           selectionConfirmed,
         } = optionData;
@@ -501,7 +501,7 @@ export const FilterableSelect = React.forwardRef<
           setHighlightedValue(newValue);
         }
 
-        setTextValue(text || /* istanbul ignore next */ "");
+        setTextValue(text);
         triggerChange(newValue, !!selectionConfirmed);
         setActiveDescendantId(selectedOptionId);
 

@@ -593,7 +593,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     >(
       (optionData) => {
         const {
-          value: newValue = "",
+          value: newValue,
           selectionType,
           id: selectedOptionId,
           selectionConfirmed,
@@ -601,7 +601,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
 
         if (selectionType === "navigationKey") {
           setHighlightedValue(newValue);
-          setActiveDescendantId(selectedOptionId ?? "");
+          setActiveDescendantId(selectedOptionId);
           return;
         }
 

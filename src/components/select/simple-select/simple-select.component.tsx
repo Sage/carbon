@@ -152,7 +152,7 @@ export const SimpleSelect = React.forwardRef<
     const filterText = useRef<string>();
     const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
     const [isOpen, setOpenState] = useState(false);
-    const [activeDescendantId, setActiveDescendantId] = useState<string>();
+    const [activeDescendantId, setActiveDescendantId] = useState<string>("");
     const [textValue, setTextValue] = useState<string | undefined>("");
     const [selectedValue, setSelectedValue] = useState<
       string | Record<string, unknown> | undefined
