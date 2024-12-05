@@ -1,3 +1,10 @@
+### [144.12.1](https://github.com/Sage/carbon/compare/v144.12.0...v144.12.1) (2024-12-05)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure that tab sequence is not lost when container has radio buttons ([a843fe8](https://github.com/Sage/carbon/commit/a843fe8be5df9ad728f6ee235c3e2c848808711c)), closes [#7067](https://github.com/Sage/carbon/issues/7067)
+
 ## [144.12.0](https://github.com/Sage/carbon/compare/v144.11.0...v144.12.0) (2024-12-04)
 
 
