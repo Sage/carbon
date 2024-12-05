@@ -34,6 +34,7 @@ import {
   WithRenderCloseButtonComponent,
   PopoverContainerComponentCoverButton,
   PopoverContainerFocusOrder,
+  WithRadioButtons,
 } from "../popover-container/components.test-pw";
 import Portrait from "../portrait";
 
@@ -622,6 +623,25 @@ test.describe("Check props of Popover Container component", () => {
     await expect(closeButton).toBeFocused();
     await page.keyboard.press("Shift+Tab");
     await expect(third).toBeFocused();
+  });
+
+  test("should focus the next focusable element outside of the container once finished keyboard navigating through the container's content", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithRadioButtons />);
+
+    const openButton = page.getByRole("button", { name: "open" });
+    const container = popoverContainerContent(page);
+    const additionalButton = page.getByRole("button", { name: "foo" });
+
+    await openButton.click();
+    await page.keyboard.press("Tab"); // focus on first radio button
+    await page.keyboard.press("Tab"); // focus on close icon
+    await page.keyboard.press("Tab"); // focus outside of container and on to additional button
+
+    await expect(container).not.toBeVisible();
+    await expect(additionalButton).toBeFocused();
   });
 
   test.describe("Accessibility tests", () => {
