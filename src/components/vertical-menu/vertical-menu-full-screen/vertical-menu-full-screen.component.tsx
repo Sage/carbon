@@ -15,6 +15,7 @@ import {
 } from "../vertical-menu.style";
 import VerticalMenuFullScreenContext from "./__internal__/vertical-menu-full-screen.context";
 import Events from "../../../__internal__/utils/helpers/events/events";
+import useModalManager from "../../../hooks/__internal__/useModalManager";
 
 export interface VerticalMenuFullScreenProps extends TagProps {
   /** An aria-label attribute for the menu */
@@ -54,6 +55,13 @@ export const VerticalMenuFullScreen = ({
     },
     [onClose],
   );
+
+  useModalManager({
+    open: isOpen,
+    closeModal: handleKeyDown,
+    modalRef: menuWrapperRef,
+    topModalOverride: true,
+  });
 
   // TODO remove this as part of FE-5650
   if (!isOpen) return null;
