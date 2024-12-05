@@ -12,7 +12,8 @@ const themes = [noTheme, sageTheme].reduce((themesObject, theme) => {
   return themesObject;
 }, {});
 
-if (!isChromatic() && process.env.STORYBOOK_DEBUG_THEME === "true") {
+const useDebugTheme = process.env.USE_DEBUG_THEME === "true";
+if (useDebugTheme) {
   themes["sage-debug"] = sageDebugTheme;
 }
 
