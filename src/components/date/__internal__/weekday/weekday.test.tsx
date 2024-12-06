@@ -3,8 +3,22 @@ import { screen, render } from "@testing-library/react";
 
 import Weekday from "./weekday.component";
 
+const Component = (props: {
+  children: React.ReactNode;
+  className?: string;
+  title?: string;
+}) => (
+  <table>
+    <thead>
+      <tr>
+        <Weekday {...props}>Foo</Weekday>
+      </tr>
+    </thead>
+  </table>
+);
+
 test("should render the passed `title` as the attribute on the `abbr` element", () => {
-  render(<Weekday title="title">Foo</Weekday>);
+  render(<Component title="title">Foo</Component>);
   const abbr = screen.getByTitle("title");
 
   expect(abbr).toBeInTheDocument();
@@ -12,7 +26,7 @@ test("should render the passed `title` as the attribute on the `abbr` element", 
 });
 
 test("should render the passed `className` on the `div` element", () => {
-  render(<Weekday className="custom-class">Foo</Weekday>);
+  render(<Component className="custom-class">Foo</Component>);
   const weekday = screen.getByRole("columnheader", { name: "Foo" });
 
   expect(weekday).toHaveClass("custom-class");
