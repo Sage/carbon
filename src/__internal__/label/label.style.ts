@@ -56,7 +56,11 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
   align-items: center;
   margin-bottom: 8px;
 
-  ${({ align, inline, pr, pl, width }) =>
+  ${({ align }) => css`
+    justify-content: ${align !== "right" ? "flex-start" : "flex-end"};
+  `}
+
+  ${({ inline, pr, pl, width }) =>
     inline &&
     css`
       box-sizing: border-box;
@@ -69,7 +73,6 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
       css`
         padding-left: var(${pl === 1 ? "--spacing100" : "--spacing200"});
       `};
-      justify-content: ${align === "right" ? "flex-end" : "flex-start"};
       width: ${width}%;
     `}
 
