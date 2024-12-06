@@ -133,7 +133,7 @@ A title attribute is added to the item when using this prop, containing the full
 
 ### Submenu maxWidth
 
-By default the submenu will have the same width as the widest `MenuItem`. This behaviour can be overridden 
+By default the submenu will have the same width as the widest `MenuItem`. This behaviour can be overridden
 by setting the `submenuMaxWidth` prop on the submenu's parent `MenuItem` component.
 
 <Canvas of={MenuStories.TruncationAndSubmenuWidth} />
@@ -155,6 +155,16 @@ The call-to-action `MenuItem` should always be focused when the `MenuFullscreen`
 due to specific browser design choices.
 
 <Canvas of={MenuStories.FullscreenViewStory} />
+
+### Full-screen Menu with segment styling
+
+When using the `alternate` variant for a `MenuItem` that is a child of a `MenuSegmentTitle`, the menu item  will automatically
+update its styling to match the segment title. Note that this only applies to the `MenuItem` instances within a normal `Menu` component;
+when found within a `MenuFullscreen` component, the `alternate` variant will not be styled differently.
+
+This story is best viewed in the `canvas` view.
+
+<Canvas of={MenuStories.MenuFullscreenWithSegmentStyling} />
 
 ## Props
 
