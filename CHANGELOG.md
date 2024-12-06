@@ -1,3 +1,10 @@
+## [144.15.0](https://github.com/Sage/carbon/compare/v144.14.0...v144.15.0) (2024-12-06)
+
+
+### Features
+
+* **decimal:** add a deprecation warning for onKeyPress prop ([8e297e6](https://github.com/Sage/carbon/commit/8e297e6311b908b33a952108386be2976d4bd11e))
+
 ## [144.14.0](https://github.com/Sage/carbon/compare/v144.13.0...v144.14.0) (2024-12-06)
 
 
