@@ -9,6 +9,9 @@ import { TooltipContext } from "../../__internal__/tooltip-provider";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import guid from "../../__internal__/utils/helpers/guid";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedClassNameWarningShown = false;
 
 export interface HelpProps extends MarginProps {
   /** Overrides the default 'as' attribute of the Help component */
@@ -64,6 +67,13 @@ export const Help = ({
   type = "help",
   ...rest
 }: HelpProps): JSX.Element => {
+  if (!deprecatedClassNameWarningShown && className) {
+    Logger.deprecate(
+      "The 'className' prop has been deprecated and will soon be removed from the 'Help' component.",
+    );
+    deprecatedClassNameWarningShown = true;
+  }
+
   const defaultTooltipId = useRef(guid());
   const helpElement = useRef<HTMLDivElement>(null);
   const [isTooltipVisible, updateTooltipVisible] = useState(false);
