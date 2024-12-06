@@ -191,10 +191,3 @@ test("renders with dark background styling when `darkBackground` prop is passed"
     modifier: "a",
   });
 });
-
-test("applies the `className` prop to the component wrapper", () => {
-  render(<Profile data-role="profile" className="custom-class" />);
-
-  const profile = screen.getByTestId("profile");
-  expect(profile).toHaveClass("custom-class");
-});

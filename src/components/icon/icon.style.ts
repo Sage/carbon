@@ -1,17 +1,20 @@
 import styled, { css } from "styled-components";
+
 import { shade } from "polished";
+
 import { margin } from "styled-system";
 
-import iconUnicodes from "./icon-unicodes";
 import baseTheme, { ThemeObject } from "../../style/themes/base";
-import iconConfig from "./icon-config";
+import addFocusStyling from "../../style/utils/add-focus-styling";
+import styledColor from "../../style/utils/color";
+import getColorValue from "../../style/utils/get-color-value";
 import browserTypeCheck, {
   isSafari,
 } from "../../__internal__/utils/helpers/browser-type-check";
-import styledColor from "../../style/utils/color";
-import getColorValue from "../../style/utils/get-color-value";
+
+import iconConfig from "./icon-config";
 import { IconType } from "./icon-type";
-import addFocusStyling from "../../style/utils/add-focus-styling";
+import iconUnicodes from "./icon-unicodes";
 
 export type BackgroundShape = "circle" | "rounded-rect" | "square";
 
@@ -81,7 +84,7 @@ function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
     return iconConfig.backgroundSize[bgSize];
   }
 
-  /* The below is ignored as removing it may cause regressions as some components import StyledIcon directly from this file 
+  /* The below is ignored as removing it may cause regressions as some components import StyledIcon directly from this file
   however it cannot be tested in the Icon tests as these props always have a value. */
   /* istanbul ignore next */
   return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
@@ -182,7 +185,7 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
         css`
           margin-top: -6px;
         `}
-        
+
         display: block;
       }
 

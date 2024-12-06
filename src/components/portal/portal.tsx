@@ -19,7 +19,11 @@ const Container = styled.div`
 export interface PortalProps {
   /** The content of the portal. */
   children?: React.ReactNode;
-  /** Classname attached to portal container. */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** Id attribute attached to portal container. */
   id?: string;

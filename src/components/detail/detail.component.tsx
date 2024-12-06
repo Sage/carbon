@@ -13,7 +13,11 @@ import {
 } from "./detail.style";
 
 export interface DetailProps extends MarginProps, TagProps {
-  /** Custom className. */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** The type of icon to use. */
   icon?: IconType;
@@ -29,28 +33,30 @@ export const Detail = ({
   footnote,
   children,
   ...rest
-}: DetailProps) => (
-  <StyledDetail
-    className={`carbon-detail ${className}`}
-    {...tagComponent("detail", rest)}
-    {...filterStyledSystemMarginProps(rest)}
-  >
-    {icon && <StyledDetailIcon type={icon} data-element="icon" />}
-    <StyledDetailContent data-element="detail-content" hasIcon={!!icon}>
-      {children}
-    </StyledDetailContent>
+}: DetailProps) => {
+  return (
+    <StyledDetail
+      className={`carbon-detail ${className}`}
+      {...tagComponent("detail", rest)}
+      {...filterStyledSystemMarginProps(rest)}
+    >
+      {icon && <StyledDetailIcon type={icon} data-element="icon" />}
+      <StyledDetailContent data-element="detail-content" hasIcon={!!icon}>
+        {children}
+      </StyledDetailContent>
 
-    {footnote && (
-      <StyledDetailFootnote
-        data-element="footnote"
-        data-role="footnote"
-        hasIcon={!!icon}
-      >
-        {footnote}
-      </StyledDetailFootnote>
-    )}
-  </StyledDetail>
-);
+      {footnote && (
+        <StyledDetailFootnote
+          data-element="footnote"
+          data-role="footnote"
+          hasIcon={!!icon}
+        >
+          {footnote}
+        </StyledDetailFootnote>
+      )}
+    </StyledDetail>
+  );
+};
 
 Detail.displayName = "Detail";
 

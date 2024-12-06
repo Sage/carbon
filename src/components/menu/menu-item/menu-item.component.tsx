@@ -26,7 +26,11 @@ interface MenuItemBaseProps
     Pick<LayoutProps, "width" | "maxWidth" | "minWidth">,
     FlexboxProps,
     PaddingProps {
-  /** Custom className */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** onClick handler */
   onClick?: (
@@ -62,7 +66,7 @@ interface MenuItemBaseProps
   onSubmenuOpen?: () => void;
   /** Callback triggered when submenu closes. Only valid with submenu prop */
   onSubmenuClose?: () => void;
-  /** 
+  /**
     @ignore @private
     private prop, used inside ScrollableBlock to ensure the MenuItem's color variant overrides the CSS
     for other MenuItems inside the block

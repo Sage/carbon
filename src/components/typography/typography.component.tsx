@@ -74,7 +74,11 @@ export interface TypographyProps extends SpaceProps, TagProps {
   bg?: string;
   /** Override the opacity value */
   opacity?: string | number;
-  /** @private @ignore */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** Set whether it will be visually hidden
    * NOTE: This is for screen readers only and will make a lot of the other props redundant */

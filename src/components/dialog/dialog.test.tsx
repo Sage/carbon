@@ -10,7 +10,10 @@ import userEvent from "@testing-library/user-event";
 import CarbonProvider from "../carbon-provider";
 import Dialog, { DialogHandle, DialogProps } from ".";
 
-beforeEach(() => jest.useFakeTimers());
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
 afterEach(() => {
   jest.runOnlyPendingTimers();
   jest.useRealTimers();

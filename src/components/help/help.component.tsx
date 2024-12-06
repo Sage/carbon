@@ -17,7 +17,11 @@ export interface HelpProps extends MarginProps {
   ariaLabel?: string;
   /** The message to be displayed within the tooltip */
   children?: React.ReactNode;
-  /** [Legacy] A custom class name for the component. */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** The unique id of the component (used with aria-describedby for accessibility) */
   helpId?: string;

@@ -8,7 +8,11 @@ export interface TabProps extends PaddingProps {
   title?: string;
   /** A unique ID to identify this specific tab. */
   tabId: string;
-  /** @ignore @private */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** The child elements of Tab component. */
   children?: React.ReactNode;

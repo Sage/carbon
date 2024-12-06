@@ -63,7 +63,7 @@ export interface BoxProps
   boxShadow?: BoxShadowsType;
   /** Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. **This prop will not do anything if you have the roundedCornerOptOut flag set in the CarbonProvider** */
   borderRadius?: BorderRadiusType;
-  /** @private @ignore */
+  /** Sets className for component */
   className?: string;
   /** Set the color attribute of the Box component */
   color?: string;
