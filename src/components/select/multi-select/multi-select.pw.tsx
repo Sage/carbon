@@ -6,6 +6,7 @@ import {
   MultiSelectDefaultValueComponent,
   MultiSelectMaxOptionsComponent,
   MultiSelectWithLazyLoadingComponent,
+  MultiSelectWithInfiniteScrollComponent,
   MultiSelectLazyLoadTwiceComponent,
   MultiSelectObjectAsValueComponent,
   MultiSelectMultiColumnsComponent,
@@ -675,6 +676,58 @@ test.describe("MultiSelect component", () => {
     );
   });
 
+  test("should render a lazy loaded option when the infinite scroll prop is set", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MultiSelectWithInfiniteScrollComponent />);
+
+    const option = "Lazy Loaded A1";
+    const selectListWrapperElement = selectListWrapper(page);
+    await dropdownButton(page).click();
+    await expect(selectListWrapperElement).toBeVisible();
+    await Promise.all(
+      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
+    );
+    await expect(selectOptionByText(page, option)).toHaveCount(0);
+    await page.waitForTimeout(2000);
+    await selectListScrollableWrapper(page).evaluate((wrapper) => {
+      wrapper.scrollBy(0, 500);
+    });
+    await page.waitForTimeout(250);
+    await Promise.all(
+      [0, 1, 2].map((i) => expect(loader(page, i)).not.toBeVisible()),
+    );
+    await expect(await selectOptionByText(page, option)).toBeVisible();
+  });
+
+  test("the list should not change scroll position when the lazy-loaded options appear", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MultiSelectWithInfiniteScrollComponent />);
+
+    // open the select list and choose an option
+    const inputElement = commonDataElementInputPreview(page);
+    await inputElement.focus();
+    await inputElement.press("ArrowDown");
+    const firstOption = selectOptionByText(page, "Amber");
+    await firstOption.waitFor();
+    await firstOption.click();
+
+    const scrollableWrapper = selectListScrollableWrapper(page);
+    await scrollableWrapper.evaluate((wrapper) => wrapper.scrollBy(0, 500));
+    const scrollPositionBeforeLoad = await scrollableWrapper.evaluate(
+      (element) => element.scrollTop,
+    );
+
+    await selectOptionByText(page, "Lazy Loaded A1").waitFor();
+    const scrollPositionAfterLoad = await scrollableWrapper.evaluate(
+      (element) => element.scrollTop,
+    );
+    await expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
+  });
+
   test("should list options when value is set and select list is opened again", async ({
     mount,
     page,
@@ -1260,6 +1313,59 @@ test.describe("Check events for MultiSelect component", () => {
     await expect(callbackArguments.length).toBe(1);
     await expect(callbackArguments[0]).toBe(text);
   });
+
+  test("should call onListScrollBottom event when the list is scrolled to the bottom", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback = () => {
+      callbackCount += 1;
+    };
+    await mount(<MultiSelectComponent onListScrollBottom={callback} />);
+
+    await dropdownButton(page).click();
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
+      wrapper.scrollBy(0, 500),
+    );
+    await page.waitForTimeout(250);
+    await expect(callbackCount).toBe(1);
+  });
+
+  test("should not call onListScrollBottom callback when an option is clicked", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback = () => {
+      callbackCount += 1;
+    };
+    await mount(<MultiSelectComponent onListScrollBottom={callback} />);
+
+    await dropdownButton(page).click();
+    await selectOption(page, positionOfElement("first")).click();
+    expect(callbackCount).toBe(0);
+  });
+
+  test("should not be called when an option is clicked and list is re-opened", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback = () => {
+      callbackCount += 1;
+    };
+
+    await mount(<MultiSelectComponent onListScrollBottom={callback} />);
+
+    await dropdownButton(page).click();
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
+      wrapper.scrollBy(0, 500),
+    );
+    await selectOption(page, positionOfElement("first")).click();
+    await dropdownButton(page).click();
+    expect(callbackCount).toBe(1);
+  });
 });
 
 test.describe("Check virtual scrolling", () => {
@@ -1787,6 +1893,22 @@ test.describe("Accessibility tests for MultiSelect component", () => {
     await dropdownButton(page).click();
     await expect(loader(page, 1)).toBeVisible();
     await checkAccessibility(page);
+  });
+
+  test("should pass accessibility tests with onListScrollBottom prop", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MultiSelectWithInfiniteScrollComponent />);
+
+    await dropdownButton(page).click();
+    await checkAccessibility(page);
+    // wait for content to finish loading before scrolling
+    await expect(selectOptionByText(page, "Amber")).toBeVisible();
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
+      wrapper.scrollBy(0, 500),
+    );
+    await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
   test("should pass accessibility tests with openOnFocus prop", async ({

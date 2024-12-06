@@ -21,6 +21,7 @@ export default {
         "onChange",
         "onChangeDeferred",
         "onFilterChange",
+        "onListScrollBottom",
         "onOpen",
         "onBlur",
         "onClick",
@@ -297,6 +298,85 @@ export const MultiSelectLazyLoadTwiceComponent = (
         {optionList}
       </MultiSelect>
     </div>
+  );
+};
+
+export const MultiSelectWithInfiniteScrollComponent = (
+  props: Partial<MultiSelectProps>,
+) => {
+  const preventLoading = useRef(false);
+  const preventLazyLoading = useRef(false);
+  const lazyLoadingCounter = useRef(0);
+  const [value, setValue] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const asyncList = [
+    <Option text="Amber" value="amber" key="Amber" />,
+    <Option text="Black" value="black" key="Black" />,
+    <Option text="Blue" value="blue" key="Blue" />,
+    <Option text="Brown" value="brown" key="Brown" />,
+    <Option text="Green" value="green" key="Green" />,
+  ];
+  const getLazyLoaded = () => {
+    const counter = lazyLoadingCounter.current;
+    return [
+      <Option
+        text={`Lazy Loaded A${counter}`}
+        value={`lazyA${counter}`}
+        key={`lazyA${counter}`}
+      />,
+      <Option
+        text={`Lazy Loaded B${counter}`}
+        value={`lazyB${counter}`}
+        key={`lazyB${counter}`}
+      />,
+      <Option
+        text={`Lazy Loaded C${counter}`}
+        value={`lazyC${counter}`}
+        key={`lazyC${counter}`}
+      />,
+    ];
+  };
+  const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
+  function loadList() {
+    if (preventLoading.current) {
+      return;
+    }
+    preventLoading.current = true;
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setOptionList(asyncList);
+    }, 2000);
+  }
+  function onLazyLoading() {
+    if (preventLazyLoading.current) {
+      return;
+    }
+    preventLazyLoading.current = true;
+    setIsLoading(true);
+    setTimeout(() => {
+      preventLazyLoading.current = false;
+      lazyLoadingCounter.current += 1;
+      setIsLoading(false);
+      setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
+    }, 2000);
+  }
+  return (
+    <MultiSelect
+      label="color"
+      value={value}
+      onChange={onChangeHandler}
+      onOpen={() => loadList()}
+      isLoading={isLoading}
+      onListScrollBottom={onLazyLoading}
+      {...props}
+    >
+      {optionList}
+    </MultiSelect>
   );
 };
 
