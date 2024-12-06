@@ -38,6 +38,10 @@ export interface MenuFullscreenProps extends Omit<TagProps, "data-component"> {
   ) => void;
   /** Manually override the internal modal stacking order to set this as top */
   topModalOverride?: boolean;
+  /** Enables the automatic restoration of focus to the element that invoked
+   * the modal when the modal is closed.
+   */
+  restoreFocusOnClose?: boolean;
 }
 
 export const MenuFullscreen = ({
@@ -49,6 +53,7 @@ export const MenuFullscreen = ({
   onClose,
   startPosition = "left",
   topModalOverride,
+  restoreFocusOnClose = true,
 }: MenuFullscreenProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -91,7 +96,9 @@ export const MenuFullscreen = ({
     closeModal,
     modalRef: menuRef,
     topModalOverride,
-    focusCallToActionElement: document.activeElement as HTMLElement,
+    focusCallToActionElement: restoreFocusOnClose
+      ? (document.activeElement as HTMLElement)
+      : undefined,
   });
 
   return (

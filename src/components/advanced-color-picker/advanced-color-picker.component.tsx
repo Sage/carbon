@@ -14,6 +14,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { Dt, Dd } from "../definition-list";
 import Logger from "../../__internal__/utils/logger";
+import { ModalProps } from "../modal";
 
 let deprecateUncontrolledWarnTriggered = false;
 export interface AdvancedColor {
@@ -21,7 +22,9 @@ export interface AdvancedColor {
   value: string;
 }
 
-export interface AdvancedColorPickerProps extends MarginProps {
+export interface AdvancedColorPickerProps
+  extends MarginProps,
+    Pick<ModalProps, "restoreFocusOnClose"> {
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**
@@ -71,6 +74,7 @@ export const AdvancedColorPicker = ({
   open = false,
   role,
   selectedColor,
+  restoreFocusOnClose = true,
   ...props
 }: AdvancedColorPickerProps) => {
   const [dialogOpen, setDialogOpen] = useState<boolean>();
@@ -251,6 +255,7 @@ export const AdvancedColorPicker = ({
         bespokeFocusTrap={handleFocus}
         focusFirstElement={selectedColorRef}
         role={role}
+        restoreFocusOnClose={restoreFocusOnClose}
       >
         <StyledAdvancedColorPickerPreview
           data-element="color-picker-preview"

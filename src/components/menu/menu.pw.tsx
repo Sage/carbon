@@ -1121,6 +1121,27 @@ test.describe("Prop tests for Menu component", () => {
     await expect(item).toBeFocused();
   });
 
+  test("when Menu Fullscreen is opened and then closed, with the `restoreFocusOnClose` prop passed as `false`, the call to action element should not be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <MenuComponentFullScreenSimple
+        open={false}
+        restoreFocusOnClose={false}
+      />,
+    );
+
+    await page.setViewportSize({ width: 1200, height: 800 });
+    const item = page.getByRole("button").filter({ hasText: "Menu" });
+    await item.click();
+    const fullscreen = getComponent(page, "menu-fullscreen");
+    await waitForAnimationEnd(fullscreen);
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(item).not.toBeFocused();
+  });
+
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
   test.skip(`should verify that inner Menu without link is NOT available with tabbing in Fullscreen Menu`, async ({
     mount,

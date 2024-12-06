@@ -14,6 +14,7 @@ import Fieldset from "../fieldset";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import Loader from "../loader";
 import Toast from "../toast";
+import Message from "../message";
 import Textarea from "../textarea";
 import CarbonProvider from "../carbon-provider";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -112,6 +113,76 @@ export const DefaultStory: Story = {
     );
   },
 };
+
+export const RestoreFocusOnCloseStory: Story = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const messageRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setIsOpen(true);
+          setShowMessage(false);
+        }}
+        mb={showMessage ? 5 : 0}
+      >
+        Open Dialog
+      </Button>
+      {showMessage && (
+        <Message
+          ref={messageRef}
+          variant="error"
+          onDismiss={() => setShowMessage(false)}
+        >
+          Some custom message
+        </Message>
+      )}
+      <Dialog
+        open={isOpen}
+        onCancel={() => {
+          setIsOpen(false);
+          setShowMessage(true);
+          setTimeout(() => messageRef.current?.focus(), 1);
+        }}
+        title="Title"
+        subtitle="Subtitle"
+        restoreFocusOnClose={false}
+      >
+        <Form
+          stickyFooter
+          leftSideButtons={
+            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+          }
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Typography>
+            This is an example of a dialog with a Form as content
+          </Typography>
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+        </Form>
+      </Dialog>
+    </>
+  );
+};
+RestoreFocusOnCloseStory.storyName = "With Restore Focus On Close";
+RestoreFocusOnCloseStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const MaxSize: Story = {
   ...DefaultStory,

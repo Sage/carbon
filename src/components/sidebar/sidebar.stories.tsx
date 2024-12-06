@@ -12,6 +12,7 @@ import Textbox from "../textbox";
 import Box from "../box";
 import Dialog from "../dialog";
 import DialogFullScreen from "../confirm";
+import Message from "../message";
 
 import Sidebar from ".";
 
@@ -83,6 +84,55 @@ export const DefaultStory: Story = () => {
   );
 };
 DefaultStory.storyName = "Default";
+
+export const RestoreFocusOnCloseStory: Story = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const messageRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setIsOpen(true);
+          setShowMessage(false);
+        }}
+        mb={showMessage ? 5 : 0}
+      >
+        Open sidebar
+      </Button>
+      {showMessage && (
+        <Message
+          ref={messageRef}
+          variant="error"
+          onDismiss={() => setShowMessage(false)}
+        >
+          Some custom message
+        </Message>
+      )}
+      <Sidebar
+        aria-label="sidebar"
+        open={isOpen}
+        onCancel={() => {
+          setIsOpen(false);
+          setShowMessage(true);
+          setTimeout(() => messageRef.current?.focus(), 1);
+        }}
+        restoreFocusOnClose={false}
+      >
+        <Box mb={2}>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </Box>
+        Main Content
+      </Sidebar>
+    </>
+  );
+};
+RestoreFocusOnCloseStory.storyName = "With Restore Focus On Close";
+RestoreFocusOnCloseStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const CustomPaddingAroundContent: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);

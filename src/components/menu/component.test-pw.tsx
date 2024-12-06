@@ -306,8 +306,10 @@ export const MenuComponentFullScreen = (
 
 export const MenuComponentFullScreenSimple = ({
   open = true,
+  restoreFocusOnClose,
 }: {
   open?: boolean;
+  restoreFocusOnClose?: boolean;
 }) => {
   const [menuOpen, setMenuOpen] = useState(open);
 
@@ -320,6 +322,7 @@ export const MenuComponentFullScreenSimple = ({
         key="menu"
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}
+        restoreFocusOnClose={restoreFocusOnClose}
       >
         <MenuItem href="#">Menu Item One</MenuItem>
         <MenuItem href="#">Menu Item Two</MenuItem>

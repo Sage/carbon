@@ -38,6 +38,13 @@ to ensure behaviour is consistent across all browsers.
 
 <Canvas of={DialogFullScreenStories.Default} />
 
+### Preventing focus from being restored when DialogFullScreen closes
+
+When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `DialogFullScreen` was opened.
+Focus can instead be programmatically applied to another element if appropriate. 
+
+<Canvas of={DialogFullScreenStories.RestoreFocusOnCloseStory} />
+
 ### With complex example
 
 If you want to use more than one group of `Tabs` remember to put `selectedTabId` prop in every `Tabs` component
