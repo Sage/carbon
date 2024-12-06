@@ -47,3 +47,14 @@ export const OnChange: Story = () => {
   );
 };
 OnChange.storyName = "With onChange Handler";
+
+export const WithError: Story = () => {
+  return (
+    <RichTextEditor
+      label="Rich Text Editor"
+      error="error"
+      characterLimit={100}
+    />
+  );
+};
+WithError.storyName = "With Error";

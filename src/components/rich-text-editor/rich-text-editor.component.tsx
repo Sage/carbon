@@ -27,7 +27,11 @@ import {
   ToolbarPlugin,
 } from "./__internal__/plugins";
 
-import StyledRichTextEditor from "./rich-text-editor.style";
+import {
+  StyledRichTextEditor,
+  StyledRichTextEditorWrapper,
+  StyledRichTextEditorError,
+} from "./rich-text-editor.style";
 
 import Logger from "../../__internal__/utils/logger";
 
@@ -53,6 +57,8 @@ export interface RichTextEditorProps {
   optional?: boolean;
   /** Whether to show the command buttons in the toolbar */
   showCommandButtons?: boolean;
+  /** Whether the editor is in an erroneous state */
+  error?: boolean | string | undefined;
 }
 
 const theme = {
@@ -75,6 +81,7 @@ export const RichTextEditor = React.forwardRef(
       onChange = undefined,
       onSave = undefined,
       onCancel = undefined,
+      error = undefined,
     }: RichTextEditorProps,
     ref,
   ) => {
@@ -102,39 +109,49 @@ export const RichTextEditor = React.forwardRef(
         <Label isRequired={isRequired} optional={optional}>
           {label}
         </Label>
-        <StyledRichTextEditor id="carbon-lexical-rich-text-editor">
-          <LexicalComposer initialConfig={initialConfig}>
-            <RichTextPlugin
-              contentEditable={<ContentEditor />}
-              placeholder={<Placeholder />}
-              ErrorBoundary={LexicalErrorBoundary}
-            />
-            <HistoryPlugin />
-            <OnChangePlugin
-              onChange={(newState) => {
-                setEditorState(newState);
-                if (onChange) {
-                  const currentTextContent = newState.read(() =>
-                    $getRoot().getTextContent(),
-                  );
-                  onChange?.(currentTextContent);
-                }
-              }}
-            />
-            <MarkdownShortcutPlugin />
-            <ToolbarPlugin
-              showCommandButtons={showCommandButtons}
-              onSave={onSave}
-              onCancel={onCancel}
-            />
-            {characterLimit > 0 && (
-              <CharacterCountPlugin
-                editorState={editorState}
-                maxChars={characterLimit}
-              />
-            )}
-          </LexicalComposer>
-        </StyledRichTextEditor>
+        <StyledRichTextEditorWrapper
+          error={error}
+          id="carbon-lexical-rich-text-editor-wrapper"
+        >
+          {error && error !== true && (
+            <StyledRichTextEditorError>{error}</StyledRichTextEditorError>
+          )}
+          <StyledRichTextEditor id="carbon-lexical-rich-text-editor">
+            <LexicalComposer initialConfig={initialConfig}>
+              <div id="error-wrapper">
+                <RichTextPlugin
+                  contentEditable={<ContentEditor />}
+                  placeholder={<Placeholder />}
+                  ErrorBoundary={LexicalErrorBoundary}
+                />
+                <HistoryPlugin />
+                <OnChangePlugin
+                  onChange={(newState) => {
+                    setEditorState(newState);
+                    if (onChange) {
+                      const currentTextContent = newState.read(() =>
+                        $getRoot().getTextContent(),
+                      );
+                      onChange?.(currentTextContent);
+                    }
+                  }}
+                />
+                <MarkdownShortcutPlugin />
+                <ToolbarPlugin
+                  showCommandButtons={showCommandButtons}
+                  onSave={onSave}
+                  onCancel={onCancel}
+                />
+              </div>
+              {characterLimit > 0 && (
+                <CharacterCountPlugin
+                  editorState={editorState}
+                  maxChars={characterLimit}
+                />
+              )}
+            </LexicalComposer>
+          </StyledRichTextEditor>
+        </StyledRichTextEditorWrapper>
       </div>
     );
   },

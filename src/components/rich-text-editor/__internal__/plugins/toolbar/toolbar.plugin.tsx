@@ -130,8 +130,8 @@ const ToolbarPlugin = ({
   };
 
   return (
-    <StyledToolbar>
-      <FormattingButtons>
+    <StyledToolbar id="carbon-rich-text-editor-toolbar">
+      <FormattingButtons id="carbon-rich-text-editor-toolbar-formatting-buttons">
         <FormattingButton
           size="small"
           aria-label="Bold"
@@ -166,7 +166,7 @@ const ToolbarPlugin = ({
         />
       </FormattingButtons>
       {showCommandButtons && (
-        <CommandButtons>
+        <CommandButtons id="carbon-rich-text-editor-toolbar-command-buttons">
           <Button
             buttonType="tertiary"
             aria-label="Cancel"

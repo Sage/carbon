@@ -10,7 +10,7 @@ const StyledContentEditor = styled.div`
     position: relative;
     background-color: var(--colorsUtilityYang100);
     outline: 1px solid var(--colorsUtilityMajor200);
-    margin: 8px 0px 0px;
+    margin: 0;
     padding: 2px 8px;
   }
 `;

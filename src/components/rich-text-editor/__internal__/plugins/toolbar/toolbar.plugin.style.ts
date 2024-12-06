@@ -7,7 +7,6 @@ interface FormattingButtonProps extends ButtonProps {
 }
 
 const StyledToolbar = styled.div`
-  margin-bottom: 8px;
   display: flex;
   flex-direction: row;
   gap: 8px;

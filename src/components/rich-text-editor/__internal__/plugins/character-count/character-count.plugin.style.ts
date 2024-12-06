@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const StyledCharacterCounter = styled.div`
   text-align: left;
