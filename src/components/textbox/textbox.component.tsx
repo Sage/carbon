@@ -124,6 +124,8 @@ export interface CommonTextboxProps
   helpAriaLabel?: string;
   /** Flag to configure component as optional. */
   isOptional?: boolean;
+  /** The id attribute for the validation tooltip */
+  tooltipId?: string;
 }
 
 export interface TextboxProps extends CommonTextboxProps {
@@ -190,6 +192,7 @@ export const Textbox = React.forwardRef(
       "data-role": dataRole,
       characterLimit,
       helpAriaLabel,
+      tooltipId,
       ...props
     }: TextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -299,7 +302,9 @@ export const Textbox = React.forwardRef(
           placeholder={disabled || readOnly ? "" : placeholder}
           readOnly={readOnly}
           value={typeof formattedValue === "string" ? formattedValue : value}
-          validationIconId={validationRedesignOptIn ? undefined : validationId}
+          validationIconId={
+            validationRedesignOptIn ? undefined : tooltipId || validationId
+          }
           {...props}
         />
         {children}
@@ -318,7 +323,9 @@ export const Textbox = React.forwardRef(
           size={size}
           useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
           warning={warning}
-          validationIconId={validationRedesignOptIn ? undefined : validationId}
+          validationIconId={
+            validationRedesignOptIn ? undefined : tooltipId || validationId
+          }
         />
       </InputPresentation>
     );

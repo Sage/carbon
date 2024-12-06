@@ -93,4 +93,8 @@ const StyledLegend = styled.legend<StyledLegendProps>`
   ${margin}
 `;
 
-export { StyledFieldset, StyledLegend, StyledLegendContent };
+const StyledIconWrapper = styled.div`
+  margin-left: var(--spacing050);
+`;
+
+export { StyledFieldset, StyledLegend, StyledLegendContent, StyledIconWrapper };

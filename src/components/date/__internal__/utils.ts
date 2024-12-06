@@ -1,8 +1,26 @@
-import { Modifier } from "react-day-picker";
-import { format, formatISO, isMatch, parse, parseISO } from "./date-fns-fp";
+import { Matcher } from "react-day-picker";
+
+import {
+  format,
+  formatISO,
+  isMatch,
+  isValid,
+  parse,
+  parseISO,
+  parseWithOptions,
+} from "./date-fns-fp";
 
 const DATE_STRING_LENGTH = 10;
 const THRESHOLD_FOR_ADDITIONAL_YEARS = 69;
+
+export function isValidLocaleDate(date: string, locale: Locale) {
+  const dateFormat = "P";
+  const parseDateWithLocale = parseWithOptions({ locale });
+  const parsedDate = parseDateWithLocale(new Date(), dateFormat, date);
+  const isValidDate = isValid(parsedDate);
+
+  return isValidDate;
+}
 
 export function parseDate(formatString?: string, valueString?: string) {
   if (!valueString || !formatString) return undefined;
@@ -220,7 +238,7 @@ export function checkISOFormatAndLength(value: string) {
 export function getDisabledDays(
   minDate = "",
   maxDate = "",
-): Modifier | Modifier[] {
+): NonNullable<Matcher> | NonNullable<Matcher[]> | undefined {
   const days = [];
 
   if (!minDate && !maxDate) {

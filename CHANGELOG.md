@@ -1,3 +1,46 @@
+## [144.14.0](https://github.com/Sage/carbon/compare/v144.13.0...v144.14.0) (2024-12-06)
+
+
+### Features
+
+* **step-sequence:** reinstate component ([7809b0a](https://github.com/Sage/carbon/commit/7809b0a39420e9539910cd6a90428f75c9ed516f))
+
+## [144.13.0](https://github.com/Sage/carbon/compare/v144.12.1...v144.13.0) (2024-12-06)
+
+
+### Features
+
+* **date-input, date-range:** upgrade react-day-picker to v9 ([e217e21](https://github.com/Sage/carbon/commit/e217e2185a45a33d8bb1af0a156339a870f51159))
+
+### [144.12.1](https://github.com/Sage/carbon/compare/v144.12.0...v144.12.1) (2024-12-05)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure that tab sequence is not lost when container has radio buttons ([a843fe8](https://github.com/Sage/carbon/commit/a843fe8be5df9ad728f6ee235c3e2c848808711c)), closes [#7067](https://github.com/Sage/carbon/issues/7067)
+
+## [144.12.0](https://github.com/Sage/carbon/compare/v144.11.0...v144.12.0) (2024-12-04)
+
+
+### Features
+
+* **tabs:** align tabs with (frozen) design system ([23c6db7](https://github.com/Sage/carbon/commit/23c6db7fe8b6b064b7321c46a3de76945518cba1))
+
+## [144.11.0](https://github.com/Sage/carbon/compare/v144.10.0...v144.11.0) (2024-12-04)
+
+
+### Features
+
+* **draggable-container:** add flexDirection prop ([49e37fb](https://github.com/Sage/carbon/commit/49e37fb6a83380f4572396378862389f9a708d39)), closes [#7089](https://github.com/Sage/carbon/issues/7089)
+
+## [144.10.0](https://github.com/Sage/carbon/compare/v144.9.11...v144.10.0) (2024-12-03)
+
+
+### Features
+
+* **numeral-date:** update component to render as a fieldset element ([2e7887b](https://github.com/Sage/carbon/commit/2e7887ba499a4d6f7870f2e2ba3986375fef27cb))
+* **textbox:** adds tooltipId prop ([840bbd6](https://github.com/Sage/carbon/commit/840bbd6797704023aea98ce1fa64d8be0af9818b))
+
 ### [144.9.11](https://github.com/Sage/carbon/compare/v144.9.10...v144.9.11) (2024-12-02)
 
 

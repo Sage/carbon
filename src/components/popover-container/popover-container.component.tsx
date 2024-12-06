@@ -30,6 +30,7 @@ import useFocusPortalContent from "../../hooks/__internal__/useFocusPortalConten
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
+import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 
 export interface RenderOpenProps {
   tabIndex: number;
@@ -272,6 +273,38 @@ export const PopoverContainer = ({
     closePopover,
   );
 
+  const onFocusNextElement = useCallback((ev) => {
+    const allFocusableElements: HTMLElement[] = Array.from(
+      document.querySelectorAll(defaultFocusableSelectors) ||
+        /* istanbul ignore next */ [],
+    );
+    const filteredElements = allFocusableElements.filter(
+      (el) => el === openButtonRef.current || Number(el.tabIndex) !== -1,
+    );
+
+    const openButtonRefIndex = filteredElements.indexOf(
+      openButtonRef.current as HTMLElement,
+    );
+
+    filteredElements[openButtonRefIndex + 1].focus();
+    closePopover(ev);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleFocusGuard = (
+    direction: "prev" | "next",
+    ev: React.FocusEvent<HTMLElement>,
+  ) => {
+    if (direction === "next" && onFocusNextElement) {
+      // Focus the next focusable element outside of the popover
+      onFocusNextElement(ev);
+      return;
+    }
+
+    // istanbul ignore else
+    if (direction === "prev") openButtonRef.current?.focus();
+  };
+
   const renderOpenComponentProps = {
     tabIndex: 0,
     "aria-expanded": isOpen,
@@ -335,7 +368,23 @@ export const PopoverContainer = ({
         </FocusTrap>
       </ModalContext.Provider>
     ) : (
-      popover()
+      <>
+        <div
+          data-element="tab-guard-top"
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+          tabIndex={0}
+          aria-hidden
+          onFocus={(ev) => handleFocusGuard("prev", ev)}
+        />
+        {popover()}
+        <div
+          data-element="tab-guard-bottom"
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+          tabIndex={0}
+          aria-hidden
+          onFocus={(ev) => handleFocusGuard("next", ev)}
+        />
+      </>
     );
 
   return (
