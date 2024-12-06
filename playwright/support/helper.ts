@@ -193,6 +193,19 @@ export const containsClass = async (
   await expect(locatorFunc).toHaveClass(classNameRegEx);
 };
 
+/**
+ * Uses the .toHaveFocus() assertion with a waitForTimeout before and after to
+ * ensure enough time has passed for the focus to be set.
+ * @param page page
+ * @param locatorFunc the locator you'd like to use
+ * @example await containsClass(exampleLocator(page), "foo");
+ */
+export const toBeFocusedDelayed = async (page: Page, locatorFunc: Locator) => {
+  await page.waitForTimeout(2000); // 2000ms = 2 seconds
+  await locatorFunc.waitFor();
+  await expect(locatorFunc).toBeFocused();
+};
+
 const positions = {
   first: 0,
   second: 1,
