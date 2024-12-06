@@ -238,6 +238,27 @@ test("does nothing if onBlur is not provided", async () => {
   expect(onBlur.mock.calls[0]).toBe(undefined);
 });
 
+test("calls provided onKeyDown handler", async () => {
+  const onKeyDown = jest.fn();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <GroupedCharacter
+      separator="-"
+      value="12345678"
+      groups={[2, 2, 4]}
+      onKeyDown={onKeyDown}
+    />,
+  );
+
+  const input = screen.getByRole("textbox");
+  await user.click(input);
+  await user.clear(input);
+  await user.type(screen.getByRole("textbox"), "123456");
+
+  expect(onKeyDown).toHaveBeenCalledTimes(6);
+});
+
 test("does not allow values of length greater than that allowed by the group config", () => {
   render(
     <GroupedCharacter separator="-" value="1234567890" groups={[2, 2, 4]} />,
