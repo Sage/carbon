@@ -1,3 +1,10 @@
+## [144.14.0](https://github.com/Sage/carbon/compare/v144.13.0...v144.14.0) (2024-12-06)
+
+
+### Features
+
+* **step-sequence:** reinstate component ([7809b0a](https://github.com/Sage/carbon/commit/7809b0a39420e9539910cd6a90428f75c9ed516f))
+
 ## [144.13.0](https://github.com/Sage/carbon/compare/v144.12.1...v144.13.0) (2024-12-06)
 
 
