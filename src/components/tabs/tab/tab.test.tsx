@@ -4,6 +4,17 @@ import Tab from ".";
 import Textbox from "../../textbox";
 import StyledTab from "./tab.style";
 import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../../__internal__/utils/logger";
+
+let loggerSpy: jest.SpyInstance;
+
+beforeEach(() => {
+  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+});
+
+afterEach(() => {
+  loggerSpy.mockRestore();
+});
 
 testStyledSystemPadding(
   (props) => (
@@ -68,6 +79,11 @@ test("passes the `className` prop to the element", () => {
     "foo-class",
     "bar-class",
   );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Tab' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
 });
 
 test("can be given a custom role via the `role` prop", () => {

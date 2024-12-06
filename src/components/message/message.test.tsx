@@ -5,6 +5,17 @@ import Message from "./message.component";
 import I18nProvider from "../i18n-provider";
 import enGB from "../../locales/en-gb";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../__internal__/utils/logger";
+
+let loggerSpy: jest.SpyInstance;
+
+beforeEach(() => {
+  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+});
+
+afterEach(() => {
+  loggerSpy.mockRestore();
+});
 
 test("renders with provided children", () => {
   render(<Message>Message</Message>);
@@ -124,6 +135,10 @@ test("renders with provided `className`", () => {
   );
 
   expect(screen.getByTestId("my-message")).toHaveClass("message-class");
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Message' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
 });
 
 // coverage
