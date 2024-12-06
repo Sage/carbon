@@ -1,3 +1,10 @@
+## [144.13.0](https://github.com/Sage/carbon/compare/v144.12.1...v144.13.0) (2024-12-06)
+
+
+### Features
+
+* **date-input, date-range:** upgrade react-day-picker to v9 ([e217e21](https://github.com/Sage/carbon/commit/e217e2185a45a33d8bb1af0a156339a870f51159))
+
 ### [144.12.1](https://github.com/Sage/carbon/compare/v144.12.0...v144.12.1) (2024-12-05)
 
 
