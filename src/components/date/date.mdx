@@ -64,6 +64,12 @@ be used to set the input value like in the example below, although the component
 
 <Canvas of={DateStories.Empty} />
 
+### With disabled dates
+
+You can configure the available dates by passing a `minDate` and `maxDate` prop to the component.
+
+<Canvas of={DateStories.DisabledDates} />
+
 ### With labelInline
 
 **Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
