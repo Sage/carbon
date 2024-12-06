@@ -3,6 +3,17 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Toast, { ToastProps } from "./toast.component";
 import ModalManager from "../modal/__internal__/modal-manager";
+import Logger from "../../__internal__/utils/logger";
+
+let loggerSpy: jest.SpyInstance;
+
+beforeEach(() => {
+  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+});
+
+afterEach(() => {
+  loggerSpy.mockRestore();
+});
 
 const MockToast = ({
   open = false,
@@ -312,6 +323,14 @@ test("should render with any custom classes passed via the `className` prop", ()
   );
 
   expect(screen.getByTestId("toast")).toHaveClass("exampleClass");
+
+  // When using Toast messages the logger spy will be called twice: once for the
+  // Toast component and once for the containing Portal component. Because of this,
+  // only the first call to the logger spy is checked.
+  expect(loggerSpy).toHaveBeenNthCalledWith(
+    1,
+    "The 'className' prop has been deprecated and will soon be removed from the 'Toast' component.",
+  );
 });
 
 test("should render with provided custom id passed via `id` prop", () => {

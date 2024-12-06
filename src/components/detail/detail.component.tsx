@@ -11,6 +11,7 @@ import {
   StyledDetailIcon,
   StyledDetailFootnote,
 } from "./detail.style";
+import Logger from "../../__internal__/utils/logger";
 
 export interface DetailProps extends MarginProps, TagProps {
   /** Custom className. */
@@ -23,34 +24,45 @@ export interface DetailProps extends MarginProps, TagProps {
   children?: React.ReactNode;
 }
 
+let deprecatedClassNameWarningShown = false;
+
 export const Detail = ({
   className,
   icon,
   footnote,
   children,
   ...rest
-}: DetailProps) => (
-  <StyledDetail
-    className={`carbon-detail ${className}`}
-    {...tagComponent("detail", rest)}
-    {...filterStyledSystemMarginProps(rest)}
-  >
-    {icon && <StyledDetailIcon type={icon} data-element="icon" />}
-    <StyledDetailContent data-element="detail-content" hasIcon={!!icon}>
-      {children}
-    </StyledDetailContent>
+}: DetailProps) => {
+  if (!deprecatedClassNameWarningShown && className) {
+    Logger.deprecate(
+      "The 'className' prop has been deprecated and will soon be removed from the 'Detail' component.",
+    );
+    deprecatedClassNameWarningShown = true;
+  }
 
-    {footnote && (
-      <StyledDetailFootnote
-        data-element="footnote"
-        data-role="footnote"
-        hasIcon={!!icon}
-      >
-        {footnote}
-      </StyledDetailFootnote>
-    )}
-  </StyledDetail>
-);
+  return (
+    <StyledDetail
+      className={`carbon-detail ${className}`}
+      {...tagComponent("detail", rest)}
+      {...filterStyledSystemMarginProps(rest)}
+    >
+      {icon && <StyledDetailIcon type={icon} data-element="icon" />}
+      <StyledDetailContent data-element="detail-content" hasIcon={!!icon}>
+        {children}
+      </StyledDetailContent>
+
+      {footnote && (
+        <StyledDetailFootnote
+          data-element="footnote"
+          data-role="footnote"
+          hasIcon={!!icon}
+        >
+          {footnote}
+        </StyledDetailFootnote>
+      )}
+    </StyledDetail>
+  );
+};
 
 Detail.displayName = "Detail";
 

@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { HeadingType } from "../heading";
 import SettingsRow from ".";
+import Logger from "../../__internal__/utils/logger";
 
 test("renders with children", () => {
   render(<SettingsRow>hello world</SettingsRow>);
@@ -72,4 +73,18 @@ test("renders a divider when the `divider` prop is passed", () => {
     "1px solid var(--colorsUtilityMajor050)",
   );
   expect(settingsRow).toHaveStyleRule("padding-bottom", "30px");
+});
+
+test("throws a deprecation warning if the 'className' prop is set", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+  render(<SettingsRow className="foo" />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'SettingsRow' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
 });

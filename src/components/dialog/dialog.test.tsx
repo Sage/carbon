@@ -9,9 +9,17 @@ import userEvent from "@testing-library/user-event";
 
 import CarbonProvider from "../carbon-provider";
 import Dialog, { DialogHandle, DialogProps } from ".";
+import Logger from "../../__internal__/utils/logger";
 
-beforeEach(() => jest.useFakeTimers());
+let loggerSpy: jest.SpyInstance;
+
+beforeEach(() => {
+  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+  jest.useFakeTimers();
+});
+
 afterEach(() => {
+  loggerSpy.mockRestore();
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
 });

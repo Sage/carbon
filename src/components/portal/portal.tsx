@@ -6,6 +6,9 @@ import guid from "../../__internal__/utils/helpers/guid";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 import StyledPortalEntrance from "./portal.style";
 import PortalContext from "./__internal__/portal.context";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedClassNameWarningShown = false;
 
 const Container = styled.div`
   ${({ theme }) => css`
@@ -40,6 +43,13 @@ export const Portal = ({
   onReposition,
   inertOptOut,
 }: PortalProps) => {
+  if (!deprecatedClassNameWarningShown && className) {
+    Logger.deprecate(
+      "The 'className' prop has been deprecated and will soon be removed from the 'Portal' component.",
+    );
+    deprecatedClassNameWarningShown = true;
+  }
+
   const [portalNode, setPortalNode] = useState<HTMLElement | null>(null);
   const uniqueId = useMemo(() => guid(), []);
   const { renderInRoot } = useContext(PortalContext);

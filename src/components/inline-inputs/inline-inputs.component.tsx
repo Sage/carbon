@@ -10,6 +10,9 @@ import StyledInlineInputs, {
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedClassNameWarningShown = false;
 
 type GutterOptions =
   | "none"
@@ -74,6 +77,13 @@ const InlineInputs = ({
   isOptional,
   ...rest
 }: InlineInputsProps) => {
+  if (!deprecatedClassNameWarningShown && className) {
+    Logger.deprecate(
+      "The 'className' prop has been deprecated and will soon be removed from the 'InlineInputs' component.",
+    );
+    deprecatedClassNameWarningShown = true;
+  }
+
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
   const ref = useRef<HTMLDivElement>(null);
   let inlineLabel: boolean | undefined = labelInline;

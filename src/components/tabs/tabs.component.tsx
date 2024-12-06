@@ -18,6 +18,9 @@ import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedClassNameWarningShown = false;
 
 export interface TabsProps extends MarginProps {
   /** @ignore @private */
@@ -81,6 +84,13 @@ const Tabs = ({
   showValidationsSummary,
   ...rest
 }: TabsProps) => {
+  if (!deprecatedClassNameWarningShown && className) {
+    Logger.deprecate(
+      "The 'className' prop has been deprecated and will soon be removed from the 'Tabs' component.",
+    );
+    deprecatedClassNameWarningShown = true;
+  }
+
   if (position !== "left" && headerWidth !== undefined) {
     // eslint-disable-next-line no-console
     console.error(
