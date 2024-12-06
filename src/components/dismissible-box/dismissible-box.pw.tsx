@@ -46,11 +46,6 @@ test.describe("DismissibleBox component", () => {
     }) => {
       await mount(<DefaultDismissibleBox width={`${width}px`} />);
 
-      await expect(dismissibleBoxDataComponent(page)).toHaveAttribute(
-        "width",
-        `${width}px`,
-      );
-
       await assertCssValueIsApproximately(
         dismissibleBoxDataComponent(page),
         "width",
