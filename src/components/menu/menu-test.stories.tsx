@@ -38,6 +38,7 @@ const meta: Meta<typeof Menu> = {
     "MenuWithSubmenuCustomPadding",
     "WhenMenuItemsWrap",
     "MenuFullScreenWithMaxWidth",
+    "IconAlignment",
   ],
   parameters: {
     info: { disable: true },
@@ -542,3 +543,14 @@ export const MenuFullScreenWithMaxWidth = () => {
   );
 };
 MenuFullScreenWithMaxWidth.storyName = "Menu Full Screen with Max Width";
+
+export const IconAlignment = () => {
+  return (
+    <Menu menuType="black">
+      <MenuItem icon="home">Alpha</MenuItem>
+      <MenuItem>Beta</MenuItem>
+      <MenuItem icon="print">Charlie</MenuItem>
+    </Menu>
+  );
+};
+IconAlignment.storyName = "Icon & Icon-less Text Alignment";
