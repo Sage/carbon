@@ -3,7 +3,14 @@ import React from "react";
 import StyledPlaceholder from "./placeholder.style";
 
 const Placeholder = () => {
-  return <StyledPlaceholder>Enter some text...</StyledPlaceholder>;
+  return (
+    <StyledPlaceholder
+      id="carbon-rich-text-editor-placeholder"
+      data-role="rte-placeholder"
+    >
+      Enter some text...
+    </StyledPlaceholder>
+  );
 };
 
 export default Placeholder;

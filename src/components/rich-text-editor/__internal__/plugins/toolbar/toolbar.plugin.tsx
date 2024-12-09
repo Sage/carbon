@@ -169,7 +169,9 @@ const ToolbarPlugin = ({
       {showCommandButtons && (
         <CommandButtons id="carbon-rich-text-editor-toolbar-command-buttons">
           <Button
+            id="carbon-rich-text-editor-toolbar-command-buttons-cancel"
             buttonType="tertiary"
+            data-role="rte-cancel-button"
             aria-label="Cancel"
             onClick={() => onCancel?.()}
           >
@@ -177,6 +179,8 @@ const ToolbarPlugin = ({
           </Button>
 
           <Button
+            id="carbon-rich-text-editor-toolbar-command-buttons-save"
+            data-role="rte-save-button"
             buttonType="primary"
             aria-label="Save"
             onClick={() => {
