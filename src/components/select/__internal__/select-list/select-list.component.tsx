@@ -39,10 +39,10 @@ import Option, { OptionProps } from "../../option";
 import SelectListContext from "./select-list.context";
 
 type OnSelectData = {
-  id?: string;
-  text?: string;
-  value?: string | Record<string, unknown>;
-  selectionType: "click" | "navigationKey" | "enterKey" | "tab";
+  id: string;
+  text: string;
+  value: string | Record<string, unknown>;
+  selectionType: "click" | "navigationKey" | "enterKey";
   selectionConfirmed: boolean;
 };
 
@@ -286,7 +286,9 @@ const SelectList = React.forwardRef(
     const handleSelect = useCallback<NonNullable<OptionProps["onSelect"]>>(
       (optionData) => {
         onSelect({
-          ...optionData,
+          id: optionData.id ?? "",
+          text: optionData.text ?? "",
+          value: optionData.value ?? "",
           selectionType: "click",
           selectionConfirmed: true,
         });
@@ -404,14 +406,13 @@ const SelectList = React.forwardRef(
           return;
         }
 
-        const { text, value } = (childrenList[nextIndex] as React.ReactElement)
-          .props;
+        const { text, value } = childrenList[nextIndex].props;
 
         onSelect({
-          text,
-          value,
-          selectionType: "navigationKey",
           id: childElementRefs.current[nextIndex]?.id,
+          text: text ?? /* istanbul ignore next */ "",
+          value: value ?? /* istanbul ignore next */ "",
+          selectionType: "navigationKey",
           selectionConfirmed: false,
         });
       },
@@ -428,13 +429,13 @@ const SelectList = React.forwardRef(
     const handleActionButtonTab = useCallback(
       (event: KeyboardEvent, isActionButtonFocused: boolean) => {
         if (isActionButtonFocused) {
-          onSelect({ selectionType: "tab", selectionConfirmed: false });
+          onSelectListClose();
         } else {
           event.preventDefault();
           listActionButtonRef.current?.focus();
         }
       },
-      [onSelect],
+      [onSelectListClose],
     );
 
     const focusOnAnchor = useCallback(() => {
@@ -468,7 +469,7 @@ const SelectList = React.forwardRef(
             // need to call onSelect here with empty text/value to clear the input when
             // no matches found in FilterableSelect
             onSelect({
-              id: undefined,
+              id: "",
               text: "",
               value: "",
               selectionType: "enterKey",
@@ -486,8 +487,8 @@ const SelectList = React.forwardRef(
 
           onSelect({
             id: childElementRefs.current[currentOptionsListIndex]?.id,
-            text,
-            value,
+            text: text ?? /* istanbul ignore next */ "",
+            value: value ?? /* istanbul ignore next */ "",
             selectionType: "enterKey",
             selectionConfirmed: true,
           });

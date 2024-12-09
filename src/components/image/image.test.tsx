@@ -53,7 +53,7 @@ test("renders with the 'src' and 'decorative' props", () => {
     />,
   );
 
-  expect(screen.getByRole("img")).toBeVisible();
+  expect(screen.getByTestId("image")).toBeVisible();
 });
 
 test("renders with children", () => {
