@@ -19,7 +19,7 @@ A basic project `index.(jsx|tsx)` file would resemble this example:
 
 ```jsx
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
 import CarbonProvider from "carbon-react/lib/components/carbon-provider";
 import GlobalStyle from "carbon-react/lib/style/global-style";
 import sageTheme from "carbon-react/lib/style/themes/sage";
@@ -35,7 +35,9 @@ const App = (props) => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("app"));
+const container = document.getElementById('app');
+const root = createRoot(container);
+root.render(<App />);
 ```
 
 You can also find this in this live sandbox:

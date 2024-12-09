@@ -52,7 +52,7 @@ export const PicklistGroup = React.forwardRef<
   ) => {
     const { setElementToFocus, elementToFocus } = useContext(FocusContext);
     const [highlighted, setHighlighted] = useState(false);
-
+    const nodeRef = React.useRef<HTMLLIElement>(null);
     const filteredChildren = React.Children.toArray(children);
 
     const handleClick = useCallback(() => {
@@ -61,7 +61,7 @@ export const PicklistGroup = React.forwardRef<
     }, [index, listIndex, onChange, setElementToFocus]);
 
     const handleKeydown = useCallback(
-      (event) => {
+      (event: React.KeyboardEvent<HTMLLIElement>) => {
         if (Events.isEnterKey(event) || Events.isSpaceKey(event)) {
           event.preventDefault();
           onChange();
@@ -127,11 +127,12 @@ export const PicklistGroup = React.forwardRef<
           enter: 300,
           exit: 0,
         }}
+        nodeRef={nodeRef}
         classNames="picklist-group"
         {...transitionGroupProps}
         {...(type === "add" ? { enter: false } : {})}
       >
-        <StyledGroupWrapper highlighted={highlighted} type={type}>
+        <StyledGroupWrapper ref={nodeRef} highlighted={highlighted} type={type}>
           <StyledPicklistGroupUl>
             <StyledPicklistGroup
               onKeyDown={handleKeydown}

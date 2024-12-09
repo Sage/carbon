@@ -131,6 +131,7 @@ export interface PopoverContainerProps extends PaddingProps {
     ev:
       | React.KeyboardEvent<HTMLElement>
       | React.MouseEvent<HTMLElement>
+      | React.FocusEvent<HTMLElement>
       | Event,
   ) => void;
   /** if `true` the popover-container is open */
@@ -228,6 +229,7 @@ export const PopoverContainer = forwardRef<
         ev:
           | React.MouseEvent<HTMLElement>
           | React.KeyboardEvent<HTMLElement>
+          | React.FocusEvent<HTMLElement>
           | KeyboardEvent,
       ) => {
         /* istanbul ignore else */
@@ -242,7 +244,7 @@ export const PopoverContainer = forwardRef<
     );
 
     const handleEscKey = useCallback(
-      (ev) => {
+      (ev: KeyboardEvent) => {
         const eventIsFromSelectInput = Events.composedPath(ev).find(
           (element) => {
             return (
@@ -297,23 +299,26 @@ export const PopoverContainer = forwardRef<
       closePopover,
     );
 
-    const onFocusNextElement = useCallback((ev) => {
-      const allFocusableElements: HTMLElement[] = Array.from(
-        document.querySelectorAll(defaultFocusableSelectors) ||
-          /* istanbul ignore next */ [],
-      );
-      const filteredElements = allFocusableElements.filter(
-        (el) => el === openButtonRef.current || Number(el.tabIndex) !== -1,
-      );
+    const onFocusNextElement = useCallback(
+      (ev: React.FocusEvent<HTMLElement>) => {
+        const allFocusableElements: HTMLElement[] = Array.from(
+          document.querySelectorAll(defaultFocusableSelectors) ||
+            /* istanbul ignore next */ [],
+        );
+        const filteredElements = allFocusableElements.filter(
+          (el) => el === openButtonRef.current || Number(el.tabIndex) !== -1,
+        );
 
-      const openButtonRefIndex = filteredElements.indexOf(
-        openButtonRef.current as HTMLElement,
-      );
+        const openButtonRefIndex = filteredElements.indexOf(
+          openButtonRef.current as HTMLElement,
+        );
 
-      filteredElements[openButtonRefIndex + 1].focus();
-      closePopover(ev);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        filteredElements[openButtonRefIndex + 1].focus();
+        closePopover(ev);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      },
+      [],
+    );
 
     const handleFocusGuard = (
       direction: "prev" | "next",
