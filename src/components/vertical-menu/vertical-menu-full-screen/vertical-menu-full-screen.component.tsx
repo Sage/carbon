@@ -47,7 +47,7 @@ export const VerticalMenuFullScreen = ({
   const menuWrapperRef = useRef<HTMLDivElement | null>(null);
 
   const handleKeyDown = useCallback(
-    (ev) => {
+    (ev: React.KeyboardEvent<HTMLButtonElement>) => {
       // istanbul ignore else
       if (Events.isEscKey(ev)) {
         onClose(ev);

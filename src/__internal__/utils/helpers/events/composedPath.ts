@@ -3,7 +3,7 @@
 // IE does not support composedPath
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
-export default (ev: CustomEvent): EventTarget[] => {
+export default (ev: Event): EventTarget[] => {
   // In this example composedPath would show that the event started at document.body
   // but it would trigger the eventListener on document
   let element = (ev.target as HTMLElement) || null;

@@ -9,7 +9,7 @@ import {
   PicklistDivider,
   PicklistPlaceholder,
 } from ".";
-import Search from "../search";
+import Search, { SearchEvent } from "../search";
 import { Checkbox } from "../checkbox";
 
 export default {
@@ -59,7 +59,7 @@ export const Default = () => {
   const isSearchMode = Boolean(searchQuery.length);
 
   const onAdd = useCallback(
-    (item) => {
+    (item: Item) => {
       const { [item.key]: removed, ...rest } = notSelectedItems;
       setNotSelectedItems(rest);
       setSelectedItems({ ...selectedItems, [item.key]: item });
@@ -70,7 +70,7 @@ export const Default = () => {
   );
 
   const onRemove = useCallback(
-    (item) => {
+    (item: Item) => {
       const { [item.key]: removed, ...rest } = selectedItems;
       setSelectedItems(rest);
       setNotSelectedItems({ ...notSelectedItems, [item.key]: item });
@@ -88,7 +88,7 @@ export const Default = () => {
   );
 
   const handleSearch = useCallback(
-    (ev) => {
+    (ev: SearchEvent) => {
       setSearchQuery(ev.target.value);
       const tempNotSelectedItems = Object.keys(notSelectedItems).reduce(
         (items, key) => {
@@ -160,7 +160,7 @@ export const Default = () => {
           {renderItems(
             isSearchMode ? notSelectedSearch : notSelectedItems,
             "add",
-            onAdd,
+            onAdd as PicklistItemProps["onChange"],
           )}
         </Picklist>
         <PicklistDivider />
@@ -168,7 +168,11 @@ export const Default = () => {
           disabled={isEachItemSelected}
           placeholder={<PicklistPlaceholder text="Nothing to see here" />}
         >
-          {renderItems(selectedItems, "remove", onRemove)}
+          {renderItems(
+            selectedItems,
+            "remove",
+            onRemove as PicklistItemProps["onChange"],
+          )}
         </Picklist>
       </DuellingPicklist>
     </>

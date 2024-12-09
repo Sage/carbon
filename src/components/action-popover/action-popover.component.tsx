@@ -141,7 +141,7 @@ export const ActionPopover = ({
   }, [placement, rightAlignMenu]);
 
   const setOpen = useCallback(
-    (value) => {
+    (value: boolean) => {
       if (value && !isOpen) {
         onOpen();
       }
@@ -162,7 +162,7 @@ export const ActionPopover = ({
   }, []);
 
   const onButtonClick = useCallback(
-    (e) => {
+    (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
       const isOpening = !isOpen;
       setFocusIndex(firstFocusableItem);
@@ -179,7 +179,7 @@ export const ActionPopover = ({
   // https://www.w3.org/TR/wai-aria-practices/examples/menu-button/menu-button-actions.html
 
   const onButtonKeyDown = useCallback(
-    (e) => {
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (Events.isSpaceKey(e) || Events.isDownKey(e) || Events.isEnterKey(e)) {
         e.preventDefault();
         e.stopPropagation();
@@ -196,7 +196,7 @@ export const ActionPopover = ({
   );
 
   const handleEscapeKey = useCallback(
-    (e) => {
+    (e: KeyboardEvent) => {
       /* istanbul ignore else */
       if (Events.isEscKey(e)) {
         setOpen(false);

@@ -57,7 +57,10 @@ export const Default = ({
   const [date, setDate] = useState("01/06/2020");
   const [isOpen, setIsOpen] = useState(true);
   const handleCancel = (
-    evt: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
+    evt:
+      | React.KeyboardEvent<HTMLElement>
+      | KeyboardEvent
+      | React.MouseEvent<HTMLElement>,
   ) => {
     setIsOpen(false);
     action("cancel")(evt);

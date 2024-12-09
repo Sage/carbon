@@ -44,7 +44,10 @@ export const Picklist = ({
   );
 
   const focusItem = useCallback(
-    (ev, itemIndex) => {
+    (
+      ev: React.KeyboardEvent<HTMLDivElement | HTMLUListElement>,
+      itemIndex: number,
+    ) => {
       ev.preventDefault();
       refs[itemIndex].current?.focus();
     },
@@ -52,7 +55,7 @@ export const Picklist = ({
   );
 
   const handleKeyDown = useCallback(
-    (ev) => {
+    (ev: React.KeyboardEvent<HTMLDivElement | HTMLUListElement>) => {
       if (Events.isHomeKey(ev)) {
         focusItem(ev, 0);
       } else if (Events.isEndKey(ev)) {

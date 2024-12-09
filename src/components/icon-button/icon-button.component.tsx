@@ -58,7 +58,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     };
 
     const setRefs = useCallback(
-      (reference) => {
+      (reference: HTMLButtonElement) => {
         setInternalRef(reference);
         if (!ref) return;
         if (typeof ref === "object") ref.current = reference;

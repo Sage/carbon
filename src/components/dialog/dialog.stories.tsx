@@ -132,7 +132,6 @@ export const MaxSize: Story = {
 
 export const Editable: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const [isDisabled, setIsDisabled] = useState(true);
   const [radioValue, setRadioValue] = useState("1");
 
   return (
@@ -143,55 +142,16 @@ export const Editable: Story = () => {
         onCancel={() => setIsOpen(false)}
         title="Add an address"
       >
-        <Form
-          stickyFooter
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
+        <button type="button">One</button>
+        <RadioButtonGroup
+          name="Colours"
+          legend="Colours"
+          value={radioValue}
+          onChange={(ev) => setRadioValue(ev.target.value)}
         >
-          <Typography variant="h2" mb="32px">
-            Basic details
-          </Typography>
-          <Button onClick={() => setIsDisabled(!isDisabled)}>
-            {isDisabled ? "Activate" : "Disable"} Address
-          </Button>
-          <RadioButtonGroup
-            name="mybuttongroup"
-            legend="How do you want to create this address?"
-            legendInline
-            onChange={({ target }) => setRadioValue(target.value)}
-            value={radioValue}
-            legendWidth={40}
-          >
-            <RadioButton
-              value="1"
-              label="Create a new Address"
-              size="large"
-              disabled={isDisabled}
-            />
-            <RadioButton
-              value="2"
-              label="Select an Existing address"
-              size="large"
-              disabled={isDisabled}
-            />
-          </RadioButtonGroup>
-          <Box p="24px" bg="slateTint90" ml="88px">
-            <Textbox labelInline label="Property Name" />
-            <Fieldset>
-              <Textbox labelInline label="Address Line 1" />
-              <Textbox labelInline label="Address Line 2" />
-              <Textbox labelInline label="Town" />
-              <Textbox labelInline label="City" />
-              <Textbox labelInline label="Postcode" />
-            </Fieldset>
-          </Box>
-        </Form>
+          <RadioButton value="Red" label="Red" />
+          <RadioButton value="Green" label="Green" />
+        </RadioButtonGroup>
       </Dialog>
     </>
   );

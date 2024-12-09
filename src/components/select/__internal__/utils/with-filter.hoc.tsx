@@ -110,7 +110,10 @@ export interface FilteredComponentProps extends WrappedComponentProps {
 const withFilter = <T extends WrappedComponentProps>(
   WrappedComponent: React.ComponentType<T>,
 ) => {
-  const FilteredComponent = React.forwardRef(
+  const FilteredComponent = React.forwardRef<
+    HTMLDivElement,
+    FilteredComponentProps & T
+  >(
     (
       {
         children,
@@ -120,8 +123,8 @@ const withFilter = <T extends WrappedComponentProps>(
         multiColumn,
         tableHeader,
         ...props
-      }: FilteredComponentProps & T,
-      forwardedRef: React.ForwardedRef<HTMLDivElement>,
+      },
+      forwardedRef,
     ) => {
       const l = useLocale();
 
@@ -176,7 +179,7 @@ const withFilter = <T extends WrappedComponentProps>(
         multiColumn,
         tableHeader,
         ...props,
-      } as T;
+      } as unknown as T;
 
       return (
         <WrappedComponent {...wrappedComponentProps} ref={forwardedRef}>

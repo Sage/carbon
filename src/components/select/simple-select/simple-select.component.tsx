@@ -14,6 +14,7 @@ import SelectTextbox, {
 } from "../__internal__/select-textbox";
 import SelectList, {
   ListPlacement,
+  SelectListProps,
 } from "../__internal__/select-list/select-list.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
@@ -24,14 +25,6 @@ import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 
 let deprecateUncontrolledWarnTriggered = false;
-
-export interface OptionData {
-  text?: string;
-  value?: string | Record<string, unknown>;
-  id?: string;
-  selectionType: string;
-  selectionConfirmed?: boolean;
-}
 
 export interface CustomSelectChangeEvent
   extends React.ChangeEvent<HTMLInputElement> {
@@ -159,7 +152,7 @@ export const SimpleSelect = React.forwardRef<
     const filterText = useRef<string>();
     const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
     const [isOpen, setOpenState] = useState(false);
-    const [activeDescendantId, setActiveDescendantId] = useState<string>();
+    const [activeDescendantId, setActiveDescendantId] = useState<string>("");
     const [textValue, setTextValue] = useState<string | undefined>("");
     const [selectedValue, setSelectedValue] = useState<
       string | Record<string, unknown> | undefined
@@ -187,7 +180,10 @@ export const SimpleSelect = React.forwardRef<
     ) as React.ReactElement[];
 
     const createCustomEvent = useCallback(
-      (newValue, selectionConfirmed = false) => {
+      (
+        newValue?: string | Record<string, unknown>,
+        selectionConfirmed = false,
+      ) => {
         const customEvent = {
           target: {
             ...(name && { name }),
@@ -203,7 +199,7 @@ export const SimpleSelect = React.forwardRef<
     );
 
     const selectValueStartingWithText = useCallback(
-      (newFilterText) => {
+      (newFilterText: string) => {
         setSelectedValue((previousValue) => {
           const previousIndex = childOptions.findIndex(
             (child) =>
@@ -235,7 +231,7 @@ export const SimpleSelect = React.forwardRef<
     );
 
     const triggerFilterChange = useCallback(
-      (newCharacter) => {
+      (newCharacter: string) => {
         if (isTimerCounting.current) {
           const newVal = filterText.current + newCharacter;
 
@@ -259,7 +255,7 @@ export const SimpleSelect = React.forwardRef<
     );
 
     const handleTextboxKeydown = useCallback(
-      (event) => {
+      (event: React.KeyboardEvent<HTMLInputElement>) => {
         const { key } = event;
 
         onKeyDown?.(event);
@@ -281,11 +277,13 @@ export const SimpleSelect = React.forwardRef<
       [triggerFilterChange, onKeyDown, onOpen, readOnly],
     );
 
-    const handleGlobalClick = useCallback((event) => {
+    const handleGlobalClick = useCallback((event: MouseEvent) => {
       const notInContainer =
-        containerRef.current && !containerRef.current.contains(event.target);
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node);
       const notInList =
-        listboxRef.current && !listboxRef.current.contains(event.target);
+        listboxRef.current &&
+        !listboxRef.current.contains(event.target as Node);
 
       isMouseDownReported.current = false;
 
@@ -430,7 +428,9 @@ export const SimpleSelect = React.forwardRef<
       onChange?.(createCustomEvent(newValue, selectionConfirmed));
     }
 
-    function onSelectOption(optionData: OptionData) {
+    const onSelectOption: NonNullable<SelectListProps["onSelect"]> = (
+      optionData,
+    ) => {
       const {
         text,
         value: newValue,
@@ -451,7 +451,7 @@ export const SimpleSelect = React.forwardRef<
         isClickTriggeredBySelect.current = true;
         textboxRef?.focus();
       }
-    }
+    };
 
     const onSelectListClose = useCallback(() => {
       setOpenState(false);

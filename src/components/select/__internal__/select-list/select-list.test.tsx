@@ -772,32 +772,6 @@ describe("keyboard navigation", () => {
     );
   });
 
-  it("calls onSelect when attempting to navigating away from the custom action button by pressing Tab key", async () => {
-    const onSelect = jest.fn();
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-    render(
-      <SelectListWithInput
-        onSelect={onSelect}
-        listActionButton={<button type="button">Click me</button>}
-      >
-        <Option id="red" value="red" text="red" />
-      </SelectListWithInput>,
-    );
-
-    const actionButton = screen.getByRole("button", { name: /Click me/i });
-    actionButton.focus();
-
-    await user.keyboard("{Tab}");
-
-    expect(onSelect).toHaveBeenCalledWith(
-      expect.objectContaining({
-        selectionType: "tab",
-        selectionConfirmed: false,
-      }),
-    );
-  });
-
   test("does not call onSelect when attempting to press ArrowDown key while last option is highlighted and isLoading is true", async () => {
     const onSelect = jest.fn();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -869,7 +843,7 @@ describe("closing behaviour", () => {
     },
   );
 
-  it("does not close when navigating away from custom action button by pressing Tab", async () => {
+  it("closes when navigating away from custom action button by pressing Tab", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
@@ -885,7 +859,9 @@ describe("closing behaviour", () => {
 
     await user.keyboard("{Tab}");
 
-    expect(screen.getByRole("listbox")).toBeVisible();
+    await waitFor(() =>
+      expect(screen.queryByRole("listbox")).not.toBeInTheDocument(),
+    );
   });
 
   it("does not close when navigating from last option to custom action button by pressing Tab", async () => {

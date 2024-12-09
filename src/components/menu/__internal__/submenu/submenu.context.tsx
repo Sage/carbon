@@ -3,7 +3,11 @@ import React from "react";
 export interface SubmenuContextProps {
   submenuFocusId?: string | null;
   updateFocusId?: (id: string) => void;
-  handleKeyDown?: (event: React.KeyboardEvent<HTMLAnchorElement>) => void;
+  handleKeyDown?: (
+    event:
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
+  ) => void;
   shiftTabPressed?: boolean;
   blockIndex?: number;
   submenuHasMaxWidth?: boolean;

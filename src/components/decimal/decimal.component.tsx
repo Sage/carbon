@@ -95,7 +95,7 @@ export const Decimal = React.forwardRef(
     const l = useContext(LocaleContext);
 
     const getSeparator = useCallback(
-      (separatorType) => {
+      (separatorType: string) => {
         const numberWithGroupAndDecimalSeparator = 10000.1;
         return Intl.NumberFormat(locale || l.locale())
           .formatToParts(numberWithGroupAndDecimalSeparator)
@@ -104,7 +104,7 @@ export const Decimal = React.forwardRef(
       [l, locale],
     );
 
-    const isNaN = useCallback((valueToTest) => {
+    const isNaN = useCallback((valueToTest: string) => {
       return Number.isNaN(Number(valueToTest));
     }, []);
 
@@ -112,7 +112,7 @@ export const Decimal = React.forwardRef(
      * Format a user defined value
      */
     const formatValue = useCallback(
-      (valueToFormat) => {
+      (valueToFormat: string) => {
         if (isNaN(valueToFormat)) {
           return valueToFormat;
         }
@@ -128,7 +128,7 @@ export const Decimal = React.forwardRef(
 
         const formattedInteger = Intl.NumberFormat(locale || l.locale(), {
           maximumFractionDigits: 0,
-        }).format(integer);
+        }).format(+integer);
 
         let formattedNumber = formattedInteger;
         if (remainder?.length > precision) {
@@ -152,7 +152,7 @@ export const Decimal = React.forwardRef(
       : formatValue((0).toFixed(precision));
 
     const getSafeValueProp = useCallback(
-      (initialValue) => {
+      (initialValue?: string) => {
         // We're intentionally preventing the use of number values to help prevent any unintentional rounding issues
         invariant(
           typeof initialValue === "string",
@@ -185,7 +185,7 @@ export const Decimal = React.forwardRef(
     }, [precision, prevPrecisionValue]);
 
     const removeDelimiters = useCallback(
-      (valueToFormat) => {
+      (valueToFormat: string) => {
         const delimiterMatcher = new RegExp(
           `[\\${getSeparator("group")} ]*`,
           "g",
@@ -199,7 +199,7 @@ export const Decimal = React.forwardRef(
      * Convert raw input to a standard decimal format
      */
     const toStandardDecimal = useCallback(
-      (i18nValue) => {
+      (i18nValue: string) => {
         const valueWithoutNBS =
           getSeparator("group")?.match(/\s+/) && !i18nValue.match(/\s{2,}/)
             ? i18nValue.replace(/\s+/g, "")

@@ -38,7 +38,11 @@ export interface BoxProps
     SpaceProps,
     TagProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+  as?:
+    | keyof JSX.IntrinsicElements
+    | React.ComponentType<
+        React.PropsWithChildren<React.PropsWithChildren<any>>
+      >;
   /** Set the ID attribute of the Box component */
   id?: string;
   /** Content to be rendered inside the Box component */
