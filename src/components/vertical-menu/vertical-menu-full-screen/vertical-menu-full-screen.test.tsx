@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Portal from "../../portal";
@@ -146,20 +146,16 @@ describe("VerticalMenuFullScreen", () => {
     expect(onClose).toHaveBeenCalled();
   });
 
-  it("should invoke onClose callback escape key pressed", () => {
+  it("should invoke onClose callback escape key pressed", async () => {
     const onClose = jest.fn();
+    const user = userEvent.setup();
     render(
       <VerticalMenuFullScreen isOpen onClose={onClose}>
         <VerticalMenuItem title="Item1" />
       </VerticalMenuFullScreen>,
     );
 
-    fireEvent.keyDown(screen.getByRole("navigation"), {
-      key: "Escape",
-      code: "Escape",
-      keyCode: 27,
-      charCode: 27,
-    });
+    await user.keyboard("{Escape}");
 
     expect(onClose).toHaveBeenCalled();
   });

@@ -40,7 +40,10 @@ export const DefaultStory = ({
   const [pageIndex, setPageIndex] = useState(Number(initialPageIndex) || 0);
   const [isDisabled, setIsDisabled] = useState(false);
   const handleCancel = (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
+    ev:
+      | React.KeyboardEvent<HTMLElement>
+      | KeyboardEvent
+      | React.MouseEvent<HTMLElement>,
   ) => {
     setIsOpen(false);
     setPageIndex(0);

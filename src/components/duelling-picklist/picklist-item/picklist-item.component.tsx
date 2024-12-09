@@ -90,7 +90,7 @@ export const PicklistItem = React.forwardRef<
     }, [onChange, item, updateFocusElement]);
 
     const handleKeydown = useCallback(
-      (event) => {
+      (event: React.KeyboardEvent<HTMLLIElement>) => {
         if (Events.isEnterKey(event) || Events.isSpaceKey(event)) {
           event.preventDefault();
           onChange(item);
