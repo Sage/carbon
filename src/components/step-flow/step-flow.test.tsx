@@ -46,6 +46,60 @@ function calculateStepStateIndexes(
   return [stepsBefore, stepsAfter];
 }
 
+test("when aria-label is specified, the attribute is applied to the expected element", () => {
+  render(
+    <StepFlow
+      data-role="step-flow"
+      aria-label="foo"
+      title="foo"
+      currentStep={5}
+      totalSteps={6}
+      category="bar"
+      ref={() => {}}
+    />,
+  );
+
+  const stepFlowComponent = screen.getByTestId("step-flow");
+
+  expect(stepFlowComponent).toHaveAttribute("aria-label", "foo");
+});
+
+test("when aria-labelledby is specified, the attribute is applied to the expected element", () => {
+  render(
+    <StepFlow
+      data-role="step-flow"
+      aria-labelledby="foo"
+      title="foo"
+      currentStep={5}
+      totalSteps={6}
+      category="bar"
+      ref={() => {}}
+    />,
+  );
+
+  const stepFlowComponent = screen.getByTestId("step-flow");
+
+  expect(stepFlowComponent).toHaveAttribute("aria-labelledby", "foo");
+});
+
+test("when aria-describedby is specified, the attribute is applied to the expected element", () => {
+  render(
+    <StepFlow
+      data-role="step-flow"
+      aria-describedby="foo"
+      title="foo"
+      currentStep={5}
+      totalSteps={6}
+      category="bar"
+      ref={() => {}}
+    />,
+  );
+
+  const stepFlowComponent = screen.getByTestId("step-flow");
+
+  expect(stepFlowComponent).toHaveAttribute("aria-describedby", "foo");
+});
+
 test("should render the correct element and text when the category prop is passed", () => {
   render(
     <StepFlow
