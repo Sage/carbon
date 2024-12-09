@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { MenuItem } from "..";
+import { MenuItem, MenuSegmentTitle } from "..";
 import {
   testStyledSystemFlexBox,
   testStyledSystemPadding,
@@ -1090,4 +1090,19 @@ test("throws a deprecation warning if the 'className' prop is set", () => {
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 
   loggerSpy.mockRestore();
+});
+
+// coverage
+test("should set the correct colour when a child of `MenuSegmentTitle` and `variant` is 'alternate'", async () => {
+  render(
+    <MenuContext.Provider value={{ ...menuContextValues, menuType: "black" }}>
+      <MenuSegmentTitle text="Test">
+        <MenuItem variant="alternate">Item One</MenuItem>
+      </MenuSegmentTitle>
+    </MenuContext.Provider>,
+  );
+
+  expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
+    backgroundColor: menuConfigVariants.black.alternate,
+  });
 });
