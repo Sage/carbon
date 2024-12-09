@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { render, screen, within } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {
@@ -582,7 +582,9 @@ test.each([
     const allSourceGroupButtons = within(
       screen.getAllByTestId("picklist")[0],
     ).getAllByTestId("picklist-group-button");
-    allSourceGroupButtons[allSourceGroupButtons.length - 1].focus();
+    act(() => {
+      allSourceGroupButtons[allSourceGroupButtons.length - 1].focus();
+    });
     await user.keyboard(key);
 
     expect(
@@ -605,7 +607,9 @@ test.each([
     const allSourceGroupButtons = within(
       screen.getAllByTestId("picklist")[1],
     ).getAllByTestId("picklist-group-button");
-    allSourceGroupButtons[allSourceGroupButtons.length - 1].focus();
+    act(() => {
+      allSourceGroupButtons[allSourceGroupButtons.length - 1].focus();
+    });
     await user.keyboard(key);
 
     expect(

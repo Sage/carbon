@@ -1140,7 +1140,10 @@ test("should not be call `onListScrollBottom` callback when an option is clicked
       <Option value="opt1" text="green" />
     </MultiSelect>,
   );
-  screen.getByRole("combobox").focus();
+
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
   await user.click(await screen.findByRole("option", { name: "green" }));
 
   expect(onListScrollBottomFn).not.toHaveBeenCalled();
@@ -1239,7 +1242,10 @@ test("should call `onOpen` callback if prop is passed and navigation key opens s
     </MultiSelect>,
   );
   const input = screen.getByRole("combobox");
-  input.focus();
+
+  act(() => {
+    input.focus();
+  });
 
   await user.keyboard("{ArrowDown}");
 
@@ -1259,7 +1265,9 @@ test("should call `onFocus` callback when input is focused and `openOnFocus` is 
       <Option value="opt1" text="red" />
     </MultiSelect>,
   );
-  screen.getByRole("combobox").focus();
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
   act(() => jest.runOnlyPendingTimers());
 
   expect(onFocusFn).toHaveBeenCalled();
