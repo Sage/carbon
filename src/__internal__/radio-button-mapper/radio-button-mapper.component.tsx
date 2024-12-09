@@ -54,9 +54,9 @@ const RadioButtonMapper = ({
 
   const isControlled = value !== undefined;
 
-  const [checkedValue, setCheckedValue] = useState(false);
+  const [checkedValue, setCheckedValue] = useState("");
   const onChangeProp = useCallback(
-    (event) => {
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       onChange?.(event);
       if (!isControlled) {
         setCheckedValue(event.target.value);

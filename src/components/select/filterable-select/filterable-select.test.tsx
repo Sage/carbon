@@ -1711,6 +1711,36 @@ describe("when the `listActionButton` is passed", () => {
 
     expect(onSelectFn).toHaveBeenCalled();
   });
+
+  it("allows next focusable element to be focused, when 'Tab' is pressed while action button is focused", async () => {
+    const user = userEvent.setup();
+    render(
+      <form>
+        <FilterableSelect
+          openOnFocus
+          onListAction={() => {}}
+          label="filterable-select"
+          onChange={() => {}}
+          value=""
+          listActionButton={<button type="button">mock button</button>}
+        >
+          <Option value="opt1" text="green" />
+        </FilterableSelect>
+        <label htmlFor="address">
+          Address
+          <input id="address" type="text" />
+        </label>
+      </form>,
+    );
+
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
+    await user.tab();
+    await user.tab();
+
+    expect(screen.getByLabelText("Address")).toHaveFocus();
+  });
 });
 
 test("should set the `required` attribute on the input when the prop is passed", () => {

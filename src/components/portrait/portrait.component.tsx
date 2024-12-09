@@ -6,7 +6,9 @@ import Logger from "../../__internal__/utils/logger";
 
 import { IconType } from "../icon";
 import Tooltip from "../tooltip";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 import {
   StyledCustomImg,
@@ -23,7 +25,9 @@ export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 
 let deprecatedGravatarWarnTriggered = false;
 
-export interface PortraitProps extends MarginProps {
+export interface PortraitProps
+  extends MarginProps,
+    Omit<TagProps, "data-component"> {
   /** (Deprecated) An email address registered with Gravatar. */
   gravatar?: string;
   /** A custom image URL. */

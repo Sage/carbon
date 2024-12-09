@@ -10,7 +10,6 @@ import {
   PositionProps,
   GridProps,
 } from "styled-system";
-import { ReactTestRendererJSON } from "react-test-renderer";
 
 import { space } from "../../style/themes/base/base-theme.config";
 import { mockMatchMedia } from "../mock-match-media";
@@ -23,14 +22,9 @@ const toCSSCase = (str: string) => {
   return str.split("").reduce(humpToDash, "");
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const assertStyleMatch: any = (
+const assertStyleMatch = (
   styleSpec: { [key: string]: string | number | undefined },
-  component:
-    | ReactTestRendererJSON
-    | ReactTestRendererJSON[]
-    | null
-    | HTMLElement,
+  component: HTMLElement,
   opts?: jest.Options,
 ) => {
   Object.entries(styleSpec).forEach(([attr, value]) => {
