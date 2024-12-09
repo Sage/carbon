@@ -22,6 +22,7 @@ import {
   checkAccessibility,
   getStyle,
   toBeFocusedDelayed,
+  containsClass,
 } from "../../../playwright/support/helper";
 import {
   SIZE,
@@ -142,7 +143,7 @@ test.describe("Functionality tests", () => {
     });
 
     await expect(todayButton).toBeVisible();
-    await expect(todayCell).toHaveClass(dayClass);
+    await containsClass(todayCell, dayClass);
   });
 
   test(`should open dayPicker after click on input`, async ({
