@@ -1,3 +1,11 @@
+## [144.16.0](https://github.com/Sage/carbon/compare/v144.15.0...v144.16.0) (2024-12-09)
+
+
+### Features
+
+* **classname prop:** add deprecation warning to indicate impending removal of className prop ([d838a08](https://github.com/Sage/carbon/commit/d838a082859c5431490127376bcda8baec73576f))
+* **tests:** add deprecation message test coverage ([0fc4090](https://github.com/Sage/carbon/commit/0fc4090298e2dbdf93538b8fc9ce95eb23e9ed21))
+
 ## [144.15.0](https://github.com/Sage/carbon/compare/v144.14.0...v144.15.0) (2024-12-06)
 
 
