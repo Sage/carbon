@@ -125,7 +125,7 @@ const Events = {
    * Gets the event's path which is an array of the objects on which listeners will be invoked.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
    */
-  composedPath: (ev: CustomEvent): EventTarget[] => {
+  composedPath: (ev: Event): EventTarget[] => {
     return ev.composedPath?.() || composedPath(ev);
   },
 };

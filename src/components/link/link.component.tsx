@@ -58,7 +58,7 @@ export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
 }
 
 export const Link = React.forwardRef<
-  HTMLLinkElement | HTMLButtonElement,
+  HTMLAnchorElement | HTMLButtonElement,
   LinkProps
 >(
   (
