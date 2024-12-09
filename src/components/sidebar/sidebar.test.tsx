@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  act,
   render,
   screen,
   waitFor,
@@ -152,7 +153,9 @@ describe("closing behaviour", () => {
       </CarbonProvider>,
     );
 
-    screen.getByRole("button", { name: "Close" }).focus();
+    act(() => {
+      screen.getByRole("button", { name: "Close" }).focus();
+    });
     await user.keyboard("{Enter}");
 
     await waitForElementToBeRemoved(() => screen.queryByRole("dialog"));
@@ -168,7 +171,9 @@ describe("closing behaviour", () => {
       </CarbonProvider>,
     );
 
-    screen.getByRole("button", { name: "Close" }).focus();
+    act(() => {
+      screen.getByRole("button", { name: "Close" }).focus();
+    });
     await user.keyboard("{ }");
 
     await waitForElementToBeRemoved(() => screen.queryByRole("dialog"));
@@ -184,7 +189,9 @@ describe("closing behaviour", () => {
       </CarbonProvider>,
     );
 
-    screen.getByRole("button", { name: "Close" }).focus();
+    act(() => {
+      screen.getByRole("button", { name: "Close" }).focus();
+    });
     await user.keyboard("{a}");
 
     expect(screen.getByRole("dialog")).toBeVisible();
@@ -217,8 +224,9 @@ test("focus is trapped within sidebar when opened", async () => {
     </CarbonProvider>,
   );
   const firstButton = screen.getByRole("button", { name: "First" });
-  firstButton.focus();
-
+  act(() => {
+    firstButton.focus();
+  });
   await user.tab();
 
   expect(screen.getByRole("button", { name: "Second" })).toHaveFocus();
@@ -239,8 +247,9 @@ test("focus is not trapped within sidebar when enableBackgroundUI is true", asyn
     </CarbonProvider>,
   );
   const firstButton = screen.getByRole("button", { name: "First" });
-  firstButton.focus();
-
+  act(() => {
+    firstButton.focus();
+  });
   await user.tab();
 
   expect(screen.getByRole("button", { name: "Second" })).toHaveFocus();

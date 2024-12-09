@@ -1668,6 +1668,6 @@ test("should select the correct date when the locale is overridden and a date is
   await user.type(input, "05/04");
   jest.advanceTimersByTime(10);
 
-  const grid = screen.getByRole("status").textContent;
-  expect(grid).toEqual("April 2019");
+  const caption = screen.getByRole("status");
+  expect(caption).toHaveTextContent("April 2019");
 });

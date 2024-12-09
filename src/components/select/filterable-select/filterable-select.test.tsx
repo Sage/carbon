@@ -406,7 +406,10 @@ test("should override the default list 'max-height' when `listMaxHeight` passed"
       <Option value="opt1" text="red" />
     </FilterableSelect>,
   );
-  screen.getByRole("combobox").focus();
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
+
   const listContainer = await screen.findByTestId(
     "select-list-scrollable-container",
   );
@@ -497,8 +500,10 @@ test("should call `onFocus` callback when input is focused", () => {
       <Option value="opt1" text="red" />
     </FilterableSelect>,
   );
-  screen.getByRole("combobox").focus();
-  act(() => jest.runOnlyPendingTimers());
+  act(() => {
+    screen.getByRole("combobox").focus();
+    jest.runOnlyPendingTimers();
+  });
 
   expect(onFocusFn).toHaveBeenCalled();
   jest.useRealTimers();
@@ -518,8 +523,10 @@ test("should call `onFocus` callback when input is focused and `openOnFocus` is 
       <Option value="opt1" text="red" />
     </FilterableSelect>,
   );
-  screen.getByRole("combobox").focus();
-  act(() => jest.runOnlyPendingTimers());
+  act(() => {
+    screen.getByRole("combobox").focus();
+    jest.runOnlyPendingTimers();
+  });
 
   expect(onFocusFn).toHaveBeenCalled();
   jest.useRealTimers();
@@ -537,8 +544,10 @@ test("should call `onBlur` callback when input is blurred", () => {
       <Option value="opt1" text="red" />
     </FilterableSelect>,
   );
-  screen.getByRole("combobox").focus();
-  screen.getByRole("combobox").blur();
+  act(() => {
+    screen.getByRole("combobox").focus();
+    screen.getByRole("combobox").blur();
+  });
 
   expect(onBlurFn).toHaveBeenCalled();
 });
@@ -557,7 +566,10 @@ test("should not call `onBlur` when the user clicks on an option", async () => {
       <Option value="opt1" text="red" />
     </FilterableSelect>,
   );
-  screen.getByRole("combobox").focus();
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
+
   await user.click(await screen.findByRole("option", { name: "red" }));
 
   expect(onBlurFn).not.toHaveBeenCalled();
@@ -594,7 +606,9 @@ describe("when the input is focused", () => {
         <Option value="opt1" text="red" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
@@ -611,7 +625,10 @@ describe("when the input is focused", () => {
         <Option value="opt1" text="red" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
+
     act(() => jest.runOnlyPendingTimers());
 
     expect(await screen.findByRole("listbox")).toBeVisible();
@@ -1407,7 +1424,9 @@ describe("when the user selects an option", () => {
         <Option value="opt1" text="green" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
     await user.keyboard("{ArrowDown}");
     await user.keyboard("{ArrowDown}");
     await user.keyboard("{Enter}");
@@ -1428,7 +1447,9 @@ describe("when the user selects an option", () => {
         <Option value="opt1" text="green" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
     await user.keyboard("{ArrowDown}");
     await user.keyboard("{ArrowDown}");
     await user.keyboard(" ");
@@ -1450,7 +1471,9 @@ describe("when the user selects an option", () => {
         <Option value="opt2" text="blue" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
     await user.keyboard("{ArrowDown}");
 
     expect(onSelectFn).toHaveBeenCalled();
@@ -1473,7 +1496,9 @@ describe("when the user selects an option", () => {
         <Option value="opt2" text="blue" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
     await user.keyboard("{ArrowUp}");
 
     expect(onSelectFn).toHaveBeenCalled();
@@ -1495,7 +1520,9 @@ test("should close the list when the user presses `Escape` key", async () => {
       <Option value="opt1" text="green" />
     </FilterableSelect>,
   );
-  screen.getByRole("combobox").focus();
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
   await user.keyboard("{ArrowDown}");
   await user.keyboard("{Escape}");
 
@@ -1509,7 +1536,9 @@ test("should close the list when the user clicks outside the component", async (
       <Option value="opt1" text="green" />
     </FilterableSelect>,
   );
-  screen.getByRole("combobox").focus();
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
   await user.keyboard("{ArrowDown}");
   await user.click(document.body);
 
@@ -1529,7 +1558,9 @@ test("should call the `onKeyDown` callback when the user presses a key and the i
       <Option value="opt1" text="green" />
     </FilterableSelect>,
   );
-  screen.getByRole("combobox").focus();
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
   await user.keyboard("{ArrowDown}");
 
   expect(onKeyDownFn).toHaveBeenCalled();
@@ -1549,7 +1580,9 @@ describe("when the `listActionButton` is passed", () => {
         <Option value="opt1" text="green" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
 
     expect(
       await screen.findByRole("button", { name: "mock button" }),
@@ -1571,7 +1604,9 @@ describe("when the `listActionButton` is passed", () => {
         <Option value="opt1" text="green" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
     await user.click(
       await screen.findByRole("button", { name: "mock button" }),
     );
@@ -1593,7 +1628,9 @@ describe("when the `listActionButton` is passed", () => {
         <Option value="opt1" text="green" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
     await user.tab();
 
     expect(
@@ -1616,7 +1653,9 @@ describe("when the `listActionButton` is passed", () => {
         <Option value="opt1" text="green" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
     await user.tab();
     await user.keyboard("{Enter}");
 
@@ -1638,7 +1677,9 @@ describe("when the `listActionButton` is passed", () => {
         <Option value="opt1" text="green" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
     await user.tab();
     await user.keyboard(" ");
 
@@ -1662,7 +1703,9 @@ describe("when the `listActionButton` is passed", () => {
         <Option value="opt1" text="green" />
       </FilterableSelect>,
     );
-    screen.getByRole("combobox").focus();
+    act(() => {
+      screen.getByRole("combobox").focus();
+    });
     await user.tab();
     await user.tab();
 
@@ -1699,7 +1742,9 @@ test("should not be call `onListScrollBottom` callback when an option is clicked
       <Option value="opt1" text="green" />
     </FilterableSelect>,
   );
-  screen.getByRole("combobox").focus();
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
   await user.click(await screen.findByRole("option", { name: "green" }));
 
   expect(onListScrollBottomFn).not.toHaveBeenCalled();
@@ -1716,7 +1761,9 @@ test("should apply the expected border radius styling to the list element", () =
       <Option value="opt1" text="green" />
     </FilterableSelect>,
   );
-  screen.getByRole("combobox").focus();
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
 
   expect(screen.getByTestId("select-list-wrapper")).toHaveStyleRule(
     "border-radius",

@@ -162,7 +162,7 @@ test("renders avatar with custom initials when `initials` prop is passed", () =>
 
 test("renders avatar with custom image when `src` prop is passed", () => {
   const src = "https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg";
-  render(<Profile src={src} />);
+  render(<Profile src={src} alt="foo" />);
 
   const avatar = screen.getByRole("img");
   expect(avatar).toBeVisible();

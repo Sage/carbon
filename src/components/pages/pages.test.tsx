@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Pages, { Page, PagesProps } from "./pages.component";
@@ -72,7 +72,9 @@ test.each([
     render(<PagesExample transition={transition} />);
 
     await user.click(screen.getByRole("button", { name: "Go to second page" }));
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(screen.getByTestId("visible-page")).toHaveClass(
       `${expected}-enter-done`,
@@ -105,8 +107,9 @@ test("when the `pageIndex` prop is changed to `undefined`, the currently-rendere
   expect(screen.getByRole("heading")).toHaveTextContent("Page 2");
 
   rerender(<ExampleComponent pageIndex={undefined} />);
-  jest.runAllTimers();
-
+  act(() => {
+    jest.runAllTimers();
+  });
   expect(screen.getByRole("heading")).toHaveTextContent("Page 2");
 });
 
@@ -115,9 +118,10 @@ test("navigating to the next page should render the expected content", async () 
   render(<PagesExample />);
 
   await user.click(screen.getByRole("button", { name: "Go to second page" }));
-  jest.runAllTimers();
-
-  expect(screen.getByRole("heading")).toHaveTextContent("My Second Page");
+  act(() => {
+    jest.runAllTimers();
+  });
+  expect(screen.getByRole("heading", { name: "My Second Page" })).toBeVisible();
 });
 
 test("navigating to the previous page should render the expected content", async () => {
@@ -126,9 +130,10 @@ test("navigating to the previous page should render the expected content", async
   expect(screen.getByRole("heading")).toHaveTextContent("My Second Page");
 
   await user.click(screen.getByRole("button", { name: "Back" }));
-  jest.runAllTimers();
-
-  expect(screen.getByRole("heading")).toHaveTextContent("My First Page");
+  act(() => {
+    jest.runAllTimers();
+  });
+  expect(screen.getByRole("heading", { name: "My First Page" })).toBeVisible();
 });
 
 test("navigating to the previous page should render the last page when currently on the first page", async () => {
@@ -136,9 +141,10 @@ test("navigating to the previous page should render the last page when currently
   render(<PagesExample />);
 
   await user.click(screen.getByRole("button", { name: "Back" }));
-  jest.runAllTimers();
-
-  expect(screen.getByRole("heading")).toHaveTextContent("My Third Page");
+  act(() => {
+    jest.runAllTimers();
+  });
+  expect(screen.getByRole("heading", { name: "My Third Page" })).toBeVisible();
 });
 
 test("navigating to the next page should render the first page when currently on the last page", async () => {
@@ -147,9 +153,10 @@ test("navigating to the next page should render the first page when currently on
   expect(screen.getByRole("heading")).toHaveTextContent("My Third Page");
 
   await user.click(screen.getByRole("button", { name: "Go to next page" }));
-  jest.runAllTimers();
-
-  expect(screen.getByRole("heading")).toHaveTextContent("My First Page");
+  act(() => {
+    jest.runAllTimers();
+  });
+  expect(screen.getByRole("heading", { name: "My First Page" })).toBeVisible();
 });
 
 test("when attempting to navigate pages and there is only one page, it should not change the rendered content", async () => {

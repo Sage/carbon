@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 import Modal from "./modal.component";
@@ -79,7 +79,9 @@ test("closes top modal when the `escape` key is pressed", async () => {
   expect(onCancelFnTwo).toHaveBeenCalled();
   expect(onCancelFn).not.toHaveBeenCalled();
 
-  jest.runOnlyPendingTimers();
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
   jest.useRealTimers();
 });
 
@@ -113,16 +115,16 @@ test("does not fire `onCancel` if the `escape` key is pressed and `disableClose`
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <>
-      <Modal data-role="first-modal" open disableClose onCancel={onCancelFn} />
-    </>,
+    <Modal data-role="first-modal" open disableClose onCancel={onCancelFn} />,
   );
 
   await user.keyboard("{Escape}");
 
   expect(onCancelFn).not.toHaveBeenCalled();
 
-  jest.runOnlyPendingTimers();
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
   jest.useRealTimers();
 });
 
@@ -139,7 +141,9 @@ test("should call the `onCancel` method when the modal is open and the `escape` 
 
   expect(onCancelFn).toHaveBeenCalled();
 
-  jest.runOnlyPendingTimers();
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
   jest.useRealTimers();
 });
 
@@ -156,7 +160,9 @@ test("onCancel method should not have been called with disableEscKey prop set to
 
   expect(onCancelFn).not.toHaveBeenCalled();
 
-  jest.runOnlyPendingTimers();
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
   jest.useRealTimers();
 });
 
