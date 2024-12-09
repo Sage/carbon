@@ -42,16 +42,12 @@ const DraggableContainer = ({
     React.Children.toArray(children),
   );
 
-  const hasProperChildren = useMemo(
-    () =>
-      React.Children.toArray(children).every(
-        (child) =>
-          React.isValidElement(child) &&
-          (child.type as React.FunctionComponent).displayName ===
-            DraggableItem.displayName,
-      ),
-    [children],
-  );
+  const hasProperChildren = useMemo(() => {
+    const invalidChild = React.Children.toArray(children).find(
+      (child) => !React.isValidElement(child) || child.type !== DraggableItem,
+    );
+    return !invalidChild;
+  }, [children]);
 
   // `<DraggableItem />` is required to make `Draggable` work
   invariant(

@@ -7,7 +7,10 @@ export function useStableCallback(callback?: (...args: unknown[]) => unknown) {
   const ref = useRef(callback);
   ref.current = callback;
 
-  const stableCallback = useCallback((...args) => ref.current?.(...args), []);
+  const stableCallback = useCallback(
+    (...args: unknown[]) => ref.current?.(...args),
+    [],
+  );
 
   return callback ? stableCallback : undefined;
 }

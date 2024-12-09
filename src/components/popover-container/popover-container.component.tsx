@@ -226,7 +226,7 @@ export const PopoverContainer = ({
   );
 
   const handleEscKey = useCallback(
-    (ev) => {
+    (ev: KeyboardEvent) => {
       const eventIsFromSelectInput = Events.composedPath(ev).find((element) => {
         return (
           element instanceof HTMLElement &&
