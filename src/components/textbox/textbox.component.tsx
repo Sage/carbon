@@ -82,7 +82,7 @@ export interface CommonTextboxProps
   leftChildren?: React.ReactNode;
   /** Label content */
   label?: string;
-  /** [Legacy] Inline label alignment */
+  /** Label alignment */
   labelAlign?: "left" | "right";
   /**
    * [Legacy] Text applied to label help tooltip. When opted into new design validations
@@ -345,7 +345,7 @@ export const Textbox = React.forwardRef(
             info={info}
             label={label}
             labelId={labelId}
-            labelAlign={computeLabelPropValues(labelAlign)}
+            labelAlign={labelAlign}
             labelHelp={computeLabelPropValues(labelHelp)}
             labelInline={computeLabelPropValues(labelInline)}
             labelSpacing={labelSpacing}
