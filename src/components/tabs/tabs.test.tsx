@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render, screen, within } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Tabs, Tab } from ".";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
@@ -304,7 +304,9 @@ test("blurs the previously-selected tab title when the `selectedTabId` prop is u
       </Tab>
     </Tabs>,
   );
-  screen.getByRole("tab", { name: "Tab 1" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 1" }).focus();
+  });
 
   rerender(
     <Tabs selectedTabId="tab-2">
@@ -373,7 +375,9 @@ test("when the position is `top` (the default), pressing the right arrow key foc
     </Tabs>,
   );
 
-  screen.getByRole("tab", { name: "Tab 1" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 1" }).focus();
+  });
 
   await user.keyboard("{ArrowRight}");
   expect(screen.getByRole("tab", { name: "Tab 2" })).toHaveFocus();
@@ -398,7 +402,9 @@ test("when the position is `top` (the default), pressing the right arrow key whe
     </Tabs>,
   );
 
-  screen.getByRole("tab", { name: "Tab 3" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 3" }).focus();
+  });
 
   await user.keyboard("{ArrowRight}");
   expect(screen.getByRole("tab", { name: "Tab 1" })).toHaveFocus();
@@ -420,7 +426,9 @@ test("when the position is `top` (the default), pressing the left arrow key focu
     </Tabs>,
   );
 
-  screen.getByRole("tab", { name: "Tab 3" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 3" }).focus();
+  });
 
   await user.keyboard("{ArrowLeft}");
   expect(screen.getByRole("tab", { name: "Tab 2" })).toHaveFocus();
@@ -445,7 +453,9 @@ test("when the position is `top` (the default), pressing the left arrow key when
     </Tabs>,
   );
 
-  screen.getByRole("tab", { name: "Tab 1" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 1" }).focus();
+  });
 
   await user.keyboard("{ArrowLeft}");
   expect(screen.getByRole("tab", { name: "Tab 3" })).toHaveFocus();
@@ -467,7 +477,9 @@ test("when the position is `left`, pressing the down arrow key focuses the next 
     </Tabs>,
   );
 
-  screen.getByRole("tab", { name: "Tab 1" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 1" }).focus();
+  });
 
   await user.keyboard("{ArrowDown}");
   expect(screen.getByRole("tab", { name: "Tab 2" })).toHaveFocus();
@@ -492,7 +504,9 @@ test("when the position is `left`, pressing the down arrow key when focused on t
     </Tabs>,
   );
 
-  screen.getByRole("tab", { name: "Tab 3" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 3" }).focus();
+  });
 
   await user.keyboard("{ArrowDown}");
   expect(screen.getByRole("tab", { name: "Tab 1" })).toHaveFocus();
@@ -514,7 +528,9 @@ test("when the position is `left`, pressing the up arrow key focuses the previou
     </Tabs>,
   );
 
-  screen.getByRole("tab", { name: "Tab 3" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 3" }).focus();
+  });
 
   await user.keyboard("{ArrowUp}");
   expect(screen.getByRole("tab", { name: "Tab 2" })).toHaveFocus();
@@ -539,7 +555,9 @@ test("when the position is `left`, pressing the up arrow key when focused on the
     </Tabs>,
   );
 
-  screen.getByRole("tab", { name: "Tab 1" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 1" }).focus();
+  });
 
   await user.keyboard("{ArrowUp}");
   expect(screen.getByRole("tab", { name: "Tab 3" })).toHaveFocus();
@@ -563,7 +581,9 @@ test("when the Enter key is pressed on a tab title, the associated tab becomes t
   expect(screen.getByText("Content for tab 1")).toBeVisible();
   expect(screen.getByText("Content for tab 2")).not.toBeVisible();
 
-  screen.getByRole("tab", { name: "Tab 2" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 2" }).focus();
+  });
   await user.keyboard("{Enter}");
   expect(screen.getByText("Content for tab 1")).not.toBeVisible();
   expect(screen.getByText("Content for tab 2")).toBeVisible();
@@ -587,7 +607,9 @@ test("when a non-Enter, non-arrow key is pressed on a tab title, neither the vis
   expect(screen.getByText("Content for tab 1")).toBeVisible();
   expect(screen.getByText("Content for tab 2")).not.toBeVisible();
   expect(screen.getByText("Content for tab 3")).not.toBeVisible();
-  screen.getByRole("tab", { name: "Tab 1" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 1" }).focus();
+  });
 
   await user.keyboard("a");
   expect(screen.getByText("Content for tab 1")).toBeVisible();
@@ -617,7 +639,9 @@ test("when rendered in a Drawer sidebar, pressing the down arrow key focuses the
       drawer content
     </Drawer>,
   );
-  screen.getByRole("tab", { name: "Tab 1" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 1" }).focus();
+  });
 
   await user.keyboard("{ArrowDown}");
   expect(screen.getByRole("tab", { name: "Tab 2" })).toHaveFocus();
@@ -648,7 +672,9 @@ test("when rendered in a Drawer sidebar`, pressing the down arrow key when focus
     </Drawer>,
   );
 
-  screen.getByRole("tab", { name: "Tab 3" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 3" }).focus();
+  });
 
   await user.keyboard("{ArrowDown}");
   expect(screen.getByRole("tab", { name: "Tab 1" })).toHaveFocus();
@@ -676,7 +702,9 @@ test("when rendered in a Drawer sidebar, pressing the up arrow key focuses the p
     </Drawer>,
   );
 
-  screen.getByRole("tab", { name: "Tab 3" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 3" }).focus();
+  });
 
   await user.keyboard("{ArrowUp}");
   expect(screen.getByRole("tab", { name: "Tab 2" })).toHaveFocus();
@@ -707,7 +735,9 @@ test("when rendered in a Drawer sidebar, pressing the up arrow key when focused 
     </Drawer>,
   );
 
-  screen.getByRole("tab", { name: "Tab 1" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "Tab 1" }).focus();
+  });
 
   await user.keyboard("{ArrowUp}");
   expect(screen.getByRole("tab", { name: "Tab 3" })).toHaveFocus();
@@ -1348,7 +1378,9 @@ test("arrow key navigation remains consistent when tab children are added and re
   };
   render(<WithConditionalChildren />);
 
-  screen.getByRole("tab", { name: "tab-1" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "tab-1" }).focus();
+  });
 
   expect(screen.getByRole("tab", { name: "tab-1" })).toHaveFocus();
   await user.keyboard("{ArrowLeft}");
@@ -1365,7 +1397,9 @@ test("arrow key navigation remains consistent when tab children are added and re
   await user.click(screen.getByRole("button", { name: "Toggle children" }));
   expect(screen.getAllByRole("tab")).toHaveLength(3);
 
-  screen.getByRole("tab", { name: "tab-1" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "tab-1" }).focus();
+  });
 
   expect(screen.getByRole("tab", { name: "tab-1" })).toHaveFocus();
   await user.keyboard("{ArrowLeft}");
@@ -1381,7 +1415,9 @@ test("arrow key navigation remains consistent when tab children are added and re
   await user.click(screen.getByRole("button", { name: "Toggle children" }));
   expect(screen.getAllByRole("tab")).toHaveLength(3);
 
-  screen.getByRole("tab", { name: "tab-1" }).focus();
+  act(() => {
+    screen.getByRole("tab", { name: "tab-1" }).focus();
+  });
 
   expect(screen.getByRole("tab", { name: "tab-1" })).toHaveFocus();
   await user.keyboard("{ArrowRight}");

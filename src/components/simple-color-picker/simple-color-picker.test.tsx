@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { SimpleColor, SimpleColorPicker } from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
@@ -50,8 +50,9 @@ test("the `onKeyDown` callback prop is called when the user presses a key", asyn
       <SimpleColor value="#582C83" />
     </SimpleColorPicker>,
   );
-
-  screen.getAllByRole("radio")[0].focus();
+  act(() => {
+    screen.getAllByRole("radio")[0].focus();
+  });
   await user.keyboard("a");
 
   expect(onKeyDown).toHaveBeenCalledTimes(1);
@@ -114,8 +115,9 @@ test("pressing the left arrow key when focused on the first color changes select
       <SimpleColor value="#582C83" />
     </SimpleColorPicker>,
   );
-
-  screen.getAllByRole("radio")[0].focus();
+  act(() => {
+    screen.getAllByRole("radio")[0].focus();
+  });
   await user.keyboard("{ArrowLeft}");
 
   expect(onChange).toHaveBeenCalledTimes(1);
@@ -141,8 +143,9 @@ test("pressing the right arrow key changes selection to the next color", async (
       <SimpleColor value="#582C83" />
     </SimpleColorPicker>,
   );
-
-  screen.getAllByRole("radio")[1].focus();
+  act(() => {
+    screen.getAllByRole("radio")[1].focus();
+  });
   await user.keyboard("{ArrowRight}");
 
   expect(onChange).toHaveBeenCalledTimes(1);
@@ -168,8 +171,9 @@ test("pressing the right arrow key when focused on the last color changes select
       <SimpleColor value="#582C83" />
     </SimpleColorPicker>,
   );
-
-  screen.getAllByRole("radio")[2].focus();
+  act(() => {
+    screen.getAllByRole("radio")[2].focus();
+  });
   await user.keyboard("{ArrowRight}");
 
   expect(onChange).toHaveBeenCalledTimes(1);
@@ -197,8 +201,9 @@ test("when the input has multiple rows, pressing the up arrow key changes select
       <SimpleColor value="#582C83" />
     </SimpleColorPicker>,
   );
-
-  screen.getAllByRole("radio")[1].focus();
+  act(() => {
+    screen.getAllByRole("radio")[1].focus();
+  });
   await user.keyboard("{ArrowUp}");
 
   expect(onChange).toHaveBeenCalledTimes(1);
@@ -226,8 +231,9 @@ test("when focus is already on the top row, pressing the up arrow key does not c
       <SimpleColor value="#582C83" />
     </SimpleColorPicker>,
   );
-
-  screen.getAllByRole("radio")[1].focus();
+  act(() => {
+    screen.getAllByRole("radio")[1].focus();
+  });
   await user.keyboard("{ArrowUp}");
 
   expect(onChange).not.toHaveBeenCalled();
@@ -250,8 +256,9 @@ test("when the input has multiple rows, pressing the down arrow key changes sele
       <SimpleColor value="#582C83" />
     </SimpleColorPicker>,
   );
-
-  screen.getAllByRole("radio")[1].focus();
+  act(() => {
+    screen.getAllByRole("radio")[1].focus();
+  });
   await user.keyboard("{ArrowDown}");
 
   expect(onChange).toHaveBeenCalledTimes(1);
@@ -280,8 +287,9 @@ test("when focus is already on the bottom row, pressing the down arrow key does 
       <SimpleColor value="#ABCDEF" />
     </SimpleColorPicker>,
   );
-
-  screen.getAllByRole("radio")[3].focus();
+  act(() => {
+    screen.getAllByRole("radio")[3].focus();
+  });
   await user.keyboard("{ArrowDown}");
 
   expect(onChange).not.toHaveBeenCalled();
@@ -302,8 +310,9 @@ test("focus is not changed if a non-arrow key is pressed", async () => {
       <SimpleColor value="#582C83" />
     </SimpleColorPicker>,
   );
-
-  screen.getAllByRole("radio")[0].focus();
+  act(() => {
+    screen.getAllByRole("radio")[0].focus();
+  });
   await user.keyboard("{Control}");
 
   expect(onChange).not.toHaveBeenCalled();

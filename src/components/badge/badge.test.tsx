@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Badge from "./badge.component";
 
@@ -43,11 +43,15 @@ describe("Badge", () => {
     const badgeButton = screen.getByRole("button");
     const badgeText = screen.getByText("9");
 
-    badgeButton.focus();
+    act(() => {
+      badgeButton.focus();
+    });
 
     expect(badgeText).not.toBeVisible();
 
-    badgeButton.blur();
+    act(() => {
+      badgeButton.blur();
+    });
 
     expect(badgeText).toBeVisible();
   });

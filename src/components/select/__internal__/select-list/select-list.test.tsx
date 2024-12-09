@@ -122,11 +122,11 @@ describe("rendered content", () => {
           <Option id="red" value="red" text="red" />
         </SelectListWithInput>,
       );
+      const list = await screen.findByTestId("select-list-wrapper");
 
-      expect(await screen.findByTestId("select-list-wrapper")).toHaveAttribute(
-        "data-floating-placement",
-        listPlacement,
-      );
+      await waitFor(() => {
+        expect(list).toHaveAttribute("data-floating-placement", listPlacement);
+      });
     },
   );
 

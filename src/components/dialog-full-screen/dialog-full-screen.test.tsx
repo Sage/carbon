@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  act,
   render,
   screen,
   waitFor,
@@ -85,10 +86,12 @@ test("the dialog container should not be focused when the dialog opens if the di
     </DialogFullScreen>,
   );
 
-  // need to use fake timers here rather than waitFor to ensure that the test fails if the disableAutoFocus functionality
-  // gets broken - using waitFor would always pass as the dialog is always initially unfocused. To be sure focus doesn't
-  // happen we need to let all timers run.
-  jest.runAllTimers();
+  act(() => {
+    // need to use fake timers here rather than waitFor to ensure that the test fails if the disableAutoFocus functionality
+    // gets broken - using waitFor would always pass as the dialog is always initially unfocused. To be sure focus doesn't
+    // happen we need to let all timers run.
+    jest.runAllTimers();
+  });
 
   expect(screen.getByRole("dialog")).not.toHaveFocus();
 
@@ -389,7 +392,9 @@ test("the onCancel callback should be called when the enter key is pressed", asy
   const onCancel = jest.fn();
   render(<ControlledDialog onCancel={onCancel} />);
 
-  screen.getByRole("button", { name: "Close" }).focus();
+  act(() => {
+    screen.getByRole("button", { name: "Close" }).focus();
+  });
   await user.keyboard("{Enter}");
 
   await waitForElementToBeRemoved(() => screen.queryByRole("dialog"));
@@ -402,13 +407,17 @@ test("the onCancel callback should not be called when a non-Enter key is pressed
   const onCancel = jest.fn();
   render(<ControlledDialog onCancel={onCancel} />);
 
-  screen.getByRole("button", { name: "Close" }).focus();
+  act(() => {
+    screen.getByRole("button", { name: "Close" }).focus();
+  });
   await user.keyboard("a");
 
-  // need to use fake timers here rather than waitFor to ensure that the test fails if this feature ever
-  // gets broken - using waitFor would always pass as the dialog is already visible (and onCancel not called)
-  // at this point
-  jest.runAllTimers();
+  act(() => {
+    // need to use fake timers here rather than waitFor to ensure that the test fails if this feature ever
+    // gets broken - using waitFor would always pass as the dialog is already visible (and onCancel not called)
+    // at this point
+    jest.runAllTimers();
+  });
   expect(screen.getByRole("dialog")).toBeVisible();
   expect(onCancel).not.toHaveBeenCalled();
 
