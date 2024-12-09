@@ -68,7 +68,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
   );
 
   const focusAccordion = useCallback(
-    (ev, index) => {
+    (ev: React.KeyboardEvent<HTMLElement>, index: number) => {
       ev.preventDefault();
 
       if (index === -1) {
@@ -83,7 +83,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
   );
 
   const handleKeyboardAccessibility = useCallback(
-    (ev, index) => {
+    (ev: React.KeyboardEvent<HTMLElement>, index: number) => {
       if (Events.isUpKey(ev)) {
         focusAccordion(ev, index - 1);
       }

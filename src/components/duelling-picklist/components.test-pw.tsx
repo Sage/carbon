@@ -17,7 +17,7 @@ import {
   PicklistGroup,
   PicklistPlaceholderProps,
 } from ".";
-import Search from "../search";
+import Search, { SearchEvent } from "../search";
 
 type Item = { key: string; title: string; description: string };
 type AllItems = { [key: string]: Item };
@@ -62,7 +62,7 @@ export const DuellingPicklistComponent = (
   const isSearchMode = Boolean(searchQuery.length);
 
   const onAdd = useCallback(
-    (item) => {
+    (item: Item) => {
       const { [item.key]: removed, ...rest } = notSelectedItems;
       setNotSelectedItems(rest);
       setSelectedItems({ ...selectedItems, [item.key]: item });
@@ -73,7 +73,7 @@ export const DuellingPicklistComponent = (
   );
 
   const onRemove = useCallback(
-    (item) => {
+    (item: Item) => {
       const { [item.key]: removed, ...rest } = selectedItems;
       setSelectedItems(rest);
       setNotSelectedItems({ ...notSelectedItems, [item.key]: item });
@@ -91,7 +91,7 @@ export const DuellingPicklistComponent = (
   );
 
   const handleSearch = useCallback(
-    (ev) => {
+    (ev: SearchEvent) => {
       setSearchQuery(ev.target.value);
       const tempNotSelectedItems = Object.keys(notSelectedItems).reduce(
         (items, key) => {
@@ -178,14 +178,18 @@ export const DuellingPicklistComponent = (
           {renderItems(
             isSearchMode ? notSelectedSearch : notSelectedItems,
             "add",
-            onAdd,
+            onAdd as PicklistItemProps["onChange"],
           )}
         </Picklist>
         <Picklist
           disabled={isEachItemSelected}
           placeholder={<PicklistPlaceholder text="Nothing to see here" />}
         >
-          {renderItems(selectedItems, "remove", onRemove)}
+          {renderItems(
+            selectedItems,
+            "remove",
+            onRemove as PicklistItemProps["onChange"],
+          )}
         </Picklist>
       </DuellingPicklist>
     </div>
@@ -232,7 +236,7 @@ export const DuellingPicklistComponentAssigned = (
   const isSearchMode = Boolean(searchQuery.length);
 
   const onAdd = useCallback(
-    (item) => {
+    (item: Item) => {
       const { [item.key]: removed, ...rest } = notSelectedItems;
       setNotSelectedItems(rest);
       setSelectedItems({ ...selectedItems, [item.key]: item });
@@ -243,7 +247,7 @@ export const DuellingPicklistComponentAssigned = (
   );
 
   const onRemove = useCallback(
-    (item) => {
+    (item: Item) => {
       const { [item.key]: removed, ...rest } = selectedItems;
       setSelectedItems(rest);
       setNotSelectedItems({ ...notSelectedItems, [item.key]: item });
@@ -261,7 +265,7 @@ export const DuellingPicklistComponentAssigned = (
   );
 
   const handleSearch = useCallback(
-    (ev) => {
+    (ev: SearchEvent) => {
       setSearchQuery(ev.target.value);
       const tempNotSelectedItems = Object.keys(notSelectedItems).reduce(
         (items, key) => {
@@ -348,14 +352,18 @@ export const DuellingPicklistComponentAssigned = (
           {renderItems(
             isSearchMode ? notSelectedSearch : notSelectedItems,
             "add",
-            onAdd,
+            onAdd as PicklistItemProps["onChange"],
           )}
         </Picklist>
         <Picklist
           disabled={isEachItemSelected}
           placeholder={<PicklistPlaceholder text="Nothing to see here" />}
         >
-          {renderItems(selectedItems, "remove", onRemove)}
+          {renderItems(
+            selectedItems,
+            "remove",
+            onRemove as PicklistItemProps["onChange"],
+          )}
         </Picklist>
       </DuellingPicklist>
     </div>
@@ -392,7 +400,7 @@ export const AlternativeSearch = () => {
   const isSearchMode = Boolean(searchQuery.length);
 
   const onAdd = useCallback(
-    (item) => {
+    (item: Item) => {
       const { [item.key]: removed, ...rest } = notSelectedItems;
       setNotSelectedItems(rest);
       setSelectedItems({ ...selectedItems, [item.key]: item });
@@ -403,7 +411,7 @@ export const AlternativeSearch = () => {
   );
 
   const onRemove = useCallback(
-    (item) => {
+    (item: Item) => {
       const { [item.key]: removed, ...rest } = selectedItems;
       setSelectedItems(rest);
       setNotSelectedItems({ ...notSelectedItems, [item.key]: item });
@@ -421,7 +429,7 @@ export const AlternativeSearch = () => {
   );
 
   const handleSearch = useCallback(
-    (ev) => {
+    (ev: SearchEvent) => {
       setSearchQuery(ev.target.value);
       const tempNotSelectedItems = Object.keys(notSelectedItems).reduce(
         (items, key) => {
@@ -495,19 +503,25 @@ export const AlternativeSearch = () => {
           {renderItems(
             isSearchMode ? notSelectedSearch : notSelectedItems,
             "add",
-            onAdd,
+            onAdd as PicklistItemProps["onChange"],
           )}
         </Picklist>
         <Picklist
           disabled={isEachItemSelected}
           placeholder={<PicklistPlaceholder text="Nothing to see here" />}
         >
-          {renderItems(selectedItems, "remove", onRemove)}
+          {renderItems(
+            selectedItems,
+            "remove",
+            onRemove as PicklistItemProps["onChange"],
+          )}
         </Picklist>
       </DuellingPicklist>
     </>
   );
 };
+
+type ItemGroup = { key: number; title: string; group: string };
 
 export const Grouped = () => {
   const allGroups = {
@@ -534,7 +548,7 @@ export const Grouped = () => {
   const [selectedItems, setSelectedItems] = useState<MockData>([]);
 
   const onAdd = useCallback(
-    (item) => {
+    (item: ItemGroup) => {
       setSelectedItems([...selectedItems, item]);
       setNotSelectedItems([
         ...notSelectedItems.filter((i) => i.key !== item.key),
@@ -544,7 +558,7 @@ export const Grouped = () => {
   );
 
   const onRemove = useCallback(
-    (item) => {
+    (item: ItemGroup) => {
       setNotSelectedItems([...notSelectedItems, item]);
       setSelectedItems([...selectedItems.filter((i) => i.key !== item.key)]);
     },
@@ -618,7 +632,11 @@ export const Grouped = () => {
                 type="add"
                 onChange={() => addGroup(key as GroupKey)}
               >
-                {renderItems(groupItems, "add", onAdd)}
+                {renderItems(
+                  groupItems,
+                  "add",
+                  onAdd as PicklistItemProps["onChange"],
+                )}
               </PicklistGroup>
             ) : null;
           })}
@@ -638,7 +656,11 @@ export const Grouped = () => {
                 type="remove"
                 onChange={() => removeGroup(key as GroupKey)}
               >
-                {renderItems(groupItems, "remove", onRemove)}
+                {renderItems(
+                  groupItems,
+                  "remove",
+                  onRemove as PicklistItemProps["onChange"],
+                )}
               </PicklistGroup>
             ) : null;
           })}

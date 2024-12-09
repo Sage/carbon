@@ -231,6 +231,7 @@ test("should only allow the first button to be tabbable when none are selected",
     </ButtonToggleGroup>,
   );
 
+  await user.click(document.body);
   await user.tab();
   expect(screen.getByRole("button", { name: "Foo" })).toHaveFocus();
 
