@@ -6,6 +6,7 @@ import {
   FORMAT_TEXT_COMMAND,
   TextFormatType,
   COMMAND_PRIORITY_LOW,
+  $getRoot,
 } from "lexical";
 import {
   INSERT_UNORDERED_LIST_COMMAND,
@@ -30,7 +31,7 @@ interface ToolbarPluginProps {
   /** Whether to show the command buttons */
   showCommandButtons?: boolean;
   /** Callback function to be called when the editor is saved via command button */
-  onSave?: () => void;
+  onSave?: (value: string | undefined) => void;
   /** Callback function to be called when the editor is saved via command button */
   onCancel?: () => void;
 }
@@ -178,7 +179,12 @@ const ToolbarPlugin = ({
           <Button
             buttonType="primary"
             aria-label="Save"
-            onClick={() => onSave?.()}
+            onClick={() => {
+              const currentTextContent = editor.read(() =>
+                $getRoot().getTextContent(),
+              );
+              onSave?.(currentTextContent);
+            }}
           >
             Save
           </Button>

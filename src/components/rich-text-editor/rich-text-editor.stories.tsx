@@ -58,3 +58,14 @@ export const WithError: Story = () => {
   );
 };
 WithError.storyName = "With Error";
+
+export const OnSave: Story = () => {
+  return (
+    <RichTextEditor
+      label="Rich Text Editor"
+      showCommandButtons
+      onSave={(value) => value && alert(value)}
+    />
+  );
+};
+OnSave.storyName = "With onSave Handler";

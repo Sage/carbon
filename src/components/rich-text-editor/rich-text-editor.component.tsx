@@ -48,9 +48,9 @@ export interface RichTextEditorProps {
   /** The label to attach to this rich text editor */
   label: string;
   /** Callback function to be called when the editor state changes */
-  onChange?: (value: string) => void;
+  onChange?: (value: string | undefined) => void;
   /** Callback function to be called when the editor is saved via command button */
-  onSave?: () => void;
+  onSave?: (value: string | undefined) => void;
   /** Callback function to be called when the editor is saved via command button */
   onCancel?: () => void;
   /** whether the value of this component is optional */
@@ -139,7 +139,7 @@ export const RichTextEditor = React.forwardRef(
                 <MarkdownShortcutPlugin />
                 <ToolbarPlugin
                   showCommandButtons={showCommandButtons}
-                  onSave={onSave}
+                  onSave={(value: string | undefined) => onSave?.(value)}
                   onCancel={onCancel}
                 />
               </div>
