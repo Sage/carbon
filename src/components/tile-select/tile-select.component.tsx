@@ -7,6 +7,7 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import Button from "../button";
 import Box from "../box";
 import Accordion from "./__internal__/accordion";
+import Logger from "../../__internal__/utils/logger";
 
 import {
   StyledTileSelectContainer,
@@ -23,6 +24,8 @@ import {
   StyledAccordionFooterWrapper,
 } from "./tile-select.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+
+let deprecatedClassNameWarningShown = false;
 
 const checkPropTypeIsNode = (prop: unknown): boolean =>
   typeof prop !== "string";
@@ -114,6 +117,13 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
     }: TileSelectProps,
     ref,
   ) => {
+    if (!deprecatedClassNameWarningShown && className) {
+      Logger.deprecate(
+        "The 'className' prop has been deprecated and will soon be removed from the 'TileSelect' component.",
+      );
+      deprecatedClassNameWarningShown = true;
+    }
+
     const l = useLocale();
     const [hasFocus, setHasFocus] = useState(false);
     const handleDeselect = () =>

@@ -3,6 +3,9 @@ import { PaddingProps } from "styled-system";
 import StyledTab from "./tab.style";
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import TabContext from "./__internal__/tab.context";
+import Logger from "../../../__internal__/utils/logger";
+
+let deprecatedClassNameWarningShown = false;
 
 export interface TabProps extends PaddingProps {
   title?: string;
@@ -70,6 +73,13 @@ export const Tab = ({
   titleProps,
   ...rest
 }: TabProps) => {
+  if (!deprecatedClassNameWarningShown && className) {
+    Logger.deprecate(
+      "The 'className' prop has been deprecated and will soon be removed from the 'Tab' component.",
+    );
+    deprecatedClassNameWarningShown = true;
+  }
+
   const [tabErrors, setTabErrors] = useState<Record<string, string>>({});
   const [tabWarnings, setTabWarnings] = useState<Record<string, string>>({});
   const [tabInfos, setTabInfos] = useState<Record<string, string>>({});

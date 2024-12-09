@@ -3,12 +3,15 @@ import { MarginProps } from "styled-system";
 import Heading, { HeadingType } from "../heading";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import Logger from "../../__internal__/utils/logger";
 
 import {
   StyledSettingsRow,
   StyledSettingsRowHeader,
   StyledSettingsRowInput,
 } from "./settings-row.style";
+
+let deprecatedClassNameWarningShown = false;
 
 export interface SettingsRowProps extends MarginProps {
   /**  A title for this group of settings. */
@@ -34,6 +37,13 @@ export const SettingsRow = ({
   className,
   ...rest
 }: SettingsRowProps) => {
+  if (!deprecatedClassNameWarningShown && className) {
+    Logger.deprecate(
+      "The 'className' prop has been deprecated and will soon be removed from the 'SettingsRow' component.",
+    );
+    deprecatedClassNameWarningShown = true;
+  }
+
   const heading = () => {
     if (!title) return null;
 
