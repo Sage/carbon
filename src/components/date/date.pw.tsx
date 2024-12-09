@@ -21,6 +21,8 @@ import {
   checkGoldenOutline,
   checkAccessibility,
   getStyle,
+  toBeFocusedDelayed,
+  containsClass,
 } from "../../../playwright/support/helper";
 import {
   SIZE,
@@ -141,7 +143,7 @@ test.describe("Functionality tests", () => {
     });
 
     await expect(todayButton).toBeVisible();
-    await expect(todayCell).toHaveClass(dayClass);
+    await containsClass(todayCell, dayClass);
   });
 
   test(`should open dayPicker after click on input`, async ({
@@ -344,7 +346,7 @@ test.describe("Functionality tests", () => {
     const dayPicker = page
       .locator(`.${DAY_PICKER_PREFIX}today`)
       .locator("button");
-    await expect(dayPicker).toBeFocused();
+    await toBeFocusedDelayed(dayPicker);
     await page.keyboard.press("Tab");
     const wrapper = dayPickerWrapper(page);
     await expect(wrapper).toHaveCount(0);
@@ -366,52 +368,52 @@ test.describe("Functionality tests", () => {
       .locator(`.${DAY_PICKER_PREFIX}focused`)
       .locator("button")
       .filter({ hasText: "21" });
-    await expect(focusedElement1).toBeFocused();
+    await toBeFocusedDelayed(focusedElement1);
     await page.keyboard.press(arrowKeys[3]);
     const focusedElement2 = page
       .locator(`.${DAY_PICKER_PREFIX}focused`)
       .locator("button")
       .filter({ hasText: "28" });
-    await expect(focusedElement2).toBeFocused();
+    await toBeFocusedDelayed(focusedElement2);
 
     await page.keyboard.press(arrowKeys[1]);
     const focusedElement3 = page
       .locator(`.${DAY_PICKER_PREFIX}focused`)
       .locator("button")
       .filter({ hasText: "27" });
-    await expect(focusedElement3).toBeFocused();
+    await toBeFocusedDelayed(focusedElement3);
     await page.keyboard.press(arrowKeys[1]);
     const focusedElement4 = page
       .locator(`.${DAY_PICKER_PREFIX}focused`)
       .locator("button")
       .filter({ hasText: "26" });
-    await expect(focusedElement4).toBeFocused();
+    await toBeFocusedDelayed(focusedElement4);
 
     await page.keyboard.press(arrowKeys[0]);
     const focusedElement5 = page
       .locator(`.${DAY_PICKER_PREFIX}focused`)
       .locator("button")
       .filter({ hasText: "27" });
-    await expect(focusedElement5).toBeFocused();
+    await toBeFocusedDelayed(focusedElement5);
     await page.keyboard.press(arrowKeys[0]);
     const focusedElement6 = page
       .locator(`.${DAY_PICKER_PREFIX}focused`)
       .locator("button")
       .filter({ hasText: "28" });
-    await expect(focusedElement6).toBeFocused();
+    await toBeFocusedDelayed(focusedElement6);
 
     await page.keyboard.press(arrowKeys[2]);
     const focusedElement7 = page
       .locator(`.${DAY_PICKER_PREFIX}focused`)
       .locator("button")
       .filter({ hasText: "21" });
-    await expect(focusedElement7).toBeFocused();
+    await toBeFocusedDelayed(focusedElement7);
     await page.keyboard.press(arrowKeys[2]);
     const focusedElement8 = page
       .locator(`.${DAY_PICKER_PREFIX}focused`)
       .locator("button")
       .filter({ hasText: "14" });
-    await expect(focusedElement8).toBeFocused();
+    await toBeFocusedDelayed(focusedElement8);
   });
 
   test(`should navigate to the previous month when left arrow pressed on first day element of a month`, async ({
@@ -430,7 +432,7 @@ test.describe("Functionality tests", () => {
       .locator(`.${DAY_PICKER_PREFIX}focused`)
       .locator("button")
       .filter({ hasText: "13" });
-    await expect(focusedElement).toBeFocused();
+    await toBeFocusedDelayed(focusedElement);
     const pickerHeading = dayPickerHeading(page);
     await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
   });
@@ -461,13 +463,13 @@ test.describe("Functionality tests", () => {
           .locator(`.${DAY_PICKER_PREFIX}focused`)
           .locator("button")
           .filter({ hasText: result });
-        await expect(focusedElement).toBeFocused();
+        await toBeFocusedDelayed(focusedElement);
       } else {
         const focusedElement = page
           .locator(`.${DAY_PICKER_PREFIX}focused`)
           .locator("button")
           .filter({ hasText: result });
-        await expect(focusedElement).toBeFocused();
+        await toBeFocusedDelayed(focusedElement);
       }
       const pickerHeading = dayPickerHeading(page);
       await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
@@ -500,7 +502,7 @@ test.describe("Functionality tests", () => {
           .locator(`.${DAY_PICKER_PREFIX}focused`)
           .locator("button")
           .filter({ hasText: result });
-        await expect(focusedElement).toBeFocused();
+        await toBeFocusedDelayed(focusedElement);
       } else {
         const focusedElement = page
           .locator(`.${DAY_PICKER_PREFIX}focused`)
@@ -508,7 +510,7 @@ test.describe("Functionality tests", () => {
           .filter({ hasText: result })
           .filter({ hasNotText: "30" })
           .filter({ hasNotText: "31" });
-        await expect(focusedElement).toBeFocused();
+        await toBeFocusedDelayed(focusedElement);
       }
       const pickerHeading = dayPickerHeading(page);
       await expect(pickerHeading).toHaveText(NEXT_MONTH);
@@ -532,7 +534,7 @@ test.describe("Functionality tests", () => {
         .locator(`.${DAY_PICKER_PREFIX}focused`)
         .locator("button")
         .filter({ hasText: "13" });
-      await expect(focusedElement).toBeFocused();
+      await toBeFocusedDelayed(focusedElement);
       await page.keyboard.press(key);
       await expect(getDataElementByValue(page, "input")).toHaveValue(
         "13/04/2022",
@@ -603,7 +605,7 @@ test.describe("Functionality tests", () => {
       .locator("button")
       .filter({ hasText: "1" })
       .filter({ hasNotText: "31" });
-    await expect(focusedElement).toBeFocused();
+    await toBeFocusedDelayed(focusedElement);
     const pickerHeading = dayPickerHeading(page);
     await expect(pickerHeading).toHaveText(NEXT_MONTH);
   });
