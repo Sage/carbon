@@ -140,6 +140,32 @@ test("uses the aria-label prop if provided", () => {
   expect(screen.getByRole("button")).toHaveAccessibleName("test aria label");
 });
 
+test("renders with the provided aria-labelledby prop", () => {
+  render(
+    <>
+      <span id="test-label-id">test label</span>
+      <ActionPopover aria-labelledby="test-label-id">
+        <ActionPopoverItem>example item</ActionPopoverItem>
+      </ActionPopover>
+    </>,
+  );
+  expect(screen.getByRole("button")).toHaveAccessibleName("test label");
+});
+
+test("renders with the provided aria-describedby prop", () => {
+  render(
+    <>
+      <span id="test-description-id">test description</span>
+      <ActionPopover aria-describedby="test-description-id">
+        <ActionPopoverItem>example item</ActionPopoverItem>
+      </ActionPopover>
+    </>,
+  );
+  expect(screen.getByRole("button")).toHaveAccessibleDescription(
+    "test description",
+  );
+});
+
 test("renders with the menu closed by default", () => {
   render(
     <ActionPopover>
@@ -1825,7 +1851,7 @@ test("an error is thrown, with appropriate error message, if an invalid element 
   globalConsoleSpy.mockRestore();
 });
 
-test("an error is thrown, with appropriate error message, if a submenu has incorrecr children", async () => {
+test("an error is thrown, with appropriate error message, if a submenu has incorrect children", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   const globalConsoleSpy = jest
@@ -1910,6 +1936,62 @@ describe("when the renderButton prop is passed", () => {
     await user.click(menuButton);
 
     expect(menuButton).toHaveAttribute("tabindex", "-1");
+  });
+
+  it("renders the menu button with the provided aria-label", () => {
+    render(
+      <ActionPopover
+        renderButton={(props) => (
+          <ActionPopoverMenuButton
+            buttonType="tertiary"
+            iconType="dropdown"
+            iconPosition="after"
+            size="small"
+            aria-label="test label"
+            {...props}
+          >
+            Foo
+          </ActionPopoverMenuButton>
+        )}
+      >
+        <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
+      </ActionPopover>,
+    );
+
+    const menuButton = screen.getByRole("button");
+    expect(menuButton).toBeVisible();
+    expect(menuButton).toHaveAccessibleName("test label");
+  });
+
+  it("renders the menu button with the provided aria-labelledby and aria-describedby", () => {
+    render(
+      <>
+        <span id="test-label-id">test label</span>
+        <span id="test-description-id">test description</span>
+        <ActionPopover
+          aria-labelledby="test-label-id"
+          aria-describedby="test-description-id"
+          renderButton={(props) => (
+            <ActionPopoverMenuButton
+              buttonType="tertiary"
+              iconType="dropdown"
+              iconPosition="after"
+              size="small"
+              {...props}
+            >
+              Foo
+            </ActionPopoverMenuButton>
+          )}
+        >
+          <ActionPopoverItem onClick={() => {}}>foo</ActionPopoverItem>
+        </ActionPopover>
+      </>,
+    );
+
+    const menuButton = screen.getByRole("button");
+    expect(menuButton).toBeVisible();
+    expect(menuButton).toHaveAccessibleName("test label");
+    expect(menuButton).toHaveAccessibleDescription("test description");
   });
 });
 
