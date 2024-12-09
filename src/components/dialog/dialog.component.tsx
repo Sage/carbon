@@ -71,7 +71,10 @@ export interface DialogProps extends ModalProps, TagProps {
   help?: string;
   /** A custom close event handler */
   onCancel?: (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>,
+    ev:
+      | React.KeyboardEvent<HTMLElement>
+      | KeyboardEvent
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Determines if the close icon is shown */
   showCloseIcon?: boolean;

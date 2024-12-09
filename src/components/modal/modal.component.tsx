@@ -26,7 +26,7 @@ export interface ModalProps extends Omit<TagProps, "data-component"> {
   /** Determines if the background is disabled when the modal is open */
   enableBackgroundUI?: boolean;
   /** A custom close event handler */
-  onCancel?: (ev: React.KeyboardEvent<HTMLElement>) => void;
+  onCancel?: (ev: React.KeyboardEvent<HTMLElement> | KeyboardEvent) => void;
   /** Sets the open state of the modal */
   open: boolean;
   /** Transition time */
@@ -88,7 +88,7 @@ const Modal = ({
   }, [allowScroll, enableBackgroundUI]);
 
   const closeModal = useCallback(
-    (ev) => {
+    (ev: KeyboardEvent) => {
       if (onCancel && !disableClose && !disableEscKey && Events.isEscKey(ev)) {
         ev.stopImmediatePropagation();
         onCancel(ev);

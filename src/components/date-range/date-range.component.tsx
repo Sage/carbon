@@ -152,7 +152,7 @@ export const DateRange = ({
   const [lastChangedDate, setLastChangedDate] = useState("");
 
   const computedValue = useCallback(
-    (valueString) => {
+    (valueString: string) => {
       if (checkISOFormatAndLength(valueString)) {
         return formattedValue(format, parseISODate(valueString));
       }

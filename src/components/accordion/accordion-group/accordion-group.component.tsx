@@ -34,8 +34,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
     React.Children.toArray(children).forEach((child) => {
       if (
         typeof child === "string" ||
-        (React.isValidElement(child) &&
-          (child.type as React.FunctionComponent).displayName !== "Accordion")
+        (React.isValidElement(child) && child.type !== Accordion)
       ) {
         hasAccordionChildren = false;
       }
@@ -68,7 +67,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
   );
 
   const focusAccordion = useCallback(
-    (ev, index) => {
+    (ev: React.KeyboardEvent<HTMLElement>, index: number) => {
       ev.preventDefault();
 
       if (index === -1) {
@@ -83,7 +82,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
   );
 
   const handleKeyboardAccessibility = useCallback(
-    (ev, index) => {
+    (ev: React.KeyboardEvent<HTMLElement>, index: number) => {
       if (Events.isUpKey(ev)) {
         focusAccordion(ev, index - 1);
       }

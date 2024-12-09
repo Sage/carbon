@@ -30,7 +30,8 @@ export interface VerticalMenuFullScreenProps extends TagProps {
   onClose: (
     ev:
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      | React.MouseEvent<HTMLButtonElement>
+      | KeyboardEvent,
   ) => void;
 }
 
@@ -47,7 +48,7 @@ export const VerticalMenuFullScreen = ({
   const menuWrapperRef = useRef<HTMLDivElement | null>(null);
 
   const handleKeyDown = useCallback(
-    (ev) => {
+    (ev: React.KeyboardEvent<HTMLButtonElement> | KeyboardEvent) => {
       // istanbul ignore else
       if (Events.isEscKey(ev)) {
         onClose(ev);
@@ -76,7 +77,6 @@ export const VerticalMenuFullScreen = ({
           as="nav"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
-          onKeyDown={handleKeyDown}
           {...tagComponent("vertical-menu-full-screen", rest)}
         >
           <Box
