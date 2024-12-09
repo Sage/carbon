@@ -131,17 +131,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
       `}
     }
 
-    ${!maxWidth &&
-    css`
-      a:has([data-component="icon"]):not(:has(button))
-        ${StyledContent},
-        button:has([data-component="icon"]):not(:has(button))
-        ${StyledContent} {
-        position: relative;
-        top: -1px;
-      }
-    `}
-
     :has([data-element="input"]) ${StyledContent} {
       width: 100%;
     }
@@ -198,15 +187,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
             vertical-align: bottom;
             display: block;
           `}
-        }
-
-        &
-          li:not(:has([data-component="icon"]):not(:has(button)))
-          ${StyledContent},
-          a:not(:has([data-component="icon"]):not(:has(button)))
-          ${StyledContent} {
-          position: relative;
-          bottom: 1px;
         }
 
         a:hover,
