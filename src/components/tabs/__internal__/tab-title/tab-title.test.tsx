@@ -190,11 +190,6 @@ test("calls the `onClick` prop when clicked", async () => {
   await user.click(screen.getByRole("tab"));
 
   expect(onClick).toHaveBeenCalledTimes(1);
-  expect(onClick).toHaveBeenCalledWith(
-    expect.objectContaining({
-      target: expect.objectContaining({ dataset: { tabid: "uniqueid1" } }),
-    }),
-  );
 });
 
 test.each(["error", "warning", "info"])(

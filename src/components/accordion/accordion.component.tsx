@@ -143,17 +143,19 @@ export const Accordion = React.forwardRef<
     }, [isExpanded]);
 
     const toggleAccordion = useCallback(
-      (ev) => {
+      (
+        ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+      ) => {
         if (!isControlled) {
           setIsExpandedInternal(!isExpanded);
         }
-        if (onChange) onChange(ev, !isExpanded);
+        onChange?.(ev, !isExpanded);
       },
       [isControlled, isExpanded, onChange],
     );
 
     const handleKeyDown = useCallback(
-      (ev) => {
+      (ev: React.KeyboardEvent<HTMLElement>) => {
         if (handleKeyboardAccessibility) {
           handleKeyboardAccessibility(ev, index);
         }
