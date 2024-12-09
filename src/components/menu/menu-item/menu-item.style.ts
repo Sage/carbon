@@ -1,15 +1,18 @@
 import styled, { css } from "styled-components";
+
 import { padding, PaddingProps } from "styled-system";
-import StyledButton from "../../button/button.style";
-import { StyledContent, StyledLink } from "../../link/link.style";
-import StyledIcon from "../../icon/icon.style";
-import StyledIconButton from "../../icon-button/icon-button.style";
+
 import menuConfigVariants from "../menu.config";
-import { MenuType } from "../__internal__/menu.context";
-import { MenuWithChildren } from "./menu-item.component";
 import Link from "../../link";
-import addFocusStyling from "../../../style/utils/add-focus-styling";
+import { MenuType } from "../__internal__/menu.context";
+import StyledButton from "../../button/button.style";
+import StyledIconButton from "../../icon-button/icon-button.style";
+import StyledIcon from "../../icon/icon.style";
+import { StyledContent, StyledLink } from "../../link/link.style";
 import { baseTheme } from "../../../style/themes";
+import addFocusStyling from "../../../style/utils/add-focus-styling";
+
+import { MenuWithChildren } from "./menu-item.component";
 
 interface StyledMenuItemWrapperProps
   extends Pick<
@@ -197,6 +200,15 @@ const StyledMenuItemWrapper = styled.a.attrs({
           `}
         }
 
+        &
+          li:not(:has([data-component="icon"]):not(:has(button)))
+          ${StyledContent},
+          a:not(:has([data-component="icon"]):not(:has(button)))
+          ${StyledContent} {
+          position: relative;
+          bottom: 1px;
+        }
+
         a:hover,
         button:hover {
           ${!asDiv &&
@@ -227,7 +239,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
             > a:has(${StyledButton}:not(.search-button)) {
              height: 100%;
-             
+
              ${StyledContent} {
                 height: inherit;
 
@@ -492,7 +504,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
         `
       }
 
-      
+
       > a, > button {
        min-height: 40px;
        line-height: 40px;
