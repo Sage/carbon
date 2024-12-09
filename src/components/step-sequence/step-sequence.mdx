@@ -1,0 +1,67 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import * as StepSequenceItemStories from "./step-sequence-item/step-sequence-item.stories.tsx";
+import * as StepSequenceStories from "./step-sequence.stories.tsx";
+
+<Meta title="Step Sequence" of={StepSequenceStories} />
+
+# StepSequence
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/405a47-step-flow"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Indicate the progress of a step flow.
+
+Progress indicators always directly mirror the number of pages, not general categories.
+
+Try to keep label text for each step as short as possible.
+
+For users on small screens or instances where horizontal space is limited, use the vertical version of this component.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import {
+  StepSequence,
+  StepSequenceItem,
+} from "carbon-react/lib/components/step-sequence";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={StepSequenceStories.DefaultStory} />
+
+### Vertical
+
+<Canvas of={StepSequenceStories.Vertical} />
+
+### With hidden indicators
+
+<Canvas of={StepSequenceStories.WithHiddenIndicators} />
+
+### Responsive Example
+
+<Canvas of={StepSequenceStories.ResponsiveExample} />
+
+## Props
+
+### StepSequence
+
+<ArgTypes of={StepSequenceStories} />
+
+### StepSequenceItem
+
+<ArgTypes of={StepSequenceItemStories} />
