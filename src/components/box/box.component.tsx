@@ -101,6 +101,8 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       borderRadius,
       color,
       opacity,
+      height,
+      width,
       "aria-hidden": ariaHidden,
       ...rest
     }: BoxProps,
@@ -112,6 +114,28 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         "The `tabIndex` prop for `Box` component has been deprecated and will soon be removed.",
       );
     }
+
+    let actualWidth = "";
+    if (typeof width === "number") {
+      actualWidth = width <= 1 ? `${(width * 100).toFixed(0)}%` : `${width}px`;
+    } else if (typeof width === "string") {
+      actualWidth = width;
+    }
+
+    let actualHeight = "";
+    if (typeof height === "number") {
+      actualHeight =
+        height <= 1 ? `${(height * 100).toFixed(0)}%` : `${height}px`;
+    } else if (typeof height === "string") {
+      actualHeight = height;
+    }
+
+    const cssProps = {
+      color,
+      opacity,
+      width: actualWidth,
+      height: actualHeight,
+    };
 
     return (
       <StyledBox
@@ -131,8 +155,6 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         backgroundColor={backgroundColor}
         boxShadow={boxShadow}
         borderRadius={borderRadius}
-        color={color}
-        opacity={opacity}
         aria-hidden={ariaHidden}
         {...tagComponent(dataComponent, rest)}
         {...filterStyledSystemMarginProps(rest)}
@@ -140,6 +162,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         {...filterStyledSystemFlexboxProps(rest)}
         {...filterStyledSystemGridProps(rest)}
         {...filterStyledSystemLayoutProps(rest)}
+        cssProps={cssProps}
       >
         {children}
       </StyledBox>
