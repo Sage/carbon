@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import PicklistGroup from "./picklist-group.component";
@@ -92,7 +92,9 @@ test("when the enter key is pressed with the group button focused, the onChange 
     </FocusContext.Provider>,
   );
 
-  screen.getByTestId("picklist-group-button").focus();
+  act(() => {
+    screen.getByTestId("picklist-group-button").focus();
+  });
   await user.keyboard("{Enter}");
 
   expect(onChange).toHaveBeenCalledTimes(1);
@@ -119,7 +121,9 @@ test("when the space key is pressed with the group button focused, the onChange 
     </FocusContext.Provider>,
   );
 
-  screen.getByTestId("picklist-group-button").focus();
+  act(() => {
+    screen.getByTestId("picklist-group-button").focus();
+  });
   await user.keyboard(" ");
 
   expect(onChange).toHaveBeenCalledTimes(1);
@@ -146,7 +150,9 @@ test("when a key other than space or enter is pressed with the group button focu
     </FocusContext.Provider>,
   );
 
-  screen.getByTestId("picklist-group-button").focus();
+  act(() => {
+    screen.getByTestId("picklist-group-button").focus();
+  });
   await user.keyboard("a");
 
   expect(onChange).not.toHaveBeenCalled();
@@ -217,7 +223,9 @@ test("when an 'add' button is focused, it should change the background colour of
     </PicklistGroup>,
   );
 
-  screen.getByTestId("picklist-group-button").focus();
+  act(() => {
+    screen.getByTestId("picklist-group-button").focus();
+  });
 
   expect(screen.getAllByRole("listitem")[0]).toHaveStyleRule(
     "background",
@@ -244,7 +252,9 @@ test("when a 'remove' button is focused, it should change the background colour 
     </PicklistGroup>,
   );
 
-  screen.getByTestId("picklist-group-button").focus();
+  act(() => {
+    screen.getByTestId("picklist-group-button").focus();
+  });
 
   expect(screen.getAllByRole("listitem")[0]).toHaveStyleRule(
     "background",

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Toast, { ToastProps } from "./toast.component";
 import ModalManager from "../modal/__internal__/modal-manager";
@@ -127,7 +127,9 @@ describe("Event tests", () => {
 
     await user.tab();
     await user.keyboard("{enter}");
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(onDismissMock).toHaveBeenCalled();
   });
@@ -139,7 +141,9 @@ describe("Event tests", () => {
 
     await user.tab();
     await user.keyboard(" ");
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(onDismissMock).toHaveBeenCalled();
   });
@@ -188,7 +192,9 @@ describe("Event tests", () => {
       </Toast>,
     );
 
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     const toast = screen.getByTestId("toast");
 
     expect(toast).toHaveFocus();
@@ -201,7 +207,9 @@ describe("Event tests", () => {
       </Toast>,
     );
 
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     const toast = screen.getByRole("region");
 
     expect(toast).not.toHaveAttribute("tabIndex");
@@ -231,7 +239,9 @@ describe("Event tests", () => {
 
     const button = screen.getByRole("button", { name: "Show toast" });
     await user.click(button);
-    jest.runAllTimers();
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
 
     const toast = await screen.findByTestId("toast");
     const closeButton = screen.getByRole("button", { name: "Close" });
@@ -239,7 +249,9 @@ describe("Event tests", () => {
     expect(toast).toHaveFocus();
 
     await user.click(closeButton);
-    jest.runAllTimers();
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
 
     expect(button).toHaveFocus();
   });
@@ -250,7 +262,9 @@ describe("Event tests", () => {
 
     const button = screen.getByRole("button", { name: "Show toast" });
     await user.click(button);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     const toast = await screen.findByTestId("toast");
     const closeButton = screen.getByRole("button", { name: "Close" });
@@ -258,12 +272,16 @@ describe("Event tests", () => {
     expect(toast).toHaveFocus();
 
     await user.click(closeButton);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(button).toHaveFocus();
 
     await user.click(button);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(await screen.findByTestId("toast")).toHaveFocus();
   });
@@ -274,11 +292,15 @@ describe("Event tests", () => {
 
     const button = screen.getByRole("button", { name: "Show toast" });
     await user.click(button);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     const closeButton = await screen.findByRole("button", { name: "Close" });
     await user.click(closeButton);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(button).not.toHaveFocus();
   });

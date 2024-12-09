@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Time, TimeHandle } from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
@@ -165,8 +165,9 @@ test("should focus each input in the expected order when user is shift tabbing",
   const minsInput = screen.getByDisplayValue("30");
   const amToggle = screen.getByRole("button", { name: "AM" });
 
-  amToggle.focus();
-
+  act(() => {
+    amToggle.focus();
+  });
   await user.tab({ shift: true });
 
   expect(minsInput).toHaveFocus();
@@ -466,7 +467,9 @@ test("should call onBlur when the hours input is focused and the user presses sh
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-  screen.getByDisplayValue("12").focus();
+  act(() => {
+    screen.getByDisplayValue("12").focus();
+  });
   await user.tab({ shift: true });
 
   expect(onBlurMock).toHaveBeenCalled();
@@ -484,7 +487,9 @@ test("should not call onBlur when the hours input is focused and the user presse
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-  screen.getByDisplayValue("12").focus();
+  act(() => {
+    screen.getByDisplayValue("12").focus();
+  });
   await user.tab();
 
   expect(onBlurMock).not.toHaveBeenCalled();
@@ -502,7 +507,9 @@ test("should call onBlur when the minutes input is focused and the user presses 
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-  screen.getByDisplayValue("12").focus();
+  act(() => {
+    screen.getByDisplayValue("12").focus();
+  });
   await user.tab();
 
   expect(onBlurMock).toHaveBeenCalled();
@@ -520,7 +527,9 @@ test("should not call onBlur when the minutes input is focused and the user pres
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-  screen.getByDisplayValue("12").focus();
+  act(() => {
+    screen.getByDisplayValue("12").focus();
+  });
   await user.tab({ shift: true });
 
   expect(onBlurMock).not.toHaveBeenCalled();

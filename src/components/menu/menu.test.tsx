@@ -1,5 +1,5 @@
 import React from "react";
-import { screen, render } from "@testing-library/react";
+import { screen, render, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Menu, MenuItem } from ".";
@@ -28,7 +28,9 @@ test("should focus the last item when 'End' key is pressed by user", async () =>
     </Menu>,
   );
   const firstMenuItem = screen.getByRole("link", { name: "test one" });
-  firstMenuItem.focus();
+  act(() => {
+    firstMenuItem.focus();
+  });
   const lastMenuItem = screen.getByRole("link", { name: "test four" });
   await user.keyboard("{End}");
 
@@ -46,7 +48,9 @@ test("should focus the first item when 'Home' key is pressed by user", async () 
     </Menu>,
   );
   const lastMenuItem = screen.getByRole("link", { name: "test four" });
-  lastMenuItem.focus();
+  act(() => {
+    lastMenuItem.focus();
+  });
   const firstMenuItem = screen.getByRole("link", { name: "test one" });
   await user.keyboard("{Home}");
 
@@ -64,7 +68,9 @@ test("should focus the next item in sequence, and remove focus from menu on last
     </Menu>,
   );
   const items = screen.getAllByRole("link");
-  items[0].focus();
+  act(() => {
+    items[0].focus();
+  });
   await user.tab();
 
   expect(items[1]).toHaveFocus();
@@ -87,7 +93,9 @@ test("should focus the previous item in sequence, and remove focus from menu on 
     </Menu>,
   );
   const items = screen.getAllByRole("link");
-  items[3].focus();
+  act(() => {
+    items[3].focus();
+  });
   await user.tab({ shift: true });
 
   expect(items[2]).toHaveFocus();
@@ -110,7 +118,9 @@ test("should not focus the next item in sequence when 'arrowright' key is presse
     </Menu>,
   );
   const items = screen.getAllByRole("link");
-  items[0].focus();
+  act(() => {
+    items[0].focus();
+  });
   await user.keyboard("{arrowright}");
 
   expect(items[0]).toHaveFocus();
@@ -131,7 +141,9 @@ test("should not focus the previous item in sequence when 'arrowleft' key is pre
     </Menu>,
   );
   const items = screen.getAllByRole("link");
-  items[3].focus();
+  act(() => {
+    items[3].focus();
+  });
   await user.keyboard("{arrowleft}");
 
   expect(items[3]).toHaveFocus();

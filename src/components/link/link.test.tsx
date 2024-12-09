@@ -1,7 +1,7 @@
 /* TODO: FE-6579 To re-enable once button-related props are removed from Link */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Link from "./link.component";
@@ -157,7 +157,9 @@ describe("when the `onKeyDown` event is triggered", () => {
     render(<Link onKeyDown={onKeyDownFn} onClick={onClickFn} href="#" />);
 
     const linkElement = screen.getByTestId("link-anchor");
-    linkElement.focus();
+    act(() => {
+      linkElement.focus();
+    });
     await user.keyboard("{Enter}");
 
     expect(onKeyDownFn).toHaveBeenCalled();
@@ -169,7 +171,9 @@ describe("when the `onKeyDown` event is triggered", () => {
     render(<Link onKeyDown={onKeyDownFn} href="#" />);
 
     const linkElement = screen.getByTestId("link-anchor");
-    linkElement.focus();
+    act(() => {
+      linkElement.focus();
+    });
     await user.keyboard("{Enter}");
 
     expect(onKeyDownFn).toHaveBeenCalled();
@@ -182,7 +186,9 @@ describe("when the `onKeyDown` event is triggered", () => {
     render(<Link onKeyDown={onKeyDownFn} href="#" />);
 
     const linkElement = screen.getByTestId("link-anchor");
-    linkElement.focus();
+    act(() => {
+      linkElement.focus();
+    });
     await user.keyboard("{Enter}");
 
     expect(onKeyDownFn).toHaveBeenCalled();

@@ -1,5 +1,12 @@
 import React from "react";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { MenuItem } from "..";
@@ -477,7 +484,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -504,7 +513,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -529,7 +540,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowup}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -556,7 +569,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -579,7 +594,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -604,7 +621,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
     await user.keyboard("{End}");
@@ -638,7 +657,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -663,7 +684,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
     await user.keyboard("{End}");
@@ -689,7 +712,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -714,7 +739,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("link", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     await user.tab();
 
@@ -735,7 +762,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("link", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     await user.keyboard("{a}");
 
@@ -896,7 +925,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowleft}");
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
@@ -916,7 +947,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     await user.keyboard("{Escape}");
 
@@ -940,7 +973,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     await user.keyboard("{arrowdown}");
     await user.keyboard("{Enter}");
@@ -967,14 +1002,20 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
 
     await user.keyboard("{arrowdown}");
     await user.keyboard("{Enter}");
 
-    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
 
-    jest.runOnlyPendingTimers();
+    await waitFor(() => {
+      expect(screen.queryByRole("list")).not.toBeInTheDocument();
+    });
     jest.useRealTimers();
   });
 
@@ -1003,7 +1044,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("link", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("button");
     await user.click(submenuItems[2]);

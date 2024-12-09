@@ -39,7 +39,7 @@ test("renders with a gravatar image, if a valid email is passed via the `gravata
   const hash = MD5(email);
   const src = `https://www.gravatar.com/avatar/${hash}?s=40&d=404`;
 
-  render(<Portrait gravatar={email} />);
+  render(<Portrait gravatar={email} alt="foo" />);
 
   const img = screen.getByRole("img");
   expect(img).toBeVisible();
@@ -53,8 +53,8 @@ test("logs a deprecation warning once when the `gravatar` prop is passed, and a 
 
   render(
     <>
-      <Portrait gravatar="chris.barber@sage.com" />
-      <Portrait gravatar="chris.barber@sage.com" />
+      <Portrait gravatar="chris.barber@sage.com" alt="foo" />
+      <Portrait gravatar="chris.barber@sage.com" alt="foo" />
     </>,
   );
 
@@ -75,7 +75,7 @@ test("if a valid gravatar email is not found and an onError event is triggered, 
   const email = "invalid.email@1973";
   const hash = MD5(email);
   const src = `https://www.gravatar.com/avatar/${hash}?s=40&d=404`;
-  render(<Portrait gravatar={email} />);
+  render(<Portrait gravatar={email} alt="foo" />);
 
   const img = screen.getByRole("img");
   expect(img).toBeVisible();
@@ -91,7 +91,7 @@ test("if a valid gravatar email is not found and an onError event is triggered, 
 
 test("renders with a custom image, if a valid src is passed via the `src` prop", () => {
   const src = "https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg";
-  render(<Portrait src={src} />);
+  render(<Portrait src={src} alt="foo" />);
 
   const img = screen.getByRole("img");
   expect(img).toBeVisible();
@@ -100,7 +100,7 @@ test("renders with a custom image, if a valid src is passed via the `src` prop",
 
 test("if a valid src is not found and an onError event is triggered, the default individual icon is rendered", async () => {
   const src = "not-a-url";
-  render(<Portrait src={src} />);
+  render(<Portrait src={src} alt="foo" />);
 
   const img = screen.getByRole("img");
   expect(img).toBeVisible();

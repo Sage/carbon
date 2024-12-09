@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import CheckableInput from ".";
 
 test("renders `label` with expected id when `id` prop is passed", () => {
@@ -40,7 +40,9 @@ test("renders input with 'aria-describedby' as the id of the validation tooltip 
 
   expect(input).not.toHaveAttribute("aria-describedby");
 
-  input.focus();
+  act(() => {
+    input.focus();
+  });
 
   expect(input).toHaveAttribute("aria-describedby", "foo-validation");
 });
@@ -59,7 +61,9 @@ test("appends the id of the validation tooltip to the input's 'aria-describedby'
 
   expect(input).toHaveAttribute("aria-describedby", "foo-field-help");
 
-  input.focus();
+  act(() => {
+    input.focus();
+  });
 
   expect(input).toHaveAttribute(
     "aria-describedby",
