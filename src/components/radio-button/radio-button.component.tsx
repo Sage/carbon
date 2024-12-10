@@ -26,9 +26,9 @@ export interface RadioButtonProps
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** the value of the Radio Button, passed on form submit */
   value: string;
-  /** Overrides the default tooltip position */
+  /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** Aria label for rendered help component */
+  /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
 }
 

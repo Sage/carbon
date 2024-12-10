@@ -36,9 +36,9 @@ export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
       | React.MouseEvent<HTMLButtonElement>,
   ) => void;
 
-  /** A message to display as a tooltip to the link. */
+  /** [Legacy] A message to display as a tooltip to the link. */
   tooltipMessage?: string;
-  /** Positions the tooltip with the link. */
+  /** [Legacy] Positions the tooltip with the link. */
   tooltipPosition?: "bottom" | "left" | "right" | "top";
   /** Child content to render in the link. */
   children?: React.ReactNode;
