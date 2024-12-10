@@ -1,3 +1,10 @@
+### [144.17.1](https://github.com/Sage/carbon/compare/v144.17.0...v144.17.1) (2024-12-10)
+
+
+### Bug Fixes
+
+* **vertical-menu-full-screen:** register Fullscreen subcomponent as a Carbon modal ([ed49a9e](https://github.com/Sage/carbon/commit/ed49a9eaa50fb53e2075e750bf70b1cdecc587f9)), closes [#7073](https://github.com/Sage/carbon/issues/7073)
+
 ## [144.17.0](https://github.com/Sage/carbon/compare/v144.16.0...v144.17.0) (2024-12-10)
 
 
