@@ -1,3 +1,53 @@
+### [144.17.1](https://github.com/Sage/carbon/compare/v144.17.0...v144.17.1) (2024-12-10)
+
+
+### Bug Fixes
+
+* **vertical-menu-full-screen:** register Fullscreen subcomponent as a Carbon modal ([ed49a9e](https://github.com/Sage/carbon/commit/ed49a9eaa50fb53e2075e750bf70b1cdecc587f9)), closes [#7073](https://github.com/Sage/carbon/issues/7073)
+
+## [144.17.0](https://github.com/Sage/carbon/compare/v144.16.0...v144.17.0) (2024-12-10)
+
+
+### Features
+
+* **menu-fullscreen:** fix colours when menuitem used as child of menusegmenttitle ([7b6ae46](https://github.com/Sage/carbon/commit/7b6ae46056ebc919eb60d8895f5d6cb461379dc8))
+
+## [144.16.0](https://github.com/Sage/carbon/compare/v144.15.0...v144.16.0) (2024-12-09)
+
+
+### Features
+
+* **classname prop:** add deprecation warning to indicate impending removal of className prop ([d838a08](https://github.com/Sage/carbon/commit/d838a082859c5431490127376bcda8baec73576f))
+* **tests:** add deprecation message test coverage ([0fc4090](https://github.com/Sage/carbon/commit/0fc4090298e2dbdf93538b8fc9ce95eb23e9ed21))
+
+## [144.15.0](https://github.com/Sage/carbon/compare/v144.14.0...v144.15.0) (2024-12-06)
+
+
+### Features
+
+* **decimal:** add a deprecation warning for onKeyPress prop ([8e297e6](https://github.com/Sage/carbon/commit/8e297e6311b908b33a952108386be2976d4bd11e))
+
+## [144.14.0](https://github.com/Sage/carbon/compare/v144.13.0...v144.14.0) (2024-12-06)
+
+
+### Features
+
+* **step-sequence:** reinstate component ([7809b0a](https://github.com/Sage/carbon/commit/7809b0a39420e9539910cd6a90428f75c9ed516f))
+
+## [144.13.0](https://github.com/Sage/carbon/compare/v144.12.1...v144.13.0) (2024-12-06)
+
+
+### Features
+
+* **date-input, date-range:** upgrade react-day-picker to v9 ([e217e21](https://github.com/Sage/carbon/commit/e217e2185a45a33d8bb1af0a156339a870f51159))
+
+### [144.12.1](https://github.com/Sage/carbon/compare/v144.12.0...v144.12.1) (2024-12-05)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure that tab sequence is not lost when container has radio buttons ([a843fe8](https://github.com/Sage/carbon/commit/a843fe8be5df9ad728f6ee235c3e2c848808711c)), closes [#7067](https://github.com/Sage/carbon/issues/7067)
+
 ## [144.12.0](https://github.com/Sage/carbon/compare/v144.11.0...v144.12.0) (2024-12-04)
 
 

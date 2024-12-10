@@ -7,6 +7,7 @@ import {
   VerticalMenuTriggerCustom,
   VerticalMenuItemCustomHref,
   VerticalMenuFullScreenCustom,
+  VerticalMenuFullScreenCustomWithDialog,
   VerticalMenuFullScreenBackgroundScrollTest,
   ClosedVerticalMenuFullScreenWithButtons,
   CustomComponent,
@@ -600,6 +601,33 @@ test.describe("Events test", () => {
     await closeIconButton(page).click();
 
     await expect(callbackCount).toBe(1);
+  });
+
+  test(`should be available when a Dialog is opened in the background`, async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    await page.setViewportSize({
+      width: 320,
+      height: 599,
+    });
+    await mount(
+      <VerticalMenuFullScreenCustomWithDialog
+        onClose={() => {
+          callbackCount += 1;
+        }}
+      />,
+    );
+
+    await verticalMenuTrigger(page).click();
+
+    await closeIconButton(page).click();
+
+    await expect(callbackCount).toBe(1);
+
+    const dialogText = page.getByText("Do you want to leave before saving?");
+    await expect(dialogText).toBeInViewport();
   });
 
   [...keysToTrigger].forEach((key) => {

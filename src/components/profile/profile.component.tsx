@@ -12,6 +12,9 @@ import {
 } from "./profile.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { ProfileSize } from "./profile.config";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedClassNameWarningShown = false;
 
 function acronymize(str?: string) {
   if (!str) return "";
@@ -55,6 +58,13 @@ export const Profile = ({
   darkBackground,
   ...props
 }: ProfileProps) => {
+  if (!deprecatedClassNameWarningShown && className) {
+    Logger.deprecate(
+      "The 'className' prop has been deprecated and will soon be removed from the 'Profile' component.",
+    );
+    deprecatedClassNameWarningShown = true;
+  }
+
   const getInitials = () => {
     if (initials) return initials;
     return acronymize(name).slice(0, 3).toUpperCase();

@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import sageTheme from "../../style/themes/sage";
 import PortalContext from "./__internal__/portal.context";
 import Portal from ".";
+import Logger from "../../__internal__/utils/logger";
 
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -11,6 +12,16 @@ const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
 
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
+
+let loggerSpy: jest.SpyInstance;
+
+beforeEach(() => {
+  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+});
+
+afterEach(() => {
+  loggerSpy.mockRestore();
+});
 
 test("renders and appends to an element with the 'id' attribute set to `root`", () => {
   const rootDiv = document.createElement("div");
@@ -56,6 +67,11 @@ test("renders with the 'class' attribute on the portal exit, via the `className`
 
   const portalExit = screen.getByTestId("carbon-portal-exit");
   expect(portalExit).toHaveClass(`carbon-portal ${className}`);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Portal' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
 });
 
 test("renders with the 'id' attribute on the portal exit, via the `id` prop", () => {

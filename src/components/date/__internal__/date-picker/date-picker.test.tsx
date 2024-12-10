@@ -1,7 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
 import enGBLocale from "date-fns/locale/en-GB";
 import deLocale from "date-fns/locale/de";
 import esLocale from "date-fns/locale/es";
@@ -10,6 +9,7 @@ import enZALocale from "date-fns/locale/en-ZA";
 import frLocale from "date-fns/locale/fr";
 import frCALocale from "date-fns/locale/fr-CA";
 import enUSLocale from "date-fns/locale/en-US";
+import zhCNLocale from "date-fns/locale/zh-CN";
 
 import DatePicker, { DatePickerProps } from "./date-picker.component";
 import I18nProvider from "../../../i18n-provider";
@@ -22,7 +22,7 @@ const DatePickerWithInput = (props: MockProps) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const Input = () => (
     <div ref={ref}>
-      <input name="foo" id="bar" />
+      <input title="foobar" name="foo" id="bar" />
     </div>
   );
   return (
@@ -60,9 +60,15 @@ test("should render the day element that matches the `selectedDate` when prop is
       open
     />,
   );
-  const selectedDay = screen.getByRole("gridcell", { name: "Thu 4 Apr 2019" });
 
-  expect(selectedDay).toHaveAttribute("aria-selected", "true");
+  const selectedDay = screen.getByLabelText("Thursday, April 4th, 2019", {
+    exact: false,
+  });
+
+  expect(selectedDay).toHaveAttribute(
+    "aria-label",
+    "Thursday, April 4th, 2019, selected",
+  );
 });
 
 test("should render the expected weekday with `aria-disabled=true` attribute when `minDate` is '2019-04-02'", () => {
@@ -74,11 +80,11 @@ test("should render the expected weekday with `aria-disabled=true` attribute whe
       open
     />,
   );
-  const disabledDay = screen.getByRole("gridcell", { name: "Mon 1 Apr 2019" });
-  const activeDay = screen.getByRole("gridcell", { name: "Tue 2 Apr 2019" });
+  const disabledDay = screen.getByLabelText("Monday, April 1st, 2019");
+  const activeDay = screen.getByLabelText("Tuesday, April 2nd, 2019");
 
-  expect(disabledDay).toHaveAttribute("aria-disabled", "true");
-  expect(activeDay).toHaveAttribute("aria-disabled", "false");
+  expect(disabledDay).toBeDisabled();
+  expect(activeDay).toBeEnabled();
 });
 
 test("should not render any of the current month's weekdays with `aria-disabled=true` attribute when `minDate` is invalid", () => {
@@ -91,12 +97,10 @@ test("should not render any of the current month's weekdays with `aria-disabled=
     />,
   );
   // need to filter out the weekdays that are not in the current month
-  const currentMonthDays = screen.getAllByRole("gridcell", {
-    name: new RegExp("Apr", "i"),
-  });
+  const currentMonthDays = screen.getAllByLabelText("April", { exact: false });
 
   currentMonthDays.forEach((day) => {
-    expect(day).toHaveAttribute("aria-disabled", "false");
+    expect(day).toBeEnabled();
   });
 });
 
@@ -110,12 +114,10 @@ test("should not render any of the current month's weekdays with `aria-disabled=
     />,
   );
   // need to filter out the weekdays that are not in the current month
-  const currentMonthDays = screen.getAllByRole("gridcell", {
-    name: new RegExp("Apr", "i"),
-  });
+  const currentMonthDays = screen.getAllByLabelText("April", { exact: false });
 
   currentMonthDays.forEach((day) => {
-    expect(day).toHaveAttribute("aria-disabled", "false");
+    expect(day).toBeEnabled();
   });
 });
 
@@ -128,11 +130,11 @@ test("should render the expected weekday with `aria-disabled=true` attribute whe
       open
     />,
   );
-  const disabledDay = screen.getByRole("gridcell", { name: "Sat 6 Apr 2019" });
-  const activeDay = screen.getByRole("gridcell", { name: "Fri 5 Apr 2019" });
+  const disabledDay = screen.getByLabelText("Saturday, April 6th, 2019");
+  const activeDay = screen.getByLabelText("Friday, April 5th, 2019");
 
-  expect(disabledDay).toHaveAttribute("aria-disabled", "true");
-  expect(activeDay).toHaveAttribute("aria-disabled", "false");
+  expect(disabledDay).toBeDisabled();
+  expect(activeDay).toBeEnabled();
 });
 
 test("should not render any of the current month's weekdays with `aria-disabled=true` attribute when `maxDate` is invalid", () => {
@@ -145,12 +147,10 @@ test("should not render any of the current month's weekdays with `aria-disabled=
     />,
   );
   // need to filter out the weekdays that are not in the current month
-  const currentMonthDays = screen.getAllByRole("gridcell", {
-    name: new RegExp("Apr", "i"),
-  });
+  const currentMonthDays = screen.getAllByLabelText("April", { exact: false });
 
   currentMonthDays.forEach((day) => {
-    expect(day).toHaveAttribute("aria-disabled", "false");
+    expect(day).toBeEnabled();
   });
 });
 
@@ -164,12 +164,10 @@ test("should not render any of the current month's weekdays with `aria-disabled=
     />,
   );
   // need to filter out the weekdays that are not in the current month
-  const currentMonthDays = screen.getAllByRole("gridcell", {
-    name: new RegExp("Apr", "i"),
-  });
+  const currentMonthDays = screen.getAllByLabelText("April", { exact: false });
 
   currentMonthDays.forEach((day) => {
-    expect(day).toHaveAttribute("aria-disabled", "false");
+    expect(day).toBeEnabled();
   });
 });
 
@@ -185,7 +183,7 @@ test("should not call `onDayClick` callback when a user clicks a disabled day", 
       onDayClick={onDayClick}
     />,
   );
-  const disabledDay = screen.getByRole("gridcell", { name: "Mon 1 Apr 2019" });
+  const disabledDay = screen.getByLabelText("Monday, April 1st, 2019");
   await user.click(disabledDay);
 
   expect(onDayClick).not.toHaveBeenCalled();
@@ -202,7 +200,7 @@ test("should call `onDayClick` callback when a user clicks a day that is not dis
       onDayClick={onDayClick}
     />,
   );
-  const activeDay = screen.getByRole("gridcell", { name: "Tue 2 Apr 2019" });
+  const activeDay = screen.getByLabelText("Tuesday, April 2nd, 2019");
   await user.click(activeDay);
 
   expect(onDayClick).toHaveBeenCalled();
@@ -401,4 +399,58 @@ test("should render with 'fr-CA' translations when the `locale` is passed via I1
   });
   expect(screen.getByRole("button", { name: "fr-CA-previous" })).toBeVisible();
   expect(screen.getByRole("button", { name: "fr-CA-next" })).toBeVisible();
+});
+
+test("should correctly translate the month caption for the given locale (fr-FR)", () => {
+  render(
+    <I18nProvider
+      locale={{
+        locale: () => "fr-FR",
+        date: {
+          dateFnsLocale: () => frLocale,
+          ariaLabels: {
+            previousMonthButton: () => "fr-FR-previous",
+            nextMonthButton: () => "fr-FR-next",
+          },
+        },
+      }}
+    >
+      <DatePickerWithInput
+        setOpen={() => {}}
+        open
+        selectedDays={new Date(2019, 2, 4)}
+      />
+    </I18nProvider>,
+  );
+
+  const monthCaption = screen.getByRole("status");
+  expect(monthCaption).toBeVisible();
+  expect(monthCaption).toHaveTextContent("mars 2019");
+});
+
+test("should correctly translate the month caption for the given locale (zh-CN)", () => {
+  render(
+    <I18nProvider
+      locale={{
+        locale: () => "zh-CN",
+        date: {
+          dateFnsLocale: () => zhCNLocale,
+          ariaLabels: {
+            previousMonthButton: () => "zh-CN-previous",
+            nextMonthButton: () => "zh-CN-next",
+          },
+        },
+      }}
+    >
+      <DatePickerWithInput
+        setOpen={() => {}}
+        open
+        selectedDays={new Date(2019, 2, 4)}
+      />
+    </I18nProvider>,
+  );
+
+  const monthCaption = screen.getByRole("status");
+  expect(monthCaption).toBeVisible();
+  expect(monthCaption).toHaveTextContent("三月 2019");
 });

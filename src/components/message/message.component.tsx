@@ -10,6 +10,9 @@ import Icon from "../icon";
 import IconButton from "../icon-button";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedClassNameWarningShown = false;
 
 export type MessageVariant =
   | "error"
@@ -62,6 +65,12 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
     }: MessageProps,
     ref,
   ) => {
+    if (!deprecatedClassNameWarningShown && className) {
+      Logger.deprecate(
+        "The 'className' prop has been deprecated and will soon be removed from the 'Message' component.",
+      );
+      deprecatedClassNameWarningShown = true;
+    }
     const messageRef = useRef<HTMLDivElement | null>(null);
     const refToPass = ref || messageRef;
 

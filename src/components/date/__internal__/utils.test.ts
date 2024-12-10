@@ -1,4 +1,7 @@
 import MockDate from "mockdate";
+
+import { de, enGB, enUS, hu } from "date-fns/locale";
+
 import {
   isDateValid,
   parseDate,
@@ -9,6 +12,7 @@ import {
   parseISODate,
   getDisabledDays,
   checkISOFormatAndLength,
+  isValidLocaleDate,
 } from "./utils";
 
 const formats = [
@@ -446,3 +450,61 @@ test.each(["foo", "2022-1-1", "2022-01-1", "22-01-01", " "])(
     expect(checkISOFormatAndLength(value)).toEqual(false);
   },
 );
+
+describe("isValidLocaleDate", () => {
+  describe("with UK date formats", () => {
+    test("should return true when valid UK date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("30/04/2022", enGB)).toEqual(true);
+    });
+
+    test("should return false when invalid UK date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("31/04/2022", enGB)).toEqual(false); // April 31st is invalid
+    });
+
+    test("should return false when non-date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("invalid-date", enGB)).toEqual(false);
+    });
+  });
+
+  describe("with US date formats", () => {
+    test("should return true when valid US date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("04/30/2022", enUS)).toEqual(true);
+    });
+
+    test("should return false when invalid US date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("04/31/2022", enUS)).toEqual(false); // April 31st is invalid
+    });
+
+    test("should return false when non-date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("invalid-date", enUS)).toEqual(false);
+    });
+  });
+
+  describe("with German date formats", () => {
+    test("should return true when valid German date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("30.04.2022", de)).toEqual(true);
+    });
+
+    test("should return false when invalid German date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("31.04.2022", de)).toEqual(false); // April 31st is invalid
+    });
+
+    test("should return false when non-date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("invalid-date", de)).toEqual(false);
+    });
+  });
+
+  describe("with Hungarian date formats", () => {
+    test("should return true when valid Hungarian date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("2022. 04. 30.", hu)).toEqual(true);
+    });
+
+    test("should return false when invalid Hungarian date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("2022. 04. 31.", hu)).toEqual(false); // April 31st is invalid
+    });
+
+    test("should return false when non-date string passed to `isValidLocaleDate`", () => {
+      expect(isValidLocaleDate("invalid-date", hu)).toEqual(false);
+    });
+  });
+});

@@ -32,12 +32,24 @@ testStyledSystemMargin(
 );
 
 describe("when the component is uncontrolled", () => {
-  it("displays a deprecation warning", () => {
+  it("displays a deprecation warning for uncontrolled", () => {
     const loggerSpy = jest.spyOn(Logger, "deprecate");
     render(<Decimal defaultValue="0.01" />);
 
     expect(loggerSpy).toHaveBeenCalledWith(
       "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+    );
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+    loggerSpy.mockRestore();
+  });
+
+  it("displays a deprecation warning for `onKeyPress`", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(<Decimal onKeyPress={() => {}} />);
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`onKeyPress` prop in `Decimal` is deprecated and will soon be removed, please use `onKeyDown` instead.",
     );
     expect(loggerSpy).toHaveBeenCalledTimes(1);
 
@@ -672,16 +684,16 @@ describe("when the component is uncontrolled", () => {
     },
   );
 
-  it("calls the onKeyPress callback when a key is pressed", async () => {
+  it("calls the onKeyDown callback when a key is pressed", async () => {
     const user = userEvent.setup();
-    const onKeyPress = jest.fn();
-    render(<Decimal defaultValue="0.00" onKeyPress={onKeyPress} />);
+    const onKeyDown = jest.fn();
+    render(<Decimal defaultValue="0.00" onKeyDown={onKeyDown} />);
 
     screen.getByRole("textbox").focus();
     await user.keyboard("{ArrowRight}");
     await user.keyboard("1");
 
-    expect(onKeyPress).toHaveBeenCalledWith(
+    expect(onKeyDown).toHaveBeenCalledWith(
       expect.objectContaining({ key: "1" }),
     );
   });
