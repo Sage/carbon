@@ -9,6 +9,17 @@ import Drawer from "../drawer";
 import Textbox from "../textbox";
 import NumeralDate from "../numeral-date";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Logger from "../../__internal__/utils/logger";
+
+let loggerSpy: jest.SpyInstance;
+
+beforeEach(() => {
+  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+});
+
+afterEach(() => {
+  loggerSpy.mockRestore();
+});
 
 testStyledSystemMargin(
   (props) => (
@@ -94,6 +105,11 @@ test("passes the `className` prop down to the element", () => {
     "custom-class-1",
     "custom-class-2",
   );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Tabs' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
 });
 
 test("the `selectedTabId` prop determines which child `Tab` is displayed", () => {

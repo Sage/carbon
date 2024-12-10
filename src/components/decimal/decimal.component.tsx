@@ -39,7 +39,7 @@ export interface DecimalProps
   onChange?: (ev: CustomEvent) => void;
   /** Handler for blur event */
   onBlur?: (ev: CustomEvent) => void;
-  /** Handler for key press event */
+  /** [Deprecated] Handler for key press event */
   onKeyPress?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** The input name */
   name?: string;
@@ -70,6 +70,7 @@ export interface DecimalProps
 }
 
 let deprecateUncontrolledWarnTriggered = false;
+let deprecateOnKeyPressWarnTriggered = false;
 
 export const Decimal = React.forwardRef(
   (
@@ -322,6 +323,13 @@ export const Decimal = React.forwardRef(
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
         "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+      );
+    }
+
+    if (!deprecateOnKeyPressWarnTriggered && onKeyPress) {
+      deprecateOnKeyPressWarnTriggered = true;
+      Logger.deprecate(
+        "`onKeyPress` prop in `Decimal` is deprecated and will soon be removed, please use `onKeyDown` instead.",
       );
     }
 

@@ -124,6 +124,26 @@ export const Empty: Story = () => {
 };
 Empty.storyName = "Empty";
 
+export const DisabledDates: Story = () => {
+  const [state, setState] = useState("04/04/2019");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <DateInput
+      label="Date"
+      name="date-input"
+      value={state}
+      minDate="2019-04-04"
+      maxDate="2019-05-31"
+      onChange={setValue}
+      onBlur={(ev) => console.log("blur")}
+    />
+  );
+};
+DisabledDates.storyName = "Disabled Dates";
+DisabledDates.parameters = { chromatic: { disableSnapshot: true } };
+
 export const WithLabelInline: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {

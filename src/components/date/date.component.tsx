@@ -17,6 +17,7 @@ import {
   parseISODate,
   checkISOFormatAndLength,
   getSeparator,
+  isValidLocaleDate,
 } from "./__internal__/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Events from "../../__internal__/utils/helpers/events";
@@ -125,7 +126,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       onClick,
       onFocus,
       onKeyDown,
-      pickerProps = {},
+      pickerProps,
       readOnly,
       size = "medium",
       tooltipPosition,
@@ -155,11 +156,16 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     );
     const { inputRefMap, setInputRefMap } = useContext(DateRangeContext);
     const [open, setOpen] = useState(false);
-    const [selectedDays, setSelectedDays] = useState(
-      checkISOFormatAndLength(value)
+    const [selectedDays, setSelectedDays] = useState(() => {
+      const isValidDate = isValidLocaleDate(value, dateFnsLocale());
+      if (!isValidDate) {
+        return undefined;
+      }
+
+      return checkISOFormatAndLength(value)
         ? parseISODate(value)
-        : parseDate(format, value),
-    );
+        : parseDate(format, value);
+    });
     const isInitialValue = useRef(true);
     const pickerTabGuardId = useRef(guid());
 
@@ -220,7 +226,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       return function cleanup() {
         document.removeEventListener("mousedown", handleClick);
       };
-    }, [open]);
+    }, [open, onPickerClose]);
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
       isInitialValue.current = false;

@@ -3,6 +3,18 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Button from "./button.component";
 
+import Logger from "../../__internal__/utils/logger";
+
+let loggerSpy: jest.SpyInstance;
+
+beforeEach(() => {
+  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+});
+
+afterEach(() => {
+  loggerSpy.mockRestore();
+});
+
 test("renders with text children", () => {
   render(<Button>foo</Button>);
 
@@ -297,6 +309,10 @@ test("sets the 'className' attribute correctly when a custom value is passed to 
   const button = screen.getByRole("button", { name: "bar" });
 
   expect(button).toHaveClass("foo");
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Button' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
 });
 
 test("calls onClick when an 'href' is passed and the space key is pressed", async () => {

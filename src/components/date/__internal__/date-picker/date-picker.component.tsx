@@ -1,37 +1,41 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
-import DayPicker, {
-  DayPickerProps,
-  DayModifiers,
-  Modifier,
-  LocaleUtils,
-} from "react-day-picker";
 import { flip, offset } from "@floating-ui/dom";
+import React, {
+  useCallback,
+  KeyboardEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
+  DayPicker,
+  DayPickerProps,
+  defaultLocale,
+  Modifiers,
+} from "react-day-picker";
 
-import { getDisabledDays } from "../utils";
-import Popover from "../../../../__internal__/popover";
 import useLocale from "../../../../hooks/__internal__/useLocale";
+import Popover from "../../../../__internal__/popover";
 import Navbar from "../navbar";
 import Weekday from "../weekday";
-import StyledDayPicker from "./day-picker.style";
-import Events from "../../../../__internal__/utils/helpers/events";
+import { getDisabledDays } from "../utils";
 import { defaultFocusableSelectors } from "../../../../__internal__/focus-trap/focus-trap-utils";
+import Events from "../../../../__internal__/utils/helpers/events";
+
+import StyledDayPicker from "./day-picker.style";
 
 type CustomRefObject<T> = {
   current?: T | null;
 };
 
-/** there is an issue with typescript-to-proptypes package that means we need to override these types */
-interface Modifiers {
-  today: NonNullable<Modifier> | NonNullable<Modifier>[];
-  outside: NonNullable<Modifier> | NonNullable<Modifier>[];
-  [other: string]: NonNullable<Modifier> | NonNullable<Modifier>[];
-}
-
 export interface PickerProps
-  extends Omit<DayPickerProps, "disabledDays" | "modifiers" | "selectedDays"> {
-  disabledDays?: NonNullable<Modifier> | NonNullable<Modifier>[] | undefined[];
+  extends Omit<
+    DayPickerProps,
+    "mode" | "disabledDays" | "modifiers" | "selectedDays"
+  > {
+  disabledDays?: NonNullable<Date> | NonNullable<Date>[] | undefined[];
   modifiers?: Partial<Modifiers>;
-  selectedDays?: NonNullable<Modifier> | NonNullable<Modifier>[] | undefined[];
+  selectedDays?: NonNullable<Date> | NonNullable<Date>[] | undefined[];
 }
 
 export interface DatePickerProps {
@@ -46,7 +50,7 @@ export interface DatePickerProps {
   /** Element that the DatePicker will be displayed under */
   inputElement: CustomRefObject<HTMLElement>;
   /** Currently selected date */
-  selectedDays?: Date;
+  selectedDays?: Date | undefined;
   /** Callback to handle mousedown event on picker container */
   pickerMouseDown?: () => void;
   /** Sets whether the picker should be displayed */
@@ -82,6 +86,9 @@ export const DatePicker = ({
   pickerTabGuardId,
   onPickerClose,
 }: DatePickerProps) => {
+  const [focusedMonth, setFocusedMonth] = useState<Date | undefined>(
+    selectedDays || new Date(),
+  );
   const locale = useLocale();
   const { localize, options } = locale.date.dateFnsLocale();
   const { weekStartsOn } = options || /* istanbul ignore next */ {};
@@ -91,13 +98,6 @@ export const DatePicker = ({
         const month = localize?.month(i);
         return month[0].toUpperCase() + month.slice(1);
       }),
-    [localize],
-  );
-  const monthsShort = useMemo(
-    () =>
-      Array.from({ length: 12 }).map((_, i) =>
-        localize?.month(i, { width: "abbreviated" }).substring(0, 3),
-      ),
     [localize],
   );
   const weekdaysLong = useMemo(
@@ -119,67 +119,33 @@ export const DatePicker = ({
   }, [locale, localize]);
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (open) {
-      // this is a temporary fix for some axe issues that are baked into the library we use for the picker
-      const captionElement = ref.current?.querySelector(".DayPicker-Caption");
-      /* istanbul ignore else */
-      if (captionElement) {
-        captionElement.removeAttribute("role");
-        captionElement.removeAttribute("aria-live");
-      }
-
-      // focus the selected or today's date first
-      const selectedDay =
-        ref.current?.querySelector(".DayPicker-Day--selected") ||
-        ref.current?.querySelector(".DayPicker-Day--today");
-      const firstDay = ref.current?.querySelector(
-        ".DayPicker-Day[tabindex='0']",
-      );
-
-      /* istanbul ignore else */
-      if (selectedDay && firstDay !== selectedDay) {
-        selectedDay?.setAttribute("tabindex", "0");
-        firstDay?.setAttribute("tabindex", "-1");
-      }
-    }
-  }, [open]);
-
   const handleDayClick = (
-    date: Date,
-    modifiers: DayModifiers,
-    ev: React.MouseEvent<HTMLDivElement>,
+    date?: Date,
+    e?: React.MouseEvent<Element, MouseEvent>,
   ) => {
-    if (!modifiers.disabled) {
-      const { id, name } = inputElement?.current
-        ?.firstChild as HTMLInputElement;
-      ev.target = {
-        ...ev.target,
-        id,
-        name,
-      } as HTMLInputElement;
-      onDayClick?.(date, ev);
-      onPickerClose?.();
-    }
+    /* istanbul ignore else */
+    if (date) onDayClick?.(date, e as React.MouseEvent<HTMLDivElement>);
+    onPickerClose?.();
   };
 
   const handleKeyUp = useCallback(
-    (ev) => {
+    (ev: KeyboardEvent) => {
       /* istanbul ignore else */
       if (open && Events.isEscKey(ev)) {
+        setFocusedMonth(selectedDays);
         inputElement.current?.querySelector("input")?.focus();
         setOpen(false);
         onPickerClose?.();
         ev.stopPropagation();
       }
     },
-    [inputElement, onPickerClose, open, setOpen],
+    [inputElement, onPickerClose, open, selectedDays, setOpen],
   );
 
   const handleOnKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
     /* istanbul ignore else */
     if (
-      ref.current?.querySelector(".DayPicker-NavBar button") ===
+      ref.current?.querySelector(".rdp-nav button") ===
         document.activeElement &&
       Events.isTabKey(ev) &&
       Events.isShiftKey(ev)
@@ -193,7 +159,7 @@ export const DatePicker = ({
 
   const handleOnDayKeyDown = (
     _day: Date,
-    _modifiers: DayModifiers,
+    _modifiers: Modifiers,
     ev: React.KeyboardEvent<HTMLDivElement>,
   ) => {
     // we need to manually handle this as the picker may be in a Portal
@@ -223,66 +189,112 @@ export const DatePicker = ({
     }
   };
 
-  const formatDay = (date: Date) =>
-    `${weekdaysShort[date.getDay()]} ${date.getDate()} ${
-      monthsShort[date.getMonth()]
-    } ${date.getFullYear()}`;
+  useEffect(() => {
+    if (selectedDays) {
+      setFocusedMonth(selectedDays);
+    }
+  }, [selectedDays]);
+
+  useEffect(() => {
+    if (!open && selectedDays) {
+      const fMonth = focusedMonth?.getMonth();
+      const sMonth = selectedDays?.getMonth();
+      if (fMonth !== sMonth) setFocusedMonth(selectedDays);
+    }
+  }, [focusedMonth, open, selectedDays]);
 
   if (!open) {
     return null;
   }
-
-  const localeUtils = { formatDay } as LocaleUtils;
 
   const handleTabGuardFocus = () => {
     ref.current?.querySelector("button")?.focus();
   };
 
   return (
-    <Popover
-      placement="bottom-start"
-      reference={inputElement}
-      middleware={popoverMiddleware}
-      disablePortal={disablePortal}
-    >
-      <StyledDayPicker
-        ref={ref}
-        onMouseDown={pickerMouseDown}
-        onKeyUp={handleKeyUp}
-        onKeyDown={handleOnKeyDown}
+    <>
+      <Popover
+        placement="bottom-start"
+        reference={inputElement}
+        middleware={popoverMiddleware}
+        disablePortal={disablePortal}
       >
-        <div
-          id={pickerTabGuardId}
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-          tabIndex={0}
-          onFocus={handleTabGuardFocus}
-        />
-        <DayPicker
-          month={selectedDays}
-          months={monthsLong}
-          firstDayOfWeek={weekStartsOn}
-          onDayClick={handleDayClick}
-          selectedDays={selectedDays}
-          weekdayElement={(weekdayElementProps) => {
-            const { className, weekday } = weekdayElementProps;
+        <StyledDayPicker
+          id="styled-day-picker"
+          ref={ref}
+          onMouseDown={pickerMouseDown}
+          onKeyUp={handleKeyUp}
+          onKeyDown={handleOnKeyDown}
+        >
+          <div
+            id={pickerTabGuardId}
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={0}
+            onFocus={handleTabGuardFocus}
+          />
+          <DayPicker
+            formatters={{
+              formatCaption: (month) =>
+                `${localize?.month(month.getMonth())} ${month.getFullYear()}`,
+            }}
+            required={false}
+            weekStartsOn={weekStartsOn}
+            onMonthChange={setFocusedMonth}
+            disabled={getDisabledDays(minDate, maxDate)}
+            locale={{
+              localize: {
+                ...defaultLocale.localize,
+                months: monthsLong,
+                weekdaysLong,
+                weekdaysShort,
+              },
+            }}
+            selected={focusedMonth}
+            month={focusedMonth || /* istanbul ignore next */ new Date()}
+            onDayClick={(d, _, e) => {
+              const date = d as Date;
+              handleDayClick(date, e);
+            }}
+            components={{
+              Nav: (props) => {
+                return <Navbar {...props} />;
+              },
+              Weekday: (props) => {
+                const fixedDays = {
+                  Sunday: 0,
+                  Monday: 1,
+                  Tuesday: 2,
+                  Wednesday: 3,
+                  Thursday: 4,
+                  Friday: 5,
+                  Saturday: 6,
+                };
+                const { className, "aria-label": ariaLabel } = props;
+                const dayIndex = fixedDays[ariaLabel as keyof typeof fixedDays];
 
-            return (
-              <Weekday className={className} title={weekdaysLong[weekday]}>
-                {weekdaysShort[weekday]}
-              </Weekday>
-            );
-          }}
-          navbarElement={<Navbar />}
-          fixedWeeks
-          initialMonth={selectedDays || undefined}
-          disabledDays={getDisabledDays(minDate, maxDate)}
-          locale={locale.locale()}
-          localeUtils={localeUtils}
-          onDayKeyDown={handleOnDayKeyDown}
-          {...pickerProps}
-        />
-      </StyledDayPicker>
-    </Popover>
+                return (
+                  <Weekday className={className} title={weekdaysLong[dayIndex]}>
+                    {weekdaysShort[dayIndex]}
+                  </Weekday>
+                );
+              },
+            }}
+            fixedWeeks
+            defaultMonth={selectedDays || undefined}
+            onDayKeyDown={(date, modifiers, e) => {
+              handleOnDayKeyDown(
+                date,
+                modifiers,
+                e as React.KeyboardEvent<HTMLDivElement>,
+              );
+            }}
+            {...pickerProps}
+            showOutsideDays
+            mode="single"
+          />
+        </StyledDayPicker>
+      </Popover>
+    </>
   );
 };
 
