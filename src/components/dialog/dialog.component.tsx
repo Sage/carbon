@@ -4,6 +4,7 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
 
 import {
   StyledDialog,
@@ -27,6 +28,8 @@ export interface ContentPaddingInterface {
   py?: PaddingValues;
   px?: PaddingValues;
 }
+
+let deprecatedClassNameWarningShown = false;
 
 export interface DialogProps extends ModalProps, TagProps {
   /** Custom class name  */
@@ -127,6 +130,13 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     },
     ref,
   ) => {
+    if (!deprecatedClassNameWarningShown && className) {
+      Logger.deprecate(
+        "The 'className' prop has been deprecated and will soon be removed from the 'Dialog' component.",
+      );
+      deprecatedClassNameWarningShown = true;
+    }
+
     const locale = useLocale();
 
     const containerRef = useRef<HTMLDivElement>(null);

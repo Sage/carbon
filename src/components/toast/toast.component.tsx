@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Logger from "../../__internal__/utils/logger";
 
 import Icon from "../icon";
 import tagComponent, {
@@ -18,6 +19,8 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 import guid from "../../__internal__/utils/helpers/guid";
 import Typography from "../typography";
+
+let deprecatedClassNameWarningShown = false;
 
 type ToastVariants =
   | "error"
@@ -97,6 +100,13 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     }: ToastProps,
     ref,
   ) => {
+    if (!deprecatedClassNameWarningShown && className) {
+      Logger.deprecate(
+        "The 'className' prop has been deprecated and will soon be removed from the 'Toast' component.",
+      );
+      deprecatedClassNameWarningShown = true;
+    }
+
     const isNotice = variant === "notice";
     const isNotification = variant === "notification";
     const locale = useLocale();

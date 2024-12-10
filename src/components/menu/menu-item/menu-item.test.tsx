@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { MenuItem } from "..";
+import { MenuItem, MenuSegmentTitle } from "..";
 import {
   testStyledSystemFlexBox,
   testStyledSystemPadding,
@@ -13,6 +13,7 @@ import menuConfigVariants from "../menu.config";
 import IconButton from "../../icon-button";
 import Search from "../../search";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
+import Logger from "../../../__internal__/utils/logger";
 
 const menuContextValues: MenuContextProps = {
   menuType: "light",
@@ -1075,4 +1076,33 @@ test("should throw when `children` passed and `submenu` is an empty string", () 
   );
 
   consoleSpy.mockRestore();
+});
+
+test("throws a deprecation warning if the 'className' prop is set", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+  render(<MenuItem className="foo">Item One</MenuItem>);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'MenuItem' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
+// coverage
+test("should set the correct colour when a child of `MenuSegmentTitle` and `variant` is 'alternate'", async () => {
+  render(
+    <MenuContext.Provider value={{ ...menuContextValues, menuType: "black" }}>
+      <MenuSegmentTitle text="Test">
+        <MenuItem variant="alternate">Item One</MenuItem>
+      </MenuSegmentTitle>
+    </MenuContext.Provider>,
+  );
+
+  expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
+    backgroundColor: menuConfigVariants.black.alternate,
+  });
 });

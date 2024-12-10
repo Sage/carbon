@@ -4,6 +4,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Modal from "./modal.component";
 import useScrollBlock from "../../hooks/__internal__/useScrollBlock";
+import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../hooks/__internal__/useScrollBlock");
 const allowScroll = jest.fn();
@@ -164,4 +165,18 @@ test("increases the default z-index when the topModalOverride prop is set", () =
   render(<Modal data-role="test-modal" open topModalOverride />);
 
   expect(screen.getByTestId("test-modal")).toHaveStyleRule("z-index: 7000");
+});
+
+test("throws a deprecation warning if the 'className' prop is set", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+  render(<Modal open className="foo" />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Modal' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
 });

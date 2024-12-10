@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
-import menuConfigVariants from "../menu.config";
+
 import { VariantType } from "../menu-item";
+import menuConfigVariants from "../menu.config";
 import { MenuType } from "../__internal__/menu.context";
 
 interface StyledTitleProps {
@@ -25,19 +26,28 @@ const StyledTitle = styled.h2<StyledTitleProps>`
   `}
 `;
 
-const StyledSegmentChildren = styled.ul`
-  padding: 0;
+const StyledSegmentChildren = styled.ul<{
+  variant?: VariantType;
+  menuType: MenuType;
+}>`
+  ${({ menuType, variant }) => css`
+    padding: 0;
 
-  li {
-    list-style: none;
+    li {
+      list-style: none;
+      ${variant === "alternate" &&
+      css`
+        background-color: ${menuConfigVariants[menuType].alternate};
+      `}
 
-    &:not(&:last-child) a,
-    &:not(&:last-child) button,
-    &:not(&:last-child) > span,
-    &:not(&:last-child) > div {
-      border-radius: var(--borderRadius000);
+      &:not(&:last-child) a,
+      &:not(&:last-child) button,
+      &:not(&:last-child) > span,
+      &:not(&:last-child) > div {
+        border-radius: var(--borderRadius000);
+      }
     }
-  }
+  `}
 `;
 
 export { StyledTitle, StyledSegmentChildren };
