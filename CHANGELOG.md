@@ -1,3 +1,10 @@
+## [144.18.0](https://github.com/Sage/carbon/compare/v144.17.1...v144.18.0) (2024-12-10)
+
+
+### Features
+
+* **multi-select:** add onListScrollBottom ([daeb37a](https://github.com/Sage/carbon/commit/daeb37a4fa5a7c9adcaacc004f165d551c104a1c)), closes [#6752](https://github.com/Sage/carbon/issues/6752)
+
 ### [144.17.1](https://github.com/Sage/carbon/compare/v144.17.0...v144.17.1) (2024-12-10)
 
 
