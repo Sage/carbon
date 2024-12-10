@@ -1,3 +1,10 @@
+## [144.17.0](https://github.com/Sage/carbon/compare/v144.16.0...v144.17.0) (2024-12-10)
+
+
+### Features
+
+* **menu-fullscreen:** fix colours when menuitem used as child of menusegmenttitle ([7b6ae46](https://github.com/Sage/carbon/commit/7b6ae46056ebc919eb60d8895f5d6cb461379dc8))
+
 ## [144.16.0](https://github.com/Sage/carbon/compare/v144.15.0...v144.16.0) (2024-12-09)
 
 
