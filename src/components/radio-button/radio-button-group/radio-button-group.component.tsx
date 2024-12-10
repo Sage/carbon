@@ -124,7 +124,6 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
           legend={legend}
           error={error}
           warning={warning}
-          info={info}
           inline={inlineLegend}
           legendWidth={legendWidth}
           legendAlign={legendAlign}
@@ -168,8 +167,6 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
                     labelSpacing,
                     error: !!error,
                     warning: !!warning,
-                    info: !!info,
-                    required,
                     ...child.props,
                   });
                 })}

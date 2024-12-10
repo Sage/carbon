@@ -86,8 +86,6 @@ export const RadioButton = React.forwardRef<
     );
 
     const validationProps = {
-      disabled,
-      inputWidth,
       error,
       warning,
       info,
@@ -95,14 +93,14 @@ export const RadioButton = React.forwardRef<
 
     const commonProps = {
       ...validationProps,
+      disabled,
+      inputWidth,
       fieldHelpInline,
       labelSpacing,
     };
 
     const inputProps = {
-      ...(validationRedesignOptIn
-        ? { ...validationProps }
-        : { ...commonProps }),
+      ...commonProps,
       autoFocus,
       checked,
       fieldHelp,
@@ -142,9 +140,7 @@ export const RadioButton = React.forwardRef<
         inline={inline}
         reverse={reverse}
         size={size}
-        {...(validationRedesignOptIn
-          ? { ...validationProps }
-          : { ...commonProps, fieldHelp })}
+        {...commonProps}
         {...marginProps}
       >
         <CheckableInput {...inputProps}>

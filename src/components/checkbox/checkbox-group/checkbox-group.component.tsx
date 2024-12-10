@@ -74,7 +74,6 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
           legendSpacing={legendSpacing}
           error={error}
           warning={warning}
-          info={info}
           isRequired={required}
           isOptional={isOptional}
           {...tagComponent("checkboxgroup", props)}
