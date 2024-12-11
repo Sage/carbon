@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
-const StyledWeekday = styled.div`
+import StyledAbbr from "./abbr.style";
+
+const StyledWeekday = styled.th`
   &,
-  &.DayPicker-Weekday {
+  & ${StyledAbbr} {
     border: none;
     height: var(--sizing500);
     min-width: var(--sizing500);

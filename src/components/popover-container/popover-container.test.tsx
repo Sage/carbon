@@ -12,6 +12,8 @@ import { testStyledSystemPadding } from "../../__spec_helper__/__internal__/test
 import PopoverContainer from "./popover-container.component";
 import { Select, Option } from "../select";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import Button from "../button";
+import RadioButton, { RadioButtonGroup } from "../radio-button";
 
 jest.mock("../../hooks/useMediaQuery");
 
@@ -529,6 +531,89 @@ describe("closing the popup", () => {
     expect(popup).toHaveClass("exit-done");
     mockedUseMediaQuery.mockReset();
   });
+});
+
+test("when content is navigated via keyboard, the next focusable item should be focused and popup closed", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <>
+      <PopoverContainer
+        position="left"
+        renderOpenComponent={({ ref, onClick }) => (
+          <Button aria-label="open button" ref={ref} onClick={onClick}>
+            Open
+          </Button>
+        )}
+      >
+        <RadioButtonGroup name="bar">
+          <RadioButton value="1" label="radio 1" />
+          <RadioButton value="2" label="radio 2" />
+        </RadioButtonGroup>
+      </PopoverContainer>
+      <Button>Example Button</Button>
+    </>,
+  );
+
+  const openButton = screen.getByRole("button", { name: "open button" });
+  await user.click(openButton);
+  await user.tab(); // tab to close icon
+  await user.tab(); // tab to RadioButtonGroup
+  await user.tab(); // tab to Example Button (outside of popup)
+
+  const popup = await screen.findByRole("dialog");
+  await waitFor(() => expect(popup).not.toBeVisible());
+
+  const exampleButton = screen.getByRole("button", { name: "Example Button" });
+  expect(exampleButton).toHaveFocus();
+});
+
+test("when the popover is opened and shift tab key is pressed, the open button should be focused and popup closed", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <>
+      <PopoverContainer
+        position="left"
+        renderOpenComponent={({ ref, onClick }) => (
+          <Button aria-label="open button" ref={ref} onClick={onClick}>
+            Open
+          </Button>
+        )}
+      >
+        <RadioButtonGroup name="bar">
+          <RadioButton value="1" label="radio 1" />
+          <RadioButton value="2" label="radio 2" />
+        </RadioButtonGroup>
+      </PopoverContainer>
+      <Button>Example Button</Button>
+    </>,
+  );
+
+  const openButton = screen.getByRole("button", { name: "open button" });
+  await user.click(openButton);
+  await user.tab(); // tab to close icon
+  await user.tab(); // tab to content
+  await user.tab({ shift: true }); // shift tab back to close icon
+  await user.tab({ shift: true }); // shift tab back to the opening trigger element
+
+  const popup = await screen.findByRole("dialog");
+  await waitFor(() => expect(popup).not.toBeVisible());
+  expect(openButton).toHaveFocus();
+});
+
+test("if only the open trigger is the only focusable element on screen, when the popover is opened and tab key is used to navigate content, it should navigate back to the opening trigger", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <>
+      <PopoverContainer title="My popup" open />
+    </>,
+  );
+
+  const openButton = screen.getByRole("button", { name: "My popup" });
+  await user.click(openButton);
+  await user.tab(); // tab to close icon
+  await user.tab(); // tab back out of content to the opening trigger element
+
+  expect(openButton).toHaveFocus();
 });
 
 testStyledSystemPadding(

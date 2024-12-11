@@ -11,6 +11,7 @@ import Typography from "../typography";
 import Search from "../search";
 import IconButton from "../icon-button";
 import Icon from "../icon";
+import RadioButton, { RadioButtonGroup } from "../radio-button";
 
 export default {
   title: "Popover Container/Test",
@@ -22,6 +23,7 @@ export default {
     "InsideMenu",
     "InsideMenuWithOpenButton",
     "WithFullWidthButton",
+    "WithRadioButtons",
   ],
   parameters: {
     info: { disable: true },
@@ -244,5 +246,34 @@ export const WithFullWidthButton = () => {
     >
       Content
     </PopoverContainer>
+  );
+};
+
+export const WithRadioButtons = () => {
+  const [open1, setOpen1] = useState(false);
+
+  return (
+    <Box padding="25px" display="inline-flex">
+      <PopoverContainer
+        position="left"
+        onOpen={() => setOpen1(true)}
+        onClose={() => setOpen1(false)}
+        open={open1}
+        renderOpenComponent={({ ref, onClick }) => (
+          <Button aria-label="Notifications" ref={ref} onClick={onClick}>
+            With Radio children
+          </Button>
+        )}
+        p={0}
+      >
+        <Box display="flex" justifyContent="space-between" p={2}>
+          <RadioButtonGroup name="bar">
+            <RadioButton value="1" label="radio 1" />
+            <RadioButton value="2" label="radio 2" />
+          </RadioButtonGroup>
+        </Box>
+      </PopoverContainer>
+      <Button>foo</Button>
+    </Box>
   );
 };

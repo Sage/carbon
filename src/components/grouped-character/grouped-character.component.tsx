@@ -57,6 +57,7 @@ export const GroupedCharacter = React.forwardRef(
       groups,
       onBlur,
       onChange,
+      onKeyDown,
       separator: rawSeparator,
       value: externalValue,
       ...rest
@@ -139,14 +140,21 @@ export const GroupedCharacter = React.forwardRef(
       }
     };
 
-    const handleKeyPress = (ev: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
       const { selectionStart, selectionEnd } = ev.target as HTMLInputElement;
 
       /* istanbul ignore next */
       const hasSelection = (selectionEnd ?? 0) - (selectionStart ?? 0) > 0;
 
-      if (maxRawLength === value.length && !hasSelection) {
+      // check if the key pressed is a character key
+      const isCharacterKey = ev.key.length === 1;
+
+      if (isCharacterKey && maxRawLength === value.length && !hasSelection) {
         ev.preventDefault();
+      }
+
+      if (onKeyDown) {
+        onKeyDown(ev);
       }
     };
 
@@ -157,7 +165,7 @@ export const GroupedCharacter = React.forwardRef(
         formattedValue={formatValue(value)}
         onChange={handleChange}
         onBlur={handleBlur}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyDown}
         ref={ref}
       />
     );
