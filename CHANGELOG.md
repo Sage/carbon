@@ -1,3 +1,10 @@
+## [144.19.0](https://github.com/Sage/carbon/compare/v144.18.0...v144.19.0) (2024-12-11)
+
+
+### Features
+
+* **action-popover:** add aria-labelledby and aria-describedby props ([6267cb5](https://github.com/Sage/carbon/commit/6267cb59cbe1de7ee4e0b7be97850bb96e3f97b6)), closes [#7107](https://github.com/Sage/carbon/issues/7107)
+
 ## [144.18.0](https://github.com/Sage/carbon/compare/v144.17.1...v144.18.0) (2024-12-10)
 
 
