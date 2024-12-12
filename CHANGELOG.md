@@ -1,3 +1,10 @@
+## [144.21.0](https://github.com/Sage/carbon/compare/v144.20.1...v144.21.0) (2024-12-12)
+
+
+### Features
+
+* **menu-item:** fix padding when child of Menu and no icon ([adb4c34](https://github.com/Sage/carbon/commit/adb4c34b9ab95867104ac3a20de59e426c39429f)), closes [#7096](https://github.com/Sage/carbon/issues/7096)
+
 ### [144.20.1](https://github.com/Sage/carbon/compare/v144.20.0...v144.20.1) (2024-12-12)
 
 
