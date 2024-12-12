@@ -1,3 +1,10 @@
+### [144.20.1](https://github.com/Sage/carbon/compare/v144.20.0...v144.20.1) (2024-12-12)
+
+
+### Bug Fixes
+
+* **radio-button:** incorrect spacing on fieldHelp with validationRedesignOptIn flag ([0bed782](https://github.com/Sage/carbon/commit/0bed782c7b28c0e7b6033fe2bdd4eebefc66448a)), closes [#6985](https://github.com/Sage/carbon/issues/6985)
+
 ## [144.20.0](https://github.com/Sage/carbon/compare/v144.19.0...v144.20.0) (2024-12-12)
 
 
