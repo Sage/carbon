@@ -46,6 +46,72 @@ function calculateStepStateIndexes(
   return [stepsBefore, stepsAfter];
 }
 
+test("when aria-label is specified, the attribute is applied to the expected element", () => {
+  render(
+    <StepFlow
+      data-role="step-flow"
+      aria-label="foo"
+      title="foo"
+      currentStep={5}
+      totalSteps={6}
+      category="bar"
+      ref={() => {}}
+    />,
+  );
+
+  const stepFlowComponent = screen.getByTestId("step-flow");
+
+  expect(stepFlowComponent).toHaveAccessibleName("foo");
+});
+
+test("when aria-labelledby is specified, the attribute is applied to the expected element", () => {
+  render(
+    <>
+      <StepFlow
+        data-role="step-flow"
+        aria-labelledby="foo"
+        title="foo"
+        currentStep={5}
+        totalSteps={6}
+        category="bar"
+        ref={() => {}}
+      />
+      <span id="foo" role="presentation">
+        This is step flow
+      </span>
+    </>,
+  );
+
+  const stepFlowComponent = screen.getByTestId("step-flow");
+
+  expect(stepFlowComponent).toHaveAccessibleName("This is step flow");
+});
+
+test("when aria-describedby is specified, the attribute is applied to the expected element", () => {
+  render(
+    <>
+      <StepFlow
+        data-role="step-flow"
+        aria-describedby="foo"
+        title="foo"
+        currentStep={5}
+        totalSteps={6}
+        category="bar"
+        ref={() => {}}
+      />
+      <span id="foo" role="presentation">
+        Description of step flow
+      </span>
+    </>,
+  );
+
+  const stepFlowComponent = screen.getByTestId("step-flow");
+
+  expect(stepFlowComponent).toHaveAccessibleDescription(
+    "Description of step flow",
+  );
+});
+
 test("should render the correct element and text when the category prop is passed", () => {
   render(
     <StepFlow
