@@ -54,9 +54,9 @@ export interface ButtonProps extends SpaceProps, TagProps {
   href?: string;
   /** Defines an Icon position related to the children: "before" | "after" */
   iconPosition?: ButtonIconPosition;
-  /** Provides a tooltip message when the icon is hovered. */
+  /** [Legacy] Provides a tooltip message when the icon is hovered. */
   iconTooltipMessage?: string;
-  /** Provides positioning when the tooltip is displayed. */
+  /** [Legacy] Provides positioning when the tooltip is displayed. */
   iconTooltipPosition?: TooltipPositions;
   /** Defines an Icon type within the button */
   iconType?: IconType;

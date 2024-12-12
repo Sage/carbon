@@ -54,7 +54,7 @@ const getBorderRadius = (roundness: TileProps["roundness"]) => {
   }
 };
 
-const getHeighlightVariant = (variant: TileProps["highlightVariant"]) => {
+const getHighlightVariant = (variant: TileProps["highlightVariant"]) => {
   switch (variant) {
     case "success":
       return "var(--colorsSemanticPositive500)";
@@ -141,7 +141,7 @@ export const StyledHighlight = styled.div<{
   height: 100%;
   width: 100%;
   position: relative;
-  background: ${({ variant }) => getHeighlightVariant(variant)};
+  background: ${({ variant }) => getHighlightVariant(variant)};
   border-radius: ${({ roundness }) => getBorderRadius(roundness)};
 
   ${StyledTile} {

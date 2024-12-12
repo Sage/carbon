@@ -25,7 +25,7 @@ const loaderAnimation = keyframes`
 
 type RoundedCornersOptOut = boolean;
 
-const getDimentions = (
+const getDimensions = (
   size: StyledLoaderSquareProps["size"],
   roundedCornersOptOut: RoundedCornersOptOut,
 ) => {
@@ -59,7 +59,7 @@ const StyledLoaderSquare = styled.div<StyledLoaderSquareProps>`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
     background-color: ${backgroundColor};
     display: inline-block;
-    ${getDimentions(size, theme.roundedCornersOptOut)}
+    ${getDimensions(size, theme.roundedCornersOptOut)}
 
     ${isInsideButton &&
     css`

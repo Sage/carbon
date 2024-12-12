@@ -31,19 +31,19 @@ export interface IconProps
   id?: string;
   /** The ARIA role to be applied to the Icon */
   role?: string;
-  /** The message to be displayed within the tooltip */
+  /** [Legacy] The message to be displayed within the tooltip */
   tooltipMessage?: React.ReactNode;
-  /** The position to display the tooltip */
+  /** [Legacy] The position to display the tooltip */
   tooltipPosition?: TooltipPositions;
-  /** Control whether the tooltip is visible */
+  /** [Legacy] Control whether the tooltip is visible */
   tooltipVisible?: boolean;
-  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** [Legacy] Override background color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipBgColor?: string;
-  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** [Legacy] Override font color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipFontColor?: string;
-  /** Overrides the default flip behaviour of the Tooltip */
+  /** [Legacy] Overrides the default flip behaviour of the Tooltip */
   tooltipFlipOverrides?: TooltipPositions[];
-  /** Id passed to the tooltip container, used for accessibility purposes */
+  /** [Legacy] Id passed to the tooltip container, used for accessibility purposes */
   tooltipId?: string;
   /**
    * Icon type

@@ -340,14 +340,14 @@ export const WithBothOptionalOrRequired: Story = () => (
         isOptional
       >
         <RadioButton
-          id="group-2-input-1"
-          value="group-2-input-1"
+          id="group-1-input-1"
+          value="group-1-input-1"
           label="Radio Option 1"
           labelWidth={10}
         />
         <RadioButton
-          id="group-2-input-2"
-          value="group-2-input-2"
+          id="group-1-input-2"
+          value="group-1-input-2"
           label="Radio Option 2"
           labelWidth={10}
         />
