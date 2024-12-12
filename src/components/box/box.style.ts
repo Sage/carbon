@@ -23,7 +23,16 @@ const calculatePosition = (props: Omit<PositionProps, "zIndex">) => {
   };
 };
 
-const StyledBox = styled.div<BoxProps>`
+const StyledBox = styled.div<
+  BoxProps & {
+    cssProps?: {
+      color?: string;
+      opacity?: string;
+      height?: string;
+      width?: string;
+    };
+  }
+>`
   ${space}
   ${layout}
   ${flexbox}
@@ -35,9 +44,13 @@ const StyledBox = styled.div<BoxProps>`
     css`
       border-radius: var(--${borderRadius});
     `}
+  
+  ${({ cssProps, bg, backgroundColor, ...rest }) =>
+    styledColor({ color: cssProps?.color, bg, backgroundColor, ...rest })}
 
-  ${({ color, bg, backgroundColor, ...rest }) =>
-    styledColor({ color, bg, backgroundColor, ...rest })}
+  ${({ cssProps }) => css`
+    opacity: ${cssProps?.opacity};
+  `}
 
   ${({ overflowWrap }) =>
     overflowWrap &&
@@ -45,16 +58,18 @@ const StyledBox = styled.div<BoxProps>`
       overflow-wrap: ${overflowWrap};
     `}
   
-  ${({ height }) =>
-    height &&
+  ${({ cssProps, size }) =>
+    cssProps?.height &&
+    !size &&
     css`
-      height: ${height};
+      height: ${cssProps?.height};
     `}
 
-  ${({ width }) =>
-    width &&
+  ${({ cssProps, size }) =>
+    cssProps?.width &&
+    !size &&
     css`
-      width: ${width};
+      width: ${cssProps?.width};
     `}
 
   ${({ scrollVariant }) =>

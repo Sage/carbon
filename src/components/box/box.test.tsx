@@ -76,6 +76,46 @@ it("applies the boxShadow styling correctly when a design token is passed in", (
   expect(box).toHaveStyle(`box-shadow: var(--boxShadow100)`);
 });
 
+it("applies the correct styling from the cssProps", () => {
+  render(
+    <Box
+      width="100px"
+      height="100px"
+      opacity="25%"
+      color="yellow"
+      data-role="box"
+    />,
+  );
+
+  const box = screen.getByTestId("box");
+  expect(box).toHaveStyle({
+    width: "100px",
+    height: "100px",
+    opacity: "25%",
+    color: "yellow",
+  });
+});
+
+it("applies the correct styling from the cssProps, when the width and height are numeric", () => {
+  render(<Box width={100} height={100} data-role="box" />);
+
+  const box = screen.getByTestId("box");
+  expect(box).toHaveStyle({
+    width: "100px",
+    height: "100px",
+  });
+});
+
+it("applies the correct styling from the cssProps, when the width and height are percentage", () => {
+  render(<Box width={0.5} height={0.5} data-role="box" />);
+
+  const box = screen.getByTestId("box");
+  expect(box).toHaveStyle({
+    width: "50%",
+    height: "50%",
+  });
+});
+
 test("logs a deprecation warning when the `tabIndex` prop is passed with a value", () => {
   const loggerSpy = jest
     .spyOn(Logger, "deprecate")
