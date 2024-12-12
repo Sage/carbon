@@ -3,9 +3,6 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect } from "@playwright/experimental-ct-react17";
 import { label, legendSpan } from "../components/index";
 
-const OPEN_MODAL = '[data-state="open"]';
-const CLOSED_MODAL = '[data-state="closed"]';
-
 /**
  * Retrieve a computed style for an element.
  * @param locator The Playwright locator to evaluate (see: https://playwright.dev/docs/locators)
@@ -118,27 +115,6 @@ export const checkGoldenOutline = async (
     "solid",
     "rgb(255, 188, 25)",
   );
-};
-
-export const checkElementIsInDOM = async (page: Page, locatorStr: string) => {
-  expect(await page.$$(locatorStr)).toHaveLength(1);
-};
-
-export const checkElementIsNotInDOM = async (
-  page: Page,
-  locatorStr: string,
-) => {
-  expect(await page.$$(locatorStr)).toHaveLength(0);
-};
-
-export const checkDialogIsInDOM = async (page: Page) => {
-  await checkElementIsInDOM(page, OPEN_MODAL);
-  await checkElementIsNotInDOM(page, CLOSED_MODAL);
-};
-
-export const checkDialogIsNotInDOM = async (page: Page) => {
-  await checkElementIsNotInDOM(page, OPEN_MODAL);
-  await checkElementIsInDOM(page, CLOSED_MODAL);
 };
 
 /**
