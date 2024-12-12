@@ -124,35 +124,6 @@ export const DateInputWithButton = ({
   );
 };
 
-export const DateWithLocales = ({
-  onChange,
-}: Partial<DateInputProps> & {
-  onChange: () => void;
-}) => {
-  const [state, setState] = useState("04/04/2019");
-  const [rawValue, setRawValue] = useState<string | null>(null);
-  const [formattedValue, setFormattedValue] = useState("");
-
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-    setRawValue(ev.target.value.rawValue);
-    setFormattedValue(ev.target.value.formattedValue);
-    onChange();
-  };
-  return (
-    <>
-      <DateInput
-        label="Date"
-        name="date-input"
-        value={state}
-        onChange={setValue}
-      />
-      <div data-testid="raw-value">{rawValue}</div>
-      <div data-testid="formatted-value">{formattedValue}</div>
-    </>
-  );
-};
-
 export const DateInputInsideDialog = ({
   onChange,
   onBlur,
