@@ -15,7 +15,12 @@ import { LinkNode } from "@lexical/link";
 import { ListNode, ListItemNode } from "@lexical/list";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
-import { EditorState, $getRoot } from "lexical";
+import {
+  EditorState,
+  $getRoot,
+  $createParagraphNode,
+  $createTextNode,
+} from "lexical";
 
 import Label from "../../__internal__/label";
 
@@ -101,6 +106,18 @@ export const RichTextEditor = React.forwardRef(
         QuoteNode,
         HorizontalRuleNode,
       ],
+      // FOR SOME REASON, THIS IS REQUIRED TO ALLOW THE EDITOR
+      // TO BE INTERACTED WITH IN A JEST ENVIRONMENT
+      // This should be exposed as a prop in the future so that it can be set up
+      // correctly in the test environment without needing to be set up in the component
+      // itself.
+      // Optional: The initial state of the editor.
+      editorState: () => {
+        const root = $getRoot();
+        const paragraph = $createParagraphNode();
+        paragraph.append($createTextNode(" "));
+        root.append(paragraph);
+      },
     };
 
     // The local state for the editor

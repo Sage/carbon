@@ -1,22 +1,13 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import RichTextEditor from "./rich-text-editor.component";
 
-beforeAll(() => {
-  jest.useFakeTimers();
-});
-
-afterAll(() => {
-  jest.useRealTimers();
-});
-
-afterEach(() => {
-  jest.runOnlyPendingTimers();
-});
-
 test("renders a rich text editor", async () => {
   const mockSaveFn = jest.fn();
+  const user = userEvent.setup();
+
   render(
     <RichTextEditor
       label="Rich Text Editor"
@@ -25,7 +16,8 @@ test("renders a rich text editor", async () => {
     />,
   );
 
-  expect(screen.getByTestId("rte-placeholder")).toHaveTextContent(
-    "Enter some text...",
-  );
+  const element = screen.getByRole("textbox");
+  await user.click(element);
+  await user.keyboard("edited-text");
+  expect(element).toHaveTextContent("edited-text");
 });

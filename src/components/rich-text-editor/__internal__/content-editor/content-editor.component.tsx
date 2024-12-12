@@ -7,6 +7,7 @@ const ContentEditor = () => {
   return (
     <StyledContentEditor>
       <ContentEditable
+        data-role="rte-editable"
         className="carbon-rte-editable"
         ariaLabel="Rich text content editor"
       />
