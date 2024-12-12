@@ -1,8 +1,10 @@
 import React from "react";
 import { screen, render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+
 import Breadcrumbs from "./breadcrumbs.component";
 import Crumb from "./crumb/crumb.component";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 
 testStyledSystemSpacing(
   (props) => (
@@ -27,6 +29,38 @@ test("renders children as expected", () => {
   expect(screen.getByRole("link", { name: "Breadcrumb 1" })).toBeVisible();
   expect(screen.getByRole("link", { name: "Breadcrumb 2" })).toBeVisible();
   expect(screen.getByText("Breadcrumb 3")).toBeVisible();
+});
+
+test("triggers onClick when clicking a crumb with both a link and onClick prop set", async () => {
+  const onClick = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <Breadcrumbs>
+      <Crumb href="#" onClick={onClick}>
+        Breadcrumb 1
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  await user.click(screen.getByRole("link", { name: "Breadcrumb 1" }));
+
+  expect(onClick).toHaveBeenCalledTimes(1);
+});
+
+test("does not trigger onClick when clicking a crumb with both a link and onClick prop set, if isCurrent is true", async () => {
+  const onClick = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <Breadcrumbs>
+      <Crumb href="#" onClick={onClick} isCurrent>
+        Breadcrumb 1
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  await user.click(screen.getByText("Breadcrumb 1"));
+
+  expect(onClick).not.toHaveBeenCalled();
 });
 
 // coverage
