@@ -7,6 +7,7 @@ import {
   VerticalMenuTriggerCustom,
   VerticalMenuItemCustomHref,
   VerticalMenuFullScreenCustom,
+  VerticalMenuFullScreenCustomWithDialog,
   VerticalMenuFullScreenBackgroundScrollTest,
   ClosedVerticalMenuFullScreenWithButtons,
   CustomComponent,
@@ -19,6 +20,7 @@ import {
   checkGoldenOutline,
   assertCssValueIsApproximately,
   checkAccessibility,
+  waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import {
   verticalMenuComponent,
@@ -315,6 +317,42 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await expect(verticalMenuItem(page).first()).toBeVisible();
   });
 
+  test("when a Vertical Menu Fullscreen is opened and then closed, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<VerticalMenuFullScreenCustom />);
+
+    const item = page.getByRole("button").filter({ hasText: "Menu" });
+    await item.click();
+    await waitForAnimationEnd(verticalMenuFullScreen(page));
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(item).toBeFocused();
+  });
+
+  test("when Vertical Menu Fullscreen is open on render, then closed, opened and then closed again, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<VerticalMenuFullScreenCustom isOpen />);
+
+    await waitForAnimationEnd(verticalMenuFullScreen(page));
+    await expect(verticalMenuFullScreen(page)).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+
+    const item = page.getByRole("button").filter({ hasText: "Menu" });
+    await expect(item).not.toBeFocused();
+    await expect(verticalMenuFullScreen(page)).not.toBeVisible();
+
+    await item.click();
+    await waitForAnimationEnd(verticalMenuFullScreen(page));
+    await expect(verticalMenuFullScreen(page)).toBeVisible();
+    await closeButton.click();
+    await expect(item).toBeFocused();
+  });
+
   test(`should verify that Vertical Menu Fullscreen has no effect on the tab order when isOpen prop is false`, async ({
     mount,
     page,
@@ -600,6 +638,33 @@ test.describe("Events test", () => {
     await closeIconButton(page).click();
 
     await expect(callbackCount).toBe(1);
+  });
+
+  test(`should be available when a Dialog is opened in the background`, async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    await page.setViewportSize({
+      width: 320,
+      height: 599,
+    });
+    await mount(
+      <VerticalMenuFullScreenCustomWithDialog
+        onClose={() => {
+          callbackCount += 1;
+        }}
+      />,
+    );
+
+    await verticalMenuTrigger(page).click();
+
+    await closeIconButton(page).click();
+
+    await expect(callbackCount).toBe(1);
+
+    const dialogText = page.getByText("Do you want to leave before saving?");
+    await expect(dialogText).toBeInViewport();
   });
 
   [...keysToTrigger].forEach((key) => {

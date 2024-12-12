@@ -54,6 +54,27 @@ test.describe("when focused", () => {
   });
 });
 
+test("when AdvancedColorPicker is opened and then closed, with the `restoreFocusOnClose` prop passed as `false`, the call to action element should not be focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <AdvancedColorPickerCustom open={false} restoreFocusOnClose={false} />,
+  );
+
+  const initialCell = advancedColorPickerCell(page);
+  const dialog = page.getByRole("dialog");
+  await expect(initialCell).not.toBeFocused();
+  await expect(dialog).not.toBeVisible();
+
+  await initialCell.click();
+  await expect(dialog).toBeVisible();
+  const closeButton = page.getByLabel("Close");
+  await closeButton.click();
+  await expect(initialCell).not.toBeFocused();
+  await expect(dialog).not.toBeVisible();
+});
+
 test.describe("should render AdvancedColorPicker component and check functionality", () => {
   (
     [

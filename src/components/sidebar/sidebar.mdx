@@ -49,6 +49,13 @@ to ensure behaviour is consistent across all browsers.
 
 <Canvas of={SidebarStories.DefaultStory} />
 
+### Preventing focus from being restored when Sidebar closes
+
+When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `Sidebar` was opened.
+Focus can instead be programmatically applied to another element if appropriate. 
+
+<Canvas of={SidebarStories.RestoreFocusOnCloseStory} />
+
 ### Custom padding around content
 
 <Canvas of={SidebarStories.CustomPaddingAroundContent} />

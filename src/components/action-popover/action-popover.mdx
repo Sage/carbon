@@ -90,7 +90,16 @@ Menu items can also be displayed without icons.
 ### With custom menu button
 
 It is possible to use the `renderButton` prop to override the default button used to trigger the opening and closing of
-ActionPopoverMenu. Expand the code example below for how to use this.
+ActionPopoverMenu.
+
+The `renderButton` prop is a function that allows consumers to pass `tabIndex`, `data-element` and the provided aria attribute props to 
+`ActionPopoverMenuButton` or a custom button component.
+
+A default `aria-label` will be provided to the button, but this can be overridden by passing the `ariaLabel` prop to the 
+`ActionPopover` or making use of the `actionPopover.ariaLabel` translation key. Please ensure to set this to `undefined` if your 
+button contains visible text, as this will prevent screen readers from reading the visible label. 
+
+See the example below for an example of how to use the `renderButton` prop:
 
 <Canvas of={ActionPopoverStories.CustomMenuButton} />
 

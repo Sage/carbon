@@ -110,6 +110,13 @@ See [Colors](../?path=/docs/documentation-colors--docs) for more information on 
 
 <Canvas of={MultiSelectStories.WithCustomColoredPills} />
 
+### Infinite scroll example
+
+The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
+This prop will be called every time a user scrolls to the bottom of the list.
+
+<Canvas of={MultiSelectStories.WithInfiniteScroll} />
+
 ### With custom maxWidth
 
 In this example the `maxWidth` prop is 50%.
@@ -118,7 +125,7 @@ In this example the `maxWidth` prop is 50%.
 
 ### New Validation Designs
 
-The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
 
 For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 

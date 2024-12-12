@@ -1262,7 +1262,7 @@ test("when focusableSelectors is not used, preventDefault is not called upon tab
   expect(firstKeydownEvent.defaultPrevented).toBeFalsy();
 });
 
-test("when focusableSelectors is used, preventDefault is called when needed to prevent an undesired element becomed focused", async () => {
+test("when focusableSelectors is used, preventDefault is called when needed to prevent an undesired element becomes focused", async () => {
   render(
     <MockComponent focusableSelectors="button.focusable">
       <button type="button">One</button>

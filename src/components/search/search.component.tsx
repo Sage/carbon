@@ -70,7 +70,7 @@ export interface SearchProps extends ValidationProps, MarginProps {
   variant?: "default" | "dark";
   /** Input tabindex */
   tabIndex?: number;
-  /** Overrides the default tooltip position */
+  /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
