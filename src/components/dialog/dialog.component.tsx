@@ -126,6 +126,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       focusableContainers,
       topModalOverride,
       closeButtonDataProps,
+      restoreFocusOnClose = true,
       ...rest
     },
     ref,
@@ -218,6 +219,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         disableClose={disableClose}
         className={className ? `${className} carbon-dialog` : "carbon-dialog"}
         topModalOverride={topModalOverride}
+        restoreFocusOnClose={restoreFocusOnClose}
       >
         <FocusTrap
           autoFocus={!disableAutoFocus}
