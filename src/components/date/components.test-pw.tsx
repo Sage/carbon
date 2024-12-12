@@ -10,9 +10,7 @@ export const DateInputCustom = ({
   value,
   ...props
 }: Partial<CommonTextboxArgs> & Partial<DateInputProps>) => {
-  const [state, setState] = React.useState(
-    value?.length !== undefined ? value : "01/05/2022",
-  );
+  const [state, setState] = React.useState(value ?? "01/05/2022");
 
   const handleOnChange = (ev: DateChangeEvent) => {
     if (onChange) {
@@ -83,7 +81,7 @@ export const DateInputValidationNewDesign = () => {
   );
 };
 
-export const DateInputWithButton = ({
+export const WithSiblingButton = ({
   onChange,
   onBlur,
   value,
