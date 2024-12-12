@@ -129,4 +129,15 @@ describe("Badge", () => {
       color: "var(--colorsSemanticNegative500)",
     });
   });
+
+  it("should call onClick callback when badge is clicked", async () => {
+    const onClick = jest.fn();
+    const user = userEvent.setup();
+    renderComponent({ counter: 9, onClick });
+
+    const badge = screen.getByTestId("badge");
+    await user.click(badge);
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
 });
