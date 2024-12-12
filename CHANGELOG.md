@@ -1,3 +1,29 @@
+## [144.20.0](https://github.com/Sage/carbon/compare/v144.19.0...v144.20.0) (2024-12-12)
+
+
+### Features
+
+* add restoreFocusOnClose prop to modal based components ([f6fde66](https://github.com/Sage/carbon/commit/f6fde667b1bd4e24c6966a929a0764a9d6b334c6)), closes [#7075](https://github.com/Sage/carbon/issues/7075)
+
+
+### Bug Fixes
+
+* **vertical-menu-full-screen:** ensure the call to action element is focused on close ([9de948b](https://github.com/Sage/carbon/commit/9de948b0ac7476be4b5951f752afd52e44c3cb97))
+
+## [144.19.0](https://github.com/Sage/carbon/compare/v144.18.0...v144.19.0) (2024-12-11)
+
+
+### Features
+
+* **action-popover:** add aria-labelledby and aria-describedby props ([6267cb5](https://github.com/Sage/carbon/commit/6267cb59cbe1de7ee4e0b7be97850bb96e3f97b6)), closes [#7107](https://github.com/Sage/carbon/issues/7107)
+
+## [144.18.0](https://github.com/Sage/carbon/compare/v144.17.1...v144.18.0) (2024-12-10)
+
+
+### Features
+
+* **multi-select:** add onListScrollBottom ([daeb37a](https://github.com/Sage/carbon/commit/daeb37a4fa5a7c9adcaacc004f165d551c104a1c)), closes [#6752](https://github.com/Sage/carbon/issues/6752)
+
 ### [144.17.1](https://github.com/Sage/carbon/compare/v144.17.0...v144.17.1) (2024-12-10)
 
 

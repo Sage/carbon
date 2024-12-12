@@ -186,10 +186,11 @@ export const VerticalMenuTriggerCustom = (
   );
 };
 
-export const VerticalMenuFullScreenCustom = (
-  props: Partial<VerticalMenuFullScreenProps>,
-) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+export const VerticalMenuFullScreenCustom = ({
+  isOpen = false,
+  ...props
+}: Partial<VerticalMenuFullScreenProps> & { isOpen?: boolean }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(isOpen);
 
   const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
 

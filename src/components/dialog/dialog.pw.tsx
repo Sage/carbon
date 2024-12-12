@@ -322,6 +322,25 @@ test.describe("Testing Dialog component properties", () => {
     await expect(firstButton).toBeFocused();
   });
 
+  test("when Dialog is opened and then closed, with the `restoreFocusOnClose` prop passed as `false`, the call to action element should not be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultStory restoreFocusOnClose={false} />);
+
+    const button = page.getByRole("button").filter({ hasText: "Open Dialog" });
+    const dialog = page.getByRole("dialog");
+    await expect(button).not.toBeFocused();
+    await expect(dialog).not.toBeVisible();
+
+    await button.click();
+    await expect(dialog).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(button).not.toBeFocused();
+    await expect(dialog).not.toBeVisible();
+  });
+
   test("when disableAutoFocus prop is passed, the first focusable element should not be focused", async ({
     mount,
     page,

@@ -337,6 +337,25 @@ test.describe("Prop tests for Sidebar component", () => {
     await expect(firstButton).toBeFocused();
   });
 
+  test("when Sidebar is opened and then closed, with the `restoreFocusOnClose` prop passed as `false`, the call to action element should not be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Default open={false} restoreFocusOnClose={false} />);
+
+    const button = page.getByRole("button").filter({ hasText: "Open sidebar" });
+    const sidebar = sidebarPreview(page);
+    await expect(button).not.toBeFocused();
+    await expect(sidebar).not.toBeVisible();
+
+    await button.click();
+    await expect(sidebar).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(button).not.toBeFocused();
+    await expect(sidebar).not.toBeVisible();
+  });
+
   test("should call onCancel callback when a click event is triggered", async ({
     mount,
     page,

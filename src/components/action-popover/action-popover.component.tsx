@@ -36,6 +36,8 @@ export interface RenderButtonProps {
   ariaAttributes: {
     "aria-haspopup": string;
     "aria-label": string;
+    "aria-labelledby"?: string;
+    "aria-describedby"?: string;
     "aria-controls": string;
     "aria-expanded": string;
   };
@@ -62,6 +64,10 @@ export interface ActionPopoverProps extends MarginProps {
   rightAlignMenu?: boolean;
   /** Prop to specify an aria-label for the component */
   "aria-label"?: string;
+  /** Prop to specify an aria-labelledby for the component */
+  "aria-labelledby"?: string;
+  /** Prop to specify an aria-describedby for the component */
+  "aria-describedby"?: string;
 }
 
 const onOpenDefault = () => {};
@@ -78,6 +84,8 @@ export const ActionPopover = ({
   horizontalAlignment = "left",
   submenuPosition = "left",
   "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
+  "aria-describedby": ariaDescribedBy,
   ...rest
 }: ActionPopoverProps) => {
   const l = useLocale();
@@ -233,6 +241,8 @@ export const ActionPopover = ({
         ariaAttributes: {
           "aria-haspopup": "true",
           "aria-label": ariaLabel || l.actionPopover.ariaLabel(),
+          "aria-labelledby": ariaLabelledBy,
+          "aria-describedby": ariaDescribedBy,
           "aria-controls": menuID,
           "aria-expanded": `${isOpen}`,
         },
@@ -244,6 +254,8 @@ export const ActionPopover = ({
         role="button"
         aria-haspopup="true"
         aria-label={ariaLabel || l.actionPopover.ariaLabel()}
+        aria-labelledby={ariaLabelledBy}
+        aria-describedby={ariaDescribedBy}
         aria-controls={menuID}
         aria-expanded={isOpen}
         tabIndex={isOpen ? -1 : 0}

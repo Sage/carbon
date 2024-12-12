@@ -32,6 +32,13 @@ Shows how the color picker can be used to select a color from a predefined set.
 
 <Canvas of={AdvancedColorPickerStories.Default} />
 
+### Preventing focus from being restored when AdvancedColorPicker closes
+
+When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `AdvancedColorPicker` was opened.
+Focus can instead be programmatically applied to another element if appropriate. 
+
+<Canvas of={AdvancedColorPickerStories.RestoreFocusOnCloseStory} />
+
 ## Props
 
 ### AdvancedColorPicker

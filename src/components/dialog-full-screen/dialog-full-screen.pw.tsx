@@ -379,6 +379,29 @@ test.describe("render DialogFullScreen component and check properties", () => {
     await expect(firstButton).toBeFocused();
   });
 
+  test("when Dialog Full Screen is opened and then closed, with the `restoreFocusOnClose` prop passed as `false`, the call to action element should not be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <DialogFullScreenComponent open={false} restoreFocusOnClose={false} />,
+    );
+
+    const button = page
+      .getByRole("button")
+      .filter({ hasText: "Open Dialog Full Screen" });
+    const dialogFullScreen = page.getByRole("dialog");
+    await expect(button).not.toBeFocused();
+    await expect(dialogFullScreen).not.toBeVisible();
+
+    await button.click();
+    await expect(dialogFullScreen).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(button).not.toBeFocused();
+    await expect(dialogFullScreen).not.toBeVisible();
+  });
+
   test("should render component with autofocus disabled", async ({
     mount,
     page,
