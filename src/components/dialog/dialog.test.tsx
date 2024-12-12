@@ -18,6 +18,10 @@ beforeEach(() => {
   jest.useFakeTimers();
 });
 
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
 afterEach(() => {
   loggerSpy.mockRestore();
   jest.runOnlyPendingTimers();

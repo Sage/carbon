@@ -34,7 +34,11 @@ export interface PodProps extends MarginProps {
   border?: boolean;
   /** Children elements */
   children?: React.ReactNode;
-  /** Custom className */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** Determines the padding around the pod */
   size?: PodSize;
