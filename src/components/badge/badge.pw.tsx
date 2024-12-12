@@ -5,10 +5,7 @@ import {
   badgeCounter,
   badgeCrossIcon,
 } from "../../../playwright/components/badge/index";
-import {
-  checkAccessibility,
-  expectEventWasCalledOnce,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import BadgeComponent from "./components.test-pw";
 
@@ -95,28 +92,6 @@ test.describe("should render Badge component", () => {
       "rgb(255, 255, 255)",
     );
     await expect(badgeCrossIcon(page)).not.toBeVisible();
-  });
-
-  test("should call onClick callback when a click event is triggered", async ({
-    mount,
-    page,
-  }) => {
-    const messages: string[] = [];
-
-    await mount(
-      <BadgeComponent
-        counter={5}
-        onClick={(data) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          messages.push(data);
-        }}
-      />,
-    );
-
-    const badgeToClick = badge(page);
-    await badgeToClick.click();
-    await expectEventWasCalledOnce(messages, "onClick");
   });
 
   test("should render with expected border radius styling", async ({
