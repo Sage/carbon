@@ -415,7 +415,7 @@ test.describe("Prop tests for Menu component", () => {
     const topLess = 184;
     const leftLess = 108;
     // additionVal is to compensate for the outline.
-    const additionVal = 5;
+    const additionVal = 6;
 
     await page.keyboard.press("Tab");
     await page.keyboard.press("Enter");
