@@ -527,6 +527,7 @@ test.describe("Tabs component", () => {
         );
 
         await tabById(page, 2).press("Enter");
+        // Known to be flaky
         expect(callbackCount).toBe(1);
       });
     });
@@ -564,6 +565,7 @@ test.describe("Tabs component", () => {
         );
 
         await tabById(page, 2).press("Enter");
+        // Known to be flaky
         expect(callbackCount).toBe(1);
       });
     });

@@ -594,6 +594,7 @@ test.describe("Functional tests in a custom component", () => {
     await splitToggleButton(page).nth(0).click();
     await expect(additionalButton(page, 0)).toBeFocused();
     await page.keyboard.press("Tab");
+    // Known to be flaky
     await expect(additionalButton(page, 1)).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(additionalButton(page, 2)).toBeFocused();
@@ -755,6 +756,7 @@ test.describe("when SplitButton is nested inside of a Dialog component", () => {
     await mount(<SplitButtonNestedInDialog />);
 
     await splitToggleButton(page).nth(0).click();
+    // Known to be flaky
     await expect(additionalButtonsContainer(page)).toHaveCount(1);
     await additionalButton(page, 1).focus();
     await page.keyboard.press("Escape");
