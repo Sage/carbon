@@ -27,7 +27,7 @@ export interface StyledCardProps
     Pick<CardProps, "href" | "onClick"> {
   cardWidth: string;
   interactive: boolean;
-  draggable: boolean;
+  isDraggable: boolean;
   height?: string;
   boxShadow?: BoxShadowsType;
   hoverBoxShadow?: BoxShadowsType;
@@ -37,7 +37,7 @@ const StyledCard = styled.div<StyledCardProps>`
   ${({
     cardWidth,
     interactive,
-    draggable,
+    isDraggable,
     height,
     spacing,
     boxShadow = "boxShadow050",
@@ -72,7 +72,7 @@ const StyledCard = styled.div<StyledCardProps>`
       }
     `}
 
-    ${draggable &&
+    ${isDraggable &&
     css`
       cursor: move;
     `}

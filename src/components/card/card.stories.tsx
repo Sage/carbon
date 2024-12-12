@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
 
 import Typography from "../typography";
@@ -14,6 +12,8 @@ import VerticalDivider from "../vertical-divider";
 import IconButton from "../icon-button";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import DraggableProvider from "../../hooks/useDraggable/draggable-provider";
+import useDraggable from "../../hooks/useDraggable/useDraggable";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -739,96 +739,24 @@ WithStringAsChild.parameters = { chromatic: { disableSnapshot: true } };
 WithStringAsChild.storyName = "With String as Child";
 
 export const WithDraggable: Story = () => {
-  const columnNames = {
-    PRODUCT_ONE: "Product One",
-    PRODUCT_TWO: "Product Two",
-  } as const;
-
-  const ITEM_TYPE = "Card";
-
-  interface CardSpec {
-    id: number;
-    name: string;
-    column: string;
-  }
-
-  interface MovableItemProps {
-    "data-element"?: string;
-    name: string;
-    changeColumn: (column: string) => void;
-  }
-
+ 
   interface ColumnProps {
+    title: string;
     "data-element"?: string;
     children?: React.ReactNode;
-    title: string;
   }
 
-  const MovableItem = ({
-    "data-element": dataElement,
-    name,
-    changeColumn,
-  }: MovableItemProps) => {
-    const [{ isDragging }, drag] = useDrag({
-      type: ITEM_TYPE,
-      item: { name },
-      collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
-      }),
-      end: (_, monitor) => {
-        const dropResult = monitor.getDropResult<{ column: string }>();
-        if (!dropResult) return;
-        changeColumn(dropResult.column);
-      },
+  const Column = ({ title, "data-element": dataElement, children }: ColumnProps) => {
+
+    const [DraggableContainer, dragState, draggingBetweenContainers] = useDraggable({
+      draggableItems: children,
+      id: dataElement,
+      containerStyle: { width: "inherit"},
     });
 
     return (
-      <Box
-        ref={drag}
-        opacity={isDragging ? 0.4 : 1}
-        width="80%"
-        height="100px"
-        margin="16px auto"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Card draggable data-element={dataElement}>
-          <CardRow pt={0}>
-            <CardColumn align="left">
-              <Heading title={name} divider={false} />
-              <Typography>user.name@sage.com</Typography>
-            </CardColumn>
-            <CardColumn align="right">
-              <Icon type="image" />
-            </CardColumn>
-          </CardRow>
-        </Card>
-      </Box>
-    );
-  };
-
-  const Column = ({
-    "data-element": dataElement,
-    children,
-    title,
-  }: ColumnProps) => {
-    const [{ isOver }, drop] = useDrop({
-      accept: ITEM_TYPE,
-      drop: () => ({ column: title }),
-      collect: (monitor) => ({
-        isOver: monitor.isOver(),
-      }),
-    });
-
-    return (
-      <Box
-        ref={drop}
-        backgroundColor={
-          isOver
-            ? "var(--colorsActionMajor500)"
-            : "var(--colorsUtilityMajor075)"
-        }
+      <Box 
+        backgroundColor={draggingBetweenContainers ? "var(--colorsActionMajor500)" : "var(--colorsUtilityMajor075)"}
         data-element={dataElement}
         height="max-content"
         minHeight="100px"
@@ -839,68 +767,74 @@ export const WithDraggable: Story = () => {
         m={2}
         py={2}
       >
-        <Typography
-          variant="b"
-          color={isOver ? "var(--colorsGray000)" : undefined}
-        >
-          {title}
-        </Typography>
-        {children}
+        <Typography variant="b" color={draggingBetweenContainers ? "var(--colorsGray000)" : undefined}>{title}</Typography>
+        {DraggableContainer}
       </Box>
     );
   };
 
-  const App = () => {
-    const [cards, setCards] = useState<CardSpec[]>([
-      { id: 0, name: "Item 1", column: columnNames.PRODUCT_ONE },
-      { id: 1, name: "Item 2", column: columnNames.PRODUCT_ONE },
-      { id: 2, name: "Item 3", column: columnNames.PRODUCT_TWO },
-      { id: 3, name: "Item 4", column: columnNames.PRODUCT_ONE },
-    ]);
-
-    const changeItemColumn = (id: number, column: string) => {
-      setCards((prevState) =>
-        prevState.map((card) => ({
-          ...card,
-          column: card.id === id ? column : card.column,
-        })),
-      );
-    };
-
-    const returnColumnItems = (column: string) =>
-      cards
-        .filter((card) => card.column === column)
-        .map(({ id, name }) => (
-          <MovableItem
-            key={id}
-            name={name}
-            changeColumn={(newColumn) => changeItemColumn(id, newColumn)}
-            data-element={`draggable-card-${id}`}
-          />
-        ));
-
-    return (
-      <Box width="700px" height="450px">
-        <Box display="flex" flexDirection="row" justifyContent="space-around">
-          <DndProvider backend={HTML5Backend}>
-            <Column
-              title={columnNames.PRODUCT_ONE}
-              data-element="draggable-container-1"
-            >
-              {returnColumnItems(columnNames.PRODUCT_ONE)}
-            </Column>
-            <Column
-              title={columnNames.PRODUCT_TWO}
-              data-element="draggable-container-2"
-            >
-              {returnColumnItems(columnNames.PRODUCT_TWO)}
-            </Column>
-          </DndProvider>
-        </Box>
+  return (
+    <Box width="700px" height="450px">
+      <Box display="flex" flexDirection="row" justifyContent="space-around">
+        <DraggableProvider>
+          <Column
+            title="Product One"
+            data-element="draggable-container-1"
+          >
+ <Card id="card1" width="inherit" draggable>
+        <CardRow pt={0}>
+          <CardColumn align="left">
+            <Heading title="Card 1" divider={false} />
+            <Typography>user.name@sage.com</Typography>
+          </CardColumn>
+          <CardColumn align="right">
+            <Icon type="image" />
+          </CardColumn>
+        </CardRow>
+      </Card>
+      <Card id="card2" width="inherit" draggable>
+        <CardRow pt={0}>
+          <CardColumn align="left">
+            <Heading title="Card 2" divider={false} />
+            <Typography>user.name@sage.com</Typography>
+          </CardColumn>
+          <CardColumn align="right">
+            <Icon type="image" />
+          </CardColumn>
+        </CardRow>
+      </Card>
+      <Card id="card3" width="inherit" draggable>
+        <CardRow pt={0}>
+          <CardColumn align="left">
+            <Heading title="Card 3"divider={false} />
+            <Typography>user.name@sage.com</Typography>
+          </CardColumn>
+          <CardColumn align="right">
+            <Icon type="image" />
+          </CardColumn>
+        </CardRow>
+      </Card>
+          </Column>
+          <Column
+            title="Product Two"
+            data-element="draggable-container-2"
+          >
+                  <Card id="card4" width="inherit" draggable>
+        <CardRow pt={0}>
+          <CardColumn align="left">
+            <Heading title="Card 4"divider={false} />
+            <Typography>user.name@sage.com</Typography>
+          </CardColumn>
+          <CardColumn align="right">
+            <Icon type="image" />
+          </CardColumn>
+        </CardRow>
+      </Card>
+          </Column>
+        </DraggableProvider>
       </Box>
-    );
-  };
-  return <App />;
+    </Box>
+  );
 };
-WithDraggable.parameters = { chromatic: { disableSnapshot: true } };
+
 WithDraggable.storyName = "With Draggable";

@@ -49,6 +49,7 @@ export interface CardProps extends MarginProps, TagProps {
   rel?: string;
   /** Prop to specify an aria-label for the component */
   "aria-label"?: string;
+  id?: string | number;
 }
 
 const Card = ({
@@ -68,6 +69,7 @@ const Card = ({
   rel,
   target,
   "aria-label": ariaLabel,
+  id,
   ...rest
 }: CardProps) => {
   const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
@@ -88,9 +90,10 @@ const Card = ({
 
   return (
     <StyledCard
+      id={String(id)}
       cardWidth={width}
       interactive={interactive}
-      draggable={!!draggable}
+      isDraggable={!!draggable}
       spacing={spacing}
       boxShadow={boxShadow}
       hoverBoxShadow={hoverBoxShadow}
