@@ -1,3 +1,15 @@
+## [144.20.0](https://github.com/Sage/carbon/compare/v144.19.0...v144.20.0) (2024-12-12)
+
+
+### Features
+
+* add restoreFocusOnClose prop to modal based components ([f6fde66](https://github.com/Sage/carbon/commit/f6fde667b1bd4e24c6966a929a0764a9d6b334c6)), closes [#7075](https://github.com/Sage/carbon/issues/7075)
+
+
+### Bug Fixes
+
+* **vertical-menu-full-screen:** ensure the call to action element is focused on close ([9de948b](https://github.com/Sage/carbon/commit/9de948b0ac7476be4b5951f752afd52e44c3cb97))
+
 ## [144.19.0](https://github.com/Sage/carbon/compare/v144.18.0...v144.19.0) (2024-12-11)
 
 
