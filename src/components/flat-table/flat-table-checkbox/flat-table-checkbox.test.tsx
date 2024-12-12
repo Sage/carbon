@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import FlatTableCheckbox from "./flat-table-checkbox.component";
@@ -42,8 +42,9 @@ test("should stop propagation when the user presses a key that is not up or down
       </tbody>
     </table>,
   );
-
-  screen.getByRole("checkbox").focus();
+  act(() => {
+    screen.getByRole("checkbox").focus();
+  });
   await user.keyboard("{a}");
 
   expect(parentOnKeyDown).not.toHaveBeenCalled();
@@ -61,8 +62,9 @@ test("should not stop propagation when the user presses down arrow key", async (
       </tbody>
     </table>,
   );
-
-  screen.getByRole("checkbox").focus();
+  act(() => {
+    screen.getByRole("checkbox").focus();
+  });
   await user.keyboard("{ArrowDown}");
 
   expect(parentOnKeyDown).toHaveBeenCalled();
@@ -80,8 +82,9 @@ test("should not stop propagation when the user presses up arrow key", async () 
       </tbody>
     </table>,
   );
-
-  screen.getByRole("checkbox").focus();
+  act(() => {
+    screen.getByRole("checkbox").focus();
+  });
   await user.keyboard("{ArrowUp}");
 
   expect(parentOnKeyDown).toHaveBeenCalled();

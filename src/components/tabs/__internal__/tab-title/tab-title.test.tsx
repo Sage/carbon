@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import TabTitle from "./tab-title.component";
 
@@ -76,7 +76,9 @@ test.each([
       <TabTitle href="randomUrl" onClick={() => {}} onKeyDown={() => {}} />,
     );
 
-    screen.getByRole("tab").focus();
+    act(() => {
+      screen.getByRole("tab").focus();
+    });
     await user.keyboard(key);
 
     expect(globalOpenMock).toHaveBeenCalledWith("randomUrl", "_blank");
@@ -109,7 +111,9 @@ test.each([
     const user = userEvent.setup();
     render(<TabTitle onClick={() => {}} onKeyDown={() => {}} />);
 
-    screen.getByRole("tab").focus();
+    act(() => {
+      screen.getByRole("tab").focus();
+    });
     await user.keyboard(key);
 
     expect(globalOpenMock).not.toHaveBeenCalled();
@@ -195,7 +199,7 @@ test("calls the `onClick` prop when clicked", async () => {
 
 test.each(["error", "warning", "info"])(
   "displays a tooltip on focus when %s validation is failed",
-  (validationType) => {
+  async (validationType) => {
     render(
       <TabTitle
         position="left"
@@ -208,10 +212,12 @@ test.each(["error", "warning", "info"])(
       />,
     );
 
-    screen.getByRole("tab").focus();
+    act(() => {
+      screen.getByRole("tab").focus();
+    });
 
-    expect(screen.getByTestId("tooltip")).toBeVisible();
-    expect(screen.getByTestId("tooltip")).toHaveTextContent(
+    expect(await screen.findByRole("tooltip")).toBeVisible();
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
       "validation message",
     );
   },
@@ -234,10 +240,12 @@ test.each(["error", "warning", "info"])(
       />,
     );
 
-    screen.getByRole("tab").focus();
+    act(() => {
+      screen.getByRole("tab").focus();
+    });
     await user.tab();
 
-    expect(screen.queryByTestId("tooltip")).not.toBeInTheDocument();
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
     expect(screen.queryByText("validation message")).not.toBeInTheDocument();
   },
 );
@@ -259,8 +267,8 @@ test.each(["error", "warning", "info"])(
 
     await user.hover(screen.getByRole("tab"));
 
-    expect(screen.getByTestId("tooltip")).toBeVisible();
-    expect(screen.getByTestId("tooltip")).toHaveTextContent(
+    expect(await screen.findByRole("tooltip")).toBeVisible();
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
       "validation message",
     );
   },
@@ -303,13 +311,14 @@ test.each(["error", "warning", "info"])(
         }}
       />,
     );
-
     await user.hover(screen.getByRole("tab"));
-    screen.getByRole("tab").focus();
+    act(() => {
+      screen.getByRole("tab").focus();
+    });
     await user.tab();
 
-    expect(screen.getByTestId("tooltip")).toBeVisible();
-    expect(screen.getByTestId("tooltip")).toHaveTextContent(
+    expect(await screen.findByRole("tooltip")).toBeVisible();
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
       "validation message",
     );
   },

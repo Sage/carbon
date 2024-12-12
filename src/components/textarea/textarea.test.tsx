@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 
@@ -219,7 +219,10 @@ test("should set the aria-label on the Help component to the value of the helpAr
 test("should set the Help component's text content to the value of the labelHelp prop", async () => {
   render(<Textarea label="foo" labelHelp="bar" helpAriaLabel="baz" />);
 
-  screen.getByRole("button").focus();
+  act(() => {
+    screen.getByRole("button").focus();
+  });
+
   expect(await screen.findByRole("tooltip", { name: "bar" })).toBeVisible();
 });
 
@@ -228,7 +231,9 @@ test.each(["info", "warning", "error"])(
   (validationType) => {
     render(<Textarea id="foo" label="bar" {...{ [validationType]: "test" }} />);
     const textarea = screen.getByRole("textbox");
-    textarea.focus();
+    act(() => {
+      textarea.focus();
+    });
 
     expect(textarea).toHaveAccessibleDescription("test");
   },
@@ -239,7 +244,9 @@ test.each(["info", "warning", "error"])(
   (validationType) => {
     render(<Textarea label="bar" {...{ [validationType]: "test" }} />);
     const textarea = screen.getByRole("textbox");
-    textarea.focus();
+    act(() => {
+      textarea.focus();
+    });
 
     expect(textarea).toHaveAccessibleDescription("test");
   },
@@ -289,7 +296,9 @@ test.each(["info", "warning", "error"])(
       />,
     );
     const textarea = screen.getByRole("textbox");
-    textarea.focus();
+    act(() => {
+      textarea.focus();
+    });
 
     expect(textarea).toHaveAccessibleDescription("baz test");
   },
@@ -306,7 +315,9 @@ test.each(["info", "warning", "error"])(
       />,
     );
     const textarea = screen.getByRole("textbox");
-    textarea.focus();
+    act(() => {
+      textarea.focus();
+    });
 
     expect(textarea).toHaveAccessibleDescription("baz test");
   },

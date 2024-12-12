@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { render, screen, within } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Search, { SearchHandle } from "./search.component";
@@ -137,7 +137,9 @@ test("when the input is blurred, the `onBlur` callback prop is called", async ()
   const onBlur = jest.fn();
   render(<Search value="" onBlur={onBlur} />);
 
-  screen.getByRole("textbox").focus();
+  act(() => {
+    screen.getByRole("textbox").focus();
+  });
   await user.tab();
   expect(onBlur).toHaveBeenCalledTimes(1);
 });
@@ -284,24 +286,28 @@ test("the component's wrapper element has the appropriate `data-component` tag",
   );
 });
 
-test("the textbox cross icon can be tabbed to when present", async () => {
-  const user = userEvent.setup();
-  render(<Search defaultValue="" />);
+test("do not render remove button when the input is empty", () => {
+  render(<Search value="" />);
 
-  await user.type(screen.getByRole("textbox"), "Bar");
+  expect(screen.queryByTestId("input-icon-toggle")).not.toBeInTheDocument();
+});
+
+test("render remove button when the input is not empty", () => {
+  render(<Search value="foo" />);
+
+  expect(screen.getByTestId("input-icon-toggle")).toBeVisible();
+});
+
+test("remove button can be reached via keyboard when present", async () => {
+  const user = userEvent.setup();
+  render(<Search value="foo" />);
+
+  act(() => {
+    screen.getByRole("textbox").focus();
+  });
   await user.tab();
 
   expect(screen.getByTestId("input-icon-toggle")).toHaveFocus();
-});
-
-test("the textbox close icon can not be tabbed to when the input is empty", async () => {
-  const user = userEvent.setup();
-  render(<Search defaultValue="" />);
-
-  screen.getByRole("textbox").focus();
-  await user.tab();
-
-  expect(document.body).toHaveFocus();
 });
 
 test("when a character key is pressed, propagation of the event to parent elements is prevented", async () => {

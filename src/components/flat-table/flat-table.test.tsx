@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 import FlatTable from "./flat-table.component";
@@ -62,7 +62,9 @@ describe("when rows are interactive", () => {
     );
     const tableWrapper = screen.getByRole("region");
     const focusableTableContainer = screen.getByTestId("flat-table-container");
-    focusableTableContainer.focus();
+    act(() => {
+      focusableTableContainer.focus();
+    });
 
     expect(focusableTableContainer).toHaveFocus();
     expect(tableWrapper).toHaveStyleRule("outline", "transparent 3px solid");
@@ -91,7 +93,9 @@ describe("when rows are interactive", () => {
     );
     const tableWrapper = screen.getByRole("region");
     const focusableTableContainer = screen.getByTestId("flat-table-container");
-    focusableTableContainer.focus();
+    act(() => {
+      focusableTableContainer.focus();
+    });
 
     expect(focusableTableContainer).toHaveFocus();
     expect(tableWrapper).toHaveStyleRule(
@@ -117,7 +121,9 @@ describe("when rows are interactive", () => {
       </FlatTable>,
     );
     const focusableTableContainer = screen.getByTestId("flat-table-container");
-    focusableTableContainer.focus();
+    act(() => {
+      focusableTableContainer.focus();
+    });
 
     expect(focusableTableContainer).toHaveFocus();
 
@@ -187,7 +193,9 @@ describe("when rows are interactive", () => {
     const secondRow = screen.getByRole("row", { name: "three four" });
     const thirdRow = screen.getByRole("row", { name: "five six" });
     const fourthRow = screen.getByRole("row", { name: "seven eight" });
-    focusableTableContainer?.focus();
+    act(() => {
+      focusableTableContainer?.focus();
+    });
 
     await user.keyboard("{Tab}");
     expect(firstRow).toHaveFocus();
@@ -374,7 +382,9 @@ describe("when rows are interactive", () => {
     );
     const secondRow = screen.getByRole("row", { name: "three four" });
     const checkbox = screen.getByRole("checkbox");
-    checkbox.focus();
+    act(() => {
+      checkbox.focus();
+    });
 
     expect(checkbox).toHaveFocus();
     await user.keyboard("{ArrowDown}");
@@ -399,7 +409,9 @@ describe("when rows are interactive", () => {
     );
     const firstRow = screen.getByRole("row", { name: "one two" });
     const checkbox = screen.getByRole("checkbox");
-    checkbox.focus();
+    act(() => {
+      checkbox.focus();
+    });
 
     expect(checkbox).toHaveFocus();
     await user.keyboard("{ArrowUp}");

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import userEvent from "@testing-library/user-event";
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import AdvancedColorPicker, {
   AdvancedColorPickerProps,
 } from "./advanced-color-picker.component";
@@ -236,7 +236,9 @@ test.each([
     await user.click(screen.getByRole("button", { name: "Change colour" }));
     expect(await screen.findByRole("dialog")).toBeVisible();
 
-    screen.getByRole("radio", { name: "pink" }).focus();
+    act(() => {
+      screen.getByRole("radio", { name: "pink" }).focus();
+    });
     await user.keyboard(keyCode);
 
     await waitFor(() => {
@@ -255,9 +257,13 @@ test.each(["a", "b", "q", "t", "x", "4", "0"])(
     await user.click(screen.getByRole("button", { name: "Change colour" }));
     expect(await screen.findByRole("dialog")).toBeVisible();
 
-    screen.getByRole("radio", { name: "pink" }).focus();
+    act(() => {
+      screen.getByRole("radio", { name: "pink" }).focus();
+    });
     await user.keyboard(key);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(screen.getByRole("dialog")).toBeVisible();
   },
@@ -269,8 +275,11 @@ test("tabbing from the close button should focus the selected color input", asyn
   render(<ControlledColorPicker selectedColor="#EBAEDE" />);
   await user.click(screen.getByRole("button", { name: "Change colour" }));
 
-  screen.getByRole("button", { name: "Close" }).focus();
+  act(() => {
+    screen.getByRole("button", { name: "Close" }).focus();
+  });
   await user.keyboard("{Tab}");
+
   expect(screen.getByRole("radio", { name: "orchid" })).toHaveFocus();
 });
 
@@ -294,7 +303,9 @@ test("shift-tabbing from the close button should focus the selected color input"
   render(<ControlledColorPicker selectedColor="#EBAEDE" />);
   await user.click(screen.getByRole("button", { name: "Change colour" }));
 
-  screen.getByRole("button", { name: "Close" }).focus();
+  act(() => {
+    screen.getByRole("button", { name: "Close" }).focus();
+  });
   await user.keyboard("{Shift>}{Tab}");
   expect(screen.getByRole("radio", { name: "orchid" })).toHaveFocus();
 });
@@ -343,7 +354,9 @@ test("when the user closes the component, it does trigger the onBlur callback", 
   expect(await screen.findByRole("radio", { name: "white" })).toHaveFocus();
 
   await user.click(screen.getByRole("button", { name: "Close" }));
-  jest.runAllTimers();
+  act(() => {
+    jest.runAllTimers();
+  });
 
   expect(onBlur).toHaveBeenCalledTimes(1);
   expect(onBlur.mock.calls[0][0].target).toHaveAccessibleName("white");
@@ -363,7 +376,9 @@ test("when another color input is clicked, it does not trigger the onBlur callba
   expect(await screen.findByRole("radio", { name: "white" })).toHaveFocus();
 
   await user.click(screen.getByRole("radio", { name: "pink" }));
-  jest.runAllTimers();
+  act(() => {
+    jest.runAllTimers();
+  });
 
   expect(onBlur).toHaveBeenCalledTimes(0);
 });
