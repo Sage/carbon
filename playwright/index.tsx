@@ -6,25 +6,10 @@ import I18nProvider from "../src/components/i18n-provider/i18n-provider.componen
 import { noTheme, sageTheme } from "../src/style/themes";
 import enGB from "../src/locales/en-gb";
 import "../src/style/fonts.css";
-import * as dateLocales from "./support/date-fns-locales";
 
 export type HooksConfig = {
   validationRedesignOptIn?: boolean;
   theme?: string;
-  localeName?: keyof typeof dateLocales;
-};
-
-const computedLocale = (str: keyof typeof dateLocales) => {
-  return {
-    locale: () => str,
-    date: {
-      dateFnsLocale: () => dateLocales[str],
-      ariaLabels: {
-        previousMonthButton: () => "Previous month",
-        nextMonthButton: () => "Next month",
-      },
-    },
-  };
 };
 
 const mountedTheme = (theme: string) => {
@@ -42,7 +27,6 @@ const mountedTheme = (theme: string) => {
 beforeMount<HooksConfig>(async ({ App, hooksConfig }) => {
   const {
     theme = "sage",
-    localeName,
     validationRedesignOptIn,
   } = hooksConfig || {};
   return (
@@ -51,7 +35,7 @@ beforeMount<HooksConfig>(async ({ App, hooksConfig }) => {
       validationRedesignOptIn={validationRedesignOptIn}
     >
       <GlobalStyle />
-      <I18nProvider locale={localeName ? computedLocale(localeName) : enGB}>
+      <I18nProvider locale={enGB}>
         <App />
       </I18nProvider>
     </CarbonProvider>
