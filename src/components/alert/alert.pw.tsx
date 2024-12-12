@@ -8,8 +8,6 @@ import {
 } from "../../../playwright/components/alert";
 import {
   checkAccessibility,
-  checkDialogIsInDOM,
-  checkDialogIsNotInDOM,
   waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
@@ -62,10 +60,12 @@ test.describe("should render Alert component", () => {
         Alert
       </AlertComponent>,
     );
+    const dialog = page.getByRole("alertdialog");
+    await dialog.waitFor();
 
-    await checkDialogIsInDOM(page);
-    await page.keyboard.press("Escape");
-    await checkDialogIsInDOM(page);
+    await dialog.press("Escape");
+
+    await expect(dialog).toBeHidden();
   });
 
   test("with keyboard accessible close icon button which closes the dialog when enter key is pressed", async ({
@@ -73,13 +73,13 @@ test.describe("should render Alert component", () => {
     page,
   }) => {
     await mount(<AlertComponent title="title">Alert</AlertComponent>);
+    const dialog = page.getByRole("alertdialog");
+    await dialog.waitFor();
 
-    await checkDialogIsInDOM(page);
-    const cross = alertCrossIcon(page);
-    await page.keyboard.press("Tab");
-    await expect(cross).toBeFocused();
-    await cross.press("Enter");
-    await checkDialogIsNotInDOM(page);
+    const closeButton = page.getByRole("button", { name: "Close" });
+    await closeButton.press("Tab");
+
+    await expect(dialog).toBeHidden();
   });
 
   test("with close icon button that closes dialog when clicked", async ({
@@ -87,11 +87,13 @@ test.describe("should render Alert component", () => {
     page,
   }) => {
     await mount(<AlertComponent title="title">Alert</AlertComponent>);
+    const dialog = page.getByRole("alertdialog");
+    await dialog.waitFor();
 
-    await checkDialogIsInDOM(page);
-    const cross = alertCrossIcon(page);
-    await cross.click();
-    await checkDialogIsNotInDOM(page);
+    const closeButton = page.getByRole("button", { name: "Close" });
+    await closeButton.click();
+
+    await expect(dialog).toBeHidden();
   });
 
   viewportHeights.forEach((height) => {

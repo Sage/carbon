@@ -13,7 +13,6 @@ import {
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
-  checkDialogIsInDOM,
   getStyle,
   waitForAnimationEnd,
 } from "../../../playwright/support/helper";
@@ -245,12 +244,17 @@ test.describe("should render Confirm component", () => {
     await expect(loader).toBeAttached();
   });
 
-  test(`should check Esc key is disabled`, async ({ mount, page }) => {
+  test("does not close when pressing Escape key and ", async ({
+    mount,
+    page,
+  }) => {
     await mount(<ConfirmComponent disableEscKey />);
+    const dialog = page.getByRole("alertdialog");
+    await dialog.waitFor();
 
-    await checkDialogIsInDOM(page);
-    await page.keyboard.press("Escape");
-    await checkDialogIsInDOM(page);
+    await dialog.press("Escape");
+
+    await expect(dialog).toBeVisible();
   });
 
   test(`should check close icon is enabled`, async ({ mount, page }) => {
