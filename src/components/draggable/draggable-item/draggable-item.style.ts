@@ -3,13 +3,11 @@ import { padding, margin, PaddingProps } from "styled-system";
 
 import { baseTheme } from "../../../style/themes";
 
-const StyledDraggableContainer = styled.div`
-  ${margin}
-`;
-
 interface StyledDraggableItemProps extends PaddingProps {
   isDragging?: boolean;
   flexDirection?: "row" | "row-reverse";
+  id: number | string;
+  childId?: string | number;
 }
 
 const StyledDraggableItem = styled.div<StyledDraggableItemProps>`
@@ -19,8 +17,20 @@ const StyledDraggableItem = styled.div<StyledDraggableItemProps>`
   ${padding}
   cursor: move;
   justify-content: space-between;
-  flex-direction: ${({ flexDirection }) => flexDirection};
-  opacity: ${({ isDragging }) => (isDragging ? "0" : "1")};
+`;
+
+const StyledDraggableContainer = styled.div<Pick<StyledDraggableItemProps, "flexDirection" | "isDragging" | "childId">>`
+  ${margin}
+
+  ${StyledDraggableItem} {
+    flex-direction: ${({ flexDirection }) => flexDirection};
+    ${({ isDragging, childId }) =>
+      isDragging && childId !== undefined
+        ? `&[id="${childId}"] {
+            opacity: 0;
+          }`
+        : `opacity: 1;`}
+  }
 `;
 
 StyledDraggableContainer.defaultProps = {
