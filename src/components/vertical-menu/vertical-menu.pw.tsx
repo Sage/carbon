@@ -295,7 +295,6 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await verticalMenuTrigger(page).click();
     await page.keyboard.press("Escape");
 
-    // Known to be flaky
     await expect(callbackCount).toBe(1);
   });
 

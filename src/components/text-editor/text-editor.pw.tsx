@@ -89,10 +89,7 @@ test.describe("Functionality tests", () => {
       await page.keyboard.press("Enter");
       await textInput.type("awesome");
 
-      await toolbar.waitFor({ timeout: 10000 });
-
       if (buttonType === "bullet-list") {
-        // Known to be flaky
         await expect(innerTextList(page, "ul", 1)).toHaveText("Testing");
         await expect(innerTextList(page, "ul", 2)).toHaveText("is");
         await expect(innerTextList(page, "ul", 3)).toHaveText("awesome");
@@ -117,11 +114,9 @@ test.describe("Functionality tests", () => {
       await textInput.focus();
       await page.keyboard.press("Tab");
       for (let i = 0; i < times; i++) {
-        await textInput.waitFor({ timeout: 1000 });
         await page.keyboard.press("ArrowRight");
       }
 
-      // Known to be flaky
       await expect(textEditorToolbar(page, buttonType)).toBeFocused();
     });
   });
@@ -137,11 +132,9 @@ test.describe("Functionality tests", () => {
       await textInput.focus();
       await page.keyboard.press("Tab");
       for (let i = 0; i < buttonNames.length - times; i++) {
-        await textInput.waitFor({ timeout: 1000 });
         await page.keyboard.press("ArrowLeft");
       }
 
-      // Known to be flaky
       await expect(textEditorToolbar(page, buttonType)).toBeFocused();
     });
   });
