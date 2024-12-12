@@ -103,40 +103,48 @@ test.describe("Functionality tests", () => {
     });
   });
 
-  buttonNames.forEach((buttonType, times) => {
-    test(`should focus ${buttonType} button using RightArrow keyboard key`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextEditorCustom />);
+  test(`should focus all editor toolbar buttons using ArrowRight keyboard key`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorCustom />);
 
-      const textInput = textEditorInput(page);
-      await textInput.focus();
-      await page.keyboard.press("Tab");
-      for (let i = 0; i < times; i++) {
-        await page.keyboard.press("ArrowRight");
-      }
-
-      await expect(textEditorToolbar(page, buttonType)).toBeFocused();
-    });
+    const textInput = textEditorInput(page);
+    await textInput.click();
+    await page.keyboard.press("Tab");
+    // Expect bold to be focused
+    await expect(textEditorToolbar(page, "bold")).toBeFocused();
+    // Expect italic to be focused
+    await page.keyboard.press("ArrowRight");
+    await expect(textEditorToolbar(page, "italic")).toBeFocused();
+    // Expect bullet-list to be focused
+    await page.keyboard.press("ArrowRight");
+    await expect(textEditorToolbar(page, "bullet-list")).toBeFocused();
+    // Expect number-list to be focused
+    await page.keyboard.press("ArrowRight");
+    await expect(textEditorToolbar(page, "number-list")).toBeFocused();
   });
 
-  buttonNames.forEach((buttonType, times) => {
-    test(`should focus ${buttonType} button using ArrowLeft keyboard key`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextEditorCustom />);
+  test(`should focus all editor toolbar buttons using ArrowLeft keyboard key`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorCustom />);
 
-      const textInput = textEditorInput(page);
-      await textInput.focus();
-      await page.keyboard.press("Tab");
-      for (let i = 0; i < buttonNames.length - times; i++) {
-        await page.keyboard.press("ArrowLeft");
-      }
-
-      await expect(textEditorToolbar(page, buttonType)).toBeFocused();
-    });
+    const textInput = textEditorInput(page);
+    await textInput.click();
+    await page.keyboard.press("Tab");
+    // Expect bold to be focused
+    await expect(textEditorToolbar(page, "bold")).toBeFocused();
+    // Expect italic to be focused
+    await page.keyboard.press("ArrowLeft");
+    await expect(textEditorToolbar(page, "number-list")).toBeFocused();
+    // Expect bullet-list to be focused
+    await page.keyboard.press("ArrowLeft");
+    await expect(textEditorToolbar(page, "bullet-list")).toBeFocused();
+    // Expect number-list to be focused
+    await page.keyboard.press("ArrowLeft");
+    await expect(textEditorToolbar(page, "italic")).toBeFocused();
   });
 
   buttonNames.forEach((buttonType, times) => {
