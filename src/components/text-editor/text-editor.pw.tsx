@@ -111,7 +111,7 @@ test.describe("Functionality tests", () => {
       await mount(<TextEditorCustom />);
 
       const textInput = textEditorInput(page);
-      await textInput.focus();
+      await textInput.click();
       await page.keyboard.press("Tab");
       for (let i = 0; i < times; i++) {
         await page.keyboard.press("ArrowRight");
@@ -129,7 +129,7 @@ test.describe("Functionality tests", () => {
       await mount(<TextEditorCustom />);
 
       const textInput = textEditorInput(page);
-      await textInput.focus();
+      await textInput.click();
       await page.keyboard.press("Tab");
       for (let i = 0; i < buttonNames.length - times; i++) {
         await page.keyboard.press("ArrowLeft");
