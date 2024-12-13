@@ -602,7 +602,7 @@ test.describe("Events test", () => {
 
     await closeIconButton(page).click();
 
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
 
     const dialogText = page.getByText("Do you want to leave before saving?");
     await expect(dialogText).toBeInViewport();
