@@ -553,61 +553,32 @@ test.describe("FilterableSelect component", () => {
     });
   });
 
-  [
-    ["A", "Amber", "Black", "Orange"],
-    ["O", "Brown", "Orange", "Yellow"],
-  ].forEach(([text, optionValue1, optionValue2, optionValue3]) => {
+  (
+    [
+      ["A", ["Amber", "Black", "Orange"]],
+      ["O", ["Brown", "Orange", "Yellow"]],
+      [" O", ["Brown", "Orange", "Yellow"]],
+      ["O ", ["Brown", "Orange", "Yellow"]],
+      [" O ", ["Brown", "Orange", "Yellow"]],
+    ] as const
+  ).forEach(([text, filteredOptionText]) => {
     test(`should filter options when ${text} is typed`, async ({
       mount,
       page,
     }) => {
       await mount(<FilterableSelectComponent />);
 
-      await commonDataElementInputPreview(page).type(text);
-      await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
-      await expect(selectListWrapper(page)).toBeVisible();
-      const option1 = selectOption(page, positionOfElement("first"));
-      const option2 = selectOption(page, positionOfElement("second"));
-      const option3 = selectOption(page, positionOfElement("third"));
-      await expect(option1).toHaveText(optionValue1);
-      await expect(option1).toBeVisible();
-      await expect(option1).toHaveCSS("background-color", "rgb(153, 173, 183)");
-      await expect(option2).toHaveText(optionValue2);
-      await expect(option2).toBeVisible();
-      await expect(option2).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-      await expect(option3).toHaveText(optionValue3);
-      await expect(option3).toBeVisible();
-      await expect(option3).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-    });
-  });
+      const input = page.getByRole("combobox");
+      const dropdownList = page.getByRole("listbox");
 
-  [
-    [" O", "Brown", "Orange", "Yellow"],
-    ["O ", "Brown", "Orange", "Yellow"],
-    [" O ", "Brown", "Orange", "Yellow"],
-  ].forEach(([text, optionValue1, optionValue2, optionValue3]) => {
-    test(`should filter options when "${text}" is typed`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent />);
+      await input.fill(text);
+      await dropdownList.waitFor();
 
-      await commonDataElementInputPreview(page).type(text);
-      await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
-      await expect(selectListWrapper(page)).toBeVisible();
-
-      const option1 = selectOption(page, positionOfElement("first"));
-      const option2 = selectOption(page, positionOfElement("second"));
-      const option3 = selectOption(page, positionOfElement("third"));
-      await expect(option1).toHaveText(optionValue1);
-      await expect(option1).toBeVisible();
-      await expect(option1).toHaveCSS("background-color", "rgb(153, 173, 183)");
-      await expect(option2).toHaveText(optionValue2);
-      await expect(option2).toBeVisible();
-      await expect(option2).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-      await expect(option3).toHaveText(optionValue3);
-      await expect(option3).toBeVisible();
-      await expect(option3).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+      await expect(input).toHaveAttribute("aria-expanded", "true");
+      await expect(dropdownList).toBeVisible();
+      await expect(dropdownList.getByRole("option")).toHaveText(
+        filteredOptionText,
+      );
     });
   });
 
@@ -1518,8 +1489,10 @@ test.describe("Check virtual scrolling", () => {
     }) => {
       await mount(<FilterableSelectComponent />);
 
-      await commonDataElementInputPreview(page).type("foo");
-      await commonDataElementInputPreview(page).press(key);
+      const input = page.getByRole("combobox");
+      await input.fill("foo");
+      await input.press(key);
+
       await expect(page.getByText('No results for "foo"')).toBeVisible();
     });
   });
