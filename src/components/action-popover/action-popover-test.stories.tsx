@@ -8,6 +8,7 @@ import {
   ActionPopoverItem,
   ActionPopoverMenu,
   ActionPopoverProps,
+  ActionPopoverMenuButton,
 } from ".";
 import {
   FlatTable,
@@ -21,7 +22,7 @@ import Box from "../box";
 
 export default {
   title: "Action Popover/Test",
-  includeStories: ["Default", "LongMenuExample"],
+  includeStories: ["Default", "LongMenuExample", "WithAriaAttributes"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -798,5 +799,54 @@ export const LongMenuExample = () => {
         </ActionPopoverItem>
       </ActionPopover>
     </Box>
+  );
+};
+
+export const WithAriaAttributes = () => {
+  return (
+    <>
+      <span id="test-label-id">
+        Instead of "actions", this should be the label
+      </span>
+      <br />
+      <span id="test-description-id">This should be the description</span>
+
+      <ActionPopover
+        aria-labelledby="test-label-id"
+        aria-describedby="test-description-id"
+      >
+        <ActionPopoverItem>example item</ActionPopoverItem>
+      </ActionPopover>
+
+      <span id="foo-label-id">Instead of "Foo", this should be the label </span>
+      <br />
+      <span id="foo-description-id">
+        This should be the description for Foo
+      </span>
+
+      <ActionPopover
+        aria-labelledby="foo-label-id"
+        aria-describedby="foo-description-id"
+        renderButton={({
+          tabIndex,
+          "data-element": dataElement,
+          ariaAttributes,
+        }) => (
+          <ActionPopoverMenuButton
+            buttonType="tertiary"
+            iconType="dropdown"
+            iconPosition="after"
+            size="small"
+            tabIndex={tabIndex}
+            data-element={dataElement}
+            ariaAttributes={ariaAttributes}
+          >
+            Foo
+          </ActionPopoverMenuButton>
+        )}
+      >
+        <ActionPopoverItem onClick={() => {}}>foo</ActionPopoverItem>
+      </ActionPopover>
+    </>
   );
 };

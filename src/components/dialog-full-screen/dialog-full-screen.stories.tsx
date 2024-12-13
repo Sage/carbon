@@ -11,6 +11,7 @@ import Form from "../form";
 import Textbox from "../textbox";
 import Pill from "../pill";
 import Drawer from "../drawer/drawer.component";
+import Message from "../message";
 import { Tabs, Tab } from "../tabs";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Link from "../link";
@@ -117,6 +118,76 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 Default.parameters = { chromatic: { disableSnapshot: true } };
+
+export const RestoreFocusOnCloseStory: Story = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const messageRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setIsOpen(true);
+          setShowMessage(false);
+        }}
+        mb={showMessage ? 5 : 0}
+      >
+        Open DialogFullScreen
+      </Button>
+      {showMessage && (
+        <Message
+          ref={messageRef}
+          variant="error"
+          onDismiss={() => setShowMessage(false)}
+        >
+          Some custom message
+        </Message>
+      )}
+      <DialogFullScreen
+        open={isOpen}
+        onCancel={() => {
+          setIsOpen(false);
+          setShowMessage(true);
+          setTimeout(() => messageRef.current?.focus(), 1);
+        }}
+        title="Title"
+        subtitle="Subtitle"
+        restoreFocusOnClose={false}
+      >
+        <Form
+          stickyFooter
+          leftSideButtons={
+            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+          }
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Typography>
+            This is an example of a dialog with a Form as content
+          </Typography>
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+        </Form>
+      </DialogFullScreen>
+    </>
+  );
+};
+RestoreFocusOnCloseStory.storyName = "With Restore Focus On Close";
+RestoreFocusOnCloseStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithComplexExample: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);

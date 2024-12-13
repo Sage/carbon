@@ -17,8 +17,8 @@ export interface CheckboxGroupProps extends ValidationProps, MarginProps {
   /** The content for the CheckboxGroup Legend */
   legend?: string;
   /**
-   * The content for the CheckboxGroup Help tooltip,
-   * will be rendered as hint text when `validationRedesignOptIn` is true.
+   * The content for the CheckboxGroup hint text,
+   * will only be rendered when `validationRedesignOptIn` is true.
    */
   legendHelp?: string;
   /** [Legacy] When true, legend is placed inline with the checkboxes */
@@ -39,7 +39,7 @@ export interface CheckboxGroupProps extends ValidationProps, MarginProps {
   isOptional?: boolean;
   /** [Legacy] Overrides the default tooltip */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** When true, Checkboxes are in line */
+  /** When true, Checkboxes are inline */
   inline?: boolean;
 }
 
@@ -74,7 +74,6 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
           legendSpacing={legendSpacing}
           error={error}
           warning={warning}
-          info={info}
           isRequired={required}
           isOptional={isOptional}
           {...tagComponent("checkboxgroup", props)}

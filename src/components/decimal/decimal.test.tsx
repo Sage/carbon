@@ -930,7 +930,7 @@ describe("when the component is uncontrolled", () => {
     expect(screen.getByTestId("hidden-input")).toHaveValue("1  0000,00");
   });
 
-  it("corretcly handles a value that has multiple groups with white-spaces when the `pt-PT` locale is set", async () => {
+  it("correctly handles a value that has multiple groups with white-spaces when the `pt-PT` locale is set", async () => {
     const user = userEvent.setup();
     render(<Decimal locale="pt-PT" />);
 

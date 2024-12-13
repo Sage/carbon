@@ -25,8 +25,8 @@ test("should display deprecation warning once", () => {
 });
 
 testStyledSystemMargin(
-  (props) => <Switch data-role="swtich-wrapper" {...props} />,
-  () => screen.getByTestId("swtich-wrapper"),
+  (props) => <Switch data-role="switch-wrapper" {...props} />,
+  () => screen.getByTestId("switch-wrapper"),
 );
 
 test("accepts ref as a ref object", () => {

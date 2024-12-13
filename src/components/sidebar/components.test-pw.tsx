@@ -8,7 +8,13 @@ import Toast from "../toast";
 import Textbox from "../textbox";
 import Dialog from "../dialog";
 
-export const Default = ({ open = true }: { open?: boolean }) => {
+export const Default = ({
+  open = true,
+  restoreFocusOnClose,
+}: {
+  open?: boolean;
+  restoreFocusOnClose?: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(open);
   const onCancel = () => {
     setIsOpen(false);
@@ -16,7 +22,12 @@ export const Default = ({ open = true }: { open?: boolean }) => {
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
-      <Sidebar aria-label="sidebar" open={isOpen} onCancel={onCancel}>
+      <Sidebar
+        aria-label="sidebar"
+        open={isOpen}
+        onCancel={onCancel}
+        restoreFocusOnClose={restoreFocusOnClose}
+      >
         <Box mb={2}>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>

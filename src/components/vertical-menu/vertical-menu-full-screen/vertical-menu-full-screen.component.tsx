@@ -61,6 +61,7 @@ export const VerticalMenuFullScreen = ({
     closeModal: handleKeyDown,
     modalRef: menuWrapperRef,
     topModalOverride: true,
+    focusCallToActionElement: document.activeElement as HTMLElement,
   });
 
   // TODO remove this as part of FE-5650

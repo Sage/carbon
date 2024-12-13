@@ -45,21 +45,21 @@ export interface PortraitProps extends MarginProps {
   darkBackground?: boolean;
   /** Prop for `onClick` events. */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
-  /** The message to be displayed within the tooltip */
+  /** [Legacy] The message to be displayed within the tooltip */
   tooltipMessage?: React.ReactNode;
-  /** The id attribute to use for the tooltip */
+  /** [Legacy] The id attribute to use for the tooltip */
   tooltipId?: string;
-  /** Whether to to show the Tooltip */
+  /** [Legacy] Whether to to show the Tooltip */
   tooltipIsVisible?: boolean;
-  /** Sets position of the tooltip */
+  /** [Legacy] Sets position of the tooltip */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** Defines the message type */
+  /** [Legacy] Defines the message type */
   tooltipType?: string;
-  /** Defines the size of the tooltip content */
+  /** [Legacy] Defines the size of the tooltip content */
   tooltipSize?: "medium" | "large";
-  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** [Legacy] Override background color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipBgColor?: string;
-  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** [Legacy] Override font color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipFontColor?: string;
 }
 

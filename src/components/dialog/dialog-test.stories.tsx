@@ -166,7 +166,7 @@ export const Default = ({
           <TextEditor
             onChange={handleEditorChange}
             value={editorState}
-            labelText="Additonal notes"
+            labelText="Additional notes"
             mb={1}
           />
           <Checkbox name="checkbox" label="Do you like my Dog" />
