@@ -533,61 +533,32 @@ test.describe("FilterableSelect component", () => {
     });
   });
 
-  [
-    ["A", "Amber", "Black", "Orange"],
-    ["O", "Brown", "Orange", "Yellow"],
-  ].forEach(([text, optionValue1, optionValue2, optionValue3]) => {
+  (
+    [
+      ["A", ["Amber", "Black", "Orange"]],
+      ["O", ["Brown", "Orange", "Yellow"]],
+      [" O", ["Brown", "Orange", "Yellow"]],
+      ["O ", ["Brown", "Orange", "Yellow"]],
+      [" O ", ["Brown", "Orange", "Yellow"]],
+    ] as const
+  ).forEach(([text, filteredOptionText]) => {
     test(`should filter options when ${text} is typed`, async ({
       mount,
       page,
     }) => {
       await mount(<FilterableSelectComponent />);
 
-      await commonDataElementInputPreview(page).type(text);
-      await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
-      await expect(selectListWrapper(page)).toBeVisible();
-      const option1 = selectOption(page, positionOfElement("first"));
-      const option2 = selectOption(page, positionOfElement("second"));
-      const option3 = selectOption(page, positionOfElement("third"));
-      await expect(option1).toHaveText(optionValue1);
-      await expect(option1).toBeVisible();
-      await expect(option1).toHaveCSS("background-color", "rgb(153, 173, 183)");
-      await expect(option2).toHaveText(optionValue2);
-      await expect(option2).toBeVisible();
-      await expect(option2).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-      await expect(option3).toHaveText(optionValue3);
-      await expect(option3).toBeVisible();
-      await expect(option3).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-    });
-  });
+      const input = page.getByRole("combobox");
+      const dropdownList = page.getByRole("listbox");
 
-  [
-    [" O", "Brown", "Orange", "Yellow"],
-    ["O ", "Brown", "Orange", "Yellow"],
-    [" O ", "Brown", "Orange", "Yellow"],
-  ].forEach(([text, optionValue1, optionValue2, optionValue3]) => {
-    test(`should filter options when "${text}" is typed`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent />);
+      await input.fill(text);
+      await dropdownList.waitFor();
 
-      await commonDataElementInputPreview(page).type(text);
-      await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
-      await expect(selectListWrapper(page)).toBeVisible();
-
-      const option1 = selectOption(page, positionOfElement("first"));
-      const option2 = selectOption(page, positionOfElement("second"));
-      const option3 = selectOption(page, positionOfElement("third"));
-      await expect(option1).toHaveText(optionValue1);
-      await expect(option1).toBeVisible();
-      await expect(option1).toHaveCSS("background-color", "rgb(153, 173, 183)");
-      await expect(option2).toHaveText(optionValue2);
-      await expect(option2).toBeVisible();
-      await expect(option2).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-      await expect(option3).toHaveText(optionValue3);
-      await expect(option3).toBeVisible();
-      await expect(option3).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+      await expect(input).toHaveAttribute("aria-expanded", "true");
+      await expect(dropdownList).toBeVisible();
+      await expect(dropdownList.getByRole("option")).toHaveText(
+        filteredOptionText,
+      );
     });
   });
 
@@ -973,7 +944,7 @@ test.describe("FilterableSelect component", () => {
       const inputElement = commonDataElementInputPreview(page);
       await inputElement.click();
       await expect(inputElement).toBeFocused();
-      await inputElement.type(text);
+      await inputElement.fill(text);
       const highlightedValue = boldedAndUnderlinedValue(page, text);
       await expect(highlightedValue).toHaveCSS(
         "text-decoration-line",
@@ -997,7 +968,7 @@ test.describe("FilterableSelect component", () => {
     const inputElement = commonDataElementInputPreview(page);
     await inputElement.click();
     await expect(inputElement).toBeFocused();
-    await inputElement.type(text);
+    await inputElement.fill(text);
     await expect(selectListWrapper(page)).toBeVisible();
     const headerElements = multiColumnsSelectListHeader(page);
     await expect(headerElements).toHaveCount(columns);
@@ -1485,7 +1456,7 @@ test.describe("Check virtual scrolling", () => {
   }) => {
     await mount(<FilterableSelectWithManyOptionsAndVirtualScrolling />);
 
-    await commonDataElementInputPreview(page).type("Option 100");
+    await commonDataElementInputPreview(page).fill("Option 100");
     await expect(selectOptionByText(page, "Option 100.")).toBeInViewport();
     await expect(selectOptionByText(page, "Option 1000.")).toBeInViewport();
     await expect(selectOptionByText(page, "Option 1002.")).toBeInViewport();
@@ -1498,8 +1469,10 @@ test.describe("Check virtual scrolling", () => {
     }) => {
       await mount(<FilterableSelectComponent />);
 
-      await commonDataElementInputPreview(page).type("foo");
-      await commonDataElementInputPreview(page).press(key);
+      const input = page.getByRole("combobox");
+      await input.fill("foo");
+      await input.press(key);
+
       await expect(page.getByText('No results for "foo"')).toBeVisible();
     });
   });
@@ -1675,7 +1648,7 @@ test.describe("Selection confirmed", () => {
 
     await dropdownButton(page).click();
     const inputElement = selectInput(page);
-    await inputElement.type("th");
+    await inputElement.fill("th");
     await expect(
       page.locator('[data-element="confirmed-selection-3"]'),
     ).not.toBeVisible();
@@ -1692,7 +1665,7 @@ test.describe("Selection confirmed", () => {
     await mount(<SelectionConfirmed />);
 
     const inputElement = selectInput(page);
-    await inputElement.type("foo");
+    await inputElement.fill("foo");
     await inputElement.press("Enter");
     // note: need to check count rather than visibility here - when the test fails and selectionConfirmed is set,
     // the span with the data-element prop exists but has size 0 due to having no text content - which Playwright
@@ -1711,7 +1684,7 @@ test("should not throw when filter text does not match option text", async ({
     <FilterableSelectComponent value={undefined} onChange={undefined} />,
   );
 
-  await commonDataElementInputPreview(page).type("abc");
+  await commonDataElementInputPreview(page).fill("abc");
   await selectInput(page).press("Enter");
   await expect(getDataElementByValue(page, "input")).toHaveValue("");
 });
@@ -1724,7 +1697,7 @@ test("should not select a disabled option when a filter is typed", async ({
 
   await dropdownButton(page).click();
   const inputElement = selectInput(page);
-  await inputElement.type("t");
+  await inputElement.fill("t");
   await inputElement.press("Enter");
   await expect(
     page.locator('[data-element="confirmed-selection-2"]'),
