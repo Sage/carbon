@@ -1,3 +1,10 @@
+### [144.21.1](https://github.com/Sage/carbon/compare/v144.21.0...v144.21.1) (2024-12-13)
+
+
+### Bug Fixes
+
+* **box:** css style properties passed as HTML attributes ([8e2376d](https://github.com/Sage/carbon/commit/8e2376dc22181b66471b206ad332a2f0723c539e))
+
 ## [144.21.0](https://github.com/Sage/carbon/compare/v144.20.1...v144.21.0) (2024-12-12)
 
 
