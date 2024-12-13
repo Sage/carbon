@@ -1,10 +1,8 @@
 /* eslint-disable no-console */
 const { Octokit } = require("@octokit/rest");
-const dotenv = require("dotenv");
 const chalk = require("chalk");
 const ci = require("ci-info");
 
-dotenv.config();
 const octokit = new Octokit({
   baseUrl: "https://api.github.com",
 });
@@ -46,7 +44,7 @@ const checkRfcs = async () => {
     const header = chalk.bold.inverse.white(
       " ".repeat(20),
       "Open RFCs for carbon-react",
-      " ".repeat(20)
+      " ".repeat(20),
     );
 
     const rfcText = openRfcs
@@ -61,10 +59,10 @@ const checkRfcs = async () => {
     const rfcLink =
       "https://github.com/Sage/carbon/pulls?q=is%3Aopen+is%3Apr+label%3ARFC";
     const message = `Failed to retrieve open RFCs for carbon-react. Go to ${chalk.cyan.italic(
-      rfcLink
+      rfcLink,
     )} to view current RFCs.`;
     console.log(
-      `${chalk.yellow.inverse(" WARN ")}\n${chalk.yellow(message)}\n`
+      `${chalk.yellow.inverse(" WARN ")}\n${chalk.yellow(message)}\n`,
     );
   }
 };

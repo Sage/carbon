@@ -46,8 +46,8 @@ const config: StorybookConfig = {
     },
     "@storybook/addon-toolbars",
     "@storybook/addon-viewport",
-    "@storybook/addon-webpack5-compiler-swc",
     "@chromatic-com/storybook",
+    "@storybook/addon-webpack5-compiler-babel",
   ],
 
   staticDirs: ["../.assets", "../logo"],
