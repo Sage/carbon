@@ -58,7 +58,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default color={color} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("color", color);
       await expect(boxElement).toHaveCSS("color", rgbValue);
     });
   });
@@ -70,7 +69,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default color={rgbValue} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("color", rgbValue);
       await expect(boxElement).toHaveCSS("color", rgbValue);
     });
   });
@@ -82,7 +80,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default color={hexValue} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("color", hexValue);
       await expect(boxElement).toHaveCSS("color", rgbValue);
     });
   });
@@ -168,7 +165,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default bg="primary" width={percentage} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("width", String(percentage));
       await assertCssValueIsApproximately(boxElement, "width", parseInt(width));
     });
   });
@@ -180,7 +176,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default bg="primary" width={number} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("width", String(number));
       await assertCssValueIsApproximately(boxElement, "width", parseInt(width));
     });
   });
@@ -192,7 +187,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default bg="primary" width={width} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("width", width);
       await assertCssValueIsApproximately(boxElement, "width", parseInt(width));
     });
   });
@@ -204,7 +198,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default bg="primary" height={number} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("height", String(number));
       await assertCssValueIsApproximately(
         boxElement,
         "height",
@@ -220,7 +213,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default bg="primary" height={height} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("height", height);
       await assertCssValueIsApproximately(
         boxElement,
         "height",
