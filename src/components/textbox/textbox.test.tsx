@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 import Textbox, { TextboxProps } from ".";
@@ -406,7 +406,9 @@ test.each(validationTypes)(
   async (validationType) => {
     render(<Textbox label="bar" id="foo" {...{ [validationType]: "test" }} />);
     const input = screen.getByRole("textbox");
-    input.focus();
+    act(() => {
+      input.focus();
+    });
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
@@ -421,7 +423,9 @@ test.each(validationTypes)(
   async (validationType) => {
     render(<Textbox label="bar" {...{ [validationType]: "test" }} />);
     const input = screen.getByRole("textbox");
-    input.focus();
+    act(() => {
+      input.focus();
+    });
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
@@ -469,7 +473,9 @@ test.each(validationTypes)(
       />,
     );
     const input = screen.getByRole("textbox");
-    input.focus();
+    act(() => {
+      input.focus();
+    });
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
@@ -490,7 +496,9 @@ test.each(validationTypes)(
       <Textbox label="bar" fieldHelp="baz" {...{ [validationType]: "test" }} />,
     );
     const input = screen.getByRole("textbox");
-    input.focus();
+    act(() => {
+      input.focus();
+    });
 
     expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
@@ -509,8 +517,11 @@ test.each(validationTypes)(
 
 test("renders validation tooltip with provided 'tooltipId' prop", async () => {
   render(<Textbox label="bar" error="baz" tooltipId="foo" />);
+
   const input = screen.getByRole("textbox");
-  input.focus();
+  act(() => {
+    input.focus();
+  });
 
   expect(await screen.findByRole("tooltip")).toHaveAttribute("id", "foo");
   expect(input).toHaveAccessibleDescription("baz");

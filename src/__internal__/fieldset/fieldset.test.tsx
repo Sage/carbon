@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import Fieldset from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
@@ -96,11 +96,16 @@ test("sets `aria-describedby` on help icon as tooltip content when focused and r
       <input />
     </Fieldset>,
   );
-
   const help = screen.getByRole("button", { name: "help" });
-  help.focus();
+
+  act(() => {
+    help.focus();
+  });
   expect(help).toHaveAccessibleDescription("label help");
-  help.blur();
+
+  act(() => {
+    help.blur();
+  });
   expect(help).not.toHaveAttribute("aria-describedby");
 });
 

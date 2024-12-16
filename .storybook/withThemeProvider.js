@@ -3,7 +3,6 @@ import isChromatic from "./isChromatic";
 import React from "react";
 import styled from "styled-components";
 import CarbonProvider from "../src/components/carbon-provider";
-import sageDebugTheme from "../src/style/design-tokens/debug-theme.util";
 import { noTheme, sageTheme } from "../src/style/themes";
 import { config } from "react-transition-group";
 
@@ -11,10 +10,6 @@ const themes = [noTheme, sageTheme].reduce((themesObject, theme) => {
   themesObject[theme.name] = theme;
   return themesObject;
 }, {});
-
-if (!isChromatic() && process.env.STORYBOOK_DEBUG_THEME === "true") {
-  themes["sage-debug"] = sageDebugTheme;
-}
 
 const render = (
   Story,

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Help from ".";
 import Icon from "../icon";
@@ -35,9 +35,11 @@ test("removes tooltip when Escape key is pressed", async () => {
   const user = userEvent.setup();
   render(<Help>foo</Help>);
 
-  screen.getByRole("button", { name: "help" }).focus();
+  act(() => {
+    screen.getByRole("button", { name: "help" }).focus();
+  });
 
-  expect(screen.getByRole("tooltip", { name: "foo" })).toBeVisible();
+  expect(await screen.findByRole("tooltip", { name: "foo" })).toBeVisible();
 
   await user.keyboard("{Escape}");
 
@@ -48,9 +50,11 @@ test("does not remove tooltip when Enter key is pressed", async () => {
   const user = userEvent.setup();
   render(<Help>foo</Help>);
 
-  screen.getByRole("button", { name: "help" }).focus();
+  act(() => {
+    screen.getByRole("button", { name: "help" }).focus();
+  });
 
-  const tooltip = screen.getByRole("tooltip", { name: "foo" });
+  const tooltip = await screen.findByRole("tooltip", { name: "foo" });
 
   expect(tooltip).toBeVisible();
 

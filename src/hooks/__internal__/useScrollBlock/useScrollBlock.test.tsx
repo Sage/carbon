@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { render } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
+import { render, act } from "@testing-library/react";
 
 import useScrollBlock from "./useScrollBlock";
 import ScrollBlockManager from "./scroll-block-manager";

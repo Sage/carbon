@@ -55,6 +55,7 @@ describe("checkRfcs script", () => {
 
     ci.isCI = true;
     process.env.NODE_ENV = "NOT-TEST";
+
     await checkRfcs();
 
     expect(consoleLogMock).not.toHaveBeenCalled();
