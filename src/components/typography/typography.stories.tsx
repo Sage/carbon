@@ -89,30 +89,6 @@ export const VariantsStory: Story = () => (
     <Typography variant="p">
       H<Typography variant="sub">2</Typography>O is an example of subscript
     </Typography>
-    <List>
-      <ListItem>
-        Milk <Typography variant="b">2L</Typography>{" "}
-        <Typography variant="em">Skimmed</Typography>
-      </ListItem>
-      <ListItem>
-        Bread <Typography variant="b">500g</Typography>
-      </ListItem>
-      <ListItem>
-        Sugar <Typography variant="b">1Kg</Typography>
-      </ListItem>
-    </List>
-    <List as="ol">
-      <ListItem>
-        Milk <Typography variant="b">2L</Typography>{" "}
-        <Typography variant="em">Skimmed</Typography>
-      </ListItem>
-      <ListItem>
-        Bread <Typography variant="b">500g</Typography>
-      </ListItem>
-      <ListItem>
-        Sugar <Typography variant="b">1Kg</Typography>
-      </ListItem>
-    </List>
   </>
 );
 VariantsStory.storyName = "Variants";
@@ -155,3 +131,71 @@ export const ScreenReaderOnlyStory: Story = () => (
 );
 ScreenReaderOnlyStory.storyName = "Screen Reader Only";
 ScreenReaderOnlyStory.parameters = { info: { disable: true } };
+
+export const Lists: Story = () => (
+  <>
+    <Typography>Unordered List</Typography>
+    <List>
+      <ListItem>
+        Milk <Typography variant="b">2L</Typography>{" "}
+        <Typography variant="em">Skimmed</Typography>
+      </ListItem>
+      <ListItem>
+        Bread <Typography variant="b">500g</Typography>
+      </ListItem>
+      <ListItem>
+        Sugar <Typography variant="b">1Kg</Typography>
+      </ListItem>
+    </List>
+
+    <Typography>Ordered List</Typography>
+    <List as="ol">
+      <ListItem>
+        Milk <Typography variant="b">2L</Typography>{" "}
+        <Typography variant="em">Skimmed</Typography>
+      </ListItem>
+      <ListItem>
+        Bread <Typography variant="b">500g</Typography>
+      </ListItem>
+      <ListItem>
+        Sugar <Typography variant="b">1Kg</Typography>
+      </ListItem>
+    </List>
+  </>
+);
+Lists.storyName = "Lists";
+Lists.parameters = { info: { disable: true } };
+
+export const ListItemInheritance: Story = () => (
+  <>
+    <Typography>Default</Typography>
+    <List>
+      <ListItem>item 1</ListItem>
+      <ListItem>item 2</ListItem>
+      <ListItem>item 3</ListItem>
+    </List>
+
+    <Typography>Big</Typography>
+    <List variant="big">
+      <ListItem>item 1</ListItem>
+      <ListItem>item 2</ListItem>
+      <ListItem>item 3</ListItem>
+    </List>
+
+    <Typography>Small</Typography>
+    <List variant="small">
+      <ListItem>item 1</ListItem>
+      <ListItem>item 2</ListItem>
+      <ListItem>item 3</ListItem>
+    </List>
+
+    <Typography>H1</Typography>
+    <List variant="h1">
+      <ListItem>item 1</ListItem>
+      <ListItem>item 2</ListItem>
+      <ListItem>item 3</ListItem>
+    </List>
+  </>
+);
+ListItemInheritance.storyName = "List Item Inheritance";
+ListItemInheritance.parameters = { info: { disable: true } };

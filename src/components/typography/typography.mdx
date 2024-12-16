@@ -29,15 +29,27 @@ It's possible to change the text colour and background, using the color props. S
 
 It's possible to change the text position, using the spacing props. See the prop tables below for more information.
 
-It's also possible to create ordered and unordered lists using the `List`, `ListItem` helpers. These components are syntactic sugar around the `Typography` component and accept the same props.
-
 <Canvas of={TypographyStories.VariantsStory} />
+
+## Lists
+
+Use `List` and `ListItem` to create ordered and unordered lists. These components are syntactic sugar around the `Typography` component and accept the same props.
+By default, `List` will render an unordered list, but you can pass `ol` to the `variant` prop to render an ordered list; all other typography variants will render
+the `ListItem` component as an unordered list (examples of which are shown in [ListItem Inheritance](#listitem-inheritance)).
+
+<Canvas of={TypographyStories.Lists} />
+
+## ListItem Inheritance
+
+When using `List` and `ListItem`, set the `variant` on the `List` component to apply the same variant to all `ListItem` components within it.
+
+<Canvas of={TypographyStories.ListItemInheritance} />
 
 ## Example of truncate
 
 The `truncate` prop is a boolean prop that automatically applies  `overflow: hidden` and `white-space: nowrap`, which are the styles required to truncate a piece of text.
 
-By default, this prop will truncate the text with an ellipsis, but you can also pass the `textOverflow` prop to override this behaviour. 
+By default, this prop will truncate the text with an ellipsis, but you can also pass the `textOverflow` prop to override this behaviour.
 
 This prop will only work with block level elements, so ensure `display="block"` or similar is set to enable this functionality.
 
