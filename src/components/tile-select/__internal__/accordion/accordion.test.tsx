@@ -1,6 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
+import { render, screen, act } from "@testing-library/react";
 import Accordion from "./accordion.component";
 import useResizeObserver from "../../../../hooks/__internal__/useResizeObserver";
 

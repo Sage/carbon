@@ -1,5 +1,11 @@
 import React from "react";
-import { render, screen, createEvent, fireEvent } from "@testing-library/react";
+import {
+  render,
+  screen,
+  createEvent,
+  fireEvent,
+  act,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 import InputIconToggle, { InputIconToggleProps } from ".";
@@ -310,7 +316,9 @@ test("calls `onFocus` handler when the validation icon is focused", async () => 
   );
 
   const validationIcon = screen.getByTestId("icon-error");
-  validationIcon.focus();
+  act(() => {
+    validationIcon.focus();
+  });
 
   expect(mockOnFocus).toHaveBeenCalled();
 });
@@ -323,8 +331,9 @@ test("calls `onBlur` handler when the validation icon loses focus", async () => 
 
   const validationIcon = screen.getByTestId("icon-error");
   const user = userEvent.setup();
-
-  validationIcon.focus();
+  act(() => {
+    validationIcon.focus();
+  });
   await user.tab();
 
   expect(mockOnBlur).toHaveBeenCalled();

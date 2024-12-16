@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import ValidationIcon from "./validation-icon.component";
@@ -122,7 +122,9 @@ test("renders a tooltip when the validation icon is focused", () => {
   render(<ValidationIcon error="error" />);
 
   const validationIcon = screen.getByTestId("icon-error");
-  validationIcon.focus();
+  act(() => {
+    validationIcon.focus();
+  });
 
   const tooltip = screen.getByRole("tooltip");
   expect(tooltip).toBeVisible();
@@ -134,7 +136,9 @@ test("renders a tooltip when validation icon is focused, then is not rendered on
   const user = userEvent.setup();
   const validationIcon = screen.getByTestId("icon-error");
 
-  validationIcon.focus();
+  act(() => {
+    validationIcon.focus();
+  });
   const tooltip = screen.getByRole("tooltip");
   expect(tooltip).toBeVisible();
 
@@ -146,7 +150,9 @@ test("sets the 'id' attribute on the tooltip via the `tooltipId` prop on the val
   render(<ValidationIcon tooltipId="foo" error="error" />);
 
   const validationIcon = screen.getByTestId("icon-error");
-  validationIcon.focus();
+  act(() => {
+    validationIcon.focus();
+  });
 
   const tooltip = screen.getByRole("tooltip");
   expect(tooltip).toHaveAttribute("id", "foo");
@@ -157,7 +163,9 @@ test("triggers a passed function via the `onFocus` prop when the validation icon
   render(<ValidationIcon error="error" onFocus={mockOnFocus} />);
 
   const validationIcon = screen.getByTestId("icon-error");
-  validationIcon.focus();
+  act(() => {
+    validationIcon.focus();
+  });
 
   expect(mockOnFocus).toHaveBeenCalled();
 });

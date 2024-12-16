@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import SelectTextbox from ".";
@@ -66,7 +66,9 @@ test("calls onFocus callback when combobox is focused", () => {
   const onFocus = jest.fn();
   render(<SelectTextbox label="Textbox" onFocus={onFocus} />);
 
-  screen.getByRole("combobox", { name: "Textbox" }).focus();
+  act(() => {
+    screen.getByRole("combobox", { name: "Textbox" }).focus();
+  });
 
   expect(onFocus).toHaveBeenCalledTimes(1);
 });
@@ -85,8 +87,10 @@ test("calls onBlur callback when combobox is blurred", () => {
   render(<SelectTextbox label="Textbox" onBlur={onBlur} />);
 
   const combobox = screen.getByRole("combobox", { name: "Textbox" });
-  combobox.focus();
-  combobox.blur();
+  act(() => {
+    combobox.focus();
+    combobox.blur();
+  });
 
   expect(onBlur).toHaveBeenCalledTimes(1);
 });
@@ -110,7 +114,9 @@ test("does not call onFocus callback when textbox is read only", () => {
   const onFocus = jest.fn();
   render(<SelectTextbox label="Textbox" onFocus={onFocus} readOnly />);
 
-  screen.getByRole("textbox", { name: "Textbox" }).focus();
+  act(() => {
+    screen.getByRole("textbox", { name: "Textbox" }).focus();
+  });
 
   expect(onFocus).not.toHaveBeenCalled();
 });
