@@ -1,10 +1,9 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { SimpleSelectProps } from "..";
+import SimpleSelect, { SimpleSelectProps } from ".";
+import Option from "../option";
 import {
   SimpleSelectComponent,
-  SimpleSelectWithLazyLoadingComponent,
-  SimpleSelectWithInfiniteScrollComponent,
   SimpleSelectMultipleColumnsComponent,
   SimpleSelectObjectAsValueComponent,
   SimpleSelectCustomOptionChildrenComponent,
@@ -471,112 +470,71 @@ test.describe("SimpleSelect component", () => {
     await expect(selectOptionByText(page, optionValue11)).toBeInViewport();
   });
 
-  test("should render the lazy loader when the prop is set", async ({
+  test("renders loader when isLoading prop is set to true", async ({
     mount,
     page,
   }) => {
-    await mount(<SimpleSelectWithLazyLoadingComponent />);
+    await mount(<SimpleSelectComponent isLoading />);
 
-    await selectText(page).click();
-    await expect(selectListWrapper(page)).toBeVisible();
-    await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
-    );
+    const dropdownIcon = page.getByTestId("input-icon-toggle");
+    const dropdownList = page.getByRole("listbox");
+
+    await dropdownIcon.click();
+    await dropdownList.waitFor();
+
+    await expect(loader(page, 1)).toBeVisible();
   });
 
-  test("should render a lazy loaded option when the infinite scroll prop is set", async ({
+  test("scroll position of option list doesn't change, if the component's options are dynamically changed", async ({
     mount,
     page,
   }) => {
-    test.slow();
-
-    await mount(<SimpleSelectWithInfiniteScrollComponent />);
-
-    const option = "Lazy Loaded A1";
-    const selectListWrapperElement = selectListWrapper(page);
-    await selectText(page).click();
-    await expect(selectListWrapperElement).toBeVisible();
-    await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
+    const { update } = await mount(
+      <SimpleSelect label="Colour">
+        <Option text="Amber" value="Amber" />
+        <Option text="Black" value="Black" />
+        <Option text="Cyan" value="Cyan" />
+        <Option text="Dark Blue" value="Dark Blue" />
+        <Option text="Emerald" value="Emerald" />
+        <Option text="Fuchsia" value="Fuchsia" />
+        <Option text="Gold" value="Gold" />
+      </SimpleSelect>,
     );
-    await expect(selectOptionByText(page, option)).toHaveCount(0);
-    await page.waitForTimeout(2000);
-    await selectListScrollableWrapper(page).evaluate((wrapper) => {
-      wrapper.scrollBy(0, 500);
-    });
-    await page.waitForTimeout(250);
-    await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).not.toBeVisible()),
-    );
-    await expect(selectOptionByText(page, option)).toBeVisible();
-  });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("infinite scroll example should not cycle back to the start when using down arrow key", async ({
-    mount,
-    page,
-  }) => {
-    // this is a slow test which can sometimes take more than the 30-second default timeout - so tell Playwright
-    // to increase it
-    test.slow();
+    const dropdownIcon = page.getByTestId("input-icon-toggle");
+    await dropdownIcon.click();
 
-    await mount(<SimpleSelectWithInfiniteScrollComponent />);
+    const dropdownList = page.getByRole("listbox");
+    await dropdownList.waitFor();
 
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await inputElement.press("ArrowDown");
-    const firstOption = selectOptionByText(page, "Amber");
-    await firstOption.waitFor();
-    for (let i = 0; i < 5; i++) {
-      // eslint-disable-next-line no-await-in-loop
-      await inputElement.press("ArrowDown");
-    }
-    await selectOptionByText(page, "Lazy Loaded A1").waitFor();
+    await page.keyboard.press("ArrowUp");
+    await expect(page.getByRole("option").last()).toBeInViewport();
 
-    // run this 10 times to try to catch any intermittent failures
-    for (let i = 0; i < 10; i++) {
-      for (let j = 0; j < 3; j++) {
-        // eslint-disable-next-line no-await-in-loop
-        await inputElement.press("ArrowDown");
-      }
-      // wait for new lazy-loaded options to appear
-      // eslint-disable-next-line no-await-in-loop
-      await page.waitForTimeout(2000);
-      // eslint-disable-next-line no-await-in-loop
-      await expect(firstOption).not.toBeInViewport();
-    }
-  });
-
-  test("the list should not change scroll position when the lazy-loaded options appear", async ({
-    mount,
-    page,
-  }) => {
-    test.slow();
-
-    await mount(<SimpleSelectWithInfiniteScrollComponent />);
-
-    // open the select list and choose an option
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await inputElement.press("ArrowDown");
-    const firstOption = selectOptionByText(page, "Amber");
-    await firstOption.waitFor();
-    await firstOption.click();
-
-    // reopen the list and scroll to initiate the lazy loading. It's important to not use the keyboard here as that
-    // won't trigger the bug.
-    const scrollableWrapper = selectListScrollableWrapper(page);
-    await selectText(page).click();
-    await scrollableWrapper.evaluate((wrapper) => wrapper.scrollBy(0, 500));
-    const scrollPositionBeforeLoad = await scrollableWrapper.evaluate(
+    const scrollPosition = await dropdownList.evaluate(
       (element) => element.scrollTop,
     );
 
-    await selectOptionByText(page, "Lazy Loaded A1").waitFor();
-    const scrollPositionAfterLoad = await scrollableWrapper.evaluate(
+    await update(
+      <SimpleSelect label="Colour">
+        <Option text="Amber" value="Amber" />
+        <Option text="Black" value="Black" />
+        <Option text="Cyan" value="Cyan" />
+        <Option text="Dark Blue" value="Dark Blue" />
+        <Option text="Emerald" value="Emerald" />
+        <Option text="Fuchsia" value="Fuchsia" />
+        <Option text="Gold" value="Gold" />
+        <Option text="Hot Pink" value="Hot Pink" />
+        <Option text="Indigo" value="Indigo" />
+      </SimpleSelect>,
+    );
+
+    await expect(page.getByRole("option")).toHaveCount(9);
+
+    // check that the scroll position hasn't changed
+    const newScrollPosition = await dropdownList.evaluate(
       (element) => element.scrollTop,
     );
-    expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
+    expect(newScrollPosition).toBeCloseTo(scrollPosition, 1);
   });
 
   test("keyboard navigation should work correctly in multicolumn mode and ensure the selected option is visible", async ({
@@ -1731,26 +1689,10 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     mount,
     page,
   }) => {
-    await mount(<SimpleSelectWithLazyLoadingComponent />);
+    await mount(<SimpleSelectComponent isLoading />);
 
     await selectText(page).click();
     await expect(loader(page, 1)).toBeVisible();
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests with onListScrollBottom prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectWithInfiniteScrollComponent />);
-
-    await selectText(page).click();
-    await checkAccessibility(page);
-    // wait for content to finish loading before scrolling
-    await expect(selectOptionByText(page, "Amber")).toBeVisible();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500),
-    );
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
