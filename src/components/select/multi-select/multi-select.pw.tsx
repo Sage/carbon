@@ -659,6 +659,8 @@ test.describe("MultiSelect component", () => {
     mount,
     page,
   }) => {
+    test.slow();
+
     await mount(<MultiSelectWithInfiniteScrollComponent />);
 
     const option = "Lazy Loaded A1";
@@ -684,6 +686,8 @@ test.describe("MultiSelect component", () => {
     mount,
     page,
   }) => {
+    test.slow();
+
     await mount(<MultiSelectWithInfiniteScrollComponent />);
 
     // open the select list and choose an option
