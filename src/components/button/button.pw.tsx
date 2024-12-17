@@ -294,24 +294,12 @@ test.describe("When focused", () => {
   });
 });
 
-test.describe("Border radius", () => {
-  test("should have the expected styling when roundedCornersOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<Button>Foo</Button>);
-    await expect(buttonDataComponent(page)).toHaveCSS(`border-radius`, "32px");
-  });
-
-  test("should have the expected styling when roundedCornersOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<Button>Foo</Button>, {
-      hooksConfig: { roundedCornersOptOut: true },
-    });
-    await expect(buttonDataComponent(page)).toHaveCSS(`border-radius`, "0px");
-  });
+test("should have the expected border radius styling", async ({
+  mount,
+  page,
+}) => {
+  await mount(<Button>Foo</Button>);
+  await expect(buttonDataComponent(page)).toHaveCSS(`border-radius`, "32px");
 });
 
 test.describe("Accessibility tests for Button", () => {

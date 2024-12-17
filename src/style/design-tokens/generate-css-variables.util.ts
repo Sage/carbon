@@ -9,19 +9,7 @@ import { ThemeObject } from "../themes/base";
  *
  */
 
-export default (
-  theme: ThemeObject | Record<string, string>,
-  roundedCornersOptOut?: boolean,
-): string =>
+export default (theme: ThemeObject | Record<string, string>): string =>
   Object.entries(theme)
-    .map(([key, value]) => {
-      if (
-        roundedCornersOptOut &&
-        key.startsWith("borderRadius") &&
-        key !== "borderRadiusCircle"
-      ) {
-        return `--${key}: 0px;`;
-      }
-      return `--${key}: ${value};`;
-    })
+    .map(([key, value]) => `--${key}: ${value};`)
     .join("\r\n");

@@ -14,7 +14,7 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 export interface DismissibleBoxProps
   extends SpaceProps,
     StyledDismissibleBoxProps,
-    Omit<BoxProps, "display" | "justifyContent">,
+    Omit<BoxProps, "display" | "justifyContent" | "bg" | "backgroundColor">,
     Omit<TagProps, "data-component"> {
   /** The content to render in the component */
   children?: React.ReactNode;
