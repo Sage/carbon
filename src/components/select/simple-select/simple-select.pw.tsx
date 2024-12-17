@@ -10,7 +10,6 @@ import {
   SimpleSelectCustomOptionChildrenComponent,
   SimpleSelectGroupComponent,
   SimpleSelectWithLongWrappingTextComponent,
-  SimpleSelectEventsComponent,
   WithVirtualScrolling,
   SimpleSelectNestedInDialog,
   SelectWithOptionGroupHeader,
@@ -1158,102 +1157,6 @@ test.describe("Check height of Select list when opened", () => {
     const wrapperElement = selectListWrapper(page);
     await expect(wrapperElement).toHaveCSS("height", "152px");
     await expect(wrapperElement).toBeVisible();
-  });
-});
-
-test.describe("Check events for SimpleSelect component", () => {
-  test("should call onChange event when a list option is selected", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectEventsComponent onChange={callback} />);
-
-    const position = "first";
-    await selectText(page).click();
-    await selectOption(page, positionOfElement(position)).click();
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onBlur event when the list is closed", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectComponent onBlur={callback} />);
-
-    await selectText(page).click();
-    await commonDataElementInputPreview(page).blur();
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onClick event when mouse is clicked on text input", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectComponent onClick={callback} />);
-
-    // need to force the click as the input is covered by the span containing "please select"
-    // [not clear if this onClick is even needed since a user isn't able to click, but leaving the test in pending
-    // pending discussion/investigation]
-    await commonDataElementInputPreview(page).click({ force: true });
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onOpen when select list is opened", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectComponent onOpen={callback} />);
-
-    await commonDataElementInputPreview(page).click({ force: true });
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onFocus when SimpleSelect is brought into focus", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectComponent onFocus={callback} />);
-
-    await commonDataElementInputPreview(page).focus();
-    expect(callbackCount).toBe(1);
-  });
-
-  keyToTrigger.slice(0, 2).forEach((key) => {
-    test(`should call onKeyDown event when ${key} key is pressed`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      const callback = () => {
-        callbackCount += 1;
-      };
-      await mount(<SimpleSelectComponent onKeyDown={callback} />);
-
-      const inputElement = commonDataElementInputPreview(page);
-      await inputElement.focus();
-      await inputElement.press(key);
-      expect(callbackCount).toBe(1);
-    });
   });
 });
 

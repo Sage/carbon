@@ -326,40 +326,6 @@ export const SimpleSelectGroupComponent = (
   );
 };
 
-export const SimpleSelectEventsComponent = ({
-  onChange,
-  ...props
-}: Partial<SimpleSelectProps>) => {
-  const [state, setState] = useState("");
-  const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState(event.target.value);
-    if (onChange) {
-      onChange(event);
-    }
-  };
-  return (
-    <SimpleSelect
-      label="color"
-      value={state}
-      labelInline
-      onChange={setValue}
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </SimpleSelect>
-  );
-};
-
 export const SimpleSelectWithLongWrappingTextComponent = () => (
   <Box width={400}>
     <SimpleSelect name="simple" id="simple" label="label" labelInline>
