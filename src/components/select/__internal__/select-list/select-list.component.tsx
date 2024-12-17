@@ -196,7 +196,7 @@ const SelectList = React.forwardRef(
         virtualizer.scrollToIndex(currentOptionsListIndex, SCROLL_OPTIONS);
       }
     }, [currentOptionsListIndex, isOpen, virtualizer]);
-    
+
     console.log("virtualizer: ", virtualizer);
 
     const items = virtualizer.getVirtualItems();
@@ -350,11 +350,11 @@ const SelectList = React.forwardRef(
             // needed to dynamically compute the size
             measureCallback(optionElement);
             // add the DOM element to the array of refs
-
             childElementRefs.current[index] = optionElement;
           },
           "data-index": index,
         };
+
         if (child.type === OptionGroup) {
           return React.cloneElement(child, {
             ...child.props,
@@ -362,7 +362,7 @@ const SelectList = React.forwardRef(
               child.props.children,
               (optionChild, optionIndex) => {
                 const optionGroupChildIndex = optionChildrenList.indexOf(
-                  optionChild as ReactElement<OptionProps, string>
+                  optionChild as ReactElement<OptionProps, string>,
                 );
                 const isOptionFromOptionGroup = optionChildIndex > -1;
 
@@ -389,7 +389,7 @@ const SelectList = React.forwardRef(
                 return React.isValidElement(optionChild)
                   ? React.cloneElement(optionChild, optionProps)
                   : optionChild;
-              }
+              },
             ),
           });
         }
