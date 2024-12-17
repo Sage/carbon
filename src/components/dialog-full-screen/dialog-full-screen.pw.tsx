@@ -317,11 +317,13 @@ test.describe("render DialogFullScreen component and check properties", () => {
     await expect(dialogFullScreen).not.toBeVisible();
 
     await button.click();
-    await expect(dialogFullScreen).toBeVisible();
+    await dialogFullScreen.waitFor();
+
     const closeButton = page.getByLabel("Close");
     await closeButton.click();
-    await expect(button).toBeFocused();
+
     await expect(dialogFullScreen).not.toBeVisible();
+    await expect(button).toBeFocused();
   });
 
   test("when Dialog Full Screen is open on render, then closed, opened and then closed again, the call to action element should be focused", async ({
