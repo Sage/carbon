@@ -1738,8 +1738,10 @@ describe("check events for Tabs component", () => {
         </Tabs>,
       );
       const tab2 = screen.getByRole("tab", { name: "Test 2" });
-      tab2.focus();
+      act(() => tab2.focus());
+
       await user.keyboard("{Enter}");
+
       expect(onTabChange).toHaveBeenCalledWith("2");
     });
   });
@@ -1776,8 +1778,10 @@ describe("check events for Tabs component", () => {
         </Tabs>,
       );
       const tab2 = screen.getByRole("tab", { name: "Test 2" });
-      tab2.focus();
+      act(() => tab2.focus());
+
       await user.keyboard("{Enter}");
+
       expect(onTabChange).toHaveBeenCalledWith("2");
     });
   });
@@ -1826,8 +1830,10 @@ describe("check events for Tabs component", () => {
         </Drawer>,
       );
       const tab2 = screen.getByRole("tab", { name: "Test 2" });
-      tab2.focus();
+      act(() => tab2.focus());
+
       await user.keyboard("{Enter}");
+
       expect(onTabChange).toHaveBeenCalledWith("2");
     });
   });

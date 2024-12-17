@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {
@@ -119,8 +119,10 @@ describe("VerticalMenu", () => {
       const user = userEvent.setup();
 
       const setMockState = jest.fn();
-      const useStateMock: any = (useState: any) => [useState, setMockState];
-      jest.spyOn(React, "useState").mockImplementation(useStateMock);
+      const useStateMock = (useState: unknown) => [useState, setMockState];
+      jest
+        .spyOn(React, "useState")
+        .mockImplementation(useStateMock as typeof React.useState);
 
       render(
         <>
@@ -138,8 +140,10 @@ describe("VerticalMenu", () => {
       const user = userEvent.setup();
 
       const setMockState = jest.fn();
-      const useStateMock: any = (useState: any) => [useState, setMockState];
-      jest.spyOn(React, "useState").mockImplementation(useStateMock);
+      const useStateMock = (useState: unknown) => [useState, setMockState];
+      jest
+        .spyOn(React, "useState")
+        .mockImplementation(useStateMock as typeof React.useState);
 
       render(
         <VerticalMenuTrigger onClick={setMockState(false)}>
@@ -154,8 +158,10 @@ describe("VerticalMenu", () => {
       const user = userEvent.setup();
 
       const setMockState = jest.fn();
-      const useStateMock: any = (useState: any) => [useState, setMockState];
-      jest.spyOn(React, "useState").mockImplementation(useStateMock);
+      const useStateMock = (useState: unknown) => [useState, setMockState];
+      jest
+        .spyOn(React, "useState")
+        .mockImplementation(useStateMock as typeof React.useState);
 
       render(
         <>
@@ -174,20 +180,21 @@ describe("VerticalMenu", () => {
       const user = userEvent.setup();
 
       const setMockState = jest.fn();
-      const useStateMock: any = (useState: any) => [useState, setMockState];
-      jest.spyOn(React, "useState").mockImplementation(useStateMock);
+      const useStateMock = (useState: unknown) => [useState, setMockState];
+      jest
+        .spyOn(React, "useState")
+        .mockImplementation(useStateMock as typeof React.useState);
 
       render(
-        <>
-          <VerticalMenuFullScreen isOpen onClose={setMockState(false)}>
-            <VerticalMenuItem title="Item1" />
-          </VerticalMenuFullScreen>
-          ,
-        </>,
+        <VerticalMenuFullScreen isOpen onClose={setMockState(false)}>
+          <VerticalMenuItem title="Item1" />
+        </VerticalMenuFullScreen>,
       );
       const closeBtn = screen.getByRole("button");
-      closeBtn.focus();
+      act(() => closeBtn.focus());
+
       await user.keyboard("{Space}");
+
       expect(setMockState).toHaveBeenCalledWith(false);
     });
 
@@ -195,20 +202,21 @@ describe("VerticalMenu", () => {
       const user = userEvent.setup();
 
       const setMockState = jest.fn();
-      const useStateMock: any = (useState: any) => [useState, setMockState];
-      jest.spyOn(React, "useState").mockImplementation(useStateMock);
+      const useStateMock = (useState: unknown) => [useState, setMockState];
+      jest
+        .spyOn(React, "useState")
+        .mockImplementation(useStateMock as typeof React.useState);
 
       render(
-        <>
-          <VerticalMenuFullScreen isOpen onClose={setMockState(false)}>
-            <VerticalMenuItem title="Item1" />
-          </VerticalMenuFullScreen>
-          ,
-        </>,
+        <VerticalMenuFullScreen isOpen onClose={setMockState(false)}>
+          <VerticalMenuItem title="Item1" />
+        </VerticalMenuFullScreen>,
       );
       const closeBtn = screen.getByRole("button");
-      closeBtn.focus();
+      act(() => closeBtn.focus());
+
       await user.keyboard("{enter}");
+
       expect(setMockState).toHaveBeenCalledWith(false);
     });
   });
