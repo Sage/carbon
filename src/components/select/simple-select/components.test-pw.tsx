@@ -220,7 +220,6 @@ export const SimpleSelectMultipleColumnsComponent = (
       name="withMultipleColumns"
       id="withMultipleColumns"
       multiColumn
-      defaultValue="2"
       {...props}
       tableHeader={
         <tr>

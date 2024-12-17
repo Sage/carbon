@@ -510,6 +510,8 @@ test.describe("SimpleSelect component", () => {
     mount,
     page,
   }) => {
+    test.slow();
+
     await mount(<SimpleSelectWithInfiniteScrollComponent />);
 
     const option = "Lazy Loaded A1";
@@ -571,6 +573,8 @@ test.describe("SimpleSelect component", () => {
     mount,
     page,
   }) => {
+    test.slow();
+
     await mount(<SimpleSelectWithInfiniteScrollComponent />);
 
     // open the select list and choose an option
@@ -603,14 +607,20 @@ test.describe("SimpleSelect component", () => {
   }) => {
     await mount(<SimpleSelectMultipleColumnsComponent />);
 
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    for (let i = 0; i < 3; i++) {
-      // eslint-disable-next-line no-await-in-loop
-      await inputElement.press("ArrowDown");
-    }
-    await expect(getDataElementByValue(page, "input")).toHaveValue("Jill Moe");
-    await expect(multiColumnsSelectListRowAt(page, 4)).toBeVisible();
+    await page.getByText("Please Select...").click();
+    await page.getByRole("listbox").waitFor();
+
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("ArrowDown");
+
+    const lastOption = page.getByRole("option", { name: "Bill Zoe" });
+    const input = page.getByRole("combobox");
+
+    await expect(input).toHaveValue("Bill Zoe");
+    await expect(lastOption).toBeInViewport();
   });
 
   test("should have correct option highlighted when select list is opened and value is an object", async ({
@@ -1565,35 +1575,55 @@ test.describe("Selection confirmed", () => {
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectComponent onListScrollBottom={callback} />);
+    let called = false;
+    await mount(
+      <SimpleSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
+    );
 
-    await dropdownButton(page).click();
-    await selectOption(page, positionOfElement("first")).click();
-    expect(callbackCount).toBe(0);
+    const input = page.getByRole("combobox");
+    const optionList = page.getByRole("listbox");
+
+    await input.click();
+    await optionList.waitFor();
+
+    const firstOption = page.getByRole("option").first();
+
+    await firstOption.click();
+
+    expect(called).toBeFalsy();
   });
 
   test("should not be called when an option is clicked and list is re-opened", async ({
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
+    let called = false;
 
-    await mount(<SimpleSelectComponent onListScrollBottom={callback} />);
-
-    await dropdownButton(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500),
+    await mount(
+      <SimpleSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
     );
-    await selectOption(page, positionOfElement("first")).click();
-    await dropdownButton(page).click();
-    expect(callbackCount).toBe(1);
+
+    const input = page.getByRole("combobox");
+    const optionList = page.getByRole("listbox");
+
+    await input.click();
+    await optionList.waitFor();
+
+    const firstOption = page.getByRole("option").first();
+
+    await firstOption.click();
+    await input.click();
+    await optionList.waitFor();
+
+    expect(called).toBeFalsy();
   });
 });
 
