@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Toolbar from "./toolbar.component";
 import Button from "../../../button/button.component";
@@ -31,8 +31,9 @@ test("when the `canFocus` prop is true, pressing the right arrow key cycles focu
       setBlockStyle={() => {}}
     />,
   );
-  screen.getByRole("button", { name: "bold" }).focus();
-
+  act(() => {
+    screen.getByRole("button", { name: "bold" }).focus();
+  });
   await user.keyboard("{ArrowRight}");
   expect(screen.getByRole("button", { name: "italic" })).toHaveFocus();
 
@@ -61,8 +62,9 @@ test("when the `canFocus` prop is true, pressing the left arrow key wraps focus 
       setBlockStyle={() => {}}
     />,
   );
-  screen.getByRole("button", { name: "bold" }).focus();
-
+  act(() => {
+    screen.getByRole("button", { name: "bold" }).focus();
+  });
   await user.keyboard("{ArrowLeft}");
   expect(screen.getByRole("button", { name: "number-list" })).toHaveFocus();
 
@@ -96,7 +98,9 @@ test.each(["bold", "italic", "bullet-list", "number-list"])(
         <button type="button">I will receive focus</button>
       </>,
     );
-    screen.getByRole("button", { name: buttonName }).focus();
+    act(() => {
+      screen.getByRole("button", { name: buttonName }).focus();
+    });
 
     await user.tab();
     expect(
@@ -187,7 +191,9 @@ test.each(["bold", "italic"])(
       />,
     );
 
-    screen.getByRole("button", { name: buttonName }).focus();
+    act(() => {
+      screen.getByRole("button", { name: buttonName }).focus();
+    });
     await user.keyboard("{Enter}");
 
     expect(setInlineStyle).toHaveBeenCalledWith(
@@ -222,7 +228,9 @@ test.each([
       />,
     );
 
-    screen.getByRole("button", { name: buttonName }).focus();
+    act(() => {
+      screen.getByRole("button", { name: buttonName }).focus();
+    });
     await user.keyboard("{Enter}");
 
     expect(setBlockStyle).toHaveBeenCalledWith(expect.anything(), blockType);
@@ -251,7 +259,9 @@ test.each(["bold", "italic"])(
       />,
     );
 
-    screen.getByRole("button", { name: buttonName }).focus();
+    act(() => {
+      screen.getByRole("button", { name: buttonName }).focus();
+    });
     await user.keyboard(" ");
 
     expect(setInlineStyle).toHaveBeenCalledWith(
@@ -286,7 +296,9 @@ test.each([
       />,
     );
 
-    screen.getByRole("button", { name: buttonName }).focus();
+    act(() => {
+      screen.getByRole("button", { name: buttonName }).focus();
+    });
     await user.keyboard(" ");
 
     expect(setBlockStyle).toHaveBeenCalledWith(expect.anything(), blockType);
@@ -315,7 +327,9 @@ test.each(["bold", "italic", "bullet-list", "number-list"])(
       />,
     );
 
-    screen.getByRole("button", { name: buttonName }).focus();
+    act(() => {
+      screen.getByRole("button", { name: buttonName }).focus();
+    });
     await user.keyboard("d");
 
     expect(setInlineStyle).not.toHaveBeenCalled();
@@ -378,13 +392,18 @@ test.each([
       />,
     );
 
-    screen.getByRole("button", { name: buttonName }).focus();
+    act(() => {
+      screen.getByRole("button", { name: buttonName }).focus();
+    });
 
     expect(
       await screen.findByRole("tooltip", { name: tooltipText }),
     ).toBeVisible();
 
-    screen.getByRole("button", { name: buttonName }).blur();
+    act(() => {
+      screen.getByRole("button", { name: buttonName }).blur();
+    });
+
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   },
 );
