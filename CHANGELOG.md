@@ -1,3 +1,10 @@
+## [144.22.0](https://github.com/Sage/carbon/compare/v144.21.1...v144.22.0) (2024-12-16)
+
+
+### Features
+
+* **typography:** allow listitem to inherit variant from parent list ([ad4f4e7](https://github.com/Sage/carbon/commit/ad4f4e761cf14927a5a2e122e4450f9ee995722d)), closes [#5413](https://github.com/Sage/carbon/issues/5413)
+
 ### [144.21.1](https://github.com/Sage/carbon/compare/v144.21.0...v144.21.1) (2024-12-13)
 
 
