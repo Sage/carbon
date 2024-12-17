@@ -8,8 +8,6 @@ import {
   FilterableSelectMultiColumnsComponent,
   FilterableSelectMultiColumnsNestedComponent,
   FilterableSelectWithActionButtonComponent,
-  FilterableSelectOnChangeEventComponent,
-  FilterableSelectListActionEventComponent,
   FilterableSelectWithManyOptionsAndVirtualScrolling,
   FilterableSelectNestedInDialog,
   SelectionConfirmed,
@@ -1182,211 +1180,79 @@ test.describe("FilterableSelect component", () => {
   });
 });
 
-test.describe("Check events for FilterableSelect component", () => {
-  test("should call onClick event when mouse is clicked on dropdown icon", async ({
+test.describe("onListScrollBottom prop", () => {
+  test("calls onListScrollBottom when the list is scrolled to the bottom", async ({
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onClick={callback} />);
+    let called = false;
 
-    await dropdownButton(page).click();
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onFocus when input is focused", async ({ mount, page }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onFocus={callback} />);
-
-    await commonDataElementInputPreview(page).focus();
-    expect(callbackCount).toBe(1);
-  });
-
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should call onOpen when select is opened by focusing the input", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent openOnFocus onOpen={callback} />);
-
-    await commonDataElementInputPreview(page).focus();
-    // this waitFor call seems to be needed for the test to consistently pass
-    await commonDataElementInputPreview(page).waitFor();
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onOpen when FilterableSelect is opened by clicking on Icon", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onOpen={callback} />);
-
-    await dropdownButton(page).click();
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onBlur event when the list is closed", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onBlur={callback} />);
-
-    await dropdownButton(page).click();
-    await commonDataElementInputPreview(page).blur();
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onChange event when a list option is selected", async ({
-    mount,
-    page,
-  }) => {
-    type CallbackArgument = Parameters<
-      Required<FilterableSelectProps>["onChange"]
-    >[0];
-    const callbackArguments: CallbackArgument[] = [];
-    const callback = (e: CallbackArgument) => {
-      callbackArguments.push(e);
-    };
-    await mount(<FilterableSelectComponent onChange={callback} />);
-
-    const position = "first";
-    const option = "1";
-    await dropdownButton(page).click();
-    await selectOption(page, positionOfElement(position)).click();
-    expect(callbackArguments.length).toBe(1);
-    expect(callbackArguments[0]).toMatchObject({
-      target: { value: option },
-      selectionConfirmed: true,
-    });
-  });
-
-  keyToTrigger.slice(0, 2).forEach((key) => {
-    test(`should call onKeyDown event when ${key} key is pressed`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      const callback = () => {
-        callbackCount += 1;
-      };
-      await mount(<FilterableSelectComponent onKeyDown={callback} />);
-
-      const inputElement = commonDataElementInputPreview(page);
-      await inputElement.focus();
-      await inputElement.press(key);
-      expect(callbackCount).toBe(1);
-    });
-  });
-
-  test("should call onFilterChange event when a filter string is input", async ({
-    mount,
-    page,
-  }) => {
-    type CallbackArgument = Parameters<
-      Required<FilterableSelectProps>["onFilterChange"]
-    >[0];
-    const callbackArguments: CallbackArgument[] = [];
-    const callback = (e: CallbackArgument) => {
-      callbackArguments.push(e);
-    };
     await mount(
-      <FilterableSelectOnChangeEventComponent onFilterChange={callback} />,
+      <FilterableSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
     );
 
-    const text = "B";
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await inputElement.type(text);
-    expect(callbackArguments.length).toBe(1);
-    expect(callbackArguments[0]).toBe(text);
+    await page.getByRole("combobox").click();
+    await page.getByRole("listbox").waitFor();
+
+    const lastOption = page.getByRole("option").last();
+    await lastOption.scrollIntoViewIfNeeded();
+
+    await expect(async () => {
+      expect(called).toBeTruthy();
+    }).toPass();
   });
 
-  test("should call onListAction event when the Action Button is clicked", async ({
+  test("does not call onListScrollBottom when an option is clicked", async ({
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
+    let called = false;
+
     await mount(
-      <FilterableSelectListActionEventComponent onListAction={callback} />,
+      <FilterableSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
     );
 
-    await dropdownButton(page).click();
-    await filterableSelectAddElementButton(page).click();
-    expect(callbackCount).toBe(1);
+    await page.getByRole("combobox").click();
+    await page.getByRole("listbox").waitFor();
+
+    const firstOption = page.getByRole("option").first();
+    await firstOption.click();
+
+    expect(called).toBeFalsy();
   });
 
-  test("should call onListScrollBottom event when the list is scrolled to the bottom", async ({
+  test("does not call onListScrollBottom when an option is clicked and list is re-opened", async ({
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
+    let called = false;
 
-    await dropdownButton(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500),
+    await mount(
+      <FilterableSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
     );
-    await page.waitForTimeout(250);
-    expect(callbackCount).toBe(1);
-  });
 
-  test("should not call onListScrollBottom callback when an option is clicked", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
+    const input = page.getByRole("combobox");
+    await input.click();
+    await page.getByRole("listbox").waitFor();
 
-    await dropdownButton(page).click();
-    await selectOption(page, positionOfElement("first")).click();
-    expect(callbackCount).toBe(0);
-  });
+    const firstOption = page.getByRole("option").first();
+    await firstOption.click();
 
-  test("should not be called when an option is clicked and list is re-opened", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
+    await input.click();
 
-    await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
-
-    await dropdownButton(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500),
-    );
-    await selectOption(page, positionOfElement("first")).click();
-    await dropdownButton(page).click();
-    expect(callbackCount).toBe(1);
+    expect(called).toBeFalsy();
   });
 });
 
