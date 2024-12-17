@@ -131,23 +131,26 @@ test.describe("Prop tests for Menu component", () => {
     await expect(focusedElement2).toContainText("Item Submenu Four");
   });
 
-  test(`should verify a submenu can be navigated using keyboard shift + tabbing after an item was clicked`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
+  test(
+    `should verify a submenu can be navigated using keyboard shift + tabbing after an item was clicked`,
+    {
+      tag: "@broken-by-react-18",
+    },
+    async ({ mount, page }) => {
+      await mount(<MenuComponent />);
 
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    const menuItemThree = innerMenu(page, 4, span).first();
-    await menuItemThree.click();
-    await page.keyboard.press("Shift+Tab");
-    const focusedElement1 = page.locator("*:focus");
-    await expect(focusedElement1).toContainText("Item Submenu Two");
-    await page.keyboard.press("Shift+Tab");
-    const focusedElement2 = page.locator("*:focus");
-    await expect(focusedElement2).toContainText("Item Submenu One");
-  });
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const menuItemThree = innerMenu(page, 4, span).first();
+      await menuItemThree.click();
+      await page.keyboard.press("Shift+Tab");
+      const focusedElement1 = page.locator("*:focus");
+      await expect(focusedElement1).toContainText("Item Submenu Two");
+      await page.keyboard.press("Shift+Tab");
+      const focusedElement2 = page.locator("*:focus");
+      await expect(focusedElement2).toContainText("Item Submenu One");
+    },
+  );
 
   test(`should verify a submenu can be navigated using keyboard up arrow after an item was clicked`, async ({
     mount,
@@ -167,18 +170,21 @@ test.describe("Prop tests for Menu component", () => {
     await expect(focusedElement2).toContainText("Item Submenu One");
   });
 
-  test(`should verify the first submenu item is focused using keyboard tabbing after the parent item was clicked`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
+  test(
+    `should verify the first submenu item is focused using keyboard tabbing after the parent item was clicked`,
+    {
+      tag: "@broken-by-react-18",
+    },
+    async ({ mount, page }) => {
+      await mount(<MenuComponent />);
 
-    const subMenu = submenu(page).first();
-    await subMenu.click();
-    await page.keyboard.press("Tab");
-    const focusedElement = page.locator("*:focus");
-    await expect(focusedElement).toContainText("Item Submenu One");
-  });
+      const subMenu = submenu(page).first();
+      await subMenu.click();
+      await page.keyboard.press("Tab");
+      const focusedElement = page.locator("*:focus");
+      await expect(focusedElement).toContainText("Item Submenu One");
+    },
+  );
 
   test(`should verify the first submenu item is focused using keyboard down arrow after the parent item was clicked`, async ({
     mount,
@@ -444,24 +450,27 @@ test.describe("Prop tests for Menu component", () => {
     expect(boundLeft).toBeGreaterThan(leftLess);
   });
 
-  test(`should verify the Search component close icon is focusable when using keyboard to navigate up the list of items`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch />);
+  test(
+    `should verify the Search component close icon is focusable when using keyboard to navigate up the list of items`,
+    {
+      tag: "@broken-by-react-18",
+    },
+    async ({ mount, page }) => {
+      await mount(<MenuComponentSearch />);
 
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Enter");
-    await page.keyboard.press("ArrowDown");
-    await searchDefaultInput(page).fill("FooBar");
-    await page.keyboard.press("End");
-    await continuePressingSHIFTTAB(page, 2);
-    await page.waitForTimeout(2000);
-    const cross = searchCrossIcon(page).locator("..");
-    await expect(cross).toBeFocused();
-    await page.keyboard.press("Shift+Tab");
-    await expect(searchDefaultInput(page)).toBeFocused();
-  });
+      await page.keyboard.press("Tab");
+      await page.keyboard.press("Enter");
+      await page.keyboard.press("ArrowDown");
+      await searchDefaultInput(page).fill("FooBar");
+      await page.keyboard.press("End");
+      await continuePressingSHIFTTAB(page, 2);
+      await page.waitForTimeout(2000);
+      const cross = searchCrossIcon(page).locator("..");
+      await expect(cross).toBeFocused();
+      await page.keyboard.press("Shift+Tab");
+      await expect(searchDefaultInput(page)).toBeFocused();
+    },
+  );
 
   test(`should verify that the Search component is focusable by using the downarrow key when rendered as the parent of a scrollable submenu`, async ({
     mount,
