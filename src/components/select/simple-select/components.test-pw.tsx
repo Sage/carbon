@@ -219,8 +219,8 @@ export const SimpleSelectMultipleColumnsComponent = (
     <SimpleSelect
       name="withMultipleColumns"
       id="withMultipleColumns"
+      label="Clients"
       multiColumn
-      defaultValue="2"
       {...props}
       tableHeader={
         <tr>
