@@ -1,3 +1,10 @@
+### [144.22.1](https://github.com/Sage/carbon/compare/v144.22.0...v144.22.1) (2024-12-17)
+
+
+### Performance Improvements
+
+* **pipeline:** update Playwright image to latest ([873c077](https://github.com/Sage/carbon/commit/873c07774e8ca28cb5665c16dc9e9ea98761a10d))
+
 ## [144.22.0](https://github.com/Sage/carbon/compare/v144.21.1...v144.22.0) (2024-12-16)
 
 
