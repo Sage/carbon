@@ -264,8 +264,8 @@ test.describe("Prop tests", () => {
 
   (
     [
-      ["left", 0],
-      ["right", 42],
+      ["left", 198],
+      ["right", 242],
     ] as [SplitButtonProps["position"], number][]
   ).forEach(([position, value]) => {
     test(`should render with menu position to the ${position}`, async ({
@@ -276,7 +276,7 @@ test.describe("Prop tests", () => {
 
       await getDataElementByValue(page, "dropdown").click();
       const listContainer = additionalButtonsContainer(page);
-      await expect(listContainer).toHaveCSS("position", "absolute");
+      await expect(listContainer).toHaveCSS("position", "fixed");
       await assertCssValueIsApproximately(listContainer, "top", 46);
       await assertCssValueIsApproximately(listContainer, "left", value);
     });

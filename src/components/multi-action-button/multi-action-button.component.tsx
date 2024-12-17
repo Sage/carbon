@@ -86,6 +86,7 @@ export const MultiActionButton = ({
           : /* istanbul ignore next */ "bottom-end"
       }
       reference={buttonNode}
+      popoverStrategy="fixed"
       middleware={[
         offset(6),
         flip({

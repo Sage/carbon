@@ -38,7 +38,10 @@ import {
   AccordionGroupDefault,
   AccordionGroupValidation,
   AccordionWithDefinitionList,
+  AccordionWithSplit,
 } from "./components.test-pw";
+
+import { additionalButton as splitAdditionalButtons } from "../../../playwright/components/split-button";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -454,6 +457,21 @@ test.describe("should render Accordion component", () => {
 
     await expect(accordionTitleContainer(page)).toContainText("subtle");
     await expect(accordionTitleContainer(page)).not.toContainText("subtitle");
+  });
+
+  test("should not hide the children container of SplitButton when it opens", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<AccordionWithSplit />);
+
+    await getDataElementByValue(page, "dropdown").click();
+
+    await expect(splitAdditionalButtons(page, 0)).toBeVisible();
+    await expect(splitAdditionalButtons(page, 1)).toBeVisible();
+    await expect(splitAdditionalButtons(page, 2)).toBeVisible();
+    await expect(splitAdditionalButtons(page, 3)).toBeVisible();
+    await expect(splitAdditionalButtons(page, 4)).toBeVisible();
   });
 });
 

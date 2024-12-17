@@ -107,8 +107,8 @@ test.describe("Prop tests", () => {
 
   (
     [
-      ["left", 0],
-      ["right", -46],
+      ["left", 198],
+      ["right", 152],
     ] as [MultiActionButtonProps["position"], number][]
   ).forEach(([position, value]) => {
     test(`should render with menu position to the ${position}`, async ({
@@ -120,7 +120,7 @@ test.describe("Prop tests", () => {
       const actionButton = getComponent(page, "multi-action-button");
       await actionButton.click();
       const listContainer = getDataElementByValue(page, "additional-buttons");
-      await expect(listContainer).toHaveCSS("position", "absolute");
+      await expect(listContainer).toHaveCSS("position", "fixed");
       await assertCssValueIsApproximately(listContainer, "top", 46);
       await assertCssValueIsApproximately(listContainer, "left", value);
     });
