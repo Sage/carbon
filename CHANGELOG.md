@@ -1,3 +1,21 @@
+## [145.0.0](https://github.com/Sage/carbon/compare/v144.22.1...v145.0.0) (2024-12-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `roundedCornersOptOut` feature flag has been removed completely. If passed to
+the `CarbonProvider` it will need to be removed, if consumers are also relying on previous
+non-rounded corners styling this will also no longer be available.
+
+### Features
+
+* remove roundedCornersOptOut feature flag ([a21e2b9](https://github.com/Sage/carbon/commit/a21e2b95f59a7a23ed7b8af2b920462ea358cb5c))
+
+
+### Bug Fixes
+
+* **dismissible-box:** remove background color props from type interface ([882d28c](https://github.com/Sage/carbon/commit/882d28c43b254bb12626f85bf8c27529ec17dd6b)), closes [#7108](https://github.com/Sage/carbon/issues/7108)
+
 ### [144.22.1](https://github.com/Sage/carbon/compare/v144.22.0...v144.22.1) (2024-12-17)
 
 
