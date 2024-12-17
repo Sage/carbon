@@ -241,60 +241,6 @@ export const FilterableSelectWithActionButtonComponent = () => {
   );
 };
 
-export const FilterableSelectOnChangeEventComponent = ({
-  onChange,
-  ...props
-}: Partial<FilterableSelectProps>) => {
-  const [state, setState] = useState("");
-  const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState(event.target.value);
-    if (onChange) {
-      onChange(event);
-    }
-  };
-  return (
-    <FilterableSelect
-      label="color"
-      value={state}
-      labelInline
-      onChange={setValue}
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-    </FilterableSelect>
-  );
-};
-
-export const FilterableSelectListActionEventComponent = (
-  props: Partial<FilterableSelectProps>,
-) => {
-  const [value, setValue] = useState("");
-  return (
-    <FilterableSelect
-      label="color"
-      value={value}
-      labelInline
-      onChange={(event) => setValue(event.target.value)}
-      {...props}
-      listActionButton={
-        <Button iconType="add" iconPosition="after">
-          Add a New Element
-        </Button>
-      }
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-    </FilterableSelect>
-  );
-};
-
 export const FilterableSelectWithManyOptionsAndVirtualScrolling = () => (
   <FilterableSelect
     name="virtualised"
