@@ -39,6 +39,10 @@ const StyledBox = styled.div<
   ${grid}
   ${calculatePosition}
 
+  :focus {
+    outline: none;
+  }
+
   ${({ theme, borderRadius = "borderRadius000" }) =>
     !theme.roundedCornersOptOut &&
     css`
