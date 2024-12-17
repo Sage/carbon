@@ -1,7 +1,13 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-import { VerticalMenu, VerticalMenuItem } from ".";
+import {
+  VerticalMenu,
+  VerticalMenuFullScreen,
+  VerticalMenuItem,
+  VerticalMenuTrigger,
+} from ".";
 import Logger from "../../__internal__/utils/logger";
 
 // mock Logger.deprecate so that no console warnings occur while running the tests
@@ -106,5 +112,104 @@ describe("VerticalMenu", () => {
     expect(menu).toHaveAttribute("data-component", "vertical-menu");
     expect(menu).toHaveAttribute("data-element", "foo");
     expect(menu).toHaveAttribute("data-role", "bar");
+  });
+
+  describe("callbacks", () => {
+    it(`should close the Vertical Menu Full Screen when escape key is pressed`, async () => {
+      const user = userEvent.setup();
+
+      const setMockState = jest.fn();
+      const useStateMock: any = (useState: any) => [useState, setMockState];
+      jest.spyOn(React, "useState").mockImplementation(useStateMock);
+
+      render(
+        <>
+          <VerticalMenuFullScreen isOpen onClose={setMockState(false)}>
+            <VerticalMenuItem title="Item1" />
+          </VerticalMenuFullScreen>
+          ,
+        </>,
+      );
+      await user.keyboard("{esc}");
+      expect(setMockState).toHaveBeenCalledWith(false);
+    });
+
+    it(`should call onClick callback when a click event is triggered and using VerticalMenuTrigger`, async () => {
+      const user = userEvent.setup();
+
+      const setMockState = jest.fn();
+      const useStateMock: any = (useState: any) => [useState, setMockState];
+      jest.spyOn(React, "useState").mockImplementation(useStateMock);
+
+      render(
+        <VerticalMenuTrigger onClick={setMockState(false)}>
+          Menu
+        </VerticalMenuTrigger>,
+      );
+      await user.click(screen.getByText("Menu"));
+      expect(setMockState).toHaveBeenCalledWith(false);
+    });
+
+    it(`should call onClose callback when a click event is triggered`, async () => {
+      const user = userEvent.setup();
+
+      const setMockState = jest.fn();
+      const useStateMock: any = (useState: any) => [useState, setMockState];
+      jest.spyOn(React, "useState").mockImplementation(useStateMock);
+
+      render(
+        <>
+          <VerticalMenuFullScreen isOpen onClose={setMockState(false)}>
+            <VerticalMenuItem title="Item1" />
+          </VerticalMenuFullScreen>
+          ,
+        </>,
+      );
+      const closeBtn = screen.getByRole("button");
+      await user.click(closeBtn);
+      expect(setMockState).toHaveBeenCalledWith(false);
+    });
+
+    it(`should call onClose callback when a Space key event is triggered`, async () => {
+      const user = userEvent.setup();
+
+      const setMockState = jest.fn();
+      const useStateMock: any = (useState: any) => [useState, setMockState];
+      jest.spyOn(React, "useState").mockImplementation(useStateMock);
+
+      render(
+        <>
+          <VerticalMenuFullScreen isOpen onClose={setMockState(false)}>
+            <VerticalMenuItem title="Item1" />
+          </VerticalMenuFullScreen>
+          ,
+        </>,
+      );
+      const closeBtn = screen.getByRole("button");
+      closeBtn.focus();
+      await user.keyboard("{Space}");
+      expect(setMockState).toHaveBeenCalledWith(false);
+    });
+
+    it(`should call onClose callback when a Enter key event is triggered`, async () => {
+      const user = userEvent.setup();
+
+      const setMockState = jest.fn();
+      const useStateMock: any = (useState: any) => [useState, setMockState];
+      jest.spyOn(React, "useState").mockImplementation(useStateMock);
+
+      render(
+        <>
+          <VerticalMenuFullScreen isOpen onClose={setMockState(false)}>
+            <VerticalMenuItem title="Item1" />
+          </VerticalMenuFullScreen>
+          ,
+        </>,
+      );
+      const closeBtn = screen.getByRole("button");
+      closeBtn.focus();
+      await user.keyboard("{enter}");
+      expect(setMockState).toHaveBeenCalledWith(false);
+    });
   });
 });

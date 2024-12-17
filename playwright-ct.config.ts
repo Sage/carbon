@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/experimental-ct-react17";
+
 import { resolve } from "path";
 
 const playwrightDir = resolve(__dirname, "./playwright");
@@ -30,7 +31,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
+    trace: "retain-on-failure",
     /* Port to use for Playwright component endpoint. */
     ctPort: 3100,
     /* Custom config for internal bundler Playwright uses for component tests. See https://playwright.dev/docs/test-components#under-the-hood */
