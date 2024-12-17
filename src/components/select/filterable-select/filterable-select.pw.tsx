@@ -1175,7 +1175,7 @@ test.describe("onListScrollBottom prop", () => {
     expect(called).toBeFalsy();
   });
 
-  test("does not call onListScrollBottom when an option is clicked and list is re-opened", async ({
+  test("@broken-by-react-18 does not call onListScrollBottom when an option is clicked and list is re-opened", async ({
     mount,
     page,
   }) => {

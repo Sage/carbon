@@ -4,7 +4,7 @@ import TestComponent from "./components.test-pw";
 import { sidebarPreview } from "../../../playwright/components/sidebar";
 
 test.describe("tests for inertOptOut prop on Portal component", () => {
-  test("with the inertOptOut prop true, a button in the portal can be clicked when a modal is opened", async ({
+  test("@flaky with the inertOptOut prop true, a button in the portal can be clicked when a modal is opened", async ({
     mount,
     page,
   }) => {

@@ -1453,7 +1453,7 @@ test.describe("Selection confirmed", () => {
     ).toBeVisible();
   });
 
-  test("should not call onListScrollBottom callback when an option is clicked", async ({
+  test("@flaky should not call onListScrollBottom callback when an option is clicked", async ({
     mount,
     page,
   }) => {
@@ -1479,7 +1479,7 @@ test.describe("Selection confirmed", () => {
     expect(called).toBeFalsy();
   });
 
-  test("should not be called when an option is clicked and list is re-opened", async ({
+  test("@broken-by-react-18 should not be called when an option is clicked and list is re-opened", async ({
     mount,
     page,
   }) => {

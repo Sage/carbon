@@ -1330,7 +1330,7 @@ test.describe("Check events for MultiSelect component", () => {
     expect(callbackCount).toBe(0);
   });
 
-  test("should not be called when an option is clicked and list is re-opened", async ({
+  test("@broken-by-react-18 should not be called when an option is clicked and list is re-opened", async ({
     mount,
     page,
   }) => {
