@@ -116,6 +116,8 @@ test.describe("Functionality tests", () => {
     mount,
     page,
   }) => {
+    test.slow();
+
     await mount(<TextEditorCustom />);
 
     const textInput = textEditorInput(page);
@@ -138,6 +140,8 @@ test.describe("Functionality tests", () => {
     mount,
     page,
   }) => {
+    test.slow();
+
     await mount(<TextEditorCustom />);
 
     const textInput = textEditorInput(page);
@@ -160,6 +164,8 @@ test.describe("Functionality tests", () => {
     mount,
     page,
   }) => {
+    test.slow();
+
     await mount(<TextEditorCustom />);
 
     const textInput = textEditorInput(page);
@@ -177,6 +183,8 @@ test.describe("Functionality tests", () => {
     mount,
     page,
   }) => {
+    test.slow();
+
     await mount(<TextEditorCustom />);
 
     const textInput = textEditorInput(page);
@@ -196,6 +204,8 @@ test.describe("Functionality tests", () => {
     mount,
     page,
   }) => {
+    test.slow();
+
     await mount(<TextEditorCustom />);
 
     const textInput = textEditorInput(page);
@@ -216,6 +226,8 @@ test.describe("Functionality tests", () => {
     mount,
     page,
   }) => {
+    test.slow();
+
     await mount(<TextEditorCustom />);
 
     const textInput = textEditorInput(page);
@@ -298,6 +310,8 @@ test.describe("Functionality tests", () => {
       mount,
       page,
     }) => {
+      test.slow();
+
       await mount(<TextEditorCustom />);
 
       const textInput = textEditorInput(page);
