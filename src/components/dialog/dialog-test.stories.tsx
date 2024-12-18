@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { EditorState } from "draft-js";
 
 import Dialog, { DialogProps } from "./dialog.component";
 import { DIALOG_SIZES } from "./dialog.config";
@@ -13,7 +12,7 @@ import Icon from "../icon";
 import DateInput, { DateChangeEvent } from "../date";
 import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
-import TextEditor from "../text-editor";
+import RichTextEditor from "../rich-text-editor";
 
 import Box from "../box";
 import Typography from "../typography";
@@ -66,8 +65,13 @@ export const Default = ({
     setIsOpen(true);
     action("open")(evt);
   };
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const handleEditorChange = (newState: EditorState) => {
+  const [editorState, setEditorState] = useState(() => {
+    // 'empty' editor
+    const value =
+      '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
+    return value;
+  });
+  const handleEditorChange = (newState: string) => {
     setEditorState(newState);
   };
   const selectOptions = [
@@ -163,11 +167,10 @@ export const Default = ({
               setDate(e.target.value.formattedValue)
             }
           />
-          <TextEditor
+          <RichTextEditor
             onChange={handleEditorChange}
             value={editorState}
             labelText="Additional notes"
-            mb={1}
           />
           <Checkbox name="checkbox" label="Do you like my Dog" />
           <div>This is an example of a dialog with a Form as content</div>

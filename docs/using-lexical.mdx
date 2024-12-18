@@ -1,0 +1,57 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Documentation/Using Lexical" />
+
+# Lexical
+
+## Why Lexical?
+
+In previous versions of Carbon, the `Note` and `RichTextEditor` components were built using [DraftJS](https://draftjs.org/), a framework developed by Facebook. However, `DraftJS` has been deprecated and is no longer maintained. As a result, we have migrated to a new  framework called
+[Lexical](https://lexical.dev), which is also developed by Meta. In doing so, we have been able to maintain the functionality of the `Note` and `RichTextEditor` components while also ensuring that they are up-to-date and well-maintained. `Lexical` is a powerful and flexible framework
+that allows for the creation of rich text editors and other text-based components, and is fully customisable which allows us to cater for a wide range of use cases.
+
+## Using the Lexical-based components
+
+If you wish to use these components in your project, you will need to install the `lexical` library as a dependency. To do so, run the following command:
+
+```bash
+npm install --save lexical
+```
+
+### Packages
+
+The following `lexical` packages are used in Carbon to provide the functionality for `Note` and `RichTextEditor`:
+
+- `lexical`: The core package;
+- `@lexical/react`: A wrapper around the core package for React;
+- `@lexical/headless`: A headless version of the core package used internally for testing the components;
+- `@lexical/link`: A package for handling links in the `RichTextEditor`;
+- `@lexical/selection`: A package for handling selections in the `RichTextEditor`.
+
+### Usage
+
+First, import the relevant components from the `carbon-react` package:
+
+```jsx
+import RichTextEditor, { CreateFromHTML } from 'carbon-react/lib/components/rich-text-editor';
+import Note from 'carbon-react/lib/components/note';
+```
+
+You don't need to do anything specific to use the `lexical` library with `Note` or `RichTextEditor`; the components are already set up to use the `@lexical/react` package internally.
+The reason we ask you to install the `lexical` library is to ensure that you have access to the full functionality of the library in case you need it. If you do not use, or have no plans to use,
+the `Note` or `RichTextEditor` components, you can safely ignore this dependency.
+
+Previously, we asked that you provide your data to the components wrapped in one of DraftJS' `EditorState` static methods: `createEmpty`, `createWithContent`, or `create`. The new approach
+is to provide your data in one of two structures to the `RichTextEditor`, or three to the `Note` component.
+
+`RichTextEditor` accepts data in the following structures:
+
+- **A string of HTML**: This is the simplest way to provide data to the `RichTextEditor`. Simply pass your HTML string to the `CreateFromHTML` function, which will convert it to the required structure for the `RichTextEditor`;
+- **A JSON object**: This is the more complex way to provide data to the `RichTextEditor`. The JSON object must be in the format used internally by Lexical; consult the [Lexical documentation](https://lexical.dev/docs/concepts/editor-state) for more information. When passing the object to the editor, ensure that it has first been converted to a raw string via `JSON.stringify`.
+
+`Note` accepts data in the same two structures as the `RichTextEditor`, as well as a third: plain text. Simply set the value of `noteContent` to your plain text value and the editor will take care of the rest.
+
+The documentation for both `RichTextEditor` and `Note` contain examples of how to use these structures:
+
+- [Rich Text Editor](../?path=/docs/rich-text-editor--docs)
+- [Note](../?path=/docs/note--docs)

@@ -164,6 +164,23 @@ const enGB: Locale = {
   pod: {
     undo: () => "Undo",
   },
+  richTextEditor: {
+    boldAria: () => "Bold",
+    cancelButton: () => "Cancel",
+    cancelButtonAria: () => "Cancel",
+    characterCounter(count) {
+      return `${count} characters remaining`;
+    },
+    characterLimit(count) {
+      return `You are ${count} character(s) over the character limit`;
+    },
+    contentEditorAria: () => "Rich text content editor",
+    italicAria: () => "Italic",
+    orderedListAria: () => "Ordered list",
+    saveButton: () => "Save",
+    saveButtonAria: () => "Save",
+    unorderedListAria: () => "Unordered list",
+  },
   search: {
     searchButtonText: () => "Search",
   },
