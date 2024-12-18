@@ -202,20 +202,6 @@ const frCA: Partial<Locale> = {
     on: () => "OUI",
     off: () => "NON",
   },
-  textEditor: {
-    tooltipMessages: {
-      bold: () => "Gras",
-      italic: () => "Italique",
-      bulletList: () => "Liste à puces",
-      numberList: () => "Liste numérotée",
-    },
-    ariaLabels: {
-      bold: () => "gras",
-      italic: () => "italique",
-      bulletList: () => "liste-à-puces",
-      numberList: () => "liste-numérotée",
-    },
-  },
   tileSelect: {
     deselect: () => "Désélectionner",
   },

@@ -1,5 +1,4 @@
 import React from "react";
-import { EditorState, ContentState, convertFromHTML } from "draft-js";
 
 import Note, { NoteProps } from "./note.component";
 
@@ -22,9 +21,7 @@ export const DefaultStory = ({
   createdDate,
   ...args
 }: Omit<NoteProps, "noteContent">) => {
-  const noteContent = EditorState.createWithContent(
-    ContentState.createFromText("Here is some plain text content"),
-  );
+  const noteContent = "Here is some plain text content";
   return (
     <Note
       name={name}
@@ -53,12 +50,7 @@ export const InlineControlMenuButton = ({
   <ol><li>ordered</li></ol></br>
   <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
   <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
-  const blocksFromHTML = convertFromHTML(html);
-  const content = ContentState.createFromBlockArray(
-    blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap,
-  );
-  const noteContent = EditorState.createWithContent(content);
+  const noteContent = html;
 
   const inlineControl = (
     <ActionPopover
@@ -77,7 +69,7 @@ export const InlineControlMenuButton = ({
   );
 
   return (
-    <div style={{ height: 300, width: "50%" }}>
+    <Box height={300} width="50%">
       <Note
         title="Here is a Title"
         inlineControl={inlineControl}
@@ -86,7 +78,7 @@ export const InlineControlMenuButton = ({
         createdDate={createdDate}
         {...args}
       />
-    </div>
+    </Box>
   );
 };
 
@@ -103,9 +95,7 @@ InlineControlMenuButton.parameters = {
 };
 
 export const TitleNodes = () => {
-  const noteContent = EditorState.createWithContent(
-    ContentState.createFromText("Here is some plain text content"),
-  );
+  const noteContent = "Here is some plain text content";
 
   const titleElements = (
     <Box display="flex" flexWrap="wrap" gap="16px">

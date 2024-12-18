@@ -31,6 +31,9 @@ const config: Config = {
     "^.+\\.(js|mjs|jsx|ts|tsx)$": "babel-jest",
     "^.+\\.svg$": "<rootDir>/svgTransform.mjs",
   },
+  moduleNameMapper: {
+    "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+  },
 };
 
 export default config;
