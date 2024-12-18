@@ -194,20 +194,6 @@ const deDE: Partial<Locale> = {
     on: () => "EIN",
     off: () => "AUS",
   },
-  textEditor: {
-    tooltipMessages: {
-      bold: () => "Fett",
-      italic: () => "Kursiv",
-      bulletList: () => "Aufzählung mit Punkten",
-      numberList: () => "Nummerierte Liste",
-    },
-    ariaLabels: {
-      bold: () => "fett",
-      italic: () => "kursiv",
-      bulletList: () => "Aufzählung mit Punkten",
-      numberList: () => "Nummerierte Liste",
-    },
-  },
   tileSelect: {
     deselect: () => "Auswahl aufheben",
   },

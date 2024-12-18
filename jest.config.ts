@@ -42,6 +42,9 @@ const config: Config = {
   transformIgnorePatterns: [
     `<rootDir>/node_modules/(?!(${esmOnlyPackages.join("|")}))`,
   ],
+  moduleNameMapper: {
+    "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+  },
 };
 
 export default config;

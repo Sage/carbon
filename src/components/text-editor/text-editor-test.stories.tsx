@@ -1,102 +1,117 @@
-import React, { useState } from "react";
-import TextEditor, {
-  TextEditorState as EditorState,
-  TextEditorProps,
-} from "./text-editor.component";
-import Button from "../button";
-import Box from "../box";
+/* eslint-disable no-console */
+import { Meta, StoryObj } from "@storybook/react";
+import React, { useCallback, useEffect, useState } from "react";
 
-export default {
+import TextEditor, { createFromHTML, TextEditorProps } from ".";
+import Box from "../box";
+import Typography from "../typography";
+
+import useDebounce from "../../hooks/__internal__/useDebounce";
+import ReadOnlyEditor from "./__internal__";
+import { SaveCallbackProps } from "./__internal__/plugins/Toolbar/buttons/save.component";
+
+const meta: Meta<typeof TextEditor> = {
   title: "Text Editor/Test",
-  excludeStories: ["TextEditorCustom", "TextEditorCustomValidation"],
+  component: TextEditor,
   parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-  argTypes: {
-    labelText: {
-      control: {
-        type: "text",
-      },
-    },
-    characterLimit: {
-      control: {
-        type: "number",
-      },
-    },
-    rows: {
-      control: {
-        type: "number",
-      },
-    },
-    error: {
-      control: {
-        type: "text",
-      },
-    },
-    warning: {
-      control: {
-        type: "text",
-      },
-    },
-    info: {
-      control: {
-        type: "text",
-      },
-    },
-    previews: {
-      control: {
-        type: "text",
-      },
-    },
+    themeProvider: { chromatic: { theme: "sage" } },
   },
 };
 
-export const Default = ({ onChange, ...props }: Partial<TextEditorProps>) => {
-  const [value, setValue] = useState(EditorState.createEmpty());
+export default meta;
+
+type Story = StoryObj<typeof TextEditor>;
+
+export const Playground: Story = {
+  args: {
+    characterLimit: 3000,
+    error: "",
+    inputHint: "",
+    isOptional: false,
+    labelText: "Text Editor",
+    namespace: "carbon-storybook-rte",
+    placeholder: "Enter text here",
+    readOnly: false,
+    required: false,
+    rows: 10,
+    warning: "",
+  },
+};
+Playground.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const Functions = ({ ...props }: Partial<TextEditorProps>) => {
+  const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
+  const defaultValue = createFromHTML(initialValue);
+
+  const [debouncedValue, setDebouncedValue] = useState(null);
+  const debounceWaitTime = 2000;
+
+  const handleChange = useDebounce((newValue) => {
+    setDebouncedValue(newValue);
+  }, debounceWaitTime);
+
+  const handleCancel = useCallback(() => {
+    console.log("Cancel");
+  }, []);
+  const handleSave = useCallback(({ htmlString, json }: SaveCallbackProps) => {
+    console.log("Save", { htmlString, json });
+  }, []);
+  const handleLinkAdded = useCallback((value: string) => {
+    console.log("Link Added", value);
+  }, []);
+
+  useEffect(() => {
+    console.log("Debounced Value (via onChange)", debouncedValue);
+  }, [debouncedValue]);
+
   return (
     <Box p={1}>
       <TextEditor
-        onChange={(newValue) => {
-          if (onChange) {
-            onChange(newValue);
-          }
-          setValue(newValue);
-        }}
-        value={value}
-        labelText="Text Editor Label"
+        labelText="Text Editor"
         {...props}
+        onCancel={handleCancel}
+        onChange={handleChange}
+        onLinkAdded={handleLinkAdded}
+        onSave={handleSave}
+        value={defaultValue}
       />
     </Box>
   );
 };
 
-Default.storyName = "default";
+Functions.storyName = "Functions";
+Functions.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
-export const WithCustomToolbarContent = () => {
-  const [value, setValue] = useState(EditorState.createEmpty());
+export const ReadOnlyEditorForNotes = () => {
+  const defaultValue = `This is a plain text example`;
+
+  const htmlValue = createFromHTML(
+    `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists <strong>and formatting</strong>!</span></li></ol>`,
+  );
+
   return (
-    <Box padding={1}>
-      <TextEditor
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
-        value={value}
-        toolbarElements={[
-          <Button aria-label="drucken" iconType="print" />,
-          <Button buttonType="secondary" destructive onClick={() => {}}>
-            Kündigen
-          </Button>,
-          <Button buttonType="primary" type="button" onClick={() => {}}>
-            Speichern und beenden
-          </Button>,
-        ]}
-        labelText="Text Editor Label"
-      />
+    <Box p={1}>
+      <Typography>
+        This version of the editor is provided exclusively for use in the `Note`
+        component and as such is not available to consumers. It is
+        stripped-down, simplified implementation akin to Lexical's most basic
+        editor, and it's sole purpose is to display the content of `Note` in the
+        correct display format. The light gray background is used to indicate
+        the position of the editor, and is purely decorative for this story; it
+        will not appear in the actual component.
+      </Typography>
+      <Box p={1} display="flex" gap={2} flexDirection="column">
+        <Box p={1} backgroundColor="lightgray">
+          <ReadOnlyEditor value={defaultValue} />
+        </Box>
+        <Box p={1} backgroundColor="lightgray">
+          <ReadOnlyEditor value={htmlValue} />
+        </Box>
+      </Box>
     </Box>
   );
 };
-
-WithCustomToolbarContent.storyName = "with custom toolbar content";
