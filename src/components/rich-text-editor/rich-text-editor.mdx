@@ -1,0 +1,73 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as RichTextEditorStories from "./rich-text-editor.stories";
+
+<Meta of={RichTextEditorStories} />
+
+# Rich Text Editor
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/827c18-text-editor"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import RichTextEditor from "carbon-react/lib/components/rich-text-editor";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={RichTextEditorStories.Default} />
+
+### Required
+
+<Canvas of={RichTextEditorStories.Required} />
+
+### Optional
+
+<Canvas of={RichTextEditorStories.Optional} />
+
+### Character Limit
+
+<Canvas of={RichTextEditorStories.CharacterLimit} />
+
+### Command Buttons
+
+<Canvas of={RichTextEditorStories.CommandButtons} />
+
+### onChange Handler
+
+<Canvas of={RichTextEditorStories.OnChange} />
+
+### onSave Handler
+
+<Canvas of={RichTextEditorStories.OnSave} />
+
+### With Error
+
+<Canvas of={RichTextEditorStories.WithError} />
+
+### With Warning
+
+<Canvas of={RichTextEditorStories.WithWarning} />
+
+## Props
+
+### Rich Text Editor
+
+<ArgTypes of={RichTextEditorStories} />
