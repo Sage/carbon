@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Portal from ".";
 import Button from "../button";
 import Sidebar from "../sidebar";
 
-export default ({ inertOptOut }: { inertOptOut?: boolean }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+export default () => {
   return (
     <>
-      <Button onClick={() => setSidebarOpen(true)}>Open sidebar</Button>
-      <Portal inertOptOut={inertOptOut}>
+      <Portal inertOptOut>
         <Button>Test for inertOptOut</Button>
       </Portal>
-      <Sidebar open={sidebarOpen} onCancel={() => setSidebarOpen(false)}>
-        Sidebar content
-      </Sidebar>
+      <Sidebar open>Sidebar content</Sidebar>
     </>
   );
 };

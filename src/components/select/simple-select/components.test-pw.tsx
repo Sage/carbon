@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "../../../components/typography";
 import Content from "../../../components/content";
 import {
@@ -40,135 +40,6 @@ export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
       <Option text="Red" value="9" />
       <Option text="White" value="10" />
       <Option text="Yellow" value="11" />
-    </SimpleSelect>
-  );
-};
-
-export const SimpleSelectWithLazyLoadingComponent = (
-  props: Partial<SimpleSelectProps>,
-) => {
-  const preventLoading = useRef(false);
-  const [value, setValue] = useState("black");
-  const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = useState([
-    <Option text="Black" value="black" key="Black" />,
-  ]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-  return (
-    <SimpleSelect
-      name="isLoading"
-      id="isLoading"
-      label="color"
-      value={value}
-      onChange={onChangeHandler}
-      onOpen={() => loadList()}
-      isLoading={isLoading}
-      {...props}
-    >
-      {optionList}
-    </SimpleSelect>
-  );
-};
-
-export const SimpleSelectWithInfiniteScrollComponent = (
-  props: Partial<SimpleSelectProps>,
-) => {
-  const preventLoading = useRef(false);
-  const preventLazyLoading = useRef(false);
-  const lazyLoadingCounter = useRef(0);
-  const [value, setValue] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const getLazyLoaded = () => {
-    const counter = lazyLoadingCounter.current;
-    return [
-      <Option
-        text={`Lazy Loaded A${counter}`}
-        value={`lazyA${counter}`}
-        key={`lazyA${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded B${counter}`}
-        value={`lazyB${counter}`}
-        key={`lazyB${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded C${counter}`}
-        value={`lazyC${counter}`}
-        key={`lazyC${counter}`}
-      />,
-    ];
-  };
-  const [optionList, setOptionList] = useState([
-    <Option text="" value="" key="" />,
-  ]);
-  useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-  function onLazyLoading() {
-    if (preventLazyLoading.current) {
-      return;
-    }
-    preventLazyLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      preventLazyLoading.current = false;
-      lazyLoadingCounter.current += 1;
-      setIsLoading(false);
-      setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
-    }, 2000);
-  }
-  return (
-    <SimpleSelect
-      name="infiniteScroll"
-      id="infiniteScroll"
-      label="color"
-      value={value}
-      onChange={onChangeHandler}
-      onOpen={() => loadList()}
-      isLoading={isLoading}
-      onListScrollBottom={onLazyLoading}
-      {...props}
-    >
-      {optionList}
     </SimpleSelect>
   );
 };
@@ -219,8 +90,8 @@ export const SimpleSelectMultipleColumnsComponent = (
     <SimpleSelect
       name="withMultipleColumns"
       id="withMultipleColumns"
+      label="Clients"
       multiColumn
-      defaultValue="2"
       {...props}
       tableHeader={
         <tr>
@@ -318,40 +189,6 @@ export const SimpleSelectGroupComponent = (
       <Option text="Orange" value="6" />
       <Option text="Pink" value="7" />
       <OptionGroupHeader id="groupHeader3" label="Group three" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </SimpleSelect>
-  );
-};
-
-export const SimpleSelectEventsComponent = ({
-  onChange,
-  ...props
-}: Partial<SimpleSelectProps>) => {
-  const [state, setState] = useState("");
-  const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState(event.target.value);
-    if (onChange) {
-      onChange(event);
-    }
-  };
-  return (
-    <SimpleSelect
-      label="color"
-      value={state}
-      labelInline
-      onChange={setValue}
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
       <Option text="Purple" value="8" />
       <Option text="Red" value="9" />
       <Option text="White" value="10" />
