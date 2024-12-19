@@ -50,7 +50,6 @@ import {
   selectOptionByText,
   selectResetButton,
 } from "../../../../playwright/components/select";
-import { HooksConfig } from "../../../../playwright";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
@@ -77,42 +76,22 @@ const keyToTrigger = [
   "Enter",
 ] as const;
 
-test.describe("When focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MultiSelectComponent />);
+test("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<MultiSelectComponent />);
 
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await expect(inputElement.locator("..")).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(inputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<MultiSelectDefaultValueComponent />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    const selectInputElement = commonDataElementInputPreview(page);
-    await selectInputElement.focus();
-    await expect(selectInputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
+  const inputElement = commonDataElementInputPreview(page);
+  await inputElement.focus();
+  await expect(inputElement.locator("..")).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(inputElement.locator("..")).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test.describe("MultiSelect component", () => {

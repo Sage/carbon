@@ -35,7 +35,6 @@ import {
   assertCssValueIsApproximately,
   getStyle,
 } from "../../../playwright/support/helper";
-import { HooksConfig } from "../../../playwright";
 
 const validationTypes = ["error", "warning", "info"] as const;
 
@@ -454,121 +453,6 @@ test.describe("Tabs component", () => {
     });
   });
 
-  test.describe("check events for Tabs component", () => {
-    test.describe("when position is top", () => {
-      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-      test.skip("should call onTabChange callback when click event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsComponent
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).click();
-        expect(callbackCount).toBe(1);
-      });
-
-      test("should call onTabChange callback when enter key event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsComponent
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).press("Enter");
-        expect(callbackCount).toBe(1);
-      });
-    });
-
-    test.describe("when position is left", () => {
-      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-      test.skip("should call onTabChange callback when click event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsComponent
-            position="left"
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).click();
-        expect(callbackCount).toBe(1);
-      });
-
-      test("should call onTabChange callback when enter key event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsComponent
-            position="left"
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).press("Enter");
-        expect(callbackCount).toBe(1);
-      });
-    });
-
-    test.describe("when in Sidebar", () => {
-      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-      test.skip("should call onTabChange callback when click event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsInSidebar
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).click();
-        expect(callbackCount).toBe(1);
-      });
-
-      test("should call onTabChange callback when enter key event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsInSidebar
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).press("Enter");
-        expect(callbackCount).toBe(1);
-      });
-    });
-  });
-
   test.describe("Accessibility tests for Tabs component", () => {
     test("should pass accessibility tests for Tabs component", async ({
       mount,
@@ -800,37 +684,18 @@ test.describe("Tabs component", () => {
     });
   });
 
-  test.describe("focus styles", () => {
-    [1, 2, 3, 4, 5].forEach((id) => {
-      test(`should render Tab ${id} with expected styles when focusRedesignOptOut is true`, async ({
-        mount,
-        page,
-      }) => {
-        await mount<HooksConfig>(<TabsComponent />, {
-          hooksConfig: { focusRedesignOptOut: true },
-        });
+  [1, 2, 3, 4, 5].forEach((id) => {
+    test(`should render Tab ${id} with expected focus styling`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TabsComponent />);
 
-        await tabById(page, id).focus();
-        await expect(tabById(page, id)).toHaveCSS(
-          "outline",
-          "rgb(255, 188, 25) solid 4px",
-        );
-      });
-    });
-
-    [1, 2, 3, 4, 5].forEach((id) => {
-      test(`should render Tab ${id} with expected styles when focusRedesignOptOut is false`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TabsComponent />);
-
-        await tabById(page, id).focus();
-        await expect(tabById(page, id)).toHaveCSS(
-          "outline",
-          "rgb(0, 0, 0) solid 4px",
-        );
-      });
+      await tabById(page, id).focus();
+      await expect(tabById(page, id)).toHaveCSS(
+        "outline",
+        "rgb(0, 0, 0) solid 4px",
+      );
     });
   });
 

@@ -529,57 +529,6 @@ test.each(["error", "warning", "info"])(
   },
 );
 
-// coverage only - focus styles, both with and without the optout flag, are tested in Playwright
-test("has correct styles when focused and `focusRedesignOptOut` is true", () => {
-  render(
-    <CarbonProvider focusRedesignOptOut>
-      <TextEditor
-        value={TextEditorState.createEmpty()}
-        labelText="Text Editor Label"
-        onChange={() => {}}
-      />
-    </CarbonProvider>,
-  );
-
-  act(() => {
-    screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
-  });
-
-  expect(screen.getByTestId("editor-outline")).toHaveStyleRule(
-    "outline",
-    "3px solid var(--colorsSemanticFocus500)",
-  );
-  expect(screen.getByTestId("editor-outline")).toHaveStyle({
-    "outline-offset": "1px",
-  });
-});
-
-// coverage only - focus styles with error are tested in Playwright
-test("has correct styles when focused and `focusRedesignOptOut` is true when there is an error", () => {
-  render(
-    <CarbonProvider focusRedesignOptOut>
-      <TextEditor
-        value={TextEditorState.createEmpty()}
-        labelText="Text Editor Label"
-        onChange={() => {}}
-        error="error"
-      />
-    </CarbonProvider>,
-  );
-
-  act(() => {
-    screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
-  });
-
-  expect(screen.getByTestId("editor-outline")).toHaveStyleRule(
-    "outline",
-    "3px solid var(--colorsSemanticFocus500)",
-  );
-  expect(screen.getByTestId("editor-outline")).toHaveStyle({
-    "outline-offset": "2px",
-  });
-});
-
 // for coverage only - this behaviour doesn't work properly in jsdom (note incorrect order of text being entered - the style
 // is also absent so we don't assert it). This behaviour is tested properly in Playwright
 test("can enter text after using the keyboard shortcut for bold styling", async () => {

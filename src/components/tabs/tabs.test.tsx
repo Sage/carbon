@@ -1702,3 +1702,133 @@ test("renders the tabs with the correct size when the `size` prop is set to larg
   );
   expect(screen.getByTestId("tab-container")).toHaveStyle("height: 50px");
 });
+
+// ported from Playwright
+describe("check events for Tabs component", () => {
+  describe("when position is top", () => {
+    test("should call onTabChange callback when a click event is triggered", async () => {
+      const onTabChange = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <Tabs onTabChange={onTabChange}>
+          <Tab tabId="1" title="Test 1">
+            Content
+          </Tab>
+          <Tab tabId="2" title="Test 2">
+            Content
+          </Tab>
+        </Tabs>,
+      );
+
+      await user.click(screen.getByRole("tab", { name: "Test 2" }));
+      expect(onTabChange).toHaveBeenCalledWith("2");
+    });
+
+    test("should call onTabChange callback when a keyboard Enter press event is triggered", async () => {
+      const onTabChange = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <Tabs onTabChange={onTabChange}>
+          <Tab tabId="1" title="Test 1">
+            Content
+          </Tab>
+          <Tab tabId="2" title="Test 2">
+            Content
+          </Tab>
+        </Tabs>,
+      );
+      const tab2 = screen.getByRole("tab", { name: "Test 2" });
+      tab2.focus();
+      await user.keyboard("{Enter}");
+      expect(onTabChange).toHaveBeenCalledWith("2");
+    });
+  });
+
+  describe("when position is left", () => {
+    test("should call onTabChange callback when a click event is triggered", async () => {
+      const onTabChange = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <Tabs position="left" onTabChange={onTabChange}>
+          <Tab tabId="1" title="Test 1">
+            Content
+          </Tab>
+          <Tab tabId="2" title="Test 2">
+            Content
+          </Tab>
+        </Tabs>,
+      );
+      await user.click(screen.getByRole("tab", { name: "Test 2" }));
+      expect(onTabChange).toHaveBeenCalledWith("2");
+    });
+
+    test("should call onTabChange callback when a keyboard Enter press event is triggered", async () => {
+      const onTabChange = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <Tabs position="left" onTabChange={onTabChange}>
+          <Tab tabId="1" title="Test 1">
+            Content
+          </Tab>
+          <Tab tabId="2" title="Test 2">
+            Content
+          </Tab>
+        </Tabs>,
+      );
+      const tab2 = screen.getByRole("tab", { name: "Test 2" });
+      tab2.focus();
+      await user.keyboard("{Enter}");
+      expect(onTabChange).toHaveBeenCalledWith("2");
+    });
+  });
+
+  describe("when in a sidebar", () => {
+    test("should call onTabChange callback when a click event is triggered", async () => {
+      const onTabChange = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <Drawer
+          sidebar={
+            <Tabs position="left" onTabChange={onTabChange}>
+              <Tab tabId="1" title="Test 1">
+                Content
+              </Tab>
+              <Tab tabId="2" title="Test 2">
+                Content
+              </Tab>
+            </Tabs>
+          }
+        >
+          drawer content
+        </Drawer>,
+      );
+      await user.click(screen.getByRole("tab", { name: "Test 2" }));
+      expect(onTabChange).toHaveBeenCalledWith("2");
+    });
+
+    test("should call onTabChange callback when a keyboard Enter press event is triggered", async () => {
+      const onTabChange = jest.fn();
+      const user = userEvent.setup();
+      render(
+        <Drawer
+          sidebar={
+            <Tabs position="left" onTabChange={onTabChange}>
+              <Tab tabId="1" title="Test 1">
+                Content
+              </Tab>
+              <Tab tabId="2" title="Test 2">
+                Content
+              </Tab>
+            </Tabs>
+          }
+        >
+          drawer content
+        </Drawer>,
+      );
+      const tab2 = screen.getByRole("tab", { name: "Test 2" });
+      tab2.focus();
+      await user.keyboard("{Enter}");
+      expect(onTabChange).toHaveBeenCalledWith("2");
+    });
+  });
+});

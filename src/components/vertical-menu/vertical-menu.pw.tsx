@@ -17,7 +17,6 @@ import {
 } from "./components.test-pw";
 import VerticalMenuTrigger from "./vertical-menu-trigger/vertical-menu-trigger.component";
 import {
-  checkGoldenOutline,
   assertCssValueIsApproximately,
   checkAccessibility,
   waitForAnimationEnd,
@@ -30,7 +29,6 @@ import {
 } from "../../../playwright/components/vertical-menu";
 import { closeIconButton } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import { HooksConfig } from "../../../playwright";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testData = CHARACTERS.STANDARD;
@@ -284,11 +282,11 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     mount,
     page,
   }) => {
-    let callbackCount = 0;
+    let closeCallbackInvoked = false;
     await mount(
       <VerticalMenuFullScreenCustom
         onClose={() => {
-          callbackCount += 1;
+          closeCallbackInvoked = true;
         }}
       />,
     );
@@ -296,7 +294,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await verticalMenuTrigger(page).click();
     await page.keyboard.press("Escape");
 
-    await expect(callbackCount).toBe(1);
+    await expect(closeCallbackInvoked).toBe(true);
   });
 
   test(`should render Vertical Menu Full Screen without isOpen prop`, async ({
@@ -532,23 +530,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     ).toBeFocused();
   });
 
-  test(`should check the focus styling, focusRedesignOptOut true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<VerticalMenuDefaultComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await verticalMenuItem(page).first().focus();
-    await page.keyboard.press("Tab");
-    await checkGoldenOutline(verticalMenuItem(page).nth(1));
-  });
-
-  test(`should check the focus styling, focusRedesignOptOut false`, async ({
-    mount,
-    page,
-  }) => {
+  test(`should check the focus styling`, async ({ mount, page }) => {
     await mount(<VerticalMenuDefaultComponent />);
 
     await verticalMenuItem(page).first().focus();
@@ -599,47 +581,6 @@ test.describe("VerticalMenuFullScreen test background scroll when tabbing", () =
 });
 
 test.describe("Events test", () => {
-  test(`should call onClick callback when a click event is triggered`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <VerticalMenuTriggerCustom
-        onClick={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    await verticalMenuTrigger(page).click();
-
-    await expect(callbackCount).toBe(1);
-  });
-
-  test(`should call onClose callback when a click event is triggered for VerticalMenuFullScreen`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await page.setViewportSize({
-      width: 320,
-      height: 599,
-    });
-    await mount(
-      <VerticalMenuFullScreenCustom
-        onClose={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    await verticalMenuTrigger(page).click();
-    await closeIconButton(page).click();
-
-    await expect(callbackCount).toBe(1);
-  });
-
   test(`should be available when a Dialog is opened in the background`, async ({
     mount,
     page,
@@ -665,32 +606,6 @@ test.describe("Events test", () => {
 
     const dialogText = page.getByText("Do you want to leave before saving?");
     await expect(dialogText).toBeInViewport();
-  });
-
-  [...keysToTrigger].forEach((key) => {
-    test(`should call onClose callback when a ${key} key event is triggered`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      await page.setViewportSize({
-        width: 320,
-        height: 599,
-      });
-      await mount(
-        <VerticalMenuFullScreenCustom
-          onClose={() => {
-            callbackCount += 1;
-          }}
-        />,
-      );
-
-      await verticalMenuTrigger(page).click();
-      await closeIconButton(page).focus();
-      await page.keyboard.press(key);
-
-      await expect(callbackCount).toBe(1);
-    });
   });
 });
 

@@ -1,3 +1,55 @@
+## [146.1.0](https://github.com/Sage/carbon/compare/v146.0.1...v146.1.0) (2024-12-19)
+
+
+### Features
+
+* **step-flow:** add aria props to component ([037aac1](https://github.com/Sage/carbon/commit/037aac18a29e52779fb626cb3cd939fc9e13817c))
+
+### [146.0.1](https://github.com/Sage/carbon/compare/v146.0.0...v146.0.1) (2024-12-19)
+
+
+### Bug Fixes
+
+* ensure multi-action and split button children container is not hidden by parent ([e215c21](https://github.com/Sage/carbon/commit/e215c21fd12069a68878134d018d76c674a47a0e)), closes [#7134](https://github.com/Sage/carbon/issues/7134)
+
+## [146.0.0](https://github.com/Sage/carbon/compare/v145.0.0...v146.0.0) (2024-12-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `focusRedesignOptOut` feature flag has been removed completely. If passed to
+the `CarbonProvider` it will need to be removed, if consumers are also relying on previous
+focus styling this will also no longer be available.
+
+### Features
+
+* remove focusRedesignOptOut feature flag ([fdcfc6b](https://github.com/Sage/carbon/commit/fdcfc6bd818fc19207bc5748b33ff9b55e00d73f))
+
+## [145.0.0](https://github.com/Sage/carbon/compare/v144.22.1...v145.0.0) (2024-12-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `roundedCornersOptOut` feature flag has been removed completely. If passed to
+the `CarbonProvider` it will need to be removed, if consumers are also relying on previous
+non-rounded corners styling this will also no longer be available.
+
+### Features
+
+* remove roundedCornersOptOut feature flag ([a21e2b9](https://github.com/Sage/carbon/commit/a21e2b95f59a7a23ed7b8af2b920462ea358cb5c))
+
+
+### Bug Fixes
+
+* **dismissible-box:** remove background color props from type interface ([882d28c](https://github.com/Sage/carbon/commit/882d28c43b254bb12626f85bf8c27529ec17dd6b)), closes [#7108](https://github.com/Sage/carbon/issues/7108)
+
+### [144.22.1](https://github.com/Sage/carbon/compare/v144.22.0...v144.22.1) (2024-12-17)
+
+
+### Performance Improvements
+
+* **pipeline:** update Playwright image to latest ([873c077](https://github.com/Sage/carbon/commit/873c07774e8ca28cb5665c16dc9e9ea98761a10d))
+
 ## [144.22.0](https://github.com/Sage/carbon/compare/v144.21.1...v144.22.0) (2024-12-16)
 
 

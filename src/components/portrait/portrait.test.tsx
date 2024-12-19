@@ -5,7 +5,6 @@ import MD5 from "crypto-js/md5";
 import Logger from "../../__internal__/utils/logger";
 import Portrait from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import CarbonProvider from "../carbon-provider";
 
 testStyledSystemMargin(
   (props) => <Portrait data-role="portrait-wrapper" {...props} />,
@@ -156,18 +155,6 @@ test("renders with a circle shape, if the `shape` prop is value is `circle`", ()
   const portrait = screen.getByTestId("portrait");
   expect(portrait).toHaveAttribute("shape", "circle");
   expect(portrait).toHaveStyle("border-radius: var(--borderRadiusCircle)");
-});
-
-test("if a consumer opts out to rounded corners, the `Portrait` shape is a square", () => {
-  render(
-    <CarbonProvider roundedCornersOptOut>
-      <Portrait data-role="portrait" />
-    </CarbonProvider>,
-  );
-
-  const portrait = screen.getByTestId("portrait");
-  expect(portrait).toHaveAttribute("shape", "square");
-  expect(portrait).toHaveStyle("border-radius: 0px");
 });
 
 test("renders a tooltip, populated with a custom value that is passed to the 'tooltipMessage' prop", async () => {

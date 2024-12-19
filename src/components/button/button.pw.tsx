@@ -1,6 +1,5 @@
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
-import type { HooksConfig } from "../../../playwright/index";
 
 import {
   buttonSubtextPreview,
@@ -262,56 +261,28 @@ test.describe("Check events for Button component", () => {
   });
 });
 
-test.describe("When focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<Button>Foo</Button>);
-    await buttonDataComponent(page).focus();
-    await expect(buttonDataComponent(page)).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(buttonDataComponent(page)).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<Button>Foo</Button>, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-    await buttonDataComponent(page).focus();
-    await expect(buttonDataComponent(page)).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
+test("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<Button>Foo</Button>);
+  await buttonDataComponent(page).focus();
+  await expect(buttonDataComponent(page)).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(buttonDataComponent(page)).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
-test.describe("Border radius", () => {
-  test("should have the expected styling when roundedCornersOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<Button>Foo</Button>);
-    await expect(buttonDataComponent(page)).toHaveCSS(`border-radius`, "32px");
-  });
-
-  test("should have the expected styling when roundedCornersOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<Button>Foo</Button>, {
-      hooksConfig: { roundedCornersOptOut: true },
-    });
-    await expect(buttonDataComponent(page)).toHaveCSS(`border-radius`, "0px");
-  });
+test("should have the expected border radius styling", async ({
+  mount,
+  page,
+}) => {
+  await mount(<Button>Foo</Button>);
+  await expect(buttonDataComponent(page)).toHaveCSS(`border-radius`, "32px");
 });
 
 test.describe("Accessibility tests for Button", () => {

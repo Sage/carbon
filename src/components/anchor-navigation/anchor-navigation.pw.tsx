@@ -11,7 +11,6 @@ import {
   anchorNavigationStickyMainPage,
   anchorNavigationItem,
 } from "../../../playwright/components/anchor-navigation/index";
-import { HooksConfig } from "../../../playwright";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { DIALOG_FULL_SCREEN } from "../../../playwright/components/dialog/locators";
 
@@ -55,42 +54,21 @@ test.describe("Should render AnchorNavigation component", () => {
   });
 });
 
-test.describe("When focused", () => {
-  test("has the expected styling when the focusRedesignOptOut flag is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<AnchorNavigationComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
+test("has the expected styling when focused", async ({ mount, page }) => {
+  await mount(<AnchorNavigationComponent />);
 
-    await anchorNavigationItem(page, 0).focus();
+  const anchorNavItem = anchorNavigationItem(page, 0);
 
-    await expect(anchorNavigationItem(page, 0)).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
+  await anchorNavItem.focus();
+  await expect(anchorNavItem).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
 
-  test("has the expected styling when the focusRedesignOptOut flag is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AnchorNavigationComponent />);
-
-    const anchorNavItem = anchorNavigationItem(page, 0);
-
-    await anchorNavItem.focus();
-    await expect(anchorNavItem).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-
-    await expect(anchorNavItem).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
+  await expect(anchorNavItem).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test.describe("Rounded corners", () => {

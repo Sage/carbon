@@ -21,7 +21,6 @@ import {
   getComponent,
   getDataElementByValue,
 } from "../../../playwright/components";
-import { HooksConfig } from "../../../playwright";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const;
 const keysToTrigger = ["Enter", "Space", "ArrowDown"] as const;
@@ -107,8 +106,8 @@ test.describe("Prop tests", () => {
 
   (
     [
-      ["left", 0],
-      ["right", -46],
+      ["left", 198],
+      ["right", 152],
     ] as [MultiActionButtonProps["position"], number][]
   ).forEach(([position, value]) => {
     test(`should render with menu position to the ${position}`, async ({
@@ -120,7 +119,7 @@ test.describe("Prop tests", () => {
       const actionButton = getComponent(page, "multi-action-button");
       await actionButton.click();
       const listContainer = getDataElementByValue(page, "additional-buttons");
-      await expect(listContainer).toHaveCSS("position", "absolute");
+      await expect(listContainer).toHaveCSS("position", "fixed");
       await assertCssValueIsApproximately(listContainer, "top", 46);
       await assertCssValueIsApproximately(listContainer, "left", value);
     });
@@ -1006,7 +1005,7 @@ test.describe("Focus outline and border radius tests for MultiActionButton", () 
     await expect(listButton1).toHaveCSS("border-radius", "8px");
   });
 
-  test(`should render with the expected styling when the focusRedesignOptOut is false`, async ({
+  test(`should render with the expected focus styling`, async ({
     mount,
     page,
   }) => {
@@ -1017,22 +1016,6 @@ test.describe("Focus outline and border radius tests for MultiActionButton", () 
     await expect(actionButton).toHaveCSS(
       "box-shadow",
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-  });
-
-  test(`should render with the expected styling when the focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<MultiActionButtonList />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const actionButton = page.getByRole("button");
-    await actionButton.focus();
-    await expect(actionButton).toHaveCSS(
-      "border",
-      "3px solid rgb(255, 188, 25)",
     );
   });
 });

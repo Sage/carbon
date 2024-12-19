@@ -1,6 +1,5 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import CarbonProvider from "components/carbon-provider";
 import SwitchSlider from "./switch-slider.component";
 
 test('renders the text "OFF" in the panel by default', () => {
@@ -107,32 +106,6 @@ test("when `checked` true and `disabled` true, the correct styles are applied", 
     "background-color",
     "var(--colorsActionDisabled500)",
   );
-});
-
-// test required for styling coverage
-test("when the consumer has opted out of rounded corners styling, the correct border-radius styles are applied", async () => {
-  render(
-    <CarbonProvider roundedCornersOptOut>
-      <SwitchSlider />
-    </CarbonProvider>,
-  );
-
-  const switchPanel = screen.getByTestId("slider");
-
-  expect(switchPanel).toHaveStyle("border-radius: 90px");
-});
-
-// test required for styling coverage
-test("when `size` is large and the consumer has opted out of rounded corners styling, the correct border-radius styles are applied", async () => {
-  render(
-    <CarbonProvider roundedCornersOptOut>
-      <SwitchSlider size="large" />
-    </CarbonProvider>,
-  );
-
-  const switchPanel = screen.getByTestId("slider");
-
-  expect(switchPanel).toHaveStyle("border-radius: 30px");
 });
 
 // coverage

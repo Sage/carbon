@@ -6,6 +6,7 @@ import Button from "../button/button.component";
 import { Checkbox } from "../checkbox";
 import { Dl, Dt, Dd } from "../definition-list";
 import Link from "../link/link.component";
+import SplitButton from "../split-button";
 
 const errorVal = "error";
 const warningVal = "warning";
@@ -547,6 +548,20 @@ export const AccordionWithDefinitionList = () => {
           </Button>
         </Dd>
       </Dl>
+    </Accordion>
+  );
+};
+
+export const AccordionWithSplit = () => {
+  return (
+    <Accordion expanded title="Accordion">
+      <SplitButton text="Split Button">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+        <Button>Button 4</Button>
+        <Button>Button 5</Button>
+      </SplitButton>
     </Accordion>
   );
 };

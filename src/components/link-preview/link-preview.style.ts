@@ -6,11 +6,6 @@ import {
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
 
-const oldFocusStyling = `
-  outline: solid 2px var(--colorsSemanticFocus500);
-  outline-offset: -1px;
-`;
-
 const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
   display: flex;
   margin: 8px;
@@ -26,12 +21,7 @@ const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
     ${as !== "div" &&
     css`
       :focus {
-        ${({ theme }) =>
-          `${
-            !theme.focusRedesignOptOut
-              ? addFocusStyling()
-              : /* istanbul ignore next */ oldFocusStyling
-          }`}
+        ${addFocusStyling()}
       }
 
       :hover {

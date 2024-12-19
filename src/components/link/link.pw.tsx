@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { HooksConfig } from "../../../playwright";
 import {
   getDataElementByValue,
   icon,
@@ -278,47 +277,23 @@ test.describe("check props for Link component", () => {
   });
 });
 
-test.describe("when focused", () => {
-  test("should render with correct focus state, focusRedesignOptOut true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<LinkComponent />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-    const linkElement = linkChildren(page);
-    await linkElement.focus();
-    await expect(linkElement).toHaveCSS(
-      "background-color",
-      "rgb(255, 218, 128)",
-    );
-    await expect(linkElement).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
-    await expect(linkElement).toHaveCSS("border-radius", "2px");
-  });
+test("should render with the correct focus styling", async ({
+  mount,
+  page,
+}) => {
+  await mount(<LinkComponent />);
 
-  test("should render with correct focus state, focusRedesignOptOut false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<LinkComponent />);
-
-    const linkElement = linkChildren(page);
-    await linkElement.focus();
-    await expect(linkElement).toHaveCSS(
-      "background-color",
-      "rgb(255, 218, 128)",
-    );
-    await expect(linkElement).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
-    await expect(linkElement).toHaveCSS("border-radius", "2px");
-    const linkWrapper = link(page);
-    await expect(linkWrapper).toHaveCSS(
-      "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
-    );
-    await expect(linkWrapper).toHaveCSS("max-width", "fit-content");
-  });
+  const linkElement = linkChildren(page);
+  await linkElement.focus();
+  await expect(linkElement).toHaveCSS("background-color", "rgb(255, 218, 128)");
+  await expect(linkElement).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
+  await expect(linkElement).toHaveCSS("border-radius", "2px");
+  const linkWrapper = link(page);
+  await expect(linkWrapper).toHaveCSS(
+    "box-shadow",
+    "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+  );
+  await expect(linkWrapper).toHaveCSS("max-width", "fit-content");
 });
 
 test.describe("check events for Link component", () => {

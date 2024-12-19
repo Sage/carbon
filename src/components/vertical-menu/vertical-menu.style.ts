@@ -18,11 +18,6 @@ interface StyledVerticalMenuProps extends PaddingProps {
   height: string;
 }
 
-const oldFocusStyling = `
-  outline: 3px solid var(--colorsSemanticFocus500);
-  outline-offset: -3px;
-`;
-
 export const StyledVerticalMenuItem = styled.div<StyledVerticalMenuProps>`
   min-height: ${({ height }) => height};
   width: 100%;
@@ -45,10 +40,7 @@ export const StyledVerticalMenuItem = styled.div<StyledVerticalMenuProps>`
   }
 
   &:focus {
-    ${({ theme }) =>
-      !theme.focusRedesignOptOut
-        ? addFocusStyling(true)
-        : /* istanbul ignore next */ oldFocusStyling}
+    ${addFocusStyling(true)}
   }
 
   ${({ active }) =>

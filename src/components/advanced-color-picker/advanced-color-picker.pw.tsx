@@ -12,46 +12,24 @@ import { alertDialogPreview as advancedColorPickerParent } from "../../../playwr
 import { closeIconButton } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { checkAccessibility } from "../../../playwright/support/helper";
-import { HooksConfig } from "../../../playwright";
 
-test.describe("when focused", () => {
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AdvancedColorPickerCustom open />);
+// TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+test.skip("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<AdvancedColorPickerCustom open />);
 
-    const icon = closeIconButton(page);
-    await icon.focus();
-    await expect(closeIconButton(page)).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(closeIconButton(page)).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<AdvancedColorPickerCustom open />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    const icon = closeIconButton(page);
-    await icon.focus();
-    await expect(closeIconButton(page)).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
+  const icon = closeIconButton(page);
+  await icon.focus();
+  await expect(closeIconButton(page)).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(closeIconButton(page)).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test("when AdvancedColorPicker is opened and then closed, with the `restoreFocusOnClose` prop passed as `false`, the call to action element should not be focused", async ({
