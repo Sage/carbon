@@ -127,8 +127,8 @@ test.describe("Heading component", () => {
   }) => {
     await mount(<HeadingComponent backLink="https://carbon.sage.com/" />);
 
-    const linkWrapper = await link(page);
-    const backLinkAnchor = await linkWrapper.locator("a");
+    const linkWrapper = link(page);
+    const backLinkAnchor = linkWrapper.locator("a");
     await backLinkAnchor.focus();
     await expect(backLinkAnchor).toHaveCSS(
       "box-shadow",

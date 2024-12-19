@@ -372,7 +372,7 @@ test.describe("Prop tests for Sidebar component", () => {
     const closeIconButtonElement = closeIconButton(page);
     await closeIconButtonElement.click();
 
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428

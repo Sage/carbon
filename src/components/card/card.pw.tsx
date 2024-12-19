@@ -213,9 +213,9 @@ test.describe("Check Card component properties", () => {
           .locator('[data-component="card"]')
           .count();
 
-        await expect(resultForColumnOne).toEqual(countOfFirstColumn);
+        expect(resultForColumnOne).toEqual(countOfFirstColumn);
 
-        await expect(resultForColumnTwo).toEqual(countOfSecondColumn);
+        expect(resultForColumnTwo).toEqual(countOfSecondColumn);
       });
     },
   );

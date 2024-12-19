@@ -73,9 +73,9 @@ const subMenuOption = ["Sub Menu 1", "Sub Menu 2", "Sub Menu 3"] as const;
 test.describe("check functionality for ActionPopover component", () => {
   test("should render component", async ({ mount, page }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).toBeVisible();
   });
 
@@ -94,13 +94,13 @@ test.describe("check functionality for ActionPopover component", () => {
       page,
     }) => {
       await mount(<ActionPopoverCustom />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < times; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await expect(focusedElement).toContainText(elementText);
     });
   });
@@ -114,7 +114,7 @@ test.describe("check functionality for ActionPopover component", () => {
 
     const actionPopoverButtonElement = actionPopoverButton(page).first();
     await actionPopoverButtonElement.press("ArrowUp");
-    const focusedElement = await page.locator("*:focus");
+    const focusedElement = page.locator("*:focus");
 
     await expect(focusedElement).toContainText("Download CSV");
     await expect(focusedElement).toBeVisible();
@@ -127,12 +127,11 @@ test.describe("check functionality for ActionPopover component", () => {
       page,
     }) => {
       await mount(<ActionPopoverCustom />);
-      const actionPopoverButtonElement =
-        await actionPopoverButton(page).first();
+      const actionPopoverButtonElement = actionPopoverButton(page).first();
       await actionPopoverButtonElement.press(key);
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await expect(focusedElement).toContainText("Email Invoice");
-      const actionPopoverElement = await actionPopover(page).first();
+      const actionPopoverElement = actionPopover(page).first();
       await expect(actionPopoverElement).toBeVisible();
     });
   });
@@ -143,13 +142,13 @@ test.describe("check functionality for ActionPopover component", () => {
     page,
   }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     for (let i = 0; i < 2; i++) {
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await focusedElement.press("ArrowDown");
     }
-    const focusedElement = await page.locator("*:focus");
+    const focusedElement = page.locator("*:focus");
     await focusedElement.press("Home");
     await expect(focusedElement).toContainText("Email Invoice");
   });
@@ -160,13 +159,13 @@ test.describe("check functionality for ActionPopover component", () => {
     page,
   }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     for (let i = 0; i < 2; i++) {
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await focusedElement.press("ArrowDown");
     }
-    const focusedElement = await page.locator("*:focus");
+    const focusedElement = page.locator("*:focus");
     await focusedElement.press("ArrowLeft");
     for (let i = 0; i < 2; i++) {
       await focusedElement.press("ArrowDown");
@@ -182,9 +181,9 @@ test.describe("check functionality for ActionPopover component", () => {
       page,
     }) => {
       await mount(<ActionPopoverCustom />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await focusedElement.press(key);
       await expect(focusedElement).toContainText("Delete");
     });
@@ -196,13 +195,13 @@ test.describe("check functionality for ActionPopover component", () => {
     page,
   }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     for (let i = 0; i < 2; i++) {
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await focusedElement.press("ArrowDown");
     }
-    const focusedElement = await page.locator("*:focus");
+    const focusedElement = page.locator("*:focus");
     await focusedElement.press("ArrowLeft");
     await focusedElement.press("End");
     await expect(focusedElement).toContainText("Sub Menu 2");
@@ -219,48 +218,48 @@ test.describe("check functionality for ActionPopover component", () => {
     await mount(<InFlatTable />);
 
     await page.evaluate(() => window.scrollTo(0, 1000));
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).toBeVisible();
 
-    const focusedElement = await page.locator("*:focus");
+    const focusedElement = page.locator("*:focus");
     await expect(focusedElement).toContainText("Print");
 
     const scrollPosition = await page.evaluate(() => window.scrollY);
-    await expect(scrollPosition).not.toBe(0);
+    expect(scrollPosition).not.toBe(0);
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
   test.skip("should close using Tab key", async ({ mount, page }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const focusedElement = await page.locator("*:focus");
+    const focusedElement = page.locator("*:focus");
     await focusedElement.press("Tab");
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).not.toBeVisible();
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
   test.skip("should close using ShiftTab key", async ({ mount, page }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const focusedElement = await page.locator("*:focus");
+    const focusedElement = page.locator("*:focus");
     await focusedElement.press("Shift+Tab");
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).not.toBeVisible();
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
   test.skip("should close using ESC key", async ({ mount, page }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const focusedElement = await page.locator("*:focus");
+    const focusedElement = page.locator("*:focus");
     await focusedElement.press("Escape");
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).not.toBeVisible();
   });
 
@@ -270,12 +269,12 @@ test.describe("check functionality for ActionPopover component", () => {
     page,
   }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const focusedElement = await page.locator("*:focus");
+    const focusedElement = page.locator("*:focus");
     await focusedElement.press("ArrowDown");
     await focusedElement.press("Escape");
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).not.toBeVisible();
   });
 
@@ -285,16 +284,16 @@ test.describe("check functionality for ActionPopover component", () => {
     page,
   }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     for (let i = 0; i < 2; i++) {
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await focusedElement.press("ArrowDown");
     }
-    const focusedElement = await page.locator("*:focus");
+    const focusedElement = page.locator("*:focus");
     await focusedElement.press("ArrowLeft");
     await page.locator("*:focus").press("Escape");
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).not.toBeVisible();
   });
 
@@ -303,18 +302,18 @@ test.describe("check functionality for ActionPopover component", () => {
     page,
   }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await page.locator("body").click();
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).not.toBeVisible();
   });
 
   test("should close by clicking onto Open icon", async ({ mount, page }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.dblclick();
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).not.toBeVisible();
   });
 
@@ -333,15 +332,15 @@ test.describe("check functionality for ActionPopover component", () => {
       page,
     }) => {
       await mount(<ActionPopoverCustom />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < times; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press(key);
       }
-      const actionPopoverElement = await actionPopover(page).first();
+      const actionPopoverElement = actionPopover(page).first();
       await expect(actionPopoverElement).toBeVisible();
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await expect(focusedElement).toContainText(innerText);
     });
   });
@@ -355,14 +354,13 @@ test.describe("check functionality for ActionPopover component", () => {
     // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
     test.skip(`should focus ${innerText} element`, async ({ mount, page }) => {
       await mount(<ActionPopoverCustom />);
-      const actionPopoverButtonElementEq0 =
-        await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElementEq0 = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElementEq0.click();
       for (let i = 0; i < 2; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await focusedElement.press("ArrowLeft");
       for (let i = 0; i < times; i++) {
         await focusedElement.press("ArrowDown");
@@ -376,14 +374,13 @@ test.describe("check functionality for ActionPopover component", () => {
   ).forEach(([innerText, times]) => {
     test(`should not focus ${innerText} element`, async ({ mount, page }) => {
       await mount(<ActionPopoverCustom />);
-      const actionPopoverButtonElementEq0 =
-        await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElementEq0 = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElementEq0.click();
       for (let i = 0; i < 2; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await focusedElement.press("ArrowLeft");
       for (let i = 0; i < times; i++) {
         await focusedElement.press("ArrowDown");
@@ -403,19 +400,17 @@ test.describe("check functionality for ActionPopover component", () => {
       page,
     }) => {
       await mount(<ActionPopoverCustom />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < 2; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await focusedElement.press("ArrowLeft");
-      const submenuItem = await getDataElementByValue(page, "submenu1").nth(
-        position,
-      );
+      const submenuItem = getDataElementByValue(page, "submenu1").nth(position);
       await submenuItem.press("Enter");
-      const actionPopoverElement = await actionPopover(page).first();
+      const actionPopoverElement = actionPopover(page).first();
       await expect(actionPopoverElement).not.toBeVisible();
     });
   });
@@ -431,19 +426,19 @@ test.describe("check functionality for ActionPopover component", () => {
       page,
     }) => {
       await mount(<ActionPopoverCustom />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < 2; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await focusedElement.press("ArrowLeft");
       if (shouldPressDownArrow) {
         await focusedElement.press("ArrowDown");
       }
       await focusedElement.press("ArrowRight");
-      const submenu = await actionPopoverSubmenuByIndex(page, 1);
+      const submenu = actionPopoverSubmenuByIndex(page, 1);
       await expect(submenu).not.toBeVisible();
     });
   });
@@ -459,19 +454,19 @@ test.describe("check functionality for ActionPopover component", () => {
       page,
     }) => {
       await mount(<ActionPopoverCustom />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < 2; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await focusedElement.press("ArrowLeft");
       if (shouldPressDownArrow) {
         await focusedElement.press("ArrowDown");
       }
       await focusedElement.press("Escape");
-      const actionPopoverElement = await actionPopover(page).first();
+      const actionPopoverElement = actionPopover(page).first();
       await expect(actionPopoverElement).not.toBeVisible();
     });
   });
@@ -482,19 +477,19 @@ test.describe("check functionality for ActionPopover component", () => {
       page,
     }) => {
       await mount(<ActionPopoverCustom />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < 2; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await focusedElement.press("ArrowLeft");
       for (let i = 0; i < 2; i++) {
         await focusedElement.press("ArrowDown");
       }
       await focusedElement.click();
-      const actionPopoverElement = await actionPopover(page).first();
+      const actionPopoverElement = actionPopover(page).first();
       await expect(actionPopoverElement).not.toBeVisible();
     });
   });
@@ -508,11 +503,11 @@ test.describe("check functionality for ActionPopover component", () => {
         <ActionPopoverCustom />
       </Accordion>,
     );
-    const accordionDefaultTitleElement = await accordionDefaultTitle(page);
+    const accordionDefaultTitleElement = accordionDefaultTitle(page);
     await accordionDefaultTitleElement.press("Enter");
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).toBeVisible();
   });
 
@@ -557,12 +552,12 @@ test.describe("check functionality for ActionPopover component", () => {
         <ActionPopoverCustom />
       </Accordion>,
     );
-    const accordionDefaultTitleElement = await accordionDefaultTitle(page);
+    const accordionDefaultTitleElement = accordionDefaultTitle(page);
     await accordionDefaultTitleElement.press("Enter");
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await page.evaluate(() => window.scrollTo(0, 1000));
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).toHaveAttribute(
       "data-floating-placement",
       "bottom-end",
@@ -587,9 +582,9 @@ test.describe("check functionality for ActionPopover component", () => {
       page,
     }) => {
       await mount(<ActionPopoverMenuWithProps />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const submenuItem = await actionPopoverInnerItem(page, index);
+      const submenuItem = actionPopoverInnerItem(page, index);
       await submenuItem.hover();
       await expect(submenuItem).toHaveCSS(
         "background-color",
@@ -613,13 +608,13 @@ test.describe("check functionality for ActionPopover component", () => {
     }) => {
       await mount(<ActionPopoverPropsComponentWithFirstAndLastDisabled />);
 
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < times; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await expect(focusedElement).toContainText(elementText);
     });
   });
@@ -639,13 +634,13 @@ test.describe("check functionality for ActionPopover component", () => {
     }) => {
       await mount(<ActionPopoverPropsComponentWithFirstAndLastDisabled />);
 
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < times; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowUp");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await expect(focusedElement).toContainText(elementText);
     });
   });
@@ -664,13 +659,13 @@ test.describe("check functionality for ActionPopover component", () => {
         <ActionPopoverPropsComponentWithOnlyFirstAndLastNotDisabled />,
       );
 
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < times; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await expect(focusedElement).toContainText(elementText);
     });
   });
@@ -689,13 +684,13 @@ test.describe("check functionality for ActionPopover component", () => {
         <ActionPopoverPropsComponentWithOnlyFirstAndLastNotDisabled />,
       );
 
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < times; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowUp");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await expect(focusedElement).toContainText(elementText);
     });
   });
@@ -713,13 +708,13 @@ test.describe("check functionality for ActionPopover component", () => {
     }) => {
       await mount(<ActionPopoverPropsComponentWithSomeDisabled />);
 
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < times; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await expect(focusedElement).toContainText(elementText);
     });
   });
@@ -737,13 +732,13 @@ test.describe("check functionality for ActionPopover component", () => {
     }) => {
       await mount(<ActionPopoverPropsComponentWithSomeDisabled />);
 
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < times; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowUp");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await expect(focusedElement).toContainText(elementText);
     });
   });
@@ -762,13 +757,13 @@ test.describe("check functionality for ActionPopover component", () => {
     }) => {
       await mount(<ActionPopoverPropsComponentAllDisabled />);
 
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < times; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await expect(focusedElement).not.toContainText(elementText);
     });
   });
@@ -787,13 +782,13 @@ test.describe("check functionality for ActionPopover component", () => {
     }) => {
       await mount(<ActionPopoverPropsComponentAllDisabled />);
 
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       for (let i = 0; i < times; i++) {
-        const focusedElement = await page.locator("*:focus");
+        const focusedElement = page.locator("*:focus");
         await focusedElement.press("ArrowUp");
       }
-      const focusedElement = await page.locator("*:focus");
+      const focusedElement = page.locator("*:focus");
       await expect(focusedElement).not.toContainText(elementText);
     });
   });
@@ -802,9 +797,9 @@ test.describe("check functionality for ActionPopover component", () => {
 test.describe("check props for ActionPopover component", () => {
   test("should render with unique id", async ({ mount, page }) => {
     await mount(<ActionPopoverWithProps id="playwright" />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const actionPopoverWrapperElement = await actionPopoverWrapper(page);
+    const actionPopoverWrapperElement = actionPopoverWrapper(page);
     await expect(actionPopoverWrapperElement).toHaveAttribute(
       "id",
       "playwright",
@@ -822,9 +817,9 @@ test.describe("check props for ActionPopover component", () => {
       page,
     }) => {
       await mount(<ActionPopoverWithProps rightAlignMenu={rightAlignMenu} />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const actionPopoverElement = await actionPopover(page).first();
+      const actionPopoverElement = actionPopover(page).first();
       await expect(actionPopoverElement).toHaveAttribute(
         "data-floating-placement",
         placement,
@@ -834,9 +829,9 @@ test.describe("check props for ActionPopover component", () => {
 
   test("should render with custom button", async ({ mount, page }) => {
     await mount(<ActionPopoverWithRenderProp />);
-    const actionPopoverButtonElement = await buttonDataComponent(page);
+    const actionPopoverButtonElement = buttonDataComponent(page);
     await actionPopoverButtonElement.click();
-    const customButton = await actionPopoverWrapper(page).locator(
+    const customButton = actionPopoverWrapper(page).locator(
       '[data-component="button"]',
     );
     await expect(customButton).toBeVisible();
@@ -844,11 +839,11 @@ test.describe("check props for ActionPopover component", () => {
 
   test("should render with icons within a submenu", async ({ mount, page }) => {
     await mount(<ActionPopoverWithSubmenusAndNoIcons />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     const actionPopoverMenuItemIconElement =
-      await actionPopoverMenuItemIcon(page).nth(0);
-    await expect(await actionPopoverMenuItemIconElement.count()).toBe(1);
+      actionPopoverMenuItemIcon(page).nth(0);
+    expect(await actionPopoverMenuItemIconElement.count()).toBe(1);
   });
 
   [
@@ -860,9 +855,9 @@ test.describe("check props for ActionPopover component", () => {
       page,
     }) => {
       await mount(<ActionPopoverWithProps horizontalAlignment={position} />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const actionPopoverItem = await actionPopover(page)
+      const actionPopoverItem = actionPopover(page)
         .first()
         .locator("button")
         .first();
@@ -884,9 +879,9 @@ test.describe("check props for ActionPopover component", () => {
       await mount(
         <ActionPopoverWithSubmenusAndIcons submenuPosition={position} />,
       );
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const itemChevron = await actionPopoverMenuItemChevron(page).first();
+      const itemChevron = actionPopoverMenuItemChevron(page).first();
       await expect(itemChevron).toHaveAttribute("type", chevronType);
     });
   });
@@ -925,11 +920,11 @@ test.describe("check events for ActionPopover component", () => {
         callbackCount += 1;
       };
       await mount(<ActionPopoverCustom onClick={callback} />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const clickedItem = await actionPopoverInnerItem(page, index);
+      const clickedItem = actionPopoverInnerItem(page, index);
       await clickedItem.click();
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
   });
 
@@ -943,11 +938,11 @@ test.describe("check events for ActionPopover component", () => {
         callbackCount += 1;
       };
       await mount(<ActionPopoverCustom onClick={callback} />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const activatedItem = await actionPopoverInnerItem(page, index);
+      const activatedItem = actionPopoverInnerItem(page, index);
       await activatedItem.press("Enter");
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
   });
 
@@ -961,13 +956,13 @@ test.describe("check events for ActionPopover component", () => {
         callbackCount += 1;
       };
       await mount(<ActionPopoverCustom onClick={callback} />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const submenuTrigger = await actionPopoverInnerItem(page, 2);
+      const submenuTrigger = actionPopoverInnerItem(page, 2);
       await submenuTrigger.hover();
-      const submenuItem = await actionPopoverSubmenu(page, index);
+      const submenuItem = actionPopoverSubmenu(page, index);
       await submenuItem.click();
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
   });
 
@@ -980,7 +975,7 @@ test.describe("check events for ActionPopover component", () => {
         callbackCount += 1;
       };
       await mount(<ActionPopoverCustom onClick={callback} />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
       await page.keyboard.press("ArrowDown");
       await page.keyboard.press("ArrowDown");
@@ -989,7 +984,7 @@ test.describe("check events for ActionPopover component", () => {
         await page.keyboard.press("ArrowDown");
       }
       await page.keyboard.press("Enter");
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
   });
 
@@ -1002,9 +997,9 @@ test.describe("check events for ActionPopover component", () => {
       callbackCount += 1;
     };
     await mount(<ActionPopoverPropsComponent onOpen={callback} />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onClose callback when menu is closed by a click event", async ({
@@ -1016,9 +1011,9 @@ test.describe("check events for ActionPopover component", () => {
       callbackCount += 1;
     };
     await mount(<ActionPopoverPropsComponent onClose={callback} />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.dblclick();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 });
 
@@ -1039,23 +1034,23 @@ test.describe("padding checks on 'StyledMenuItemInnerText'", () => {
           submenuPosition={position}
         />,
       );
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const itemText = await actionPopoverMenuItemInnerText(page).first();
+      const itemText = actionPopoverMenuItemInnerText(page).first();
       await expect(itemText).toHaveCSS("padding-left", "8px");
       const plTokens = await getDesignTokensByCssProperty(
         page,
         itemText,
         "padding-left",
       );
-      await expect(plTokens[0]).toBe("--spacing100");
+      expect(plTokens[0]).toBe("--spacing100");
       await expect(itemText).toHaveCSS("padding-right", "8px");
       const prTokens = await getDesignTokensByCssProperty(
         page,
         itemText,
         "padding-right",
       );
-      await expect(prTokens[0]).toBe("--spacing100");
+      expect(prTokens[0]).toBe("--spacing100");
     });
   });
 
@@ -1069,16 +1064,16 @@ test.describe("padding checks on 'StyledMenuItemInnerText'", () => {
         submenuPosition="left"
       />,
     );
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const itemText = await actionPopoverMenuItemInnerText(page).first();
+    const itemText = actionPopoverMenuItemInnerText(page).first();
     await expect(itemText).toHaveCSS("padding-left", "32px");
     const plTokens = await getDesignTokensByCssProperty(
       page,
       itemText,
       "padding-left",
     );
-    await expect(plTokens[0]).toBe("--spacing400");
+    expect(plTokens[0]).toBe("--spacing400");
   });
 
   test("when horizontalAlignment is right, submenuPosition is right and Menu Item children have some submenus and no icons, then padding-right is --spacing400", async ({
@@ -1091,16 +1086,16 @@ test.describe("padding checks on 'StyledMenuItemInnerText'", () => {
         submenuPosition="right"
       />,
     );
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const itemText = await actionPopoverMenuItemInnerText(page).first();
+    const itemText = actionPopoverMenuItemInnerText(page).first();
     await expect(itemText).toHaveCSS("padding-right", "32px");
     const prTokens = await getDesignTokensByCssProperty(
       page,
       itemText,
       "padding-right",
     );
-    await expect(prTokens[0]).toBe("--spacing400");
+    expect(prTokens[0]).toBe("--spacing400");
   });
 
   test("when horizontalAlignment is left, submenuPosition is left and Menu Item children have submenus and some icons, then padding-left is --spacing600", async ({
@@ -1113,16 +1108,16 @@ test.describe("padding checks on 'StyledMenuItemInnerText'", () => {
         submenuPosition="left"
       />,
     );
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const itemText = await actionPopoverMenuItemInnerText(page).first();
+    const itemText = actionPopoverMenuItemInnerText(page).first();
     await expect(itemText).toHaveCSS("padding-left", "48px");
     const plTokens = await getDesignTokensByCssProperty(
       page,
       itemText,
       "padding-left",
     );
-    await expect(plTokens[0]).toBe("--spacing600");
+    expect(plTokens[0]).toBe("--spacing600");
   });
 
   test("when horizontalAlignment is right, submenuPosition is right and Menu Item children have submenus and some icons, then padding-right is --spacing600", async ({
@@ -1135,16 +1130,16 @@ test.describe("padding checks on 'StyledMenuItemInnerText'", () => {
         submenuPosition="right"
       />,
     );
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const itemText = await actionPopoverMenuItemInnerText(page).first();
+    const itemText = actionPopoverMenuItemInnerText(page).first();
     await expect(itemText).toHaveCSS("padding-right", "48px");
     const prTokens = await getDesignTokensByCssProperty(
       page,
       itemText,
       "padding-right",
     );
-    await expect(prTokens[0]).toBe("--spacing600");
+    expect(prTokens[0]).toBe("--spacing600");
   });
 
   test("when horizontalAlignment is left, submenuPosition is left and Menu Item children are variable, then padding-left is --spacing900", async ({
@@ -1157,16 +1152,16 @@ test.describe("padding checks on 'StyledMenuItemInnerText'", () => {
         submenuPosition="left"
       />,
     );
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const itemText = await actionPopoverMenuItemInnerText(page).first();
+    const itemText = actionPopoverMenuItemInnerText(page).first();
     await expect(itemText).toHaveCSS("padding-left", "72px");
     const plTokens = await getDesignTokensByCssProperty(
       page,
       itemText,
       "padding-left",
     );
-    await expect(plTokens[0]).toBe("--spacing900");
+    expect(plTokens[0]).toBe("--spacing900");
   });
 
   test("when horizontalAlignment is right, submenuPosition is right and Menu Item children are variable, then padding-right is --spacing900", async ({
@@ -1179,16 +1174,16 @@ test.describe("padding checks on 'StyledMenuItemInnerText'", () => {
         submenuPosition="right"
       />,
     );
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const itemText = await actionPopoverMenuItemInnerText(page).first();
+    const itemText = actionPopoverMenuItemInnerText(page).first();
     await expect(itemText).toHaveCSS("padding-right", "72px");
     const prTokens = await getDesignTokensByCssProperty(
       page,
       itemText,
       "padding-right",
     );
-    await expect(prTokens[0]).toBe("--spacing900");
+    expect(prTokens[0]).toBe("--spacing900");
   });
 
   (
@@ -1209,23 +1204,23 @@ test.describe("padding checks on 'StyledMenuItemInnerText'", () => {
           submenuPosition={position}
         />,
       );
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const itemText = await actionPopoverMenuItemInnerText(page).nth(index);
+      const itemText = actionPopoverMenuItemInnerText(page).nth(index);
       await expect(itemText).toHaveCSS("padding-left", "0px");
       const plTokens = await getDesignTokensByCssProperty(
         page,
         itemText,
         "padding-left",
       );
-      await expect(plTokens[0]).toBe("--spacing000");
+      expect(plTokens[0]).toBe("--spacing000");
       await expect(itemText).toHaveCSS("padding-right", "0px");
       const prTokens = await getDesignTokensByCssProperty(
         page,
         itemText,
         "padding-right",
       );
-      await expect(prTokens[0]).toBe("--spacing000");
+      expect(prTokens[0]).toBe("--spacing000");
     });
   });
 });
@@ -1240,9 +1235,9 @@ test.describe("justify-content checks on 'StyledMenuItem'", () => {
       page,
     }) => {
       await mount(<ActionPopoverWithProps horizontalAlignment={alignment} />);
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const menuItem = await getDataElementByValue(page, "menu-item1");
+      const menuItem = getDataElementByValue(page, "menu-item1");
       await expect(menuItem).toHaveCSS("justify-content", itemAlignment);
     });
   });
@@ -1261,9 +1256,9 @@ test.describe("justify-content checks on 'StyledMenuItem'", () => {
           submenuPosition={position}
         />,
       );
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const menuItem = await getDataElementByValue(page, "menu-item1");
+      const menuItem = getDataElementByValue(page, "menu-item1");
       await expect(menuItem).toHaveCSS("justify-content", itemAlignment);
     });
   });
@@ -1282,9 +1277,9 @@ test.describe("justify-content checks on 'StyledMenuItem'", () => {
           submenuPosition={position}
         />,
       );
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const menuItem = await getDataElementByValue(page, "menu-item1");
+      const menuItem = getDataElementByValue(page, "menu-item1");
       await expect(menuItem).toHaveCSS("justify-content", itemAlignment);
     });
   });
@@ -1293,16 +1288,16 @@ test.describe("justify-content checks on 'StyledMenuItem'", () => {
 test.describe("padding checks on 'MenuItemIcon'", () => {
   test("padding is: --spacing100", async ({ mount, page }) => {
     await mount(<ActionPopoverWithIconsAndNoSubmenus />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const icon = await actionPopoverMenuItemIcon(page).nth(0);
+    const icon = actionPopoverMenuItemIcon(page).nth(0);
     await expect(icon).toHaveCSS("padding", "8px");
     const paddingTokens = await getDesignTokensByCssProperty(
       page,
       icon,
       "padding",
     );
-    await expect(paddingTokens.join(" ")).toEqual(
+    expect(paddingTokens.join(" ")).toEqual(
       "--spacing100 --spacing100 --spacing100 --spacing100",
     );
   });
@@ -1343,16 +1338,16 @@ test.describe("padding checks on 'MenuItemIcon'", () => {
           horizontalAlignment={alignment}
         />,
       );
-      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
       await actionPopoverButtonElement.click();
-      const icon = await actionPopoverMenuItemIcon(page).nth(0);
+      const icon = actionPopoverMenuItemIcon(page).nth(0);
       await expect(icon).toHaveCSS("padding", padding);
       const paddingTokens = await getDesignTokensByCssProperty(
         page,
         icon,
         "padding",
       );
-      await expect(paddingTokens.join(" ")).toEqual(spacing);
+      expect(paddingTokens.join(" ")).toEqual(spacing);
     });
   });
 });
@@ -1363,11 +1358,11 @@ test.describe("rounded-corners", () => {
     page,
   }) => {
     await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.focus();
     await expect(actionPopoverButtonElement).toHaveCSS("border-radius", "4px");
     await actionPopoverButtonElement.click();
-    const actionPopoverElement = await actionPopover(page).first();
+    const actionPopoverElement = actionPopover(page).first();
     await expect(actionPopoverElement).toHaveCSS("border-radius", "8px");
   });
 });
@@ -1423,7 +1418,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<Default />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1433,7 +1428,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<Icons />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1443,7 +1438,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<DisabledItems />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1453,7 +1448,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<MenuRightAligned />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1463,7 +1458,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<ContentAlignedRight />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1473,7 +1468,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<SubmenuPositionedRight />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1483,7 +1478,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<NoIcons />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1493,7 +1488,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<CustomMenuButton />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1503,9 +1498,9 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<Submenu />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const submenuTrigger = await actionPopoverInnerItem(page, 0);
+    const submenuTrigger = actionPopoverInnerItem(page, 0);
     await submenuTrigger.click();
     await checkAccessibility(page);
   });
@@ -1515,7 +1510,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<DisabledSubmenu />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1525,7 +1520,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<MenuOpeningAbove />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1535,7 +1530,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<KeyboardNavigation />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1545,9 +1540,9 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<KeyboardNavigationLeftAlignedSubmenu />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const submenuTrigger = await actionPopoverInnerItem(page, 0);
+    const submenuTrigger = actionPopoverInnerItem(page, 0);
     await submenuTrigger.click();
     await checkAccessibility(page);
   });
@@ -1557,9 +1552,9 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<KeyboardNavigationRightAlignedSubmenu />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
-    const submenuTrigger = await actionPopoverInnerItem(page, 0);
+    const submenuTrigger = actionPopoverInnerItem(page, 0);
     await submenuTrigger.click();
     await checkAccessibility(page);
   });
@@ -1569,7 +1564,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<AdditionalOptions />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1579,7 +1574,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<DownloadButton />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1589,7 +1584,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<InOverflowHiddenContainer />);
-    const accordionIcon = await getDataElementByValue(page, "accordion-icon");
+    const accordionIcon = getDataElementByValue(page, "accordion-icon");
     await accordionIcon.click();
     await checkAccessibility(page);
   });
@@ -1599,7 +1594,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<InFlatTable />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1609,7 +1604,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<OpeningAModal />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
   });
@@ -1621,12 +1616,12 @@ test.describe("when nested inside a Dialog component", () => {
     page,
   }) => {
     await mount(<ActionPopoverNestedInDialog />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await page.keyboard.press("Escape");
-    const actionPopoverElement = await actionPopover(page);
+    const actionPopoverElement = actionPopover(page);
     await expect(actionPopoverElement).not.toBeVisible();
-    const dialogElement = await alertDialogPreview(page);
+    const dialogElement = alertDialogPreview(page);
     await expect(dialogElement).toBeVisible();
     await page.keyboard.press("Escape");
     await expect(dialogElement).not.toBeVisible();

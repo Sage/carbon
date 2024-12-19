@@ -22,7 +22,7 @@ test.describe("check Detail component text input", () => {
     }) => {
       await mount(<Detail>{text}</Detail>);
 
-      await expect(await childrenPreview(page)).toHaveText(text);
+      await expect(childrenPreview(page)).toHaveText(text);
     });
 
     test(`check Detail footnote on preview is ${text} footnote value`, async ({
@@ -31,7 +31,7 @@ test.describe("check Detail component text input", () => {
     }) => {
       await mount(<Detail footnote={text} />);
 
-      await expect(await footnotePreview(page)).toHaveText(text);
+      await expect(footnotePreview(page)).toHaveText(text);
     });
   });
 });
@@ -42,9 +42,9 @@ test("should set Detail icon on preview to chevron_up", async ({
 }) => {
   await mount(<Detail icon="chevron_up" />);
 
-  await expect(await icon(page)).toHaveAttribute("type", "chevron_up");
+  await expect(icon(page)).toHaveAttribute("type", "chevron_up");
   const isVisible = await icon(page).isVisible();
-  await expect(await isVisible).toBeTruthy();
+  expect(isVisible).toBeTruthy();
 });
 
 test.describe("Accessibility tests for Detail component", () => {

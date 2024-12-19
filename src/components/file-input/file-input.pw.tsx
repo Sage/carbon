@@ -138,7 +138,7 @@ test.describe("FileInput component", () => {
       page,
     }) => {
       await mount(<FileInputComponent accept={accept} />);
-      const input = await hiddenInput(page, "File input");
+      const input = hiddenInput(page, "File input");
       await expect(input).toHaveAttribute("accept", accept);
     });
   });
@@ -149,7 +149,7 @@ test.describe("FileInput component", () => {
       page,
     }) => {
       await mount(<FileInputComponent buttonText={testVal} />);
-      const buttonElement = await selectFileButton(page, testVal);
+      const buttonElement = selectFileButton(page, testVal);
       await expect(buttonElement).toBeVisible();
     });
   });
@@ -170,9 +170,9 @@ test.describe("FileInput component", () => {
       page,
     }) => {
       await mount(<FileInputComponent label={testVal} />);
-      const input = await hiddenInput(page, testVal);
+      const input = hiddenInput(page, testVal);
       await expect(input).toHaveCount(1);
-      const labelElement = await label(page);
+      const labelElement = label(page);
       await expect(labelElement).toHaveText(testVal);
       await expect(labelElement).toBeVisible();
     });
@@ -184,7 +184,7 @@ test.describe("FileInput component", () => {
       page,
     }) => {
       await mount(<FileInputComponent inputHint={testVal} />);
-      const inputHintElement = await page.getByText(testVal);
+      const inputHintElement = page.getByText(testVal);
       await expect(inputHintElement).toBeVisible();
     });
   });
@@ -199,7 +199,7 @@ test.describe("FileInput component", () => {
           .getPropertyValue("border-color"),
       );
     // TODO: should check token value (--colorsSemanticNegative500), rewrite this when we have the equivalent playwright util merged in
-    await expect(borderColor).toBe("rgb(203, 55, 74)");
+    expect(borderColor).toBe("rgb(203, 55, 74)");
   });
 
   test("should render with string error prop", async ({ mount, page }) => {
@@ -212,8 +212,8 @@ test.describe("FileInput component", () => {
           .getPropertyValue("border-color"),
       );
     // TODO: should check token value (--colorsSemanticNegative500), rewrite this when we have the equivalent playwright util merged in
-    await expect(borderColor).toBe("rgb(203, 55, 74)");
-    const errorMessage = await page.getByText("error text");
+    expect(borderColor).toBe("rgb(203, 55, 74)");
+    const errorMessage = page.getByText("error text");
     await expect(errorMessage).toBeVisible();
     await expect(errorMessage).toHaveCSS("color", "rgb(203, 55, 74)");
   });
@@ -221,7 +221,7 @@ test.describe("FileInput component", () => {
   specialCharacters.forEach((testVal) => {
     test(`should render with id '${testVal}'`, async ({ mount, page }) => {
       await mount(<FileInputComponent id={testVal} />);
-      const input = await hiddenInput(page, "File input");
+      const input = hiddenInput(page, "File input");
       await expect(input).toHaveAttribute("id", testVal);
     });
   });
@@ -330,12 +330,12 @@ test.describe("with uploadStatus prop", () => {
         uploadStatus={{ ...uploadingStatusProps, onAction }}
       />,
     );
-    const actionButton = await page.getByRole("button", {
+    const actionButton = page.getByRole("button", {
       name: "Cancel upload",
     });
     await expect(actionButton).toBeVisible();
     await actionButton.click();
-    await expect(clickCount).toBe(1);
+    expect(clickCount).toBe(1);
   });
 
   test("in the uploading state, it renders the file name, but not as a link", async ({
@@ -371,9 +371,9 @@ test.describe("with uploadStatus prop", () => {
         uploadStatus={{ ...uploadingStatusProps, progress: undefined }}
       />,
     );
-    const loaderBar = await page.getByRole("progressbar");
+    const loaderBar = page.getByRole("progressbar");
     await expect(loaderBar).toBeVisible();
-    await expect(await loaderBar.getAttribute("aria-valuenow")).toBeNull();
+    expect(await loaderBar.getAttribute("aria-valuenow")).toBeNull();
   });
 
   test("in the completed state, it renders a status message", async ({
@@ -397,12 +397,12 @@ test.describe("with uploadStatus prop", () => {
         uploadStatus={{ ...completedStatusProps, onAction }}
       />,
     );
-    const actionButton = await page.getByRole("button", {
+    const actionButton = page.getByRole("button", {
       name: "Delete file",
     });
     await expect(actionButton).toBeVisible();
     await actionButton.click();
-    await expect(clickCount).toBe(1);
+    expect(clickCount).toBe(1);
   });
 
   test("in the completed state, it renders the file name as a link with the provided props", async ({
@@ -410,7 +410,7 @@ test.describe("with uploadStatus prop", () => {
     page,
   }) => {
     await mount(<FileInputComponent uploadStatus={completedStatusProps} />);
-    const link = await page.getByRole("link", { name: "foo.pdf" });
+    const link = page.getByRole("link", { name: "foo.pdf" });
     await expect(link).toBeVisible();
     await expect(link).toHaveAttribute("href", "http://carbon.sage.com");
     await expect(link).toHaveAttribute("target", "_blank");
@@ -438,7 +438,7 @@ test.describe("with uploadStatus prop", () => {
     page,
   }) => {
     await mount(<FileInputComponent uploadStatus={previouslyStatusProps} />);
-    const link = await page.getByRole("link", { name: "foo.pdf" });
+    const link = page.getByRole("link", { name: "foo.pdf" });
     await expect(link).toBeVisible();
     await expect(link).toHaveAttribute("href", "http://carbon.sage.com");
     await expect(link).toHaveAttribute("target", "_blank");
@@ -458,12 +458,12 @@ test.describe("with uploadStatus prop", () => {
         uploadStatus={{ ...previouslyStatusProps, onAction }}
       />,
     );
-    const actionButton = await page.getByRole("button", {
+    const actionButton = page.getByRole("button", {
       name: "Delete file",
     });
     await expect(actionButton).toBeVisible();
     await actionButton.click();
-    await expect(clickCount).toBe(1);
+    expect(clickCount).toBe(1);
   });
 
   test("in the previously state, it does not render a progress bar", async ({
@@ -493,10 +493,10 @@ test.describe("with uploadStatus prop", () => {
     await mount(
       <FileInputComponent uploadStatus={{ ...errorStatusProps, onAction }} />,
     );
-    const actionButton = await page.getByRole("button", { name: "Clear" });
+    const actionButton = page.getByRole("button", { name: "Clear" });
     await expect(actionButton).toBeVisible();
     await actionButton.click();
-    await expect(clickCount).toBe(1);
+    expect(clickCount).toBe(1);
   });
 
   test("in the error state, it renders the file name, but not as a link", async ({
@@ -558,8 +558,8 @@ test.describe("interactions", () => {
       fileName: "README.md",
       fileType: "text/markdown",
     });
-    await expect(onChangeCalls.length).toBe(1);
-    await expect(onChangeCalls[0]).toMatchObject({
+    expect(onChangeCalls.length).toBe(1);
+    expect(onChangeCalls[0]).toMatchObject({
       name: "README.md",
       type: "text/markdown",
     });
@@ -585,7 +585,7 @@ test.describe("interactions", () => {
           .getComputedStyle(el.parentElement as HTMLElement)
           .getPropertyValue("border-width"),
       );
-    await expect(borderWidth).toBe("2px");
+    expect(borderWidth).toBe("2px");
   });
 
   test("when dragging a file off the document, the component border returns to the original thickness", async ({
@@ -616,7 +616,7 @@ test.describe("interactions", () => {
           .getComputedStyle(el.parentElement as HTMLElement)
           .getPropertyValue("border-width"),
       );
-    await expect(borderWidth).toBe("1px");
+    expect(borderWidth).toBe("1px");
   });
 
   test("after dropping a file, the component border returns to the original thickness", async ({
@@ -647,7 +647,7 @@ test.describe("interactions", () => {
           .getComputedStyle(el.parentElement as HTMLElement)
           .getPropertyValue("border-width"),
       );
-    await expect(borderWidth).toBe("1px");
+    expect(borderWidth).toBe("1px");
   });
 
   test("while dragging a file with the component in the error state, the border color changes", async ({
@@ -671,7 +671,7 @@ test.describe("interactions", () => {
           .getPropertyValue("border-color"),
       );
     // TODO: should check token value (--colorsSemanticNegative600), rewrite this when we have the equivalent playwright util merged in
-    await expect(borderColor).toBe("rgb(162, 44, 59)");
+    expect(borderColor).toBe("rgb(162, 44, 59)");
   });
 
   test("while dragging a file over the component, the background color changes", async ({
@@ -694,7 +694,7 @@ test.describe("interactions", () => {
           .getComputedStyle(el.parentElement as HTMLElement)
           .getPropertyValue("background-color"),
       );
-    await expect(backgroundColor).toBe("rgb(204, 214, 219)");
+    expect(backgroundColor).toBe("rgb(204, 214, 219)");
   });
 });
 

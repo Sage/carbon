@@ -262,8 +262,8 @@ test.describe("should render Accordion component", () => {
       await mount(<AccordionComponent size={size} />);
 
       const cssHeight = await getStyle(accordionTitleContainer(page), "height");
-      await expect(parseInt(cssHeight)).toBeLessThanOrEqual(height + 1);
-      await expect(parseInt(cssHeight)).toBeGreaterThanOrEqual(height - 1);
+      expect(parseInt(cssHeight)).toBeLessThanOrEqual(height + 1);
+      expect(parseInt(cssHeight)).toBeGreaterThanOrEqual(height - 1);
     });
   });
 
@@ -403,7 +403,7 @@ test.describe("should render Accordion component", () => {
       );
 
       const cssWidth = await getStyle(accordionTitleContainer(page), "width");
-      await expect(cssWidth).toContain(width);
+      expect(cssWidth).toContain(width);
     });
   });
 

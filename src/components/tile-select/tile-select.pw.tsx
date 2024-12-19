@@ -452,7 +452,7 @@ test.describe("should render TileSelect component and check events", () => {
 
     const onFocusElement = inputElement(page);
     await onFocusElement.focus();
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 
   test("should call onChange callback when a click event is triggered for TileSelect component", async ({

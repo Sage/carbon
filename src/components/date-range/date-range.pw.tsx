@@ -474,7 +474,7 @@ test.describe("Event tests for DateRange component", () => {
         getDataElementByValue(page, "input").nth(inputIndex);
       await getDataElementByValueElementInputEqInputIndex.clear();
 
-      await expect(callbackCount).toEqual(1);
+      expect(callbackCount).toEqual(1);
     });
   });
 
@@ -495,7 +495,7 @@ test.describe("Event tests for DateRange component", () => {
 
         await textboxInput(page).nth(inputIndex).type(value);
 
-        await expect(callbackCount).toEqual(value.length);
+        expect(callbackCount).toEqual(value.length);
       });
     });
   });
@@ -517,7 +517,7 @@ test.describe("Event tests for DateRange component", () => {
 
     await textboxInput(page).nth(START_DATE_RANGE_INDEX).type("1");
 
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 });
 
