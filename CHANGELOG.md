@@ -1,3 +1,10 @@
+### [146.0.1](https://github.com/Sage/carbon/compare/v146.0.0...v146.0.1) (2024-12-19)
+
+
+### Bug Fixes
+
+* ensure multi-action and split button children container is not hidden by parent ([e215c21](https://github.com/Sage/carbon/commit/e215c21fd12069a68878134d018d76c674a47a0e)), closes [#7134](https://github.com/Sage/carbon/issues/7134)
+
 ## [146.0.0](https://github.com/Sage/carbon/compare/v145.0.0...v146.0.0) (2024-12-19)
 
 
