@@ -1,3 +1,16 @@
+## [146.0.0](https://github.com/Sage/carbon/compare/v145.0.0...v146.0.0) (2024-12-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `focusRedesignOptOut` feature flag has been removed completely. If passed to
+the `CarbonProvider` it will need to be removed, if consumers are also relying on previous
+focus styling this will also no longer be available.
+
+### Features
+
+* remove focusRedesignOptOut feature flag ([fdcfc6b](https://github.com/Sage/carbon/commit/fdcfc6bd818fc19207bc5748b33ff9b55e00d73f))
+
 ## [145.0.0](https://github.com/Sage/carbon/compare/v144.22.1...v145.0.0) (2024-12-17)
 
 
