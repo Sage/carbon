@@ -470,6 +470,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                 }
               >
                 <Textbox
+                  maxWidth="fit-content"
                   id={inputIds.current[datePart]}
                   label={getDateLabel(datePart, locale)}
                   disabled={disabled}

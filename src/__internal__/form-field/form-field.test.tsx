@@ -127,3 +127,11 @@ test("should render with `labelInline` when `adaptiveLabelBreakpoint` set and sc
 
   expect(screen.getByTestId("field-line")).toHaveStyle("display: flex");
 });
+
+test("should render with `maxWidth` when provided", () => {
+  render(<FormField id="mock-input" label="label" maxWidth="fit-content" />);
+
+  expect(screen.getByTestId("field-line")).toHaveStyle(
+    "max-width: fit-content",
+  );
+});
