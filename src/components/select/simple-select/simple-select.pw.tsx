@@ -1091,6 +1091,52 @@ test.describe("SimpleSelect component", () => {
     });
   });
 
+  (
+    [
+      [
+        "top",
+        "rgba(0, 20, 30, 0.2) 0px -5px 5px 0px, rgba(0, 20, 30, 0.1) 0px -10px 10px 0px",
+      ],
+      [
+        "bottom",
+        "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px",
+      ],
+    ] as [NonNullable<SimpleSelectProps["listPlacement"]>, string][]
+  ).forEach(([position, boxShadow]) => {
+    test(`should render list with expected box-shadow when listPosition is ${position}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <SimpleSelectComponent listPlacement={position} flipEnabled={false} />,
+      );
+
+      await selectText(page).click();
+      const listElement = selectListPosition(page);
+      await expect(listElement).toHaveCSS("box-shadow", boxShadow);
+      await expect(listElement).toBeVisible();
+    });
+  });
+
+  test("should update box-shadow when placement changes due to window resize", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SimpleSelectComponent mt={200} />);
+
+    await selectText(page).click();
+    const listElement = selectListPosition(page);
+    await expect(listElement).toHaveCSS(
+      "box-shadow",
+      "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px",
+    );
+    await page.setViewportSize({ width: 1200, height: 250 });
+    await expect(listElement).toHaveCSS(
+      "box-shadow",
+      "rgba(0, 20, 30, 0.2) 0px -5px 5px 0px, rgba(0, 20, 30, 0.1) 0px -10px 10px 0px",
+    );
+  });
+
   test("should have correct hover state of list option", async ({
     mount,
     page,
