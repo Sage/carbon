@@ -17,7 +17,7 @@ import React from "react";
 import { FormattingButton } from "../toolbar.style";
 import { ListFormattingButtonProps } from "./common";
 
-import { RichTextEditorActionTypes } from "../../../constants";
+import { componentPrefix, RichTextEditorActionTypes } from "../../../constants";
 
 const NumberListButton = ({
   isActive,
@@ -71,6 +71,7 @@ const NumberListButton = ({
       iconType="bullet_list_numbers"
       buttonType={isActive ? "primary" : "tertiary"}
       isActive={isActive}
+      data-role={`${componentPrefix}-ordered-list-button`}
     />
   );
 };

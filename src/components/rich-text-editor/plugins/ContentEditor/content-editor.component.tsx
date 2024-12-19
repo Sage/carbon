@@ -7,7 +7,7 @@ import { componentPrefix } from "../../constants";
 
 const ContentEditor = () => {
   return (
-    <StyledContentEditable>
+    <StyledContentEditable data-role={`${componentPrefix}-content-editable`}>
       <ContentEditable
         data-role={`${componentPrefix}-editable`}
         className={`${componentPrefix}-editable`}

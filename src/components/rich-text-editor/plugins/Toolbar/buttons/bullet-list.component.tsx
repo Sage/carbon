@@ -15,7 +15,7 @@ import {
 import React from "react";
 
 import { FormattingButton } from "../toolbar.style";
-import { RichTextEditorActionTypes } from "../../../constants";
+import { componentPrefix, RichTextEditorActionTypes } from "../../../constants";
 
 import { ListFormattingButtonProps } from "./common";
 
@@ -71,6 +71,7 @@ const BulletListButton = ({
       iconType="bullet_list_dotted"
       buttonType={isActive ? "primary" : "tertiary"}
       isActive={isActive}
+      data-role={`${componentPrefix}-unordered-list-button`}
     />
   );
 };

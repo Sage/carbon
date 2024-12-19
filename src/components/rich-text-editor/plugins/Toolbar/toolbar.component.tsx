@@ -1,6 +1,6 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
-import { $getSelection, $isRangeSelection, $getRoot } from "lexical";
+import { $getSelection, $isRangeSelection } from "lexical";
 import React, { useCallback, useEffect, useState } from "react";
 
 import {
@@ -8,7 +8,7 @@ import {
   FormattingButtons,
   CommandButtons,
 } from "./toolbar.style";
-import { RichTextEditorActionTypes } from "../../constants";
+import { componentPrefix, RichTextEditorActionTypes } from "../../constants";
 import Button from "../../../button";
 import {
   BoldButton,
@@ -17,9 +17,11 @@ import {
   UnorderedListButton,
 } from "./buttons";
 
+import SaveButton from "./buttons/save.component";
+
 interface ToolbarProps {
   onCancel?: () => void;
-  onSave?: (value: string) => void;
+  onSave?: (value: any) => void;
 }
 
 const Toolbar = ({ onCancel, onSave }: ToolbarProps) => {
@@ -48,14 +50,14 @@ const Toolbar = ({ onCancel, onSave }: ToolbarProps) => {
   }, [updateToolbar, editor]);
 
   return (
-    <StyledToolbar>
-      <FormattingButtons>
+    <StyledToolbar data-role={`${componentPrefix}-toolbar`}>
+      <FormattingButtons data-role={`${componentPrefix}-formatting-buttons`}>
         <BoldButton isActive={isBold} />
         <ItalicButton isActive={isItalic} />
         <OrderedListButton
           isActive={isOrderedList}
           setPairedButtonState={() => {
-            setIsOrderedList(!isOrderedList);
+            setIsOrderedList(true);
             setIsUnorderedList(false);
           }}
         />
@@ -63,16 +65,15 @@ const Toolbar = ({ onCancel, onSave }: ToolbarProps) => {
           isActive={isUnorderedList}
           setPairedButtonState={() => {
             setIsOrderedList(false);
-            setIsUnorderedList(!isUnorderedList);
+            setIsUnorderedList(true);
           }}
         />
       </FormattingButtons>
-      <CommandButtons id="carbon-rich-text-editor-toolbar-command-buttons">
+      <CommandButtons data-role={`${componentPrefix}-command-buttons`}>
         {onCancel && (
           <Button
-            id="carbon-rich-text-editor-toolbar-command-buttons-cancel"
             buttonType="tertiary"
-            data-role="rte-cancel-button"
+            data-role={`${componentPrefix}-cancel-button`}
             aria-label="Cancel"
             onClick={() => onCancel?.()}
           >
@@ -80,22 +81,7 @@ const Toolbar = ({ onCancel, onSave }: ToolbarProps) => {
           </Button>
         )}
 
-        {onSave && (
-          <Button
-            id="carbon-rich-text-editor-toolbar-command-buttons-save"
-            data-role="rte-save-button"
-            buttonType="primary"
-            aria-label="Save"
-            onClick={() => {
-              const currentTextContent = editor.read(() =>
-                $getRoot().getTextContent(),
-              );
-              onSave?.(currentTextContent);
-            }}
-          >
-            Save
-          </Button>
-        )}
+        {onSave && <SaveButton onSave={onSave} />}
       </CommandButtons>
     </StyledToolbar>
   );

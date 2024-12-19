@@ -4,10 +4,15 @@ import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+
 import { EditorState, $getRoot } from "lexical";
+
 import React, { useMemo, useState } from "react";
 
+import Label from "../../__internal__/label";
+
 import { componentPrefix, markdownNodes, theme } from "./constants";
+import { DeserializeHTML } from "./helpers";
 import {
   CharacterCounterPlugin,
   ContentEditor,
@@ -16,8 +21,6 @@ import {
   ToolbarPlugin,
 } from "./plugins";
 import StyledRichTextEditor from "./rich-text-editor.style";
-
-import Label from "../../__internal__/label";
 
 export interface RichTextEditorProps {
   /** The maximum number of characters allowed in the editor */
@@ -35,14 +38,20 @@ export interface RichTextEditorProps {
   /** The callback to fire when a change is registered within the editor */
   onChange?: (value: string) => void;
   /** The callback to fire when the Save button within the editor is pressed */
-  onSave?: (value: string) => void;
+  onSave?: (value: any) => void;
   /** The placeholder to display when the editor is empty */
   placeholder?: string;
   /** Whether the content of the editor is required to have a value */
   required?: boolean;
   /** The message to be shown when the editor is in an warning state */
   warning?: string;
+  /** The initial value of the editor, as a HTML string, or JSON */
+  value?: string | undefined;
 }
+
+const createFromHTML = (html: string) => {
+  return DeserializeHTML(html);
+};
 
 export const RichTextEditor = ({
   characterLimit = 3000,
@@ -56,26 +65,31 @@ export const RichTextEditor = ({
   placeholder,
   required = false,
   warning,
+  value,
 }: RichTextEditorProps) => {
+  const [editorState, setEditorState] = useState<EditorState | undefined>(
+    undefined,
+  );
+  const [characterLimitWarning, setCharacterLimitWarning] = useState<
+    string | undefined
+  >(undefined);
   const initialConfig = useMemo(() => {
     return {
       namespace,
       nodes: markdownNodes,
       onError: console.error,
       theme,
+      editorState: value,
     };
-  }, [namespace]);
-  const [editorState, setEditorState] = useState<EditorState | undefined>(
-    undefined,
-  );
+  }, [namespace, value]);
 
   return (
     <>
       <Label
         isRequired={required}
         optional={isOptional}
-        error={error}
-        warning={warning}
+        error={error || undefined}
+        warning={characterLimitWarning || warning || undefined}
       >
         {labelText}
       </Label>
@@ -91,11 +105,21 @@ export const RichTextEditor = ({
           <OnChangePlugin
             onChange={(newState) => {
               setEditorState(newState);
+              const currentTextContent = newState.read(() =>
+                $getRoot().getTextContent(),
+              );
+
               if (onChange) {
-                const currentTextContent = newState.read(() =>
-                  $getRoot().getTextContent(),
-                );
                 onChange?.(currentTextContent);
+              }
+
+              if (characterLimit > 0) {
+                const currentDiff = characterLimit - currentTextContent.length;
+                setCharacterLimitWarning(
+                  currentDiff < 0
+                    ? `You are ${Math.abs(currentDiff)} character(s) over the character limit`
+                    : undefined,
+                );
               }
             }}
           />
@@ -113,4 +137,5 @@ export const RichTextEditor = ({
   );
 };
 
+export const CreateFromHTML = createFromHTML;
 export default RichTextEditor;

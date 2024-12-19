@@ -15,6 +15,8 @@ import * as RichTextEditorStories from "./rich-text-editor.stories";
   Product Design System component
 </a>
 
+Provides an interactive rich text editor that allows users to format text with various styles and save the content as JSON or HTML.
+
 
 ## Contents
 
@@ -25,46 +27,89 @@ import * as RichTextEditorStories from "./rich-text-editor.stories";
 ## Quick Start
 
 ```javascript
-import RichTextEditor from "carbon-react/lib/components/rich-text-editor";
+import RichTextEditor, { CreateFromHTML } from "carbon-react/lib/components/rich-text-editor";
 ```
+
+To use the rich text editor, import the `RichTextEditor` component. If your content is stored as HTML, you can use the `CreateFromHTML`
+function to convert it to a format that the editor can understand. If you do not work with HTML, the `CreateFromHTML` function is not required
+and can be omitted from the imports.
 
 ## Examples
 
 ### Default
 
+All instances of the Rich Text Editor should have a label that describes the purpose of the editor; this can be set via the `labelText` property.
+
 <Canvas of={RichTextEditorStories.Default} />
 
 ### Required
+
+You can set the `required` property to `true` to indicate that the content of the editor is mandatory.
 
 <Canvas of={RichTextEditorStories.Required} />
 
 ### Optional
 
+You can set the `isOptional` property to `true` to indicate that the content of the editor is optional.
+
 <Canvas of={RichTextEditorStories.Optional} />
 
 ### Character Limit
+
+You can set the `characterLimit` property to limit the number of characters that can be entered into the editor. Note that the character limit
+is not a hard limit, and the user can still enter more characters than the limit. However, the editor will show a warning to indicate that the
+limit has been exceeded.
 
 <Canvas of={RichTextEditorStories.CharacterLimit} />
 
 ### Command Buttons
 
+You can add `Save` and `Cancel` buttons to the editor by setting the `onSave` and `onCancel` properties. Both properties should be functions.
+Omitting the `onCancel` property will hide the `Cancel` button, whereas omitting the `onSave` property will hide the `Save` button.
+
+The `onSave` function callback will be called when the user clicks the `Save` button, and contains a single argument with two values:
+the JSON and HTML content of the editor. The `onCancel` function callback will be called when the user clicks the `Cancel` button.
+
 <Canvas of={RichTextEditorStories.CommandButtons} />
-
-### onChange Handler
-
-<Canvas of={RichTextEditorStories.OnChange} />
-
-### onSave Handler
 
 <Canvas of={RichTextEditorStories.OnSave} />
 
+### onChange Handler
+
+To handle changes to the content of the editor, you can set the `onChange` property to a function. The function will be called whenever the
+editor state changes, and provides a string representation of the editor content. Please note that this function will be called frequently,
+so it is recommended to avoid computationally expensive operations within it. You may also wish to debounce the function to avoid excessive
+calls.
+
+<Canvas of={RichTextEditorStories.OnChange} />
+
 ### With Error
+
+When the editor is in an error state, you can use the `error` property to display messages to the user.
 
 <Canvas of={RichTextEditorStories.WithError} />
 
 ### With Warning
 
+When the editor is in a warning state, you can use the `warning` property to display messages to the user. Exceeding the character limit will
+trigger a warning message automatically.
+
 <Canvas of={RichTextEditorStories.WithWarning} />
+
+### With JSON As Initial Value
+
+You can set the initial value of the editor by passing a JSON object to the `value` property. The JSON object provided should be in the format
+returned by the `onSave` function callback, an example of which can be seen below.
+
+<Canvas of={RichTextEditorStories.WithJSONValue} />
+
+### With HTML As Initial Value
+
+In order to set the initial value of the editor as HTML, you can use the `CreateFromHTML` function to convert the HTML content to a format that
+the editor can understand. The `CreateFromHTML` function should be called with the HTML content as an argument, and the result should be passed
+to the `value` property of the editor.
+
+<Canvas of={RichTextEditorStories.WithHTMLValue} />
 
 ## Props
 

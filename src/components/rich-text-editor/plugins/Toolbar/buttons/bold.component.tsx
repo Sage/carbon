@@ -5,7 +5,7 @@ import React from "react";
 import { FormattingButton } from "../toolbar.style";
 import { FormattingButtonProps } from "./common";
 
-import { RichTextEditorActionTypes } from "../../../constants";
+import { componentPrefix, RichTextEditorActionTypes } from "../../../constants";
 
 const BoldButton = ({ isActive }: FormattingButtonProps) => {
   const [editor] = useLexicalComposerContext();
@@ -22,6 +22,7 @@ const BoldButton = ({ isActive }: FormattingButtonProps) => {
       iconType="bold"
       buttonType={isActive ? "primary" : "tertiary"}
       isActive={isActive}
+      data-role={`${componentPrefix}-bold-button`}
     />
   );
 };

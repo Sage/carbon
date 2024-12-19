@@ -4,6 +4,8 @@ import React, { useMemo } from "react";
 
 import StyledCharacterCounter from "./character-counter.style";
 
+import { componentPrefix } from "../../constants";
+
 export interface CharacterCounterPluginProps {
   editorState: EditorState | undefined;
   maxChars: number;
@@ -23,7 +25,7 @@ const CharacterCounterPlugin = ({
   }, [editorState, maxChars]);
 
   return (
-    <StyledCharacterCounter>
+    <StyledCharacterCounter data-role={`${componentPrefix}-character-limit`}>
       {rawCharactersRemaining} characters remaining
     </StyledCharacterCounter>
   );
