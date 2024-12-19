@@ -47,7 +47,6 @@ import {
   selectOptionByText,
   selectResetButton,
 } from "../../../../playwright/components/select";
-import { HooksConfig } from "../../../../playwright";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
@@ -64,41 +63,22 @@ const icon = "add";
 const keyToTrigger = ["ArrowDown", "ArrowUp", "Home", "End"] as const;
 const listOption = "Amber";
 
-test.describe("When focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
+test("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<FilterableSelectComponent />);
 
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await expect(inputElement.locator("..")).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(inputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FilterableSelectComponent />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await expect(inputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
+  const inputElement = commonDataElementInputPreview(page);
+  await inputElement.focus();
+  await expect(inputElement.locator("..")).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(inputElement.locator("..")).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test.describe("FilterableSelect component", () => {

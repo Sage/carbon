@@ -30,8 +30,6 @@ type StyledHeaderProps = {
   hasBackLink?: boolean;
 };
 
-const oldFocusStyling = "outline: 3px solid var(--colorsSemanticFocus500);";
-
 const StyledHeader = styled.div<StyledHeaderProps>`
   ${({ divider, subheader, hasBackLink }) => css`
     ${subheader &&
@@ -70,8 +68,7 @@ const StyledHeadingBackButton = styled(Link)`
 
     &:focus {
       background-color: transparent;
-      ${({ theme }) =>
-        !theme.focusRedesignOptOut ? addFocusStyling() : oldFocusStyling}
+      ${addFocusStyling()}
     }
 
     &:hover {

@@ -11,10 +11,6 @@ const validationIconTypes = {
   warning: "var(--colorsSemanticCaution500)",
 };
 
-const oldFocusStyling = `
-  outline: solid 2px var(--colorsSemanticFocus500);
-`;
-
 type ValidationType = "error" | "warning" | "info";
 
 const ValidationIconStyle = styled.span<
@@ -40,10 +36,7 @@ const ValidationIconStyle = styled.span<
   }
 
   ${StyledIcon}:focus {
-    ${({ theme }) =>
-      !theme.focusRedesignOptOut
-        ? addFocusStyling()
-        : /* istanbul ignore next */ oldFocusStyling}
+    ${addFocusStyling()}
   }
 
   ${margin}
