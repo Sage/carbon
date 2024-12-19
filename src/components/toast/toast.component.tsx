@@ -53,7 +53,10 @@ export interface ToastProps {
   children: React.ReactNode;
   /** Sets Toast variant */
   variant?: ToastVariants;
-  /** Custom className */
+  /**
+   * @private
+   * @internal
+   * Sets className for component */
   className?: string;
   /** Custom id  */
   id?: string;
