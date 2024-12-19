@@ -1166,7 +1166,7 @@ test.describe("Check events for SimpleSelect component", () => {
     const position = "first";
     await selectText(page).click();
     await selectOption(page, positionOfElement(position)).click();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onBlur event when the list is closed", async ({
@@ -1181,7 +1181,7 @@ test.describe("Check events for SimpleSelect component", () => {
 
     await selectText(page).click();
     await commonDataElementInputPreview(page).blur();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onClick event when mouse is clicked on text input", async ({
@@ -1198,7 +1198,7 @@ test.describe("Check events for SimpleSelect component", () => {
     // [not clear if this onClick is even needed since a user isn't able to click, but leaving the test in pending
     // pending discussion/investigation]
     await commonDataElementInputPreview(page).click({ force: true });
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onOpen when select list is opened", async ({
@@ -1212,7 +1212,7 @@ test.describe("Check events for SimpleSelect component", () => {
     await mount(<SimpleSelectComponent onOpen={callback} />);
 
     await commonDataElementInputPreview(page).click({ force: true });
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onFocus when SimpleSelect is brought into focus", async ({
@@ -1226,7 +1226,7 @@ test.describe("Check events for SimpleSelect component", () => {
     await mount(<SimpleSelectComponent onFocus={callback} />);
 
     await commonDataElementInputPreview(page).focus();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   keyToTrigger.slice(0, 2).forEach((key) => {
@@ -1243,7 +1243,7 @@ test.describe("Check events for SimpleSelect component", () => {
       const inputElement = commonDataElementInputPreview(page);
       await inputElement.focus();
       await inputElement.press(key);
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
   });
 });

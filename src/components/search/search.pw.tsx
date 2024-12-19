@@ -539,7 +539,7 @@ test.describe("Event tests for Search component", () => {
     const searchButtonElement = searchButton(page);
     await searchButtonElement.click();
 
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 
   test("should call onChange callback when a type event is triggered", async ({
@@ -558,7 +558,7 @@ test.describe("Event tests for Search component", () => {
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.fill("1");
 
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 
   test("should call onFocus callback when a focus event is triggered", async ({
@@ -577,7 +577,7 @@ test.describe("Event tests for Search component", () => {
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.focus();
 
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 
   test("should call onBlur callback when a blur event is triggered", async ({
@@ -597,7 +597,7 @@ test.describe("Event tests for Search component", () => {
     await searchDefaultInputElement.focus();
     await searchDefaultInputElement.blur();
 
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 
   ([keysToTrigger[0], keysToTrigger[1]] as const).forEach((key) => {
@@ -617,7 +617,7 @@ test.describe("Event tests for Search component", () => {
       const searchDefaultInputElement = searchDefaultInput(page);
       await searchDefaultInputElement.press(key);
 
-      await expect(callbackCount).toEqual(1);
+      expect(callbackCount).toEqual(1);
     });
   });
 });
