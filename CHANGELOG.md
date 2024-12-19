@@ -1,3 +1,10 @@
+### [146.2.1](https://github.com/Sage/carbon/compare/v146.2.0...v146.2.1) (2024-12-19)
+
+
+### Bug Fixes
+
+* **submenu:** ensure submenu has expected width in Safari ([a6ea2e2](https://github.com/Sage/carbon/commit/a6ea2e2b98d5b1e4f3c6131fc2cecaf96456afd5)), closes [#7112](https://github.com/Sage/carbon/issues/7112)
+
 ## [146.2.0](https://github.com/Sage/carbon/compare/v146.1.0...v146.2.0) (2024-12-19)
 
 
