@@ -1,3 +1,10 @@
+## [146.2.0](https://github.com/Sage/carbon/compare/v146.1.0...v146.2.0) (2024-12-19)
+
+
+### Features
+
+* **action-popover:** allow menu button to be focused programmatically ([a3d8d23](https://github.com/Sage/carbon/commit/a3d8d233ccf4594b2113a910482569773444cf92)), closes [#5589](https://github.com/Sage/carbon/issues/5589)
+
 ## [146.1.0](https://github.com/Sage/carbon/compare/v146.0.1...v146.1.0) (2024-12-19)
 
 
