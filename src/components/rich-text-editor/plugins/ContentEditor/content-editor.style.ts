@@ -8,7 +8,7 @@ const FIXED_LINE_HEIGHT = 21;
 const StyledContentEditable = styled.div<ContentEditorProps>`
   ${({ rows }) => css`
     .carbon-rte-editable {
-      border-radius: var(--borderRadius050);
+      border-radius: var(--borderRadius100);
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       min-height: ${rows && rows > 2

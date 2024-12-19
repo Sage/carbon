@@ -50,7 +50,10 @@ const Toolbar = ({ onCancel, onSave }: ToolbarProps) => {
   }, [updateToolbar, editor]);
 
   return (
-    <StyledToolbar data-role={`${componentPrefix}-toolbar`}>
+    <StyledToolbar
+      data-role={`${componentPrefix}-toolbar`}
+      id={`${componentPrefix}-toolbar`}
+    >
       <FormattingButtons data-role={`${componentPrefix}-formatting-buttons`}>
         <BoldButton isActive={isBold} />
         <ItalicButton isActive={isItalic} />

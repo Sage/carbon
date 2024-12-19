@@ -13,7 +13,7 @@ const StyledToolbar = styled.div`
   background-color: var(--colorsUtilityMajor025);
   outline: 1px solid var(--colorsUtilityMajor200);
   padding: 12px;
-  border-radius: var(--borderRadius050);
+  border-radius: var(--borderRadius100);
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   justify-content: space-between;

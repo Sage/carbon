@@ -20,7 +20,12 @@ import {
   Placeholder,
   ToolbarPlugin,
 } from "./plugins";
-import StyledRichTextEditor, { StyledHintText } from "./rich-text-editor.style";
+import StyledRichTextEditor, {
+  StyledEditorToolbarWrapper,
+  StyledHintText,
+  StyledValidationMessage,
+  StyledWrapper,
+} from "./rich-text-editor.style";
 
 export interface RichTextEditorProps {
   /** The maximum number of characters allowed in the editor */
@@ -91,54 +96,66 @@ export const RichTextEditor = ({
 
   return (
     <>
-      <Label
-        isRequired={required}
-        optional={isOptional}
-        error={error || undefined}
-        warning={characterLimitWarning || warning || undefined}
-      >
+      <Label isRequired={required} optional={isOptional}>
         {labelText}
       </Label>
       {inputHint && <StyledHintText>{inputHint}</StyledHintText>}
       <LexicalComposer initialConfig={initialConfig}>
-        <StyledRichTextEditor>
-          <RichTextPlugin
-            contentEditable={<ContentEditor rows={rows} />}
-            placeholder={<Placeholder text={placeholder} />}
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-          <HistoryPlugin />
-          <MarkdownShortcutPlugin />
-          <OnChangePlugin
-            onChange={(newState) => {
-              setEditorState(newState);
-              const currentTextContent = newState.read(() =>
-                $getRoot().getTextContent(),
-              );
+        <StyledWrapper
+          data-role={`${componentPrefix}-wrapper`}
+          error={error || undefined}
+          warning={characterLimitWarning || warning || undefined}
+        >
+          {(error || characterLimitWarning || warning) && (
+            <StyledValidationMessage error={error}>
+              {error || characterLimitWarning || warning}
+            </StyledValidationMessage>
+          )}
+          <StyledEditorToolbarWrapper
+            data-role={`${componentPrefix}-editor-toolbar-wrapper`}
+            id={`${componentPrefix}-editor-toolbar-wrapper`}
+          >
+            <StyledRichTextEditor>
+              <RichTextPlugin
+                contentEditable={<ContentEditor rows={rows} />}
+                placeholder={<Placeholder text={placeholder} />}
+                ErrorBoundary={LexicalErrorBoundary}
+              />
+              <HistoryPlugin />
+              <MarkdownShortcutPlugin />
+              <OnChangePlugin
+                onChange={(newState) => {
+                  setEditorState(newState);
+                  const currentTextContent = newState.read(() =>
+                    $getRoot().getTextContent(),
+                  );
 
-              if (onChange) {
-                onChange?.(currentTextContent);
-              }
+                  if (onChange) {
+                    onChange?.(currentTextContent);
+                  }
 
-              if (characterLimit > 0) {
-                const currentDiff = characterLimit - currentTextContent.length;
-                setCharacterLimitWarning(
-                  currentDiff < 0
-                    ? `You are ${Math.abs(currentDiff)} character(s) over the character limit`
-                    : undefined,
-                );
-              }
-            }}
-          />
-        </StyledRichTextEditor>
-        <ToolbarPlugin onCancel={onCancel} onSave={onSave} />
+                  if (characterLimit > 0) {
+                    const currentDiff =
+                      characterLimit - currentTextContent.length;
+                    setCharacterLimitWarning(
+                      currentDiff < 0
+                        ? `You are ${Math.abs(currentDiff)} character(s) over the character limit`
+                        : undefined,
+                    );
+                  }
+                }}
+              />
+            </StyledRichTextEditor>
+            <ToolbarPlugin onCancel={onCancel} onSave={onSave} />
+          </StyledEditorToolbarWrapper>
 
-        {characterLimit > 0 && (
-          <CharacterCounterPlugin
-            editorState={editorState}
-            maxChars={characterLimit}
-          />
-        )}
+          {characterLimit > 0 && (
+            <CharacterCounterPlugin
+              editorState={editorState}
+              maxChars={characterLimit}
+            />
+          )}
+        </StyledWrapper>
       </LexicalComposer>
     </>
   );
