@@ -39,7 +39,6 @@ import {
   assertCssValueIsApproximately,
   checkAccessibility,
 } from "../../../playwright/support/helper";
-import { HooksConfig } from "../../../playwright";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -61,10 +60,7 @@ const destructive = "rgb(162, 44, 59)";
 const transparent = "rgba(0, 0, 0, 0)";
 
 test.describe("check Focus Outline & Border Radius for Button Minor Component", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
+  test("should have the expected focus styling", async ({ mount, page }) => {
     await mount(<ButtonMinorCustom />);
 
     const outlined = buttonMinorComponent(page, 0).nth(0);
@@ -76,39 +72,13 @@ test.describe("check Focus Outline & Border Radius for Button Minor Component", 
     await expect(outlined).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
   });
 
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<ButtonMinorCustom />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    const outlined = buttonMinorComponent(page, 0).nth(0);
-    await outlined.focus();
-    await expect(outlined).toHaveCSS("outline", "rgb(255, 188, 25) solid 3px");
-  });
-
-  test("should have the expected styling when roundedCornersOptOut is false", async ({
+  test("should have the expected border radius styling", async ({
     mount,
     page,
   }) => {
     await mount(<ButtonMinor>Foo</ButtonMinor>);
 
     await expect(buttonMinorComponent(page)).toHaveCSS("border-radius", "4px");
-  });
-
-  test("should have the expected styling when roundedCornersOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<ButtonMinor>Foo</ButtonMinor>, {
-      hooksConfig: { roundedCornersOptOut: true },
-    });
-
-    await expect(buttonMinorComponent(page)).toHaveCSS(`border-radius`, "0px");
   });
 });
 

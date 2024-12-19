@@ -3,10 +3,6 @@ import styled, { css } from "styled-components";
 import baseTheme from "../../../../style/themes/base";
 import addFocusStyling from "../../../../style/utils/add-focus-styling";
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 const officialReactDayPickerStyling = () => css`
   /* Variables declaration */
   /* prettier-ignore */
@@ -453,22 +449,14 @@ const StyledDayPicker = styled.div`
   }
 
   .rdp-focused:not(.rdp-disabled):not(.rdp-outside) {
-    ${({ theme }) => css`
-      ${!theme.focusRedesignOptOut
-        ? addFocusStyling(true)
-        : /* istanbul ignore next */ oldFocusStyling}
-    `}
+    ${addFocusStyling(true)}
     border-radius: var(--borderRadius400);
   }
 
   .rdp-day.rdp-selected {
-    ${({ theme }) => css`
-      &:focus {
-        ${!theme.focusRedesignOptOut
-          ? addFocusStyling(true)
-          : /* istanbul ignore next */ oldFocusStyling}
-      }
-    `}
+    &:focus {
+      ${addFocusStyling(true)}
+    }
   }
 `;
 

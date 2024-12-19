@@ -175,10 +175,6 @@ interface StyledSidebarToggleButtonProps {
   isExpanded?: boolean;
 }
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 const StyledSidebarToggleButton = styled.button.attrs({
   type: "button",
 })<StyledSidebarToggleButtonProps>`
@@ -199,16 +195,9 @@ const StyledSidebarToggleButton = styled.button.attrs({
     animation: ${buttonClose} ${animationDuration} ease-in-out;
     border-radius: var(--borderRadius050);
 
-    ${({ theme }) =>
-      `
-      &:focus {
-        ${
-          !theme.focusRedesignOptOut
-            ? addFocusStyling()
-            : /* istanbul ignore next */ oldFocusStyling
-        }
-      }
-    `}
+    &:focus {
+      ${addFocusStyling()}
+    }
 
     &:hover {
       cursor: pointer;

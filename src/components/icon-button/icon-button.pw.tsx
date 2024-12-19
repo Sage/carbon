@@ -3,14 +3,10 @@ import { test, expect } from "@playwright/experimental-ct-react17";
 import IconButtonComponent from "./component.test-pw";
 import { button as iconButton } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import { HooksConfig } from "../../../playwright";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 test.describe("check IconButton component focus outlines and border radius", () => {
-  test(`should have the expected styling when the focusRedesignOptOut is false`, async ({
-    mount,
-    page,
-  }) => {
+  test(`should have the expected focus styling`, async ({ mount, page }) => {
     await mount(<IconButtonComponent />);
 
     await iconButton(page).focus();
@@ -22,21 +18,6 @@ test.describe("check IconButton component focus outlines and border radius", () 
     await expect(iconButton(page)).toHaveCSS(
       "outline",
       "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test(`should have the expected styling when the focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<IconButtonComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await iconButton(page).focus();
-    await expect(iconButton(page)).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
     );
   });
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { ThemeProvider } from "styled-components";
 import * as floatingUi from "@floating-ui/dom";
 import { render, screen, act } from "@testing-library/react";
@@ -12,7 +12,9 @@ import {
   ActionPopoverMenu,
   ActionPopoverMenuButton,
   ActionPopoverProps,
+  ActionPopoverHandle,
 } from "./index";
+import Button from "../button";
 import iconUnicodes from "../icon/icon-unicodes";
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -900,6 +902,35 @@ test("an error is thrown, with appropriate error message, if invalid children ar
   );
 
   globalConsoleSpy.mockRestore();
+});
+
+test("should call the exposed `focusButton` method and focus the toggle button", async () => {
+  const MockComponent = () => {
+    const ref = useRef<ActionPopoverHandle>(null);
+
+    return (
+      <>
+        <Button
+          onClick={() => {
+            ref.current?.focusButton();
+          }}
+        >
+          Focus
+        </Button>
+        <ActionPopover ref={ref}>
+          <ActionPopoverItem onClick={() => {}}>foo</ActionPopoverItem>
+        </ActionPopover>
+      </>
+    );
+  };
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(<MockComponent />);
+
+  const button = screen.getByRole("button", { name: "Focus" });
+  await user.click(button);
+
+  expect(screen.getByRole("button", { name: "actions" })).toHaveFocus();
 });
 
 describe("when an item has a submenu with default (left) alignment", () => {
@@ -1991,6 +2022,49 @@ describe("when the renderButton prop is passed", () => {
     expect(menuButton).toBeVisible();
     expect(menuButton).toHaveAccessibleName("test label");
     expect(menuButton).toHaveAccessibleDescription("test description");
+  });
+
+  it("should call the exposed `focusButton` method and focus the menu button", async () => {
+    const MockComponent = () => {
+      const ref = useRef<ActionPopoverHandle>(null);
+
+      return (
+        <>
+          <Button
+            onClick={() => {
+              ref.current?.focusButton();
+            }}
+          >
+            Focus
+          </Button>
+          <ActionPopover
+            ref={ref}
+            renderButton={(props) => (
+              <ActionPopoverMenuButton
+                buttonType="tertiary"
+                iconType="dropdown"
+                iconPosition="after"
+                size="small"
+                aria-label={undefined}
+                {...props}
+              >
+                Foo
+              </ActionPopoverMenuButton>
+            )}
+          >
+            <ActionPopoverItem onClick={() => {}}>foo</ActionPopoverItem>
+          </ActionPopover>
+        </>
+      );
+    };
+
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(<MockComponent />);
+
+    const button = screen.getByRole("button", { name: "Focus" });
+    await user.click(button);
+
+    expect(screen.getByRole("button", { name: "Foo" })).toHaveFocus();
   });
 });
 

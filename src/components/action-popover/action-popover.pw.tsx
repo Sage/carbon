@@ -1,7 +1,6 @@
 /* eslint-disable no-await-in-loop */
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { HooksConfig } from "../../../playwright";
 import { accordionDefaultTitle } from "../../../playwright/components/accordion";
 import {
   actionPopover,
@@ -1373,49 +1372,21 @@ test.describe("rounded-corners", () => {
   });
 });
 
-test.describe("when focused", () => {
-  // there is an issue with asserting token values for this test
-  test("has the expected styling when the focusRedesignOptOut flag is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<ActionPopoverCustom />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.focus();
-    await expect(actionPopoverButtonElement).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-    await actionPopoverButtonElement.click();
-    const focusedItem = await actionPopoverInnerItem(page, 1);
-    await expect(focusedItem).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
-
-  test("has the expected styling when the focusRedesignOptOut flag is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
-    await actionPopoverButtonElement.focus();
-    await expect(actionPopoverButtonElement).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await actionPopoverButtonElement.click();
-    const focusedItem = await actionPopoverInnerItem(page, 1);
-    await expect(focusedItem).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-  });
+// there is an issue with asserting token values for this test
+test("has the expected styling when focused", async ({ mount, page }) => {
+  await mount(<ActionPopoverCustom />);
+  const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+  await actionPopoverButtonElement.focus();
+  await expect(actionPopoverButtonElement).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await actionPopoverButtonElement.click();
+  const focusedItem = await actionPopoverInnerItem(page, 1);
+  await expect(focusedItem).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
 });
 
 test.describe("Accessibility tests for ActionPopover", () => {

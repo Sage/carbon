@@ -415,11 +415,8 @@ const tabTitleStyles = css<
         }
       `
     }
-
-    ${({ theme }) =>
-      `
       &:focus {
-        outline: 4px solid ${!theme.focusRedesignOptOut ? "black" : /* istanbul ignore next */ "var(--colorsSemanticFocus500)"};
+        outline: 4px solid black;
         top: -2px;
         z-index: 6;
 
@@ -439,9 +436,7 @@ const tabTitleStyles = css<
               `
         }
 
-        ${
-          !theme.focusRedesignOptOut
-            ? `::before {
+        ::before {
           content: "";
           position: absolute;
           top: 0;
@@ -478,12 +473,10 @@ const tabTitleStyles = css<
                  right: 1px;
                `
          }
-        }`
-            : /* istanbul ignore next */ ""
+        }
         }
       }
-    `}
-
+    
     ${
       position === "left" &&
       css`

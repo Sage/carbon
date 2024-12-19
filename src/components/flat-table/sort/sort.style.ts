@@ -5,10 +5,6 @@ import { SortProps } from "./sort.component";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 import baseTheme from "../../../style/themes/base";
 
-const oldFocusStyling = `
-  outline: solid 1px var(--colorsSemanticFocus500);
-`;
-
 const StyledSort = styled.div<Pick<SortProps, "sortType">>`
   display: inline-flex;
   align-items: center;
@@ -23,12 +19,7 @@ const StyledSort = styled.div<Pick<SortProps, "sortType">>`
   }
 
   :focus {
-    ${({ theme }) =>
-      `${
-        !theme.focusRedesignOptOut
-          ? addFocusStyling()
-          : /* istanbul ignore next */ oldFocusStyling
-      }`}
+    ${addFocusStyling()}
     border-radius: var(--borderRadius025);
   }
 `;

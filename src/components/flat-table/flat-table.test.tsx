@@ -18,7 +18,6 @@ import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context"
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import Pager from "../pager/pager.component";
-import CarbonProvider from "../carbon-provider";
 
 testStyledSystemMargin(
   (props) => (
@@ -45,7 +44,7 @@ testStyledSystemMargin(
 );
 
 describe("when rows are interactive", () => {
-  it("should apply the expected focus styling to the wrapper element when it is focused and `focusRedesignOptOut` is not set", () => {
+  it("should apply the expected focus styling to the wrapper element when it is focused", () => {
     render(
       <FlatTable>
         <FlatTableBody>
@@ -71,36 +70,6 @@ describe("when rows are interactive", () => {
     expect(tableWrapper).toHaveStyleRule(
       "box-shadow",
       "0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
-    );
-  });
-
-  it("should apply the expected focus styling to the wrapper element when it is focused and `focusRedesignOptOut` is set", () => {
-    render(
-      <CarbonProvider focusRedesignOptOut>
-        <FlatTable>
-          <FlatTableBody>
-            <FlatTableRow onClick={() => {}}>
-              <FlatTableCell>one</FlatTableCell>
-              <FlatTableCell>two</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow onClick={() => {}}>
-              <FlatTableCell>three</FlatTableCell>
-              <FlatTableCell>four</FlatTableCell>
-            </FlatTableRow>
-          </FlatTableBody>
-        </FlatTable>
-      </CarbonProvider>,
-    );
-    const tableWrapper = screen.getByRole("region");
-    const focusableTableContainer = screen.getByTestId("flat-table-container");
-    act(() => {
-      focusableTableContainer.focus();
-    });
-
-    expect(focusableTableContainer).toHaveFocus();
-    expect(tableWrapper).toHaveStyleRule(
-      "outline",
-      "2px solid var(--colorsSemanticFocus500)",
     );
   });
 
