@@ -3,10 +3,6 @@ import sizes from "../input/input-sizes.style";
 import { ValidationProps } from "../validations";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 export interface InputIconToggleStyleProps extends ValidationProps {
   size?: "small" | "medium" | "large";
   disabled?: boolean;
@@ -51,16 +47,9 @@ const InputIconToggleStyle = styled.span.attrs(
       cursor: default;
     `}
 
-  ${({ theme }) =>
-    `
     &:focus {
-      ${
-        !theme.focusRedesignOptOut
-          ? addFocusStyling()
-          : /* istanbul ignore next */ oldFocusStyling
-      }
-    }  
-  `}
+    ${addFocusStyling()}
+  }
 `;
 
 export default InputIconToggleStyle;

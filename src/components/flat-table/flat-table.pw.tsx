@@ -87,7 +87,6 @@ import {
   waitForAnimationEnd,
   continuePressingTAB,
 } from "../../../playwright/support/helper";
-import { HooksConfig } from "../../../playwright";
 
 const sizes = [
   ["compact", "8px", "13px", 24],
@@ -127,7 +126,6 @@ const colorThemes = [
   ["transparent-white", "rgb(255, 255, 255)", "rgb(255, 255, 255)"],
 ] as const;
 
-const gold = "rgb(255, 188, 25)";
 const black = "rgba(0, 0, 0, 0.9)";
 const lightGold = "rgb(255, 188, 26)";
 const greyBlack = "rgba(0, 0, 0, 0.65)";
@@ -138,13 +136,6 @@ const vlightGrey = "rgb(230, 235, 237)";
 const green = "rgb(177, 211, 69)";
 const blue = "rgb(0, 0, 255)";
 const lightBlue = "rgb(51, 92, 220)";
-
-const checkFocus = async (locator: Locator) => {
-  const contentValue = await locator.evaluate((el) =>
-    window.getComputedStyle(el, "after").getPropertyValue("border"),
-  );
-  expect(contentValue).toBe(`2px solid ${gold}`);
-};
 
 const checkNewFocusStyling = async (locator: Locator) => {
   const shadowValue = await locator.evaluate((el) =>
@@ -960,54 +951,7 @@ test.describe("Prop tests", () => {
     await expect(checkboxCell).not.toBeChecked();
   });
 
-  test(`should render with all rows selectable with the mouse when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableColorRowSelectableComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const checkboxHeader = flatTableCheckboxHeader(page).locator("input");
-    await checkboxHeader.click();
-    await expect(checkboxHeader).toBeChecked();
-    await expect(
-      flatTableCheckboxHeader(page)
-        .locator("input")
-        .locator("..")
-        .locator("..")
-        .locator("div:nth-child(2)"),
-    ).toHaveCSS("box-shadow", `${gold} 0px 0px 0px 3px`);
-    for await (const i of indexes(4)) {
-      await expect(
-        flatTableCheckboxCell(page, i).locator("input"),
-      ).toBeChecked();
-    }
-
-    for await (const i of indexes(5, 1)) {
-      await expect(
-        flatTableBodyRowByPosition(page, 0).locator("td").nth(i),
-      ).toHaveCSS("background-color", green);
-      await expect(
-        flatTableBodyRowByPosition(page, 1).locator("td").nth(i),
-      ).toHaveCSS("background-color", lightGrey);
-      await expect(
-        flatTableBodyRowByPosition(page, 2).locator("td").nth(i),
-      ).toHaveCSS("background-color", green);
-      await expect(
-        flatTableBodyRowByPosition(page, 3).locator("td").nth(i),
-      ).toHaveCSS("background-color", lightGrey);
-    }
-
-    await expect(batchSelectionCounter(page)).toHaveText("4 selected");
-    for await (const i of indexes(3)) {
-      await expect(
-        batchSelectionComponent(page).locator("button").nth(i).locator("span"),
-      ).toHaveCSS("color", greyBlack);
-    }
-  });
-
-  test(`should render with all rows selectable with the mouse when focusRedesignOptOut is false`, async ({
+  test(`should render with all rows selectable with the mouse`, async ({
     mount,
     page,
   }) => {
@@ -1116,22 +1060,7 @@ test.describe("Prop tests", () => {
     await expect(checkboxHeader).not.toBeChecked();
   });
 
-  test(`should render with rows highlightable and selectable when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableHighlightableComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const bodyRow = flatTableBodyRows(page).first();
-    await bodyRow.click();
-    await expect(
-      flatTableBodyRows(page).first().locator("td").first(),
-    ).toHaveCSS("background-color", vlightGrey);
-  });
-
-  test(`should render with rows highlightable and selectable when focusRedesignOptOut is false`, async ({
+  test(`should render with rows highlightable and selectable`, async ({
     mount,
     page,
   }) => {
@@ -1621,34 +1550,7 @@ test.describe("Prop tests", () => {
     });
   });
 
-  test(`should render with expandable rows expanded by mouse and subrows not accessible when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableNoAccSubRowComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const transformValue = await getStyle(
-      flatTableExpandableIcon(page, 0),
-      "transform",
-    );
-    expect(getRotationAngle(transformValue)).toBe(-90);
-
-    await expect(flatTableSubrows(page)).toHaveCount(0);
-    await flatTableBodyRowByPosition(page, 0).click();
-    await expect(flatTableSubrowByPosition(page, 0)).toHaveCount(1);
-    await expect(flatTableSubrowByPosition(page, 1)).toHaveCount(1);
-
-    const bodyRow0 = flatTableBodyRowByPosition(page, 0);
-    await bodyRow0.press("Tab");
-    await page.keyboard.press("ArrowDown");
-
-    const bodyRow3 = flatTableBodyRowByPosition(page, 3).locator("td").nth(3);
-    await expect(bodyRow3).toHaveCSS("border-right", `2px solid ${gold}`);
-  });
-
-  test(`should render with expandable rows expanded by mouse and subrows not accessible when focusRedesignOptOut is false`, async ({
+  test(`should render with expandable rows expanded by mouse and subrows not accessible`, async ({
     mount,
     page,
   }) => {
@@ -1673,36 +1575,7 @@ test.describe("Prop tests", () => {
     await checkNewFocusStyling(bodyRow3);
   });
 
-  test(`should render with expandable rows expanded by Spacebar and subrows not accessible when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableNoAccSubRowComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const transformValue = await getStyle(
-      flatTableExpandableIcon(page, 0),
-      "transform",
-    );
-    expect(getRotationAngle(transformValue)).toBe(-90);
-    await expect(flatTableSubrows(page)).toHaveCount(0);
-
-    const bodyRowByPosition = flatTableBodyRowByPosition(page, 0);
-    await bodyRowByPosition.focus();
-    await bodyRowByPosition.press("Space");
-    await expect(flatTableSubrowByPosition(page, 0)).toHaveCount(1);
-    await expect(flatTableSubrowByPosition(page, 1)).toHaveCount(1);
-
-    await bodyRowByPosition.press("Tab");
-    await bodyRowByPosition.press("ArrowDown");
-    await page.waitForTimeout(250);
-    await expect(
-      flatTableBodyRowByPosition(page, 3).locator("td").nth(3),
-    ).toHaveCSS("border-right", `2px solid ${gold}`);
-  });
-
-  test(`should render with expandable rows expanded by Spacebar and subrows not accessible when focusRedesignOptOut is false`, async ({
+  test(`should render with expandable rows expanded by Spacebar and subrows not accessible`, async ({
     mount,
     page,
   }) => {
@@ -1727,36 +1600,7 @@ test.describe("Prop tests", () => {
     await checkNewFocusStyling(flatTableBodyRowByPosition(page, 3));
   });
 
-  test(`should render with expandable rows expanded by Enter key and subrows not accessible when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableNoAccSubRowComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const transformValue = await getStyle(
-      flatTableExpandableIcon(page, 0),
-      "transform",
-    );
-    expect(getRotationAngle(transformValue)).toBe(-90);
-    await expect(flatTableSubrows(page)).toHaveCount(0);
-
-    const bodyRowByPosition = flatTableBodyRowByPosition(page, 0);
-    await bodyRowByPosition.focus();
-    await bodyRowByPosition.press("Enter");
-    await expect(flatTableSubrowByPosition(page, 0)).toHaveCount(1);
-    await expect(flatTableSubrowByPosition(page, 1)).toHaveCount(1);
-
-    await bodyRowByPosition.press("Tab");
-    await bodyRowByPosition.press("ArrowDown");
-    await page.waitForTimeout(250);
-    await expect(
-      flatTableBodyRowByPosition(page, 3).locator("td").nth(3),
-    ).toHaveCSS("border-right", `2px solid ${gold}`);
-  });
-
-  test(`should render with expandable rows expanded by Enter key and subrows not accessible when focusRedesignOptOut is false`, async ({
+  test(`should render with expandable rows expanded by Enter key and subrows not accessible`, async ({
     mount,
     page,
   }) => {
@@ -1792,41 +1636,7 @@ test.describe("Prop tests", () => {
     await relLink(page).click();
   });
 
-  test(`should render with expandable rows expanded by mouse, with subrows focusable using down arrow key when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableAccSubRowComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const transformValue = await getStyle(
-      flatTableExpandableIcon(page, 0),
-      "transform",
-    );
-    expect(getRotationAngle(transformValue)).toBe(-90);
-    await expect(flatTableSubrows(page)).toHaveCount(0);
-
-    const bodyRowByPosition0 = flatTableBodyRowByPosition(page, 0);
-    await bodyRowByPosition0.click();
-    await expect(flatTableSubrowByPosition(page, 0)).toHaveCount(1);
-    await expect(flatTableSubrowByPosition(page, 1)).toHaveCount(1);
-
-    await bodyRowByPosition0.press("ArrowDown");
-    const bodyRowByPosition1 = flatTableBodyRowByPosition(page, 1)
-      .locator("td")
-      .nth(3);
-    await expect(bodyRowByPosition1).toHaveCSS(
-      "border-right",
-      `2px solid ${gold}`,
-    );
-    await bodyRowByPosition1.press("ArrowDown");
-    await expect(
-      flatTableBodyRowByPosition(page, 2).locator("td").nth(3),
-    ).toHaveCSS("border-right", `2px solid ${gold}`);
-  });
-
-  test(`should render with expandable rows expanded by mouse, with subrows focusable using down arrow key when focusRedesignOptOut is false`, async ({
+  test(`should render with expandable rows expanded by mouse, with subrows focusable using down arrow key`, async ({
     mount,
     page,
   }) => {
@@ -2011,52 +1821,7 @@ test.describe("Prop tests", () => {
     await expect(flatTableSubrows(page)).toHaveCount(8);
   });
 
-  test(`should render with parent expandable and child subrows selectable when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableAllSubrowSelectableComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const bodyRowByPosition0 = flatTableBodyRowByPosition(page, 0);
-    await bodyRowByPosition0.click();
-    await expect(flatTableSubrows(page)).toHaveCount(2);
-
-    const bodyRowByPosition0Input = flatTableBodyRowByPosition(page, 0).locator(
-      "input",
-    );
-    await bodyRowByPosition0Input.click();
-    await expect(bodyRowByPosition0Input).toBeChecked();
-
-    const bodyRowByPosition0Parent = flatTableBodyRowByPosition(page, 0)
-      .locator("input")
-      .locator("..")
-      .locator("..")
-      .locator("div:nth-child(2)");
-    await expect(bodyRowByPosition0Parent).toHaveCSS(
-      "box-shadow",
-      `${gold} 0px 0px 0px 3px`,
-    );
-
-    const bodyRowByPosition1Input = flatTableBodyRowByPosition(page, 1).locator(
-      "input",
-    );
-    await bodyRowByPosition1Input.click();
-    await expect(bodyRowByPosition1Input).toBeChecked();
-
-    const bodyRowByPosition1Parent = flatTableBodyRowByPosition(page, 1)
-      .locator("input")
-      .locator("..")
-      .locator("..")
-      .locator("div:nth-child(2)");
-    await expect(bodyRowByPosition1Parent).toHaveCSS(
-      "box-shadow",
-      `${gold} 0px 0px 0px 3px`,
-    );
-  });
-
-  test(`should render with parent expandable and child subrows selectable when focusRedesignOptOut is false`, async ({
+  test(`should render with parent expandable and child subrows selectable`, async ({
     mount,
     page,
   }) => {
@@ -2099,40 +1864,7 @@ test.describe("Prop tests", () => {
     );
   });
 
-  test(`should render with parent expandable row only selectable when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableParentSubrowSelectableComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const bodyRowByPosition0 = flatTableBodyRowByPosition(page, 0);
-    await bodyRowByPosition0.click();
-    await expect(flatTableSubrows(page)).toHaveCount(2);
-
-    const bodyRowByPosition0Input = flatTableBodyRowByPosition(page, 0).locator(
-      "input",
-    );
-    await bodyRowByPosition0Input.click();
-    await expect(bodyRowByPosition0Input).toBeChecked();
-
-    const bodyRowByPosition0Parent = flatTableBodyRowByPosition(page, 0)
-      .locator("input")
-      .locator("..")
-      .locator("..")
-      .locator("div:nth-child(2)");
-    await expect(bodyRowByPosition0Parent).toHaveCSS(
-      "box-shadow",
-      `${gold} 0px 0px 0px 3px`,
-    );
-
-    await expect(
-      flatTableBodyRowByPosition(page, 1).locator("input"),
-    ).toHaveCount(0);
-  });
-
-  test(`should render with parent expandable row only selectable when focusRedesignOptOut is false`, async ({
+  test(`should render with parent expandable row only selectable`, async ({
     mount,
     page,
   }) => {
@@ -2162,36 +1894,7 @@ test.describe("Prop tests", () => {
     ).toHaveCount(0);
   });
 
-  test(`should render with child subrow only selectable when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableChildSubrowSelectableComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const bodyRowByPosition0 = flatTableBodyRowByPosition(page, 0);
-    await bodyRowByPosition0.click();
-    await expect(flatTableSubrows(page)).toHaveCount(2);
-    await expect(
-      flatTableBodyRowByPosition(page, 0).locator("input"),
-    ).toHaveCount(0);
-
-    const bodyRowByPosition1Input = flatTableBodyRowByPosition(page, 1).locator(
-      "input",
-    );
-    await bodyRowByPosition1Input.click();
-    await expect(bodyRowByPosition1Input).toBeChecked();
-    await expect(
-      flatTableBodyRowByPosition(page, 1)
-        .locator("input")
-        .locator("..")
-        .locator("..")
-        .locator("div:nth-child(2)"),
-    ).toHaveCSS("box-shadow", `${gold} 0px 0px 0px 3px`);
-  });
-
-  test(`should render with child subrow only selectable when focusRedesignOptOut is false`, async ({
+  test(`should render with child subrow only selectable`, async ({
     mount,
     page,
   }) => {
@@ -2221,24 +1924,7 @@ test.describe("Prop tests", () => {
     );
   });
 
-  test(`should render with first row focusable by tabbing but no further rows are focused on tab press when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await checkFocus(flatTableBodyRowByPosition(page, 0));
-    await page.keyboard.press("Tab");
-    await expect(flatTableBodyRowByPosition(page, 0)).not.toBeFocused();
-    await expect(flatTableBodyRowByPosition(page, 1)).not.toBeFocused();
-    await expect(flatTableBodyRowByPosition(page, 3)).not.toBeFocused();
-  });
-
-  test(`should render with first row focusable by tabbing but no further rows are focused on tab press when focusRedesignOptOut is false`, async ({
+  test(`should render with first row focusable by tabbing but no further rows are focused on tab press`, async ({
     mount,
     page,
   }) => {
@@ -2253,24 +1939,7 @@ test.describe("Prop tests", () => {
     await expect(flatTableBodyRowByPosition(page, 3)).not.toBeFocused();
   });
 
-  test(`should render with the last selected row as the tab stop and removes it from any other ones when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(
-      <FlatTablePartiallySelectedOrHighlightedRows selected />,
-      {
-        hooksConfig: { focusRedesignOptOut: true },
-      },
-    );
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await expect(flatTableBodyRowByPosition(page, 0)).not.toBeFocused();
-    await checkFocus(flatTableBodyRowByPosition(page, 1));
-  });
-
-  test(`should render with the last selected row as the tab stop and removes it from any other ones when focusRedesignOptOut is false`, async ({
+  test(`should render with the last selected row as the tab stop and removes it from any other ones`, async ({
     mount,
     page,
   }) => {
@@ -2282,24 +1951,7 @@ test.describe("Prop tests", () => {
     await checkNewFocusStyling(flatTableBodyRowByPosition(page, 1));
   });
 
-  test(`should render with the last highlighted row as the tab stop and removes it from any other ones when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(
-      <FlatTablePartiallySelectedOrHighlightedRows highlighted />,
-      {
-        hooksConfig: { focusRedesignOptOut: true },
-      },
-    );
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await expect(flatTableBodyRowByPosition(page, 0)).not.toBeFocused();
-    await checkFocus(flatTableBodyRowByPosition(page, 1));
-  });
-
-  test(`should render with the last highlighted row as the tab stop and removes it from any other ones when focusRedesignOptOut is false`, async ({
+  test(`should render with the last highlighted row as the tab stop and removes it from any other ones`, async ({
     mount,
     page,
   }) => {
@@ -2311,32 +1963,7 @@ test.describe("Prop tests", () => {
     await checkNewFocusStyling(flatTableBodyRowByPosition(page, 1));
   });
 
-  test(`should render with clickable rows accessible using down arrow keys when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableAllSubrowSelectableComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await continuePressingTAB(page, 6);
-
-    await checkFocus(flatTableBodyRowByPosition(page, 0));
-    await page.keyboard.press("Tab");
-    await expect(
-      flatTableBodyRowByPosition(page, 0).locator("input"),
-    ).toBeFocused();
-    await page.keyboard.press("ArrowDown");
-    await checkFocus(flatTableBodyRowByPosition(page, 1));
-    await page.keyboard.press("ArrowDown");
-    await checkFocus(flatTableBodyRowByPosition(page, 2));
-    await page.keyboard.press("ArrowDown");
-    await checkFocus(flatTableBodyRowByPosition(page, 3));
-    await page.keyboard.press("ArrowDown");
-    await checkFocus(flatTableBodyRowByPosition(page, 3));
-  });
-
-  test(`should render with clickable rows accessible using down arrow keys when focusRedesignOptOut is false`, async ({
+  test(`should render with clickable rows accessible using down arrow keys`, async ({
     mount,
     page,
   }) => {
@@ -2359,31 +1986,7 @@ test.describe("Prop tests", () => {
     await checkNewFocusStyling(flatTableBodyRowByPosition(page, 3));
   });
 
-  test(`should render with clickable rows accessible using up arrow keys when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableAllSubrowSelectableComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await page.keyboard.press("Tab");
-    const bodyRowByPos3 = flatTableBodyRowByPosition(page, 3)
-      .locator("input")
-      .nth(0);
-    await bodyRowByPos3.focus();
-    await expect(bodyRowByPos3).toBeFocused();
-    await page.keyboard.press("ArrowUp");
-    await checkFocus(flatTableBodyRowByPosition(page, 2));
-    await page.keyboard.press("ArrowUp");
-    await checkFocus(flatTableBodyRowByPosition(page, 1));
-    await page.keyboard.press("ArrowUp");
-    await checkFocus(flatTableBodyRowByPosition(page, 0));
-    await page.keyboard.press("ArrowUp");
-    await checkFocus(flatTableBodyRowByPosition(page, 0));
-  });
-
-  test(`should render with clickable rows accessible using up arrow keys when focusRedesignOptOut is false`, async ({
+  test(`should render with clickable rows accessible using up arrow keys`, async ({
     mount,
     page,
   }) => {
@@ -2406,25 +2009,7 @@ test.describe("Prop tests", () => {
   });
 
   [arrowsToPress].forEach(([arrow]) => {
-    test(`should render with rows not accessible using ${arrow} keys when focusRedesignOptOut is true`, async ({
-      mount,
-      page,
-    }) => {
-      await mount<HooksConfig>(<FlatTableAllSubrowSelectableComponent />, {
-        hooksConfig: { focusRedesignOptOut: true },
-      });
-
-      await continuePressingTAB(page, 6);
-
-      const bodyRowByPos = flatTableBodyRowByPosition(page, 0);
-      await checkFocus(bodyRowByPos);
-      await bodyRowByPos.press(arrow);
-      await checkFocus(bodyRowByPos);
-    });
-  });
-
-  [arrowsToPress].forEach(([arrow]) => {
-    test(`should render with rows not accessible using ${arrow} keys when focusRedesignOptOut is false`, async ({
+    test(`should render with rows not accessible using ${arrow} keys`, async ({
       mount,
       page,
     }) => {
@@ -2962,25 +2547,7 @@ test.describe("Prop tests", () => {
     }
   });
 
-  test(`should render with clickable rows when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FlatTableComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    for await (const i of indexes(6)) {
-      const rowByPos = flatTableBodyRowByPosition(page, i);
-      await rowByPos.click();
-      await checkFocus(rowByPos);
-    }
-  });
-
-  test(`should render with clickable rows when focusRedesignOptOut is false`, async ({
-    mount,
-    page,
-  }) => {
+  test(`should render with clickable rows`, async ({ mount, page }) => {
     await mount(<FlatTableComponent />);
 
     for await (const i of indexes(6)) {

@@ -40,7 +40,6 @@ import {
 import {
   continuePressingTAB,
   continuePressingSHIFTTAB,
-  checkGoldenOutline,
   assertCssValueIsApproximately,
   checkAccessibility,
   waitForAnimationEnd,
@@ -72,7 +71,6 @@ import {
   SubmenuMaxWidth,
 } from "./component.test-pw";
 import { NavigationBarWithSubmenuAndChangingHeight } from "../navigation-bar/navigation-bar-test.stories";
-import { HooksConfig } from "../../../playwright";
 
 const span = "span";
 const div = "div";
@@ -1239,7 +1237,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`close icon has correct focus styling when focused and focusRedesignOptOut flag is false`, async ({
+  test.skip(`close icon has correct focus styling when focused`, async ({
     mount,
     page,
   }) => {
@@ -1260,28 +1258,6 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(closeIcon).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
-  });
-
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`close icon has correct focus styling when focused and focusRedesignOptOut flag is true`, async ({
-    mount,
-    page,
-  }) => {
-    await page.setViewportSize({ width: 1200, height: 800 });
-    await mount<HooksConfig>(<MenuComponentFullScreen />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const openMenuButton = page.getByRole("button", { name: "Menu" }).first();
-    await openMenuButton.click();
-    const dialog = page.getByRole("dialog");
-    await waitForAnimationEnd(dialog);
-
-    await page.keyboard.press("Tab");
-
-    const closeIcon = page.getByRole("button", { name: "Close" });
-    await expect(closeIcon).toBeFocused();
-    await checkGoldenOutline(closeIcon);
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
@@ -1508,7 +1484,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(item2).toBeFocused();
   });
 
-  test(`should focus the search icon and button on tab press when the current item has a Search input with searchButton and has a value, focusRedesignOptOut flag not set`, async ({
+  test(`should focus the search icon and button on tab press when the current item has a Search input with searchButton and has a value`, async ({
     mount,
     page,
   }) => {
@@ -1530,34 +1506,6 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
       "box-shadow",
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
-    await page.keyboard.press("Tab");
-    const item2 = menuItem(page).last().locator("a");
-    await expect(item2).toBeFocused();
-  });
-
-  test(`should focus the search icon and button on tab press when the current item has a Search input with searchButton and has a value, focusRedesignOptOut flag set`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(
-      <MenuFullScreenWithSearchButton searchValue="foo" />,
-      {
-        hooksConfig: { focusRedesignOptOut: true },
-      },
-    );
-
-    const item = menuItem(page).first().locator("a");
-    await item.focus();
-    await page.keyboard.press("Tab");
-    const searchInput = searchDefaultInput(page);
-    await expect(searchInput).toBeFocused();
-    await page.keyboard.press("Tab");
-    const crossIcon = searchCrossIcon(page).locator("..");
-    await expect(crossIcon).toBeFocused();
-    await page.keyboard.press("Tab");
-    const button = searchButton(page);
-    await expect(button).toBeFocused();
-    await checkGoldenOutline(button);
     await page.keyboard.press("Tab");
     const item2 = menuItem(page).last().locator("a");
     await expect(item2).toBeFocused();
@@ -2259,46 +2207,7 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
 });
 
 test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", () => {
-  test(`should render menu items with the expected focus styling when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await page.setViewportSize({ width: 1200, height: 800 });
-    await mount<HooksConfig>(<MenuComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const item1 = menuItem(page).first().locator("a");
-    await item1.focus();
-    await expect(item1).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px inset",
-    );
-
-    const item2 = menuItem(page).last().locator("button");
-    await item2.focus();
-    await expect(item2).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px inset",
-    );
-    await item2.click();
-
-    const subMenu1 = submenu(page).last().locator("button").first();
-    await subMenu1.focus();
-    await expect(subMenu1).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px inset",
-    );
-
-    const subMenu2 = submenu(page).last().locator("a").first();
-    await subMenu2.focus();
-    await expect(subMenu2).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px inset",
-    );
-  });
-
-  test(`should render menu items with the expected focus styling when focusRedesignOptOut is false`, async ({
+  test(`should render menu items with the expected focus styling`, async ({
     mount,
     page,
   }) => {

@@ -58,19 +58,6 @@ const globalTypes = {
       ],
     },
   },
-  focusRedesign: {
-    name: "Double focus style",
-    description: "Toggle the focus styling redesign",
-    defaultValue: "on",
-    toolbar: {
-      icon: "eye",
-      title: "Focus redesign",
-      items: [
-        { value: "on", title: "On" },
-        { value: "off", title: "Off" },
-      ],
-    },
-  },
   ...globalThemeProvider,
 };
 

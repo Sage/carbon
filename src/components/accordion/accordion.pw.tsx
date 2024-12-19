@@ -10,7 +10,6 @@ import {
 import {
   positionOfElement,
   getRotationAngle,
-  checkGoldenOutline,
   assertCssValueIsApproximately,
   getStyle,
   expectEventWasCalledOnce,
@@ -22,7 +21,6 @@ import {
   ACCORDION_REMOVE_CONTENT,
 } from "../../../playwright/components/accordion/locators";
 import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
-import { HooksConfig } from "../../../playwright";
 
 import {
   AccordionComponent,
@@ -45,42 +43,23 @@ import { additionalButton as splitAdditionalButtons } from "../../../playwright/
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
-test.describe("when focused", () => {
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionComponent />);
-    const elementLocator = accordionTitleContainer(page);
-    const element = await elementLocator;
-    await element.focus();
-    await expect(elementLocator).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(elementLocator).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<AccordionComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-    const elementLocator = accordionTitleContainer(page);
-    const element = await elementLocator;
-    await element.focus();
-    await expect(elementLocator).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
+// TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+test.skip("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<AccordionComponent />);
+  const elementLocator = accordionTitleContainer(page);
+  const element = await elementLocator;
+  await element.focus();
+  await expect(elementLocator).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(elementLocator).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test.describe("should render Accordion component", () => {
@@ -476,28 +455,7 @@ test.describe("should render Accordion component", () => {
 });
 
 test.describe("should render Accordion Grouped component", () => {
-  test("should move through all grouped accordions using ArrowDown key and check focus when focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<AccordionGroupComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await accordionTitleContainer(page).nth(0).focus();
-    await checkGoldenOutline(accordionTitleContainer(page).nth(0));
-    await expect(accordionTitleContainer(page).nth(0)).toBeVisible();
-
-    await accordionTitleContainer(page).nth(0).press("ArrowDown");
-    await checkGoldenOutline(accordionTitleContainer(page).nth(1));
-    await expect(accordionTitleContainer(page).nth(1)).toBeVisible();
-
-    await accordionTitleContainer(page).nth(1).press("ArrowDown");
-    await checkGoldenOutline(accordionTitleContainer(page).nth(2));
-    await expect(accordionTitleContainer(page).nth(2)).toBeVisible();
-  });
-
-  test("should move through all grouped accordions using ArrowDown key and check focus when focusRedesignOptOut is false", async ({
+  test("should move through all grouped accordions using ArrowDown key and check focus", async ({
     mount,
     page,
   }) => {
@@ -525,23 +483,7 @@ test.describe("should render Accordion Grouped component", () => {
     await expect(accordionTitleContainer(page).nth(2)).toBeVisible();
   });
 
-  test("should move to the last grouped accordion using End key and check it is focused when focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<AccordionGroupComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await accordionTitleContainer(page).nth(0).focus();
-
-    await accordionTitleContainer(page).nth(0).press("End");
-
-    await checkGoldenOutline(accordionTitleContainer(page).nth(2));
-    await expect(accordionTitleContainer(page).nth(2)).toBeVisible();
-  });
-
-  test("should move to the last grouped accordion using End key and check it is focused when focusRedesignOptOut is false", async ({
+  test("should move to the last grouped accordion using End key and check it is focused", async ({
     mount,
     page,
   }) => {
@@ -558,23 +500,7 @@ test.describe("should render Accordion Grouped component", () => {
     await expect(accordionTitleContainer(page).nth(2)).toBeVisible();
   });
 
-  test("should move to the first grouped accordion using Home key and check it is focused when focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<AccordionGroupComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await accordionTitleContainer(page).nth(2).focus();
-
-    await accordionTitleContainer(page).nth(2).press("Home");
-
-    await checkGoldenOutline(accordionTitleContainer(page).nth(0));
-    await expect(accordionTitleContainer(page).nth(2)).toBeVisible();
-  });
-
-  test("should move to the first grouped accordion using Home key and check it is focused when focusRedesignOptOut is false", async ({
+  test("should move to the first grouped accordion using Home key and check it is focused", async ({
     mount,
     page,
   }) => {
