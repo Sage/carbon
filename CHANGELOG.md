@@ -1,3 +1,10 @@
+## [146.1.0](https://github.com/Sage/carbon/compare/v146.0.1...v146.1.0) (2024-12-19)
+
+
+### Features
+
+* **step-flow:** add aria props to component ([037aac1](https://github.com/Sage/carbon/commit/037aac18a29e52779fb626cb3cd939fc9e13817c))
+
 ### [146.0.1](https://github.com/Sage/carbon/compare/v146.0.0...v146.0.1) (2024-12-19)
 
 
