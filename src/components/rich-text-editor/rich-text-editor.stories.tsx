@@ -202,3 +202,18 @@ export const WithHTMLValue: Story = () => {
   return <RichTextEditor labelText="Rich Text Editor" value={value} />;
 };
 WithHTMLValue.storyName = "With HTML As Initial Value";
+
+export const InputHint: Story = () => {
+  return (
+    <RichTextEditor
+      labelText="Rich Text Editor"
+      inputHint="This is an example input hint"
+    />
+  );
+};
+InputHint.storyName = "With Input Hint";
+
+export const Rows: Story = () => {
+  return <RichTextEditor labelText="Rich Text Editor" rows={20} />;
+};
+Rows.storyName = "With Row Count";

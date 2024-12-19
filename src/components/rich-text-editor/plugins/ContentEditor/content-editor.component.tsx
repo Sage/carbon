@@ -5,9 +5,16 @@ import StyledContentEditable from "./content-editor.style";
 
 import { componentPrefix } from "../../constants";
 
-const ContentEditor = () => {
+export interface ContentEditorProps {
+  rows?: number;
+}
+
+const ContentEditor = ({ rows }: ContentEditorProps) => {
   return (
-    <StyledContentEditable data-role={`${componentPrefix}-content-editable`}>
+    <StyledContentEditable
+      data-role={`${componentPrefix}-content-editable`}
+      rows={rows}
+    >
       <ContentEditable
         data-role={`${componentPrefix}-editable`}
         className={`${componentPrefix}-editable`}

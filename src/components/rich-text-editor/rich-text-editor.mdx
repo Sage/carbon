@@ -42,6 +42,12 @@ All instances of the Rich Text Editor should have a label that describes the pur
 
 <Canvas of={RichTextEditorStories.Default} />
 
+### Input Hint
+
+You can use the `inputHint` property to provide additional information to the user about the expected content or usage of the editor.
+
+<Canvas of={RichTextEditorStories.InputHint} />
+
 ### Required
 
 You can set the `required` property to `true` to indicate that the content of the editor is mandatory.
@@ -110,6 +116,14 @@ the editor can understand. The `CreateFromHTML` function should be called with t
 to the `value` property of the editor.
 
 <Canvas of={RichTextEditorStories.WithHTMLValue} />
+
+### With Row Count
+
+You can customise the height of the text editor by setting the `rows` property. The `rows` property should be a number greater than `2`, and will
+determine the minimium height of the editor by multplying the number of rows provided by the height of a single row (21px). If `rows` is not provided,
+the editor will default to a height of `210px`, equivalent to 10 rows.
+
+<Canvas of={RichTextEditorStories.Rows} />
 
 ## Props
 

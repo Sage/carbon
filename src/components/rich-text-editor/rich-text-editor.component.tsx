@@ -20,13 +20,15 @@ import {
   Placeholder,
   ToolbarPlugin,
 } from "./plugins";
-import StyledRichTextEditor from "./rich-text-editor.style";
+import StyledRichTextEditor, { StyledHintText } from "./rich-text-editor.style";
 
 export interface RichTextEditorProps {
   /** The maximum number of characters allowed in the editor */
   characterLimit?: number;
   /** The message to be shown when the editor is in an error state */
   error?: string;
+  /** A hint string rendered before the editor but after the label. Intended to describe the purpose or content of the input. */
+  inputHint?: string;
   /** Whether the content of the editor can be empty */
   isOptional?: boolean;
   /** The label to display above the editor */
@@ -43,6 +45,8 @@ export interface RichTextEditorProps {
   placeholder?: string;
   /** Whether the content of the editor is required to have a value */
   required?: boolean;
+  /** Number greater than 2 multiplied to override the default min-height of the editor */
+  rows?: number;
   /** The message to be shown when the editor is in an warning state */
   warning?: string;
   /** The initial value of the editor, as a HTML string, or JSON */
@@ -56,6 +60,7 @@ const createFromHTML = (html: string) => {
 export const RichTextEditor = ({
   characterLimit = 3000,
   error,
+  inputHint,
   isOptional = false,
   labelText,
   namespace = componentPrefix,
@@ -64,6 +69,7 @@ export const RichTextEditor = ({
   onSave,
   placeholder,
   required = false,
+  rows,
   warning,
   value,
 }: RichTextEditorProps) => {
@@ -93,10 +99,11 @@ export const RichTextEditor = ({
       >
         {labelText}
       </Label>
+      {inputHint && <StyledHintText>{inputHint}</StyledHintText>}
       <LexicalComposer initialConfig={initialConfig}>
         <StyledRichTextEditor>
           <RichTextPlugin
-            contentEditable={<ContentEditor />}
+            contentEditable={<ContentEditor rows={rows} />}
             placeholder={<Placeholder text={placeholder} />}
             ErrorBoundary={LexicalErrorBoundary}
           />
