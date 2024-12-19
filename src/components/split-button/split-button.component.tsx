@@ -182,6 +182,7 @@ export const SplitButton = ({
             ? /* istanbul ignore next */ "bottom-start"
             : "bottom-end"
         }
+        popoverStrategy="fixed"
         reference={buttonNode}
         middleware={[
           offset(6),
