@@ -330,7 +330,7 @@ export const WithIconStory: Story = () => {
 WithIconStory.storyName = "With Icon";
 WithIconStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const NoDropdwonArrowOnSubmenuStory: Story = () => {
+export const NoDropdownArrowOnSubmenuStory: Story = () => {
   return (
     <Box minHeight="150px">
       <Menu>
@@ -344,8 +344,8 @@ export const NoDropdwonArrowOnSubmenuStory: Story = () => {
     </Box>
   );
 };
-NoDropdwonArrowOnSubmenuStory.storyName = "No Dropdwon Arrow on Submenu";
-NoDropdwonArrowOnSubmenuStory.parameters = {
+NoDropdownArrowOnSubmenuStory.storyName = "No Dropdown Arrow on Submenu";
+NoDropdownArrowOnSubmenuStory.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
@@ -395,7 +395,7 @@ export const SubmenuIconAndTextAlignment: Story = () => {
     </Box>
   );
 };
-SubmenuIconAndTextAlignment.storyName = "Submeu Icon and Text Alignment";
+SubmenuIconAndTextAlignment.storyName = "Submenu Icon and Text Alignment";
 SubmenuIconAndTextAlignment.parameters = {
   chromatic: { disableSnapshot: true },
 };

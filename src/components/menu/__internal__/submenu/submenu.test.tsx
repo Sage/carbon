@@ -489,3 +489,23 @@ test("should render the menu with a max-height set when the `maxHeight` prop is 
     maxHeight: "80px",
   });
 });
+
+test("should override submenu children's `maxWidth` if `submenuMaxWidth` is set", async () => {
+  const user = userEvent.setup();
+  render(
+    <MenuContext.Provider value={menuContextValues}>
+      <Submenu title="title" submenuMaxWidth="300px">
+        <MenuItem maxWidth="400px">Apple</MenuItem>
+        <MenuItem minWidth="400px">Banana</MenuItem>
+      </Submenu>
+    </MenuContext.Provider>,
+  );
+  const menuItem = screen.getByRole("button", { name: "title" });
+  await user.hover(menuItem);
+  const submenu = screen.getByRole("list");
+  const submenuChildren = screen.getAllByRole("listitem");
+
+  expect(submenu).toHaveStyle({ maxWidth: "300px" });
+  expect(submenuChildren[0]).toHaveStyle({ maxWidth: "300px" });
+  expect(submenuChildren[1]).toHaveStyle({ maxWidth: "300px" });
+});
