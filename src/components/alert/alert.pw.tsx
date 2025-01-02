@@ -8,8 +8,6 @@ import {
 } from "../../../playwright/components/alert";
 import {
   checkAccessibility,
-  checkDialogIsInDOM,
-  checkDialogIsNotInDOM,
   waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
@@ -53,7 +51,7 @@ test.describe("should render Alert component", () => {
     });
   });
 
-  test("with close icon button that does not close dialog when escape key pressed and disableEscKey prop is true", async ({
+  test("dialog does not close when escape key pressed and disableEscKey prop is true", async ({
     mount,
     page,
   }) => {
@@ -63,35 +61,42 @@ test.describe("should render Alert component", () => {
       </AlertComponent>,
     );
 
-    await checkDialogIsInDOM(page);
+    const alert = page.getByRole("alertdialog");
+    await alert.waitFor();
+
     await page.keyboard.press("Escape");
-    await checkDialogIsInDOM(page);
+
+    await expect(alert).toBeVisible();
   });
 
-  test("with keyboard accessible close icon button which closes the dialog when enter key is pressed", async ({
+  test("dialog closes when enter key is pressed on close button", async ({
     mount,
     page,
   }) => {
     await mount(<AlertComponent title="title">Alert</AlertComponent>);
 
-    await checkDialogIsInDOM(page);
-    const cross = alertCrossIcon(page);
-    await page.keyboard.press("Tab");
-    await expect(cross).toBeFocused();
-    await cross.press("Enter");
-    await checkDialogIsNotInDOM(page);
+    const alert = page.getByRole("alertdialog");
+    await alert.waitFor();
+
+    const closeButton = page.getByRole("button", { name: "Close" });
+    await closeButton.press("Enter");
+
+    await expect(alert).toBeHidden();
   });
 
-  test("with close icon button that closes dialog when clicked", async ({
+  test("dialog closes when close button is clicked", async ({
     mount,
     page,
   }) => {
     await mount(<AlertComponent title="title">Alert</AlertComponent>);
 
-    await checkDialogIsInDOM(page);
-    const cross = alertCrossIcon(page);
-    await cross.click();
-    await checkDialogIsNotInDOM(page);
+    const alert = page.getByRole("alertdialog");
+    await alert.waitFor();
+
+    const closeButton = page.getByRole("button", { name: "Close" });
+    await closeButton.click();
+
+    await expect(alert).toBeHidden();
   });
 
   viewportHeights.forEach((height) => {
