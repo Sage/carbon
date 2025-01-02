@@ -1,7 +1,24 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import Alert from ".";
+import userEvent from "@testing-library/user-event";
+import Alert, { AlertProps } from ".";
 
+const ControlledAlert = ({ onCancel, ...rest }: Partial<AlertProps>) => {
+  const [open, setOpen] = React.useState(true);
+
+  return (
+    <Alert
+      {...rest}
+      open={open}
+      onCancel={(ev) => {
+        setOpen(false);
+        onCancel?.(ev);
+      }}
+      title="Invalid client"
+      subtitle="Please check the client details"
+    />
+  );
+};
 test("include correct component, element and role data tags", () => {
   render(
     <Alert
@@ -67,4 +84,16 @@ test("should allow custom data props on close button to be assigned", () => {
 
   expect(closeButton).toHaveAttribute("data-element", "foo");
   expect(closeButton).toHaveAttribute("data-role", "bar");
+});
+
+test("calls onCancel when close button is clicked", async () => {
+  const user = userEvent.setup();
+  const onCancel = jest.fn();
+
+  render(<ControlledAlert onCancel={onCancel} />);
+
+  const closeButton = screen.getByRole("button", { name: /Close/i });
+  await user.click(closeButton);
+
+  expect(onCancel).toHaveBeenCalledTimes(1);
 });

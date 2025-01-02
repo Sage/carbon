@@ -1,7 +1,6 @@
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import {
-  alertCrossIcon,
   alertTitle,
   alertSubtitle,
   alertDialog,
@@ -139,24 +138,6 @@ test.describe("should render Alert component", () => {
       const alertElement = alertDialog(page);
       await expect(alertElement).toHaveCSS("width", `${width}px`);
     });
-  });
-
-  test("with close icon button that calls the onCancel callback when clicked", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <AlertComponent
-        onCancel={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    const cross = alertCrossIcon(page);
-    await cross.click();
-    expect(callbackCount).toBe(1);
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
