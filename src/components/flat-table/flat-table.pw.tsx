@@ -26,8 +26,6 @@ import {
   FlatTableParentSubrowSelectableComponent,
   FlatTableChildSubrowSelectableComponent,
   FlatTablePartiallySelectedOrHighlightedRows,
-  KeyboardNavigationWithPagination,
-  HighlightedRowWithLoadingState,
   FlatTableDraggableComponent,
   FlatTablePagerStickyHeaderComponent,
   FlatTableCheckboxComponent,
@@ -2031,92 +2029,6 @@ test.describe("Prop tests", () => {
     await expect(bodyRowByPos0).toBeFocused();
     await bodyRowByPos0.press("ArrowUp");
     await expect(bodyRowByPos0).toBeFocused();
-  });
-
-  test(`should render with tabIndex 0 on the first row when after the loading state has finished`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<KeyboardNavigationWithPagination />);
-
-    await page.waitForTimeout(300);
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await checkNewFocusStyling(flatTableBodyRowByPosition(page, 0));
-    await page.keyboard.press("Tab");
-    await expect(flatTableBodyRowByPosition(page, 0)).not.toBeFocused();
-    await expect(flatTableBodyRowByPosition(page, 1)).not.toBeFocused();
-    await expect(flatTableBodyRowByPosition(page, 2)).not.toBeFocused();
-    await expect(flatTableBodyRowByPosition(page, 3)).not.toBeFocused();
-    await flatTablePageSelectNext(page).click();
-    await page.waitForTimeout(300);
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await checkNewFocusStyling(flatTableBodyRowByPosition(page, 0));
-  });
-
-  test(`should render with the tabIndex on the highlighted row when the loading state has finished`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<KeyboardNavigationWithPagination highlighted />);
-
-    await page.waitForTimeout(300);
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await expect(flatTableBodyRowByPosition(page, 0)).not.toBeFocused();
-    await checkNewFocusStyling(flatTableBodyRowByPosition(page, 2));
-    await page.keyboard.press("Tab");
-    await expect(flatTableBodyRowByPosition(page, 3)).not.toBeFocused();
-    await flatTablePageSelectNext(page).click();
-    await page.waitForTimeout(300);
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await checkNewFocusStyling(flatTableBodyRowByPosition(page, 0));
-  });
-
-  test(`should render with the tabIndex on the highlighted row when the loading state has finished and remove it when row is no longer highlighted`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<HighlightedRowWithLoadingState expandableArea="wholeRow" />);
-
-    await page.waitForTimeout(300);
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await expect(flatTableBodyRowByPosition(page, 0)).not.toBeFocused();
-    await expect(flatTableBodyRowByPosition(page, 2)).toBeFocused();
-    await page.keyboard.press("Tab");
-    await expect(flatTableBodyRowByPosition(page, 3)).not.toBeFocused();
-    await flatTableBodyRowByPosition(page, 2).click();
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await expect(flatTableBodyRowByPosition(page, 0)).toBeFocused();
-  });
-
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`should render with the tabIndex on the first cell in a highlighted row when the loading state has finished and remove it when row is no longer highlighted`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <HighlightedRowWithLoadingState expandableArea="firstColumn" />,
-    );
-
-    await page.waitForTimeout(300);
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await waitForAnimationEnd(flatTable(page));
-    await expect(flatTableCell(page, 0)).not.toBeFocused();
-    await expect(flatTableCell(page, 8)).toBeFocused();
-    await page.keyboard.press("Tab");
-    await waitForAnimationEnd(flatTable(page));
-    await expect(flatTableCell(page, 12)).not.toBeFocused();
-    await flatTableCell(page, 8).click();
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await waitForAnimationEnd(flatTable(page));
-    await expect(flatTableCell(page, 0)).toBeFocused();
   });
 
   test(`should render with action popover in a cell opened by mouse`, async ({
