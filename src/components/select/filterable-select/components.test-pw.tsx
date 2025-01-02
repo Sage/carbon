@@ -241,7 +241,7 @@ export const FilterableSelectWithActionButtonComponent = () => {
   );
 };
 
-export const FilterableSelectWithManyOptionsAndVirtualScrolling = () => (
+export const WithVirtualScrolling = () => (
   <FilterableSelect
     name="virtualised"
     id="virtualised"

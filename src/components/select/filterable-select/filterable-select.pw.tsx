@@ -8,7 +8,7 @@ import {
   FilterableSelectMultiColumnsComponent,
   FilterableSelectMultiColumnsNestedComponent,
   FilterableSelectWithActionButtonComponent,
-  FilterableSelectWithManyOptionsAndVirtualScrolling,
+  WithVirtualScrolling,
   FilterableSelectNestedInDialog,
   SelectionConfirmed,
   FilterableSelectWithDisabledOption,
@@ -1261,7 +1261,7 @@ test.describe("Check virtual scrolling", () => {
     mount,
     page,
   }) => {
-    await mount(<FilterableSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
     await dropdownButton(page).click();
     await expect(selectOptionByText(page, "Option 1.")).toBeInViewport();
@@ -1275,26 +1275,31 @@ test.describe("Check virtual scrolling", () => {
     mount,
     page,
   }) => {
-    await mount(<FilterableSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
-    await dropdownButton(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollTo(0, 750),
-    );
-    await page.waitForTimeout(250);
-    await expect(selectOptionByText(page, "Option 1.")).toHaveCount(0);
-    await expect(selectOptionByText(page, "Option 20.")).toBeInViewport();
-    const option30 = selectOptionByText(page, "Option 30.");
-    await expect(option30).toHaveCount(1);
-    await expect(option30).not.toBeInViewport();
-    await expect(selectOptionByText(page, "Option 40.")).toHaveCount(0);
+    const input = page.getByRole("combobox");
+    await input.click();
+
+    const list = page.getByRole("listbox");
+    await list.waitFor();
+
+    const firstOption = page.getByRole("option").first();
+    const lastOption = page.getByRole("option").last();
+
+    await expect(firstOption).toHaveText("Option 1.");
+    await expect(lastOption).toHaveText("Option 15.");
+
+    await lastOption.scrollIntoViewIfNeeded();
+
+    await expect(firstOption).not.toHaveText("Option 1.");
+    await expect(lastOption).not.toHaveText("Option 15.");
   });
 
   test("should filter options when text is typed, taking into account non-rendered options", async ({
     mount,
     page,
   }) => {
-    await mount(<FilterableSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
     await commonDataElementInputPreview(page).fill("Option 100");
     await expect(selectOptionByText(page, "Option 100.")).toBeInViewport();
@@ -1883,7 +1888,7 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     mount,
     page,
   }) => {
-    await mount(<FilterableSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
     await dropdownButton(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
