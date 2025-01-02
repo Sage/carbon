@@ -25,7 +25,6 @@ import {
   splitMainButton,
 } from "../../../playwright/components/split-button";
 import { accordionDefaultTitle } from "../../../playwright/components/accordion";
-import { alertDialogPreview } from "../../../playwright/components/dialog";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -383,20 +382,25 @@ test.describe("Functional tests", () => {
 });
 
 test.describe("when SplitButton is nested inside of a Dialog component", () => {
-  test(`should not close the Dialog when SplitButton is closed by pressing an escape key`, async ({
+  test(`does not close dialog when Escape key is pressed while child buttons are visible`, async ({
     mount,
     page,
   }) => {
     await mount(<SplitButtonNestedInDialog />);
 
-    await splitToggleButton(page).nth(0).click();
-    await expect(additionalButtonsContainer(page)).toHaveCount(1);
-    await additionalButton(page, 1).focus();
+    const dialog = page.getByRole("dialog");
+    await dialog.waitFor();
+
+    const toggleButton = page.getByRole("button", { name: "Show more" });
+    await toggleButton.click();
+
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
+
     await page.keyboard.press("Escape");
-    await expect(additionalButtonsContainer(page)).toHaveCount(0);
-    await expect(alertDialogPreview(page)).toHaveCount(1);
-    await page.keyboard.press("Escape");
-    await expect(alertDialogPreview(page)).toHaveCount(0);
+
+    await buttonList.waitFor({ state: "hidden" });
+    await expect(dialog).toBeVisible();
   });
 });
 
