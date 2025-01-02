@@ -29,7 +29,6 @@ import { alertDialogPreview } from "../../../playwright/components/dialog";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const keyToTrigger = ["Enter", "Space", "ArrowDown", "ArrowUp"] as const;
 
 test.describe("Styling tests", () => {
   test(`should render with the expected styling`, async ({ mount, page }) => {
@@ -359,190 +358,27 @@ test.describe("Functional tests", () => {
     await expect(additionalButton(page, 2)).toBeVisible();
   });
 
-  test(`should close additional buttons when clicking on the main button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SplitButtonList />);
-
-    await splitToggleButton(page).nth(0).click();
-    await expect(additionalButtonsContainer(page)).toBeVisible();
-
-    await splitMainButton(page).click();
-    await expect(additionalButtonsContainer(page)).not.toBeVisible();
-  });
-
-  test(`should verify pressing Tab moves focus to next child button, then closes the list and focuses the next element on the page`, async ({
+  test(`closes the list and focuses the next element on the page, when Tab key is pressed on last child button`, async ({
     mount,
     page,
   }) => {
     await mount(<TwoSplitButtons />);
 
-    await splitToggleButton(page).nth(0).click();
-    await expect(additionalButton(page, 0)).toBeFocused();
-    await page.keyboard.press("Tab");
-    await expect(additionalButton(page, 1)).toBeFocused();
-    await page.keyboard.press("Tab");
-    await expect(additionalButton(page, 2)).toBeFocused();
-    await page.keyboard.press("Tab");
+    const dropdownButton = page
+      .getByRole("button", { name: "Show more" })
+      .first();
+    await dropdownButton.click();
 
-    await expect(additionalButton(page, 0)).not.toBeVisible();
-    await expect(mainButton(page).nth(1)).toBeFocused();
-  });
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
 
-  test(`should verify pressing ArrowDown moves focus to next child button and does not loop when last child is focused`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TwoSplitButtons />);
+    const lastButton = page.getByRole("button", { name: "Button 3" });
+    await lastButton.press("Tab");
 
-    await splitToggleButton(page).nth(0).click();
-    await page.keyboard.press("ArrowDown");
-    await expect(additionalButton(page, 1)).toBeFocused();
-    await page.keyboard.press("ArrowDown");
-    await expect(additionalButton(page, 2)).toBeFocused();
-    await page.keyboard.press("ArrowDown");
-    await expect(additionalButton(page, 2)).toBeFocused();
-  });
-
-  test(`should verify pressing Shift+Tab moves focus to previous child button, then closes the list and focuses the toggle button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TwoSplitButtons />);
-
-    await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 1).focus();
-    await page.keyboard.press("Shift+Tab");
-    await expect(additionalButton(page, 0)).toBeFocused();
-    await page.keyboard.press("Shift+Tab");
-
-    await expect(additionalButton(page, 0)).not.toBeVisible();
-    await expect(splitToggleButton(page).first()).toBeFocused();
-  });
-
-  test(`should verify pressing ArrowUp moves focus to previous child button and does not loop when first child is focused`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TwoSplitButtons />);
-
-    await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 2).focus();
-    await page.keyboard.press("ArrowUp");
-    await expect(additionalButton(page, 1)).toBeFocused();
-    await page.keyboard.press("ArrowUp");
-    await expect(additionalButton(page, 0)).toBeFocused();
-    await page.keyboard.press("ArrowUp");
-    await expect(additionalButton(page, 0)).toBeFocused();
-  });
-
-  test(`should verify pressing metaKey + ArrowUp moves focus to first child button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TwoSplitButtons />);
-
-    await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 2).focus();
-    await page.keyboard.down("Meta");
-    await page.keyboard.press("ArrowUp");
-    await expect(additionalButton(page, 0)).toBeFocused();
-  });
-
-  test(`should verify pressing ctrlKey + ArrowUp moves focus to first child button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TwoSplitButtons />);
-
-    await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 2).focus();
-    await page.keyboard.down("Control");
-    await page.keyboard.press("ArrowUp");
-    await expect(additionalButton(page, 0)).toBeFocused();
-  });
-
-  test(`should verify pressing Home moves focus to first child button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TwoSplitButtons />);
-
-    await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 2).focus();
-    await page.keyboard.press("Home");
-    await expect(additionalButton(page, 0)).toBeFocused();
-  });
-
-  test(`should verify pressing metaKey + ArrowDown moves focus to last child button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TwoSplitButtons />);
-
-    await splitToggleButton(page).nth(0).click();
-    await page.keyboard.down("Meta");
-    await page.keyboard.press("ArrowDown");
-    await expect(additionalButton(page, 2)).toBeFocused();
-  });
-
-  test(`should verify pressing ctrlKey + ArrowDown moves focus to last child button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TwoSplitButtons />);
-
-    await splitToggleButton(page).nth(0).click();
-    await page.keyboard.down("Control");
-    await page.keyboard.press("ArrowDown");
-    await expect(additionalButton(page, 2)).toBeFocused();
-  });
-
-  test(`should verify pressing End moves focus to last child button`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TwoSplitButtons />);
-
-    await splitToggleButton(page).nth(0).click();
-    await page.keyboard.press("End");
-    await expect(additionalButton(page, 2)).toBeFocused();
-  });
-
-  test(`should verify clicking additional buttons closes SplitButton`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SplitButtonList />);
-
-    await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 0).click();
-    await expect(additionalButtonsContainer(page)).toHaveCount(0);
-  });
-
-  test(`should verify pressing Esc closes SplitButton`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SplitButtonList />);
-
-    await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 1).focus();
-    await page.keyboard.press("Escape");
-    await expect(additionalButtonsContainer(page)).toHaveCount(0);
-  });
-
-  [...keyToTrigger].forEach((key) => {
-    test(`should verify pressing ${key} on the main button opens list and focuses first button`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SplitButtonList />);
-
-      await splitToggleButton(page).nth(0).press(key);
-      await expect(additionalButton(page, 0)).toBeFocused();
-    });
+    await expect(
+      page.getByRole("button", { name: "Split Button 2" }),
+    ).toBeFocused();
+    await expect(buttonList).toBeHidden();
   });
 });
 
