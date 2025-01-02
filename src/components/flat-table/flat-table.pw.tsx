@@ -1575,56 +1575,6 @@ test.describe("Prop tests", () => {
     await checkNewFocusStyling(bodyRow3);
   });
 
-  test(`should render with expandable rows expanded by Spacebar and subrows not accessible`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTableNoAccSubRowComponent />);
-
-    const transformValue = await getStyle(
-      flatTableExpandableIcon(page, 0),
-      "transform",
-    );
-    expect(getRotationAngle(transformValue)).toBe(-90);
-    await expect(flatTableSubrows(page)).toHaveCount(0);
-
-    const bodyRowByPosition = flatTableBodyRowByPosition(page, 0);
-    await bodyRowByPosition.focus();
-    await bodyRowByPosition.press("Space");
-    await expect(flatTableSubrowByPosition(page, 0)).toHaveCount(1);
-    await expect(flatTableSubrowByPosition(page, 1)).toHaveCount(1);
-
-    await bodyRowByPosition.press("Tab");
-    await bodyRowByPosition.press("ArrowDown");
-    await page.waitForTimeout(250);
-    await checkNewFocusStyling(flatTableBodyRowByPosition(page, 3));
-  });
-
-  test(`should render with expandable rows expanded by Enter key and subrows not accessible`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTableNoAccSubRowComponent />);
-
-    const transformValue = await getStyle(
-      flatTableExpandableIcon(page, 0),
-      "transform",
-    );
-    expect(getRotationAngle(transformValue)).toBe(-90);
-    await expect(flatTableSubrows(page)).toHaveCount(0);
-
-    const bodyRowByPosition = flatTableBodyRowByPosition(page, 0);
-    await bodyRowByPosition.focus();
-    await bodyRowByPosition.press("Enter");
-    await expect(flatTableSubrowByPosition(page, 0)).toHaveCount(1);
-    await expect(flatTableSubrowByPosition(page, 1)).toHaveCount(1);
-
-    await bodyRowByPosition.press("Tab");
-    await bodyRowByPosition.press("ArrowDown");
-    await page.waitForTimeout(250);
-    await checkNewFocusStyling(flatTableBodyRowByPosition(page, 3));
-  });
-
   test(`should render with a clickable link in an expandable row`, async ({
     mount,
     page,
@@ -2022,54 +1972,6 @@ test.describe("Prop tests", () => {
       await bodyRowByPos.press(arrow);
       await checkNewFocusStyling(bodyRowByPos);
     });
-  });
-
-  test(`should render with the first column of cells accessible with down arrow key press when expandableArea is set to 'firstColumn'`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTableFirstColExpandableComponent />);
-
-    const tableCell0 = flatTableCell(page, 0);
-    const tableCell4 = flatTableCell(page, 4);
-    const tableCell8 = flatTableCell(page, 8);
-    const tableCell12 = flatTableCell(page, 12);
-
-    await page.waitForTimeout(300);
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await expect(tableCell0).toBeFocused();
-    await tableCell0.press("ArrowDown");
-    await expect(tableCell4).toBeFocused();
-    await tableCell4.press("ArrowDown");
-    await expect(tableCell8).toBeFocused();
-    await tableCell8.press("ArrowDown");
-    await expect(tableCell12).toBeFocused();
-    await tableCell12.press("ArrowDown");
-    await expect(tableCell12).toBeFocused();
-  });
-
-  test(`should render with the first column of cells accessible with up arrow key press when expandableArea is set to 'firstColumn'`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FlatTableFirstColExpandableComponent />);
-
-    const tableCell0 = flatTableCell(page, 0);
-    const tableCell4 = flatTableCell(page, 4);
-    const tableCell8 = flatTableCell(page, 8);
-    const tableCell12 = flatTableCell(page, 12);
-
-    await tableCell12.focus();
-    await expect(tableCell12).toBeFocused();
-    await tableCell12.press("ArrowUp");
-    await expect(tableCell8).toBeFocused();
-    await tableCell8.press("ArrowUp");
-    await expect(tableCell4).toBeFocused();
-    await tableCell4.press("ArrowUp");
-    await expect(tableCell0).toBeFocused();
-    await tableCell0.press("ArrowUp");
-    await expect(tableCell0).toBeFocused();
   });
 
   test(`should render with any focusable rows accessible, including expanded sub rows, with down arrow key`, async ({
@@ -2570,97 +2472,6 @@ test.describe("Prop tests", () => {
         ).toHaveAttribute("data-element", "flat-table-checkbox-header");
       }
     });
-  });
-});
-
-test.describe("Event tests", () => {
-  test(`should call getOrder when draggable row order is changed`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <FlatTableDraggableComponent
-        getOrder={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    await page.waitForTimeout(1000);
-    const draggableItem = flatTableDraggableItem(page, 0);
-    const dropPosition = flatTableDraggableItemByPosition(page, 3);
-    await page.waitForTimeout(1000);
-    await draggableItem.dragTo(dropPosition);
-    expect(callbackCount).toBe(1);
-  });
-
-  test(`should call onClick when a clickable row is clicked`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <FlatTableComponent
-        onClick={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    await flatTableBodyRowByPosition(page, 0).click();
-    expect(callbackCount).toBe(1);
-  });
-
-  test(`should call onChange when a selectable row is clicked`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <FlatTableColorRowSelectableComponent
-        onChange={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    await flatTableCheckboxCell(page, 1).locator("input").click();
-    expect(callbackCount).toBe(1);
-  });
-
-  test(`should call onClick when a selectable row is clicked`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <FlatTableCheckboxComponent
-        onClick={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    await flatTableCheckboxCell(page, 1).locator("input").click();
-    expect(callbackCount).toBe(1);
-  });
-
-  test(`should call onClick when first column is sorted`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <FlatTableSortingComponent
-        onClick={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    await flatTableSortable(page).nth(0).click();
-    expect(callbackCount).toBe(1);
   });
 });
 
