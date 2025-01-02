@@ -118,24 +118,6 @@ export const checkGoldenOutline = async (
 };
 
 /**
- * Asserts if an element has event was calledOnce
- * @param callbackData an array with callback data
- * @param eventName {string} event name
- * @example await expectEventWasCalledOnce(messages, "onClick");
- */
-export const expectEventWasCalledOnce = async (
-  callbackData: string[],
-  eventName: string,
-) => {
-  const count = JSON.stringify(callbackData.length);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const callbackName = JSON.stringify(callbackData[0]._reactName);
-  expect(count).toBe("1");
-  expect(callbackName).toBe(`"${eventName}"`);
-};
-
-/**
  * Creates a safe regExp and uses the .toHaveClass() assertion
  * As there is not a "contains" assertion for the .toHaveClass() assertion
  * @param locatorFunc the locator you'd like to use
