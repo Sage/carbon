@@ -749,7 +749,6 @@ test.describe("test background scroll when tabbing", () => {
   }) => {
     await mount(<DialogFullScreenBackgroundScrollTestComponent />);
 
-    await page.waitForTimeout(500);
     await continuePressingSHIFTTAB(page, 2);
     await iconIsFocused(page, 0);
     await expect(
@@ -766,7 +765,6 @@ test.describe("test background scroll when tabbing", () => {
       <DialogFullScreenBackgroundScrollWithOtherFocusableContainers />,
     );
 
-    await page.waitForTimeout(500);
     const toastIcon = getDataElementByValue(page, "close").nth(1);
     await toastIcon.focus();
     await continuePressingTAB(page, 5);
@@ -785,7 +783,6 @@ test.describe("test background scroll when tabbing", () => {
       <DialogFullScreenBackgroundScrollWithOtherFocusableContainers />,
     );
 
-    await page.waitForTimeout(500);
     await continuePressingSHIFTTAB(page, 8);
     await iconIsFocused(page, 0);
     await expect(
