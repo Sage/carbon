@@ -271,7 +271,7 @@ export const MultiSelectCustomColorComponent = (
   );
 };
 
-export const MultiSelectWithManyOptionsAndVirtualScrolling = () => (
+export const WithVirtualScrolling = () => (
   <MultiSelect
     name="virtualised"
     id="virtualised"

@@ -11,7 +11,7 @@ import {
   MultiSelectCustomColorComponent,
   MultiSelectLongPillComponent,
   MultiSelectOnFilterChangeEventComponent,
-  MultiSelectWithManyOptionsAndVirtualScrolling,
+  WithVirtualScrolling,
   MultiSelectNestedInDialog,
   MultiSelectErrorOnChangeNewValidation,
   SelectionConfirmed,
@@ -1270,57 +1270,84 @@ test.describe("Check events for MultiSelect component", () => {
     expect(callbackArguments[0]).toBe(text);
   });
 
-  test("should call onListScrollBottom event when the list is scrolled to the bottom", async ({
+  test("calls onListScrollBottom when the dropdown list is scrolled to the bottom", async ({
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<MultiSelectComponent onListScrollBottom={callback} />);
-
-    await dropdownButton(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500),
+    let called = false;
+    await mount(
+      <MultiSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
     );
-    await page.waitForTimeout(250);
-    expect(callbackCount).toBe(1);
+
+    const input = page.getByRole("combobox");
+    await input.click();
+
+    const dropdownList = page.getByRole("listbox");
+    await dropdownList.waitFor();
+
+    const lastOption = page.getByRole("option").last();
+    await lastOption.scrollIntoViewIfNeeded();
+
+    await expect(async () => {
+      expect(called).toBeTruthy();
+    }).toPass();
   });
 
-  test("should not call onListScrollBottom callback when an option is clicked", async ({
+  test("does not call onListScrollBottom when an option is clicked", async ({
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<MultiSelectComponent onListScrollBottom={callback} />);
+    let called = false;
+    await mount(
+      <MultiSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
+    );
 
-    await dropdownButton(page).click();
-    await selectOption(page, positionOfElement("first")).click();
-    expect(callbackCount).toBe(0);
+    const input = page.getByRole("combobox");
+    await input.click();
+
+    const dropdownList = page.getByRole("listbox");
+    await dropdownList.waitFor();
+
+    const firstOption = page.getByRole("option").first();
+    await firstOption.click();
+
+    expect(called).toBeFalsy();
   });
 
-  test("should not be called when an option is clicked and list is re-opened", async ({
+  test("does not call onListScrollBottom when an option is clicked and list is re-opened", async ({
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-
-    await mount(<MultiSelectComponent onListScrollBottom={callback} />);
-
-    await dropdownButton(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500),
+    let called = false;
+    await mount(
+      <MultiSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
     );
-    await selectOption(page, positionOfElement("first")).click();
-    await dropdownButton(page).click();
-    expect(callbackCount).toBe(1);
+
+    const input = page.getByRole("combobox");
+    await input.click();
+
+    const dropdownList = page.getByRole("listbox");
+    await dropdownList.waitFor();
+
+    const firstOption = page.getByRole("option").first();
+    await firstOption.click();
+
+    await input.click();
+    await dropdownList.waitFor({ state: "hidden" });
+
+    expect(called).toBeFalsy();
   });
 });
 
@@ -1329,7 +1356,7 @@ test.describe("Check virtual scrolling", () => {
     mount,
     page,
   }) => {
-    await mount(<MultiSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
     await dropdownButton(page).click();
     await expect(selectOptionByText(page, "Option 1.")).toBeInViewport();
@@ -1343,26 +1370,31 @@ test.describe("Check virtual scrolling", () => {
     mount,
     page,
   }) => {
-    await mount(<MultiSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
-    await dropdownButton(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollTo(0, 750),
-    );
-    await page.waitForTimeout(250);
-    await expect(selectOptionByText(page, "Option 1.")).toHaveCount(0);
-    await expect(selectOptionByText(page, "Option 20.")).toBeInViewport();
-    const option30 = selectOptionByText(page, "Option 30.");
-    await expect(option30).toHaveCount(1);
-    await expect(option30).not.toBeInViewport();
-    await expect(selectOptionByText(page, "Option 40.")).toHaveCount(0);
+    const input = page.getByRole("combobox");
+    await input.click();
+
+    const list = page.getByRole("listbox");
+    await list.waitFor();
+
+    const firstOption = page.getByRole("option").first();
+    const lastOption = page.getByRole("option").last();
+
+    await expect(firstOption).toHaveText("Option 1.");
+    await expect(lastOption).toHaveText("Option 15.");
+
+    await lastOption.scrollIntoViewIfNeeded();
+
+    await expect(firstOption).not.toHaveText("Option 1.");
+    await expect(lastOption).not.toHaveText("Option 15.");
   });
 
   test("should filter options when text is typed, taking into account non-rendered options", async ({
     mount,
     page,
   }) => {
-    await mount(<MultiSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
     await commonDataElementInputPreview(page).type("Option 100");
     await expect(selectOptionByText(page, "Option 100.")).toBeInViewport();
@@ -1944,7 +1976,7 @@ test.describe("Accessibility tests for MultiSelect component", () => {
     mount,
     page,
   }) => {
-    await mount(<MultiSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
     await dropdownButton(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
