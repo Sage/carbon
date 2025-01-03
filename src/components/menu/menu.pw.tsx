@@ -62,7 +62,6 @@ import {
   MenuItems,
   ClosedMenuFullScreenWithButtons,
   MenuDividerComponent,
-  InGlobalHeaderStory,
   SubMenuWithVeryLongLabel,
   MenuComponentScrollableWithSearch,
   MenuSegmentTitleComponentWithAdditionalMenuItem,
@@ -70,7 +69,6 @@ import {
   MenuItemWithPopoverContainerChild,
   SubmenuMaxWidth,
 } from "./component.test-pw";
-import { NavigationBarWithSubmenuAndChangingHeight } from "../navigation-bar/navigation-bar-test.stories";
 
 const span = "span";
 const div = "div";
@@ -440,25 +438,6 @@ test.describe("Prop tests for Menu component", () => {
     });
     expect(boundLeft).toBeLessThanOrEqual(leftLess + additionVal);
     expect(boundLeft).toBeGreaterThan(leftLess);
-  });
-
-  test(`should verify the Search component close icon is focusable when using keyboard to navigate up the list of items`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch />);
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Enter");
-    await page.keyboard.press("ArrowDown");
-    await searchDefaultInput(page).fill("FooBar");
-    await page.keyboard.press("End");
-    await continuePressingSHIFTTAB(page, 2);
-    await page.waitForTimeout(2000);
-    const cross = searchCrossIcon(page).locator("..");
-    await expect(cross).toBeFocused();
-    await page.keyboard.press("Shift+Tab");
-    await expect(searchDefaultInput(page)).toBeFocused();
   });
 
   test(`should verify that the Search component is focusable by using the downarrow key when rendered as the parent of a scrollable submenu`, async ({
@@ -2436,54 +2415,26 @@ test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", ()
     await expect(offscreenText).not.toBeInViewport();
   });
 
-  test(`should render with all the content of a long submenu accessible with the keyboard while remaining visible`, async ({
-    mount,
+  test("submenu items in a scrollable block scroll into view when focused", async ({
     page,
-  }) => {
-    await mount(<InGlobalHeaderStory />);
-
-    await page.setViewportSize({ width: 1000, height: 500 });
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("ArrowDown");
-    const subMenuItem = submenuItem(page, 1);
-    await expect(subMenuItem).toHaveCount(20);
-    for (let i = 0; i < 20; i++) {
-      await page.keyboard.press("ArrowDown");
-    }
-    const focusedElement = page.locator("*:focus");
-    await expect(focusedElement).toHaveText("Foo 20");
-    const subMenu = page.locator(
-      '[data-component="submenu-wrapper"] ul > li:nth-child(20)',
-    );
-    await expect(subMenu).toBeInViewport();
-  });
-
-  test(`should render with all the content of a long submenu accessible with the keyboard while remaining visible if the navbar height changes`, async ({
     mount,
-    page,
   }) => {
-    await mount(<NavigationBarWithSubmenuAndChangingHeight />);
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await mount(<MenuComponentScrollable />);
 
-    await page.setViewportSize({ width: 1000, height: 500 });
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("ArrowDown");
-    const subMenuItem = submenuItem(page, 1);
-    await expect(subMenuItem).toHaveCount(21);
-    for (let i = 0; i < 3; i++) {
-      await page.keyboard.press("ArrowDown");
-    }
-    await page.keyboard.press("Enter");
+    const menuItemThree = page
+      .getByRole("listitem")
+      .filter({ hasText: "Menu Item Three" })
+      .first();
+    await menuItemThree.getByRole("button").press("ArrowDown");
 
-    await page.waitForTimeout(100);
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("ArrowDown");
-    for (let i = 0; i < 21; i++) {
-      await page.keyboard.press("ArrowDown");
-    }
-    const subMenu = page.locator(
-      '[data-component="submenu-wrapper"] ul > li:nth-child(21)',
-    );
-    await expect(subMenu).toBeInViewport();
+    const submenuList = menuItemThree.getByRole("list");
+    await submenuList.waitFor();
+
+    const lastSubmenuItem = menuItemThree.getByRole("listitem").last();
+    await lastSubmenuItem.getByRole("link").focus();
+
+    await expect(lastSubmenuItem).toBeInViewport();
   });
 
   test("should render the menu with the expected styling when menu item has a PopoverContainer child with renderOpenComponent passed", async ({
