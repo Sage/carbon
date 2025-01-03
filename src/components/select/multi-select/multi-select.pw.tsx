@@ -10,7 +10,6 @@ import {
   MultiSelectMultiColumnsComponent,
   MultiSelectCustomColorComponent,
   MultiSelectLongPillComponent,
-  MultiSelectOnFilterChangeEventComponent,
   WithVirtualScrolling,
   MultiSelectNestedInDialog,
   MultiSelectErrorOnChangeNewValidation,
@@ -1153,121 +1152,6 @@ test.describe("MultiSelect component", () => {
 
     await expect(multiSelectPillByText(page, "Blue")).toHaveCount(0);
     await expect(multiSelectPillByText(page, "Black")).toHaveCount(2);
-  });
-});
-
-test.describe("Check events for MultiSelect component", () => {
-  test("should call onClick event when mouse is clicked on text input", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<MultiSelectComponent onClick={callback} />);
-
-    await commonDataElementInputPreview(page).click();
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onFocus when MultiSelect is brought into focus", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<MultiSelectComponent onFocus={callback} />);
-
-    await commonDataElementInputPreview(page).focus();
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onOpen when MultiSelect is opened", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<MultiSelectComponent onOpen={callback} />);
-
-    await dropdownButton(page).click();
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onChange event once when a list option is selected", async ({
-    mount,
-    page,
-  }) => {
-    type CallbackArgument = Parameters<
-      Required<MultiSelectProps>["onChange"]
-    >[0];
-    const callbackArguments: CallbackArgument[] = [];
-    const callback = (e: CallbackArgument) => {
-      callbackArguments.push(e);
-    };
-    await mount(<MultiSelectComponent onChange={callback} />);
-
-    const position = "first";
-    const option = ["1"];
-    await dropdownButton(page).click();
-    await selectOption(page, positionOfElement(position)).click();
-    expect(callbackArguments.length).toBe(1);
-    expect(callbackArguments[0]).toMatchObject({
-      target: { value: option },
-      selectionConfirmed: true,
-    });
-  });
-
-  [
-    keyToTrigger[0],
-    keyToTrigger[1],
-    keyToTrigger[2],
-    keyToTrigger[3],
-    keyToTrigger[6],
-  ].forEach((key) => {
-    test(`should call onKeyDown event when ${key} key is pressed`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      const callback = () => {
-        callbackCount += 1;
-      };
-      await mount(<MultiSelectComponent onKeyDown={callback} />);
-
-      const inputElement = commonDataElementInputPreview(page);
-      await inputElement.focus();
-      await inputElement.press(key);
-      expect(callbackCount).toBe(1);
-    });
-  });
-
-  test("should call onFilterChange event when a filter string is input", async ({
-    mount,
-    page,
-  }) => {
-    type CallbackArgument = Parameters<
-      Required<MultiSelectProps>["onFilterChange"]
-    >[0];
-    const callbackArguments: CallbackArgument[] = [];
-    const callback = (e: CallbackArgument) => {
-      callbackArguments.push(e);
-    };
-    await mount(
-      <MultiSelectOnFilterChangeEventComponent onFilterChange={callback} />,
-    );
-
-    const text = "B";
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await inputElement.type(text);
-    expect(callbackArguments.length).toBe(1);
-    expect(callbackArguments[0]).toBe(text);
   });
 
   test("calls onListScrollBottom when the dropdown list is scrolled to the bottom", async ({

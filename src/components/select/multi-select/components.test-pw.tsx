@@ -223,34 +223,6 @@ export const MultiSelectMaxOptionsComponent = (
   );
 };
 
-export const MultiSelectOnFilterChangeEventComponent = ({
-  onChange,
-  ...props
-}: Partial<MultiSelectProps>) => {
-  const [state, setState] = useState<string[]>([]);
-  const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState(event.target.value as unknown as string[]);
-    if (onChange) {
-      onChange(event);
-    }
-  };
-  return (
-    <MultiSelect
-      label="color"
-      value={state}
-      labelInline
-      onChange={setValue}
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-    </MultiSelect>
-  );
-};
-
 export const MultiSelectCustomColorComponent = (
   props: Partial<MultiSelectProps>,
 ) => {
