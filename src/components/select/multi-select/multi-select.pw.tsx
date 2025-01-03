@@ -578,7 +578,7 @@ test.describe("MultiSelect component", () => {
     }) => {
       await mount(<MultiSelectComponent />);
 
-      await commonDataElementInputPreview(page).type(text);
+      await commonDataElementInputPreview(page).fill(text);
       await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
       await expect(selectListWrapper(page)).toBeVisible();
       const optionOne = selectOption(page, positionOfElement("first"));
@@ -609,7 +609,7 @@ test.describe("MultiSelect component", () => {
     }) => {
       await mount(<MultiSelectComponent />);
 
-      await commonDataElementInputPreview(page).type("foo");
+      await commonDataElementInputPreview(page).fill("foo");
       await commonDataElementInputPreview(page).press(key);
       await expect(page.getByText('No results for "foo"')).toBeVisible();
     });
@@ -863,7 +863,7 @@ test.describe("MultiSelect component", () => {
       const inputElement = commonDataElementInputPreview(page);
       await inputElement.click();
       await expect(inputElement).toBeFocused();
-      await inputElement.type(text);
+      await inputElement.fill(text);
       const highlightedValue = boldedAndUnderlinedValue(page, text);
       await expect(highlightedValue).toHaveCSS(
         "text-decoration-line",
@@ -887,7 +887,7 @@ test.describe("MultiSelect component", () => {
     const inputElement = commonDataElementInputPreview(page);
     await inputElement.click();
     await expect(inputElement).toBeFocused();
-    await inputElement.type(text);
+    await inputElement.fill(text);
     await expect(selectListWrapper(page)).toBeVisible();
     const headerElements = multiColumnsSelectListHeader(page);
     await expect(headerElements).toHaveCount(columns);
@@ -1280,7 +1280,7 @@ test.describe("Check virtual scrolling", () => {
   }) => {
     await mount(<WithVirtualScrolling />);
 
-    await commonDataElementInputPreview(page).type("Option 100");
+    await commonDataElementInputPreview(page).fill("Option 100");
     await expect(selectOptionByText(page, "Option 100.")).toBeInViewport();
     await expect(selectOptionByText(page, "Option 1000.")).toBeInViewport();
     await expect(selectOptionByText(page, "Option 1002.")).toBeInViewport();
@@ -1507,7 +1507,7 @@ test("should not add an empty Pill when filter text does not match option text",
 
   const pillElement = multiSelectPill(page);
   await expect(pillElement).not.toBeVisible();
-  await commonDataElementInputPreview(page).type("abc");
+  await commonDataElementInputPreview(page).fill("abc");
   await selectInput(page).press("Enter");
   await expect(pillElement).not.toBeVisible();
 });
@@ -1520,7 +1520,7 @@ test("should not select a disabled option when a filter is typed", async ({
 
   await dropdownButton(page).click();
   const inputElement = selectInput(page);
-  await inputElement.type("t");
+  await inputElement.fill("t");
   await inputElement.press("Enter");
   await expect(
     page.locator('[data-element="confirmed-selection-2"]'),
