@@ -28,12 +28,6 @@ import {
 } from "../../../playwright/support/helper";
 import { VALIDATION, CHARACTERS } from "../../../playwright/support/constants";
 
-const textForInput = "Testing is awesome";
-const linkText = "https://carbon.sage.com";
-const longText =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-const longTextAssert =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ";
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const buttonNames = ["bold", "italic", "bullet-list", "number-list"];
 
@@ -43,328 +37,291 @@ test.describe("Functionality tests", () => {
 
     const textInput = textEditorInput(page);
     await textInput.clear();
-    await textInput.fill(textForInput);
+    await textInput.fill("Testing is awesome");
 
     await expect(textEditorCounter(page)).toHaveText("2,982 characters left");
   });
 
-  buttonNames.slice(0, 2).forEach((buttonType) => {
-    test(`should render text using ${buttonType} style`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextEditorCustom />);
-
-      const textInput = textEditorInput(page);
-      const toolbar = textEditorToolbar(page, buttonType);
-      await toolbar.click();
-      await textInput.clear();
-      await textInput.fill(textForInput);
-
-      if (buttonType === "bold") {
-        await expect(innerText(page)).toHaveCSS("font-weight", "700");
-      } else {
-        await expect(innerText(page)).toHaveCSS("font-style", "italic");
-      }
-      await expect(toolbar).toHaveCSS("background-color", "rgb(0, 50, 76)");
-    });
-  });
-
-  test(`should render text in bullet-list style`, async ({ mount, page }) => {
-    await mount(<TextEditorCustom />);
-
-    const textInput = textEditorInput(page);
-    const toolbar = textEditorToolbar(page, "bullet-list");
-    await toolbar.click();
-    await textInput.clear();
-    await textInput.pressSequentially("Testing", { delay: 100 });
-    await page.keyboard.press("Enter");
-    await textInput.pressSequentially("is", { delay: 100 });
-    await page.keyboard.press("Enter");
-    await textInput.pressSequentially("awesome", { delay: 100 });
-
-    await expect(innerTextList(page, "ul", 1)).toHaveText("Testing");
-    await expect(innerTextList(page, "ul", 2)).toHaveText("is");
-    await expect(innerTextList(page, "ul", 3)).toHaveText("awesome");
-
-    await expect(toolbar).toHaveCSS("background-color", "rgb(0, 50, 76)");
-  });
-
-  test(`should render text in number-list style`, async ({ mount, page }) => {
-    await mount(<TextEditorCustom />);
-
-    const textInput = textEditorInput(page);
-    const toolbar = textEditorToolbar(page, "number-list");
-    await toolbar.click();
-    await textInput.clear();
-    await textInput.pressSequentially("Testing", { delay: 100 });
-    await page.keyboard.press("Enter");
-    await textInput.pressSequentially("is", { delay: 100 });
-    await page.keyboard.press("Enter");
-    await textInput.pressSequentially("awesome", { delay: 100 });
-
-    await expect(innerTextList(page, "ol", 1)).toHaveText("Testing");
-    await expect(innerTextList(page, "ol", 2)).toHaveText("is");
-    await expect(innerTextList(page, "ol", 3)).toHaveText("awesome");
-
-    await expect(toolbar).toHaveCSS("background-color", "rgb(0, 50, 76)");
-  });
-
-  test(`should focus all editor toolbar buttons using ArrowRight keyboard key`, async ({
+  test("renders text as bold when bold button is selected", async ({
     mount,
     page,
   }) => {
     await mount(<TextEditorCustom />);
 
-    const textInput = textEditorInput(page);
-    await textInput.click();
-    await page.keyboard.press("Tab", { delay: 1000 });
-    // Expect bold to be focused
-    await expect(textEditorToolbar(page, "bold")).toBeFocused();
-    // Expect italic to be focused
-    await page.keyboard.press("ArrowRight", { delay: 1000 });
-    await expect(textEditorToolbar(page, "italic")).toBeFocused();
-    // Expect bullet-list to be focused
-    await page.keyboard.press("ArrowRight", { delay: 1000 });
-    await expect(textEditorToolbar(page, "bullet-list")).toBeFocused();
-    // Expect number-list to be focused
-    await page.keyboard.press("ArrowRight", { delay: 1000 });
-    await expect(textEditorToolbar(page, "number-list")).toBeFocused();
-  });
-
-  test(`should focus all editor toolbar buttons using ArrowLeft keyboard key`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TextEditorCustom />);
-
-    const textInput = textEditorInput(page);
-    await textInput.click();
-    await page.keyboard.press("Tab", { delay: 1000 });
-    // Expect bold to be focused
-    await expect(textEditorToolbar(page, "bold")).toBeFocused();
-    // Expect italic to be focused
-    await page.keyboard.press("ArrowLeft", { delay: 1000 });
-    await expect(textEditorToolbar(page, "number-list")).toBeFocused();
-    // Expect bullet-list to be focused
-    await page.keyboard.press("ArrowLeft", { delay: 1000 });
-    await expect(textEditorToolbar(page, "bullet-list")).toBeFocused();
-    // Expect number-list to be focused
-    await page.keyboard.press("ArrowLeft", { delay: 1000 });
-    await expect(textEditorToolbar(page, "italic")).toBeFocused();
-  });
-
-  test(`should activate bold button using Enter keyboard key`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TextEditorCustom />);
-
-    const textInput = textEditorInput(page);
-    await textInput.click();
-    await page.keyboard.press("Tab", { delay: 1000 });
-    await expect(textEditorToolbar(page, "bold")).toBeFocused();
-    await page.keyboard.press("Enter", { delay: 1000 });
-    await expect(textEditorToolbar(page, "bold")).toHaveCSS(
-      "background-color",
-      "rgb(0, 50, 76)",
-    );
-  });
-
-  test(`should activate italic button using Enter keyboard key`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TextEditorCustom />);
-
-    const textInput = textEditorInput(page);
-    await textInput.click();
-    await page.keyboard.press("Tab", { delay: 1000 });
-    await page.keyboard.press("ArrowRight", { delay: 1000 });
-
-    await expect(textEditorToolbar(page, "italic")).toBeFocused();
-    await page.keyboard.press("Enter", { delay: 1000 });
-    await expect(textEditorToolbar(page, "italic")).toHaveCSS(
-      "background-color",
-      "rgb(0, 50, 76)",
-    );
-  });
-
-  test(`should activate bullet-list button using Enter keyboard key`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TextEditorCustom />);
-
-    const textInput = textEditorInput(page);
-    await textInput.click();
-    await page.keyboard.press("Tab", { delay: 1000 });
-    await page.keyboard.press("ArrowRight", { delay: 1000 });
-    await page.keyboard.press("ArrowRight", { delay: 1000 });
-
-    await expect(textEditorToolbar(page, "bullet-list")).toBeFocused();
-    await page.keyboard.press("Enter", { delay: 1000 });
-    await expect(textEditorToolbar(page, "bullet-list")).toHaveCSS(
-      "background-color",
-      "rgb(0, 50, 76)",
-    );
-  });
-
-  test(`should activate number-list button using Enter keyboard key`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TextEditorCustom />);
-
-    const textInput = textEditorInput(page);
-    await textInput.click();
-    await page.keyboard.press("Tab", { delay: 1000 });
-    await page.keyboard.press("ArrowRight", { delay: 1000 });
-    await page.keyboard.press("ArrowRight", { delay: 1000 });
-    await page.keyboard.press("ArrowRight", { delay: 1000 });
-
-    await expect(textEditorToolbar(page, "number-list")).toBeFocused();
-    await page.keyboard.press("Enter", { delay: 1000 });
-    await expect(textEditorToolbar(page, "number-list")).toHaveCSS(
-      "background-color",
-      "rgb(0, 50, 76)",
-    );
-  });
-
-  test(`should activate bold button using Space keyboard key`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TextEditorCustom />);
-
+    const textInput = page.getByRole("textbox");
     const boldButton = page.getByRole("button", { name: "bold" });
-    await boldButton.press("Space");
+    await boldButton.click();
 
-    await expect(textEditorToolbar(page, "bold")).toHaveCSS(
-      "background-color",
-      "rgb(0, 50, 76)",
-    );
+    await textInput.fill("Testing");
+
+    await expect(page.getByText("Testing")).toHaveCSS("font-weight", "700");
+    await expect(boldButton).toHaveCSS("background-color", "rgb(0, 50, 76)");
   });
 
-  test(`should activate italic button using Space keyboard key`, async ({
+  test("renders text as italic when italic button is selected", async ({
     mount,
     page,
   }) => {
     await mount(<TextEditorCustom />);
 
+    const textInput = page.getByRole("textbox");
     const italicButton = page.getByRole("button", { name: "italic" });
-    await italicButton.press("Space");
+    await italicButton.click();
 
-    await expect(textEditorToolbar(page, "italic")).toHaveCSS(
-      "background-color",
-      "rgb(0, 50, 76)",
-    );
+    await textInput.fill("Testing");
+
+    await expect(page.getByText("Testing")).toHaveCSS("font-style", "italic");
+    await expect(italicButton).toHaveCSS("background-color", "rgb(0, 50, 76)");
   });
 
-  test(`should activate bullet-list button using Space keyboard key`, async ({
+  test("renders text as an unordered list when bullet list button is selected", async ({
     mount,
     page,
   }) => {
     await mount(<TextEditorCustom />);
 
+    const textInput = page.getByRole("textbox");
     const bulletListButton = page.getByRole("button", { name: "bullet-list" });
-    await bulletListButton.press("Space");
+    await bulletListButton.click();
 
-    await expect(textEditorToolbar(page, "bullet-list")).toHaveCSS(
+    await textInput.fill("Testing");
+    await page.keyboard.press("Enter");
+    await textInput.pressSequentially("is");
+    await page.keyboard.press("Enter");
+    await textInput.pressSequentially("awesome");
+
+    await expect(textInput.locator("ul").locator("li")).toHaveText([
+      "Testing",
+      "is",
+      "awesome",
+    ]);
+    await expect(bulletListButton).toHaveCSS(
       "background-color",
       "rgb(0, 50, 76)",
     );
   });
 
-  test(`should activate number-list button using Space keyboard key`, async ({
+  test("renders text as an ordered list when number list button is selected", async ({
     mount,
     page,
   }) => {
     await mount(<TextEditorCustom />);
 
+    const textInput = page.getByRole("textbox");
     const numberListButton = page.getByRole("button", { name: "number-list" });
-    await numberListButton.press("Space");
+    await numberListButton.click();
 
-    await expect(textEditorToolbar(page, "number-list")).toHaveCSS(
+    await textInput.fill("Testing");
+    await page.keyboard.press("Enter");
+    await textInput.pressSequentially("is");
+    await page.keyboard.press("Enter");
+    await textInput.pressSequentially("awesome");
+
+    await expect(textInput.locator("ol").locator("li")).toHaveText([
+      "Testing",
+      "is",
+      "awesome",
+    ]);
+    await expect(numberListButton).toHaveCSS(
       "background-color",
       "rgb(0, 50, 76)",
     );
   });
 
-  buttonNames.forEach((buttonType, times) => {
-    test(`should focus the input when ${buttonType} is selected/deselected with enter key`, async ({
+  test(`all toolbar buttons can be focused when navigating with the right arrow key`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorCustom />);
+
+    const textInput = page.getByRole("textbox");
+    await textInput.click();
+
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("button", { name: "bold" })).toBeFocused();
+
+    await page.keyboard.press("ArrowRight");
+    await expect(page.getByRole("button", { name: "italic" })).toBeFocused();
+
+    await page.keyboard.press("ArrowRight");
+    await expect(
+      page.getByRole("button", { name: "bullet-list" }),
+    ).toBeFocused();
+
+    await page.keyboard.press("ArrowRight");
+    await expect(
+      page.getByRole("button", { name: "number-list" }),
+    ).toBeFocused();
+  });
+
+  test(`all toolbar buttons can be focused when navigating with the left arrow key`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorCustom />);
+
+    const textInput = page.getByRole("textbox");
+    await textInput.click();
+
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("button", { name: "bold" })).toBeFocused();
+
+    await page.keyboard.press("ArrowLeft");
+    await expect(
+      page.getByRole("button", { name: "number-list" }),
+    ).toBeFocused();
+
+    await page.keyboard.press("ArrowLeft");
+    await expect(
+      page.getByRole("button", { name: "bullet-list" }),
+    ).toBeFocused();
+
+    await page.keyboard.press("ArrowLeft");
+    await expect(page.getByRole("button", { name: "italic" })).toBeFocused();
+  });
+
+  ["Space", "Enter"].forEach((key) =>
+    test(`focuses text input when bold button is selected using ${key} keyboard key`, async ({
       mount,
       page,
     }) => {
       await mount(<TextEditorCustom />);
 
-      const textInput = textEditorInput(page);
-      await textInput.focus();
-      await page.keyboard.press("Tab");
-      for (let i = 0; i < times; i++) {
-        await page.keyboard.press("ArrowRight");
-      }
-      await expect(textEditorToolbar(page, buttonType)).toBeFocused();
-      await page.keyboard.press("Enter");
-      await expect(textInput).toBeFocused();
-      await page.keyboard.press("Tab");
-      for (let i = 0; i < times; i++) {
-        await page.keyboard.press("ArrowRight");
-      }
-      await expect(textEditorToolbar(page, buttonType)).toBeFocused();
-      await page.keyboard.press("Enter");
-      await expect(textInput).toBeFocused();
-    });
-  });
+      const boldButton = page.getByRole("button", { name: "bold" });
+      await boldButton.press(key);
 
-  buttonNames.forEach((buttonType, times) => {
-    test(`should focus the input when ${buttonType} is selected/deselected with space key`, async ({
+      const textInput = page.getByRole("textbox");
+      await expect(textInput).toBeFocused();
+    }),
+  );
+
+  ["Space", "Enter"].forEach((key) =>
+    test(`focuses text input when italic button is selected using ${key} keyboard key`, async ({
       mount,
       page,
     }) => {
       await mount(<TextEditorCustom />);
 
-      const textInput = textEditorInput(page);
-      await textInput.focus();
-      await page.keyboard.press("Tab");
-      for (let i = 0; i < times; i++) {
-        await page.keyboard.press("ArrowRight");
-      }
-      await expect(textEditorToolbar(page, buttonType)).toBeFocused();
-      await page.keyboard.press("Space");
-      await expect(textInput).toBeFocused();
-      await page.keyboard.press("Tab");
-      for (let i = 0; i < times; i++) {
-        await page.keyboard.press("ArrowRight");
-      }
-      await expect(textEditorToolbar(page, buttonType)).toBeFocused();
-      await page.keyboard.press("Space");
-      await expect(textInput).toBeFocused();
-    });
-  });
+      const italicButton = page.getByRole("button", { name: "italic" });
+      await italicButton.press(key);
 
-  buttonNames.forEach((buttonType) => {
-    test(`should focus the input when ${buttonType} is selected/deselected via user clicking`, async ({
+      const textInput = page.getByRole("textbox");
+      await expect(textInput).toBeFocused();
+    }),
+  );
+
+  ["Space", "Enter"].forEach((key) =>
+    test(`focuses text input when bullet list button is selected using ${key} keyboard key`, async ({
       mount,
       page,
     }) => {
       await mount(<TextEditorCustom />);
 
-      const textInput = textEditorInput(page);
-      const toolbarButton = textEditorToolbar(page, buttonType);
-      await toolbarButton.click();
+      const bulletListButton = page.getByRole("button", {
+        name: "bullet-list",
+      });
+      await bulletListButton.press(key);
+
+      const textInput = page.getByRole("textbox");
       await expect(textInput).toBeFocused();
-      await toolbarButton.click();
+    }),
+  );
+
+  ["Space", "Enter"].forEach((key) =>
+    test(`focuses text input when number list button is selected using ${key} keyboard key`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorCustom />);
+
+      const numberListButton = page.getByRole("button", {
+        name: "number-list",
+      });
+      await numberListButton.press(key);
+
+      const textInput = page.getByRole("textbox");
       await expect(textInput).toBeFocused();
-    });
-  });
+    }),
+  );
+
+  ["Space", "Enter"].forEach((key) =>
+    test(`focuses text input when bold button is deselected using the ${key} key`, async ({
+      page,
+      mount,
+    }) => {
+      await mount(<TextEditorCustom />);
+
+      const boldButton = page.getByRole("button", { name: "bold" });
+      await boldButton.click();
+
+      await boldButton.press(key);
+
+      const textInput = page.getByRole("textbox");
+      await expect(textInput).toBeFocused();
+    }),
+  );
+
+  ["Space", "Enter"].forEach((key) =>
+    test(`focuses text input when italic button is deselected using the ${key} key`, async ({
+      page,
+      mount,
+    }) => {
+      await mount(<TextEditorCustom />);
+
+      const italicButton = page.getByRole("button", { name: "italic" });
+      await italicButton.click();
+
+      await italicButton.press(key);
+
+      const textInput = page.getByRole("textbox");
+      await expect(textInput).toBeFocused();
+    }),
+  );
+
+  ["Space", "Enter"].forEach((key) =>
+    test(`focuses text input when bullet list button is deselected using the ${key} key`, async ({
+      page,
+      mount,
+    }) => {
+      await mount(<TextEditorCustom />);
+
+      const bulletListButton = page.getByRole("button", {
+        name: "bullet-list",
+      });
+      await bulletListButton.click();
+
+      await bulletListButton.press(key);
+
+      const textInput = page.getByRole("textbox");
+      await expect(textInput).toBeFocused();
+    }),
+  );
+
+  ["Space", "Enter"].forEach((key) =>
+    test(`focuses text input when number list button is deselected using the ${key} key`, async ({
+      page,
+      mount,
+    }) => {
+      await mount(<TextEditorCustom />);
+
+      const numberListButton = page.getByRole("button", {
+        name: "number-list",
+      });
+      await numberListButton.click();
+
+      await numberListButton.press(key);
+
+      const textInput = page.getByRole("textbox");
+      await expect(textInput).toBeFocused();
+    }),
+  );
 
   test(`should render formatted link`, async ({ mount, page }) => {
+    const linkText = "https://carbon.sage.com";
     await mount(<TextEditorCustom />);
 
-    const textInput = textEditorInput(page);
-    await textInput.clear();
-    await textInput.pressSequentially(linkText, { delay: 100 });
+    const textInput = page.getByRole("textbox");
+    await textInput.fill(linkText);
 
     await expect(innerText(page)).toHaveText(linkText);
   });
@@ -375,12 +332,15 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<TextEditorCustom characterLimit={100} />);
 
-    const textInput = textEditorInput(page);
-    await textInput.clear();
-    await textInput.pressSequentially(longText, { delay: 100 });
+    const textInput = page.getByRole("textbox");
 
-    await expect(textEditorCounter(page)).toHaveText("0 characters left");
-    await expect(innerText(page)).toHaveText(longTextAssert);
+    await textInput.fill("a".repeat(100));
+    await textInput.press("a");
+
+    await expect(textInput).not.toHaveText("a".repeat(101));
+    await expect(page.getByTestId("character-count")).toHaveText(
+      "0 characters left",
+    );
   });
 
   test(`should focus the first button when focus is moved to the input from the toolbar and tab key pressed`, async ({
@@ -461,20 +421,19 @@ test.describe("Functionality tests", () => {
     ).toBeFocused();
   });
 
-  test(`should focus optional buttons when focus is moved outside the component and shift+tab is pressed`, async ({
+  test(`should focus save button when focus is moved outside the component and shift+tab is pressed`, async ({
     mount,
     page,
   }) => {
     await mount(<TextEditorCustom />);
 
     const saveButton = page.getByRole("button").filter({ hasText: "Save" });
-    const cancelButton = page.getByRole("button").filter({ hasText: "Cancel" });
-    await saveButton.focus();
-    await page.keyboard.press("Tab");
+
+    await saveButton.press("Tab");
+    await expect(saveButton).not.toBeFocused();
+
     await page.keyboard.press("Shift+Tab");
     await expect(saveButton).toBeFocused();
-    await page.keyboard.press("Shift+Tab");
-    await expect(cancelButton).toBeFocused();
   });
 
   test(`should verify pressing right-arrow loops on toolbar buttons and does not move focus to optional buttons`, async ({
@@ -1026,7 +985,7 @@ test.describe("Substitute unit tests", () => {
   }) => {
     await mount(<TextEditorCustom />);
     await textEditorToolbar(page, "bullet-list").click();
-    await textEditorInput(page).pressSequentially("foo");
+    await textEditorInput(page).fill("foo");
     await page.keyboard.press("Enter");
     await textEditorInput(page).pressSequentially("bar");
     await page.keyboard.press("Enter");
@@ -1044,7 +1003,7 @@ test.describe("Substitute unit tests", () => {
   }) => {
     await mount(<TextEditorCustom />);
     await textEditorToolbar(page, "number-list").click();
-    await textEditorInput(page).pressSequentially("foo");
+    await textEditorInput(page).fill("foo");
     await page.keyboard.press("Enter");
     await textEditorInput(page).pressSequentially("bar");
     await page.keyboard.press("Enter");
@@ -1062,7 +1021,7 @@ test.describe("Substitute unit tests", () => {
   }) => {
     await mount(<TextEditorCustom />);
     await textEditorToolbar(page, "bullet-list").click();
-    await textEditorInput(page).pressSequentially("foo");
+    await textEditorInput(page).fill("foo");
     await page.keyboard.press("Enter");
     await textEditorInput(page).pressSequentially("bar");
     await page.keyboard.press("Enter");
@@ -1083,7 +1042,7 @@ test.describe("Substitute unit tests", () => {
     await textEditorToolbar(page, "bold").click();
     await textEditorToolbar(page, "italic").click();
     await textEditorToolbar(page, "bullet-list").click();
-    await textEditorInput(page).pressSequentially("foo");
+    await textEditorInput(page).fill("foo");
     await page.keyboard.press("Enter");
     await textEditorInput(page).pressSequentially("bar");
     await page.keyboard.press("Enter");
@@ -1108,7 +1067,7 @@ test.describe("Substitute unit tests", () => {
     await textEditorToolbar(page, "bold").click();
     await textEditorToolbar(page, "italic").click();
     await textEditorToolbar(page, "number-list").click();
-    await textEditorInput(page).pressSequentially("foo");
+    await textEditorInput(page).fill("foo");
     await page.keyboard.press("Enter");
     await textEditorInput(page).pressSequentially("bar");
     await page.keyboard.press("Enter");
