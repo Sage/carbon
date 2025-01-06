@@ -238,6 +238,8 @@ exports[`the unicodes have not changed 1`] = `
   "settings": "\\e91a",
   "settings_old": "\\e91a",
   "share": "\\e946",
+  "shield_with_tick": "\\f070",
+  "shield_with_tick_outline": "\\f071",
   "shop": "\\e947",
   "sort_down": "\\e948",
   "sort_up": "\\e949",
@@ -248,6 +250,8 @@ exports[`the unicodes have not changed 1`] = `
   "squares_nine": "\\e969",
   "stacked_boxes": "\\e97c",
   "stacked_squares": "\\e983",
+  "stop": "\\f068",
+  "stop_circle": "\\f069",
   "submitted": "\\e903",
   "support_online": "\\f032",
   "sync": "\\e944",
@@ -273,5 +277,6 @@ exports[`the unicodes have not changed 1`] = `
   "warning": "\\e924",
   "website": "\\f051",
   "welfare": "\\f034",
+  "worldwide_location": "\\f072",
 }
 `;
