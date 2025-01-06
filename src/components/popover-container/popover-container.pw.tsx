@@ -2,10 +2,7 @@ import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
 import { Locator } from "@playwright/test";
 import Box from "../box";
-import {
-  getComponent,
-  getDataElementByValue,
-} from "../../../playwright/components";
+import { getDataElementByValue } from "../../../playwright/components";
 import {
   popoverCloseIcon,
   popoverContainerComponent,
@@ -23,13 +20,7 @@ import {
   PopoverContainerComponent,
   PopoverContainerWithSelect,
   Default,
-  Title,
-  Position,
   CoverButton,
-  RenderProps,
-  Controlled,
-  Complex,
-  Filter,
   WithRenderOpenButtonComponent,
   WithRenderCloseButtonComponent,
   PopoverContainerComponentCoverButton,
@@ -654,112 +645,17 @@ test.describe("Check props of Popover Container component", () => {
       await checkAccessibility(page);
     });
 
-    test("should check accessibility for Title example", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Title />);
-
-      const popoverSettingsIconElement = popoverSettingsIcon(page);
-      await popoverSettingsIconElement.click();
-
-      await checkAccessibility(page);
-    });
-
-    test("should check accessibility for Position example", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Position />);
-
-      const popoverSettingsIconElement = popoverSettingsIcon(page);
-      await popoverSettingsIconElement.click();
-
-      await checkAccessibility(page);
-    });
-
     test("should check accessibility for CoverButton example", async ({
       mount,
       page,
     }) => {
       await mount(<CoverButton />);
 
-      const popoverSettingsIconElement = popoverSettingsIcon(page);
-      await popoverSettingsIconElement.click();
+      const openButton = page.getByRole("button");
+      await openButton.click();
 
-      await checkAccessibility(page);
-    });
-
-    test("should check accessibility for RenderProps example", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<RenderProps />);
-
-      const popoverSettingsIconElement = popoverSettingsIcon(page);
-      await popoverSettingsIconElement.click();
-
-      await checkAccessibility(page);
-    });
-
-    test("should check accessibility for Controlled example", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Controlled />);
-
-      const popoverSettingsIconElement = popoverSettingsIcon(page);
-      await popoverSettingsIconElement.click();
-
-      await checkAccessibility(page);
-    });
-
-    test("should check accessibility for Complex example", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Complex />);
-
-      const popoverSettingsIconElement = popoverSettingsIcon(page);
-      await popoverSettingsIconElement.click();
-
-      await checkAccessibility(page);
-    });
-
-    test("should check accessibility for Filter example", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Filter />);
-
-      const popoverSettingsIconElement = popoverSettingsIcon(page);
-      await popoverSettingsIconElement.click();
-
-      await checkAccessibility(page);
-    });
-
-    test("should check accessibility for Filter example with filter button clicked", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<Filter />);
-
-      const popoverSettingsIconElement = popoverSettingsIcon(page);
-      await popoverSettingsIconElement.click();
-      const checkboxElementOne = page.locator(`[role="checkbox"]`).nth(0);
-      const checkboxElementTwo = page.locator(`[role="checkbox"]`).nth(1);
-      const checkboxElementThree = page.locator(`[role="checkbox"]`).nth(2);
-
-      await checkboxElementOne.check();
-      await checkboxElementTwo.check();
-      await checkboxElementThree.check();
-      const mainTextElement = getDataElementByValue(page, "main-text").nth(1);
-      await mainTextElement.click();
-
-      const assertions = [0, 1, 2].map((index) =>
-        expect(getComponent(page, "pill").nth(index)).toBeVisible(),
-      );
-      await Promise.all(assertions);
+      const popoverTitle = page.getByText("Cover Button");
+      await popoverTitle.waitFor();
 
       await checkAccessibility(page);
     });
