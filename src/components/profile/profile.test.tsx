@@ -4,6 +4,17 @@ import MD5 from "crypto-js/md5";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Profile from "./profile.component";
+import Logger from "../../__internal__/utils/logger";
+
+let loggerSpy: jest.SpyInstance;
+
+beforeEach(() => {
+  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+});
+
+afterEach(() => {
+  loggerSpy.mockRestore();
+});
 
 testStyledSystemMargin(
   (props) => <Profile data-role="profile" name="John Doe" {...props} />,
@@ -151,7 +162,7 @@ test("renders avatar with custom initials when `initials` prop is passed", () =>
 
 test("renders avatar with custom image when `src` prop is passed", () => {
   const src = "https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg";
-  render(<Profile src={src} />);
+  render(<Profile src={src} alt="foo" />);
 
   const avatar = screen.getByRole("img");
   expect(avatar).toBeVisible();
@@ -197,4 +208,9 @@ test("applies the `className` prop to the component wrapper", () => {
 
   const profile = screen.getByTestId("profile");
   expect(profile).toHaveClass("custom-class");
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Profile' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
 });

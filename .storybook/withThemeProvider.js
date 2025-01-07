@@ -3,7 +3,6 @@ import isChromatic from "./isChromatic";
 import React from "react";
 import styled from "styled-components";
 import CarbonProvider from "../src/components/carbon-provider";
-import sageDebugTheme from "../src/style/design-tokens/debug-theme.util";
 import { noTheme, sageTheme } from "../src/style/themes";
 import { config } from "react-transition-group";
 
@@ -12,21 +11,8 @@ const themes = [noTheme, sageTheme].reduce((themesObject, theme) => {
   return themesObject;
 }, {});
 
-if (!isChromatic() && process.env.STORYBOOK_DEBUG_THEME === "true") {
-  themes["sage-debug"] = sageDebugTheme;
-}
-
-const render = (
-  Story,
-  themeName,
-  roundedCornersOptOut,
-  focusRedesignOptOut,
-) => (
-  <CarbonProvider
-    theme={themes[themeName]}
-    roundedCornersOptOut={roundedCornersOptOut}
-    focusRedesignOptOut={focusRedesignOptOut}
-  >
+const render = (Story, themeName) => (
+  <CarbonProvider theme={themes[themeName]}>
     <Story themeName={themeName} />
   </CarbonProvider>
 );
@@ -65,12 +51,7 @@ const withThemeProvider = makeDecorator({
           {Object.keys(themes).map((themeName) => (
             <div key={themeName}>
               <h3>{themeName}</h3>
-              {render(
-                Story,
-                themeName,
-                context.globals.roundedCorners === "off",
-                context.globals.focusRedesign === "off",
-              )}
+              {render(Story, themeName)}
             </div>
           ))}
         </Wrapper>
@@ -82,8 +63,6 @@ const withThemeProvider = makeDecorator({
       isChromaticBuild && chromaticTheme
         ? chromaticTheme
         : context.globals.theme,
-      context.globals.roundedCorners === "off",
-      context.globals.focusRedesign === "off",
     );
   },
 });

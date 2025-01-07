@@ -6,6 +6,9 @@ import {
   filterStyledSystemPaddingProps,
 } from "../../style/utils";
 import StyledTypography from "./typography.style";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedClassNameWarningShown = false;
 
 export const VARIANT_TYPES = [
   "h1-large",
@@ -30,7 +33,9 @@ export const VARIANT_TYPES = [
   "ul",
   "ol",
 ] as const;
+
 export type VariantTypes = (typeof VARIANT_TYPES)[number];
+
 export interface TypographyProps extends SpaceProps, TagProps {
   /** Override the variant component */
   as?: React.ElementType;
@@ -118,6 +123,12 @@ export const Typography = ({
   "aria-hidden": ariaHidden,
   ...rest
 }: TypographyProps) => {
+  if (!deprecatedClassNameWarningShown && className) {
+    Logger.deprecate(
+      "The 'className' prop has been deprecated and will soon be removed from the 'Typography' component.",
+    );
+    deprecatedClassNameWarningShown = true;
+  }
   return (
     <StyledTypography
       variant={variant}

@@ -117,7 +117,7 @@ Passing in `large` for the `size` prop on each radio button will increase the si
 
 ### With custom styled labels
 
-Labels could be customized using the Typography Component
+The `label` prop can be set to a ReactNode to allow for custom styling of the label.
 
 <Canvas of={RadioButtonStories.WithCustomStyledLabels} />
 
@@ -135,13 +135,13 @@ You can use the `IsOptional` prop to indicate if the fields are optional.
 
 ### Validations
 
-The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
 
 For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
 This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string.
 
-**Note:** The `legendHelp` tooltip will be rendered as "Hint text".
+You can use the `legendHelp` prop to provide a hint text for the group.
 
 <Canvas of={RadioButtonStories.NewValidationDefaultGroup} />
 

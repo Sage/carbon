@@ -1,9 +1,9 @@
 import React from "react";
+import Typography from "../typography";
 import { StepFlow, StepFlowProps } from ".";
 
 export default {
   title: "Step Flow/Test",
-  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -11,6 +11,21 @@ export default {
     },
   },
   argTypes: {
+    ariaLabel: {
+      control: {
+        type: "text",
+      },
+    },
+    ariaLabelledby: {
+      control: {
+        type: "text",
+      },
+    },
+    ariaDescribedBy: {
+      control: {
+        type: "text",
+      },
+    },
     category: {
       control: {
         type: "text",
@@ -54,4 +69,49 @@ export const Default = (props: Partial<StepFlowProps>) => (
   <StepFlow title="default" currentStep={1} totalSteps={8} {...props} />
 );
 
-Default.storyName = "default";
+Default.storyName = "Default";
+
+export const DefaultWithAriaLabel = () => (
+  <StepFlow
+    title="default"
+    currentStep={1}
+    totalSteps={8}
+    aria-label="This is step flow"
+  />
+);
+
+DefaultWithAriaLabel.storyName = "Default with aria-label";
+
+export const DefaultWithAriaLabelledBy = () => (
+  <>
+    <StepFlow
+      title="default"
+      currentStep={1}
+      totalSteps={8}
+      aria-labelledby="ariaLabelledBy-text"
+    />
+    <Typography as="span" id="ariaLabelledBy-text">
+      This is step flow
+    </Typography>
+  </>
+);
+
+DefaultWithAriaLabelledBy.storyName = "Default with aria-labelledby";
+
+export const DefaultWithAriaDescribedBy = () => (
+  <>
+    <StepFlow
+      title="default"
+      currentStep={1}
+      totalSteps={8}
+      aria-describedby="ariaDescribedBy-text"
+    />
+    <Typography mt={3} id="ariaDescribedBy-text">
+      This is step flow. A step flow represents an end-to-end journey that a
+      user can complete in one go. It has a specific start and end point. It
+      shows the current step and the total number of steps in the journey
+    </Typography>
+  </>
+);
+
+DefaultWithAriaDescribedBy.storyName = "Default with aria-describedby";

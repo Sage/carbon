@@ -8,6 +8,9 @@ import useModalManager from "../../hooks/__internal__/useModalManager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import ModalContext from "./__internal__/modal.context";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedClassNameWarningShown = false;
 
 export interface ModalProps extends Omit<TagProps, "data-component"> {
   /** Custom class name  */
@@ -30,6 +33,10 @@ export interface ModalProps extends Omit<TagProps, "data-component"> {
   timeout?: number;
   /** Manually override the internal modal stacking order to set this as top */
   topModalOverride?: boolean;
+  /** Enables the automatic restoration of focus to the element that invoked
+   * the modal when the modal is closed.
+   */
+  restoreFocusOnClose?: boolean;
 }
 
 const Modal = ({
@@ -43,8 +50,15 @@ const Modal = ({
   enableBackgroundUI = false,
   timeout = 300,
   topModalOverride,
+  restoreFocusOnClose = true,
   ...rest
 }: ModalProps) => {
+  if (!deprecatedClassNameWarningShown && rest.className) {
+    Logger.deprecate(
+      "The 'className' prop has been deprecated and will soon be removed from the 'Modal' component.",
+    );
+    deprecatedClassNameWarningShown = true;
+  }
   const ref = useRef<HTMLDivElement>(null);
   const backgroundNodeRef = useRef<HTMLDivElement>(null);
   const contentNodeRef = useRef<HTMLDivElement>(null);
@@ -89,7 +103,9 @@ const Modal = ({
     modalRef: ref,
     setTriggerRefocusFlag,
     topModalOverride,
-    focusCallToActionElement: document.activeElement as HTMLElement,
+    focusCallToActionElement: restoreFocusOnClose
+      ? (document.activeElement as HTMLElement)
+      : undefined,
   });
 
   let background;

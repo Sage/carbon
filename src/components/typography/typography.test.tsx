@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import Typography, { List, ListItem } from ".";
 import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 
 test("should render with variant as 'p' by default", () => {
   render(<Typography>Test</Typography>);
@@ -287,33 +288,92 @@ test("should override 'display' property when passed", () => {
   expect(screen.getByText("Test")).toHaveStyle({ display: "block" });
 });
 
-test("should render List with variant as 'ul' by default and listStyleType set to 'square", () => {
-  render(
-    <List>
-      <ListItem>List Item 1</ListItem>
-      <ListItem>List Item 2</ListItem>
-      <ListItem>List Item 3</ListItem>
-    </List>,
-  );
-
-  expect(screen.getByRole("list")).toHaveStyle({ listStyleType: "square" });
-  expect(screen.getAllByRole("listitem")).toHaveLength(3);
-});
-
-test("should render List with variant set to 'ol' and listStyleType set to 'decimal", () => {
-  render(
-    <List as="ol">
-      <ListItem>List Item 1</ListItem>
-      <ListItem>List Item 2</ListItem>
-      <ListItem>List Item 3</ListItem>
-    </List>,
-  );
-
-  expect(screen.getByRole("list")).toHaveStyle({ listStyleType: "decimal" });
-  expect(screen.getAllByRole("listitem")).toHaveLength(3);
-});
-
 testStyledSystemSpacing(
   (props) => <Typography {...props}>Test</Typography>,
   () => screen.getByText("Test"),
 );
+
+test("throws a deprecation warning if the 'className' prop is set", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+  render(
+    <Typography variant="b" display="block" className="foo">
+      bar
+    </Typography>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Typography' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
+describe("Lists", () => {
+  test("should render List with variant as 'ul' by default and listStyleType set to 'square", () => {
+    render(
+      <List>
+        <ListItem>List Item 1</ListItem>
+        <ListItem>List Item 2</ListItem>
+        <ListItem>List Item 3</ListItem>
+      </List>,
+    );
+
+    expect(screen.getByRole("list")).toHaveStyle({ listStyleType: "square" });
+    expect(screen.getAllByRole("listitem")).toHaveLength(3);
+  });
+
+  test("should render List with variant set to 'ol' and listStyleType set to 'decimal", () => {
+    render(
+      <List as="ol">
+        <ListItem>List Item 1</ListItem>
+        <ListItem>List Item 2</ListItem>
+        <ListItem>List Item 3</ListItem>
+      </List>,
+    );
+
+    expect(screen.getByRole("list")).toHaveStyle({ listStyleType: "decimal" });
+    expect(screen.getAllByRole("listitem")).toHaveLength(3);
+  });
+
+  test("passes the variant of `List` to the child `ListItem` elements", () => {
+    render(
+      <List variant="big">
+        <ListItem data-role="list-item-1">List Item 1</ListItem>
+        <ListItem data-role="list-item-2">List Item 2</ListItem>
+        <ListItem data-role="list-item-3">List Item 3</ListItem>
+      </List>,
+    );
+
+    ["list-item-1", "list-item-2", "list-item-3"].forEach((role) => {
+      expect(screen.getByTestId(role)).toHaveStyle({
+        "font-style": "normal",
+        "font-size": "16px",
+        "font-weight": "400",
+        "line-height": "24px",
+      });
+    });
+  });
+
+  test("throws a deprecation warning if the 'variant' prop is set on `ListItem`", () => {
+    const loggerSpy = jest
+      .spyOn(Logger, "deprecate")
+      .mockImplementation(() => {});
+    render(
+      <List>
+        <ListItem variant="b">List Item 1</ListItem>
+        <ListItem variant="b">List Item 2</ListItem>
+        <ListItem variant="b">List Item 3</ListItem>
+      </List>,
+    );
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The use of `variant` on `ListItem` is deprecated. Please set it via `List` instead.",
+    );
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+    loggerSpy.mockRestore();
+  });
+});

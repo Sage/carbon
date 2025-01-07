@@ -25,6 +25,10 @@ const StyledSidebarHeader = styled.div<{ hasClose?: boolean }>`
         right: 25px;
       }
     `}
+
+    div[data-element="sidebar-heading"] {
+    width: 100%;
+  }
 `;
 
 StyledSidebarHeader.defaultProps = {

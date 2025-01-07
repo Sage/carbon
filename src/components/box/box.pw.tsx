@@ -58,7 +58,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default color={color} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("color", color);
       await expect(boxElement).toHaveCSS("color", rgbValue);
     });
   });
@@ -70,7 +69,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default color={rgbValue} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("color", rgbValue);
       await expect(boxElement).toHaveCSS("color", rgbValue);
     });
   });
@@ -82,7 +80,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default color={hexValue} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("color", hexValue);
       await expect(boxElement).toHaveCSS("color", rgbValue);
     });
   });
@@ -93,7 +90,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default bg={color} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("background-color", rgbValue);
     });
   });
@@ -104,7 +101,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default bg={rgbValue} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("background-color", rgbValue);
     });
   });
@@ -115,7 +112,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default bg={hexValue} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("background-color", rgbValue);
     });
   });
@@ -126,7 +123,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default bg="" backgroundColor={color} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("background-color", rgbValue);
     });
   });
@@ -137,7 +134,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default bg="" backgroundColor={rgbValue} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("background-color", rgbValue);
     });
   });
@@ -148,7 +145,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default bg="" backgroundColor={hexValue} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("background-color", rgbValue);
     });
   });
@@ -156,7 +153,7 @@ test.describe("should render Box component", () => {
   ["0.1", "0.5", "1"].forEach((opacity) => {
     test(`should verify opacity is ${opacity}`, async ({ mount, page }) => {
       await mount(<Default bg="primary" opacity={opacity} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("opacity", opacity);
     });
   });
@@ -168,7 +165,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default bg="primary" width={percentage} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("width", String(percentage));
       await assertCssValueIsApproximately(boxElement, "width", parseInt(width));
     });
   });
@@ -180,7 +176,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default bg="primary" width={number} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("width", String(number));
       await assertCssValueIsApproximately(boxElement, "width", parseInt(width));
     });
   });
@@ -192,7 +187,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default bg="primary" width={width} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("width", width);
       await assertCssValueIsApproximately(boxElement, "width", parseInt(width));
     });
   });
@@ -204,7 +198,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default bg="primary" height={number} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("height", String(number));
       await assertCssValueIsApproximately(
         boxElement,
         "height",
@@ -220,7 +213,6 @@ test.describe("should render Box component", () => {
     }) => {
       await mount(<Default bg="primary" height={height} />);
       const boxElement = await getDataElementByValue(page, "box");
-      await expect(boxElement).toHaveAttribute("height", height);
       await assertCssValueIsApproximately(
         boxElement,
         "height",
@@ -235,7 +227,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default size={number} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(
         boxElement,
         "width",
@@ -255,7 +247,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default size={pixels} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(
         boxElement,
         "width",
@@ -273,7 +265,7 @@ test.describe("should render Box component", () => {
     (display) => {
       test(`should verify display is ${display}`, async ({ mount, page }) => {
         await mount(<Default display={display} />);
-        const boxElement = await getDataElementByValue(page, "box");
+        const boxElement = getDataElementByValue(page, "box");
         await expect(boxElement).toHaveAttribute("display", display);
         await expect(boxElement).toHaveCSS("display", display);
       });
@@ -295,7 +287,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<BoxComponentMulti verticalAlign={alignment} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("vertical-align", alignment);
     });
   });
@@ -303,7 +295,7 @@ test.describe("should render Box component", () => {
   ["auto", "clip", "hidden", "scroll", "visible"].forEach((overflow) => {
     test(`should verify overflow is ${overflow}`, async ({ mount, page }) => {
       await mount(<Default overflow={overflow} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveAttribute("overflow", overflow);
       await expect(boxElement).toHaveCSS("overflow", overflow);
     });
@@ -316,7 +308,7 @@ test.describe("should render Box component", () => {
         page,
       }) => {
         await mount(<Default overflowX={overflow} />);
-        const boxElement = await getDataElementByValue(page, "box");
+        const boxElement = getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("overflow-x", overflow);
       });
     },
@@ -329,7 +321,7 @@ test.describe("should render Box component", () => {
         page,
       }) => {
         await mount(<Default overflowY={overflow} />);
-        const boxElement = await getDataElementByValue(page, "box");
+        const boxElement = getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("overflow-y", overflow);
       });
     },
@@ -344,7 +336,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default minWidth={300} width={width} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(boxElement, "width", actualWidth);
     });
   });
@@ -360,7 +352,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default minWidth={300} width={width} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(boxElement, "width", actualWidth);
     });
   });
@@ -374,7 +366,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default minWidth={300} width={width} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(boxElement, "width", actualWidth);
     });
   });
@@ -388,7 +380,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default maxWidth={600} width={width} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(boxElement, "width", actualWidth);
     });
   });
@@ -404,7 +396,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default maxWidth={600} width={width} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(boxElement, "width", actualWidth);
     });
   });
@@ -418,7 +410,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default maxWidth={600} width={width} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(boxElement, "width", actualWidth);
     });
   });
@@ -432,7 +424,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default minHeight={600} height={height} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(boxElement, "height", actualHeight);
     });
   });
@@ -448,7 +440,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default minHeight={600} height={height} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(boxElement, "height", actualHeight);
     });
   });
@@ -462,7 +454,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default maxHeight={600} height={height} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(boxElement, "height", actualHeight);
     });
   });
@@ -478,7 +470,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default maxHeight={600} height={height} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await assertCssValueIsApproximately(boxElement, "height", actualHeight);
     });
   });
@@ -490,7 +482,7 @@ test.describe("should render Box component", () => {
         page,
       }) => {
         await mount(<BoxComponentMulti alignItems={alignment} />);
-        const boxElement = await getDataElementByValue(page, "box");
+        const boxElement = getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("align-items", alignment);
       });
     },
@@ -511,7 +503,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<BoxComponentMulti alignContent={alignment} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("align-content", alignment);
     });
   });
@@ -530,7 +522,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<BoxComponentMulti justifyItems={justified} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("justify-items", justified);
     });
   });
@@ -551,7 +543,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<BoxComponentMulti justifyContent={justified} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("justify-content", justified);
     });
   });
@@ -559,7 +551,7 @@ test.describe("should render Box component", () => {
   (["nowrap", "wrap", "wrap-reverse"] as const).forEach((wrap) => {
     test(`should verify flex wrap is ${wrap}`, async ({ mount, page }) => {
       await mount(<BoxComponentMulti flexWrap={wrap} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("flex-wrap", wrap);
     });
   });
@@ -571,7 +563,7 @@ test.describe("should render Box component", () => {
         page,
       }) => {
         await mount(<BoxComponentMulti flexDirection={direction} />);
-        const boxElement = await getDataElementByValue(page, "box");
+        const boxElement = getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("flex-direction", direction);
       });
     },
@@ -581,7 +573,7 @@ test.describe("should render Box component", () => {
     (flex) => {
       test(`should verify flex is ${flex}`, async ({ mount, page }) => {
         await mount(<BoxComponentMulti flex={flex} />);
-        const boxElement = await getDataElementByValue(page, "box");
+        const boxElement = getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("flex-basis", flex);
       });
     },
@@ -596,7 +588,7 @@ test.describe("should render Box component", () => {
   ).forEach(([value, growText]) => {
     test(`should verify flex grow is ${value}`, async ({ mount, page }) => {
       await mount(<BoxComponentMulti flex="auto" flexGrow={value} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("flex-grow", growText);
     });
   });
@@ -610,7 +602,7 @@ test.describe("should render Box component", () => {
   ).forEach(([value, shrinkText]) => {
     test(`should verify flex shrink is ${value}`, async ({ mount, page }) => {
       await mount(<BoxComponentMulti flex="auto" flexShrink={value} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("flex-shrink", shrinkText);
     });
   });
@@ -619,7 +611,7 @@ test.describe("should render Box component", () => {
     (basis) => {
       test(`should verify flex basis is ${basis}`, async ({ mount, page }) => {
         await mount(<BoxComponentMulti flexBasis={basis} />);
-        const boxElement = await getDataElementByValue(page, "box");
+        const boxElement = getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("flex-basis", basis);
       });
     },
@@ -638,7 +630,7 @@ test.describe("should render Box component", () => {
   ].forEach((justify) => {
     test(`should verify justifySelf is ${justify}`, async ({ mount, page }) => {
       await mount(<BoxComponentMulti justifySelf={justify} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("justify-self", justify);
     });
   });
@@ -654,7 +646,7 @@ test.describe("should render Box component", () => {
   ].forEach((align) => {
     test(`should verify alignSelf is ${align}`, async ({ mount, page }) => {
       await mount(<BoxComponentMulti alignSelf={align} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("align-self", align);
     });
   });
@@ -668,7 +660,7 @@ test.describe("should render Box component", () => {
   ).forEach(([value, orderText]) => {
     test(`should verify order is ${value}`, async ({ mount, page }) => {
       await mount(<BoxComponentMulti order={value} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("order", orderText);
     });
   });
@@ -676,7 +668,7 @@ test.describe("should render Box component", () => {
   (["break-word", "anywhere"] as const).forEach((wrap) => {
     test(`should verify overflow wrap is ${wrap}`, async ({ mount, page }) => {
       await mount(<BoxComponentMulti overflowWrap={wrap} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("overflow-wrap", wrap);
     });
   });
@@ -717,7 +709,7 @@ test.describe("should render Box component", () => {
             position={value}
           />,
         );
-        const boxElement = await getDataElementByValue(page, "box");
+        const boxElement = getDataElementByValue(page, "box");
         await expect(boxElement).toHaveCSS("top", "0px");
         await expect(boxElement).toHaveCSS("bottom", "0px");
         await expect(boxElement).toHaveCSS("right", "0px");
@@ -733,7 +725,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default display="flex" gap={gap} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS(
         "row-gap",
         typeof gap === "number" ? `${gap * 8}px` : gap,
@@ -751,7 +743,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default display="flex" rowGap={rowGap} gap={8} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS(
         "row-gap",
         typeof rowGap === "number" ? `${rowGap * 8}px` : rowGap,
@@ -766,7 +758,7 @@ test.describe("should render Box component", () => {
       page,
     }) => {
       await mount(<Default display="flex" columnGap={columnGap} gap={8} />);
-      const boxElement = await getDataElementByValue(page, "box");
+      const boxElement = getDataElementByValue(page, "box");
       await expect(boxElement).toHaveCSS("row-gap", "64px");
       await expect(boxElement).toHaveCSS(
         "column-gap",
@@ -777,7 +769,7 @@ test.describe("should render Box component", () => {
 
   test("should allow custom boxShadow prop values", async ({ mount, page }) => {
     await mount(<Default boxShadow="boxShadow400" />);
-    const boxElement = await getDataElementByValue(page, "box");
+    const boxElement = getDataElementByValue(page, "box");
     await expect(boxElement).toHaveCSS(
       "box-shadow",
       "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px",
@@ -882,7 +874,7 @@ test.describe("Accessibility tests for Box", () => {
     page,
   }) => {
     await mount(<Default borderRadius={borderRadius} />);
-    const boxElement = await getDataElementByValue(page, "box");
+    const boxElement = getDataElementByValue(page, "box");
     await expect(boxElement).toHaveCSS("border-radius", expected);
   });
 });

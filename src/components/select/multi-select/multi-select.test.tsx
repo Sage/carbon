@@ -1127,6 +1127,28 @@ test("marks input as required when required prop is true", () => {
   expect(screen.getByRole("combobox")).toBeRequired();
 });
 
+test("should not be call `onListScrollBottom` callback when an option is clicked", async () => {
+  const onListScrollBottomFn = jest.fn();
+  const user = userEvent.setup();
+  render(
+    <MultiSelect
+      onListScrollBottom={onListScrollBottomFn}
+      openOnFocus
+      label="filterable-select"
+      onChange={() => {}}
+    >
+      <Option value="opt1" text="green" />
+    </MultiSelect>,
+  );
+
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
+  await user.click(await screen.findByRole("option", { name: "green" }));
+
+  expect(onListScrollBottomFn).not.toHaveBeenCalled();
+});
+
 test("does not call onOpen, when openOnFocus is true and the input is refocused while the dropdown list is already open", async () => {
   const onOpen = jest.fn();
   render(
@@ -1220,7 +1242,10 @@ test("should call `onOpen` callback if prop is passed and navigation key opens s
     </MultiSelect>,
   );
   const input = screen.getByRole("combobox");
-  input.focus();
+
+  act(() => {
+    input.focus();
+  });
 
   await user.keyboard("{ArrowDown}");
 
@@ -1240,7 +1265,9 @@ test("should call `onFocus` callback when input is focused and `openOnFocus` is 
       <Option value="opt1" text="red" />
     </MultiSelect>,
   );
-  screen.getByRole("combobox").focus();
+  act(() => {
+    screen.getByRole("combobox").focus();
+  });
   act(() => jest.runOnlyPendingTimers());
 
   expect(onFocusFn).toHaveBeenCalled();

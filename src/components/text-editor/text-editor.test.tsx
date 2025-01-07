@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { EditorState } from "draft-js";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import TextEditor, {
@@ -93,7 +99,9 @@ test("pressing Tab with the text editor focused moves focus to the first Toolbar
     />,
   );
 
-  screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
+  act(() => {
+    screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
+  });
   await user.tab();
 
   expect(screen.getByRole("button", { name: "bold" })).toHaveFocus();
@@ -126,7 +134,9 @@ test("pressing shift+Tab with the text editor focused does not move focus to the
     />,
   );
 
-  screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
+  act(() => {
+    screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
+  });
   await user.tab({ shift: true });
 
   expect(document.body).toHaveFocus();
@@ -519,60 +529,15 @@ test.each(["error", "warning", "info"])(
   },
 );
 
-// coverage only - focus styles, both with and without the optout flag, are tested in Playwright
-test("has correct styles when focused and `focusRedesignOptOut` is true", () => {
-  render(
-    <CarbonProvider focusRedesignOptOut>
-      <TextEditor
-        value={TextEditorState.createEmpty()}
-        labelText="Text Editor Label"
-        onChange={() => {}}
-      />
-    </CarbonProvider>,
-  );
-
-  screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
-
-  expect(screen.getByTestId("editor-outline")).toHaveStyleRule(
-    "outline",
-    "3px solid var(--colorsSemanticFocus500)",
-  );
-  expect(screen.getByTestId("editor-outline")).toHaveStyle({
-    "outline-offset": "1px",
-  });
-});
-
-// coverage only - focus styles with error are tested in Playwright
-test("has correct styles when focused and `focusRedesignOptOut` is true when there is an error", () => {
-  render(
-    <CarbonProvider focusRedesignOptOut>
-      <TextEditor
-        value={TextEditorState.createEmpty()}
-        labelText="Text Editor Label"
-        onChange={() => {}}
-        error="error"
-      />
-    </CarbonProvider>,
-  );
-
-  screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
-
-  expect(screen.getByTestId("editor-outline")).toHaveStyleRule(
-    "outline",
-    "3px solid var(--colorsSemanticFocus500)",
-  );
-  expect(screen.getByTestId("editor-outline")).toHaveStyle({
-    "outline-offset": "2px",
-  });
-});
-
 // for coverage only - this behaviour doesn't work properly in jsdom (note incorrect order of text being entered - the style
 // is also absent so we don't assert it). This behaviour is tested properly in Playwright
 test("can enter text after using the keyboard shortcut for bold styling", async () => {
   const user = userEvent.setup();
   render(<ControlledTextEditor />);
 
-  screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
+  act(() => {
+    screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
+  });
   await user.keyboard("{Control>}b{/Control}");
   await user.type(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
@@ -873,7 +838,9 @@ test("can enter text after using the keyboard shortcut for bold styling when han
   const user = userEvent.setup();
   render(<ControlledTextEditor />);
 
-  screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
+  act(() => {
+    screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
+  });
   fireEvent.keyDown(
     screen.getByRole("textbox", { name: "Text Editor Label" }),
     {

@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { HooksConfig } from "../../../playwright";
 import {
   getDataElementByValue,
   tooltipPreview,
@@ -33,7 +32,7 @@ const validationTypes: [string, string][] = [
 ];
 
 test.describe("When focused", () => {
-  test("should have the expected styling for the input when the focusRedesignOptOut is false", async ({
+  test("should have the expected styling for the input", async ({
     mount,
     page,
   }) => {
@@ -50,35 +49,11 @@ test.describe("When focused", () => {
     );
   });
 
-  test("should have the expected styling for the input when the focusRedesignOptOut is true", async ({
+  test("should have the expected styling for the search icon", async ({
     mount,
     page,
   }) => {
-    await mount<HooksConfig>(<SearchComponent />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    const searchDefaultInputElement = searchDefaultInput(page);
-    await searchDefaultInputElement.focus();
-    const searchDefaultInputElementParent =
-      searchDefaultInputElement.locator("..");
-    await expect(searchDefaultInputElementParent).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
-
-  test("should have the expected styling for the search icon when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SearchComponent searchButton />, {
-      hooksConfig: {
-        focusRedesignOptOut: false,
-      },
-    });
+    await mount(<SearchComponent searchButton />);
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
@@ -94,39 +69,11 @@ test.describe("When focused", () => {
     );
   });
 
-  test("should have the expected styling for the search icon when the focusRedesignOptOut is true", async ({
+  test("should have the expected styling for the cross icon", async ({
     mount,
     page,
   }) => {
-    await mount<HooksConfig>(<SearchComponent searchButton />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    const searchDefaultInputElement = searchDefaultInput(page);
-    await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.fill(testDataStandard);
-    const searchButtonElement = searchButton(page);
-    await searchButtonElement.click({
-      force: true,
-    });
-
-    await expect(searchButtonElement).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
-
-  test("should have the expected styling for the cross icon when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SearchComponent searchButton />, {
-      hooksConfig: {
-        focusRedesignOptOut: false,
-      },
-    });
+    await mount(<SearchComponent searchButton />);
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
@@ -137,28 +84,6 @@ test.describe("When focused", () => {
     await expect(searchCrossIconElementParent).toHaveCSS(
       "box-shadow",
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-  });
-
-  test("should have the expected styling for the cross icon when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SearchComponent searchButton />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    const searchDefaultInputElement = searchDefaultInput(page);
-    await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.fill(testDataStandard);
-    await searchDefaultInputElement.press("Tab");
-    const searchCrossIconElementParent = searchCrossIcon(page).locator("..");
-
-    await expect(searchCrossIconElementParent).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
     );
   });
 });
@@ -614,7 +539,7 @@ test.describe("Event tests for Search component", () => {
     const searchButtonElement = searchButton(page);
     await searchButtonElement.click();
 
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 
   test("should call onChange callback when a type event is triggered", async ({
@@ -633,7 +558,7 @@ test.describe("Event tests for Search component", () => {
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.fill("1");
 
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 
   test("should call onFocus callback when a focus event is triggered", async ({
@@ -652,7 +577,7 @@ test.describe("Event tests for Search component", () => {
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.focus();
 
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 
   test("should call onBlur callback when a blur event is triggered", async ({
@@ -672,7 +597,7 @@ test.describe("Event tests for Search component", () => {
     await searchDefaultInputElement.focus();
     await searchDefaultInputElement.blur();
 
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 
   ([keysToTrigger[0], keysToTrigger[1]] as const).forEach((key) => {
@@ -692,7 +617,7 @@ test.describe("Event tests for Search component", () => {
       const searchDefaultInputElement = searchDefaultInput(page);
       await searchDefaultInputElement.press(key);
 
-      await expect(callbackCount).toEqual(1);
+      expect(callbackCount).toEqual(1);
     });
   });
 });

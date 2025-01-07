@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 import FlatTable from "./flat-table.component";
@@ -18,7 +18,6 @@ import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context"
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import Pager from "../pager/pager.component";
-import CarbonProvider from "../carbon-provider";
 
 testStyledSystemMargin(
   (props) => (
@@ -45,7 +44,7 @@ testStyledSystemMargin(
 );
 
 describe("when rows are interactive", () => {
-  it("should apply the expected focus styling to the wrapper element when it is focused and `focusRedesignOptOut` is not set", () => {
+  it("should apply the expected focus styling to the wrapper element when it is focused", () => {
     render(
       <FlatTable>
         <FlatTableBody>
@@ -62,41 +61,15 @@ describe("when rows are interactive", () => {
     );
     const tableWrapper = screen.getByRole("region");
     const focusableTableContainer = screen.getByTestId("flat-table-container");
-    focusableTableContainer.focus();
+    act(() => {
+      focusableTableContainer.focus();
+    });
 
     expect(focusableTableContainer).toHaveFocus();
     expect(tableWrapper).toHaveStyleRule("outline", "transparent 3px solid");
     expect(tableWrapper).toHaveStyleRule(
       "box-shadow",
       "0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
-    );
-  });
-
-  it("should apply the expected focus styling to the wrapper element when it is focused and `focusRedesignOptOut` is set", () => {
-    render(
-      <CarbonProvider focusRedesignOptOut>
-        <FlatTable>
-          <FlatTableBody>
-            <FlatTableRow onClick={() => {}}>
-              <FlatTableCell>one</FlatTableCell>
-              <FlatTableCell>two</FlatTableCell>
-            </FlatTableRow>
-            <FlatTableRow onClick={() => {}}>
-              <FlatTableCell>three</FlatTableCell>
-              <FlatTableCell>four</FlatTableCell>
-            </FlatTableRow>
-          </FlatTableBody>
-        </FlatTable>
-      </CarbonProvider>,
-    );
-    const tableWrapper = screen.getByRole("region");
-    const focusableTableContainer = screen.getByTestId("flat-table-container");
-    focusableTableContainer.focus();
-
-    expect(focusableTableContainer).toHaveFocus();
-    expect(tableWrapper).toHaveStyleRule(
-      "outline",
-      "2px solid var(--colorsSemanticFocus500)",
     );
   });
 
@@ -117,7 +90,9 @@ describe("when rows are interactive", () => {
       </FlatTable>,
     );
     const focusableTableContainer = screen.getByTestId("flat-table-container");
-    focusableTableContainer.focus();
+    act(() => {
+      focusableTableContainer.focus();
+    });
 
     expect(focusableTableContainer).toHaveFocus();
 
@@ -187,7 +162,9 @@ describe("when rows are interactive", () => {
     const secondRow = screen.getByRole("row", { name: "three four" });
     const thirdRow = screen.getByRole("row", { name: "five six" });
     const fourthRow = screen.getByRole("row", { name: "seven eight" });
-    focusableTableContainer?.focus();
+    act(() => {
+      focusableTableContainer?.focus();
+    });
 
     await user.keyboard("{Tab}");
     expect(firstRow).toHaveFocus();
@@ -374,7 +351,9 @@ describe("when rows are interactive", () => {
     );
     const secondRow = screen.getByRole("row", { name: "three four" });
     const checkbox = screen.getByRole("checkbox");
-    checkbox.focus();
+    act(() => {
+      checkbox.focus();
+    });
 
     expect(checkbox).toHaveFocus();
     await user.keyboard("{ArrowDown}");
@@ -399,7 +378,9 @@ describe("when rows are interactive", () => {
     );
     const firstRow = screen.getByRole("row", { name: "one two" });
     const checkbox = screen.getByRole("checkbox");
-    checkbox.focus();
+    act(() => {
+      checkbox.focus();
+    });
 
     expect(checkbox).toHaveFocus();
     await user.keyboard("{ArrowUp}");

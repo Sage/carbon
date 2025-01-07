@@ -7,6 +7,7 @@ import {
   VerticalMenuTriggerCustom,
   VerticalMenuItemCustomHref,
   VerticalMenuFullScreenCustom,
+  VerticalMenuFullScreenCustomWithDialog,
   VerticalMenuFullScreenBackgroundScrollTest,
   ClosedVerticalMenuFullScreenWithButtons,
   CustomComponent,
@@ -16,9 +17,9 @@ import {
 } from "./components.test-pw";
 import VerticalMenuTrigger from "./vertical-menu-trigger/vertical-menu-trigger.component";
 import {
-  checkGoldenOutline,
   assertCssValueIsApproximately,
   checkAccessibility,
+  waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import {
   verticalMenuComponent,
@@ -28,7 +29,6 @@ import {
 } from "../../../playwright/components/vertical-menu";
 import { closeIconButton } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import { HooksConfig } from "../../../playwright";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testData = CHARACTERS.STANDARD;
@@ -282,11 +282,11 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     mount,
     page,
   }) => {
-    let callbackCount = 0;
+    let closeCallbackInvoked = false;
     await mount(
       <VerticalMenuFullScreenCustom
         onClose={() => {
-          callbackCount += 1;
+          closeCallbackInvoked = true;
         }}
       />,
     );
@@ -294,7 +294,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await verticalMenuTrigger(page).click();
     await page.keyboard.press("Escape");
 
-    await expect(callbackCount).toBe(1);
+    await expect(closeCallbackInvoked).toBe(true);
   });
 
   test(`should render Vertical Menu Full Screen without isOpen prop`, async ({
@@ -313,6 +313,42 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await mount(<VerticalMenuFullScreenCustom isOpen />);
 
     await expect(verticalMenuItem(page).first()).toBeVisible();
+  });
+
+  test("when a Vertical Menu Fullscreen is opened and then closed, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<VerticalMenuFullScreenCustom />);
+
+    const item = page.getByRole("button").filter({ hasText: "Menu" });
+    await item.click();
+    await waitForAnimationEnd(verticalMenuFullScreen(page));
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(item).toBeFocused();
+  });
+
+  test("when Vertical Menu Fullscreen is open on render, then closed, opened and then closed again, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<VerticalMenuFullScreenCustom isOpen />);
+
+    await waitForAnimationEnd(verticalMenuFullScreen(page));
+    await expect(verticalMenuFullScreen(page)).toBeVisible();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+
+    const item = page.getByRole("button").filter({ hasText: "Menu" });
+    await expect(item).not.toBeFocused();
+    await expect(verticalMenuFullScreen(page)).not.toBeVisible();
+
+    await item.click();
+    await waitForAnimationEnd(verticalMenuFullScreen(page));
+    await expect(verticalMenuFullScreen(page)).toBeVisible();
+    await closeButton.click();
+    await expect(item).toBeFocused();
   });
 
   test(`should verify that Vertical Menu Fullscreen has no effect on the tab order when isOpen prop is false`, async ({
@@ -494,23 +530,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     ).toBeFocused();
   });
 
-  test(`should check the focus styling, focusRedesignOptOut true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<VerticalMenuDefaultComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await verticalMenuItem(page).first().focus();
-    await page.keyboard.press("Tab");
-    await checkGoldenOutline(verticalMenuItem(page).nth(1));
-  });
-
-  test(`should check the focus styling, focusRedesignOptOut false`, async ({
-    mount,
-    page,
-  }) => {
+  test(`should check the focus styling`, async ({ mount, page }) => {
     await mount(<VerticalMenuDefaultComponent />);
 
     await verticalMenuItem(page).first().focus();
@@ -561,25 +581,7 @@ test.describe("VerticalMenuFullScreen test background scroll when tabbing", () =
 });
 
 test.describe("Events test", () => {
-  test(`should call onClick callback when a click event is triggered`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <VerticalMenuTriggerCustom
-        onClick={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    await verticalMenuTrigger(page).click();
-
-    await expect(callbackCount).toBe(1);
-  });
-
-  test(`should call onClose callback when a click event is triggered for VerticalMenuFullScreen`, async ({
+  test(`should be available when a Dialog is opened in the background`, async ({
     mount,
     page,
   }) => {
@@ -589,7 +591,7 @@ test.describe("Events test", () => {
       height: 599,
     });
     await mount(
-      <VerticalMenuFullScreenCustom
+      <VerticalMenuFullScreenCustomWithDialog
         onClose={() => {
           callbackCount += 1;
         }}
@@ -597,35 +599,13 @@ test.describe("Events test", () => {
     );
 
     await verticalMenuTrigger(page).click();
+
     await closeIconButton(page).click();
 
-    await expect(callbackCount).toBe(1);
-  });
+    expect(callbackCount).toBe(1);
 
-  [...keysToTrigger].forEach((key) => {
-    test(`should call onClose callback when a ${key} key event is triggered`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      await page.setViewportSize({
-        width: 320,
-        height: 599,
-      });
-      await mount(
-        <VerticalMenuFullScreenCustom
-          onClose={() => {
-            callbackCount += 1;
-          }}
-        />,
-      );
-
-      await verticalMenuTrigger(page).click();
-      await closeIconButton(page).focus();
-      await page.keyboard.press(key);
-
-      await expect(callbackCount).toBe(1);
-    });
+    const dialogText = page.getByText("Do you want to leave before saving?");
+    await expect(dialogText).toBeInViewport();
   });
 });
 

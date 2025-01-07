@@ -1,27 +1,18 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import useResizeObserver from "../../../../hooks/__internal__/useResizeObserver";
+
+import StyledIcon from "../../../icon/icon.style";
+
 import {
   StyledTabsHeaderWrapper,
   StyledTabsHeaderList,
-  StyledTabsBottomBorder,
-  StyledTabsWrapper,
-  StyledTabsBottomBorderWrapper,
   StyledVerticalTabsWrapper,
+  StyledWrapper,
+  StyledNavigationButtonWrapper,
+  StyledNavigationButton,
+  StyledContainer,
+  StyledBottomBorder,
 } from "./tabs-header.style";
-import useThrottle from "../../../../hooks/__internal__/useThrottle";
-import NewValidationContext from "../../../carbon-provider/__internal__/new-validation.context";
-
-/*  In the original prototype the tabs have shadows that fade out as you scroll horizontally.
- *  This value is the closest replication to the way that the shadow disappears.
- *  It is ultimately tied to the position of the scroll that will then fade the shadow in and out. */
-const fullOpacityThreshold = 128;
-
-const getOpacityRatio = (value: number) => value / fullOpacityThreshold;
-
-const getScrollRight = ({
-  scrollWidth,
-  clientWidth,
-  scrollLeft,
-}: HTMLDivElement) => scrollWidth - clientWidth - scrollLeft;
 
 export interface TabHeaderProps {
   role?: string;
@@ -31,6 +22,7 @@ export interface TabHeaderProps {
   isInSidebar?: boolean;
   children: React.ReactNode;
   align?: "left" | "right";
+  size?: "default" | "large";
 }
 
 const TabsHeader = ({
@@ -41,65 +33,132 @@ const TabsHeader = ({
   extendedLine,
   noRightBorder = false,
   isInSidebar = false,
+  size = "default",
 }: TabHeaderProps) => {
-  const [leftScrollOpacity, setLeftScrollOpacity] = useState(0);
-  const [rightScrollOpacity, setRightScrollOpacity] = useState(1);
-
-  const { validationRedesignOptIn } = useContext(NewValidationContext);
-
   const ref = useRef<HTMLDivElement>(null);
-
-  let isScrollable = false;
-
   const { current } = ref;
+  const [leftVisible, setLeftVisible] = useState(false);
+  const [rightVisible, setRightVisible] = useState(false);
 
-  if (position === "top" && current) {
-    isScrollable = current.scrollWidth > current.clientWidth;
+  const updateUI = useCallback(() => {
+    if (current) {
+      const maxScrollValue = current.scrollWidth - current.clientWidth - 20;
+      setLeftVisible(current.scrollLeft >= 20);
+      setRightVisible(current.scrollLeft <= maxScrollValue);
+    }
+  }, [current]);
+
+  useResizeObserver(ref, () => {
+    updateUI();
+  });
+
+  useEffect(() => {
+    if (current) {
+      updateUI();
+    }
+  }, [current, updateUI]);
+
+  function handleKeyDown(ev: React.KeyboardEvent<HTMLElement>) {
+    /* istanbul ignore if */
+    if (!current) return;
+
+    const { key } = ev;
+    if (key === "ArrowLeft") {
+      updateUI();
+    } else if (key === "ArrowRight") {
+      updateUI();
+    }
   }
 
-  const handleScroll = (
-    e: React.UIEvent<HTMLDivElement> & { target: HTMLDivElement },
-  ) => {
-    const { scrollLeft } = e.target;
-    const scrollRight = getScrollRight(e.target);
-
-    setLeftScrollOpacity(Math.min(getOpacityRatio(scrollLeft), 1));
-    setRightScrollOpacity(Math.min(getOpacityRatio(scrollRight), 1));
-  };
-
-  const throttledHandleScroll = useThrottle(handleScroll, 50);
-
-  return (
-    <StyledTabsHeaderWrapper isInSidebar={isInSidebar} position={position}>
-      <StyledTabsHeaderList
-        align={align}
-        position={position}
-        role={role}
-        extendedLine={extendedLine}
-        noRightBorder={noRightBorder}
-        isInSidebar={isInSidebar}
-        onScroll={throttledHandleScroll}
-        leftScrollOpacity={leftScrollOpacity}
-        rightScrollOpacity={rightScrollOpacity}
-        isScrollable={isScrollable}
-        ref={ref}
-      >
-        {position === "top" ? (
-          <StyledTabsWrapper>
-            <StyledTabsBottomBorderWrapper
-              validationRedesignOptIn={validationRedesignOptIn}
-            >
-              <StyledTabsBottomBorder />
-            </StyledTabsBottomBorderWrapper>
-            {children}
-          </StyledTabsWrapper>
-        ) : (
+  if (position === "left") {
+    return (
+      <StyledTabsHeaderWrapper isInSidebar={isInSidebar} position="left">
+        <StyledTabsHeaderList
+          align={align}
+          position="left"
+          role={role}
+          extendedLine={extendedLine}
+          noRightBorder={noRightBorder}
+          isInSidebar={isInSidebar}
+          ref={ref}
+        >
           <StyledVerticalTabsWrapper isInSidebar={isInSidebar}>
             {children}
           </StyledVerticalTabsWrapper>
-        )}
-      </StyledTabsHeaderList>
-    </StyledTabsHeaderWrapper>
+        </StyledTabsHeaderList>
+      </StyledTabsHeaderWrapper>
+    );
+  }
+
+  return (
+    <StyledWrapper
+      id="tab-header-wrapper"
+      data-role="tab-header-wrapper"
+      align={align}
+      position="top"
+      extendedLine={extendedLine}
+      noRightBorder={noRightBorder}
+      onKeyDown={handleKeyDown}
+    >
+      <StyledNavigationButtonWrapper
+        position="left"
+        visible={leftVisible}
+        id="tab-navigation-button-wrapper-left"
+        data-role="tab-navigation-button-wrapper-left"
+        size={size}
+      >
+        <StyledNavigationButton
+          tabIndex={-1}
+          title="Scroll Tabs Left"
+          id="tab-navigation-button-left"
+          data-role="tab-navigation-button-left"
+          onClick={() => {
+            /* istanbul ignore if */
+            if (current) {
+              current.scrollLeft -= 200;
+              updateUI();
+            }
+          }}
+        >
+          <StyledIcon type="chevron_left" />
+        </StyledNavigationButton>
+      </StyledNavigationButtonWrapper>
+
+      <StyledContainer
+        ref={ref}
+        id="tab-container"
+        role={role}
+        data-role="tab-container"
+        size={size}
+      >
+        <StyledBottomBorder />
+        {children}
+      </StyledContainer>
+
+      <StyledNavigationButtonWrapper
+        position="right"
+        visible={rightVisible}
+        id="tab-navigation-button-wrapper-right"
+        data-role="tab-navigation-button-wrapper-right"
+        size={size}
+      >
+        <StyledNavigationButton
+          tabIndex={-1}
+          title="Scroll Tabs Right"
+          id="tab-navigation-button-right"
+          data-role="tab-navigation-button-right"
+          onClick={() => {
+            /* istanbul ignore if */
+            if (current) {
+              current.scrollLeft += 200;
+              updateUI();
+            }
+          }}
+        >
+          <StyledIcon type="chevron_right" />
+        </StyledNavigationButton>
+      </StyledNavigationButtonWrapper>
+    </StyledWrapper>
   );
 };
 

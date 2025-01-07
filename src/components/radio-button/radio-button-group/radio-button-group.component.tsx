@@ -31,8 +31,8 @@ export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
   /** The content for the RadioGroup Legend */
   legend?: string;
   /**
-   * The content for the RadioButtonGroup Legend Help tooltip,
-   * will be rendered as hint text when `validationRedesignOptIn` is true.
+   * The content for the RadioButtonGroup hint text,
+   * will only be rendered when `validationRedesignOptIn` is true.
    */
   legendHelp?: string;
   /** [Legacy] Text alignment of legend when inline */
@@ -124,7 +124,6 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
           legend={legend}
           error={error}
           warning={warning}
-          info={info}
           inline={inlineLegend}
           legendWidth={legendWidth}
           legendAlign={legendAlign}
@@ -168,8 +167,6 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
                     labelSpacing,
                     error: !!error,
                     warning: !!warning,
-                    info: !!info,
-                    required,
                     ...child.props,
                   });
                 })}

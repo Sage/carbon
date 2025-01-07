@@ -122,6 +122,7 @@ export const Validation: Story = () => {
   return (
     <>
       <NumeralDate
+        mb={2}
         label="Validation as string"
         error="Error Message (Fix is required)"
         onChange={(e) => setValue(e.target.value)}
@@ -129,6 +130,7 @@ export const Validation: Story = () => {
       />
 
       <NumeralDate
+        mb={2}
         label="Validation as string on label"
         error="Error Message (Fix is required)"
         validationOnLabel
@@ -137,6 +139,7 @@ export const Validation: Story = () => {
       />
 
       <NumeralDate
+        mb={2}
         label="Validation as boolean"
         error
         onChange={(e) => setValue(e.target.value)}
@@ -144,6 +147,7 @@ export const Validation: Story = () => {
       />
 
       <NumeralDate
+        mb={2}
         label="Validation as string"
         warning="Warning Message (Fix is optional)"
         onChange={(e) => setValue(e.target.value)}
@@ -151,6 +155,7 @@ export const Validation: Story = () => {
       />
 
       <NumeralDate
+        mb={2}
         label="Validation as string on label"
         warning="Warning Message (Fix is optional)"
         validationOnLabel
@@ -175,6 +180,7 @@ export const NewValidation: Story = () => {
     <CarbonProvider validationRedesignOptIn>
       <Box m={2}>
         <NumeralDate
+          mb={2}
           label="Validation as string - Error"
           labelHelp="Label help"
           error="Error Message (Fix is required)"
@@ -183,6 +189,7 @@ export const NewValidation: Story = () => {
         />
 
         <NumeralDate
+          mb={2}
           label="Validation as boolean - Error"
           labelHelp="Label help"
           error
@@ -191,6 +198,7 @@ export const NewValidation: Story = () => {
         />
 
         <NumeralDate
+          mb={2}
           label="Validation as string - Warning"
           labelHelp="Label help"
           warning="Warning Message (Fix is optional)"

@@ -65,6 +65,8 @@ export interface MultiSelectProps
   onFilterChange?: (filterText: string) => void;
   /** A custom callback for when the dropdown menu opens */
   onOpen?: () => void;
+  /** A callback that is triggered when a user scrolls to the bottom of the list */
+  onListScrollBottom?: () => void;
   /** If true the Component opens on focus */
   openOnFocus?: boolean;
   /** SelectList table header, should consist of multiple th elements.
@@ -124,6 +126,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       noResultsMessage,
       placeholder,
       isLoading,
+      onListScrollBottom,
       tableHeader,
       multiColumn,
       tooltipPosition,
@@ -693,6 +696,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         highlightedValue={highlightedValue}
         noResultsMessage={noResultsMessage}
         isLoading={isLoading}
+        onListScrollBottom={onListScrollBottom}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
         listPlacement={listWidth !== undefined ? placement : listPlacement}

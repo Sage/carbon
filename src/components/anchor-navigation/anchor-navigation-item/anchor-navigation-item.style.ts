@@ -5,10 +5,6 @@ export interface StyledNavigationItemProps {
   isSelected?: boolean;
 }
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 const StyledNavigationItem = styled.li<StyledNavigationItemProps>`
   width: 100%;
 
@@ -25,12 +21,7 @@ const StyledNavigationItem = styled.li<StyledNavigationItemProps>`
     border-bottom-right-radius: var(--borderRadius100);
 
     &:focus {
-      ${({ theme }) =>
-        `${
-          !theme.focusRedesignOptOut
-            ? addFocusStyling()
-            : /* istanbul ignore next */ oldFocusStyling
-        }`}
+      ${addFocusStyling()}
       position: relative;
     }
 

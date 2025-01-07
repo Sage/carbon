@@ -6,6 +6,9 @@ import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedClassNameWarningShown = false;
 
 export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
   /** An href for an anchor tag. */
@@ -33,9 +36,9 @@ export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
       | React.MouseEvent<HTMLButtonElement>,
   ) => void;
 
-  /** A message to display as a tooltip to the link. */
+  /** [Legacy] A message to display as a tooltip to the link. */
   tooltipMessage?: string;
-  /** Positions the tooltip with the link. */
+  /** [Legacy] Positions the tooltip with the link. */
   tooltipPosition?: "bottom" | "left" | "right" | "top";
   /** Child content to render in the link. */
   children?: React.ReactNode;
@@ -82,6 +85,13 @@ export const Link = React.forwardRef<
     }: LinkProps,
     ref,
   ) => {
+    if (!deprecatedClassNameWarningShown && className) {
+      Logger.deprecate(
+        "The 'className' prop has been deprecated and will soon be removed from the 'Link' component.",
+      );
+      deprecatedClassNameWarningShown = true;
+    }
+
     const [hasFocus, setHasFocus] = useState(false);
     const l = useLocale();
     const { inMenu } = useContext(MenuContext);

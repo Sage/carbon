@@ -1,4 +1,6 @@
 import React from "react";
+import { NavProps } from "react-day-picker";
+
 import StyledButton from "./button.style";
 import StyledNavbar from "./navbar.style";
 import Icon from "../../../icon";
@@ -15,7 +17,7 @@ export const Navbar = ({
   onPreviousClick,
   onNextClick,
   className,
-}: NavbarProps) => {
+}: NavProps) => {
   const locale = useLocale();
   const { previousMonthButton, nextMonthButton } = locale.date.ariaLabels;
 
@@ -35,14 +37,16 @@ export const Navbar = ({
     <StyledNavbar className={className} data-role="date-navbar">
       <StyledButton
         aria-label={previousMonthButton()}
-        onClick={() => onPreviousClick?.()}
+        onClick={(e) => {
+          onPreviousClick?.(e);
+        }}
         onKeyDown={handleKeyDown}
       >
         <Icon type="chevron_left" />
       </StyledButton>
       <StyledButton
         aria-label={nextMonthButton()}
-        onClick={() => onNextClick?.()}
+        onClick={(e) => onNextClick?.(e)}
         onKeyDown={handleKeyDown}
       >
         <Icon type="chevron_right" />

@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
-import { TabHeaderProps } from "./tabs-header.component";
+
 import BaseTheme from "../../../../style/themes/base";
+
+import { TabHeaderProps } from "./tabs-header.component";
 
 const outlineWidth = "3px";
 
@@ -36,27 +38,10 @@ const StyledTabsHeaderWrapper = styled.div<StyledTabsHeaderWrapperProps>`
     `}
 `;
 
-const commonShadowStyles = css`
-  pointer-events: none;
-  content: "";
-  background-repeat: no-repeat;
-  background-size: 16px 48px;
-  background-attachment: scroll;
-  z-index: ${({ theme }) => theme.zIndex.overlay};
-  position: sticky;
-  min-width: 16px;
-  transition: opacity 0.1s ease-in-out;
-`;
-
-export interface StyledTabsHeaderListProps
-  extends Pick<
-    TabHeaderProps,
-    "align" | "extendedLine" | "noRightBorder" | "isInSidebar" | "position"
-  > {
-  leftScrollOpacity?: number;
-  rightScrollOpacity?: number;
-  isScrollable?: boolean;
-}
+export type StyledTabsHeaderListProps = Pick<
+  TabHeaderProps,
+  "align" | "extendedLine" | "noRightBorder" | "isInSidebar" | "position"
+>;
 
 const StyledTabsHeaderList = styled.div<StyledTabsHeaderListProps>`
   display: flex;
@@ -68,60 +53,17 @@ const StyledTabsHeaderList = styled.div<StyledTabsHeaderListProps>`
   cursor: default;
   list-style: none;
   padding: ${outlineWidth};
-  overflow-x: auto;
+  overflow-x: hidden;
   position: relative;
-  ${({ position }) => position === "top" && "white-space: nowrap"};
 
-  ${({ isScrollable, leftScrollOpacity, rightScrollOpacity }) =>
-    isScrollable &&
-    css`
-      &:before {
-        ${commonShadowStyles}
-        background: radial-gradient(
-          farthest-side at 0 50%,
-          rgba(0, 0, 0, 0.2),
-          rgba(0, 0, 0, 0)
-        );
-        background-position: left calc(50% - 4px);
-        left: -${outlineWidth};
-        margin-right: -16px;
-        opacity: ${leftScrollOpacity};
-      }
-
-      &:after {
-        ${commonShadowStyles}
-        background: radial-gradient(
-          farthest-side at 100% 50%,
-          rgba(0, 0, 0, 0.2),
-          rgba(0, 0, 0, 0)
-        );
-        background-position: right calc(50% - 4px);
-        right: -${outlineWidth};
-        margin-left: -16px;
-        opacity: ${rightScrollOpacity};
-      }
-    `}
-
-  &::-webkit-scrollbar {
-    -webkit-appearance: none;
-    background: var(--colorsUtilityMajor025);
-    height: 8px;
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--colorsUtilityMajor300);
-    cursor: pointer;
-  }
-
-  ${({ align = "left" }) =>
+  ${({ align }) =>
     align === "right" &&
     css`
       justify-content: flex-end;
       text-align: right;
     `}
 
-  ${({ position = "top", noRightBorder, align = "left" }) =>
+  ${({ position, noRightBorder, align }) =>
     position === "left" &&
     css`
       flex-direction: column;
@@ -143,14 +85,6 @@ StyledTabsHeaderList.defaultProps = {
   theme: BaseTheme,
 };
 
-const StyledTabsWrapper = styled.div`
-  margin: 3px;
-  position: relative;
-  min-width: max-content;
-  width: 100%;
-  height: 100%;
-`;
-
 type StyledVerticalTabsWrapperProps = Pick<TabHeaderProps, "isInSidebar">;
 
 const StyledVerticalTabsWrapper = styled.div<StyledVerticalTabsWrapperProps>`
@@ -165,32 +99,98 @@ const StyledVerticalTabsWrapper = styled.div<StyledVerticalTabsWrapperProps>`
   flex-direction: column;
 `;
 
-const StyledTabsBottomBorderWrapper = styled.div<{
-  validationRedesignOptIn?: boolean;
-}>`
-  position: absolute;
-  width: 100%;
-  height: auto;
-  bottom: 0px;
-  ${({ validationRedesignOptIn }) => css`
-    z-index: ${validationRedesignOptIn ? 2 : ""};
+type StyledWrapperProps = {
+  align: string;
+  position: string;
+  role?: string;
+  extendedLine?: boolean;
+  noRightBorder?: boolean;
+  isInSidebar?: boolean;
+};
+
+type StyledNavigationButtonWrapperProps = {
+  position: string;
+  visible: boolean;
+  size: string;
+};
+
+const StyledWrapper = styled.section<StyledWrapperProps>`
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  ${({ extendedLine = true }) =>
+    !extendedLine &&
+    css`
+      width: fit-content;
+    `}
+
+  ${({ position }) => position === "top" && "white-space: nowrap"};
+
+  ${({ align }) =>
+    align === "right" &&
+    css`
+      justify-content: flex-end;
+      text-align: right;
+    `}
+`;
+
+const StyledNavigationButtonWrapper = styled.div<StyledNavigationButtonWrapperProps>`
+  width: 48px;
+
+  ${({ position, visible, size }) => css`
+    height: ${size === "default" ? "48px" : "56px"}
+    z-index: 8;
+    display: ${visible ? "block" : "none"};
+    ${position === "right" && `right: 0; position: absolute;`}
   `}
 `;
 
-const StyledTabsBottomBorder = styled.div`
-  position: sticky;
-  bottom: 2px;
-  left: ${outlineWidth};
-  right: ${outlineWidth};
-  height: 2px;
-  background-color: var(--colorsActionMinor100);
+const StyledNavigationButton = styled.button`
+  position: absolute;
+  height: 100%;
+  width: 48px;
+  top: 0;
+  align-items: center;
+  border: none;
+  border-radius: 0px;
+  background-color: var(--colorsDisabled400);
+  color: var(--colorsActionMinor500);
+  z-index: 6;
+
+  :hover {
+    cursor: pointer;
+    background-color: var(--colorsActionDisabled500);
+    color: var(--colorsComponentsMenuYang100);
+  }
+`;
+
+const StyledContainer = styled.div<{ size: string }>`
+  display: flex;
+  padding: 6px 24px 0px;
+  margin: 0;
+  overflow-x: hidden;
+  ${({ size }) => css`
+    height: ${size === "large" ? "50px" : "42px"};
+  `}
+  align-items: flex-start;
+`;
+
+const StyledBottomBorder = styled.div`
+  height: auto;
+  border-bottom: 2px solid var(--colorsActionMinor100);
+  bottom: 0;
+  left: 24px;
+  right: 24px;
+  position: absolute;
 `;
 
 export {
   StyledTabsHeaderWrapper,
   StyledTabsHeaderList,
-  StyledTabsWrapper,
-  StyledTabsBottomBorderWrapper,
-  StyledTabsBottomBorder,
   StyledVerticalTabsWrapper,
+  StyledWrapper,
+  StyledNavigationButtonWrapper,
+  StyledNavigationButton,
+  StyledContainer,
+  StyledBottomBorder,
 };

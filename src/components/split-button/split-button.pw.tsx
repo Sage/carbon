@@ -29,16 +29,12 @@ import {
 import { accordionDefaultTitle } from "../../../playwright/components/accordion";
 import { alertDialogPreview } from "../../../playwright/components/dialog";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import { HooksConfig } from "../../../playwright";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const keyToTrigger = ["Enter", "Space", "ArrowDown", "ArrowUp"] as const;
 
 test.describe("Styling tests", () => {
-  test(`should render with the expected styling when the focusRedesignOptOut is false`, async ({
-    mount,
-    page,
-  }) => {
+  test(`should render with the expected styling`, async ({ mount, page }) => {
     await mount(<SplitButtonList />);
 
     await mainButton(page).focus();
@@ -58,26 +54,6 @@ test.describe("Styling tests", () => {
     await expect(splitToggleButton(page)).toHaveCSS(
       "outline",
       "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test(`should render with the expected styling when the focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SplitButtonList />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await mainButton(page).focus();
-    await expect(mainButton(page)).toHaveCSS(
-      "border",
-      "3px solid rgb(255, 188, 25)",
-    );
-    await splitToggleButton(page).focus();
-    await expect(splitToggleButton(page)).toHaveCSS(
-      "border",
-      "3px solid rgb(255, 188, 25)",
     );
   });
 
@@ -264,7 +240,7 @@ test.describe("Prop tests", () => {
 
   (
     [
-      ["left", 200],
+      ["left", 198],
       ["right", 242],
     ] as [SplitButtonProps["position"], number][]
   ).forEach(([position, value]) => {
@@ -276,8 +252,8 @@ test.describe("Prop tests", () => {
 
       await getDataElementByValue(page, "dropdown").click();
       const listContainer = additionalButtonsContainer(page);
-      await expect(listContainer).toHaveCSS("position", "absolute");
-      await assertCssValueIsApproximately(listContainer, "top", 45);
+      await expect(listContainer).toHaveCSS("position", "fixed");
+      await assertCssValueIsApproximately(listContainer, "top", 46);
       await assertCssValueIsApproximately(listContainer, "left", value);
     });
   });
@@ -398,18 +374,21 @@ test.describe("Functional tests", () => {
     await expect(additionalButtonsContainer(page)).not.toBeVisible();
   });
 
-  test(`should verify pressing Tab moves focus to next child button and to second SplitButton at end of list`, async ({
+  test(`should verify pressing Tab moves focus to next child button, then closes the list and focuses the next element on the page`, async ({
     mount,
     page,
   }) => {
     await mount(<TwoSplitButtons />);
 
     await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 0).focus();
+    await expect(additionalButton(page, 0)).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(additionalButton(page, 1)).toBeFocused();
     await page.keyboard.press("Tab");
+    await expect(additionalButton(page, 2)).toBeFocused();
     await page.keyboard.press("Tab");
+
+    await expect(additionalButton(page, 0)).not.toBeVisible();
     await expect(mainButton(page).nth(1)).toBeFocused();
   });
 
@@ -420,7 +399,6 @@ test.describe("Functional tests", () => {
     await mount(<TwoSplitButtons />);
 
     await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 0).focus();
     await page.keyboard.press("ArrowDown");
     await expect(additionalButton(page, 1)).toBeFocused();
     await page.keyboard.press("ArrowDown");
@@ -429,7 +407,7 @@ test.describe("Functional tests", () => {
     await expect(additionalButton(page, 2)).toBeFocused();
   });
 
-  test(`should verify pressing Shift+Tab moves focus to previous child button and to main button at start of list`, async ({
+  test(`should verify pressing Shift+Tab moves focus to previous child button, then closes the list and focuses the toggle button`, async ({
     mount,
     page,
   }) => {
@@ -440,6 +418,8 @@ test.describe("Functional tests", () => {
     await page.keyboard.press("Shift+Tab");
     await expect(additionalButton(page, 0)).toBeFocused();
     await page.keyboard.press("Shift+Tab");
+
+    await expect(additionalButton(page, 0)).not.toBeVisible();
     await expect(splitToggleButton(page).first()).toBeFocused();
   });
 
@@ -504,7 +484,6 @@ test.describe("Functional tests", () => {
     await mount(<TwoSplitButtons />);
 
     await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 0).focus();
     await page.keyboard.down("Meta");
     await page.keyboard.press("ArrowDown");
     await expect(additionalButton(page, 2)).toBeFocused();
@@ -517,7 +496,6 @@ test.describe("Functional tests", () => {
     await mount(<TwoSplitButtons />);
 
     await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 0).focus();
     await page.keyboard.down("Control");
     await page.keyboard.press("ArrowDown");
     await expect(additionalButton(page, 2)).toBeFocused();
@@ -530,7 +508,6 @@ test.describe("Functional tests", () => {
     await mount(<TwoSplitButtons />);
 
     await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 0).focus();
     await page.keyboard.press("End");
     await expect(additionalButton(page, 2)).toBeFocused();
   });
@@ -579,23 +556,34 @@ test.describe("Functional tests in a custom component", () => {
     await mount(<WithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
     await expect(additionalButton(page, 0)).toBeVisible();
     await expect(additionalButton(page, 1)).toBeVisible();
     await expect(additionalButton(page, 2)).toBeVisible();
   });
 
-  test(`should verify pressing Tab moves focus to next child button and to second SplitButton at end of list`, async ({
+  test(`should verify pressing Tab moves focus to next child button, then closes the list and focuses the next element on the page`, async ({
     mount,
     page,
   }) => {
     await mount(<TwoButtonsWithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 0).focus();
-    await page.keyboard.press("Tab");
-    await expect(additionalButton(page, 1)).toBeFocused();
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
+
+    const firstButton = buttonList.getByRole("button").first();
+    const secondButton = buttonList.getByRole("button").nth(1);
+    const thirdButton = buttonList.getByRole("button").last();
+
+    await expect(firstButton).toBeFocused();
+    await firstButton.press("Tab");
+    await expect(secondButton).toBeFocused();
+    await secondButton.press("Tab");
+    await expect(thirdButton).toBeFocused();
+    await thirdButton.press("Tab");
+    await expect(buttonList).toBeHidden();
     await expect(mainButton(page).nth(1)).toBeFocused();
   });
 
@@ -606,8 +594,9 @@ test.describe("Functional tests in a custom component", () => {
     await mount(<TwoButtonsWithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 0).focus();
-    await page.waitForTimeout(1000);
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
+
     await page.keyboard.press("ArrowDown");
     await page.keyboard.press("ArrowDown");
     await page.keyboard.press("ArrowDown");
@@ -615,18 +604,23 @@ test.describe("Functional tests in a custom component", () => {
     await expect(additionalButton(page, 2)).toBeFocused();
   });
 
-  test(`should verify pressing shift and tab moves focus to previous child button and to main button at start of list`, async ({
+  test(`should verify pressing Shift+Tab moves focus to previous child button, then closes the list and focuses the toggle button`, async ({
     mount,
     page,
   }) => {
     await mount(<TwoButtonsWithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
+
     await additionalButton(page, 1).focus();
-    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Shift+Tab", { delay: 1000 });
     await expect(additionalButton(page, 0)).toBeFocused();
-    await page.keyboard.press("Shift+Tab");
-    await expect(splitToggleButton(page).first()).toBeFocused();
+    await page.keyboard.press("Shift+Tab", { delay: 1000 });
+
+    await expect(additionalButton(page, 0)).not.toBeVisible();
+    await expect(splitToggleButton(page).nth(0)).toBeFocused();
   });
 
   test(`should verify pressing ArrowUp moves focus to previous child button and does not loop when first child is focused`, async ({
@@ -636,12 +630,14 @@ test.describe("Functional tests in a custom component", () => {
     await mount(<TwoButtonsWithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
     await additionalButton(page, 2).focus();
-    await page.waitForTimeout(1000);
+
     await page.keyboard.press("ArrowUp");
     await page.keyboard.press("ArrowUp");
     await page.keyboard.press("ArrowUp");
-    await page.waitForTimeout(1000);
+
     await expect(additionalButton(page, 0)).toBeFocused();
   });
 
@@ -652,6 +648,8 @@ test.describe("Functional tests in a custom component", () => {
     await mount(<TwoButtonsWithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
     await additionalButton(page, 2).focus();
     await page.keyboard.down("Meta");
     await page.keyboard.press("ArrowUp");
@@ -665,6 +663,8 @@ test.describe("Functional tests in a custom component", () => {
     await mount(<TwoButtonsWithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
     await additionalButton(page, 2).focus();
     await page.keyboard.down("Control");
     await page.keyboard.press("ArrowUp");
@@ -690,7 +690,7 @@ test.describe("Functional tests in a custom component", () => {
     await mount(<TwoButtonsWithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 0).focus();
+
     await page.keyboard.down("Meta");
     await page.keyboard.press("ArrowDown");
     await expect(additionalButton(page, 2)).toBeFocused();
@@ -703,7 +703,6 @@ test.describe("Functional tests in a custom component", () => {
     await mount(<TwoButtonsWithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 0).focus();
     await page.keyboard.down("Control");
     await page.keyboard.press("ArrowDown");
     await expect(additionalButton(page, 2)).toBeFocused();
@@ -716,7 +715,6 @@ test.describe("Functional tests in a custom component", () => {
     await mount(<TwoButtonsWithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
-    await additionalButton(page, 0).focus();
     await page.keyboard.press("End");
     await expect(additionalButton(page, 2)).toBeFocused();
   });
@@ -728,6 +726,7 @@ test.describe("Functional tests in a custom component", () => {
     await mount(<WithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
+
     await additionalButton(page, 0).click();
     await expect(additionalButtonsContainer(page)).toHaveCount(0);
   });
@@ -739,6 +738,8 @@ test.describe("Functional tests in a custom component", () => {
     await mount(<WithWrapper />);
 
     await splitToggleButton(page).nth(0).click();
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
     await additionalButton(page, 1).focus();
     await page.keyboard.press("Escape");
     await expect(additionalButtonsContainer(page)).toHaveCount(0);

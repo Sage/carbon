@@ -87,8 +87,6 @@ function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
   return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
 }
 
-const oldFocusStyling = "outline: 2px solid var(--colorsSemanticFocus500);";
-
 const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
   ${({
     theme,
@@ -189,7 +187,7 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
       ${hasTooltip &&
       `
         :focus {
-          ${!theme.focusRedesignOptOut ? addFocusStyling() : oldFocusStyling}
+        ${addFocusStyling()}
         }
       `}
 

@@ -1,8 +1,19 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Toast, { ToastProps } from "./toast.component";
 import ModalManager from "../modal/__internal__/modal-manager";
+import Logger from "../../__internal__/utils/logger";
+
+let loggerSpy: jest.SpyInstance;
+
+beforeEach(() => {
+  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+});
+
+afterEach(() => {
+  loggerSpy.mockRestore();
+});
 
 const MockToast = ({
   open = false,
@@ -127,7 +138,9 @@ describe("Event tests", () => {
 
     await user.tab();
     await user.keyboard("{enter}");
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(onDismissMock).toHaveBeenCalled();
   });
@@ -139,7 +152,9 @@ describe("Event tests", () => {
 
     await user.tab();
     await user.keyboard(" ");
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(onDismissMock).toHaveBeenCalled();
   });
@@ -188,7 +203,9 @@ describe("Event tests", () => {
       </Toast>,
     );
 
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     const toast = screen.getByTestId("toast");
 
     expect(toast).toHaveFocus();
@@ -201,7 +218,9 @@ describe("Event tests", () => {
       </Toast>,
     );
 
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
     const toast = screen.getByRole("region");
 
     expect(toast).not.toHaveAttribute("tabIndex");
@@ -231,7 +250,9 @@ describe("Event tests", () => {
 
     const button = screen.getByRole("button", { name: "Show toast" });
     await user.click(button);
-    jest.runAllTimers();
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
 
     const toast = await screen.findByTestId("toast");
     const closeButton = screen.getByRole("button", { name: "Close" });
@@ -239,7 +260,9 @@ describe("Event tests", () => {
     expect(toast).toHaveFocus();
 
     await user.click(closeButton);
-    jest.runAllTimers();
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
 
     expect(button).toHaveFocus();
   });
@@ -250,7 +273,9 @@ describe("Event tests", () => {
 
     const button = screen.getByRole("button", { name: "Show toast" });
     await user.click(button);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     const toast = await screen.findByTestId("toast");
     const closeButton = screen.getByRole("button", { name: "Close" });
@@ -258,12 +283,16 @@ describe("Event tests", () => {
     expect(toast).toHaveFocus();
 
     await user.click(closeButton);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(button).toHaveFocus();
 
     await user.click(button);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(await screen.findByTestId("toast")).toHaveFocus();
   });
@@ -274,11 +303,15 @@ describe("Event tests", () => {
 
     const button = screen.getByRole("button", { name: "Show toast" });
     await user.click(button);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     const closeButton = await screen.findByRole("button", { name: "Close" });
     await user.click(closeButton);
-    jest.runAllTimers();
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(button).not.toHaveFocus();
   });
@@ -312,6 +345,14 @@ test("should render with any custom classes passed via the `className` prop", ()
   );
 
   expect(screen.getByTestId("toast")).toHaveClass("exampleClass");
+
+  // When using Toast messages the logger spy will be called twice: once for the
+  // Toast component and once for the containing Portal component. Because of this,
+  // only the first call to the logger spy is checked.
+  expect(loggerSpy).toHaveBeenNthCalledWith(
+    1,
+    "The 'className' prop has been deprecated and will soon be removed from the 'Toast' component.",
+  );
 });
 
 test("should render with provided custom id passed via `id` prop", () => {

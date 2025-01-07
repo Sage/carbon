@@ -163,10 +163,33 @@ CSS string.
 
 ### Responsive
 
-This story is best viewed in the `canvas` view and by adjusting the size of the window. The position of the `Tabs` component
-will change when the screen size is smaller or larger than `900px`.
+#### Horizontal
+
+__Note: This story is best viewed in the `canvas` view and by adjusting the size of the window.__
+
+The `Tabs` component is responsive and will display navigation buttons to the left and right when the following conditions are met:
+
+- The `position` prop is set to `top`;
+- There are more tabs than can fit in the available space.
+
+When both conditions are met, the `Tabs` component will display navigation buttons to the left and right of the tabs. Clicking on
+these buttons will scroll the tabs in the respective direction. If there are no tabs to scroll to in a given direction, then the
+respective navigation button will not appear.
 
 <Canvas of={TabsStories.Responsive} />
+
+#### Horizontal with validation
+
+<Canvas of={TabsStories.ResponsiveValidation} />
+
+#### Vertical
+
+__Note: This story is best viewed in the `canvas` view and by adjusting the size of the window.__
+
+The `Tabs` component is also responsive when oriented vertically. Please note that the navigation buttons described above will not appear
+when the `position` prop is set to `left`.
+
+<Canvas of={TabsStories.ResponsiveVertical} />
 
 ### With string validations summarised
 

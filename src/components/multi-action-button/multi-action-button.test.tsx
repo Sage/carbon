@@ -75,17 +75,21 @@ test("should call 'onClick' when the main button is clicked", async () => {
   expect(onClick).toHaveBeenCalledTimes(1);
 });
 
-test("should open additional buttons when the main button is clicked", async () => {
+test("should open additional buttons when the main button is clicked and focus on the first child", async () => {
   const user = userEvent.setup();
   render(
     <MultiActionButton text="Main Button">
       <Button>First</Button>
+      <Button>Second</Button>
     </MultiActionButton>,
   );
 
   await user.click(screen.getByRole("button", { name: "Main Button" }));
 
-  expect(await screen.findByRole("button", { name: "First" })).toBeVisible();
+  const button = screen.getByRole("button", { name: "First" });
+
+  expect(button).toBeVisible();
+  expect(button).toHaveFocus();
 });
 
 test("should close additional buttons when a child button is clicked", async () => {

@@ -2,8 +2,8 @@ import styled, { css } from "styled-components";
 
 import StyledIcon from "../../../icon/icon.style";
 import StyledValidationIcon from "../../../../__internal__/validations/validation-icon.style";
+
 import { TabTitleProps } from ".";
-import addFocusStyling from "../../../../style/utils/add-focus-styling";
 
 interface StyledTitleContentProps
   extends Pick<
@@ -26,13 +26,10 @@ interface StyledTitleContentProps
   validationRedesignOptIn?: boolean;
 }
 
-const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-`;
-
 const StyledTitleContent = styled.span<StyledTitleContentProps>`
   outline: none;
-  display: inline-flex;
+  display: flex;
+  align-items: flex-start;
   line-height: 20px;
   margin: 0;
   position: relative;
@@ -151,7 +148,7 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
       padding: 10px 16px;
 
       ${borders && `padding-bottom: 9px;`}
-    `} 
+    `}
 
     ${(warning || info) &&
     css`
@@ -180,7 +177,7 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
         border-right-color: transparent;
         padding-right: ${size === "large" ? "26px" : "18px"};
       `}
-      
+
       &:hover {
         outline: 1px solid;
         outline-offset: -1px;
@@ -230,7 +227,7 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
         border-right-color: transparent;
         padding-right: ${size === "large" ? "26px" : "18px"};
       `}
-    
+
       &:hover {
         outline: 2px solid var(--colorsSemanticNegative500);
         outline-offset: -2px;
@@ -342,187 +339,250 @@ const tabTitleStyles = css<
   }) => css`
     height: ${size === "large" ? "var(--sizing600)" : "var(--sizing500)"};
 
-    ${position === "top" &&
-    css`
-      ${borders &&
-      !(noRightBorder || noLeftBorder) &&
+    ${
+      position === "top" &&
       css`
-        &:nth-of-type(n + 1):not(:first-of-type) {
-          margin-left: -1px;
-        }
-        &:first-child {
-          margin-left: 0;
-        }
-      `}
-    `}
-    ${position === "left" &&
-    css`
-      ${borders &&
+        ${borders &&
+        !(noRightBorder || noLeftBorder) &&
+        css`
+          &:nth-of-type(n + 1):not(:first-of-type) {
+            margin-left: -1px;
+          }
+          &:first-child {
+            margin-left: 0;
+          }
+        `}
+      `
+    }
+    ${
+      position === "left" &&
       css`
-        &:nth-of-type(n + 1):not(:first-of-type) {
-          margin-top: -1px;
+        ${borders &&
+        css`
+          &:nth-of-type(n + 1):not(:first-of-type) {
+            margin-top: -1px;
+          }
+          &:first-child {
+            margin-top: 0;
+          }
+        `}
+      `
+    }
+
+    ${
+      !isTabSelected &&
+      css`
+        color: var(--colorsActionMinorYin090);
+        ${validationRedesignOptIn &&
+        css`
+          background: transparent;
+        `}
+
+        &:hover {
+          background: var(--colorsActionMinor100);
+          ${validationRedesignOptIn &&
+          css`
+            background: var(--colorsUtilityMajor100);
+          `}
+          color: var(--colorsActionMinorYin090);
+          outline: none;
         }
+        &:focus {
+          color: var(--colorsActionMinorYin090);
+          outline: none;
+        }
+      `
+    }
+
+    ${
+      isTabSelected &&
+      css`
+        color: var(--colorsActionMajorYin090);
+        background-color: var(--colorsActionMajorYang100);
+
+        ${(error || warning || info) &&
+        css`
+          padding-bottom: 0px;
+        `}
+
+        &:hover {
+          background-color: var(--colorsActionMajorYang100);
+          border-bottom-color: ${alternateStyling
+            ? "var(--colorsActionMinor100)"
+            : "var(--colorsActionMajor500)"};
+          color: var(--colorsActionMajorYin090);
+          cursor: default;
+        }
+      `
+    }
+      &:focus {
+        outline: 4px solid black;
+        top: -2px;
+        z-index: 6;
+
+        > span[data-role="tab-title-content"] {
+          outline:none;
+        }
+
+        ${
+          position === "top"
+            ? css`
+                border-top-left-radius: var(--borderRadius100);
+                border-top-right-radius: var(--borderRadius100);
+              `
+            : css`
+                border-top-left-radius: var(--borderRadius100);
+                border-bottom-left-radius: var(--borderRadius100);
+              `
+        }
+
+        ::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left 0;
+          bottom: 0;
+          right: ${position === "top" ? "0" : "-1px"};
+          outline: 3px solid var(--colorsSemanticFocus500);
+          ${
+            position === "top"
+              ? css`
+                  border-top-left-radius: var(--borderRadius100);
+                  border-top-right-radius: var(--borderRadius100);
+                `
+              : css`
+                  border-top-left-radius: var(--borderRadius100);
+                  border-bottom-left-radius: var(--borderRadius100);
+                `
+          }
+          outline-offset: -2px;
+         z-index: 5;
+        }
+
+        > [data-element="tab-selected-indicator"] {
+         z-index: 4;
+         ${
+           position === "top"
+             ? css`
+                 bottom: 2px;
+                 left: 2px;
+                 right: 1px;
+               `
+             : css`
+                 bottom: 2px;
+                 right: 1px;
+               `
+         }
+        }
+        }
+      }
+    
+    ${
+      position === "left" &&
+      css`
+        background-color: transparent;
+        border-bottom: 0px;
+
+        ${!isInSidebar &&
+        !error &&
+        css`
+          --border-right-value: ${validationRedesignOptIn ? "0px" : "2px"}
+            border-right:
+            ${alternateStyling ? "1px" : "var(--border-right-value)"} solid
+            var(--colorsActionMinor100);
+        `}
+
+        ${!borders &&
+        css`
+          ${StyledTitleContent} {
+            border-bottom: none;
+          }
+        `}
+
+      display: flex;
+        height: auto;
+        margin-left: 0px;
+
         &:first-child {
           margin-top: 0;
         }
-      `}
-    `}
 
-    ${!isTabSelected &&
-    css`
-      color: var(--colorsActionMinorYin090);
-      ${validationRedesignOptIn &&
-      css`
-        background: transparent;
-      `}
-
-      &:hover {
-        background: var(--colorsActionMinor100);
-        ${validationRedesignOptIn &&
-        css`
-          background: var(--colorsUtilityMajor100);
-        `}
-        color: var(--colorsActionMinorYin090);
-        outline: none;
-      }
-      &:focus {
-        color: var(--colorsActionMinorYin090);
-        outline: none;
-      }
-    `}
-
-    ${isTabSelected &&
-    css`
-      color: var(--colorsActionMajorYin090);
-      background-color: var(--colorsActionMajorYang100);
-
-      ${(error || warning || info) &&
-      css`
-        padding-bottom: 0px;
-      `}
-
-      &:hover {
-        background-color: var(--colorsActionMajorYang100);
-        border-bottom-color: ${alternateStyling
-          ? "var(--colorsActionMinor100)"
-          : "var(--colorsActionMajor500)"};
-        color: var(--colorsActionMajorYin090);
-        cursor: default;
-      }
-    `}
-
-    &:focus {
-      ${({ theme }) =>
-        `${
-          !theme.focusRedesignOptOut
-            ? addFocusStyling()
-            : /* istanbul ignore next */ oldFocusStyling
-        }`}
-      z-index: 3;
-
-      ${isInSidebar &&
-      css`
-        outline-offset: -3px;
-      `}
-    }
-
-    ${position === "left" &&
-    css`
-      background-color: transparent;
-      border-bottom: 0px;
-
-      ${!isInSidebar &&
-      !error &&
-      css`
-        --border-right-value: ${validationRedesignOptIn ? "0px" : "2px"}
-          border-right:
-          ${alternateStyling ? "1px" : "var(--border-right-value)"} solid
-          var(--colorsActionMinor100);
-      `}
-
-      ${!borders &&
-      css`
-        ${StyledTitleContent} {
-          border-bottom: none;
+        &:hover {
+          ${alternateStyling &&
+          "border-right-color: var(--colorsActionMinor100)"}
         }
-      `}
 
-      display: flex;
-      height: auto;
-      margin-left: 0px;
+        ${(warning || info) &&
+        css`
+          border-right: none;
+        `}
 
-      &:first-child {
-        margin-top: 0;
-      }
-
-      &:hover {
-        ${alternateStyling && "border-right-color: var(--colorsActionMinor100)"}
-      }
-
-      ${(warning || info) &&
-      css`
-        border-right: none;
-      `}
-
-      ${!isTabSelected &&
-      css`
-        border-right-color: var(--colorsActionMinor100);
-      `}
-
-      ${isTabSelected &&
-      css`
-        ${alternateStyling &&
+        ${!isTabSelected &&
         css`
           border-right-color: var(--colorsActionMinor100);
         `}
 
-        ${!alternateStyling &&
+      ${isTabSelected &&
         css`
-          border-right: none;
-          padding-bottom: 0px;
+          ${alternateStyling &&
+          css`
+            border-right-color: var(--colorsActionMinor100);
+          `}
 
-          ${StyledTitleContent} {
-            ${!(error || warning || info) &&
-            !validationRedesignOptIn &&
-            "margin-right: 2px;"}
+          ${!alternateStyling &&
+          css`
             border-right: none;
-          }
-        `}
-  
+            padding-bottom: 0px;
+
+            ${StyledTitleContent} {
+              ${!(error || warning || info) &&
+              !validationRedesignOptIn &&
+              "margin-right: 2px;"}
+              border-right: none;
+            }
+          `}
+
         background-color: var(--colorsActionMajorYang100);
 
-        &:hover {
-          ${alternateStyling &&
-          "border-right-color: var(--colorsActionMinor100);"}
-          background-color: var(--colorsActionMajorYang100);
-          ${(error || warning || info) &&
-          "border-right-color: var(--colorsSemanticNegative500);"}
-        }
+          &:hover {
+            ${alternateStyling &&
+            "border-right-color: var(--colorsActionMinor100);"}
+            background-color: var(--colorsActionMajorYang100);
+            ${(error || warning || info) &&
+            "border-right-color: var(--colorsSemanticNegative500);"}
+          }
 
-        &:focus {
-          ${(error || warning || info) &&
-          "border-right-color: var(--colorsSemanticNegative500);"}
-        }
-      `}
-    `}
+          &:focus {
+            ${(error || warning || info) &&
+            "border-right-color: var(--colorsSemanticNegative500);"}
+          }
+        `}
+      `
+    }
 
-    ${alternateStyling &&
-    css`
-      &:focus {
-        background-color: var(--colorsActionMinor200);
-      }
-
-      &:hover {
-        background-color: ${isTabSelected
-          ? "var(--colorsActionMinor200)"
-          : "var(--colorsActionMinor250)"};
-      }
-
-      ${isTabSelected &&
+    ${
+      alternateStyling &&
       css`
-        background-color: var(--colorsActionMinor200);
-      `}
-    `}
+        &:focus {
+          background-color: var(--colorsActionMinor200);
+        }
+
+        &:hover {
+          background-color: ${isTabSelected
+            ? "var(--colorsActionMinor200)"
+            : "var(--colorsActionMinor250)"};
+        }
+
+        ${isTabSelected &&
+        css`
+          background-color: var(--colorsActionMinor200);
+        `}
+      `
+    }
+
+    & ${StyledIcon} { {
+      ${validationRedesignOptIn ? "margin-top: 10px;" : "margin-top: 2px;"}
+    }
   `}
 `;
 
@@ -546,7 +606,6 @@ const StyledLayoutWrapper = styled.div<StyledLayoutWrapperProps>`
     hasCustomLayout,
     titlePosition = "before",
     hasCustomSibling,
-    position,
     validationRedesignOptIn,
   }) => css`
     ${hasCustomLayout &&
@@ -627,7 +686,7 @@ const StyledSelectedIndicator = styled.div<StyledSelectedIndicatorProps>`
     `}
     ${position === "top" &&
     css`
-      bottom: 0px;
+      bottom: -1px;
       left: 0px;
       right: 0px;
       box-shadow: inset 0px calc(-1 * var(--sizing050)) 0px
@@ -645,6 +704,12 @@ const StyledSelectedIndicator = styled.div<StyledSelectedIndicatorProps>`
       width: var(--sizing050);
     `}
   `}
+
+  &:focus {
+    bottom: 3px;
+    left: 3px;
+    right: 3px;
+  }
 `;
 
 export {

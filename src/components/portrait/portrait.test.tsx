@@ -5,7 +5,6 @@ import MD5 from "crypto-js/md5";
 import Logger from "../../__internal__/utils/logger";
 import Portrait from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import CarbonProvider from "../carbon-provider";
 
 testStyledSystemMargin(
   (props) => <Portrait data-role="portrait-wrapper" {...props} />,
@@ -39,11 +38,19 @@ test("renders with a gravatar image, if a valid email is passed via the `gravata
   const hash = MD5(email);
   const src = `https://www.gravatar.com/avatar/${hash}?s=40&d=404`;
 
-  render(<Portrait gravatar={email} />);
+  render(<Portrait gravatar={email} alt="foo" />);
 
   const img = screen.getByRole("img");
   expect(img).toBeVisible();
   expect(img).toHaveAttribute("src", src);
+});
+
+test("renders a decorative image, when gravatar prop is provided but alt is not", () => {
+  const email = "chris.barber@sage.com";
+  render(<Portrait gravatar={email} />);
+
+  const decorativeImg = screen.getByAltText("");
+  expect(decorativeImg).toBeVisible();
 });
 
 test("logs a deprecation warning once when the `gravatar` prop is passed, and a gravatar loads", () => {
@@ -53,8 +60,8 @@ test("logs a deprecation warning once when the `gravatar` prop is passed, and a 
 
   render(
     <>
-      <Portrait gravatar="chris.barber@sage.com" />
-      <Portrait gravatar="chris.barber@sage.com" />
+      <Portrait gravatar="chris.barber@sage.com" alt="foo" />
+      <Portrait gravatar="chris.barber@sage.com" alt="foo" />
     </>,
   );
 
@@ -75,7 +82,7 @@ test("if a valid gravatar email is not found and an onError event is triggered, 
   const email = "invalid.email@1973";
   const hash = MD5(email);
   const src = `https://www.gravatar.com/avatar/${hash}?s=40&d=404`;
-  render(<Portrait gravatar={email} />);
+  render(<Portrait gravatar={email} alt="foo" />);
 
   const img = screen.getByRole("img");
   expect(img).toBeVisible();
@@ -89,24 +96,31 @@ test("if a valid gravatar email is not found and an onError event is triggered, 
   );
 });
 
-test("renders with a custom image, if a valid src is passed via the `src` prop", () => {
+test("renders a custom image with the correct src and alt attributes", () => {
+  const src = "https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg";
+  render(<Portrait src={src} alt="Movie poster of Heat" />);
+
+  const image = screen.getByAltText("Movie poster of Heat");
+  expect(image).toHaveAttribute("src", src);
+});
+
+test("renders a decorative image, when src prop is provided but alt is not", () => {
   const src = "https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg";
   render(<Portrait src={src} />);
 
-  const img = screen.getByRole("img");
-  expect(img).toBeVisible();
-  expect(img).toHaveAttribute("src", src);
+  const decorativeImg = screen.getByAltText("");
+  expect(decorativeImg).toBeVisible();
 });
 
 test("if a valid src is not found and an onError event is triggered, the default individual icon is rendered", async () => {
   const src = "not-a-url";
-  render(<Portrait src={src} />);
+  render(<Portrait src={src} alt="foobar" />);
 
-  const img = screen.getByRole("img");
-  expect(img).toBeVisible();
-  expect(img).toHaveAttribute("src", src);
+  const image = screen.getByAltText("foobar");
+  expect(image).toBeVisible();
+  expect(image).toHaveAttribute("src", src);
 
-  fireEvent.error(img);
+  fireEvent.error(image);
 
   await waitFor(() => expect(screen.getByTestId("icon")).toBeVisible());
   await waitFor(() =>
@@ -127,14 +141,6 @@ test("when both the `gravatar` and `src` props are passed simultaneously, an inv
   consoleSpy.mockRestore();
 });
 
-test("allows the alt attribute to be set, via the `alt` prop", () => {
-  const src = "https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg";
-  render(<Portrait src={src} alt="custom-alt" />);
-
-  const alt = screen.getByAltText("custom-alt");
-  expect(alt).toBeVisible();
-});
-
 test("renders with a square shape, if the `shape` prop is value is `square`", () => {
   render(<Portrait data-role="portrait" shape="square" />);
 
@@ -149,18 +155,6 @@ test("renders with a circle shape, if the `shape` prop is value is `circle`", ()
   const portrait = screen.getByTestId("portrait");
   expect(portrait).toHaveAttribute("shape", "circle");
   expect(portrait).toHaveStyle("border-radius: var(--borderRadiusCircle)");
-});
-
-test("if a consumer opts out to rounded corners, the `Portrait` shape is a square", () => {
-  render(
-    <CarbonProvider roundedCornersOptOut>
-      <Portrait data-role="portrait" />
-    </CarbonProvider>,
-  );
-
-  const portrait = screen.getByTestId("portrait");
-  expect(portrait).toHaveAttribute("shape", "square");
-  expect(portrait).toHaveStyle("border-radius: 0px");
 });
 
 test("renders a tooltip, populated with a custom value that is passed to the 'tooltipMessage' prop", async () => {

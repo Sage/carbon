@@ -34,6 +34,7 @@ import {
   WithRenderCloseButtonComponent,
   PopoverContainerComponentCoverButton,
   PopoverContainerFocusOrder,
+  WithRadioButtons,
 } from "../popover-container/components.test-pw";
 import Portrait from "../portrait";
 
@@ -278,9 +279,9 @@ test.describe("Check props of Popover Container component", () => {
       );
       const positionY = await getYValue(popoverContainerContentElement);
 
-      await expect(positionBottom).toBeLessThan(bottomValueMin);
-      await expect(positionTop).toBeLessThan(yAndTopValueMin);
-      await expect(positionY).toBeLessThan(yAndTopValueMin);
+      expect(positionBottom).toBeLessThan(bottomValueMin);
+      expect(positionTop).toBeLessThan(yAndTopValueMin);
+      expect(positionY).toBeLessThan(yAndTopValueMin);
     });
   });
 
@@ -399,7 +400,7 @@ test.describe("Check props of Popover Container component", () => {
       const popoverSettingsIconElement = popoverSettingsIcon(page);
       await popoverSettingsIconElement.click();
 
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
 
     keysToTrigger.forEach((key) => {
@@ -419,7 +420,7 @@ test.describe("Check props of Popover Container component", () => {
         const popoverSettingsIconElement = popoverSettingsIcon(page);
         await popoverSettingsIconElement.press(key);
 
-        await expect(callbackCount).toBe(1);
+        expect(callbackCount).toBe(1);
       });
     });
 
@@ -440,7 +441,7 @@ test.describe("Check props of Popover Container component", () => {
       const popoverCloseIconElement = popoverCloseIcon(page);
       await popoverCloseIconElement.click();
 
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
 
     keysToTrigger.forEach((key) => {
@@ -461,7 +462,7 @@ test.describe("Check props of Popover Container component", () => {
         const popoverCloseIconElement = popoverCloseIcon(page);
         await popoverCloseIconElement.press(key);
 
-        await expect(callbackCount).toBe(1);
+        expect(callbackCount).toBe(1);
       });
     });
 
@@ -482,7 +483,7 @@ test.describe("Check props of Popover Container component", () => {
       const popoverContainerElement = popoverContainerComponent(page);
       await popoverContainerElement.press("Escape");
 
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
 
     test("should call onClose callback when a click event is triggered outside the container", async ({
@@ -501,7 +502,7 @@ test.describe("Check props of Popover Container component", () => {
 
       await page.locator("body").click();
 
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
 
     test("should not call onClose callback when a click event is triggered outside the container and the container is closed", async ({
@@ -520,7 +521,7 @@ test.describe("Check props of Popover Container component", () => {
 
       await page.locator("body").click();
 
-      await expect(callbackCount).toBe(0);
+      expect(callbackCount).toBe(0);
     });
 
     test("should focus the next element after the open button when user tabs and last element in the container is focused", async ({
@@ -622,6 +623,25 @@ test.describe("Check props of Popover Container component", () => {
     await expect(closeButton).toBeFocused();
     await page.keyboard.press("Shift+Tab");
     await expect(third).toBeFocused();
+  });
+
+  test("should focus the next focusable element outside of the container once finished keyboard navigating through the container's content", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithRadioButtons />);
+
+    const openButton = page.getByRole("button", { name: "open" });
+    const container = popoverContainerContent(page);
+    const additionalButton = page.getByRole("button", { name: "foo" });
+
+    await openButton.click();
+    await page.keyboard.press("Tab"); // focus on first radio button
+    await page.keyboard.press("Tab"); // focus on close icon
+    await page.keyboard.press("Tab"); // focus outside of container and on to additional button
+
+    await expect(container).not.toBeVisible();
+    await expect(additionalButton).toBeFocused();
   });
 
   test.describe("Accessibility tests", () => {

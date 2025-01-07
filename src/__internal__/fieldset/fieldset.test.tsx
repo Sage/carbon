@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { act, render, screen, within } from "@testing-library/react";
 import Fieldset from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
@@ -75,6 +75,38 @@ test("renders validation icon when `legend` and `info` are provided", () => {
   const icon = screen.getByTestId("icon-info");
 
   expect(icon).toBeVisible();
+});
+
+test("renders help icon when `labelHelp` is provided", () => {
+  render(
+    <Fieldset legend="Legend" labelHelp="label help">
+      <input />
+    </Fieldset>,
+  );
+
+  const help = screen.getByRole("button", { name: "help" });
+
+  expect(help).toBeVisible();
+});
+
+// coverage - tested in Help component
+test("sets `aria-describedby` on help icon as tooltip content when focused and removes it on blur", () => {
+  render(
+    <Fieldset legend="Legend" labelHelp="label help">
+      <input />
+    </Fieldset>,
+  );
+  const help = screen.getByRole("button", { name: "help" });
+
+  act(() => {
+    help.focus();
+  });
+  expect(help).toHaveAccessibleDescription("label help");
+
+  act(() => {
+    help.blur();
+  });
+  expect(help).not.toHaveAttribute("aria-describedby");
 });
 
 // coverage

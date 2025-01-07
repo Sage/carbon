@@ -68,7 +68,7 @@ const MockComponent = ({
   );
 };
 
-// temporatrily running timers on every spec as we have issues
+// temporarily running timers on every spec as we have issues
 // around how slow the tests that open the calendar are.
 // FE-6724 raised to investigate and implement a better solution
 beforeAll(() => {
@@ -479,23 +479,21 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
 test("should not close the picker or call the `onChange` and `onBlur` callbacks when the user clicks on a disabled day", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
-  const onBlur = jest.fn();
   render(
     <DateInput
       onChange={onChange}
-      onBlur={onBlur}
       value="04/04/2019"
       minDate="2019-04-04"
+      maxDate="2019-05-31"
     />,
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
   jest.advanceTimersByTime(10);
-  await user.click(screen.getByRole("gridcell", { name: "Wed 3 Apr 2019" }));
+  await user.click(screen.getByLabelText("Wednesday, April 3rd, 2019"));
 
   expect(screen.queryByRole("grid")).toBeVisible();
   expect(onChange).not.toHaveBeenCalled();
-  expect(onBlur).not.toHaveBeenCalled();
 });
 
 test("should close the open picker when a user presses the 'Escape' key", async () => {
@@ -609,7 +607,7 @@ test("should focus the next button and then the selected day element when the us
   expect(screen.getByRole("button", { name: "Next month" })).toHaveFocus();
   await user.tab();
   expect(
-    screen.getByRole("gridcell", { name: "Thu 4 Apr 2019" }),
+    screen.getByLabelText("Thursday, April 4th, 2019", { exact: false }),
   ).toHaveFocus();
   await user.tab();
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
@@ -621,10 +619,12 @@ test("should close the picker, update the value and refocus the input element wh
   const input = screen.getByRole("textbox");
   await user.click(input);
   jest.advanceTimersByTime(10);
-  await user.click(screen.getByRole("gridcell", { name: "Thu 11 Apr 2019" }));
+  await user.click(screen.getByLabelText("Thursday, April 11th, 2019"));
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
-  expect(input).toHaveFocus();
+  await waitFor(() => {
+    expect(input).toHaveFocus();
+  });
   expect(input).toHaveValue("11/04/2019");
 });
 
@@ -1668,6 +1668,6 @@ test("should select the correct date when the locale is overridden and a date is
   await user.type(input, "05/04");
   jest.advanceTimersByTime(10);
 
-  const grid = screen.getByRole("grid").childNodes[0].textContent;
-  expect(grid).toEqual("April 2019");
+  const caption = screen.getByRole("status");
+  expect(caption).toHaveTextContent("April 2019");
 });

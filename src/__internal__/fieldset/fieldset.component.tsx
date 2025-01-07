@@ -5,11 +5,13 @@ import {
   StyledFieldset,
   StyledLegend,
   StyledLegendContent,
+  StyledIconWrapper,
 } from "./fieldset.style";
 import ValidationIcon from "../validations/validation-icon.component";
 import NewValidationContext from "../../components/carbon-provider/__internal__/new-validation.context";
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
+import Help from "../../components/help";
 
 export interface FieldsetProps extends MarginProps {
   /** Role */
@@ -54,6 +56,10 @@ export interface FieldsetProps extends MarginProps {
   name?: string;
   /** Set an id value on the component */
   id?: string;
+  /** Content for the Help tooltip */
+  labelHelp?: React.ReactNode;
+  /** Id for the validation icon tooltip */
+  validationId?: string;
 }
 
 const Fieldset = ({
@@ -71,11 +77,14 @@ const Fieldset = ({
   legendMargin = {},
   isDisabled,
   isOptional,
+  labelHelp,
+  validationId,
   ...rest
 }: FieldsetProps) => {
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const marginProps = useFormSpacing(rest);
   const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
+  const [isFocused, setFocus] = useState(false);
 
   useEffect(() => {
     if (ref && isRequired) {
@@ -86,6 +95,37 @@ const Fieldset = ({
       });
     }
   }, [ref, isRequired]);
+
+  const tooltipIcon = () => {
+    if (error || warning || info) {
+      return (
+        <StyledIconWrapper>
+          <ValidationIcon
+            error={error}
+            warning={warning}
+            info={info}
+            tooltipFlipOverrides={["top", "bottom"]}
+            tooltipId={validationId}
+          />
+        </StyledIconWrapper>
+      );
+    }
+
+    const helpProps = {
+      onFocus: () => setFocus(true),
+      onBlur: () => setFocus(false),
+    };
+
+    if (labelHelp) {
+      return (
+        <StyledIconWrapper {...helpProps}>
+          <Help isFocused={isFocused}>{labelHelp}</Help>
+        </StyledIconWrapper>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
@@ -115,14 +155,7 @@ const Fieldset = ({
                   isDisabled={isDisabled}
                 >
                   {legend}
-                  {!validationRedesignOptIn && (
-                    <ValidationIcon
-                      error={error}
-                      warning={warning}
-                      info={info}
-                      tooltipFlipOverrides={["top", "bottom"]}
-                    />
-                  )}
+                  {!validationRedesignOptIn && tooltipIcon()}
                 </StyledLegendContent>
               </StyledLegend>
             )}

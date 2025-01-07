@@ -1,6 +1,7 @@
 import React from "react";
 import { expect, test } from "@playwright/experimental-ct-react17";
 import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
 import {
   DateInputCustom,
   DateInputValidationNewDesign,
@@ -17,9 +18,10 @@ import {
 import {
   verifyRequiredAsteriskForLabel,
   assertCssValueIsApproximately,
-  checkGoldenOutline,
   checkAccessibility,
   getStyle,
+  toBeFocusedDelayed,
+  containsClass,
 } from "../../../playwright/support/helper";
 import {
   SIZE,
@@ -33,9 +35,11 @@ import {
 import { HooksConfig } from "../../../playwright";
 import { alertDialogPreview } from "../../../playwright/components/dialog";
 
+dayjs.extend(advancedFormat);
+
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const DAY_PICKER_PREFIX = "DayPicker-Day--";
-const TODAY = dayjs().format("ddd D MMM YYYY");
+const DAY_PICKER_PREFIX = "rdp-";
+const TODAY = dayjs().format("dddd, MMMM Do, YYYY");
 const DATE_INPUT = dayjs("2022-05-01").format("DD/MM/YYYY");
 const TODAY_DATE_INPUT = dayjs().format("DD/MM/YYYY");
 const NEXT_MONTH = dayjs("2022-05-01").add(1, "months").format("MMMM YYYY");
@@ -44,8 +48,8 @@ const PREVIOUS_MONTH = dayjs("2022-05-01")
   .subtract(1, "months")
   .format("MMMM YYYY");
 const MIN_DATE = "04/04/2030";
-const DAY_BEFORE_MIN_DATE = "Wed 3 Apr 2030";
-const DAY_AFTER_MAX_DATE = "Fri 5 Apr 2030";
+const DAY_BEFORE_MIN_DATE = "Wednesday, April 3rd, 2030";
+const DAY_AFTER_MAX_DATE = "Friday, April 5th, 2030";
 const DDMMYYY_DATE_TO_ENTER = "27,05,2022";
 const MMDDYYYY_DATE_TO_ENTER = "05,27,2022";
 const YYYYMMDD_DATE_TO_ENTER = "2022,05,27";
@@ -104,11 +108,10 @@ test.describe("Functionality tests", () => {
     const input = getDataElementByValue(page, "input");
     await input.fill(MIN_DATE);
 
-    const dayPicker = page
-      .getByRole("row")
-      .locator(`div[aria-label="${DAY_BEFORE_MIN_DATE}"]`);
-    await expect(dayPicker).toHaveAttribute("aria-disabled", "true");
-    await expect(dayPicker).toHaveAttribute("aria-selected", "false");
+    const dayPicker = page.locator(
+      `button[aria-label="${DAY_BEFORE_MIN_DATE}"]`,
+    );
+    await expect(dayPicker).toHaveAttribute("disabled", "");
   });
 
   test(`should check the maxDate prop`, async ({ mount, page }) => {
@@ -117,11 +120,10 @@ test.describe("Functionality tests", () => {
     const input = getDataElementByValue(page, "input");
     await input.fill(MIN_DATE);
 
-    const dayPicker = page
-      .getByRole("row")
-      .locator(`div[aria-label="${DAY_AFTER_MAX_DATE}"]`);
-    await expect(dayPicker).toHaveAttribute("aria-disabled", "true");
-    await expect(dayPicker).toHaveAttribute("aria-selected", "false");
+    const dayPicker = page.locator(
+      `button[aria-label="${DAY_AFTER_MAX_DATE}"]`,
+    );
+    await expect(dayPicker).toHaveAttribute("disabled", "");
   });
 
   test(`should check the date is set to today's day`, async ({
@@ -130,15 +132,17 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom />);
 
-    const dayClass = `DayPicker-Day ${DAY_PICKER_PREFIX}selected ${DAY_PICKER_PREFIX}today`;
+    const dayClass = `rdp-day rdp-today`;
     const input = getDataElementByValue(page, "input");
     await input.fill(TODAY_DATE_INPUT);
 
-    const dayPicker = page
-      .getByRole("row")
-      .locator(`div[aria-label="${TODAY}"]`);
-    await expect(dayPicker).toHaveAttribute("aria-label", TODAY);
-    await expect(dayPicker).toHaveClass(dayClass);
+    const todayButton = page.getByRole("button", { name: `Today, ${TODAY}` });
+    const todayCell = page.getByRole("gridcell").filter({
+      has: todayButton,
+    });
+
+    await expect(todayButton).toBeVisible();
+    await containsClass(todayCell, dayClass);
   });
 
   test(`should open dayPicker after click on input`, async ({
@@ -202,7 +206,7 @@ test.describe("Functionality tests", () => {
 
       const inputParent = getDataElementByValue(page, "input").locator("..");
       await inputParent.click();
-      const wrapperParent = dayPickerWrapper(page).locator("..").locator("..");
+      const wrapperParent = dayPickerWrapper(page).locator("..");
       await expect(wrapperParent).toHaveAttribute(
         "data-floating-placement",
         `${position}-start`,
@@ -293,7 +297,7 @@ test.describe("Functionality tests", () => {
     );
     await expect(arrowRight).toBeFocused();
     await page.keyboard.press("Tab");
-    const dayPicker = page.locator(`.${DAY_PICKER_PREFIX}selected`);
+    const dayPicker = page.locator(`.rdp-selected`).locator("button");
     await expect(dayPicker).toBeFocused();
   });
 
@@ -316,7 +320,9 @@ test.describe("Functionality tests", () => {
     );
     await expect(arrowRight).toBeFocused();
     await page.keyboard.press("Tab");
-    const dayPicker = page.locator(`.${DAY_PICKER_PREFIX}selected`);
+    const dayPicker = page
+      .locator(`.${DAY_PICKER_PREFIX}selected`)
+      .locator("button");
     await expect(dayPicker).toBeFocused();
     await page.keyboard.press("Tab");
     const wrapper = dayPickerWrapper(page);
@@ -336,8 +342,10 @@ test.describe("Functionality tests", () => {
     await page.keyboard.press("Tab");
     await page.keyboard.press("Tab");
     await page.keyboard.press("Tab");
-    const dayPicker = page.locator(`.${DAY_PICKER_PREFIX}today`);
-    await expect(dayPicker).toBeFocused();
+    const dayPicker = page
+      .locator(`.${DAY_PICKER_PREFIX}today`)
+      .locator("button");
+    await toBeFocusedDelayed(dayPicker);
     await page.keyboard.press("Tab");
     const wrapper = dayPickerWrapper(page);
     await expect(wrapper).toHaveCount(0);
@@ -347,7 +355,7 @@ test.describe("Functionality tests", () => {
     mount,
     page,
   }) => {
-    await mount(<DateInputCustom />);
+    await mount(<DateInputCustom value="14/04/2022" />);
 
     await page.focus("body");
     await page.keyboard.press("Tab");
@@ -356,70 +364,62 @@ test.describe("Functionality tests", () => {
     await page.keyboard.press("Tab");
     await page.keyboard.press(arrowKeys[3]);
     const focusedElement1 = page
-      .getByRole("row")
-      .nth(2)
-      .locator("div")
-      .filter({ hasText: "8" });
-    await expect(focusedElement1).toBeFocused();
+      .locator(`.${DAY_PICKER_PREFIX}focused`)
+      .locator("button")
+      .filter({ hasText: "21" });
+    await toBeFocusedDelayed(focusedElement1);
     await page.keyboard.press(arrowKeys[3]);
     const focusedElement2 = page
-      .getByRole("row")
-      .nth(3)
-      .locator("div")
-      .filter({ hasText: "15" });
-    await expect(focusedElement2).toBeFocused();
+      .locator(`.${DAY_PICKER_PREFIX}focused`)
+      .locator("button")
+      .filter({ hasText: "28" });
+    await toBeFocusedDelayed(focusedElement2);
 
     await page.keyboard.press(arrowKeys[1]);
     const focusedElement3 = page
-      .getByRole("row")
-      .nth(3)
-      .locator("div")
-      .filter({ hasText: "14" });
-    await expect(focusedElement3).toBeFocused();
+      .locator(`.${DAY_PICKER_PREFIX}focused`)
+      .locator("button")
+      .filter({ hasText: "27" });
+    await toBeFocusedDelayed(focusedElement3);
     await page.keyboard.press(arrowKeys[1]);
     const focusedElement4 = page
-      .getByRole("row")
-      .nth(3)
-      .locator("div")
-      .filter({ hasText: "13" });
-    await expect(focusedElement4).toBeFocused();
+      .locator(`.${DAY_PICKER_PREFIX}focused`)
+      .locator("button")
+      .filter({ hasText: "26" });
+    await toBeFocusedDelayed(focusedElement4);
 
     await page.keyboard.press(arrowKeys[0]);
     const focusedElement5 = page
-      .getByRole("row")
-      .nth(3)
-      .locator("div")
-      .filter({ hasText: "14" });
-    await expect(focusedElement5).toBeFocused();
+      .locator(`.${DAY_PICKER_PREFIX}focused`)
+      .locator("button")
+      .filter({ hasText: "27" });
+    await toBeFocusedDelayed(focusedElement5);
     await page.keyboard.press(arrowKeys[0]);
     const focusedElement6 = page
-      .getByRole("row")
-      .nth(3)
-      .locator("div")
-      .filter({ hasText: "15" });
-    await expect(focusedElement6).toBeFocused();
+      .locator(`.${DAY_PICKER_PREFIX}focused`)
+      .locator("button")
+      .filter({ hasText: "28" });
+    await toBeFocusedDelayed(focusedElement6);
 
     await page.keyboard.press(arrowKeys[2]);
     const focusedElement7 = page
-      .getByRole("row")
-      .nth(2)
-      .locator("div")
-      .filter({ hasText: "8" });
-    await expect(focusedElement7).toBeFocused();
+      .locator(`.${DAY_PICKER_PREFIX}focused`)
+      .locator("button")
+      .filter({ hasText: "21" });
+    await toBeFocusedDelayed(focusedElement7);
     await page.keyboard.press(arrowKeys[2]);
     const focusedElement8 = page
-      .getByRole("row")
-      .nth(1)
-      .locator("div")
-      .filter({ hasText: "1" });
-    await expect(focusedElement8).toBeFocused();
+      .locator(`.${DAY_PICKER_PREFIX}focused`)
+      .locator("button")
+      .filter({ hasText: "14" });
+    await toBeFocusedDelayed(focusedElement8);
   });
 
   test(`should navigate to the previous month when left arrow pressed on first day element of a month`, async ({
     mount,
     page,
   }) => {
-    await mount(<DateInputCustom />);
+    await mount(<DateInputCustom value="14/04/2022" />);
 
     await page.focus("body");
     await page.keyboard.press("Tab");
@@ -428,11 +428,10 @@ test.describe("Functionality tests", () => {
     await page.keyboard.press("Tab");
     await page.keyboard.press(arrowKeys[1]);
     const focusedElement = page
-      .getByRole("row")
-      .nth(5)
-      .locator("div")
-      .filter({ hasText: "30" });
-    await expect(focusedElement).toBeFocused();
+      .locator(`.${DAY_PICKER_PREFIX}focused`)
+      .locator("button")
+      .filter({ hasText: "13" });
+    await toBeFocusedDelayed(focusedElement);
     const pickerHeading = dayPickerHeading(page);
     await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
   });
@@ -460,18 +459,16 @@ test.describe("Functionality tests", () => {
       await page.keyboard.press(arrowKeys[2]);
       if (day === "1") {
         const focusedElement = page
-          .getByRole("row")
-          .nth(4)
-          .locator("div")
+          .locator(`.${DAY_PICKER_PREFIX}focused`)
+          .locator("button")
           .filter({ hasText: result });
-        await expect(focusedElement).toBeFocused();
+        await toBeFocusedDelayed(focusedElement);
       } else {
         const focusedElement = page
-          .getByRole("row")
-          .nth(5)
-          .locator("div")
+          .locator(`.${DAY_PICKER_PREFIX}focused`)
+          .locator("button")
           .filter({ hasText: result });
-        await expect(focusedElement).toBeFocused();
+        await toBeFocusedDelayed(focusedElement);
       }
       const pickerHeading = dayPickerHeading(page);
       await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
@@ -501,20 +498,18 @@ test.describe("Functionality tests", () => {
       await page.keyboard.press(arrowKeys[3]);
       if (day === "30" || day === "31") {
         const focusedElement = page
-          .getByRole("row")
-          .nth(2)
-          .locator("div")
+          .locator(`.${DAY_PICKER_PREFIX}focused`)
+          .locator("button")
           .filter({ hasText: result });
-        await expect(focusedElement).toBeFocused();
+        await toBeFocusedDelayed(focusedElement);
       } else {
         const focusedElement = page
-          .getByRole("row")
-          .nth(1)
-          .locator("div")
+          .locator(`.${DAY_PICKER_PREFIX}focused`)
+          .locator("button")
           .filter({ hasText: result })
           .filter({ hasNotText: "30" })
           .filter({ hasNotText: "31" });
-        await expect(focusedElement).toBeFocused();
+        await toBeFocusedDelayed(focusedElement);
       }
       const pickerHeading = dayPickerHeading(page);
       await expect(pickerHeading).toHaveText(NEXT_MONTH);
@@ -526,7 +521,7 @@ test.describe("Functionality tests", () => {
       mount,
       page,
     }) => {
-      await mount(<DateInputCustom />);
+      await mount(<DateInputCustom value="14/04/2022" />);
 
       await page.focus("body");
       await page.keyboard.press("Tab");
@@ -535,14 +530,13 @@ test.describe("Functionality tests", () => {
       await page.keyboard.press("Tab");
       await page.keyboard.press(arrowKeys[1]);
       const focusedElement = page
-        .getByRole("row")
-        .nth(5)
-        .locator("div")
-        .filter({ hasText: "30" });
-      await expect(focusedElement).toBeFocused();
+        .locator(`.${DAY_PICKER_PREFIX}focused`)
+        .locator("button")
+        .filter({ hasText: "13" });
+      await toBeFocusedDelayed(focusedElement);
       await page.keyboard.press(key);
       await expect(getDataElementByValue(page, "input")).toHaveValue(
-        "30/04/2022",
+        "13/04/2022",
       );
     });
   });
@@ -606,12 +600,11 @@ test.describe("Functionality tests", () => {
     await page.keyboard.press("Tab");
     await page.keyboard.press(arrowKeys[0]);
     const focusedElement = page
-      .getByRole("row")
-      .nth(1)
-      .locator("div")
+      .locator(`.${DAY_PICKER_PREFIX}focused`)
+      .locator("button")
       .filter({ hasText: "1" })
       .filter({ hasNotText: "31" });
-    await expect(focusedElement).toBeFocused();
+    await toBeFocusedDelayed(focusedElement);
     const pickerHeading = dayPickerHeading(page);
     await expect(pickerHeading).toHaveText(NEXT_MONTH);
   });
@@ -752,17 +745,17 @@ test.describe("Functionality tests", () => {
 
     const input = getDataElementByValue(page, "input");
     await input.click();
-    const months = page.locator("div[class=DayPicker-Month]");
+    const months = page.locator("div[class=rdp-month]");
     await expect(months).toHaveCount(2);
     const pickerHeading1 = page
-      .locator(".DayPicker-Caption")
-      .locator("div")
+      .locator(".rdp-month_caption")
+      .locator("span")
       .nth(0);
     await expect(pickerHeading1).toBeVisible();
     await expect(pickerHeading1).toHaveText(ACTUAL_MONTH);
     const pickerHeading2 = page
-      .locator(".DayPicker-Caption")
-      .locator("div")
+      .locator(".rdp-month_caption")
+      .locator("span")
       .nth(1);
     await expect(pickerHeading2).toBeVisible();
     await expect(pickerHeading2).toHaveText(NEXT_MONTH);
@@ -836,9 +829,11 @@ test.describe("Functionality tests", () => {
     const input = getDataElementByValue(page, "input");
     await input.click();
     await expect(input).toHaveCSS("border-radius", "4px");
-    const dayPicker1 = page.getByLabel("Sun 1 May 2022");
+    const dayPicker1 = page
+      .getByLabel("Sunday, May 1st, 2022, selected")
+      .locator("..");
     await expect(dayPicker1).toHaveCSS("border-radius", "32px");
-    const dayPicker2 = page.getByLabel("Mon 2 May 2022");
+    const dayPicker2 = page.getByLabel("Monday, May 2nd, 2022").locator("..");
     await expect(dayPicker2).toHaveCSS("border-radius", "32px");
     const dayPickerNavButton1 = page.getByLabel("Previous month");
     await expect(dayPickerNavButton1).toHaveCSS("border-radius", "4px");
@@ -846,42 +841,11 @@ test.describe("Functionality tests", () => {
     await expect(dayPickerNavButton2).toHaveCSS("border-radius", "4px");
   });
 
-  test(`should have the expected styling when opt out flag is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<DateInputCustom />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await page.focus("body");
-    await page.keyboard.press("Tab");
-    const inputParent = getDataElementByValue(page, "input").locator("..");
-    await checkGoldenOutline(inputParent);
-    const dayPicker1 = page.getByLabel("Sun 1 May 2022");
-    await dayPicker1.focus();
-    await checkGoldenOutline(dayPicker1);
-    const dayPicker2 = page.getByLabel("Mon 2 May 2022");
-    await dayPicker2.focus();
-    await checkGoldenOutline(dayPicker2);
-    const dayPickerNavButton1 = page.getByLabel("Previous month");
-    await dayPickerNavButton1.focus();
-    await checkGoldenOutline(dayPickerNavButton1);
-    const dayPickerNavButton2 = page.getByLabel("Next month");
-    await dayPickerNavButton2.focus();
-    await checkGoldenOutline(dayPickerNavButton2);
-  });
-
-  test(`should have the expected styling when opt out flag is false`, async ({
-    mount,
-    page,
-  }) => {
+  test(`should have the expected focus styling`, async ({ mount, page }) => {
     await mount(<DateInputCustom />);
 
     await page.focus("body");
     await page.keyboard.press("Tab");
-    const wrapperParent = dayPickerWrapper(page).locator("..").locator("..");
-    await expect(wrapperParent).toHaveCSS("margin-top", "4px");
     const inputParent = getDataElementByValue(page, "input").locator("..");
     await expect(inputParent).toHaveCSS(
       "box-shadow",
@@ -891,40 +855,48 @@ test.describe("Functionality tests", () => {
       "outline",
       "rgba(0, 0, 0, 0) solid 3px",
     );
-    const dayPicker1 = page.getByLabel("Sun 1 May 2022");
+
+    await page.keyboard.press("Tab");
+    const dayPickerNavButton1 = page.getByLabel("Previous month");
+    await dayPickerNavButton1.focus();
+    await expect(dayPickerNavButton1).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
+    await expect(dayPickerNavButton1).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
+
+    await page.keyboard.press("Tab");
+    const dayPickerNavButton2 = page.getByLabel("Next month");
+    await dayPickerNavButton2.focus();
+    await expect(dayPickerNavButton2).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
+    await expect(dayPickerNavButton2).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
+
+    await page.keyboard.press("Tab");
+    const dayPicker1 = page.getByLabel("Sunday, May 1st, 2022").locator("..");
     await dayPicker1.focus();
     await expect(dayPicker1).toHaveCSS(
       "box-shadow",
       "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
     );
     await expect(dayPicker1).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
-    const dayPicker2 = page.getByLabel("Mon 2 May 2022");
+
+    await page.keyboard.press("ArrowRight");
+    const dayPicker2 = page.getByLabel("Monday, May 2nd, 2022").locator("..");
     await dayPicker2.focus();
     await expect(dayPicker2).toHaveCSS(
       "box-shadow",
       "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
     );
     await expect(dayPicker2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
-    const dayPickerNavButton1 = page.getByLabel("Previous month");
-    await dayPickerNavButton1.focus();
-    await expect(dayPickerNavButton1).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(dayPickerNavButton1).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-    const dayPickerNavButton2 = page.getByLabel("Next month");
-    await dayPickerNavButton2.focus();
-    await expect(dayPickerNavButton2).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(dayPickerNavButton2).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
   });
 
   (["top", "bottom", "left", "right"] as const).forEach((position) => {

@@ -279,7 +279,7 @@ const FocusTrap = ({
     onFocus: updateCurrentFocusedElement,
   });
 
-  // passes focusProps, sets tabIndex and onBlur if no tabIndex has been expicitly set on child
+  // passes focusProps, sets tabIndex and onBlur if no tabIndex has been explicitly set on child
   const clonedChildren = React.Children.map(children, (child) => {
     const focusableChild = child as React.ReactElement;
     return React.cloneElement(

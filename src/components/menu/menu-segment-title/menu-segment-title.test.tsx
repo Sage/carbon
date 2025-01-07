@@ -10,11 +10,15 @@ import MenuContext, {
 import { MenuItem } from "..";
 import menuConfigVariants from "../menu.config";
 
-const menuContextValues = (menuType: MenuType): MenuContextProps => ({
+const menuContextValues = (
+  menuType: MenuType,
+  inFullscreenView = false,
+): MenuContextProps => ({
   menuType,
   setOpenSubmenuId: () => null,
   openSubmenuId: null,
   inMenu: true,
+  inFullscreenView,
 });
 
 test("should render with correct colour when 'light' `menuType` received from context", async () => {
@@ -384,4 +388,19 @@ test("should wrap when the submenu parent has a max-width set", async () => {
   expect(
     await screen.findByRole("heading", { level: 2, name: "Title" }),
   ).toHaveStyle("white-space: normal");
+});
+
+// coverage
+test("should set the correct colour when a child of `MenuSegmentTitle` and `variant` is 'alternate'", async () => {
+  render(
+    <MenuContext.Provider value={menuContextValues("black", true)}>
+      <MenuSegmentTitle text="Title" variant="alternate">
+        <MenuItem variant="alternate">Item One</MenuItem>
+      </MenuSegmentTitle>
+    </MenuContext.Provider>,
+  );
+
+  expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
+    backgroundColor: menuConfigVariants.black.alternate,
+  });
 });

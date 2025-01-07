@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import useMediaQuery from "../../hooks/useMediaQuery";
 
 import { Checkbox } from "../checkbox";
 import Pill from "../pill";
@@ -2312,14 +2311,6 @@ WithStringValidationsSummarised.parameters = {
 };
 
 export const Responsive: Story = () => {
-  const fullscreenViewBreakPoint = useMediaQuery("(max-width: 900px)");
-
-  let position: "top" | "left" = "top";
-
-  if (fullscreenViewBreakPoint) {
-    position = "left";
-  }
-
   const tabsData = Array(20)
     .fill(0)
     .map((_, index) => ({
@@ -2331,12 +2322,104 @@ export const Responsive: Story = () => {
 
   return (
     <Box p="4px">
-      <Tabs align="left" position={position}>
+      <Tabs align="left" position="top">
         {tabsData.map((tabData) => (
-          <Tab {...tabData} key={tabData.key} />
+          <Tab role="tab" {...tabData} key={tabData.key}>
+            {tabData.content}
+          </Tab>
         ))}
       </Tabs>
     </Box>
   );
 };
-Responsive.storyName = "Responsive";
+Responsive.storyName = "Responsive - Horizontal";
+
+export const ResponsiveValidation: Story = () => {
+  const tabsData = Array(20)
+    .fill(0)
+    .map((_, index) => ({
+      tabId: `tab-${index + 1}`,
+      title: `Tab ${index + 1}`,
+      key: `tab-${index + 1}`,
+      content: `Content for tab ${index + 1}`,
+      errorMessage: index === 5 ? "error" : undefined,
+    }));
+
+  return (
+    <Box p="4px">
+      <Tabs align="left" position="top">
+        {tabsData.map((tabData) => (
+          <Tab role="tab" {...tabData} key={tabData.key}>
+            {tabData.content}
+            {tabData.errorMessage && (
+              <Checkbox
+                label="Add error"
+                error="error"
+                onChange={() => {}}
+                checked
+              />
+            )}
+          </Tab>
+        ))}
+      </Tabs>
+    </Box>
+  );
+};
+ResponsiveValidation.storyName = "Responsive - Horizontal with validation";
+
+export const ResponsiveVertical: Story = () => {
+  const tabsData = Array(20)
+    .fill(0)
+    .map((_, index) => ({
+      tabId: `tab-${index + 1}`,
+      title: `Tab ${index + 1}`,
+      key: `tab-${index + 1}`,
+      content: `Content for tab ${index + 1}`,
+    }));
+
+  return (
+    <Box p="4px">
+      <Tabs align="left" position="left">
+        {tabsData.map((tabData) => (
+          <Tab role="tab" {...tabData} key={tabData.key}>
+            {tabData.content}
+          </Tab>
+        ))}
+      </Tabs>
+    </Box>
+  );
+};
+ResponsiveVertical.storyName = "Responsive - Vertical";
+
+export const ResponsiveLarge: Story = () => {
+  const tabsData = Array(20)
+    .fill(0)
+    .map((_, index) => ({
+      tabId: `tab-${index + 1}`,
+      title: `Tab ${index + 1}`,
+      key: `tab-${index + 1}`,
+      content: `Content for tab ${index + 1}`,
+      errorMessage: index === 5 ? "error" : undefined,
+    }));
+
+  return (
+    <Box p="4px">
+      <Tabs align="left" size="large" position="top">
+        {tabsData.map((tabData) => (
+          <Tab role="tab" {...tabData} key={tabData.key}>
+            {tabData.content}
+            {tabData.errorMessage && (
+              <Checkbox
+                label="Add error"
+                error="error"
+                onChange={() => {}}
+                checked
+              />
+            )}
+          </Tab>
+        ))}
+      </Tabs>
+    </Box>
+  );
+};
+ResponsiveLarge.storyName = "Responsive - Large Tabs";

@@ -1,8 +1,9 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Help from ".";
 import Icon from "../icon";
+import Logger from "../../__internal__/utils/logger";
 
 test("renders tooltip when help button is hovered and removes tooltip when unhovered", async () => {
   const user = userEvent.setup();
@@ -34,9 +35,11 @@ test("removes tooltip when Escape key is pressed", async () => {
   const user = userEvent.setup();
   render(<Help>foo</Help>);
 
-  screen.getByRole("button", { name: "help" }).focus();
+  act(() => {
+    screen.getByRole("button", { name: "help" }).focus();
+  });
 
-  expect(screen.getByRole("tooltip", { name: "foo" })).toBeVisible();
+  expect(await screen.findByRole("tooltip", { name: "foo" })).toBeVisible();
 
   await user.keyboard("{Escape}");
 
@@ -47,9 +50,11 @@ test("does not remove tooltip when Enter key is pressed", async () => {
   const user = userEvent.setup();
   render(<Help>foo</Help>);
 
-  screen.getByRole("button", { name: "help" }).focus();
+  act(() => {
+    screen.getByRole("button", { name: "help" }).focus();
+  });
 
-  const tooltip = screen.getByRole("tooltip", { name: "foo" });
+  const tooltip = await screen.findByRole("tooltip", { name: "foo" });
 
   expect(tooltip).toBeVisible();
 
@@ -131,4 +136,22 @@ test("renders with provided `helpId` and `tooltipId`", async () => {
     "id",
     "bar",
   );
+});
+
+test("throws a deprecation warning if the 'className' prop is set", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+  render(
+    <Help className="bar" helpId="foo" tooltipId="bar">
+      foo
+    </Help>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Help' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
 });

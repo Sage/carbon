@@ -23,12 +23,7 @@ const loaderAnimation = keyframes`
   }
 `;
 
-type RoundedCornersOptOut = boolean;
-
-const getDimentions = (
-  size: StyledLoaderSquareProps["size"],
-  roundedCornersOptOut: RoundedCornersOptOut,
-) => {
+const getDimensions = (size: StyledLoaderSquareProps["size"]) => {
   let width;
   let marginRight;
 
@@ -50,16 +45,16 @@ const getDimentions = (
     width: ${width};
     height: ${width};
     margin-right: ${marginRight};
-    ${!roundedCornersOptOut && "border-radius: var(--borderRadiusCircle);"}
   `;
 };
 
 const StyledLoaderSquare = styled.div<StyledLoaderSquareProps>`
-  ${({ size, isInsideButton, isActive, theme, backgroundColor }) => css`
+  ${({ size, isInsideButton, isActive, backgroundColor }) => css`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
     background-color: ${backgroundColor};
     display: inline-block;
-    ${getDimentions(size, theme.roundedCornersOptOut)}
+    ${getDimensions(size)}
+    border-radius: var(--borderRadiusCircle);
 
     ${isInsideButton &&
     css`

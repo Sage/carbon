@@ -18,6 +18,9 @@ import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedClassNameWarningShown = false;
 
 export interface TabsProps extends MarginProps {
   /** @ignore @private */
@@ -81,6 +84,13 @@ const Tabs = ({
   showValidationsSummary,
   ...rest
 }: TabsProps) => {
+  if (!deprecatedClassNameWarningShown && className) {
+    Logger.deprecate(
+      "The 'className' prop has been deprecated and will soon be removed from the 'Tabs' component.",
+    );
+    deprecatedClassNameWarningShown = true;
+  }
+
   if (position !== "left" && headerWidth !== undefined) {
     // eslint-disable-next-line no-console
     console.error(
@@ -194,7 +204,24 @@ const Tabs = ({
   };
 
   /** Focuses the tab for the reference specified */
-  const focusTab = (ref: React.RefObject<HTMLElement>) => ref.current?.focus();
+  const focusTab = (ref: React.RefObject<HTMLElement>) => {
+    ref.current?.focus();
+    /* istanbul ignore next */
+    const rect = ref.current?.getBoundingClientRect();
+    /* istanbul ignore next */
+    if (rect) {
+      const isVisible =
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <=
+          (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <=
+          (window.innerWidth || document.documentElement.clientWidth);
+      if (!isVisible) {
+        ref.current?.scrollIntoView({ behavior: "auto", inline: "center" });
+      }
+    }
+  };
 
   /** Will trigger the tab at the given index. */
   const goToTab = (event: React.KeyboardEvent<HTMLElement>, index: number) => {
@@ -207,7 +234,6 @@ const Tabs = ({
       newIndex = 0;
     }
     const nextRef = tabRefs[newIndex];
-
     focusTab(nextRef);
   };
 
@@ -334,6 +360,7 @@ const Tabs = ({
         extendedLine={extendedLine}
         noRightBorder={["no right side", "no sides"].includes(borders)}
         isInSidebar={isInSidebar}
+        size={size || "default"}
       >
         {tabTitles}
       </TabsHeader>

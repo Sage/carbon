@@ -15,6 +15,7 @@ import { TooltipPositions } from "../tooltip/tooltip.config";
 import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+import Logger from "../../__internal__/utils/logger";
 
 export type ButtonTypes =
   | "primary"
@@ -53,9 +54,9 @@ export interface ButtonProps extends SpaceProps, TagProps {
   href?: string;
   /** Defines an Icon position related to the children: "before" | "after" */
   iconPosition?: ButtonIconPosition;
-  /** Provides a tooltip message when the icon is hovered. */
+  /** [Legacy] Provides a tooltip message when the icon is hovered. */
   iconTooltipMessage?: string;
-  /** Provides positioning when the tooltip is displayed. */
+  /** [Legacy] Provides positioning when the tooltip is displayed. */
   iconTooltipPosition?: TooltipPositions;
   /** Defines an Icon type within the button */
   iconType?: IconType;
@@ -92,6 +93,8 @@ export interface ButtonProps extends SpaceProps, TagProps {
    */
   className?: string;
 }
+
+let deprecatedClassNameWarningShown = false;
 
 interface RenderChildrenProps
   extends Pick<
@@ -214,6 +217,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }: ButtonProps,
     ref,
   ) => {
+    if (!deprecatedClassNameWarningShown && rest.className) {
+      Logger.deprecate(
+        "The 'className' prop has been deprecated and will soon be removed from the 'Button' component.",
+      );
+      deprecatedClassNameWarningShown = true;
+    }
+
     const {
       buttonType: buttonTypeContext,
       size: sizeContext,

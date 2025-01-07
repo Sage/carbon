@@ -1,9 +1,10 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
+import React, { useState } from "react";
+import { act, render, screen } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 import Modal from "./modal.component";
 import useScrollBlock from "../../hooks/__internal__/useScrollBlock";
+import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../hooks/__internal__/useScrollBlock");
 const allowScroll = jest.fn();
@@ -17,6 +18,27 @@ mockedUseScrollBlock.mockReturnValue({
   allowScroll,
   blockScroll,
 });
+
+const MockModal = ({
+  restoreFocusOnClose,
+}: {
+  restoreFocusOnClose: boolean;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <button type="button" onClick={() => setIsOpen(true)}>
+        Open Modal
+      </button>
+      <Modal open={isOpen} restoreFocusOnClose={restoreFocusOnClose}>
+        <button type="button" onClick={() => setIsOpen(false)}>
+          Close Modal
+        </button>
+      </Modal>
+    </>
+  );
+};
 
 test("renders background overlay when enableBackgroundUI is false", () => {
   render(<Modal onCancel={() => {}} open enableBackgroundUI={false} />);
@@ -78,7 +100,9 @@ test("closes top modal when the `escape` key is pressed", async () => {
   expect(onCancelFnTwo).toHaveBeenCalled();
   expect(onCancelFn).not.toHaveBeenCalled();
 
-  jest.runOnlyPendingTimers();
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
   jest.useRealTimers();
 });
 
@@ -101,7 +125,9 @@ test("does not fire `onCancel` if the `escape` key is pressed and no modals are 
   expect(onCancelFnTwo).not.toHaveBeenCalled();
   expect(onCancelFn).not.toHaveBeenCalled();
 
-  jest.runOnlyPendingTimers();
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
   jest.useRealTimers();
 });
 
@@ -112,16 +138,16 @@ test("does not fire `onCancel` if the `escape` key is pressed and `disableClose`
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <>
-      <Modal data-role="first-modal" open disableClose onCancel={onCancelFn} />
-    </>,
+    <Modal data-role="first-modal" open disableClose onCancel={onCancelFn} />,
   );
 
   await user.keyboard("{Escape}");
 
   expect(onCancelFn).not.toHaveBeenCalled();
 
-  jest.runOnlyPendingTimers();
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
   jest.useRealTimers();
 });
 
@@ -138,7 +164,9 @@ test("should call the `onCancel` method when the modal is open and the `escape` 
 
   expect(onCancelFn).toHaveBeenCalled();
 
-  jest.runOnlyPendingTimers();
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
   jest.useRealTimers();
 });
 
@@ -155,7 +183,9 @@ test("onCancel method should not have been called with disableEscKey prop set to
 
   expect(onCancelFn).not.toHaveBeenCalled();
 
-  jest.runOnlyPendingTimers();
+  act(() => {
+    jest.runOnlyPendingTimers();
+  });
   jest.useRealTimers();
 });
 
@@ -164,4 +194,44 @@ test("increases the default z-index when the topModalOverride prop is set", () =
   render(<Modal data-role="test-modal" open topModalOverride />);
 
   expect(screen.getByTestId("test-modal")).toHaveStyleRule("z-index: 7000");
+});
+
+test("throws a deprecation warning if the 'className' prop is set", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+  render(<Modal open className="foo" />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Modal' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
+test("should restore focus to the call to action element when `restoreFocusOnClose` is true", async () => {
+  render(<MockModal restoreFocusOnClose />);
+
+  const user = userEvent.setup();
+  const button = screen.getByRole("button", { name: "Open Modal" });
+  await user.click(button);
+
+  const closeButton = screen.getByRole("button", { name: "Close Modal" });
+  await user.click(closeButton);
+
+  expect(button).toHaveFocus();
+});
+
+test("should not restore focus to the call to action element when `restoreFocusOnClose` is false", async () => {
+  render(<MockModal restoreFocusOnClose={false} />);
+
+  const user = userEvent.setup();
+  const button = screen.getByRole("button", { name: "Open Modal" });
+  await user.click(button);
+
+  const closeButton = screen.getByRole("button", { name: "Close Modal" });
+  await user.click(closeButton);
+
+  expect(button).not.toHaveFocus();
 });

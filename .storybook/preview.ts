@@ -58,32 +58,6 @@ const globalTypes = {
       ],
     },
   },
-  roundedCorners: {
-    name: "Rounded Corners",
-    description: "Toggle rounded corner opt out",
-    defaultValue: "on",
-    toolbar: {
-      icon: "circlehollow",
-      title: "Rounded corners",
-      items: [
-        { value: "on", title: "On" },
-        { value: "off", title: "Off" },
-      ],
-    },
-  },
-  focusRedesign: {
-    name: "Double focus style",
-    description: "Toggle the focus styling redesign",
-    defaultValue: "on",
-    toolbar: {
-      icon: "eye",
-      title: "Focus redesign",
-      items: [
-        { value: "on", title: "On" },
-        { value: "off", title: "Off" },
-      ],
-    },
-  },
   ...globalThemeProvider,
 };
 

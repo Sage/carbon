@@ -4,9 +4,12 @@ import { test, expect } from "@playwright/experimental-ct-react17";
 import { TabProps, TabsProps } from ".";
 import {
   tabList,
+  tabWrapper,
   tabById,
   tabContentById,
   tabTitleById,
+  navButtonWrapperById,
+  navButtonById,
 } from "../../../playwright/components/tabs";
 import {
   TabsComponent,
@@ -30,10 +33,8 @@ import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   checkAccessibility,
   assertCssValueIsApproximately,
-  checkGoldenOutline,
   getStyle,
 } from "../../../playwright/support/helper";
-import { HooksConfig } from "../../../playwright";
 
 const validationTypes = ["error", "warning", "info"] as const;
 
@@ -111,14 +112,17 @@ test.describe("Tabs component", () => {
     }) => {
       await mount(<TabsComponent align={align} />);
 
-      await expect(tabList(page)).toHaveCSS("text-align", textAlign);
-      await expect(tabList(page)).toHaveCSS("justify-content", justifyContent);
+      await expect(tabWrapper(page)).toHaveCSS("text-align", textAlign);
+      await expect(tabWrapper(page)).toHaveCSS(
+        "justify-content",
+        justifyContent,
+      );
     });
   });
 
   (
     [
-      ["top", "row", 40],
+      ["top", "row", 42],
       ["left", "column", 200],
     ] as [TabsProps["position"], string, number][]
   ).forEach(([pos, flex, height]) => {
@@ -155,7 +159,7 @@ test.describe("Tabs component", () => {
   (
     [
       [true, 1358],
-      [false, 340],
+      [false, 380],
     ] as [boolean, number][]
   ).forEach(([bool, width]) => {
     test(`should render Tabs with extendedLine prop set to ${bool}`, async ({
@@ -164,7 +168,7 @@ test.describe("Tabs component", () => {
     }) => {
       await mount(<TabsComponent extendedLine={bool} />);
 
-      const val = await getStyle(tabList(page), "width");
+      const val = await getStyle(tabWrapper(page), "width");
       expect(parseInt(val)).toBeGreaterThanOrEqual(width - 6);
       expect(parseInt(val)).toBeLessThanOrEqual(width + 4);
     });
@@ -449,121 +453,6 @@ test.describe("Tabs component", () => {
     });
   });
 
-  test.describe("check events for Tabs component", () => {
-    test.describe("when position is top", () => {
-      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-      test.skip("should call onTabChange callback when click event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsComponent
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).click();
-        expect(callbackCount).toBe(1);
-      });
-
-      test("should call onTabChange callback when enter key event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsComponent
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).press("Enter");
-        expect(callbackCount).toBe(1);
-      });
-    });
-
-    test.describe("when position is left", () => {
-      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-      test.skip("should call onTabChange callback when click event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsComponent
-            position="left"
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).click();
-        expect(callbackCount).toBe(1);
-      });
-
-      test("should call onTabChange callback when enter key event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsComponent
-            position="left"
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).press("Enter");
-        expect(callbackCount).toBe(1);
-      });
-    });
-
-    test.describe("when in Sidebar", () => {
-      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-      test.skip("should call onTabChange callback when click event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsInSidebar
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).click();
-        expect(callbackCount).toBe(1);
-      });
-
-      test("should call onTabChange callback when enter key event is triggered", async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount(
-          <TabsInSidebar
-            onTabChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-        );
-
-        await tabById(page, 2).press("Enter");
-        expect(callbackCount).toBe(1);
-      });
-    });
-  });
-
   test.describe("Accessibility tests for Tabs component", () => {
     test("should pass accessibility tests for Tabs component", async ({
       mount,
@@ -795,34 +684,18 @@ test.describe("Tabs component", () => {
     });
   });
 
-  test.describe("focus styles", () => {
-    [1, 2, 3, 4, 5].forEach((id) => {
-      test(`should render Tab ${id} with expected styles when focusRedesignOptOut is true`, async ({
-        mount,
-        page,
-      }) => {
-        await mount<HooksConfig>(<TabsComponent />, {
-          hooksConfig: { focusRedesignOptOut: true },
-        });
+  [1, 2, 3, 4, 5].forEach((id) => {
+    test(`should render Tab ${id} with expected focus styling`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TabsComponent />);
 
-        await tabById(page, id).focus();
-        await checkGoldenOutline(tabById(page, id));
-      });
-    });
-
-    [1, 2, 3, 4, 5].forEach((id) => {
-      test(`should render Tab ${id} with expected styles when focusRedesignOptOut is false`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TabsComponent />);
-
-        await tabById(page, id).focus();
-        await expect(tabById(page, id)).toHaveCSS(
-          "box-shadow",
-          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-        );
-      });
+      await tabById(page, id).focus();
+      await expect(tabById(page, id)).toHaveCSS(
+        "outline",
+        "rgb(0, 0, 0) solid 4px",
+      );
     });
   });
 
@@ -836,5 +709,56 @@ test.describe("Tabs component", () => {
 
     await expect(page.getByText("Content for tab 2")).toBeVisible();
     await expect(page.getByText("Content for tab 1")).not.toBeVisible();
+  });
+
+  test("navigation buttons only appear when there are preceding or succeeding tab titles out of view", async ({
+    mount,
+    page,
+  }) => {
+    // Load the responsive page
+    await mount(<Responsive />);
+
+    // The left navigation button should not be visible
+    await expect(navButtonWrapperById(page, "left")).toHaveCSS(
+      "display",
+      "none",
+    );
+    // The right navigation button should be visible
+    await expect(navButtonWrapperById(page, "right")).toHaveCSS(
+      "display",
+      "block",
+    );
+
+    // Click the right navigation button
+    await navButtonById(page, `right`).click();
+
+    // Expect the left navigation button to have appeared
+    await expect(navButtonWrapperById(page, "left")).toHaveCSS(
+      "display",
+      "block",
+    );
+
+    // Click the right navigation button
+    await navButtonById(page, `right`).click();
+
+    // Expect the right navigation button to have disappeared
+    await expect(navButtonWrapperById(page, "right")).toHaveCSS(
+      "display",
+      "none",
+    );
+
+    // Click the left navigation button
+    await navButtonById(page, `left`).click();
+
+    // The right navigation button should be visible
+    await expect(navButtonWrapperById(page, "right")).toHaveCSS(
+      "display",
+      "block",
+    );
+    // The left navigation button should not be visible
+    await expect(navButtonWrapperById(page, "left")).toHaveCSS(
+      "display",
+      "none",
+    );
   });
 });

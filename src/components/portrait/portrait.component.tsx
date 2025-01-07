@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { MarginProps } from "styled-system";
 import MD5 from "crypto-js/md5";
 import invariant from "invariant";
@@ -16,7 +16,6 @@ import {
   StyledPortraitGravatar,
 } from "./portrait.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import RoundedCornersOptOutContext from "../carbon-provider/__internal__/new-validation.context";
 
 export type PortraitShapes = "circle" | "square";
 
@@ -45,21 +44,21 @@ export interface PortraitProps extends MarginProps {
   darkBackground?: boolean;
   /** Prop for `onClick` events. */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
-  /** The message to be displayed within the tooltip */
+  /** [Legacy] The message to be displayed within the tooltip */
   tooltipMessage?: React.ReactNode;
-  /** The id attribute to use for the tooltip */
+  /** [Legacy] The id attribute to use for the tooltip */
   tooltipId?: string;
-  /** Whether to to show the Tooltip */
+  /** [Legacy] Whether to to show the Tooltip */
   tooltipIsVisible?: boolean;
-  /** Sets position of the tooltip */
+  /** [Legacy] Sets position of the tooltip */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** Defines the message type */
+  /** [Legacy] Defines the message type */
   tooltipType?: string;
-  /** Defines the size of the tooltip content */
+  /** [Legacy] Defines the size of the tooltip content */
   tooltipSize?: "medium" | "large";
-  /** Override background color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** [Legacy] Override background color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipBgColor?: string;
-  /** Override font color of the Tooltip, provide any color from palette or any valid css color value. */
+  /** [Legacy] Override font color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipFontColor?: string;
 }
 
@@ -70,7 +69,7 @@ const Portrait = ({
   gravatar = "",
   iconType = "individual",
   initials,
-  shape,
+  shape = "circle",
   size = "M",
   src,
   onClick,
@@ -85,8 +84,6 @@ const Portrait = ({
   ...rest
 }: PortraitProps) => {
   const [externalError, setExternalError] = useState(false);
-  const { roundedCornersOptOut } = useContext(RoundedCornersOptOutContext);
-  const defaultShape = roundedCornersOptOut ? "square" : "circle";
 
   invariant(
     !(src && gravatar),
@@ -170,7 +167,7 @@ const Portrait = ({
             {...tagProps}
             darkBackground={darkBackground}
             size={size}
-            shape={shape || defaultShape}
+            shape={shape}
           >
             {portrait}
           </StyledPortraitContainer>
@@ -185,7 +182,7 @@ const Portrait = ({
         {...tagProps}
         darkBackground={darkBackground}
         size={size}
-        shape={shape || defaultShape}
+        shape={shape}
       >
         {portrait}
       </StyledPortraitContainer>

@@ -20,7 +20,19 @@ import StepFlowTitle from "./step-flow-title/step-flow-title.component";
 
 export type Steps = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
-export interface StepFlowProps extends MarginProps, TagProps {
+interface StepFlowAriaProps {
+  /** Prop to specify the aria-label of the component */
+  "aria-label"?: string;
+  /** Prop to specify the aria-labelledby of the component */
+  "aria-labelledby"?: string;
+  /** Prop to specify the aria-describedby of the component */
+  "aria-describedby"?: string;
+}
+
+export interface StepFlowProps
+  extends StepFlowAriaProps,
+    MarginProps,
+    TagProps {
   /** A category for the user journey.  */
   category?: string;
   /** The title of the current step, this can be a string or a valid React node
@@ -66,6 +78,9 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
       showProgressIndicator = false,
       showCloseIcon = false,
       onDismiss,
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledBy,
+      "aria-describedby": ariaDescribedBy,
       ...rest
     },
     ref,
@@ -180,7 +195,14 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
     );
 
     return (
-      <StyledStepFlow {...rest} {...tagComponent("step-flow", rest)}>
+      <StyledStepFlow
+        role="group"
+        aria-label={ariaLabel}
+        aria-describedby={ariaDescribedBy}
+        aria-labelledby={ariaLabelledBy}
+        {...rest}
+        {...tagComponent("step-flow", rest)}
+      >
         <StyledStepContent>
           {category ? (
             <StyledStepContentText>

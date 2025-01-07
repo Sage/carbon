@@ -5,10 +5,9 @@ import {
   fireEvent,
   createEvent,
   waitFor,
+  act,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
-import { act } from "react-dom/test-utils";
 
 import FocusTrap, { FocusTrapProps } from "./focus-trap.component";
 import { RadioButton, RadioButtonGroup } from "../../components/radio-button";
@@ -156,8 +155,10 @@ test("refocuses the last element that had focus within the trap when `triggerRef
     }),
   );
   const buttonTwo = screen.getByRole("button", { name: "Two" });
-  buttonTwo.focus();
-  buttonTwo.blur();
+  act(() => {
+    buttonTwo.focus();
+    buttonTwo.blur();
+  });
 
   rerender(
     mockComponentToRender({ autoFocus: false, triggerRefocusFlag: true }),
@@ -209,7 +210,9 @@ test("when `triggerRefocusFlag` is set, the container is refocused if last eleme
     </MockComponent>,
   );
 
-  screen.getByRole("button", { name: "Two" }).focus();
+  act(() => {
+    screen.getByRole("button", { name: "Two" }).focus();
+  });
 
   rerender(
     <MockComponent autoFocus={false} triggerRefocusFlag>
@@ -313,7 +316,9 @@ describe("when FocusTrap wraps an element and element has focusable items inside
     render(mockComponentToRender());
 
     const buttonTwo = screen.getByRole("button", { name: "Two" });
-    buttonTwo.focus();
+    act(() => {
+      buttonTwo.focus();
+    });
     await user.keyboard("{ArrowDown}");
 
     expect(buttonTwo).toHaveFocus();
@@ -324,7 +329,9 @@ describe("when FocusTrap wraps an element and element has focusable items inside
     render(mockComponentToRender());
 
     const buttonOne = screen.getByRole("button", { name: "One" });
-    buttonOne.focus();
+    act(() => {
+      buttonOne.focus();
+    });
     await user.tab({ shift: true });
 
     const buttonTwo = screen.getByRole("button", { name: "Two" });
@@ -336,7 +343,9 @@ describe("when FocusTrap wraps an element and element has focusable items inside
     render(mockComponentToRender());
 
     const buttonTwo = screen.getByRole("button", { name: "Two" });
-    buttonTwo.focus();
+    act(() => {
+      buttonTwo.focus();
+    });
     await user.tab({ shift: true });
 
     const buttonOne = screen.getByRole("button", { name: "One" });
@@ -348,7 +357,9 @@ describe("when FocusTrap wraps an element and element has focusable items inside
     render(mockComponentToRender());
 
     const buttonOne = screen.getByRole("button", { name: "One" });
-    buttonOne.focus();
+    act(() => {
+      buttonOne.focus();
+    });
     await user.tab();
 
     const buttonTwo = screen.getByRole("button", { name: "Two" });
@@ -360,7 +371,9 @@ describe("when FocusTrap wraps an element and element has focusable items inside
     render(mockComponentToRender());
 
     const buttonTwo = screen.getByRole("button", { name: "Two" });
-    buttonTwo.focus();
+    act(() => {
+      buttonTwo.focus();
+    });
     await user.tab();
 
     const buttonOne = screen.getByRole("button", { name: "One" });
@@ -406,7 +419,9 @@ it("only allows non-disabled elements to be focused", async () => {
   );
 
   const buttonOne = screen.getByRole("button", { name: "One" });
-  buttonOne.focus();
+  act(() => {
+    buttonOne.focus();
+  });
   await user.tab();
 
   const buttonTwo = screen.getByRole("button", { name: "Two" });
@@ -432,7 +447,9 @@ describe("when first focusable elements are radio buttons", () => {
     const user = userEvent.setup({ delay: null });
     render(<WithRadioGroup />);
 
-    screen.getByLabelText("Red").focus();
+    act(() => {
+      screen.getByLabelText("Red").focus();
+    });
     await user.tab({ shift: true });
 
     expect(screen.getByRole("button", { name: "Two" })).toHaveFocus();
@@ -442,7 +459,9 @@ describe("when first focusable elements are radio buttons", () => {
     const user = userEvent.setup({ delay: null });
     render(<WithRadioGroup />);
 
-    screen.getByLabelText("Green").focus();
+    act(() => {
+      screen.getByLabelText("Green").focus();
+    });
     await user.tab({ shift: true });
 
     expect(screen.getByRole("button", { name: "Two" })).toHaveFocus();
@@ -469,7 +488,9 @@ describe("with 2 different radio groups", () => {
     const user = userEvent.setup({ delay: null });
     render(<WithTwoGroups />);
 
-    screen.getByLabelText("Apple").focus();
+    act(() => {
+      screen.getByLabelText("Apple").focus();
+    });
     await user.tab({ shift: true });
 
     expect(screen.getByLabelText("Green")).toHaveFocus();
@@ -479,7 +500,9 @@ describe("with 2 different radio groups", () => {
     const user = userEvent.setup({ delay: null });
     render(<WithTwoGroups />);
 
-    screen.getByLabelText("Melon").focus();
+    act(() => {
+      screen.getByLabelText("Melon").focus();
+    });
     await user.tab({ shift: true });
 
     expect(screen.getByLabelText("Green")).toHaveFocus();
@@ -506,7 +529,9 @@ describe("with 2 different focusable radio groups and a custom selector", () => 
     const user = userEvent.setup({ delay: null });
     render(<WithTwoGroups />);
 
-    screen.getByLabelText("Apple").focus();
+    act(() => {
+      screen.getByLabelText("Apple").focus();
+    });
     await user.tab({ shift: true });
 
     expect(screen.getByLabelText("Green")).toHaveFocus();
@@ -516,7 +541,9 @@ describe("with 2 different focusable radio groups and a custom selector", () => 
     const user = userEvent.setup({ delay: null });
     render(<WithTwoGroups />);
 
-    screen.getByLabelText("Melon").focus();
+    act(() => {
+      screen.getByLabelText("Melon").focus();
+    });
     await user.tab({ shift: true });
 
     expect(screen.getByLabelText("Green")).toHaveFocus();
@@ -539,7 +566,9 @@ describe("when last focusable elements are radio buttons", () => {
     const user = userEvent.setup({ delay: null });
     render(<WithRadioGroup />);
 
-    screen.getByLabelText("Red").focus();
+    act(() => {
+      screen.getByLabelText("Red").focus();
+    });
     await user.tab();
 
     expect(screen.getByRole("button", { name: "One" })).toHaveFocus();
@@ -549,7 +578,9 @@ describe("when last focusable elements are radio buttons", () => {
     const user = userEvent.setup({ delay: null });
     render(<WithRadioGroup />);
 
-    screen.getByLabelText("Green").focus();
+    act(() => {
+      screen.getByLabelText("Green").focus();
+    });
     await user.tab();
 
     expect(screen.getByRole("button", { name: "One" })).toHaveFocus();
@@ -572,7 +603,9 @@ describe("when trap contains radio buttons", () => {
     const user = userEvent.setup({ delay: null });
     render(<WithRadioGroup />);
 
-    screen.getByLabelText("Red").focus();
+    act(() => {
+      screen.getByLabelText("Red").focus();
+    });
     await user.tab({ shift: true });
 
     expect(screen.getByRole("button", { name: "One" })).toHaveFocus();
@@ -582,7 +615,9 @@ describe("when trap contains radio buttons", () => {
     const user = userEvent.setup({ delay: null });
     render(<WithRadioGroup />);
 
-    screen.getByLabelText("Green").focus();
+    act(() => {
+      screen.getByLabelText("Green").focus();
+    });
     await user.tab({ shift: true });
 
     expect(screen.getByRole("button", { name: "One" })).toHaveFocus();
@@ -593,7 +628,9 @@ describe("when trap contains radio buttons", () => {
     render(<WithRadioGroup />);
 
     const buttonOne = screen.getByRole("button", { name: "One" });
-    buttonOne.focus();
+    act(() => {
+      buttonOne.focus();
+    });
     await user.tab();
 
     expect(screen.getByLabelText("Red")).toHaveFocus();
@@ -606,7 +643,9 @@ describe("when trap contains radio buttons", () => {
     const greenRadio = screen.getByLabelText("Green");
     await user.click(greenRadio);
     const buttonOne = screen.getByRole("button", { name: "One" });
-    buttonOne.focus();
+    act(() => {
+      buttonOne.focus();
+    });
     await user.tab();
 
     expect(greenRadio).toHaveFocus();
@@ -617,7 +656,9 @@ describe("when trap contains radio buttons", () => {
     render(<WithRadioGroup />);
 
     const buttonTwo = screen.getByRole("button", { name: "Two" });
-    buttonTwo.focus();
+    act(() => {
+      buttonTwo.focus();
+    });
     await user.tab({ shift: true });
 
     expect(screen.getByLabelText("Green")).toHaveFocus();
@@ -630,7 +671,9 @@ describe("when trap contains radio buttons", () => {
     const greenRadio = screen.getByLabelText("Green");
     await user.click(greenRadio);
     const buttonTwo = screen.getByRole("button", { name: "Two" });
-    buttonTwo.focus();
+    act(() => {
+      buttonTwo.focus();
+    });
     await user.tab({ shift: true });
 
     expect(greenRadio).toHaveFocus();
@@ -654,7 +697,9 @@ describe("when trap contains radio buttons when using a custom selector", () => 
     render(<WithRadioGroup />);
 
     const buttonOne = screen.getByRole("button", { name: "One" });
-    buttonOne.focus();
+    act(() => {
+      buttonOne.focus();
+    });
     await user.tab();
 
     expect(screen.getByLabelText("Red")).toHaveFocus();
@@ -667,7 +712,9 @@ describe("when trap contains radio buttons when using a custom selector", () => 
     const greenRadio = screen.getByLabelText("Green");
     await user.click(greenRadio);
     const buttonOne = screen.getByRole("button", { name: "One" });
-    buttonOne.focus();
+    act(() => {
+      buttonOne.focus();
+    });
     await user.tab();
 
     expect(greenRadio).toHaveFocus();
@@ -678,7 +725,9 @@ describe("when trap contains radio buttons when using a custom selector", () => 
     render(<WithRadioGroup />);
 
     const buttonTwo = screen.getByRole("button", { name: "Two" });
-    buttonTwo.focus();
+    act(() => {
+      buttonTwo.focus();
+    });
     await user.tab({ shift: true });
 
     expect(screen.getByLabelText("Green")).toHaveFocus();
@@ -691,7 +740,9 @@ describe("when trap contains radio buttons when using a custom selector", () => 
     const greenRadio = screen.getByLabelText("Green");
     await user.click(greenRadio);
     const buttonTwo = screen.getByRole("button", { name: "Two" });
-    buttonTwo.focus();
+    act(() => {
+      buttonTwo.focus();
+    });
     await user.tab({ shift: true });
 
     expect(greenRadio).toHaveFocus();
@@ -741,7 +792,9 @@ describe("when trap contains only one focusable element according to a custom se
     render(<WithSelector />);
 
     const buttonTwo = screen.getByRole("button", { name: "Two" });
-    buttonTwo.focus();
+    act(() => {
+      buttonTwo.focus();
+    });
     await user.tab();
 
     expect(screen.getByRole("button", { name: "Two" })).toHaveFocus();
@@ -752,7 +805,9 @@ describe("when trap contains only one focusable element according to a custom se
     render(<WithSelector />);
 
     const buttonTwo = screen.getByRole("button", { name: "Two" });
-    buttonTwo.focus();
+    act(() => {
+      buttonTwo.focus();
+    });
     await user.tab({ shift: true });
 
     expect(screen.getByRole("button", { name: "Two" })).toHaveFocus();
@@ -851,7 +906,9 @@ test("when `additionalWrapperRefs` are specified, tab should cycle through focus
   const user = userEvent.setup({ delay: null });
   render(<WithAdditionalWrapperRefs />);
 
-  screen.getByRole("button", { name: BUTTON_IN_WRAPPER }).focus();
+  act(() => {
+    screen.getByRole("button", { name: BUTTON_IN_WRAPPER }).focus();
+  });
 
   await user.tab();
   expect(
@@ -871,7 +928,9 @@ test("when `additionalWrapperRefs` are specified, shift-tab should cycle through
   const user = userEvent.setup({ delay: null });
   render(<WithAdditionalWrapperRefs />);
 
-  screen.getByRole("button", { name: BUTTON_IN_WRAPPER }).focus();
+  act(() => {
+    screen.getByRole("button", { name: BUTTON_IN_WRAPPER }).focus();
+  });
 
   await user.tab({ shift: true });
   expect(
@@ -1087,7 +1146,9 @@ test("only focuses elements which meet the custom selector, when tabbing both fo
 
   const buttonOne = screen.getByRole("button", { name: "One" });
   const buttonThree = screen.getByRole("button", { name: "Three" });
-  buttonOne.focus();
+  act(() => {
+    buttonOne.focus();
+  });
 
   await user.tab();
   expect(buttonThree).toHaveFocus();
@@ -1115,7 +1176,9 @@ test("when multiple focus traps are open at once, focus moves correctly between 
   );
   const buttonOne = screen.getByRole("button", { name: "One" });
   const buttonTwo = screen.getByRole("button", { name: "Two" });
-  buttonOne.focus();
+  act(() => {
+    buttonOne.focus();
+  });
 
   await user.tab();
   expect(buttonTwo).toHaveFocus();
@@ -1125,7 +1188,9 @@ test("when multiple focus traps are open at once, focus moves correctly between 
 
   const buttonThree = screen.getByRole("button", { name: "Three" });
   const buttonFour = screen.getByRole("button", { name: "Four" });
-  buttonThree.focus();
+  act(() => {
+    buttonThree.focus();
+  });
 
   await user.tab();
   expect(buttonFour).toHaveFocus();
@@ -1155,7 +1220,9 @@ test("when multiple focus traps are open at once, focus moves correctly between 
     </>,
   );
   const buttonOne = screen.getByRole("button", { name: "One" });
-  buttonOne.focus();
+  act(() => {
+    buttonOne.focus();
+  });
 
   await user.tab();
   expect(screen.getByRole("button", { name: "Two" })).toHaveFocus();
@@ -1167,7 +1234,9 @@ test("when multiple focus traps are open at once, focus moves correctly between 
   expect(buttonOne).toHaveFocus();
 
   const buttonFour = screen.getByRole("button", { name: "Four" });
-  buttonFour.focus();
+  act(() => {
+    buttonFour.focus();
+  });
 
   await user.tab();
   expect(screen.getByRole("button", { name: "Six" })).toHaveFocus();
@@ -1222,7 +1291,9 @@ test("should focus the first focusable element when the the focus is on a non fo
       </button>
     </MockComponent>,
   );
-  screen.getByRole("button", { name: "Three" }).focus();
+  act(() => {
+    screen.getByRole("button", { name: "Three" }).focus();
+  });
 
   await user.tab();
 
@@ -1240,7 +1311,9 @@ test("should focus the last focusable element when the the focus is on a non foc
       <button type="button">Three</button>
     </MockComponent>,
   );
-  screen.getByRole("button", { name: "One" }).focus();
+  act(() => {
+    screen.getByRole("button", { name: "One" }).focus();
+  });
 
   await user.tab({ shift: true });
 
@@ -1262,7 +1335,7 @@ test("when focusableSelectors is not used, preventDefault is not called upon tab
   expect(firstKeydownEvent.defaultPrevented).toBeFalsy();
 });
 
-test("when focusableSelectors is used, preventDefault is called when needed to prevent an undesired element becomed focused", async () => {
+test("when focusableSelectors is used, preventDefault is called when needed to prevent an undesired element becomes focused", async () => {
   render(
     <MockComponent focusableSelectors="button.focusable">
       <button type="button">One</button>
@@ -1378,7 +1451,7 @@ test("should focus the first input that has the `autoFocus` prop set on it", () 
       <Select onChange={() => {}} autoFocus label="Autofocus me">
         <Option value="1" text="one" />
       </Select>
-      <Checkbox label="Do not autofocus me" autoFocus />
+      <Checkbox label="Do not autofocus me" autoFocus onChange={() => {}} />
     </MockComponent>,
   );
 
@@ -1392,7 +1465,7 @@ test("should loop to the last element when there is elements with tabIndex of -1
       <Select onChange={() => {}} autoFocus label="Autofocus me">
         <Option value="1" text="one" />
       </Select>
-      <Checkbox label="Do not autofocus me" autoFocus />
+      <Checkbox label="Do not autofocus me" autoFocus onChange={() => {}} />
     </MockComponent>,
   );
 

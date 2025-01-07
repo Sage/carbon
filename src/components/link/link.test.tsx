@@ -1,11 +1,12 @@
 /* TODO: FE-6579 To re-enable once button-related props are removed from Link */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Link from "./link.component";
 import MenuContext from "../menu/__internal__/menu.context";
+import Logger from "../../__internal__/utils/logger";
 
 test("should render `Skip to main content` text inside of Link when `isSkipLink` prop is provided", () => {
   render(
@@ -157,7 +158,9 @@ describe("when the `onKeyDown` event is triggered", () => {
     render(<Link onKeyDown={onKeyDownFn} onClick={onClickFn} href="#" />);
 
     const linkElement = screen.getByTestId("link-anchor");
-    linkElement.focus();
+    act(() => {
+      linkElement.focus();
+    });
     await user.keyboard("{Enter}");
 
     expect(onKeyDownFn).toHaveBeenCalled();
@@ -169,7 +172,9 @@ describe("when the `onKeyDown` event is triggered", () => {
     render(<Link onKeyDown={onKeyDownFn} href="#" />);
 
     const linkElement = screen.getByTestId("link-anchor");
-    linkElement.focus();
+    act(() => {
+      linkElement.focus();
+    });
     await user.keyboard("{Enter}");
 
     expect(onKeyDownFn).toHaveBeenCalled();
@@ -182,7 +187,9 @@ describe("when the `onKeyDown` event is triggered", () => {
     render(<Link onKeyDown={onKeyDownFn} href="#" />);
 
     const linkElement = screen.getByTestId("link-anchor");
-    linkElement.focus();
+    act(() => {
+      linkElement.focus();
+    });
     await user.keyboard("{Enter}");
 
     expect(onKeyDownFn).toHaveBeenCalled();
@@ -540,4 +547,18 @@ describe("link display styling", () => {
 
     expect(linkElement).not.toHaveStyle(`display: inline-block`);
   });
+});
+
+test("throws a deprecation warning if the 'className' prop is set", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+  render(<Link className="foo">bar</Link>);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Link' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
 });

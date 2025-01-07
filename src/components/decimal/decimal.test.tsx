@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Decimal from "./decimal.component";
@@ -32,12 +32,24 @@ testStyledSystemMargin(
 );
 
 describe("when the component is uncontrolled", () => {
-  it("displays a deprecation warning", () => {
+  it("displays a deprecation warning for uncontrolled", () => {
     const loggerSpy = jest.spyOn(Logger, "deprecate");
     render(<Decimal defaultValue="0.01" />);
 
     expect(loggerSpy).toHaveBeenCalledWith(
       "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+    );
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+    loggerSpy.mockRestore();
+  });
+
+  it("displays a deprecation warning for `onKeyPress`", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    render(<Decimal onKeyPress={() => {}} />);
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`onKeyPress` prop in `Decimal` is deprecated and will soon be removed, please use `onKeyDown` instead.",
     );
     expect(loggerSpy).toHaveBeenCalledTimes(1);
 
@@ -414,7 +426,9 @@ describe("when the component is uncontrolled", () => {
       const user = userEvent.setup();
       render(<Decimal onChange={onChange} />);
 
-      screen.getByRole("textbox").focus();
+      act(() => {
+        screen.getByRole("textbox").focus();
+      });
       (screen.getByRole("textbox") as HTMLInputElement).select();
       await user.paste(pastedText);
 
@@ -461,7 +475,9 @@ describe("when the component is uncontrolled", () => {
 
     const decimalInput = screen.getByRole("textbox");
 
-    decimalInput.focus();
+    act(() => {
+      decimalInput.focus();
+    });
     await user.keyboard("{ArrowLeft}");
     await user.keyboard("-");
 
@@ -475,7 +491,9 @@ describe("when the component is uncontrolled", () => {
 
     const decimalInput = screen.getByRole("textbox");
 
-    decimalInput.focus();
+    act(() => {
+      decimalInput.focus();
+    });
     await user.keyboard("{ArrowRight}");
     await user.keyboard("-");
 
@@ -534,7 +552,9 @@ describe("when the component is uncontrolled", () => {
       render(<Decimal defaultValue="1234.56" />);
 
       const decimalInput = screen.getByRole("textbox") as HTMLInputElement;
-      decimalInput.focus();
+      act(() => {
+        decimalInput.focus();
+      });
       decimalInput.setSelectionRange(selectionStart, selectionEnd);
       await user.keyboard("{Backspace}");
 
@@ -549,7 +569,9 @@ describe("when the component is uncontrolled", () => {
     render(<Decimal defaultValue="1234.56" />);
 
     const decimalInput = screen.getByRole("textbox");
-    decimalInput.focus();
+    act(() => {
+      decimalInput.focus();
+    });
     await user.keyboard("{ArrowLeft}");
     await user.keyboard("{Backspace}");
 
@@ -562,7 +584,9 @@ describe("when the component is uncontrolled", () => {
     render(<Decimal defaultValue="1234.56" />);
 
     const decimalInput = screen.getByRole("textbox");
-    decimalInput.focus();
+    act(() => {
+      decimalInput.focus();
+    });
     await user.keyboard("{ArrowRight}");
     await user.keyboard("{Backspace}");
 
@@ -621,7 +645,9 @@ describe("when the component is uncontrolled", () => {
       render(<Decimal defaultValue="1234.56" />);
 
       const decimalInput = screen.getByRole("textbox") as HTMLInputElement;
-      decimalInput.focus();
+      act(() => {
+        decimalInput.focus();
+      });
       decimalInput.setSelectionRange(selectionStart, selectionEnd);
       await user.keyboard("{Delete}");
 
@@ -636,7 +662,9 @@ describe("when the component is uncontrolled", () => {
     render(<Decimal defaultValue="1234.56" />);
 
     const decimalInput = screen.getByRole("textbox");
-    decimalInput.focus();
+    act(() => {
+      decimalInput.focus();
+    });
     await user.keyboard("{ArrowLeft}");
     await user.keyboard("{Delete}");
 
@@ -649,7 +677,9 @@ describe("when the component is uncontrolled", () => {
     render(<Decimal defaultValue="1234.56" />);
 
     const decimalInput = screen.getByRole("textbox");
-    decimalInput.focus();
+    act(() => {
+      decimalInput.focus();
+    });
     await user.keyboard("{ArrowRight}");
     await user.keyboard("{Delete}");
 
@@ -672,16 +702,18 @@ describe("when the component is uncontrolled", () => {
     },
   );
 
-  it("calls the onKeyPress callback when a key is pressed", async () => {
+  it("calls the onKeyDown callback when a key is pressed", async () => {
     const user = userEvent.setup();
-    const onKeyPress = jest.fn();
-    render(<Decimal defaultValue="0.00" onKeyPress={onKeyPress} />);
+    const onKeyDown = jest.fn();
+    render(<Decimal defaultValue="0.00" onKeyDown={onKeyDown} />);
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.keyboard("{ArrowRight}");
     await user.keyboard("1");
 
-    expect(onKeyPress).toHaveBeenCalledWith(
+    expect(onKeyDown).toHaveBeenCalledWith(
       expect.objectContaining({ key: "1" }),
     );
   });
@@ -712,7 +744,9 @@ describe("when the component is uncontrolled", () => {
     const onChange = jest.fn();
     render(<Decimal allowEmptyValue onChange={onChange} />);
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.tab();
 
     expect(onChange).not.toHaveBeenCalled();
@@ -809,7 +843,9 @@ describe("when the component is uncontrolled", () => {
       />,
     );
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.keyboard("{Delete}");
     await user.tab();
 
@@ -828,7 +864,9 @@ describe("when the component is uncontrolled", () => {
       />,
     );
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.keyboard("{Delete}");
     await user.tab();
 
@@ -918,7 +956,7 @@ describe("when the component is uncontrolled", () => {
     expect(screen.getByTestId("hidden-input")).toHaveValue("1  0000,00");
   });
 
-  it("corretcly handles a value that has multiple groups with white-spaces when the `pt-PT` locale is set", async () => {
+  it("correctly handles a value that has multiple groups with white-spaces when the `pt-PT` locale is set", async () => {
     const user = userEvent.setup();
     render(<Decimal locale="pt-PT" />);
 
@@ -940,7 +978,9 @@ describe("when the component is uncontrolled", () => {
       />,
     );
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.keyboard("{Delete}");
     await user.tab();
 
@@ -959,7 +999,9 @@ describe("when the component is uncontrolled", () => {
       />,
     );
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.keyboard("{Delete}");
     await user.tab();
 
@@ -999,7 +1041,9 @@ describe("when the component is uncontrolled", () => {
       />,
     );
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.keyboard("{Delete}");
     await user.tab();
 
@@ -1018,7 +1062,9 @@ describe("when the component is uncontrolled", () => {
       />,
     );
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.keyboard("{Delete}");
     await user.tab();
 
@@ -1091,7 +1137,9 @@ describe("when the component is uncontrolled", () => {
       />,
     );
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.keyboard("{Delete}");
     await user.tab();
 
@@ -1110,7 +1158,9 @@ describe("when the component is uncontrolled", () => {
       />,
     );
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.keyboard("{Delete}");
     await user.tab();
 
@@ -1136,7 +1186,9 @@ describe("when the component is controlled", () => {
     const onChange = jest.fn();
     render(<Decimal value="123" onChange={onChange} />);
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.tab();
 
     expect(onChange).not.toHaveBeenCalled();
@@ -1164,7 +1216,9 @@ describe("when the component is controlled", () => {
       />,
     );
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.tab();
 
     expect(screen.getByRole("textbox")).toHaveValue("0");
@@ -1181,7 +1235,9 @@ describe("when the component is controlled", () => {
       />,
     );
 
-    screen.getByRole("textbox").focus();
+    act(() => {
+      screen.getByRole("textbox").focus();
+    });
     await user.tab();
 
     expect(screen.getByRole("textbox")).toHaveValue("0.0");
@@ -1268,7 +1324,9 @@ describe("when the component is controlled", () => {
     );
 
     const decimalInput = screen.getByRole("textbox");
-    decimalInput.focus();
+    act(() => {
+      decimalInput.focus();
+    });
     await user.keyboard("{Backspace}");
     await user.tab();
 
@@ -1292,7 +1350,9 @@ describe("when the component is controlled", () => {
     render(<ControlledDecimal startingValue="1" onBlur={onBlur} />);
 
     const decimalInput = screen.getByRole("textbox");
-    decimalInput.focus();
+    act(() => {
+      decimalInput.focus();
+    });
     await user.keyboard("{Backspace}");
     await user.tab();
 
@@ -1358,7 +1418,9 @@ test("when wrapped in an I18nProvider, the appropriate locale is used, and the f
       <Decimal />
     </I18nProvider>,
   );
-  screen.getByRole("textbox").focus();
+  act(() => {
+    screen.getByRole("textbox").focus();
+  });
   await user.tab();
   expect(screen.getByRole("textbox")).toHaveValue("0.00");
 });

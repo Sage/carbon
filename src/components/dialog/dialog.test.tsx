@@ -4,14 +4,23 @@ import {
   screen,
   within,
   waitForElementToBeRemoved,
+  act,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import CarbonProvider from "../carbon-provider";
 import Dialog, { DialogHandle, DialogProps } from ".";
+import Logger from "../../__internal__/utils/logger";
 
-beforeEach(() => jest.useFakeTimers());
+let loggerSpy: jest.SpyInstance;
+
+beforeEach(() => {
+  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+  jest.useFakeTimers();
+});
+
 afterEach(() => {
+  loggerSpy.mockRestore();
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
 });
@@ -177,7 +186,7 @@ describe("closing behaviour", () => {
     );
 
     const closeButton = screen.getByRole("button", { name: /Close/i });
-    closeButton.focus();
+    act(() => closeButton.focus());
     await user.keyboard("{Enter}");
     await waitForElementToBeRemoved(() => screen.queryByRole("dialog"));
 
@@ -194,7 +203,7 @@ describe("closing behaviour", () => {
     );
 
     const closeButton = screen.getByRole("button", { name: /Close/i });
-    closeButton.focus();
+    act(() => closeButton.focus());
     await user.keyboard("{ }");
     await waitForElementToBeRemoved(() => screen.queryByRole("dialog"));
 
@@ -212,7 +221,7 @@ describe("closing behaviour", () => {
     );
 
     const closeButton = screen.getByRole("button", { name: /Close/i });
-    closeButton.focus();
+    act(() => closeButton.focus());
     await user.keyboard("{a}");
 
     expect(onCancel).not.toHaveBeenCalled();
@@ -238,8 +247,6 @@ test("root container is refocused when the focus method of the component's ref h
   );
 
   const button = screen.getByRole("button", { name: /Refocus dialog/i });
-  button.focus();
-
   await user.click(button);
 
   expect(screen.getByRole("dialog")).toHaveFocus();

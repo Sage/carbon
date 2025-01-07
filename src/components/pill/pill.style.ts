@@ -92,10 +92,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
       align-items: center;
       justify-content: center;
       border: 2px solid ${pillColor};
-      ${!theme.roundedCornersOptOut &&
-      css`
-        border-radius: var(--borderRadius025);
-      `}
+      border-radius: var(--borderRadius025);
       height: auto;
 
       ${!wrapText &&
@@ -129,11 +126,6 @@ const StyledPill = styled.span<AllStyledPillProps>`
         line-height: 16px;
         font-size: 12px;
         padding: 0 8px;
-
-        ${theme.roundedCornersOptOut &&
-        css`
-          border-radius: 12px;
-        `}
       `}
 
       ${size === "M" &&
@@ -142,11 +134,6 @@ const StyledPill = styled.span<AllStyledPillProps>`
         line-height: 20px;
         font-size: 14px;
         padding: 0 8px;
-
-        ${theme.roundedCornersOptOut &&
-        css`
-          border-radius: 12px;
-        `}
       `}
 
       ${size === "L" &&
@@ -155,11 +142,6 @@ const StyledPill = styled.span<AllStyledPillProps>`
         line-height: 24px;
         font-size: 14px;
         padding: 0 8px;
-
-        ${theme.roundedCornersOptOut &&
-        css`
-          border-radius: 13px;
-        `}
       `}
 
       ${size === "XL" &&
@@ -168,21 +150,13 @@ const StyledPill = styled.span<AllStyledPillProps>`
         line-height: 28px;
         font-size: 16px;
         padding: 0 12px;
-
-        ${theme.roundedCornersOptOut &&
-        css`
-          border-radius: 15px;
-        `}
       `}
 
       ${isDeletable &&
       css`
         ${StyledIconButton} {
           -webkit-appearance: none;
-          ${!theme.roundedCornersOptOut &&
-          css`
-            border-radius: var(--borderRadius000);
-          `}
+          border-radius: var(--borderRadius000);
           border: none;
           bottom: 0;
           font-size: 100%;
@@ -194,20 +168,9 @@ const StyledPill = styled.span<AllStyledPillProps>`
           line-height: 16px;
 
           &:focus {
-            ${theme.focusRedesignOptOut &&
-            /* istanbul ignore next */
-            css`
-              outline: none;
-              box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
-            `}
-
             background-color: ${buttonFocusColor};
-            ${!theme.roundedCornersOptOut &&
-            css`
-              border-radius: var(--borderRadius000) var(--borderRadius025)
-                var(--borderRadius025) var(--borderRadius000);
-            `}
-
+            border-radius: var(--borderRadius000) var(--borderRadius025)
+              var(--borderRadius025) var(--borderRadius000);
             ::-moz-focus-inner {
               border: 0;
             }
@@ -255,11 +218,6 @@ const StyledPill = styled.span<AllStyledPillProps>`
                 font-size: 16px;
               }
             }
-
-            ${theme.roundedCornersOptOut &&
-            css`
-              border-radius: 0 10px 10px 0;
-            `}
           }
         `}
 
@@ -271,11 +229,6 @@ const StyledPill = styled.span<AllStyledPillProps>`
             width: 24px;
             padding: 0;
             line-height: 15px;
-
-            ${theme.roundedCornersOptOut &&
-            css`
-              border-radius: 0 10px 10px 0;
-            `}
           }
         `}
 
@@ -287,11 +240,6 @@ const StyledPill = styled.span<AllStyledPillProps>`
             width: 28px;
             padding: 0;
             line-height: 16px;
-
-            ${theme.roundedCornersOptOut &&
-            css`
-              border-radius: 0 11px 11px 0;
-            `}
           }
         `}
 
@@ -303,11 +251,6 @@ const StyledPill = styled.span<AllStyledPillProps>`
             width: 32px;
             padding: 0;
             line-height: 18px;
-
-            ${theme.roundedCornersOptOut &&
-            css`
-              border-radius: 0 12px 12px 0;
-            `}
           }
         `}
       `}

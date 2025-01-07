@@ -7,6 +7,7 @@ import Pill from "../pill";
 import Badge from "../badge";
 import Box from "../box";
 import { Select, Option } from "../select";
+import RadioButton, { RadioButtonGroup } from "../radio-button";
 import PopoverContainer, {
   PopoverContainerProps,
 } from "./popover-container.component";
@@ -431,6 +432,34 @@ export const PopoverContainerFocusOrder = (
         <button type="button">Inside container</button>
       </PopoverContainer>
       <button type="button">After open button</button>
+    </Box>
+  );
+};
+
+export const WithRadioButtons = () => {
+  const [open1, setOpen1] = useState(false);
+  return (
+    <Box padding="25px" display="inline-flex">
+      <PopoverContainer
+        position="left"
+        onOpen={() => setOpen1(true)}
+        onClose={() => setOpen1(false)}
+        open={open1}
+        renderOpenComponent={({ ref, onClick }) => (
+          <Button aria-label="open" ref={ref} onClick={onClick}>
+            With Radio children
+          </Button>
+        )}
+        p={0}
+      >
+        <Box display="flex" justifyContent="space-between" p={2}>
+          <RadioButtonGroup name="bar">
+            <RadioButton value="1" label="radio 1" />
+            <RadioButton value="2" label="radio 2" />
+          </RadioButtonGroup>
+        </Box>
+      </PopoverContainer>
+      <Button>foo</Button>
     </Box>
   );
 };

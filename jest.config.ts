@@ -1,4 +1,5 @@
 import { Config } from "jest";
+
 import coverageThresholds from "./coverage-thresholds.json";
 
 const isCI = process.env.CI === "true";

@@ -1,8 +1,15 @@
 import React from "react";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { MenuItem } from "..";
+import { MenuItem, MenuSegmentTitle } from "..";
 import {
   testStyledSystemFlexBox,
   testStyledSystemPadding,
@@ -13,6 +20,7 @@ import menuConfigVariants from "../menu.config";
 import IconButton from "../../icon-button";
 import Search from "../../search";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
+import Logger from "../../../__internal__/utils/logger";
 
 const menuContextValues: MenuContextProps = {
   menuType: "light",
@@ -477,7 +485,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -504,7 +514,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -529,7 +541,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowup}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -556,7 +570,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -579,7 +595,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -604,7 +622,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
     await user.keyboard("{End}");
@@ -638,7 +658,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -663,7 +685,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
     await user.keyboard("{End}");
@@ -689,7 +713,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
@@ -714,7 +740,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("link", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     await user.tab();
 
@@ -735,7 +763,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("link", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     await user.keyboard("{a}");
 
@@ -896,7 +926,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowleft}");
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
@@ -916,7 +948,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     await user.keyboard("{Escape}");
 
@@ -940,7 +974,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     await user.keyboard("{arrowdown}");
     await user.keyboard("{Enter}");
@@ -967,14 +1003,20 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
 
     await user.keyboard("{arrowdown}");
     await user.keyboard("{Enter}");
 
-    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
 
-    jest.runOnlyPendingTimers();
+    await waitFor(() => {
+      expect(screen.queryByRole("list")).not.toBeInTheDocument();
+    });
     jest.useRealTimers();
   });
 
@@ -1003,7 +1045,9 @@ describe("when MenuItem has a submenu", () => {
       </MenuContext.Provider>,
     );
     const submenuParentItem = screen.getByRole("link", { name: "Item One" });
-    submenuParentItem.focus();
+    act(() => {
+      submenuParentItem.focus();
+    });
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("button");
     await user.click(submenuItems[2]);
@@ -1075,4 +1119,33 @@ test("should throw when `children` passed and `submenu` is an empty string", () 
   );
 
   consoleSpy.mockRestore();
+});
+
+test("throws a deprecation warning if the 'className' prop is set", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+  render(<MenuItem className="foo">Item One</MenuItem>);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'MenuItem' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
+// coverage
+test("should set the correct colour when a child of `MenuSegmentTitle` and `variant` is 'alternate'", async () => {
+  render(
+    <MenuContext.Provider value={{ ...menuContextValues, menuType: "black" }}>
+      <MenuSegmentTitle text="Test">
+        <MenuItem variant="alternate">Item One</MenuItem>
+      </MenuSegmentTitle>
+    </MenuContext.Provider>,
+  );
+
+  expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
+    backgroundColor: menuConfigVariants.black.alternate,
+  });
 });

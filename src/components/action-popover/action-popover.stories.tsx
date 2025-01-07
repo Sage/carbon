@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import {
   ActionPopover,
@@ -6,6 +6,8 @@ import {
   ActionPopoverItem,
   ActionPopoverMenu,
   ActionPopoverMenuButton,
+  RenderButtonProps,
+  ActionPopoverHandle,
 } from ".";
 import Link from "../link";
 import Box from "../box";
@@ -20,6 +22,7 @@ import {
 import Confirm from "../confirm";
 import { Accordion } from "../accordion";
 import Dialog from "../dialog";
+import Button from "../button";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -219,9 +222,35 @@ export const CustomMenuButton: Story = () => {
             tabIndex={tabIndex}
             data-element={dataElement}
             ariaAttributes={ariaAttributes}
+            aria-label={undefined}
           >
             More
           </ActionPopoverMenuButton>
+        )}
+      >
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+      <ActionPopover
+        renderButton={({
+          tabIndex,
+          "data-element": dataElement,
+          ariaAttributes,
+        }) => (
+          <ActionPopoverMenuButton
+            buttonType="tertiary"
+            iconType="dropdown"
+            iconPosition="after"
+            size="small"
+            tabIndex={tabIndex}
+            data-element={dataElement}
+            ariaAttributes={ariaAttributes}
+          />
         )}
       >
         <ActionPopoverItem icon="email" onClick={() => {}}>
@@ -713,3 +742,60 @@ export const ActionPopoverNestedInDialog: Story = () => {
   );
 };
 ActionPopoverNestedInDialog.storyName = "Action Popover Nested in Dialog";
+
+export const FocusButtonProgrammatically = () => {
+  const ref = useRef<ActionPopoverHandle>(null);
+  const refMore = useRef<ActionPopoverHandle>(null);
+
+  const renderButton = (props: RenderButtonProps) => (
+    <ActionPopoverMenuButton
+      buttonType="tertiary"
+      iconType="ellipsis_vertical"
+      iconPosition="after"
+      size="small"
+      aria-label={undefined}
+      {...props}
+    >
+      More
+    </ActionPopoverMenuButton>
+  );
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          ref.current?.focusButton();
+        }}
+      >
+        Focus
+      </Button>
+      <ActionPopover ref={ref}>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+
+      <Button
+        onClick={() => {
+          refMore.current?.focusButton();
+        }}
+      >
+        Focus More
+      </Button>
+      <ActionPopover renderButton={renderButton} ref={refMore} mt={3}>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </>
+  );
+};
+FocusButtonProgrammatically.storyName = "Focus Button Programmatically";

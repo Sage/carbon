@@ -420,7 +420,7 @@ test.describe("Tile component", () => {
         await mount(
           <FlexTileContainer columnGap={value}>content</FlexTileContainer>,
         );
-        const containerElement = await getDataComponentByValue(
+        const containerElement = getDataComponentByValue(
           page,
           "flex-tile-container",
         );

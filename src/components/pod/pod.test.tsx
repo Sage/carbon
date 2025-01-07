@@ -1,9 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Pod from ".";
 import Typography from "../typography";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../__internal__/utils/logger";
 
 test("renders with `title` as a string", () => {
   render(<Pod title="Title" />);
@@ -93,8 +94,9 @@ test("calls `onEdit` when Enter key is pressed on the edit button", async () => 
   render(<Pod title="Title" onEdit={onEdit} />);
 
   const editButton = screen.getByRole("button", { name: "Edit" });
-  editButton.focus();
-
+  act(() => {
+    editButton.focus();
+  });
   await user.keyboard("{enter}");
 
   expect(onEdit).toHaveBeenCalled();
@@ -106,9 +108,11 @@ test("does not call `onEdit` when non-Enter key is pressed on the edit button", 
   render(<Pod title="Title" onEdit={onEdit} />);
 
   const editButton = screen.getByRole("button", { name: "Edit" });
-  editButton.focus();
-
+  act(() => {
+    editButton.focus();
+  });
   await user.keyboard("a");
+
   expect(onEdit).not.toHaveBeenCalled();
 });
 
@@ -128,9 +132,11 @@ test("calls `onEdit` when `triggerEditOnContent` is true and Enter key is presse
   render(<Pod title="Title" onEdit={onEdit} triggerEditOnContent />);
 
   const content = screen.getByTestId("pod-block");
-  content.focus();
-
+  act(() => {
+    content.focus();
+  });
   await user.keyboard("{enter}");
+
   expect(onEdit).toHaveBeenCalled();
 });
 
@@ -140,9 +146,11 @@ test("does not call `onEdit` when `triggerEditOnContent` is true and non-Enter k
   render(<Pod title="Title" onEdit={onEdit} triggerEditOnContent />);
 
   const content = screen.getByTestId("pod-block");
-  content.focus();
-
+  act(() => {
+    content.focus();
+  });
   await user.keyboard("a");
+
   expect(onEdit).not.toHaveBeenCalled();
 });
 
@@ -168,9 +176,11 @@ test("calls `onDelete` when Enter key is pressed on the delete button", async ()
   render(<Pod title="Title" onDelete={onDelete} />);
 
   const deleteButton = screen.getByRole("button", { name: "Delete" });
-  deleteButton.focus();
-
+  act(() => {
+    deleteButton.focus();
+  });
   await user.keyboard("{enter}");
+
   expect(onDelete).toHaveBeenCalled();
 });
 
@@ -180,9 +190,11 @@ test("does not call `onDelete` when non-Enter key is pressed on the delete butto
   render(<Pod title="Title" onDelete={onDelete} />);
 
   const deleteButton = screen.getByRole("button", { name: "Delete" });
-  deleteButton.focus();
-
+  act(() => {
+    deleteButton.focus();
+  });
   await user.keyboard("a");
+
   expect(onDelete).not.toHaveBeenCalled();
 });
 
@@ -208,9 +220,11 @@ test("calls `onUndo` when Enter key is pressed on the undo button", async () => 
   render(<Pod title="Title" onUndo={onUndo} softDelete />);
 
   const undoButton = screen.getByRole("button", { name: "Undo" });
-  undoButton.focus();
-
+  act(() => {
+    undoButton.focus();
+  });
   await user.keyboard("{enter}");
+
   expect(onUndo).toHaveBeenCalled();
 });
 
@@ -220,9 +234,11 @@ test("does not call `onUndo` when non-Enter key is pressed on the undo button", 
   render(<Pod title="Title" onUndo={onUndo} softDelete />);
 
   const undoButton = screen.getByRole("button", { name: "Undo" });
-  undoButton.focus();
-
+  act(() => {
+    undoButton.focus();
+  });
   await user.keyboard("a");
+
   expect(onUndo).not.toHaveBeenCalled();
 });
 
@@ -231,14 +247,19 @@ test("renders content with focus border when edit button is focused and removes 
   render(<Pod title="Title" onEdit={() => {}} />);
 
   const editButton = screen.getByRole("button", { name: "Edit" });
-  editButton.focus();
-
+  act(() => {
+    editButton.focus();
+  });
   const content = screen.getByTestId("pod-block");
+
   expect(content).toHaveStyleRule(
     "border: 3px solid var(--colorsSemanticFocus500)",
   );
 
-  editButton.blur();
+  act(() => {
+    editButton.blur();
+  });
+
   expect(content).not.toHaveStyleRule(
     "border: 3px solid var(--colorsSemanticFocus500)",
   );
@@ -249,14 +270,19 @@ test("renders content with focus border when delete button is focused and remove
   render(<Pod title="Title" onDelete={() => {}} />);
 
   const deleteButton = screen.getByRole("button", { name: "Delete" });
-  deleteButton.focus();
-
+  act(() => {
+    deleteButton.focus();
+  });
   const content = screen.getByTestId("pod-block");
+
   expect(content).toHaveStyleRule(
     "border: 3px solid var(--colorsSemanticFocus500)",
   );
 
-  deleteButton.blur();
+  act(() => {
+    deleteButton.blur();
+  });
+
   expect(content).not.toHaveStyleRule(
     "border: 3px solid var(--colorsSemanticFocus500)",
   );
@@ -267,14 +293,19 @@ test("renders content with focus border when undo button is focused and removes 
   render(<Pod title="Title" softDelete onUndo={() => {}} />);
 
   const undoButton = screen.getByRole("button", { name: "Undo" });
-  undoButton.focus();
-
+  act(() => {
+    undoButton.focus();
+  });
   const content = screen.getByTestId("pod-block");
+
   expect(content).toHaveStyleRule(
     "border: 3px solid var(--colorsSemanticFocus500)",
   );
 
-  undoButton.blur();
+  act(() => {
+    undoButton.blur();
+  });
+
   expect(content).not.toHaveStyleRule(
     "border: 3px solid var(--colorsSemanticFocus500)",
   );
@@ -458,7 +489,9 @@ test("renders block with correct colour when `variant` is 'tile', `internalEditB
   );
 
   const editButton = screen.getByRole("button", { name: "Edit" });
-  editButton.focus();
+  act(() => {
+    editButton.focus();
+  });
 
   const block = screen.getByTestId("pod-block");
   expect(block).toHaveStyleRule(
@@ -471,7 +504,9 @@ test("renders block with correct padding when `border` is false and a button is 
   render(<Pod title="Title" onEdit={() => {}} border={false} />);
 
   const editButton = screen.getByRole("button", { name: "Edit" });
-  editButton.focus();
+  act(() => {
+    editButton.focus();
+  });
 
   const block = screen.getByTestId("pod-block");
   expect(block).toHaveStyle({ padding: "0" });
@@ -481,3 +516,17 @@ testStyledSystemMargin(
   (props) => <Pod data-role="pod" {...props} />,
   () => screen.getByTestId("pod"),
 );
+
+test("throws a deprecation warning if the 'className' prop is set", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+  render(<Pod className="foo">bar</Pod>);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The 'className' prop has been deprecated and will soon be removed from the 'Pod' component.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
