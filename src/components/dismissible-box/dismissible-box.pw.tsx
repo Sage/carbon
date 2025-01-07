@@ -1,7 +1,7 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
-
 import { DismissibleBoxProps } from "components/dismissible-box";
+import { test, expect } from "../../__spec_helper__/base-test";
+
 import {
   DefaultDismissibleBox,
   DefaultDarkVariant,

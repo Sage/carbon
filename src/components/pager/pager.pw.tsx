@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "../../__spec_helper__/base-test";
 import { PagerProps } from "./pager.component";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";

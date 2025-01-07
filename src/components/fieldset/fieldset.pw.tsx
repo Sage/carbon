@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "../../__spec_helper__/base-test";
 import Fieldset from ".";
 import Form, { FormProps } from "../form";
 import FieldsetComponent from "./components.test-pw";

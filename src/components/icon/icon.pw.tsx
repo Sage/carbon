@@ -1,6 +1,6 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
 import { IconProps } from "components/icon";
+import { test, expect } from "../../__spec_helper__/base-test";
 import { IconComponent, IconTooltipComponent } from "./component.test-pw";
 import {
   getDataElementByValue,

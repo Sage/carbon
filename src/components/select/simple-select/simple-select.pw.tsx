@@ -1,5 +1,5 @@
-import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
+import { test, expect } from "../../../__spec_helper__/base-test";
 import { SimpleSelectProps } from "..";
 import {
   SimpleSelectComponent,

@@ -1,6 +1,6 @@
 import React from "react";
-import { expect, test } from "@playwright/experimental-ct-react17";
 import { Locator } from "@playwright/test";
+import { test, expect } from "../../__spec_helper__/base-test";
 
 import {
   commonDataElementInputPreview,

@@ -1,5 +1,5 @@
 import React from "react";
-import { expect, test } from "@playwright/experimental-ct-react17";
+import { test, expect } from "../../__spec_helper__/base-test";
 import {
   SplitButtonList,
   SplitButtonNestedInDialog,

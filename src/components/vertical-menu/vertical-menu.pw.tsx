@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "../../__spec_helper__/base-test";
 import {
   VerticalMenuDefaultComponent,
   VerticalMenuItemCustom,

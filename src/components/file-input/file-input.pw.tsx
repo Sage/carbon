@@ -1,8 +1,8 @@
 import React from "react";
 import { Page } from "@playwright/test";
-import { test, expect } from "@playwright/experimental-ct-react17";
 import path from "path";
 import { readFileSync } from "fs";
+import { test, expect } from "../../__spec_helper__/base-test";
 import FileInputComponent from "./components.test-pw";
 import {
   hiddenInput,

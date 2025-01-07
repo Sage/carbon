@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/experimental-ct-react17";
 import { TextareaProps } from "components/textarea";
 import React from "react";
+import { test, expect } from "../../__spec_helper__/base-test";
 
 import { HooksConfig } from "../../../playwright";
 import {

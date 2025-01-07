@@ -1,5 +1,5 @@
-import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
+import { test, expect } from "../../__spec_helper__/base-test";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import Typography from "../typography";

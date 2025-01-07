@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "../../__spec_helper__/base-test";
 import VerticalDividerComponent from "./components.test-pw";
 import { verticalDividerComponent } from "../../../playwright/components/vertical-divider/index";
 import { VerticalDividerProps } from "./vertical-divider.component";

@@ -1,6 +1,6 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
 import type { Locator } from "@playwright/test";
+import { test, expect } from "../../__spec_helper__/base-test";
 import { FlatTableCheckboxProps } from ".";
 import {
   FlatTableComponent,

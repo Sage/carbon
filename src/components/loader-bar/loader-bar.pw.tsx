@@ -1,6 +1,6 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
 import { LoaderBarProps } from "components/loader-bar";
+import { test, expect } from "../../__spec_helper__/base-test";
 import { LOADER_BAR_SIZES } from "./loader-bar.config";
 import LoaderBarComponent from "./component.test-pw";
 import {
