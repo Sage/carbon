@@ -54,6 +54,60 @@ const FilterableSelectWithState = ({
   );
 };
 
+const FilterableSelectWithStateAndObjects = ({
+  label,
+  ...props
+}: Partial<FilterableSelectProps>) => {
+  const optionListValues = [
+    { id: "Black", value: 1, text: "Black" },
+    { id: "Blue", value: 2, text: "Blue" },
+  ];
+
+  const [value, setValue] = useState<Record<string, unknown>>(
+    optionListValues[1],
+  );
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as Record<string, unknown>);
+  }
+  return (
+    <FilterableSelect
+      label={label}
+      value={value}
+      onChange={onChangeHandler}
+      {...props}
+    >
+      {optionListValues.map((option) => (
+        <Option key={option.id} text={option.text} value={option} />
+      ))}
+    </FilterableSelect>
+  );
+};
+
+const FilterableSelectWithDefaultValueStateAndObjects = ({
+  label,
+  defaultValue,
+  ...props
+}: Partial<FilterableSelectProps>) => {
+  const optionListValues = [
+    { id: "Black", value: 1, text: "Black" },
+    { id: "Blue", value: 2, text: "Blue" },
+  ];
+
+  return (
+    <FilterableSelect
+      label={label}
+      defaultValue={defaultValue}
+      onChange={() => {}}
+      {...props}
+    >
+      {optionListValues.map((option) => (
+        <Option key={option.id} text={option.text} value={option} />
+      ))}
+    </FilterableSelect>
+  );
+};
+
 test("should display a deprecation warning only once for all instances of component when they are uncontrolled", () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");
   render(
@@ -181,6 +235,16 @@ test("should initially render combobox with custom `placeholder` when prop is pa
     "placeholder",
     "Select a colour",
   );
+});
+
+test("should initially render default value text when prop is passed", () => {
+  render(
+    <FilterableSelectWithDefaultValueStateAndObjects
+      defaultValue={{ id: "Blue", value: 2, text: "Blue" }}
+    />,
+  );
+
+  expect(screen.getByRole("combobox")).toHaveValue("Blue");
 });
 
 test("should render combobox with correct accessible name when `label` prop is provided", () => {
@@ -697,6 +761,25 @@ describe("when the input is focused", () => {
 
     expect(await screen.findByRole("listbox")).toBeVisible();
     expect(screen.getByRole("combobox")).toHaveValue("red");
+  });
+
+  it("should delete the last character with backspace and the correct match text is provided, if the values are objects", async () => {
+    const user = userEvent.setup();
+
+    render(<FilterableSelectWithStateAndObjects />);
+
+    const input = screen.getByRole("combobox");
+
+    expect(input).toHaveValue("Blue");
+
+    await user.click(input);
+    await user.click(input);
+
+    await user.type(input, "{Backspace}");
+    expect(input).toHaveValue("Blu");
+
+    await user.type(input, "{Backspace}");
+    expect(input).toHaveValue("Black");
   });
 
   it("should display the list but not update the input value when the user types a character that does not match an option", async () => {
