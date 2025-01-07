@@ -31,7 +31,7 @@ const config: Config = {
     "lib",
     "esm",
   ],
-  coverageReporters: ["text-summary", "html"],
+  coverageReporters: ["text-summary", "html", "json"],
   coverageDirectory: "<rootDir>/coverage",
   coverageThreshold: isCI ? undefined : coverageThresholds,
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "mjs"],

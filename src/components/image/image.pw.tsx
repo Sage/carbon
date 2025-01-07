@@ -1,5 +1,5 @@
-import { expect, test } from "@playwright/experimental-ct-react";
 import React from "react";
+import { test, expect } from "../../../playwright/helpers/base-test";
 
 import { checkAccessibility } from "../../../playwright/support/helper";
 import {

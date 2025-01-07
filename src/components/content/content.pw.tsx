@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import ContentComponent from "./components.test-pw";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
