@@ -1,7 +1,7 @@
-import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
 import MultiSelect, { MultiSelectProps } from ".";
 import Option from "../option";
+import { test, expect } from "../../../../playwright/helpers/base-test";
 import {
   MultiSelectComponent,
   MultiSelectDefaultValueComponent,

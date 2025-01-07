@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import { AdvancedColorPickerCustom } from "./components.test-pw";
 import {
   currentColorDescription,
