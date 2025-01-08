@@ -78,9 +78,12 @@ export interface FormFieldProps extends CommonFormFieldProps, TagProps {
   isRequired?: boolean;
   /** Whether to show the validation icon */
   useValidationIcon?: boolean;
+  /** String value for max-width of `field-line` element */
+  maxWidth?: string;
 }
 
 const FormField = ({
+  maxWidth,
   children,
   "data-component": dataComponent,
   disabled,
@@ -181,7 +184,11 @@ const FormField = ({
 
   return (
     <FormFieldStyle {...tagComponent(dataComponent, rest)} {...marginProps}>
-      <FieldLineStyle data-role="field-line" inline={inlineLabel}>
+      <FieldLineStyle
+        data-role="field-line"
+        inline={inlineLabel}
+        maxWidth={maxWidth}
+      >
         {reverse && children}
 
         {label && (

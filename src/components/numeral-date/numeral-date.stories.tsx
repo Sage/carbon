@@ -310,7 +310,6 @@ export const Required: Story = () => {
       name="optional"
       id="optional"
       label="Date of Birth"
-      labelAlign="right"
       labelWidth={30}
       onChange={(e) => setValue(e.target.value)}
       value={value}
@@ -327,7 +326,6 @@ export const IsOptional: Story = () => {
       name="optional"
       id="optional"
       label="Date of Birth"
-      labelAlign="right"
       labelWidth={30}
       onChange={(e) => setValue(e.target.value)}
       value={value}
