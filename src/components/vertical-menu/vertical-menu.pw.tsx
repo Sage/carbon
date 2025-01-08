@@ -17,7 +17,6 @@ import {
 } from "./components.test-pw";
 import VerticalMenuTrigger from "./vertical-menu-trigger/vertical-menu-trigger.component";
 import {
-  checkGoldenOutline,
   assertCssValueIsApproximately,
   checkAccessibility,
   waitForAnimationEnd,
@@ -30,7 +29,6 @@ import {
 } from "../../../playwright/components/vertical-menu";
 import { closeIconButton } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import { HooksConfig } from "../../../playwright";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testData = CHARACTERS.STANDARD;
@@ -532,23 +530,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     ).toBeFocused();
   });
 
-  test(`should check the focus styling, focusRedesignOptOut true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<VerticalMenuDefaultComponent />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await verticalMenuItem(page).first().focus();
-    await page.keyboard.press("Tab");
-    await checkGoldenOutline(verticalMenuItem(page).nth(1));
-  });
-
-  test(`should check the focus styling, focusRedesignOptOut false`, async ({
-    mount,
-    page,
-  }) => {
+  test(`should check the focus styling`, async ({ mount, page }) => {
     await mount(<VerticalMenuDefaultComponent />);
 
     await verticalMenuItem(page).first().focus();
@@ -620,7 +602,7 @@ test.describe("Events test", () => {
 
     await closeIconButton(page).click();
 
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
 
     const dialogText = page.getByText("Do you want to leave before saving?");
     await expect(dialogText).toBeInViewport();

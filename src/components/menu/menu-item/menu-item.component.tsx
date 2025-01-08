@@ -169,6 +169,7 @@ export const MenuItem = ({
     updateFocusId: updateSubmenuFocusId,
     handleKeyDown: handleSubmenuKeyDown,
     shiftTabPressed,
+    submenuHasMaxWidth,
   } = submenuContext;
   const ref = useRef<HTMLAnchorElement & HTMLButtonElement & HTMLDivElement>(
     null,
@@ -355,7 +356,7 @@ export const MenuItem = ({
         {...elementProps}
         menuItemVariant={variant}
         ariaLabel={ariaLabel}
-        maxWidth={maxWidth}
+        maxWidth={!submenuHasMaxWidth ? itemMaxWidth : undefined}
         inFullscreenView={inFullscreenView}
         asPassiveItem={asPassiveItem}
         placeholderTabIndex={asPassiveItem}

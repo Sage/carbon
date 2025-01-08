@@ -50,7 +50,6 @@ import {
   selectOptionByText,
   selectResetButton,
 } from "../../../../playwright/components/select";
-import { HooksConfig } from "../../../../playwright";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
@@ -77,42 +76,22 @@ const keyToTrigger = [
   "Enter",
 ] as const;
 
-test.describe("When focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MultiSelectComponent />);
+test("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<MultiSelectComponent />);
 
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await expect(inputElement.locator("..")).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(inputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<MultiSelectDefaultValueComponent />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    const selectInputElement = commonDataElementInputPreview(page);
-    await selectInputElement.focus();
-    await expect(selectInputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
+  const inputElement = commonDataElementInputPreview(page);
+  await inputElement.focus();
+  await expect(inputElement.locator("..")).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(inputElement.locator("..")).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test.describe("MultiSelect component", () => {
@@ -698,7 +677,7 @@ test.describe("MultiSelect component", () => {
     await Promise.all(
       [0, 1, 2].map((i) => expect(loader(page, i)).not.toBeVisible()),
     );
-    await expect(await selectOptionByText(page, option)).toBeVisible();
+    await expect(selectOptionByText(page, option)).toBeVisible();
   });
 
   test("the list should not change scroll position when the lazy-loaded options appear", async ({
@@ -725,7 +704,7 @@ test.describe("MultiSelect component", () => {
     const scrollPositionAfterLoad = await scrollableWrapper.evaluate(
       (element) => element.scrollTop,
     );
-    await expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
+    expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
   });
 
   test("should list options when value is set and select list is opened again", async ({
@@ -736,7 +715,7 @@ test.describe("MultiSelect component", () => {
 
     const count = 11;
     const dropdownButtonElement = dropdownButton(page);
-    const wrapperElement = await selectListWrapper(page);
+    const wrapperElement = selectListWrapper(page);
     await dropdownButtonElement.click();
     await selectOptionByText(page, listOption).click();
     await expect(multiSelectPill(page)).toHaveAttribute("title", listOption);
@@ -1056,7 +1035,7 @@ test.describe("MultiSelect component", () => {
     await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
     const wrapperElement = selectListWrapper(page);
     await expect(wrapperElement).toBeVisible();
-    const inputElement = await commonDataElementInputPreview(page);
+    const inputElement = commonDataElementInputPreview(page);
     await inputElement.press("Backspace");
     await expect(multiSelectPillByText(page, option2)).toHaveCount(0);
     await expect(wrapperElement).toBeVisible();
@@ -1212,7 +1191,7 @@ test.describe("Check events for MultiSelect component", () => {
     await mount(<MultiSelectComponent onClick={callback} />);
 
     await commonDataElementInputPreview(page).click();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onFocus when MultiSelect is brought into focus", async ({
@@ -1226,7 +1205,7 @@ test.describe("Check events for MultiSelect component", () => {
     await mount(<MultiSelectComponent onFocus={callback} />);
 
     await commonDataElementInputPreview(page).focus();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onOpen when MultiSelect is opened", async ({
@@ -1240,7 +1219,7 @@ test.describe("Check events for MultiSelect component", () => {
     await mount(<MultiSelectComponent onOpen={callback} />);
 
     await dropdownButton(page).click();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onChange event once when a list option is selected", async ({
@@ -1260,8 +1239,8 @@ test.describe("Check events for MultiSelect component", () => {
     const option = ["1"];
     await dropdownButton(page).click();
     await selectOption(page, positionOfElement(position)).click();
-    await expect(callbackArguments.length).toBe(1);
-    await expect(callbackArguments[0]).toMatchObject({
+    expect(callbackArguments.length).toBe(1);
+    expect(callbackArguments[0]).toMatchObject({
       target: { value: option },
       selectionConfirmed: true,
     });
@@ -1287,7 +1266,7 @@ test.describe("Check events for MultiSelect component", () => {
       const inputElement = commonDataElementInputPreview(page);
       await inputElement.focus();
       await inputElement.press(key);
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
   });
 
@@ -1310,8 +1289,8 @@ test.describe("Check events for MultiSelect component", () => {
     const inputElement = commonDataElementInputPreview(page);
     await inputElement.focus();
     await inputElement.type(text);
-    await expect(callbackArguments.length).toBe(1);
-    await expect(callbackArguments[0]).toBe(text);
+    expect(callbackArguments.length).toBe(1);
+    expect(callbackArguments[0]).toBe(text);
   });
 
   test("should call onListScrollBottom event when the list is scrolled to the bottom", async ({
@@ -1329,7 +1308,7 @@ test.describe("Check events for MultiSelect component", () => {
       wrapper.scrollBy(0, 500),
     );
     await page.waitForTimeout(250);
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should not call onListScrollBottom callback when an option is clicked", async ({

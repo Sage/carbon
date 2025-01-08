@@ -17,10 +17,6 @@ const HEADER_OVERLAY_INCREMENT = 3;
 const STICKY_FOOTER_OVERLAY_INCREMENT = 1;
 const ROW_HEADER_OVERLAY_INCREMENT = 5;
 
-const oldFocusStyling = `
-  outline: 2px solid var(--colorsSemanticFocus500);
-`;
-
 const StyledTableContainer = styled.div<
   Pick<FlatTableProps, "width" | "overflowX">
 >`
@@ -147,24 +143,15 @@ const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
       border-bottom-right-radius: var(--${bottomBorderRadius});
     `}
 
-  ${({ isInSidebar, theme, isFocused }) => css`
+  ${({ isInSidebar, isFocused }) => css`
     box-sizing: border-box;
 
-    /* istanbul ignore next */
-    ${theme.focusRedesignOptOut &&
-    isFocused &&
-    /* istanbul ignore next */
-    css`
-      ${oldFocusStyling}
-    `}
-
-    ${!theme.focusRedesignOptOut &&
-    isFocused &&
+    ${isFocused &&
     css`
       ${addFocusStyling()}
     `}
 
-      ${isInSidebar ? "min-width: fit-content;" : ""}
+    ${isInSidebar ? "min-width: fit-content;" : ""}
   `}
 
   ${({ colorTheme }) => {

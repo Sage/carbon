@@ -48,7 +48,6 @@ import {
   selectOptionByText,
   selectText,
 } from "../../../../playwright/components/select";
-import { HooksConfig } from "../../../../playwright";
 import {
   checkAccessibility,
   assertCssValueIsApproximately,
@@ -61,41 +60,22 @@ const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
 const keyToTrigger = ["ArrowDown", "ArrowUp", "Space", "Home", "End"] as const;
 
-test.describe("When focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectComponent />);
+test("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<SimpleSelectComponent />);
 
-    const selectInputElement = commonDataElementInputPreview(page);
-    await selectInputElement.focus();
-    await expect(selectInputElement.locator("..")).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(selectInputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SimpleSelectComponent />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-    const selectInputElement = commonDataElementInputPreview(page);
-    await selectInputElement.focus();
-    await expect(selectInputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
+  const selectInputElement = commonDataElementInputPreview(page);
+  await selectInputElement.focus();
+  await expect(selectInputElement.locator("..")).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(selectInputElement.locator("..")).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test.describe("SimpleSelect component", () => {
@@ -1186,7 +1166,7 @@ test.describe("Check events for SimpleSelect component", () => {
     const position = "first";
     await selectText(page).click();
     await selectOption(page, positionOfElement(position)).click();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onBlur event when the list is closed", async ({
@@ -1201,7 +1181,7 @@ test.describe("Check events for SimpleSelect component", () => {
 
     await selectText(page).click();
     await commonDataElementInputPreview(page).blur();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onClick event when mouse is clicked on text input", async ({
@@ -1218,7 +1198,7 @@ test.describe("Check events for SimpleSelect component", () => {
     // [not clear if this onClick is even needed since a user isn't able to click, but leaving the test in pending
     // pending discussion/investigation]
     await commonDataElementInputPreview(page).click({ force: true });
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onOpen when select list is opened", async ({
@@ -1232,7 +1212,7 @@ test.describe("Check events for SimpleSelect component", () => {
     await mount(<SimpleSelectComponent onOpen={callback} />);
 
     await commonDataElementInputPreview(page).click({ force: true });
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onFocus when SimpleSelect is brought into focus", async ({
@@ -1246,7 +1226,7 @@ test.describe("Check events for SimpleSelect component", () => {
     await mount(<SimpleSelectComponent onFocus={callback} />);
 
     await commonDataElementInputPreview(page).focus();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   keyToTrigger.slice(0, 2).forEach((key) => {
@@ -1263,7 +1243,7 @@ test.describe("Check events for SimpleSelect component", () => {
       const inputElement = commonDataElementInputPreview(page);
       await inputElement.focus();
       await inputElement.press(key);
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
   });
 });

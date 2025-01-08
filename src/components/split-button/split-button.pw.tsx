@@ -29,16 +29,12 @@ import {
 import { accordionDefaultTitle } from "../../../playwright/components/accordion";
 import { alertDialogPreview } from "../../../playwright/components/dialog";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import { HooksConfig } from "../../../playwright";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const keyToTrigger = ["Enter", "Space", "ArrowDown", "ArrowUp"] as const;
 
 test.describe("Styling tests", () => {
-  test(`should render with the expected styling when the focusRedesignOptOut is false`, async ({
-    mount,
-    page,
-  }) => {
+  test(`should render with the expected styling`, async ({ mount, page }) => {
     await mount(<SplitButtonList />);
 
     await mainButton(page).focus();
@@ -58,26 +54,6 @@ test.describe("Styling tests", () => {
     await expect(splitToggleButton(page)).toHaveCSS(
       "outline",
       "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test(`should render with the expected styling when the focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SplitButtonList />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await mainButton(page).focus();
-    await expect(mainButton(page)).toHaveCSS(
-      "border",
-      "3px solid rgb(255, 188, 25)",
-    );
-    await splitToggleButton(page).focus();
-    await expect(splitToggleButton(page)).toHaveCSS(
-      "border",
-      "3px solid rgb(255, 188, 25)",
     );
   });
 
@@ -264,8 +240,8 @@ test.describe("Prop tests", () => {
 
   (
     [
-      ["left", 0],
-      ["right", 42],
+      ["left", 198],
+      ["right", 242],
     ] as [SplitButtonProps["position"], number][]
   ).forEach(([position, value]) => {
     test(`should render with menu position to the ${position}`, async ({
@@ -276,7 +252,7 @@ test.describe("Prop tests", () => {
 
       await getDataElementByValue(page, "dropdown").click();
       const listContainer = additionalButtonsContainer(page);
-      await expect(listContainer).toHaveCSS("position", "absolute");
+      await expect(listContainer).toHaveCSS("position", "fixed");
       await assertCssValueIsApproximately(listContainer, "top", 46);
       await assertCssValueIsApproximately(listContainer, "left", value);
     });

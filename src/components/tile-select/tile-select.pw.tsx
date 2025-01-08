@@ -10,7 +10,6 @@ import {
   checkAccessibility,
   containsClass,
 } from "../../../playwright/support/helper";
-import { HooksConfig } from "../../../playwright";
 import {
   TileSelectComponent,
   MultiTileSelectGroupComponent,
@@ -39,10 +38,7 @@ import { CHARACTERS } from "../../../playwright/support/constants";
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 test.describe("check Focus Outline & Border Radius", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
+  test("should have the expected focus styling", async ({ mount, page }) => {
     await mount(<TileSelectComponent />);
 
     const styleElement = inputElement(page);
@@ -56,26 +52,6 @@ test.describe("check Focus Outline & Border Radius", () => {
     await expect(focusedElement).toHaveCSS(
       "outline",
       "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<TileSelectComponent />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    const styleElement = inputElement(page);
-    await styleElement.focus();
-    const focusedElement = inputElement(page).locator("..");
-
-    await expect(focusedElement).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
     );
   });
 });
@@ -476,7 +452,7 @@ test.describe("should render TileSelect component and check events", () => {
 
     const onFocusElement = inputElement(page);
     await onFocusElement.focus();
-    await expect(callbackCount).toEqual(1);
+    expect(callbackCount).toEqual(1);
   });
 
   test("should call onChange callback when a click event is triggered for TileSelect component", async ({

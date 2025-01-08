@@ -35,7 +35,6 @@ import {
   assertCssValueIsApproximately,
   getStyle,
 } from "../../../playwright/support/helper";
-import { HooksConfig } from "../../../playwright";
 
 const validationTypes = ["error", "warning", "info"] as const;
 
@@ -685,37 +684,18 @@ test.describe("Tabs component", () => {
     });
   });
 
-  test.describe("focus styles", () => {
-    [1, 2, 3, 4, 5].forEach((id) => {
-      test(`should render Tab ${id} with expected styles when focusRedesignOptOut is true`, async ({
-        mount,
-        page,
-      }) => {
-        await mount<HooksConfig>(<TabsComponent />, {
-          hooksConfig: { focusRedesignOptOut: true },
-        });
+  [1, 2, 3, 4, 5].forEach((id) => {
+    test(`should render Tab ${id} with expected focus styling`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TabsComponent />);
 
-        await tabById(page, id).focus();
-        await expect(tabById(page, id)).toHaveCSS(
-          "outline",
-          "rgb(255, 188, 25) solid 4px",
-        );
-      });
-    });
-
-    [1, 2, 3, 4, 5].forEach((id) => {
-      test(`should render Tab ${id} with expected styles when focusRedesignOptOut is false`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TabsComponent />);
-
-        await tabById(page, id).focus();
-        await expect(tabById(page, id)).toHaveCSS(
-          "outline",
-          "rgb(0, 0, 0) solid 4px",
-        );
-      });
+      await tabById(page, id).focus();
+      await expect(tabById(page, id)).toHaveCSS(
+        "outline",
+        "rgb(0, 0, 0) solid 4px",
+      );
     });
   });
 

@@ -31,7 +31,7 @@ test.describe("Hr component", () => {
       mount,
       page,
     }) => {
-      await await mount(
+      await mount(
         <HrComponent
           mb={7}
           mt={7}

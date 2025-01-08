@@ -279,9 +279,9 @@ test.describe("Check props of Popover Container component", () => {
       );
       const positionY = await getYValue(popoverContainerContentElement);
 
-      await expect(positionBottom).toBeLessThan(bottomValueMin);
-      await expect(positionTop).toBeLessThan(yAndTopValueMin);
-      await expect(positionY).toBeLessThan(yAndTopValueMin);
+      expect(positionBottom).toBeLessThan(bottomValueMin);
+      expect(positionTop).toBeLessThan(yAndTopValueMin);
+      expect(positionY).toBeLessThan(yAndTopValueMin);
     });
   });
 
@@ -400,7 +400,7 @@ test.describe("Check props of Popover Container component", () => {
       const popoverSettingsIconElement = popoverSettingsIcon(page);
       await popoverSettingsIconElement.click();
 
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
 
     keysToTrigger.forEach((key) => {
@@ -420,7 +420,7 @@ test.describe("Check props of Popover Container component", () => {
         const popoverSettingsIconElement = popoverSettingsIcon(page);
         await popoverSettingsIconElement.press(key);
 
-        await expect(callbackCount).toBe(1);
+        expect(callbackCount).toBe(1);
       });
     });
 
@@ -441,7 +441,7 @@ test.describe("Check props of Popover Container component", () => {
       const popoverCloseIconElement = popoverCloseIcon(page);
       await popoverCloseIconElement.click();
 
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
 
     keysToTrigger.forEach((key) => {
@@ -462,7 +462,7 @@ test.describe("Check props of Popover Container component", () => {
         const popoverCloseIconElement = popoverCloseIcon(page);
         await popoverCloseIconElement.press(key);
 
-        await expect(callbackCount).toBe(1);
+        expect(callbackCount).toBe(1);
       });
     });
 
@@ -483,7 +483,7 @@ test.describe("Check props of Popover Container component", () => {
       const popoverContainerElement = popoverContainerComponent(page);
       await popoverContainerElement.press("Escape");
 
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
 
     test("should call onClose callback when a click event is triggered outside the container", async ({
@@ -502,7 +502,7 @@ test.describe("Check props of Popover Container component", () => {
 
       await page.locator("body").click();
 
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
 
     test("should not call onClose callback when a click event is triggered outside the container and the container is closed", async ({
@@ -521,7 +521,7 @@ test.describe("Check props of Popover Container component", () => {
 
       await page.locator("body").click();
 
-      await expect(callbackCount).toBe(0);
+      expect(callbackCount).toBe(0);
     });
 
     test("should focus the next element after the open button when user tabs and last element in the container is focused", async ({

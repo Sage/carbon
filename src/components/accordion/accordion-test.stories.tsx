@@ -3,10 +3,13 @@ import { action } from "@storybook/addon-actions";
 import { Accordion, AccordionGroup } from ".";
 import Textbox from "../textbox";
 import Box from "../box";
+import MultiActionButton from "../multi-action-button";
+import SplitButton from "../split-button";
+import Button from "../button/button.component";
 
 export default {
   title: "Accordion/Test",
-  includeStories: ["Default", "Grouped"],
+  includeStories: ["Default", "Grouped", "AccordionWithMultiAction"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -112,3 +115,27 @@ export const Grouped = ({ ...args }) => (
 );
 
 Grouped.storyName = "grouped";
+
+export const AccordionWithMultiAction = () => {
+  return (
+    <Accordion title="Accordion">
+      <MultiActionButton text="Multi Action Button">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+        <Button>Button 4</Button>
+        <Button>Button 5</Button>
+      </MultiActionButton>
+      <SplitButton text="Split Button">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+        <Button>Button 4</Button>
+        <Button>Button 5</Button>
+      </SplitButton>
+    </Accordion>
+  );
+};
+
+AccordionWithMultiAction.storyName =
+  "Accordion with MultiAction and Split Button";

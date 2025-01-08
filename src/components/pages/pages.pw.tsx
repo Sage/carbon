@@ -74,7 +74,7 @@ test.describe("Prop checks for Pages component", () => {
       await dataComponentButtonByText(page, "Go to second page").click();
       const classAttribute = await pageComponent.getAttribute("class");
 
-      await expect(classAttribute).toContain(transition);
+      expect(classAttribute).toContain(transition);
     });
   });
 

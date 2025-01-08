@@ -267,6 +267,12 @@ export const LongLabelsStory = () => {
         <MenuItem>Child B</MenuItem>
         <MenuItem>Child C</MenuItem>
       </MenuItem>
+      <MenuItem submenu="Parent Menu C with overflow" submenuMaxWidth="300px">
+        <MenuItem minWidth="max-content">
+          Child with a very long label that should wrap onto the next line and
+          not get cut off
+        </MenuItem>
+      </MenuItem>
     </Menu>
   );
 };

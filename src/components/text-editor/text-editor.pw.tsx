@@ -22,13 +22,11 @@ import {
   visuallyHiddenCharacterCount,
 } from "../../../playwright/components";
 import {
-  checkGoldenOutline,
   verifyRequiredAsteriskForLabel,
   checkAccessibility,
   getStyle,
 } from "../../../playwright/support/helper";
 import { VALIDATION, CHARACTERS } from "../../../playwright/support/constants";
-import { HooksConfig } from "../../../playwright";
 
 const textForInput = "Testing is awesome";
 const linkText = "https://carbon.sage.com";
@@ -640,7 +638,7 @@ test.describe("Prop tests", () => {
   });
 
   ["error", "warning", "info"].forEach((validationType) => {
-    test(`has correct styles when there is ${validationType} validation and the editor is focused when new validation styles are used`, async ({
+    test(`has correct styles when there is ${validationType} validation and the editor is focused`, async ({
       mount,
       page,
     }) => {
@@ -654,33 +652,6 @@ test.describe("Prop tests", () => {
       await expect(textEditorContainer(page).locator("..")).toHaveCSS(
         "box-shadow",
         "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-      );
-    });
-  });
-
-  [
-    ["error", "2px"],
-    ["warning", "1px"],
-    ["info", "1px"],
-  ].forEach(([validationType, outlineOffset]) => {
-    test(`has correct styles when there is ${validationType} validation and the editor is focused when focusRedesignOptOut flag is true`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <CarbonProvider focusRedesignOptOut>
-          <TextEditorCustom {...{ [validationType]: validationType }} />
-        </CarbonProvider>,
-      );
-      await textEditorInput(page).focus();
-
-      await expect(textEditorContainer(page).locator("..")).toHaveCSS(
-        "outline",
-        "rgb(255, 188, 25) solid 3px",
-      );
-      await expect(textEditorContainer(page).locator("..")).toHaveCSS(
-        "outline-offset",
-        outlineOffset,
       );
     });
   });
@@ -770,34 +741,7 @@ test.describe("Styling tests", () => {
     );
   });
 
-  test(`should render with the expected styling when focusRedesignOptOut is true`, async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<TextEditorCustom />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    await textEditorInput(page).focus();
-    await expect(textEditorContainer(page).locator("..")).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-
-    await textEditorToolbar(page, "bold").focus();
-    await checkGoldenOutline(textEditorToolbar(page, "bold"), "2px");
-
-    await textEditorToolbar(page, "italic").focus();
-    await checkGoldenOutline(textEditorToolbar(page, "italic"), "2px");
-
-    await textEditorToolbar(page, "bullet-list").focus();
-    await checkGoldenOutline(textEditorToolbar(page, "bullet-list"), "2px");
-
-    await textEditorToolbar(page, "number-list").focus();
-    await checkGoldenOutline(textEditorToolbar(page, "number-list"), "2px");
-  });
-
-  test(`should render with the expected styling when focusRedesignOptOut is false`, async ({
+  test(`should render with the expected focus styling`, async ({
     mount,
     page,
   }) => {

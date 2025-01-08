@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { HooksConfig } from "../../../playwright";
 import {
   commonDataElementInputPreview,
   getDataElementByValue,
@@ -75,45 +74,20 @@ const indexes = Array.from({
   length: colors.length,
 }).map((_, index) => index);
 
-test.describe("When SimpleColorPicker is focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleColorPickerCustom />);
+test("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<SimpleColorPickerCustom />);
 
-    await simpleColorPickerInput(page, 0).focus();
+  await simpleColorPickerInput(page, 0).focus();
 
-    const focusedColor = simpleColorDiv(page, 0);
-    await expect(focusedColor).toHaveCSS(
-      "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
-    );
-    await expect(focusedColor).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<SimpleColorPickerCustom />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-
-    await simpleColorPickerInput(page, 0).focus();
-
-    const focusedColor = simpleColorDiv(page, 0);
-
-    await expect(focusedColor).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 255, 255) 0px 0px 0px 2px inset",
-    );
-  });
+  const focusedColor = simpleColorDiv(page, 0);
+  await expect(focusedColor).toHaveCSS(
+    "box-shadow",
+    "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
+  );
+  await expect(focusedColor).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
 });
 
 test.describe("Check functionality for SimpleColorPicker component", () => {
@@ -121,7 +95,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await mount(<SimpleColorPickerCustom />);
 
     const testColor = async (index: number) => {
-      const colorInput = await simpleColorPickerInput(page, index);
+      const colorInput = simpleColorPickerInput(page, index);
 
       await expect(colorInput).toHaveAttribute("value", colors[index].color);
       await expect(colorInput).toHaveAttribute(
@@ -273,12 +247,12 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
       const { top, bottom, left } = await colorCell.evaluate((element) =>
         element.getBoundingClientRect(),
       );
-      await expect(bottom).toBeLessThan(bottomLess + additionVal);
-      await expect(bottom).toBeGreaterThan(bottomLess);
-      await expect(top).toBeLessThan(topLess + additionVal);
-      await expect(top).toBeGreaterThan(topLess);
-      await expect(left).toBeLessThan(leftLess + additionVal);
-      await expect(left).toBeGreaterThan(leftLess);
+      expect(bottom).toBeLessThan(bottomLess + additionVal);
+      expect(bottom).toBeGreaterThan(bottomLess);
+      expect(top).toBeLessThan(topLess + additionVal);
+      expect(top).toBeGreaterThan(topLess);
+      expect(left).toBeLessThan(leftLess + additionVal);
+      expect(left).toBeGreaterThan(leftLess);
     });
   });
 
@@ -314,7 +288,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
       await expect(
         simpleColorDiv(page, 0).locator("..").locator(".."),
       ).toHaveCSS("outline-color", color);
-      await expect(
+      expect(
         await getStyle(getDataElementByValue(page, type), "color", "before"),
       ).toBe(color);
     });
@@ -350,7 +324,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
       await expect(
         simpleColorDiv(page, 0).locator("..").locator(".."),
       ).toHaveCSS("outline-color", color);
-      await expect(
+      expect(
         await getStyle(getDataElementByValue(page, type), "color", "before"),
       ).toBe(color);
     });
@@ -394,7 +368,7 @@ test.describe("Check events for SimpleColorPicker component", () => {
     await mount(<SimpleColorPickerCustom onChange={callback} />);
 
     await simpleColorPickerInput(page, 5).click();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onChange callback and focus the correct item when the right arrow key is pressed", async ({
@@ -420,7 +394,7 @@ test.describe("Check events for SimpleColorPicker component", () => {
       // eslint-disable-next-line no-await-in-loop
       await expect(nextColor).toHaveAttribute("value", colors[next].color);
       // eslint-disable-next-line no-await-in-loop
-      await expect(callbackCount).toBe(expectedCount);
+      expect(callbackCount).toBe(expectedCount);
     }
   });
 
@@ -447,7 +421,7 @@ test.describe("Check events for SimpleColorPicker component", () => {
       // eslint-disable-next-line no-await-in-loop
       await expect(nextColor).toHaveAttribute("value", colors[next].color);
       // eslint-disable-next-line no-await-in-loop
-      await expect(callbackCount).toBe(expectedCount);
+      expect(callbackCount).toBe(expectedCount);
     }
   });
 
@@ -474,7 +448,7 @@ test.describe("Check events for SimpleColorPicker component", () => {
         "value",
         colors[focusedIndex].color,
       );
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
   });
 
@@ -503,7 +477,7 @@ test.describe("Check events for SimpleColorPicker component", () => {
         "value",
         colors[focusedIndex].color,
       );
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
   });
 
@@ -520,7 +494,7 @@ test.describe("Check events for SimpleColorPicker component", () => {
     const colorInput = simpleColorPickerInput(page, 5);
     await colorInput.focus();
     await page.locator("body").click({ position: { x: 0, y: 0 } });
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should not call onBlur callback when a blur event is triggered on a color", async ({
@@ -536,7 +510,7 @@ test.describe("Check events for SimpleColorPicker component", () => {
     const colorInput = simpleColorPickerInput(page, 5);
     await colorInput.focus();
     await colorInput.blur();
-    await expect(callbackCount).toBe(0);
+    expect(callbackCount).toBe(0);
   });
 
   test("should not call onBlur callback when a blur event is triggered and isBlurBlocked prop is true", async ({
@@ -552,7 +526,7 @@ test.describe("Check events for SimpleColorPicker component", () => {
     const colorInput = simpleColorPickerInput(page, 5);
     await colorInput.focus();
     await colorInput.blur();
-    await expect(callbackCount).toBe(0);
+    expect(callbackCount).toBe(0);
   });
 });
 
@@ -612,7 +586,7 @@ test.describe("Check events for SimpleColor component", () => {
     await mount(<SimpleColorCustom onChange={callback} />);
 
     await simpleColor(page, 1).click();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onBlur callback when a blur event is triggered", async ({
@@ -627,7 +601,7 @@ test.describe("Check events for SimpleColor component", () => {
 
     await simpleColor(page, 1).click();
     await page.locator("*:focus").blur();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onMouseDown callback when a click event is triggered", async ({
@@ -641,7 +615,7 @@ test.describe("Check events for SimpleColor component", () => {
     await mount(<SimpleColorCustom onMouseDown={callback} />);
 
     await simpleColor(page, 1).click();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 });
 

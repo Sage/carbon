@@ -47,7 +47,6 @@ import {
   selectOptionByText,
   selectResetButton,
 } from "../../../../playwright/components/select";
-import { HooksConfig } from "../../../../playwright";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
@@ -64,41 +63,22 @@ const icon = "add";
 const keyToTrigger = ["ArrowDown", "ArrowUp", "Home", "End"] as const;
 const listOption = "Amber";
 
-test.describe("When focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectComponent />);
+test("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<FilterableSelectComponent />);
 
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await expect(inputElement.locator("..")).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(inputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<FilterableSelectComponent />, {
-      hooksConfig: {
-        focusRedesignOptOut: true,
-      },
-    });
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await expect(inputElement.locator("..")).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 3px",
-    );
-  });
+  const inputElement = commonDataElementInputPreview(page);
+  await inputElement.focus();
+  await expect(inputElement.locator("..")).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(inputElement.locator("..")).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test.describe("FilterableSelect component", () => {
@@ -670,7 +650,7 @@ test.describe("FilterableSelect component", () => {
     await Promise.all(
       [0, 1, 2].map((i) => expect(loader(page, i)).not.toBeVisible()),
     );
-    await expect(await selectOptionByText(page, option)).toBeVisible();
+    await expect(selectOptionByText(page, option)).toBeVisible();
   });
 
   test("the list should not change scroll position when the lazy-loaded options appear", async ({
@@ -700,7 +680,7 @@ test.describe("FilterableSelect component", () => {
     const scrollPositionAfterLoad = await scrollableWrapper.evaluate(
       (element) => element.scrollTop,
     );
-    await expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
+    expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
   });
 
   test("should list options when value is set and select list is opened again", async ({
@@ -755,7 +735,7 @@ test.describe("FilterableSelect component", () => {
 
     const wrapperElement = selectListWrapper(page);
     const inputElement = commonDataElementInputPreview(page);
-    const selectInputElement = await selectInput(page);
+    const selectInputElement = selectInput(page);
     await inputElement.focus();
     await expect(selectInputElement).toHaveAttribute("aria-expanded", "true");
     await expect(wrapperElement).toBeVisible();
@@ -1094,8 +1074,8 @@ test.describe("FilterableSelect component", () => {
           window.getComputedStyle(wrapperElement).getPropertyValue("height"),
         ),
     );
-    await expect(selectListHeight).toBeGreaterThan(220);
-    await expect(selectListHeight).toBeLessThan(250);
+    expect(selectListHeight).toBeGreaterThan(220);
+    expect(selectListHeight).toBeLessThan(250);
   });
 
   test("when navigating with the keyboard, the selected option is not hidden behind an action button", async ({
@@ -1269,7 +1249,7 @@ test.describe("Check events for FilterableSelect component", () => {
     await mount(<FilterableSelectComponent onClick={callback} />);
 
     await dropdownButton(page).click();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onFocus when input is focused", async ({ mount, page }) => {
@@ -1280,7 +1260,7 @@ test.describe("Check events for FilterableSelect component", () => {
     await mount(<FilterableSelectComponent onFocus={callback} />);
 
     await commonDataElementInputPreview(page).focus();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
@@ -1297,7 +1277,7 @@ test.describe("Check events for FilterableSelect component", () => {
     await commonDataElementInputPreview(page).focus();
     // this waitFor call seems to be needed for the test to consistently pass
     await commonDataElementInputPreview(page).waitFor();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onOpen when FilterableSelect is opened by clicking on Icon", async ({
@@ -1311,7 +1291,7 @@ test.describe("Check events for FilterableSelect component", () => {
     await mount(<FilterableSelectComponent onOpen={callback} />);
 
     await dropdownButton(page).click();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onBlur event when the list is closed", async ({
@@ -1326,7 +1306,7 @@ test.describe("Check events for FilterableSelect component", () => {
 
     await dropdownButton(page).click();
     await commonDataElementInputPreview(page).blur();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onChange event when a list option is selected", async ({
@@ -1346,8 +1326,8 @@ test.describe("Check events for FilterableSelect component", () => {
     const option = "1";
     await dropdownButton(page).click();
     await selectOption(page, positionOfElement(position)).click();
-    await expect(callbackArguments.length).toBe(1);
-    await expect(callbackArguments[0]).toMatchObject({
+    expect(callbackArguments.length).toBe(1);
+    expect(callbackArguments[0]).toMatchObject({
       target: { value: option },
       selectionConfirmed: true,
     });
@@ -1367,7 +1347,7 @@ test.describe("Check events for FilterableSelect component", () => {
       const inputElement = commonDataElementInputPreview(page);
       await inputElement.focus();
       await inputElement.press(key);
-      await expect(callbackCount).toBe(1);
+      expect(callbackCount).toBe(1);
     });
   });
 
@@ -1390,8 +1370,8 @@ test.describe("Check events for FilterableSelect component", () => {
     const inputElement = commonDataElementInputPreview(page);
     await inputElement.focus();
     await inputElement.type(text);
-    await expect(callbackArguments.length).toBe(1);
-    await expect(callbackArguments[0]).toBe(text);
+    expect(callbackArguments.length).toBe(1);
+    expect(callbackArguments[0]).toBe(text);
   });
 
   test("should call onListAction event when the Action Button is clicked", async ({
@@ -1408,7 +1388,7 @@ test.describe("Check events for FilterableSelect component", () => {
 
     await dropdownButton(page).click();
     await filterableSelectAddElementButton(page).click();
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onListScrollBottom event when the list is scrolled to the bottom", async ({
@@ -1426,7 +1406,7 @@ test.describe("Check events for FilterableSelect component", () => {
       wrapper.scrollBy(0, 500),
     );
     await page.waitForTimeout(250);
-    await expect(callbackCount).toBe(1);
+    expect(callbackCount).toBe(1);
   });
 
   test("should not call onListScrollBottom callback when an option is clicked", async ({
@@ -1717,7 +1697,7 @@ test.describe("Selection confirmed", () => {
     // note: need to check count rather than visibility here - when the test fails and selectionConfirmed is set,
     // the span with the data-element prop exists but has size 0 due to having no text content - which Playwright
     // counts as not being visible
-    await expect(
+    expect(
       await page.locator('[data-element^="confirmed-selection-"]').count(),
     ).toBe(0);
   });

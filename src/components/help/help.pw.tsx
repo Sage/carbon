@@ -14,7 +14,6 @@ import {
   containsClass,
 } from "../../../playwright/support/helper";
 import { COLOR, CHARACTERS } from "../../../playwright/support/constants";
-import { HooksConfig } from "../../../playwright";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const tooltipText = "Some helpful text goes here";
@@ -25,40 +24,22 @@ const colors = [
   ["brown", COLOR.BROWN],
 ];
 
-test.describe("when focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<HelpComponentTest />);
+test("should have the expected styling when focused", async ({
+  mount,
+  page,
+}) => {
+  await mount(<HelpComponentTest />);
 
-    const elementLocator = helpComponent(page);
-    await elementLocator.focus();
-    await expect(helpComponent(page).locator("span")).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-    await expect(helpComponent(page).locator("span")).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px",
-    );
-  });
-
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
-    mount,
-    page,
-  }) => {
-    await mount<HooksConfig>(<HelpComponentTest />, {
-      hooksConfig: { focusRedesignOptOut: true },
-    });
-
-    const elementLocator = helpComponent(page);
-    await elementLocator.focus();
-    await expect(helpComponent(page).locator("span")).toHaveCSS(
-      "outline",
-      "rgb(255, 188, 25) solid 2px",
-    );
-  });
+  const elementLocator = helpComponent(page);
+  await elementLocator.focus();
+  await expect(helpComponent(page).locator("span")).toHaveCSS(
+    "box-shadow",
+    "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+  );
+  await expect(helpComponent(page).locator("span")).toHaveCSS(
+    "outline",
+    "rgba(0, 0, 0, 0) solid 3px",
+  );
 });
 
 test.describe("Testing Help component properties", () => {
