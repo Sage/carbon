@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   render,
   screen,
@@ -9,7 +9,9 @@ import {
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemPadding } from "../../__spec_helper__/__internal__/test-utils";
 
-import PopoverContainer from "./popover-container.component";
+import PopoverContainer, {
+  PopoverContainerHandle,
+} from "./popover-container.component";
 import { Select, Option } from "../select";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Button from "../button";
@@ -678,6 +680,33 @@ test("if only the open trigger is the only focusable element on screen, when the
   await user.tab(); // tab to close icon
   await user.tab(); // tab back out of content to the opening trigger element
 
+  expect(openButton).toHaveFocus();
+});
+
+test("should call the exposed `focusButton` method and focus the open button", async () => {
+  const MockComponent = () => {
+    const ref = useRef<PopoverContainerHandle>(null);
+
+    return (
+      <>
+        <Button
+          onClick={() => {
+            ref.current?.focusButton();
+          }}
+        >
+          Focus
+        </Button>
+        <PopoverContainer title="My popup" ref={ref} />
+      </>
+    );
+  };
+
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(<MockComponent />);
+
+  await user.click(screen.getByRole("button", { name: "Focus" }));
+
+  const openButton = screen.getByRole("button", { name: "My popup" });
   expect(openButton).toHaveFocus();
 });
 
