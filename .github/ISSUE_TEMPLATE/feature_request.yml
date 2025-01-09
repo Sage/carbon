@@ -3,14 +3,14 @@ description: Is there something that we should implement? Let us know!
 labels:
   - Enhancement
   - triage
+
 body:
   - type: markdown
     attributes:
       value: |
-        ### ⚠️ This feature request is public
+        > ⚠️ **WARNING: This bug report is public**
+        > Please do not include any confidential or commercially sensitive information.
 
-        **Please do not include any confidential or commercially sensitive information.**
-        ---
   - type: textarea
     id: description
     attributes:
@@ -22,12 +22,14 @@ body:
       placeholder: As a developer using Carbon, I want to [goal] so that [benefit].
     validations:
       required: true
+
   - type: textarea
     id: suggested-solution
     attributes:
       label: Suggested solution
     validations:
       required: true
+
   - type: input
     id: url
     attributes:
@@ -37,6 +39,7 @@ body:
       placeholder: Reproduction URL
     validations:
       required: false
+
   - type: textarea
     id: alternatives
     attributes:
@@ -45,6 +48,7 @@ body:
         A clear and concise description of any alternative solutions or features you've tried or considered.
     validations:
       required: false
+
   - type: textarea
     id: additional-info
     attributes:
@@ -52,6 +56,7 @@ body:
       description: Anything else we should know?
     validations:
       required: false
+      
   - type: checkboxes
     id: terms
     attributes:
