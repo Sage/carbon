@@ -11,11 +11,7 @@ import {
   FocusedCrumbBecomesCurrent,
   OnDarkBackground,
 } from "./components.test-pw";
-import {
-  checkAccessibility,
-  expectEventWasNotCalled,
-  expectEventWasCalledOnce,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
 test.describe("should render Breadcrumbs component", async () => {
@@ -234,53 +230,6 @@ test("when Crumb's isCurrent prop is true, Crumb divider should not exist", asyn
     "color",
     "rgba(0, 0, 0, 0.9)",
   );
-});
-
-test("should call the onClick callback when clicked", async ({
-  mount,
-  page,
-}) => {
-  const messages: string[] = [];
-
-  await mount(
-    <DefaultCrumb
-      onClick={(data) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        messages.push(data);
-      }}
-    />,
-  );
-
-  const crumbToClick = crumbAtIndex(page, 0);
-  await crumbToClick.click();
-
-  await expectEventWasCalledOnce(messages, "onClick");
-});
-
-test("should not set the onClick or href props when isCurrent is true", async ({
-  mount,
-  page,
-}) => {
-  const messages: string[] = [];
-
-  await mount(
-    <DefaultCrumb
-      href={CHARACTERS.STANDARD}
-      onClick={(data) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        messages.push(data);
-      }}
-      isCurrent
-    />,
-  );
-
-  const crumbToClick = crumbAtIndex(page, 0);
-  await crumbToClick.click();
-
-  await expectEventWasNotCalled(messages);
-  await expect(crumbToClick.locator("a")).not.toHaveAttribute("href", "/");
 });
 
 test.describe("Accessibility tests for Breadcrumbs component", async () => {

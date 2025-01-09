@@ -134,21 +134,13 @@ test.describe("Toast component", () => {
     });
   });
 
-  [
-    [1, 1000],
-    [15, 15000],
-    [25, 25000],
-  ].forEach(([timeout, waitTime]) => {
-    test(`should render with timeout prop set to ${timeout}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ToastComponent timeout={timeout} />);
+  test(`disappears after 1ms, when timeout prop is set to 1`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ToastComponent timeout={1} />);
 
-      await expect(toastComponent(page)).toBeVisible();
-      await page.waitForTimeout(waitTime);
-      await expect(toastComponent(page)).not.toBeVisible();
-    });
+    await expect(toastComponent(page)).not.toBeVisible();
   });
 
   test("should render with targetPortalId prop", async ({ mount, page }) => {

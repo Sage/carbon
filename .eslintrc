@@ -217,6 +217,7 @@
         "playwright/no-commented-out-tests": "error",
         "playwright/no-focused-test": "error",
         "playwright/no-skipped-test": "warn",
+        "playwright/no-wait-for-timeout": "error",
         "no-return-await": "warn",
         "no-return-assign": "warn",
         "no-await-in-loop": "warn",
@@ -225,7 +226,8 @@
       "settings": {
         "playwright": {
           "messages": {
-            "noSkippedTest": "Test skipped. If unresolved, raise a JIRA ticket or GitHub issue, then reference it in a code comment above."
+            "noSkippedTest": "Test skipped. If unresolved, raise a JIRA ticket or GitHub issue, then reference it in a code comment above.",
+            "noWaitForTimeout": "Hardcoded timeouts make tests fragile and inefficient. Use Playwright’s built-in waits (e.g. `locator.waitFor()`) or auto-retrying assertions (e.g. `await expect(locator).toBeVisible()`) to wait for conditions like element visibility or text presence." 
           }
         }
       }

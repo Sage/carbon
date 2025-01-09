@@ -89,20 +89,32 @@ test("should render disabled cancel button and close icon when disableCancel is 
   expect(screen.getByRole("button", { name: "Close" })).toBeDisabled();
 });
 
-test("should not call onCancel when disableCancel is set and ESC key is pressed", async () => {
+test("calls onCancel when Escape key is pressed", async () => {
+  const onCancel = jest.fn();
+  const user = userEvent.setup();
+
+  render(<Confirm open onConfirm={() => {}} onCancel={onCancel} />);
+
+  await user.keyboard("{Escape}");
+
+  expect(onCancel).toHaveBeenCalledTimes(1);
+});
+
+test("does not call onCancel when disableCancel is set and Escape key is pressed", async () => {
   const onCancel = jest.fn();
   const user = userEvent.setup();
   render(
     <Confirm
       open
       onConfirm={() => {}}
-      onCancel={() => {}}
+      onCancel={onCancel}
       showCloseIcon
       disableCancel
     />,
   );
 
-  await user.keyboard("{esc}");
+  await user.keyboard("{Escape}");
+
   expect(onCancel).not.toHaveBeenCalled();
 });
 
