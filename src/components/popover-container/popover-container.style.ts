@@ -5,6 +5,11 @@ import { TransitionStatus } from "react-transition-group";
 import { baseTheme } from "../../style/themes";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
+import {
+  StyledForm,
+  StyledFormContent,
+  StyledFormFooter,
+} from "../form/form.style";
 
 type PopoverContainerWrapperProps = {
   hasFullWidth?: boolean;
@@ -79,6 +84,25 @@ const PopoverContainerContentStyle = styled.div<PopoverContainerContentStyleProp
 
   :focus {
     outline: none;
+  }
+
+  &:has(${StyledForm}.sticky) {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+
+    ${StyledForm}.sticky {
+      ${StyledFormContent} {
+        flex-grow: 1;
+        min-height: 0;
+        overflow-y: auto;
+      }
+
+      ${StyledFormFooter} {
+        border-bottom-right-radius: var(--borderRadius200);
+        border-bottom-left-radius: var(--borderRadius200);
+      }
+    }
   }
 `;
 

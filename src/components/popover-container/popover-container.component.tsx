@@ -346,7 +346,7 @@ export const PopoverContainer = ({
       aria-describedby={ariaDescribedBy}
       p="16px 24px"
       ref={popoverContentNodeRef}
-      tabIndex={shouldCoverButton ? -1 : undefined}
+      tabIndex={-1}
       disableAnimation={disableAnimation || reduceMotion}
       {...filterStyledSystemPaddingProps(rest)}
     >
