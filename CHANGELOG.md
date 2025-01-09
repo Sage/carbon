@@ -1,3 +1,10 @@
+## [146.4.0](https://github.com/Sage/carbon/compare/v146.3.1...v146.4.0) (2025-01-09)
+
+
+### Features
+
+* **icon:** 5 new icons added ([acc04c8](https://github.com/Sage/carbon/commit/acc04c8fd64aa397db1e262fa3ca17a2ee863521))
+
 ### [146.3.1](https://github.com/Sage/carbon/compare/v146.3.0...v146.3.1) (2025-01-09)
 
 
