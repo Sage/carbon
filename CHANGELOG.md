@@ -1,3 +1,10 @@
+### [146.3.1](https://github.com/Sage/carbon/compare/v146.3.0...v146.3.1) (2025-01-09)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure list style is none in Safari ([94f10d0](https://github.com/Sage/carbon/commit/94f10d0b1ed81ddf9b5bae7ccf492672e073aa5f))
+
 ## [146.3.0](https://github.com/Sage/carbon/compare/v146.2.1...v146.3.0) (2025-01-08)
 
 
