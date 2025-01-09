@@ -1,3 +1,10 @@
+## [146.3.0](https://github.com/Sage/carbon/compare/v146.2.1...v146.3.0) (2025-01-08)
+
+
+### Features
+
+* **labels:** updates alignment prop usage so it works regardless of the inline prop ([e9665c9](https://github.com/Sage/carbon/commit/e9665c9d6a6a84255e5e3ccc97c4414d9cf1d8d9))
+
 ### [146.2.1](https://github.com/Sage/carbon/compare/v146.2.0...v146.2.1) (2024-12-19)
 
 
