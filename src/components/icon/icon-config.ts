@@ -284,6 +284,8 @@ export const ICONS: IconType[] = [
   "settings",
   "settings_old",
   "share",
+  "shield_with_tick",
+  "shield_with_tick_outline",
   "shop",
   "sort_down",
   "sort_up",
@@ -294,6 +296,8 @@ export const ICONS: IconType[] = [
   "squares_nine",
   "stacked_boxes",
   "stacked_squares",
+  "stop",
+  "stop_circle",
   "submitted",
   "support_online",
   "sync",
@@ -319,6 +323,7 @@ export const ICONS: IconType[] = [
   "warning",
   "website",
   "welfare",
+  "worldwide_location",
 ];
 
 export default dlsConfig;

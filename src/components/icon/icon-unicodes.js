@@ -260,6 +260,11 @@ const misc = {
   biometric: "\\f067",
   import: "\\f066",
   export: "\\f065",
+  shield_with_tick: "\\f070",
+  shield_with_tick_outline: "\\f071",
+  stop: "\\f068",
+  stop_circle: "\\f069",
+  worldwide_location: "\\f072",
 };
 
 const legacyNames = {
