@@ -611,3 +611,20 @@ test("renders with the expected border radius styling", () => {
     "var(--borderRadius050)",
   );
 });
+
+test("should not set `maxWidth` on the presentation layer when `labelAlign` is 'right'", () => {
+  render(
+    <Textbox
+      value=""
+      onChange={() => {}}
+      label="foo"
+      labelAlign="right"
+      maxWidth="200px"
+    />,
+  );
+
+  expect(screen.getByTestId("input-presentation-container")).toHaveStyle(
+    "max-width: 100%",
+  );
+  expect(screen.getByTestId("field-line")).toHaveStyle("max-width: 200px");
+});

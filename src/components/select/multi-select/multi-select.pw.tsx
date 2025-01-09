@@ -1443,8 +1443,8 @@ test.describe("When error is triggered by onChange", () => {
     await selectOptionByText(page, option2).click();
     await selectOptionByText(page, option3).click();
 
-    /* This is <p>Error</p> that displays the error message in the new validations. 
-      It does not have a data-element or data-component prop to target the element with. 
+    /* This is <p>Error</p> that displays the error message in the new validations.
+      It does not have a data-element or data-component prop to target the element with.
       This can be refactored once this is implemented. */
     const errorElement = page.locator("p");
     await expect(errorElement).toBeVisible();

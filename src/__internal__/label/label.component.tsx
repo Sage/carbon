@@ -62,7 +62,7 @@ const tooltipPosition = ({
 };
 
 export const Label = ({
-  align = "right",
+  align,
   as = "label",
   children,
   disabled,
@@ -100,6 +100,15 @@ export const Label = ({
     if (onMouseLeave) onMouseLeave();
     if (onGroupMouseLeave) onGroupMouseLeave();
   };
+
+  let alignment: StyledLabelContainerProps["align"];
+  if (inline && !align) {
+    alignment = "right";
+  } else if (!align) {
+    alignment = "left";
+  } else {
+    alignment = align;
+  }
 
   const icon = () => {
     const wrapperProps = {
@@ -150,7 +159,7 @@ export const Label = ({
   return (
     <StyledLabelContainer
       data-role="label-container"
-      align={align}
+      align={alignment}
       inline={inline}
       width={width}
       optional={optional}
