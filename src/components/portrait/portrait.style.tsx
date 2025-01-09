@@ -12,6 +12,7 @@ type StyledPortraitProps = {
   darkBackground?: boolean;
   size: PortraitSizes;
   shape?: PortraitShapes;
+  hasValidImg?: boolean;
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
 };
 
@@ -35,7 +36,7 @@ export const StyledPortraitGravatar = styled.img`
 
 export const StyledCustomImg = styled.img`
   height: inherit;
-  width: inherit;
+  min-width: inherit;
 `;
 
 // && is used here to increase the specificity
@@ -44,7 +45,7 @@ export const StyledIcon = styled(Icon)<Pick<StyledPortraitProps, "size">>`
   && {
     color: inherit;
     height: inherit;
-    width: inherit;
+    min-width: inherit;
 
     ::before {
       font-size: ${({ size }) => PORTRAIT_SIZE_PARAMS[size].iconDimensions}px;
@@ -63,13 +64,16 @@ export const StyledPortraitContainer = styled.div<
     darkBackground
       ? "var(--colorsUtilityYin090)"
       : "var(--colorsUtilityReadOnly400)"};
-  width: ${({ size }) => PORTRAIT_SIZE_PARAMS[size].dimensions}px;
+  ${({ hasValidImg, size }) =>
+    hasValidImg && `max-width: ${PORTRAIT_SIZE_PARAMS[size].dimensions}px;`}
+  min-width: ${({ size }) => PORTRAIT_SIZE_PARAMS[size].dimensions}px;
   height: ${({ size }) => PORTRAIT_SIZE_PARAMS[size].dimensions}px;
   overflow: hidden;
   border-radius: ${({ shape }) =>
     shape === "square" ? "0px" : "var(--borderRadiusCircle)"};
   border: 1px solid var(--colorsUtilityReadOnly600);
   display: inline-block;
+
   ${({ onClick }) => onClick && "cursor: pointer"}
   ${margin}
 `;
