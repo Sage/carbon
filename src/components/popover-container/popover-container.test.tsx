@@ -1,11 +1,5 @@
 import React, { useRef } from "react";
-import {
-  render,
-  screen,
-  act,
-  fireEvent,
-  waitFor,
-} from "@testing-library/react";
+import { render, screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemPadding } from "../../__spec_helper__/__internal__/test-utils";
 
@@ -262,8 +256,9 @@ test("popup traps focus when shouldCoverButton prop is true", async () => {
     </PopoverContainer>,
   );
 
+  await user.tab();
   const closeButton = screen.getByRole("button", { name: "close" });
-  fireEvent.focus(closeButton);
+  expect(closeButton).toHaveFocus();
 
   await user.tab();
 
@@ -278,8 +273,9 @@ test("popup allows outside focus when shouldCoverButton prop is false", async ()
     </PopoverContainer>,
   );
 
+  await user.tab();
   const closeButton = screen.getByRole("button", { name: "close" });
-  fireEvent.focus(closeButton);
+  expect(closeButton).toHaveFocus();
 
   await user.tab();
 
@@ -393,15 +389,15 @@ describe("opening the popup", () => {
     },
   );
 
-  it("open button still has focus after popup is opened", async () => {
+  it("moves focus to dialog when popup is opened", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(<PopoverContainer>Ta da!</PopoverContainer>);
 
     const button = screen.getByRole("button");
     await user.click(button);
-    await screen.findByRole("dialog");
+    const dialog = await screen.findByRole("dialog");
 
-    expect(button).toHaveFocus();
+    expect(dialog).toHaveFocus();
   });
 });
 

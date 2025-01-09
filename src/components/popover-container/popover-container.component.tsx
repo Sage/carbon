@@ -268,6 +268,12 @@ export const PopoverContainer = forwardRef<
       };
     }, [handleEscKey]);
 
+    useEffect(() => {
+      if (!shouldCoverButton && isOpen) {
+        popoverContentNodeRef.current?.focus({ preventScroll: true });
+      }
+    }, [isOpen, shouldCoverButton, popoverContentNodeRef]);
+
     const handleOpenButtonClick = (
       e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) => {
