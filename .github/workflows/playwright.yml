@@ -16,13 +16,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shardIndex: [1, 2, 3, 4]
-        shardTotal: [4]
+        shardIndex: [1, 2, 3, 4, 5, 6, 7, 8]
+        shardTotal: [8]
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: ">=20.9.0 20"
+      
       - name: Cache central NPM modules
         uses: actions/cache@v4
         with:
@@ -30,6 +32,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      
       - name: Install dependencies
         run: |
           npm ci
@@ -42,7 +45,7 @@ jobs:
         run: npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
       - name: Upload blob report to Artifacts
-        if: always()
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
           name: blob-report-${{ matrix.shardIndex }}
@@ -51,7 +54,7 @@ jobs:
 
   merge-reports:
     name: "Merge reports from all shards"
-    if: always()
+    if: ${{ !cancelled() }}
     needs: [playwright-tests]
     runs-on: ubuntu-latest
     steps:

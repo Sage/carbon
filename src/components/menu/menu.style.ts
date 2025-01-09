@@ -63,6 +63,7 @@ interface StyledMenuItemProps
 
 const StyledMenuItem = styled.li<StyledMenuItemProps>`
   display: flex;
+  list-style: none;
   ${({ maxWidth }) =>
     maxWidth &&
     css`

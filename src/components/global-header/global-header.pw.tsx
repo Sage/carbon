@@ -6,10 +6,7 @@ import {
   GlobalHeaderWithLogo,
 } from "./component.test-pw";
 import navigationBar from "../../../playwright/components/navigation-bar";
-import {
-  globalHeader,
-  globalHeaderLogo,
-} from "../../../playwright/components/global-header";
+import { globalHeaderLogo } from "../../../playwright/components/global-header";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 test.describe("Global Header component", () => {
@@ -19,7 +16,8 @@ test.describe("Global Header component", () => {
   }) => {
     await mount(<GlobalHeaderWithErrorHandler />);
 
-    await page.waitForTimeout(500);
+    const globalHeader = page.getByRole("navigation");
+    await globalHeader.waitFor({ state: "visible" });
 
     const errorState = page.locator("#error-div");
     await expect(errorState).toHaveText("");
@@ -31,10 +29,13 @@ test.describe("Global Header component", () => {
   }) => {
     await mount(<FullMenuExample />);
 
-    const globalHeaderZIndex = await globalHeader(page).evaluate((element) => {
-      const style = getComputedStyle(element);
-      return style.zIndex;
-    });
+    const globalHeaderZIndex = await page
+      .getByRole("navigation")
+      .filter({ hasText: "Product Switcher" })
+      .evaluate((element) => {
+        const style = getComputedStyle(element);
+        return style.zIndex;
+      });
 
     const navigationBarZIndex = await navigationBar(page).evaluate(
       (element) => {

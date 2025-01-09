@@ -221,6 +221,7 @@ export const DatePicker = ({
       >
         <StyledDayPicker
           id="styled-day-picker"
+          data-role="date-picker"
           ref={ref}
           onMouseDown={pickerMouseDown}
           onKeyUp={handleKeyUp}

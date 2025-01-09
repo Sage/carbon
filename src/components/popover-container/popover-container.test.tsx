@@ -361,7 +361,7 @@ describe("opening the popup", () => {
     expect(popup).toHaveTextContent("Ta da!");
   });
 
-  it("calls onOpen callback when popup is opened", async () => {
+  it("calls onOpen callback when open button is clicked", async () => {
     const onOpen = jest.fn();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(<PopoverContainer onOpen={onOpen}>Content</PopoverContainer>);
@@ -372,6 +372,24 @@ describe("opening the popup", () => {
       expect(onOpen).toHaveBeenCalledTimes(1);
     });
   });
+
+  it.each(["Space", "Enter"])(
+    "calls onOpen callback when open button is opened via the %s key",
+    async (key) => {
+      const onOpen = jest.fn();
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+      render(<PopoverContainer onOpen={onOpen}>Content</PopoverContainer>);
+
+      act(() => {
+        screen.getByRole("button").focus();
+      });
+      await user.keyboard(`[${key}]`);
+
+      await waitFor(() => {
+        expect(onOpen).toHaveBeenCalledTimes(1);
+      });
+    },
+  );
 
   it("open button still has focus after popup is opened", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -461,7 +479,7 @@ describe("closing the popup", () => {
     expect(button).toHaveFocus();
   });
 
-  it("calls onClose callback when popup is closed", async () => {
+  it("calls onClose callback when close button is clicked", async () => {
     const onClose = jest.fn();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(<PopoverContainer onClose={onClose}>Content</PopoverContainer>);
@@ -469,6 +487,48 @@ describe("closing the popup", () => {
     await user.click(screen.getByRole("button"));
 
     await user.click(await screen.findByRole("button", { name: "close" }));
+
+    await waitFor(() => {
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it.each(["Space", "Enter"])(
+    `calls onClose callback when close button is pressed via the %s key`,
+    async (key) => {
+      const onClose = jest.fn();
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+      render(<PopoverContainer onClose={onClose}>Content</PopoverContainer>);
+
+      await user.click(screen.getByRole("button"));
+
+      const closeButton = await screen.findByRole("button", { name: "close" });
+
+      act(() => {
+        closeButton.focus();
+      });
+      await user.keyboard(`[${key}]`);
+
+      await waitFor(() => {
+        expect(onClose).toHaveBeenCalledTimes(1);
+      });
+    },
+  );
+
+  it("calls onClose when content outside of the popup is clicked", async () => {
+    const onClose = jest.fn();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <>
+        <PopoverContainer onClose={onClose}>Content</PopoverContainer>
+        <p>Outside popup</p>
+      </>,
+    );
+
+    await user.click(screen.getByRole("button"));
+    await screen.findByRole("dialog");
+
+    await user.click(screen.getByText("Outside popup"));
 
     await waitFor(() => {
       expect(onClose).toHaveBeenCalledTimes(1);
