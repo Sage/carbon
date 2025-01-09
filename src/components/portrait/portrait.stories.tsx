@@ -59,10 +59,17 @@ WithTooltip.storyName = "With Tooltip";
 
 export const Sizes: Story = () => {
   return (
-    <Box display="flex" alignItems="baseline">
-      {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
-        <Portrait key={size} size={size} />
-      ))}
+    <Box display="flex" flexDirection="column">
+      <Box display="flex" alignItems="baseline">
+        {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
+          <Portrait key={size} size={size} />
+        ))}
+      </Box>
+      <Box display="flex" alignItems="baseline" mt={2}>
+        {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
+          <Portrait key={size} size={size} initials="AT" />
+        ))}
+      </Box>
     </Box>
   );
 };
