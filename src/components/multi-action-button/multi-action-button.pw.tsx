@@ -230,26 +230,25 @@ test.describe("Functional tests", () => {
     });
   });
 
-  test(`should verify dialog is not closed by pressing Esc key when nest inside of a Dialog`, async ({
+  test(`does not close parent dialog when Escape key is pressed and child button list is visible`, async ({
     mount,
     page,
   }) => {
     await mount(<MultiActionNestedInDialog />);
 
-    const actionButton = getComponent(page, "multi-action-button").locator(
-      "button",
-    );
-    await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .locator("span > span")
-      .nth(0);
-    await expect(listButton1).toHaveCount(1);
-    await page.keyboard.press("Escape");
-    await expect(listButton1).toHaveCount(0);
     const dialog = page.getByRole("dialog");
-    await expect(dialog).toHaveCount(1);
+    await dialog.waitFor();
+
+    const actionButton = page.getByRole("button", { name: "default text " });
+    await actionButton.click();
+
+    const buttonList = page.getByRole("list");
+    await buttonList.waitFor();
+
     await page.keyboard.press("Escape");
-    await expect(dialog).toHaveCount(0);
+
+    await buttonList.waitFor({ state: "hidden" });
+    await expect(dialog).toBeVisible();
   });
 
   test(`should verify pressing ArrowUp key does not loop focus to bottom`, async ({

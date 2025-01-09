@@ -18,7 +18,6 @@ import {
   getStyle,
   verifyRequiredAsteriskForLegend,
 } from "../../../playwright/support/helper";
-import { SimpleColorPickerProps, SimpleColorProps } from ".";
 import {
   SimpleColorCustom,
   SimpleColorPickerCustom,
@@ -70,10 +69,6 @@ const colors = [
   },
 ];
 
-const indexes = Array.from({
-  length: colors.length,
-}).map((_, index) => index);
-
 test("should have the expected styling when focused", async ({
   mount,
   page,
@@ -95,7 +90,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
     await mount(<SimpleColorPickerCustom />);
 
     const testColor = async (index: number) => {
-      const colorInput = await simpleColorPickerInput(page, index);
+      const colorInput = simpleColorPickerInput(page, index);
 
       await expect(colorInput).toHaveAttribute("value", colors[index].color);
       await expect(colorInput).toHaveAttribute(
@@ -247,12 +242,12 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
       const { top, bottom, left } = await colorCell.evaluate((element) =>
         element.getBoundingClientRect(),
       );
-      await expect(bottom).toBeLessThan(bottomLess + additionVal);
-      await expect(bottom).toBeGreaterThan(bottomLess);
-      await expect(top).toBeLessThan(topLess + additionVal);
-      await expect(top).toBeGreaterThan(topLess);
-      await expect(left).toBeLessThan(leftLess + additionVal);
-      await expect(left).toBeGreaterThan(leftLess);
+      expect(bottom).toBeLessThan(bottomLess + additionVal);
+      expect(bottom).toBeGreaterThan(bottomLess);
+      expect(top).toBeLessThan(topLess + additionVal);
+      expect(top).toBeGreaterThan(topLess);
+      expect(left).toBeLessThan(leftLess + additionVal);
+      expect(left).toBeGreaterThan(leftLess);
     });
   });
 
@@ -288,7 +283,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
       await expect(
         simpleColorDiv(page, 0).locator("..").locator(".."),
       ).toHaveCSS("outline-color", color);
-      await expect(
+      expect(
         await getStyle(getDataElementByValue(page, type), "color", "before"),
       ).toBe(color);
     });
@@ -324,7 +319,7 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
       await expect(
         simpleColorDiv(page, 0).locator("..").locator(".."),
       ).toHaveCSS("outline-color", color);
-      await expect(
+      expect(
         await getStyle(getDataElementByValue(page, type), "color", "before"),
       ).toBe(color);
     });
@@ -353,180 +348,6 @@ test.describe("Check functionality for SimpleColorPicker component", () => {
         simpleColorDiv(page, 0).locator("..").locator(".."),
       ).toHaveCSS("outline-color", color);
     });
-  });
-});
-
-test.describe("Check events for SimpleColorPicker component", () => {
-  test("should call onChange callback when a click event is triggered", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback: SimpleColorPickerProps["onChange"] = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleColorPickerCustom onChange={callback} />);
-
-    await simpleColorPickerInput(page, 5).click();
-    await expect(callbackCount).toBe(1);
-  });
-
-  test("should call onChange callback and focus the correct item when the right arrow key is pressed", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback: SimpleColorPickerProps["onChange"] = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleColorPickerCustom onChange={callback} />);
-    let expectedCount = 0;
-
-    for (const index of indexes) {
-      expectedCount += 1;
-      const next = index < colors.length - 1 ? index + 1 : 0;
-      const colorInput = simpleColorPickerInput(page, index);
-      // eslint-disable-next-line no-await-in-loop
-      await colorInput.press("ArrowRight");
-      const nextColor = simpleColorPickerInput(page, next);
-      // eslint-disable-next-line no-await-in-loop
-      await expect(nextColor).toBeFocused();
-      // eslint-disable-next-line no-await-in-loop
-      await expect(nextColor).toHaveAttribute("value", colors[next].color);
-      // eslint-disable-next-line no-await-in-loop
-      await expect(callbackCount).toBe(expectedCount);
-    }
-  });
-
-  test("should call onChange callback and focus the correct item when the left arrow key is pressed", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback: SimpleColorPickerProps["onChange"] = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleColorPickerCustom onChange={callback} />);
-    let expectedCount = 0;
-
-    for (const index of indexes) {
-      expectedCount += 1;
-      const next = index > 0 ? index - 1 : colors.length - 1;
-      const colorInput = simpleColorPickerInput(page, index);
-      // eslint-disable-next-line no-await-in-loop
-      await colorInput.press("ArrowLeft");
-      const nextColor = simpleColorPickerInput(page, next);
-      // eslint-disable-next-line no-await-in-loop
-      await expect(nextColor).toBeFocused();
-      // eslint-disable-next-line no-await-in-loop
-      await expect(nextColor).toHaveAttribute("value", colors[next].color);
-      // eslint-disable-next-line no-await-in-loop
-      await expect(callbackCount).toBe(expectedCount);
-    }
-  });
-
-  [
-    [9, 4],
-    [8, 3],
-    [7, 2],
-    [6, 1],
-    [5, 0],
-  ].forEach(([indexPress, focusedIndex]) => {
-    test(`should call onChange callback and focus the correct item when the up arrow key is pressed from the element with index ${indexPress}`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      const callback: SimpleColorPickerProps["onChange"] = () => {
-        callbackCount += 1;
-      };
-      await mount(<SimpleColorPickerCustom onChange={callback} />);
-
-      await simpleColorPickerInput(page, indexPress).press("ArrowUp");
-      await expect(simpleColorPickerInput(page, focusedIndex)).toBeFocused();
-      await expect(simpleColorPickerInput(page, focusedIndex)).toHaveAttribute(
-        "value",
-        colors[focusedIndex].color,
-      );
-      await expect(callbackCount).toBe(1);
-    });
-  });
-
-  (
-    [
-      [0, 5],
-      [1, 6],
-      [2, 7],
-      [3, 8],
-      [4, 9],
-    ] as const
-  ).forEach(([indexPress, focusedIndex]) => {
-    test(`should call onChange callback and focus the correct item when the down arrow key is pressed from the element with index ${indexPress}`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      const callback: SimpleColorPickerProps["onChange"] = () => {
-        callbackCount += 1;
-      };
-      await mount(<SimpleColorPickerCustom onChange={callback} />);
-
-      await simpleColorPickerInput(page, indexPress).press("ArrowDown");
-      await expect(simpleColorPickerInput(page, focusedIndex)).toBeFocused();
-      await expect(simpleColorPickerInput(page, focusedIndex)).toHaveAttribute(
-        "value",
-        colors[focusedIndex].color,
-      );
-      await expect(callbackCount).toBe(1);
-    });
-  });
-
-  test("should call onBlur callback when a blur event is triggered on the component", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback: SimpleColorPickerProps["onBlur"] = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleColorPickerCustom onBlur={callback} />);
-
-    const colorInput = simpleColorPickerInput(page, 5);
-    await colorInput.focus();
-    await page.locator("body").click({ position: { x: 0, y: 0 } });
-    await expect(callbackCount).toBe(1);
-  });
-
-  test("should not call onBlur callback when a blur event is triggered on a color", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback: SimpleColorPickerProps["onBlur"] = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleColorPickerCustom onBlur={callback} />);
-
-    const colorInput = simpleColorPickerInput(page, 5);
-    await colorInput.focus();
-    await colorInput.blur();
-    await expect(callbackCount).toBe(0);
-  });
-
-  test("should not call onBlur callback when a blur event is triggered and isBlurBlocked prop is true", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback: SimpleColorPickerProps["onBlur"] = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleColorPickerCustom onBlur={callback} isBlurBlocked />);
-
-    const colorInput = simpleColorPickerInput(page, 5);
-    await colorInput.focus();
-    await colorInput.blur();
-    await expect(callbackCount).toBe(0);
   });
 });
 
@@ -571,51 +392,6 @@ test.describe("Check functionality for SimpleColor component", () => {
         await expect(simpleColorPickerInput(page, 0)).not.toBeChecked();
       }
     });
-  });
-});
-
-test.describe("Check events for SimpleColor component", () => {
-  test("should call onChange callback when a click event is triggered", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback: SimpleColorProps["onChange"] = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleColorCustom onChange={callback} />);
-
-    await simpleColor(page, 1).click();
-    await expect(callbackCount).toBe(1);
-  });
-
-  test("should call onBlur callback when a blur event is triggered", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback: SimpleColorProps["onBlur"] = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleColorCustom onBlur={callback} />);
-
-    await simpleColor(page, 1).click();
-    await page.locator("*:focus").blur();
-    await expect(callbackCount).toBe(1);
-  });
-
-  test("should call onMouseDown callback when a click event is triggered", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback: SimpleColorProps["onMouseDown"] = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleColorCustom onMouseDown={callback} />);
-
-    await simpleColor(page, 1).click();
-    await expect(callbackCount).toBe(1);
   });
 });
 

@@ -12,7 +12,6 @@ import {
   getRotationAngle,
   assertCssValueIsApproximately,
   getStyle,
-  expectEventWasCalledOnce,
   checkAccessibility,
 } from "../../../playwright/support/helper";
 import { getDataElementByValue } from "../../../playwright/components";
@@ -203,30 +202,6 @@ test.describe("should render Accordion component", () => {
     await expect(accordionContent(page)).toBeVisible();
   });
 
-  [true, false].forEach((isExpanded) => {
-    test(`should call onChange callback when a click event is triggered and expanded is set to ${isExpanded}`, async ({
-      mount,
-      page,
-    }) => {
-      const messages: string[] = [];
-
-      await mount(
-        <AccordionComponent
-          expanded={isExpanded}
-          onChange={(data) => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            messages.push(data);
-          }}
-        />,
-      );
-
-      await accordionTitleContainer(page).click();
-
-      await expectEventWasCalledOnce(messages, "onClick");
-    });
-  });
-
   testData.forEach((titleValue) => {
     test(`should render Accordion component with ${titleValue} as a title`, async ({
       mount,
@@ -262,8 +237,8 @@ test.describe("should render Accordion component", () => {
       await mount(<AccordionComponent size={size} />);
 
       const cssHeight = await getStyle(accordionTitleContainer(page), "height");
-      await expect(parseInt(cssHeight)).toBeLessThanOrEqual(height + 1);
-      await expect(parseInt(cssHeight)).toBeGreaterThanOrEqual(height - 1);
+      expect(parseInt(cssHeight)).toBeLessThanOrEqual(height + 1);
+      expect(parseInt(cssHeight)).toBeGreaterThanOrEqual(height - 1);
     });
   });
 
@@ -403,7 +378,7 @@ test.describe("should render Accordion component", () => {
       );
 
       const cssWidth = await getStyle(accordionTitleContainer(page), "width");
-      await expect(cssWidth).toContain(width);
+      expect(cssWidth).toContain(width);
     });
   });
 

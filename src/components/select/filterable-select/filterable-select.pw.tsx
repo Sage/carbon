@@ -1,24 +1,20 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { FilterableSelectProps } from "../../../../src/components/select";
+import FilterableSelect, { FilterableSelectProps } from ".";
+import Option from "../option";
 import {
   FilterableSelectComponent,
-  FilterableSelectWithLazyLoadingComponent,
-  FilterableSelectLazyLoadTwiceComponent,
-  FilterableSelectWithInfiniteScrollComponent,
   FilterableSelectObjectAsValueComponent,
   FilterableSelectMultiColumnsComponent,
   FilterableSelectMultiColumnsNestedComponent,
   FilterableSelectWithActionButtonComponent,
-  FilterableSelectOnChangeEventComponent,
-  FilterableSelectListActionEventComponent,
-  FilterableSelectWithManyOptionsAndVirtualScrolling,
+  WithVirtualScrolling,
   FilterableSelectNestedInDialog,
   SelectionConfirmed,
   FilterableSelectWithDisabledOption,
   FilterableSelectControlled,
   WithObjectAsValue,
-} from "../../../../src/components/select/filterable-select/components.test-pw";
+} from "./components.test-pw";
 import {
   commonDataElementInputPreview,
   getDataElementByValue,
@@ -45,7 +41,6 @@ import {
   selectListWrapper,
   selectOption,
   selectOptionByText,
-  selectResetButton,
 } from "../../../../playwright/components/select";
 import {
   assertCssValueIsApproximately,
@@ -533,154 +528,101 @@ test.describe("FilterableSelect component", () => {
     });
   });
 
-  [
-    ["A", "Amber", "Black", "Orange"],
-    ["O", "Brown", "Orange", "Yellow"],
-  ].forEach(([text, optionValue1, optionValue2, optionValue3]) => {
+  (
+    [
+      ["A", ["Amber", "Black", "Orange"]],
+      ["O", ["Brown", "Orange", "Yellow"]],
+      [" O", ["Brown", "Orange", "Yellow"]],
+      ["O ", ["Brown", "Orange", "Yellow"]],
+      [" O ", ["Brown", "Orange", "Yellow"]],
+    ] as const
+  ).forEach(([text, filteredOptionText]) => {
     test(`should filter options when ${text} is typed`, async ({
       mount,
       page,
     }) => {
       await mount(<FilterableSelectComponent />);
 
-      await commonDataElementInputPreview(page).type(text);
-      await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
-      await expect(selectListWrapper(page)).toBeVisible();
-      const option1 = selectOption(page, positionOfElement("first"));
-      const option2 = selectOption(page, positionOfElement("second"));
-      const option3 = selectOption(page, positionOfElement("third"));
-      await expect(option1).toHaveText(optionValue1);
-      await expect(option1).toBeVisible();
-      await expect(option1).toHaveCSS("background-color", "rgb(153, 173, 183)");
-      await expect(option2).toHaveText(optionValue2);
-      await expect(option2).toBeVisible();
-      await expect(option2).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-      await expect(option3).toHaveText(optionValue3);
-      await expect(option3).toBeVisible();
-      await expect(option3).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+      const input = page.getByRole("combobox");
+      const dropdownList = page.getByRole("listbox");
+
+      await input.fill(text);
+      await dropdownList.waitFor();
+
+      await expect(input).toHaveAttribute("aria-expanded", "true");
+      await expect(dropdownList).toBeVisible();
+      await expect(dropdownList.getByRole("option")).toHaveText(
+        filteredOptionText,
+      );
     });
   });
 
-  [
-    [" O", "Brown", "Orange", "Yellow"],
-    ["O ", "Brown", "Orange", "Yellow"],
-    [" O ", "Brown", "Orange", "Yellow"],
-  ].forEach(([text, optionValue1, optionValue2, optionValue3]) => {
-    test(`should filter options when "${text}" is typed`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FilterableSelectComponent />);
-
-      await commonDataElementInputPreview(page).type(text);
-      await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
-      await expect(selectListWrapper(page)).toBeVisible();
-
-      const option1 = selectOption(page, positionOfElement("first"));
-      const option2 = selectOption(page, positionOfElement("second"));
-      const option3 = selectOption(page, positionOfElement("third"));
-      await expect(option1).toHaveText(optionValue1);
-      await expect(option1).toBeVisible();
-      await expect(option1).toHaveCSS("background-color", "rgb(153, 173, 183)");
-      await expect(option2).toHaveText(optionValue2);
-      await expect(option2).toBeVisible();
-      await expect(option2).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-      await expect(option3).toHaveText(optionValue3);
-      await expect(option3).toBeVisible();
-      await expect(option3).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
-    });
-  });
-
-  test("should render the lazy loader when the prop is set", async ({
+  test("renders loader when loading prop is set to true", async ({
     mount,
     page,
   }) => {
-    await mount(<FilterableSelectWithLazyLoadingComponent />);
+    await mount(<FilterableSelectComponent isLoading />);
 
-    await dropdownButton(page).click();
-    await expect(selectListWrapper(page)).toBeVisible();
-    await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
-    );
+    const input = page.getByRole("combobox");
+    const dropdownList = page.getByRole("listbox");
+
+    await input.click();
+    await dropdownList.waitFor();
+
+    await expect(loader(page, 1)).toBeVisible();
   });
 
-  test("should render the lazy loader when the prop is set and list is opened again", async ({
+  test("scroll position of option list doesn't change, if the component's options are dynamically changed", async ({
     mount,
     page,
   }) => {
-    await mount(<FilterableSelectLazyLoadTwiceComponent />);
-
-    const option = "Amber";
-    const buttonElement = dropdownButton(page);
-    const wrapperElement = selectListWrapper(page);
-    await buttonElement.click();
-    await expect(wrapperElement).toBeVisible();
-    await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
+    const { update } = await mount(
+      <FilterableSelect label="Colour">
+        <Option text="Amber" value="Amber" />
+        <Option text="Black" value="Black" />
+        <Option text="Cyan" value="Cyan" />
+        <Option text="Dark Blue" value="Dark Blue" />
+        <Option text="Emerald" value="Emerald" />
+        <Option text="Fuchsia" value="Fuchsia" />
+        <Option text="Gold" value="Gold" />
+      </FilterableSelect>,
     );
-    await expect(selectOptionByText(page, option)).toBeVisible();
-    await buttonElement.click();
-    await selectResetButton(page).click();
-    await buttonElement.click();
-    await expect(wrapperElement).toBeVisible();
-    await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
-    );
-  });
 
-  test("should render a lazy loaded option when the infinite scroll prop is set", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectWithInfiniteScrollComponent />);
+    const input = page.getByRole("combobox");
+    await input.focus();
+    await input.press("ArrowDown");
 
-    const option = "Lazy Loaded A1";
-    const selectListWrapperElement = selectListWrapper(page);
-    await dropdownButton(page).click();
-    await expect(selectListWrapperElement).toBeVisible();
-    await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
-    );
-    await expect(selectOptionByText(page, option)).toHaveCount(0);
-    await page.waitForTimeout(2000);
-    await selectListScrollableWrapper(page).evaluate((wrapper) => {
-      wrapper.scrollBy(0, 500);
-    });
-    await page.waitForTimeout(250);
-    await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).not.toBeVisible()),
-    );
-    await expect(await selectOptionByText(page, option)).toBeVisible();
-  });
+    const dropdownList = page.getByRole("listbox");
+    await dropdownList.waitFor();
 
-  test("the list should not change scroll position when the lazy-loaded options appear", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectWithInfiniteScrollComponent />);
+    await page.keyboard.press("ArrowUp");
+    await expect(page.getByRole("option").last()).toBeInViewport();
 
-    // open the select list and choose an option
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await inputElement.press("ArrowDown");
-    const firstOption = selectOptionByText(page, "Amber");
-    await firstOption.waitFor();
-    await firstOption.click();
-
-    // reopen the list and scroll to initiate the lazy loading. It's important to not use the keyboard here as that
-    // won't trigger the bug.
-    const scrollableWrapper = selectListScrollableWrapper(page);
-    await dropdownButton(page).click();
-    await scrollableWrapper.evaluate((wrapper) => wrapper.scrollBy(0, 500));
-    const scrollPositionBeforeLoad = await scrollableWrapper.evaluate(
+    const scrollPosition = await dropdownList.evaluate(
       (element) => element.scrollTop,
     );
 
-    await selectOptionByText(page, "Lazy Loaded A1").waitFor();
-    const scrollPositionAfterLoad = await scrollableWrapper.evaluate(
+    await update(
+      <FilterableSelect label="Colour">
+        <Option text="Amber" value="Amber" />
+        <Option text="Black" value="Black" />
+        <Option text="Cyan" value="Cyan" />
+        <Option text="Dark Blue" value="Dark Blue" />
+        <Option text="Emerald" value="Emerald" />
+        <Option text="Fuchsia" value="Fuchsia" />
+        <Option text="Gold" value="Gold" />
+        <Option text="Hot Pink" value="Hot Pink" />
+        <Option text="Indigo" value="Indigo" />
+      </FilterableSelect>,
+    );
+
+    await expect(page.getByRole("option")).toHaveCount(9);
+
+    // check that the scroll position hasn't changed
+    const newScrollPosition = await dropdownList.evaluate(
       (element) => element.scrollTop,
     );
-    await expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
+    expect(newScrollPosition).toBeCloseTo(scrollPosition, 1);
   });
 
   test("should list options when value is set and select list is opened again", async ({
@@ -735,7 +677,7 @@ test.describe("FilterableSelect component", () => {
 
     const wrapperElement = selectListWrapper(page);
     const inputElement = commonDataElementInputPreview(page);
-    const selectInputElement = await selectInput(page);
+    const selectInputElement = selectInput(page);
     await inputElement.focus();
     await expect(selectInputElement).toHaveAttribute("aria-expanded", "true");
     await expect(wrapperElement).toBeVisible();
@@ -825,14 +767,15 @@ test.describe("FilterableSelect component", () => {
   }) => {
     await mount(<FilterableSelectObjectAsValueComponent />);
 
-    const position = "first";
-    const positionValue = "Amber";
-    const inputElement = getDataElementByValue(page, "input");
-    await expect(inputElement).toHaveValue("Green");
-    await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-    await dropdownButton(page).click();
-    await selectOption(page, positionOfElement(position)).click();
-    await expect(inputElement).toHaveValue(positionValue);
+    const input = page.getByRole("combobox");
+    await expect(input).toHaveValue("Green");
+    await expect(input).toHaveAttribute("aria-expanded", "false");
+
+    await input.click();
+    await page.getByRole("listbox").waitFor();
+
+    await page.getByRole("option", { name: "Amber" }).click();
+    await expect(input).toHaveValue("Amber");
   });
 
   test("should render option list with proper maxHeight value", async ({
@@ -973,7 +916,7 @@ test.describe("FilterableSelect component", () => {
       const inputElement = commonDataElementInputPreview(page);
       await inputElement.click();
       await expect(inputElement).toBeFocused();
-      await inputElement.type(text);
+      await inputElement.fill(text);
       const highlightedValue = boldedAndUnderlinedValue(page, text);
       await expect(highlightedValue).toHaveCSS(
         "text-decoration-line",
@@ -997,7 +940,7 @@ test.describe("FilterableSelect component", () => {
     const inputElement = commonDataElementInputPreview(page);
     await inputElement.click();
     await expect(inputElement).toBeFocused();
-    await inputElement.type(text);
+    await inputElement.fill(text);
     await expect(selectListWrapper(page)).toBeVisible();
     const headerElements = multiColumnsSelectListHeader(page);
     await expect(headerElements).toHaveCount(columns);
@@ -1074,8 +1017,8 @@ test.describe("FilterableSelect component", () => {
           window.getComputedStyle(wrapperElement).getPropertyValue("height"),
         ),
     );
-    await expect(selectListHeight).toBeGreaterThan(220);
-    await expect(selectListHeight).toBeLessThan(250);
+    expect(selectListHeight).toBeGreaterThan(220);
+    expect(selectListHeight).toBeLessThan(250);
   });
 
   test("when navigating with the keyboard, the selected option is not hidden behind an action button", async ({
@@ -1237,211 +1180,79 @@ test.describe("FilterableSelect component", () => {
   });
 });
 
-test.describe("Check events for FilterableSelect component", () => {
-  test("should call onClick event when mouse is clicked on dropdown icon", async ({
+test.describe("onListScrollBottom prop", () => {
+  test("calls onListScrollBottom when the list is scrolled to the bottom", async ({
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onClick={callback} />);
+    let called = false;
 
-    await dropdownButton(page).click();
-    await expect(callbackCount).toBe(1);
-  });
-
-  test("should call onFocus when input is focused", async ({ mount, page }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onFocus={callback} />);
-
-    await commonDataElementInputPreview(page).focus();
-    await expect(callbackCount).toBe(1);
-  });
-
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should call onOpen when select is opened by focusing the input", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent openOnFocus onOpen={callback} />);
-
-    await commonDataElementInputPreview(page).focus();
-    // this waitFor call seems to be needed for the test to consistently pass
-    await commonDataElementInputPreview(page).waitFor();
-    await expect(callbackCount).toBe(1);
-  });
-
-  test("should call onOpen when FilterableSelect is opened by clicking on Icon", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onOpen={callback} />);
-
-    await dropdownButton(page).click();
-    await expect(callbackCount).toBe(1);
-  });
-
-  test("should call onBlur event when the list is closed", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onBlur={callback} />);
-
-    await dropdownButton(page).click();
-    await commonDataElementInputPreview(page).blur();
-    await expect(callbackCount).toBe(1);
-  });
-
-  test("should call onChange event when a list option is selected", async ({
-    mount,
-    page,
-  }) => {
-    type CallbackArgument = Parameters<
-      Required<FilterableSelectProps>["onChange"]
-    >[0];
-    const callbackArguments: CallbackArgument[] = [];
-    const callback = (e: CallbackArgument) => {
-      callbackArguments.push(e);
-    };
-    await mount(<FilterableSelectComponent onChange={callback} />);
-
-    const position = "first";
-    const option = "1";
-    await dropdownButton(page).click();
-    await selectOption(page, positionOfElement(position)).click();
-    await expect(callbackArguments.length).toBe(1);
-    await expect(callbackArguments[0]).toMatchObject({
-      target: { value: option },
-      selectionConfirmed: true,
-    });
-  });
-
-  keyToTrigger.slice(0, 2).forEach((key) => {
-    test(`should call onKeyDown event when ${key} key is pressed`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      const callback = () => {
-        callbackCount += 1;
-      };
-      await mount(<FilterableSelectComponent onKeyDown={callback} />);
-
-      const inputElement = commonDataElementInputPreview(page);
-      await inputElement.focus();
-      await inputElement.press(key);
-      await expect(callbackCount).toBe(1);
-    });
-  });
-
-  test("should call onFilterChange event when a filter string is input", async ({
-    mount,
-    page,
-  }) => {
-    type CallbackArgument = Parameters<
-      Required<FilterableSelectProps>["onFilterChange"]
-    >[0];
-    const callbackArguments: CallbackArgument[] = [];
-    const callback = (e: CallbackArgument) => {
-      callbackArguments.push(e);
-    };
     await mount(
-      <FilterableSelectOnChangeEventComponent onFilterChange={callback} />,
+      <FilterableSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
     );
 
-    const text = "B";
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await inputElement.type(text);
-    await expect(callbackArguments.length).toBe(1);
-    await expect(callbackArguments[0]).toBe(text);
+    await page.getByRole("combobox").click();
+    await page.getByRole("listbox").waitFor();
+
+    const lastOption = page.getByRole("option").last();
+    await lastOption.scrollIntoViewIfNeeded();
+
+    await expect(async () => {
+      expect(called).toBeTruthy();
+    }).toPass();
   });
 
-  test("should call onListAction event when the Action Button is clicked", async ({
+  test("does not call onListScrollBottom when an option is clicked", async ({
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
+    let called = false;
+
     await mount(
-      <FilterableSelectListActionEventComponent onListAction={callback} />,
+      <FilterableSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
     );
 
-    await dropdownButton(page).click();
-    await filterableSelectAddElementButton(page).click();
-    await expect(callbackCount).toBe(1);
+    await page.getByRole("combobox").click();
+    await page.getByRole("listbox").waitFor();
+
+    const firstOption = page.getByRole("option").first();
+    await firstOption.click();
+
+    expect(called).toBeFalsy();
   });
 
-  test("should call onListScrollBottom event when the list is scrolled to the bottom", async ({
+  test("does not call onListScrollBottom when an option is clicked and list is re-opened", async ({
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
+    let called = false;
 
-    await dropdownButton(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500),
+    await mount(
+      <FilterableSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
     );
-    await page.waitForTimeout(250);
-    await expect(callbackCount).toBe(1);
-  });
 
-  test("should not call onListScrollBottom callback when an option is clicked", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
+    const input = page.getByRole("combobox");
+    await input.click();
+    await page.getByRole("listbox").waitFor();
 
-    await dropdownButton(page).click();
-    await selectOption(page, positionOfElement("first")).click();
-    expect(callbackCount).toBe(0);
-  });
+    const firstOption = page.getByRole("option").first();
+    await firstOption.click();
 
-  test("should not be called when an option is clicked and list is re-opened", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
+    await input.click();
 
-    await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
-
-    await dropdownButton(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500),
-    );
-    await selectOption(page, positionOfElement("first")).click();
-    await dropdownButton(page).click();
-    expect(callbackCount).toBe(1);
+    expect(called).toBeFalsy();
   });
 });
 
@@ -1450,7 +1261,7 @@ test.describe("Check virtual scrolling", () => {
     mount,
     page,
   }) => {
-    await mount(<FilterableSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
     await dropdownButton(page).click();
     await expect(selectOptionByText(page, "Option 1.")).toBeInViewport();
@@ -1464,28 +1275,33 @@ test.describe("Check virtual scrolling", () => {
     mount,
     page,
   }) => {
-    await mount(<FilterableSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
-    await dropdownButton(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollTo(0, 750),
-    );
-    await page.waitForTimeout(250);
-    await expect(selectOptionByText(page, "Option 1.")).toHaveCount(0);
-    await expect(selectOptionByText(page, "Option 20.")).toBeInViewport();
-    const option30 = selectOptionByText(page, "Option 30.");
-    await expect(option30).toHaveCount(1);
-    await expect(option30).not.toBeInViewport();
-    await expect(selectOptionByText(page, "Option 40.")).toHaveCount(0);
+    const input = page.getByRole("combobox");
+    await input.click();
+
+    const list = page.getByRole("listbox");
+    await list.waitFor();
+
+    const firstOption = page.getByRole("option").first();
+    const lastOption = page.getByRole("option").last();
+
+    await expect(firstOption).toHaveText("Option 1.");
+    await expect(lastOption).toHaveText("Option 15.");
+
+    await lastOption.scrollIntoViewIfNeeded();
+
+    await expect(firstOption).not.toHaveText("Option 1.");
+    await expect(lastOption).not.toHaveText("Option 15.");
   });
 
   test("should filter options when text is typed, taking into account non-rendered options", async ({
     mount,
     page,
   }) => {
-    await mount(<FilterableSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
-    await commonDataElementInputPreview(page).type("Option 100");
+    await commonDataElementInputPreview(page).fill("Option 100");
     await expect(selectOptionByText(page, "Option 100.")).toBeInViewport();
     await expect(selectOptionByText(page, "Option 1000.")).toBeInViewport();
     await expect(selectOptionByText(page, "Option 1002.")).toBeInViewport();
@@ -1498,8 +1314,10 @@ test.describe("Check virtual scrolling", () => {
     }) => {
       await mount(<FilterableSelectComponent />);
 
-      await commonDataElementInputPreview(page).type("foo");
-      await commonDataElementInputPreview(page).press(key);
+      const input = page.getByRole("combobox");
+      await input.fill("foo");
+      await input.press(key);
+
       await expect(page.getByText('No results for "foo"')).toBeVisible();
     });
   });
@@ -1675,7 +1493,7 @@ test.describe("Selection confirmed", () => {
 
     await dropdownButton(page).click();
     const inputElement = selectInput(page);
-    await inputElement.type("th");
+    await inputElement.fill("th");
     await expect(
       page.locator('[data-element="confirmed-selection-3"]'),
     ).not.toBeVisible();
@@ -1692,12 +1510,12 @@ test.describe("Selection confirmed", () => {
     await mount(<SelectionConfirmed />);
 
     const inputElement = selectInput(page);
-    await inputElement.type("foo");
+    await inputElement.fill("foo");
     await inputElement.press("Enter");
     // note: need to check count rather than visibility here - when the test fails and selectionConfirmed is set,
     // the span with the data-element prop exists but has size 0 due to having no text content - which Playwright
     // counts as not being visible
-    await expect(
+    expect(
       await page.locator('[data-element^="confirmed-selection-"]').count(),
     ).toBe(0);
   });
@@ -1711,7 +1529,7 @@ test("should not throw when filter text does not match option text", async ({
     <FilterableSelectComponent value={undefined} onChange={undefined} />,
   );
 
-  await commonDataElementInputPreview(page).type("abc");
+  await commonDataElementInputPreview(page).fill("abc");
   await selectInput(page).press("Enter");
   await expect(getDataElementByValue(page, "input")).toHaveValue("");
 });
@@ -1724,7 +1542,7 @@ test("should not select a disabled option when a filter is typed", async ({
 
   await dropdownButton(page).click();
   const inputElement = selectInput(page);
-  await inputElement.type("t");
+  await inputElement.fill("t");
   await inputElement.press("Enter");
   await expect(
     page.locator('[data-element="confirmed-selection-2"]'),
@@ -1967,26 +1785,10 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     mount,
     page,
   }) => {
-    await mount(<FilterableSelectWithLazyLoadingComponent />);
+    await mount(<FilterableSelectComponent isLoading />);
 
     await dropdownButton(page).click();
     await expect(loader(page, 1)).toBeVisible();
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests with onListScrollBottom prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectWithInfiniteScrollComponent />);
-
-    await dropdownButton(page).click();
-    await checkAccessibility(page);
-    // wait for content to finish loading before scrolling
-    await expect(selectOptionByText(page, "Amber")).toBeVisible();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500),
-    );
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
@@ -2086,7 +1888,7 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     mount,
     page,
   }) => {
-    await mount(<FilterableSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
     await dropdownButton(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");

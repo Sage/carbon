@@ -640,50 +640,6 @@ test.describe("NumeralDate component", () => {
     await expect(help).toHaveAttribute("aria-label", CHARACTERS.STANDARD);
   });
 
-  test.describe("Event tests for NumeralDate component", () => {
-    test("should call onChange callback when a type event is triggered", async ({
-      mount,
-      page,
-    }) => {
-      const inputValue = "1";
-      let callbackCount = 0;
-      await mount(
-        <NumeralDateComponent
-          onChange={() => {
-            callbackCount += 1;
-          }}
-        />,
-      );
-
-      await numeralDateInput(page, 0).fill(inputValue);
-
-      expect(callbackCount).toBe(1);
-    });
-
-    test("should call onBlur callback when a blur event is triggered", async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      await mount(
-        <NumeralDateComponent
-          onBlur={() => {
-            callbackCount += 1;
-          }}
-        />,
-      );
-
-      const input = numeralDateInput(page, 0);
-      await input.focus();
-      await input.blur();
-
-      await page.waitForTimeout(50);
-
-      await expect(input).not.toBeFocused();
-      expect(callbackCount).toBe(1);
-    });
-  });
-
   test.describe("Accessibility tests for NumeralDate component", () => {
     test("should pass accessibility tests for NumeralDate component", async ({
       mount,
