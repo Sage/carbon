@@ -681,6 +681,19 @@ test("if only the open trigger is the only focusable element on screen, when the
   expect(openButton).toHaveFocus();
 });
 
+// coverage
+test("renders with correct width when hasFullWidth prop is true", () => {
+  render(
+    <PopoverContainer title="My popup" hasFullWidth>
+      Ta da!
+    </PopoverContainer>,
+  );
+
+  expect(screen.getByTestId("popover-container")).toHaveStyle({
+    width: "100%",
+  });
+});
+
 testStyledSystemPadding(
   (props) => (
     <PopoverContainer open title="My popup" {...props}>

@@ -6,10 +6,19 @@ import { baseTheme } from "../../style/themes";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
 
-const PopoverContainerWrapperStyle = styled.div`
+type PopoverContainerWrapperProps = {
+  hasFullWidth?: boolean;
+};
+
+const PopoverContainerWrapperStyle = styled.div<PopoverContainerWrapperProps>`
   position: relative;
   display: inline-block;
-  width: 100%;
+
+  ${({ hasFullWidth }) =>
+    hasFullWidth &&
+    css`
+      width: 100%;
+    `}
 `;
 
 const PopoverContainerHeaderStyle = styled.div`

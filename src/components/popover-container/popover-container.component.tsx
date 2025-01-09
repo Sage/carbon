@@ -151,6 +151,8 @@ export interface PopoverContainerProps extends PaddingProps {
   containerAriaLabel?: string;
   /** Disables the animation for the component */
   disableAnimation?: boolean;
+  /** Flag to enable fullWidth Button styles */
+  hasFullWidth?: boolean;
 }
 
 function usePopoverMiddleware(shouldCoverButton: boolean) {
@@ -185,6 +187,7 @@ export const PopoverContainer = ({
   containerAriaLabel,
   closeButtonDataProps,
   disableAnimation = false,
+  hasFullWidth = false,
   ...rest
 }: PopoverContainerProps) => {
   const isControlled = open !== undefined;
@@ -390,7 +393,9 @@ export const PopoverContainer = ({
   return (
     <PopoverContainerWrapperStyle
       data-component="popover-container"
+      data-role="popover-container"
       onMouseDown={handleClick}
+      hasFullWidth={hasFullWidth}
     >
       <div ref={popoverReference}>
         {renderOpenComponent(renderOpenComponentProps)}
