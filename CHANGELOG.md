@@ -1,3 +1,10 @@
+### [146.4.1](https://github.com/Sage/carbon/compare/v146.4.0...v146.4.1) (2025-01-10)
+
+
+### Bug Fixes
+
+* **filterable-select:** with object as values cannot backspace ([80a392e](https://github.com/Sage/carbon/commit/80a392ec4553d3936e37fa132d571336b1682010)), closes [#7064](https://github.com/Sage/carbon/issues/7064)
+
 ## [146.4.0](https://github.com/Sage/carbon/compare/v146.3.1...v146.4.0) (2025-01-09)
 
 
