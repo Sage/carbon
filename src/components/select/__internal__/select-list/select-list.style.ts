@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { baseTheme } from "../../../../style/themes";
-import { SelectListProps } from ".";
 
 interface StyledSelectListProps {
   listHeight?: number;
@@ -101,11 +100,17 @@ const StyledSelectListTableBody = styled.tbody<StyledSelectListProps>`
   height: ${({ listHeight }) => `${listHeight}px`};
 `;
 
-const StyledSelectListContainer = styled.div<
-  Pick<SelectListProps, "isLoading">
->`
+interface StyledSelectListContainerProps {
+  isLoading?: boolean;
+  placement?: string;
+}
+
+const StyledSelectListContainer = styled.div<StyledSelectListContainerProps>`
   background-color: white;
-  box-shadow: var(--boxShadow100);
+  box-shadow: ${({ placement }) =>
+    placement?.includes("top")
+      ? "0 -5px 5px 0 #00141e33, 0 -10px 10px 0 #00141e1a"
+      : "var(--boxShadow100)"};
   animation: fadeIn 250ms ease-out;
   position: absolute;
   z-index: ${({ theme }) => theme.zIndex.popover};

@@ -1,3 +1,10 @@
+### [146.4.2](https://github.com/Sage/carbon/compare/v146.4.1...v146.4.2) (2025-01-10)
+
+
+### Bug Fixes
+
+* **select:** ensure select-list has correct box-shadow when placement is top ([cc035ce](https://github.com/Sage/carbon/commit/cc035ce0386794ecea571a7d5563668dc569c35a)), closes [#7125](https://github.com/Sage/carbon/issues/7125)
+
 ### [146.4.1](https://github.com/Sage/carbon/compare/v146.4.0...v146.4.1) (2025-01-10)
 
 
