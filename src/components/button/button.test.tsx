@@ -379,7 +379,7 @@ test("accepts ref as a ref callback", () => {
 
 test("sets ref to empty after unmount", () => {
   const mockRef = { current: null };
-  const { unmount } = render(<Button className="foo">bar</Button>);
+  const { unmount } = render(<Button>bar</Button>);
 
   unmount();
 

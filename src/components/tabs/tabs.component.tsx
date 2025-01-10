@@ -23,7 +23,11 @@ import Logger from "../../__internal__/utils/logger";
 let deprecatedClassNameWarningShown = false;
 
 export interface TabsProps extends MarginProps {
-  /** @ignore @private */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component */
   className?: string;
   /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */
   renderHiddenTabs?: boolean;
