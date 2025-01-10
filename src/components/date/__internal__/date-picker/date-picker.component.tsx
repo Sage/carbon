@@ -63,6 +63,10 @@ export interface DatePickerProps {
   pickerTabGuardId?: string;
   /** Callback triggered when the picker is closed */
   onPickerClose?: () => void;
+  /** Prop to specify the aria-label attribute of the date picker */
+  ariaLabel?: string;
+  /** Prop to specify the aria-labelledby attribute of the date picker */
+  ariaLabelledBy?: string;
 }
 
 const popoverMiddleware = [
@@ -85,6 +89,8 @@ export const DatePicker = ({
   setOpen,
   pickerTabGuardId,
   onPickerClose,
+  ariaLabel: datePickerAriaLabel,
+  ariaLabelledBy: datePickerAriaLabelledBy,
 }: DatePickerProps) => {
   const [focusedMonth, setFocusedMonth] = useState<Date | undefined>(
     selectedDays || new Date(),
@@ -226,6 +232,9 @@ export const DatePicker = ({
           onMouseDown={pickerMouseDown}
           onKeyUp={handleKeyUp}
           onKeyDown={handleOnKeyDown}
+          role="region"
+          aria-label={datePickerAriaLabel}
+          aria-labelledby={datePickerAriaLabelledBy}
         >
           <div
             id={pickerTabGuardId}
