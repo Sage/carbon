@@ -12,6 +12,11 @@ import {
 } from "../rich-text-editor.component";
 import { markdownNodes, theme } from "../constants";
 
+const wrapLinksInAnchors = (value: string) => {
+  const urlRegex = /((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/g;
+  return value.replace(urlRegex, "<a href='$1'>$1</a>");
+};
+
 const determineFormat = (value: string | undefined) => {
   let isJson;
 
@@ -32,7 +37,7 @@ const determineFormat = (value: string | undefined) => {
     if (isHTML) {
       return CreateFromHTML(value);
     }
-    const wrappedPlainText = `<p dir="ltr"><span data-lexical-text="true">${value}</span></p>`;
+    const wrappedPlainText = `<p dir="ltr"><span data-lexical-text="true">${wrapLinksInAnchors(value)}</span></p>`;
     return CreateFromHTML(wrappedPlainText);
   }
   return JSON.parse(value);
