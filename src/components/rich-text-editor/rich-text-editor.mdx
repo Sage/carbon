@@ -1,0 +1,296 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as RichTextEditorStories from "./rich-text-editor.stories";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+<Meta of={RichTextEditorStories} />
+
+# Rich Text Editor
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/827c18-text-editor"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Provides an interactive rich text editor that allows users to format text with various styles and save the content as JSON or HTML. For further documentation on this component, please read [our documentation regarding Lexical](../?path=/docs/documentation-using-lexical--docs)
+
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+```javascript
+import RichTextEditor, { CreateFromHTML } from "carbon-react/lib/components/rich-text-editor";
+```
+
+To use the rich text editor, import the `RichTextEditor` component. If your content is stored as HTML, you can use the `CreateFromHTML`
+function to convert it to a format that the editor can understand. If you do not work with HTML, the `CreateFromHTML` function is not required
+and can be omitted from the imports.
+
+## Examples
+
+### Default
+
+All instances of the Rich Text Editor should have a label that describes the purpose of the editor; this can be set via the `labelText` property.
+
+<Canvas of={RichTextEditorStories.Default} />
+
+### Required
+
+You can set the `required` property to `true` to indicate that the content of the editor is mandatory.
+
+<Canvas of={RichTextEditorStories.Required} />
+
+### Optional
+
+You can set the `isOptional` property to `true` to indicate that the content of the editor is optional.
+
+<Canvas of={RichTextEditorStories.Optional} />
+
+### Character Limit
+
+You can set the `characterLimit` property to limit the number of characters that can be entered into the editor. Note that the character limit
+is not a hard limit, and the user can still enter more characters than the limit. However, the editor will show a warning to indicate that the
+limit has been exceeded.
+
+<Canvas of={RichTextEditorStories.CharacterLimit} />
+
+### Command Buttons
+
+You can add `Save` and `Cancel` buttons to the editor by setting the `onSave` and `onCancel` properties. Both properties should be functions.
+Omitting the `onCancel` property will hide the `Cancel` button, whereas omitting the `onSave` property will hide the `Save` button.
+
+The `onSave` function callback will be called when the user clicks the `Save` button, and contains a single argument with two values:
+the JSON and HTML content of the editor. The `onCancel` function callback will be called when the user clicks the `Cancel` button.
+
+<Canvas of={RichTextEditorStories.CommandButtons} />
+
+### onChange Handler
+
+To handle changes to the content of the editor, you can set the `onChange` property to a function. The function will be called whenever the
+editor state changes, and provides a string representation of the editor content.
+
+<Canvas of={RichTextEditorStories.OnChange} />
+
+Please note that this function will be called frequently, so it is recommended to avoid computationally expensive operations within it. You
+may also wish to debounce the function to avoid excessive calls; an example of this is provided in the example below. The `useDebounce` hook
+is an internal utility function that is not exported from the library; you will need to provide your own implementation of this function.
+
+<Canvas of={RichTextEditorStories.OnChangeDebounced} />
+
+### onSave Handler
+
+To handle the content of the editor when the `Save` button is clicked, you can set the `onSave` property to a function. The callback function
+returns two values: the JSON and HTML content of the editor. The value of `json` reflects the structure that the editor understands/uses
+internally; the value of `htmlString` is the raw content of the editor in HTML format (note that the HTML returned is not complete HTML - only
+the content of the editor is converted).
+
+Type into the editor and the click the **Show Data Formats** button in the example below to see the JSON and HTML content of the editor.
+
+<Canvas of={RichTextEditorStories.OnSave} />
+
+### Resetting On Cancel
+
+You can reset the editor to its initial state when the `Cancel` button is clicked by setting the `resetOnCancel` property to `true`.
+
+<Canvas of={RichTextEditorStories.ResetToDefault} />
+
+### With Error
+
+When the editor is in an error state, you can use the `error` property to display messages to the user.
+
+<Canvas of={RichTextEditorStories.WithError} />
+
+### With Warning
+
+When the editor is in a warning state, you can use the `warning` property to display messages to the user. Exceeding the character limit will
+trigger a warning message automatically.
+
+<Canvas of={RichTextEditorStories.WithWarning} />
+
+### With HTML As Initial Value
+
+In order to set the initial value of the editor as HTML, you can use the `CreateFromHTML` function to convert the HTML content to a format that
+the editor can understand. The `CreateFromHTML` function should be called with the HTML content as an argument, and the result should be passed
+to the `value` property of the editor.
+
+<Canvas of={RichTextEditorStories.WithHTMLValue} />
+
+### With JSON As Initial Value
+
+You can set the initial value of the editor by passing a JSON object to the `value` property. The JSON object provided should be in the format
+returned by the `onSave` function callback, an example of which can be seen below.
+
+<Canvas of={RichTextEditorStories.WithJSONValue} />
+
+### Input Hint
+
+You can use the `inputHint` property to provide additional information to the user about the expected content or usage of the editor.
+
+<Canvas of={RichTextEditorStories.InputHint} />
+
+### With Row Count
+
+You can customise the height of the text editor by setting the `rows` property. The `rows` property should be a number greater than `2`, and will
+determine the minimium height of the editor by multplying the number of rows provided by the height of a single row (21px). If `rows` is not provided,
+the editor will default to a height of `210px`, equivalent to 10 rows.
+
+<Canvas of={RichTextEditorStories.Rows} />
+
+### With Placeholder
+
+By default, the editor will render with an empty placeholder; you can override this by setting the `placeholder` property.
+
+<Canvas of={RichTextEditorStories.WithPlaceholder} />
+
+### Link Support
+
+The editor supports adding links to text. To add a link, you can:
+
+ - type the link directly into the editor;
+ - select the text you want to link, and paste the URL directly into the editor. The editor will automatically convert the URL into a link, wrapping the selected text.
+
+Clicking the link will open the URL in a new tab.
+
+<Canvas of={RichTextEditorStories.Links} />
+
+### With Link Added Callback
+
+There may be times when you want to perform an action when a link is added to the editor. You can use the `onLinkAdded` callback to obtain a
+string representation of the link that was added, updated or removed. The function will be called whenever a link is added to the editor.
+In the example below, the most recently-added link will be displayed in the `Link` section below the editor; adding a new link will replace
+the previous one.
+
+Note that this usage is for demonstration purposes only; you should maintain the list of URLs added to the editor in your application state.
+
+<Canvas of={RichTextEditorStories.WithLinkAddedCallback} />
+
+### With Link Previews
+
+You can use the `prevews` property to render previews of links added to the editor. The `previews` property should be an array of React JSX objects. Note
+that the following examples are merely a suggested implementation; the only requirement is that the `previews` array contains one or more React JSX
+objects.
+
+<Canvas of={RichTextEditorStories.WithLinkPreviews} />
+
+You can provide more complex previews by providing custom components to the `previews` array.
+
+<Canvas of={RichTextEditorStories.WithComplexLinkPreviews} />
+
+You can also provide multiple previews, and can mix and match the styles as desired.
+
+<Canvas of={RichTextEditorStories.WithMultipleLinkPreviews} />
+
+### Translations
+
+You can override the default translations for the Rich Text Editor by passing a custom locale object to the `i18nProvider`. Consult the [translation keys](#translation-keys) section for a list of available keys.
+
+<Canvas of={RichTextEditorStories.WithCustomTranslations} />
+
+### Read-Only Mode
+
+You can specify that the editor should be read-only by setting the `readOnly` property to `true`. In read-only mode, the editor will not allow any changes to be made to the content.
+
+<Canvas of={RichTextEditorStories.ReadOnly} />
+
+## Props
+
+### Rich Text Editor
+
+<ArgTypes of={RichTextEditorStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "richTextEditor.boldAria",
+      description:
+        "The text to be read out by screen readers when the Bold formatting button is focused.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "richTextEditor.cancelButton",
+      description:
+        "The text to show on the Cancel button.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "richTextEditor.cancelButtonAria",
+      description:
+        "The text to be read out by screen readers when the Cancel button is focused.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "richTextEditor.characterCounter",
+      description:
+        "The text to display on the character counter. The function should accept a single argument, the number of characters remaining.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "richTextEditor.characterLimit",
+      description:
+        "The text to display when the character limit has been exceeded. The function should accept a single argument, the number of characters over the limit.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "richTextEditor.contentEditorAria",
+      description:
+        "The text to be read out by screen readers when the Content Editor is focused.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "richTextEditor.italicAria",
+      description:
+        "The text to be read out by screen readers when the Italic formatting button is focused.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "richTextEditor.orderedListAria",
+      description:
+        "The text to be read out by screen readers when the Ordered List formatting button is focused.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "richTextEditor.saveButton",
+      description:
+        "The text to show on the Save button.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "richTextEditor.saveButtonAria",
+      description:
+        "The text to be read out by screen readers when the Save button is focused.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "richTextEditor.unorderedListAria",
+      description:
+        "The text to be read out by screen readers when the Unordered List formatting button is focused.",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState } from "react";
 
-import TextEditor, { EditorState } from "../text-editor";
 import Form from ".";
 import Button from "../button";
 import { Tab, Tabs } from "../tabs";
@@ -25,6 +24,7 @@ import InlineInputs from "../inline-inputs";
 import Pager from "../pager";
 import Password from "../password";
 import Search, { SearchProps } from "../search";
+import RichTextEditor from "../rich-text-editor";
 
 export default {
   title: "Form/Test",
@@ -381,15 +381,20 @@ DefaultWithPager.storyName = "default with pager";
 export const MockFormForAriaLiveDemo = () => {
   const [textareaValue, setTextareaValue] = useState("");
   const [textboxValue, setTextboxValue] = useState("");
-  const [textEditorValue, setTextEditorValue] = useState(
-    EditorState.createEmpty(),
-  );
+  const [textEditorValue, setTextEditorValue] = useState(() => {
+    // 'empty' editor
+    const value =
+      '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}';
+    return value;
+  });
   const [passwordValue, setPasswordValue] = useState("");
 
   const resetValues = () => {
     setTextareaValue("");
     setTextboxValue("");
-    setTextEditorValue(EditorState.createEmpty());
+    setTextEditorValue(
+      '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+    );
     setPasswordValue("");
   };
 
@@ -435,8 +440,7 @@ export const MockFormForAriaLiveDemo = () => {
           setTextboxValue(newValue.target.value);
         }}
       />
-      <TextEditor
-        mt={5}
+      <RichTextEditor
         onChange={(newValue) => {
           setTextEditorValue(newValue);
         }}

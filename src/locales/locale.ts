@@ -131,6 +131,19 @@ interface Locale {
   pod: {
     undo: () => string;
   };
+  richTextEditor: {
+    boldAria: () => string;
+    cancelButton: () => string;
+    cancelButtonAria: () => string;
+    characterCounter: (count: number) => string;
+    characterLimit: (count: number) => string;
+    contentEditorAria: () => string;
+    italicAria: () => string;
+    orderedListAria: () => string;
+    saveButton: () => string;
+    saveButtonAria: () => string;
+    unorderedListAria: () => string;
+  };
   search: {
     searchButtonText: () => string;
   };
