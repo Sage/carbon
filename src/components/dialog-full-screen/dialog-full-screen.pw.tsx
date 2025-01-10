@@ -317,11 +317,13 @@ test.describe("render DialogFullScreen component and check properties", () => {
     await expect(dialogFullScreen).not.toBeVisible();
 
     await button.click();
-    await expect(dialogFullScreen).toBeVisible();
+    await dialogFullScreen.waitFor();
+
     const closeButton = page.getByLabel("Close");
     await closeButton.click();
-    await expect(button).toBeFocused();
+
     await expect(dialogFullScreen).not.toBeVisible();
+    await expect(button).toBeFocused();
   });
 
   test("when Dialog Full Screen is open on render, then closed, opened and then closed again, the call to action element should be focused", async ({
@@ -747,7 +749,6 @@ test.describe("test background scroll when tabbing", () => {
   }) => {
     await mount(<DialogFullScreenBackgroundScrollTestComponent />);
 
-    await page.waitForTimeout(500);
     await continuePressingSHIFTTAB(page, 2);
     await iconIsFocused(page, 0);
     await expect(
@@ -764,7 +765,6 @@ test.describe("test background scroll when tabbing", () => {
       <DialogFullScreenBackgroundScrollWithOtherFocusableContainers />,
     );
 
-    await page.waitForTimeout(500);
     const toastIcon = getDataElementByValue(page, "close").nth(1);
     await toastIcon.focus();
     await continuePressingTAB(page, 5);
@@ -783,7 +783,6 @@ test.describe("test background scroll when tabbing", () => {
       <DialogFullScreenBackgroundScrollWithOtherFocusableContainers />,
     );
 
-    await page.waitForTimeout(500);
     await continuePressingSHIFTTAB(page, 8);
     await iconIsFocused(page, 0);
     await expect(

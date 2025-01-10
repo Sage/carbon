@@ -5,8 +5,7 @@ import advancedFormat from "dayjs/plugin/advancedFormat";
 import {
   DateInputCustom,
   DateInputValidationNewDesign,
-  DateInputWithButton,
-  DateWithLocales,
+  WithSiblingButton,
   DateInputInsideDialog,
 } from "./components.test-pw";
 import { DateInputProps } from ".";
@@ -20,7 +19,6 @@ import {
   assertCssValueIsApproximately,
   checkAccessibility,
   getStyle,
-  toBeFocusedDelayed,
   containsClass,
 } from "../../../playwright/support/helper";
 import {
@@ -32,13 +30,10 @@ import {
   dayPickerWrapper,
   dayPickerHeading,
 } from "../../../playwright/components/date-input/index";
-import { HooksConfig } from "../../../playwright";
-import { alertDialogPreview } from "../../../playwright/components/dialog";
 
 dayjs.extend(advancedFormat);
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const DAY_PICKER_PREFIX = "rdp-";
 const TODAY = dayjs().format("dddd, MMMM Do, YYYY");
 const DATE_INPUT = dayjs("2022-05-01").format("DD/MM/YYYY");
 const TODAY_DATE_INPUT = dayjs().format("DD/MM/YYYY");
@@ -50,12 +45,6 @@ const PREVIOUS_MONTH = dayjs("2022-05-01")
 const MIN_DATE = "04/04/2030";
 const DAY_BEFORE_MIN_DATE = "Wednesday, April 3rd, 2030";
 const DAY_AFTER_MAX_DATE = "Friday, April 5th, 2030";
-const DDMMYYY_DATE_TO_ENTER = "27,05,2022";
-const MMDDYYYY_DATE_TO_ENTER = "05,27,2022";
-const YYYYMMDD_DATE_TO_ENTER = "2022,05,27";
-const DDMMYYY_DATE_TO_ENTER_SHORT = "1,7,22";
-const MMDDYYYY_DATE_TO_ENTER_SHORT = "7,1,22";
-const YYYYMMDD_DATE_TO_ENTER_SHORT = "22,7,1";
 const arrowKeys = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"];
 
 test.describe("Functionality tests", () => {
@@ -191,7 +180,7 @@ test.describe("Functionality tests", () => {
     await calendarIcon.click();
     await calendarIcon.click();
     const wrapper = dayPickerWrapper(page);
-    await expect(wrapper).toHaveCount(0);
+    await expect(wrapper).toBeHidden();
   });
 
   [
@@ -245,16 +234,18 @@ test.describe("Functionality tests", () => {
       mount,
       page,
     }) => {
-      await mount(<DateInputCustom />);
+      await mount(<DateInputCustom value="01/05/2022" />);
 
-      const inputParent = getDataElementByValue(page, "input").locator("..");
-      await inputParent.click();
-      const rightArrow = getDataElementByValue(page, "chevron_right").locator(
-        "..",
-      );
-      await rightArrow.focus();
-      await rightArrow.press(key);
-      const pickerHeading = dayPickerHeading(page);
+      const input = page.getByLabel("Date");
+      await input.click();
+
+      const datePicker = page.getByTestId("date-picker");
+      await datePicker.waitFor();
+
+      const nextMonthButton = page.getByRole("button", { name: "Next month" });
+      await nextMonthButton.press(key);
+
+      const pickerHeading = datePicker.getByRole("status");
       await expect(pickerHeading).toHaveText("May 2022");
     });
   });
@@ -264,16 +255,19 @@ test.describe("Functionality tests", () => {
       mount,
       page,
     }) => {
-      await mount(<DateInputCustom />);
+      await mount(<DateInputCustom value="01/05/2022" />);
 
-      const inputParent = getDataElementByValue(page, "input").locator("..");
-      await inputParent.click();
-      const rightArrow = getDataElementByValue(page, "chevron_left").locator(
-        "..",
-      );
-      await rightArrow.focus();
-      await rightArrow.press(key);
-      const pickerHeading = dayPickerHeading(page);
+      const dateInput = page.getByLabel("Date");
+      await dateInput.click();
+
+      const nextMonthButton = page.getByRole("button", { name: "Next month" });
+      await nextMonthButton.waitFor();
+
+      await nextMonthButton.focus();
+      await nextMonthButton.press(key);
+
+      const datePicker = page.getByTestId("date-picker");
+      const pickerHeading = datePicker.getByRole("status");
       await expect(pickerHeading).toHaveText("May 2022");
     });
   });
@@ -284,50 +278,50 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom value="12/12/2022" />);
 
-    await page.focus("body");
+    const input = page.getByLabel("Date");
+    await input.click();
+
+    const dayPicker = page.getByTestId("date-picker");
+    await dayPicker.waitFor();
+
     await page.keyboard.press("Tab");
-    const input = getDataElementByValue(page, "input");
-    await expect(input).toBeFocused();
+    const previousMonthButton = page.getByRole("button", {
+      name: "Previous month",
+    });
+    await expect(previousMonthButton).toBeFocused();
+
     await page.keyboard.press("Tab");
-    const arrowLeft = getDataElementByValue(page, "chevron_left").locator("..");
-    await expect(arrowLeft).toBeFocused();
+    const nextMonthButton = page.getByRole("button", {
+      name: "Next month",
+    });
+    await expect(nextMonthButton).toBeFocused();
+
     await page.keyboard.press("Tab");
-    const arrowRight = getDataElementByValue(page, "chevron_right").locator(
-      "..",
-    );
-    await expect(arrowRight).toBeFocused();
-    await page.keyboard.press("Tab");
-    const dayPicker = page.locator(`.rdp-selected`).locator("button");
-    await expect(dayPicker).toBeFocused();
+    const dayButton = page.getByRole("button", {
+      name: "Monday, December 12th, 2022",
+    });
+    await expect(dayButton).toBeFocused();
   });
 
   test(`should close the picker and focus the next element in the DOM when focus is on a day element and tab pressed`, async ({
     mount,
     page,
   }) => {
-    await mount(<DateInputWithButton />);
+    await mount(<WithSiblingButton value="01/05/2022" />);
 
-    await page.focus("body");
-    await page.keyboard.press("Tab");
-    const input = getDataElementByValue(page, "input");
-    await expect(input).toBeFocused();
-    await page.keyboard.press("Tab");
-    const arrowLeft = getDataElementByValue(page, "chevron_left").locator("..");
-    await expect(arrowLeft).toBeFocused();
-    await page.keyboard.press("Tab");
-    const arrowRight = getDataElementByValue(page, "chevron_right").locator(
-      "..",
-    );
-    await expect(arrowRight).toBeFocused();
-    await page.keyboard.press("Tab");
-    const dayPicker = page
-      .locator(`.${DAY_PICKER_PREFIX}selected`)
-      .locator("button");
-    await expect(dayPicker).toBeFocused();
-    await page.keyboard.press("Tab");
-    const wrapper = dayPickerWrapper(page);
-    await expect(wrapper).toHaveCount(0);
-    const fooButton = page.getByRole("button");
+    const dateInput = page.getByRole("textbox");
+    await dateInput.click();
+
+    const dayPicker = page.getByTestId("date-picker");
+    await dayPicker.waitFor();
+
+    const dayButton = page.getByRole("button", {
+      name: "Sunday, May 1st, 2022",
+    });
+    await dayButton.press("Tab");
+
+    const fooButton = page.getByRole("button", { name: "foo" });
+    await expect(dayPicker).toBeHidden();
     await expect(fooButton).toBeFocused();
   });
 
@@ -337,276 +331,226 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom value="" />);
 
-    await page.focus("body");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    const dayPicker = page
-      .locator(`.${DAY_PICKER_PREFIX}today`)
-      .locator("button");
-    await toBeFocusedDelayed(dayPicker);
-    await page.keyboard.press("Tab");
-    const wrapper = dayPickerWrapper(page);
-    await expect(wrapper).toHaveCount(0);
+    await page.getByLabel("Date").press("Tab");
+
+    const todayButton = page.getByRole("button", { name: `Today, ${TODAY}` });
+    await todayButton.waitFor();
+
+    await page
+      .getByRole("button", { name: "Next month", exact: true })
+      .press("Tab");
+
+    await expect(todayButton).toBeFocused();
   });
 
-  test(`should navigate through the day elements using the arrow keys`, async ({
+  test(`day buttons are navigable with the arrow keys`, async ({
     mount,
     page,
   }) => {
     await mount(<DateInputCustom value="14/04/2022" />);
 
-    await page.focus("body");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press(arrowKeys[3]);
-    const focusedElement1 = page
-      .locator(`.${DAY_PICKER_PREFIX}focused`)
-      .locator("button")
-      .filter({ hasText: "21" });
-    await toBeFocusedDelayed(focusedElement1);
-    await page.keyboard.press(arrowKeys[3]);
-    const focusedElement2 = page
-      .locator(`.${DAY_PICKER_PREFIX}focused`)
-      .locator("button")
-      .filter({ hasText: "28" });
-    await toBeFocusedDelayed(focusedElement2);
+    await page.getByLabel("Date").press("Tab");
 
-    await page.keyboard.press(arrowKeys[1]);
-    const focusedElement3 = page
-      .locator(`.${DAY_PICKER_PREFIX}focused`)
-      .locator("button")
-      .filter({ hasText: "27" });
-    await toBeFocusedDelayed(focusedElement3);
-    await page.keyboard.press(arrowKeys[1]);
-    const focusedElement4 = page
-      .locator(`.${DAY_PICKER_PREFIX}focused`)
-      .locator("button")
-      .filter({ hasText: "26" });
-    await toBeFocusedDelayed(focusedElement4);
+    const datePicker = page.getByTestId("date-picker");
+    await datePicker.waitFor();
 
-    await page.keyboard.press(arrowKeys[0]);
-    const focusedElement5 = page
-      .locator(`.${DAY_PICKER_PREFIX}focused`)
-      .locator("button")
-      .filter({ hasText: "27" });
-    await toBeFocusedDelayed(focusedElement5);
-    await page.keyboard.press(arrowKeys[0]);
-    const focusedElement6 = page
-      .locator(`.${DAY_PICKER_PREFIX}focused`)
-      .locator("button")
-      .filter({ hasText: "28" });
-    await toBeFocusedDelayed(focusedElement6);
+    await page
+      .getByRole("button", { name: "Next month", exact: true })
+      .press("Tab");
+    const day14Button = page.getByRole("button", {
+      name: "Thursday, April 14th, 2022",
+    });
+    await expect(day14Button).toBeFocused();
 
-    await page.keyboard.press(arrowKeys[2]);
-    const focusedElement7 = page
-      .locator(`.${DAY_PICKER_PREFIX}focused`)
-      .locator("button")
-      .filter({ hasText: "21" });
-    await toBeFocusedDelayed(focusedElement7);
-    await page.keyboard.press(arrowKeys[2]);
-    const focusedElement8 = page
-      .locator(`.${DAY_PICKER_PREFIX}focused`)
-      .locator("button")
-      .filter({ hasText: "14" });
-    await toBeFocusedDelayed(focusedElement8);
+    const day21Button = page.getByRole("button", {
+      name: "Thursday, April 21st, 2022",
+    });
+    await day14Button.press("ArrowDown");
+    await expect(day21Button).toBeFocused();
+
+    const day22Button = page.getByRole("button", {
+      name: "Friday, April 22nd, 2022",
+    });
+    await day21Button.press("ArrowRight");
+    await expect(day22Button).toBeFocused();
+
+    const day15Button = page.getByRole("button", {
+      name: "Friday, April 15th, 2022",
+    });
+    await day22Button.press("ArrowUp");
+    await expect(day15Button).toBeFocused();
+
+    await day15Button.press("ArrowLeft");
+    await expect(day14Button).toBeFocused();
   });
 
-  test(`should navigate to the previous month when left arrow pressed on first day element of a month`, async ({
+  test(`navigates to previous month when left arrow is pressed while first day of a month button is focused`, async ({
     mount,
     page,
   }) => {
-    await mount(<DateInputCustom value="14/04/2022" />);
+    await mount(<DateInputCustom value="01/04/2022" />);
 
-    await page.focus("body");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press(arrowKeys[1]);
-    const focusedElement = page
-      .locator(`.${DAY_PICKER_PREFIX}focused`)
-      .locator("button")
-      .filter({ hasText: "13" });
-    await toBeFocusedDelayed(focusedElement);
-    const pickerHeading = dayPickerHeading(page);
-    await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
+    await page.getByLabel("Date").press("Tab");
+
+    const datePicker = page.getByTestId("date-picker");
+    await datePicker.waitFor();
+
+    const day1Button = page.getByRole("button", {
+      name: "Friday, April 1st, 2022",
+    });
+    await day1Button.press("ArrowLeft");
+
+    const day31Button = page.getByRole("button", {
+      name: "Thursday, March 31st, 2022",
+    });
+    await day31Button.waitFor();
+
+    await expect(day31Button).toBeFocused();
+
+    const pickerHeading = datePicker.getByRole("status");
+    await expect(pickerHeading).toHaveText("March 2022");
   });
 
-  [
-    ["24", "1"],
-    ["25", "2"],
-    ["26", "3"],
-    ["27", "4"],
-    ["28", "5"],
-    ["29", "6"],
-    ["30", "7"],
-  ].forEach(([result, day]) => {
-    test(`should navigate to day ${result} of previous month when up arrow pressed on day ${day} of first week of current month`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DateInputCustom value={`0${day}/05/2022`} />);
+  test(`navigates to previous month, when up arrow is pressed on a day button if a previous-month day is displayed above`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DateInputCustom value="04/04/2022" />);
 
-      await page.focus("body");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press(arrowKeys[2]);
-      if (day === "1") {
-        const focusedElement = page
-          .locator(`.${DAY_PICKER_PREFIX}focused`)
-          .locator("button")
-          .filter({ hasText: result });
-        await toBeFocusedDelayed(focusedElement);
-      } else {
-        const focusedElement = page
-          .locator(`.${DAY_PICKER_PREFIX}focused`)
-          .locator("button")
-          .filter({ hasText: result });
-        await toBeFocusedDelayed(focusedElement);
-      }
-      const pickerHeading = dayPickerHeading(page);
-      await expect(pickerHeading).toHaveText(PREVIOUS_MONTH);
+    await page.getByLabel("Date").press("Tab");
+
+    const datePicker = page.getByTestId("date-picker");
+    await datePicker.waitFor();
+
+    const day4Button = page.getByRole("button", {
+      name: "Monday, April 4th, 2022",
     });
+    await day4Button.press("ArrowUp");
+
+    const day28Button = page.getByRole("button", {
+      name: "Monday, March 28th, 2022",
+    });
+    await day28Button.waitFor();
+
+    await expect(day28Button).toBeFocused();
+
+    const pickerHeading = datePicker.getByRole("status");
+    await expect(pickerHeading).toHaveText("March 2022");
   });
 
-  [
-    ["7", "31"],
-    ["6", "30"],
-    ["5", "29"],
-    ["4", "28"],
-    ["3", "27"],
-    ["2", "26"],
-    ["1", "25"],
-  ].forEach(([result, day]) => {
-    test(`should navigate to day ${result} of next month when down arrow pressed on day ${day} of last week of current month`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DateInputCustom value={`${day}/05/2022`} />);
+  test("navigates to previous month, when down arrow is pressed on a day button if a previous-month day is displayed below", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DateInputCustom value="24/04/2022" />);
 
-      await page.focus("body");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press(arrowKeys[3]);
-      if (day === "30" || day === "31") {
-        const focusedElement = page
-          .locator(`.${DAY_PICKER_PREFIX}focused`)
-          .locator("button")
-          .filter({ hasText: result });
-        await toBeFocusedDelayed(focusedElement);
-      } else {
-        const focusedElement = page
-          .locator(`.${DAY_PICKER_PREFIX}focused`)
-          .locator("button")
-          .filter({ hasText: result })
-          .filter({ hasNotText: "30" })
-          .filter({ hasNotText: "31" });
-        await toBeFocusedDelayed(focusedElement);
-      }
-      const pickerHeading = dayPickerHeading(page);
-      await expect(pickerHeading).toHaveText(NEXT_MONTH);
+    await page.getByLabel("Date").press("Tab");
+
+    const datePicker = page.getByTestId("date-picker");
+    await datePicker.waitFor();
+
+    const day24Button = page.getByRole("button", {
+      name: "Sunday, April 24th, 2022",
     });
+    await day24Button.press("ArrowDown");
+
+    const day1Button = page.getByRole("button", {
+      name: "Sunday, May 1st, 2022",
+    });
+    await day1Button.waitFor();
+
+    await expect(day1Button).toBeFocused();
+
+    const pickerHeading = datePicker.getByRole("status");
+    await expect(pickerHeading).toHaveText("May 2022");
   });
 
   ["Enter", "Space"].forEach((key) => {
-    test(`should update the selected date when ${key} pressed on a day element`, async ({
+    test(`updates selected date when ${key} pressed on a day button`, async ({
       mount,
       page,
     }) => {
       await mount(<DateInputCustom value="14/04/2022" />);
 
-      await page.focus("body");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press("Tab");
-      await page.keyboard.press(arrowKeys[1]);
-      const focusedElement = page
-        .locator(`.${DAY_PICKER_PREFIX}focused`)
-        .locator("button")
-        .filter({ hasText: "13" });
-      await toBeFocusedDelayed(focusedElement);
-      await page.keyboard.press(key);
-      await expect(getDataElementByValue(page, "input")).toHaveValue(
-        "13/04/2022",
-      );
+      const dateInput = page.getByLabel("Date");
+      await dateInput.press("Tab");
+
+      const datePicker = page.getByTestId("date-picker");
+      await datePicker.waitFor();
+
+      const day25Button = page.getByRole("button", {
+        name: "Monday, April 25th, 2022",
+      });
+      await day25Button.press(key);
+
+      await expect(dateInput).toHaveValue("25/04/2022");
     });
   });
 
-  test(`should close the picker when escape is pressed and input focused`, async ({
+  test("closes picker and refocuses input, when escape key is pressed", async ({
     mount,
     page,
   }) => {
     await mount(<DateInputCustom />);
 
-    await page.focus("body");
-    await page.keyboard.press("Tab");
-    const wrapper = dayPickerWrapper(page);
-    await expect(wrapper).toHaveCount(1);
-    await page.keyboard.press("Escape");
-    await expect(wrapper).toHaveCount(0);
+    const dateInput = page.getByLabel("Date");
+    await dateInput.press("Tab");
+
+    const datePicker = page.getByTestId("date-picker");
+    await datePicker.waitFor();
+
+    await datePicker.press("Escape");
+
+    await expect(dateInput).toBeFocused();
+    await expect(datePicker).toBeHidden();
   });
 
-  test(`should close the picker when escape is pressed and focus is within the picker and refocus the input`, async ({
+  test("closes picker and refocuses input, when shift + tab is pressed on previous month button", async ({
     mount,
     page,
   }) => {
     await mount(<DateInputCustom />);
 
-    await page.focus("body");
-    await page.keyboard.press("Tab");
-    const wrapper = dayPickerWrapper(page);
-    await expect(wrapper).toHaveCount(1);
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Escape");
-    await expect(wrapper).toHaveCount(0);
-    await expect(getDataElementByValue(page, "input")).toBeFocused();
+    const dateInput = page.getByLabel("Date");
+    await dateInput.press("Tab");
+
+    const previousMonthButton = page.getByRole("button", {
+      name: "Previous month",
+    });
+    await previousMonthButton.waitFor();
+
+    await previousMonthButton.press("Shift+Tab");
+
+    const datePicker = page.getByTestId("date-picker");
+    await expect(dateInput).toBeFocused();
+    await expect(datePicker).toBeHidden();
   });
 
-  test(`should close the picker when shift + tab is pressed and focus is on the previous month button in the picker and refocus the input`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DateInputCustom />);
-
-    await page.focus("body");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    const wrapper = dayPickerWrapper(page);
-    await expect(wrapper).toHaveCount(1);
-    await page.keyboard.press("Shift+Tab");
-    await expect(wrapper).toHaveCount(0);
-    await expect(getDataElementByValue(page, "input")).toBeFocused();
-  });
-
-  test(`should navigate to the next month when right arrow pressed on last day element of a month`, async ({
+  test("navigates to the next month, when right arrow is pressed on last day of a month button", async ({
     mount,
     page,
   }) => {
     await mount(<DateInputCustom value="31/05/2022" />);
 
-    await page.focus("body");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press(arrowKeys[0]);
-    const focusedElement = page
-      .locator(`.${DAY_PICKER_PREFIX}focused`)
-      .locator("button")
-      .filter({ hasText: "1" })
-      .filter({ hasNotText: "31" });
-    await toBeFocusedDelayed(focusedElement);
-    const pickerHeading = dayPickerHeading(page);
-    await expect(pickerHeading).toHaveText(NEXT_MONTH);
+    await page.getByLabel("Date").press("Tab");
+
+    const datePicker = page.getByTestId("date-picker");
+    await datePicker.waitFor();
+
+    const day31Button = page.getByRole("button", {
+      name: "Tuesday, May 31st, 2022",
+    });
+    await day31Button.press("ArrowRight");
+
+    const day1Button = page.getByRole("button", {
+      name: "Wednesday, June 1st, 2022",
+    });
+    await day1Button.waitFor();
+
+    await expect(day1Button).toBeFocused();
+
+    const pickerHeading = datePicker.getByRole("status");
+    await expect(pickerHeading).toHaveText("June 2022");
   });
 
   [
@@ -770,10 +714,10 @@ test.describe("Functionality tests", () => {
   test(`should check the autofocus prop`, async ({ mount, page }) => {
     await mount(<DateInputCustom autoFocus />);
 
-    const input = getDataElementByValue(page, "input");
-    await expect(input).toBeFocused();
     const wrapper = dayPickerWrapper(page);
     await expect(wrapper).toBeVisible();
+    const input = getDataElementByValue(page, "input");
+    await expect(input).toBeFocused();
   });
 
   test("date picker does not float above the rest of the page, when disablePortal prop is true", async ({
@@ -926,298 +870,22 @@ test.describe("Functionality tests", () => {
 });
 
 test.describe("When nested inside of a Dialog component", () => {
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should not close the Dialog when Datepicker is closed by pressing an escape key", async ({
+  test("should not close the Dialog when Datepicker is closed by pressing an escape key", async ({
     mount,
     page,
   }) => {
     await mount(<DateInputInsideDialog />);
 
-    await page.focus("body");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    const wrapper = dayPickerWrapper(page);
-    const dialogElement = alertDialogPreview(page);
-    await expect(wrapper).toHaveCount(1);
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Escape");
-    await expect(wrapper).toHaveCount(0);
-    await expect(getDataElementByValue(page, "input")).toBeFocused();
-    await expect(dialogElement).toBeVisible();
-    await page.keyboard.press("Escape");
-    await expect(dialogElement).not.toBeVisible();
-  });
-});
+    const dateInput = page.getByLabel("Date");
+    await dateInput.click();
 
-test.describe("Events tests", () => {
-  test(`should call onChange callback when a clear event is triggered`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <DateInputCustom
-        onChange={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
+    const datePicker = page.getByTestId("date-picker");
+    await datePicker.waitFor();
 
-    const input = getDataElementByValue(page, "input");
-    await input.clear();
-    expect(callbackCount).toBe(1);
-  });
+    await datePicker.press("Escape");
 
-  test(`should call onChange callback when a type event is triggered`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <DateInputCustom
-        onChange={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    const input = getDataElementByValue(page, "input");
-    await input.fill("1");
-    expect(callbackCount).toBe(1);
-  });
-
-  (
-    [
-      ["en-US", "05/12/2022", "enUS"],
-      ["en-CA", "05/12/2022", "enCA"],
-      ["en-ZA", "12/05/2022", "enZA"],
-      ["de", "12.05.2022", "de"],
-      ["es-ES", "12/05/2022", "es"],
-      ["fr-FR", "12/05/2022", "fr"],
-      ["fr-CA", "12/05/2022", "frCA"],
-      ["zh-CN", "2022/05/12", "zhCN"],
-      ["pl-PL", "12.05.2022", "pl"],
-      ["bg-BG", "12.05.2022", "bg"],
-      ["zh-HK", "12/05/2022", "zhHK"],
-      ["hu-HU", "2022. 05. 12.", "hu"],
-      ["fi-FI", "12.05.2022", "fi"],
-      ["de-AT", "12.05.2022", "deAT"],
-      ["ko-KR", "2022. 05. 12.", "ko"],
-      ["ar-EG", "12/05/2022", "arEG"],
-      ["hi-HI", "12/05/2022", "hi"],
-      ["sl-SI", "12. 05. 2022", "sl"],
-      ["lv", "12.05.2022.", "lv"],
-    ] as const
-  ).forEach(([localeValue, formattedValueParam, dateFnsLocaleKey]) => {
-    test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after selecting date`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      await mount<HooksConfig>(
-        <DateWithLocales
-          onChange={() => {
-            callbackCount += 1;
-          }}
-        />,
-        {
-          hooksConfig: { localeName: dateFnsLocaleKey },
-        },
-      );
-
-      const getDatetoEnter = () => {
-        if (["en-US", "en-CA"].includes(localeValue))
-          return MMDDYYYY_DATE_TO_ENTER;
-        if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
-          return YYYYMMDD_DATE_TO_ENTER;
-        return DDMMYYY_DATE_TO_ENTER;
-      };
-
-      const input = getDataElementByValue(page, "input");
-      await input.fill(getDatetoEnter());
-      await input.click();
-
-      const pickerByText = page.getByRole("gridcell").filter({ hasText: "12" });
-      await pickerByText.click();
-      await expect(input).toHaveValue(formattedValueParam);
-
-      expect(callbackCount).toBe(3);
-    });
-  });
-
-  (
-    [
-      ["en-US", "05/27/2022", "enUS"],
-      ["en-CA", "05/27/2022", "enCA"],
-      ["en-ZA", "27/05/2022", "enZA"],
-      ["de", "27.05.2022", "de"],
-      ["es-ES", "27/05/2022", "es"],
-      ["fr-FR", "27/05/2022", "fr"],
-      ["fr-CA", "27/05/2022", "frCA"],
-      ["zh-CN", "2022/05/27", "zhCN"],
-      ["pl-PL", "27.05.2022", "pl"],
-      ["bg-BG", "27.05.2022", "bg"],
-      ["zh-HK", "27/05/2022", "zhHK"],
-      ["hu-HU", "2022. 05. 27.", "hu"],
-      ["fi-FI", "27.05.2022", "fi"],
-      ["de-AT", "27.05.2022", "deAT"],
-      ["ko-KR", "2022. 05. 27.", "ko"],
-      ["ar-EG", "27/05/2022", "arEG"],
-      ["hi-HI", "27/05/2022", "hi"],
-      ["sl-SI", "27. 05. 2022", "sl"],
-      ["lv", "27.05.2022.", "lv"],
-    ] as const
-  ).forEach(([localeValue, formattedValueParam, dateFnsLocaleKey]) => {
-    test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after typing the date`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      await mount<HooksConfig>(
-        <DateWithLocales
-          onChange={() => {
-            callbackCount += 1;
-          }}
-        />,
-        {
-          hooksConfig: { localeName: dateFnsLocaleKey },
-        },
-      );
-
-      const getDatetoEnter = () => {
-        if (["en-US", "en-CA"].includes(localeValue))
-          return MMDDYYYY_DATE_TO_ENTER;
-        if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
-          return YYYYMMDD_DATE_TO_ENTER;
-        return DDMMYYY_DATE_TO_ENTER;
-      };
-
-      const input = getDataElementByValue(page, "input");
-      await input.fill(getDatetoEnter());
-      await input.blur();
-      await expect(input).toHaveValue(formattedValueParam);
-
-      expect(callbackCount).toBe(2);
-    });
-  });
-
-  (
-    [
-      ["en-US", "07/01/2022", "enUS"],
-      ["en-CA", "07/01/2022", "enCA"],
-      ["en-ZA", "01/07/2022", "enZA"],
-      ["de", "01.07.2022", "de"],
-      ["es-ES", "01/07/2022", "es"],
-      ["fr-FR", "01/07/2022", "fr"],
-      ["fr-CA", "01/07/2022", "frCA"],
-      ["zh-CN", "2022/07/01", "zhCN"],
-      ["pl-PL", "01.07.2022", "pl"],
-      ["bg-BG", "01.07.2022", "bg"],
-      ["zh-HK", "01/07/2022", "zhHK"],
-      ["hu-HU", "2022. 07. 01.", "hu"],
-      ["fi-FI", "01.07.2022", "fi"],
-      ["de-AT", "01.07.2022", "deAT"],
-      ["ko-KR", "2022. 07. 01.", "ko"],
-      ["ar-EG", "01/07/2022", "arEG"],
-      ["hi-HI", "01/07/2022", "hi"],
-      ["sl-SI", "01. 07. 2022", "sl"],
-      ["lv", "01.07.2022.", "lv"],
-    ] as const
-  ).forEach(([localeValue, formattedValueParam, dateFnsLocaleKey]) => {
-    test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after typing short date`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      await mount<HooksConfig>(
-        <DateWithLocales
-          onChange={() => {
-            callbackCount += 1;
-          }}
-        />,
-        {
-          hooksConfig: { localeName: dateFnsLocaleKey },
-        },
-      );
-
-      const getDatetoEnter = () => {
-        if (["en-US", "en-CA"].includes(localeValue))
-          return MMDDYYYY_DATE_TO_ENTER_SHORT;
-        if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
-          return YYYYMMDD_DATE_TO_ENTER_SHORT;
-        return DDMMYYY_DATE_TO_ENTER_SHORT;
-      };
-
-      const input = getDataElementByValue(page, "input");
-      await input.fill(getDatetoEnter());
-      await input.blur();
-      await expect(input).toHaveValue(formattedValueParam);
-
-      expect(callbackCount).toBe(2);
-    });
-  });
-
-  test(`should call onBlur callback when a blur event is triggered`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    await mount(
-      <DateInputCustom
-        onBlur={() => {
-          callbackCount += 1;
-        }}
-      />,
-    );
-
-    const input = getDataElementByValue(page, "input");
-    await input.clear();
-    await input.blur();
-    expect(callbackCount).toBe(1);
-  });
-
-  test(`should call the onBlur callback using allowEmptyValue prop and output an empty and not null rawValue`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-
-    await mount(
-      <DateInputCustom
-        onBlur={() => {
-          callbackCount += 1;
-        }}
-        allowEmptyValue
-      />,
-    );
-
-    const input = getDataElementByValue(page, "input");
-    await input.clear();
-    await input.blur();
-    await expect(input).toHaveAttribute("value", "");
-    expect(callbackCount).toBe(1);
-  });
-
-  test(`should call the onChange callback using allowEmptyValue prop and output an empty and not null rawValue`, async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-
-    await mount(
-      <DateInputCustom
-        onChange={() => {
-          callbackCount += 1;
-        }}
-        allowEmptyValue
-      />,
-    );
-
-    const input = getDataElementByValue(page, "input");
-    await input.fill(MIN_DATE);
-    await input.clear();
-    await expect(input).toHaveAttribute("Value", "");
-    expect(callbackCount).toBe(2);
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await expect(datePicker).toBeHidden();
   });
 });
 

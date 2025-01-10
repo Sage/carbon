@@ -3,9 +3,6 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect } from "@playwright/experimental-ct-react17";
 import { label, legendSpan } from "../components/index";
 
-const OPEN_MODAL = '[data-state="open"]';
-const CLOSED_MODAL = '[data-state="closed"]';
-
 /**
  * Retrieve a computed style for an element.
  * @param locator The Playwright locator to evaluate (see: https://playwright.dev/docs/locators)
@@ -120,58 +117,6 @@ export const checkGoldenOutline = async (
   );
 };
 
-export const checkElementIsInDOM = async (page: Page, locatorStr: string) => {
-  expect(await page.$$(locatorStr)).toHaveLength(1);
-};
-
-export const checkElementIsNotInDOM = async (
-  page: Page,
-  locatorStr: string,
-) => {
-  expect(await page.$$(locatorStr)).toHaveLength(0);
-};
-
-export const checkDialogIsInDOM = async (page: Page) => {
-  await checkElementIsInDOM(page, OPEN_MODAL);
-  await checkElementIsNotInDOM(page, CLOSED_MODAL);
-};
-
-export const checkDialogIsNotInDOM = async (page: Page) => {
-  await checkElementIsNotInDOM(page, OPEN_MODAL);
-  await checkElementIsInDOM(page, CLOSED_MODAL);
-};
-
-/**
- * Asserts if an element has event was calledOnce
- * @param callbackData an array with callback data
- * @param eventName {string} event name
- * @example await expectEventWasCalledOnce(messages, "onClick");
- */
-export const expectEventWasCalledOnce = async (
-  callbackData: string[],
-  eventName: string,
-) => {
-  const count = JSON.stringify(callbackData.length);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const callbackName = JSON.stringify(callbackData[0]._reactName);
-  expect(count).toBe("1");
-  expect(callbackName).toBe(`"${eventName}"`);
-};
-
-/**
- * Asserts that event was NOT called
- * @param callbackData an array with callback data
- * @example await expectEventWasNotCalled(messages);
- */
-export const expectEventWasNotCalled = async (callbackData: string[]) => {
-  const count = JSON.stringify(callbackData.length);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  expect(count).toBe("0");
-  expect(callbackData).toEqual([]);
-};
-
 /**
  * Creates a safe regExp and uses the .toHaveClass() assertion
  * As there is not a "contains" assertion for the .toHaveClass() assertion
@@ -191,17 +136,6 @@ export const containsClass = async (
   const classNameRegEx = new RegExp(escapedClassName);
 
   await expect(locatorFunc).toHaveClass(classNameRegEx);
-};
-
-/**
- * Uses the .toHaveFocus() assertion with a waitFor before to
- * ensure the locator is available, and enough time has passed for the focus to be set.
- * @param locatorFunc the locator you'd like to use
- * @example await toBeFocusedDelayed(exampleLocator(page));
- */
-export const toBeFocusedDelayed = async (locatorFunc: Locator) => {
-  await locatorFunc.waitFor({ timeout: 10000 });
-  await expect(locatorFunc).toBeFocused();
 };
 
 const positions = {

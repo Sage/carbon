@@ -365,7 +365,6 @@ test.describe("Testing Dialog component properties", () => {
     const firstTextbox = page.getByLabel("Textbox1");
     const closeButton = page.getByLabel("Close");
 
-    await page.waitForTimeout(250);
     await dialog.press("Tab");
     await expect(closeButton).toBeFocused();
 
@@ -395,7 +394,6 @@ test.describe("Testing Dialog component properties", () => {
     const firstTextbox = page.getByLabel("Textbox1");
     const closeButton = page.getByLabel("Close");
 
-    await page.waitForTimeout(250);
     await dialog.press("Shift+Tab");
     await expect(thirdTextbox).toBeFocused();
 
@@ -423,7 +421,6 @@ test.describe("Testing Dialog component properties", () => {
     const textbox = page.getByLabel("Textbox");
     const closeButton = page.getByLabel("Close");
 
-    await page.waitForTimeout(250);
     await dialog.press("Tab");
     await closeButton.press("Tab");
     await textbox.press("Tab");
@@ -445,7 +442,6 @@ test.describe("Testing Dialog component properties", () => {
     const textbox = page.getByLabel("Textbox");
     const closeButton = page.getByLabel("Close");
 
-    await page.waitForTimeout(250);
     await dialog.press("Shift+Tab");
     await textbox.press("Shift+Tab");
 
@@ -508,7 +504,6 @@ test.describe("when there is a button inside Dialog, which opens a Toast", () =>
     const openToastButton = page
       .getByRole("button")
       .filter({ hasText: "Open Toast" });
-    await page.waitForTimeout(250);
     await openToastButton.click();
 
     const toast = toastComponent(page);
@@ -527,7 +522,6 @@ test.describe("when there is a button inside Dialog, which opens a Toast", () =>
     const openToastButton = page
       .getByRole("button")
       .filter({ hasText: "Open Toast" });
-    await page.waitForTimeout(250);
     await openToastButton.click();
 
     await page.mouse.click(0, 0); // click outside Toast and Dialog
@@ -554,7 +548,6 @@ test.describe("when there is a button inside Dialog, which opens a Toast", () =>
       .filter({ hasText: "Toast message 2" })
       .getByLabel("Close");
 
-    await page.waitForTimeout(250);
     await dialog.press("Tab");
     await dialogCloseButton.press("Tab");
     await textbox.press("Tab");
@@ -586,7 +579,6 @@ test.describe("when there is a button inside Dialog, which opens a Toast", () =>
       .filter({ hasText: "Toast message 2" })
       .getByLabel("Close");
 
-    await page.waitForTimeout(250);
     await dialog.press("Shift+Tab");
     await toast2CloseButton.press("Shift+Tab");
     await toast1CloseButton.press("Shift+Tab");

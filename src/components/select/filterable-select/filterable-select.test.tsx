@@ -974,6 +974,25 @@ describe("when the user clicks on the input icon", () => {
 
     expect(onClickFn).toHaveBeenCalled();
   });
+
+  it("should call `onOpen` callback if prop is passed", async () => {
+    const onOpenFn = jest.fn();
+    const user = userEvent.setup();
+    render(
+      <FilterableSelect
+        label="filterable-select"
+        onChange={() => {}}
+        value=""
+        onOpen={onOpenFn}
+      >
+        <Option value="opt1" text="red" />
+      </FilterableSelect>,
+    );
+    const icon = within(screen.getByRole("presentation")).getByTestId("icon");
+    await user.click(icon);
+
+    expect(onOpenFn).toHaveBeenCalled();
+  });
 });
 
 describe("the placement of the list element", () => {

@@ -52,7 +52,7 @@ testStyledSystemMargin(
   () => screen.getByTestId("split-button-container"),
 );
 
-test("should render with only the main and toggle buttons visible when only required props passed", () => {
+test("renders the main and toggle buttons", () => {
   render(
     <SplitButton text="Main">
       <Button>Single Button</Button>
@@ -66,23 +66,7 @@ test("should render with only the main and toggle buttons visible when only requ
   ).not.toBeInTheDocument();
 });
 
-test("should render with the main, toggle and child buttons visible when required props passed and toggle is clicked", async () => {
-  const user = userEvent.setup();
-  render(
-    <SplitButton text="Main">
-      <Button>Single Button</Button>
-    </SplitButton>,
-  );
-
-  const toggle = await screen.findByRole("button", { name: "Show more" });
-  await user.click(toggle);
-
-  expect(screen.getByRole("button", { name: "Main" })).toBeVisible();
-  expect(toggle).toBeVisible();
-  expect(screen.getByRole("button", { name: "Single Button" })).toBeVisible();
-});
-
-test("should render with the main, toggle and multiple child buttons visible when required props passed and toggle is clicked", async () => {
+test("renders child buttons when toggle button is clicked", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -106,6 +90,23 @@ test("should render with the main, toggle and multiple child buttons visible whe
   expect(
     await screen.findByRole("button", { name: "Extra Button 3" }),
   ).toBeVisible();
+});
+
+test("focuses first child button when toggle button is clicked", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Show more" }));
+
+  const childButton = await screen.findByRole("button", {
+    name: "Single Button",
+  });
+
+  expect(childButton).toHaveFocus();
 });
 
 test("should render with the correct styles when 'size' is 'small''", async () => {
@@ -393,22 +394,6 @@ test("should render additional button text with align set to 'right'", async () 
     name: "Single Button",
   });
   expect(childButton).toHaveStyle({ textAlign: "right" });
-});
-
-test("should render the child buttons when a click event detected on toggle button", async () => {
-  const user = userEvent.setup();
-  render(
-    <SplitButton text="Main">
-      <Button>Single Button</Button>
-    </SplitButton>,
-  );
-
-  await user.click(screen.getByRole("button", { name: "Show more" }));
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
-  });
-
-  expect(childButton).toBeVisible();
 });
 
 test("should not render the child buttons when a click event detected on toggle button and 'disabled' prop set", async () => {
@@ -752,7 +737,7 @@ test("should support navigating the additional buttons via up arrow key but stop
   expect(button1).toHaveFocus();
 });
 
-test("should support navigating to the last child button via end key", async () => {
+test("focuses last child button when End key is pressed", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -777,30 +762,118 @@ test("should support navigating to the last child button via end key", async () 
   expect(button3).toHaveFocus();
 });
 
-test("should support navigating to the first child button via home key", async () => {
+test("focuses last child button when Control and ArrowDown key are pressed together", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
-      <Button key="testKey1">Extra Button 1</Button>
-      <Button key="testKey2">Extra Button 2</Button>
-      <Button key="testKey3">Extra Button 3</Button>
+      <Button>Extra Button 1</Button>
+      <Button>Extra Button 2</Button>
+      <Button>Extra Button 3</Button>
     </SplitButton>,
   );
 
-  const toggle = screen.getByRole("button", { name: "Show more" });
-  toggle.focus();
-  await user.keyboard("{arrowDown}");
+  await user.click(screen.getByRole("button", { name: "Show more" }));
+
+  const button3 = await screen.findByRole("button", {
+    name: "Extra Button 3",
+  });
+
+  await user.keyboard("{Control>}{ArrowDown}{/Control}");
+
+  expect(button3).toHaveFocus();
+});
+
+test("focuses last child button when Meta and ArrowDown key are pressed together", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Extra Button 1</Button>
+      <Button>Extra Button 2</Button>
+      <Button>Extra Button 3</Button>
+    </SplitButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Show more" }));
+
+  const button3 = await screen.findByRole("button", {
+    name: "Extra Button 3",
+  });
+
+  await user.keyboard("{Meta>}{ArrowDown}{/Meta}");
+
+  expect(button3).toHaveFocus();
+});
+
+test("focuses first child button when Home key is pressed", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Extra Button 1</Button>
+      <Button>Extra Button 2</Button>
+      <Button>Extra Button 3</Button>
+    </SplitButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Show more" }));
+
   const button1 = await screen.findByRole("button", {
     name: "Extra Button 1",
   });
   const button3 = await screen.findByRole("button", {
     name: "Extra Button 3",
   });
+  expect(button1).toHaveFocus();
+
+  await user.keyboard("{End}");
+  expect(button3).toHaveFocus();
+
+  await user.keyboard("{Home}");
+  expect(button1).toHaveFocus();
+});
+
+test("focuses first child button when Control and ArrowUp key are pressed together", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Extra Button 1</Button>
+      <Button>Extra Button 2</Button>
+      <Button>Extra Button 3</Button>
+    </SplitButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Show more" }));
+  const button1 = await screen.findByRole("button", {
+    name: "Extra Button 1",
+  });
+  await user.keyboard("{End}");
+
+  expect(screen.getByRole("button", { name: "Extra Button 3" })).toHaveFocus();
+
+  await user.keyboard("{Control>}{ArrowUp}{/Control}");
 
   expect(button1).toHaveFocus();
-  await user.keyboard("{end}");
-  expect(button3).toHaveFocus();
-  await user.keyboard("{home}");
+});
+
+test("focuses first child button when Meta and ArrowUp key are pressed together", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Extra Button 1</Button>
+      <Button>Extra Button 2</Button>
+      <Button>Extra Button 3</Button>
+    </SplitButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Show more" }));
+  const button1 = await screen.findByRole("button", {
+    name: "Extra Button 1",
+  });
+  await user.keyboard("{End}");
+
+  expect(screen.getByRole("button", { name: "Extra Button 3" })).toHaveFocus();
+
+  await user.keyboard("{Meta>}{ArrowUp}{/Meta}");
+
   expect(button1).toHaveFocus();
 });
 
@@ -832,7 +905,6 @@ test("should support navigating the additional buttons via tab key", async () =>
   expect(button2).toHaveFocus();
   await user.tab();
   expect(button3).toHaveFocus();
-  await user.tab();
 });
 
 test("should support navigating the additional buttons via shift+tab key, hide the list when pressed on first button and refocus toggle", async () => {
