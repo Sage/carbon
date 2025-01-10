@@ -154,26 +154,17 @@ export const MenuItem = ({
   const { isChildOfSegment, overriddenVariant } =
     useContext<MenuSegmentContextProps>(MenuSegmentContext);
 
-  const {
-    inFullscreenView,
-    registerItem,
-    unregisterItem,
-    focusId,
-    menuType,
-    openSubmenuId,
-  } = useContext<MenuContextProps>(MenuContext);
+  const { inFullscreenView, registerItem, unregisterItem, focusId, menuType } =
+    useContext<MenuContextProps>(MenuContext);
   const menuItemId = useRef(guid());
   const submenuContext = useContext<SubmenuContextProps>(SubmenuContext);
   const {
     submenuFocusId,
     updateFocusId: updateSubmenuFocusId,
     handleKeyDown: handleSubmenuKeyDown,
-    shiftTabPressed,
     submenuHasMaxWidth,
   } = submenuContext;
-  const ref = useRef<HTMLAnchorElement & HTMLButtonElement & HTMLDivElement>(
-    null,
-  );
+  const ref = useRef<HTMLAnchorElement>(null);
   const focusFromMenu = focusId === menuItemId.current;
   const focusFromSubmenu = submenuFocusId
     ? submenuFocusId === menuItemId.current
@@ -201,30 +192,9 @@ export const MenuItem = ({
   }, [registerItem, unregisterItem]);
 
   useEffect(() => {
-    const inputIcon = ref.current?.querySelector(
-      "[data-element='input-icon-toggle']",
-    );
-    if (!openSubmenuId && focusFromSubmenu === undefined && focusFromMenu) {
-      /* istanbul ignore else */
-      if (focusRef.current) {
-        (focusRef.current as HTMLElement)?.focus();
-      }
-    } else if (
-      focusFromSubmenu &&
-      !(shiftTabPressed && inputIcon?.getAttribute("tabindex") === "0")
-    ) {
-      /* istanbul ignore else */
-      if (focusRef.current) {
-        (focusRef.current as HTMLElement)?.focus();
-      }
-    }
-  }, [
-    openSubmenuId,
-    focusFromMenu,
-    focusFromSubmenu,
-    shiftTabPressed,
-    focusRef,
-  ]);
+    if ((focusFromMenu && !focusFromSubmenu) || focusFromSubmenu)
+      focusRef.current?.focus();
+  }, [focusFromMenu, focusFromSubmenu, focusRef]);
 
   const updateFocusOnClick = useCallback(() => {
     if (updateSubmenuFocusId) {
@@ -232,40 +202,23 @@ export const MenuItem = ({
     }
   }, [updateSubmenuFocusId]);
 
-  const handleKeyDown = useCallback(
-    (event) => {
-      if (onKeyDown) {
-        onKeyDown(event);
-      }
+  const handleFocus = () => {
+    updateSubmenuFocusId?.(menuItemId.current);
+  };
 
-      if (ref.current && Events.isEscKey(event)) {
-        (ref.current as HTMLElement)?.focus();
-      }
+  const handleKeyDown = (
+    event:
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
+  ) => {
+    onKeyDown?.(event);
 
-      const inputIcon = ref.current?.querySelector(
-        "[data-element='input-icon-toggle']",
-      );
+    if (Events.isEscKey(event)) {
+      ref.current?.focus();
+    }
 
-      const shouldFocusIcon =
-        inputIcon?.getAttribute("tabindex") === "0" &&
-        document.activeElement === inputRef.current &&
-        inputRef.current?.value;
-
-      // let natural tab order move focus if input icon is tabbable or input with button exists
-      if (
-        Events.isTabKey(event) &&
-        ((!Events.isShiftKey(event) && shouldFocusIcon) ||
-          (Events.isShiftKey(event) && document.activeElement === inputIcon))
-      ) {
-        return;
-      }
-
-      if (handleSubmenuKeyDown) {
-        handleSubmenuKeyDown(event);
-      }
-    },
-    [onKeyDown, handleSubmenuKeyDown],
-  );
+    handleSubmenuKeyDown?.(event);
+  };
 
   const elementProps = {
     className: href || onClick ? "carbon-menu-item--has-link" : "",
@@ -349,6 +302,7 @@ export const MenuItem = ({
       id={menuItemId.current}
       onClick={updateFocusOnClick}
       as={as}
+      onFocus={handleFocus}
     >
       <StyledMenuItemWrapper
         menuType={menuType}

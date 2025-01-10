@@ -3,25 +3,24 @@ description: Something isn't working as expected?
 labels:
   - Bug
   - triage
+
 body:
   - type: markdown
     attributes:
       value: |
-        ### ⚠️ This bug report is public
+        > ⚠️ **WARNING: This bug report is public**
+        > Please do not include any confidential or commercially sensitive information.
 
-        **Please do not include any confidential or commercially sensitive information.**
-        ---
   - type: textarea
     id: description
     attributes:
       label: Description
       description: |
-        A clear and concise description of the bug. If applicable, add screenshots or screen recordings to help explain the problem.
-
-        If you intend to submit a PR for this, tell us in the description. Thanks!
+        A clear and concise description of the bug. If applicable, add screenshots or screen recordings to help explain the problem. If you intend to submit a PR for this, tell us in the description. Thanks!
       placeholder: I am doing... What I expect is... What actually happens is...
     validations:
       required: true
+
   - type: input
     id: url
     attributes:
@@ -31,6 +30,7 @@ body:
       placeholder: Reproduction URL
     validations:
       required: true
+
   - type: textarea
     id: reproduction-steps
     attributes:
@@ -40,6 +40,7 @@ body:
       placeholder: Click "Open dialog" button to open dialog, then click save button.
     validations:
       required: false
+
   - type: input
     id: jira-id
     attributes:
@@ -48,20 +49,34 @@ body:
         Any related JIRA ticket numbers. If we accept this report, we'll create another JIRA ticket and link it to your tickets.
         **Please do not include any URLs.**
       placeholder: FE-123, SBS-456
+
   - type: textarea
     id: suggested-solution
     attributes:
       label: Suggested solution
     validations:
       required: false
+
   - type: input
     id: carbon-version
     attributes:
       label: Carbon version
-      description: Which version of Carbon are you using?
       placeholder: 125.1.1
     validations:
       required: true
+
+
+  - type: dropdown
+    id: react-version
+    attributes:
+      label: React version
+      multiple: true
+      options:
+        - v17
+        - v18
+    validations:
+      required: true
+
   - type: input
     id: design-tokens-version
     attributes:
@@ -70,6 +85,7 @@ body:
       placeholder: 4.29.0
     validations:
       required: false
+
   - type: dropdown
     id: browsers
     attributes:
@@ -84,6 +100,7 @@ body:
         - Other
     validations:
       required: true
+
   - type: dropdown
     id: os
     attributes:
@@ -99,6 +116,7 @@ body:
         - Other
     validations:
       required: true
+
   - type: textarea
     id: additional-info
     attributes:
@@ -106,6 +124,7 @@ body:
       description: Anything else we should know?
     validations:
       required: false
+
   - type: checkboxes
     id: terms
     attributes:

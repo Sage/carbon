@@ -97,18 +97,10 @@ const ActionPopoverMenu = React.forwardRef<
 
     const hasProperChildren = useMemo(() => {
       const incorrectChild = React.Children.toArray(children).find(
-        (child: React.ReactNode) => {
-          if (!React.isValidElement(child)) {
-            return true;
-          }
-
-          return (
-            (child.type as React.FunctionComponent).displayName !==
-              ActionPopoverItem.displayName &&
-            (child.type as React.FunctionComponent).displayName !==
-              ActionPopoverDivider.displayName
-          );
-        },
+        (child: React.ReactNode) =>
+          !React.isValidElement(child) ||
+          (child.type !== ActionPopoverItem &&
+            child.type !== ActionPopoverDivider),
       );
 
       return !incorrectChild;
@@ -123,7 +115,7 @@ const ActionPopoverMenu = React.forwardRef<
     const items = useMemo(() => getItems(children), [children]);
 
     const checkItemDisabled = useCallback(
-      (value) => isItemDisabled(items[value]),
+      (value: number) => isItemDisabled(items[value]),
       [items],
     );
 
@@ -132,7 +124,7 @@ const ActionPopoverMenu = React.forwardRef<
     const lastFocusableItem = findLastFocusableItem(items);
 
     const onKeyDown = useCallback(
-      (e) => {
+      (e: React.KeyboardEvent<HTMLUListElement>) => {
         if (Events.isTabKey(e)) {
           e.preventDefault();
           // TAB: close menu and allow focus to change to the next focusable element

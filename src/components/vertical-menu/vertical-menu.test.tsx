@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {
@@ -186,7 +186,9 @@ describe("VerticalMenu", () => {
         </>,
       );
       const closeBtn = screen.getByRole("button");
-      closeBtn.focus();
+      act(() => {
+        closeBtn.focus();
+      });
       await user.keyboard("{Space}");
       expect(setMockState).toHaveBeenCalledWith(false);
     });
@@ -207,7 +209,9 @@ describe("VerticalMenu", () => {
         </>,
       );
       const closeBtn = screen.getByRole("button");
-      closeBtn.focus();
+      act(() => {
+        closeBtn.focus();
+      });
       await user.keyboard("{enter}");
       expect(setMockState).toHaveBeenCalledWith(false);
     });

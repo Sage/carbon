@@ -43,14 +43,20 @@ export interface TabProps extends PaddingProps {
   /** @private @ignore */
   ariaLabelledby?: string;
   /** @private @ignore */
-  updateErrors?: (id: string, errors: Record<string, string | boolean>) => void;
+  updateErrors?: (
+    id: string,
+    errors: Record<string, undefined | string | boolean>,
+  ) => void;
   /** @private @ignore */
   updateWarnings?: (
     id: string,
-    warnings: Record<string, string | boolean>,
+    warnings: Record<string, undefined | string | boolean>,
   ) => void;
   /** @private @ignore */
-  updateInfos?: (id: string, infos: Record<string, string | boolean>) => void;
+  updateInfos?: (
+    id: string,
+    infos: Record<string, undefined | string | boolean>,
+  ) => void;
 }
 
 export const Tab = ({
@@ -80,23 +86,32 @@ export const Tab = ({
     deprecatedClassNameWarningShown = true;
   }
 
-  const [tabErrors, setTabErrors] = useState<Record<string, string>>({});
-  const [tabWarnings, setTabWarnings] = useState<Record<string, string>>({});
-  const [tabInfos, setTabInfos] = useState<Record<string, string>>({});
+  const [tabErrors, setTabErrors] = useState<
+    Record<string, undefined | string | boolean>
+  >({});
+  const [tabWarnings, setTabWarnings] = useState<
+    Record<string, undefined | string | boolean>
+  >({});
+  const [tabInfos, setTabInfos] = useState<
+    Record<string, undefined | string | boolean>
+  >({});
 
-  const setError = useCallback((childId, error) => {
+  const setError = useCallback((childId: string, error?: string | boolean) => {
     setTabErrors((state) =>
       state[childId] !== error ? { ...state, [childId]: error } : state,
     );
   }, []);
 
-  const setWarning = useCallback((childId, warning) => {
-    setTabWarnings((state) =>
-      state[childId] !== warning ? { ...state, [childId]: warning } : state,
-    );
-  }, []);
+  const setWarning = useCallback(
+    (childId: string, warning?: string | boolean) => {
+      setTabWarnings((state) =>
+        state[childId] !== warning ? { ...state, [childId]: warning } : state,
+      );
+    },
+    [],
+  );
 
-  const setInfo = useCallback((childId, info) => {
+  const setInfo = useCallback((childId: string, info?: string | boolean) => {
     setTabInfos((state) =>
       state[childId] !== info ? { ...state, [childId]: info } : state,
     );
