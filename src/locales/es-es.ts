@@ -1,4 +1,4 @@
-import esESDateLocale from "date-fns/locale/es";
+import { es as esESDateLocale } from "date-fns/locale/es";
 
 import Locale from "./locale";
 

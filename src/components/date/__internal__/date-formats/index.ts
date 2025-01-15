@@ -141,9 +141,10 @@ interface LocaleFormats {
 }
 
 const getFormatData = (
-  { code = "en-GB" }: DateFnsLocale,
+  locale?: Partial<Pick<DateFnsLocale, "code">>,
   dateFormatOverride?: string,
 ): LocaleFormats => {
+  const code = locale?.code || "en-GB";
   if (dateFormatOverride) {
     const { format } = getOutputFormatForLocale(code);
     let formatFromLocale;

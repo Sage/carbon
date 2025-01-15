@@ -1,4 +1,4 @@
-import enCADateLocale from "date-fns/locale/en-CA";
+import { enCA as enCADateLocale } from "date-fns/locale/en-CA";
 
 import Locale from "./locale";
 
