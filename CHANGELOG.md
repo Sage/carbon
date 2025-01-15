@@ -1,3 +1,10 @@
+### [146.4.3](https://github.com/Sage/carbon/compare/v146.4.2...v146.4.3) (2025-01-15)
+
+
+### Bug Fixes
+
+* **tabs:** click on navigation button in Tabs submit the form ([082e14c](https://github.com/Sage/carbon/commit/082e14c21904385fe35b69a0dd3d4c6806a53055)), closes [#7142](https://github.com/Sage/carbon/issues/7142)
+
 ### [146.4.2](https://github.com/Sage/carbon/compare/v146.4.1...v146.4.2) (2025-01-10)
 
 
