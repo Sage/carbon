@@ -910,6 +910,34 @@ describe("scroll behaviour", () => {
     expect(onListScrollBottom).toHaveBeenCalled();
   });
 
+  it("triggers onListScrollBottom only once when the list is repeatedly scrolled to the bottom in quick succession", () => {
+    const onListScrollBottom = jest.fn();
+
+    render(
+      <SelectListWithInput onListScrollBottom={onListScrollBottom}>
+        <Option id="red" value="red" text="red" />
+      </SelectListWithInput>,
+    );
+
+    const scrollableContainer = screen.getByTestId(
+      "select-list-scrollable-container",
+    );
+    jest.spyOn(scrollableContainer, "scrollHeight", "get").mockReturnValue(120);
+    jest.spyOn(scrollableContainer, "clientHeight", "get").mockReturnValue(40);
+
+    fireEvent.scroll(scrollableContainer, { target: { scrollTop: 80 } });
+    fireEvent.scroll(scrollableContainer, { target: { scrollTop: 78 } });
+    fireEvent.scroll(scrollableContainer, { target: { scrollTop: 80 } });
+    fireEvent.scroll(scrollableContainer, { target: { scrollTop: 78 } });
+    fireEvent.scroll(scrollableContainer, { target: { scrollTop: 80 } });
+
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+
+    expect(onListScrollBottom).toHaveBeenCalledTimes(1);
+  });
+
   it("does not call onListScrollBottom callback when the list is not scrolled to the bottom", () => {
     const onListScrollBottom = jest.fn();
 
