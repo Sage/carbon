@@ -1237,18 +1237,24 @@ test.describe("Check virtual scrolling", () => {
       wrapper.scrollBy(0, wrapper.scrollHeight),
     );
 
-    await expect(selectOptionByText(page, "Yellow")).toBeInViewport();
+    await expect(selectOptionByText(page, "Yellow")).toBeInViewport({
+      ratio: 1,
+    });
     await selectOptionByText(page, "Yellow").click();
 
     await expect(selectOptionByText(page, "Yellow")).not.toBeVisible();
 
     await selectText(page).click();
-    await expect(selectOptionByText(page, "Yellow")).toBeInViewport();
+    await expect(selectOptionByText(page, "Yellow")).toBeInViewport({
+      ratio: 1,
+    });
 
     await page.locator("body").click();
 
     await selectText(page).click();
-    await expect(selectOptionByText(page, "Yellow")).toBeInViewport();
+    await expect(selectOptionByText(page, "Yellow")).toBeInViewport({
+      ratio: 1,
+    });
   });
 
   test("a selected option stays rendered even when out of view", async ({
