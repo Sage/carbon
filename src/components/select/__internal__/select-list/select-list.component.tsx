@@ -16,7 +16,6 @@ import {
 } from "@tanstack/react-virtual";
 import findLastIndex from "lodash/findLastIndex";
 
-import usePrevious from "../../../../hooks/__internal__/usePrevious";
 import useScrollBlock from "../../../../hooks/__internal__/useScrollBlock";
 import useModalManager from "../../../../hooks/__internal__/useModalManager";
 import {
@@ -151,18 +150,6 @@ const SelectList = React.forwardRef(
     const listActionButtonRef = useRef<HTMLButtonElement>(null);
     const { blockScroll, allowScroll } = useScrollBlock();
     const actionButtonHeight = useRef(0);
-    const wasOpen = usePrevious(isOpen);
-
-    // ensure scroll-position goes back to the top whenever the list is (re)-opened. (On Safari, without this it remains at the bottom if it had been scrolled
-    // to the bottom before closing.)
-    useEffect(() => {
-      if (isOpen && !wasOpen) {
-        (listContainerRef as React.RefObject<HTMLDivElement>).current?.scrollTo(
-          0,
-          0,
-        );
-      }
-    });
 
     const overscan = enableVirtualScroll
       ? virtualScrollOverscan
@@ -184,7 +171,9 @@ const SelectList = React.forwardRef(
     const virtualizer = useVirtualizer({
       count: React.Children.count(children),
       getScrollElement: () =>
-        (listContainerRef as React.RefObject<HTMLDivElement>).current,
+        isOpen
+          ? (listContainerRef as React.RefObject<HTMLDivElement>).current
+          : null,
       estimateSize: () => 40, // value doesn't really seem to matter since we're dynamically measuring, but 40px is the height of a single-line option
       overscan,
       paddingStart: multiColumn ? TABLE_HEADER_HEIGHT : 0,
@@ -193,9 +182,12 @@ const SelectList = React.forwardRef(
     });
 
     useEffect(() => {
-      if (isOpen && currentOptionsListIndex > -1) {
-        virtualizer.scrollToIndex(currentOptionsListIndex, SCROLL_OPTIONS);
-      }
+      if (!isOpen) return;
+
+      const scrollIndex =
+        currentOptionsListIndex > -1 ? currentOptionsListIndex : 0;
+
+      virtualizer.scrollToIndex(scrollIndex, SCROLL_OPTIONS);
     }, [currentOptionsListIndex, isOpen, virtualizer]);
 
     const items = virtualizer.getVirtualItems();
@@ -242,7 +234,7 @@ const SelectList = React.forwardRef(
       if (currentIndex > -1) {
         // only index property is required with the item not visible so the following type assertion, even though incorrect,
         // should be OK
-        items.push({ index: currentIndex } as VirtualItem<Element>);
+        items.push({ index: currentIndex } as VirtualItem);
       }
     }
 
@@ -602,14 +594,6 @@ const SelectList = React.forwardRef(
 
       setCurrentOptionsListIndex(indexOfMatch);
     }, [getIndexOfMatch, highlightedValue, isOpen]);
-
-    // ensure that the currently-selected option is always visible immediately after
-    // it has been changed
-    useEffect(() => {
-      if (currentOptionsListIndex > -1) {
-        virtualizer.scrollToIndex(currentOptionsListIndex, SCROLL_OPTIONS);
-      }
-    }, [currentOptionsListIndex, virtualizer]);
 
     useEffect(() => {
       if (
