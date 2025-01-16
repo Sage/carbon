@@ -200,6 +200,27 @@ test("associates the dropdown list with the correct accessible name from the lab
   expect(await screen.findByRole("listbox")).toHaveAccessibleName("Colour");
 });
 
+test("updates input’s aria-activedescendant value when navigating options via keyboard", async () => {
+  const user = userEvent.setup();
+  render(
+    <SimpleSelect label="Colour" onChange={() => {}} value="amber">
+      <Option text="amber" value="amber" />
+      <Option text="blue" value="blue" />
+      <Option id="cherry" text="cherry" value="cherry" />
+    </SimpleSelect>,
+  );
+
+  const input = screen.getByRole("combobox");
+  await user.click(input);
+
+  expect(await screen.findByRole("listbox")).toBeVisible();
+
+  await user.keyboard("{End}");
+
+  expect(input).toHaveFocus();
+  expect(input).toHaveAttribute("aria-activedescendant", "cherry");
+});
+
 test.each(["top", "bottom"] as const)(
   "should override the data attribute on the list when listWidth is set and placement is %s",
   async (listPlacement) => {
