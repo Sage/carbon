@@ -16,6 +16,7 @@ import {
 } from "@tanstack/react-virtual";
 import findLastIndex from "lodash/findLastIndex";
 
+import debounce from "lodash/debounce";
 import useScrollBlock from "../../../../hooks/__internal__/useScrollBlock";
 import useModalManager from "../../../../hooks/__internal__/useModalManager";
 import {
@@ -519,35 +520,36 @@ const SelectList = React.forwardRef(
       triggerRefocusOnClose: false,
     });
 
-    const handleListScroll = useCallback(
-      (event: Event) => {
+    useEffect(() => {
+      const listElement = (listContainerRef as React.RefObject<HTMLDivElement>)
+        .current;
+
+      const handleListScroll = debounce((event: Event) => {
         const element = event.target as HTMLElement;
 
         /* istanbul ignore else */
         if (
           isOpen &&
-          onListScrollBottom &&
           element.scrollHeight - element.scrollTop === element.clientHeight
         ) {
-          onListScrollBottom();
+          onListScrollBottom?.();
         }
-      },
-      [onListScrollBottom, isOpen],
-    );
+      }, 300);
 
-    useEffect(() => {
-      const keyboardEvent = "keydown";
-      const listElement = (listContainerRef as React.RefObject<HTMLDivElement>)
-        .current;
-
-      window.addEventListener(keyboardEvent, handleGlobalKeydown);
       listElement?.addEventListener("scroll", handleListScroll);
 
-      return function cleanup() {
-        window.removeEventListener(keyboardEvent, handleGlobalKeydown);
+      return () => {
         listElement?.removeEventListener("scroll", handleListScroll);
       };
-    }, [handleGlobalKeydown, handleListScroll, listContainerRef]);
+    }, [isOpen, listContainerRef, onListScrollBottom]);
+
+    useEffect(() => {
+      window.addEventListener("keydown", handleGlobalKeydown);
+
+      return function cleanup() {
+        window.removeEventListener("keydown", handleGlobalKeydown);
+      };
+    }, [handleGlobalKeydown, listContainerRef]);
 
     useEffect(() => {
       if (!filterText || filterText === lastFilter.current) {
