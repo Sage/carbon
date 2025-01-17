@@ -6,6 +6,7 @@ import {
   StyledLegend,
   StyledLegendContent,
   StyledIconWrapper,
+  StyledLegendProps,
 } from "./fieldset.style";
 import ValidationIcon from "../validations/validation-icon.component";
 import NewValidationContext from "../../components/carbon-provider/__internal__/new-validation.context";
@@ -67,7 +68,7 @@ const Fieldset = ({
   children,
   inline = false,
   legendWidth,
-  legendAlign = "right",
+  legendAlign,
   legendSpacing = 2,
   error,
   warning,
@@ -127,6 +128,15 @@ const Fieldset = ({
     return null;
   };
 
+  let legendAlignment: StyledLegendProps["align"];
+  if (inline && !legendAlign) {
+    legendAlignment = "right";
+  } else if (!legendAlign) {
+    legendAlignment = "left";
+  } else {
+    legendAlignment = legendAlign;
+  }
+
   return (
     <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
       <StyledFieldset
@@ -143,7 +153,7 @@ const Fieldset = ({
                 onMouseLeave={onMouseLeave}
                 inline={inline}
                 width={legendWidth}
-                align={legendAlign}
+                align={legendAlignment}
                 rightPadding={legendSpacing}
                 {...legendMargin}
                 data-element="legend"

@@ -74,7 +74,7 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
     inline = false,
     legendInline = false,
     legendWidth,
-    legendAlign,
+    legendAlign = "left",
     legendSpacing,
     labelSpacing = 1,
     adaptiveLegendBreakpoint,

@@ -3,7 +3,6 @@ import StyledIconSpan from "../../__internal__/input-icon-toggle/input-icon-togg
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import StyledInput from "../../__internal__/input/input.style";
 import Fieldset from "../../__internal__/fieldset";
-import { StyledLegend } from "../../__internal__/fieldset/fieldset.style";
 
 interface StyledDateFieldProps {
   isYearInput?: boolean;
@@ -63,9 +62,10 @@ export const StyledFieldset = styled(Fieldset)`
       display: flex;
       align-items: center;
     `}
-  `}
 
-  ${StyledLegend} {
-    margin-bottom: 0;
-  }
+    ${!inline &&
+    css`
+      width: min-content;
+    `}
+  `}
 `;

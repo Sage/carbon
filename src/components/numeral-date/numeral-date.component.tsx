@@ -102,8 +102,10 @@ export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
   name?: string;
   /** Label */
   label?: string;
-  /** [Legacy] Label alignment. Works only when labelInline is true */
+  /** Label alignment */
   labelAlign?: "left" | "right";
+  /** Field labels alignment */
+  fieldLabelsAlign?: "left" | "right";
   /**
    * Text applied to label help tooltip, will be rendered as
    * hint text when `validationRedesignOptIn` is true.
@@ -242,6 +244,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   labelInline,
   labelWidth,
   labelAlign,
+  fieldLabelsAlign,
   labelHelp,
   labelSpacing,
   fieldHelp,
@@ -470,9 +473,9 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                 }
               >
                 <Textbox
-                  maxWidth="fit-content"
                   id={inputIds.current[datePart]}
                   label={getDateLabel(datePart, locale)}
+                  labelAlign={fieldLabelsAlign}
                   disabled={disabled}
                   readOnly={readOnly}
                   error={!!internalError}
@@ -512,6 +515,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
           data-role={dataRole}
           id={uniqueId}
           legend={label}
+          legendMargin={{ mb: 0 }}
           isRequired={required}
           isOptional={isOptional}
           isDisabled={disabled}
@@ -528,7 +532,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
           aria-describedby={ariaDescribedBy}
           {...filterStyledSystemMarginProps(rest)}
         >
-          <Box display="block" mt={1}>
+          <Box display="block" mt={inline ? 0 : 1}>
             {renderInputs()}
             {fieldHelp && <FieldHelp id={fieldHelpId}>{fieldHelp}</FieldHelp>}
           </Box>
@@ -544,6 +548,8 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
       data-role={dataRole}
       id={uniqueId}
       legend={label}
+      legendMargin={{ mb: 0 }}
+      legendAlign={labelAlign}
       isRequired={required}
       isOptional={isOptional}
       isDisabled={disabled}
@@ -555,7 +561,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
         <StyledHintText id={inputHintId.current}>{labelHelp}</StyledHintText>
       )}
 
-      <Box position="relative" mt={1}>
+      <Box position="relative" mt={labelHelp ? 0 : 1}>
         {(internalError || internalWarning) && (
           <>
             <ValidationMessage
