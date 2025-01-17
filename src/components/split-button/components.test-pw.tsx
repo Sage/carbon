@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import Button, { ButtonProps } from "../button";
+import Button from "../button";
 import Dialog from "../dialog";
 import SplitButton, { SplitButtonProps } from "./split-button.component";
-import Box from "../box";
 
 export const SplitButtonList = (props: Partial<SplitButtonProps>) => {
   return (
@@ -27,18 +26,6 @@ export const SplitButtonNestedInDialog = () => {
   );
 };
 
-const ButtonWrapper = (props: ButtonProps) => {
-  return <Button {...props} />;
-};
-
-export const WithWrapper = (props: Partial<SplitButtonProps>) => (
-  <SplitButton text="Split button" {...props}>
-    <ButtonWrapper>Button 1</ButtonWrapper>
-    <ButtonWrapper>Button 2</ButtonWrapper>
-    <ButtonWrapper>Button 3</ButtonWrapper>
-  </SplitButton>
-);
-
 export const TwoSplitButtons = () => {
   return (
     <div>
@@ -55,18 +42,3 @@ export const TwoSplitButtons = () => {
     </div>
   );
 };
-
-export const TwoButtonsWithWrapper = (props: Partial<SplitButtonProps>) => (
-  <Box>
-    <SplitButton text="Split button 1" {...props}>
-      <ButtonWrapper>Button 1</ButtonWrapper>
-      <ButtonWrapper>Button 2</ButtonWrapper>
-      <ButtonWrapper>Button 3</ButtonWrapper>
-    </SplitButton>
-    <SplitButton text="Split button 2" {...props}>
-      <ButtonWrapper>Button 4</ButtonWrapper>
-      <ButtonWrapper>Button 5</ButtonWrapper>
-      <ButtonWrapper>Button 6</ButtonWrapper>
-    </SplitButton>
-  </Box>
-);

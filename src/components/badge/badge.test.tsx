@@ -96,6 +96,18 @@ describe("Badge", () => {
     expect(screen.getByRole("button")).not.toHaveAttribute("aria-label");
   });
 
+  it("calls onClick callback when badge is clicked", async () => {
+    const onClick = jest.fn();
+    const user = userEvent.setup();
+
+    renderComponent({ counter: 5, onClick });
+
+    const badgeButton = screen.getByRole("button");
+    await user.click(badgeButton);
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
   it("should apply the correct cursor style when onClick is not specified", () => {
     renderComponent({ counter: 9 });
 

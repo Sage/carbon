@@ -235,6 +235,8 @@ export type IconType =
   | "settings"
   | "settings_old"
   | "share"
+  | "shield_with_tick"
+  | "shield_with_tick_outline"
   | "shop"
   | "sort_down"
   | "sort_up"
@@ -245,6 +247,8 @@ export type IconType =
   | "squares_nine"
   | "stacked_boxes"
   | "stacked_squares"
+  | "stop"
+  | "stop_circle"
   | "support_online"
   | "submitted"
   | "sync"
@@ -269,4 +273,5 @@ export type IconType =
   | "volunteering"
   | "warning"
   | "website"
-  | "welfare";
+  | "welfare"
+  | "worldwide_location";

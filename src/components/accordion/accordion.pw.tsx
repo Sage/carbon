@@ -12,7 +12,6 @@ import {
   getRotationAngle,
   assertCssValueIsApproximately,
   getStyle,
-  expectEventWasCalledOnce,
   checkAccessibility,
 } from "../../../playwright/support/helper";
 import { getDataElementByValue } from "../../../playwright/components";
@@ -201,30 +200,6 @@ test.describe("should render Accordion component", () => {
       "accordion-content",
     );
     await expect(accordionContent(page)).toBeVisible();
-  });
-
-  [true, false].forEach((isExpanded) => {
-    test(`should call onChange callback when a click event is triggered and expanded is set to ${isExpanded}`, async ({
-      mount,
-      page,
-    }) => {
-      const messages: string[] = [];
-
-      await mount(
-        <AccordionComponent
-          expanded={isExpanded}
-          onChange={(data) => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            messages.push(data);
-          }}
-        />,
-      );
-
-      await accordionTitleContainer(page).click();
-
-      await expectEventWasCalledOnce(messages, "onClick");
-    });
   });
 
   testData.forEach((titleValue) => {

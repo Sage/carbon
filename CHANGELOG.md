@@ -1,3 +1,38 @@
+### [146.4.3](https://github.com/Sage/carbon/compare/v146.4.2...v146.4.3) (2025-01-15)
+
+
+### Bug Fixes
+
+* **tabs:** click on navigation button in Tabs submit the form ([082e14c](https://github.com/Sage/carbon/commit/082e14c21904385fe35b69a0dd3d4c6806a53055)), closes [#7142](https://github.com/Sage/carbon/issues/7142)
+
+### [146.4.2](https://github.com/Sage/carbon/compare/v146.4.1...v146.4.2) (2025-01-10)
+
+
+### Bug Fixes
+
+* **select:** ensure select-list has correct box-shadow when placement is top ([cc035ce](https://github.com/Sage/carbon/commit/cc035ce0386794ecea571a7d5563668dc569c35a)), closes [#7125](https://github.com/Sage/carbon/issues/7125)
+
+### [146.4.1](https://github.com/Sage/carbon/compare/v146.4.0...v146.4.1) (2025-01-10)
+
+
+### Bug Fixes
+
+* **filterable-select:** with object as values cannot backspace ([80a392e](https://github.com/Sage/carbon/commit/80a392ec4553d3936e37fa132d571336b1682010)), closes [#7064](https://github.com/Sage/carbon/issues/7064)
+
+## [146.4.0](https://github.com/Sage/carbon/compare/v146.3.1...v146.4.0) (2025-01-09)
+
+
+### Features
+
+* **icon:** 5 new icons added ([acc04c8](https://github.com/Sage/carbon/commit/acc04c8fd64aa397db1e262fa3ca17a2ee863521))
+
+### [146.3.1](https://github.com/Sage/carbon/compare/v146.3.0...v146.3.1) (2025-01-09)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure list style is none in Safari ([94f10d0](https://github.com/Sage/carbon/commit/94f10d0b1ed81ddf9b5bae7ccf492672e073aa5f))
+
 ## [146.3.0](https://github.com/Sage/carbon/compare/v146.2.1...v146.3.0) (2025-01-08)
 
 

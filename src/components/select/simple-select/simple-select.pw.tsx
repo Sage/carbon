@@ -1,16 +1,14 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { SimpleSelectProps } from "..";
+import SimpleSelect, { SimpleSelectProps } from ".";
+import Option from "../option";
 import {
   SimpleSelectComponent,
-  SimpleSelectWithLazyLoadingComponent,
-  SimpleSelectWithInfiniteScrollComponent,
   SimpleSelectMultipleColumnsComponent,
   SimpleSelectObjectAsValueComponent,
   SimpleSelectCustomOptionChildrenComponent,
   SimpleSelectGroupComponent,
   SimpleSelectWithLongWrappingTextComponent,
-  SimpleSelectEventsComponent,
   WithVirtualScrolling,
   SimpleSelectNestedInDialog,
   SelectWithOptionGroupHeader,
@@ -35,7 +33,6 @@ import {
   multiColumnsSelectListHeader,
   multiColumnsSelectListHeaderColumn,
   multiColumnsSelectListRow,
-  multiColumnsSelectListRowAt,
   selectElementInput,
   selectInput,
   selectList,
@@ -473,108 +470,71 @@ test.describe("SimpleSelect component", () => {
     await expect(selectOptionByText(page, optionValue11)).toBeInViewport();
   });
 
-  test("should render the lazy loader when the prop is set", async ({
+  test("renders loader when isLoading prop is set to true", async ({
     mount,
     page,
   }) => {
-    await mount(<SimpleSelectWithLazyLoadingComponent />);
+    await mount(<SimpleSelectComponent isLoading />);
 
-    await selectText(page).click();
-    await expect(selectListWrapper(page)).toBeVisible();
-    await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
-    );
+    const dropdownIcon = page.getByTestId("input-icon-toggle");
+    const dropdownList = page.getByRole("listbox");
+
+    await dropdownIcon.click();
+    await dropdownList.waitFor();
+
+    await expect(loader(page, 1)).toBeVisible();
   });
 
-  test("should render a lazy loaded option when the infinite scroll prop is set", async ({
+  test("scroll position of option list doesn't change, if the component's options are dynamically changed", async ({
     mount,
     page,
   }) => {
-    await mount(<SimpleSelectWithInfiniteScrollComponent />);
-
-    const option = "Lazy Loaded A1";
-    const selectListWrapperElement = selectListWrapper(page);
-    await selectText(page).click();
-    await expect(selectListWrapperElement).toBeVisible();
-    await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).toBeVisible()),
+    const { update } = await mount(
+      <SimpleSelect label="Colour">
+        <Option text="Amber" value="Amber" />
+        <Option text="Black" value="Black" />
+        <Option text="Cyan" value="Cyan" />
+        <Option text="Dark Blue" value="Dark Blue" />
+        <Option text="Emerald" value="Emerald" />
+        <Option text="Fuchsia" value="Fuchsia" />
+        <Option text="Gold" value="Gold" />
+      </SimpleSelect>,
     );
-    await expect(selectOptionByText(page, option)).toHaveCount(0);
-    await page.waitForTimeout(2000);
-    await selectListScrollableWrapper(page).evaluate((wrapper) => {
-      wrapper.scrollBy(0, 500);
-    });
-    await page.waitForTimeout(250);
-    await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).not.toBeVisible()),
-    );
-    await expect(selectOptionByText(page, option)).toBeVisible();
-  });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("infinite scroll example should not cycle back to the start when using down arrow key", async ({
-    mount,
-    page,
-  }) => {
-    // this is a slow test which can sometimes take more than the 30-second default timeout - so tell Playwright
-    // to increase it
-    test.slow();
+    const dropdownIcon = page.getByTestId("input-icon-toggle");
+    await dropdownIcon.click();
 
-    await mount(<SimpleSelectWithInfiniteScrollComponent />);
+    const dropdownList = page.getByRole("listbox");
+    await dropdownList.waitFor();
 
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await inputElement.press("ArrowDown");
-    const firstOption = selectOptionByText(page, "Amber");
-    await firstOption.waitFor();
-    for (let i = 0; i < 5; i++) {
-      // eslint-disable-next-line no-await-in-loop
-      await inputElement.press("ArrowDown");
-    }
-    await selectOptionByText(page, "Lazy Loaded A1").waitFor();
+    await page.keyboard.press("ArrowUp");
+    await expect(page.getByRole("option").last()).toBeInViewport();
 
-    // run this 10 times to try to catch any intermittent failures
-    for (let i = 0; i < 10; i++) {
-      for (let j = 0; j < 3; j++) {
-        // eslint-disable-next-line no-await-in-loop
-        await inputElement.press("ArrowDown");
-      }
-      // wait for new lazy-loaded options to appear
-      // eslint-disable-next-line no-await-in-loop
-      await page.waitForTimeout(2000);
-      // eslint-disable-next-line no-await-in-loop
-      await expect(firstOption).not.toBeInViewport();
-    }
-  });
-
-  test("the list should not change scroll position when the lazy-loaded options appear", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectWithInfiniteScrollComponent />);
-
-    // open the select list and choose an option
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    await inputElement.press("ArrowDown");
-    const firstOption = selectOptionByText(page, "Amber");
-    await firstOption.waitFor();
-    await firstOption.click();
-
-    // reopen the list and scroll to initiate the lazy loading. It's important to not use the keyboard here as that
-    // won't trigger the bug.
-    const scrollableWrapper = selectListScrollableWrapper(page);
-    await selectText(page).click();
-    await scrollableWrapper.evaluate((wrapper) => wrapper.scrollBy(0, 500));
-    const scrollPositionBeforeLoad = await scrollableWrapper.evaluate(
+    const scrollPosition = await dropdownList.evaluate(
       (element) => element.scrollTop,
     );
 
-    await selectOptionByText(page, "Lazy Loaded A1").waitFor();
-    const scrollPositionAfterLoad = await scrollableWrapper.evaluate(
+    await update(
+      <SimpleSelect label="Colour">
+        <Option text="Amber" value="Amber" />
+        <Option text="Black" value="Black" />
+        <Option text="Cyan" value="Cyan" />
+        <Option text="Dark Blue" value="Dark Blue" />
+        <Option text="Emerald" value="Emerald" />
+        <Option text="Fuchsia" value="Fuchsia" />
+        <Option text="Gold" value="Gold" />
+        <Option text="Hot Pink" value="Hot Pink" />
+        <Option text="Indigo" value="Indigo" />
+      </SimpleSelect>,
+    );
+
+    await expect(page.getByRole("option")).toHaveCount(9);
+
+    // check that the scroll position hasn't changed
+    const newScrollPosition = await dropdownList.evaluate(
       (element) => element.scrollTop,
     );
-    expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
+    expect(newScrollPosition).toBeCloseTo(scrollPosition, 1);
   });
 
   test("keyboard navigation should work correctly in multicolumn mode and ensure the selected option is visible", async ({
@@ -583,14 +543,20 @@ test.describe("SimpleSelect component", () => {
   }) => {
     await mount(<SimpleSelectMultipleColumnsComponent />);
 
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.focus();
-    for (let i = 0; i < 3; i++) {
-      // eslint-disable-next-line no-await-in-loop
-      await inputElement.press("ArrowDown");
-    }
-    await expect(getDataElementByValue(page, "input")).toHaveValue("Jill Moe");
-    await expect(multiColumnsSelectListRowAt(page, 4)).toBeVisible();
+    await page.getByText("Please Select...").click();
+    await page.getByRole("listbox").waitFor();
+
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("ArrowDown");
+    await page.keyboard.press("ArrowDown");
+
+    const lastOption = page.getByRole("option", { name: "Bill Zoe" });
+    const input = page.getByRole("combobox");
+
+    await expect(lastOption).toBeInViewport();
+    await expect(input).toHaveValue("Bill Zoe");
   });
 
   test("should have correct option highlighted when select list is opened and value is an object", async ({
@@ -674,7 +640,7 @@ test.describe("SimpleSelect component", () => {
     mount,
     page,
   }) => {
-    await mount(<SimpleSelectMultipleColumnsComponent />);
+    await mount(<SimpleSelectMultipleColumnsComponent defaultValue="2" />);
 
     const columns = 3;
     await selectText(page).click();
@@ -1091,6 +1057,67 @@ test.describe("SimpleSelect component", () => {
     });
   });
 
+  (
+    ["top", "top-start", "top-end"] as SimpleSelectProps["listPlacement"][]
+  ).forEach((position) => {
+    test(`should render list with expected box-shadow when listPosition is ${position}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <SimpleSelectComponent listPlacement={position} mt="200px" />,
+      );
+
+      await selectText(page).click();
+      const listElement = selectListPosition(page);
+      await expect(listElement).toHaveCSS(
+        "box-shadow",
+        "rgba(0, 20, 30, 0.2) 0px -5px 5px 0px, rgba(0, 20, 30, 0.1) 0px -10px 10px 0px",
+      );
+    });
+  });
+
+  (
+    [
+      "bottom",
+      "bottom-start",
+      "bottom-end",
+    ] as SimpleSelectProps["listPlacement"][]
+  ).forEach((position) => {
+    test(`should render list with expected box-shadow when listPosition is ${position}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SimpleSelectComponent listPlacement={position} />);
+
+      await selectText(page).click();
+      const listElement = selectListPosition(page);
+      await expect(listElement).toHaveCSS(
+        "box-shadow",
+        "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px",
+      );
+    });
+  });
+
+  test("should update box-shadow when placement changes due to window resize", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SimpleSelectComponent mt={200} />);
+
+    await selectText(page).click();
+    const listElement = selectListPosition(page);
+    await expect(listElement).toHaveCSS(
+      "box-shadow",
+      "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px",
+    );
+    await page.setViewportSize({ width: 1200, height: 250 });
+    await expect(listElement).toHaveCSS(
+      "box-shadow",
+      "rgba(0, 20, 30, 0.2) 0px -5px 5px 0px, rgba(0, 20, 30, 0.1) 0px -10px 10px 0px",
+    );
+  });
+
   test("should have correct hover state of list option", async ({
     mount,
     page,
@@ -1149,102 +1176,6 @@ test.describe("Check height of Select list when opened", () => {
     const wrapperElement = selectListWrapper(page);
     await expect(wrapperElement).toHaveCSS("height", "152px");
     await expect(wrapperElement).toBeVisible();
-  });
-});
-
-test.describe("Check events for SimpleSelect component", () => {
-  test("should call onChange event when a list option is selected", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectEventsComponent onChange={callback} />);
-
-    const position = "first";
-    await selectText(page).click();
-    await selectOption(page, positionOfElement(position)).click();
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onBlur event when the list is closed", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectComponent onBlur={callback} />);
-
-    await selectText(page).click();
-    await commonDataElementInputPreview(page).blur();
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onClick event when mouse is clicked on text input", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectComponent onClick={callback} />);
-
-    // need to force the click as the input is covered by the span containing "please select"
-    // [not clear if this onClick is even needed since a user isn't able to click, but leaving the test in pending
-    // pending discussion/investigation]
-    await commonDataElementInputPreview(page).click({ force: true });
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onOpen when select list is opened", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectComponent onOpen={callback} />);
-
-    await commonDataElementInputPreview(page).click({ force: true });
-    expect(callbackCount).toBe(1);
-  });
-
-  test("should call onFocus when SimpleSelect is brought into focus", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectComponent onFocus={callback} />);
-
-    await commonDataElementInputPreview(page).focus();
-    expect(callbackCount).toBe(1);
-  });
-
-  keyToTrigger.slice(0, 2).forEach((key) => {
-    test(`should call onKeyDown event when ${key} key is pressed`, async ({
-      mount,
-      page,
-    }) => {
-      let callbackCount = 0;
-      const callback = () => {
-        callbackCount += 1;
-      };
-      await mount(<SimpleSelectComponent onKeyDown={callback} />);
-
-      const inputElement = commonDataElementInputPreview(page);
-      await inputElement.focus();
-      await inputElement.press(key);
-      expect(callbackCount).toBe(1);
-    });
   });
 });
 
@@ -1545,35 +1476,57 @@ test.describe("Selection confirmed", () => {
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
-    await mount(<SimpleSelectComponent onListScrollBottom={callback} />);
+    let called = false;
+    await mount(
+      <SimpleSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
+    );
 
-    await dropdownButton(page).click();
-    await selectOption(page, positionOfElement("first")).click();
-    expect(callbackCount).toBe(0);
+    const dropdownIcon = page.getByTestId("input-icon-toggle");
+    const optionList = page.getByRole("listbox");
+
+    await dropdownIcon.click();
+    await optionList.waitFor();
+
+    const firstOption = page.getByRole("option").first();
+
+    await firstOption.click();
+
+    expect(called).toBeFalsy();
   });
 
   test("should not be called when an option is clicked and list is re-opened", async ({
     mount,
     page,
   }) => {
-    let callbackCount = 0;
-    const callback = () => {
-      callbackCount += 1;
-    };
+    let called = false;
 
-    await mount(<SimpleSelectComponent onListScrollBottom={callback} />);
-
-    await dropdownButton(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500),
+    await mount(
+      <SimpleSelectComponent
+        onListScrollBottom={() => {
+          called = true;
+        }}
+      />,
     );
-    await selectOption(page, positionOfElement("first")).click();
-    await dropdownButton(page).click();
-    expect(callbackCount).toBe(1);
+
+    const dropdownIcon = page.getByTestId("input-icon-toggle");
+    const optionList = page.getByRole("listbox");
+
+    await dropdownIcon.click();
+    await optionList.waitFor();
+
+    const firstOption = page.getByRole("option").first();
+
+    await firstOption.click();
+    await optionList.waitFor({ state: "hidden" });
+
+    await dropdownIcon.click();
+    await optionList.waitFor();
+
+    expect(called).toBeFalsy();
   });
 });
 
@@ -1797,26 +1750,10 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     mount,
     page,
   }) => {
-    await mount(<SimpleSelectWithLazyLoadingComponent />);
+    await mount(<SimpleSelectComponent isLoading />);
 
     await selectText(page).click();
     await expect(loader(page, 1)).toBeVisible();
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests with onListScrollBottom prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectWithInfiniteScrollComponent />);
-
-    await selectText(page).click();
-    await checkAccessibility(page);
-    // wait for content to finish loading before scrolling
-    await expect(selectOptionByText(page, "Amber")).toBeVisible();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500),
-    );
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 

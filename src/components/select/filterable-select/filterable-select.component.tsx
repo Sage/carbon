@@ -14,6 +14,7 @@ import SelectList, {
   ListPlacement,
 } from "../__internal__/select-list/select-list.component";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
+import areObjectsEqual from "../__internal__/utils/are-objects-equal";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
@@ -160,6 +161,7 @@ export const FilterableSelect = React.forwardRef<
     const [selectedValue, setSelectedValue] = useState<
       string | Record<string, unknown> | undefined
     >(value || defaultValue || "");
+    const receivedValue = useRef(value);
     const [highlightedValue, setHighlightedValue] = useState<
       string | Record<string, unknown> | undefined
     >("");
@@ -427,9 +429,27 @@ export const FilterableSelect = React.forwardRef<
       );
     }, [listActionButton, onListAction]);
 
+    const isFirstRender = useRef(true);
+
     useEffect(() => {
+      // when we render for the first time, we run setMatchingText to populate the input with the correct text
+      if (isFirstRender.current) {
+        setMatchingText(selectedValue);
+      }
+
       if (isControlled.current) {
-        setMatchingText(value);
+        // when value is an object we should only run setMatchingText if the object changes between renders
+        if (
+          typeof value === "object" &&
+          typeof receivedValue.current === "object"
+        ) {
+          if (!areObjectsEqual(value, receivedValue.current)) {
+            setMatchingText(value);
+            receivedValue.current = value;
+          }
+        } else {
+          setMatchingText(value);
+        }
       }
       // update text value only when children are changing
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -438,8 +458,6 @@ export const FilterableSelect = React.forwardRef<
     const onFilterChange = useStableCallback(
       onFilterChangeProp as (filterTextArg: unknown) => void,
     );
-
-    const isFirstRender = useRef(true);
 
     useEffect(() => {
       if (onFilterChange && !isFirstRender.current) {
