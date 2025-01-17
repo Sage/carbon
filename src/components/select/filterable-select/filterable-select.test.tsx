@@ -1,12 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from "@testing-library/react";
+import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import { FilterableSelect, Option, FilterableSelectProps } from "..";
@@ -922,8 +915,9 @@ describe("when the user clicks on the input icon", () => {
     expect(await screen.findByRole("listbox")).toBeVisible();
   });
 
-  it("should not display the list when `openOnFocus` is set and mousedown is detected", () => {
-    jest.useFakeTimers();
+  it("should not display the list when `openOnFocus` is set and mousedown is detected on icon", async () => {
+    const user = userEvent.setup();
+
     render(
       <FilterableSelect
         openOnFocus
@@ -934,12 +928,15 @@ describe("when the user clicks on the input icon", () => {
         <Option value="opt1" text="red" />
       </FilterableSelect>,
     );
+
     const icon = within(screen.getByRole("presentation")).getByTestId("icon");
-    fireEvent.mouseDown(icon);
-    act(() => jest.runOnlyPendingTimers());
+    await user.pointer({ keys: "[MouseLeft>]", target: icon });
+
+    await waitFor(() => {
+      expect(screen.getByRole("combobox")).toHaveFocus();
+    });
 
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-    jest.useRealTimers();
   });
 
   it("should close the list when the user clicks on the input icon and the list is already open", async () => {
