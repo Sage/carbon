@@ -144,7 +144,6 @@ const SelectList = React.forwardRef(
   ) => {
     const [currentOptionsListIndex, setCurrentOptionsListIndex] = useState(-1);
     const [scrollbarWidth, setScrollbarWidth] = useState(0);
-    const [actualPlacement, setActualPlacement] = useState(listPlacement);
     const lastFilter = useRef("");
     const listRef = useRef(null);
     const tableRef = useRef<HTMLTableSectionElement>(null);
@@ -639,25 +638,6 @@ const SelectList = React.forwardRef(
       [listWidth, flipEnabled],
     );
 
-    // set the placement of the list based on the floating placement
-    const setPlacement = useCallback(() => {
-      if (isOpen) {
-        const floatingPlacement = listWrapperRef.current?.getAttribute(
-          "data-floating-placement",
-        ) as ListPlacement;
-
-        setActualPlacement(floatingPlacement);
-      }
-    }, [isOpen]);
-
-    useEffect(() => {
-      setPlacement();
-      window.addEventListener("resize", setPlacement);
-      return () => {
-        window.removeEventListener("resize", setPlacement);
-      };
-    }, [setPlacement]);
-
     const loader = isLoading ? (
       <StyledSelectLoaderContainer key="loader">
         <Loader />
@@ -719,7 +699,6 @@ const SelectList = React.forwardRef(
             data-element="select-list-wrapper"
             data-role="select-list-wrapper"
             isLoading={isLoading}
-            placement={actualPlacement}
             {...listProps}
           >
             <StyledScrollableContainer
