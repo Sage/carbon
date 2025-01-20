@@ -159,6 +159,16 @@ test("navigating to the next page should render the first page when currently on
   expect(screen.getByRole("heading", { name: "My First Page" })).toBeVisible();
 });
 
+test("component renders correctly with no title prop passed", () => {
+  render(
+    <Pages pageIndex={0}>
+      <Page>First Page</Page>
+    </Pages>,
+  );
+
+  expect(screen.getByTestId("visible-page")).toHaveTextContent("First Page");
+});
+
 test("when attempting to navigate pages and there is only one page, it should not change the rendered content", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const WithSinglePage = () => {
