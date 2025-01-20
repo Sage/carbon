@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useRef,
   useState,
+  memo,
 } from "react";
 import {
   DayPicker,
@@ -71,6 +72,17 @@ const popoverMiddleware = [
     fallbackStrategy: "initialPlacement",
   }),
 ];
+
+/** The Navbar has been lifted out of the main component to ensure that it can be properly
+ * memoized and not re-rendered on every update of the DatePicker component.
+ *
+ * Resolves https://jira.sage.com/browse/FE-7047
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const Nav = (props: any) => {
+  return <Navbar {...props} />;
+};
+const MemoizedNav = memo(Nav);
 
 export const DatePicker = ({
   inputElement,
@@ -257,9 +269,10 @@ export const DatePicker = ({
               handleDayClick(date, e);
             }}
             components={{
-              Nav: (props) => {
-                return <Navbar {...props} />;
-              },
+              // TODO: Fix this. It's a horrible approach to take.
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore: Type 'MemoizedNav' is not assignable to type 'ComponentType<NavbarProps>'.
+              Nav: MemoizedNav,
               Weekday: (props) => {
                 const fixedDays = {
                   Sunday: 0,
