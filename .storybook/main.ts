@@ -17,7 +17,10 @@ const getStories = () =>
   });
 
 const config: StorybookConfig = {
-  framework: "@storybook/react-webpack5",
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: { strictMode: true },
+  },
 
   stories: [
     "./welcome-page/welcome.stories.js",
