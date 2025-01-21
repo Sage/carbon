@@ -1,3 +1,17 @@
+### [146.4.4](https://github.com/Sage/carbon/compare/v146.4.3...v146.4.4) (2025-01-17)
+
+
+### Bug Fixes
+
+* **portrait:** prevent portrait from collapsing on smaller screens ([dcafce2](https://github.com/Sage/carbon/commit/dcafce2d6b94547ea54b7058899aeba2fcc2d493)), closes [#7140](https://github.com/Sage/carbon/issues/7140)
+
+### [146.4.3](https://github.com/Sage/carbon/compare/v146.4.2...v146.4.3) (2025-01-15)
+
+
+### Bug Fixes
+
+* **tabs:** click on navigation button in Tabs submit the form ([082e14c](https://github.com/Sage/carbon/commit/082e14c21904385fe35b69a0dd3d4c6806a53055)), closes [#7142](https://github.com/Sage/carbon/issues/7142)
+
 ### [146.4.2](https://github.com/Sage/carbon/compare/v146.4.1...v146.4.2) (2025-01-10)
 
 
