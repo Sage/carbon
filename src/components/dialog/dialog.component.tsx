@@ -128,6 +128,9 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       topModalOverride,
       closeButtonDataProps,
       restoreFocusOnClose = true,
+      "aria-labelledby": ariaLabelledBy,
+      "aria-describedby": ariaDescribedBy,
+      "aria-label": ariaLabel,
       ...rest
     },
     ref,
@@ -197,12 +200,10 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       size,
       dialogHeight,
       "aria-labelledby":
-        title && typeof title === "string" ? titleId : rest["aria-labelledby"],
+        title && typeof title === "string" ? titleId : ariaLabelledBy,
       "aria-describedby":
-        subtitle && typeof subtitle === "string"
-          ? subtitleId
-          : rest["aria-describedby"],
-      "aria-label": rest["aria-label"],
+        subtitle && typeof subtitle === "string" ? subtitleId : ariaDescribedBy,
+      "aria-label": ariaLabel,
     };
 
     return (
@@ -214,6 +215,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         className={className ? `${className} carbon-dialog` : "carbon-dialog"}
         topModalOverride={topModalOverride}
         restoreFocusOnClose={restoreFocusOnClose}
+        {...rest}
       >
         <FocusTrap
           autoFocus={!disableAutoFocus}
