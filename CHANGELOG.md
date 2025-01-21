@@ -1,3 +1,10 @@
+### [146.4.5](https://github.com/Sage/carbon/compare/v146.4.4...v146.4.5) (2025-01-21)
+
+
+### Bug Fixes
+
+* **popover-container:** prevent DatePicker from rendering behind the popover ([59d2f4a](https://github.com/Sage/carbon/commit/59d2f4abb09b7ad303f0b11fe374d78122d1b0ae)), closes [#7137](https://github.com/Sage/carbon/issues/7137)
+
 ### [146.4.4](https://github.com/Sage/carbon/compare/v146.4.3...v146.4.4) (2025-01-17)
 
 
