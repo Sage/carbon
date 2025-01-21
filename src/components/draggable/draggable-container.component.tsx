@@ -38,6 +38,7 @@ const DraggableContainer = ({
   flexDirection = "row",
   ...rest
 }: DraggableContainerProps): JSX.Element => {
+  const dropTargetRef = useRef<HTMLDivElement>(null);
   const [draggableItems, setDraggableItems] = useState(
     React.Children.toArray(children),
   );
@@ -105,8 +106,13 @@ const DraggableContainer = ({
   const marginProps = filterStyledSystemMarginProps(rest);
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider
+      backend={HTML5Backend}
+      context={window}
+      options={{ rootElement: dropTargetRef.current }}
+    >
       <DropTarget
+        ref={dropTargetRef}
         data-element={dataElement}
         data-role={dataRole}
         getOrder={getItemsId}

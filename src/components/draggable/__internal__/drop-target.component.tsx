@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { useDrop } from "react-dnd";
 import { DraggableContainerProps } from "../draggable-container.component";
 
@@ -14,34 +14,46 @@ interface DropItemProps {
   originalIndex: number;
 }
 
-const DropTarget = ({
-  "data-element": dataElement,
-  "data-role": dataRole,
-  children,
-  getOrder,
-  ...rest
-}: DropTargetProps) => {
-  const [, drop] = useDrop({
-    accept: "draggableItem",
-    drop(item: DropItemProps) {
-      // istanbul ignore else
-      if (getOrder) {
-        getOrder(item?.id);
-      }
+const DropTarget = forwardRef<HTMLDivElement, DropTargetProps>(
+  (
+    {
+      "data-element": dataElement,
+      "data-role": dataRole,
+      children,
+      getOrder,
+      ...rest
     },
-  });
+    ref,
+  ) => {
+    const [, drop] = useDrop({
+      accept: "draggableItem",
+      drop(item: DropItemProps) {
+        // istanbul ignore else
+        if (getOrder) {
+          getOrder(item?.id);
+        }
+      },
+    });
 
-  return (
-    <StyledDraggableContainer
-      ref={drop}
-      data-component="draggable-container"
-      data-element={dataElement}
-      data-role={dataRole}
-      {...rest}
-    >
-      {children}
-    </StyledDraggableContainer>
-  );
-};
+    return (
+      <StyledDraggableContainer
+        ref={(node) => {
+          drop(node);
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            ref.current = node;
+          }
+        }}
+        data-component="draggable-container"
+        data-element={dataElement}
+        data-role={dataRole}
+        {...rest}
+      >
+        {children}
+      </StyledDraggableContainer>
+    );
+  },
+);
 
 export default DropTarget;
