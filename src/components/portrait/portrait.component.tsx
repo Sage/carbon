@@ -84,6 +84,7 @@ const Portrait = ({
   ...rest
 }: PortraitProps) => {
   const [externalError, setExternalError] = useState(false);
+  const hasValidImg = Boolean(src) && !externalError;
 
   invariant(
     !(src && gravatar),
@@ -165,6 +166,7 @@ const Portrait = ({
             {...filterStyledSystemMarginProps(rest)}
             onClick={onClick}
             {...tagProps}
+            hasValidImg={hasValidImg}
             darkBackground={darkBackground}
             size={size}
             shape={shape}
@@ -180,6 +182,7 @@ const Portrait = ({
         {...filterStyledSystemMarginProps(rest)}
         onClick={onClick}
         {...tagProps}
+        hasValidImg={hasValidImg}
         darkBackground={darkBackground}
         size={size}
         shape={shape}
