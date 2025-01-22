@@ -1,3 +1,10 @@
+### [146.4.6](https://github.com/Sage/carbon/compare/v146.4.5...v146.4.6) (2025-01-22)
+
+
+### Bug Fixes
+
+* **date-range:** date range axe issue ([790df46](https://github.com/Sage/carbon/commit/790df46388b61cd868c13b6297932dfa26ace894)), closes [#7116](https://github.com/Sage/carbon/issues/7116)
+
 ### [146.4.5](https://github.com/Sage/carbon/compare/v146.4.4...v146.4.5) (2025-01-21)
 
 
