@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { Accordion, AccordionGroup } from ".";
 import Textbox from "../textbox";
@@ -7,9 +7,12 @@ import MultiActionButton from "../multi-action-button";
 import SplitButton from "../split-button";
 import Button from "../button/button.component";
 
+import { Dl, Dt, Dd } from "../definition-list";
+import Link from "../link/link.component";
+import { Checkbox } from "../checkbox";
+
 export default {
   title: "Accordion/Test",
-  includeStories: ["Default", "Grouped", "AccordionWithMultiAction"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -139,3 +142,209 @@ export const AccordionWithMultiAction = () => {
 
 AccordionWithMultiAction.storyName =
   "Accordion with MultiAction and Split Button";
+
+export const AccordionWithDefinitionList = () => {
+  const [isOpen, setOpen] = useState<boolean>(true);
+  return (
+    <Accordion
+      title="Heading"
+      onChange={() => {
+        setOpen(!isOpen);
+      }}
+      expanded={isOpen}
+    >
+      <Dl>
+        <Dt>Drink</Dt>
+        <Dd>Coffee</Dd>
+        <Dt>Brew Method</Dt>
+        <Dd>Stove Top Moka Pot</Dd>
+        <Dt>Brand of Coffee</Dt>
+        <Dd>Magic Coffee Beans</Dd>
+        <Dt>Website</Dt>
+        <Dd>
+          <Link href="www.sage.com">Magic Coffee Beans Website</Link>
+        </Dd>
+        <Dt>Email</Dt>
+        <Dd>
+          <Link href="magic@coffeebeans.com">magic@coffeebeans.com</Link>
+        </Dd>
+        <Dt mb={0}>Main and Registered Address</Dt>
+        <Dd mb="4px">Magic Coffee Beans,</Dd>
+        <Dd mb="4px">In The Middle of Our Street,</Dd>
+        <Dd mb="4px">Madness,</Dd>
+        <Dd mb="4px">CO4 3VE</Dd>
+        <Dd>
+          <Button
+            buttonType="tertiary"
+            iconType="link"
+            iconPosition="after"
+            href="https://goo.gl/maps/GMReLoBpbn9mdZVZ7"
+          >
+            View in Google Maps
+          </Button>
+        </Dd>
+      </Dl>
+    </Accordion>
+  );
+};
+AccordionWithDefinitionList.storyName = "Accordion With Definition List";
+
+export const AccordionWithValidations = () => {
+  const [validationKey, setValidationKey] = useState<string>("error");
+  const props = useMemo(() => {
+    return {
+      title: "Validation",
+      [validationKey]: `${validationKey}`,
+    };
+  }, [validationKey]);
+
+  return (
+    <AccordionGroup>
+      <Accordion {...props}>
+        <Checkbox
+          label="Error"
+          error
+          onChange={() => setValidationKey("error")}
+          checked={validationKey === "error"}
+          mb={2}
+        />
+        <Checkbox
+          label="Warning"
+          warning
+          onChange={() => setValidationKey("warning")}
+          checked={validationKey === "warning"}
+          mb={2}
+        />
+        <Checkbox
+          label="Info"
+          info
+          onChange={() => setValidationKey("info")}
+          checked={validationKey === "info"}
+          mb={2}
+        />
+      </Accordion>
+    </AccordionGroup>
+  );
+};
+AccordionWithValidations.storyName = "Accordion With Validation";
+AccordionWithValidations.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+export const WithBoxComponentAndDifferentPaddings = () => {
+  const [isOpen, setOpen] = useState(true);
+  return (
+    <>
+      <Accordion
+        expanded={isOpen}
+        onChange={() => {
+          setOpen(!isOpen);
+        }}
+        disableContentPadding
+        headerSpacing={{ p: 2 }}
+        title="Accordion controlled"
+      >
+        <Box p={2} pr="21px">
+          <Box bg="gray">
+            This is example content inside of the Box component with gray
+            background
+          </Box>
+          <Box>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
+            ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
+            diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
+            Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl.
+            Donec semper odio elit, tempus ultrices est molestie id. Ut sit amet
+            sollicitudin ipsum, eu tristique ligula. Praesent velit velit,
+            finibus ut odio sit amet, fringilla iaculis lacus. Aliquam facilisis
+            libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit,
+            ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
+            ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
+            Cras a magna vestibulum, semper tortor id, molestie eros.
+          </Box>
+        </Box>
+      </Accordion>
+      <Accordion
+        disableContentPadding
+        headerSpacing={{ p: 3 }}
+        title="Accordion with a very long title Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in ornare neque. Maecenas pellentesque et erat tincidunt mollis.
+                Etiam diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula. "
+      >
+        <Box p={3} pr="29px">
+          <Box bg="gray">
+            This is example content inside of the Box component with gray
+            background
+          </Box>
+          <Box>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
+            ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
+            diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
+            Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl.
+            Donec semper odio elit, tempus ultrices est molestie id. Ut sit amet
+            sollicitudin ipsum, eu tristique ligula. Praesent velit velit,
+            finibus ut odio sit amet, fringilla iaculis lacus. Aliquam facilisis
+            libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit,
+            ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
+            ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
+            Cras a magna vestibulum, semper tortor id, molestie eros.
+          </Box>
+        </Box>
+      </Accordion>
+      <Accordion
+        disableContentPadding
+        headerSpacing={{ p: 4 }}
+        title="Accordion"
+      >
+        <Box p={4} pr="37px">
+          <Box bg="gray">
+            This is example content inside of the Box component with gray
+            background
+          </Box>
+          <Box>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
+            ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
+            diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
+            Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl.
+            Donec semper odio elit, tempus ultrices est molestie id. Ut sit amet
+            sollicitudin ipsum, eu tristique ligula. Praesent velit velit,
+            finibus ut odio sit amet, fringilla iaculis lacus. Aliquam facilisis
+            libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit,
+            ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
+            ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
+            Cras a magna vestibulum, semper tortor id, molestie eros.
+          </Box>
+        </Box>
+      </Accordion>
+      <Accordion
+        disableContentPadding
+        headerSpacing={{ p: 5 }}
+        title="Accordion"
+      >
+        <Box p={5} pr="45px">
+          <Box bg="gray">
+            This is example content inside of the Box component with gray
+            background
+          </Box>
+          <Box>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
+            ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
+            diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
+            Cras eget lorem aliquam lorem mollis fringilla a sit amet nisl.
+            Donec semper odio elit, tempus ultrices est molestie id. Ut sit amet
+            sollicitudin ipsum, eu tristique ligula. Praesent velit velit,
+            finibus ut odio sit amet, fringilla iaculis lacus. Aliquam facilisis
+            libero nec ipsum tincidunt imperdiet. Ut commodo mi ac odio blandit,
+            ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
+            ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
+            Cras a magna vestibulum, semper tortor id, molestie eros.
+          </Box>
+        </Box>
+      </Accordion>
+    </>
+  );
+};
+WithBoxComponentAndDifferentPaddings.storyName =
+  "With Box Component and Different Padding";
+WithBoxComponentAndDifferentPaddings.parameters = {
+  chromatic: { disableSnapshot: false },
+};
