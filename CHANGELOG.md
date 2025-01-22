@@ -1,3 +1,10 @@
+### [146.4.7](https://github.com/Sage/carbon/compare/v146.4.6...v146.4.7) (2025-01-22)
+
+
+### Bug Fixes
+
+* **search:** search button has a default aria label ([b4ec216](https://github.com/Sage/carbon/commit/b4ec216541850c27956e284b7ab7abc338ce554e)), closes [#7147](https://github.com/Sage/carbon/issues/7147)
+
 ### [146.4.6](https://github.com/Sage/carbon/compare/v146.4.5...v146.4.6) (2025-01-22)
 
 
