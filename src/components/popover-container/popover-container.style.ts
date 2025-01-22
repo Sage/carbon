@@ -32,7 +32,7 @@ const PopoverContainerContentStyle = styled.div<PopoverContainerContentStyleProp
   box-shadow: var(--boxShadow100);
   min-width: 300px;
   position: absolute;
-  z-index: ${({ theme }) => theme.zIndex.popover};
+  z-index: 2000;
 
   ${({ disableAnimation }) =>
     disableAnimation
