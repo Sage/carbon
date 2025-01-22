@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { act, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { enGB } from "locales";
 import Search, { SearchHandle } from "./search.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
@@ -38,7 +39,9 @@ test("the `aria-label` prop passes a custom accessible name to the search input"
 });
 
 test("when the `searchButton` prop is `true`, a button with search icon is shown, and no icon appears in the textbox", () => {
-  render(<Search searchButton value="" />);
+  render(
+    <Search searchButton value="" searchButtonAriaLabel="search button" />,
+  );
 
   const searchButton = screen.getByRole("button", { name: "search button" });
   expect(searchButton).toBeVisible();
@@ -54,7 +57,13 @@ test("when the `searchButton` prop is `true`, a button with search icon is shown
 });
 
 test("when the `searchButton` prop is a string value, a button with search icon is shown, and no icon appears in the textbox", () => {
-  render(<Search searchButton="custom search button" value="" />);
+  render(
+    <Search
+      searchButton="custom search button"
+      value=""
+      searchButtonAriaLabel="search button"
+    />,
+  );
 
   const searchButton = screen.getByRole("button", { name: "search button" });
   expect(searchButton).toBeVisible();
@@ -71,7 +80,7 @@ test("when the `searchButton` prop is a string value, a button with search icon 
 });
 
 test("when the `searchButton` prop is not passed, no button with is shown, and an icon is rendered in the textbox", () => {
-  render(<Search value="" />);
+  render(<Search value="" searchButtonAriaLabel="search button" />);
 
   expect(
     screen.queryByRole("button", { name: "search button" }),
@@ -95,10 +104,14 @@ test("the search button text can be overridden via the locale context", () => {
   expect(screen.getByRole("button")).toHaveTextContent("text override");
 });
 
-test("the search button has a default accessible name of `search button`", () => {
-  render(<Search defaultValue="" searchButton />);
+test("the search button uses the value from the locale context as a default accessible name", () => {
+  render(
+    <I18nProvider locale={enGB}>
+      <Search defaultValue="" value="" searchButton />
+    </I18nProvider>,
+  );
 
-  expect(screen.getByRole("button")).toHaveAccessibleName("search button");
+  expect(screen.getByRole("button")).toHaveAccessibleName("Search");
 });
 
 test("the `searchButtonAriaLabel` prop passes a custom accessible name to the search button", () => {
@@ -243,6 +256,7 @@ test("when the component is controlled, the `onClick` callback prop is called wi
       name="Search"
       onClick={onClick}
       searchButton
+      searchButtonAriaLabel="search button"
     />,
   );
 
@@ -265,6 +279,7 @@ test("when the component is uncontrolled, the `onClick` callback prop is called 
       name="Search"
       onClick={onClick}
       searchButton
+      searchButtonAriaLabel="search button"
     />,
   );
 

@@ -96,7 +96,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       searchWidth,
       maxWidth,
       searchButton,
-      searchButtonAriaLabel = "search button",
+      searchButtonAriaLabel,
       placeholder,
       variant = "default",
       "aria-label": ariaLabel = "search",
@@ -275,7 +275,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         {searchButton && (
           <StyledSearchButton>
             <Button
-              aria-label={searchButtonAriaLabel}
+              aria-label={searchButtonAriaLabel || searchButtonText}
               size="medium"
               px={2}
               buttonType="primary"
