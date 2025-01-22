@@ -34,7 +34,8 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
     React.Children.toArray(children).forEach((child) => {
       if (
         typeof child === "string" ||
-        (React.isValidElement(child) && child.type !== Accordion)
+        (React.isValidElement(child) &&
+          (child.type as React.FunctionComponent).displayName !== "Accordion")
       ) {
         hasAccordionChildren = false;
       }

@@ -52,7 +52,7 @@ export const PicklistGroup = React.forwardRef<
   ) => {
     const { setElementToFocus, elementToFocus } = useContext(FocusContext);
     const [highlighted, setHighlighted] = useState(false);
-    const nodeRef = React.useRef(null);
+    const nodeRef = React.useRef<HTMLLIElement>(null);
     const filteredChildren = React.Children.toArray(children);
 
     const handleClick = useCallback(() => {
