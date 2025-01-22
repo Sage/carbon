@@ -42,7 +42,7 @@ const StyledDialogFullScreen = styled.div<{ pagesStyling?: boolean }>`
     The following CSS is for a legacy use of the Pages component.
     Please do not remove this until Pages has been re-written.
    */
-  ${({ pagesStyling }) =>
+  ${({ pagesStyling, title }) =>
     pagesStyling &&
     css`
       ${StyledContent} {
@@ -58,8 +58,10 @@ const StyledDialogFullScreen = styled.div<{ pagesStyling?: boolean }>`
         z-index: 1;
       }
 
+      /* If the component has a title, we need to keep the same styles. If it does not have a title,
+       we need the padding to compensate for loss of 32px height */
       ${StyledFullScreenHeading} {
-        padding: 32px 32px 0;
+        padding: ${title ? `32px 32px 0` : `64px 32px 0`};
       }
 
       ${StyledHeading} {

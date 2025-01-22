@@ -10,7 +10,7 @@ import Box from "../box";
 
 export default {
   title: "Pages/Test",
-  includeStories: ["DefaultStory", "DifferentPageHeights"],
+  includeStories: ["DefaultStory", "DifferentPageHeights", "TEST_TEST"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -523,5 +523,91 @@ export const DifferentPageHeights = () => {
         </Page>
       </Pages>
     </Box>
+  );
+};
+
+// Story that demonstrates the example of the Page component not having a title.
+// This will need to be given a better name and we must ensure it is captured by Chromatic.
+// You'll need to use the `isChromatic` helper that we use in Dialog for this to work.
+export const TEST_TEST = ({
+  initialPageIndex,
+}: PageStoryProps & Partial<PageProps>) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [pageIndex, setPageIndex] = useState(Number(initialPageIndex) || 0);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const handleCancel = (
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
+  ) => {
+    setIsOpen(false);
+    setPageIndex(0);
+    action("cancel")(ev);
+  };
+  const handleOpen = (
+    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
+    setIsOpen(true);
+    if (!initialPageIndex) {
+      setPageIndex(0);
+    } else setPageIndex(Number(initialPageIndex));
+    action("open")(event);
+  };
+  const handleOnClick = (
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
+    setIsDisabled(true);
+    setPageIndex(pageIndex + 1);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 50);
+    action("click")(ev);
+    action("slide")(`Page index: ${pageIndex + 1}`);
+  };
+  const handleBackClick = (
+    ev:
+      | React.MouseEvent<HTMLAnchorElement>
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
+  ) => {
+    setIsDisabled(true);
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 50);
+    if (!isDisabled) {
+      ev.preventDefault();
+      setPageIndex(pageIndex - 1);
+      action("click")(ev);
+      action("slide")(`Page index: ${pageIndex + 1}`);
+    }
+  };
+  return (
+    <div>
+      <Button onClick={handleOpen}>Open Preview</Button>
+      <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+        <Pages initialpageIndex={initialPageIndex} pageIndex={pageIndex}>
+          <Page>
+            <Button onClick={handleOnClick} disabled={isDisabled}>
+              Go to second page
+            </Button>
+          </Page>
+          <Page>
+            <Button onClick={handleOnClick} disabled={isDisabled}>
+              Go to third page
+            </Button>
+          </Page>
+          <Page
+            title={
+              <Heading
+                title={null}
+                backLink={handleBackClick}
+                divider={false}
+              />
+            }
+          >
+            Third Page
+          </Page>
+        </Pages>
+      </DialogFullScreen>
+    </div>
   );
 };
