@@ -24,7 +24,7 @@ const meta: Meta<typeof Accordion> = {
 export default meta;
 type Story = StoryObj<typeof Accordion>;
 
-export const AccordionDefault: Story = () => {
+export const Default: Story = () => {
   return (
     <Accordion title="Heading">
       <Box mt={2}>Content</Box>
@@ -33,7 +33,7 @@ export const AccordionDefault: Story = () => {
     </Accordion>
   );
 };
-AccordionDefault.storyName = "Default";
+Default.storyName = "Default";
 
 export const WithDisableContentPadding: Story = () => {
   return (
@@ -116,7 +116,7 @@ export const LeftAlignedIcon: Story = () => {
 };
 LeftAlignedIcon.storyName = "Left-Aligned Icon";
 
-export const DifferentWidth: Story = () => {
+export const CustomWidth: Story = () => {
   return (
     <Accordion width="500px" title="Heading">
       <Box mt={2}>Content</Box>
@@ -125,65 +125,65 @@ export const DifferentWidth: Story = () => {
     </Accordion>
   );
 };
-DifferentWidth.storyName = "Custom Width";
+CustomWidth.storyName = "Custom Width";
 
-export const WithDifferentPaddingAndMargin: Story = () => {
+export const WithCustomPaddingAndMargins: Story = () => {
   return (
     <>
-      <Accordion m={0} p={0} title="Accordion">
+      <Accordion m={0} p={0} title="First Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion m={1} p={1} title="Accordion">
+      <Accordion m={1} p={1} title="Second Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion m={2} p={2} title="Accordion">
+      <Accordion m={2} p={2} title="Third Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion m={3} p={3} title="Accordion">
+      <Accordion m={3} p={3} title="Fourth Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion m={4} p={4} title="Accordion">
+      <Accordion m={4} p={4} title="Fifth Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion m={5} p={5} title="Accordion">
+      <Accordion m={5} p={5} title="Sixth Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion m={6} p={6} title="Accordion">
+      <Accordion m={6} p={6} title="Seventh Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
     </>
   );
 };
-WithDifferentPaddingAndMargin.storyName = "With Custom Padding And Margins";
+WithCustomPaddingAndMargins.storyName = "With Custom Padding And Margins";
 
-export const WithDifferentPaddingAndMarginInAccordionTitle: Story = () => {
+export const WithCustomTitlePaddingAndMargins: Story = () => {
   return (
     <>
-      <Accordion headerSpacing={{ p: 0 }} title="Accordion">
+      <Accordion headerSpacing={{ p: 0 }} title="First Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion headerSpacing={{ p: 1 }} title="Accordion">
+      <Accordion headerSpacing={{ p: 1 }} title="Second Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion headerSpacing={{ p: 2 }} title="Accordion">
+      <Accordion headerSpacing={{ p: 2 }} title="Third Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion headerSpacing={{ p: 3 }} title="Accordion">
+      <Accordion headerSpacing={{ p: 3 }} title="Fourth Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion headerSpacing={{ p: 4 }} title="Accordion">
+      <Accordion headerSpacing={{ p: 4 }} title="Fifth Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion headerSpacing={{ p: 5 }} title="Accordion">
+      <Accordion headerSpacing={{ p: 5 }} title="Sixth Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
-      <Accordion headerSpacing={{ p: 6 }} title="Accordion">
+      <Accordion headerSpacing={{ p: 6 }} title="Seventh Accordion">
         <Box mt={2}>content</Box>
       </Accordion>
     </>
   );
 };
-WithDifferentPaddingAndMarginInAccordionTitle.storyName =
+WithCustomTitlePaddingAndMargins.storyName =
   "With Custom Title Padding And Margins";
 
 export const Grouped: Story = () => {
@@ -212,15 +212,47 @@ export const Grouped: Story = () => {
 Grouped.storyName = "Grouped";
 
 export const WithValidationIcon: Story = () => {
+  const [firstAccordionExpanded, setFirstAccordionExpanded] =
+    useState<boolean>(true);
+  const [secondAccordionExpanded, setSecondAccordionExpanded] =
+    useState<boolean>(true);
+  const [thirdAccordionExpanded, setThirdAccordionExpanded] =
+    useState<boolean>(true);
+
+  const toggleFirstAccordion = () => {
+    setFirstAccordionExpanded(!firstAccordionExpanded);
+  };
+  const toggleSecondAccordion = () => {
+    setSecondAccordionExpanded(!secondAccordionExpanded);
+  };
+  const toggleThirdAccordion = () => {
+    setThirdAccordionExpanded(!thirdAccordionExpanded);
+  };
+
   return (
     <AccordionGroup>
-      <Accordion title="Heading" expanded error="This is an error state">
+      <Accordion
+        title="First Heading"
+        expanded={firstAccordionExpanded}
+        onChange={toggleFirstAccordion}
+        error="This is an error state"
+      >
         <Typography>Content</Typography>
       </Accordion>
-      <Accordion title="Heading" expanded warning="This is a warning state">
+      <Accordion
+        title="Second Heading"
+        expanded={secondAccordionExpanded}
+        onChange={toggleSecondAccordion}
+        warning="This is a warning state"
+      >
         <Typography>Content</Typography>
       </Accordion>
-      <Accordion title="Heading" expanded info="This is an info state">
+      <Accordion
+        title="Third Heading"
+        expanded={thirdAccordionExpanded}
+        onChange={toggleThirdAccordion}
+        info="This is an info state"
+      >
         <Typography>Content</Typography>
       </Accordion>
     </AccordionGroup>
@@ -257,7 +289,7 @@ export const WithDynamicContent: Story = () => {
 };
 WithDynamicContent.storyName = "With Dynamic Content";
 
-export const AccordionSubtle: Story = () => {
+export const SubtleVariant: Story = () => {
   return (
     <Accordion title="Heading" variant="subtle">
       <Box>Content</Box>
@@ -266,4 +298,4 @@ export const AccordionSubtle: Story = () => {
     </Accordion>
   );
 };
-AccordionSubtle.storyName = "Subtle Variant";
+SubtleVariant.storyName = "Subtle Variant";
