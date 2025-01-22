@@ -99,8 +99,10 @@ const ActionPopoverMenu = React.forwardRef<
       const incorrectChild = React.Children.toArray(children).find(
         (child: React.ReactNode) =>
           !React.isValidElement(child) ||
-          (child.type !== ActionPopoverItem &&
-            child.type !== ActionPopoverDivider),
+          ((child.type as React.FunctionComponent).displayName !==
+            "ActionPopoverItem" &&
+            (child.type as React.FunctionComponent).displayName !==
+              "ActionPopoverDivider"),
       );
 
       return !incorrectChild;
