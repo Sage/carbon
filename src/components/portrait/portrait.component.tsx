@@ -3,7 +3,9 @@ import { MarginProps } from "styled-system";
 
 import { IconType } from "../icon";
 import Tooltip from "../tooltip";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 
 import {
   StyledCustomImg,
@@ -17,7 +19,9 @@ export type PortraitShapes = "circle" | "square";
 
 export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 
-export interface PortraitProps extends MarginProps {
+export interface PortraitProps
+  extends MarginProps,
+    Omit<TagProps, "data-component"> {
   /** A custom image URL. */
   src?: string;
   /** The size of the Portrait. */
