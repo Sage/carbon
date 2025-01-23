@@ -15,30 +15,33 @@ export default (
             /* istanbul ignore next */ [],
         );
 
+        const filteredFocusableElements = focusableElementsInContainer.filter(
+          (el) => Number(el.tabIndex) !== -1,
+        );
+
         if (target?.current === document.activeElement) {
           if (
             Events.isTabKey(ev) &&
             !Events.isShiftKey(ev) &&
-            focusableElementsInContainer[0]
+            filteredFocusableElements[0]
           ) {
             ev.preventDefault();
-            focusableElementsInContainer[0]?.focus();
+            filteredFocusableElements[0]?.focus();
           }
 
           return;
         }
 
         /* istanbul ignore if */
-        if (!focusableElementsInContainer.length) {
+        if (!filteredFocusableElements.length) {
           return;
         }
 
         const lastElementFocused =
-          focusableElementsInContainer[
-            focusableElementsInContainer.length - 1
-          ] === document.activeElement;
+          filteredFocusableElements[filteredFocusableElements.length - 1] ===
+          document.activeElement;
         const firstElementFocused =
-          focusableElementsInContainer[0] === document.activeElement;
+          filteredFocusableElements[0] === document.activeElement;
 
         if (Events.isTabKey(ev)) {
           // last element focused inside portal navigate to next element in DOM after the target/ trigger element

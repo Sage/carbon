@@ -252,6 +252,7 @@ export const WithFullWidthButton = () => {
   return (
     <PopoverContainer
       title="This is the title"
+      hasFullWidth
       renderOpenComponent={({ ref, ...rest }) => (
         <Button
           iconPosition="after"
