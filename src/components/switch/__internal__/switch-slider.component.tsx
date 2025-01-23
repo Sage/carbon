@@ -66,7 +66,11 @@ const SwitchSlider = ({
 
   const sliderContent = (
     <SwitchSliderPanel data-role="slider-panel" {...sliderPanelStyleProps}>
-      {loading ? <Loader {...loaderProps} /> : panelContent}
+      {loading ? (
+        <Loader data-role="switch-slider-loader" {...loaderProps} />
+      ) : (
+        panelContent
+      )}
     </SwitchSliderPanel>
   );
 

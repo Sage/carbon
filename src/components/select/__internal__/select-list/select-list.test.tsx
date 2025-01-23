@@ -81,7 +81,7 @@ describe("rendered content", () => {
       </SelectListWithInput>,
     );
 
-    expect(screen.getByRole("progressbar", { name: "Loading" })).toBeVisible();
+    expect(screen.getByTestId("select-list-loader")).toBeVisible();
   });
 
   it("renders options in a table layout when multiColumn prop is true", () => {

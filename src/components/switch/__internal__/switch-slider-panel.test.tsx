@@ -17,7 +17,7 @@ beforeEach(() => {
 test("when `loading` is true, the correct Loader styles are applied", () => {
   render(<Switch onChange={() => {}} loading />);
 
-  const loaderElement = screen.getByRole("progressbar");
+  const loaderElement = screen.getByTestId("switch-slider-loader");
 
   expect(loaderElement).toBeVisible();
   expect(loaderElement).toHaveStyle({
