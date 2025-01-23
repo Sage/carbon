@@ -1,3 +1,17 @@
+## [146.5.0](https://github.com/Sage/carbon/compare/v146.4.7...v146.5.0) (2025-01-23)
+
+
+### Features
+
+* **popover-container:** add hasFullWidth prop ([9a20414](https://github.com/Sage/carbon/commit/9a2041408005b100b38bedb243e804f8240f93c1))
+* **popover-container:** allow open button to be focused programmatically ([335fde3](https://github.com/Sage/carbon/commit/335fde396ff77b49ed98c92d2c9a836574c9a197))
+
+
+### Bug Fixes
+
+* **popover-container:** ensure Form with stickyFooter has overflow styling ([88ef403](https://github.com/Sage/carbon/commit/88ef403019c431297c7e3aa787b919ac739a6bcd))
+* **popover-container:** ensure popup is accessible to screen readers ([6f543d2](https://github.com/Sage/carbon/commit/6f543d2ae95df6252f2f15ca917c056059925f51)), closes [#7133](https://github.com/Sage/carbon/issues/7133)
+
 ### [146.4.7](https://github.com/Sage/carbon/compare/v146.4.6...v146.4.7) (2025-01-22)
 
 
