@@ -44,7 +44,9 @@ const DraggableContainer = ({
 
   const hasProperChildren = useMemo(() => {
     const invalidChild = React.Children.toArray(children).find(
-      (child) => !React.isValidElement(child) || child.type !== DraggableItem,
+      (child) =>
+        !React.isValidElement(child) ||
+        (child.type as React.FunctionComponent).displayName !== "DraggableItem",
     );
     return !invalidChild;
   }, [children]);

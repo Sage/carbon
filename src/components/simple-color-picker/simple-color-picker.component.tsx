@@ -79,7 +79,8 @@ export const SimpleColorPicker = React.forwardRef<
     const invalidChild = React.Children.toArray(children).find((child) => {
       return (
         typeof child === "string" ||
-        (React.isValidElement(child) && child.type !== SimpleColor)
+        (React.isValidElement(child) &&
+          (child.type as React.FunctionComponent).displayName !== "SimpleColor")
       );
     });
 

@@ -84,7 +84,8 @@ const ButtonToggleGroup = ({
   const hasCorrectItemStructure = useMemo(() => {
     const incorrectChild = React.Children.toArray(children).find(
       (child: React.ReactNode) =>
-        !React.isValidElement(child) || child.type !== ButtonToggle,
+        !React.isValidElement(child) ||
+        (child.type as React.FunctionComponent).displayName !== "ButtonToggle",
     );
     return !incorrectChild;
   }, [children]);

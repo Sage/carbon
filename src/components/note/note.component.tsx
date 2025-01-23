@@ -15,7 +15,7 @@ import StatusIcon from "./__internal__/status-icon";
 import { ActionPopover } from "../action-popover";
 import { getDecoratedValue } from "../text-editor/__internal__/utils";
 import EditorContext from "../text-editor/__internal__/editor.context";
-import LinkPreview from "../link-preview";
+import LinkPreview, { LinkPreviewProps } from "../link-preview";
 import Typography from "../typography";
 
 export interface NoteProps extends MarginProps {
@@ -40,6 +40,13 @@ export interface NoteProps extends MarginProps {
   title?: React.ReactNode;
   /** Set a percentage-based width for the whole Note component, relative to its parent. */
   width?: number;
+}
+
+function hasExpectedDisplayName(
+  child: React.ReactElement,
+  displayName: string,
+) {
+  return (child.type as React.FunctionComponent).displayName === displayName;
 }
 
 export const Note = ({
@@ -109,13 +116,12 @@ export const Note = ({
 
         <StyledNoteContent>
           {React.Children.map(previews, (preview) =>
-            React.isValidElement<React.ComponentProps<typeof LinkPreview>>(
-              preview,
-            ) && preview.type === LinkPreview
-              ? React.cloneElement(preview, {
-                  as: "a",
-                  onClose: undefined,
-                })
+            React.isValidElement(preview) &&
+            hasExpectedDisplayName(preview, LinkPreview.displayName)
+              ? React.cloneElement<LinkPreviewProps>(
+                  preview as React.ReactElement<LinkPreviewProps>,
+                  { as: "a", onClose: undefined },
+                )
               : preview,
           )}
         </StyledNoteContent>
