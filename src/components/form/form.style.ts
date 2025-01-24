@@ -89,7 +89,7 @@ export const StyledForm = styled.form<StyledFormProps>`
     `}
 
   // field spacing is also applied to form field here so we need to override
-  ${StyledSearch} ${StyledFormField}, ${StyledTextarea} ${StyledFormField} {
+  ${StyledSearch} ${StyledFormField}, ${StyledTextarea} ${StyledFormField}, [data-component="time"] ${StyledFormField} {
     margin-bottom: var(--spacing000);
   }
 
