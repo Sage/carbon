@@ -1,3 +1,10 @@
+### [146.5.1](https://github.com/Sage/carbon/compare/v146.5.0...v146.5.1) (2025-01-24)
+
+
+### Bug Fixes
+
+* **form:** ensure that additional margin-bottom is not applied to Time component ([98cdaae](https://github.com/Sage/carbon/commit/98cdaae86e47bd44d00a202cefe22cc53f31aa98)), closes [#7164](https://github.com/Sage/carbon/issues/7164)
+
 ## [146.5.0](https://github.com/Sage/carbon/compare/v146.4.7...v146.5.0) (2025-01-23)
 
 
