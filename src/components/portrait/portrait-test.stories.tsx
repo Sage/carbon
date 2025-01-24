@@ -6,7 +6,7 @@ import Portrait, { PortraitProps } from "./portrait.component";
 
 export default {
   title: "Portrait/Test",
-  includeStories: ["Default"],
+  includeStories: ["Default", "CustomColors"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -32,6 +32,16 @@ export default {
         type: "select",
       },
     },
+    backgroundColor: {
+      control: {
+        type: "color",
+      },
+    },
+    foregroundColor: {
+      control: {
+        type: "color",
+      },
+    },
   },
 };
 
@@ -48,6 +58,30 @@ Default.args = {
   iconType: undefined,
   size: "M",
   shape: "circle",
+};
+
+export const CustomColors = ({
+  backgroundColor,
+  foregroundColor,
+  ...args
+}: PortraitProps) => (
+  <Portrait
+    onClick={action("click")}
+    backgroundColor={backgroundColor}
+    foregroundColor={foregroundColor}
+    {...args}
+  />
+);
+
+CustomColors.storyName = "Custom Colors";
+CustomColors.args = {
+  src: "",
+  initials: "",
+  iconType: "accessibility_web",
+  size: "M",
+  shape: "circle",
+  backgroundColor: "#000000",
+  foregroundColor: "#FFFFFF",
 };
 
 export const PortraitDefaultComponent = ({ ...props }) => {
