@@ -5,11 +5,25 @@ import { TransitionStatus } from "react-transition-group";
 import { baseTheme } from "../../style/themes";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
+import {
+  StyledForm,
+  StyledFormContent,
+  StyledFormFooter,
+} from "../form/form.style";
 
-const PopoverContainerWrapperStyle = styled.div`
+type PopoverContainerWrapperProps = {
+  hasFullWidth?: boolean;
+};
+
+const PopoverContainerWrapperStyle = styled.div<PopoverContainerWrapperProps>`
   position: relative;
   display: inline-block;
-  width: 100%;
+
+  ${({ hasFullWidth }) =>
+    hasFullWidth &&
+    css`
+      width: 100%;
+    `}
 `;
 
 const PopoverContainerHeaderStyle = styled.div`
@@ -70,6 +84,25 @@ const PopoverContainerContentStyle = styled.div<PopoverContainerContentStyleProp
 
   :focus {
     outline: none;
+  }
+
+  &:has(${StyledForm}.sticky) {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+
+    ${StyledForm}.sticky {
+      ${StyledFormContent} {
+        flex-grow: 1;
+        min-height: 0;
+        overflow-y: auto;
+      }
+
+      ${StyledFormFooter} {
+        border-bottom-right-radius: var(--borderRadius200);
+        border-bottom-left-radius: var(--borderRadius200);
+      }
+    }
   }
 `;
 
