@@ -1,3 +1,10 @@
+### [146.5.2](https://github.com/Sage/carbon/compare/v146.5.1...v146.5.2) (2025-01-24)
+
+
+### Bug Fixes
+
+* **flex-tile-divider:** add aria-hidden attribute to hr element ([f198c2e](https://github.com/Sage/carbon/commit/f198c2e56737d1294c767b8c56981acc4c1f2938)), closes [#7173](https://github.com/Sage/carbon/issues/7173)
+
 ### [146.5.1](https://github.com/Sage/carbon/compare/v146.5.0...v146.5.1) (2025-01-24)
 
 
