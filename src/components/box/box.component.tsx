@@ -61,7 +61,7 @@ export interface BoxProps
   rowGap?: Gap;
   /** Design Token for Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Box component. */
   boxShadow?: BoxShadowsType;
-  /** Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. **This prop will not do anything if you have the roundedCornerOptOut flag set in the CarbonProvider** */
+  /** Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. */
   borderRadius?: BorderRadiusType;
   /** @private @ignore */
   className?: string;
