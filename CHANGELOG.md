@@ -1,3 +1,10 @@
+### [146.5.3](https://github.com/Sage/carbon/compare/v146.5.2...v146.5.3) (2025-01-27)
+
+
+### Bug Fixes
+
+* **tabs-header:** padding to be removed ([2598bab](https://github.com/Sage/carbon/commit/2598bab7d968f6b2e978a0f1055d64b1e7104426)), closes [#7145](https://github.com/Sage/carbon/issues/7145)
+
 ### [146.5.2](https://github.com/Sage/carbon/compare/v146.5.1...v146.5.2) (2025-01-24)
 
 
