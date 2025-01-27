@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, useContext } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import {
   FlexboxProps,
   LayoutProps,
@@ -142,16 +142,25 @@ export const MenuItem = ({
   const { isChildOfSegment, overriddenVariant } =
     useContext<MenuSegmentContextProps>(MenuSegmentContext);
 
-  const { inFullscreenView, registerItem, unregisterItem, focusId, menuType } =
-    useContext<MenuContextProps>(MenuContext);
+  const {
+    inFullscreenView,
+    registerItem,
+    unregisterItem,
+    focusId,
+    updateFocusId,
+    menuType,
+  } = useContext<MenuContextProps>(MenuContext);
   const menuItemId = useRef(guid());
+
   const submenuContext = useContext<SubmenuContextProps>(SubmenuContext);
+  const isInSubmenu = Object.keys(submenuContext).length > 0;
   const {
     submenuFocusId,
     updateFocusId: updateSubmenuFocusId,
     handleKeyDown: handleSubmenuKeyDown,
     submenuHasMaxWidth,
   } = submenuContext;
+
   const ref = useRef<HTMLAnchorElement>(null);
   const focusFromMenu = focusId === menuItemId.current;
   const focusFromSubmenu = submenuFocusId
@@ -184,14 +193,15 @@ export const MenuItem = ({
       focusRef.current?.focus();
   }, [focusFromMenu, focusFromSubmenu, focusRef]);
 
-  const updateFocusOnClick = useCallback(() => {
-    if (updateSubmenuFocusId) {
-      updateSubmenuFocusId(menuItemId.current);
+  const handleFocus = (
+    event: React.FocusEvent<HTMLDivElement | HTMLLIElement>,
+  ) => {
+    if (isInSubmenu) {
+      event.stopPropagation();
+      updateSubmenuFocusId?.(menuItemId.current);
+    } else {
+      updateFocusId?.(menuItemId.current);
     }
-  }, [updateSubmenuFocusId]);
-
-  const handleFocus = () => {
-    updateSubmenuFocusId?.(menuItemId.current);
   };
 
   const handleKeyDown = (
@@ -247,11 +257,11 @@ export const MenuItem = ({
         menuType={menuType}
         title={getTitle(submenu)}
         maxWidth={itemMaxWidth}
-        onClick={updateFocusOnClick}
         {...rest}
         inFullscreenView={inFullscreenView}
         id={menuItemId.current}
         as={as}
+        onFocus={handleFocus}
       >
         <Submenu
           {...(typeof submenu !== "boolean" && { title: submenu })}
@@ -282,13 +292,12 @@ export const MenuItem = ({
       data-element={dataElement}
       data-role={dataRole}
       menuType={menuType}
-      inSubmenu={!!handleSubmenuKeyDown}
+      inSubmenu={isInSubmenu}
       title={getTitle(children)}
       maxWidth={itemMaxWidth}
       {...rest}
       inFullscreenView={inFullscreenView && !Object.keys(submenuContext).length}
       id={menuItemId.current}
-      onClick={updateFocusOnClick}
       as={as}
       onFocus={handleFocus}
     >
@@ -305,7 +314,7 @@ export const MenuItem = ({
         {...paddingProps}
         asDiv={hasInput || as === "div"}
         hasInput={hasInput}
-        inSubmenu={!!handleSubmenuKeyDown}
+        inSubmenu={isInSubmenu}
       >
         {children}
       </StyledMenuItemWrapper>

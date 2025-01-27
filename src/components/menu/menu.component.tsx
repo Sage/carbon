@@ -81,6 +81,7 @@ export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
           openSubmenuId,
           setOpenSubmenuId,
           focusId,
+          updateFocusId: setFocusId,
           registerItem,
           unregisterItem,
         }}

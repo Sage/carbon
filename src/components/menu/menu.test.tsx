@@ -232,3 +232,107 @@ test("should apply the expected `data-` tags as attributes", () => {
   expect(menu).toHaveAttribute("data-element", "bar");
   expect(menu).toHaveAttribute("data-role", "baz");
 });
+
+test("focus state remains consistent across Tab and Home key presses", async () => {
+  const user = userEvent.setup();
+  render(
+    <Menu>
+      <MenuItem href="#">One</MenuItem>
+      <MenuItem href="#">Two</MenuItem>
+      <MenuItem href="#">Three</MenuItem>
+      <MenuItem href="#">Four</MenuItem>
+    </Menu>,
+  );
+
+  await user.tab();
+  await user.keyboard("{Home}");
+
+  expect(screen.getByRole("link", { name: "One" })).toHaveFocus();
+
+  await user.tab();
+  await user.keyboard("{Home}");
+
+  expect(screen.getByRole("link", { name: "One" })).toHaveFocus();
+});
+
+test("focus state remains consistent across Shift+Tab and End key presses", async () => {
+  const user = userEvent.setup();
+  render(
+    <Menu>
+      <MenuItem href="#">One</MenuItem>
+      <MenuItem href="#">Two</MenuItem>
+      <MenuItem href="#">Three</MenuItem>
+      <MenuItem href="#">Four</MenuItem>
+    </Menu>,
+  );
+
+  await user.tab();
+
+  await user.keyboard("{End}");
+  await user.tab({ shift: true });
+
+  expect(screen.getByRole("link", { name: "Three" })).toHaveFocus();
+
+  await user.keyboard("{End}");
+  await user.tab({ shift: true });
+
+  expect(screen.getByRole("link", { name: "Three" })).toHaveFocus();
+});
+
+test("focus state in a submenu remains consistent across Tab and Home key presses", async () => {
+  const user = userEvent.setup();
+  render(
+    <Menu>
+      <MenuItem submenu="Submenu">
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
+        <MenuItem href="#">Cherry</MenuItem>
+        <MenuItem href="#">Orange</MenuItem>
+        <MenuItem href="#">Strawberry</MenuItem>
+      </MenuItem>
+    </Menu>,
+  );
+
+  const submenuParentItem = screen.getByRole("button", { name: "Submenu" });
+  await user.click(submenuParentItem);
+  await user.keyboard("{ArrowDown}");
+
+  await user.tab();
+  await user.keyboard("{Home}");
+
+  expect(screen.getByRole("link", { name: "Apple" })).toHaveFocus();
+
+  await user.tab();
+  await user.keyboard("{Home}");
+
+  expect(screen.getByRole("link", { name: "Apple" })).toHaveFocus();
+});
+
+test("focus state in a submenu remains consistent across Shift+Tab and End key presses", async () => {
+  const user = userEvent.setup();
+  render(
+    <Menu>
+      <MenuItem submenu="Submenu">
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
+        <MenuItem href="#">Cherry</MenuItem>
+        <MenuItem href="#">Orange</MenuItem>
+        <MenuItem href="#">Strawberry</MenuItem>
+      </MenuItem>
+    </Menu>,
+  );
+
+  const submenuParentItem = screen.getByRole("button", { name: "Submenu" });
+  await user.click(submenuParentItem);
+  await user.keyboard("{ArrowDown}");
+
+  await user.keyboard("{End}");
+  await user.tab({ shift: true });
+
+  expect(screen.getByRole("link", { name: "Orange" })).toHaveFocus();
+
+  await user.keyboard("{End}");
+  await user.tab({ shift: true });
+
+  expect(screen.getByRole("link", { name: "Orange" })).toHaveFocus();
+});
