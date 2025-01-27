@@ -80,11 +80,23 @@ const Popover = ({
   const { isInModal } = useContext<ModalContextProps>(ModalContext);
   const candidateNode = reference.current?.closest("[role='dialog']");
   const mountNode = isInModal && candidateNode ? candidateNode : document.body;
+  const previousMountNode = useRef(mountNode);
 
-  if (!elementDOM.current && !disablePortal) {
-    elementDOM.current = document.createElement("div");
-    mountNode.appendChild(elementDOM.current);
-  }
+  useEffect(() => {
+    if (!disablePortal && !elementDOM.current) {
+      const newDiv = document.createElement("div");
+      previousMountNode.current = mountNode;
+      previousMountNode.current.appendChild(newDiv);
+      elementDOM.current = newDiv;
+    }
+
+    return () => {
+      if (!disablePortal && elementDOM.current) {
+        previousMountNode.current.removeChild(elementDOM.current);
+        elementDOM.current = null;
+      }
+    };
+  }, [disablePortal, mountNode]);
 
   const childRef =
     childRefOverride ||
@@ -110,15 +122,6 @@ const Popover = ({
     strategy: popoverStrategy,
   });
 
-  useEffect(() => {
-    return () => {
-      if (!disablePortal && elementDOM.current) {
-        mountNode.removeChild(elementDOM.current);
-        elementDOM.current = null;
-      }
-    };
-  }, [disablePortal, mountNode]);
-
   if (!disableBackgroundUI) {
     content = (
       <StyledPopoverContent isOpen={isOpen}>{content}</StyledPopoverContent>
@@ -133,7 +136,7 @@ const Popover = ({
     );
   }
 
-  if (disablePortal) {
+  if (disablePortal || !elementDOM.current) {
     return content;
   }
 
