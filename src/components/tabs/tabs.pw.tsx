@@ -159,7 +159,7 @@ test.describe("Tabs component", () => {
   (
     [
       [true, 1358],
-      [false, 380],
+      [false, 340],
     ] as [boolean, number][]
   ).forEach(([bool, width]) => {
     test(`should render Tabs with extendedLine prop set to ${bool}`, async ({
