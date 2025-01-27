@@ -328,11 +328,13 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
 
           if (Events.isHomeKey(event)) {
             event.preventDefault();
+            event.stopPropagation();
             nextIndex = 0;
           }
 
           if (Events.isEndKey(event)) {
             event.preventDefault();
+            event.stopPropagation();
             nextIndex = numberOfChildren - 1;
           }
 
