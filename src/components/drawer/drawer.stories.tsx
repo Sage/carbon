@@ -32,6 +32,9 @@ const meta: Meta<typeof Drawer> = {
     chromatic: {
       disableSnapshot: false,
     },
+    controls: {
+      exclude: ["title", "footer", "sidebar", "onChange"],
+    },
   },
 };
 
@@ -41,9 +44,6 @@ type Story = StoryObj<typeof Drawer>;
 export const Default: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
-      sidebarAriaLabel="default"
-      expandedWidth="40%"
-      animationDuration="0.5s"
       sidebar={
         <ul>
           <li>link a</li>
@@ -59,11 +59,16 @@ export const Default: Story = (args: DrawerProps) => (
   </Box>
 );
 Default.storyName = "Default";
+Default.args = {
+  expandedWidth: "40%",
+  animationDuration: "0.5s",
+  sidebarAriaLabel: "default",
+  expanded: true,
+};
 
 export const CustomHeight: Story = (args: DrawerProps) => (
   <Drawer
     height="230px"
-    defaultExpanded
     sidebar={
       <ul>
         <li>link a</li>
@@ -82,6 +87,7 @@ CustomHeight.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
   sidebarAriaLabel: "custom height",
+  expanded: true,
 };
 
 export const BackgroundColorRed: Story = (args: DrawerProps) => (
@@ -107,6 +113,7 @@ BackgroundColorRed.args = {
   animationDuration: "0.5s",
   sidebarAriaLabel: "custom background color red",
   backgroundColor: "#FF0000",
+  expanded: true,
 };
 
 export const BackgroundColorWhite: Story = (args: DrawerProps) => (
@@ -132,6 +139,7 @@ BackgroundColorWhite.args = {
   animationDuration: "0.5s",
   sidebarAriaLabel: "custom background color white",
   backgroundColor: "#FFFFFF",
+  expanded: true,
 };
 
 export const BackgroundColorTransparent: Story = (args: DrawerProps) => (
@@ -157,13 +165,12 @@ BackgroundColorTransparent.args = {
   animationDuration: "0.5s",
   sidebarAriaLabel: "custom background color transparent",
   backgroundColor: "transparent",
+  expanded: true,
 };
 
 export const Title: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
-      expandedWidth="40%"
-      animationDuration="0.5s"
       title={<Typography variant="h2">Drawer title</Typography>}
       sidebar={
         <ul>
@@ -180,13 +187,15 @@ export const Title: Story = (args: DrawerProps) => (
   </Box>
 );
 Title.storyName = "Title";
+Title.args = {
+  expandedWidth: "40%",
+  animationDuration: "0.5s",
+  expanded: true,
+};
 
 export const WithSidebarAriaLabel: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
-      expandedWidth="40%"
-      animationDuration="0.5s"
-      sidebarAriaLabel="sidebar aria label"
       sidebar={
         <ul>
           <li>link a</li>
@@ -202,11 +211,16 @@ export const WithSidebarAriaLabel: Story = (args: DrawerProps) => (
   </Box>
 );
 WithSidebarAriaLabel.storyName = "Sidebar Aria Label";
+WithSidebarAriaLabel.args = {
+  expandedWidth: "40%",
+  animationDuration: "0.5s",
+  sidebarAriaLabel: "sidebar aria label",
+  expanded: true,
+};
 
 export const WithControls: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
-      showControls
       sidebar={
         <ul>
           <li>link a</li>
@@ -226,16 +240,14 @@ WithControls.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
   sidebarAriaLabel: "with controls",
+  showControls: true,
+  expanded: true,
 };
 
-export const WithStickyHeader: Story = () => (
+export const WithStickyHeader: Story = (args: DrawerProps) => (
   <Box height="400px">
     <Drawer
       title={<Typography variant="h2">Sticky Header</Typography>}
-      stickyHeader
-      showControls
-      expandedWidth="40%"
-      animationDuration="0.5s"
       sidebar={
         <>
           <Checkbox
@@ -295,6 +307,7 @@ export const WithStickyHeader: Story = () => (
           />
         </>
       }
+      {...args}
     >
       content body content body content body content body content body content
       body content body
@@ -302,15 +315,18 @@ export const WithStickyHeader: Story = () => (
   </Box>
 );
 WithStickyHeader.storyName = "With Sticky Header";
+WithStickyHeader.args = {
+  expandedWidth: "40%",
+  animationDuration: "0.5s",
+  stickyHeader: true,
+  showControls: true,
+  expanded: true,
+};
 
-export const WithFooter: Story = () => (
+export const WithFooter: Story = (args: DrawerProps) => (
   <Box height="400px">
     <Drawer
       title={<Typography variant="h2">With Footer</Typography>}
-      stickyHeader
-      showControls
-      expandedWidth="40%"
-      animationDuration="0.5s"
       footer={
         <Box display="flex" justifyContent="flex-end">
           <Button mr="16px">Cancel</Button>
@@ -378,6 +394,7 @@ export const WithFooter: Story = () => (
           />
         </>
       }
+      {...args}
     >
       content body content body content body content body content body content
       body content body
@@ -385,16 +402,18 @@ export const WithFooter: Story = () => (
   </Box>
 );
 WithFooter.storyName = "With Footer";
+WithFooter.args = {
+  expandedWidth: "40%",
+  animationDuration: "0.5s",
+  stickyHeader: true,
+  showControls: true,
+  expanded: true,
+};
 
-export const WithStickyFooter: Story = () => (
+export const WithStickyFooter: Story = (args: DrawerProps) => (
   <Box height="400px">
     <Drawer
       title={<Typography variant="h2">Sticky Footer</Typography>}
-      stickyHeader
-      stickyFooter
-      showControls
-      expandedWidth="40%"
-      animationDuration="0.5s"
       footer={
         <Box display="flex" justifyContent="flex-end">
           <Button mr="16px">Cancel</Button>
@@ -462,6 +481,7 @@ export const WithStickyFooter: Story = () => (
           />
         </>
       }
+      {...args}
     >
       content body content body content body content body content body content
       body content body
@@ -469,6 +489,14 @@ export const WithStickyFooter: Story = () => (
   </Box>
 );
 WithStickyFooter.storyName = "With Sticky Footer";
+WithStickyFooter.args = {
+  expandedWidth: "40%",
+  animationDuration: "0.5s",
+  stickyHeader: true,
+  stickyFooter: true,
+  showControls: true,
+  expanded: true,
+};
 
 export const CustomSidebar: Story = (args: DrawerProps) => {
   const rows = [
@@ -610,7 +638,6 @@ export const CustomSidebar: Story = (args: DrawerProps) => {
   return (
     <Box>
       <Drawer
-        defaultExpanded
         sidebar={
           <FlatTable
             height="calc(100vh - 70px)"
@@ -655,12 +682,12 @@ CustomSidebar.args = {
   expandedWidth: "35%",
   animationDuration: "0.5s",
   sidebarAriaLabel: "custom sidebar",
+  expanded: true,
 };
 
 export const CustomContent: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
-      sidebarAriaLabel="custom content"
       sidebar={
         <ul>
           <li>link a</li>
@@ -763,6 +790,8 @@ CustomContent.storyName = "Custom Content";
 CustomContent.args = {
   expandedWidth: "20%",
   animationDuration: "0.5s",
+  sidebarAriaLabel: "custom content",
+  expanded: true,
 };
 
 export const DifferentExpandedWidth: Story = () => {
@@ -836,7 +865,7 @@ export const DifferentAnimationSpeed: Story = () => {
 };
 DifferentAnimationSpeed.storyName = "Different Animation Speed";
 
-export const Controlled: Story = (args: DrawerProps) => {
+export const Controlled: Story = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const onChangeHandler = useCallback(() => {
     setIsExpanded(!isExpanded);
@@ -852,6 +881,8 @@ export const Controlled: Story = (args: DrawerProps) => {
           backgroundColor="#FFF000"
           title={<h2>Controlled Usage Drawer</h2>}
           showControls
+          expandedWidth="40%"
+          animationDuration="0.5s"
           expanded={isExpanded}
           onChange={onChangeHandler}
           sidebar={
@@ -861,7 +892,6 @@ export const Controlled: Story = (args: DrawerProps) => {
               <li>link c</li>
             </ul>
           }
-          {...args}
         >
           content body content body content body content body content body
           content body content body
@@ -871,10 +901,6 @@ export const Controlled: Story = (args: DrawerProps) => {
   );
 };
 Controlled.storyName = "Controlled";
-Controlled.args = {
-  expandedWidth: "40%",
-  animationDuration: "0.5s",
-};
 
 export const SideViewNavigation: Story = () => {
   type dataPropTypes = {
