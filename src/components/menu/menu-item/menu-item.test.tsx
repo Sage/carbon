@@ -472,36 +472,7 @@ describe("when MenuItem has a submenu", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("should focus the last item when the user presses the 'End' key and first when they press the 'Home' key", async () => {
-    const user = userEvent.setup();
-    render(
-      <MenuContext.Provider value={{ ...menuContextValues }}>
-        <MenuItem submenu="Item One">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
-          <MenuItem href="#">Submenu Item Three</MenuItem>
-        </MenuItem>
-      </MenuContext.Provider>,
-    );
-    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
-    await user.keyboard("{arrowdown}");
-    const submenuItems = screen.getAllByRole("link");
-
-    expect(submenuItems[0]).toHaveFocus();
-    await user.keyboard("{End}");
-    expect(submenuItems[2]).toHaveFocus();
-    await user.keyboard("{arrowup}");
-    expect(submenuItems[1]).toHaveFocus();
-    await user.keyboard("{arrowup}");
-    expect(submenuItems[0]).toHaveFocus();
-    await user.keyboard("{arrowup}");
-    expect(submenuItems[0]).toHaveFocus();
-  });
-
-  it("should focus the expected item when the user presses 'arrowdown' key", async () => {
+  it("focuses succeeding submenu item when 'ArrowDown' key is pressed", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -528,7 +499,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[2]).toHaveFocus();
   });
 
-  it("should focus the expected item when the user presses 'arrowup' key", async () => {
+  it("focuses preceeding submenu item when 'ArrowUp' key is pressed", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -557,7 +528,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[0]).toHaveFocus();
   });
 
-  it("should focus the expected item when the user presses 'home' and 'end' keys", async () => {
+  it("focuses last submenu item when 'End' key is pressed", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -568,6 +539,7 @@ describe("when MenuItem has a submenu", () => {
         </MenuItem>
       </MenuContext.Provider>,
     );
+
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
     act(() => {
       submenuParentItem.focus();
@@ -576,13 +548,40 @@ describe("when MenuItem has a submenu", () => {
     const submenuItems = screen.getAllByRole("link");
 
     expect(submenuItems[0]).toHaveFocus();
+
     await user.keyboard("{End}");
+
     expect(submenuItems[2]).toHaveFocus();
+  });
+
+  it("focuses first submenu item when 'Home' key is pressed", async () => {
+    const user = userEvent.setup();
+    render(
+      <MenuContext.Provider value={{ ...menuContextValues }}>
+        <MenuItem submenu="Item One">
+          <MenuItem href="#">Submenu Item One</MenuItem>
+          <MenuItem href="#">Submenu Item Two</MenuItem>
+          <MenuItem href="#">Submenu Item Three</MenuItem>
+        </MenuItem>
+      </MenuContext.Provider>,
+    );
+
+    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
+    act(() => {
+      submenuParentItem.focus();
+    });
+    await user.keyboard("{arrowdown}");
+    const submenuItems = screen.getAllByRole("link");
+
+    expect(submenuItems[0]).toHaveFocus();
+
+    await user.keyboard("{End}");
     await user.keyboard("{Home}");
+
     expect(submenuItems[0]).toHaveFocus();
   });
 
-  it("should focus the expected item when the user presses 'tab' key and moves focus out of submenu when pressed on last submenu item", async () => {
+  it("focuses succeeding submenu item when tabbing", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -609,7 +608,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[2]).not.toHaveFocus();
   });
 
-  it("should focus the expected item when the user presses 'shift+tab' keys and moves focus to parent item when pressed on first submenu item", async () => {
+  it("focuses preceding submenu item when shift tabbing", async () => {
     const user = userEvent.setup();
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
@@ -633,8 +632,51 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[1]).toHaveFocus();
     await user.tab({ shift: true });
     expect(submenuItems[0]).toHaveFocus();
+  });
+
+  it("allows focus on the last submenu item to be lost, when tabbing on it", async () => {
+    const user = userEvent.setup();
+    render(
+      <MenuContext.Provider value={{ ...menuContextValues }}>
+        <MenuItem submenu="Item One">
+          <MenuItem href="#">Submenu Item One</MenuItem>
+          <MenuItem href="#">Submenu Item Two</MenuItem>
+          <MenuItem href="#">Submenu Item Three</MenuItem>
+        </MenuItem>
+      </MenuContext.Provider>,
+    );
+    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
+    act(() => {
+      submenuParentItem.focus();
+    });
+    await user.keyboard("{arrowdown}");
+    const submenuItems = screen.getAllByRole("link");
+    await user.keyboard("{End}");
+
+    expect(submenuItems[2]).toHaveFocus();
+    await user.tab();
+    expect(submenuItems[2]).not.toHaveFocus();
+  });
+
+  it("focuses parent menu item when shift tabbing from first submenu item", async () => {
+    const user = userEvent.setup();
+    render(
+      <MenuContext.Provider value={{ ...menuContextValues }}>
+        <MenuItem submenu="Item One">
+          <MenuItem href="#">Submenu Item One</MenuItem>
+        </MenuItem>
+      </MenuContext.Provider>,
+    );
+    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
+    act(() => {
+      submenuParentItem.focus();
+    });
+    await user.keyboard("{arrowdown}");
+    const submenuItems = screen.getAllByRole("link");
+
+    expect(submenuItems[0]).toHaveFocus();
     await user.tab({ shift: true });
-    expect(submenuItems[0]).not.toHaveFocus();
+    expect(submenuParentItem).toHaveFocus();
   });
 
   it("should focus the expected items when the user presses 'arrowdown' key and one item has an input child", async () => {
