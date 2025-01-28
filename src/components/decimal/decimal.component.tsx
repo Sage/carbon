@@ -287,6 +287,10 @@ export const Decimal = React.forwardRef(
       invariant(prevControlledRef.current !== isControlled, message);
 
       prevControlledRef.current = isControlled;
+
+      return () => {
+        prevControlledRef.current = undefined;
+      };
     }, [isControlled]);
 
     const prevValue = usePrevious(value);
