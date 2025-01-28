@@ -1,3 +1,10 @@
+### [146.6.1](https://github.com/Sage/carbon/compare/v146.6.0...v146.6.1) (2025-01-28)
+
+
+### Bug Fixes
+
+* **form:** ensure that additional margin-bottom is not applied to NumeralDate component ([648cad7](https://github.com/Sage/carbon/commit/648cad70be79b31426364c3581974eff603a6145)), closes [#7171](https://github.com/Sage/carbon/issues/7171)
+
 ## [146.6.0](https://github.com/Sage/carbon/compare/v146.5.3...v146.6.0) (2025-01-28)
 
 
