@@ -1,3 +1,31 @@
+### [146.6.1](https://github.com/Sage/carbon/compare/v146.6.0...v146.6.1) (2025-01-28)
+
+
+### Bug Fixes
+
+* **form:** ensure that additional margin-bottom is not applied to NumeralDate component ([648cad7](https://github.com/Sage/carbon/commit/648cad70be79b31426364c3581974eff603a6145)), closes [#7171](https://github.com/Sage/carbon/issues/7171)
+
+## [146.6.0](https://github.com/Sage/carbon/compare/v146.5.3...v146.6.0) (2025-01-28)
+
+
+### Features
+
+* **date:** fix focus loss when using navbar with keyboard ([151a710](https://github.com/Sage/carbon/commit/151a710c23aaf09f4a30fb6eb89ad15ebb0ffe5b)), closes [#7158](https://github.com/Sage/carbon/issues/7158)
+
+### [146.5.3](https://github.com/Sage/carbon/compare/v146.5.2...v146.5.3) (2025-01-27)
+
+
+### Bug Fixes
+
+* **tabs-header:** padding to be removed ([2598bab](https://github.com/Sage/carbon/commit/2598bab7d968f6b2e978a0f1055d64b1e7104426)), closes [#7145](https://github.com/Sage/carbon/issues/7145)
+
+### [146.5.2](https://github.com/Sage/carbon/compare/v146.5.1...v146.5.2) (2025-01-24)
+
+
+### Bug Fixes
+
+* **flex-tile-divider:** add aria-hidden attribute to hr element ([f198c2e](https://github.com/Sage/carbon/commit/f198c2e56737d1294c767b8c56981acc4c1f2938)), closes [#7173](https://github.com/Sage/carbon/issues/7173)
+
 ### [146.5.1](https://github.com/Sage/carbon/compare/v146.5.0...v146.5.1) (2025-01-24)
 
 

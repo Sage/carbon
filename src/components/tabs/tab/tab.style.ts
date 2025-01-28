@@ -15,6 +15,12 @@ const StyledTab = styled.div<StyledTabProps>`
     css`
       display: block;
 
+      ${position === "top" &&
+      css`
+        margin-left: 4px;
+        margin-right: 4px;
+      `}
+
       ${position === "left" &&
       css`
         margin-left: -6px;
