@@ -1,3 +1,10 @@
+## [146.6.0](https://github.com/Sage/carbon/compare/v146.5.3...v146.6.0) (2025-01-28)
+
+
+### Features
+
+* **date:** fix focus loss when using navbar with keyboard ([151a710](https://github.com/Sage/carbon/commit/151a710c23aaf09f4a30fb6eb89ad15ebb0ffe5b)), closes [#7158](https://github.com/Sage/carbon/issues/7158)
+
 ### [146.5.3](https://github.com/Sage/carbon/compare/v146.5.2...v146.5.3) (2025-01-27)
 
 
