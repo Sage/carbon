@@ -1,3 +1,22 @@
+## [147.0.0](https://github.com/Sage/carbon/compare/v146.6.1...v147.0.0) (2025-01-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **classname prop:** - The `className` property has been removed from all components.
+- Accordion: scheme and buttonHeading
+- Box: tabIndex
+- ButtonToggle: grouped
+- Decimal: onKeyPress
+- Icon: 'extra-small' variant
+- Portrait: gravatar
+- SimpleColorPicker: isBlurBlocked
+- ListItem: variant (now inherits from parent List component)
+
+### Features
+
+* **classname prop:** remove className from public props ([1c4fad4](https://github.com/Sage/carbon/commit/1c4fad43ce7bb3ec520bfea146d92390e7473dc4))
+
 ### [146.6.1](https://github.com/Sage/carbon/compare/v146.6.0...v146.6.1) (2025-01-28)
 
 
