@@ -489,7 +489,6 @@ export const WhenMenuItemsWrap = () => {
           justifyContent="flex-start"
           width="100px"
           icon="settings"
-          className="foooooo"
           href="#"
         >
           M

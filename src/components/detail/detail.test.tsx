@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import Detail from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import Logger from "../../__internal__/utils/logger";
 
 test("renders children", () => {
   render(<Detail>foo</Detail>);
@@ -60,17 +59,3 @@ testStyledSystemMargin(
   ),
   () => screen.getByTestId("detail"),
 );
-
-test("throws a deprecation warning if the 'className' prop is set", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(<Detail className="foo">bar</Detail>);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'Detail' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-});

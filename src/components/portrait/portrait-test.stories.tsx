@@ -43,7 +43,6 @@ Default.storyName = "default";
 Default.args = {
   alt: "",
   darkBackground: false,
-  gravatar: "",
   src: "",
   initials: "",
   iconType: undefined,

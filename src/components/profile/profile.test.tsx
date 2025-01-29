@@ -1,20 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import MD5 from "crypto-js/md5";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Profile from "./profile.component";
-import Logger from "../../__internal__/utils/logger";
-
-let loggerSpy: jest.SpyInstance;
-
-beforeEach(() => {
-  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
-});
-
-afterEach(() => {
-  loggerSpy.mockRestore();
-});
 
 testStyledSystemMargin(
   (props) => <Profile data-role="profile" name="John Doe" {...props} />,
@@ -115,18 +103,6 @@ test("renders with email text when `email` prop is passed", () => {
   expect(emailLink).toHaveAttribute("data-element", "email");
 });
 
-test("renders gravatar avatar if `email` prop is a valid gravatar", () => {
-  const email = "chris.barber@sage.com";
-  const hash = MD5(email);
-  const src = `https://www.gravatar.com/avatar/${hash}?s=40&d=404`;
-
-  render(<Profile name="Chris Barber" email={email} />);
-
-  const avatar = screen.getByRole("img");
-  expect(avatar).toBeVisible();
-  expect(avatar).toHaveAttribute("src", src);
-});
-
 test("renders with additional text when `text` prop is passed", () => {
   render(<Profile name="John Doe" text="Software Engineer" />);
 
@@ -201,16 +177,4 @@ test("renders with dark background styling when `darkBackground` prop is passed"
   expect(emailLink).toHaveStyleRule("color", "var(--colorsActionMajor350)", {
     modifier: "a",
   });
-});
-
-test("applies the `className` prop to the component wrapper", () => {
-  render(<Profile data-role="profile" className="custom-class" />);
-
-  const profile = screen.getByTestId("profile");
-  expect(profile).toHaveClass("custom-class");
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'Profile' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
 });

@@ -72,7 +72,7 @@ export const DefaultStory: Story = () => {
             {menuType}
           </Typography>
           <Menu menuType={menuType}>
-            <MenuItem icon="settings" className="foooooo" href="#">
+            <MenuItem icon="settings" href="#">
               Menu Item One
             </MenuItem>
             <MenuItem icon="settings" onClick={() => {}}>

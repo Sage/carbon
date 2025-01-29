@@ -860,19 +860,6 @@ test.describe("Prop tests for Menu component", () => {
     });
   });
 
-  test(`should render with className as ${CHARACTERS.STANDARD}`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentItems className={CHARACTERS.STANDARD} />);
-
-    const item = menuItem(page).nth(0);
-    const itemClass = await item.evaluate((element) =>
-      element.getAttribute("class"),
-    );
-    expect(itemClass).toContain(CHARACTERS.STANDARD);
-  });
-
   (
     [
       ["selected", true, "rgb(230, 235, 237)"],

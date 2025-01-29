@@ -188,13 +188,6 @@ export const ListItemInheritance: Story = () => (
       <ListItem>item 2</ListItem>
       <ListItem>item 3</ListItem>
     </List>
-
-    <Typography>H1</Typography>
-    <List variant="h1">
-      <ListItem>item 1</ListItem>
-      <ListItem>item 2</ListItem>
-      <ListItem>item 3</ListItem>
-    </List>
   </>
 );
 ListItemInheritance.storyName = "List Item Inheritance";

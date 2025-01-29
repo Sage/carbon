@@ -31,7 +31,6 @@ import {
   DynamicContent,
   AccordionDefault,
   AccordionWithBoxAndDifferentPaddings,
-  AccordionOpeningButton,
   AccordionGroupDefault,
   AccordionGroupValidation,
   AccordionWithDefinitionList,
@@ -292,22 +291,6 @@ test.describe("should render Accordion component", () => {
     });
   });
 
-  (
-    [
-      ["white", "rgb(255, 255, 255)"],
-      ["transparent", "rgba(0, 0, 0, 0)"],
-    ] as const
-  ).forEach(([scheme, colour]) => {
-    test(`should check Accordion scheme is ${scheme}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<AccordionComponent scheme={scheme} />);
-
-      await expect(accordion(page)).toHaveCSS("background-color", colour);
-    });
-  });
-
   ["700px", "900px", "1100px", "1300px"].forEach((width) => {
     test(`should check Accordion width is ${width}`, async ({
       mount,
@@ -368,27 +351,11 @@ test.describe("should render Accordion component", () => {
     await expect(accordionIcon(page).nth(0)).toHaveAttribute("type", "info");
   });
 
-  ["100px", "200px", "300px"].forEach((width) => {
-    test(`should check accordion heading is a button with width ${width}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <AccordionComponent title="Button" buttonHeading buttonWidth={width} />,
-      );
-
-      const cssWidth = await getStyle(accordionTitleContainer(page), "width");
-      expect(cssWidth).toContain(width);
-    });
-  });
-
   test("should verify accordion title changes when accordion is opened", async ({
     mount,
     page,
   }) => {
-    await mount(
-      <AccordionComponent buttonHeading title="Closed" openTitle="Open" />,
-    );
+    await mount(<AccordionComponent title="Closed" openTitle="Open" />);
 
     await expect(accordionTitleContainer(page)).toContainText("Closed");
 
@@ -536,15 +503,6 @@ test.describe("Accessibility tests for Accordion", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility tests for Accordion transparent", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionDefault scheme="transparent" />);
-
-    await checkAccessibility(page);
-  });
-
   test("should pass accessibility tests for Accordion size small", async ({
     mount,
     page,
@@ -640,15 +598,6 @@ test.describe("Accessibility tests for Accordion", () => {
     page,
   }) => {
     await mount(<AccordionWithBoxAndDifferentPaddings />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for Accordion with opening buttons", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<AccordionOpeningButton />);
 
     await checkAccessibility(page);
   });

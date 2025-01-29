@@ -17,7 +17,6 @@ import {
 } from "../../style/utils";
 import StyledBox from "./box.style";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import Logger from "../../__internal__/utils/logger";
 
 export type OverflowWrap = "break-word" | "anywhere";
 export type ScrollVariant = "light" | "dark";
@@ -51,8 +50,6 @@ export interface BoxProps
   scrollVariant?: ScrollVariant;
   /** Set the box-sizing attribute of the Box component */
   boxSizing?: BoxSizing;
-  /** (Deprecated) Allows a tabindex to be specified */
-  tabIndex?: number;
   /** Gap, an integer multiplier of the base spacing constant (8px) or any valid CSS string." */
   gap?: Gap;
   /** Column gap, an integer multiplier of the base spacing constant (8px) or any valid CSS string." */
@@ -63,7 +60,11 @@ export interface BoxProps
   boxShadow?: BoxShadowsType;
   /** Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. **This prop will not do anything if you have the roundedCornerOptOut flag set in the CarbonProvider** */
   borderRadius?: BorderRadiusType;
-  /** @private @ignore */
+  /**
+   * @private
+   * @ignore
+   * @internal
+   * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
   /** Set the color attribute of the Box component */
   color?: string;
@@ -77,8 +78,6 @@ export interface BoxProps
   "aria-hidden"?: "true" | "false";
 }
 
-let deprecatedTabIndex = false;
-
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
   (
     {
@@ -89,7 +88,6 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       overflowWrap,
       scrollVariant,
       boxSizing,
-      tabIndex,
       gap,
       columnGap,
       rowGap,
@@ -108,13 +106,6 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
     }: BoxProps,
     ref,
   ) => {
-    if (!deprecatedTabIndex && tabIndex !== undefined) {
-      deprecatedTabIndex = true;
-      Logger.deprecate(
-        "The `tabIndex` prop for `Box` component has been deprecated and will soon be removed.",
-      );
-    }
-
     let actualWidth = "";
     if (typeof width === "number") {
       actualWidth = width <= 1 ? `${(width * 100).toFixed(0)}%` : `${width}px`;
@@ -148,7 +139,6 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         gap={gap}
         columnGap={columnGap}
         rowGap={rowGap}
-        tabIndex={tabIndex}
         className={className}
         ref={ref}
         bg={bg}

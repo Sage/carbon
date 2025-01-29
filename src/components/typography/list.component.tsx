@@ -1,20 +1,12 @@
 import React, { useContext } from "react";
-import Typography, {
-  TypographyProps,
-  VariantTypes,
-} from "./typography.component";
+import Typography, { TypographyProps } from "./typography.component";
 import ListContext, { ListContextProps } from "./list.context";
-import Logger from "../../__internal__/utils/logger";
-
-let childVariantDeprecationWarning = false;
 
 export interface ListProps extends TypographyProps {
   children?: React.ReactNode;
 }
 
-export interface ListItemProps extends TypographyProps {
-  /** (Deprecated) The visual style to apply to the component */
-  variant?: VariantTypes;
+export interface ListItemProps extends Omit<ListProps, "variant"> {
   children?: React.ReactNode;
 }
 
@@ -37,18 +29,11 @@ const List = ({ children, as = "ul", variant = "p", ...props }: ListProps) => (
 );
 
 const ListItem = ({ children, ...props }: ListItemProps) => {
-  if (props.variant && !childVariantDeprecationWarning) {
-    Logger.deprecate(
-      "The use of `variant` on `ListItem` is deprecated. Please set it via `List` instead.",
-    );
-    childVariantDeprecationWarning = true;
-  }
-
   const { variant: parentListVariant } =
     useContext<ListContextProps>(ListContext);
 
   return (
-    <Typography as="li" variant={parentListVariant} m="0 0 8px 16px" {...props}>
+    <Typography as="li" m="0 0 8px 16px" {...props} variant={parentListVariant}>
       {children}
     </Typography>
   );
