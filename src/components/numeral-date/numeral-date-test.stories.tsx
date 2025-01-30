@@ -301,3 +301,23 @@ LabelAlign.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
+
+export const InlineLabelsSizes = ({ ...args }) => {
+  return (
+    <Box ml={2}>
+      <NumeralDate mb={2} label="inline small" size="small" {...args} />
+      <NumeralDate mb={2} label="inline medium" size="medium" {...args} />
+      <NumeralDate mb={2} label="inline large" size="large" {...args} />
+    </Box>
+  );
+};
+
+InlineLabelsSizes.storyName = "inline labels sizes";
+InlineLabelsSizes.args = {
+  dateFormat: ["dd", "mm", "yyyy"],
+  labelInline: true,
+};
+InlineLabelsSizes.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

@@ -524,6 +524,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
           warning={validationOnLabel && internalWarning}
           info={validationOnLabel && info}
           inline={inline}
+          size={size}
           labelHelp={labelHelp}
           legendAlign={labelAlign}
           legendWidth={labelWidth}
@@ -532,7 +533,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
           aria-describedby={ariaDescribedBy}
           {...filterStyledSystemMarginProps(rest)}
         >
-          <Box display="block" mt={inline ? 0 : 1}>
+          <Box display="flex" flexDirection="column" mt={inline ? 0 : 1}>
             {renderInputs()}
             {fieldHelp && <FieldHelp id={fieldHelpId}>{fieldHelp}</FieldHelp>}
           </Box>

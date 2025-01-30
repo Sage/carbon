@@ -2,7 +2,8 @@ import styled, { css } from "styled-components";
 import StyledIconSpan from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import StyledInput from "../../__internal__/input/input.style";
-import Fieldset from "../../__internal__/fieldset";
+import Fieldset, { FieldsetProps } from "../../__internal__/fieldset";
+import { StyledLegend } from "../../__internal__/fieldset/fieldset.style";
 
 interface StyledDateFieldProps {
   isYearInput?: boolean;
@@ -55,12 +56,26 @@ export const StyledDateField = styled.div<StyledDateFieldProps>`
   `}
 `;
 
-export const StyledFieldset = styled(Fieldset)`
-  ${({ inline }) => css`
+interface StyledFieldsetProps extends FieldsetProps {
+  inline?: boolean;
+  size?: "small" | "medium" | "large";
+}
+
+// We need to match height of the legend to the input container when it is inline to center it vertically,
+// as Safari does not support display: flex on fieldset elements.
+const sizeHeight = {
+  small: "57px",
+  medium: "65px",
+  large: "73px",
+};
+
+export const StyledFieldset = styled(Fieldset)<StyledFieldsetProps>`
+  ${({ inline, size }) => css`
     ${inline &&
     css`
-      display: flex;
-      align-items: center;
+      ${StyledLegend} {
+        height: ${size && sizeHeight[size]};
+      }
     `}
 
     ${!inline &&
