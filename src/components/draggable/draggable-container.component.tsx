@@ -31,33 +31,43 @@ export interface DraggableContainerProps
   id?: string | number;
 }
 
-const DraggableContainer = forwardRef<UseDraggableHandle, DraggableContainerProps>(({
-  "data-element": dataElement,
-  "data-role": dataRole = "draggable-container",
-  children,
-  getOrder,
-  flexDirection = "row",
-  id,
-  ...rest
-}: DraggableContainerProps, ref): JSX.Element => {
-  const marginProps = filterStyledSystemMarginProps(rest);
+const DraggableContainer = forwardRef<
+  UseDraggableHandle,
+  DraggableContainerProps
+>(
+  (
+    {
+      "data-element": dataElement,
+      "data-role": dataRole = "draggable-container",
+      children,
+      getOrder,
+      flexDirection = "row",
+      id,
+      ...rest
+    }: DraggableContainerProps,
+    ref,
+  ): JSX.Element => {
+    const marginProps = filterStyledSystemMarginProps(rest);
 
-  const [draggableHookContainer, dragState ] = useDraggable({draggableItems: children, id, ref});
+    const [draggableHookContainer] = useDraggable({
+      draggableItems: children,
+      id,
+      ref,
+    });
 
-  return (
-    <StyledDraggableContainer
-      data-component="draggable-container"
-      data-element={dataElement}
-      data-role={dataRole}
-      flexDirection={flexDirection}
-      isDragging={dragState.type === "is-dragging-over"}
-      childId={dragState.id}
-      {...marginProps}
-    >
-          {draggableHookContainer}
-    </StyledDraggableContainer>
-  );
-});
+    return (
+      <StyledDraggableContainer
+        data-component="draggable-container"
+        data-element={dataElement}
+        data-role={dataRole}
+        flexDirection={flexDirection}
+        {...marginProps}
+      >
+        {draggableHookContainer}
+      </StyledDraggableContainer>
+    );
+  },
+);
 
 DraggableContainer.displayName = "DraggableContainer";
 

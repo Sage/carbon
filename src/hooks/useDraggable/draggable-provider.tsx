@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback, forwardRef, useImperativeHandle } from 'react';
-
+import React, { useState, useEffect, useCallback, forwardRef, useImperativeHandle, useRef } from 'react';
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { isDraggableItemData, Edge } from "./__internal__/draggable-utils";
 import DraggableProviderContext from './draggable-provider-context';
@@ -18,15 +17,21 @@ export interface DraggableProviderHandle {
   reOrder: (props: ReOrderProps) => void;
 }
 
+export interface ContainerDragState {
+  draggingBetweenContainers?: boolean;
+  targetContainerId?: string | null;
+}
+
 const DraggableProvider = forwardRef<DraggableProviderHandle, DraggableProviderType>(({ children }, ref) => {
   const [lists, setLists] = useState<Record<string, React.ReactNode[]>>({});
+  const [containerDragState, setContainerDragState] = useState<ContainerDragState>({});
 
-  const register = (id: string | number, list: React.ReactNode[]) => {
+  const register = useCallback((id: string | number, list: React.ReactNode[]) => {
     setLists((existingLists) => ({
       ...existingLists,
       [id]: list,
     }));
-  };
+  }, []);
 
   const move = useCallback((fromListId: string | number, toListId: string | number, fromIndex: number, toIndex: number) => {
     setLists((prevLists) => {
@@ -52,9 +57,31 @@ const DraggableProvider = forwardRef<DraggableProviderHandle, DraggableProviderT
   const numberOfLists = Object.keys(lists).length;
 
   useEffect(() => {
-    return monitorForElements({
+    const cleanup = monitorForElements({
       canMonitor({ source }) {
         return isDraggableItemData(source.data);
+      },
+      onDropTargetChange({ location, source }) {
+
+        const target = location.current.dropTargets[0];
+        const toListId = target.element.id;
+        const lengthOfDestination = lists[toListId]?.length;
+
+
+        if(lengthOfDestination === 0){
+          setContainerDragState({ draggingBetweenContainers: true, targetContainerId: toListId });
+        } else {
+
+        const fromContainerId = String(source.data.parentContainerId);
+        const toContainerId = String(location.current.dropTargets[0].data.parentContainerId);
+
+        if (fromContainerId === toContainerId) {
+   
+          setContainerDragState({ draggingBetweenContainers: false, targetContainerId: null });
+        } else {
+          setContainerDragState({ draggingBetweenContainers: true, targetContainerId: toContainerId });
+         }
+        }
       },
       onDrop({ location, source }) {
         const target = location.current.dropTargets[0];
@@ -73,7 +100,9 @@ const DraggableProvider = forwardRef<DraggableProviderHandle, DraggableProviderT
 
 
           if(lengthOfDestination === 0){
+            
             move(fromListId!, toListId, fromIndex, 0);
+            setContainerDragState({ draggingBetweenContainers: false, targetContainerId: null });
             return;
           }
       
@@ -102,13 +131,18 @@ const DraggableProvider = forwardRef<DraggableProviderHandle, DraggableProviderT
 
         if(numberOfLists > 1){
         move(destinationTargetIndex, targetContainerIndex, indexOfSource, finalIndexOfTarget());
+        setContainerDragState({ draggingBetweenContainers: false, targetContainerId: null });
         }
       },
     });
-  }, [lists, move, closestEdge, numberOfLists]);
   
+    return () => {
+      cleanup();
+    };
+  }, [lists, move, closestEdge, setContainerDragState]);
+
   return (
-    <DraggableProviderContext.Provider value={{ register, move, lists, setClosestEdge }}>
+    <DraggableProviderContext.Provider value={{ register, move, lists, setClosestEdge, containerDragState }}>
       {children}
     </DraggableProviderContext.Provider>
   );

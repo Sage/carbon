@@ -8,7 +8,9 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import { DraggableContainer, DraggableItem } from ".";
 import { Checkbox } from "../checkbox";
 import { UseDraggableHandle } from "../../hooks/useDraggable/useDraggable";
-import DraggableProvider, { DraggableProviderHandle} from "../../hooks/useDraggable/draggable-provider";
+import DraggableProvider, {
+  DraggableProviderHandle,
+} from "../../hooks/useDraggable/draggable-provider";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -35,47 +37,47 @@ type Story = StoryObj<typeof DraggableContainer>;
 export const DefaultStory: Story = () => (
   <DraggableProvider>
     <DraggableContainer>
-    <DraggableItem key="1" id={1}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="2" id={2}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="3" id={3}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="4" id={4}>
-      Some content goes here
-    </DraggableItem>
-  </DraggableContainer>
+      <DraggableItem key="1" id={1}>
+        Some content goes here
+      </DraggableItem>
+      <DraggableItem key="2" id={2}>
+        Some content goes here
+      </DraggableItem>
+      <DraggableItem key="3" id={3}>
+        Some content goes here
+      </DraggableItem>
+      <DraggableItem key="4" id={4}>
+        Some content goes here
+      </DraggableItem>
+    </DraggableContainer>
     <DraggableContainer>
-    <DraggableItem key="1" id={1}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="2" id={2}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="3" id={3}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="4" id={4}>
-      Some content goes here
-    </DraggableItem>
-  </DraggableContainer>
+      <DraggableItem key="1" id={1}>
+        Some content goes here
+      </DraggableItem>
+      <DraggableItem key="2" id={2}>
+        Some content goes here
+      </DraggableItem>
+      <DraggableItem key="3" id={3}>
+        Some content goes here
+      </DraggableItem>
+      <DraggableItem key="4" id={4}>
+        Some content goes here
+      </DraggableItem>
+    </DraggableContainer>
     <DraggableContainer>
-    <DraggableItem key="1" id={1}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="2" id={2}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="3" id={3}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="4" id={4}>
-      Some content goes here
-    </DraggableItem>
-  </DraggableContainer>
+      <DraggableItem key="1" id={1}>
+        Some content goes here
+      </DraggableItem>
+      <DraggableItem key="2" id={2}>
+        Some content goes here
+      </DraggableItem>
+      <DraggableItem key="3" id={3}>
+        Some content goes here
+      </DraggableItem>
+      <DraggableItem key="4" id={4}>
+        Some content goes here
+      </DraggableItem>
+    </DraggableContainer>
   </DraggableProvider>
 );
 DefaultStory.storyName = "Default";
@@ -85,41 +87,69 @@ export const ManualReOrdering: Story = () => {
 
   const actionPopover = (id: number) => (
     <ActionPopover m={0}>
-      <ActionPopoverItem onClick={() => draggableHandle.current?.reOrder(id, 0)}>
+      <ActionPopoverItem
+        onClick={() => draggableHandle.current?.reOrder(id, 0)}
+      >
         Move Top
       </ActionPopoverItem>
-      <ActionPopoverItem onClick={() => draggableHandle.current?.reOrder(id, 3)}>
+      <ActionPopoverItem
+        onClick={() => draggableHandle.current?.reOrder(id, 3)}
+      >
         Move Bottom
       </ActionPopoverItem>
     </ActionPopover>
   );
 
   return (
-    <DraggableContainer flexDirection="row-reverse" id="draggable-container" ref={draggableHandle}>
-        <DraggableItem id={0}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
+    <DraggableContainer
+      flexDirection="row-reverse"
+      id="draggable-container"
+      ref={draggableHandle}
+    >
+      <DraggableItem id={0}>
+        <Box
+          display="flex"
+          width="100%"
+          justifyContent="space-between"
+          alignItems="baseline"
+        >
           Some first content goes here
-            {actionPopover(0)}
-          </Box>
-        </DraggableItem>
-        <DraggableItem id={1}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
+          {actionPopover(0)}
+        </Box>
+      </DraggableItem>
+      <DraggableItem id={1}>
+        <Box
+          display="flex"
+          width="100%"
+          justifyContent="space-between"
+          alignItems="baseline"
+        >
           Some second content goes here
-            {actionPopover(1)}
-          </Box>
-        </DraggableItem>
-        <DraggableItem id={2}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
+          {actionPopover(1)}
+        </Box>
+      </DraggableItem>
+      <DraggableItem id={2}>
+        <Box
+          display="flex"
+          width="100%"
+          justifyContent="space-between"
+          alignItems="baseline"
+        >
           Some third content goes here
-            {actionPopover(2)}
-          </Box>
-        </DraggableItem>
-        <DraggableItem id={3}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
+          {actionPopover(2)}
+        </Box>
+      </DraggableItem>
+      <DraggableItem id={3}>
+        <Box
+          display="flex"
+          width="100%"
+          justifyContent="space-between"
+          alignItems="baseline"
+        >
           Some fourth content goes here
-            {actionPopover(3)}
-          </Box>
-        </DraggableItem>
+          {actionPopover(3)}
+        </Box>
+      </DraggableItem>
     </DraggableContainer>
   );
 };
@@ -127,115 +157,192 @@ export const ManualReOrdering: Story = () => {
 ManualReOrdering.storyName = "Manual Re-Ordering";
 
 export const FlexDirectionStory: Story = () => {
-
   const providerHandle = useRef<DraggableProviderHandle | null>(null);
-
 
   const actionPopover = (id: number) => (
     <ActionPopover m={0}>
-      <ActionPopoverItem onClick={() => providerHandle.current?.reOrder({itemId: id, toIndex: 0})}>
+      <ActionPopoverItem
+        onClick={() =>
+          providerHandle.current?.reOrder({ itemId: id, toIndex: 0 })
+        }
+      >
         Move Top
       </ActionPopoverItem>
-      <ActionPopoverItem onClick={() => providerHandle.current?.reOrder({itemId: id})}>
+      <ActionPopoverItem
+        onClick={() => providerHandle.current?.reOrder({ itemId: id })}
+      >
         Move Bottom
       </ActionPopoverItem>
-      <ActionPopoverItem onClick={() => providerHandle.current?.reOrder({itemId: id, toIndex: 0, toListId: "container-1" })}>
+      <ActionPopoverItem
+        onClick={() =>
+          providerHandle.current?.reOrder({
+            itemId: id,
+            toIndex: 0,
+            toListId: "container-1",
+          })
+        }
+      >
         Move To Top Container
       </ActionPopoverItem>
-      <ActionPopoverItem onClick={() => providerHandle.current?.reOrder({itemId: id, toIndex: 0, toListId: "container-2" })}>
+      <ActionPopoverItem
+        onClick={() =>
+          providerHandle.current?.reOrder({
+            itemId: id,
+            toIndex: 0,
+            toListId: "container-2",
+          })
+        }
+      >
         Move To Middle Container
       </ActionPopoverItem>
-      <ActionPopoverItem onClick={() => providerHandle.current?.reOrder({itemId: id, toIndex: 0, toListId: "container-3" })}>
+      <ActionPopoverItem
+        onClick={() =>
+          providerHandle.current?.reOrder({
+            itemId: id,
+            toIndex: 0,
+            toListId: "container-3",
+          })
+        }
+      >
         Move To Bottom Container
       </ActionPopoverItem>
     </ActionPopover>
   );
 
   return (
-  <DraggableProvider ref={providerHandle}>
-  <DraggableContainer mb={50} id="container-1" flexDirection="row-reverse">
-  <DraggableItem id={0}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some first content goes here 1
-            {actionPopover(0)}
+    <DraggableProvider ref={providerHandle}>
+      <DraggableContainer mb={50} id="container-1" flexDirection="row-reverse">
+        <DraggableItem id={0}>
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some first content goes here 1{actionPopover(0)}
           </Box>
         </DraggableItem>
         <DraggableItem id={1}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some second content goes here 1
-            {actionPopover(1)}
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some second content goes here 1{actionPopover(1)}
           </Box>
         </DraggableItem>
         <DraggableItem id={2}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some third content goes here 1
-            {actionPopover(2)}
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some third content goes here 1{actionPopover(2)}
           </Box>
         </DraggableItem>
         <DraggableItem id={3}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some fourth content goes here 1
-            {actionPopover(3)} 
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some fourth content goes here 1{actionPopover(3)}
           </Box>
         </DraggableItem>
-  </DraggableContainer>
-  <br />
-  <br />
-    <DraggableContainer id="container-2" flexDirection="row-reverse">
-    <DraggableItem id={4}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some first content goes here 2
-            {actionPopover(4)}
+      </DraggableContainer>
+      <br />
+      <br />
+      <DraggableContainer id="container-2" flexDirection="row-reverse">
+        <DraggableItem id={4}>
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some first content goes here 2{actionPopover(4)}
           </Box>
         </DraggableItem>
         <DraggableItem id={5}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some second content goes here 2
-          {actionPopover(5)}
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some second content goes here 2{actionPopover(5)}
           </Box>
         </DraggableItem>
         <DraggableItem id={6}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some third content goes here 2
-          {actionPopover(6)}
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some third content goes here 2{actionPopover(6)}
           </Box>
         </DraggableItem>
         <DraggableItem id={7}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some fourth content goes here 2
-          {actionPopover(7)}
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some fourth content goes here 2{actionPopover(7)}
           </Box>
         </DraggableItem>
-  </DraggableContainer>
-  <br />
-  <br />
-  <DraggableContainer id="container-3" flexDirection="row-reverse">
-  <DraggableItem id={8}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some first content goes here 3
-          {actionPopover(8)}
+      </DraggableContainer>
+      <br />
+      <br />
+      <DraggableContainer id="container-3" flexDirection="row-reverse">
+        <DraggableItem id={8}>
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some first content goes here 3{actionPopover(8)}
           </Box>
         </DraggableItem>
         <DraggableItem id={9}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some second content goes here 3
-          {actionPopover(9)}
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some second content goes here 3{actionPopover(9)}
           </Box>
         </DraggableItem>
         <DraggableItem id={10}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some third content goes here 3
-          {actionPopover(10)}
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some third content goes here 3{actionPopover(10)}
           </Box>
         </DraggableItem>
         <DraggableItem id={11}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some fourth content goes here 3
-          {actionPopover(11)}
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
+            Some fourth content goes here 3{actionPopover(11)}
           </Box>
         </DraggableItem>
-  </DraggableContainer>
-  </DraggableProvider>)
+      </DraggableContainer>
+    </DraggableProvider>
+  );
 };
 FlexDirectionStory.storyName = "With Flex Direction";
 
