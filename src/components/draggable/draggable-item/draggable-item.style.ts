@@ -19,17 +19,13 @@ const StyledDraggableItem = styled.div<StyledDraggableItemProps>`
   justify-content: space-between;
 `;
 
-const StyledDraggableContainer = styled.div<Pick<StyledDraggableItemProps, "flexDirection" | "isDragging" | "childId">>`
+const StyledDraggableContainer = styled.div<
+  Pick<StyledDraggableItemProps, "flexDirection">
+>`
   ${margin}
 
   ${StyledDraggableItem} {
     flex-direction: ${({ flexDirection }) => flexDirection};
-    ${({ isDragging, childId }) =>
-      isDragging && childId !== undefined
-        ? `&[id="${childId}"] {
-            opacity: 0;
-          }`
-        : `opacity: 1;`}
   }
 `;
 
