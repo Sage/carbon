@@ -1,3 +1,36 @@
+## [147.0.0](https://github.com/Sage/carbon/compare/v146.6.1...v147.0.0) (2025-01-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **classname prop:** - The `className` property has been removed from all components.
+- Accordion: scheme and buttonHeading
+- Box: tabIndex
+- ButtonToggle: grouped
+- Decimal: onKeyPress
+- Icon: 'extra-small' variant
+- Portrait: gravatar
+- SimpleColorPicker: isBlurBlocked
+- ListItem: variant (now inherits from parent List component)
+
+### Features
+
+* **classname prop:** remove className from public props ([1c4fad4](https://github.com/Sage/carbon/commit/1c4fad43ce7bb3ec520bfea146d92390e7473dc4))
+
+### [146.6.1](https://github.com/Sage/carbon/compare/v146.6.0...v146.6.1) (2025-01-28)
+
+
+### Bug Fixes
+
+* **form:** ensure that additional margin-bottom is not applied to NumeralDate component ([648cad7](https://github.com/Sage/carbon/commit/648cad70be79b31426364c3581974eff603a6145)), closes [#7171](https://github.com/Sage/carbon/issues/7171)
+
+## [146.6.0](https://github.com/Sage/carbon/compare/v146.5.3...v146.6.0) (2025-01-28)
+
+
+### Features
+
+* **date:** fix focus loss when using navbar with keyboard ([151a710](https://github.com/Sage/carbon/commit/151a710c23aaf09f4a30fb6eb89ad15ebb0ffe5b)), closes [#7158](https://github.com/Sage/carbon/issues/7158)
+
 ### [146.5.3](https://github.com/Sage/carbon/compare/v146.5.2...v146.5.3) (2025-01-27)
 
 

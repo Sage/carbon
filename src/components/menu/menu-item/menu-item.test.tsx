@@ -20,7 +20,6 @@ import menuConfigVariants from "../menu.config";
 import IconButton from "../../icon-button";
 import Search from "../../search";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
-import Logger from "../../../__internal__/utils/logger";
 
 const menuContextValues: MenuContextProps = {
   menuType: "light",
@@ -1119,20 +1118,6 @@ test("should throw when `children` passed and `submenu` is an empty string", () 
   );
 
   consoleSpy.mockRestore();
-});
-
-test("throws a deprecation warning if the 'className' prop is set", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(<MenuItem className="foo">Item One</MenuItem>);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'MenuItem' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
 });
 
 // coverage

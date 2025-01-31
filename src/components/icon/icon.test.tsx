@@ -9,7 +9,6 @@ import iconConfig from "./icon-config";
 import browserTypeCheck from "../../__internal__/utils/helpers/browser-type-check";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
-import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/helpers/browser-type-check");
 
@@ -135,25 +134,6 @@ test("does not render, as an invariant is fired due to the `tooltipFlipOverrides
   );
 
   consoleSpy.mockRestore();
-});
-
-test('logs a deprecation warning once when the `bgSize` prop is passed a value of "extra-small"', () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-
-  render(
-    <>
-      <Icon type="home" bgSize="extra-small" />
-      <Icon type="home" bgSize="extra-small" />
-    </>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The `extra-small` variant of the `bgSize` prop for `Icon` component has been deprecated and will soon be removed.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-  loggerSpy.mockRestore();
 });
 
 test("logs a warning when the `fontSize` props value is larger than the `bgSize` props value", () => {

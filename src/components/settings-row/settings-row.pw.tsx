@@ -13,10 +13,7 @@ import {
 } from "../../../playwright/components/settings-row/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { HeadingType } from "../heading";
-import {
-  checkAccessibility,
-  containsClass,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const headingType: HeadingType[] = ["h1", "h2", "h3", "h4", "h5"];
@@ -115,17 +112,6 @@ test.describe("should check SettingsRow component properties", () => {
           "30px",
         );
       }
-    });
-  });
-
-  testData.forEach((characterVals) => {
-    test(`should check ${characterVals} as className for SettingsRow component`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SettingsRowDefault className={characterVals} />);
-
-      await containsClass(settingsRowPreview(page), characterVals);
     });
   });
 

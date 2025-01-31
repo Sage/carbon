@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+
 import { space, margin } from "styled-system";
 
 import Icon from "../icon";
@@ -13,10 +14,6 @@ const StyledAccordionGroup = styled.div`
 export interface StyledAccordionContainerProps {
   /** Toggles left and right borders, set to none when variant is subtle */
   borders?: "default" | "full" | "none";
-  /** (Deprecated) Renders the accordion heading in the style of a tertiary button */
-  buttonHeading?: boolean;
-  /** (Deprecated) Sets background as white or transparent, set to transparent when variant is subtle */
-  scheme?: "white" | "transparent";
   /** Sets accordion width */
   width?: string;
   /** Sets accordion variant */
@@ -26,15 +23,18 @@ export interface StyledAccordionContainerProps {
 const StyledAccordionContainer = styled.div<StyledAccordionContainerProps>`
   ${space}
   display: flex;
-  align-items: ${({ buttonHeading, variant }) =>
-    (!buttonHeading || variant !== "subtle") && "stretch"};
+  ${({ variant }) =>
+    variant &&
+    css`
+      align-items: stretch;
+    `};
   justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
   width: ${({ width }) => width || "100%"};
   color: var(--colorsUtilityYin090);
-  background-color: ${({ scheme, variant }) =>
-    scheme === "white" && variant !== "subtle"
+  background-color: ${({ variant }) =>
+    variant !== "subtle"
       ? "var(--colorsUtilityYang100)"
       : "var(--colorsUtilityMajorTransparent)"};
   border: 1px solid var(--colorsUtilityMajor100);
@@ -105,40 +105,35 @@ const StyledAccordionIcon = styled(Icon)<StyledAccordionIconProps>`
 `;
 
 interface StyledAccordionHeadingsContainerProps {
-  buttonHeading?: boolean;
   hasValidationIcon?: boolean;
 }
 
 const StyledAccordionHeadingsContainer = styled.div<StyledAccordionHeadingsContainerProps>`
-  ${({ buttonHeading, hasValidationIcon }) =>
-    !buttonHeading &&
+  ${({ hasValidationIcon }) => css`
+    display: grid;
+    ${hasValidationIcon &&
     css`
-      display: grid;
-      ${hasValidationIcon &&
-      css`
-        grid-template-columns: min-content auto;
+      grid-template-columns: min-content auto;
 
-        ${StyledAccordionSubTitle} {
-          grid-column: span 3;
-        }
-      `}
-
-      ${!hasValidationIcon &&
-      css`
-        grid-template-rows: auto auto;
-      `}
-
-    ${ValidationIconStyle} {
-        height: 20px;
-        position: relative;
-        top: 2px;
+      ${StyledAccordionSubTitle} {
+        grid-column: span 3;
       }
     `}
+
+    ${!hasValidationIcon &&
+    css`
+      grid-template-rows: auto auto;
+    `}
+
+    ${ValidationIconStyle} {
+      height: 20px;
+      position: relative;
+      top: 2px;
+    }
+  `}
 `;
 
 interface StyledAccordionTitleContainerProps {
-  buttonHeading?: boolean;
-  buttonWidth?: number | string;
   hasButtonProps?: boolean;
   iconAlign?: "left" | "right";
   size?: "large" | "small";
@@ -147,15 +142,7 @@ interface StyledAccordionTitleContainerProps {
 }
 
 const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerProps>`
-  ${({
-    buttonHeading,
-    buttonWidth,
-    iconAlign,
-    size,
-    hasButtonProps,
-    isExpanded,
-    variant,
-  }) => css`
+  ${({ iconAlign, size, isExpanded, variant }) => css`
     padding: ${size === "small" ? "var(--spacing200)" : "var(--spacing300)"};
     ${space}
     display: flex;
@@ -195,55 +182,11 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
       }
     `}
 
-    ${!buttonHeading &&
-    variant !== "subtle" &&
+    ${variant !== "subtle" &&
     css`
       &:hover {
         background-color: var(--colorsUtilityMajor050);
       }
-    `}
-
-    ${buttonHeading &&
-    css`
-      box-sizing: border-box;
-      font-weight: 500;
-      text-decoration: none;
-      font-size: var(--fontSizes100);
-      min-height: var(--spacing500);
-
-      color: var(--colorsActionMajor500);
-
-      ${!hasButtonProps &&
-      css`
-        ${StyledAccordionHeadingsContainer} {
-          margin-left: ${iconAlign === "right"
-            ? "var(--spacing300)"
-            : "var(--spacing100)"};
-        }
-      `}
-
-      ${StyledAccordionIcon} {
-        color: var(--colorsActionMajor500);
-        ${!hasButtonProps &&
-        css`
-          position: relative;
-          ${iconAlign}: 16px;
-        `}
-      }
-
-      &:hover {
-        color: var(--colorsActionMajor600);
-        ${StyledAccordionIcon} {
-          color: var(--colorsActionMajor600);
-        }
-      }
-
-      ${buttonWidth &&
-      css`
-        width: ${typeof buttonWidth === "number"
-          ? `${buttonWidth}px`
-          : buttonWidth};
-      `}
     `}
   `}
 `;

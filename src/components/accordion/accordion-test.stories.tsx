@@ -44,12 +44,6 @@ export default {
         type: "select",
       },
     },
-    scheme: {
-      options: ["white", "transparent"],
-      control: {
-        type: "select",
-      },
-    },
     variant: {
       options: ["standard", "subtle"],
       control: {

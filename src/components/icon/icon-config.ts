@@ -1,4 +1,5 @@
 import { TooltipPositions } from "../tooltip/tooltip.config";
+
 import { IconType } from "./icon-type";
 import { BackgroundShape, BgSize, FontSize } from "./icon.style";
 
@@ -34,13 +35,7 @@ export const ICON_SHAPES: BackgroundShape[] = [
   "rounded-rect",
   "square",
 ];
-export const ICON_SIZES: BgSize[] = [
-  "extra-small",
-  "small",
-  "medium",
-  "large",
-  "extra-large",
-];
+export const ICON_SIZES: BgSize[] = ["small", "medium", "large", "extra-large"];
 export const ICON_FONT_SIZES: FontSize[] = [
   "small",
   "medium",
