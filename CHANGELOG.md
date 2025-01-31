@@ -1,3 +1,10 @@
+### [147.0.1](https://github.com/Sage/carbon/compare/v147.0.0...v147.0.1) (2025-01-31)
+
+
+### Bug Fixes
+
+* **dialog:** ensure enableBackgroundUI is passed to Modal ([9605627](https://github.com/Sage/carbon/commit/9605627493bb4b413120fab091342f01a93378d3)), closes [#6023](https://github.com/Sage/carbon/issues/6023)
+
 ## [147.0.0](https://github.com/Sage/carbon/compare/v146.6.1...v147.0.0) (2025-01-29)
 
 
