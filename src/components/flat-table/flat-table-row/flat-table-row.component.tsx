@@ -323,7 +323,7 @@ export const FlatTableRow = React.forwardRef<
           {children}
         </FlatTableRowContext.Provider>
       </StyledFlatTableRow>
-    );
+    );  
 
     const draggableComponent = () => (
       <FlatTableRowDraggable

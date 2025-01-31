@@ -28,7 +28,7 @@ const DraggableItem = ({
   ...rest
 }: DraggableItemProps): JSX.Element => {
   const paddingProps = filterStyledSystemPaddingProps(rest);
-    
+
   return (
     <StyledDraggableItem
       py={py}
