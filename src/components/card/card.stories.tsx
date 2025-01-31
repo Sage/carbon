@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState, createContext, useContext, useMemo } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
 
@@ -13,7 +13,7 @@ import IconButton from "../icon-button";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import DraggableProvider from "../../hooks/useDraggable/draggable-provider";
-import useDraggable from "../../hooks/useDraggable/useDraggable";
+import useDraggable, { DragState} from "../../hooks/useDraggable/useDraggable";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -738,28 +738,19 @@ export const WithStringAsChild: Story = () => {
 WithStringAsChild.parameters = { chromatic: { disableSnapshot: true } };
 WithStringAsChild.storyName = "With String as Child";
 
+
+
 export const WithDraggable: Story = () => {
- 
-  interface ColumnProps {
-    title: string;
-    "data-element"?: string;
-    children?: React.ReactNode;
-  }
-
-  const Column = ({ title, "data-element": dataElement, children }: ColumnProps) => {
-
-    const [DraggableContainer, dragState, draggingBetweenContainers] = useDraggable({
-      draggableItems: children,
-      id: dataElement,
-      containerStyle: { width: "inherit"},
-    });
+  const Column = ({ title, id, children }: { title: string; id: string; children?: React.ReactNode }) => {
+    const [DraggableContainer, containerDragState] = useDraggable({ draggableItems: children, id, containerStyle: { width: "inherit" } });
+    const isDragging = containerDragState?.draggingBetweenContainers && containerDragState.targetContainerId === id;
 
     return (
-      <Box 
-        backgroundColor={draggingBetweenContainers ? "var(--colorsActionMajor500)" : "var(--colorsUtilityMajor075)"}
-        data-element={dataElement}
+      <Box
+        id={id}
+        backgroundColor={isDragging ? "var(--colorsActionMajor500)" : "var(--colorsUtilityMajor075)"}
         height="max-content"
-        minHeight="100px"
+        minHeight="150px"
         width="260px"
         display="flex"
         justifyContent="center"
@@ -767,72 +758,35 @@ export const WithDraggable: Story = () => {
         m={2}
         py={2}
       >
-        <Typography variant="b" color={draggingBetweenContainers ? "var(--colorsGray000)" : undefined}>{title}</Typography>
-        {DraggableContainer}
+        <Typography variant="b" color={isDragging ? "var(--colorsGray000)" : undefined}>{title}</Typography>
+          {DraggableContainer}
       </Box>
     );
   };
 
+  const renderCard = (id: string, title: string) => (
+        <Card id={id} width="inherit" draggable>
+          <CardRow pt={0}>
+            <CardColumn align="left">
+              <Heading title={title} divider={false} />
+              <Typography>user.name@sage.com</Typography>
+            </CardColumn>
+            <CardColumn align="right">
+              <Icon type="image" />
+            </CardColumn>
+          </CardRow>
+        </Card>
+    );
+
   return (
-    <Box width="700px" height="450px">
-      <Box display="flex" flexDirection="row" justifyContent="space-around">
-        <DraggableProvider>
-          <Column
-            title="Product One"
-            data-element="draggable-container-1"
-          >
- <Card id="card1" width="inherit" draggable>
-        <CardRow pt={0}>
-          <CardColumn align="left">
-            <Heading title="Card 1" divider={false} />
-            <Typography>user.name@sage.com</Typography>
-          </CardColumn>
-          <CardColumn align="right">
-            <Icon type="image" />
-          </CardColumn>
-        </CardRow>
-      </Card>
-      <Card id="card2" width="inherit" draggable>
-        <CardRow pt={0}>
-          <CardColumn align="left">
-            <Heading title="Card 2" divider={false} />
-            <Typography>user.name@sage.com</Typography>
-          </CardColumn>
-          <CardColumn align="right">
-            <Icon type="image" />
-          </CardColumn>
-        </CardRow>
-      </Card>
-      <Card id="card3" width="inherit" draggable>
-        <CardRow pt={0}>
-          <CardColumn align="left">
-            <Heading title="Card 3"divider={false} />
-            <Typography>user.name@sage.com</Typography>
-          </CardColumn>
-          <CardColumn align="right">
-            <Icon type="image" />
-          </CardColumn>
-        </CardRow>
-      </Card>
+    <Box width="700px" height="450px" display="flex" justifyContent="space-around">
+      <DraggableProvider>
+        {[{ title: "Product One", id: "draggable-container-1", cards: [1, 2, 3] }, { title: "Product Two", id: "draggable-container-2", cards: [4] }].map(({ title, id, cards }) => (
+          <Column key={id} title={title} id={id}>
+            {cards.map(num => renderCard(`card${num}`, `Card ${num}`))}
           </Column>
-          <Column
-            title="Product Two"
-            data-element="draggable-container-2"
-          >
-                  <Card id="card4" width="inherit" draggable>
-        <CardRow pt={0}>
-          <CardColumn align="left">
-            <Heading title="Card 4"divider={false} />
-            <Typography>user.name@sage.com</Typography>
-          </CardColumn>
-          <CardColumn align="right">
-            <Icon type="image" />
-          </CardColumn>
-        </CardRow>
-      </Card>
-          </Column>
-        </DraggableProvider>
-      </Box>
+        ))}
+      </DraggableProvider>
     </Box>
   );
 };

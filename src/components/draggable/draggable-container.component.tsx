@@ -59,22 +59,25 @@ const DraggableContainer = forwardRef<UseDraggableHandle, DraggableContainerProp
 
   const marginProps = filterStyledSystemMarginProps(rest);
 
-  const [draggableHookContainer, dragState ] = useDraggable({draggableItems: children, id, ref});
+    const [draggableHookContainer] = useDraggable({
+      draggableItems: children,
+      id,
+      ref,
+    });
 
-  return (
-    <StyledDraggableContainer
-      data-component="draggable-container"
-      data-element={dataElement}
-      data-role={dataRole}
-      flexDirection={flexDirection}
-      isDragging={dragState.type === "is-dragging-over"}
-      childId={dragState.id}
-      {...marginProps}
-    >
-          {draggableHookContainer}
-    </StyledDraggableContainer>
-  );
-});
+    return (
+      <StyledDraggableContainer
+        data-component="draggable-container"
+        data-element={dataElement}
+        data-role={dataRole}
+        flexDirection={flexDirection}
+        {...marginProps}
+      >
+        {draggableHookContainer}
+      </StyledDraggableContainer>
+    );
+  },
+);
 
 DraggableContainer.displayName = "DraggableContainer";
 
