@@ -1,3 +1,15 @@
+## [147.1.0](https://github.com/Sage/carbon/compare/v147.0.1...v147.1.0) (2025-02-03)
+
+
+### Features
+
+* **numeral-date, time:** add support for labelAlign on non-inline labels ([241d744](https://github.com/Sage/carbon/commit/241d744b5460f36262cb25fe3500d03a207466e5))
+
+
+### Bug Fixes
+
+* **numeral-date:** ensure inlineLabel works as expected in Safari ([b13e5dc](https://github.com/Sage/carbon/commit/b13e5dc2d8fbbb08728f3f2fafe1aba2d1f2c866))
+
 ### [147.0.1](https://github.com/Sage/carbon/compare/v147.0.0...v147.0.1) (2025-01-31)
 
 
