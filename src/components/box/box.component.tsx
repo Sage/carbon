@@ -78,12 +78,15 @@ export interface BoxProps
   "aria-hidden"?: "true" | "false";
   /** @private @internal @ignore */
   "data-component"?: string;
+  /** @private @internal @ignore */
+  tabIndex?: number;
 }
 
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
   (
     {
       "data-component": dataComponent,
+      tabIndex,
       as,
       id,
       role,
@@ -155,6 +158,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         {...filterStyledSystemGridProps(rest)}
         {...filterStyledSystemLayoutProps(rest)}
         cssProps={cssProps}
+        tabIndex={tabIndex}
       >
         {children}
       </StyledBox>
