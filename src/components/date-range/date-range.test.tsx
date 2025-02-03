@@ -679,6 +679,50 @@ test("should close the open 'start' picker when the user moves focus to the `end
   expect(within(startDate).queryByRole("grid")).not.toBeInTheDocument();
 });
 
+test("should apply aria-label and aria-labelledby to the date picker region", async () => {
+  const user = userEvent.setup();
+  render(
+    <DateRange
+      startLabel="start"
+      endLabel="end"
+      value={["10/10/2016", "11/11/2016"]}
+      onChange={() => {}}
+      startDateProps={{ disablePortal: true, "data-role": "start" }}
+      endDateProps={{ disablePortal: true, "data-role": "end" }}
+      datePickerStartAriaLabel="start aria-label"
+      datePickerStartAriaLabelledBy="start aria-labelledby"
+      datePickerEndAriaLabel="end aria-label"
+      datePickerEndAriaLabelledBy="end aria-labelledby"
+    />,
+  );
+  const startDate = screen.getByTestId("start");
+  const endDate = screen.getByTestId("end");
+
+  await user.click(screen.getByRole("textbox", { name: "start" }));
+
+  expect(within(startDate).getByRole("region")).toBeVisible();
+  expect(within(startDate).getByRole("region")).toHaveAttribute(
+    "aria-label",
+    "start aria-label",
+  );
+  expect(within(startDate).getByRole("region")).toHaveAttribute(
+    "aria-labelledby",
+    "start aria-labelledby",
+  );
+
+  await user.click(screen.getByRole("textbox", { name: "end" }));
+
+  expect(within(endDate).getByRole("region")).toBeVisible();
+  expect(within(endDate).getByRole("region")).toHaveAttribute(
+    "aria-label",
+    "end aria-label",
+  );
+  expect(within(endDate).getByRole("region")).toHaveAttribute(
+    "aria-labelledby",
+    "end aria-labelledby",
+  );
+});
+
 test("should close the open 'end' picker when the user moves focus to the `start` input", async () => {
   const user = userEvent.setup();
   render(

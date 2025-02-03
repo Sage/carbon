@@ -3,7 +3,6 @@ import { render, screen } from "@testing-library/react";
 
 import SimpleColor from "./simple-color.component";
 import guid from "../../../__internal__/utils/helpers/guid";
-import Logger from "../../../__internal__/utils/logger";
 
 const mockedGuid = "guid-12345";
 jest.mock("../../../__internal__/utils/helpers/guid");
@@ -60,18 +59,4 @@ test("assigns a guid as id to the input element when the `id` prop is not passed
   render(<SimpleColor value="#0073C2" />);
 
   expect(screen.getByRole("radio")).toHaveAttribute("id", mockedGuid);
-});
-
-test("throws a deprecation warning if the 'className' prop is set", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(<SimpleColor value="#0073C2" className="foo" />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'SimpleColor' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
 });

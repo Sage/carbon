@@ -37,12 +37,10 @@ const colors = [
   ["brown", COLOR.BROWN],
 ];
 
-const testImage =
-  "https://www.gravatar.com/avatar/cceff1ad774bf89b1f75cb6e5005333c?s=40&d=404";
+const testImage = "https://avataaars.io/";
 
 const imageURLs = [
   "https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light",
-  "https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404",
 ];
 
 const portraitSizes = PORTRAIT_SIZES.map((size) => [
@@ -76,15 +74,6 @@ test.describe("Prop checks for Portrait component", () => {
 
       await expect(portraitInitials(page)).toHaveText(maxInitials);
     });
-  });
-
-  test("should render with gravatar prop", async ({ mount, page }) => {
-    await mount(<PortraitDefaultComponent gravatar="chris.barber@sage.com" />);
-
-    await expect(portraitPreview(page).locator("img")).toHaveAttribute(
-      "src",
-      testImage,
-    );
   });
 
   imageURLs.forEach((url) => {
@@ -192,29 +181,6 @@ test.describe("Prop checks for Portrait component", () => {
       page,
     }) => {
       await mount(<PortraitDefaultComponent src={testImage} size={size} />);
-
-      await expect(portraitPreview(page)).toHaveCSS(
-        "height",
-        `${heightAndWidth}px`,
-      );
-      await expect(portraitPreview(page)).toHaveCSS(
-        "width",
-        `${heightAndWidth}px`,
-      );
-    });
-  });
-
-  portraitSizes.forEach(([size, heightAndWidth]) => {
-    test(`should render with size prop passed as ${size} - with gravatar`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PortraitDefaultComponent
-          gravatar="chris.barber@sage.com"
-          size={size}
-        />,
-      );
 
       await expect(portraitPreview(page)).toHaveCSS(
         "height",
@@ -423,15 +389,6 @@ test.describe("Event checks for Portrait component", () => {
 });
 
 test.describe("Accessibility tests for Portrait component", () => {
-  test("should pass accessibility checks when gravatar is passed", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PortraitDefaultComponent gravatar="chris.barber@sage.com" />);
-
-    await checkAccessibility(page);
-  });
-
   imageURLs.forEach((url) => {
     test(`should pass accessibility checks when src is ${url}`, async ({
       mount,

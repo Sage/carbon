@@ -64,6 +64,10 @@ DateRangeStory.args = {
   allowEmptyValueOnStartDate: undefined,
   allowEmptyValueOnEndDate: undefined,
   labelsInline: false,
+  datePickerStartAriaLabel: "start aria-label",
+  datePickerStartAriaLabelledBy: "start aria-labelledby",
+  datePickerEndAriaLabel: "end aria-label",
+  datePickerEndAriaLabelledBy: "end aria-labelledby",
 };
 
 export const DateRangeCustom = ({

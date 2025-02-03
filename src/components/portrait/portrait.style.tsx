@@ -29,11 +29,6 @@ export const StyledPortraitInitials = styled.div<
   width: inherit;
 `;
 
-export const StyledPortraitGravatar = styled.img`
-  height: inherit;
-  width: inherit;
-`;
-
 export const StyledCustomImg = styled.img`
   height: inherit;
   min-width: inherit;

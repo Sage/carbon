@@ -1,3 +1,99 @@
+### [147.0.1](https://github.com/Sage/carbon/compare/v147.0.0...v147.0.1) (2025-01-31)
+
+
+### Bug Fixes
+
+* **dialog:** ensure enableBackgroundUI is passed to Modal ([9605627](https://github.com/Sage/carbon/commit/9605627493bb4b413120fab091342f01a93378d3)), closes [#6023](https://github.com/Sage/carbon/issues/6023)
+
+## [147.0.0](https://github.com/Sage/carbon/compare/v146.6.1...v147.0.0) (2025-01-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **classname prop:** - The `className` property has been removed from all components.
+- Accordion: scheme and buttonHeading
+- Box: tabIndex
+- ButtonToggle: grouped
+- Decimal: onKeyPress
+- Icon: 'extra-small' variant
+- Portrait: gravatar
+- SimpleColorPicker: isBlurBlocked
+- ListItem: variant (now inherits from parent List component)
+
+### Features
+
+* **classname prop:** remove className from public props ([1c4fad4](https://github.com/Sage/carbon/commit/1c4fad43ce7bb3ec520bfea146d92390e7473dc4))
+
+### [146.6.1](https://github.com/Sage/carbon/compare/v146.6.0...v146.6.1) (2025-01-28)
+
+
+### Bug Fixes
+
+* **form:** ensure that additional margin-bottom is not applied to NumeralDate component ([648cad7](https://github.com/Sage/carbon/commit/648cad70be79b31426364c3581974eff603a6145)), closes [#7171](https://github.com/Sage/carbon/issues/7171)
+
+## [146.6.0](https://github.com/Sage/carbon/compare/v146.5.3...v146.6.0) (2025-01-28)
+
+
+### Features
+
+* **date:** fix focus loss when using navbar with keyboard ([151a710](https://github.com/Sage/carbon/commit/151a710c23aaf09f4a30fb6eb89ad15ebb0ffe5b)), closes [#7158](https://github.com/Sage/carbon/issues/7158)
+
+### [146.5.3](https://github.com/Sage/carbon/compare/v146.5.2...v146.5.3) (2025-01-27)
+
+
+### Bug Fixes
+
+* **tabs-header:** padding to be removed ([2598bab](https://github.com/Sage/carbon/commit/2598bab7d968f6b2e978a0f1055d64b1e7104426)), closes [#7145](https://github.com/Sage/carbon/issues/7145)
+
+### [146.5.2](https://github.com/Sage/carbon/compare/v146.5.1...v146.5.2) (2025-01-24)
+
+
+### Bug Fixes
+
+* **flex-tile-divider:** add aria-hidden attribute to hr element ([f198c2e](https://github.com/Sage/carbon/commit/f198c2e56737d1294c767b8c56981acc4c1f2938)), closes [#7173](https://github.com/Sage/carbon/issues/7173)
+
+### [146.5.1](https://github.com/Sage/carbon/compare/v146.5.0...v146.5.1) (2025-01-24)
+
+
+### Bug Fixes
+
+* **form:** ensure that additional margin-bottom is not applied to Time component ([98cdaae](https://github.com/Sage/carbon/commit/98cdaae86e47bd44d00a202cefe22cc53f31aa98)), closes [#7164](https://github.com/Sage/carbon/issues/7164)
+
+## [146.5.0](https://github.com/Sage/carbon/compare/v146.4.7...v146.5.0) (2025-01-23)
+
+
+### Features
+
+* **popover-container:** add hasFullWidth prop ([9a20414](https://github.com/Sage/carbon/commit/9a2041408005b100b38bedb243e804f8240f93c1))
+* **popover-container:** allow open button to be focused programmatically ([335fde3](https://github.com/Sage/carbon/commit/335fde396ff77b49ed98c92d2c9a836574c9a197))
+
+
+### Bug Fixes
+
+* **popover-container:** ensure Form with stickyFooter has overflow styling ([88ef403](https://github.com/Sage/carbon/commit/88ef403019c431297c7e3aa787b919ac739a6bcd))
+* **popover-container:** ensure popup is accessible to screen readers ([6f543d2](https://github.com/Sage/carbon/commit/6f543d2ae95df6252f2f15ca917c056059925f51)), closes [#7133](https://github.com/Sage/carbon/issues/7133)
+
+### [146.4.7](https://github.com/Sage/carbon/compare/v146.4.6...v146.4.7) (2025-01-22)
+
+
+### Bug Fixes
+
+* **search:** search button has a default aria label ([b4ec216](https://github.com/Sage/carbon/commit/b4ec216541850c27956e284b7ab7abc338ce554e)), closes [#7147](https://github.com/Sage/carbon/issues/7147)
+
+### [146.4.6](https://github.com/Sage/carbon/compare/v146.4.5...v146.4.6) (2025-01-22)
+
+
+### Bug Fixes
+
+* **date-range:** date range axe issue ([790df46](https://github.com/Sage/carbon/commit/790df46388b61cd868c13b6297932dfa26ace894)), closes [#7116](https://github.com/Sage/carbon/issues/7116)
+
+### [146.4.5](https://github.com/Sage/carbon/compare/v146.4.4...v146.4.5) (2025-01-21)
+
+
+### Bug Fixes
+
+* **popover-container:** prevent DatePicker from rendering behind the popover ([59d2f4a](https://github.com/Sage/carbon/commit/59d2f4abb09b7ad303f0b11fe374d78122d1b0ae)), closes [#7137](https://github.com/Sage/carbon/issues/7137)
+
 ### [146.4.4](https://github.com/Sage/carbon/compare/v146.4.3...v146.4.4) (2025-01-17)
 
 
