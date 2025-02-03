@@ -64,7 +64,7 @@ const StyledLegendContent = styled.span<StyledLegendContentProps>`
     `}
 `;
 
-type StyledLegendProps = {
+export type StyledLegendProps = {
   inline?: boolean;
   width?: number;
   align?: "left" | "right";
@@ -78,14 +78,26 @@ const StyledLegend = styled.legend<StyledLegendProps>`
   padding: 0;
   font-weight: var(--fontWeights500);
   color: var(--colorsUtilityYin090);
-  ${({ inline, width, align, rightPadding }) =>
+
+  ${({ align, inline }) =>
+    align &&
+    css`
+      text-align: ${align};
+      justify-content: ${align === "right" ? "flex-end" : "flex-start"};
+
+      ${!inline &&
+      css`
+        width: -moz-available;
+      `}
+    `};
+
+  ${({ inline, width, rightPadding }) =>
     inline &&
     css`
       float: left;
       box-sizing: border-box;
       margin: 0;
       ${width && `width: ${width}%`};
-      justify-content: ${align === "right" ? "flex-end" : "flex-start"};
       padding-right: ${rightPadding === 1
         ? "var(--spacing100)"
         : "var(--spacing200)"};
