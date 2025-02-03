@@ -47,6 +47,10 @@ export interface ProfileProps extends MarginProps {
   size?: ProfileSize;
   /** Use a dark background. */
   darkBackground?: boolean;
+  /** The hex code of the background colour to be passed to the avatar */
+  backgroundColor?: string;
+  /** The hex code of the foreground colour to be passed to the avatar. Must be used in conjunction with `backgroundColor` */
+  foregroundColor?: string;
 }
 
 export const Profile = ({
@@ -59,6 +63,8 @@ export const Profile = ({
   email,
   text,
   darkBackground,
+  backgroundColor,
+  foregroundColor,
   ...props
 }: ProfileProps) => {
   const getInitials = () => {
@@ -72,6 +78,9 @@ export const Profile = ({
     name,
     initials: getInitials(),
     size,
+    backgroundColor,
+    foregroundColor,
+    "data-role": "profile-portrait",
   };
 
   const avatar = () => {

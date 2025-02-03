@@ -52,10 +52,16 @@ export interface PortraitProps extends MarginProps {
   tooltipBgColor?: string;
   /** [Legacy] Override font color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipFontColor?: string;
+  /** The hex code of the background colour */
+  backgroundColor?: string;
+  /** The hex code of the foreground colour. This will only take effect if use in conjunction with `backgroundColor` */
+  foregroundColor?: string;
 }
 
 const Portrait = ({
   alt,
+  backgroundColor,
+  foregroundColor = undefined,
   name,
   darkBackground = false,
   iconType = "individual",
@@ -125,6 +131,8 @@ const Portrait = ({
             darkBackground={darkBackground}
             size={size}
             shape={shape}
+            backgroundColor={backgroundColor}
+            foregroundColor={foregroundColor}
           >
             {portrait}
           </StyledPortraitContainer>
@@ -141,6 +149,8 @@ const Portrait = ({
         darkBackground={darkBackground}
         size={size}
         shape={shape}
+        backgroundColor={backgroundColor}
+        foregroundColor={foregroundColor}
       >
         {portrait}
       </StyledPortraitContainer>

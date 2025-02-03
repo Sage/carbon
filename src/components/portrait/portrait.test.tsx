@@ -1,8 +1,9 @@
-import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Portrait from ".";
+import React from "react";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+
+import Portrait from ".";
 
 testStyledSystemMargin(
   (props) => <Portrait data-role="portrait-wrapper" {...props} />,
@@ -15,6 +16,18 @@ test("renders with a default individual icon", () => {
   const icon = screen.getByTestId("icon");
   expect(icon).toBeVisible();
   expect(icon).toHaveAttribute("type", "individual");
+});
+
+test("renders with a dark background", () => {
+  render(<Portrait data-role="portrait" darkBackground />);
+
+  const icon = screen.getByTestId("icon");
+  expect(icon).toBeVisible();
+  expect(icon).toHaveAttribute("type", "individual");
+
+  const container = screen.getByTestId("portrait");
+  expect(container).toHaveStyle("background-color: var(--colorsUtilityYin090)");
+  expect(container).toHaveStyleRule("color", "var(--colorsUtilityReadOnly600)");
 });
 
 test("renders with a custom icon, if a valid icon is provided via the `iconType` prop", () => {
@@ -120,4 +133,132 @@ test("allows a custom onClick function to be passed via the `onClick` prop", asy
   await user.click(portrait);
 
   expect(mockFunction).toHaveBeenCalledTimes(1);
+});
+
+describe("custom background colours", () => {
+  it("renders with the correct colours when a dark colour is provided", () => {
+    render(<Portrait data-role="portrait" backgroundColor="#000000" />);
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("type", "individual");
+
+    const container = screen.getByTestId("portrait");
+    expect(container).toHaveStyle("background-color: #000000");
+    expect(container).toHaveStyleRule("color", "#FFFFFF");
+  });
+
+  it("renders with the correct colours when a light colour is provided", () => {
+    render(<Portrait data-role="portrait" backgroundColor="#FFFFFF" />);
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("type", "individual");
+
+    const container = screen.getByTestId("portrait");
+    expect(container).toHaveStyle("background-color: #FFFFFF");
+    expect(container).toHaveStyleRule("color", "var(--colorsUtilityYin090)");
+  });
+
+  [
+    { value: "#A3CAF0", label: "blue" },
+    { value: "#FD9BA3", label: "pink" },
+    { value: "#B4AEEA", label: "purple" },
+    { value: "#ECE6AF", label: "goldenrod" },
+    { value: "#EBAEDE", label: "orchid" },
+    { value: "#EBC7AE", label: "desert" },
+    { value: "#AEECEB", label: "turquoise" },
+    { value: "#AEECD6", label: "mint" },
+  ].forEach(({ value, label }) => {
+    it(`renders with the correct colours when the background colour is set to ${label}`, () => {
+      render(<Portrait data-role="portrait" backgroundColor={value} />);
+
+      const icon = screen.getByTestId("icon");
+      expect(icon).toBeVisible();
+      expect(icon).toHaveAttribute("type", "individual");
+
+      const container = screen.getByTestId("portrait");
+      expect(container).toHaveStyle(`background-color: ${value}`);
+    });
+  });
+
+  [
+    { value: "#A3CAF0", label: "blue" },
+    { value: "#FD9BA3", label: "pink" },
+    { value: "#B4AEEA", label: "purple" },
+    { value: "#ECE6AF", label: "goldenrod" },
+    { value: "#EBAEDE", label: "orchid" },
+    { value: "#EBC7AE", label: "desert" },
+    { value: "#AEECEB", label: "turquoise" },
+    { value: "#AEECD6", label: "mint" },
+  ].forEach(({ value, label }) => {
+    it(`renders with the correct colours when the foreground colour is set to ${label}`, () => {
+      render(<Portrait data-role="portrait" foregroundColor={value} />);
+
+      const icon = screen.getByTestId("icon");
+      expect(icon).toBeVisible();
+      expect(icon).toHaveAttribute("type", "individual");
+
+      const container = screen.getByTestId("portrait");
+      expect(container).toHaveStyle(`color: ${value}`);
+    });
+  });
+
+  it("renders with the correct foreground colour when provided in conjunction with a background colour", () => {
+    render(
+      <Portrait
+        data-role="portrait"
+        backgroundColor="#000000"
+        foregroundColor="#A0FFAF"
+      />,
+    );
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("type", "individual");
+
+    const container = screen.getByTestId("portrait");
+    expect(container).toHaveStyle("background-color: #000000");
+    expect(container).toHaveStyleRule("color", "#A0FFAF");
+  });
+
+  it("overrides the colours set by the `darkBackground` prop if the custom colour props are set", () => {
+    render(
+      <Portrait
+        data-role="portrait"
+        darkBackground
+        backgroundColor="#000000"
+        foregroundColor="#A0FFAF"
+      />,
+    );
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("type", "individual");
+
+    const container = screen.getByTestId("portrait");
+    expect(container).toHaveStyle("background-color: #000000");
+    expect(container).toHaveStyleRule("color", "#A0FFAF");
+  });
+
+  it("supports design tokens being used for the `backgroundColor` and `forefroundColor` props", () => {
+    render(
+      <Portrait
+        data-role="portrait"
+        darkBackground
+        backgroundColor="var(--colorsUtilityYin090)"
+        foregroundColor="var(--colorsLogo)"
+      />,
+    );
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("type", "individual");
+
+    const container = screen.getByTestId("portrait");
+    expect(container).toHaveStyle(
+      "background-color: var(--colorsUtilityYin090)",
+    );
+    expect(container).toHaveStyleRule("color", "var(--colorsLogo)");
+  });
 });
