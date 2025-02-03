@@ -87,6 +87,12 @@ export interface SidebarProps
   focusableSelectors?: string;
   /** Padding to be set on the Sidebar header */
   headerPadding?: PaddingProps;
+  /**
+   * @private
+   * @ignore
+   * @internal
+   * Sets className for component. INTERNAL USE ONLY. */
+  className?: string;
 }
 
 export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
@@ -115,6 +121,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       headerPadding = {},
       topModalOverride,
       restoreFocusOnClose = true,
+      className,
       ...rest
     }: SidebarProps,
     ref,
@@ -166,6 +173,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         onCancel={onCancel}
         role={role}
         width={width}
+        className={className}
       >
         {header && (
           <SidebarHeader
