@@ -1,3 +1,10 @@
+## [147.2.0](https://github.com/Sage/carbon/compare/v147.1.0...v147.2.0) (2025-02-03)
+
+
+### Features
+
+* **portrait, profile:** allows custom colours to be set on the Portrait and Profile components ([9e20799](https://github.com/Sage/carbon/commit/9e2079973f20fe5671547ed78e599593ce9c2c77))
+
 ## [147.1.0](https://github.com/Sage/carbon/compare/v147.0.1...v147.1.0) (2025-02-03)
 
 
