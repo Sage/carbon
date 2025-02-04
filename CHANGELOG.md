@@ -1,3 +1,10 @@
+## [147.3.0](https://github.com/Sage/carbon/compare/v147.2.0...v147.3.0) (2025-02-04)
+
+
+### Features
+
+* **hr:** add height prop ([b93ab1c](https://github.com/Sage/carbon/commit/b93ab1c035abaf0e7e5a97592bed2ad75bbfd45d))
+
 ## [147.2.0](https://github.com/Sage/carbon/compare/v147.1.0...v147.2.0) (2025-02-03)
 
 
