@@ -6,8 +6,7 @@
     "lib",
     "esm",
     "scripts/check_rfcs/check_rfcs.js",
-    "scripts/check_rfcs/index.js",
-    "scripts/copy_coverage_files/index.js"
+    "scripts/check_rfcs/index.js"
   ],
   "scripts": {
     "start": "node ./scripts/check_node_version.mjs && dotenvx run -- storybook dev -p 9001 -c .storybook",
