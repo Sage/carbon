@@ -15,7 +15,6 @@ import { TooltipPositions } from "../tooltip/tooltip.config";
 import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
-import Logger from "../../__internal__/utils/logger";
 
 export type ButtonTypes =
   | "primary"
@@ -89,12 +88,11 @@ export interface ButtonProps extends SpaceProps, TagProps {
   /**
    * @private
    * @internal
-   * Set a class name on the button element
+   * @ignore
+   * Set a class name on the button element. INTERNAL USE ONLY.
    */
   className?: string;
 }
-
-let deprecatedClassNameWarningShown = false;
 
 interface RenderChildrenProps
   extends Pick<
@@ -217,13 +215,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }: ButtonProps,
     ref,
   ) => {
-    if (!deprecatedClassNameWarningShown && rest.className) {
-      Logger.deprecate(
-        "The 'className' prop has been deprecated and will soon be removed from the 'Button' component.",
-      );
-      deprecatedClassNameWarningShown = true;
-    }
-
     const {
       buttonType: buttonTypeContext,
       size: sizeContext,

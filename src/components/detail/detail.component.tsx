@@ -11,10 +11,13 @@ import {
   StyledDetailIcon,
   StyledDetailFootnote,
 } from "./detail.style";
-import Logger from "../../__internal__/utils/logger";
 
 export interface DetailProps extends MarginProps, TagProps {
-  /** Custom className. */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
   /** The type of icon to use. */
   icon?: IconType;
@@ -24,8 +27,6 @@ export interface DetailProps extends MarginProps, TagProps {
   children?: React.ReactNode;
 }
 
-let deprecatedClassNameWarningShown = false;
-
 export const Detail = ({
   className,
   icon,
@@ -33,13 +34,6 @@ export const Detail = ({
   children,
   ...rest
 }: DetailProps) => {
-  if (!deprecatedClassNameWarningShown && className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'Detail' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
-
   return (
     <StyledDetail
       className={`carbon-detail ${className}`}

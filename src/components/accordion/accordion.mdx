@@ -76,19 +76,13 @@ const MyComponent = () => (
 
 The default version of `Accordion` has a white background and no side borders.
 
-<Canvas of={AccordionStories.AccordionDefault} />
+<Canvas of={AccordionStories.Default} />
 
 ### With disabled content padding
 
 The internal padding of the `Accordion` can be removed by setting the `disableContentPadding` prop to `true`.
 
 <Canvas of={AccordionStories.WithDisableContentPadding} />
-
-### Transparent
-
-The `Accordion` can be rendered with a transparent background by setting the scheme to `transparent`.
-
-<Canvas of={AccordionStories.Transparent} />
 
 ### Small
 
@@ -124,19 +118,19 @@ The icon showing the state of the `Accordion` can be left-aligned by setting the
 
 The default width of 100% can be overriden by setting the `width` prop to a custom value.
 
-<Canvas of={AccordionStories.DifferentWidth} />
+<Canvas of={AccordionStories.CustomWidth} />
 
 ### With custom padding and margins
 
 An `Accordion` can be rendered with different padding and margin by setting the `padding` and `margin` props.
 
-<Canvas of={AccordionStories.WithDifferentPaddingAndMargin} />
+<Canvas of={AccordionStories.WithCustomPaddingAndMargins} />
 
 ### With custom title padding and margins
 
 An `Accordion` title can be rendered with different padding and margin by passing the desired configuration object to the `headerSpacing` prop.
 
-<Canvas of={AccordionStories.WithDifferentPaddingAndMarginInAccordionTitle} />
+<Canvas of={AccordionStories.WithCustomTitlePaddingAndMargins} />
 
 ### Grouped
 
@@ -158,9 +152,9 @@ An `Accordion`  will automatically adjust its height to fit the content inside i
 
 ### Subtle variant
 
-Setting the `variant` prop to `subtle` will override the default styling of an Accordion. The `subTitle` and `scheme` props will have no effect when used alongside this variant, nor will the validation props (`error`, `warning`, and `info`).
+Setting the `variant` prop to `subtle` will override the default styling of an Accordion. The `subTitle` prop will have no effect when used alongside this variant, nor will the validation props (`error`, `warning`, and `info`).
 
-<Canvas of={AccordionStories.AccordionSubtle} />
+<Canvas of={AccordionStories.SubtleVariant} />
 
 ## Props
 

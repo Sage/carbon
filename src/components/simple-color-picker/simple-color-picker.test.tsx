@@ -470,24 +470,6 @@ test("empty children are accepted without error", () => {
   }).not.toThrow();
 });
 
-test("should display deprecation warning once when the `isBlurBlocked` prop is `true`", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(
-    <SimpleColorPicker
-      isBlurBlocked
-      legend="SimpleColorPicker Legend"
-      name="test"
-    />,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'isBlurBlocked' prop in SimpleColorPicker is deprecated and support will soon be removed.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockClear();
-});
-
 // for coverage only (validation styles covered by Playwright)
 test.each(["error", "warning", "info"])(
   "renders validation icon when `%s` prop is passed as string and `validationOnLegend` is `true`",
