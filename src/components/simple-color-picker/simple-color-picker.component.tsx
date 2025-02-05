@@ -3,7 +3,6 @@ import React, {
   useState,
   useRef,
   useMemo,
-  useEffect,
   RefAttributes,
   useImperativeHandle,
 } from "react";
@@ -23,15 +22,12 @@ import { ValidationProps } from "../../__internal__/validations";
 import Logger from "../../__internal__/utils/logger";
 
 let deprecateUncontrolledWarnTriggered = false;
-const isBlurBlockedDeprecateWarnTriggered = false;
 
 export interface SimpleColorPickerProps extends ValidationProps, MarginProps {
   /** The SimpleColor components to be rendered in the group */
   children?: React.ReactNode;
   /** prop that represents childWidth */
   childWidth?: string | number;
-  /** Should the onBlur callback prop be initially blocked? */
-  isBlurBlocked?: boolean;
   /** The content for the Legend */
   legend: string;
   /** prop that sets max-width in css */
@@ -72,7 +68,6 @@ export const SimpleColorPicker = React.forwardRef<
     onBlur,
     onKeyDown,
     value,
-    isBlurBlocked = false,
     maxWidth = 300,
     childWidth = 58,
     validationOnLegend,
@@ -112,7 +107,6 @@ export const SimpleColorPicker = React.forwardRef<
   );
 
   const internalRef = useRef<HTMLDivElement | null>(null);
-  const [blurBlocked, setIsBlurBlocked] = useState(isBlurBlocked);
   const [focusedElement, setFocusedElement] = useState<EventTarget | null>(
     null,
   );
@@ -239,25 +233,6 @@ export const SimpleColorPicker = React.forwardRef<
     [onKeyDown, navigationGrid, getElementPosition],
   );
 
-  const handleClickOutside = (ev: MouseEvent | KeyboardEvent) => {
-    if (
-      internalRef.current &&
-      ev.target &&
-      !internalRef.current.contains(ev.target as Node)
-    ) {
-      setIsBlurBlocked(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleClickOutside);
-    };
-  });
-
   const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
     ev.preventDefault();
 
@@ -266,15 +241,13 @@ export const SimpleColorPicker = React.forwardRef<
         (colorRef) => colorRef === document.activeElement,
       );
       /* istanbul ignore else */
-      if (onBlur && hasBlurred && !blurBlocked) {
+      if (onBlur && hasBlurred) {
         onBlur(ev);
       }
     }, 5);
   };
 
   const handleOnMouseDown = (ev: React.MouseEvent<HTMLElement>) => {
-    setIsBlurBlocked(true);
-
     // If the mousedown event occurred on the currently-focused <SimpleColor>
     if (focusedElement !== null && focusedElement === ev.target) {
       ev.preventDefault();
@@ -282,12 +255,10 @@ export const SimpleColorPicker = React.forwardRef<
       // If a different <SimpleColor> is currently focused
     } else if (focusedElement !== null) {
       ev.preventDefault();
-      setIsBlurBlocked(false);
       setFocusedElement(ev.target);
 
       // If no <SimpleColor> is currently focused
     } else {
-      setIsBlurBlocked(true);
       setFocusedElement(ev.target);
     }
   };
@@ -302,13 +273,6 @@ export const SimpleColorPicker = React.forwardRef<
     deprecateUncontrolledWarnTriggered = true;
     Logger.deprecate(
       "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-    );
-  }
-
-  if (!isBlurBlockedDeprecateWarnTriggered && isBlurBlocked) {
-    deprecateUncontrolledWarnTriggered = true;
-    Logger.deprecate(
-      `The 'isBlurBlocked' prop in ${SimpleColorPicker.displayName} is deprecated and support will soon be removed.`,
     );
   }
 

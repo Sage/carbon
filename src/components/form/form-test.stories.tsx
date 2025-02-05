@@ -555,3 +555,51 @@ FullWidthWithLeftAndRight.parameters = {
   },
   themeProvider: { chromatic: { theme: "sage" }, viewports: [1200, 900, 320] },
 };
+
+export const DefaultWithNumeralDate: StoryType = ({ ...props }) => (
+  <Form
+    onSubmit={() => console.log("submit")}
+    leftSideButtons={
+      <Button onClick={() => console.log("cancel")}>Cancel</Button>
+    }
+    saveButton={
+      <Button buttonType="primary" type="submit">
+        Save
+      </Button>
+    }
+    {...props}
+  >
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <NumeralDate
+      defaultValue={{
+        dd: "01",
+        mm: "02",
+        yyyy: "2020",
+      }}
+      label="Numeral Date"
+    />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+  </Form>
+);
+
+DefaultWithNumeralDate.storyName = "With NumeralDate";
+DefaultWithNumeralDate.parameters = {
+  themeProvider: {
+    chromatic: { theme: "sage" },
+  },
+  chromatic: {
+    disableSnapshot: false,
+  },
+};
+DefaultWithNumeralDate.decorators = [
+  (Story) => (
+    <div style={{ height: "100vh", width: "97vw" }}>
+      <Story />
+    </div>
+  ),
+];

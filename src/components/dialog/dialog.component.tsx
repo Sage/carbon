@@ -4,7 +4,6 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import Logger from "../../__internal__/utils/logger";
 
 import {
   StyledDialog,
@@ -29,10 +28,12 @@ export interface ContentPaddingInterface {
   px?: PaddingValues;
 }
 
-let deprecatedClassNameWarningShown = false;
-
 export interface DialogProps extends ModalProps, TagProps {
-  /** Custom class name  */
+  /**
+   * @private
+   * @ignore
+   * @internal
+   * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
   /** Prop to specify the aria-describedby property of the Dialog component */
   "aria-describedby"?: string;
@@ -127,17 +128,13 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       topModalOverride,
       closeButtonDataProps,
       restoreFocusOnClose = true,
+      "aria-labelledby": ariaLabelledBy,
+      "aria-describedby": ariaDescribedBy,
+      "aria-label": ariaLabel,
       ...rest
     },
     ref,
   ) => {
-    if (!deprecatedClassNameWarningShown && className) {
-      Logger.deprecate(
-        "The 'className' prop has been deprecated and will soon be removed from the 'Dialog' component.",
-      );
-      deprecatedClassNameWarningShown = true;
-    }
-
     const locale = useLocale();
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -203,12 +200,10 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       size,
       dialogHeight,
       "aria-labelledby":
-        title && typeof title === "string" ? titleId : rest["aria-labelledby"],
+        title && typeof title === "string" ? titleId : ariaLabelledBy,
       "aria-describedby":
-        subtitle && typeof subtitle === "string"
-          ? subtitleId
-          : rest["aria-describedby"],
-      "aria-label": rest["aria-label"],
+        subtitle && typeof subtitle === "string" ? subtitleId : ariaDescribedBy,
+      "aria-label": ariaLabel,
     };
 
     return (
@@ -220,6 +215,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         className={className ? `${className} carbon-dialog` : "carbon-dialog"}
         topModalOverride={topModalOverride}
         restoreFocusOnClose={restoreFocusOnClose}
+        {...rest}
       >
         <FocusTrap
           autoFocus={!disableAutoFocus}

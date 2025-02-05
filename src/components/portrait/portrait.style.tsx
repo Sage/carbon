@@ -1,14 +1,21 @@
 import React from "react";
+
 import styled from "styled-components";
+
 import { margin, MarginProps } from "styled-system";
 
-import BaseTheme from "../../style/themes/base";
 import Icon from "../icon";
+import profileConfigSizes from "../profile/profile.config";
+import BaseTheme from "../../style/themes/base";
+
 import { PortraitSizes, PortraitShapes } from "./portrait.component";
 import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
-import profileConfigSizes from "../profile/profile.config";
+
+import getColoursForPortrait from "./__internal__/utils";
 
 type StyledPortraitProps = {
+  backgroundColor?: string;
+  foregroundColor?: string;
   darkBackground?: boolean;
   size: PortraitSizes;
   shape?: PortraitShapes;
@@ -25,11 +32,6 @@ export const StyledPortraitInitials = styled.div<
   white-space: nowrap;
   align-items: center;
   justify-content: center;
-  height: inherit;
-  width: inherit;
-`;
-
-export const StyledPortraitGravatar = styled.img`
   height: inherit;
   width: inherit;
 `;
@@ -56,14 +58,14 @@ export const StyledIcon = styled(Icon)<Pick<StyledPortraitProps, "size">>`
 export const StyledPortraitContainer = styled.div<
   StyledPortraitProps & MarginProps
 >`
-  color: ${({ darkBackground }) =>
-    darkBackground
-      ? "var(--colorsUtilityReadOnly600)"
-      : "var(--colorsUtilityYin090)"};
-  background-color: ${({ darkBackground }) =>
-    darkBackground
-      ? "var(--colorsUtilityYin090)"
-      : "var(--colorsUtilityReadOnly400)"};
+  ${({ darkBackground, backgroundColor, size, foregroundColor }) =>
+    getColoursForPortrait(
+      backgroundColor,
+      darkBackground,
+      !["XS", "S"].includes(size),
+      true,
+      foregroundColor,
+    )};
   ${({ hasValidImg, size }) =>
     hasValidImg && `max-width: ${PORTRAIT_SIZE_PARAMS[size].dimensions}px;`}
   min-width: ${({ size }) => PORTRAIT_SIZE_PARAMS[size].dimensions}px;

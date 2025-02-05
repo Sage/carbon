@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { MarginProps } from "styled-system";
 import useLocale from "../../hooks/__internal__/useLocale";
-import Logger from "../../__internal__/utils/logger";
 
 import {
   StyledBlock,
@@ -21,8 +20,6 @@ import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
 import { PodAlignment, PodSize, PodVariant } from "./pod.config";
 
-let deprecatedClassNameWarningShown = false;
-
 export interface PodProps extends MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-element"?: string;
@@ -34,8 +31,6 @@ export interface PodProps extends MarginProps {
   border?: boolean;
   /** Children elements */
   children?: React.ReactNode;
-  /** Custom className */
-  className?: string;
   /** Determines the padding around the pod */
   size?: PodSize;
   /** Prop to apply a theme to the Pod */
@@ -80,7 +75,6 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
       alignTitle = "left",
       border = true,
       children,
-      className,
       displayEditButtonOnHover,
       editContentFullWidth,
       footer,
@@ -99,13 +93,6 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
     }: PodProps,
     ref,
   ) => {
-    if (!deprecatedClassNameWarningShown && className) {
-      Logger.deprecate(
-        "The 'className' prop has been deprecated and will soon be removed from the 'Pod' component.",
-      );
-      deprecatedClassNameWarningShown = true;
-    }
-
     const [isEditFocused, setEditFocused] = useState(false);
     const [isEditHovered, setEditHovered] = useState(false);
     const [isDeleteFocused, setDeleteFocused] = useState(false);
@@ -155,7 +142,6 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
     return (
       <StyledPod
         alignTitle={alignTitle}
-        className={className}
         internalEditButton={internalEditButton}
         height={typeof height === "number" ? `${height}px` : height}
         ref={ref}

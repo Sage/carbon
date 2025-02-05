@@ -3,16 +3,11 @@ import { PaddingProps } from "styled-system";
 import StyledTab from "./tab.style";
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import TabContext from "./__internal__/tab.context";
-import Logger from "../../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export interface TabProps extends PaddingProps {
   title?: string;
   /** A unique ID to identify this specific tab. */
   tabId: string;
-  /** @ignore @private */
-  className?: string;
   /** The child elements of Tab component. */
   children?: React.ReactNode;
   /** @ignore @private Boolean indicating selected state of Tab. */
@@ -55,7 +50,6 @@ export interface TabProps extends PaddingProps {
 
 export const Tab = ({
   ariaLabelledby,
-  className,
   children,
   isTabSelected,
   position = "top",
@@ -73,13 +67,6 @@ export const Tab = ({
   titleProps,
   ...rest
 }: TabProps) => {
-  if (!deprecatedClassNameWarningShown && className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'Tab' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
-
   const [tabErrors, setTabErrors] = useState<Record<string, string>>({});
   const [tabWarnings, setTabWarnings] = useState<Record<string, string>>({});
   const [tabInfos, setTabInfos] = useState<Record<string, string>>({});
@@ -123,7 +110,6 @@ export const Tab = ({
   return (
     <TabContext.Provider value={{ setError, setWarning, setInfo }}>
       <StyledTab
-        className={className}
         role={role}
         isTabSelected={isTabSelected}
         aria-labelledby={ariaLabelledby}

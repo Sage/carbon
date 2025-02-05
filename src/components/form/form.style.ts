@@ -7,6 +7,7 @@ import baseTheme from "../../style/themes/base";
 import { FormButtonAlignment } from "./form.config";
 import StyledSearch from "../search/search.style";
 import StyledTextarea from "../textarea/textarea.style";
+import { StyledNumeralDate } from "../numeral-date/numeral-date.style";
 
 interface StyledFormContentProps {
   stickyFooter?: boolean;
@@ -89,7 +90,10 @@ export const StyledForm = styled.form<StyledFormProps>`
     `}
 
   // field spacing is also applied to form field here so we need to override
-  ${StyledSearch} ${StyledFormField}, ${StyledTextarea} ${StyledFormField}, [data-component="time"] ${StyledFormField} {
+  ${StyledSearch} ${StyledFormField}, 
+  ${StyledTextarea} ${StyledFormField}, 
+  [data-component="time"] ${StyledFormField}, 
+  ${StyledNumeralDate} ${StyledFormField} {
     margin-bottom: var(--spacing000);
   }
 
