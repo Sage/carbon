@@ -22,7 +22,12 @@ import Box from "../box";
 
 export default {
   title: "Action Popover/Test",
-  includeStories: ["Default", "LongMenuExample", "WithAriaAttributes"],
+  includeStories: [
+    "Default",
+    "LongMenuExample",
+    "WithAriaAttributes",
+    "WithoutDefaultAriaLabel",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -848,5 +853,41 @@ export const WithAriaAttributes = () => {
         <ActionPopoverItem onClick={() => {}}>foo</ActionPopoverItem>
       </ActionPopover>
     </>
+  );
+};
+
+export const WithoutDefaultAriaLabel = () => {
+  return (
+    <Box height={250}>
+      <ActionPopover
+        renderButton={(props) => {
+          return (
+            <ActionPopoverMenuButton
+              buttonType="tertiary"
+              iconType="ellipsis_vertical"
+              iconPosition="after"
+              size="small"
+              {...props}
+            >
+              Button Text
+            </ActionPopoverMenuButton>
+          );
+        }}
+      >
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverItem disabled icon="csv" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>
+        <ActionPopoverItem icon="pdf" onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>
+    </Box>
   );
 };
