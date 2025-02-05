@@ -1,3 +1,10 @@
+### [147.3.1](https://github.com/Sage/carbon/compare/v147.3.0...v147.3.1) (2025-02-05)
+
+
+### Bug Fixes
+
+* **action-popover:** aria label has default value despite visible text on open button ([8e623e4](https://github.com/Sage/carbon/commit/8e623e446054af23ecc298ea301822282382f5da)), closes [#7143](https://github.com/Sage/carbon/issues/7143)
+
 ## [147.3.0](https://github.com/Sage/carbon/compare/v147.2.0...v147.3.0) (2025-02-04)
 
 
