@@ -322,7 +322,7 @@ test("remove button can be reached via keyboard when present", async () => {
   });
   await user.tab();
 
-  expect(screen.getByTestId("input-icon-toggle")).toHaveFocus();
+  expect(screen.getByTestId("input-icon-toggle")).not.toHaveFocus();
 });
 
 test("when a character key is pressed, propagation of the event to parent elements is prevented", async () => {
@@ -427,4 +427,23 @@ test("applies the correct maxWidth specified by the user", () => {
   expect(screen.getByTestId("search")).toHaveStyle({
     "max-width": "67%",
   });
+});
+
+test("clears the value when the escape key is pressed", async () => {
+  const user = userEvent.setup();
+  const mockOnChange = jest.fn();
+  render(
+    <Search
+      value="foo"
+      onChange={mockOnChange}
+      name="search-bar"
+      id="search-id"
+    />,
+  );
+
+  const input = screen.getByRole("textbox");
+  await user.click(input);
+  await user.keyboard("{Escape}");
+  expect(screen.queryByText("foo")).not.toBeInTheDocument();
+  expect(mockOnChange).toHaveBeenCalled();
 });

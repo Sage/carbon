@@ -10,6 +10,7 @@ import Button from "../button";
 import { ValidationProps } from "../../__internal__/validations";
 import Logger from "../../__internal__/utils/logger";
 import useLocale from "../../hooks/__internal__/useLocale";
+import Events from "../../__internal__/utils/helpers/events";
 
 export interface SearchEvent {
   target: {
@@ -218,6 +219,18 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key.length === 1) {
         event.stopPropagation();
+      }
+
+      if (Events.isEscKey(event) && !isSearchValueEmpty) {
+        event.stopPropagation();
+        setSearchValue("");
+        onChange?.({
+          target: {
+            ...(name && { name }),
+            ...(id && { id }),
+            value: "",
+          },
+        });
       }
 
       if (onKeyDown) {

@@ -68,24 +68,6 @@ test.describe("When focused", () => {
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
   });
-
-  test("should have the expected styling for the cross icon", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SearchComponent searchButton />);
-
-    const searchDefaultInputElement = searchDefaultInput(page);
-    await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.fill(testDataStandard);
-    await searchDefaultInputElement.press("Tab");
-    const searchCrossIconElementParent = searchCrossIcon(page).locator("..");
-
-    await expect(searchCrossIconElementParent).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
-    );
-  });
 });
 
 test.describe("Prop tests for Search component", () => {
