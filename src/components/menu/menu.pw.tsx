@@ -2436,4 +2436,22 @@ test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", ()
     await expect(menuItemAnchor).toHaveCSS("height", "40px");
     await expect(buttonChild).toHaveCSS("height", "40px");
   });
+
+  test("should render the menu with the expected hover styling when menu item has a PopoverContainer child with renderOpenComponent passed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuItemWithPopoverContainerChild />);
+
+    const popoverContainerButton = page.getByRole("button", {
+      name: "notification",
+    });
+    await popoverContainerButton.hover();
+
+    await expect(popoverContainerButton).toHaveCSS("border-radius", "0px");
+    await expect(popoverContainerButton).toHaveCSS(
+      "background-color",
+      "rgba(0, 0, 0, 0)",
+    );
+  });
 });
