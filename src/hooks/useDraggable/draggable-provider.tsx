@@ -33,8 +33,13 @@ const DraggableProvider = forwardRef<DraggableProviderHandle, DraggableProviderT
     }));
   }, []);
 
-  const move = useCallback((fromListId: string | number, toListId: string | number, fromIndex: number, toIndex: number) => {
+  const move = useCallback((fromListId: string | number, toListId: string | number, fromItemId: number | string, toItemId: number | string) => {   
+    
+    console.log("MOVE TRIGGERED")
     setLists((prevLists) => {
+      const fromIndex = prevLists?.[fromListId].findIndex((item) => React.isValidElement(item) && item.props.children.props.id === fromItemId);
+      const toIndex = prevLists?.[toListId].findIndex((item) => React.isValidElement(item) && item.props.children.props.id === toItemId);
+  
       const copy = { ...prevLists };
       const [nodeToMove] = copy[fromListId].splice(fromIndex, 1);
       copy[toListId].splice(toIndex, 0, nodeToMove);
@@ -56,93 +61,29 @@ const DraggableProvider = forwardRef<DraggableProviderHandle, DraggableProviderT
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
   const numberOfLists = Object.keys(lists).length;
 
-  useEffect(() => {
-    const cleanup = monitorForElements({
-      canMonitor({ source }) {
-        return isDraggableItemData(source.data);
-      },
-      onDropTargetChange({ location, source }) {
-
-        const target = location.current.dropTargets[0];
-        const toListId = target.element.id;
-        const lengthOfDestination = lists[toListId]?.length;
-
-
-        if(lengthOfDestination === 0){
-          setContainerDragState({ draggingBetweenContainers: true, targetContainerId: toListId });
-        } else {
-
-        const fromContainerId = String(source.data.parentContainerId);
-        const toContainerId = String(location.current.dropTargets[0].data.parentContainerId);
-
-        if (fromContainerId === toContainerId) {
-   
-          setContainerDragState({ draggingBetweenContainers: false, targetContainerId: null });
-        } else {
-          setContainerDragState({ draggingBetweenContainers: true, targetContainerId: toContainerId });
-         }
-        }
-      },
-      onDrop({ location, source }) {
-        const target = location.current.dropTargets[0];
-        if (!target) {
-          return;
-        }
-
-        const sourceData = source.data;
-        const targetData = target.data;
-        
-          const fromListId = sourceData.parentContainerId as string;
-          const toListId = target.element.id;
-          const lengthOfDestination = lists[toListId]?.length;
-          const itemId = sourceData.itemId;
-          const fromIndex = lists?.[fromListId].findIndex((item) => React.isValidElement(item) && item.props.children.props.id === itemId);
-
-
-          if(lengthOfDestination === 0){
-            
-            move(fromListId!, toListId, fromIndex, 0);
-            setContainerDragState({ draggingBetweenContainers: false, targetContainerId: null });
-            return;
-          }
-      
-        if (
-          !isDraggableItemData(sourceData) ||
-          !isDraggableItemData(targetData)
-        ) {
-          return;
-        }
-        const indexOfSource = Number(sourceData.itemIndex);
-        const indexOfTarget = Number(targetData.itemIndex);
-        const targetContainerIndex = targetData.parentContainerId;
-        const destinationTargetIndex = sourceData.parentContainerId;
-        const containerLength = lists?.[targetContainerIndex].length;
-
-        if (indexOfTarget < 0 || indexOfSource < 0) {
-          return;
-        }
-
-        const finalIndexOfTarget = ()  => { 
-          if(indexOfTarget + 1 === containerLength){
-            return closestEdge === "bottom" ? indexOfTarget + 1 : indexOfTarget;
-          } 
-          return indexOfTarget
-        }
-
-        if(numberOfLists > 1){
-        move(destinationTargetIndex, targetContainerIndex, indexOfSource, finalIndexOfTarget());
-        setContainerDragState({ draggingBetweenContainers: false, targetContainerId: null });
-        }
-      },
+    const [testState, setTestState] = useState<{ value1?: string | number, value2?: string | number, value3?: string | number, value4?: string | number }>({
+      value1: undefined,
+      value2: undefined,
+      value3: undefined,
+      value4: undefined,
     });
-  
-    return () => {
-      cleanup();
-    };
-  }, [lists, move, closestEdge, setContainerDragState]);
+
+
+    useEffect(() => {
+      const { value1, value2, value3, value4 } = testState;
+
+      console.log("STATE TRIGGERED")
+    
+      if (value1 !== undefined && value2 !== undefined && value1 !== value2) {
+        const fromListId = value3 as string;
+        const toListId = value4 !== undefined && value3 !== value4 ? value4 as string : fromListId;
+        move(fromListId, toListId, value1 as number | string, value2 as number | string);
+      }
+    }, [testState, move]);
+
 
   return (
-    <DraggableProviderContext.Provider value={{ register, move, lists, setClosestEdge, containerDragState }}>
+    <DraggableProviderContext.Provider value={{ register, move, lists, setClosestEdge, containerDragState, setTestState, testState }}>
       {children}
     </DraggableProviderContext.Provider>
   );

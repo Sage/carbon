@@ -38,6 +38,7 @@ const DraggableItem = ({
   const index = useContext(DraggableItemContext)?.index;
   const setClosestEdge = useContext(DraggableProviderContext)?.setClosestEdge;
   const containerDragState = useContext(DraggableProviderContext)?.containerDragState;
+  const { testState, setTestState } = useContext(DraggableProviderContext);
   const [dragState, setDragState] = useState<DragState>({ type: "idle", id: 0 });
 
   const itemRef = useRef<HTMLDivElement | null>(null);
@@ -104,6 +105,9 @@ const DraggableItem = ({
     [id, index, children, columnId],
   );
 
+  const localRefFlag = useRef(false);
+  const previousStateRef = useRef({ value1: undefined, value2: undefined, value3: undefined, value4: undefined });
+
   useEffect(() => {
     const idle: DragState = { type: "idle" };
     const element = itemRef.current;
@@ -153,7 +157,36 @@ const DraggableItem = ({
             setDragState({ type: "is-dragging-over", closestEdge, id });
           }
         },
-        onDrag({ self }) {
+        onDrag({ self, source, location }) {
+          const pageX = location.current.input.pageX;
+          const pageY = location.current.input.pageY;
+        
+          if (testState.value1 === undefined && testState.value2 === undefined) {
+            setTestState({ value1: source.data.itemId, value2: source.data.itemId });
+          }
+        
+          const parentContainerId1 = location.current.dropTargets[0].data.parentContainerId;
+          const parentContainerId2 = source.data.parentContainerId;
+        
+          const newState = {
+            value1: source.data.itemId,
+            value2: location.current.dropTargets[0].data.itemId,
+            value3: parentContainerId2,
+            value4: parentContainerId1,
+          };
+        
+          if (
+            previousStateRef.current.value1 !== newState.value1 ||
+            previousStateRef.current.value2 !== newState.value2 ||
+            previousStateRef.current.value3 !== newState.value3 ||
+            previousStateRef.current.value4 !== newState.value4
+          ) {
+            setTestState(newState);
+            previousStateRef.current = newState;
+          }
+        },
+        onDropTargetChange({ self, source, location }) {
+
           const closestEdge = extractClosestEdge(self.data);
           if (setDragState) {
             setDragState((current) => {
@@ -187,11 +220,16 @@ const DraggableItem = ({
     return () => {
       cleanup();
     };
-  }, [id, draggableItemData, setDragState, setClosestEdge]);
+  }, [id, draggableItemData, setDragState, setClosestEdge, testState, setTestState]);
 
 
   const calculateOpacity = () => {
-
+    if(dragState.type === "is-dragging")
+    {
+      return 0.5;
+    } else if(dragState.type === "is-dragging-over"){
+      return 0;
+    }
     return 1;
   }
 
