@@ -290,6 +290,9 @@ export const MenuItem = ({
   }
 
   const paddingProps = filterStyledSystemPaddingProps(rest);
+  const hasInput = !!ref.current?.querySelector<HTMLElement>(
+    "[data-element='input']",
+  );
 
   return (
     <StyledMenuItem
@@ -317,8 +320,8 @@ export const MenuItem = ({
         asPassiveItem={asPassiveItem}
         placeholderTabIndex={asPassiveItem}
         {...paddingProps}
-        asDiv={!!firstFocusableChild || as === "div"}
-        hasInput={!!firstFocusableChild}
+        asDiv={hasInput || as === "div"}
+        hasInput={hasInput}
         inSubmenu={isInSubmenu}
       >
         {children}
