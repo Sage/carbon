@@ -10,6 +10,8 @@ export interface HrProps extends MarginProps {
   /** Breakpoint for adaptive left and right margins (below the breakpoint they go to 0).
    * Enables the adaptive behaviour when set */
   adaptiveMxBreakpoint?: number;
+  /** Set the height of the component. Accepts one of "small", "medium", or "large" */
+  height?: "small" | "medium" | "large";
 }
 
 export const Hr = ({
@@ -17,6 +19,7 @@ export const Hr = ({
   ml,
   mr,
   "aria-hidden": ariaHidden,
+  height = "small",
   ...rest
 }: HrProps): JSX.Element => {
   const largeScreen = useIsAboveBreakpoint(adaptiveMxBreakpoint);
@@ -32,6 +35,7 @@ export const Hr = ({
       aria-hidden={ariaHidden}
       data-component="hr"
       data-role="hr"
+      height={height}
       ml={marginLeft}
       mr={marginRight}
       mt={rest.mt || 3}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+
 import { allModes } from "../../../.storybook/modes";
 import isChromatic from "../../../.storybook/isChromatic";
 import {
@@ -39,6 +40,7 @@ const meta: Meta<typeof Menu> = {
     "WhenMenuItemsWrap",
     "MenuFullScreenWithMaxWidth",
     "IconAlignment",
+    "TabbingOrder",
   ],
   parameters: {
     info: { disable: true },
@@ -171,6 +173,7 @@ export const AsLinkWithAlternateVariant = () => {
         <MenuItem
           href="#"
           onClick={() => {
+            // eslint-disable-next-line no-alert
             alert("clicked");
           }}
           variant="alternate"
@@ -489,7 +492,6 @@ export const WhenMenuItemsWrap = () => {
           justifyContent="flex-start"
           width="100px"
           icon="settings"
-          className="foooooo"
           href="#"
         >
           M
@@ -560,3 +562,32 @@ export const IconAlignment = () => {
   );
 };
 IconAlignment.storyName = "Icon & Icon-less Text Alignment";
+
+export const TabbingOrder = () => {
+  return (
+    <Box>
+      <Menu menuType="white">
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuDivider size="large" />
+          <MenuSegmentTitle text="segment title" variant="alternate">
+            <MenuItem variant="alternate" p="2px 16px">
+              <Search
+                placeholder="Dark variant"
+                variant="dark"
+                defaultValue=""
+              />
+            </MenuItem>
+            <MenuItem variant="alternate" href="#">
+              Item Submenu Two
+            </MenuItem>
+            <MenuItem variant="alternate" href="#">
+              Item Submenu Three
+            </MenuItem>
+          </MenuSegmentTitle>
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+};
+TabbingOrder.storyName = "Tabbing Order";

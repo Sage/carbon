@@ -102,9 +102,6 @@ test.describe("NumeralDate component", () => {
   }) => {
     await mount(<NumeralDateComponent labelInline />);
 
-    const fieldset = page.locator("fieldset");
-    await expect(fieldset).toHaveCSS("display", "flex");
-
     const legend = getDataElementByValue(page, "legend");
     await expect(legend).toHaveCSS("float", "left");
   });
@@ -568,22 +565,25 @@ test.describe("NumeralDate component", () => {
 
   (
     [
-      ["flex", 399],
-      ["flex", 400],
-      ["block", 401],
-    ] as [string, NumeralDateProps["adaptiveLabelBreakpoint"]][]
-  ).forEach(([displayValue, breakpoint]) => {
-    test(`should render NumeralDate with ${displayValue} label alignment when the adaptiveLabelBreakpoint prop is ${breakpoint} with a set viewport of 400`, async ({
+      [399, false],
+      [400, true],
+      [401, true],
+    ] as [number, boolean][]
+  ).forEach(([viewport, isInline]) => {
+    test(`should render NumeralDate with labelInline when the adaptiveLabelBreakpoint prop is 400 with a viewport of ${viewport}`, async ({
       mount,
       page,
     }) => {
-      await page.setViewportSize({ width: 400, height: 300 });
-      await mount(
-        <NumeralDateComponent adaptiveLabelBreakpoint={breakpoint} />,
-      );
+      await page.setViewportSize({ width: viewport, height: 300 });
+      await mount(<NumeralDateComponent adaptiveLabelBreakpoint={400} />);
 
-      const fieldset = page.locator("fieldset");
-      await expect(fieldset).toHaveCSS("display", displayValue);
+      const legend = getDataElementByValue(page, "legend");
+
+      if (isInline) {
+        await expect(legend).toHaveCSS("float", "left");
+      } else {
+        await expect(legend).not.toHaveCSS("float", "left");
+      }
     });
   });
 

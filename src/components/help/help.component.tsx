@@ -9,9 +9,6 @@ import { TooltipContext } from "../../__internal__/tooltip-provider";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import guid from "../../__internal__/utils/helpers/guid";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export interface HelpProps extends MarginProps {
   /** Overrides the default 'as' attribute of the Help component */
@@ -20,8 +17,6 @@ export interface HelpProps extends MarginProps {
   ariaLabel?: string;
   /** The message to be displayed within the tooltip */
   children?: React.ReactNode;
-  /** [Legacy] A custom class name for the component. */
-  className?: string;
   /** The unique id of the component (used with aria-describedby for accessibility) */
   helpId?: string;
   /** A path for the anchor */
@@ -54,7 +49,6 @@ export const Help = ({
   as,
   ariaLabel = "help",
   children,
-  className,
   href,
   helpId,
   isFocused,
@@ -67,13 +61,6 @@ export const Help = ({
   type = "help",
   ...rest
 }: HelpProps): JSX.Element => {
-  if (!deprecatedClassNameWarningShown && className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'Help' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
-
   const defaultTooltipId = useRef(guid());
   const helpElement = useRef<HTMLDivElement>(null);
   const [isTooltipVisible, updateTooltipVisible] = useState(false);
@@ -110,7 +97,6 @@ export const Help = ({
           : undefined
       }
       aria-label={helpAriaLabel || ariaLabel}
-      className={className}
       as={tagType}
       href={href}
       id={helpId}

@@ -29,7 +29,6 @@ import {
 } from "../../../playwright/components/menu/index";
 import {
   searchDefaultInput,
-  searchCrossIcon,
   searchButton,
 } from "../../../playwright/components/search/index";
 import {
@@ -387,59 +386,6 @@ test.describe("Prop tests for Menu component", () => {
     });
   });
 
-  test(`should verify the Search component close icon is focusable when using keyboard to navigate down the list of items`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch />);
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Enter");
-    await page.keyboard.press("ArrowDown");
-    await searchDefaultInput(page).fill("FooBar");
-    await page.keyboard.press("Tab");
-    const cross = searchCrossIcon(page).locator("..");
-    await expect(cross).toBeFocused();
-  });
-
-  test(`should verify the Search component close icon is centred when focused`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch />);
-    const bottomLess = 220;
-    const topLess = 184;
-    const leftLess = 108;
-    // additionVal is to compensate for the outline.
-    const additionVal = 6;
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Enter");
-    await page.keyboard.press("ArrowDown");
-    await searchDefaultInput(page).fill("FooBar");
-    await page.keyboard.press("Tab");
-    const cross = searchCrossIcon(page).locator("..");
-    await expect(cross).toBeFocused();
-
-    const boundBottom = await cross.evaluate((element) => {
-      return element.getBoundingClientRect().bottom;
-    });
-    expect(boundBottom).toBeLessThanOrEqual(bottomLess + additionVal);
-    expect(boundBottom).toBeGreaterThan(bottomLess);
-
-    const boundTop = await cross.evaluate((element) => {
-      return element.getBoundingClientRect().top;
-    });
-    expect(boundTop).toBeLessThanOrEqual(topLess + additionVal);
-    expect(boundTop).toBeGreaterThan(topLess);
-
-    const boundLeft = await cross.evaluate((element) => {
-      return element.getBoundingClientRect().left;
-    });
-    expect(boundLeft).toBeLessThanOrEqual(leftLess + additionVal);
-    expect(boundLeft).toBeGreaterThan(leftLess);
-  });
-
   test(`should verify that the Search component is focusable by using the downarrow key when rendered as the parent of a scrollable submenu`, async ({
     mount,
     page,
@@ -474,7 +420,6 @@ test.describe("Prop tests for Menu component", () => {
     await page.keyboard.press("Enter");
     await page.keyboard.press("ArrowDown");
     await searchDefaultInput(page).fill("FooBar");
-    await page.keyboard.press("Tab");
     await page.keyboard.press("Enter");
     const subMenuBlock = submenuBlock(page).first().locator("li").first();
     await expect(subMenuBlock).toBeVisible();
@@ -858,19 +803,6 @@ test.describe("Prop tests for Menu component", () => {
       const thisMenu = menu(page).first();
       await expect(thisMenu).toHaveCSS("order", orderText);
     });
-  });
-
-  test(`should render with className as ${CHARACTERS.STANDARD}`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentItems className={CHARACTERS.STANDARD} />);
-
-    const item = menuItem(page).nth(0);
-    const itemClass = await item.evaluate((element) =>
-      element.getAttribute("class"),
-    );
-    expect(itemClass).toContain(CHARACTERS.STANDARD);
   });
 
   (
@@ -1463,7 +1395,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(item2).toBeFocused();
   });
 
-  test(`should focus the search icon and button on tab press when the current item has a Search input with searchButton and has a value`, async ({
+  test(`should focus the search button on tab press when the current item has a Search input with searchButton and has a value`, async ({
     mount,
     page,
   }) => {
@@ -1475,9 +1407,6 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await page.keyboard.press("Tab");
     const searchInput = searchDefaultInput(page);
     await expect(searchInput).toBeFocused();
-    await page.keyboard.press("Tab");
-    const crossIcon = searchCrossIcon(page).locator("..");
-    await expect(crossIcon).toBeFocused();
     await page.keyboard.press("Tab");
     const button = searchButton(page);
     await expect(button).toBeFocused();

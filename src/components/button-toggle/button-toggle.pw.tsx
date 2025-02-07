@@ -6,7 +6,6 @@ import {
   ButtonToggleGroupComponent,
   ButtonToggleGroupNotInBox,
   WithOutsideButtons,
-  ButtonToggleGroupComponentGroupedChildren,
 } from "./components.test-pw";
 import {
   buttonTogglePreview,
@@ -87,46 +86,6 @@ test.describe("Styling tests", () => {
     await mount(<ButtonToggle>Foo</ButtonToggle>);
 
     await expect(buttonToggleButton(page)).toHaveCSS("border-radius", "4px");
-  });
-
-  test("should render with the expected border-radius styling when the children have the grouped prop set", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ButtonToggleGroupComponentGroupedChildren />);
-
-    await expect(buttonToggleButton(page).nth(0)).toHaveCSS(
-      "border-radius",
-      "4px 0px 0px 4px",
-    );
-    await expect(buttonToggleButton(page).nth(1)).toHaveCSS(
-      "border-radius",
-      "0px",
-    );
-    await expect(buttonToggleButton(page).nth(2)).toHaveCSS(
-      "border-radius",
-      "0px 4px 4px 0px",
-    );
-  });
-
-  test("should render with the expected border-radius styling when children do not have grouped prop set", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ButtonToggleComponent />);
-
-    await expect(buttonToggleButton(page).nth(0)).toHaveCSS(
-      "border-radius",
-      "4px",
-    );
-    await expect(buttonToggleButton(page).nth(1)).toHaveCSS(
-      "border-radius",
-      "4px",
-    );
-    await expect(buttonToggleButton(page).nth(2)).toHaveCSS(
-      "border-radius",
-      "4px",
-    );
   });
 });
 
@@ -403,15 +362,6 @@ test.describe("Accessibility tests", () => {
     page,
   }) => {
     await mount(<ButtonToggleComponent disabled />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for Button-Toggle grouped", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ButtonToggleComponent grouped />);
 
     await checkAccessibility(page);
   });

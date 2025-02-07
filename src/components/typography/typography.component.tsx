@@ -6,9 +6,6 @@ import {
   filterStyledSystemPaddingProps,
 } from "../../style/utils";
 import StyledTypography from "./typography.style";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export const VARIANT_TYPES = [
   "h1-large",
@@ -79,8 +76,6 @@ export interface TypographyProps extends SpaceProps, TagProps {
   bg?: string;
   /** Override the opacity value */
   opacity?: string | number;
-  /** @private @ignore */
-  className?: string;
   /** Set whether it will be visually hidden
    * NOTE: This is for screen readers only and will make a lot of the other props redundant */
   screenReaderOnly?: boolean;
@@ -92,6 +87,12 @@ export interface TypographyProps extends SpaceProps, TagProps {
   isDisabled?: boolean;
   /** @private @ignore Set whether the component should be recognised by assistive technologies */
   "aria-hidden"?: "true" | "false";
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component. INTERNAL USE ONLY. */
+  className?: string;
 }
 
 export const Typography = ({
@@ -117,18 +118,12 @@ export const Typography = ({
   bg,
   opacity,
   children,
-  className,
   screenReaderOnly,
   isDisabled,
   "aria-hidden": ariaHidden,
+  className,
   ...rest
 }: TypographyProps) => {
-  if (!deprecatedClassNameWarningShown && className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'Typography' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
   return (
     <StyledTypography
       variant={variant}
@@ -151,10 +146,10 @@ export const Typography = ({
       backgroundColor={backgroundColor}
       bg={bg}
       opacity={opacity}
-      className={className}
       screenReaderOnly={screenReaderOnly}
       isDisabled={isDisabled}
       aria-hidden={ariaHidden}
+      className={className}
       {...tagComponent(dataComponent, rest)}
       {...filterStyledSystemMarginProps(rest)}
       {...filterStyledSystemPaddingProps(rest)}

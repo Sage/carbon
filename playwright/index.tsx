@@ -25,10 +25,7 @@ const mountedTheme = (theme: string) => {
 
 // Setup required providers on mounted component before running test. See https://playwright.dev/docs/test-components#hooks
 beforeMount<HooksConfig>(async ({ App, hooksConfig }) => {
-  const {
-    theme = "sage",
-    validationRedesignOptIn,
-  } = hooksConfig || {};
+  const { theme = "sage", validationRedesignOptIn } = hooksConfig || {};
   return (
     <CarbonProvider
       theme={mountedTheme(theme)}

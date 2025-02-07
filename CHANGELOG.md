@@ -1,3 +1,104 @@
+## [147.4.0](https://github.com/Sage/carbon/compare/v147.3.1...v147.4.0) (2025-02-06)
+
+
+### Features
+
+* **search, menu-item:** prevent tab focus on clear button and hide from aria, esc clears search ([6cd605f](https://github.com/Sage/carbon/commit/6cd605f3d239e3a5dc24fb9aad2663efc82ee824)), closes [#7170](https://github.com/Sage/carbon/issues/7170)
+
+### [147.3.1](https://github.com/Sage/carbon/compare/v147.3.0...v147.3.1) (2025-02-05)
+
+
+### Bug Fixes
+
+* **action-popover:** aria label has default value despite visible text on open button ([8e623e4](https://github.com/Sage/carbon/commit/8e623e446054af23ecc298ea301822282382f5da)), closes [#7143](https://github.com/Sage/carbon/issues/7143)
+
+## [147.3.0](https://github.com/Sage/carbon/compare/v147.2.0...v147.3.0) (2025-02-04)
+
+
+### Features
+
+* **hr:** add height prop ([b93ab1c](https://github.com/Sage/carbon/commit/b93ab1c035abaf0e7e5a97592bed2ad75bbfd45d))
+
+## [147.2.0](https://github.com/Sage/carbon/compare/v147.1.0...v147.2.0) (2025-02-03)
+
+
+### Features
+
+* **portrait, profile:** allows custom colours to be set on the Portrait and Profile components ([9e20799](https://github.com/Sage/carbon/commit/9e2079973f20fe5671547ed78e599593ce9c2c77))
+
+## [147.1.0](https://github.com/Sage/carbon/compare/v147.0.1...v147.1.0) (2025-02-03)
+
+
+### Features
+
+* **numeral-date, time:** add support for labelAlign on non-inline labels ([241d744](https://github.com/Sage/carbon/commit/241d744b5460f36262cb25fe3500d03a207466e5))
+
+
+### Bug Fixes
+
+* **numeral-date:** ensure inlineLabel works as expected in Safari ([b13e5dc](https://github.com/Sage/carbon/commit/b13e5dc2d8fbbb08728f3f2fafe1aba2d1f2c866))
+
+### [147.0.1](https://github.com/Sage/carbon/compare/v147.0.0...v147.0.1) (2025-01-31)
+
+
+### Bug Fixes
+
+* **dialog:** ensure enableBackgroundUI is passed to Modal ([9605627](https://github.com/Sage/carbon/commit/9605627493bb4b413120fab091342f01a93378d3)), closes [#6023](https://github.com/Sage/carbon/issues/6023)
+
+## [147.0.0](https://github.com/Sage/carbon/compare/v146.6.1...v147.0.0) (2025-01-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **classname prop:** - The `className` property has been removed from all components.
+- Accordion: scheme and buttonHeading
+- Box: tabIndex
+- ButtonToggle: grouped
+- Decimal: onKeyPress
+- Icon: 'extra-small' variant
+- Portrait: gravatar
+- SimpleColorPicker: isBlurBlocked
+- ListItem: variant (now inherits from parent List component)
+
+### Features
+
+* **classname prop:** remove className from public props ([1c4fad4](https://github.com/Sage/carbon/commit/1c4fad43ce7bb3ec520bfea146d92390e7473dc4))
+
+### [146.6.1](https://github.com/Sage/carbon/compare/v146.6.0...v146.6.1) (2025-01-28)
+
+
+### Bug Fixes
+
+* **form:** ensure that additional margin-bottom is not applied to NumeralDate component ([648cad7](https://github.com/Sage/carbon/commit/648cad70be79b31426364c3581974eff603a6145)), closes [#7171](https://github.com/Sage/carbon/issues/7171)
+
+## [146.6.0](https://github.com/Sage/carbon/compare/v146.5.3...v146.6.0) (2025-01-28)
+
+
+### Features
+
+* **date:** fix focus loss when using navbar with keyboard ([151a710](https://github.com/Sage/carbon/commit/151a710c23aaf09f4a30fb6eb89ad15ebb0ffe5b)), closes [#7158](https://github.com/Sage/carbon/issues/7158)
+
+### [146.5.3](https://github.com/Sage/carbon/compare/v146.5.2...v146.5.3) (2025-01-27)
+
+
+### Bug Fixes
+
+* **tabs-header:** padding to be removed ([2598bab](https://github.com/Sage/carbon/commit/2598bab7d968f6b2e978a0f1055d64b1e7104426)), closes [#7145](https://github.com/Sage/carbon/issues/7145)
+
+### [146.5.2](https://github.com/Sage/carbon/compare/v146.5.1...v146.5.2) (2025-01-24)
+
+
+### Bug Fixes
+
+* **flex-tile-divider:** add aria-hidden attribute to hr element ([f198c2e](https://github.com/Sage/carbon/commit/f198c2e56737d1294c767b8c56981acc4c1f2938)), closes [#7173](https://github.com/Sage/carbon/issues/7173)
+
+### [146.5.1](https://github.com/Sage/carbon/compare/v146.5.0...v146.5.1) (2025-01-24)
+
+
+### Bug Fixes
+
+* **form:** ensure that additional margin-bottom is not applied to Time component ([98cdaae](https://github.com/Sage/carbon/commit/98cdaae86e47bd44d00a202cefe22cc53f31aa98)), closes [#7164](https://github.com/Sage/carbon/issues/7164)
+
 ## [146.5.0](https://github.com/Sage/carbon/compare/v146.4.7...v146.5.0) (2025-01-23)
 
 

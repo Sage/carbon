@@ -664,6 +664,7 @@ export const FormAlignmentExample: Story = () => {
         legendInline
         legendWidth={10}
         legendSpacing={2}
+        legendAlign="right"
       >
         <RadioButton
           id="group-1-input-1"

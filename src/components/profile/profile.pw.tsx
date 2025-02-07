@@ -22,12 +22,11 @@ import {
 
 import profileConfigSizes, { PROFILE_SIZES } from "./profile.config";
 
-const testImage =
-  "https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404";
+const testImage = "https://avataaars.io/";
 
 const imageURLs = [
   "https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light",
-  "https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404",
+  "https://avataaars.io/",
 ];
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -67,7 +66,7 @@ test.describe("Prop checks for Profile component", () => {
     ["John Doe", "JD"],
     ["Foo", "F"],
   ].forEach(([name, initials]) => {
-    test(`should render with correct initials when name prop is passed as ${name} and no other icon, src or gravatar is passed`, async ({
+    test(`should render with correct initials when name prop is passed as ${name} and no other icon or src is passed`, async ({
       mount,
       page,
     }) => {

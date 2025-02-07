@@ -153,7 +153,6 @@ describe("when custom props are passed", () => {
     (spinnerSizes) => {
       render(<LoaderSpinner size={spinnerSizes} />);
       const visibleLabelElement = screen.getByTestId("visible-label");
-
       expect(visibleLabelElement).toHaveStyle({
         marginTop: `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].labelMarginTop}px`,
       });
