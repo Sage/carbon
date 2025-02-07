@@ -2,7 +2,6 @@ import { useMemo, useEffect, useRef } from "react";
 import debounce from "lodash/debounce";
 import { DebouncedFunc } from "lodash";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Callback = (...args: any[]) => void;
 
 const useDebounce = <T extends Callback>(
@@ -13,18 +12,21 @@ const useDebounce = <T extends Callback>(
 
   useEffect(() => {
     callbackRef.current = callback;
-  });
+  }, [callback]);
 
   const debouncedCallback = useMemo(
-    () => debounce(callbackRef.current, delay),
-    [delay],
+    () =>
+      debounce((...args: Parameters<T>) => {
+        callbackRef.current(...args);
+      }, delay),
+    [delay]
   );
 
   useEffect(() => {
     return () => {
       debouncedCallback.cancel();
     };
-  });
+  }, [debouncedCallback]);
 
   return debouncedCallback;
 };
