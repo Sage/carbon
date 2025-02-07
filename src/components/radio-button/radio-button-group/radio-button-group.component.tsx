@@ -96,10 +96,6 @@ export const RadioButtonGroup = ({
   const uniqueId = id || internalId.current;
   const inputHintId = legendHelp ? `${uniqueId}-hint` : undefined;
 
-  const legendInlineWithNewValidation = validationRedesignOptIn
-    ? false
-    : legendInline;
-
   if (!deprecateUncontrolledWarnTriggered && !onChange) {
     deprecateUncontrolledWarnTriggered = true;
     Logger.deprecate(
@@ -117,7 +113,7 @@ export const RadioButtonGroup = ({
     adaptiveSpacingBreakpoint,
   );
 
-  let inlineLegend = legendInlineWithNewValidation;
+  let inlineLegend = legendInline;
   if (adaptiveLegendBreakpoint) {
     inlineLegend = !!isAboveLegendBreakpoint;
   }
@@ -146,10 +142,7 @@ export const RadioButtonGroup = ({
           legend={legend}
           error={error}
           warning={warning}
-          inline={inlineLegend}
-          legendWidth={legendWidth}
           legendAlign={legendAlign}
-          legendSpacing={legendSpacing}
           isRequired={required}
           isOptional={isOptional}
           {...tagComponent("radiogroup", rest)}

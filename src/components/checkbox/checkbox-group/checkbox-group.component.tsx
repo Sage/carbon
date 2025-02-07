@@ -91,10 +91,7 @@ export const CheckboxGroup = ({
         <Fieldset
           id={uniqueId}
           legend={legend}
-          inline={legendInline}
-          legendWidth={legendWidth}
           legendAlign={legendAlign}
-          legendSpacing={legendSpacing}
           error={error}
           warning={warning}
           isRequired={required}
@@ -121,7 +118,6 @@ export const CheckboxGroup = ({
             <StyledCheckboxGroup
               data-component="checkbox-group"
               data-role="checkbox-group"
-              legendInline={legendInline}
               inline={inline}
             >
               <CheckboxGroupContext.Provider
