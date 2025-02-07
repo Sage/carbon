@@ -6,6 +6,7 @@ import {
   PaddingProps,
 } from "styled-system";
 import invariant from "invariant";
+import { defaultFocusableSelectors as focusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import StyledMenuItemWrapper from "./menu-item.style";
 import Events from "../../../__internal__/utils/helpers/events";
@@ -139,6 +140,8 @@ export const MenuItem = ({
     "You should not pass `children` when `submenu` is an empty string",
   );
 
+  const menuItemId = useRef(guid());
+
   const { isChildOfSegment, overriddenVariant } =
     useContext<MenuSegmentContextProps>(MenuSegmentContext);
 
@@ -150,7 +153,6 @@ export const MenuItem = ({
     updateFocusId,
     menuType,
   } = useContext<MenuContextProps>(MenuContext);
-  const menuItemId = useRef(guid());
 
   const submenuContext = useContext<SubmenuContextProps>(SubmenuContext);
   const isInSubmenu = Object.keys(submenuContext).length > 0;
@@ -161,16 +163,14 @@ export const MenuItem = ({
     submenuHasMaxWidth,
   } = submenuContext;
 
-  const ref = useRef<HTMLAnchorElement>(null);
   const focusFromMenu = focusId === menuItemId.current;
   const focusFromSubmenu = submenuFocusId
     ? submenuFocusId === menuItemId.current
     : undefined;
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  inputRef.current = ref.current
-    ? ref.current.querySelector("[data-element='input']")
-    : null;
-  const focusRef = inputRef.current ? inputRef : ref;
+
+  const ref = useRef<HTMLAnchorElement>(null);
+  const firstFocusableChild =
+    ref.current?.querySelector<HTMLElement>(focusableSelectors) ?? null;
 
   useEffect(() => {
     const id = menuItemId.current;
@@ -189,9 +189,15 @@ export const MenuItem = ({
   }, [registerItem, unregisterItem]);
 
   useEffect(() => {
-    if ((focusFromMenu && !focusFromSubmenu) || focusFromSubmenu)
-      focusRef.current?.focus();
-  }, [focusFromMenu, focusFromSubmenu, focusRef]);
+    if ((focusFromMenu && !focusFromSubmenu) || focusFromSubmenu) {
+      if (firstFocusableChild) {
+        firstFocusableChild.focus();
+        return;
+      }
+
+      ref.current?.focus();
+    }
+  }, [firstFocusableChild, focusFromMenu, focusFromSubmenu]);
 
   const handleFocus = (
     event: React.FocusEvent<HTMLDivElement | HTMLLIElement>,
@@ -220,10 +226,10 @@ export const MenuItem = ({
 
   const elementProps = {
     className: href || onClick ? "carbon-menu-item--has-link" : "",
-    href,
+    href: firstFocusableChild ? undefined : href,
+    onClick: firstFocusableChild ? undefined : onClick,
     target,
     rel,
-    onClick,
     icon,
     removeAriaLabelOnIcon: true,
     selected,
@@ -246,7 +252,6 @@ export const MenuItem = ({
 
   const itemMaxWidth = !inFullscreenView ? maxWidth : undefined;
   const asPassiveItem = !(onClick || href);
-  const hasInput = !!inputRef.current;
 
   if (submenu) {
     return (
@@ -285,6 +290,9 @@ export const MenuItem = ({
   }
 
   const paddingProps = filterStyledSystemPaddingProps(rest);
+  const hasInput = !!ref.current?.querySelector<HTMLElement>(
+    "[data-element='input']",
+  );
 
   return (
     <StyledMenuItem
@@ -310,7 +318,6 @@ export const MenuItem = ({
         maxWidth={!submenuHasMaxWidth ? itemMaxWidth : undefined}
         inFullscreenView={inFullscreenView}
         asPassiveItem={asPassiveItem}
-        placeholderTabIndex={asPassiveItem}
         {...paddingProps}
         asDiv={hasInput || as === "div"}
         hasInput={hasInput}

@@ -3,10 +3,12 @@ import { screen, render, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Menu, MenuItem } from ".";
+
 import {
   testStyledSystemLayout,
   testStyledSystemFlexBox,
 } from "../../__spec_helper__/__internal__/test-utils";
+import Button from "../../components/button";
 
 testStyledSystemLayout(
   (props) => <Menu {...props}>Foo</Menu>,
@@ -335,4 +337,22 @@ test("focus state in a submenu remains consistent across Shift+Tab and End key p
   await user.tab({ shift: true });
 
   expect(screen.getByRole("link", { name: "Orange" })).toHaveFocus();
+});
+
+test("moves focus to first focusable child element inside a MenuItem when tabbing in, instead of the root element", async () => {
+  const user = userEvent.setup();
+  render(
+    <Menu>
+      <MenuItem href="#">One</MenuItem>
+      <MenuItem>
+        <Button>Two</Button>
+      </MenuItem>
+      <MenuItem href="#">Three</MenuItem>
+    </Menu>,
+  );
+
+  await user.tab();
+  await user.tab();
+
+  expect(screen.getByRole("button", { name: "Two" })).toHaveFocus();
 });
