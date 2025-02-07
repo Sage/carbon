@@ -20,6 +20,8 @@ import {
   DraggableItemData,
   DragState,
 } from "../__internal__/draggable-utils";
+import { set } from "lodash";
+import useDebounce from "../../../hooks/__internal__/useDebounce";
 
 export interface DraggableItemProps {
   children?: React.ReactNode;
@@ -157,13 +159,9 @@ const DraggableItem = ({
             setDragState({ type: "is-dragging-over", closestEdge, id });
           }
         },
-        onDrag({ self, source, location }) {
+        onDrag({ self, source, location }) {          
           const pageX = location.current.input.pageX;
           const pageY = location.current.input.pageY;
-        
-          if (testState.value1 === undefined && testState.value2 === undefined) {
-            setTestState({ value1: source.data.itemId, value2: source.data.itemId });
-          }
         
           const parentContainerId1 = location.current.dropTargets[0].data.parentContainerId;
           const parentContainerId2 = source.data.parentContainerId;
@@ -189,15 +187,7 @@ const DraggableItem = ({
 
           const closestEdge = extractClosestEdge(self.data);
           if (setDragState) {
-            setDragState((current) => {
-              if (
-                current.type === "is-dragging-over" &&
-                current.closestEdge === closestEdge
-              ) {
-                return current;
-              }
-              return { type: "is-dragging-over", closestEdge, id };
-            });
+            setDragState(idle)
           }
         },
         onDragLeave() {
@@ -222,17 +212,6 @@ const DraggableItem = ({
     };
   }, [id, draggableItemData, setDragState, setClosestEdge, testState, setTestState]);
 
-
-  const calculateOpacity = () => {
-    if(dragState.type === "is-dragging")
-    {
-      return 0.5;
-    } else if(dragState.type === "is-dragging-over"){
-      return 0;
-    }
-    return 1;
-  }
-
   return React.createElement(
     itemsNode,
     {
@@ -240,7 +219,7 @@ const DraggableItem = ({
       "data-element": "use-draggable-item",
       "data-parent-container-id": columnId,
       "data-item-id": id,
-      style: {...itemsStyle, opacity: calculateOpacity()},
+      style: {...itemsStyle, opacity: dragState.type === "is-dragging" ? 0.5 : (dragState.type === "is-dragging-over" ? 0 : 1)},
     },
     <>{children}
     </>
