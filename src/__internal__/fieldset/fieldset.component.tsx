@@ -13,6 +13,7 @@ import NewValidationContext from "../../components/carbon-provider/__internal__/
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import Help from "../../components/help";
+import Typography from "../../components/typography";
 
 export interface FieldsetProps extends MarginProps {
   /** Role */
@@ -100,13 +101,12 @@ const Fieldset = ({
   const tooltipIcon = () => {
     if (error || warning || info) {
       return (
-        <StyledIconWrapper>
+        <StyledIconWrapper aria-hidden="true">
           <ValidationIcon
             error={error}
             warning={warning}
             info={info}
             tooltipFlipOverrides={["top", "bottom"]}
-            tooltipId={validationId}
           />
         </StyledIconWrapper>
       );
@@ -170,6 +170,11 @@ const Fieldset = ({
               </StyledLegend>
             )}
           </InputGroupContext.Consumer>
+        )}
+        {!validationRedesignOptIn && (
+          <Typography screenReaderOnly id={validationId}>
+            {error || warning || info}
+          </Typography>
         )}
         {children}
       </StyledFieldset>

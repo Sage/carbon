@@ -199,13 +199,13 @@ test("does not render with provided margin-left when screen is smaller than `ada
   expect(fieldset).toHaveStyle({ marginLeft: "0" });
 });
 
-// coverage
 describe("when `validationRedesignOptIn` flag is true", () => {
-  it("renders with provided `error`", () => {
+  it("renders with provided `error` message", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <RadioButtonGroup
           name="group"
+          legend="legend"
           error="Error message"
           onChange={() => {}}
         >
@@ -214,14 +214,18 @@ describe("when `validationRedesignOptIn` flag is true", () => {
       </CarbonProvider>,
     );
 
+    const fieldset = screen.getByRole("group", { name: "legend" });
+
     expect(screen.getByText("Error message")).toBeVisible();
+    expect(fieldset).toHaveAccessibleDescription("Error message");
   });
 
-  it("renders with provided `warning`", () => {
+  it("renders with provided `warning` message", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <RadioButtonGroup
           name="group"
+          legend="legend"
           warning="Warning message"
           onChange={() => {}}
         >
@@ -230,7 +234,10 @@ describe("when `validationRedesignOptIn` flag is true", () => {
       </CarbonProvider>,
     );
 
+    const fieldset = screen.getByRole("group", { name: "legend" });
+
     expect(screen.getByText("Warning message")).toBeVisible();
+    expect(fieldset).toHaveAccessibleDescription("Warning message");
   });
 
   it("renders `legendHelp` as hint text", () => {
@@ -238,6 +245,7 @@ describe("when `validationRedesignOptIn` flag is true", () => {
       <CarbonProvider validationRedesignOptIn>
         <RadioButtonGroup
           name="group"
+          legend="legend"
           legendHelp="Hint message"
           onChange={() => {}}
         >
@@ -246,8 +254,10 @@ describe("when `validationRedesignOptIn` flag is true", () => {
       </CarbonProvider>,
     );
 
+    const fieldset = screen.getByRole("group", { name: "legend" });
     const hintText = screen.getByText("Hint message");
 
+    expect(fieldset).toHaveAccessibleDescription("Hint message");
     expect(hintText).toBeVisible();
     expect(hintText).toHaveStyle({
       marginTop: "-4px",
