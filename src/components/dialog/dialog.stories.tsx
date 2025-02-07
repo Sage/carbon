@@ -543,11 +543,16 @@ export const UsingHandle: Story = () => {
 
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [state, setState] = useState("");
 
   function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
     setIsSubmitted(true);
     dialogHandle.current?.focus();
+  }
+
+  function setValue(ev: React.ChangeEvent<HTMLInputElement>) {
+    setState(ev.target.value);
   }
 
   return (
@@ -573,6 +578,8 @@ export const UsingHandle: Story = () => {
             <Textarea
               label="What would you like to tell us?"
               characterLimit={1000}
+              value={state}
+              onChange={setValue}
             />
           </Form>
         )}
