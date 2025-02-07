@@ -30,7 +30,6 @@ interface StyledMenuItemWrapperProps
   isOpen?: boolean;
   inFullscreenView?: boolean;
   asPassiveItem?: boolean;
-  placeholderTabIndex?: boolean;
   icon?: string;
   ariaLabel?: string;
   asDiv?: boolean;
