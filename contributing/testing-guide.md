@@ -174,7 +174,7 @@ Currently, we do not enforce a code coverage threshold for our browser-based com
 We leverage Playwright's built-in code coverage capabilities to analyze the JavaScript and CSS executed during test runs. 
 In order to generate the JSON data, we use [monocart-coverage-reports](https://www.npmjs.com/package/monocart-coverage-reports) and then finally [nyc](https://www.npmjs.com/package/nyc) to produce the formatted HTML report. 
 
-To collect code coverage for the whole Playwright test suite, please run `npm run test:ct:coverage` (Note: This process may take a significant amount of time to complete.). For collecting code coverage data for a specific component, use the following command `npm run test:ct:coverage -- component.pw`. To generate the code coverage report run `npm run pw:coverage:report`. This will generate an `index.html` in the `playwright/coverage` directory. Since this directory is hidden by default, you will need to run the following command `open playwright/coverage.index.html` to open the report in your browser.
+To collect code coverage for the whole Playwright test suite, please run `npm run test:ct:coverage` (Note: This process may take a significant amount of time to complete.). For collecting code coverage data for a specific component, use the following command `npm run test:ct:coverage -- component.pw`. To generate the code coverage report run `npm run pw:coverage:report`. This will generate an `index.html` in the `playwright/coverage` directory. Since this directory is hidden by default, you will need to run the command `open playwright/coverage/index.html` if you are using an Apple device or `start playwright/coverage/index.html` if you are using Windows to open the report in your browser.
 
 ## Visual Testing
 
