@@ -1,3 +1,10 @@
+## [147.4.0](https://github.com/Sage/carbon/compare/v147.3.1...v147.4.0) (2025-02-06)
+
+
+### Features
+
+* **search, menu-item:** prevent tab focus on clear button and hide from aria, esc clears search ([6cd605f](https://github.com/Sage/carbon/commit/6cd605f3d239e3a5dc24fb9aad2663efc82ee824)), closes [#7170](https://github.com/Sage/carbon/issues/7170)
+
 ### [147.3.1](https://github.com/Sage/carbon/compare/v147.3.0...v147.3.1) (2025-02-05)
 
 
