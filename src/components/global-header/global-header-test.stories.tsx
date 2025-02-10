@@ -8,7 +8,6 @@ import carbonLogo from "../../../logo/carbon-logo.png";
 
 export default {
   title: "Global Header/Test",
-  includeStories: ["MenuWithIconOnlyButtonsStory"], // exclude `FullMenuExample` from storybook
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -31,11 +30,11 @@ export const MenuWithIconOnlyButtonsStory: StoryFn<
         <MenuItem flex="1" submenu="Product Switcher">
           <MenuItem href="#">Product A</MenuItem>
         </MenuItem>
-        <MenuItem flex="0 0 auto" icon="person">
+        <MenuItem href="#" flex="0 0 auto" icon="person">
           User name
         </MenuItem>
         <MenuItem flex="0 0 auto" submenu="Selected role">
-          <MenuItem>Administrator</MenuItem>
+          <MenuItem href="#">Administrator</MenuItem>
         </MenuItem>
         <MenuItem ariaLabel="search" icon="search" href="#" />
         <MenuItem ariaLabel="alert" icon="alert" href="#" />
