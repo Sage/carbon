@@ -226,10 +226,10 @@ export const MenuItem = ({
 
   const elementProps = {
     className: href || onClick ? "carbon-menu-item--has-link" : "",
-    href,
+    href: firstFocusableChild ? undefined : href,
+    onClick: firstFocusableChild ? undefined : onClick,
     target,
     rel,
-    onClick,
     icon,
     removeAriaLabelOnIcon: true,
     selected,
@@ -318,7 +318,6 @@ export const MenuItem = ({
         maxWidth={!submenuHasMaxWidth ? itemMaxWidth : undefined}
         inFullscreenView={inFullscreenView}
         asPassiveItem={asPassiveItem}
-        placeholderTabIndex={asPassiveItem}
         {...paddingProps}
         asDiv={hasInput || as === "div"}
         hasInput={hasInput}
