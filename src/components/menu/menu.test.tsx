@@ -225,7 +225,7 @@ test("should support menu items unmounting", async () => {
 test("should apply the expected `data-` tags as attributes", () => {
   render(
     <Menu data-element="bar" data-role="baz">
-      <MenuItem>Foo</MenuItem>
+      <MenuItem href="#">Foo</MenuItem>
     </Menu>,
   );
   const menu = screen.getByRole("list");
