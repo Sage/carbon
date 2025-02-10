@@ -395,7 +395,9 @@ test("should set the correct colour when a child of `MenuSegmentTitle` and `vari
   render(
     <MenuContext.Provider value={menuContextValues("black", true)}>
       <MenuSegmentTitle text="Title" variant="alternate">
-        <MenuItem variant="alternate">Item One</MenuItem>
+        <MenuItem variant="alternate" href="#">
+          Item One
+        </MenuItem>
       </MenuSegmentTitle>
     </MenuContext.Provider>,
   );

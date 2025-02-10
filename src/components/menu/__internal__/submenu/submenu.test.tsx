@@ -139,8 +139,8 @@ test("should not render submenu when closed", () => {
   render(
     <MenuContext.Provider value={menuContextValues}>
       <Submenu title="title">
-        <MenuItem>Apple</MenuItem>
-        <MenuItem>Banana</MenuItem>
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
       </Submenu>
     </MenuContext.Provider>,
   );
@@ -153,8 +153,8 @@ test("should render submenu when user hovers over on parent menu item", async ()
   render(
     <MenuContext.Provider value={menuContextValues}>
       <Submenu title="title" variant="alternate">
-        <MenuItem>Apple</MenuItem>
-        <MenuItem>Banana</MenuItem>
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
       </Submenu>
     </MenuContext.Provider>,
   );
@@ -170,8 +170,8 @@ test("should remove submenu element from the document when it's closed by the us
   render(
     <MenuContext.Provider value={menuContextValues}>
       <Submenu title="title">
-        <MenuItem>Apple</MenuItem>
-        <MenuItem>Banana</MenuItem>
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
       </Submenu>
     </MenuContext.Provider>,
   );
@@ -188,8 +188,8 @@ test("should render submenu when parent item is clicked", async () => {
   render(
     <MenuContext.Provider value={menuContextValues}>
       <Submenu title="title">
-        <MenuItem>Apple</MenuItem>
-        <MenuItem>Banana</MenuItem>
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
       </Submenu>
     </MenuContext.Provider>,
   );
@@ -205,8 +205,8 @@ test("should not display submenu when user hovers over parent menu item and `cli
   render(
     <MenuContext.Provider value={menuContextValues}>
       <Submenu title="title" clickToOpen>
-        <MenuItem>Apple</MenuItem>
-        <MenuItem>Banana</MenuItem>
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
       </Submenu>
     </MenuContext.Provider>,
   );
@@ -223,8 +223,8 @@ test("should call the `onSubmenuOpen` callback when the submenu opens and prop h
   render(
     <MenuContext.Provider value={menuContextValues}>
       <Submenu title="title" onSubmenuOpen={mockCallback}>
-        <MenuItem>Apple</MenuItem>
-        <MenuItem>Banana</MenuItem>
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
       </Submenu>
     </MenuContext.Provider>,
   );
@@ -240,8 +240,8 @@ test("should call the `onSubmenuClose` callback when the submenu closes and prop
   render(
     <MenuContext.Provider value={menuContextValues}>
       <Submenu title="title" onSubmenuClose={mockCallback}>
-        <MenuItem>Apple</MenuItem>
-        <MenuItem>Banana</MenuItem>
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
       </Submenu>
     </MenuContext.Provider>,
   );
@@ -257,8 +257,8 @@ test("should render submenu with the correct styles when `submenuDirection` is s
   render(
     <MenuContext.Provider value={menuContextValues}>
       <Submenu title="title" submenuDirection="left">
-        <MenuItem>Apple</MenuItem>
-        <MenuItem>Banana</MenuItem>
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
       </Submenu>
     </MenuContext.Provider>,
   );
@@ -276,8 +276,8 @@ test("should render submenu with the correct styles when `submenuDirection` is s
   render(
     <MenuContext.Provider value={menuContextValues}>
       <Submenu title="title" submenuDirection="right">
-        <MenuItem>Apple</MenuItem>
-        <MenuItem>Banana</MenuItem>
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
       </Submenu>
     </MenuContext.Provider>,
   );
@@ -295,8 +295,8 @@ test("should close submenu when the user clicks outside of the component boundar
   render(
     <MenuContext.Provider value={menuContextValues}>
       <Submenu title="title">
-        <MenuItem>Apple</MenuItem>
-        <MenuItem>Banana</MenuItem>
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
       </Submenu>
     </MenuContext.Provider>,
   );
@@ -495,8 +495,12 @@ test("should override submenu children's `maxWidth` if `submenuMaxWidth` is set"
   render(
     <MenuContext.Provider value={menuContextValues}>
       <Submenu title="title" submenuMaxWidth="300px">
-        <MenuItem maxWidth="400px">Apple</MenuItem>
-        <MenuItem minWidth="400px">Banana</MenuItem>
+        <MenuItem maxWidth="400px" href="#">
+          Apple
+        </MenuItem>
+        <MenuItem minWidth="400px" href="#">
+          Banana
+        </MenuItem>
       </Submenu>
     </MenuContext.Provider>,
   );
