@@ -14,7 +14,6 @@ import Events from "../../../../__internal__/utils/helpers/events";
 import MenuContext from "../menu.context";
 import { characterNavigation } from "../keyboard-navigation";
 import SubmenuContext from "./submenu.context";
-import useClickAwayListener from "../../../../hooks/__internal__/useClickAwayListener";
 import guid from "../../../../__internal__/utils/helpers/guid";
 import {
   SCROLLABLE_BLOCK,
@@ -414,13 +413,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
       }
     }, [submenuOpen, submenuFocusId, submenuItemIds]);
 
-    const handleClickAway = () => {
-      document.removeEventListener("click", handleClickAway);
-      closeSubmenu();
-    };
-
-    const handleClickInside = useClickAwayListener(handleClickAway);
-
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
       openSubmenu();
 
@@ -441,6 +433,12 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
       }
     }, [submenuRef, characterString, submenuItemIds]);
 
+    const handleSubmenuBlur = (event: React.FocusEvent<HTMLUListElement>) => {
+      if (!event.currentTarget.contains(event.relatedTarget)) {
+        closeSubmenu();
+      }
+    };
+
     if (inFullscreenView) {
       return (
         <StyledSubmenuWrapper
@@ -448,7 +446,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
           inFullscreenView={inFullscreenView}
           asPassiveItem={asPassiveItem}
           menuType={menuContext.menuType}
-          onClick={handleClickInside}
         >
           <StyledMenuItemWrapper
             {...rest}
@@ -493,7 +490,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
         onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
         onMouseLeave={() => closeSubmenu()}
         isSubmenuOpen={submenuOpen}
-        onClick={handleClickInside}
         ref={setSubmenuRef}
       >
         <StyledMenuItemWrapper
@@ -529,11 +525,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
             applyFocusRadiusStyling={applyFocusRadius}
             applyFocusRadiusStylingToLastItem={applyFocusRadiusToLastItem}
             submenuMaxWidth={submenuMaxWidth}
-            onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) {
-                closeSubmenu();
-              }
-            }}
+            onBlur={handleSubmenuBlur}
           >
             <SubmenuContext.Provider
               value={{
