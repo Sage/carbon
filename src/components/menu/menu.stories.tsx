@@ -793,8 +793,12 @@ export const MenuFullscreenWithSegmentStyling = () => {
             Open Normal Menu
           </MenuItem>
           <MenuFullscreen isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <MenuItem variant="default">Default Menu Item</MenuItem>
-            <MenuItem variant="alternate">Alternate Menu Item</MenuItem>
+            <MenuItem variant="default" href="#">
+              Default Menu Item
+            </MenuItem>
+            <MenuItem variant="alternate" href="#">
+              Alternate Menu Item
+            </MenuItem>
           </MenuFullscreen>
 
           <MenuItem
@@ -812,14 +816,16 @@ export const MenuFullscreenWithSegmentStyling = () => {
               variant="default"
               text="Menu items (default variant)"
             >
-              <MenuItem variant="default">Segmented Default Menu Item</MenuItem>
+              <MenuItem variant="default" href="#">
+                Segmented Default Menu Item
+              </MenuItem>
             </MenuSegmentTitle>
             <MenuSegmentTitle
               key="alternate-variant"
               variant="alternate"
               text="Menu items (alternate variant)"
             >
-              <MenuItem variant="alternate">
+              <MenuItem variant="alternate" href="#">
                 Segmented Alternate Menu Item
               </MenuItem>
             </MenuSegmentTitle>
@@ -829,21 +835,27 @@ export const MenuFullscreenWithSegmentStyling = () => {
       <Box display="flex">
         <Menu menuType="black">
           <MenuItem submenu="Standard Menu">
-            <MenuItem variant="default">Default Menu Item</MenuItem>
-            <MenuItem variant="alternate">Alternate Menu Item</MenuItem>
+            <MenuItem href="#" variant="default">
+              Default Menu Item
+            </MenuItem>
+            <MenuItem href="#" variant="alternate">
+              Alternate Menu Item
+            </MenuItem>
             <MenuSegmentTitle
               key="default-variant"
               variant="default"
               text="Menu items (default variant)"
             >
-              <MenuItem variant="default">Segmented Default Menu Item</MenuItem>
+              <MenuItem href="#" variant="default">
+                Segmented Default Menu Item
+              </MenuItem>
             </MenuSegmentTitle>
             <MenuSegmentTitle
               key="alternate-variant"
               variant="alternate"
               text="Menu items (alternate variant)"
             >
-              <MenuItem variant="alternate">
+              <MenuItem href="#" variant="alternate">
                 Segmented Alternate Menu Item
               </MenuItem>
             </MenuSegmentTitle>
