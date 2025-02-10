@@ -9,7 +9,7 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { MenuItem, MenuSegmentTitle } from "..";
+import { Menu, MenuFullscreen, MenuItem, MenuSegmentTitle } from "..";
 import {
   testStyledSystemFlexBox,
   testStyledSystemPadding,
@@ -52,7 +52,11 @@ describe("When MenuItem has no submenu", () => {
   );
 
   it("should apply the expected styling when `width` prop passed", () => {
-    render(<MenuItem width="50%">Item One</MenuItem>);
+    render(
+      <MenuItem width="50%" href="#">
+        Item One
+      </MenuItem>,
+    );
 
     expect(screen.getByRole("listitem")).toHaveStyle({
       width: "50%",
@@ -60,7 +64,11 @@ describe("When MenuItem has no submenu", () => {
   });
 
   it("should apply the expected styling when `maxWidth` prop passed", () => {
-    render(<MenuItem maxWidth="50%">Item One</MenuItem>);
+    render(
+      <MenuItem maxWidth="50%" href="#">
+        Item One
+      </MenuItem>,
+    );
 
     expect(screen.getByRole("listitem")).toHaveStyle({
       maxWidth: "50%",
@@ -68,7 +76,11 @@ describe("When MenuItem has no submenu", () => {
   });
 
   it("should apply the expected styling when `minWidth` prop passed", () => {
-    render(<MenuItem minWidth="50%">Item One</MenuItem>);
+    render(
+      <MenuItem minWidth="50%" href="#">
+        Item One
+      </MenuItem>,
+    );
 
     expect(screen.getByRole("listitem")).toHaveStyle({
       minWidth: "50%",
@@ -76,7 +88,7 @@ describe("When MenuItem has no submenu", () => {
   });
 
   it("should render children correctly", () => {
-    render(<MenuItem>Item One</MenuItem>);
+    render(<MenuItem href="#">Item One</MenuItem>);
 
     expect(screen.getByRole("listitem")).toHaveTextContent("Item One");
   });
@@ -122,7 +134,11 @@ describe("When MenuItem has no submenu", () => {
   });
 
   it("should add a `title` attribute with the full text when `maxWidth` prop is set", () => {
-    render(<MenuItem maxWidth="100px">Item One</MenuItem>);
+    render(
+      <MenuItem maxWidth="100px" href="#">
+        Item One
+      </MenuItem>,
+    );
 
     expect(screen.getByRole("listitem", { name: "Item One" })).toHaveAttribute(
       "title",
@@ -149,7 +165,7 @@ describe("When MenuItem has no submenu", () => {
   it("should apply the expected styles when `menuType` is set to 'light'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "light" }}>
-        <MenuItem>Item One</MenuItem>
+        <MenuItem href="#">Item One</MenuItem>
       </MenuContext.Provider>,
     );
 
@@ -161,7 +177,7 @@ describe("When MenuItem has no submenu", () => {
   it("should apply the expected styles when `menuType` is set to 'white'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "white" }}>
-        <MenuItem>Item One</MenuItem>
+        <MenuItem href="#">Item One</MenuItem>
       </MenuContext.Provider>,
     );
 
@@ -173,7 +189,7 @@ describe("When MenuItem has no submenu", () => {
   it("should apply the expected styles when `menuType` is set to 'dark'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "dark" }}>
-        <MenuItem>Item One</MenuItem>
+        <MenuItem href="#">Item One</MenuItem>
       </MenuContext.Provider>,
     );
 
@@ -185,7 +201,7 @@ describe("When MenuItem has no submenu", () => {
   it("should apply the expected styles when `menuType` is set to 'black'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "black" }}>
-        <MenuItem>Item One</MenuItem>
+        <MenuItem href="#">Item One</MenuItem>
       </MenuContext.Provider>,
     );
 
@@ -214,7 +230,9 @@ describe("When MenuItem has no submenu", () => {
   it("should render the expected styles when a menu item is `selected` and `menuType` is 'light'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
-        <MenuItem selected>Item One</MenuItem>
+        <MenuItem selected href="#">
+          Item One
+        </MenuItem>
       </MenuContext.Provider>,
     );
 
@@ -226,7 +244,9 @@ describe("When MenuItem has no submenu", () => {
   it("should render the expected styles when a menu item is `selected` and `menuType` is 'white'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "white" }}>
-        <MenuItem selected>Item One</MenuItem>
+        <MenuItem selected href="#">
+          Item One
+        </MenuItem>
       </MenuContext.Provider>,
     );
 
@@ -238,7 +258,9 @@ describe("When MenuItem has no submenu", () => {
   it("should render the expected styles when a menu item is `selected` and `menuType` is 'dark'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "dark" }}>
-        <MenuItem selected>Item One</MenuItem>
+        <MenuItem selected href="#">
+          Item One
+        </MenuItem>
       </MenuContext.Provider>,
     );
 
@@ -250,7 +272,9 @@ describe("When MenuItem has no submenu", () => {
   it("should render the expected styles when a menu item is `selected` and `menuType` is 'black'", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues, menuType: "black" }}>
-        <MenuItem selected>Item One</MenuItem>
+        <MenuItem selected href="#">
+          Item One
+        </MenuItem>
       </MenuContext.Provider>,
     );
 
@@ -311,7 +335,7 @@ describe("When MenuItem has no submenu", () => {
       .mockImplementation(() => {});
 
     expect(() => {
-      render(<MenuItem icon="settings" />);
+      render(<MenuItem icon="settings" href="#" />);
     }).toThrow(
       "If no text is provided an `ariaLabel` should be given to facilitate accessibility.",
     );
@@ -325,7 +349,7 @@ describe("When MenuItem has no submenu", () => {
       .mockImplementation(() => {});
 
     expect(() => {
-      render(<MenuItem ariaLabel="a" />);
+      render(<MenuItem ariaLabel="a" href="#" />);
     }).toThrow(
       "Either prop `icon` must be defined or this node must have `children`.",
     );
@@ -351,7 +375,7 @@ describe("When MenuItem has no submenu", () => {
 
   it("should set the correct `data-` tags as attributes on the menu item", () => {
     render(
-      <MenuItem data-element="bar" data-role="baz">
+      <MenuItem data-element="bar" data-role="baz" href="#">
         Item One
       </MenuItem>,
     );
@@ -365,7 +389,7 @@ describe("When MenuItem has no submenu", () => {
   it("should set the set the expected override color when `overrideColor` is passed and `variant` is 'alternate'", async () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
-        <MenuItem overrideColor variant="alternate">
+        <MenuItem overrideColor variant="alternate" href="#">
           Item One
         </MenuItem>
       </MenuContext.Provider>,
@@ -381,8 +405,8 @@ describe("when MenuItem has a submenu", () => {
   /** START OF TESTS ADDED FOR CODE COVERAGE */
   it("should apply the expected spacing on the pseudo element when custom padding is passed value of '5px'", () => {
     render(
-      <MenuItem href="#" submenu="submenu" px="5px">
-        <MenuItem>foo</MenuItem>
+      <MenuItem submenu="submenu" px="5px">
+        <MenuItem href="#">foo</MenuItem>
       </MenuItem>,
     );
 
@@ -395,8 +419,8 @@ describe("when MenuItem has a submenu", () => {
 
   it("should apply the expected spacing on the pseudo element when no custom padding is passed'", () => {
     render(
-      <MenuItem href="#" submenu="submenu">
-        <MenuItem>foo</MenuItem>
+      <MenuItem submenu="submenu">
+        <MenuItem href="#">foo</MenuItem>
       </MenuItem>,
     );
 
@@ -409,8 +433,8 @@ describe("when MenuItem has a submenu", () => {
 
   it("should apply the expected spacing on the pseudo element when custom padding is passed value of '0'", () => {
     render(
-      <MenuItem href="#" submenu="submenu" px={0}>
-        <MenuItem>foo</MenuItem>
+      <MenuItem submenu="submenu" px={0}>
+        <MenuItem href="#">foo</MenuItem>
       </MenuItem>,
     );
 
@@ -423,8 +447,8 @@ describe("when MenuItem has a submenu", () => {
 
   it("should apply the expected spacing on the pseudo element when custom padding is passed value of '1'", () => {
     render(
-      <MenuItem href="#" submenu="submenu" px={1}>
-        <MenuItem>foo</MenuItem>
+      <MenuItem submenu="submenu" px={1}>
+        <MenuItem href="#">foo</MenuItem>
       </MenuItem>,
     );
 
@@ -439,8 +463,8 @@ describe("when MenuItem has a submenu", () => {
     "should apply the expected spacing on the pseudo element when custom padding is passed value of '%s'",
     (padding) => {
       render(
-        <MenuItem href="#" submenu="submenu" px={padding}>
-          <MenuItem>foo</MenuItem>
+        <MenuItem submenu="submenu" px={padding}>
+          <MenuItem href="#">foo</MenuItem>
         </MenuItem>,
       );
 
@@ -457,7 +481,7 @@ describe("when MenuItem has a submenu", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
         <MenuItem submenu="Item One">
-          <MenuItem>Submenu Item One</MenuItem>
+          <MenuItem href="#">Submenu Item One</MenuItem>
         </MenuItem>
       </MenuContext.Provider>,
     );
@@ -1059,8 +1083,8 @@ describe("when MenuItem has a submenu", () => {
       render(
         <MenuContext.Provider value={{ ...menuContextValues }}>
           <MenuItem submenu="test">
-            {true && <MenuItem>One</MenuItem>}
-            {false && <MenuItem>Two</MenuItem>}
+            {true && <MenuItem href="#">One</MenuItem>}
+            {false && <MenuItem href="#">Two</MenuItem>}
           </MenuItem>
         </MenuContext.Provider>,
       );
@@ -1109,8 +1133,8 @@ describe("when MenuItem has a submenu", () => {
       <MenuContext.Provider value={{ ...menuContextValues }}>
         <MenuItem selected submenu="Item One">
           <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem>Submenu Item Two</MenuItem>
-          <MenuItem>Submenu Item Three</MenuItem>
+          <MenuItem href="#">Submenu Item Two</MenuItem>
+          <MenuItem href="#">Submenu Item Three</MenuItem>
         </MenuItem>
       </MenuContext.Provider>,
     );
@@ -1124,9 +1148,9 @@ describe("when MenuItem has a submenu", () => {
     render(
       <MenuContext.Provider value={{ ...menuContextValues }}>
         <MenuItem submenu="Item One" maxWidth="100px">
-          <MenuItem>Submenu Item One</MenuItem>
-          <MenuItem>Submenu Item Two</MenuItem>
-          <MenuItem>Submenu Item Three</MenuItem>
+          <MenuItem href="#">Submenu Item One</MenuItem>
+          <MenuItem href="#">Submenu Item Two</MenuItem>
+          <MenuItem href="#">Submenu Item Three</MenuItem>
         </MenuItem>
       </MenuContext.Provider>,
     );
@@ -1160,12 +1184,31 @@ test("should set the correct colour when a child of `MenuSegmentTitle` and `vari
   render(
     <MenuContext.Provider value={{ ...menuContextValues, menuType: "black" }}>
       <MenuSegmentTitle text="Test">
-        <MenuItem variant="alternate">Item One</MenuItem>
+        <MenuItem variant="alternate" href="#">
+          Item One
+        </MenuItem>
       </MenuSegmentTitle>
     </MenuContext.Provider>,
   );
 
   expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
     backgroundColor: menuConfigVariants.black.alternate,
+  });
+});
+
+// coverage
+test("item has correct padding when it has no href or onClick prop, and is inside MenuFullscreen", () => {
+  render(
+    <Menu>
+      <MenuFullscreen isOpen onClose={() => {}}>
+        <MenuItem href={undefined} onClick={undefined}>
+          Item One
+        </MenuItem>
+      </MenuFullscreen>
+    </Menu>,
+  );
+
+  expect(screen.getByTestId("link-anchor")).toHaveStyle({
+    padding: "0px 16px",
   });
 });
