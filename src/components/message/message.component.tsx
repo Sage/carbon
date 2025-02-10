@@ -19,27 +19,27 @@ export type MessageVariant =
   | "neutral";
 
 export interface MessageProps extends MarginProps {
-  /** set content to component */
+  /** Set the component's content */
   children?: React.ReactNode;
-  /** set custom aria label for message close button */
+  /** Set custom aria-label for component's close button */
   closeButtonAriaLabel?: string;
-  /** set custom id to component root */
+  /** Set custom id to component root */
   id?: string;
-  /** function runs when user click dismiss button */
+  /** Callback triggered on dismiss */
   onDismiss?: (
     e:
       | React.KeyboardEvent<HTMLButtonElement>
       | React.MouseEvent<HTMLButtonElement>,
   ) => void;
-  /** show message component */
+  /** Flag to determine if the message is rendered */
   open?: boolean;
-  /** determines if the close icon is shown */
+  /** Flag to determine if the close button is rendered */
   showCloseIcon?: boolean;
-  /** set message title */
+  /** Set message title */
   title?: React.ReactNode;
-  /** set background to be invisible */
+  /** Set transparent styling */
   transparent?: boolean;
-  /** set type of message based on new DLS standard */
+  /** Set the component's variant */
   variant?: MessageVariant;
   /** Set the component's width, accepts any valid css string */
   width?: string;
