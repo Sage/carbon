@@ -1,3 +1,10 @@
+### [147.4.1](https://github.com/Sage/carbon/compare/v147.4.0...v147.4.1) (2025-02-10)
+
+
+### Bug Fixes
+
+* **menu:** ensure that the correct focus and hover styling is applied to popover-container button ([e9372a6](https://github.com/Sage/carbon/commit/e9372a6bef9d0ef119bfb4678607355b0f4b4a3b))
+
 ## [147.4.0](https://github.com/Sage/carbon/compare/v147.3.1...v147.4.0) (2025-02-06)
 
 
