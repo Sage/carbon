@@ -41,6 +41,8 @@ export interface MessageProps extends MarginProps {
   transparent?: boolean;
   /** set type of message based on new DLS standard */
   variant?: MessageVariant;
+  /** Set the component's width, accepts any valid css string */
+  width?: string;
 }
 
 export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
@@ -55,6 +57,7 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
       id,
       closeButtonAriaLabel,
       showCloseIcon = true,
+      width,
       ...props
     }: MessageProps,
     ref,
@@ -85,6 +88,7 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
         transparent={transparent}
         variant={variant}
         id={id}
+        width={width}
         ref={refToPass}
         {...marginProps}
         tabIndex={-1}
