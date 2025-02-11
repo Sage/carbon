@@ -1,3 +1,24 @@
+### [147.4.3](https://github.com/Sage/carbon/compare/v147.4.2...v147.4.3) (2025-02-11)
+
+
+### Bug Fixes
+
+* **heading:** maintain layout when title prop is set to null ([55e2465](https://github.com/Sage/carbon/commit/55e24657b5bb86c7300915f0200f977e1fab6ee7))
+
+### [147.4.2](https://github.com/Sage/carbon/compare/v147.4.1...v147.4.2) (2025-02-11)
+
+
+### Bug Fixes
+
+* **date-picker:** date-picker within a popover-container closes when tabbing ([894c7a8](https://github.com/Sage/carbon/commit/894c7a8e3527c7760c37c87757d974dbf609df4a))
+
+### [147.4.1](https://github.com/Sage/carbon/compare/v147.4.0...v147.4.1) (2025-02-10)
+
+
+### Bug Fixes
+
+* **menu:** ensure that the correct focus and hover styling is applied to popover-container button ([e9372a6](https://github.com/Sage/carbon/commit/e9372a6bef9d0ef119bfb4678607355b0f4b4a3b))
+
 ## [147.4.0](https://github.com/Sage/carbon/compare/v147.3.1...v147.4.0) (2025-02-06)
 
 
