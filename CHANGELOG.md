@@ -1,3 +1,10 @@
+### [147.4.2](https://github.com/Sage/carbon/compare/v147.4.1...v147.4.2) (2025-02-11)
+
+
+### Bug Fixes
+
+* **date-picker:** date-picker within a popover-container closes when tabbing ([894c7a8](https://github.com/Sage/carbon/commit/894c7a8e3527c7760c37c87757d974dbf609df4a))
+
 ### [147.4.1](https://github.com/Sage/carbon/compare/v147.4.0...v147.4.1) (2025-02-10)
 
 

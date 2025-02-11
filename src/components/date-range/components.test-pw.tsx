@@ -4,6 +4,8 @@ import DateRange, {
   DateRangeProps,
 } from "./date-range.component";
 import CarbonProvider from "../carbon-provider";
+import PopoverContainer from "../popover-container/popover-container.component";
+import Button from "../button/button.component";
 
 interface DateRangeExampleProps {
   initialDates: string[];
@@ -120,5 +122,55 @@ export const DateRangeNewValidation = () => {
         />
       ))}
     </CarbonProvider>
+  );
+};
+
+export const DateRangeWithinPopover = () => {
+  const [state, setState] = useState(["01/10/2016", "30/12/2016"]);
+  const handleChange = (ev: DateRangeChangeEvent) => {
+    const newValue = [
+      ev.target.value[0].formattedValue,
+      ev.target.value[1].formattedValue,
+    ];
+    setState(newValue);
+  };
+
+  const [open, setOpen] = useState(false);
+
+  const onOpen = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <PopoverContainer
+      title="Popover Container"
+      open={open}
+      onOpen={onOpen}
+      onClose={onClose}
+      renderOpenComponent={({ isOpen, ref, ...rest }) => (
+        <Button
+          mr={0}
+          buttonType={isOpen ? "primary" : "darkBackground"}
+          iconPosition="after"
+          iconType={!isOpen ? "filter_new" : "close"}
+          size="small"
+          ref={ref}
+          {...rest}
+        >
+          Filter
+        </Button>
+      )}
+      renderCloseComponent={undefined}
+    >
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        onChange={handleChange}
+        value={state}
+      />
+    </PopoverContainer>
   );
 };
