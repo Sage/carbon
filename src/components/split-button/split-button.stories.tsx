@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -6,7 +6,7 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 import Button from "../button";
 import Box from "../box";
 import { Accordion } from "../accordion";
-import SplitButton from ".";
+import SplitButton, { SplitButtonHandle } from ".";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -41,6 +41,31 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 Default.parameters = { chromatic: { disableSnapshot: true } };
+
+export const ProgrammaticFocus: Story = () => {
+  const splitButtonHandle = useRef<SplitButtonHandle>(null);
+
+  return (
+    <Box display="flex" gap={6}>
+      <Box display="flex" gap={1}>
+        <Button onClick={() => splitButtonHandle.current?.focusMainButton()}>
+          Focus Main Button
+        </Button>
+        <Button onClick={() => splitButtonHandle.current?.focusToggleButton()}>
+          Focus Toggle Button
+        </Button>
+      </Box>
+      <SplitButton ref={splitButtonHandle} text="Split button">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </SplitButton>
+    </Box>
+  );
+};
+ProgrammaticFocus.storyName =
+  "Focusing Main and Toggle Buttons Programmatically";
+ProgrammaticFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled: Story = () => {
   return (
