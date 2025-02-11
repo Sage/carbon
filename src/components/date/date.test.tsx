@@ -572,19 +572,32 @@ test("should not close the picker when the user presses shift + tab and neither 
 test("should focus the next button and then the selected day element when the user presses tab and close the picker with a subsequent tab press", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="04/04/2019" />);
+
   const input = screen.getByRole("textbox");
   await user.click(input);
+
+  const previousMonthButton = await screen.findByRole("button", {
+    name: "Previous month",
+  });
   await user.tab();
 
-  expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
+  expect(previousMonthButton).toHaveFocus();
+
   await user.tab();
+
   expect(screen.getByRole("button", { name: "Next month" })).toHaveFocus();
+
   await user.tab();
+
   expect(
     screen.getByLabelText("Thursday, April 4th, 2019", { exact: false }),
   ).toHaveFocus();
+
   await user.tab();
-  expect(screen.queryByRole("grid")).not.toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(screen.queryByRole("grid")).not.toBeInTheDocument();
+  });
 });
 
 test("should close the picker, update the value and refocus the input element when the user clicks a day element", async () => {
