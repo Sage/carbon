@@ -24,6 +24,7 @@ import {
 import { VariantType } from "../../menu-item";
 import useStableCallback from "../../../../hooks/__internal__/useStableCallback/useStableCallback";
 import FixedNavigationBarContext from "../../../navigation-bar/__internal__/fixed-navigation-bar.context";
+import { defaultFocusableSelectors as focusableSelectors } from "../../../../__internal__/focus-trap/focus-trap-utils";
 
 export interface SubmenuProps {
   /** Children elements */
@@ -395,7 +396,9 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
         /* istanbul ignore else */
         if (items) {
           setSubmenuItemIds(
-            Array.from(items).map((item) => item.getAttribute("id")),
+            Array.from(items)
+              .filter((item) => item.querySelector(focusableSelectors))
+              .map((item) => item.getAttribute("id")),
           );
         }
       }
