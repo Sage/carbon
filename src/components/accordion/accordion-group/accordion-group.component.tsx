@@ -8,7 +8,9 @@ import Accordion, {
   AccordionProps,
 } from "../accordion.component";
 import { StyledAccordionGroup } from "../accordion.style";
-import { TagProps } from "../../../__internal__/utils/helpers/tags";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags";
 
 type AccordionGroupChild =
   | React.ReactElement
@@ -101,7 +103,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
   );
 
   return (
-    <StyledAccordionGroup {...rest} data-component="accordion-group">
+    <StyledAccordionGroup {...rest} {...tagComponent("accordion-group", rest)}>
       {filteredChildren.map((child, index) =>
         // casted to ReactElement as there is no overload for an FunctionComponentElement in cloneElement
         React.cloneElement(child as React.ReactElement, {
