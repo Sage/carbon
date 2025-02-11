@@ -703,6 +703,108 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuParentItem).toHaveFocus();
   });
 
+  it("skips any non-focusable submenu items when moving focus cursor with down arrow key", async () => {
+    const user = userEvent.setup();
+    render(
+      <MenuContext.Provider value={{ ...menuContextValues }}>
+        <MenuItem submenu="Fruit">
+          <MenuItem href="#">Apple</MenuItem>
+          <MenuItem>Banana</MenuItem>
+          <MenuItem>Cherry</MenuItem>
+          <MenuItem href="#">Dates</MenuItem>
+        </MenuItem>
+      </MenuContext.Provider>,
+    );
+
+    await user.tab();
+    await user.keyboard("{ArrowDown}");
+
+    const appleItem = await screen.findByRole("link", { name: "Apple" });
+    expect(appleItem).toHaveFocus();
+
+    await user.keyboard("{ArrowDown}");
+
+    const datesItem = screen.getByRole("link", { name: "Dates" });
+    expect(datesItem).toHaveFocus();
+  });
+
+  it("skips any non-focusable submenu items when moving focus cursor with up arrow key", async () => {
+    const user = userEvent.setup();
+    render(
+      <MenuContext.Provider value={{ ...menuContextValues }}>
+        <MenuItem submenu="Fruit">
+          <MenuItem href="#">Apple</MenuItem>
+          <MenuItem>Banana</MenuItem>
+          <MenuItem>Cherry</MenuItem>
+          <MenuItem href="#">Dates</MenuItem>
+        </MenuItem>
+      </MenuContext.Provider>,
+    );
+
+    await user.tab();
+    await user.keyboard("{ArrowDown}");
+
+    const datesItem = await screen.findByRole("link", { name: "Dates" });
+    await user.keyboard("{End}");
+
+    expect(datesItem).toHaveFocus();
+
+    await user.keyboard("{ArrowUp}");
+
+    const appleItem = screen.getByRole("link", { name: "Apple" });
+    expect(appleItem).toHaveFocus();
+  });
+
+  it("focus moves to the last available focusable item, when End key is pressed and the last submenu item isn't focusable", async () => {
+    const user = userEvent.setup();
+    render(
+      <MenuContext.Provider value={{ ...menuContextValues }}>
+        <MenuItem submenu="Fruit">
+          <MenuItem href="#">Apple</MenuItem>
+          <MenuItem href="#">Banana</MenuItem>
+          <MenuItem href="#">Cherry</MenuItem>
+          <MenuItem>Dates</MenuItem>
+        </MenuItem>
+      </MenuContext.Provider>,
+    );
+
+    await user.tab();
+    await user.keyboard("{ArrowDown}");
+
+    const appleItem = await screen.findByRole("link", { name: "Apple" });
+    expect(appleItem).toHaveFocus();
+
+    await user.keyboard("{End}");
+
+    const cherryItem = screen.getByRole("link", { name: "Cherry" });
+    expect(cherryItem).toHaveFocus();
+  });
+
+  it("focus moves to the first focusable item, when 'Home' key is pressed and the first submenu item isn't focusable", async () => {
+    const user = userEvent.setup();
+    render(
+      <MenuContext.Provider value={{ ...menuContextValues }}>
+        <MenuItem submenu="Fruit">
+          <MenuItem>Apple</MenuItem>
+          <MenuItem href="#">Banana</MenuItem>
+          <MenuItem href="#">Cherry</MenuItem>
+          <MenuItem href="#">Dates</MenuItem>
+        </MenuItem>
+      </MenuContext.Provider>,
+    );
+
+    await user.tab();
+    await user.keyboard("{ArrowDown}");
+
+    const bananaItem = await screen.findByRole("link", { name: "Banana" });
+    expect(bananaItem).toHaveFocus();
+
+    await user.tab();
+    await user.keyboard("{Home}");
+
+    expect(bananaItem).toHaveFocus();
+  });
+
   it("should focus the expected items when the user presses 'arrowdown' key and one item has an input child", async () => {
     const user = userEvent.setup();
     render(
@@ -948,6 +1050,26 @@ describe("when MenuItem has a submenu", () => {
     const submenuItem = screen.getByRole("link", { name: "Submenu Item One" });
 
     expect(submenuItem).toHaveFocus();
+  });
+
+  it("focus moves to the first available focusable item, when a submenu opens and the first item isn't focusable", async () => {
+    const user = userEvent.setup();
+    render(
+      <MenuContext.Provider value={{ ...menuContextValues }}>
+        <MenuItem submenu="Fruit">
+          <MenuItem>Apple</MenuItem>
+          <MenuItem href="#">Banana</MenuItem>
+          <MenuItem href="#">Cherry</MenuItem>
+          <MenuItem href="#">Dates</MenuItem>
+        </MenuItem>
+      </MenuContext.Provider>,
+    );
+
+    await user.tab();
+    await user.keyboard("{ArrowDown}");
+
+    const bananaItem = await screen.findByRole("link", { name: "Banana" });
+    expect(bananaItem).toHaveFocus();
   });
 
   it("should not open the `submenu` when initially opened via click, closed via mouseout and then non-related key pressed", async () => {
