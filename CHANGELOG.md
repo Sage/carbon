@@ -1,3 +1,10 @@
+### [147.4.3](https://github.com/Sage/carbon/compare/v147.4.2...v147.4.3) (2025-02-11)
+
+
+### Bug Fixes
+
+* **heading:** maintain layout when title prop is set to null ([55e2465](https://github.com/Sage/carbon/commit/55e24657b5bb86c7300915f0200f977e1fab6ee7))
+
 ### [147.4.2](https://github.com/Sage/carbon/compare/v147.4.1...v147.4.2) (2025-02-11)
 
 
