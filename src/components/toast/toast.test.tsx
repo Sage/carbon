@@ -337,24 +337,6 @@ test("should render close button when `onDismiss` prop is set", () => {
   expect(closeButton).toBeVisible();
 });
 
-test("should render with any custom classes passed via the `className` prop", () => {
-  render(
-    <Toast open data-role="toast" className="exampleClass">
-      foobar
-    </Toast>,
-  );
-
-  expect(screen.getByTestId("toast")).toHaveClass("exampleClass");
-
-  // When using Toast messages the logger spy will be called twice: once for the
-  // Toast component and once for the containing Portal component. Because of this,
-  // only the first call to the logger spy is checked.
-  expect(loggerSpy).toHaveBeenNthCalledWith(
-    1,
-    "The 'className' prop has been deprecated and will soon be removed from the 'Toast' component.",
-  );
-});
-
 test("should render with provided custom id passed via `id` prop", () => {
   render(
     <Toast open data-role="toast" id="exampleId">

@@ -10,9 +10,6 @@ import StyledInlineInputs, {
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 type GutterOptions =
   | "none"
@@ -32,7 +29,11 @@ export interface InlineInputsProps
   adaptiveLabelBreakpoint?: number;
   /** Children elements */
   children?: React.ReactNode;
-  /** [Legacy prop] A custom class name for the component. */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
   /** The id of the corresponding input control for the label */
   htmlFor?: string;
@@ -68,7 +69,6 @@ const InlineInputs = ({
   labelId,
   htmlFor,
   children = null,
-  className = "",
   gutter = "none",
   inputWidth,
   labelInline = true,
@@ -77,13 +77,6 @@ const InlineInputs = ({
   isOptional,
   ...rest
 }: InlineInputsProps) => {
-  if (!deprecatedClassNameWarningShown && className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'InlineInputs' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
-
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
   const ref = useRef<HTMLDivElement>(null);
   let inlineLabel: boolean | undefined = labelInline;
@@ -124,7 +117,6 @@ const InlineInputs = ({
       gutter={gutter}
       data-component="inline-inputs"
       data-role="inline-inputs"
-      className={className}
       labelWidth={labelWidth}
       labelInline={inlineLabel}
       ref={ref}

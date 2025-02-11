@@ -454,3 +454,31 @@ test("should correctly translate the month caption for the given locale (zh-CN)"
   expect(monthCaption).toBeVisible();
   expect(monthCaption).toHaveTextContent("三月 2019");
 });
+
+test("navigation buttons should maintain focus between month changes when using the keyboard", async () => {
+  const user = userEvent.setup();
+  render(
+    <DatePickerWithInput
+      setOpen={() => {}}
+      open
+      selectedDays={new Date(2019, 3, 4)}
+    />,
+  );
+
+  const textbox = screen.getByRole("textbox");
+  const monthLabel = screen.getByText("April 2019");
+  const previousButton = screen.getByRole("button", { name: "Previous month" });
+  const nextButton = screen.getByRole("button", { name: "Next month" });
+
+  await user.click(textbox);
+  await user.tab();
+  expect(previousButton).toHaveFocus();
+  await user.keyboard("{enter}");
+  expect(monthLabel).toHaveTextContent("March 2019");
+  expect(previousButton).toHaveFocus();
+  await user.tab();
+  expect(nextButton).toHaveFocus();
+  await user.keyboard("{enter}");
+  expect(monthLabel).toHaveTextContent("April 2019");
+  expect(nextButton).toHaveFocus();
+});

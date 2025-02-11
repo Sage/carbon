@@ -11,16 +11,12 @@ import {
 import { Default as InlineInputComponent } from "./inline-inputs-test.stories";
 import {
   inlineInputContainer,
-  inlineInputsPreview,
   inlineLabel,
   inlinelabelWidth,
   inlineChildren,
 } from "../../../playwright/components/inline-inputs";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import {
-  containsClass,
-  checkAccessibility,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -70,14 +66,6 @@ test.describe("InlineInputs", () => {
       await mount(<InlineInputComponent label={label} />);
 
       await expect(inlineLabel(page)).toHaveText(label);
-    });
-  });
-
-  testData.forEach((classname) => {
-    test(`should check classname as ${classname}`, async ({ mount, page }) => {
-      await mount(<InlineInputComponent className={classname} />);
-
-      await containsClass(inlineInputsPreview(page), classname);
     });
   });
 

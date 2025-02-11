@@ -166,7 +166,7 @@ const StyledNavigationButton = styled.button`
 
 const StyledContainer = styled.div<{ size: string }>`
   display: flex;
-  padding: 6px 24px 0px;
+  padding: 6px 4px 0px;
   margin: 0;
   overflow-x: hidden;
   ${({ size }) => css`
@@ -179,8 +179,8 @@ const StyledBottomBorder = styled.div`
   height: auto;
   border-bottom: 2px solid var(--colorsActionMinor100);
   bottom: 0;
-  left: 24px;
-  right: 24px;
+  left: 4px;
+  right: 4px;
   position: absolute;
 `;
 

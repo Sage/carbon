@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, useContext } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import {
   FlexboxProps,
   LayoutProps,
@@ -6,6 +6,7 @@ import {
   PaddingProps,
 } from "styled-system";
 import invariant from "invariant";
+import { defaultFocusableSelectors as focusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import StyledMenuItemWrapper from "./menu-item.style";
 import Events from "../../../__internal__/utils/helpers/events";
@@ -21,9 +22,6 @@ import { StyledMenuItem } from "../menu.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 import { IconType } from "../../icon";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
-import Logger from "../../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export type VariantType = "default" | "alternate";
 
@@ -32,8 +30,6 @@ interface MenuItemBaseProps
     Pick<LayoutProps, "width" | "maxWidth" | "minWidth">,
     FlexboxProps,
     PaddingProps {
-  /** Custom className */
-  className?: string;
   /** onClick handler */
   onClick?: (
     event:
@@ -127,13 +123,6 @@ export const MenuItem = ({
   "data-role": dataRole,
   ...rest
 }: MenuWithChildren | MenuWithIcon) => {
-  if (!deprecatedClassNameWarningShown && rest.className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'MenuItem' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
-
   invariant(
     icon || children,
     "Either prop `icon` must be defined or this node must have `children`.",
@@ -151,29 +140,36 @@ export const MenuItem = ({
     "You should not pass `children` when `submenu` is an empty string",
   );
 
+  const menuItemId = useRef(guid());
+
   const { isChildOfSegment, overriddenVariant } =
     useContext<MenuSegmentContextProps>(MenuSegmentContext);
 
-  const { inFullscreenView, registerItem, unregisterItem, focusId, menuType } =
-    useContext<MenuContextProps>(MenuContext);
-  const menuItemId = useRef(guid());
+  const {
+    inFullscreenView,
+    registerItem,
+    unregisterItem,
+    focusId,
+    updateFocusId,
+    menuType,
+  } = useContext<MenuContextProps>(MenuContext);
+
   const submenuContext = useContext<SubmenuContextProps>(SubmenuContext);
+  const isInSubmenu = Object.keys(submenuContext).length > 0;
   const {
     submenuFocusId,
     updateFocusId: updateSubmenuFocusId,
     handleKeyDown: handleSubmenuKeyDown,
     submenuHasMaxWidth,
   } = submenuContext;
-  const ref = useRef<HTMLAnchorElement>(null);
   const focusFromMenu = focusId === menuItemId.current;
   const focusFromSubmenu = submenuFocusId
     ? submenuFocusId === menuItemId.current
     : undefined;
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  inputRef.current = ref.current
-    ? ref.current.querySelector("[data-element='input']")
-    : null;
-  const focusRef = inputRef.current ? inputRef : ref;
+
+  const ref = useRef<HTMLAnchorElement>(null);
+  const firstFocusableChild =
+    ref.current?.querySelector<HTMLElement>(focusableSelectors) ?? null;
 
   useEffect(() => {
     const id = menuItemId.current;
@@ -192,18 +188,25 @@ export const MenuItem = ({
   }, [registerItem, unregisterItem]);
 
   useEffect(() => {
-    if ((focusFromMenu && !focusFromSubmenu) || focusFromSubmenu)
-      focusRef.current?.focus();
-  }, [focusFromMenu, focusFromSubmenu, focusRef]);
+    if ((focusFromMenu && !focusFromSubmenu) || focusFromSubmenu) {
+      if (firstFocusableChild) {
+        firstFocusableChild.focus();
+        return;
+      }
 
-  const updateFocusOnClick = useCallback(() => {
-    if (updateSubmenuFocusId) {
-      updateSubmenuFocusId(menuItemId.current);
+      ref.current?.focus();
     }
-  }, [updateSubmenuFocusId]);
+  }, [firstFocusableChild, focusFromMenu, focusFromSubmenu]);
 
-  const handleFocus = () => {
-    updateSubmenuFocusId?.(menuItemId.current);
+  const handleFocus = (
+    event: React.FocusEvent<HTMLDivElement | HTMLLIElement>,
+  ) => {
+    if (isInSubmenu) {
+      event.stopPropagation();
+      updateSubmenuFocusId?.(menuItemId.current);
+    } else {
+      updateFocusId?.(menuItemId.current);
+    }
   };
 
   const handleKeyDown = (
@@ -222,10 +225,10 @@ export const MenuItem = ({
 
   const elementProps = {
     className: href || onClick ? "carbon-menu-item--has-link" : "",
-    href,
+    href: firstFocusableChild ? undefined : href,
+    onClick: firstFocusableChild ? undefined : onClick,
     target,
     rel,
-    onClick,
     icon,
     removeAriaLabelOnIcon: true,
     selected,
@@ -248,7 +251,6 @@ export const MenuItem = ({
 
   const itemMaxWidth = !inFullscreenView ? maxWidth : undefined;
   const asPassiveItem = !(onClick || href);
-  const hasInput = !!inputRef.current;
 
   if (submenu) {
     return (
@@ -259,11 +261,11 @@ export const MenuItem = ({
         menuType={menuType}
         title={getTitle(submenu)}
         maxWidth={itemMaxWidth}
-        onClick={updateFocusOnClick}
         {...rest}
         inFullscreenView={inFullscreenView}
         id={menuItemId.current}
         as={as}
+        onFocus={handleFocus}
       >
         <Submenu
           {...(typeof submenu !== "boolean" && { title: submenu })}
@@ -287,6 +289,9 @@ export const MenuItem = ({
   }
 
   const paddingProps = filterStyledSystemPaddingProps(rest);
+  const hasInput = !!ref.current?.querySelector<HTMLElement>(
+    "[data-element='input']",
+  );
 
   return (
     <StyledMenuItem
@@ -294,13 +299,12 @@ export const MenuItem = ({
       data-element={dataElement}
       data-role={dataRole}
       menuType={menuType}
-      inSubmenu={!!handleSubmenuKeyDown}
+      inSubmenu={isInSubmenu}
       title={getTitle(children)}
       maxWidth={itemMaxWidth}
       {...rest}
       inFullscreenView={inFullscreenView && !Object.keys(submenuContext).length}
       id={menuItemId.current}
-      onClick={updateFocusOnClick}
       as={as}
       onFocus={handleFocus}
     >
@@ -313,11 +317,10 @@ export const MenuItem = ({
         maxWidth={!submenuHasMaxWidth ? itemMaxWidth : undefined}
         inFullscreenView={inFullscreenView}
         asPassiveItem={asPassiveItem}
-        placeholderTabIndex={asPassiveItem}
         {...paddingProps}
         asDiv={hasInput || as === "div"}
         hasInput={hasInput}
-        inSubmenu={!!handleSubmenuKeyDown}
+        inSubmenu={isInSubmenu}
       >
         {children}
       </StyledMenuItemWrapper>

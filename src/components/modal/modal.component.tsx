@@ -8,12 +8,13 @@ import useModalManager from "../../hooks/__internal__/useModalManager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import ModalContext from "./__internal__/modal.context";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export interface ModalProps extends Omit<TagProps, "data-component"> {
-  /** Custom class name  */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
   /** Modal content */
   children?: React.ReactNode;
@@ -53,12 +54,6 @@ const Modal = ({
   restoreFocusOnClose = true,
   ...rest
 }: ModalProps) => {
-  if (!deprecatedClassNameWarningShown && rest.className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'Modal' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
   const ref = useRef<HTMLDivElement>(null);
   const backgroundNodeRef = useRef<HTMLDivElement>(null);
   const contentNodeRef = useRef<HTMLDivElement>(null);

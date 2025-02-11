@@ -767,9 +767,9 @@ test("should render with `labelInline` when `adaptiveLabelBreakpoint` set and sc
     </CarbonProvider>,
   );
 
-  expect(screen.getByRole("group")).toHaveStyle({
-    display: "flex",
-    alignItems: "center",
+  expect(screen.getByTestId("legend")).toHaveStyle({
+    float: "left",
+    height: "65px",
   });
 });
 

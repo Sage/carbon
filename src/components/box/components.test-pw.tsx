@@ -85,7 +85,6 @@ export const Position = () => {
           bg="primary"
           position="sticky"
           top="0"
-          tabIndex={0}
         >
           <Typography color="white">This box has position sticky</Typography>
           <Button buttonType="primary" destructive>
@@ -251,7 +250,7 @@ export const Layout = () => {
 
 export const OverflowWrap = () => {
   return (
-    <div style={{ display: "inline-flex" }}>
+    <Box display="inline-flex">
       <div
         style={{
           border: "solid 1px #00815D",
@@ -268,7 +267,7 @@ export const OverflowWrap = () => {
           WithoutOverflowWrap
         </Box>
       </div>
-    </div>
+    </Box>
   );
 };
 
@@ -304,9 +303,7 @@ export const Scroll = () => {
           m="5px"
         />
       </Box>
-      <div
-        style={{ backgroundColor: "rgb(0, 26, 37)", display: "inline-block" }}
-      >
+      <Box backgroundColor="rgb(0, 26, 37)" display="inline-block">
         <Box
           display="inline-block"
           size="150px"
@@ -335,7 +332,7 @@ export const Scroll = () => {
             m="5px"
           />
         </Box>
-      </div>
+      </Box>
     </div>
   );
 };

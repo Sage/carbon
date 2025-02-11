@@ -69,7 +69,7 @@ test("the contentRef prop is forwarded to the dialog content", () => {
 test("the dialog container should be focused when the dialog opens", async () => {
   render(
     <DialogFullScreen open>
-      <input type="text" />
+      <input type="text" placeholder="input" />
     </DialogFullScreen>,
   );
 
@@ -82,7 +82,7 @@ test("the dialog container should not be focused when the dialog opens if the di
   jest.useFakeTimers();
   render(
     <DialogFullScreen open disableAutoFocus>
-      <input type="text" />
+      <input type="text" placeholder="input" />
     </DialogFullScreen>,
   );
 

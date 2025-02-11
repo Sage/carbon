@@ -44,18 +44,6 @@ describe("when the component is uncontrolled", () => {
     loggerSpy.mockRestore();
   });
 
-  it("displays a deprecation warning for `onKeyPress`", () => {
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(<Decimal onKeyPress={() => {}} />);
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "`onKeyPress` prop in `Decimal` is deprecated and will soon be removed, please use `onKeyDown` instead.",
-    );
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-    loggerSpy.mockRestore();
-  });
-
   it("has a default value of 0.00 when no defaultValue prop is provided", () => {
     render(<Decimal />);
     expect(screen.getByRole("textbox")).toHaveValue("0.00");

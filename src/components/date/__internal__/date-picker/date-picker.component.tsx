@@ -63,6 +63,10 @@ export interface DatePickerProps {
   pickerTabGuardId?: string;
   /** Callback triggered when the picker is closed */
   onPickerClose?: () => void;
+  /** Prop to specify the aria-label attribute of the date picker */
+  ariaLabel?: string;
+  /** Prop to specify the aria-labelledby attribute of the date picker */
+  ariaLabelledBy?: string;
 }
 
 const popoverMiddleware = [
@@ -71,6 +75,8 @@ const popoverMiddleware = [
     fallbackStrategy: "initialPlacement",
   }),
 ];
+
+const Nav = Navbar;
 
 export const DatePicker = ({
   inputElement,
@@ -85,6 +91,8 @@ export const DatePicker = ({
   setOpen,
   pickerTabGuardId,
   onPickerClose,
+  ariaLabel: datePickerAriaLabel,
+  ariaLabelledBy: datePickerAriaLabelledBy,
 }: DatePickerProps) => {
   const [focusedMonth, setFocusedMonth] = useState<Date | undefined>(
     selectedDays || new Date(),
@@ -226,6 +234,9 @@ export const DatePicker = ({
           onMouseDown={pickerMouseDown}
           onKeyUp={handleKeyUp}
           onKeyDown={handleOnKeyDown}
+          role="region"
+          aria-label={datePickerAriaLabel}
+          aria-labelledby={datePickerAriaLabelledBy}
         >
           <div
             id={pickerTabGuardId}
@@ -250,16 +261,14 @@ export const DatePicker = ({
                 weekdaysShort,
               },
             }}
-            selected={focusedMonth}
+            selected={selectedDays}
             month={focusedMonth || /* istanbul ignore next */ new Date()}
             onDayClick={(d, _, e) => {
               const date = d as Date;
               handleDayClick(date, e);
             }}
             components={{
-              Nav: (props) => {
-                return <Navbar {...props} />;
-              },
+              Nav,
               Weekday: (props) => {
                 const fixedDays = {
                   Sunday: 0,

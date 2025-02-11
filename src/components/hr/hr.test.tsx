@@ -17,6 +17,27 @@ testStyledSystemMargin(
   },
 );
 
+test("should render with a small height", () => {
+  render(<Hr height="small" />);
+  const hr = screen.getByRole("separator");
+
+  expect(hr).toHaveStyle("height: 1px");
+});
+
+test("should render with a medium height", () => {
+  render(<Hr height="medium" />);
+  const hr = screen.getByRole("separator");
+
+  expect(hr).toHaveStyle("height: 2px");
+});
+
+test("should render with a large height", () => {
+  render(<Hr height="large" />);
+  const hr = screen.getByRole("separator");
+
+  expect(hr).toHaveStyle("height: 3px");
+});
+
 test("should apply the expected margin top", () => {
   render(
     <CarbonProvider validationRedesignOptIn>

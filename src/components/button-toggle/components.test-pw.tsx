@@ -65,15 +65,9 @@ export const ButtonToggleGroupComponent = (
       }}
       {...props}
     >
-      <ButtonToggle value="foo" grouped>
-        Foo
-      </ButtonToggle>
-      <ButtonToggle value="bar" grouped>
-        Bar
-      </ButtonToggle>
-      <ButtonToggle value="baz" grouped>
-        Baz
-      </ButtonToggle>
+      <ButtonToggle value="foo">Foo</ButtonToggle>
+      <ButtonToggle value="bar">Bar</ButtonToggle>
+      <ButtonToggle value="baz">Baz</ButtonToggle>
     </ButtonToggleGroup>
   </Box>
 );
@@ -86,15 +80,9 @@ export const ButtonToggleGroupNotInBox = (
     label="Grouped example"
     {...props}
   >
-    <ButtonToggle value="foo" grouped>
-      Foo
-    </ButtonToggle>
-    <ButtonToggle value="bar" grouped>
-      Bar
-    </ButtonToggle>
-    <ButtonToggle value="baz" grouped>
-      Baz
-    </ButtonToggle>
+    <ButtonToggle value="foo">Foo</ButtonToggle>
+    <ButtonToggle value="bar">Bar</ButtonToggle>
+    <ButtonToggle value="baz">Baz</ButtonToggle>
   </ButtonToggleGroup>
 );
 
@@ -116,33 +104,5 @@ export const WithOutsideButtons = () => {
         button after
       </button>
     </>
-  );
-};
-
-export const ButtonToggleGroupComponentGroupedChildren = ({ ...props }) => {
-  return (
-    <Box>
-      <ButtonToggleGroup
-        id="button-toggle-group-default-id"
-        label="Default example"
-        labelHelp="help message"
-        helpAriaLabel="Help"
-        fieldHelp="field help message"
-        onChange={function noRefCheck() {
-          ("");
-        }}
-        {...props}
-      >
-        <ButtonToggle key="foo" value="foo" grouped>
-          Foo
-        </ButtonToggle>
-        <ButtonToggle key="bar" value="bar" grouped>
-          Bar
-        </ButtonToggle>
-        <ButtonToggle key="baz" value="baz" grouped>
-          Baz
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    </Box>
   );
 };

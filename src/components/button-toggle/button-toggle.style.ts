@@ -1,8 +1,9 @@
 import styled, { css } from "styled-components";
+
 import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
-import addFocusStyling from "../../style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 export type ButtonToggleIconSizes = "small" | "large";
 
@@ -54,7 +55,6 @@ export interface StyledButtonToggleProps {
   disabled?: boolean;
   /** ButtonToggle size */
   size: "small" | "medium" | "large";
-  grouped?: boolean;
   /** Allow button to be deselected when already selected */
   allowDeselect?: boolean;
 }
@@ -93,8 +93,8 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
       min-height: ${heightLargeIconConfig[size]}px;
       padding: ${paddingLargeIconConfig[size]};
       flex-direction: column;
-    `}  
-    
+    `}
+
   &:focus {
     ${addFocusStyling()}
     z-index: 100;
@@ -176,51 +176,14 @@ const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
 
 StyledButtonToggle.defaultProps = { theme: baseTheme };
 
-export interface StyledButtonToggleWrapperProps {
-  grouped?: boolean;
-}
-
-const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapperProps>`
+const StyledButtonToggleWrapper = styled.div`
   display: inline-block;
   vertical-align: middle;
-
-  ${({ grouped }) => css`
-    ${!grouped &&
-    css`
-      &&&& {
-        ${StyledButtonToggle} {
-          border-radius: var(--borderRadius050);
-        }
-      }
-    `}
-
-    ${grouped &&
-    css`
-      &&&& {
-        :first-of-type {
-          ${StyledButtonToggle} {
-            border-top-left-radius: var(--borderRadius050);
-            border-bottom-left-radius: var(--borderRadius050);
-          }
-        }
-
-        :last-of-type {
-          ${StyledButtonToggle} {
-            border-top-right-radius: var(--borderRadius050);
-            border-bottom-right-radius: var(--borderRadius050);
-          }
-        }
-      }
-    `}
-  `}
-
-  ${({ grouped }) =>
-    grouped &&
-    css`
-      &:not(:first-of-type) {
-        margin-left: -1px;
-      }
-    `};
+  &&&& {
+    ${StyledButtonToggle} {
+      border-radius: var(--borderRadius050);
+    }
+  }
 `;
 
 export {

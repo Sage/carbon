@@ -11,7 +11,7 @@ import { IconType } from "../../icon";
 
 export type ActionPopoverMenuButtonAria = {
   "aria-haspopup": string;
-  "aria-label": string;
+  "aria-label"?: string;
   "aria-labelledby"?: string;
   "aria-describedby"?: string;
   "aria-controls": string;

@@ -16,7 +16,7 @@ import {
 } from "@tanstack/react-virtual";
 import findLastIndex from "lodash/findLastIndex";
 
-import usePrevious from "../../../../hooks/__internal__/usePrevious";
+import debounce from "lodash/debounce";
 import useScrollBlock from "../../../../hooks/__internal__/useScrollBlock";
 import useModalManager from "../../../../hooks/__internal__/useModalManager";
 import {
@@ -147,21 +147,10 @@ const SelectList = React.forwardRef(
     const lastFilter = useRef("");
     const listRef = useRef(null);
     const tableRef = useRef<HTMLTableSectionElement>(null);
+    const listWrapperRef = useRef<HTMLDivElement>(null);
     const listActionButtonRef = useRef<HTMLButtonElement>(null);
     const { blockScroll, allowScroll } = useScrollBlock();
     const actionButtonHeight = useRef(0);
-    const wasOpen = usePrevious(isOpen);
-
-    // ensure scroll-position goes back to the top whenever the list is (re)-opened. (On Safari, without this it remains at the bottom if it had been scrolled
-    // to the bottom before closing.)
-    useEffect(() => {
-      if (isOpen && !wasOpen) {
-        (listContainerRef as React.RefObject<HTMLDivElement>).current?.scrollTo(
-          0,
-          0,
-        );
-      }
-    });
 
     const overscan = enableVirtualScroll
       ? virtualScrollOverscan
@@ -183,7 +172,9 @@ const SelectList = React.forwardRef(
     const virtualizer = useVirtualizer({
       count: React.Children.count(children),
       getScrollElement: () =>
-        (listContainerRef as React.RefObject<HTMLDivElement>).current,
+        isOpen
+          ? (listContainerRef as React.RefObject<HTMLDivElement>).current
+          : null,
       estimateSize: () => 40, // value doesn't really seem to matter since we're dynamically measuring, but 40px is the height of a single-line option
       overscan,
       paddingStart: multiColumn ? TABLE_HEADER_HEIGHT : 0,
@@ -192,9 +183,12 @@ const SelectList = React.forwardRef(
     });
 
     useEffect(() => {
-      if (isOpen && currentOptionsListIndex > -1) {
-        virtualizer.scrollToIndex(currentOptionsListIndex, SCROLL_OPTIONS);
-      }
+      if (!isOpen) return;
+
+      const scrollIndex =
+        currentOptionsListIndex > -1 ? currentOptionsListIndex : 0;
+
+      virtualizer.scrollToIndex(scrollIndex, SCROLL_OPTIONS);
     }, [currentOptionsListIndex, isOpen, virtualizer]);
 
     const items = virtualizer.getVirtualItems();
@@ -241,7 +235,7 @@ const SelectList = React.forwardRef(
       if (currentIndex > -1) {
         // only index property is required with the item not visible so the following type assertion, even though incorrect,
         // should be OK
-        items.push({ index: currentIndex } as VirtualItem<Element>);
+        items.push({ index: currentIndex } as VirtualItem);
       }
     }
 
@@ -526,35 +520,36 @@ const SelectList = React.forwardRef(
       triggerRefocusOnClose: false,
     });
 
-    const handleListScroll = useCallback(
-      (event: Event) => {
+    useEffect(() => {
+      const listElement = (listContainerRef as React.RefObject<HTMLDivElement>)
+        .current;
+
+      const handleListScroll = debounce((event: Event) => {
         const element = event.target as HTMLElement;
 
         /* istanbul ignore else */
         if (
           isOpen &&
-          onListScrollBottom &&
           element.scrollHeight - element.scrollTop === element.clientHeight
         ) {
-          onListScrollBottom();
+          onListScrollBottom?.();
         }
-      },
-      [onListScrollBottom, isOpen],
-    );
+      }, 300);
 
-    useEffect(() => {
-      const keyboardEvent = "keydown";
-      const listElement = (listContainerRef as React.RefObject<HTMLDivElement>)
-        .current;
-
-      window.addEventListener(keyboardEvent, handleGlobalKeydown);
       listElement?.addEventListener("scroll", handleListScroll);
 
-      return function cleanup() {
-        window.removeEventListener(keyboardEvent, handleGlobalKeydown);
+      return () => {
         listElement?.removeEventListener("scroll", handleListScroll);
       };
-    }, [handleGlobalKeydown, handleListScroll, listContainerRef]);
+    }, [isOpen, listContainerRef, onListScrollBottom]);
+
+    useEffect(() => {
+      window.addEventListener("keydown", handleGlobalKeydown);
+
+      return function cleanup() {
+        window.removeEventListener("keydown", handleGlobalKeydown);
+      };
+    }, [handleGlobalKeydown, listContainerRef]);
 
     useEffect(() => {
       if (!filterText || filterText === lastFilter.current) {
@@ -601,14 +596,6 @@ const SelectList = React.forwardRef(
 
       setCurrentOptionsListIndex(indexOfMatch);
     }, [getIndexOfMatch, highlightedValue, isOpen]);
-
-    // ensure that the currently-selected option is always visible immediately after
-    // it has been changed
-    useEffect(() => {
-      if (currentOptionsListIndex > -1) {
-        virtualizer.scrollToIndex(currentOptionsListIndex, SCROLL_OPTIONS);
-      }
-    }, [currentOptionsListIndex, virtualizer]);
 
     useEffect(() => {
       if (
@@ -708,6 +695,7 @@ const SelectList = React.forwardRef(
           animationFrame
         >
           <StyledSelectListContainer
+            ref={listWrapperRef}
             data-element="select-list-wrapper"
             data-role="select-list-wrapper"
             isLoading={isLoading}

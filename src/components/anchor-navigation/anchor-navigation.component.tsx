@@ -50,7 +50,9 @@ const AnchorNavigation = ({
       stickyNavigation.props.children,
     ).find((child: React.ReactNode) => {
       return (
-        !React.isValidElement(child) || child.type !== AnchorNavigationItem
+        !React.isValidElement(child) ||
+        (child.type as React.FunctionComponent).displayName !==
+          "AnchorNavigationItem"
       );
     });
 

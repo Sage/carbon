@@ -123,7 +123,7 @@ test("renders legend with provided `legendWidth` when `inline` is true", () => {
 });
 
 // coverage
-test("renders with expected styles when `inline` is true and `align` is 'left'", () => {
+test("renders with expected styles when `inline` is true and `legendAlign` is 'left'", () => {
   render(
     <Fieldset legend="Legend" inline legendAlign="left">
       <input />

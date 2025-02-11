@@ -14,7 +14,6 @@ import Events from "../../../../__internal__/utils/helpers/events";
 import MenuContext from "../menu.context";
 import { characterNavigation } from "../keyboard-navigation";
 import SubmenuContext from "./submenu.context";
-import useClickAwayListener from "../../../../hooks/__internal__/useClickAwayListener";
 import guid from "../../../../__internal__/utils/helpers/guid";
 import {
   SCROLLABLE_BLOCK,
@@ -25,6 +24,7 @@ import {
 import { VariantType } from "../../menu-item";
 import useStableCallback from "../../../../hooks/__internal__/useStableCallback/useStableCallback";
 import FixedNavigationBarContext from "../../../navigation-bar/__internal__/fixed-navigation-bar.context";
+import { defaultFocusableSelectors as focusableSelectors } from "../../../../__internal__/focus-trap/focus-trap-utils";
 
 export interface SubmenuProps {
   /** Children elements */
@@ -328,11 +328,13 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
 
           if (Events.isHomeKey(event)) {
             event.preventDefault();
+            event.stopPropagation();
             nextIndex = 0;
           }
 
           if (Events.isEndKey(event)) {
             event.preventDefault();
+            event.stopPropagation();
             nextIndex = numberOfChildren - 1;
           }
 
@@ -394,7 +396,9 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
         /* istanbul ignore else */
         if (items) {
           setSubmenuItemIds(
-            Array.from(items).map((item) => item.getAttribute("id")),
+            Array.from(items)
+              .filter((item) => item.querySelector(focusableSelectors))
+              .map((item) => item.getAttribute("id")),
           );
         }
       }
@@ -411,13 +415,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
         setSubmenuFocusId(submenuItemIds[0]);
       }
     }, [submenuOpen, submenuFocusId, submenuItemIds]);
-
-    const handleClickAway = () => {
-      document.removeEventListener("click", handleClickAway);
-      closeSubmenu();
-    };
-
-    const handleClickInside = useClickAwayListener(handleClickAway);
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
       openSubmenu();
@@ -439,6 +436,12 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
       }
     }, [submenuRef, characterString, submenuItemIds]);
 
+    const handleSubmenuBlur = (event: React.FocusEvent<HTMLUListElement>) => {
+      if (!event.currentTarget.contains(event.relatedTarget)) {
+        closeSubmenu();
+      }
+    };
+
     if (inFullscreenView) {
       return (
         <StyledSubmenuWrapper
@@ -446,7 +449,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
           inFullscreenView={inFullscreenView}
           asPassiveItem={asPassiveItem}
           menuType={menuContext.menuType}
-          onClick={handleClickInside}
         >
           <StyledMenuItemWrapper
             {...rest}
@@ -491,7 +493,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
         onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
         onMouseLeave={() => closeSubmenu()}
         isSubmenuOpen={submenuOpen}
-        onClick={handleClickInside}
         ref={setSubmenuRef}
       >
         <StyledMenuItemWrapper
@@ -527,11 +528,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
             applyFocusRadiusStyling={applyFocusRadius}
             applyFocusRadiusStylingToLastItem={applyFocusRadiusToLastItem}
             submenuMaxWidth={submenuMaxWidth}
-            onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) {
-                closeSubmenu();
-              }
-            }}
+            onBlur={handleSubmenuBlur}
           >
             <SubmenuContext.Provider
               value={{

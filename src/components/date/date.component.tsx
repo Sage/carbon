@@ -105,6 +105,10 @@ export interface DateInputProps
   onPickerClose?: () => void;
   /** Date format string to be applied to the date inputs */
   dateFormatOverride?: string;
+  /** Prop to specify the aria-label attribute of the date picker */
+  datePickerAriaLabel?: string;
+  /** Prop to specify the aria-labelledby attribute of the date picker */
+  datePickerAriaLabelledBy?: string;
 }
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -138,6 +142,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       inputName,
       onPickerClose,
       onPickerOpen,
+      datePickerAriaLabel,
+      datePickerAriaLabelledBy,
       ...rest
     }: DateInputProps,
     ref,
@@ -521,6 +527,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           setOpen={setOpen}
           pickerTabGuardId={pickerTabGuardId.current}
           onPickerClose={onPickerClose}
+          ariaLabel={datePickerAriaLabel}
+          ariaLabelledBy={datePickerAriaLabelledBy}
         />
       </StyledDateInput>
     );

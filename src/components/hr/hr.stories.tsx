@@ -5,6 +5,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Hr from ".";
+import Box from "../box";
 import Form from "../form";
 import Textbox from "../textbox";
 import Button from "../button";
@@ -36,6 +37,20 @@ export const DifferentSpacing: Story = () => {
   return <Hr mt={7} mb={7} />;
 };
 DifferentSpacing.storyName = "Different Spacing";
+
+export const DifferentHeights: Story = () => {
+  const heights = ["small", "medium", "large"] as const;
+  return (
+    <Box>
+      {heights.map((height) => (
+        <Box key={height} mb={3}>
+          <Hr height={height} />
+        </Box>
+      ))}
+    </Box>
+  );
+};
+DifferentHeights.storyName = "Different Heights";
 
 export const InsideForm: Story = () => {
   return (

@@ -19,13 +19,8 @@ import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export interface TabsProps extends MarginProps {
-  /** @ignore @private */
-  className?: string;
   /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */
   renderHiddenTabs?: boolean;
   /** Allows manual control over the currently selected tab. */
@@ -70,7 +65,6 @@ export interface TabsProps extends MarginProps {
 
 const Tabs = ({
   align = "left",
-  className,
   children,
   onTabChange,
   selectedTabId,
@@ -85,13 +79,6 @@ const Tabs = ({
   showValidationsSummary,
   ...rest
 }: TabsProps) => {
-  if (!deprecatedClassNameWarningShown && className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'Tabs' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
-
   if (position !== "left" && headerWidth !== undefined) {
     // eslint-disable-next-line no-console
     console.error(
@@ -328,7 +315,6 @@ const Tabs = ({
         <TabTitle
           {...titleProps}
           position={isInSidebar ? "left" : position}
-          className={child.props.className || ""}
           dataTabId={tabId}
           id={refId}
           key={tabId}
@@ -416,7 +402,6 @@ const Tabs = ({
 
   return (
     <StyledTabs
-      className={className}
       position={isInSidebar ? "left" : position}
       data-role="tabs"
       {...tagComponent("tabs", rest)}

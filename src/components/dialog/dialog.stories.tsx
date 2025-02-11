@@ -11,7 +11,6 @@ import Form from "../form";
 import Typography from "../typography";
 import Textbox from "../textbox";
 import Fieldset from "../fieldset";
-import { RadioButton, RadioButtonGroup } from "../radio-button";
 import Loader from "../loader";
 import Toast from "../toast";
 import Message from "../message";
@@ -200,35 +199,6 @@ export const MaxSize: Story = {
     },
   },
 };
-
-export const Editable: Story = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const [radioValue, setRadioValue] = useState("1");
-
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Add an address"
-      >
-        <button type="button">One</button>
-        <RadioButtonGroup
-          name="Colours"
-          legend="Colours"
-          value={radioValue}
-          onChange={(ev) => setRadioValue(ev.target.value)}
-        >
-          <RadioButton value="Red" label="Red" />
-          <RadioButton value="Green" label="Green" />
-        </RadioButtonGroup>
-      </Dialog>
-    </>
-  );
-};
-Editable.storyName = "Editable";
-Editable.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithHelp: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -503,11 +473,16 @@ export const UsingHandle: Story = () => {
 
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [state, setState] = useState("");
 
   function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
     setIsSubmitted(true);
     dialogHandle.current?.focus();
+  }
+
+  function setValue(ev: React.ChangeEvent<HTMLInputElement>) {
+    setState(ev.target.value);
   }
 
   return (
@@ -533,6 +508,8 @@ export const UsingHandle: Story = () => {
             <Textarea
               label="What would you like to tell us?"
               characterLimit={1000}
+              value={state}
+              onChange={setValue}
             />
           </Form>
         )}

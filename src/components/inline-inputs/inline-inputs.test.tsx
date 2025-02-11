@@ -6,7 +6,6 @@ import {
   mockMatchMedia,
   testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";
-import Logger from "../../__internal__/utils/logger";
 
 test("renders single child", () => {
   render(
@@ -133,21 +132,3 @@ testStyledSystemMargin(
   (props) => <InlineInputs label="label" {...props} />,
   () => screen.getByTestId("inline-inputs"),
 );
-
-test("throws a deprecation warning if the 'className' prop is set", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(
-    <InlineInputs className="foo">
-      <Textbox onChange={() => {}} />
-    </InlineInputs>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'InlineInputs' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-});

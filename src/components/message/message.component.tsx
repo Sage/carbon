@@ -10,9 +10,6 @@ import Icon from "../icon";
 import IconButton from "../icon-button";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export type MessageVariant =
   | "error"
@@ -24,8 +21,6 @@ export type MessageVariant =
 export interface MessageProps extends MarginProps {
   /** set content to component */
   children?: React.ReactNode;
-  /** set custom class to component */
-  className?: string;
   /** set custom aria label for message close button */
   closeButtonAriaLabel?: string;
   /** set custom id to component root */
@@ -58,19 +53,12 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
       children,
       onDismiss,
       id,
-      className,
       closeButtonAriaLabel,
       showCloseIcon = true,
       ...props
     }: MessageProps,
     ref,
   ) => {
-    if (!deprecatedClassNameWarningShown && className) {
-      Logger.deprecate(
-        "The 'className' prop has been deprecated and will soon be removed from the 'Message' component.",
-      );
-      deprecatedClassNameWarningShown = true;
-    }
     const messageRef = useRef<HTMLDivElement | null>(null);
     const refToPass = ref || messageRef;
 
@@ -94,7 +82,6 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
     return open ? (
       <MessageStyle
         {...tagComponent("Message", props)}
-        className={className}
         transparent={transparent}
         variant={variant}
         id={id}

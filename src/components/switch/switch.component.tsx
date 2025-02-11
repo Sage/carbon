@@ -269,11 +269,7 @@ export const Switch = React.forwardRef(
             flexDirection={!reverse ? reverseDirection : direction}
             width={labelInline ? "100%" : "auto"}
           >
-            <Box
-              data-role="label-wrapper"
-              // width={labelInline ? rest.labelWidth : 30}
-              // minWidth={label && labelInline ? "32px" : 0}
-            >
+            <Box data-role="label-wrapper">
               <Label
                 isDarkBackground={isDarkBackground}
                 labelId={labelId.current}

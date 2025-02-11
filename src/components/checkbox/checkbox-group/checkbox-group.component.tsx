@@ -56,7 +56,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
     isOptional,
     legendInline,
     legendWidth,
-    legendAlign,
+    legendAlign = "left",
     legendSpacing,
     legendHelp,
     tooltipPosition,

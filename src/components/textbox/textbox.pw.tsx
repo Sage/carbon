@@ -629,14 +629,6 @@ test.describe("Prop checks for Textbox component", () => {
     });
   });
 
-  test("should render with iconTabIndex prop", async ({ mount, page }) => {
-    await mount(<TextboxComponent inputIcon="add" iconTabIndex={25} />);
-
-    const inputIcon = getDataElementByValue(page, "input-icon-toggle");
-
-    await expect(inputIcon).toHaveAttribute("tabindex", "25");
-  });
-
   (
     ["top", "bottom", "left", "right"] as TextboxProps["tooltipPosition"][]
   ).forEach((position) => {

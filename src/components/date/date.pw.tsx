@@ -501,6 +501,7 @@ test.describe("Functionality tests", () => {
 
     await datePicker.press("Escape");
 
+    await dateInput.waitFor();
     await expect(dateInput).toBeFocused();
     await expect(datePicker).toBeHidden();
   });

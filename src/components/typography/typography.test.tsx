@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import Typography, { List, ListItem } from ".";
 import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
-import Logger from "../../__internal__/utils/logger";
 
 test("should render with variant as 'p' by default", () => {
   render(<Typography>Test</Typography>);
@@ -293,24 +292,6 @@ testStyledSystemSpacing(
   () => screen.getByText("Test"),
 );
 
-test("throws a deprecation warning if the 'className' prop is set", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(
-    <Typography variant="b" display="block" className="foo">
-      bar
-    </Typography>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'Typography' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-});
-
 describe("Lists", () => {
   test("should render List with variant as 'ul' by default and listStyleType set to 'square", () => {
     render(
@@ -355,25 +336,5 @@ describe("Lists", () => {
         "line-height": "24px",
       });
     });
-  });
-
-  test("throws a deprecation warning if the 'variant' prop is set on `ListItem`", () => {
-    const loggerSpy = jest
-      .spyOn(Logger, "deprecate")
-      .mockImplementation(() => {});
-    render(
-      <List>
-        <ListItem variant="b">List Item 1</ListItem>
-        <ListItem variant="b">List Item 2</ListItem>
-        <ListItem variant="b">List Item 3</ListItem>
-      </List>,
-    );
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "The use of `variant` on `ListItem` is deprecated. Please set it via `List` instead.",
-    );
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-    loggerSpy.mockRestore();
   });
 });

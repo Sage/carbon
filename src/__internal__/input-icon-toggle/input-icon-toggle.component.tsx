@@ -18,7 +18,6 @@ export interface InputIconToggleProps
   onFocus?: (ev: React.FocusEvent<HTMLElement>) => void;
   onMouseDown?: (ev: React.MouseEvent<HTMLElement>) => void;
   readOnly?: boolean;
-  tooltipId?: string;
   useValidationIcon?: boolean;
   /** Id of the validation icon */
   validationIconId?: string;
@@ -83,11 +82,12 @@ const InputIconToggle = ({
         onFocus={onFocus}
         onBlur={onBlur}
         onMouseDown={onMouseDown}
-        tabIndex={iconTabIndex}
         data-element="input-icon-toggle"
         disabled={disabled}
         readOnly={readOnly}
         data-role="input-icon-toggle"
+        aria-hidden="true"
+        tabIndex={-1}
       >
         <Icon disabled={disabled || readOnly} type={type} />
       </InputIconToggleStyle>

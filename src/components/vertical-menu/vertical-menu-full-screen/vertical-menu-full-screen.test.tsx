@@ -5,10 +5,6 @@ import userEvent from "@testing-library/user-event";
 import Portal from "../../portal";
 import FocusTrap from "../../../__internal__/focus-trap/focus-trap.component";
 import { VerticalMenuFullScreen, VerticalMenuItem } from "..";
-import Logger from "../../../__internal__/utils/logger";
-
-// mock Logger.deprecate so that no console warnings occur while running the tests
-const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 jest.mock("../../portal", () =>
   jest.fn(({ children }) => <div>{children}</div>),
@@ -19,14 +15,6 @@ jest.mock("../../../__internal__/focus-trap/focus-trap.component", () =>
 );
 
 describe("VerticalMenuFullScreen", () => {
-  beforeAll(() => {
-    loggerSpy.mockImplementation(() => {});
-  });
-
-  afterAll(() => {
-    loggerSpy.mockRestore();
-  });
-
   it("should accepts aria-label prop", () => {
     render(
       <VerticalMenuFullScreen isOpen onClose={() => {}} aria-label="test">

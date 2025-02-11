@@ -2,11 +2,19 @@ import styled from "styled-components";
 import { margin, MarginProps } from "styled-system";
 import baseTheme from "../../style/themes/base";
 
-const StyledHr = styled.hr<MarginProps>`
+const heightMap = {
+  small: 1,
+  medium: 2,
+  large: 3,
+};
+
+const StyledHr = styled.hr<
+  MarginProps & { height: "small" | "medium" | "large" }
+>`
   ${margin}
   width: inherit;
   border: 0;
-  height: 1px;
+  height: ${({ height }) => heightMap[height]}px;
   background: var(--colorsUtilityMajor100);
 `;
 

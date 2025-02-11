@@ -7,7 +7,6 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import Button from "../button";
 import Box from "../box";
 import Accordion from "./__internal__/accordion";
-import Logger from "../../__internal__/utils/logger";
 
 import {
   StyledTileSelectContainer,
@@ -24,8 +23,6 @@ import {
   StyledAccordionFooterWrapper,
 } from "./tile-select.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-
-let deprecatedClassNameWarningShown = false;
 
 const checkPropTypeIsNode = (prop: unknown): boolean =>
   typeof prop !== "string";
@@ -66,8 +63,6 @@ export interface TileSelectProps extends MarginProps {
   onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** determines if this tile is selected or unselected */
   checked?: boolean;
-  /** Custom class name passed to the root element of TileSelect */
-  className?: string;
   /** Type of the TileSelect input */
   type?: "radio" | "checkbox";
   /** Render prop that allows overriding the default action button. */
@@ -97,7 +92,6 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
       value,
       name,
       checked = false,
-      className,
       disabled,
       title,
       subtitle,
@@ -117,13 +111,6 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
     }: TileSelectProps,
     ref,
   ) => {
-    if (!deprecatedClassNameWarningShown && className) {
-      Logger.deprecate(
-        "The 'className' prop has been deprecated and will soon be removed from the 'TileSelect' component.",
-      );
-      deprecatedClassNameWarningShown = true;
-    }
-
     const l = useLocale();
     const [hasFocus, setHasFocus] = useState(false);
     const handleDeselect = () =>
@@ -169,7 +156,6 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
     return (
       <StyledTileSelectContainer
         checked={checked}
-        className={className}
         disabled={disabled}
         {...tagComponent("tile-select", rest)}
         {...filterStyledSystemMarginProps(rest)}

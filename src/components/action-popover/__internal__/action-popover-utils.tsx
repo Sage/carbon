@@ -28,3 +28,15 @@ export const findLastFocusableItem = (items: ReactItem[]): number => {
   }
   return -1;
 };
+
+export const checkChildrenForString = (children: React.ReactNode): boolean => {
+  return React.Children.toArray(children).some((child) => {
+    if (typeof child === "string") {
+      return true;
+    }
+
+    return React.isValidElement(child)
+      ? checkChildrenForString(child.props.children)
+      : false;
+  });
+};

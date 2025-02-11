@@ -20,6 +20,11 @@ const styledSystemProps = generateStyledSystemProps({
 const meta: Meta<typeof Time> = {
   title: "Time",
   component: Time,
+  parameters: {
+    controls: {
+      exclude: ["value", "onChange", "onBlur"],
+    },
+  },
   argTypes: {
     ...styledSystemProps,
   },
@@ -28,7 +33,7 @@ const meta: Meta<typeof Time> = {
 export default meta;
 type Story = StoryObj<typeof Time>;
 
-export const Default: Story = () => {
+export const Default: Story = ({ ...args }) => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -40,7 +45,7 @@ export const Default: Story = () => {
 
   return (
     <Box p={2}>
-      <Time value={value} onChange={handleChange} label="Time" />
+      <Time value={value} onChange={handleChange} label="Time" {...args} />
     </Box>
   );
 };
@@ -50,7 +55,7 @@ Default.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const AmPmToggle: Story = () => {
+export const AmPmToggle: Story = ({ ...args }) => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -63,7 +68,7 @@ export const AmPmToggle: Story = () => {
 
   return (
     <Box p={2}>
-      <Time value={value} onChange={handleChange} label="Time" />
+      <Time value={value} onChange={handleChange} label="Time" {...args} />
     </Box>
   );
 };

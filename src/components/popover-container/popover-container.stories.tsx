@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -12,11 +12,17 @@ import Pill from "../pill";
 import Badge from "../badge";
 import isChromatic from "../../../.storybook/isChromatic";
 import { Select, Option } from "../select";
-import PopoverContainer from "./popover-container.component";
+import PopoverContainer, {
+  PopoverContainerHandle,
+} from "./popover-container.component";
+import Textbox from "../textbox";
+import Form from "../form";
 
 const styledSystemProps = generateStyledSystemProps({
   padding: true,
 });
+
+const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof PopoverContainer> = {
   title: "Popover Container",
@@ -24,12 +30,26 @@ const meta: Meta<typeof PopoverContainer> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
+  decorators: [
+    (Story) => (
+      <>
+        {defaultOpenState ? (
+          <Box width="100vw" height="100vh">
+            <Story />
+          </Box>
+        ) : (
+          <Story />
+        )}
+      </>
+    ),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof PopoverContainer>;
-
-const defaultOpenState = isChromatic();
 
 export const Default: Story = () => {
   return (
@@ -243,7 +263,7 @@ export const Filter: Story = () => {
     { value: "Option 2", checked: false },
     { value: "Option 3", checked: false },
   ];
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpenState);
   const [options, setOptions] = useState<OptionsType[]>(initValues);
   const [filters, setFilters] = useState<OptionsType[]>([]);
   const clearAllOptions = () => {
@@ -355,3 +375,57 @@ export const DisableAnimation: Story = () => {
   );
 };
 DisableAnimation.storyName = "Disable Animation";
+
+export const FocusButton = () => {
+  const [isPopOverOpen, setIsPopOverOpen] = useState(defaultOpenState);
+  const ref = useRef<PopoverContainerHandle>(null);
+
+  const handleCancel = () => {
+    setIsPopOverOpen(false);
+    ref.current?.focusButton();
+  };
+
+  return (
+    <PopoverContainer
+      p={0}
+      ref={ref}
+      containerAriaLabel="popover with form"
+      open={isPopOverOpen}
+      onOpen={() => setIsPopOverOpen(true)}
+      onClose={() => setIsPopOverOpen(false)}
+      renderOpenComponent={({ ...props }) => (
+        <Button
+          size="small"
+          buttonType="secondary"
+          iconType="settings"
+          {...props}
+        >
+          popover
+        </Button>
+      )}
+      renderCloseComponent={() => <></>}
+    >
+      <Form
+        height="400px"
+        onSubmit={() => {}}
+        leftSideButtons={<Button onClick={() => handleCancel()}>Cancel</Button>}
+        saveButton={
+          <Button buttonType="primary" type="submit">
+            Save
+          </Button>
+        }
+        stickyFooter
+      >
+        <Box m={2}>
+          <Textbox label="Textbox" onChange={() => {}} />
+          <Textbox label="Textbox" onChange={() => {}} />
+          <Textbox label="Textbox" onChange={() => {}} />
+          <Textbox label="Textbox" onChange={() => {}} />
+          <Textbox label="Textbox" onChange={() => {}} />
+          <Textbox label="Textbox" onChange={() => {}} />
+        </Box>
+      </Form>
+    </PopoverContainer>
+  );
+};
+FocusButton.storyName = "Focus Button Programmatically";

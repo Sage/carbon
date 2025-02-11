@@ -10,7 +10,6 @@ import { ICON_TOOLTIP_POSITIONS } from "./icon-config";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import TabTitleContext from "../tabs/__internal__/tab-title/tab-title.context";
-import Logger from "../../__internal__/utils/logger";
 
 export type LegacyIconTypes =
   | "help"
@@ -61,8 +60,6 @@ export interface IconProps
   tabIndex?: number;
 }
 
-let deprecatedExtraSmallBgSizeTriggered = false;
-
 const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
   (
     {
@@ -100,13 +97,6 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       tooltipFlipOverrides.every((override) =>
         ICON_TOOLTIP_POSITIONS.includes(override),
       );
-
-    if (!deprecatedExtraSmallBgSizeTriggered && bgSize === "extra-small") {
-      deprecatedExtraSmallBgSizeTriggered = true;
-      Logger.deprecate(
-        "The `extra-small` variant of the `bgSize` prop for `Icon` component has been deprecated and will soon be removed.",
-      );
-    }
 
     if (tooltipFlipOverrides) {
       invariant(

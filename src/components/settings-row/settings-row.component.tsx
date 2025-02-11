@@ -3,15 +3,12 @@ import { MarginProps } from "styled-system";
 import Heading, { HeadingType } from "../heading";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import Logger from "../../__internal__/utils/logger";
 
 import {
   StyledSettingsRow,
   StyledSettingsRowHeader,
   StyledSettingsRowInput,
 } from "./settings-row.style";
-
-let deprecatedClassNameWarningShown = false;
 
 export interface SettingsRowProps extends MarginProps {
   /**  A title for this group of settings. */
@@ -24,7 +21,11 @@ export interface SettingsRowProps extends MarginProps {
   description?: React.ReactNode;
   /** Shows a divider below the component. */
   divider?: boolean;
-  /**  The CSS classes to apply to the component. */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
 }
 
@@ -34,16 +35,8 @@ export const SettingsRow = ({
   children,
   description,
   divider = true,
-  className,
   ...rest
 }: SettingsRowProps) => {
-  if (!deprecatedClassNameWarningShown && className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'SettingsRow' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
-
   const heading = () => {
     if (!title) return null;
 
@@ -60,7 +53,6 @@ export const SettingsRow = ({
 
   return (
     <StyledSettingsRow
-      className={className}
       hasDivider={divider}
       data-role="settings-row"
       {...tagComponent("settings-row", rest)}

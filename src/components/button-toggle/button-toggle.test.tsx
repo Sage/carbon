@@ -18,19 +18,6 @@ test("should display a deprecation warning for uncontrolled behaviour which is t
   loggerSpy.mockRestore();
 });
 
-test("should display a deprecation warning for the `grouped` prop which is triggered only once", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(<ButtonToggle grouped>Button</ButtonToggle>);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The `grouped` prop in `ButtonToggle` component is deprecated and will soon be removed. Spacing between buttons is no longer no removed.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1); // total two times to account for uncontrolled behaviour warning
-  loggerSpy.mockRestore();
-});
-
 test("should call `onClick` when the button is clicked", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();

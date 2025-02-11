@@ -4,7 +4,6 @@ import userEvent from "@testing-library/user-event";
 import Pod from ".";
 import Typography from "../typography";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import Logger from "../../__internal__/utils/logger";
 
 test("renders with `title` as a string", () => {
   render(<Pod title="Title" />);
@@ -516,17 +515,3 @@ testStyledSystemMargin(
   (props) => <Pod data-role="pod" {...props} />,
   () => screen.getByTestId("pod"),
 );
-
-test("throws a deprecation warning if the 'className' prop is set", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(<Pod className="foo">bar</Pod>);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'Pod' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-});

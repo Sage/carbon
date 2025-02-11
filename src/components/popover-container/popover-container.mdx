@@ -86,7 +86,7 @@ You can easily use many different components to create your own composition.
 ### Filter component
 
 If you want to use the `PopoverContainer` to create for example `Filter` component.
-You can do it easly in this way:
+You can do it easily in this way:
 
 **Please note you should supply an `onClose` when controlling the `open` state in order for the `PopoverContainer` to close when clicking outside of the wrapper element**
 
@@ -97,6 +97,15 @@ You can do it easly in this way:
 It is possible to disable the animations applied to the `PopoverContainer` by setting the `disableAnimation` prop to `true`.
 
 <Canvas of={PopoverContainerStories.DisableAnimation} />
+
+### Focusing the open button programmatically
+
+The component exposes a `focusButton` function that supports programmatically focusing on the open button, which can be called by passing a ref to the `PopoverContainer` component.
+This can be useful when closing or submitting a Form within `PopoverContainer`.
+
+**Please note you should supply an `onClose` when controlling the `open` state in order for the `PopoverContainer` to close when clicking outside of the wrapper element**
+
+<Canvas of={PopoverContainerStories.FocusButton} />
 
 ## Props
 

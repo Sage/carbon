@@ -112,6 +112,7 @@ const TabsHeader = ({
           title="Scroll Tabs Left"
           id="tab-navigation-button-left"
           data-role="tab-navigation-button-left"
+          type="button"
           onClick={() => {
             /* istanbul ignore if */
             if (current) {
@@ -147,6 +148,7 @@ const TabsHeader = ({
           title="Scroll Tabs Right"
           id="tab-navigation-button-right"
           data-role="tab-navigation-button-right"
+          type="button"
           onClick={() => {
             /* istanbul ignore if */
             if (current) {

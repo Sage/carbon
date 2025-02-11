@@ -754,12 +754,11 @@ export const WithHideableHeaderChildren: Story = () => {
     <Accordion
       title="More info"
       openTitle="Less info"
-      scheme="transparent"
       borders="none"
       disableContentPadding
-      buttonHeading
-      buttonWidth="120px"
       ml="-13px"
+      variant="subtle"
+      mb={1}
     >
       <Box py="16px" pl="14px">
         <Pill fill>A pill</Pill>

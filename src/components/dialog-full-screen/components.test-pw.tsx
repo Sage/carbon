@@ -129,16 +129,12 @@ export const MultipleDialogsInDifferentProviders = () => {
 export const DialogFullScreenWithHeaderChildren = () => {
   const [isOpen, setIsOpen] = React.useState(true);
   const HeaderChildren = (
-    <div
-      style={{
-        margin: `$min-width: 568px 0 26px`,
-      }}
-    >
+    <Box margin="$min-width: 568px 0 26px">
       <Pill fill>A pill</Pill>
       <Pill fill ml={2} mr={1}>
         Another pill
       </Pill>
-    </div>
+    </Box>
   );
   return (
     <>
@@ -271,23 +267,20 @@ export const WithHideableHeaderChildren = () => {
   const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
   const verticalMargin = aboveBreakpoint ? "26px" : 0;
   const HeaderChildrenAboveBreakpoint = (
-    <div style={{ margin: `${verticalMargin} 0 26px` }}>
+    <Box margin={`$min-width: ${verticalMargin} 0 26px`}>
       <Pill fill>A pill</Pill>
       <Pill fill ml={2} mr={1}>
         Another pill
       </Pill>
-    </div>
+    </Box>
   );
   const HeaderChildrenBelowBreakpoint = (
     <Accordion
       title="More info"
       openTitle="Less info"
-      scheme="transparent"
       borders="none"
       aria-label="aria-label"
       disableContentPadding
-      buttonHeading
-      buttonWidth="120px"
       ml="-13px"
     >
       <Box py="16px" pl="14px">
@@ -394,19 +387,17 @@ export const FocusingADifferentFirstElement = () => {
         subtitle="Subtitle"
       >
         <p>Focus an element that doesnt support autofocus</p>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-around",
-            height: "150px",
-          }}
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-around"
+          height="150px"
         >
           <Button onClick={() => setIsOpenOne(false)}>Not focused</Button>
           <Button ref={ref} onClick={() => setIsOpenOne(false)}>
             This should be focused first now
           </Button>
-        </div>
+        </Box>
         <Textbox label="Not Focused" />
       </DialogFullScreen>
       <Button ml={2} onClick={() => setIsOpenTwo(true)}>
@@ -420,17 +411,15 @@ export const FocusingADifferentFirstElement = () => {
         subtitle="Subtitle"
       >
         <p>Focus an element that supports autoFocus</p>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-around",
-            height: "150px",
-          }}
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-around"
+          height="150px"
         >
           <Button onClick={() => setIsOpenTwo(false)}>Not focused</Button>
           <Button onClick={() => setIsOpenTwo(false)}>Not focused</Button>
-        </div>
+        </Box>
         <Textbox label="This should be focused first now" autoFocus />
       </DialogFullScreen>
     </>
@@ -918,6 +907,8 @@ export const WithComplexExample = () => {
         showCloseIcon
         disableContentPadding
       >
+        {/* Without a h2 in the DOM, the a11y checks fail */}
+        <Typography variant="h2">A11y Heading Order Fix</Typography>
         <Drawer sidebar={SidebarContent}>
           <Box p={5}>{showCorrectContent()}</Box>
         </Drawer>

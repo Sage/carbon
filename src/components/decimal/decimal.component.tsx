@@ -39,8 +39,6 @@ export interface DecimalProps
   onChange?: (ev: CustomEvent) => void;
   /** Handler for blur event */
   onBlur?: (ev: CustomEvent) => void;
-  /** [Deprecated] Handler for key press event */
-  onKeyPress?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** The input name */
   name?: string;
   /** The decimal precision of the value in the input */
@@ -70,7 +68,6 @@ export interface DecimalProps
 }
 
 let deprecateUncontrolledWarnTriggered = false;
-let deprecateOnKeyPressWarnTriggered = false;
 
 export const Decimal = React.forwardRef(
   (
@@ -82,7 +79,6 @@ export const Decimal = React.forwardRef(
       readOnly,
       onChange,
       onBlur,
-      onKeyPress,
       id,
       name,
       allowEmptyValue = false,
@@ -117,7 +113,7 @@ export const Decimal = React.forwardRef(
           return valueToFormat;
         }
 
-        /* Guards against any white-space only strings like "   " being 
+        /* Guards against any white-space only strings like "   " being
        mishandled and returned as `NaN` for the value displayed in the textbox */
         if (valueToFormat === "" || valueToFormat.match(/\s+/g)) {
           return valueToFormat;
@@ -206,8 +202,8 @@ export const Decimal = React.forwardRef(
             : i18nValue;
         /* If a value is passed in that is a number but has too many delimiters in succession, we want to handle this
     value without formatting it or removing delimiters. We also want to consider that,
-    if a value consists of only delimiters, we want to treat that 
-    value in the same way as if the value was NaN. We want to pass this value to the 
+    if a value consists of only delimiters, we want to treat that
+    value in the same way as if the value was NaN. We want to pass this value to the
     formatValue function, before the delimiters can be removed. */
         const errorsWithDelimiter = new RegExp(
           `([^A-Za-z0-9]{2,})|(^[^A-Za-z0-9-]+)|([^0-9a-z-,.])|([^0-9-,.]+)|([W,.])$`,
@@ -326,17 +322,9 @@ export const Decimal = React.forwardRef(
       );
     }
 
-    if (!deprecateOnKeyPressWarnTriggered && onKeyPress) {
-      deprecateOnKeyPressWarnTriggered = true;
-      Logger.deprecate(
-        "`onKeyPress` prop in `Decimal` is deprecated and will soon be removed, please use `onKeyDown` instead.",
-      );
-    }
-
     return (
       <>
         <Textbox
-          onKeyPress={onKeyPress}
           align={align}
           readOnly={readOnly}
           inputWidth={inputWidth}

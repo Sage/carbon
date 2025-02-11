@@ -30,7 +30,6 @@ interface StyledMenuItemWrapperProps
   isOpen?: boolean;
   inFullscreenView?: boolean;
   asPassiveItem?: boolean;
-  placeholderTabIndex?: boolean;
   icon?: string;
   ariaLabel?: string;
   asDiv?: boolean;
@@ -181,6 +180,11 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
         a:hover,
         button:hover {
+          ${StyledButton} {
+            border-radius: 0;
+            background-color: transparent;
+          }
+
           ${!asDiv &&
           css`
             background-color: var(--colorsComponentsMenuAutumnStandard600);

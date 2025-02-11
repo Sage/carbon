@@ -10,6 +10,7 @@ import Button from "../button";
 import { ValidationProps } from "../../__internal__/validations";
 import Logger from "../../__internal__/utils/logger";
 import useLocale from "../../hooks/__internal__/useLocale";
+import Events from "../../__internal__/utils/helpers/events";
 
 export interface SearchEvent {
   target: {
@@ -96,7 +97,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       searchWidth,
       maxWidth,
       searchButton,
-      searchButtonAriaLabel = "search button",
+      searchButtonAriaLabel,
       placeholder,
       variant = "default",
       "aria-label": ariaLabel = "search",
@@ -220,6 +221,18 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         event.stopPropagation();
       }
 
+      if (Events.isEscKey(event) && !isSearchValueEmpty) {
+        event.stopPropagation();
+        setSearchValue("");
+        onChange?.({
+          target: {
+            ...(name && { name }),
+            ...(id && { id }),
+            value: "",
+          },
+        });
+      }
+
       if (onKeyDown) {
         onKeyDown(event);
       }
@@ -275,7 +288,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         {searchButton && (
           <StyledSearchButton>
             <Button
-              aria-label={searchButtonAriaLabel}
+              aria-label={searchButtonAriaLabel || searchButtonText}
               size="medium"
               px={2}
               buttonType="primary"

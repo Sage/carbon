@@ -1,7 +1,11 @@
 import React from "react";
 
 import { MarginProps } from "styled-system";
+
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+
+import { ProfileSize } from "./profile.config";
 import {
   ProfileStyle,
   ProfileNameStyle,
@@ -10,11 +14,6 @@ import {
   ProfileEmailStyle,
   ProfileTextStyle,
 } from "./profile.style";
-import { filterStyledSystemMarginProps } from "../../style/utils";
-import { ProfileSize } from "./profile.config";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 function acronymize(str?: string) {
   if (!str) return "";
@@ -26,7 +25,11 @@ function acronymize(str?: string) {
 let useOfNoNameWarnTriggered = false;
 
 export interface ProfileProps extends MarginProps {
-  /** [Legacy] A custom class name for the component */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
   /** Custom source URL */
   src?: string;
@@ -38,12 +41,16 @@ export interface ProfileProps extends MarginProps {
   email?: string;
   /** Define read-only text to display. */
   text?: string;
-  /** Define initials to display if there is no Gravatar image. */
+  /** Define initials to display image. */
   initials?: string;
   /** Allow to setup size for the component */
   size?: ProfileSize;
   /** Use a dark background. */
   darkBackground?: boolean;
+  /** The hex code of the background colour to be passed to the avatar */
+  backgroundColor?: string;
+  /** The hex code of the foreground colour to be passed to the avatar. Must be used in conjunction with `backgroundColor` */
+  foregroundColor?: string;
 }
 
 export const Profile = ({
@@ -56,15 +63,10 @@ export const Profile = ({
   email,
   text,
   darkBackground,
+  backgroundColor,
+  foregroundColor,
   ...props
 }: ProfileProps) => {
-  if (!deprecatedClassNameWarningShown && className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'Profile' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
-
   const getInitials = () => {
     if (initials) return initials;
     return acronymize(name).slice(0, 3).toUpperCase();
@@ -76,6 +78,9 @@ export const Profile = ({
     name,
     initials: getInitials(),
     size,
+    backgroundColor,
+    foregroundColor,
+    "data-role": "profile-portrait",
   };
 
   const avatar = () => {
@@ -88,7 +93,7 @@ export const Profile = ({
         />
       );
     }
-    return <ProfileAvatarStyle gravatar={email} {...commonAvatarProps} />;
+    return <ProfileAvatarStyle {...commonAvatarProps} />;
   };
 
   if (!useOfNoNameWarnTriggered && !name && (email || text)) {

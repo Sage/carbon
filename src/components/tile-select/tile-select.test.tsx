@@ -9,7 +9,6 @@ import TileSelectGroup, {
 } from "./tile-select-group/tile-select-group.component";
 import Button from "../button";
 import Icon from "../icon";
-import Logger from "../../__internal__/utils/logger";
 
 testStyledSystemMargin(
   (props) => <TileSelect data-role="tile-select-wrapper" {...props} />,
@@ -373,18 +372,4 @@ test("Accordion footer renders the node passed in via the accordionContent prop 
     "rotate(-90deg)",
     { modifier: 'span[data-element="chevron_down"]' },
   );
-});
-
-test("throws a deprecation warning if the 'className' prop is set", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(<TileSelect className="foo" />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'TileSelect' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
 });
