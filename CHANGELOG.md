@@ -1,3 +1,11 @@
+## [147.5.0](https://github.com/Sage/carbon/compare/v147.4.3...v147.5.0) (2025-02-11)
+
+
+### Features
+
+* **multi-action-button:** add programmatic focus support ([a608616](https://github.com/Sage/carbon/commit/a6086162e7d6a6b9d01e9b01664f771e43c49727))
+* **split-button:** add programmatic focus support for main and toggle buttons ([7307c8f](https://github.com/Sage/carbon/commit/7307c8fea31da5732903be2ae7b26366feea08b8))
+
 ### [147.4.3](https://github.com/Sage/carbon/compare/v147.4.2...v147.4.3) (2025-02-11)
 
 
