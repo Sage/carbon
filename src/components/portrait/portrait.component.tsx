@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { MarginProps } from "styled-system";
-import MD5 from "crypto-js/md5";
-import invariant from "invariant";
-import Logger from "../../__internal__/utils/logger";
 
 import { IconType } from "../icon";
 import Tooltip from "../tooltip";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
+
 import {
   StyledCustomImg,
   StyledIcon,
   StyledPortraitContainer,
   StyledPortraitInitials,
-  StyledPortraitGravatar,
 } from "./portrait.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
@@ -21,11 +17,7 @@ export type PortraitShapes = "circle" | "square";
 
 export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 
-let deprecatedGravatarWarnTriggered = false;
-
 export interface PortraitProps extends MarginProps {
-  /** (Deprecated) An email address registered with Gravatar. */
-  gravatar?: string;
   /** A custom image URL. */
   src?: string;
   /** The size of the Portrait. */
@@ -60,13 +52,18 @@ export interface PortraitProps extends MarginProps {
   tooltipBgColor?: string;
   /** [Legacy] Override font color of the Tooltip, provide any color from palette or any valid css color value. */
   tooltipFontColor?: string;
+  /** The hex code of the background colour */
+  backgroundColor?: string;
+  /** The hex code of the foreground colour. This will only take effect if use in conjunction with `backgroundColor` */
+  foregroundColor?: string;
 }
 
 const Portrait = ({
   alt,
+  backgroundColor,
+  foregroundColor = undefined,
   name,
   darkBackground = false,
-  gravatar = "",
   iconType = "individual",
   initials,
   shape = "circle",
@@ -86,34 +83,11 @@ const Portrait = ({
   const [externalError, setExternalError] = useState(false);
   const hasValidImg = Boolean(src) && !externalError;
 
-  invariant(
-    !(src && gravatar),
-    "The `src` prop cannot be used in conjunction with the `gravatar` prop." +
-      " Please use one or the other.",
-  );
-
-  const logGravatarDeprecationWarning = () => {
-    deprecatedGravatarWarnTriggered = true;
-    Logger.deprecate(
-      "The `gravatar` prop has been deprecated and will soon be removed.",
-    );
-  };
-
   useEffect(() => {
     setExternalError(false);
-  }, [gravatar, src]);
+  }, [src]);
 
   const tagProps = tagComponent("portrait", rest);
-
-  const gravatarSrc = () => {
-    const { dimensions } = PORTRAIT_SIZE_PARAMS[size];
-    const base = "https://www.gravatar.com/avatar/";
-    const hash = MD5(gravatar.toLowerCase());
-    const fallbackOption = "404"; // "Return an HTTP 404 File Not Found response"
-
-    /** @see https://en.gravatar.com/site/implement/images/#default-image */
-    return `${base}${hash}?s=${dimensions}&d=${fallbackOption}`;
-  };
 
   const renderComponent = () => {
     let portrait = <StyledIcon type={iconType} size={size} />;
@@ -132,19 +106,6 @@ const Portrait = ({
           src={src}
           alt={alt || name || ""}
           data-element="user-image"
-          onError={() => setExternalError(true)}
-        />
-      );
-    }
-
-    if (gravatar && !externalError) {
-      portrait = (
-        <StyledPortraitGravatar
-          src={gravatarSrc()}
-          alt={alt || name || ""}
-          onLoad={() =>
-            !deprecatedGravatarWarnTriggered && logGravatarDeprecationWarning()
-          }
           onError={() => setExternalError(true)}
         />
       );
@@ -170,6 +131,8 @@ const Portrait = ({
             darkBackground={darkBackground}
             size={size}
             shape={shape}
+            backgroundColor={backgroundColor}
+            foregroundColor={foregroundColor}
           >
             {portrait}
           </StyledPortraitContainer>
@@ -186,6 +149,8 @@ const Portrait = ({
         darkBackground={darkBackground}
         size={size}
         shape={shape}
+        backgroundColor={backgroundColor}
+        foregroundColor={foregroundColor}
       >
         {portrait}
       </StyledPortraitContainer>

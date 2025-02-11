@@ -71,13 +71,13 @@ export const commonTextboxArgTypes = (isNewValidation?: boolean) => ({
       type: "select",
     },
   },
-  ...(!isNewValidation && {
-    labelAlign: {
-      options: ["left", "right"],
-      control: {
-        type: "select",
-      },
+  labelAlign: {
+    options: ["left", "right"],
+    control: {
+      type: "select",
     },
+  },
+  ...(!isNewValidation && {
     labelWidth: {
       control: {
         type: "range",

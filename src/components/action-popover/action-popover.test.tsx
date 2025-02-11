@@ -132,6 +132,73 @@ test("has a default aria-label", () => {
   expect(screen.getByRole("button")).toHaveAccessibleName("actions");
 });
 
+test("has a default aria-label if the renderButton prop contains a button without text", () => {
+  render(
+    <ActionPopover
+      renderButton={(props) => {
+        return (
+          <ActionPopoverMenuButton
+            buttonType="tertiary"
+            iconType="ellipsis_vertical"
+            iconPosition="after"
+            size="small"
+            {...props}
+          />
+        );
+      }}
+    >
+      <ActionPopoverItem>example item</ActionPopoverItem>
+    </ActionPopover>,
+  );
+  expect(screen.getByRole("button")).toHaveAccessibleName("actions");
+});
+
+test("has a default aria-label if the renderButton prop contains a button with children other than string", () => {
+  render(
+    <ActionPopover
+      renderButton={(props) => {
+        return (
+          <ActionPopoverMenuButton
+            buttonType="tertiary"
+            iconType="ellipsis_vertical"
+            iconPosition="after"
+            size="small"
+            {...props}
+          >
+            {42 as unknown as string}
+          </ActionPopoverMenuButton>
+        );
+      }}
+    >
+      <ActionPopoverItem>example item</ActionPopoverItem>
+    </ActionPopover>,
+  );
+  expect(screen.getByRole("button")).toHaveAccessibleName("actions");
+});
+
+test("does not have a default aria-label if the renderButton prop contains a button with text", () => {
+  render(
+    <ActionPopover
+      renderButton={(props) => {
+        return (
+          <ActionPopoverMenuButton
+            buttonType="tertiary"
+            iconType="ellipsis_vertical"
+            iconPosition="after"
+            size="small"
+            {...props}
+          >
+            Button text
+          </ActionPopoverMenuButton>
+        );
+      }}
+    >
+      <ActionPopoverItem>example item</ActionPopoverItem>
+    </ActionPopover>,
+  );
+  expect(screen.getByRole("button")).not.toHaveAccessibleName("actions");
+});
+
 test("uses the aria-label prop if provided", () => {
   render(
     <ActionPopover aria-label="test aria label">

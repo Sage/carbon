@@ -8,9 +8,6 @@ import {
   StyledTickIcon,
   StyledSimpleColorInput,
 } from "./simple-color.style";
-import Logger from "../../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export interface SimpleColorProps {
   /** the value of the color that is represented by this SimpleColor */
@@ -31,19 +28,16 @@ export interface SimpleColorProps {
   checked?: boolean;
   /** determines if this color option is selected or unselected when component is used as uncontrolled */
   defaultChecked?: boolean;
-  /** [Legacy] Custom classname */
+  /**
+   * @private
+   * @ignore
+   * @internal
+   * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
 }
 
 export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
   (props: SimpleColorProps, ref) => {
-    if (!deprecatedClassNameWarningShown && props.className) {
-      Logger.deprecate(
-        "The 'className' prop has been deprecated and will soon be removed from the 'SimpleColor' component.",
-      );
-      deprecatedClassNameWarningShown = true;
-    }
-
     const {
       onChange,
       onBlur,
@@ -51,9 +45,9 @@ export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
       value,
       name,
       checked = false,
-      className,
       id,
       defaultChecked,
+      className,
       ...rest
     } = props;
 

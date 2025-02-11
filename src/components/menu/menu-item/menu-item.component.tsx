@@ -21,9 +21,6 @@ import { StyledMenuItem } from "../menu.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 import { IconType } from "../../icon";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
-import Logger from "../../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export type VariantType = "default" | "alternate";
 
@@ -32,8 +29,6 @@ interface MenuItemBaseProps
     Pick<LayoutProps, "width" | "maxWidth" | "minWidth">,
     FlexboxProps,
     PaddingProps {
-  /** Custom className */
-  className?: string;
   /** onClick handler */
   onClick?: (
     event:
@@ -127,13 +122,6 @@ export const MenuItem = ({
   "data-role": dataRole,
   ...rest
 }: MenuWithChildren | MenuWithIcon) => {
-  if (!deprecatedClassNameWarningShown && rest.className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'MenuItem' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
-
   invariant(
     icon || children,
     "Either prop `icon` must be defined or this node must have `children`.",
@@ -240,24 +228,6 @@ export const MenuItem = ({
 
       if (ref.current && Events.isEscKey(event)) {
         (ref.current as HTMLElement)?.focus();
-      }
-
-      const inputIcon = ref.current?.querySelector(
-        "[data-element='input-icon-toggle']",
-      );
-
-      const shouldFocusIcon =
-        inputIcon?.getAttribute("tabindex") === "0" &&
-        document.activeElement === inputRef.current &&
-        inputRef.current?.value;
-
-      // let natural tab order move focus if input icon is tabbable or input with button exists
-      if (
-        Events.isTabKey(event) &&
-        ((!Events.isShiftKey(event) && shouldFocusIcon) ||
-          (Events.isShiftKey(event) && document.activeElement === inputIcon))
-      ) {
-        return;
       }
 
       if (handleSubmenuKeyDown) {

@@ -34,52 +34,76 @@ import Portrait from "carbon-react/lib/components/portrait";
 
 ### Default
 
+By default, the `Portrait` will render a circle with a user icon.
+
 <Canvas of={PortraitStories.Default} />
 
 ### Initials
 
-Basic way of using the `Portrait` component is to simply pass your initials as `initials` prop.
+The `Portrait` component can also render initials in place of the icon if the `initials` prop is provided.
 
 <Canvas of={PortraitStories.Initials} />
 
 ### Src
 
-To use an image, simply pass any valid image URL as a `src` prop.
+To use an image instead of the default icon or initials, pass any valid image URL via the `src` prop.
 
 <Canvas of={PortraitStories.Src} />
 
 ### IconType
 
-Portrait also supports the declaration of a icon to fallback on when `src` or `initials` are falsy.
+`Portrait` allows you to specify an icon, which will be shown if the `src` or `initials` props are omitted.
 
 <Canvas of={PortraitStories.IconType} />
 
 ### With tooltip
 
-By providing a node element to the `tooltipMessage` prop, a tooltip can be displayed when hovering over the Portrait.
+A tooltip can be displayed when hovering over the `Portrait` by providing the `tooltipMessage`, `tooltipPosition` and `tooltipColor` props.
 
 <Canvas of={PortraitStories.WithTooltip} />
 
 ### Sizes
 
+The `Portrait` component can be rendered in a variety of sizes by passing the desired size as the `size` prop.
+
 <Canvas of={PortraitStories.Sizes} />
 
 ### Shapes
+
+The `Portrait` component can be rendered in a variety of shapes by passing the desired shape as the `shape` prop.
 
 <Canvas of={PortraitStories.Shapes} />
 
 ### Dark background
 
+The `Portrait` component can be rendered with a dark background by passing the `darkBackground` prop.
+
 <Canvas of={PortraitStories.DarkBackground} />
 
 ### With margin
 
-Margins can be applied to the `portrait` component using styled-system.
-To see a full list of available margin props, please visit the props table at the bottom of this page.
+Margins can be applied to the `Portrait` component using styled-system. To see a full list of available margin props, please visit the props
+table at the bottom of this page.
 
 [Vist Props Table](#props)
 
 <Canvas of={PortraitStories.WithMargin} />
+
+### Custom colors
+
+The `Portrait` component provides a set of props that allow for custom foreground and background colors
+to be applied. These props are `backgroundColor` and `foregroundColor`, and both accept a HEX color code or
+[design system token](https://zeroheight.com/2ccf2b601/p/217e24-design-tokens/b/870b8a).
+
+Using these props will override the default colors of the `Portrait` component. They will also bypass the
+`darkBackground` prop; setting it alongside `backgroundColor` or `foregroundColor` will have no effect.
+
+When a `backgroundColor` is provided, the `foregroundColor` will be automatically set to a contrasting color.
+This is calculated internally to ensure accessibility standards are met. If a custom `foregroundColor` is provided,
+this value will be used instead of the calculated one; please ensure that the color contrast is sufficient and that
+the component remains accessible.
+
+<Canvas of={PortraitStories.CustomColors} />
 
 ## Props
 

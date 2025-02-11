@@ -54,6 +54,10 @@ export interface TimeProps
     MarginProps {
   /** Label text for the component */
   label?: string;
+  /** Label alignment */
+  labelAlign?: "left" | "right";
+  /** Field labels alignment */
+  fieldLabelsAlign?: "left" | "right";
   /** Sets the size of the inputs */
   size?: Sizes;
   /** Additional hint text rendered above the input elements */
@@ -101,6 +105,8 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
   (
     {
       label,
+      labelAlign,
+      fieldLabelsAlign,
       size = "medium",
       inputHint,
       hoursInputProps = {},
@@ -251,7 +257,8 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       <Fieldset
         legend={label}
         legendMargin={{ mb: 0 }}
-        width="fit-content"
+        width="min-content"
+        legendAlign={labelAlign}
         isRequired={required}
         isOptional={isOptional}
         isDisabled={disabled}
@@ -266,7 +273,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
             {inputHint}
           </Hint>
         )}
-        <Box position="relative">
+        <Box position="relative" mt={inputHint ? 0 : 1}>
           <ValidationMessage
             validationId={validationId}
             error={error}
@@ -281,6 +288,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 aria-label={hrsAriaLabel}
                 htmlFor={internalHrsId.current}
                 disabled={disabled}
+                align={fieldLabelsAlign}
               >
                 {hrsLabel}
               </Label>
@@ -317,6 +325,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 aria-label={minsAriaLabel}
                 htmlFor={internalMinsId.current}
                 disabled={disabled}
+                align={fieldLabelsAlign}
               >
                 {minsLabel}
               </Label>
@@ -341,6 +350,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 display="flex"
                 flexDirection="column"
                 justifyContent="flex-end"
+                width="max-content"
               >
                 <TimeToggle
                   toggleProps={toggleProps}

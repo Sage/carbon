@@ -11,7 +11,6 @@ import {
   testStyledSystemPosition,
 } from "../../__spec_helper__/__internal__/test-utils";
 import Box from "./box.component";
-import Logger from "../../__internal__/utils/logger";
 
 testStyledSystemSpacing(
   (props) => <Box data-role="box" {...props} />,
@@ -114,23 +113,4 @@ it("applies the correct styling from the cssProps, when the width and height are
     width: "50%",
     height: "50%",
   });
-});
-
-test("logs a deprecation warning when the `tabIndex` prop is passed with a value", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-
-  render(
-    <>
-      <Box tabIndex={6} />
-      <Box tabIndex={-1} />
-    </>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The `tabIndex` prop for `Box` component has been deprecated and will soon be removed.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-  loggerSpy.mockRestore();
 });

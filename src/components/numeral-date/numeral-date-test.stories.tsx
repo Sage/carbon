@@ -224,12 +224,6 @@ export const NewDesignValidations = (args: NumeralDateProps) => {
 
 NewDesignValidations.storyName = "new design validations";
 
-export const Required = () => {
-  return <NumeralDate label="Date of Birth" required />;
-};
-
-Required.storyName = "required";
-
 export const TooltipPosition = () => {
   return (
     <>
@@ -263,3 +257,67 @@ export const InForm = () => {
 };
 
 InForm.storyName = "in form";
+
+export const LabelAlign = ({ ...args }) => {
+  return (
+    <Box ml={2}>
+      <NumeralDate mb={2} label="labelAlign left" {...args} />
+      <NumeralDate
+        mb={2}
+        label="labelAlign right"
+        labelAlign="right"
+        {...args}
+      />
+      <NumeralDate
+        mb={2}
+        label="labelAlign right and fieldLabelsAlign right"
+        labelAlign="right"
+        fieldLabelsAlign="right"
+        {...args}
+      />
+      <NumeralDate
+        mb={2}
+        label="inline labelAlign left"
+        labelAlign="left"
+        labelInline
+        labelWidth={30}
+        {...args}
+      />
+      <NumeralDate
+        label="inline labelAlign right"
+        labelInline
+        labelWidth={30}
+        {...args}
+      />
+    </Box>
+  );
+};
+
+LabelAlign.storyName = "label align";
+LabelAlign.args = {
+  dateFormat: ["dd", "mm", "yyyy"],
+};
+LabelAlign.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const InlineLabelsSizes = ({ ...args }) => {
+  return (
+    <Box ml={2}>
+      <NumeralDate mb={2} label="inline small" size="small" {...args} />
+      <NumeralDate mb={2} label="inline medium" size="medium" {...args} />
+      <NumeralDate mb={2} label="inline large" size="large" {...args} />
+    </Box>
+  );
+};
+
+InlineLabelsSizes.storyName = "inline labels sizes";
+InlineLabelsSizes.args = {
+  dateFormat: ["dd", "mm", "yyyy"],
+  labelInline: true,
+};
+InlineLabelsSizes.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

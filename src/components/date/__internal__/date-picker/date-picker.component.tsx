@@ -76,6 +76,8 @@ const popoverMiddleware = [
   }),
 ];
 
+const Nav = Navbar;
+
 export const DatePicker = ({
   inputElement,
   minDate,
@@ -264,16 +266,14 @@ export const DatePicker = ({
                 weekdaysShort,
               },
             }}
-            selected={focusedMonth}
+            selected={selectedDays}
             month={focusedMonth || /* istanbul ignore next */ new Date()}
             onDayClick={(d, _, e) => {
               const date = d as Date;
               handleDayClick(date, e);
             }}
             components={{
-              Nav: (props) => {
-                return <Navbar {...props} />;
-              },
+              Nav,
               Weekday: (props) => {
                 const fixedDays = {
                   Sunday: 0,

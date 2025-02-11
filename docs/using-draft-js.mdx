@@ -14,8 +14,8 @@ import { Meta } from "@storybook/blocks";
 
 ## Installation
 
-The [TextEditor](https://carbon.sage.com/?path=/docs/text-editor--default) and
-[Note](https://carbon.sage.com/?path=/docs/note--default) components utilise the `Draft.js` framework to
+The [TextEditor](../?path=/docs/text-editor--docs) and
+[Note](../?path=/docs/note--docs) components utilise the `Draft.js` framework to
 support creating and rendering rich-text content. As such, the framework has been added as a peer-dependency and
 consuming projects are required to install it if they wish to use either component, this can be done as an
 [npm package](https://www.npmjs.com/package/draft-js).
@@ -56,7 +56,7 @@ The framework surfaces a range of static methods for initialising the state:
   the component with some existing `ContentState` and any `Decorators` and return a new `EditorState` object.
 - `EditorState.create(config: EditorStateCreationConfig)` - offers the same as `createWithContent` but enables
   initialising the `EditorState` from a config, affording you more fine grain control. For example, it is possible to
-  define an intitial `SelectionState` using this static method.
+  define an initial `SelectionState` using this static method.
 
 #### Other useful methods
 

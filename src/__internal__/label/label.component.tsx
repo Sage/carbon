@@ -34,7 +34,10 @@ export interface LabelProps
   useValidationIcon?: boolean;
   /** Id of the validation icon */
   validationIconId?: string;
-  /** Sets className for component */
+  /**
+   * @private
+   * @internal
+   * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
   /** Sets aria-label for label element */
   "aria-label"?: string;
