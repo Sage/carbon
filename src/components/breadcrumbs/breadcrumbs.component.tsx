@@ -5,7 +5,9 @@ import StyledBreadcrumbs from "./breadcrumbs.style";
 import useLocale from "../../hooks/__internal__/useLocale";
 import BreadcrumbsContext from "./__internal__/breadcrumbs.context";
 
-export interface BreadcrumbsProps extends TagProps, SpaceProps {
+export interface BreadcrumbsProps
+  extends Omit<TagProps, "data-component">,
+    SpaceProps {
   /** Child crumbs to display */
   children: React.ReactNode;
   /** Sets the colour styling when component is rendered on a dark background */
@@ -20,9 +22,9 @@ export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
         <StyledBreadcrumbs
           ref={ref}
           role="navigation"
-          {...tagComponent("breadcrumbs", rest)}
           aria-label={l.breadcrumbs.ariaLabel()}
           {...rest}
+          {...tagComponent("breadcrumbs", rest)}
         >
           <ol>{children}</ol>
         </StyledBreadcrumbs>

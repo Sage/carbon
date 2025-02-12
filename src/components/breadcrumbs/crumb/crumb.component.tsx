@@ -23,7 +23,7 @@ export interface CrumbProps
       | "icon"
       | "disabled"
     >,
-    TagProps {
+    Omit<TagProps, "data-component"> {
   /** This sets the Crumb to current, does not render Link */
   isCurrent?: boolean;
 }
@@ -39,8 +39,8 @@ const Crumb = React.forwardRef<HTMLLinkElement, CrumbProps>(
           isCurrent={isCurrent}
           aria-current={isCurrent ? "page" : undefined}
           isDarkBackground={isDarkBackground}
-          {...tagComponent("crumb", rest)}
           {...rest}
+          {...tagComponent("crumb", rest)}
           {...(!isCurrent && {
             href,
             onClick,

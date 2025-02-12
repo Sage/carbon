@@ -29,6 +29,16 @@ test("renders children as expected", () => {
   expect(screen.getByText("Breadcrumb 3")).toBeVisible();
 });
 
+test("renders with provided data- attributes", () => {
+  render(
+    <Breadcrumbs data-element="bar" data-role="baz">
+      <Crumb href="#">Breadcrumb 1</Crumb>
+    </Breadcrumbs>,
+  );
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 // coverage
 test("renders children with expected colour when isDarkBackground is false", () => {
   render(
