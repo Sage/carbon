@@ -1,3 +1,10 @@
+### [147.7.1](https://github.com/Sage/carbon/compare/v147.7.0...v147.7.1) (2025-02-12)
+
+
+### Bug Fixes
+
+* **time:** ensure that ARIA attributes conform to valid values ([e710805](https://github.com/Sage/carbon/commit/e710805d2c3d6ee1eece22ebbc4d87c4cf731e3a))
+
 ## [147.7.0](https://github.com/Sage/carbon/compare/v147.6.0...v147.7.0) (2025-02-12)
 
 
