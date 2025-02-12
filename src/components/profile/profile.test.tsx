@@ -178,3 +178,36 @@ test("renders with dark background styling when `darkBackground` prop is passed"
     modifier: "a",
   });
 });
+
+test("renders with custom avatar colouring when `backgroundColor` is set", () => {
+  render(<Profile data-role="profile" backgroundColor="#00FF00" />);
+
+  const profile = screen.getByTestId("profile");
+  const portrait = screen.getByTestId("profile-portrait");
+  const avatar = screen.getByTestId("icon");
+
+  expect(profile).toContainElement(avatar);
+  expect(avatar).toBeVisible();
+  expect(avatar).toHaveAttribute("type", "individual");
+  expect(portrait).toHaveStyleRule("background-color", "#00FF00");
+});
+
+test("renders with custom avatar foreground and background colouring when both `foregroundColor` and `backgroundColor` are set", () => {
+  render(
+    <Profile
+      data-role="profile"
+      backgroundColor="#00FF00"
+      foregroundColor="#FF00FF"
+    />,
+  );
+
+  const profile = screen.getByTestId("profile");
+  const portrait = screen.getByTestId("profile-portrait");
+  const avatar = screen.getByTestId("icon");
+
+  expect(profile).toContainElement(avatar);
+  expect(avatar).toBeVisible();
+  expect(avatar).toHaveAttribute("type", "individual");
+  expect(portrait).toHaveStyleRule("background-color", "#00FF00");
+  expect(portrait).toHaveStyleRule("color", "#FF00FF");
+});

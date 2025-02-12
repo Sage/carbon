@@ -185,7 +185,7 @@ export const DialogFullScreen = ({
           pagesStyling={pagesStyling}
           role={role}
         >
-          {dialogTitle()}
+          {title || headerChildren ? dialogTitle() : null}
           {closeIcon()}
           <StyledContent
             hasHeader={title !== undefined}

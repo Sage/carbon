@@ -116,25 +116,38 @@ WithFullWidthButtons.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const WithDifferentSpacing: Story = () => (
-  <Form
-    onSubmit={() => console.log("submit")}
-    leftSideButtons={
-      <Button onClick={() => console.log("cancel")}>Cancel</Button>
-    }
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    fieldSpacing={5}
-  >
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textarea label="Textarea with Character Limit" characterLimit={50} />
-  </Form>
-);
+export const WithDifferentSpacing: Story = () => {
+  const [state, setState] = useState("");
+
+  const setValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setState(ev.target.value);
+  };
+
+  return (
+    <Form
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      fieldSpacing={5}
+    >
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textarea
+        label="Textarea with Character Limit"
+        characterLimit={50}
+        value={state}
+        onChange={setValue}
+      />
+    </Form>
+  );
+};
 WithDifferentSpacing.storyName = "With Different Spacing";
 
 export const OverrideFieldSpacing: Story = () => (

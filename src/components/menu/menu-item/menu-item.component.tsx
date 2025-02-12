@@ -230,24 +230,6 @@ export const MenuItem = ({
         (ref.current as HTMLElement)?.focus();
       }
 
-      const inputIcon = ref.current?.querySelector(
-        "[data-element='input-icon-toggle']",
-      );
-
-      const shouldFocusIcon =
-        inputIcon?.getAttribute("tabindex") === "0" &&
-        document.activeElement === inputRef.current &&
-        inputRef.current?.value;
-
-      // let natural tab order move focus if input icon is tabbable or input with button exists
-      if (
-        Events.isTabKey(event) &&
-        ((!Events.isShiftKey(event) && shouldFocusIcon) ||
-          (Events.isShiftKey(event) && document.activeElement === inputIcon))
-      ) {
-        return;
-      }
-
       if (handleSubmenuKeyDown) {
         handleSubmenuKeyDown(event);
       }
