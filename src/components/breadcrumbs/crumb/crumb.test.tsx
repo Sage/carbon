@@ -52,3 +52,13 @@ test("does not call onClick callback when isCurrent is true", async () => {
 
   expect(onClick).toHaveBeenCalledTimes(0);
 });
+
+test("renders with provided data- attributes", () => {
+  render(
+    <Crumb href="#" data-element="bar" data-role="baz">
+      Link text
+    </Crumb>,
+  );
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});

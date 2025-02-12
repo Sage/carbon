@@ -39,8 +39,8 @@ const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
           isCurrent={isCurrent}
           aria-current={isCurrent ? "page" : undefined}
           isDarkBackground={isDarkBackground}
-          {...tagComponent("crumb", rest)}
           {...rest}
+          {...tagComponent("crumb", rest)}
           {...(!isCurrent && {
             href,
             onClick,
