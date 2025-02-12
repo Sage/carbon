@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { MarginProps } from "styled-system";
 
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
@@ -27,6 +27,7 @@ export const Fieldset = ({
 }: FieldsetProps) => {
   const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
   const marginProps = useFormSpacing(rest);
+  const { validationRedesignOptIn } = useContext(NewValidationContext);
 
   useEffect(() => {
     if (ref && required) {
@@ -39,27 +40,30 @@ export const Fieldset = ({
   }, [ref, required]);
 
   return (
-    <NewValidationContext.Provider value={{ validationRedesignOptIn: false }}>
-      <FieldsetStyle
-        ref={setRef}
-        {...tagComponent("fieldset", rest)}
-        {...rest}
-        {...marginProps}
-      >
-        {legend && (
-          <StyledLegend
-            data-element="legend"
-            isRequired={required}
-            isOptional={isOptional}
-          >
-            {legend}
-          </StyledLegend>
-        )}
+    <FieldsetStyle
+      ref={setRef}
+      newValidation={validationRedesignOptIn}
+      {...tagComponent("fieldset", rest)}
+      {...rest}
+      {...marginProps}
+    >
+      {legend && (
+        <StyledLegend
+          data-element="legend"
+          isRequired={required}
+          isOptional={isOptional}
+        >
+          {legend}
+        </StyledLegend>
+      )}
+      {validationRedesignOptIn ? (
+        children
+      ) : (
         <FormSpacingProvider marginBottom={undefined}>
           {children}
         </FormSpacingProvider>
-      </FieldsetStyle>
-    </NewValidationContext.Provider>
+      )}
+    </FieldsetStyle>
   );
 };
 
