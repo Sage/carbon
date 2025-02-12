@@ -47,7 +47,6 @@ const StyledDialogFullScreen = styled.div<{ pagesStyling?: boolean }>`
     css`
       ${StyledContent} {
         padding: 0;
-        margin-top: -25px;
       }
 
       ${StyledIconButton} {

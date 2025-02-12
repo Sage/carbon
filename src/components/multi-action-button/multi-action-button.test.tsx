@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import MultiActionButton from "./multi-action-button.component";
+import MultiActionButton, { MultiActionButtonHandle } from ".";
 import Button from "../button";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
@@ -73,6 +73,35 @@ test("should call 'onClick' when the main button is clicked", async () => {
   await user.click(screen.getByRole("button", { name: "Main Button" }));
 
   expect(onClick).toHaveBeenCalledTimes(1);
+});
+
+test("should focus the main button when the focusMainButton on the ref handle is invoked", async () => {
+  const MockComponent = () => {
+    const multiActionButtonHandle = React.useRef<MultiActionButtonHandle>(null);
+    return (
+      <div>
+        <MultiActionButton ref={multiActionButtonHandle} text="Main Button">
+          <span>First</span>
+        </MultiActionButton>
+        ,
+        <Button
+          onClick={() => multiActionButtonHandle.current?.focusMainButton()}
+        >
+          Press me to focus on MultiActionButton
+        </Button>
+      </div>
+    );
+  };
+
+  const user = userEvent.setup();
+  render(<MockComponent />);
+  const button = screen.getByRole("button", {
+    name: "Press me to focus on MultiActionButton",
+  });
+
+  await user.click(button);
+
+  expect(screen.getByRole("button", { name: "Main Button" })).toHaveFocus();
 });
 
 test("should open additional buttons when the main button is clicked and focus on the first child", async () => {

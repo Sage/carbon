@@ -6,8 +6,8 @@ import * as FieldsetStories from "./fieldset.stories";
 
 # Fieldset
 
-- You can nest any Carbon input into this component.
-- Useful for presenting a series of inputs that are closely related, within a wider Form or Pod (e.g. an address or contact details).
+This component can be used within a [Form](../?path=/docs/form--docs) component to group related fields together. 
+It will render a `<fieldset>` element with a `<legend>` element to provide a title for the group of fields.
 
 ## Contents
 
@@ -25,17 +25,38 @@ import Fieldset from "carbon-react/lib/components/fieldset";
 
 ### Default
 
+Note that this example is using the `validationRedesignOptIn` flag and is wrapped within a `Form`, which will provide the spacing for the inputs within the Fieldset.
+The legacy layout for the `Fieldset` component is still available as seen in the Validation examples below. 
+
 <Canvas of={FieldsetStories.Default} />
 
-### Fieldset in Form
+### With `fieldSpacing`
 
-<Canvas of={FieldsetStories.InFormBasic} />
+You can use the `fieldSpacing` prop on Form to adjust the spacing between inputs.
 
-### `fieldSpacing`
-
-You can manipulate the spacings beetwen `Fieldset` components by passing `fieldSpacing` prop into `Form` component
+**Note:** This example is using the `validationRedesignOptIn` flag.  
 
 <Canvas of={FieldsetStories.InFormFieldSpacing} />
+
+### Required
+
+The `required` prop will add an asterisk to the legend and set all fields within the Fieldset to be required.
+
+**Note:** This example is using the `validationRedesignOptIn` flag.
+
+<Canvas of={FieldsetStories.Required} />
+
+### Optional
+
+**Note:** This example is using the `validationRedesignOptIn` flag.
+
+<Canvas of={FieldsetStories.IsOptional} />
+
+### New Validation
+
+The following example uses the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+
+<Canvas of={FieldsetStories.NewValidation} />
 
 ### Validations
 

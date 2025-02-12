@@ -1,25 +1,30 @@
 import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
+
 import Fieldset from "./fieldset.component";
 import Textbox from "../textbox";
+import { Select, Option } from "../select";
+import Form from "../form";
+import { Checkbox } from "../checkbox";
+import CarbonProvider from "../carbon-provider";
 
-export default {
+const meta: Meta<typeof Fieldset> = {
   title: "Fieldset/Test",
-  includeStories: ["Default", "OptionalFieldset", "RequiredFieldset"],
+  component: Fieldset,
   parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
+    themeProvider: { chromatic: { theme: "sage" } },
+    controls: {
+      exclude: ["children"],
     },
   },
 };
 
-type FieldsetStoryProps = {
-  legend?: string;
-};
+export default meta;
+type Story = StoryObj<typeof Fieldset>;
 
-export const Default = ({ legend }: FieldsetStoryProps) => {
+export const Default: Story = ({ ...args }) => {
   return (
-    <Fieldset legend={legend}>
+    <Fieldset {...args}>
       <Textbox
         label="First Name"
         labelInline
@@ -34,7 +39,13 @@ export const Default = ({ legend }: FieldsetStoryProps) => {
       />
       <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
       <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
-      <Textbox label="Country" labelInline labelAlign="right" labelWidth={30} />
+      <Checkbox label="Checkbox" labelWidth={30} labelSpacing={2} reverse />
+      <Select label="Country" labelInline labelAlign="right" labelWidth={30}>
+        <Option text="United Kingdom" value="uk" />
+        <Option text="Spain" value="sp" />
+        <Option text="France" value="fr" />
+        <Option text="Germany" value="ge" />
+      </Select>
       <Textbox
         label="Telephone"
         labelInline
@@ -49,66 +60,41 @@ Default.args = {
   legend: "Personal Information",
 };
 
-export const OptionalFieldset = ({ legend }: FieldsetStoryProps) => {
-  return (
-    <Fieldset legend={legend} isOptional>
-      <Textbox
-        label="First Name"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-      />
-      <Textbox
-        label="Last Name"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-      />
-      <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
-      <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
-      <Textbox label="Country" labelInline labelAlign="right" labelWidth={30} />
-      <Textbox
-        label="Telephone"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-      />
+export const InFormFieldSpacing: Story = () => (
+  <Form fieldSpacing={1}>
+    <Textbox label="Separate Field" labelInline />
+    <Fieldset>
+      <Textbox label="Fieldset 1 Field 1" labelInline />
+      <Textbox label="Fieldset 1 Field 2" labelInline />
     </Fieldset>
-  );
-};
-OptionalFieldset.storyName = "optional fieldset";
-OptionalFieldset.args = {
-  legend: "Personal Information",
-};
+    <Fieldset>
+      <Textbox label="Fieldset 2 Field 1" labelInline />
+      <Textbox label="Fieldset 2 Field 2" labelInline />
+    </Fieldset>
+    <Textbox label="Separate Field" labelInline />
+  </Form>
+);
+InFormFieldSpacing.storyName = "In Form with fieldSpacing (legacy)";
 
-export const RequiredFieldset = ({ legend }: FieldsetStoryProps) => {
-  return (
-    <Fieldset legend={legend} required>
-      <Textbox
-        label="First Name"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-      />
-      <Textbox
-        label="Last Name"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-      />
-      <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
-      <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
-      <Textbox label="Country" labelInline labelAlign="right" labelWidth={30} />
-      <Textbox
-        label="Telephone"
-        labelInline
-        labelAlign="right"
-        labelWidth={30}
-      />
-    </Fieldset>
-  );
-};
-RequiredFieldset.storyName = "required fieldset";
-RequiredFieldset.args = {
-  legend: "Personal Information",
-};
+export const NewValidation: Story = ({ ...args }) => (
+  <CarbonProvider validationRedesignOptIn>
+    <Form>
+      <Textbox label="Separate Field" />
+      <Fieldset legend="Fieldset" {...args}>
+        <Textbox label="Address Line 1" error="Message" />
+        <Textbox label="Address Line 2" error="Message" />
+        <Checkbox label="Checkbox" />
+        <Textbox label="City" warning="Message" />
+        <Select label="Country" warning="Message">
+          <Option text="United Kingdom" value="uk" />
+          <Option text="Spain" value="sp" />
+          <Option text="France" value="fr" />
+          <Option text="Germany" value="ge" />
+        </Select>
+        <Textbox label="Postcode" maxWidth="100px" warning="Message" />
+      </Fieldset>
+      <Textbox label="Separate Field" />
+    </Form>
+  </CarbonProvider>
+);
+NewValidation.storyName = "New Validation";

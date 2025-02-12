@@ -4,8 +4,8 @@ import { Meta, StoryObj } from "@storybook/react";
 import Fieldset from ".";
 import { Select, Option } from "../select";
 import Textbox from "../textbox";
-import { Checkbox } from "../checkbox";
 import Form from "../form";
+import CarbonProvider from "../carbon-provider";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -25,54 +25,44 @@ export default meta;
 type Story = StoryObj<typeof Fieldset>;
 
 export const Default: Story = () => (
-  <Fieldset legend="Fieldset">
-    <Textbox
-      label="First Name"
-      labelInline
-      labelAlign="right"
-      labelWidth={30}
-    />
-    <Textbox label="Last Name" labelInline labelAlign="right" labelWidth={30} />
-    <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
-    <Checkbox label="Checkbox" labelWidth={30} labelSpacing={2} reverse />
-    <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
-    <Textbox label="Country" labelInline labelAlign="right" labelWidth={30} />
-    <Textbox label="Telephone" labelInline labelAlign="right" labelWidth={30} />
-  </Fieldset>
+  <CarbonProvider validationRedesignOptIn>
+    <Form>
+      <Fieldset legend="Fieldset">
+        <Textbox label="Address Line 1" />
+        <Textbox label="Address Line 2" />
+        <Textbox label="City" />
+        <Select label="Country">
+          <Option text="United Kingdom" value="uk" />
+          <Option text="Spain" value="sp" />
+          <Option text="France" value="fr" />
+          <Option text="Germany" value="ge" />
+        </Select>
+        <Textbox label="Postcode" maxWidth="100px" />
+      </Fieldset>
+    </Form>
+  </CarbonProvider>
 );
 Default.storyName = "Default";
 
-export const InFormBasic: Story = () => (
-  <Form>
-    <Textbox label="Separate Field" labelInline />
-    <Fieldset>
-      <Textbox label="Fieldset 1 Field 1" labelInline />
-      <Textbox label="Fieldset 1 Field 2" labelInline />
-    </Fieldset>
-    <Fieldset>
-      <Textbox label="Fieldset 2 Field 1" labelInline />
-      <Textbox label="Fieldset 2 Field 2" labelInline />
-    </Fieldset>
-    <Textbox label="Separate Field" labelInline />
-  </Form>
-);
-InFormBasic.storyName = "In Form (Basic)";
-
 export const InFormFieldSpacing: Story = () => (
-  <Form fieldSpacing={1}>
-    <Textbox label="Separate Field" labelInline />
-    <Fieldset>
-      <Textbox label="Fieldset 1 Field 1" labelInline />
-      <Textbox label="Fieldset 1 Field 2" labelInline />
-    </Fieldset>
-    <Fieldset>
-      <Textbox label="Fieldset 2 Field 1" labelInline />
-      <Textbox label="Fieldset 2 Field 2" labelInline />
-    </Fieldset>
-    <Textbox label="Separate Field" labelInline />
-  </Form>
+  <CarbonProvider validationRedesignOptIn>
+    <Form fieldSpacing={1}>
+      <Fieldset legend="Fieldset">
+        <Textbox label="Address Line 1" />
+        <Textbox label="Address Line 2" />
+        <Textbox label="City" />
+        <Select label="Country">
+          <Option text="United Kingdom" value="uk" />
+          <Option text="Spain" value="sp" />
+          <Option text="France" value="fr" />
+          <Option text="Germany" value="ge" />
+        </Select>
+        <Textbox label="Postcode" maxWidth="100px" />
+      </Fieldset>
+    </Form>
+  </CarbonProvider>
 );
-InFormFieldSpacing.storyName = "In Form (Field Spacing)";
+InFormFieldSpacing.storyName = "With fieldSpacing";
 
 export const ValidationsStringComponent: Story = () => (
   <>
@@ -181,38 +171,62 @@ export const ValidationsBoolean: Story = () => (
 );
 ValidationsBoolean.storyName = "Validations (Boolean)";
 
+export const NewValidation: Story = () => (
+  <CarbonProvider validationRedesignOptIn>
+    <Form>
+      <Fieldset legend="Fieldset">
+        <Textbox label="Address Line 1" error="Message" />
+        <Textbox label="Address Line 2" error="Message" />
+        <Textbox label="City" warning="Message" />
+        <Select label="Country" warning="Message">
+          <Option text="United Kingdom" value="uk" />
+          <Option text="Spain" value="sp" />
+          <Option text="France" value="fr" />
+          <Option text="Germany" value="ge" />
+        </Select>
+        <Textbox label="Postcode" maxWidth="100px" warning="Message" />
+      </Fieldset>
+    </Form>
+  </CarbonProvider>
+);
+NewValidation.storyName = "New Validation";
+
 export const Required: Story = () => (
-  <Fieldset legend="Fieldset" required>
-    <Textbox
-      label="First Name"
-      labelInline
-      labelAlign="right"
-      labelWidth={30}
-    />
-    <Textbox label="Last Name" labelInline labelAlign="right" labelWidth={30} />
-    <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
-    <Checkbox label="Checkbox" labelWidth={30} labelSpacing={2} reverse />
-    <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
-    <Textbox label="Country" labelInline labelAlign="right" labelWidth={30} />
-    <Textbox label="Telephone" labelInline labelAlign="right" labelWidth={30} />
-  </Fieldset>
+  <CarbonProvider validationRedesignOptIn>
+    <Form>
+      <Fieldset legend="Fieldset" required>
+        <Textbox label="Address Line 1" />
+        <Textbox label="Address Line 2" />
+        <Textbox label="City" />
+        <Select label="Country">
+          <Option text="United Kingdom" value="uk" />
+          <Option text="Spain" value="sp" />
+          <Option text="France" value="fr" />
+          <Option text="Germany" value="ge" />
+        </Select>
+        <Textbox label="Postcode" maxWidth="100px" />
+      </Fieldset>
+    </Form>
+  </CarbonProvider>
 );
 Required.storyName = "Required";
 
 export const IsOptional: Story = () => (
-  <Fieldset legend="Fieldset" isOptional>
-    <Textbox
-      label="First Name"
-      labelInline
-      labelAlign="right"
-      labelWidth={30}
-    />
-    <Textbox label="Last Name" labelInline labelAlign="right" labelWidth={30} />
-    <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
-    <Checkbox label="Checkbox" labelWidth={30} labelSpacing={2} reverse />
-    <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
-    <Textbox label="Country" labelInline labelAlign="right" labelWidth={30} />
-    <Textbox label="Telephone" labelInline labelAlign="right" labelWidth={30} />
-  </Fieldset>
+  <CarbonProvider validationRedesignOptIn>
+    <Form>
+      <Fieldset legend="Fieldset" isOptional>
+        <Textbox label="Address Line 1" />
+        <Textbox label="Address Line 2" />
+        <Textbox label="City" />
+        <Select label="Country">
+          <Option text="United Kingdom" value="uk" />
+          <Option text="Spain" value="sp" />
+          <Option text="France" value="fr" />
+          <Option text="Germany" value="ge" />
+        </Select>
+        <Textbox label="Postcode" maxWidth="100px" />
+      </Fieldset>
+    </Form>
+  </CarbonProvider>
 );
 IsOptional.storyName = "IsOptional";
