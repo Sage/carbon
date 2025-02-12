@@ -15,6 +15,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import { Dt, Dd } from "../definition-list";
 import Logger from "../../__internal__/utils/logger";
 import { ModalProps } from "../modal";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 let deprecateUncontrolledWarnTriggered = false;
 export interface AdvancedColor {
@@ -24,7 +25,8 @@ export interface AdvancedColor {
 
 export interface AdvancedColorPickerProps
   extends MarginProps,
-    Pick<ModalProps, "restoreFocusOnClose"> {
+    Pick<ModalProps, "restoreFocusOnClose">,
+    TagProps {
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**
@@ -33,7 +35,7 @@ export interface AdvancedColorPickerProps
    */
   "aria-label"?: string;
   /**
-   * Prop to specify the aria-labeledby property of the component
+   * Prop to specify the aria-labelledby property of the component
    * To be used when the title prop is a custom React Node,
    * or the component is labelled by an internal element other than the title.
    */
@@ -233,7 +235,7 @@ export const AdvancedColorPicker = ({
     <StyledAdvancedColorPickerWrapper
       m="15px auto auto 15px"
       {...filterStyledSystemMarginProps(props)}
-      data-role="advanced-color-picker-wrapper"
+      {...tagComponent("advanced-color-picker", props)}
     >
       <StyledAdvancedColorPickerCell
         data-element="color-picker-cell"
