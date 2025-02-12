@@ -1,3 +1,10 @@
+## [147.7.0](https://github.com/Sage/carbon/compare/v147.6.0...v147.7.0) (2025-02-12)
+
+
+### Features
+
+* **loader:** remove progressbar role and add loaderLabel prop ([6795b1a](https://github.com/Sage/carbon/commit/6795b1a60ecb0149216aebc2f1d7f9dc90a1eaae)), closes [#6956](https://github.com/Sage/carbon/issues/6956)
+
 ## [147.6.0](https://github.com/Sage/carbon/compare/v147.5.0...v147.6.0) (2025-02-12)
 
 
