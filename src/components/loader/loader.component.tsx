@@ -10,6 +10,8 @@ import StyledLoader from "./loader.style";
 import StyledLoaderSquare, {
   StyledLoaderSquareProps,
 } from "./loader-square.style";
+import Typography from "../typography";
+import Logger from "../../__internal__/utils/logger";
 
 export interface LoaderProps
   extends Omit<StyledLoaderSquareProps, "backgroundColor">,
@@ -17,9 +19,19 @@ export interface LoaderProps
     TagProps {
   /** Toggle between the default variant and gradient variant */
   variant?: string;
-  /** Specify a custom accessible name for the Loader component */
+  /**
+   * Specify a custom accessible name for the Loader component
+   * @deprecated - use `loaderLabel` prop instead
+   */
   "aria-label"?: string;
+  /**
+   * Specify a custom accessible label for the Loader.
+   * This label is visible to users who have enabled the reduce motion setting in their operating system. It is also available to assistive technologies.
+   */
+  loaderLabel?: string;
 }
+
+let deprecateAriaLabelWarnTriggered = false;
 
 export const Loader = ({
   variant = "default",
@@ -27,8 +39,16 @@ export const Loader = ({
   size = "medium",
   isInsideButton,
   isActive = true,
+  loaderLabel,
   ...rest
 }: LoaderProps) => {
+  if (!deprecateAriaLabelWarnTriggered && ariaLabel) {
+    deprecateAriaLabelWarnTriggered = true;
+    Logger.deprecate(
+      "The aria-label prop in Loader is deprecated and will soon be removed, please use the `loaderLabel` prop instead to provide an accessible label.",
+    );
+  }
+
   const l = useLocale();
 
   const reduceMotion = !useMediaQuery(
@@ -45,13 +65,11 @@ export const Loader = ({
   // FE-6368 has been raised for the below, changed hex values for design tokens (when added)
   return (
     <StyledLoader
-      aria-label={ariaLabel || l.loader.loading()}
-      role="progressbar"
       {...tagComponent("loader", rest)}
       {...filterStyledSystemMarginProps(rest)}
     >
       {reduceMotion ? (
-        l.loader.loading()
+        loaderLabel || ariaLabel || l.loader.loading()
       ) : (
         <>
           {["#13A038", "#0092DB", "#8F49FE"].map((color) => (
@@ -66,6 +84,9 @@ export const Loader = ({
               {...loaderSquareProps}
             />
           ))}
+          <Typography data-role="hidden-label" variant="span" screenReaderOnly>
+            {loaderLabel || ariaLabel || l.loader.loading()}
+          </Typography>
         </>
       )}
     </StyledLoader>

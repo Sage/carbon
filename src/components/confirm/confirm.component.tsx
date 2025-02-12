@@ -155,7 +155,7 @@ export const Confirm = ({
       })}
     >
       {isLoadingConfirm ? (
-        <Loader isInsideButton isActive />
+        <Loader data-role="confirm-loader" isInsideButton isActive />
       ) : (
         confirmLabel || l.confirm.yes()
       )}
