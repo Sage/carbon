@@ -1,3 +1,10 @@
+## [147.6.0](https://github.com/Sage/carbon/compare/v147.5.0...v147.6.0) (2025-02-12)
+
+
+### Features
+
+* **fieldset:** add support for new validation designs ([fc23636](https://github.com/Sage/carbon/commit/fc23636e4b29779ba1a9d3da6c79ea7f367b5e9f))
+
 ## [147.5.0](https://github.com/Sage/carbon/compare/v147.4.3...v147.5.0) (2025-02-11)
 
 
