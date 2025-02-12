@@ -6,8 +6,9 @@ import {
   StyledSelectionCount,
 } from "./batch-selection.style";
 import BatchSelectionContext from "./__internal__/batch-selection.context";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface BatchSelectionProps {
+export interface BatchSelectionProps extends TagProps {
   /** Content to be rendered after selected count */
   children: React.ReactNode;
   /** Color of the background, transparent if not defined */
@@ -26,6 +27,8 @@ export const BatchSelection = ({
   colorTheme = "transparent",
   selectedCount,
   hidden,
+  "data-element": dataElement,
+  "data-role": dataRole,
 }: BatchSelectionProps) => {
   const l = useLocale();
 
@@ -33,7 +36,8 @@ export const BatchSelection = ({
     <StyledBatchSelection
       colorTheme={colorTheme}
       data-component="batch-selection"
-      data-role="batch-selection"
+      data-element={dataElement}
+      data-role={dataRole}
       disabled={disabled}
       hidden={hidden}
     >
