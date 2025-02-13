@@ -4,7 +4,13 @@ interface RestProps {
 }
 
 export interface TagProps {
-  /** @private @ignore Identifier used for testing purposes, applied to the root element of the component. */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Identifier used for testing purposes, applied to the root element of the component.
+   * INTERNAL USE ONLY.
+   */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-element"?: string;

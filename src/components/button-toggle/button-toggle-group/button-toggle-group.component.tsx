@@ -3,7 +3,9 @@ import invariant from "invariant";
 
 import { MarginProps } from "styled-system";
 import FormField from "../../../__internal__/form-field";
-import { TagProps } from "../../../__internal__/utils/helpers/tags";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags";
 import guid from "../../../__internal__/utils/helpers/guid";
 import StyledButtonToggleGroup, {
   StyledHintText,
@@ -72,9 +74,6 @@ const ButtonToggleGroup = ({
   labelWidth,
   onChange,
   value,
-  "data-component": dataComponent = "button-toggle-group",
-  "data-element": dataElement,
-  "data-role": dataRole,
   helpAriaLabel,
   id,
   allowDeselect,
@@ -179,13 +178,14 @@ const ButtonToggleGroup = ({
           labelInline={computeLabelPropValues(labelInline)}
           labelWidth={computeLabelPropValues(labelWidth)}
           labelId={labelId.current}
-          data-component={dataComponent}
-          data-role={dataRole}
-          data-element={dataElement}
           id={id}
           labelAs="span"
           disabled={disabled}
           {...filterStyledSystemMarginProps(props)}
+          {...tagComponent(
+            props["data-component"] ?? "button-toggle-group",
+            props,
+          )}
         >
           <ButtonToggleGroupContext.Provider
             value={{
@@ -215,9 +215,6 @@ const ButtonToggleGroup = ({
               inputWidth={inputWidth}
               fullWidth={fullWidth}
               role="group"
-              data-component={dataComponent}
-              data-role={dataRole}
-              data-element={dataElement}
               id={id}
               disabled={disabled}
             >

@@ -409,9 +409,14 @@ test.describe("Prop tests for group component", () => {
     mount,
     page,
   }) => {
-    await mount(<ButtonToggleGroupComponent data-component={testPropValue} />);
+    await mount(
+      <ButtonToggleGroupComponent
+        data-role="button-toggle-group"
+        data-component={testPropValue}
+      />,
+    );
 
-    await expect(page.getByRole("group")).toHaveAttribute(
+    await expect(page.getByTestId("button-toggle-group")).toHaveAttribute(
       "data-component",
       testPropValue,
     );
@@ -423,7 +428,7 @@ test.describe("Prop tests for group component", () => {
   }) => {
     await mount(<ButtonToggleGroupComponent data-element={testPropValue} />);
 
-    await expect(buttonToggleGroup(page).nth(0)).toHaveAttribute(
+    await expect(buttonToggleGroup(page)).toHaveAttribute(
       "data-element",
       testPropValue,
     );
@@ -435,7 +440,7 @@ test.describe("Prop tests for group component", () => {
   }) => {
     await mount(<ButtonToggleGroupComponent data-role={testPropValue} />);
 
-    await expect(buttonToggleGroup(page).nth(0)).toHaveAttribute(
+    await expect(buttonToggleGroup(page)).toHaveAttribute(
       "data-role",
       testPropValue,
     );
