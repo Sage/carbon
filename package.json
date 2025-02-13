@@ -32,7 +32,9 @@
     "test:ct": "playwright test -c playwright-ct.config.ts",
     "test:ct:ui": "playwright test --ui -c playwright-ct.config.ts",
     "test:ct:report": "npx playwright show-report",
-    "clear-playwright-cache": "rimraf ./playwright/.cache"
+    "clear-playwright-cache": "rimraf ./playwright/.cache",
+    "rollup-build": "npm run generate-entry-file && rm -rf \"./dist\" && rollup -c \"./rollup.config.mjs\"",
+    "generate-entry-file": "node ./scripts/generate_entry_file/index.js"
   },
   "repository": {
     "type": "git",
@@ -68,6 +70,11 @@
     "@dotenvx/dotenvx": "^1.25.1",
     "@playwright/experimental-ct-react": "~1.47.0",
     "@playwright/test": "~1.47.0",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.3.0",
+    "@rollup/plugin-url": "^8.0.2",
     "@sage/design-tokens": "~4.29.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^6.0.3",
@@ -155,6 +162,10 @@
     "react-markdown": "^8.0.7",
     "remark-gfm": "^4.0.0",
     "rimraf": "^3.0.2",
+    "rollup": "^3.29.5",
+    "rollup-plugin-ignore": "^1.0.10",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-swc3": "^0.12.1",
     "semantic-release": "^24.2.3",
     "semver": "^7.5.4",
     "sprintf-js": "^1.1.3",
