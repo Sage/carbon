@@ -21,7 +21,11 @@ import {
   checkElementBorderColours,
   waitForAnimationEnd,
 } from "../../../playwright/support/helper";
-import { DateRangeCustom, DateRangeNewValidation } from "./components.test-pw";
+import {
+  DateRangeCustom,
+  DateRangeNewValidation,
+  DateRangeWithinPopover,
+} from "./components.test-pw";
 import { DateRangeProps } from "./date-range.component";
 import {
   END_DATE,
@@ -452,6 +456,60 @@ test.describe("Functionality tests for DateRange component", () => {
 
       await page.hover("body"); // hover on body to close the tooltip
     });
+  });
+
+  test("should check keyboard navigation is working correctly when DateRange is inside PopoverContainer", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DateRangeWithinPopover />);
+
+    const popoverButton = page.locator('[data-component="button"]');
+    await popoverButton.click();
+
+    const popoverContainer = page.locator(
+      '[data-element="popover-container-content"]',
+    );
+
+    await expect(popoverContainer).toBeVisible();
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+
+    const startDayPicker = page.getByTestId("date-picker");
+    await startDayPicker.waitFor();
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+
+    const startDayButton = page.getByRole("button", {
+      name: "Saturday, October 1st, 2016",
+    });
+    await expect(startDayButton).toBeFocused();
+
+    await page.keyboard.press("Tab");
+
+    const endDateInput = page.getByLabel("End");
+    await expect(endDateInput).toBeFocused();
+
+    const endDayPicker = page.getByTestId("date-picker");
+    await endDayPicker.waitFor();
+
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+
+    const endDayButton = page.getByRole("button", {
+      name: "Friday, December 30th, 2016",
+    });
+    await expect(endDayButton).toBeFocused();
+
+    await page.keyboard.press("Tab");
+
+    await expect(endDayPicker).not.toBeVisible();
+    await expect(popoverContainer).not.toBeVisible();
+    await expect(popoverButton).toBeFocused();
   });
 });
 

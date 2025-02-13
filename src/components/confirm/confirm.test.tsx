@@ -129,7 +129,7 @@ test("should render disabled confirm button with Loader if isLoadingConfirm is s
   );
 
   expect(screen.queryByRole("button", { name: "Yes" })).not.toBeInTheDocument();
-  expect(screen.getByRole("progressbar", { name: "Loading" })).toBeVisible();
+  expect(screen.getByTestId("confirm-loader")).toBeVisible();
   expect(screen.getByTestId("confirm-button")).toBeDisabled();
 });
 

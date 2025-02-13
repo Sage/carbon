@@ -671,7 +671,7 @@ const SelectList = React.forwardRef(
 
     const loader = isLoading ? (
       <StyledSelectLoaderContainer key="loader">
-        <Loader />
+        <Loader data-role="select-list-loader" />
       </StyledSelectLoaderContainer>
     ) : undefined;
 

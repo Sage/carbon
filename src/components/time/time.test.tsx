@@ -998,3 +998,25 @@ test("should apply the custom `data-` attributes on the toggle component wrapper
   expect(pmButtonWrapper).toHaveAttribute("data-component", "pm-button-toggle");
   expect(pmButtonWrapper).toHaveAttribute("data-element", "foo");
 });
+
+test("should apply the correct aria-describedby attribute to fieldset when inputHint is provided", () => {
+  render(
+    <Time
+      value={{ hours: "", minutes: "" }}
+      onChange={() => {}}
+      inputHint="hint"
+    />,
+  );
+
+  const fieldset = screen.getByRole("group");
+
+  expect(fieldset).toHaveAccessibleDescription("hint");
+});
+
+test("should not apply the aria-describedby attribute to fieldset when inputHint is not provided", () => {
+  render(<Time value={{ hours: "", minutes: "" }} onChange={() => {}} />);
+
+  const fieldset = screen.getByRole("group");
+
+  expect(fieldset).not.toHaveAttribute("aria-describedby");
+});
