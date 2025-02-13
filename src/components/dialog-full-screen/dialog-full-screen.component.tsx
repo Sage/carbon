@@ -156,12 +156,6 @@ export const DialogFullScreen = ({
     "aria-label": ariaLabel,
   };
 
-  const componentTags = {
-    "data-component": "dialog-full-screen",
-    "data-element": rest["data-element"],
-    "data-role": rest["data-role"],
-  };
-
   return (
     <Modal
       open={open}
@@ -169,7 +163,7 @@ export const DialogFullScreen = ({
       disableEscKey={disableEscKey}
       topModalOverride={topModalOverride}
       restoreFocusOnClose={restoreFocusOnClose}
-      {...componentTags}
+      {...tagComponent("dialog-full-screen", rest)}
     >
       <FocusTrap
         autoFocus={!disableAutoFocus}
