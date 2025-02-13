@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { MarginProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import Icon, { IconType } from "../icon";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledHelp from "./help.style";
 import Events from "../../__internal__/utils/helpers/events";
 import { TooltipContext } from "../../__internal__/tooltip-provider";
@@ -10,7 +10,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import guid from "../../__internal__/utils/helpers/guid";
 
-export interface HelpProps extends MarginProps {
+export interface HelpProps extends MarginProps, TagProps {
   /** Overrides the default 'as' attribute of the Help component */
   as?: keyof JSX.IntrinsicElements;
   /** Aria label */
@@ -108,7 +108,6 @@ export const Help = ({
       onBlur={handleFocusBlur(false)}
       onMouseOver={handleFocusBlur(true)}
       onMouseLeave={handleFocusBlur(false)}
-      {...tagComponent("help", rest)}
       tabIndex={tabIndex}
       {...(href
         ? {
@@ -120,6 +119,7 @@ export const Help = ({
           })}
       {...filterStyledSystemMarginProps(rest)}
       {...rest}
+      {...tagComponent("help", rest)}
     >
       <Icon
         aria-hidden
