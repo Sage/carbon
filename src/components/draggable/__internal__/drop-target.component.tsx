@@ -3,6 +3,7 @@ import { useDrop } from "react-dnd";
 import { DraggableContainerProps } from "../draggable-container.component";
 
 import { StyledDraggableContainer } from "../draggable-item/draggable-item.style";
+import tagComponent from "../../../__internal__/utils/helpers/tags";
 
 interface DropTargetProps extends Omit<DraggableContainerProps, "getOrder"> {
   children?: React.ReactNode;
@@ -14,13 +15,7 @@ interface DropItemProps {
   originalIndex: number;
 }
 
-const DropTarget = ({
-  "data-element": dataElement,
-  "data-role": dataRole,
-  children,
-  getOrder,
-  ...rest
-}: DropTargetProps) => {
+const DropTarget = ({ children, getOrder, ...rest }: DropTargetProps) => {
   const [, drop] = useDrop({
     accept: "draggableItem",
     drop(item: DropItemProps) {
@@ -34,10 +29,8 @@ const DropTarget = ({
   return (
     <StyledDraggableContainer
       ref={drop}
-      data-component="draggable-container"
-      data-element={dataElement}
-      data-role={dataRole}
       {...rest}
+      {...tagComponent("draggable-container", rest)}
     >
       {children}
     </StyledDraggableContainer>
