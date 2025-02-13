@@ -190,6 +190,20 @@ describe("Accordion", () => {
     expect(screen.getByRole("button")).toHaveTextContent("Less info");
   });
 
+  it("should display the `openTitle` when open and the `openTitle` and `title` props are provided", () => {
+    render(
+      <Accordion title={<h4>Title in H4</h4>} expanded openTitle="Less info" />,
+    );
+
+    expect(screen.getByRole("button")).toHaveTextContent("Less info");
+  });
+
+  it("should display the `title` when open and `title` prop is provided as a React node", () => {
+    render(<Accordion title={<h4>Title in H4</h4>} expanded />);
+
+    expect(screen.getByRole("button")).toHaveTextContent("Title in H4");
+  });
+
   it("should display the `title` when open if the `openTitle` prop is not provided", () => {
     render(<Accordion title="Title" expanded />);
 
