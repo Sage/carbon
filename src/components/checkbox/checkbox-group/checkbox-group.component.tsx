@@ -1,6 +1,8 @@
 import React, { useContext, useRef } from "react";
 import { MarginProps } from "styled-system";
-import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags/tags";
 import StyledCheckboxGroup, { StyledHintText } from "./checkbox-group.style";
 import Fieldset from "../../../__internal__/fieldset";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
@@ -15,7 +17,10 @@ import CheckboxGroupContext from "./__internal__/checkbox-group.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility";
 
-export interface CheckboxGroupProps extends ValidationProps, MarginProps {
+export interface CheckboxGroupProps
+  extends ValidationProps,
+    MarginProps,
+    Omit<TagProps, "data-component"> {
   /**
    * Unique identifier for the component.
    * Will use a randomly generated GUID if none is provided.
