@@ -6,42 +6,49 @@ import baseTheme from "../../style/themes/base";
 import CheckboxStyle from "../checkbox/checkbox.style";
 
 export interface StyledFieldsetProps {
-  /** Flag to configure fields as mandatory. */
-  isRequired?: boolean;
-  /** Flag to configure fields as optional. */
-  isOptional?: boolean;
+  newValidation?: boolean;
 }
 
-const FieldsetStyle = styled.fieldset`
+const FieldsetStyle = styled.fieldset<StyledFieldsetProps>`
   margin: 0;
   ${margin}
   border: none;
   padding: 0;
 
-  &&&& ${FormFieldStyle} {
-    margin-top: 0;
-    margin-bottom: -1px;
-  }
+  ${({ newValidation }) =>
+    !newValidation &&
+    css`
+      &&&& ${FormFieldStyle} {
+        margin-top: 0;
+        margin-bottom: -1px;
+      }
 
-  & ${CheckboxStyle} {
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
+      & ${CheckboxStyle} {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+    `}
 `;
 
 FieldsetStyle.defaultProps = {
   theme: baseTheme,
 };
 
-const StyledLegend = styled.legend<StyledFieldsetProps>`
+export interface StyledLegendProps {
+  /** Flag to configure fields as mandatory. */
+  isRequired?: boolean;
+  /** Flag to configure fields as optional. */
+  isOptional?: boolean;
+}
+
+const StyledLegend = styled.legend<StyledLegendProps>`
   display: flex;
   align-items: center;
-  margin-bottom: 32px;
-  font-size: 20px;
+  margin-bottom: var(--spacing250);
+  font-size: var(--fontSizes400);
   font-weight: var(--fontWeights500);
   color: var(--colorsUtilityYin090);
   line-height: 24px;
-  margin-right: 4px;
 
   ${({ isRequired }) =>
     isRequired &&

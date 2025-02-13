@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import SplitButton from "./split-button.component";
+import SplitButton, { SplitButtonHandle } from "./split-button.component";
 import Button from "../button";
 import { SizeOptions } from "../button/button.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
@@ -52,6 +52,24 @@ testStyledSystemMargin(
   () => screen.getByTestId("split-button-container"),
 );
 
+const MockComponent = () => {
+  const splitButtonHandle = React.useRef<SplitButtonHandle>(null);
+  return (
+    <div>
+      <SplitButton ref={splitButtonHandle} text="Main Button">
+        <Button>Single Button</Button>
+      </SplitButton>
+      ,
+      <Button onClick={() => splitButtonHandle.current?.focusMainButton()}>
+        Press me to focus on the main button
+      </Button>
+      <Button onClick={() => splitButtonHandle.current?.focusToggleButton()}>
+        Press me to focus on the toggle button
+      </Button>
+    </div>
+  );
+};
+
 test("renders the main and toggle buttons", () => {
   render(
     <SplitButton text="Main">
@@ -90,6 +108,30 @@ test("renders child buttons when toggle button is clicked", async () => {
   expect(
     await screen.findByRole("button", { name: "Extra Button 3" }),
   ).toBeVisible();
+});
+
+test("should focus the main button when the focusMainButton on the ref handle is invoked", async () => {
+  const user = userEvent.setup();
+  render(<MockComponent />);
+  const button = screen.getByRole("button", {
+    name: "Press me to focus on the main button",
+  });
+
+  await user.click(button);
+
+  expect(screen.getByRole("button", { name: "Main Button" })).toHaveFocus();
+});
+
+test("should focus the toggle button when the focusToggleButton on the ref handle is invoked", async () => {
+  const user = userEvent.setup();
+  render(<MockComponent />);
+  const button = screen.getByRole("button", {
+    name: "Press me to focus on the toggle button",
+  });
+
+  await user.click(button);
+
+  expect(screen.getByRole("button", { name: "Show more" })).toHaveFocus();
 });
 
 test("focuses first child button when toggle button is clicked", async () => {

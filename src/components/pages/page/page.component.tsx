@@ -9,7 +9,7 @@ import { filterStyledSystemPaddingProps } from "../../../style/utils";
 
 export interface PageProps extends PaddingProps {
   /** The title for the page, normally a Heading component. */
-  title: React.ReactNode;
+  title?: React.ReactNode;
   /** This component supports children. */
   children: React.ReactNode;
   /** The ARIA role to be applied to the component */
@@ -38,7 +38,9 @@ const Page = ({ role, title, children, ...rest }: PageProps) => {
         ref={styledPageNodeRef}
         role={role}
       >
-        <FullScreenHeading hasContent>{title}</FullScreenHeading>
+        {title ? (
+          <FullScreenHeading hasContent>{title}</FullScreenHeading>
+        ) : null}
         <StyledPageContent
           data-element="carbon-page-content"
           data-role="page-content"

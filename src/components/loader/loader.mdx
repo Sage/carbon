@@ -67,13 +67,17 @@ This is an example of the large Loader component. The larger size is only used w
 This example shows a `Loader` nested inside of a `Button` component. To ensure that the correct styling is applied to the `Loader` component when it is nested inside of the `Button` component,
 please remember to pass the `isInsideButton` prop to the `Loader` component.
 
-This example also demonstrates how to ensure that the `Loader` component is accessible when used inside of the `Button` component. 
-It is important to wrap the `Button` component in a `span` (use when elements are inline) or `div` (use when elements are in a block) tag and pass the `aria-live` attribute with the value of `polite`. This will ensure that the screen reader will reliabily announce the updates of the button to the user.
+<Canvas of={LoaderStories.InsideButton} />
+
+### Conditional Rendering
+
+In most cases, Loaders are conditionally rendered on the page and are then replaced by content. 
+It is important to wrap the relevant content in a `span` (when elements are inline) or a `div` (when elements are in a block) and pass the `aria-live` attribute with the value of `polite`. 
 
 Please note that ARIA live regions provide a means for conveying dynamic updates to users who rely on assistive technologies like screen readers. 
-These updates in this case include changes to the button's content. By incorporating live regions permanently into the DOM, we can ensure that users are consistently informed of relevant changes as they occur.
+By incorporating live regions permanently into the DOM, we can ensure that users are consistently informed of relevant changes as they occur.
 
-<Canvas of={LoaderStories.InsideButton} />
+<Canvas of={LoaderStories.ConditionalRendering} />
 
 ## Props
 

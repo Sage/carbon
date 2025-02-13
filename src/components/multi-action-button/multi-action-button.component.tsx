@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, forwardRef, useImperativeHandle } from "react";
 import { WidthProps } from "styled-system";
 import { flip, offset } from "@floating-ui/dom";
 
@@ -26,111 +26,134 @@ export interface MultiActionButtonProps
   subtext?: string;
 }
 
-export const MultiActionButton = ({
-  align = "left",
-  position = "left",
-  disabled,
-  buttonType,
-  size,
-  children,
-  text,
-  subtext,
-  width,
-  onClick,
-  "data-element": dataElement,
-  "data-role": dataRole,
-  ...rest
-}: MultiActionButtonProps) => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
+export type MultiActionButtonHandle = {
+  /** Programmatically focus the main button */
+  focusMainButton: () => void;
+} | null;
 
-  const {
-    showAdditionalButtons,
-    showButtons,
-    hideButtons,
-    buttonNode,
-    handleToggleButtonKeyDown,
-    wrapperProps,
-    contextValue,
-  } = useChildButtons(buttonRef);
-
-  const handleInsideClick = useClickAwayListener(hideButtons);
-
-  const handleClick = (
-    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+export const MultiActionButton = forwardRef<
+  MultiActionButtonHandle,
+  MultiActionButtonProps
+>(
+  (
+    {
+      align = "left",
+      position = "left",
+      disabled,
+      buttonType,
+      size,
+      children,
+      text,
+      subtext,
+      width,
+      onClick,
+      "data-element": dataElement,
+      "data-role": dataRole,
+      ...rest
+    },
+    ref,
   ) => {
-    showButtons();
-    handleInsideClick();
-    if (onClick) {
-      onClick(ev as React.MouseEvent<HTMLButtonElement>);
-    }
-  };
+    const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const mainButtonProps = {
-    disabled,
-    displayed: showAdditionalButtons,
-    onTouchStart: showButtons,
-    onKeyDown: handleToggleButtonKeyDown,
-    onClick: handleClick,
-    buttonType,
-    size,
-    subtext,
-    ...filterOutStyledSystemSpacingProps(rest),
-  };
+    useImperativeHandle<MultiActionButtonHandle, MultiActionButtonHandle>(
+      ref,
+      () => ({
+        focusMainButton() {
+          buttonRef.current?.focus();
+        },
+      }),
+      [],
+    );
 
-  const renderAdditionalButtons = () => (
-    <Popover
-      disablePortal
-      placement={
-        position === "left"
-          ? "bottom-start"
-          : /* istanbul ignore next */ "bottom-end"
+    const {
+      showAdditionalButtons,
+      showButtons,
+      hideButtons,
+      buttonNode,
+      handleToggleButtonKeyDown,
+      wrapperProps,
+      contextValue,
+    } = useChildButtons(buttonRef);
+
+    const handleInsideClick = useClickAwayListener(hideButtons);
+
+    const handleClick = (
+      ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+    ) => {
+      showButtons();
+      handleInsideClick();
+      if (onClick) {
+        onClick(ev as React.MouseEvent<HTMLButtonElement>);
       }
-      reference={buttonNode}
-      popoverStrategy="fixed"
-      middleware={[
-        offset(6),
-        flip({
-          fallbackStrategy: "initialPlacement",
-        }),
-      ]}
-    >
-      <StyledButtonChildrenContainer {...wrapperProps} align={align}>
-        <SplitButtonContext.Provider value={contextValue}>
-          {React.Children.map(children, (child) => (
-            <li>{child}</li>
-          ))}
-        </SplitButtonContext.Provider>
-      </StyledButtonChildrenContainer>
-    </Popover>
-  );
+    };
 
-  const marginProps = filterStyledSystemMarginProps(rest);
+    const mainButtonProps = {
+      disabled,
+      displayed: showAdditionalButtons,
+      onTouchStart: showButtons,
+      onKeyDown: handleToggleButtonKeyDown,
+      onClick: handleClick,
+      buttonType,
+      size,
+      subtext,
+      ...filterOutStyledSystemSpacingProps(rest),
+    };
 
-  return (
-    <StyledMultiActionButton
-      ref={buttonNode}
-      data-component="multi-action-button"
-      data-element={dataElement}
-      data-role={dataRole}
-      displayed={showAdditionalButtons}
-      width={width}
-      {...marginProps}
-    >
-      <Button
-        aria-haspopup="true"
-        aria-expanded={showAdditionalButtons}
-        data-element="toggle-button"
-        key="toggle-button"
-        {...mainButtonProps}
-        ref={buttonRef}
-        iconPosition="after"
-        iconType="dropdown"
+    const renderAdditionalButtons = () => (
+      <Popover
+        disablePortal
+        placement={
+          position === "left"
+            ? "bottom-start"
+            : /* istanbul ignore next */ "bottom-end"
+        }
+        reference={buttonNode}
+        popoverStrategy="fixed"
+        middleware={[
+          offset(6),
+          flip({
+            fallbackStrategy: "initialPlacement",
+          }),
+        ]}
       >
-        {text}
-      </Button>
-      {showAdditionalButtons && renderAdditionalButtons()}
-    </StyledMultiActionButton>
-  );
-};
+        <StyledButtonChildrenContainer {...wrapperProps} align={align}>
+          <SplitButtonContext.Provider value={contextValue}>
+            {React.Children.map(children, (child) => (
+              <li>{child}</li>
+            ))}
+          </SplitButtonContext.Provider>
+        </StyledButtonChildrenContainer>
+      </Popover>
+    );
+
+    const marginProps = filterStyledSystemMarginProps(rest);
+
+    return (
+      <StyledMultiActionButton
+        ref={buttonNode}
+        data-component="multi-action-button"
+        data-element={dataElement}
+        data-role={dataRole}
+        displayed={showAdditionalButtons}
+        width={width}
+        {...marginProps}
+      >
+        <Button
+          aria-haspopup="true"
+          aria-expanded={showAdditionalButtons}
+          data-element="toggle-button"
+          key="toggle-button"
+          {...mainButtonProps}
+          ref={buttonRef}
+          iconPosition="after"
+          iconType="dropdown"
+        >
+          {text}
+        </Button>
+        {showAdditionalButtons && renderAdditionalButtons()}
+      </StyledMultiActionButton>
+    );
+  },
+);
 
 export default MultiActionButton;
