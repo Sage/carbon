@@ -45,9 +45,9 @@ export const DismissibleBox = ({
   return (
     <StyledDismissibleBox
       p="20px 24px 20px 20px"
-      data-component="dismissible-box"
       borderRadius={borderRadius}
       {...rest}
+      {...tagComponent("dismissible-box", rest)}
     >
       {children}
       <span data-element="close-button-wrapper">
