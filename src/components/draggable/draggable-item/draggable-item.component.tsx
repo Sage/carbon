@@ -1,12 +1,15 @@
 import React from "react";
 import { useDrop, useDrag } from "react-dnd";
 import { PaddingProps } from "styled-system";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags";
 
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import { StyledDraggableItem } from "./draggable-item.style";
 import Icon from "../../icon";
 
-export interface DraggableItemProps extends PaddingProps {
+export interface DraggableItemProps extends PaddingProps, TagProps {
   /**
    * The id of the `DraggableItem`.
    *
@@ -45,6 +48,8 @@ const DraggableItem = ({
   children,
   py = 1,
   flexDirection,
+  "data-element": dataElement,
+  "data-role": dataRole = "draggable-item",
   ...rest
 }: DraggableItemProps): JSX.Element => {
   let originalIndex;
@@ -90,13 +95,15 @@ const DraggableItem = ({
 
   return (
     <StyledDraggableItem
-      data-element="draggable"
-      data-role="draggable-item"
       isDragging={isDragging}
       ref={(node) => drag(drop(node))}
       py={py}
       flexDirection={flexDirection}
       {...paddingProps}
+      {...tagComponent("draggable-item", {
+        "data-element": dataElement,
+        "data-role": dataRole,
+      })}
     >
       {children}
       <Icon type="drag" />
