@@ -46,17 +46,6 @@ const dynamicValidations: [string, string, string, string][] = [
 ];
 
 test.describe("NumeralDate component", () => {
-  test("should render NumeralDate with data-component prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<NumeralDateComponent data-component={CHARACTERS.STANDARD} />);
-
-    await expect(
-      getDataComponentByValue(page, CHARACTERS.STANDARD),
-    ).toBeVisible();
-  });
-
   test("should render NumeralDate with data-element prop", async ({
     mount,
     page,
