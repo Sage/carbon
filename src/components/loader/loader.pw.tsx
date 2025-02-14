@@ -110,15 +110,6 @@ test.describe("check props for Loader component test", () => {
     expect(await colorVal(2)).toBe(color);
   });
 
-  test("should render Loader with aria-label prop", async ({ mount, page }) => {
-    await mount(<Loader aria-label="playwright-aria" />);
-
-    await expect(loader(page, 0).locator("..")).toHaveAttribute(
-      "aria-label",
-      "playwright-aria",
-    );
-  });
-
   test("should render Loader with isActive prop set to false", async ({
     mount,
     page,

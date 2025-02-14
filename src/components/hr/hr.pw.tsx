@@ -20,6 +20,23 @@ test.describe("Hr component", () => {
     await expect(hrComponent(page)).toHaveCSS("margin-bottom", "24px");
   });
 
+  test("renders with a small height", async ({ mount, page }) => {
+    await mount(<HrComponent height="small" />);
+
+    await expect(hrComponent(page)).toHaveCSS("height", "1px");
+  });
+
+  test("renders with a medium height", async ({ mount, page }) => {
+    await mount(<HrComponent height="medium" />);
+
+    await expect(hrComponent(page)).toHaveCSS("height", "2px");
+  });
+
+  test("renders with a large height", async ({ mount, page }) => {
+    await mount(<HrComponent height="large" />);
+
+    await expect(hrComponent(page)).toHaveCSS("height", "3px");
+  });
   [
     [799, 80, 320],
     [800, 80, 320],
@@ -68,6 +85,33 @@ test.describe("Accessibility tests for Hr component", () => {
     page,
   }) => {
     await mount(<DifferentSpacing />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility tests when rendered with a small height", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<HrComponent height="small" />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility tests when rendered with a medium height", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<HrComponent height="medium" />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility tests when rendered with a  large height", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<HrComponent height="large" />);
 
     await checkAccessibility(page);
   });

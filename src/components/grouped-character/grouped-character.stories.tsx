@@ -15,6 +15,7 @@ const meta: Meta<typeof GroupedCharacter> = {
   argTypes: {
     ...styledSystemProps,
   },
+  excludeStories: ["Validations"],
 };
 
 export default meta;

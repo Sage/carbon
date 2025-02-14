@@ -140,7 +140,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     } = minutesInputProps;
     const internalHrsId = useRef(hoursInputId || guid());
     const internalMinsId = useRef(minutesInputId || guid());
-    const inputHintId = useRef(guid());
+    const inputHintId = useRef(inputHint ? guid() : undefined);
     const internalId = useRef(
       `${internalHrsId.current} ${internalMinsId.current}`,
     );
@@ -266,7 +266,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         id={internalId.current}
         {...rest}
         {...tagComponent("time", rest)}
-        aria-describedby={combinedAriaDescribedBy}
+        aria-describedby={inputHint ? combinedAriaDescribedBy : ariaDescribedBy}
       >
         {inputHint && (
           <Hint id={inputHintId.current} isDisabled={disabled}>

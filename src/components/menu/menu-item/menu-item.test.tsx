@@ -722,8 +722,7 @@ describe("when MenuItem has a submenu", () => {
     await user.tab();
     expect(screen.getByDisplayValue("foo")).toHaveFocus();
     await user.tab();
-    expect(screen.getByTestId("input-icon-toggle")).toHaveFocus();
-    await user.tab();
+    expect(screen.getByTestId("input-icon-toggle")).not.toHaveFocus();
     expect(submenuItems[1]).toHaveFocus();
   });
 

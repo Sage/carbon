@@ -238,6 +238,14 @@ test("renders the element given in the `headerChildren` prop", () => {
   ).toBeVisible();
 });
 
+test("does not render anything if no `headerChildren` prop is provided", () => {
+  render(<DialogFullScreen open />);
+
+  const link = screen.queryByRole("link");
+
+  expect(link).not.toBeInTheDocument();
+});
+
 // test here for coverage only - disableContentPadding prop already tested in both Playwright and Chromatic
 test("padding is removed from the content when the `disableContentPadding` prop is passed", () => {
   render(
@@ -278,11 +286,6 @@ test("applies the appropriate styles when the `pagesStyling` prop is set", () =>
   expect(dialog).toHaveStyleRule("z-index", "1", {
     modifier: `${StyledIconButton}`,
   });
-
-  expect(dialog).toHaveStyleRule("padding", "32px 32px 0", {
-    modifier: `${StyledFullScreenHeading}`,
-  });
-
   expect(dialog).toHaveStyleRule("width", "auto", {
     modifier: `${StyledHeading}`,
   });
@@ -298,6 +301,9 @@ test("applies the appropriate styles when the `pagesStyling` prop is set", () =>
   });
   expect(dialog).toHaveStyleRule("margin", "0 0 0 3px", {
     modifier: `${StyledHeading} ${StyledHeader}`,
+  });
+  expect(dialog).toHaveStyleRule("padding", "32px 32px 0", {
+    modifier: `${StyledFullScreenHeading}`,
   });
 });
 

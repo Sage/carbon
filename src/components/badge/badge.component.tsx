@@ -13,7 +13,7 @@ export interface BadgeProps {
   children: React.ReactNode;
   /** The number rendered in the badge component */
   counter?: string | number;
-  /** Prop to specify the colour of the component */
+  /** Prop to specify the color of the component */
   color?: string;
   /** Callback fired when badge is clicked */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;

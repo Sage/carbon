@@ -50,7 +50,6 @@ const StyledContent = styled.div<StyledContentProps>`
     !hasHeader &&
     css`
       padding-top: 0;
-      margin-top: -25px;
     `}
 `;
 
