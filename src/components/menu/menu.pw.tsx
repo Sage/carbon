@@ -67,6 +67,9 @@ import {
   MenuComponentFullScreenWithLongSubmenuText,
   MenuItemWithPopoverContainerChild,
   SubmenuMaxWidth,
+  WithNonInteractiveItem,
+  WithNonInteractiveSubmenuItem,
+  FullscreenWithNonInteractiveItem,
 } from "./component.test-pw";
 
 const span = "span";
@@ -2394,6 +2397,86 @@ test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", ()
     await expect(popoverContainerButton).toHaveCSS(
       "background-color",
       "rgba(0, 0, 0, 0)",
+    );
+  });
+
+  test("a menu item, without a href or onClick prop, does not render with hover styling on hover", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithNonInteractiveItem />);
+
+    const item = page
+      .getByRole("listitem")
+      .filter({ hasText: "Non-interactive item" });
+    await item.hover();
+
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "background-color",
+      "rgb(0, 126, 69)",
+    );
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "color",
+      "rgb(255, 255, 255)",
+    );
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "cursor",
+      "pointer",
+    );
+  });
+
+  test("a submenu item, without a href or onClick prop, does not render with hover styling on hover", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithNonInteractiveSubmenuItem />);
+
+    const parentItem = page
+      .getByRole("listitem")
+      .filter({ hasText: "Submenu" });
+    await parentItem.getByRole("button").press("Enter");
+
+    const nonInteractiveItem = parentItem
+      .getByRole("listitem")
+      .filter({ hasText: "Non-interactive item" });
+    await nonInteractiveItem.hover();
+
+    await expect(nonInteractiveItem.getByTestId("link-anchor")).not.toHaveCSS(
+      "background-color",
+      "rgb(0, 126, 69)",
+    );
+    await expect(nonInteractiveItem.getByTestId("link-anchor")).not.toHaveCSS(
+      "color",
+      "rgb(255, 255, 255)",
+    );
+    await expect(nonInteractiveItem.getByTestId("link-anchor")).not.toHaveCSS(
+      "cursor",
+      "pointer",
+    );
+  });
+
+  test("an item in a fullscreen menu, which has no href or onClick prop, does not render with hover styling on focus", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FullscreenWithNonInteractiveItem />);
+
+    const item = page
+      .getByRole("listitem")
+      .filter({ hasText: "Non-interactive item" });
+    await item.hover();
+
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "background-color",
+      "rgb(0, 126, 69)",
+    );
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "color",
+      "rgb(255, 255, 255)",
+    );
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "cursor",
+      "pointer",
     );
   });
 });
