@@ -1,5 +1,4 @@
 import React, { useContext, useRef, useEffect, useMemo, useState, CSSProperties } from "react";
-
 import {
   draggable,
   dropTargetForElements,
@@ -37,157 +36,57 @@ const DraggableItem = ({
   itemsNode = "div",
 }: DraggableItemProps): JSX.Element => {
   const columnId = useContext(DraggableContainerContext)?.columnId;
-  const index = useContext(DraggableItemContext)?.index;
   const setClosestEdge = useContext(DraggableProviderContext)?.setClosestEdge;
   const containerDragState = useContext(DraggableProviderContext)?.containerDragState;
-  const { testState, setTestState } = useContext(DraggableProviderContext);
+  const { testState, setTestState, newContainer } = useContext(DraggableProviderContext);
   const [dragState, setDragState] = useState<DragState>({ type: "idle", id: 0 });
 
   const itemRef = useRef<HTMLDivElement | null>(null);
 
-  // The found id will be that of the id in any child component, if it exists
-  // Otherwise, it will be 0
-  // Child component must have an id, and it must be unique. Doesn't have to be a number necessarily
-  const [foundId, setFoundId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const findFirstValidProp = (children: React.ReactNode): string | null => {
-      let foundProp: string | null = null;
-
-      const traverse = (child: React.ReactNode) => {
-        if (!child || foundProp) return;
-
-        if (React.isValidElement(child)) {
-          // Check props of the current child
-          const validProp = Object.entries(child.props).find(
-            ([key, value]) => value !== null && value !== undefined,
-          );
-
-          if (validProp) {
-            foundProp = validProp[1] as string; // Store the first valid prop's value
-            return;
-          }
-
-          // If no valid prop is found, traverse its children
-          if (child.props.children) {
-            React.Children.forEach(child.props.children, traverse);
-          }
-        }
-      };
-
-      React.Children.forEach(children, traverse);
-
-      return foundProp;
-    };
-
-    if (React.isValidElement(children)) {
-      if (children.props.id !== null && children.props.id !== undefined) {
-        setFoundId(children.props.id);
-      } else {
-        const validProp = findFirstValidProp(children);
-        if (validProp) {
-          setFoundId(validProp);
-        }
-      }
-    }
-  }, [children]);
-
-  const id = useMemo(
-    () => (foundId !== null && foundId !== undefined ? foundId : 0),
-    [foundId],
-  );
-
+  const id = children?.props?.id;
+  
   const draggableItemData: DraggableItemData = useMemo(
     () => ({
       id,
-      index,
-      content: children,
       parentContainerId: columnId || "draggable-container",
     }),
-    [id, index, children, columnId],
+    [id, columnId],
   );
 
-  const localRefFlag = useRef(false);
   const previousStateRef = useRef({ value1: undefined, value2: undefined, value3: undefined, value4: undefined });
+
+  const isEqual = (obj1: Record<string, unknown>, obj2: Record<string, unknown>): boolean => {
+    const entries1 = Object.entries(obj1);
+    const entries2 = Object.entries(obj2);
+
+    if (entries1.length !== entries2.length) return false;
+
+    for (const [key, value] of entries1) {
+      if (obj2[key] !== value) return false
+    }
+    return true;
+  };
 
   useEffect(() => {
     const idle: DragState = { type: "idle" };
     const element = itemRef.current;
-    if (!element) {
-      return;
-    }
-  
+
     const cleanup = combine(
       draggable({
         element,
         getInitialData() {
           return getDraggableItemData(draggableItemData);
         },
-        onDragStart() {
-          if (setDragState) {
-            setDragState({ type: "is-dragging", id });
-          }
-        },
-        onDrop() {
-          if (setDragState) {
-            setDragState(idle);
-          }
-        },
       }),
       dropTargetForElements({
         element,
-        canDrop({ source }) {
-          if (source.element === element) {
-            return false;
-          }
-          return isDraggableItemData(source.data);
-        },
         getData({ input }) {
           const data = getDraggableItemData(draggableItemData);
-          return attachClosestEdge(data, {
-            element,
-            input,
-            allowedEdges: ["top", "bottom"],
-          });
+          return data;
         },
-        getIsSticky() {
-          return true;
-        },
-        onDragEnter({ self, source }) {
-          const closestEdge = extractClosestEdge(self.data);
+        onDragStart() {
           if (setDragState) {
-            setDragState({ type: "is-dragging-over", closestEdge, id });
-          }
-        },
-        onDrag({ self, source, location }) {          
-          const pageX = location.current.input.pageX;
-          const pageY = location.current.input.pageY;
-        
-          const parentContainerId1 = location.current.dropTargets[0].data.parentContainerId;
-          const parentContainerId2 = source.data.parentContainerId;
-        
-          const newState = {
-            value1: source.data.itemId,
-            value2: location.current.dropTargets[0].data.itemId,
-            value3: parentContainerId2,
-            value4: parentContainerId1,
-          };
-        
-          if (
-            previousStateRef.current.value1 !== newState.value1 ||
-            previousStateRef.current.value2 !== newState.value2 ||
-            previousStateRef.current.value3 !== newState.value3 ||
-            previousStateRef.current.value4 !== newState.value4
-          ) {
-            setTestState(newState);
-            previousStateRef.current = newState;
-          }
-        },
-        onDropTargetChange({ self, source, location }) {
-
-          const closestEdge = extractClosestEdge(self.data);
-          if (setDragState) {
-            setDragState(idle)
+            setDragState({ type: "is-dragging", id });
           }
         },
         onDragLeave() {
@@ -195,22 +94,58 @@ const DraggableItem = ({
             setDragState(idle);
           }
         },
-        onDrop({ self }) {
+        onDragEnter({ self, source }) {
           const closestEdge = extractClosestEdge(self.data);
-          if (setClosestEdge) {
-            setClosestEdge(closestEdge);
+          if (setDragState) {
+            setDragState({ type: "is-dragging-over", closestEdge, id });
           }
+        },
+        onDropTargetChange({ source, location }) {
+          // Safety check for location and dropTargets
+          if (!location?.current?.dropTargets?.[0]) {
+            return;
+          }
+
+          const currentDropTarget = location.current.dropTargets[0];
+
+          const newNewContainer = newContainer.card2 === id || newContainer.card1 === id ? newContainer.newContainer : null;
+
+          
+          // Safety check for required attributes
+          const parentContainerId1 = currentDropTarget.element?.getAttribute('data-parent-container-id');
+          const parentContainerId2 = newNewContainer || source.element?.getAttribute('data-parent-container-id');
+          const itemId = source.data?.itemId;
+          const targetItemId = currentDropTarget.data?.itemId;
+
+
+          console.log(parentContainerId1, parentContainerId2, itemId, targetItemId);
+
+          // Only proceed if we have all required data
+          if (!parentContainerId1 || !parentContainerId2 || !itemId || !targetItemId) {
+            return;
+          }
+
+          const newState = {
+            value1: itemId,
+            value2: targetItemId,
+            value3: parentContainerId2,
+            value4: parentContainerId1,
+          };
+        
+         setTestState(newState);
+        },
+        onDrop() {
           if (setDragState) {
             setDragState(idle);
           }
-        },
+        }
       })
     );
   
     return () => {
       cleanup();
     };
-  }, [id, draggableItemData, setDragState, setClosestEdge, testState, setTestState]);
+  }, [id, isEqual, draggableItemData, testState, setTestState, newContainer]);
 
   return React.createElement(
     itemsNode,
@@ -219,10 +154,14 @@ const DraggableItem = ({
       "data-element": "use-draggable-item",
       "data-parent-container-id": columnId,
       "data-item-id": id,
-      style: {...itemsStyle, opacity: dragState.type === "is-dragging" ? 0.5 : (dragState.type === "is-dragging-over" ? 0 : 1)},
+      style: {
+        ...itemsStyle, 
+        opacity: dragState.type === "is-dragging" ? 0.5 : (dragState.type === "is-dragging-over" ? 0 : 1)
+      },
     },
     <>{children}
-    </>
+    {newContainer.mewContainer}
+    {newContainer.card1 === id || newContainer.card2 === id ? newContainer.newContainer : null}</>
   );
 };
 

@@ -6,8 +6,7 @@ type DragState =
   | { type: "is-dragging-over"; closestEdge: Edge | null; id: string | number };
 interface DraggableItemData {
   id: string | number;
-  index: number | string | void;
-  content: React.ReactNode;
+  index: number;
   parentContainerId: string | number;
 }
 
@@ -20,7 +19,6 @@ function getDraggableItemData(
     [draggableItemDataKey]: true,
     itemId: item.id,
     itemIndex: item.index,
-    content: item.content,
     parentContainerId: item.parentContainerId,
   };
 }
