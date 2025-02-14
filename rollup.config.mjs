@@ -1,3 +1,4 @@
+import { fileURLToPath } from "url";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
@@ -6,7 +7,7 @@ import path from "path";
 import glob from "glob";
 import postcss from "rollup-plugin-postcss";
 import swc from "rollup-plugin-swc3";
-import { fileURLToPath } from "url";
+import copy from "rollup-plugin-copy";
 
 // Convert import.meta.url to a file path and get the directory name
 const __filename = fileURLToPath(import.meta.url);
@@ -32,7 +33,7 @@ export default {
         ],
       })
       .map((file) => [
-        // This removes `src/` as well as the file extension from each
+        // Removes `src/` as well as the file extension from each
         // file, so e.g. src/nested/foo.js becomes nested/foo
         path.relative(
           path.join(__dirname, "src"),
@@ -78,30 +79,40 @@ export default {
       },
     }),
     terser({ maxWorkers: 4 }),
+    copy({
+      targets: [
+        { src: "src/style/assets/**/*", dest: "dist/lib/style/assets" },
+        { src: "src/style/assets/**/*", dest: "dist/esm/style/assets" },
+      ]
+    })
   ],
   output: [
     {
       dir: path.join(__dirname, "dist/lib"),
       format: "cjs",
       // sourcemap: true,
-      entryFileNames: ({name}) => {
-        // Exclude specific files from the root (like action-popover-utils.js)
-        if (/utils/.test(name) || /.style/.test(name)) {
-          return `components/${name}.js`; // Move to the relevant component folder
+      entryFileNames: "[name].js",
+      chunkFileNames: ({ name }) => `${name}.js`, // Preserve folder structure
+      manualChunks(id) {
+        if (id.includes("__internal__")) {
+          return path
+            .relative(path.join(__dirname, "src"), id)
+            .replace(/\.[tj]sx?$/, ""); // Strip extensions
         }
-        return "[name].js"; // Otherwise, default to the usual naming convention
+        return null;
       },
     },
     {
       dir: path.join(__dirname, "dist/esm"),
       format: "esm",
       // sourcemap: true,
-      entryFileNames: ({name}) => {
-        // Exclude specific files from the root (like action-popover-utils.js)
-        if (/utils/.test(name) || /style/.test(name)) {
-          return `components/${name}.js`; // Move to the relevant component folder
+      entryFileNames: "[name].js",
+      chunkFileNames: ({ name }) => `${name}.js`, // Preserve folder structure
+      manualChunks(id) {
+        if (id.includes("__internal__")) {
+          return path.relative(path.join(__dirname, "src"), id).replace(/\.[tj]sx?$/, ""); // Strip extensions
         }
-        return "[name].js"; // Otherwise, default to the usual naming convention
+        return null;
       },
     },
   ],
