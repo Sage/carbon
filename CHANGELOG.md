@@ -1,3 +1,60 @@
+### [147.7.2](https://github.com/Sage/carbon/compare/v147.7.1...v147.7.2) (2025-02-14)
+
+
+### Bug Fixes
+
+* **switch:** margins and alignment ([0c66a7d](https://github.com/Sage/carbon/commit/0c66a7d0506e76014ebf64fe0d322570b8d6bf19)), closes [#7179](https://github.com/Sage/carbon/issues/7179)
+
+### [147.7.1](https://github.com/Sage/carbon/compare/v147.7.0...v147.7.1) (2025-02-12)
+
+
+### Bug Fixes
+
+* **time:** ensure that ARIA attributes conform to valid values ([e710805](https://github.com/Sage/carbon/commit/e710805d2c3d6ee1eece22ebbc4d87c4cf731e3a))
+
+## [147.7.0](https://github.com/Sage/carbon/compare/v147.6.0...v147.7.0) (2025-02-12)
+
+
+### Features
+
+* **loader:** remove progressbar role and add loaderLabel prop ([6795b1a](https://github.com/Sage/carbon/commit/6795b1a60ecb0149216aebc2f1d7f9dc90a1eaae)), closes [#6956](https://github.com/Sage/carbon/issues/6956)
+
+## [147.6.0](https://github.com/Sage/carbon/compare/v147.5.0...v147.6.0) (2025-02-12)
+
+
+### Features
+
+* **fieldset:** add support for new validation designs ([fc23636](https://github.com/Sage/carbon/commit/fc23636e4b29779ba1a9d3da6c79ea7f367b5e9f))
+
+## [147.5.0](https://github.com/Sage/carbon/compare/v147.4.3...v147.5.0) (2025-02-11)
+
+
+### Features
+
+* **multi-action-button:** add programmatic focus support ([a608616](https://github.com/Sage/carbon/commit/a6086162e7d6a6b9d01e9b01664f771e43c49727))
+* **split-button:** add programmatic focus support for main and toggle buttons ([7307c8f](https://github.com/Sage/carbon/commit/7307c8fea31da5732903be2ae7b26366feea08b8))
+
+### [147.4.3](https://github.com/Sage/carbon/compare/v147.4.2...v147.4.3) (2025-02-11)
+
+
+### Bug Fixes
+
+* **heading:** maintain layout when title prop is set to null ([55e2465](https://github.com/Sage/carbon/commit/55e24657b5bb86c7300915f0200f977e1fab6ee7))
+
+### [147.4.2](https://github.com/Sage/carbon/compare/v147.4.1...v147.4.2) (2025-02-11)
+
+
+### Bug Fixes
+
+* **date-picker:** date-picker within a popover-container closes when tabbing ([894c7a8](https://github.com/Sage/carbon/commit/894c7a8e3527c7760c37c87757d974dbf609df4a))
+
+### [147.4.1](https://github.com/Sage/carbon/compare/v147.4.0...v147.4.1) (2025-02-10)
+
+
+### Bug Fixes
+
+* **menu:** ensure that the correct focus and hover styling is applied to popover-container button ([e9372a6](https://github.com/Sage/carbon/commit/e9372a6bef9d0ef119bfb4678607355b0f4b4a3b))
+
 ## [147.4.0](https://github.com/Sage/carbon/compare/v147.3.1...v147.4.0) (2025-02-06)
 
 

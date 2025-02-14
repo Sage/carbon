@@ -181,6 +181,11 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
         a:hover,
         button:hover {
+          ${StyledButton} {
+            border-radius: 0;
+            background-color: transparent;
+          }
+
           ${!asDiv &&
           css`
             background-color: var(--colorsComponentsMenuAutumnStandard600);

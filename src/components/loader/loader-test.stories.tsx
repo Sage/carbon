@@ -31,9 +31,19 @@ export default {
       },
     },
     variant: {
-      options: ["default", "colorful"],
+      options: ["default", "gradient"],
       control: {
         type: "select",
+      },
+    },
+    loaderLabel: {
+      control: {
+        type: "text",
+      },
+    },
+    "aria-label": {
+      control: {
+        type: "text",
       },
     },
   },
@@ -61,7 +71,7 @@ export const Default = ({
       </Button>
     );
   }
-  return <Loader size={size} variant={variant} />;
+  return <Loader size={size} variant={variant} {...args} />;
 };
 
 Default.storyName = "default";

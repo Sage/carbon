@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import MultiActionButton, { MultiActionButtonProps } from ".";
+import MultiActionButton, {
+  MultiActionButtonProps,
+  MultiActionButtonHandle,
+} from ".";
 import Button from "../button";
 import Box from "../box";
 import { Accordion } from "../accordion";
@@ -45,6 +48,30 @@ export const DefaultStory: Story = {
   name: "Default",
   parameters: { chromatic: { disableSnapshot: true } },
 };
+
+export const ProgrammaticFocus: Story = () => {
+  const multiActionButtonHandle = useRef<MultiActionButtonHandle>(null);
+
+  return (
+    <Box display="flex" gap={2}>
+      <Button
+        onClick={() => multiActionButtonHandle.current?.focusMainButton()}
+      >
+        Focus Button
+      </Button>
+      <MultiActionButton
+        ref={multiActionButtonHandle}
+        text="Multi Action Button"
+      >
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </MultiActionButton>
+    </Box>
+  );
+};
+ProgrammaticFocus.storyName = "Focusing Main Button Programmatically";
+ProgrammaticFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled: Story = {
   ...DefaultStory,
