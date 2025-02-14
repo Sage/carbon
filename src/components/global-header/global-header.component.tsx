@@ -3,8 +3,12 @@ import styled from "styled-components";
 import { PaddingProps, FlexboxProps } from "styled-system";
 import Box from "../box";
 import NavigationBar from "../navigation-bar";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface GlobalHeaderProps extends PaddingProps, FlexboxProps {
+export interface GlobalHeaderProps
+  extends PaddingProps,
+    FlexboxProps,
+    TagProps {
   /** Child elements */
   children?: React.ReactNode;
   /** Logo to render */
