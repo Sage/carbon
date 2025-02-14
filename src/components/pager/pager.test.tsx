@@ -476,9 +476,17 @@ test("the `onPagination` callback prop should not be called when a key other tha
   expect(onPagination).not.toHaveBeenCalled();
 });
 
+test("renders with provided data- attributes", () => {
+  render(<Pager data-element="bar" data-role="baz" onPagination={() => {}} />);
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 // for coverage - "alternate" styles are covered by Playwright tests
 test("renders with correct styles when `variant` is `alternate`", () => {
-  render(<Pager variant="alternate" onPagination={() => {}} />);
+  render(
+    <Pager data-role="pager" variant="alternate" onPagination={() => {}} />,
+  );
 
   expect(screen.getByTestId("pager")).toHaveStyleRule(
     "background-color",
