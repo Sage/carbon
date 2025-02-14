@@ -13,6 +13,19 @@ test("should render with required props", () => {
   expect(screen.getByText("23 May 2020, 12:08 PM")).toBeVisible();
 });
 
+test("should render with provided data- attributes", () => {
+  render(
+    <Note
+      createdDate="23 May 2020, 12:08 PM"
+      noteContent=""
+      data-element="bar"
+      data-role="baz"
+    />,
+  );
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 test("renders a Typography component with h2 `variant` and `title` as its child when `title` prop is a string", () => {
   render(
     <Note createdDate="23 May 2020, 12:08 PM" noteContent="" title="Title" />,
