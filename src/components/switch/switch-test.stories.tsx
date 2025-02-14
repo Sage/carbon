@@ -3,10 +3,16 @@ import React, { useState } from "react";
 import I18nProvider from "../i18n-provider/i18n-provider.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Switch, { SwitchProps } from "./switch.component";
+import Box from "../box/box.component";
 
 export default {
   title: "Switch/Test",
-  includeStories: ["Default", "NewDefault", "WithLongTextStrings"],
+  includeStories: [
+    "Default",
+    "NewDefault",
+    "WithLongTextStrings",
+    "WithMargin",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -158,4 +164,39 @@ WithLongTextStrings.parameters = {
   chromatic: {
     disableSnapshot: false,
   },
+};
+
+export const WithMargin = ({ ...args }: Partial<SwitchProps>) => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box
+        margin="var(--spacing200)"
+        display="flex"
+        flexDirection="column"
+        gap="var(--spacing200)"
+        minWidth="320px"
+        maxWidth="1024px"
+      >
+        <Box display="flex" justifyContent="flex-start">
+          <Switch
+            label="Some text"
+            labelInline
+            reverse={args.reverse}
+            defaultChecked
+          />
+        </Box>
+      </Box>
+    </CarbonProvider>
+  );
+};
+
+WithMargin.storyName = "With Margin";
+WithMargin.parameters = {
+  chromatic: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    disableSnapshot: false,
+  },
+};
+WithMargin.args = {
+  reverse: true,
 };
