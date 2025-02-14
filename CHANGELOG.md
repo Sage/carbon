@@ -1,3 +1,10 @@
+### [147.8.1](https://github.com/Sage/carbon/compare/v147.8.0...v147.8.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* **accordion:** ensure custom title is not wrapped in a heading tag when provided ([2816f83](https://github.com/Sage/carbon/commit/2816f835f0288fd5915ef98e148b87e0d193917f)), closes [#7202](https://github.com/Sage/carbon/issues/7202)
+
 ## [147.8.0](https://github.com/Sage/carbon/compare/v147.7.2...v147.8.0) (2025-02-14)
 
 
