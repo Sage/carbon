@@ -1,3 +1,17 @@
+## [147.8.0](https://github.com/Sage/carbon/compare/v147.7.2...v147.8.0) (2025-02-14)
+
+
+### Features
+
+* **message:** add `width` prop ([f24a44f](https://github.com/Sage/carbon/commit/f24a44feccd7e993c1b95ee7c91298b6c3e6fec3)), closes [#6966](https://github.com/Sage/carbon/issues/6966)
+
+### [147.7.2](https://github.com/Sage/carbon/compare/v147.7.1...v147.7.2) (2025-02-14)
+
+
+### Bug Fixes
+
+* **switch:** margins and alignment ([0c66a7d](https://github.com/Sage/carbon/commit/0c66a7d0506e76014ebf64fe0d322570b8d6bf19)), closes [#7179](https://github.com/Sage/carbon/issues/7179)
+
 ### [147.7.1](https://github.com/Sage/carbon/compare/v147.7.0...v147.7.1) (2025-02-12)
 
 
