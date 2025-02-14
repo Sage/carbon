@@ -5,7 +5,9 @@ import Typography from "../typography";
 import MessageStyle from "./message.style";
 import TypeIcon from "./__internal__/type-icon/type-icon.component";
 import MessageContent from "./__internal__/message-content/message-content.component";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import Icon from "../icon";
 import IconButton from "../icon-button";
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -18,7 +20,7 @@ export type MessageVariant =
   | "warning"
   | "neutral";
 
-export interface MessageProps extends MarginProps {
+export interface MessageProps extends MarginProps, TagProps {
   /** Set the component's content */
   children?: React.ReactNode;
   /** Set custom aria-label for component's close button */
