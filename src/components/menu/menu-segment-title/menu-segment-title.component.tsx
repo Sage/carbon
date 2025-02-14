@@ -13,7 +13,7 @@ import MenuSegmentContext from "./menu-segment-title.context";
 const AS_VALUES = ["h2", "h3", "h4", "h5", "h6"] as const;
 
 type AllowedAsValues = (typeof AS_VALUES)[number];
-export interface MenuTitleProps extends TagProps {
+export interface MenuTitleProps extends Omit<TagProps, "data-component"> {
   children?: React.ReactNode;
   text: string;
   /** Set the colour variant for a menuType */

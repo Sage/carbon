@@ -9,7 +9,7 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 
-export interface ScrollableBlockProps extends TagProps {
+export interface ScrollableBlockProps extends Omit<TagProps, "data-component"> {
   /** Children elements */
   children: React.ReactNode;
   /** A custom height to be applied to the component. */
@@ -43,10 +43,10 @@ export const ScrollableBlock = ({
 
   return (
     <StyledScrollableBlock
-      {...tagComponent("submenu-scrollable-block", rest)}
       menuType={menuType}
       variant={variant}
       {...rest}
+      {...tagComponent("submenu-scrollable-block", rest)}
     >
       {parent && (
         <MenuItem
