@@ -40,6 +40,17 @@ test("renders with 'data-component' set to 'navigation-bar'", () => {
   );
 });
 
+test("renders with provided data- attributes", () => {
+  render(
+    <NavigationBar data-element="bar" data-role="baz">
+      <div>test content</div>
+    </NavigationBar>,
+  );
+
+  expect(screen.getByRole("navigation")).toHaveAttribute("data-element", "bar");
+  expect(screen.getByRole("navigation")).toHaveAttribute("data-role", "baz");
+});
+
 test("renders with provided `aria-label` as its accessible name", () => {
   render(
     <NavigationBar ariaLabel="test label">
