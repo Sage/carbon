@@ -1,3 +1,10 @@
+### [147.7.2](https://github.com/Sage/carbon/compare/v147.7.1...v147.7.2) (2025-02-14)
+
+
+### Bug Fixes
+
+* **switch:** margins and alignment ([0c66a7d](https://github.com/Sage/carbon/commit/0c66a7d0506e76014ebf64fe0d322570b8d6bf19)), closes [#7179](https://github.com/Sage/carbon/issues/7179)
+
 ### [147.7.1](https://github.com/Sage/carbon/compare/v147.7.0...v147.7.1) (2025-02-12)
 
 
