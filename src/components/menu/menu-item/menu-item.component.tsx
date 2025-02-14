@@ -251,7 +251,7 @@ export const MenuItem = ({
     maxWidth && typeof title === "string" ? title : undefined;
 
   const itemMaxWidth = !inFullscreenView ? maxWidth : undefined;
-  const asPassiveItem = !(onClick || href);
+  const asPassiveItem = !(onClick || href || firstFocusableChild);
 
   if (submenu) {
     return (
@@ -320,6 +320,7 @@ export const MenuItem = ({
         asPassiveItem={asPassiveItem}
         {...paddingProps}
         asDiv={hasInput || as === "div"}
+        hasFocusableChild={!!firstFocusableChild}
         hasInput={hasInput}
         inSubmenu={isInSubmenu}
       >

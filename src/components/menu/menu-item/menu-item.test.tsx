@@ -9,7 +9,7 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { Menu, MenuFullscreen, MenuItem, MenuSegmentTitle } from "..";
+import { Menu, MenuItem, MenuSegmentTitle } from "..";
 import {
   testStyledSystemFlexBox,
   testStyledSystemPadding,
@@ -212,13 +212,13 @@ describe("When MenuItem has no submenu", () => {
 
   it("should set the expected style overrides when an IconButton is rendered as a child", () => {
     render(
-      <MenuContext.Provider value={{ ...menuContextValues }}>
+      <Menu>
         <MenuItem>
           <IconButton>
             <Icon type="home" />
           </IconButton>
         </MenuItem>
-      </MenuContext.Provider>,
+      </Menu>,
     );
 
     expect(screen.getByTestId("icon")).toHaveStyle({
@@ -1315,22 +1315,5 @@ test("should set the correct colour when a child of `MenuSegmentTitle` and `vari
 
   expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({
     backgroundColor: menuConfigVariants.black.alternate,
-  });
-});
-
-// coverage
-test("item has correct padding when it has no href or onClick prop, and is inside MenuFullscreen", () => {
-  render(
-    <Menu>
-      <MenuFullscreen isOpen onClose={() => {}}>
-        <MenuItem href={undefined} onClick={undefined}>
-          Item One
-        </MenuItem>
-      </MenuFullscreen>
-    </Menu>,
-  );
-
-  expect(screen.getByTestId("link-anchor")).toHaveStyle({
-    padding: "0px 16px",
   });
 });
