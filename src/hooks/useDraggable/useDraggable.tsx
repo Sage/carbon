@@ -24,6 +24,7 @@ interface UseDraggableOptions {
   ref?: Ref<UseDraggableHandle>;
   containerStyle?: CSSProperties;
   itemsStyle?: CSSProperties;
+  indicatorColor?: string;
   draggableItemStylingOptOut?: boolean;
   containerNode?: string;
   itemsNode?: string;
@@ -35,6 +36,7 @@ const useDraggable = ({
   ref,
   containerStyle,
   itemsStyle,
+  indicatorColor,
   draggableItemStylingOptOut,
   containerNode,
   itemsNode,
@@ -62,6 +64,7 @@ const useDraggable = ({
         <DraggableItem
           key={index}
           itemsStyle={itemsStyle}
+          indicatorColor={indicatorColor}
           draggableItemStylingOptOut={draggableItemStylingOptOut}
           itemsNode={itemsNode}
         >

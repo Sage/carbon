@@ -1,5 +1,7 @@
 import React, { useContext, useRef, useEffect, useMemo, useState, CSSProperties } from "react";
 
+import styled, { css } from "styled-components";
+
 import {
   draggable,
   dropTargetForElements,
@@ -13,6 +15,7 @@ import {
 import DraggableItemContext from "../draggable-item-context";
 import DraggableContainerContext from "../draggable-container-context";
 import DraggableProviderContext from "../draggable-provider-context";
+import DropIndicator from "./drop-indicator";
 
 import {
   getDraggableItemData,
@@ -24,6 +27,7 @@ import {
 export interface DraggableItemProps {
   children?: React.ReactNode;
   itemsStyle?: CSSProperties;
+  indicatorColor?: string;
   draggableItemStylingOptOut?: boolean;
   itemsNode?: string;
 }
@@ -31,6 +35,7 @@ export interface DraggableItemProps {
 const DraggableItem = ({
   children,
   itemsStyle,
+  indicatorColor,
   draggableItemStylingOptOut = false,
   itemsNode = "div",
 }: DraggableItemProps): JSX.Element => {
@@ -48,6 +53,7 @@ const DraggableItem = ({
   const [foundId, setFoundId] = useState<string | null>(null);
 
   useEffect(() => {
+
     const findFirstValidProp = (children: React.ReactNode): string | null => {
       let foundProp: string | null = null;
 
@@ -104,6 +110,18 @@ const DraggableItem = ({
     [id, index, children, columnId],
   );
 
+  interface DragDirection {
+    direction: 'up' | 'down' | null;
+    sourceIndex: number;
+    targetIndex: number;
+  }
+
+  const [dragDirection, setDragDirection] = useState<DragDirection>({
+    direction: null,
+    sourceIndex: -1,
+    targetIndex: -1
+  });
+
   useEffect(() => {
     const idle: DragState = { type: "idle" };
     const element = itemRef.current;
@@ -147,13 +165,39 @@ const DraggableItem = ({
         getIsSticky() {
           return true;
         },
+        onDragStart({ source, location}) {
+
+          const sourceIndex = source.data.itemIndex as number;
+          const targetIndex = location.current.dropTargets[0].data.itemIndex as number;
+
+          const direction = sourceIndex > targetIndex ? 'up' : 'down';
+          setDragDirection({
+            direction,
+            sourceIndex,
+            targetIndex
+          });
+        },
         onDragEnter({ self, source }) {
           const closestEdge = extractClosestEdge(self.data);
           if (setDragState) {
             setDragState({ type: "is-dragging-over", closestEdge, id });
           }
         },
-        onDrag({ self }) {
+        onDrag({ self, source, location }) {
+
+          const sourceIndex = source.data.itemIndex as number;
+          const targetIndex = location.current.dropTargets[0].data.itemIndex as number;
+
+          const direction = sourceIndex > targetIndex ? 'up' : 'down';
+
+          if (direction !== dragDirection.direction) {
+            setDragDirection({
+              direction,
+              sourceIndex,
+              targetIndex
+            });
+          }
+        
           const closestEdge = extractClosestEdge(self.data);
           if (setDragState) {
             setDragState((current) => {
@@ -173,6 +217,13 @@ const DraggableItem = ({
           }
         },
         onDrop({ self }) {
+
+          setDragDirection({
+            direction: null,
+            sourceIndex: -1,
+            targetIndex: -1
+          });
+
           const closestEdge = extractClosestEdge(self.data);
           if (setClosestEdge) {
             setClosestEdge(closestEdge);
@@ -191,22 +242,41 @@ const DraggableItem = ({
 
 
   const calculateOpacity = () => {
-
+    if (dragState.type === "is-dragging"){
+      return 0.5
+    }
     return 1;
   }
 
-  return React.createElement(
-    itemsNode,
-    {
-      ref: itemRef,
-      "data-element": "use-draggable-item",
-      "data-parent-container-id": columnId,
-      "data-item-id": id,
-      style: {...itemsStyle, opacity: calculateOpacity()},
-    },
-    <>{children}
-    </>
-  );
+
+const indicatorPosition = dragState.closestEdge
+const calcualteFinalIndicatorPosition = () => {
+  if(containerDragState?.draggingBetweenContainers){
+    return indicatorPosition
+  }
+
+  return dragDirection.direction === "up" ? "top" : "down";
+
+}
+
+const foundIDwidth = document.getElementById(`${id}`)?.offsetWidth;
+
+return (
+  <div style={{ position: 'relative' }}>
+    {(indicatorPosition === "top" || indicatorPosition === "bottom") && <DropIndicator indicatorColor={indicatorColor}  width={foundIDwidth} position={calcualteFinalIndicatorPosition()} />}
+    {React.createElement(
+      itemsNode,
+      {
+        ref: itemRef,
+        "data-element": "use-draggable-item",
+        "data-parent-container-id": columnId,
+        "data-item-id": id,
+        style: { ...itemsStyle, opacity: calculateOpacity(), position: 'relative' }
+      },
+      children
+    )}
+  </div>
+);
 };
 
 export default DraggableItem;

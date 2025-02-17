@@ -126,7 +126,12 @@ const DraggableProvider = forwardRef<DraggableProviderHandle, DraggableProviderT
           if(indexOfTarget + 1 === containerLength){
             return closestEdge === "bottom" ? indexOfTarget + 1 : indexOfTarget;
           } 
-          return indexOfTarget
+
+          if(closestEdge === "top"){
+            return indexOfTarget - indexOfSource >=1 ? indexOfTarget -1 : indexOfTarget;
+          }
+            return closestEdge === "bottom" && indexOfSource - indexOfTarget === 1 ? indexOfSource : indexOfTarget;
+          
         }
 
         if(numberOfLists > 1){
