@@ -129,7 +129,6 @@ describe("when the `validationRedesignOptIn` flag is true", () => {
     );
 
     const fieldset = screen.getByRole("group", { name: "legend" });
-
     expect(screen.getByText("legendHelp")).toBeVisible();
     expect(fieldset).toHaveAccessibleDescription("legendHelp");
   });

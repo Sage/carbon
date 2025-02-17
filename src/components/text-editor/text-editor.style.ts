@@ -21,17 +21,6 @@ export const StyledTextEditor = styled(Box)`
   position: relative;
 `;
 
-export const StyledHintText = styled.div`
-  ::after {
-    content: " ";
-  }
-
-  margin-top: var(--spacing000);
-  margin-bottom: var(--spacing150);
-  color: var(--colorsUtilityYin055);
-  font-size: 14px;
-`;
-
 export const StyledWrapper = styled.div<StyledWrapperProps>`
   ${({ error, namespace, warning }) => css`
     min-height: 120px;

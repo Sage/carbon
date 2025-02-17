@@ -14,15 +14,4 @@ const ErrorBorder = styled.span`
   `}
 `;
 
-const StyledHintText = styled.div`
-  ::after {
-    content: " ";
-  }
-
-  margin-top: 0px;
-  margin-bottom: 8px;
-  color: var(--colorsUtilityYin055);
-  font-size: 14px;
-`;
-
-export { StyledHintText, ErrorBorder };
+export default ErrorBorder;

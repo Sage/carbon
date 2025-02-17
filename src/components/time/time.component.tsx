@@ -15,12 +15,13 @@ import useInputAccessibility from "../../hooks/__internal__/useInputAccessibilit
 
 import Fieldset from "../../__internal__/fieldset";
 import Box from "../box";
-import { ErrorBorder } from "../textbox/textbox.style";
+import ErrorBorder from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import Number from "../number";
 import Typography from "../typography";
-import { StyledLabel as Label, StyledHintText as Hint } from "./time.style";
+import StyledLabel from "./time.style";
 import { TimeToggle, ToggleDataProps } from "./__internal__/time-toggle";
+import HintText from "../../__internal__/hint-text";
 
 export type ToggleValue = "AM" | "PM";
 
@@ -304,9 +305,13 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         aria-describedby={inputHint ? combinedAriaDescribedBy : ariaDescribedBy}
       >
         {inputHint && (
-          <Hint id={inputHintId.current} isDisabled={disabled}>
+          <HintText
+            align={labelAlign}
+            id={inputHintId.current}
+            isDisabled={disabled}
+          >
             {inputHint}
-          </Hint>
+          </HintText>
         )}
         <Box position="relative" mt={inputHint ? 0 : 1}>
           <ValidationMessage
@@ -319,14 +324,14 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
           )}
           <Box display="flex">
             <div>
-              <Label
+              <StyledLabel
                 aria-label={hrsAriaLabel}
                 htmlFor={internalHrsId.current}
                 disabled={disabled}
                 align={fieldLabelsAlign}
               >
                 {hrsLabel}
-              </Label>
+              </StyledLabel>
               <Number
                 {...hoursInputProps}
                 label={undefined}
@@ -356,14 +361,14 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
               </Typography>
             </Box>
             <div>
-              <Label
+              <StyledLabel
                 aria-label={minsAriaLabel}
                 htmlFor={internalMinsId.current}
                 disabled={disabled}
                 align={fieldLabelsAlign}
               >
                 {minsLabel}
-              </Label>
+              </StyledLabel>
               <Number
                 {...minutesInputProps}
                 label={undefined}

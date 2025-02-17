@@ -5,9 +5,7 @@ import { MarginProps } from "styled-system";
 import FormField from "../../../__internal__/form-field";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import guid from "../../../__internal__/utils/helpers/guid";
-import StyledButtonToggleGroup, {
-  StyledHintText,
-} from "./button-toggle-group.style";
+import StyledButtonToggleGroup from "./button-toggle-group.style";
 import { ButtonToggle } from "..";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TooltipProvider } from "../../../__internal__/tooltip-provider";
@@ -15,6 +13,7 @@ import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 import Events from "../../../__internal__/utils/helpers/events";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
 import ButtonToggleGroupContext from "./__internal__/button-toggle-group.context";
+import HintText from "../../../__internal__/hint-text";
 
 export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   /** Unique id for the root element of the component */
@@ -198,9 +197,13 @@ const ButtonToggleGroup = ({
             }}
           >
             {inputHint && (
-              <StyledHintText id={hintTextId.current} isDisabled={disabled}>
+              <HintText
+                id={hintTextId.current}
+                isDisabled={disabled}
+                marginBottom="var(--spacing150)"
+              >
                 {inputHint}
-              </StyledHintText>
+              </HintText>
             )}
             <StyledButtonToggleGroup
               ref={wrapperRef}

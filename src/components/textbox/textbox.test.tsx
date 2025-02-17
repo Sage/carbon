@@ -595,12 +595,10 @@ describe("when rendered with new validations", () => {
     renderWithNewValidations({ labelHelp: "help" });
     const hintText = screen.getByText("help");
     expect(hintText).toBeInTheDocument();
-    expect(hintText).toHaveStyle({
-      fontSize: "14px",
-      marginTop: "0px",
-      marginBottom: "8px",
-    });
     expect(hintText).toHaveStyleRule("color", "var(--colorsUtilityYin055)");
+    expect(hintText).toHaveStyleRule("font-size", "14px");
+    expect(hintText).toHaveStyleRule("margin-top", "var(--spacing000)");
+    expect(hintText).toHaveStyleRule("margin-bottom", "var(--spacing100)");
   });
 });
 

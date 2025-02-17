@@ -41,12 +41,12 @@ import {
 import TextEditorContext from "./text-editor.context";
 import StyledTextEditor, {
   StyledEditorToolbarWrapper,
-  StyledHintText,
   StyledValidationMessage,
   StyledWrapper,
 } from "./text-editor.style";
 import { SaveCallbackProps } from "./__internal__/plugins/Toolbar/buttons/save.component";
 import { createEmpty } from "./__internal__";
+import HintText from "../../__internal__/hint-text";
 
 export interface TextEditorProps extends MarginProps {
   /** The maximum number of characters allowed in the editor */
@@ -192,12 +192,12 @@ export const TextEditor = ({
       </Label>
 
       {inputHint && (
-        <StyledHintText
-          data-role={`${namespace}-input-hint`}
+        <HintText
           id={`${namespace}-input-hint`}
+          marginBottom="var(--spacing100)"
         >
           {inputHint}
-        </StyledHintText>
+        </HintText>
       )}
       <LexicalComposer initialConfig={initialConfig}>
         <EditorRefPlugin editorRef={editorRef} />

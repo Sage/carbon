@@ -12,9 +12,10 @@ import Logger from "../../__internal__/utils/logger";
 import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-import StyledSwitch, { ErrorBorder, StyledHintText } from "./switch.style";
+import StyledSwitch, { ErrorBorder } from "./switch.style";
 import SwitchSlider from "./__internal__/switch-slider.component";
 import guid from "../../__internal__/utils/helpers/guid";
+import HintText from "../../__internal__/hint-text";
 
 export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -288,13 +289,16 @@ export const Switch = React.forwardRef(
                   mr={reverse ? 0 : 1}
                   ml={reverse ? 0 : 1}
                 >
-                  <StyledHintText
+                  <HintText
                     data-role="hint-text"
+                    fontWeight="400"
                     id={inputHintId.current}
                     isDarkBackground={isDarkBackground}
+                    marginTop="8px"
+                    maxWidth="160px"
                   >
                     {labelHelp}
-                  </StyledHintText>
+                  </HintText>
                 </Box>
               )}
             </Box>
