@@ -1,3 +1,17 @@
+### [147.8.1](https://github.com/Sage/carbon/compare/v147.8.0...v147.8.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* **accordion:** ensure custom title is not wrapped in a heading tag when provided ([2816f83](https://github.com/Sage/carbon/commit/2816f835f0288fd5915ef98e148b87e0d193917f)), closes [#7202](https://github.com/Sage/carbon/issues/7202)
+
+## [147.8.0](https://github.com/Sage/carbon/compare/v147.7.2...v147.8.0) (2025-02-14)
+
+
+### Features
+
+* **message:** add `width` prop ([f24a44f](https://github.com/Sage/carbon/commit/f24a44feccd7e993c1b95ee7c91298b6c3e6fec3)), closes [#6966](https://github.com/Sage/carbon/issues/6966)
+
 ### [147.7.2](https://github.com/Sage/carbon/compare/v147.7.1...v147.7.2) (2025-02-14)
 
 

@@ -185,13 +185,17 @@ export const Accordion = React.forwardRef<
             data-element="accordion-headings-container"
             hasValidationIcon={showValidationIcon}
           >
-            <StyledAccordionTitle
-              data-element="accordion-title"
-              size={size}
-              variant={variant}
-            >
-              {getTitle()}
-            </StyledAccordionTitle>
+            {typeof title === "string" ? (
+              <StyledAccordionTitle
+                data-element="accordion-title"
+                size={size}
+                variant={variant}
+              >
+                {isExpanded ? openTitle || title : title}
+              </StyledAccordionTitle>
+            ) : (
+              getTitle()
+            )}
 
             {variant !== "subtle" && (
               <>

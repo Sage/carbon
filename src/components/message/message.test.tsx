@@ -133,6 +133,18 @@ test("renders with expected styles when `transparent` is true", () => {
   });
 });
 
+test("renders with provided width when `width` is provided", () => {
+  render(
+    <Message data-role="my-message" width="100px">
+      Message
+    </Message>,
+  );
+
+  expect(screen.getByTestId("my-message")).toHaveStyle({
+    width: "100px",
+  });
+});
+
 test("renders with `ref` when provided as an object", () => {
   const ref = { current: null };
   render(<Message ref={ref}>Message</Message>);
