@@ -10,6 +10,12 @@ testStyledSystemMargin(
   () => screen.getByTestId("portrait-wrapper"),
 );
 
+test("renders with provided data- attributes", () => {
+  render(<Portrait data-role="foo" data-element="bar" />);
+
+  expect(screen.getByTestId("foo")).toHaveAttribute("data-element", "bar");
+});
+
 test("renders with a default individual icon", () => {
   render(<Portrait />);
 
