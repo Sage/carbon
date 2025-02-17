@@ -30,6 +30,12 @@ testStyledSystemMargin(
   () => screen.getByTestId("tile-select-group"),
 );
 
+test("should render with provided data- attributes", () => {
+  render(<TileSelect data-element="bar" data-role="baz" />);
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 test("the deselect action button is rendered when TileSelect is checked", () => {
   render(<TileSelect checked />);
 
@@ -268,6 +274,22 @@ describe("TileSelectGroup", () => {
     }).not.toThrow();
 
     expect(consoleSpy).not.toHaveBeenCalled();
+  });
+
+  test("should render with provided data- attributes", () => {
+    render(
+      <TileSelectGroup
+        name="TileSelectGroup"
+        data-element="bar"
+        data-role="baz"
+      >
+        <TileSelect />
+      </TileSelectGroup>,
+    );
+
+    const tileSelectGroup = screen.getByRole("group");
+    expect(tileSelectGroup).toHaveAttribute("data-element", "bar");
+    expect(tileSelectGroup).toHaveAttribute("data-role", "baz");
   });
 });
 
