@@ -31,6 +31,17 @@ test("renders with `orientation` prop set to 'vertical'", () => {
   });
 });
 
+test("renders with provided data- attributes", () => {
+  render(
+    <StepSequence data-element="bar" data-role="baz">
+      <StepSequenceItem indicator="1">Step 1</StepSequenceItem>
+    </StepSequence>,
+  );
+
+  expect(screen.getByRole("list")).toHaveAttribute("data-element", "bar");
+  expect(screen.getByRole("list")).toHaveAttribute("data-role", "baz");
+});
+
 testStyledSystemSpacing(
   (props) => (
     <StepSequence {...props}>
