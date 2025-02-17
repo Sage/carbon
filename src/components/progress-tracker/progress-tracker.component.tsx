@@ -1,7 +1,7 @@
 import React from "react";
 import { MarginProps } from "styled-system";
 import useLocale from "../../hooks/__internal__/useLocale";
-import tagComponent from "../../__internal__/utils/helpers/tags";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import {
   StyledProgressBar,
   InnerBar,
@@ -11,7 +11,7 @@ import {
   StyledDescription,
 } from "./progress-tracker.style";
 
-export interface ProgressTrackerProps extends MarginProps {
+export interface ProgressTrackerProps extends MarginProps, TagProps {
   /** Size of the progress bar. */
   size?: "small" | "medium" | "large";
   /** Length of the component, any valid css string. */
