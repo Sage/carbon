@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { HeadingType } from "../heading";
 import SettingsRow from ".";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders with children", () => {
   render(<SettingsRow>hello world</SettingsRow>);
@@ -73,3 +74,14 @@ test("renders a divider when the `divider` prop is passed", () => {
   );
   expect(settingsRow).toHaveStyleRule("padding-bottom", "30px");
 });
+
+test("renders with provided data- attributes", () => {
+  render(<SettingsRow data-role="bar" data-element="baz" />);
+
+  expect(screen.getByTestId("bar")).toHaveAttribute("data-element", "baz");
+});
+
+testStyledSystemMargin(
+  (props) => <SettingsRow {...props} />,
+  () => screen.getByTestId("settings-row"),
+);
