@@ -158,26 +158,3 @@ export const NewInline: Story = () => {
   );
 };
 NewInline.storyName = "New Inline";
-
-export const NewBooleanValidation: Story = () => {
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Checkbox
-        error="message"
-        id="checkbox-one-error-boolean"
-        key="checkbox-one-error-boolean"
-        label="Example checkbox one - Error"
-        name="checkbox-one-error-boolean"
-        mb={1}
-      />
-      <Checkbox
-        warning
-        id="checkbox-two-warning-boolean"
-        key="checkbox-two-warning-boolean"
-        label="Example checkbox two - Warning"
-        name="checkbox-two-warning-boolean"
-      />
-    </CarbonProvider>
-  );
-};
-NewBooleanValidation.storyName = "New Boolean Validation";
