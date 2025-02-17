@@ -112,7 +112,7 @@ const DraggableContainer = forwardRef<
           canMonitor({ source }) {
             return isDraggableItemData(source.data);
           },
-          onDropTargetChange({ location, source }) {
+          onDrop({ location, source }) {
             const target = location.current.dropTargets[0];
             if (!target) {
               return;
