@@ -742,7 +742,7 @@ WithStringAsChild.storyName = "With String as Child";
 
 export const WithDraggable: Story = () => {
   const Column = ({ title, id, children }: { title: string; id: string; children?: React.ReactNode }) => {
-    const [DraggableContainer, containerDragState] = useDraggable({ draggableItems: children, id, containerStyle: { width: "inherit" } });
+    const [DraggableContainer, containerDragState] = useDraggable({ draggableItems: children, id, containerStyle: { width: "inherit" }, indicatorColor: "black" });
     const isDragging = containerDragState?.draggingBetweenContainers && containerDragState.targetContainerId === id;
 
     return (
