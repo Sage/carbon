@@ -7,8 +7,7 @@ import StyledIcon from "../../icon/icon.style";
 import StyledFlatTableBodyDraggable from "./flat-table-body-draggable.style";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 
-export interface FlatTableBodyDraggableProps
-  extends Omit<TagProps, "data-component"> {
+export interface FlatTableBodyDraggableProps extends TagProps {
   /** Array of FlatTableRow. */
   children: React.ReactNode;
   /** Callback fired when order is changed */

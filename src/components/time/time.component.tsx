@@ -41,9 +41,7 @@ export interface TimeInputEvent {
   };
 }
 
-interface TimeInputProps
-  extends Omit<TagProps, "data-component">,
-    Omit<ValidationProps, "info"> {
+interface TimeInputProps extends TagProps, Omit<ValidationProps, "info"> {
   /** Set an id value on the input */
   id?: string;
   /** Override the default label text */
@@ -52,9 +50,7 @@ interface TimeInputProps
   "aria-label"?: string;
 }
 
-export interface TimeProps
-  extends Omit<TagProps, "data-component">,
-    MarginProps {
+export interface TimeProps extends TagProps, MarginProps {
   /** Label text for the component */
   label?: string;
   /** Label alignment */

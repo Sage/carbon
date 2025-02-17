@@ -26,7 +26,7 @@ import HintText from "../../__internal__/hint-text";
 export interface FileInputProps
   extends Pick<ValidationProps, "error">,
     Pick<InputProps, "id" | "name" | "required">,
-    Omit<TagProps, "data-component">,
+    TagProps,
     MarginProps {
   /** Which file format(s) to accept. Will be passed to the underlying HTML input.
    * See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept  */

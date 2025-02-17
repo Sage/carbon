@@ -93,6 +93,8 @@ export interface TypographyProps extends SpaceProps, TagProps {
    * @ignore
    * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
+  /** @private @internal @ignore */
+  "data-component"?: string;
 }
 
 export const Typography = ({

@@ -8,15 +8,13 @@ test("renders with custom data tags", () => {
   render(
     <Heading
       title="foo"
-      data-role="heading"
-      data-component="heading"
-      data-element="heading"
+      data-role="heading-role"
+      data-element="heading-element"
     />,
   );
 
-  const headingWrapper = screen.getByTestId("heading");
-  expect(headingWrapper).toHaveAttribute("data-component", "heading");
-  expect(headingWrapper).toHaveAttribute("data-element", "heading");
+  const headingWrapper = screen.getByTestId("heading-role");
+  expect(headingWrapper).toHaveAttribute("data-element", "heading-element");
 });
 
 test("renders a custom title node within the heading using the `title` prop", () => {

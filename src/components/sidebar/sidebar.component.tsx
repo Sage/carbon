@@ -21,7 +21,7 @@ type CustomRefObject<T> = {
 
 export interface SidebarProps
   extends PaddingProps,
-    Omit<TagProps, "data-component">,
+    TagProps,
     WidthProps,
     Pick<ModalProps, "topModalOverride" | "restoreFocusOnClose"> {
   /** Prop to specify the aria-describedby property of the component */
@@ -32,7 +32,7 @@ export interface SidebarProps
    */
   "aria-label"?: string;
   /**
-   * Prop to specify the aria-labeledby property of the component
+   * Prop to specify the aria-labelledby property of the component
    * To be used when the header prop is a custom React Node,
    * or the component is labelled by an internal element other than the header.
    */
