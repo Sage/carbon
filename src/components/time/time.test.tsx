@@ -314,7 +314,13 @@ test("should call onChange when a user types in the hours input and toggle is re
       target: {
         name: undefined,
         id: "foo bar",
-        value: { hours: "1", minutes: "", period: "AM" },
+        value: {
+          hours: "1",
+          minutes: "",
+          period: "AM",
+          formattedHours: "01",
+          formattedMinutes: "",
+        },
       },
     }),
   );
@@ -340,7 +346,12 @@ test("should call onChange when a user types in the hours input and toggle is no
       target: {
         name: undefined,
         id: "foo bar",
-        value: { hours: "1", minutes: "" },
+        value: {
+          hours: "1",
+          minutes: "",
+          formattedHours: "01",
+          formattedMinutes: "",
+        },
       },
     }),
   );
@@ -370,7 +381,13 @@ test("should call onChange when a user types in the minutes input and toggle is 
       target: {
         name: undefined,
         id: "foo bar",
-        value: { hours: "", minutes: "1", period: "AM" },
+        value: {
+          hours: "",
+          minutes: "1",
+          period: "AM",
+          formattedHours: "",
+          formattedMinutes: "01",
+        },
       },
     }),
   );
@@ -397,7 +414,12 @@ test("should call onChange when a user types in the minutes input and toggle is 
       target: {
         name: undefined,
         id: "foo bar",
-        value: { hours: "", minutes: "1" },
+        value: {
+          hours: "",
+          minutes: "1",
+          formattedHours: "",
+          formattedMinutes: "01",
+        },
       },
     }),
   );
@@ -427,7 +449,49 @@ test("should call onChange when a user clicks the toggle that is not currently s
       target: {
         name: undefined,
         id: "foo bar",
-        value: { hours: "", minutes: "", period: "PM" },
+        value: {
+          hours: "",
+          minutes: "",
+          period: "PM",
+          formattedHours: "",
+          formattedMinutes: "",
+        },
+      },
+    }),
+  );
+});
+
+test("should call onChange with the correct formatted valueswhen a user clicks the toggle that is not currently selected", async () => {
+  const onChangeMock = jest.fn();
+  const user = userEvent.setup({
+    advanceTimers: jest.advanceTimersByTime,
+    delay: null,
+  });
+  render(
+    <Time
+      value={{ hours: "1", minutes: "1", period: "AM" }}
+      onChange={onChangeMock}
+      hoursInputProps={{ id: "foo" }}
+      minutesInputProps={{ id: "bar" }}
+    />,
+  );
+
+  const pmToggle = screen.getByRole("button", { name: "PM" });
+
+  await user.click(pmToggle);
+
+  expect(onChangeMock).toHaveBeenCalledWith(
+    expect.objectContaining({
+      target: {
+        name: undefined,
+        id: "foo bar",
+        value: {
+          hours: "1",
+          minutes: "1",
+          period: "PM",
+          formattedHours: "01",
+          formattedMinutes: "01",
+        },
       },
     }),
   );
@@ -453,6 +517,61 @@ test("should not call onChange when a user clicks the toggle that is currently s
   await user.click(amToggle);
 
   expect(onChangeMock).not.toHaveBeenCalled();
+});
+
+test("should call onChange with the correct formatted values when a user types in the inputs", async () => {
+  const onChangeMock = jest.fn();
+  render(
+    <Time
+      value={{ hours: "", minutes: "", period: "AM" }}
+      onChange={onChangeMock}
+      hoursInputProps={{ id: "foo" }}
+      minutesInputProps={{ id: "bar" }}
+    />,
+  );
+
+  const user = userEvent.setup({
+    advanceTimers: jest.advanceTimersByTime,
+    delay: null,
+  });
+
+  const minutesInput = screen.getByLabelText("Mins.");
+  await user.type(minutesInput, "1");
+
+  expect(onChangeMock).toHaveBeenCalledWith(
+    expect.objectContaining({
+      target: {
+        name: undefined,
+        id: "foo bar",
+        value: {
+          hours: "",
+          minutes: "1",
+          period: "AM",
+          formattedHours: "",
+          formattedMinutes: "01",
+        },
+      },
+    }),
+  );
+
+  const hourInput = screen.getByLabelText("Hrs.");
+  await user.type(hourInput, "1");
+
+  expect(onChangeMock).toHaveBeenCalledWith(
+    expect.objectContaining({
+      target: {
+        name: undefined,
+        id: "foo bar",
+        value: {
+          hours: "1",
+          minutes: "1",
+          period: "AM",
+          formattedHours: "01",
+          formattedMinutes: "01",
+        },
+      },
+    }),
+  );
 });
 
 test("should call onBlur when the hours input is focused and the user presses shift + tab", async () => {
@@ -499,7 +618,7 @@ test("should call onBlur when the minutes input is focused and the user presses 
   const onBlurMock = jest.fn();
   render(
     <Time
-      value={{ hours: "", minutes: "12" }}
+      value={{ hours: "", minutes: "2" }}
       onChange={() => {}}
       onBlur={onBlurMock}
     />,
@@ -508,11 +627,20 @@ test("should call onBlur when the minutes input is focused and the user presses 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   act(() => {
-    screen.getByDisplayValue("12").focus();
+    screen.getByDisplayValue("2").focus();
   });
   await user.tab();
 
-  expect(onBlurMock).toHaveBeenCalled();
+  expect(onBlurMock).toHaveBeenCalledWith(
+    expect.anything(),
+    expect.objectContaining({
+      hours: "",
+      minutes: "2",
+      period: undefined,
+      formattedHours: "",
+      formattedMinutes: "02",
+    }),
+  );
 });
 
 test("should not call onBlur when the minutes input is focused and the user presses shift + tab", async () => {
