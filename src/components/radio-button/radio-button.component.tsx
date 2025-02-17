@@ -8,6 +8,7 @@ import RadioButtonSvg from "./radio-button-svg.component";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 interface InternalRadioButtonProps {
   inline?: boolean;
@@ -15,13 +16,8 @@ interface InternalRadioButtonProps {
 
 export interface RadioButtonProps
   extends Omit<CommonCheckableInputProps, "required" | "IsOptional">,
-    MarginProps {
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
+    MarginProps,
+    TagProps {
   /** Accepts a callback function which is triggered on click event */
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** the value of the Radio Button, passed on form submit */
@@ -61,7 +57,6 @@ export const RadioButton = React.forwardRef<
       warning,
       info,
       tooltipPosition,
-      "data-component": dataComponent = "radio-button",
       "data-element": dataElement,
       "data-role": dataRole,
       helpAriaLabel,
@@ -123,6 +118,7 @@ export const RadioButton = React.forwardRef<
       reverse: !reverse,
       ref,
       ...props,
+      "data-component": undefined,
     };
 
     invariant(
@@ -134,14 +130,15 @@ export const RadioButton = React.forwardRef<
     const componentToRender = (
       <RadioButtonStyle
         applyNewValidation={validationRedesignOptIn}
-        data-component={dataComponent}
-        data-role={dataRole}
-        data-element={dataElement}
         inline={inline}
         reverse={reverse}
         size={size}
         {...commonProps}
         {...marginProps}
+        {...tagComponent("radio-button", {
+          "data-element": dataElement,
+          "data-role": dataRole,
+        })}
       >
         <CheckableInput {...inputProps}>
           <RadioButtonSvg />

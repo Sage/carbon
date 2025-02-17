@@ -53,6 +53,24 @@ test("renders with RadioButton and non-`RadioButton` children when passed as an 
   expect(screen.getByText("foo")).toBeVisible();
 });
 
+test("renders with provided data- attributes", () => {
+  render(
+    <RadioButtonGroup
+      name="group"
+      data-role="bar"
+      data-element="baz"
+      onChange={() => {}}
+    >
+      <RadioButton value="radio1" label="Radio Button 1" />
+    </RadioButtonGroup>,
+  );
+
+  const fieldset = screen.getByRole("group");
+
+  expect(fieldset).toHaveAttribute("data-role", "bar");
+  expect(fieldset).toHaveAttribute("data-element", "baz");
+});
+
 test("renders fieldset with provided `legend`", () => {
   render(
     <RadioButtonGroup
