@@ -13,7 +13,10 @@ import { TILE_HIGHLIGHT_VARIANTS } from "./tile.config";
 type DesignTokensType = keyof typeof DesignTokens;
 type HighlightVariantType = (typeof TILE_HIGHLIGHT_VARIANTS)[number];
 
-export interface TileProps extends SpaceProps, WidthProps, TagProps {
+export interface TileProps
+  extends SpaceProps,
+    WidthProps,
+    Omit<TagProps, "data-component"> {
   /** Sets the theme of the tile */
   variant?: "tile" | "transparent" | "active" | "grey";
   /**

@@ -32,7 +32,7 @@ interface StepFlowAriaProps {
 export interface StepFlowProps
   extends StepFlowAriaProps,
     MarginProps,
-    TagProps {
+    Omit<TagProps, "data-component"> {
   /** A category for the user journey.  */
   category?: string;
   /** The title of the current step, this can be a string or a valid React node

@@ -21,7 +21,9 @@ import {
 import useLocale from "../../hooks/__internal__/useLocale";
 
 export type HeadingType = "h1" | "h2" | "h3" | "h4" | "h5";
-export interface HeadingProps extends MarginProps, TagProps {
+export interface HeadingProps
+  extends MarginProps,
+    Omit<TagProps, "data-component"> {
   /** Child elements */
   children?: React.ReactNode;
   /** Defines the title for the heading. */
@@ -132,16 +134,9 @@ export const Heading = ({
   };
 
   const marginProps = filterStyledSystemMarginProps(rest);
-  const dataAttributes = {
-    "data-element": rest["data-element"],
-    "data-role": rest["data-role"],
-  };
 
   return title ? (
-    <StyledHeading
-      {...tagComponent("heading", dataAttributes)}
-      {...marginProps}
-    >
+    <StyledHeading {...tagComponent("heading", rest)} {...marginProps}>
       <StyledHeader
         data-element="header-container"
         divider={divider}

@@ -17,7 +17,8 @@ import VerticalMenuFullScreenContext from "./__internal__/vertical-menu-full-scr
 import Events from "../../../__internal__/utils/helpers/events/events";
 import useModalManager from "../../../hooks/__internal__/useModalManager";
 
-export interface VerticalMenuFullScreenProps extends TagProps {
+export interface VerticalMenuFullScreenProps
+  extends Omit<TagProps, "data-component"> {
   /** An aria-label attribute for the menu */
   "aria-label"?: string;
   /** An aria-labelledby attribute for the menu */

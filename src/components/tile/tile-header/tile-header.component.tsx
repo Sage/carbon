@@ -6,7 +6,9 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags";
 import filterStyledSystemPaddingProps from "../../../style/utils/filter-styled-system-padding-props";
 
-export interface TileHeaderProps extends PaddingProps, TagProps {
+export interface TileHeaderProps
+  extends PaddingProps,
+    Omit<TagProps, "data-component"> {
   children?: React.ReactNode;
   /** set which background color variant should be used */
   variant?: "default" | "black" | "transparent" | "grey";

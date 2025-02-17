@@ -12,7 +12,9 @@ import {
   StyledDetailFootnote,
 } from "./detail.style";
 
-export interface DetailProps extends MarginProps, TagProps {
+export interface DetailProps
+  extends MarginProps,
+    Omit<TagProps, "data-component"> {
   /**
    * @private
    * @internal

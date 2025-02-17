@@ -4,7 +4,9 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 
-export interface FlexTileCellProps extends TagProps, BoxProps {
+export interface FlexTileCellProps
+  extends Omit<TagProps, "data-component">,
+    BoxProps {
   /** The content to render within the responsive cell. */
   children: React.ReactNode;
 }

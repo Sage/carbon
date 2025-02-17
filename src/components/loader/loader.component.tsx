@@ -16,7 +16,7 @@ import Logger from "../../__internal__/utils/logger";
 export interface LoaderProps
   extends Omit<StyledLoaderSquareProps, "backgroundColor">,
     MarginProps,
-    TagProps {
+    Omit<TagProps, "data-component"> {
   /** Toggle between the default variant and gradient variant */
   variant?: string;
   /**

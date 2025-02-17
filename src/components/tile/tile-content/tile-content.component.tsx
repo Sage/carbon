@@ -8,7 +8,9 @@ import tagComponent, {
 import filterStyledSystemPaddingProps from "../../../style/utils/filter-styled-system-padding-props";
 import filterStyledSystemMarginProps from "../../../style/utils/filter-styled-system-margin-props";
 
-export interface TileContentProps extends SpaceProps, TagProps {
+export interface TileContentProps
+  extends SpaceProps,
+    Omit<TagProps, "data-component"> {
   children?: React.ReactNode;
   width?: string | number;
   height?: string | number;
