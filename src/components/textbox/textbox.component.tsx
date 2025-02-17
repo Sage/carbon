@@ -1,29 +1,33 @@
 import React, { useContext, useRef, useState } from "react";
+
 import { MarginProps } from "styled-system";
 
-import { filterStyledSystemMarginProps } from "../../style/utils";
+import Box from "../box";
+import { IconType } from "../icon";
+import FormField from "../../__internal__/form-field";
+import HintText from "../../__internal__/hint-text";
 import {
   Input,
   InputPresentation,
   CommonInputProps,
 } from "../../__internal__/input";
-import { ValidationProps } from "../../__internal__/validations";
-import InputIconToggle from "../../__internal__/input-icon-toggle";
-import FormField from "../../__internal__/form-field";
-import { IconType } from "../icon";
-import useUniqueId from "../../hooks/__internal__/useUniqueId";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
-import StyledPrefix from "./__internal__/prefix.style";
+import InputIconToggle from "../../__internal__/input-icon-toggle";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
-import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
-import { ErrorBorder, StyledHintText } from "./textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
+import { ValidationProps } from "../../__internal__/validations";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import NumeralDateContext from "../numeral-date/__internal__/numeral-date.context";
-import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
+import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
+import useUniqueId from "../../hooks/__internal__/useUniqueId";
 import guid from "../../__internal__/utils/helpers/guid";
+import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
+
+import ErrorBorder from "./textbox.style";
+
+import StyledPrefix from "./__internal__/prefix.style";
 
 export const ALIGN_DEFAULT = "left";
 export const SIZE_DEFAULT = "medium";
@@ -369,9 +373,14 @@ export const Textbox = React.forwardRef(
             {...filterStyledSystemMarginProps(props)}
           >
             {(inputHint || (labelHelp && validationRedesignOptIn)) && (
-              <StyledHintText id={inputHintId} data-element="input-hint">
+              <HintText
+                align={labelAlign}
+                data-element="input-hint"
+                id={inputHintId}
+                isComponentInline={labelInline}
+              >
                 {inputHint || labelHelp}
-              </StyledHintText>
+              </HintText>
             )}
             {validationRedesignOptIn ? (
               <Box position="relative">

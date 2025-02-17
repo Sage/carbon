@@ -2,9 +2,7 @@ import React, { useContext, useRef } from "react";
 import { MarginProps } from "styled-system";
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import Fieldset from "../../../__internal__/fieldset";
-import RadioButtonGroupStyle, {
-  StyledHintText,
-} from "../radio-button-group/radio-button-group.style";
+import RadioButtonGroupStyle from "../radio-button-group/radio-button-group.style";
 import RadioButtonMapper from "../../../__internal__/radio-button-mapper/radio-button-mapper.component";
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
@@ -14,9 +12,10 @@ import Logger from "../../../__internal__/utils/logger";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
 import ValidationMessage from "../../../__internal__/validation-message/validation-message.component";
 import Box from "../../box";
-import { ErrorBorder } from "../../textbox/textbox.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility";
+import ErrorBorder from "../../textbox/textbox.style";
+import HintText from "../../../__internal__/hint-text";
 
 let deprecateUncontrolledWarnTriggered = false;
 export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
@@ -154,7 +153,9 @@ export const RadioButtonGroup = ({
           })}
         >
           {legendHelp && (
-            <StyledHintText id={inputHintId}>{legendHelp}</StyledHintText>
+            <HintText align={legendAlign} id={inputHintId} marginTop="-4px">
+              {legendHelp}
+            </HintText>
           )}
           <Box position="relative">
             <ValidationMessage

@@ -21,12 +21,13 @@ import StyledTextarea, { DEFAULT_MIN_HEIGHT } from "./textarea.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import ErrorBorder from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import { BorderRadiusType } from "../box/box.component";
+import HintText from "../../__internal__/hint-text";
 
 export interface TextareaProps
   extends ValidationProps,
@@ -434,9 +435,13 @@ export const Textarea = React.forwardRef(
               validationRedesignOptIn={validationRedesignOptIn}
             >
               {(inputHint || (labelHelp && validationRedesignOptIn)) && (
-                <StyledHintText id={inputHintId} data-element="input-hint">
+                <HintText
+                  align={labelAlign}
+                  id={inputHintId}
+                  data-element="input-hint"
+                >
                   {inputHint || labelHelp}
-                </StyledHintText>
+                </HintText>
               )}
               {validationRedesignOptIn ? (
                 <Box position="relative">

@@ -20,6 +20,7 @@ export default {
     "InScrollableContainer",
     "WithExpandableAndRows",
     "NewDesignValidationStoryWithLableInline",
+    "WithHintText",
   ],
   parameters: {
     info: { disable: true },
@@ -293,3 +294,21 @@ export const NewDesignValidationStoryWithLableInline: StoryType = () => {
 };
 NewDesignValidationStoryWithLableInline.storyName =
   "Validations - String - New Design - Label Inline";
+
+export const WithHintText: StoryType = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      {["left", "right"].map((labelAlign) => (
+        <Textarea
+          key={labelAlign}
+          label="Textarea"
+          inputHint="help text"
+          labelAlign={labelAlign as TextareaProps["labelAlign"]}
+          mb={2}
+        />
+      ))}
+    </CarbonProvider>
+  );
+};
+
+WithHintText.storyName = "With hint text";

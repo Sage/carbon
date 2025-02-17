@@ -13,7 +13,7 @@ import {
   StyledHiddenFileInput,
   StyledFileInputPresentation,
 } from "./file-input.style";
-import { StyledHintText, ErrorBorder } from "../textbox/textbox.style";
+import ErrorBorder from "../textbox/textbox.style";
 import ButtonMinor from "../button-minor";
 import Typography from "../typography";
 import FileUploadStatus, {
@@ -21,6 +21,7 @@ import FileUploadStatus, {
 } from "./__internal__/file-upload-status";
 import Box from "../box";
 import useLocale from "../../hooks/__internal__/useLocale";
+import HintText from "../../__internal__/hint-text";
 
 export interface FileInputProps
   extends Pick<ValidationProps, "error">,
@@ -179,7 +180,7 @@ export const FileInput = React.forwardRef(
 
     const input = (
       <>
-        {inputHint && <StyledHintText>{inputHint}</StyledHintText>}
+        {inputHint && <HintText>{inputHint}</HintText>}
         <Box position="relative">
           <ValidationMessage error={error} validationId={validationId} />
           {error && <ErrorBorder warning={false} />}

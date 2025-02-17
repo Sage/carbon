@@ -618,11 +618,9 @@ describe("when rendered with new validations", () => {
     );
     const hintText = screen.getByText("Example hint text");
     expect(hintText).toBeInTheDocument();
-    expect(hintText).toHaveStyle({
-      fontSize: "14px",
-      marginTop: "0px",
-      marginBottom: "8px",
-    });
+    expect(hintText).toHaveStyleRule("font-size", "14px");
+    expect(hintText).toHaveStyleRule("margin-top", "var(--spacing000)");
+    expect(hintText).toHaveStyleRule("margin-bottom", "var(--spacing100)");
     expect(hintText).toHaveStyleRule("color", "var(--colorsUtilityYin055)");
   });
 });

@@ -12,7 +12,7 @@ import {
 } from "./numeral-date.style";
 import Textbox from "../textbox";
 import Box from "../box";
-import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import ErrorBorder from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -24,6 +24,7 @@ import Locale from "../../locales/locale";
 import FieldHelp from "../../__internal__/field-help";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
+import HintText from "../../__internal__/hint-text";
 
 let deprecateUncontrolledWarnTriggered = false;
 
@@ -559,7 +560,9 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
       {...filterStyledSystemMarginProps(rest)}
     >
       {labelHelp && (
-        <StyledHintText id={inputHintId.current}>{labelHelp}</StyledHintText>
+        <HintText align={labelAlign} id={inputHintId.current}>
+          {labelHelp}
+        </HintText>
       )}
 
       <Box position="relative" mt={labelHelp ? 0 : 1}>
