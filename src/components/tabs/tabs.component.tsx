@@ -14,13 +14,15 @@ import React, {
 import { MarginProps } from "styled-system";
 import Tab from "./tab";
 import Event from "../../__internal__/utils/helpers/events";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 
-export interface TabsProps extends MarginProps {
+export interface TabsProps extends MarginProps, TagProps {
   /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */
   renderHiddenTabs?: boolean;
   /** Allows manual control over the currently selected tab. */
@@ -404,10 +406,10 @@ const Tabs = ({
     <StyledTabs
       position={isInSidebar ? "left" : position}
       data-role="tabs"
-      {...tagComponent("tabs", rest)}
       isInSidebar={isInSidebar}
       headerWidth={headerWidth}
       {...rest}
+      {...tagComponent("tabs", rest)}
     >
       {renderTabHeaders()}
       {renderTabs()}
