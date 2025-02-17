@@ -88,3 +88,9 @@ test("should not allow the `aria-hidden` attribute to be overridden when in a me
 
   expect(verticalDividerElement).toHaveAttribute("aria-hidden", "true");
 });
+
+test("should render with provided data- attributes", () => {
+  render(<VerticalDivider data-role="bar" data-element="baz" />);
+
+  expect(screen.getByTestId("bar")).toHaveAttribute("data-element", "baz");
+});
