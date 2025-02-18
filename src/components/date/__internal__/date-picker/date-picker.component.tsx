@@ -170,31 +170,36 @@ export const DatePicker = ({
     _modifiers: Modifiers,
     ev: React.KeyboardEvent<HTMLDivElement>,
   ) => {
-    // we need to manually handle this as the picker may be in a Portal
-    /* istanbul ignore else */
-    if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
-      ev.preventDefault();
-      setOpen(false);
-      onPickerClose?.();
-      const input = inputElement.current?.querySelector("input");
-
+    // timeout added to prevent this handler from interfering with the useFocusPortalContent hook, when the date-range
+    // is used inside of a popover-container and it is the last focusable element of the popover-container
+    setTimeout(() => {
+      // we need to manually handle this as the picker may be in a Portal
       /* istanbul ignore else */
-      if (input) {
-        const elements = Array.from(
-          document.querySelectorAll(defaultFocusableSelectors) ||
-            /* istanbul ignore next */ [],
-        ) as HTMLElement[];
-        const elementsInPicker = Array.from(
-          ref.current?.querySelectorAll("button, [tabindex]") ||
-            /* istanbul ignore next */ [],
-        ) as HTMLElement[];
-        const filteredElements = elements.filter(
-          (el) => Number(el.tabIndex) !== -1 && !elementsInPicker.includes(el),
-        );
-        const nextIndex = filteredElements.indexOf(input as HTMLElement) + 1;
-        filteredElements[nextIndex]?.focus();
+      if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
+        ev.preventDefault();
+        setOpen(false);
+        onPickerClose?.();
+        const input = inputElement.current?.querySelector("input");
+
+        /* istanbul ignore else */
+        if (input) {
+          const elements = Array.from(
+            document.querySelectorAll(defaultFocusableSelectors) ||
+              /* istanbul ignore next */ [],
+          ) as HTMLElement[];
+          const elementsInPicker = Array.from(
+            ref.current?.querySelectorAll("button, [tabindex]") ||
+              /* istanbul ignore next */ [],
+          ) as HTMLElement[];
+          const filteredElements = elements.filter(
+            (el) =>
+              Number(el.tabIndex) !== -1 && !elementsInPicker.includes(el),
+          );
+          const nextIndex = filteredElements.indexOf(input as HTMLElement) + 1;
+          filteredElements[nextIndex]?.focus();
+        }
       }
-    }
+    }, 0);
   };
 
   useEffect(() => {

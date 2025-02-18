@@ -34,6 +34,17 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 
 <Canvas of={MultiActionButtonStories.DefaultStory} />
 
+### Focusing Main Button Programmatically
+
+```javascript
+import { MultiActionButtonHandle } from "carbon-react/lib/components/multi-action-button";
+```
+
+The `MultiActionButtonHandle` type provides an imperative handle for programmatic control over `MultiActionButton`. 
+Using a `ref`, you can access its `focusMainButton()` method to set focus on the main button as needed.
+
+<Canvas of={MultiActionButtonStories.ProgrammaticFocus} />
+
 ### Disabled
 
 <Canvas of={MultiActionButtonStories.Disabled} />

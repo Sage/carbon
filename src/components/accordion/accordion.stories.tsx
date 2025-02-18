@@ -35,6 +35,34 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 
+export const WithTitle: Story = () => {
+  return (
+    <Accordion title="Title">
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
+    </Accordion>
+  );
+};
+WithTitle.storyName = "With Title";
+
+export const WithComplexTitle: Story = () => {
+  return (
+    <Accordion
+      title={
+        <Typography variant="h4" backgroundColor="blue" color="yellow">
+          Title
+        </Typography>
+      }
+    >
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
+    </Accordion>
+  );
+};
+WithComplexTitle.storyName = "With Complex Title";
+
 export const WithDisableContentPadding: Story = () => {
   return (
     <Accordion disableContentPadding title="Heading">

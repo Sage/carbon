@@ -10,7 +10,7 @@ import Box from "../box";
 
 export default {
   title: "Pages/Test",
-  includeStories: ["DefaultStory", "DifferentPageHeights"],
+  includeStories: ["DefaultStory", "DifferentPageHeights", "WithoutTitle"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -523,5 +523,27 @@ export const DifferentPageHeights = () => {
         </Page>
       </Pages>
     </Box>
+  );
+};
+
+export const WithoutTitle = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+  return (
+    <div>
+      <Button onClick={handleOpen}>Open Preview</Button>
+      <DialogFullScreen pagesStyling open={isOpen} onCancel={handleCancel}>
+        <Pages pageIndex={0}>
+          <Page>
+            <Button>Example button</Button>
+          </Page>
+        </Pages>
+      </DialogFullScreen>
+    </div>
   );
 };

@@ -52,18 +52,37 @@ export const InsideButton: Story = () => {
     mimicLoading();
   };
   const buttonContent = isLoading ? <Loader isInsideButton /> : "Click me";
-  const ariaContent = isLoading ? "Loading" : "Click me";
+
   return (
-    <span aria-live="polite">
-      <Button
-        m={2}
-        buttonType="primary"
-        aria-label={ariaContent}
-        onClick={handleButtonClick}
-      >
+    <div aria-live="polite">
+      <Button m={2} buttonType="primary" onClick={handleButtonClick}>
         {buttonContent}
       </Button>
-    </span>
+    </div>
   );
 };
 InsideButton.storyName = "Inside Button";
+
+export const ConditionalRendering = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const mimicLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  };
+  const handleButtonClick = () => {
+    mimicLoading();
+  };
+
+  return (
+    <div aria-live="polite">
+      <Button m={2} buttonType="primary" onClick={handleButtonClick}>
+        Render Loader
+      </Button>
+
+      {isLoading ? <Loader /> : "Content to Load"}
+    </div>
+  );
+};
+ConditionalRendering.storyName = "Conditional Rendering";

@@ -240,7 +240,7 @@ test.describe("should render Confirm component", () => {
 
     const button = getDataElementByValue(page, "confirm");
     await expect(button).toHaveAttribute("disabled", "");
-    const loader = page.getByLabel("Loading");
+    const loader = page.getByTestId("confirm-loader");
     await expect(loader).toBeAttached();
   });
 

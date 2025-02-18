@@ -16,6 +16,7 @@ const messageVariants = {
 type MessageStyleProps = {
   variant?: MessageVariant;
   transparent?: boolean;
+  width?: string;
 };
 
 const MessageStyle = styled.div<MessageStyleProps & MarginProps>`
@@ -46,6 +47,8 @@ const MessageStyle = styled.div<MessageStyleProps & MarginProps>`
     top: 50%;
     transform: translateY(-50%);
   }
+
+  ${({ width }) => width && `width: ${width};`}
 
   ${margin}
 `;

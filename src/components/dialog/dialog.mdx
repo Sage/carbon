@@ -127,6 +127,18 @@ This may occasionally be useful with things like Toasts where they persist on th
 
 <Canvas of={DialogStories.Responsive} />
 
+
+### Focusing Dialog Container Programmatically
+
+```javascript
+import { DialogHandle } from "carbon-react/lib/components/dialog";
+```
+
+The `DialogHandle` type provides an imperative handle for programmatic control over the `Dialog`'s container focus. 
+Using a `ref`, you can access its `focus()` method to set focus on the container when needed.
+
+<Canvas of={DialogStories.UsingHandle} />
+
 ### Top modal override
 
 When multiple modals are open on a page Carbon manages the order internally so that the last one mounted in the DOM

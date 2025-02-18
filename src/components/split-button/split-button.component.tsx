@@ -1,4 +1,9 @@
-import React, { useContext, useRef } from "react";
+import React, {
+  useContext,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { ThemeContext } from "styled-components";
 import { MarginProps } from "styled-system";
 import { flip, offset } from "@floating-ui/dom";
@@ -53,169 +58,194 @@ export interface SplitButtonProps
   position?: "left" | "right";
 }
 
-export const SplitButton = ({
-  align = "left",
-  position = "right",
-  buttonType = "secondary",
-  children,
-  disabled = false,
-  iconPosition = "before",
-  iconType,
-  onClick,
-  size = "medium",
-  subtext,
-  text,
-  "data-element": dataElement,
-  "data-role": dataRole,
-  "aria-label": ariaLabel,
-  ...rest
-}: SplitButtonProps) => {
-  const locale = useLocale();
-  const theme = useContext(ThemeContext) || baseTheme;
-  const buttonLabelId = useRef(guid());
+export type SplitButtonHandle = {
+  /** Programmatically focus the main button */
+  focusMainButton: () => void;
+  /** Programmatically focus the toggle button. */
+  focusToggleButton: () => void;
+} | null;
 
-  const mainButtonRef = useRef<HTMLButtonElement>(null);
-  const toggleButton = useRef<HTMLButtonElement>(null);
-
-  const {
-    showAdditionalButtons,
-    showButtons,
-    hideButtons,
-    buttonNode,
-    handleToggleButtonKeyDown,
-    wrapperProps,
-    contextValue,
-  } = useChildButtons(toggleButton, CONTENT_WIDTH_RATIO);
-
-  const handleMainClick = (
-    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
-  ) => {
-    // ensure button is focused when clicked (Safari)
-    mainButtonRef.current?.focus();
-    if (onClick) {
-      onClick(ev as React.MouseEvent<HTMLButtonElement>);
-    }
-  };
-
-  const mainButtonProps = {
-    onFocus: hideButtons,
-    onTouchStart: hideButtons,
-    iconPosition,
-    buttonType,
-    disabled,
-    iconType,
-    onClick: handleMainClick,
-    size,
-    subtext,
-    ...filterOutStyledSystemSpacingProps(rest),
-  };
-
-  const handleToggleClick = () => {
-    showButtons();
-  };
-
-  const toggleButtonProps = {
-    disabled,
-    displayed: showAdditionalButtons,
-    onTouchStart: showButtons,
-    onKeyDown: handleToggleButtonKeyDown,
-    onClick: handleToggleClick,
-    buttonType,
-    size,
-  };
-
-  function componentTags() {
-    return {
-      "data-component": "split-button",
+export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
+  (
+    {
+      align = "left",
+      position = "right",
+      buttonType = "secondary",
+      children,
+      disabled = false,
+      iconPosition = "before",
+      iconType,
+      onClick,
+      size = "medium",
+      subtext,
+      text,
       "data-element": dataElement,
       "data-role": dataRole,
+      "aria-label": ariaLabel,
+      ...rest
+    },
+    ref,
+  ) => {
+    const locale = useLocale();
+    const theme = useContext(ThemeContext) || baseTheme;
+    const buttonLabelId = useRef(guid());
+
+    const mainButtonRef = useRef<HTMLButtonElement>(null);
+    const toggleButtonRef = useRef<HTMLButtonElement>(null);
+
+    useImperativeHandle<SplitButtonHandle, SplitButtonHandle>(
+      ref,
+      () => ({
+        focusMainButton() {
+          mainButtonRef.current?.focus();
+        },
+        focusToggleButton() {
+          toggleButtonRef.current?.focus();
+        },
+      }),
+      [],
+    );
+
+    const {
+      showAdditionalButtons,
+      showButtons,
+      hideButtons,
+      buttonNode,
+      handleToggleButtonKeyDown,
+      wrapperProps,
+      contextValue,
+    } = useChildButtons(toggleButtonRef, CONTENT_WIDTH_RATIO);
+
+    const handleMainClick = (
+      ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+    ) => {
+      // ensure button is focused when clicked (Safari)
+      mainButtonRef.current?.focus();
+      if (onClick) {
+        onClick(ev as React.MouseEvent<HTMLButtonElement>);
+      }
     };
-  }
 
-  function getIconColor() {
-    const colorsMap = {
-      primary: theme.colors.white,
-      secondary: theme.colors.primary,
+    const mainButtonProps = {
+      onFocus: hideButtons,
+      onTouchStart: hideButtons,
+      iconPosition,
+      buttonType,
+      disabled,
+      iconType,
+      onClick: handleMainClick,
+      size,
+      subtext,
+      ...filterOutStyledSystemSpacingProps(rest),
     };
-    return colorsMap[buttonType];
-  }
 
-  function renderMainButton() {
-    return [
-      <Button
-        data-element="main-button"
-        key="main-button"
-        id={buttonLabelId.current}
-        ref={mainButtonRef}
-        {...mainButtonProps}
-      >
-        {text}
-      </Button>,
-      <StyledSplitButtonToggle
-        aria-haspopup="true"
-        aria-expanded={showAdditionalButtons}
-        aria-label={ariaLabel || locale.splitButton.ariaLabel()}
-        data-element="toggle-button"
-        key="toggle-button"
-        type="button"
-        ref={toggleButton}
-        {...toggleButtonProps}
-      >
-        <Icon
-          type="dropdown"
-          color={getIconColor()}
-          bg="transparent"
-          disabled={disabled}
-        />
-      </StyledSplitButtonToggle>,
-    ];
-  }
+    const handleToggleClick = () => {
+      showButtons();
+    };
 
-  function renderAdditionalButtons() {
-    if (!showAdditionalButtons) return null;
+    const toggleButtonProps = {
+      disabled,
+      displayed: showAdditionalButtons,
+      onTouchStart: showButtons,
+      onKeyDown: handleToggleButtonKeyDown,
+      onClick: handleToggleClick,
+      buttonType,
+      size,
+    };
+
+    function componentTags() {
+      return {
+        "data-component": "split-button",
+        "data-element": dataElement,
+        "data-role": dataRole,
+      };
+    }
+
+    function getIconColor() {
+      const colorsMap = {
+        primary: theme.colors.white,
+        secondary: theme.colors.primary,
+      };
+      return colorsMap[buttonType];
+    }
+
+    function renderMainButton() {
+      return [
+        <Button
+          data-element="main-button"
+          key="main-button"
+          id={buttonLabelId.current}
+          ref={mainButtonRef}
+          {...mainButtonProps}
+        >
+          {text}
+        </Button>,
+        <StyledSplitButtonToggle
+          aria-haspopup="true"
+          aria-expanded={showAdditionalButtons}
+          aria-label={ariaLabel || locale.splitButton.ariaLabel()}
+          data-element="toggle-button"
+          key="toggle-button"
+          type="button"
+          ref={toggleButtonRef}
+          {...toggleButtonProps}
+        >
+          <Icon
+            type="dropdown"
+            color={getIconColor()}
+            bg="transparent"
+            disabled={disabled}
+          />
+        </StyledSplitButtonToggle>,
+      ];
+    }
+
+    function renderAdditionalButtons() {
+      if (!showAdditionalButtons) return null;
+
+      return (
+        <Popover
+          disablePortal
+          placement={
+            position === "left"
+              ? /* istanbul ignore next */ "bottom-start"
+              : "bottom-end"
+          }
+          popoverStrategy="fixed"
+          reference={buttonNode}
+          middleware={[
+            offset(6),
+            flip({
+              fallbackStrategy: "initialPlacement",
+            }),
+          ]}
+        >
+          <StyledSplitButtonChildrenContainer {...wrapperProps} align={align}>
+            <SplitButtonContext.Provider value={contextValue}>
+              {React.Children.map(children, (child) => (
+                <li>{child}</li>
+              ))}
+            </SplitButtonContext.Provider>
+          </StyledSplitButtonChildrenContainer>
+        </Popover>
+      );
+    }
+
+    const handleClick = useClickAwayListener(hideButtons);
+    const marginProps = filterStyledSystemMarginProps(rest);
 
     return (
-      <Popover
-        disablePortal
-        placement={
-          position === "left"
-            ? /* istanbul ignore next */ "bottom-start"
-            : "bottom-end"
-        }
-        popoverStrategy="fixed"
-        reference={buttonNode}
-        middleware={[
-          offset(6),
-          flip({
-            fallbackStrategy: "initialPlacement",
-          }),
-        ]}
+      <StyledSplitButton
+        onClick={handleClick}
+        ref={buttonNode}
+        {...componentTags()}
+        {...marginProps}
       >
-        <StyledSplitButtonChildrenContainer {...wrapperProps} align={align}>
-          <SplitButtonContext.Provider value={contextValue}>
-            {React.Children.map(children, (child) => (
-              <li>{child}</li>
-            ))}
-          </SplitButtonContext.Provider>
-        </StyledSplitButtonChildrenContainer>
-      </Popover>
+        {renderMainButton()}
+        {renderAdditionalButtons()}
+      </StyledSplitButton>
     );
-  }
-
-  const handleClick = useClickAwayListener(hideButtons);
-  const marginProps = filterStyledSystemMarginProps(rest);
-
-  return (
-    <StyledSplitButton
-      onClick={handleClick}
-      ref={buttonNode}
-      {...componentTags()}
-      {...marginProps}
-    >
-      {renderMainButton()}
-      {renderAdditionalButtons()}
-    </StyledSplitButton>
-  );
-};
+  },
+);
 
 export default SplitButton;
