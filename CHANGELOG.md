@@ -1,3 +1,13 @@
+## [147.9.0](https://github.com/Sage/carbon/compare/v147.8.1...v147.9.0) (2025-02-18)
+
+### Features
+
+* **radio-button-group, checkbox-group:** add id prop ([8208950](https://github.com/Sage/carbon/commit/820895002c247cc951206b8c79e0f674b511aea0)), closes [#7191](https://github.com/Sage/carbon/issues/7191)
+
+### Bug Fixes
+
+* **checkbox-group:** legendInline has unexpected behaviour with new validation ([e66bc07](https://github.com/Sage/carbon/commit/e66bc07c1e84d6859544f9002cd3c1f09aa6378c))
+
 ## [147.8.1](https://github.com/Sage/carbon/compare/v147.8.0...v147.8.1) (2025-02-14)
 
 
