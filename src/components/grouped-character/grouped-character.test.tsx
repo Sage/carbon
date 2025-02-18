@@ -77,6 +77,19 @@ test("deprecation warning for uncontrolled should display warning once", () => {
   loggerSpy.mockClear();
 });
 
+test("should render with the provided data- attributes", () => {
+  render(
+    <GroupedCharacter
+      data-element="bar"
+      data-role="baz"
+      groups={[2, 2, 3]}
+      separator="-"
+    />,
+  );
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 test("when component is uncontrolled, it should set the default input value same as defaultValue provided", () => {
   render(
     <GroupedCharacter

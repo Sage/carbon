@@ -2,13 +2,11 @@ import React, { useRef, useState } from "react";
 import { TextboxProps } from "../textbox";
 import { StyledPassword, HiddenAriaLive } from "./password.style";
 import guid from "../../__internal__/utils/helpers/guid";
-import tagComponent, {
-  TagProps,
-} from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import ButtonMinor from "../button-minor/button-minor.component";
 
-export interface PasswordProps extends TextboxProps, TagProps {
+export interface PasswordProps extends Omit<TextboxProps, "data-component"> {
   /** When `true` input `type` is `password` and text is obscured. */
   forceObscurity?: boolean;
 }
@@ -27,13 +25,13 @@ export const Password = ({
   return (
     <>
       <StyledPassword
-        {...tagComponent("password", rest)}
         data-element="styled-password-container"
         id={internalInputId.current}
         autoComplete="off"
         type={visibleInput ? "text" : "password"}
         disabled={disabled}
         {...rest}
+        {...tagComponent("password", rest)}
       >
         <ButtonMinor
           aria-label={visibleInput ? "Hide password" : "Show password"}

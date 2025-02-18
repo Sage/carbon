@@ -24,10 +24,9 @@ import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
 import useUniqueId from "../../hooks/__internal__/useUniqueId";
 import guid from "../../__internal__/utils/helpers/guid";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
-
 import ErrorBorder from "./textbox.style";
-
 import StyledPrefix from "./__internal__/prefix.style";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export const ALIGN_DEFAULT = "left";
 export const SIZE_DEFAULT = "medium";
@@ -37,15 +36,10 @@ export const LABEL_VALIDATION_DEFAULT = false;
 export interface CommonTextboxProps
   extends ValidationProps,
     MarginProps,
-    Omit<CommonInputProps, "size" | "inputBorderRadius"> {
+    Omit<CommonInputProps, "size" | "inputBorderRadius">,
+    TagProps {
   /** Prop to specify the aria-labelledby property of the component */
   "aria-labelledby"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Integer to determine a timeout for the deferred callback */
@@ -130,6 +124,8 @@ export interface CommonTextboxProps
   isOptional?: boolean;
   /** The id attribute for the validation tooltip */
   tooltipId?: string;
+  /** @private @internal @ignore */
+  "data-component"?: string;
 }
 
 export interface TextboxProps extends CommonTextboxProps {
