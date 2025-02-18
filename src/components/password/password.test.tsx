@@ -112,6 +112,12 @@ test("should generate the text input's 'id' attribute via a guid when the `id` p
   expect(passwordInput).toHaveAttribute("id", mockedGuid);
 });
 
+test("should render with provided data- attributes", () => {
+  render(<Password label="password" data-role="bar" data-element="baz" />);
+
+  expect(screen.getByTestId("bar")).toHaveAttribute("data-element", "baz");
+});
+
 describe("Show/Hide password Button", () => {
   test("should render the `Show password` button icon with type 'view' initially", () => {
     render(<Password />);

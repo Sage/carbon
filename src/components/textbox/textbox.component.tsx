@@ -24,6 +24,7 @@ import NumeralDateContext from "../numeral-date/__internal__/numeral-date.contex
 import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
 import guid from "../../__internal__/utils/helpers/guid";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export const ALIGN_DEFAULT = "left";
 export const SIZE_DEFAULT = "medium";
@@ -33,15 +34,10 @@ export const LABEL_VALIDATION_DEFAULT = false;
 export interface CommonTextboxProps
   extends ValidationProps,
     MarginProps,
-    Omit<CommonInputProps, "size" | "inputBorderRadius"> {
+    Omit<CommonInputProps, "size" | "inputBorderRadius">,
+    TagProps {
   /** Prop to specify the aria-labelledby property of the component */
   "aria-labelledby"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Integer to determine a timeout for the deferred callback */
