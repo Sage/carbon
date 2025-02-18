@@ -739,8 +739,10 @@ test("should render provided `fieldHelp` text when the `validationRedesignOptIn`
   );
 
   const fieldHelpText = screen.getByText("fieldHelp");
+  const fieldset = screen.getByRole("group");
 
   expect(fieldHelpText).toBeVisible();
+  expect(fieldset).toHaveAccessibleDescription("fieldHelp");
 });
 
 // coverage
@@ -2118,21 +2120,19 @@ test("should set the inputs to `readOnly` when the prop is passed", () => {
 
 test.each(["error", "warning", "info"])(
   "should render with expected accessible description when '%s' and 'fieldHelp' props are passed and 'validationRedesignOptIn' is false",
-  async (validation) => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  (validation) => {
     render(
       <NumeralDate
         value={{ dd: "", mm: "", yyyy: "" }}
         onChange={() => {}}
+        label="label"
         fieldHelp="fieldHelp"
+        validationOnLabel
         {...{ [validation]: "Message" }}
       />,
     );
 
-    const dayInput = screen.getByRole("textbox", { name: "Day" });
-    await user.click(dayInput);
-
-    const fieldset = screen.getByRole("group");
+    const fieldset = screen.getByRole("group", { name: "label" });
     expect(fieldset).toHaveAccessibleDescription("fieldHelp Message");
   },
 );
