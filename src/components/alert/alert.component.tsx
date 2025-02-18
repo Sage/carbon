@@ -8,14 +8,14 @@ export const Alert = ({
   topModalOverride,
   closeButtonDataProps,
   ...rest
-}: DialogProps) => (
+}: Omit<DialogProps, "data-component">) => (
   <Dialog
-    data-component="alert"
     role="alertdialog"
     size={size}
     topModalOverride={topModalOverride}
     closeButtonDataProps={closeButtonDataProps}
     {...rest}
+    data-component="alert"
   >
     {children}
   </Dialog>
