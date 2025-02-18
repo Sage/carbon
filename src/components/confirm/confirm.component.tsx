@@ -25,6 +25,7 @@ export interface ConfirmProps
     | "timeout"
     | "enableBackgroundUI"
     | "disableClose"
+    | "data-component"
   > {
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
   cancelButtonType?: "primary" | "secondary" | "tertiary" | "darkBackground";
@@ -187,13 +188,13 @@ export const Confirm = ({
       disableClose={disableCancel}
       subtitle={subtitle}
       title={getTitle()}
-      data-component="confirm"
       role="alertdialog"
       size={size}
       showCloseIcon={showCloseIcon}
       topModalOverride={topModalOverride}
       {...ariaProps}
       {...rest}
+      data-component="confirm"
     >
       {children}
       <StyledConfirmButtons>
