@@ -421,7 +421,8 @@ const tabTitleStyles = css<
         z-index: 6;
 
         > span[data-role="tab-title-content"] {
-          outline:none;
+          outline:none; 
+          ${position === "top" && "top: 2px;"}
         }
 
         ${
