@@ -1,7 +1,6 @@
 export { default as AutoLinkerPlugin } from "./AutoLinker";
 export { default as CharacterCounterPlugin } from "./CharacterCounter";
 export { default as ContentEditor } from "./ContentEditor";
-export { default as DebugViewPlugin } from "./DebugViewPlugin";
 export { default as LinkMonitorPlugin } from "./LinkMonitor";
 export { default as LinkPreviewerPlugin } from "./LinkPreviewer";
 export { default as OnChangePlugin } from "./OnChange";

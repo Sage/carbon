@@ -164,13 +164,11 @@ export const TextEditor = ({
   useEffect(() => {
     const editor = editorRef.current;
     const safeValue = value || createEmpty();
+
     /* istanbul ignore else */
-    if (safeValue) {
-      /* istanbul ignore else */
-      if (editor) {
-        const newEditorState = editor.parseEditorState(safeValue);
-        editor.setEditorState(newEditorState);
-      }
+    if (editor) {
+      const newEditorState = editor.parseEditorState(safeValue);
+      editor.setEditorState(newEditorState);
     }
   }, [cancelTrigger, value]);
 
