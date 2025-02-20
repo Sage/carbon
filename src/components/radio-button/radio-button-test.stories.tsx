@@ -186,17 +186,13 @@ WithTooltipPositionOnRadioGroup.storyName =
 export const WithNewValidation = (props: Partial<RadioButtonProps>) => {
   return (
     <CarbonProvider validationRedesignOptIn>
-      <RadioButton
-        id="radio-1"
-        value="radio1"
-        label="Radiobutton 1"
-        {...props}
-      />
+      <RadioButton id="radio-1" value="radio1" {...props} />
     </CarbonProvider>
   );
 };
 
 WithNewValidation.args = {
+  label: "Radiobutton 1",
   error: true,
   warning: false,
   fieldHelp: "",
@@ -205,6 +201,8 @@ WithNewValidation.args = {
   checked: false,
   disabled: false,
   labelSpacing: 1,
+  reverse: false,
+  size: "small",
 };
 
 export const WithNewValidationGroup = ({
@@ -212,11 +210,7 @@ export const WithNewValidationGroup = ({
 }: Partial<RadioButtonGroupProps>) => {
   return (
     <CarbonProvider validationRedesignOptIn>
-      <RadioButtonGroup
-        name="radio-button-group"
-        legend="Radio group legend"
-        {...props}
-      >
+      <RadioButtonGroup name="radio-button-group" {...props}>
         <RadioButton id="radio-1" value="radio1" label="Yes" />
         <RadioButton id="radio-2" value="radio2" label="No" />
         <RadioButton
@@ -231,11 +225,14 @@ export const WithNewValidationGroup = ({
 };
 
 WithNewValidationGroup.args = {
+  id: "new-validation",
+  legend: "Radio group legend",
   error: "Error message",
   warning: "",
   legendHelp: "Legend help text",
-  legendInline: false,
+  legendAlign: "left",
   required: true,
+  isOptional: false,
   inline: false,
 };
 WithNewValidationGroup.parameters = {

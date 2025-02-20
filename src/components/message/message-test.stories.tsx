@@ -38,7 +38,9 @@ export const Default = ({ title, children, ...args }: MessageProps) => {
   };
   return (
     <>
-      <Button onClick={handleOpen}>Open Message</Button>
+      <Button mb={2} onClick={handleOpen}>
+        Open Message
+      </Button>
       <Message open={isOpen} onDismiss={onDismiss} title={title} {...args}>
         {children}
       </Message>
@@ -54,6 +56,7 @@ Default.args = {
   transparent: false,
   children: "This is some information from the Message Component.",
   showCloseIcon: true,
+  width: "",
 };
 
 export const Transparent = (args: MessageProps) => {

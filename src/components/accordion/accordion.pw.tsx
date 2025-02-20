@@ -38,6 +38,7 @@ import {
 } from "./components.test-pw";
 
 import { additionalButton as splitAdditionalButtons } from "../../../playwright/components/split-button";
+import Typography from "../typography";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -634,6 +635,32 @@ test.describe("Accessibility tests for Accordion", () => {
     page,
   }) => {
     await mount(<AccordionDefault variant="subtle" />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility tests for Accordion when title is a string", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<AccordionDefault title="title" />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility tests for Accordion when title is a React node", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <AccordionDefault
+        title={
+          <Typography variant="h4" backgroundColor="blue" color="yellow">
+            Title
+          </Typography>
+        }
+      />,
+    );
 
     await checkAccessibility(page);
   });

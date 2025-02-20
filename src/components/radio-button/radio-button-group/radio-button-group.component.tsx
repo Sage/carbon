@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { MarginProps } from "styled-system";
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import Fieldset from "../../../__internal__/fieldset";
@@ -15,9 +15,16 @@ import NewValidationContext from "../../carbon-provider/__internal__/new-validat
 import ValidationMessage from "../../../__internal__/validation-message/validation-message.component";
 import Box from "../../box";
 import { ErrorBorder } from "../../textbox/textbox.style";
+import guid from "../../../__internal__/utils/helpers/guid";
+import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility";
 
 let deprecateUncontrolledWarnTriggered = false;
 export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
+  /**
+   * Unique identifier for the component.
+   * Will use a randomly generated GUID if none is provided.
+   */
+  id?: string;
   /** Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLegendBreakpoint?: number;
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
@@ -28,7 +35,7 @@ export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
   inline?: boolean;
   /** Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) */
   labelSpacing?: 1 | 2;
-  /** The content for the RadioGroup Legend */
+  /** The content for the RadioButtonGroup Legend */
   legend?: string;
   /**
    * The content for the RadioButtonGroup hint text,
@@ -59,36 +66,35 @@ export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
-export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
-  const {
-    children,
-    name,
-    legend,
-    legendHelp,
-    error,
-    warning,
-    info,
-    onBlur,
-    onChange,
-    value,
-    inline = false,
-    legendInline = false,
-    legendWidth,
-    legendAlign = "left",
-    legendSpacing,
-    labelSpacing = 1,
-    adaptiveLegendBreakpoint,
-    adaptiveSpacingBreakpoint,
-    required,
-    isOptional,
-    tooltipPosition,
-  } = props;
-
+export const RadioButtonGroup = ({
+  children,
+  id,
+  name,
+  legend,
+  legendHelp,
+  error,
+  warning,
+  info,
+  onBlur,
+  onChange,
+  value,
+  inline = false,
+  legendInline = false,
+  legendWidth,
+  legendAlign = "left",
+  legendSpacing,
+  labelSpacing = 1,
+  adaptiveLegendBreakpoint,
+  adaptiveSpacingBreakpoint,
+  required,
+  isOptional,
+  tooltipPosition,
+  ...rest
+}: RadioButtonGroupProps) => {
   const { validationRedesignOptIn } = useContext(NewValidationContext);
-
-  const legendInlineWithNewValidation = validationRedesignOptIn
-    ? false
-    : legendInline;
+  const internalId = useRef(guid());
+  const uniqueId = id || internalId.current;
+  const inputHintId = legendHelp ? `${uniqueId}-hint` : undefined;
 
   if (!deprecateUncontrolledWarnTriggered && !onChange) {
     deprecateUncontrolledWarnTriggered = true;
@@ -97,7 +103,7 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
     );
   }
 
-  const marginProps = filterStyledSystemMarginProps(props);
+  const marginProps = filterStyledSystemMarginProps(rest);
 
   const isAboveLegendBreakpoint = useIsAboveBreakpoint(
     adaptiveLegendBreakpoint,
@@ -107,7 +113,7 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
     adaptiveSpacingBreakpoint,
   );
 
-  let inlineLegend = legendInlineWithNewValidation;
+  let inlineLegend = legendInline;
   if (adaptiveLegendBreakpoint) {
     inlineLegend = !!isAboveLegendBreakpoint;
   }
@@ -117,6 +123,18 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
     marginLeft = undefined;
   }
 
+  const { validationId, ariaDescribedBy } = useInputAccessibility({
+    id: uniqueId,
+    validationRedesignOptIn: true,
+    error,
+    warning,
+    info,
+  });
+
+  const combinedAriaDescribedBy = [ariaDescribedBy, inputHintId]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <>
       {validationRedesignOptIn ? (
@@ -124,20 +142,26 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
           legend={legend}
           error={error}
           warning={warning}
-          inline={inlineLegend}
-          legendWidth={legendWidth}
           legendAlign={legendAlign}
-          legendSpacing={legendSpacing}
           isRequired={required}
           isOptional={isOptional}
-          {...tagComponent("radiogroup", props)}
+          {...tagComponent("radiogroup", rest)}
           {...marginProps}
           ml={marginLeft}
           blockGroupBehaviour={!(error || warning)}
+          {...(combinedAriaDescribedBy && {
+            "aria-describedby": combinedAriaDescribedBy,
+          })}
         >
-          {legendHelp && <StyledHintText>{legendHelp}</StyledHintText>}
+          {legendHelp && (
+            <StyledHintText id={inputHintId}>{legendHelp}</StyledHintText>
+          )}
           <Box position="relative">
-            <ValidationMessage error={error} warning={warning} />
+            <ValidationMessage
+              error={error}
+              warning={warning}
+              validationId={validationId}
+            />
             {(error || warning) && (
               <ErrorBorder
                 data-role="radio-error-border"
@@ -187,10 +211,12 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
             legendSpacing={legendSpacing}
             isRequired={required}
             isOptional={isOptional}
-            {...tagComponent("radiogroup", props)}
+            {...tagComponent("radiogroup", rest)}
             {...marginProps}
             ml={marginLeft}
             blockGroupBehaviour={!(error || warning || info)}
+            aria-describedby={ariaDescribedBy}
+            validationId={validationId}
           >
             <RadioButtonGroupStyle
               data-component="radio-button-group"

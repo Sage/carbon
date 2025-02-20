@@ -530,7 +530,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
           legendWidth={labelWidth}
           legendSpacing={labelSpacing}
           validationId={validationId}
-          aria-describedby={ariaDescribedBy}
+          aria-describedby={validationOnLabel ? ariaDescribedBy : fieldHelpId}
           {...filterStyledSystemMarginProps(rest)}
         >
           <Box display="flex" flexDirection="column" mt={inline ? 0 : 1}>
