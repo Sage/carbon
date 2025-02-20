@@ -26,10 +26,13 @@ function getDraggableItemData(
 }
 
 function isDraggableItemData(
-  data: Partial<DraggableItemData> | any,
+  data: unknown
 ): data is DraggableItemData {
   return (
-    data && typeof data === "object" && data[draggableItemDataKey] === true
+    data !== null && 
+    typeof data === "object" && 
+    draggableItemDataKey in data &&
+    (data as Record<string, unknown>)[draggableItemDataKey] === true
   );
 }
 
