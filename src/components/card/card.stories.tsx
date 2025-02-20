@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState, createContext, useContext, useMemo } from "react";
+import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
 
@@ -13,7 +13,7 @@ import IconButton from "../icon-button";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import DraggableProvider from "../../hooks/useDraggable/draggable-provider";
-import useDraggable, { DragState} from "../../hooks/useDraggable/useDraggable";
+import useDraggable from "../../hooks/useDraggable/useDraggable";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -738,17 +738,33 @@ export const WithStringAsChild: Story = () => {
 WithStringAsChild.parameters = { chromatic: { disableSnapshot: true } };
 WithStringAsChild.storyName = "With String as Child";
 
-
-
 export const WithDraggable: Story = () => {
-  const Column = ({ title, id, children }: { title: string; id: string; children?: React.ReactNode }) => {
-    const [DraggableContainer, containerDragState] = useDraggable({ draggableItems: children, id, containerStyle: { width: "inherit" }, indicatorColor: "black" });
-    const isDragging = containerDragState?.draggingBetweenContainers && containerDragState.targetContainerId === id;
+  const Column = ({
+    title,
+    id,
+    children,
+  }: {
+    title: string;
+    id: string;
+    children?: React.ReactNode;
+  }) => {
+    const [DraggableContainer, containerDragState] = useDraggable({
+      draggableItems: children,
+      containerStyle: { width: "inherit" },
+      indicatorColor: "black",
+    });
+    const isDragging =
+      containerDragState?.draggingBetweenContainers &&
+      containerDragState.targetContainerId === id;
 
     return (
       <Box
         id={id}
-        backgroundColor={isDragging ? "var(--colorsActionMajor500)" : "var(--colorsUtilityMajor075)"}
+        backgroundColor={
+          isDragging
+            ? "var(--colorsActionMajor500)"
+            : "var(--colorsUtilityMajor075)"
+        }
         height="max-content"
         minHeight="150px"
         width="260px"
@@ -758,32 +774,49 @@ export const WithDraggable: Story = () => {
         m={2}
         py={2}
       >
-        <Typography variant="b" color={isDragging ? "var(--colorsGray000)" : undefined}>{title}</Typography>
-          {DraggableContainer}
+        <Typography
+          variant="b"
+          color={isDragging ? "var(--colorsGray000)" : undefined}
+        >
+          {title}
+        </Typography>
+        {DraggableContainer}
       </Box>
     );
   };
 
   const renderCard = (id: string, title: string) => (
-        <Card id={id} width="inherit" draggable>
-          <CardRow pt={0}>
-            <CardColumn align="left">
-              <Heading title={title} divider={false} />
-              <Typography>user.name@sage.com</Typography>
-            </CardColumn>
-            <CardColumn align="right">
-              <Icon type="image" />
-            </CardColumn>
-          </CardRow>
-        </Card>
-    );
+    <Card id={id} width="inherit" draggable>
+      <CardRow pt={0}>
+        <CardColumn align="left">
+          <Heading title={title} divider={false} />
+          <Typography>user.name@sage.com</Typography>
+        </CardColumn>
+        <CardColumn align="right">
+          <Icon type="image" />
+        </CardColumn>
+      </CardRow>
+    </Card>
+  );
 
   return (
-    <Box width="700px" height="450px" display="flex" justifyContent="space-around">
+    <Box
+      width="700px"
+      height="450px"
+      display="flex"
+      justifyContent="space-around"
+    >
       <DraggableProvider>
-        {[{ title: "Product One", id: "draggable-container-1", cards: [1, 2, 3] }, { title: "Product Two", id: "draggable-container-2", cards: [4] }].map(({ title, id, cards }) => (
+        {[
+          {
+            title: "Product One",
+            id: "draggable-container-1",
+            cards: [1, 2, 3],
+          },
+          { title: "Product Two", id: "draggable-container-2", cards: [4] },
+        ].map(({ title, id, cards }) => (
           <Column key={id} title={title} id={id}>
-            {cards.map(num => renderCard(`card${num}`, `Card ${num}`))}
+            {cards.map((num) => renderCard(`card${num}`, `Card ${num}`))}
           </Column>
         ))}
       </DraggableProvider>
