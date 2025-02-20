@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+
 import { MarginProps, margin } from "styled-system";
 
 import { baseTheme } from "../../style/themes";
@@ -116,12 +117,12 @@ const StyledContentBody = styled.div<StyledContentBodyProps>`
       css`
         margin-top: 15px;
       `}
-      
+
       ${inline &&
       !bodyFullWidth &&
       css`
         margin-top: 0;
-        margin-left: 30px;
+        margin-left: var(--spacing300);
         text-align: left;
       `}
     `;
