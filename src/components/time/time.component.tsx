@@ -28,6 +28,8 @@ export type TimeValue = {
   hours: string;
   minutes: string;
   period?: ToggleValue;
+  formattedHours?: string;
+  formattedMinutes?: string;
 };
 
 export interface TimeInputEvent {
@@ -81,7 +83,7 @@ export interface TimeProps
   /** Set a name value on the component */
   name?: string;
   /** Callback called when focus is lost on input elements */
-  onBlur?: (ev?: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (ev?: React.FocusEvent<HTMLInputElement>, value?: TimeValue) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** Flag to configure component as optional */
@@ -149,7 +151,17 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       minutes: minuteValue,
       period: toggleValue,
     } = value;
+    const formattedHoursValue = hourValue.length
+      ? hourValue.padStart(2, "0")
+      : hourValue;
+    const formattedMinutesValue = minuteValue.length
+      ? minuteValue.padStart(2, "0")
+      : minuteValue;
     const [inputValues, setInputValues] = useState([hourValue, minuteValue]);
+    const [formattedInputValues, setFormattedInputValues] = useState([
+      formattedHoursValue,
+      formattedMinutesValue,
+    ]);
     const locale = useLocale();
     const showToggle = toggleValue !== undefined;
     const [period, setPeriod] = useState(toggleValue);
@@ -216,25 +228,38 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     ) => {
       const hours = inputName === "hrs" ? ev.target.value : inputValues[0];
       const minutes = inputName === "mins" ? ev.target.value : inputValues[1];
-
       setInputValues([hours, minutes]);
+
+      const formattedHours = hours.length ? hours.padStart(2, "0") : hours;
+      const formattedMinutes = minutes.length
+        ? minutes.padStart(2, "0")
+        : minutes;
+      setFormattedInputValues([formattedHours, formattedMinutes]);
+
       onChange({
         target: {
           name,
           id: internalId.current,
-          value: { hours, minutes, period },
+          value: { hours, minutes, period, formattedHours, formattedMinutes },
         },
       });
     };
 
     const handlePeriodChange = (periodName: ToggleValue) => {
       const [hours, minutes] = inputValues;
+      const [formattedHours, formattedMinutes] = formattedInputValues;
       setPeriod(periodName);
       onChange({
         target: {
           name,
           id: internalId.current,
-          value: { hours, minutes, period: periodName },
+          value: {
+            hours,
+            minutes,
+            period: periodName,
+            formattedHours,
+            formattedMinutes,
+          },
         },
       });
     };
@@ -242,15 +267,25 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     const handleBlur = useCallback(
       (ev: React.FocusEvent<HTMLInputElement>) => {
         setTimeout(() => {
+          const [hours, minutes] = inputValues;
+          const [formattedHours, formattedMinutes] = formattedInputValues;
+          const timeValueObj = {
+            hours,
+            minutes,
+            period,
+            formattedHours,
+            formattedMinutes,
+          };
+
           if (
             hoursRef.current !== document.activeElement &&
             minsRef.current !== document.activeElement
           ) {
-            onBlur?.(ev);
+            onBlur?.(ev, timeValueObj);
           }
         });
       },
-      [onBlur],
+      [formattedInputValues, inputValues, onBlur, period],
     );
 
     return (
