@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from "react";
+import React, { forwardRef, useMemo, useEffect } from "react";
 import { MarginProps } from "styled-system";
 
 import invariant from "invariant";
@@ -7,8 +7,9 @@ import DraggableItem from "./draggable-item/draggable-item.component";
 
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { StyledDraggableContainer } from "./draggable-item/draggable-item.style";
-import { UseDraggableHandle } from "../../hooks/useDraggable/useDraggable";
-import useDraggable from "../../hooks/useDraggable/useDraggable";
+import useDraggable, {
+  UseDraggableHandle,
+} from "../../hooks/useDraggable/useDraggable";
 
 type FlexDirection = "row-reverse" | "row";
 
@@ -29,7 +30,6 @@ export interface DraggableContainerProps extends MarginProps, TagProps {
    * Can be either "row" or "row-reverse".
    */
   flexDirection?: FlexDirection;
-  id?: string | number;
 }
 
 const DraggableContainer = forwardRef<UseDraggableHandle, DraggableContainerProps>(({
@@ -38,7 +38,6 @@ const DraggableContainer = forwardRef<UseDraggableHandle, DraggableContainerProp
   children,
   getOrder,
   flexDirection = "row",
-  id,
   ...rest
 }: DraggableContainerProps, ref): JSX.Element => {
 
@@ -57,13 +56,22 @@ const DraggableContainer = forwardRef<UseDraggableHandle, DraggableContainerProp
     `\`${DraggableContainer.displayName}\` only accepts children of type \`${DraggableItem.displayName}\`.`,
   );
 
-  const marginProps = filterStyledSystemMarginProps(rest);
+    const marginProps = filterStyledSystemMarginProps(rest);
 
-    const [draggableHookContainer] = useDraggable({
+    const [draggableHookContainer, , idOrder] = useDraggable({
       draggableItems: children,
-      id,
       ref,
     });
+
+    useEffect(() => {
+      const { draggableItemIds, movedItemId } = idOrder;
+
+      if (!draggableItemIds || !movedItemId) return;
+
+      if (getOrder) {
+        getOrder(draggableItemIds, movedItemId);
+      }
+    }, [idOrder, getOrder]);
 
     return (
       <StyledDraggableContainer

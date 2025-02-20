@@ -15,9 +15,9 @@ import {
   dropTargetForElements,
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
-import { isDraggableItemData, DragState } from "./draggable-utils";
+import { isDraggableItemData } from "./draggable-utils";
 
-import { UseDraggableHandle } from "../useDraggable";
+import { UseDraggableHandle, UseDraggableContext } from "../useDraggable";
 import DraggableProviderContext from "../draggable-provider-context";
 import guid from "../../../../src/__internal__/utils/helpers/guid";
 import DraggableContainerContext from "../draggable-container-context";
@@ -25,7 +25,6 @@ import DraggableItemContext from "../draggable-item-context";
 
 export interface DraggableContainerProps {
   children?: React.ReactNode;
-  id?: string | number;
   containerStyle?: CSSProperties;
   containerNode?: string;
 }
@@ -37,13 +36,22 @@ const DraggableContainer = forwardRef<
   (
     {
       children,
-      id,
       containerStyle,
       containerNode = "div",
     }: DraggableContainerProps,
     ref,
   ): JSX.Element => {
+    const { register, lists, move } = useContext(DraggableProviderContext);
+    const { setIdOrder } = useContext(UseDraggableContext);
     const [list, setList] = useState<React.ReactNode[]>([]);
+
+    const uniqueId = useRef(guid());
+    const containerRef = useRef<HTMLDivElement>();
+    const hasMounted = useRef(false);
+
+    const effectiveList = useMemo(() => {
+      return list.length > 0 ? list : lists?.[uniqueId.current] || [];
+    }, [list, lists]);
 
     const localRegister = (items: React.ReactNode | React.ReactNode[]) => {
       setList((prevList) =>
@@ -53,12 +61,29 @@ const DraggableContainer = forwardRef<
 
     const localMove = useCallback(
       (itemId: string | number, toIndex: number) => {
-        // currently relies on the children of draggable item having a unique id
-        const fromIndex = list.findIndex(
-          (item) =>
-            React.isValidElement(item) &&
-            item.props.children.props.id === itemId,
+        if (!itemId || toIndex < 0) {
+          return;
+        }
+
+        const elements = Array.from(
+          document.querySelectorAll(
+            `[data-parent-container-id="${uniqueId.current}"]`,
+          ),
         );
+
+        const fromIndex = elements.findIndex(
+          (item) => item.getAttribute("data-item-id") === itemId,
+        );
+
+        const allIds = elements
+          .map((element) => element?.children[0].getAttribute("id"))
+          .filter(Boolean) as string[];
+        const childId =
+          elements[fromIndex]?.children[0]?.getAttribute("id") || null;
+
+        if (allIds.length > 0 && childId) {
+          setIdOrder({ draggableItemIds: allIds, movedItemId: childId });
+        }
 
         const copy = [...list];
 
@@ -66,29 +91,19 @@ const DraggableContainer = forwardRef<
         copy.splice(toIndex, 0, nodeToMove);
         setList(copy);
       },
-      [list],
+      [list, setIdOrder],
     );
-
-    const { register, lists, move } = useContext(DraggableProviderContext);
-
-    const uniqueId = useRef(guid());
-
-    const effectiveList = useMemo(() => {
-      return list.length > 0 ? list : lists?.[id || uniqueId.current] || [];
-    }, [list, lists, id]);
-
-    const hasMounted = useRef(false);
 
     useEffect(() => {
       if (!hasMounted.current) {
         if (register) {
-          register(id || uniqueId.current, React.Children.toArray(children));
+          register(uniqueId.current, React.Children.toArray(children));
         } else {
           localRegister(React.Children.toArray(children));
         }
         hasMounted.current = true;
       }
-    }, [children, id, register]);
+    }, [children, register]);
 
     useImperativeHandle(ref, () => ({
       reOrder: (itemId: number | string, toIndex: number) => {
@@ -96,72 +111,52 @@ const DraggableContainer = forwardRef<
       },
     }));
 
-    const itemRef = useRef<HTMLDivElement | null>(null);
-
     useEffect(() => {
-      const element = itemRef.current;
-      if (!element) {
-        return;
-      }
-    
+      const element = containerRef.current as Element;
       const cleanup = combine(
-        dropTargetForElements({
-          element,
-        }),
+        dropTargetForElements({ element }),
         monitorForElements({
           canMonitor({ source }) {
-            return isDraggableItemData(source.data);
+            return (
+              element &&
+              isDraggableItemData(source.data) &&
+              source.data.parentContainerId === uniqueId.current
+            );
           },
           onDrop({ location, source }) {
             const target = location.current.dropTargets[0];
-            if (!target) {
-              return;
+            if (target) {
+              const indexOfTarget = Number(target.data.itemIndex);
+              const destinationId = source.data.itemId as string | number;
+
+              if (!move) {
+                localMove(destinationId, indexOfTarget);
+              }
             }
-    
-            const sourceData = source.data;
-            const targetData = target.data;
-            if (
-              !isDraggableItemData(sourceData) ||
-              !isDraggableItemData(targetData)
-            ) {
-              return;
-            }
-            const indexOfSource = Number(sourceData.itemIndex);
-            const indexOfTarget = Number(targetData.itemIndex);
-            const destinationId = Number(sourceData.itemId);
-    
-            if (indexOfTarget < 0 || indexOfSource < 0) {
-              return;
-            }
-    
-            if (!move) {
-              localMove(destinationId, indexOfTarget);
-              return;
-            }
-            return;
           },
-        })
+        }),
       );
-    
-      return () => {
-        cleanup();
-      };
-    }, [move, localMove]);
+
+      return () => cleanup();
+    }, [localMove, move]);
 
     return (
       <DraggableContainerContext.Provider
-        value={{ columnId: id || uniqueId.current }}
+        value={{ columnId: uniqueId.current }}
       >
         {React.createElement(
           containerNode,
           {
             "data-element": "use-draggable-container",
-            id: id || uniqueId.current,
+            id: uniqueId.current,
             style: containerStyle,
-            ref: itemRef,
+            ref: containerRef,
           },
           (effectiveList || []).map((child: React.ReactNode, index: number) => (
-            <DraggableItemContext.Provider value={{ index }}>
+            <DraggableItemContext.Provider
+              key={`${uniqueId.current}-${guid()}`}
+              value={{ index }}
+            >
               {child}
             </DraggableItemContext.Provider>
           )),
