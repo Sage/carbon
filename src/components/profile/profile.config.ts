@@ -8,14 +8,14 @@ export default {
     nameSize: "var(--fontSizes050)",
     emailSize: "var(--fontSizes025)",
     lineHeight: "12px",
-    marginLeft: "16px",
+    marginLeft: "8px",
   },
   S: {
     initialSize: "var(--fontSizes100)",
     nameSize: "var(--fontSizes100)",
     emailSize: "var(--fontSizes100)",
     lineHeight: "16px",
-    marginLeft: "16px",
+    marginLeft: "8px",
   },
   M: {
     initialSize: "var(--fontSizes300)",
