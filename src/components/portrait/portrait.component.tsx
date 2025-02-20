@@ -58,7 +58,7 @@ export interface PortraitProps extends MarginProps {
   foregroundColor?: string;
 }
 
-const Portrait = ({
+export const Portrait = ({
   alt,
   backgroundColor,
   foregroundColor = undefined,
