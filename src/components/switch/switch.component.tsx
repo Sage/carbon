@@ -174,6 +174,7 @@ export const Switch = React.forwardRef(
       required,
       isOptional,
       ...rest,
+      "data-component": undefined,
     };
 
     // Created separate const declarations to help when removing the old validation.

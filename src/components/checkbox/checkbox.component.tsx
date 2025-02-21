@@ -120,6 +120,7 @@ export const Checkbox = React.forwardRef(
       labelWidth,
       ref,
       ...rest,
+      "data-component": undefined,
     };
 
     const validationProps = {

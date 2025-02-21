@@ -129,17 +129,6 @@ test.describe("Prop tests", () => {
     });
   });
 
-  test("should render with data-component prop set to playwright_data", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<ButtonToggleComponent data-component={CHARACTERS.STANDARD} />);
-
-    await expect(
-      buttonToggleButton(page).first().locator(".."),
-    ).toHaveAttribute("data-component", CHARACTERS.STANDARD);
-  });
-
   test("should render with data-element prop set to playwright_data", async ({
     mount,
     page,
@@ -405,23 +394,6 @@ test.describe("Accessibility tests", () => {
 });
 
 test.describe("Prop tests for group component", () => {
-  test("should render with data-component prop set to playwright_data", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <ButtonToggleGroupComponent
-        data-role="button-toggle-group"
-        data-component={testPropValue}
-      />,
-    );
-
-    await expect(page.getByTestId("button-toggle-group")).toHaveAttribute(
-      "data-component",
-      testPropValue,
-    );
-  });
-
   test("should render with data-element prop set to playwright_data", async ({
     mount,
     page,

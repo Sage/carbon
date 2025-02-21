@@ -118,6 +118,7 @@ export const RadioButton = React.forwardRef<
       reverse: !reverse,
       ref,
       ...props,
+      "data-component": undefined,
     };
 
     invariant(

@@ -658,15 +658,6 @@ test.describe("Accessibility tests", () => {
     });
   });
 
-  test("check accessibility with data-component prop set", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SwitchComponent data-component={CHARACTERS.STANDARD} />);
-
-    await checkAccessibility(page);
-  });
-
   test("check accessibility with data-element prop set", async ({
     mount,
     page,
