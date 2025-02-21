@@ -183,6 +183,19 @@ export const AccordionWithDefinitionList = () => {
 };
 AccordionWithDefinitionList.storyName = "Accordion With Definition List";
 
+export const AccordionWithLongSubtitle = () => (
+  <Accordion
+    title="Heading"
+    subTitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    width="514px"
+  />
+);
+
+AccordionWithLongSubtitle.storyName = "Accordion With Long Subtitle";
+AccordionWithLongSubtitle.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
 export const AccordionWithValidations = () => {
   const [validationKey, setValidationKey] = useState<string>("error");
   const props = useMemo(() => {
