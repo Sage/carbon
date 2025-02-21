@@ -21,10 +21,7 @@ export interface SearchEvent {
   };
 }
 
-export interface SearchProps
-  extends ValidationProps,
-    MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface SearchProps extends ValidationProps, MarginProps, TagProps {
   /** Prop to specify the aria-label of the search component */
   "aria-label"?: string;
   /** Prop to specify the aria-label of the search button */

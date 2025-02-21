@@ -8,7 +8,7 @@ import { menuKeyboardNavigation } from "./__internal__/keyboard-navigation";
 import { MENU_ITEM_CHILDREN_LOCATOR } from "./__internal__/locators";
 
 export interface MenuProps
-  extends Omit<TagProps, "data-component">,
+  extends TagProps,
     Pick<
       LayoutProps,
       | "width"

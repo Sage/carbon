@@ -17,7 +17,7 @@ import NewValidationContext from "../carbon-provider/__internal__/new-validation
 export interface CheckboxProps
   extends CommonCheckableInputProps,
     MarginProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
   adaptiveSpacingBreakpoint?: number;
   /** Prop to specify the aria-labelledby property of the input */

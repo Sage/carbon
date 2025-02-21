@@ -26,9 +26,7 @@ function acronymize(str?: string) {
 
 let useOfNoNameWarnTriggered = false;
 
-export interface ProfileProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface ProfileProps extends MarginProps, TagProps {
   /**
    * @private
    * @internal

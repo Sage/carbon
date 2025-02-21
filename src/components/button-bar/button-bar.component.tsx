@@ -9,7 +9,7 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 export interface ButtonBarProps
   extends ButtonBarContextProps,
     SpaceProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Button or IconButton Elements, to be rendered inside the component */
   children: React.ReactNode;
 }

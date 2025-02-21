@@ -80,6 +80,8 @@ export interface FormFieldProps extends CommonFormFieldProps, TagProps {
   useValidationIcon?: boolean;
   /** String value for max-width of `field-line` element */
   maxWidth?: string;
+  /** @private @internal @ignore */
+  "data-component"?: string;
 }
 
 const FormField = ({

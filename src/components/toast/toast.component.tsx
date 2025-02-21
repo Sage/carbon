@@ -41,7 +41,7 @@ interface IconTypes {
   notice?: "none";
 }
 
-export interface ToastProps extends Omit<TagProps, "data-component"> {
+export interface ToastProps extends TagProps {
   /** Sets the horizontal alignment of the component. */
   align?: AlignOptions;
   /** Sets the vertical alignment of the component */

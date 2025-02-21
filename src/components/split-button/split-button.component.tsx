@@ -31,7 +31,7 @@ const CONTENT_WIDTH_RATIO = 0.75;
 export interface SplitButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     MarginProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Set align of the rendered content */
   align?: "left" | "right";
   /** Button type: "primary" | "secondary" */

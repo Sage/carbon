@@ -21,7 +21,7 @@ import ValidationIcon from "../../__internal__/validations";
 export interface AccordionProps
   extends StyledAccordionContainerProps,
     SpaceProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Content of the Accordion component */
   children?: React.ReactNode;
   /** Set the default state of expansion of the Accordion if component is meant to be used as uncontrolled */

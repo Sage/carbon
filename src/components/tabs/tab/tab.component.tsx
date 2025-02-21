@@ -6,9 +6,7 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags/tags";
 import TabContext from "./__internal__/tab.context";
 
-export interface TabProps
-  extends PaddingProps,
-    Omit<TagProps, "data-component"> {
+export interface TabProps extends PaddingProps, TagProps {
   title?: string;
   /** A unique ID to identify this specific tab. */
   tabId: string;

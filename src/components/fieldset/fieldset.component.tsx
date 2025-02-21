@@ -7,9 +7,7 @@ import NewValidationContext from "../carbon-provider/__internal__/new-validation
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
-export interface FieldsetProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface FieldsetProps extends MarginProps, TagProps {
   /** Child elements */
   children?: React.ReactNode;
   /** The text for the fieldset's legend element. */

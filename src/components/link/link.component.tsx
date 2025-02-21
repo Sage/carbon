@@ -12,7 +12,7 @@ import BatchSelectionContext from "../batch-selection/__internal__/batch-selecti
 export interface LinkProps
   extends StyledLinkProps,
     React.AriaAttributes,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** An href for an anchor tag. */
   href?: string;
   /** An icon to display next to the link. */

@@ -10,9 +10,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import guid from "../../__internal__/utils/helpers/guid";
 
-export interface HelpProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface HelpProps extends MarginProps, TagProps {
   /** Overrides the default 'as' attribute of the Help component */
   as?: keyof JSX.IntrinsicElements;
   /** Aria label */

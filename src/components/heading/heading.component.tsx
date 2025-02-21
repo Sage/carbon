@@ -21,9 +21,7 @@ import {
 import useLocale from "../../hooks/__internal__/useLocale";
 
 export type HeadingType = "h1" | "h2" | "h3" | "h4" | "h5";
-export interface HeadingProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface HeadingProps extends MarginProps, TagProps {
   /** Child elements */
   children?: React.ReactNode;
   /** Defines the title for the heading. */

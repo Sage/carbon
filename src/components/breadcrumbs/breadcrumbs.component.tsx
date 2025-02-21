@@ -5,9 +5,7 @@ import StyledBreadcrumbs from "./breadcrumbs.style";
 import useLocale from "../../hooks/__internal__/useLocale";
 import BreadcrumbsContext from "./__internal__/breadcrumbs.context";
 
-export interface BreadcrumbsProps
-  extends Omit<TagProps, "data-component">,
-    SpaceProps {
+export interface BreadcrumbsProps extends TagProps, SpaceProps {
   /** Child crumbs to display */
   children: React.ReactNode;
   /** Sets the colour styling when component is rendered on a dark background */

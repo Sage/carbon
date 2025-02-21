@@ -14,9 +14,7 @@ import { FormButtonAlignment, formSpacing } from "./form.config";
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import ModalContext from "../modal/__internal__/modal.context";
 
-export interface FormProps
-  extends SpaceProps,
-    Omit<TagProps, "data-component"> {
+export interface FormProps extends SpaceProps, TagProps {
   /** Alignment of buttons */
   buttonAlignment?: FormButtonAlignment;
   /** Child elements */

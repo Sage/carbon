@@ -16,7 +16,7 @@ import StyledLoaderBar, {
 export interface LoaderBarProps
   extends StyledLoaderBarProps,
     MarginProps,
-    Omit<TagProps, "data-component"> {}
+    TagProps {}
 
 export const LoaderBar = ({ size = "medium", ...rest }: LoaderBarProps) => {
   const l = useLocale();

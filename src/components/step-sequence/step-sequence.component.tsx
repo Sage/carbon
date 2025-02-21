@@ -7,9 +7,7 @@ export const StepSequenceContext = React.createContext<{
   orientation: "horizontal" | "vertical";
 }>({ orientation: "horizontal" });
 
-export interface StepSequenceProps
-  extends SpaceProps,
-    Omit<TagProps, "data-component"> {
+export interface StepSequenceProps extends SpaceProps, TagProps {
   /** Step sequence items to be rendered */
   children: React.ReactNode;
   /** The direction that step sequence items should be rendered */

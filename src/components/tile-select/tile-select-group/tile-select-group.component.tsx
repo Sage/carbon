@@ -12,9 +12,7 @@ import {
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TileSelectDeselectEvent } from "../tile-select.component";
 
-export interface TileSelectGroupProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface TileSelectGroupProps extends MarginProps, TagProps {
   /** The TileSelect components to be rendered in the group */
   children: React.ReactNode;
   /** The content for the TileSelectGroup Legend */

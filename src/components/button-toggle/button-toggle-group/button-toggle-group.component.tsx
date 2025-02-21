@@ -55,6 +55,8 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   allowDeselect?: boolean;
   /** Disable all user interaction. */
   disabled?: boolean;
+  /** @private @internal @ignore */
+  "data-component"?: string;
 }
 
 const BUTTON_TOGGLE_SELECTOR = '[data-element="button-toggle-button"]';

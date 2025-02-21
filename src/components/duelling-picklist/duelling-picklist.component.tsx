@@ -16,9 +16,7 @@ import FocusContext, {
   FocusContextType,
 } from "./__internal__/duelling-picklist.context";
 
-export interface DuellingPicklistProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface DuellingPicklistProps extends MarginProps, TagProps {
   /**
    * Content of the component, should contain two Picklist children
    * and a PicklistDivider

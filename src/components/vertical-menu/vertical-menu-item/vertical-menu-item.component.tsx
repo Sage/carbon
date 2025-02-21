@@ -19,7 +19,7 @@ import MenuItemContext from "./__internal__/menu-item.context";
 
 export interface VerticalMenuItemProps<T = React.ElementType>
   extends PaddingProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Children of the menu item - another level of VerticalMenuItems */
   children?: React.ReactNode;
   /** Default open state of the component */

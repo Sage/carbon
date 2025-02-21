@@ -11,8 +11,7 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 
-export interface StepSequenceItemProps
-  extends Omit<TagProps, "data-component"> {
+export interface StepSequenceItemProps extends TagProps {
   /** Aria label */
   ariaLabel?: string;
   /** Hidden label to be displayed if item is complete */

@@ -6,7 +6,7 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 
-export interface MenuDividerProps extends Omit<TagProps, "data-component"> {
+export interface MenuDividerProps extends TagProps {
   size?: "default" | "large";
 }
 

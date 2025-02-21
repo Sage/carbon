@@ -9,9 +9,7 @@ import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import { StyledDraggableItem } from "./draggable-item.style";
 import Icon from "../../icon";
 
-export interface DraggableItemProps
-  extends PaddingProps,
-    Omit<TagProps, "data-component"> {
+export interface DraggableItemProps extends PaddingProps, TagProps {
   /**
    * The id of the `DraggableItem`.
    *

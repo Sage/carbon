@@ -20,7 +20,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 export interface SwitchProps
   extends CommonCheckableInputProps,
     MarginProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Set the default value of the Switch if component is meant to be used as uncontrolled */

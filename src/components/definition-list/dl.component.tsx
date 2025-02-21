@@ -4,10 +4,7 @@ import { StyledDl } from "./definition-list.style";
 import DlContext, { DlContextProps } from "./__internal__/dl.context";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface DlProps
-  extends SpaceProps,
-    DlContextProps,
-    Omit<TagProps, "data-component"> {
+export interface DlProps extends SpaceProps, DlContextProps, TagProps {
   /** HTML id attribute of the input */
   id?: string;
   /** prop to render children. */

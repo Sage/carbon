@@ -15,7 +15,7 @@ export interface DismissibleBoxProps
   extends SpaceProps,
     StyledDismissibleBoxProps,
     Omit<BoxProps, "display" | "justifyContent" | "bg" | "backgroundColor">,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** The content to render in the component */
   children?: React.ReactNode;
   /** Data tag prop bag for close Button */

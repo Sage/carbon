@@ -25,7 +25,7 @@ let deprecateUncontrolledWarnTriggered = false;
 export interface RadioButtonGroupProps
   extends ValidationProps,
     MarginProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /**
    * Unique identifier for the component.
    * Will use a randomly generated GUID if none is provided.

@@ -21,7 +21,7 @@ interface ImageShape {
   alt?: string;
 }
 
-export interface LinkPreviewProps extends Omit<TagProps, "data-component"> {
+export interface LinkPreviewProps extends TagProps {
   /** Used to set the root element to either an anchor link or div container */
   as?: "a" | "div";
   /** The description to be displayed */

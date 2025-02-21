@@ -9,7 +9,7 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 
-export interface ScrollableBlockProps extends Omit<TagProps, "data-component"> {
+export interface ScrollableBlockProps extends TagProps {
   /** Children elements */
   children: React.ReactNode;
   /** A custom height to be applied to the component. */

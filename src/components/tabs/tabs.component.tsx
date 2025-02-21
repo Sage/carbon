@@ -21,9 +21,7 @@ import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 
-export interface TabsProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface TabsProps extends MarginProps, TagProps {
   /** Prevent rendering of hidden tabs, by default this is set to true and therefore all tabs will be rendered */
   renderHiddenTabs?: boolean;
   /** Allows manual control over the currently selected tab. */

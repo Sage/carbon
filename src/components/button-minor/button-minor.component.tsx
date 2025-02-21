@@ -4,7 +4,7 @@ import { ButtonProps } from "../button";
 import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
-export interface ButtonMinorProps extends Omit<ButtonProps, "data-component"> {
+export interface ButtonMinorProps extends ButtonProps {
   /** @private @ignore */
   isInPassword?: boolean;
 }

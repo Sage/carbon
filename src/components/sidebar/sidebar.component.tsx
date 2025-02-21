@@ -21,7 +21,7 @@ type CustomRefObject<T> = {
 
 export interface SidebarProps
   extends PaddingProps,
-    Omit<TagProps, "data-component">,
+    TagProps,
     WidthProps,
     Pick<ModalProps, "topModalOverride" | "restoreFocusOnClose"> {
   /** Prop to specify the aria-describedby property of the component */

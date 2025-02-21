@@ -122,6 +122,8 @@ export interface CommonTextboxProps
   isOptional?: boolean;
   /** The id attribute for the validation tooltip */
   tooltipId?: string;
+  /** @private @internal @ignore */
+  "data-component"?: string;
 }
 
 export interface TextboxProps extends CommonTextboxProps {

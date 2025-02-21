@@ -11,7 +11,7 @@ export type NavigationType = "light" | "dark" | "white" | "black";
 export interface NavigationBarProps
   extends PaddingProps,
     FlexboxProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Content of the component */
   children?: React.ReactNode;
   /** HTML aria-label attribute */

@@ -7,9 +7,7 @@ import tagComponent, {
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import { StyledVerticalMenuItem, StyledTitle } from "../vertical-menu.style";
 
-export interface VerticalMenuTriggerProps
-  extends PaddingProps,
-    Omit<TagProps, "data-component"> {
+export interface VerticalMenuTriggerProps extends PaddingProps, TagProps {
   /** Height of the menu trigger */
   height?: string;
   /** Title of the menu trigger */

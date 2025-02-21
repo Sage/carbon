@@ -8,7 +8,7 @@ import {
 import BatchSelectionContext from "./__internal__/batch-selection.context";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface BatchSelectionProps extends Omit<TagProps, "data-component"> {
+export interface BatchSelectionProps extends TagProps {
   /** Content to be rendered after selected count */
   children: React.ReactNode;
   /** Color of the background, transparent if not defined */

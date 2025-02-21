@@ -6,9 +6,7 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import IconButton from "../icon-button";
 
-export interface PillProps
-  extends StyledPillProps,
-    Omit<TagProps, "data-component"> {
+export interface PillProps extends StyledPillProps, TagProps {
   /** The content to display inside of the pill.  */
   children: string;
   /** Change the color of a status pill. */

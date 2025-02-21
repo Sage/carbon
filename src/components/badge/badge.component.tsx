@@ -7,7 +7,7 @@ import {
 } from "./badge.style";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface BadgeProps extends Omit<TagProps, "data-component"> {
+export interface BadgeProps extends TagProps {
   /** Prop to specify an aria-label for the component */
   "aria-label"?: string;
   /** The badge will be added to this element */

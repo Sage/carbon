@@ -26,7 +26,7 @@ export interface AdvancedColor {
 export interface AdvancedColorPickerProps
   extends MarginProps,
     Pick<ModalProps, "restoreFocusOnClose">,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**

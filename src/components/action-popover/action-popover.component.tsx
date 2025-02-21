@@ -47,9 +47,7 @@ export interface RenderButtonProps {
   };
 }
 
-export interface ActionPopoverProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface ActionPopoverProps extends MarginProps, TagProps {
   /** Children for popover component */
   children?: React.ReactNode;
   /** Horizontal alignment of menu items content */

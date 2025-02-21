@@ -11,9 +11,7 @@ import {
   StyledDescription,
 } from "./progress-tracker.style";
 
-export interface ProgressTrackerProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface ProgressTrackerProps extends MarginProps, TagProps {
   /** Size of the progress bar. */
   size?: "small" | "medium" | "large";
   /** Length of the component, any valid css string. */

@@ -33,6 +33,8 @@ export interface ButtonToggleProps
   pressed?: boolean;
   /** An optional string by which to identify the button in either an onClick handler, or an onChange handler on the parent ButtonToggleGroup. */
   value?: string;
+  /** @private @internal @ignore */
+  "data-component"?: string;
 }
 
 export const ButtonToggle = ({

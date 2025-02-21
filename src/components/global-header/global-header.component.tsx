@@ -8,7 +8,7 @@ import { TagProps } from "../../__internal__/utils/helpers/tags";
 export interface GlobalHeaderProps
   extends PaddingProps,
     FlexboxProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Child elements */
   children?: React.ReactNode;
   /** Logo to render */

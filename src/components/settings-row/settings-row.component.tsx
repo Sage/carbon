@@ -12,9 +12,7 @@ import {
   StyledSettingsRowInput,
 } from "./settings-row.style";
 
-export interface SettingsRowProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface SettingsRowProps extends MarginProps, TagProps {
   /**  A title for this group of settings. */
   title?: string;
   /** Defines the HTML heading element of the `title` within the component. */

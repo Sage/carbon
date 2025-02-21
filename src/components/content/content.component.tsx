@@ -14,7 +14,7 @@ export interface ContentProps
   extends StyledContentProps,
     StyledContentTitleProps,
     StyledContentBodyProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** The body of the content component */
   children?: React.ReactNode;
   /** The title of the content component */

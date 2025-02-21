@@ -6,7 +6,7 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 
-export interface DtProps extends SpaceProps, Omit<TagProps, "data-component"> {
+export interface DtProps extends SpaceProps, TagProps {
   /** Prop for what will render in the `<Dd></Dd>` tags */
   children: React.ReactNode;
 }

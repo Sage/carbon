@@ -66,7 +66,7 @@ export interface NumeralDateEvent<
 export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
   extends ValidationProps,
     MarginProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** If true, the component will be disabled */

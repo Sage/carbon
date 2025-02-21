@@ -38,9 +38,7 @@ export interface TileSelectDeselectEvent {
   };
 }
 
-export interface TileSelectProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface TileSelectProps extends MarginProps, TagProps {
   /** title of the TileSelect */
   title?: React.ReactNode;
   /** adornment to be rendered next to the title */

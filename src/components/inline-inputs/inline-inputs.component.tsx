@@ -26,7 +26,7 @@ export interface InlineInputsProps
   extends MarginProps,
     StyledContentContainerProps,
     StyledInlineInputsProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Breakpoint for adaptive label (inline label change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Children elements */

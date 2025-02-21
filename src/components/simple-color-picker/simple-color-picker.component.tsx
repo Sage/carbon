@@ -28,7 +28,7 @@ let deprecateUncontrolledWarnTriggered = false;
 export interface SimpleColorPickerProps
   extends ValidationProps,
     MarginProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** The SimpleColor components to be rendered in the group */
   children?: React.ReactNode;
   /** prop that represents childWidth */

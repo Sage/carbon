@@ -21,8 +21,7 @@ import AnchorNavigationItem, {
   AnchorNavigationItemProps,
 } from "./anchor-navigation-item/anchor-navigation-item.component";
 
-export interface AnchorNavigationProps
-  extends Omit<TagProps, "data-component"> {
+export interface AnchorNavigationProps extends TagProps {
   /** Child elements */
   children?: React.ReactNode;
   /** The AnchorNavigationItems components to be rendered in the sticky navigation.

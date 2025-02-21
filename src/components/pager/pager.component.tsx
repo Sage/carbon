@@ -19,7 +19,7 @@ type PageSizeOption = {
   name: number;
 };
 
-export interface PagerProps extends Omit<TagProps, "data-component"> {
+export interface PagerProps extends TagProps {
   /** Function called when pager changes (Current page, Page size, Origin component) */
   onPagination: (currentPage: number, pageSize: number, origin: string) => void;
   /** Callback function for next link */

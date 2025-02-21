@@ -4,6 +4,13 @@ interface RestProps {
 }
 
 export interface TagProps {
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-element"?: string;
+  /** Identifier used for testing purposes, applied to the root element of the component. */
+  "data-role"?: string;
+}
+
+interface InternalTagProps extends TagProps {
   /**
    * @private
    * @internal
@@ -12,10 +19,6 @@ export interface TagProps {
    * INTERNAL USE ONLY.
    */
   "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
 }
 
 /**
@@ -24,8 +27,8 @@ export interface TagProps {
 function tagComponent(
   componentName: string | undefined,
   props: TagProps & RestProps,
-): TagProps {
-  const tagProps: TagProps = {
+): InternalTagProps {
+  const tagProps: InternalTagProps = {
     "data-component": componentName,
   };
 

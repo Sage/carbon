@@ -13,9 +13,7 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags/tags";
 import useTableCell from "../__internal__/use-table-cell";
 
-export interface FlatTableRowHeaderProps
-  extends PaddingProps,
-    Omit<TagProps, "data-component"> {
+export interface FlatTableRowHeaderProps extends PaddingProps, TagProps {
   /** Content alignment */
   align?: TableCellAlign;
   /** RowHeader content */

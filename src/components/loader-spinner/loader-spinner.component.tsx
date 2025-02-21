@@ -17,9 +17,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Typography from "../typography";
 
-export interface LoaderSpinnerProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface LoaderSpinnerProps extends MarginProps, TagProps {
   /**
    * Use the spinnerLabel prop to override the default `"Loading..."` label with
    * any custom string

@@ -19,9 +19,7 @@ import LinkPreview, { LinkPreviewProps } from "../link-preview";
 import Typography from "../typography";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface NoteProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface NoteProps extends MarginProps, TagProps {
   /** Adds a created on date to the Note footer */
   createdDate: string;
   /** renders a control for the Note */

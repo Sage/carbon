@@ -21,9 +21,7 @@ import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
 import { PodAlignment, PodSize, PodVariant } from "./pod.config";
 
-export interface PodProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface PodProps extends MarginProps, TagProps {
   /** Aligns the title to left, right or center */
   alignTitle?: PodAlignment;
   /** Enables/disables the border around the pod. */

@@ -3,7 +3,7 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import { StyledVerticalMenu, StyledList } from "./vertical-menu.style";
 
-export interface VerticalMenuProps extends Omit<TagProps, "data-component"> {
+export interface VerticalMenuProps extends TagProps {
   /** An aria-label attribute for the menu */
   "aria-label"?: string;
   /** An aria-labelledby attribute for the menu */

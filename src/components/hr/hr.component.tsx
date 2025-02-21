@@ -5,7 +5,7 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import StyledHr from "./hr.style";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 
-export interface HrProps extends MarginProps, Omit<TagProps, "data-component"> {
+export interface HrProps extends MarginProps, TagProps {
   /** Set whether the component should be recognised by assistive technologies */
   "aria-hidden"?: "true" | "false";
   /** Breakpoint for adaptive left and right margins (below the breakpoint they go to 0).

@@ -106,9 +106,7 @@ type TintRange =
   | 99
   | 100;
 
-export interface VerticalDividerProps
-  extends SpaceProps,
-    Omit<TagProps, "data-component"> {
+export interface VerticalDividerProps extends SpaceProps, TagProps {
   /** Shorthand for the height attribute */
   h?: number | string;
   /** Height attribute of the component */

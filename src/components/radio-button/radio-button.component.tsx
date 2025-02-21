@@ -17,7 +17,7 @@ interface InternalRadioButtonProps {
 export interface RadioButtonProps
   extends Omit<CommonCheckableInputProps, "required" | "IsOptional">,
     MarginProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Accepts a callback function which is triggered on click event */
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** the value of the Radio Button, passed on form submit */

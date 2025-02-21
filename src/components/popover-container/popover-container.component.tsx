@@ -107,9 +107,7 @@ export const renderClose = ({
   </PopoverContainerCloseIcon>
 );
 
-export interface PopoverContainerProps
-  extends PaddingProps,
-    Omit<TagProps, "data-component"> {
+export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** A function that will render the open component
    *
    * `({tabIndex, isOpen, data-element, onClick, ref, aria-label}) => ()`

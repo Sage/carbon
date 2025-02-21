@@ -23,7 +23,7 @@ export interface CrumbProps
       | "icon"
       | "disabled"
     >,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** This sets the Crumb to current, does not render Link */
   isCurrent?: boolean;
 }

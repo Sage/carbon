@@ -20,9 +20,7 @@ export type MessageVariant =
   | "warning"
   | "neutral";
 
-export interface MessageProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface MessageProps extends MarginProps, TagProps {
   /** Set the component's content */
   children?: React.ReactNode;
   /** Set custom aria-label for component's close button */

@@ -33,7 +33,7 @@ export interface TextareaProps
   extends ValidationProps,
     MarginProps,
     Omit<CommonInputProps, "size">,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Prop to specify the aria-labelledby property of the component */
   "aria-labelledby"?: string;
   /** id of the input */
