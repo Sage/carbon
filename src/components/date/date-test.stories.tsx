@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { StoryObj } from "@storybook/react";
-import deLocale from "date-fns/locale/de";
+import { de as deLocale } from "date-fns/locale/de";
 
 import DateInput, { DateChangeEvent } from "./date.component";
 import {

@@ -1,18 +1,20 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import enGBLocale from "date-fns/locale/en-GB";
-import deLocale from "date-fns/locale/de";
-import esLocale from "date-fns/locale/es";
-import enCALocale from "date-fns/locale/en-CA";
-import enZALocale from "date-fns/locale/en-ZA";
-import frLocale from "date-fns/locale/fr";
-import frCALocale from "date-fns/locale/fr-CA";
-import enUSLocale from "date-fns/locale/en-US";
-import zhCNLocale from "date-fns/locale/zh-CN";
+import type { Day } from "date-fns";
+import { de as deLocale } from "date-fns/locale/de";
+import { enCA as enCALocale } from "date-fns/locale/en-CA";
+import { enGB as enGBLocale } from "date-fns/locale/en-GB";
+import { enUS as enUSLocale } from "date-fns/locale/en-US";
+import { enZA as enZALocale } from "date-fns/locale/en-ZA";
+import { es as esLocale } from "date-fns/locale/es";
+import { fr as frLocale } from "date-fns/locale/fr";
+import { frCA as frCALocale } from "date-fns/locale/fr-CA";
+import { zhCN as zhCNLocale } from "date-fns/locale/zh-CN";
+import type { Locale } from "react-day-picker";
 
-import DatePicker, { DatePickerProps } from "./date-picker.component";
 import I18nProvider from "../../../i18n-provider";
+import DatePicker, { DatePickerProps } from "./date-picker.component";
 
 interface MockProps extends Omit<DatePickerProps, "inputElement"> {
   open?: boolean;
@@ -41,7 +43,7 @@ const getWeekdayTranslations = (
   const startDay = locale.options?.weekStartsOn || 0;
 
   return locale.localize
-    ?.day((index + startDay) % 7, { width: "abbreviated" })
+    ?.day(((index + startDay) % 7) as Day, { width: "abbreviated" })
     .substring(0, substringLimit);
 };
 

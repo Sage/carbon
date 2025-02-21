@@ -1,4 +1,4 @@
-import enUSDateLocale from "date-fns/locale/en-US";
+import { enUS as enUSDateLocale } from "date-fns/locale/en-US";
 
 import Locale from "./locale";
 

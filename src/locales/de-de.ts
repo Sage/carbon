@@ -1,4 +1,4 @@
-import deDEDateLocale from "date-fns/locale/de";
+import { de as deDEDateLocale } from "date-fns/locale/de";
 
 import Locale from "./locale";
 
