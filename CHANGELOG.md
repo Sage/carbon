@@ -1,3 +1,9 @@
+## [147.11.0](https://github.com/Sage/carbon/compare/v147.10.0...v147.11.0) (2025-02-21)
+
+### Features
+
+* **content:** reduce margin of content body to 24px when inline ([cfb02ba](https://github.com/Sage/carbon/commit/cfb02ba7be9ad7c13a82c4ac14ddea17fbdb6e0d))
+
 ## [147.10.0](https://github.com/Sage/carbon/compare/v147.9.1...v147.10.0) (2025-02-21)
 
 ### Features
