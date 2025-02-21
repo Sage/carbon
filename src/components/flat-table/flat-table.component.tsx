@@ -13,9 +13,7 @@ import Events from "../../__internal__/utils/helpers/events/events";
 import FlatTableContext from "./__internal__/flat-table.context";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface FlatTableProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface FlatTableProps extends MarginProps, TagProps {
   /** The HTML id of the element that contains a description of this table. */
   ariaDescribedby?: string;
   /** A string to render as the table's caption */

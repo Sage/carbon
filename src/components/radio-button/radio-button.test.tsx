@@ -176,6 +176,19 @@ test("sets the aria-label of the help icon to the provided `helpAriaLabel`", () 
   expect(helpIcon).toBeVisible();
 });
 
+test("renders with provided data- attributes", () => {
+  render(
+    <RadioButton
+      value="radio1"
+      label="Radio Button 1"
+      data-role="bar"
+      data-element="baz"
+    />,
+  );
+
+  expect(screen.getByTestId("bar")).toHaveAttribute("data-element", "baz");
+});
+
 // coverage
 test("renders with expected styles when `size` is 'large'", () => {
   render(<RadioButton value="radio1" label="Radio Button 1" size="large" />);

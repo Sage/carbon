@@ -23,6 +23,18 @@ describe("When ButtonBar children are Button components", () => {
     expect(buttonChildren).toHaveLength(3);
   });
 
+  it("should render with provided data- attributes", () => {
+    render(
+      <ButtonBar data-element="bar" data-role="baz">
+        <Button aria-label="button-in-bar">foo</Button>
+        <Button aria-label="button-in-bar">bar</Button>
+        <Button aria-label="button-in-bar">baz</Button>
+      </ButtonBar>,
+    );
+
+    expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+  });
+
   it("should render the Buttons with icons as expected when the 'iconType' prop is set", () => {
     render(
       <ButtonBar>

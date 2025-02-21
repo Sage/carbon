@@ -21,7 +21,7 @@ export type LegacyIconTypes =
 export interface IconProps
   extends Omit<StyledIconProps, "type">,
     MarginProps,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /** Set whether icon should be recognised by assistive technologies */
   "aria-hidden"?: boolean;
   /** Aria label for accessibility purposes */

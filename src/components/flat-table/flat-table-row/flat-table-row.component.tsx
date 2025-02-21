@@ -24,7 +24,7 @@ import SubRowProvider, { SubRowContext } from "./__internal__/sub-row-provider";
 import { buildPositionMap } from "../__internal__";
 import FlatTableHeadContext from "../flat-table-head/__internal__/flat-table-head.context";
 
-export interface FlatTableRowProps extends Omit<TagProps, "data-component"> {
+export interface FlatTableRowProps extends TagProps {
   /** Overrides default cell color, provide design token, any color from palette or any valid css color value. */
   bgColor?: string;
   /** Array of FlatTableHeader or FlatTableCell. FlatTableRowHeader could also be passed. */

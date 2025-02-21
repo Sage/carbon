@@ -8,9 +8,7 @@ import FlatTableContext from "../__internal__/flat-table.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useTableCell from "../__internal__/use-table-cell";
 
-export interface FlatTableHeaderProps
-  extends PaddingProps,
-    Omit<TagProps, "data-component"> {
+export interface FlatTableHeaderProps extends PaddingProps, TagProps {
   /** Content alignment */
   align?: TableCellAlign;
   /** If true sets alternative background color */

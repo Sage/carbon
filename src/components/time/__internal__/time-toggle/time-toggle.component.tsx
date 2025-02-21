@@ -7,12 +7,12 @@ import useLocale from "../../../../hooks/__internal__/useLocale";
 import { ButtonToggle, ButtonToggleGroup } from "../../../button-toggle";
 
 export interface ToggleDataProps {
-  wrapperProps?: Omit<TagProps, "data-component">;
-  amToggleProps?: Omit<TagProps, "data-component">;
-  pmToggleProps?: Omit<TagProps, "data-component">;
+  wrapperProps?: TagProps;
+  amToggleProps?: TagProps;
+  pmToggleProps?: TagProps;
 }
 
-export interface ToggleProps extends Omit<TagProps, "data-component"> {
+export interface ToggleProps extends TagProps {
   size?: "small" | "medium" | "large";
   onChange: (pressedValue: ToggleValue) => void;
   toggleValue: ToggleValue;

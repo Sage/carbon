@@ -18,7 +18,6 @@ import {
   switchFieldHelp,
 } from "../../../playwright/components/switch/index";
 import {
-  getComponent,
   fieldHelpPreview,
   tooltipPreview,
   getDataElementByValue,
@@ -102,15 +101,6 @@ test.describe("Prop tests for Switch component", () => {
         await expect(switchInput(page)).not.toBeDisabled();
       }
     });
-  });
-
-  test("should render with data-component", async ({ mount, page }) => {
-    await mount(<SwitchComponent data-component={CHARACTERS.STANDARD} />);
-
-    await expect(getComponent(page, CHARACTERS.STANDARD)).toHaveAttribute(
-      "data-component",
-      CHARACTERS.STANDARD,
-    );
   });
 
   test("should render with data-element", async ({ mount, page }) => {
@@ -666,15 +656,6 @@ test.describe("Accessibility tests", () => {
 
       await checkAccessibility(page);
     });
-  });
-
-  test("check accessibility with data-component prop set", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SwitchComponent data-component={CHARACTERS.STANDARD} />);
-
-    await checkAccessibility(page);
   });
 
   test("check accessibility with data-element prop set", async ({

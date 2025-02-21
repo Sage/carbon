@@ -26,7 +26,6 @@ import {
 } from "../../../playwright/components/checkbox";
 import {
   fieldHelpPreview,
-  getComponent,
   tooltipPreview,
 } from "../../../playwright/components/index";
 import {
@@ -46,7 +45,7 @@ const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const boolVals = [true, false];
 
 test("should have the expected focus styling", async ({ mount, page }) => {
-  await mount(<CheckboxComponent data-component={CHARACTERS.STANDARD} />);
+  await mount(<CheckboxComponent />);
 
   const checkboxElement = checkboxRole(page);
   await checkboxElement.focus();
@@ -62,19 +61,6 @@ test("should have the expected focus styling", async ({ mount, page }) => {
 });
 
 test.describe("should render Checkbox component and check props", () => {
-  test(`should render with data-component set to ${CHARACTERS.STANDARD}`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<CheckboxComponent data-component={CHARACTERS.STANDARD} />);
-
-    const checkbox = getComponent(page, CHARACTERS.STANDARD);
-    await expect(checkbox).toHaveAttribute(
-      "data-component",
-      CHARACTERS.STANDARD,
-    );
-  });
-
   test(`should render with data-element set to ${CHARACTERS.STANDARD}`, async ({
     mount,
     page,

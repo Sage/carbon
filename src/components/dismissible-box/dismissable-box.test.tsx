@@ -18,6 +18,14 @@ test("calls the `onClose` callback when the close button is clicked", async () =
   );
 });
 
+test("renders with custom data tags", () => {
+  render(
+    <DismissibleBox onClose={() => {}} data-element="bar" data-role="foo" />,
+  );
+
+  expect(screen.getByTestId("foo")).toHaveAttribute("data-element", "bar");
+});
+
 test("allows custom data props to be assigned to the close button", () => {
   render(
     <DismissibleBox

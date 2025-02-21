@@ -4,8 +4,12 @@ import StyledButtonBar from "./button-bar.style";
 import ButtonBarContext, {
   ButtonBarContextProps,
 } from "./__internal__/button-bar.context";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface ButtonBarProps extends ButtonBarContextProps, SpaceProps {
+export interface ButtonBarProps
+  extends ButtonBarContextProps,
+    SpaceProps,
+    TagProps {
   /** Button or IconButton Elements, to be rendered inside the component */
   children: React.ReactNode;
 }
@@ -17,7 +21,12 @@ export const ButtonBar = ({
   fullWidth = false,
   ...rest
 }: ButtonBarProps) => (
-  <StyledButtonBar {...rest} fullWidth={fullWidth} size={size}>
+  <StyledButtonBar
+    {...rest}
+    {...tagComponent("button-bar", rest)}
+    fullWidth={fullWidth}
+    size={size}
+  >
     <ButtonBarContext.Provider
       value={{ buttonType: "secondary", size, iconPosition, fullWidth }}
     >

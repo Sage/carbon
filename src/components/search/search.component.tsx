@@ -1,6 +1,7 @@
 import React, { useState, useRef, useImperativeHandle } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import StyledSearch from "./search.style";
 import StyledSearchButton from "./search-button.style";
@@ -20,7 +21,7 @@ export interface SearchEvent {
   };
 }
 
-export interface SearchProps extends ValidationProps, MarginProps {
+export interface SearchProps extends ValidationProps, MarginProps, TagProps {
   /** Prop to specify the aria-label of the search component */
   "aria-label"?: string;
   /** Prop to specify the aria-label of the search button */
@@ -257,11 +258,10 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         variant={variant}
         mb={0}
         {...filterStyledSystemMarginProps(rest)}
-        data-component="search"
-        data-role="search"
         id={id}
         name={name}
         {...rest}
+        {...tagComponent("search", rest)}
       >
         <Textbox
           placeholder={placeholder}

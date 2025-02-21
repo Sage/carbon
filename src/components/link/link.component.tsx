@@ -3,11 +3,16 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import Icon, { IconType } from "../icon";
 import MenuContext from "../menu/__internal__/menu.context";
 import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
-export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
+export interface LinkProps
+  extends StyledLinkProps,
+    React.AriaAttributes,
+    TagProps {
   /** An href for an anchor tag. */
   href?: string;
   /** An icon to display next to the link. */

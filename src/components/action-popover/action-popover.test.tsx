@@ -38,7 +38,7 @@ afterEach(() => {
 testStyledSystemMargin(
   (props) => (
     <ThemeProvider theme={sageTheme}>
-      <ActionPopover {...props}>
+      <ActionPopover data-role="action-popover-wrapper" {...props}>
         <ActionPopoverItem href="#" download>
           test download
         </ActionPopoverItem>
@@ -102,7 +102,10 @@ test("has proper data attributes applied to elements", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(
-    <ActionPopover>
+    <ActionPopover
+      data-role="action-popover-role"
+      data-element="action-popover-element"
+    >
       <ActionPopoverItem>example item 1</ActionPopoverItem>
       <ActionPopoverDivider />
       <ActionPopoverItem>example item 2</ActionPopoverItem>
@@ -111,9 +114,13 @@ test("has proper data attributes applied to elements", async () => {
 
   await user.click(screen.getByRole("button"));
 
-  expect(screen.getByTestId("action-popover-wrapper")).toHaveAttribute(
+  expect(screen.getByTestId("action-popover-role")).toHaveAttribute(
     "data-component",
     "action-popover-wrapper",
+  );
+  expect(screen.getByTestId("action-popover-role")).toHaveAttribute(
+    "data-element",
+    "action-popover-element",
   );
   expect(screen.getByRole("list")).toHaveAttribute(
     "data-component",

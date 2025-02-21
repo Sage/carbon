@@ -78,3 +78,16 @@ test("renders with a tick Icon when status is 'complete'", () => {
 
   expect(within(step).getByTestId("icon")).toHaveAttribute("type", "tick");
 });
+
+test("renders with provided data- attributes", () => {
+  render(
+    <StepSequenceItem indicator="1" data-element="bar" data-role="baz">
+      Step
+    </StepSequenceItem>,
+  );
+
+  const step = screen.getByRole("listitem");
+
+  expect(step).toHaveAttribute("data-element", "bar");
+  expect(step).toHaveAttribute("data-role", "baz");
+});

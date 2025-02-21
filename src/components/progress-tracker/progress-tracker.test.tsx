@@ -160,6 +160,12 @@ test("renders with correct colour when progress is '100%'", () => {
   );
 });
 
+test("renders with provided data- attributes", () => {
+  render(<ProgressTracker data-role="bar" data-element="baz" />);
+
+  expect(screen.getByTestId("bar")).toHaveAttribute("data-element", "baz");
+});
+
 testStyledSystemMargin(
   (props) => <ProgressTracker data-role="progress" {...props} />,
   () => screen.getByTestId("progress"),

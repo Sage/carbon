@@ -2058,14 +2058,12 @@ test("should set the passed `data-` props as attributes on the root element", ()
     <NumeralDate
       value={{ dd: "", mm: "", yyyy: "" }}
       onChange={() => {}}
-      data-component="numeral-date-root"
       data-element="numeral-date-element"
       data-role="numeral-date-role"
     />,
   );
   const rootElement = screen.getByTestId("numeral-date-role");
 
-  expect(rootElement).toHaveAttribute("data-component", "numeral-date-root");
   expect(rootElement).toHaveAttribute("data-element", "numeral-date-element");
 });
 

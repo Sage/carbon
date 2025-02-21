@@ -1,12 +1,14 @@
 import React, { useState, useCallback, useContext } from "react";
 import { SpaceProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+
 import Events from "../../__internal__/utils/helpers/events";
 import StyledIconButton from "./icon-button.style";
 import { IconProps } from "../icon";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
-export interface IconButtonProps extends SpaceProps {
+export interface IconButtonProps extends SpaceProps, TagProps {
   /** Prop to specify the aria-label of the icon-button component */
   "aria-label"?: string;
   /** Icon meant to be rendered, should be an Icon component */
@@ -27,6 +29,8 @@ export interface IconButtonProps extends SpaceProps {
       | React.KeyboardEvent<HTMLButtonElement>
       | React.MouseEvent<HTMLButtonElement>,
   ) => void;
+  /** @private @internal @ignore */
+  "data-component"?: string;
 }
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -76,6 +80,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         onClick={onClick}
         ref={setRefs}
         disabled={isDisabled}
+        {...tagComponent(rest["data-component"] ?? "icon-button", rest)}
       >
         <TooltipProvider
           disabled={isDisabled}

@@ -132,16 +132,9 @@ export const Heading = ({
   };
 
   const marginProps = filterStyledSystemMarginProps(rest);
-  const dataAttributes = {
-    "data-element": rest["data-element"],
-    "data-role": rest["data-role"],
-  };
 
   return title ? (
-    <StyledHeading
-      {...tagComponent("heading", dataAttributes)}
-      {...marginProps}
-    >
+    <StyledHeading {...tagComponent("heading", rest)} {...marginProps}>
       <StyledHeader
         data-element="header-container"
         divider={divider}

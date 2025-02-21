@@ -1,7 +1,9 @@
 import React from "react";
 import { MarginProps } from "styled-system";
 
-import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags/tags";
 import RadioButtonMapper from "../../../__internal__/radio-button-mapper/radio-button-mapper.component";
 import {
   StyledTileSelectFieldset,
@@ -10,7 +12,7 @@ import {
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TileSelectDeselectEvent } from "../tile-select.component";
 
-export interface TileSelectGroupProps extends MarginProps {
+export interface TileSelectGroupProps extends MarginProps, TagProps {
   /** The TileSelect components to be rendered in the group */
   children: React.ReactNode;
   /** The content for the TileSelectGroup Legend */

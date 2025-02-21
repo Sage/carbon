@@ -11,6 +11,22 @@ import AccordionGroup from "./accordion-group/accordion-group.component";
 jest.mock("../../hooks/__internal__/useResizeObserver");
 
 describe("Accordion", () => {
+  it("renders with expected `data-` attributes on the root element", () => {
+    render(
+      <Accordion
+        title="Title"
+        data-element="accordion-element"
+        data-role="accordion-role"
+      >
+        child content
+      </Accordion>,
+    );
+    const rootElement = screen.getByTestId("accordion-role");
+
+    expect(rootElement).toHaveAttribute("data-component", "accordion");
+    expect(rootElement).toHaveAttribute("data-element", "accordion-element");
+  });
+
   it("should render `title` as a React element", () => {
     render(<Accordion title={<div id="customTitle">Title content</div>} />);
 
@@ -212,7 +228,13 @@ describe("Accordion", () => {
 
   // coverage only - border styles tested in Playwright
   it('has no border when `borders` prop is "none"', () => {
-    render(<Accordion title="Title" borders="none" />);
+    render(
+      <Accordion
+        title="Title"
+        borders="none"
+        data-role="accordion-container"
+      />,
+    );
 
     expect(screen.getByTestId("accordion-container")).toHaveStyleRule(
       "border",

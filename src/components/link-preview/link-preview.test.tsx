@@ -39,7 +39,7 @@ test("renders with the schema removed in the visible link text, via the `url` pr
 });
 
 test('renders with a div root element, when the `as` prop is passed as "div"', () => {
-  render(<LinkPreview as="div" />);
+  render(<LinkPreview data-role="link-preview" as="div" />);
   const linkPreviewWrapper = screen.getByTestId("link-preview");
 
   expect(linkPreviewWrapper.tagName).toBe("DIV");
@@ -119,4 +119,12 @@ test("renders with four loading preview's when the `isLoading` prop is true", ()
   previews.forEach((preview) => {
     expect(preview).toBeVisible();
   });
+});
+
+test("renders with provided data- attributes", () => {
+  render(<LinkPreview data-element="bar" data-role="baz" />);
+
+  const linkPreviewWrapper = screen.getByTestId("baz");
+
+  expect(linkPreviewWrapper).toHaveAttribute("data-element", "bar");
 });

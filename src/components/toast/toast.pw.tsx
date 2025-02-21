@@ -15,10 +15,7 @@ import {
 import { alertDialogPreview } from "../../../playwright/components/dialog";
 import { TOAST_COLORS } from "./toast.config";
 
-import {
-  getDataComponentByValue,
-  button,
-} from "../../../playwright/components";
+import { button } from "../../../playwright/components";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { closeIconButton } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
@@ -73,12 +70,6 @@ test.describe("Toast component", () => {
     await mount(<ToastComponent id={testData} />);
 
     await expect(toastComponent(page)).toHaveId(testData);
-  });
-
-  test("should render with data-component prop", async ({ mount, page }) => {
-    await mount(<ToastComponent data-component={testData} />);
-
-    await expect(getDataComponentByValue(page, testData)).toBeVisible();
   });
 
   (

@@ -9,7 +9,7 @@ import { StyledModal, StyledModalBackground } from "./modal.style";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import ModalContext from "./__internal__/modal.context";
 
-export interface ModalProps extends Omit<TagProps, "data-component"> {
+export interface ModalProps extends TagProps {
   /**
    * @private
    * @internal

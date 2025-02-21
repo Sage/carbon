@@ -10,6 +10,7 @@ import StyledInlineInputs, {
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 type GutterOptions =
   | "none"
@@ -24,7 +25,8 @@ type GutterOptions =
 export interface InlineInputsProps
   extends MarginProps,
     StyledContentContainerProps,
-    StyledInlineInputsProps {
+    StyledInlineInputsProps,
+    TagProps {
   /** Breakpoint for adaptive label (inline label change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Children elements */
@@ -115,12 +117,11 @@ const InlineInputs = ({
   return (
     <StyledInlineInputs
       gutter={gutter}
-      data-component="inline-inputs"
-      data-role="inline-inputs"
       labelWidth={labelWidth}
       labelInline={inlineLabel}
       ref={ref}
       {...marginProps}
+      {...tagComponent("inline-inputs", rest)}
     >
       {renderLabel()}
       <StyledContentContainer

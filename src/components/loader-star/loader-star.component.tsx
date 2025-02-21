@@ -12,7 +12,7 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 import Star from "./internal/star.component";
 import Typography from "../typography";
 
-export interface LoaderStarProps extends Omit<TagProps, "data-component"> {
+export interface LoaderStarProps extends TagProps {
   /**
    * The loaderStarLabel prop allows a specific label to be set.
    * This label will be present if the user has `reduce-motion` enabled and will also be available to assistive technologies.

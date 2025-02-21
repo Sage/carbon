@@ -41,7 +41,7 @@ interface IconTypes {
   notice?: "none";
 }
 
-export interface ToastProps {
+export interface ToastProps extends TagProps {
   /** Sets the horizontal alignment of the component. */
   align?: AlignOptions;
   /** Sets the vertical alignment of the component */
@@ -52,8 +52,6 @@ export interface ToastProps {
   variant?: ToastVariants;
   /** Custom id  */
   id?: string;
-  /** Component name */
-  "data-component"?: string;
   /** Determines if the Toast is open. */
   open?: boolean;
   /** Callback for when dismissed. */
@@ -218,7 +216,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
             alignY={alignY}
             isNotice={isNotice}
             isNotification={isNotification}
-            {...tagComponent(restProps["data-component"] || "toast", restProps)}
+            {...tagComponent("toast", restProps)}
             variant={toastVariant}
             id={id}
             maxWidth={maxWidth}

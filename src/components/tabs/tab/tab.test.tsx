@@ -124,6 +124,15 @@ test("calls the `updateWarnings` function prop when a warning is present in a ch
   expect(updateWarnings).toHaveBeenCalledWith("foo", { bar: true });
 });
 
+test("renders with provided data- attributes", () => {
+  render(<Tab tabId="foo" data-role="bar" data-element="baz" />);
+
+  const tab = screen.getByRole("tabpanel", { hidden: true });
+
+  expect(tab).toHaveAttribute("data-role", "bar");
+  expect(tab).toHaveAttribute("data-element", "baz");
+});
+
 // coverage - need to render the styled component directly to cover the default prop assignments
 test("renders with correct styles", () => {
   render(<StyledTab data-role="styled-component" />);

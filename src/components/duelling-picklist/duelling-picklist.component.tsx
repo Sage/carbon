@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MarginProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import {
@@ -15,7 +16,7 @@ import FocusContext, {
   FocusContextType,
 } from "./__internal__/duelling-picklist.context";
 
-export interface DuellingPicklistProps extends MarginProps {
+export interface DuellingPicklistProps extends MarginProps, TagProps {
   /**
    * Content of the component, should contain two Picklist children
    * and a PicklistDivider
@@ -75,9 +76,8 @@ export const DuellingPicklist = ({
   return (
     <StyledDuellingPicklistOverlay
       disabled={disabled}
-      data-component="duelling-picklist"
-      data-role="duelling-picklist-overlay"
       {...filterStyledSystemMarginProps(rest)}
+      {...tagComponent("duelling-picklist", rest)}
     >
       {shouldDisplayLabels && (
         <StyledLabelContainer>

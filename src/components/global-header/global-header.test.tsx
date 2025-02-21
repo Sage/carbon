@@ -20,6 +20,17 @@ test("should render with 'data-component' set to 'global-header'", () => {
   );
 });
 
+test("should render with provided data- attributes", () => {
+  render(
+    <GlobalHeader data-element="bar" data-role="baz">
+      foobar
+    </GlobalHeader>,
+  );
+
+  expect(screen.getByRole("navigation")).toHaveAttribute("data-element", "bar");
+  expect(screen.getByRole("navigation")).toHaveAttribute("data-role", "baz");
+});
+
 test("should have correct z-index", () => {
   render(<GlobalHeader>foobar</GlobalHeader>);
 

@@ -12,7 +12,7 @@ import { ValidationProps } from "../../../../__internal__/validations";
 
 export interface FormInputPropTypes
   extends ValidationProps,
-    Omit<CommonTextboxProps, "onClick" | "onChange"> {
+    Omit<CommonTextboxProps, "onClick" | "onChange" | "data-component"> {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Prop to specify the aria-label attribute of the component input */

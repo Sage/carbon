@@ -9,9 +9,7 @@ import DraggableItem from "./draggable-item/draggable-item.component";
 import DropTarget from "./__internal__/drop-target.component";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface DraggableContainerProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface DraggableContainerProps extends MarginProps, TagProps {
   /** Callback fired when order is changed */
   getOrder?: (
     draggableItemIds?: (string | number | undefined)[],

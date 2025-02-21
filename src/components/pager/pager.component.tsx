@@ -12,13 +12,14 @@ import {
   StyledSelectContainer,
 } from "./pager.style";
 import Events from "../../__internal__/utils/helpers/events";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 type PageSizeOption = {
   id: string;
   name: number;
 };
 
-export interface PagerProps {
+export interface PagerProps extends TagProps {
   /** Function called when pager changes (Current page, Page size, Origin component) */
   onPagination: (currentPage: number, pageSize: number, origin: string) => void;
   /** Callback function for next link */
@@ -270,10 +271,9 @@ export const Pager = ({
 
   return (
     <StyledPagerContainer
-      data-component="pager"
-      data-role="pager"
       variant={variant}
       {...rest}
+      {...tagComponent("pager", rest)}
     >
       <StyledPagerSizeOptions>{renderPageSizeOptions()}</StyledPagerSizeOptions>
       <PagerNavigation

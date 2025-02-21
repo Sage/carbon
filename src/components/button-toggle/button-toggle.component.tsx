@@ -8,25 +8,21 @@ import {
 import guid from "../../__internal__/utils/helpers/guid";
 import ButtonToggleGroupContext from "./button-toggle-group/__internal__/button-toggle-group.context";
 import ButtonToggleIcon from "./button-toggle-icon.component";
-
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 import Logger from "../../__internal__/utils/logger";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
 
 let deprecateUncontrolledWarnTriggered = false;
 
-export interface ButtonToggleProps extends Partial<StyledButtonToggleProps> {
+export interface ButtonToggleProps
+  extends Partial<StyledButtonToggleProps>,
+    TagProps {
   /** Prop to specify the aria-label of the component */
   "aria-label"?: string;
   /** Prop to specify the aria-labelledby property of the component */
   "aria-labelledby"?: string;
   /** Text to display for the button. */
   children?: React.ReactNode;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
   /** Callback triggered by blur event on the button. */
   onBlur?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
   /** Callback triggered by focus event on the button. */
@@ -37,6 +33,8 @@ export interface ButtonToggleProps extends Partial<StyledButtonToggleProps> {
   pressed?: boolean;
   /** An optional string by which to identify the button in either an onClick handler, or an onChange handler on the parent ButtonToggleGroup. */
   value?: string;
+  /** @private @internal @ignore */
+  "data-component"?: string;
 }
 
 export const ButtonToggle = ({

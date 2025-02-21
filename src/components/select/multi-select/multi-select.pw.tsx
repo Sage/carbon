@@ -149,17 +149,6 @@ test.describe("MultiSelect component", () => {
     await expect(commonDataElementInputPreview(page)).toHaveId(testPropValue);
   });
 
-  test("should render with data-component prop set to test value", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MultiSelectComponent data-component={testPropValue} />);
-
-    await expect(
-      selectElementInput(page).locator("..").locator(".."),
-    ).toHaveAttribute("data-component", testPropValue);
-  });
-
   test("should render with data-element prop set to test value", async ({
     mount,
     page,

@@ -12,7 +12,7 @@ export const FlexTileDivider = (): JSX.Element => {
       width="100vw"
       m="0px 0px -1px 0px"
     >
-      <Hr aria-hidden="true" m={0} />
+      <Hr aria-hidden="true" data-role="hr" m={0} />
     </Box>
   );
 };

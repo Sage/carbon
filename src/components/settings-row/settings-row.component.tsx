@@ -1,7 +1,9 @@
 import React from "react";
 import { MarginProps } from "styled-system";
 import Heading, { HeadingType } from "../heading";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 import {
@@ -10,7 +12,7 @@ import {
   StyledSettingsRowInput,
 } from "./settings-row.style";
 
-export interface SettingsRowProps extends MarginProps {
+export interface SettingsRowProps extends MarginProps, TagProps {
   /**  A title for this group of settings. */
   title?: string;
   /** Defines the HTML heading element of the `title` within the component. */

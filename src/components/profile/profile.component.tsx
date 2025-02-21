@@ -3,7 +3,9 @@ import React from "react";
 import { MarginProps } from "styled-system";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 
 import { ProfileSize } from "./profile.config";
 import {
@@ -24,7 +26,7 @@ function acronymize(str?: string) {
 
 let useOfNoNameWarnTriggered = false;
 
-export interface ProfileProps extends MarginProps {
+export interface ProfileProps extends MarginProps, TagProps {
   /**
    * @private
    * @internal

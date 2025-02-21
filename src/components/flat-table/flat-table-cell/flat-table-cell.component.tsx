@@ -11,9 +11,7 @@ import Icon from "../../icon";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useTableCell from "../__internal__/use-table-cell";
 
-export interface FlatTableCellProps
-  extends PaddingProps,
-    Omit<TagProps, "data-component"> {
+export interface FlatTableCellProps extends PaddingProps, TagProps {
   /** Content alignment */
   align?: TableCellAlign;
   /** Cell content */

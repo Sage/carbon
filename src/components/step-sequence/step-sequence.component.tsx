@@ -1,12 +1,13 @@
 import React from "react";
 import { SpaceProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import StyledStepSequence from "./step-sequence.style";
 
 export const StepSequenceContext = React.createContext<{
   orientation: "horizontal" | "vertical";
 }>({ orientation: "horizontal" });
 
-export interface StepSequenceProps extends SpaceProps {
+export interface StepSequenceProps extends SpaceProps, TagProps {
   /** Step sequence items to be rendered */
   children: React.ReactNode;
   /** The direction that step sequence items should be rendered */
@@ -20,10 +21,10 @@ export const StepSequence = ({
 }: StepSequenceProps) => {
   return (
     <StyledStepSequence
-      data-component="step-sequence"
       orientation={orientation}
       p={0}
       {...props}
+      {...tagComponent("step-sequence", props)}
     >
       <StepSequenceContext.Provider value={{ orientation }}>
         {children}

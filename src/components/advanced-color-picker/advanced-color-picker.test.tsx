@@ -43,7 +43,14 @@ afterAll(() => {
 });
 
 testStyledSystemMargin(
-  (props) => <ControlledColorPicker name="advancedPicker" open {...props} />,
+  (props) => (
+    <ControlledColorPicker
+      data-role="advanced-color-picker-wrapper"
+      name="advancedPicker"
+      open
+      {...props}
+    />
+  ),
   () => screen.getByTestId("advanced-color-picker-wrapper"),
 );
 

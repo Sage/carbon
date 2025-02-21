@@ -1,6 +1,8 @@
 import React, { useContext, useRef } from "react";
 import { MarginProps } from "styled-system";
-import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags/tags";
 import Fieldset from "../../../__internal__/fieldset";
 import RadioButtonGroupStyle, {
   StyledHintText,
@@ -19,7 +21,11 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility";
 
 let deprecateUncontrolledWarnTriggered = false;
-export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
+
+export interface RadioButtonGroupProps
+  extends ValidationProps,
+    MarginProps,
+    TagProps {
   /**
    * Unique identifier for the component.
    * Will use a randomly generated GUID if none is provided.

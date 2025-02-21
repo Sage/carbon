@@ -707,10 +707,16 @@ describe("when the component is uncontrolled", () => {
   });
 
   it("has the correct data tag", () => {
-    render(<Decimal data-role="test-data-tag" />);
-    expect(screen.getByTestId("test-data-tag")).toHaveAttribute(
+    render(
+      <Decimal data-role="test-data-role" data-element="test-data-element" />,
+    );
+    expect(screen.getByTestId("test-data-role")).toHaveAttribute(
       "data-component",
       "decimal",
+    );
+    expect(screen.getByTestId("test-data-role")).toHaveAttribute(
+      "data-element",
+      "test-data-element",
     );
   });
 

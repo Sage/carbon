@@ -272,14 +272,6 @@ test.describe("check props for Number component", () => {
     });
   });
 
-  test("should render with data-component prop", async ({ mount, page }) => {
-    await mount(<NumberInputComponent data-component={CHARACTERS.STANDARD} />);
-
-    await expect(
-      getDataComponentByValue(page, CHARACTERS.STANDARD),
-    ).toBeVisible();
-  });
-
   test("should render with data-element prop", async ({ mount, page }) => {
     await mount(<NumberInputComponent data-element={CHARACTERS.STANDARD} />);
 

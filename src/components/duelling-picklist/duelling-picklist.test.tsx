@@ -620,9 +620,19 @@ test.each([
   },
 );
 
+test("renders with provided data- attributes", () => {
+  render(
+    <DuellingPicklist data-element="bar" data-role="baz">
+      <Picklist />
+    </DuellingPicklist>,
+  );
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 // for coverage (styles are also tested in Playwright)
 test("renders overlay if DuellingPicklistOverlay has disabled prop set", () => {
-  render(<DuellingPicklist disabled />);
+  render(<DuellingPicklist data-role="duelling-picklist-overlay" disabled />);
 
   expect(screen.getByTestId("duelling-picklist-overlay")).toHaveStyle({
     opacity: "0.2",

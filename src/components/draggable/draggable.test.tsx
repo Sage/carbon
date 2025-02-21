@@ -167,6 +167,32 @@ test("throws error when DraggableContainer contains a child which is not Draggab
   jest.restoreAllMocks();
 });
 
+test("renders with provided data- attributes", () => {
+  render(
+    <DraggableContainer
+      data-element="draggable-element"
+      data-role="draggable-role"
+    >
+      <DraggableItem
+        data-element="item-element"
+        data-role="item-role"
+        id="apple"
+      >
+        Apple
+      </DraggableItem>
+    </DraggableContainer>,
+  );
+
+  expect(screen.getByTestId("draggable-role")).toHaveAttribute(
+    "data-element",
+    "draggable-element",
+  );
+  expect(screen.getByTestId("item-role")).toHaveAttribute(
+    "data-element",
+    "item-element",
+  );
+});
+
 testStyledSystemMargin(
   (props) => (
     <DraggableContainer {...props}>

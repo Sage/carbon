@@ -4,7 +4,7 @@ import StyledFlatTableHead from "./flat-table-head.style";
 import { buildPositionMap } from "../__internal__";
 import FlatTableHeadContext from "./__internal__/flat-table-head.context";
 
-export interface FlatTableHeadProps extends Omit<TagProps, "data-component"> {
+export interface FlatTableHeadProps extends TagProps {
   /** Array of FlatTableRow. */
   children: React.ReactNode;
 }

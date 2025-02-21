@@ -12,6 +12,7 @@ import Preview from "../preview";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import Placeholder from "./__internal__/placeholder.component";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 interface ImageShape {
   /** The url string to be passed to image src */
@@ -20,7 +21,7 @@ interface ImageShape {
   alt?: string;
 }
 
-export interface LinkPreviewProps {
+export interface LinkPreviewProps extends TagProps {
   /** Used to set the root element to either an anchor link or div container */
   as?: "a" | "div";
   /** The description to be displayed */
@@ -76,11 +77,11 @@ export const LinkPreview = ({
 
   return (
     <StyledLinkPreview
-      data-role="link-preview"
       as={loadingState ? "div" : as}
       tabIndex={loadingState || as === "div" ? -1 : 0}
       {...linkProps}
       {...rest}
+      {...tagComponent("link-preview", rest)}
     >
       {imageProps().src ? <Image {...imageProps()} /> : <Placeholder />}
       <StyledPreviewWrapper isLoading={loadingState}>

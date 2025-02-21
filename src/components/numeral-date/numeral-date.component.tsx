@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useRef, useMemo } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import { ValidationProps } from "../../__internal__/validations";
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -64,15 +65,10 @@ export interface NumeralDateEvent<
 
 export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
   extends ValidationProps,
-    MarginProps {
+    MarginProps,
+    TagProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
   /** If true, the component will be disabled */
   disabled?: boolean;
   /** If true, the component will be read-only */
@@ -230,9 +226,6 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   disabled,
   error = "",
   warning = "",
-  "data-component": dataComponent,
-  "data-element": dataElement,
-  "data-role": dataRole,
   info,
   id,
   name,
@@ -510,9 +503,6 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     return (
       <TooltipProvider helpAriaLabel={helpAriaLabel}>
         <StyledFieldset
-          data-component={dataComponent || "numeral-date"}
-          data-element={dataElement}
-          data-role={dataRole}
           id={uniqueId}
           legend={label}
           legendMargin={{ mb: 0 }}
@@ -532,6 +522,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
           validationId={validationId}
           aria-describedby={validationOnLabel ? ariaDescribedBy : fieldHelpId}
           {...filterStyledSystemMarginProps(rest)}
+          {...tagComponent("numeral-date", rest)}
         >
           <Box display="flex" flexDirection="column" mt={inline ? 0 : 1}>
             {renderInputs()}
@@ -544,9 +535,6 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
 
   return (
     <StyledFieldset
-      data-component={dataComponent || "numeral-date"}
-      data-element={dataElement}
-      data-role={dataRole}
       id={uniqueId}
       legend={label}
       legendMargin={{ mb: 0 }}
@@ -557,6 +545,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
       name={name}
       aria-describedby={combinedAriaDescribedBy}
       {...filterStyledSystemMarginProps(rest)}
+      {...tagComponent("numeral-date", rest)}
     >
       {labelHelp && (
         <StyledHintText id={inputHintId.current}>{labelHelp}</StyledHintText>

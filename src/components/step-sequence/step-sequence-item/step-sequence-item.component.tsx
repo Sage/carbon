@@ -7,8 +7,11 @@ import {
 } from "./step-sequence-item.style";
 import Icon from "../../icon";
 import { StepSequenceContext } from "../step-sequence.component";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags";
 
-export interface StepSequenceItemProps {
+export interface StepSequenceItemProps extends TagProps {
   /** Aria label */
   ariaLabel?: string;
   /** Hidden label to be displayed if item is complete */
@@ -68,12 +71,12 @@ export const StepSequenceItem = ({
 
   return (
     <StyledStepSequenceItem
-      data-component="step-sequence-item"
       orientation={orientation}
       status={status}
       key={`step-seq-item-${indicator}`}
       aria-label={ariaLabel}
       {...rest}
+      {...tagComponent("step-sequence-item", rest)}
     >
       {hiddenLabel()}
       <StyledStepSequenceItemContent>

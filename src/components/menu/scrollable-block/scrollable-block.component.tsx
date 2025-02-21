@@ -43,10 +43,10 @@ export const ScrollableBlock = ({
 
   return (
     <StyledScrollableBlock
-      {...tagComponent("submenu-scrollable-block", rest)}
       menuType={menuType}
       variant={variant}
       {...rest}
+      {...tagComponent("submenu-scrollable-block", rest)}
     >
       {parent && (
         <MenuItem

@@ -110,17 +110,6 @@ test.describe("SimpleSelect component", () => {
     });
   });
 
-  test("should render with data-component prop set to playwright_data", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectComponent data-component={testPropValue} />);
-
-    await expect(
-      selectElementInput(page).locator("..").locator(".."),
-    ).toHaveAttribute("data-component", testPropValue);
-  });
-
   test("should render with data-element prop set to playwright_data", async ({
     mount,
     page,

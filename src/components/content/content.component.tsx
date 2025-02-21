@@ -8,11 +8,13 @@ import {
   StyledContentBody,
   StyledContentBodyProps,
 } from "./content.style";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export interface ContentProps
   extends StyledContentProps,
     StyledContentTitleProps,
-    StyledContentBodyProps {
+    StyledContentBodyProps,
+    TagProps {
   /** The body of the content component */
   children?: React.ReactNode;
   /** The title of the content component */
@@ -34,7 +36,7 @@ export const Content = ({
       align={align}
       bodyFullWidth={bodyFullWidth}
       {...rest}
-      data-component="content"
+      {...tagComponent("content", rest)}
     >
       <StyledContentTitle
         variant={variant}

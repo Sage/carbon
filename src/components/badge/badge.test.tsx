@@ -3,7 +3,12 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Badge from "./badge.component";
 
-const renderComponent = (props = {}) => render(<Badge {...props}>Foo</Badge>);
+const renderComponent = (props = {}) =>
+  render(
+    <Badge data-role="badge" {...props}>
+      Foo
+    </Badge>,
+  );
 
 describe("Badge", () => {
   it("should render number when counter is between 1 and 99", () => {
@@ -94,6 +99,12 @@ describe("Badge", () => {
     });
 
     expect(screen.getByRole("button")).not.toHaveAttribute("aria-label");
+  });
+
+  it("should render with provided data- attributes", () => {
+    renderComponent({ counter: 9, "data-element": "bar", "data-role": "baz" });
+
+    expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
   });
 
   it("calls onClick callback when badge is clicked", async () => {

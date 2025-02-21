@@ -76,6 +76,8 @@ export interface BoxProps
   opacity?: string | number;
   /** Set the container to be hidden from screen readers */
   "aria-hidden"?: "true" | "false";
+  /** @private @internal @ignore */
+  "data-component"?: string;
 }
 
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(

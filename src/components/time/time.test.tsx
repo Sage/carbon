@@ -1096,33 +1096,31 @@ test("should apply the custom `data-` attributes on the toggle component wrapper
       label="Time"
       onChange={() => {}}
       toggleProps={{
-        wrapperProps: { "data-element": "foo", "data-role": "bar" },
+        wrapperProps: { "data-element": "foo", "data-role": "wrapper-role" },
         amToggleProps: {
           "data-element": "foo",
-          "data-role": "am-button-wrapper",
+          "data-role": "am-button-wrapper-role",
         },
         pmToggleProps: {
           "data-element": "foo",
-          "data-role": "pm-button-wrapper",
+          "data-role": "pm-button-wrapper-role",
         },
       }}
     />,
   );
 
-  const fieldset = screen.getByRole("group", { name: "Time" });
-  const toggleButtonGroup = within(fieldset).getByRole("group");
+  const toggleButtonGroup = screen.getByTestId("wrapper-role");
   expect(toggleButtonGroup).toHaveAttribute(
     "data-component",
     "time-button-toggle-group",
   );
   expect(toggleButtonGroup).toHaveAttribute("data-element", "foo");
-  expect(toggleButtonGroup).toHaveAttribute("data-role", "bar");
 
-  const amButtonWrapper = screen.getByTestId("am-button-wrapper");
+  const amButtonWrapper = screen.getByTestId("am-button-wrapper-role");
   expect(amButtonWrapper).toHaveAttribute("data-component", "am-button-toggle");
   expect(amButtonWrapper).toHaveAttribute("data-element", "foo");
 
-  const pmButtonWrapper = screen.getByTestId("pm-button-wrapper");
+  const pmButtonWrapper = screen.getByTestId("pm-button-wrapper-role");
   expect(pmButtonWrapper).toHaveAttribute("data-component", "pm-button-toggle");
   expect(pmButtonWrapper).toHaveAttribute("data-element", "foo");
 });

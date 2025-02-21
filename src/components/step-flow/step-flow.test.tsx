@@ -589,3 +589,21 @@ describe("console warning checks", () => {
     expect(consoleSpy).toHaveBeenCalledWith(noRefWarnMessage);
   });
 });
+
+test("renders with provided data- attributes", () => {
+  render(
+    <StepFlow
+      title="baz"
+      totalSteps={6}
+      currentStep={1}
+      ref={() => {}}
+      data-role="foo"
+      data-element="bar"
+    />,
+  );
+
+  const stepFlowComponent = screen.getByRole("group");
+
+  expect(stepFlowComponent).toHaveAttribute("data-role", "foo");
+  expect(stepFlowComponent).toHaveAttribute("data-element", "bar");
+});
