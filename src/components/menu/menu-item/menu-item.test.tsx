@@ -633,13 +633,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[1]).toHaveFocus();
     await user.tab({ shift: true });
     expect(submenuItems[0]).toHaveFocus();
-    // can't use userEvent here as the submenu
-    // closes before the other events fire and throws an error
-    fireEvent.keyDown(submenuItems[0], {
-      key: "Tab",
-      code: "Tab",
-      shiftKey: true,
-    });
+    await user.tab({ shift: true });
     expect(submenuItems[0]).not.toHaveFocus();
   });
 
