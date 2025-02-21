@@ -1,3 +1,9 @@
+## [147.10.0](https://github.com/Sage/carbon/compare/v147.9.1...v147.10.0) (2025-02-21)
+
+### Features
+
+* **profile:** update margin-left for XS and S sizes ([20e25b5](https://github.com/Sage/carbon/commit/20e25b5750031bc7ee24534202860d17c546fc93)), closes [#7206](https://github.com/Sage/carbon/issues/7206)
+
 ## [147.9.1](https://github.com/Sage/carbon/compare/v147.9.0...v147.9.1) (2025-02-20)
 
 ### Bug Fixes
