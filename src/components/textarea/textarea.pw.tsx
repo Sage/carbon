@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/experimental-ct-react17";
+import { expect, test } from "@playwright/experimental-ct-react";
 import { TextareaProps } from "components/textarea";
 import React from "react";
 

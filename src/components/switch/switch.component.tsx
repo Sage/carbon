@@ -102,7 +102,7 @@ export const Switch = React.forwardRef(
     }
 
     const onChangeInternal = useCallback(
-      (e) => {
+      (e: React.ChangeEvent<HTMLInputElement>) => {
         setCheckedInternal(e.target.checked);
         onChange?.(e);
       },

@@ -38,8 +38,8 @@ export const ExampleWithMenu = () => (
 export const IsLoading = () => (
   <NavigationBar isLoading>
     <Menu>
-      <MenuItem>Menu Item One</MenuItem>
-      <MenuItem>Menu Item Two</MenuItem>
+      <MenuItem href="#">Menu Item One</MenuItem>
+      <MenuItem href="#">Menu Item Two</MenuItem>
     </Menu>
   </NavigationBar>
 );

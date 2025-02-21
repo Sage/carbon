@@ -4,6 +4,12 @@ import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import StyledOption from "./option.style";
 import SelectListContext from "../__internal__/select-list/select-list.context";
 
+type OptionData = {
+  id?: string;
+  text?: string;
+  value?: string | Record<string, unknown>;
+};
+
 export interface OptionProps
   extends Omit<
       React.InputHTMLAttributes<HTMLLIElement>,
@@ -36,11 +42,7 @@ export interface OptionProps
    * @private
    * @ignore
    * OnSelect callback */
-  onSelect?: (target?: {
-    text?: string;
-    value?: string | Record<string, unknown>;
-    id?: string;
-  }) => void;
+  onSelect?: (target: OptionData) => void;
   /**
    * @private
    * @ignore
@@ -80,7 +82,7 @@ const Option = React.forwardRef(
       if (!onClick) {
         onSelect?.({ text, value, id: internalIdRef.current });
       } else {
-        onSelect?.();
+        onSelect?.({});
         onClick(value);
       }
     }

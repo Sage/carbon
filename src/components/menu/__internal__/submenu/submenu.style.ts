@@ -186,7 +186,6 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       display: flex;
       align-items: center;
       white-space: nowrap;
-      cursor: pointer;
 
       ${inFullscreenView &&
       css`
@@ -209,16 +208,6 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
         > button:focus {
           background-color: ${menuConfigVariants[menuType]
             .submenuItemBackground};
-        }
-
-        > a:hover,
-        > button:hover {
-          background-color: transparent;
-          color: var(--colorsComponentsMenuYang100);
-
-          > [data-component="icon"] {
-            color: var(--colorsComponentsMenuYang100);
-          }
         }
 
         > a,

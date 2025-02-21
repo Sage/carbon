@@ -17,13 +17,15 @@ export const FullMenuExample = () => (
           <MenuItem href="#">Child Item 3</MenuItem>
         </MenuItem>
         <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
-          <MenuItem>Child Item</MenuItem>
+          <MenuItem href="#">Child Item</MenuItem>
         </MenuItem>
       </Menu>
     </GlobalHeader>
     <NavigationBar position="fixed" orientation="top" offset="40px">
       <Menu flex="1">
-        <MenuItem flex="1">Menu Item One</MenuItem>
+        <MenuItem flex="1" href="#">
+          Menu Item One
+        </MenuItem>
         <MenuItem flex="0 0 auto" href="#">
           Menu Item Two
         </MenuItem>

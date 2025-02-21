@@ -157,7 +157,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
     const arrowReference = useRef<HTMLDivElement | null>(null);
 
     const calculateOffset = useCallback(
-      (placement) => {
+      (placement: Placement) => {
         let mainAxisOffset = 9;
 
         if (isPartOfInput) {
