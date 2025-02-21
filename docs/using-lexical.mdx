@@ -1,0 +1,44 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Documentation/Using Lexical" />
+
+# Lexical
+
+## Why Lexical?
+
+In previous versions of Carbon, the `Note` and `TextEditor` components were built using [DraftJS](https://draftjs.org/), a framework developed by Facebook. However, `DraftJS` has been deprecated and is no longer maintained. As a result, we have migrated to a new framework called [Lexical](https://lexical.dev), which is also developed by Meta. In doing so, we have been able to maintain the functionality of the `Note` and `TextEditor` components while also ensuring that they are up-to-date and well-maintained. `Lexical` is a powerful and flexible framework that allows for the creation of rich text editors and other text-based components, and is fully customisable which allows us to cater for a wide range of use cases.
+
+### Packages
+
+The following `lexical` packages are used in Carbon to provide the functionality for `Note` and `TextEditor`:
+
+- `lexical`: The core package;
+- `@lexical/react`: A wrapper around the core package for React;
+- `@lexical/headless`: A headless version of the core package used internally for testing the components;
+- `@lexical/link`: A package for handling links in the `TextEditor`;
+- `@lexical/selection`: A package for handling selections in the `TextEditor`.
+
+### Usage
+
+First, import the relevant components from the `carbon-react` package:
+
+```jsx
+import TextEditor, { createEmpty, createFromHTML } from 'carbon-react/lib/components/text-editor';
+import Note from 'carbon-react/lib/components/note';
+```
+
+You don't need to do anything specific to use the `lexical` library with `Note` or `TextEditor`; the components are already set up to use the `@lexical/react` package internally.
+
+Previously, we asked that you provide your data to the components wrapped in one of DraftJS' `EditorState` static methods: `createEmpty`, `createWithContent`, or `create`. The new approach is to provide your data in one of two structures to the `TextEditor`, or three to the `Note` component.
+
+`TextEditor` accepts data in the following structures:
+
+- **A string of HTML**: This is the simplest way to provide data to the `TextEditor`. Simply pass your HTML string to the `createFromHTML` function, which will convert it to the required structure for the `TextEditor`;
+- **A JSON object**: This is the more complex way to provide data to the `TextEditor`. The JSON object must be in the format used internally by Lexical; consult the [Lexical documentation](https://lexical.dev/docs/concepts/editor-state) for more information. When passing the object to the editor, ensure that it has first been converted to a raw string via `JSON.stringify`.
+
+`Note` accepts data in the same two structures as the `TextEditor`, as well as a third: plain text. Simply set the value of `noteContent` to your plain text value and the editor will take care of the rest.
+
+The documentation for both `TextEditor` and `Note` contain examples of how to use these structures:
+
+- [Text Editor](../?path=/docs/text-editor--docs)
+- [Note](../?path=/docs/note--docs)

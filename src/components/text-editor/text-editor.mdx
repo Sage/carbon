@@ -1,14 +1,23 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
-import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as TextEditorStories from "./text-editor.stories";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 <Meta of={TextEditorStories} />
 
 # Text Editor
 
-The `TextEditor` was created using the `draftjs` framework. It requires consuming projects to install `draftjs` as a
-peer-dependency to enable it to work.
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/827c18-text-editor"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Provides an interactive Text Editor that allows users to format text with various styles and save the content as JSON or HTML. For further documentation on this component, please read [our documentation regarding Lexical](../?path=/docs/documentation-using-lexical--docs)
+
 
 ## Contents
 
@@ -20,122 +29,195 @@ peer-dependency to enable it to work.
 ## Quick Start
 
 ```javascript
-import TextEditor, {
-  EditorState,
-  ContentState,
-} from "carbon-react/lib/components/text-editor";
+import TextEditor, { CreateEmpty, createFromHTML } from "carbon-react/lib/components/text-editor";
 ```
 
-To use the text editor , import the `TextEditor` and pass the content as as an immutable `EditorState` object.
-
-It can be used as a controlled component where the content of the input is controlled externally, as such both
-`onChange` and `value` props are required. The `labelText` and `labelId` props are also required in order to ensure
-accessibility requirements are met.
-
-In order to capture any changes to the editor's state that may not be reflected in any content being added/removed, 
-`onChange` is called whenever the editor container is focused or blurred. This allows it to capture things like when 
-the content has been highlighted to apply an inline style (Bold/Italic).
-
+To use the Text Editor, import the `TextEditor` component. If your content is stored as HTML, you can use the `createFromHTML`
+function to convert it to a format that the editor can understand. If you do not work with HTML, the `createFromHTML` function is not required
+and can be omitted from the imports. The `CreateEmpty` function can be used to create an empty editor state, should you require one.
 
 ## Examples
 
 ### Default
 
-In its basic format the `TextEditor` requires three props; `value`, `onChange` and `label` props. The initial
-editorState can be created empty using `EditorState.createEmpty()`, as it is below. It is also possible to render links
-in the input, this can be done by manually typing or pasting a valid url into the editor. Another feature of the
-component is that it supports a wide range of keyboard shortcuts to apply the various styling options: `cmd/ctrl+b`
-toggles `bold`; `cmd/ctrl+i` toggles `italic`; and inputting a `*` or `1.` on a new line will render a
-`unordered-list` or `ordered-list` respectively.
-You can use the `required` prop to indicate if the field is mandatory.
+All instances of the Text Editor should have a label that describes the purpose of the editor; this can be set via the `labelText` property.
 
 <Canvas of={TextEditorStories.Default} />
 
-### With content
+### Using CreateEmpty
 
-The initial editorState can also be created with content using
-`EditorState.createWithContent(ContentState.createFromText(''))`, as it is below. Other options available for
-populating the content that can be found https://draftjs.org/docs/api-reference-content-state#static-methods.
-It is also possible to initialise the editor with content in other formats, such as `html` or `markdown` through use of
-other packages; using the methods for data conversion provided by `draftjs`
-(https://draftjs.org/docs/api-reference-data-conversion/), enables the parsing of these formats into something the
-editor can expects.
+You can use the `CreateEmpty` function to create an empty editor state. This function should be called with no arguments, and the result should
+be passed to the `value` property of the editor.
 
-<Canvas of={TextEditorStories.WithContent} />
-
-### With optional Save / Cancel buttons
-
-By passing the `onSave` callback prop it is possible to render the form control buttons as seen below. This callback
-will be executed when the `Save` button is clicked and there is content in the editor input, the button is disabled
-otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` button is clicked.
-
-<Canvas of={TextEditorStories.WithOptionalButtons} />
-
-### With optional character limit
-
-It is possible to override the default value for the character limit via the `characterLimit` prop. Setting this prop
-will prevent any input that would cause the content length to exceed it.
-
-<Canvas of={TextEditorStories.WithOptionalCharacterLimit} />
-
-### Character counter with translations
-
-Various translation keys are available to assist with translating the character counter below the editor into different languages. These keys allow you to amend the messages shown when the counter exceeds or is below the set character limit.
-
-For screen reader users, the designated `characterCount.visuallyHiddenHint` key can be used to override the message that is announced when the user stops typing.
-
-<Canvas of={TextEditorStories.CharacterCounterTranslations} />
-
-### Validation
-
-Validation status can be set by passing `error`, `warning` or `info` prop to the component.
-
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
-
-Passing a boolean to these props will display only a properly colored border.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
-
-<Canvas of={TextEditorStories.WithValidation} />
-
-With use of `template strings` it is possible to pass multiline validation messages to the component.
-
-<Canvas of={TextEditorStories.WithMultilineValidation} />
-
-#### New designs validation
-
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-<Canvas of={TextEditorStories.WithNewValidation} />
-
-### With custom row height
-
-The `rows` prop allows for overriding the default min-height of the `TextEditor`. It accepts any number greater than 2
-which is multiplied by the line-height (21px).
-
-<Canvas of={TextEditorStories.WithCustomRowHeight} />
-
-### With link previews
-
-It is possible to render `EditorLinkPreview`s via the `previews` prop. The `onLinkAdded` prop provides a callback
-that will allow any link added to report the url back to be used to make a call to whatever service or api you want.
-Whilst in the `Editor`, these previews can be deleted by clicking or pressing the enter key, when focused, on the close
-icon. This example has mocked some functionality: previews will display for any link that has a url ending in `.com`,
-`.co.uk`, `.org` or `.net`. See the prop table below for the available props for the `EditorLinkPreview` component.
-
-<Canvas of={TextEditorStories.WithLinkPreviews} />
+<Canvas of={TextEditorStories.UsingCreateEmpty} />
 
 ### Required
 
-You can use the `required` prop to indicate if the field is mandatory.
+You can set the `required` property to `true` to indicate that the content of the editor is mandatory.
 
 <Canvas of={TextEditorStories.Required} />
 
-### isOptional
+### Optional
 
-You can use the `isOptional` prop to indicate if the field is optional.
+You can set the `isOptional` property to `true` to indicate that the content of the editor is optional.
 
-<Canvas of={TextEditorStories.IsOptional} />
+<Canvas of={TextEditorStories.Optional} />
+
+### Character Limit
+
+You can set the `characterLimit` property to limit the number of characters that can be entered into the editor. Note that the character limit
+is not a hard limit, and the user can still enter more characters than the limit. However, the editor will show a warning to indicate that the
+limit has been exceeded.
+
+<Canvas of={TextEditorStories.CharacterLimit} />
+
+### Command Buttons
+
+You can add `Save` and `Cancel` buttons to the editor by setting the `onSave` and `onCancel` properties. Both properties should be functions.
+Omitting the `onCancel` property will hide the `Cancel` button, whereas omitting the `onSave` property will hide the `Save` button.
+
+The `onSave` function callback will be called when the user clicks the `Save` button, and contains a single argument with two values:
+the JSON and HTML content of the editor. The `onCancel` function callback will be called when the user clicks the `Cancel` button.
+
+<Canvas of={TextEditorStories.CommandButtons} />
+
+### onChange Handler
+
+To handle changes to the content of the editor, you can set the `onChange` property to a function. The function will be called whenever the
+editor state changes, and provides a string representation of the editor content. This function is debounced by 500ms to prevent excessive
+calls to the callback function.
+
+<Canvas of={TextEditorStories.OnChange} />
+
+### onSave Handler
+
+To handle the content of the editor when the `Save` button is clicked, you can set the `onSave` property to a function. The callback function
+returns two values: the JSON and HTML content of the editor. The value of `json` reflects the structure that the editor understands/uses
+internally; the value of `htmlString` is the raw content of the editor in HTML format (note that the HTML returned is not complete HTML - only
+the content of the editor is converted).
+
+If the `onSave` property is not provided, the `Save` button will not be displayed.
+
+Type into the editor and the click the **Show Data Formats** button in the example below to see the JSON and HTML content of the editor.
+
+<Canvas of={TextEditorStories.OnSave} />
+
+### onCancel Handler
+
+To cancel changes made to the content of the editor when the `Cancel` button is clicked, you can set the `onCancel` property to a function. This
+function will be called when the user clicks the `Cancel` button.
+
+If `value` is provided, the `Cancel` button will reset the editor to the initial value when pressed.
+
+If the `onCancel` property is not provided, the `Cancel` button will not be displayed.
+
+<Canvas of={TextEditorStories.onCancel} />
+
+### With Error
+
+When the editor is in an error state, you can use the `error` property to display messages to the user.
+
+<Canvas of={TextEditorStories.WithError} />
+
+### With Warning
+
+When the editor is in a warning state, you can use the `warning` property to display messages to the user. Exceeding the character limit will
+trigger a warning message automatically.
+
+<Canvas of={TextEditorStories.WithWarning} />
+
+### With HTML As Initial Value
+
+In order to set the initial value of the editor as HTML, you can use the `createFromHTML` function to convert the HTML content to a format that
+the editor can understand. The `createFromHTML` function should be called with the HTML content as an argument, and the result should be passed
+to the `value` property of the editor.
+
+<Canvas of={TextEditorStories.WithHTMLValue} />
+
+### With JSON As Initial Value
+
+You can set the initial value of the editor by passing a JSON object to the `value` property. The JSON object provided should be in the format
+returned by the `onSave` function callback, an example of which can be seen below.
+
+<Canvas of={TextEditorStories.WithJSONValue} />
+
+### Input Hint
+
+You can use the `inputHint` property to provide additional information to the user about the expected content or usage of the editor.
+
+<Canvas of={TextEditorStories.InputHint} />
+
+### With Row Count
+
+You can customise the height of the text editor by setting the `rows` property. The `rows` property should be a number greater than `2`, and will
+determine the minimum height of the editor by multiplying the number of rows provided by the height of a single row (21px). If `rows` is not provided,
+the editor will default to a height of `210px`, equivalent to 10 rows (note that more than 10 rows of content can be added; setting the `rows` prop
+only sets the minimum height of the editor).
+
+<Canvas of={TextEditorStories.Rows} />
+
+### With Placeholder
+
+By default, the editor will render with an empty placeholder; you can override this by setting the `placeholder` property.
+
+<Canvas of={TextEditorStories.WithPlaceholder} />
+
+### Link Support
+
+The editor supports adding links to text. To add a link, you can:
+
+ - type the link directly into the editor;
+ - select the text you want to link, and paste the URL directly into the editor. The editor will automatically convert the URL into a link, wrapping the selected text.
+
+Clicking the link will open the URL in a new tab.
+
+<Canvas of={TextEditorStories.Links} />
+
+### With Link Added Callback
+
+There may be times when you want to perform an action when a link is added to the editor. You can use the `onLinkAdded` callback to obtain a
+string representation of the link that was added, updated or removed. The function will be called whenever a link is added to the editor.
+In the example below, the most recently-added link will be displayed in the `Link` section below the editor; adding a new link will replace
+the previous one.
+
+Note that this usage is for demonstration purposes only; you should maintain the list of URLs added to the editor in your application state.
+
+<Canvas of={TextEditorStories.WithLinkAddedCallback} />
+
+### With Link Previews
+
+You can use the `previews` property to render previews of links added to the editor. The `previews` property should be an array of React JSX objects. Note
+that the following examples are merely a suggested implementation; the only requirement is that the `previews` array contains one or more React JSX
+objects.
+
+<Canvas of={TextEditorStories.WithLinkPreviews} />
+
+You can provide more complex previews by providing custom components to the `previews` array.
+
+<Canvas of={TextEditorStories.WithComplexLinkPreviews} />
+
+You can also provide multiple previews, and can mix and match the styles as desired.
+
+<Canvas of={TextEditorStories.WithMultipleLinkPreviews} />
+
+### Translations
+
+You can override the default translations for the Text Editor by passing a custom locale object to the `i18nProvider`. Consult the [translation keys](#translation-keys) section for a list of available keys.
+
+<Canvas of={TextEditorStories.WithCustomTranslations} />
+
+### Read-Only Mode
+
+You can specify that the editor should be read-only by setting the `readOnly` property to `true`. In read-only mode, the editor will not allow any changes to be made to the content.
+
+<Canvas of={TextEditorStories.ReadOnly} />
+
+### Multiple Editors
+
+You can render multiple instances of the Text Editor on the same page. Each editor should have a unique `namespace` property, which is used to identify
+the editor when monitoring for formatting changes, accessible navigation, etc.
+
+<Canvas of={TextEditorStories.MultipleEditors} />
 
 ## Props
 
@@ -151,83 +233,79 @@ The following keys are available to override the translations for this component
 <TranslationKeysTable
   translationData={[
     {
-      name: "textEditor.ariaLabels.bold",
-      type: "func",
+      name: "TextEditor.boldAria",
       description:
-        "text to be read out by a screen reader when bold toolbar button is navigated to",
-      returnType: "string",
-    },
-    {
-      name: "textEditor.ariaLabels.italic",
-      type: "func",
-      description:
-        "text to be read out by a screen reader when italic toolbar button is navigated to",
-      returnType: "string",
-    },
-    {
-      name: "textEditor.ariaLabels.bulletList",
-      type: "func",
-      description:
-        "text to be read out by a screen reader when bullet list toolbar button is navigated to",
-      returnType: "string",
-    },
-    {
-      name: "textEditor.ariaLabels.numberList",
-      type: "func",
-      description:
-        "text to be read out by a screen reader when number list toolbar button is navigated to",
-      returnType: "string",
-    },
-    {
-      name: "textEditor.tooltipMessages.bold",
-      type: "func",
-      description: "visible when the user hovers over the bold toolbar button",
-      returnType: "string",
-    },
-    {
-      name: "textEditor.tooltipMessages.italic",
-      type: "func",
-      description:
-        "visible when the user hovers over the italic toolbar button",
-      returnType: "string",
-    },
-    {
-      name: "textEditor.tooltipMessages.bulletList",
-      type: "func",
-      description:
-        "visible when the user hovers over the bullet list toolbar button",
-      returnType: "string",
-    },
-    {
-      name: "textEditor.tooltipMessages.numberList",
-      type: "func",
-      description:
-        "visible when the user hovers over the number list toolbar button",
-      returnType: "string",
-    },
-    {
-      name: "characterCount.tooManyCharacters",
-      description:
-        "The message displayed below the input which will inform" +
-        " users if they have exceeded the set `characterLimit` and how much by." +
-        " This will also be announced to screen readers.",
+        "The text to be read out by screen readers when the Bold formatting button is focused.",
       type: "func",
       returnType: "string",
     },
     {
-      name: "characterCount.charactersLeft",
+      name: "TextEditor.cancelButton",
       description:
-        "The message displayed below the input which will inform" +
-        " users how many characters they have before they reach  or exceed the" +
-        " set `characterLimit`. This will also be announced to screen readers.",
+        "The text to show on the Cancel button.",
       type: "func",
       returnType: "string",
     },
     {
-      name: "characterCount.visuallyHiddenHint",
+      name: "TextEditor.cancelButtonAria",
       description:
-        "The message which will be read out to screen reader users, informing them" +
-        " of the set `characterLimit`.",
+        "The text to be read out by screen readers when the Cancel button is focused.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "TextEditor.characterCounter",
+      description:
+        "The text to display on the character counter. The function should accept a single argument, the number of characters remaining.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "TextEditor.characterLimit",
+      description:
+        "The text to display when the character limit has been exceeded. The function should accept a single argument, the number of characters over the limit.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "TextEditor.contentEditorAria",
+      description:
+        "The text to be read out by screen readers when the Content Editor is focused.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "TextEditor.italicAria",
+      description:
+        "The text to be read out by screen readers when the Italic formatting button is focused.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "TextEditor.orderedListAria",
+      description:
+        "The text to be read out by screen readers when the Ordered List formatting button is focused.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "TextEditor.saveButton",
+      description:
+        "The text to show on the Save button.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "TextEditor.saveButtonAria",
+      description:
+        "The text to be read out by screen readers when the Save button is focused.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "TextEditor.unorderedListAria",
+      description:
+        "The text to be read out by screen readers when the Unordered List formatting button is focused.",
       type: "func",
       returnType: "string",
     },

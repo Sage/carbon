@@ -1,13 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import {
-  EditorState,
-  ContentState,
-  convertFromHTML,
-  convertFromRaw,
-} from "draft-js";
-
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import {
@@ -36,17 +29,15 @@ export default meta;
 type Story = StoryObj<typeof Note>;
 
 export const Default: Story = () => {
-  const noteContent = EditorState.createWithContent(
-    ContentState.createFromText("Here is some plain text content"),
-  );
+  const noteContent = "Here is some plain text content";
   return (
-    <div style={{ height: 200, width: "50%" }}>
+    <Box height={200} width="50%">
       <Note
         name="Lauren Smith"
         noteContent={noteContent}
         createdDate="23 May 2020, 12:08 PM"
       />
-    </div>
+    </Box>
   );
 };
 Default.storyName = "Default";
@@ -57,16 +48,11 @@ export const WithRichText: Story = () => {
   <ol><li>ordered</li></ol></br>
   <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
   <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
-  const blocksFromHTML = convertFromHTML(html);
-  const content = ContentState.createFromBlockArray(
-    blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap,
-  );
-  const noteContent = EditorState.createWithContent(content);
+
   return (
     <Box height={300} width="50%">
       <Note
-        noteContent={noteContent}
+        noteContent={html}
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
       />
@@ -81,19 +67,13 @@ export const WithTitle: Story = () => {
   <ol><li>ordered</li></ol></br>
   <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
   <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
-  const blocksFromHTML = convertFromHTML(html);
-  const content = ContentState.createFromBlockArray(
-    blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap,
-  );
-  const noteContent = EditorState.createWithContent(content);
   const titleNode = <Typography variant="h3">Here is a Title Node</Typography>;
 
   return (
     <Box height={300} width="50%">
       <Note
         title={titleNode}
-        noteContent={noteContent}
+        noteContent={html}
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
       />
@@ -108,12 +88,7 @@ export const WithInlineControls: Story = () => {
   <ol><li>ordered</li></ol></br>
   <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
   <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
-  const blocksFromHTML = convertFromHTML(html);
-  const content = ContentState.createFromBlockArray(
-    blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap,
-  );
-  const noteContent = EditorState.createWithContent(content);
+
   const inlineControl = (
     <ActionPopover>
       <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
@@ -126,7 +101,7 @@ export const WithInlineControls: Story = () => {
       <Note
         title="Here is a Title"
         inlineControl={inlineControl}
-        noteContent={noteContent}
+        noteContent={html}
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
       />
@@ -141,12 +116,7 @@ export const WithStatus: Story = () => {
   <ol><li>ordered</li></ol></br>
   <p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i></p>
   <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
-  const blocksFromHTML = convertFromHTML(html);
-  const content = ContentState.createFromBlockArray(
-    blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap,
-  );
-  const noteContent = EditorState.createWithContent(content);
+
   const inlineControl = (
     <ActionPopover>
       <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
@@ -162,7 +132,7 @@ export const WithStatus: Story = () => {
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
         status={{ text: "Edited", timeStamp: "23 May 2020, 12:08 PM" }}
-        noteContent={noteContent}
+        noteContent={html}
       />
     </Box>
   );
@@ -171,30 +141,73 @@ WithStatus.storyName = "With Status";
 
 export const WithPreviews: Story = () => {
   const json = JSON.stringify({
-    blocks: [
-      {
-        key: "47lv5",
-        text: "www.bbc.co.uk",
-        type: "unstyled",
-        depth: 0,
-        inlineStyleRanges: [],
-        entityRanges: [],
-        data: {},
-      },
-      {
-        key: "ab5do",
-        text: "www.sage.com",
-        type: "unstyled",
-        depth: 0,
-        inlineStyleRanges: [],
-        entityRanges: [],
-        data: {},
-      },
-    ],
-    entityMap: {},
+    root: {
+      children: [
+        {
+          children: [
+            {
+              children: [
+                {
+                  detail: 0,
+                  format: 0,
+                  mode: "normal",
+                  style: "",
+                  text: "www.bbc.co.uk",
+                  type: "text",
+                  version: 1,
+                },
+              ],
+              direction: "ltr",
+              format: "",
+              indent: 0,
+              type: "autolink",
+              version: 1,
+              rel: null,
+              target: null,
+              title: null,
+              url: "https://www.bbc.co.uk",
+              isUnlinked: false,
+            },
+            { type: "linebreak", version: 1 },
+            {
+              children: [
+                {
+                  detail: 0,
+                  format: 0,
+                  mode: "normal",
+                  style: "",
+                  text: "www.sage.com",
+                  type: "text",
+                  version: 1,
+                },
+              ],
+              direction: "ltr",
+              format: "",
+              indent: 0,
+              type: "autolink",
+              version: 1,
+              rel: null,
+              target: null,
+              title: null,
+              url: "https://www.sage.com",
+              isUnlinked: false,
+            },
+          ],
+          direction: "ltr",
+          format: "",
+          indent: 0,
+          type: "code",
+          version: 1,
+        },
+      ],
+      direction: "ltr",
+      format: "",
+      indent: 0,
+      type: "root",
+      version: 1,
+    },
   });
-  const content = convertFromRaw(JSON.parse(json));
-  const noteContent = EditorState.createWithContent(content);
+
   const inlineControl = (
     <ActionPopover>
       <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
@@ -224,7 +237,7 @@ export const WithPreviews: Story = () => {
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
         status={{ text: "Edited", timeStamp: "23 May 2020, 12:08 PM" }}
-        noteContent={noteContent}
+        noteContent={json}
         previews={previews}
       />
     </Box>
@@ -233,9 +246,7 @@ export const WithPreviews: Story = () => {
 WithPreviews.storyName = "With Previews";
 
 export const WithMargin: Story = () => {
-  const noteContent = EditorState.createWithContent(
-    ContentState.createFromText("Here is some plain text content"),
-  );
+  const noteContent = "Here is some plain text content";
   return (
     <Box width="50%">
       <Note
@@ -272,3 +283,18 @@ export const WithMargin: Story = () => {
   );
 };
 WithMargin.storyName = "With Margin";
+
+export const PlainTextWithLinks: Story = () => {
+  const noteContent =
+    "Hello, World! www.bbc.co.uk http://www.google.com https://www.sage.com";
+  return (
+    <Box height={200} width="50%">
+      <Note
+        name="Lauren Smith"
+        noteContent={noteContent}
+        createdDate="23 May 2020, 12:08 PM"
+      />
+    </Box>
+  );
+};
+PlainTextWithLinks.storyName = "Plain text with links";

@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 
 import { StoryObj } from "@storybook/react/*";
-import TextEditor, { EditorState } from "../text-editor";
 import Form from ".";
 import Button from "../button";
 import { Tab, Tabs } from "../tabs";
@@ -27,6 +26,7 @@ import Pager from "../pager";
 import Password from "../password";
 import Search, { SearchProps } from "../search";
 import { Time } from "../time";
+import TextEditor from "../text-editor";
 
 export default {
   title: "Form/Test",
@@ -408,15 +408,11 @@ DefaultWithPager.storyName = "default with pager";
 export const MockFormForAriaLiveDemo = () => {
   const [textareaValue, setTextareaValue] = useState("");
   const [textboxValue, setTextboxValue] = useState("");
-  const [textEditorValue, setTextEditorValue] = useState(
-    EditorState.createEmpty(),
-  );
   const [passwordValue, setPasswordValue] = useState("");
 
   const resetValues = () => {
     setTextareaValue("");
     setTextboxValue("");
-    setTextEditorValue(EditorState.createEmpty());
     setPasswordValue("");
   };
 
@@ -462,15 +458,7 @@ export const MockFormForAriaLiveDemo = () => {
           setTextboxValue(newValue.target.value);
         }}
       />
-      <TextEditor
-        mt={5}
-        onChange={(newValue) => {
-          setTextEditorValue(newValue);
-        }}
-        value={textEditorValue}
-        labelText="Text Editor Label"
-        characterLimit={100}
-      />
+      <TextEditor labelText="Text Editor Label" characterLimit={100} />
       <Password
         mt={5}
         mb={2}

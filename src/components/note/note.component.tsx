@@ -1,5 +1,4 @@
 import React from "react";
-import { Editor, EditorState } from "draft-js";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
 import {
@@ -13,8 +12,8 @@ import {
 } from "./note.style";
 import StatusIcon from "./__internal__/status-icon";
 import { ActionPopover } from "../action-popover";
-import { getDecoratedValue } from "../text-editor/__internal__/utils";
-import EditorContext from "../text-editor/__internal__/editor.context";
+import ReadOnlyEditor from "../text-editor/__internal__";
+import TextEditorContext from "../text-editor/text-editor.context";
 import LinkPreview, { LinkPreviewProps } from "../link-preview";
 import Typography from "../typography";
 
@@ -26,7 +25,7 @@ export interface NoteProps extends MarginProps {
   /** Adds a name to the Note footer */
   name?: string;
   /**  The rich text content to display in the Note */
-  noteContent: EditorState;
+  noteContent: string;
   /** Callback to report a url when a link is added */
   onLinkAdded?: (url: string) => void;
   /** The previews to display of any links added to the Editor */
@@ -84,7 +83,7 @@ export const Note = ({
   };
 
   return (
-    <EditorContext.Provider value={{ onLinkAdded, editMode: false }}>
+    <TextEditorContext.Provider value={{ onLinkAdded, readOnly: true }}>
       <StyledNote width={width} {...rest} data-component="note">
         <StyledNoteMain>
           <StyledNoteContent>
@@ -103,11 +102,7 @@ export const Note = ({
               ) : (
                 <StyledTitleWrapper>{title}</StyledTitleWrapper>
               ))}
-            <Editor
-              readOnly
-              editorState={getDecoratedValue(noteContent)}
-              onChange={/* istanbul ignore next */ () => {}}
-            />
+            <ReadOnlyEditor value={noteContent} />
           </StyledNoteContent>
           {inlineControl && (
             <StyledInlineControl>{inlineControl}</StyledInlineControl>
@@ -142,7 +137,7 @@ export const Note = ({
           </StyledNoteContent>
         )}
       </StyledNote>
-    </EditorContext.Provider>
+    </TextEditorContext.Provider>
   );
 };
 

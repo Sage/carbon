@@ -1,923 +1,490 @@
-import React, { useState } from "react";
-import { EditorState } from "draft-js";
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import TextEditor, {
-  TextEditorContentState,
-  TextEditorProps,
-  TextEditorState,
-} from "./text-editor.component";
-import * as utils from "./__internal__/utils";
-import EditorLinkPreview from "../link-preview";
-import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
-import CarbonProvider from "../carbon-provider";
 
-jest.mock("../../__internal__/utils/helpers/browser-type-check");
-let windowScrollTo: typeof window.scrollTo;
-// we need this mock import in order to be able to mock the getContentInfo util later without error
-jest.mock("./__internal__/utils", () => ({
-  __esModule: true,
-  ...jest.requireActual("./__internal__/utils"),
-}));
-// mock Tooltip with a "bare-bones" implementation as using the real component causes tests to flake and timeout when
-// doing user actions that trigger tooltips
-jest.mock("../tooltip", () =>
-  jest.fn(({ children, message, isVisible }) => (
-    <>
-      {children}
-      {isVisible ? <div role="tooltip">{message}</div> : null}
-    </>
-  )),
-);
+import React from "react";
 
-beforeAll(() => {
-  windowScrollTo = window.scrollTo;
-  window.scrollTo = jest.fn();
-  // need to mock isSafari to return false in order to meet coverage
-  (isSafari as jest.MockedFunction<typeof isSafari>).mockImplementation(
-    () => false,
-  );
+import TextEditor, { createEmpty, createFromHTML } from ".";
+import { COMPONENT_PREFIX } from "./__internal__/constants";
+
+/**
+ * Mock the OnChangePlugin whilst testing the full editor. This is to prevent
+ * the editor from attempting to repeatedly create update listeners when the
+ * tests are run, which causes errors to be thrown by Jest.
+ *
+ * The onChange prop is tested in the OnChangePlugin tests.
+ */
+jest.mock("./__internal__/plugins/OnChange/on-change.plugin", () => {
+  return jest.fn().mockReturnValue(null);
 });
 
-afterAll(() => {
-  window.scrollTo = windowScrollTo;
-  (isSafari as jest.MockedFunction<typeof isSafari>).mockRestore();
-});
-
-const ControlledTextEditor = (props: Partial<TextEditorProps>) => {
-  // due to issues with the interaction of draftJS and jsdom, things don't work properly when starting with an empty editor.
-  // We therefore start with some text (just a single space) in, and add to this in the tests.
-  const [value, setValue] = useState(() =>
-    EditorState.createWithContent(TextEditorContentState.createFromText(" ")),
-  );
-  return (
-    <TextEditor
-      value={value}
-      onChange={(val) => {
-        setValue(val);
-      }}
-      labelText="Text Editor Label"
-      {...props}
-    />
-  );
+// Reusable JSON object for testing the default state
+const initialValue = {
+  root: {
+    children: [
+      {
+        children: [
+          {
+            detail: 0,
+            format: 0,
+            mode: "normal",
+            style: "",
+            text: "Sample text",
+            type: "text",
+            version: 1,
+          },
+        ],
+        direction: "ltr",
+        format: "",
+        indent: 0,
+        type: "paragraph",
+        version: 1,
+        textFormat: 0,
+        textStyle: "",
+      },
+    ],
+    direction: "ltr",
+    format: "",
+    indent: 0,
+    type: "root",
+    version: 1,
+  },
 };
 
-/*
-Unfortunately draftjs (on which TextEditor is based) does not interact well with jsdom, so testing many behavioural features in RTL tests is not possible.
-(See https://github.com/testing-library/user-event/issues/858 for one of these - and note that the workaround suggested with textInput does not appear to work.
-Nor is this the only issue.)
-As a result, most tests for TextEditor are now written in Playwright. If we ever move away from draftjs we should revisit this and see if any of them can be
-moved back to unit tests.
-*/
-
-testStyledSystemMargin(
-  (props) => (
-    <TextEditor
-      value={TextEditorState.createEmpty()}
-      labelText="Text Editor Label"
-      onChange={() => {}}
-      {...props}
-    />
-  ),
-  () => screen.getByTestId("text-editor-wrapper"),
-);
-
-test("pressing Tab with the text editor focused moves focus to the first Toolbar button", async () => {
+test("rendering and basic functionality", async () => {
   const user = userEvent.setup();
+  const mockCancel = jest.fn();
+  const mockSave = jest.fn();
+  const value = JSON.stringify(initialValue);
+
+  // render the TextEditor component
   render(
     <TextEditor
-      value={TextEditorState.createEmpty()}
-      labelText="Text Editor Label"
-      onChange={() => {}}
+      labelText="Example"
+      onCancel={() => mockCancel()}
+      onSave={() => mockSave()}
+      value={value}
+      characterLimit={20}
     />,
   );
 
-  act(() => {
-    screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
-  });
-  await user.tab();
+  // expect the editor to be rendered with the default value
+  expect(screen.getByText("Sample text")).toBeInTheDocument();
 
-  expect(screen.getByRole("button", { name: "bold" })).toHaveFocus();
-});
+  // Click the editor space and send a few key presses
+  const editor = screen.getByRole(`textbox`);
+  await user.click(editor);
+  await user.keyboard(" abc");
 
-test("clicking the label sets focus on the text editor", async () => {
-  const user = userEvent.setup();
-  render(
-    <TextEditor
-      value={TextEditorState.createEmpty()}
-      labelText="Text Editor Label"
-      onChange={() => {}}
-    />,
+  // expect the edited value to be visible
+  expect(screen.getByText("Sample text abc")).toBeInTheDocument();
+
+  // expect the label to be rendered
+  expect(screen.getByText("Example")).toBeInTheDocument();
+
+  // expect the toolbar to be rendered
+  expect(screen.getByTestId(`${COMPONENT_PREFIX}-toolbar`)).toBeInTheDocument();
+
+  // expect the character counter to be rendered
+  const characterCounter = screen.getByTestId(
+    `${COMPONENT_PREFIX}-character-limit`,
   );
 
-  await user.click(screen.getByText("Text Editor Label"));
+  expect(characterCounter).toBeInTheDocument();
+  expect(characterCounter).toHaveTextContent("5 characters remaining");
 
+  await user.click(editor);
+  await user.keyboard("defghijklmnopqrstuvwxyz");
+  expect(characterCounter).toHaveTextContent("0 characters remaining");
+
+  // highlight all of the text and click the bold button
+  await user.tripleClick(editor);
+  const boldButton = screen.getByTestId(`${COMPONENT_PREFIX}-bold-button`);
+  await user.click(boldButton);
+
+  // expect the text to be bold
   expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-  ).toHaveFocus();
-});
+    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
+  ).toHaveStyle("font-weight: bold");
 
-test("pressing shift+Tab with the text editor focused does not move focus to the toolbar", async () => {
-  const user = userEvent.setup();
-  render(
-    <TextEditor
-      value={TextEditorState.createEmpty()}
-      labelText="Text Editor Label"
-      onChange={() => {}}
-    />,
-  );
-
-  act(() => {
-    screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
-  });
-  await user.tab({ shift: true });
-
-  expect(document.body).toHaveFocus();
-});
-
-test.each([
-  "http://foo.com",
-  "https://bar.co.uk/",
-  "www.wiz.org",
-  "https://user:pwd@foo.com",
-  "https://foo.com:3000",
-  "https://foo.com/path/file-name.suffix",
-  "https://foo.com",
-  "https://foo.com/file.suffix?query=value&query2=value2",
-  "https://foo.com/file.suffix#hash",
-  "https://user:pwd@foo.com:3000/path/file-name.suffix?query-string#hash",
-])("renders `%s` with HTML link style when it is part of the text", (url) => {
-  render(
-    <TextEditor
-      value={TextEditorState.createWithContent(
-        TextEditorContentState.createFromText(
-          `this is a link with text before - ${url} - and after`,
-        ),
-      )}
-      labelText="Text Editor Label"
-      onChange={() => {}}
-    />,
-  );
-
-  const link = screen.getByTestId("link-anchor"); // can't use getByRole("link") as the `a` tag has no href
-  expect(link).toBeVisible();
-  expect(link).toHaveTextContent(url);
-  expect(link).toHaveStyle({ "text-decoration": "underline" });
-});
-
-test.each([
-  "foo://foo.com",
-  "https://bar.",
-  "wwww..s",
-  "http://f..o",
-  ".ca",
-  "_",
-  ":1rrr",
-  "https://user@foo.com",
-])("renders `%s` without HTML link style", (invalidUrl) => {
-  const fullText = `this is not actually a link with text before - ${invalidUrl} - and after`;
-  render(
-    <TextEditor
-      value={TextEditorState.createWithContent(
-        TextEditorContentState.createFromText(fullText),
-      )}
-      labelText="Text Editor Label"
-      onChange={() => {}}
-    />,
-  );
-
-  expect(screen.queryByTestId("link-anchor")).not.toBeInTheDocument();
-  expect(screen.queryByText(invalidUrl)).not.toBeInTheDocument();
-  expect(screen.getByText(fullText)).not.toHaveStyle({
-    "text-decoration": "underline",
-  });
-});
-
-test.each([
-  "http://foo.com",
-  "https://bar.co.uk/",
-  "www.wiz.org",
-  "https://user:pwd@foo.com",
-  "https://foo.com:3000",
-  "https://foo.com/path/file-name.suffix",
-  "https://foo.com",
-  "https://foo.com/file.suffix?query=value&query2=value2",
-  "https://foo.com/file.suffix#hash",
-  "https://user:pwd@foo.com:3000/path/file-name.suffix?query-string#hash",
-])(
-  "renders `%s` with HTML link style when it is dynamically added to the editor",
-  async (url) => {
-    const user = userEvent.setup();
-    render(<ControlledTextEditor />);
-
-    await user.type(
-      screen.getByRole("textbox", { name: "Text Editor Label" }),
-      `this is a link with text before - ${url} - and after`,
-    );
-
-    const link = screen.getByTestId("link-anchor"); // can't use getByRole("link") as the `a` tag has no href
-    expect(link).toBeVisible();
-    expect(link).toHaveTextContent(url);
-    expect(link).toHaveStyle({ "text-decoration": "underline" });
-  },
-);
-
-test.each([
-  "foo://foo.com",
-  "https://bar.",
-  "wwww..s",
-  "http://f..o",
-  ".ca",
-  "_",
-  ":1rrr",
-  "https://user@foo.com",
-])(
-  "renders `%s` without HTML link style when it is dynamically added to the editor",
-  async (invalidUrl) => {
-    const user = userEvent.setup();
-    render(<ControlledTextEditor />);
-
-    const fullText = `this is not actually a link with text before - ${invalidUrl} - and after`;
-    await user.type(
-      screen.getByRole("textbox", { name: "Text Editor Label" }),
-      fullText,
-    );
-
-    expect(screen.queryByTestId("link-anchor")).not.toBeInTheDocument();
-    expect(screen.queryByText(invalidUrl)).not.toBeInTheDocument();
-    expect(screen.getByText(fullText)).not.toHaveStyle({
-      "text-decoration": "underline",
-    });
-  },
-);
-
-test("renders the elements passed in the `previews` prop", () => {
-  render(
-    <TextEditor
-      value={TextEditorState.createEmpty()}
-      labelText="Text Editor Label"
-      onChange={() => {}}
-      previews={[
-        <div>I am a link preview</div>,
-        <button type="button">I am a second link preview</button>,
-      ]}
-    />,
-  );
-
-  expect(screen.getByText("I am a link preview")).toBeVisible();
+  // click the bold button again and expect the text to be normal
+  await user.click(boldButton);
   expect(
-    screen.getByRole("button", { name: "I am a second link preview" }),
-  ).toBeVisible();
-});
+    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
+  ).not.toHaveStyle("font-weight: bold");
 
-test("does not render previews that are a simple number or string", () => {
-  render(
-    <TextEditor
-      value={TextEditorState.createEmpty()}
-      labelText="Text Editor Label"
-      onChange={() => {}}
-      previews={[123, "foo", 456]}
-    />,
-  );
+  // click the italic button
+  const italicButton = screen.getByTestId(`${COMPONENT_PREFIX}-italic-button`);
+  await user.click(italicButton);
 
-  expect(screen.queryByText("123")).not.toBeInTheDocument();
-  expect(screen.queryByText("foo")).not.toBeInTheDocument();
-  expect(screen.queryByText("456")).not.toBeInTheDocument();
-});
-
-test.each([
-  ["http://foo.com", "http://foo.com"],
-  ["https://bar.co.uk/", "https://bar.co.uk/"],
-  ["www.wiz.org", "https://www.wiz.org"],
-  ["https://user:pwd@foo.com", "https://user:pwd@foo.com"],
-  ["https://foo.com:3000", "https://foo.com:3000"],
-  [
-    "https://foo.com/path/file-name.suffix",
-    "https://foo.com/path/file-name.suffix",
-  ],
-  ["https://foo.com", "https://foo.com"],
-  [
-    "https://foo.com/file.suffix?query=value&query2=value2",
-    "https://foo.com/file.suffix?query=value&query2=value2",
-  ],
-  ["https://foo.com/file.suffix#hash", "https://foo.com/file.suffix#hash"],
-  [
-    "https://user:pwd@foo.com:3000/path/file-name.suffix?query-string#hash",
-    "https://user:pwd@foo.com:3000/path/file-name.suffix?query-string#hash",
-  ],
-])(
-  "calls the `onLinkAdded` callback when `%s` is dynamically added to the editor",
-  async (enteredUrl, builtUrl) => {
-    const user = userEvent.setup();
-    const onLinkAdded = jest.fn();
-    render(<ControlledTextEditor onLinkAdded={onLinkAdded} />);
-
-    await user.type(
-      screen.getByRole("textbox", { name: "Text Editor Label" }),
-      `this is a link with text before - ${enteredUrl} - and after`,
-    );
-
-    expect(onLinkAdded).toHaveBeenCalledWith(builtUrl);
-  },
-);
-
-test.each([
-  "foo://foo.com",
-  "https://bar.",
-  "wwww..s",
-  "http://f..o",
-  ".ca",
-  "_",
-  ":1rrr",
-  "https://user@foo.com",
-])(
-  "does not call the `onLinkAdded` callback when `%s` is dynamically added to the editor",
-  async (invalidUrl) => {
-    const user = userEvent.setup();
-    const onLinkAdded = jest.fn();
-    render(<ControlledTextEditor onLinkAdded={onLinkAdded} />);
-
-    const fullText = `this is not actually a link with text before - ${invalidUrl} - and after`;
-    await user.type(
-      screen.getByRole("textbox", { name: "Text Editor Label" }),
-      fullText,
-    );
-
-    expect(onLinkAdded).not.toHaveBeenCalled();
-  },
-);
-
-test("calls the `onClose` callback of a `LinkPreview` component if clicked", async () => {
-  const user = userEvent.setup();
-  const onClose = jest.fn();
-  render(
-    <TextEditor
-      value={TextEditorState.createEmpty()}
-      labelText="Text Editor Label"
-      onChange={() => {}}
-      previews={[
-        <EditorLinkPreview onClose={onClose} url="foo" key="1" />,
-        <EditorLinkPreview key="2" />,
-        <EditorLinkPreview key="3" />,
-      ]}
-    />,
-  );
-
-  await user.click(
-    screen.getByRole("button", { name: "link preview close button" }),
-  );
-  expect(onClose).toHaveBeenCalledWith("foo");
-  expect(onClose).toHaveBeenCalledTimes(1);
-});
-
-test("renders as required when the `required` prop is set", () => {
-  render(
-    <TextEditor
-      value={TextEditorState.createEmpty()}
-      labelText="Text Editor Label"
-      onChange={() => {}}
-      required
-    />,
-  );
-
+  // expect the text to be italic
   expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-  ).toBeRequired();
-});
+    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
+  ).toHaveStyle("font-style: italic");
 
-test.each(["error", "warning"])(
-  "has the validation message together with character limit as accessible description when there is %s validation and component is rendered with new-style validation",
-  (validationType) => {
-    render(
-      <CarbonProvider validationRedesignOptIn>
-        <TextEditor
-          value={TextEditorState.createEmpty()}
-          labelText="Text Editor Label"
-          onChange={() => {}}
-          characterLimit={10}
-          {...{ [validationType]: "Validation message" }}
-        />
-      </CarbonProvider>,
-    );
-
-    expect(
-      screen.getByRole("textbox", { name: "Text Editor Label" }),
-    ).toHaveAccessibleDescription(
-      "Validation message You can enter up to 10 characters",
-    );
-  },
-);
-
-test("has the `inputHint` prop together with character limit as accessible description", () => {
-  render(
-    <TextEditor
-      value={TextEditorState.createEmpty()}
-      labelText="Text Editor Label"
-      onChange={() => {}}
-      characterLimit={10}
-      inputHint="here is a hint"
-    />,
-  );
-
+  // click the italic button again and expect the text to be normal
+  await user.click(italicButton);
   expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-  ).toHaveAccessibleDescription(
-    "here is a hint You can enter up to 10 characters",
+    screen.getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
+  ).not.toHaveStyle("font-style: italic");
+
+  // click the ordered list button
+  const olButton = screen.getByTestId(
+    `${COMPONENT_PREFIX}-ordered-list-button`,
   );
+  await user.click(olButton);
+
+  // Variable to store list for checks
+  let list;
+
+  // expect the text to be in an ordered list
+  list = screen.getByRole("list");
+  expect(list).toBeInstanceOf(HTMLOListElement);
+  expect(
+    within(list).getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
+  ).toBeInTheDocument();
+
+  // click the ordered list button again and expect the text to be normal
+  await user.click(olButton);
+  expect(list).not.toBeInTheDocument();
+
+  // click the unordered list button
+  const ulButton = screen.getByTestId(
+    `${COMPONENT_PREFIX}-unordered-list-button`,
+  );
+  await user.click(ulButton);
+
+  // expect the text to be in an unordered list
+  list = screen.getByRole("list");
+  expect(list).toBeInstanceOf(HTMLUListElement);
+  expect(
+    within(list).getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
+  ).toBeInTheDocument();
+
+  // click the unordered list button again and expect the text to be normal
+  await user.click(ulButton);
+  expect(list).not.toBeInTheDocument();
+
+  // get both command buttons
+  const cancelButton = screen.getByText("Cancel");
+  const saveButton = screen.getByText("Save");
+
+  // click each button and expect the respective callback to be called
+  await user.click(saveButton);
+  expect(mockSave).toHaveBeenCalledTimes(1);
+  await user.click(cancelButton);
+  expect(mockCancel).toHaveBeenCalledTimes(1);
+
+  // expect the text to have been reset to the default value because of the above Cancel click
+  expect(screen.getByText("Sample text")).toBeInTheDocument();
 });
 
-test("fires a console warning when the `rows` prop is passed as a number less than 2", () => {
-  const consoleSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
-  // mock displayName for this test
-  const oldDisplayName = TextEditor.displayName;
-  TextEditor.displayName = "EditorWithRowsError";
+test("input hint renders correctly when inputHint prop is provided", () => {
+  // render the TextEditor component with an input hint
+  render(<TextEditor inputHint="This is an input hint" labelText="Example" />);
 
-  render(
-    <TextEditor
-      value={TextEditorState.createEmpty()}
-      labelText="Text Editor Label"
-      onChange={() => {}}
-      rows={1}
-    />,
-  );
-  expect(consoleSpy).toHaveBeenCalledWith(
-    "Prop rows must be a number value that is 2 or greater to override the min-height of the `EditorWithRowsError`",
-  );
-  expect(consoleSpy).toHaveBeenCalledTimes(1);
-  // clean up mocks
-  consoleSpy.mockRestore();
-  TextEditor.displayName = oldDisplayName;
+  // expect the input hint to be rendered
+  expect(screen.getByText("This is an input hint")).toBeInTheDocument();
 });
 
-// for coverage only - this behaviour doesn't work properly in jsdom (note incorrect order of text being entered - the style
-// is also absent so we don't assert it). This behaviour is tested properly in Playwright
-test("can enter text after clicking the `bold` toolbar button", async () => {
-  const user = userEvent.setup();
-  render(<ControlledTextEditor />);
+test("character limit renders correctly when characterLimit prop is provided", () => {
+  // render the TextEditor component with a character limit
+  render(<TextEditor characterLimit={100} labelText="Example" />);
 
-  await user.click(screen.getByRole("button", { name: "bold" }));
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "bold text",
+  // expect the character counter to be rendered
+  const characterCounter = screen.getByTestId(
+    `${COMPONENT_PREFIX}-character-limit`,
   );
-  expect(screen.getByText("old textb")).toBeVisible();
+  expect(characterCounter).toBeInTheDocument();
+  expect(characterCounter).toHaveTextContent("100 characters remaining");
 });
 
-// for coverage only - this behaviour doesn't work properly in jsdom (note incorrect order of text being entered - the style
-// is also absent so we don't assert it). This behaviour is tested properly in Playwright
-test("can enter text after clicking the `italic` toolbar button", async () => {
-  const user = userEvent.setup();
-  render(<ControlledTextEditor />);
+test("character limit is not rendered when characterLimit prop is provided with a value of 0", () => {
+  // render the TextEditor component with a character limit
+  render(<TextEditor characterLimit={0} labelText="Example" />);
 
-  await user.click(screen.getByRole("button", { name: "italic" }));
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "italic text",
+  // expect the character counter to be rendered
+  const characterCounter = screen.queryByTestId(
+    `${COMPONENT_PREFIX}-character-limit`,
   );
-  expect(screen.getByText("talic texti")).toBeVisible();
+  expect(characterCounter).not.toBeInTheDocument();
 });
 
-// for coverage only - this behaviour doesn't work properly in jsdom (note incorrect order of text being entered).
-// This behaviour is tested properly in Playwright
-test("can enter text after clicking the `bullet-list` toolbar button", async () => {
-  const user = userEvent.setup();
-  render(<ControlledTextEditor />);
+test("required prop renders correctly when required prop is provided", () => {
+  // render the TextEditor component with the required prop
+  render(<TextEditor labelText="Example" required />);
 
-  await user.click(screen.getByRole("button", { name: "bullet-list" }));
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "list item",
-  );
-  expect(screen.getByRole("listitem")).toHaveTextContent("ist iteml");
-});
-
-// for coverage only - this behaviour doesn't work properly in jsdom (note incorrect order of text being entered).
-// This behaviour is tested properly in Playwright
-test("can enter text after clicking the `number-list` toolbar button", async () => {
-  const user = userEvent.setup();
-  render(<ControlledTextEditor />);
-
-  await user.click(screen.getByRole("button", { name: "number-list" }));
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "list item",
-  );
-  expect(screen.getByRole("listitem")).toHaveTextContent("ist iteml");
-});
-
-// coverage only - both old and new validation styles are captured by Chromatic
-test.each(["error", "warning", "info"])(
-  "renders the %s icon when the validationRedesignOptIn flag is not set",
-  (validationType) => {
-    render(
-      <TextEditor
-        value={TextEditorState.createEmpty()}
-        labelText="Text Editor Label"
-        onChange={() => {}}
-        {...{ [validationType]: "Validation message" }}
-      />,
-    );
-
-    expect(screen.getByTestId(`icon-${validationType}`)).toBeVisible();
-  },
-);
-
-// for coverage only - this behaviour doesn't work properly in jsdom (note incorrect order of text being entered - the style
-// is also absent so we don't assert it). This behaviour is tested properly in Playwright
-test("can enter text after using the keyboard shortcut for bold styling", async () => {
-  const user = userEvent.setup();
-  render(<ControlledTextEditor />);
-
-  act(() => {
-    screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
-  });
-  await user.keyboard("{Control>}b{/Control}");
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "bold text",
-  );
-
-  expect(screen.getByText("old textb")).toBeVisible();
-});
-
-// the next several tests are for coverage only - due to an issue with React itself, dispatching the (deprecated) `keypress` event
-// with non-standard properties is the only way to trigger the `handleBeforeInput` handler in a test. See
-// https://github.com/testing-library/user-event/issues/858#issuecomment-1124820366
-// (The functionality of this function is fully tested in Playwright tests).
-
-// coverage (handleBeforeInput - double-space feature)
-test("double-space is entered when triggering handleBeforeInput", async () => {
-  render(<ControlledTextEditor />);
-
-  fireEvent.keyPress(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      cancelable: true,
-      bubbles: true,
-      composed: false,
-      which: 65, // a
-    },
-  );
-  fireEvent.keyPress(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      cancelable: true,
-      bubbles: true,
-      composed: false,
-      which: 32, // space
-    },
-  );
-  fireEvent.keyPress(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      cancelable: true,
-      bubbles: true,
-      composed: false,
-      which: 32, // space
-    },
-  );
-  fireEvent.keyPress(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      cancelable: true,
-      bubbles: true,
-      composed: false,
-      which: 66, // b
-    },
-  );
-  // note: waitFor is to avoid "state update on unmounted component" warning, as fireEvent is not async
-  await waitFor(() => {
-    // not sure why the text content is not as expected, but this is only for coverage anyway, Playwright tests prove everything works
-    // as expected
-    expect(
-      screen.getByRole("textbox", { name: "Text Editor Label" }),
-    ).toHaveTextContent("A");
+  const label = screen.getByText("Example");
+  // expect the required indicator to be rendered
+  expect(label).toHaveStyleRule("content", '"*"', {
+    modifier: "::after",
   });
 });
 
-// coverage (handleBeforeInput - case when over characterLimit)
-test("text over the characterLimit is lost when triggering handleBeforeInput", async () => {
-  render(<ControlledTextEditor characterLimit={2} />);
+test("optional prop renders correctly when optional prop is provided", () => {
+  // render the TextEditor component with the optional prop
+  render(<TextEditor labelText="Example" isOptional />);
 
-  fireEvent.keyPress(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      cancelable: true,
-      bubbles: true,
-      composed: false,
-      which: 65, // a
-    },
-  );
-  fireEvent.keyPress(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      cancelable: true,
-      bubbles: true,
-      composed: false,
-      which: 65, // a
-    },
-  );
+  const label = screen.getByTestId("label-container");
 
-  expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-  ).toHaveTextContent("A");
+  // expect the optional indicator to be rendered
+  expect(label).toHaveStyleRule("content", '"(optional)"', {
+    modifier: "::after",
+  });
 });
 
-// coverage (handleBeforeInput when triggering block styles - tested in Playwright)
-test("`1.` keyboard shortcut triggers a list block", () => {
-  render(<ControlledTextEditor />);
-
-  // can't seem to trigger the right conditions at all in a jsdom environment, so we resort to mocking the
-  // output of the getContentInfo util
-  const spy = jest.spyOn(utils, "getContentInfo").mockImplementation(
-    () =>
-      ({
-        blockType: "unstyled",
-        blockLength: 1,
-        blockText: "1",
-      }) as ReturnType<typeof utils.getContentInfo>,
-  );
-  fireEvent.keyPress(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      cancelable: true,
-      bubbles: true,
-      composed: false,
-      which: 46, // .
-    },
+test("placeholder prop renders correctly when placeholder prop is provided", () => {
+  // render the TextEditor component with a placeholder
+  render(
+    <TextEditor labelText="Example" placeholder="This is a nice placeholder" />,
   );
 
-  expect(screen.getAllByRole("listitem")).toHaveLength(1);
-  spy.mockRestore();
+  // expect the placeholder to be rendered
+  expect(screen.getByText("This is a nice placeholder")).toBeInTheDocument();
 });
 
-// coverage (handleBeforeInput when typing a "block" shortcut when already in one))
-test("typing `1.` when already in a list block does nothing", async () => {
+test("rows prop renders correctly when rows prop is provided", () => {
+  // render the TextEditor component with a rows prop
+  render(<TextEditor labelText="Example" rows={20} />);
+
+  // expect the editor to have the correct number of rows
+  const editor = screen.getByTestId(`${COMPONENT_PREFIX}-editable`);
+  expect(editor).toHaveStyle("min-height: 420px");
+});
+
+test("validation renders correctly when error prop is provided", () => {
+  // render the TextEditor component with an error
+  render(<TextEditor error="This is an error" labelText="Example" />);
+
+  const errorMessage = screen.getByText("This is an error");
+
+  // expect the error message to be rendered
+  expect(errorMessage).toBeInTheDocument();
+  expect(errorMessage).toHaveStyle("color: var(--colorsSemanticNegative500)");
+});
+
+test("validation renders correctly when warning prop is provided", () => {
+  // render the TextEditor component with an error
+  render(<TextEditor warning="This is a warning" labelText="Example" />);
+
+  const warningMessage = screen.getByText("This is a warning");
+
+  // expect the warning message to be rendered
+  expect(warningMessage).toBeInTheDocument();
+  expect(warningMessage).toHaveStyle("color: var(--colorsSemanticCaution500)");
+});
+
+test("serialisation of editor", async () => {
   const user = userEvent.setup();
-  render(<ControlledTextEditor />);
-  await user.click(screen.getByRole("button", { name: "bullet-list" }));
-  expect(screen.getAllByRole("listitem")).toHaveLength(1);
-  expect(screen.getByRole("listitem")).toHaveTextContent("");
+  const mockSave = jest.fn();
 
-  // can't seem to trigger the right conditions at all in a jsdom environment, so we resort to mocking the
-  // output of the getContentInfo util
-  const spy = jest.spyOn(utils, "getContentInfo").mockImplementation(
-    () =>
-      ({
-        blockType: "unstyled",
-        blockLength: 1,
-        blockText: "1",
-      }) as ReturnType<typeof utils.getContentInfo>,
-  );
-  fireEvent.keyPress(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      cancelable: true,
-      bubbles: true,
-      composed: false,
-      which: 46, // .
-    },
+  render(
+    <TextEditor
+      labelText="Text Editor"
+      onSave={(values) => mockSave(values)}
+      value={JSON.stringify(initialValue)}
+    />,
   );
 
-  expect(screen.getAllByRole("listitem")).toHaveLength(1);
-  expect(screen.getByRole("listitem")).toHaveTextContent(".");
-  spy.mockRestore();
+  const saveButton = screen.getByText("Save");
+
+  // click the save button and expect the callback to be called
+  await user.click(saveButton);
+  expect(mockSave).toHaveBeenCalledTimes(1);
 });
 
-// coverage (extreme edge cases for handleBeforeInput with `.` character at start of a line)
-test("typing a `.` at the start of a line does nothing", async () => {
-  render(<ControlledTextEditor />);
-
-  const spy = jest.spyOn(utils, "getContentInfo").mockImplementation(
-    () =>
-      ({
-        blockType: "unstyled",
-        blockLength: 0,
-        blockText: "",
-      }) as ReturnType<typeof utils.getContentInfo>,
-  );
-  fireEvent.keyPress(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      cancelable: true,
-      bubbles: true,
-      composed: false,
-      which: 46, // .
-    },
-  );
-
-  expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
-  spy.mockRestore();
-});
-
-// for coverage only - pasting text is covered in Playwright tests
-test("can paste text if it does not exceed the character limit", () => {
-  render(<ControlledTextEditor characterLimit={10} />);
-  // we have to manually fire the "paste" event here, with data made to fit the mock that draftjs uses internally
-  // for DataTransfer
-  fireEvent.paste(screen.getByRole("textbox", { name: "Text Editor Label" }), {
-    clipboardData: {
-      getData: () => "text",
-      types: ["text/plain"],
+test("valid data is parsed when HTML is passed into the createFromHTML function", async () => {
+  const html = `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
+  const value = createFromHTML(html);
+  expect(JSON.parse(value)).toEqual({
+    root: {
+      children: [
+        {
+          children: [
+            {
+              detail: 0,
+              format: 0,
+              mode: "normal",
+              style: "",
+              text: "This is a HTML example.",
+              type: "text",
+              version: 1,
+            },
+          ],
+          direction: null,
+          format: "",
+          indent: 0,
+          textFormat: 0,
+          textStyle: "",
+          type: "paragraph",
+          version: 1,
+        },
+        {
+          children: [
+            {
+              children: [
+                {
+                  detail: 0,
+                  format: 0,
+                  mode: "normal",
+                  style: "",
+                  text: "Look, it has lists!",
+                  type: "text",
+                  version: 1,
+                },
+              ],
+              direction: null,
+              format: "",
+              indent: 0,
+              type: "listitem",
+              value: 1,
+              version: 1,
+            },
+          ],
+          direction: null,
+          format: "",
+          indent: 0,
+          listType: "number",
+          start: 1,
+          tag: "ol",
+          type: "list",
+          version: 1,
+        },
+      ],
+      direction: null,
+      format: "",
+      indent: 0,
+      type: "root",
+      version: 1,
     },
   });
-  expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-  ).toHaveTextContent("text");
 });
 
-// for coverage only - pasting text is covered in Playwright tests
-test("pasted text is truncated if it exceeds the character limit", () => {
-  render(<ControlledTextEditor characterLimit={10} />);
-  // we have to manually fire the "paste" event here, with data made to fit the mock that draftjs uses internally
-  // for DataTransfer
-  fireEvent.paste(screen.getByRole("textbox", { name: "Text Editor Label" }), {
-    clipboardData: {
-      getData: () => "text is too long",
-      types: ["text/plain"],
+test("valid state is created when the CreateEmpty function is called", async () => {
+  const value = createEmpty();
+  expect(JSON.parse(value)).toEqual({
+    root: {
+      children: [
+        {
+          children: [],
+          direction: null,
+          format: "",
+          indent: 0,
+          type: "paragraph",
+          version: 1,
+        },
+      ],
+      direction: null,
+      format: "",
+      indent: 0,
+      type: "root",
+      version: 1,
     },
   });
-  expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-  ).toHaveTextContent("text is t");
+  render(<TextEditor labelText="Text Editor" value={value} />);
+  expect(screen.getByRole("textbox")).toBeInTheDocument();
+  expect(screen.getByRole("textbox")).toHaveTextContent("");
 });
 
-// for coverage only (of onBlur)
-test("content is not affected when the input is blurred", async () => {
-  const user = userEvent.setup();
-  render(<ControlledTextEditor />);
+test("previews are rendered correctly if provided", () => {
+  const previews = [<div key="preview-1">Preview 1</div>];
+  render(<TextEditor previews={previews} labelText="Example" />);
 
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "some text",
-  );
-  await user.tab();
+  const preview = screen.getByText("Preview 1");
 
-  expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-  ).toHaveTextContent("some text");
+  // expect the preview to be rendered
+  expect(preview).toBeInTheDocument();
 });
 
-// coverage only
-test("can enter text with both block and inline styles", async () => {
-  const user = userEvent.setup();
-  render(<ControlledTextEditor />);
+test("no previews are rendered if the prop is not provided", () => {
+  render(<TextEditor labelText="Example" />);
 
-  await user.click(screen.getByRole("button", { name: "bold" }));
-  await user.click(screen.getByRole("button", { name: "bullet-list" }));
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "foo",
-  );
-  expect(screen.getByRole("listitem")).toHaveTextContent("oof");
+  const preview = screen.queryByText("Preview 1");
+
+  // expect the preview not to be rendered
+  expect(preview).not.toBeInTheDocument();
 });
 
-// coverage only
-test("allows inline style button to be clicked with text highlighted", async () => {
+test("should reset the content to the default if the Cancel button is pressed", async () => {
   const user = userEvent.setup();
-  // the only way to get the component to recognise non-collapsed selection in jsdom apparently is to
-  // force the selection in the mock component
-  const ControlledTextEditorWithForcedSelection = (
-    props: Partial<TextEditorProps>,
-  ) => {
-    const [value, setValue] = useState(() =>
-      EditorState.createWithContent(TextEditorContentState.createFromText(" ")),
-    );
-    const onChange = (val: EditorState) => {
-      setValue(val);
-    };
-    const selectAll = () => {
-      const valueWithSelection = TextEditorState.forceSelection(
-        value,
-        value.getSelection().merge({ anchorOffset: 0, focusOffset: 4 }),
-      );
-      setValue(valueWithSelection);
-    };
-    return (
-      <>
-        <TextEditor
-          value={value}
-          onChange={onChange}
-          labelText="Text Editor Label"
-          {...props}
-        />
-        <button type="button" onClick={selectAll}>
-          Select All
-        </button>
-      </>
-    );
-  };
+  const mockCancel = jest.fn();
+  const mockSave = jest.fn();
+  const value = JSON.stringify(initialValue);
 
-  render(<ControlledTextEditorWithForcedSelection />);
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "some text",
+  // render the TextEditor component
+  render(
+    <TextEditor
+      labelText="Example"
+      onCancel={() => mockCancel()}
+      onSave={() => mockSave()}
+      value={value}
+    />,
   );
-  await user.click(screen.getByRole("button", { name: "Select All" }));
-  await user.click(screen.getByRole("button", { name: "bold" }));
 
-  expect(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-  ).toHaveTextContent("some text");
+  // Click the editor space and send a few key presses
+  const editor = screen.getByRole(`textbox`);
+  await user.click(editor);
+  await user.keyboard(" abc");
+
+  // expect the edited value to be visible
+  expect(screen.getByText("Sample text abc")).toBeInTheDocument();
+
+  // Click the cancel button
+  const cancelButton = screen.getByText("Cancel");
+  await user.click(cancelButton);
+
+  // expect the editor to be rendered with the default value
+  expect(screen.getByText("Sample text")).toBeInTheDocument();
 });
 
-// for coverage only - userEvent doesn't support the keycode property in keyboard events which lead to them
-// being dispatched with keyCode of 0 (see https://github.com/testing-library/user-event/issues/842). This
-// means that draftjs's handleKeyCommand is not called, as that relies on the keyCode property being as expected
-// (see https://github.com/facebookarchive/draft-js/blob/main/src/component/handlers/edit/editOnKeyDown.js#L162
-// and https://github.com/facebookarchive/draft-js/blob/main/src/component/utils/getDefaultKeyBinding.js#L64).
-// To get around this, we use userEvent to manually fire keydown with the expected keyCode (66 for B)
-test("can enter text after using the keyboard shortcut for bold styling when handleKeyCommand is called", async () => {
-  const user = userEvent.setup();
-  render(<ControlledTextEditor />);
+test("readOnly prop renders correctly when readOnly prop is provided", () => {
+  // render the TextEditor component with the readOnly prop
+  render(<TextEditor labelText="Example" readOnly />);
 
-  act(() => {
-    screen.getByRole("textbox", { name: "Text Editor Label" }).focus();
-  });
-  fireEvent.keyDown(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      key: "B",
-      keyCode: 66,
-      ctrlKey: true,
-    },
-  );
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "bold text",
-  );
-
-  expect(screen.getByText("old textb")).toBeVisible();
+  // expect the editor to be read-only
+  const editor = screen.getByTestId(`${COMPONENT_PREFIX}-editable`);
+  expect(editor).toHaveAttribute("contenteditable", "false");
 });
 
-// for coverage only - see comment above for how to trigger handleKeyCommand
-test("pressing Enter in a list block when at the character limit does not start a new list item", async () => {
+test("should toggle the list type when a list is active and the alternate list type is clicked", async () => {
   const user = userEvent.setup();
-  render(<ControlledTextEditor characterLimit={4} />);
-
-  await user.click(screen.getByRole("button", { name: "bullet-list" }));
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "foo",
+  const value = createFromHTML(
+    `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
   );
-  fireEvent.keyDown(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      key: "Enter",
-      keyCode: 13,
-    },
-  );
-
-  expect(screen.getAllByRole("listitem")).toHaveLength(1);
+  // render the TextEditor component
+  render(<TextEditor labelText="Example" namespace="test" value={value} />);
+  const olButton = screen.getByTestId(`test-ordered-list-button`);
+  const ulButton = screen.getByTestId(`test-unordered-list-button`);
+  expect(olButton).toBeInTheDocument();
+  expect(ulButton).toBeInTheDocument();
+  expect(screen.getByRole("list")).toBeInTheDocument();
+  expect(screen.getByRole("list").tagName).toBe("UL");
+  const listText = screen.getByText("Example List");
+  await user.click(listText);
+  await user.click(olButton);
+  expect(screen.getByRole("list").tagName).toBe("OL");
+  await user.click(listText);
+  await user.click(ulButton);
+  expect(screen.getByRole("list").tagName).toBe("UL");
 });
 
-// for coverage only (tested in Playwright) - see comment above for how to trigger handleKeyCommand
-test("pressing backspace when at the start of a list item removes the item", async () => {
+test("should toggle the an indiviual list item's type when a list is active and the alternate list type is clicked", async () => {
   const user = userEvent.setup();
-  render(<ControlledTextEditor />);
-
-  await user.click(screen.getByRole("button", { name: "bullet-list" }));
-  expect(screen.getAllByRole("listitem")).toHaveLength(1);
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "{Backspace}",
-  ); // to remove the starting space character
-  fireEvent.keyDown(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      key: "Backspace",
-      keyCode: 8,
-    },
+  const value = createFromHTML(
+    `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li><li value="2"><span style="white-space: pre-wrap;">Change Me</span></li><li value="3"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
   );
-
-  expect(screen.queryAllByRole("listitem")).toHaveLength(0);
-});
-
-// for coverage only (tested in Playwright) - see comment above for how to trigger handleKeyCommand
-test("pressing backspace when not at the start of a list item leaves the item in place", async () => {
-  const user = userEvent.setup();
-  render(<ControlledTextEditor />);
-
-  await user.click(screen.getByRole("button", { name: "bullet-list" }));
-  await user.type(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    "foo",
-  );
-  expect(screen.getAllByRole("listitem")).toHaveLength(1);
-  fireEvent.keyDown(
-    screen.getByRole("textbox", { name: "Text Editor Label" }),
-    {
-      key: "Backspace",
-      keyCode: 8,
-    },
-  );
-
-  expect(screen.getAllByRole("listitem")).toHaveLength(1);
+  // render the TextEditor component
+  render(<TextEditor labelText="Example" namespace="test" value={value} />);
+  const olButton = screen.getByTestId(`test-ordered-list-button`);
+  const ulButton = screen.getByTestId(`test-unordered-list-button`);
+  expect(olButton).toBeInTheDocument();
+  expect(ulButton).toBeInTheDocument();
+  expect(screen.getByRole("list")).toBeInTheDocument();
+  expect(screen.getByRole("list").tagName).toBe("UL");
+  const listText = screen.getByText("Change Me");
+  await user.click(listText);
+  await user.click(olButton);
+  expect(screen.queryAllByRole("list").length).toBe(3);
+  await user.click(listText);
+  await user.click(ulButton);
+  expect(screen.queryAllByRole("list").length).toBe(1);
 });

@@ -1,7 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { EditorState } from "draft-js";
 import Note from ".";
 import LinkPreview from "../link-preview";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
@@ -9,23 +8,14 @@ import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-
 import Typography from "../typography";
 
 test("should render with required props", () => {
-  render(
-    <Note
-      createdDate="23 May 2020, 12:08 PM"
-      noteContent={EditorState.createEmpty()}
-    />,
-  );
+  render(<Note createdDate="23 May 2020, 12:08 PM" noteContent="" />);
 
   expect(screen.getByText("23 May 2020, 12:08 PM")).toBeVisible();
 });
 
 test("renders a Typography component with h2 `variant` and `title` as its child when `title` prop is a string", () => {
   render(
-    <Note
-      createdDate="23 May 2020, 12:08 PM"
-      noteContent={EditorState.createEmpty()}
-      title="Title"
-    />,
+    <Note createdDate="23 May 2020, 12:08 PM" noteContent="" title="Title" />,
   );
 
   const titleElement = screen.getByRole("heading", { level: 2 });
@@ -38,7 +28,7 @@ test("renders the `title` node when `title` prop is a React node", () => {
   render(
     <Note
       createdDate="23 May 2020, 12:08 PM"
-      noteContent={EditorState.createEmpty()}
+      noteContent=""
       title={
         <Typography data-role="note-node" variant="h4">
           Title
@@ -55,11 +45,7 @@ test("renders the `title` node when `title` prop is a React node", () => {
 
 test("should render with provided `name` prop", () => {
   render(
-    <Note
-      createdDate="23 May 2020, 12:08 PM"
-      noteContent={EditorState.createEmpty()}
-      name="Carbon"
-    />,
+    <Note createdDate="23 May 2020, 12:08 PM" noteContent="" name="Carbon" />,
   );
 
   expect(screen.getByText("Carbon")).toBeVisible();
@@ -70,7 +56,7 @@ test("should render tooltip containing status `timeStamp` when status `text` is 
   render(
     <Note
       createdDate="23 May 2020, 12:08 PM"
-      noteContent={EditorState.createEmpty()}
+      noteContent=""
       status={{
         text: "Edited",
         timeStamp: "23 May 2020, 12:10 PM",
@@ -97,7 +83,7 @@ test("should render LinkPreviews when passed via the `previews` prop as an array
   render(
     <Note
       createdDate="23 May 2020, 12:08 PM"
-      noteContent={EditorState.createEmpty()}
+      noteContent=""
       previews={previews}
     />,
   );
@@ -118,7 +104,7 @@ test("should render LinkPreviews when passed via the `previews` prop as a node",
   render(
     <Note
       createdDate="23 May 2020, 12:08 PM"
-      noteContent={EditorState.createEmpty()}
+      noteContent=""
       previews={previews}
     />,
   );
@@ -140,7 +126,7 @@ test("should render with `ActionPopover` when passed via the `inlineControl` pro
   render(
     <Note
       createdDate="23 May 2020, 12:08 PM"
-      noteContent={EditorState.createEmpty()}
+      noteContent=""
       inlineControl={inlineControl}
     />,
   );
@@ -157,7 +143,7 @@ test("should throw when `inlineControls` is not an instance of `ActionPopover`",
     render(
       <Note
         createdDate="23 May 2020, 12:08 PM"
-        noteContent={EditorState.createEmpty()}
+        noteContent=""
         inlineControl={<button type="button">A Button</button>}
       />,
     ),
@@ -169,11 +155,7 @@ test("should throw when width is 0", () => {
   const spy = jest.spyOn(console, "error").mockImplementation(() => {});
   expect(() =>
     render(
-      <Note
-        createdDate="23 May 2020, 12:08 PM"
-        noteContent={EditorState.createEmpty()}
-        width={0}
-      />,
+      <Note createdDate="23 May 2020, 12:08 PM" noteContent="" width={0} />,
     ),
   ).toThrow("<Note> width must be greater than 0");
   spy.mockRestore();
@@ -185,7 +167,7 @@ testStyledSystemMargin(
       {...props}
       data-role="note"
       createdDate="23 May 2020, 12:08 PM"
-      noteContent={EditorState.createEmpty()}
+      noteContent=""
     />
   ),
   () => screen.getByTestId("note"),

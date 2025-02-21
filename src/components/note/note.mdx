@@ -6,8 +6,7 @@ import * as NoteStories from "./note.stories";
 
 # Note
 
-The `Note` was created using the `draft-js` framework which allows rich text content to be rendered. It requires
-consuming projects to install `draft-js` as a peer-dependency to enable it to work.
+The `Note` was created using the `lexical` framework which allows rich text content to be rendered. For further documentation on this component, please read [our documentation regarding Lexical](../?path=/docs/documentation-using-lexical--docs)
 
 ## Contents
 
@@ -19,27 +18,22 @@ consuming projects to install `draft-js` as a peer-dependency to enable it to wo
 
 ```javascript
 import Note from "carbon-react/lib/components/note";
-import { EditorState, ContentState, convertFromHTML } from "draft-js";
 ```
 
-To use `Note`, use the import path above and pass the content via the `noteContent` prop by utilising the static
-methods provided by the `draft-js` (see the import above) framework https://draftjs.org/docs/api-reference-content-state#static-methods.
+To use `Note`, use the import path above and pass the content via the `noteContent` prop.
 
 ## Examples
 
 ### Default
 
-In its default form, the component can render plain text content by passing a value via the `noteContent` prop using
-`EditorState.createWithContent(ContentState.createFromText(''))` to ensure the value is in the correct format.
+In its default form, the component can render plain text content by passing the value via the `noteContent` prop.
 
 <Canvas of={NoteStories.Default} />
 
 ### With rich text content
 
-It is also possible to render rich text content: below is an example of how the component supports rendering `html`
-content but there is a range of supporting packages that will support converting
-content to a format you prefer and back into one that `draft-js` supports, again utilising the `createWithContent`
-static method.
+It is possible to render rich text content: below is an example of how the component supports rendering `html` content.
+Pass the value via the `noteContent` prop.
 
 <Canvas of={NoteStories.WithRichText} />
 
@@ -66,8 +60,7 @@ An optional status can be provided using the `status` prop.
 
 It is possible to supply link previews to the `Note` component by passing them in via the `previews` prop. Previews are
 rendered as anchor elements and will behave as links, opening the page in a new tab when they are clicked or when focused
-and the enter key is pressed. Similarly to the `TextEditor` component, a `onLinkAdded` prop is surfaced to allow for a link
-preview's url to be reported and calls to an api can be made here as well if needed.
+and the enter key is pressed.
 
 <Canvas of={NoteStories.WithPreviews} />
 
@@ -79,6 +72,12 @@ the props table at the bottom of this page.
 [Visit Props Table](#props)
 
 <Canvas of={NoteStories.WithMargin} />
+
+### Plain-text Links
+
+If you provide a plain-text string that contains a URL, the `Note` component will automatically convert it into a link.
+
+<Canvas of={NoteStories.PlainTextWithLinks} />
 
 ## Props
 
