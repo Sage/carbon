@@ -144,3 +144,67 @@ NewValidation.args = {
   isOptional: false,
   inline: false,
 };
+
+export const GroupWithFieldMetadata = ({ ...args }: CheckboxGroupProps) => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      {["left", "right"].map((legendAlign) => (
+        <div key={legendAlign}>
+          <CheckboxGroup
+            {...args}
+            legendAlign={legendAlign as CheckboxGroupProps["legendAlign"]}
+          >
+            <Checkbox label="Checkbox 1" />
+            <Checkbox label="Checkbox 2" />
+          </CheckboxGroup>
+        </div>
+      ))}
+    </CarbonProvider>
+  );
+};
+GroupWithFieldMetadata.storyName = "Group With Field Metadata";
+
+GroupWithFieldMetadata.args = {
+  id: "default",
+  label: "Example Checkbox",
+  autoFocus: false,
+  disabled: false,
+  fieldHelp: "This text provides help for the input.",
+  fieldHelpInline: false,
+  reverse: false,
+  labelHelp: "This text provides more information for the label.",
+  legend: "Checkbox Group",
+  legendHelp: "Help text",
+  legendInline: false,
+  legendAlign: "left",
+  inputWidth: 0,
+  labelWidth: 0,
+  labelSpacing: 1,
+  size: "small",
+  value: "",
+  ml: "0",
+  adaptiveSpacingBreakpoint: 0,
+  required: false,
+  isOptional: false,
+  helpAriaLabel: "",
+  validationOnLabel: false,
+  validationIconId: "",
+  error: "",
+  warning: "",
+  info: "",
+};
+
+GroupWithFieldMetadata.argTypes = {
+  labelSpacing: {
+    options: [1, 2],
+    control: {
+      type: "select",
+    },
+  },
+  size: {
+    options: ["small", "large"],
+    control: {
+      type: "select",
+    },
+  },
+};

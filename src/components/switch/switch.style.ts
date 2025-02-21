@@ -23,10 +23,6 @@ interface StyledSwitchProps
   theme: ThemeObject;
 }
 
-interface StyledHintTextProps {
-  isDarkBackground?: boolean;
-}
-
 export const ErrorBorder = styled.span`
   ${({
     reverse,
@@ -53,19 +49,6 @@ export const ErrorBorder = styled.span`
       top: 2px;
     `;
   }}
-`;
-
-export const StyledHintText = styled.div<StyledHintTextProps>`
-  margin-top: 8px;
-  margin-bottom: 8px;
-  font-size: 14px;
-  font-weight: 400;
-  max-width: 160px;
-  ${({ isDarkBackground }) => css`
-    color: ${isDarkBackground
-      ? "var(--colorsUtilityYang080)"
-      : "var(--colorsUtilityYin055)"};
-  `}
 `;
 
 const StyledSwitch = styled.div`

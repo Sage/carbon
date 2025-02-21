@@ -207,7 +207,7 @@ export const NewDesignValidations = (args: NumeralDateProps) => {
       <h4>New designs validation</h4>
       {["error", "warning"].map((validationType) =>
         ["small", "medium", "large"].map((size) => (
-          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+          <Box width="296px" key={`${validationType}-${size}`}>
             <NumeralDate
               label={`${size} - ${validationType}`}
               {...{ [validationType]: "Message" }}
@@ -215,7 +215,7 @@ export const NewDesignValidations = (args: NumeralDateProps) => {
               m={4}
               {...args}
             />
-          </div>
+          </Box>
         )),
       )}
     </CarbonProvider>
@@ -320,4 +320,21 @@ InlineLabelsSizes.args = {
 InlineLabelsSizes.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const WithHintText = ({ ...args }) => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box ml={2} width="320px">
+        {["left", "right"].map((labelAlign) => (
+          <NumeralDate
+            label="Numeral date"
+            labelAlign={labelAlign as NumeralDateProps["labelAlign"]}
+            labelHelp="Hint text."
+            {...args}
+          />
+        ))}
+      </Box>
+    </CarbonProvider>
+  );
 };

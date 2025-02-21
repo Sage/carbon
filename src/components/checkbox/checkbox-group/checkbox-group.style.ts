@@ -5,13 +5,6 @@ import CheckboxStyle from "../checkbox.style";
 import { StyledLabelContainer } from "../../../__internal__/label/label.style";
 import StyledValidationIcon from "../../../__internal__/validations/validation-icon.style";
 
-export const StyledHintText = styled.div`
-  margin-top: -4px;
-  margin-bottom: 8px;
-  color: var(--colorsUtilityYin055);
-  font-size: 14px;
-`;
-
 const StyledCheckboxGroup = styled.div<{
   legendInline?: boolean;
   inline?: boolean;

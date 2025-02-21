@@ -16,6 +16,7 @@ export default {
     "WithTooltipPositionOnRadioGroup",
     "WithNewValidation",
     "WithNewValidationGroup",
+    "WithHintTextAlignment",
   ],
   parameters: {
     info: { disable: true },
@@ -236,5 +237,46 @@ WithNewValidationGroup.args = {
   inline: false,
 };
 WithNewValidationGroup.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+export const WithHintTextAlignment = ({
+  ...props
+}: Partial<RadioButtonGroupProps>) => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      {["left", "right"].map((legendAlign) => {
+        return (
+          <RadioButtonGroup
+            name="radio-button-group"
+            legendAlign={legendAlign as RadioButtonGroupProps["legendAlign"]}
+            {...props}
+          >
+            <RadioButton id="radio-1" value="radio1" label="Yes" />
+            <RadioButton id="radio-2" value="radio2" label="No" />
+            <RadioButton
+              id="radio-3"
+              value="radio3"
+              label="Maybe"
+              fieldHelp="fieldHelp text"
+            />
+          </RadioButtonGroup>
+        );
+      })}
+    </CarbonProvider>
+  );
+};
+
+WithHintTextAlignment.args = {
+  id: "with-hint-text-alignment",
+  legend: "Radio group legend",
+  error: "Error message",
+  warning: "",
+  legendHelp: "Legend help text",
+  required: true,
+  isOptional: false,
+  inline: false,
+};
+WithHintTextAlignment.parameters = {
   chromatic: { disableSnapshot: false },
 };

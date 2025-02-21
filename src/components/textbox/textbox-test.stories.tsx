@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import Textbox, { TextboxProps } from ".";
+import Box from "../box";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ICONS } from "../icon/icon-config";
 
@@ -115,7 +116,13 @@ export default {
       disableSnapshot: true,
     },
   },
-  includeStories: ["Default", "Multiple", "NewValidation", "PrefixWithSizes"],
+  includeStories: [
+    "Default",
+    "Multiple",
+    "NewValidation",
+    "PrefixWithSizes",
+    "LabelAndHintTextAlign",
+  ],
 };
 
 export const Default = (args: CommonTextboxArgs) => {
@@ -197,3 +204,53 @@ export const PrefixWithSizes = () => {
 };
 
 PrefixWithSizes.storyName = "prefix with sizes";
+
+export const LabelAndHintTextAlign = () => {
+  const variants = [
+    { inline: false, align: "left", error: "Error message" },
+    { inline: false, align: "left", error: undefined },
+    { inline: false, align: "right", error: "Error message" },
+    { inline: false, align: "right", error: undefined },
+    { inline: true, align: "left", error: "Error message" },
+    { inline: true, align: "left", error: undefined },
+    { inline: true, align: "right", error: "Error message" },
+    { inline: true, align: "right", error: undefined },
+  ];
+  return (
+    <Box>
+      <h1>Old Validation</h1>
+      <Box>
+        {variants.map(({ inline, align, error: e }) => (
+          <Textbox
+            label={`${inline ? "Inline" : "Stacked"} - ${align}${e ? " with Error" : ""}`}
+            value="Textbox"
+            inputWidth={50}
+            key={`${inline ? "inline" : "stacked"}-${align}-old-${e ? "error" : "no-error"}`}
+            labelAlign={align as TextboxProps["labelAlign"]}
+            inputHint="Hint text (optional)."
+            labelInline={inline}
+            error={e}
+          />
+        ))}
+      </Box>
+
+      <h1>New Validation</h1>
+      <CarbonProvider validationRedesignOptIn>
+        <Box>
+          {variants.map(({ inline, align, error: e }) => (
+            <Textbox
+              label={`${inline ? "Inline" : "Stacked"} - ${align}${e ? " with Error" : ""}`}
+              value="Textbox"
+              inputWidth={50}
+              key={`${inline ? "inline" : "stacked"}-${align}-new-${e ? "error" : "no-error"}`}
+              labelAlign={align as TextboxProps["labelAlign"]}
+              inputHint="Hint text (optional)."
+              labelInline={inline}
+              error={e}
+            />
+          ))}
+        </Box>
+      </CarbonProvider>
+    </Box>
+  );
+};

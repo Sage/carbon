@@ -51,12 +51,13 @@ import {
 } from "./types";
 import { LinkPreviewProps } from "../link-preview";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import ErrorBorder from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import Box from "../box";
 import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
 import EditorContext from "./__internal__/editor.context";
+import HintText from "../../__internal__/hint-text";
 
 const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const INLINE_STYLES = [BOLD, ITALIC] as const;
@@ -439,9 +440,7 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
             </Label>
           </LabelWrapper>
           {inputHint && (
-            <StyledHintText id={inputHintId.current}>
-              {inputHint}
-            </StyledHintText>
+            <HintText id={inputHintId.current}>{inputHint}</HintText>
           )}
           <Box position="relative">
             {validationRedesignOptIn && (
