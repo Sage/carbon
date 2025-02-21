@@ -1,3 +1,9 @@
+## [147.9.1](https://github.com/Sage/carbon/compare/v147.9.0...v147.9.1) (2025-02-20)
+
+### Bug Fixes
+
+* **time:** adding zero-padding to returned hour and minute input values via onChange and onBlur ([92a1cff](https://github.com/Sage/carbon/commit/92a1cff8b0f306cc5c39e7946cee62fb7c08ffbe)), closes [#7183](https://github.com/Sage/carbon/issues/7183)
+
 ## [147.9.0](https://github.com/Sage/carbon/compare/v147.8.1...v147.9.0) (2025-02-18)
 
 ### Features

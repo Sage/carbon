@@ -26,7 +26,15 @@ export const LabelAlign: Story = ({ ...args }) => {
   });
 
   const handleChange = (ev: TimeInputEvent) => {
+    console.log("onChange:", ev);
     setValue(ev.target.value);
+  };
+
+  const handleBlur = (
+    ev?: React.FocusEvent<HTMLInputElement>,
+    timeValue?: TimeValue,
+  ) => {
+    console.log("onBlur:", ev, timeValue);
   };
 
   return (
@@ -35,6 +43,7 @@ export const LabelAlign: Story = ({ ...args }) => {
         mb={2}
         value={value}
         onChange={handleChange}
+        onBlur={handleBlur}
         label="labelAlign left"
         {...args}
       />
@@ -42,6 +51,7 @@ export const LabelAlign: Story = ({ ...args }) => {
         mb={2}
         value={value}
         onChange={handleChange}
+        onBlur={handleBlur}
         label="labelAlign right"
         labelAlign="right"
         {...args}
@@ -49,6 +59,7 @@ export const LabelAlign: Story = ({ ...args }) => {
       <Time
         value={value}
         onChange={handleChange}
+        onBlur={handleBlur}
         label="labelAlign right and fieldLabelsAlign right"
         labelAlign="right"
         fieldLabelsAlign="right"
