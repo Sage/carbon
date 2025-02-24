@@ -52,10 +52,11 @@ We recommend using our global stylesheet, which can be used by including the glo
 
 ```ts
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import GlobalStyle from 'carbon-react/lib/style/global-style';
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('app')!);
+root.render(
   <CarbonProvider>
     <GlobalStyle/>
     ...
