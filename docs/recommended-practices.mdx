@@ -1,16 +1,21 @@
 import { Meta } from "@storybook/blocks";
 
-<Meta title="Documentation/Component Dos and Don'ts" />
+<Meta title="Documentation/Recommended Practices" />
 
-# Don't
+# Recommended practices
 
-## Component Customisation
+## Contents
 
-We do not support any customisation of Carbon components as we cannot guarantee that the underlying DOM structure will not be changed in future releases.
+- [Avoid CSS Customisation](#avoid-css-customisation)
+- [Be Cautious with Wrapping Components](#be-cautious-with-wrapping-components)
 
-# Do
+## Avoid CSS Customisation
 
-### Wrapping Components
+We strongly discourage customising any Carbon component with custom CSS rules, we cannot guarantee that our components' underlying HTML and CSS will remain unchanged in future releases.
+
+> ✅ **Advice:** Use the provided props to customise the components.
+
+## Be Cautious with Wrapping Components
 
 If you need to wrap the Carbon components to achieve some additional functionality it is important to note that some rely on their children
 being direct descendants. The reason for this is that some parent components iterate and clone their children applying different props depending on the
@@ -37,4 +42,3 @@ const useComponentHook = (customProp, rest) => {
   // ...
   return <Component {...rest} />;
 };
-```

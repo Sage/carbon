@@ -6,13 +6,18 @@ import * as ExtendingStylesStories from "./extending-styles-using-styled-compone
 
 # Extending Styles of Carbon Components
 
-There may be a rare use case where you need to extend the styles of a Carbon component. This can be done by creating a custom component using the `styled-components` library and extending the component you would like the additional styling applied to.
+> ⚠️ **WARNING:**
+>
+> **[We strongly discourage extending the styles of Carbon components](./?path=/docs/documentation-recommended-practices--docs).**
+>
+> **This should be used as a last resort.**
 
-**We would always recommend this as a last resort as Carbon should already cater to a lot of your use cases**.
+While it is rare, there may be cases where you need to extend the styles of a Carbon component. If you need to, please proceed with caution. We cannot guarantee our components' internal HTML/CSS will remain unchanged in future updates, therefore extending styles could make your application more fragile. If you decide to go ahead, you can use `styled-components` to create a custom component and apply the necessary styles.
 
-## Usage
+## Example: Extending `Box`
 
-Here we are using the `Box` component and applying styles that are not available in the `Box` component.
+Here we are using the `Box` component and applying styles that are not available through the component's prop interface.
+
 We would always recommend not using this method to manage z-indexes, as this can cause issues with the stacking order of components.
 **This method is to be used as a last resort.**
 
