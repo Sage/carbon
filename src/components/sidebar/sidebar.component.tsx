@@ -61,7 +61,10 @@ export interface SidebarProps
   header?: React.ReactNode;
   /** A custom close event handler */
   onCancel?: (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
+    ev:
+      | React.KeyboardEvent<HTMLElement>
+      | KeyboardEvent
+      | React.MouseEvent<HTMLElement>,
   ) => void;
   /** Sets the open state of the modal */
   open: boolean;
@@ -122,7 +125,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
     const sidebarRef = useRef<HTMLDivElement | null>(null);
 
     const setRefs = useCallback(
-      (reference) => {
+      (reference: HTMLDivElement) => {
         sidebarRef.current = reference;
         if (!ref) return;
         if (typeof ref === "object") ref.current = reference;

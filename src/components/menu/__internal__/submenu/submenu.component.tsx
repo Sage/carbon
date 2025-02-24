@@ -14,7 +14,6 @@ import Events from "../../../../__internal__/utils/helpers/events";
 import MenuContext from "../menu.context";
 import { characterNavigation } from "../keyboard-navigation";
 import SubmenuContext from "./submenu.context";
-import useClickAwayListener from "../../../../hooks/__internal__/useClickAwayListener";
 import guid from "../../../../__internal__/utils/helpers/guid";
 import {
   SCROLLABLE_BLOCK,
@@ -25,6 +24,7 @@ import {
 import { VariantType } from "../../menu-item";
 import useStableCallback from "../../../../hooks/__internal__/useStableCallback/useStableCallback";
 import FixedNavigationBarContext from "../../../navigation-bar/__internal__/fixed-navigation-bar.context";
+import { defaultFocusableSelectors as focusableSelectors } from "../../../../__internal__/focus-trap/focus-trap-utils";
 
 export interface SubmenuProps {
   /** Children elements */
@@ -75,10 +75,7 @@ export interface SubmenuProps {
   submenuMaxWidth?: string;
 }
 
-const Submenu = React.forwardRef<
-  HTMLAnchorElement & HTMLButtonElement & HTMLDivElement,
-  SubmenuProps
->(
+const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
   (
     {
       children,
@@ -115,7 +112,6 @@ const Submenu = React.forwardRef<
     const [applyFocusRadius, setApplyFocusRadius] = useState<boolean>(false);
     const [applyFocusRadiusToLastItem, setApplyFocusRadiusToLastItem] =
       useState<boolean>(false);
-    const shiftTabPressed = useRef(false);
     const focusFirstMenuItemOnOpen = useRef(false);
 
     const numberOfChildren = submenuItemIds.length;
@@ -253,7 +249,6 @@ const Submenu = React.forwardRef<
     }, [submenuOpen, onSubmenuOpen]);
 
     const closeSubmenu = useCallback(() => {
-      shiftTabPressed.current = false;
       setSubmenuOpen(false);
       setSubmenuFocusId(null);
       if (onSubmenuClose) {
@@ -269,7 +264,7 @@ const Submenu = React.forwardRef<
     }, [openSubmenuId, closeSubmenu]);
 
     const findCurrentIndex = useCallback(
-      (id) => {
+      (id: string | null) => {
         const index = submenuItemIds.findIndex((itemId) => itemId === id);
 
         return index;
@@ -278,7 +273,11 @@ const Submenu = React.forwardRef<
     );
 
     const handleKeyDown = useCallback(
-      (event) => {
+      (
+        event:
+          | React.KeyboardEvent<HTMLAnchorElement>
+          | React.KeyboardEvent<HTMLButtonElement>,
+      ) => {
         if (!submenuOpen) {
           if (
             Events.isEnterKey(event) ||
@@ -297,40 +296,15 @@ const Submenu = React.forwardRef<
           let nextIndex = index;
 
           if (href && !submenuFocusId) {
-            if (
-              Events.isDownKey(event) ||
-              Events.isUpKey(event) ||
-              (Events.isTabKey(event) && !Events.isShiftKey(event))
-            ) {
+            if (Events.isDownKey(event) || Events.isUpKey(event)) {
               event.preventDefault();
               setSubmenuFocusId(submenuItemIds[0]);
               return;
             }
           }
 
-          if (Events.isTabKey(event) && !Events.isShiftKey(event)) {
-            if (nextIndex === numberOfChildren - 1) {
-              closeSubmenu();
-              return;
-            }
-
-            shiftTabPressed.current = false;
-            nextIndex += 1;
-          }
-
-          if (Events.isTabKey(event) && Events.isShiftKey(event)) {
-            if (nextIndex <= 0) {
-              closeSubmenu();
-              return;
-            }
-
-            shiftTabPressed.current = true;
-            nextIndex -= 1;
-          }
-
           if (Events.isDownKey(event)) {
             event.preventDefault();
-            shiftTabPressed.current = false;
 
             if (nextIndex < numberOfChildren - 1) {
               nextIndex += 1;
@@ -339,7 +313,6 @@ const Submenu = React.forwardRef<
 
           if (Events.isUpKey(event)) {
             event.preventDefault();
-            shiftTabPressed.current = false;
             setApplyFocusRadius(false);
 
             if (nextIndex > 0) {
@@ -355,19 +328,18 @@ const Submenu = React.forwardRef<
 
           if (Events.isHomeKey(event)) {
             event.preventDefault();
-            shiftTabPressed.current = false;
+            event.stopPropagation();
             nextIndex = 0;
           }
 
           if (Events.isEndKey(event)) {
             event.preventDefault();
-            shiftTabPressed.current = false;
+            event.stopPropagation();
             nextIndex = numberOfChildren - 1;
           }
 
           if (event.key.length === 1) {
             event.stopPropagation();
-            shiftTabPressed.current = false;
 
             if (characterTimer.current) {
               restartCharacterTimeout();
@@ -380,11 +352,11 @@ const Submenu = React.forwardRef<
             setCharacterString("");
           }
 
-          const eventIsFromInput = Events.composedPath(event).find(
+          const eventIsFromInput = Events.composedPath(event.nativeEvent).find(
             (p) =>
-              (p as HTMLElement).getAttribute("data-element") === "input" ||
-              (p as HTMLElement).getAttribute("data-element") ===
-                "input-icon-toggle",
+              p instanceof HTMLElement &&
+              (p.getAttribute("data-element") === "input" ||
+                p.getAttribute("data-element") === "input-icon-toggle"),
           );
 
           if (!eventIsFromInput) {
@@ -424,7 +396,9 @@ const Submenu = React.forwardRef<
         /* istanbul ignore else */
         if (items) {
           setSubmenuItemIds(
-            Array.from(items).map((item) => item.getAttribute("id")),
+            Array.from(items)
+              .filter((item) => item.querySelector(focusableSelectors))
+              .map((item) => item.getAttribute("id")),
           );
         }
       }
@@ -441,13 +415,6 @@ const Submenu = React.forwardRef<
         setSubmenuFocusId(submenuItemIds[0]);
       }
     }, [submenuOpen, submenuFocusId, submenuItemIds]);
-
-    const handleClickAway = () => {
-      document.removeEventListener("click", handleClickAway);
-      closeSubmenu();
-    };
-
-    const handleClickInside = useClickAwayListener(handleClickAway);
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
       openSubmenu();
@@ -469,6 +436,12 @@ const Submenu = React.forwardRef<
       }
     }, [submenuRef, characterString, submenuItemIds]);
 
+    const handleSubmenuBlur = (event: React.FocusEvent<HTMLUListElement>) => {
+      if (!event.currentTarget.contains(event.relatedTarget)) {
+        closeSubmenu();
+      }
+    };
+
     if (inFullscreenView) {
       return (
         <StyledSubmenuWrapper
@@ -476,7 +449,6 @@ const Submenu = React.forwardRef<
           inFullscreenView={inFullscreenView}
           asPassiveItem={asPassiveItem}
           menuType={menuContext.menuType}
-          onClick={handleClickInside}
         >
           <StyledMenuItemWrapper
             {...rest}
@@ -521,7 +493,6 @@ const Submenu = React.forwardRef<
         onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
         onMouseLeave={() => closeSubmenu()}
         isSubmenuOpen={submenuOpen}
-        onClick={handleClickInside}
         ref={setSubmenuRef}
       >
         <StyledMenuItemWrapper
@@ -557,6 +528,7 @@ const Submenu = React.forwardRef<
             applyFocusRadiusStyling={applyFocusRadius}
             applyFocusRadiusStylingToLastItem={applyFocusRadiusToLastItem}
             submenuMaxWidth={submenuMaxWidth}
+            onBlur={handleSubmenuBlur}
           >
             <SubmenuContext.Provider
               value={{
@@ -564,7 +536,6 @@ const Submenu = React.forwardRef<
                 handleKeyDown,
                 blockIndex,
                 updateFocusId: setSubmenuFocusId,
-                shiftTabPressed: shiftTabPressed.current,
                 submenuHasMaxWidth: !!submenuMaxWidth,
               }}
             >

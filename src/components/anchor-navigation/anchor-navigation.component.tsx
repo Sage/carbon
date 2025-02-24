@@ -52,7 +52,7 @@ const AnchorNavigation = ({
       return (
         !React.isValidElement(child) ||
         (child.type as React.FunctionComponent).displayName !==
-          AnchorNavigationItem.displayName
+          "AnchorNavigationItem"
       );
     });
 

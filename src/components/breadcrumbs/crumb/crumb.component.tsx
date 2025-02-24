@@ -28,7 +28,7 @@ export interface CrumbProps
   isCurrent?: boolean;
 }
 
-const Crumb = React.forwardRef<HTMLLinkElement, CrumbProps>(
+const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
   ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => {
     const { isDarkBackground } = useContext(BreadcrumbsContext);
 

@@ -170,6 +170,11 @@
           {
             "name": "prop-types",
             "message": "Please do not import `prop-types` in TypeScript files."
+          },
+          {
+            "name": "react",
+            "importNames": ["useId", "startTransition", "useTransition", "useDeferredValue", "useSyncExternalStore", "useInsertionEffect"],
+            "message": "Carbon must support projects on React v17. Please do not use React v18 features."
           }
         ],
         "react/prop-types": "off"

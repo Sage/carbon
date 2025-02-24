@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import PreviewComponent from "./components.test-pw";
 import Preview from "../../../src/components/preview";
 import {

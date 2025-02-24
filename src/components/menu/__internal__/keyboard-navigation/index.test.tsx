@@ -20,16 +20,18 @@ const getMockEvent = (key: string, which?: number) => {
 
 const MockMenu = () => (
   <ul>
-    <MenuItem>Apple</MenuItem>
-    <MenuItem data-role="banana">Banana</MenuItem>
-    <li data-component="not-item">Not a menu item</li>
-    <MenuItem>Carrot</MenuItem>
-    <MenuItem>Broccoli</MenuItem>
-    <MenuItem data-role="submenu" submenu="submenu">
-      <MenuItem>Sub item</MenuItem>
+    <MenuItem href="#">Apple</MenuItem>
+    <MenuItem data-role="banana" href="#">
+      Banana
     </MenuItem>
-    <MenuItem>Parsnip</MenuItem>
-    <MenuItem data-role="rhubarb-and-ginger">
+    <li data-component="not-item">Not a menu item</li>
+    <MenuItem href="#">Carrot</MenuItem>
+    <MenuItem href="#">Broccoli</MenuItem>
+    <MenuItem data-role="submenu" submenu="submenu">
+      <MenuItem href="#">Sub item</MenuItem>
+    </MenuItem>
+    <MenuItem href="#">Parsnip</MenuItem>
+    <MenuItem data-role="rhubarb-and-ginger" href="#">
       <span>Rhubarb</span> <Box>and</Box> Ginger
     </MenuItem>
     <li>Not a menu item</li>
