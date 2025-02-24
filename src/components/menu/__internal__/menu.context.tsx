@@ -11,6 +11,7 @@ export interface MenuContextProps {
   registerItem?: (id: string) => void;
   unregisterItem?: (id: string) => void;
   focusId?: string;
+  updateFocusId?: (id: string) => void;
 }
 
 export default React.createContext<MenuContextProps>({

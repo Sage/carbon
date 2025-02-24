@@ -84,8 +84,7 @@ export interface SelectTextboxProps extends FormInputPropTypes {
   selectedValue?:
     | string
     | Record<string, unknown>
-    | string[]
-    | Record<string, unknown>[];
+    | (string | Record<string, unknown>)[];
   /** @private @ignore */
   transparent?: boolean;
   /** @private @ignore */

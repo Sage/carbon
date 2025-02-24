@@ -128,13 +128,8 @@ const TabTitle = React.forwardRef(
     ) => {
       ev.preventDefault();
 
-      const customEvent = {
-        ...ev,
-        target: { ...ev.target, dataset: { tabid: dataTabId } },
-      };
-
       if (href) {
-        onClick(customEvent);
+        onClick(ev);
         return window.open(href, "_blank");
       }
 
@@ -144,7 +139,7 @@ const TabTitle = React.forwardRef(
         ref?.current?.focus();
       }
 
-      return onClick(customEvent);
+      return onClick(ev);
     };
 
     const renderContent = () => {

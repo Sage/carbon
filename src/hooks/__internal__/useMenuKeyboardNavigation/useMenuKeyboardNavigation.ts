@@ -14,9 +14,9 @@ export default (
   }, [hide, mainControlRef]);
 
   const handleEscapeKey = useCallback(
-    (e) => {
+    (ev: KeyboardEvent) => {
       /* istanbul ignore else */
-      if (Events.isEscKey(e)) {
+      if (Events.isEscKey(ev)) {
         refocusMainControl();
       }
     },
@@ -32,7 +32,7 @@ export default (
   });
 
   const handleKeyDown = useCallback(
-    (ev) => {
+    (ev: React.KeyboardEvent<HTMLElement>) => {
       if (
         !(Events.isEnterKey(ev) || Events.isSpaceKey(ev) || Events.isTabKey(ev))
       ) {

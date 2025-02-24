@@ -9,6 +9,7 @@ import React, {
   cloneElement,
   Children,
   ReactElement,
+  ComponentProps,
 } from "react";
 import { MarginProps } from "styled-system";
 import Tab from "./tab";
@@ -89,7 +90,7 @@ const Tabs = ({
   const filteredChildren = useMemo(
     () => Children.toArray(children).filter((child) => child),
     [children],
-  ) as ReactElement[];
+  ) as ReactElement<ComponentProps<typeof Tab>>[];
 
   /** Array of the tabIds for the child nodes */
   const tabIds = useMemo(
@@ -111,36 +112,45 @@ const Tabs = ({
 
   const { isInSidebar } = useContext(DrawerSidebarContext);
   const [tabsErrors, setTabsErrors] = useState<
-    Record<string, Record<string, string | boolean>>
+    Record<string, Record<string, undefined | string | boolean>>
   >({});
   const [tabsWarnings, setTabsWarnings] = useState<
-    Record<string, Record<string, string | boolean>>
+    Record<string, Record<string, undefined | string | boolean>>
   >({});
   const [tabsInfos, setTabsInfos] = useState<
-    Record<string, Record<string, string | boolean>>
+    Record<string, Record<string, undefined | string | boolean>>
   >({});
 
-  const updateErrors = useCallback((id, error) => {
-    setTabsErrors((state) => ({ ...state, [id]: error }));
-  }, []);
+  const updateErrors = useCallback(
+    (id: string, error: Record<string, undefined | string | boolean>) => {
+      setTabsErrors((state) => ({ ...state, [id]: error }));
+    },
+    [],
+  );
 
-  const updateWarnings = useCallback((id, warning) => {
-    setTabsWarnings((state) => ({ ...state, [id]: warning }));
-  }, []);
+  const updateWarnings = useCallback(
+    (id: string, warning: Record<string, undefined | string | boolean>) => {
+      setTabsWarnings((state) => ({ ...state, [id]: warning }));
+    },
+    [],
+  );
 
-  const updateInfos = useCallback((id, info) => {
-    setTabsInfos((state) => ({ ...state, [id]: info }));
-  }, []);
+  const updateInfos = useCallback(
+    (id: string, info: Record<string, undefined | string | boolean>) => {
+      setTabsInfos((state) => ({ ...state, [id]: info }));
+    },
+    [],
+  );
 
   /** Returns true/false for if the given tab id is selected. */
   const isTabSelected = useCallback(
-    (tabId) => tabId === selectedTabIdState,
+    (tabId: string) => tabId === selectedTabIdState,
     [selectedTabIdState],
   );
 
   /** Updates the currently visible tab */
   const updateVisibleTab = useCallback(
-    (tabid) => {
+    (tabid: string) => {
       if (!isTabSelected(tabid)) {
         setSelectedTabIdState(tabid);
       }
@@ -178,17 +188,16 @@ const Tabs = ({
     selectedTabIdState,
   ]);
 
-  /** Handles the changing of tabs with the mouse */
-  const handleTabClick = (ev: React.MouseEvent<HTMLElement>) => {
-    // istanbul ignore if
-    // (code doesn't seem to be ever reached - FE-6835 raised to investigate and hopefully remove this)
-    if (Event.isEventType(ev, "keydown")) {
-      return;
-    }
-    const { tabid } = (ev.target as HTMLElement).dataset;
+  const createTabClickHandler =
+    (tabId: string) => (ev: React.MouseEvent<HTMLElement>) => {
+      // istanbul ignore if
+      // (code doesn't seem to be ever reached - FE-6835 raised to investigate and hopefully remove this)
+      if (Event.isEventType(ev, "keydown")) {
+        return;
+      }
 
-    updateVisibleTab(tabid);
-  };
+      updateVisibleTab(tabId);
+    };
 
   /** Focuses the tab for the reference specified */
   const focusTab = (ref: React.RefObject<HTMLElement>) => {
@@ -224,9 +233,8 @@ const Tabs = ({
     focusTab(nextRef);
   };
 
-  /** Handles the keyboard navigation of tabs */
-  const handleKeyDown = (index: number) => {
-    return (event: React.KeyboardEvent<HTMLElement>) => {
+  const createTabKeydownHandler =
+    (index: number) => (event: React.KeyboardEvent<HTMLElement>) => {
       const isTabVertical = isInSidebar || position === "left";
       const isUp = isTabVertical && Event.isUpKey(event);
       const isDown = isTabVertical && Event.isDownKey(event);
@@ -238,7 +246,6 @@ const Tabs = ({
         goToTab(event, index + 1);
       }
     };
-  };
 
   /** Build the headers for the tab component */
   const renderTabHeaders = () => {
@@ -287,7 +294,7 @@ const Tabs = ({
 
       const getValidationMessage = (
         message: string | undefined,
-        validations: Record<string, string | boolean> = {},
+        validations: Record<string, undefined | string | boolean> = {},
       ): string | undefined => {
         const summaryOfMessages = Object.values(validations).filter(
           (value) => value && typeof value === "string",
@@ -308,12 +315,11 @@ const Tabs = ({
         <TabTitle
           {...titleProps}
           position={isInSidebar ? "left" : position}
-          className={child.props.className || ""}
           dataTabId={tabId}
           id={refId}
           key={tabId}
-          onClick={handleTabClick}
-          onKeyDown={handleKeyDown(index)}
+          onClick={createTabClickHandler(tabId)}
+          onKeyDown={createTabKeydownHandler(index)}
           ref={tabRefs[index]}
           tabIndex={isTabSelected(tabId) ? 0 : -1}
           title={title}

@@ -45,8 +45,6 @@ export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
   ariaLabel?: string;
   /** allows to set rel property in <a> tag */
   rel?: string;
-  /** @ignore @private internal prop to be set when no href or onClick passed */
-  placeholderTabIndex?: boolean;
   /** @ignore @private internal prop to be set when no aria-label should be specified */
   removeAriaLabelOnIcon?: boolean;
   /**
@@ -58,7 +56,7 @@ export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
 }
 
 export const Link = React.forwardRef<
-  HTMLLinkElement | HTMLButtonElement,
+  HTMLAnchorElement | HTMLButtonElement,
   LinkProps
 >(
   (
@@ -79,7 +77,6 @@ export const Link = React.forwardRef<
       target,
       variant = "default",
       isDarkBackground,
-      placeholderTabIndex,
       removeAriaLabelOnIcon,
       className,
       ...rest
@@ -152,9 +149,6 @@ export const Link = React.forwardRef<
             }
           : {
               ...componentProps,
-              ...(placeholderTabIndex &&
-                href === undefined &&
-                !onClick && { tabIndex: -1 }),
               "data-role": "link-anchor",
             },
         <>

@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import useStableCallback from "./useStableCallback";
 
 test("ensures the callback reference does not change across re-renders", () => {

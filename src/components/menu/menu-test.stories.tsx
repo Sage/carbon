@@ -261,17 +261,17 @@ export const LongLabelsStory = () => {
   return (
     <Menu>
       <MenuItem submenu="Parent Menu A">
-        <MenuItem>Child A</MenuItem>
-        <MenuItem>Child B with very long label</MenuItem>
-        <MenuItem>Child C</MenuItem>
+        <MenuItem href="#">Child A</MenuItem>
+        <MenuItem href="#">Child B with very long label</MenuItem>
+        <MenuItem href="#">Child C</MenuItem>
       </MenuItem>
       <MenuItem submenu="Parent Menu B with very long label">
-        <MenuItem>Child A</MenuItem>
-        <MenuItem>Child B</MenuItem>
-        <MenuItem>Child C</MenuItem>
+        <MenuItem href="#">Child A</MenuItem>
+        <MenuItem href="#">Child B</MenuItem>
+        <MenuItem href="#">Child C</MenuItem>
       </MenuItem>
       <MenuItem submenu="Parent Menu C with overflow" submenuMaxWidth="300px">
-        <MenuItem minWidth="max-content">
+        <MenuItem minWidth="max-content" href="#">
           Child with a very long label that should wrap onto the next line and
           not get cut off
         </MenuItem>
@@ -370,12 +370,11 @@ const UpdatingSubmenu = () => {
   }, []);
   return (
     <MenuItem submenu={`submenu 2 - count ${counter}`}>
-      <MenuItem>Item One </MenuItem>
-      <MenuItem>Item Two </MenuItem>
+      <MenuItem href="#">Item One</MenuItem>
+      <MenuItem href="#">Item Two</MenuItem>
     </MenuItem>
   );
 };
-
 export const MenuFullScreenKeysTest = () => {
   const [extraItem, setExtraItem] = useState(false);
   useEffect(() => {
@@ -388,13 +387,13 @@ export const MenuFullScreenKeysTest = () => {
     <MenuFullscreen onClose={() => {}} isOpen>
       {extraItem ? (
         <MenuItem submenu="extra submenu">
-          <MenuItem>Item One </MenuItem>
-          <MenuItem>Item Two </MenuItem>
+          <MenuItem href="#">Item One</MenuItem>
+          <MenuItem href="#">Item Two</MenuItem>
         </MenuItem>
       ) : null}
       <MenuItem submenu="submenu 1">
-        <MenuItem>Item One </MenuItem>
-        <MenuItem>Item Two </MenuItem>
+        <MenuItem href="#">Item One</MenuItem>
+        <MenuItem href="#">Item Two</MenuItem>
       </MenuItem>
       <UpdatingSubmenu />
     </MenuFullscreen>
@@ -532,8 +531,6 @@ export const MenuFullScreenWithMaxWidth = () => {
         <MenuItem onClick={() => {}} maxWidth="300px">
           Menu with Max Width and onClick set
         </MenuItem>
-        <MenuItem maxWidth="300px">Menu with only Max Width set</MenuItem>
-        <MenuItem>Menu item on its own</MenuItem>
         <MenuItem submenu="Submenu">
           <MenuItem href="#">Menu item with href set</MenuItem>
           <MenuItem onClick={() => {}}>Menu with onClick set</MenuItem>
@@ -543,8 +540,6 @@ export const MenuFullScreenWithMaxWidth = () => {
           <MenuItem onClick={() => {}} maxWidth="300px">
             Menu with Max Width and onClick set
           </MenuItem>
-          <MenuItem maxWidth="300px">Menu with only Max Width set</MenuItem>
-          <MenuItem>Menu item on its own</MenuItem>
         </MenuItem>
       </MenuFullscreen>
     </Menu>
@@ -555,9 +550,13 @@ MenuFullScreenWithMaxWidth.storyName = "Menu Full Screen with Max Width";
 export const IconAlignment = () => {
   return (
     <Menu menuType="black">
-      <MenuItem icon="home">Alpha</MenuItem>
-      <MenuItem>Beta</MenuItem>
-      <MenuItem icon="print">Charlie</MenuItem>
+      <MenuItem href="#" icon="home">
+        Alpha
+      </MenuItem>
+      <MenuItem href="#">Beta</MenuItem>
+      <MenuItem href="#" icon="print">
+        Charlie
+      </MenuItem>
     </Menu>
   );
 };

@@ -64,7 +64,7 @@ const Pages = ({
   }, [children]);
 
   const verifyNewIndex = useCallback(
-    (newIndex) => {
+    (newIndex: number) => {
       if (newIndex < 0) {
         // If the new index is negative, select the last page
         return numOfPages() - 1;
@@ -82,7 +82,7 @@ const Pages = ({
 
   useEffect(() => {
     if (typeof incomingPageIndex === "undefined") return;
-    const newIndex = verifyNewIndex(incomingPageIndex); // 2
+    const newIndex = verifyNewIndex(+incomingPageIndex);
     const currentIndex = pageIndex; // 1
 
     if (newIndex === currentIndex) return;
