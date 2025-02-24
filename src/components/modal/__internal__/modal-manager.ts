@@ -10,6 +10,10 @@ class ModalManagerInstance {
   private modalList: ModalList;
 
   constructor() {
+    if (typeof window === "undefined") {
+      this.modalList = [];
+      return;
+    }
     // Due to possibility of multiple carbon versions using it
     // it is necessary to maintain same structure in this global variable
     if (!window.__CARBON_INTERNALS_MODAL_LIST) {

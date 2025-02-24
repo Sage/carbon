@@ -9,6 +9,11 @@ class ScrollBlockManager {
   originalValues: string[];
 
   constructor() {
+    if (typeof window === "undefined") {
+      this.components = {};
+      this.originalValues = [];
+      return;
+    }
     // Due to possibility of multiple carbon versions using it
     // it is necessary to maintain same structure in this global variable
     if (!window.__CARBON_INTERNALS_SCROLL_BLOCKERS) {

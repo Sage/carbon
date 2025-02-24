@@ -165,13 +165,15 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
           line-height: ${iconConfig.iconSize[fontSize]};
         `}
 
-        ${type === "services" &&
+        ${typeof window !== "undefined" &&
+        type === "services" &&
         browserTypeCheck(window) &&
         css`
           margin-top: ${fontSize === "small" ? "-7px" : "-8px"};
         `}
 
-        ${type === "services" &&
+        ${typeof window !== "undefined" &&
+        type === "services" &&
         isSafari(navigator) &&
         !browserTypeCheck(window) &&
         css`
