@@ -1,3 +1,9 @@
+## [148.0.1](https://github.com/Sage/carbon/compare/v148.0.0...v148.0.1) (2025-02-24)
+
+### Bug Fixes
+
+* **tabs:** reposition tab title on focus to prevent content moving on focus ([5bb5931](https://github.com/Sage/carbon/commit/5bb5931abd4d21cec2617b05b7f3f718092c62eb))
+
 ## [148.0.0](https://github.com/Sage/carbon/compare/v147.11.0...v148.0.0) (2025-02-24)
 
 ### ⚠ BREAKING CHANGES
