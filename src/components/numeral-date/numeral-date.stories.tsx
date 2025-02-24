@@ -6,6 +6,7 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 import CarbonProvider from "../carbon-provider";
 import Box from "../box";
 import NumeralDate from ".";
+import Button from "../button";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -37,7 +38,7 @@ export const Controlled: Story = () => {
 
   return (
     <NumeralDate
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => setValue({ ...value, ...e.target.value })}
       label="Default"
       value={value}
     />
@@ -74,7 +75,7 @@ export const InternalValidationError: Story = () => {
     <>
       <NumeralDate
         enableInternalError
-        onChange={(e) => setValueOld(e.target.value)}
+        onChange={(e) => setValueOld({ ...valueOld, ...e.target.value })}
         label="Default - legacy validation"
         value={valueOld}
       />
@@ -83,7 +84,7 @@ export const InternalValidationError: Story = () => {
         <NumeralDate
           enableInternalError
           label="Default - new validation"
-          onChange={(e) => setValueNew(e.target.value)}
+          onChange={(e) => setValueNew({ ...valueNew, ...e.target.value })}
           value={valueNew}
         />
       </CarbonProvider>
@@ -100,7 +101,7 @@ export const InternalValidationWarning: Story = () => {
       <NumeralDate
         enableInternalWarning
         label="Default - legacy validation"
-        onChange={(e) => setValueOld(e.target.value)}
+        onChange={(e) => setValueOld({ ...valueOld, ...e.target.value })}
         value={valueOld}
       />
       <br />
@@ -108,7 +109,7 @@ export const InternalValidationWarning: Story = () => {
         <NumeralDate
           enableInternalWarning
           label="Default - new validation"
-          onChange={(e) => setValueNew(e.target.value)}
+          onChange={(e) => setValueNew({ ...valueNew, ...e.target.value })}
           value={valueNew}
         />
       </CarbonProvider>
@@ -125,7 +126,7 @@ export const Validation: Story = () => {
         mb={2}
         label="Validation as string"
         error="Error Message (Fix is required)"
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setValue({ ...value, ...e.target.value })}
         value={value}
       />
 
@@ -134,7 +135,7 @@ export const Validation: Story = () => {
         label="Validation as string on label"
         error="Error Message (Fix is required)"
         validationOnLabel
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setValue({ ...value, ...e.target.value })}
         value={value}
       />
 
@@ -142,7 +143,7 @@ export const Validation: Story = () => {
         mb={2}
         label="Validation as boolean"
         error
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setValue({ ...value, ...e.target.value })}
         value={value}
       />
 
@@ -150,7 +151,7 @@ export const Validation: Story = () => {
         mb={2}
         label="Validation as string"
         warning="Warning Message (Fix is optional)"
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setValue({ ...value, ...e.target.value })}
         value={value}
       />
 
@@ -159,14 +160,14 @@ export const Validation: Story = () => {
         label="Validation as string on label"
         warning="Warning Message (Fix is optional)"
         validationOnLabel
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setValue({ ...value, ...e.target.value })}
         value={value}
       />
 
       <NumeralDate
         label="Validation as boolean"
         warning
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setValue({ ...value, ...e.target.value })}
         value={value}
       />
     </>
@@ -184,7 +185,7 @@ export const NewValidation: Story = () => {
           label="Validation as string - Error"
           labelHelp="Label help"
           error="Error Message (Fix is required)"
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setValue({ ...value, ...e.target.value })}
           value={value}
         />
 
@@ -193,7 +194,7 @@ export const NewValidation: Story = () => {
           label="Validation as boolean - Error"
           labelHelp="Label help"
           error
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setValue({ ...value, ...e.target.value })}
           value={value}
         />
 
@@ -202,7 +203,7 @@ export const NewValidation: Story = () => {
           label="Validation as string - Warning"
           labelHelp="Label help"
           warning="Warning Message (Fix is optional)"
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setValue({ ...value, ...e.target.value })}
           value={value}
         />
 
@@ -210,7 +211,7 @@ export const NewValidation: Story = () => {
           label="Validation as boolean - Warning"
           labelHelp="Label help"
           warning
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setValue({ ...value, ...e.target.value })}
           value={value}
         />
       </Box>
@@ -227,7 +228,7 @@ export const InlineLabel: Story = () => {
       labelInline
       labelAlign="right"
       labelWidth={30}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => setValue({ ...value, ...e.target.value })}
       value={value}
     />
   );
@@ -243,7 +244,7 @@ export const EnablingAdaptiveBehaviour: Story = () => {
       labelInline
       labelAlign="right"
       labelWidth={30}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => setValue({ ...value, ...e.target.value })}
       value={value}
     />
   );
@@ -260,7 +261,7 @@ export const WithLabelHelp: Story = () => {
       helpAriaLabel="Label help"
       label="With label help"
       labelHelp="Label help"
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => setValue({ ...value, ...e.target.value })}
       value={value}
     />
   );
@@ -273,7 +274,7 @@ export const WithFieldHelp: Story = () => {
     <NumeralDate
       label="With field help"
       fieldHelp="Field help"
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => setValue({ ...value, ...e.target.value })}
       value={value}
     />
   );
@@ -311,7 +312,7 @@ export const Required: Story = () => {
       id="optional"
       label="Date of Birth"
       labelWidth={30}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => setValue({ ...value, ...e.target.value })}
       value={value}
       required
     />
@@ -327,10 +328,29 @@ export const IsOptional: Story = () => {
       id="optional"
       label="Date of Birth"
       labelWidth={30}
-      onChange={(e) => setValue(e.target.value)}
+      onChange={(e) => setValue({ ...value, ...e.target.value })}
       value={value}
       isOptional
     />
   );
 };
 IsOptional.storyName = "IsOptional";
+
+export const ProgrammaticFocus: Story = () => {
+  const numeralDateRef = React.useRef<HTMLInputElement | null>(null);
+  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  return (
+    <>
+      <Button mb={2} onClick={() => numeralDateRef.current?.focus()}>
+        Click me to focus Numeral Date
+      </Button>
+      <NumeralDate
+        label="Default"
+        ref={numeralDateRef}
+        onChange={(e) => setValue({ ...value, ...e.target.value })}
+        value={value}
+      />
+    </>
+  );
+};
+ProgrammaticFocus.storyName = "Programmatic Focus";
