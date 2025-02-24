@@ -7,13 +7,24 @@ import { Meta } from "@storybook/blocks";
 ## Contents
 
 - [Avoid CSS Customisation](#avoid-css-customisation)
+- [Import Compound Components from the Same Carbon Instance](#import-compound-components-from-the-same-carbon-instance)
 - [Be Cautious with Wrapping Components](#be-cautious-with-wrapping-components)
 
 ## Avoid CSS Customisation
 
 We strongly discourage customising any Carbon component with custom CSS rules, we cannot guarantee that our components' underlying HTML and CSS will remain unchanged in future releases.
 
-> ✅ **Advice:** Use the provided props to customise the components.
+> ✅ **Best practice**: Use the provided props to customise the components.
+
+## Import Compound Components from the Same Carbon Instance
+
+When using Carbon components that follow the Compound Component pattern (for example, `Menu` and `FlatTable`), ensure both the parent and its subcomponents are imported from the same installed copy of Carbon. These components rely on shared context and state to function correctly. If a parent and subcomponents are imported from different copies of Carbon, they may fail to communicate, leading to unexpected behavior.
+
+![The Menu and MenuItem components being incorrectly imported from different copies of Carbon](./context-bound-components-incorrect-usage.svg)
+
+This applies to any Carbon components that form a parent-child relationship, such as `Tabs` and `Tab`, `FlatTable` and `FlatTableRow`, `Accordion` and `AccordionItem`, etc.
+
+>	✅ **Best practice**: Always import both the parent and its subcomponents from the same installed copy of Carbon. This prevents context and state issues.
 
 ## Be Cautious with Wrapping Components
 
