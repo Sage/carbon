@@ -112,7 +112,6 @@ interface RenderChildrenProps
 }
 
 function renderChildren({
-  /* eslint-disable react/prop-types */
   iconType,
   iconPosition,
   size,
