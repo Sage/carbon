@@ -39,7 +39,7 @@ const PagerNavigationLink = ({
   onPagination,
 }: PagerNavigationLinkProps) => {
   const l = useLocale();
-  const linkRef = useRef<HTMLLinkElement | HTMLButtonElement | null>(null);
+  const linkRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
   const navLinkConfig = {
     first: {
       text: l.pager.first(),

@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import useThrottle from "./useThrottle";
 
 test("should call the callback only once within the throttle period when invoked multiple times", () => {

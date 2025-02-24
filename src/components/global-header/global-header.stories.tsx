@@ -71,7 +71,7 @@ export const BasicMenu: Story = () => {
     >
       <Menu menuType="black" flex="1">
         <MenuItem flex="1" submenu="Product Switcher">
-          <MenuItem>Product A</MenuItem>
+          <MenuItem href="#">Product A</MenuItem>
         </MenuItem>
         <MenuItem flex="0 0 auto" submenu="Parent Menu 1">
           <MenuItem href="#">Child Item 1</MenuItem>
@@ -81,7 +81,7 @@ export const BasicMenu: Story = () => {
           </MenuSegmentTitle>
         </MenuItem>
         <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
-          <MenuItem>Child Item</MenuItem>
+          <MenuItem href="#">Child Item</MenuItem>
         </MenuItem>
       </Menu>
     </GlobalHeader>
@@ -99,7 +99,7 @@ export const ResponsiveMenu: Story = () => {
       flex="1"
       submenu="Product Switcher"
     >
-      <MenuItem>Product A</MenuItem>
+      <MenuItem href="#">Product A</MenuItem>
     </MenuItem>,
     <MenuItem
       key="parent-menu-1"
@@ -119,7 +119,7 @@ export const ResponsiveMenu: Story = () => {
       flex="0 0 auto"
       submenu="Parent Menu 2"
     >
-      <MenuItem>Child Item</MenuItem>
+      <MenuItem href="#">Child Item</MenuItem>
     </MenuItem>,
   ];
   const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
@@ -175,7 +175,7 @@ export const GlobalLocalNavBarLayout: Story = () => {
             <MenuItem href="#">Child Item 3</MenuItem>
           </MenuItem>
           <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
-            <MenuItem>Child Item</MenuItem>
+            <MenuItem href="#">Child Item</MenuItem>
           </MenuItem>
         </Menu>
       </GlobalHeader>

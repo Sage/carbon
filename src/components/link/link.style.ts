@@ -168,6 +168,14 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
         }
       `}
 
+      ${!disabled &&
+      css`
+        > a:any-link:hover,
+        > button:hover {
+          cursor: pointer;
+        }
+      `}
+
       > a,
       > button {
         text-decoration: ${hasContent ? "underline" : "none"};
@@ -186,10 +194,6 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
             margin-right: 0;
             margin-left: ${hasContent ? "var(--spacing100)" : 0};
           `}
-        }
-
-        &:hover {
-          cursor: pointer;
         }
 
         &:focus {
