@@ -1,3 +1,16 @@
+## [150.0.0](https://github.com/Sage/carbon/compare/v149.0.2...v150.0.0) (2025-02-25)
+
+### ⚠ BREAKING CHANGES
+
+* `date-fns` is now ESM-first. While CommonJS
+remains supported, this change may cause issues in some environments.
+If you encounter issues, you may need to update your bundler
+configuration to support ESM code.
+
+### Miscellaneous Chores
+
+* upgrade `date-fns` to version ^4.1.0 ([27a87e7](https://github.com/Sage/carbon/commit/27a87e7fc29353ca4e05ce0f6d7546ac9dc9afdb))
+
 ## [149.0.2](https://github.com/Sage/carbon/compare/v149.0.1...v149.0.2) (2025-02-25)
 
 ### Bug Fixes
