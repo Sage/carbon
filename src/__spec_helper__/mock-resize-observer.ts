@@ -1,5 +1,5 @@
 const setupResizeObserverMock = () => {
-  if (!window) {
+  if (typeof window === "undefined") {
     return;
   }
   window.ResizeObserver =
