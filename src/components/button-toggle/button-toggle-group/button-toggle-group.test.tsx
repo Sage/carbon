@@ -367,9 +367,7 @@ testStyledSystemMargin(
       <ButtonToggle value="foo">Foo</ButtonToggle>
     </ButtonToggleGroup>
   ),
-  // we are setting the data- attributes on more than one element
-  // FE-6834 raised to address this
-  () => screen.getAllByTestId("button-toggle-group")[0],
+  () => screen.getByTestId("button-toggle-group"),
   undefined,
   { modifier: "&&&" },
 );
