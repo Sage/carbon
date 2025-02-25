@@ -108,7 +108,6 @@ interface StyledFlatTableRowProps
     | "expandable"
     | "selected"
     | "highlighted"
-    | "draggable"
   > {
   isRowInteractive?: boolean;
   isFirstColumnInteractive?: boolean;
@@ -120,6 +119,7 @@ interface StyledFlatTableRowProps
   isExpanded?: boolean;
   isInSidebar?: boolean;
   size: FlatTableProps["size"];
+  draggable?: boolean;
   isDragging?: boolean;
   horizontalBorderSize: NonNullable<FlatTableRowProps["horizontalBorderSize"]>;
   isSubRow?: boolean;
