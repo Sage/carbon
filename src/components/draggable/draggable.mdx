@@ -40,6 +40,20 @@ import {
 
 <Canvas of={DraggableStories.DefaultStory} />
 
+### With manual Re-Ordering
+
+```javascript
+import { UseDraggableHandle } from "carbon-react/lib/hooks/useDraggable/useDraggable";
+```
+
+The `UseDraggableHandle` type provides an imperative handle for control over the `DraggableItem`'s movement. 
+Using a `ref`, you can access its `reOrder()` method to set manually re-order elements. 
+Pass two arguments: the id of the DraggableItem you want to move and the destination index.
+
+This functionality gives users alternative ways to reposition elements when direct dragging isn't desired or possible.
+
+<Canvas of={DraggableStories.ManualReOrdering} />
+
 ### With flex direction
 
 <Canvas of={DraggableStories.FlexDirectionStory} />
