@@ -61,7 +61,7 @@ const DraggableContainer = forwardRef<
 
     const localMove = useCallback(
       (itemId: string | number, toIndex: number) => {
-        if (!itemId || toIndex < 0) {
+        if (!itemId ||  toIndex === null || toIndex === undefined) {
           return;
         }
 
@@ -80,6 +80,7 @@ const DraggableContainer = forwardRef<
           .filter(Boolean) as string[];
         const childId =
           elements[fromIndex]?.children[0]?.getAttribute("id") || null;
+
 
         if (allIds.length > 0 && childId) {
           setIdOrder({ draggableItemIds: allIds, movedItemId: childId });
@@ -105,12 +106,41 @@ const DraggableContainer = forwardRef<
       }
     }, [children, register]);
 
+    const findParentItemId = (elementId: string, containerId: string): string | null => {
+      const container: HTMLElement | null = document.getElementById(containerId);
+      if (!container) {
+        return null;
+      }
+      
+      const escapedId = CSS.escape(elementId);
+      const element: HTMLElement | null = container.querySelector(`#${escapedId}`);
+      if (!element) {
+        return null;
+      }
+      
+      let currentElement: HTMLElement | null = element;
+      while (currentElement && currentElement !== container && currentElement !== document.documentElement) {
+        if (currentElement.hasAttribute('data-item-id')) {
+          return currentElement.getAttribute('data-item-id');
+        }
+        currentElement = currentElement.parentElement;
+      }
+      
+      return null;
+    }
+
     useImperativeHandle(ref, () => ({
       reOrder: (itemId: number | string, toIndex: number) => {
-        localMove(itemId, toIndex);
+        const locatedParent = findParentItemId(itemId as string, uniqueId.current);
+        localMove(locatedParent || itemId, toIndex);
       },
     }));
 
+    const lastMoveRef = useRef<{ indexOfTarget: null | number; destinationId: null | string | number }>({
+      indexOfTarget: null,
+      destinationId: null,
+    });
+    
     useEffect(() => {
       const element = containerRef.current as Element;
       const cleanup = combine(
@@ -123,20 +153,33 @@ const DraggableContainer = forwardRef<
               source.data.parentContainerId === uniqueId.current
             );
           },
-          onDrop({ location, source }) {
+          onDropTargetChange({ location, source }) {
+            console.log("triggered")
             const target = location.current.dropTargets[0];
             if (target) {
               const indexOfTarget = Number(target.data.itemIndex);
               const destinationId = source.data.itemId as string | number;
-
-              if (!move) {
-                localMove(destinationId, indexOfTarget);
+    
+              if (
+                !Number.isNaN(indexOfTarget) &&
+                indexOfTarget >= 0 &&
+                destinationId !== undefined &&
+                destinationId !== null
+              ) {
+                if (
+                  lastMoveRef.current.indexOfTarget !== indexOfTarget ||
+                  lastMoveRef.current.destinationId !== destinationId
+                ) {
+                  localMove(destinationId, indexOfTarget);
+                  lastMoveRef.current = { indexOfTarget, destinationId };
+                }
               }
             }
           },
+          onDrop: () => lastMoveRef.current = { indexOfTarget: null, destinationId: null },
         }),
       );
-
+    
       return () => cleanup();
     }, [localMove, move]);
 

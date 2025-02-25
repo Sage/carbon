@@ -30,13 +30,15 @@ import {
   DraggableItemData,
   DragState,
 } from "./draggable-utils";
+import StyledFlatTableRow from "../../../components/flat-table/flat-table-row/flat-table-row.style";
 
 export interface DraggableItemProps {
   children?: React.ReactNode;
+  id: string | number;
   itemsStyle?: CSSProperties;
   indicatorColor?: string;
   draggableItemStylingOptOut?: boolean;
-  itemsNode?: string;
+  itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;  
 }
 interface DragDirection {
   direction: "up" | "down" | null;
@@ -46,10 +48,12 @@ interface DragDirection {
 
 const DraggableItem = ({
   children,
+  id,
   itemsStyle,
   indicatorColor,
   draggableItemStylingOptOut = false,
   itemsNode = "div",
+  ...rest
 }: DraggableItemProps): JSX.Element => {
   const columnId = useContext(DraggableContainerContext)?.columnId;
   const index = useContext(DraggableItemContext)?.index;
@@ -67,8 +71,6 @@ const DraggableItem = ({
   });
 
   const itemRef = useRef<HTMLDivElement | null>(null);
-  const idGuid = useRef(guid());
-  const id = idGuid.current;
 
   const draggableItemData: DraggableItemData = useMemo(
     () => ({
@@ -187,31 +189,54 @@ const DraggableItem = ({
   ]);
   
   return (
-    <div style={{ position: "relative" }}>
-      {(indicatorPosition === "top" || indicatorPosition === "bottom") &&
-        !draggableItemStylingOptOut && (
+   <>
+    {(indicatorPosition === "top" || indicatorPosition === "bottom") &&
+      !draggableItemStylingOptOut ? (
+        <div style={{ position: "relative" }}>
           <DropIndicator
             indicatorColor={indicatorColor}
             width={foundIDwidth}
             position={finalIndicatorPosition}
           />
-        )}
-      {React.createElement(
-        itemsNode,
-        {
-          ref: itemRef,
-          "data-element": "use-draggable-item",
-          "data-parent-container-id": columnId,
-          "data-item-id": id,
-          style: {
-            ...itemsStyle,
-            opacity: draggableItemStylingOptOut ? 1 : finalOpacity,
-            position: "relative",
+          {React.createElement(
+            itemsNode,
+            {
+              ref: itemRef,
+              "data-element": "use-draggable-item",
+              "data-parent-container-id": columnId,
+              "data-item-id": id,
+              ...rest,
+              style: {
+                ...itemsStyle,
+                opacity: draggableItemStylingOptOut ? 1 : finalOpacity,
+                position: "relative",
+              },
+            },
+            children
+          )}
+        </div>
+      ) : (
+        React.createElement(
+          itemsNode,
+          {
+            ref: itemRef,
+            "data-element": "use-draggable-item",
+            "data-parent-container-id": columnId,
+            "data-item-id": id,
+            ...(itemsNode === StyledFlatTableRow && {
+              isDragging: dragState.type === "is-dragging"
+            }),        
+              ...rest,
+            style: {
+              ...itemsStyle,
+              opacity: draggableItemStylingOptOut ? 1 : finalOpacity,
+              position: "relative",
+            },
           },
-        },
-        children
+          children
+        )
       )}
-    </div>
+  </>
   );
 };
 
