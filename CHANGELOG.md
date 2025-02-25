@@ -1,3 +1,9 @@
+## [149.0.1](https://github.com/Sage/carbon/compare/v149.0.0...v149.0.1) (2025-02-25)
+
+### Bug Fixes
+
+* **packages:** re-remove reintroduced octokit dependency ([afce055](https://github.com/Sage/carbon/commit/afce055cb361a998d7ac5d1c1eed52a6dd9fad7f))
+
 ## [149.0.0](https://github.com/Sage/carbon/compare/v148.0.1...v149.0.0) (2025-02-25)
 
 ### ⚠ BREAKING CHANGES
