@@ -3,10 +3,13 @@ import { MarginProps } from "styled-system";
 import { StyledPreview, StyledPreviewPlaceholder } from "./preview.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 
 export type Shapes = "text" | "rectangle" | "rectangle-round" | "circle";
 
-export interface PreviewProps extends MarginProps {
+export interface PreviewProps extends MarginProps, TagProps {
   /** Children content to render in the component. */
   children?: React.ReactNode;
   /** Sets loading state. */
@@ -50,7 +53,6 @@ export const Preview = ({
     for (let i = 0; i < lines; i++) {
       placeholders.push(
         <StyledPreviewPlaceholder
-          data-component="preview"
           data-role="preview-placeholder"
           key={i}
           height={height}
@@ -59,6 +61,7 @@ export const Preview = ({
           shape={shape}
           disableAnimation={disableAnimation || reduceMotion}
           {...props}
+          {...tagComponent("preview", props)}
         />,
       );
     }
