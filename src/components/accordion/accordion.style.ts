@@ -109,6 +109,7 @@ interface StyledAccordionHeadingsContainerProps {
 }
 
 const StyledAccordionHeadingsContainer = styled.div<StyledAccordionHeadingsContainerProps>`
+  padding-right: var(--sizing300);
   ${({ hasValidationIcon }) => css`
     display: grid;
     ${hasValidationIcon &&
