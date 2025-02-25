@@ -1,18 +1,21 @@
+## [148.0.1](https://github.com/Sage/carbon/compare/v148.0.0...v148.0.1) (2025-02-24)
+
+### Bug Fixes
+
+* **tabs:** reposition tab title on focus to prevent content moving on focus ([5bb5931](https://github.com/Sage/carbon/commit/5bb5931abd4d21cec2617b05b7f3f718092c62eb))
+
 ## [148.0.0](https://github.com/Sage/carbon/compare/v147.11.0...v148.0.0) (2025-02-24)
 
 ### ⚠ BREAKING CHANGES
 
-* Temporary incompatibility with React Strict Mode. In React v18, Strict Mode
-now intentionally re-renders components and re-executes their effects and callbacks an extra time.
-This leads to unintended side effects in several Carbon components.
+* **Temporary incompatibility with React Strict Mode.**
+  In React v18, Strict Mode now intentionally re-renders components and re-executes their effects and callbacks an extra time. This leads to unintended side effects in several Carbon components.
 
-A fix will be provided in advance of introducing React v19 support.
-
-If you encounter issues, you can either disable Strict Mode globally, or apply it selectively to
-specific parts of your application.
-* Both packages are now ESM-only, which may affect tools like Jest
-that run your project code in a Node.js environment. Adjust your bundler configuration
-to handle ESM code if issues arise.
+  A fix will be provided in advance of introducing React v19 support.
+  
+  If you encounter issues, you can either disable Strict Mode globally, or apply it selectively to specific parts of your application.
+* **Both `react-dnd` and `react-dnd-html5-backend` are now ESM-only.**
+  This may affect tools like Jest that run your project code in a Node.js environment. Adjust your bundler configuration to handle ESM code if issues arise.
 
 ### Features
 
@@ -21,7 +24,7 @@ to handle ESM code if issues arise.
 * **menu:** prevent showing hover styling for non-focusable menu items ([db8f54c](https://github.com/Sage/carbon/commit/db8f54c65f581c465b20cd43013d42f99cf1b725))
 * **menu:** skip non-focusable submenu items when moving focus with Up, Down, Home and End keys ([824115f](https://github.com/Sage/carbon/commit/824115f66ebdff55bc5039117ee82786a5263384))
 * **portrait:** add `data-element` and `data-role` props for testing purposes ([fad5723](https://github.com/Sage/carbon/commit/fad5723b109f6cffc653a3f417238f87bafe474a))
-* update @tanstack/react-virtual to version ^3.11.2 ([30581d7](https://github.com/Sage/carbon/commit/30581d7712a40ddba93307bb181171721c8a59a1))
+* update `@tanstack/react-virtual` to version ^3.11.2 ([30581d7](https://github.com/Sage/carbon/commit/30581d7712a40ddba93307bb181171721c8a59a1))
 * upgrade `react-dnd` and `react-dnd-html5-backend` to v16 ([3d495ec](https://github.com/Sage/carbon/commit/3d495ec7ff9f5e28c3712a8cec3c46c5daa00025))
 
 ### Bug Fixes
