@@ -1,3 +1,15 @@
+## [149.0.0](https://github.com/Sage/carbon/compare/v148.0.1...v149.0.0) (2025-02-25)
+
+### ⚠ BREAKING CHANGES
+
+* **text-editor:** Whilst the intention is to implement a straight-up replacement and maintain as much
+functionality as possible, there may be differences that customers need to be made aware of. These
+will be communicated separately as necessary.
+
+### Features
+
+* **text-editor:** replaces draftjs with lexical ([24577d3](https://github.com/Sage/carbon/commit/24577d3def5d8beea89c17070786fef0729fc599))
+
 ## [148.0.1](https://github.com/Sage/carbon/compare/v148.0.0...v148.0.1) (2025-02-24)
 
 ### Bug Fixes
