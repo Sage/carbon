@@ -1,14 +1,10 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Portal from "../../portal";
 import FocusTrap from "../../../__internal__/focus-trap/focus-trap.component";
 import { VerticalMenuFullScreen, VerticalMenuItem } from "..";
-import Logger from "../../../__internal__/utils/logger";
-
-// mock Logger.deprecate so that no console warnings occur while running the tests
-const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 jest.mock("../../portal", () =>
   jest.fn(({ children }) => <div>{children}</div>),
@@ -19,14 +15,6 @@ jest.mock("../../../__internal__/focus-trap/focus-trap.component", () =>
 );
 
 describe("VerticalMenuFullScreen", () => {
-  beforeAll(() => {
-    loggerSpy.mockImplementation(() => {});
-  });
-
-  afterAll(() => {
-    loggerSpy.mockRestore();
-  });
-
   it("should accepts aria-label prop", () => {
     render(
       <VerticalMenuFullScreen isOpen onClose={() => {}} aria-label="test">
@@ -158,20 +146,16 @@ describe("VerticalMenuFullScreen", () => {
     expect(onClose).toHaveBeenCalled();
   });
 
-  it("should invoke onClose callback escape key pressed", () => {
+  it("should invoke onClose callback escape key pressed", async () => {
     const onClose = jest.fn();
+    const user = userEvent.setup();
     render(
       <VerticalMenuFullScreen isOpen onClose={onClose}>
         <VerticalMenuItem title="Item1" />
       </VerticalMenuFullScreen>,
     );
 
-    fireEvent.keyDown(screen.getByRole("navigation"), {
-      key: "Escape",
-      code: "Escape",
-      keyCode: 27,
-      charCode: 27,
-    });
+    await user.keyboard("{Escape}");
 
     expect(onClose).toHaveBeenCalled();
   });

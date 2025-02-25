@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/experimental-ct-react17";
+import { expect, test } from "@playwright/experimental-ct-react";
 import React from "react";
 import { Locator } from "@playwright/test";
 import Box from "../box";

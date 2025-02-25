@@ -8,12 +8,13 @@ import useModalManager from "../../hooks/__internal__/useModalManager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import ModalContext from "./__internal__/modal.context";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export interface ModalProps extends Omit<TagProps, "data-component"> {
-  /** Custom class name  */
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
   /** Modal content */
   children?: React.ReactNode;
@@ -26,7 +27,7 @@ export interface ModalProps extends Omit<TagProps, "data-component"> {
   /** Determines if the background is disabled when the modal is open */
   enableBackgroundUI?: boolean;
   /** A custom close event handler */
-  onCancel?: (ev: React.KeyboardEvent<HTMLElement>) => void;
+  onCancel?: (ev: React.KeyboardEvent<HTMLElement> | KeyboardEvent) => void;
   /** Sets the open state of the modal */
   open: boolean;
   /** Transition time */
@@ -53,12 +54,6 @@ const Modal = ({
   restoreFocusOnClose = true,
   ...rest
 }: ModalProps) => {
-  if (!deprecatedClassNameWarningShown && rest.className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'Modal' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
   const ref = useRef<HTMLDivElement>(null);
   const backgroundNodeRef = useRef<HTMLDivElement>(null);
   const contentNodeRef = useRef<HTMLDivElement>(null);
@@ -88,7 +83,7 @@ const Modal = ({
   }, [allowScroll, enableBackgroundUI]);
 
   const closeModal = useCallback(
-    (ev) => {
+    (ev: KeyboardEvent) => {
       if (onCancel && !disableClose && !disableEscKey && Events.isEscKey(ev)) {
         ev.stopImmediatePropagation();
         onCancel(ev);

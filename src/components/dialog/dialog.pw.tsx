@@ -1,5 +1,5 @@
 import React from "react";
-import { expect, test } from "@playwright/experimental-ct-react17";
+import { expect, test } from "@playwright/experimental-ct-react";
 
 import {
   DialogComponent,
@@ -29,7 +29,10 @@ import {
   waitForElementFocus,
 } from "../../../playwright/support/helper";
 import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
-import { getDataElementByValue } from "../../../playwright/components";
+import {
+  getDataElementByValue,
+  backgroundUILocator,
+} from "../../../playwright/components";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -99,6 +102,25 @@ test.describe("Testing Dialog component properties", () => {
       await mount(<DialogComponent size={size} />);
 
       await expect(page.getByRole("dialog")).toHaveCSS("width", width);
+    });
+  });
+
+  [true, false].forEach((enableBackgroundUIValue) => {
+    test(`verify visibility of backgroundUILocatorElement when enableBackgroundUI prop is set to ${enableBackgroundUIValue}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <DialogComponent enableBackgroundUI={enableBackgroundUIValue} />,
+      );
+
+      const backgroundUILocatorElement = backgroundUILocator(page);
+
+      if (enableBackgroundUIValue) {
+        await expect(backgroundUILocatorElement).not.toBeVisible();
+      } else {
+        await expect(backgroundUILocatorElement).toBeVisible();
+      }
     });
   });
 

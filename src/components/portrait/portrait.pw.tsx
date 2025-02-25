@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import { getDataElementByValue } from "../../../playwright/components";
 import {
   portraitImage,
@@ -37,12 +37,10 @@ const colors = [
   ["brown", COLOR.BROWN],
 ];
 
-const testImage =
-  "https://www.gravatar.com/avatar/cceff1ad774bf89b1f75cb6e5005333c?s=40&d=404";
+const testImage = "https://avataaars.io/";
 
 const imageURLs = [
   "https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light",
-  "https://www.gravatar.com/avatar/05c1c705ee45d7ae88b80b3a8866ddaa?s=24&d=404",
 ];
 
 const portraitSizes = PORTRAIT_SIZES.map((size) => [
@@ -76,15 +74,6 @@ test.describe("Prop checks for Portrait component", () => {
 
       await expect(portraitInitials(page)).toHaveText(maxInitials);
     });
-  });
-
-  test("should render with gravatar prop", async ({ mount, page }) => {
-    await mount(<PortraitDefaultComponent gravatar="chris.barber@sage.com" />);
-
-    await expect(portraitPreview(page).locator("img")).toHaveAttribute(
-      "src",
-      testImage,
-    );
   });
 
   imageURLs.forEach((url) => {
@@ -192,29 +181,6 @@ test.describe("Prop checks for Portrait component", () => {
       page,
     }) => {
       await mount(<PortraitDefaultComponent src={testImage} size={size} />);
-
-      await expect(portraitPreview(page)).toHaveCSS(
-        "height",
-        `${heightAndWidth}px`,
-      );
-      await expect(portraitPreview(page)).toHaveCSS(
-        "width",
-        `${heightAndWidth}px`,
-      );
-    });
-  });
-
-  portraitSizes.forEach(([size, heightAndWidth]) => {
-    test(`should render with size prop passed as ${size} - with gravatar`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PortraitDefaultComponent
-          gravatar="chris.barber@sage.com"
-          size={size}
-        />,
-      );
 
       await expect(portraitPreview(page)).toHaveCSS(
         "height",
@@ -407,6 +373,45 @@ test.describe("Prop checks for Portrait component", () => {
       await expect(tooltip).toHaveCSS("color", color);
     });
   });
+
+  [
+    { token: "colorsUtilityMajor500", rgb: "(0, 50, 76)" },
+    { token: "colorsActionMajor500", rgb: "(0, 126, 69)" },
+    { token: "colorsSemanticFocus500", rgb: "(255, 188, 25)" },
+    { token: "colorsSemanticNegative500", rgb: "(203, 55, 74)" },
+  ].forEach(({ token, rgb }) => {
+    test(`should substitute the correct background colour when a design system token (${token}) is provided`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <PortraitDefaultComponent backgroundColor={`var(--${token})`} />,
+      );
+
+      await expect(portraitPreview(page)).toHaveCSS(
+        "background-color",
+        `rgb${rgb}`,
+      );
+    });
+  });
+
+  [
+    { token: "colorsUtilityMajor500", rgb: "(0, 50, 76)" },
+    { token: "colorsActionMajor500", rgb: "(0, 126, 69)" },
+    { token: "colorsSemanticFocus500", rgb: "(255, 188, 25)" },
+    { token: "colorsSemanticNegative500", rgb: "(203, 55, 74)" },
+  ].forEach(({ token, rgb }) => {
+    test(`should substitute the correct foreground colour when a design system token (${token}) is provided`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <PortraitDefaultComponent foregroundColor={`var(--${token})`} />,
+      );
+
+      await expect(portraitPreview(page)).toHaveCSS("color", `rgb${rgb}`);
+    });
+  });
 });
 
 test.describe("Event checks for Portrait component", () => {
@@ -423,15 +428,6 @@ test.describe("Event checks for Portrait component", () => {
 });
 
 test.describe("Accessibility tests for Portrait component", () => {
-  test("should pass accessibility checks when gravatar is passed", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<PortraitDefaultComponent gravatar="chris.barber@sage.com" />);
-
-    await checkAccessibility(page);
-  });
-
   imageURLs.forEach((url) => {
     test(`should pass accessibility checks when src is ${url}`, async ({
       mount,
@@ -608,5 +604,64 @@ test.describe("Accessibility tests for Portrait component", () => {
     await mount(<PortraitDefaultComponent onClick={(callbackCount += 1)} />);
 
     await checkAccessibility(page);
+  });
+
+  [
+    { value: "#A3CAF0", label: "paleblue" },
+    { value: "#FD9BA3", label: "palepink" },
+    { value: "#B4AEEA", label: "palepurple" },
+    { value: "#ECE6AF", label: "palegoldenrod" },
+    { value: "#EBAEDE", label: "paleorchid" },
+    { value: "#EBC7AE", label: "paledesert" },
+    { value: "#AEECEB", label: "paleturquoise" },
+    { value: "#AEECD6", label: "palemint" },
+    { value: "#000000", label: "black" },
+    { value: "#FFFFFF", label: "white" },
+    { value: "#2F4F4F", label: "darkslategray" },
+    { value: "#696969", label: "dimgray" },
+    { value: "#808080", label: "gray" },
+    { value: "#A9A9A9", label: "darkgray" },
+    { value: "#C0C0C0", label: "silver" },
+    { value: "#D3D3D3", label: "lightgray" },
+    { value: "#DCDCDC", label: "gainsboro" },
+    { value: "#F5F5F5", label: "whitesmoke" },
+    { value: "#FFFFE0", label: "lightyellow" },
+    { value: "#FFFACD", label: "lemonchiffon" },
+    { value: "#FAFAD2", label: "lightgoldenrodyellow" },
+    { value: "#FFE4B5", label: "moccasin" },
+    { value: "#FFDAB9", label: "peachpuff" },
+    { value: "#FFDEAD", label: "navajowhite" },
+    { value: "#F5DEB3", label: "wheat" },
+    { value: "#FFF8DC", label: "cornsilk" },
+    { value: "#FFFFF0", label: "ivory" },
+    { value: "#0000FF", label: "blue" },
+    { value: "#0000CD", label: "mediumblue" },
+    { value: "#00008B", label: "darkblue" },
+    { value: "#000080", label: "navy" },
+    { value: "#191970", label: "midnightblue" },
+    { value: "#4169E1", label: "royalblue" },
+    { value: "#4682B4", label: "steelblue" },
+    { value: "#5F9EA0", label: "cadetblue" },
+    { value: "#6495ED", label: "cornflowerblue" },
+    { value: "#87CEFA", label: "lightskyblue" },
+    { value: "#87CEEB", label: "skyblue" },
+    { value: "#00BFFF", label: "deepskyblue" },
+    { value: "#1E90FF", label: "dodgerblue" },
+    { value: "#ADD8E6", label: "lightblue" },
+    { value: "#B0C4DE", label: "lightsteelblue" },
+    { value: "#708090", label: "slateblue" },
+    { value: "#6A5ACD", label: "slateblue2" },
+    { value: "#7B68EE", label: "mediumslateblue" },
+    { value: "#8A2BE2", label: "blueviolet" },
+    { value: "#9370DB", label: "mediumpurple" },
+  ].forEach(({ label, value }) => {
+    test(`should pass accessibility checks when backgroundColor is ${label} (${value})`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PortraitDefaultComponent backgroundColor={value} />);
+
+      await checkAccessibility(page);
+    });
   });
 });

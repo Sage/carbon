@@ -23,8 +23,8 @@ export interface OptionRowProps extends Omit<TagProps, "data-component"> {
    * @private
    * @ignore
    * Callback to return value when the element is selected (prop added by the SelectList component) */
-  onSelect?: (ev: {
-    id?: string;
+  onSelect?: (data: {
+    id: string;
     text: string;
     value: string | Record<string, unknown>;
   }) => void;

@@ -111,7 +111,7 @@ export interface TextareaProps
   readOnly?: boolean;
   /** Flag to configure component as optional */
   isOptional?: boolean;
-  /** The number of visible text lines for the control */
+  /** The number of visible text lines for the control. When set, this determines the height of the textarea, and the minHeight property is ignored. */
   rows?: number;
   /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
@@ -129,7 +129,7 @@ export interface TextareaProps
   borderRadius?: BorderRadiusType | BorderRadiusType[];
   /** Hides the borders for the component. Please note that validation and focus styling will still be applied */
   hideBorders?: boolean;
-  /** Specify the minimum height */
+  /** Specify the minimum height. This property is only applied if rows is not set. */
   minHeight?: number;
 }
 

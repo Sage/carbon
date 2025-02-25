@@ -15,7 +15,6 @@ import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 import Events from "../../../__internal__/utils/helpers/events";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
 import ButtonToggleGroupContext from "./__internal__/button-toggle-group.context";
-import Logger from "../../../__internal__/utils/logger";
 
 export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   /** Unique id for the root element of the component */
@@ -54,15 +53,9 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   allowDeselect?: boolean;
   /** Disable all user interaction. */
   disabled?: boolean;
-  /**
-   * @private @ignore
-   * Set a class on the component
-   */
-  className?: string;
 }
 
 const BUTTON_TOGGLE_SELECTOR = '[data-element="button-toggle-button"]';
-let deprecatedClassNameWarningShown = false;
 
 const ButtonToggleGroup = ({
   children,
@@ -86,25 +79,13 @@ const ButtonToggleGroup = ({
   id,
   allowDeselect,
   disabled,
-  className,
   ...props
 }: ButtonToggleGroupProps) => {
-  if (!deprecatedClassNameWarningShown && className) {
-    Logger.deprecate(
-      "The 'className' prop has been deprecated and will soon be removed from the 'ButtonToggleGroup' component.",
-    );
-    deprecatedClassNameWarningShown = true;
-  }
-
   const hasCorrectItemStructure = useMemo(() => {
     const incorrectChild = React.Children.toArray(children).find(
-      (child: React.ReactNode) => {
-        return (
-          !React.isValidElement(child) ||
-          (child.type as React.FunctionComponent).displayName !==
-            ButtonToggle.displayName
-        );
-      },
+      (child: React.ReactNode) =>
+        !React.isValidElement(child) ||
+        (child.type as React.FunctionComponent).displayName !== "ButtonToggle",
     );
     return !incorrectChild;
   }, [children]);
@@ -234,7 +215,6 @@ const ButtonToggleGroup = ({
               data-role={dataRole}
               data-element={dataElement}
               id={id}
-              className={className}
               disabled={disabled}
             >
               {children}

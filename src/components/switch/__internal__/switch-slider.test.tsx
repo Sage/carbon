@@ -37,7 +37,7 @@ test("when `checked` is true, only one panel renders", () => {
 test("when `loading` is true, Loader component renders in the first panel", () => {
   render(<SwitchSlider loading />);
 
-  const loader = screen.getByRole("progressbar");
+  const loader = screen.getByTestId("switch-slider-loader");
 
   expect(loader).toBeVisible();
 });

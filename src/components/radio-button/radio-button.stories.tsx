@@ -34,11 +34,13 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 
 export const WithLegendAndLabels: Story = () => {
+  const [value, setValue] = React.useState("radio1");
   return (
     <RadioButtonGroup
       name="legend-and-labels-group"
-      onChange={() => console.log("change")}
+      onChange={(ev) => setValue(ev.target.value)}
       legend="Radio group legend"
+      value={value}
     >
       <RadioButton
         id="radio-1"

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { TooltipPositions } from "../../components/tooltip/tooltip.config";
 import Help from "../../components/help";
 import StyledLabel, {
@@ -11,6 +11,7 @@ import StyledIconWrapper from "./icon-wrapper.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import { ValidationProps } from "../validations";
 import { IconType } from "../../components/icon";
+import createGuid from "../../__internal__/utils/helpers/guid";
 
 export interface LabelProps
   extends ValidationProps,
@@ -34,7 +35,10 @@ export interface LabelProps
   useValidationIcon?: boolean;
   /** Id of the validation icon */
   validationIconId?: string;
-  /** Sets className for component */
+  /**
+   * @private
+   * @internal
+   * Sets className for component. INTERNAL USE ONLY. */
   className?: string;
   /** Sets aria-label for label element */
   "aria-label"?: string;
@@ -90,6 +94,7 @@ export const Label = ({
   const { onMouseEnter, onMouseLeave } = useContext(InputContext);
   const { onMouseEnter: onGroupMouseEnter, onMouseLeave: onGroupMouseLeave } =
     useContext(InputGroupContext);
+  const guid = useRef(createGuid());
 
   const handleMouseEnter = () => {
     if (onMouseEnter) onMouseEnter();
@@ -159,6 +164,7 @@ export const Label = ({
   return (
     <StyledLabelContainer
       data-role="label-container"
+      id={`label-container-${labelId ?? guid.current}`}
       align={alignment}
       inline={inline}
       width={width}

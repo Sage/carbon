@@ -3,7 +3,6 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Help from ".";
 import Icon from "../icon";
-import Logger from "../../__internal__/utils/logger";
 
 test("renders tooltip when help button is hovered and removes tooltip when unhovered", async () => {
   const user = userEvent.setup();
@@ -136,22 +135,4 @@ test("renders with provided `helpId` and `tooltipId`", async () => {
     "id",
     "bar",
   );
-});
-
-test("throws a deprecation warning if the 'className' prop is set", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(
-    <Help className="bar" helpId="foo" tooltipId="bar">
-      foo
-    </Help>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'Help' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
 });

@@ -10,9 +10,6 @@ import Icon from "../icon";
 import IconButton from "../icon-button";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export type MessageVariant =
   | "error"
@@ -22,30 +19,30 @@ export type MessageVariant =
   | "neutral";
 
 export interface MessageProps extends MarginProps {
-  /** set content to component */
+  /** Set the component's content */
   children?: React.ReactNode;
-  /** set custom class to component */
-  className?: string;
-  /** set custom aria label for message close button */
+  /** Set custom aria-label for component's close button */
   closeButtonAriaLabel?: string;
-  /** set custom id to component root */
+  /** Set custom id to component root */
   id?: string;
-  /** function runs when user click dismiss button */
+  /** Callback triggered on dismiss */
   onDismiss?: (
     e:
       | React.KeyboardEvent<HTMLButtonElement>
       | React.MouseEvent<HTMLButtonElement>,
   ) => void;
-  /** show message component */
+  /** Flag to determine if the message is rendered */
   open?: boolean;
-  /** determines if the close icon is shown */
+  /** Flag to determine if the close button is rendered */
   showCloseIcon?: boolean;
-  /** set message title */
+  /** Set message title */
   title?: React.ReactNode;
-  /** set background to be invisible */
+  /** Set transparent styling */
   transparent?: boolean;
-  /** set type of message based on new DLS standard */
+  /** Set the component's variant */
   variant?: MessageVariant;
+  /** Set the component's width, accepts any valid css string */
+  width?: string;
 }
 
 export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
@@ -58,19 +55,13 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
       children,
       onDismiss,
       id,
-      className,
       closeButtonAriaLabel,
       showCloseIcon = true,
+      width,
       ...props
     }: MessageProps,
     ref,
   ) => {
-    if (!deprecatedClassNameWarningShown && className) {
-      Logger.deprecate(
-        "The 'className' prop has been deprecated and will soon be removed from the 'Message' component.",
-      );
-      deprecatedClassNameWarningShown = true;
-    }
     const messageRef = useRef<HTMLDivElement | null>(null);
     const refToPass = ref || messageRef;
 
@@ -94,10 +85,10 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
     return open ? (
       <MessageStyle
         {...tagComponent("Message", props)}
-        className={className}
         transparent={transparent}
         variant={variant}
         id={id}
+        width={width}
         ref={refToPass}
         {...marginProps}
         tabIndex={-1}

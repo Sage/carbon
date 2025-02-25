@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { act, render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, within, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { enGB as enGBLocale } from "date-fns/locale/en-GB";
@@ -161,17 +161,11 @@ test("should set ref to empty after unmount", () => {
   expect(ref.current).toBe(null);
 });
 
-test("should render with the input focused and picker visible when `autoFocus` is true", async () => {
+test("should render with the input focused and picker visible when `autoFocus` is true", () => {
   render(<DateInput label="label" autoFocus onChange={() => {}} value="" />);
 
-  act(() => {
-    jest.advanceTimersByTime(10);
-  });
-
   expect(screen.getByRole("textbox")).toHaveFocus();
-  await waitFor(() => {
-    expect(screen.getByRole("grid")).toBeVisible();
-  });
+  expect(screen.getByRole("grid")).toBeVisible();
 });
 
 test("should not render with the input focused or the picker visible when `autoFocus` is false", () => {
@@ -183,7 +177,7 @@ test("should not render with the input focused or the picker visible when `autoF
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
 
-test("should open the picker and call the `onFocus` callback if one passed when the input is focused by the user", async () => {
+test("should open the picker and call the `onFocus` callback if one passed when the input is focused by the user", () => {
   const onFocus = jest.fn();
   render(
     <DateInput label="label" onChange={() => {}} value="" onFocus={onFocus} />,
@@ -191,12 +185,9 @@ test("should open the picker and call the `onFocus` callback if one passed when 
   const input = screen.getByRole("textbox");
   act(() => {
     input.focus();
-    jest.advanceTimersByTime(10);
   });
 
-  await waitFor(() => {
-    expect(screen.getByRole("grid")).toBeVisible();
-  });
+  expect(screen.getByRole("grid")).toBeVisible();
   expect(onFocus).toHaveBeenCalled();
 });
 
@@ -215,7 +206,6 @@ test("should open the picker and call the `onClick` and `onFocus` callbacks if p
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
 
   expect(screen.getByRole("grid")).toBeVisible();
   expect(onFocus).toHaveBeenCalled();
@@ -230,24 +220,30 @@ test("should open the picker and call the `onClick` callback if passed when the 
   );
   const icon = screen.getByTestId("icon");
   await user.click(icon);
-  jest.advanceTimersByTime(10);
 
   expect(screen.getByRole("grid")).toBeVisible();
   expect(onClick).toHaveBeenCalled();
 });
 
-test("should close the picker if it is open and the user clicks on the input icon", async () => {
+test("picker closes when input icon is double clicked", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput label="label" onChange={() => {}} value="" />);
+
   const icon = screen.getByTestId("input-icon-toggle");
-  await user.click(icon);
-  jest.advanceTimersByTime(10);
+  await user.dblClick(icon);
+
+  await waitFor(() =>
+    expect(screen.queryByRole("grid")).not.toBeInTheDocument(),
+  );
+});
+
+test("picker does not close when input icon is double clicked", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(<DateInput label="label" onChange={() => {}} value="" />);
+
+  await user.dblClick(screen.getByRole("textbox"));
 
   expect(screen.getByRole("grid")).toBeVisible();
-
-  await user.click(icon);
-  jest.advanceTimersByTime(10);
-  expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
 
 test("should not trigger a focus event when the user clicks on the input and `disabled` prop is set", async () => {
@@ -264,7 +260,6 @@ test("should not trigger a focus event when the user clicks on the input and `di
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
   expect(onFocus).not.toHaveBeenCalled();
@@ -284,7 +279,6 @@ test("should not trigger a focus event when the user clicks on the input and `re
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
   expect(onFocus).not.toHaveBeenCalled();
@@ -304,7 +298,6 @@ test("should call `onBlur` and `onChange` callbacks when the user clicks away fr
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.click(document.body);
 
   expect(onBlur).toHaveBeenCalled();
@@ -320,7 +313,6 @@ test("should call `onBlur` but not `onChange` callbacks when the user clicks awa
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.click(document.body);
 
   expect(onBlur).toHaveBeenCalled();
@@ -341,7 +333,6 @@ test("should call `onBlur` but not `onChange` callbacks when the user clicks awa
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.click(document.body);
 
   expect(onBlur).toHaveBeenCalled();
@@ -363,7 +354,6 @@ test("should not call `onBlur` or `onChange` callbacks when user clicks away fro
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.click(document.body);
 
   expect(onBlur).not.toHaveBeenCalled();
@@ -379,9 +369,7 @@ test("should not call `onBlur` when the user clicks on the input and then the in
   const input = screen.getByRole("textbox");
   const icon = screen.getByTestId("input-icon-toggle");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.click(icon);
-  jest.advanceTimersByTime(10);
 
   expect(onBlur).not.toHaveBeenCalled();
 });
@@ -392,7 +380,6 @@ test("should call `onChange` callback with expected values when user clicks away
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.type(input, "12.12.69");
   await user.click(document.body);
 
@@ -409,7 +396,6 @@ test("should call `onChange` callback with expected values when user clicks away
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.type(input, "12.12.20");
   await user.click(document.body);
 
@@ -426,7 +412,6 @@ test("should call `onChange` callback with expected values when user clicks away
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.type(input, "12.12.00");
   await user.click(document.body);
 
@@ -449,7 +434,6 @@ test("should call `onChange` callback when user clears the input and clicks away
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.clear(input);
   await user.click(document.body);
 
@@ -467,7 +451,6 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
   render(<DateInput onChange={onChange} onBlur={onBlur} value="04/04/2019" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   const picker = screen.getByRole("grid");
   await user.click(picker);
 
@@ -489,7 +472,7 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
+
   await user.click(screen.getByLabelText("Wednesday, April 3rd, 2019"));
 
   expect(screen.queryByRole("grid")).toBeVisible();
@@ -501,7 +484,6 @@ test("should close the open picker when a user presses the 'Escape' key", async 
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.keyboard("{Escape}");
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
@@ -512,7 +494,6 @@ test("should close the open picker when the user presses the 'Escape' key and fo
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.tab();
   await user.keyboard("{Escape}");
 
@@ -525,7 +506,6 @@ test("should call `onKeyDown` callback when the user types and the input is focu
   render(<DateInput onChange={() => {}} value="" onKeyDown={onKeyDown} />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.type(input, "12");
 
   expect(onKeyDown).toHaveBeenCalledTimes(2);
@@ -536,7 +516,6 @@ test("should keep the picker open and move focus to the previous month button wh
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.tab();
 
   expect(screen.getByRole("grid")).toBeVisible();
@@ -548,7 +527,6 @@ test("should keep the picker open and move focus to the previous month button wh
   render(<DateInput onChange={() => {}} value="" disablePortal />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.tab();
 
   expect(screen.getByRole("grid")).toBeVisible();
@@ -560,7 +538,6 @@ test("should close the picker when the user presses shift + tab and the input is
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
 
   expect(screen.getByRole("grid")).toBeVisible();
   await user.tab({ shift: true });
@@ -572,7 +549,6 @@ test("should close the picker when the user presses shift + tab and the previous
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.tab();
 
   expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
@@ -585,7 +561,6 @@ test("should not close the picker when the user presses shift + tab and neither 
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.tab();
   await user.tab();
 
@@ -597,20 +572,32 @@ test("should not close the picker when the user presses shift + tab and neither 
 test("should focus the next button and then the selected day element when the user presses tab and close the picker with a subsequent tab press", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="04/04/2019" />);
+
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
+
+  const previousMonthButton = await screen.findByRole("button", {
+    name: "Previous month",
+  });
   await user.tab();
 
-  expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
+  expect(previousMonthButton).toHaveFocus();
+
   await user.tab();
+
   expect(screen.getByRole("button", { name: "Next month" })).toHaveFocus();
+
   await user.tab();
+
   expect(
     screen.getByLabelText("Thursday, April 4th, 2019", { exact: false }),
   ).toHaveFocus();
+
   await user.tab();
-  expect(screen.queryByRole("grid")).not.toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(screen.queryByRole("grid")).not.toBeInTheDocument();
+  });
 });
 
 test("should close the picker, update the value and refocus the input element when the user clicks a day element", async () => {
@@ -618,7 +605,6 @@ test("should close the picker, update the value and refocus the input element wh
   render(<MockComponent initialValue="04/04/2019" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.click(screen.getByLabelText("Thursday, April 11th, 2019"));
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
@@ -658,7 +644,6 @@ test("should render the picker as a descendant of the main presentation element 
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
 
   expect(
     within(screen.getAllByRole("presentation")[0]).getByRole("grid"),
@@ -670,7 +655,6 @@ test("should not render the picker as a descendant of the main presentation elem
   render(<DateInput label="label" onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
 
   expect(
     within(screen.getAllByRole("presentation")[0]).queryByRole("grid"),
@@ -698,7 +682,6 @@ describe("when the `locale` is undefined", () => {
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
-    jest.advanceTimersByTime(10);
     await user.tab();
 
     expect(input).toHaveValue("04/04/2019");
@@ -715,7 +698,6 @@ describe("when the `locale` is undefined", () => {
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
-      jest.advanceTimersByTime(10);
       await user.type(input, inputString);
       await user.tab();
 
@@ -754,7 +736,6 @@ describe("when the `locale` is 'en-GB''", () => {
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
-    jest.advanceTimersByTime(10);
     await user.tab();
 
     expect(input).toHaveValue("04/04/2019");
@@ -776,7 +757,6 @@ describe("when the `locale` is 'en-GB''", () => {
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
-      jest.advanceTimersByTime(10);
       await user.type(input, inputString);
       await user.tab();
 
@@ -834,7 +814,6 @@ describe("when the `locale` is 'de-DE'", () => {
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
-    jest.advanceTimersByTime(10);
     await user.tab();
 
     expect(input).toHaveValue("04.04.2019");
@@ -856,7 +835,6 @@ describe("when the `locale` is 'de-DE'", () => {
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
-      jest.advanceTimersByTime(10);
       await user.type(input, inputString);
       await user.tab();
 
@@ -914,7 +892,6 @@ describe("when the `locale` is 'es'", () => {
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
-    jest.advanceTimersByTime(10);
     await user.tab();
 
     expect(input).toHaveValue("04/04/2019");
@@ -936,7 +913,6 @@ describe("when the `locale` is 'es'", () => {
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
-      jest.advanceTimersByTime(10);
       await user.type(input, inputString);
       await user.tab();
 
@@ -994,7 +970,6 @@ describe("when the `locale` is 'en-ZA'", () => {
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
-    jest.advanceTimersByTime(10);
     await user.tab();
 
     expect(input).toHaveValue("04/04/2019");
@@ -1016,7 +991,6 @@ describe("when the `locale` is 'en-ZA'", () => {
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
-      jest.advanceTimersByTime(10);
       await user.type(input, inputString);
       await user.tab();
 
@@ -1074,7 +1048,6 @@ describe("when the `locale` is 'fr-FR'", () => {
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
-    jest.advanceTimersByTime(10);
     await user.tab();
 
     expect(input).toHaveValue("04/04/2019");
@@ -1096,7 +1069,6 @@ describe("when the `locale` is 'fr-FR'", () => {
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
-      jest.advanceTimersByTime(10);
       await user.type(input, inputString);
       await user.tab();
 
@@ -1154,7 +1126,6 @@ describe("when the `locale` is 'fr-CA'", () => {
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
-    jest.advanceTimersByTime(10);
     await user.tab();
 
     expect(input).toHaveValue("04/04/2019");
@@ -1176,7 +1147,6 @@ describe("when the `locale` is 'fr-CA'", () => {
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
-      jest.advanceTimersByTime(10);
       await user.type(input, inputString);
       await user.tab();
 
@@ -1234,7 +1204,6 @@ describe("when the `locale` is 'en-CA'", () => {
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
-    jest.advanceTimersByTime(10);
     await user.tab();
 
     expect(input).toHaveValue("04/04/2019");
@@ -1256,7 +1225,6 @@ describe("when the `locale` is 'en-CA'", () => {
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
-      jest.advanceTimersByTime(10);
       await user.type(input, inputString);
       await user.tab();
 
@@ -1314,7 +1282,6 @@ describe("when the `locale` is 'en-US'", () => {
     );
     const input = screen.getByRole("textbox");
     await user.click(input);
-    jest.advanceTimersByTime(10);
     await user.tab();
 
     expect(input).toHaveValue("04/04/2019");
@@ -1336,7 +1303,6 @@ describe("when the `locale` is 'en-US'", () => {
       );
       const input = screen.getByRole("textbox");
       await user.click(input);
-      jest.advanceTimersByTime(10);
       await user.type(input, inputString);
       await user.tab();
 
@@ -1370,7 +1336,6 @@ test("should update the input value and call `onChange` with expected parameters
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.type(input, "29/02/2012");
   await user.tab();
 
@@ -1387,7 +1352,6 @@ test("should call `onChange` with expected parameters but not update the input v
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.type(input, "29.02.2013");
   await user.tab();
 
@@ -1404,7 +1368,6 @@ test("should call `onChange` with expected parameters but not update the input v
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  jest.advanceTimersByTime(10);
   await user.type(input, "04.04/2019");
   await user.tab();
 
@@ -1663,10 +1626,8 @@ test("should select the correct date when the locale is overridden and a date is
     </I18nProvider>,
   );
   const input = screen.getByRole("textbox");
-  await user.click(input);
-  jest.advanceTimersByTime(10);
+
   await user.type(input, "05/04");
-  jest.advanceTimersByTime(10);
 
   const caption = screen.getByRole("status");
   expect(caption).toHaveTextContent("April 2019");

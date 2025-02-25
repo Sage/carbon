@@ -30,10 +30,10 @@ interface StyledMenuItemWrapperProps
   isOpen?: boolean;
   inFullscreenView?: boolean;
   asPassiveItem?: boolean;
-  placeholderTabIndex?: boolean;
   icon?: string;
   ariaLabel?: string;
   asDiv?: boolean;
+  hasFocusableChild?: boolean;
   hasInput?: boolean;
   menuItemVariant?: Pick<MenuWithChildren, "variant">["variant"];
   inSubmenu?: boolean;
@@ -97,6 +97,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
     overrideColor,
     asPassiveItem,
     asDiv,
+    hasFocusableChild,
     hasInput,
     inSubmenu,
   }) => css`
@@ -110,7 +111,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
     a,
     button {
-      cursor: pointer;
       min-height: 40px;
       height: 100%;
       box-sizing: border-box;
@@ -181,7 +181,13 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
         a:hover,
         button:hover {
+          ${StyledButton} {
+            border-radius: 0;
+            background-color: transparent;
+          }
+
           ${!asDiv &&
+          !asPassiveItem &&
           css`
             background-color: var(--colorsComponentsMenuAutumnStandard600);
             color: var(--colorsComponentsMenuYang100);
@@ -198,71 +204,66 @@ const StyledMenuItemWrapper = styled.a.attrs({
       }
     `}
 
-    ${asPassiveItem
-      ? `
-        ${
-          !inFullscreenView &&
-          `
-            > a:not(:has(button)) {
-              padding: 11px 16px;
-            }
-
-            > a:has(${StyledButton}:not(.search-button)) {
-             height: 100%;
-
-             ${StyledContent} {
-                height: inherit;
-
-                div {
-                  height: inherit;
-                }
-              }
-
-              ${StyledButton} {
-                min-height: 40px;
-                padding: 10px 0px;
-                box-sizing: border-box;
-                height: 100%;
-              }
-            }
-          `
+    ${hasFocusableChild &&
+    css`
+      ${!inFullscreenView &&
+      css`
+        > a:not(:has(button)) {
+          padding: 11px 16px;
         }
 
-        ${StyledIconButton} {
-          > span {
-            display: inline-flex;
-            margin-right: 0;
-          }
+        > a:has(${StyledButton}:not(.search-button)) {
+          height: 100%;
 
-          :focus {
-            outline: none;
-            [data-component="icon"] {
-              color: ${menuConfigVariants[menuType].color};
+          ${StyledContent} {
+            height: inherit;
+
+            div {
+              height: inherit;
             }
           }
-        }
-      `
-      : `
-        ${
-          hasSubmenu || (maxWidth && !inFullscreenView)
-            ? `
-              a,
-              ${StyledLink} a,
-              button,
-              ${StyledLink} button {
-                padding: 11px 16px ${hasSubmenu && maxWidth ? "12px" : "10px"};
-              }
-            `
-            : `
-              a,
-              ${StyledLink} a,
-              button,
-              ${StyledLink} button {
-                padding: ${!inFullscreenView ? "11px" : "0px"} 16px;
-              }
-            `
+
+          ${StyledButton} {
+            min-height: 40px;
+            padding: 10px 0px;
+            box-sizing: border-box;
+            height: 100%;
+          }
         }
       `}
+
+      ${StyledIconButton} {
+        > span {
+          display: inline-flex;
+          margin-right: 0;
+        }
+
+        :focus {
+          outline: none;
+          [data-component="icon"] {
+            color: ${menuConfigVariants[menuType].color};
+          }
+        }
+      }
+    `}
+
+    ${!hasFocusableChild &&
+    !inFullscreenView &&
+    css`
+      ${hasSubmenu || maxWidth
+        ? css`
+            > a,
+            > button {
+              padding: 11px 16px ${hasSubmenu && maxWidth ? "12px" : "10px"};
+            }
+          `
+        : css`
+            > a,
+            > button {
+              padding: 11px 16px;
+            }
+          `}
+    `}
 
     button,
     ${StyledLink} button,
@@ -459,31 +460,10 @@ const StyledMenuItemWrapper = styled.a.attrs({
         `
       }
 
-      ${
-        asPassiveItem &&
-        css`
-          cursor: default;
-
-          a {
-            padding: 0 16px;
-          }
-
-          :hover {
-            background: transparent;
-          }
-        `
-      }
-
-
       > a, > button {
-       min-height: 40px;
-       line-height: 40px;
-      }
-
-      a,
-      ${StyledLink} a,
-      button,
-      ${StyledLink} button {
+        min-height: 40px;
+        line-height: 40px;
+        padding: 0px 16px;
         width: 100vw;
         box-sizing: border-box;
       }
@@ -494,24 +474,27 @@ const StyledMenuItemWrapper = styled.a.attrs({
         position: relative;
       }
 
-      && {
-        > a:focus,
-        > a:hover,
-        > button:focus,
-        > button:hover {
-          background-color: var(--colorsComponentsMenuAutumnStandard600);
-          color: var(--colorsComponentsMenuYang100);
+      ${
+        !asPassiveItem &&
+        css`
+          && {
+            > a:focus,
+            > a:hover,
+            > button:focus,
+            > button:hover {
+              background-color: var(--colorsComponentsMenuAutumnStandard600);
+              color: var(--colorsComponentsMenuYang100);
 
-            ${
-              !hasInput &&
-              `
-              [data-component="icon"] {
-                color: var(--colorsComponentsMenuYang100);
-              }
-            `
+              ${!hasInput &&
+              css`
+                [data-component="icon"] {
+                  color: var(--colorsComponentsMenuYang100);
+                }
+              `}
             }
           }
-        }
+        `
+      }
       }
     `}
   `}

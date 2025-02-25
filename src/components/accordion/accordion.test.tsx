@@ -2,47 +2,15 @@ import React from "react";
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { StyledAccordionHeadingsContainer } from "./accordion.style";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Textbox from "../textbox";
 import { Accordion } from ".";
 import AccordionGroup from "./accordion-group/accordion-group.component";
-import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
 
 describe("Accordion", () => {
-  it("should display deprecation warning for `scheme` prop once", () => {
-    const loggerSpy = jest
-      .spyOn(Logger, "deprecate")
-      .mockImplementation(() => {});
-
-    render(<Accordion scheme="transparent" title="Title" />);
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "The `scheme` prop for `Accordion` component is deprecated and will soon be removed.",
-    );
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-    loggerSpy.mockReset();
-  });
-
-  it("should display deprecation warning for `buttonHeading` prop once", () => {
-    const loggerSpy = jest
-      .spyOn(Logger, "deprecate")
-      .mockImplementation(() => {});
-
-    render(<Accordion buttonHeading title="Title" />);
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "The `buttonHeading` prop for `Accordion` component is deprecated and will soon be removed. Please use `subtle` variant instead.",
-    );
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-    loggerSpy.mockReset();
-  });
-
   it("should render `title` as a React element", () => {
     render(<Accordion title={<div id="customTitle">Title content</div>} />);
 
@@ -210,22 +178,34 @@ describe("Accordion", () => {
     expect(screen.queryByText("a subtitle")).not.toBeInTheDocument();
   });
 
-  it("should display the `title` when closed and the `openTitle` and `buttonHeading` props are provided", () => {
-    render(<Accordion title="Title" buttonHeading openTitle="Less info" />);
+  it("should display the `title` when closed and the `openTitle` props are provided", () => {
+    render(<Accordion title="Title" openTitle="Less info" />);
 
     expect(screen.getByRole("button")).toHaveTextContent("Title");
   });
 
-  it("should display the `openTitle` when open and the `openTitle` and `buttonHeading` props are provided", () => {
+  it("should display the `openTitle` when open and the `openTitle` props are provided", () => {
+    render(<Accordion title="Title" expanded openTitle="Less info" />);
+
+    expect(screen.getByRole("button")).toHaveTextContent("Less info");
+  });
+
+  it("should display the `openTitle` when open and the `openTitle` and `title` props are provided", () => {
     render(
-      <Accordion title="Title" expanded buttonHeading openTitle="Less info" />,
+      <Accordion title={<h4>Title in H4</h4>} expanded openTitle="Less info" />,
     );
 
     expect(screen.getByRole("button")).toHaveTextContent("Less info");
   });
 
-  it("should display the `title` when open if the `openTitle` prop is not provided and `buttonHeading` is provided", () => {
-    render(<Accordion title="Title" expanded buttonHeading />);
+  it("should display the `title` when open and `title` prop is provided as a React node", () => {
+    render(<Accordion title={<h4>Title in H4</h4>} expanded />);
+
+    expect(screen.getByRole("button")).toHaveTextContent("Title in H4");
+  });
+
+  it("should display the `title` when open if the `openTitle` prop is not provided", () => {
+    render(<Accordion title="Title" expanded />);
 
     expect(screen.getByRole("button")).toHaveTextContent("Title");
   });
@@ -246,21 +226,6 @@ describe("Accordion", () => {
 
     expect(screen.getByTestId("icon")).toHaveStyle({
       transform: "rotate(-180deg)",
-    });
-  });
-
-  // coverage
-  it('sets the icon position of the button correctly when `iconAlign` prop is set to "left" and `buttonHeading` prop is true', () => {
-    render(<Accordion title="Title" buttonHeading iconAlign="left" />);
-
-    expect(screen.getByRole("button")).toHaveStyleRule(
-      "margin-left",
-      "var(--spacing100)",
-      { modifier: `${StyledAccordionHeadingsContainer}` },
-    );
-    expect(screen.getByTestId("icon")).toHaveStyle({
-      position: "relative",
-      left: "16px",
     });
   });
 
@@ -291,13 +256,6 @@ describe("Accordion", () => {
       "border-left",
       "2px solid var(--colorsUtilityMajor100)",
     );
-  });
-
-  // coverage (buttonWidth is deprecated)
-  it("the `buttonWidth` prop sets the button width when passed as a number and te `buttonHeading` prop is true", () => {
-    render(<Accordion title="Title" buttonHeading buttonWidth={140} />);
-
-    expect(screen.getByRole("button")).toHaveStyle({ width: "140px" });
   });
 
   // coverage - disableContentPadding is tested in Chromatic

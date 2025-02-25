@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { EditorState } from "draft-js";
 
 import Dialog, { DialogProps } from "./dialog.component";
 import { DIALOG_SIZES } from "./dialog.config";
@@ -57,7 +56,10 @@ export const Default = ({
   const [date, setDate] = useState("01/06/2020");
   const [isOpen, setIsOpen] = useState(true);
   const handleCancel = (
-    evt: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
+    evt:
+      | React.KeyboardEvent<HTMLElement>
+      | KeyboardEvent
+      | React.MouseEvent<HTMLElement>,
   ) => {
     setIsOpen(false);
     action("cancel")(evt);
@@ -66,10 +68,7 @@ export const Default = ({
     setIsOpen(true);
     action("open")(evt);
   };
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const handleEditorChange = (newState: EditorState) => {
-    setEditorState(newState);
-  };
+
   const selectOptions = [
     {
       id: "1",
@@ -163,12 +162,7 @@ export const Default = ({
               setDate(e.target.value.formattedValue)
             }
           />
-          <TextEditor
-            onChange={handleEditorChange}
-            value={editorState}
-            labelText="Additional notes"
-            mb={1}
-          />
+          <TextEditor labelText="Additional notes" />
           <Checkbox name="checkbox" label="Do you like my Dog" />
           <div>This is an example of a dialog with a Form as content</div>
         </Form>
@@ -219,9 +213,9 @@ export const WithTwoDifferentNodes: StoryType = (
 WithTwoDifferentNodes.storyName = "with two different nodes in subtitle";
 WithTwoDifferentNodes.decorators = [
   (Story) => (
-    <div style={{ height: 400, width: "100%" }}>
+    <Box height="400px" width="100%">
       <Story />
-    </div>
+    </Box>
   ),
 ];
 WithTwoDifferentNodes.parameters = { chromatic: { disableSnapshot: false } };
@@ -258,9 +252,9 @@ export const MaxSizeTest: StoryType = () => {
 MaxSizeTest.storyName = "With Maximised Size";
 MaxSizeTest.decorators = [
   (Story) => (
-    <div style={{ height: "100vh", width: "100vw" }}>
+    <Box height="100vh" width="100vw">
       <Story />
-    </div>
+    </Box>
   ),
 ];
 
@@ -292,9 +286,9 @@ MaxSizeTestNonOverflowedForm.storyName =
   "With Maximised Size and a Non-Overflowed Form";
 MaxSizeTestNonOverflowedForm.decorators = [
   (Story) => (
-    <div style={{ height: "100vh", width: "100vw" }}>
+    <Box height="100vh" width="100vw">
       <Story />
-    </div>
+    </Box>
   ),
 ];
 
@@ -323,9 +317,9 @@ export const DialogWithLongHeaderContent: StoryType = {
   },
   decorators: [
     (Story) => (
-      <div style={{ height: "100vh", width: "100vw" }}>
+      <Box height="100vh" width="100vw">
         <Story />
-      </div>
+      </Box>
     ),
   ],
   render: ({ size, ...args }) => (

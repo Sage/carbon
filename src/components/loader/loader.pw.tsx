@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 
 import Loader from ".";
 import LoaderInsideButton from "./components.test-pw";
@@ -108,15 +108,6 @@ test.describe("check props for Loader component test", () => {
     expect(await colorVal(0)).toBe(color);
     expect(await colorVal(1)).toBe(color);
     expect(await colorVal(2)).toBe(color);
-  });
-
-  test("should render Loader with aria-label prop", async ({ mount, page }) => {
-    await mount(<Loader aria-label="playwright-aria" />);
-
-    await expect(loader(page, 0).locator("..")).toHaveAttribute(
-      "aria-label",
-      "playwright-aria",
-    );
   });
 
   test("should render Loader with isActive prop set to false", async ({

@@ -30,6 +30,7 @@ import {
   findFirstFocusableItem,
   findLastFocusableItem,
   getItems,
+  checkChildrenForString,
 } from "./__internal__/action-popover-utils";
 
 export interface RenderButtonProps {
@@ -37,7 +38,7 @@ export interface RenderButtonProps {
   "data-element": string;
   ariaAttributes: {
     "aria-haspopup": string;
-    "aria-label": string;
+    "aria-label"?: string;
     "aria-labelledby"?: string;
     "aria-describedby"?: string;
     "aria-controls": string;
@@ -154,7 +155,7 @@ export const ActionPopover = forwardRef<
     }, [placement, rightAlignMenu]);
 
     const setOpen = useCallback(
-      (value) => {
+      (value: boolean) => {
         if (value && !isOpen) {
           onOpen();
         }
@@ -185,7 +186,7 @@ export const ActionPopover = forwardRef<
     );
 
     const onButtonClick = useCallback(
-      (e) => {
+      (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation();
         const isOpening = !isOpen;
         setFocusIndex(firstFocusableItem);
@@ -202,18 +203,20 @@ export const ActionPopover = forwardRef<
     // https://www.w3.org/TR/wai-aria-practices/examples/menu-button/menu-button-actions.html
 
     const onButtonKeyDown = useCallback(
-      (e) => {
+      (e: React.KeyboardEvent<HTMLElement>) => {
         if (
           Events.isSpaceKey(e) ||
           Events.isDownKey(e) ||
-          Events.isEnterKey(e) ||
-          Events.isUpKey(e)
+          Events.isEnterKey(e)
         ) {
           e.preventDefault();
           e.stopPropagation();
-          setFocusIndex(
-            Events.isUpKey(e) ? lastFocusableItem : firstFocusableItem,
-          );
+          setFocusIndex(firstFocusableItem);
+          setOpen(true);
+        } else if (Events.isUpKey(e)) {
+          e.preventDefault();
+          e.stopPropagation();
+          setFocusIndex(lastFocusableItem);
           setOpen(true);
         }
       },
@@ -221,7 +224,7 @@ export const ActionPopover = forwardRef<
     );
 
     const handleEscapeKey = useCallback(
-      (e) => {
+      (e: KeyboardEvent) => {
         /* istanbul ignore else */
         if (Events.isEscKey(e)) {
           setOpen(false);
@@ -260,12 +263,29 @@ export const ActionPopover = forwardRef<
 
     const menuButton = (menuID: string) => {
       if (renderButton) {
-        return renderButton({
+        const renderButtonComponent = renderButton({
           tabIndex: isOpen ? -1 : 0,
           "data-element": "action-popover-button",
           ariaAttributes: {
             "aria-haspopup": "true",
             "aria-label": ariaLabel || l.actionPopover.ariaLabel(),
+            "aria-labelledby": ariaLabelledBy,
+            "aria-describedby": ariaDescribedBy,
+            "aria-controls": menuID,
+            "aria-expanded": `${isOpen}`,
+          },
+        });
+
+        const buttonHasString = checkChildrenForString(renderButtonComponent);
+
+        return renderButton({
+          tabIndex: isOpen ? -1 : 0,
+          "data-element": "action-popover-button",
+          ariaAttributes: {
+            "aria-haspopup": "true",
+            "aria-label": buttonHasString
+              ? undefined
+              : ariaLabel || l.actionPopover.ariaLabel(),
             "aria-labelledby": ariaLabelledBy,
             "aria-describedby": ariaDescribedBy,
             "aria-controls": menuID,

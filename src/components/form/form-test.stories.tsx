@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useState } from "react";
 
-import TextEditor, { EditorState } from "../text-editor";
+import { StoryObj } from "@storybook/react/*";
 import Form from ".";
 import Button from "../button";
 import { Tab, Tabs } from "../tabs";
@@ -25,6 +25,8 @@ import InlineInputs from "../inline-inputs";
 import Pager from "../pager";
 import Password from "../password";
 import Search, { SearchProps } from "../search";
+import { Time } from "../time";
+import TextEditor from "../text-editor";
 
 export default {
   title: "Form/Test",
@@ -37,7 +39,9 @@ export default {
   },
 };
 
-export const DefaultWithStickyFooter = ({ ...props }) => (
+type StoryType = StoryObj<typeof Form>;
+
+export const DefaultWithStickyFooter: StoryType = ({ ...props }) => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -63,6 +67,14 @@ export const DefaultWithStickyFooter = ({ ...props }) => (
     </Tabs>
     <Textbox label="Textbox" />
     <Textbox label="Textbox" />
+    <Time
+      value={{
+        hours: "",
+        minutes: "",
+      }}
+      onChange={() => {}}
+      label="Time"
+    />
     <Textbox label="Textbox" />
     <Textbox label="Textbox" />
     <Textbox label="Textbox" />
@@ -78,6 +90,21 @@ DefaultWithStickyFooter.args = {
   warningCount: 0,
   buttonAlignment: "right",
 };
+DefaultWithStickyFooter.parameters = {
+  themeProvider: {
+    chromatic: { theme: "sage" },
+  },
+  chromatic: {
+    disableSnapshot: false,
+  },
+};
+DefaultWithStickyFooter.decorators = [
+  (Story) => (
+    <div style={{ height: "100vh", width: "97vw" }}>
+      <Story />
+    </div>
+  ),
+];
 
 export const FormAlignmentCustomMarginsTextInputs = () => {
   return (
@@ -381,15 +408,11 @@ DefaultWithPager.storyName = "default with pager";
 export const MockFormForAriaLiveDemo = () => {
   const [textareaValue, setTextareaValue] = useState("");
   const [textboxValue, setTextboxValue] = useState("");
-  const [textEditorValue, setTextEditorValue] = useState(
-    EditorState.createEmpty(),
-  );
   const [passwordValue, setPasswordValue] = useState("");
 
   const resetValues = () => {
     setTextareaValue("");
     setTextboxValue("");
-    setTextEditorValue(EditorState.createEmpty());
     setPasswordValue("");
   };
 
@@ -435,15 +458,7 @@ export const MockFormForAriaLiveDemo = () => {
           setTextboxValue(newValue.target.value);
         }}
       />
-      <TextEditor
-        mt={5}
-        onChange={(newValue) => {
-          setTextEditorValue(newValue);
-        }}
-        value={textEditorValue}
-        labelText="Text Editor Label"
-        characterLimit={100}
-      />
+      <TextEditor labelText="Text Editor Label" characterLimit={100} />
       <Password
         mt={5}
         mb={2}
@@ -528,3 +543,51 @@ FullWidthWithLeftAndRight.parameters = {
   },
   themeProvider: { chromatic: { theme: "sage" }, viewports: [1200, 900, 320] },
 };
+
+export const DefaultWithNumeralDate: StoryType = ({ ...props }) => (
+  <Form
+    onSubmit={() => console.log("submit")}
+    leftSideButtons={
+      <Button onClick={() => console.log("cancel")}>Cancel</Button>
+    }
+    saveButton={
+      <Button buttonType="primary" type="submit">
+        Save
+      </Button>
+    }
+    {...props}
+  >
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <NumeralDate
+      defaultValue={{
+        dd: "01",
+        mm: "02",
+        yyyy: "2020",
+      }}
+      label="Numeral Date"
+    />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+  </Form>
+);
+
+DefaultWithNumeralDate.storyName = "With NumeralDate";
+DefaultWithNumeralDate.parameters = {
+  themeProvider: {
+    chromatic: { theme: "sage" },
+  },
+  chromatic: {
+    disableSnapshot: false,
+  },
+};
+DefaultWithNumeralDate.decorators = [
+  (Story) => (
+    <div style={{ height: "100vh", width: "97vw" }}>
+      <Story />
+    </div>
+  ),
+];

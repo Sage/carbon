@@ -102,7 +102,7 @@ export const Switch = React.forwardRef(
     }
 
     const onChangeInternal = useCallback(
-      (e) => {
+      (e: React.ChangeEvent<HTMLInputElement>) => {
         setCheckedInternal(e.target.checked);
         onChange?.(e);
       },
@@ -257,7 +257,8 @@ export const Switch = React.forwardRef(
       error || warning ? defaultInputWrapperMargin : defaultMargin;
     const direction = labelInline ? "row" : "column";
     const reverseDirection = labelInline ? "row-reverse" : "column";
-
+    const labelWrapperAlignSelf =
+      labelInline && !error && !warning && !info ? "center" : "";
     return (
       <>
         <StyledSwitch {...switchStylePropsForNewValidation}>
@@ -269,11 +270,7 @@ export const Switch = React.forwardRef(
             flexDirection={!reverse ? reverseDirection : direction}
             width={labelInline ? "100%" : "auto"}
           >
-            <Box
-              data-role="label-wrapper"
-              // width={labelInline ? rest.labelWidth : 30}
-              // minWidth={label && labelInline ? "32px" : 0}
-            >
+            <Box data-role="label-wrapper" alignSelf={labelWrapperAlignSelf}>
               <Label
                 isDarkBackground={isDarkBackground}
                 labelId={labelId.current}
@@ -303,10 +300,11 @@ export const Switch = React.forwardRef(
             </Box>
 
             <Box
-              ml={reverse ? errorMargin : defaultInputWrapperMargin}
-              mr={!reverse ? errorMargin : defaultInputWrapperMargin}
+              ml={reverse ? errorMargin : 0}
+              mr={!reverse ? errorMargin : 0}
               position="relative"
               id="input-wrapper"
+              data-role="input-wrapper"
             >
               <ValidationMessage
                 error={error}

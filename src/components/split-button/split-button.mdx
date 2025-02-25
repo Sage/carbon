@@ -21,7 +21,6 @@ import * as SplitButtonStories from "./split-button.stories";
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Related Components](#related-components)
 - [Examples](#examples)
 - [Props](#props)
 - [Translation keys](#translation-keys)
@@ -37,6 +36,17 @@ import SplitButton from "carbon-react/lib/components/split-button";
 ### Default
 
 <Canvas of={SplitButtonStories.Default} />
+
+### Focusing Main and Toggle Buttons Programmatically
+
+```javascript
+import { SplitButtonHandle } from "carbon-react/lib/components/split-button";
+```
+
+The `SplitButtonHandle` type provides an imperative handle for programmatic control over `SplitButton`. 
+Using a `ref`, you can access its `focusMainButton()` and `focusToggleButton()` methods to set focus on the respective buttons as needed.
+
+<Canvas of={SplitButtonStories.ProgrammaticFocus} />
 
 ### Disabled
 

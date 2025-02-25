@@ -39,8 +39,6 @@ export interface DecimalProps
   onChange?: (ev: CustomEvent) => void;
   /** Handler for blur event */
   onBlur?: (ev: CustomEvent) => void;
-  /** [Deprecated] Handler for key press event */
-  onKeyPress?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** The input name */
   name?: string;
   /** The decimal precision of the value in the input */
@@ -70,7 +68,6 @@ export interface DecimalProps
 }
 
 let deprecateUncontrolledWarnTriggered = false;
-let deprecateOnKeyPressWarnTriggered = false;
 
 export const Decimal = React.forwardRef(
   (
@@ -82,7 +79,6 @@ export const Decimal = React.forwardRef(
       readOnly,
       onChange,
       onBlur,
-      onKeyPress,
       id,
       name,
       allowEmptyValue = false,
@@ -95,7 +91,7 @@ export const Decimal = React.forwardRef(
     const l = useContext(LocaleContext);
 
     const getSeparator = useCallback(
-      (separatorType) => {
+      (separatorType: string) => {
         const numberWithGroupAndDecimalSeparator = 10000.1;
         return Intl.NumberFormat(locale || l.locale())
           .formatToParts(numberWithGroupAndDecimalSeparator)
@@ -104,7 +100,7 @@ export const Decimal = React.forwardRef(
       [l, locale],
     );
 
-    const isNaN = useCallback((valueToTest) => {
+    const isNaN = useCallback((valueToTest: string) => {
       return Number.isNaN(Number(valueToTest));
     }, []);
 
@@ -112,12 +108,12 @@ export const Decimal = React.forwardRef(
      * Format a user defined value
      */
     const formatValue = useCallback(
-      (valueToFormat) => {
+      (valueToFormat: string) => {
         if (isNaN(valueToFormat)) {
           return valueToFormat;
         }
 
-        /* Guards against any white-space only strings like "   " being 
+        /* Guards against any white-space only strings like "   " being
        mishandled and returned as `NaN` for the value displayed in the textbox */
         if (valueToFormat === "" || valueToFormat.match(/\s+/g)) {
           return valueToFormat;
@@ -128,7 +124,7 @@ export const Decimal = React.forwardRef(
 
         const formattedInteger = Intl.NumberFormat(locale || l.locale(), {
           maximumFractionDigits: 0,
-        }).format(integer);
+        }).format(+integer);
 
         let formattedNumber = formattedInteger;
         if (remainder?.length > precision) {
@@ -152,7 +148,7 @@ export const Decimal = React.forwardRef(
       : formatValue((0).toFixed(precision));
 
     const getSafeValueProp = useCallback(
-      (initialValue) => {
+      (initialValue?: string) => {
         // We're intentionally preventing the use of number values to help prevent any unintentional rounding issues
         invariant(
           typeof initialValue === "string",
@@ -185,7 +181,7 @@ export const Decimal = React.forwardRef(
     }, [precision, prevPrecisionValue]);
 
     const removeDelimiters = useCallback(
-      (valueToFormat) => {
+      (valueToFormat: string) => {
         const delimiterMatcher = new RegExp(
           `[\\${getSeparator("group")} ]*`,
           "g",
@@ -199,15 +195,15 @@ export const Decimal = React.forwardRef(
      * Convert raw input to a standard decimal format
      */
     const toStandardDecimal = useCallback(
-      (i18nValue) => {
+      (i18nValue: string) => {
         const valueWithoutNBS =
           getSeparator("group")?.match(/\s+/) && !i18nValue.match(/\s{2,}/)
             ? i18nValue.replace(/\s+/g, "")
             : i18nValue;
         /* If a value is passed in that is a number but has too many delimiters in succession, we want to handle this
     value without formatting it or removing delimiters. We also want to consider that,
-    if a value consists of only delimiters, we want to treat that 
-    value in the same way as if the value was NaN. We want to pass this value to the 
+    if a value consists of only delimiters, we want to treat that
+    value in the same way as if the value was NaN. We want to pass this value to the
     formatValue function, before the delimiters can be removed. */
         const errorsWithDelimiter = new RegExp(
           `([^A-Za-z0-9]{2,})|(^[^A-Za-z0-9-]+)|([^0-9a-z-,.])|([^0-9-,.]+)|([W,.])$`,
@@ -326,17 +322,9 @@ export const Decimal = React.forwardRef(
       );
     }
 
-    if (!deprecateOnKeyPressWarnTriggered && onKeyPress) {
-      deprecateOnKeyPressWarnTriggered = true;
-      Logger.deprecate(
-        "`onKeyPress` prop in `Decimal` is deprecated and will soon be removed, please use `onKeyDown` instead.",
-      );
-    }
-
     return (
       <>
         <Textbox
-          onKeyPress={onKeyPress}
           align={align}
           readOnly={readOnly}
           inputWidth={inputWidth}

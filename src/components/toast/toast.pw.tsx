@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 
 import { ToastProps } from ".";
 import {
@@ -19,10 +19,7 @@ import {
   getDataComponentByValue,
   button,
 } from "../../../playwright/components";
-import {
-  checkAccessibility,
-  containsClass,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 import { closeIconButton } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { PORTAL } from "../../../playwright/components/locators";
@@ -70,12 +67,6 @@ test.describe("Toast component", () => {
     await mount(<ToastComponent disableAutoFocus />);
 
     await expect(toastComponent(page)).not.toBeFocused();
-  });
-
-  test("should render with className prop", async ({ mount, page }) => {
-    await mount(<ToastComponent className={testData} />);
-
-    await containsClass(toastComponent(page), testData);
   });
 
   test("should render with id prop", async ({ mount, page }) => {

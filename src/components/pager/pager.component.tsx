@@ -198,8 +198,8 @@ export const Pager = ({
   );
 
   const handleOnPagination = useCallback(
-    (selectedValue) => {
-      setValue(selectedValue);
+    (selectedValue: string | Record<string, unknown>) => {
+      setValue(+selectedValue);
       setCurrentPageSize(+selectedValue);
       onPagination(1, +selectedValue, "page-select");
     },

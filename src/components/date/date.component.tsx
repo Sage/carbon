@@ -29,6 +29,7 @@ import DatePicker, { PickerProps } from "./__internal__/date-picker";
 import DateRangeContext, {
   InputName,
 } from "../date-range/__internal__/date-range.context";
+import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -104,6 +105,10 @@ export interface DateInputProps
   onPickerClose?: () => void;
   /** Date format string to be applied to the date inputs */
   dateFormatOverride?: string;
+  /** Prop to specify the aria-label attribute of the date picker */
+  datePickerAriaLabel?: string;
+  /** Prop to specify the aria-labelledby attribute of the date picker */
+  datePickerAriaLabelledBy?: string;
 }
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -137,17 +142,18 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       inputName,
       onPickerClose,
       onPickerOpen,
+      datePickerAriaLabel,
+      datePickerAriaLabelledBy,
       ...rest
     }: DateInputProps,
     ref,
   ) => {
-    const wrapperRef = useRef(null);
-    const parentRef = useRef(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const parentRef = useRef<HTMLElement | null>(null);
     const internalInputRef = useRef<HTMLInputElement | null>(null);
     const alreadyFocused = useRef(false);
     const isBlurBlocked = useRef(false);
     const focusedViaPicker = useRef(false);
-    const blockClose = useRef(false);
     const locale = useLocale();
     const { dateFnsLocale, dateFormatOverride } = locale.date;
     const { format, formats } = useMemo(
@@ -202,31 +208,22 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       return customEvent;
     };
 
-    // Add  custom listener to prevent issues with regards to double calls within the Date component
-    // This is a temporary fix until the Date component is refactored more info can be found:
-    // TODO: FE-6757
-    useEffect(() => {
-      const handleClick = () => {
-        if (!blockClose.current) {
-          if (open) {
-            alreadyFocused.current = true;
-            internalInputRef.current?.focus();
-            isBlurBlocked.current = false;
-            internalInputRef.current?.blur();
-            setOpen(false);
-            onPickerClose?.();
-            alreadyFocused.current = false;
-          }
-        } else {
-          blockClose.current = false;
-        }
-      };
-      document.addEventListener("mousedown", handleClick);
+    const handleClickAway = () => {
+      if (open) {
+        alreadyFocused.current = true;
+        internalInputRef.current?.focus();
+        isBlurBlocked.current = false;
+        internalInputRef.current?.blur();
+        setOpen(false);
+        onPickerClose?.();
+        alreadyFocused.current = false;
+      }
+    };
 
-      return function cleanup() {
-        document.removeEventListener("mousedown", handleClick);
-      };
-    }, [open, onPickerClose]);
+    const handleClickInside = useClickAwayListener(
+      handleClickAway,
+      "mousedown",
+    );
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
       isInitialValue.current = false;
@@ -309,10 +306,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       isBlurBlocked.current = false;
 
       if (!open && !alreadyFocused.current) {
-        setTimeout(() => {
-          setOpen(true);
-          onPickerOpen?.();
-        }, 0);
+        setOpen(true);
+        onPickerOpen?.();
       } else {
         alreadyFocused.current = false;
       }
@@ -323,7 +318,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     };
 
     const handleKeyUp = useCallback(
-      (ev) => {
+      (ev: React.KeyboardEvent<HTMLInputElement>) => {
         /* istanbul ignore else */
         if (open && Events.isEscKey(ev)) {
           setOpen(false);
@@ -363,50 +358,41 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       }
     };
 
-    const handleMouseDown = (ev: React.MouseEvent<HTMLElement>) => {
-      blockClose.current = true;
+    const handleMouseDown = () => {
+      handleClickInside();
 
       if (setInputRefMap) {
         isBlurBlocked.current = true;
       }
 
-      const { type } = ev.target as HTMLInputElement;
-
-      if (type !== "text") {
-        alreadyFocused.current = true;
-        setTimeout(() => {
-          setOpen((prev) => {
-            const nextState = !prev;
-
-            if (!nextState) {
-              onPickerClose?.();
-            } else {
-              onPickerOpen?.();
-            }
-
-            return nextState;
-          });
-        }, 0);
-      } else if (!open) {
-        setTimeout(() => {
-          setOpen(true);
-          onPickerOpen?.();
-        }, 0);
+      if (!open) {
+        setOpen(true);
+        onPickerOpen?.();
       }
     };
 
-    const handleIconMouseDown = (ev: React.MouseEvent<HTMLElement>) => {
+    const handleIconMouseDown = () => {
       isBlurBlocked.current = true;
-      handleMouseDown(ev);
+      alreadyFocused.current = true;
+
+      handleClickInside();
+
+      if (open) {
+        setOpen(false);
+        onPickerClose?.();
+      } else {
+        setOpen(true);
+        onPickerOpen?.();
+      }
     };
 
     const handlePickerMouseDown = () => {
       isBlurBlocked.current = true;
-      blockClose.current = true;
+      handleClickInside();
     };
 
     const assignInput = useCallback(
-      (inputElement) => {
+      (inputElement: HTMLInputElement) => {
         internalInputRef.current = inputElement;
         parentRef.current = inputElement?.parentElement;
 
@@ -541,6 +527,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           setOpen={setOpen}
           pickerTabGuardId={pickerTabGuardId.current}
           onPickerClose={onPickerClose}
+          ariaLabel={datePickerAriaLabel}
+          ariaLabelledBy={datePickerAriaLabelledBy}
         />
       </StyledDateInput>
     );

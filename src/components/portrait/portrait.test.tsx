@@ -1,10 +1,9 @@
-import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import MD5 from "crypto-js/md5";
-import Logger from "../../__internal__/utils/logger";
-import Portrait from ".";
+import React from "react";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+
+import Portrait from ".";
 
 testStyledSystemMargin(
   (props) => <Portrait data-role="portrait-wrapper" {...props} />,
@@ -19,6 +18,18 @@ test("renders with a default individual icon", () => {
   expect(icon).toHaveAttribute("type", "individual");
 });
 
+test("renders with a dark background", () => {
+  render(<Portrait data-role="portrait" darkBackground />);
+
+  const icon = screen.getByTestId("icon");
+  expect(icon).toBeVisible();
+  expect(icon).toHaveAttribute("type", "individual");
+
+  const container = screen.getByTestId("portrait");
+  expect(container).toHaveStyle("background-color: var(--colorsUtilityYin090)");
+  expect(container).toHaveStyleRule("color", "var(--colorsUtilityReadOnly600)");
+});
+
 test("renders with a custom icon, if a valid icon is provided via the `iconType` prop", () => {
   render(<Portrait iconType="bin" />);
 
@@ -31,69 +42,6 @@ test("renders with initials, if the `initials` prop is provided", () => {
   render(<Portrait initials="NM" />);
 
   expect(screen.getByText("NM")).toBeVisible();
-});
-
-test("renders with a gravatar image, if a valid email is passed via the `gravatar` prop", () => {
-  const email = "chris.barber@sage.com";
-  const hash = MD5(email);
-  const src = `https://www.gravatar.com/avatar/${hash}?s=40&d=404`;
-
-  render(<Portrait gravatar={email} alt="foo" />);
-
-  const img = screen.getByRole("img");
-  expect(img).toBeVisible();
-  expect(img).toHaveAttribute("src", src);
-});
-
-test("renders a decorative image, when gravatar prop is provided but alt is not", () => {
-  const email = "chris.barber@sage.com";
-  render(<Portrait gravatar={email} />);
-
-  const decorativeImg = screen.getByAltText("");
-  expect(decorativeImg).toBeVisible();
-});
-
-test("logs a deprecation warning once when the `gravatar` prop is passed, and a gravatar loads", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-
-  render(
-    <>
-      <Portrait gravatar="chris.barber@sage.com" alt="foo" />
-      <Portrait gravatar="chris.barber@sage.com" alt="foo" />
-    </>,
-  );
-
-  const portraits = screen.getAllByRole("img");
-
-  portraits.forEach((portrait) => {
-    fireEvent.load(portrait);
-  });
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The `gravatar` prop has been deprecated and will soon be removed.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-  loggerSpy.mockRestore();
-});
-
-test("if a valid gravatar email is not found and an onError event is triggered, the default individual icon is rendered", async () => {
-  const email = "invalid.email@1973";
-  const hash = MD5(email);
-  const src = `https://www.gravatar.com/avatar/${hash}?s=40&d=404`;
-  render(<Portrait gravatar={email} alt="foo" />);
-
-  const img = screen.getByRole("img");
-  expect(img).toBeVisible();
-  expect(img).toHaveAttribute("src", src);
-
-  fireEvent.error(img);
-
-  await waitFor(() => expect(screen.getByTestId("icon")).toBeVisible());
-  await waitFor(() =>
-    expect(screen.getByTestId("icon")).toHaveAttribute("type", "individual"),
-  );
 });
 
 test("renders a custom image with the correct src and alt attributes", () => {
@@ -126,19 +74,6 @@ test("if a valid src is not found and an onError event is triggered, the default
   await waitFor(() =>
     expect(screen.getByTestId("icon")).toHaveAttribute("type", "individual"),
   );
-});
-
-test("when both the `gravatar` and `src` props are passed simultaneously, an invariant violation is thrown", () => {
-  const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
-  const src = "https://upload.wikimedia.org/wikipedia/en/6/6c/Heatposter.jpg";
-  const email = "chris.barber@sage.com";
-
-  expect(() => render(<Portrait src={src} gravatar={email} />)).toThrow(
-    "The `src` prop cannot be used in conjunction with the `gravatar` prop." +
-      " Please use one or the other.",
-  );
-
-  consoleSpy.mockRestore();
 });
 
 test("renders with a square shape, if the `shape` prop is value is `square`", () => {
@@ -198,4 +133,132 @@ test("allows a custom onClick function to be passed via the `onClick` prop", asy
   await user.click(portrait);
 
   expect(mockFunction).toHaveBeenCalledTimes(1);
+});
+
+describe("custom background colours", () => {
+  it("renders with the correct colours when a dark colour is provided", () => {
+    render(<Portrait data-role="portrait" backgroundColor="#000000" />);
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("type", "individual");
+
+    const container = screen.getByTestId("portrait");
+    expect(container).toHaveStyle("background-color: #000000");
+    expect(container).toHaveStyleRule("color", "#FFFFFF");
+  });
+
+  it("renders with the correct colours when a light colour is provided", () => {
+    render(<Portrait data-role="portrait" backgroundColor="#FFFFFF" />);
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("type", "individual");
+
+    const container = screen.getByTestId("portrait");
+    expect(container).toHaveStyle("background-color: #FFFFFF");
+    expect(container).toHaveStyleRule("color", "var(--colorsUtilityYin090)");
+  });
+
+  [
+    { value: "#A3CAF0", label: "blue" },
+    { value: "#FD9BA3", label: "pink" },
+    { value: "#B4AEEA", label: "purple" },
+    { value: "#ECE6AF", label: "goldenrod" },
+    { value: "#EBAEDE", label: "orchid" },
+    { value: "#EBC7AE", label: "desert" },
+    { value: "#AEECEB", label: "turquoise" },
+    { value: "#AEECD6", label: "mint" },
+  ].forEach(({ value, label }) => {
+    it(`renders with the correct colours when the background colour is set to ${label}`, () => {
+      render(<Portrait data-role="portrait" backgroundColor={value} />);
+
+      const icon = screen.getByTestId("icon");
+      expect(icon).toBeVisible();
+      expect(icon).toHaveAttribute("type", "individual");
+
+      const container = screen.getByTestId("portrait");
+      expect(container).toHaveStyle(`background-color: ${value}`);
+    });
+  });
+
+  [
+    { value: "#A3CAF0", label: "blue" },
+    { value: "#FD9BA3", label: "pink" },
+    { value: "#B4AEEA", label: "purple" },
+    { value: "#ECE6AF", label: "goldenrod" },
+    { value: "#EBAEDE", label: "orchid" },
+    { value: "#EBC7AE", label: "desert" },
+    { value: "#AEECEB", label: "turquoise" },
+    { value: "#AEECD6", label: "mint" },
+  ].forEach(({ value, label }) => {
+    it(`renders with the correct colours when the foreground colour is set to ${label}`, () => {
+      render(<Portrait data-role="portrait" foregroundColor={value} />);
+
+      const icon = screen.getByTestId("icon");
+      expect(icon).toBeVisible();
+      expect(icon).toHaveAttribute("type", "individual");
+
+      const container = screen.getByTestId("portrait");
+      expect(container).toHaveStyle(`color: ${value}`);
+    });
+  });
+
+  it("renders with the correct foreground colour when provided in conjunction with a background colour", () => {
+    render(
+      <Portrait
+        data-role="portrait"
+        backgroundColor="#000000"
+        foregroundColor="#A0FFAF"
+      />,
+    );
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("type", "individual");
+
+    const container = screen.getByTestId("portrait");
+    expect(container).toHaveStyle("background-color: #000000");
+    expect(container).toHaveStyleRule("color", "#A0FFAF");
+  });
+
+  it("overrides the colours set by the `darkBackground` prop if the custom colour props are set", () => {
+    render(
+      <Portrait
+        data-role="portrait"
+        darkBackground
+        backgroundColor="#000000"
+        foregroundColor="#A0FFAF"
+      />,
+    );
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("type", "individual");
+
+    const container = screen.getByTestId("portrait");
+    expect(container).toHaveStyle("background-color: #000000");
+    expect(container).toHaveStyleRule("color", "#A0FFAF");
+  });
+
+  it("supports design tokens being used for the `backgroundColor` and `forefroundColor` props", () => {
+    render(
+      <Portrait
+        data-role="portrait"
+        darkBackground
+        backgroundColor="var(--colorsUtilityYin090)"
+        foregroundColor="var(--colorsLogo)"
+      />,
+    );
+
+    const icon = screen.getByTestId("icon");
+    expect(icon).toBeVisible();
+    expect(icon).toHaveAttribute("type", "individual");
+
+    const container = screen.getByTestId("portrait");
+    expect(container).toHaveStyle(
+      "background-color: var(--colorsUtilityYin090)",
+    );
+    expect(container).toHaveStyleRule("color", "var(--colorsLogo)");
+  });
 });

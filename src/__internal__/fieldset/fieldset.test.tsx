@@ -41,40 +41,46 @@ test("sets child inputs as required when `isRequired` is true", () => {
   expect(inputs[1]).toBeRequired();
 });
 
-test("renders validation icon when `legend` and `error` are provided", () => {
+test("renders validation icon and hidden message when `legend` and `error` are provided", () => {
   render(
-    <Fieldset legend="Legend" error="error">
+    <Fieldset legend="Legend" error="error message">
       <input />
     </Fieldset>,
   );
 
   const icon = screen.getByTestId("icon-error");
+  const message = screen.getByText("error message");
 
   expect(icon).toBeVisible();
+  expect(message).toBeInTheDocument();
 });
 
-test("renders validation icon when `legend` and `warning` are provided", () => {
+test("renders validation icon and hidden message when `legend` and `warning` are provided", () => {
   render(
-    <Fieldset legend="Legend" warning="warning">
+    <Fieldset legend="Legend" warning="warning message">
       <input />
     </Fieldset>,
   );
 
   const icon = screen.getByTestId("icon-warning");
+  const message = screen.getByText("warning message");
 
   expect(icon).toBeVisible();
+  expect(message).toBeInTheDocument();
 });
 
-test("renders validation icon when `legend` and `info` are provided", () => {
+test("renders validation icon and hidden message when `legend` and `info` are provided", () => {
   render(
-    <Fieldset legend="Legend" info="info">
+    <Fieldset legend="Legend" info="info message">
       <input />
     </Fieldset>,
   );
 
   const icon = screen.getByTestId("icon-info");
+  const message = screen.getByText("info message");
 
   expect(icon).toBeVisible();
+  expect(message).toBeInTheDocument();
 });
 
 test("renders help icon when `labelHelp` is provided", () => {
@@ -123,7 +129,7 @@ test("renders legend with provided `legendWidth` when `inline` is true", () => {
 });
 
 // coverage
-test("renders with expected styles when `inline` is true and `align` is 'left'", () => {
+test("renders with expected styles when `inline` is true and `legendAlign` is 'left'", () => {
   render(
     <Fieldset legend="Legend" inline legendAlign="left">
       <input />

@@ -6,12 +6,14 @@ import {
   StyledLegend,
   StyledLegendContent,
   StyledIconWrapper,
+  StyledLegendProps,
 } from "./fieldset.style";
 import ValidationIcon from "../validations/validation-icon.component";
 import NewValidationContext from "../../components/carbon-provider/__internal__/new-validation.context";
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import Help from "../../components/help";
+import Typography from "../../components/typography";
 
 export interface FieldsetProps extends MarginProps {
   /** Role */
@@ -67,7 +69,7 @@ const Fieldset = ({
   children,
   inline = false,
   legendWidth,
-  legendAlign = "right",
+  legendAlign,
   legendSpacing = 2,
   error,
   warning,
@@ -99,13 +101,12 @@ const Fieldset = ({
   const tooltipIcon = () => {
     if (error || warning || info) {
       return (
-        <StyledIconWrapper>
+        <StyledIconWrapper aria-hidden="true">
           <ValidationIcon
             error={error}
             warning={warning}
             info={info}
             tooltipFlipOverrides={["top", "bottom"]}
-            tooltipId={validationId}
           />
         </StyledIconWrapper>
       );
@@ -127,6 +128,15 @@ const Fieldset = ({
     return null;
   };
 
+  let legendAlignment: StyledLegendProps["align"];
+  if (inline && !legendAlign) {
+    legendAlignment = "right";
+  } else if (!legendAlign) {
+    legendAlignment = "left";
+  } else {
+    legendAlignment = legendAlign;
+  }
+
   return (
     <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
       <StyledFieldset
@@ -143,7 +153,7 @@ const Fieldset = ({
                 onMouseLeave={onMouseLeave}
                 inline={inline}
                 width={legendWidth}
-                align={legendAlign}
+                align={legendAlignment}
                 rightPadding={legendSpacing}
                 {...legendMargin}
                 data-element="legend"
@@ -160,6 +170,11 @@ const Fieldset = ({
               </StyledLegend>
             )}
           </InputGroupContext.Consumer>
+        )}
+        {!validationRedesignOptIn && (
+          <Typography screenReaderOnly id={validationId}>
+            {error || warning || info}
+          </Typography>
         )}
         {children}
       </StyledFieldset>

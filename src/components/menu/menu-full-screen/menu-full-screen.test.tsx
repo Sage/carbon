@@ -414,7 +414,9 @@ test("should not render a divider when menu contains a falsy values", () => {
         }}
       >
         <MenuFullscreen isOpen onClose={() => {}}>
-          <MenuItem maxWidth="200px">Submenu Item One</MenuItem>
+          <MenuItem maxWidth="200px" href="#">
+            Submenu Item One
+          </MenuItem>
           {false && <MenuItem href="#">Product Item One</MenuItem>}
         </MenuFullscreen>
       </MenuContext.Provider>
@@ -457,17 +459,17 @@ test("should maintain the state of any child items if items are added or removed
           <MenuFullscreen onClose={() => {}} isOpen>
             {extraItem ? (
               <MenuItem submenu="extra submenu">
-                <MenuItem>Item One </MenuItem>
-                <MenuItem>Item Two </MenuItem>
+                <MenuItem href="#">Item One</MenuItem>
+                <MenuItem href="#">Item Two</MenuItem>
               </MenuItem>
             ) : null}
             <MenuItem submenu="submenu 1">
-              <MenuItem>Item One </MenuItem>
-              <MenuItem>Item Two </MenuItem>
+              <MenuItem href="#">Item One</MenuItem>
+              <MenuItem href="#">Item Two</MenuItem>
             </MenuItem>
             <MenuItem submenu={`submenu 2 - count ${counter}`} href="#">
-              <MenuItem>Item One </MenuItem>
-              <MenuItem>Item Two </MenuItem>
+              <MenuItem href="#">Item One</MenuItem>
+              <MenuItem href="#">Item Two</MenuItem>
             </MenuItem>
           </MenuFullscreen>
         </MenuContext.Provider>
@@ -480,7 +482,7 @@ test("should maintain the state of any child items if items are added or removed
   act(() => {
     jest.advanceTimersByTime(5000);
   });
-  const itemLink = screen.getByRole("link");
+  const itemLink = screen.getByRole("link", { name: /submenu 2/ });
 
   expect(itemLink).toHaveTextContent("count 2");
 

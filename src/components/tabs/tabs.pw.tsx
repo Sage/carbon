@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 
 import { TabProps, TabsProps } from ".";
 import {
@@ -159,7 +159,7 @@ test.describe("Tabs component", () => {
   (
     [
       [true, 1358],
-      [false, 380],
+      [false, 340],
     ] as [boolean, number][]
   ).forEach(([bool, width]) => {
     test(`should render Tabs with extendedLine prop set to ${bool}`, async ({

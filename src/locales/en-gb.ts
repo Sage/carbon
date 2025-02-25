@@ -164,6 +164,24 @@ const enGB: Locale = {
   pod: {
     undo: () => "Undo",
   },
+  textEditor: {
+    boldAria: () => "Bold",
+    cancelButton: () => "Cancel",
+    cancelButtonAria: () => "Cancel",
+    characterCounter(count: number | string) {
+      return `${typeof count === "number" ? count.toString() : count} characters remaining`;
+    },
+    characterLimit(count: number) {
+      return `You are ${count} character(s) over the character limit`;
+    },
+    contentEditorAria: () => "Rich text content editor",
+    italicAria: () => "Italic",
+    orderedListAria: () => "Ordered list",
+    saveButton: () => "Save",
+    saveButtonAria: () => "Save",
+    toolbarAriaLabel: () => "Formatting",
+    unorderedListAria: () => "Unordered list",
+  },
   search: {
     searchButtonText: () => "Search",
   },
@@ -200,20 +218,6 @@ const enGB: Locale = {
   switch: {
     on: () => "ON",
     off: () => "OFF",
-  },
-  textEditor: {
-    tooltipMessages: {
-      bold: () => "Bold",
-      italic: () => "Italic",
-      bulletList: () => "Bulleted List",
-      numberList: () => "Numbered List",
-    },
-    ariaLabels: {
-      bold: () => "bold",
-      italic: () => "italic",
-      bulletList: () => "bullet-list",
-      numberList: () => "number-list",
-    },
   },
   tileSelect: {
     deselect: () => "Deselect",

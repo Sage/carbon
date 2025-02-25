@@ -5,17 +5,6 @@ import Message from "./message.component";
 import I18nProvider from "../i18n-provider";
 import enGB from "../../locales/en-gb";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import Logger from "../../__internal__/utils/logger";
-
-let loggerSpy: jest.SpyInstance;
-
-beforeEach(() => {
-  loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
-});
-
-afterEach(() => {
-  loggerSpy.mockRestore();
-});
 
 test("renders with provided children", () => {
   render(<Message>Message</Message>);
@@ -127,20 +116,6 @@ test("renders with provided `id`", () => {
   expect(screen.getByTestId("my-message")).toHaveAttribute("id", "message-id");
 });
 
-test("renders with provided `className`", () => {
-  render(
-    <Message data-role="my-message" className="message-class">
-      Message
-    </Message>,
-  );
-
-  expect(screen.getByTestId("my-message")).toHaveClass("message-class");
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'Message' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-});
-
 // coverage
 test("renders with expected styles when `transparent` is true", () => {
   render(
@@ -155,6 +130,18 @@ test("renders with expected styles when `transparent` is true", () => {
   });
   expect(screen.getByTestId("message-content")).toHaveStyle({
     padding: "15px 50px 15px 10px",
+  });
+});
+
+test("renders with provided width when `width` is provided", () => {
+  render(
+    <Message data-role="my-message" width="100px">
+      Message
+    </Message>,
+  );
+
+  expect(screen.getByTestId("my-message")).toHaveStyle({
+    width: "100px",
   });
 });
 

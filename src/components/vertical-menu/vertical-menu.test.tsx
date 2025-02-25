@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {
@@ -8,20 +8,8 @@ import {
   VerticalMenuItem,
   VerticalMenuTrigger,
 } from ".";
-import Logger from "../../__internal__/utils/logger";
-
-// mock Logger.deprecate so that no console warnings occur while running the tests
-const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 describe("VerticalMenu", () => {
-  beforeAll(() => {
-    loggerSpy.mockImplementation(() => {});
-  });
-
-  afterAll(() => {
-    loggerSpy.mockRestore();
-  });
-
   it("should accept aria-label prop", () => {
     render(
       <VerticalMenu aria-label="test">
@@ -186,7 +174,9 @@ describe("VerticalMenu", () => {
         </>,
       );
       const closeBtn = screen.getByRole("button");
-      closeBtn.focus();
+      act(() => {
+        closeBtn.focus();
+      });
       await user.keyboard("{Space}");
       expect(setMockState).toHaveBeenCalledWith(false);
     });
@@ -207,7 +197,9 @@ describe("VerticalMenu", () => {
         </>,
       );
       const closeBtn = screen.getByRole("button");
-      closeBtn.focus();
+      act(() => {
+        closeBtn.focus();
+      });
       await user.keyboard("{enter}");
       expect(setMockState).toHaveBeenCalledWith(false);
     });

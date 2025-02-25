@@ -31,13 +31,13 @@ export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
   const [focusId, setFocusId] = useState<string | undefined>(undefined);
   const [itemIds, setItemIds] = useState<string[]>([]);
 
-  const registerItem = useCallback((id) => {
+  const registerItem = useCallback((id: string) => {
     setItemIds((prevState) => {
       return [...prevState, id];
     });
   }, []);
 
-  const unregisterItem = useCallback((id) => {
+  const unregisterItem = useCallback((id: string) => {
     setItemIds((prevState) => {
       return prevState.filter((itemId) => itemId !== id);
     });
@@ -81,6 +81,7 @@ export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
           openSubmenuId,
           setOpenSubmenuId,
           focusId,
+          updateFocusId: setFocusId,
           registerItem,
           unregisterItem,
         }}

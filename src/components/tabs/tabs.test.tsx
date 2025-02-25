@@ -94,24 +94,6 @@ test("should throw an error if rendered with `headerWidth` prop and `position` p
   consoleSpy.mockRestore();
 });
 
-test("passes the `className` prop down to the element", () => {
-  render(
-    <Tabs className="custom-class-1 custom-class-2">
-      <Tab tabId="foo" />
-    </Tabs>,
-  );
-
-  expect(screen.getByTestId("tabs")).toHaveClass(
-    "custom-class-1",
-    "custom-class-2",
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'Tabs' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-});
-
 test("the `selectedTabId` prop determines which child `Tab` is displayed", () => {
   render(
     <Tabs selectedTabId="tab-2">
@@ -1737,9 +1719,14 @@ describe("check events for Tabs component", () => {
           </Tab>
         </Tabs>,
       );
+
       const tab2 = screen.getByRole("tab", { name: "Test 2" });
-      tab2.focus();
+      act(() => {
+        tab2.focus();
+      });
+
       await user.keyboard("{Enter}");
+
       expect(onTabChange).toHaveBeenCalledWith("2");
     });
   });
@@ -1775,9 +1762,14 @@ describe("check events for Tabs component", () => {
           </Tab>
         </Tabs>,
       );
+
       const tab2 = screen.getByRole("tab", { name: "Test 2" });
-      tab2.focus();
+      act(() => {
+        tab2.focus();
+      });
+
       await user.keyboard("{Enter}");
+
       expect(onTabChange).toHaveBeenCalledWith("2");
     });
   });
@@ -1825,9 +1817,14 @@ describe("check events for Tabs component", () => {
           drawer content
         </Drawer>,
       );
+
       const tab2 = screen.getByRole("tab", { name: "Test 2" });
-      tab2.focus();
+      act(() => {
+        tab2.focus();
+      });
+
       await user.keyboard("{Enter}");
+
       expect(onTabChange).toHaveBeenCalledWith("2");
     });
   });

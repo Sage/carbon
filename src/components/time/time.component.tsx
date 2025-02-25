@@ -28,6 +28,8 @@ export type TimeValue = {
   hours: string;
   minutes: string;
   period?: ToggleValue;
+  formattedHours?: string;
+  formattedMinutes?: string;
 };
 
 export interface TimeInputEvent {
@@ -54,6 +56,10 @@ export interface TimeProps
     MarginProps {
   /** Label text for the component */
   label?: string;
+  /** Label alignment */
+  labelAlign?: "left" | "right";
+  /** Field labels alignment */
+  fieldLabelsAlign?: "left" | "right";
   /** Sets the size of the inputs */
   size?: Sizes;
   /** Additional hint text rendered above the input elements */
@@ -77,7 +83,7 @@ export interface TimeProps
   /** Set a name value on the component */
   name?: string;
   /** Callback called when focus is lost on input elements */
-  onBlur?: (ev?: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (ev?: React.FocusEvent<HTMLInputElement>, value?: TimeValue) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** Flag to configure component as optional */
@@ -101,6 +107,8 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
   (
     {
       label,
+      labelAlign,
+      fieldLabelsAlign,
       size = "medium",
       inputHint,
       hoursInputProps = {},
@@ -134,7 +142,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     } = minutesInputProps;
     const internalHrsId = useRef(hoursInputId || guid());
     const internalMinsId = useRef(minutesInputId || guid());
-    const inputHintId = useRef(guid());
+    const inputHintId = useRef(inputHint ? guid() : undefined);
     const internalId = useRef(
       `${internalHrsId.current} ${internalMinsId.current}`,
     );
@@ -143,7 +151,17 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       minutes: minuteValue,
       period: toggleValue,
     } = value;
+    const formattedHoursValue = hourValue.length
+      ? hourValue.padStart(2, "0")
+      : hourValue;
+    const formattedMinutesValue = minuteValue.length
+      ? minuteValue.padStart(2, "0")
+      : minuteValue;
     const [inputValues, setInputValues] = useState([hourValue, minuteValue]);
+    const [formattedInputValues, setFormattedInputValues] = useState([
+      formattedHoursValue,
+      formattedMinutesValue,
+    ]);
     const locale = useLocale();
     const showToggle = toggleValue !== undefined;
     const [period, setPeriod] = useState(toggleValue);
@@ -210,25 +228,38 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     ) => {
       const hours = inputName === "hrs" ? ev.target.value : inputValues[0];
       const minutes = inputName === "mins" ? ev.target.value : inputValues[1];
-
       setInputValues([hours, minutes]);
+
+      const formattedHours = hours.length ? hours.padStart(2, "0") : hours;
+      const formattedMinutes = minutes.length
+        ? minutes.padStart(2, "0")
+        : minutes;
+      setFormattedInputValues([formattedHours, formattedMinutes]);
+
       onChange({
         target: {
           name,
           id: internalId.current,
-          value: { hours, minutes, period },
+          value: { hours, minutes, period, formattedHours, formattedMinutes },
         },
       });
     };
 
     const handlePeriodChange = (periodName: ToggleValue) => {
       const [hours, minutes] = inputValues;
+      const [formattedHours, formattedMinutes] = formattedInputValues;
       setPeriod(periodName);
       onChange({
         target: {
           name,
           id: internalId.current,
-          value: { hours, minutes, period: periodName },
+          value: {
+            hours,
+            minutes,
+            period: periodName,
+            formattedHours,
+            formattedMinutes,
+          },
         },
       });
     };
@@ -236,22 +267,33 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     const handleBlur = useCallback(
       (ev: React.FocusEvent<HTMLInputElement>) => {
         setTimeout(() => {
+          const [hours, minutes] = inputValues;
+          const [formattedHours, formattedMinutes] = formattedInputValues;
+          const timeValueObj = {
+            hours,
+            minutes,
+            period,
+            formattedHours,
+            formattedMinutes,
+          };
+
           if (
             hoursRef.current !== document.activeElement &&
             minsRef.current !== document.activeElement
           ) {
-            onBlur?.(ev);
+            onBlur?.(ev, timeValueObj);
           }
         });
       },
-      [onBlur],
+      [formattedInputValues, inputValues, onBlur, period],
     );
 
     return (
       <Fieldset
         legend={label}
         legendMargin={{ mb: 0 }}
-        width="fit-content"
+        width="min-content"
+        legendAlign={labelAlign}
         isRequired={required}
         isOptional={isOptional}
         isDisabled={disabled}
@@ -259,14 +301,14 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         id={internalId.current}
         {...rest}
         {...tagComponent("time", rest)}
-        aria-describedby={combinedAriaDescribedBy}
+        aria-describedby={inputHint ? combinedAriaDescribedBy : ariaDescribedBy}
       >
         {inputHint && (
           <Hint id={inputHintId.current} isDisabled={disabled}>
             {inputHint}
           </Hint>
         )}
-        <Box position="relative">
+        <Box position="relative" mt={inputHint ? 0 : 1}>
           <ValidationMessage
             validationId={validationId}
             error={error}
@@ -281,6 +323,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 aria-label={hrsAriaLabel}
                 htmlFor={internalHrsId.current}
                 disabled={disabled}
+                align={fieldLabelsAlign}
               >
                 {hrsLabel}
               </Label>
@@ -317,6 +360,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 aria-label={minsAriaLabel}
                 htmlFor={internalMinsId.current}
                 disabled={disabled}
+                align={fieldLabelsAlign}
               >
                 {minsLabel}
               </Label>
@@ -341,6 +385,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 display="flex"
                 flexDirection="column"
                 justifyContent="flex-end"
+                width="max-content"
               >
                 <TimeToggle
                   toggleProps={toggleProps}

@@ -200,20 +200,6 @@ const esES: Partial<Locale> = {
     on: () => "SÍ",
     off: () => "NO",
   },
-  textEditor: {
-    tooltipMessages: {
-      bold: () => "Negrita",
-      italic: () => "Cursiva",
-      bulletList: () => "Lista con viñetas",
-      numberList: () => "Lista numerada",
-    },
-    ariaLabels: {
-      bold: () => "negrita",
-      italic: () => "cursiva",
-      bulletList: () => "lista-con-viñetas",
-      numberList: () => "lista-numerada",
-    },
-  },
   tileSelect: {
     deselect: () => "Deseleccionar",
   },

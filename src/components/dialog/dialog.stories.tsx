@@ -11,7 +11,6 @@ import Form from "../form";
 import Typography from "../typography";
 import Textbox from "../textbox";
 import Fieldset from "../fieldset";
-import { RadioButton, RadioButtonGroup } from "../radio-button";
 import Loader from "../loader";
 import Toast from "../toast";
 import Message from "../message";
@@ -200,75 +199,6 @@ export const MaxSize: Story = {
     },
   },
 };
-
-export const Editable: Story = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
-  const [isDisabled, setIsDisabled] = useState(true);
-  const [radioValue, setRadioValue] = useState("1");
-
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Add an address"
-      >
-        <Form
-          stickyFooter
-          leftSideButtons={
-            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          }
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          <Typography variant="h2" mb="32px">
-            Basic details
-          </Typography>
-          <Button onClick={() => setIsDisabled(!isDisabled)}>
-            {isDisabled ? "Activate" : "Disable"} Address
-          </Button>
-          <RadioButtonGroup
-            name="mybuttongroup"
-            legend="How do you want to create this address?"
-            legendInline
-            onChange={({ target }) => setRadioValue(target.value)}
-            value={radioValue}
-            legendWidth={40}
-          >
-            <RadioButton
-              value="1"
-              label="Create a new Address"
-              size="large"
-              disabled={isDisabled}
-            />
-            <RadioButton
-              value="2"
-              label="Select an Existing address"
-              size="large"
-              disabled={isDisabled}
-            />
-          </RadioButtonGroup>
-          <Box p="24px" bg="slateTint90" ml="88px">
-            <Textbox labelInline label="Property Name" />
-            <Fieldset>
-              <Textbox labelInline label="Address Line 1" />
-              <Textbox labelInline label="Address Line 2" />
-              <Textbox labelInline label="Town" />
-              <Textbox labelInline label="City" />
-              <Textbox labelInline label="Postcode" />
-            </Fieldset>
-          </Box>
-        </Form>
-      </Dialog>
-    </>
-  );
-};
-Editable.storyName = "Editable";
-Editable.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithHelp: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -543,11 +473,16 @@ export const UsingHandle: Story = () => {
 
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [state, setState] = useState("");
 
   function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
     setIsSubmitted(true);
     dialogHandle.current?.focus();
+  }
+
+  function setValue(ev: React.ChangeEvent<HTMLInputElement>) {
+    setState(ev.target.value);
   }
 
   return (
@@ -573,6 +508,8 @@ export const UsingHandle: Story = () => {
             <Textarea
               label="What would you like to tell us?"
               characterLimit={1000}
+              value={state}
+              onChange={setValue}
             />
           </Form>
         )}

@@ -74,4 +74,4 @@ export const CustomColor: Story = () => {
     </Box>
   );
 };
-CustomColor.storyName = "Custom Colour";
+CustomColor.storyName = "Custom Color";

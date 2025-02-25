@@ -4,6 +4,8 @@ import React, {
   useRef,
   useState,
   useMemo,
+  useImperativeHandle,
+  forwardRef,
 } from "react";
 import { PaddingProps } from "styled-system";
 import { CSSTransition } from "react-transition-group";
@@ -129,6 +131,7 @@ export interface PopoverContainerProps extends PaddingProps {
     ev:
       | React.KeyboardEvent<HTMLElement>
       | React.MouseEvent<HTMLElement>
+      | React.FocusEvent<HTMLElement>
       | Event,
   ) => void;
   /** if `true` the popover-container is open */
@@ -151,7 +154,13 @@ export interface PopoverContainerProps extends PaddingProps {
   containerAriaLabel?: string;
   /** Disables the animation for the component */
   disableAnimation?: boolean;
+  /** Flag to enable fullWidth Button styles */
+  hasFullWidth?: boolean;
 }
+
+export type PopoverContainerHandle = {
+  focusButton: () => void;
+} | null;
 
 function usePopoverMiddleware(shouldCoverButton: boolean) {
   return useMemo(
@@ -169,262 +178,295 @@ function usePopoverMiddleware(shouldCoverButton: boolean) {
   );
 }
 
-export const PopoverContainer = ({
-  children,
-  title,
-  position = "right",
-  open,
-  onOpen,
-  onClose,
-  renderOpenComponent = renderOpen,
-  renderCloseComponent = renderClose,
-  shouldCoverButton = false,
-  ariaDescribedBy,
-  openButtonAriaLabel,
-  closeButtonAriaLabel = "close",
-  containerAriaLabel,
-  closeButtonDataProps,
-  disableAnimation = false,
-  ...rest
-}: PopoverContainerProps) => {
-  const isControlled = open !== undefined;
-  const [isOpenInternal, setIsOpenInternal] = useState(false);
+export const PopoverContainer = forwardRef<
+  PopoverContainerHandle,
+  PopoverContainerProps
+>(
+  (
+    {
+      children,
+      title,
+      position = "right",
+      open,
+      onOpen,
+      onClose,
+      renderOpenComponent = renderOpen,
+      renderCloseComponent = renderClose,
+      shouldCoverButton = false,
+      ariaDescribedBy,
+      openButtonAriaLabel,
+      closeButtonAriaLabel = "close",
+      containerAriaLabel,
+      closeButtonDataProps,
+      disableAnimation = false,
+      hasFullWidth = false,
+      ...rest
+    },
+    ref,
+  ) => {
+    const isControlled = open !== undefined;
+    const [isOpenInternal, setIsOpenInternal] = useState(false);
 
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const openButtonRef = useRef<HTMLButtonElement>(null);
-  const popoverReference = useRef<HTMLDivElement>(null);
-  const guid = useRef(createGuid());
-  const popoverContentNodeRef = useRef<HTMLDivElement>(null);
-  const popoverContainerId = title
-    ? `PopoverContainer_${guid.current}`
-    : undefined;
+    const closeButtonRef = useRef<HTMLButtonElement>(null);
+    const openButtonRef = useRef<HTMLButtonElement>(null);
+    const popoverReference = useRef<HTMLDivElement>(null);
+    const guid = useRef(createGuid());
+    const popoverContentNodeRef = useRef<HTMLDivElement>(null);
+    const popoverContainerId = title
+      ? `PopoverContainer_${guid.current}`
+      : undefined;
 
-  const isOpen = isControlled ? open : isOpenInternal;
+    const isOpen = isControlled ? open : isOpenInternal;
 
-  const reduceMotion = !useMediaQuery(
-    "screen and (prefers-reduced-motion: no-preference)",
-  );
+    const reduceMotion = !useMediaQuery(
+      "screen and (prefers-reduced-motion: no-preference)",
+    );
 
-  const popoverMiddleware = usePopoverMiddleware(shouldCoverButton);
+    const popoverMiddleware = usePopoverMiddleware(shouldCoverButton);
 
-  const closePopover = useCallback(
-    (
-      ev:
-        | React.MouseEvent<HTMLElement>
-        | React.KeyboardEvent<HTMLElement>
-        | KeyboardEvent,
+    const closePopover = useCallback(
+      (
+        ev:
+          | React.MouseEvent<HTMLElement>
+          | React.KeyboardEvent<HTMLElement>
+          | React.FocusEvent<HTMLElement>
+          | KeyboardEvent,
+      ) => {
+        /* istanbul ignore else */
+        if (!isControlled) setIsOpenInternal(false);
+
+        onClose?.(ev);
+
+        /* istanbul ignore else */
+        if (isOpen) openButtonRef.current?.focus();
+      },
+      [isControlled, isOpen, onClose],
+    );
+
+    const handleEscKey = useCallback(
+      (ev: KeyboardEvent) => {
+        const eventIsFromSelectInput = Events.composedPath(ev).find(
+          (element) => {
+            return (
+              element instanceof HTMLElement &&
+              element.getAttribute("data-element") === "input" &&
+              element.getAttribute("aria-expanded") === "true"
+            );
+          },
+        );
+
+        if (!eventIsFromSelectInput && Events.isEscKey(ev)) {
+          closePopover(ev);
+        }
+      },
+      [closePopover],
+    );
+
+    useEffect(() => {
+      document.addEventListener("keydown", handleEscKey);
+
+      return () => {
+        document.removeEventListener("keydown", handleEscKey);
+      };
+    }, [handleEscKey]);
+
+    useEffect(() => {
+      if (!shouldCoverButton && isOpen) {
+        popoverContentNodeRef.current?.focus({ preventScroll: true });
+      }
+    }, [isOpen, shouldCoverButton, popoverContentNodeRef]);
+
+    const handleOpenButtonClick = (
+      e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) => {
       /* istanbul ignore else */
-      if (!isControlled) setIsOpenInternal(false);
+      if (!isControlled) setIsOpenInternal(!isOpen);
 
-      onClose?.(ev);
-
-      /* istanbul ignore else */
-      if (isOpen) openButtonRef.current?.focus();
-    },
-    [isControlled, isOpen, onClose],
-  );
-
-  const handleEscKey = useCallback(
-    (ev) => {
-      const eventIsFromSelectInput = Events.composedPath(ev).find((element) => {
-        return (
-          element instanceof HTMLElement &&
-          element.getAttribute("data-element") === "input" &&
-          element.getAttribute("aria-expanded") === "true"
-        );
-      });
-
-      if (!eventIsFromSelectInput && Events.isEscKey(ev)) {
-        closePopover(ev);
-      }
-    },
-    [closePopover],
-  );
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleEscKey);
-
-    return () => {
-      document.removeEventListener("keydown", handleEscKey);
+      // We want the open button to close the popover if it is already open
+      if (!isOpen) onOpen?.(e);
+      else onClose?.(e);
     };
-  }, [handleEscKey]);
 
-  const handleOpenButtonClick = (
-    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-  ) => {
-    /* istanbul ignore else */
-    if (!isControlled) setIsOpenInternal(!isOpen);
+    const handleCloseButtonClick = (
+      e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
+    ) => {
+      closePopover(e);
+    };
 
-    // We want the open button to close the popover if it is already open
-    if (!isOpen) onOpen?.(e);
-    else onClose?.(e);
-  };
-
-  const handleCloseButtonClick = (
-    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-  ) => {
-    closePopover(e);
-  };
-
-  useFocusPortalContent(
-    shouldCoverButton ? undefined : popoverContentNodeRef,
-    shouldCoverButton ? undefined : openButtonRef,
-    closePopover,
-  );
-
-  const onFocusNextElement = useCallback((ev) => {
-    const allFocusableElements: HTMLElement[] = Array.from(
-      document.querySelectorAll(defaultFocusableSelectors) ||
-        /* istanbul ignore next */ [],
-    );
-    const filteredElements = allFocusableElements.filter(
-      (el) => el === openButtonRef.current || Number(el.tabIndex) !== -1,
+    useFocusPortalContent(
+      shouldCoverButton ? undefined : popoverContentNodeRef,
+      shouldCoverButton ? undefined : openButtonRef,
+      closePopover,
     );
 
-    const openButtonRefIndex = filteredElements.indexOf(
-      openButtonRef.current as HTMLElement,
+    const onFocusNextElement = useCallback(
+      (ev: React.FocusEvent<HTMLElement>) => {
+        const allFocusableElements: HTMLElement[] = Array.from(
+          document.querySelectorAll(defaultFocusableSelectors) ||
+            /* istanbul ignore next */ [],
+        );
+        const filteredElements = allFocusableElements.filter(
+          (el) => el === openButtonRef.current || Number(el.tabIndex) !== -1,
+        );
+
+        const openButtonRefIndex = filteredElements.indexOf(
+          openButtonRef.current as HTMLElement,
+        );
+
+        filteredElements[openButtonRefIndex + 1].focus();
+        closePopover(ev);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      },
+      [],
     );
 
-    filteredElements[openButtonRefIndex + 1].focus();
-    closePopover(ev);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const handleFocusGuard = (
+      direction: "prev" | "next",
+      ev: React.FocusEvent<HTMLElement>,
+    ) => {
+      if (direction === "next" && onFocusNextElement) {
+        // Focus the next focusable element outside of the popover
+        onFocusNextElement(ev);
+        return;
+      }
 
-  const handleFocusGuard = (
-    direction: "prev" | "next",
-    ev: React.FocusEvent<HTMLElement>,
-  ) => {
-    if (direction === "next" && onFocusNextElement) {
-      // Focus the next focusable element outside of the popover
-      onFocusNextElement(ev);
-      return;
-    }
+      // istanbul ignore else
+      if (direction === "prev") openButtonRef.current?.focus();
+    };
 
-    // istanbul ignore else
-    if (direction === "prev") openButtonRef.current?.focus();
-  };
+    const renderOpenComponentProps = {
+      tabIndex: 0,
+      "aria-expanded": isOpen,
+      "aria-haspopup": "dialog" as const,
+      isOpen,
+      "data-element": "popover-container-open-component",
+      onClick: handleOpenButtonClick,
+      ref: openButtonRef,
+      "aria-label": openButtonAriaLabel || title,
+      id: isOpen ? undefined : popoverContainerId,
+    };
 
-  const renderOpenComponentProps = {
-    tabIndex: 0,
-    "aria-expanded": isOpen,
-    "aria-haspopup": "dialog" as const,
-    isOpen,
-    "data-element": "popover-container-open-component",
-    onClick: handleOpenButtonClick,
-    ref: openButtonRef,
-    "aria-label": openButtonAriaLabel || title,
-    id: isOpen ? undefined : popoverContainerId,
-  };
+    const renderCloseComponentProps = {
+      "data-element": "popover-container-close-component",
+      tabIndex: 0,
+      onClick: handleCloseButtonClick,
+      ref: closeButtonRef,
+      "aria-label": closeButtonAriaLabel,
+      closeButtonDataProps,
+    };
 
-  const renderCloseComponentProps = {
-    "data-element": "popover-container-close-component",
-    tabIndex: 0,
-    onClick: handleCloseButtonClick,
-    ref: closeButtonRef,
-    "aria-label": closeButtonAriaLabel,
-    closeButtonDataProps,
-  };
+    const handleClickAway = (e: Event) => {
+      if (!isControlled) setIsOpenInternal(false);
+      if (isOpen) onClose?.(e);
+    };
 
-  const handleClickAway = (e: Event) => {
-    if (!isControlled) setIsOpenInternal(false);
-    if (isOpen) onClose?.(e);
-  };
+    const handleClick = useClickAwayListener(handleClickAway, "mousedown");
+    const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
-  const handleClick = useClickAwayListener(handleClickAway, "mousedown");
-  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
-
-  const popover = () => (
-    <PopoverContainerContentStyle
-      data-element="popover-container-content"
-      role="dialog"
-      aria-labelledby={popoverContainerId}
-      aria-label={containerAriaLabel}
-      aria-describedby={ariaDescribedBy}
-      p="16px 24px"
-      ref={popoverContentNodeRef}
-      tabIndex={shouldCoverButton ? -1 : undefined}
-      disableAnimation={disableAnimation || reduceMotion}
-      {...filterStyledSystemPaddingProps(rest)}
-    >
-      <PopoverContainerHeaderStyle>
-        <PopoverContainerTitleStyle
-          id={popoverContainerId}
-          data-element="popover-container-title"
-        >
-          {title}
-        </PopoverContainerTitleStyle>
-        {renderCloseComponent(renderCloseComponentProps)}
-      </PopoverContainerHeaderStyle>
-      {children}
-    </PopoverContainerContentStyle>
-  );
-
-  const childrenToRender = () =>
-    shouldCoverButton ? (
-      <ModalContext.Provider value={{ isAnimationComplete }}>
-        <FocusTrap wrapperRef={popoverContentNodeRef} isOpen={isOpen}>
-          {popover()}
-        </FocusTrap>
-      </ModalContext.Provider>
-    ) : (
-      <>
-        <div
-          data-element="tab-guard-top"
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-          tabIndex={0}
-          aria-hidden
-          onFocus={(ev) => handleFocusGuard("prev", ev)}
-        />
-        {popover()}
-        <div
-          data-element="tab-guard-bottom"
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-          tabIndex={0}
-          aria-hidden
-          onFocus={(ev) => handleFocusGuard("next", ev)}
-        />
-      </>
+    useImperativeHandle<PopoverContainerHandle, PopoverContainerHandle>(
+      ref,
+      () => ({
+        focusButton() {
+          openButtonRef.current?.focus();
+        },
+      }),
+      [],
     );
 
-  return (
-    <PopoverContainerWrapperStyle
-      data-component="popover-container"
-      onMouseDown={handleClick}
-    >
-      <div ref={popoverReference}>
-        {renderOpenComponent(renderOpenComponentProps)}
-      </div>
-      <CSSTransition
-        nodeRef={popoverContentNodeRef}
-        timeout={{ exit: disableAnimation ? 0 : 300 }}
-        in={isOpen}
-        unmountOnExit
-        onEntered={
-          shouldCoverButton
-            ? /* istanbul ignore next */ () => setIsAnimationComplete(true)
-            : undefined
-        }
-        onExiting={
-          shouldCoverButton
-            ? /* istanbul ignore next */ () => setIsAnimationComplete(false)
-            : undefined
-        }
+    const popover = () => (
+      <PopoverContainerContentStyle
+        data-element="popover-container-content"
+        role="dialog"
+        aria-labelledby={popoverContainerId}
+        aria-label={containerAriaLabel}
+        aria-describedby={ariaDescribedBy}
+        p="16px 24px"
+        ref={popoverContentNodeRef}
+        tabIndex={-1}
+        disableAnimation={disableAnimation || reduceMotion}
+        {...filterStyledSystemPaddingProps(rest)}
       >
-        <Popover
-          reference={popoverReference}
-          placement={position === "right" ? "bottom-start" : "bottom-end"}
-          popoverStrategy={
-            disableAnimation || reduceMotion ? "fixed" : "absolute"
+        <PopoverContainerHeaderStyle>
+          <PopoverContainerTitleStyle
+            id={popoverContainerId}
+            data-element="popover-container-title"
+          >
+            {title}
+          </PopoverContainerTitleStyle>
+          {renderCloseComponent(renderCloseComponentProps)}
+        </PopoverContainerHeaderStyle>
+        {children}
+      </PopoverContainerContentStyle>
+    );
+
+    const childrenToRender = () =>
+      shouldCoverButton ? (
+        <ModalContext.Provider value={{ isAnimationComplete }}>
+          <FocusTrap wrapperRef={popoverContentNodeRef} isOpen={isOpen}>
+            {popover()}
+          </FocusTrap>
+        </ModalContext.Provider>
+      ) : (
+        <>
+          <div
+            data-element="tab-guard-top"
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={0}
+            aria-hidden
+            onFocus={(ev) => handleFocusGuard("prev", ev)}
+          />
+          {popover()}
+          <div
+            data-element="tab-guard-bottom"
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={0}
+            aria-hidden
+            onFocus={(ev) => handleFocusGuard("next", ev)}
+          />
+        </>
+      );
+
+    return (
+      <PopoverContainerWrapperStyle
+        data-component="popover-container"
+        data-role="popover-container"
+        onMouseDown={handleClick}
+        hasFullWidth={hasFullWidth}
+      >
+        <div ref={popoverReference}>
+          {renderOpenComponent(renderOpenComponentProps)}
+        </div>
+        <CSSTransition
+          nodeRef={popoverContentNodeRef}
+          timeout={{ exit: disableAnimation ? 0 : 300 }}
+          in={isOpen}
+          unmountOnExit
+          onEntered={
+            shouldCoverButton
+              ? /* istanbul ignore next */ () => setIsAnimationComplete(true)
+              : undefined
           }
-          middleware={popoverMiddleware}
-          childRefOverride={popoverContentNodeRef}
+          onExiting={
+            shouldCoverButton
+              ? /* istanbul ignore next */ () => setIsAnimationComplete(false)
+              : undefined
+          }
         >
-          {childrenToRender()}
-        </Popover>
-      </CSSTransition>
-    </PopoverContainerWrapperStyle>
-  );
-};
+          <Popover
+            reference={popoverReference}
+            placement={position === "right" ? "bottom-start" : "bottom-end"}
+            popoverStrategy={
+              disableAnimation || reduceMotion ? "fixed" : "absolute"
+            }
+            middleware={popoverMiddleware}
+            childRefOverride={popoverContentNodeRef}
+          >
+            {childrenToRender()}
+          </Popover>
+        </CSSTransition>
+      </PopoverContainerWrapperStyle>
+    );
+  },
+);
 
 export default PopoverContainer;

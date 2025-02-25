@@ -157,9 +157,9 @@ export const Drawer = ({
   }, []);
 
   const toggleDrawer = useCallback(
-    (ev) => {
+    (ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
       setIsExpanded(!isExpanded);
-      if (onChange) onChange(ev, !isExpanded);
+      onChange?.(ev, !isExpanded);
       if (isExpanded && drawerSidebarContentRef.current) {
         drawerSidebarContentRef.current.scrollTop = 0;
       }

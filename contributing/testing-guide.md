@@ -89,7 +89,7 @@ A typical `*.pw.tsx` file may look like the following:
 
 ```tsx
 // inside src/components/button/button.pw.tsx
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import Button from "./button.component";
 import { buttonComponent } from "../../../playwright/component/button/index";
 

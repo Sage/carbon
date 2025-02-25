@@ -4,7 +4,6 @@ import userEvent from "@testing-library/user-event";
 import { ButtonToggle, ButtonToggleGroup } from "..";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
-import Logger from "../../../__internal__/utils/logger";
 
 test("should render with provided children", () => {
   render(
@@ -232,6 +231,7 @@ test("should only allow the first button to be tabbable when none are selected",
     </ButtonToggleGroup>,
   );
 
+  await user.click(document.body);
   await user.tab();
   expect(screen.getByRole("button", { name: "Foo" })).toHaveFocus();
 
@@ -373,28 +373,3 @@ testStyledSystemMargin(
   undefined,
   { modifier: "&&&" },
 );
-
-test("throws a deprecation warning if the 'className' prop is set", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(
-    <ButtonToggleGroup
-      id="button-toggle-group-id"
-      onChange={() => {}}
-      value="bar"
-      className="foo"
-    >
-      <ButtonToggle value="foo">Foo</ButtonToggle>
-      <ButtonToggle value="bar">Bar</ButtonToggle>
-      <ButtonToggle value="baz">Baz</ButtonToggle>
-    </ButtonToggleGroup>,
-  );
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "The 'className' prop has been deprecated and will soon be removed from the 'ButtonToggleGroup' component.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-});

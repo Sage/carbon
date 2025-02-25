@@ -1,14 +1,11 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import {
   MessageComponent,
   MessageComponentWithRef,
 } from "./components.test-pw";
 import Message, { MessageProps } from ".";
-import {
-  checkAccessibility,
-  containsClass,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 
 import {
   messagePreview,
@@ -56,17 +53,6 @@ test.describe("Tests for Message component properties", () => {
       await mount(<Message>{children}</Message>);
 
       await expect(messageChildren(page)).toHaveText(children);
-    });
-  });
-
-  testData.forEach((className) => {
-    test(`should check ${className} as className for Message component`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MessageComponent className={className} />);
-
-      await containsClass(messagePreview(page), className);
     });
   });
 
@@ -232,17 +218,6 @@ test.describe("Accessibility tests for Message component", () => {
       page,
     }) => {
       await mount(<Message>{children}</Message>);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  testData.forEach((className) => {
-    test(`should check ${className} as className for accessibility tests`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<MessageComponent className={className} />);
 
       await checkAccessibility(page);
     });

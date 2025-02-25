@@ -107,10 +107,15 @@ interface StyledSelectListContainerProps {
 
 const StyledSelectListContainer = styled.div<StyledSelectListContainerProps>`
   background-color: white;
-  box-shadow: ${({ placement }) =>
-    placement?.includes("top")
-      ? "0 -5px 5px 0 #00141e33, 0 -10px 10px 0 #00141e1a"
-      : "var(--boxShadow100)"};
+
+  box-shadow: var(--boxShadow100);
+
+  &[data-floating-placement^="top"] {
+    box-shadow:
+      0 -5px 5px 0 #00141e33,
+      0 -10px 10px 0 #00141e1a;
+  }
+
   animation: fadeIn 250ms ease-out;
   position: absolute;
   z-index: ${({ theme }) => theme.zIndex.popover};

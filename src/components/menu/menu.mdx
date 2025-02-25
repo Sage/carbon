@@ -49,6 +49,8 @@ import {
 
 <Canvas of={MenuStories.DefaultStory} />
 
+> **Note**: To ensure a `MenuItem` is interactive, it should either have an `href`, `onClick` or `submenu` prop, or contain another focusable Carbon component like Button. Without one of these, the item will not be keyboard-focusable or interactive, affecting accessibility for keyboard and screen reader users.
+
 ### Selected
 
 <Canvas of={MenuStories.SelectedStory} />
@@ -102,7 +104,7 @@ In order to align text and icons within a submenu a `Box` component will need to
 
 ### Scrollable submenu
 
-A scrollable submenu can be added using the `ScrollableBlock` component. This can be used for all of the submenu items, or just a selection, as shown in `Menu Itme Four` below.
+A scrollable submenu can be added using the `ScrollableBlock` component. This can be used for all of the submenu items, or just a selection, as shown in `Menu Item Four` below.
 Note that only one `ScrollableBlock` can be used within a single submenu.
 
 <Canvas of={MenuStories.ScrollableSubmenuStory} />

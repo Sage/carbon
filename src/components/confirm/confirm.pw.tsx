@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import Confirm, { ConfirmProps } from "./confirm.component";
 import {
   ConfirmComponent,
@@ -240,7 +240,7 @@ test.describe("should render Confirm component", () => {
 
     const button = getDataElementByValue(page, "confirm");
     await expect(button).toHaveAttribute("disabled", "");
-    const loader = page.getByLabel("Loading");
+    const loader = page.getByTestId("confirm-loader");
     await expect(loader).toBeAttached();
   });
 

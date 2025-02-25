@@ -648,3 +648,25 @@ test("renders correctly with inline label and hint text in new validation when r
 
   expect(switchElement).toHaveStyleRule("width: 50%");
 });
+
+test("when `labelInline` is true and `reverse` is false no margin left is applied to the input-wrapper", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch label="label" labelInline reverse={false} />
+    </CarbonProvider>,
+  );
+
+  const inputWrapper = screen.getByTestId("input-wrapper");
+  expect(inputWrapper).toHaveStyle("margin-left: var(--spacing000)");
+});
+
+test("when `labelInline` is true and `reverse` is true no margin right is applied to the input-wrapper", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch label="label" labelInline reverse />
+    </CarbonProvider>,
+  );
+
+  const inputWrapper = screen.getByTestId("input-wrapper");
+  expect(inputWrapper).toHaveStyleRule("margin-right: var(--spacing000)");
+});

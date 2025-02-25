@@ -64,6 +64,10 @@ export interface DatePickerProps {
   pickerTabGuardId?: string;
   /** Callback triggered when the picker is closed */
   onPickerClose?: () => void;
+  /** Prop to specify the aria-label attribute of the date picker */
+  ariaLabel?: string;
+  /** Prop to specify the aria-labelledby attribute of the date picker */
+  ariaLabelledBy?: string;
 }
 
 const popoverMiddleware = [
@@ -72,6 +76,8 @@ const popoverMiddleware = [
     fallbackStrategy: "initialPlacement",
   }),
 ];
+
+const Nav = Navbar;
 
 export const DatePicker = ({
   inputElement,
@@ -86,6 +92,8 @@ export const DatePicker = ({
   setOpen,
   pickerTabGuardId,
   onPickerClose,
+  ariaLabel: datePickerAriaLabel,
+  ariaLabelledBy: datePickerAriaLabelledBy,
 }: DatePickerProps) => {
   const [focusedMonth, setFocusedMonth] = useState<Date | undefined>(
     selectedDays || new Date(),
@@ -155,31 +163,36 @@ export const DatePicker = ({
     _modifiers: Modifiers,
     ev: React.KeyboardEvent<HTMLDivElement>,
   ) => {
-    // we need to manually handle this as the picker may be in a Portal
-    /* istanbul ignore else */
-    if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
-      ev.preventDefault();
-      setOpen(false);
-      onPickerClose?.();
-      const input = inputElement.current?.querySelector("input");
-
+    // timeout added to prevent this handler from interfering with the useFocusPortalContent hook, when the date-range
+    // is used inside of a popover-container and it is the last focusable element of the popover-container
+    setTimeout(() => {
+      // we need to manually handle this as the picker may be in a Portal
       /* istanbul ignore else */
-      if (input) {
-        const elements = Array.from(
-          document.querySelectorAll(defaultFocusableSelectors) ||
-            /* istanbul ignore next */ [],
-        ) as HTMLElement[];
-        const elementsInPicker = Array.from(
-          ref.current?.querySelectorAll("button, [tabindex]") ||
-            /* istanbul ignore next */ [],
-        ) as HTMLElement[];
-        const filteredElements = elements.filter(
-          (el) => Number(el.tabIndex) !== -1 && !elementsInPicker.includes(el),
-        );
-        const nextIndex = filteredElements.indexOf(input as HTMLElement) + 1;
-        filteredElements[nextIndex]?.focus();
+      if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
+        ev.preventDefault();
+        setOpen(false);
+        onPickerClose?.();
+        const input = inputElement.current?.querySelector("input");
+
+        /* istanbul ignore else */
+        if (input) {
+          const elements = Array.from(
+            document.querySelectorAll(defaultFocusableSelectors) ||
+              /* istanbul ignore next */ [],
+          ) as HTMLElement[];
+          const elementsInPicker = Array.from(
+            ref.current?.querySelectorAll("button, [tabindex]") ||
+              /* istanbul ignore next */ [],
+          ) as HTMLElement[];
+          const filteredElements = elements.filter(
+            (el) =>
+              Number(el.tabIndex) !== -1 && !elementsInPicker.includes(el),
+          );
+          const nextIndex = filteredElements.indexOf(input as HTMLElement) + 1;
+          filteredElements[nextIndex]?.focus();
+        }
       }
-    }
+    }, 0);
   };
 
   useEffect(() => {
@@ -219,6 +232,9 @@ export const DatePicker = ({
           onMouseDown={pickerMouseDown}
           onKeyUp={handleKeyUp}
           onKeyDown={handleOnKeyDown}
+          role="region"
+          aria-label={datePickerAriaLabel}
+          aria-labelledby={datePickerAriaLabelledBy}
         >
           <div
             id={pickerTabGuardId}
@@ -240,16 +256,14 @@ export const DatePicker = ({
                 ...defaultLocale.localize,
               },
             }}
-            selected={focusedMonth}
+            selected={selectedDays}
             month={focusedMonth || /* istanbul ignore next */ new Date()}
             onDayClick={(d, _, e) => {
               const date = d as Date;
               handleDayClick(date, e);
             }}
             components={{
-              Nav: (props) => {
-                return <Navbar {...props} />;
-              },
+              Nav,
               Weekday: (props) => {
                 const fixedDays = {
                   Sunday: 0,

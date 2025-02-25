@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import {
   NoteComponent,
   NoteComponentWithInlineControl,
@@ -133,27 +133,6 @@ test.describe("check styling for Note component", () => {
     await mount(<NoteComponent />);
 
     await expect(noteComponent(page)).toHaveCSS("border-radius", "8px");
-  });
-});
-
-test.describe("check action events for Note component", () => {
-  test("should call onLinkAdded callback when a valid url is detected", async ({
-    mount,
-    page,
-  }) => {
-    let hasOnLinkAddedBeenCalledCount = 0;
-
-    await mount(
-      <NoteComponent
-        text="https://carbon.s"
-        onLinkAdded={() => {
-          hasOnLinkAddedBeenCalledCount += 1;
-        }}
-      />,
-    );
-
-    await expect(page.getByText("https://carbon.s")).toBeAttached();
-    expect(hasOnLinkAddedBeenCalledCount).toBe(1);
   });
 });
 

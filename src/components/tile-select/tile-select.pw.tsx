@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/experimental-ct-react17";
+import { expect, test } from "@playwright/experimental-ct-react";
 import React from "react";
 import { TileSelect } from ".";
 import {
@@ -6,10 +6,7 @@ import {
   getElement,
   getDataElementByValue,
 } from "../../../playwright/components";
-import {
-  checkAccessibility,
-  containsClass,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 import {
   TileSelectComponent,
   MultiTileSelectGroupComponent,
@@ -26,7 +23,6 @@ import {
   WithCustomSpacing,
 } from "./components.test-pw";
 import {
-  tileSelectDataComponent,
   titleElement,
   subtitleElement,
   descElement,
@@ -185,15 +181,6 @@ test.describe("check props for TileSelect component", () => {
     await mount(<TileSelect checked={false} />);
 
     await expect(inputElement(page)).not.toBeChecked();
-  });
-
-  test("should render TileSelect component with className", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<TileSelectComponent className="tile-select-classname" />);
-
-    await containsClass(tileSelectDataComponent(page), "tile-select-classname");
   });
 
   test("should check footer prop", async ({ mount, page }) => {

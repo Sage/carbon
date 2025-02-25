@@ -6,9 +6,6 @@ import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedClassNameWarningShown = false;
 
 export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
   /** An href for an anchor tag. */
@@ -42,28 +39,29 @@ export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
   tooltipPosition?: "bottom" | "left" | "right" | "top";
   /** Child content to render in the link. */
   children?: React.ReactNode;
-  /** Classes to apply to the component. */
-  className?: string;
   /** Target property in which link should open ie: _blank, _self, _parent, _top */
   target?: string;
   /** Aria label for accessibility purposes */
   ariaLabel?: string;
   /** allows to set rel property in <a> tag */
   rel?: string;
-  /** @ignore @private internal prop to be set when no href or onClick passed */
-  placeholderTabIndex?: boolean;
   /** @ignore @private internal prop to be set when no aria-label should be specified */
   removeAriaLabelOnIcon?: boolean;
+  /**
+   * @private
+   * @internal
+   * @ignore
+   * Sets className for component. INTERNAL USE ONLY. */
+  className?: string;
 }
 
 export const Link = React.forwardRef<
-  HTMLLinkElement | HTMLButtonElement,
+  HTMLAnchorElement | HTMLButtonElement,
   LinkProps
 >(
   (
     {
       children,
-      className,
       onKeyDown,
       href,
       onClick,
@@ -79,19 +77,12 @@ export const Link = React.forwardRef<
       target,
       variant = "default",
       isDarkBackground,
-      placeholderTabIndex,
       removeAriaLabelOnIcon,
+      className,
       ...rest
     }: LinkProps,
     ref,
   ) => {
-    if (!deprecatedClassNameWarningShown && className) {
-      Logger.deprecate(
-        "The 'className' prop has been deprecated and will soon be removed from the 'Link' component.",
-      );
-      deprecatedClassNameWarningShown = true;
-    }
-
     const [hasFocus, setHasFocus] = useState(false);
     const l = useLocale();
     const { inMenu } = useContext(MenuContext);
@@ -158,9 +149,6 @@ export const Link = React.forwardRef<
             }
           : {
               ...componentProps,
-              ...(placeholderTabIndex &&
-                href === undefined &&
-                !onClick && { tabIndex: -1 }),
               "data-role": "link-anchor",
             },
         <>
@@ -185,8 +173,8 @@ export const Link = React.forwardRef<
       <StyledLink
         isSkipLink={isSkipLink}
         disabled={isDisabled}
-        className={className}
         iconAlign={iconAlign}
+        className={className}
         hasContent={Boolean(children)}
         variant={variant}
         isDarkBackground={isDarkBackground}

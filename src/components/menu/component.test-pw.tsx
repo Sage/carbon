@@ -848,3 +848,25 @@ export const SubmenuMaxWidth = () => (
     </MenuItem>
   </Menu>
 );
+
+export const WithNonInteractiveItem = () => (
+  <Menu>
+    <MenuItem>Non-interactive item</MenuItem>
+  </Menu>
+);
+
+export const WithNonInteractiveSubmenuItem = () => (
+  <Menu>
+    <MenuItem submenu="Submenu">
+      <MenuItem>Non-interactive item</MenuItem>
+    </MenuItem>
+  </Menu>
+);
+
+export const FullscreenWithNonInteractiveItem = () => (
+  <Menu>
+    <MenuFullscreen isOpen onClose={() => {}}>
+      <MenuItem>Non-interactive item</MenuItem>
+    </MenuFullscreen>
+  </Menu>
+);

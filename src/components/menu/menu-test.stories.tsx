@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+
 import { allModes } from "../../../.storybook/modes";
 import isChromatic from "../../../.storybook/isChromatic";
 import {
@@ -39,6 +40,7 @@ const meta: Meta<typeof Menu> = {
     "WhenMenuItemsWrap",
     "MenuFullScreenWithMaxWidth",
     "IconAlignment",
+    "TabbingOrder",
   ],
   parameters: {
     info: { disable: true },
@@ -171,6 +173,7 @@ export const AsLinkWithAlternateVariant = () => {
         <MenuItem
           href="#"
           onClick={() => {
+            // eslint-disable-next-line no-alert
             alert("clicked");
           }}
           variant="alternate"
@@ -258,17 +261,17 @@ export const LongLabelsStory = () => {
   return (
     <Menu>
       <MenuItem submenu="Parent Menu A">
-        <MenuItem>Child A</MenuItem>
-        <MenuItem>Child B with very long label</MenuItem>
-        <MenuItem>Child C</MenuItem>
+        <MenuItem href="#">Child A</MenuItem>
+        <MenuItem href="#">Child B with very long label</MenuItem>
+        <MenuItem href="#">Child C</MenuItem>
       </MenuItem>
       <MenuItem submenu="Parent Menu B with very long label">
-        <MenuItem>Child A</MenuItem>
-        <MenuItem>Child B</MenuItem>
-        <MenuItem>Child C</MenuItem>
+        <MenuItem href="#">Child A</MenuItem>
+        <MenuItem href="#">Child B</MenuItem>
+        <MenuItem href="#">Child C</MenuItem>
       </MenuItem>
       <MenuItem submenu="Parent Menu C with overflow" submenuMaxWidth="300px">
-        <MenuItem minWidth="max-content">
+        <MenuItem minWidth="max-content" href="#">
           Child with a very long label that should wrap onto the next line and
           not get cut off
         </MenuItem>
@@ -367,12 +370,11 @@ const UpdatingSubmenu = () => {
   }, []);
   return (
     <MenuItem submenu={`submenu 2 - count ${counter}`}>
-      <MenuItem>Item One </MenuItem>
-      <MenuItem>Item Two </MenuItem>
+      <MenuItem href="#">Item One</MenuItem>
+      <MenuItem href="#">Item Two</MenuItem>
     </MenuItem>
   );
 };
-
 export const MenuFullScreenKeysTest = () => {
   const [extraItem, setExtraItem] = useState(false);
   useEffect(() => {
@@ -385,13 +387,13 @@ export const MenuFullScreenKeysTest = () => {
     <MenuFullscreen onClose={() => {}} isOpen>
       {extraItem ? (
         <MenuItem submenu="extra submenu">
-          <MenuItem>Item One </MenuItem>
-          <MenuItem>Item Two </MenuItem>
+          <MenuItem href="#">Item One</MenuItem>
+          <MenuItem href="#">Item Two</MenuItem>
         </MenuItem>
       ) : null}
       <MenuItem submenu="submenu 1">
-        <MenuItem>Item One </MenuItem>
-        <MenuItem>Item Two </MenuItem>
+        <MenuItem href="#">Item One</MenuItem>
+        <MenuItem href="#">Item Two</MenuItem>
       </MenuItem>
       <UpdatingSubmenu />
     </MenuFullscreen>
@@ -489,7 +491,6 @@ export const WhenMenuItemsWrap = () => {
           justifyContent="flex-start"
           width="100px"
           icon="settings"
-          className="foooooo"
           href="#"
         >
           M
@@ -530,8 +531,6 @@ export const MenuFullScreenWithMaxWidth = () => {
         <MenuItem onClick={() => {}} maxWidth="300px">
           Menu with Max Width and onClick set
         </MenuItem>
-        <MenuItem maxWidth="300px">Menu with only Max Width set</MenuItem>
-        <MenuItem>Menu item on its own</MenuItem>
         <MenuItem submenu="Submenu">
           <MenuItem href="#">Menu item with href set</MenuItem>
           <MenuItem onClick={() => {}}>Menu with onClick set</MenuItem>
@@ -541,8 +540,6 @@ export const MenuFullScreenWithMaxWidth = () => {
           <MenuItem onClick={() => {}} maxWidth="300px">
             Menu with Max Width and onClick set
           </MenuItem>
-          <MenuItem maxWidth="300px">Menu with only Max Width set</MenuItem>
-          <MenuItem>Menu item on its own</MenuItem>
         </MenuItem>
       </MenuFullscreen>
     </Menu>
@@ -553,10 +550,43 @@ MenuFullScreenWithMaxWidth.storyName = "Menu Full Screen with Max Width";
 export const IconAlignment = () => {
   return (
     <Menu menuType="black">
-      <MenuItem icon="home">Alpha</MenuItem>
-      <MenuItem>Beta</MenuItem>
-      <MenuItem icon="print">Charlie</MenuItem>
+      <MenuItem href="#" icon="home">
+        Alpha
+      </MenuItem>
+      <MenuItem href="#">Beta</MenuItem>
+      <MenuItem href="#" icon="print">
+        Charlie
+      </MenuItem>
     </Menu>
   );
 };
 IconAlignment.storyName = "Icon & Icon-less Text Alignment";
+
+export const TabbingOrder = () => {
+  return (
+    <Box>
+      <Menu menuType="white">
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuDivider size="large" />
+          <MenuSegmentTitle text="segment title" variant="alternate">
+            <MenuItem variant="alternate" p="2px 16px">
+              <Search
+                placeholder="Dark variant"
+                variant="dark"
+                defaultValue=""
+              />
+            </MenuItem>
+            <MenuItem variant="alternate" href="#">
+              Item Submenu Two
+            </MenuItem>
+            <MenuItem variant="alternate" href="#">
+              Item Submenu Three
+            </MenuItem>
+          </MenuSegmentTitle>
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+};
+TabbingOrder.storyName = "Tabbing Order";

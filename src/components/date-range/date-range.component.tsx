@@ -118,6 +118,14 @@ export interface DateRangeProps
   isOptional?: boolean;
   /** Date format string to be applied to the date inputs */
   dateFormatOverride?: string;
+  /** Prop to specify the aria-label attribute of the start date picker */
+  datePickerStartAriaLabel?: string;
+  /** Prop to specify the aria-labelledby attribute of the start date picker */
+  datePickerStartAriaLabelledBy?: string;
+  /** Prop to specify the aria-label attribute of the end date picker */
+  datePickerEndAriaLabel?: string;
+  /** Prop to specify the aria-labelledby attribute of the end date picker */
+  datePickerEndAriaLabelledBy?: string;
 }
 
 export const DateRange = ({
@@ -135,6 +143,10 @@ export const DateRange = ({
   endRef,
   required,
   isOptional,
+  datePickerStartAriaLabel,
+  datePickerStartAriaLabelledBy,
+  datePickerEndAriaLabel,
+  datePickerEndAriaLabelledBy,
   ...rest
 }: DateRangeProps) => {
   const { validationRedesignOptIn } = useContext(NewValidationContext);
@@ -152,7 +164,7 @@ export const DateRange = ({
   const [lastChangedDate, setLastChangedDate] = useState("");
 
   const computedValue = useCallback(
-    (valueString) => {
+    (valueString: string) => {
       if (checkISOFormatAndLength(valueString)) {
         return formattedValue(format, parseISODate(valueString));
       }
@@ -373,6 +385,8 @@ export const DateRange = ({
           labelWidth={inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
           tooltipPosition={tooltipPosition}
           ref={startRef}
+          datePickerAriaLabel={datePickerStartAriaLabel}
+          datePickerAriaLabelledBy={datePickerStartAriaLabelledBy}
         />
         <DateInput
           my={0} // prevents any form spacing being applied
@@ -383,6 +397,8 @@ export const DateRange = ({
           labelWidth={inlineLabelWidth} // Textbox only applies this when labelsInLine prop is true
           tooltipPosition={tooltipPosition}
           ref={endRef}
+          datePickerAriaLabel={datePickerEndAriaLabel}
+          datePickerAriaLabelledBy={datePickerEndAriaLabelledBy}
         />
       </DateRangeContext.Provider>
     </StyledDateRange>

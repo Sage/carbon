@@ -13,7 +13,6 @@ import Logger from "../../__internal__/utils/logger";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
 
 let deprecateUncontrolledWarnTriggered = false;
-let deprecateGroupedWarnTriggered = false;
 
 export interface ButtonToggleProps extends Partial<StyledButtonToggleProps> {
   /** Prop to specify the aria-label of the component */
@@ -28,8 +27,6 @@ export interface ButtonToggleProps extends Partial<StyledButtonToggleProps> {
   "data-element"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-role"?: string;
-  /** DEPRECATED: Remove spacing from between buttons. */
-  grouped?: boolean;
   /** Callback triggered by blur event on the button. */
   onBlur?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
   /** Callback triggered by focus event on the button. */
@@ -52,7 +49,6 @@ export const ButtonToggle = ({
   "data-element": dataElement,
   "data-role": dataRole,
   disabled,
-  grouped,
   onBlur,
   onFocus,
   onClick,
@@ -64,13 +60,6 @@ export const ButtonToggle = ({
     !!(children || buttonIcon),
     "Either prop `buttonIcon` must be defined, or this node must have children",
   );
-
-  if (grouped && !deprecateGroupedWarnTriggered) {
-    deprecateGroupedWarnTriggered = true;
-    Logger.deprecate(
-      "The `grouped` prop in `ButtonToggle` component is deprecated and will soon be removed. Spacing between buttons is no longer no removed.",
-    );
-  }
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -155,7 +144,6 @@ export const ButtonToggle = ({
       data-component={dataComponent || "button-toggle"}
       data-element={dataElement}
       data-role={dataRole}
-      grouped={grouped}
     >
       <StyledButtonToggle
         aria-label={ariaLabel}
@@ -170,7 +158,6 @@ export const ButtonToggle = ({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         size={size}
-        grouped={grouped}
         value={value}
         onFocus={handleFocus}
         onBlur={handleBlur}

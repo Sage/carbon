@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/experimental-ct-react17";
+import { expect, test } from "@playwright/experimental-ct-react";
 import { TextboxProps } from "components/textbox";
 import React from "react";
 import {
@@ -627,14 +627,6 @@ test.describe("Prop checks for Textbox component", () => {
       const inputIcon = getDataElementByValue(page, "input-icon-toggle");
       await expect(textbox(page).locator(inputIcon)).toBeVisible();
     });
-  });
-
-  test("should render with iconTabIndex prop", async ({ mount, page }) => {
-    await mount(<TextboxComponent inputIcon="add" iconTabIndex={25} />);
-
-    const inputIcon = getDataElementByValue(page, "input-icon-toggle");
-
-    await expect(inputIcon).toHaveAttribute("tabindex", "25");
   });
 
   (

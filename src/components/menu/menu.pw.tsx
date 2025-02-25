@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import {
   Menu,
   MenuProps,
@@ -29,7 +29,6 @@ import {
 } from "../../../playwright/components/menu/index";
 import {
   searchDefaultInput,
-  searchCrossIcon,
   searchButton,
 } from "../../../playwright/components/search/index";
 import {
@@ -68,6 +67,9 @@ import {
   MenuComponentFullScreenWithLongSubmenuText,
   MenuItemWithPopoverContainerChild,
   SubmenuMaxWidth,
+  WithNonInteractiveItem,
+  WithNonInteractiveSubmenuItem,
+  FullscreenWithNonInteractiveItem,
 } from "./component.test-pw";
 
 const span = "span";
@@ -387,59 +389,6 @@ test.describe("Prop tests for Menu component", () => {
     });
   });
 
-  test(`should verify the Search component close icon is focusable when using keyboard to navigate down the list of items`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch />);
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Enter");
-    await page.keyboard.press("ArrowDown");
-    await searchDefaultInput(page).fill("FooBar");
-    await page.keyboard.press("Tab");
-    const cross = searchCrossIcon(page).locator("..");
-    await expect(cross).toBeFocused();
-  });
-
-  test(`should verify the Search component close icon is centred when focused`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentSearch />);
-    const bottomLess = 220;
-    const topLess = 184;
-    const leftLess = 108;
-    // additionVal is to compensate for the outline.
-    const additionVal = 6;
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Enter");
-    await page.keyboard.press("ArrowDown");
-    await searchDefaultInput(page).fill("FooBar");
-    await page.keyboard.press("Tab");
-    const cross = searchCrossIcon(page).locator("..");
-    await expect(cross).toBeFocused();
-
-    const boundBottom = await cross.evaluate((element) => {
-      return element.getBoundingClientRect().bottom;
-    });
-    expect(boundBottom).toBeLessThanOrEqual(bottomLess + additionVal);
-    expect(boundBottom).toBeGreaterThan(bottomLess);
-
-    const boundTop = await cross.evaluate((element) => {
-      return element.getBoundingClientRect().top;
-    });
-    expect(boundTop).toBeLessThanOrEqual(topLess + additionVal);
-    expect(boundTop).toBeGreaterThan(topLess);
-
-    const boundLeft = await cross.evaluate((element) => {
-      return element.getBoundingClientRect().left;
-    });
-    expect(boundLeft).toBeLessThanOrEqual(leftLess + additionVal);
-    expect(boundLeft).toBeGreaterThan(leftLess);
-  });
-
   test(`should verify that the Search component is focusable by using the downarrow key when rendered as the parent of a scrollable submenu`, async ({
     mount,
     page,
@@ -474,7 +423,6 @@ test.describe("Prop tests for Menu component", () => {
     await page.keyboard.press("Enter");
     await page.keyboard.press("ArrowDown");
     await searchDefaultInput(page).fill("FooBar");
-    await page.keyboard.press("Tab");
     await page.keyboard.press("Enter");
     const subMenuBlock = submenuBlock(page).first().locator("li").first();
     await expect(subMenuBlock).toBeVisible();
@@ -858,19 +806,6 @@ test.describe("Prop tests for Menu component", () => {
       const thisMenu = menu(page).first();
       await expect(thisMenu).toHaveCSS("order", orderText);
     });
-  });
-
-  test(`should render with className as ${CHARACTERS.STANDARD}`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponentItems className={CHARACTERS.STANDARD} />);
-
-    const item = menuItem(page).nth(0);
-    const itemClass = await item.evaluate((element) =>
-      element.getAttribute("class"),
-    );
-    expect(itemClass).toContain(CHARACTERS.STANDARD);
   });
 
   (
@@ -1463,7 +1398,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(item2).toBeFocused();
   });
 
-  test(`should focus the search icon and button on tab press when the current item has a Search input with searchButton and has a value`, async ({
+  test(`should focus the search button on tab press when the current item has a Search input with searchButton and has a value`, async ({
     mount,
     page,
   }) => {
@@ -1475,9 +1410,6 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await page.keyboard.press("Tab");
     const searchInput = searchDefaultInput(page);
     await expect(searchInput).toBeFocused();
-    await page.keyboard.press("Tab");
-    const crossIcon = searchCrossIcon(page).locator("..");
-    await expect(crossIcon).toBeFocused();
     await page.keyboard.press("Tab");
     const button = searchButton(page);
     await expect(button).toBeFocused();
@@ -2448,5 +2380,103 @@ test.describe("Styling, Scrolling & Navigation Bar Tests for Menu Component", ()
 
     await expect(menuItemAnchor).toHaveCSS("height", "40px");
     await expect(buttonChild).toHaveCSS("height", "40px");
+  });
+
+  test("should render the menu with the expected hover styling when menu item has a PopoverContainer child with renderOpenComponent passed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuItemWithPopoverContainerChild />);
+
+    const popoverContainerButton = page.getByRole("button", {
+      name: "notification",
+    });
+    await popoverContainerButton.hover();
+
+    await expect(popoverContainerButton).toHaveCSS("border-radius", "0px");
+    await expect(popoverContainerButton).toHaveCSS(
+      "background-color",
+      "rgba(0, 0, 0, 0)",
+    );
+  });
+
+  test("a menu item, without a href or onClick prop, does not render with hover styling on hover", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithNonInteractiveItem />);
+
+    const item = page
+      .getByRole("listitem")
+      .filter({ hasText: "Non-interactive item" });
+    await item.hover();
+
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "background-color",
+      "rgb(0, 126, 69)",
+    );
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "color",
+      "rgb(255, 255, 255)",
+    );
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "cursor",
+      "pointer",
+    );
+  });
+
+  test("a submenu item, without a href or onClick prop, does not render with hover styling on hover", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithNonInteractiveSubmenuItem />);
+
+    const parentItem = page
+      .getByRole("listitem")
+      .filter({ hasText: "Submenu" });
+    await parentItem.getByRole("button").press("Enter");
+
+    const nonInteractiveItem = parentItem
+      .getByRole("listitem")
+      .filter({ hasText: "Non-interactive item" });
+    await nonInteractiveItem.hover();
+
+    await expect(nonInteractiveItem.getByTestId("link-anchor")).not.toHaveCSS(
+      "background-color",
+      "rgb(0, 126, 69)",
+    );
+    await expect(nonInteractiveItem.getByTestId("link-anchor")).not.toHaveCSS(
+      "color",
+      "rgb(255, 255, 255)",
+    );
+    await expect(nonInteractiveItem.getByTestId("link-anchor")).not.toHaveCSS(
+      "cursor",
+      "pointer",
+    );
+  });
+
+  test("an item in a fullscreen menu, which has no href or onClick prop, does not render with hover styling on focus", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FullscreenWithNonInteractiveItem />);
+
+    const item = page
+      .getByRole("listitem")
+      .filter({ hasText: "Non-interactive item" });
+    await item.hover();
+
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "background-color",
+      "rgb(0, 126, 69)",
+    );
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "color",
+      "rgb(255, 255, 255)",
+    );
+    await expect(item.getByTestId("link-anchor")).not.toHaveCSS(
+      "cursor",
+      "pointer",
+    );
   });
 });

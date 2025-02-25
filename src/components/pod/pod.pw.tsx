@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import Pod, { PodProps } from ".";
 import {
   PodExample,
@@ -28,7 +28,6 @@ import {
   checkCSSOutline,
   assertCssValueIsApproximately,
   checkAccessibility,
-  containsClass,
 } from "../../../playwright/support/helper";
 import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
 import { VariantTypes } from "../typography/typography.component";
@@ -64,17 +63,6 @@ test.describe("Prop tests for Pod", () => {
 
       page.getByText(children);
       await expect(podContent(page)).toHaveCSS("text-align", "left");
-    });
-  });
-
-  specialCharacters.forEach((className) => {
-    test(`should render with ${className} as className`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PodExample className={className} />);
-
-      await containsClass(podComponent(page), className);
     });
   });
 

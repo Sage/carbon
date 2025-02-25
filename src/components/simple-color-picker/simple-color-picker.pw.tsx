@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/experimental-ct-react17";
+import { expect, test } from "@playwright/experimental-ct-react";
 import React from "react";
 import {
   commonDataElementInputPreview,
@@ -14,7 +14,6 @@ import simpleColorPickerLegend from "../../../playwright/components/simple-color
 import { CHARACTERS, VALIDATION } from "../../../playwright/support/constants";
 import {
   checkAccessibility,
-  containsClass,
   getStyle,
   verifyRequiredAsteriskForLegend,
 } from "../../../playwright/support/helper";
@@ -370,15 +369,6 @@ test.describe("Check functionality for SimpleColor component", () => {
     );
   });
 
-  test("should render with className prop", async ({ mount, page }) => {
-    await mount(<SimpleColorCustom className={testPropValue} />);
-
-    await containsClass(
-      simpleColorPickerInput(page, 0).locator(".."),
-      testPropValue,
-    );
-  });
-
   [true, false].forEach((isChecked) => {
     test(`should render with checked as ${isChecked}`, async ({
       mount,
@@ -539,14 +529,5 @@ test.describe("Check accessibility for SimpleColorPicker component", () => {
 
       await checkAccessibility(page);
     });
-  });
-
-  test("should check accessibility with className prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleColorCustom className={testPropValue} />);
-
-    await checkAccessibility(page);
   });
 });

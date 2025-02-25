@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import Box from "../box";
 import Switch, { SwitchProps } from ".";
 import {
@@ -22,6 +22,7 @@ import {
   fieldHelpPreview,
   tooltipPreview,
   getDataElementByValue,
+  getDataRoleByValue,
 } from "../../../playwright/components/index";
 import {
   assertCssValueIsApproximately,
@@ -94,10 +95,9 @@ test.describe("Prop tests for Switch component", () => {
       if (boolVal) {
         await expect(switchInput(page)).toBeDisabled();
 
-        await expect(page.getByRole("progressbar")).toHaveAttribute(
-          "data-component",
-          "loader",
-        );
+        await expect(
+          getDataRoleByValue(page, "switch-slider-loader"),
+        ).toBeVisible();
       } else {
         await expect(switchInput(page)).not.toBeDisabled();
       }
