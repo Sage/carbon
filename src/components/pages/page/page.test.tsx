@@ -23,3 +23,12 @@ test("renders both heading and children", () => {
   expect(screen.getByText("My Title")).toBeInTheDocument();
   expect(screen.getByText("My Content")).toBeInTheDocument();
 });
+
+test("renders with provided data- attributes", () => {
+  render(
+    <Page data-role="foo" data-element="bar">
+      Content
+    </Page>,
+  );
+  expect(screen.getByTestId("foo")).toHaveAttribute("data-element", "bar");
+});

@@ -204,7 +204,7 @@ test("accepts `data-element` and `data-role` tags via props, and has the expecte
   );
 
   const pagesWrapper = screen.getByTestId("baz");
-  expect(pagesWrapper).toHaveAttribute("data-component", "carousel");
+  expect(pagesWrapper).toHaveAttribute("data-component", "pages");
   expect(pagesWrapper).toHaveAttribute("data-element", "bar");
 });
 
