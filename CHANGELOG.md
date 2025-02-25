@@ -1,3 +1,9 @@
+## [149.0.2](https://github.com/Sage/carbon/compare/v149.0.1...v149.0.2) (2025-02-25)
+
+### Bug Fixes
+
+* **accordion:** add padding-right to accordion heading container ([83c175b](https://github.com/Sage/carbon/commit/83c175b70cca857fba0a4bec793537c6b8e2cd7f)), closes [#7203](https://github.com/Sage/carbon/issues/7203)
+
 ## [149.0.1](https://github.com/Sage/carbon/compare/v149.0.0...v149.0.1) (2025-02-25)
 
 ### Bug Fixes
