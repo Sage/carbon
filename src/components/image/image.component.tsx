@@ -1,6 +1,7 @@
 import React from "react";
 import invariant from "invariant";
 import { StyledImage, StyledImageProps } from "./image.style";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
 export const Image = ({
   alt,
@@ -35,6 +36,7 @@ export const Image = ({
       bottom={bottom}
       left={left}
       {...rest}
+      {...tagComponent("image", rest)}
     >
       {children}
     </StyledImage>
