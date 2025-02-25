@@ -29,7 +29,7 @@ interface UseDraggableOptions {
   indicatorColor?: string;
   draggableItemStylingOptOut?: boolean;
   containerNode?: string;
-  itemsNode?: string;
+  itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
 }
 
 interface UseDraggableProviderContextType {
@@ -80,9 +80,10 @@ const useDraggable = ({
         containerStyle={containerStyle}
         containerNode={containerNode}
       >
-        {items.map((item) => (
+        {items.map((item, index) => (
           <DraggableItem
             key={guid()}
+            id={`${index}-${guid()}`}
             itemsStyle={itemsStyle}
             indicatorColor={indicatorColor}
             draggableItemStylingOptOut={draggableItemStylingOptOut}

@@ -2761,6 +2761,9 @@ export const WithDraggableRows: Story = () => {
       <FlatTableBodyDraggable>
         {rows.map((row) => (
           <FlatTableRow key={row.id} id={row.id}>
+             <FlatTableCell key={row.id}>
+                  <Icon type="drag" />
+                </FlatTableCell>
             <FlatTableCell>{row.name}</FlatTableCell>
           </FlatTableRow>
         ))}
