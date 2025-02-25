@@ -20,7 +20,9 @@ import {
 import StyledTooltip from "./tooltip.style";
 import StyledPointer from "./tooltip-pointer.style";
 import { TooltipPositions, TOOLTIP_POSITIONS } from "./tooltip.config";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import Portal from "../portal";
 
 function preserveRef<ElementType>(
@@ -40,7 +42,7 @@ const TOOLTIP_DELAY = 100;
 
 export type InputSizes = "small" | "medium" | "large";
 
-export interface TooltipProps {
+export interface TooltipProps extends TagProps {
   /** The message to be displayed within the tooltip */
   message: React.ReactNode;
   /** The id attribute to use for the tooltip */
