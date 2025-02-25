@@ -13,7 +13,7 @@ class ModalManagerInstance {
 
   constructor() {
     const safeWindow = getWindow();
-    if (typeof safeWindow === "undefined") {
+    if (!safeWindow) {
       this.modalList = [];
       return;
     }
@@ -94,15 +94,20 @@ class ModalManagerInstance {
   }
 
   clearList() {
-    window.__CARBON_INTERNALS_MODAL_LIST = [];
-    this.modalList = window.__CARBON_INTERNALS_MODAL_LIST;
+    const safeWindow = getWindow();
+    const cleared: ModalList = [];
+    if (safeWindow) {
+      safeWindow.__CARBON_INTERNALS_MODAL_LIST = cleared;
+    }
+    this.modalList = cleared;
     this.callTopModalSetters();
   }
 
   callTopModalSetters() {
-    if (window.__CARBON_INTERNALS_MODAL_SETTER_LIST) {
+    const safeWindow = getWindow();
+    if (safeWindow?.__CARBON_INTERNALS_MODAL_SETTER_LIST) {
       const topModal = this.getTopModal()?.modal || null;
-      for (const setTopModal of window.__CARBON_INTERNALS_MODAL_SETTER_LIST) {
+      for (const setTopModal of safeWindow.__CARBON_INTERNALS_MODAL_SETTER_LIST) {
         setTopModal(topModal);
       }
     }
