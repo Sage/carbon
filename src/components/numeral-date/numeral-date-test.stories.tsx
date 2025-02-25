@@ -8,9 +8,11 @@ import {
   DayMonthDate,
   FullDate,
   NumeralDateEvent,
+  NumeralDateObject,
   NumeralDateProps,
 } from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider";
+import Button from "../button";
 
 export default {
   title: "Numeral Date/Test",
@@ -61,17 +63,21 @@ export default {
   },
 };
 
-export const Default = (args: NumeralDateProps) => {
+export const Default = (
+  args: React.JSX.IntrinsicAttributes &
+    NumeralDateProps<NumeralDateObject> &
+    React.RefAttributes<HTMLInputElement>,
+) => {
   const [dateValue, setDateValue] = useState<FullDate>({
     dd: "",
     mm: "",
     yyyy: "",
   });
-  const handleChange = (event: NumeralDateEvent) => {
+  const handleChange = (event: NumeralDateEvent<NumeralDateObject>) => {
     setDateValue(event.target.value as FullDate);
     action("change")(event.target.value);
   };
-  const handleBlur = (event: NumeralDateEvent) => {
+  const handleBlur = (event: NumeralDateEvent<NumeralDateObject>) => {
     action("blur")(event.target.value);
   };
   return (
@@ -94,17 +100,21 @@ Default.args = {
   dateFormat: ["dd", "mm", "yyyy"],
 };
 
-export const DefaultWithOtherInputs = (args: NumeralDateProps) => {
+export const DefaultWithOtherInputs = (
+  args: React.JSX.IntrinsicAttributes &
+    NumeralDateProps<NumeralDateObject> &
+    React.RefAttributes<HTMLInputElement>,
+) => {
   const [dateValue, setDateValue] = useState<FullDate>({
     dd: "",
     mm: "",
     yyyy: "",
   });
-  const handleChange = (event: NumeralDateEvent) => {
+  const handleChange = (event: NumeralDateEvent<NumeralDateObject>) => {
     setDateValue(event.target.value as FullDate);
     action("change")(event.target.value);
   };
-  const handleBlur = (event: NumeralDateEvent) => {
+  const handleBlur = (event: NumeralDateEvent<NumeralDateObject>) => {
     action("blur")(event.target.value);
   };
   return (
@@ -140,21 +150,27 @@ DefaultWithOtherInputs.story = {
   },
 };
 
-export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
+export const Validations = (
+  args: React.JSX.IntrinsicAttributes &
+    NumeralDateProps<NumeralDateObject> &
+    React.RefAttributes<HTMLInputElement>,
+) => {
   const validationTypes = ["error", "warning", "info"];
   const [dateValue, setDateValue] = useState({ dd: "", mm: "" });
-  const handleChange = (event: NumeralDateEvent<DayMonthDate>) => {
-    setDateValue({ ...dateValue });
+  const handleChange = (event: NumeralDateEvent<NumeralDateObject>) => {
+    const { dd, mm } = event.target.value as DayMonthDate;
+    setDateValue({ dd, mm });
     action("change")(event.target.value);
   };
-  const handleBlur = (event: NumeralDateEvent<DayMonthDate>) => {
-    action("blur")(event.target.value);
+  const handleBlur = (event: NumeralDateEvent<NumeralDateObject>) => {
+    const { dd, mm } = event.target.value as DayMonthDate;
+    action("blur")(dd, mm);
   };
   return (
     <>
       <h4>Validations as string</h4>
       {validationTypes.map((validation) => (
-        <NumeralDate<DayMonthDate>
+        <NumeralDate
           key={`${validation}-string`}
           onChange={handleChange}
           label="Numeral date"
@@ -201,7 +217,11 @@ export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
 
 Validations.storyName = "validations";
 
-export const NewDesignValidations = (args: NumeralDateProps) => {
+export const NewDesignValidations = (
+  args: React.JSX.IntrinsicAttributes &
+    NumeralDateProps<NumeralDateObject> &
+    React.RefAttributes<HTMLInputElement>,
+) => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <h4>New designs validation</h4>
@@ -320,4 +340,44 @@ InlineLabelsSizes.args = {
 InlineLabelsSizes.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const ProgrammaticFocus = () => {
+  const ndRef = React.useRef<HTMLInputElement | null>(null);
+  const [dateValue, setDateValue] = useState<FullDate>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  const handleChange = (event: NumeralDateEvent<NumeralDateObject>) => {
+    setDateValue(event.target.value as FullDate);
+    action("change")(event.target.value);
+  };
+  const handleBlur = (event: NumeralDateEvent<NumeralDateObject>) => {
+    action("blur")(event.target.value);
+  };
+  const handleClick = () => {
+    ndRef.current?.focus();
+  };
+  return (
+    <>
+      <Button onClick={handleClick}>Click me to focus NumeralDate</Button>
+      <Box mt="120px">
+        <NumeralDate
+          ref={ndRef}
+          onChange={handleChange}
+          label="Numeral date"
+          onBlur={handleBlur}
+          value={dateValue}
+          name="numeralDate_name"
+          id="numeralDate_id"
+        />
+      </Box>
+    </>
+  );
+};
+
+ProgrammaticFocus.storyName = "programmatic focus";
+ProgrammaticFocus.args = {
+  dateFormat: ["dd", "mm", "yyyy"],
 };
