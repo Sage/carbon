@@ -173,7 +173,6 @@
     "@lexical/link": "^0.21.0",
     "@lexical/react": "^0.21.0",
     "@lexical/selection": "^0.21.0",
-    "@octokit/rest": "^18.12.0",
     "@styled-system/prop-types": "^5.1.5",
     "@tanstack/react-virtual": "^3.11.2",
     "@types/styled-system": "^5.1.22",
