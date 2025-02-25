@@ -1,537 +1,266 @@
+/* eslint-disable no-console */
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
+import { EditorRefPlugin } from "@lexical/react/LexicalEditorRefPlugin";
+import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
+import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
+import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
+import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
+import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+
+import { $getRoot, LexicalEditor } from "lexical";
 import React, {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
-  useContext,
 } from "react";
 import { MarginProps } from "styled-system";
-import {
-  ContentState,
-  EditorState,
-  EditorCommand,
-  RichUtils,
-  getDefaultKeyBinding,
-  Modifier,
-  Editor,
-  DraftHandleValue,
-} from "draft-js";
-import {
-  computeBlockType,
-  getContent,
-  getContentInfo,
-  getDecoratedValue,
-  getSelectedLength,
-  moveSelectionToEnd,
-  resetBlockType,
-  isASCIIChar,
-  replaceText,
-  hasInlineStyle,
-  hasBlockStyle,
-  blockStyleFn,
-} from "./__internal__/utils";
-import {
-  StyledEditorWrapper,
-  StyledEditorOutline,
-  StyledEditorContainer,
-} from "./text-editor.style";
-import ValidationWrapper from "./__internal__/editor-validation-wrapper";
-import Toolbar from "./__internal__/toolbar";
-import Label from "../../__internal__/label";
-import Events from "../../__internal__/utils/helpers/events";
-import guid from "../../__internal__/utils/helpers/guid";
-import LabelWrapper from "./__internal__/label-wrapper";
-import {
-  BOLD,
-  ITALIC,
-  UNORDERED_LIST,
-  ORDERED_LIST,
-  InlineStyleType,
-  BlockType,
-} from "./types";
-import { LinkPreviewProps } from "../link-preview";
-import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
-import ValidationMessage from "../../__internal__/validation-message";
-import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
-import Box from "../box";
-import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
-import EditorContext from "./__internal__/editor.context";
 
-const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-const INLINE_STYLES = [BOLD, ITALIC] as const;
+import Label from "../../__internal__/label";
+import useDebounce from "../../hooks/__internal__/useDebounce";
+import useLocale from "../../hooks/__internal__/useLocale";
+
+import {
+  COMPONENT_PREFIX,
+  markdownNodes,
+  theme,
+} from "./__internal__/constants";
+import { validateUrl } from "./__internal__/helpers";
+import {
+  AutoLinkerPlugin,
+  CharacterCounterPlugin,
+  ContentEditor,
+  LinkMonitorPlugin,
+  OnChangePlugin,
+  Placeholder,
+  ToolbarPlugin,
+} from "./__internal__/plugins";
+import TextEditorContext from "./text-editor.context";
+import StyledTextEditor, {
+  StyledEditorToolbarWrapper,
+  StyledHintText,
+  StyledValidationMessage,
+  StyledWrapper,
+} from "./text-editor.style";
+import { SaveCallbackProps } from "./__internal__/plugins/Toolbar/buttons/save.component";
+import { createEmpty } from "./__internal__";
 
 export interface TextEditorProps extends MarginProps {
-  /** The maximum characters that the input will accept */
+  /** The maximum number of characters allowed in the editor */
   characterLimit?: number;
-  /** The text for the editor's label */
-  labelText: string;
-  /** onChange callback to control value updates */
-  onChange: (event: EditorState) => void;
-  /** Additional elements to be rendered in the Editor Toolbar, e.g. Save and Cancel Button */
-  toolbarElements?: React.ReactNode;
-  /** The value of the input, this is an EditorState immutable object */
-  value: EditorState;
-  /** Flag to configure component as mandatory. */
-  required?: boolean;
-  /** Flag to configure component as optional. */
-  isOptional?: boolean;
-  /** Message to be displayed when there is an error */
+  /** The message to be shown when the editor is in an error state */
   error?: string;
-  /** Message to be displayed when there is a warning */
-  warning?: string;
-  /** [Legacy] Message to be displayed when there is an info */
-  info?: string;
-  /** Number greater than 2 multiplied by line-height (21px) to override the default min-height of the editor */
-  rows?: number;
-  /** The previews to display of any links added to the Editor */
-  previews?: React.ReactNode;
-  /** Callback to report a url when a link is added */
-  onLinkAdded?: (url: string) => void;
-  /** Hint text to be rendered when validationRedesignOptIn flag is set */
+  /** A hint string rendered before the editor but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: string;
+  /** Whether the content of the editor can be empty */
+  isOptional?: boolean;
+  /** The label to display above the editor */
+  labelText: string;
+  /** The identifier for the Text Editor. This allows for the using of multiple Text Editors on a screen */
+  namespace?: string;
+  /** The callback to fire when the Cancel button within the editor is pressed */
+  onCancel?: () => void;
+  /** The callback to fire when a change is registered within the editor */
+  onChange?: (value: string) => void;
+  /** The callback to fire when a link is added into the editor */
+  onLinkAdded?: (link: string, state: string) => void;
+  /** The callback to fire when the Save button within the editor is pressed */
+  onSave?: (value: SaveCallbackProps) => void;
+  /** The placeholder to display when the editor is empty */
+  placeholder?: string;
+  /** An array of link preview nodes to render in the editor */
+  previews?: React.JSX.Element[];
+  /** Whether the editor is read-only */
+  readOnly?: boolean;
+  /** Whether the content of the editor is required to have a value */
+  required?: boolean;
+  /** Number greater than 2 multiplied to override the default min-height of the editor */
+  rows?: number;
+  /** The message to be shown when the editor is in an warning state */
+  warning?: string;
+  /** The initial value of the editor, as a HTML string, or JSON */
+  value?: string | undefined;
 }
 
-export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
-  (
-    {
-      characterLimit = 3000,
-      labelText,
-      onChange,
-      value,
-      required,
-      error,
-      warning,
-      info,
-      toolbarElements,
-      rows,
-      previews,
-      onLinkAdded,
-      inputHint,
-      isOptional,
-      ...rest
-    }: TextEditorProps,
-    ref,
-  ) => {
-    const { validationRedesignOptIn } = useContext(NewValidationContext);
-    const [isFocused, setIsFocused] = useState(false);
-    const [inlines, setInlines] = useState<InlineStyleType[]>([]);
-    const [activeInlines, setActiveInlines] = useState<
-      Partial<Record<InlineStyleType, boolean>>
-    >({});
-    const [focusToolbar, setFocusToolbar] = useState(false);
+export const TextEditor = ({
+  characterLimit = 3000,
+  error,
+  inputHint,
+  isOptional = false,
+  labelText,
+  namespace = COMPONENT_PREFIX,
+  onCancel,
+  onChange,
+  onLinkAdded,
+  onSave,
+  placeholder,
+  previews = [],
+  readOnly = false,
+  required = false,
+  rows,
+  warning,
+  value,
+}: TextEditorProps) => {
+  const editorRef = useRef<LexicalEditor | undefined>(undefined);
+  const locale = useLocale();
+  const [characterLimitWarning, setCharacterLimitWarning] = useState<
+    string | undefined
+  >(undefined);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [cancelTrigger, setCancelTrigger] = useState<boolean>(false);
 
-    const editorRef = useRef<Editor>(null);
-    const wrapper = useRef<HTMLDivElement>(null);
-    const editor = ref || editorRef;
-    const contentLength = getContent(value).getPlainText("").length;
-    const moveCursor = useRef(contentLength > 0);
-    const lastKeyPressed = useRef<null | string>();
-    const inputHintId = useRef(`${guid()}-hint`);
-    const { current: id } = useRef(guid());
+  const debounceWaitTime = 500;
 
-    const { labelId, validationId, ariaDescribedBy } = useInputAccessibility({
-      id,
-      validationRedesignOptIn,
-      error,
-      warning,
-      info,
-      label: labelText,
-    });
+  const initialConfig = useMemo(() => {
+    return {
+      namespace,
+      nodes: markdownNodes,
+      onError: console.error,
+      theme,
+      editorState: value,
+      editable: !readOnly,
+    };
+  }, [namespace, readOnly, value]);
 
-    const [characterCount, visuallyHiddenHintId] = useCharacterCount(
-      getContent(value).getPlainText(""),
-      characterLimit,
-      isFocused ? "polite" : "off",
-    );
+  // OnChangePlugin is tested separately
+  /* istanbul ignore next */
+  const handleChange = useDebounce((newState) => {
+    const currentTextContent = newState.read(() => $getRoot().getTextContent());
 
-    const combinedAriaDescribedBy = [
-      ariaDescribedBy,
-      inputHint ? inputHintId.current : undefined,
-      visuallyHiddenHintId,
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    if (rows && (typeof rows !== "number" || rows < 2)) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `Prop rows must be a number value that is 2 or greater to override the min-height of the \`${TextEditor.displayName}\``,
-      );
+    if (onChange) {
+      onChange?.(currentTextContent);
     }
 
-    const keyBindingFn = (ev: React.KeyboardEvent<HTMLInputElement>) => {
-      if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
-        setFocusToolbar(true);
-      }
+    // If the character limit is set, check if the limit has been exceeded
+    if (characterLimit > 0) {
+      const currentDiff = characterLimit - currentTextContent.length;
+      // If the character limit has been exceeded, show the character limit warning
+      setCharacterLimitWarning(
+        currentDiff < 0
+          ? locale.textEditor.characterLimit(Math.abs(currentDiff))
+          : undefined,
+      );
+    }
+  }, debounceWaitTime);
 
-      return getDefaultKeyBinding(ev);
-    };
+  const handleCancel = useCallback(() => {
+    const editor = editorRef.current;
+    /* istanbul ignore next */
+    const isEditable = editor?.isEditable() || false;
+    /* istanbul ignore if */
+    if (!isEditable) return;
 
-    const BLOCK_TYPES = ["unordered-list-item", "ordered-list-item"];
+    /* istanbul ignore else */
+    if (onCancel) {
+      setCancelTrigger((prev) => !prev);
+      onCancel();
+    }
+  }, [onCancel]);
 
-    const handleKeyCommand = (command: EditorCommand) => {
-      // bail out if the enter is pressed and limit has been reached
-      if (command.includes("split-block") && contentLength === characterLimit) {
-        return "handled";
-      }
+  // Reset the value of the editor when the cancel trigger is updated (implements reset on cancel)
+  useEffect(() => {
+    const editor = editorRef.current;
+    const safeValue = value || createEmpty();
 
-      // if the backspace or enter is pressed get block type and text
-      if (command.includes("backspace") || command.includes("split-block")) {
-        const { blockLength, blockType } = getContentInfo(value);
+    /* istanbul ignore else */
+    if (editor) {
+      const newEditorState = editor.parseEditorState(safeValue);
+      editor.setEditorState(newEditorState);
+    }
+  }, [cancelTrigger, value]);
 
-        // if a block control is active and there is no text, deactivate it and reset the block
-        if (BLOCK_TYPES.includes(blockType) && !blockLength) {
-          onChange(resetBlockType(value, "unstyled"));
+  const toolbarProps = useMemo(
+    () => ({
+      namespace,
+      onCancel: onCancel ? handleCancel : undefined,
+      onSave,
+    }),
+    [handleCancel, namespace, onCancel, onSave],
+  );
 
-          return "handled";
-        }
-      }
+  return (
+    <TextEditorContext.Provider value={{ onLinkAdded, readOnly }}>
+      <Label
+        isRequired={required}
+        optional={isOptional}
+        labelId={`${namespace}-label`}
+      >
+        {labelText}
+      </Label>
 
-      const style = command.toUpperCase();
-
-      // if formatting shortcut used eg. command is "bold" or "italic"
-      if (style === BOLD || style === ITALIC) {
-        const update = RichUtils.handleKeyCommand(value, command);
-
-        // istanbul ignore else
-        if (update) {
-          onChange(update);
-          setActiveInlines({
-            ...activeInlines,
-            [style]: !hasInlineStyle(value, style),
-          });
-
-          return "handled";
-        }
-      }
-
-      return "not-handled";
-    };
-
-    const handleBeforeInput = (str: string, newState: EditorState) => {
-      // short circuit if exceeds character limit
-      if (contentLength >= characterLimit) {
-        return "handled";
-      }
-
-      setActiveInlines({});
-
-      // there is a bug in how DraftJS handles the macOS double-space-period feature, this is added to catch this and
-      // prevent the editor from crashing until a fix can be added to their codebase
-      if (lastKeyPressed.current === " " && !isASCIIChar(str)) {
-        lastKeyPressed.current = null;
-        onChange(replaceText(newState, " ", newState.getCurrentInlineStyle()));
-
-        return "handled";
-      }
-
-      if (str === " ") {
-        lastKeyPressed.current = str;
-
-        return "not-handled";
-      }
-
-      lastKeyPressed.current = null;
-      // short circuit if str does not match expected chars
-      if (![".", "*"].includes(str)) {
-        return "not-handled";
-      }
-
-      const { blockType, blockLength, blockText } = getContentInfo(value);
-
-      if (
-        (blockLength === 1 && NUMBERS.includes(blockText) && str === ".") ||
-        (blockLength === 0 && str === "*")
-      ) {
-        const newBlockType = computeBlockType(str, blockType);
-        const hasNumberList = hasBlockStyle(value, ORDERED_LIST);
-        const hasBulletList = hasBlockStyle(value, UNORDERED_LIST);
-
-        if (
-          BLOCK_TYPES.includes(newBlockType) &&
-          !hasNumberList &&
-          !hasBulletList
-        ) {
-          onChange(resetBlockType(value, newBlockType));
-          setActiveInlines({
-            BOLD: hasInlineStyle(value, BOLD),
-            ITALIC: hasInlineStyle(value, ITALIC),
-          });
-
-          return "handled";
-        }
-      }
-      onChange(value);
-
-      return "not-handled";
-    };
-
-    const handlePastedText = (pastedText: string) => {
-      const selectedTextLength = getSelectedLength(value);
-      const newLength = contentLength + pastedText?.length - selectedTextLength;
-      // if the pastedText will exceed the limit trim the excess
-      if (newLength > characterLimit) {
-        const newContentState = Modifier.insertText(
-          getContent(value),
-          value.getSelection(),
-          pastedText.substring(0, characterLimit - contentLength),
-        );
-        const newState = EditorState.push(
-          value,
-          newContentState,
-          "insert-fragment",
-        );
-
-        onChange(newState);
-
-        return "handled";
-      }
-
-      setActiveInlines({});
-
-      return "not-handled";
-    };
-
-    const getEditorState = () => {
-      let editorState = getDecoratedValue(value);
-
-      // should the cursor position be forced to the end of the content
-      if (contentLength > 0 && moveCursor.current && isFocused) {
-        editorState = moveSelectionToEnd(editorState);
-        moveCursor.current = false;
-      }
-
-      return editorState;
-    };
-
-    const editorState = getEditorState();
-
-    const activeControls = {
-      BOLD:
-        activeInlines.BOLD !== undefined
-          ? activeInlines.BOLD
-          : hasInlineStyle(editorState, BOLD),
-      ITALIC:
-        activeInlines.ITALIC !== undefined
-          ? activeInlines.ITALIC
-          : hasInlineStyle(editorState, ITALIC),
-      "unordered-list-item": hasBlockStyle(editorState, UNORDERED_LIST),
-      "ordered-list-item": hasBlockStyle(editorState, ORDERED_LIST),
-    };
-
-    const handleEditorFocus = useCallback(
-      (focusValue: boolean) => {
-        moveCursor.current = true;
-
-        if (
-          focusValue &&
-          typeof editor === "object" &&
-          editor.current !== document.activeElement
-        ) {
-          editor.current?.focus();
-          setFocusToolbar(false);
-        }
-        setIsFocused(focusValue);
-      },
-      [editor],
-    );
-
-    const handleInlineStyleChange = (
-      ev:
-        | React.MouseEvent<HTMLButtonElement>
-        | React.KeyboardEvent<HTMLButtonElement>,
-      style: InlineStyleType,
-    ) => {
-      ev.preventDefault();
-      setActiveInlines({
-        ...activeInlines,
-        [style]: !hasInlineStyle(value, style),
-      });
-      handleEditorFocus(true);
-      setInlines([...inlines, style]);
-    };
-
-    const handleBlockStyleChange = (
-      ev:
-        | React.MouseEvent<HTMLButtonElement, MouseEvent>
-        | React.KeyboardEvent<HTMLButtonElement>,
-      newBlockType: BlockType,
-    ) => {
-      ev.preventDefault();
-      handleEditorFocus(true);
-      onChange(RichUtils.toggleBlockType(value, newBlockType));
-      const temp: InlineStyleType[] = [];
-      INLINE_STYLES.forEach((style) => {
-        if (activeInlines[style] !== undefined) {
-          temp.push(style);
-        }
-      });
-      setInlines(temp);
-    };
-
-    useEffect(() => {
-      // apply the inline styling, having it run in as an effect ensures that styles can be added
-      // even when the editor is not focused
-      INLINE_STYLES.forEach((style) => {
-        const preserveStyle =
-          activeInlines[style] !== undefined &&
-          activeInlines[style] !== hasInlineStyle(value, style);
-
-        if (
-          (preserveStyle && value.getSelection().isCollapsed()) ||
-          (isFocused && inlines.includes(style))
-        ) {
-          onChange(RichUtils.toggleInlineStyle(value, style));
-          setInlines(inlines.filter((inline) => inline !== style));
-        }
-        if (preserveStyle && !value.getSelection().isCollapsed()) {
-          setActiveInlines({ ...activeInlines, [style]: undefined });
-        }
-      });
-    }, [
-      activeInlines,
-      contentLength,
-      editorState,
-      inlines,
-      isFocused,
-      onChange,
-      value,
-    ]);
-
-    const handlePreviewClose = (
-      onClose: (url: string) => void,
-      url?: string,
-    ) => {
-      // istanbul ignore else
-      if (url) onClose(url);
-
-      // istanbul ignore else
-      if (typeof editor === "object") {
-        editor.current?.focus();
-      }
-    };
-
-    useEffect(() => {
-      if (required) {
-        const editableElement = wrapper.current?.querySelector(
-          "div[contenteditable='true']",
-        );
-        editableElement?.setAttribute("required", "");
-        editableElement?.setAttribute("aria-required", "true");
-      }
-    }, [required]);
-
-    return (
-      <EditorContext.Provider value={{ onLinkAdded, editMode: true }}>
-        <StyledEditorWrapper
-          ref={wrapper}
-          data-role="text-editor-wrapper"
-          {...rest}
+      {inputHint && (
+        <StyledHintText
+          data-role={`${namespace}-input-hint`}
+          id={`${namespace}-input-hint`}
         >
-          <LabelWrapper onClick={() => handleEditorFocus(true)}>
-            <Label
-              labelId={labelId}
-              isRequired={required}
-              optional={isOptional}
+          {inputHint}
+        </StyledHintText>
+      )}
+      <LexicalComposer initialConfig={initialConfig}>
+        <EditorRefPlugin editorRef={editorRef} />
+        <StyledWrapper
+          data-role={`${namespace}-wrapper`}
+          error={error || undefined}
+          namespace={namespace}
+          warning={characterLimitWarning || warning || undefined}
+        >
+          {(error || characterLimitWarning || warning) && (
+            <StyledValidationMessage
+              error={error}
+              data-role={`${namespace}-validation-message`}
             >
-              {labelText}
-            </Label>
-          </LabelWrapper>
-          {inputHint && (
-            <StyledHintText id={inputHintId.current}>
-              {inputHint}
-            </StyledHintText>
+              {error || characterLimitWarning || warning}
+            </StyledValidationMessage>
           )}
-          <Box position="relative">
-            {validationRedesignOptIn && (
-              <>
-                <ValidationMessage
-                  error={error}
-                  validationId={validationId}
-                  warning={warning}
-                />
-                {(error || warning) && (
-                  <ErrorBorder warning={!!(!error && warning)} />
-                )}
-              </>
-            )}
-            <StyledEditorOutline
-              isFocused={isFocused}
-              hasError={!!error}
-              data-role="editor-outline"
-            >
-              <StyledEditorContainer
-                data-component="text-editor-container"
-                hasError={!!error}
-                rows={rows}
-                hasPreview={!!React.Children.count(previews)}
-              >
-                {!validationRedesignOptIn && (error || warning || info) && (
-                  <ValidationWrapper
+          <StyledEditorToolbarWrapper
+            data-role={`${namespace}-editor-toolbar-wrapper`}
+            id={`${namespace}-editor-toolbar-wrapper`}
+            onBlur={() => setIsFocused(false)}
+            onFocus={() => setIsFocused(true)}
+            focused={isFocused}
+          >
+            <StyledTextEditor data-role={`${namespace}-editor`}>
+              <RichTextPlugin
+                contentEditable={
+                  <ContentEditor
                     error={error}
+                    inputHint={inputHint}
+                    namespace={namespace}
+                    previews={previews}
+                    rows={rows}
                     warning={warning}
-                    info={info}
                   />
-                )}
-                <Editor
-                  ref={editor}
-                  onFocus={() => handleEditorFocus(true)}
-                  onBlur={() => handleEditorFocus(false)}
-                  editorState={editorState}
-                  onChange={onChange}
-                  handleBeforeInput={
-                    handleBeforeInput as (
-                      chars: string,
-                      state: EditorState,
-                    ) => DraftHandleValue
-                  }
-                  handlePastedText={handlePastedText}
-                  handleKeyCommand={
-                    handleKeyCommand as (
-                      command: EditorCommand,
-                    ) => DraftHandleValue
-                  }
-                  ariaLabelledBy={labelId}
-                  ariaDescribedBy={combinedAriaDescribedBy}
-                  blockStyleFn={blockStyleFn}
-                  keyBindingFn={keyBindingFn}
-                  tabIndex={0}
-                />
-                {React.Children.map(previews, (preview) => {
-                  if (React.isValidElement<LinkPreviewProps>(preview)) {
-                    const { onClose } = preview?.props;
-                    return React.cloneElement(preview, {
-                      as: "div",
-                      onClose: onClose
-                        ? (url?: string) => handlePreviewClose(onClose, url)
-                        : undefined,
-                    });
-                  }
-                  return null;
-                })}
-                <Toolbar
-                  setBlockStyle={(ev, newBlockType) =>
-                    handleBlockStyleChange(ev, newBlockType)
-                  }
-                  setInlineStyle={(ev, inlineStyle) =>
-                    handleInlineStyleChange(ev, inlineStyle)
-                  }
-                  activeControls={activeControls}
-                  canFocus={focusToolbar}
-                  toolbarElements={toolbarElements}
-                />
-              </StyledEditorContainer>
-            </StyledEditorOutline>
-            {characterCount}
-          </Box>
-        </StyledEditorWrapper>
-      </EditorContext.Provider>
-    );
-  },
-);
+                }
+                placeholder={
+                  <Placeholder namespace={namespace} text={placeholder} />
+                }
+                ErrorBoundary={LexicalErrorBoundary}
+              />
+              <ListPlugin />
+              <HistoryPlugin />
+              <MarkdownShortcutPlugin />
+              <OnChangePlugin onChange={handleChange} />
+              <LinkPlugin validateUrl={validateUrl} />
+              <ClickableLinkPlugin newTab />
+              <AutoLinkerPlugin />
+            </StyledTextEditor>
+            {!readOnly && <ToolbarPlugin {...toolbarProps} />}
+            <LinkMonitorPlugin />
+          </StyledEditorToolbarWrapper>
 
-export const TextEditorState = EditorState;
-export const TextEditorContentState = ContentState;
+          {characterLimit > 0 && !readOnly && (
+            <CharacterCounterPlugin
+              maxChars={characterLimit}
+              namespace={namespace}
+            />
+          )}
+        </StyledWrapper>
+      </LexicalComposer>
+    </TextEditorContext.Provider>
+  );
+};
 
 export default TextEditor;

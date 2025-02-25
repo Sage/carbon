@@ -136,27 +136,6 @@ test.describe("check styling for Note component", () => {
   });
 });
 
-test.describe("check action events for Note component", () => {
-  test("should call onLinkAdded callback when a valid url is detected", async ({
-    mount,
-    page,
-  }) => {
-    let hasOnLinkAddedBeenCalledCount = 0;
-
-    await mount(
-      <NoteComponent
-        text="https://carbon.s"
-        onLinkAdded={() => {
-          hasOnLinkAddedBeenCalledCount += 1;
-        }}
-      />,
-    );
-
-    await expect(page.getByText("https://carbon.s")).toBeAttached();
-    expect(hasOnLinkAddedBeenCalledCount).toBe(1);
-  });
-});
-
 test.describe("Accessibility tests for Note component", () => {
   testData.forEach((text) => {
     test(`should render with noteContent prop as ${text} for accessibility tests`, async ({

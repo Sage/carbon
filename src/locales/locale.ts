@@ -131,6 +131,20 @@ interface Locale {
   pod: {
     undo: () => string;
   };
+  textEditor: {
+    boldAria: () => string;
+    cancelButton: () => string;
+    cancelButtonAria: () => string;
+    characterCounter: (count: number | string) => string;
+    characterLimit: (count: number) => string;
+    contentEditorAria: () => string;
+    italicAria: () => string;
+    orderedListAria: () => string;
+    saveButton: () => string;
+    saveButtonAria: () => string;
+    toolbarAriaLabel: () => string;
+    unorderedListAria: () => string;
+  };
   search: {
     searchButtonText: () => string;
   };
@@ -166,20 +180,6 @@ interface Locale {
   switch: {
     on: () => string;
     off: () => string;
-  };
-  textEditor: {
-    tooltipMessages: {
-      bold: () => string;
-      italic: () => string;
-      bulletList: () => string;
-      numberList: () => string;
-    };
-    ariaLabels: {
-      bold: () => string;
-      italic: () => string;
-      bulletList: () => string;
-      numberList: () => string;
-    };
   };
   tileSelect: {
     deselect: () => string;
