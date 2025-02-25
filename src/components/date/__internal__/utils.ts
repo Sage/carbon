@@ -1,4 +1,4 @@
-import { Matcher } from "react-day-picker";
+import type { Locale, Matcher } from "react-day-picker";
 
 import {
   format,

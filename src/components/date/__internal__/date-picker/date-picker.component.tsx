@@ -1,4 +1,5 @@
 import { flip, offset } from "@floating-ui/dom";
+import type { Day, Month } from "date-fns";
 import React, {
   useCallback,
   KeyboardEvent,
@@ -100,16 +101,8 @@ export const DatePicker = ({
   const locale = useLocale();
   const { localize, options } = locale.date.dateFnsLocale();
   const { weekStartsOn } = options || /* istanbul ignore next */ {};
-  const monthsLong = useMemo(
-    () =>
-      Array.from({ length: 12 }).map((_, i) => {
-        const month = localize?.month(i);
-        return month[0].toUpperCase() + month.slice(1);
-      }),
-    [localize],
-  );
   const weekdaysLong = useMemo(
-    () => Array.from({ length: 7 }).map((_, i) => localize?.day(i)),
+    () => Array.from({ length: 7 }).map((_, i) => localize?.day(i as Day)),
     [localize],
   );
   const weekdaysShort = useMemo(() => {
@@ -117,7 +110,7 @@ export const DatePicker = ({
     return Array.from({ length: 7 }).map((_, i) =>
       localize
         ?.day(
-          i,
+          i as Day,
           ["de", "pl"].some(isGivenLocale)
             ? { width: "wide" }
             : { width: "abbreviated" },
@@ -252,7 +245,7 @@ export const DatePicker = ({
           <DayPicker
             formatters={{
               formatCaption: (month) =>
-                `${localize?.month(month.getMonth())} ${month.getFullYear()}`,
+                `${localize?.month(month.getMonth() as Month)} ${month.getFullYear()}`,
             }}
             required={false}
             weekStartsOn={weekStartsOn}
@@ -261,9 +254,6 @@ export const DatePicker = ({
             locale={{
               localize: {
                 ...defaultLocale.localize,
-                months: monthsLong,
-                weekdaysLong,
-                weekdaysShort,
               },
             }}
             selected={selectedDays}
