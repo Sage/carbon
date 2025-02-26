@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { render, screen, within, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import enGBLocale from "date-fns/locale/en-GB";
-import deLocale from "date-fns/locale/de";
-import esLocale from "date-fns/locale/es";
-import enCALocale from "date-fns/locale/en-CA";
-import enZALocale from "date-fns/locale/en-ZA";
-import frLocale from "date-fns/locale/fr";
-import frCALocale from "date-fns/locale/fr-CA";
-import enUSLocale from "date-fns/locale/en-US";
+import { enGB as enGBLocale } from "date-fns/locale/en-GB";
+import { de as deLocale } from "date-fns/locale/de";
+import { es as esLocale } from "date-fns/locale/es";
+import { enCA as enCALocale } from "date-fns/locale/en-CA";
+import { enZA as enZALocale } from "date-fns/locale/en-ZA";
+import { fr as frLocale } from "date-fns/locale/fr";
+import { frCA as frCALocale } from "date-fns/locale/fr-CA";
+import { enUS as enUSLocale } from "date-fns/locale/en-US";
 
 import CarbonProvider from "../carbon-provider";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";

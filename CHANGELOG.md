@@ -1,3 +1,28 @@
+## [150.0.0](https://github.com/Sage/carbon/compare/v149.0.2...v150.0.0) (2025-02-25)
+
+### ⚠ BREAKING CHANGES
+
+* `date-fns` is now ESM-first. While CommonJS
+remains supported, this change may cause issues in some environments.
+If you encounter issues, you may need to update your bundler
+configuration to support ESM code.
+
+### Miscellaneous Chores
+
+* upgrade `date-fns` to version ^4.1.0 ([27a87e7](https://github.com/Sage/carbon/commit/27a87e7fc29353ca4e05ce0f6d7546ac9dc9afdb))
+
+## [149.0.2](https://github.com/Sage/carbon/compare/v149.0.1...v149.0.2) (2025-02-25)
+
+### Bug Fixes
+
+* **accordion:** add padding-right to accordion heading container ([83c175b](https://github.com/Sage/carbon/commit/83c175b70cca857fba0a4bec793537c6b8e2cd7f)), closes [#7203](https://github.com/Sage/carbon/issues/7203)
+
+## [149.0.1](https://github.com/Sage/carbon/compare/v149.0.0...v149.0.1) (2025-02-25)
+
+### Bug Fixes
+
+* **packages:** re-remove reintroduced octokit dependency ([afce055](https://github.com/Sage/carbon/commit/afce055cb361a998d7ac5d1c1eed52a6dd9fad7f))
+
 ## [149.0.0](https://github.com/Sage/carbon/compare/v148.0.1...v149.0.0) (2025-02-25)
 
 ### ⚠ BREAKING CHANGES
