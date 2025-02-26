@@ -21,7 +21,7 @@ const clientConfig: Config = {
     "jest-canvas-mock",
   ],
   testMatch: [
-    "**/?(*.)+(client.spec|client.test|spec|test).[jt]s?(x)",
+    "**/?(*.)+(spec|test).[jt]s?(x)",
     "!**/*.server.(spec|test).[jt]s?(x)",
   ],
   testPathIgnorePatterns: ["node_modules", "lib", "esm"],
