@@ -31,6 +31,7 @@ export const DefaultStory = () => {
       fieldHelp="field help message"
       onChange={onChangeHandler}
       value={value}
+      inputHint="hint message"
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>

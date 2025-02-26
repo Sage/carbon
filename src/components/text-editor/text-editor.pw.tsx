@@ -176,16 +176,14 @@ test.describe("Prop tests", () => {
     test(`value of 'hint'`, async ({ mount, page }) => {
       await mount(<TextEditorDefaultComponent inputHint="hint" />);
       const hint = await page
-        .locator(`div[data-role='pw-rte-input-hint']`)
+        .locator(`div[data-role='hint-text']`)
         .textContent();
       expect(hint).toBe("hint");
     });
 
     test(`value not provided`, async ({ mount, page }) => {
       await mount(<TextEditorDefaultComponent />);
-      const hint = await page
-        .locator(`div[data-role='pw-rte-input-hint']`)
-        .count();
+      const hint = await page.locator(`div[data-role='hint-text']`).count();
       expect(hint).toBe(0);
     });
   });

@@ -72,6 +72,7 @@ export const AllStatuses = (args: Partial<FileInputProps>) => {
     <FileInput
       my={20}
       label="test"
+      inputHint="hint"
       uploadStatus={status}
       onChange={() => {}}
       {...args}

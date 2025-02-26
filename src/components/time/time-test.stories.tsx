@@ -69,3 +69,34 @@ export const LabelAlign: Story = ({ ...args }) => {
   );
 };
 LabelAlign.storyName = "Label Align";
+
+export const HintTextAlignment: Story = ({ ...args }) => {
+  const [value, setValue] = useState<TimeValue>({
+    hours: "",
+    minutes: "",
+    period: "AM",
+  });
+
+  const handleChange = (ev: TimeInputEvent) => {
+    setValue(ev.target.value);
+  };
+
+  return (
+    <Box ml={2}>
+      {["left", "right"].map((labelAlign) => (
+        <Box>
+          <Time
+            mb={2}
+            value={value}
+            onChange={handleChange}
+            label="labelAlign left"
+            inputHint="hint"
+            labelAlign={labelAlign as "left" | "right"}
+            {...args}
+          />
+        </Box>
+      ))}
+    </Box>
+  );
+};
+HintTextAlignment.storyName = "Hint Text Alignment";
