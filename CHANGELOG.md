@@ -1,3 +1,9 @@
+## [150.1.0](https://github.com/Sage/carbon/compare/v150.0.0...v150.1.0) (2025-02-26)
+
+### Features
+
+* **hint-text:** ensure hint text matches field label alignment ([52c065b](https://github.com/Sage/carbon/commit/52c065bb6905b5abbd4aec9336e0421e78f2cea4))
+
 ## [150.0.0](https://github.com/Sage/carbon/compare/v149.0.2...v150.0.0) (2025-02-25)
 
 ### ⚠ BREAKING CHANGES
