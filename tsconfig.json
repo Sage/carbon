@@ -28,5 +28,5 @@
     "./docs/**/*.ts*",
     "./jest.config.ts"
   ],
-  "exclude": ["./node_modules", "./playwright", "./playwright-ct.config.ts"]
+  "exclude": ["./node_modules", "./playwright", "./playwright-ct.config.ts", "dist"]
 }

@@ -33,7 +33,7 @@ import {
   findLastFocusableItem,
   getItems,
   checkChildrenForString,
-} from "./__internal__/action-popover-utils";
+} from "./__internal__/action-popover.utils";
 import FlatTableContext, {
   FlatTableContextProps,
 } from "../flat-table/__internal__/flat-table.context";
