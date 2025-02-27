@@ -1,3 +1,76 @@
+## [151.0.0](https://github.com/Sage/carbon/compare/v150.1.0...v151.0.0) (2025-02-27)
+
+### ⚠ BREAKING CHANGES
+
+* **textbox:** Remove support to set data-component attribute through props to Textbox based
+components.
+* **vertical-divider:** Remove support to override data-component attribute.
+* **toast:** Remove support to set data-component attribute through props.
+* **textarea:** Remove support to set data-component attribute through props.
+* **tabs, tab:** Remove support to override data-component attribute.
+* **switch:** Remove support to set data-component attribute through props.
+* **step-sequence, step-sequence-item:** Remove support to override data-component attribute.
+* **search:** Remove support to override data-component attribute.
+* **radio-button:** Remove support to set data-component attribute through props.
+* **pod:** Remove support to override data-component attribute.
+* **pill:** Remove support to override data-component attribute.
+* **pager:** Remove support to override data-component attribute.
+* **numeral-date:** Remove support to set data-component attribute through props.
+* **menu:** Remove support to override data-component attribute.
+* **link-preview:** Remove support to set data-component attribute through props.
+* **hr:** Remove support to override data-component attribute.
+* **help:** Remove support to override data-component attribute.
+* **fieldset:** Remove support to override data-component attribute.
+* **dismissible-box:** Remove support to override data-component attribute.
+* **checkbox, checkbox-group:** Removed support to override data-component attribute.
+* **button-toggle, button-toggle-group:** Removed support to override data-component attribute.
+* **breadcrumbs, crumb:** Remove support to override data-component attribute.
+* **alert, confirm:** Remove support to override data-component attribute.
+* **action-popover:** Remove support to override data-component attribute.
+* **accordion:** Remove support to override data-component attribute.
+
+### Features
+
+* **advanced-color-picker:** add data- attribute props ([f7f0815](https://github.com/Sage/carbon/commit/f7f0815d6290f68b0af4baf68bad12e97cfbeb72))
+* **badge:** add data- attribute props ([2d653c0](https://github.com/Sage/carbon/commit/2d653c0798e344082f338664c102a6af1ca24772))
+* **batch-selection:** add data- attribute props ([c7f7e7a](https://github.com/Sage/carbon/commit/c7f7e7a60d63c458f137d469fdcd1766df956a17))
+* **button-bar:** add data- attribute props ([bea6f74](https://github.com/Sage/carbon/commit/bea6f7419ee61089b69370d931eaf5ae1fc4ccf6))
+* **draggable-item:** add data- attribute props ([c343591](https://github.com/Sage/carbon/commit/c3435914059caa202a8d415c8e56d5ad7f7710c8))
+* **dueling-picklist:** add data- attribute props ([309e10b](https://github.com/Sage/carbon/commit/309e10ba1fdf88b07fae1bae42506907cad70255))
+* **icon-button:** add data- attribute props ([6d9c30b](https://github.com/Sage/carbon/commit/6d9c30be81d7c10b98f8a65eea139c38704f02b7))
+* **inline-inputs:** add data- attribute props ([84efc59](https://github.com/Sage/carbon/commit/84efc59648a851a0073a9ae43ea3134e0db03f74))
+* **popover-container:** add data- attribute props ([8ae8b0d](https://github.com/Sage/carbon/commit/8ae8b0d6f51bb95171a801a9b9c957d9281fec02))
+
+### Bug Fixes
+
+* **accordion:** ensure default data-component attribute cannot be overridden ([0090d16](https://github.com/Sage/carbon/commit/0090d16edcd6dfae03deda5c321cd9097cf543ad))
+* **action-popover:** ensure default data-component attribute cannot be overridden ([f31e0c4](https://github.com/Sage/carbon/commit/f31e0c410e64d16179c682e23fec8fd306a0b63b))
+* **alert, confirm:** ensure default data-component attribute cannot be overridden ([5758b6c](https://github.com/Sage/carbon/commit/5758b6c8de9b40ac71dbd76c4ba12ff06af43e9a))
+* **breadcrumbs, crumb:** ensure default data-component attribute cannot be overridden ([97682b2](https://github.com/Sage/carbon/commit/97682b23575865828d93a9130bea7fb9cb5978c3))
+* **button-toggle, button-toggle-group:** ensure data- attributes are only passed to root element ([1b908a0](https://github.com/Sage/carbon/commit/1b908a002b39da953d4d448c051fc837febbaec3))
+* **checkbox, checkbox-group:** remove support to override data-component attribute ([dc0b561](https://github.com/Sage/carbon/commit/dc0b5619a7ae779632cbe63c2e89c62c4c9c4ded))
+* **dismissible-box:** ensure default data-component attribute cannot be overridden ([fa0bbee](https://github.com/Sage/carbon/commit/fa0bbee1383ef3874dbaad1ca31d63d754344b3b))
+* **fieldset:** ensure default data-component attribute cannot be overridden ([567d32c](https://github.com/Sage/carbon/commit/567d32c449454e89dda3cab5a91186b624d68595))
+* **help:** ensure default data-component attribute cannot be overridden ([ae12dde](https://github.com/Sage/carbon/commit/ae12ddedb29ab653188cc1200fdbac6e0d7581bf))
+* **hr:** ensure default data-component attribute cannot be overridden ([1be0014](https://github.com/Sage/carbon/commit/1be00146300ebbdede3aa999a9b92b18c944df91))
+* **link-preview:** remove support to set data-component ([f814e16](https://github.com/Sage/carbon/commit/f814e1689ebeebc329668b427a141f7721dcfe44))
+* **menu:** ensure default data-component attribute cannot be overridden ([8fcc0f8](https://github.com/Sage/carbon/commit/8fcc0f8283fd7cad01a90d692d3e93856b3b0ee3))
+* **numeral-date:** remove support to set data-component ([b3fb8c6](https://github.com/Sage/carbon/commit/b3fb8c6fd9045569cb19ab29dd407bea29da5611))
+* **pager:** ensure default data-component attribute cannot be overridden ([57039b1](https://github.com/Sage/carbon/commit/57039b1154065e4befc82ed374cf55969bff1bee))
+* **pages:** incorrect data-component value ([83ca536](https://github.com/Sage/carbon/commit/83ca536dd2d124112b418204684fdf79cefa2e50))
+* **pill:** ensure default data-component attribute cannot be overridden ([a3b47ec](https://github.com/Sage/carbon/commit/a3b47ec0334c7314f382431890d2b70837f750e0))
+* **pod:** ensure default data-component attribute cannot be overridden ([e50630e](https://github.com/Sage/carbon/commit/e50630e4ae1ec504475fb7d4d958ac4da472fa5b))
+* **radio-button:** remove support to set data-component ([5b842d2](https://github.com/Sage/carbon/commit/5b842d29422a36dba60995c010bd7af8416b8377))
+* **search:** ensure default data-component attribute cannot be overridden ([ca6e17c](https://github.com/Sage/carbon/commit/ca6e17c05ddf2d726eeb1ef9d788e52e10015c73))
+* **step-sequence, step-sequence-item:** ensure default data-component attribute cannot be overridden ([796f989](https://github.com/Sage/carbon/commit/796f9896e71a5bb2370e881fde7291d3517cebc6))
+* **switch:** remove support to set data-component ([a0c776b](https://github.com/Sage/carbon/commit/a0c776b51ce2cdcb5c179ca422e0d8df67d88d6f))
+* **tabs, tab:** ensure default data-component attribute cannot be overridden ([7f7599e](https://github.com/Sage/carbon/commit/7f7599e99f1f7b79237c2343d1cacc717e6744d9))
+* **textarea:** remove support to set data-component ([a8efb4d](https://github.com/Sage/carbon/commit/a8efb4d4dc2497cde8a486d6d4b6c459bc4f5154))
+* **textbox:** remove support to set data-component ([8148df7](https://github.com/Sage/carbon/commit/8148df7c7d8f4a4e591ec9a3d5224170e246031c))
+* **tile-select:** ensure data- attributes are not spread to more than one element ([12a0bf0](https://github.com/Sage/carbon/commit/12a0bf0d45c63aad6965a599fee3721509ee1308))
+* **toast:** remove support to set data-component ([e49210f](https://github.com/Sage/carbon/commit/e49210f343f7fea2afd8c417f56bf8a3b7a26628))
+* **vertical-divider:** ensure default data-component attribute cannot be overridden ([cf146e1](https://github.com/Sage/carbon/commit/cf146e1a454f12f8035d2073eaa2da5f7671f805))
+
 ## [150.1.0](https://github.com/Sage/carbon/compare/v150.0.0...v150.1.0) (2025-02-26)
 
 ### Features
