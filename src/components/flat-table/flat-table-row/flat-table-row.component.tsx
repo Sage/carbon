@@ -261,7 +261,9 @@ export const FlatTableRow = React.forwardRef<
       return isSubRow ? "flat-table-sub-row" : "flat-table-row";
     };
 
-    const {isInFlatTableBodyDraggable: draggable } = useContext(FlatTableBodyDraggableContext);
+    const { isInFlatTableBodyDraggable: draggable } = useContext(
+      FlatTableBodyDraggableContext,
+    );
 
     const sharedRowProps = {
       isInSidebar,
@@ -272,9 +274,9 @@ export const FlatTableRow = React.forwardRef<
       "data-role": dataRole,
       highlighted,
       selected,
+      ref: rowRef,
       onClick: handleClick,
       firstCellIndex,
-      ref: rowRef,
       lhsRowHeaderIndex,
       rhsRowHeaderIndex,
       colorTheme,
@@ -285,19 +287,16 @@ export const FlatTableRow = React.forwardRef<
       horizontalBorderSize,
       draggable,
       totalChildren: cellsArray.length,
-      id: internalId.current,
       "data-selected": selected && expandableArea === "wholeRow",
       "data-highlighted": highlighted && expandableArea === "wholeRow",
       rowHeight: rowRef?.current?.offsetHeight,
       ...interactiveRowProps,
       ...rest,
-      "data-component": "flat-table-row"
+      "data-component": "flat-table-row",
     };
 
     const rowComponent = () => (
-      <StyledFlatTableRow
-      {...sharedRowProps}
-      >
+      <StyledFlatTableRow id={internalId.current}{...sharedRowProps}>
         <FlatTableRowContext.Provider
           value={{
             firstCellId,
@@ -317,9 +316,7 @@ export const FlatTableRow = React.forwardRef<
     );
 
     const draggableComponent = () => (
-      <FlatTableRowDraggable
-        {...sharedRowProps}
-      >
+      <FlatTableRowDraggable id={id || internalId.current} {...sharedRowProps}>
         <FlatTableRowContext.Provider
           value={{
             firstCellId,
