@@ -25,12 +25,10 @@ function getDraggableItemData(
   };
 }
 
-function isDraggableItemData(
-  data: unknown
-): data is DraggableItemData {
+function isDraggableItemData(data: unknown): data is DraggableItemData {
   return (
-    data !== null && 
-    typeof data === "object" && 
+    data !== null &&
+    typeof data === "object" &&
     draggableItemDataKey in data &&
     (data as Record<string, unknown>)[draggableItemDataKey] === true
   );
