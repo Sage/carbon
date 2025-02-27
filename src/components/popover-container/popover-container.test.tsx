@@ -706,10 +706,24 @@ test("should call the exposed `focusButton` method and focus the open button", a
   expect(openButton).toHaveFocus();
 });
 
+test("renders with provided data- attributes", () => {
+  render(
+    <PopoverContainer data-element="bar" data-role="baz">
+      Content
+    </PopoverContainer>,
+  );
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 // coverage
 test("renders with correct width when hasFullWidth prop is true", () => {
   render(
-    <PopoverContainer title="My popup" hasFullWidth>
+    <PopoverContainer
+      data-role="popover-container"
+      title="My popup"
+      hasFullWidth
+    >
       Ta da!
     </PopoverContainer>,
   );

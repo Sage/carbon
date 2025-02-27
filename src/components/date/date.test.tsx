@@ -161,6 +161,19 @@ test("should set ref to empty after unmount", () => {
   expect(ref.current).toBe(null);
 });
 
+test("should render with provided data- attributes", () => {
+  render(
+    <DateInput
+      data-element="bar"
+      data-role="baz"
+      onChange={() => {}}
+      value=""
+    />,
+  );
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 test("should render with the input focused and picker visible when `autoFocus` is true", () => {
   render(<DateInput label="label" autoFocus onChange={() => {}} value="" />);
 

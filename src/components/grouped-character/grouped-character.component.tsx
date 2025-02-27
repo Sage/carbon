@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Textbox, { TextboxProps } from "../textbox";
 import { generateGroups, toSum } from "./grouped-character.utils";
 import Logger from "../../__internal__/utils/logger";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
 type EventValue = {
   formattedValue: string;
@@ -33,7 +34,7 @@ const buildCustomTarget = (
 };
 
 export interface GroupedCharacterProps
-  extends Omit<TextboxProps, "onChange" | "onBlur"> {
+  extends Omit<TextboxProps, "onChange" | "onBlur" | "data-component"> {
   /** Default input value if component is meant to be used as an uncontrolled component */
   defaultValue?: string;
   /** pattern by which input value should be grouped */
@@ -167,6 +168,7 @@ export const GroupedCharacter = React.forwardRef(
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
         ref={ref}
+        {...tagComponent("grouped-character", rest)}
       />
     );
   },

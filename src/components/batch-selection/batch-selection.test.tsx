@@ -23,9 +23,21 @@ test("Renders with children", () => {
   expect(iconButton).toBeEnabled();
 });
 
+test("Renders with provided data- attributes", () => {
+  render(
+    <BatchSelection data-element="bar" data-role="baz" selectedCount={0}>
+      <IconButton>
+        <Icon type="edit" />
+      </IconButton>
+    </BatchSelection>,
+  );
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 test("Renders as hidden when the `hidden` prop is true", () => {
   render(
-    <BatchSelection selectedCount={0} hidden>
+    <BatchSelection data-role="batch-selection" selectedCount={0} hidden>
       <IconButton>
         <Icon type="bin" />
       </IconButton>

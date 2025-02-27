@@ -5,7 +5,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import StyledOptionRow from "./option-row.style";
 import SelectListContext from "../__internal__/select-list/select-list.context";
 
-export interface OptionRowProps extends Omit<TagProps, "data-component"> {
+export interface OptionRowProps extends TagProps {
   /** The option's visible text, displayed within <Textbox> of <Select> */
   text: string;
   /** Row content, should consist of multiple td elements */

@@ -149,6 +149,18 @@ test('should render with expected styles when iconType is set to "error"', () =>
   expect(icon).toHaveStyle({ color: "var(--colorsSemanticNegative500)" });
 });
 
+test("should render dialog with expected data tags", () => {
+  render(
+    <Confirm open onConfirm={() => {}} data-element="foo" data-role="bar" />,
+  );
+
+  expect(screen.getByRole("alertdialog")).toHaveAttribute(
+    "data-element",
+    "foo",
+  );
+  expect(screen.getByRole("alertdialog")).toHaveAttribute("data-role", "bar");
+});
+
 test("should render buttons with expected data tags", () => {
   render(
     <Confirm

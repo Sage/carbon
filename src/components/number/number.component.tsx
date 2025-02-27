@@ -7,6 +7,7 @@ import {
   LABEL_WIDTH_DEFAULT,
   SIZE_DEFAULT,
 } from "../textbox/textbox.component";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
 let deprecateUncontrolledWarnTriggered = false;
 
@@ -79,6 +80,7 @@ export const Number = React.forwardRef(
         labelWidth={labelWidth}
         size={size}
         validationOnLabel={validationOnLabel}
+        {...tagComponent(rest["data-component"] ?? "number", rest)}
       />
     );
   },

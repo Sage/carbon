@@ -20,9 +20,9 @@ export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
         <StyledBreadcrumbs
           ref={ref}
           role="navigation"
-          {...tagComponent("breadcrumbs", rest)}
           aria-label={l.breadcrumbs.ariaLabel()}
           {...rest}
+          {...tagComponent("breadcrumbs", rest)}
         >
           <ol>{children}</ol>
         </StyledBreadcrumbs>

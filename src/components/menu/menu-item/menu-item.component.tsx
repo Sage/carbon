@@ -26,7 +26,7 @@ import { TagProps } from "../../../__internal__/utils/helpers/tags";
 export type VariantType = "default" | "alternate";
 
 interface MenuItemBaseProps
-  extends Omit<TagProps, "data-component">,
+  extends TagProps,
     Pick<LayoutProps, "width" | "maxWidth" | "minWidth">,
     FlexboxProps,
     PaddingProps {

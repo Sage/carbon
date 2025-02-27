@@ -5,8 +5,9 @@ import {
   StyledCounter,
   StyledBadge,
 } from "./badge.style";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface BadgeProps {
+export interface BadgeProps extends TagProps {
   /** Prop to specify an aria-label for the component */
   "aria-label"?: string;
   /** The badge will be added to this element */
@@ -25,6 +26,8 @@ export const Badge = ({
   counter = 0,
   color = "--colorsActionMajor500",
   onClick,
+  "data-element": dataElement,
+  "data-role": dataRole,
 }: BadgeProps) => {
   const shouldDisplayCounter = +counter > 0;
   const counterToDisplay = +counter > 99 ? 99 : counter;
@@ -44,8 +47,9 @@ export const Badge = ({
     if (shouldDisplayCounter) {
       return (
         <StyledBadge
-          data-role="badge"
           data-component="badge"
+          data-element={dataElement}
+          data-role={dataRole}
           color={color}
           {...props}
           onFocus={() => {

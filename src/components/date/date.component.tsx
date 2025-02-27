@@ -32,6 +32,7 @@ import DateRangeContext, {
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import guid from "../../__internal__/utils/helpers/guid";
+import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
 interface CustomDateEvent {
   type: string;
@@ -73,6 +74,7 @@ export interface DateInputProps
     | "warnOverLimit"
     | "iconTabIndex"
     | "inputIcon"
+    | "data-component"
   > {
   /** Boolean to allow the input to have an empty value */
   allowEmptyValue?: boolean;
@@ -117,7 +119,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       adaptiveLabelBreakpoint,
       allowEmptyValue,
       autoFocus,
-      "data-component": dataComponent,
       "data-element": dataElement,
       "data-role": dataRole,
       disabled,
@@ -479,16 +480,18 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         role="presentation"
         size={size}
         labelInline={labelInline}
-        data-component={dataComponent || "date"}
-        data-element={dataElement}
-        data-role={dataRole}
         {...marginProps}
         applyDateRangeStyling={!!inputRefMap}
         maxWidth={maxWidth}
         inputWidth={inputWidth}
+        {...tagComponent("date", {
+          "data-element": dataElement,
+          "data-role": dataRole,
+        })}
       >
         <Textbox
           {...filterOutStyledSystemSpacingProps(rest)}
+          data-component="date-input"
           value={computedValue()}
           onBlur={handleBlur}
           onChange={handleChange}

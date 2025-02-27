@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TransitionGroup } from "react-transition-group";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import Page from "./page";
 import { PagesWrapperStyle, PagesContent } from "./pages.style";
 import { ThemeObject } from "../../style/themes/base";
 
-export interface PagesProps {
+export interface PagesProps extends TagProps {
   /** The selected tab on page load */
   initialpageIndex?: number | string;
   /** The current page's index */
@@ -97,7 +99,7 @@ const Pages = ({
 
   /** Renders the Slide Component */
   return (
-    <PagesWrapperStyle {...tagComponent("carousel", props)}>
+    <PagesWrapperStyle {...tagComponent("pages", props)}>
       <PagesContent className="carbon-carousel__content">
         <TransitionGroup>{handleVisiblePage()}</TransitionGroup>
       </PagesContent>

@@ -71,11 +71,25 @@ test("renders required children when required prop is true", () => {
   expect(screen.getByRole("textbox")).toBeRequired();
 });
 
+test("renders with provided data-attributes", () => {
+  render(
+    <InlineInputs data-element="bar" data-role="baz">
+      <Textbox onChange={() => {}} />
+    </InlineInputs>,
+  );
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 // coverage
 test("should render with expected styles when adaptiveLabelBreakpoint set and screen is smaller than the breakpoint", () => {
   mockMatchMedia(false);
   render(
-    <InlineInputs label="Inputs Label" adaptiveLabelBreakpoint={1000}>
+    <InlineInputs
+      data-role="inline-inputs"
+      label="Inputs Label"
+      adaptiveLabelBreakpoint={1000}
+    >
       <Textbox onChange={() => {}} />
     </InlineInputs>,
   );
@@ -92,7 +106,11 @@ test("should render with expected styles when adaptiveLabelBreakpoint set and sc
 test("should render with expected styles when adaptiveLabelBreakpoint set and screen is larger than the breakpoint", () => {
   mockMatchMedia(true);
   render(
-    <InlineInputs label="Inputs Label" adaptiveLabelBreakpoint={1000}>
+    <InlineInputs
+      data-role="inline-inputs"
+      label="Inputs Label"
+      adaptiveLabelBreakpoint={1000}
+    >
       <Textbox onChange={() => {}} />
     </InlineInputs>,
   );
@@ -105,7 +123,11 @@ test("should render with expected styles when adaptiveLabelBreakpoint set and sc
 // coverage
 test("renders with expected styles when labelWidth is provided", () => {
   render(
-    <InlineInputs label="Inputs Label" labelWidth={50}>
+    <InlineInputs
+      data-role="inline-inputs"
+      label="Inputs Label"
+      labelWidth={50}
+    >
       <Textbox onChange={() => {}} />
     </InlineInputs>,
   );
@@ -129,6 +151,8 @@ test("renders with expected styles when inputWidth is provided", () => {
 });
 
 testStyledSystemMargin(
-  (props) => <InlineInputs label="label" {...props} />,
+  (props) => (
+    <InlineInputs data-role="inline-inputs" label="label" {...props} />
+  ),
   () => screen.getByTestId("inline-inputs"),
 );

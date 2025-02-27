@@ -10,17 +10,11 @@ testStyledSystemMargin(
 );
 
 test("renders with set data tags", () => {
-  render(
-    <Profile
-      data-role="profile"
-      data-component="profile"
-      data-element="profile"
-    />,
-  );
+  render(<Profile data-role="foo" data-element="bar" />);
 
-  const profile = screen.getByTestId("profile");
+  const profile = screen.getByTestId("foo");
   expect(profile).toHaveAttribute("data-component", "profile");
-  expect(profile).toHaveAttribute("data-element", "profile");
+  expect(profile).toHaveAttribute("data-element", "bar");
 });
 
 test("renders default avatar if no text-based props are passed", () => {

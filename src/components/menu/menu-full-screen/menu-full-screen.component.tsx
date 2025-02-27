@@ -20,7 +20,7 @@ import useLocale from "../../../hooks/__internal__/useLocale";
 import useModalAria from "../../../hooks/__internal__/useModalAria";
 import useModalManager from "../../../hooks/__internal__/useModalManager";
 
-export interface MenuFullscreenProps extends Omit<TagProps, "data-component"> {
+export interface MenuFullscreenProps extends TagProps {
   /** Accessible name that conveys the purpose of the menu   */
   "aria-label"?: string;
   /** The child elements to render */

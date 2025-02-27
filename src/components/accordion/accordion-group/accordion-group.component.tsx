@@ -8,7 +8,9 @@ import Accordion, {
   AccordionProps,
 } from "../accordion.component";
 import { StyledAccordionGroup } from "../accordion.style";
-import { TagProps } from "../../../__internal__/utils/helpers/tags";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags";
 
 type AccordionGroupChild =
   | React.ReactElement
@@ -20,9 +22,7 @@ type AccordionGroupChild =
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface AccordionGroupChildArray extends Array<AccordionGroupChild> {}
 
-export interface AccordionGroupProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface AccordionGroupProps extends MarginProps, TagProps {
   /** An Accordion or list of Accordion components to be rendered inside the AccordionGroup */
   children?: AccordionGroupChild;
 }
@@ -101,7 +101,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
   );
 
   return (
-    <StyledAccordionGroup {...rest} data-component="accordion-group">
+    <StyledAccordionGroup {...rest} {...tagComponent("accordion-group", rest)}>
       {filteredChildren.map((child, index) =>
         // casted to ReactElement as there is no overload for an FunctionComponentElement in cloneElement
         React.cloneElement(child as React.ReactElement, {

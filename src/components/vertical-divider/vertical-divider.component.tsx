@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { SpaceProps } from "styled-system";
 import MenuContext from "../menu/__internal__/menu.context";
 import { StyledVerticalWrapper, StyledDivider } from "./vertical-divider.style";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 type TintRange =
   | 1
@@ -105,7 +106,7 @@ type TintRange =
   | 99
   | 100;
 
-export interface VerticalDividerProps extends SpaceProps {
+export interface VerticalDividerProps extends SpaceProps, TagProps {
   /** Shorthand for the height attribute */
   h?: number | string;
   /** Height attribute of the component */
@@ -136,7 +137,6 @@ export const VerticalDivider = ({
 
   return (
     <StyledVerticalWrapper
-      data-component="vertical-divider"
       data-role="vertical-divider"
       p={props.p || 3}
       height={h || height}
@@ -144,6 +144,7 @@ export const VerticalDivider = ({
       {...props}
       as={inMenu ? "li" : "div"}
       aria-hidden={inMenu ?? ariaHidden}
+      {...tagComponent("vertical-divider", props)}
     >
       <StyledDivider data-role="divider" tint={tint} />
     </StyledVerticalWrapper>

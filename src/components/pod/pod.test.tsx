@@ -511,6 +511,12 @@ test("renders block with correct padding when `border` is false and a button is 
   expect(block).toHaveStyle({ padding: "0" });
 });
 
+test("renders with provided data- attributes", () => {
+  render(<Pod data-element="bar" data-role="baz" title="Title" />);
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 testStyledSystemMargin(
   (props) => <Pod data-role="pod" {...props} />,
   () => screen.getByTestId("pod"),

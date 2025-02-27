@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { MarginProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { FieldsetStyle, StyledLegend } from "./fieldset.style";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
-export interface FieldsetProps extends MarginProps {
+export interface FieldsetProps extends MarginProps, TagProps {
   /** Child elements */
   children?: React.ReactNode;
   /** The text for the fieldset's legend element. */
@@ -43,9 +43,9 @@ export const Fieldset = ({
     <FieldsetStyle
       ref={setRef}
       newValidation={validationRedesignOptIn}
-      {...tagComponent("fieldset", rest)}
       {...rest}
       {...marginProps}
+      {...tagComponent("fieldset", rest)}
     >
       {legend && (
         <StyledLegend

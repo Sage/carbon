@@ -32,12 +32,6 @@ export interface FilterableSelectProps
   "aria-label"?: string;
   /** Prop to specify the aria-labelledby property of the component input */
   "aria-labelledby"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
   /** Child components (such as Option or OptionRow) for the SelectList */
   children: React.ReactNode;
   /** The default selected value(s), when the component is operating in uncontrolled mode */
@@ -130,7 +124,6 @@ export const FilterableSelect = React.forwardRef<
       onListScrollBottom,
       tableHeader,
       multiColumn,
-      "data-component": dataComponent = "filterable-select",
       "data-element": dataElement,
       "data-role": dataRole,
       tooltipPosition,
@@ -677,6 +670,7 @@ export const FilterableSelect = React.forwardRef<
         required,
         isOptional,
         ...filterOutStyledSystemSpacingProps(textboxProps),
+        "data-component": undefined,
       };
     }
 
@@ -734,7 +728,7 @@ export const FilterableSelect = React.forwardRef<
         hasTextCursor
         readOnly={readOnly}
         disabled={disabled}
-        data-component={dataComponent}
+        data-component="filterable-select"
         data-role={dataRole}
         data-element={dataElement}
         isOpen={isOpen}

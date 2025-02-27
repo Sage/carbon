@@ -10,6 +10,7 @@ import {
   PaddingProps,
 } from "styled-system";
 import { baseTheme } from "../../style/themes";
+import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 
 export type PositionProps =
   | "absolute"
@@ -21,7 +22,8 @@ export interface StyledImageProps
   extends BackgroundProps,
     LayoutProps,
     MarginProps,
-    PaddingProps {
+    PaddingProps,
+    TagProps {
   /** HTML alt property to display when an img fails to load */
   alt?: string;
   /** Prop to specify if the image is decorative  */

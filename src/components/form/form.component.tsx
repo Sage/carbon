@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from "react";
 import { SpaceProps, PaddingProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import FormSummary from "./__internal__/form-summary.component";
 import {
@@ -13,7 +14,7 @@ import { FormButtonAlignment, formSpacing } from "./form.config";
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import ModalContext from "../modal/__internal__/modal.context";
 
-export interface FormProps extends SpaceProps {
+export interface FormProps extends SpaceProps, TagProps {
   /** Alignment of buttons */
   buttonAlignment?: FormButtonAlignment;
   /** Child elements */
@@ -85,6 +86,7 @@ export const Form = ({
       height={height}
       isInModal={isInModal}
       {...rest}
+      {...tagComponent("form", rest)}
     >
       <StyledFormContent
         data-element="form-content"

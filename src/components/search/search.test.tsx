@@ -11,7 +11,7 @@ import I18nProvider from "../i18n-provider";
 jest.mock("../../__internal__/utils/logger");
 
 testStyledSystemMargin(
-  (props) => <Search value="" {...props} />,
+  (props) => <Search data-role="search" value="" {...props} />,
   () => screen.getByTestId("search"),
 );
 
@@ -292,13 +292,13 @@ test("when the component is uncontrolled, the `onClick` callback prop is called 
   );
 });
 
-test("the component's wrapper element has the appropriate `data-component` tag", () => {
-  render(<Search value="" />);
+test("the component's wrapper element has the appropriate `data-` tags", () => {
+  render(<Search data-role="foo" data-element="bar" value="" />);
 
-  expect(screen.getByTestId("search")).toHaveAttribute(
-    "data-component",
-    "search",
-  );
+  const search = screen.getByTestId("foo");
+
+  expect(search).toHaveAttribute("data-component", "search");
+  expect(search).toHaveAttribute("data-element", "bar");
 });
 
 test("do not render remove button when the input is empty", () => {
@@ -390,12 +390,14 @@ test("the input can be programmatically focused using a ref", async () => {
 
 // for coverage - dark variant styles are tested in Playwright
 test("should render the bottom border when variant is dark, the input is not focused and has a value", () => {
-  render(<Search variant="dark" value="search" />);
+  render(<Search data-role="search" variant="dark" value="search" />);
 
-  expect(screen.getByTestId("search")).toHaveStyle({
+  const search = screen.getByTestId("search");
+
+  expect(search).toHaveStyle({
     "background-color": "transparent",
   });
-  expect(screen.getByTestId("search")).toHaveStyleRule(
+  expect(search).toHaveStyleRule(
     "border-bottom",
     "var(--spacing025) solid var(--colorsUtilityYang080)",
   );
@@ -403,28 +405,29 @@ test("should render the bottom border when variant is dark, the input is not foc
 
 // for coverage - `searchWidth` prop is tested in Playwright
 test("applies the correct width specified by the user", () => {
-  render(<Search searchWidth="400px" defaultValue="" />);
+  render(<Search data-role="search" searchWidth="400px" defaultValue="" />);
 
-  expect(screen.getByTestId("search")).toHaveStyle({
+  const search = screen.getByTestId("search");
+
+  expect(search).toHaveStyle({
     display: "inline-flex",
     "font-weight": "500",
     width: "400px",
   });
-  expect(screen.getByTestId("search")).toHaveStyleRule(
+  expect(search).toHaveStyleRule(
     "border-bottom",
     "var(--spacing025) solid var(--colorsUtilityMajor300)",
   );
-  expect(screen.getByTestId("search")).toHaveStyleRule(
-    "font-size",
-    "var(--fontSize100)",
-  );
+  expect(search).toHaveStyleRule("font-size", "var(--fontSize100)");
 });
 
 // for coverage - `maxWidth` prop is tested in Playwright
 test("applies the correct maxWidth specified by the user", () => {
-  render(<Search maxWidth="67%" defaultValue="" />);
+  render(<Search data-role="search" maxWidth="67%" defaultValue="" />);
 
-  expect(screen.getByTestId("search")).toHaveStyle({
+  const search = screen.getByTestId("search");
+
+  expect(search).toHaveStyle({
     "max-width": "67%",
   });
 });

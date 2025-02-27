@@ -10,7 +10,9 @@ import { MarginProps } from "styled-system";
 import invariant from "invariant";
 
 import Events from "../../__internal__/utils/helpers/events";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import Fieldset from "../../__internal__/fieldset";
 import SimpleColor, { SimpleColorProps } from "./simple-color";
 import RadioButtonMapper from "../../__internal__/radio-button-mapper/radio-button-mapper.component";
@@ -23,7 +25,10 @@ import Logger from "../../__internal__/utils/logger";
 
 let deprecateUncontrolledWarnTriggered = false;
 
-export interface SimpleColorPickerProps extends ValidationProps, MarginProps {
+export interface SimpleColorPickerProps
+  extends ValidationProps,
+    MarginProps,
+    TagProps {
   /** The SimpleColor components to be rendered in the group */
   children?: React.ReactNode;
   /** prop that represents childWidth */

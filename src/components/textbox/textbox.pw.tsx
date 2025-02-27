@@ -102,14 +102,6 @@ test.describe("Prop checks for Textbox component", () => {
     expect(contentValue).toContain("(optional)");
   });
 
-  test("should render with data-component prop", async ({ mount, page }) => {
-    await mount(<TextboxComponent data-component={CHARACTERS.STANDARD} />);
-
-    await expect(
-      getDataComponentByValue(page, CHARACTERS.STANDARD),
-    ).toBeVisible();
-  });
-
   test("should render with data-element prop", async ({ mount, page }) => {
     await mount(<TextboxComponent data-element={CHARACTERS.STANDARD} />);
 

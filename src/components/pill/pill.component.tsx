@@ -1,10 +1,12 @@
 import React from "react";
 import StyledPill, { StyledPillProps } from "./pill.style";
 import Icon from "../icon";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import IconButton from "../icon-button";
 
-export interface PillProps extends StyledPillProps {
+export interface PillProps extends StyledPillProps, TagProps {
   /** The content to display inside of the pill.  */
   children: string;
   /** Change the color of a status pill. */
@@ -17,10 +19,6 @@ export interface PillProps extends StyledPillProps {
     | "neutralWhite";
   /** Sets the colour styling when a status pill is rendered on a dark background. */
   isDarkBackground?: boolean;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
   /** Fills the pill background with colour. When fill is false only the border is coloured. */
   fill?: boolean;
   /** Callback function for when the pill is clicked. */
@@ -80,10 +78,10 @@ export const Pill = ({
       size={size}
       borderColor={borderColor}
       onClick={onClick}
-      {...tagComponent("pill", rest)}
       maxWidth={maxWidth}
       wrapText={wrapText}
       {...rest}
+      {...tagComponent("pill", rest)}
     >
       {children}
       {onDelete && (

@@ -54,14 +54,6 @@ import {
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 test.describe("Props tests for Textarea component", () => {
-  test("should render with data-component prop", async ({ mount, page }) => {
-    await mount(<TextareaComponent data-component={CHARACTERS.STANDARD} />);
-
-    const testElement = getComponent(page, CHARACTERS.STANDARD);
-
-    await expect(testElement).toBeVisible();
-  });
-
   test("should render with data-element prop", async ({ mount, page }) => {
     await mount(<TextareaComponent data-element={CHARACTERS.STANDARD} />);
 
