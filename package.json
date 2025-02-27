@@ -23,7 +23,7 @@
     "clean-lib": "rimraf ./lib && rimraf ./esm",
     "commit": "git-cz",
     "generate-metadata": "node ./scripts/generate_metadata/index.mjs",
-    "type-check:carbon": "tsc --noEmit",
+    "type-check:carbon": "tsc --noEmit -p ./tsconfig-build.json",
     "type-check:playwright": "tsc -p ./tsconfig-playwright.json",
     "type-check": "npm run type-check:carbon && npm run type-check:playwright",
     "type-check:watch": "concurrently --names 'src,playwright' -c 'cyan,yellow' 'npm run type-check:carbon -- --watch' 'npm run type-check:playwright -- --watch'",

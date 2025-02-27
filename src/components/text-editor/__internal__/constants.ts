@@ -6,8 +6,6 @@ import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 
 import { EditorThemeClasses, TextFormatType } from "lexical";
 
-import "./style.css";
-
 /** The default prefix applied to the editor's internal class names, IDs, etc. */
 const COMPONENT_PREFIX = "carbon-rte";
 

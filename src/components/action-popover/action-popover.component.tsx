@@ -31,7 +31,7 @@ import {
   findLastFocusableItem,
   getItems,
   checkChildrenForString,
-} from "./__internal__/action-popover-utils";
+} from "./__internal__/action-popover.utils";
 
 export interface RenderButtonProps {
   tabIndex: number;

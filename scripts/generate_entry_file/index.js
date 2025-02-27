@@ -144,24 +144,6 @@ indexFiles.flatMap((indexFile) => {
       .replace(/\.[tj]sx?$/, "") // Remove .ts, .tsx, .js, .jsx
       .replace(/\\/g, "/");
 
-    // if (defaultExportName && hasNamedExport) {
-    //   return [
-    //     `export * from "./${relativePath}";`,
-    //     `export { default as ${defaultExportName} } from "./${relativePath}";`
-    //   ];
-    // }
-
-    // if (defaultExportName) {
-    //   return `export { default as ${defaultExportName} } from "./${relativePath}";`;
-    // }
-
-    // if (hasNamedExport) {
-    //   return `export * from "./${relativePath}";`;
-    // }
-
-    // Avoid returning an empty entry if no exports are found
-    // return [];
-
     if (defaultExportName) {
       exportStatements.add(
         `export { default as ${defaultExportName} } from "./${relativePath}";`,
@@ -171,8 +153,6 @@ indexFiles.flatMap((indexFile) => {
     }
   });
 });
-
-// console.log(`📝 Writing ${statements.length} exports to ${outputFile}:\n`, exportStatements);
 
 // Write to index.ts
 fs.writeFileSync(outputFile, Array.from(exportStatements).join("\n"), "utf-8");
