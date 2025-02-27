@@ -150,6 +150,7 @@ export const RadioButtonGroup = ({
           legendAlign={legendAlign}
           isRequired={required}
           isOptional={isOptional}
+          width="fit-content"
           {...tagComponent("radiogroup", rest)}
           {...marginProps}
           ml={marginLeft}
