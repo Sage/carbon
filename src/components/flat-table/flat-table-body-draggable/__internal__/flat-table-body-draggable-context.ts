@@ -4,8 +4,9 @@ interface FlatTableBodyDraggableContextType {
   isInFlatTableBodyDraggable: boolean;
 }
 
-const FlatTableBodyDraggableContext = createContext<FlatTableBodyDraggableContextType>(
-  {isInFlatTableBodyDraggable: false},
-);
+const FlatTableBodyDraggableContext =
+  createContext<FlatTableBodyDraggableContextType>({
+    isInFlatTableBodyDraggable: false,
+  });
 
 export default FlatTableBodyDraggableContext;

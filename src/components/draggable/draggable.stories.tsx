@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -51,83 +51,36 @@ DefaultStory.storyName = "Default";
 
 export const ManualReOrdering: Story = () => {
   const draggableHandle = useRef<UseDraggableHandle | null>(null);
-  const [currentOrder, setCurrentOrder] = useState<string[]>(["0", "1", "2", "3"]);
-
-  console.log("currentOrder", currentOrder);
-
-  // This function should calculate the current index dynamically when called
-  const actionPopover = (id: number) => {
-    // Get the current index every time this function runs
-    const index = currentOrder.indexOf(String(id));
-
-    return (
-      <ActionPopover m={0}>
-        <ActionPopoverItem onClick={() => {
-          draggableHandle.current?.reOrder(id, 0);
-        }}>
-          Move Top
-        </ActionPopoverItem>
-        <ActionPopoverItem 
-          disabled={index <= 0}
-          onClick={() => {
-            if (index > 0) {
-              draggableHandle.current?.reOrder(id, index - 1);
-            }
-          }}>
-          Move Up {index}
-        </ActionPopoverItem>
-        <ActionPopoverItem 
-          disabled={index >= currentOrder.length - 1}
-          onClick={() => {
-            if (index < currentOrder.length - 1) {
-              draggableHandle.current?.reOrder(id, index + 1);
-            }
-          }}>
-          Move Down {index}
-        </ActionPopoverItem>
-        <ActionPopoverItem onClick={() => {
-          draggableHandle.current?.reOrder(id, currentOrder.length - 1);
-        }}>
-          Move Bottom
-        </ActionPopoverItem>
-      </ActionPopover>
-    );
-  };
-
+  const [currentOrder, setCurrentOrder] = useState<number[]>([0, 1, 2, 3]);
+  const previousOrderRef = useRef(currentOrder);
+  useEffect(() => { previousOrderRef.current = currentOrder }, [currentOrder]);
+  const labels = ["first", "second", "third", "fourth"];
+  
+  const getIndex = (id: number) => previousOrderRef.current.indexOf(id);
+  const moveItem = (id: number, targetIndex: number) => draggableHandle.current?.reOrder(id, targetIndex);
+  
   return (
-    <DraggableContainer
-      getOrder={(x, y) => setCurrentOrder(x)}
-      flexDirection="row-reverse"
+    <DraggableContainer 
+      getOrder={(ids) => setCurrentOrder((ids || []).filter(Boolean).map(Number))} 
+      flexDirection="row-reverse" 
       ref={draggableHandle}
     >
-      <DraggableItem id={0}>
-        <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some first content goes here
-          {actionPopover(0)}
-        </Box>
-      </DraggableItem>
-      <DraggableItem id={1}>
-        <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some second content goes here
-          {actionPopover(1)}
-        </Box>
-      </DraggableItem>
-      <DraggableItem id={2}>
-        <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some third content goes here
-          {actionPopover(2)}
-        </Box>
-      </DraggableItem>
-      <DraggableItem id={3}>
-        <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
-          Some fourth content goes here
-          {actionPopover(3)}
-        </Box>
-      </DraggableItem>
+      {[0, 1, 2, 3].map((id) => (
+        <DraggableItem key={id} id={id}>
+          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
+            Some {labels[id]} content goes here
+            <ActionPopover m={0}>
+              <ActionPopoverItem onClick={() => moveItem(id, 0)}>Move Top</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => moveItem(id, getIndex(id) - 1)}>Move Up</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => moveItem(id, getIndex(id) + 1)}>Move Down</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => moveItem(id, previousOrderRef.current.length - 1)}>Move Bottom</ActionPopoverItem>
+            </ActionPopover>
+          </Box>
+        </DraggableItem>
+      ))}
     </DraggableContainer>
   );
 };
-
 ManualReOrdering.storyName = "Manual Re-Ordering";
 
 export const FlexDirectionStory: Story = () => (
@@ -167,7 +120,7 @@ export const ComponentsAsChildrenStory: Story = () => (
 ComponentsAsChildrenStory.storyName = "Components As Children";
 
 export const GetOrderCallbackStory: Story = () => (
-  <DraggableContainer getOrder={() => {}}>
+  <DraggableContainer getOrder={(x, y) => console.log(x, y)}>
     <DraggableItem key="1" id={1}>
       <Checkbox label="Draggable Label One" />
     </DraggableItem>
