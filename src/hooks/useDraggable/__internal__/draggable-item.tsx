@@ -5,6 +5,8 @@ import React, {
   useMemo,
   useState,
   CSSProperties,
+  forwardRef,
+  RefObject,
 } from "react";
 
 import {
@@ -22,8 +24,6 @@ import DraggableContainerContext from "../draggable-container-context";
 import DraggableProviderContext from "../draggable-provider-context";
 import DropIndicator from "./drop-indicator";
 
-import guid from "../../../../src/__internal__/utils/helpers/guid";
-
 import {
   getDraggableItemData,
   isDraggableItemData,
@@ -38,7 +38,7 @@ export interface DraggableItemProps {
   itemsStyle?: CSSProperties;
   indicatorColor?: string;
   draggableItemStylingOptOut?: boolean;
-  itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;  
+  itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
 }
 interface DragDirection {
   direction: "up" | "down" | null;
@@ -46,7 +46,7 @@ interface DragDirection {
   targetIndex: number;
 }
 
-const DraggableItem = ({
+const DraggableItem = forwardRef(({
   children,
   id,
   itemsStyle,
@@ -54,7 +54,8 @@ const DraggableItem = ({
   draggableItemStylingOptOut = false,
   itemsNode = "div",
   ...rest
-}: DraggableItemProps): JSX.Element => {
+}: DraggableItemProps, ref): JSX.Element => {
+
   const columnId = useContext(DraggableContainerContext)?.columnId;
   const index = useContext(DraggableItemContext)?.index;
   const { setClosestEdge, containerDragState } = useContext(
@@ -70,8 +71,9 @@ const DraggableItem = ({
     targetIndex: -1,
   });
 
-  const itemRef = useRef<HTMLDivElement | null>(null);
-
+  const internalRef = useRef<HTMLDivElement | null>(null);
+  const itemRef = (ref as RefObject<HTMLDivElement>) || internalRef;
+  
   const draggableItemData: DraggableItemData = useMemo(
     () => ({
       id,
@@ -107,7 +109,12 @@ const DraggableItem = ({
       dropTargetForElements({
         element,
         canDrop: ({ source }) => isDraggableItemData(source.data),
-        getData: ({ input }) => attachClosestEdge(getDraggableItemData(draggableItemData), {element, input, allowedEdges: ["top", "bottom"]}),
+        getData: ({ input }) =>
+          attachClosestEdge(getDraggableItemData(draggableItemData), {
+            element,
+            input,
+            allowedEdges: ["top", "bottom"],
+          }),
         getIsSticky: () => true,
         onDragStart({ source, location }) {
           const sourceIndex = source.data.itemIndex as number;
@@ -187,10 +194,10 @@ const DraggableItem = ({
     setDragState,
     setClosestEdge,
   ]);
-  
+
   return (
-   <>
-    {(indicatorPosition === "top" || indicatorPosition === "bottom") &&
+    <>
+      {(indicatorPosition === "top" || indicatorPosition === "bottom") &&
       !draggableItemStylingOptOut ? (
         <div style={{ position: "relative" }}>
           <DropIndicator
@@ -212,7 +219,7 @@ const DraggableItem = ({
                 position: "relative",
               },
             },
-            children
+            children,
           )}
         </div>
       ) : (
@@ -220,24 +227,23 @@ const DraggableItem = ({
           itemsNode,
           {
             ref: itemRef,
-            "data-element": "use-draggable-item",
             "data-parent-container-id": columnId,
             "data-item-id": id,
             ...(itemsNode === StyledFlatTableRow && {
-              isDragging: dragState.type === "is-dragging"
-            }),        
-              ...rest,
+              isDragging: dragState.type === "is-dragging",
+            }),
+            ...rest,
             style: {
               ...itemsStyle,
               opacity: draggableItemStylingOptOut ? 1 : finalOpacity,
               position: "relative",
             },
           },
-          children
+          children,
         )
       )}
-  </>
+    </>
   );
-};
+});
 
 export default DraggableItem;

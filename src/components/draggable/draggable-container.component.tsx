@@ -32,46 +32,44 @@ export interface DraggableContainerProps extends MarginProps, TagProps {
   flexDirection?: FlexDirection;
 }
 
-const DraggableContainer = forwardRef<UseDraggableHandle, DraggableContainerProps>(({
-  "data-element": dataElement,
-  "data-role": dataRole = "draggable-container",
-  children,
-  getOrder,
-  flexDirection = "row",
-  ...rest
-}: DraggableContainerProps, ref): JSX.Element => {
+const DraggableContainer = forwardRef<
+  UseDraggableHandle,
+  DraggableContainerProps
+>(
+  (
+    {
+      "data-element": dataElement,
+      "data-role": dataRole = "draggable-container",
+      children,
+      getOrder,
+      flexDirection = "row",
+      ...rest
+    }: DraggableContainerProps,
+    ref,
+  ): JSX.Element => {
+    const hasProperChildren = useMemo(() => {
+      const invalidChild = React.Children.toArray(children).find(
+        (child) =>
+          !React.isValidElement(child) ||
+          (child.type as React.FunctionComponent).displayName !==
+            "DraggableItem",
+      );
+      return !invalidChild;
+    }, [children]);
 
-  const hasProperChildren = useMemo(() => {
-    const invalidChild = React.Children.toArray(children).find(
-      (child) =>
-        !React.isValidElement(child) ||
-        (child.type as React.FunctionComponent).displayName !== "DraggableItem",
+    // `<DraggableItem />` is required to make `Draggable` work
+    invariant(
+      hasProperChildren,
+      `\`${DraggableContainer.displayName}\` only accepts children of type \`${DraggableItem.displayName}\`.`,
     );
-    return !invalidChild;
-  }, [children]);
-
-  // `<DraggableItem />` is required to make `Draggable` work
-  invariant(
-    hasProperChildren,
-    `\`${DraggableContainer.displayName}\` only accepts children of type \`${DraggableItem.displayName}\`.`,
-  );
 
     const marginProps = filterStyledSystemMarginProps(rest);
 
-    const [draggableHookContainer, , idOrder] = useDraggable({
+    const [draggableHookContainer] = useDraggable({
       draggableItems: children,
       ref,
+      getOrder,
     });
-
-    useEffect(() => {
-      const { draggableItemIds, movedItemId } = idOrder;
-
-      if (!draggableItemIds || !movedItemId) return;
-
-      if (getOrder) {
-        getOrder(draggableItemIds, movedItemId);
-      }
-    }, [idOrder, getOrder]);
 
     return (
       <StyledDraggableContainer

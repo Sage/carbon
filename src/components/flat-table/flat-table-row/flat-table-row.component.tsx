@@ -14,8 +14,7 @@ import { TableBorderSize } from "..";
 import StyledFlatTableRow from "./flat-table-row.style";
 import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
 import FlatTableRowHeader from "../flat-table-row-header";
-import FlatTableRowDraggable, {
-} from "./__internal__/flat-table-row-draggable.component";
+import FlatTableRowDraggable from "./__internal__/flat-table-row-draggable.component";
 import FlatTableContext from "../__internal__/flat-table.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 import FlatTableRowContext from "./__internal__/flat-table-row.context";
@@ -261,7 +260,9 @@ export const FlatTableRow = React.forwardRef<
       return isSubRow ? "flat-table-sub-row" : "flat-table-row";
     };
 
-    const {isInFlatTableBodyDraggable: draggable } = useContext(FlatTableBodyDraggableContext);
+    const { isInFlatTableBodyDraggable: draggable } = useContext(
+      FlatTableBodyDraggableContext,
+    );
 
     const sharedRowProps = {
       isInSidebar,
@@ -272,9 +273,9 @@ export const FlatTableRow = React.forwardRef<
       "data-role": dataRole,
       highlighted,
       selected,
+      ref: rowRef,
       onClick: handleClick,
       firstCellIndex,
-      ref: rowRef,
       lhsRowHeaderIndex,
       rhsRowHeaderIndex,
       colorTheme,
@@ -285,19 +286,16 @@ export const FlatTableRow = React.forwardRef<
       horizontalBorderSize,
       draggable,
       totalChildren: cellsArray.length,
-      id: internalId.current,
       "data-selected": selected && expandableArea === "wholeRow",
       "data-highlighted": highlighted && expandableArea === "wholeRow",
       rowHeight: rowRef?.current?.offsetHeight,
       ...interactiveRowProps,
       ...rest,
-      "data-component": "flat-table-row"
+      "data-component": "flat-table-row",
     };
 
     const rowComponent = () => (
-      <StyledFlatTableRow
-      {...sharedRowProps}
-      >
+      <StyledFlatTableRow id={internalId.current}{...sharedRowProps}>
         <FlatTableRowContext.Provider
           value={{
             firstCellId,
@@ -317,9 +315,7 @@ export const FlatTableRow = React.forwardRef<
     );
 
     const draggableComponent = () => (
-      <FlatTableRowDraggable
-        {...sharedRowProps}
-      >
+      <FlatTableRowDraggable id={id || internalId.current} {...sharedRowProps}>
         <FlatTableRowContext.Provider
           value={{
             firstCellId,
