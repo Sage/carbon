@@ -115,3 +115,10 @@ export const ReadOnlyEditorForNotes = () => {
     </Box>
   );
 };
+
+export const WithMargin: Story = () => {
+  return (
+    <TextEditor m={5} namespace="storybook-margin" labelText="Text Editor" />
+  );
+};
+WithMargin.storyName = "With Margin";

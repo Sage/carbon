@@ -298,6 +298,28 @@ test.describe("Prop tests", () => {
       expect(newParagraph).toBe("New line text");
     });
   });
+
+  test("should correctly apply margin prop as a number", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorDefaultComponent m={2} />);
+    const textEditorWrapper = await page.locator(
+      `div[data-component='text-editor']`,
+    );
+    await expect(textEditorWrapper).toHaveCSS("margin", "16px");
+  });
+
+  test("should correctly apply margin prop as a string", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorDefaultComponent m="16px" />);
+    const textEditorWrapper = await page.locator(
+      `div[data-component='text-editor']`,
+    );
+    await expect(textEditorWrapper).toHaveCSS("margin", "16px");
+  });
 });
 
 test.describe("Functionality tests", () => {
