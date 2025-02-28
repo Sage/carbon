@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Meta } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { userEvent, waitFor, within } from "@storybook/test";
+import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 import { allModes } from "../../../.storybook/modes";
 import isChromatic from "../../../.storybook/isChromatic";
@@ -27,6 +29,7 @@ const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof Menu> = {
   title: "Menu/Test",
+  excludeStories: ["meta"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -580,3 +583,84 @@ export const TabbingOrder = () => {
   );
 };
 TabbingOrder.storyName = "Tabbing Order";
+
+// Play Functions
+export { meta };
+
+type Story = StoryObj<typeof Menu>;
+
+const MenuPlayStory = () => {
+  return (
+    <Box mb={150}>
+      <Menu menuType="light">
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#">
+            Item Submenu Three
+          </MenuItem>
+          <MenuItem href="#">Item Submenu Four</MenuItem>
+        </MenuItem>
+        <MenuItem submenu="Menu Item Four" onClick={() => {}}>
+          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+};
+
+export const MenuInteractionHover: Story = {
+  render: () => <MenuPlayStory />,
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const MenuItemThreeElement = canvas.getByText("Menu Item Three");
+
+    await userEvent.hover(MenuItemThreeElement);
+  },
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "100vh", width: "100vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+
+MenuInteractionHover.storyName = "Menu Interaction Hover";
+MenuInteractionHover.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const MenuInteractionKeyboard: Story = {
+  render: () => <MenuPlayStory />,
+  play: async () => {
+    await userEvent.tab();
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.tab();
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.tab();
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowDown}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowDown}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowDown}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowDown}");
+  },
+};
+
+MenuInteractionKeyboard.storyName = "Menu Interaction Keyboard";
+MenuInteractionKeyboard.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+};

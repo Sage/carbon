@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import { userEvent, within, expect } from "@storybook/test";
+import { Meta, StoryObj } from "@storybook/react";
 
 import { Checkbox, CheckboxGroup, CheckboxProps, CheckboxGroupProps } from ".";
 import Box from "../box";
@@ -7,6 +9,7 @@ import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Checkbox/Test",
+  excludeStories: ["DefaultCheckboxComponent", "meta"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -170,4 +173,79 @@ WithLegendAlignment.args = {
   validationIconId: "",
   error: "Error message",
   warning: "",
+};
+
+// Play Functions
+
+const meta: Meta<typeof Checkbox> = {
+  title: "Checkbox",
+  component: Checkbox,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof Checkbox>;
+
+export const DefaultCheckboxComponent = () => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  return (
+    <Checkbox
+      m={2}
+      label="Example checkbox"
+      name="checkbox-default"
+      checked={isChecked}
+      onChange={(e) => setIsChecked(e.target.checked)}
+    />
+  );
+};
+
+export const CheckboxClick: Story = {
+  render: () => <DefaultCheckboxComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const CheckboxComponent = canvas.getByRole("checkbox");
+
+    await userEvent.click(CheckboxComponent);
+  },
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "100vh", width: "100vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+
+CheckboxClick.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
+};
+
+export const CheckboxFocused: Story = {
+  render: () => <DefaultCheckboxComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const CheckboxComponent = canvas.getByRole("checkbox");
+
+    await userEvent.tab();
+
+    await expect(CheckboxComponent).toHaveFocus();
+  },
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "100vh", width: "100vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+
+CheckboxFocused.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
+  pseudo: {
+    focus: true,
+  },
 };

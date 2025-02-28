@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/test";
 import {
   commonTextboxArgTypes,
   getCommonTextboxArgs,
@@ -16,6 +18,7 @@ export default {
     "NewValidation",
     "IsOptionalExample",
     "MaxWidthExample",
+    "GroupedCharacterInteraction",
   ],
   parameters: {
     info: { disable: true },
@@ -123,3 +126,46 @@ export const MaxWidthExample = () => {
 };
 MaxWidthExample.storyName = "max width example";
 MaxWidthExample.parameters = { chromatic: { disableSnaphot: false } };
+
+// Play Functions
+const meta: Meta<typeof GroupedCharacter> = {
+  title: "GroupedCharacter",
+  component: GroupedCharacter,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof GroupedCharacter>;
+
+const GroupedCharacterDefault = () => {
+  const [state, setState] = useState("");
+  const onChange = (ev: CustomEvent) => {
+    setState(ev.target.value.rawValue);
+    action("change")(ev.target.value);
+  };
+  return (
+    <GroupedCharacter
+      label="Grouped Character"
+      value={state}
+      onChange={onChange}
+      groups={[2, 2, 4]}
+      separator="-"
+    />
+  );
+};
+
+export const GroupedCharacterInteraction: Story = {
+  render: () => <GroupedCharacterDefault />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const GroupedCharacterInput = canvas.getByRole("textbox");
+
+    await userEvent.click(GroupedCharacterInput);
+    await userEvent.clear(GroupedCharacterInput);
+    await userEvent.type(GroupedCharacterInput, "22446723", { delay: 100 });
+    await userEvent.tab();
+  },
+};
+
+GroupedCharacterInteraction.storyName = "Grouped Character Interaction";

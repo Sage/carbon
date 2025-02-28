@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-import { StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, waitFor, within } from "@storybook/test";
 import { de as deLocale } from "date-fns/locale/de";
+import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 import DateInput, { DateChangeEvent } from "./date.component";
 import {
@@ -17,6 +19,7 @@ import I18nProvider from "../i18n-provider";
 
 export default {
   title: "Date Input/Test",
+  excludeStories: ["meta"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -201,4 +204,126 @@ I18NStory.storyName = "i18n Story";
 I18NStory.args = {
   dateFormatOverride: "dd/MM/yyyy",
   ...getCommonTextboxArgs(),
+};
+
+// Play Functions
+const meta: Meta<typeof DateInput> = {
+  title: "DateInput",
+  component: DateInput,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof Date>;
+
+const DateInputDefaultComponent = () => {
+  const [state, setState] = useState("2019-04-04");
+  const setValue = (ev: DateChangeEvent) => {
+    action("onChange")(ev.target.value);
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <DateInput
+      name="dateinput"
+      value={state}
+      onChange={setValue}
+      onBlur={(ev) => {
+        action("onBlur")(ev.target.value);
+      }}
+      onKeyDown={(ev) =>
+        action("onKeyDown")((ev.target as HTMLInputElement).value)
+      }
+      onClick={(ev) => action("onClick")((ev.target as HTMLInputElement).value)}
+    />
+  );
+};
+
+export const DateInputClick: Story = {
+  render: () => <DateInputDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const dateInputElement = canvas.getByRole("textbox");
+
+    await userEvent.click(dateInputElement);
+  },
+};
+
+DateInputClick.storyName = "Date Input Click";
+
+export const DateInputDayClick: Story = {
+  render: () => <DateInputDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    // This is required due to a known issue with the canvasElement not being the parent of the component when a Portal is used.
+    // https://github.com/storybookjs/storybook/issues/26963
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const canvas = within(canvasElement.parentElement!);
+    const dateInputElement = canvas.getByRole("textbox");
+
+    await userEvent.click(dateInputElement);
+    await waitFor(() => userInteractionPause(300));
+
+    const dayElement = canvas.getByText("26");
+    await userEvent.click(dayElement);
+  },
+};
+
+DateInputDayClick.storyName = "Date Input Day Click";
+
+export const DateInputKeyboardInteraction: Story = {
+  render: () => <DateInputDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const dateInputElement = canvas.getByRole("textbox");
+
+    await userEvent.click(dateInputElement);
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.tab();
+    await userEvent.tab();
+    await userEvent.tab();
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowdown}");
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.keyboard("{arrowdown}");
+    await waitFor(() => userInteractionPause(300));
+  },
+};
+
+DateInputKeyboardInteraction.storyName = "Date Input Keyboard Interaction";
+
+export const DateInputTyped: Story = {
+  render: () => <DateInputDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const dateInputElement = canvas.getByRole("textbox");
+
+    await userEvent.click(dateInputElement);
+    await waitFor(() => userInteractionPause(300));
+    await userEvent.clear(dateInputElement);
+    await waitFor(() => userInteractionPause(300));
+
+    await userEvent.type(dateInputElement, "22/2/1978", { delay: 100 });
+    await waitFor(() => userInteractionPause(300));
+    await userEvent.keyboard("{enter}");
+  },
+};
+
+export const DateMonthChangeKeyboard: Story = {
+  render: () => <DateInputDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    // This is required due to a known issue with the canvasElement not being the parent of the component when a Portal is used.
+    // https://github.com/storybookjs/storybook/issues/26963
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const canvas = within(canvasElement.parentElement!);
+    const dateInputElement = canvas.getByRole("textbox");
+
+    await userEvent.click(dateInputElement);
+    await waitFor(() => userInteractionPause(300));
+    await userEvent.keyboard("{tab}");
+    await waitFor(() => userInteractionPause(300));
+    await userEvent.keyboard("{enter}");
+  },
 };

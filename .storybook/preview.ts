@@ -1,4 +1,5 @@
 import { Preview } from "@storybook/react";
+import { configure } from "@storybook/test";
 
 import "../src/style/fonts.css";
 
@@ -8,6 +9,9 @@ import withGlobalStyles from "./with-global-styles";
 import withLocaleSelector from "./with-locale-selector";
 import withPortalProvider from "./with-portal-provider";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
+
+// Configure the testIdAttribute to look for data-role when querying elements using `getByTestId`.
+configure({ testIdAttribute: "data-role" });
 
 const customViewports = {
   xsm: { name: "Extra small", styles: { width: "320px", height: "900px" } },

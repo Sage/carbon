@@ -1,12 +1,15 @@
 /* eslint-disable no-console */
-import { Meta, StoryObj } from "@storybook/react";
 import React, { useCallback, useEffect, useState } from "react";
 
+import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/test";
 import TextEditor, {
   createFromHTML,
   TextEditorProps,
   EditorFormattedValues,
 } from ".";
+import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
+
 import Box from "../box";
 import Typography from "../typography";
 
@@ -15,6 +18,7 @@ import ReadOnlyEditor from "./__internal__";
 
 const meta: Meta<typeof TextEditor> = {
   title: "Text Editor/Test",
+  excludeStories: ["meta"],
   component: TextEditor,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
@@ -163,4 +167,101 @@ export const OnChangeFormattedValues: Story = () => {
 OnChangeFormattedValues.storyName = "Change Handler With Formatted Values";
 OnChangeFormattedValues.parameters = {
   chromatic: { disableSnapshot: true },
+};
+
+// Play Functions
+
+export { meta };
+
+const TextEditorDefaultComponent = () => {
+  return <TextEditor namespace="storybook-default" labelText="Text Editor" />;
+};
+
+// For some unexplained reason, the Bold and Italic styles are not being applied.
+export const TextEditorTyping: Story = {
+  render: () => <TextEditorDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const textEditor = canvas.getByTestId("storybook-default-editor-wrapper");
+    const textArea = within(textEditor).getByRole("textbox");
+
+    // Focus the text editor
+    await userEvent.click(textArea);
+    await userInteractionPause(300);
+    // Type some text
+    await userEvent.type(textArea, "Hello World");
+    await userInteractionPause(300);
+    // click bold button
+    const boldButton = canvas.getByRole("button", { name: "Bold" });
+    await userEvent.click(boldButton);
+    await userInteractionPause(300);
+    // Type some more text
+    await userEvent.type(textArea, "This is bold text");
+    await userInteractionPause(300);
+    // click italic button
+    const italicButton = canvas.getByRole("button", { name: "Italic" });
+    await userEvent.click(italicButton);
+    await userInteractionPause(300);
+    // Type some more text
+    await userEvent.type(textArea, "This is italic text");
+    await userInteractionPause(300);
+  },
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "100vh", width: "100vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+TextEditorTyping.parameters = {
+  chromatic: { disableSnapshot: false },
+};
+
+// This example works for the unordered list but not the ordered list. Not sure why and it wil need investigating.
+export const TextEditorLists: Story = {
+  render: () => <TextEditorDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const textEditor = canvas.getByTestId("storybook-default-editor-wrapper");
+    const textArea = within(textEditor).getByRole("textbox");
+
+    // Focus the text editor
+    await userEvent.click(textArea);
+    await userInteractionPause(300);
+    // Type some text
+    await userEvent.type(textArea, "Hello World");
+    await userInteractionPause(300);
+    // click Unordered List button
+    const unorderedListButton = canvas.getByRole("button", {
+      name: "Unordered list",
+    });
+    await userEvent.click(unorderedListButton);
+    await userInteractionPause(300);
+    // Type some more text
+    await userEvent.type(textArea, "This is list text");
+    await userInteractionPause(300);
+    // press enter to start a new line
+    await userEvent.keyboard("{Enter}");
+    await userInteractionPause(300);
+    // click ordered list button
+    const orderedListButton = canvas.getByRole("button", {
+      name: "Ordered list",
+    });
+    await userEvent.click(orderedListButton);
+    await userInteractionPause(300);
+    // Type some more text
+    await userEvent.type(textArea, "This is more text");
+    await userInteractionPause(300);
+  },
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "100vh", width: "100vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+TextEditorLists.parameters = {
+  chromatic: { disableSnapshot: false },
 };
