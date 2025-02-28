@@ -239,7 +239,8 @@ const DraggableItem = forwardRef(({
               position: "relative",
             },
           },
-          children,
+          children
+          ,
         )
       )}
     </>

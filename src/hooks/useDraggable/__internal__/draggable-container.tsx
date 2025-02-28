@@ -200,21 +200,23 @@ const DraggableContainer = forwardRef<
     useEffect(() => {
       const element = containerRef.current as Element;
       const cleanup = combine(
-        dropTargetForElements({ element }),
         monitorForElements({
           canMonitor({ source }) {
             return (
               element &&
               isDraggableItemData(source.data) &&
               source.data.parentContainerId === uniqueId.current
+              && !move
             );
           },
           onDropTargetChange({ location, source }) {
-            console.log("triggered");
             const target = location.current.dropTargets[0];
             if (target) {
               const indexOfTarget = Number(target.data.itemIndex);
               const destinationId = source.data.itemId as string | number;
+
+              console.log("indexOfTarget", indexOfTarget);
+              console.log("destinationId", destinationId);
 
               if (
                 !Number.isNaN(indexOfTarget) &&
