@@ -13,6 +13,8 @@ export const TILE_HIGHLIGHT_VARIANTS = [
   "success",
   "neutral",
   "error",
+  "critical",
   "warning",
   "info",
+  "dark",
 ];

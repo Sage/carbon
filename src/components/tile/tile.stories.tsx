@@ -1114,6 +1114,25 @@ export const HighlightVariantErrorStory: Story = () => {
 };
 HighlightVariantErrorStory.storyName = "Highlight variant error story";
 
+export const HighlightVariantCriticalStory: Story = () => {
+  return (
+    <>
+      <Tile highlightVariant="critical">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
+      <Tile highlightVariant="critical" roundness="large">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+    </>
+  );
+};
+HighlightVariantCriticalStory.storyName = "Highlight variant critical story";
+
 export const HighlightVariantWarningStory: Story = () => {
   return (
     <>
@@ -1151,3 +1170,22 @@ export const HighlightVariantInfoStory: Story = () => {
   );
 };
 HighlightVariantInfoStory.storyName = "Highlight variant info story";
+
+export const HighlightVariantDarkStory: Story = () => {
+  return (
+    <>
+      <Tile highlightVariant="dark">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
+      <Tile highlightVariant="dark" roundness="large">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+    </>
+  );
+};
+HighlightVariantDarkStory.storyName = "Highlight variant dark story";

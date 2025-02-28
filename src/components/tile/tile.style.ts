@@ -62,10 +62,14 @@ const getHighlightVariant = (variant: TileProps["highlightVariant"]) => {
       return "var(--colorsSemanticNeutral500)";
     case "error":
       return "var(--colorsSemanticNegative500)";
+    case "critical":
+      return "var(--colorsSemanticNegative600)";
     case "warning":
       return "var(--colorsSemanticCaution500)";
     case "info":
       return "var(--colorsSemanticInfo500)";
+    case "dark":
+      return "var(--colorsUtilityYin100)";
     default:
       // gradient is default
       return "linear-gradient(0deg, rgb(143, 73, 254) 5%, rgb(0, 146, 219) 50%, rgb(19, 160, 56) 95%)";
