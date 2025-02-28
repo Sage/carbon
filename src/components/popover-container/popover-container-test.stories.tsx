@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/test";
+
 import Button from "../button";
 import Box from "../box";
 import PopoverContainer, {
@@ -41,6 +44,7 @@ export default {
     "WithRadioButtons",
     "WithDateRange",
     "InsideDialog",
+    "PopoverContainerInteraction",
   ],
   parameters: {
     info: { disable: true },
@@ -458,4 +462,44 @@ export const InsideDialog = () => {
 InsideDialog.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
+};
+
+// Play Functions
+const meta: Meta<typeof PopoverContainer> = {
+  title: "PopoverContainer",
+  component: PopoverContainer,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof PopoverContainer>;
+
+const DefaultPopoverContainerComponent = () => {
+  const [open, setOpen] = useState(false);
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+  return (
+    <div style={{ height: 100 }}>
+      <PopoverContainer
+        title="Cover Button"
+        shouldCoverButton
+        open={open}
+        onClose={onClose}
+        onOpen={onOpen}
+      >
+        Content
+      </PopoverContainer>
+    </div>
+  );
+};
+
+export const PopoverContainerInteraction: Story = {
+  render: () => <DefaultPopoverContainerComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const ButtonComponent = canvas.getByRole("button");
+
+    await userEvent.click(ButtonComponent);
+  },
 };

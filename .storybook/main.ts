@@ -48,6 +48,7 @@ const config: StorybookConfig = {
         },
       },
     },
+    "@storybook/addon-interactions",
     "@storybook/addon-toolbars",
     "@storybook/addon-viewport",
     "@chromatic-com/storybook",
