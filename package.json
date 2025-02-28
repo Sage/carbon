@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node ./scripts/check_node_version.mjs && dotenvx run -- storybook dev -p 9001 -c .storybook",
     "test": "jest --config=./jest.config.ts",
+    "test-storybook": "test-storybook --url http://127.0.0.1:9001",
     "test-update": "jest --config=./jest.config.ts --updateSnapshot",
     "format": "prettier --write './{src,playwright}/**/*.{js,jsx,ts,tsx}'",
     "lint": "eslint ./src ./playwright",
@@ -88,6 +89,9 @@
     "@storybook/react-webpack5": "~8.6.7",
     "@storybook/theming": "~8.6.7",
     "@storybook/types": "~8.6.7",
+    "@storybook/addon-interactions": "~8.6.7",
+    "@storybook/test": "~8.6.7",
+    "@storybook/test-runner": "^0.22.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
