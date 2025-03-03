@@ -39,12 +39,6 @@ export interface SimpleSelectProps
   "aria-label"?: string;
   /** Prop to specify the aria-labelledby property of the component input */
   "aria-labelledby"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
   /** Child components (such as Option or OptionRow) for the SelectList */
   children: React.ReactNode;
   /** The default selected value(s), when the component is operating in uncontrolled mode */
@@ -127,7 +121,6 @@ export const SimpleSelect = React.forwardRef<
       tableHeader,
       multiColumn,
       tooltipPosition,
-      "data-component": dataComponent = "simple-select",
       "data-element": dataElement,
       "data-role": dataRole,
       listPlacement = "bottom",
@@ -496,6 +489,7 @@ export const SimpleSelect = React.forwardRef<
         isOptional,
         transparent,
         ...filterOutStyledSystemSpacingProps(props),
+        "data-component": undefined,
       };
     }
 
@@ -545,7 +539,7 @@ export const SimpleSelect = React.forwardRef<
         transparent={transparent}
         disabled={disabled}
         readOnly={readOnly}
-        data-component={dataComponent}
+        data-component="simple-select"
         data-role={dataRole}
         data-element={dataElement}
         isOpen={isOpen}

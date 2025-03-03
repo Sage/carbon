@@ -1,10 +1,11 @@
 import React from "react";
 import { MarginProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import StyledHr from "./hr.style";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 
-export interface HrProps extends MarginProps {
+export interface HrProps extends MarginProps, TagProps {
   /** Set whether the component should be recognised by assistive technologies */
   "aria-hidden"?: "true" | "false";
   /** Breakpoint for adaptive left and right margins (below the breakpoint they go to 0).
@@ -33,14 +34,13 @@ export const Hr = ({
   return (
     <StyledHr
       aria-hidden={ariaHidden}
-      data-component="hr"
-      data-role="hr"
       height={height}
       ml={marginLeft}
       mr={marginRight}
       mt={rest.mt || 3}
       mb={rest.mb || 3}
       {...rest}
+      {...tagComponent("hr", rest)}
     />
   );
 };

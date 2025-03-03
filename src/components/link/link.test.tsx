@@ -235,6 +235,12 @@ test("when `removeAriaLabelOnIcon` is true, it should set aria-label as undefine
   expect(iconElement).not.toHaveAttribute("aria-label");
 });
 
+test("renders with custom data tags", () => {
+  render(<Link data-role="foo" data-element="bar" />);
+
+  expect(screen.getByTestId("foo")).toHaveAttribute("data-element", "bar");
+});
+
 // Test is just for coverage
 test("neutral `variant` has the expected styling when `isDarkBackground` is false", () => {
   render(

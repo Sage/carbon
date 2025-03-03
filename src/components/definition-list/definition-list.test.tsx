@@ -7,13 +7,39 @@ import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test
 
 testStyledSystemSpacing(
   (props) => (
-    <Dl {...props}>
+    <Dl data-role="dl" {...props}>
       <Dt>Description</Dt>
       <Dd>This is a test</Dd>
     </Dl>
   ),
   () => screen.getByTestId("dl"),
 );
+
+test("should render with provided data- attributes", () => {
+  render(
+    <Dl data-element="dl-element" data-role="dl-role">
+      <Dt data-element="dt-element" data-role="dt-role">
+        Title
+      </Dt>
+      <Dd data-element="dd-element" data-role="dd-role">
+        Description
+      </Dd>
+    </Dl>,
+  );
+
+  expect(screen.getByTestId("dl-role")).toHaveAttribute(
+    "data-element",
+    "dl-element",
+  );
+  expect(screen.getByTestId("dt-role")).toHaveAttribute(
+    "data-element",
+    "dt-element",
+  );
+  expect(screen.getByTestId("dd-role")).toHaveAttribute(
+    "data-element",
+    "dd-element",
+  );
+});
 
 test("component should render correctly if composed with a React Fragment", () => {
   render(
@@ -119,7 +145,7 @@ test("when mapping from an object, the component should render the correct amoun
 // Required for coverage
 test("when `asSingleColumn` is true, the expected styling is applied to the Dl element", () => {
   render(
-    <Dl asSingleColumn>
+    <Dl data-role="dl" asSingleColumn>
       <Dt>Title</Dt>
       <Dd>Description</Dd>
     </Dl>,

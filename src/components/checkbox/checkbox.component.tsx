@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { MarginProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import CheckboxStyle from "./checkbox.style";
 import CheckableInput, {
@@ -13,17 +14,14 @@ import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 
-export interface CheckboxProps extends CommonCheckableInputProps, MarginProps {
+export interface CheckboxProps
+  extends CommonCheckableInputProps,
+    MarginProps,
+    TagProps {
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
   adaptiveSpacingBreakpoint?: number;
   /** Prop to specify the aria-labelledby property of the input */
   "aria-labelledby"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
   /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
   /** When true label is inline */
@@ -69,7 +67,6 @@ export const Checkbox = React.forwardRef(
       inputWidth,
       size,
       tooltipPosition,
-      "data-component": dataComponent = "checkbox",
       "data-element": dataElement,
       "data-role": dataRole,
       helpAriaLabel,
@@ -123,6 +120,7 @@ export const Checkbox = React.forwardRef(
       labelWidth,
       ref,
       ...rest,
+      "data-component": undefined,
     };
 
     const validationProps = {
@@ -137,9 +135,6 @@ export const Checkbox = React.forwardRef(
 
     const componentToRender = (
       <CheckboxStyle
-        data-component={dataComponent}
-        data-role={dataRole}
-        data-element={dataElement}
         disabled={disabled}
         labelSpacing={labelSpacing}
         inputWidth={inputWidth}
@@ -150,6 +145,10 @@ export const Checkbox = React.forwardRef(
         size={size}
         applyNewValidation={validationRedesignOptIn}
         {...marginProps}
+        {...tagComponent("checkbox", {
+          "data-element": dataElement,
+          "data-role": dataRole,
+        })}
       >
         <CheckableInput {...inputProps} {...validationProps}>
           <CheckboxSvg />

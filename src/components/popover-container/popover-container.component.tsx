@@ -107,7 +107,7 @@ export const renderClose = ({
   </PopoverContainerCloseIcon>
 );
 
-export interface PopoverContainerProps extends PaddingProps {
+export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** A function that will render the open component
    *
    * `({tabIndex, isOpen, data-element, onClick, ref, aria-label}) => ()`
@@ -428,10 +428,9 @@ export const PopoverContainer = forwardRef<
 
     return (
       <PopoverContainerWrapperStyle
-        data-component="popover-container"
-        data-role="popover-container"
         onMouseDown={handleClick}
         hasFullWidth={hasFullWidth}
+        {...tagComponent("popover-container", rest)}
       >
         <div ref={popoverReference}>
           {renderOpenComponent(renderOpenComponentProps)}

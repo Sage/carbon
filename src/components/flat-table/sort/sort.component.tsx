@@ -7,7 +7,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import FlatTableContext from "../__internal__/flat-table.context";
 
-export interface SortProps extends Omit<TagProps, "data-component"> {
+export interface SortProps extends TagProps {
   /** if `asc` it will show `sort_up` icon, if `desc` it will show `sort_down` */
   sortType?: "ascending" | "descending";
   /** Callback fired when the component is clicked */

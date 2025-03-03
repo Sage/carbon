@@ -42,12 +42,6 @@ export interface MultiSelectProps
   "aria-label"?: string;
   /** Prop to specify the aria-labelledby property of the component input */
   "aria-labelledby"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
   /** Size of an input */
   size?: "small" | "medium" | "large";
   /** Child components (such as Option or OptionRow) for the SelectList */
@@ -132,7 +126,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       multiColumn,
       tooltipPosition,
       size,
-      "data-component": dataComponent = "multiselect",
       "data-element": dataElement,
       "data-role": dataRole,
       listPlacement = "bottom",
@@ -677,6 +670,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         required,
         isOptional,
         ...filterOutStyledSystemSpacingProps(textboxProps),
+        "data-component": undefined,
       };
     }
 
@@ -730,7 +724,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         readOnly={readOnly}
         hasTextCursor
         size={size}
-        data-component={dataComponent}
+        data-component="multiselect"
         data-role={dataRole}
         data-element={dataElement}
         isOpen={isOpen}

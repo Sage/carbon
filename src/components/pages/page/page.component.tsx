@@ -1,13 +1,15 @@
 import React, { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import { PaddingProps } from "styled-system";
-import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags/tags";
 import FullScreenHeading from "../../../__internal__/full-screen-heading";
 import Box from "../../box";
 import { StyledPage, StyledPageContent } from "./page.style";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 
-export interface PageProps extends PaddingProps {
+export interface PageProps extends PaddingProps, TagProps {
   /** The title for the page, normally a Heading component. */
   title?: React.ReactNode;
   /** This component supports children. */

@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { PaddingProps } from "styled-system";
 import StyledTab from "./tab.style";
-import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags/tags";
 import TabContext from "./__internal__/tab.context";
 
-export interface TabProps extends PaddingProps {
+export interface TabProps extends PaddingProps, TagProps {
   title?: string;
   /** A unique ID to identify this specific tab. */
   tabId: string;
@@ -129,8 +131,8 @@ export const Tab = ({
         isTabSelected={isTabSelected}
         aria-labelledby={ariaLabelledby}
         position={position}
-        {...tagComponent("tab", rest)}
         {...rest}
+        {...tagComponent("tab", rest)}
       >
         {!href && children}
       </StyledTab>

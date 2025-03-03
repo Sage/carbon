@@ -18,6 +18,16 @@ test("renders with provided `title`", () => {
   expect(screen.getByText("Title")).toBeVisible();
 });
 
+test("renders with provided data- attributes", () => {
+  render(
+    <Message data-element="bar" data-role="baz">
+      Message
+    </Message>,
+  );
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 test("does not render component when `open` prop is false", () => {
   render(
     <Message data-role="my-message" open={false}>

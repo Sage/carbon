@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import {
   MenuButton,
@@ -46,7 +47,7 @@ export interface RenderButtonProps {
   };
 }
 
-export interface ActionPopoverProps extends MarginProps {
+export interface ActionPopoverProps extends MarginProps, TagProps {
   /** Children for popover component */
   children?: React.ReactNode;
   /** Horizontal alignment of menu items content */
@@ -329,11 +330,10 @@ export const ActionPopover = forwardRef<
     return (
       <MenuButton
         id={parentID}
-        data-component="action-popover-wrapper"
-        data-role="action-popover-wrapper"
         {...{ onKeyDown: onButtonKeyDown, onClick: onButtonClick, isOpen }}
         ref={buttonRef}
         {...rest}
+        {...tagComponent("action-popover-wrapper", rest)}
       >
         {menuButton(menuID)}
         <ActionPopoverContext.Provider

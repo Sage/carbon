@@ -95,6 +95,8 @@ export interface DialogProps extends ModalProps, TagProps {
   greyBackground?: boolean;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
   focusableContainers?: CustomRefObject<HTMLElement>[];
+  /** @private @internal @ignore */
+  "data-component"?: string;
 }
 
 export type DialogHandle = {

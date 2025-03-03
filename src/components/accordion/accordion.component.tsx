@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { SpaceProps } from "styled-system";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import createGuid from "../../__internal__/utils/helpers/guid";
@@ -19,7 +20,8 @@ import ValidationIcon from "../../__internal__/validations";
 
 export interface AccordionProps
   extends StyledAccordionContainerProps,
-    SpaceProps {
+    SpaceProps,
+    TagProps {
   /** Content of the Accordion component */
   children?: React.ReactNode;
   /** Set the default state of expansion of the Accordion if component is meant to be used as uncontrolled */
@@ -160,12 +162,11 @@ export const Accordion = React.forwardRef<
     return (
       <StyledAccordionContainer
         id={accordionId}
-        data-component="accordion"
-        data-role="accordion-container"
         width={width}
         borders={variant === "subtle" ? "none" : borders}
         variant={variant}
         {...rest}
+        {...tagComponent("accordion", rest)}
       >
         <StyledAccordionTitleContainer
           data-element="accordion-title-container"

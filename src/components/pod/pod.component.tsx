@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { MarginProps } from "styled-system";
 import useLocale from "../../hooks/__internal__/useLocale";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import {
   StyledBlock,
@@ -20,11 +21,7 @@ import Icon from "../icon";
 import Event from "../../__internal__/utils/helpers/events";
 import { PodAlignment, PodSize, PodVariant } from "./pod.config";
 
-export interface PodProps extends MarginProps {
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
+export interface PodProps extends MarginProps, TagProps {
   /** Aligns the title to left, right or center */
   alignTitle?: PodAlignment;
   /** Enables/disables the border around the pod. */
@@ -70,8 +67,6 @@ export interface PodProps extends MarginProps {
 const Pod = React.forwardRef<HTMLDivElement, PodProps>(
   (
     {
-      "data-element": dataElement,
-      "data-role": dataRole,
       alignTitle = "left",
       border = true,
       children,
@@ -145,10 +140,8 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
         internalEditButton={internalEditButton}
         height={typeof height === "number" ? `${height}px` : height}
         ref={ref}
-        data-component="pod"
-        data-element={dataElement}
-        data-role={dataRole}
         {...rest}
+        {...tagComponent("pod", rest)}
       >
         <StyledBlock
           data-element="block"

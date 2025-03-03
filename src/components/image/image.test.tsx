@@ -31,6 +31,12 @@ test("renders", () => {
   expect(screen.getByTestId("image")).toBeVisible();
 });
 
+test("renders with provided data- attributes", () => {
+  render(<Image data-role="foo" data-element="bar" />);
+
+  expect(screen.getByTestId("foo")).toHaveAttribute("data-element", "bar");
+});
+
 test("renders with the 'src' prop", () => {
   render(
     <Image

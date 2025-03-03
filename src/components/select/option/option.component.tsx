@@ -15,7 +15,7 @@ export interface OptionProps
       React.InputHTMLAttributes<HTMLLIElement>,
       "value" | "onSelect" | "onClick"
     >,
-    Omit<TagProps, "data-component"> {
+    TagProps {
   /**
    * Unique identifier for the component.
    * Will use a randomly generated GUID if none is provided.

@@ -2,12 +2,16 @@ import React, { useRef } from "react";
 import { PaddingProps, FlexboxProps } from "styled-system";
 import StyledNavigationBar from "./navigation-bar.style";
 import { FixedNavigationBarContextProvider } from "./__internal__/fixed-navigation-bar.context";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export type Position = "sticky" | "fixed";
 export type Orientation = "top" | "bottom";
 export type NavigationType = "light" | "dark" | "white" | "black";
 
-export interface NavigationBarProps extends PaddingProps, FlexboxProps {
+export interface NavigationBarProps
+  extends PaddingProps,
+    FlexboxProps,
+    TagProps {
   /** Content of the component */
   children?: React.ReactNode;
   /** HTML aria-label attribute */
@@ -42,7 +46,6 @@ export const NavigationBar = ({
   return (
     <StyledNavigationBar
       role="navigation"
-      data-component={isGlobal ? "global-header" : "navigation-bar"}
       aria-label={isGlobal ? "Global Header" : ariaLabel}
       navigationType={isGlobal ? "black" : navigationType}
       orientation={isGlobal ? "top" : orientation}
@@ -51,6 +54,7 @@ export const NavigationBar = ({
       {...props}
       isGlobal={isGlobal}
       ref={navbarRef}
+      {...tagComponent(isGlobal ? "global-header" : "navigation-bar", props)}
     >
       <FixedNavigationBarContextProvider
         orientation={isGlobal ? "top" : orientation}

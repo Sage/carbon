@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MarginProps } from "styled-system";
 
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Button from "../button";
@@ -36,7 +38,7 @@ export interface TileSelectDeselectEvent {
   };
 }
 
-export interface TileSelectProps extends MarginProps {
+export interface TileSelectProps extends MarginProps, TagProps {
   /** title of the TileSelect */
   title?: React.ReactNode;
   /** adornment to be rendered next to the title */
@@ -107,6 +109,8 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
       accordionContent,
       accordionControl,
       accordionExpanded,
+      "data-element": dataElement,
+      "data-role": dataRole,
       ...rest
     }: TileSelectProps,
     ref,
@@ -157,7 +161,10 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
       <StyledTileSelectContainer
         checked={checked}
         disabled={disabled}
-        {...tagComponent("tile-select", rest)}
+        {...tagComponent("tile-select", {
+          "data-element": dataElement,
+          "data-role": dataRole,
+        })}
         {...filterStyledSystemMarginProps(rest)}
       >
         <StyledFocusWrapper

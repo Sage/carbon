@@ -5,6 +5,7 @@ import Box from "../box";
 import CheckableInput, {
   CommonCheckableInputProps,
 } from "../../__internal__/checkable-input";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 import Label from "../../__internal__/label";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
@@ -17,13 +18,10 @@ import SwitchSlider from "./__internal__/switch-slider.component";
 import guid from "../../__internal__/utils/helpers/guid";
 import HintText from "../../__internal__/hint-text";
 
-export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
+export interface SwitchProps
+  extends CommonCheckableInputProps,
+    MarginProps,
+    TagProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Set the default value of the Switch if component is meant to be used as uncontrolled */
@@ -75,7 +73,6 @@ export const Switch = React.forwardRef(
       error,
       warning,
       info,
-      "data-component": dataComponent = "switch",
       "data-element": dataElement,
       "data-role": dataRole,
       helpAriaLabel,
@@ -124,7 +121,7 @@ export const Switch = React.forwardRef(
     const marginProps = useFormSpacing(rest);
 
     const switchStyleProps = {
-      "data-component": dataComponent,
+      "data-component": "switch",
       "data-role": dataRole,
       "data-element": dataElement,
       checked: isControlled ? checked : checkedInternal,
@@ -178,12 +175,13 @@ export const Switch = React.forwardRef(
       required,
       isOptional,
       ...rest,
+      "data-component": undefined,
     };
 
     // Created separate const declarations to help when removing the old validation.
     // Not all props utilised by the old validation work or will be needed with the new validation.
     const switchStylePropsForNewValidation = {
-      "data-component": dataComponent,
+      "data-component": "switch",
       "data-role": dataRole,
       "data-element": dataElement,
       checked: isControlled ? checked : checkedInternal,

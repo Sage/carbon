@@ -36,6 +36,26 @@ testStyledSystemMargin(
   () => screen.getByRole("radiogroup"),
 );
 
+test("renders with provided data- attributes", () => {
+  render(
+    <SimpleColorPicker
+      legend="SimpleColorPicker Legend"
+      name="test"
+      data-role="bar"
+      data-element="baz"
+    >
+      <SimpleColor value="#00A376" />
+    </SimpleColorPicker>,
+  );
+
+  const group = screen.getByRole("radiogroup", {
+    name: "SimpleColorPicker Legend",
+  });
+
+  expect(group).toHaveAttribute("data-role", "bar");
+  expect(group).toHaveAttribute("data-element", "baz");
+});
+
 test("the `onKeyDown` callback prop is called when the user presses a key", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onKeyDown = jest.fn();

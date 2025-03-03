@@ -98,6 +98,16 @@ test("sets ref to empty after unmount", () => {
   expect(mockRef.current).toBe(null);
 });
 
+test("renders with provided data- attributes", () => {
+  render(
+    <IconButton data-element="bar" data-role="baz">
+      <Icon type="bin" />
+    </IconButton>,
+  );
+
+  expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
 testStyledSystemSpacing(
   (props) => (
     <IconButton onClick={() => {}} {...props}>

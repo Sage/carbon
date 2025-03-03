@@ -16,8 +16,9 @@ import ReadOnlyEditor from "../text-editor/__internal__";
 import TextEditorContext from "../text-editor/text-editor.context";
 import LinkPreview, { LinkPreviewProps } from "../link-preview";
 import Typography from "../typography";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface NoteProps extends MarginProps {
+export interface NoteProps extends MarginProps, TagProps {
   /** Adds a created on date to the Note footer */
   createdDate: string;
   /** renders a control for the Note */
@@ -84,7 +85,7 @@ export const Note = ({
 
   return (
     <TextEditorContext.Provider value={{ onLinkAdded, readOnly: true }}>
-      <StyledNote width={width} {...rest} data-component="note">
+      <StyledNote width={width} {...rest} {...tagComponent("note", rest)}>
         <StyledNoteMain>
           <StyledNoteContent>
             {title &&

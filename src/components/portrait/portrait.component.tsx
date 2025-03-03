@@ -19,9 +19,7 @@ export type PortraitShapes = "circle" | "square";
 
 export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 
-export interface PortraitProps
-  extends MarginProps,
-    Omit<TagProps, "data-component"> {
+export interface PortraitProps extends MarginProps, TagProps {
   /** A custom image URL. */
   src?: string;
   /** The size of the Portrait. */

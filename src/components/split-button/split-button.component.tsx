@@ -24,22 +24,20 @@ import { baseTheme } from "../../style/themes";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
 import SplitButtonContext from "./__internal__/split-button.context";
 import useLocale from "../../hooks/__internal__/useLocale";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 
 const CONTENT_WIDTH_RATIO = 0.75;
 
 export interface SplitButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    MarginProps {
+    MarginProps,
+    TagProps {
   /** Set align of the rendered content */
   align?: "left" | "right";
   /** Button type: "primary" | "secondary" */
   buttonType?: "primary" | "secondary";
   /** The additional button to display. */
   children: React.ReactNode;
-  /** A custom value for the data-element attribute */
-  "data-element"?: string;
-  /** A custom value for the data-role attribute */
-  "data-role"?: string;
   /** Prop to specify an aria-label for the component */
   "aria-label"?: string;
   /** Gives the button a disabled state. */

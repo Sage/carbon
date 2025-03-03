@@ -41,6 +41,12 @@ test("renders the correct number of placeholders when `lines` prop is set", () =
   expect(screen.getAllByTestId("preview-placeholder")).toHaveLength(3);
 });
 
+test("renders with provided data- attributes", () => {
+  render(<Preview data-role="foo" data-element="bar" />);
+
+  expect(screen.getByTestId("foo")).toHaveAttribute("data-element", "bar");
+});
+
 // coverage
 test("renders with the correct height, width and border-radius when `shape` is set to 'text'", () => {
   render(<Preview shape="text" />);

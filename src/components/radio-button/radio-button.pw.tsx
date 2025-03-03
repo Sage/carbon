@@ -2,7 +2,6 @@ import { expect, test } from "@playwright/experimental-ct-react";
 import React from "react";
 import {
   fieldHelpPreview,
-  getComponent,
   tooltipPreview,
 } from "../../../playwright/components/index";
 import {
@@ -55,15 +54,6 @@ const radioInputWidth = 16;
 const labelContainerWidth = 40;
 
 test.describe("should render RadioButton component", () => {
-  test("should render with data-component", async ({ mount, page }) => {
-    await mount(<RadioButtonComponent data-component={CHARACTERS.STANDARD} />);
-    const component = getComponent(page, CHARACTERS.STANDARD);
-    await expect(component).toHaveAttribute(
-      "data-component",
-      CHARACTERS.STANDARD,
-    );
-  });
-
   test("should render with data-element", async ({ mount, page }) => {
     await mount(<RadioButtonComponent data-element={CHARACTERS.STANDARD} />);
     const radiobuttonElement = radiobuttonComponent(page);

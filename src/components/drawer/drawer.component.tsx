@@ -17,7 +17,7 @@ import StickyFooter from "../../__internal__/sticky-footer";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import DrawerSidebarContext from "./__internal__/drawer-sidebar.context";
 
-export interface DrawerProps extends Omit<TagProps, "data-component"> {
+export interface DrawerProps extends TagProps {
   /** Duration of a animation */
   animationDuration?: string;
   /** Specify an aria-label for the Drawer component */

@@ -9,6 +9,7 @@ import { MarginProps } from "styled-system";
 
 import { IconType } from "../icon";
 import { ValidationProps } from "../../__internal__/validations";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { CommonInputProps, InputPresentation } from "../../__internal__/input";
 import FormField from "../../__internal__/form-field";
 import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
@@ -32,15 +33,10 @@ import HintText from "../../__internal__/hint-text";
 export interface TextareaProps
   extends ValidationProps,
     MarginProps,
-    Omit<CommonInputProps, "size"> {
+    Omit<CommonInputProps, "size">,
+    TagProps {
   /** Prop to specify the aria-labelledby property of the component */
   "aria-labelledby"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-component"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
   /** id of the input */
   id?: string;
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
@@ -172,7 +168,6 @@ export const Textarea = React.forwardRef(
       labelWidth = 30,
       tooltipPosition,
       value,
-      "data-component": dataComponent,
       "data-element": dataElement,
       "data-role": dataRole,
       helpAriaLabel,
@@ -406,12 +401,13 @@ export const Textarea = React.forwardRef(
         <InputBehaviour>
           <StyledTextarea
             labelInline={labelInlineWithNewValidation}
-            data-component={dataComponent}
-            data-role={dataRole}
-            data-element={dataElement}
             hasIcon={hasIconInside}
             minHeight={textareaMinHeight}
             {...marginProps}
+            {...tagComponent("textarea", {
+              "data-element": dataElement,
+              "data-role": dataRole,
+            })}
           >
             <FormField
               fieldHelp={computeLabelPropValues(fieldHelp)}
