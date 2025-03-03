@@ -1,3 +1,9 @@
+## [151.2.0](https://github.com/Sage/carbon/compare/v151.1.0...v151.2.0) (2025-03-03)
+
+### Features
+
+* **date:** add deprecation warning for disabledDays & selectedDays ([d7eec05](https://github.com/Sage/carbon/commit/d7eec05ceeaf827ec4e8f941457f7d549eeff326))
+
 ## [151.1.0](https://github.com/Sage/carbon/compare/v151.0.0...v151.1.0) (2025-03-03)
 
 ### Features
