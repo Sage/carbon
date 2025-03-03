@@ -32,7 +32,10 @@
     "test:ct": "playwright test -c playwright-ct.config.ts",
     "test:ct:ui": "playwright test --ui -c playwright-ct.config.ts",
     "test:ct:report": "npx playwright show-report",
-    "clear-playwright-cache": "rimraf ./playwright/.cache"
+    "clear-playwright-cache": "rimraf ./playwright/.cache",
+    "clear-playwright-coverage-json": "rimraf ./playwright/coverage/*.json",
+    "test:ct:coverage": "npm run clear-playwright-cache && npm run clear-playwright-coverage-json && rimraf ./playwright/coverage && playwright test -c playwright-ct.config.ts",
+    "pw:coverage:report": "nyc report --reporter=html --report-dir=./playwright/coverage --temp-dir=./playwright/coverage"
   },
   "repository": {
     "type": "git",
@@ -181,6 +184,8 @@
     "invariant": "^2.2.4",
     "lexical": "^0.21.0",
     "lodash": "^4.17.21",
+    "monocart-coverage-reports": "^2.11.4",
+    "nyc": "^17.1.0",
     "polished": "^4.2.2",
     "prop-types": "^15.8.1",
     "react-day-picker": "^9.3.2",

@@ -1,6 +1,6 @@
 import React from "react";
-import { expect, test } from "@playwright/experimental-ct-react";
 import type { Page } from "@playwright/test";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import {
   DialogFullScreenComponent,
   NestedDialog,

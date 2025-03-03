@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
-import { expect, test } from "@playwright/experimental-ct-react";
 import React from "react";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import { accordionDefaultTitle } from "../../../playwright/components/accordion";
 import {
   actionPopover,

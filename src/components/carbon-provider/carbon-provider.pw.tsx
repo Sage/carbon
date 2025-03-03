@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import { HooksConfig } from "../../../playwright";
 import { SageTheme as SageThemeStory, AllThemes } from "./components.test-pw";
 import Button from "../../../src/components/button";
