@@ -36,6 +36,7 @@ import {
   SecondaryButtonIconBefore,
   SecondaryFullWidth,
   SecondaryNoWrap,
+  SecondaryButtonWhite,
   TertiaryButtonDestructive,
   TertiaryButtonDisabled,
   TertiaryButtonFullWidth,
@@ -410,6 +411,15 @@ test.describe("Accessibility tests for Button", () => {
     page,
   }) => {
     await mount(<SecondaryNoWrap />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility tests for SecondaryButtonWhite example", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SecondaryButtonWhite />);
 
     await checkAccessibility(page);
   });
