@@ -1,3 +1,9 @@
+## [151.1.0](https://github.com/Sage/carbon/compare/v151.0.0...v151.1.0) (2025-03-03)
+
+### Features
+
+* **packages:** remove `typescript-to-proptypes` package ([ec54171](https://github.com/Sage/carbon/commit/ec54171a3a556f484727bbba3f43eddf289c57b9)), closes [#5603](https://github.com/Sage/carbon/issues/5603)
+
 ## [151.0.0](https://github.com/Sage/carbon/compare/v150.1.0...v151.0.0) (2025-02-27)
 
 ### ⚠ BREAKING CHANGES
