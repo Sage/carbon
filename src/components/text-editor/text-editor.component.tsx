@@ -41,14 +41,17 @@ import {
 import TextEditorContext from "./text-editor.context";
 import StyledTextEditor, {
   StyledEditorToolbarWrapper,
+  StyledTextEditorWrapper,
   StyledValidationMessage,
   StyledWrapper,
 } from "./text-editor.style";
 import { SaveCallbackProps } from "./__internal__/plugins/Toolbar/buttons/save.component";
 import { createEmpty } from "./__internal__";
 import HintText from "../../__internal__/hint-text";
+import { filterStyledSystemMarginProps } from "../../style/utils";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface TextEditorProps extends MarginProps {
+export interface TextEditorProps extends MarginProps, TagProps {
   /** The maximum number of characters allowed in the editor */
   characterLimit?: number;
   /** The message to be shown when the editor is in an error state */
@@ -103,6 +106,7 @@ export const TextEditor = ({
   rows,
   warning,
   value,
+  ...rest
 }: TextEditorProps) => {
   const editorRef = useRef<LexicalEditor | undefined>(undefined);
   const locale = useLocale();
@@ -182,84 +186,90 @@ export const TextEditor = ({
   );
 
   return (
-    <TextEditorContext.Provider value={{ onLinkAdded, readOnly }}>
-      <Label
-        isRequired={required}
-        optional={isOptional}
-        labelId={`${namespace}-label`}
-      >
-        {labelText}
-      </Label>
+    <StyledTextEditorWrapper
+      data-role={`${namespace}-editor-wrapper`}
+      {...filterStyledSystemMarginProps(rest)}
+      {...tagComponent("text-editor", rest)}
+    >
+      <TextEditorContext.Provider value={{ onLinkAdded, readOnly }}>
+        <Label
+          isRequired={required}
+          optional={isOptional}
+          labelId={`${namespace}-label`}
+        >
+          {labelText}
+        </Label>
 
-      {inputHint && (
-        <HintText
-          id={`${namespace}-input-hint`}
-          marginBottom="var(--spacing100)"
-        >
-          {inputHint}
-        </HintText>
-      )}
-      <LexicalComposer initialConfig={initialConfig}>
-        <EditorRefPlugin editorRef={editorRef} />
-        <StyledWrapper
-          data-role={`${namespace}-wrapper`}
-          error={error || undefined}
-          namespace={namespace}
-          warning={characterLimitWarning || warning || undefined}
-        >
-          {(error || characterLimitWarning || warning) && (
-            <StyledValidationMessage
-              error={error}
-              data-role={`${namespace}-validation-message`}
-            >
-              {error || characterLimitWarning || warning}
-            </StyledValidationMessage>
-          )}
-          <StyledEditorToolbarWrapper
-            data-role={`${namespace}-editor-toolbar-wrapper`}
-            id={`${namespace}-editor-toolbar-wrapper`}
-            onBlur={() => setIsFocused(false)}
-            onFocus={() => setIsFocused(true)}
-            focused={isFocused}
+        {inputHint && (
+          <HintText
+            id={`${namespace}-input-hint`}
+            marginBottom="var(--spacing100)"
           >
-            <StyledTextEditor data-role={`${namespace}-editor`}>
-              <RichTextPlugin
-                contentEditable={
-                  <ContentEditor
-                    error={error}
-                    inputHint={inputHint}
-                    namespace={namespace}
-                    previews={previews}
-                    rows={rows}
-                    warning={warning}
-                  />
-                }
-                placeholder={
-                  <Placeholder namespace={namespace} text={placeholder} />
-                }
-                ErrorBoundary={LexicalErrorBoundary}
-              />
-              <ListPlugin />
-              <HistoryPlugin />
-              <MarkdownShortcutPlugin />
-              <OnChangePlugin onChange={handleChange} />
-              <LinkPlugin validateUrl={validateUrl} />
-              <ClickableLinkPlugin newTab />
-              <AutoLinkerPlugin />
-            </StyledTextEditor>
-            {!readOnly && <ToolbarPlugin {...toolbarProps} />}
-            <LinkMonitorPlugin />
-          </StyledEditorToolbarWrapper>
+            {inputHint}
+          </HintText>
+        )}
+        <LexicalComposer initialConfig={initialConfig}>
+          <EditorRefPlugin editorRef={editorRef} />
+          <StyledWrapper
+            data-role={`${namespace}-wrapper`}
+            error={error || undefined}
+            namespace={namespace}
+            warning={characterLimitWarning || warning || undefined}
+          >
+            {(error || characterLimitWarning || warning) && (
+              <StyledValidationMessage
+                error={error}
+                data-role={`${namespace}-validation-message`}
+              >
+                {error || characterLimitWarning || warning}
+              </StyledValidationMessage>
+            )}
+            <StyledEditorToolbarWrapper
+              data-role={`${namespace}-editor-toolbar-wrapper`}
+              id={`${namespace}-editor-toolbar-wrapper`}
+              onBlur={() => setIsFocused(false)}
+              onFocus={() => setIsFocused(true)}
+              focused={isFocused}
+            >
+              <StyledTextEditor data-role={`${namespace}-editor`}>
+                <RichTextPlugin
+                  contentEditable={
+                    <ContentEditor
+                      error={error}
+                      inputHint={inputHint}
+                      namespace={namespace}
+                      previews={previews}
+                      rows={rows}
+                      warning={warning}
+                    />
+                  }
+                  placeholder={
+                    <Placeholder namespace={namespace} text={placeholder} />
+                  }
+                  ErrorBoundary={LexicalErrorBoundary}
+                />
+                <ListPlugin />
+                <HistoryPlugin />
+                <MarkdownShortcutPlugin />
+                <OnChangePlugin onChange={handleChange} />
+                <LinkPlugin validateUrl={validateUrl} />
+                <ClickableLinkPlugin newTab />
+                <AutoLinkerPlugin />
+              </StyledTextEditor>
+              {!readOnly && <ToolbarPlugin {...toolbarProps} />}
+              <LinkMonitorPlugin />
+            </StyledEditorToolbarWrapper>
 
-          {characterLimit > 0 && !readOnly && (
-            <CharacterCounterPlugin
-              maxChars={characterLimit}
-              namespace={namespace}
-            />
-          )}
-        </StyledWrapper>
-      </LexicalComposer>
-    </TextEditorContext.Provider>
+            {characterLimit > 0 && !readOnly && (
+              <CharacterCounterPlugin
+                maxChars={characterLimit}
+                namespace={namespace}
+              />
+            )}
+          </StyledWrapper>
+        </LexicalComposer>
+      </TextEditorContext.Provider>
+    </StyledTextEditorWrapper>
   );
 };
 
