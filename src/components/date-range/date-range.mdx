@@ -105,6 +105,12 @@ You can use the `isOptional` prop to indicate if the fields are optional.
 
 <Canvas of={DateRangeStories.IsOptional} />
 
+### With disabled dates
+You can disable dates by using `startDateProps` and `endDateProps`, which allow you to pass properties directly to the start or end date. 
+For example, you can set a `minDate` or `maxDate`, or use `pickerProps` with a `disabled` option that accepts a matcher or an array of [matchers](https://daypicker.dev/api/type-aliases/Matcher#example).
+
+<Canvas of={DateRangeStories.WithDisabledDates} />
+
 ### Locale override
 
 The examples below illustrates how to override the locale passed into the DateRange component. In this example it has been set up for
