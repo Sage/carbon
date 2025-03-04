@@ -92,6 +92,7 @@ export const FlatTable = ({
     "aria-describedby": ariaDescribedby,
   };
   const { isInSidebar } = useContext(DrawerSidebarContext);
+  const [hasOpenDatePicker, setHasOpenDatePicker] = useState(false);
 
   useLayoutEffect(() => {
     const findRow = (rows: HTMLElement[], isFirstCol?: boolean) =>
@@ -176,6 +177,11 @@ export const FlatTable = ({
     const currentFocusIndex = focusableElementsArray.findIndex(
       (el) => el === document.activeElement,
     );
+
+    if (hasOpenDatePicker && (hasStickyHead || hasStickyFooter)) {
+      ev.preventDefault();
+      return;
+    }
 
     if (Events.isDownKey(ev)) {
       ev.preventDefault();
@@ -281,6 +287,8 @@ export const FlatTable = ({
               colorTheme,
               size,
               getTabStopElementId,
+              isInFlatTable: true,
+              setHasOpenDatePicker,
             }}
           >
             {children}
