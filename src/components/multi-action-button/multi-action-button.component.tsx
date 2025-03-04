@@ -1,4 +1,9 @@
-import React, { useRef, forwardRef, useImperativeHandle } from "react";
+import React, {
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+  useContext,
+} from "react";
 import { WidthProps } from "styled-system";
 import { flip, offset } from "@floating-ui/dom";
 
@@ -16,6 +21,9 @@ import {
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
+import FlatTableContext, {
+  FlatTableContextProps,
+} from "../flat-table/__internal__/flat-table.context";
 
 export interface MultiActionButtonProps
   extends WidthProps,
@@ -54,6 +62,8 @@ export const MultiActionButton = forwardRef<
     ref,
   ) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const { isInFlatTable } =
+      useContext<FlatTableContextProps>(FlatTableContext);
 
     useImperativeHandle<MultiActionButtonHandle, MultiActionButtonHandle>(
       ref,
@@ -101,6 +111,7 @@ export const MultiActionButton = forwardRef<
 
     const renderAdditionalButtons = () => (
       <Popover
+        disableBackgroundUI={isInFlatTable}
         disablePortal
         placement={
           position === "left"

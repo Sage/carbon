@@ -7,6 +7,7 @@ import React, {
   useMemo,
   useRef,
   useState,
+  useContext,
 } from "react";
 import {
   DayPicker,
@@ -22,6 +23,9 @@ import Weekday from "../weekday";
 import { getDisabledDays } from "../utils";
 import { defaultFocusableSelectors } from "../../../../__internal__/focus-trap/focus-trap-utils";
 import Events from "../../../../__internal__/utils/helpers/events";
+import FlatTableContext, {
+  FlatTableContextProps,
+} from "../../../flat-table/__internal__/flat-table.context";
 
 import StyledDayPicker from "./day-picker.style";
 
@@ -195,6 +199,13 @@ export const DatePicker = ({
     }, 0);
   };
 
+  const { isInFlatTable, setHasOpenDatePicker } =
+    useContext<FlatTableContextProps>(FlatTableContext);
+
+  useEffect(() => {
+    setHasOpenDatePicker?.(!!open);
+  }, [open, setHasOpenDatePicker]);
+
   useEffect(() => {
     if (selectedDays) {
       setFocusedMonth(selectedDays);
@@ -224,6 +235,7 @@ export const DatePicker = ({
         reference={inputElement}
         middleware={popoverMiddleware}
         disablePortal={disablePortal}
+        disableBackgroundUI={isInFlatTable}
       >
         <StyledDayPicker
           id="styled-day-picker"
