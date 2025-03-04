@@ -8,6 +8,7 @@ import baseTheme, { ThemeObject } from "../../style/themes/base";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import styledColor from "../../style/utils/color";
 import getColorValue from "../../style/utils/get-color-value";
+import { getNavigator, getWindow } from "../../__internal__/dom/globals";
 import browserTypeCheck, {
   isSafari,
 } from "../../__internal__/utils/helpers/browser-type-check";
@@ -102,6 +103,8 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
     let bgColor;
     let bgHoverColor;
 
+    const win = getWindow();
+    const nav = getNavigator();
     const adjustedBgSize = adjustIconBgSize(fontSize, bgSize);
 
     try {
@@ -164,16 +167,18 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
           font-size: ${iconConfig.iconSize[fontSize]};
           line-height: ${iconConfig.iconSize[fontSize]};
         `}
-
-        ${type === "services" &&
-        browserTypeCheck(window) &&
+        // FIXME: this can cause hydration mismatches during SSR.
+        ${win &&
+        type === "services" &&
+        browserTypeCheck(win) &&
         css`
           margin-top: ${fontSize === "small" ? "-7px" : "-8px"};
         `}
-
-        ${type === "services" &&
-        isSafari(navigator) &&
-        !browserTypeCheck(window) &&
+        ${nav &&
+        win &&
+        type === "services" &&
+        isSafari(nav) &&
+        !browserTypeCheck(win) &&
         css`
           margin-top: -6px;
         `}

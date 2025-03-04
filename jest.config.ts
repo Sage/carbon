@@ -12,7 +12,7 @@ const esmOnlyPackages = [
 
 const isCI = process.env.CI === "true";
 
-const config: Config = {
+const clientConfig: Config = {
   notify: false,
   setupFiles: ["raf/polyfill"],
   testEnvironment: "jsdom",
@@ -20,7 +20,10 @@ const config: Config = {
     "<rootDir>/src/__spec_helper__/__internal__/index.ts",
     "jest-canvas-mock",
   ],
-  testMatch: ["**/?(*.)+(spec|test).[jt]s?(x)"],
+  testMatch: [
+    "**/?(*.)+(spec|test).[jt]s?(x)",
+    "!**/*.server.(spec|test).[jt]s?(x)",
+  ],
   testPathIgnorePatterns: ["node_modules", "lib", "esm"],
   moduleDirectories: ["src", "node_modules"],
   collectCoverage: true,
@@ -45,6 +48,17 @@ const config: Config = {
   moduleNameMapper: {
     "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
   },
+};
+
+const serverConfig: Config = {
+  ...clientConfig,
+  testMatch: ["**/*.server.(spec|test).[jt]s?(x)"],
+  testPathIgnorePatterns: ["node_modules", "lib", "esm"],
+  testEnvironment: "node",
+};
+
+const config: Config = {
+  projects: [clientConfig, serverConfig],
 };
 
 export default config;

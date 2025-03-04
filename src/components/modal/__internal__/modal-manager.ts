@@ -1,3 +1,5 @@
+import { getWindow } from "../../../__internal__/dom/globals";
+
 type SetTriggerRefocusFlag = (boolean: boolean) => void;
 
 export type ModalList = {
@@ -10,12 +12,17 @@ class ModalManagerInstance {
   private modalList: ModalList;
 
   constructor() {
+    const safeWindow = getWindow();
+    if (!safeWindow) {
+      this.modalList = [];
+      return;
+    }
     // Due to possibility of multiple carbon versions using it
     // it is necessary to maintain same structure in this global variable
-    if (!window.__CARBON_INTERNALS_MODAL_LIST) {
-      window.__CARBON_INTERNALS_MODAL_LIST = [];
+    if (!safeWindow.__CARBON_INTERNALS_MODAL_LIST) {
+      safeWindow.__CARBON_INTERNALS_MODAL_LIST = [];
     }
-    this.modalList = window.__CARBON_INTERNALS_MODAL_LIST;
+    this.modalList = safeWindow.__CARBON_INTERNALS_MODAL_LIST;
   }
 
   private getTopModal(): Record<string, never> | ModalList[number] {
@@ -87,15 +94,20 @@ class ModalManagerInstance {
   }
 
   clearList() {
-    window.__CARBON_INTERNALS_MODAL_LIST = [];
-    this.modalList = window.__CARBON_INTERNALS_MODAL_LIST;
+    const safeWindow = getWindow();
+    const cleared: ModalList = [];
+    if (safeWindow) {
+      safeWindow.__CARBON_INTERNALS_MODAL_LIST = cleared;
+    }
+    this.modalList = cleared;
     this.callTopModalSetters();
   }
 
   callTopModalSetters() {
-    if (window.__CARBON_INTERNALS_MODAL_SETTER_LIST) {
+    const safeWindow = getWindow();
+    if (safeWindow?.__CARBON_INTERNALS_MODAL_SETTER_LIST) {
       const topModal = this.getTopModal()?.modal || null;
-      for (const setTopModal of window.__CARBON_INTERNALS_MODAL_SETTER_LIST) {
+      for (const setTopModal of safeWindow.__CARBON_INTERNALS_MODAL_SETTER_LIST) {
         setTopModal(topModal);
       }
     }

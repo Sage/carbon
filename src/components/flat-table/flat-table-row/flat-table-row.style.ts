@@ -10,6 +10,7 @@ import { ThemeObject } from "../../../style/themes/base";
 import { FlatTableProps } from "..";
 import { FlatTableRowProps } from "./flat-table-row.component";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
+import { getNavigator } from "../../../__internal__/dom/globals";
 import { isSafari } from "../../../__internal__/utils/helpers/browser-type-check";
 
 const horizontalBorderSizes = {
@@ -153,6 +154,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
     draggable,
     rowHeight,
   }) => {
+    const nav = getNavigator();
     const backgroundColor = bgColor ? toColor(theme, bgColor) : undefined;
     const customBorderColor = horizontalBorderColor
       ? toColor(theme, horizontalBorderColor)
@@ -278,7 +280,9 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
           }
 
           /* Styling for safari. Position relative does not work on tr elements on Safari  */
-          ${isSafari(navigator) &&
+          // FIXME: this can cause hydration mismatches during SSR.
+          ${nav &&
+          isSafari(nav) &&
           css`
             position: -webkit-sticky;
             :after {
