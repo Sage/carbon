@@ -67,11 +67,6 @@ const DraggableProvider = forwardRef<
                   (item) => item.getAttribute("data-item-id") === destinationId,
                 );
 
-                console.log("fromIndex", fromIndex)
-                console.log("toIndex", toIndex)
-                console.log(fromListId)
-                console.log(toListId)
-
         const copy = { ...prevLists };
         const [nodeToMove] = copy[fromListId].splice(fromIndex, 1);
         copy[toListId].splice(toIndex, 0, nodeToMove);
@@ -110,9 +105,13 @@ const DraggableProvider = forwardRef<
  const lastMoveRef = useRef<{
       indexOfTarget: null | number;
       destinationId: null | string | number;
+      targetContainerId: null | string | number;
+      destinationContainerId: null | string | number;
     }>({
       indexOfTarget: null,
       destinationId: null,
+      targetContainerId: null,
+      destinationContainerId: null,
     });
 
 
@@ -133,7 +132,6 @@ const DraggableProvider = forwardRef<
               const destinationContainer = source.data.parentContainerId as string;
               const targetContainer = target.data.parentContainerId as string;
 
-
               if (
                 !Number.isNaN(indexOfTarget) &&
                 indexOfTarget >= 0 &&
@@ -142,18 +140,19 @@ const DraggableProvider = forwardRef<
               ) {
                 if (
                   lastMoveRef.current.indexOfTarget !== indexOfTarget ||
-                  lastMoveRef.current.destinationId !== destinationId
+                  lastMoveRef.current.destinationId !== destinationId 
+                  || lastMoveRef.current.destinationContainerId !== destinationContainer
+                  || lastMoveRef.current.targetContainerId !== targetContainer
                 ) {
 
-                  if(destinationContainer !== targetContainer){
-                    console.log("hi")
+                  if(lastMoveRef.current.destinationContainerId !== lastMoveRef.current.targetContainerId) {
                     const element = document.querySelector(`[data-item-id="${destinationId}"]`);
                     const updatedId = element?.getAttribute("data-parent-container-id");
                     move(updatedId as string, targetContainer, destinationId, indexOfTarget);
                   } else {
                     move(destinationContainer, targetContainer, destinationId, indexOfTarget);
                   }
-                  lastMoveRef.current = { indexOfTarget, destinationId };
+                  lastMoveRef.current = { indexOfTarget, destinationId, targetContainerId: targetContainer, destinationContainerId: destinationContainer };
                 }
               }
             }
@@ -162,6 +161,8 @@ const DraggableProvider = forwardRef<
             (lastMoveRef.current = {
               indexOfTarget: null,
               destinationId: null,
+              targetContainerId: null,
+              destinationContainerId: null,
             }),
         }),
       );
