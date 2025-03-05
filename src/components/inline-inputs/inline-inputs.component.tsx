@@ -7,10 +7,9 @@ import StyledInlineInputs, {
   StyledContentContainerProps,
   StyledInlineInputsProps,
 } from "./inline-inputs.style";
-import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 type GutterOptions =
   | "none"
@@ -103,7 +102,7 @@ const InlineInputs = ({
     );
   }
 
-  const marginProps = useFormSpacing(rest);
+  const marginProps = filterStyledSystemMarginProps(rest);
 
   useEffect(() => {
     if (required) {
@@ -130,9 +129,7 @@ const InlineInputs = ({
         data-role="inline-inputs-container"
         inputWidth={inputWidth}
       >
-        <FormSpacingProvider marginBottom={undefined}>
-          {columnWrapper(children, gutter)}
-        </FormSpacingProvider>
+        {columnWrapper(children, gutter)}
       </StyledContentContainer>
     </StyledInlineInputs>
   );

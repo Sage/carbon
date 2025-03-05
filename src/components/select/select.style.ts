@@ -16,6 +16,7 @@ export interface StyledSelectProps
 
 const StyledSelect = styled.div<StyledSelectProps>`
   ${({ hasTextCursor, disabled, readOnly, theme, transparent, isOpen }) => css`
+    margin-bottom: var(--fieldSpacing);
     ${margin}
 
     position: relative;

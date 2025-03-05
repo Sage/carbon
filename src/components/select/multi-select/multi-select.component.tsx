@@ -7,7 +7,10 @@ import React, {
 } from "react";
 import invariant from "invariant";
 
-import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
+import {
+  filterOutStyledSystemSpacingProps,
+  filterStyledSystemMarginProps,
+} from "../../../style/utils";
 import SelectTextbox, {
   FormInputPropTypes,
 } from "../__internal__/select-textbox";
@@ -28,7 +31,6 @@ import isExpectedValue from "../__internal__/utils/is-expected-value";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
-import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import { CustomSelectChangeEvent } from "../simple-select";
 
@@ -716,7 +718,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       </FilterableSelectList>
     );
 
-    const marginProps = useFormSpacing(textboxProps);
+    const marginProps = filterStyledSystemMarginProps(textboxProps);
 
     return (
       <StyledSelectMultiSelect

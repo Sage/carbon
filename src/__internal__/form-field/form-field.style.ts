@@ -3,6 +3,7 @@ import { space } from "styled-system";
 import { baseTheme } from "../../style/themes";
 
 const FormFieldStyle = styled.div`
+  margin-bottom: var(--fieldSpacing);
   & + & {
     margin-top: 16px;
   }
