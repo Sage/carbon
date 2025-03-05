@@ -116,7 +116,7 @@ WithFullWidthButtons.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const WithDifferentSpacing: Story = () => {
+export const FieldSpacing: Story = () => {
   const [state, setState] = useState("");
 
   const setValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -148,7 +148,7 @@ export const WithDifferentSpacing: Story = () => {
     </Form>
   );
 };
-WithDifferentSpacing.storyName = "With Different Spacing";
+FieldSpacing.storyName = "Field Spacing";
 
 export const OverrideFieldSpacing: Story = () => (
   <Form

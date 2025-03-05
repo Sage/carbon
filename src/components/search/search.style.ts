@@ -34,6 +34,7 @@ const StyledSearch = styled.div<StyledSearchProps>`
       : "var(--colorsUtilityMajor300)";
 
     return css`
+      margin-bottom: var(--fieldSpacing);
       ${margin}
       width: ${searchWidth ? `${searchWidth}` : "100%"};
       max-width: ${maxWidth ? `${maxWidth}` : "100%"};

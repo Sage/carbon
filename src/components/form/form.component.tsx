@@ -11,7 +11,6 @@ import {
   StyledRightButtons,
 } from "./form.style";
 import { FormButtonAlignment, formSpacing } from "./form.config";
-import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import ModalContext from "../modal/__internal__/modal.context";
 
 export interface FormProps extends SpaceProps, TagProps {
@@ -81,7 +80,6 @@ export const Form = ({
       stickyFooter={stickyFooter}
       onSubmit={onSubmit}
       data-component="form"
-      fieldSpacing={fieldSpacing}
       noValidate={noValidate}
       height={height}
       isInModal={isInModal}
@@ -94,10 +92,9 @@ export const Form = ({
         stickyFooter={stickyFooter}
         tabIndex={-1}
         isInModal={isInModal}
+        fieldSpacing={formSpacing[fieldSpacing]}
       >
-        <FormSpacingProvider marginBottom={formSpacing[fieldSpacing]}>
-          {children}
-        </FormSpacingProvider>
+        {children}
       </StyledFormContent>
       {renderFooter && (
         <StyledFormFooter

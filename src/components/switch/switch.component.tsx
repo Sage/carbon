@@ -11,12 +11,12 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import Logger from "../../__internal__/utils/logger";
 import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
-import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import StyledSwitch, { ErrorBorder } from "./switch.style";
 import SwitchSlider from "./__internal__/switch-slider.component";
 import guid from "../../__internal__/utils/helpers/guid";
 import HintText from "../../__internal__/hint-text";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export interface SwitchProps
   extends CommonCheckableInputProps,
@@ -118,7 +118,7 @@ export const Switch = React.forwardRef(
     const shouldValidationBeOnLabel =
       labelInline && !reverse ? true : validationOnLabel;
 
-    const marginProps = useFormSpacing(rest);
+    const marginProps = filterStyledSystemMarginProps(rest);
 
     const switchStyleProps = {
       "data-component": "switch",
