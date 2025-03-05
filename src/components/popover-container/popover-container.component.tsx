@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useImperativeHandle,
   forwardRef,
+  useContext,
 } from "react";
 import { PaddingProps } from "styled-system";
 import { CSSTransition } from "react-transition-group";
@@ -33,6 +34,9 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
+import FlatTableContext, {
+  FlatTableContextProps,
+} from "../flat-table/__internal__/flat-table.context";
 
 export interface RenderOpenProps {
   tabIndex: number;
@@ -223,6 +227,8 @@ export const PopoverContainer = forwardRef<
     );
 
     const popoverMiddleware = usePopoverMiddleware(shouldCoverButton);
+    const { isInFlatTable } =
+      useContext<FlatTableContextProps>(FlatTableContext);
 
     const closePopover = useCallback(
       (
@@ -459,6 +465,7 @@ export const PopoverContainer = forwardRef<
             }
             middleware={popoverMiddleware}
             childRefOverride={popoverContentNodeRef}
+            disableBackgroundUI={isInFlatTable}
           >
             {childrenToRender()}
           </Popover>

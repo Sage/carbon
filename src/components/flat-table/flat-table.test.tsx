@@ -18,6 +18,14 @@ import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context"
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import Pager from "../pager/pager.component";
+import { baseTheme } from "../../style/themes";
+import DateInput from "../date/date.component";
+
+import {
+  ActionPopover,
+  ActionPopoverItem,
+  ActionPopoverDivider,
+} from "../../components/action-popover";
 
 testStyledSystemMargin(
   (props) => (
@@ -1443,4 +1451,385 @@ test("should set the title correctly", () => {
     "title",
     "this is a title",
   );
+});
+
+test("when an ActionPopover is opened inside the FlatTable, it will have the background disabled to prevent scrolling in the table", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <FlatTable
+      hasStickyHead
+      colorTheme="transparent-base"
+      height="400px"
+      footer={
+        <Pager
+          currentPage="1"
+          onFirst={() => {}}
+          onLast={() => {}}
+          onNext={() => {}}
+          onPagination={() => {}}
+          onPrevious={() => {}}
+          pageSizeSelectionOptions={[
+            {
+              id: "1",
+              name: 1,
+            },
+            {
+              id: "10",
+              name: 10,
+            },
+            {
+              id: "25",
+              name: 25,
+            },
+            {
+              id: "50",
+              name: 50,
+            },
+            {
+              id: "100",
+              name: 100,
+            },
+          ]}
+          totalRecords="100"
+        />
+      }
+    >
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {new Array(25)
+          .fill("")
+          .map((_, index) => index)
+          .map((key) => {
+            return (
+              <FlatTableRow
+                key={key}
+                expandable
+                subRows={[
+                  <FlatTableRow key="sub-row-1">
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                  </FlatTableRow>,
+                  <FlatTableRow key="sub-row-2">
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                  </FlatTableRow>,
+                ]}
+              >
+                <FlatTableCell>Cell Data</FlatTableCell>
+                <FlatTableCell>
+                  <ActionPopover id="">
+                    <ActionPopoverItem icon="email" onClick={() => {}}>
+                      Email Invoice
+                    </ActionPopoverItem>
+                    <ActionPopoverDivider />
+                    <ActionPopoverItem icon="delete" onClick={() => {}}>
+                      Delete
+                    </ActionPopoverItem>
+                  </ActionPopover>
+                </FlatTableCell>
+                <FlatTableCell>Cell Data</FlatTableCell>
+              </FlatTableRow>
+            );
+          })}
+      </FlatTableBody>
+    </FlatTable>,
+  );
+  const button = screen.getAllByRole("button")[5];
+
+  await user.click(button);
+
+  expect(screen.getByRole("list")).toBeVisible();
+
+  const backdrop = screen.getByTestId("popup-backdrop");
+
+  expect(backdrop).toHaveStyle({
+    background: "transparent",
+    zIndex: baseTheme.zIndex.popover,
+    position: "fixed",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  });
+
+  await user.click(document.body);
+
+  expect(backdrop).not.toBeInTheDocument();
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
+test("when a DateInput is opened inside the FlatTable that has sticky footer, keyboard scrolling with the arrow keys is prevented in the table", async () => {
+  const user = userEvent.setup();
+
+  render(
+    <FlatTable
+      hasStickyFooter
+      colorTheme="transparent-base"
+      height="400px"
+      footer={
+        <Pager
+          currentPage="1"
+          onFirst={() => {}}
+          onLast={() => {}}
+          onNext={() => {}}
+          onPagination={() => {}}
+          onPrevious={() => {}}
+          pageSizeSelectionOptions={[
+            {
+              id: "1",
+              name: 1,
+            },
+            {
+              id: "10",
+              name: 10,
+            },
+            {
+              id: "25",
+              name: 25,
+            },
+            {
+              id: "50",
+              name: 50,
+            },
+            {
+              id: "100",
+              name: 100,
+            },
+          ]}
+          totalRecords="100"
+        />
+      }
+    >
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {new Array(25)
+          .fill("")
+          .map((_, index) => index)
+          .map((key) => {
+            return (
+              <FlatTableRow
+                key={key}
+                expandable
+                subRows={[
+                  <FlatTableRow key="sub-row-1">
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                  </FlatTableRow>,
+                  <FlatTableRow key="sub-row-2">
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                  </FlatTableRow>,
+                ]}
+              >
+                <FlatTableCell>Cell Data</FlatTableCell>
+                <FlatTableCell>
+                  <DateInput
+                    error=""
+                    fieldHelp=""
+                    helpAriaLabel=""
+                    inputWidth={70}
+                    label=""
+                    labelHelp=""
+                    labelWidth={30}
+                    maxDate=""
+                    minDate=""
+                    mt={0}
+                    name="dateinput"
+                    onBlur={() => {}}
+                    onChange={() => {}}
+                    onClick={() => {}}
+                    onKeyDown={() => {}}
+                    prefix=""
+                    size="medium"
+                    value="2019-04-04"
+                    warning=""
+                    disablePortal
+                  />
+                </FlatTableCell>
+                <FlatTableCell>Cell Data</FlatTableCell>
+              </FlatTableRow>
+            );
+          })}
+      </FlatTableBody>
+    </FlatTable>,
+  );
+  const input = screen.getAllByRole("textbox")[5];
+  await user.click(input);
+
+  expect(screen.getByRole("grid")).toBeVisible();
+
+  expect(input).toHaveFocus();
+
+  await user.keyboard("{ArrowDown}");
+
+  expect(input).toHaveFocus();
+
+  await user.keyboard("{ArrowUp}");
+
+  expect(input).toHaveFocus();
+
+  await user.keyboard("{Tab}");
+
+  expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
+});
+
+test("when a DateInput is opened inside the FlatTable that has sticky footer, scrolling with the page up and page down keys is prevented in the table", async () => {
+  const user = userEvent.setup();
+  render(
+    <FlatTable
+      hasStickyFooter
+      colorTheme="transparent-base"
+      height="400px"
+      footer={
+        <Pager
+          currentPage="1"
+          onFirst={() => {}}
+          onLast={() => {}}
+          onNext={() => {}}
+          onPagination={() => {}}
+          onPrevious={() => {}}
+          pageSizeSelectionOptions={[
+            {
+              id: "1",
+              name: 1,
+            },
+            {
+              id: "10",
+              name: 10,
+            },
+            {
+              id: "25",
+              name: 25,
+            },
+            {
+              id: "50",
+              name: 50,
+            },
+            {
+              id: "100",
+              name: 100,
+            },
+          ]}
+          totalRecords="100"
+        />
+      }
+    >
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+          <FlatTableHeader>Header Cell</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {new Array(25)
+          .fill("")
+          .map((_, index) => index)
+          .map((key) => {
+            return (
+              <FlatTableRow
+                data-role={`flat-table-row-${key}`}
+                key={key}
+                expandable
+                subRows={[
+                  <FlatTableRow key="sub-row-1">
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                  </FlatTableRow>,
+                  <FlatTableRow key="sub-row-2">
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                    <FlatTableCell>Cell Data</FlatTableCell>
+                  </FlatTableRow>,
+                ]}
+              >
+                <FlatTableCell>Cell Data</FlatTableCell>
+                <FlatTableCell>
+                  <DateInput
+                    error=""
+                    fieldHelp=""
+                    helpAriaLabel=""
+                    inputWidth={70}
+                    label=""
+                    labelHelp=""
+                    labelWidth={30}
+                    maxDate=""
+                    minDate=""
+                    mt={0}
+                    name="dateinput"
+                    onBlur={() => {}}
+                    onChange={() => {}}
+                    onClick={() => {}}
+                    onKeyDown={() => {}}
+                    prefix=""
+                    size="medium"
+                    value="2019-04-04"
+                    warning=""
+                    disablePortal
+                  />
+                </FlatTableCell>
+                <FlatTableCell>Cell Data</FlatTableCell>
+              </FlatTableRow>
+            );
+          })}
+      </FlatTableBody>
+    </FlatTable>,
+  );
+  const preventDefaultSpy = jest.spyOn(
+    KeyboardEvent.prototype,
+    "preventDefault",
+  );
+
+  const flatTableRow = screen.getByTestId("flat-table-row-0");
+
+  await user.click(flatTableRow);
+
+  await user.keyboard("{PageDown}");
+
+  expect(preventDefaultSpy).not.toHaveBeenCalled();
+
+  await user.keyboard("{PageUp}");
+
+  expect(preventDefaultSpy).not.toHaveBeenCalled();
+
+  const input = screen.getAllByRole("textbox")[5];
+  await user.click(input);
+
+  expect(screen.getByRole("grid")).toBeVisible();
+
+  expect(input).toHaveFocus();
+
+  await user.keyboard("{PageDown}");
+
+  expect(preventDefaultSpy).toHaveBeenCalled();
+
+  await user.keyboard("{PageUp}");
+
+  expect(preventDefaultSpy).toHaveBeenCalled();
+
+  await user.keyboard("{Home}");
+
+  expect(preventDefaultSpy).toHaveBeenCalled();
+
+  await user.keyboard("{End}");
+
+  expect(preventDefaultSpy).toHaveBeenCalled();
 });
