@@ -93,7 +93,7 @@ export interface DateInputProps
   value: string;
   /**
    * Pass any props that match the DayPickerProps interface to override default behaviors
-   * See [DayPickerProps](https://react-day-picker-v7.netlify.app/docs/getting-started/) for a full list of available props
+   * See [DayPickerProps](https://daypicker.dev/start) for a full list of available props
    * */
   pickerProps?: PickerProps;
   /**
