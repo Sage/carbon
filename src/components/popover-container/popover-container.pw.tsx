@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/experimental-ct-react";
 import React from "react";
 import { Locator } from "@playwright/test";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import Box from "../box";
 import { getDataElementByValue } from "../../../playwright/components";
 import {

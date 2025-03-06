@@ -1,3 +1,21 @@
+## [151.2.1](https://github.com/Sage/carbon/compare/v151.2.0...v151.2.1) (2025-03-04)
+
+### Bug Fixes
+
+* **text-editor:** ensure that margin props are applied to component ([be92805](https://github.com/Sage/carbon/commit/be92805b00cdd64a5e77a9dd241859cd3235027f))
+
+## [151.2.0](https://github.com/Sage/carbon/compare/v151.1.0...v151.2.0) (2025-03-03)
+
+### Features
+
+* **date:** add deprecation warning for disabledDays & selectedDays ([d7eec05](https://github.com/Sage/carbon/commit/d7eec05ceeaf827ec4e8f941457f7d549eeff326))
+
+## [151.1.0](https://github.com/Sage/carbon/compare/v151.0.0...v151.1.0) (2025-03-03)
+
+### Features
+
+* **packages:** remove `typescript-to-proptypes` package ([ec54171](https://github.com/Sage/carbon/commit/ec54171a3a556f484727bbba3f43eddf289c57b9)), closes [#5603](https://github.com/Sage/carbon/issues/5603)
+
 ## [151.0.0](https://github.com/Sage/carbon/compare/v150.1.0...v151.0.0) (2025-02-27)
 
 ### ⚠ BREAKING CHANGES

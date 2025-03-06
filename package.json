@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "151.0.0",
+  "version": "151.2.1",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -32,7 +32,10 @@
     "test:ct": "playwright test -c playwright-ct.config.ts",
     "test:ct:ui": "playwright test --ui -c playwright-ct.config.ts",
     "test:ct:report": "npx playwright show-report",
-    "clear-playwright-cache": "rimraf ./playwright/.cache"
+    "clear-playwright-cache": "rimraf ./playwright/.cache",
+    "clear-playwright-coverage-json": "rimraf ./playwright/coverage/*.json",
+    "test:ct:coverage": "npm run clear-playwright-cache && npm run clear-playwright-coverage-json && rimraf ./playwright/coverage && playwright test -c playwright-ct.config.ts",
+    "pw:coverage:report": "nyc report --reporter=html --report-dir=./playwright/coverage --temp-dir=./playwright/coverage"
   },
   "repository": {
     "type": "git",
@@ -60,7 +63,6 @@
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
-    "@babel/template": "^7.22.15",
     "@babel/types": "^7.23.4",
     "@chromatic-com/storybook": "^2.0.2",
     "@commitlint/cli": "^17.6.3",
@@ -160,7 +162,6 @@
     "storybook": "^8.4.7",
     "styled-components": "^4.4.1",
     "typescript": "~4.7.0",
-    "typescript-to-proptypes": "^2.2.1",
     "url-loader": "^4.1.1",
     "uuid": "^8.3.2",
     "webpack-dev-server": "^4.15.1"
@@ -183,6 +184,8 @@
     "invariant": "^2.2.4",
     "lexical": "^0.21.0",
     "lodash": "^4.17.21",
+    "monocart-coverage-reports": "^2.11.4",
+    "nyc": "^17.1.0",
     "polished": "^4.2.2",
     "prop-types": "^15.8.1",
     "react-day-picker": "^9.3.2",

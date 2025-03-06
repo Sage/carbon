@@ -1,7 +1,7 @@
-import { expect, test } from "@playwright/experimental-ct-react";
 import React from "react";
 import FilterableSelect, { FilterableSelectProps } from ".";
 import Option from "../option";
+import { test, expect } from "../../../../playwright/helpers/base-test";
 import {
   FilterableSelectComponent,
   FilterableSelectObjectAsValueComponent,

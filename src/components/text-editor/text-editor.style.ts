@@ -1,8 +1,10 @@
 import styled, { css } from "styled-components";
 
+import { margin, MarginProps } from "styled-system";
 import Box from "../box";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
+type StyledTextEditorWrapperProps = MarginProps;
 interface StyledWrapperProps {
   error?: string;
   namespace: string;
@@ -19,6 +21,10 @@ interface StyledEditorToolbarWrapperProps {
 
 export const StyledTextEditor = styled(Box)`
   position: relative;
+`;
+
+export const StyledTextEditorWrapper = styled.div<StyledTextEditorWrapperProps>`
+  ${margin}
 `;
 
 export const StyledWrapper = styled.div<StyledWrapperProps>`
