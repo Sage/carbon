@@ -24,6 +24,7 @@ import DraggableContainerContext from "../draggable-container-context";
 import DraggableItemContext from "../draggable-item-context";
 
 export interface DraggableContainerProps {
+  id?: string | number;
   children?: React.ReactNode;
   getOrder?: (
     draggableItemIds?: (string | number | undefined)[],
@@ -200,6 +201,9 @@ const DraggableContainer = forwardRef<
     useEffect(() => {
       const element = containerRef.current as Element;
       const cleanup = combine(
+        dropTargetForElements({
+          element,
+        }),
         monitorForElements({
           canMonitor({ source }) {
             return (

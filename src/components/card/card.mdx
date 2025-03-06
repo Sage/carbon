@@ -94,13 +94,14 @@ Setting the `draggable` prop will negate both `onClick` and `href` prop values a
 
 ## With draggable
 
-By using the `draggable` prop, Cards can be implemented to be draggable.
+Cards can be made draggable by using the `draggable` prop.
 
-This example uses the `react-dnd` and `react-dnd-html5-backend` packages.
+The example uses the `useDraggable` hook. Pass a valid node or array of nodes to the `useDraggable` hook. 
+This makes the node(s) draggable and returns them in a container.
 
+The `DraggableProvider` component wraps these containers. Use it when dragging between containers is required.
 ```javascript
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import useDraggable, { DraggableProvider } from "carbon-react/lib/hooks/useDraggable";
 ```
 
 <Canvas of={CardStories.WithDraggable} />
