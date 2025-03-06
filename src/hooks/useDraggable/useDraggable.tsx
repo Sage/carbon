@@ -1,14 +1,13 @@
 import React, {
   Ref,
   useState,
-  createContext,
   useContext,
   CSSProperties,
 } from "react";
 import guid from "../../__internal__/utils/helpers/guid";
 import DraggableContainer from "./__internal__/draggable-container";
 import DraggableProviderContext from "./draggable-provider-context";
-import { ContainerDragState } from "./draggable-provider";
+import UseDraggableContext from "./useDraggable-context";
 import DraggableItem from "./__internal__/draggable-item";
 import { Edge } from "./__internal__/draggable-utils";
 
@@ -21,34 +20,33 @@ export type DragState =
 export interface UseDraggableHandle {
   reOrder: (itemId: number | string, toIndex: number) => void;
 }
+
 interface UseDraggableOptions {
   draggableItems: React.ReactNode[] | React.ReactNode;
   ref?: Ref<UseDraggableHandle>;
+  containerId?: string | number;
+  containerStyle?: CSSProperties;
+  itemsStyle?: CSSProperties;
+  draggableItemStylingOptOut?: boolean;
+  containerNode?: string;
+  itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
   getOrder?: (
     draggableItemIds?: (string | number | undefined)[],
     movedItemId?: string | number | undefined,
   ) => void;
-  containerStyle?: CSSProperties;
-  itemsStyle?: CSSProperties;
-  indicatorColor?: string;
-  draggableItemStylingOptOut?: boolean;
-  containerNode?: string;
-  itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
-  containerId?: string | number;
 }
 
 const useDraggable = ({
   draggableItems,
   ref,
-  getOrder,
+  containerId,
   containerStyle,
   itemsStyle,
-  indicatorColor,
   draggableItemStylingOptOut,
   containerNode,
   itemsNode,
-  containerId,
-}: UseDraggableOptions): [JSX.Element, ContainerDragState | undefined] => {
+  getOrder,
+}: UseDraggableOptions) => {
   const items = Array.isArray(draggableItems)
     ? draggableItems
     : [draggableItems];
@@ -57,30 +55,36 @@ const useDraggable = ({
     DraggableProviderContext,
   )?.containerDragState;
 
+  const [dragState, setDragState] = useState<DragState>({
+    type: "idle",
+    id: 0,
+  });
+
   const draggableElement = (
-    <DraggableContainer
-      id={containerId} 
-      ref={ref}
-      getOrder={getOrder}
-      containerStyle={containerStyle}
-      containerNode={containerNode}
-    >
-      {items.map((item, index) => (
-        <DraggableItem
-          key={guid()}
-          id={`${guid()}`}
-          itemsStyle={itemsStyle}
-          indicatorColor={indicatorColor}
-          draggableItemStylingOptOut={draggableItemStylingOptOut}
-          itemsNode={itemsNode}
-        >
-          {item}
-        </DraggableItem>
-      ))}
-    </DraggableContainer>
+    <UseDraggableContext.Provider value={{ setDragState }}>
+      <DraggableContainer
+        id={containerId}
+        ref={ref}
+        getOrder={getOrder}
+        containerStyle={containerStyle}
+        containerNode={containerNode}
+      >
+        {items.map((item) => (
+          <DraggableItem
+            key={guid()}
+            id={`${guid()}`}
+            itemsStyle={itemsStyle}
+            draggableItemStylingOptOut={draggableItemStylingOptOut}
+            itemsNode={itemsNode}
+          >
+            {item}
+          </DraggableItem>
+        ))}
+      </DraggableContainer>
+    </UseDraggableContext.Provider>
   );
 
-  return [draggableElement, containerDragState];
+  return { draggableElement, dragState, containerDragState };
 };
 
 export default useDraggable;
