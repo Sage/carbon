@@ -1,3 +1,9 @@
+## [151.2.3](https://github.com/Sage/carbon/compare/v151.2.2...v151.2.3) (2025-03-06)
+
+### Bug Fixes
+
+* **flat-table:** action-popover detached when scrolling flat table with sticky head and footing ([d9c59de](https://github.com/Sage/carbon/commit/d9c59de96be2579a09a73f9aba11d23739875002)), closes [#5094](https://github.com/Sage/carbon/issues/5094)
+
 ## [151.2.2](https://github.com/Sage/carbon/compare/v151.2.1...v151.2.2) (2025-03-06)
 
 ### Bug Fixes
