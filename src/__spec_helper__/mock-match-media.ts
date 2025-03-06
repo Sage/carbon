@@ -3,7 +3,7 @@ let _matches = false;
 const removeEventListener = jest.fn();
 
 export const setupMatchMediaMock = () => {
-  if (!global.window) {
+  if (typeof window === "undefined") {
     return;
   }
   const noop = () => {};

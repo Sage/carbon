@@ -14,6 +14,7 @@ import {
   StyledVerticalMenuFullScreen,
 } from "../vertical-menu.style";
 import VerticalMenuFullScreenContext from "./__internal__/vertical-menu-full-screen.context";
+import { getDocument } from "../../../__internal__/dom/globals";
 import Events from "../../../__internal__/utils/helpers/events/events";
 import useModalManager from "../../../hooks/__internal__/useModalManager";
 
@@ -57,12 +58,14 @@ export const VerticalMenuFullScreen = ({
     [onClose],
   );
 
+  const safeDocument = getDocument();
+
   useModalManager({
     open: isOpen,
     closeModal: handleKeyDown,
     modalRef: menuWrapperRef,
     topModalOverride: true,
-    focusCallToActionElement: document.activeElement as HTMLElement,
+    focusCallToActionElement: safeDocument?.activeElement as HTMLElement,
   });
 
   // TODO remove this as part of FE-5650

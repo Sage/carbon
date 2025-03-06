@@ -3,6 +3,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import useScrollBlock from "../../hooks/__internal__/useScrollBlock";
 import Portal from "../portal";
+import { getDocument } from "../../__internal__/dom/globals";
 import Events from "../../__internal__/utils/helpers/events";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
@@ -92,15 +93,18 @@ const Modal = ({
     [disableClose, disableEscKey, onCancel],
   );
 
+  const safeDocument = getDocument();
+
   useModalManager({
     open,
     closeModal,
     modalRef: ref,
     setTriggerRefocusFlag,
     topModalOverride,
-    focusCallToActionElement: restoreFocusOnClose
-      ? (document.activeElement as HTMLElement)
-      : undefined,
+    focusCallToActionElement:
+      restoreFocusOnClose && safeDocument
+        ? (safeDocument.activeElement as HTMLElement)
+        : undefined,
   });
 
   let background;
