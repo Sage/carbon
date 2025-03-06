@@ -1,3 +1,9 @@
+## [151.2.2](https://github.com/Sage/carbon/compare/v151.2.1...v151.2.2) (2025-03-06)
+
+### Bug Fixes
+
+* **date-input:** update documentation ([df5a8ba](https://github.com/Sage/carbon/commit/df5a8bab0b6e34b9f7e2183d51e32328cee6f695))
+
 ## [151.2.1](https://github.com/Sage/carbon/compare/v151.2.0...v151.2.1) (2025-03-04)
 
 ### Bug Fixes
