@@ -1,6 +1,6 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react";
 import { MultiActionButtonProps } from "components/multi-action-button";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import {
   MultiActionButtonList,
   MultiActionButtonWithOneChild,

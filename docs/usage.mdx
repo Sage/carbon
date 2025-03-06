@@ -12,6 +12,7 @@ import { Meta } from "@storybook/blocks";
   - [Theming](#theming)
   - [Localisation](#localisation)
   - [Validation](#validation)
+  - [A Note On PropTypes](#a-note-on-proptypes)
 
 ## Quick start
 
@@ -84,3 +85,19 @@ We also provide a `i18nProvider` global for handling different locales. For more
 Carbon provides built-in validation states for input components. For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
 To opt into the new validation pattern, set the `validationRedesignOptIn` flag to true in the [CarbonProvider](../?path=/docs/carbon-provider--docs).
+
+### A Note On PropTypes
+
+We recently removed support for `PropTypes` in Carbon components. This was done as a prerequisite of upgrading to React 19; it also encourages the use of TypeScript over JavaScript. If you are still using JavaScript, we recommend migrating your project to TypeScript to take advantage of the benefits it provides.
+
+If you need type checking in your JavaScript project, you can add a `.tsconfig` file to your project and set the `checkJs` flag to `true`. This will enable type checking for JavaScript files in your project.
+
+```json
+{
+  "compilerOptions": {
+    "checkJs": true
+  }
+}
+```
+
+More information on the `checkJs` TSConfig option can be found [here](https://www.typescriptlang.org/tsconfig/#checkJs). For further information on migrating to TypeScript, see the [TypeScript documentation](https://www.typescriptlang.org/docs/handbook/migrating-from-javascript.html).

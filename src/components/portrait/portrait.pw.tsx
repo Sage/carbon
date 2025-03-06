@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import { getDataElementByValue } from "../../../playwright/components";
 import {
   portraitImage,

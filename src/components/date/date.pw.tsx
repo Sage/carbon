@@ -1,7 +1,7 @@
 import React from "react";
-import { expect, test } from "@playwright/experimental-ct-react";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import {
   DateInputCustom,
   DateInputValidationNewDesign,

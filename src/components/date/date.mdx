@@ -70,6 +70,10 @@ You can configure the available dates by passing a `minDate` and `maxDate` prop 
 
 <Canvas of={DateStories.DisabledDates} />
 
+Another way to disable dates is by passing the `disabled` prop throught the `pickerProps` prop directly to the DayPicker. The `disabled` prop accepts either a matcher or an array of [matchers](https://daypicker.dev/api/type-aliases/Matcher#example).
+
+<Canvas of={DateStories.DisabledDatesUsingPickerProps} />
+
 ### With labelInline
 
 **Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.

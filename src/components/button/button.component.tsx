@@ -112,7 +112,6 @@ interface RenderChildrenProps
 }
 
 function renderChildren({
-  /* eslint-disable react/prop-types */
   iconType,
   iconPosition,
   size,
@@ -123,8 +122,7 @@ function renderChildren({
   iconTooltipMessage,
   iconTooltipPosition,
   tooltipTarget,
-}: /* eslint-enable */
-RenderChildrenProps) {
+}: RenderChildrenProps) {
   const iconColor = () => {
     if (buttonType === "primary") {
       return "--colorsActionMajorYang100";
