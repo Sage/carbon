@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import {
   FlatTable,
@@ -25,6 +25,15 @@ import Pager from "../../../src/components/pager";
 import Drawer from "../../../src/components/drawer";
 import Textbox from "../textbox/textbox.component";
 import DateInput from "../date/date.component";
+import {
+  ActionPopover,
+  ActionPopoverItem,
+  ActionPopoverDivider,
+} from "../../components/action-popover";
+import SplitButton from "../../components/split-button";
+import MultiActionButton from "../../components/multi-action-button";
+import DateRange, { DateRangeChangeEvent } from "../date-range";
+import PopoverContainer from "../popover-container";
 
 export default {
   title: "Flat Table/Test",
@@ -38,6 +47,7 @@ export default {
     "FlatRowHeaderWithNoPaddingAndButtons",
     "FlatTableThemesWithAlternateHeaderBackground",
     "FlatTableThemesWithStickyHead",
+    "FlatTableWithStickyHeadAndFooter",
   ],
   parameters: {
     info: { disable: true },
@@ -869,4 +879,211 @@ export const FlatTableThemesWithStickyHead = () => (
 FlatTableThemesWithStickyHead.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const FlatTableWithStickyHeadAndFooter = () => {
+  const [state, setState] = useState(["2016-10-01", "2016-10-30"]);
+  const handleChange = (ev: DateRangeChangeEvent) => {
+    const newValue = [
+      ev.target.value[0].formattedValue,
+      ev.target.value[1].formattedValue,
+    ];
+    setState(newValue);
+  };
+
+  const [open, setOpen] = useState(new Array(25).fill(false));
+  const togglePopover = (index: number) => {
+    setOpen((prev) =>
+      prev.map((popoverstate, i) =>
+        i === index ? !popoverstate : popoverstate,
+      ),
+    );
+  };
+
+  return (
+    <Box>
+      <FlatTable
+        hasStickyHead
+        hasStickyFooter
+        colorTheme="transparent-base"
+        height="400px"
+        footer={
+          <Pager
+            currentPage="1"
+            onFirst={() => {}}
+            onLast={() => {}}
+            onNext={() => {}}
+            onPagination={() => {}}
+            onPrevious={() => {}}
+            pageSizeSelectionOptions={[
+              {
+                id: "1",
+                name: 1,
+              },
+              {
+                id: "10",
+                name: 10,
+              },
+              {
+                id: "25",
+                name: 25,
+              },
+              {
+                id: "50",
+                name: 50,
+              },
+              {
+                id: "100",
+                name: 100,
+              },
+            ]}
+            totalRecords="100"
+          />
+        }
+      >
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader pl={5}>Name</FlatTableHeader>
+            <FlatTableHeader>Location</FlatTableHeader>
+            <FlatTableHeader>Date Range</FlatTableHeader>
+            <FlatTableHeader>Multi Actions Button</FlatTableHeader>
+            <FlatTableHeader>Action</FlatTableHeader>
+            <FlatTableHeader>Date</FlatTableHeader>
+            <FlatTableHeader>Split Button</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          {new Array(25)
+            .fill("")
+            .map((_, index) => index)
+            .map((key) => {
+              return (
+                <FlatTableRow
+                  key={key}
+                  expandable
+                  subRows={[
+                    <FlatTableRow key="sub-row-1">
+                      <FlatTableCell>Child one</FlatTableCell>
+                      <FlatTableCell>York</FlatTableCell>
+                      <FlatTableCell>Single</FlatTableCell>
+                      <FlatTableCell>2</FlatTableCell>
+                      <FlatTableCell>
+                        <ActionPopover>
+                          <ActionPopoverItem icon="email" onClick={() => {}}>
+                            Email Invoice
+                          </ActionPopoverItem>
+                          <ActionPopoverDivider />
+                          <ActionPopoverItem icon="delete" onClick={() => {}}>
+                            Delete
+                          </ActionPopoverItem>
+                        </ActionPopover>
+                      </FlatTableCell>
+                      <FlatTableCell>date</FlatTableCell>
+                      <FlatTableCell>split button</FlatTableCell>
+                    </FlatTableRow>,
+                    <FlatTableRow key="sub-row-2">
+                      <FlatTableCell>Child two</FlatTableCell>
+                      <FlatTableCell>Edinburgh</FlatTableCell>
+                      <FlatTableCell>Single</FlatTableCell>
+                      <FlatTableCell>1</FlatTableCell>
+                      <FlatTableCell>
+                        <ActionPopover>
+                          <ActionPopoverItem icon="email" onClick={() => {}}>
+                            Email Invoice
+                          </ActionPopoverItem>
+                          <ActionPopoverDivider />
+                          <ActionPopoverItem icon="delete" onClick={() => {}}>
+                            Delete
+                          </ActionPopoverItem>
+                        </ActionPopover>
+                      </FlatTableCell>
+                      <FlatTableCell>date</FlatTableCell>
+                      <FlatTableCell>split button</FlatTableCell>
+                    </FlatTableRow>,
+                  ]}
+                >
+                  <FlatTableCell>John Doe</FlatTableCell>
+                  <FlatTableCell>
+                    <PopoverContainer
+                      title="Cover Button"
+                      shouldCoverButton
+                      open={open[key]}
+                      onClose={() => {
+                        togglePopover(key);
+                      }}
+                      onOpen={() => {
+                        togglePopover(key);
+                      }}
+                    >
+                      Content
+                    </PopoverContainer>
+                  </FlatTableCell>
+                  <FlatTableCell>
+                    <DateRange
+                      startLabel="Start"
+                      endLabel="End"
+                      value={state}
+                      onChange={handleChange}
+                    />
+                  </FlatTableCell>
+                  <FlatTableCell>
+                    <MultiActionButton text="Multi Action Button">
+                      <Button>Button 1</Button>
+                      <Button>Button 2</Button>
+                      <Button>Button 3</Button>
+                    </MultiActionButton>
+                  </FlatTableCell>
+                  <FlatTableCell>
+                    <ActionPopover>
+                      <ActionPopoverItem icon="email" onClick={() => {}}>
+                        Email Invoice
+                      </ActionPopoverItem>
+                      <ActionPopoverDivider />
+                      <ActionPopoverItem icon="delete" onClick={() => {}}>
+                        Delete
+                      </ActionPopoverItem>
+                    </ActionPopover>
+                  </FlatTableCell>
+                  <FlatTableCell>
+                    <DateInput
+                      error=""
+                      fieldHelp=""
+                      helpAriaLabel=""
+                      inputWidth={70}
+                      label=""
+                      labelHelp=""
+                      labelWidth={30}
+                      maxDate=""
+                      minDate=""
+                      mt={0}
+                      name="dateinput"
+                      onBlur={() => {}}
+                      onChange={() => {}}
+                      onClick={() => {}}
+                      onKeyDown={() => {}}
+                      prefix=""
+                      size="medium"
+                      value="2019-04-04"
+                      warning=""
+                      disablePortal
+                    />
+                  </FlatTableCell>
+                  <FlatTableCell>
+                    <SplitButton text="Split button">
+                      <Button href="#">Button 1</Button>
+                      <Button>Button 2</Button>
+                      <Button>Button 3</Button>
+                    </SplitButton>
+                  </FlatTableCell>
+                </FlatTableRow>
+              );
+            })}
+        </FlatTableBody>
+      </FlatTable>
+    </Box>
+  );
+};
+
+FlatTableWithStickyHeadAndFooter.parameters = {
+  chromatic: { disableSnapshot: true },
 };

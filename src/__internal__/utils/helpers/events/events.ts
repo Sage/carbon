@@ -122,6 +122,20 @@ const Events = {
   },
 
   /**
+   * Determines if the key pressed is the page up key
+   * */
+  isPageUpKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
+    return ev.key === "PageUp";
+  },
+
+  /**
+   * Determines if the key pressed is the page down key
+   * */
+  isPageDownKey: (ev: React.KeyboardEvent | KeyboardEvent): boolean => {
+    return ev.key === "PageDown";
+  },
+
+  /**
    * Gets the event's path which is an array of the objects on which listeners will be invoked.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Event/composedPath
    */
