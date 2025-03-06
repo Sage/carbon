@@ -23,7 +23,7 @@ interface StyledSubmenuWrapperProps extends SharedStyleProps {
 
 interface StyledSubmenuProps
   extends SharedStyleProps,
-    Pick<SubmenuProps, "variant" | "submenuMaxWidth"> {
+    Pick<SubmenuProps, "variant" | "submenuMaxWidth" | "submenuMinWidth"> {
   submenuDirection?: string;
   maxHeight?: string;
   applyFocusRadiusStyling: boolean;
@@ -73,6 +73,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     applyFocusRadiusStyling,
     applyFocusRadiusStylingToLastItem,
     submenuMaxWidth,
+    submenuMinWidth,
   }) => css`
     ${!inFullscreenView &&
     menuType &&
@@ -84,7 +85,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
         ? menuConfigVariants[menuType].submenuItemBackground
         : menuConfigVariants[menuType].background};
 
-      min-width: 100%;
+      min-width: ${submenuMinWidth ?? "100%"};
 
       ${submenuMaxWidth &&
       css`
