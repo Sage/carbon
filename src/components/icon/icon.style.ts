@@ -1,9 +1,6 @@
 import styled, { css } from "styled-components";
-
 import { shade } from "polished";
-
 import { margin } from "styled-system";
-
 import baseTheme, { ThemeObject } from "../../style/themes/base";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import styledColor from "../../style/utils/color";
@@ -17,9 +14,7 @@ import { IconType } from "./icon-type";
 import iconUnicodes from "./icon-unicodes";
 
 export type BackgroundShape = "circle" | "rounded-rect" | "square";
-
 export type BgSize = "small" | "medium" | "large" | "extra-large";
-
 export type FontSize = "small" | "medium" | "large" | "extra-large";
 
 export interface StyledIconProps {
@@ -97,10 +92,10 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
     disabled,
     hasTooltip,
   }) => {
-    let finalColor;
-    let finalHoverColor;
-    let bgColor;
-    let bgHoverColor;
+    let finalColor = "var(--colorsYin090)";
+    let finalHoverColor = "var(--colorsYin090)";
+    let bgColor = "transparent";
+    let bgHoverColor = "transparent";
 
     const adjustedBgSize = adjustIconBgSize(fontSize, bgSize);
 
@@ -112,18 +107,12 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
         const { color: renderedColor } = styledColor({ color, theme });
         finalColor = renderedColor;
         finalHoverColor = shade(0.2, getColorValue(renderedColor));
-      } else {
-        finalColor = "var(--colorsYin090)";
-        finalHoverColor = "var(--colorsYin090)";
       }
 
       if (bg) {
         const { backgroundColor } = styledColor({ bg, theme });
         bgColor = backgroundColor;
         bgHoverColor = shade(0.2, getColorValue(backgroundColor));
-      } else {
-        bgColor = "transparent";
-        bgHoverColor = "transparent";
       }
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -140,15 +129,12 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
       height: ${adjustedBgSize};
       width: ${adjustedBgSize};
       ${bgShape ? `border-radius: ${iconConfig.backgroundShape[bgShape]}` : ""};
-
-      ${isInteractive &&
-      css`
+      ${isInteractive && `
         &:hover {
           color: ${finalHoverColor};
           background-color: ${bgHoverColor};
         }
       `}
-
       &::before {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -159,22 +145,18 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
         font-weight: normal;
         vertical-align: middle;
 
-        ${fontSize &&
-        css`
+        ${fontSize && `
           font-size: ${iconConfig.iconSize[fontSize]};
           line-height: ${iconConfig.iconSize[fontSize]};
         `}
-
-        ${type === "services" &&
-        browserTypeCheck(window) &&
-        css`
+      ${type === "services" &&
+        browserTypeCheck(window) && `
           margin-top: ${fontSize === "small" ? "-7px" : "-8px"};
         `}
 
         ${type === "services" &&
         isSafari(navigator) &&
-        !browserTypeCheck(window) &&
-        css`
+        !browserTypeCheck(window) && `
           margin-top: -6px;
         `}
 
@@ -189,12 +171,10 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
       `}
 
       ${margin}
-    `;
-  }}
+  `}}
 `;
 
 StyledIcon.defaultProps = {
   theme: baseTheme,
 };
-
 export default StyledIcon;

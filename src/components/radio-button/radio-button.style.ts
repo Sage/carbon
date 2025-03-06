@@ -10,6 +10,7 @@ import baseTheme from "../../style/themes/base";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import { RadioButtonProps } from "./radio-button.component";
 
+// @ts-expect-error known issue with TS v5 infering incorreclty that it's a circular dependency
 const RadioButtonStyle = styled(CheckboxStyle)<
   Pick<
     RadioButtonProps,

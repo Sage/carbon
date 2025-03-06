@@ -202,7 +202,7 @@ export const ReverseRadioButtons: Story = () => {
         id="reverse-radio-2"
         value="radio2"
         label="Radio Option 2"
-        reverse
+        
       />
       <RadioButton
         id="reverse-radio-3"

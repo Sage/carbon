@@ -1,4 +1,6 @@
-import { ModalList } from "components/modal/__internal__/modal-manager";
+import { ThemeObject } from "style/themes";
+import { ModalList } from "./components/modal/__internal__/modal-manager";
+import 'styled-components';
 
 declare global {
   module "*.png";
@@ -17,4 +19,15 @@ declare global {
       restoreValues?: (() => void) | null;
     };
   }
+}
+
+// Module augmentations should be outside the global block
+declare module 'styled-components' {
+  export type DefaultTheme = ThemeObject
+  
+  // This helps with circular references in nested css calls
+  export function css(
+    first: TemplateStringsArray | CSSObject,
+    ...interpolations: SimpleInterpolation[]
+  ): FlattenSimpleInterpolation;
 }

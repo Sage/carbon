@@ -20,3 +20,5 @@ storybook-static/
 playwright/test-results
 playwright/test-report
 playwright/.cache
+
+scripts/compare_dist.js

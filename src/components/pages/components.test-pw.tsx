@@ -113,7 +113,7 @@ export const PagesComponent = (
   const [pageIndex, setPageIndex] = useState(
     Number(props.initialPageIndex)
       ? Number(props.initialPageIndex)
-      : undefined || 0,
+      : 0,
   );
   const [isDisabled, setIsDisabled] = React.useState(false);
 
