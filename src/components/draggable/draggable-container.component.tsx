@@ -65,7 +65,7 @@ const DraggableContainer = forwardRef<
 
     const marginProps = filterStyledSystemMarginProps(rest);
 
-    const [draggableHookContainer] = useDraggable({
+    const { draggableElement: draggableHookContainer } = useDraggable({
       draggableItems: children,
       ref,
       getOrder,

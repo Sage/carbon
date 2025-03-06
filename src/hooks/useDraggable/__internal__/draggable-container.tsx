@@ -42,6 +42,7 @@ const DraggableContainer = forwardRef<
 >(
   (
     {
+      id,
       children,
       getOrder,
       containerStyle,
@@ -54,12 +55,12 @@ const DraggableContainer = forwardRef<
     const { register, lists, move } = useContext(DraggableProviderContext);
     const [list, setList] = useState<React.ReactNode[]>([]);
 
-    const uniqueId = useRef(guid());
+    const uniqueId = id || useRef(guid()).current;
     const containerRef = useRef<HTMLDivElement>();
     const hasMounted = useRef(false);
 
     const effectiveList = useMemo(() => {
-      return list.length > 0 ? list : lists?.[uniqueId.current] || [];
+      return list.length > 0 ? list : lists?.[uniqueId] || [];
     }, [list, lists]);
 
     const localRegister = (items: React.ReactNode | React.ReactNode[]) => {
@@ -76,7 +77,7 @@ const DraggableContainer = forwardRef<
 
         const elements = Array.from(
           document.querySelectorAll(
-            `[data-parent-container-id="${uniqueId.current}"]`,
+            `[data-parent-container-id="${uniqueId}"]`,
           ),
         );
 
@@ -110,7 +111,7 @@ const DraggableContainer = forwardRef<
         requestAnimationFrame(() => {
           const updatedElements = Array.from(
             document.querySelectorAll(
-              `[data-parent-container-id="${uniqueId.current}"]`,
+              `[data-parent-container-id="${uniqueId}"]`,
             ),
           );
 
@@ -139,7 +140,7 @@ const DraggableContainer = forwardRef<
     useEffect(() => {
       if (!hasMounted.current) {
         if (register) {
-          register(uniqueId.current, React.Children.toArray(children));
+          register(uniqueId, React.Children.toArray(children));
         } else {
           localRegister(React.Children.toArray(children));
         }
@@ -184,7 +185,7 @@ const DraggableContainer = forwardRef<
       reOrder: (itemId: number | string, toIndex: number) => {
         const locatedParent = findParentItemId(
           itemId as string,
-          uniqueId.current,
+          uniqueId as string,
         );
         localMove(locatedParent || itemId, toIndex);
       },
@@ -209,7 +210,7 @@ const DraggableContainer = forwardRef<
             return (
               element &&
               isDraggableItemData(source.data) &&
-              source.data.parentContainerId === uniqueId.current
+              source.data.parentContainerId === uniqueId
               && !move
             );
           },
@@ -251,7 +252,7 @@ const DraggableContainer = forwardRef<
 
     return (
       <DraggableContainerContext.Provider
-        value={{ columnId: uniqueId.current }}
+        value={{ columnId: uniqueId }}
       >
         {React.createElement(
           containerNode,
@@ -259,13 +260,13 @@ const DraggableContainer = forwardRef<
             "data-element": "use-draggable-container",
             "data-role": dataRole,
             "data-component": dataComponent,
-            id: uniqueId.current,
+            id: uniqueId,
             style: containerStyle,
             ref: containerRef,
           },
           (effectiveList || []).map((child: React.ReactNode, index: number) => (
             <DraggableItemContext.Provider
-              key={`${uniqueId.current}-${guid()}`}
+              key={`${uniqueId}-${guid()}`}
               value={{ index }}
             >
               {child}

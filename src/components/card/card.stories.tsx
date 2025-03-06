@@ -748,12 +748,10 @@ export const WithDraggable: Story = () => {
     id: string;
     children?: React.ReactNode;
   }) => {
-    const [DraggableContainer, containerDragState] = useDraggable({
+    const { draggableElement: DraggableContainer, containerDragState} = useDraggable({
       containerId: id,
-      draggableItemStylingOptOut: true,
       draggableItems: children,
-      containerStyle: { width: "inherit" },
-      indicatorColor: "black",
+      containerStyle: { width: "inherit", height: "inherit" },
     });
     const isDragging =
       containerDragState?.draggingBetweenContainers &&

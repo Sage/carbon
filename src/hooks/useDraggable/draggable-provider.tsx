@@ -128,6 +128,29 @@ const DraggableProvider = forwardRef<
             const destinationContainer = element?.getAttribute("data-parent-container-id") as string || source.data.parentContainerId as string;
             const targetContainer = target.data.parentContainerId as string;
 
+            console.log(targetContainer, destinationContainer);
+
+            if (
+              targetContainer !== undefined &&
+              targetContainer !== null &&
+              destinationContainer !== undefined &&
+              destinationContainer !== null &&
+              targetContainer !== destinationContainer
+            ) {
+              setContainerDragState((prevState) => {
+                if (
+                  prevState.draggingBetweenContainers !== true ||
+                  prevState.targetContainerId !== targetContainer
+                ) {
+                  return {
+                    draggingBetweenContainers: true,
+                    targetContainerId: targetContainer,
+                  };
+                }
+                return prevState;
+              });
+            }
+
             if (
               !Number.isNaN(indexOfTarget) &&
               indexOfTarget >= 0 &&
@@ -161,7 +184,7 @@ const DraggableProvider = forwardRef<
         onDrop() {
           setContainerDragState({
             draggingBetweenContainers: false,
-            targetContainerId: null,
+            targetContainerId: null
           })
           lastMoveRef.current = {
             indexOfTarget: null,
