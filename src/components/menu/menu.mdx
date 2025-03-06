@@ -133,12 +133,14 @@ A title attribute is added to the item when using this prop, containing the full
 
 <Canvas of={MenuStories.TruncatedTitlesStory} />
 
-### Submenu maxWidth
+### Controlling the submenu width
 
-By default the submenu will have the same width as the widest `MenuItem`. This behaviour can be overridden
-by setting the `submenuMaxWidth` prop on the submenu's parent `MenuItem` component.
+By default, the submenu will have the same width as the widest `MenuItem`. This can be changed
+by setting the `submenuMaxWidth` or `submenuMinWidth` prop on the submenu's parent `MenuItem` component.
 
-<Canvas of={MenuStories.TruncationAndSubmenuWidth} />
+Setting `submenuMaxWidth` will override the `maxWidth` prop of any `MenuItem` in the submenu. Overflowing submenu items will wrap instead of truncating.
+
+<Canvas of={MenuStories.ControllingTheSubmenuWidth} />
 
 ### Responsive composition
 
