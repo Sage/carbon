@@ -1,3 +1,9 @@
+## [151.3.0](https://github.com/Sage/carbon/compare/v151.2.3...v151.3.0) (2025-03-06)
+
+### Features
+
+* support server-side rendering ([f6253ac](https://github.com/Sage/carbon/commit/f6253ac63696501acef76f4838e644790847899f))
+
 ## [151.2.3](https://github.com/Sage/carbon/compare/v151.2.2...v151.2.3) (2025-03-06)
 
 ### Bug Fixes
