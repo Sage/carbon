@@ -15,6 +15,7 @@ import Icon from "../../icon";
 import Portal from "../../portal";
 import FocusTrap from "../../../__internal__/focus-trap";
 import MenuDivider from "../menu-divider/menu-divider.component";
+import { getDocument } from "../../../__internal__/dom/globals";
 import type { TagProps } from "../../../__internal__/utils/helpers/tags";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import useModalAria from "../../../hooks/__internal__/useModalAria";
@@ -91,7 +92,9 @@ export const MenuFullscreen = ({
     closeModal,
     modalRef: menuRef,
     topModalOverride,
-    focusCallToActionElement: document.activeElement as HTMLElement,
+    focusCallToActionElement: getDocument()?.activeElement as
+      | HTMLElement
+      | undefined,
   });
 
   return (
