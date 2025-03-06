@@ -34,6 +34,7 @@ interface UseDraggableOptions {
   draggableItemStylingOptOut?: boolean;
   containerNode?: string;
   itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+  containerId?: string | number;
 }
 
 const useDraggable = ({
@@ -46,6 +47,7 @@ const useDraggable = ({
   draggableItemStylingOptOut,
   containerNode,
   itemsNode,
+  containerId,
 }: UseDraggableOptions): [JSX.Element, ContainerDragState | undefined] => {
   const items = Array.isArray(draggableItems)
     ? draggableItems
@@ -57,6 +59,7 @@ const useDraggable = ({
 
   const draggableElement = (
     <DraggableContainer
+      id={containerId} 
       ref={ref}
       getOrder={getOrder}
       containerStyle={containerStyle}
