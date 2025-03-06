@@ -52,20 +52,19 @@ const DraggableProvider = forwardRef<
     (
       fromListId: string | number,
       toListId: string | number,
-      destinationId: number| string,
+      destinationId: number | string,
       toIndex: number,
     ) => {
       setLists((prevLists) => {
+        const elements = Array.from(
+          document.querySelectorAll(
+            `[data-parent-container-id="${fromListId}"]`,
+          ),
+        );
 
-               const elements = Array.from(
-                  document.querySelectorAll(
-                    `[data-parent-container-id="${fromListId}"]`,
-                  ),
-                );
-            
-                const fromIndex = elements.findIndex(
-                  (item) => item.getAttribute("data-item-id") === destinationId,
-                );
+        const fromIndex = elements.findIndex(
+          (item) => item.getAttribute("data-item-id") === destinationId,
+        );
 
         const copy = { ...prevLists };
         const [nodeToMove] = copy[fromListId].splice(fromIndex, 1);
@@ -91,7 +90,7 @@ const DraggableProvider = forwardRef<
       move(
         fromListId,
         toListId || fromListId,
-        fromIndex,
+        itemId,
         toIndex !== undefined && toIndex !== null
           ? toIndex
           : lists[fromListId].length,
@@ -102,79 +101,86 @@ const DraggableProvider = forwardRef<
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
   const numberOfLists = Object.keys(lists).length;
 
- const lastMoveRef = useRef<{
-      indexOfTarget: null | number;
-      destinationId: null | string | number;
-      targetContainerId: null | string | number;
-      destinationContainerId: null | string | number;
-    }>({
-      indexOfTarget: null,
-      destinationId: null,
-      targetContainerId: null,
-      destinationContainerId: null,
-    });
+  const lastMoveRef = useRef<{
+    indexOfTarget: null | number;
+    destinationId: null | string | number;
+    targetContainerId: null | string | number;
+    destinationContainerId: null | string | number;
+  }>({
+    indexOfTarget: null,
+    destinationId: null,
+    targetContainerId: null,
+    destinationContainerId: null,
+  });
 
+  useEffect(() => {
+    const cleanup = combine(
+      monitorForElements({
+        canMonitor({ source }) {
+          return isDraggableItemData(source.data);
+        },
+        onDropTargetChange({ location, source }) {
+          const target = location.current.dropTargets[0];
+          if (target) {
+            const indexOfTarget = Number(target.data.itemIndex);
+            const destinationId = source.data.itemId as string | number;
+            const element = document.querySelector(`[data-item-id="${destinationId}"]`);
+            const destinationContainer = element?.getAttribute("data-parent-container-id") as string || source.data.parentContainerId as string;
+            const targetContainer = target.data.parentContainerId as string;
 
-    // need to find a way to smoothly handle the moving between containers
-
-    useEffect(() => {
-      const cleanup = combine(
-        monitorForElements({
-          canMonitor({ source }) {
-            return (
-              isDraggableItemData(source.data))
-          },
-          onDropTargetChange({ location, source }) {
-            const target = location.current.dropTargets[0];
-            if (target) {
-              const indexOfTarget = Number(target.data.itemIndex);
-              const destinationId = source.data.itemId as string | number;
-              const destinationContainer = source.data.parentContainerId as string;
-              const targetContainer = target.data.parentContainerId as string;
-
+            if (
+              !Number.isNaN(indexOfTarget) &&
+              indexOfTarget >= 0 &&
+              destinationId !== undefined &&
+              destinationId !== null
+            ) {
               if (
-                !Number.isNaN(indexOfTarget) &&
-                indexOfTarget >= 0 &&
-                destinationId !== undefined &&
-                destinationId !== null
-              ) {
-                if (
-                  lastMoveRef.current.indexOfTarget !== indexOfTarget ||
-                  lastMoveRef.current.destinationId !== destinationId 
-                  || lastMoveRef.current.destinationContainerId !== destinationContainer
-                  || lastMoveRef.current.targetContainerId !== targetContainer
-                ) {
-
-                  if(lastMoveRef.current.destinationContainerId !== lastMoveRef.current.targetContainerId) {
-                    const element = document.querySelector(`[data-item-id="${destinationId}"]`);
-                    const updatedId = element?.getAttribute("data-parent-container-id");
-                    move(updatedId as string, targetContainer, destinationId, indexOfTarget);
-                  } else {
-                    move(destinationContainer, targetContainer, destinationId, indexOfTarget);
-                  }
+                lastMoveRef.current.indexOfTarget !== indexOfTarget ||
+                lastMoveRef.current.destinationId !== destinationId ||
+                lastMoveRef.current.destinationContainerId !== destinationContainer ||
+                lastMoveRef.current.targetContainerId !== targetContainer
+              ) {                
+                  move(destinationContainer, targetContainer, destinationId, indexOfTarget);
                   lastMoveRef.current = { indexOfTarget, destinationId, targetContainerId: targetContainer, destinationContainerId: destinationContainer };
-                }
+              }
+            } else if (
+              destinationId !== undefined &&
+              destinationId !== null &&
+              target.element.id !== undefined &&
+              target.element.id !== null
+            ) {
+              const emptyTargetId = target.element.id;
+              const isEmptyList = emptyTargetId in lists && Array.isArray(lists[emptyTargetId]) && lists[emptyTargetId].length === 0;
+              if (isEmptyList) {
+                move(destinationContainer, emptyTargetId, destinationId, 0);
+                lastMoveRef.current = { indexOfTarget: 0, destinationId, targetContainerId: emptyTargetId, destinationContainerId: destinationContainer };
               }
             }
-          },
-          onDrop: () =>
-            (lastMoveRef.current = {
-              indexOfTarget: null,
-              destinationId: null,
-              targetContainerId: null,
-              destinationContainerId: null,
-            }),
-        }),
-      );
+          }
+        },
+        onDrop() {
+          setContainerDragState({
+            draggingBetweenContainers: false,
+            targetContainerId: null,
+          })
+          lastMoveRef.current = {
+            indexOfTarget: null,
+            destinationId: null,
+            targetContainerId: null,
+            destinationContainerId: null,
+          };
+        },
+      })
+    );
 
-      return () => cleanup();
-    }, [move]);
+    return () => cleanup();
+  }, [move, lists]);
 
   return (
     <DraggableProviderContext.Provider
       value={{ register, move, lists, setClosestEdge, containerDragState }}
     >
-          {children}
+      {children}
     </DraggableProviderContext.Provider>
   );
 });

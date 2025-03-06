@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, useEffect } from "react";
+import React, { forwardRef, useMemo } from "react";
 import { MarginProps } from "styled-system";
 
 import invariant from "invariant";
