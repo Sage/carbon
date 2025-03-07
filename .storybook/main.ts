@@ -45,6 +45,7 @@ const config: StorybookConfig = {
       },
     },
     "@storybook/addon-interactions",
+    "storybook-addon-pseudo-states",
     "@storybook/addon-toolbars",
     "@storybook/addon-viewport",
     "@chromatic-com/storybook",
