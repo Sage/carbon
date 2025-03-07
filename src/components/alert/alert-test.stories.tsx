@@ -152,4 +152,16 @@ export const AlertClick: Story = {
 
     await userEvent.click(ButtonComponent);
   },
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "100vh", width: "100vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+
+AlertClick.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
 };
