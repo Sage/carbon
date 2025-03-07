@@ -60,7 +60,7 @@ export interface NumeralDateEvent {
   };
 }
 
-export interface NumeralDateProps<DateType extends NumeralDateEvent>
+export interface NumeralDateProps
   extends ValidationProps,
     MarginProps,
     TagProps {
@@ -217,8 +217,8 @@ const getDateLabel = (datePart: string, locale: Locale) => {
   }
 };
 
-export const NumeralDate = forwardRef(
-  <DateType extends NumeralDateEvent>(
+export const NumeralDate = forwardRef<HTMLInputElement, NumeralDateProps>(
+  (
     {
       dateFormat = ["dd", "mm", "yyyy"],
       defaultValue,
@@ -253,8 +253,8 @@ export const NumeralDate = forwardRef(
       monthRef,
       yearRef,
       ...rest
-    }: NumeralDateProps<DateType>,
-    ref: React.Ref<HTMLInputElement> | null,
+    },
+    ref,
   ) => {
     const locale = useLocale();
     const { validationRedesignOptIn } = useContext(NewValidationContext);
@@ -279,10 +279,8 @@ export const NumeralDate = forwardRef(
         }) as HTMLInputElement,
     );
 
-    const [internalMessages, setInternalMessages] = useState<DateType>({
-      ...(Object.fromEntries(
-        dateFormat.map((datePart) => [datePart, ""]),
-      ) as NumeralDateValue as DateType),
+    const [internalMessages, setInternalMessages] = useState<NumeralDateValue>({
+      ...Object.fromEntries(dateFormat.map((datePart) => [datePart, ""])),
     });
 
     const hasCorrectDateFormat = useMemo(() => {
@@ -310,16 +308,16 @@ export const NumeralDate = forwardRef(
 
     const [dateValue, setDateValue] = useState<NumeralDateValue>({
       ...(initialValue ||
-        (Object.fromEntries(
-          dateFormat.map((datePart) => [datePart, ""]),
-        ) as Partial<NumeralDateValue>)),
+        Object.fromEntries(dateFormat.map((datePart) => [datePart, ""]))),
     });
 
-    const createCustomEventObject = (newValue: DateType): NumeralDateEvent => ({
+    const createCustomEventObject = (
+      newValue: NumeralDateValue,
+    ): NumeralDateEvent => ({
       target: {
         name,
         id: uniqueId,
-        value: newValue as NumeralDateValue,
+        value: newValue,
       },
     });
 
@@ -338,7 +336,7 @@ export const NumeralDate = forwardRef(
 
     const handleChange = (
       event: React.ChangeEvent<HTMLInputElement>,
-      datePart: keyof NumeralDateEvent,
+      datePart: keyof NumeralDateValue,
     ) => {
       const { value: newValue } = event.target;
 
@@ -346,8 +344,8 @@ export const NumeralDate = forwardRef(
         const newDateValue = {
           ...dateValue,
           [datePart]: newValue,
-        } as unknown as DateType;
-        setDateValue(newDateValue as NumeralDateValue);
+        };
+        setDateValue(newDateValue);
 
         /* istanbul ignore else */
         if (onChange) {
@@ -363,7 +361,7 @@ export const NumeralDate = forwardRef(
       if (internalValidationEnabled) {
         setInternalMessages((prev) => ({
           ...prev,
-          ...validate(locale, dateValue as NumeralDateValue),
+          ...validate(locale, dateValue),
         }));
       }
       setTimeout(() => {
@@ -372,13 +370,13 @@ export const NumeralDate = forwardRef(
         );
         /* istanbul ignore else */
         if (onBlur && hasBlurred) {
-          onBlur(createCustomEventObject(dateValue as DateType));
+          onBlur(createCustomEventObject(dateValue));
         }
       }, 5);
     };
 
     const internalMessage = (
-      Object.keys(internalMessages) as (keyof DateType)[]
+      Object.keys(internalMessages) as (keyof NumeralDateValue)[]
     ).reduce(
       (combinedMessage, datePart) =>
         internalMessages[datePart]
@@ -487,10 +485,8 @@ export const NumeralDate = forwardRef(
                     warning={!!internalWarning}
                     info={!!info}
                     size={size}
-                    value={dateValue[datePart as keyof NumeralDateValue]}
-                    onChange={(e) =>
-                      handleChange(e, datePart as keyof NumeralDateEvent)
-                    }
+                    value={dateValue[datePart]}
+                    onChange={(e) => handleChange(e, datePart)}
                     onBlur={handleBlur}
                     ref={(element) => handleRef(element, index, inputRef)}
                     {...(isEnd &&
