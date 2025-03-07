@@ -74,7 +74,7 @@ const StyledSwitchSlider = styled.div`
 
         &::before {
           margin-left: calc(
-            100% -
+            100% - ;
               ${size === "large" ? "var(--spacing500)" : "var(--spacing300)"}
           );
           background-color: ${isDarkBackground

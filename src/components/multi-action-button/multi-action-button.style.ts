@@ -20,12 +20,13 @@ const StyledMultiActionButton = styled.div<StyledMultiActionButtonProps>`
   ${({ width }) =>
     width &&
     css`
-    ${computeSizing({ width })}
+      ${computeSizing({ width })}
 
-    ${StyledButton} {
-      width: 100%
-      justify-content: space-between;
-    }`}
+      ${StyledButton} {
+        width: 100%;
+        justify-content: space-between;
+      }
+    `}
 
   & > ${StyledButton} {
     margin: 0;
