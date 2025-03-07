@@ -5,8 +5,21 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 
 jest.mock("../../hooks/useMediaQuery", () => ({
   __esModule: true,
-  default: jest.fn().mockReturnValue(true),
+  default: jest.fn(),
 }));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockUseMediaQuery.mockReturnValue(true);
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
+});
 
 test("should render with the expected data- attributes", () => {
   render(<LoaderStar data-element="fish" data-role="chips" />);
@@ -17,7 +30,17 @@ test("should render with the expected data- attributes", () => {
   expect(LoaderStarComponent).toHaveAttribute("data-role", "chips");
 });
 
+test("should return null and render nothing when useMediaQuery returns undefined", () => {
+  mockUseMediaQuery.mockReturnValueOnce(undefined);
+
+  render(<LoaderStar />);
+
+  const wrapperElement = screen.queryByRole("status");
+  expect(wrapperElement).not.toBeInTheDocument();
+});
+
 test("component should have a visually hidden label for assistive technologies by default", () => {
+  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<LoaderStar />);
 
   const hiddenLabelElement = screen.getByTestId("hidden-label");
@@ -26,6 +49,7 @@ test("component should have a visually hidden label for assistive technologies b
 });
 
 test("renders a custom visually hidden label for assistive technologies to use, when loaderStarLabel prop is provided", () => {
+  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<LoaderStar loaderStarLabel="Responding..." />);
 
   const hiddenLabelElement = screen.getByTestId("hidden-label");
@@ -35,10 +59,7 @@ test("renders a custom visually hidden label for assistive technologies to use, 
 
 describe("when the component is rendered and the user prefers reduced motion", () => {
   it("should render the the LoaderStar label", () => {
-    const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
-      typeof useMediaQuery
-    >;
-    mockUseMediaQuery.mockReturnValueOnce(false);
+    mockUseMediaQuery.mockReturnValueOnce(true);
 
     render(<LoaderStar />);
 
@@ -50,10 +71,7 @@ describe("when the component is rendered and the user prefers reduced motion", (
   });
 
   it("should not render the svg stars", () => {
-    const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
-      typeof useMediaQuery
-    >;
-    mockUseMediaQuery.mockReturnValueOnce(false);
+    mockUseMediaQuery.mockReturnValueOnce(true);
 
     render(<LoaderStar />);
 
