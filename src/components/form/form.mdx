@@ -37,15 +37,16 @@ When `stickyFooter` prop is set as true, footer becomes stickied to the bottom o
 
 <Canvas of={FormStories.WithFullWidthButtons} />
 
-### With different spacing
+### Field Spacing
 
-When `fieldSpacing` prop is given a value, the vertical spacing between the form fields is changed (margin bottom on each field), the value of the prop multiplied by the base theme `8px` spacing value. The default is value `3` which is therefore `24px`. This can be overriden on a specific field if needed.
+You can use the `fieldSpacing` prop to set the spacing between fields within `Form`, which will add a margin-bottom to supported input components. 
+The value is multiplied by the base theme `8px` spacing value, by default this is set to `3`.
 
-<Canvas of={FormStories.WithDifferentSpacing} />
+<Canvas of={FormStories.FieldSpacing} />
 
-### Override spacing on one field
+### Override spacing on a field
 
-A child component (which uses `FormField`) can be given a `mb` prop which overrides the bottom margin for that particular field. This uses the same base theme `8px` multiplier as the Form `fieldSpacing` prop.
+You can override the spacing of a field by using the `mb` prop on the specific input.
 
 <Canvas of={FormStories.OverrideFieldSpacing} />
 

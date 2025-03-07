@@ -22,7 +22,10 @@ import {
 import useLocale from "../../hooks/__internal__/useLocale";
 import Logger from "../../__internal__/utils/logger";
 import Events from "../../__internal__/utils/helpers/events";
-import { filterOutStyledSystemSpacingProps } from "../../style/utils";
+import {
+  filterOutStyledSystemSpacingProps,
+  filterStyledSystemMarginProps,
+} from "../../style/utils";
 import getFormatData from "./__internal__/date-formats";
 import StyledDateInput from "./date.style";
 import Textbox, { TextboxProps } from "../textbox";
@@ -31,7 +34,6 @@ import DateRangeContext, {
   InputName,
 } from "../date-range/__internal__/date-range.context";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import guid from "../../__internal__/utils/helpers/guid";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
@@ -492,7 +494,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       return value;
     };
 
-    const marginProps = useFormSpacing(rest);
+    const marginProps = filterStyledSystemMarginProps(rest);
 
     return (
       <StyledDateInput
