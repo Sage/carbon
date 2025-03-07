@@ -7,8 +7,21 @@ import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../hooks/useMediaQuery", () => ({
   __esModule: true,
-  default: jest.fn().mockReturnValue(false),
+  default: jest.fn(),
 }));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockUseMediaQuery.mockReturnValue(true);
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
+});
 
 testStyledSystemMargin(
   (props) => <Loader data-role="loader" {...props} />,
@@ -28,6 +41,34 @@ test("throws a deprecation warning if the 'aria-label' prop is set", () => {
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 
   loggerSpy.mockRestore();
+});
+
+test.each([
+  ["large", "20px", "8px"],
+  ["medium", "16px", "8px"],
+  ["small", "12px", "6px"],
+  [undefined, "16px", "8px"],
+] as const)(
+  "applies correct styles when size is '%s'",
+  (size, expectedWidth, expectedMarginRight) => {
+    const props = size ? { size } : {};
+
+    render(<Loader {...props} />);
+
+    const squares = screen.getAllByTestId("loader-square");
+    const style = window.getComputedStyle(squares[0]);
+
+    expect(style.width).toBe(expectedWidth);
+    expect(style.marginRight).toBe(expectedMarginRight);
+  },
+);
+
+test("when the user disallows animations, alternative loading text is rendered", () => {
+  mockUseMediaQuery.mockReturnValueOnce(false);
+  render(<Loader />);
+
+  expect(screen.queryByTestId("hidden-label")).not.toBeInTheDocument();
+  expect(screen.getByText("Loading")).toBeVisible();
 });
 
 test("when the user disallows animations or their preference cannot be determined, alternative loading text is rendered", () => {
@@ -55,18 +96,9 @@ test("when the user disallows animations or their preference cannot be determine
 });
 
 describe("when the user allows animations", () => {
-  beforeEach(() => {
-    const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
-      typeof useMediaQuery
-    >;
-    mockUseMediaQuery.mockReturnValueOnce(true);
-  });
-
   test("renders three square animation", () => {
     render(<Loader />);
-
     const squares = screen.getAllByTestId("loader-square");
-
     expect(squares).toHaveLength(3);
   });
 
