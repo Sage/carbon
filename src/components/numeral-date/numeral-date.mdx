@@ -22,7 +22,7 @@ For dates close to today, we advise the use of a standard datepicker. If you req
 Import `NumeralDate` into the project.
 
 ```javascript
-import NumeralDate from "carbon-react/lib/components/numeral-date";
+import NumeralDate, { NumeralDateProps } from "carbon-react/lib/components/numeral-date";
 ```
 
 ## Examples
@@ -110,6 +110,12 @@ You can use the `size` prop to set the size of the field.
 ### isOptional
 
 <Canvas of={NumeralDateStories.IsOptional} />
+
+### Programmatic Focus
+
+It is possible to focus the `NumeralDate` component programmatically by passing a ref to the component and calling the `focus` method on it.
+
+<Canvas of={NumeralDateStories.ProgrammaticFocus} />
 
 ## Props
 
