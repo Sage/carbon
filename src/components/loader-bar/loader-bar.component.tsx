@@ -21,9 +21,13 @@ export interface LoaderBarProps
 export const LoaderBar = ({ size = "medium", ...rest }: LoaderBarProps) => {
   const l = useLocale();
 
-  const reduceMotion = !useMediaQuery(
+  const allowMotion = useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
+
+  if (allowMotion === undefined) {
+    return null;
+  }
 
   return (
     <StyledLoader
@@ -32,12 +36,12 @@ export const LoaderBar = ({ size = "medium", ...rest }: LoaderBarProps) => {
       {...tagComponent("loader-bar", rest)}
       {...filterStyledSystemMarginProps(rest)}
     >
-      {reduceMotion ? (
-        l.loader.loading()
-      ) : (
+      {allowMotion ? (
         <StyledLoaderBar data-role="outer-bar" size={size}>
           <InnerBar data-role="inner-bar" size={size} />
         </StyledLoaderBar>
+      ) : (
+        l.loader.loading()
       )}
     </StyledLoader>
   );
