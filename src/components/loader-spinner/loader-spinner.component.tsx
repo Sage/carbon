@@ -65,9 +65,15 @@ export const LoaderSpinner = ({
 }: LoaderSpinnerProps) => {
   const locale = useLocale();
 
-  const reduceMotion = !useMediaQuery(
+  const noPreference = useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
+
+  const reduceMotion = !noPreference;
+
+  if (noPreference === undefined) {
+    return null;
+  }
 
   const isLabelDark = variant !== "inverse" && variant !== "gradient-white";
 

@@ -23,12 +23,18 @@ export interface LoaderStarProps extends TagProps {
 const LoaderStar = ({
   loaderStarLabel,
   ...rest
-}: LoaderStarProps): JSX.Element => {
+}: LoaderStarProps): JSX.Element | null => {
   const locale = useLocale();
 
-  const reduceMotion = !useMediaQuery(
+  const noPreference = useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
+
+  const reduceMotion = !noPreference;
+
+  if (noPreference === undefined) {
+    return null;
+  }
 
   const label = (
     <StyledLabel data-role="visible-label" variant="span" fontWeight="400">

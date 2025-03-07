@@ -7,12 +7,26 @@ import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../hooks/useMediaQuery", () => ({
   __esModule: true,
-  default: jest.fn().mockReturnValue(false),
+  default: jest.fn(),
 }));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockUseMediaQuery.mockReturnValue(false);
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
+});
 
 testStyledSystemMargin(
   (props) => <Loader data-role="loader" {...props} />,
-  () => screen.getByTestId("loader"),
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  () => screen.queryByTestId("loader")!,
 );
 
 test("throws a deprecation warning if the 'aria-label' prop is set", () => {
@@ -30,13 +44,21 @@ test("throws a deprecation warning if the 'aria-label' prop is set", () => {
   loggerSpy.mockRestore();
 });
 
-test("when the user disallows animations or their preference cannot be determined, alternative loading text is rendered", () => {
+test("does not render anything when `reduceMotion` is undefined", () => {
+  mockUseMediaQuery.mockReturnValueOnce(undefined);
+
+  render(<Loader />);
+
+  expect(screen.queryByTestId("loader")).not.toBeInTheDocument();
+});
+
+test("when the user disallows animations or their preference cannot be determinded, alternative loading text is rendered", () => {
   render(<Loader />);
 
   expect(screen.getByText("Loading")).toBeVisible();
 });
 
-test("when the user disallows animations or their preference cannot be determined, the provided `aria-label` is rendered", () => {
+test("when the user disallows animations or their preference cannot be determinded, the provided `aria-label` is rendered", () => {
   const loggerSpy = jest
     .spyOn(Logger, "deprecate")
     .mockImplementation(() => {});
@@ -56,16 +78,12 @@ test("when the user disallows animations or their preference cannot be determine
 
 describe("when the user allows animations", () => {
   beforeEach(() => {
-    const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
-      typeof useMediaQuery
-    >;
-    mockUseMediaQuery.mockReturnValueOnce(true);
+    mockUseMediaQuery.mockReturnValue(true);
   });
-
-  test("renders three square animation", () => {
+  test("renders three square animation", async () => {
     render(<Loader />);
 
-    const squares = screen.getAllByTestId("loader-square");
+    const squares = await screen.findAllByTestId("loader-square");
 
     expect(squares).toHaveLength(3);
   });

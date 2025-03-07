@@ -8,11 +8,22 @@ import {
   LOADER_SPINNER_SIZES as sizes,
 } from "./loader-spinner.config";
 
-jest.mock("../../hooks/useMediaQuery", () => {
-  return {
-    __esModule: true,
-    default: jest.fn().mockReturnValue(true),
-  };
+jest.mock("../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockUseMediaQuery.mockReturnValue(true);
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
 });
 
 test("the component wrapper renders with a role of status", () => {
@@ -20,6 +31,16 @@ test("the component wrapper renders with a role of status", () => {
   const wrapperElement = screen.getByRole("status");
 
   expect(wrapperElement).toBeVisible();
+});
+
+test("should return null and render nothing when useMediaQuery returns undefined", () => {
+  mockUseMediaQuery.mockReturnValueOnce(undefined);
+
+  render(<LoaderSpinner />);
+
+  const wrapperElement = screen.queryByRole("status");
+
+  expect(wrapperElement).not.toBeInTheDocument();
 });
 
 test("the svg spinner circle wrapper renders", () => {
@@ -53,6 +74,9 @@ test("the spinner label renders", () => {
 });
 
 describe("when custom props are passed", () => {
+  beforeEach(() => {
+    mockUseMediaQuery.mockReturnValue(true);
+  });
   it("should be visible when the 'spinnerLabel' prop is passed a custom string value", () => {
     render(<LoaderSpinner spinnerLabel="foo" />);
     const visibleLabelElement = screen.getByText("foo");
@@ -302,9 +326,10 @@ describe("when custom props are passed", () => {
 
   it.each([1, 2, 3, 5, 10])(
     "when 'animationTime' is passed as `%s` the animation duration is the correct time",
-    (animationTimes) => {
+    async (animationTimes) => {
       render(<LoaderSpinner animationTime={animationTimes} />);
-      const innerArcSvgElement = screen.getByTestId("inner-arc");
+
+      const innerArcSvgElement = await screen.findByTestId("inner-arc");
 
       expect(innerArcSvgElement).toHaveStyle(
         `animation-duration: ${animationTimes}s`,
@@ -314,13 +339,6 @@ describe("when custom props are passed", () => {
 });
 
 describe("when the component is rendered and the end user prefers reduced motion", () => {
-  beforeEach(() => {
-    const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
-      typeof useMediaQuery
-    >;
-    mockUseMediaQuery.mockReturnValueOnce(false);
-  });
-
   it("the spinner label renders", () => {
     render(<LoaderSpinner />);
     const wrapperElement = screen.getByRole("status");
@@ -331,6 +349,8 @@ describe("when the component is rendered and the end user prefers reduced motion
   });
 
   it("the svg spinner circle does not render", () => {
+    mockUseMediaQuery.mockReturnValueOnce(false);
+
     render(<LoaderSpinner />);
     const svgCircleElement = screen.queryByRole("presentation");
 

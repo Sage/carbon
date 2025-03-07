@@ -51,9 +51,15 @@ export const Loader = ({
 
   const l = useLocale();
 
-  const reduceMotion = !useMediaQuery(
+  const noPreference = useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
+
+  const reduceMotion = !noPreference;
+
+  if (noPreference === undefined) {
+    return null;
+  }
 
   const loaderSquareProps = {
     isInsideButton,

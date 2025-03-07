@@ -3,11 +3,22 @@ import { render, screen } from "@testing-library/react";
 import LoaderBar from "./loader-bar.component";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
-jest.mock("../../hooks/useMediaQuery", () => {
-  return {
-    __esModule: true,
-    default: jest.fn().mockReturnValue(true),
-  };
+jest.mock("../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockUseMediaQuery.mockReturnValue(false);
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
 });
 
 test("renders", () => {
@@ -26,9 +37,6 @@ test("renders with custom data role and element", () => {
 });
 
 test("renders alternative loading text if user prefers reduced motion", () => {
-  const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
-    typeof useMediaQuery
-  >;
   mockUseMediaQuery.mockReturnValueOnce(false);
 
   render(<LoaderBar />);
