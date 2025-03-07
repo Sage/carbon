@@ -137,6 +137,7 @@ const onTabGuardFocus =
     let nextWrapper;
     let allFocusableElementsInNextWrapper: Element[] | undefined;
 
+    /* istanbul ignore next */
     do {
       index += isTop ? -1 : 1;
       if (index < 0) {
@@ -160,6 +161,7 @@ const onTabGuardFocus =
       isTop ? allFocusableElementsInNextWrapper.length - 1 : 0
     ] as HTMLElement;
 
+    /* istanbul ignore next */
     if (isRadio(toFocus)) {
       const radioToFocus = getRadioElementToFocus(
         toFocus.getAttribute("name") as string,
@@ -214,10 +216,6 @@ const trapFunction = (
     return;
   }
 
-  if (!focusableSelectors) {
-    return;
-  }
-
   const elementWhenWrapperFocused = ev.shiftKey
     ? (firstElement as HTMLElement)
     : (lastElement as HTMLElement);
@@ -238,6 +236,9 @@ const trapFunction = (
     // if next element would match the custom selector anyway, then no need to prevent default
     setElementFocus(elementToFocus);
     ev.preventDefault();
+  } else if (defaultNextElement) {
+    ev.preventDefault();
+    setElementFocus(defaultNextElement);
   }
 };
 

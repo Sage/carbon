@@ -1320,21 +1320,6 @@ test("should focus the last focusable element when the the focus is on a non foc
   expect(screen.getByRole("button", { name: "Three" })).toHaveFocus();
 });
 
-test("when focusableSelectors is not used, preventDefault is not called upon tab press", async () => {
-  render(
-    <MockComponent>
-      <button type="button">One</button>
-      <button type="button">Two</button>
-    </MockComponent>,
-  );
-  const buttonOne = screen.getByRole("button", { name: "One" });
-  const firstKeydownEvent = createEvent.keyDown(buttonOne, { key: "Tab" });
-
-  fireEvent(buttonOne, firstKeydownEvent);
-
-  expect(firstKeydownEvent.defaultPrevented).toBeFalsy();
-});
-
 test("when focusableSelectors is used, preventDefault is called when needed to prevent an undesired element becomes focused", async () => {
   render(
     <MockComponent focusableSelectors="button.focusable">
