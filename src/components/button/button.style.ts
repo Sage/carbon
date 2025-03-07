@@ -1,12 +1,14 @@
 import styled, { css } from "styled-components";
-import { space, SpaceProps } from "styled-system";
-import { IconType } from "../icon";
 
-import BaseTheme from "../../style/themes/base";
-import buttonTypes from "./button-types.style";
+import { space, SpaceProps } from "styled-system";
+
+import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
-import { ButtonProps, SizeOptions } from "./button.component";
+import BaseTheme from "../../style/themes/base";
 import addFocusStyling from "../../style/utils/add-focus-styling";
+
+import buttonTypes from "./button-types.style";
+import { ButtonProps, SizeOptions } from "./button.component";
 
 function additionalIconStyle(iconType?: IconType) {
   if (iconType === "services") return "6px";
@@ -26,8 +28,8 @@ function stylingForIconOnly(size?: SizeOptions) {
       dimension = "40px";
   }
   return `
-  padding: 0px; 
-  width: ${dimension}; 
+  padding: 0px;
+  width: ${dimension};
   min-height: ${dimension}`;
 }
 
@@ -37,12 +39,13 @@ function stylingForType({
   buttonType,
   size,
   destructive,
-}: Pick<ButtonProps, "disabled" | "size" | "destructive"> & {
+  isWhite,
+}: Pick<ButtonProps, "disabled" | "size" | "destructive" | "isWhite"> & {
   iconOnly?: boolean;
   buttonType: Required<ButtonProps>["buttonType"];
 }) {
   return css`
-    ${buttonTypes(disabled, destructive)[buttonType]};
+    ${buttonTypes(disabled, destructive, isWhite)[buttonType]};
 
     ${size === "small" &&
     css`
@@ -55,7 +58,7 @@ function stylingForType({
       font-size: var(--fontSizes100);
       min-height: 40px;
     `}
-    
+
     ${size === "large" &&
     css`
       font-size: var(--fontSizes200);
@@ -100,7 +103,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     css`
       width: 100%;
     `}
-    
+
   ${({ iconOnly, iconPosition, iconType }) => css`
     ${StyledIcon} {
       margin-left: ${!iconOnly && iconPosition === "after"

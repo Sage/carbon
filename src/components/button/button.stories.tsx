@@ -217,6 +217,86 @@ export const SecondaryButtonNoWrap: Story = () => {
 };
 SecondaryButtonNoWrap.storyName = "Secondary/No Wrap";
 
+export const SecondaryButtonWhite: Story = () => {
+  return (
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={2}
+      backgroundColor="var(--colorsUtilityYin100)"
+    >
+      <Box
+        height="80px"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        gap={2}
+      >
+        <Button size="small" isWhite>
+          Small White
+        </Button>
+        <Button isWhite>Medium White</Button>
+        <Button size="large" isWhite>
+          Large White
+        </Button>
+      </Box>
+      <Box
+        height="80px"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        gap={2}
+      >
+        <Button size="small" iconType="square_dot" isWhite>
+          Small White & Icon
+        </Button>
+        <Button iconType="square_dot" isWhite>
+          Medium White & Icon
+        </Button>
+        <Button iconType="square_dot" size="large" isWhite>
+          Large White & Icon
+        </Button>
+      </Box>
+      <Box
+        height="80px"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        gap={2}
+      >
+        <Button disabled isWhite>
+          Disabled & White
+        </Button>
+        <Button destructive isWhite>
+          Destructive & White
+        </Button>
+        <Button disabled destructive isWhite>
+          Disabled, Destructive & White
+        </Button>
+      </Box>
+      <Box
+        height="80px"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        gap={2}
+      >
+        <Button disabled isWhite iconType="square_dot">
+          Disabled & White
+        </Button>
+        <Button destructive isWhite iconType="square_dot">
+          Destructive & White
+        </Button>
+        <Button disabled destructive isWhite iconType="square_dot">
+          Disabled, Destructive & White
+        </Button>
+      </Box>
+    </Box>
+  );
+};
+SecondaryButtonWhite.storyName = "Secondary/White";
+SecondaryButtonWhite.parameters = { chromatic: { disableSnapshot: false } };
+
 export const TertiaryButton: Story = () => {
   return (
     <Box>
@@ -323,99 +403,159 @@ TertiaryButtonNoWrap.storyName = "Tertiary/No Wrap";
 
 export const DarkBackgroundButton: Story = () => {
   return (
-    <Box>
-      <Button mt={2} buttonType="darkBackground" size="small">
-        Small
-      </Button>
-      <Button mt={2} buttonType="darkBackground" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="darkBackground" size="large" ml={2}>
-        Large
-      </Button>
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={2}
+      backgroundColor="var(--colorsUtilityYin100)"
+    >
+      <Box
+        height="80px"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        gap={2}
+      >
+        <Button my={2} buttonType="darkBackground" size="small">
+          Small
+        </Button>
+        <Button my={2} buttonType="darkBackground">
+          Medium
+        </Button>
+        <Button my={2} buttonType="darkBackground" size="large">
+          Large
+        </Button>
+      </Box>
     </Box>
   );
 };
 DarkBackgroundButton.storyName = "Dark Background";
+DarkBackgroundButton.parameters = { chromatic: { disableSnapshot: false } };
 
 export const DarkBackgroundButtonDisabled: Story = () => {
   return (
-    <Box>
-      <Button mt={2} buttonType="darkBackground" disabled size="small">
-        Small
-      </Button>
-      <Button mt={2} buttonType="darkBackground" disabled ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="darkBackground" disabled size="large" ml={2}>
-        Large
-      </Button>
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={2}
+      backgroundColor="var(--colorsUtilityYin100)"
+    >
+      <Box
+        height="80px"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        gap={2}
+      >
+        <Button my={2} buttonType="darkBackground" disabled size="small">
+          Small
+        </Button>
+        <Button my={2} buttonType="darkBackground" disabled>
+          Medium
+        </Button>
+        <Button my={2} buttonType="darkBackground" disabled size="large">
+          Large
+        </Button>
+      </Box>
     </Box>
   );
 };
 DarkBackgroundButtonDisabled.storyName = "Dark Background/Disabled";
+DarkBackgroundButtonDisabled.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const DarkBackgroundButtonIcon: Story = () => {
   return (
-    <Box>
-      <Button mt={2} buttonType="darkBackground" iconType="add" size="small">
-        Small
-      </Button>
-      <Button
-        mt={2}
-        buttonType="darkBackground"
-        iconType="add"
-        iconPosition="after"
-        ml={2}
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={2}
+      backgroundColor="var(--colorsUtilityYin100)"
+    >
+      <Box
+        height="80px"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        gap={2}
       >
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="darkBackground"
-        disabled
-        iconType="add"
-        size="small"
-        ml={2}
-      >
-        Small
-      </Button>
-      <Button
-        mt={2}
-        buttonType="darkBackground"
-        disabled
-        iconType="add"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
+        <Button my={2} buttonType="darkBackground" iconType="add" size="small">
+          Small
+        </Button>
+        <Button
+          my={2}
+          buttonType="darkBackground"
+          iconType="add"
+          iconPosition="after"
+        >
+          Medium
+        </Button>
+        <Button
+          my={2}
+          buttonType="darkBackground"
+          disabled
+          iconType="add"
+          size="small"
+        >
+          Small
+        </Button>
+        <Button
+          my={2}
+          buttonType="darkBackground"
+          disabled
+          iconType="add"
+          iconPosition="after"
+        >
+          Medium
+        </Button>
+      </Box>
     </Box>
   );
 };
 DarkBackgroundButtonIcon.storyName = "Dark Background/Icon";
+DarkBackgroundButtonIcon.parameters = { chromatic: { disableSnapshot: false } };
 
 export const DarkBackgroundButtonFullWidth: Story = () => {
   return (
-    <Box>
-      <Button mt={2} buttonType="darkBackground" fullWidth>
-        Full Width
-      </Button>
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={2}
+      backgroundColor="var(--colorsUtilityYin100)"
+    >
+      <Box
+        height="80px"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        gap={2}
+      >
+        <Button my={2} buttonType="darkBackground" fullWidth>
+          Full Width
+        </Button>
+      </Box>
     </Box>
   );
 };
 DarkBackgroundButtonFullWidth.storyName = "Dark Background/Full Width";
+DarkBackgroundButtonFullWidth.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const DarkBackgroundButtonNoWrap: Story = () => {
   return (
-    <Box width="40px">
-      <Button mt={2} buttonType="darkBackground" noWrap>
+    <Box backgroundColor="var(--colorsUtilityYin100)" width="80px">
+      <Button my={2} buttonType="darkBackground" noWrap>
         Long button text
       </Button>
     </Box>
   );
 };
 DarkBackgroundButtonNoWrap.storyName = "Dark Background/No Wrap";
+DarkBackgroundButtonNoWrap.parameters = {
+  chromatic: { disableSnapshot: false },
+};
 
 export const ButtonAsALink: Story = () => {
   return (
