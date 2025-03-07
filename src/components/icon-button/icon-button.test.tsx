@@ -115,6 +115,20 @@ testStyledSystemSpacing(
     </IconButton>
   ),
   () => screen.getByRole("button"),
-  { p: 0 },
+  undefined,
   { modifier: "&&" },
 );
+
+test("should render with default padding when no padding props are passed", () => {
+  render(
+    <IconButton onClick={() => {}}>
+      <Icon type="home" />
+    </IconButton>,
+  );
+
+  const iconButton = screen.getByRole("button");
+
+  expect(iconButton).toHaveStyleRule("padding", "var(--spacing000)", {
+    modifier: "&&",
+  });
+});

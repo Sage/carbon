@@ -138,10 +138,14 @@ const StyledNavigationButtonWrapper = styled.div<StyledNavigationButtonWrapperPr
   width: 48px;
 
   ${({ position, visible, size }) => css`
-    height: ${size === "default" ? "48px" : "56px"}
+    height: ${size === "default" ? "48px" : "56px"};
     z-index: 8;
     display: ${visible ? "block" : "none"};
-    ${position === "right" && `right: 0; position: absolute;`}
+    ${position === "right" &&
+    `
+      right: 0;
+      position: absolute;
+    `}
   `}
 `;
 

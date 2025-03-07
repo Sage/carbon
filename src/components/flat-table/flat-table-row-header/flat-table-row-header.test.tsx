@@ -22,9 +22,35 @@ testStyledSystemPadding(
     </table>
   ),
   () => screen.getByRole("columnheader"),
-  { py: "10px", px: 3 },
+  undefined,
   { modifier: "&&&& > div" },
 );
+
+test("should render with the default padding if no padding props are passed", () => {
+  render(
+    <table>
+      <thead>
+        <tr>
+          <FlatTableRowHeader />
+        </tr>
+      </thead>
+    </table>,
+  );
+  const cell = screen.getByRole("columnheader");
+
+  expect(cell).toHaveStyleRule("padding-top", "10px", {
+    modifier: "&&&& > div",
+  });
+  expect(cell).toHaveStyleRule("padding-bottom", "10px", {
+    modifier: "&&&& > div",
+  });
+  expect(cell).toHaveStyleRule("padding-left", "var(--spacing300)", {
+    modifier: "&&&& > div",
+  });
+  expect(cell).toHaveStyleRule("padding-right", "var(--spacing300)", {
+    modifier: "&&&& > div",
+  });
+});
 
 test("should render with the expected `data-` attributes when props are passed", () => {
   render(
