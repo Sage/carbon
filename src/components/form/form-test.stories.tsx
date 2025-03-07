@@ -527,7 +527,7 @@ export const FullWidthWithLeftAndRight = () => {
           Other
         </Button>
       }
-      errorCount={3}
+      errorCount={1}
       warningCount={2}
     >
       <Textbox label="Textbox" />
