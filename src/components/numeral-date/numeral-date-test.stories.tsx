@@ -5,11 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import Textbox from "../textbox";
 import NumeralDate from ".";
 import Box from "../box";
-import {
-  NumeralDateValue,
-  NumeralDateEvent,
-  NumeralDateProps,
-} from "./numeral-date.component";
+import { NumeralDateProps } from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider";
 import Button from "../button";
 import Form from "../form";
@@ -65,17 +61,17 @@ export default {
   },
 };
 
-export const Default = (args: NumeralDateProps<NumeralDateEvent>) => {
-  const [dateValue, setDateValue] = useState<NumeralDateValue>({
+export const Default = (args: NumeralDateProps) => {
+  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
     dd: "",
     mm: "",
     yyyy: "",
   });
-  const handleChange = (event: NumeralDateEvent) => {
+  const handleChange: NumeralDateProps["onChange"] = (event) => {
     setDateValue(event.target.value);
     action("change")(event.target.value);
   };
-  const handleBlur = (event: NumeralDateEvent) => {
+  const handleBlur: NumeralDateProps["onBlur"] = (event) => {
     action("blur")(event.target.value);
   };
   return (
@@ -98,19 +94,17 @@ Default.args = {
   dateFormat: ["dd", "mm", "yyyy"],
 };
 
-export const DefaultWithOtherInputs = (
-  args: NumeralDateProps<NumeralDateEvent>,
-) => {
-  const [dateValue, setDateValue] = useState<NumeralDateValue>({
+export const DefaultWithOtherInputs = (args: NumeralDateProps) => {
+  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
     dd: "",
     mm: "",
     yyyy: "",
   });
-  const handleChange = (event: NumeralDateEvent) => {
+  const handleChange: NumeralDateProps["onChange"] = (event) => {
     setDateValue(event.target.value);
     action("change")(event.target.value);
   };
-  const handleBlur = (event: NumeralDateEvent) => {
+  const handleBlur: NumeralDateProps["onBlur"] = (event) => {
     action("blur")(event.target.value);
   };
   return (
@@ -146,14 +140,14 @@ DefaultWithOtherInputs.story = {
   },
 };
 
-export const Validations = (args: NumeralDateProps<NumeralDateEvent>) => {
+export const Validations = (args: NumeralDateProps) => {
   const validationTypes = ["error", "warning", "info"];
   const [dateValue, setDateValue] = useState({ dd: "", mm: "" });
-  const handleChange = (event: NumeralDateEvent) => {
+  const handleChange: NumeralDateProps["onChange"] = (event) => {
     setDateValue({ ...dateValue });
     action("change")(event.target.value);
   };
-  const handleBlur = (event: NumeralDateEvent) => {
+  const handleBlur: NumeralDateProps["onBlur"] = (event) => {
     action("blur")(event.target.value);
   };
   return (
@@ -207,9 +201,7 @@ export const Validations = (args: NumeralDateProps<NumeralDateEvent>) => {
 
 Validations.storyName = "validations";
 
-export const NewDesignValidations = (
-  args: NumeralDateProps<NumeralDateEvent>,
-) => {
+export const NewDesignValidations = (args: NumeralDateProps) => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <h4>New designs validation</h4>
@@ -349,16 +341,16 @@ export const WithHintText = ({ ...args }) => {
 
 export const ProgrammaticFocus = () => {
   const ndRef = React.useRef<HTMLInputElement | null>(null);
-  const [dateValue, setDateValue] = useState<NumeralDateValue>({
+  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
     dd: "",
     mm: "",
     yyyy: "",
   });
-  const handleChange = (event: NumeralDateEvent) => {
+  const handleChange: NumeralDateProps["onChange"] = (event) => {
     setDateValue(event.target.value);
     action("change")(event.target.value);
   };
-  const handleBlur = (event: NumeralDateEvent) => {
+  const handleBlur: NumeralDateProps["onBlur"] = (event) => {
     action("blur")(event.target.value);
   };
   const handleClick = () => {
@@ -391,7 +383,7 @@ export const ReactHookFormExample = () => {
   const methods = useForm();
   const { register } = methods;
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: unknown) => console.log(data);
 
   const boxButton = () => (
     <Button
