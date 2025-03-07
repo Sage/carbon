@@ -25,7 +25,7 @@ const StyledTextarea = styled.div<StyledTextAreaProps>`
     ${({ minHeight }) => `min-height: ${minHeight || DEFAULT_MIN_HEIGHT}px;`}
     padding: var(--spacing150) var(--spacing200);
 
-    ${({ hasIcon }) => hasIcon && "padding-right: var(--spacing500)"}
+    ${({ hasIcon }) => hasIcon && "padding-right: var(--spacing500);"}
   }
 
   ${({ labelInline }) =>

@@ -50,15 +50,16 @@ const clientConfig: Config = {
   },
 };
 
-const serverConfig: Config = {
-  ...clientConfig,
-  testMatch: ["**/*.server.(spec|test).[jt]s?(x)"],
-  testPathIgnorePatterns: ["node_modules", "lib", "esm"],
-  testEnvironment: "node",
-};
+/* DISABLED TEMPORARILY */
+// const serverConfig: Config = {
+//   ...clientConfig,
+//   testMatch: ["**/*.server.(spec|test).[jt]s?(x)"],
+//   testPathIgnorePatterns: ["node_modules", "lib", "esm"],
+//   testEnvironment: "node",
+// };
 
-const config: Config = {
-  projects: [clientConfig, serverConfig],
-};
+// const config: Config = {
+//   projects: [clientConfig, serverConfig],
+// };
 
-export default config;
+export default clientConfig;

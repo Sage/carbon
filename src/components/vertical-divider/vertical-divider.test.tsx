@@ -7,8 +7,17 @@ import MenuContext from "../menu/__internal__/menu.context";
 testStyledSystemSpacing(
   (props) => <VerticalDivider {...props} />,
   () => screen.getByTestId("vertical-divider"),
-  { p: 3 },
 );
+
+test("should render with the default padding when no padding props are passed", () => {
+  render(<VerticalDivider />);
+  const verticalDividerElement = screen.getByTestId("vertical-divider");
+
+  expect(verticalDividerElement).toHaveStyleRule(
+    "padding",
+    "var(--spacing300)",
+  );
+});
 
 test("should apply the expected height when `h` prop is passed a value of `100`", () => {
   render(<VerticalDivider h={200} />);
