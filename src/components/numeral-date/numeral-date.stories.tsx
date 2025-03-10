@@ -5,7 +5,7 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 
 import CarbonProvider from "../carbon-provider";
 import Box from "../box";
-import NumeralDate, { NumeralDateProps } from ".";
+import NumeralDate, { NumeralDateHandle, NumeralDateProps } from ".";
 import Button from "../button";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -381,7 +381,7 @@ export const IsOptional: Story = () => {
 IsOptional.storyName = "IsOptional";
 
 export const ProgrammaticFocus = () => {
-  const ndRef = React.useRef<HTMLInputElement | null>(null);
+  const ndRef = React.useRef<NumeralDateHandle>(null);
   const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
     dd: "",
     mm: "",

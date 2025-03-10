@@ -142,6 +142,11 @@ export interface NumeralDateProps
 
 export type ValidDateFormat = (typeof ALLOWED_DATE_FORMATS)[number];
 
+export type NumeralDateHandle = {
+  /* Programmatically focus the first input box. */
+  focus: () => void;
+} | null;
+
 const incorrectDateFormatMessage =
   "Forbidden prop dateFormat supplied to NumeralDate. " +
   "Only one of these date formats is allowed: " +
@@ -217,7 +222,7 @@ const getDateLabel = (datePart: string, locale: Locale) => {
   }
 };
 
-export const NumeralDate = forwardRef<HTMLInputElement, NumeralDateProps>(
+export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
   (
     {
       dateFormat = ["dd", "mm", "yyyy"],
@@ -269,15 +274,11 @@ export const NumeralDate = forwardRef<HTMLInputElement, NumeralDateProps>(
       dateFormat.map(() => null),
     );
 
-    useImperativeHandle(
-      ref,
-      () =>
-        ({
-          focus: () => {
-            refs.current[0]?.focus();
-          },
-        }) as HTMLInputElement,
-    );
+    useImperativeHandle(ref, () => ({
+      focus: () => {
+        refs.current[0]?.focus();
+      },
+    }));
 
     const [internalMessages, setInternalMessages] = useState<NumeralDateValue>({
       ...Object.fromEntries(dateFormat.map((datePart) => [datePart, ""])),

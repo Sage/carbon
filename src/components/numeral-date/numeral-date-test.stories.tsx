@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import Textbox from "../textbox";
 import NumeralDate from ".";
 import Box from "../box";
-import { NumeralDateProps } from "./numeral-date.component";
+import { NumeralDateHandle, NumeralDateProps } from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider";
 import Button from "../button";
 
@@ -336,7 +336,7 @@ export const WithHintText = ({ ...args }) => {
 };
 
 export const ProgrammaticFocus = () => {
-  const ndRef = React.useRef<HTMLInputElement | null>(null);
+  const ndRef = React.useRef<NumeralDateHandle>(null);
   const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
     dd: "",
     mm: "",
