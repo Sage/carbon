@@ -1,3 +1,9 @@
+## [151.5.1](https://github.com/Sage/carbon/compare/v151.5.0...v151.5.1) (2025-03-10)
+
+### Bug Fixes
+
+* **form:** correct pluralisation on form summary when single error and warning ([584fd72](https://github.com/Sage/carbon/commit/584fd72fadd9a85a3927245701b1b2981fc16fd6)), closes [#7238](https://github.com/Sage/carbon/issues/7238)
+
 ## [151.5.0](https://github.com/Sage/carbon/compare/v151.4.0...v151.5.0) (2025-03-07)
 
 ### Features
