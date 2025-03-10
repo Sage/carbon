@@ -92,6 +92,7 @@ export interface ButtonProps extends SpaceProps, TagProps {
    * Set a class name on the button element. INTERNAL USE ONLY.
    */
   className?: string;
+  isWhite?: boolean;
 }
 
 interface RenderChildrenProps
@@ -195,6 +196,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       destructive = false,
       disabled = false,
+      isWhite = false,
       fullWidth: fullWidthProp = false,
       href,
       iconPosition: iconPositionProp = "before",
@@ -292,6 +294,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         buttonType={buttonType}
         disabled={isDisabled}
         destructive={destructive}
+        isWhite={isWhite}
         type={href ? undefined : "button"}
         iconType={iconType}
         size={size}

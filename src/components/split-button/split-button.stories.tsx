@@ -220,3 +220,21 @@ export const InOverflowHiddenContainer: Story = () => (
 );
 InOverflowHiddenContainer.storyName = "In Overflow Hidden Container";
 InOverflowHiddenContainer.parameters = { chromatic: { disableSnapshot: true } };
+
+export const SecondaryIsWhite: Story = () => {
+  return (
+    <Box p={3} backgroundColor="#000" width="500px" height="500px">
+      <SplitButton
+        buttonType="secondary"
+        text="Split button - secondary - isWhite"
+        isWhite
+      >
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </SplitButton>
+    </Box>
+  );
+};
+SecondaryIsWhite.storyName = "Secondary Is White";
+SecondaryIsWhite.parameters = { chromatic: { disableSnapshot: false } };

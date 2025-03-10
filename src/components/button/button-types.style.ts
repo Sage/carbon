@@ -37,7 +37,11 @@ const gradientSharedStyle = `
   }
 `;
 
-export default (isDisabled?: boolean, destructive?: boolean) => ({
+export default (
+  isDisabled?: boolean,
+  destructive?: boolean,
+  isWhite?: boolean,
+) => ({
   primary: `
     background: var(--colorsActionMajor500);
     border-color: transparent;
@@ -91,6 +95,20 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
         background: var(--colorsActionMajor600);
         border-color: var(--colorsActionMajorTransparent);
         ${makeColors("var(--colorsActionMajorYang100)")};
+      }
+
+      ${
+        isWhite && !isDisabled && !destructive
+          ? `
+          border-color: var(--colorsActionMajorYang100);
+          ${makeColors("var(--colorsActionMajorYang100)")};
+          &:hover {
+            background: var(--colorsActionMajorYang100);
+            border-color: var(--colorsActionMajorYang100);
+            ${makeColors("var(--colorsYin100)")};
+          }
+          `
+          : ""
       }
 
       ${
