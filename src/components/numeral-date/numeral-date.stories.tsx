@@ -5,7 +5,8 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 
 import CarbonProvider from "../carbon-provider";
 import Box from "../box";
-import NumeralDate from ".";
+import NumeralDate, { NumeralDateHandle, NumeralDateProps } from ".";
+import Button from "../button";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -33,7 +34,11 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 
 export const Controlled: Story = () => {
-  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
 
   return (
     <NumeralDate
@@ -60,12 +65,12 @@ export const AllowedDateFormats: Story = () => {
 AllowedDateFormats.storyName = "Allowed Date Formats";
 
 export const InternalValidationError: Story = () => {
-  const [valueOld, setValueOld] = useState({
+  const [valueOld, setValueOld] = useState<NumeralDateProps["value"]>({
     dd: "",
     mm: "",
     yyyy: "",
   });
-  const [valueNew, setValueNew] = useState({
+  const [valueNew, setValueNew] = useState<NumeralDateProps["value"]>({
     dd: "",
     mm: "",
     yyyy: "",
@@ -93,8 +98,16 @@ export const InternalValidationError: Story = () => {
 InternalValidationError.storyName = "Internal Validation Error";
 
 export const InternalValidationWarning: Story = () => {
-  const [valueOld, setValueOld] = useState({ dd: "", mm: "", yyyy: "" });
-  const [valueNew, setValueNew] = useState({ dd: "", mm: "", yyyy: "" });
+  const [valueOld, setValueOld] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  const [valueNew, setValueNew] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
   return (
     <>
       <NumeralDate
@@ -118,7 +131,11 @@ export const InternalValidationWarning: Story = () => {
 InternalValidationWarning.storyName = "Internal Validation Warning";
 
 export const Validation: Story = () => {
-  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
   return (
     <>
       <NumeralDate
@@ -175,7 +192,11 @@ export const Validation: Story = () => {
 Validation.storyName = "Validation";
 
 export const NewValidation: Story = () => {
-  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
   return (
     <CarbonProvider validationRedesignOptIn>
       <Box m={2}>
@@ -220,7 +241,11 @@ export const NewValidation: Story = () => {
 NewValidation.storyName = "New Validation";
 
 export const InlineLabel: Story = () => {
-  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
   return (
     <NumeralDate
       label="Inline"
@@ -235,7 +260,11 @@ export const InlineLabel: Story = () => {
 InlineLabel.storyName = "Inline Label";
 
 export const EnablingAdaptiveBehaviour: Story = () => {
-  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
   return (
     <NumeralDate
       adaptiveLabelBreakpoint={960}
@@ -254,7 +283,11 @@ EnablingAdaptiveBehaviour.parameters = {
 };
 
 export const WithLabelHelp: Story = () => {
-  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
   return (
     <NumeralDate
       helpAriaLabel="Label help"
@@ -268,7 +301,11 @@ export const WithLabelHelp: Story = () => {
 WithLabelHelp.storyName = "With Label Help";
 
 export const WithFieldHelp: Story = () => {
-  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
   return (
     <NumeralDate
       label="With field help"
@@ -304,7 +341,11 @@ export const Size: Story = () => {
 Size.storyName = "Size";
 
 export const Required: Story = () => {
-  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
   return (
     <NumeralDate
       name="optional"
@@ -320,7 +361,11 @@ export const Required: Story = () => {
 Required.storyName = "Required";
 
 export const IsOptional: Story = () => {
-  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  const [value, setValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
   return (
     <NumeralDate
       name="optional"
@@ -334,3 +379,35 @@ export const IsOptional: Story = () => {
   );
 };
 IsOptional.storyName = "IsOptional";
+
+export const ProgrammaticFocus = () => {
+  const ndRef = React.useRef<NumeralDateHandle>(null);
+  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  const handleChange: NumeralDateProps["onChange"] = (event) => {
+    setDateValue(event.target.value);
+  };
+  const handleClick = () => {
+    ndRef.current?.focus();
+  };
+  return (
+    <>
+      <Button onClick={handleClick}>Click me to focus NumeralDate</Button>
+      <Box mt="120px">
+        <NumeralDate
+          ref={ndRef}
+          onChange={handleChange}
+          label="Numeral date"
+          value={dateValue}
+          name="numeralDate_name"
+          id="numeralDate_id"
+        />
+      </Box>
+    </>
+  );
+};
+
+ProgrammaticFocus.storyName = "Programmatic Focus";

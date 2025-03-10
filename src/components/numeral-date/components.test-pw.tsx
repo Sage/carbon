@@ -6,7 +6,11 @@ export const NumeralDateComponent = (props: Partial<NumeralDateProps>) => {
 };
 
 export const NumeralDateControlled = (props: Partial<NumeralDateProps>) => {
-  const [value, setValue] = React.useState({ dd: "", mm: "", yyyy: "" });
+  const [value, setValue] = React.useState<NumeralDateProps["value"]>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
 
   return (
     <NumeralDate

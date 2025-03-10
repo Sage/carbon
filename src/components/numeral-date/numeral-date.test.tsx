@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { render, screen, within, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
@@ -9,6 +9,7 @@ import {
 import NumeralDate from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
+import Button from "../button";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -2153,3 +2154,62 @@ test.each(["error", "warning"])(
     expect(fieldset).toHaveAccessibleDescription("Message labelHelp");
   },
 );
+
+test("should focus the first textbox when the component is programmatically focused when the date format is dd/mm/yyyy", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const MockComponent = () => {
+    const ndRef = useRef<HTMLInputElement>(null);
+    return (
+      <>
+        <Button onClick={() => ndRef.current?.focus()}>Click me</Button>
+        <NumeralDate
+          ref={ndRef}
+          onChange={() => {}}
+          label="Numeral date"
+          value={{ dd: "", mm: "", yyyy: "" }}
+          name="numeralDate_name"
+          id="numeralDate_id"
+        />
+      </>
+    );
+  };
+
+  render(<MockComponent />);
+
+  const button = screen.getByRole("button", { name: "Click me" });
+  const firstInput = screen.getByRole("textbox", { name: "Day" });
+
+  await user.click(button);
+
+  expect(firstInput).toHaveFocus();
+});
+
+test("should focus the first textbox when the component is programmatically focused when the date format is mm/yyyy", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const MockComponent = () => {
+    const ndRef = useRef<HTMLInputElement>(null);
+    return (
+      <>
+        <Button onClick={() => ndRef.current?.focus()}>Click me</Button>
+        <NumeralDate
+          ref={ndRef}
+          dateFormat={["mm", "yyyy"]}
+          onChange={() => {}}
+          label="Numeral date"
+          value={{ mm: "", yyyy: "" }}
+          name="numeralDate_name"
+          id="numeralDate_id"
+        />
+      </>
+    );
+  };
+
+  render(<MockComponent />);
+
+  const button = screen.getByRole("button", { name: "Click me" });
+  const firstInput = screen.getByRole("textbox", { name: "Month" });
+
+  await user.click(button);
+
+  expect(firstInput).toHaveFocus();
+});
