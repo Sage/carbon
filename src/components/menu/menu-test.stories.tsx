@@ -26,22 +26,6 @@ const defaultOpenState = isChromatic();
 
 const meta: Meta<typeof Menu> = {
   title: "Menu/Test",
-  includeStories: [
-    "MenuFullScreenStory",
-    "LongLabelsStory",
-    "InGlobalHeaderStory",
-    "InNavigationBarStory",
-    "MenuFullScreenKeysTest",
-    "MenuWithTwoSegments",
-    "MenuFullScreenWithLargeMenuItems",
-    "MenuComponentFullScreenWithLongSubmenuText",
-    "AsLinkWithAlternateVariant",
-    "MenuWithSubmenuCustomPadding",
-    "WhenMenuItemsWrap",
-    "MenuFullScreenWithMaxWidth",
-    "IconAlignment",
-    "TabbingOrder",
-  ],
   parameters: {
     info: { disable: true },
     chromatic: {

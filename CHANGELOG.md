@@ -1,3 +1,15 @@
+## [151.5.0](https://github.com/Sage/carbon/compare/v151.4.0...v151.5.0) (2025-03-07)
+
+### Features
+
+* **menu-item:** add submenuMinWidth prop ([c38c511](https://github.com/Sage/carbon/commit/c38c5118be76a2dc989cc5afd2b93b694230d68e))
+
+## [151.4.0](https://github.com/Sage/carbon/compare/v151.3.0...v151.4.0) (2025-03-07)
+
+### Features
+
+* **adaptive-sidebar:** implements a sidebar component to be used for Help and Chat purposes ([789db79](https://github.com/Sage/carbon/commit/789db7901c7c9421a5c3db5399362f4f80e914d5))
+
 ## [151.3.0](https://github.com/Sage/carbon/compare/v151.2.3...v151.3.0) (2025-03-06)
 
 ### Features
