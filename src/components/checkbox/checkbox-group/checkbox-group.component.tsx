@@ -102,6 +102,7 @@ export const CheckboxGroup = ({
           warning={warning}
           isRequired={required}
           isOptional={isOptional}
+          width="fit-content"
           {...(combinedAriaDescribedBy && {
             "aria-describedby": combinedAriaDescribedBy,
           })}
