@@ -641,6 +641,22 @@ export const SecondaryNoWrap = () => {
   );
 };
 
+export const SecondaryButtonWhite = () => {
+  return (
+    <Box>
+      <Button mt={2} size="small" ml={2} isWhite>
+        Small
+      </Button>
+      <Button mt={2} ml={2} isWhite>
+        Medium
+      </Button>
+      <Button mt={2} size="large" ml={2} isWhite>
+        Large
+      </Button>
+    </Box>
+  );
+};
+
 export const TertiaryButton = () => {
   return (
     <Box>
