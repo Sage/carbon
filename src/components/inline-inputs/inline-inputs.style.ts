@@ -91,6 +91,7 @@ const StyledContentContainer = styled.div<InlineInputsProps>`
 `;
 
 const StyledInlineInputs = styled.div<InlineInputsProps>`
+  margin-bottom: var(--fieldSpacing);
   ${margin}
 
   display: ${({ labelInline }) => (labelInline ? `flex` : `block`)};

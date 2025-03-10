@@ -11,8 +11,8 @@ import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint"
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import CheckboxGroupContext from "./checkbox-group/__internal__/checkbox-group.context";
 import Logger from "../../__internal__/utils/logger";
-import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export interface CheckboxProps
   extends CommonCheckableInputProps,
@@ -131,7 +131,7 @@ export const Checkbox = React.forwardRef(
         : { info: contextInfo || info }),
     };
 
-    const marginProps = useFormSpacing(rest);
+    const marginProps = filterStyledSystemMarginProps(rest);
 
     const componentToRender = (
       <CheckboxStyle

@@ -393,8 +393,8 @@ export const Textbox = React.forwardRef(
             ) : (
               input
             )}
+            {characterCount}
           </FormField>
-          {characterCount}
         </InputBehaviour>
       </TooltipProvider>
     );
