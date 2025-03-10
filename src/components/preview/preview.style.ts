@@ -17,13 +17,13 @@ interface StyledPreviewPlaceholderProps {
 
 const shimmer = keyframes`
   0% { 
-    opacity: 0.1 
+    opacity: 0.1;
   }
   70% { 
-    opacity: 1
+    opacity: 1;
   }
   100% { 
-    opacity: 0.1 
+    opacity: 0.1;
   }
 `;
 
@@ -76,7 +76,7 @@ const StyledPreviewPlaceholder = styled.span<StyledPreviewPlaceholderProps>`
       ${isLastLine &&
       shape === "text" &&
       css`
-        width: calc(${width || getWidth(shape)}*0.8);
+        width: calc(; ${width || getWidth(shape)}*0.8);
       `}
 
       ${shape === "circle" &&

@@ -15,8 +15,18 @@ testStyledSystemPadding(
     </Page>
   ),
   () => screen.getByTestId("page-content"),
-  { p: "30px 40px" },
 );
+
+test("it has default padding when no padding props are passed", () => {
+  render(
+    <Page title="My Title" data-element="carbon-page-content">
+      My Content
+    </Page>,
+  );
+  const pageContent = screen.getByTestId("page-content");
+
+  expect(pageContent).toHaveStyle("padding: 34px 40px;");
+});
 
 test("renders both heading and children", () => {
   render(<Page title="My Title">My Content</Page>);
