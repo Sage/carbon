@@ -71,7 +71,7 @@ const enGB: Locale = {
         (errors, warnings, type) => {
           const errorPlural = isSingular(errors) ? "error" : "errors";
           const warningPlural = isSingular(warnings) ? "warning" : "warnings";
-          const isErrorPlural = isSingular(errors) && !warnings ? "is" : "are";
+          const isErrorPlural = isSingular(errors) ? "is" : "are";
           const isWarningPlural = isSingular(warnings) ? "is" : "are";
 
           if (errors && warnings && type === "warning") {
