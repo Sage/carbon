@@ -52,6 +52,9 @@ type StoryType = StoryObj<typeof Form>;
 
 export const AllInputs: StoryType = ({ ...props }) => (
   <CarbonProvider validationRedesignOptIn>
+    <Textbox label="Outside of Form" characterLimit={100} />
+    <Textbox label="Outside of Form" characterLimit={100} />
+    <Hr />
     <Form
       onSubmit={() => console.log("submit")}
       leftSideButtons={
@@ -64,103 +67,110 @@ export const AllInputs: StoryType = ({ ...props }) => (
       }
       {...props}
     >
-      <Textbox label="Textbox" characterLimit={100} />
-      <Number label="Number" />
-      <Decimal label="Decimal" />
-      <GroupedCharacter
-        label="GroupedCharacter"
-        groups={[2, 3, 2]}
-        separator="-"
-      />
-      <Password label="Password" characterLimit={100} />
-      <Fieldset legend="Fieldset">
-        <Textbox label="Textbox in Fieldset" />
-        <Checkbox label="Checkbox in Fieldset" />
+      <Box>
+        <Textbox label="Textbox" characterLimit={100} />
+        <Number label="Number" />
+        <Decimal label="Decimal" />
+        <GroupedCharacter
+          label="GroupedCharacter"
+          groups={[2, 3, 2]}
+          separator="-"
+        />
+        <Password label="Password" characterLimit={100} />
+        <Fieldset legend="Fieldset">
+          <Textbox label="Textbox in Fieldset" />
+          <Checkbox label="Checkbox in Fieldset" />
+          <Select
+            name="simple-select"
+            id="simple-select"
+            label="Select in Fieldset"
+          >
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+            <Option text="Blue" value="3" />
+          </Select>
+        </Fieldset>
+        <Hr />
+        <Time
+          value={{
+            hours: "",
+            minutes: "",
+          }}
+          onChange={() => {}}
+          label="Time"
+        />
+        <NumeralDate label="Numeral Date" />
+        <RadioButtonGroup name="legend" legend="RadioButtonGroup">
+          <RadioButton
+            id="group-1-input-1"
+            value="group-1-input-1"
+            label="Radio Option 1"
+          />
+          <RadioButton
+            id="group-1-input-2"
+            value="group-1-input-2"
+            label="Radio Option 2"
+          />
+        </RadioButtonGroup>
+        <Checkbox label="Checkbox" />
+        <CheckboxGroup legend="Checkbox Group">
+          <Checkbox label="Checkbox-1" />
+          <Checkbox label="Checkbox-2" />
+        </CheckboxGroup>
+        <DateInput name="date" label="Date" value="" onChange={() => {}} />
+        <DateRange
+          name="date"
+          startLabel="Start Date"
+          endLabel="End Date"
+          value={["", ""]}
+          onChange={() => {}}
+        />
+        <InlineInputs label="Inline inputs">
+          <Textbox onChange={() => {}} />
+          <Textbox onChange={() => {}} />
+          <Textbox onChange={() => {}} />
+        </InlineInputs>
+        <Search value="" onChange={() => {}} />
         <Select name="simple-select" id="simple-select" label="Simple Select">
           <Option text="Amber" value="1" />
           <Option text="Black" value="2" />
           <Option text="Blue" value="3" />
         </Select>
-      </Fieldset>
-      <Time
-        value={{
-          hours: "",
-          minutes: "",
-        }}
-        onChange={() => {}}
-        label="Time"
-      />
-      <NumeralDate label="Numeral Date" />
-      <RadioButtonGroup name="legend" legend="RadioButtonGroup">
-        <RadioButton
-          id="group-1-input-1"
-          value="group-1-input-1"
-          label="Radio Option 1"
-        />
-        <RadioButton
-          id="group-1-input-2"
-          value="group-1-input-2"
-          label="Radio Option 2"
-        />
-      </RadioButtonGroup>
-      <Checkbox label="Checkbox" />
-      <CheckboxGroup legend="Checkbox Group">
-        <Checkbox label="Checkbox-1" />
-        <Checkbox label="Checkbox-2" />
-      </CheckboxGroup>
-      <DateInput name="date" label="Date" value="" onChange={() => {}} />
-      <DateRange
-        name="date"
-        startLabel="Start Date"
-        endLabel="End Date"
-        value={["", ""]}
-        onChange={() => {}}
-      />
-      <InlineInputs label="Inline inputs">
-        <Textbox onChange={() => {}} />
-        <Textbox onChange={() => {}} />
-        <Textbox onChange={() => {}} />
-      </InlineInputs>
-      <Search value="" onChange={() => {}} />
-      <Select name="simple-select" id="simple-select" label="Simple Select">
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </Select>
-      <FilterableSelect
-        name="filterable-select"
-        id="filterable-select"
-        label="Filterable Select"
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </FilterableSelect>
-      <MultiSelect name="multi-select" id="multi-select" label="Multi Select">
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-      </MultiSelect>
-      <Textarea label="Textarea" name="textarea" characterLimit={100} />
-      <TextEditor labelText="Text Editor" characterLimit={100} />
-      <SimpleColorPicker
-        name="simple-color-picker"
-        legend="Simple Color Picker"
-      >
-        {[
-          { color: "transparent", label: "transparent" },
-          { color: "#0073C1", label: "blue" },
-          { color: "#582C83", label: "purple" },
-        ].map(({ color, label }) => (
-          <SimpleColor
-            value={color}
-            key={color}
-            aria-label={label}
-            id={color}
-          />
-        ))}
-      </SimpleColorPicker>
-      <Switch name="switch" label="Switch" onChange={() => {}} />
+        <FilterableSelect
+          name="filterable-select"
+          id="filterable-select"
+          label="Filterable Select"
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+        </FilterableSelect>
+        <MultiSelect name="multi-select" id="multi-select" label="Multi Select">
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+        </MultiSelect>
+        <Textarea label="Textarea" name="textarea" characterLimit={100} />
+        <TextEditor labelText="Text Editor" characterLimit={100} />
+        <SimpleColorPicker
+          name="simple-color-picker"
+          legend="Simple Color Picker"
+        >
+          {[
+            { color: "transparent", label: "transparent" },
+            { color: "#0073C1", label: "blue" },
+            { color: "#582C83", label: "purple" },
+          ].map(({ color, label }) => (
+            <SimpleColor
+              value={color}
+              key={color}
+              aria-label={label}
+              id={color}
+            />
+          ))}
+        </SimpleColorPicker>
+        <Switch name="switch" label="Switch" onChange={() => {}} />
+      </Box>
     </Form>
   </CarbonProvider>
 );
