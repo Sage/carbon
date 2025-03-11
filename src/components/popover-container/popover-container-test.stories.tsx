@@ -166,8 +166,7 @@ export const InsideMenu = () => {
           onOpen={() => setOpen(true)}
           onClose={() => setOpen(false)}
           open={open}
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          renderOpenComponent={({ isOpen, ref, onClick }) => (
+          renderOpenComponent={({ ref, onClick }) => (
             <IconButton aria-label="Notifications" ref={ref} onClick={onClick}>
               <Icon type="alert" />
             </IconButton>

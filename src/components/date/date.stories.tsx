@@ -137,7 +137,7 @@ export const DisabledDates: Story = () => {
       minDate="2019-04-04"
       maxDate="2019-05-31"
       onChange={setValue}
-      onBlur={(ev) => console.log("blur")}
+      onBlur={(ev) => console.log("blur", ev)}
     />
   );
 };

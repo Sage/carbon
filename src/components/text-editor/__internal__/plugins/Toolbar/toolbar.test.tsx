@@ -6,7 +6,7 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { render, screen } from "@testing-library/react";
-import { FORMAT_TEXT_COMMAND } from "lexical";
+import { FORMAT_TEXT_COMMAND, LexicalEditor, TextFormatType } from "lexical";
 import React from "react";
 
 import userEvent from "@testing-library/user-event";
@@ -29,7 +29,7 @@ const MockToolbar = ({
   editor,
   namespace,
 }: {
-  editor: any;
+  editor: LexicalEditor;
   namespace: string;
 }) => {
   return (
@@ -48,13 +48,23 @@ const MockToolbar = ({
       </button>
       <button
         type="button"
-        onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, "number")}
+        onClick={() =>
+          editor.dispatchCommand(
+            FORMAT_TEXT_COMMAND,
+            "number" as TextFormatType,
+          )
+        }
       >
         Ordered List
       </button>
       <button
         type="button"
-        onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, "bullet")}
+        onClick={() =>
+          editor.dispatchCommand(
+            FORMAT_TEXT_COMMAND,
+            "bullet" as TextFormatType,
+          )
+        }
       >
         Unordered List
       </button>
