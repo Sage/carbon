@@ -212,5 +212,21 @@ testStyledSystemPadding(
     </DraggableContainer>
   ),
   () => screen.getByTestId("draggable-item"),
-  { py: "8px" },
 );
+
+test("should render with default padding when no padding props are passed", () => {
+  render(
+    <DraggableContainer>
+      <DraggableItem id="apple">Apple</DraggableItem>
+    </DraggableContainer>,
+  );
+
+  expect(screen.getByTestId("draggable-item")).toHaveStyleRule(
+    "padding-top",
+    "var(--spacing100)",
+  );
+  expect(screen.getByTestId("draggable-item")).toHaveStyleRule(
+    "padding-bottom",
+    "var(--spacing100)",
+  );
+});

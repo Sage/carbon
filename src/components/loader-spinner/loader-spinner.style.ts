@@ -71,7 +71,7 @@ export const StyledSpinnerCircleSvg = styled.svg<StyledSpinnerCircleSvgProps>`
           fill: transparent;
           stroke-width: ${LOADER_SPINNER_SIZE_PARAMS[size].strokeWidth}px;
           stroke: ${calculateColors(false, variant)};
-          ${variant === "inverse" && `stroke-opacity: 0.3`}
+          ${variant === "inverse" && `stroke-opacity: 0.3;`}
           cx: 12px;
           cy: 12px;
           r: 10px;

@@ -66,13 +66,23 @@ export interface ButtonProps extends SpaceProps, TagProps {
   /** If provided, the text inside a button will not wrap */
   noWrap?: boolean;
   /** Specify a callback triggered on blur */
-  onBlur?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
+  onBlur?: (
+    ev: React.FocusEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => void;
   /** Specify a callback triggered on change */
-  onChange?: (ev: React.ChangeEvent<HTMLButtonElement>) => void;
+  onChange?: (
+    ev:
+      | React.FormEvent<HTMLButtonElement | HTMLAnchorElement>
+      | React.ChangeEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => void;
   /** Specify a callback triggered on focus */
-  onFocus?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
+  onFocus?: (
+    ev: React.FocusEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => void;
   /** Specify a callback triggered on keyDown */
-  onKeyDown?: (ev: React.KeyboardEvent<HTMLButtonElement>) => void;
+  onKeyDown?: (
+    ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => void;
   /** onClick handler */
   onClick?: (
     event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
@@ -187,7 +197,10 @@ function renderChildren({
   );
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = React.forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  ButtonProps
+>(
   (
     {
       "aria-describedby": ariaDescribedBy,
@@ -241,7 +254,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       );
     }
 
-    const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
+    const [internalRef, setInternalRef] = useState<
+      HTMLButtonElement | HTMLAnchorElement | null
+    >(null);
 
     const { inSplitButton, onChildButtonClick } =
       useContext(SplitButtonContext);
@@ -249,7 +264,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     let paddingX;
 
     const handleLinkKeyDown = (
-      event: React.KeyboardEvent<HTMLButtonElement>,
+      event: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
       // If space key click link
       if (event.key === " ") {
@@ -270,7 +285,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     const setRefs = useCallback(
-      (reference: HTMLButtonElement) => {
+      (reference: HTMLButtonElement | HTMLAnchorElement | null) => {
         setInternalRef(reference);
         if (!ref) return;
         if (typeof ref === "object") ref.current = reference;
@@ -322,7 +337,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           buttonType,
           iconTooltipMessage,
           iconTooltipPosition,
-          tooltipTarget: internalRef,
+          tooltipTarget: internalRef as HTMLElement | undefined,
         })}
       </StyledButton>
     );

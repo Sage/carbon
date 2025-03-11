@@ -43,7 +43,7 @@ const useChildButtons = (
   }, [showAdditionalButtons, getButtonChildren]);
 
   const handleToggleButtonKeyDown = (
-    ev: React.KeyboardEvent<HTMLButtonElement>,
+    ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
     const isToggleKey =
       Events.isEnterKey(ev) ||

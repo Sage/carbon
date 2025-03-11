@@ -189,7 +189,7 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
       ${hasTooltip &&
       `
         :focus {
-        ${addFocusStyling()}
+          ${addFocusStyling()}
         }
       `}
 
