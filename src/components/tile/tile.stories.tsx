@@ -1151,3 +1151,22 @@ export const HighlightVariantInfoStory: Story = () => {
   );
 };
 HighlightVariantInfoStory.storyName = "Highlight variant info story";
+
+export const HighlightVariantImportantStory: Story = () => {
+  return (
+    <>
+      <Tile highlightVariant="important">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
+      <Tile highlightVariant="important" roundness="large">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+    </>
+  );
+};
+HighlightVariantImportantStory.storyName = "Highlight variant important story";

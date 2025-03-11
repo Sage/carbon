@@ -66,6 +66,9 @@ const getHighlightVariant = (variant: TileProps["highlightVariant"]) => {
       return "var(--colorsSemanticCaution500)";
     case "info":
       return "var(--colorsSemanticInfo500)";
+    // FE-6368 has been raised for the below, change hex values for design tokens (when added)
+    case "important":
+      return " #8F4CD7";
     default:
       // gradient is default
       return "linear-gradient(0deg, rgb(143, 73, 254) 5%, rgb(0, 146, 219) 50%, rgb(19, 160, 56) 95%)";
