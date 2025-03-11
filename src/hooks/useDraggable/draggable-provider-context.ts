@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { Edge } from "./__internal__/draggable-utils";
+import { Edge } from "../../__internal__/draggable/draggable-utils";
 import { ContainerDragState } from "./draggable-provider";
 
 interface DraggableProviderContextType {
