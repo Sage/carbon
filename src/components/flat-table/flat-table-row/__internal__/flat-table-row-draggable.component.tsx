@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import DraggableItem from "../../../../hooks/useDraggable/__internal__/draggable-item";
+import DraggableItem from "../../../../__internal__/draggable/draggable-item";
 import StyledFlatTableRow from "../flat-table-row.style";
 
 export interface FlatTableRowDraggableProps {
