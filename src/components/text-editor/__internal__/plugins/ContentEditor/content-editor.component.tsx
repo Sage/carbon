@@ -47,7 +47,16 @@ const ContentEditor = ({
         aria-labelledby={`${namespace}-label`}
         className={`${namespace}-editable`}
         data-role={`${namespace}-editable`}
-        onFocus={focusAtEnd}
+        onFocus={(event) => {
+          // If the related target is not a toolbar button, focus at the end of the editor
+          /* istanbul ignore next */
+          if (
+            !event.relatedTarget ||
+            !event.relatedTarget.classList.contains("toolbar-button")
+          ) {
+            focusAtEnd(event);
+          }
+        }}
         /** The following are automatically added by Lexical but violate WCAG 4.1.2 Name, Role, Value and so have been overriden */
         aria-autocomplete={undefined}
         aria-readonly={undefined}

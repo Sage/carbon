@@ -356,6 +356,7 @@ const ListControls = ({ namespace }: { namespace: string }) => {
         aria-pressed={isULActive}
         data-role={`${namespace}-unordered-list-button`}
         tabIndex={-1}
+        className="toolbar-button"
       />
       <FormattingButton
         size="small"
@@ -369,6 +370,7 @@ const ListControls = ({ namespace }: { namespace: string }) => {
         aria-pressed={isOLActive}
         data-role={`${namespace}-ordered-list-button`}
         tabIndex={-1}
+        className="toolbar-button"
       />
     </>
   );
