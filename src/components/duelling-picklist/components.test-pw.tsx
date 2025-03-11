@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useCallback, useMemo } from "react";
 import { Checkbox } from "../checkbox/checkbox.component";
 import Button from "../button/button.component";
