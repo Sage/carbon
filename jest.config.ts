@@ -15,7 +15,6 @@ const isCI = process.env.CI === "true";
 
 const baseProjectConfig: Config = {
   rootDir,
-  setupFiles: ["raf/polyfill"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "mjs"],
   transform: {
     "^.+\\.(js|mjs|jsx|ts|tsx)$": "babel-jest",
