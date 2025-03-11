@@ -42,7 +42,6 @@ export const StyledCustomImg = styled.img`
 `;
 
 // && is used here to increase the specificity
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const StyledIcon = styled(Icon)<Pick<StyledPortraitProps, "size">>`
   && {
     color: inherit;

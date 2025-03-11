@@ -152,7 +152,6 @@ test("renders with correct styles when `position` is 'fixed' and `orientation` i
 testStyledSystemPadding(
   (props) => <NavigationBar {...props}>test content</NavigationBar>,
   () => screen.getByRole("navigation"),
-  undefined,
   { modifier: "&&" },
 );
 

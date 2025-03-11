@@ -38,7 +38,6 @@ describe("When MenuItem has no submenu", () => {
       </MenuItem>
     ),
     () => screen.getByTestId("menu-item-wrapper"),
-    undefined,
     { modifier: "&&& > a" },
   );
 
