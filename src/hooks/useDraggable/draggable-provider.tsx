@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
-import { isDraggableItemData, Edge } from "./__internal__/draggable-utils";
+import { isDraggableItemData, Edge } from "../../__internal__/draggable/draggable-utils";
 import DraggableProviderContext from "./draggable-provider-context";
 
 interface DraggableProviderType {
