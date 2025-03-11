@@ -5,11 +5,12 @@ import React, {
   CSSProperties,
 } from "react";
 import guid from "../../__internal__/utils/helpers/guid";
-import DraggableContainer from "./__internal__/draggable-container";
+import DraggableProvider from "./draggable-provider";
+import DraggableContainer from "../../__internal__/draggable/draggable-container";
 import DraggableProviderContext from "./draggable-provider-context";
 import UseDraggableContext from "./useDraggable-context";
-import DraggableItem from "./__internal__/draggable-item";
-import { Edge } from "./__internal__/draggable-utils";
+import DraggableItem from "../../__internal__/draggable/draggable-item";
+import { Edge } from "../../__internal__/draggable/draggable-utils";
 
 export type DragState =
   | { type: "idle"; id?: string | number }
@@ -88,3 +89,4 @@ const useDraggable = ({
 };
 
 export default useDraggable;
+export { DraggableProvider }

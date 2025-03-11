@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
-import DraggableContainer from "../../../hooks/useDraggable/__internal__/draggable-container";
+import DraggableContainer from "../../../__internal__/draggable/draggable-container";
 import FlatTableBodyDraggableContext from "./__internal__/flat-table-body-draggable-context";
 import { FlatTableBodyDraggableHandle } from "..";
 
