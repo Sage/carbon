@@ -83,9 +83,25 @@ const StyledTile = styled.div<StyledTileProps>`
     variant,
     width,
     roundness,
+    highlightVariant,
     height,
   }) => css`
     ${space}
+
+    ${highlightVariant &&
+    css`
+      overflow: hidden;
+      &::before {
+        display: block;
+        content: "";
+        height: 100%;
+        width: 8px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: ${getHighlightVariant(highlightVariant)};
+      }
+    `}
 
     box-sizing: border-box;
     border: var(--${borderWidth}) solid
@@ -136,22 +152,5 @@ const StyledTile = styled.div<StyledTileProps>`
 StyledTile.defaultProps = {
   theme: baseTheme,
 };
-
-export const StyledHighlight = styled.div<{
-  variant: Required<TileProps["highlightVariant"]>;
-  roundness: TileProps["roundness"];
-}>`
-  height: 100%;
-  width: 100%;
-  position: relative;
-  background: ${({ variant }) => getHighlightVariant(variant)};
-  border-radius: ${({ roundness }) => getBorderRadius(roundness)};
-
-  ${StyledTile} {
-    border-left: 0;
-    left: 4px;
-    width: calc(100% - 4px);
-  }
-`;
 
 export default StyledTile;
