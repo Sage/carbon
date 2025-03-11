@@ -114,7 +114,7 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:no-unsanitized/DOM",
+    "plugin:no-unsanitized/recommended-legacy",
     "plugin:ssr-friendly/recommended",
     "airbnb",
     "prettier"

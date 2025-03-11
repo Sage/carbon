@@ -8,14 +8,14 @@ import useMediaQuery from "./useMediaQuery";
 
 const meta: Meta<typeof useMediaQuery> = {
   tags: ["hideInSidebar"],
-  argTypes: {
-    query: {
-      type: { summary: "string" },
-      description: "Any valid CSS media query.",
-      required: true,
-    },
-  },
   parameters: {
+    argTypes: {
+      query: {
+        type: { summary: "string" },
+        description: "Any valid CSS media query.",
+        required: true,
+      },
+    },
     chromatic: { disableSnapshot: true },
   },
 };
@@ -24,7 +24,5 @@ export default meta;
 type Story = StoryObj<typeof useMediaQuery>;
 
 export const Default: Story = {
-  args: {
-    children: [],
-  },
+  args: "your-media-query-string",
 };
