@@ -1,3 +1,9 @@
+## [151.5.2](https://github.com/Sage/carbon/compare/v151.5.1...v151.5.2) (2025-03-11)
+
+### Bug Fixes
+
+* **deps:** bump prismjs from 1.29.0 to 1.30.0 ([15ba450](https://github.com/Sage/carbon/commit/15ba450d51e0b7f40931b83285ec492d7f939ddb))
+
 ## [151.5.1](https://github.com/Sage/carbon/compare/v151.5.0...v151.5.1) (2025-03-10)
 
 ### Bug Fixes
