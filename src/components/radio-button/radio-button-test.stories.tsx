@@ -8,16 +8,6 @@ import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Radio Button/Test",
-  includeStories: [
-    "WithLabelHelp",
-    "WithValidationsOnButtons",
-    "WithValidationsOnRadioGroup",
-    "WithTooltipPosition",
-    "WithTooltipPositionOnRadioGroup",
-    "WithNewValidation",
-    "WithNewValidationGroup",
-    "WithHintTextAlignment",
-  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -133,6 +123,7 @@ WithValidationsOnRadioGroup.args = {
   legendInline: false,
   required: false,
   inline: false,
+  legendAlign: "left",
 };
 
 export const WithTooltipPosition: StoryFn<typeof RadioButton> = () => (
@@ -240,35 +231,46 @@ WithNewValidationGroup.parameters = {
   chromatic: { disableSnapshot: false },
 };
 
-export const WithHintTextAlignment = ({
+export const WithLegendAlignment = ({
   ...props
 }: Partial<RadioButtonGroupProps>) => {
   return (
     <CarbonProvider validationRedesignOptIn>
-      {["left", "right"].map((legendAlign) => {
-        return (
-          <RadioButtonGroup
-            name="radio-button-group"
-            legendAlign={legendAlign as RadioButtonGroupProps["legendAlign"]}
-            {...props}
-          >
-            <RadioButton id="radio-1" value="radio1" label="Yes" />
-            <RadioButton id="radio-2" value="radio2" label="No" />
-            <RadioButton
-              id="radio-3"
-              value="radio3"
-              label="Maybe"
-              fieldHelp="fieldHelp text"
-            />
-          </RadioButtonGroup>
-        );
-      })}
+      <RadioButtonGroup
+        name="radio-button-group-left"
+        {...props}
+        legendAlign="left"
+        mb={2}
+      >
+        <RadioButton id="radio-1-left" value="radio1" label="Yes" />
+        <RadioButton id="radio-2-left" value="radio2" label="No" />
+        <RadioButton
+          id="radio-3-left"
+          value="radio3"
+          label="RadioButton with a longer label"
+          fieldHelp="fieldHelp text"
+        />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        name="radio-button-group-right"
+        {...props}
+        legendAlign="right"
+      >
+        <RadioButton id="radio-1-right" value="radio1" label="Yes" />
+        <RadioButton id="radio-2-right" value="radio2" label="No" />
+        <RadioButton
+          id="radio-3-right"
+          value="radio3"
+          label="RadioButton with a longer label"
+          fieldHelp="fieldHelp text"
+        />
+      </RadioButtonGroup>
     </CarbonProvider>
   );
 };
 
-WithHintTextAlignment.args = {
-  id: "with-hint-text-alignment",
+WithLegendAlignment.args = {
+  id: "with-legend-alignment",
   legend: "Radio group legend",
   error: "Error message",
   warning: "",
@@ -277,6 +279,6 @@ WithHintTextAlignment.args = {
   isOptional: false,
   inline: false,
 };
-WithHintTextAlignment.parameters = {
+WithLegendAlignment.parameters = {
   chromatic: { disableSnapshot: false },
 };
