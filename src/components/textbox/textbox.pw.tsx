@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/experimental-ct-react";
 import { TextboxProps } from "components/textbox";
 import React from "react";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import {
   getDesignTokensByCssProperty,
   checkAccessibility,

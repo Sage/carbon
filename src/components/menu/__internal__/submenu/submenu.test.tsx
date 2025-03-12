@@ -513,3 +513,20 @@ test("should override submenu children's `maxWidth` if `submenuMaxWidth` is set"
   expect(submenuChildren[0]).toHaveStyle({ maxWidth: "300px" });
   expect(submenuChildren[1]).toHaveStyle({ maxWidth: "300px" });
 });
+
+test("sets minimum width for submenu when `submenuMinWidth` is set", async () => {
+  const user = userEvent.setup();
+  render(
+    <MenuContext.Provider value={menuContextValues}>
+      <Submenu title="Fruits" submenuMinWidth="300px">
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
+      </Submenu>
+    </MenuContext.Provider>,
+  );
+  const menuItem = screen.getByRole("button", { name: "Fruits" });
+  await user.hover(menuItem);
+  const submenu = screen.getByRole("list");
+
+  expect(submenu).toHaveStyle({ minWidth: "300px" });
+});

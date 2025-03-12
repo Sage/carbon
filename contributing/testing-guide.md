@@ -9,6 +9,7 @@
 - [Browser-based component tests](#browser-based-component-tests)
   - [Playwright File Structure](#playwright-file-structure)
   - [Locators](#locators)
+  - [Code Coverage](#code-coverage)
 - [Visual Testing](#visual-testing)
 
 ## Introduction
@@ -89,7 +90,7 @@ A typical `*.pw.tsx` file may look like the following:
 
 ```tsx
 // inside src/components/button/button.pw.tsx
-import { test, expect } from "@playwright/experimental-ct-react";
+import { test, expect } from "../../__spec_helper__/base-test";
 import Button from "./button.component";
 import { buttonComponent } from "../../../playwright/component/button/index";
 
@@ -166,6 +167,14 @@ export { buttonComponent, buttonSubtext };
 export const BUTTON_COMPONENT = '[data-component="button"]';
 export const BUTTON_SUBTEXT = '[data-element="subtext"]';
 ```
+### Code Coverage
+
+Currently, we do not enforce a code coverage threshold for our browser-based component tests; however, this policy may change in the future.
+
+We leverage Playwright's built-in code coverage capabilities to analyze the JavaScript and CSS executed during test runs. 
+In order to generate the JSON data, we use [monocart-coverage-reports](https://www.npmjs.com/package/monocart-coverage-reports) and then finally [nyc](https://www.npmjs.com/package/nyc) to produce the formatted HTML report. 
+
+To collect code coverage for the whole Playwright test suite, please run `npm run test:ct:coverage` (Note: This process may take a significant amount of time to complete.). For collecting code coverage data for a specific component, use the following command `npm run test:ct:coverage -- component.pw`. To generate the code coverage report run `npm run pw:coverage:report`. This will generate an `index.html` in the `playwright/coverage` directory. Since this directory is hidden by default, you will need to run the command `open playwright/coverage/index.html` if you are using an Apple device or `start playwright/coverage/index.html` if you are using Windows to open the report in your browser.
 
 ## Visual Testing
 

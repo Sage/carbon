@@ -1,3 +1,63 @@
+## [151.5.2](https://github.com/Sage/carbon/compare/v151.5.1...v151.5.2) (2025-03-11)
+
+### Bug Fixes
+
+* **deps:** bump prismjs from 1.29.0 to 1.30.0 ([15ba450](https://github.com/Sage/carbon/commit/15ba450d51e0b7f40931b83285ec492d7f939ddb))
+
+## [151.5.1](https://github.com/Sage/carbon/compare/v151.5.0...v151.5.1) (2025-03-10)
+
+### Bug Fixes
+
+* **form:** correct pluralisation on form summary when single error and warning ([584fd72](https://github.com/Sage/carbon/commit/584fd72fadd9a85a3927245701b1b2981fc16fd6)), closes [#7238](https://github.com/Sage/carbon/issues/7238)
+
+## [151.5.0](https://github.com/Sage/carbon/compare/v151.4.0...v151.5.0) (2025-03-07)
+
+### Features
+
+* **menu-item:** add submenuMinWidth prop ([c38c511](https://github.com/Sage/carbon/commit/c38c5118be76a2dc989cc5afd2b93b694230d68e))
+
+## [151.4.0](https://github.com/Sage/carbon/compare/v151.3.0...v151.4.0) (2025-03-07)
+
+### Features
+
+* **adaptive-sidebar:** implements a sidebar component to be used for Help and Chat purposes ([789db79](https://github.com/Sage/carbon/commit/789db7901c7c9421a5c3db5399362f4f80e914d5))
+
+## [151.3.0](https://github.com/Sage/carbon/compare/v151.2.3...v151.3.0) (2025-03-06)
+
+### Features
+
+* support server-side rendering ([f6253ac](https://github.com/Sage/carbon/commit/f6253ac63696501acef76f4838e644790847899f))
+
+## [151.2.3](https://github.com/Sage/carbon/compare/v151.2.2...v151.2.3) (2025-03-06)
+
+### Bug Fixes
+
+* **flat-table:** action-popover detached when scrolling flat table with sticky head and footing ([d9c59de](https://github.com/Sage/carbon/commit/d9c59de96be2579a09a73f9aba11d23739875002)), closes [#5094](https://github.com/Sage/carbon/issues/5094)
+
+## [151.2.2](https://github.com/Sage/carbon/compare/v151.2.1...v151.2.2) (2025-03-06)
+
+### Bug Fixes
+
+* **date-input:** update documentation ([df5a8ba](https://github.com/Sage/carbon/commit/df5a8bab0b6e34b9f7e2183d51e32328cee6f695))
+
+## [151.2.1](https://github.com/Sage/carbon/compare/v151.2.0...v151.2.1) (2025-03-04)
+
+### Bug Fixes
+
+* **text-editor:** ensure that margin props are applied to component ([be92805](https://github.com/Sage/carbon/commit/be92805b00cdd64a5e77a9dd241859cd3235027f))
+
+## [151.2.0](https://github.com/Sage/carbon/compare/v151.1.0...v151.2.0) (2025-03-03)
+
+### Features
+
+* **date:** add deprecation warning for disabledDays & selectedDays ([d7eec05](https://github.com/Sage/carbon/commit/d7eec05ceeaf827ec4e8f941457f7d549eeff326))
+
+## [151.1.0](https://github.com/Sage/carbon/compare/v151.0.0...v151.1.0) (2025-03-03)
+
+### Features
+
+* **packages:** remove `typescript-to-proptypes` package ([ec54171](https://github.com/Sage/carbon/commit/ec54171a3a556f484727bbba3f43eddf289c57b9)), closes [#5603](https://github.com/Sage/carbon/issues/5603)
+
 ## [151.0.0](https://github.com/Sage/carbon/compare/v150.1.0...v151.0.0) (2025-02-27)
 
 ### ⚠ BREAKING CHANGES

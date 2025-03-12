@@ -82,8 +82,19 @@ interface MenuItemBaseProps
    * Renders MenuItem as a div element
    * */
   as?: "div";
-  /** Sets the max-width of the submenu container element, accepts any valid CSS string */
+  /**
+   * Sets the maximum width for the item's submenu when it is opened.
+   * This prop is only applicable if the item has a submenu.
+   * Overrides the maximum width of any items within the submenu.
+   * Accepts any valid CSS width value (e.g. "200px", "50%").
+   * */
   submenuMaxWidth?: string;
+  /**
+   * Sets a minimum width for the item's submenu when it is opened.
+   * Accepts any valid CSS width value (e.g. "200px", "50%").
+   * This prop is only applicable if the item has a submenu.
+   * */
+  submenuMinWidth?: string;
 }
 
 export interface MenuWithChildren extends MenuItemBaseProps {
@@ -101,6 +112,7 @@ export interface MenuWithIcon extends MenuItemBaseProps {
 export const MenuItem = ({
   submenu,
   submenuMaxWidth,
+  submenuMinWidth,
   children,
   href,
   onClick,
@@ -279,6 +291,7 @@ export const MenuItem = ({
           onSubmenuOpen={onSubmenuOpen}
           onSubmenuClose={onSubmenuClose}
           submenuMaxWidth={submenuMaxWidth}
+          submenuMinWidth={submenuMinWidth}
           {...elementProps}
           variant={variant}
           {...rest}

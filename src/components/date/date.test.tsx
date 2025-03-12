@@ -12,6 +12,7 @@ import { frCA as frCALocale } from "date-fns/locale/fr-CA";
 import { enUS as enUSLocale } from "date-fns/locale/en-US";
 
 import CarbonProvider from "../carbon-provider";
+import Logger from "../../__internal__/utils/logger";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 import DateInput, { DateChangeEvent } from "./date.component";
@@ -81,6 +82,66 @@ afterEach(() => {
 
 afterAll(() => {
   jest.useRealTimers();
+});
+
+test("logs a deprecation warning once when `disabledDays` is used via `pickerProps`", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+
+  render(
+    <>
+      <DateInput
+        pickerProps={{ disabledDays: [new Date()] }}
+        label="label"
+        onChange={() => {}}
+        value=""
+      />
+      <DateInput
+        pickerProps={{ disabledDays: [new Date()] }}
+        label="label"
+        onChange={() => {}}
+        value=""
+      />
+    </>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    'The `disabledDays` prop has been deprecated as it is currently no longer available in `DayPickerProps` from "react-day-picker".' +
+      "Please use the `disabled` prop instead.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+  loggerSpy.mockRestore();
+});
+
+test("logs a deprecation warning once when `selectedDays` is used via `pickerProps`", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+
+  render(
+    <>
+      <DateInput
+        pickerProps={{ selectedDays: [new Date()] }}
+        label="label"
+        onChange={() => {}}
+        value=""
+      />
+      <DateInput
+        pickerProps={{ selectedDays: [new Date()] }}
+        label="label"
+        onChange={() => {}}
+        value=""
+      />
+    </>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    'The `selectedDays` prop has been deprecated as it is currently no longer available in `DayPickerProps` from "react-day-picker".' +
+      "Please use the `selected` prop instead.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+  loggerSpy.mockRestore();
 });
 
 test("should render the presentation element with expected width when no `size` prop is passed", () => {

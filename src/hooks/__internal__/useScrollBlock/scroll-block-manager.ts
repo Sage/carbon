@@ -1,5 +1,6 @@
 // TODO: This component can be refactored to remove redundant code
 // once we can confirm that all Sage products use version 105.0.0^
+import { getWindow } from "../../../__internal__/dom/globals";
 
 class ScrollBlockManager {
   components: {
@@ -9,10 +10,16 @@ class ScrollBlockManager {
   originalValues: string[];
 
   constructor() {
+    const safeWindow = getWindow();
+    if (!safeWindow) {
+      this.components = {};
+      this.originalValues = [];
+      return;
+    }
     // Due to possibility of multiple carbon versions using it
     // it is necessary to maintain same structure in this global variable
-    if (!window.__CARBON_INTERNALS_SCROLL_BLOCKERS) {
-      window.__CARBON_INTERNALS_SCROLL_BLOCKERS = {
+    if (!safeWindow.__CARBON_INTERNALS_SCROLL_BLOCKERS) {
+      safeWindow.__CARBON_INTERNALS_SCROLL_BLOCKERS = {
         components: {},
         // originalValues can be removed
         originalValues: [],
@@ -20,10 +27,10 @@ class ScrollBlockManager {
       };
     }
 
-    this.components = window.__CARBON_INTERNALS_SCROLL_BLOCKERS.components;
+    this.components = safeWindow.__CARBON_INTERNALS_SCROLL_BLOCKERS.components;
     // TODO: originalValues can be removed
     this.originalValues =
-      window.__CARBON_INTERNALS_SCROLL_BLOCKERS.originalValues;
+      safeWindow.__CARBON_INTERNALS_SCROLL_BLOCKERS.originalValues;
   }
 
   registerComponent(id: string) {

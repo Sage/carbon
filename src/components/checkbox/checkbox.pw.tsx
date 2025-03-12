@@ -1,6 +1,6 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react";
 import { CommonCheckableInputProps } from "__internal__/checkable-input/checkable-input.component";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import Box from "../box";
 import { Checkbox, CheckboxProps, CheckboxGroupProps } from ".";
 import {

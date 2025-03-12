@@ -6,6 +6,7 @@ import React, {
   useRef,
   useImperativeHandle,
   forwardRef,
+  useContext,
 } from "react";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
@@ -33,6 +34,9 @@ import {
   getItems,
   checkChildrenForString,
 } from "./__internal__/action-popover-utils";
+import FlatTableContext, {
+  FlatTableContextProps,
+} from "../flat-table/__internal__/flat-table.context";
 
 export interface RenderButtonProps {
   tabIndex: number;
@@ -109,6 +113,8 @@ export const ActionPopover = forwardRef<
     const [guid] = useState(createGuid());
     const buttonRef = useRef<HTMLDivElement>(null);
     const menu = useRef<HTMLUListElement>(null);
+    const { isInFlatTable } =
+      useContext<FlatTableContextProps>(FlatTableContext);
 
     const hasProperChildren = useMemo(() => {
       const incorrectChild = React.Children.toArray(children).find(
@@ -345,7 +351,11 @@ export const ActionPopover = forwardRef<
           }}
         >
           {isOpen && (
-            <Popover placement={mappedPlacement} reference={buttonRef}>
+            <Popover
+              placement={mappedPlacement}
+              reference={buttonRef}
+              disableBackgroundUI={isInFlatTable}
+            >
               <ActionPopoverMenu
                 data-component="action-popover"
                 ref={menu}

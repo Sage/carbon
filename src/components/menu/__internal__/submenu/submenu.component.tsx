@@ -73,6 +73,8 @@ export interface SubmenuProps {
   ariaLabel?: string;
   /** Sets the max-width of the submenu container element */
   submenuMaxWidth?: string;
+  /** Sets the min-width of the submenu container element */
+  submenuMinWidth?: string;
 }
 
 const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
@@ -94,6 +96,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
       onSubmenuClose,
       onClick,
       submenuMaxWidth,
+      submenuMinWidth,
       ...rest
     }: SubmenuProps,
     ref,
@@ -528,6 +531,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
             applyFocusRadiusStyling={applyFocusRadius}
             applyFocusRadiusStylingToLastItem={applyFocusRadiusToLastItem}
             submenuMaxWidth={submenuMaxWidth}
+            submenuMinWidth={submenuMinWidth}
             onBlur={handleSubmenuBlur}
           >
             <SubmenuContext.Provider

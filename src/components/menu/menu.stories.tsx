@@ -59,11 +59,11 @@ const meta: Meta<typeof Menu> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Menu>;
+type MenuStory = StoryObj<typeof Menu>;
 
 const menuTypes: MenuType[] = ["white", "light", "dark", "black"];
 
-export const DefaultStory: Story = () => {
+export const DefaultStory: MenuStory = () => {
   return (
     <Box mb={150}>
       {menuTypes.map((menuType) => (
@@ -102,7 +102,7 @@ export const DefaultStory: Story = () => {
 DefaultStory.storyName = "Default";
 DefaultStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const SelectedStory: Story = () => {
+export const SelectedStory: MenuStory = () => {
   return (
     <Box mb={150}>
       {menuTypes.map((menuType) => (
@@ -127,7 +127,7 @@ export const SelectedStory: Story = () => {
 };
 SelectedStory.storyName = "Selected";
 
-export const DividerStory: Story = () => {
+export const DividerStory: MenuStory = () => {
   return (
     <Box mb={150}>
       {menuTypes.map((menuType) => (
@@ -153,7 +153,7 @@ export const DividerStory: Story = () => {
 DividerStory.storyName = "Divider";
 DividerStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const LargeDividerStory: Story = () => {
+export const LargeDividerStory: MenuStory = () => {
   return (
     <Box mb={150}>
       {menuTypes.map((menuType) => (
@@ -179,7 +179,7 @@ export const LargeDividerStory: Story = () => {
 LargeDividerStory.storyName = "Large Divider";
 LargeDividerStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const SegmentTitleStory: Story = () => {
+export const SegmentTitleStory: MenuStory = () => {
   return (
     <Box mb={150}>
       {menuTypes.map((menuType) => (
@@ -206,7 +206,7 @@ export const SegmentTitleStory: Story = () => {
 SegmentTitleStory.storyName = "Segment Title";
 SegmentTitleStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const AlternateColourStory: Story = () => {
+export const AlternateColourStory: MenuStory = () => {
   return (
     <Box mb={150}>
       {menuTypes.map((menuType) => (
@@ -238,7 +238,7 @@ export const AlternateColourStory: Story = () => {
 AlternateColourStory.storyName = "Alternate Colour";
 AlternateColourStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const SubmenuOptionsStory: Story = () => {
+export const SubmenuOptionsStory: MenuStory = () => {
   return (
     <Box mb={150}>
       {menuTypes.map((menuType) => (
@@ -275,7 +275,7 @@ export const SubmenuOptionsStory: Story = () => {
 SubmenuOptionsStory.storyName = "Submenu Options";
 SubmenuOptionsStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const SubmenuDirectionLeftStory: Story = () => {
+export const SubmenuDirectionLeftStory: MenuStory = () => {
   return (
     <Box mb={150}>
       <Menu>
@@ -297,7 +297,7 @@ export const SubmenuDirectionLeftStory: Story = () => {
 SubmenuDirectionLeftStory.storyName = "Submenu Direction Left";
 SubmenuDirectionLeftStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithIconStory: Story = () => {
+export const WithIconStory: MenuStory = () => {
   return (
     <Box mb={150}>
       {menuTypes.map((menuType) => (
@@ -330,7 +330,7 @@ export const WithIconStory: Story = () => {
 WithIconStory.storyName = "With Icon";
 WithIconStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const NoDropdownArrowOnSubmenuStory: Story = () => {
+export const NoDropdownArrowOnSubmenuStory: MenuStory = () => {
   return (
     <Box minHeight="150px">
       <Menu>
@@ -349,7 +349,7 @@ NoDropdownArrowOnSubmenuStory.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const SplitSubmenuIntoSeparateComponentStory: Story = () => {
+export const SplitSubmenuIntoSeparateComponentStory: MenuStory = () => {
   const MySubMenu = (
     <MenuItem submenu="Menu Item Three">
       <MenuItem href="#">Item Submenu One</MenuItem>
@@ -372,7 +372,7 @@ SplitSubmenuIntoSeparateComponentStory.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const SubmenuIconAndTextAlignment: Story = () => {
+export const SubmenuIconAndTextAlignment: MenuStory = () => {
   return (
     <Box minHeight="250px">
       <Menu menuType="dark">
@@ -400,7 +400,7 @@ SubmenuIconAndTextAlignment.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const ScrollableSubmenuStory: Story = () => {
+export const ScrollableSubmenuStory: MenuStory = () => {
   return (
     <Box mb={150}>
       {menuTypes.map((menuType) => (
@@ -452,7 +452,7 @@ export const ScrollableSubmenuStory: Story = () => {
 ScrollableSubmenuStory.storyName = "Scrollable Submenu";
 ScrollableSubmenuStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const ScrollableSubmenuWithParent: Story = () => {
+export const ScrollableSubmenuWithParent: MenuStory = () => {
   const items = [
     "apple",
     "banana",
@@ -510,7 +510,7 @@ ScrollableSubmenuWithParent.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const SubmenuWithSearch: Story = () => {
+export const SubmenuWithSearch: MenuStory = () => {
   return (
     <Box mb={150}>
       {menuTypes.map((menuType) => (
@@ -547,7 +547,7 @@ export const SubmenuWithSearch: Story = () => {
 SubmenuWithSearch.storyName = "Submenu with Search";
 SubmenuWithSearch.parameters = { chromatic: { disableSnapshot: true } };
 
-export const TruncatedTitlesStory: Story = () => {
+export const TruncatedTitlesStory: MenuStory = () => {
   return (
     <Box minHeight="150px">
       <Menu>
@@ -568,7 +568,7 @@ export const TruncatedTitlesStory: Story = () => {
 };
 TruncatedTitlesStory.storyName = "Truncated Titles";
 
-export const ResponsiveCompositionStory: Story = () => {
+export const ResponsiveCompositionStory: MenuStory = () => {
   const isBelowBreakpoint1 = useMediaQuery("(max-width: 1200px)");
   const isBelowBreakpoint2 = useMediaQuery("(max-width: 1000px)");
   const isBelowBreakpoint3 = useMediaQuery("(max-width: 800px)");
@@ -652,7 +652,7 @@ ResponsiveCompositionStory.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const FullscreenViewStory: Story = () => {
+export const FullscreenViewStory: MenuStory = () => {
   const [menuOpen, setMenuOpen] = useState({
     light: false,
     dark: false,
@@ -737,49 +737,31 @@ export const FullscreenViewStory: Story = () => {
 FullscreenViewStory.storyName = "Fullscreen View";
 FullscreenViewStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const TruncationAndSubmenuWidth: Story = () => {
-  return (
-    <Box mb={150}>
-      {menuTypes.map((menuType) => (
-        <Box key={menuType}>
-          <Typography variant="h4" textTransform="capitalize" my={2}>
-            {menuType}
-          </Typography>
-          <Menu menuType={menuType}>
-            <MenuItem
-              maxWidth="240px"
-              submenuMaxWidth="300px"
-              submenu="This is a very long menu item title"
-            >
-              <MenuItem href="#">Item One</MenuItem>
-              <MenuItem p="2px 16px">
-                <Box minWidth="268px">
-                  <Search
-                    placeholder="placeholder"
-                    variant={
-                      ["white", "light"].includes(menuType) ? "default" : "dark"
-                    }
-                    defaultValue=""
-                  />
-                </Box>
-              </MenuItem>
-              <MenuSegmentTitle text="segment title that should wrap when it will overflow">
-                <MenuItem href="#">Item Two</MenuItem>
-                <MenuItem href="#">
-                  This is a longer text string that will wrap when it will
-                  overflow the width of the submenu container
-                </MenuItem>
-              </MenuSegmentTitle>
-            </MenuItem>
-          </Menu>
-        </Box>
-      ))}
-    </Box>
-  );
+export const ControllingTheSubmenuWidth: MenuStory = {
+  render: () => (
+    <Menu menuType="black">
+      <MenuItem submenuMaxWidth="300px" submenu="Open submenu with max width">
+        <MenuItem href="#">Item One</MenuItem>
+        <MenuItem href="#">
+          This is a longer text string. I will wrap instead of truncating!
+        </MenuItem>
+      </MenuItem>
+      <MenuItem submenuMinWidth="300px" submenu="Open submenu with min width">
+        <MenuItem href="#">Item One</MenuItem>
+        <MenuItem href="#">Item Two</MenuItem>
+        <MenuItem href="#">Item Three</MenuItem>
+      </MenuItem>
+    </Menu>
+  ),
+  decorators: [
+    (Story) => (
+      <div style={{ minHeight: "250px" }}>
+        <Story />
+      </div>
+    ),
+  ],
+  parameters: { chromatic: { disableSnapshot: true } },
 };
-
-TruncationAndSubmenuWidth.storyName = "Truncation and Submenu Width";
-TruncationAndSubmenuWidth.parameters = { chromatic: { disableSnapshot: true } };
 
 export const MenuFullscreenWithSegmentStyling = () => {
   const [isOpen, setIsOpen] = useState(false);

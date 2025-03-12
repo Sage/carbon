@@ -54,7 +54,7 @@
     "react/forbid-prop-types": "off",
     "react/no-array-index-key": "warn",
     "react/no-unused-prop-types": "warn",
-    "react/prop-types": "warn",
+    "react/prop-types": "off",
     "react/require-default-props": "off",
     "react/sort-comp": [
       "error",
@@ -109,12 +109,13 @@
     "es6": true,
     "browser": true
   },
-  "plugins": ["react", "react-hooks"],
+  "plugins": ["react", "react-hooks", "ssr-friendly"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:no-unsanitized/DOM",
+    "plugin:ssr-friendly/recommended",
     "airbnb",
     "prettier"
   ],
@@ -232,7 +233,7 @@
         "playwright": {
           "messages": {
             "noSkippedTest": "Test skipped. If unresolved, raise a JIRA ticket or GitHub issue, then reference it in a code comment above.",
-            "noWaitForTimeout": "Hardcoded timeouts make tests fragile and inefficient. Use Playwright’s built-in waits (e.g. `locator.waitFor()`) or auto-retrying assertions (e.g. `await expect(locator).toBeVisible()`) to wait for conditions like element visibility or text presence." 
+            "noWaitForTimeout": "Hardcoded timeouts make tests fragile and inefficient. Use Playwright’s built-in waits (e.g. `locator.waitFor()`) or auto-retrying assertions (e.g. `await expect(locator).toBeVisible()`) to wait for conditions like element visibility or text presence."
           }
         }
       }

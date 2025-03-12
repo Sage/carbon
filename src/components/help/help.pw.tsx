@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react";
+import { test, expect } from "../../../playwright/helpers/base-test";
 import Help, { HelpProps } from "../../../src/components/help/help.component";
 import HelpComponentTest from "./component.test-pw";
 import Box from "../../../src/components/box";
