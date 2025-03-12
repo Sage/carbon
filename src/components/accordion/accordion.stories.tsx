@@ -1,317 +1,228 @@
-import React, { useState } from "react";
+/* eslint-disable no-console */
+import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Accordion, AccordionGroup } from ".";
-import Box from "../box/box.component";
-import Button from "../button/button.component";
 
-import Textbox from "../textbox/textbox.component";
-
-import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import Box from "../box";
 import Typography from "../typography";
-
-const styledSystemProps = generateStyledSystemProps({
-  spacing: true,
-});
+import Accordion from "./accordion.component";
 
 const meta: Meta<typeof Accordion> = {
   title: "Accordion",
   component: Accordion,
-  argTypes: {
-    ...styledSystemProps,
-  },
+  decorators: [
+    (Story) => (
+      <Box px={4} width="90%">
+        <Story />
+      </Box>
+    ),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof Accordion>;
 
-export const Default: Story = () => {
-  return (
-    <Accordion title="Heading">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
+export const DefaultAccordion: Story = () => {
+  return <Accordion title="Default">Content</Accordion>;
 };
-Default.storyName = "Default";
+DefaultAccordion.storyName = "Default";
 
-export const WithTitle: Story = () => {
+export const ExpandedByDefault: Story = () => {
   return (
-    <Accordion title="Title">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
+    <Accordion title="Expanded by default" expanded>
+      Content
     </Accordion>
   );
 };
-WithTitle.storyName = "With Title";
-
-export const WithComplexTitle: Story = () => {
-  return (
-    <Accordion
-      title={
-        <Typography variant="h4" backgroundColor="blue" color="yellow">
-          Title
-        </Typography>
-      }
-    >
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-};
-WithComplexTitle.storyName = "With Complex Title";
-
-export const WithDisableContentPadding: Story = () => {
-  return (
-    <Accordion disableContentPadding title="Heading">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-};
-WithDisableContentPadding.storyName = "With Disabled Content Padding";
-WithDisableContentPadding.parameters = {
-  chromatic: { disableSnapshot: false },
-};
-
-export const Small: Story = () => {
-  return (
-    <Accordion size="small" title="Heading">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-};
-Small.storyName = "Small";
-
-export const Subtitle: Story = () => {
-  return (
-    <Accordion subTitle="Sub title" title="Heading">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-};
-Subtitle.storyName = "Subtitle";
-
-export const FullBorder: Story = () => {
-  return (
-    <Accordion borders="full" title="Heading">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-};
-FullBorder.storyName = "Full Border";
-
-export const NoBorder: Story = () => {
-  return (
-    <Accordion title="Heading" variant="subtle" borders="none">
-      <Box>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-};
-NoBorder.storyName = "No Border";
+ExpandedByDefault.storyName = "Expanded by Default";
 
 export const LeftAlignedIcon: Story = () => {
   return (
-    <Accordion iconAlign="left" title="Heading">
-      <Box mt={2}>Content</Box>
+    <Accordion title="Left-aligned Icon" iconAlign="left">
+      Content
+    </Accordion>
+  );
+};
+LeftAlignedIcon.storyName = "Left-aligned Icon";
+
+export const RightAlignedIcon: Story = () => {
+  return (
+    <Accordion title="Right-aligned Icon" iconAlign="right">
+      Content
+    </Accordion>
+  );
+};
+RightAlignedIcon.storyName = "Right-aligned Icon";
+
+export const OpenTitle: Story = () => {
+  return (
+    <Accordion title="Default" openTitle="Open Title">
+      Content
+    </Accordion>
+  );
+};
+OpenTitle.storyName = "Open Title";
+
+export const CustomTitleNode: Story = () => {
+  return (
+    <Accordion
+      title={
+        <Box>
+          <Typography
+            variant="segment-header"
+            backgroundColor="black"
+            color="white"
+          >
+            Custom Title Node
+          </Typography>
+        </Box>
+      }
+    >
+      Content
+    </Accordion>
+  );
+};
+CustomTitleNode.storyName = "Custom Title Node";
+
+export const Subtle: Story = () => {
+  return (
+    <Accordion title="Subtle" variant="subtle">
+      <Box>Content</Box>
       <Box>Content</Box>
       <Box>Content</Box>
     </Accordion>
   );
 };
-LeftAlignedIcon.storyName = "Left-Aligned Icon";
+Subtle.storyName = "Subtle";
+
+export const WithError: Story = () => {
+  return (
+    <Accordion error="Error" title="Default">
+      Content
+    </Accordion>
+  );
+};
+WithError.storyName = "With Error";
+
+export const WithWarning: Story = () => {
+  return (
+    <Accordion warning="Warning" title="Default">
+      Content
+    </Accordion>
+  );
+};
+WithWarning.storyName = "With Warning";
+
+export const WithInfo: Story = () => {
+  return (
+    <Accordion info="Info" title="Default">
+      Content
+    </Accordion>
+  );
+};
+WithInfo.storyName = "With Info";
+
+export const DisabledContentPadding: Story = () => {
+  return (
+    <Accordion disableContentPadding title="Disabled content padding">
+      Content
+    </Accordion>
+  );
+};
+DisabledContentPadding.storyName = "Disabled Content Padding";
+
+export const WithSubtitle: Story = () => {
+  return (
+    <Accordion title="Default" subTitle="Shiny subtitle">
+      Content
+    </Accordion>
+  );
+};
+WithSubtitle.storyName = "With Subtitle";
+
+export const IconVariant: Story = () => {
+  return (
+    <Accordion title="Icon variant" iconType="dropdown">
+      Content
+    </Accordion>
+  );
+};
+IconVariant.storyName = "Icon Variant";
+
+export const FullBorders: Story = () => {
+  return (
+    <Accordion title="Full borders" borders="full">
+      Content
+    </Accordion>
+  );
+};
+FullBorders.storyName = "Full Borders";
+
+export const NoBorders: Story = () => {
+  return (
+    <Accordion title="No borders" borders="none">
+      Content
+    </Accordion>
+  );
+};
+NoBorders.storyName = "No Borders";
+
+export const SmallSize: Story = () => {
+  return (
+    <Accordion title="Small" size="small">
+      Content
+    </Accordion>
+  );
+};
+SmallSize.storyName = "Small Size";
+
+export const HeaderSpacing: Story = () => {
+  return (
+    <Accordion
+      title="Header spacing"
+      headerSpacing={{ mt: 8, mb: 4, ml: 2, mr: 1 }}
+    >
+      Content
+    </Accordion>
+  );
+};
+HeaderSpacing.storyName = "Header Spacing";
+
+export const CustomChangeHandler: Story = () => {
+  return (
+    <Accordion
+      title="Custom change handler"
+      onChange={(e, isExpanded) => {
+        console.log(isExpanded);
+      }}
+    >
+      Content
+    </Accordion>
+  );
+};
+CustomChangeHandler.storyName = "Custom Change Handler";
 
 export const CustomWidth: Story = () => {
   return (
-    <Accordion width="500px" title="Heading">
-      <Box mt={2}>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
+    <Accordion title="Width" width="150px">
+      Content
     </Accordion>
   );
 };
 CustomWidth.storyName = "Custom Width";
 
-export const WithCustomPaddingAndMargins: Story = () => {
+export const GroupedSemantically: Story = () => {
   return (
     <>
-      <Accordion m={0} p={0} title="First Accordion">
-        <Box mt={2}>content</Box>
+      <Accordion title="Grouped Accordion 1" groupName="group">
+        Content
       </Accordion>
-      <Accordion m={1} p={1} title="Second Accordion">
-        <Box mt={2}>content</Box>
+      <Accordion title="Grouped Accordion 2" groupName="group">
+        Content
       </Accordion>
-      <Accordion m={2} p={2} title="Third Accordion">
-        <Box mt={2}>content</Box>
-      </Accordion>
-      <Accordion m={3} p={3} title="Fourth Accordion">
-        <Box mt={2}>content</Box>
-      </Accordion>
-      <Accordion m={4} p={4} title="Fifth Accordion">
-        <Box mt={2}>content</Box>
-      </Accordion>
-      <Accordion m={5} p={5} title="Sixth Accordion">
-        <Box mt={2}>content</Box>
-      </Accordion>
-      <Accordion m={6} p={6} title="Seventh Accordion">
-        <Box mt={2}>content</Box>
+      <Accordion title="Grouped Accordion 3" groupName="group">
+        Content
       </Accordion>
     </>
   );
 };
-WithCustomPaddingAndMargins.storyName = "With Custom Padding And Margins";
-
-export const WithCustomTitlePaddingAndMargins: Story = () => {
-  return (
-    <>
-      <Accordion headerSpacing={{ p: 0 }} title="First Accordion">
-        <Box mt={2}>content</Box>
-      </Accordion>
-      <Accordion headerSpacing={{ p: 1 }} title="Second Accordion">
-        <Box mt={2}>content</Box>
-      </Accordion>
-      <Accordion headerSpacing={{ p: 2 }} title="Third Accordion">
-        <Box mt={2}>content</Box>
-      </Accordion>
-      <Accordion headerSpacing={{ p: 3 }} title="Fourth Accordion">
-        <Box mt={2}>content</Box>
-      </Accordion>
-      <Accordion headerSpacing={{ p: 4 }} title="Fifth Accordion">
-        <Box mt={2}>content</Box>
-      </Accordion>
-      <Accordion headerSpacing={{ p: 5 }} title="Sixth Accordion">
-        <Box mt={2}>content</Box>
-      </Accordion>
-      <Accordion headerSpacing={{ p: 6 }} title="Seventh Accordion">
-        <Box mt={2}>content</Box>
-      </Accordion>
-    </>
-  );
-};
-WithCustomTitlePaddingAndMargins.storyName =
-  "With Custom Title Padding And Margins";
-
-export const Grouped: Story = () => {
-  return (
-    <AccordionGroup>
-      <Accordion title="First Accordion">
-        <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
-        </Box>
-      </Accordion>
-      <Accordion title="Second Accordion">
-        <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
-        </Box>
-      </Accordion>
-      <Accordion title="Third Accordion">
-        <Box p={2}>
-          <Box>Content</Box>
-          <Box>Content</Box>
-          <Box>Content</Box>
-        </Box>
-      </Accordion>
-    </AccordionGroup>
-  );
-};
-Grouped.storyName = "Grouped";
-
-export const WithValidationIcon: Story = () => {
-  const [firstAccordionExpanded, setFirstAccordionExpanded] =
-    useState<boolean>(true);
-  const [secondAccordionExpanded, setSecondAccordionExpanded] =
-    useState<boolean>(true);
-  const [thirdAccordionExpanded, setThirdAccordionExpanded] =
-    useState<boolean>(true);
-
-  const toggleFirstAccordion = () => {
-    setFirstAccordionExpanded(!firstAccordionExpanded);
-  };
-  const toggleSecondAccordion = () => {
-    setSecondAccordionExpanded(!secondAccordionExpanded);
-  };
-  const toggleThirdAccordion = () => {
-    setThirdAccordionExpanded(!thirdAccordionExpanded);
-  };
-
-  return (
-    <AccordionGroup>
-      <Accordion
-        title="First Heading"
-        expanded={firstAccordionExpanded}
-        onChange={toggleFirstAccordion}
-        error="This is an error state"
-      >
-        <Typography>Content</Typography>
-      </Accordion>
-      <Accordion
-        title="Second Heading"
-        expanded={secondAccordionExpanded}
-        onChange={toggleSecondAccordion}
-        warning="This is a warning state"
-      >
-        <Typography>Content</Typography>
-      </Accordion>
-      <Accordion
-        title="Third Heading"
-        expanded={thirdAccordionExpanded}
-        onChange={toggleThirdAccordion}
-        info="This is an info state"
-      >
-        <Typography>Content</Typography>
-      </Accordion>
-    </AccordionGroup>
-  );
-};
-WithValidationIcon.storyName = "With Validation Icon";
-
-export const WithDynamicContent: Story = () => {
-  const [contentCount, setContentCount] = useState(3);
-  const modifyContentCount = (modifier: number) => {
-    if (modifier === 1) {
-      setContentCount(contentCount + 1);
-    }
-    if (modifier === -1 && contentCount > 0) {
-      setContentCount(contentCount - 1);
-    }
-  };
-
-  return (
-    <>
-      <Button onClick={() => modifyContentCount(1)}>Add content</Button>
-      <Button onClick={() => modifyContentCount(-1)} ml={2}>
-        Remove content
-      </Button>
-      <Accordion mt={2} title="Title">
-        {Array.from(Array(contentCount).keys()).map((value) => (
-          <Box key={value} mt={2}>
-            Content
-          </Box>
-        ))}
-      </Accordion>
-    </>
-  );
-};
-WithDynamicContent.storyName = "With Dynamic Content";
-
-export const SubtleVariant: Story = () => {
-  return (
-    <Accordion title="Heading" variant="subtle">
-      <Box>Content</Box>
-      <Box>Content</Box>
-      <Box>Content</Box>
-    </Accordion>
-  );
-};
-SubtleVariant.storyName = "Subtle Variant";
+GroupedSemantically.storyName = "Grouped Semantically";

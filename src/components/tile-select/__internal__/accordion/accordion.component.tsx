@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react";
 import { SpaceProps } from "styled-system";
 
-import { StyledContentContainer, StyledContent } from "./accordion.style";
+import {
+  StyledContentContainer,
+  StyledAccordionContent,
+} from "./accordion.style";
 import useResizeObserver from "../../../../hooks/__internal__/useResizeObserver";
 
 export interface AccordionProps extends SpaceProps {
@@ -32,7 +35,7 @@ const Accordion = ({
       maxHeight={contentHeight}
       data-role="tile-select-accordion-content-container"
     >
-      <StyledContent
+      <StyledAccordionContent
         role="region"
         data-element="tile-select-accordion-content"
         data-role="tile-select-accordion-content"
@@ -41,7 +44,7 @@ const Accordion = ({
         aria-labelledby={controlId}
       >
         {children}
-      </StyledContent>
+      </StyledAccordionContent>
     </StyledContentContainer>
   );
 };
