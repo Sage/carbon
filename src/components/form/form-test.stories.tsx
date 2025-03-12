@@ -27,6 +27,7 @@ import Password from "../password";
 import Search, { SearchProps } from "../search";
 import { Time } from "../time";
 import TextEditor from "../text-editor";
+import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Form/Test",
@@ -37,60 +38,151 @@ export default {
       disableSnapshot: true,
     },
   },
+  argTypes: {
+    fieldSpacing: {
+      options: ["0", "1", "2", "3", "4", "5", "6", "7"],
+      control: {
+        type: "select",
+      },
+    },
+  },
 };
 
 type StoryType = StoryObj<typeof Form>;
 
-export const DefaultWithStickyFooter: StoryType = ({ ...props }) => (
-  <Form
-    onSubmit={() => console.log("submit")}
-    leftSideButtons={
-      <Button onClick={() => console.log("cancel")}>Cancel</Button>
-    }
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    {...props}
-  >
-    <Tabs mb={2}>
-      <Tab
-        pl="3px"
-        customLayout={
-          <Box mx="16px" my="10px">
-            Tab1
-          </Box>
-        }
-        tabId="tab1"
-      />
-    </Tabs>
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Time
-      value={{
-        hours: "",
-        minutes: "",
-      }}
-      onChange={() => {}}
-      label="Time"
-    />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-  </Form>
+export const AllInputs: StoryType = ({ ...props }) => (
+  <CarbonProvider validationRedesignOptIn>
+    <Textbox label="Outside of Form" characterLimit={100} />
+    <Textbox label="Outside of Form" characterLimit={100} />
+    <Hr />
+    <Form
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      {...props}
+    >
+      <Box>
+        <Textbox label="Textbox" characterLimit={100} />
+        <Number label="Number" />
+        <Decimal label="Decimal" />
+        <GroupedCharacter
+          label="GroupedCharacter"
+          groups={[2, 3, 2]}
+          separator="-"
+        />
+        <Password label="Password" characterLimit={100} />
+        <Fieldset legend="Fieldset">
+          <Textbox label="Textbox in Fieldset" />
+          <Checkbox label="Checkbox in Fieldset" />
+          <Select
+            name="simple-select"
+            id="simple-select"
+            label="Select in Fieldset"
+          >
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+            <Option text="Blue" value="3" />
+          </Select>
+        </Fieldset>
+        <Hr />
+        <Time
+          value={{
+            hours: "",
+            minutes: "",
+          }}
+          onChange={() => {}}
+          label="Time"
+        />
+        <NumeralDate label="Numeral Date" />
+        <RadioButtonGroup name="legend" legend="RadioButtonGroup">
+          <RadioButton
+            id="group-1-input-1"
+            value="group-1-input-1"
+            label="Radio Option 1"
+          />
+          <RadioButton
+            id="group-1-input-2"
+            value="group-1-input-2"
+            label="Radio Option 2"
+          />
+        </RadioButtonGroup>
+        <Checkbox label="Checkbox" />
+        <CheckboxGroup legend="Checkbox Group">
+          <Checkbox label="Checkbox-1" />
+          <Checkbox label="Checkbox-2" />
+        </CheckboxGroup>
+        <DateInput name="date" label="Date" value="" onChange={() => {}} />
+        <DateRange
+          name="date"
+          startLabel="Start Date"
+          endLabel="End Date"
+          value={["", ""]}
+          onChange={() => {}}
+        />
+        <InlineInputs label="Inline inputs">
+          <Textbox onChange={() => {}} />
+          <Textbox onChange={() => {}} />
+          <Textbox onChange={() => {}} />
+        </InlineInputs>
+        <Search value="" onChange={() => {}} />
+        <Select name="simple-select" id="simple-select" label="Simple Select">
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+        </Select>
+        <FilterableSelect
+          name="filterable-select"
+          id="filterable-select"
+          label="Filterable Select"
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+        </FilterableSelect>
+        <MultiSelect name="multi-select" id="multi-select" label="Multi Select">
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+        </MultiSelect>
+        <Textarea label="Textarea" name="textarea" characterLimit={100} />
+        <TextEditor labelText="Text Editor" characterLimit={100} />
+        <SimpleColorPicker
+          name="simple-color-picker"
+          legend="Simple Color Picker"
+        >
+          {[
+            { color: "transparent", label: "transparent" },
+            { color: "#0073C1", label: "blue" },
+            { color: "#582C83", label: "purple" },
+          ].map(({ color, label }) => (
+            <SimpleColor
+              value={color}
+              key={color}
+              aria-label={label}
+              id={color}
+            />
+          ))}
+        </SimpleColorPicker>
+        <Switch name="switch" label="Switch" onChange={() => {}} />
+      </Box>
+    </Form>
+  </CarbonProvider>
 );
 
-DefaultWithStickyFooter.storyName = "default";
-DefaultWithStickyFooter.args = {
-  stickyFooter: true,
+AllInputs.storyName = "all inputs";
+AllInputs.args = {
+  stickyFooter: false,
   errorCount: 0,
   warningCount: 0,
   buttonAlignment: "right",
 };
-DefaultWithStickyFooter.parameters = {
+AllInputs.parameters = {
   themeProvider: {
     chromatic: { theme: "sage" },
   },
@@ -98,17 +190,15 @@ DefaultWithStickyFooter.parameters = {
     disableSnapshot: false,
   },
 };
-DefaultWithStickyFooter.decorators = [
-  (Story) => (
-    <div style={{ height: "100vh", width: "97vw" }}>
-      <Story />
-    </div>
-  ),
-];
 
-export const FormAlignmentCustomMarginsTextInputs = () => {
+export const FormAlignmentCustomMarginsTextInputs = ({ ...props }) => {
   return (
-    <Form onSubmit={() => console.log("submit")} fieldSpacing={4} px="25%">
+    <Form
+      onSubmit={() => console.log("submit")}
+      fieldSpacing={4}
+      px="25%"
+      {...props}
+    >
       <Fieldset legend="Fieldset" mb={1}>
         <Textbox
           label="Textbox in Fieldset"
@@ -268,9 +358,14 @@ FormAlignmentCustomMarginsTextInputs.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const FormAlignmentCustomMarginNonTextInputs = () => {
+export const FormAlignmentCustomMarginNonTextInputs = ({ ...props }) => {
   return (
-    <Form onSubmit={() => console.log("submit")} fieldSpacing={4} px="25%">
+    <Form
+      onSubmit={() => console.log("submit")}
+      fieldSpacing={4}
+      px="25%"
+      {...props}
+    >
       <RadioButtonGroup
         name="legend"
         onChange={() => console.log("RADIO CHANGE")}
@@ -543,51 +638,3 @@ FullWidthWithLeftAndRight.parameters = {
   },
   themeProvider: { chromatic: { theme: "sage" }, viewports: [1200, 900, 320] },
 };
-
-export const DefaultWithNumeralDate: StoryType = ({ ...props }) => (
-  <Form
-    onSubmit={() => console.log("submit")}
-    leftSideButtons={
-      <Button onClick={() => console.log("cancel")}>Cancel</Button>
-    }
-    saveButton={
-      <Button buttonType="primary" type="submit">
-        Save
-      </Button>
-    }
-    {...props}
-  >
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <NumeralDate
-      defaultValue={{
-        dd: "01",
-        mm: "02",
-        yyyy: "2020",
-      }}
-      label="Numeral Date"
-    />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-    <Textbox label="Textbox" />
-  </Form>
-);
-
-DefaultWithNumeralDate.storyName = "With NumeralDate";
-DefaultWithNumeralDate.parameters = {
-  themeProvider: {
-    chromatic: { theme: "sage" },
-  },
-  chromatic: {
-    disableSnapshot: false,
-  },
-};
-DefaultWithNumeralDate.decorators = [
-  (Story) => (
-    <div style={{ height: "100vh", width: "97vw" }}>
-      <Story />
-    </div>
-  ),
-];

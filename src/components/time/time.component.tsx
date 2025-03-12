@@ -12,6 +12,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 import Fieldset from "../../__internal__/fieldset";
 import Box from "../box";
@@ -297,6 +298,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
         name={name}
         id={internalId.current}
         {...rest}
+        {...filterStyledSystemMarginProps(rest)}
         {...tagComponent("time", rest)}
         aria-describedby={inputHint ? combinedAriaDescribedBy : ariaDescribedBy}
       >
@@ -342,6 +344,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 warning={!!hoursWarning}
                 disabled={disabled}
                 readOnly={readOnly}
+                my={0} // prevents any form spacing being applied
               />
             </div>
             <Box
@@ -379,6 +382,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
                 warning={!!minutesWarning}
                 disabled={disabled}
                 readOnly={readOnly}
+                my={0} // prevents any form spacing being applied
               />
             </div>
             {showToggle && (

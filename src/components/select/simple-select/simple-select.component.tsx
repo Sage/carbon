@@ -7,7 +7,10 @@ import React, {
 } from "react";
 import invariant from "invariant";
 
-import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
+import {
+  filterOutStyledSystemSpacingProps,
+  filterStyledSystemMarginProps,
+} from "../../../style/utils";
 import StyledSelect from "../select.style";
 import SelectTextbox, {
   FormInputPropTypes,
@@ -21,7 +24,6 @@ import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
-import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 
 let deprecateUncontrolledWarnTriggered = false;
@@ -532,7 +534,7 @@ export const SimpleSelect = React.forwardRef<
       </SelectList>
     );
 
-    const marginProps = useFormSpacing(props);
+    const marginProps = filterStyledSystemMarginProps(props);
 
     return (
       <StyledSelect

@@ -256,7 +256,6 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         searchHasValue={searchHasValue}
         showSearchButton={!!searchButton}
         variant={variant}
-        mb={0}
         {...filterStyledSystemMarginProps(rest)}
         id={id}
         name={name}
@@ -284,6 +283,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
             !searchButton ? <Icon type="search" ml={1} /> : undefined
           }
           tooltipPosition={tooltipPosition}
+          my={0} // prevents any form spacing being applied
         />
         {searchButton && (
           <StyledSearchButton>
