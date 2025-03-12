@@ -481,8 +481,8 @@ test.describe("should render TileSelect component and check events", () => {
 });
 
 test.describe("Accessibility tests for Tile Select", () => {
-  // FE-4683
-  test.skip("should pass accessibility tests for Default example", async ({
+  // This test passes the accessibility checks
+  test("should pass accessibility tests for Default example", async ({
     mount,
     page,
   }) => {
@@ -491,7 +491,7 @@ test.describe("Accessibility tests for Tile Select", () => {
     await checkAccessibility(page);
   });
 
-  // FE-4683
+  // This test fails due to having the `disabled` prop set to true for one of the examples
   test.skip("should pass accessibility tests for MultiSelect example", async ({
     mount,
     page,
@@ -519,8 +519,8 @@ test.describe("Accessibility tests for Tile Select", () => {
     await checkAccessibility(page);
   });
 
-  // FE-4683
-  test.skip("should pass accessibility tests for WithAPrefixAdornment example", async ({
+  // This test passes the accessibility checks
+  test("should pass accessibility tests for WithAPrefixAdornment example", async ({
     mount,
     page,
   }) => {
@@ -529,8 +529,8 @@ test.describe("Accessibility tests for Tile Select", () => {
     await checkAccessibility(page);
   });
 
-  // FE-4683
-  test.skip("should pass accessibility tests for WithAccordionFooter example", async ({
+  // This test passes the accessibility checks
+  test("should pass accessibility tests for WithAccordionFooter example", async ({
     mount,
     page,
   }) => {
@@ -566,8 +566,8 @@ test.describe("Accessibility tests for Tile Select", () => {
     await checkAccessibility(page);
   });
 
-  // FE-4683
-  test.skip("should pass accessibility tests for WithCustomSpacing example", async ({
+  // This test fails due to having the `disabled` prop set to true for one of the examples
+  test("should pass accessibility tests for WithCustomSpacing example", async ({
     mount,
     page,
   }) => {

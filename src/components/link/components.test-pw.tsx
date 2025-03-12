@@ -12,6 +12,16 @@ export const LinkComponent = (props: LinkProps) => {
   );
 };
 
+export const LinkComponentDarkBackground = (props: LinkProps) => {
+  return (
+    <Box m="100px" bg="black">
+      <Link href="#foo" target="_blank" rel="noreferrer noopener" {...props}>
+        This is a link
+      </Link>
+    </Box>
+  );
+};
+
 export const LinkComponentAsButton = (props: LinkProps) => {
   return (
     <Box m="100px">

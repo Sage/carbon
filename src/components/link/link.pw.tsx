@@ -18,6 +18,7 @@ import Link, { LinkProps } from "../../../src/components/link";
 import {
   LinkComponent,
   LinkComponentAsButton,
+  LinkComponentDarkBackground,
 } from "../../../src/components/link/components.test-pw";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -354,6 +355,7 @@ test.describe("should check accessibility for Link component", () => {
   });
 
   // FE-4647
+  // This still fails due to insufficient contrast between the text and the background
   test.skip("should pass accessibility tests when disabled", async ({
     mount,
     page,
@@ -363,11 +365,13 @@ test.describe("should check accessibility for Link component", () => {
     await checkAccessibility(page);
   });
 
-  test.skip("should pass accessibility tests with dark background", async ({
+  // This failed because the link was on a white background with the `isDarkBackground` prop set to true.
+  // We now have it set to black background and the test passes.
+  test("should pass accessibility tests with dark background", async ({
     mount,
     page,
   }) => {
-    await mount(<LinkComponent isDarkBackground />);
+    await mount(<LinkComponentDarkBackground isDarkBackground />);
 
     await checkAccessibility(page);
   });
@@ -379,7 +383,7 @@ test.describe("should check accessibility for Link component", () => {
   });
 
   (["left", "right"] as LinkProps["iconAlign"][]).forEach((iconAlign) => {
-    test(`sshould pass accessibility tests with iconAlign prop set to ${iconAlign}`, async ({
+    test(`should pass accessibility tests with iconAlign prop set to ${iconAlign}`, async ({
       mount,
       page,
     }) => {

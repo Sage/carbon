@@ -593,41 +593,38 @@ test.describe("render DialogFullScreen component and check properties", () => {
 });
 
 test.describe("Accessibility for DialogFullScreen", () => {
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should check accessibility for default component", async ({
+  // This test now seems to be passing the accessibility checks.
+  test("should check accessibility for default component", async ({
     mount,
     page,
   }) => {
     await mount(<DialogFullScreenComponent />);
 
-    // color-contrast ignored until we can investigate and fix FE-6245
-    await checkAccessibility(page, undefined, "color-contrast");
+    await checkAccessibility(page, page.getByRole("dialog"));
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should check accessibility with disabled content padding", async ({
+  // This test now seems to be passing the accessibility checks.
+  test("should check accessibility with disabled content padding", async ({
     mount,
     page,
   }) => {
     await mount(<DialogFullScreenComponent disableContentPadding />);
 
-    // color-contrast ignored until we can investigate and fix
-    await checkAccessibility(page, undefined, "color-contrast");
+    await checkAccessibility(page, page.getByRole("dialog"));
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should check accessibility with header children", async ({
+  // This test now seems to be passing the accessibility checks.
+  test("should check accessibility with header children", async ({
     mount,
     page,
   }) => {
     await mount(<DialogFullScreenWithHeaderChildren />);
 
-    // color-contrast ignored until we can investigate and fix FE-6245
-    await checkAccessibility(page, page.getByRole("dialog"), "color-contrast");
+    await checkAccessibility(page, page.getByRole("dialog"));
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should check accessibility with help", async ({ mount, page }) => {
+  // This test now seems to be passing the accessibility checks.
+  test("should check accessibility with help", async ({ mount, page }) => {
     await mount(<WithHelp />);
 
     const openButton = page
@@ -636,11 +633,11 @@ test.describe("Accessibility for DialogFullScreen", () => {
     await openButton.click();
 
     // color-contrast ignored until we can investigate and fix
-    await checkAccessibility(page, undefined, "color-contrast");
+    await checkAccessibility(page, page.getByRole("dialog"));
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should check accessibility with hideable header children", async ({
+  // This test now seems to be passing the accessibility checks.
+  test("should check accessibility with hidable header children", async ({
     mount,
     page,
   }) => {
@@ -651,8 +648,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
       .filter({ hasText: "Open DialogFullScreen" });
     await openButton.click();
 
-    // color-contrast ignored until we can investigate and fix FE-6245
-    await checkAccessibility(page, page.getByRole("dialog"), "color-contrast");
+    await checkAccessibility(page, page.getByRole("dialog"));
   });
 
   test("should check accessibility with box", async ({ mount, page }) => {
@@ -678,8 +674,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
       .filter({ hasText: "Open Demo using focusFirstElement" });
     await focusFirstButton.click();
 
-    // color-contrast ignored until we can investigate and fix FE-6245
-    await checkAccessibility(page, page.getByRole("dialog"), "color-contrast");
+    await checkAccessibility(page, page.getByRole("dialog"));
 
     const closeIcon = getDataElementByValue(page, "close").first();
     await closeIcon.click();
@@ -689,8 +684,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
       .filter({ hasText: "Open Demo using autoFocus" });
     await autoFocusButton.click();
 
-    // color-contrast ignored until we can investigate and fix FE-6245
-    await checkAccessibility(page, page.getByRole("dialog"), "color-contrast");
+    await checkAccessibility(page, page.getByRole("dialog"));
   });
 
   test("should check accessibility with other focusable containers", async ({
@@ -704,8 +698,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
       .filter({ hasText: "Open DialogFullScreen" });
     await openButton.click();
 
-    // color-contrast ignored until we can investigate and fix
-    await checkAccessibility(page, undefined, "color-contrast");
+    await checkAccessibility(page, page.getByRole("dialog"));
   });
 
   test("should check accessibility with complex example", async ({
@@ -722,8 +715,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
       "Dialog Title",
     );
 
-    // color-contrast ignored until we can investigate and fix
-    await checkAccessibility(page, undefined, "color-contrast");
+    await checkAccessibility(page, page.getByRole("dialog"));
   });
 });
 

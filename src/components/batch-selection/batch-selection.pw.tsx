@@ -250,6 +250,7 @@ test.describe("Accessibility tests for Batch Selection", () => {
   });
 
   // FE-4609
+  // This test is failing due to colour contrast issues with the disabled variant of this component
   test.skip("should pass accessibility test for disabled BatchSelection", async ({
     mount,
     page,
@@ -259,6 +260,7 @@ test.describe("Accessibility tests for Batch Selection", () => {
   });
 
   // FE-4609
+  // This test is failing due to colour contrast issues with the disabled variant of this component
   test.skip("should pass accessibility test for disabled BatchSelection with all supported disabled button children", async ({
     mount,
     page,

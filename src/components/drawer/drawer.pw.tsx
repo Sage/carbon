@@ -320,7 +320,8 @@ test.describe("Accessibility tests for Drawer component", () => {
 
   ["3s", "15s"].forEach((animationDuration) => {
     // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip(`should pass accessibility tests when animation time is set to ${animationDuration}`, async ({
+    // These pass locally but will need to be checked on the CI pipeline to see if the flakiness is still present
+    test(`should pass accessibility tests when animation time is set to ${animationDuration}`, async ({
       mount,
       page,
     }) => {

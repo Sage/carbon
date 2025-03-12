@@ -2045,8 +2045,8 @@ test(`should verify that submenu item text wraps when it would overflow the cont
 });
 
 test.describe("Accessibility tests for Menu Fullscreen component", () => {
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`should pass accessibility tests for Menu Fullscreen`, async ({
+  // Test now passes but will need to be checked on the CI pipeline.
+  test(`should pass accessibility tests for Menu Fullscreen`, async ({
     mount,
     page,
   }) => {
@@ -2056,8 +2056,7 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
     const item = menuItem(page).first();
     await item.click();
     const fullscreen = getComponent(page, "menu-fullscreen").first();
-    await waitForAnimationEnd(fullscreen);
-    await checkAccessibility(page);
+    await checkAccessibility(page, fullscreen);
   });
 
   test(`should pass accessibility tests when close icon is clicked`, async ({
@@ -2081,8 +2080,8 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
     await checkAccessibility(page);
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`should pass accessibility tests when menu item is highlighted`, async ({
+  // Test now passes but this will need to be checked on CI pipeline
+  test(`should pass accessibility tests when menu item is highlighted`, async ({
     mount,
     page,
   }) => {
