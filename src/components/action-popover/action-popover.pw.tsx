@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop */
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
-import { accordionDefaultTitle } from "../../../playwright/components/accordion";
+import { accordionDetails } from "../../../playwright/components/accordion";
 import {
   actionPopover,
   actionPopoverButton,
@@ -503,7 +503,7 @@ test.describe("check functionality for ActionPopover component", () => {
         <ActionPopoverCustom />
       </Accordion>,
     );
-    const accordionDefaultTitleElement = accordionDefaultTitle(page);
+    const accordionDefaultTitleElement = accordionDetails(page);
     await accordionDefaultTitleElement.press("Enter");
     const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
@@ -552,7 +552,7 @@ test.describe("check functionality for ActionPopover component", () => {
         <ActionPopoverCustom />
       </Accordion>,
     );
-    const accordionDefaultTitleElement = accordionDefaultTitle(page);
+    const accordionDefaultTitleElement = accordionDetails(page);
     await accordionDefaultTitleElement.press("Enter");
     const actionPopoverButtonElement = actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
@@ -1584,7 +1584,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     page,
   }) => {
     await mount(<InOverflowHiddenContainer />);
-    const accordionIcon = getDataElementByValue(page, "accordion-icon");
+    const accordionIcon = getDataElementByValue(page, "accordion-marker");
     await accordionIcon.click();
     await checkAccessibility(page);
   });
