@@ -1,3 +1,9 @@
+## [151.5.3](https://github.com/Sage/carbon/compare/v151.5.2...v151.5.3) (2025-03-12)
+
+### Bug Fixes
+
+* **checkbox-group, radio-button-group:** ensure right-aligned legend does not extend past the input ([25f291b](https://github.com/Sage/carbon/commit/25f291bdba293c061e4a4e0ebddf7c3524a629d3))
+
 ## [151.5.2](https://github.com/Sage/carbon/compare/v151.5.1...v151.5.2) (2025-03-11)
 
 ### Bug Fixes
