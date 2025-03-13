@@ -1,3 +1,22 @@
+## [152.0.0](https://github.com/Sage/carbon/compare/v151.5.3...v152.0.0) (2025-03-13)
+
+### ⚠ BREAKING CHANGES
+
+* **date:** `disabledDays` and `selectedDays` are no longer available in the `PickerProps`
+interface which is currently available via the `pickerProps` prop. If used they will have no effect
+and will now result in a type error for Typescript projects, the `disabled` and `selected`
+props should now be used instead
+* **numeral-date:** In order to allow NumeralDate to support a forward ref the typescript interface for
+the component has had to be changed.
+
+### Features
+
+* **numeral-date:** allow component to be focused programmatically ([b2a0dce](https://github.com/Sage/carbon/commit/b2a0dcef671e5b30eb9aa2a4d36829a07c3dc3bc)), closes [#7180](https://github.com/Sage/carbon/issues/7180)
+
+### Bug Fixes
+
+* **date:** remove invalid props `disabledDays` and `selectedDays` from `PickerProps` ([4351e91](https://github.com/Sage/carbon/commit/4351e914c924791c7839f6303fdba1f58a4d8751))
+
 ## [151.5.3](https://github.com/Sage/carbon/compare/v151.5.2...v151.5.3) (2025-03-12)
 
 ### Bug Fixes
