@@ -15,7 +15,7 @@ import React, {
     dropTargetForElements,
   } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
   import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
-  import { isDraggableItemData } from "./draggable-utils";
+  import { isDraggableItemData, DragState } from "./draggable-utils";
   
   import { UseDraggableHandle } from "../../hooks/useDraggable/useDraggable";
   import DraggableProviderContext from "../../hooks/useDraggable/draggable-provider-context";
@@ -30,8 +30,7 @@ import React, {
       draggableItemIds?: (string | number | undefined)[],
       movedItemId?: string | number | undefined,
     ) => void;
-    containerStyle?: CSSProperties;
-    containerNode?: string;
+    containerNode?:  keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
     "data-role"?: string;
     "data-component"?: string;
   }
@@ -45,14 +44,13 @@ import React, {
         id,
         children,
         getOrder,
-        containerStyle,
         containerNode = "div",
         "data-role": dataRole,
         "data-component": dataComponent,
       }: DraggableContainerProps,
       ref,
     ): JSX.Element => {
-      const { register, lists, move } = useContext(DraggableProviderContext);
+      const { register, lists, move, containerDragState } = useContext(DraggableProviderContext);
       const [list, setList] = useState<React.ReactNode[]>([]);
   
       const uniqueId = id || useRef(guid()).current;
@@ -219,10 +217,7 @@ import React, {
               if (target) {
                 const indexOfTarget = Number(target.data.itemIndex);
                 const destinationId = source.data.itemId as string | number;
-  
-                console.log("indexOfTarget", indexOfTarget);
-                console.log("destinationId", destinationId);
-  
+    
                 if (
                   !Number.isNaN(indexOfTarget) &&
                   indexOfTarget >= 0 &&
@@ -250,6 +245,14 @@ import React, {
         return () => cleanup();
       }, [localMove, move]);
   
+      const finalContainerDragState = () => {
+
+        if(containerDragState?.targetContainerId === uniqueId) {
+          return containerDragState.draggingBetweenContainers ? "dragging-over-between-containers" : "idle"
+        } 
+        return "idle";
+      }
+
       return (
         <DraggableContainerContext.Provider
           value={{ columnId: uniqueId }}
@@ -258,10 +261,10 @@ import React, {
             containerNode,
             {
               "data-element": "use-draggable-container",
+              "data-drag-state": finalContainerDragState(),
               "data-role": dataRole,
               "data-component": dataComponent,
               id: uniqueId,
-              style: containerStyle,
               ref: containerRef,
             },
             (effectiveList || []).map((child: React.ReactNode, index: number) => (

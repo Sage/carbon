@@ -30,12 +30,10 @@ import React, {
     DragState,
   } from "./draggable-utils";
   import StyledFlatTableRow from "../../components/flat-table/flat-table-row/flat-table-row.style";
-  import UseDraggableContext from "../../hooks/useDraggable/useDraggable-context";
   
   export interface DraggableItemProps {
     children?: React.ReactNode;
     id: string | number;
-    itemsStyle?: CSSProperties;
     indicatorColor?: string;
     draggableItemStylingOptOut?: boolean;
     itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
@@ -44,27 +42,17 @@ import React, {
   const DraggableItem = forwardRef(({
     children,
     id,
-    itemsStyle,
     indicatorColor,
     draggableItemStylingOptOut = false,
     itemsNode = "div",
     ...rest
   }: DraggableItemProps, ref): JSX.Element => {
-  
+    
     const columnId = useContext(DraggableContainerContext)?.columnId;
     const index = useContext(DraggableItemContext)?.index;
     const { setClosestEdge } = useContext(
       DraggableProviderContext,
     );
-
-    // NOTE: Work on finding a way to return dragState to the useDraggable hook in a performant manner
-    const { setDragState: setUseDragState } = useContext(UseDraggableContext);
-  
-  
-    const [dragState, setDragState] = useState<DragState>({
-      type: "idle",
-      id: 0,
-    });
   
     const internalRef = useRef<HTMLDivElement | null>(null);
     const itemRef = (ref as RefObject<HTMLDivElement>) || internalRef;
@@ -78,7 +66,12 @@ import React, {
       }),
       [id, index, children, columnId],
     );
-  
+
+    const [dragState, setDragState] = useState<DragState>({
+      type: "idle",
+      id: 0,
+    });
+
     const finalOpacity = dragState.type === "is-dragging-over" ? 0 : 1;
   
     useEffect(() => {
@@ -171,12 +164,12 @@ import React, {
           ref: itemRef,
           "data-parent-container-id": columnId,
           "data-item-id": id,
+          "data-drag-state": dragState.type,
           ...(itemsNode === StyledFlatTableRow && {
             isDragging: dragState.type === "is-dragging",
           }),
           ...rest,
           style: {
-            ...itemsStyle,
             opacity: draggableItemStylingOptOut ? 1 : finalOpacity,
             position: "relative",
           },
