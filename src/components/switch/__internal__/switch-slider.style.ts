@@ -14,7 +14,7 @@ interface StyledSwitchSliderProps
   isDarkBackground?: boolean;
 }
 
-const StyledSwitchSlider = styled.div`
+const StyledSwitchSlider = styled.div<StyledSwitchSliderProps>`
   ${({
     checked,
     isLoading,
@@ -23,7 +23,7 @@ const StyledSwitchSlider = styled.div`
     error,
     warning,
     isDarkBackground,
-  }: StyledSwitchSliderProps) => css`
+  }) => css`
     display: flex;
     font-size: 12px;
     font-weight: 500;
@@ -147,8 +147,8 @@ const StyledSwitchSlider = styled.div`
   `}
 `;
 
-const HiddenContent = styled.div`
-  ${({ size }: Pick<StyledSwitchSliderProps, "size">) => css`
+const HiddenContent = styled.div<Pick<StyledSwitchSliderProps, "size">>`
+  ${({ size }) => css`
     visibility: hidden;
     height: 0px;
     padding-left: ${size === "large"

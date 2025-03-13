@@ -1,4 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
+import { DefaultTheme } from "styled-components";
 import { color as styledColor } from "styled-system";
 import tokens from "@sage/design-tokens/js/base/common";
 import { ThemeObject } from "../themes/base";
@@ -23,7 +24,7 @@ import { ThemeObject } from "../themes/base";
  * This allows us to keep our themes as plain objects.
  */
 
-export const toColor = (theme: ThemeObject, color: string) => {
+export const toColor = (theme: ThemeObject | DefaultTheme, color: string) => {
   if (color.startsWith("--") && color.slice(2) in tokens) {
     return `var(${color})`;
   }

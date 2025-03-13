@@ -115,6 +115,7 @@ export const FlatTableRowHeader = ({
         "data-element": "flat-table-row-header",
         ...rest,
       })}
+      data-sticky-align={stickyAlignment}
       id={internalId.current}
     >
       <StyledFlatTableRowHeaderContent

@@ -92,19 +92,19 @@ interface StyledCardContentProps
   rel?: string;
 }
 
-const StyledCardContent = styled.div.attrs(
-  ({ href, onClick }: Pick<StyledCardProps, "href" | "onClick">) => {
-    if (href) {
-      return { as: "a" };
-    }
+const StyledCardContent = styled.div.attrs<
+  Pick<StyledCardProps, "href" | "onClick">
+>(({ href, onClick }) => {
+  if (href) {
+    return { as: "a" };
+  }
 
-    if (onClick) {
-      return { as: "button", role: "button", type: "button" };
-    }
+  if (onClick) {
+    return { as: "button", role: "button", type: "button" };
+  }
 
-    return {};
-  },
-)<StyledCardContentProps>`
+  return {};
+})<StyledCardContentProps>`
   ${({ interactive }) =>
     interactive &&
     css`

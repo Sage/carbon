@@ -10,7 +10,7 @@ import generateCssVariables from "../generate-css-variables.util";
  *
  */
 
-const CarbonScopedTokensProvider = styled.div<ThemeObject>`
+const CarbonScopedTokensProvider = styled.div<Partial<ThemeObject>>`
   margin: 0;
   padding: 0;
   width: auto;

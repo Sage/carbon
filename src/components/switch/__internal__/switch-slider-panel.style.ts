@@ -10,8 +10,8 @@ export interface SwitchSliderPanelProps {
   isDarkBackground?: boolean;
 }
 
-const SwitchSliderPanel = styled.div`
-  ${({ isLoading, size, isDarkBackground }: SwitchSliderPanelProps) => css`
+const SwitchSliderPanel = styled.div<SwitchSliderPanelProps>`
+  ${({ isLoading, size, isDarkBackground }) => css`
     border: 0;
     color: ${isDarkBackground
       ? "var(--colorsUtilityYin100)"

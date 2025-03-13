@@ -23,16 +23,14 @@ interface StyledSwitchProps
   theme: ThemeObject;
 }
 
-export const ErrorBorder = styled.span`
-  ${({
-    reverse,
-    warning,
-    isDarkBackground,
-  }: {
-    reverse: boolean;
-    warning: boolean;
-    isDarkBackground: boolean;
-  }) => {
+type ErrorBorderProps = {
+  reverse: boolean;
+  warning: boolean;
+  isDarkBackground: boolean;
+};
+
+export const ErrorBorder = styled.span<ErrorBorderProps>`
+  ${({ reverse, warning, isDarkBackground }) => {
     const darkBgColour = isDarkBackground
       ? "var(--colorsSemanticNegative450)"
       : "var(--colorsSemanticNegative500)";
@@ -51,8 +49,8 @@ export const ErrorBorder = styled.span`
   }}
 `;
 
-const StyledSwitch = styled.div`
-  ${({ fieldHelpInline, labelInline, reverse, size }: StyledSwitchProps) => css`
+const StyledSwitch = styled.div<StyledSwitchProps>`
+  ${({ fieldHelpInline, labelInline, reverse, size }) => css`
     ${margin}
     ${FieldLineStyle} {
       display: flex;

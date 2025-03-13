@@ -67,7 +67,9 @@ export interface SubmenuProps {
   onClick?: (
     event:
       | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Accessible label for when no text children are passed to menu item */
   ariaLabel?: string;
@@ -419,7 +421,13 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
       }
     }, [submenuOpen, submenuFocusId, submenuItemIds]);
 
-    const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const handleClick = (
+      event:
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
+    ) => {
       openSubmenu();
 
       if (onClick) {

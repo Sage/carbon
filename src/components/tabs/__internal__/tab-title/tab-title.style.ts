@@ -294,9 +294,7 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
   `}
 `;
 
-const tabTitleStyles = css<
-  TabTitleProps & { validationRedesignOptIn?: boolean }
->`
+const tabTitleStyles = `
   background-color: transparent;
   display: inline-block;
   border-top-left-radius: var(--borderRadius100);
@@ -310,9 +308,9 @@ const tabTitleStyles = css<
   text-decoration: none;
   outline-offset: 0px;
   margin: 0;
-  ${({ position }) => position === "top" && "white-space: nowrap"};
+  ${({ position }: TabTitleProps) => position === "top" && "white-space: nowrap"};
 
-  ${({ position }) => css`
+  ${({ position }: TabTitleProps) => css`
     ${position === "left" &&
     css`
       border-top-right-radius: var(--borderRadius000);
@@ -336,7 +334,7 @@ const tabTitleStyles = css<
     info,
     isInSidebar,
     validationRedesignOptIn,
-  }) => css`
+  }: TabTitleProps & { validationRedesignOptIn?: boolean }) => css`
     height: ${size === "large" ? "var(--sizing600)" : "var(--sizing500)"};
 
     ${
@@ -441,7 +439,7 @@ const tabTitleStyles = css<
           content: "";
           position: absolute;
           top: 0;
-          left 0;
+          left: 0;
           bottom: 0;
           right: ${position === "top" ? "0" : "-1px"};
           outline: 3px solid var(--colorsSemanticFocus500);

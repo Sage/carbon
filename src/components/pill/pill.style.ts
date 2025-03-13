@@ -57,7 +57,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
     let contentColor;
 
     try {
-      if (borderColor) {
+      if (borderColor && theme?.compatibility?.colorsUtilityYin090) {
         pillColor = toColor(theme, borderColor);
         buttonFocusColor = shade(0.2, getColorValue(pillColor));
         contentColor = meetsContrastGuidelines(

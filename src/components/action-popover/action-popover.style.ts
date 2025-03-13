@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
+import { TagProps } from "__internal__/utils/helpers/tags";
 
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
@@ -7,9 +8,8 @@ import StyledButton from "../button/button.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
 
-const Menu = styled.ul`
-  ${({ isOpen }: { isOpen?: boolean }) =>
-    isOpen ? "display: block;" : "visibility: hidden;"}
+const Menu = styled.ul<{ isOpen?: boolean }>`
+  ${({ isOpen }) => (isOpen ? "display: block;" : "visibility: hidden;")}
   margin: 0;
   list-style: none;
   padding: var(--spacing100) 0;
@@ -219,7 +219,7 @@ const StyledMenuItemWrapper = styled.li`
   position: relative;
 `;
 
-const MenuItemDivider = styled.li.attrs({
+const MenuItemDivider = styled.li.attrs<TagProps>({
   "data-element": "action-popover-divider",
 })`
   background-color: var(--colorsUtilityMajor050);

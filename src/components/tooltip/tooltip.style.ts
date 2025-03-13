@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { DefaultTheme, css, keyframes } from "styled-components";
 
 import baseTheme, { ThemeObject } from "../../style/themes/base";
 import { toColor } from "../../style/utils/color";
@@ -14,7 +14,11 @@ const fadeIn = keyframes`
   }
 `;
 
-const tooltipColor = (theme: ThemeObject, bgColor?: string, type?: string) => {
+const tooltipColor = (
+  theme: ThemeObject | DefaultTheme,
+  bgColor?: string,
+  type?: string,
+) => {
   if (bgColor) return toColor(theme, bgColor);
   return type === "error"
     ? "var(--colorsSemanticNegative500)"

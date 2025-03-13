@@ -14,8 +14,8 @@ export interface InputIconToggleStyleProps extends ValidationProps {
   ) => void;
 }
 
-const InputIconToggleStyle = styled.span.attrs(
-  ({ onClick }: InputIconToggleStyleProps) => ({
+const InputIconToggleStyle = styled.span.attrs<InputIconToggleStyleProps>(
+  ({ onClick }) => ({
     onKeyDown: (event: React.KeyboardEvent<HTMLSpanElement>) => {
       if (onClick && (event.key === " " || event.key === "Enter")) {
         event.preventDefault();

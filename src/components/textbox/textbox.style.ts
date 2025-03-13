@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
-const ErrorBorder = styled.span`
-  ${({ warning, inline }: { warning: boolean; inline?: boolean }) => css`
+const ErrorBorder = styled.span<{ warning: boolean; inline?: boolean }>`
+  ${({ warning, inline }) => css`
     position: absolute;
     z-index: 6;
     width: 2px;

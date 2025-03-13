@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { DefaultTheme, css } from "styled-components";
 import { baseTheme } from "../../../style/themes";
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-row-header.style";
@@ -18,56 +18,12 @@ const horizontalBorderSizes = {
   large: "4px",
 };
 
-const newFocusStyling = (theme: ThemeObject) => {
+const newFocusStyling = (theme: ThemeObject | DefaultTheme) => {
   return `
     ${addFocusStyling(true)}
     z-index: ${theme.zIndex.overlay + 5};
   `;
 };
-
-const getLeftStickyStyling = (index: number, themeOptOut: boolean) =>
-  index === 0 &&
-  /* istanbul ignore next */
-  themeOptOut &&
-  /* istanbul ignore next */
-  css`
-    &:first-of-type::before {
-      border-left: 3px solid var(--colorsSemanticFocus500);
-    }
-  `;
-
-const getRightStickyStyling = (
-  index: number,
-  totalChildren: number,
-  themeOptOut: boolean,
-) =>
-  index === totalChildren - 1 &&
-  /* istanbul ignore next */
-  themeOptOut &&
-  /* istanbul ignore next */
-  css`
-    &:last-of-type {
-      border-right: 2px solid var(--colorsSemanticFocus500);
-    }
-  `;
-
-const stickyColumnFocusStyling = (theme: ThemeObject) => `
-      width: calc(100% + 1px);
-      z-index: ${theme.zIndex.overlay};
-      :before {
-        content: "";
-        border-top: 2px solid var(--colorsSemanticFocus500);
-        border-bottom: 2px solid var(--colorsSemanticFocus500);
-        display: block;
-        left: -2px;
-        top: 0px;
-        height: calc(100% - 3px);
-        width: 103%;
-        position: absolute;
-        z-index: ${theme.zIndex.overlay};
-      }
-    }
-  `;
 
 const borderColor = (colorTheme: FlatTableProps["colorTheme"]) => {
   switch (colorTheme) {
@@ -291,23 +247,6 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
               height: ${rowHeight}px;
               ${newFocusStyling(theme)}
             }
-          `}
-
-          ${StyledFlatTableRowHeader} {
-            ${getLeftStickyStyling(lhsRowHeaderIndex, theme)}
-            ${getRightStickyStyling(rhsRowHeaderIndex, totalChildren, theme)}
-            ${stickyColumnFocusStyling(theme)}
-          }
-
-          ${![-1, 0].includes(lhsRowHeaderIndex) &&
-          css`
-            ${Array.from({ length: lhsRowHeaderIndex }).map((_, index) => {
-              return `
-                td:nth-of-type(${index + 1}) {
-                  ${stickyColumnFocusStyling(theme)}
-                }
-              `;
-            })}
           `}
         }
 

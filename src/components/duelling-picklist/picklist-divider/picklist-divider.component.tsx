@@ -1,13 +1,9 @@
 import React from "react";
-import { StyledComponentProps } from "styled-components";
 
 import StyledPicklistDivider from "./picklist-divider.style";
 
-export type PicklistDividerProps = StyledComponentProps<
-  "div",
-  Record<string, unknown>,
-  Record<string, unknown>,
-  ""
+export type PicklistDividerProps = React.ComponentProps<
+  typeof StyledPicklistDivider
 >;
 
 const PicklistDivider = (props: PicklistDividerProps) => (

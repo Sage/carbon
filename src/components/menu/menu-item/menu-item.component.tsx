@@ -34,7 +34,9 @@ interface MenuItemBaseProps
   onClick?: (
     event:
       | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Defines which direction the submenu will hang eg. left/right */
   submenuDirection?: string;

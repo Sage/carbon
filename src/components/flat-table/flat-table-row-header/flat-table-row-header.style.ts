@@ -12,13 +12,7 @@ const verticalBorderSizes = {
   large: "4px",
 };
 
-const StyledFlatTableRowHeader = styled.th.attrs(
-  ({
-    stickyAlignment,
-  }: {
-    stickyAlignment: FlatTableRowHeaderProps["stickyAlignment"];
-  }) => ({ "data-sticky-align": stickyAlignment }),
-)<
+const StyledFlatTableRowHeader = styled.th<
   FlatTableRowHeaderProps & {
     expandable?: boolean;
     leftPosition?: number;

@@ -67,8 +67,7 @@ function stylingForType({
     `}
 
     ${iconOnly && stylingForIconOnly(size)}
-  `;
-}
+  `};
 
 type StyledButtonProps = SpaceProps &
   Omit<ButtonProps, "buttonType"> & {
@@ -155,6 +154,7 @@ export const StyledButtonMainText = styled.span`
   display: flex;
   align-items: center;
 `;
+
 StyledButton.defaultProps = {
   theme: BaseTheme,
 };

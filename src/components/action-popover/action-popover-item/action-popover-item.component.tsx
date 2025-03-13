@@ -315,7 +315,7 @@ export const ActionPopoverItem = ({
         e.stopPropagation();
       },
     }),
-    "aria-haspopup": "true",
+    "aria-haspopup": true,
     "aria-controls": `ActionPopoverMenu_${guid}`,
     "aria-expanded": isOpen,
   };
