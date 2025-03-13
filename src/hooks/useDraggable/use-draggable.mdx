@@ -1,0 +1,96 @@
+import { ArgTypes, Meta, Canvas } from "@storybook/addon-docs";
+
+import * as useDraggableStories from "./use-draggable.stories";
+
+<Meta title="Documentation/Hooks/useDraggable" />
+
+# useDraggable
+
+The `useDraggable` hook is a custom React hook designed to facilitate the creation of draggable elements and containers. 
+It provides a way to manage the state and behavior of draggable items, allowing for easy implementation of drag-and-drop functionality, as well as 
+control and flexibility.
+
+The `useDraggable` hook is supported and maintained by Carbon, use it for your draggable functionality instead of using third-party libraries to enjoy 
+an easier less complex implementation and no additional dependencies.
+
+## Contents
+
+- [Import path](#import-path)
+- [Examples](#examples)
+- [Parameters](#parameters)
+
+## Import path
+
+```javascript
+import useDraggable, { UseDraggableHandle, DraggableProvider } from "carbon-react/lib/hooks/useDraggable";
+```
+
+## Examples
+
+### Basic implementation
+
+An array of items is passed to the `useDraggable` hook via the `draggableItems` prop, which returns a container with the items now draggable.
+
+<Canvas of={useDraggableStories.BasicImplementation} />
+
+### With Id's
+
+The `useDraggable` hook will work as is, but an `id` can be passed to the container via the `containerId` prop.
+
+Each individual draggable item will use any id which is present on its respective item when passed.
+
+<Canvas of={useDraggableStories.WithIds} />
+
+### getOrder callback
+
+The `getOrder` callback can be passed to the `useDraggable` hook, which returns the order of the draggable items, and the individually moved item via their `id`'s.
+This is especially useful when an up to date order of the items is needed.
+
+<Canvas of={useDraggableStories.GetOrderCallback} />
+
+### Manual re-ordering
+
+The `UseDraggableHandle` type provides an imperative handle for control over the draggable item's movement. 
+Using a `ref`, you can access its `reOrder()` method to set manually re-order elements. 
+Pass two arguments: the `id` of the draggable item you want to move and the destination index.
+
+We recommend using the `getOrder` callback to access the current order of items. 
+This provides an up-to-date reference that's essential when implementing precise positioning,
+beyond simple top/bottom movements in your draggable lists.
+
+This functionality gives users alternative ways to reposition elements when direct dragging isn't desired or possible.
+
+<Canvas of={useDraggableStories.ManualReOrdering} />
+
+### Container and Items Node Control
+
+When customisation over the node type of the draggable items and container are needed, the `containerNode` and `itemNode` props can be passed to the `useDraggable` hook.
+Both props accept any valid HTML node type.
+
+<Canvas of={useDraggableStories.ContainerAndItemsNode} />
+
+
+### Default styling opt out
+
+Default styling is added when an item is dragged. This can be disabled by passing the `disableDefaultStyling` prop to the `useDraggable` hook.
+We recommend using this prop when you want to handle the styling of the dragged item yourself.
+
+<Canvas of={useDraggableStories.DefaultStylingOptOut} />
+
+### Drag State
+
+Every draggable item has an attribute `data-drag-state` that reflects the current state of the drag operation:
+
+- **idle**: The default state when no dragging is happening. 
+- **is-dragging**: Indicates an active drag operation.
+- **is-dragging-over**: Triggered when hovering over a potential drop location.
+
+We recommend  using the `data-drag-state` attribute to access the current drag state. This can be used to implement specific styling or behavior.
+To specify styling you can use the `data-item-id` and/or the `data-parent-container-id` attributes, you can also use the `disableDefaultStyling` prop 
+to have complete control over all draggable related styling which is applied.
+
+<Canvas of={useDraggableStories.DragState} />
+
+## Parameters
+
+<ArgTypes of={useDraggableStories} />
