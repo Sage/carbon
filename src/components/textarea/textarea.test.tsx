@@ -323,6 +323,32 @@ test.each(["info", "warning", "error"])(
   },
 );
 
+test("sets the accessible label to the provided aria-labelledby", () => {
+  const Component = () => (
+    <>
+      <p id="test">label</p>
+      <Textarea aria-labelledby="test" />
+    </>
+  );
+  render(<Component />);
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleName("label");
+});
+
+test("appends the provided `ariaDescribedBy` to the accessible description", () => {
+  const Component = () => (
+    <>
+      <p id="test">description</p>
+      <Textarea inputHint="hint text" ariaDescribedBy="test" />
+    </>
+  );
+  render(<Component />);
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+    "hint text description",
+  );
+});
+
 describe(`when the characterLimit prop is passed`, () => {
   it("renders a character counter with the appropriate message when the value is too long by 1 character", () => {
     const valueString = "foo";

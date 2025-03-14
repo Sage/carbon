@@ -20,7 +20,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import NumeralDateContext from "../numeral-date/__internal__/numeral-date.context";
 import Logger from "../../__internal__/utils/logger";
-import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
+import useCharacterCount from "../../hooks/useCharacterCount";
 import useUniqueId from "../../hooks/__internal__/useUniqueId";
 import guid from "../../__internal__/utils/helpers/guid";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
@@ -143,6 +143,7 @@ export const Textbox = React.forwardRef(
   (
     {
       "aria-labelledby": ariaLabelledBy,
+      ariaDescribedBy: ariaDescribedByProp,
       align = ALIGN_DEFAULT,
       autoFocus,
       children,
@@ -254,6 +255,7 @@ export const Textbox = React.forwardRef(
       ariaDescribedBy,
       inputHintId,
       visuallyHiddenHintId,
+      ariaDescribedByProp,
     ]
       .filter(Boolean)
       .join(" ");
