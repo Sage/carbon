@@ -6,7 +6,6 @@ type ActionPopoverContextType = {
   setOpenPopover: (isOpen: boolean) => void;
   focusButton: () => void;
   submenuPosition: Alignment;
-  isOpenPopover: boolean;
 };
 
 const ActionPopoverContext =
