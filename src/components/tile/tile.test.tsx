@@ -7,7 +7,6 @@ import {
   testStyledSystemWidth,
   testStyledSystemHeight,
 } from "../../__spec_helper__/__internal__/test-utils";
-import { TILE_HIGHLIGHT_VARIANTS } from "./tile.config";
 
 testStyledSystemSpacing(
   (props) => <Tile data-role="tile" {...props} />,
@@ -58,16 +57,29 @@ test("has proper data attributes applied to elements", () => {
   expect(styledTile).toHaveAttribute("data-role", "bar");
 });
 
-test.each(TILE_HIGHLIGHT_VARIANTS)(
+test.each<[TileProps["highlightVariant"], string]>([
+  ["success", "var(--colorsSemanticPositive500)"],
+  ["neutral", "var(--colorsSemanticNeutral500)"],
+  ["error", "var(--colorsSemanticNegative500)"],
+  ["warning", "var(--colorsSemanticCaution500)"],
+  ["info", "var(--colorsSemanticInfo500)"],
+  ["important", "#8F4CD7"],
+  [
+    "gradient",
+    "linear-gradient(0deg,rgb(143,73,254) 5%,rgb(0,146,219) 50%,rgb(19,160,56) 95%)",
+  ],
+])(
   "should render with the highlight element when `highlightVariant` is passed %s",
-  (highlightVariant) => {
-    render(<Tile highlightVariant={highlightVariant} />);
-    const highlightElement = screen.getByTestId(
-      `tile-${highlightVariant}-highlight`,
-    );
+  (highlightVariant, backgroundColor) => {
+    render(<Tile highlightVariant={highlightVariant} data-role="tile" />);
+
+    const highlightElement = screen.getByTestId("tile");
+
+    expect(highlightElement).toHaveStyleRule("background", backgroundColor, {
+      modifier: "::before",
+    });
 
     expect(highlightElement).toBeVisible();
-    expect(highlightElement).toHaveAttribute("aria-hidden");
   },
 );
 

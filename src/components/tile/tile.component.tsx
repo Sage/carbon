@@ -2,7 +2,7 @@ import React from "react";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { SpaceProps, WidthProps } from "styled-system";
 
-import StyledTile, { StyledHighlight } from "./tile.style";
+import StyledTile from "./tile.style";
 import TileContext from "./__internal__/tile.context";
 import filterStyledSystemPaddingProps from "../../style/utils/filter-styled-system-padding-props";
 import filterStyledSystemMarginProps from "../../style/utils/filter-styled-system-margin-props";
@@ -69,7 +69,7 @@ export const Tile = ({
   const marginProps = filterStyledSystemMarginProps(rest);
   const contentPaddingProps = computeContentPadding(paddingProps, isHorizontal);
 
-  const tile = (
+  return (
     <StyledTile
       variant={variant}
       width={width}
@@ -77,6 +77,7 @@ export const Tile = ({
       isHorizontal={isHorizontal}
       p={p}
       roundness={roundness}
+      highlightVariant={highlightVariant}
       borderWidth={borderWidth}
       borderVariant={borderVariant}
       {...paddingProps}
@@ -90,21 +91,6 @@ export const Tile = ({
       </TileContext.Provider>
     </StyledTile>
   );
-
-  if (highlightVariant) {
-    return (
-      <StyledHighlight
-        variant={highlightVariant}
-        roundness={roundness}
-        aria-hidden
-        data-role={`tile-${highlightVariant}-highlight`}
-      >
-        {tile}
-      </StyledHighlight>
-    );
-  }
-
-  return tile;
 };
 
 export default Tile;
