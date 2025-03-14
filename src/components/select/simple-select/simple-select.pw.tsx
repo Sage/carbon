@@ -1554,6 +1554,7 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     await mount(<SimpleSelectComponent />);
 
     await dropdownButton(page).click();
+
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
