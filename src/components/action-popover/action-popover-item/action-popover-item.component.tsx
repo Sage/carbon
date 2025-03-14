@@ -105,7 +105,7 @@ export const ActionPopoverItem = ({
     "ActionPopoverItem only accepts submenu of type `ActionPopoverMenu`",
   );
 
-  const { setOpenPopover, isOpenPopover, focusButton, submenuPosition } =
+  const { setOpenPopover, focusButton, submenuPosition } =
     useActionPopoverContext();
   const isHref = !!href;
   const [containerPosition, setContainerPosition] = useState<
@@ -119,13 +119,6 @@ export const ActionPopoverItem = ({
   const ref = useRef<HTMLButtonElement>(null);
   const mouseEnterTimer = useRef<NodeJS.Timeout | null>(null);
   const mouseLeaveTimer = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    /* istanbul ignore if - doesn't seem to actually run as the child item is unmounted before the context updates */
-    if (!isOpenPopover) {
-      setOpen(false);
-    }
-  }, [isOpenPopover]);
 
   const alignSubmenu = useCallback(() => {
     const checkCalculatedSubmenuPosition = calculateSubmenuPosition(
