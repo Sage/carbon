@@ -12,7 +12,6 @@ import { TILE_HIGHLIGHT_VARIANTS } from "./tile.config";
 testStyledSystemSpacing(
   (props) => <Tile data-role="tile" {...props} />,
   () => screen.getByTestId("tile"),
-  { p: 3 },
 );
 
 testStyledSystemWidth(
@@ -28,6 +27,15 @@ testStyledSystemHeight(
   (props) => <Tile data-role="tile" {...props} />,
   () => screen.getByTestId("tile"),
 );
+
+test("should render the default padding when no padding props are passed", () => {
+  render(<Tile data-role="tile">Foo</Tile>);
+
+  expect(screen.getByTestId("tile")).toHaveStyleRule(
+    "padding",
+    "var(--spacing300)",
+  );
+});
 
 test("renders only one TileContent when a child element returns null", () => {
   const children = [
