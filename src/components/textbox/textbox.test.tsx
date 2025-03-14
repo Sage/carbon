@@ -391,13 +391,29 @@ test("passes the helpAriaLabel prop down to the help component", () => {
   expect(screen.getByRole("button")).toHaveAttribute("aria-label", text);
 });
 
-test("passes the aria-labelledby prop down to the input", () => {
-  const labelId = "foo";
-  render(<Textbox aria-labelledby={labelId} />);
+test("sets the accessible label to the provided aria-labelledby", () => {
+  const Component = () => (
+    <>
+      <p id="test">label</p>
+      <Textbox aria-labelledby="test" />
+    </>
+  );
+  render(<Component />);
 
-  expect(screen.getByRole("textbox")).toHaveAttribute(
-    "aria-labelledby",
-    labelId,
+  expect(screen.getByRole("textbox")).toHaveAccessibleName("label");
+});
+
+test("appends the provided `ariaDescribedBy` to the accessible description", () => {
+  const Component = () => (
+    <>
+      <p id="test">description</p>
+      <Textbox inputHint="hint text" ariaDescribedBy="test" />
+    </>
+  );
+  render(<Component />);
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+    "hint text description",
   );
 });
 

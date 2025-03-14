@@ -17,7 +17,7 @@ export interface CommonInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /* The default value alignment on the input */
   align?: "right" | "left";
-  /** The id of the element that describe the input. */
+  /** Appends value to the internal aria-describedby array. */
   ariaDescribedBy?: string;
   /** Override the variant component */
   as?: React.ElementType;

@@ -12,7 +12,7 @@ import { ValidationProps } from "../../__internal__/validations";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { CommonInputProps, InputPresentation } from "../../__internal__/input";
 import FormField from "../../__internal__/form-field";
-import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
+import useCharacterCount from "../../hooks/useCharacterCount";
 
 import Input from "../../__internal__/input/input.component";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
@@ -137,6 +137,7 @@ export const Textarea = React.forwardRef(
   (
     {
       "aria-labelledby": ariaLabelledBy,
+      ariaDescribedBy: ariaDescribedByProp,
       autoFocus,
       inputHint,
       fieldHelp,
@@ -337,6 +338,7 @@ export const Textarea = React.forwardRef(
       ariaDescribedBy,
       inputHintId,
       visuallyHiddenHintId,
+      ariaDescribedByProp,
     ]
       .filter(Boolean)
       .join(" ");
