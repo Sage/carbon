@@ -453,6 +453,48 @@ test.describe("Functionality tests", () => {
       await boldButton.click();
       expect(await page.locator("strong").count()).toBe(0);
     });
+
+    test("applies and removes bold formatting to the editor directly", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+
+      const textbox = await page.locator("div[role='textbox']");
+
+      expect(await page.locator("strong").count()).toBe(0);
+      expect(await page.locator("span[data-lexical-text='true']").count()).toBe(
+        1,
+      );
+
+      await textbox.click();
+
+      const boldButton = await page.locator(
+        "button[data-role='pw-rte-bold-button']",
+      );
+
+      await boldButton.click();
+      await textbox.click();
+      await textbox.pressSequentially("This is some bold text");
+
+      expect(await page.locator("strong").count()).toBe(1);
+      await expect(page.getByText("This is some bold text")).toHaveCSS(
+        "font-weight",
+        "700",
+      );
+
+      await boldButton.click();
+      await textbox.click();
+      await textbox.pressSequentially(" and this is not");
+
+      expect(await page.locator("span[data-lexical-text='true']").count()).toBe(
+        2,
+      );
+      await expect(page.getByText("and this is not")).toHaveCSS(
+        "font-weight",
+        "400",
+      );
+    });
   });
 
   test.describe("Italic", () => {
@@ -472,6 +514,48 @@ test.describe("Functionality tests", () => {
       await textbox.selectText();
       await italicButton.click();
       expect(await page.locator("em").count()).toBe(0);
+    });
+
+    test("applies and removes italic formatting to the editor directly", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+
+      const textbox = await page.locator("div[role='textbox']");
+
+      expect(await page.locator("em").count()).toBe(0);
+      expect(await page.locator("span[data-lexical-text='true']").count()).toBe(
+        1,
+      );
+
+      await textbox.click();
+
+      const italicButton = await page.locator(
+        "button[data-role='pw-rte-italic-button']",
+      );
+
+      await italicButton.click();
+      await textbox.click();
+      await textbox.pressSequentially("This is some italic text");
+
+      expect(await page.locator("em").count()).toBe(1);
+      await expect(page.getByText("This is some italic text")).toHaveCSS(
+        "font-style",
+        "italic",
+      );
+
+      await italicButton.click();
+      await textbox.click();
+      await textbox.pressSequentially(" and this is not");
+
+      expect(await page.locator("span[data-lexical-text='true']").count()).toBe(
+        2,
+      );
+      await expect(page.getByText("and this is not")).toHaveCSS(
+        "font-style",
+        "normal",
+      );
     });
   });
 

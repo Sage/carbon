@@ -488,3 +488,83 @@ test("should toggle the an indiviual list item's type when a list is active and 
   await user.click(ulButton);
   expect(screen.queryAllByRole("list").length).toBe(1);
 });
+
+describe("shortcut keys", () => {
+  it("should toggle bold text when the bold shortcut is pressed", async () => {
+    const user = userEvent.setup();
+    const mockCancel = jest.fn();
+    const mockSave = jest.fn();
+    const value = JSON.stringify(initialValue);
+
+    // render the TextEditor component
+    render(
+      <TextEditor
+        labelText="Example"
+        onCancel={() => mockCancel()}
+        onSave={() => mockSave()}
+        value={value}
+        characterLimit={20}
+      />,
+    );
+
+    // Click the editor space and send a few key presses
+    const editor = screen.getByRole(`textbox`);
+    await user.click(editor);
+    await user.keyboard(" not bold");
+
+    // expect the edited value to be visible
+    expect(screen.getByText("Sample text not bold")).toBeInTheDocument();
+    await user.tripleClick(editor);
+    await user.keyboard(`{Control>}b{/Control>}`);
+
+    // expect the text to be bold
+    expect(screen.getByText("Sample text not bold")).toHaveStyle(
+      "font-weight: bold",
+    );
+    await user.keyboard(`{Control>}b{/Control>}`);
+
+    // expect the text to be normal
+    expect(screen.getByText("Sample text not bold")).not.toHaveStyle(
+      "font-weight: bold",
+    );
+  });
+
+  it("should toggle italic text when the italic shortcut is pressed", async () => {
+    const user = userEvent.setup();
+    const mockCancel = jest.fn();
+    const mockSave = jest.fn();
+    const value = JSON.stringify(initialValue);
+
+    // render the TextEditor component
+    render(
+      <TextEditor
+        labelText="Example"
+        onCancel={() => mockCancel()}
+        onSave={() => mockSave()}
+        value={value}
+        characterLimit={20}
+      />,
+    );
+
+    // Click the editor space and send a few key presses
+    const editor = screen.getByRole(`textbox`);
+    await user.click(editor);
+    await user.keyboard(" not italic");
+
+    // expect the edited value to be visible
+    expect(screen.getByText("Sample text not italic")).toBeInTheDocument();
+    await user.tripleClick(editor);
+    await user.keyboard(`{Control>}i{/Control>}`);
+
+    // expect the text to be bold
+    expect(screen.getByText("Sample text not italic")).toHaveStyle(
+      "font-style: italic",
+    );
+    await user.keyboard(`{Control>}i{/Control>}`);
+
+    // expect the text to be normal
+    expect(screen.getByText("Sample text not italic")).not.toHaveStyle(
+      "font-style: italic",
+    );
+  });
+});

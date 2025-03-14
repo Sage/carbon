@@ -37,6 +37,7 @@ const ItalicButton = ({ isActive, namespace }: FormattingButtonProps) => {
       aria-pressed={isActive}
       data-role={`${namespace}-italic-button`}
       tabIndex={-1}
+      className="toolbar-button"
     />
   );
 };
