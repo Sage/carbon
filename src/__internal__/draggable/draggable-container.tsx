@@ -7,7 +7,6 @@ import React, {
     useState,
     useCallback,
     useMemo,
-    CSSProperties,
   } from "react";
   
   import {
@@ -15,11 +14,11 @@ import React, {
     dropTargetForElements,
   } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
   import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
-  import { isDraggableItemData, DragState } from "./draggable-utils";
+  import { isDraggableItemData } from "./draggable-utils";
   
   import { UseDraggableHandle } from "../../hooks/useDraggable/useDraggable";
   import DraggableProviderContext from "../../hooks/useDraggable/draggable-provider-context";
-  import guid, { isGuid } from "../../__internal__/utils/helpers/guid";
+  import guid  from "../../__internal__/utils/helpers/guid";
   import DraggableContainerContext from "./draggable-container-context";
   import DraggableItemContext from "./draggable-item-context";
   
@@ -53,13 +52,14 @@ import React, {
       const { register, lists, move, containerDragState } = useContext(DraggableProviderContext);
       const [list, setList] = useState<React.ReactNode[]>([]);
   
-      const uniqueId = id || useRef(guid()).current;
+      const uniqueGuid = useRef(guid());
+      const uniqueId = id || uniqueGuid.current;
       const containerRef = useRef<HTMLDivElement>();
       const hasMounted = useRef(false);
   
       const effectiveList = useMemo(() => {
         return list.length > 0 ? list : lists?.[uniqueId] || [];
-      }, [list, lists]);
+      }, [list, lists, uniqueId]);
   
       const localRegister = (items: React.ReactNode | React.ReactNode[]) => {
         setList((prevList) =>
@@ -85,9 +85,7 @@ import React, {
               (element) => element.getAttribute("data-item-id") === String(itemId),
             );
             // checks to see if a passed Id can be found from the initial item, or the first child of the item
-            const initialItemId = element?.getAttribute("data-item-id") as string;
-            const firstItemChildId = element?.children[0]?.getAttribute("id") || initialItemId;
-            const foundId = isGuid(initialItemId) ? firstItemChildId : initialItemId;
+            const foundId = element?.getAttribute("data-item-id") as string;
             
             if (foundId === null || foundId === undefined) return null;
             
@@ -117,9 +115,7 @@ import React, {
             const allIds = updatedElements
             .map((element) => {
               // checks to see if a passed Id can be found from the initial item, or the first child of the item
-              const initialItemId = element.getAttribute("data-item-id") as string;
-              const firstItemChildId = element?.children[0]?.getAttribute("id") || initialItemId;
-              const foundId = isGuid(initialItemId) ? firstItemChildId : initialItemId;
+              const foundId = element.getAttribute("data-item-id") as string;
               
               if (foundId === null || foundId === undefined) return null;
               
@@ -132,7 +128,7 @@ import React, {
             }
           });
         },
-        [list, getOrder],
+        [list, getOrder, uniqueId],
       );
   
       useEffect(() => {
@@ -144,7 +140,7 @@ import React, {
           }
           hasMounted.current = true;
         }
-      }, [children, register]);
+      }, [children, register, uniqueId]);
   
       const findParentItemId = (
         elementId: string,
@@ -243,7 +239,7 @@ import React, {
         );
   
         return () => cleanup();
-      }, [localMove, move]);
+      }, [localMove, move, uniqueId]);
   
       const finalContainerDragState = () => {
 
@@ -261,8 +257,8 @@ import React, {
             containerNode,
             {
               "data-element": "use-draggable-container",
-              "data-drag-state": finalContainerDragState(),
               "data-role": dataRole,
+              "data-drag-state": finalContainerDragState(),
               "data-component": dataComponent,
               id: uniqueId,
               ref: containerRef,
