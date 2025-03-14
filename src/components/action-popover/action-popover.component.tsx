@@ -345,7 +345,6 @@ export const ActionPopover = forwardRef<
             setOpenPopover: setOpen,
             focusButton,
             submenuPosition,
-            isOpenPopover: isOpen,
           }}
         >
           {isOpen && (
