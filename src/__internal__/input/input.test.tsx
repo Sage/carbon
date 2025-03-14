@@ -227,3 +227,29 @@ test("when the input is rendered with a type other than 'text', setSelectionRang
   expect(setSelectionRangeSpy).not.toHaveBeenCalled();
   jest.useRealTimers();
 });
+
+test("sets the provided `aria-describedby` to the accessible description of the input", () => {
+  render(<Input aria-describedby="description" />);
+
+  const input = screen.getByRole("textbox");
+  expect(input).toHaveAttribute("aria-describedby", "description");
+});
+
+test("sets the provided `ariaDescribedBy` to the accessible description of the input", () => {
+  render(<Input ariaDescribedBy="description" />);
+
+  const input = screen.getByRole("textbox");
+  expect(input).toHaveAttribute("aria-describedby", "description");
+});
+
+test("when both `aria-describedby` and `ariaDescribedBy` are provided, `aria-describedby` takes precedence", () => {
+  render(
+    <Input
+      aria-describedby="description"
+      ariaDescribedBy="I shouldn't be here"
+    />,
+  );
+
+  const input = screen.getByRole("textbox");
+  expect(input).toHaveAttribute("aria-describedby", "description");
+});
