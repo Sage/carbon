@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
 
@@ -748,16 +748,31 @@ export const WithDraggable: Story = () => {
     id: string;
     children?: React.ReactNode;
   }) => {
-    const { draggableElement: DraggableContainer} = useDraggable({
+    const [isDragging, setIsDragging] = useState(false);
+    const { draggableElement: DraggableContainer } = useDraggable({
       containerId: id,
       draggableItems: children,
     });
-    const isDragging =
-      false;
+    
+    useEffect(() => {
+      const element = document.getElementById(id);
+      if (!element) return;
+      
+      const updateDragState = () => {
+        const dragState = element.getAttribute('data-drag-state');
+        setIsDragging(dragState === 'dragging-over-between-containers');
+      };
+      
+      updateDragState();
+      
+      const observer = new MutationObserver(updateDragState);
+      
+      observer.observe(element, { attributes: true, attributeFilter: ['data-drag-state'] });
+      return () => observer.disconnect();
+    }, [id]);
 
     return (
       <Box
-        id={id}
         backgroundColor={
           isDragging
             ? "var(--colorsActionMajor500)"
@@ -782,7 +797,7 @@ export const WithDraggable: Story = () => {
       </Box>
     );
   };
-
+  
   const renderCard = (id: string, title: string) => (
     <Card id={id} width="inherit" draggable>
       <CardRow pt={0}>
@@ -796,7 +811,7 @@ export const WithDraggable: Story = () => {
       </CardRow>
     </Card>
   );
-
+  
   return (
     <Box
       width="700px"
@@ -821,5 +836,4 @@ export const WithDraggable: Story = () => {
     </Box>
   );
 };
-
 WithDraggable.storyName = "With Draggable";
