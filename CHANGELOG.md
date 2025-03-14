@@ -1,3 +1,9 @@
+## [152.0.1](https://github.com/Sage/carbon/compare/v152.0.0...v152.0.1) (2025-03-14)
+
+### Bug Fixes
+
+* **text-editor:** fixes the formatting buttons when clicked to toggle without text selections ([7ebd7dd](https://github.com/Sage/carbon/commit/7ebd7dd14f6691ed74140068e9ee90a5d0f7f8d4))
+
 ## [152.0.0](https://github.com/Sage/carbon/compare/v151.5.3...v152.0.0) (2025-03-13)
 
 ### ⚠ BREAKING CHANGES
