@@ -19,6 +19,7 @@ import React, {
     extractClosestEdge,
   } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
   
+  import guid from "../../__internal__/utils/helpers/guid"
   import DraggableItemContext from "./draggable-item-context";
   import DraggableContainerContext from "./draggable-container-context";
   import DraggableProviderContext from "../../hooks/useDraggable/draggable-provider-context";
@@ -33,18 +34,18 @@ import React, {
   
   export interface DraggableItemProps {
     children?: React.ReactNode;
-    id: string | number;
     indicatorColor?: string;
     draggableItemStylingOptOut?: boolean;
     itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+    uniqueId?: string;
   }
   
   const DraggableItem = forwardRef(({
     children,
-    id,
     indicatorColor,
     draggableItemStylingOptOut = false,
     itemsNode = "div",
+    uniqueId,
     ...rest
   }: DraggableItemProps, ref): JSX.Element => {
     
@@ -56,6 +57,9 @@ import React, {
   
     const internalRef = useRef<HTMLDivElement | null>(null);
     const itemRef = (ref as RefObject<HTMLDivElement>) || internalRef;
+    const id = (React.isValidElement(children) && (children.props.id !== undefined && children.props.id !== null)) ? 
+    children.props.id : 
+    uniqueId || guid();
     
     const draggableItemData: DraggableItemData = useMemo(
       () => ({

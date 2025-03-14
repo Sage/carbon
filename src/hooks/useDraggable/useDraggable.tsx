@@ -1,13 +1,8 @@
 import React, {
   Ref,
-  useState,
-  useContext,
-  CSSProperties,
 } from "react";
 import guid from "../../__internal__/utils/helpers/guid";
-import DraggableProvider from "./draggable-provider";
 import DraggableContainer from "../../__internal__/draggable/draggable-container";
-import DraggableProviderContext from "./draggable-provider-context";
 import DraggableItem from "../../__internal__/draggable/draggable-item";
 import { Edge } from "../../__internal__/draggable/draggable-utils";
 
@@ -57,7 +52,7 @@ const useDraggable = ({
         {items.map((item) => (
           <DraggableItem
             key={guid()}
-            id={`${guid()}`}
+            uniqueId={`${guid()}`}
             draggableItemStylingOptOut={draggableItemStylingOptOut}
             itemsNode={itemsNode}
           >
