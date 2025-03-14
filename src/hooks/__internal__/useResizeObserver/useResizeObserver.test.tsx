@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
 
 import useResizeObserver from ".";
 

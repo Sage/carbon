@@ -1,7 +1,7 @@
 import React from "react";
 import * as floatingUi from "@floating-ui/react-dom";
-
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 import Tooltip, { TooltipProps, InputSizes } from "./tooltip.component";
 import { TooltipPositions } from "./tooltip.config";

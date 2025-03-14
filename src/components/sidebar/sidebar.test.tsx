@@ -1,19 +1,19 @@
 import React from "react";
 import {
   act,
-  render,
   screen,
   waitFor,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { sageTheme } from "../../style/themes";
 import {
+  render,
   testStyledSystemPadding,
   testStyledSystemWidth,
 } from "../../__spec_helper__/__internal__/test-utils";
-import CarbonProvider from "../carbon-provider";
 
+import { sageTheme } from "../../style/themes";
+import CarbonProvider from "../carbon-provider";
 import Sidebar, { SidebarProps } from ".";
 
 beforeEach(() => {

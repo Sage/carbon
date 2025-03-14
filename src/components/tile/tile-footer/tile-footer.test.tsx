@@ -1,7 +1,11 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import {
+  render,
+  testStyledSystemPadding,
+} from "../../../__spec_helper__/__internal__/test-utils";
+
 import TileFooter, { TileFooterProps } from ".";
-import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 
 testStyledSystemPadding(
   (props) => <TileFooter data-role="footer" {...props} />,

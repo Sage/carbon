@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import userEvent from "@testing-library/user-event";
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 import AdvancedColorPicker, {
   AdvancedColorPickerProps,
 } from "./advanced-color-picker.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 
 const ControlledColorPicker = (props: Partial<AdvancedColorPickerProps>) => {

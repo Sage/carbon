@@ -1,5 +1,7 @@
 import React from "react";
-import { render, screen, act } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
+
 import useCharacterCount from ".";
 
 interface TestComponentProps {

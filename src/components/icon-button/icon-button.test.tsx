@@ -1,9 +1,12 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
+import {
+  render,
+  testStyledSystemSpacing,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 import Icon from "../icon";
 import IconButton from ".";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 
 jest.mock("../../__internal__/utils/logger");
 

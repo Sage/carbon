@@ -29,6 +29,7 @@ import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import { BorderRadiusType } from "../box/box.component";
 import HintText from "../../__internal__/hint-text";
+import StyleSheetManager from "../../__internal__/style-sheet-manager";
 
 export interface TextareaProps
   extends ValidationProps,
@@ -394,71 +395,75 @@ export const Textarea = React.forwardRef(
     const marginProps = useFormSpacing(rest);
 
     return (
-      <TooltipProvider
-        tooltipPosition={tooltipPosition}
-        helpAriaLabel={helpAriaLabel}
-      >
-        <InputBehaviour>
-          <StyledTextarea
-            labelInline={labelInlineWithNewValidation}
-            hasIcon={hasIconInside}
-            minHeight={textareaMinHeight}
-            {...marginProps}
-            {...tagComponent("textarea", {
-              "data-element": dataElement,
-              "data-role": dataRole,
-            })}
-          >
-            <FormField
-              fieldHelp={computeLabelPropValues(fieldHelp)}
-              fieldHelpId={fieldHelpId}
-              error={error}
-              warning={warning}
-              info={info}
-              label={label}
-              labelId={labelId}
-              disabled={disabled}
-              id={id}
-              labelInline={computeLabelPropValues(labelInlineWithNewValidation)}
-              labelAlign={labelAlign}
-              labelWidth={computeLabelPropValues(labelWidth)}
-              labelHelp={computeLabelPropValues(labelHelp)}
-              labelSpacing={labelSpacing}
-              isRequired={required}
-              isOptional={isOptional}
-              useValidationIcon={computeLabelPropValues(validationOnLabel)}
-              adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
-              validationRedesignOptIn={validationRedesignOptIn}
+      <StyleSheetManager>
+        <TooltipProvider
+          tooltipPosition={tooltipPosition}
+          helpAriaLabel={helpAriaLabel}
+        >
+          <InputBehaviour>
+            <StyledTextarea
+              labelInline={labelInlineWithNewValidation}
+              hasIcon={hasIconInside}
+              minHeight={textareaMinHeight}
+              {...marginProps}
+              {...tagComponent("textarea", {
+                "data-element": dataElement,
+                "data-role": dataRole,
+              })}
             >
-              {(inputHint || (labelHelp && validationRedesignOptIn)) && (
-                <HintText
-                  align={labelAlign}
-                  id={inputHintId}
-                  data-element="input-hint"
-                >
-                  {inputHint || labelHelp}
-                </HintText>
-              )}
-              {validationRedesignOptIn ? (
-                <Box position="relative">
-                  <ValidationMessage
-                    error={error}
-                    validationId={validationId}
-                    warning={warning}
-                  />
-                  {(error || warning) && (
-                    <ErrorBorder warning={!!(!error && warning)} />
-                  )}
-                  {input}
-                </Box>
-              ) : (
-                input
-              )}
-            </FormField>
-            {characterCount}
-          </StyledTextarea>
-        </InputBehaviour>
-      </TooltipProvider>
+              <FormField
+                fieldHelp={computeLabelPropValues(fieldHelp)}
+                fieldHelpId={fieldHelpId}
+                error={error}
+                warning={warning}
+                info={info}
+                label={label}
+                labelId={labelId}
+                disabled={disabled}
+                id={id}
+                labelInline={computeLabelPropValues(
+                  labelInlineWithNewValidation,
+                )}
+                labelAlign={labelAlign}
+                labelWidth={computeLabelPropValues(labelWidth)}
+                labelHelp={computeLabelPropValues(labelHelp)}
+                labelSpacing={labelSpacing}
+                isRequired={required}
+                isOptional={isOptional}
+                useValidationIcon={computeLabelPropValues(validationOnLabel)}
+                adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
+                validationRedesignOptIn={validationRedesignOptIn}
+              >
+                {(inputHint || (labelHelp && validationRedesignOptIn)) && (
+                  <HintText
+                    align={labelAlign}
+                    id={inputHintId}
+                    data-element="input-hint"
+                  >
+                    {inputHint || labelHelp}
+                  </HintText>
+                )}
+                {validationRedesignOptIn ? (
+                  <Box position="relative">
+                    <ValidationMessage
+                      error={error}
+                      validationId={validationId}
+                      warning={warning}
+                    />
+                    {(error || warning) && (
+                      <ErrorBorder warning={!!(!error && warning)} />
+                    )}
+                    {input}
+                  </Box>
+                ) : (
+                  input
+                )}
+              </FormField>
+              {characterCount}
+            </StyledTextarea>
+          </InputBehaviour>
+        </TooltipProvider>
+      </StyleSheetManager>
     );
   },
 );

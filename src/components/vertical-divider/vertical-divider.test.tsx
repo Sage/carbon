@@ -1,6 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import { screen } from "@testing-library/react";
+import {
+  render,
+  testStyledSystemSpacing,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import VerticalDivider from ".";
 import MenuContext from "../menu/__internal__/menu.context";
 

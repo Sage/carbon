@@ -1,10 +1,11 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import NavigationBar from ".";
+import { screen } from "@testing-library/react";
 import {
+  render,
   testStyledSystemPadding,
   testStyledSystemFlexBox,
 } from "../../__spec_helper__/__internal__/test-utils";
+import NavigationBar from ".";
 
 test("renders with children", () => {
   render(

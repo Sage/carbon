@@ -1,5 +1,7 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
+
 import { StepFlow, StepFlowTitle } from "..";
 
 test("when the 'titleString' prop is passed, the correct visible element and text renders", () => {

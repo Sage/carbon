@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { render, screen, act } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Textbox from "../textbox";
@@ -8,6 +8,7 @@ import {
   AnchorNavigationItem,
   AnchorSectionDivider,
 } from ".";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 const MockComponent = () => {
   const ref1 = useRef<HTMLDivElement>(null);

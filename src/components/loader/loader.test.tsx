@@ -1,6 +1,9 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { screen } from "@testing-library/react";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 import Loader from ".";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Logger from "../../__internal__/utils/logger";

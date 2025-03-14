@@ -1,10 +1,14 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  mockMatchMedia,
+} from "../../../__spec_helper__/__internal__/test-utils";
+
 import { RadioButton, RadioButtonGroup } from "..";
 import CarbonProvider from "../../carbon-provider";
 import Logger from "../../../__internal__/utils/logger";
-import { mockMatchMedia } from "../../../__spec_helper__/__internal__/test-utils";
 
 test("logs a deprecation warning for uncontrolled behaviour", () => {
   const loggerSpy = jest

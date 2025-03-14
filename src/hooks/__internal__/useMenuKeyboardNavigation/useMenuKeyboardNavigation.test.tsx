@@ -1,5 +1,7 @@
 import React, { useRef, useCallback } from "react";
-import { render, screen, fireEvent, createEvent } from "@testing-library/react";
+import { screen, fireEvent, createEvent } from "@testing-library/react";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
+
 import useMenuKeyboardNavigation from ".";
 
 const containerID = "buttons-container";

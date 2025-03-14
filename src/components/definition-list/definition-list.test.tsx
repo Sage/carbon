@@ -1,9 +1,12 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import Dl from "./dl.component";
 import Dt from "./dt/dt.component";
 import Dd from "./dd/dd.component";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemSpacing,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 testStyledSystemSpacing(
   (props) => (

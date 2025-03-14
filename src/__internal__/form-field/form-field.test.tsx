@@ -1,8 +1,11 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import FormField from ".";
 import TabContext from "../../components/tabs/tab/__internal__/tab.context";
-import { mockMatchMedia } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  mockMatchMedia,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 test("throws a console error when `isOptional` and `isRequired` are both true", () => {
   const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});

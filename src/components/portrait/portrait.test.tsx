@@ -1,7 +1,10 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import React from "react";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 import Portrait from ".";
 

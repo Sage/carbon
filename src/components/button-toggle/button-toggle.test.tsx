@@ -1,9 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Logger from "../../__internal__/utils/logger";
 import { ButtonToggle } from ".";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should display a deprecation warning for uncontrolled behaviour which is triggered only once", () => {
   const loggerSpy = jest

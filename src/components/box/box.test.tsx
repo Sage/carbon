@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 import React from "react";
 import { getGapValue } from "style/utils/box-gap";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import {
+  render,
   testStyledSystemSpacing,
   testStyledSystemColor,
   testStyledSystemLayout,

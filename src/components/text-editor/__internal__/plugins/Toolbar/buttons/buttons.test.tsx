@@ -2,12 +2,13 @@
  * Button state tests only. Functionality tests are in the ../toolbar.test.tsx file.
  * The Save button functionality is tested here to make use of Jest's function mocking.
  */
+import React from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React from "react";
+import { render } from "../../../../../../__spec_helper__/__internal__/test-utils";
 
 import { BoldButton, ItalicButton, ListControls, SaveButton } from ".";
 

@@ -1,8 +1,12 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import Pill from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import { baseTheme } from "../../style/themes";
 import { toColor } from "../../style/utils/color";
 

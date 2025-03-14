@@ -1,5 +1,7 @@
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
+
 import useClickAwayListener from "./useClickAwayListener";
 
 type EventTypeID = "mousedown" | "click";

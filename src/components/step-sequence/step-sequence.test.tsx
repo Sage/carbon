@@ -1,6 +1,10 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import { screen, within } from "@testing-library/react";
+import {
+  render,
+  testStyledSystemSpacing,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import { StepSequence, StepSequenceItem } from ".";
 
 test("renders with provided children", () => {

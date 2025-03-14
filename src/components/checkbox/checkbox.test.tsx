@@ -1,10 +1,11 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Logger from "../../__internal__/utils/logger";
 import { Checkbox } from ".";
 import CarbonProvider from "../carbon-provider";
 import {
+  render,
   mockMatchMedia,
   testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import { screen, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
-
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 import Textarea from ".";
+
 import { EnterKeyHintTypes } from "../../__internal__/input";
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";

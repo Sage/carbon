@@ -1,8 +1,9 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 import HintText, { HintTextProps } from "./hint-text.component";
 import CarbonProvider from "../../components/carbon-provider";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders with children", () => {
   render(<HintText>foo</HintText>);

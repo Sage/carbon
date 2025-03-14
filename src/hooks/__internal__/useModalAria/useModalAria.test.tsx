@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
+
 import useModalManager from "../useModalManager";
 import useModalAria from ".";
-import CarbonProvider from "../../../components/carbon-provider/carbon-provider.component";
 import Portal from "../../../components/portal";
 
 interface ModalComponentProps {
@@ -98,18 +99,14 @@ const ModalWithButtonInPortal = ({
 
 describe("with one dialog", () => {
   it("the open button is in the accessibility tree", () => {
-    render(<ModalComponent openButtonText="open" closeButtonText="close" />, {
-      wrapper: CarbonProvider,
-    });
+    render(<ModalComponent openButtonText="open" closeButtonText="close" />);
 
     expect(screen.getByRole("button", { name: "open" })).toBeInTheDocument();
   });
 
   it("after opening the modal, the open button is no longer in the accessibility tree", async () => {
     const user = userEvent.setup();
-    render(<ModalComponent openButtonText="open" closeButtonText="close" />, {
-      wrapper: CarbonProvider,
-    });
+    render(<ModalComponent openButtonText="open" closeButtonText="close" />);
 
     await user.click(screen.getByRole("button", { name: "open" }));
 
@@ -120,9 +117,7 @@ describe("with one dialog", () => {
 
   it("after opening and then closing the modal, the open button is in the accessibility tree", async () => {
     const user = userEvent.setup();
-    render(<ModalComponent openButtonText="open" closeButtonText="close" />, {
-      wrapper: CarbonProvider,
-    });
+    render(<ModalComponent openButtonText="open" closeButtonText="close" />);
 
     await user.click(screen.getByRole("button", { name: "open" }));
     await user.click(screen.getByRole("button", { name: "close" }));
@@ -132,9 +127,7 @@ describe("with one dialog", () => {
 
   it("adds the aria-modal attribute to the dialog when open", async () => {
     const user = userEvent.setup();
-    render(<ModalComponent openButtonText="open" closeButtonText="close" />, {
-      wrapper: CarbonProvider,
-    });
+    render(<ModalComponent openButtonText="open" closeButtonText="close" />);
 
     await user.click(screen.getByRole("button", { name: "open" }));
 
@@ -144,7 +137,7 @@ describe("with one dialog", () => {
 
 describe("with nested dialogs", () => {
   it("verifies only the first dialog open button is accessible when no dialogs are open", () => {
-    render(<NestedModals />, { wrapper: CarbonProvider });
+    render(<NestedModals />);
     expect(
       screen.getByRole("button", { name: "Open modal 1" }),
     ).toBeInTheDocument();
@@ -155,7 +148,7 @@ describe("with nested dialogs", () => {
 
   it("verifies only the first dialog and its contents are accessible when opened", async () => {
     const user = userEvent.setup();
-    render(<NestedModals />, { wrapper: CarbonProvider });
+    render(<NestedModals />);
 
     await user.click(screen.getByRole("button", { name: "Open modal 1" }));
 
@@ -173,7 +166,7 @@ describe("with nested dialogs", () => {
 
   it("verifies only the second dialog and its contents are accessible when opened", async () => {
     const user = userEvent.setup();
-    render(<NestedModals />, { wrapper: CarbonProvider });
+    render(<NestedModals />);
 
     await user.click(screen.getByRole("button", { name: "Open modal 1" }));
     await user.click(screen.getByRole("button", { name: "Open modal 2" }));
@@ -199,7 +192,7 @@ describe("with nested dialogs", () => {
 
   it("verifies only first modal and its contents are accessible after closing the second modal", async () => {
     const user = userEvent.setup();
-    render(<NestedModals />, { wrapper: CarbonProvider });
+    render(<NestedModals />);
 
     await user.click(screen.getByRole("button", { name: "Open modal 1" }));
     await user.click(screen.getByRole("button", { name: "Open modal 2" }));
@@ -222,7 +215,7 @@ describe("with nested dialogs", () => {
 
   it("verifies only the first dialog open button is accessible after closing both modals", async () => {
     const user = userEvent.setup();
-    render(<NestedModals />, { wrapper: CarbonProvider });
+    render(<NestedModals />);
 
     await user.click(screen.getByRole("button", { name: "Open modal 1" }));
     await user.click(screen.getByRole("button", { name: "Open modal 2" }));
@@ -249,7 +242,6 @@ it("overrides any pre-existing aria-hidden and inert properties when modal is op
       {/* @ts-expect-error inert property not recognised by React. Support to be added in React 19 https://github.com/facebook/react/pull/24730 */}
       <div data-role="old-inert" inert="foo" />
     </>,
-    { wrapper: CarbonProvider },
   );
 
   await user.click(screen.getByRole("button", { name: "open" }));
@@ -274,7 +266,6 @@ it("restores any previously-overridden aria-hidden and inert properties when mod
       {/* @ts-expect-error inert property not recognised by React. Support to be added in React 19 https://github.com/facebook/react/pull/24730 */}
       <div data-role="old-inert" inert="foo" />
     </>,
-    { wrapper: CarbonProvider },
   );
 
   await user.click(screen.getByRole("button", { name: "open" }));
@@ -294,7 +285,7 @@ it("restores any previously-overridden aria-hidden and inert properties when mod
 describe("with additional content in a portal", () => {
   it("without the inertOptOut flag, the portal content is not in the accessibility tree", async () => {
     const user = userEvent.setup();
-    render(<ModalWithButtonInPortal />, { wrapper: CarbonProvider });
+    render(<ModalWithButtonInPortal />);
 
     await user.click(screen.getByRole("button", { name: "open modal" }));
 
@@ -305,9 +296,7 @@ describe("with additional content in a portal", () => {
 
   it("with the inertOptOut flag, the portal content is in the accessibility tree", async () => {
     const user = userEvent.setup();
-    render(<ModalWithButtonInPortal inertOptOut />, {
-      wrapper: CarbonProvider,
-    });
+    render(<ModalWithButtonInPortal inertOptOut />);
 
     await user.click(screen.getByRole("button", { name: "open modal" }));
 

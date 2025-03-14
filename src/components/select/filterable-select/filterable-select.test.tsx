@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react";
-import { act, render, screen, waitFor, within } from "@testing-library/react";
+import { act, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/__internal__/test-utils";
 import { FilterableSelect, Option, FilterableSelectProps } from "..";
 import guid from "../../../__internal__/utils/helpers/guid";
 import Logger from "../../../__internal__/utils/logger";

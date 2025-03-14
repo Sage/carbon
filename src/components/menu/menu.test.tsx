@@ -1,13 +1,13 @@
 import React from "react";
-import { screen, render, act } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemFlexBox,
+  testStyledSystemLayout,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 import { Menu, MenuItem } from ".";
-
-import {
-  testStyledSystemLayout,
-  testStyledSystemFlexBox,
-} from "../../__spec_helper__/__internal__/test-utils";
 import Button from "../../components/button";
 
 testStyledSystemLayout(

@@ -1,18 +1,15 @@
 import React, { useState } from "react";
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { act, fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Box from "components/box/box.component";
-import Button from "components/button/button.component";
-import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/__internal__/test-utils";
+
+import Box from "../../box/box.component";
+import Button from "../../button/button.component";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 import Logger from "../../../__internal__/utils/logger";
-
 import SimpleSelect from ".";
 import Option from "../option";
 

@@ -1,13 +1,15 @@
 import React from "react";
-import { act, render, screen, waitFor, within } from "@testing-library/react";
+import { act, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/__internal__/test-utils";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 import Logger from "../../../__internal__/utils/logger";
-import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
 import MultiSelect from ".";
 import { Option } from "..";
-
 import Modal from "../../modal";
 
 beforeEach(() => {

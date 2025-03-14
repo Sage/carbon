@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { act, render, screen, within } from "@testing-library/react";
+import { act, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import { Tabs, Tab } from ".";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import StyledTab from "./tab/tab.style";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Drawer from "../drawer";
 import Textbox from "../textbox";
 import NumeralDate from "../numeral-date";

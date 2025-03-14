@@ -1,6 +1,7 @@
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
 
 import FlatTableCheckbox from "./flat-table-checkbox.component";
 import guid from "../../../__internal__/utils/helpers/guid";

@@ -1,6 +1,8 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
+
 import PagerNavigation from "./pager-navigation.component";
 
 test("the `onFirst` callback prop is not called on click if the link is disabled due to being on the first page", async () => {

@@ -1,10 +1,11 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
-
+import { screen, within } from "@testing-library/react";
 import {
+  render,
   testStyledSystemSpacing,
   testStyledSystemPadding,
 } from "../../__spec_helper__/__internal__/test-utils";
+
 import Form from "./form.component";
 import Button from "../button";
 import Dialog from "../dialog";

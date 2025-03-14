@@ -1,7 +1,8 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import CardRow from "./card-row.component";
 import CardContext, { CardContextProps } from "../__internal__/card.context";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
 
 test("renders content correctly when children are passed into CardRow", () => {
   const content = (

@@ -1,7 +1,8 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
+  render,
   testStyledSystemMargin,
   testStyledSystemPadding,
 } from "../../__spec_helper__/__internal__/test-utils";

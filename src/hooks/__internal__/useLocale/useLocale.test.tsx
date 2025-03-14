@@ -1,5 +1,6 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
 
 import useLocale from "./index";
 import I18nProvider from "../../../components/i18n-provider";

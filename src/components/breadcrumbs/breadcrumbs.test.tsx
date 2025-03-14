@@ -1,8 +1,11 @@
 import React from "react";
-import { screen, render } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import Breadcrumbs from "./breadcrumbs.component";
 import Crumb from "./crumb/crumb.component";
-import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemSpacing,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 testStyledSystemSpacing(
   (props) => (

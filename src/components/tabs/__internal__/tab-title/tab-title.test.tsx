@@ -1,6 +1,8 @@
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../../../__spec_helper__/__internal__/test-utils";
+
 import TabTitle from "./tab-title.component";
 
 test("renders the component as a tab with text passed as `title` prop", () => {

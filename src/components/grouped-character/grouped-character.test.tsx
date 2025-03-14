@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { render, screen } from "@testing-library/react";
-
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");

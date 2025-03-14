@@ -1,8 +1,11 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import {
+  render,
+  mockMatchMedia,
+} from "../../../__spec_helper__/__internal__/test-utils";
 
 import useIsAboveBreakpoint from ".";
-import { mockMatchMedia } from "../../../__spec_helper__/__internal__/test-utils";
 
 test("Verifies that the hook returns false when the media query does not match the specified breakpoint", () => {
   mockMatchMedia(false);

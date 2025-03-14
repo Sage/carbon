@@ -1,6 +1,8 @@
 import React from "react";
-import { render, screen, within, fireEvent } from "@testing-library/react";
+import { screen, within, fireEvent } from "@testing-library/react";
 import { ThemeProvider } from "styled-components";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
+
 import sageTheme from "../../style/themes/sage";
 import PortalContext from "./__internal__/portal.context";
 import Portal from ".";

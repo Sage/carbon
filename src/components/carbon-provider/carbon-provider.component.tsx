@@ -9,6 +9,7 @@ import NewValidationContext, {
   NewValidationContextProps,
 } from "./__internal__/new-validation.context";
 import TopModalProvider from "./__internal__/top-modal-provider.component";
+import StyleSheetManager from "../../__internal__/style-sheet-manager";
 
 export interface CarbonProviderProps extends NewValidationContextProps {
   /* Content for the provider to wrap */
@@ -22,17 +23,19 @@ export const CarbonProvider = ({
   theme = sageTheme,
   validationRedesignOptIn = false,
 }: CarbonProviderProps) => (
-  <ThemeProvider theme={theme}>
-    <CarbonScopedTokensProvider>
-      <NewValidationContext.Provider
-        value={{
-          validationRedesignOptIn,
-        }}
-      >
-        <TopModalProvider>{children}</TopModalProvider>
-      </NewValidationContext.Provider>
-    </CarbonScopedTokensProvider>
-  </ThemeProvider>
+  <StyleSheetManager>
+    <ThemeProvider theme={theme}>
+      <CarbonScopedTokensProvider>
+        <NewValidationContext.Provider
+          value={{
+            validationRedesignOptIn,
+          }}
+        >
+          <TopModalProvider>{children}</TopModalProvider>
+        </NewValidationContext.Provider>
+      </CarbonScopedTokensProvider>
+    </ThemeProvider>
+  </StyleSheetManager>
 );
 
 export default CarbonProvider;

@@ -1,9 +1,12 @@
 import React, { useRef } from "react";
 import { ThemeProvider } from "styled-components";
 import * as floatingUi from "@floating-ui/dom";
-import { render, screen, act } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 import sageTheme from "../../style/themes/sage";
 import {
   ActionPopover,

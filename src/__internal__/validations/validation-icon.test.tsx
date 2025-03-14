@@ -1,10 +1,13 @@
 import React from "react";
-import { render, screen, act } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import ValidationIcon from "./validation-icon.component";
 import { InputContext, InputGroupContext } from "../input-behaviour";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 testStyledSystemMargin(
   (props) => <ValidationIcon {...props} error="error" />,

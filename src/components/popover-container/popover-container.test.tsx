@@ -1,7 +1,10 @@
 import React, { useRef } from "react";
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { testStyledSystemPadding } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemPadding,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 import PopoverContainer, {
   PopoverContainerHandle,

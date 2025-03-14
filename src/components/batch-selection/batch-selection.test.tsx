@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 import BatchSelection from ".";
 import Button from "../button";
@@ -7,6 +7,7 @@ import ButtonMinor from "../button-minor";
 import Icon from "../icon";
 import IconButton from "../icon-button";
 import Link from "../link";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 test("Renders with children", () => {
   render(

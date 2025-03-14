@@ -1,8 +1,11 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { Checkbox, CheckboxGroup } from "..";
 import CarbonProvider from "../../carbon-provider";
-import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../../__spec_helper__/__internal__/test-utils";
 
 test("should render with the provided children", () => {
   render(

@@ -1,6 +1,7 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import ValidationMessage from ".";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders only the error message when both `error` and `warning` props are provided as strings", () => {
   render(<ValidationMessage error="error" warning="warning" />);

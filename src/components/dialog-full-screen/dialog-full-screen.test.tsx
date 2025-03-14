@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   act,
-  render,
   screen,
   waitFor,
   waitForElementToBeRemoved,
@@ -14,6 +13,7 @@ import StyledIconButton from "../icon-button/icon-button.style";
 import { StyledHeader, StyledHeading } from "../heading/heading.style";
 import Form from "../form";
 import CarbonProvider from "../carbon-provider";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 const ControlledDialog = ({
   onCancel,

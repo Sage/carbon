@@ -1,6 +1,8 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import { GAP_VALUES, Gap, getGapValue } from "style/utils/box-gap";
+import { screen } from "@testing-library/react";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
+
+import { GAP_VALUES, Gap, getGapValue } from "../../../style/utils/box-gap";
 import FlexTileContainer from "./flex-tile-container.component";
 
 test.each<Gap>([...GAP_VALUES, "20px", "20%"])(

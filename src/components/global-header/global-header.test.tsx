@@ -1,5 +1,7 @@
-import { render, screen } from "@testing-library/react";
 import React from "react";
+import { screen } from "@testing-library/react";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
+
 import GlobalHeader from "./global-header.component";
 
 test("should be visible with correct accessible name", () => {

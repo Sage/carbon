@@ -1,6 +1,7 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
 
 import {
   FlatTable,

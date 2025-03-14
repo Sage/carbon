@@ -1,6 +1,8 @@
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
+
 import Toast, { ToastProps } from "./toast.component";
 import ModalManager from "../modal/__internal__/modal-manager";
 import Logger from "../../__internal__/utils/logger";

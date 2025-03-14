@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import { act, render, screen, waitFor, within } from "@testing-library/react";
+import { act, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import { SimpleColor, SimpleColorPicker } from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");

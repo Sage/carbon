@@ -1,10 +1,14 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import Note from ".";
 import LinkPreview from "../link-preview";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Typography from "../typography";
 
 test("should render with required props", () => {

@@ -1,10 +1,14 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import SplitButton, { SplitButtonHandle } from "./split-button.component";
 import Button from "../button";
 import { SizeOptions } from "../button/button.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");

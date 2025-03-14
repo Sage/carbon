@@ -1,6 +1,8 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
+
 import Pill from "../pill";
 import Heading, { HeadingType } from ".";
 

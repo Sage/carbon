@@ -1,10 +1,13 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ThemeProvider } from "styled-components";
+import {
+  render,
+  testStyledSystemPadding,
+} from "../../../__spec_helper__/__internal__/test-utils";
 
 import sageTheme from "../../../style/themes/sage";
-import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 import Icon from "../../icon";
 import { VerticalMenuItem, VerticalMenuFullScreen } from "..";
 

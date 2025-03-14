@@ -1,7 +1,8 @@
 import React from "react";
-import { act, render, screen, waitFor } from "@testing-library/react";
-
+import { act, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
+
 import Drawer from ".";
 
 beforeEach(() => {

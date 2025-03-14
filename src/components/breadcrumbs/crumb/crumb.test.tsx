@@ -1,7 +1,8 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Crumb from "./crumb.component";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
 
 test("passes href to the anchor element isCurrent is false", () => {
   render(<Crumb href="foo">Link text</Crumb>);

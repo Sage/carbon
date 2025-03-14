@@ -1,8 +1,9 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import DismissibleBox from "./dismissible-box.component";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 test("calls the `onClose` callback when the close button is clicked", async () => {
   const onCloseMock = jest.fn();

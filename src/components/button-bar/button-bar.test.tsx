@@ -1,10 +1,11 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 import Button from "../button";
 import Icon from "../icon";
 import IconButton from "../icon-button";
 import ButtonBar from "./button-bar.component";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 describe("When ButtonBar children are Button components", () => {
   it("should render the Buttons as expected", () => {

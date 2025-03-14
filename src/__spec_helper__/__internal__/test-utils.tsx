@@ -1,7 +1,8 @@
 /* eslint-disable jest/no-conditional-expect */
 /* eslint-disable jest/no-identical-title */
 /* eslint-disable jest/no-export */
-import { render } from "@testing-library/react";
+import React from "react";
+import { RenderOptions, render } from "@testing-library/react";
 import { sprintf } from "sprintf-js";
 import {
   LayoutProps,
@@ -10,9 +11,18 @@ import {
   PositionProps,
   GridProps,
 } from "styled-system";
-
+import CarbonProvider from "../../components/carbon-provider";
 import { space } from "../../style/themes/base/base-theme.config";
 import { mockMatchMedia } from "../mock-match-media";
+
+const TestWrapper = ({ children }: { children: React.ReactNode }) => (
+  <CarbonProvider>{children}</CarbonProvider>
+);
+
+const customRender = (
+  ui: React.ReactElement,
+  options?: Omit<RenderOptions, "wrapper">,
+) => render(ui, { wrapper: TestWrapper, ...options });
 
 const isUpper = (char: string) => char.toUpperCase() === char;
 const humpToDash = (acc: string, char: string) =>
@@ -168,7 +178,7 @@ const testStyledSystemGrid = (
     (styledSystemProp, propName, value) => {
       it(`should set ${propName} styling correctly`, () => {
         const props = { [styledSystemProp]: value };
-        render(component(props));
+        customRender(component(props));
 
         assertStyleMatch({ [propName]: value }, elementQuery());
       });
@@ -185,7 +195,7 @@ const testStyledSystemBackground = (
     (styledSystemProp, propName, value) => {
       it(`should set ${propName} styling correctly`, () => {
         const props = { [styledSystemProp]: value };
-        render(component({ ...props }));
+        customRender(component({ ...props }));
 
         assertStyleMatch({ [styledSystemProp]: value }, elementQuery());
       });
@@ -202,7 +212,7 @@ const testStyledSystemPosition = (
     (styledSystemProp, value) => {
       it(`then ${styledSystemProp} should have been set correctly`, () => {
         const props = { [styledSystemProp]: value };
-        render(component({ ...props }));
+        customRender(component({ ...props }));
 
         assertStyleMatch({ [styledSystemProp]: value }, elementQuery());
       });
@@ -258,7 +268,7 @@ const testStyledSystemMargin = (
     let StyleElement: HTMLElement;
 
     beforeAll(() => {
-      render(component({ ...defaults }));
+      customRender(component({ ...defaults }));
       StyleElement = elementQuery();
     });
 
@@ -302,7 +312,7 @@ const testStyledSystemMargin = (
     (styledSystemProp, propName) => {
       it(`should set ${propName} styling correctly`, () => {
         const props = { [styledSystemProp]: 2 };
-        render(component({ ...props }));
+        customRender(component({ ...props }));
 
         assertStyleMatch(
           { [propName]: "var(--spacing200)" },
@@ -324,7 +334,7 @@ const testStyledSystemPadding = (
     let StyleElement: HTMLElement;
 
     beforeAll(() => {
-      render(component({ ...defaults }));
+      customRender(component({ ...defaults }));
       StyleElement = elementQuery();
     });
 
@@ -368,7 +378,7 @@ const testStyledSystemPadding = (
     (styledSystemProp, propName) => {
       it(`should set ${propName} styling correctly`, () => {
         const props = { [styledSystemProp]: 2 };
-        render(component({ ...props }));
+        customRender(component({ ...props }));
 
         assertStyleMatch(
           { [propName]: "var(--spacing200)" },
@@ -411,7 +421,7 @@ const testStyledSystemColor = (
     (styledSystemProp, propName, value) => {
       it(`should set ${propName} styling correctly`, () => {
         const props = { [styledSystemProp]: value };
-        render(component({ ...props }));
+        customRender(component({ ...props }));
         const StyleElement = elementQuery();
         // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
         expect(StyleElement).toHaveStyleRule(propName, value);
@@ -428,7 +438,7 @@ const testStyledSystemWidth = (
     it("should set the width styling correctly", () => {
       const [styledSystemProp, propName, value] = widthProps;
       const props = { [styledSystemProp]: value };
-      render(component({ ...props }));
+      customRender(component({ ...props }));
       const StyleElement = elementQuery();
       expect(StyleElement).toHaveStyleRule(propName, value);
     });
@@ -443,7 +453,7 @@ const testStyledSystemHeight = (
     it("should set the height styling correctly", () => {
       const [styledSystemProp, propName, value] = heightProps;
       const props = { [styledSystemProp]: value };
-      render(component({ ...props }));
+      customRender(component({ ...props }));
       const StyleElement = elementQuery();
       expect(StyleElement).toHaveStyleRule(propName, value);
     });
@@ -459,7 +469,7 @@ const testStyledSystemLayout = (
     (styledSystemProp, propName, value) => {
       it(`should set ${propName} styling correctly`, () => {
         const props = { [styledSystemProp]: value };
-        render(component({ ...props }));
+        customRender(component({ ...props }));
         const StyleElement = elementQuery();
         // Some props need to have camelcase so used toHaveStyleRule rather than assertStyleMatch
         expect(StyleElement).toHaveStyleRule(propName, value);
@@ -477,7 +487,7 @@ const testStyledSystemFlexBox = (
     (styledSystemProp, propName, value) => {
       it(`should set ${propName} styling correctly`, () => {
         const props = { [styledSystemProp]: value };
-        render(component(props));
+        customRender(component(props));
 
         assertStyleMatch({ [propName]: value }, elementQuery());
       });
@@ -502,4 +512,5 @@ export {
   testStyledSystemPadding,
   testStyledSystemWidth,
   testStyledSystemHeight,
+  customRender as render,
 };

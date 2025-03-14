@@ -1,7 +1,10 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import Detail from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders children", () => {
   render(<Detail>foo</Detail>);

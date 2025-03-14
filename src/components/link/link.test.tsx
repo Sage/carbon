@@ -1,8 +1,9 @@
 /* TODO: FE-6579 To re-enable once button-related props are removed from Link */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 import Link from "./link.component";
 import MenuContext from "../menu/__internal__/menu.context";

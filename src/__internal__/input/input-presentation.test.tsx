@@ -1,9 +1,10 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import InputPresentation from "./input-presentation.component";
 import Input from "./input.component";
 import { InputContext, InputGroupContext } from "../input-behaviour";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders presentational div and presentation container elements", () => {
   render(<InputPresentation>Children</InputPresentation>);

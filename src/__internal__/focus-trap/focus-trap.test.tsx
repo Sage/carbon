@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  render,
   screen,
   fireEvent,
   createEvent,
@@ -15,6 +14,7 @@ import ModalContext from "../../components/modal/__internal__/modal.context";
 import TopModalContext from "../../components/carbon-provider/__internal__/top-modal.context";
 import { Option, Select } from "../../components/select";
 import { Checkbox } from "../../components/checkbox";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 interface MockComponentProps extends Omit<FocusTrapProps, "wrapperRef"> {
   isAnimationComplete?: boolean;

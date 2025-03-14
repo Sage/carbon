@@ -1,10 +1,13 @@
 import React, { useRef } from "react";
-import { act, render, screen, within } from "@testing-library/react";
+import { act, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
+import { enGB } from "../../locales";
 
-import { enGB } from "locales";
 import Search, { SearchHandle } from "./search.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 import I18nProvider from "../i18n-provider";
 

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { act, render, screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Decimal from "./decimal.component";
 import type { DecimalProps, CustomEvent } from "./decimal.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
 import Logger from "../../__internal__/utils/logger";
 

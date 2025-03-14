@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import RadioButtonMapper from ".";
 import RadioButton from "../../components/radio-button";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 const ControlledRadioButtons = () => {
   const [value, setValue] = useState<string | undefined>(undefined);

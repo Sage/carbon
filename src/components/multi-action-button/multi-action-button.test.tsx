@@ -1,9 +1,13 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import MultiActionButton, { MultiActionButtonHandle } from ".";
 import Button from "../button";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should render with provided 'text'", () => {
   render(

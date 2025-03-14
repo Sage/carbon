@@ -1,10 +1,14 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import Message from "./message.component";
 import I18nProvider from "../i18n-provider";
 import enGB from "../../locales/en-gb";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders with provided children", () => {
   render(<Message>Message</Message>);

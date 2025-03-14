@@ -118,7 +118,9 @@ interface StyledFlatTableWrapperProps
   bottomBorderRadius: NonNullable<FlatTableProps["bottomBorderRadius"]>;
 }
 
-const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
+const StyledFlatTableWrapper = styled(StyledBox).attrs({
+  theme: baseTheme,
+})<StyledFlatTableWrapperProps>`
   border-top-left-radius: var(--borderRadius100);
   border-top-right-radius: var(--borderRadius100);
 
@@ -359,10 +361,6 @@ const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
       }
     `}
 `;
-
-StyledFlatTableWrapper.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledFlatTableFooter = styled.div<
   Pick<FlatTableProps, "hasStickyFooter">

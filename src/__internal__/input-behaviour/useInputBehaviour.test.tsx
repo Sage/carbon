@@ -1,8 +1,9 @@
 import React from "react";
-import { act, renderHook, render, screen } from "@testing-library/react";
+import { act, renderHook, screen } from "@testing-library/react";
 import { Input } from "../input";
 
 import useInputBehaviour from "./useInputBehaviour";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 test("when `inputRef` is passed to the input, it assigns the input element reference correctly", () => {
   const { result } = renderHook(() => useInputBehaviour());

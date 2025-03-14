@@ -1,6 +1,7 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
 
 import Portal from "../../portal";
 import FocusTrap from "../../../__internal__/focus-trap/focus-trap.component";

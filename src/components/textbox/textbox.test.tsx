@@ -1,9 +1,13 @@
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import Textbox, { TextboxProps } from ".";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import { EnterKeyHintTypes } from "../../__internal__/input";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";

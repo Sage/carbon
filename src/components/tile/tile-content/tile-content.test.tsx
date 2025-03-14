@@ -1,11 +1,13 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import TileContent from "./tile-content.component";
+import { screen } from "@testing-library/react";
 import {
+  render,
   testStyledSystemHeight,
   testStyledSystemSpacing,
   testStyledSystemWidth,
 } from "../../../__spec_helper__/__internal__/test-utils";
+
+import TileContent from "./tile-content.component";
 
 testStyledSystemSpacing(
   (props) => (

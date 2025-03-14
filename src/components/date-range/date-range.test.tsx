@@ -1,11 +1,14 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { enGB as enGBLocale } from "date-fns/locale/en-GB";
 import { de as deLocale } from "date-fns/locale/de";
 
 import DateRange, { DateRangeChangeEvent } from "./date-range.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
 import I18nProvider from "../i18n-provider";
 

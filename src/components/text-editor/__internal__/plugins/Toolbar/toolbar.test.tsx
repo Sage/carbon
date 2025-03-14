@@ -1,15 +1,16 @@
 /**
  * Functional toolbar tests. For button state tests, see the buttons/buttons.test.tsx file.
  */
+import React from "react";
 import { createHeadlessEditor } from "@lexical/headless";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { render, screen } from "@testing-library/react";
-import { FORMAT_TEXT_COMMAND, LexicalEditor, TextFormatType } from "lexical";
-import React from "react";
-
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { FORMAT_TEXT_COMMAND, LexicalEditor, TextFormatType } from "lexical";
+import { render } from "../../../../../__spec_helper__/__internal__/test-utils";
+
 import { ToolbarPlugin } from "..";
 
 function headlessEditor() {

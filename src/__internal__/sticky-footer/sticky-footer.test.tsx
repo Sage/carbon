@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import StickyFooter, { StickyFooterProps } from "./sticky-footer.component";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 const MockFooterContainer = (props: Partial<StickyFooterProps> = {}) => {
   const mockRef = useRef(null);

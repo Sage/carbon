@@ -1,6 +1,7 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import CharacterCount from ".";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 test("visible character count is visible", () => {
   render(<CharacterCount value={10} limit={5} isOverLimit={false} />);

@@ -1,7 +1,8 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Button from "./button.component";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 test("renders with text children", () => {
   render(<Button>foo</Button>);

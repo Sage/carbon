@@ -1,8 +1,9 @@
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../../../__spec_helper__/__internal__/test-utils";
 
-import FixedNavigationBarContext from "components/navigation-bar/__internal__/fixed-navigation-bar.context";
+import FixedNavigationBarContext from "../../../navigation-bar/__internal__/fixed-navigation-bar.context";
 import { Menu, MenuItem, MenuSegmentTitle } from "../..";
 import MenuContext, { MenuContextProps } from "../menu.context";
 import Submenu from "./submenu.component";

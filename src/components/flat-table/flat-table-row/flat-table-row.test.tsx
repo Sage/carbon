@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  render,
-  screen,
-  within,
-  fireEvent,
-  waitFor,
-} from "@testing-library/react";
+import { screen, within, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
 
 import FlatTableRow from "./flat-table-row.component";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";

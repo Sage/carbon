@@ -1,11 +1,13 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import FlexTileCell from "./flex-tile-cell.component";
+import { screen } from "@testing-library/react";
 import {
+  render,
   testStyledSystemFlexBox,
   testStyledSystemPadding,
   testStyledSystemMargin,
 } from "../../../__spec_helper__/__internal__/test-utils";
+
+import FlexTileCell from "./flex-tile-cell.component";
 import FlexTileDivider from "../flex-tile-divider";
 
 describe("FlexTileCell", () => {

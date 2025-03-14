@@ -2,13 +2,13 @@ import React, { useRef, useState } from "react";
 import {
   act,
   fireEvent,
-  render,
   screen,
   waitFor,
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import mockDOMRect from "__spec_helper__/mock-dom-rect";
+import { render } from "../../../../__spec_helper__/__internal__/test-utils";
 
 import SelectList, { SelectListProps } from "./select-list.component";
 import Option from "../../option";

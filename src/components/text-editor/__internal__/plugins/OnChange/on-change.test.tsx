@@ -5,12 +5,14 @@
  *
  * Content-based tests should/will be handled by the Playwright tests.
  */
+import React from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React from "react";
+import { render } from "../../../../../__spec_helper__/__internal__/test-utils";
+
 import OnChangePlugin from "./on-change.plugin";
 
 describe("OnChangePlugin", () => {

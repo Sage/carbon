@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  render,
-  screen,
-  createEvent,
-  fireEvent,
-  act,
-} from "@testing-library/react";
+import { screen, createEvent, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 import InputIconToggle, { InputIconToggleProps } from ".";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 test.each(["error", "warning", "info"])(
   "renders only a validation icon when the validation prop is set to %s as a string and `useValidationIcon` is true",

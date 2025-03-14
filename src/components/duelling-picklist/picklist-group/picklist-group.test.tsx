@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { render, screen, act } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
 
 import PicklistGroup from "./picklist-group.component";
 import PicklistItem from "../picklist-item/picklist-item.component";

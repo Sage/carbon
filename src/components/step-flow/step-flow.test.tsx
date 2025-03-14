@@ -1,6 +1,9 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { render as renderRTL, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
+
+import StyleSheetManager from "../../__internal__/style-sheet-manager";
 import enGB from "../../locales/en-gb";
 import { StepFlow, StepFlowHandle, StepFlowTitle, Steps } from ".";
 import Button from "../button";
@@ -207,7 +210,7 @@ test("renders progress indicator bar when 'showProgressIndicator' prop is true",
 it.each(generateLimitedVariations())(
   "renders correct step label when 'totalSteps' is %s and 'currentStep' prop is %s",
   (totalSteps, currentStep) => {
-    render(
+    renderRTL(
       <StepFlow
         title="baz"
         totalSteps={totalSteps}
@@ -216,7 +219,9 @@ it.each(generateLimitedVariations())(
       />,
       {
         wrapper: ({ children }: { children: React.ReactNode }) => (
-          <I18nProvider locale={enGB}>{children}</I18nProvider>
+          <StyleSheetManager>
+            <I18nProvider locale={enGB}>{children}</I18nProvider>
+          </StyleSheetManager>
         ),
       },
     );
@@ -230,7 +235,7 @@ it.each(generateLimitedVariations())(
 it.each(generateCurrentStepOverTotalStepsVariations())(
   "renders correct step label when 'totalSteps' is %s and is lower than the 'currentStep' prop of %s",
   (totalSteps, currentStep) => {
-    render(
+    renderRTL(
       <StepFlow
         title="baz"
         totalSteps={totalSteps}
@@ -239,7 +244,9 @@ it.each(generateCurrentStepOverTotalStepsVariations())(
       />,
       {
         wrapper: ({ children }: { children: React.ReactNode }) => (
-          <I18nProvider locale={enGB}>{children}</I18nProvider>
+          <StyleSheetManager>
+            <I18nProvider locale={enGB}>{children}</I18nProvider>
+          </StyleSheetManager>
         ),
       },
     );
@@ -253,7 +260,7 @@ it.each(generateCurrentStepOverTotalStepsVariations())(
 it.each(generateLimitedVariations())(
   "renders correct visually hidden text when 'totalSteps' prop is %s and 'currentStep' prop is %s",
   (totalSteps, currentStep) => {
-    render(
+    renderRTL(
       <StepFlow
         category="foo"
         title="bar"
@@ -263,7 +270,9 @@ it.each(generateLimitedVariations())(
       />,
       {
         wrapper: ({ children }: { children: React.ReactNode }) => (
-          <I18nProvider locale={enGB}>{children}</I18nProvider>
+          <StyleSheetManager>
+            <I18nProvider locale={enGB}>{children}</I18nProvider>
+          </StyleSheetManager>
         ),
       },
     );
@@ -289,7 +298,7 @@ it.each(generateLimitedVariations())(
 it.each(generateCurrentStepOverTotalStepsVariations())(
   "renders correct visually hidden text when 'totalSteps' prop is %s and is lower than 'currentStep' prop of %s",
   (totalSteps, currentStep) => {
-    render(
+    renderRTL(
       <StepFlow
         category="foo"
         title="bar"
@@ -299,7 +308,9 @@ it.each(generateCurrentStepOverTotalStepsVariations())(
       />,
       {
         wrapper: ({ children }: { children: React.ReactNode }) => (
-          <I18nProvider locale={enGB}>{children}</I18nProvider>
+          <StyleSheetManager>
+            <I18nProvider locale={enGB}>{children}</I18nProvider>
+          </StyleSheetManager>
         ),
       },
     );

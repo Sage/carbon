@@ -1,6 +1,8 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
+
 import Sort from "./sort.component";
 import FlatTableContext from "../__internal__/flat-table.context";
 import { FlatTableProps } from "../flat-table.component";

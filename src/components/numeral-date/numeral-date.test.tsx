@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
-import { render, screen, within, act } from "@testing-library/react";
+import { screen, within, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
+  render,
   testStyledSystemMargin,
   mockMatchMedia,
 } from "../../__spec_helper__/__internal__/test-utils";

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { Day } from "date-fns";
 import { de as deLocale } from "date-fns/locale/de";
@@ -12,6 +12,7 @@ import { fr as frLocale } from "date-fns/locale/fr";
 import { frCA as frCALocale } from "date-fns/locale/fr-CA";
 import { zhCN as zhCNLocale } from "date-fns/locale/zh-CN";
 import type { Locale } from "react-day-picker";
+import { render } from "../../../../__spec_helper__/__internal__/test-utils";
 
 import I18nProvider from "../../../i18n-provider";
 import DatePicker, { DatePickerProps } from "./date-picker.component";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render, screen, within, act, waitFor } from "@testing-library/react";
+import { screen, within, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { enGB as enGBLocale } from "date-fns/locale/en-GB";
@@ -10,10 +10,12 @@ import { enZA as enZALocale } from "date-fns/locale/en-ZA";
 import { fr as frLocale } from "date-fns/locale/fr";
 import { frCA as frCALocale } from "date-fns/locale/fr-CA";
 import { enUS as enUSLocale } from "date-fns/locale/en-US";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
 
 import CarbonProvider from "../carbon-provider";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-
 import DateInput, { DateChangeEvent } from "./date.component";
 import I18nProvider from "../i18n-provider";
 

@@ -1,7 +1,8 @@
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
 import { createHeadlessEditor } from "@lexical/headless";
+import { render } from "../../../../../__spec_helper__/__internal__/test-utils";
 
 import CharacterCounterPlugin from "./__test__/character-counter.component";
 

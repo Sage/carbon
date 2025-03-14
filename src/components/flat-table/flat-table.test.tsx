@@ -1,8 +1,11 @@
 import React from "react";
-
-import { act, render, screen, waitFor } from "@testing-library/react";
-
+import { act, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {
+  render,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/__internal__/test-utils";
+
 import FlatTable from "./flat-table.component";
 import FlatTableHead from "./flat-table-head/flat-table-head.component";
 import FlatTableBody from "./flat-table-body/flat-table-body.component";
@@ -11,7 +14,6 @@ import FlatTableHeader from "./flat-table-header/flat-table-header.component";
 import FlatTableCell from "./flat-table-cell/flat-table-cell.component";
 import FlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.component";
 import FlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";

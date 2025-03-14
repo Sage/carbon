@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { act, render, screen } from "@testing-library/react";
-
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
+
 import Modal from "./modal.component";
 import useScrollBlock from "../../hooks/__internal__/useScrollBlock";
 

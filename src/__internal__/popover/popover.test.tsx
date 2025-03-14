@@ -1,9 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Popover, { PopoverProps } from "./popover.component";
 import { baseTheme } from "../../style/themes";
 import Dialog from "../../components/dialog";
+import { render } from "../../__spec_helper__/__internal__/test-utils";
 
 const PopoverWithButton = (
   props: Omit<PopoverProps, "children" | "reference">,

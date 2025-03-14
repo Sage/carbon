@@ -1,6 +1,7 @@
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { render, screen } from "@testing-library/react";
 import React from "react";
+import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { screen } from "@testing-library/react";
+import { render } from "../../../../../__spec_helper__/__internal__/test-utils";
 
 import ContentEditor from "./content-editor.component";
 

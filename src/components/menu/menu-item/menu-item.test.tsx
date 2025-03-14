@@ -2,18 +2,18 @@ import React from "react";
 import {
   act,
   fireEvent,
-  render,
   screen,
   waitFor,
   within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
-import { Menu, MenuItem, MenuSegmentTitle } from "..";
 import {
+  render,
   testStyledSystemFlexBox,
   testStyledSystemPadding,
 } from "../../../__spec_helper__/__internal__/test-utils";
+
+import { Menu, MenuItem, MenuSegmentTitle } from "..";
 import MenuContext, { MenuContextProps } from "../__internal__/menu.context";
 import Icon from "../../icon/icon.component";
 import menuConfigVariants from "../menu.config";

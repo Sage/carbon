@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import * as floatingUi from "@floating-ui/dom";
+import { render } from "../../../__spec_helper__/__internal__/test-utils";
 
 import useFloating, { UseFloatingProps } from "./useFloating";
 
