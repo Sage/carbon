@@ -320,18 +320,6 @@ export const ActionPopover = forwardRef<
 
     const parentID = id || `ActionPopoverButton_${guid}`;
     const menuID = `ActionPopoverMenu_${guid}`;
-    const menuProps = {
-      buttonRef,
-      parentID,
-      setFocusIndex,
-      focusIndex,
-      menuID,
-      isOpen,
-      setOpen,
-      rightAlignMenu,
-      placement,
-      horizontalAlignment,
-    };
 
     return (
       <MenuButton
@@ -358,7 +346,14 @@ export const ActionPopover = forwardRef<
               <ActionPopoverMenu
                 data-component="action-popover"
                 ref={menu}
-                {...menuProps}
+                parentID={parentID}
+                menuID={menuID}
+                focusIndex={focusIndex}
+                setFocusIndex={setFocusIndex}
+                isOpen={isOpen}
+                setOpen={setOpen}
+                placement={placement}
+                horizontalAlignment={horizontalAlignment}
               >
                 {children}
               </ActionPopoverMenu>
