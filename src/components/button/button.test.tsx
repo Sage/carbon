@@ -225,6 +225,89 @@ test("renders with the correct white-space when the 'noWrap' prop is 'true'", ()
   expect(button).toHaveStyle("white-space: nowrap");
 });
 
+/** Styling tests for `isWhite` prop coverage */
+describe("when the `isWhite` prop is passed", () => {
+  it("renders a secondary button with white text and a white border", () => {
+    render(<Button isWhite>foo</Button>);
+
+    const button = screen.getByRole("button", { name: "foo" });
+
+    expect(button).toHaveStyleRule("color", "var(--colorsActionMajorYang100)");
+    expect(button).toHaveStyleRule(
+      "border-color",
+      "var(--colorsActionMajorYang100)",
+    );
+  });
+
+  it("renders a disabled secondary button if the `disabled` prop is set", () => {
+    render(
+      <Button isWhite disabled>
+        foo
+      </Button>,
+    );
+
+    const button = screen.getByRole("button", { name: "foo" });
+
+    expect(button).toHaveStyleRule("color", "#4B4B4B");
+    expect(button).toHaveStyleRule("border-color", "#4B4B4B");
+  });
+
+  it("renders a destructive secondary button if the `destructive` prop is set", () => {
+    render(
+      <Button isWhite destructive>
+        foo
+      </Button>,
+    );
+
+    const button = screen.getByRole("button", { name: "foo" });
+
+    expect(button).toHaveStyleRule("color", "var(--colorsSemanticNegative450)");
+    expect(button).toHaveStyleRule(
+      "border-color",
+      "var(--colorsSemanticNegative450)",
+    );
+  });
+
+  it("renders a disabled secondary button if the `disabled` and `destructive` props are set", () => {
+    render(
+      <Button isWhite disabled destructive>
+        foo
+      </Button>,
+    );
+
+    const button = screen.getByRole("button", { name: "foo" });
+
+    expect(button).toHaveStyleRule("color", "#4B4B4B");
+    expect(button).toHaveStyleRule("border-color", "#4B4B4B");
+  });
+
+  it("renders with expected styling if the button type is 'primary'", () => {
+    render(
+      <Button buttonType="primary" isWhite>
+        foo
+      </Button>,
+    );
+    const button = screen.getByRole("button", { name: "foo" });
+
+    expect(button).toHaveStyleRule("color", "var(--colorsActionMajorYang100)");
+    expect(button).toHaveStyleRule("background", "var(--colorsActionMajor500)");
+    expect(button).toHaveStyleRule("border-color", "transparent");
+  });
+
+  it("renders with expected styling if the button type is 'tertiary'", () => {
+    render(
+      <Button buttonType="tertiary" isWhite>
+        foo
+      </Button>,
+    );
+    const button = screen.getByRole("button", { name: "foo" });
+
+    expect(button).toHaveStyleRule("color", "var(--colorsActionMajor500)");
+    expect(button).toHaveStyleRule("background", "transparent");
+    expect(button).toHaveStyleRule("border-color", "transparent");
+  });
+});
+
 test("renders an anchor element when a custom value is passed to the 'href' prop", () => {
   render(<Button href="https://www.warnerbros.com/movies/heat">bar</Button>);
 
