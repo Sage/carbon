@@ -37,12 +37,13 @@ function stylingForType({
   buttonType,
   size,
   destructive,
-}: Pick<ButtonProps, "disabled" | "size" | "destructive"> & {
+  isWhite,
+}: Pick<ButtonProps, "disabled" | "size" | "destructive" | "isWhite"> & {
   iconOnly?: boolean;
   buttonType: Required<ButtonProps>["buttonType"];
 }) {
   return css`
-    ${buttonTypes(disabled, destructive)[buttonType]};
+    ${buttonTypes(disabled, destructive, isWhite)[buttonType]};
 
     ${size === "small" &&
     css`

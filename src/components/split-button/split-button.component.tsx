@@ -57,6 +57,8 @@ export interface SplitButtonProps
   text: string;
   /** Sets rendering position of menu */
   position?: "left" | "right";
+  /** Renders the white variant of the secondary split button */
+  isWhite?: boolean;
 }
 
 export type SplitButtonHandle = {
@@ -83,6 +85,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
       "data-element": dataElement,
       "data-role": dataRole,
       "aria-label": ariaLabel,
+      isWhite = false,
       ...rest
     },
     ref,
@@ -96,6 +99,8 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
 
     const { isInFlatTable } =
       useContext<FlatTableContextProps>(FlatTableContext);
+
+    const shouldRenderIsWhiteVariant = buttonType === "secondary" && isWhite;
 
     useImperativeHandle<SplitButtonHandle, SplitButtonHandle>(
       ref,
@@ -140,6 +145,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
       onClick: handleMainClick,
       size,
       subtext,
+      isWhite: shouldRenderIsWhiteVariant,
       ...filterOutStyledSystemSpacingProps(rest),
     };
 
@@ -148,6 +154,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     };
 
     const toggleButtonProps = {
+      isWhite: shouldRenderIsWhiteVariant,
       disabled,
       displayed: showAdditionalButtons,
       onTouchStart: showButtons,

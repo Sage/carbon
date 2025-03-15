@@ -37,7 +37,11 @@ const gradientSharedStyle = `
   }
 `;
 
-export default (isDisabled?: boolean, destructive?: boolean) => ({
+export default (
+  isDisabled?: boolean,
+  destructive?: boolean,
+  isWhite?: boolean,
+) => ({
   primary: `
     background: var(--colorsActionMajor500);
     border-color: transparent;
@@ -94,6 +98,20 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
       }
 
       ${
+        isWhite && (!isDisabled || !destructive)
+          ? `
+          border-color: var(--colorsActionMajorYang100);
+          ${makeColors("var(--colorsActionMajorYang100)")};
+          &:hover {
+            background: var(--colorsActionMajorYang100);
+            border-color: var(--colorsActionMajorYang100);
+            ${makeColors("var(--colorsYin100)")};
+          }
+          `
+          : ""
+      }
+
+      ${
         destructive
           ? `
             border-color: var(--colorsSemanticNegative500);
@@ -108,7 +126,7 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
       }
       
       ${
-        isDisabled
+        isDisabled && !isWhite
           ? `
             border-color: var(--colorsActionDisabled500);
             ${makeColors("var(--colorsActionMajorYin030)")};
@@ -116,6 +134,21 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
               background: transparent;
               border-color: var(--colorsActionDisabled500);
               ${makeColors("var(--colorsActionMajorYin030)")};
+            }
+            ${disabledImageStyle}
+          `
+          : ""
+      }
+
+      ${
+        isDisabled && isWhite
+          ? `
+            border-color: var(--colorsActionMinorGray700);
+            ${makeColors("var(--colorsActionMinorGray700)")};
+            &:hover {
+              background: transparent;
+              border-color: var(--colorsActionMinorGray700);
+              ${makeColors("var(--colorsActionMinorGray700)")};
             }
             ${disabledImageStyle}
           `
