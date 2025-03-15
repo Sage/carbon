@@ -3,6 +3,7 @@ import React, {
   useImperativeHandle,
   useRef,
   useState,
+  useEffect,
 } from "react";
 import { MarginProps } from "styled-system";
 import { ValidationProps } from "../../__internal__/validations";
@@ -169,6 +170,35 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       minutesAriaLabel || locale.time.minutesAriaLabelText();
     const hoursRef = useRef<HTMLInputElement>(null);
     const minsRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+      const updates = [...inputValues];
+
+      if (inputValues[0] !== hourValue) {
+        updates[0] = hourValue;
+      }
+
+      if (inputValues[1] !== minuteValue) {
+        updates[1] = minuteValue;
+      }
+
+      if (inputValues[0] !== hourValue || inputValues[1] !== minuteValue) {
+        setInputValues(updates);
+
+        const formattedHours = hourValue.length
+          ? hourValue.padStart(2, "0")
+          : hourValue;
+        const formattedMinutes = minuteValue.length
+          ? minuteValue.padStart(2, "0")
+          : minuteValue;
+
+        setFormattedInputValues([formattedHours, formattedMinutes]);
+      }
+      // This useEffect ensures inputValues and formattedInputValues stay in sync with the received value (hourValue and minuteValue).
+      // It runs only when the component is controlled and should not execute for an uncontrolled component. For this reason, inputValue
+      // is intentionally excluded from the dependency array.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hourValue, minuteValue]);
 
     const computedValidations = (
       hrs?: string | boolean,
