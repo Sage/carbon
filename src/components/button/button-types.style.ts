@@ -37,7 +37,11 @@ const gradientSharedStyle = `
   }
 `;
 
-export default (isDisabled?: boolean, destructive?: boolean) => ({
+export default (
+  isDisabled?: boolean,
+  destructive?: boolean,
+  isWhite?: boolean,
+) => ({
   primary: `
     background: var(--colorsActionMajor500);
     border-color: transparent;
@@ -106,7 +110,7 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
           `
           : ""
       }
-      
+
       ${
         isDisabled
           ? `
@@ -118,6 +122,51 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
               ${makeColors("var(--colorsActionMajorYin030)")};
             }
             ${disabledImageStyle}
+          `
+          : ""
+      }
+
+      ${
+        isWhite
+          ? `
+            border-color: var(--colorsActionMajorYang100);
+            ${makeColors("var(--colorsActionMajorYang100)")}
+            &:hover {
+              background: var(--colorsActionMajorYang100);
+              ${makeColors("var(--colorsUtilityYin100)")};
+            }
+
+
+            ${
+              destructive
+                ? `
+                  border-color: var(--colorsSemanticNegative450);
+                  ${makeColors("var(--colorsSemanticNegative450)")}
+                  &:hover {
+                    background: var(--colorsSemanticNegative600);
+                    border-color: var(--colorsSemanticNegativeTransparent);
+                    ${makeColors("var(--colorsSemanticNegativeYang100)")};
+                  }
+                `
+                : ""
+            }
+
+            ${
+              isDisabled
+                ? `
+                  border-color: #4B4B4B;
+                  ${makeColors("#4B4B4B")};
+                  &:hover {
+                    background: transparent;
+                    border-color: #4B4B4B;
+                    ${makeColors("#4B4B4B")};
+
+                  }
+                  ${disabledImageStyle}
+                `
+                : ""
+            }
+          }
           `
           : ""
       }
@@ -164,7 +213,7 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
       background: var(--colorsActionMajor600);
       ${makeColors("var(--colorsActionMajorYang100)")}
     }
-    
+
     ${
       isDisabled
         ? `
@@ -184,7 +233,7 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
       isDisabled
         ? gradientDisabledStyle
         : `
-          background: linear-gradient(#F2F5F6, #F2F5F6) padding-box, linear-gradient(to right, #00D639, #11AFFF, #8F49FE) border-box;          
+          background: linear-gradient(#F2F5F6, #F2F5F6) padding-box, linear-gradient(to right, #00D639, #11AFFF, #8F49FE) border-box;
           ${gradientSharedStyle}
         `
     }
@@ -194,7 +243,7 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
       isDisabled
         ? gradientDisabledStyle
         : `
-          background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(to right, #00D639, #11AFFF, #8F49FE) border-box;          
+          background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(to right, #00D639, #11AFFF, #8F49FE) border-box;
           ${gradientSharedStyle}
         `
     }
