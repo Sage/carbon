@@ -1041,6 +1041,12 @@ ResponsiveWithOverflowVisibleStory.storyName =
 export const HighlightVariantGradientStory: Story = () => {
   return (
     <>
+      <Tile highlightVariant="gradient" roundness="small">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
       <Tile highlightVariant="gradient">
         <TileContent>Test Body One</TileContent>
         <TileContent>Test Body Two</TileContent>
@@ -1060,6 +1066,12 @@ HighlightVariantGradientStory.storyName = "Highlight variant gradient story";
 export const HighlightVariantSuccessStory: Story = () => {
   return (
     <>
+      <Tile highlightVariant="success" roundness="small">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
       <Tile highlightVariant="success">
         <TileContent>Test Body One</TileContent>
         <TileContent>Test Body Two</TileContent>
@@ -1079,6 +1091,12 @@ HighlightVariantSuccessStory.storyName = "Highlight variant success story";
 export const HighlightVariantNeutralStory: Story = () => {
   return (
     <>
+      <Tile highlightVariant="neutral" roundness="small">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
       <Tile highlightVariant="neutral">
         <TileContent>Test Body One</TileContent>
         <TileContent>Test Body Two</TileContent>
@@ -1098,6 +1116,12 @@ HighlightVariantNeutralStory.storyName = "Highlight variant neutral story";
 export const HighlightVariantErrorStory: Story = () => {
   return (
     <>
+      <Tile highlightVariant="error" roundness="small">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
       <Tile highlightVariant="error">
         <TileContent>Test Body One</TileContent>
         <TileContent>Test Body Two</TileContent>
@@ -1117,6 +1141,12 @@ HighlightVariantErrorStory.storyName = "Highlight variant error story";
 export const HighlightVariantWarningStory: Story = () => {
   return (
     <>
+      <Tile highlightVariant="warning" roundness="small">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
       <Tile highlightVariant="warning">
         <TileContent>Test Body One</TileContent>
         <TileContent>Test Body Two</TileContent>
@@ -1136,6 +1166,12 @@ HighlightVariantWarningStory.storyName = "Highlight variant warning story";
 export const HighlightVariantInfoStory: Story = () => {
   return (
     <>
+      <Tile highlightVariant="info" roundness="small">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
       <Tile highlightVariant="info">
         <TileContent>Test Body One</TileContent>
         <TileContent>Test Body Two</TileContent>
@@ -1151,3 +1187,28 @@ export const HighlightVariantInfoStory: Story = () => {
   );
 };
 HighlightVariantInfoStory.storyName = "Highlight variant info story";
+
+export const HighlightVariantImportantStory: Story = () => {
+  return (
+    <>
+      <Tile highlightVariant="important" roundness="small">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
+      <Tile highlightVariant="important">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <br />
+      <Tile highlightVariant="important" roundness="large">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+    </>
+  );
+};
+HighlightVariantImportantStory.storyName = "Highlight variant important story";

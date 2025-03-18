@@ -66,6 +66,9 @@ const getHighlightVariant = (variant: TileProps["highlightVariant"]) => {
       return "var(--colorsSemanticCaution500)";
     case "info":
       return "var(--colorsSemanticInfo500)";
+    // FE-6368 has been raised for the below, change hex values for design tokens (when added)
+    case "important":
+      return " #8F4CD7";
     default:
       // gradient is default
       return "linear-gradient(0deg, rgb(143, 73, 254) 5%, rgb(0, 146, 219) 50%, rgb(19, 160, 56) 95%)";
@@ -80,9 +83,25 @@ const StyledTile = styled.div<StyledTileProps>`
     variant,
     width,
     roundness,
+    highlightVariant,
     height,
   }) => css`
     ${space}
+
+    ${highlightVariant &&
+    css`
+      overflow: hidden;
+      &::before {
+        display: block;
+        content: "";
+        height: 100%;
+        width: 8px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: ${getHighlightVariant(highlightVariant)};
+      }
+    `}
 
     box-sizing: border-box;
     border: var(--${borderWidth}) solid
@@ -133,22 +152,5 @@ const StyledTile = styled.div<StyledTileProps>`
 StyledTile.defaultProps = {
   theme: baseTheme,
 };
-
-export const StyledHighlight = styled.div<{
-  variant: Required<TileProps["highlightVariant"]>;
-  roundness: TileProps["roundness"];
-}>`
-  height: 100%;
-  width: 100%;
-  position: relative;
-  background: ${({ variant }) => getHighlightVariant(variant)};
-  border-radius: ${({ roundness }) => getBorderRadius(roundness)};
-
-  ${StyledTile} {
-    border-left: 0;
-    left: 4px;
-    width: calc(100% - 4px);
-  }
-`;
 
 export default StyledTile;
