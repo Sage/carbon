@@ -1,3 +1,10 @@
+## [152.2.0](https://github.com/Sage/carbon/compare/v152.1.0...v152.2.0) (2025-03-18)
+
+### Features
+
+* **tile:** add important highlight variant ([471e1d1](https://github.com/Sage/carbon/commit/471e1d19cff6a3eb41f67eabb8c61420888ac1a7))
+* **tile:** align highlight variant with the design system ([e5ef3a9](https://github.com/Sage/carbon/commit/e5ef3a9973c0a8e56a776b2ab31d4c27790c8285))
+
 ## [152.1.0](https://github.com/Sage/carbon/compare/v152.0.1...v152.1.0) (2025-03-17)
 
 ### Features
