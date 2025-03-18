@@ -1,3 +1,9 @@
+## [152.1.0](https://github.com/Sage/carbon/compare/v152.0.1...v152.1.0) (2025-03-17)
+
+### Features
+
+* **button:** add white secondary variant to button ([7a55618](https://github.com/Sage/carbon/commit/7a55618a3920fdf243fd0b4a8803c79d9ea78747))
+
 ## [152.0.1](https://github.com/Sage/carbon/compare/v152.0.0...v152.0.1) (2025-03-14)
 
 ### Bug Fixes
