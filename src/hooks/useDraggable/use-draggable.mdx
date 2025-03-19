@@ -11,7 +11,7 @@ It provides a way to manage the state and behavior of draggable items, allowing 
 control and flexibility.
 
 The `useDraggable` hook is supported and maintained by Carbon, use it for your draggable functionality instead of using third-party libraries to enjoy 
-an easier less complex implementation and no additional dependencies.
+an easier implementation and no additional dependencies.
 
 ## Contents
 
@@ -25,13 +25,169 @@ an easier less complex implementation and no additional dependencies.
 import useDraggable, { UseDraggableHandle, DraggableProvider } from "carbon-react/lib/hooks/useDraggable";
 ```
 
+## The Anatomy of the `useDraggable` hook
+
+### Container and Item Relationship
+
+Every draggable item exists within a container.
+
+- **Container**: Defines the area where dragging operations are valid
+- **Draggable Item**: Wraps whatever content needs to be draggable
+
+### Content Wrapping Behavior
+
+The draggable item component acts as a wrapper around any children passed to it:
+
+- If text is passed, it becomes a direct child of the draggable item
+- If components or elements are passed, they're wrapped by the draggable item
+- The draggable item preserves the structure of its children while adding the necessary drag functionality
+
+### Key Attributes
+
+Based on the HTML structure shown in the examples, these are the key attributes used:
+
+### Container Attributes
+
+```jsx
+<div 
+  id="8bdb2819-42ad-74f8-f42e-225b3b7dfeca"
+  data-element="use-draggable-container"
+  data-drop-target-for-element="true"
+>
+  {/* Draggable items go here */}
+</div>
+```
+
+- `id`: Unique identifier for the container
+- `data-element="use-draggable-container"`: Marks this div as a draggable container
+- `data-drop-target-for-element="true"`: Indicates this container can receive dropped elements
+
+### Draggable Item Attributes
+
+```jsx
+<div
+  data-parent-container-id="8bdb2819-42ad-74f8-f42e-225b3b7dfeca"
+  data-item-id="1"
+  data-drag-state="idle"
+  draggable="true"
+  data-drop-target-for-element="true"
+>
+  <div id="1">item1</div>
+</div>
+```
+
+- `data-parent-container-id`: References the ID of the parent container
+- `data-item-id`: Unique identifier for the item within its container
+- `data-drag-state`: Tracks the current state of the draggable item (e.g., "idle")
+- `draggable="true"`: Native HTML attribute that enables drag operations
+- `data-drop-target-for-element="true"`: Allows the item itself to be a drop target
+
+### ID Management and Specificity
+
+An important detail to note is how IDs are handled in `useDraggable`:
+
+- **IDs are entirely optional** - `useDraggable` works out of the box without requiring manual ID assignment
+- GUIDs are assigned to containers and items automatically when no IDs are provided
+- When a draggable item wraps another element, it will use its child node's ID if available (as seen in the examples where `<div id="1">item1</div>` is wrapped)
+
+This approach provides maximum flexibility:
+
+- You can provide explicit IDs via `containerId` prop for containers and `providerId` for the `DraggableProvider` when you need predictable references
+- You can let items inherit IDs from their children for simpler implementation
+- Or you can rely entirely on the automatic GUID generation when IDs aren't important to your use case (for containers and items)
+
+### Complete Example
+
+Here's what a typical draggable item implementation looks like in JSX, including both the container and items.
+
+```jsx
+<div
+  id="my-container-123"
+  data-element="use-draggable-container"
+  data-drop-target-for-element="true"
+>
+  {/* First draggable item */}
+  <div
+    data-parent-container-id="my-container-123"
+    data-item-id="item1"
+    data-drag-state="idle"
+    draggable="true"
+    data-drop-target-for-element="true"
+  >
+    <div id="item1">Simple text content</div>
+  </div>
+  
+  {/* Second draggable item */}
+  <div
+    data-parent-container-id="my-container-123"
+    data-item-id="item2"
+    data-drag-state="idle"
+    draggable="true"
+    data-drop-target-for-element="true"
+  >
+    <div id="item2">
+      <CustomComponent>
+        <h3>Complex Content</h3>
+        <p>This entire component is draggable</p>
+      </CustomComponent>
+    </div>
+  </div>
+</div>
+```
+
+## The anatomy of the `DraggableProvider` component
+
+### DraggableProvider for Multi-Container Applications
+
+To use the `DraggableProvider` simply wrap all the containers which have been returned via the `useDraggable` hook that 
+need to communicate with each other in the `DraggableProvider` component. **Please note** unique container IDs are needed for the `DraggableProvider` to work correctly - either provide individual IDs 
+via the `containerId` prop on each use of the `useDraggable` hook or allow each container to generate a GUID.
+
+An ID can also be passed to the `DraggableProvider` via the `providerId` prop, which will render a `<div>` element with the ID applied. This is useful when you need to reference the provider directly.
+
+- **Required for Cross-Container Dragging**: If items need to move between different containers, the `DraggableProvider` is necessary
+- **Establishes Communication Context**: Creates a shared context that allows all containers to communicate
+- **Common in Complex UIs**: recommend for use cases where multiple related draggable areas are needed like kanban boards, multi-column layouts, or sorting interfaces
+
+### Draggable Provider Example:
+
+```jsx
+const KanbanBoard = () => {
+  return (
+    <DraggableProvider>
+      {/* First draggable container */}
+      {draggableContainer1}
+      {/* Second draggable container */}
+      {draggableContainer2}
+      {/* Third draggable container */}
+      {draggableContainer3}
+    </DraggableProvider>
+  );
+};
+```
+Only use the `DraggableProvider` when needed, as it has the potential to introduce unnecessary complexity in simpler use cases, a single container application of `useDraggable` does not require the `DraggableProvider`.
+
 ## Examples
 
 ### Basic implementation
 
-An array of items is passed to the `useDraggable` hook via the `draggableItems` prop, which returns a container with the items now draggable.
+An array of items is passed to the `useDraggable` hook via the `draggableItems` prop, which returns a container with the items now wrapped in a draggable item.
 
 <Canvas of={useDraggableStories.BasicImplementation} />
+
+### With dragType
+
+The drag type can be controlled with the `dragType` prop which can be either `"continuous"` or `"onDrop"`, the default is `"continuous"`.
+When `"continuous"` is set, the item will be dragged as soon as the user starts dragging it. When `"onDrop"` is set, the item will only be dragged when the user drops it.
+
+<Canvas of={useDraggableStories.DragType} />
+
+### With dragDelay
+
+The drag delay can be controlled with the `dragDelay` prop which is the time in milliseconds before the draggable item is moved to its new position. The default is `100`.
+A drag delay is recommended for continuous drag types to prevent accidental dragging.
+
+<Canvas of={useDraggableStories.DragDelay} />
 
 ### With Id's
 
@@ -90,6 +246,26 @@ To specify styling you can use the `data-item-id` and/or the `data-parent-contai
 to have complete control over all draggable related styling which is applied.
 
 <Canvas of={useDraggableStories.DragState} />
+
+### Dragged Node
+
+The `useDraggable` hook also returns a `draggedNode` element reference, which can be used to access the dragged item's node.
+This can be used to implement custom behavior or styling when an item has been dragged.
+
+<Canvas of={useDraggableStories.DraggedNode} />
+
+### Draggable Provider
+
+The `DraggableProvider` component is used to wrap multiple containers that need to communicate with each other. In this example the `providerId` prop is used to pass an ID to the `DraggableProvider`.
+Which then results in a `<div>` element being rendered with the ID applied, this is then used for specific targeted styling.
+
+Styling is applied  with specific attribute targeting, leveraging all the attributes that are added to the draggable items, containers and provider.
+
+**Please note** it is important to provide unique container IDs for the `DraggableProvider` to work correctly. 
+We also recommend ensuring containers have a suitable width and height to ensure the drop target is large enough to receive the dragged item. 
+This is especially important when the container is empty. In this example, containers are targeted and given set widths and heights using the attribute `data-element="use-draggable-container"`.
+
+<Canvas of={useDraggableStories.DraggableProviderStory} />
 
 ## Parameters
 
