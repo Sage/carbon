@@ -9,21 +9,22 @@ export interface FlatTableRowDraggableProps {
   id: number | string;
 }
 
-const FlatTableRowDraggable = forwardRef<HTMLDivElement, FlatTableRowDraggableProps>(
-  ({ children, id, ...rest }, ref) => {
-    return (
-      <DraggableItem
-        id={id}
-        draggableItemStylingOptOut
-        itemsNode={StyledFlatTableRow}
-        ref={ref}
-        {...rest}
-      >
-        {children}
-      </DraggableItem>
-    );
-  }
-);
+const FlatTableRowDraggable = forwardRef<
+  HTMLDivElement,
+  FlatTableRowDraggableProps
+>(({ children, id, ...rest }, ref) => {
+  return (
+    <DraggableItem
+      uniqueId={id}
+      draggableItemStylingOptOut
+      itemsNode={StyledFlatTableRow}
+      ref={ref}
+      {...rest}
+    >
+      {children}
+    </DraggableItem>
+  );
+});
 
 FlatTableRowDraggable.displayName = "FlatTableRowDraggable";
 

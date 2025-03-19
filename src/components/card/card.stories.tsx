@@ -753,21 +753,24 @@ export const WithDraggable: Story = () => {
       containerId: id,
       draggableItems: children,
     });
-    
+
     useEffect(() => {
       const element = document.getElementById(id);
       if (!element) return;
-      
+
       const updateDragState = () => {
-        const dragState = element.getAttribute('data-drag-state');
-        setIsDragging(dragState === 'dragging-over-between-containers');
+        const dragState = element.getAttribute("data-drag-state");
+        setIsDragging(dragState === "dragging-over-between-containers");
       };
-      
+
       updateDragState();
-      
+
       const observer = new MutationObserver(updateDragState);
-      
-      observer.observe(element, { attributes: true, attributeFilter: ['data-drag-state'] });
+
+      observer.observe(element, {
+        attributes: true,
+        attributeFilter: ["data-drag-state"],
+      });
       return () => observer.disconnect();
     }, [id]);
 
@@ -797,7 +800,7 @@ export const WithDraggable: Story = () => {
       </Box>
     );
   };
-  
+
   const renderCard = (id: string, title: string) => (
     <Card id={id} width="inherit" draggable>
       <CardRow pt={0}>
@@ -811,7 +814,7 @@ export const WithDraggable: Story = () => {
       </CardRow>
     </Card>
   );
-  
+
   return (
     <Box
       width="700px"

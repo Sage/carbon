@@ -8,11 +8,18 @@ import React, {
 } from "react";
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
-import { isDraggableItemData, Edge } from "../../__internal__/draggable/draggable-utils";
+import guid from "../../__internal__/utils/helpers/guid"
+import {
+  isDraggableItemData,
+  Edge,
+} from "../../__internal__/draggable/draggable-utils";
 import DraggableProviderContext from "./draggable-provider-context";
 
 interface DraggableProviderType {
   children: React.ReactNode;
+  providerId?: string | number;
+  dragType?: "continuous" | "onDrop";
+  dragDelay?: number;
 }
 
 export interface ReOrderProps {
@@ -33,7 +40,7 @@ export interface ContainerDragState {
 const DraggableProvider = forwardRef<
   DraggableProviderHandle,
   DraggableProviderType
->(({ children }, ref) => {
+>(({ children, providerId, dragType="continuous", dragDelay= 100 }, ref) => {
   const [lists, setLists] = useState<Record<string, React.ReactNode[]>>({});
   const [containerDragState, setContainerDragState] =
     useState<ContainerDragState>({});
@@ -58,7 +65,7 @@ const DraggableProvider = forwardRef<
       setLists((prevLists) => {
         const elements = Array.from(
           document.querySelectorAll(
-            `[data-parent-container-id="${fromListId}"]`,
+            `[data-provider-id="${uniqueId}"] [data-parent-container-id="${fromListId}"]`,
           ),
         );
 
@@ -100,6 +107,8 @@ const DraggableProvider = forwardRef<
 
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
   const numberOfLists = Object.keys(lists).length;
+  const providerGuid = useRef(guid()).current;
+  const uniqueId = providerId || providerGuid;
 
   const lastMoveRef = useRef<{
     indexOfTarget: null | number;
@@ -117,19 +126,35 @@ const DraggableProvider = forwardRef<
     const cleanup = combine(
       monitorForElements({
         canMonitor({ source }) {
-          return isDraggableItemData(source.data);
+          // provider is only allowed to monitor when there are multiple draggable containers
+          return isDraggableItemData(source.data) && numberOfLists > 1;
         },
         onDropTargetChange({ location, source }) {
-          const target = location.current.dropTargets[0];
+          const target = location.current.dropTargets[0]
           if (target) {
+            // initial data extraction
             const indexOfTarget = Number(target.data.itemIndex);
             const destinationId = source.data.itemId as string | number;
-            const element = document.querySelector(`[data-item-id="${destinationId}"]`);
-            const destinationContainer = element?.getAttribute("data-parent-container-id") as string || source.data.parentContainerId as string;
+            const element = document.querySelector(
+              `[data-item-id="${destinationId}"]`,
+            );
+            const destinationContainer =
+              (element?.getAttribute("data-parent-container-id") as string) ||
+              (source.data.parentContainerId as string);
+
+
+            // onDropTargetChange will typically listen to any drop target change, this ensures that the provider is only listening to, and making changes to 
+            // containers which are within the scope of its own provider. Although unlikely to happen, this adds an extra blanket layer of security for
+            // instances where multiple providers are present on the same page, or there is a provider with other non-provider containers rendered
+            // this may be a possible pattern with MFE use.
+            const providerId = element?.parentElement?.getAttribute("data-provider-id");
+            if(!providerId){
+              return;
+            }
+
             const targetContainer = target.data.parentContainerId as string;
 
-            console.log(targetContainer, destinationContainer);
-
+            // container state updates
             if (
               targetContainer !== undefined &&
               targetContainer !== null &&
@@ -151,6 +176,7 @@ const DraggableProvider = forwardRef<
               });
             }
 
+            // typical move into the same container
             if (
               !Number.isNaN(indexOfTarget) &&
               indexOfTarget >= 0 &&
@@ -160,12 +186,25 @@ const DraggableProvider = forwardRef<
               if (
                 lastMoveRef.current.indexOfTarget !== indexOfTarget ||
                 lastMoveRef.current.destinationId !== destinationId ||
-                lastMoveRef.current.destinationContainerId !== destinationContainer ||
+                lastMoveRef.current.destinationContainerId !==
+                  destinationContainer ||
                 lastMoveRef.current.targetContainerId !== targetContainer
-              ) {                
-                  move(destinationContainer, targetContainer, destinationId, indexOfTarget);
-                  lastMoveRef.current = { indexOfTarget, destinationId, targetContainerId: targetContainer, destinationContainerId: destinationContainer };
+              ) {
+                move(
+                  destinationContainer,
+                  targetContainer,
+                  destinationId,
+                  indexOfTarget,
+                );
+                lastMoveRef.current = {
+                  indexOfTarget,
+                  destinationId,
+                  targetContainerId: targetContainer,
+                  destinationContainerId: destinationContainer,
+                };
               }
+              // move into a different container where no initial item drop zones are present
+              // (can be an empty container, or just dragged to somewhere on the container where an item is not present)
             } else if (
               destinationId !== undefined &&
               destinationId !== null &&
@@ -173,10 +212,29 @@ const DraggableProvider = forwardRef<
               target.element.id !== null
             ) {
               const emptyTargetId = target.element.id;
-              const isEmptyList = emptyTargetId in lists && Array.isArray(lists[emptyTargetId]) && lists[emptyTargetId].length === 0;
+              const isEmptyList =
+                emptyTargetId in lists &&
+                Array.isArray(lists[emptyTargetId]) &&
+                lists[emptyTargetId].length === 0;
+              // if the container is empty, it will move to the top of the container, as the first item
               if (isEmptyList) {
                 move(destinationContainer, emptyTargetId, destinationId, 0);
-                lastMoveRef.current = { indexOfTarget: 0, destinationId, targetContainerId: emptyTargetId, destinationContainerId: destinationContainer };
+                lastMoveRef.current = {
+                  indexOfTarget: 0,
+                  destinationId,
+                  targetContainerId: emptyTargetId,
+                  destinationContainerId: destinationContainer,
+                };
+              } else{
+                // if the container is not empty, it will move to the bottom of the container, as the last item
+                move(destinationContainer, emptyTargetId, destinationId, lists[emptyTargetId].length);
+                lastMoveRef.current = {
+                  indexOfTarget: lists[emptyTargetId].length,
+                  destinationId,
+                  targetContainerId: emptyTargetId,
+                  destinationContainerId: destinationContainer,
+                }
+
               }
             }
           }
@@ -184,8 +242,8 @@ const DraggableProvider = forwardRef<
         onDrop() {
           setContainerDragState({
             draggingBetweenContainers: false,
-            targetContainerId: null
-          })
+            targetContainerId: null,
+          });
           lastMoveRef.current = {
             indexOfTarget: null,
             destinationId: null,
@@ -193,15 +251,15 @@ const DraggableProvider = forwardRef<
             destinationContainerId: null,
           };
         },
-      })
+      }),
     );
 
     return () => cleanup();
   }, [move, lists]);
 
-  return (
+ return (
     <DraggableProviderContext.Provider
-      value={{ register, move, lists, setClosestEdge, containerDragState }}
+      value={{ register, move, lists, setClosestEdge, containerDragState, uniqueId  }}
     >
       {children}
     </DraggableProviderContext.Provider>

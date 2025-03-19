@@ -16,7 +16,10 @@ const useDebounce = <T extends Callback>(
   });
 
   const debouncedCallback = useMemo(
-    () => debounce(callbackRef.current, delay),
+    () =>
+      debounce((...args: Parameters<T>) => {
+        callbackRef.current(...args);
+      }, delay),
     [delay],
   );
 
@@ -24,7 +27,7 @@ const useDebounce = <T extends Callback>(
     return () => {
       debouncedCallback.cancel();
     };
-  });
+  }, [debouncedCallback]);
 
   return debouncedCallback;
 };

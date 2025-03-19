@@ -2785,16 +2785,22 @@ export const WithDraggableRowsAndManualReOrdering: Story = () => {
       name: "US",
     },
   ];
-  
-  const [currentOrder, setCurrentOrder] = useState<(string | number)[]>(["0", "1", "2", "3"]);
+
+  const [currentOrder, setCurrentOrder] = useState<(string | number)[]>([
+    "0",
+    "1",
+    "2",
+    "3",
+  ]);
   const previousOrderRef = useRef(currentOrder);
-  
-  useEffect(() => { 
-    previousOrderRef.current = currentOrder 
+
+  useEffect(() => {
+    previousOrderRef.current = currentOrder;
   }, [currentOrder]);
-  
+
   const getIndex = (id: string) => previousOrderRef.current.indexOf(id);
-  const moveItem = (id: string, targetIndex: number) => draggableHandle.current?.reOrder(id, targetIndex);
+  const moveItem = (id: string, targetIndex: number) =>
+    draggableHandle.current?.reOrder(id, targetIndex);
 
   return (
     <FlatTable title="Table for draggable rows">
@@ -2804,8 +2810,12 @@ export const WithDraggableRowsAndManualReOrdering: Story = () => {
           <FlatTableHeader>Country</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
-      <FlatTableBodyDraggable 
-        getOrder={(ids) => setCurrentOrder((ids || []).filter((id): id is string | number => id !== undefined))}
+      <FlatTableBodyDraggable
+        getOrder={(ids) =>
+          setCurrentOrder(
+            (ids || []).filter((id): id is string | number => id !== undefined),
+          )
+        }
         ref={draggableHandle}
       >
         {rows.map((row) => (
@@ -2815,23 +2825,39 @@ export const WithDraggableRowsAndManualReOrdering: Story = () => {
             </FlatTableCell>
             <FlatTableCell>
               <Box display="flex" justifyContent="space-between">
-              {row.name}
-              <ActionPopover m={0}>
-                <ActionPopoverItem onClick={() => moveItem(row.id, 0)}>Move Top</ActionPopoverItem>
-                <ActionPopoverItem onClick={() => moveItem(row.id, getIndex(row.id) - 1)}>Move Up</ActionPopoverItem>
-                <ActionPopoverItem onClick={() => moveItem(row.id, getIndex(row.id) + 1)}>Move Down</ActionPopoverItem>
-                <ActionPopoverItem onClick={() => moveItem(row.id, previousOrderRef.current.length - 1)}>Move Bottom</ActionPopoverItem>
-              </ActionPopover>
+                {row.name}
+                <ActionPopover m={0}>
+                  <ActionPopoverItem onClick={() => moveItem(row.id, 0)}>
+                    Move Top
+                  </ActionPopoverItem>
+                  <ActionPopoverItem
+                    onClick={() => moveItem(row.id, getIndex(row.id) - 1)}
+                  >
+                    Move Up
+                  </ActionPopoverItem>
+                  <ActionPopoverItem
+                    onClick={() => moveItem(row.id, getIndex(row.id) + 1)}
+                  >
+                    Move Down
+                  </ActionPopoverItem>
+                  <ActionPopoverItem
+                    onClick={() =>
+                      moveItem(row.id, previousOrderRef.current.length - 1)
+                    }
+                  >
+                    Move Bottom
+                  </ActionPopoverItem>
+                </ActionPopover>
               </Box>
-              </FlatTableCell>
-            
+            </FlatTableCell>
           </FlatTableRow>
         ))}
       </FlatTableBodyDraggable>
     </FlatTable>
   );
 };
-WithDraggableRowsAndManualReOrdering.storyName = "With Draggable Rows and Manual Re-Ordering";
+WithDraggableRowsAndManualReOrdering.storyName =
+  "With Draggable Rows and Manual Re-Ordering";
 
 export const WrappingRowHeaders: Story = () => {
   const FlatTableRowHeaderWrapper = ({
