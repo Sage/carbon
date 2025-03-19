@@ -99,8 +99,6 @@ export const VerticalMenuFullScreen = ({
               <Icon
                 type="close"
                 color="var(--colorsComponentsLeftnavWinterStandardContent)"
-                bgSize="small"
-                fontSize="medium"
               />
             </IconButton>
           </Box>
