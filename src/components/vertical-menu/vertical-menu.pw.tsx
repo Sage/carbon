@@ -297,15 +297,6 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     await expect(closeCallbackInvoked).toBe(true);
   });
 
-  test(`should render Vertical Menu Full Screen without isOpen prop`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<VerticalMenuFullScreenCustom />);
-
-    await expect(verticalMenuItem(page)).not.toBeInViewport();
-  });
-
   test(`should render Vertical Menu Full Screen with isOpen prop`, async ({
     mount,
     page,
@@ -355,10 +346,6 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     mount,
     page,
   }) => {
-    // this test currently passes even without the necessary fix to FocusTrap for MenuFullScreen, as
-    // VerticalMenuFullScreen currently does not render its children at all when isOpen is false. This will
-    // change once FE-5650 is done and this test will be required when that is done to ensure the children of
-    // a closed VerticalMenuFullScreen do not interfere with tabbing.
     await mount(<ClosedVerticalMenuFullScreenWithButtons />);
 
     await page.keyboard.press("Tab");

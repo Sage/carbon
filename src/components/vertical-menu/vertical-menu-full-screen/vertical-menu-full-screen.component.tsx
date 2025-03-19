@@ -68,14 +68,12 @@ export const VerticalMenuFullScreen = ({
     focusCallToActionElement: safeDocument?.activeElement as HTMLElement,
   });
 
-  // TODO remove this as part of FE-5650
-  if (!isOpen) return null;
-
   return (
     <Portal>
       <FocusTrap isOpen={isOpen} wrapperRef={menuWrapperRef}>
         <StyledVerticalMenuFullScreen
           ref={menuWrapperRef}
+          isOpen={isOpen}
           scrollVariant="light"
           as="nav"
           aria-label={ariaLabel}
