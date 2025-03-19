@@ -499,6 +499,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
                       })}
                     tooltipPosition={tooltipPosition}
                     tooltipId={validationId}
+                    my={0} // prevents any form spacing being applied
                   />
                 </StyledDateField>
               </NumeralDateContext.Provider>

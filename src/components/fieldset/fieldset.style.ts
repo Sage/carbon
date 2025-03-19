@@ -11,6 +11,7 @@ export interface StyledFieldsetProps {
 
 const FieldsetStyle = styled.fieldset<StyledFieldsetProps>`
   margin: 0;
+  margin-bottom: var(--fieldSpacing);
   ${margin}
   border: none;
   padding: 0;
@@ -18,6 +19,10 @@ const FieldsetStyle = styled.fieldset<StyledFieldsetProps>`
   ${({ newValidation }) =>
     !newValidation &&
     css`
+      & * {
+        --fieldSpacing: 0;
+      }
+
       &&&& ${FormFieldStyle} {
         margin-top: 0;
         margin-bottom: -1px;

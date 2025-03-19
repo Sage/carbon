@@ -53,6 +53,7 @@ export const ErrorBorder = styled.span`
 
 const StyledSwitch = styled.div`
   ${({ fieldHelpInline, labelInline, reverse, size }: StyledSwitchProps) => css`
+    margin-bottom: var(--fieldSpacing);
     ${margin}
     ${FieldLineStyle} {
       display: flex;

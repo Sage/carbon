@@ -2,16 +2,17 @@ import styled, { css } from "styled-components";
 
 import { space, padding } from "styled-system";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
-
 import baseTheme from "../../style/themes/base";
 import { FormButtonAlignment } from "./form.config";
-import StyledSearch from "../search/search.style";
-import StyledTextarea from "../textarea/textarea.style";
-import { StyledNumeralDate } from "../numeral-date/numeral-date.style";
+import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
+import StyledSelect from "../select/select.style";
+import { StyledSelectMultiSelect } from "../select/multi-select/multi-select.style";
+import StyledSwitch from "../switch/switch.style";
 
 interface StyledFormContentProps {
   stickyFooter?: boolean;
   isInModal?: boolean;
+  fieldSpacing?: string;
 }
 
 export const StyledFormContent = styled.div<StyledFormContentProps>(
@@ -22,6 +23,24 @@ export const StyledFormContent = styled.div<StyledFormContentProps>(
       flex-grow: 1;
       min-height: 0;
       overflow-y: auto;
+    `,
+
+  ({ fieldSpacing }) =>
+    fieldSpacing &&
+    css`
+      --fieldSpacing: ${fieldSpacing};
+
+      ${StyledFormField} {
+        margin-top: var(--spacing000);
+      }
+
+      // field spacing is also applied to form field here so we need to override
+      ${StyledInlineInputs} ${StyledFormField},
+      ${StyledInlineInputs} ${StyledSelect},
+      ${StyledInlineInputs} ${StyledSelectMultiSelect},
+      ${StyledSwitch} ${StyledFormField} {
+        margin-bottom: var(--spacing000);
+      }
     `,
 );
 
@@ -77,7 +96,6 @@ StyledFormFooter.defaultProps = {
 
 interface StyledFormProps extends StyledFormContentProps {
   height?: string;
-  fieldSpacing: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 }
 
 export const StyledForm = styled.form<StyledFormProps>`
@@ -88,14 +106,6 @@ export const StyledForm = styled.form<StyledFormProps>`
     css`
       height: ${height};
     `}
-
-  // field spacing is also applied to form field here so we need to override
-  ${StyledSearch} ${StyledFormField}, 
-  ${StyledTextarea} ${StyledFormField}, 
-  [data-component="time"] ${StyledFormField}, 
-  ${StyledNumeralDate} ${StyledFormField} {
-    margin-bottom: var(--spacing000);
-  }
 
   ${({ stickyFooter, isInModal }) =>
     stickyFooter &&

@@ -22,6 +22,7 @@ interface StyledDateInputProps
 }
 
 const StyledDateInput = styled.div<StyledDateInputProps>`
+  margin-bottom: var(--fieldSpacing);
   ${margin}
 
   & ${StyledInputPresentation} {

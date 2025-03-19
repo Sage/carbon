@@ -26,9 +26,9 @@ import ErrorBorder from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
-import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import { BorderRadiusType } from "../box/box.component";
 import HintText from "../../__internal__/hint-text";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export interface TextareaProps
   extends ValidationProps,
@@ -391,7 +391,7 @@ export const Textarea = React.forwardRef(
       </InputPresentation>
     );
 
-    const marginProps = useFormSpacing(rest);
+    const marginProps = filterStyledSystemMarginProps(rest);
 
     return (
       <TooltipProvider
@@ -429,6 +429,7 @@ export const Textarea = React.forwardRef(
               useValidationIcon={computeLabelPropValues(validationOnLabel)}
               adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
               validationRedesignOptIn={validationRedesignOptIn}
+              my={0} // prevents any form spacing being applied
             >
               {(inputHint || (labelHelp && validationRedesignOptIn)) && (
                 <HintText

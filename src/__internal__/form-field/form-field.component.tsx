@@ -19,7 +19,7 @@ import TabContext, {
 } from "../../components/tabs/tab/__internal__/tab.context";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { IconType } from "../../components/icon";
-import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 interface CommonFormFieldProps extends MarginProps, ValidationProps {
   /** If true, the component will be disabled */
@@ -149,7 +149,7 @@ const FormField = ({
 
   const { setError, setWarning, setInfo } =
     useContext<TabContextProps>(TabContext);
-  const marginProps = useFormSpacing(rest);
+  const marginProps = filterStyledSystemMarginProps(rest);
   const isMounted = useRef(false);
 
   useLayoutEffect(() => {

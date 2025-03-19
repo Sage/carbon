@@ -8,6 +8,7 @@ type StyledFieldsetProps = {
 
 const StyledFieldset = styled.fieldset<StyledFieldsetProps>`
   margin: 0;
+  margin-bottom: var(--fieldSpacing);
   ${margin}
   border: none;
   padding: 0;
