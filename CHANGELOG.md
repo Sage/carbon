@@ -1,3 +1,10 @@
+## [152.2.1](https://github.com/Sage/carbon/compare/v152.2.0...v152.2.1) (2025-03-19)
+
+### Bug Fixes
+
+* **form:** replace use of context to apply field spacing ([4e76f2c](https://github.com/Sage/carbon/commit/4e76f2cb137c6b04823af86f007a8c2e66afdcf0)), closes [#7058](https://github.com/Sage/carbon/issues/7058)
+* **textbox:** margin not applied to character count ([de4c031](https://github.com/Sage/carbon/commit/de4c031bfe0c37251ae9881e9ab098bc6044c939))
+
 ## [152.2.0](https://github.com/Sage/carbon/compare/v152.1.0...v152.2.0) (2025-03-18)
 
 ### Features
