@@ -53,27 +53,50 @@ export const ManualReOrdering: Story = () => {
   const draggableHandle = useRef<UseDraggableHandle | null>(null);
   const [currentOrder, setCurrentOrder] = useState<number[]>([0, 1, 2, 3]);
   const previousOrderRef = useRef(currentOrder);
-  useEffect(() => { previousOrderRef.current = currentOrder }, [currentOrder]);
+  useEffect(() => {
+    (previousOrderRef.current = currentOrder),
+      console.log(currentOrder, previousOrderRef.current);
+  }, [currentOrder]);
   const labels = ["first", "second", "third", "fourth"];
-  
+
   const getIndex = (id: number) => previousOrderRef.current.indexOf(id);
-  const moveItem = (id: number, targetIndex: number) => draggableHandle.current?.reOrder(id, targetIndex);
-  
+  const moveItem = (id: number, targetIndex: number) =>
+    draggableHandle.current?.reOrder(id, targetIndex);
+
   return (
-    <DraggableContainer 
-      getOrder={(ids) => setCurrentOrder((ids || []).filter(Boolean).map(Number))} 
-      flexDirection="row-reverse" 
+    <DraggableContainer
+      getOrder={(ids) =>
+        setCurrentOrder((ids || []).filter(Boolean).map(Number))
+      }
+      flexDirection="row-reverse"
       ref={draggableHandle}
     >
       {[0, 1, 2, 3].map((id) => (
         <DraggableItem key={id} id={id}>
-          <Box display="flex" width="100%" justifyContent="space-between" alignItems="baseline">
+          <Box
+            display="flex"
+            width="100%"
+            justifyContent="space-between"
+            alignItems="baseline"
+          >
             Some {labels[id]} content goes here
             <ActionPopover m={0}>
-              <ActionPopoverItem onClick={() => moveItem(id, 0)}>Move Top</ActionPopoverItem>
-              <ActionPopoverItem onClick={() => moveItem(id, getIndex(id) - 1)}>Move Up</ActionPopoverItem>
-              <ActionPopoverItem onClick={() => moveItem(id, getIndex(id) + 1)}>Move Down</ActionPopoverItem>
-              <ActionPopoverItem onClick={() => moveItem(id, previousOrderRef.current.length - 1)}>Move Bottom</ActionPopoverItem>
+              <ActionPopoverItem onClick={() => moveItem(id, 0)}>
+                Move Top
+              </ActionPopoverItem>
+              <ActionPopoverItem onClick={() => moveItem(id, getIndex(id) - 1)}>
+                Move Up
+              </ActionPopoverItem>
+              <ActionPopoverItem onClick={() => moveItem(id, getIndex(id) + 1)}>
+                Move Down
+              </ActionPopoverItem>
+              <ActionPopoverItem
+                onClick={() =>
+                  moveItem(id, previousOrderRef.current.length - 1)
+                }
+              >
+                Move Bottom
+              </ActionPopoverItem>
             </ActionPopover>
           </Box>
         </DraggableItem>

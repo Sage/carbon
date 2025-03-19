@@ -295,7 +295,7 @@ export const FlatTableRow = React.forwardRef<
     };
 
     const rowComponent = () => (
-      <StyledFlatTableRow id={internalId.current}{...sharedRowProps}>
+      <StyledFlatTableRow id={internalId.current} {...sharedRowProps}>
         <FlatTableRowContext.Provider
           value={{
             firstCellId,

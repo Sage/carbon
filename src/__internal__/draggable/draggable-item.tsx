@@ -1,66 +1,84 @@
 import React, {
-    useContext,
-    useRef,
-    useEffect,
-    useMemo,
-    useState,
-    CSSProperties,
-    forwardRef,
-    RefObject,
-  } from "react";
-  
-  import {
-    draggable,
-    dropTargetForElements,
-  } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-  import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
-  import {
-    attachClosestEdge,
-    extractClosestEdge,
-  } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
-  
-  import guid from "../../__internal__/utils/helpers/guid"
-  import DraggableItemContext from "./draggable-item-context";
-  import DraggableContainerContext from "./draggable-container-context";
-  import DraggableProviderContext from "../../hooks/useDraggable/draggable-provider-context";
-  
-  import {
-    getDraggableItemData,
-    isDraggableItemData,
-    DraggableItemData,
-    DragState,
-  } from "./draggable-utils";
-  import StyledFlatTableRow from "../../components/flat-table/flat-table-row/flat-table-row.style";
-  
-  export interface DraggableItemProps {
-    children?: React.ReactNode;
-    indicatorColor?: string;
-    draggableItemStylingOptOut?: boolean;
-    itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
-    uniqueId?: string;
-  }
-  
-  const DraggableItem = forwardRef(({
-    children,
-    indicatorColor,
-    draggableItemStylingOptOut = false,
-    itemsNode = "div",
-    uniqueId,
-    ...rest
-  }: DraggableItemProps, ref): JSX.Element => {
-    
+  useContext,
+  useRef,
+  useEffect,
+  useMemo,
+  useState,
+  useLayoutEffect,
+  forwardRef,
+  RefObject,
+} from "react";
+
+import {
+  draggable,
+  dropTargetForElements,
+} from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
+import {
+  attachClosestEdge,
+  extractClosestEdge,
+} from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
+
+import { isGuid } from "../../__internal__/utils/helpers/guid";
+
+import DraggableItemContext from "./draggable-item-context";
+import DraggableContainerContext from "./draggable-container-context";
+import DraggableProviderContext from "../../hooks/useDraggable/draggable-provider-context";
+
+import {
+  getDraggableItemData,
+  isDraggableItemData,
+  DraggableItemData,
+  DragState,
+} from "./draggable-utils";
+import StyledFlatTableRow from "../../components/flat-table/flat-table-row/flat-table-row.style";
+
+export interface DraggableItemProps {
+  children?: React.ReactNode;
+  uniqueId: string | number;
+  draggableItemStylingOptOut?: boolean;
+  itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+}
+
+const DraggableItem = forwardRef(
+  (
+    {
+      children,
+      uniqueId,
+      draggableItemStylingOptOut = false,
+      itemsNode = "div",
+      ...rest
+    }: DraggableItemProps,
+    ref,
+  ): JSX.Element => {
     const columnId = useContext(DraggableContainerContext)?.columnId;
     const index = useContext(DraggableItemContext)?.index;
-    const { setClosestEdge } = useContext(
-      DraggableProviderContext,
-    );
-  
+    const { setClosestEdge } = useContext(DraggableProviderContext);
+
+    const [firstChildId, setFirstChildId] = useState<string | null>(null);
     const internalRef = useRef<HTMLDivElement | null>(null);
     const itemRef = (ref as RefObject<HTMLDivElement>) || internalRef;
-    const id = (React.isValidElement(children) && (children.props.id !== undefined && children.props.id !== null)) ? 
-    children.props.id : 
-    uniqueId || guid();
-    
+
+    useLayoutEffect(() => {
+      // This runs after the component mounts and the children are rendered
+      if (itemRef.current && itemRef.current.children.length > 0) {
+        const firstChild = itemRef.current.children[0];
+        const id = firstChild.getAttribute("id");
+        setFirstChildId(id);
+      }
+    }, [itemRef]);
+
+    // if the first child has an id which is intentionally passed (not a guid), use that otherwise use a provided uniqueId
+    const id =
+      firstChildId && isGuid(firstChildId)
+        ? uniqueId
+        : firstChildId || uniqueId;
+
+    const [dragState, setDragState] = useState<DragState>({
+      type: "idle",
+      id: 0,
+    });
+
     const draggableItemData: DraggableItemData = useMemo(
       () => ({
         id,
@@ -71,13 +89,6 @@ import React, {
       [id, index, children, columnId],
     );
 
-    const [dragState, setDragState] = useState<DragState>({
-      type: "idle",
-      id: 0,
-    });
-
-    const finalOpacity = dragState.type === "is-dragging-over" ? 0 : 1;
-  
     useEffect(() => {
       const idle: DragState = { type: "idle" };
       const element = itemRef.current;
@@ -138,6 +149,7 @@ import React, {
                 }
                 return { type: "is-dragging-over", closestEdge, id };
               });
+              
             }
           },
           onDragLeave() {
@@ -159,28 +171,32 @@ import React, {
       return () => {
         cleanup();
       };
-    }, [id, draggableItemData, setDragState, setClosestEdge]);
-  
-    return (
-      React.createElement(
-        itemsNode,
-        {
-          ref: itemRef,
-          "data-parent-container-id": columnId,
-          "data-item-id": id,
-          "data-drag-state": dragState.type,
-          ...(itemsNode === StyledFlatTableRow && {
-            isDragging: dragState.type === "is-dragging",
+    }, [id, draggableItemData, setDragState, setClosestEdge, itemRef]);
+
+    return React.createElement(
+      itemsNode,
+      {
+        ref: itemRef,
+        "data-parent-container-id": columnId,
+        "data-item-id": id,
+        "data-drag-state": dragState.type,
+        ...(itemsNode === StyledFlatTableRow && {
+          isDragging:
+            dragState.type === "is-dragging-over" ||
+            dragState.type === "is-dragging",
+        }),
+        ...rest,
+        style: {
+          ...(!draggableItemStylingOptOut && { cursor: "grab" }),
+          ...(!draggableItemStylingOptOut && {
+            opacity: (dragState.type === "is-dragging-over") && dragState.id === id ? 0 : 1,
           }),
-          ...rest,
-          style: {
-            opacity: draggableItemStylingOptOut ? 1 : finalOpacity,
-            position: "relative",
-          },
-        },
-          children
-      )
+          position: "relative",
+        }
+      },
+      children
     );
-  });
-  
-  export default DraggableItem;
+  },
+);
+
+export default DraggableItem;
