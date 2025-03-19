@@ -13,6 +13,7 @@ interface DraggableProviderContextType {
   lists?: Record<string, React.ReactNode[]>;
   setClosestEdge?: React.Dispatch<React.SetStateAction<Edge | null>>;
   containerDragState?: ContainerDragState;
+  uniqueId?: string | number;
 }
 
 const DraggableProviderContext = createContext<DraggableProviderContextType>(
