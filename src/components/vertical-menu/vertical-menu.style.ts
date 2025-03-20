@@ -114,7 +114,11 @@ export const StyledVerticalMenu = styled(StyledBox)`
   }
 `;
 
-export const StyledVerticalMenuFullScreen = styled(StyledBox)`
+interface FullScreenProps {
+  isOpen: boolean;
+}
+
+export const StyledVerticalMenuFullScreen = styled(StyledBox)<FullScreenProps>`
   position: fixed;
   top: 0;
   bottom: 0;
@@ -127,6 +131,20 @@ export const StyledVerticalMenuFullScreen = styled(StyledBox)`
   box-sizing: border-box;
   transition: all 0.3s ease;
   z-index: ${({ theme }) => theme.zIndex.fullScreenModal};
+
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
+      visibility: visible;
+      transform: translateX(0);
+    `}
+
+  ${({ isOpen }) =>
+    !isOpen &&
+    css`
+      transform: translateX(-100%);
+      visibility: hidden;
+    `}
 
   // TODO remove hardcoded values when DS have had chance to review which token to use
   &::-webkit-scrollbar-track {
