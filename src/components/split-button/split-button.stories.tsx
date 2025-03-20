@@ -69,11 +69,27 @@ ProgrammaticFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled: Story = () => {
   return (
-    <SplitButton disabled text="Split button">
-      <Button>Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </SplitButton>
+    <>
+      <Box mb={3}>
+        <SplitButton disabled text="Split button">
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
+      <Box p={2} width="298px" backgroundColor="#000">
+        <SplitButton
+          buttonType="secondary"
+          text="Split button - secondary - white"
+          isWhite
+          disabled
+        >
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
+    </>
   );
 };
 Disabled.storyName = "Disabled";
@@ -93,6 +109,17 @@ export const ButtonTypes: Story = () => {
           </SplitButton>
         </Box>
       ))}
+      <Box p={2} width="298px" backgroundColor="#000">
+        <SplitButton
+          buttonType="secondary"
+          text="Split button - secondary - white"
+          isWhite
+        >
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
     </>
   );
 };
@@ -220,3 +247,35 @@ export const InOverflowHiddenContainer: Story = () => (
 );
 InOverflowHiddenContainer.storyName = "In Overflow Hidden Container";
 InOverflowHiddenContainer.parameters = { chromatic: { disableSnapshot: true } };
+
+export const SecondaryIsWhite: Story = () => {
+  return (
+    <Box p={3} backgroundColor="#000" width="400px" height="200px">
+      <Box mb={3}>
+        <SplitButton
+          buttonType="secondary"
+          text="secondary - white variant"
+          isWhite
+        >
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
+      <Box>
+        <SplitButton
+          buttonType="secondary"
+          text="secondary - white variant - disabled"
+          isWhite
+          disabled
+        >
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
+    </Box>
+  );
+};
+SecondaryIsWhite.storyName = "White variant";
+SecondaryIsWhite.parameters = { chromatic: { disableSnapshot: false } };
