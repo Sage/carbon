@@ -5,6 +5,10 @@ import { TimeInputEvent, TimeValue } from "./time.component";
 import { Time } from ".";
 import Box from "../box";
 
+import InlineInputs from "../inline-inputs";
+import Textbox from "../textbox";
+import Button from "../button";
+
 const meta: Meta<typeof Time> = {
   component: Time,
   title: "Time/Test",
@@ -100,3 +104,86 @@ export const HintTextAlignment: Story = ({ ...args }) => {
   );
 };
 HintTextAlignment.storyName = "Hint Text Alignment";
+
+export const WithValueModifiers: Story = () => {
+  const [value, setValue] = useState<TimeValue>({
+    hours: "",
+    minutes: "",
+  });
+
+  const [textboxHours, setTextboxHours] = useState("");
+  const [textboxMinutes, setTextboxMinutes] = useState("");
+
+  const handleChange = (e: TimeInputEvent) => {
+    const {
+      hours: updatedHrs,
+      minutes: updatedMins,
+      formattedHours,
+      formattedMinutes,
+    } = e.target.value;
+
+    setValue(({ minutes: currentMins, hours: currentHrs }) => {
+      const updates = { minutes: currentMins, hours: currentHrs };
+      if (formattedMinutes !== currentMins) {
+        updates.minutes = updatedMins;
+      }
+
+      if (formattedHours !== currentHrs) {
+        updates.hours = updatedHrs;
+      }
+
+      return updates;
+    });
+  };
+
+  const handleBlur = (
+    e?: React.FocusEvent<HTMLInputElement, Element>,
+    timeValue?: TimeValue,
+  ) => {
+    if (timeValue) {
+      setValue({
+        hours: timeValue.formattedHours || timeValue.hours,
+        minutes: timeValue.formattedMinutes || timeValue.minutes,
+      });
+    }
+  };
+
+  return (
+    <Box p={2}>
+      <Time
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        label="Time"
+      />
+      <InlineInputs
+        label="Set time"
+        labelId="inline-inputs-required"
+        inputWidth={35}
+        gutter="small"
+        mt={60}
+      >
+        <Textbox
+          label="Hours"
+          onChange={(e) => setTextboxHours(e.target.value)}
+        />
+        <Textbox
+          label="Minutes"
+          onChange={(e) => setTextboxMinutes(e.target.value)}
+        />
+        <Button
+          onClick={() =>
+            setValue({ hours: textboxHours, minutes: textboxMinutes })
+          }
+          mt={2}
+        >
+          Set Time
+        </Button>
+      </InlineInputs>
+    </Box>
+  );
+};
+WithValueModifiers.storyName = "With Value Modifiers";
+WithValueModifiers.parameters = {
+  chromatic: { disableSnapshot: true },
+};

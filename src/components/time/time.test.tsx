@@ -10,6 +10,8 @@ import {
   fontSizeConfig,
 } from "../button-toggle/button-toggle.style";
 import I18nProvider from "../i18n-provider";
+import { TimeInputEvent, TimeValue } from "./time.component";
+import Button from "../button";
 
 const localeMock = {
   time: {
@@ -47,6 +49,111 @@ const MockComponent = ({
         onChange={() => {}}
         value={{ hours: "12", minutes: "30" }}
       />
+    </>
+  );
+};
+
+const MockComponentWithState = ({
+  initialValue,
+  onChange,
+  hoursInputProps,
+  minutesInputProps,
+}: {
+  initialValue: TimeValue;
+  onChange: (ev: TimeInputEvent) => void;
+  hoursInputProps: { id: string };
+  minutesInputProps: { id: string };
+}) => {
+  const { hours, minutes, period } = initialValue;
+
+  const [value, setValue] = React.useState<TimeValue>({
+    hours,
+    minutes,
+    period,
+  });
+
+  const handleChange = (e: TimeInputEvent) => {
+    const {
+      hours: receivedHours,
+      minutes: receivedMinutes,
+      period: receivedPeriod,
+    } = e.target.value;
+
+    setValue({
+      hours: receivedHours,
+      minutes: receivedMinutes,
+      period: receivedPeriod,
+    });
+    onChange(e);
+  };
+
+  return (
+    <Time
+      value={value}
+      onChange={handleChange}
+      label="Time"
+      hoursInputProps={hoursInputProps}
+      minutesInputProps={minutesInputProps}
+    />
+  );
+};
+
+const MockComponentWithValueModifiers = () => {
+  const [value, setValue] = React.useState<TimeValue>({
+    hours: "",
+    minutes: "",
+  });
+
+  const handleChange = (e: TimeInputEvent) => {
+    const {
+      hours: updatedHrs,
+      minutes: updatedMins,
+      formattedHours,
+      formattedMinutes,
+    } = e.target.value;
+
+    setValue(({ minutes: currentMins, hours: currentHrs }) => {
+      const updates = { minutes: currentMins, hours: currentHrs };
+      if (formattedMinutes !== currentMins) {
+        updates.minutes = updatedMins;
+      }
+
+      if (formattedHours !== currentHrs) {
+        updates.hours = updatedHrs;
+      }
+
+      return updates;
+    });
+  };
+
+  const handleBlur = (
+    e?: React.FocusEvent<HTMLInputElement, Element>,
+    timeValue?: TimeValue,
+  ) => {
+    if (timeValue) {
+      setValue({
+        hours: timeValue.formattedHours || timeValue.hours,
+        minutes: timeValue.formattedMinutes || timeValue.minutes,
+      });
+    }
+  };
+
+  return (
+    <>
+      <Time
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        label="Time"
+      />
+
+      <Button onClick={() => setValue({ hours: "3", minutes: "4" })}>
+        Set Time
+      </Button>
+
+      <Button onClick={() => setValue({ hours: "", minutes: "" })}>
+        Clear Time
+      </Button>
     </>
   );
 };
@@ -522,8 +629,8 @@ test("should not call onChange when a user clicks the toggle that is currently s
 test("should call onChange with the correct formatted values when a user types in the inputs", async () => {
   const onChangeMock = jest.fn();
   render(
-    <Time
-      value={{ hours: "", minutes: "", period: "AM" }}
+    <MockComponentWithState
+      initialValue={{ hours: "", minutes: "", period: "AM" }}
       onChange={onChangeMock}
       hoursInputProps={{ id: "foo" }}
       minutesInputProps={{ id: "bar" }}
@@ -1145,4 +1252,41 @@ test("should not apply the aria-describedby attribute to fieldset when inputHint
   const fieldset = screen.getByRole("group");
 
   expect(fieldset).not.toHaveAttribute("aria-describedby");
+});
+
+test("should sync internal input values when the value is changed", async () => {
+  const user = userEvent.setup({
+    advanceTimers: jest.advanceTimersByTime,
+    delay: null,
+  });
+
+  render(<MockComponentWithValueModifiers />);
+
+  const hoursInput = screen.getByLabelText("Hrs.");
+  await user.click(hoursInput);
+  await user.type(hoursInput, "1");
+
+  const minutesInput = screen.getByLabelText("Mins.");
+  await user.click(minutesInput);
+  await user.type(minutesInput, "2");
+  await user.click(document.body);
+
+  const setTimeButton = screen.getByRole("button", { name: "Set Time" });
+  await user.click(setTimeButton);
+
+  expect(hoursInput).toHaveDisplayValue("3");
+  expect(minutesInput).toHaveDisplayValue("4");
+
+  await user.clear(hoursInput);
+  await user.type(hoursInput, "5");
+  await user.click(document.body);
+
+  expect(hoursInput).toHaveDisplayValue("5");
+  expect(minutesInput).toHaveDisplayValue("4");
+
+  const clearTimeButton = screen.getByRole("button", { name: "Clear Time" });
+  await user.click(clearTimeButton);
+
+  expect(hoursInput).toHaveDisplayValue("");
+  expect(minutesInput).toHaveDisplayValue("");
 });
