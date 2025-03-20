@@ -984,3 +984,53 @@ test("should support navigating the additional buttons via shift+tab key, hide t
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
   expect(toggle).toHaveFocus();
 });
+
+test("should render white variant", async () => {
+  render(
+    <SplitButton text="Main" isWhite>
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const mainButton = screen.getByRole("button", { name: "Main" });
+
+  expect(mainButton).toHaveStyleRule(
+    "border-color",
+    "var(--colorsActionMajorYang100)",
+  );
+});
+
+test("should render disabled white variant", () => {
+  render(
+    <SplitButton text="Main" isWhite disabled>
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const mainButton = screen.getByRole("button", { name: "Main" });
+
+  expect(mainButton).toHaveStyleRule("border-color", "#4B4B4B");
+});
+
+test("should have the correct colors when the toggle button is clicked in the white variant", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main" isWhite>
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  await user.click(toggle);
+
+  expect(toggle).toHaveStyleRule(
+    "background",
+    "var(--colorsActionMajorYang100)",
+    {
+      modifier: ":hover",
+    },
+  );
+  expect(toggle).toHaveStyleRule("color", "var(--colorsUtilityYin100)", {
+    modifier: ":hover",
+  });
+});
