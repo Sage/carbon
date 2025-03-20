@@ -60,7 +60,7 @@ const StyledProgressBar = styled.span<
     border: 1px solid ${getBorderColour({ progress, error })};
     border-radius: var(--borderRadius400);
     overflow-x: hidden;
-    width: 100%
+    width: 100%;
     min-height: fit-content;
     box-sizing: border-box;
   `}
