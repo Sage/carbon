@@ -554,7 +554,7 @@ export const SimpleSelect = React.forwardRef<
             aria-controls={selectListId.current}
             activeDescendantId={activeDescendantId}
             ariaLabelledby={ariaLabelledby}
-            ariaDescribedBy={ariaDescribedBy}
+            aria-describedby={ariaDescribedBy}
             isOpen={isOpen}
             {...getTextboxProps()}
           />

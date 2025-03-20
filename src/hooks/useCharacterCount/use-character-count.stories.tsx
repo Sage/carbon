@@ -4,7 +4,6 @@ import { Meta, StoryObj } from "@storybook/react";
 import useCharacterCount from "./useCharacterCount";
 import Textbox from "../../components/textbox";
 import Textarea from "../../components/textarea";
-import CarbonProvider from "../../components/carbon-provider";
 
 /**
  * This file is used primarily as a means to generate the props table and examples.
@@ -48,15 +47,16 @@ export const WithTextbox: StoryObj = () => {
   );
 
   return (
-    <CarbonProvider validationRedesignOptIn>
+    <>
       <Textbox
         label="Textbox with character count"
-        ariaDescribedBy={characterCountId}
+        inputHint="Input hint"
+        aria-describedby={characterCountId}
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
       {characterCount}
-    </CarbonProvider>
+    </>
   );
 };
 WithTextbox.storyName = "With Textbox";
@@ -73,7 +73,8 @@ export const WithTextarea: StoryObj = () => {
     <>
       <Textarea
         label="Textarea with character count"
-        ariaDescribedBy={characterCountId}
+        inputHint="Input hint"
+        aria-describedby={characterCountId}
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
