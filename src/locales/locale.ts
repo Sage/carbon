@@ -98,6 +98,7 @@ interface Locale {
     success: () => string;
     warning: () => string;
     neutral: () => string;
+    ai?: () => string;
   };
   numeralDate: {
     validation: {
