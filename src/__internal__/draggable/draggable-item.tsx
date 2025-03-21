@@ -51,7 +51,10 @@ const DraggableItem = forwardRef(
     }: DraggableItemProps,
     ref,
   ): JSX.Element => {
-    const columnId = useContext(DraggableContainerContext)?.columnId;
+    const { columnId, localDraggedNode, dragType } = useContext(DraggableContainerContext);
+
+
+
     const index = useContext(DraggableItemContext)?.index;
     const { setClosestEdge } = useContext(DraggableProviderContext);
 
@@ -89,12 +92,28 @@ const DraggableItem = forwardRef(
       [id, index, children, columnId],
     );
 
+    // written to help ease the transition from the old drag and drop to the new one - prevents a post flash of newly rendered items before opacity can be changed
+    useEffect(() => {
+      if (dragType === "onDrop" || !localDraggedNode || columnId !== localDraggedNode.getAttribute("data-parent-container-id") || id !== localDraggedNode.getAttribute("data-item-id")) {
+        return;
+      }
+
+      const container = document.getElementById(columnId);
+      if (container) {
+        const nodeToChange = container.querySelector(`[data-item-id="${id}"]`) as HTMLElement;
+        if (nodeToChange) {
+          nodeToChange.style.opacity = "0";
+        }
+      }
+    }, [localDraggedNode, columnId, id, dragType]);
+
     useEffect(() => {
       const idle: DragState = { type: "idle" };
       const element = itemRef.current;
       if (!element) {
         return;
       }
+
       const cleanup = combine(
         draggable({
           element,
@@ -110,6 +129,7 @@ const DraggableItem = forwardRef(
             if (setDragState) {
               setDragState(idle);
             }
+            element.style.opacity = "1";
           },
         }),
         dropTargetForElements({
@@ -131,7 +151,7 @@ const DraggableItem = forwardRef(
           getIsSticky() {
             return true;
           },
-          onDragEnter({ self, source }) {
+          onDragEnter({ self }) {
             const closestEdge = extractClosestEdge(self.data);
             if (setDragState) {
               setDragState({ type: "is-dragging-over", closestEdge, id });
@@ -171,7 +191,7 @@ const DraggableItem = forwardRef(
       return () => {
         cleanup();
       };
-    }, [id, draggableItemData, setDragState, setClosestEdge, itemRef]);
+    }, [id, draggableItemData, setDragState, setClosestEdge, itemRef, localDraggedNode]);
 
     return React.createElement(
       itemsNode,
@@ -189,7 +209,7 @@ const DraggableItem = forwardRef(
         style: {
           ...(!draggableItemStylingOptOut && { cursor: "grab" }),
           ...(!draggableItemStylingOptOut && {
-            opacity: (dragState.type === "is-dragging-over") && dragState.id === id ? 0 : 1,
+            opacity: dragState.type === "is-dragging-over" && dragState.id === id ? 0 : 1,
           }),
           position: "relative",
         }
