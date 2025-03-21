@@ -37,6 +37,19 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 
+export const WithTitle: Story = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <>
+      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
+      <Message title="Title" open={isOpen} onDismiss={() => setIsOpen(false)}>
+        Some custom message
+      </Message>
+    </>
+  );
+};
+WithTitle.storyName = "With Title";
+
 export const ShowCloseIcon: Story = () => {
   return (
     <Box width="600px">
