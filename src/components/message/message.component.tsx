@@ -9,6 +9,7 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import Icon from "../icon";
 import IconButton from "../icon-button";
+import AiIcon from "../../__internal__/ai-icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
 
@@ -22,7 +23,8 @@ export type MessageVariant =
   | "info"
   | "success"
   | "warning"
-  | "neutral";
+  | "neutral"
+  | "ai";
 
 export interface MessageProps extends MarginProps, TagProps {
   /** Set the component's content */
@@ -76,7 +78,7 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
 
     type IconType = "error" | "info" | "tick_circle" | "warning";
 
-    const VARIANT_ICON_MAP: Record<MessageVariant, IconType> = {
+    const VARIANT_ICON_MAP: Record<Exclude<MessageVariant, "ai">, IconType> = {
       neutral: "info",
       success: "tick_circle",
       error: "error",
@@ -100,9 +102,16 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
         tabIndex={-1}
       >
         <TypeIconStyle variant={variant} transparent={transparent}>
-          <Icon data-role="category-icon" type={VARIANT_ICON_MAP[variant]} />
+          {variant === "ai" ? (
+            <AiIcon data-role="ai-icon" />
+          ) : (
+            <Icon data-role="category-icon" type={VARIANT_ICON_MAP[variant]} />
+          )}
         </TypeIconStyle>
-        <Typography screenReaderOnly>{locale.message[variant]()}</Typography>
+
+        <Typography screenReaderOnly>
+          {locale.message?.[variant]?.()}
+        </Typography>
         <MessageContent
           data-element="message-content"
           data-role="message-content"

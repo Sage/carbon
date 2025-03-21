@@ -13,7 +13,7 @@ export default {
   },
   argTypes: {
     variant: {
-      options: ["info", "error", "success", "warning", "neutral"],
+      options: ["info", "error", "success", "warning", "neutral", "ai"],
       control: {
         type: "select",
       },
@@ -98,5 +98,25 @@ export const Transparent = (args: MessageProps) => {
 Transparent.storyName = "transparent";
 
 Transparent.parameters = {
+  themeProvider: { chromatic: { disableSnapshot: false, theme: "sage" } },
+};
+
+export const Ai = (args: MessageProps) => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Message
+      open={isOpen}
+      onDismiss={() => setIsOpen(false)}
+      variant="ai"
+      {...args}
+    >
+      Some custom message
+    </Message>
+  );
+};
+
+Ai.storyName = "Ai";
+
+Ai.parameters = {
   themeProvider: { chromatic: { disableSnapshot: false, theme: "sage" } },
 };

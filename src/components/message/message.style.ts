@@ -9,6 +9,7 @@ const messageVariants = {
   success: "var(--colorsSemanticPositive500)",
   warning: "var(--colorsSemanticCaution500)",
   neutral: "var(--colorsSemanticNeutral500)",
+  ai: "var(--colorsUtilityYin100)",
 };
 
 type MessageStyleProps = {
