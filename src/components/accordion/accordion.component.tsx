@@ -1,46 +1,41 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useRef, useState } from "react";
 import { SpaceProps } from "styled-system";
-import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+import Box from "../box";
+import Icon from "../icon";
+import Typography from "../typography";
 import createGuid from "../../__internal__/utils/helpers/guid";
-import Events from "../../__internal__/utils/helpers/events";
-import {
-  StyledAccordionContainer,
-  StyledAccordionHeadingsContainer,
-  StyledAccordionTitleContainer,
-  StyledAccordionTitle,
-  StyledAccordionSubTitle,
-  StyledAccordionIcon,
-  StyledAccordionContentContainer,
-  StyledAccordionContent,
-  StyledAccordionContainerProps,
-} from "./accordion.style";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import ValidationIcon from "../../__internal__/validations";
 
-export interface AccordionProps
-  extends StyledAccordionContainerProps,
-    SpaceProps,
-    TagProps {
-  /** Content of the Accordion component */
+import {
+  StyledContent,
+  StyledDetails,
+  StyledSummary,
+  StyledWrapper,
+  StyledSummaryTitleWrapper,
+} from "./accordion.style";
+
+interface AccordionProps extends SpaceProps, TagProps {
+  /** Toggles left and right borders, set to none when variant is subtle */
+  borders?: "default" | "full" | "none";
   children?: React.ReactNode;
-  /** Set the default state of expansion of the Accordion if component is meant to be used as uncontrolled */
-  defaultExpanded?: boolean;
   /** Disable padding for the content */
   disableContentPadding?: boolean;
-  /** Sets the expansion state of the Accordion if component is meant to be used as controlled */
-  expanded?: boolean;
   /** An error message to be displayed in the tooltip */
   error?: string;
+  /** Sets default expanded state */
+  expanded?: boolean;
+  /** Specifies a group name — give multiple accordions the same name value to group them. Only one of the group can be open at a time — opening one will cause the others to close */
+  groupName?: string;
   /** Styled system spacing props provided to Accordion Title */
   headerSpacing?: SpaceProps;
-  id?: string;
-  /** Sets icon type */
-  iconType?: "chevron_down" | "chevron_down_thick" | "dropdown";
   /** Sets icon alignment */
   iconAlign?: "left" | "right";
-  /** Sets accordion title */
-  title: React.ReactNode;
+  /** Sets icon type */
+  iconType?: "chevron_down" | "chevron_down_thick" | "dropdown";
+  /** The ID for this accordion */
+  id?: string;
   /** An info message to be displayed in the tooltip */
   info?: string;
   /** Callback fired when expansion state changes */
@@ -54,154 +49,107 @@ export interface AccordionProps
   size?: "large" | "small";
   /** Sets accordion sub title */
   subTitle?: string;
+  /** Sets accordion title */
+  title: React.ReactNode;
+  /** Sets accordion variant */
+  variant?: "standard" | "subtle";
   /** A warning message to be displayed in the tooltip */
   warning?: string;
+  /** Sets accordion width */
+  width?: string;
 }
 
-export interface AccordionInternalProps {
-  /** @ignore @private */
-  handleKeyboardAccessibility?: (
-    ev: React.KeyboardEvent<HTMLElement>,
-    index?: number,
-  ) => void;
-  /** @ignore @private */
-  index?: number;
-}
-
-export const Accordion = React.forwardRef<
-  HTMLDivElement,
-  AccordionProps & AccordionInternalProps
->(
+export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
   (
     {
       borders = "default",
-      defaultExpanded,
-      expanded,
-      onChange,
       children,
-      handleKeyboardAccessibility,
-      id,
-      index,
+      disableContentPadding = false,
+      error,
+      expanded,
+      groupName,
+      headerSpacing,
+      iconAlign = "right",
       iconType,
-      iconAlign,
+      id,
+      info,
+      onChange,
+      openTitle,
       size = "large",
       subTitle,
       title,
-      width,
-      headerSpacing,
-      disableContentPadding = false,
-      error,
-      warning,
-      info,
-      openTitle,
       variant = "standard",
+      warning,
+      width,
       ...rest
-    }: AccordionProps & AccordionInternalProps,
+    }: AccordionProps,
     ref,
   ) => {
-    const isControlled = expanded !== undefined;
-
-    const [isExpandedInternal, setIsExpandedInternal] = useState(
-      defaultExpanded || false,
-    );
-
-    const [contentHeight, setContentHeight] = useState<string | number>(
-      isExpandedInternal ? "auto" : 0,
-    );
-
-    const accordionContent = useRef<HTMLDivElement>(null);
-
-    const isExpanded = isControlled ? expanded : isExpandedInternal;
-
-    useResizeObserver(accordionContent, () => {
-      setContentHeight(accordionContent.current?.scrollHeight as number);
-    });
-
-    useEffect(() => {
-      setContentHeight(accordionContent.current?.scrollHeight as number);
-    }, [isExpanded]);
-
-    const toggleAccordion = useCallback(
-      (
-        ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-      ) => {
-        if (!isControlled) {
-          setIsExpandedInternal(!isExpanded);
-        }
-        onChange?.(ev, !isExpanded);
-      },
-      [isControlled, isExpanded, onChange],
-    );
-
-    const handleKeyDown = useCallback(
-      (ev: React.KeyboardEvent<HTMLElement>) => {
-        if (handleKeyboardAccessibility) {
-          handleKeyboardAccessibility(ev, index);
-        }
-
-        if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
-          toggleAccordion(ev);
-        }
-      },
-      [handleKeyboardAccessibility, index, toggleAccordion],
-    );
-
+    const [currentState, setCurrentState] = useState(expanded || false);
     const guid = useRef(createGuid());
     const accordionId = id || `Accordion_${guid.current}`;
     const headerId = `AccordionHeader_${guid.current}`;
     const contentId = `AccordionContent_${guid.current}`;
-    const showValidationIcon = !!(error || warning || info);
-
-    const getTitle = () => (isExpanded ? openTitle || title : title);
-
     const getIconType = () =>
       size === "small" || variant === "subtle"
         ? "chevron_down_thick"
         : "chevron_down";
+    const getTitle = () => (expanded ? openTitle || title : title);
+
+    const showValidationIcon = !!(error || warning || info);
 
     return (
-      <StyledAccordionContainer
-        id={accordionId}
-        width={width}
+      <StyledWrapper
         borders={variant === "subtle" ? "none" : borders}
-        variant={variant}
-        {...rest}
+        data-element="accordion"
+        id={accordionId}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setCurrentState(!currentState);
+            onChange?.(e, !currentState);
+          }
+        }}
+        ref={ref}
+        tabIndex={0}
+        width={width}
         {...tagComponent("accordion", rest)}
       >
-        <StyledAccordionTitleContainer
-          data-element="accordion-title-container"
+        <StyledDetails
+          data-element="accordion-details"
+          disableContentPadding={disableContentPadding}
+          name={groupName}
           id={headerId}
-          aria-expanded={isExpanded}
-          aria-controls={contentId}
-          onClick={toggleAccordion}
-          onKeyDown={handleKeyDown}
-          tabIndex={0}
-          iconAlign={iconAlign || (variant === "standard" ? "right" : "left")}
-          ref={ref}
-          size={size}
-          isExpanded={isExpanded}
-          variant={variant}
-          role="button"
-          {...headerSpacing}
+          open={currentState}
         >
-          <StyledAccordionHeadingsContainer
-            data-element="accordion-headings-container"
-            hasValidationIcon={showValidationIcon}
+          <StyledSummary
+            data-element="accordion-summary"
+            {...headerSpacing}
+            onClick={(e) => {
+              e.preventDefault();
+              setCurrentState(!currentState);
+              onChange?.(e, !currentState);
+            }}
+            tabIndex={-1}
           >
-            {typeof title === "string" ? (
-              <StyledAccordionTitle
-                data-element="accordion-title"
-                size={size}
-                variant={variant}
-              >
-                {isExpanded ? openTitle || title : title}
-              </StyledAccordionTitle>
-            ) : (
-              getTitle()
-            )}
-
-            {variant !== "subtle" && (
-              <>
+            <StyledSummaryTitleWrapper
+              alignItems="center"
+              data-element="accordion-summary-title-wrapper"
+              display="flex"
+              flexDirection={iconAlign === "right" ? "row" : "row-reverse"}
+              gap={2}
+              justifyContent={
+                iconAlign === "right" ? "space-between" : "flex-end"
+              }
+            >
+              <Box display="flex" alignItems="center" flexDirection="row">
+                {typeof title === "string" ? (
+                  <Typography variant="h3">
+                    {currentState ? openTitle || title : title}
+                  </Typography>
+                ) : (
+                  getTitle()
+                )}
                 {showValidationIcon && (
                   <ValidationIcon
                     error={error}
@@ -212,43 +160,22 @@ export const Accordion = React.forwardRef<
                     ml={1}
                   />
                 )}
-
-                {subTitle && size === "large" && variant === "standard" && (
-                  <StyledAccordionSubTitle>{subTitle}</StyledAccordionSubTitle>
-                )}
-              </>
+              </Box>
+              <Icon type={iconType || getIconType()} />
+            </StyledSummaryTitleWrapper>
+            {subTitle && (
+              <Typography mt={1} mb={0} fontWeight="normal">
+                {subTitle}
+              </Typography>
             )}
-          </StyledAccordionHeadingsContainer>
-
-          <StyledAccordionIcon
-            data-element="accordion-icon"
-            type={iconType || getIconType()}
-            isExpanded={isExpanded}
-            iconAlign={iconAlign || (variant === "standard" ? "right" : "left")}
-          />
-        </StyledAccordionTitleContainer>
-        <StyledAccordionContentContainer
-          isExpanded={isExpanded}
-          maxHeight={contentHeight}
-          data-role="accordion-content-container"
-        >
-          <StyledAccordionContent
-            role="region"
-            data-element="accordion-content"
-            data-role="accordion-content"
-            id={contentId}
-            aria-labelledby={headerId}
-            ref={accordionContent}
-            disableContentPadding={disableContentPadding}
-            variant={variant}
-          >
-            {children}
-          </StyledAccordionContent>
-        </StyledAccordionContentContainer>
-      </StyledAccordionContainer>
+          </StyledSummary>
+        </StyledDetails>
+        <StyledContent className="content" id={contentId}>
+          {children}
+        </StyledContent>
+      </StyledWrapper>
     );
   },
 );
 
-Accordion.displayName = "Accordion";
 export default Accordion;

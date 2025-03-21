@@ -3,10 +3,7 @@ import { MarginProps } from "styled-system";
 import invariant from "invariant";
 
 import Events from "../../../__internal__/utils/helpers/events";
-import Accordion, {
-  AccordionInternalProps,
-  AccordionProps,
-} from "../accordion.component";
+import Accordion, { AccordionProps } from "../accordion.component";
 import { StyledAccordionGroup } from "../accordion.style";
 import tagComponent, {
   TagProps,
@@ -53,9 +50,7 @@ export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
     () =>
       React.Children.toArray(children).filter((child) => {
         return React.isValidElement(child);
-      }) as React.FunctionComponentElement<
-        AccordionProps & AccordionInternalProps
-      >[],
+      }) as React.FunctionComponentElement<AccordionProps>[],
     [children],
   );
 
