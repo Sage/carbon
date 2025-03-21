@@ -579,3 +579,12 @@ export const GreyBackground: Story = {
     greyBackground: true,
   },
 };
+
+export const HighlightVariant: Story = {
+  ...DefaultStory,
+  name: "With Highlight Variant",
+  args: {
+    ...DefaultStory.args,
+    highlightVariant: "ai",
+  },
+};
