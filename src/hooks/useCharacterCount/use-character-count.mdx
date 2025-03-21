@@ -1,0 +1,41 @@
+import { ArgTypes, Meta, Canvas } from "@storybook/addon-docs";
+
+import * as useCharacterCountStories from "./use-character-count.stories";
+
+<Meta title="Documentation/Hooks/useCharacterCount"/>
+
+# useCharacterCount
+
+`useCharacterCount` is a custom React hook that provides a character counter for text based input fields, and can be used in place of the `characterLimit` prop.
+
+The hook returns an array containing a JSX element and an ID as a string. The JSX element displays a visual character counter alongside a visually hidden hint that
+provides additional context to screen reader users. 
+
+To associate the character counter with the corresponding input field please ensure you pass the returned ID to the input's `aria-describedby` attribute. 
+This hook also implements a debounce function to ensure screen reader announcements occur after a brief delay after the user stops typing, rather than on every keypress.
+
+**Note:** This hook is currently not supported on the `TextEditor` component as this component uses its own custom character counter plugin.
+
+## Contents
+
+- [Import path](#import-path)
+- [Examples](#examples)
+- [Parameters](#parameters)
+
+## Import path
+
+```javascript
+import useCharacterCount from "carbon-react/lib/hooks/useCharacterCount";
+```
+
+## Examples
+
+Here are some examples of how to use the `useCharacterCount` hook:
+
+<Canvas of={useCharacterCountStories.WithTextbox} />
+
+<Canvas of={useCharacterCountStories.WithTextarea} />
+
+## Parameters
+
+<ArgTypes of={useCharacterCountStories} />

@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useEffect, useState } from "react";
-import CharacterCount from "../../../__internal__/character-count";
-import guid from "../../../__internal__/utils/helpers/guid";
-import useDebounce from "../useDebounce";
+import CharacterCount from "../../__internal__/character-count";
+import guid from "../../__internal__/utils/helpers/guid";
+import useDebounce from "../__internal__/useDebounce";
 
 const useCharacterCount = (
   value = "",

@@ -31,6 +31,20 @@ test("should display deprecation warning once when rendered as uncontrolled", ()
   loggerSpy.mockRestore();
 });
 
+test("should display deprecation warning once for `ariaDescribedBy`", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(<Textarea onChange={() => {}} ariaDescribedBy="test" />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The `ariaDescribedBy` prop in `Textarea` is deprecated and will soon be removed, please use `aria-describedby` instead.",
+  );
+
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
 test("should render a textarea element", () => {
   render(<Textarea />);
   const textarea = screen.getByRole("textbox");
@@ -322,6 +336,46 @@ test.each(["info", "warning", "error"])(
     expect(textarea).toHaveAccessibleDescription("baz test");
   },
 );
+
+test("sets the accessible label to the provided aria-labelledby", () => {
+  const Component = () => (
+    <>
+      <p id="test">label</p>
+      <Textarea aria-labelledby="test" />
+    </>
+  );
+  render(<Component />);
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleName("label");
+});
+
+test("appends the provided `aria-describedby` to the accessible description", () => {
+  const Component = () => (
+    <>
+      <p id="test">description</p>
+      <Textarea inputHint="hint text" aria-describedby="test" />
+    </>
+  );
+  render(<Component />);
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+    "hint text description",
+  );
+});
+
+test("appends the provided `ariaDescribedBy` to the accessible description", () => {
+  const Component = () => (
+    <>
+      <p id="test">description</p>
+      <Textarea inputHint="hint text" ariaDescribedBy="test" />
+    </>
+  );
+  render(<Component />);
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+    "hint text description",
+  );
+});
 
 describe(`when the characterLimit prop is passed`, () => {
   it("renders a character counter with the appropriate message when the value is too long by 1 character", () => {
