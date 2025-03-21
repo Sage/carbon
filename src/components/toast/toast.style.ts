@@ -77,7 +77,7 @@ const ToastColourVariants = {
   neutral: "var(--colorsSemanticNeutral500)",
 };
 
-type ToastVariants = MessageVariant;
+type ToastVariants = Exclude<MessageVariant, "ai">;
 
 type ToastStyleProps = {
   align?: "left" | "center" | "right";

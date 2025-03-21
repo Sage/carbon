@@ -122,6 +122,7 @@ const enGB: Locale = {
     success: () => "Success",
     warning: () => "Warning",
     neutral: () => "Information",
+    ai: () => "AI Information",
   },
   numeralDate: {
     validation: {

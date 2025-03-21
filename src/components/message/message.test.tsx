@@ -56,6 +56,14 @@ describe("icon", () => {
 
     expect(errorIcon).toBeVisible();
   });
+
+  it("renders with 'ai' icon SVG when variant is 'ai", () => {
+    render(<Message variant="ai" />);
+
+    const aiSvg = screen.getByTestId("ai-icon");
+
+    expect(aiSvg).toBeVisible();
+  });
 });
 
 test("renders with provided children", () => {

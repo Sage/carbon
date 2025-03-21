@@ -22,7 +22,8 @@ export type MessageVariant =
   | "info"
   | "success"
   | "warning"
-  | "neutral";
+  | "neutral"
+  | "ai";
 
 export interface MessageProps extends MarginProps, TagProps {
   /** Set the component's content */
@@ -76,7 +77,7 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
 
     type IconType = "error" | "info" | "tick_circle" | "warning";
 
-    const VARIANT_ICON_MAP: Record<MessageVariant, IconType> = {
+    const VARIANT_ICON_MAP: Record<Exclude<MessageVariant, "ai">, IconType> = {
       neutral: "info",
       success: "tick_circle",
       error: "error",
@@ -100,9 +101,39 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
         tabIndex={-1}
       >
         <TypeIconStyle variant={variant} transparent={transparent}>
-          <Icon type={VARIANT_ICON_MAP[variant]} />
+          {variant === "ai" ? (
+            <svg
+              data-role="ai-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <g clipPath="url(#a)">
+                <path
+                  fill="#fff"
+                  d="m16.378 9.799-3.776-1.49a1.615 1.615 0 0 1-.91-.91l-1.49-3.775c-.537-1.364-2.466-1.364-3.004 0L5.708 7.4a1.615 1.615 0 0 1-.91.91L1.022 9.799c-1.363.537-1.363 2.466 0 3.004l3.776 1.49c.417.163.746.493.91.91l1.49 3.775c.538 1.363 2.467 1.363 3.005 0l1.489-3.776c.164-.416.494-.745.91-.91l3.776-1.489c1.364-.538 1.364-2.467 0-3.004Z"
+                />
+                <path
+                  fill="#00D639"
+                  d="M17.172 5.655a2.827 2.827 0 1 0 0-5.655 2.827 2.827 0 0 0 0 5.655Z"
+                />
+              </g>
+              <defs>
+                <clipPath id="a">
+                  <path fill="#fff" d="M0 0h20v20H0z" />
+                </clipPath>
+              </defs>
+            </svg>
+          ) : (
+            <Icon type={VARIANT_ICON_MAP[variant]} />
+          )}
         </TypeIconStyle>
-        <Typography screenReaderOnly>{locale.message[variant]()}</Typography>
+
+        <Typography screenReaderOnly>
+          {locale.message?.[variant]?.()}
+        </Typography>
         <MessageContent
           data-element="message-content"
           data-role="message-content"

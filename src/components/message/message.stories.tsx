@@ -126,6 +126,19 @@ export const Neutral: Story = () => {
 };
 Neutral.storyName = "Neutral";
 
+export const Ai: Story = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <>
+      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
+      <Message open={isOpen} onDismiss={() => setIsOpen(false)} variant="ai">
+        Some custom message
+      </Message>
+    </>
+  );
+};
+Ai.storyName = "Ai";
+
 export const Transparent: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (

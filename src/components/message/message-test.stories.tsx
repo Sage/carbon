@@ -5,7 +5,7 @@ import Message, { MessageProps } from "./message.component";
 
 export default {
   title: "Message/Test",
-  includeStories: ["Default", "Transparent", "TitleWithLongText"],
+  includeStories: ["Default", "Transparent", "TitleWithLongText", "Ai"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -99,5 +99,25 @@ export const Transparent = (args: MessageProps) => {
 Transparent.storyName = "transparent";
 
 Transparent.parameters = {
+  themeProvider: { chromatic: { disableSnapshot: false, theme: "sage" } },
+};
+
+export const Ai = (args: MessageProps) => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Message
+      open={isOpen}
+      onDismiss={() => setIsOpen(false)}
+      variant="ai"
+      {...args}
+    >
+      Some custom message
+    </Message>
+  );
+};
+
+Ai.storyName = "Ai";
+
+Ai.parameters = {
   themeProvider: { chromatic: { disableSnapshot: false, theme: "sage" } },
 };
