@@ -70,6 +70,8 @@ export interface DialogProps extends ModalProps, TagProps {
   height?: string;
   /** Adds Help tooltip to Header */
   help?: string;
+  /* Allows developers to specify a highlight variant */
+  highlightVariant?: string;
   /** A custom close event handler */
   onCancel?: (
     ev:
@@ -126,6 +128,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       bespokeFocusTrap,
       disableClose,
       help,
+      highlightVariant = "default",
       role = "dialog",
       contentPadding = {},
       greyBackground = false,
@@ -239,6 +242,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
               aria-modal={isTopModal ? true : undefined}
               ref={containerRef}
               {...dialogProps}
+              highlightVariant={highlightVariant}
               role={role}
               tabIndex={-1}
               {...contentPadding}
