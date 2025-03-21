@@ -20,7 +20,6 @@ interface UseDraggableOptions {
   draggableItems: React.ReactNode[] | React.ReactNode;
   ref?: Ref<UseDraggableHandle>;
   dragType?: "continuous" | "onDrop";
-  dragDelay?: number;
   containerId?: string | number;
   draggableItemStylingOptOut?: boolean;
   containerNode?: string;
@@ -35,7 +34,6 @@ const useDraggable = ({
   draggableItems,
   ref,
   dragType = "continuous",
-  dragDelay= 100,
   containerId,
   draggableItemStylingOptOut,
   containerNode,
@@ -53,7 +51,6 @@ const useDraggable = ({
       id={containerId}
       ref={ref}
       dragType={dragType}
-      dragDelay={dragDelay}
       getOrder={getOrder}
       containerNode={containerNode}
       setDraggedNode={setDraggedNode}
