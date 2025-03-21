@@ -72,17 +72,7 @@ export const DragType: Story = () => {
 
   return draggableElement;
 };
-DragType.storyName = "Drag Delay";
-
-export const DragDelay: Story = () => {
-  const items = ["item1", "item2", "item3", "item4", "item5", "item6"];
-
-  const { draggableElement } = useDraggable({ draggableItems: items, dragDelay: 1000 });
-
-  return draggableElement;
-};
-DragDelay.storyName = "Drag Delay";
-
+DragType.storyName = "Drag Type";
 
 export const WithIds: Story = () => {
   const items = [

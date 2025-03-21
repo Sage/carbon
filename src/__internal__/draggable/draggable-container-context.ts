@@ -2,6 +2,7 @@ import { createContext } from "react";
 
 interface DraggableContainerContextType {
   columnId: string | number;
+  localDraggedNode?: Element | null;
 }
 
 const DraggableContainerContext =
