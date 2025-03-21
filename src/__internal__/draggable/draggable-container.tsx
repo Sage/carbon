@@ -1,6 +1,7 @@
 import React, {
   useContext,
   useEffect,
+  useLayoutEffect,
   useRef,
   useImperativeHandle,
   forwardRef,
@@ -49,7 +50,6 @@ const DraggableContainer = forwardRef<
       id,
       children,
       dragType = "continuous",
-      dragDelay = 100,
       getOrder,
       containerStyle,
       containerNode = "div",
@@ -68,6 +68,7 @@ const DraggableContainer = forwardRef<
     const uniqueId = id || localGuid.current;
     const containerRef = useRef<HTMLDivElement>();
     const hasMounted = useRef(false);
+    const [localDraggedNode, setLocalDraggedNode] = useState<Element | null>(null);
 
     const effectiveList = useMemo(() => {
       return list.length > 0 ? list : lists?.[uniqueId] || [];
@@ -79,7 +80,7 @@ const DraggableContainer = forwardRef<
       );
     };
 
-    const localMoveCallback = useCallback(
+    const localMove = useCallback(
       (itemId: string | number, toIndex: number) => {
         if (!itemId || toIndex === null || toIndex === undefined) {
           return;
@@ -117,6 +118,10 @@ const DraggableContainer = forwardRef<
           setDraggedNode(element);
         }
 
+        if(element && setLocalDraggedNode){
+          setLocalDraggedNode(element)
+        }
+
         copy.splice(toIndex, 0, nodeToMove);
         setList(copy);
 
@@ -150,12 +155,10 @@ const DraggableContainer = forwardRef<
           }
         });
       },
-      [list, getOrder, uniqueId, setDraggedNode],
+      [list, getOrder, uniqueId, setDraggedNode, setLocalDraggedNode],
     );
     
-    const localMove = useDebounce(localMoveCallback, dragDelay);
-
-    useEffect(() => {
+    useLayoutEffect(() => {
       if (!hasMounted.current) {
         if (register) {
           register(uniqueId, React.Children.toArray(children));
@@ -306,7 +309,7 @@ const DraggableContainer = forwardRef<
     };
 
     return (
-      <DraggableContainerContext.Provider value={{ columnId: uniqueId }}>
+      <DraggableContainerContext.Provider value={{ columnId: uniqueId, localDraggedNode, dragType }}>
         {React.createElement(
           containerNode,
           {
