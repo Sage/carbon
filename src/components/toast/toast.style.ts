@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import TypeIcon from "../message/__internal__/type-icon/type-icon.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import Portal from "../portal/portal";
 import baseTheme from "../../style/themes/base";
@@ -251,10 +250,4 @@ const ToastWrapper = styled.div<{
     `}
 `;
 
-export {
-  StyledPortal,
-  StyledToast,
-  TypeIcon,
-  StyledToastContent,
-  ToastWrapper,
-};
+export { StyledPortal, StyledToast, StyledToastContent, ToastWrapper };

@@ -7,11 +7,11 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import {
   StyledToast,
-  TypeIcon,
   StyledToastContent,
   ToastWrapper,
   StyledPortal,
 } from "./toast.style";
+import { TypeIconStyle as TypeIcon } from "../message/message.style";
 import IconButton from "../icon-button";
 import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";

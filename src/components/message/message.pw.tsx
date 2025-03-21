@@ -134,16 +134,10 @@ test.describe("Tests for Message component properties", () => {
 
       if (boolVal === true) {
         await expect(messageDismissIcon(page)).toBeVisible();
-        await expect(messageContent(page)).toHaveCSS(
-          "padding",
-          `15px ${paddingVal}px 15px 20px`,
-        );
+        await expect(messageContent(page)).toHaveCSS("padding", "16px");
       } else {
         await expect(messageDismissIcon(page)).not.toBeVisible();
-        await expect(messageContent(page)).toHaveCSS(
-          "padding",
-          `15px ${paddingVal}px`,
-        );
+        await expect(messageContent(page)).toHaveCSS("padding", "16px");
       }
     });
   });
