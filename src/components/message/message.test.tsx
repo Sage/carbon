@@ -6,6 +6,58 @@ import I18nProvider from "../i18n-provider";
 import enGB from "../../locales/en-gb";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
+describe("icon", () => {
+  it("renders with 'info' icon when variant is 'info", () => {
+    render(<Message variant="info" />);
+
+    const infoIcon = screen
+      .getAllByTestId("icon")
+      .find((icon) => icon.getAttribute("type") === "info");
+
+    expect(infoIcon).toBeVisible();
+  });
+
+  it("renders with 'tick_circle' icon when variant is 'success'", () => {
+    render(<Message variant="success" />);
+
+    const successIcon = screen
+      .getAllByTestId("icon")
+      .find((icon) => icon.getAttribute("type") === "tick_circle");
+
+    expect(successIcon).toBeVisible();
+  });
+
+  it("renders with 'info' icon when variant is 'neutral'", () => {
+    render(<Message variant="neutral" />);
+
+    const neutralIcon = screen
+      .getAllByTestId("icon")
+      .find((icon) => icon.getAttribute("type") === "info");
+
+    expect(neutralIcon).toBeVisible();
+  });
+
+  it("renders with 'warning' icon when variant is 'warning'", () => {
+    render(<Message variant="warning" />);
+
+    const warningIcon = screen
+      .getAllByTestId("icon")
+      .find((icon) => icon.getAttribute("type") === "warning");
+
+    expect(warningIcon).toBeVisible();
+  });
+
+  it("renders with 'error' icon when variant is 'error'", () => {
+    render(<Message variant="error" />);
+
+    const errorIcon = screen
+      .getAllByTestId("icon")
+      .find((icon) => icon.getAttribute("type") === "error");
+
+    expect(errorIcon).toBeVisible();
+  });
+});
+
 test("renders with provided children", () => {
   render(<Message>Message</Message>);
 
@@ -139,7 +191,7 @@ test("renders with expected styles when `transparent` is true", () => {
     background: "transparent",
   });
   expect(screen.getByTestId("message-content")).toHaveStyle({
-    padding: "15px 50px 15px 10px",
+    padding: "16px",
   });
 });
 
