@@ -103,7 +103,9 @@ export const InsideFormInlineLabels: Story = () => {
         labelWidth={10}
         inputWidth={50}
       />
-      <Hr mb={7} mt={7} ml="10%" mr="40%" />
+      <Box ml="10%" mr="40%">
+        <Hr mb={7} mt={7} />
+      </Box>
       <Textbox
         label="Textbox"
         labelAlign="right"
