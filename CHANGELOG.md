@@ -1,3 +1,9 @@
+## [152.2.2](https://github.com/Sage/carbon/compare/v152.2.1...v152.2.2) (2025-03-24)
+
+### Bug Fixes
+
+* **secondary-button:** split button additional secondary style ([bb1eb33](https://github.com/Sage/carbon/commit/bb1eb334e2b2e3db1d2496b2b98f38e381b6179f))
+
 ## [152.2.1](https://github.com/Sage/carbon/compare/v152.2.0...v152.2.1) (2025-03-19)
 
 ### Bug Fixes
