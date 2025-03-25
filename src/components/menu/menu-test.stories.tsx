@@ -5,7 +5,6 @@ import { action } from "@storybook/addon-actions";
 import { allModes } from "../../../.storybook/modes";
 import isChromatic from "../../../.storybook/isChromatic";
 import {
-  Menu,
   MenuItem,
   MenuFullscreen,
   MenuFullscreenProps,
@@ -13,6 +12,7 @@ import {
   ScrollableBlock,
   MenuDivider,
 } from ".";
+import { Menu } from "../../../lib/components/menu";
 import { MenuType } from "./__internal__/menu.context";
 import Search from "../search";
 import Box from "../box";
@@ -574,3 +574,31 @@ export const TabbingOrder = () => {
   );
 };
 TabbingOrder.storyName = "Tabbing Order";
+
+export const TestSpacingWhenLoadingFromOtherCarbon = () => {
+  return (
+    <Menu>
+      <Box padding="25px">
+        <Menu>
+          <MenuItem>
+            <button type="button">foo</button>
+          </MenuItem>
+          <MenuItem href="#">Menu Item Two</MenuItem>
+        </Menu>
+
+        <br />
+        <PopoverContainer
+          containerAriaLabel="popover-container"
+          openButtonAriaLabel="open"
+        >
+          <button type="button">foo</button>
+        </PopoverContainer>
+        <button data-foo="foo" type="button">
+          foo
+        </button>
+      </Box>
+    </Menu>
+  );
+};
+TestSpacingWhenLoadingFromOtherCarbon.storyName =
+  "Test spacing when loading from other carbon";
