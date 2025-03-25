@@ -553,3 +553,30 @@ describe("link display styling", () => {
     expect(linkElement).not.toHaveStyle(`display: inline-block`);
   });
 });
+
+test("accepts ref as a ref object", () => {
+  const mockRef = { current: null };
+  render(<Link href="#" ref={mockRef} />);
+
+  const link = screen.getByRole("link");
+
+  expect(mockRef.current).toBe(link);
+});
+
+test("accepts ref as a ref callback", () => {
+  const mockRef = jest.fn();
+  render(<Link href="#" ref={mockRef} />);
+
+  const link = screen.getByRole("link");
+
+  expect(mockRef).toHaveBeenCalledWith(link);
+});
+
+test("sets ref to empty after unmount", () => {
+  const mockRef = { current: null };
+  const { unmount } = render(<Link />);
+
+  unmount();
+
+  expect(mockRef.current).toBe(null);
+});
