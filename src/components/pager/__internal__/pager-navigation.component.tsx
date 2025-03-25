@@ -57,6 +57,8 @@ export interface PagerNavigationProps {
   interactivePageNumber?: boolean;
   /** If true, sets css property visibility: hidden on all disabled elements  */
   hideDisabledElements?: boolean;
+  /** If true, sets small screen styles. */
+  isSmallScreen?: boolean;
 }
 
 const PagerNavigation = ({
@@ -74,6 +76,7 @@ const PagerNavigation = ({
   showPageCount = true,
   interactivePageNumber = true,
   hideDisabledElements = false,
+  isSmallScreen,
 }: PagerNavigationProps) => {
   const l = useLocale();
   const guid = useRef(createGuid());
@@ -88,6 +91,7 @@ const PagerNavigation = ({
     pageSize,
     pageCount,
     onPagination,
+    isSmallScreen,
   };
 
   const handlePageInputChange = (
@@ -166,7 +170,7 @@ const PagerNavigation = ({
   );
 
   return (
-    <StyledPagerNavigation>
+    <StyledPagerNavigation isSmallScreen={isSmallScreen}>
       {!hasOnePage && renderButtonsBeforeCount()}
       {showPageCount &&
         (interactivePageNumber ? (
@@ -184,7 +188,9 @@ const PagerNavigation = ({
                 Events.isEnterKey(ev) ? handlePageInputChange(ev) : false
               }
             />
-            <StyledPagerNoSelect>{l.pager.ofY(pageCount)}</StyledPagerNoSelect>
+            <StyledPagerNoSelect data-element="max-pages">
+              {l.pager.ofY(pageCount)}
+            </StyledPagerNoSelect>
           </StyledPagerNavInner>
         ) : (
           <StyledPagerNavLabel

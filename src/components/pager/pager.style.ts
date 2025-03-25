@@ -1,16 +1,11 @@
 import styled, { css } from "styled-components";
 
-import { PagerProps } from ".";
 import StyledInput from "../../__internal__/input/input.style";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import { StyledSelectText } from "../select/__internal__/select-textbox/select-textbox.style";
 import Link from "../link";
-
-interface StyledPagerProps {
-  hideDisabledButtons?: boolean;
-}
 
 const StyledSelectContainer = styled.div`
   height: 26px;
@@ -22,15 +17,31 @@ const StyledSelectContainer = styled.div`
   }
 `;
 
-const StyledPagerContainer = styled.div<Pick<PagerProps, "variant">>`
-  display: flex;
-  justify-content: space-between;
-  padding: 0px 24px;
+interface StyledPagerContainerProps {
+  variant?: "alternate" | "default";
+  isSmallScreen?: boolean;
+}
+
+const StyledPagerContainer = styled.div<StyledPagerContainerProps>`
+  box-sizing: border-box;
+  display: inline-grid;
   align-items: center;
-  font-size: 13px;
+  justify-content: space-between;
+  grid-template-columns: 1fr;
+  padding: 0px var(--sizing100);
+  width: 100%;
+  height: var(--sizing550);
+  font-size: var(--fontSizes100);
   color: var(--colorsUtilityYin090);
   border: 1px solid var(--colorsUtilityMajor100);
   border-radius: var(--borderRadius100);
+
+  ${({ isSmallScreen }) =>
+    !isSmallScreen &&
+    css`
+      grid-template-columns: repeat(3, 1fr);
+      padding: 0px var(--sizing300);
+    `}
 
   ${({ variant }) => css`
     background-color: ${variant === "alternate"
@@ -40,9 +51,7 @@ const StyledPagerContainer = styled.div<Pick<PagerProps, "variant">>`
 `;
 
 const StyledPagerSizeOptions = styled.div`
-  display: flex;
-  flex: 1 1 30%;
-  justify-content: flex-start;
+  grid-area: 1 / 1 / 1 / 1;
 
   ${StyledInputPresentation} {
     width: 55px;
@@ -72,11 +81,21 @@ const StyledPagerSizeOptionsInner = styled.div`
   align-items: center;
 `;
 
-const StyledPagerNavigation = styled.div`
+interface StyledPagerNavigationProps {
+  isSmallScreen?: boolean;
+}
+
+const StyledPagerNavigation = styled.div<StyledPagerNavigationProps>`
   display: flex;
-  flex: 1 1 auto;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+
+  ${({ isSmallScreen }) =>
+    !isSmallScreen &&
+    css`
+      justify-content: center;
+      grid-area: 1 / 2 / 1 / 2;
+    `}
 
   && ${StyledInputPresentation} {
     padding: 0;
@@ -110,11 +129,18 @@ const StyledPagerNavLabel = styled.label`
   margin: 4px 0;
 `;
 
-const StyledPagerLink = styled(Link)<
-  Pick<StyledPagerProps, "hideDisabledButtons">
->`
-  margin-left: 17px;
-  margin-right: 17px;
+interface StyledPagerLinkProps {
+  hideDisabledButtons?: boolean;
+  isSmallScreen?: boolean;
+}
+
+const StyledPagerLink = styled(Link)<StyledPagerLinkProps>`
+  ${({ isSmallScreen }) =>
+    !isSmallScreen &&
+    css`
+      margin-left: 17px;
+      margin-right: 17px;
+    `}
 
   ${({ hideDisabledButtons }) =>
     hideDisabledButtons &&
@@ -132,9 +158,8 @@ const StyledPagerNoSelect = styled.div`
 `;
 
 const StyledPagerSummary = styled.div`
-  display: flex;
-  flex: 1 1 30%;
-  justify-content: flex-end;
+  justify-self: end;
+  grid-area: 1 / 3 / 1 / 3;
 `;
 
 export {

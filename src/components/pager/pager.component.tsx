@@ -13,6 +13,7 @@ import {
 } from "./pager.style";
 import Events from "../../__internal__/utils/helpers/events";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 type PageSizeOption = {
   id: string;
@@ -74,6 +75,8 @@ export interface PagerProps extends TagProps {
   showPageCount?: boolean;
   /** What variant the Pager background should be */
   variant?: "default" | "alternate";
+  /** Breakpoint for small screen styling to be applied. */
+  smallScreenBreakpoint?: string;
 }
 
 export const Pager = ({
@@ -101,6 +104,7 @@ export const Pager = ({
   showPreviousAndNextButtons = true,
   showPageCount = true,
   variant = "default",
+  smallScreenBreakpoint = "380px",
   ...rest
 }: PagerProps) => {
   const l = useLocale();
@@ -110,6 +114,8 @@ export const Pager = ({
 
   const guid = useRef(createGuid());
   const pageSizeSelectId = `Pager_size_selector_${guid.current}`;
+
+  const isSmallScreen = useMediaQuery(`(max-width: ${smallScreenBreakpoint})`);
 
   const getPageCount = useCallback(() => {
     if (+totalRecords < 0 || Number.isNaN(+totalRecords)) {
@@ -251,31 +257,31 @@ export const Pager = ({
         <div>{child}</div>
       );
     return (
-      showPageSizeSelection && (
-        <StyledPagerSizeOptionsInner>
-          {showPageSizeLabelBefore &&
-            wrapper(showPageSizeLabelBefore, l.pager.show())}
-          {sizeSelector()}
-          {showPageSizeLabelAfter &&
-            wrapper(
-              !showPageSizeLabelBefore,
-              l.pager.records(currentPageSize, false),
-            )}
-        </StyledPagerSizeOptionsInner>
-      )
+      <StyledPagerSizeOptionsInner>
+        {showPageSizeLabelBefore &&
+          wrapper(showPageSizeLabelBefore, l.pager.show())}
+        {sizeSelector()}
+        {showPageSizeLabelAfter &&
+          wrapper(
+            !showPageSizeLabelBefore,
+            l.pager.records(currentPageSize, false),
+          )}
+      </StyledPagerSizeOptionsInner>
     );
   };
-
-  const renderTotalRecords = () =>
-    showTotalRecords && l.pager.records(totalRecords);
 
   return (
     <StyledPagerContainer
       variant={variant}
+      isSmallScreen={isSmallScreen}
       {...rest}
       {...tagComponent("pager", rest)}
     >
-      <StyledPagerSizeOptions>{renderPageSizeOptions()}</StyledPagerSizeOptions>
+      {showPageSizeSelection && (
+        <StyledPagerSizeOptions>
+          {renderPageSizeOptions()}
+        </StyledPagerSizeOptions>
+      )}
       <PagerNavigation
         pageSize={currentPageSize}
         currentPage={page}
@@ -291,8 +297,11 @@ export const Pager = ({
         showFirstAndLastButtons={showFirstAndLastButtons}
         showPreviousAndNextButtons={showPreviousAndNextButtons}
         showPageCount={showPageCount}
+        isSmallScreen={isSmallScreen}
       />
-      <StyledPagerSummary>{renderTotalRecords()}</StyledPagerSummary>
+      {showTotalRecords && (
+        <StyledPagerSummary>{l.pager.records(totalRecords)}</StyledPagerSummary>
+      )}
     </StyledPagerContainer>
   );
 };
