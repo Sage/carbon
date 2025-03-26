@@ -139,7 +139,7 @@ export const Default: Story = () => {
           <Typography variant="h3">Content</Typography>
           <Button onClick={() => setAdaptiveSidebarOpen(false)}>Close</Button>
         </Box>
-        <Hr my={0} mx={1} />
+        <Hr my={0} mx={0} />
         <Box display="flex" flexDirection="column" p={1}>
           <Typography>
             This is the main content of the adaptive sidebar
@@ -521,7 +521,7 @@ export const WithCustomBorderColor: Story = () => {
           <Typography variant="h3">Content</Typography>
           <Button onClick={() => setAdaptiveSidebarOpen(false)}>Close</Button>
         </Box>
-        <Hr my={0} mx={1} />
+        <Hr my={0} mx={0} />
         <Box display="flex" flexDirection="column" p={1}>
           <Typography>
             This is the main content of the adaptive sidebar

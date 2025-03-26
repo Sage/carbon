@@ -742,7 +742,9 @@ export const FormAlignmentExample: Story = () => {
         label="Checkbox 2"
         ml="10%"
       />
-      <Hr ml="10%" mr="60%" mb={7} />
+      <Box ml="10%" mr="60%">
+        <Hr mb={7} />
+      </Box>
       <Button buttonType="tertiary" ml="calc(10% - 24px)">
         Tertiary
       </Button>
