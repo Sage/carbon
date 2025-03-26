@@ -1,3 +1,9 @@
+## [152.4.0](https://github.com/Sage/carbon/compare/v152.3.1...v152.4.0) (2025-03-26)
+
+### Features
+
+* **dialog:** add highlight variant prop to dialog ([a0d4508](https://github.com/Sage/carbon/commit/a0d45081bf2105de3b0b84dcfeeaf7cb126aa4c3))
+
 ## [152.3.1](https://github.com/Sage/carbon/compare/v152.3.0...v152.3.1) (2025-03-26)
 
 ### Bug Fixes
