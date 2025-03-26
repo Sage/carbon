@@ -1,3 +1,10 @@
+## [152.3.0](https://github.com/Sage/carbon/compare/v152.2.3...v152.3.0) (2025-03-26)
+
+### Features
+
+* **message:** add ai variant ([156ea5d](https://github.com/Sage/carbon/commit/156ea5df11201cbdfe1816bfc4211e2964dcb9a8))
+* **message:** refine layout and align with Design System ([6c38017](https://github.com/Sage/carbon/commit/6c380170e8f05e3da6cfed2df884c577a824b648))
+
 ## [152.2.3](https://github.com/Sage/carbon/compare/v152.2.2...v152.2.3) (2025-03-26)
 
 ### Bug Fixes
