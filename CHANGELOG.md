@@ -1,3 +1,9 @@
+## [152.3.1](https://github.com/Sage/carbon/compare/v152.3.0...v152.3.1) (2025-03-26)
+
+### Bug Fixes
+
+* **hr:** make width 100% ([d9daf38](https://github.com/Sage/carbon/commit/d9daf38752565411df9e65bde2747977c31200d9)), closes [#6772](https://github.com/Sage/carbon/issues/6772)
+
 ## [152.3.0](https://github.com/Sage/carbon/compare/v152.2.3...v152.3.0) (2025-03-26)
 
 ### Features
