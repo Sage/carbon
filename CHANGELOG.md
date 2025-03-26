@@ -1,3 +1,13 @@
+## [152.5.0](https://github.com/Sage/carbon/compare/v152.4.0...v152.5.0) (2025-03-26)
+
+### Features
+
+* **vertical-menu-full-screen:** add slide in animation on menu open/close ([cba0753](https://github.com/Sage/carbon/commit/cba0753708b605e4ca14fa3a14b708dfd3a8477c))
+
+### Bug Fixes
+
+* **vertical-menu-full-screen:** close icon size incompatibility warning ([91cad0a](https://github.com/Sage/carbon/commit/91cad0aaf8f96256e1fd4569f1aa61bec460cf42))
+
 ## [152.4.0](https://github.com/Sage/carbon/compare/v152.3.1...v152.4.0) (2025-03-26)
 
 ### Features
