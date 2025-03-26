@@ -61,6 +61,8 @@ export interface ButtonProps extends SpaceProps, TagProps {
   iconType?: IconType;
   /** id attribute */
   id?: string;
+  /** Whether to use the white-on-dark colour variant */
+  isWhite?: boolean;
   /** If provided, the text inside a button will not wrap */
   noWrap?: boolean;
   /** Specify a callback triggered on blur */
@@ -195,6 +197,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       destructive = false,
       disabled = false,
+      isWhite = false,
       fullWidth: fullWidthProp = false,
       href,
       iconPosition: iconPositionProp = "before",
@@ -292,6 +295,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         buttonType={buttonType}
         disabled={isDisabled}
         destructive={destructive}
+        isWhite={isWhite}
         type={href ? undefined : "button"}
         iconType={iconType}
         size={size}

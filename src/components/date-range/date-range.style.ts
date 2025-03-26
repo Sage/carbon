@@ -10,6 +10,7 @@ export interface StyledDateRangeProps {
   labelsInline?: boolean;
 }
 const StyledDateRange = styled.div<StyledDateRangeProps>`
+  margin-bottom: var(--fieldSpacing);
   ${margin}
 
   & ${StyledDateInput} {

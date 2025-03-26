@@ -1,3 +1,54 @@
+## [152.2.2](https://github.com/Sage/carbon/compare/v152.2.1...v152.2.2) (2025-03-24)
+
+### Bug Fixes
+
+* **secondary-button:** split button additional secondary style ([bb1eb33](https://github.com/Sage/carbon/commit/bb1eb334e2b2e3db1d2496b2b98f38e381b6179f))
+
+## [152.2.1](https://github.com/Sage/carbon/compare/v152.2.0...v152.2.1) (2025-03-19)
+
+### Bug Fixes
+
+* **form:** replace use of context to apply field spacing ([4e76f2c](https://github.com/Sage/carbon/commit/4e76f2cb137c6b04823af86f007a8c2e66afdcf0)), closes [#7058](https://github.com/Sage/carbon/issues/7058)
+* **textbox:** margin not applied to character count ([de4c031](https://github.com/Sage/carbon/commit/de4c031bfe0c37251ae9881e9ab098bc6044c939))
+
+## [152.2.0](https://github.com/Sage/carbon/compare/v152.1.0...v152.2.0) (2025-03-18)
+
+### Features
+
+* **tile:** add important highlight variant ([471e1d1](https://github.com/Sage/carbon/commit/471e1d19cff6a3eb41f67eabb8c61420888ac1a7))
+* **tile:** align highlight variant with the design system ([e5ef3a9](https://github.com/Sage/carbon/commit/e5ef3a9973c0a8e56a776b2ab31d4c27790c8285))
+
+## [152.1.0](https://github.com/Sage/carbon/compare/v152.0.1...v152.1.0) (2025-03-17)
+
+### Features
+
+* **button:** add white secondary variant to button ([7a55618](https://github.com/Sage/carbon/commit/7a55618a3920fdf243fd0b4a8803c79d9ea78747))
+
+## [152.0.1](https://github.com/Sage/carbon/compare/v152.0.0...v152.0.1) (2025-03-14)
+
+### Bug Fixes
+
+* **text-editor:** fixes the formatting buttons when clicked to toggle without text selections ([7ebd7dd](https://github.com/Sage/carbon/commit/7ebd7dd14f6691ed74140068e9ee90a5d0f7f8d4))
+
+## [152.0.0](https://github.com/Sage/carbon/compare/v151.5.3...v152.0.0) (2025-03-13)
+
+### ⚠ BREAKING CHANGES
+
+* **date:** `disabledDays` and `selectedDays` are no longer available in the `PickerProps`
+interface which is currently available via the `pickerProps` prop. If used they will have no effect
+and will now result in a type error for Typescript projects, the `disabled` and `selected`
+props should now be used instead
+* **numeral-date:** In order to allow NumeralDate to support a forward ref the typescript interface for
+the component has had to be changed.
+
+### Features
+
+* **numeral-date:** allow component to be focused programmatically ([b2a0dce](https://github.com/Sage/carbon/commit/b2a0dcef671e5b30eb9aa2a4d36829a07c3dc3bc)), closes [#7180](https://github.com/Sage/carbon/issues/7180)
+
+### Bug Fixes
+
+* **date:** remove invalid props `disabledDays` and `selectedDays` from `PickerProps` ([4351e91](https://github.com/Sage/carbon/commit/4351e914c924791c7839f6303fdba1f58a4d8751))
+
 ## [151.5.3](https://github.com/Sage/carbon/compare/v151.5.2...v151.5.3) (2025-03-12)
 
 ### Bug Fixes

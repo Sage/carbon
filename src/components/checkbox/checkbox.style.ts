@@ -25,6 +25,7 @@ export interface StyledCheckboxProps extends ValidationProps, MarginProps {
 }
 
 const StyledCheckbox = styled.div<StyledCheckboxProps>`
+  margin-bottom: var(--fieldSpacing);
   ${margin}
   ${({
     disabled,

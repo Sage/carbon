@@ -11,9 +11,9 @@ import {
 import ValidationIcon from "../validations/validation-icon.component";
 import NewValidationContext from "../../components/carbon-provider/__internal__/new-validation.context";
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
-import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import Help from "../../components/help";
 import Typography from "../../components/typography";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export interface FieldsetProps extends MarginProps {
   /** Role */
@@ -84,7 +84,7 @@ const Fieldset = ({
   ...rest
 }: FieldsetProps) => {
   const { validationRedesignOptIn } = useContext(NewValidationContext);
-  const marginProps = useFormSpacing(rest);
+  const marginProps = filterStyledSystemMarginProps(rest);
   const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
   const [isFocused, setFocus] = useState(false);
 

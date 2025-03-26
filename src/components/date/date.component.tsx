@@ -20,9 +20,11 @@ import {
   isValidLocaleDate,
 } from "./__internal__/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
-import Logger from "../../__internal__/utils/logger";
 import Events from "../../__internal__/utils/helpers/events";
-import { filterOutStyledSystemSpacingProps } from "../../style/utils";
+import {
+  filterOutStyledSystemSpacingProps,
+  filterStyledSystemMarginProps,
+} from "../../style/utils";
 import getFormatData from "./__internal__/date-formats";
 import StyledDateInput from "./date.style";
 import Textbox, { TextboxProps } from "../textbox";
@@ -31,7 +33,6 @@ import DateRangeContext, {
   InputName,
 } from "../date-range/__internal__/date-range.context";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import guid from "../../__internal__/utils/helpers/guid";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
@@ -93,7 +94,7 @@ export interface DateInputProps
   value: string;
   /**
    * Pass any props that match the DayPickerProps interface to override default behaviors
-   * See [DayPickerProps](https://daypicker.dev/start) for a full list of available props
+   * See [DayPickerProps](https://daypicker.dev/api/type-aliases/DayPickerProps) for a full list of available props
    * */
   pickerProps?: PickerProps;
   /**
@@ -113,9 +114,6 @@ export interface DateInputProps
   /** Prop to specify the aria-labelledby attribute of the date picker */
   datePickerAriaLabelledBy?: string;
 }
-
-let deprecateDisabledDaysWarnTriggered = false;
-let deprecateSelectedDaysWarnTriggered = false;
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
   (
@@ -153,22 +151,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     }: DateInputProps,
     ref,
   ) => {
-    if (!deprecateDisabledDaysWarnTriggered && pickerProps?.disabledDays) {
-      deprecateDisabledDaysWarnTriggered = true;
-      Logger.deprecate(
-        'The `disabledDays` prop has been deprecated as it is currently no longer available in `DayPickerProps` from "react-day-picker".' +
-          "Please use the `disabled` prop instead.",
-      );
-    }
-
-    if (!deprecateSelectedDaysWarnTriggered && pickerProps?.selectedDays) {
-      deprecateSelectedDaysWarnTriggered = true;
-      Logger.deprecate(
-        'The `selectedDays` prop has been deprecated as it is currently no longer available in `DayPickerProps` from "react-day-picker".' +
-          "Please use the `selected` prop instead.",
-      );
-    }
-
     const wrapperRef = useRef<HTMLDivElement>(null);
     const parentRef = useRef<HTMLElement | null>(null);
     const internalInputRef = useRef<HTMLInputElement | null>(null);
@@ -492,7 +474,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       return value;
     };
 
-    const marginProps = useFormSpacing(rest);
+    const marginProps = filterStyledSystemMarginProps(rest);
 
     return (
       <StyledDateInput

@@ -4,8 +4,7 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import { FieldsetStyle, StyledLegend } from "./fieldset.style";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import FormSpacingProvider from "../../__internal__/form-spacing-provider";
-import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
+import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export interface FieldsetProps extends MarginProps, TagProps {
   /** Child elements */
@@ -26,7 +25,7 @@ export const Fieldset = ({
   ...rest
 }: FieldsetProps) => {
   const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
-  const marginProps = useFormSpacing(rest);
+  const marginProps = filterStyledSystemMarginProps(rest);
   const { validationRedesignOptIn } = useContext(NewValidationContext);
 
   useEffect(() => {
@@ -56,13 +55,7 @@ export const Fieldset = ({
           {legend}
         </StyledLegend>
       )}
-      {validationRedesignOptIn ? (
-        children
-      ) : (
-        <FormSpacingProvider marginBottom={undefined}>
-          {children}
-        </FormSpacingProvider>
-      )}
+      {children}
     </FieldsetStyle>
   );
 };

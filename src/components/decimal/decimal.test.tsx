@@ -1116,7 +1116,10 @@ describe("when the component is uncontrolled", () => {
   it("renders a negative value with correct formatting when the `it` locale is set", () => {
     render(<Decimal defaultValue="-1234.56" locale="it" />);
 
-    expect(screen.getByRole("textbox")).toHaveValue("-1.234,56");
+    const formatter = new Intl.NumberFormat("it", { minimumFractionDigits: 2 });
+    const formatted = formatter.format(-1234.56);
+
+    expect(screen.getByRole("textbox")).toHaveValue(formatted);
     expect(screen.getByTestId("hidden-input")).toHaveValue("-1234.56");
   });
 

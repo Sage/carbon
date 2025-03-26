@@ -40,6 +40,7 @@ const BoldButton = ({ isActive, namespace }: FormattingButtonProps) => {
       aria-pressed={isActive}
       data-role={`${namespace}-bold-button`}
       tabIndex={0}
+      className="toolbar-button"
     />
   );
 };

@@ -1,4 +1,12 @@
-import React, { useContext, useState, useEffect, useRef, useMemo } from "react";
+import React, {
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
@@ -38,33 +46,21 @@ export const ALLOWED_DATE_FORMATS = [
   ["mm", "yyyy"],
 ] as const;
 
-export interface DayMonthDate {
-  dd: string;
-  mm: string;
+export interface NumeralDateValue {
+  dd?: string;
+  mm?: string;
+  yyyy?: string;
 }
 
-export interface MonthYearDate {
-  mm: string;
-  yyyy: string;
-}
-
-export interface FullDate extends DayMonthDate {
-  yyyy: string;
-}
-
-export type NumeralDateObject = DayMonthDate | MonthYearDate | FullDate;
-
-export interface NumeralDateEvent<
-  DateType extends NumeralDateObject = FullDate,
-> {
+export interface NumeralDateEvent {
   target: {
     name?: string;
     id: string;
-    value: DateType;
+    value: NumeralDateValue;
   };
 }
 
-export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
+export interface NumeralDateProps
   extends ValidationProps,
     MarginProps,
     TagProps {
@@ -84,9 +80,9 @@ export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
   ['mm', 'yyyy'] */
   dateFormat?: ValidDateFormat;
   /** Default value for use in uncontrolled mode  */
-  defaultValue?: DateType;
+  defaultValue?: NumeralDateValue;
   /**  Value for use in controlled mode  */
-  value?: DateType;
+  value?: NumeralDateValue;
   /** When true, enables the internal errors to be displayed */
   enableInternalError?: boolean;
   /** When true, enables the internal warnings to be displayed */
@@ -115,9 +111,9 @@ export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
   /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing?: 1 | 2;
   /** Blur event handler */
-  onBlur?: (ev: NumeralDateEvent<DateType>) => void;
+  onBlur?: (ev: NumeralDateEvent) => void;
   /** Change event handler */
-  onChange?: (ev: NumeralDateEvent<DateType>) => void;
+  onChange?: (ev: NumeralDateEvent) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** Size of an input */
@@ -145,6 +141,11 @@ export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
 }
 
 export type ValidDateFormat = (typeof ALLOWED_DATE_FORMATS)[number];
+
+export type NumeralDateHandle = {
+  /* Programmatically focus the first input box. */
+  focus: () => void;
+} | null;
 
 const incorrectDateFormatMessage =
   "Forbidden prop dateFormat supplied to NumeralDate. " +
@@ -187,7 +188,7 @@ const getDaysInMonth = (month?: string, year?: string) => {
   return new Date(computedYear, +month, 0).getDate();
 };
 
-const validate = (locale: Locale, { dd, mm, yyyy }: Partial<FullDate>) => {
+const validate = (locale: Locale, { dd, mm, yyyy }: NumeralDateValue) => {
   const failed = {
     dd: "",
     mm: "",
@@ -221,354 +222,363 @@ const getDateLabel = (datePart: string, locale: Locale) => {
   }
 };
 
-export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
-  dateFormat = ["dd", "mm", "yyyy"],
-  defaultValue,
-  disabled,
-  error = "",
-  warning = "",
-  info,
-  id,
-  name,
-  onBlur,
-  onChange,
-  value,
-  validationOnLabel = false,
-  label,
-  labelInline,
-  labelWidth,
-  labelAlign,
-  fieldLabelsAlign,
-  labelHelp,
-  labelSpacing,
-  fieldHelp,
-  adaptiveLabelBreakpoint,
-  required,
-  isOptional,
-  readOnly,
-  size = "medium",
-  enableInternalError,
-  enableInternalWarning,
-  tooltipPosition,
-  helpAriaLabel,
-  dayRef,
-  monthRef,
-  yearRef,
-  ...rest
-}: NumeralDateProps<DateType>) => {
-  const locale = useLocale();
-  const { validationRedesignOptIn } = useContext(NewValidationContext);
-
-  const { current: uniqueId } = useRef(id || guid());
-  const inputIds = useRef({ dd: guid(), mm: guid(), yyyy: guid() });
-  const inputHintId = useRef(guid());
-  const isControlled = useRef(value !== undefined);
-  const initialValue = isControlled.current ? value : defaultValue;
-
-  const refs = useRef<(HTMLInputElement | null)[]>(dateFormat.map(() => null));
-
-  const [internalMessages, setInternalMessages] = useState<DateType>({
-    ...(Object.fromEntries(
-      dateFormat.map((datePart) => [datePart, ""]),
-    ) as Partial<FullDate> as DateType),
-  });
-
-  const hasCorrectDateFormat = useMemo(() => {
-    const isAllowed =
-      !dateFormat ||
-      ALLOWED_DATE_FORMATS.find(
-        (allowedDateFormat) =>
-          JSON.stringify(allowedDateFormat) === JSON.stringify(dateFormat),
-      );
-    return isAllowed;
-  }, [dateFormat]);
-
-  invariant(hasCorrectDateFormat, incorrectDateFormatMessage);
-
-  useEffect(() => {
-    const modeSwitchedMessage =
-      "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-      "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
-
-    invariant(
-      isControlled.current === (value !== undefined),
-      modeSwitchedMessage,
-    );
-  }, [value]);
-
-  const [dateValue, setDateValue] = useState<DateType>({
-    ...((initialValue ||
-      (Object.fromEntries(
-        dateFormat.map((datePart) => [datePart, ""]),
-      ) as Partial<FullDate>)) as DateType),
-  });
-
-  const createCustomEventObject = (
-    newValue: DateType,
-  ): NumeralDateEvent<DateType> => ({
-    target: {
+export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
+  (
+    {
+      dateFormat = ["dd", "mm", "yyyy"],
+      defaultValue,
+      disabled,
+      error = "",
+      warning = "",
+      info,
+      id,
       name,
-      id: uniqueId,
-      value: newValue,
+      onBlur,
+      onChange,
+      value,
+      validationOnLabel = false,
+      label,
+      labelInline,
+      labelWidth,
+      labelAlign,
+      fieldLabelsAlign,
+      labelHelp,
+      labelSpacing,
+      fieldHelp,
+      adaptiveLabelBreakpoint,
+      required,
+      isOptional,
+      readOnly,
+      size = "medium",
+      enableInternalError,
+      enableInternalWarning,
+      tooltipPosition,
+      helpAriaLabel,
+      dayRef,
+      monthRef,
+      yearRef,
+      ...rest
     },
-  });
-
-  const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const isValidKey =
-      Events.isNumberKey(event) ||
-      Events.isTabKey(event) ||
-      Events.isEnterKey(event) ||
-      event.key === "Delete" ||
-      event.key === "Backspace";
-
-    if (!isValidKey) {
-      event.preventDefault();
-    }
-  };
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    datePart: keyof NumeralDateObject,
+    ref,
   ) => {
-    const { value: newValue } = event.target;
+    const locale = useLocale();
+    const { validationRedesignOptIn } = useContext(NewValidationContext);
 
-    if (newValue.length <= datePart.length) {
-      const newDateValue: DateType = {
-        ...dateValue,
-        [datePart]: newValue,
-      };
-      setDateValue(newDateValue);
+    const { current: uniqueId } = useRef(id || guid());
+    const inputIds = useRef({ dd: guid(), mm: guid(), yyyy: guid() });
+    const inputHintId = useRef(guid());
+    const isControlled = useRef(value !== undefined);
+    const initialValue = isControlled.current ? value : defaultValue;
 
-      /* istanbul ignore else */
-      if (onChange) {
-        onChange(createCustomEventObject(newDateValue));
-      }
-    }
-  };
+    const refs = useRef<(HTMLInputElement | null)[]>(
+      dateFormat.map(() => null),
+    );
 
-  const handleBlur = () => {
-    const internalValidationEnabled =
-      enableInternalError || enableInternalWarning;
-    /* istanbul ignore else */
-    if (internalValidationEnabled) {
-      setInternalMessages((prev) => ({
-        ...prev,
-        ...validate(locale, dateValue),
-      }));
-    }
-    setTimeout(() => {
-      const hasBlurred = !refs.current.find(
-        (ref) => ref === document.activeElement,
+    useImperativeHandle(ref, () => ({
+      focus: () => {
+        refs.current[0]?.focus();
+      },
+    }));
+
+    const [internalMessages, setInternalMessages] = useState<NumeralDateValue>({
+      ...Object.fromEntries(dateFormat.map((datePart) => [datePart, ""])),
+    });
+
+    const hasCorrectDateFormat = useMemo(() => {
+      const isAllowed =
+        !dateFormat ||
+        ALLOWED_DATE_FORMATS.find(
+          (allowedDateFormat) =>
+            JSON.stringify(allowedDateFormat) === JSON.stringify(dateFormat),
+        );
+      return isAllowed;
+    }, [dateFormat]);
+
+    invariant(hasCorrectDateFormat, incorrectDateFormatMessage);
+
+    useEffect(() => {
+      const modeSwitchedMessage =
+        "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
+        "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
+
+      invariant(
+        isControlled.current === (value !== undefined),
+        modeSwitchedMessage,
       );
-      /* istanbul ignore else */
-      if (onBlur && hasBlurred) {
-        onBlur(createCustomEventObject(dateValue));
+    }, [value]);
+
+    const [dateValue, setDateValue] = useState<NumeralDateValue>({
+      ...(initialValue ||
+        Object.fromEntries(dateFormat.map((datePart) => [datePart, ""]))),
+    });
+
+    const createCustomEventObject = (
+      newValue: NumeralDateValue,
+    ): NumeralDateEvent => ({
+      target: {
+        name,
+        id: uniqueId,
+        value: newValue,
+      },
+    });
+
+    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+      const isValidKey =
+        Events.isNumberKey(event) ||
+        Events.isTabKey(event) ||
+        Events.isEnterKey(event) ||
+        event.key === "Delete" ||
+        event.key === "Backspace";
+
+      if (!isValidKey) {
+        event.preventDefault();
       }
-    }, 5);
-  };
+    };
 
-  const internalMessage = (
-    Object.keys(internalMessages) as (keyof DateType)[]
-  ).reduce(
-    (combinedMessage, datePart) =>
-      internalMessages[datePart]
-        ? `${combinedMessage + internalMessages[datePart]}\n`
-        : combinedMessage,
-    "",
-  );
-  const internalError = enableInternalError ? internalMessage + error : error;
+    const handleChange = (
+      event: React.ChangeEvent<HTMLInputElement>,
+      datePart: keyof NumeralDateValue,
+    ) => {
+      const { value: newValue } = event.target;
 
-  const internalWarning = enableInternalWarning
-    ? internalMessage + warning
-    : warning;
+      if (newValue.length <= datePart.length) {
+        const newDateValue = {
+          ...dateValue,
+          [datePart]: newValue,
+        };
+        setDateValue(newDateValue);
 
-  if (!deprecateUncontrolledWarnTriggered && !isControlled.current) {
-    deprecateUncontrolledWarnTriggered = true;
-    Logger.deprecate(
-      "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+        /* istanbul ignore else */
+        if (onChange) {
+          onChange(createCustomEventObject(newDateValue));
+        }
+      }
+    };
+
+    const handleBlur = () => {
+      const internalValidationEnabled =
+        enableInternalError || enableInternalWarning;
+      /* istanbul ignore else */
+      if (internalValidationEnabled) {
+        setInternalMessages((prev) => ({
+          ...prev,
+          ...validate(locale, dateValue),
+        }));
+      }
+      setTimeout(() => {
+        const hasBlurred = !refs.current.find(
+          (r) => r === document.activeElement,
+        );
+        /* istanbul ignore else */
+        if (onBlur && hasBlurred) {
+          onBlur(createCustomEventObject(dateValue));
+        }
+      }, 5);
+    };
+
+    const internalMessage = (
+      Object.keys(internalMessages) as (keyof NumeralDateValue)[]
+    ).reduce(
+      (combinedMessage, datePart) =>
+        internalMessages[datePart]
+          ? `${combinedMessage + internalMessages[datePart]}\n`
+          : combinedMessage,
+      "",
     );
-  }
+    const internalError = enableInternalError ? internalMessage + error : error;
 
-  const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
-  let inline: boolean | undefined = labelInline;
-  if (adaptiveLabelBreakpoint) {
-    inline = largeScreen;
-  }
+    const internalWarning = enableInternalWarning
+      ? internalMessage + warning
+      : warning;
 
-  const handleRef = (
-    element: HTMLInputElement | null,
-    index: number,
-    inputRef: React.ForwardedRef<HTMLInputElement> | undefined,
-  ) => {
-    refs.current[index] = element;
-    if (!inputRef) {
-      return;
+    if (!deprecateUncontrolledWarnTriggered && !isControlled.current) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+      );
     }
-    if (typeof inputRef === "function") {
-      inputRef(element);
-    } else {
-      inputRef.current = element;
+
+    const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
+    let inline: boolean | undefined = labelInline;
+    if (adaptiveLabelBreakpoint) {
+      inline = largeScreen;
     }
-  };
 
-  const { validationId, fieldHelpId, ariaDescribedBy } = useInputAccessibility({
-    id: uniqueId,
-    // we still want to add the validationId to aria-describedby with the legacy validation
-    validationRedesignOptIn: true,
-    error: internalError,
-    warning: internalWarning,
-    info,
-    fieldHelp,
-  });
+    const handleRef = (
+      element: HTMLInputElement | null,
+      index: number,
+      inputRef: React.ForwardedRef<HTMLInputElement> | undefined,
+    ) => {
+      refs.current[index] = element;
+      if (!inputRef) {
+        return;
+      }
+      if (typeof inputRef === "function") {
+        inputRef(element);
+      } else {
+        inputRef.current = element;
+      }
+    };
 
-  const combinedAriaDescribedBy = [ariaDescribedBy, inputHintId.current]
-    .filter(Boolean)
-    .join(" ");
+    const { validationId, fieldHelpId, ariaDescribedBy } =
+      useInputAccessibility({
+        id: uniqueId,
+        // we still want to add the validationId to aria-describedby with the legacy validation
+        validationRedesignOptIn: true,
+        error: internalError,
+        warning: internalWarning,
+        info,
+        fieldHelp,
+      });
 
-  const renderInputs = () => {
-    return (
-      <StyledNumeralDate onKeyDown={onKeyDown}>
-        {dateFormat.map((datePart, index) => {
-          const isEnd = index === dateFormat.length - 1;
-          let inputRef: React.ForwardedRef<HTMLInputElement> | undefined;
+    const combinedAriaDescribedBy = [ariaDescribedBy, inputHintId.current]
+      .filter(Boolean)
+      .join(" ");
 
-          const validation = internalError || internalWarning || info;
-          const validationInField =
-            !validationRedesignOptIn &&
-            typeof validation === "string" &&
-            validation !== "";
+    const renderInputs = () => {
+      return (
+        <StyledNumeralDate onKeyDown={onKeyDown}>
+          {dateFormat.map((datePart, index) => {
+            const isEnd = index === dateFormat.length - 1;
+            let inputRef: React.ForwardedRef<HTMLInputElement> | undefined;
 
-          switch (datePart.slice(0, 2)) {
-            case "dd":
-              inputRef = dayRef;
-              break;
-            case "mm":
-              inputRef = monthRef;
-              break;
-            case "yy":
-              inputRef = yearRef;
-              break;
-            /* istanbul ignore next */
-            default:
-              break;
-          }
+            const validation = internalError || internalWarning || info;
+            const validationInField =
+              !validationRedesignOptIn &&
+              typeof validation === "string" &&
+              validation !== "";
 
-          return (
-            <NumeralDateContext.Provider
-              value={{ disableErrorBorder: true }}
-              key={datePart}
-            >
-              <StyledDateField
+            switch (datePart.slice(0, 2)) {
+              case "dd":
+                inputRef = dayRef;
+                break;
+              case "mm":
+                inputRef = monthRef;
+                break;
+              case "yy":
+                inputRef = yearRef;
+                break;
+              /* istanbul ignore next */
+              default:
+                break;
+            }
+
+            return (
+              <NumeralDateContext.Provider
+                value={{ disableErrorBorder: true }}
                 key={datePart}
-                size={size}
-                isYearInput={datePart.length === 4}
-                hasValidationIconInField={
-                  !validationOnLabel && isEnd && validationInField
-                }
               >
-                <Textbox
-                  id={inputIds.current[datePart]}
-                  label={getDateLabel(datePart, locale)}
-                  labelAlign={fieldLabelsAlign}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  error={!!internalError}
-                  warning={!!internalWarning}
-                  info={!!info}
+                <StyledDateField
+                  key={datePart}
                   size={size}
-                  value={dateValue[datePart as keyof NumeralDateObject]}
-                  onChange={(e) =>
-                    handleChange(e, datePart as keyof NumeralDateObject)
+                  isYearInput={datePart.length === 4}
+                  hasValidationIconInField={
+                    !validationOnLabel && isEnd && validationInField
                   }
-                  onBlur={handleBlur}
-                  ref={(element) => handleRef(element, index, inputRef)}
-                  {...(isEnd &&
-                    !validationOnLabel &&
-                    !validationRedesignOptIn && {
-                      error: internalError,
-                      warning: internalWarning,
-                      info,
-                    })}
-                  tooltipPosition={tooltipPosition}
-                  tooltipId={validationId}
-                />
-              </StyledDateField>
-            </NumeralDateContext.Provider>
-          );
-        })}
-      </StyledNumeralDate>
-    );
-  };
+                >
+                  <Textbox
+                    id={inputIds.current[datePart]}
+                    label={getDateLabel(datePart, locale)}
+                    labelAlign={fieldLabelsAlign}
+                    disabled={disabled}
+                    readOnly={readOnly}
+                    error={!!internalError}
+                    warning={!!internalWarning}
+                    info={!!info}
+                    size={size}
+                    value={dateValue[datePart]}
+                    onChange={(e) => handleChange(e, datePart)}
+                    onBlur={handleBlur}
+                    ref={(element) => handleRef(element, index, inputRef)}
+                    {...(isEnd &&
+                      !validationOnLabel &&
+                      !validationRedesignOptIn && {
+                        error: internalError,
+                        warning: internalWarning,
+                        info,
+                      })}
+                    tooltipPosition={tooltipPosition}
+                    tooltipId={validationId}
+                    my={0} // prevents any form spacing being applied
+                  />
+                </StyledDateField>
+              </NumeralDateContext.Provider>
+            );
+          })}
+        </StyledNumeralDate>
+      );
+    };
 
-  if (!validationRedesignOptIn) {
+    if (!validationRedesignOptIn) {
+      return (
+        <TooltipProvider helpAriaLabel={helpAriaLabel}>
+          <StyledFieldset
+            id={uniqueId}
+            legend={label}
+            legendMargin={{ mb: 0 }}
+            isRequired={required}
+            isOptional={isOptional}
+            isDisabled={disabled}
+            name={name}
+            error={validationOnLabel && internalError}
+            warning={validationOnLabel && internalWarning}
+            info={validationOnLabel && info}
+            inline={inline}
+            size={size}
+            labelHelp={labelHelp}
+            legendAlign={labelAlign}
+            legendWidth={labelWidth}
+            legendSpacing={labelSpacing}
+            validationId={validationId}
+            aria-describedby={validationOnLabel ? ariaDescribedBy : fieldHelpId}
+            {...filterStyledSystemMarginProps(rest)}
+            {...tagComponent("numeral-date", rest)}
+          >
+            <Box display="flex" flexDirection="column" mt={inline ? 0 : 1}>
+              {renderInputs()}
+              {fieldHelp && <FieldHelp id={fieldHelpId}>{fieldHelp}</FieldHelp>}
+            </Box>
+          </StyledFieldset>
+        </TooltipProvider>
+      );
+    }
+
     return (
-      <TooltipProvider helpAriaLabel={helpAriaLabel}>
-        <StyledFieldset
-          id={uniqueId}
-          legend={label}
-          legendMargin={{ mb: 0 }}
-          isRequired={required}
-          isOptional={isOptional}
-          isDisabled={disabled}
-          name={name}
-          error={validationOnLabel && internalError}
-          warning={validationOnLabel && internalWarning}
-          info={validationOnLabel && info}
-          inline={inline}
-          size={size}
-          labelHelp={labelHelp}
-          legendAlign={labelAlign}
-          legendWidth={labelWidth}
-          legendSpacing={labelSpacing}
-          validationId={validationId}
-          aria-describedby={validationOnLabel ? ariaDescribedBy : fieldHelpId}
-          {...filterStyledSystemMarginProps(rest)}
-          {...tagComponent("numeral-date", rest)}
-        >
-          <Box display="flex" flexDirection="column" mt={inline ? 0 : 1}>
-            {renderInputs()}
-            {fieldHelp && <FieldHelp id={fieldHelpId}>{fieldHelp}</FieldHelp>}
-          </Box>
-        </StyledFieldset>
-      </TooltipProvider>
-    );
-  }
-
-  return (
-    <StyledFieldset
-      id={uniqueId}
-      legend={label}
-      legendMargin={{ mb: 0 }}
-      legendAlign={labelAlign}
-      isRequired={required}
-      isOptional={isOptional}
-      isDisabled={disabled}
-      name={name}
-      aria-describedby={combinedAriaDescribedBy}
-      {...filterStyledSystemMarginProps(rest)}
-      {...tagComponent("numeral-date", rest)}
-    >
-      {labelHelp && (
-        <HintText align={labelAlign} id={inputHintId.current}>
-          {labelHelp}
-        </HintText>
-      )}
-
-      <Box position="relative" mt={labelHelp ? 0 : 1}>
-        {(internalError || internalWarning) && (
-          <>
-            <ValidationMessage
-              error={internalError}
-              warning={internalWarning}
-              validationId={validationId}
-            />
-            <ErrorBorder warning={!!(!internalError && internalWarning)} />
-          </>
+      <StyledFieldset
+        id={uniqueId}
+        legend={label}
+        legendMargin={{ mb: 0 }}
+        legendAlign={labelAlign}
+        isRequired={required}
+        isOptional={isOptional}
+        isDisabled={disabled}
+        name={name}
+        aria-describedby={combinedAriaDescribedBy}
+        {...filterStyledSystemMarginProps(rest)}
+        {...tagComponent("numeral-date", rest)}
+      >
+        {labelHelp && (
+          <HintText align={labelAlign} id={inputHintId.current}>
+            {labelHelp}
+          </HintText>
         )}
-        {renderInputs()}
-      </Box>
-    </StyledFieldset>
-  );
-};
+
+        <Box position="relative" mt={labelHelp ? 0 : 1}>
+          {(internalError || internalWarning) && (
+            <>
+              <ValidationMessage
+                error={internalError}
+                warning={internalWarning}
+                validationId={validationId}
+              />
+              <ErrorBorder warning={!!(!internalError && internalWarning)} />
+            </>
+          )}
+          {renderInputs()}
+        </Box>
+      </StyledFieldset>
+    );
+  },
+);
 
 export default NumeralDate;

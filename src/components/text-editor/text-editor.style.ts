@@ -24,6 +24,7 @@ export const StyledTextEditor = styled(Box)`
 `;
 
 export const StyledTextEditorWrapper = styled.div<StyledTextEditorWrapperProps>`
+  margin-bottom: var(--fieldSpacing);
   ${margin}
 `;
 

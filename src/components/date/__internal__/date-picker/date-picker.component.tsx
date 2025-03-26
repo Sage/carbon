@@ -34,13 +34,8 @@ type CustomRefObject<T> = {
 };
 
 export interface PickerProps
-  extends Omit<
-    DayPickerProps,
-    "mode" | "disabledDays" | "modifiers" | "selectedDays"
-  > {
-  disabledDays?: NonNullable<Date> | NonNullable<Date>[] | undefined[];
+  extends Omit<DayPickerProps, "mode" | "modifiers"> {
   modifiers?: Partial<Modifiers>;
-  selectedDays?: NonNullable<Date> | NonNullable<Date>[] | undefined[];
 }
 
 export interface DatePickerProps {
@@ -50,7 +45,10 @@ export interface DatePickerProps {
   minDate?: string;
   /** Maximum possible date YYYY-MM-DD */
   maxDate?: string;
-  /** Pass any props that match the DayPickerProps interface to override default behaviors */
+  /**
+   * Pass any props that match the DayPickerProps interface to override default behaviors
+   * See [DayPickerProps](https://daypicker.dev/api/type-aliases/DayPickerProps) for a full list of available props
+   * */
   pickerProps?: PickerProps;
   /** Element that the DatePicker will be displayed under */
   inputElement: CustomRefObject<HTMLElement>;

@@ -641,6 +641,27 @@ export const SecondaryNoWrap = () => {
   );
 };
 
+export const SecondaryButtonWhite = () => {
+  return (
+    <Box
+      display="flex"
+      flexDirection="row"
+      gap={2}
+      backgroundColor="var(--colorsUtilityYin100)"
+    >
+      <Button size="small" isWhite>
+        Small
+      </Button>
+      <Button ml={2} isWhite>
+        Medium
+      </Button>
+      <Button size="large" isWhite>
+        Large
+      </Button>
+    </Box>
+  );
+};
+
 export const TertiaryButton = () => {
   return (
     <Box>
