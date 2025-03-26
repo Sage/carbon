@@ -14,16 +14,17 @@ type StyledSplitButtonToggleProps = {
   disabled: boolean;
   displayed: boolean;
   size: "small" | "medium" | "large";
+  isWhite?: boolean;
 };
 
 const StyledSplitButtonToggle = styled(
   StyledButton,
 )<StyledSplitButtonToggleProps>`
-  ${({ buttonType, disabled, displayed, size }) => css`
+  ${({ buttonType, disabled, displayed, size, isWhite }) => css`
     border-top-left-radius: var(--borderRadius000);
     border-bottom-left-radius: var(--borderRadius000);
 
-    ${!disabled && displayed
+    ${!disabled && displayed && !isWhite
       ? css`
           background-color: var(--colorsActionMajor500);
           border-color: var(--colorsActionMajor500);
@@ -38,6 +39,23 @@ const StyledSplitButtonToggle = styled(
           }
         `
       : ""}
+
+    ${!disabled && displayed && isWhite
+      ? css`
+          background-color: var(--colorsActionMajorYang100);
+          border-color: var(--colorsActionMajorYang100);
+
+          &,
+          ${StyledIcon} {
+            color: var(--colorsYin100);
+          }
+
+          &:focus {
+            border-left-color: var(--colorsSemanticFocus500);
+          }
+        `
+      : ""}
+
     ${!disabled &&
     buttonType === "primary" &&
     `
@@ -73,6 +91,20 @@ const StyledSplitButtonToggle = styled(
         color: var(--colorsActionMajorYang100);
       }
     }
+
+    ${!disabled &&
+    isWhite &&
+    `
+      &:focus {
+        background-color: var(--colorsActionMajorYang100);
+        border-color: var(--colorsActionMajorYang100);
+
+        &,
+        ${StyledIcon} {
+          color: var(--colorsYin100);
+        }
+      }
+    `}
   `}
 `;
 

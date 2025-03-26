@@ -366,3 +366,22 @@ test("background scroll remains disabled when returning to outer dialog after cl
   expect(screen.getByRole("dialog")).toHaveAccessibleName("Outer dialog");
   expect(document.body).toHaveStyle("overflow: hidden");
 });
+
+test("should render with the highlight when 'ai' is passed in as the `highlightVariant`", () => {
+  render(
+    <Dialog open title="My dialog" highlightVariant="ai">
+      Inner content
+    </Dialog>,
+  );
+
+  const highlightElement = screen.getByRole("dialog");
+  expect(highlightElement).toHaveStyleRule(
+    "background",
+    "linear-gradient(90deg,#00D639 0%,#00D6DE 40%,#9D60FF 90%)",
+    {
+      modifier: "::before",
+    },
+  );
+
+  expect(highlightElement).toBeVisible();
+});

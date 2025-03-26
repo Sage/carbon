@@ -4,4 +4,5 @@ export type {
   TimeProps,
   TimeHandle,
   ToggleValue,
+  TimeInputEvent,
 } from "./time.component";

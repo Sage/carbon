@@ -98,6 +98,20 @@ export default (
       }
 
       ${
+        isWhite && (!isDisabled || !destructive)
+          ? `
+          border-color: var(--colorsActionMajorYang100);
+          ${makeColors("var(--colorsActionMajorYang100)")};
+          &:hover {
+            background: var(--colorsActionMajorYang100);
+            border-color: var(--colorsActionMajorYang100);
+            ${makeColors("var(--colorsYin100)")};
+          }
+          `
+          : ""
+      }
+
+      ${
         destructive
           ? `
             border-color: var(--colorsSemanticNegative500);
@@ -112,7 +126,7 @@ export default (
       }
 
       ${
-        isDisabled
+        isDisabled && !isWhite
           ? `
             border-color: var(--colorsActionDisabled500);
             ${makeColors("var(--colorsActionMajorYin030)")};
