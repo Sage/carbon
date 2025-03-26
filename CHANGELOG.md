@@ -1,3 +1,9 @@
+## [152.2.3](https://github.com/Sage/carbon/compare/v152.2.2...v152.2.3) (2025-03-26)
+
+### Bug Fixes
+
+* **time:** onChange event not giving the correct values for hours/minutes ([763ba0b](https://github.com/Sage/carbon/commit/763ba0bbf9017a5f5f55668513936aec15afc313))
+
 ## [152.2.2](https://github.com/Sage/carbon/compare/v152.2.1...v152.2.2) (2025-03-24)
 
 ### Bug Fixes
