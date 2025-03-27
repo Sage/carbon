@@ -55,5 +55,7 @@ export function getDocument(): Document | undefined {
  * @returns The global `navigator` object, if it exists.
  */
 export function getNavigator(): Navigator | undefined {
-  return typeof navigator !== "undefined" ? navigator : undefined;
+  return typeof navigator !== "undefined"
+    ? navigator
+    : /* istanbul ignore next: node versions >=21 have a partial implementation of navigatior */ undefined;
 }
