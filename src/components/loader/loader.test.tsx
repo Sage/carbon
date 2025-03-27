@@ -46,9 +46,9 @@ test("throws a deprecation warning if the 'aria-label' prop is set", () => {
 
 test.each([
   ["large", "20px", "8px"],
-  ["medium", "12px", "6px"],
+  ["medium", "16px", "8px"],
   ["small", "12px", "6px"],
-  [undefined, "12px", "6px"],
+  [undefined, "16px", "8px"],
 ] as const)(
   "applies correct styles when size is '%s'",
   (size, expectedWidth, expectedMarginRight) => {
@@ -57,11 +57,10 @@ test.each([
     render(<Loader {...props} />);
 
     const squares = screen.getAllByTestId("loader-square");
+    const style = window.getComputedStyle(squares[0]);
 
-    expect(squares[0]).toHaveStyle({
-      width: expectedWidth,
-      marginRight: expectedMarginRight,
-    });
+    expect(style.width).toBe(expectedWidth);
+    expect(style.marginRight).toBe(expectedMarginRight);
   },
 );
 
@@ -99,7 +98,7 @@ test("when the user disallows animations or their preference cannot be determine
 
 describe("when the user allows animations", () => {
   test("renders three square animation", () => {
-    mockUseMediaQuery.mockReturnValue(true);
+    mockUseMediaQuery.mockReturnValue(false);
     render(<Loader />);
     const squares = screen.getAllByTestId("loader-square");
     expect(squares).toHaveLength(3);

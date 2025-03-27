@@ -3,15 +3,22 @@ import { render, screen } from "@testing-library/react";
 import Switch from "../switch.component";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
-jest.mock("../../../hooks/useMediaQuery", () => {
-  return jest.fn(() => true);
-});
+jest.mock("../../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
 
 beforeEach(() => {
-  const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
-    typeof useMediaQuery
-  >;
-  mockUseMediaQuery.mockReturnValueOnce(false);
+  jest.clearAllMocks();
+  mockUseMediaQuery.mockReturnValue(true);
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
 });
 
 test("when `loading` is true, the correct Loader styles are applied", () => {
@@ -26,7 +33,9 @@ test("when `loading` is true, the correct Loader styles are applied", () => {
   });
 });
 
-test("when `loading` is true, applies the correct LoaderSquare styles", async () => {
+test("when `loading` is true and media query doesn't match, applies fallback LoaderSquare styles", async () => {
+  mockUseMediaQuery.mockReturnValueOnce(false);
+
   render(<Switch onChange={() => {}} loading />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
@@ -37,6 +46,7 @@ test("when `loading` is true, applies the correct LoaderSquare styles", async ()
 });
 
 test("when `loading` is true and Switch `size` is large, the correct LoaderSquare styles are applied", async () => {
+  mockUseMediaQuery.mockReturnValue(false);
   render(<Switch onChange={() => {}} size="large" loading />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
