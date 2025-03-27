@@ -40,6 +40,12 @@ export default {
         type: "select",
       },
     },
+    highlightVariant: {
+      options: ["default", "ai"],
+      control: {
+        type: "select",
+      },
+    },
   },
 };
 

@@ -6,6 +6,61 @@ import I18nProvider from "../i18n-provider";
 import enGB from "../../locales/en-gb";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
+describe("icon", () => {
+  it("renders with 'info' icon when variant is 'info", () => {
+    render(<Message variant="info" />);
+
+    const infoIcon = screen.getByTestId("category-icon");
+
+    expect(infoIcon).toBeVisible();
+    expect(infoIcon).toHaveAttribute("type", "info");
+  });
+
+  it("renders with 'tick_circle' icon when variant is 'success'", () => {
+    render(<Message variant="success" />);
+
+    const successIcon = screen.getByTestId("category-icon");
+
+    expect(successIcon).toBeVisible();
+    expect(successIcon).toHaveAttribute("type", "tick_circle");
+  });
+
+  it("renders with 'info' icon when variant is 'neutral'", () => {
+    render(<Message variant="neutral" />);
+
+    const neutralIcon = screen.getByTestId("category-icon");
+
+    expect(neutralIcon).toBeVisible();
+    expect(neutralIcon).toHaveAttribute("type", "info");
+  });
+
+  it("renders with 'warning' icon when variant is 'warning'", () => {
+    render(<Message variant="warning" />);
+
+    const warningIcon = screen.getByTestId("category-icon");
+
+    expect(warningIcon).toBeVisible();
+    expect(warningIcon).toHaveAttribute("type", "warning");
+  });
+
+  it("renders with 'error' icon when variant is 'error'", () => {
+    render(<Message variant="error" />);
+
+    const errorIcon = screen.getByTestId("category-icon");
+
+    expect(errorIcon).toBeVisible();
+    expect(errorIcon).toHaveAttribute("type", "error");
+  });
+
+  it("renders with 'ai' icon SVG when variant is 'ai", () => {
+    render(<Message variant="ai" />);
+
+    const aiSvg = screen.getByTestId("ai-icon");
+
+    expect(aiSvg).toBeVisible();
+  });
+});
+
 test("renders with provided children", () => {
   render(<Message>Message</Message>);
 
@@ -138,9 +193,10 @@ test("renders with expected styles when `transparent` is true", () => {
     border: "none",
     background: "transparent",
   });
-  expect(screen.getByTestId("message-content")).toHaveStyle({
-    padding: "15px 50px 15px 10px",
-  });
+  expect(screen.getByTestId("message-content")).toHaveStyleRule(
+    "padding",
+    "var(--spacing200)",
+  );
 });
 
 test("renders with provided width when `width` is provided", () => {

@@ -1,3 +1,38 @@
+## [152.5.0](https://github.com/Sage/carbon/compare/v152.4.0...v152.5.0) (2025-03-26)
+
+### Features
+
+* **vertical-menu-full-screen:** add slide in animation on menu open/close ([cba0753](https://github.com/Sage/carbon/commit/cba0753708b605e4ca14fa3a14b708dfd3a8477c))
+
+### Bug Fixes
+
+* **vertical-menu-full-screen:** close icon size incompatibility warning ([91cad0a](https://github.com/Sage/carbon/commit/91cad0aaf8f96256e1fd4569f1aa61bec460cf42))
+
+## [152.4.0](https://github.com/Sage/carbon/compare/v152.3.1...v152.4.0) (2025-03-26)
+
+### Features
+
+* **dialog:** add highlight variant prop to dialog ([a0d4508](https://github.com/Sage/carbon/commit/a0d45081bf2105de3b0b84dcfeeaf7cb126aa4c3))
+
+## [152.3.1](https://github.com/Sage/carbon/compare/v152.3.0...v152.3.1) (2025-03-26)
+
+### Bug Fixes
+
+* **hr:** make width 100% ([d9daf38](https://github.com/Sage/carbon/commit/d9daf38752565411df9e65bde2747977c31200d9)), closes [#6772](https://github.com/Sage/carbon/issues/6772)
+
+## [152.3.0](https://github.com/Sage/carbon/compare/v152.2.3...v152.3.0) (2025-03-26)
+
+### Features
+
+* **message:** add ai variant ([156ea5d](https://github.com/Sage/carbon/commit/156ea5df11201cbdfe1816bfc4211e2964dcb9a8))
+* **message:** refine layout and align with Design System ([6c38017](https://github.com/Sage/carbon/commit/6c380170e8f05e3da6cfed2df884c577a824b648))
+
+## [152.2.3](https://github.com/Sage/carbon/compare/v152.2.2...v152.2.3) (2025-03-26)
+
+### Bug Fixes
+
+* **time:** onChange event not giving the correct values for hours/minutes ([763ba0b](https://github.com/Sage/carbon/commit/763ba0bbf9017a5f5f55668513936aec15afc313))
+
 ## [152.2.2](https://github.com/Sage/carbon/compare/v152.2.1...v152.2.2) (2025-03-24)
 
 ### Bug Fixes

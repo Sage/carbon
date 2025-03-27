@@ -17,6 +17,7 @@ import VerticalMenuFullScreenContext from "./__internal__/vertical-menu-full-scr
 import { getDocument } from "../../../__internal__/dom/globals";
 import Events from "../../../__internal__/utils/helpers/events/events";
 import useModalManager from "../../../hooks/__internal__/useModalManager";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 export interface VerticalMenuFullScreenProps extends TagProps {
   /** An aria-label attribute for the menu */
@@ -48,6 +49,10 @@ export const VerticalMenuFullScreen = ({
 
   const menuWrapperRef = useRef<HTMLDivElement | null>(null);
 
+  const reduceMotion = !useMediaQuery(
+    "screen and (prefers-reduced-motion: no-preference)",
+  );
+
   const handleKeyDown = useCallback(
     (ev: React.KeyboardEvent<HTMLButtonElement> | KeyboardEvent) => {
       // istanbul ignore else
@@ -68,14 +73,13 @@ export const VerticalMenuFullScreen = ({
     focusCallToActionElement: safeDocument?.activeElement as HTMLElement,
   });
 
-  // TODO remove this as part of FE-5650
-  if (!isOpen) return null;
-
   return (
     <Portal>
       <FocusTrap isOpen={isOpen} wrapperRef={menuWrapperRef}>
         <StyledVerticalMenuFullScreen
           ref={menuWrapperRef}
+          isOpen={isOpen}
+          prefersReducedMotion={reduceMotion}
           scrollVariant="light"
           as="nav"
           aria-label={ariaLabel}
@@ -99,8 +103,6 @@ export const VerticalMenuFullScreen = ({
               <Icon
                 type="close"
                 color="var(--colorsComponentsLeftnavWinterStandardContent)"
-                bgSize="small"
-                fontSize="medium"
               />
             </IconButton>
           </Box>

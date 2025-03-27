@@ -12,7 +12,7 @@ const StyledHr = styled.hr<
   MarginProps & { height: "small" | "medium" | "large" }
 >`
   ${margin}
-  width: inherit;
+  width: 100%;
   border: 0;
   height: ${({ height }) => heightMap[height]}px;
   background: var(--colorsUtilityMajor100);

@@ -2,23 +2,29 @@ import React, { useRef } from "react";
 import { MarginProps } from "styled-system";
 
 import Typography from "../typography";
-import MessageStyle from "./message.style";
-import TypeIcon from "./__internal__/type-icon/type-icon.component";
-import MessageContent from "./__internal__/message-content/message-content.component";
+import Content from "../content";
+import MessageStyle, { MessageContent, TypeIconStyle } from "./message.style";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import Icon from "../icon";
 import IconButton from "../icon-button";
+import AiIcon from "../../__internal__/ai-icon";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
+
+export interface TypeIconProps {
+  transparent?: boolean;
+  variant: MessageVariant;
+}
 
 export type MessageVariant =
   | "error"
   | "info"
   | "success"
   | "warning"
-  | "neutral";
+  | "neutral"
+  | "ai";
 
 export interface MessageProps extends MarginProps, TagProps {
   /** Set the component's content */
@@ -64,49 +70,71 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
     }: MessageProps,
     ref,
   ) => {
-    const messageRef = useRef<HTMLDivElement | null>(null);
-    const refToPass = ref || messageRef;
+    const localRef = useRef<HTMLDivElement | null>(null);
+    const messageRef = ref || localRef;
+    const locale = useLocale();
 
     const marginProps = filterStyledSystemMarginProps(props);
-    const l = useLocale();
 
-    const renderCloseIcon = () => {
-      if (!showCloseIcon || !onDismiss) return null;
+    type IconType = "error" | "info" | "tick_circle" | "warning";
 
-      return (
-        <IconButton
-          data-element="close"
-          aria-label={closeButtonAriaLabel || l.message.closeButtonAriaLabel()}
-          onClick={onDismiss}
-        >
-          <Icon type="close" />
-        </IconButton>
-      );
+    const VARIANT_ICON_MAP: Record<Exclude<MessageVariant, "ai">, IconType> = {
+      neutral: "info",
+      success: "tick_circle",
+      error: "error",
+      warning: "warning",
+      info: "info",
     };
 
-    return open ? (
+    if (!open) {
+      return null;
+    }
+
+    return (
       <MessageStyle
         {...tagComponent("Message", props)}
         transparent={transparent}
         variant={variant}
         id={id}
         width={width}
-        ref={refToPass}
+        ref={messageRef}
         {...marginProps}
         tabIndex={-1}
       >
-        <TypeIcon variant={variant} transparent={transparent} />
-        <Typography screenReaderOnly>{l.message[variant]()}</Typography>
+        <TypeIconStyle variant={variant} transparent={transparent}>
+          {variant === "ai" ? (
+            <AiIcon data-role="ai-icon" />
+          ) : (
+            <Icon data-role="category-icon" type={VARIANT_ICON_MAP[variant]} />
+          )}
+        </TypeIconStyle>
+
+        <Typography screenReaderOnly>
+          {locale.message?.[variant]?.()}
+        </Typography>
         <MessageContent
-          showCloseIcon={showCloseIcon}
-          title={title}
-          reduceLeftPadding={transparent}
+          data-element="message-content"
+          data-role="message-content"
         >
-          {children}
+          {!showCloseIcon || !onDismiss ? (
+            <Content title={title}>{children}</Content>
+          ) : (
+            <>
+              <Content title={title}>{children}</Content>
+              <IconButton
+                data-element="close"
+                aria-label={
+                  closeButtonAriaLabel || locale.message.closeButtonAriaLabel()
+                }
+                onClick={onDismiss}
+              >
+                <Icon type="close" />
+              </IconButton>
+            </>
+          )}
         </MessageContent>
-        {renderCloseIcon()}
       </MessageStyle>
-    ) : null;
+    );
   },
 );
 

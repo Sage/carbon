@@ -28,6 +28,7 @@ const dialogSizes = {
 type StyledDialogProps = Required<Pick<DialogProps, "size">> & {
   dialogHeight?: string;
   backgroundColor: string;
+  highlightVariant?: string;
 };
 
 const DialogPositioner = styled.div`
@@ -66,6 +67,20 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   &:focus {
     outline: none;
   }
+
+  ${({ highlightVariant }) =>
+    highlightVariant === "ai" &&
+    `
+      &::before {
+        content: "";
+        position: absolute;
+        top: -8px;
+        height: 100px;
+        width: 100%;
+        z-index: -1;
+        background: linear-gradient(90deg, #00D639 0%, #00D6DE 40%, #9D60FF 90%);
+        border-radius: var(--borderRadius200) var(--borderRadius200) 0 0;
+      }`}
 
   ${({ backgroundColor }) => css`
     background-color: ${backgroundColor};
