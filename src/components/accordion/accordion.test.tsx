@@ -7,8 +7,10 @@ import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Textbox from "../textbox";
 import { Accordion } from ".";
 import AccordionGroup from "./accordion-group/accordion-group.component";
+import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
+jest.mock("../../__internal__/utils/logger");
 
 describe("Accordion", () => {
   it("renders with expected `data-` attributes on the root element", () => {
@@ -468,5 +470,30 @@ describe("AccordionGroup", () => {
         </AccordionGroup>,
       );
     }).not.toThrow();
+  });
+
+  test("a deprecation warning should be displayed if one or more AccordionGroups are rendered", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    const { rerender } = render(<AccordionGroup />);
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`AccordionGroup` is deprecated and will soon be removed.",
+    );
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+    rerender(
+      <>
+        <AccordionGroup />
+        <AccordionGroup />
+      </>,
+    );
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "`AccordionGroup` is deprecated and will soon be removed.",
+    );
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+    loggerSpy.mockRestore();
+    loggerSpy.mockClear();
   });
 });
