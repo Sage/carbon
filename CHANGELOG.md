@@ -1,3 +1,9 @@
+## [152.5.1](https://github.com/Sage/carbon/compare/v152.5.0...v152.5.1) (2025-03-27)
+
+### Bug Fixes
+
+* **menu-item:** ensure that items with a focusable child are styled with no additional padding ([b50ee24](https://github.com/Sage/carbon/commit/b50ee2465bb4b419a3814ad457e6debc497a3843)), closes [#7263](https://github.com/Sage/carbon/issues/7263)
+
 ## [152.5.0](https://github.com/Sage/carbon/compare/v152.4.0...v152.5.0) (2025-03-26)
 
 ### Features
