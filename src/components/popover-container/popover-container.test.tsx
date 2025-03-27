@@ -740,5 +740,14 @@ testStyledSystemPadding(
     </PopoverContainer>
   ),
   () => screen.getByRole("dialog"),
-  { p: "16px 24px" },
 );
+
+test("should render with default padding when no padding props are passed", () => {
+  render(
+    <PopoverContainer open title="foo">
+      Foo
+    </PopoverContainer>,
+  );
+
+  expect(screen.getByRole("dialog")).toHaveStyle("padding: 16px 24px;");
+});

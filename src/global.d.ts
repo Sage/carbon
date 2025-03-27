@@ -1,4 +1,4 @@
-import { ModalList } from "components/modal/__internal__/modal-manager";
+import { ModalList } from "./components/modal/__internal__/modal-manager";
 
 declare global {
   module "*.png";

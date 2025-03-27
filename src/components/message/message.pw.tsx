@@ -120,12 +120,7 @@ test.describe("Tests for Message component properties", () => {
     });
   });
 
-  (
-    [
-      [true, 50],
-      [false, 20],
-    ] as [boolean, number][]
-  ).forEach(([boolVal, paddingVal]) => {
+  ([true, false] as boolean[]).forEach((boolVal) => {
     test(`should check showCloseIcon when it's ${boolVal} for Message component`, async ({
       mount,
       page,
