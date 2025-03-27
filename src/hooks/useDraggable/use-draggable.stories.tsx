@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useMemo, useCallback, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import useDraggable, { UseDraggableHandle, DraggableProvider } from ".";
+import useDraggable, { UseDraggableHandle, DraggableProvider, DraggableProviderHandle } from ".";
 import Box from "../../components/box";
 import { ActionPopover, ActionPopoverItem } from "../../components/action-popover";
 
@@ -102,7 +102,7 @@ export const GetOrderCallback: Story = () => {
 
   const { draggableElement } = useDraggable({
     draggableItems: items,
-    getOrder: (itemIds, movedId) => console.log(itemIds, movedId),
+    getOrder: (draggableItemIds, movedItemId) => console.log(draggableItemIds, movedItemId),
   });
 
   return draggableElement;
@@ -611,3 +611,673 @@ export const DraggableProviderStory: Story = () => {
 };
 
 DraggableProviderStory.storyName = "Draggable Provider";
+
+export const DraggableProviderDragType: Story = () => {
+  const group1 = [
+    <div>Ed</div>,
+    <div>Andrew</div>,
+    <div>Igor</div>,
+    <div>Kuba</div>,
+    <div>Alexander</div>,
+    <div>Maciek</div>
+  ];
+
+  const group2 = [
+    <div>Sam</div>,
+    <div>Dan</div>,
+    <div>James</div>,
+    <div>Ian</div>,
+    <div>Robin</div>
+  ];
+
+  const group3 = [
+    <div>Nuria</div>,
+    <div>Chris</div>,
+    <div>Iga</div>,
+    <div>Damian</div>
+  ];
+
+  const group4 = [
+    <div>Katarzyna</div>,
+    <div>Tom</div>,
+    <div>Ian</div>,
+    <div>Michael</div>,
+    <div>Stephen</div>,
+    <div>John</div>,
+    <div>Harpal</div>
+  ];
+
+  const cssRules = `
+  /* Board layout */
+  #kanban-board {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    min-height: 600px;
+  }
+  
+  /* Make sure useDraggableContainer takes full size */
+  #kanban-board [data-element="use-draggable-container"] {
+    height: 550px;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  /* Column styling */
+  #kanban-board .column {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    min-height: 560px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Column header */
+  #kanban-board .column-header {
+    font-weight: 600;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eaeaea;
+    background-color: #f0f0f0;
+    margin: 0;
+  }
+  
+  /* Container styling */
+  #kanban-board [data-parent-container-id] {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 520px;
+    min-height: 40px;
+  }
+
+  /* Column color indicators */
+  #kanban-board .column-contributors-1 {
+    border-top: 3px solid #1890ff;
+  }
+
+  #kanban-board .column-contributors-2 {
+    border-top: 3px solid #722ed1;
+  }
+
+  #kanban-board .column-contributors-3 {
+    border-top: 3px solid #fa8c16;
+  }
+
+  #kanban-board .column-contributors-4 {
+    border-top: 3px solid #52c41a;
+  }
+
+  /* Container states */
+  #kanban-board [data-parent-container-id][data-drag-state="is-dragging"] {
+    background-color: #edf5ff;
+  }
+
+  #kanban-board [data-parent-container-id][data-drag-state="is-dragging-over"] {
+    background-color: #f2faf3;
+  }
+
+  /* Card styling - items within containers */
+  #kanban-board [data-parent-container-id] > div {
+    padding: 10px 12px;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    cursor: grab;
+    font-weight: 500;
+    user-select: none;
+    font-size: 14px;
+  }
+
+  /* Card states */
+  #kanban-board [data-parent-container-id] > div[data-is-dragging="true"] {
+    background-color: #f0f8ff;
+    border-color: #1890ff;
+    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.15);
+    transform: scale(1.02);
+    z-index: 10;
+  }
+
+  /* Card hover effect */
+  #kanban-board [data-parent-container-id] > div:hover:not([data-is-dragging="true"]) {
+    background-color: #fafafa;
+    border-color: #d9d9d9;
+  }`;
+
+  const { draggableElement: group1Container } = useDraggable({
+    draggableItems: group1,
+    containerId: "group1",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group2Container } = useDraggable({
+    draggableItems: group2,
+    containerId: "group2",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group3Container } = useDraggable({
+    draggableItems: group3,
+    containerId: "group3",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group4Container } = useDraggable({
+    draggableItems: group4,
+    containerId: "group4",
+    draggableItemStylingOptOut: true,
+  });
+
+  return (
+    <DraggableProvider dragType="onDrop">
+      <style>{cssRules}</style>
+      <div id="kanban-board" className="kanban-board">
+        <div className="column column-contributors-1">
+          <div className="column-header">Carbon Contributors 1</div>
+          {group1Container}
+        </div>
+        <div className="column column-contributors-2">
+          <div className="column-header">Carbon Contributors 2</div>
+          {group2Container}
+        </div>
+        <div className="column column-contributors-3">
+          <div className="column-header">Carbon Contributors 3</div>
+          {group3Container}
+        </div>
+        <div className="column column-contributors-4">
+          <div className="column-header">Carbon Contributors 4</div>
+          {group4Container}
+        </div>
+      </div>
+    </DraggableProvider>
+  );
+};
+
+DraggableProviderDragType.storyName = "Draggable Provider Drag Type";
+
+export const DraggableProviderGetOrderCallback: Story = () => {
+  const group1 = [
+    <div>Ed</div>,
+    <div>Andrew</div>,
+    <div>Igor</div>,
+    <div>Kuba</div>,
+    <div>Alexander</div>,
+    <div>Maciek</div>
+  ];
+
+  const group2 = [
+    <div>Sam</div>,
+    <div>Dan</div>,
+    <div>James</div>,
+    <div>Ian</div>,
+    <div>Robin</div>
+  ];
+
+  const group3 = [
+    <div>Nuria</div>,
+    <div>Chris</div>,
+    <div>Iga</div>,
+    <div>Damian</div>
+  ];
+
+  const group4 = [
+    <div>Katarzyna</div>,
+    <div>Tom</div>,
+    <div>Ian</div>,
+    <div>Michael</div>,
+    <div>Stephen</div>,
+    <div>John</div>,
+    <div>Harpal</div>
+  ];
+
+  const cssRules = `
+  /* Board layout */
+  #kanban-board {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    min-height: 600px;
+  }
+  
+  /* Make sure useDraggableContainer takes full size */
+  #kanban-board [data-element="use-draggable-container"] {
+    height: 550px;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  /* Column styling */
+  #kanban-board .column {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    min-height: 560px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Column header */
+  #kanban-board .column-header {
+    font-weight: 600;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eaeaea;
+    background-color: #f0f0f0;
+    margin: 0;
+  }
+  
+  /* Container styling */
+  #kanban-board [data-parent-container-id] {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 520px;
+    min-height: 40px;
+  }
+
+  /* Column color indicators */
+  #kanban-board .column-contributors-1 {
+    border-top: 3px solid #1890ff;
+  }
+
+  #kanban-board .column-contributors-2 {
+    border-top: 3px solid #722ed1;
+  }
+
+  #kanban-board .column-contributors-3 {
+    border-top: 3px solid #fa8c16;
+  }
+
+  #kanban-board .column-contributors-4 {
+    border-top: 3px solid #52c41a;
+  }
+
+  /* Container states */
+  #kanban-board [data-parent-container-id][data-drag-state="is-dragging"] {
+    background-color: #edf5ff;
+  }
+
+  #kanban-board [data-parent-container-id][data-drag-state="is-dragging-over"] {
+    background-color: #f2faf3;
+  }
+
+  /* Card styling - items within containers */
+  #kanban-board [data-parent-container-id] > div {
+    padding: 10px 12px;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    cursor: grab;
+    font-weight: 500;
+    user-select: none;
+    font-size: 14px;
+  }
+
+  /* Card states */
+  #kanban-board [data-parent-container-id] > div[data-is-dragging="true"] {
+    background-color: #f0f8ff;
+    border-color: #1890ff;
+    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.15);
+    transform: scale(1.02);
+    z-index: 10;
+  }
+
+  /* Card hover effect */
+  #kanban-board [data-parent-container-id] > div:hover:not([data-is-dragging="true"]) {
+    background-color: #fafafa;
+    border-color: #d9d9d9;
+  }`;
+
+  const { draggableElement: group1Container } = useDraggable({
+    draggableItems: group1,
+    containerId: "group1",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group2Container } = useDraggable({
+    draggableItems: group2,
+    containerId: "group2",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group3Container } = useDraggable({
+    draggableItems: group3,
+    containerId: "group3",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group4Container } = useDraggable({
+    draggableItems: group4,
+    containerId: "group4",
+    draggableItemStylingOptOut: true,
+  });
+
+  return (
+    <DraggableProvider getOrder={(containerIdOrder, movedItemId) => console.log(containerIdOrder, movedItemId)}>
+      <style>{cssRules}</style>
+      <div id="kanban-board" className="kanban-board">
+        <div className="column column-contributors-1">
+          <div className="column-header">Carbon Contributors 1</div>
+          {group1Container}
+        </div>
+        <div className="column column-contributors-2">
+          <div className="column-header">Carbon Contributors 2</div>
+          {group2Container}
+        </div>
+        <div className="column column-contributors-3">
+          <div className="column-header">Carbon Contributors 3</div>
+          {group3Container}
+        </div>
+        <div className="column column-contributors-4">
+          <div className="column-header">Carbon Contributors 4</div>
+          {group4Container}
+        </div>
+      </div>
+    </DraggableProvider>
+  );
+};
+
+DraggableProviderGetOrderCallback.storyName = "Draggable Provider getOrder callback";
+
+export const DraggableProviderManualReOrdering: Story = () => {
+  const draggableProviderHandle = useRef<DraggableProviderHandle | null>(null);
+  const [currentOrder, setCurrentOrder] = useState<number[]>([1, 2, 3, 4, 5, 6]);
+  const previousOrderRef = useRef(currentOrder);
+
+  useEffect(() => {
+    previousOrderRef.current = currentOrder;
+    console.log("Current Order:", currentOrder);
+    console.log("Previous Order:", previousOrderRef.current);
+  }, [currentOrder]);
+
+  const getIndex = (id: number) => previousOrderRef.current.indexOf(id);
+
+  const moveItem = (id: number, targetIndex: number, toListId?: string) => 
+    draggableProviderHandle.current?.reOrder({itemId: id, toIndex: targetIndex, toListId});
+  
+  const MOVE_ACTIONS = [
+    { label: "Move Up", getTargetIndex: (id: number) => getIndex(id) - 1, toListId: undefined },
+    { label: "Move Down", getTargetIndex: (id: number) => getIndex(id) + 1, toListId: undefined },
+    { label: "Move To Carbon Contributors 1", getTargetIndex: () => 0, toListId: "group1" },
+    { label: "Move To Carbon Contributors 2", getTargetIndex: () => 0, toListId: "group2" },
+    { label: "Move To Carbon Contributors 3", getTargetIndex: () => 0, toListId: "group3" },
+    { label: "Move To Carbon Contributors 4", getTargetIndex: () => 0, toListId: "group4" },
+  ];
+  
+  const actionPopover = (id: number) => (
+    <ActionPopover m={0}>
+      {MOVE_ACTIONS.map(({ label, getTargetIndex, toListId }) => (
+        <ActionPopoverItem 
+          key={`${id}-${label}`} 
+          onClick={() => moveItem(id, getTargetIndex(id), toListId)}
+        >
+          {label}
+        </ActionPopoverItem>
+      ))}
+    </ActionPopover>
+  );
+  
+  // Create card components with action popovers
+  const createCardWithPopover = (content: React.ReactNode, id: number) => (
+    <div className="draggable-card">
+      <div className="card-content">{content}</div>
+      <div className="card-actions">
+        {actionPopover(id)}
+      </div>
+    </div>
+  );
+  
+  const group1 = [
+    createCardWithPopover(<div id="1">Ed</div>, 1),
+    createCardWithPopover(<div id="2">Andrew</div>, 2),
+    createCardWithPopover(<div id="3">Igor</div>, 3),
+    createCardWithPopover(<div id="4">Kuba</div>, 4),
+    createCardWithPopover(<div id="5">Alexander</div>, 5),
+    createCardWithPopover(<div id="6">Maciek</div>, 6)
+  ];
+
+  const group2 = [
+    createCardWithPopover(<div>Sam</div>, 7),
+    createCardWithPopover(<div>Dan</div>, 8),
+    createCardWithPopover(<div>James</div>, 9),
+    createCardWithPopover(<div>Ian</div>, 10),
+    createCardWithPopover(<div>Robin</div>, 11)
+  ];
+
+  const group3 = [
+    createCardWithPopover(<div>Nuria</div>, 12),
+    createCardWithPopover(<div>Chris</div>, 13),
+    createCardWithPopover(<div>Iga</div>, 14),
+    createCardWithPopover(<div>Damian</div>, 15)
+  ];
+
+  const group4 = [
+    createCardWithPopover(<div>Katarzyna</div>, 16),
+    createCardWithPopover(<div>Tom</div>, 17),
+    createCardWithPopover(<div>Ian</div>, 18),
+    createCardWithPopover(<div>Michael</div>, 19),
+    createCardWithPopover(<div>Stephen</div>, 20),
+    createCardWithPopover(<div>John</div>, 21),
+    createCardWithPopover(<div>Harpal</div>, 22)
+  ];
+
+  const cssRules = `
+  /* Board layout */
+  #kanban-board {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    min-height: 600px;
+  }
+  
+  /* Make sure useDraggableContainer takes full size */
+  #kanban-board [data-element="use-draggable-container"] {
+    height: 550px;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  /* Column styling */
+  #kanban-board .column {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    min-height: 560px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Column header */
+  #kanban-board .column-header {
+    font-weight: 600;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eaeaea;
+    background-color: #f0f0f0;
+    margin: 0;
+  }
+  
+  /* Container styling */
+  #kanban-board [data-parent-container-id] {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 520px;
+    min-height: 40px;
+  }
+
+  /* Column color indicators */
+  #kanban-board .column-contributors-1 {
+    border-top: 3px solid #1890ff;
+  }
+
+  #kanban-board .column-contributors-2 {
+    border-top: 3px solid #722ed1;
+  }
+
+  #kanban-board .column-contributors-3 {
+    border-top: 3px solid #fa8c16;
+  }
+
+  #kanban-board .column-contributors-4 {
+    border-top: 3px solid #52c41a;
+  }
+
+  /* Container states */
+  #kanban-board [data-parent-container-id][data-drag-state="is-dragging"] {
+    background-color: #edf5ff;
+  }
+
+  #kanban-board [data-parent-container-id][data-drag-state="is-dragging-over"] {
+    background-color: #f2faf3;
+  }
+
+  /* Card styling - items within containers */
+  #kanban-board [data-parent-container-id] > div.draggable-card {
+    padding: 10px 12px;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    cursor: grab;
+    font-weight: 500;
+    user-select: none;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Card content */
+  #kanban-board .card-content {
+    flex-grow: 1;
+  }
+
+  /* Card actions */
+  #kanban-board .card-actions {
+    margin-left: 8px;
+  }
+
+  /* ActionPopover styling */
+  #kanban-board .card-actions [data-component="action-popover"] {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+  }
+
+  #kanban-board .card-actions [data-component="action-popover"]:hover {
+    background-color: #f0f0f0;
+  }
+
+  #kanban-board .card-actions [data-component="action-popover"] svg {
+    color: #666;
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ActionPopoverItem styling */
+  #kanban-board [data-component="action-popover-menu"] {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    border: 1px solid #eaeaea;
+  }
+
+  #kanban-board [data-component="action-popover-item"] {
+    padding: 8px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  #kanban-board [data-component="action-popover-item"]:hover {
+    background-color: #f5f5f5;
+  }
+
+  /* Card states */
+  #kanban-board [data-parent-container-id] > div[data-is-dragging="true"] {
+    background-color: #f0f8ff;
+    border-color: #1890ff;
+    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.15);
+    transform: scale(1.02);
+    z-index: 10;
+  }
+
+  /* Card hover effect */
+  #kanban-board [data-parent-container-id] > div:hover:not([data-is-dragging="true"]) {
+    background-color: #fafafa;
+    border-color: #d9d9d9;
+  }`;
+
+  const { draggableElement: group1Container } = useDraggable({
+    draggableItems: group1,
+    containerId: "group1",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group2Container } = useDraggable({
+    draggableItems: group2,
+    containerId: "group2",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group3Container } = useDraggable({
+    draggableItems: group3,
+    containerId: "group3",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group4Container } = useDraggable({
+    draggableItems: group4,
+    containerId: "group4",
+    draggableItemStylingOptOut: true,
+  });
+
+  return (
+    <DraggableProvider ref={draggableProviderHandle}>
+      <style>{cssRules}</style>
+      <div id="kanban-board" className="kanban-board">
+        <div className="column column-contributors-1">
+          <div className="column-header">Carbon Contributors 1</div>
+          {group1Container}
+        </div>
+        <div className="column column-contributors-2">
+          <div className="column-header">Carbon Contributors 2</div>
+          {group2Container}
+        </div>
+        <div className="column column-contributors-3">
+          <div className="column-header">Carbon Contributors 3</div>
+          {group3Container}
+        </div>
+        <div className="column column-contributors-4">
+          <div className="column-header">Carbon Contributors 4</div>
+          {group4Container}
+        </div>
+      </div>
+    </DraggableProvider>
+  );
+};
+
+DraggableProviderManualReOrdering.storyName = "Draggable Provider Manual Re-Ordering";
