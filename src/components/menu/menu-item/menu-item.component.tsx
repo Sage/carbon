@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useContext } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useContext,
+  useState,
+  useLayoutEffect,
+} from "react";
 import {
   FlexboxProps,
   LayoutProps,
@@ -180,9 +186,17 @@ export const MenuItem = ({
     ? submenuFocusId === menuItemId.current
     : undefined;
 
-  const ref = useRef<HTMLAnchorElement>(null);
-  const firstFocusableChild =
-    ref.current?.querySelector<HTMLElement>(focusableSelectors) ?? null;
+  const [ref, setRef] = useState<HTMLAnchorElement | null>(null);
+  const [firstFocusableChild, setFirstFocusableChild] =
+    useState<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    const firstFocusable =
+      ref?.querySelector<HTMLElement>(focusableSelectors) ?? null;
+    if (firstFocusable !== firstFocusableChild) {
+      setFirstFocusableChild(firstFocusable);
+    }
+  }, [ref]);
 
   useEffect(() => {
     const id = menuItemId.current;
@@ -207,7 +221,7 @@ export const MenuItem = ({
         return;
       }
 
-      ref.current?.focus();
+      ref?.focus();
     }
   }, [firstFocusableChild, focusFromMenu, focusFromSubmenu]);
 
@@ -230,7 +244,7 @@ export const MenuItem = ({
     onKeyDown?.(event);
 
     if (Events.isEscKey(event)) {
-      ref.current?.focus();
+      ref?.focus();
     }
 
     handleSubmenuKeyDown?.(event);
@@ -247,7 +261,7 @@ export const MenuItem = ({
     selected,
     onKeyDown: !inFullscreenView ? handleKeyDown : undefined,
     overrideColor,
-    ref,
+    ref: setRef,
   };
 
   if (
@@ -303,9 +317,7 @@ export const MenuItem = ({
   }
 
   const paddingProps = filterStyledSystemPaddingProps(rest);
-  const hasInput = !!ref.current?.querySelector<HTMLElement>(
-    "[data-element='input']",
-  );
+  const hasInput = !!ref?.querySelector<HTMLElement>("[data-element='input']");
 
   return (
     <StyledMenuItem

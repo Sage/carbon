@@ -94,6 +94,17 @@ export const Link = React.forwardRef<
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
     const isDisabled = disabled || batchSelectionDisabled;
 
+    const setRefs = React.useCallback(
+      (reference: HTMLAnchorElement) => {
+        if (!ref) return;
+        if (typeof ref === "object") ref.current = reference;
+        if (typeof ref === "function") {
+          ref(reference);
+        }
+      },
+      [ref],
+    );
+
     const renderLinkIcon = (currentAlignment = "left") => {
       const hasProperAlignment = icon && iconAlign === currentAlignment;
 
@@ -125,7 +136,7 @@ export const Link = React.forwardRef<
       onClick,
       disabled: isDisabled,
       target,
-      ref,
+      ref: setRefs,
       href,
       rel,
       "aria-label": ariaLabel,
