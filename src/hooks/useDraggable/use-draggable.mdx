@@ -22,7 +22,7 @@ an easier implementation and no additional dependencies.
 ## Import path
 
 ```javascript
-import useDraggable, { UseDraggableHandle, DraggableProvider } from "carbon-react/lib/hooks/useDraggable";
+import useDraggable, { UseDraggableHandle, DraggableProvider, DraggableProviderHandle } from "carbon-react/lib/hooks/useDraggable";
 ```
 
 ## The Anatomy of the `useDraggable` hook
@@ -173,14 +173,14 @@ Only use the `DraggableProvider` when needed, as it has the potential to introdu
 
 An array of items is passed to the `useDraggable` hook via the `draggableItems` prop, which returns a container with the items now wrapped in a draggable item.
 
-<Canvas of={useDraggableStories.BasicImplementation} />
+{/* <Canvas of={useDraggableStories.BasicImplementation} /> */}
 
 ### With dragType
 
 The drag type can be controlled with the `dragType` prop which can be either `"continuous"` or `"onDrop"`, the default is `"continuous"`.
 When `"continuous"` is set, the item will be dragged as soon as the user starts dragging it. When `"onDrop"` is set, the item will only be dragged when the user drops it.
 
-<Canvas of={useDraggableStories.DragType} />
+{/* <Canvas of={useDraggableStories.DragType} /> */}
 
 ### With Id's
 
@@ -188,14 +188,26 @@ The `useDraggable` hook will work as is, but an `id` can be passed to the contai
 
 Each individual draggable item will use any id which is present on its respective item when passed.
 
-<Canvas of={useDraggableStories.WithIds} />
+{/* <Canvas of={useDraggableStories.WithIds} /> */}
 
 ### getOrder callback
 
-The `getOrder` callback can be passed to the `useDraggable` hook, which returns the order of the draggable items, and the individually moved item via their `id`'s.
+The `getOrder` callback can be passed to the `useDraggable` hook, which returns the order of the draggable items (`draggableItemIds`), and the individually moved item (`movedItemId`) via their `id`'s.
 This is especially useful when an up to date order of the items is needed.
 
-<Canvas of={useDraggableStories.GetOrderCallback} />
+```jsx
+getOrder?: (
+    draggableItemIds?: (string | number | undefined)[],
+    movedItemId?: string | number | undefined,
+  ) => void;
+```
+`draggableItemIds` will return an array of the draggable items `id`'s in the order they have been dragged/re-ordered.
+
+```jsx
+["item1", "item2", "item3", "item4", "item5"]
+```
+
+{/* <Canvas of={useDraggableStories.GetOrderCallback} /> */}
 
 ### Manual re-ordering
 
@@ -209,14 +221,14 @@ beyond simple top/bottom movements in your draggable lists.
 
 This functionality gives users alternative ways to reposition elements when direct dragging isn't desired or possible.
 
-<Canvas of={useDraggableStories.ManualReOrdering} />
+{/* <Canvas of={useDraggableStories.ManualReOrdering} /> */}
 
 ### Container and Items Node Control
 
 When customisation over the node type of the draggable items and container are needed, the `containerNode` and `itemNode` props can be passed to the `useDraggable` hook.
 Both props accept any valid HTML node type.
 
-<Canvas of={useDraggableStories.ContainerAndItemsNode} />
+{/* <Canvas of={useDraggableStories.ContainerAndItemsNode} /> */}
 
 
 ### Default styling opt out
@@ -224,7 +236,7 @@ Both props accept any valid HTML node type.
 Default styling is added when an item is dragged. This can be disabled by passing the `disableDefaultStyling` prop to the `useDraggable` hook.
 We recommend using this prop when you want to handle the styling of the dragged item yourself.
 
-<Canvas of={useDraggableStories.DefaultStylingOptOut} />
+{/* <Canvas of={useDraggableStories.DefaultStylingOptOut} /> */}
 
 ### Drag State
 
@@ -238,16 +250,16 @@ We recommend  using the `data-drag-state` attribute to access the current drag s
 To specify styling you can use the `data-item-id` and/or the `data-parent-container-id` attributes, you can also use the `disableDefaultStyling` prop 
 to have complete control over all draggable related styling which is applied.
 
-<Canvas of={useDraggableStories.DragState} />
+{/* <Canvas of={useDraggableStories.DragState} /> */}
 
 ### Dragged Node
 
 The `useDraggable` hook also returns a `draggedNode` element reference, which can be used to access the dragged item's node.
 This can be used to implement custom behavior or styling when an item has been dragged.
 
-<Canvas of={useDraggableStories.DraggedNode} />
+{/* <Canvas of={useDraggableStories.DraggedNode} /> */}
 
-### Draggable Provider
+{/* ### Draggable Provider
 
 The `DraggableProvider` component is used to wrap multiple containers that need to communicate with each other. In this example the `providerId` prop is used to pass an ID to the `DraggableProvider`.
 Which then results in a `<div>` element being rendered with the ID applied, this is then used for specific targeted styling.
@@ -258,7 +270,55 @@ Styling is applied  with specific attribute targeting, leveraging all the attrib
 We also recommend ensuring containers have a suitable width and height to ensure the drop target is large enough to receive the dragged item. 
 This is especially important when the container is empty. In this example, containers are targeted and given set widths and heights using the attribute `data-element="use-draggable-container"`.
 
-<Canvas of={useDraggableStories.DraggableProviderStory} />
+<Canvas of={useDraggableStories.DraggableProviderStory} /> */}
+
+### Draggable Provider with Drag Type
+
+The drag type  on `DraggableProvider` can be controlled with the `dragType` prop which can be either `"continuous"` or `"onDrop"`. This will change the drag type when dragging within the same containers
+and when dragging between containers, the default is `"continuous"`. When `"continuous"` is set, the item will be dragged as soon as the user starts dragging it. 
+When `"onDrop"` is set, the item will only be dragged when the user drops it.
+
+
+<Canvas of={useDraggableStories.DraggableProviderDragType} />
+
+### Draggable Provider with getOrder callback
+
+The `getOrder` callback can be passed to the `DraggableProvider`, which returns the order of the draggable containers and their corresponding draggable items (`containerIdOrder`), as well as the individually moved item (`movedItemId`). 
+All via their `id`'s. This is especially useful when an up to date order of the `DraggableProvider`'s containers, and their subsequent items is needed.
+
+```jsx
+  getOrder?: (
+    containerIdOrder?: ContainerOrderType,
+    movedItemId?: string | number | undefined,
+  ) => void; 
+```
+
+A typical returned data structure for `containerIdOrder` would look like:
+
+```jsx 
+{
+  "group1": ["item1", "item2", "item3"],
+  "group2": ["item4", "item5", "item6"],
+  "group3": ["item7", "item8"],
+  "group4": ["item9", "item10", "item11", "item12"]
+}
+```
+
+<Canvas of={useDraggableStories.DraggableProviderGetOrderCallback} />
+
+### Draggable Provider with Manual re-ordering 
+
+The `DraggableProviderHandle` type provides an imperative handle for control over the draggable item's movement between containers. 
+Using a `ref`, you can access its `reOrder()` method to set manually re-order elements. 
+Pass two arguments: the `id` of the draggable item you want to move, the `id` of the container you'd like to move it to and the destination index with said container.
+
+We recommend using the `getOrder` callback to access the current order of items and containers. 
+This provides an up-to-date reference that's essential when implementing precise positioning,
+beyond simple top/bottom movements in your draggable lists or top/bottom movements to new containers.
+
+This functionality gives users alternative ways to reposition elements when direct dragging isn't desired or possible.
+
+<Canvas of={useDraggableStories.DraggableProviderManualReOrdering} />
 
 ## Parameters
 
