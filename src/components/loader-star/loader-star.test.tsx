@@ -40,6 +40,7 @@ test("should return null and render nothing when useMediaQuery returns undefined
 });
 
 test("component should have a visually hidden label for assistive technologies by default", () => {
+  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<LoaderStar />);
 
   const hiddenLabelElement = screen.getByTestId("hidden-label");
@@ -48,6 +49,7 @@ test("component should have a visually hidden label for assistive technologies b
 });
 
 test("renders a custom visually hidden label for assistive technologies to use, when loaderStarLabel prop is provided", () => {
+  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<LoaderStar loaderStarLabel="Responding..." />);
 
   const hiddenLabelElement = screen.getByTestId("hidden-label");
@@ -57,7 +59,7 @@ test("renders a custom visually hidden label for assistive technologies to use, 
 
 describe("when the component is rendered and the user prefers reduced motion", () => {
   it("should render the the LoaderStar label", () => {
-    mockUseMediaQuery.mockReturnValueOnce(false);
+    mockUseMediaQuery.mockReturnValueOnce(true);
 
     render(<LoaderStar />);
 
@@ -69,7 +71,7 @@ describe("when the component is rendered and the user prefers reduced motion", (
   });
 
   it("should not render the svg stars", () => {
-    mockUseMediaQuery.mockReturnValueOnce(false);
+    mockUseMediaQuery.mockReturnValueOnce(true);
 
     render(<LoaderStar />);
 

@@ -61,7 +61,7 @@ export const Loader = ({
 
   const loaderSquareProps = {
     isInsideButton,
-    isActive,
+    isActive: allowMotion,
     size,
     variant,
   };

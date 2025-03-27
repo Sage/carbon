@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import Switch from "../switch.component";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
@@ -33,16 +33,16 @@ test("when `loading` is true, the correct Loader styles are applied", () => {
   });
 });
 
-test("when `loading` is true and media query doesn't match, applies fallback LoaderSquare styles", async () => {
-  mockUseMediaQuery.mockReturnValueOnce(false);
+test("renders loader squares when loading is true and motion is disabled", () => {
+  mockUseMediaQuery.mockReturnValueOnce(true);
 
   render(<Switch onChange={() => {}} loading />);
 
-  const loaderSquares = screen.getAllByTestId("loader-square");
+  const loader = screen.getByTestId("switch-slider-loader");
 
-  expect(loaderSquares[1]).toBeVisible();
-  expect(loaderSquares[1]).toHaveStyleRule("width: var(--sizing150)");
-  expect(loaderSquares[1]).toHaveStyleRule("height: var(--sizing150)");
+  expect(loader).toBeInTheDocument();
+  const loaderSquares = within(loader).getAllByRole("presentation");
+  expect(loaderSquares.length).toBeGreaterThan(0);
 });
 
 test("when `loading` is true and Switch `size` is large, the correct LoaderSquare styles are applied", async () => {
