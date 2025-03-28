@@ -38,7 +38,7 @@ export const Loader = ({
   "aria-label": ariaLabel,
   size = "medium",
   isInsideButton,
-  isActive = true,
+  isActive,
   loaderLabel,
   ...rest
 }: LoaderProps) => {
@@ -73,8 +73,6 @@ export const Loader = ({
       {...filterStyledSystemMarginProps(rest)}
     >
       {allowMotion ? (
-        loaderLabel || ariaLabel || l.loader.loading()
-      ) : (
         <>
           {["#13A038", "#0092DB", "#8F49FE"].map((color) => (
             <StyledLoaderSquare
@@ -92,6 +90,8 @@ export const Loader = ({
             {loaderLabel || ariaLabel || l.loader.loading()}
           </Typography>
         </>
+      ) : (
+        loaderLabel || ariaLabel || l.loader.loading()
       )}
     </StyledLoader>
   );

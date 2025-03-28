@@ -16,7 +16,7 @@ const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
 
 beforeEach(() => {
   jest.clearAllMocks();
-  mockUseMediaQuery.mockReturnValue(false);
+  mockUseMediaQuery.mockReturnValue(true);
 });
 
 afterAll(() => {
@@ -98,7 +98,7 @@ test("when the user disallows animations or their preference cannot be determine
 
 describe("when the user allows animations", () => {
   test("renders three square animation", () => {
-    mockUseMediaQuery.mockReturnValue(false);
+    mockUseMediaQuery.mockReturnValue(true);
     render(<Loader />);
     const squares = screen.getAllByTestId("loader-square");
     expect(squares).toHaveLength(3);
