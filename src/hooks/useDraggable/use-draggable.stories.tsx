@@ -1030,48 +1030,53 @@ export const DraggableProviderManualReOrdering: Story = () => {
     </ActionPopover>
   );
   
-  // Create card components with action popovers
-  const createCardWithPopover = (content: React.ReactNode, id: number) => (
-    <div className="draggable-card">
-      <div className="card-content">{content}</div>
-      <div className="card-actions">
-        {actionPopover(id)}
+  // Modified card component with inline popover
+  const createCardWithPopover = (content: React.ReactNode, id: number) => {
+    // Extract the id and text content from the div
+    const divId = content.props.id;
+    const textContent = content.props.children;
+    
+    // Return a single div with text and popover side by side
+    return (
+      <div id={divId} className="draggable-card">
+        {textContent}
+        <span className="card-actions">{actionPopover(id)}</span>
       </div>
-    </div>
-  );
+    );
+  };
   
   const group1 = [
-    createCardWithPopover(<div id="1">Ed</div>, 1),
+    createCardWithPopover("ed", 1),
     createCardWithPopover(<div id="2">Andrew</div>, 2),
     createCardWithPopover(<div id="3">Igor</div>, 3),
     createCardWithPopover(<div id="4">Kuba</div>, 4),
     createCardWithPopover(<div id="5">Alexander</div>, 5),
     createCardWithPopover(<div id="6">Maciek</div>, 6)
   ];
-
+  
   const group2 = [
-    createCardWithPopover(<div>Sam</div>, 7),
-    createCardWithPopover(<div>Dan</div>, 8),
-    createCardWithPopover(<div>James</div>, 9),
-    createCardWithPopover(<div>Ian</div>, 10),
-    createCardWithPopover(<div>Robin</div>, 11)
+    createCardWithPopover(<div id="7">Sam</div>, 7),
+    createCardWithPopover(<div id="8">Dan</div>, 8),
+    createCardWithPopover(<div id="9">James</div>, 9),
+    createCardWithPopover(<div id="10">Ian</div>, 10),
+    createCardWithPopover(<div id="11">Robin</div>, 11)
   ];
-
+  
   const group3 = [
-    createCardWithPopover(<div>Nuria</div>, 12),
-    createCardWithPopover(<div>Chris</div>, 13),
-    createCardWithPopover(<div>Iga</div>, 14),
-    createCardWithPopover(<div>Damian</div>, 15)
+    createCardWithPopover(<div id="12">Nuria</div>, 12),
+    createCardWithPopover(<div id="13">Chris</div>, 13),
+    createCardWithPopover(<div id="14">Iga</div>, 14),
+    createCardWithPopover(<div id="15">Damian</div>, 15)
   ];
-
+  
   const group4 = [
-    createCardWithPopover(<div>Katarzyna</div>, 16),
-    createCardWithPopover(<div>Tom</div>, 17),
-    createCardWithPopover(<div>Ian</div>, 18),
-    createCardWithPopover(<div>Michael</div>, 19),
-    createCardWithPopover(<div>Stephen</div>, 20),
-    createCardWithPopover(<div>John</div>, 21),
-    createCardWithPopover(<div>Harpal</div>, 22)
+    createCardWithPopover(<div id="16">Katarzyna</div>, 16),
+    createCardWithPopover(<div id="17">Tom</div>, 17),
+    createCardWithPopover(<div id="18">Ian</div>, 18),
+    createCardWithPopover(<div id="19">Michael</div>, 19),
+    createCardWithPopover(<div id="20">Stephen</div>, 20),
+    createCardWithPopover(<div id="21">John</div>, 21),
+    createCardWithPopover(<div id="22">Harpal</div>, 22)
   ];
 
   const cssRules = `
@@ -1166,13 +1171,10 @@ export const DraggableProviderManualReOrdering: Story = () => {
     align-items: center;
   }
 
-  /* Card content */
-  #kanban-board .card-content {
-    flex-grow: 1;
-  }
-
   /* Card actions */
   #kanban-board .card-actions {
+    display: inline-flex;
+    align-items: center;
     margin-left: 8px;
   }
 

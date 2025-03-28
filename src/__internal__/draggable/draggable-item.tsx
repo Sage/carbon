@@ -64,37 +64,14 @@ const DraggableItem = forwardRef(
 
     useLayoutEffect(() => {
       // This runs after the component mounts and the children are rendered
-      const findFirstId = (element: HTMLElement): string | null => {
-        // Base case: If this element has an ID, return it
-        if (element.hasAttribute("id")) {
-          return element.getAttribute("id");
-        }
-        
-        // Traverse through all child elements
-        for (let i = 0; i < element.children.length; i++) {
-          const childId: string | null = findFirstId(element.children[i] as HTMLElement);
-          // If we found an ID in this branch, return it immediately
-          if (childId) {
-            return childId;
-          }
-        }
-        
-        // No ID found in this branch
-        return null;
-      };
-      
-      // Start the search if the ref exists
-      if (itemRef.current) {
-        const foundId: string | null = findFirstId(itemRef.current);
-        if (foundId) {
-          setFirstChildId(foundId);
-        }
+      if (itemRef.current && itemRef.current.children.length > 0) {
+        const firstChild = itemRef.current.children[0];
+        const id = firstChild.getAttribute("id");
+        setFirstChildId(id);
       }
     }, [itemRef]);
 
     // if the first child has an id which is intentionally passed (not a guid), use that otherwise use a provided uniqueId
-
-    // may need to change this so it traverses down until an id is found 
     const id =
       firstChildId && isGuid(firstChildId)
         ? uniqueId
