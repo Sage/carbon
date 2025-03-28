@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-import { StoryFn } from "@storybook/react";
+import { StoryFn, Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/test";
 
 import Decimal, { CustomEvent } from "./decimal.component";
 import {
@@ -13,6 +14,7 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
   title: "Decimal Input/Test",
+  excludeStories: ["meta"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -187,3 +189,69 @@ export const DecimalCustomOnChangeStory = (args: CommonTextboxArgs) => {
 };
 DecimalCustomOnChangeStory.storyName = "custom onChange";
 DecimalCustomOnChangeStory.args = commonArgs;
+
+// Play Functions
+const meta: Meta<typeof Decimal> = {
+  title: "Decimal",
+  component: Decimal,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof Decimal>;
+
+const DecimalDefaultComponent = () => {
+  const [state, setState] = useState("0.01");
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
+  };
+  return (
+    <>
+      <Decimal label="Decimal Input" value={state} onChange={setValue} />
+    </>
+  );
+};
+
+export const DecimalInteraction: Story = {
+  render: () => <DecimalDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const DecimalComponent = canvas.getByRole("textbox");
+
+    await userEvent.click(DecimalComponent);
+    await userEvent.clear(DecimalComponent);
+    await userEvent.type(DecimalComponent, "222", { delay: 100 });
+    await userEvent.tab();
+  },
+};
+
+const DecimalLocaleDefaultComponent = () => {
+  const [state, setState] = useState("0.01");
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
+  };
+  return (
+    <>
+      <Decimal
+        label="Decimal Input with locale de"
+        value={state}
+        onChange={setValue}
+        locale="de"
+      />
+    </>
+  );
+};
+
+export const DecimalLocaleInteraction: Story = {
+  render: () => <DecimalLocaleDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const DecimalComponent = canvas.getByRole("textbox");
+
+    await userEvent.click(DecimalComponent);
+    await userEvent.clear(DecimalComponent);
+    await userEvent.type(DecimalComponent, "222", { delay: 100 });
+    await userEvent.tab();
+  },
+};

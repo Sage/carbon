@@ -1,4 +1,8 @@
 import React, { useState, useRef } from "react";
+import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within, expect } from "@storybook/test";
+import userInteractionPause from "../../../../.storybook/utils/user-interaction-pause";
+
 import Typography from "../../../components/typography";
 import Content from "../../../components/content";
 import { Select as SimpleSelect } from "../../../../src/components/select";
@@ -11,6 +15,7 @@ import { Select, Option, SimpleSelectProps } from "..";
 
 export default {
   component: Select,
+  excludeStories: ["meta"],
   title: "Select/Test",
   parameters: {
     info: { disable: true },
@@ -733,3 +738,84 @@ export const SimpleSelectWithAriaDescribedby = () => {
 
 SimpleSelectWithAriaDescribedby.storyName =
   "SimpleSelect with aria-describedby";
+
+// Play Functions
+const meta: Meta<typeof SimpleSelect> = {
+  title: "SplitButton",
+  component: SimpleSelect,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof SimpleSelect>;
+
+const SimpleSelectDefaultComponent = () => {
+  return (
+    <Box height={220}>
+      <Select name="simple" id="simple" label="color" labelInline>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+};
+
+export const SimpleSelectClick: Story = {
+  render: () => <SimpleSelectDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const SelectTextbox = canvas.getByRole("combobox");
+
+    await userEvent.click(SelectTextbox);
+
+    expect(SelectTextbox).toHaveFocus();
+  },
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "100vh", width: "80vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+
+SimpleSelectClick.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
+};
+
+export const SimpleSelectKeyboardNav: Story = {
+  render: () => <SimpleSelectDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const SelectTextbox = canvas.getByRole("combobox");
+
+    await userEvent.click(SelectTextbox);
+    await userInteractionPause(300);
+    await userEvent.keyboard("{ArrowDown}");
+    await userInteractionPause(300);
+    await userEvent.keyboard("{ArrowDown}");
+  },
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "100vh", width: "80vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+
+SimpleSelectKeyboardNav.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
+};
