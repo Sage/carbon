@@ -6,7 +6,7 @@ import SwitchSliderPanel from "./switch-slider-panel.style";
 import ValidationIcon from "../../../__internal__/validations/validation-icon.component";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import { ValidationProps } from "../../../__internal__/validations";
-import useMediaQuery from "../../../hooks/useMediaQuery";
+// import useMediaQuery from "../../../hooks/useMediaQuery";
 
 export interface SwitchSliderProps extends ValidationProps {
   checked?: boolean;
@@ -29,15 +29,15 @@ const SwitchSlider = ({
   isDarkBackground,
 }: SwitchSliderProps) => {
   const locale = useLocale();
-  const allowMotion = useMediaQuery(
-    "screen and (prefers-reduced-motion: no-preference)",
-  );
+  // const allowMotion = useMediaQuery(
+  //   "screen and (prefers-reduced-motion: no-preference)",
+  // );
   const onText = locale.switch.on();
   const offText = locale.switch.off();
 
-  if (allowMotion === undefined) {
-    return null;
-  }
+  // if (allowMotion === undefined) {
+  //   return null;
+  // }
 
   // Need to convert to uppercase to ensure hidden element
   // has same computed width as the visual text that's rendered
@@ -52,7 +52,7 @@ const SwitchSlider = ({
     checked,
     disabled,
     size,
-    allowMotion,
+    // allowMotion,
     error,
     warning,
     info,
