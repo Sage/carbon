@@ -1,28 +1,12 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Loader from ".";
-import useMediaQuery from "../../hooks/useMediaQuery";
 
-jest.mock("../../hooks/useMediaQuery", () => ({
-  __esModule: true,
-  default: jest.fn(),
-}));
-
-const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
-  typeof useMediaQuery
->;
-
-beforeEach(() => {
-  jest.clearAllMocks();
-  mockUseMediaQuery.mockReturnValue(true);
-});
-
-afterAll(() => {
-  jest.restoreAllMocks();
+jest.mock("../../hooks/useMediaQuery", () => {
+  return jest.fn(() => true);
 });
 
 it.each([0, 1, 2])("each loader square renders as expected", (index) => {
-  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<Loader />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
@@ -32,7 +16,6 @@ it.each([0, 1, 2])("each loader square renders as expected", (index) => {
 
 // These styling tests required for coverage
 test("when `size` prop is set to large, the expected width, height, and margin styles are applied", () => {
-  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<Loader size="large" />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
@@ -57,7 +40,6 @@ test("when `size` prop is set to large, the expected width, height, and margin s
 
 // These styling tests required for coverage
 test("when `size` prop is set to small, the expected width, height, and margin styles are applied", () => {
-  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<Loader size="small" />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
@@ -79,7 +61,6 @@ test("when `size` prop is set to small, the expected width, height, and margin s
 
 // These styling tests required for coverage
 test("when inside button, the expected white background colour is applied", () => {
-  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<Loader isInsideButton />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
@@ -99,7 +80,6 @@ test("when inside button, the expected white background colour is applied", () =
 
 // These styling tests required for coverage
 test("when inside button and `isActive` prop is false, the expected background colour is applied", () => {
-  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<Loader isInsideButton isActive={false} />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
