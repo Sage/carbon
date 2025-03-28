@@ -26,10 +26,21 @@ type Story = StoryObj<typeof Message>;
 
 export const Default: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   return (
     <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
-      <Message open={isOpen} onDismiss={() => setIsOpen(false)}>
+      {!isOpen && (
+        <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+          Open Message
+        </Button>
+      )}
+      <Message
+        open={isOpen}
+        onDismiss={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
+      >
         Some custom message
       </Message>
     </>
@@ -39,10 +50,22 @@ Default.storyName = "Default";
 
 export const WithTitle: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   return (
     <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
-      <Message title="Title" open={isOpen} onDismiss={() => setIsOpen(false)}>
+      {!isOpen && (
+        <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+          Open Message
+        </Button>
+      )}
+      <Message
+        title="Title"
+        open={isOpen}
+        onDismiss={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
+      >
         Some custom message
       </Message>
     </>
@@ -64,10 +87,22 @@ ShowCloseIcon.storyName = "Show Close Icon";
 
 export const Error: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   return (
     <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
-      <Message open={isOpen} onDismiss={() => setIsOpen(false)} variant="error">
+      {!isOpen && (
+        <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+          Open Message
+        </Button>
+      )}
+      <Message
+        open={isOpen}
+        onDismiss={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
+        variant="error"
+      >
         Some custom message
       </Message>
     </>
@@ -77,12 +112,20 @@ Error.storyName = "Error";
 
 export const Success: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   return (
     <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
+      {!isOpen && (
+        <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+          Open Message
+        </Button>
+      )}
       <Message
         open={isOpen}
-        onDismiss={() => setIsOpen(false)}
+        onDismiss={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
         variant="success"
       >
         Some custom message
@@ -94,12 +137,20 @@ Success.storyName = "Success";
 
 export const Warning: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   return (
     <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
+      {!isOpen && (
+        <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+          Open Message
+        </Button>
+      )}
       <Message
         open={isOpen}
-        onDismiss={() => setIsOpen(false)}
+        onDismiss={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
         variant="warning"
       >
         Some custom message
@@ -111,12 +162,20 @@ Warning.storyName = "Warning";
 
 export const Neutral: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   return (
     <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
+      {!isOpen && (
+        <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+          Open Message
+        </Button>
+      )}
       <Message
         open={isOpen}
-        onDismiss={() => setIsOpen(false)}
+        onDismiss={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
         variant="neutral"
       >
         Some custom message
@@ -128,10 +187,22 @@ Neutral.storyName = "Neutral";
 
 export const Ai: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   return (
     <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
-      <Message open={isOpen} onDismiss={() => setIsOpen(false)} variant="ai">
+      {!isOpen && (
+        <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+          Open Message
+        </Button>
+      )}
+      <Message
+        open={isOpen}
+        onDismiss={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
+        variant="ai"
+      >
         Some custom message
       </Message>
     </>
@@ -141,10 +212,22 @@ Ai.storyName = "Ai";
 
 export const Transparent: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   return (
     <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
-      <Message open={isOpen} onDismiss={() => setIsOpen(false)} transparent>
+      {!isOpen && (
+        <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+          Open Message
+        </Button>
+      )}
+      <Message
+        open={isOpen}
+        onDismiss={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
+        transparent
+      >
         Some custom message
       </Message>
     </>
@@ -154,12 +237,20 @@ Transparent.storyName = "Transparent";
 
 export const WithRichContent: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   return (
     <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
+      {!isOpen && (
+        <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+          Open Message
+        </Button>
+      )}
       <Message
         open={isOpen}
-        onDismiss={() => setIsOpen(false)}
+        onDismiss={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
         variant="warning"
         title={<Typography variant="h4">Title</Typography>}
       >
@@ -192,6 +283,7 @@ export const WithMargin: Story = () => {
     MessageTwo: true,
     MessageThree: true,
   });
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const displayButton = Object.values({ ...isOpen }).every(
     (value) => value === false,
@@ -200,6 +292,7 @@ export const WithMargin: Story = () => {
     <>
       {displayButton && (
         <Button
+          ref={buttonRef}
           onClick={() =>
             setIsOpen({
               MessageOne: true,
@@ -213,7 +306,16 @@ export const WithMargin: Story = () => {
       )}
       <Message
         open={isOpen.MessageOne}
-        onDismiss={() => setIsOpen({ ...isOpen, MessageOne: false })}
+        onDismiss={() => {
+          setIsOpen({ ...isOpen, MessageOne: false });
+          if (
+            Object.values({ ...isOpen, MessageOne: false }).every(
+              (value) => value === false,
+            )
+          ) {
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }
+        }}
         variant="warning"
         m={1}
       >
@@ -221,7 +323,16 @@ export const WithMargin: Story = () => {
       </Message>
       <Message
         open={isOpen.MessageTwo}
-        onDismiss={() => setIsOpen({ ...isOpen, MessageTwo: false })}
+        onDismiss={() => {
+          setIsOpen({ ...isOpen, MessageTwo: false });
+          if (
+            Object.values({ ...isOpen, MessageTwo: false }).every(
+              (value) => value === false,
+            )
+          ) {
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }
+        }}
         variant="warning"
         m={3}
       >
@@ -229,7 +340,16 @@ export const WithMargin: Story = () => {
       </Message>
       <Message
         open={isOpen.MessageThree}
-        onDismiss={() => setIsOpen({ ...isOpen, MessageThree: false })}
+        onDismiss={() => {
+          setIsOpen({ ...isOpen, MessageThree: false });
+          if (
+            Object.values({ ...isOpen, MessageThree: false }).every(
+              (value) => value === false,
+            )
+          ) {
+            setTimeout(() => buttonRef.current?.focus(), 0);
+          }
+        }}
         variant="warning"
         m="16px"
       >
@@ -242,7 +362,7 @@ WithMargin.storyName = "With Margin";
 
 export const WithFocus: Story = () => {
   const [isMessageOpen, setIsMessageOpen] = useState(true);
-
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const messageRef: React.Ref<HTMLDivElement> = useRef(null);
 
   useEffect(() => {
@@ -254,11 +374,16 @@ export const WithFocus: Story = () => {
   return (
     <>
       {!isMessageOpen && (
-        <Button onClick={() => setIsMessageOpen(true)}>Open Message</Button>
+        <Button ref={buttonRef} onClick={() => setIsMessageOpen(true)}>
+          Open Message
+        </Button>
       )}
       <Message
         open={isMessageOpen}
-        onDismiss={() => setIsMessageOpen(false)}
+        onDismiss={() => {
+          setIsMessageOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
         variant="error"
         mb={1}
         ref={messageRef}
