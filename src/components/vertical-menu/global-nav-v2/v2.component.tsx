@@ -1,4 +1,5 @@
 import React, {
+  useCallback,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -264,6 +265,7 @@ export const GlobalNavV2 = ({ height, items, ...rest }: GlobalNavV2Props) => {
   const [activeMenuItem, setActiveMenuItem] = useState<V2MenuItem | null>(null);
 
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const handleClose = (e: KeyboardEvent) => {
@@ -274,6 +276,17 @@ export const GlobalNavV2 = ({ height, items, ...rest }: GlobalNavV2Props) => {
       setActiveMenuItem(null);
     }
   };
+
+  const handleOutsideClick = useCallback((event: MouseEvent) => {
+    const notInContainer =
+      containerRef.current &&
+      !containerRef.current.contains(event.target as Node);
+
+    if (notInContainer) {
+      setActive(false);
+      setActiveMenuItem(null);
+    }
+  }, []);
 
   useEffect(() => {
     if (active) {
@@ -287,9 +300,20 @@ export const GlobalNavV2 = ({ height, items, ...rest }: GlobalNavV2Props) => {
     };
   }, [active]);
 
+  useEffect(() => {
+    window.addEventListener("click", handleOutsideClick);
+
+    return function cleanup() {
+      window.removeEventListener("click", handleOutsideClick);
+    };
+  }, [handleOutsideClick]);
+
   return (
     <V2MenuContext.Provider value={{ activeMenuItem, setActiveMenuItem }}>
-      <StyledVerticalMenuWrapper {...tagComponent("global-nav-v2", rest)}>
+      <StyledVerticalMenuWrapper
+        ref={containerRef}
+        {...tagComponent("global-nav-v2", rest)}
+      >
         <StyledButton
           active={active}
           buttonType="tertiary"
