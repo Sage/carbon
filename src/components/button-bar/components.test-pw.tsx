@@ -50,9 +50,26 @@ const DefaultWithButtonMinor = (args: Partial<ButtonBarProps>) => (
   </ButtonBar>
 );
 
+const ButtonBarWithDisabledIconButton = () => {
+  return (
+    <ButtonBar>
+      <IconButton disabled onClick={() => {}}>
+        <Icon type="pdf" />
+      </IconButton>
+      <IconButton onClick={() => {}}>
+        <Icon type="csv" />
+      </IconButton>
+      <IconButton onClick={() => {}}>
+        <Icon type="bin" />
+      </IconButton>
+    </ButtonBar>
+  );
+};
+
 export {
   Default,
   DefaultWithWrapper,
   ButtonBarWithMinorButtonChildren,
   DefaultWithButtonMinor,
+  ButtonBarWithDisabledIconButton,
 };
