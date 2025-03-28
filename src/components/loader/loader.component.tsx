@@ -38,7 +38,7 @@ export const Loader = ({
   "aria-label": ariaLabel,
   size = "medium",
   isInsideButton,
-  isActive,
+  isActive = true,
   loaderLabel,
   ...rest
 }: LoaderProps) => {
@@ -61,7 +61,7 @@ export const Loader = ({
 
   const loaderSquareProps = {
     isInsideButton,
-    isActive: allowMotion,
+    isActive,
     size,
     variant,
   };

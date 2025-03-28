@@ -33,9 +33,7 @@ test("when `loading` is true, the correct Loader styles are applied", () => {
   });
 });
 
-test("renders loader squares when loading is true and motion is enabled", () => {
-  mockUseMediaQuery.mockReturnValueOnce(true);
-
+test("when `loading` is true, applies the correct LoaderSquare styles", async () => {
   render(<Switch onChange={() => {}} loading />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
@@ -45,8 +43,7 @@ test("renders loader squares when loading is true and motion is enabled", () => 
   expect(loaderSquares[1]).toHaveStyleRule("height: var(--sizing150)");
 });
 
-test("when `loading` is true and Switch `size` is large, the correct LoaderSquare styles are applied", () => {
-  mockUseMediaQuery.mockReturnValue(true);
+test("when `loading` is true and Switch `size` is large, the correct LoaderSquare styles are applied", async () => {
   render(<Switch onChange={() => {}} size="large" loading />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
