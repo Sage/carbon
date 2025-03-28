@@ -4,23 +4,14 @@ import Box from "../box";
 import { Checkbox } from "../checkbox";
 import { Dl, Dt, Dd } from "../definition-list";
 import SplitButton from "../split-button";
-import Textbox from "../textbox";
 import Button from "../button/button.component";
 import Link from "../link/link.component";
 
-import { Accordion, AccordionGroup, AccordionProps } from ".";
+import { Accordion, AccordionProps } from ".";
 
 const errorVal = "error";
 const warningVal = "warning";
 const infoVal = "info";
-
-interface ValidationObject {
-  one: string;
-  two: string;
-  three: string;
-}
-
-type Validations = keyof ValidationObject;
 
 // stories for component testing
 export const AccordionComponent = (props: Partial<AccordionProps>) => {
@@ -52,26 +43,24 @@ export const AccordionWithIcon = () => {
   });
 
   return (
-    <AccordionGroup>
-      <Accordion
-        title="Heading"
-        expanded={expanded.one}
-        onChange={() =>
-          setExpanded((previousState) => ({
-            ...previousState,
-            one: !previousState.one,
-          }))
-        }
-        error={errors.one}
-        warning={warnings.one}
-      >
-        <Checkbox label="Add error" />
-      </Accordion>
-    </AccordionGroup>
+    <Accordion
+      title="Heading"
+      expanded={expanded.one}
+      onChange={() =>
+        setExpanded((previousState) => ({
+          ...previousState,
+          one: !previousState.one,
+        }))
+      }
+      error={errors.one}
+      warning={warnings.one}
+    >
+      <Checkbox label="Add error" />
+    </Accordion>
   );
 };
 
-export const AccordionGroupWithError = () => {
+export const AccordionWithError = () => {
   const [errors] = React.useState({
     one: errorVal,
     two: errorVal,
@@ -80,70 +69,44 @@ export const AccordionGroupWithError = () => {
 
   return (
     <Box mt={2}>
-      <AccordionGroup>
-        <Accordion title="Heading" error={errors.one}>
-          <Box p={1}>
-            <Checkbox label="Add error" error={!!errors.one} />
-          </Box>
-        </Accordion>
-      </AccordionGroup>
+      <Accordion title="Heading" error={errors.one}>
+        <Box p={1}>
+          <Checkbox label="Add error" error={!!errors.one} />
+        </Box>
+      </Accordion>
     </Box>
   );
 };
 
-export const AccordionGroupWithWarning = () => {
+export const AccordionWithWarning = () => {
   const [warnings] = React.useState({
     one: warningVal,
   });
 
   return (
     <Box mt={2}>
-      <AccordionGroup>
-        <Accordion title="Heading" warning={warnings.one}>
-          <Box p={1}>
-            <Checkbox label="Add warning" warning={!!warnings.one} />
-          </Box>
-        </Accordion>
-      </AccordionGroup>
+      <Accordion title="Heading" warning={warnings.one}>
+        <Box p={1}>
+          <Checkbox label="Add warning" warning={!!warnings.one} />
+        </Box>
+      </Accordion>
     </Box>
   );
 };
 
-export const AccordionGroupWithInfo = () => {
+export const AccordionWithInfo = () => {
   const [infos] = React.useState({
     one: infoVal,
   });
 
   return (
     <Box mt={2}>
-      <AccordionGroup>
-        <Accordion title="Heading" info={infos.one}>
-          <Box p={1}>
-            <Checkbox label="Add info" info={!!infos.one} />
-          </Box>
-        </Accordion>
-      </AccordionGroup>
+      <Accordion title="Heading" info={infos.one}>
+        <Box p={1}>
+          <Checkbox label="Add info" info={!!infos.one} />
+        </Box>
+      </Accordion>
     </Box>
-  );
-};
-
-export const AccordionGroupComponent = () => {
-  return (
-    <AccordionGroup>
-      <Accordion title="First Accordion" onChange={() => {}} width="100%">
-        <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
-        </Box>
-      </Accordion>
-      <Accordion title="Second Accordion" onChange={() => {}} width="100%">
-        <Box p={2}>
-          <Box height="100px" bg="primary" />
-        </Box>
-      </Accordion>
-      <Accordion title="Third Accordion" onChange={() => {}} width="100%">
-        <div>Content</div>
-      </Accordion>
-    </AccordionGroup>
   );
 };
 
@@ -169,7 +132,7 @@ export const DynamicContent = () => {
       >
         Remove content
       </Button>
-      <Accordion title="Title" defaultExpanded>
+      <Accordion title="Title" expanded>
         {Array.from(Array(contentCount).keys()).map((value) => (
           <div key={value}>Content</div>
         ))}
@@ -248,174 +211,6 @@ export const AccordionWithBoxAndDifferentPaddings = () => {
           </div>
         </Box>
       </Accordion>
-    </Box>
-  );
-};
-
-export const AccordionGroupDefault = () => {
-  return (
-    <AccordionGroup>
-      <Accordion title="First Accordion">
-        <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
-        </Box>
-      </Accordion>
-      <Accordion title="Second Accordion">
-        <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
-        </Box>
-      </Accordion>
-      <Accordion title="Third Accordion">
-        <Box p={2}>
-          <div>Content</div>
-          <div>Content</div>
-          <div>Content</div>
-        </Box>
-      </Accordion>
-    </AccordionGroup>
-  );
-};
-
-export const AccordionGroupValidation = () => {
-  const [errors, setErrors] = React.useState({
-    one: errorVal,
-    two: errorVal,
-    three: errorVal,
-  });
-  const [warnings, setWarnings] = React.useState({
-    one: warningVal,
-    two: warningVal,
-    three: warningVal,
-  });
-  const [infos, setInfos] = React.useState({
-    one: infoVal,
-    two: infoVal,
-    three: infoVal,
-  });
-  const [expanded, setExpanded] = React.useState({
-    one: false,
-    two: false,
-    three: true,
-  });
-
-  const handleChange = (
-    id: Validations,
-    type: ValidationObject,
-    setter: React.Dispatch<React.SetStateAction<ValidationObject>>,
-    msg: string,
-  ) => {
-    const update = type[id] ? undefined : msg;
-    setter((previous: ValidationObject) => ({ ...previous, [id]: update }));
-  };
-
-  return (
-    <Box>
-      <AccordionGroup>
-        <Accordion
-          title="Heading"
-          expanded={expanded.one}
-          onChange={() =>
-            setExpanded((previousState) => ({
-              ...previousState,
-              one: !previousState.one,
-            }))
-          }
-          error={errors.one}
-          warning={warnings.one}
-          info={infos.one}
-        >
-          <Box p={1}>
-            <Checkbox
-              label="Add error"
-              error={!!errors.one}
-              onChange={() => handleChange("one", errors, setErrors, "error")}
-              checked={!!errors.one}
-            />
-            <Checkbox
-              label="Add warning"
-              warning={!!warnings.one}
-              onChange={() =>
-                handleChange("one", warnings, setWarnings, "warning")
-              }
-            />
-            <Checkbox
-              label="Add info"
-              info={!!infos.one}
-              onChange={() => handleChange("one", infos, setInfos, "info")}
-            />
-          </Box>
-        </Accordion>
-        <Accordion
-          title="Heading"
-          expanded={expanded.two}
-          onChange={() =>
-            setExpanded((previousState) => ({
-              ...previousState,
-              two: !previousState.two,
-            }))
-          }
-          subTitle="Sub title"
-          error={errors.two}
-          warning={warnings.two}
-          info={infos.two}
-        >
-          <Box p={1}>
-            <Checkbox
-              label="Add error"
-              error={!!errors.two}
-              onChange={() => handleChange("two", errors, setErrors, "error")}
-              checked={!!errors.two}
-            />
-            <Checkbox
-              label="Add warning"
-              warning={!!warnings.two}
-              onChange={() =>
-                handleChange("two", warnings, setWarnings, "warning")
-              }
-            />
-            <Checkbox
-              label="Add info"
-              info={!!infos.two}
-              onChange={() => handleChange("two", infos, setInfos, "info")}
-            />
-          </Box>
-        </Accordion>
-        <Accordion
-          title="Heading"
-          expanded={expanded.three}
-          onChange={() =>
-            setExpanded((previousState) => ({
-              ...previousState,
-              three: !previousState.three,
-            }))
-          }
-          subTitle="This is a longer sub title"
-          error={errors.three}
-          warning={warnings.three}
-          info={infos.three}
-        >
-          <Box p={1}>
-            <Checkbox
-              label="Add error"
-              error={!!errors.three}
-              onChange={() => handleChange("three", errors, setErrors, "error")}
-              checked={!!errors.three}
-            />
-            <Checkbox
-              label="Add warning"
-              warning={!!warnings.three}
-              onChange={() =>
-                handleChange("three", warnings, setWarnings, "warning")
-              }
-            />
-            <Checkbox
-              label="Add info"
-              info={!!infos.three}
-              onChange={() => handleChange("three", infos, setInfos, "info")}
-            />
-          </Box>
-        </Accordion>
-      </AccordionGroup>
     </Box>
   );
 };
