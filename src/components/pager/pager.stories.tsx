@@ -236,5 +236,5 @@ export const UsingCustomResponsiveSettings: Story = () => {
 };
 UsingCustomResponsiveSettings.storyName = "Using Custom Responsive Settings";
 UsingCustomResponsiveSettings.parameters = {
-  chromatic: { disableSnapshot: true },
+  chromatic: { viewports: [1200, 900, 320] },
 };

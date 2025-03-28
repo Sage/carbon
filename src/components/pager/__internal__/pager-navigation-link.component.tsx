@@ -15,6 +15,8 @@ interface PagerNavigationLinkProps {
   hideDisabledElements?: boolean;
   /** Pagination page size */
   pageSize: number;
+  /** If true, sets small screen styles. */
+  isSmallScreen?: boolean;
   /** onClick Callback function */
   onClick?: (
     ev:
@@ -35,6 +37,7 @@ const PagerNavigationLink = ({
   pageCount,
   hideDisabledElements,
   pageSize,
+  isSmallScreen,
   onClick,
   onPagination,
 }: PagerNavigationLinkProps) => {
@@ -93,6 +96,7 @@ const PagerNavigationLink = ({
   return (
     <StyledPagerLink
       hideDisabledButtons={hideDisabledButtons}
+      isSmallScreen={isSmallScreen}
       data-element={`pager-link-${type}`}
       disabled={disabled()}
       onClick={
