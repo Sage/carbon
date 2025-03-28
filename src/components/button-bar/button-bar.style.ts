@@ -1,18 +1,12 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import BaseTheme from "../../style/themes/base";
-import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
 import { ButtonBarProps } from "./button-bar.component";
 import StyledIconButton from "../icon-button/icon-button.style";
 
 type StyledButtonBarProps = SpaceProps &
   Pick<ButtonBarProps, "size" | "fullWidth">;
-
-const commonHoverStyles = `
-  background-color: var(--colorsActionMajor600);
-  border-color: var(--colorsActionMajor600);
-`;
 
 const StyledButtonBar = styled.div<StyledButtonBarProps>`
   ${space}
@@ -58,59 +52,32 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
         position: relative;
         z-index: 2;
       }
-
-      &:hover {
-        background-color: var(--colorsActionMajor600);
-        border-color: var(--colorsActionMajor600);
-
-        & + button {
-          border-left-color: var(--colorsActionMajor600);
-        }
-
-        & ${StyledIcon} {
-          ${commonHoverStyles}
-          color: white;
-        }
-      }
-
-      & ${StyledIcon} {
-        color: var(--colorsActionMajor500);
-      }
     }
 
-    [data-component="button"] {
-      :hover {
-        ${commonHoverStyles}
-        & + ${StyledButton} {
-          border-left-color: var(--colorsActionMajor600);
-        }
-      }
-    }
-
-    [data-component="button-minor"] {
-      & ${StyledIcon} {
-        color: var(--colorsActionMinor500);
-      }
-    }
-
-    [data-component="button-minor"] {
-      :hover {
-        color: var(--colorsActionMinorYang100);
-        background-color: var(--colorsActionMinor500);
-        border-color: var(--colorsActionMinor500);
-
-        & + ${StyledButton} {
-          border-left-color: var(--colorsActionMinor500);
-        }
-      }
-    }
-
-    ${StyledIconButton} {
+    ${StyledIconButton}:not(:disabled) {
       border: 2px solid var(--colorsActionMajor500);
 
       :focus {
         border-right-color: var(--colorsActionMajor500);
       }
+
+      :hover {
+        background-color: var(--colorsActionMajor600);
+        border-color: var(--colorsActionMajor600);
+        color: var(--colorsActionMajorYang100);
+      }
+
+      ${StyledIcon} {
+        color: var(--colorsActionMajor500);
+
+        :hover {
+          color: var(--colorsActionMajorYang100);
+        }
+      }
+    }
+
+    ${StyledIconButton}:disabled {
+      border: 2px solid var(--colorsActionDisabled500);
     }
   `}
 `;
