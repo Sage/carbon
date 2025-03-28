@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { LoaderSpinner } from ".";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import {
@@ -106,9 +106,11 @@ describe("when custom props are passed", () => {
   it("should override the visually hidden label text when the 'spinnerLabel' prop is passed a custom string value", () => {
     mockUseMediaQuery.mockReturnValueOnce(false);
     render(<LoaderSpinner spinnerLabel="bar" showSpinnerLabel={false} />);
-    const hiddenLabelElement = screen.getByTestId("hidden-label");
 
-    expect(hiddenLabelElement).toHaveTextContent("bar");
+    const status = screen.getByRole("status");
+    const hiddenLabelElement = within(status).getByText("bar");
+
+    expect(hiddenLabelElement).toBeInTheDocument();
   });
 
   it("when the 'size' prop is passed as 'extra-small' the component wrapper has a flex-direction of row", () => {

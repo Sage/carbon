@@ -46,8 +46,6 @@ const LoaderStar = ({
       {...tagComponent("loader-star", rest)}
     >
       {allowMotion ? (
-        label
-      ) : (
         <>
           <StyledStars>
             <Star starContainerClassName="star-1" gradientId="gradient1" />
@@ -58,6 +56,8 @@ const LoaderStar = ({
             {loaderStarLabel || locale.loaderStar.loading()}
           </Typography>
         </>
+      ) : (
+        label
       )}
     </StyledLoaderStarWrapper>
   );
