@@ -1,3 +1,9 @@
+## [152.7.0](https://github.com/Sage/carbon/compare/v152.6.0...v152.7.0) (2025-03-28)
+
+### Features
+
+* **accordion-group:** adds a deprecation warning to inform of impending removal ([382cb64](https://github.com/Sage/carbon/commit/382cb64be6fdcaefbe6b7e03f8c360962190a5ea))
+
 ## [152.6.0](https://github.com/Sage/carbon/compare/v152.5.1...v152.6.0) (2025-03-28)
 
 ### Features
