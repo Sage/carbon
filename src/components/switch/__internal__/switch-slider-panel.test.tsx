@@ -3,15 +3,22 @@ import { render, screen } from "@testing-library/react";
 import Switch from "../switch.component";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
-jest.mock("../../../hooks/useMediaQuery", () => {
-  return jest.fn(() => true);
-});
+jest.mock("../../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
 
 beforeEach(() => {
-  const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
-    typeof useMediaQuery
-  >;
-  mockUseMediaQuery.mockReturnValueOnce(false);
+  jest.clearAllMocks();
+  mockUseMediaQuery.mockReturnValue(true);
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
 });
 
 test("when `loading` is true, the correct Loader styles are applied", () => {
