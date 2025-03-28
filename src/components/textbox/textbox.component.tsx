@@ -20,7 +20,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import NumeralDateContext from "../numeral-date/__internal__/numeral-date.context";
 import Logger from "../../__internal__/utils/logger";
-import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
+import useCharacterCount from "../../hooks/useCharacterCount";
 import useUniqueId from "../../hooks/__internal__/useUniqueId";
 import guid from "../../__internal__/utils/helpers/guid";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
@@ -138,11 +138,14 @@ export interface TextboxProps extends CommonTextboxProps {
 }
 
 let deprecateUncontrolledWarnTriggered = false;
+let deprecatedAriaDescribedByWarnTriggered = false;
 
 export const Textbox = React.forwardRef(
   (
     {
       "aria-labelledby": ariaLabelledBy,
+      "aria-describedby": ariaDescribedByProp,
+      ariaDescribedBy: ariaDescribedByDeprecated,
       align = ALIGN_DEFAULT,
       autoFocus,
       children,
@@ -236,6 +239,13 @@ export const Textbox = React.forwardRef(
       );
     }
 
+    if (!deprecatedAriaDescribedByWarnTriggered && ariaDescribedByDeprecated) {
+      deprecatedAriaDescribedByWarnTriggered = true;
+      Logger.deprecate(
+        "The `ariaDescribedBy` prop in `Textbox` is deprecated and will soon be removed, please use `aria-describedby` instead.",
+      );
+    }
+
     const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
       useInputAccessibility({
         id: uniqueId,
@@ -254,6 +264,7 @@ export const Textbox = React.forwardRef(
       ariaDescribedBy,
       inputHintId,
       visuallyHiddenHintId,
+      ariaDescribedByProp || ariaDescribedByDeprecated,
     ]
       .filter(Boolean)
       .join(" ");
@@ -286,7 +297,7 @@ export const Textbox = React.forwardRef(
           align={align}
           aria-invalid={!!error}
           aria-labelledby={ariaLabelledBy}
-          ariaDescribedBy={combinedAriaDescribedBy}
+          aria-describedby={combinedAriaDescribedBy}
           autoFocus={autoFocus}
           deferTimeout={deferTimeout}
           disabled={disabled}
