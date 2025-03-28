@@ -172,7 +172,7 @@ const SelectTextbox = React.forwardRef(
     return (
       <SelectTextboxContext.Provider value={{ isInputInSelect: true }}>
         <Textbox
-          ariaDescribedBy={ariaDescribedBy}
+          aria-describedby={ariaDescribedBy}
           aria-label={ariaLabel}
           data-element="select-input"
           data-role="select-textbox"

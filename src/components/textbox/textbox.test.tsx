@@ -45,6 +45,16 @@ test("should display deprecation warning once when rendered as uncontrolled", ()
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 });
 
+test("should display deprecation warning once for `ariaDescribedby`", () => {
+  render(<Textbox onChange={() => {}} ariaDescribedBy="test" />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The `ariaDescribedBy` prop in `Textbox` is deprecated and will soon be removed, please use `aria-describedby` instead.",
+  );
+
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+});
+
 testStyledSystemMargin(
   (props) => <Textbox data-role="textbox-wrapper" {...props} />,
   () => screen.getByTestId("textbox-wrapper"),
@@ -85,7 +95,7 @@ describe(`when the characterLimit prop is passed`, () => {
     ).toHaveAttribute("id", mockedGuid);
   });
 
-  it("should reference the visually hidden hint id in the input's aria-described by", () => {
+  it("should reference the visually hidden hint id in the input's aria-describedby", () => {
     render(<Textbox value="foo" characterLimit={73} />);
     expect(screen.getByRole("textbox")).toHaveAttribute(
       "aria-describedby",
@@ -391,13 +401,43 @@ test("passes the helpAriaLabel prop down to the help component", () => {
   expect(screen.getByRole("button")).toHaveAttribute("aria-label", text);
 });
 
-test("passes the aria-labelledby prop down to the input", () => {
-  const labelId = "foo";
-  render(<Textbox aria-labelledby={labelId} />);
+test("sets the accessible label to the provided aria-labelledby", () => {
+  const Component = () => (
+    <>
+      <p id="test">label</p>
+      <Textbox aria-labelledby="test" />
+    </>
+  );
+  render(<Component />);
 
-  expect(screen.getByRole("textbox")).toHaveAttribute(
-    "aria-labelledby",
-    labelId,
+  expect(screen.getByRole("textbox")).toHaveAccessibleName("label");
+});
+
+test("appends the provided `aria-describedby` to the accessible description", () => {
+  const Component = () => (
+    <>
+      <p id="test">description</p>
+      <Textbox inputHint="hint text" aria-describedby="test" />
+    </>
+  );
+  render(<Component />);
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+    "hint text description",
+  );
+});
+
+test("appends the provided `ariaDescribedBy` to the accessible description", () => {
+  const Component = () => (
+    <>
+      <p id="test">description</p>
+      <Textbox inputHint="hint text" ariaDescribedBy="test" />
+    </>
+  );
+  render(<Component />);
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+    "hint text description",
   );
 });
 

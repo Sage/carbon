@@ -1,3 +1,13 @@
+## [152.6.0](https://github.com/Sage/carbon/compare/v152.5.1...v152.6.0) (2025-03-28)
+
+### Features
+
+* **use-character-count:** expose hook to public interface ([1d4e66a](https://github.com/Sage/carbon/commit/1d4e66a158f58c0e8dffd18e4fa0ed87a141e337)), closes [#7242](https://github.com/Sage/carbon/issues/7242)
+
+### Bug Fixes
+
+* **textarea, textbox:** replace `ariaDescribedBy` prop with `aria-describedby` ([96fc4c7](https://github.com/Sage/carbon/commit/96fc4c7df820e9d627161a27936a61ef328d676f))
+
 ## [152.5.1](https://github.com/Sage/carbon/compare/v152.5.0...v152.5.1) (2025-03-27)
 
 ### Bug Fixes
