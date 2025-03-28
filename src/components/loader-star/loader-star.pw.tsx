@@ -8,73 +8,64 @@ import {
 } from "../../../playwright/components/loader-star/index";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
-test.describe("User prefers reduced motion", () => {
-  test("when the 'LoaderStarLabel' prop is passed a custom string value it overrides the default visible label", async ({
-    mount,
-    page,
-  }) => {
-    await page.emulateMedia({ reducedMotion: "reduce" });
+test.describe("User does not prefer reduced motion", () => {
+  test("renders visible label with custom text", async ({ mount, page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
     await mount(<DefaultLoaderStar loaderStarLabel="foo" />);
-
     await expect(loaderStarVisibleLabel(page)).toHaveText("foo");
   });
 
-  test("the expected styles are applied to the default visible label", async ({
+  test("renders hidden label with custom text (accessibility)", async ({
     mount,
     page,
   }) => {
-    await page.emulateMedia({ reducedMotion: "reduce" });
-    await mount(<DefaultLoaderStar />);
-
-    await expect(loaderStarVisibleLabel(page)).toHaveText("Loading...");
-    await expect(loaderStarVisibleLabel(page)).toHaveCSS("font-weight", "400");
-    await expect(loaderStarVisibleLabel(page)).toHaveCSS("display", "flex");
-    await expect(loaderStarVisibleLabel(page)).toHaveCSS(
-      "justify-content",
-      "center",
-    );
-  });
-});
-
-test.describe("User does not prefer reduced motion", () => {
-  test("when the 'LoaderStarLabel' prop is passed a custom string value it overrides the default hidden label", async ({
-    mount,
-    page,
-  }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
     await mount(<DefaultLoaderStar loaderStarLabel="bar" />);
-
     await expect(loaderStarHiddenLabel(page)).toHaveText("bar");
   });
 
-  test("the expected styles are applied to the component", async ({
-    mount,
-    page,
-  }) => {
+  test("applies expected styles to the component", async ({ mount, page }) => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
     await mount(<DefaultLoaderStar />);
-
     await expect(loaderStarWrapper(page)).toHaveCSS("height", "40px");
     await expect(loaderStarWrapper(page)).toHaveCSS("width", "40px");
     await expect(loaderStarWrapper(page)).toHaveCSS("position", "relative");
   });
 });
 
-test.describe("Accessibility tests", () => {
-  test("should pass accessibility checks when component is rendered in its default state", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DefaultLoaderStar />);
-
-    await checkAccessibility(page);
+test.describe("User prefers reduced motion", () => {
+  test("renders hidden label with custom string", async ({ mount, page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await mount(<DefaultLoaderStar loaderStarLabel="foo" />);
+    await expect(loaderStarHiddenLabel(page)).toHaveText("foo");
   });
 
-  test("should pass accessibility checks when component is rendered and user prefers reduced motion", async ({
+  test("renders default hidden label with expected styles", async ({
     mount,
     page,
   }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await mount(<DefaultLoaderStar />);
+    const hiddenLabel = loaderStarHiddenLabel(page);
+    await expect(hiddenLabel).toHaveText("Loading...");
+    await expect(hiddenLabel).toHaveCSS("font-weight", "400");
+    await expect(hiddenLabel).toHaveCSS("display", "flex");
+    await expect(hiddenLabel).toHaveCSS("justify-content", "center");
+  });
+});
 
+test.describe("Accessibility tests", () => {
+  test("passes accessibility check by default", async ({ mount, page }) => {
+    await mount(<DefaultLoaderStar />);
+    await checkAccessibility(page);
+  });
+
+  test("passes accessibility check with reduced motion", async ({
+    mount,
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await mount(<DefaultLoaderStar />);
     await checkAccessibility(page);
   });
 });
