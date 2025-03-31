@@ -98,6 +98,8 @@
     "@storybook/react-webpack5": "~8.6.7",
     "@storybook/theming": "~8.6.7",
     "@storybook/types": "~8.6.7",
+    "@swc/helpers": "^0.5.15",
+    "@swc/plugin-styled-components": "^7.1.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",

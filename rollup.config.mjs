@@ -48,16 +48,27 @@ export default {
     /node_modules/,
     /^[^./]|^\.[^./]|^\.\.[^/]/,
     /\.svg$/, // Treat all SVGs as external
+    "styled-components",
+    "@swc/helpers",
+    "react",
+    "react-dom",
   ],
   plugins: [
     resolve({
       extensions: [".js", ".jsx", ".ts", ".tsx"],
       preferBuiltins: true,
       browser: true,
+      moduleDirectories: ["node_modules"],
+      resolveOnly: [
+        /^(?!@swc\/helpers)/, // Exclude @swc/helpers from custom resolution
+        /^(?!styled-components)/, // Exclude styled-components from custom resolution
+      ],
     }),
     commonjs({
       include: "node_modules/**",
       requireReturnsDefault: "auto",
+      transformMixedEsModules: true,
+      ignoreDynamicRequires: true,
     }),
     json(),
     postcss({
@@ -75,10 +86,26 @@ export default {
           react: {
             runtime: "automatic",
           },
+          legacyDecorator: true,
+          decoratorVersion: "2022-03"
+        },
+        externalHelpers: false,
+        experimental: {
+          plugins: [
+            ["@swc/plugin-styled-components", {
+              displayName: true,
+              ssr: true,
+              fileName: true,
+              minify: true,
+              transpileTemplateLiterals: true
+            }]
+          ]
         },
       },
     }),
-    terser({ maxWorkers: 4 }),
+    terser({
+      maxWorkers: 4,
+    }),
     copy({
       targets: [
         { src: "src/style/assets/**/*", dest: "dist/lib/style/assets" },
@@ -99,6 +126,8 @@ export default {
       // sourcemap: true,
       entryFileNames: "[name].js",
       chunkFileNames: ({ name }) => `${name}.js`, // Preserve folder structure
+      exports: 'named',
+      interop: 'auto',
     },
     {
       dir: path.join(__dirname, "dist/esm"),

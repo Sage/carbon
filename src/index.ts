@@ -5,6 +5,7 @@ export { default as ActionPopoverMenu } from "./components/action-popover/action
 export { default as ActionPopoverItem } from "./components/action-popover/action-popover-item/action-popover-item.component";
 export { default as ActionPopoverMenuButton } from "./components/action-popover/action-popover-menu-button/action-popover-menu-button.component";
 export { default as ActionPopoverDivider } from "./components/action-popover/action-popover-divider/action-popover-divider.component";
+export { default as AdaptiveSidebar } from "./components/adaptive-sidebar/adaptive-sidebar.component";
 export { default as AdvancedColorPicker } from "./components/advanced-color-picker/advanced-color-picker.component";
 export { default as Alert } from "./components/alert/alert.component";
 export { default as AnchorNavigation } from "./components/anchor-navigation/anchor-navigation.component";
