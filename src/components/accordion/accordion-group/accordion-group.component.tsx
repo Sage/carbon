@@ -11,6 +11,7 @@ import { StyledAccordionGroup } from "../accordion.style";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
+import Logger from "../../../__internal__/utils/logger";
 
 type AccordionGroupChild =
   | React.ReactElement
@@ -27,7 +28,16 @@ export interface AccordionGroupProps extends MarginProps, TagProps {
   children?: AccordionGroupChild;
 }
 
+let deprecatedWarnTriggered = false;
+
 export const AccordionGroup = ({ children, ...rest }: AccordionGroupProps) => {
+  if (!deprecatedWarnTriggered) {
+    deprecatedWarnTriggered = true;
+    Logger.deprecate(
+      "`AccordionGroup` is deprecated and will soon be removed.",
+    );
+  }
+
   const hasProperChildren = useMemo(() => {
     let hasAccordionChildren = true;
 
