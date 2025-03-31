@@ -1,4 +1,8 @@
 import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, waitFor, within, expect } from "@storybook/test";
+import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
+
 import { Tabs, Tab, TabsProps, TabProps } from ".";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import Box from "../box";
@@ -11,6 +15,8 @@ export default {
     "TabsInSidebar",
     "TabsInSidebarPositionedLeft",
     "WithHorizontalScrollbarInsideForm",
+    "TabsClick",
+    "TabsKeyboardNav",
   ],
   parameters: {
     info: { disable: true },
@@ -345,3 +351,110 @@ export const WithHorizontalScrollbarInsideForm = (args: TabsProps) => {
 
 WithHorizontalScrollbarInsideForm.storyName =
   "WithHorizontalScrollbarInsideForm";
+
+// Play Functions
+const meta: Meta<typeof Tabs> = {
+  title: "Tabs",
+  component: Tabs,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof Tabs>;
+
+const TabsDefaultComponent = () => {
+  return (
+    <Tabs>
+      <Tab
+        errorMessage="error"
+        warningMessage="warning"
+        infoMessage="info"
+        tabId="tab-1"
+        title="Tab 1"
+        key="tab-1"
+      >
+        Content for tab 1
+      </Tab>
+      <Tab
+        errorMessage="error"
+        warningMessage="warning"
+        infoMessage="info"
+        tabId="tab-2"
+        title="Tab 2"
+        key="tab-2"
+      >
+        Content for tab 2
+      </Tab>
+      <Tab
+        errorMessage="error"
+        warningMessage="warning"
+        infoMessage="info"
+        tabId="tab-3"
+        title="Tab 3"
+        key="tab-3"
+      >
+        Content for tab 3
+      </Tab>
+      <Tab
+        errorMessage="error"
+        warningMessage="warning"
+        infoMessage="info"
+        tabId="tab-4"
+        title="Tab 4"
+        key="tab-4"
+      >
+        Content for tab 4
+      </Tab>
+      <Tab
+        errorMessage="error"
+        warningMessage="warning"
+        infoMessage="info"
+        tabId="tab-5"
+        title="Tab 5"
+        key="tab-5"
+      >
+        Content for tab 5
+      </Tab>
+      <Tab
+        errorMessage="error"
+        warningMessage="warning"
+        infoMessage="info"
+        tabId="tab-6"
+        title="Tab 6"
+        key="tab-6"
+        href="https://carbon.sage.com/"
+      />
+    </Tabs>
+  );
+};
+
+export const TabsClick: Story = {
+  render: () => <TabsDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("tab", { name: "Tab 2" }));
+  },
+};
+
+export const TabsKeyboardNav: Story = {
+  render: () => <TabsDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.tab();
+    await userInteractionPause(300);
+    await userEvent.keyboard("{arrowright}");
+    await userInteractionPause(300);
+    await userEvent.keyboard("{arrowright}");
+    await userInteractionPause(300);
+    await userEvent.keyboard("{arrowright}");
+    await userInteractionPause(300);
+    await userEvent.keyboard("{arrowright}");
+    await userInteractionPause(300);
+    await userEvent.keyboard("{arrowright}");
+
+    await waitFor(() => {
+      expect(canvas.getByRole("tab", { name: "Tab 6" })).toHaveFocus();
+    });
+  },
+};
