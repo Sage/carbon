@@ -17,6 +17,7 @@ import Message from "../message";
 import Textarea from "../textarea";
 import CarbonProvider from "../carbon-provider";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 import type { DialogHandle } from ".";
 import Dialog from ".";
@@ -182,6 +183,64 @@ export const RestoreFocusOnCloseStory: Story = () => {
 };
 RestoreFocusOnCloseStory.storyName = "With Restore Focus On Close";
 RestoreFocusOnCloseStory.parameters = { chromatic: { disableSnapshot: true } };
+
+export const FocusableOverflowContentStory: Story = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Open Dialog
+      </Button>
+      <Dialog
+        open={isOpen}
+        onCancel={(ev) => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
+        height="200px"
+      >
+        <style>
+          {`.focus-example:focus-visible {
+           ${addFocusStyling()}
+           `}
+        </style>
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+        <div className="focus-example" tabIndex={0}>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting,
+          remaining essentially unchanged. It was popularised in the 1960s with
+          the release of Letraset sheets containing Lorem Ipsum passages, and
+          more recently with desktop publishing software like Aldus PageMaker
+          including versions of Lorem Ipsum Contrary to popular belief, Lorem
+          Ipsum is not simply random text. It has roots in a piece of classical
+          Latin literature from 45 BC, making it over 2000 years old. Richard
+          McClintock, a Latin professor at Hampden-Sydney College in Virginia,
+          looked up one of the more obscure Latin words, consectetur, from a
+          Lorem Ipsum passage, and going through the cites of the word in
+          classical literature, discovered the undoubtable source. Lorem Ipsum
+          comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
+          Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC.
+          This book is a treatise on the theory of ethics, very popular during
+          the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
+          amet..", comes from a line in section 1.10.32. The standard chunk of
+          Lorem Ipsum used since the 1500s is reproduced below for those
+          interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et
+          Malorum" by Cicero are also reproduced in their exact original form,
+          accompanied by English versions from the 1914 translation by H.
+          Rackham.
+        </div>
+      </Dialog>
+    </>
+  );
+};
+FocusableOverflowContentStory.storyName = "With Navigable Content Overflow";
+FocusableOverflowContentStory.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const MaxSize: Story = {
   ...DefaultStory,
