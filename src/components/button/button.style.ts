@@ -28,9 +28,10 @@ function stylingForIconOnly(size?: SizeOptions) {
       dimension = "40px";
   }
   return `
-  padding: 0px;
-  width: ${dimension};
-  min-height: ${dimension}`;
+    padding: 0px; 
+    width: ${dimension}; 
+    min-height: ${dimension};
+  `;
 }
 
 function stylingForType({
@@ -81,7 +82,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     align-items: center;
     cursor: ${disabled ? "not-allowed" : "pointer"};
     display: inline-flex;
-    ${noWrap ? "white-space: nowrap;" : "flex-flow: wrap;"}
+    ${noWrap ? "white-space: nowrap" : "flex-flow: wrap"};
     justify-content: center;
     vertical-align: middle;
     outline-offset: 0;
@@ -106,19 +107,32 @@ const StyledButton = styled.button<StyledButtonProps>`
 
   ${({ iconOnly, iconPosition, iconType }) => css`
     ${StyledIcon} {
-      margin-left: ${!iconOnly && iconPosition === "after"
-        ? "var(--spacing100)"
-        : "0px"};
-      margin-right: ${!iconOnly && iconPosition === "before"
-        ? "var(--spacing100)"
-        : "0px"};
-      margin-bottom: ${iconOnly ? "1px" : "0px"};
+      ${iconOnly &&
+      css`
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1px;
+      `}
+      ${!iconOnly &&
+      css`
+        margin-bottom: 0px;
+        ${iconPosition === "after" &&
+        `
+          margin-left: var(--spacing100);
+          margin-right: 0px;
+        `}
+        ${iconPosition === "before" &&
+        `
+          margin-left: 0px;
+          margin-right: var(--spacing100);
+        `}
+      `}
+
       height: ${additionalIconStyle(iconType)};
       width: 20px;
       svg {
         margin-top: 0;
       }
-      ${iconOnly && "margin-left: auto; margin-right: auto"}
     }
   `}
 `;

@@ -6,7 +6,11 @@ type StyledContentProps = {
   disableContentPadding?: boolean;
 };
 
-function computePadding() {
+function computePadding({ disableContentPadding }: StyledContentProps) {
+  if (disableContentPadding) {
+    return "padding: 0;";
+  }
+
   return css`
     padding: 0 16px;
     @media screen and (min-width: 600px) {
@@ -29,8 +33,7 @@ const StyledContent = styled.div<StyledContentProps>`
   flex: 1;
   width: 100%;
 
-  ${({ disableContentPadding }) =>
-    disableContentPadding ? "padding: 0" : computePadding()}
+  ${computePadding}
 
   &:has(${StyledForm}.sticky) {
     display: flex;
@@ -40,8 +43,7 @@ const StyledContent = styled.div<StyledContentProps>`
 
     ${StyledForm}.sticky {
       ${StyledFormContent} {
-        ${({ disableContentPadding }) =>
-          disableContentPadding ? "padding: 0" : computePadding()}
+        ${computePadding}
       }
     }
   }

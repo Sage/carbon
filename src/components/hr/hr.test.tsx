@@ -11,11 +11,15 @@ import CarbonProvider from "../carbon-provider";
 testStyledSystemMargin(
   (props) => <Hr {...props} />,
   () => screen.getByRole("separator"),
-  {
-    mt: "24px",
-    mb: "24px",
-  },
 );
+
+test("should render with default margin when no margin props are passed", () => {
+  render(<Hr />);
+  const hr = screen.getByRole("separator");
+
+  expect(hr).toHaveStyleRule("margin-top", "var(--spacing300)");
+  expect(hr).toHaveStyleRule("margin-bottom", "var(--spacing300)");
+});
 
 test("should render with a small height", () => {
   render(<Hr height="small" />);
