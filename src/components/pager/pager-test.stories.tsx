@@ -96,4 +96,5 @@ Default.args = {
   showFirstAndLastButtons: true,
   showPreviousAndNextButtons: true,
   showPageCount: true,
+  smallScreenBreakpoint: "500px",
 };

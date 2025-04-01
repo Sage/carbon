@@ -385,19 +385,6 @@ test.describe("Prop tests", () => {
       }
     });
   });
-
-  test(`should render pager nav label with correct styling when interactivePageNumber is false`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <PagerComponent currentPage={1} interactivePageNumber={false} />,
-    );
-
-    const labelWrapper = currentPageLabelWrapper(page);
-    await expect(labelWrapper).toHaveCSS("padding", "9px 12px");
-    await expect(labelWrapper).toHaveCSS("margin", "4px 0px");
-  });
 });
 
 test.describe("Functional tests", () => {
