@@ -56,6 +56,13 @@ Focus can instead be programmatically applied to another element if appropriate.
 
 <Canvas of={SidebarStories.RestoreFocusOnCloseStory} />
 
+### With overflowing text-only content
+
+When a `Sidebar` has text-only content that exceeds the viewport height, it will scroll. To maintain accessibility, wrap this content in a focusable element. 
+This allows keyboard users to navigate to and through the content, ensuring all users can access the information regardless of input method or assistive technology.
+
+<Canvas of={SidebarStories.FocusableOverflowContentStory} />
+
 ### Custom padding around content
 
 <Canvas of={SidebarStories.CustomPaddingAroundContent} />

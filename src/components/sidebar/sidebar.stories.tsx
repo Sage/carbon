@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import isChromatic from "../../../.storybook/isChromatic";
 import { allModes } from "../../../.storybook/modes";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
+import addFocusStyling from "../../style/utils/add-focus-styling";
 import Button from "../button";
 import Typography from "../typography";
 import Form from "../form";
@@ -133,6 +134,115 @@ export const RestoreFocusOnCloseStory: Story = () => {
 };
 RestoreFocusOnCloseStory.storyName = "With Restore Focus On Close";
 RestoreFocusOnCloseStory.parameters = { chromatic: { disableSnapshot: true } };
+
+export const FocusableOverflowContentStory: Story = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  const checkAndSetTabIndex = useCallback(() => {
+    const contentContainer = document.querySelector(
+      '[data-role="sidebar-content"]',
+    );
+
+    if (contentContainer) {
+      const isContentContainerOverflowing =
+        contentContainer.scrollHeight > contentContainer.clientHeight ||
+        contentContainer.scrollWidth > contentContainer.clientWidth;
+
+      setIsOverflowing(isContentContainerOverflowing);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(checkAndSetTabIndex, 0);
+
+      window.addEventListener("resize", checkAndSetTabIndex);
+      return () => {
+        window.removeEventListener("resize", checkAndSetTabIndex);
+      };
+    }
+
+    return () => {};
+  }, [isOpen, checkAndSetTabIndex]);
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(true)}>
+        Open sidebar
+      </Button>
+      <Sidebar
+        aria-label="sidebar"
+        open={isOpen}
+        onCancel={() => {
+          setIsOpen(false);
+          setTimeout(() => buttonRef.current?.focus(), 0);
+        }}
+      >
+        <style>
+          {`.focus-example {
+          margin: 20px 0 20px 0;
+          &:focus-visible {
+          ${addFocusStyling()}
+          }`}
+        </style>
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+        <div className="focus-example" {...(isOverflowing && { tabIndex: 0 })}>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting,
+          remaining essentially unchanged. It was popularised in the 1960s with
+          the release of Letraset sheets containing Lorem Ipsum passages, and
+          more recently with desktop publishing software like Aldus PageMaker
+          including versions of Lorem Ipsum Contrary to popular belief, Lorem
+          Ipsum is not simply random text. It has roots in a piece of classical
+          Latin literature from 45 BC, making it over 2000 years old. Richard
+          McClintock, a Latin professor at Hampden-Sydney College in Virginia,
+          looked up one of the more obscure Latin words, consectetur, from a
+          Lorem Ipsum passage, and going through the cites of the word in
+          classical literature, discovered the undoubtable source. Lorem Ipsum
+          comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
+          Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC.
+          This book is a treatise on the theory of ethics, very popular during
+          the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
+          amet..", comes from a line in section 1.10.32. The standard chunk of
+          Lorem Ipsum used since the 1500s is reproduced below for those
+          interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et
+          Malorum" by Cicero are also reproduced in their exact original form,
+          accompanied by English versions from the 1914 translation by H.
+          Rackham. It is a long established fact that a reader will be
+          distracted by the readable content of a page when looking at its
+          layout. The point of using Lorem Ipsum is that it has a more-or-less
+          normal distribution of letters, as opposed to using 'Content here,
+          content here', making it look like readable English. Many desktop
+          publishing packages and web page editors now use Lorem Ipsum as their
+          default model text, and a search for 'lorem ipsum' will uncover many
+          web sites still in their infancy. Various versions have evolved over
+          the years, sometimes by accident, sometimes on purpose (injected
+          humour and the like). There are many variations of passages of Lorem
+          Ipsum available, but the majority have suffered alteration in some
+          form, by injected humour, or randomised words which don't look even
+          slightly believable. If you are going to use a passage of Lorem Ipsum,
+          you need to be sure there isn't anything embarrassing hidden in the
+          middle of text. All the Lorem Ipsum generators on the Internet tend to
+          repeat predefined chunks as necessary, making this the first true
+          generator on the Internet. It uses a dictionary of over 200 Latin
+          words, combined with a handful of model sentence structures, to
+          generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum
+          is therefore always free from repetition, injected humour, or
+          non-characteristic words etc.
+        </div>
+      </Sidebar>
+    </>
+  );
+};
+FocusableOverflowContentStory.storyName = "With Navigable Content Overflow";
+FocusableOverflowContentStory.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const CustomPaddingAroundContent: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
