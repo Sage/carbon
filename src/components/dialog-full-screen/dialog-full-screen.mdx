@@ -45,6 +45,13 @@ Focus can instead be programmatically applied to another element if appropriate.
 
 <Canvas of={DialogFullScreenStories.RestoreFocusOnCloseStory} />
 
+### With overflowing text-only content
+
+When a `DialogFullScreen` has text-only content that exceeds the viewport height, it will scroll. To maintain accessibility, wrap this content in a focusable element. 
+This allows keyboard users to navigate to and through the content, ensuring all users can access the information regardless of input method or assistive technology.
+
+<Canvas of={DialogFullScreenStories.FocusableOverflowContentStory} />
+
 ### With complex example
 
 If you want to use more than one group of `Tabs` remember to put `selectedTabId` prop in every `Tabs` component
