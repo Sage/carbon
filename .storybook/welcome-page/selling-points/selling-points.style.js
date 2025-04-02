@@ -27,7 +27,7 @@ export const SellingPointItem = styled.li`
     margin-right: 2%;
   }
   &:nth-of-type(2n) {
-    @media (min-width: $300px) and (max-width: 800px) {
+    @media (min-width: 300px) and (max-width: 800px) {
       margin-right: 0;
     }
   }
