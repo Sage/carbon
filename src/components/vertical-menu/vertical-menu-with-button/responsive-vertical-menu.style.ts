@@ -1,23 +1,54 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-import addFocusStyling from "../../../../../style/utils/add-focus-styling";
+import Button from "../../button";
+import addFocusStyling from "../../../style/utils/add-focus-styling";
 
-interface StyledSecondaryMenuProps {
+interface StyledResponsiveMenuProps {
   height?: string;
   left?: string;
   reduceMotion?: boolean;
+  responsive?: boolean;
+  menu: "primary" | "secondary" | "tertiary";
   top?: string;
 }
 
-export const StyledSecondaryMenu = styled.div<StyledSecondaryMenuProps>`
+interface StyledResponsiveMenuItemProps {
+  active?: boolean;
+}
+
+interface StyledButtonProps {
+  active?: boolean;
+}
+
+export const StyledButton = styled(Button)<StyledButtonProps>`
+  border-radius: 0;
+  background-color: var(
+    ${({ active }) =>
+      active ? "--colorsActionMinorGray700" : "--colorsUtilityYin100"}
+  );
+
+  [data-component="icon"] {
+    color: var(--colorsUtilityYang100);
+  }
+`;
+
+export const StyledGlobalVerticalMenuWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 40px;
+  left: 24px;
+  background-color: black;
+  color: white;
+  width: fit-content;
+`;
+
+export const StyledResponsiveMenu = styled.div<StyledResponsiveMenuProps>`
   align-items: center;
   background-color: var(--colorsUtilityYin100);
-  border-left: 2px solid var(--colorsActionMajorYang030);
   display: flex;
   flex-direction: column;
   height: ${({ height }) => height || "auto"};
-  left: ${({ left }) => left};
-  min-height: ${({ height }) => height || "auto"};
   justify-content: flex-start;
   padding-left: var(--spacing200);
   padding-right: var(--spacing200);
@@ -25,9 +56,17 @@ export const StyledSecondaryMenu = styled.div<StyledSecondaryMenuProps>`
   top: ${({ top }) => top};
   width: 320px;
   z-index: 1000;
+
+  ${({ height, left, menu }) =>
+    menu === "secondary" &&
+    css`
+      border-left: 2px solid var(--colorsActionMajorYang030);
+      left: ${left};
+      min-height: ${height || "auto"};
+    `}
 `;
 
-export const StyledSecondaryMenuDropdown = styled.button`
+export const StyledResponsiveMenuItem = styled.button<StyledResponsiveMenuItemProps>`
   align-items: center;
   background-color: transparent;
   border: none;
@@ -47,6 +86,8 @@ export const StyledSecondaryMenuDropdown = styled.button`
     background-color: var(--colorsActionMajor500);
   }
 
+  ${({ active }) => active && `background-color: var(--colorsGray850);`}
+
   [data-component="icon"] {
     color: var(--colorsUtilityYang100);
     margin-right: 8px;
@@ -57,7 +98,7 @@ export const StyledSecondaryMenuDropdown = styled.button`
   }
 `;
 
-export const StyledSecondaryMenuAction = styled.a`
+export const StyledResponsiveMenuAction = styled.a`
   align-items: center;
   background-color: transparent;
   border: none;

@@ -1,11 +1,11 @@
 import React from "react";
 
-import StyledMenuItemContent from "./menu-item.style";
-import { VerticalMenuButtonItem } from "../../vertical-menu-with-button.context";
-import Icon, { IconType } from "../../../../icon";
+import StyledMenuItemContent from "./responsive-vertical-menu-item.style";
+import { ResponsiveVerticalMenuButtonItem } from "../responsive-vertical-menu.context";
+import Icon, { IconType } from "../../../icon";
 
 export interface MenuItemProps {
-  item: VerticalMenuButtonItem;
+  item: ResponsiveVerticalMenuButtonItem;
 }
 
 export interface MenuItemContentProps {

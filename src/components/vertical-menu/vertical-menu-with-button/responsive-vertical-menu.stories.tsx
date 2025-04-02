@@ -5,22 +5,18 @@ import { allModes } from "../../../../.storybook/modes";
 import isChromatic from "../../../../.storybook/isChromatic";
 
 import {
-  VerticalMenuWithButton,
-  PrimaryMenu,
-  PrimaryMenuItem,
-  SecondaryMenu,
-  SecondaryMenuItem,
-  TertiaryMenu,
-  TertiaryMenuItem,
+  ResponsiveVerticalMenu,
+  ResponsiveVerticalMenuItem,
+  ResponsiveVerticalMenuProvider,
 } from ".";
 import Box from "../../box";
 import GlobalHeader from "../../global-header";
 
 const defaultOpenState = isChromatic();
 
-const meta: Meta<typeof VerticalMenuWithButton> = {
-  title: "Vertical Menu/With Button",
-  component: VerticalMenuWithButton,
+const meta: Meta<typeof ResponsiveVerticalMenu> = {
+  title: "Vertical Menu/Responsive",
+  component: ResponsiveVerticalMenu,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
     modes: {
@@ -43,7 +39,7 @@ const meta: Meta<typeof VerticalMenuWithButton> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof VerticalMenuWithButton>;
+type Story = StoryObj<typeof ResponsiveVerticalMenu>;
 
 const CustomSVG = () => (
   <svg
@@ -96,45 +92,26 @@ const CustomSVG = () => (
   </svg>
 );
 
-export const Default: Story = ({ ...args }) => {
+export const Default: Story = () => {
   return (
     <>
       <GlobalHeader>
-        <VerticalMenuWithButton {...args}>
-          <PrimaryMenu>
-            <PrimaryMenuItem
-              href="#link-1"
-              icon="home"
-              id="level-1-item-1"
-              label="Level 1 Item 1"
-            />
-            <PrimaryMenuItem
+        <ResponsiveVerticalMenuProvider>
+          <ResponsiveVerticalMenu>
+            <ResponsiveVerticalMenuItem icon="home" id="p-1" label="Test 1">
+              <ResponsiveVerticalMenuItem id="p-1-s-1" label="Test 2" />
+              <ResponsiveVerticalMenuItem id="p-1-s-2" label="Test 3" />
+              <ResponsiveVerticalMenuItem id="p-1-s-3" label="Test 4">
+                <ResponsiveVerticalMenuItem id="p-1-s-3-t-1" label="Test 5" />
+              </ResponsiveVerticalMenuItem>
+            </ResponsiveVerticalMenuItem>
+            <ResponsiveVerticalMenuItem
               customIcon={CustomSVG}
-              href="#link-2"
-              id="level-1-item-2"
-              label="Level 1 Item 2"
+              id="p-1"
+              label="Test 1"
             />
-            <PrimaryMenuItem id="level-1-item-3" label="Level 1 Item 3">
-              <SecondaryMenu>
-                <SecondaryMenuItem id="level-2-item-1" label="Level 2 Item 1" />
-                <SecondaryMenuItem id="level-2-item-2" label="Level 2 Item 2">
-                  <TertiaryMenu id="first-tertiary-menu">
-                    <TertiaryMenuItem
-                      id="level-3-item-1"
-                      label="Level 3 Item 1"
-                    />
-                  </TertiaryMenu>
-                </SecondaryMenuItem>
-              </SecondaryMenu>
-            </PrimaryMenuItem>
-            <PrimaryMenuItem id="level-1-item-4" label="Level 1 Item 4">
-              <SecondaryMenu>
-                <SecondaryMenuItem id="level-2-item-3" label="Level 2 Item 3" />
-                <SecondaryMenuItem id="level-2-item-4" label="Level 2 Item 4" />
-              </SecondaryMenu>
-            </PrimaryMenuItem>
-          </PrimaryMenu>
-        </VerticalMenuWithButton>
+          </ResponsiveVerticalMenu>
+        </ResponsiveVerticalMenuProvider>
       </GlobalHeader>
       <Box m="50px">This text will be hidden by the menu when opened</Box>
     </>
