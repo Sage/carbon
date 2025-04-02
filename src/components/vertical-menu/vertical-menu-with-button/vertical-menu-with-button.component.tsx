@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import useMediaQuery from "../../../hooks/useMediaQuery";
+
 import {
   useVerticalMenu,
   VerticalMenuProvider,
@@ -20,7 +22,14 @@ const MenuLauncher = ({
   active: boolean;
   setActive: (_active: boolean) => void;
 }) => {
-  const { buttonRef, setActiveMenuItem } = useVerticalMenu();
+  const { buttonRef, setActiveMenuItem, setReducedMotion } = useVerticalMenu();
+  const reduceMotion = !useMediaQuery(
+    "screen and (prefers-reduced-motion: no-preference)",
+  );
+
+  useEffect(() => {
+    setReducedMotion?.(reduceMotion);
+  }, [reduceMotion, setReducedMotion]);
 
   return (
     <StyledButton
@@ -39,7 +48,6 @@ const MenuLauncher = ({
 
 export interface VerticalMenuWithButtonProps extends TagProps {
   children?: React.ReactNode;
-  reduceMotion?: boolean;
 }
 
 export const VerticalMenuWithButton = ({

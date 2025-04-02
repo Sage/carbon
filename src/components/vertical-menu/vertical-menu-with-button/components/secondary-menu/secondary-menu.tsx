@@ -14,7 +14,6 @@ import Box from "../../../../box";
 export interface SecondaryMenuProps {
   children?: React.ReactNode;
   height?: string;
-  reduceMotion?: boolean;
 }
 
 export interface SecondaryMenuItemProps {
@@ -70,9 +69,9 @@ export const SecondaryMenuItem = React.forwardRef<
 export const SecondaryMenu = ({
   children,
   height = "100%",
-  reduceMotion,
 }: SecondaryMenuProps) => {
-  const { activeMenuItem, buttonRef, menuRef } = useVerticalMenu();
+  const { activeMenuItem, buttonRef, menuRef, reducedMotion } =
+    useVerticalMenu();
 
   const [left, setLeft] = useState("auto");
   const [top, setTop] = useState("auto");
@@ -98,7 +97,7 @@ export const SecondaryMenu = ({
       height={height || undefined}
       id="global-nav-v2-submenu"
       left={left}
-      reduceMotion={reduceMotion}
+      reduceMotion={reducedMotion}
       ref={subMenuRef}
       top={top}
     >

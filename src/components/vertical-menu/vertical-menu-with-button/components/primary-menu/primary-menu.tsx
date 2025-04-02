@@ -82,15 +82,14 @@ export const PrimaryMenuItem = ({
 export const PrimaryMenu = ({
   children,
   height = "100%",
-  reduceMotion,
 }: PrimaryMenuProps) => {
-  const { menuRef } = useVerticalMenu();
+  const { menuRef, reducedMotion } = useVerticalMenu();
 
   return (
     <StyledPrimaryMenu
       data-component="global-nav-v2-menu"
       height={height}
-      reduceMotion={reduceMotion}
+      reduceMotion={reducedMotion}
       ref={menuRef}
     >
       {children}
