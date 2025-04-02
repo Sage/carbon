@@ -1,16 +1,9 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import styled from "styled-components";
-
 import { Checkbox } from "../checkbox";
-import Search from "../search";
 import Drawer, { DrawerProps } from ".";
 import Button from "../button";
-import PopoverContainer from "../popover-container";
-import DialogFullScreen from "../dialog-full-screen";
-import { StyledDrawerContent, StyledDrawerSidebar } from "./drawer.style";
-import Heading from "../heading";
 import {
   FlatTable,
   FlatTableHead,
@@ -18,7 +11,6 @@ import {
   FlatTableRow,
   FlatTableHeader,
   FlatTableCell,
-  Sort,
 } from "../flat-table";
 import { Tabs, Tab } from "../tabs";
 import Typography from "../typography";
@@ -901,207 +893,6 @@ export const Controlled: Story = () => {
   );
 };
 Controlled.storyName = "Controlled";
-
-export const SideViewNavigation: Story = () => {
-  type dataPropTypes = {
-    ColumnA: {
-      name: string;
-    };
-    ColumnB: string[];
-  };
-
-  const bodyDataItems = [
-    {
-      ColumnA: {
-        name: "First Line",
-      },
-      ColumnB: ["Value 1", "Value 2", "Value 3"],
-    },
-    {
-      ColumnA: {
-        name: "Second Line",
-      },
-      ColumnB: ["Value 1", "Value 2"],
-    },
-    {
-      ColumnA: {
-        name: "Third Line",
-      },
-      ColumnB: ["Value 1", "Value 2", "Value 3", "Value 4"],
-    },
-    {
-      ColumnA: {
-        name: "Fourth Line",
-      },
-      ColumnB: ["Value 1"],
-    },
-    {
-      ColumnA: {
-        name: "Fifth Line",
-      },
-      ColumnB: ["Value 1"],
-    },
-    {
-      ColumnA: {
-        name: "Sixth Line",
-      },
-      ColumnB: ["Value 1"],
-    },
-  ];
-  const [isExpanded, setIsExpanded] = useState(true);
-  const [isFilterOpen, setFilterOpen] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [sortType, setSortType] = useState<"ascending" | "descending">(
-    "descending",
-  );
-  const [pickedUpData, setPickedUpData] = useState<dataPropTypes>();
-  const handleDialogOpen = () => {
-    setIsDialogOpen(true);
-  };
-  const handleOpenFilterClick = () => {
-    setFilterOpen(!isFilterOpen);
-  };
-  const onChangeHandler = useCallback(() => {
-    setIsExpanded(!isExpanded);
-  }, [isExpanded]);
-  const NavigationContainer = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    padding: 24px 24px 0;
-    margin-bottom: 50px;
-    align-items: center;
-  `;
-  const StyledDrawer = useMemo(() => {
-    return styled(Drawer)`
-      ${StyledDrawerContent} {
-        overflow: visible;
-      }
-      ${StyledDrawerSidebar} {
-        overflow: visible;
-      }
-    `;
-  }, []);
-  const showPickedUpData = (data?: dataPropTypes) => {
-    if (!data) {
-      return <Box>click on any row to show some data</Box>;
-    }
-    return (
-      <Box paddingLeft="24px" paddingTop="24px">
-        <Heading title={data.ColumnA.name} divider={false} />
-      </Box>
-    );
-  };
-  const createBodyData = (type: "ascending" | "descending" | false) => {
-    const data = bodyDataItems;
-    const sortedData = data.sort((a, b) => {
-      if (type === "ascending") {
-        if (a.ColumnA.name < b.ColumnA.name) {
-          return -1;
-        }
-        if (a.ColumnA.name > b.ColumnA.name) {
-          return 1;
-        }
-        return 0;
-      }
-      if (type === "descending") {
-        if (a.ColumnA.name > b.ColumnA.name) {
-          return -1;
-        }
-        if (a.ColumnA.name < b.ColumnA.name) {
-          return 1;
-        }
-        return 0;
-      }
-      return 0;
-    });
-    return sortedData.map((dataItem: dataPropTypes) => (
-      <FlatTableRow
-        key={dataItem.ColumnA.name}
-        onClick={() => setPickedUpData(dataItem)}
-      >
-        <FlatTableCell>
-          <Box>{dataItem.ColumnA.name}</Box>
-        </FlatTableCell>
-        <FlatTableCell>
-          {dataItem.ColumnB.map((role) => (
-            <Box key={role}>{`${role}, `}</Box>
-          ))}
-        </FlatTableCell>
-      </FlatTableRow>
-    ));
-  };
-  const handleSortChange = () => {
-    if (sortType === "ascending") {
-      return setSortType("descending");
-    }
-    return setSortType("ascending");
-  };
-  return (
-    <>
-      <StyledDrawer
-        expandedWidth="50%"
-        animationDuration="0.5s"
-        sidebarAriaLabel="side view navigation"
-        expanded={isExpanded}
-        onChange={onChangeHandler}
-        sidebar={
-          <Box>
-            <NavigationContainer>
-              <Search value="" placeholder="Search" searchWidth="40%" />
-              <PopoverContainer
-                title="Filter"
-                renderOpenComponent={({ id }) => {
-                  return (
-                    <Button
-                      buttonType={isFilterOpen ? "primary" : "tertiary"}
-                      onClick={handleOpenFilterClick}
-                      iconType={isFilterOpen ? "close" : "filter_new"}
-                      iconPosition="after"
-                      id={id}
-                    >
-                      Filter
-                    </Button>
-                  );
-                }}
-                renderCloseComponent={() => {
-                  return <></>;
-                }}
-                open={isFilterOpen}
-              >
-                This is example component of Popover Container
-              </PopoverContainer>
-              <Button onClick={handleDialogOpen} ml="auto" buttonType="primary">
-                Add User
-              </Button>
-            </NavigationContainer>
-            <FlatTable colorTheme="transparent-white">
-              <FlatTableHead>
-                <FlatTableRow>
-                  <FlatTableHeader key="user">
-                    <Sort sortType={sortType} onClick={handleSortChange}>
-                      Column A
-                    </Sort>
-                  </FlatTableHeader>
-                  <FlatTableHeader key="roles">Column B</FlatTableHeader>
-                </FlatTableRow>
-              </FlatTableHead>
-              <FlatTableBody>{createBodyData(sortType)}</FlatTableBody>
-            </FlatTable>
-          </Box>
-        }
-      >
-        {showPickedUpData(pickedUpData)}
-      </StyledDrawer>
-      <DialogFullScreen
-        onCancel={() => setIsDialogOpen(false)}
-        open={isDialogOpen}
-      >
-        Content of DialogFullScreen
-      </DialogFullScreen>
-    </>
-  );
-};
-SideViewNavigation.storyName = "Side View Navigation";
 
 export const WithTabControls: Story = () => {
   const [active, setActive] = useState("tab-1");

@@ -58,7 +58,6 @@ testStyledSystemMargin(
     />
   ),
   () => screen.getByTestId("grouped-character"),
-  undefined,
   { modifier: "&&&" },
 );
 

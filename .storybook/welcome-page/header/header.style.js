@@ -17,7 +17,7 @@ export const HeadingContentWrapper = styled.div`
   color: #fff;
 
   h1 {
-    font-weight: 700
+    font-weight: 700;
     font-size: 40px;
     line-height: normal;
     margin: 0 auto;

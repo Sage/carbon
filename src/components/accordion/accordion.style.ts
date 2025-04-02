@@ -96,10 +96,10 @@ const StyledAccordionIcon = styled(Icon)<StyledAccordionIconProps>`
     return (
       isExpanded &&
       (iconAlign === "right"
-        ? "transform: rotate(180deg)"
-        : "transform: rotate(-180deg)")
+        ? "transform: rotate(180deg);"
+        : "transform: rotate(-180deg);")
     );
-  }};
+  }}
 
   color: var(--colorsActionMinor500);
 `;

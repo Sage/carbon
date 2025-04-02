@@ -368,6 +368,5 @@ testStyledSystemMargin(
     </ButtonToggleGroup>
   ),
   () => screen.getByTestId("button-toggle-group"),
-  undefined,
   { modifier: "&&&" },
 );

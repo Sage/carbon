@@ -1,3 +1,14 @@
+## [153.0.0](https://github.com/Sage/carbon/compare/v152.7.0...v153.0.0) (2025-04-01)
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** `styled-components` is a peer dependency so consumers will need to install the new
+version
+
+### Features
+
+* **deps:** upgrade styled-components to v5 ([c5ad5e3](https://github.com/Sage/carbon/commit/c5ad5e3ea90a59fd34e2e23c89f023ab7ed70e64))
+
 ## [152.7.0](https://github.com/Sage/carbon/compare/v152.6.0...v152.7.0) (2025-03-28)
 
 ### Features

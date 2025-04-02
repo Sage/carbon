@@ -100,6 +100,7 @@ export const VerticalMenuDefaultComponent = (
 };
 
 export const VerticalMenuItemCustom = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   component,
   ...props
 }: Partial<VerticalMenuItemProps>) => {
@@ -136,6 +137,7 @@ export const VerticalMenuItemCustom = ({
 };
 
 export const VerticalMenuItemCustomHref = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   component,
   ...props
 }: Partial<VerticalMenuItemProps>) => {
