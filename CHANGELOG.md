@@ -1,3 +1,9 @@
+## [153.0.1](https://github.com/Sage/carbon/compare/v153.0.0...v153.0.1) (2025-04-02)
+
+### Bug Fixes
+
+* **button-bar:** ensure disabled buttons have correct styles ([553fb68](https://github.com/Sage/carbon/commit/553fb680cbf564d0bea5f39fb99351a9a661cb3e)), closes [#6292](https://github.com/Sage/carbon/issues/6292)
+
 ## [153.0.0](https://github.com/Sage/carbon/compare/v152.7.0...v153.0.0) (2025-04-01)
 
 ### ⚠ BREAKING CHANGES
