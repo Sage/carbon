@@ -15,7 +15,6 @@ testStyledSystemPadding(
     </table>
   ),
   () => screen.getByRole("cell"),
-  undefined,
   { modifier: "&&&& > div" },
 );
 

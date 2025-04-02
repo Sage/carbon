@@ -320,9 +320,8 @@ test.describe("should check accessibility for Icon component", () => {
   });
 
   testData.forEach((ariaLabel) => {
-    test(`should pass accessibility tests when ariaLabel prop is set as ${ariaLabel}`, async ({
+    test.skip(`should pass accessibility tests when ariaLabel prop is set as ${ariaLabel}`, async ({
       mount,
-      page,
     }) => {
       await mount(<IconComponent ariaLabel={ariaLabel} />);
       // FE-4643

@@ -51,4 +51,4 @@ Thanks to [Chromatic](https://www.chromatic.com/) for providing the visual testi
 
 Carbon is licensed under the [Apache-2.0 licence](LICENSE).
 
-Copyright (c) 2018-2024 Sage Group Plc. All rights reserved.
+Copyright (c) 2018-2025 Sage Group Plc. All rights reserved.

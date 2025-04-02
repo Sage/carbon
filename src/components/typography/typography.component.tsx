@@ -97,6 +97,22 @@ export interface TypographyProps extends SpaceProps, TagProps {
   "data-component"?: string;
 }
 
+const getAs = (variant?: VariantTypes) => {
+  switch (variant) {
+    case "h1-large":
+      return "h1";
+    case "segment-header":
+    case "segment-header-small":
+    case "segment-subheader":
+    case "segment-subheader-alt":
+      return "h5";
+    case "big":
+      return "p";
+    default:
+      return variant;
+  }
+};
+
 export const Typography = ({
   "data-component": dataComponent,
   variant = "p",
@@ -129,7 +145,7 @@ export const Typography = ({
   return (
     <StyledTypography
       variant={variant}
-      as={as}
+      as={as || getAs(variant)}
       id={id}
       fontSize={fontSize}
       fontWeight={fontWeight}
