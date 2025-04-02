@@ -11,7 +11,6 @@ import ButtonMinor from "../button-minor";
 
 export default {
   title: "Button Bar/Test",
-  includeStories: ["Default", "Preview"],
   parameters: {
     info: { disable: true },
     chromatic: { disableSnapshot: true },
@@ -35,50 +34,80 @@ const commonArgsButtonBar = {
   iconPosition: "before",
 };
 
-export const DefaultWithWrapper = (args: Partial<ButtonBarProps>) => {
-  const WrappedComponent = () => {
-    return (
-      <>
-        <Button iconType="bin">bar</Button>
-        <Button iconType="csv">bar</Button>
-        <Button iconType="pdf">bar</Button>
-      </>
-    );
-  };
-
-  return (
-    <ButtonBar {...args}>
-      <WrappedComponent />
-      <IconButton onClick={() => undefined}>
-        <Icon type="csv" />
-      </IconButton>
+export const Default = (args: Partial<ButtonBarProps>) => (
+  <>
+    <ButtonBar {...args} mb={2}>
+      <Button iconType="search">Example Button</Button>
+      <Button iconType="pdf">Example Button</Button>
+      <Button iconType="csv">Example Button</Button>
     </ButtonBar>
-  );
+    <ButtonBar {...args}>
+      <ButtonMinor iconType="search">Example ButtonMinor</ButtonMinor>
+      <ButtonMinor iconType="pdf">Example ButtonMinor</ButtonMinor>
+      <ButtonMinor iconType="csv">Example ButtonMinor</ButtonMinor>
+    </ButtonBar>
+  </>
+);
+Default.story = {
+  args: {
+    ...commonArgsButtonBar,
+  },
+  argTypes: {
+    ...commonArgTypesButtonBar,
+  },
 };
 
-export const ButtonBarWithMinorButtonChildren = () => (
-  <ButtonBar>
-    <ButtonMinor iconType="search">Example ButtonMinor</ButtonMinor>
-    <ButtonMinor iconType="pdf">Example ButtonMinor</ButtonMinor>
-    <ButtonMinor iconType="csv">Example ButtonMinor</ButtonMinor>
-  </ButtonBar>
+export const WithDisabledButtons = (args: Partial<ButtonBarProps>) => (
+  <>
+    <ButtonBar {...args} mb={2}>
+      <IconButton disabled onClick={() => {}}>
+        <Icon type="pdf" />
+      </IconButton>
+      <IconButton onClick={() => {}}>
+        <Icon type="csv" />
+      </IconButton>
+      <IconButton onClick={() => {}}>
+        <Icon type="search" />
+      </IconButton>
+    </ButtonBar>
+    <ButtonBar {...args} mb={2}>
+      <Button iconType="search" disabled>
+        Example Button
+      </Button>
+      <Button iconType="pdf">Example Button</Button>
+      <Button iconType="csv">Example Button</Button>
+    </ButtonBar>
+    <ButtonBar {...args} mb={2}>
+      <Button iconType="search">Example Button</Button>
+      <Button iconType="pdf" disabled>
+        Example Button
+      </Button>
+      <Button iconType="csv">Example Button</Button>
+    </ButtonBar>
+    <ButtonBar {...args} mb={2}>
+      <ButtonMinor iconType="search" disabled>
+        Example ButtonMinor
+      </ButtonMinor>
+      <ButtonMinor iconType="pdf">Example ButtonMinor</ButtonMinor>
+      <ButtonMinor iconType="csv">Example ButtonMinor</ButtonMinor>
+    </ButtonBar>
+    <ButtonBar {...args}>
+      <ButtonMinor iconType="search">Example ButtonMinor</ButtonMinor>
+      <ButtonMinor iconType="pdf" disabled>
+        Example ButtonMinor
+      </ButtonMinor>
+      <ButtonMinor iconType="csv">Example ButtonMinor</ButtonMinor>
+    </ButtonBar>
+  </>
 );
-
-export const Default = (args: Partial<ButtonBarProps>) => (
-  <ButtonBar {...args}>
-    <Button iconType="search">Example Button</Button>
-    <Button iconType="pdf">Example Button</Button>
-    <Button iconType="csv">Example Button</Button>
-  </ButtonBar>
-);
-
-export const DefaultWithButtonMinor = (args: Partial<ButtonBarProps>) => (
-  <ButtonBar {...args}>
-    <ButtonMinor iconType="search">Example Button</ButtonMinor>
-    <ButtonMinor iconType="pdf">Example Button</ButtonMinor>
-    <ButtonMinor iconType="csv">Example Button</ButtonMinor>
-  </ButtonBar>
-);
+WithDisabledButtons.story = {
+  args: {
+    ...commonArgsButtonBar,
+  },
+  argTypes: {
+    ...commonArgTypesButtonBar,
+  },
+};
 
 export const Preview = () => {
   return (
@@ -191,19 +220,7 @@ export const Preview = () => {
     </>
   );
 };
-
-Default.story = {
-  name: "default",
-  args: {
-    ...commonArgsButtonBar,
-  },
-  argTypes: {
-    ...commonArgTypesButtonBar,
-  },
-};
-
 Preview.story = {
-  name: "visual",
   parameters: {
     chromatic: {
       disableSnapshot: false,
