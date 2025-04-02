@@ -3,12 +3,15 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   StyledButton,
   StyledGlobalVerticalMenuWrapper,
-} from "./global-vertical-menu.style";
+} from "./vertical-menu-with-button.style";
 
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
-import { useV2Menu, V2MenuProvider } from "./global-vertical-menu.context";
+import {
+  useVerticalMenu,
+  VerticalMenuProvider,
+} from "./vertical-menu-with-button.context";
 
 const MenuLauncher = ({
   active,
@@ -17,7 +20,7 @@ const MenuLauncher = ({
   active: boolean;
   setActive: (_active: boolean) => void;
 }) => {
-  const { buttonRef, setActiveMenuItem } = useV2Menu();
+  const { buttonRef, setActiveMenuItem } = useVerticalMenu();
 
   return (
     <StyledButton
@@ -34,13 +37,16 @@ const MenuLauncher = ({
   );
 };
 
-export interface GlobalNavV2Props extends TagProps {
+export interface VerticalMenuWithButtonProps extends TagProps {
   children?: React.ReactNode;
   height?: string;
   reduceMotion?: boolean;
 }
 
-export const GlobalVerticalMenu = ({ children, ...rest }: GlobalNavV2Props) => {
+export const VerticalMenuWithButton = ({
+  children,
+  ...rest
+}: VerticalMenuWithButtonProps) => {
   const [active, setActive] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -102,7 +108,7 @@ export const GlobalVerticalMenu = ({ children, ...rest }: GlobalNavV2Props) => {
   }, [active, handleClose]);
 
   return (
-    <V2MenuProvider>
+    <VerticalMenuProvider>
       <StyledGlobalVerticalMenuWrapper
         ref={containerRef}
         {...tagComponent("global-nav-v2", rest)}
@@ -110,8 +116,8 @@ export const GlobalVerticalMenu = ({ children, ...rest }: GlobalNavV2Props) => {
         <MenuLauncher active={active} setActive={setActive} />
         {active && children}
       </StyledGlobalVerticalMenuWrapper>
-    </V2MenuProvider>
+    </VerticalMenuProvider>
   );
 };
 
-export default GlobalVerticalMenu;
+export default VerticalMenuWithButton;

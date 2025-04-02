@@ -8,7 +8,7 @@ import React, {
 
 import { IconType } from "../../icon/icon-type";
 
-export interface V2MenuItem {
+export interface VerticalMenuButtonItem {
   children?: React.ReactNode;
   customIcon?: () => React.JSX.Element;
   divider?: boolean;
@@ -19,36 +19,39 @@ export interface V2MenuItem {
 }
 
 export interface MenuContextType {
-  activeMenuItem: V2MenuItem | null;
+  activeMenuItem: VerticalMenuButtonItem | null;
   buttonRef: React.RefObject<HTMLButtonElement>;
   menuRef: React.RefObject<HTMLDivElement>;
-  setActiveMenuItem: (item: V2MenuItem | null) => void;
+  setActiveMenuItem: (item: VerticalMenuButtonItem | null) => void;
 }
 
-export const V2MenuContext = createContext<MenuContextType | null>(null);
+export const VerticalMenuContext = createContext<MenuContextType | null>(null);
 
-export const useV2Menu = () => {
-  const context = useContext(V2MenuContext);
+export const useVerticalMenu = () => {
+  const context = useContext(VerticalMenuContext);
   if (context === null) {
     throw new Error("useV2Menu must be used within a V2MenuProvider");
   }
   return context;
 };
 
-export interface V2MenuProviderProps {
+export interface VerticalMenuProviderProps {
   children: ReactNode;
 }
 
-export const V2MenuProvider = ({ children }: V2MenuProviderProps) => {
-  const [activeMenuItem, setActiveMenuItem] = useState<V2MenuItem | null>(null);
+export const VerticalMenuProvider = ({
+  children,
+}: VerticalMenuProviderProps) => {
+  const [activeMenuItem, setActiveMenuItem] =
+    useState<VerticalMenuButtonItem | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   return (
-    <V2MenuContext.Provider
+    <VerticalMenuContext.Provider
       value={{ activeMenuItem, buttonRef, menuRef, setActiveMenuItem }}
     >
       {children}
-    </V2MenuContext.Provider>
+    </VerticalMenuContext.Provider>
   );
 };

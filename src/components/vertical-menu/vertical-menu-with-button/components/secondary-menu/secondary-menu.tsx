@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 
 import Icon, { IconType } from "../../../../icon";
 
-import { useV2Menu } from "../../global-vertical-menu.context";
+import { useVerticalMenu } from "../../vertical-menu-with-button.context";
 import {
   StyledSecondaryMenuDropdown,
   StyledSecondaryMenu,
@@ -72,7 +72,7 @@ export const SecondaryMenu = ({
   height = "100%",
   reduceMotion,
 }: SecondaryMenuProps) => {
-  const { activeMenuItem, buttonRef, menuRef } = useV2Menu();
+  const { activeMenuItem, buttonRef, menuRef } = useVerticalMenu();
 
   const [left, setLeft] = useState("auto");
   const [top, setTop] = useState("auto");
@@ -99,27 +99,6 @@ export const SecondaryMenu = ({
       id="global-nav-v2-submenu"
       left={left}
       reduceMotion={reduceMotion}
-      onKeyDown={(event) => {
-        // if (!activeMenuItem.children) return;
-        // const lastItem =
-        //   activeMenuItem.children[activeMenuItem.children.length - 1];
-        // const firstItem = activeMenuItem.children[0];
-        // const activeItem = activeMenuItem.children.find(
-        //   (item) => item.id === document.activeElement?.id,
-        // );
-        // const parentElement = document.querySelector(
-        //   `#${activeMenuItem?.id}`,
-        // ) as HTMLDivElement;
-        // if (event.key === "Tab") {
-        //   if (activeItem === lastItem && !event.shiftKey) {
-        //     parentElement?.focus();
-        //   }
-        //   if (event.shiftKey && activeItem === firstItem) {
-        //     event.preventDefault();
-        //     parentElement?.focus();
-        //   }
-        // }
-      }}
       ref={subMenuRef}
       top={top}
     >

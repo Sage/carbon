@@ -7,7 +7,7 @@ import isChromatic from "../../../../.storybook/isChromatic";
 import Box from "../../box";
 import GlobalHeader from "../../global-header";
 import {
-  GlobalVerticalMenu,
+  VerticalMenuWithButton,
   PrimaryMenu,
   PrimaryMenuItem,
   SecondaryMenu,
@@ -18,9 +18,9 @@ import {
 
 const defaultOpenState = isChromatic();
 
-const meta: Meta<typeof GlobalVerticalMenu> = {
-  title: "Vertical Menu/Global Vertical Menu",
-  component: GlobalVerticalMenu,
+const meta: Meta<typeof VerticalMenuWithButton> = {
+  title: "Vertical Menu/With Button",
+  component: VerticalMenuWithButton,
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
     modes: {
@@ -43,7 +43,7 @@ const meta: Meta<typeof GlobalVerticalMenu> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof GlobalVerticalMenu>;
+type Story = StoryObj<typeof VerticalMenuWithButton>;
 
 const CustomSVG = () => (
   <svg
@@ -100,7 +100,7 @@ export const Default: Story = ({ ...args }) => {
   return (
     <>
       <GlobalHeader>
-        <GlobalVerticalMenu {...args}>
+        <VerticalMenuWithButton {...args}>
           <PrimaryMenu>
             <PrimaryMenuItem
               href="#link-1"
@@ -134,7 +134,7 @@ export const Default: Story = ({ ...args }) => {
               </SecondaryMenu>
             </PrimaryMenuItem>
           </PrimaryMenu>
-        </GlobalVerticalMenu>
+        </VerticalMenuWithButton>
       </GlobalHeader>
       <Box m="50px">This text will be hidden by the menu when opened</Box>
     </>

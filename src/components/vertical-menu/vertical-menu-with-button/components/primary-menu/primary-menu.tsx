@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 
 import Box from "../../../../box";
 import Icon, { IconType } from "../../../../icon";
-import { useV2Menu } from "../../global-vertical-menu.context";
+import { useVerticalMenu } from "../../vertical-menu-with-button.context";
 import { SecondaryMenuProps } from "../secondary-menu/secondary-menu";
 import MenuItemContent from "../menu-item/menu-item";
 import {
@@ -32,7 +32,7 @@ export const PrimaryMenuItem = ({
   id,
   label,
 }: PrimaryMenuItemProps) => {
-  const { activeMenuItem, setActiveMenuItem } = useV2Menu();
+  const { activeMenuItem, setActiveMenuItem } = useVerticalMenu();
   const isActive = activeMenuItem?.id === id;
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -84,7 +84,7 @@ export const PrimaryMenu = ({
   height = "100%",
   reduceMotion,
 }: PrimaryMenuProps) => {
-  const { menuRef } = useV2Menu();
+  const { menuRef } = useVerticalMenu();
 
   return (
     <StyledPrimaryMenu
