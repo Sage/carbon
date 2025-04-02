@@ -16,15 +16,15 @@ export const StyledSecondaryMenu = styled.div<StyledSecondaryMenuProps>`
   display: flex;
   flex-direction: column;
   height: ${({ height }) => height || "auto"};
+  left: ${({ left }) => left};
   min-height: ${({ height }) => height || "auto"};
   justify-content: flex-start;
   padding-left: var(--spacing200);
   padding-right: var(--spacing200);
   position: fixed;
   top: ${({ top }) => top};
-  left: ${({ left }) => left};
-  z-index: 1000;
   width: 320px;
+  z-index: 1000;
 `;
 
 export const StyledSecondaryMenuDropdown = styled.button`

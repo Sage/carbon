@@ -1,8 +1,8 @@
 import React, {
   createContext,
-  useRef,
   ReactNode,
   useContext,
+  useRef,
   useState,
 } from "react";
 
@@ -30,7 +30,9 @@ export const VerticalMenuContext = createContext<MenuContextType | null>(null);
 export const useVerticalMenu = () => {
   const context = useContext(VerticalMenuContext);
   if (context === null) {
-    throw new Error("useV2Menu must be used within a V2MenuProvider");
+    throw new Error(
+      "useVerticalMenu must be used within a VerticalMenuProvider",
+    );
   }
   return context;
 };

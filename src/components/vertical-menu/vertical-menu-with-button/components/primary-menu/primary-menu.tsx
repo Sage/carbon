@@ -1,15 +1,15 @@
 import React, { useRef } from "react";
 
-import Box from "../../../../box";
-import Icon, { IconType } from "../../../../icon";
-import { useVerticalMenu } from "../../vertical-menu-with-button.context";
-import { SecondaryMenuProps } from "../secondary-menu/secondary-menu";
-import MenuItemContent from "../menu-item/menu-item";
 import {
   StyledPrimaryMenu,
   StyledPrimaryMenuAction,
   StyledPrimaryMenuItem,
 } from "./primary-menu.style";
+import MenuItemContent from "../menu-item/menu-item";
+import { SecondaryMenuProps } from "../secondary-menu/secondary-menu";
+import { useVerticalMenu } from "../../vertical-menu-with-button.context";
+import Box from "../../../../box";
+import Icon, { IconType } from "../../../../icon";
 
 export interface PrimaryMenuProps extends SecondaryMenuProps {
   children?: React.ReactNode;

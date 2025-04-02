@@ -1,4 +1,5 @@
 import React from "react";
+
 import StyledTertiaryMenuItem from "./tertiary-menu.style";
 
 export interface TertiaryMenuItemProps {

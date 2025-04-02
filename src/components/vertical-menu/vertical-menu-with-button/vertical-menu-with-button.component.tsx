@@ -1,6 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import {
+  useVerticalMenu,
+  VerticalMenuProvider,
+} from "./vertical-menu-with-button.context";
+import {
   StyledButton,
   StyledGlobalVerticalMenuWrapper,
 } from "./vertical-menu-with-button.style";
@@ -8,10 +12,6 @@ import {
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
-import {
-  useVerticalMenu,
-  VerticalMenuProvider,
-} from "./vertical-menu-with-button.context";
 
 const MenuLauncher = ({
   active,
@@ -39,7 +39,6 @@ const MenuLauncher = ({
 
 export interface VerticalMenuWithButtonProps extends TagProps {
   children?: React.ReactNode;
-  height?: string;
   reduceMotion?: boolean;
 }
 
@@ -111,6 +110,7 @@ export const VerticalMenuWithButton = ({
     <VerticalMenuProvider>
       <StyledGlobalVerticalMenuWrapper
         ref={containerRef}
+        {...rest}
         {...tagComponent("global-nav-v2", rest)}
       >
         <MenuLauncher active={active} setActive={setActive} />

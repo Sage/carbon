@@ -47,11 +47,7 @@ export const StyledPrimaryMenuItem = styled.button<StyledPrimaryMenuItemProps>`
     background-color: var(--colorsActionMajor500);
   }
 
-  ${({ active }) =>
-    active &&
-    `
-    background-color: var(--colorsGray850);
-  `}
+  ${({ active }) => active && `background-color: var(--colorsGray850);`}
 
   [data-component="icon"] {
     color: var(--colorsUtilityYang100);

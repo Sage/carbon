@@ -4,8 +4,6 @@ import { Meta, StoryObj } from "@storybook/react";
 import { allModes } from "../../../../.storybook/modes";
 import isChromatic from "../../../../.storybook/isChromatic";
 
-import Box from "../../box";
-import GlobalHeader from "../../global-header";
 import {
   VerticalMenuWithButton,
   PrimaryMenu,
@@ -15,6 +13,8 @@ import {
   TertiaryMenu,
   TertiaryMenuItem,
 } from ".";
+import Box from "../../box";
+import GlobalHeader from "../../global-header";
 
 const defaultOpenState = isChromatic();
 
@@ -141,14 +141,3 @@ export const Default: Story = ({ ...args }) => {
   );
 };
 Default.storyName = "Default";
-Default.argTypes = {
-  height: {
-    control: {
-      type: "text",
-    },
-    defaultValue: "100%",
-  },
-};
-Default.args = {
-  height: "100%",
-};
