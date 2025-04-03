@@ -97,19 +97,25 @@ export const Default: Story = () => {
     <>
       <GlobalHeader>
         <ResponsiveVerticalMenuProvider>
-          <ResponsiveVerticalMenu>
+          <ResponsiveVerticalMenu height="100%">
             <ResponsiveVerticalMenuItem icon="home" id="p-1" label="Test 1">
-              <ResponsiveVerticalMenuItem id="p-1-s-1" label="Test 2" />
-              <ResponsiveVerticalMenuItem id="p-1-s-2" label="Test 3" />
-              <ResponsiveVerticalMenuItem id="p-1-s-3" label="Test 4">
-                <ResponsiveVerticalMenuItem id="p-1-s-3-t-1" label="Test 5" />
+              <ResponsiveVerticalMenuItem id="p-1-s-1" label="Test 3" />
+              <ResponsiveVerticalMenuItem id="p-1-s-2" label="Test 4" />
+              <ResponsiveVerticalMenuItem id="p-1-s-3" label="Test 5">
+                <ResponsiveVerticalMenuItem id="p-1-s-3-t-1" label="Test 7" />
+              </ResponsiveVerticalMenuItem>
+              <ResponsiveVerticalMenuItem id="p-1-s-3" label="Test 6">
+                <ResponsiveVerticalMenuItem id="p-1-s-3-t-1" label="Test 8" />
               </ResponsiveVerticalMenuItem>
             </ResponsiveVerticalMenuItem>
             <ResponsiveVerticalMenuItem
               customIcon={CustomSVG}
-              id="p-1"
-              label="Test 1"
-            />
+              id="p-2"
+              label="Test 2"
+            >
+              <ResponsiveVerticalMenuItem id="p-2-s-1" label="Test 9" />
+            </ResponsiveVerticalMenuItem>
+            <ResponsiveVerticalMenuItem id="p-3" label="Test 10" />
           </ResponsiveVerticalMenu>
         </ResponsiveVerticalMenuProvider>
       </GlobalHeader>

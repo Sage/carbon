@@ -66,6 +66,13 @@ export const StyledResponsiveMenu = styled.div<StyledResponsiveMenuProps>`
     `}
 `;
 
+export const StyledNestedMenu = styled.div`
+  width: 90%;
+  a {
+    font-weight: 400;
+  }
+`;
+
 export const StyledResponsiveMenuItem = styled.button<StyledResponsiveMenuItemProps>`
   align-items: center;
   background-color: transparent;

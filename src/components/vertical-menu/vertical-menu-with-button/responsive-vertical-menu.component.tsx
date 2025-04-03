@@ -1,5 +1,6 @@
 import React, {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -13,6 +14,7 @@ import useMediaQuery from "../../../hooks/useMediaQuery";
 import {
   StyledButton,
   StyledGlobalVerticalMenuWrapper,
+  StyledNestedMenu,
   StyledResponsiveMenu,
   StyledResponsiveMenuAction,
   StyledResponsiveMenuItem,
@@ -36,13 +38,16 @@ interface ResponsiveVerticalMenuItemProps {
 
 export interface ResponsiveVerticalMenuProps extends TagProps {
   children?: React.ReactNode;
+  height?: string;
 }
 
 export const BaseMenu = ({
   children,
+  height,
   ...rest
 }: {
   children?: React.ReactNode;
+  height?: string;
 }) => {
   const {
     activeMenuItem,
@@ -82,64 +87,67 @@ export const BaseMenu = ({
     }
   }, [activeMenuItem, buttonRef, menuRef]);
 
-  // const handleClose = useCallback((e: KeyboardEvent) => {
-  //   if (e.key === "Escape") {
-  //     e.preventDefault();
+  const handleClose = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      e.preventDefault();
 
-  //     setActive(false);
-  //   }
-  // }, []);
+      setActive(false);
+    }
+  }, []);
 
-  // const handleOutsideClick = useCallback((event: MouseEvent) => {
-  //   const notInContainer =
-  //     containerRef.current &&
-  //     !containerRef.current.contains(event.target as Node);
+  const handleOutsideClick = useCallback(
+    (event: MouseEvent) => {
+      const notInContainer =
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node);
 
-  //   if (notInContainer) {
-  //     setActive(false);
-  //   }
-  // }, []);
+      if (notInContainer) {
+        setActive(false);
+      }
+    },
+    [containerRef],
+  );
 
-  // useEffect(() => {
-  //   if (active) {
-  //     document.addEventListener("keydown", handleClose);
-  //   }
+  useEffect(() => {
+    if (active) {
+      document.addEventListener("keydown", handleClose);
+    }
 
-  //   return () => {
-  //     document.removeEventListener("keydown", handleClose);
-  //   };
-  // }, [active, handleClose]);
+    return () => {
+      document.removeEventListener("keydown", handleClose);
+    };
+  }, [active, handleClose]);
 
-  // useEffect(() => {
-  //   window.addEventListener("click", handleOutsideClick);
+  useEffect(() => {
+    window.addEventListener("click", handleOutsideClick);
 
-  //   return function cleanup() {
-  //     window.removeEventListener("click", handleOutsideClick);
-  //   };
-  // }, [handleOutsideClick]);
+    return function cleanup() {
+      window.removeEventListener("click", handleOutsideClick);
+    };
+  }, [handleOutsideClick]);
 
-  // useEffect(() => {
-  //   const handleBlur = () => {
-  //     setTimeout(() => {
-  //       if (
-  //         containerRef.current &&
-  //         !containerRef.current.contains(document.activeElement)
-  //       ) {
-  //         setActive(false);
-  //       }
-  //     }, 0);
-  //   };
+  useEffect(() => {
+    const handleBlur = () => {
+      setTimeout(() => {
+        if (
+          containerRef.current &&
+          !containerRef.current.contains(document.activeElement)
+        ) {
+          setActive(false);
+        }
+      }, 0);
+    };
 
-  //   const currentContainer = containerRef.current;
-  //   currentContainer?.addEventListener("focusout", handleBlur);
+    const currentContainer = containerRef.current;
+    currentContainer?.addEventListener("focusout", handleBlur);
 
-  //   return () => {
-  //     currentContainer?.removeEventListener("focusout", handleBlur);
-  //   };
-  // }, [active, handleClose]);
+    return () => {
+      currentContainer?.removeEventListener("focusout", handleBlur);
+    };
+  }, [active, containerRef, handleClose]);
 
   return (
-    <>
+    <div ref={containerRef}>
       <StyledButton
         active={active}
         buttonType="tertiary"
@@ -152,13 +160,13 @@ export const BaseMenu = ({
         ref={buttonRef}
       />
       <StyledGlobalVerticalMenuWrapper
-        ref={containerRef}
         {...rest}
         {...tagComponent("global-nav-v2", rest)}
       >
         {active && (
           <>
             <StyledResponsiveMenu
+              height={height || "100%"}
               id="responsive-vertical-menu-primary"
               menu="primary"
               ref={menuRef}
@@ -169,6 +177,7 @@ export const BaseMenu = ({
 
             {activeMenuItem && !responsiveMode ? (
               <StyledResponsiveMenu
+                height={height || "100%"}
                 id="responsive-vertical-menu-secondary"
                 left={left}
                 menu="secondary"
@@ -181,7 +190,7 @@ export const BaseMenu = ({
           </>
         )}
       </StyledGlobalVerticalMenuWrapper>
-    </>
+    </div>
   );
 };
 
@@ -211,21 +220,23 @@ const BaseItem = ({
             id={id}
             onClick={() => {
               if (depth === 0 && !responsiveMode) {
-                setActiveMenuItem(
-                  activeMenuItem ? null : { id, label, children },
-                );
+                const itemToggled = activeMenuItem?.id === id;
+                const newActiveMenuItem = itemToggled
+                  ? null
+                  : { id, label, children };
+                setActiveMenuItem(newActiveMenuItem);
               } else {
                 setExpanded(!expanded);
               }
             }}
             onKeyDown={(e) => {
-              if (e.key === "Tab" && isActive && !e.shiftKey) {
+              if (depth === 0 && e.key === "Tab" && isActive && !e.shiftKey) {
                 if (containerRef.current) {
-                  const subMenu = containerRef.current.querySelector(
+                  const secondaryMenu = containerRef.current.querySelector(
                     '[id="responsive-vertical-menu-secondary"]',
                   );
-                  if (subMenu) {
-                    const firstChild = subMenu.firstChild as HTMLElement;
+                  if (secondaryMenu) {
+                    const firstChild = secondaryMenu.firstChild as HTMLElement;
                     if (firstChild) {
                       e.preventDefault();
                       firstChild.focus();
@@ -244,7 +255,7 @@ const BaseItem = ({
             />
             <Icon type="chevron_right_thick" />
           </StyledResponsiveMenuItem>
-          {expanded && <div>{children}</div>}
+          {expanded && <StyledNestedMenu>{children}</StyledNestedMenu>}
         </>
       ) : (
         <StyledResponsiveMenuAction href={href} id={id} tabIndex={0}>
