@@ -9,10 +9,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import ButtonToggleGroupContext from "./button-toggle-group/__internal__/button-toggle-group.context";
 import ButtonToggleIcon from "./button-toggle-icon.component";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
-import Logger from "../../__internal__/utils/logger";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
-
-let deprecateUncontrolledWarnTriggered = false;
 
 export interface ButtonToggleProps
   extends Partial<StyledButtonToggleProps>,
@@ -102,13 +99,6 @@ export const ButtonToggle = ({
     if (value) {
       onButtonClick(value);
     }
-  }
-
-  if (!deprecateUncontrolledWarnTriggered && !onChange) {
-    deprecateUncontrolledWarnTriggered = true;
-    Logger.deprecate(
-      "Uncontrolled behaviour in `Button Toggle` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-    );
   }
 
   function handleFocus(ev: React.FocusEvent<HTMLButtonElement>) {
