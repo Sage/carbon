@@ -10,6 +10,9 @@ import ButtonToggleGroupContext from "./button-toggle-group/__internal__/button-
 import ButtonToggleIcon from "./button-toggle-icon.component";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatePressedWarnTriggered = false;
 
 export interface ButtonToggleProps
   extends Partial<StyledButtonToggleProps>,
@@ -26,7 +29,10 @@ export interface ButtonToggleProps
   onFocus?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
   /** Callback triggered by click event on the button. */
   onClick?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
-  /** Set the pressed state of the toggle button */
+  /**
+   * Set the pressed state of the toggle button
+   * @deprecated
+   * */
   pressed?: boolean;
   /** An optional string by which to identify the button in either an onClick handler, or an onChange handler on the parent ButtonToggleGroup. */
   value?: string;
@@ -55,6 +61,11 @@ export const ButtonToggle = ({
     !!(children || buttonIcon),
     "Either prop `buttonIcon` must be defined, or this node must have children",
   );
+
+  if (pressed && !deprecatePressedWarnTriggered) {
+    Logger.deprecate("The `pressed` prop is deprecated.");
+    deprecatePressedWarnTriggered = true;
+  }
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -89,13 +100,13 @@ export const ButtonToggle = ({
     if (onClick) {
       onClick(ev);
     }
-    if (onChange) {
-      let newValue = value;
-      if (allowDeselect && pressedButtonValue === value) {
-        newValue = undefined;
-      }
-      onChange(ev, newValue);
-    }
+
+    const newValue =
+      allowDeselect && pressedButtonValue && pressedButtonValue === value
+        ? undefined
+        : value;
+    onChange?.(ev, newValue);
+
     if (value) {
       onButtonClick(value);
     }
@@ -119,7 +130,9 @@ export const ButtonToggle = ({
     }
   }
 
-  const isPressed = isInGroup ? pressedButtonValue === value : pressed;
+  const isPressed = isInGroup
+    ? pressedButtonValue && pressedButtonValue === value
+    : pressed;
   const isFirstButton = buttonRef.current === firstButton;
 
   // if we're in a ButtonToggleGroup, only one button should be tabbable - the pressed button if there is one, or
