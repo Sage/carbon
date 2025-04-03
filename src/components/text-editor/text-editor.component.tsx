@@ -46,7 +46,7 @@ import StyledTextEditor, {
   StyledWrapper,
 } from "./text-editor.style";
 import { EditorFormattedValues as SaveCallbackProps } from "./__internal__/plugins/Toolbar/buttons/save.component";
-import { createEmpty } from "./__internal__";
+import { createEmpty } from "./utils";
 import HintText from "../../__internal__/hint-text";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
