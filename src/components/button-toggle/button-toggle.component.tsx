@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import invariant from "invariant";
 import {
   StyledButtonToggle,
@@ -6,10 +6,9 @@ import {
   StyledButtonToggleProps,
 } from "./button-toggle.style";
 import guid from "../../__internal__/utils/helpers/guid";
-import ButtonToggleGroupContext from "./button-toggle-group/__internal__/button-toggle-group.context";
+import { useButtonToggleGroup } from "./button-toggle-group/__internal__/button-toggle-group.context";
 import ButtonToggleIcon from "./button-toggle-icon.component";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
-import { InputGroupContext } from "../../__internal__/input-behaviour";
 import Logger from "../../__internal__/utils/logger";
 
 let deprecatePressedWarnTriggered = false;
@@ -69,29 +68,26 @@ export const ButtonToggle = ({
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  const {
-    onMouseEnter,
-    onMouseLeave,
-    onBlur: inputGroupOnBlur,
-    onFocus: inputGroupOnFocus,
-  } = useContext(InputGroupContext);
+  const context = useButtonToggleGroup(
+    "ButtonToggle must be used within a ButtonToggleGroup component. This warning will become a runtime error in a future release.",
+  );
+  const isInGroup = context !== null;
   const {
     onButtonClick,
     handleKeyDown,
     pressedButtonValue,
     onChange,
     allowDeselect,
-    isInGroup,
     isDisabled,
     firstButton,
     childButtonCallbackRef,
     hintTextId,
-  } = useContext(ButtonToggleGroupContext);
+  } =
+    context || /* istanbul ignore next: ButtonToggle should be in a group */ {};
+
   const callbackRef = (element: HTMLButtonElement | null) => {
     buttonRef.current = element;
-    if (childButtonCallbackRef) {
-      childButtonCallbackRef(element);
-    }
+    childButtonCallbackRef?.(element);
   };
 
   const inputGuid = useRef(guid());
@@ -108,31 +104,13 @@ export const ButtonToggle = ({
     onChange?.(ev, newValue);
 
     if (value) {
-      onButtonClick(value);
-    }
-  }
-
-  function handleFocus(ev: React.FocusEvent<HTMLButtonElement>) {
-    if (onFocus) {
-      onFocus(ev);
-    }
-    if (inputGroupOnFocus) {
-      inputGroupOnFocus();
-    }
-  }
-
-  function handleBlur(ev: React.FocusEvent<HTMLButtonElement>) {
-    if (onBlur) {
-      onBlur(ev);
-    }
-    if (inputGroupOnBlur) {
-      inputGroupOnBlur();
+      onButtonClick?.(value);
     }
   }
 
   const isPressed = isInGroup
     ? pressedButtonValue && pressedButtonValue === value
-    : pressed;
+    : /* istanbul ignore next: ButtonToggle should be in a group */ pressed;
   const isFirstButton = buttonRef.current === firstButton;
 
   // if we're in a ButtonToggleGroup, only one button should be tabbable - the pressed button if there is one, or
@@ -156,12 +134,10 @@ export const ButtonToggle = ({
         data-element="button-toggle-button"
         disabled={disabled || isDisabled}
         id={inputGuid.current}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
         size={size}
         value={value}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        onFocus={onFocus}
+        onBlur={onBlur}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         // In Safari non-text input elements do not gain focus on click. To get around this, we have to apply a tab-index of 0 here.

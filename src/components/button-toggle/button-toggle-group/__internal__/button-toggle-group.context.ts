@@ -1,4 +1,5 @@
-import React from "react";
+import { createContext, useContext } from "react";
+import Logger from "../../../../__internal__/utils/logger";
 
 type ButtonToggleGroupContextType = {
   onButtonClick: (value: string) => void;
@@ -6,19 +7,25 @@ type ButtonToggleGroupContextType = {
   pressedButtonValue?: string;
   onChange?: (ev: React.MouseEvent<HTMLButtonElement>, value?: string) => void;
   allowDeselect?: boolean;
-  isInGroup: boolean;
   isDisabled?: boolean;
   firstButton?: HTMLButtonElement;
-  childButtonCallbackRef?: (button: HTMLButtonElement | null) => void;
+  childButtonCallbackRef: (button: HTMLButtonElement | null) => void;
   /** Identifier for the hint text, if it exists, that is rendered by ButtonToggleGroup */
   hintTextId?: string;
 };
 
-export default React.createContext<ButtonToggleGroupContextType>({
-  onButtonClick: /* istanbul ignore next */ () => {},
-  handleKeyDown: /* istanbul ignore next */ () => {},
-  pressedButtonValue: undefined,
-  allowDeselect: false,
-  isInGroup: false,
-  isDisabled: false,
-});
+const ButtonToggleGroupContext =
+  createContext<ButtonToggleGroupContextType | null>(null);
+
+const useButtonToggleGroup = (errorMessage: string) => {
+  const context = useContext(ButtonToggleGroupContext);
+
+  if (!context) {
+    Logger.warn(errorMessage);
+    return null;
+  }
+
+  return context;
+};
+
+export { ButtonToggleGroupContext, useButtonToggleGroup };

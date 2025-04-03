@@ -11,10 +11,9 @@ import StyledButtonToggleGroup from "./button-toggle-group.style";
 import { ButtonToggle } from "..";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TooltipProvider } from "../../../__internal__/tooltip-provider";
-import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 import Events from "../../../__internal__/utils/helpers/events";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
-import ButtonToggleGroupContext from "./__internal__/button-toggle-group.context";
+import { ButtonToggleGroupContext } from "./__internal__/button-toggle-group.context";
 import HintText from "../../../__internal__/hint-text";
 import Logger from "../../../__internal__/utils/logger";
 
@@ -175,65 +174,62 @@ const ButtonToggleGroup = ({
 
   return (
     <TooltipProvider helpAriaLabel={helpAriaLabel}>
-      <InputGroupBehaviour>
-        <FormField
-          label={label}
-          labelHelp={computeLabelPropValues(labelHelp)}
-          labelSpacing={computeLabelPropValues(labelSpacing)}
-          fieldHelp={computeLabelPropValues(fieldHelp)}
-          fieldHelpInline={computeLabelPropValues(fieldHelpInline)}
-          labelInline={computeLabelPropValues(labelInline)}
-          labelWidth={computeLabelPropValues(labelWidth)}
-          labelId={labelId.current}
-          id={id}
-          labelAs="span"
-          disabled={disabled}
-          {...filterStyledSystemMarginProps(props)}
-          {...tagComponent(
-            props["data-component"] ?? "button-toggle-group",
-            props,
-          )}
+      <FormField
+        label={label}
+        labelHelp={computeLabelPropValues(labelHelp)}
+        labelSpacing={computeLabelPropValues(labelSpacing)}
+        fieldHelp={computeLabelPropValues(fieldHelp)}
+        fieldHelpInline={computeLabelPropValues(fieldHelpInline)}
+        labelInline={computeLabelPropValues(labelInline)}
+        labelWidth={computeLabelPropValues(labelWidth)}
+        labelId={labelId.current}
+        id={id}
+        labelAs="span"
+        disabled={disabled}
+        {...filterStyledSystemMarginProps(props)}
+        {...tagComponent(
+          props["data-component"] ?? "button-toggle-group",
+          props,
+        )}
+      >
+        <ButtonToggleGroupContext.Provider
+          value={{
+            onButtonClick,
+            handleKeyDown,
+            pressedButtonValue: value || pressedButtonValue,
+            onChange,
+            allowDeselect,
+            isDisabled: disabled,
+            firstButton,
+            childButtonCallbackRef,
+            hintTextId: inputHint ? hintTextId.current : undefined,
+          }}
         >
-          <ButtonToggleGroupContext.Provider
-            value={{
-              onButtonClick,
-              handleKeyDown,
-              pressedButtonValue: value || pressedButtonValue,
-              onChange,
-              allowDeselect,
-              isInGroup: true,
-              isDisabled: disabled,
-              firstButton,
-              childButtonCallbackRef,
-              hintTextId: inputHint ? hintTextId.current : undefined,
-            }}
-          >
-            {inputHint && (
-              <HintText
-                id={hintTextId.current}
-                isDisabled={disabled}
-                marginBottom="var(--spacing150)"
-              >
-                {inputHint}
-              </HintText>
-            )}
-            <StyledButtonToggleGroup
-              ref={wrapperRef}
-              {...(label
-                ? { "aria-labelledby": labelId.current }
-                : { "aria-label": ariaLabel })}
-              labelInline={labelInline}
-              inputWidth={inputWidth}
-              fullWidth={fullWidth}
-              role="group"
-              id={id}
-              disabled={disabled}
+          {inputHint && (
+            <HintText
+              id={hintTextId.current}
+              isDisabled={disabled}
+              marginBottom="var(--spacing150)"
             >
-              {children}
-            </StyledButtonToggleGroup>
-          </ButtonToggleGroupContext.Provider>
-        </FormField>
-      </InputGroupBehaviour>
+              {inputHint}
+            </HintText>
+          )}
+          <StyledButtonToggleGroup
+            ref={wrapperRef}
+            {...(label
+              ? { "aria-labelledby": labelId.current }
+              : { "aria-label": ariaLabel })}
+            labelInline={labelInline}
+            inputWidth={inputWidth}
+            fullWidth={fullWidth}
+            role="group"
+            id={id}
+            disabled={disabled}
+          >
+            {children}
+          </StyledButtonToggleGroup>
+        </ButtonToggleGroupContext.Provider>
+      </FormField>
     </TooltipProvider>
   );
 };
