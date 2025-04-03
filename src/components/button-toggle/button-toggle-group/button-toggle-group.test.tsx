@@ -4,6 +4,24 @@ import userEvent from "@testing-library/user-event";
 import { ButtonToggle, ButtonToggleGroup } from "..";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
+import Logger from "../../../__internal__/utils/logger";
+
+test("should display a deprecation warning for uncontrolled behaviour which is triggered only once", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+
+  render(
+    <ButtonToggleGroup id="test">
+      <ButtonToggle>Button</ButtonToggle>
+    </ButtonToggleGroup>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "Uncontrolled behaviour in `Button Toggle Group` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+});
 
 test("should render with provided children", () => {
   render(

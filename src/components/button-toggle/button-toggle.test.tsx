@@ -1,22 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Logger from "../../__internal__/utils/logger";
 import { ButtonToggle } from ".";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
-
-test("should display a deprecation warning for uncontrolled behaviour which is triggered only once", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(<ButtonToggle>Button</ButtonToggle>);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Button Toggle` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-  loggerSpy.mockRestore();
-});
 
 test("should call `onClick` when the button is clicked", async () => {
   const onClick = jest.fn();
