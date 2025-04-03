@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { LinkProps } from "../../link";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 import { StyledCrumb, Divider } from "./crumb.style";
-import BreadcrumbsContext from "../__internal__/breadcrumbs.context";
+import { useBreadcrumbs } from "../__internal__/breadcrumbs.context";
 
 export interface CrumbProps
   extends Omit<
@@ -30,7 +30,9 @@ export interface CrumbProps
 
 const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
   ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => {
-    const { isDarkBackground } = useContext(BreadcrumbsContext);
+    const { isDarkBackground } = useBreadcrumbs(
+      "Crumbs must be used within a Breadcrumbs component. This warning will become a runtime error in a future release.",
+    );
 
     return (
       <li>

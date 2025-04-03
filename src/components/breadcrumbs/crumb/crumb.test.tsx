@@ -2,6 +2,19 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Crumb from "./crumb.component";
+import Logger from "../../../__internal__/utils/logger";
+
+test("logs warning when not used within Breadcrumbs", () => {
+  const loggerSpy = jest.spyOn(Logger, "warn").mockImplementation(() => {});
+
+  render(<Crumb href="#">Link text</Crumb>);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Crumbs must be used within a Breadcrumbs component. This warning will become a runtime error in a future release.",
+    ),
+  );
+});
 
 test("passes href to the anchor element isCurrent is false", () => {
   render(<Crumb href="foo">Link text</Crumb>);

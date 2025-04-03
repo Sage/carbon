@@ -3,7 +3,7 @@ import { SpaceProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import StyledBreadcrumbs from "./breadcrumbs.style";
 import useLocale from "../../hooks/__internal__/useLocale";
-import BreadcrumbsContext from "./__internal__/breadcrumbs.context";
+import { BreadcrumbsContext } from "./__internal__/breadcrumbs.context";
 
 export interface BreadcrumbsProps extends TagProps, SpaceProps {
   /** Child crumbs to display */
