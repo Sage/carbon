@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ButtonToggle } from ".";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
+import Logger from "../../__internal__/utils/logger";
 
 test("should call `onClick` when the button is clicked", async () => {
   const onClick = jest.fn();
@@ -86,10 +87,16 @@ test("should call `onMouseLeave` passed via InputGroupContext when the button is
   expect(contextOnMouseLeave).toHaveBeenCalledTimes(1);
 });
 
-test("should render with aria-pressed set to true when pressed is set", () => {
+test("logs deprecation warning if pressed prop is used", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+
   render(<ButtonToggle pressed>Button</ButtonToggle>);
 
-  expect(screen.getByRole("button")).toHaveAttribute("aria-pressed", "true");
+  expect(loggerSpy).toHaveBeenCalledWith(
+    expect.stringContaining("The `pressed` prop is deprecated."),
+  );
 });
 
 test("should render disabled button with expected styles", () => {
@@ -97,20 +104,6 @@ test("should render disabled button with expected styles", () => {
 
   expect(screen.getByRole("button")).toBeDisabled();
   expect(screen.getByRole("button")).toHaveStyle({ cursor: "not-allowed" });
-});
-
-test("should render disabled button with expected styles when pressed is set", () => {
-  render(
-    <ButtonToggle disabled pressed>
-      Button
-    </ButtonToggle>,
-  );
-
-  expect(screen.getByRole("button")).toBeDisabled();
-  expect(screen.getByRole("button")).toHaveStyle({
-    cursor: "not-allowed",
-    backgroundColor: "var(--colorsActionMinorYin030)",
-  });
 });
 
 test("should render with expected styles when buttonIcon is set", () => {
