@@ -22,6 +22,12 @@ const Logger = {
       console.warn(`[Deprecation] ${message}`);
     }
   },
+
+  warn: (message: string) => {
+    if (enabled) {
+      console.warn(`[Warning] ${message}`);
+    }
+  },
 };
 
 export default Logger;
