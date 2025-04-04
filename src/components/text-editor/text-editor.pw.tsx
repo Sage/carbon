@@ -3,6 +3,7 @@ import { test, expect } from "../../../playwright/helpers/base-test";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 import TextEditorDefaultComponent from "./components.test-pw";
+import { EditorFormattedValues } from "./text-editor.component";
 
 const preformattedJSON = {
   root: {
@@ -351,11 +352,19 @@ test.describe("Functionality tests", () => {
       mount,
       page,
     }) => {
-      let callbackFired = false;
+      let _value;
+      let _htmlString;
+      let _json;
+
       await mount(
         <TextEditorDefaultComponent
-          onChange={() => {
-            callbackFired = true;
+          onChange={(
+            value: string,
+            { htmlString, json }: EditorFormattedValues,
+          ) => {
+            _value = value;
+            _htmlString = htmlString;
+            _json = json;
           }}
         />,
       );
@@ -369,7 +378,41 @@ test.describe("Functionality tests", () => {
       // eslint-disable-next-line playwright/no-wait-for-timeout
       await page.waitForTimeout(3000);
 
-      expect(callbackFired).toBe(true);
+      expect(_value).toBe(" This is some text");
+      expect(_htmlString).toBe(
+        '<p dir="ltr"><span style="white-space: pre-wrap;"> This is some text</span></p>',
+      );
+      expect(_json).toEqual({
+        root: {
+          children: [
+            {
+              children: [
+                {
+                  detail: 0,
+                  format: 0,
+                  mode: "normal",
+                  style: "",
+                  text: " This is some text",
+                  type: "text",
+                  version: 1,
+                },
+              ],
+              direction: "ltr",
+              format: "",
+              indent: 0,
+              type: "paragraph",
+              version: 1,
+              textFormat: 0,
+              textStyle: "",
+            },
+          ],
+          direction: "ltr",
+          format: "",
+          indent: 0,
+          type: "root",
+          version: 1,
+        },
+      });
     });
   });
 

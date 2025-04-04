@@ -1,3 +1,9 @@
+## [153.1.0](https://github.com/Sage/carbon/compare/v153.0.3...v153.1.0) (2025-04-04)
+
+### Features
+
+* **text-editor:** add support for `onChange` callback being called with json and html values ([a92e54c](https://github.com/Sage/carbon/commit/a92e54c561fd2b417746bc09706f7ca9d0849092)), closes [#7285](https://github.com/Sage/carbon/issues/7285)
+
 ## [153.0.3](https://github.com/Sage/carbon/compare/v153.0.2...v153.0.3) (2025-04-04)
 
 ### Bug Fixes

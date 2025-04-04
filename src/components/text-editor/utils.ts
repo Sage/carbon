@@ -1,4 +1,4 @@
-import { DeserializeHTML } from "./helpers";
+import { DeserializeHTML } from "./__internal__/helpers";
 
 const createFromHTML = (html: string) => {
   // DeserializeHTML is tested as part of the helper tests

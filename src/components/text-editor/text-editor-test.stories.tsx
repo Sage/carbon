@@ -2,13 +2,16 @@
 import { Meta, StoryObj } from "@storybook/react";
 import React, { useCallback, useEffect, useState } from "react";
 
-import TextEditor, { createFromHTML, TextEditorProps } from ".";
+import TextEditor, {
+  createFromHTML,
+  TextEditorProps,
+  EditorFormattedValues,
+} from ".";
 import Box from "../box";
 import Typography from "../typography";
 
 import useDebounce from "../../hooks/__internal__/useDebounce";
 import ReadOnlyEditor from "./__internal__";
-import { SaveCallbackProps } from "./__internal__/plugins/Toolbar/buttons/save.component";
 
 const meta: Meta<typeof TextEditor> = {
   title: "Text Editor/Test",
@@ -55,9 +58,12 @@ export const Functions = ({ ...props }: Partial<TextEditorProps>) => {
   const handleCancel = useCallback(() => {
     console.log("Cancel");
   }, []);
-  const handleSave = useCallback(({ htmlString, json }: SaveCallbackProps) => {
-    console.log("Save", { htmlString, json });
-  }, []);
+  const handleSave = useCallback(
+    ({ htmlString, json }: EditorFormattedValues) => {
+      console.log("Save", { htmlString, json });
+    },
+    [],
+  );
   const handleLinkAdded = useCallback((value: string) => {
     console.log("Link Added", value);
   }, []);
@@ -122,3 +128,39 @@ export const WithMargin: Story = () => {
   );
 };
 WithMargin.storyName = "With Margin";
+
+export const OnChangeFormattedValues: Story = () => {
+  const [valueJSON, setValueJSON] = React.useState<string | undefined>(
+    undefined,
+  );
+  const [valueHTML, setValueHTML] = React.useState<string | undefined>(
+    undefined,
+  );
+  return (
+    <>
+      <TextEditor
+        namespace="storybook-onchange-formatted-values"
+        labelText="Text Editor"
+        onChange={(_, { htmlString, json }) => {
+          setValueJSON(JSON.stringify(json, null, 2));
+          setValueHTML(htmlString);
+        }}
+      />
+      <div>
+        <b>JSON formatted content:</b>
+        <br /> {valueJSON}
+      </div>
+      <br />
+      <br />
+      <div>
+        <b>HTML formatted content:</b>
+        <br />
+        {valueHTML}
+      </div>
+    </>
+  );
+};
+OnChangeFormattedValues.storyName = "Change Handler With Formatted Values";
+OnChangeFormattedValues.parameters = {
+  chromatic: { disableSnapshot: true },
+};
