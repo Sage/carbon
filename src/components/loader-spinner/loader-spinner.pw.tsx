@@ -30,6 +30,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
     mount,
     page,
   }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await mount(
       <LoaderSpinnerComponent spinnerLabel="bar" showSpinnerLabel={false} />,
     );
@@ -168,6 +169,8 @@ test.describe("Prop checks for Loader Spinner component", () => {
     mount,
     page,
   }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+
     await mount(<LoaderSpinnerComponent showSpinnerLabel={false} />);
 
     await expect(loaderSpinnerHiddenLabel(page)).toHaveText("Loading...");
