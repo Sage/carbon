@@ -336,7 +336,7 @@ test("pressing a character at the point where a separator should appear, moves t
   expect(input.selectionEnd).toBe(7);
 });
 
-test("pressing backspace after a separator moves the cursor backwards two positions", async () => {
+test("pressing backspace after a separator moves the cursor backwards one position", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
   render(<ControlledGroupedCharacter initialValue="1231231" />);
@@ -355,8 +355,8 @@ test("pressing backspace after a separator moves the cursor backwards two positi
 
   await user.keyboard("{backspace}");
 
-  expect(input.selectionStart).toBe(2);
-  expect(input.selectionEnd).toBe(2);
+  expect(input.selectionStart).toBe(3);
+  expect(input.selectionEnd).toBe(3);
 });
 
 test("adding a character before a separator moves cursor forwards two positions", async () => {
@@ -428,6 +428,53 @@ test("pressing backspace when the cursor is at one position beyond the separator
 
   expect(input.selectionStart).toBe(7);
   expect(input.selectionEnd).toBe(7);
+});
+
+test("pressing delete when the cursor is at one position before the separator, should move the cursor one position forward", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(<ControlledGroupedCharacter initialValue="1234567" />);
+
+  const input = screen.getByRole("textbox") as HTMLInputElement;
+
+  await user.click(input);
+  await user.keyboard("{arrowLeft}");
+  await user.keyboard("{arrowRight}");
+  await user.keyboard("{arrowRight}");
+
+  expect(input.selectionStart).toBe(2);
+  expect(input.selectionEnd).toBe(2);
+  expect(input).toHaveValue("12-34-567");
+
+  await user.keyboard("{Delete}");
+
+  expect(input.selectionStart).toBe(3);
+  expect(input.selectionEnd).toBe(3);
+  expect(input).toHaveValue("12-34-567");
+});
+
+test("pressing delete when the cursor is at one position after the separator, should keep the cursor in the same position", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(<ControlledGroupedCharacter initialValue="1234567" />);
+
+  const input = screen.getByRole("textbox") as HTMLInputElement;
+
+  await user.click(input);
+  await user.keyboard("{arrowLeft}");
+  await user.keyboard("{arrowRight}");
+  await user.keyboard("{arrowRight}");
+  await user.keyboard("{arrowRight}");
+
+  expect(input.selectionStart).toBe(3);
+  expect(input.selectionEnd).toBe(3);
+  expect(input).toHaveValue("12-34-567");
+
+  await user.keyboard("{Delete}");
+
+  expect(input.selectionStart).toBe(3);
+  expect(input.selectionEnd).toBe(3);
+  expect(input).toHaveValue("12-45-67");
 });
 
 test("the required prop is passed to the input", () => {

@@ -110,7 +110,9 @@ export const GroupedCharacter = React.forwardRef(
         newCursorPos += separatorDiff;
       } else if (isAtOneBeyondSeparator) {
         const isDeleting = value.length > rawValue.length;
-        newCursorPos += isDeleting ? -1 : 1;
+        if (!isDeleting) {
+          newCursorPos += 1;
+        }
       }
 
       const modifiedEvent = ev as unknown as CustomEvent;
@@ -152,6 +154,20 @@ export const GroupedCharacter = React.forwardRef(
 
       if (isCharacterKey && maxRawLength === value.length && !hasSelection) {
         ev.preventDefault();
+      }
+
+      if (ev.key === "Delete") {
+        const cursorPos = selectionStart ?? /* istanbul ignore next */ 0;
+        const rawValue = sanitizeValue(value);
+        const formattedValue = formatValue(rawValue);
+
+        if (formattedValue[cursorPos] === separator) {
+          ev.preventDefault();
+          const target = ev.target as HTMLInputElement;
+          setTimeout(() =>
+            target.setSelectionRange(cursorPos + 1, cursorPos + 1),
+          );
+        }
       }
 
       if (onKeyDown) {
