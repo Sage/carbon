@@ -61,7 +61,7 @@ body:
     id: carbon-version
     attributes:
       label: Carbon version
-      placeholder: 125.1.1
+      placeholder: 153.1.0 (please provide full version number not just 'latest')
     validations:
       required: true
 
