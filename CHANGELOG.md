@@ -1,3 +1,9 @@
+## [153.0.3](https://github.com/Sage/carbon/compare/v153.0.2...v153.0.3) (2025-04-04)
+
+### Bug Fixes
+
+* **switch:** loses focus when using Loading state ([b420a50](https://github.com/Sage/carbon/commit/b420a508e162ec8aed5f9967b541797185a95e5b)), closes [#6922](https://github.com/Sage/carbon/issues/6922)
+
 ## [153.0.2](https://github.com/Sage/carbon/compare/v153.0.1...v153.0.2) (2025-04-04)
 
 ### Bug Fixes
