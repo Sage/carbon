@@ -3,7 +3,7 @@ import { SpaceProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import StyledBreadcrumbs from "./breadcrumbs.style";
 import useLocale from "../../hooks/__internal__/useLocale";
-import BreadcrumbsContext from "./__internal__/breadcrumbs.context";
+import { BreadcrumbsProvider } from "./__internal__/breadcrumbs.context";
 
 export interface BreadcrumbsProps extends TagProps, SpaceProps {
   /** Child crumbs to display */
@@ -16,7 +16,7 @@ export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
   ({ children, isDarkBackground = false, ...rest }: BreadcrumbsProps, ref) => {
     const l = useLocale();
     return (
-      <BreadcrumbsContext.Provider value={{ isDarkBackground }}>
+      <BreadcrumbsProvider value={{ isDarkBackground }}>
         <StyledBreadcrumbs
           ref={ref}
           role="navigation"
@@ -26,7 +26,7 @@ export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
         >
           <ol>{children}</ol>
         </StyledBreadcrumbs>
-      </BreadcrumbsContext.Provider>
+      </BreadcrumbsProvider>
     );
   },
 );
