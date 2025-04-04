@@ -26,7 +26,7 @@ afterAll(() => {
 testStyledSystemMargin(
   (props) => <Loader data-role="loader" {...props} />,
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  () => screen.queryByTestId("loader")!,
+  () => screen.getByTestId("loader")!,
 );
 
 test("throws a deprecation warning if the 'aria-label' prop is set", () => {
@@ -64,12 +64,12 @@ test.each([
   },
 );
 
-test("does not render anything when `reduceMotion` is undefined", () => {
-  mockUseMediaQuery.mockReturnValueOnce(undefined);
-
+test("when the user disallows animations, alternative loading text is rendered", () => {
+  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<Loader />);
 
-  expect(screen.queryByTestId("loader")).not.toBeInTheDocument();
+  expect(screen.queryByTestId("hidden-label")).not.toBeInTheDocument();
+  expect(screen.getByText("Loading")).toBeVisible();
 });
 
 test("when the user disallows animations or their preference cannot be determined, alternative loading text is rendered", () => {
