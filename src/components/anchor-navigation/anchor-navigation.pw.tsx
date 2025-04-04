@@ -110,7 +110,7 @@ test.describe("Accessibility tests for Anchor Navigation component", () => {
 
     await checkAccessibility(page);
   });
-  // Colour contrast checker seems to be passing now that checkAccessibility is being called with the dialog full screen locator
+
   test("should pass when rendered in full screen dialog", async ({
     mount,
     page,

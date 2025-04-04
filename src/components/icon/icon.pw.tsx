@@ -12,8 +12,6 @@ import { checkAccessibility } from "../../../playwright/support/helper";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
-// The array consists of the following values: [mainColor, contrastingColor]
-// The `contrastingColors` are required to pass the accessibility tests, otherwise there is insufficient colour contrast.
 const colorData = [
   [COLOR.ORANGE, COLOR.BLACK],
   [COLOR.RED, COLOR.WHITE],
@@ -331,7 +329,8 @@ test.describe("should check accessibility for Icon component", () => {
   // This is because the icon is a span element and cannot have an `aria-role` of none, null or presentation
   // and also have an aria-label.
   testData.forEach((ariaLabel) => {
-    test.skip(`should pass accessibility tests when ariaLabel prop is set as ${ariaLabel}`, async ({
+    test(`should pass accessibility tests when ariaLabel prop is set as ${ariaLabel}`, async ({
+      page,
       mount,
     }) => {
       await mount(<IconComponent role="img" ariaLabel={ariaLabel} />);

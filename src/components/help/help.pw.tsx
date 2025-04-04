@@ -18,8 +18,6 @@ import { COLOR, CHARACTERS } from "../../../playwright/support/constants";
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const tooltipText = "Some helpful text goes here";
 
-// The array consists of the following values: [colorName, mainColor, contrastingColor]
-// The `contrastingColors` are required to pass the accessibility tests, otherwise there is insufficient colour contrast.
 const colors = [
   ["orange", COLOR.ORANGE, COLOR.BLACK],
   ["red", COLOR.RED, COLOR.WHITE],
@@ -284,7 +282,6 @@ test.describe("Accessibility tests for Help component", () => {
     await checkAccessibility(page);
   });
 
-  // The orange colour of #FF9C4B causes this to fail as the contrast is too low. The ratio is 2.07:1.
   colors.forEach(([names, color, contrastingColors]) => {
     test(`should check tooltipBgColor as ${names}`, async ({ mount, page }) => {
       await mount(
