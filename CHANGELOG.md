@@ -1,3 +1,10 @@
+## [153.0.2](https://github.com/Sage/carbon/compare/v153.0.1...v153.0.2) (2025-04-04)
+
+### Bug Fixes
+
+* **dialog-full-screen:** deprecate timeout and disableClose props in dialog-full-screen ([eca40d5](https://github.com/Sage/carbon/commit/eca40d58b128f9309986bb01449cae2b52a1b41e)), closes [#6182](https://github.com/Sage/carbon/issues/6182)
+* **dialog:** deprecate timeout prop inside dialog ([2448eef](https://github.com/Sage/carbon/commit/2448eef716d1015dd7691a64af7492046a0c3c6b)), closes [#6166](https://github.com/Sage/carbon/issues/6166)
+
 ## [153.0.1](https://github.com/Sage/carbon/compare/v153.0.0...v153.0.1) (2025-04-02)
 
 ### Bug Fixes
