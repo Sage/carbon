@@ -27,7 +27,6 @@ const ControlledDecimal = ({
 testStyledSystemMargin(
   (props) => <Decimal data-role="decimal" {...props} />,
   () => screen.getByTestId("decimal"),
-  undefined,
   { modifier: "&&&" },
 );
 

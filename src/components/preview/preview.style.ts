@@ -17,13 +17,13 @@ interface StyledPreviewPlaceholderProps {
 
 const shimmer = keyframes`
   0% { 
-    opacity: 0.1 
+    opacity: 0.1;
   }
   70% { 
-    opacity: 1
+    opacity: 1;
   }
   100% { 
-    opacity: 0.1 
+    opacity: 0.1;
   }
 `;
 

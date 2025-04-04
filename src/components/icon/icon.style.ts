@@ -98,10 +98,10 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
     disabled,
     hasTooltip,
   }) => {
-    let finalColor;
-    let finalHoverColor;
-    let bgColor;
-    let bgHoverColor;
+    let finalColor = "var(--colorsYin090)";
+    let finalHoverColor = "var(--colorsYin090)";
+    let bgColor = "transparent";
+    let bgHoverColor = "transparent";
 
     const win = getWindow();
     const nav = getNavigator();
@@ -115,18 +115,12 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
         const { color: renderedColor } = styledColor({ color, theme });
         finalColor = renderedColor;
         finalHoverColor = shade(0.2, getColorValue(renderedColor));
-      } else {
-        finalColor = "var(--colorsYin090)";
-        finalHoverColor = "var(--colorsYin090)";
       }
 
       if (bg) {
         const { backgroundColor } = styledColor({ bg, theme });
         bgColor = backgroundColor;
         bgHoverColor = shade(0.2, getColorValue(backgroundColor));
-      } else {
-        bgColor = "transparent";
-        bgHoverColor = "transparent";
       }
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -189,7 +183,7 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
       ${hasTooltip &&
       `
         :focus {
-        ${addFocusStyling()}
+          ${addFocusStyling()}
         }
       `}
 

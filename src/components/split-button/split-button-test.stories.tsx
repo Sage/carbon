@@ -73,15 +73,9 @@ export const SplitButtonStory = ({
       {...args}
       onClick={action("click")}
     >
-      <Button {...args} onClick={action("click")}>
-        Example Button
-      </Button>
-      <Button {...args} onClick={action("click")}>
-        Example Button with long text
-      </Button>
-      <Button {...args} onClick={action("click")}>
-        Short
-      </Button>
+      <Button onClick={action("click")}>Example Button</Button>
+      <Button onClick={action("click")}>Example Button with long text</Button>
+      <Button onClick={action("click")}>Short</Button>
     </SplitButton>
   </Box>
 );

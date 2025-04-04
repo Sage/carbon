@@ -14,6 +14,7 @@ import StyledIconButton from "../icon-button/icon-button.style";
 import { StyledHeader, StyledHeading } from "../heading/heading.style";
 import Form from "../form";
 import CarbonProvider from "../carbon-provider";
+import Logger from "../../__internal__/utils/logger";
 
 const ControlledDialog = ({
   onCancel,
@@ -428,4 +429,28 @@ test("the onCancel callback should not be called when a non-Enter key is pressed
   expect(onCancel).not.toHaveBeenCalled();
 
   jest.useRealTimers();
+});
+
+test("logs a deprecation warning when disableClose is used", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<DialogFullScreen open disableClose />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The disableClose prop in DialogFullScreen is deprecated and will soon be removed.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
+test("logs a deprecation warning when timeout is used", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<DialogFullScreen open timeout={1000} />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The timeout prop in DialogFullScreen is deprecated and will soon be removed.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
 });

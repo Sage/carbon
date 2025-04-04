@@ -487,10 +487,11 @@ const tabTitleStyles = css<
         ${!isInSidebar &&
         !error &&
         css`
-          --border-right-value: ${validationRedesignOptIn ? "0px" : "2px"}
-            border-right:
-            ${alternateStyling ? "1px" : "var(--border-right-value)"} solid
-            var(--colorsActionMinor100);
+          --border-right-value: ${validationRedesignOptIn ? "0px" : "2px"};
+          border-right: ${alternateStyling
+              ? "1px"
+              : "var(--border-right-value)"}
+            solid var(--colorsActionMinor100);
         `}
 
         ${!borders &&

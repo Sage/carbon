@@ -58,7 +58,6 @@ test("should display deprecation warning once for `ariaDescribedby`", () => {
 testStyledSystemMargin(
   (props) => <Textbox data-role="textbox-wrapper" {...props} />,
   () => screen.getByTestId("textbox-wrapper"),
-  undefined,
   { modifier: "&&&" },
 );
 

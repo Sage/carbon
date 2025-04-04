@@ -5,22 +5,6 @@ import baseTheme from "../../style/themes/base";
 import { TypographyProps, VariantTypes } from "./typography.component";
 import visuallyHidden from "../../style/utils/visually-hidden";
 
-const getAs = (variant?: VariantTypes) => {
-  switch (variant) {
-    case "h1-large":
-      return "h1";
-    case "segment-header":
-    case "segment-header-small":
-    case "segment-subheader":
-    case "segment-subheader-alt":
-      return "h5";
-    case "big":
-      return "p";
-    default:
-      return variant;
-  }
-};
-
 const getSize = (variant?: VariantTypes) => {
   switch (variant) {
     case "h1-large":
@@ -133,71 +117,61 @@ const getDecoration = (variant?: VariantTypes) => {
   return "none";
 };
 
-const StyledTypography = styled.span.attrs(
-  ({
-    variant,
-    as,
+const StyledTypography = styled.span<TypographyProps>`
+  ${({
     fontSize,
     fontWeight,
-    textTransform,
-    lineHeight,
-    textDecoration,
-  }: TypographyProps) => {
-    return {
-      as: as || getAs(variant),
-      size: fontSize || getSize(variant),
-      weight: fontWeight || getWeight(variant),
-      textTransform: textTransform || getTransform(variant),
-      textDecoration: textDecoration || getDecoration(variant),
-      lineHeight: lineHeight || getLineHeight(variant),
-      defaultMargin: variant === "p" ? "0 0 16px" : "0",
-    };
-  },
-)<TypographyProps>`
-  ${({
-    size,
-    weight,
-    textTransform,
-    lineHeight,
-    defaultMargin,
-    textDecoration,
     display,
     variant,
+    lineHeight: lHeight,
     listStyleType,
     whiteSpace,
     wordBreak,
     wordWrap,
     textAlign,
+    textDecoration: decoration,
     textOverflow,
+    textTransform: transform,
     truncate,
     screenReaderOnly,
-  }) => css`
-    font-style: normal;
-    font-size: ${size};
-    font-weight: ${weight};
-    text-transform: ${textTransform};
-    text-decoration: ${textDecoration};
-    line-height: ${lineHeight};
-    margin: ${defaultMargin};
-    padding: 0;
-    white-space: ${truncate ? "nowrap" : whiteSpace};
-    word-break: ${wordBreak};
-    word-wrap: ${wordWrap};
-    text-align: ${textAlign};
-    text-overflow: ${textOverflow || (truncate && "ellipsis")};
-    ${truncate &&
-    css`
-      overflow: hidden;
-    `};
-    ${screenReaderOnly && visuallyHidden}
-    ${variant === "sup" && "vertical-align: super;"};
-    ${variant === "sub" && "vertical-align: sub;"};
-    ${display && `display: ${display};`};
-    ${listStyleType && `list-style-type: ${listStyleType};`};
-  `}
+  }) => {
+    const size = fontSize || getSize(variant);
+    const weight = fontWeight || getWeight(variant);
+    const textTransform = transform || getTransform(variant);
+    const textDecoration = decoration || getDecoration(variant);
+    const lineHeight = lHeight || getLineHeight(variant);
+    const defaultMargin = variant === "p" ? "0 0 16px" : "0";
+
+    return css`
+      font-style: normal;
+      font-size: ${size};
+      font-weight: ${weight};
+      text-transform: ${textTransform};
+      text-decoration: ${textDecoration};
+      line-height: ${lineHeight};
+      margin: ${defaultMargin};
+      padding: 0;
+      white-space: ${truncate ? "nowrap" : whiteSpace};
+      word-break: ${wordBreak};
+      word-wrap: ${wordWrap};
+      text-align: ${textAlign};
+      text-overflow: ${textOverflow || (truncate && "ellipsis")};
+      ${truncate &&
+      `
+        overflow: hidden;
+      `};
+      ${screenReaderOnly && visuallyHidden}
+      ${variant === "sup" && "vertical-align: super;"}
+      ${variant === "sub" && "vertical-align: sub;"}
+      ${display && `display: ${display};`}
+      ${listStyleType && `list-style-type: ${listStyleType};`}
+    `;
+  }}
   ${space}
-    ${({ color, bg, backgroundColor, ...rest }) =>
+
+  ${({ color, bg, backgroundColor, ...rest }) =>
     styledColor({ color, bg, backgroundColor, ...rest })}
+
   ${({ isDisabled }) =>
     isDisabled &&
     css`

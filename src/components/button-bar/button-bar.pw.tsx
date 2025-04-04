@@ -4,6 +4,7 @@ import {
   Default as ButtonBarCustom,
   DefaultWithWrapper as ButtonBarWithWrapper,
   DefaultWithButtonMinor as ButtonBarMinor,
+  ButtonBarWithDisabledIconButton,
 } from "./components.test-pw";
 
 import {
@@ -15,7 +16,10 @@ import {
   buttonDataComponent,
   buttonMinorComponent,
 } from "../../../playwright/components/button/index";
-import { icon } from "../../../playwright/components/index";
+import {
+  button as iconButton,
+  icon,
+} from "../../../playwright/components/index";
 import {
   checkAccessibility,
   getStyle,
@@ -200,10 +204,7 @@ test.describe("renders with ButtonMinor children", async () => {
       );
 
       await minorButton.hover();
-      await expect(minorButton).toHaveCSS(
-        "background-color",
-        "rgb(51, 91, 112)",
-      );
+      await expect(minorButton).toHaveCSS("background-color", "rgb(0, 50, 76)");
     });
 
     test(`should apply the correct color to the ${index} ButtonMinor children`, async ({
@@ -219,16 +220,75 @@ test.describe("renders with ButtonMinor children", async () => {
     test(`should check Button Minor Bar have correct border-color for the ${index} button`, async ({
       page,
     }) => {
-      const colorByIndex =
-        index === 2
-          ? "rgb(51, 91, 112)"
-          : "rgb(51, 91, 112) rgba(0, 0, 0, 0) rgb(51, 91, 112) rgb(51, 91, 112)";
-
       const minorButton = buttonMinorComponent(page, index);
-      await expect(minorButton).toHaveCSS("border-color", colorByIndex);
+      await expect(minorButton).toHaveCSS("border-color", "rgb(51, 91, 112)");
 
       await minorButton.hover();
-      await expect(minorButton).toHaveCSS("border-color", "rgb(51, 91, 112)");
+      await expect(minorButton).toHaveCSS("border-color", "rgba(0, 0, 0, 0)");
     });
+  });
+});
+
+test.describe("renders with IconButton children", async () => {
+  test("should render IconButton with correct styles on hover", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ButtonBarWithDisabledIconButton />);
+
+    const iconButtonComponent = iconButton(page).nth(1);
+    const iconComponent = icon(page).nth(1);
+
+    await expect(iconButtonComponent).toHaveCSS(
+      "background-color",
+      "rgba(0, 0, 0, 0)",
+    );
+    await expect(iconButtonComponent).toHaveCSS(
+      "border-color",
+      "rgb(0, 126, 69)",
+    );
+    await expect(iconComponent).toHaveCSS("color", "rgb(0, 126, 69)");
+
+    await iconButtonComponent.hover();
+    await expect(iconButtonComponent).toHaveCSS(
+      "background-color",
+      "rgb(0, 103, 56)",
+    );
+    await expect(iconButtonComponent).toHaveCSS(
+      "border-color",
+      "rgb(0, 103, 56)",
+    );
+    await expect(iconComponent).toHaveCSS("color", "rgb(255, 255, 255)");
+  });
+
+  test("should render IconButton with correct styles when disabled", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ButtonBarWithDisabledIconButton />);
+
+    const disabledIconButton = iconButton(page).nth(0);
+    const disabledIcon = icon(page).nth(0);
+
+    await expect(disabledIconButton).toHaveCSS(
+      "background-color",
+      "rgba(0, 0, 0, 0)",
+    );
+    await expect(disabledIconButton).toHaveCSS(
+      "border-color",
+      "rgb(230, 235, 237)",
+    );
+    await expect(disabledIcon).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
+
+    await disabledIconButton.hover();
+    await expect(disabledIconButton).toHaveCSS(
+      "background-color",
+      "rgba(0, 0, 0, 0)",
+    );
+    await expect(disabledIconButton).toHaveCSS(
+      "border-color",
+      "rgb(230, 235, 237)",
+    );
+    await expect(disabledIcon).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
   });
 });
