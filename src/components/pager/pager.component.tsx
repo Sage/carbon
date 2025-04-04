@@ -74,6 +74,8 @@ export interface PagerProps extends TagProps {
   showPageCount?: boolean;
   /** What variant the Pager background should be */
   variant?: "default" | "alternate";
+  /** Breakpoint for small screen styling to be applied. */
+  smallScreenBreakpoint?: string;
 }
 
 export const Pager = ({
@@ -101,6 +103,7 @@ export const Pager = ({
   showPreviousAndNextButtons = true,
   showPageCount = true,
   variant = "default",
+  smallScreenBreakpoint,
   ...rest
 }: PagerProps) => {
   const l = useLocale();
@@ -251,31 +254,33 @@ export const Pager = ({
         <div>{child}</div>
       );
     return (
-      showPageSizeSelection && (
-        <StyledPagerSizeOptionsInner>
-          {showPageSizeLabelBefore &&
-            wrapper(showPageSizeLabelBefore, l.pager.show())}
-          {sizeSelector()}
-          {showPageSizeLabelAfter &&
-            wrapper(
-              !showPageSizeLabelBefore,
-              l.pager.records(currentPageSize, false),
-            )}
-        </StyledPagerSizeOptionsInner>
-      )
+      <StyledPagerSizeOptionsInner>
+        {showPageSizeLabelBefore &&
+          wrapper(showPageSizeLabelBefore, l.pager.show())}
+        {sizeSelector()}
+        {showPageSizeLabelAfter &&
+          wrapper(
+            !showPageSizeLabelBefore,
+            l.pager.records(currentPageSize, false),
+          )}
+      </StyledPagerSizeOptionsInner>
     );
   };
-
-  const renderTotalRecords = () =>
-    showTotalRecords && l.pager.records(totalRecords);
 
   return (
     <StyledPagerContainer
       variant={variant}
+      smallScreenBreakpoint={smallScreenBreakpoint}
+      showPageSizeSelection={showPageSizeSelection}
+      showTotalRecords={showTotalRecords}
       {...rest}
       {...tagComponent("pager", rest)}
     >
-      <StyledPagerSizeOptions>{renderPageSizeOptions()}</StyledPagerSizeOptions>
+      {showPageSizeSelection && (
+        <StyledPagerSizeOptions>
+          {renderPageSizeOptions()}
+        </StyledPagerSizeOptions>
+      )}
       <PagerNavigation
         pageSize={currentPageSize}
         currentPage={page}
@@ -291,8 +296,13 @@ export const Pager = ({
         showFirstAndLastButtons={showFirstAndLastButtons}
         showPreviousAndNextButtons={showPreviousAndNextButtons}
         showPageCount={showPageCount}
+        smallScreenBreakpoint={smallScreenBreakpoint}
       />
-      <StyledPagerSummary>{renderTotalRecords()}</StyledPagerSummary>
+      {showTotalRecords && (
+        <StyledPagerSummary smallScreenBreakpoint={smallScreenBreakpoint}>
+          {l.pager.records(totalRecords)}
+        </StyledPagerSummary>
+      )}
     </StyledPagerContainer>
   );
 };

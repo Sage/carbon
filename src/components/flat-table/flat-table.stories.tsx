@@ -2102,8 +2102,11 @@ export const Paginated: Story = () => {
   return (
     <FlatTable
       title="Table for pagination"
+      overflowX="auto"
+      width="100%"
       footer={
         <Pager
+          smallScreenBreakpoint="550px"
           totalRecords={rows.length}
           showPageSizeSelection
           pageSize={10}
@@ -2129,6 +2132,9 @@ export const Paginated: Story = () => {
   );
 };
 Paginated.storyName = "Paginated";
+Paginated.parameters = {
+  chromatic: { viewports: [1200, 320] },
+};
 
 export const PaginatedWithStickyHeader: Story = () => {
   const [placementUp, setPlacementUp] = useState(true);
@@ -2494,8 +2500,11 @@ export const PaginatedWithStickyHeader: Story = () => {
         title="Table for pagination with sticky header and footer"
         hasStickyHead
         hasStickyFooter
+        overflowX="auto"
+        width="100%"
         footer={
           <Pager
+            smallScreenBreakpoint="550px"
             totalRecords={rows.length}
             showPageSizeSelection
             pageSize={10}

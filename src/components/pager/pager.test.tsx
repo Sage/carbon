@@ -493,3 +493,40 @@ test("renders with correct styles when `variant` is `alternate`", () => {
     "var(--colorsUtilityMajor040)",
   );
 });
+
+// coverage for `smallScreenBreakpoint` prop - tested in chromatic
+describe("when smallScreenBreakpoint is set", () => {
+  it("renders with correct styles when viewport size is small and `showTotalRecords` is false", () => {
+    render(
+      <Pager
+        data-role="pager"
+        smallScreenBreakpoint="500px"
+        showTotalRecords={false}
+        onPagination={() => {}}
+      />,
+    );
+
+    expect(screen.getByTestId("pager")).toHaveStyleRule(
+      "grid-template-columns",
+      "1fr",
+      { media: "(max-width: 500px)" },
+    );
+  });
+
+  it("renders with correct styles when viewport size is small and `showPageSizeSelection` is true", () => {
+    render(
+      <Pager
+        data-role="pager"
+        smallScreenBreakpoint="500px"
+        showPageSizeSelection
+        onPagination={() => {}}
+      />,
+    );
+
+    expect(screen.getByTestId("pager")).toHaveStyleRule(
+      "grid-template-columns",
+      "1fr 1fr",
+      { media: "(max-width: 500px)" },
+    );
+  });
+});
