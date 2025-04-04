@@ -20,7 +20,7 @@ interface SaveProps {
   children: SaveObjectProps[];
 }
 
-export interface SaveCallbackProps {
+export interface EditorFormattedValues {
   htmlString?: string;
   json?: {
     root: {
@@ -38,7 +38,7 @@ interface SaveButtonProps {
   /** The namespace of the editor that this button belongs to */
   namespace: string;
   /** The callback to call when the save button is clicked */
-  onSave: (value: SaveCallbackProps) => void;
+  onSave: (value: EditorFormattedValues) => void;
 }
 
 // The `SaveButton` component is a button that saves the current state of the editor

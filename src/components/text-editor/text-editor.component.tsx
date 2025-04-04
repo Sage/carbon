@@ -18,6 +18,7 @@ import React, {
   useState,
 } from "react";
 import { MarginProps } from "styled-system";
+import { SerializeLexical, validateUrl } from "./__internal__/helpers";
 
 import Label from "../../__internal__/label";
 import useDebounce from "../../hooks/__internal__/useDebounce";
@@ -28,7 +29,6 @@ import {
   markdownNodes,
   theme,
 } from "./__internal__/constants";
-import { validateUrl } from "./__internal__/helpers";
 import {
   AutoLinkerPlugin,
   CharacterCounterPlugin,
@@ -45,11 +45,13 @@ import StyledTextEditor, {
   StyledValidationMessage,
   StyledWrapper,
 } from "./text-editor.style";
-import { SaveCallbackProps } from "./__internal__/plugins/Toolbar/buttons/save.component";
-import { createEmpty } from "./__internal__";
+import { EditorFormattedValues as SaveCallbackProps } from "./__internal__/plugins/Toolbar/buttons/save.component";
+import { createEmpty } from "./utils";
 import HintText from "../../__internal__/hint-text";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+
+export type EditorFormattedValues = SaveCallbackProps;
 
 export interface TextEditorProps extends MarginProps, TagProps {
   /** The maximum number of characters allowed in the editor */
@@ -67,7 +69,7 @@ export interface TextEditorProps extends MarginProps, TagProps {
   /** The callback to fire when the Cancel button within the editor is pressed */
   onCancel?: () => void;
   /** The callback to fire when a change is registered within the editor */
-  onChange?: (value: string) => void;
+  onChange?: (value: string, formattedValues: EditorFormattedValues) => void;
   /** The callback to fire when a link is added into the editor */
   onLinkAdded?: (link: string, state: string) => void;
   /** The callback to fire when the Save button within the editor is pressed */
@@ -135,7 +137,10 @@ export const TextEditor = ({
     const currentTextContent = newState.read(() => $getRoot().getTextContent());
 
     if (onChange) {
-      onChange?.(currentTextContent);
+      const formattedValues = editorRef.current
+        ? SerializeLexical(editorRef.current)
+        : {};
+      onChange?.(currentTextContent, formattedValues);
     }
 
     // If the character limit is set, check if the limit has been exceeded

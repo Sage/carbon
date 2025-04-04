@@ -20,7 +20,7 @@ import useLocale from "../../../../../hooks/__internal__/useLocale";
 
 import { BoldButton, ItalicButton, ListControls } from "./buttons";
 
-import SaveButton, { SaveCallbackProps } from "./buttons/save.component";
+import SaveButton, { EditorFormattedValues } from "./buttons/save.component";
 
 interface ToolbarProps {
   /** The namespace of the editor that this toolbar belongs to */
@@ -28,7 +28,7 @@ interface ToolbarProps {
   /** The callback to call when the cancel button is clicked */
   onCancel?: () => void;
   /** The callback to call when the save button is clicked */
-  onSave?: (value: SaveCallbackProps) => void;
+  onSave?: (value: EditorFormattedValues) => void;
 }
 
 const Toolbar = ({ namespace, onCancel, onSave }: ToolbarProps) => {

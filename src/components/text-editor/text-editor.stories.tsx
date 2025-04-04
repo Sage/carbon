@@ -11,8 +11,11 @@ import Typography from "../typography";
 
 import enGB from "../../locales/en-gb";
 
-import TextEditor, { createEmpty, createFromHTML } from ".";
-import { SaveCallbackProps } from "./__internal__/plugins/Toolbar/buttons/save.component";
+import TextEditor, {
+  createEmpty,
+  createFromHTML,
+  EditorFormattedValues,
+} from ".";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -101,15 +104,27 @@ export const CommandButtons: Story = () => {
 CommandButtons.storyName = "Command Buttons";
 
 export const OnChange: Story = () => {
-  const [state, setState] = React.useState<string | undefined>(undefined);
+  const [valueString, setValueString] = React.useState<string | undefined>(
+    undefined,
+  );
+  const [valueHTML, setValueHTML] = React.useState<string | undefined>(
+    undefined,
+  );
   return (
     <>
       <TextEditor
         namespace="storybook-onchange"
         labelText="Text Editor"
-        onChange={setState}
+        onChange={(value, { htmlString }) => {
+          setValueString(value);
+          setValueHTML(htmlString);
+        }}
       />
-      <div>Content: {state || "No content"}</div>
+      <div>Unformatted content: {valueString || "No content"}</div>
+      <div>
+        HTML formatted content:{" "}
+        {valueHTML === "<p><br></p>" ? "No content" : valueHTML}
+      </div>
     </>
   );
 };
@@ -119,7 +134,7 @@ OnChange.parameters = {
 };
 
 export const OnSave: Story = () => {
-  const [data, setData] = useState<SaveCallbackProps>({
+  const [data, setData] = useState<EditorFormattedValues>({
     htmlString: "<p><br></p>",
     json: undefined,
   });
