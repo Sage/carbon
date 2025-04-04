@@ -921,7 +921,7 @@ test.describe("Accessibility tests", () => {
   }) => {
     await mount(<InOverflowHiddenContainer />);
 
-    await getDataElementByValue(page, "accordion-title-container").click();
+    await getDataElementByValue(page, "accordion-details").click();
     await getComponent(page, "multi-action-button").locator("button").click();
     await checkAccessibility(page);
   });

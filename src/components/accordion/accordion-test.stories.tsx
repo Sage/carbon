@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { action } from "@storybook/addon-actions";
-import { Accordion, AccordionGroup } from ".";
+import { Accordion } from ".";
 import Textbox from "../textbox";
 import Box from "../box";
 import MultiActionButton from "../multi-action-button";
@@ -78,7 +78,7 @@ export const Default = ({ ...args }) => (
 Default.storyName = "default";
 
 export const Grouped = ({ ...args }) => (
-  <AccordionGroup>
+  <Box display="flex" flexDirection="column">
     <Accordion
       title="First Accordion"
       onChange={action("expansionToggled")}
@@ -108,7 +108,7 @@ export const Grouped = ({ ...args }) => (
         <Box>Content</Box>
       </Box>
     </Accordion>
-  </AccordionGroup>
+  </Box>
 );
 
 Grouped.storyName = "grouped";
@@ -206,31 +206,29 @@ export const AccordionWithValidations = () => {
   }, [validationKey]);
 
   return (
-    <AccordionGroup>
-      <Accordion {...props}>
-        <Checkbox
-          label="Error"
-          error
-          onChange={() => setValidationKey("error")}
-          checked={validationKey === "error"}
-          mb={2}
-        />
-        <Checkbox
-          label="Warning"
-          warning
-          onChange={() => setValidationKey("warning")}
-          checked={validationKey === "warning"}
-          mb={2}
-        />
-        <Checkbox
-          label="Info"
-          info
-          onChange={() => setValidationKey("info")}
-          checked={validationKey === "info"}
-          mb={2}
-        />
-      </Accordion>
-    </AccordionGroup>
+    <Accordion {...props}>
+      <Checkbox
+        label="Error"
+        error
+        onChange={() => setValidationKey("error")}
+        checked={validationKey === "error"}
+        mb={2}
+      />
+      <Checkbox
+        label="Warning"
+        warning
+        onChange={() => setValidationKey("warning")}
+        checked={validationKey === "warning"}
+        mb={2}
+      />
+      <Checkbox
+        label="Info"
+        info
+        onChange={() => setValidationKey("info")}
+        checked={validationKey === "info"}
+        mb={2}
+      />
+    </Accordion>
   );
 };
 AccordionWithValidations.storyName = "Accordion With Validation";
