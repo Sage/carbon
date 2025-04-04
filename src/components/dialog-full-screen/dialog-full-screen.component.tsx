@@ -12,8 +12,10 @@ import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
 
-export interface DialogFullScreenProps extends ModalProps {
+export interface DialogFullScreenProps
+  extends Omit<ModalProps, "disableClose"> {
   /** Prop to specify the aria-describedby property of the DialogFullscreen component */
   "aria-describedby"?: string;
   /**
@@ -74,7 +76,12 @@ export interface DialogFullScreenProps extends ModalProps {
       | KeyboardEvent
       | React.MouseEvent<HTMLButtonElement>,
   ) => void;
+  /** @deprecated Determines if the Dialog can be closed */
+  disableClose?: boolean;
 }
+
+let deprecatedDisableCloseTrigger = false;
+let deprecatedTimeoutTrigger = false;
 
 export const DialogFullScreen = ({
   "aria-describedby": ariaDescribedBy,
@@ -111,6 +118,20 @@ export const DialogFullScreen = ({
   const { current: subtitleId } = useRef(createGuid());
 
   const isTopModal = useModalAria(dialogRef);
+
+  if (!deprecatedDisableCloseTrigger && rest?.disableClose) {
+    deprecatedDisableCloseTrigger = true;
+    Logger.deprecate(
+      "The disableClose prop in DialogFullScreen is deprecated and will soon be removed.",
+    );
+  }
+
+  if (!deprecatedTimeoutTrigger && rest?.timeout) {
+    deprecatedTimeoutTrigger = true;
+    Logger.deprecate(
+      "The timeout prop in DialogFullScreen is deprecated and will soon be removed.",
+    );
+  }
 
   const closeIcon = () => {
     if (!showCloseIcon || !onCancel) return null;
