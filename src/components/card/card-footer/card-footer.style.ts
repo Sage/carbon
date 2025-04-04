@@ -16,17 +16,14 @@ const paddingSizes = {
   large: "20px 48px",
 };
 
-export interface StyledCardFooterProps extends SpaceProps {
-  /** Specify styling variant to render */
-  variant: Required<CardFooterProps>["variant"];
-  roundness: CardFooterProps["roundness"];
-  spacing: CardContextProps["spacing"];
-}
+export type StyledCardFooterProps = SpaceProps &
+  Required<Pick<CardFooterProps, "variant">> &
+  Pick<CardContextProps, "roundness" | "spacing">;
 
 const StyledCardFooter = styled.div<StyledCardFooterProps>`
   ${space}
 
-  ${({ spacing, variant, roundness = "default" }) => css`
+  ${({ spacing, variant, roundness }) => css`
     background-color: ${variant === "transparent"
       ? "transparent"
       : "var(--colorsUtilityMajor025)"};

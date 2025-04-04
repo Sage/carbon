@@ -1,7 +1,26 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import Logger from "../../../__internal__/utils/logger";
+
 import CardRow from "./card-row.component";
-import CardContext, { CardContextProps } from "../__internal__/card.context";
+
+import Card from "../card.component";
+
+test("logs console error if not wrapped in Card", () => {
+  const loggerErrorSpy = jest
+    .spyOn(Logger, "error")
+    .mockImplementation(() => {});
+
+  render(<CardRow>content</CardRow>);
+
+  expect(loggerErrorSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon Card: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
+  );
+
+  loggerErrorSpy.mockRestore();
+});
 
 test("renders content correctly when children are passed into CardRow", () => {
   const content = (
@@ -9,24 +28,28 @@ test("renders content correctly when children are passed into CardRow", () => {
       <span>content</span>
     </div>
   );
-  render(<CardRow>{content}</CardRow>);
+  render(
+    <Card>
+      <CardRow>{content}</CardRow>
+    </Card>,
+  );
 
   expect(screen.getByText("content")).toBeInTheDocument();
 });
 
-test.each<[Exclude<CardContextProps["spacing"], undefined>, string]>([
+test.each([
   ["small", "var(--spacing200)"],
   ["medium", "var(--spacing300)"],
   ["large", "var(--spacing400)"],
-])(
+] as const)(
   "should receive spacing prop %s from parent via context setting top and bottom padding to %s",
   (spacing, expected) => {
     render(
-      <CardContext.Provider value={{ spacing }}>
+      <Card spacing={spacing}>
         <CardRow data-role="card-row">
           <div />
         </CardRow>
-      </CardContext.Provider>,
+      </Card>,
     );
 
     const cardRowElement = screen.getByTestId("card-row");
@@ -37,9 +60,11 @@ test.each<[Exclude<CardContextProps["spacing"], undefined>, string]>([
 
 test("should have expected data attributes", () => {
   render(
-    <CardRow data-element="card-row" data-role="card-row">
-      <div />
-    </CardRow>,
+    <Card>
+      <CardRow data-element="card-row" data-role="card-row">
+        <div />
+      </CardRow>
+    </Card>,
   );
 
   const cardRowElement = screen.getByTestId("card-row");
@@ -47,9 +72,11 @@ test("should have expected data attributes", () => {
   expect(cardRowElement).toHaveAttribute("data-role", "card-row");
 
   render(
-    <CardRow data-element="foo" data-role="bar">
-      <div />
-    </CardRow>,
+    <Card>
+      <CardRow data-element="foo" data-role="bar">
+        <div />
+      </CardRow>
+    </Card>,
   );
 
   const cardRowElementWithAttributes = screen.getByTestId("bar");

@@ -1,13 +1,34 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import CardFooter, { CardFooterProps } from ".";
-import CardContext from "../__internal__/card.context";
+import Logger from "../../../__internal__/utils/logger";
+
+import CardFooter from ".";
+
+import Card from "../card.component";
+
+test("logs console error if not wrapped in Card", () => {
+  const loggerErrorSpy = jest
+    .spyOn(Logger, "error")
+    .mockImplementation(() => {});
+
+  render(<CardFooter>content</CardFooter>);
+
+  expect(loggerErrorSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon Card: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
+  );
+
+  loggerErrorSpy.mockRestore();
+});
 
 test("when variant prop is `transparent`, render with transparent background", () => {
   render(
-    <CardFooter variant="transparent" data-role="card-footer">
-      <div id="non-interactive">View Stripe Dashboard</div>
-    </CardFooter>,
+    <Card>
+      <CardFooter variant="transparent" data-role="card-footer">
+        <div id="non-interactive">View Stripe Dashboard</div>
+      </CardFooter>
+    </Card>,
   );
 
   const cardFooterElement = screen.getByTestId("card-footer");
@@ -16,18 +37,13 @@ test("when variant prop is `transparent`, render with transparent background", (
   });
 });
 
-test.each<CardFooterProps["roundness"]>(["default", "large"])(
+test.each(["default", "large"] as const)(
   "renders with the expected border radius styling when roundness is %s",
   (roundness) => {
     render(
-      <CardContext.Provider
-        value={{
-          roundness,
-          spacing: "medium",
-        }}
-      >
+      <Card roundness={roundness} spacing="medium">
         <CardFooter data-role="card-footer">foo</CardFooter>
-      </CardContext.Provider>,
+      </Card>,
     );
 
     const cardFooterElement = screen.getByTestId("card-footer");
@@ -44,9 +60,11 @@ test.each<CardFooterProps["roundness"]>(["default", "large"])(
 
 test("has the expected data attributes when they are passed in", () => {
   render(
-    <CardFooter data-element="foo" data-role="bar">
-      <div />
-    </CardFooter>,
+    <Card>
+      <CardFooter data-element="foo" data-role="bar">
+        <div />
+      </CardFooter>
+    </Card>,
   );
 
   const cardFooterElementWithAttributes = screen.getByTestId("bar");

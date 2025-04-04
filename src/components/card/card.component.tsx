@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MarginProps } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import CardContext, { CardContextProps } from "./__internal__/card.context";
+import { CardProvider, CardContextProps } from "./__internal__/card.context";
 import { StyledCard, StyledCardContent } from "./card.style";
 import Icon from "../icon";
 import tagComponent, {
@@ -12,9 +12,7 @@ import tagComponent, {
 type DesignTokensType = keyof typeof DesignTokens;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 
-export interface CardProps
-  extends MarginProps,
-    Pick<TagProps, "data-element" | "data-role"> {
+export interface CardProps extends MarginProps, TagProps {
   /** Action to be executed when card is clicked or enter pressed.
    * Renders a button when passed and no draggable or href props set
    * */
@@ -105,7 +103,7 @@ const Card = ({
       })}
     >
       {draggable && <Icon type="drag" />}
-      <CardContext.Provider value={{ roundness, spacing }}>
+      <CardProvider value={{ roundness, spacing }}>
         <StyledCardContent
           data-element="card-content-container"
           onClick={!draggable ? onClick : undefined}
@@ -122,7 +120,7 @@ const Card = ({
           {children}
         </StyledCardContent>
         {footer}
-      </CardContext.Provider>
+      </CardProvider>
     </StyledCard>
   );
 };
