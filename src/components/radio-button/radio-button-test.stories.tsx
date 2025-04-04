@@ -5,6 +5,9 @@ import { RadioButtonGroup, RadioButton } from ".";
 import { RadioButtonGroupProps } from "./radio-button-group/radio-button-group.component";
 import { RadioButtonProps } from "./radio-button.component";
 import CarbonProvider from "../carbon-provider";
+import { Checkbox } from "../checkbox";
+import Switch from "../switch";
+import Box from "../box";
 
 export default {
   title: "Radio Button/Test",
@@ -282,3 +285,44 @@ WithLegendAlignment.args = {
 WithLegendAlignment.parameters = {
   chromatic: { disableSnapshot: false },
 };
+
+export const HiddenInlineRadioButtons = () => {
+  const [isCheckboxChecked, setIsCheckboxChecked] = React.useState(false);
+  const [isSwitchChecked, setIsSwitchChecked] = React.useState(false);
+
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box height="90vh" overflowY="auto">
+        <Box position="sticky" height="300px" top="0%" bg="black" />
+        <Box height="1200px">
+          <Box m={2}>
+            <RadioButtonGroup legend="Radio Buttons" name="radio-buttons">
+              <RadioButton id="first" value="1" label="first" size="large" />
+              <RadioButton id="second" value="2" label="second" size="large" />
+            </RadioButtonGroup>
+          </Box>
+          <Box m={2}>
+            <Checkbox
+              label="Checkbox"
+              name="checkbox-default"
+              size="large"
+              checked={isCheckboxChecked}
+              onChange={(e) => setIsCheckboxChecked(e.target.checked)}
+            />
+          </Box>
+          <Box m={2}>
+            <Switch
+              checked={isSwitchChecked}
+              label="Switch"
+              size="small"
+              onChange={() => {
+                setIsSwitchChecked(!isSwitchChecked);
+              }}
+            />
+          </Box>
+        </Box>
+      </Box>
+    </CarbonProvider>
+  );
+};
+HiddenInlineRadioButtons.storyName = "Hidden Inline Radio Buttons";
