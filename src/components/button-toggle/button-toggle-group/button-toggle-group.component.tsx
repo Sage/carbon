@@ -14,7 +14,7 @@ import { TooltipProvider } from "../../../__internal__/tooltip-provider";
 import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 import Events from "../../../__internal__/utils/helpers/events";
 import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
-import ButtonToggleGroupContext from "./__internal__/button-toggle-group.context";
+import { ButtonToggleGroupProvider } from "./__internal__/button-toggle-group.context";
 import HintText from "../../../__internal__/hint-text";
 import Logger from "../../../__internal__/utils/logger";
 
@@ -80,8 +80,8 @@ const ButtonToggleGroup = ({
   value,
   helpAriaLabel,
   id,
-  allowDeselect,
-  disabled,
+  allowDeselect = false,
+  disabled = false,
   ...props
 }: ButtonToggleGroupProps) => {
   const hasCorrectItemStructure = useMemo(() => {
@@ -194,7 +194,7 @@ const ButtonToggleGroup = ({
             props,
           )}
         >
-          <ButtonToggleGroupContext.Provider
+          <ButtonToggleGroupProvider
             value={{
               onButtonClick,
               handleKeyDown,
@@ -231,7 +231,7 @@ const ButtonToggleGroup = ({
             >
               {children}
             </StyledButtonToggleGroup>
-          </ButtonToggleGroupContext.Provider>
+          </ButtonToggleGroupProvider>
         </FormField>
       </InputGroupBehaviour>
     </TooltipProvider>
