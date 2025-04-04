@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { SpaceProps } from "styled-system";
 import { StyledDt } from "../definition-list.style";
-import DlContext from "../__internal__/dl.context";
+import { useDlContext } from "../__internal__/dl.context";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
@@ -12,7 +12,7 @@ export interface DtProps extends SpaceProps, TagProps {
 }
 
 const Dt = ({ children, ...rest }: DtProps) => {
-  const { asSingleColumn, dtTextAlign } = useContext(DlContext);
+  const { asSingleColumn, dtTextAlign } = useDlContext();
   const { mb, pr } = rest;
   return (
     <StyledDt
