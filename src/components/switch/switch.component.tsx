@@ -101,10 +101,14 @@ export const Switch = React.forwardRef(
 
     const onChangeInternal = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCheckedInternal(e.target.checked);
-        onChange?.(e);
+        if (loading) {
+          e.preventDefault();
+        } else {
+          setCheckedInternal(e.target.checked);
+          onChange?.(e);
+        }
       },
-      [setCheckedInternal, onChange],
+      [setCheckedInternal, onChange, loading],
     );
 
     const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
@@ -136,7 +140,7 @@ export const Switch = React.forwardRef(
 
     const switchSliderProps = {
       checked: isControlled ? checked : checkedInternal,
-      disabled: disabled || loading,
+      disabled,
       loading,
       isDarkBackground,
       size,
@@ -152,7 +156,7 @@ export const Switch = React.forwardRef(
       error,
       warning,
       info,
-      disabled: disabled || loading,
+      disabled,
       loading,
       checked: isControlled ? checked : checkedInternal,
       label,
@@ -193,7 +197,7 @@ export const Switch = React.forwardRef(
 
     const switchSliderPropsForNewValidation = {
       checked: isControlled ? checked : checkedInternal,
-      disabled: disabled || loading,
+      disabled,
       loading,
       isDarkBackground,
       size,
@@ -206,7 +210,7 @@ export const Switch = React.forwardRef(
       // set aria-invalid but prevent validationIconId from being added to aria-describedby
       error: !!error,
       warning,
-      disabled: disabled || loading,
+      disabled,
       loading,
       checked: isControlled ? checked : checkedInternal,
       onBlur,

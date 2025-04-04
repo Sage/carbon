@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "153.0.1",
+  "version": "153.0.3",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "start": "node ./scripts/check_node_version.mjs && dotenvx run -- storybook dev -p 9001 -c .storybook",
+    "start:strict-mode": "node ./scripts/check_node_version.mjs && dotenvx run --env ENABLE_REACT_STRICT_MODE=true -- storybook dev -p 9001 -c .storybook",
     "test": "jest --config=./jest.config.ts",
     "test-update": "jest --config=./jest.config.ts --updateSnapshot",
     "format": "prettier --write './{src,playwright}/**/*.{js,jsx,ts,tsx}'",

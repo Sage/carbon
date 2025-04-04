@@ -65,7 +65,11 @@ const SwitchSlider = ({
   };
 
   const sliderContent = (
-    <SwitchSliderPanel data-role="slider-panel" {...sliderPanelStyleProps}>
+    <SwitchSliderPanel
+      data-role="slider-panel"
+      {...sliderPanelStyleProps}
+      aria-live="polite"
+    >
       {loading ? (
         <Loader data-role="switch-slider-loader" {...loaderProps} />
       ) : (
