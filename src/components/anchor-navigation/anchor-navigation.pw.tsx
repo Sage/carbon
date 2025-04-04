@@ -111,16 +111,13 @@ test.describe("Accessibility tests for Anchor Navigation component", () => {
     await checkAccessibility(page);
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should pass when rendered in full screen dialog", async ({
+  test("should pass when rendered in full screen dialog", async ({
     mount,
     page,
   }) => {
     await mount(<InFullScreenDialog />);
     await page.getByText("open AnchorNavigation").click();
-    await page.locator(DIALOG_FULL_SCREEN).waitFor();
 
-    // color-contrast ignored until we can investigate and fix FE-6245
-    await checkAccessibility(page, undefined, "color-contrast");
+    await checkAccessibility(page, page.locator(DIALOG_FULL_SCREEN));
   });
 });

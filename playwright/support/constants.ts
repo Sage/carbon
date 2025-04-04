@@ -19,6 +19,7 @@ export const COLOR = {
   RED: "rgb(205, 56, 75)",
   ORANGE: "rgb(255, 156, 75)",
   BROWN: "rgb(105, 61, 57)",
+  WHITE: "rgb(255, 255, 255)",
 } as const;
 
 export const CHARACTERS = {

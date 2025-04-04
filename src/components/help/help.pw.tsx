@@ -17,11 +17,12 @@ import { COLOR, CHARACTERS } from "../../../playwright/support/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const tooltipText = "Some helpful text goes here";
+
 const colors = [
-  ["orange", COLOR.ORANGE],
-  ["red", COLOR.RED],
-  ["black", COLOR.BLACK],
-  ["brown", COLOR.BROWN],
+  ["orange", COLOR.ORANGE, COLOR.BLACK],
+  ["red", COLOR.RED, COLOR.WHITE],
+  ["black", COLOR.BLACK, COLOR.WHITE],
+  ["brown", COLOR.BROWN, COLOR.WHITE],
 ];
 
 test("should have the expected styling when focused", async ({
@@ -281,32 +282,40 @@ test.describe("Accessibility tests for Help component", () => {
     await checkAccessibility(page);
   });
 
-  colors.forEach(([names, color]) => {
+  colors.forEach(([names, color, contrastingColors]) => {
     test(`should check tooltipBgColor as ${names}`, async ({ mount, page }) => {
       await mount(
-        <HelpComponentTest tooltipBgColor={color} isFocused>
+        <HelpComponentTest
+          tooltipBgColor={color}
+          tooltipFontColor={contrastingColors}
+          isFocused
+        >
           {tooltipText}
         </HelpComponentTest>,
       );
+      const tooltip = getDataElementByValue(page, "tooltip");
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      await checkAccessibility(page, tooltip);
     });
   });
 
-  colors.forEach(([names, color]) => {
+  colors.forEach(([names, color, contrastingColor]) => {
     test(`should check tooltipFontColor as ${names}`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <HelpComponentTest tooltipFontColor={color} isFocused>
+        <HelpComponentTest
+          tooltipBgColor={contrastingColor}
+          tooltipFontColor={color}
+          isFocused
+        >
           {tooltipText}
         </HelpComponentTest>,
       );
+      const tooltip = getDataElementByValue(page, "tooltip");
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      await checkAccessibility(page, tooltip);
     });
   });
 
@@ -324,9 +333,9 @@ test.describe("Accessibility tests for Help component", () => {
             </Help>
           </Box>,
         );
+        const tooltip = getDataElementByValue(page, "tooltip");
 
-        // color-contrast ignored until we can investigate and fix FE-6245
-        await checkAccessibility(page, undefined, "color-contrast");
+        await checkAccessibility(page, tooltip);
       });
     },
   );
@@ -356,9 +365,9 @@ test.describe("Accessibility tests for Help component", () => {
           {`This tooltip is positioned ${tooltipPosition}`}
         </HelpComponentTest>,
       );
+      const tooltip = getDataElementByValue(page, "tooltip");
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      await checkAccessibility(page, tooltip);
     });
   });
 

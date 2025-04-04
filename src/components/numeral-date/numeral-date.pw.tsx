@@ -682,7 +682,7 @@ test.describe("NumeralDate component", () => {
       const errorIcon = numeralDateInput(page, 2).locator("..").locator(ICON);
       await errorIcon.hover();
 
-      await checkAccessibility(page, tooltipPreview(page), "label-title-only");
+      await checkAccessibility(page, tooltipPreview(page));
     });
 
     test("should pass accessibility tests for NumeralDateControlled component with enableInternalWarning prop", async ({
@@ -700,7 +700,7 @@ test.describe("NumeralDate component", () => {
       const warningIcon = numeralDateInput(page, 2).locator("..").locator(ICON);
       await warningIcon.hover();
 
-      await checkAccessibility(page, tooltipPreview(page), "label-title-only");
+      await checkAccessibility(page, tooltipPreview(page));
     });
 
     test("should pass accessibility tests for NumeralDateControlled component with labelInline prop", async ({
