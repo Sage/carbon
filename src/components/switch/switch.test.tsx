@@ -670,3 +670,15 @@ test("when `labelInline` is true and `reverse` is true no margin right is applie
   const inputWrapper = screen.getByTestId("input-wrapper");
   expect(inputWrapper).toHaveStyleRule("margin-right: var(--spacing000)");
 });
+
+test("when component is uncontrolled and loading, it doesn't change internal state and the provided onChange is not called", async () => {
+  const user = userEvent.setup({ delay: null });
+  const onChangeMock = jest.fn();
+
+  render(<Switch onChange={onChangeMock} loading />);
+
+  const switchElement = screen.getByRole("switch");
+  await user.click(switchElement);
+
+  expect(onChangeMock).not.toHaveBeenCalled();
+});
