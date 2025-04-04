@@ -19,7 +19,7 @@ const StyledSelectContainer = styled.div`
 
 interface StyledPagerContainerProps {
   variant?: "alternate" | "default";
-  isSmallScreen?: boolean;
+  smallScreenBreakpoint?: string;
   showPageSizeSelection?: boolean;
   showTotalRecords?: boolean;
 }
@@ -29,30 +29,29 @@ const StyledPagerContainer = styled.div<StyledPagerContainerProps>`
   display: grid;
   align-items: center;
   justify-content: space-between;
-  padding: var(--sizing050) var(--sizing100);
+  padding: var(--sizing050) var(--sizing300);
   width: 100%;
   min-height: var(--sizing550);
   font-size: var(--fontSizes100);
   color: var(--colorsUtilityYin090);
   border: 1px solid var(--colorsUtilityMajor100);
   border-radius: var(--borderRadius100);
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   flex-wrap: wrap;
 
-  ${({ showPageSizeSelection, showTotalRecords }) =>
-    showPageSizeSelection &&
-    showTotalRecords &&
+  ${({ smallScreenBreakpoint, showPageSizeSelection, showTotalRecords }) =>
+    smallScreenBreakpoint &&
     css`
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-    `}
+      @media (max-width: ${smallScreenBreakpoint}) {
+        grid-template-columns: 1fr;
+        padding: var(--sizing050) var(--sizing100);
 
-  ${({ isSmallScreen }) =>
-    !isSmallScreen &&
-    css`
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 1fr;
-      padding: var(--sizing050) var(--sizing300);
+        ${(showPageSizeSelection || showTotalRecords) &&
+        css`
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+        `}
+      }
     `}
 
   ${({ variant }) => css`
@@ -94,22 +93,25 @@ const StyledPagerSizeOptionsInner = styled.div`
 `;
 
 interface StyledPagerProps {
-  isSmallScreen?: boolean;
+  smallScreenBreakpoint?: string;
 }
 
 const StyledPagerNavigation = styled.div<StyledPagerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: var(--spacing200);
-  grid-area: 2 / 1 / 2 / 3;
+  padding: 0 var(--spacing200);
+  gap: var(--spacing400);
+  grid-area: 1 / 2 / 1 / 2;
 
-  ${({ isSmallScreen }) =>
-    !isSmallScreen &&
+  ${({ smallScreenBreakpoint }) =>
+    smallScreenBreakpoint &&
     css`
-      padding: 0 17px;
-      gap: 34px;
-      grid-area: 1 / 2 / 1 / 2;
+      @media (max-width: ${smallScreenBreakpoint}) {
+        padding: 0;
+        gap: var(--spacing200);
+        grid-area: 2 / 1 / 2 / 3;
+      }
     `}
 
   && ${StyledInputPresentation} {
@@ -163,12 +165,14 @@ const StyledPagerNoSelect = styled.div`
 const StyledPagerSummary = styled.div<StyledPagerProps>`
   justify-self: end;
   white-space: nowrap;
-  grid-area: 1 / 2 / 1 / 2;
+  grid-area: 1 / 3 / 1 / 3;
 
-  ${({ isSmallScreen }) =>
-    !isSmallScreen &&
+  ${({ smallScreenBreakpoint }) =>
+    smallScreenBreakpoint &&
     css`
-      grid-area: 1 / 3 / 1 / 3;
+      @media (max-width: ${smallScreenBreakpoint}) {
+        grid-area: 1 / 2 / 1 / 2;
+      }
     `}
 `;
 

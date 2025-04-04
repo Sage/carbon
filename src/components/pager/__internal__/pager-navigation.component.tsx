@@ -57,8 +57,8 @@ export interface PagerNavigationProps {
   interactivePageNumber?: boolean;
   /** If true, sets css property visibility: hidden on all disabled elements  */
   hideDisabledElements?: boolean;
-  /** If true, sets small screen styles. */
-  isSmallScreen?: boolean;
+  /** Breakpoint for small screen styling to be applied. */
+  smallScreenBreakpoint?: string;
 }
 
 const PagerNavigation = ({
@@ -76,7 +76,7 @@ const PagerNavigation = ({
   showPageCount = true,
   interactivePageNumber = true,
   hideDisabledElements = false,
-  isSmallScreen,
+  smallScreenBreakpoint,
 }: PagerNavigationProps) => {
   const l = useLocale();
   const guid = useRef(createGuid());
@@ -169,7 +169,7 @@ const PagerNavigation = ({
   );
 
   return (
-    <StyledPagerNavigation isSmallScreen={isSmallScreen}>
+    <StyledPagerNavigation smallScreenBreakpoint={smallScreenBreakpoint}>
       {!hasOnePage && renderButtonsBeforeCount()}
       {showPageCount &&
         (interactivePageNumber ? (

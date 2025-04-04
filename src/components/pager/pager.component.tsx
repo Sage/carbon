@@ -13,7 +13,6 @@ import {
 } from "./pager.style";
 import Events from "../../__internal__/utils/helpers/events";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import useMediaQuery from "../../hooks/useMediaQuery";
 
 type PageSizeOption = {
   id: string;
@@ -104,7 +103,7 @@ export const Pager = ({
   showPreviousAndNextButtons = true,
   showPageCount = true,
   variant = "default",
-  smallScreenBreakpoint = "0px",
+  smallScreenBreakpoint,
   ...rest
 }: PagerProps) => {
   const l = useLocale();
@@ -114,8 +113,6 @@ export const Pager = ({
 
   const guid = useRef(createGuid());
   const pageSizeSelectId = `Pager_size_selector_${guid.current}`;
-
-  const isSmallScreen = useMediaQuery(`(max-width: ${smallScreenBreakpoint})`);
 
   const getPageCount = useCallback(() => {
     if (+totalRecords < 0 || Number.isNaN(+totalRecords)) {
@@ -273,7 +270,7 @@ export const Pager = ({
   return (
     <StyledPagerContainer
       variant={variant}
-      isSmallScreen={isSmallScreen}
+      smallScreenBreakpoint={smallScreenBreakpoint}
       showPageSizeSelection={showPageSizeSelection}
       showTotalRecords={showTotalRecords}
       {...rest}
@@ -299,10 +296,10 @@ export const Pager = ({
         showFirstAndLastButtons={showFirstAndLastButtons}
         showPreviousAndNextButtons={showPreviousAndNextButtons}
         showPageCount={showPageCount}
-        isSmallScreen={isSmallScreen}
+        smallScreenBreakpoint={smallScreenBreakpoint}
       />
       {showTotalRecords && (
-        <StyledPagerSummary isSmallScreen={isSmallScreen}>
+        <StyledPagerSummary smallScreenBreakpoint={smallScreenBreakpoint}>
           {l.pager.records(totalRecords)}
         </StyledPagerSummary>
       )}
