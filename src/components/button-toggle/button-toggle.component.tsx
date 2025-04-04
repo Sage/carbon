@@ -6,7 +6,7 @@ import {
   StyledButtonToggleProps,
 } from "./button-toggle.style";
 import guid from "../../__internal__/utils/helpers/guid";
-import ButtonToggleGroupContext from "./button-toggle-group/__internal__/button-toggle-group.context";
+import { useButtonToggleGroupContext } from "./button-toggle-group/__internal__/button-toggle-group.context";
 import ButtonToggleIcon from "./button-toggle-icon.component";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
@@ -75,6 +75,7 @@ export const ButtonToggle = ({
     onBlur: inputGroupOnBlur,
     onFocus: inputGroupOnFocus,
   } = useContext(InputGroupContext);
+
   const {
     onButtonClick,
     handleKeyDown,
@@ -86,12 +87,11 @@ export const ButtonToggle = ({
     firstButton,
     childButtonCallbackRef,
     hintTextId,
-  } = useContext(ButtonToggleGroupContext);
+  } = useButtonToggleGroupContext();
+
   const callbackRef = (element: HTMLButtonElement | null) => {
     buttonRef.current = element;
-    if (childButtonCallbackRef) {
-      childButtonCallbackRef(element);
-    }
+    childButtonCallbackRef?.(element);
   };
 
   const inputGuid = useRef(guid());
@@ -113,21 +113,13 @@ export const ButtonToggle = ({
   }
 
   function handleFocus(ev: React.FocusEvent<HTMLButtonElement>) {
-    if (onFocus) {
-      onFocus(ev);
-    }
-    if (inputGroupOnFocus) {
-      inputGroupOnFocus();
-    }
+    onFocus?.(ev);
+    inputGroupOnFocus?.();
   }
 
   function handleBlur(ev: React.FocusEvent<HTMLButtonElement>) {
-    if (onBlur) {
-      onBlur(ev);
-    }
-    if (inputGroupOnBlur) {
-      inputGroupOnBlur();
-    }
+    onBlur?.(ev);
+    inputGroupOnBlur?.();
   }
 
   const isPressed = isInGroup
@@ -149,7 +141,7 @@ export const ButtonToggle = ({
       <StyledButtonToggle
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
-        aria-describedby={hintTextId || undefined}
+        aria-describedby={hintTextId}
         aria-pressed={!!isPressed}
         buttonIcon={buttonIcon}
         buttonIconSize={buttonIconSize}
