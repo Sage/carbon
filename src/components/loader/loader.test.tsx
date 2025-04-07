@@ -25,8 +25,7 @@ afterAll(() => {
 
 testStyledSystemMargin(
   (props) => <Loader data-role="loader" {...props} />,
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  () => screen.getByTestId("loader")!,
+  () => screen.getByTestId("loader"),
 );
 
 test("throws a deprecation warning if the 'aria-label' prop is set", () => {
@@ -98,7 +97,7 @@ test("when the user disallows animations or their preference cannot be determine
 
 describe("when the user allows animations", () => {
   test("renders three square animation", () => {
-    mockUseMediaQuery.mockReturnValue(true);
+    mockUseMediaQuery.mockReturnValue(false);
     render(<Loader />);
     const squares = screen.getAllByTestId("loader-square");
     expect(squares).toHaveLength(3);

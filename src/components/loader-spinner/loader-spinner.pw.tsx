@@ -168,8 +168,6 @@ test.describe("Prop checks for Loader Spinner component", () => {
     mount,
     page,
   }) => {
-    await page.emulateMedia({ reducedMotion: "no-preference" });
-
     await mount(<LoaderSpinnerComponent showSpinnerLabel={false} />);
 
     await expect(loaderSpinnerHiddenLabel(page)).toHaveText("Loading...");

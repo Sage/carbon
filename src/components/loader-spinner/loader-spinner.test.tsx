@@ -46,7 +46,7 @@ test("the component wrapper renders with a role of status", () => {
 });
 
 test("should return null and render nothing when useMediaQuery returns undefined", () => {
-  mockUseMediaQuery.mockReturnValueOnce(undefined);
+  mockUseMediaQuery.mockReturnValueOnce(false);
 
   render(<LoaderSpinner />);
 
@@ -86,9 +86,6 @@ test("the spinner label renders", () => {
 });
 
 describe("when custom props are passed", () => {
-  beforeEach(() => {
-    mockUseMediaQuery.mockReturnValue(true);
-  });
   it("should be visible when the 'spinnerLabel' prop is passed a custom string value", () => {
     render(<LoaderSpinner spinnerLabel="foo" />);
     const visibleLabelElement = screen.getByText("foo");
@@ -104,13 +101,12 @@ describe("when custom props are passed", () => {
   });
 
   it("should override the visually hidden label text when the 'spinnerLabel' prop is passed a custom string value", () => {
-    mockUseMediaQuery.mockReturnValueOnce(false);
     render(<LoaderSpinner spinnerLabel="bar" showSpinnerLabel={false} />);
 
     const status = screen.getByRole("status");
     const hiddenLabelElement = within(status).getByText("bar");
 
-    expect(hiddenLabelElement).toBeInTheDocument();
+    expect(hiddenLabelElement).not.toBeVisible();
   });
 
   it("when the 'size' prop is passed as 'extra-small' the component wrapper has a flex-direction of row", () => {
@@ -223,7 +219,7 @@ describe("when custom props are passed", () => {
     const hiddenLabelElement = screen.getByTestId("hidden-label");
 
     expect(wrapperElement).toHaveTextContent("Loading...");
-    expect(hiddenLabelElement).toBeInTheDocument();
+    expect(hiddenLabelElement).not.toBeVisible();
   });
 
   it.each(LOADER_SPINNER_VARIANTS)(
@@ -360,12 +356,16 @@ describe("when custom props are passed", () => {
 
 describe("when the component is rendered and the end user prefers reduced motion", () => {
   it("the spinner label renders", () => {
+    mockUseMediaQuery.mockReturnValueOnce(false);
+
     render(<LoaderSpinner />);
     const wrapperElement = screen.getByRole("status");
     const visibleLabelElement = screen.getByTestId("visible-label");
+    const hiddenLabelElement = screen.queryByTestId("hidden-label");
 
     expect(wrapperElement).toHaveTextContent("Loading...");
     expect(visibleLabelElement).toBeVisible();
+    expect(hiddenLabelElement).not.toBeInTheDocument();
   });
 
   it("the svg spinner circle does not render", () => {
