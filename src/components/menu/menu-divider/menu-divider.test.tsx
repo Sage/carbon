@@ -3,26 +3,38 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import MenuDivider from "./menu-divider.component";
-import MenuItem from "../menu-item/menu-item.component";
-import MenuContext, { MenuType } from "../__internal__/menu.context";
-import menuConfigVariants from "../menu.config";
 
-const menuContextValues = (menuType: MenuType) => ({
-  menuType,
-  setOpenSubmenuId: () => null,
-  openSubmenuId: null,
-  inMenu: true,
+import Logger from "../../../__internal__/utils/logger";
+
+import MenuItem from "../menu-item/menu-item.component";
+import menuConfigVariants from "../menu.config";
+import Menu from "../menu.component";
+
+test("logs error if not used within Menu", () => {
+  const loggerErrorSpy = jest
+    .spyOn(Logger, "error")
+    .mockImplementation(() => {});
+
+  render(<MenuDivider data-role="divider" />);
+
+  expect(loggerErrorSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
+  );
+
+  loggerErrorSpy.mockRestore();
 });
 
 test("should apply the 'light' background-color passed as `menuType` via context", async () => {
   const user = userEvent.setup();
   const { divider: backgroundColor } = menuConfigVariants.light;
   render(
-    <MenuContext.Provider value={menuContextValues("light")}>
+    <Menu menuType="light">
       <MenuItem submenu="Item One">
         <MenuDivider data-role="divider" />
       </MenuItem>
-    </MenuContext.Provider>,
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -36,11 +48,11 @@ test("should apply the 'dark' background-color passed as `menuType` via context"
   const user = userEvent.setup();
   const { divider: backgroundColor } = menuConfigVariants.dark;
   render(
-    <MenuContext.Provider value={menuContextValues("dark")}>
+    <Menu menuType="dark">
       <MenuItem submenu="Item One">
         <MenuDivider data-role="divider" />
       </MenuItem>
-    </MenuContext.Provider>,
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -54,11 +66,11 @@ test("should apply the 'white' background-color passed as `menuType` via context
   const user = userEvent.setup();
   const { divider: backgroundColor } = menuConfigVariants.white;
   render(
-    <MenuContext.Provider value={menuContextValues("dark")}>
+    <Menu menuType="white">
       <MenuItem submenu="Item One">
         <MenuDivider data-role="divider" />
       </MenuItem>
-    </MenuContext.Provider>,
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -72,11 +84,11 @@ test("should apply the 'black' background-color passed as `menuType` via context
   const user = userEvent.setup();
   const { divider: backgroundColor } = menuConfigVariants.black;
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
+    <Menu menuType="black">
       <MenuItem submenu="Item One">
         <MenuDivider data-role="divider" />
       </MenuItem>
-    </MenuContext.Provider>,
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -87,7 +99,11 @@ test("should apply the 'black' background-color passed as `menuType` via context
 });
 
 test('should have correct styles for "default" size', () => {
-  render(<MenuDivider data-role="divider" />);
+  render(
+    <Menu>
+      <MenuDivider data-role="divider" />
+    </Menu>,
+  );
 
   expect(screen.getByTestId("divider")).toHaveStyle({
     margin: "0px 16px",
@@ -96,7 +112,11 @@ test('should have correct styles for "default" size', () => {
 });
 
 test('should have correct styles for "large" size', () => {
-  render(<MenuDivider size="large" data-role="divider" />);
+  render(
+    <Menu>
+      <MenuDivider size="large" data-role="divider" />
+    </Menu>,
+  );
 
   expect(screen.getByTestId("divider")).toHaveStyle({
     height: "4px",
@@ -105,7 +125,11 @@ test('should have correct styles for "large" size', () => {
 });
 
 test("should have the expected 'data-' attributes", () => {
-  render(<MenuDivider data-role="divider" data-element="foo" />);
+  render(
+    <Menu>
+      <MenuDivider data-role="divider" data-element="foo" />
+    </Menu>,
+  );
 
   expect(screen.getByTestId("divider")).toHaveAttribute(
     "data-component",

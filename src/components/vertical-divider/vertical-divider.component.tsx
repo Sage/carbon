@@ -133,7 +133,7 @@ export const VerticalDivider = ({
   "aria-hidden": ariaHidden,
   ...props
 }: VerticalDividerProps): JSX.Element => {
-  const { inMenu } = useContext(MenuContext);
+  const { inMenu } = useContext(MenuContext) || {};
 
   return (
     <StyledVerticalWrapper

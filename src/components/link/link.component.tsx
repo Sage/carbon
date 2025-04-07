@@ -90,7 +90,7 @@ export const Link = React.forwardRef<
   ) => {
     const [hasFocus, setHasFocus] = useState(false);
     const l = useLocale();
-    const { inMenu } = useContext(MenuContext);
+    const { inMenu } = useContext(MenuContext) || {};
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
     const isDisabled = disabled || batchSelectionDisabled;
 
