@@ -216,8 +216,9 @@ describe("when custom props are passed", () => {
     expect(visibleLabelElement).not.toBeInTheDocument();
   });
 
-  it("when 'showSpinnerLabel' is `false` a visually hidden alternative label is rendered in the live region container", () => {
+  it("when 'showSpinnerLabel' is `false`, a visually hidden alternative label is rendered in the live region container", () => {
     render(<LoaderSpinner showSpinnerLabel={false} />);
+
     const wrapperElement = screen.getByRole("status");
     const hiddenLabelElement = screen.getByTestId("hidden-label");
 

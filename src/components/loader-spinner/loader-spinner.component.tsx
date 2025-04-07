@@ -104,7 +104,6 @@ export const LoaderSpinner = ({
     if (animationTime) {
       return animationTime;
     }
-
     return isGradientVariant ? 2 : 1;
   };
 
