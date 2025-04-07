@@ -1002,10 +1002,14 @@ test.describe("Prop tests for Menu component", () => {
     await page.setViewportSize({ width: 1200, height: 800 });
     const item = page.getByRole("button").filter({ hasText: "Menu" });
     await item.click();
-    const fullscreen = getComponent(page, "menu-fullscreen");
-    await waitForAnimationEnd(fullscreen);
+
+    const fullscreen = page.getByRole("dialog", { name: "Fullscreen menu" });
+    await fullscreen.waitFor();
+
     const closeButton = page.getByLabel("Close");
     await closeButton.click();
+    await fullscreen.waitFor({ state: "hidden" });
+
     await expect(item).toBeFocused();
   });
 
