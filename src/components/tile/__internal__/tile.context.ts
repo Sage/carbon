@@ -1,11 +1,19 @@
-import { createContext } from "react";
 import { PaddingProps } from "styled-system";
+import createContext from "../../../__internal__/utils/createContext";
 
-interface TileContextProps {
-  isHorizontal?: boolean;
+interface TileContextType {
+  isHorizontal: boolean;
   paddingPropsFromTile: PaddingProps;
 }
 
-export default createContext<TileContextProps>({
-  paddingPropsFromTile: {},
+const [TileProvider, useTileContext] = createContext.strict<TileContextType>({
+  name: "TileContext",
+  errorMessage:
+    "Carbon Tile: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  defaultValue: {
+    paddingPropsFromTile: {},
+    isHorizontal: false,
+  },
 });
+
+export { TileProvider, useTileContext };
