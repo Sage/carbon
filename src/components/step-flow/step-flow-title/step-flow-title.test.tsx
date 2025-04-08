@@ -2,26 +2,41 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import { StepFlow, StepFlowTitle } from "..";
 
-test("when the 'titleString' prop is passed, the correct visible element and text renders", () => {
+import Logger from "../../../__internal__/utils/logger";
+
+test("logs error when not used within StepFlow", () => {
+  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
+
   render(<StepFlowTitle titleString="title" />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon StepFlow: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
+  );
+
+  loggerSpy.mockRestore();
+});
+
+test("when the 'titleString' prop is passed, the correct visible element and text renders", () => {
+  render(
+    <StepFlow
+      ref={() => {}}
+      title={<StepFlowTitle titleString="title" />}
+      currentStep={1}
+      totalSteps={2}
+    />,
+  );
 
   const heading = screen.getByRole("heading", { level: 1 });
   expect(heading).toBeVisible();
   expect(heading).toHaveTextContent("title");
 });
 
-test("when the `StepFlowTitle` is not passed via the `title` prop in `StepFlow`, the screen reader only text does not render", () => {
-  render(<StepFlowTitle titleString="title" />);
-
-  const screenReaderOnlyText = screen.queryByTestId(
-    "visually-hidden-title-text",
-  );
-  expect(screenReaderOnlyText).not.toBeInTheDocument();
-});
-
 test("when the `StepFlowTitle` is passed via the `title` prop in `StepFlow`, the screen reader only text should be properly populated via context", () => {
   render(
     <StepFlow
+      ref={() => {}}
       currentStep={2}
       totalSteps={4}
       category="category"
@@ -45,6 +60,7 @@ test("when the `StepFlowTitle` is passed via the `title` prop in `StepFlow`, the
 test("when the 'screenReaderOnlyTitle' prop is passed, it overrides the value passed to 'titleString', and the correct screen reader only text renders", () => {
   render(
     <StepFlow
+      ref={() => {}}
       currentStep={1}
       totalSteps={8}
       title={
@@ -74,7 +90,14 @@ test("when the 'screenReaderOnlyTitle' prop is passed, it overrides the value pa
 });
 
 test("renders level one heading when the 'titleVariant' prop is not passed", () => {
-  render(<StepFlowTitle titleString="title" />);
+  render(
+    <StepFlow
+      ref={() => {}}
+      title={<StepFlowTitle titleString="title" />}
+      currentStep={1}
+      totalSteps={2}
+    />,
+  );
 
   const heading = screen.getByRole("heading", { level: 1 });
   expect(heading).toBeVisible();
@@ -87,7 +110,16 @@ test.each([
 ] as const)(
   "renders level %s heading when the 'titleVariant' prop is %s",
   (level, titleVariant) => {
-    render(<StepFlowTitle titleString="title" titleVariant={titleVariant} />);
+    render(
+      <StepFlow
+        ref={() => {}}
+        title={
+          <StepFlowTitle titleString="title" titleVariant={titleVariant} />
+        }
+        currentStep={1}
+        totalSteps={2}
+      />,
+    );
 
     const heading = screen.getByRole("heading", { level });
     expect(heading).toBeVisible();
@@ -98,6 +130,7 @@ test.each([
 test("renders level two heading when the 'titleVariant' prop is h2 passed directly to `StepFlowTitle`, and the 'titleVariant' prop is also passed as h1 to `StepFlow`. As the 'titleVariant' on `StepFlowTitle` takes priority", () => {
   render(
     <StepFlow
+      ref={() => {}}
       currentStep={2}
       totalSteps={4}
       category="category"
