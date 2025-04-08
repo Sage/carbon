@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   StyledStepSequenceItem,
   StyledStepSequenceItemContent,
@@ -6,7 +6,7 @@ import {
   StyledStepSequenceItemHiddenLabel,
 } from "./step-sequence-item.style";
 import Icon from "../../icon";
-import { StepSequenceContext } from "../step-sequence.component";
+import { useStepSequenceContext } from "../__internal__/step-sequence.context";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
@@ -38,7 +38,7 @@ export const StepSequenceItem = ({
   ariaLabel,
   ...rest
 }: StepSequenceItemProps) => {
-  const { orientation } = useContext(StepSequenceContext);
+  const { orientation } = useStepSequenceContext();
 
   const indicatorText = () => {
     return !hideIndicator ? (

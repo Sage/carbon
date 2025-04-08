@@ -1,9 +1,31 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
+
 import StepSequenceItem from ".";
 
-test("renders with provided children and indicator", () => {
+import StepSequence from "../step-sequence.component";
+import Logger from "../../../__internal__/utils/logger";
+
+test("logs error when not used within StepSequence", () => {
+  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
+
   render(<StepSequenceItem indicator="1">Step</StepSequenceItem>);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon StepSequence: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
+  );
+
+  loggerSpy.mockRestore();
+});
+
+test("renders with provided children and indicator", () => {
+  render(
+    <StepSequence>
+      <StepSequenceItem indicator="1">Step</StepSequenceItem>
+    </StepSequence>,
+  );
 
   const step = screen.getByRole("listitem");
 
@@ -13,9 +35,11 @@ test("renders with provided children and indicator", () => {
 
 test("does not render indicator when `hideIndicator` is true", () => {
   render(
-    <StepSequenceItem indicator="1" hideIndicator>
-      Step
-    </StepSequenceItem>,
+    <StepSequence>
+      <StepSequenceItem indicator="1" hideIndicator>
+        Step
+      </StepSequenceItem>
+    </StepSequence>,
   );
 
   const step = screen.getByRole("listitem");
@@ -25,9 +49,11 @@ test("does not render indicator when `hideIndicator` is true", () => {
 
 test("renders with provided accessible label", () => {
   render(
-    <StepSequenceItem indicator="1" ariaLabel="Aria Label">
-      Step
-    </StepSequenceItem>,
+    <StepSequence>
+      <StepSequenceItem indicator="1" ariaLabel="Aria Label">
+        Step
+      </StepSequenceItem>
+    </StepSequence>,
   );
 
   const step = screen.getByRole("listitem");
@@ -37,13 +63,15 @@ test("renders with provided accessible label", () => {
 
 test("renders with hidden label when status is 'complete'", () => {
   render(
-    <StepSequenceItem
-      indicator="1"
-      status="complete"
-      hiddenCompleteLabel="Completed"
-    >
-      Step
-    </StepSequenceItem>,
+    <StepSequence>
+      <StepSequenceItem
+        indicator="1"
+        status="complete"
+        hiddenCompleteLabel="Completed"
+      >
+        Step
+      </StepSequenceItem>
+    </StepSequence>,
   );
 
   const step = screen.getByRole("listitem");
@@ -53,13 +81,15 @@ test("renders with hidden label when status is 'complete'", () => {
 
 test("renders with hidden label when status is 'current'", () => {
   render(
-    <StepSequenceItem
-      indicator="1"
-      status="current"
-      hiddenCurrentLabel="Current"
-    >
-      Step
-    </StepSequenceItem>,
+    <StepSequence>
+      <StepSequenceItem
+        indicator="1"
+        status="current"
+        hiddenCurrentLabel="Current"
+      >
+        Step
+      </StepSequenceItem>
+    </StepSequence>,
   );
 
   const step = screen.getByRole("listitem");
@@ -69,9 +99,11 @@ test("renders with hidden label when status is 'current'", () => {
 
 test("renders with a tick Icon when status is 'complete'", () => {
   render(
-    <StepSequenceItem indicator="1" status="complete">
-      Step
-    </StepSequenceItem>,
+    <StepSequence>
+      <StepSequenceItem indicator="1" status="complete">
+        Step
+      </StepSequenceItem>
+    </StepSequence>,
   );
 
   const step = screen.getByRole("listitem");
@@ -81,9 +113,11 @@ test("renders with a tick Icon when status is 'complete'", () => {
 
 test("renders with provided data- attributes", () => {
   render(
-    <StepSequenceItem indicator="1" data-element="bar" data-role="baz">
-      Step
-    </StepSequenceItem>,
+    <StepSequence>
+      <StepSequenceItem indicator="1" data-element="bar" data-role="baz">
+        Step
+      </StepSequenceItem>
+    </StepSequence>,
   );
 
   const step = screen.getByRole("listitem");
