@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useContext,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import invariant from "invariant";
 
 import {
@@ -17,8 +11,9 @@ import {
 } from "../action-popover.style";
 import Events from "../../../__internal__/utils/helpers/events";
 import createGuid from "../../../__internal__/utils/helpers/guid";
-import ActionPopoverContext, {
+import {
   Alignment,
+  useActionPopoverContext,
 } from "../__internal__/action-popover.context";
 
 import { IconType } from "../../icon";
@@ -121,20 +116,13 @@ export const ActionPopoverItem = ({
   isASubmenu = false,
   ...rest
 }: ActionPopoverItemProps) => {
-  const context = useContext(ActionPopoverContext);
-
-  invariant(
-    context,
-    "ActionPopoverItem must be used within an ActionPopover component",
-  );
-
   invariant(
     React.isValidElement(submenu) ? submenu.type === ActionPopoverMenu : true,
     "ActionPopoverItem only accepts submenu of type `ActionPopoverMenu`",
   );
 
   const { setOpenPopover, isOpenPopover, focusButton, submenuPosition } =
-    context;
+    useActionPopoverContext();
   const isHref = !!href;
   const [containerPosition, setContainerPosition] = useState<
     ContainerPosition | undefined

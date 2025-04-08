@@ -1,4 +1,5 @@
-import React from "react";
+import { createContext, useContext } from "react";
+import invariant from "invariant";
 
 export type Alignment = "left" | "right";
 
@@ -9,7 +10,19 @@ type ActionPopoverContextType = {
   isOpenPopover: boolean;
 };
 
-const ActionPopoverContext =
-  React.createContext<ActionPopoverContextType | null>(null);
+const ActionPopoverContext = createContext<ActionPopoverContextType | null>(
+  null,
+);
 
-export default ActionPopoverContext;
+export const ActionPopoverProvider = ActionPopoverContext.Provider;
+
+export const useActionPopoverContext = (): ActionPopoverContextType => {
+  const context = useContext(ActionPopoverContext);
+
+  invariant(
+    context,
+    "Carbon ActionPopover: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  );
+
+  return context;
+};

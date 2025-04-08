@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useContext, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import invariant from "invariant";
 
 import { Menu } from "../action-popover.style";
@@ -7,8 +7,9 @@ import ActionPopoverItem, {
   ActionPopoverItemProps,
 } from "../action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "../action-popover-divider/action-popover-divider.component";
-import ActionPopoverContext, {
+import {
   Alignment,
+  useActionPopoverContext,
 } from "../__internal__/action-popover.context";
 import {
   findFirstFocusableItem,
@@ -83,12 +84,7 @@ const ActionPopoverMenu = React.forwardRef<
     }: ActionPopoverMenuBaseProps,
     ref,
   ) => {
-    const context = useContext(ActionPopoverContext);
-    invariant(
-      context,
-      "ActionPopoverMenu must be used within an ActionPopover component",
-    );
-    const { focusButton, submenuPosition } = context;
+    const { focusButton, submenuPosition } = useActionPopoverContext();
 
     invariant(
       setOpen && setFocusIndex && typeof focusIndex !== "undefined",
