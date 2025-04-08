@@ -24,7 +24,8 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import ActionPopoverMenu from "./action-popover-menu/action-popover-menu.component";
 import ActionPopoverItem from "./action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "./action-popover-divider/action-popover-divider.component";
-import ActionPopoverContext, {
+import {
+  ActionPopoverProvider,
   Alignment,
 } from "./__internal__/action-popover.context";
 import useModalManager from "../../hooks/__internal__/useModalManager";
@@ -342,7 +343,7 @@ export const ActionPopover = forwardRef<
         {...tagComponent("action-popover-wrapper", rest)}
       >
         {menuButton(menuID)}
-        <ActionPopoverContext.Provider
+        <ActionPopoverProvider
           value={{
             setOpenPopover: setOpen,
             focusButton,
@@ -365,7 +366,7 @@ export const ActionPopover = forwardRef<
               </ActionPopoverMenu>
             </Popover>
           )}
-        </ActionPopoverContext.Provider>
+        </ActionPopoverProvider>
       </MenuButton>
     );
   },
