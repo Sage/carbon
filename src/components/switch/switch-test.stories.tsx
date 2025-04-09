@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import I18nProvider from "../i18n-provider/i18n-provider.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Switch, { SwitchProps } from "./switch.component";
@@ -12,6 +12,7 @@ export default {
     "NewDefault",
     "WithLongTextStrings",
     "WithMargin",
+    "WithLoading",
   ],
   parameters: {
     info: { disable: true },
@@ -199,4 +200,111 @@ WithMargin.parameters = {
 };
 WithMargin.args = {
   reverse: true,
+};
+
+export const WithLoading = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingValidation, setIsLoadingValidation] = useState(false);
+  const [isLoadingNewValidation, setIsLoadingNewValidation] = useState(false);
+  const [count, setCount] = useState(5);
+
+  useEffect(() => {
+    if (
+      count <= 0 ||
+      (!isLoading && !isLoadingValidation && !isLoadingNewValidation)
+    )
+      return () => {};
+
+    const timeout = setTimeout(() => {
+      setCount((prev) => prev - 1);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [count, isLoading, isLoadingNewValidation, isLoadingValidation]);
+
+  useEffect(() => {
+    const removeLoading = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(removeLoading);
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
+    const removeLoading = setTimeout(() => {
+      setIsLoadingValidation(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(removeLoading);
+    };
+  }, [isLoadingValidation]);
+
+  useEffect(() => {
+    const removeLoading = setTimeout(() => {
+      setIsLoadingNewValidation(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(removeLoading);
+    };
+  }, [isLoadingNewValidation]);
+
+  return (
+    <>
+      <Box m={2}>
+        <Switch
+          label="Switch - loading"
+          size="small"
+          loading={isLoading}
+          onChange={() => {
+            setIsLoading(true);
+            setCount(5);
+          }}
+        />
+      </Box>
+
+      <Box m={2}>
+        <Switch
+          label="Switch - loading with validation"
+          error="Error message goes here"
+          size="small"
+          loading={isLoadingValidation}
+          onChange={() => {
+            setIsLoadingValidation(true);
+            setCount(5);
+          }}
+        />
+      </Box>
+
+      <Box m={2}>
+        <CarbonProvider validationRedesignOptIn>
+          <Switch
+            error="Error message goes here"
+            label="Switch - loading with new validation"
+            loading={isLoadingNewValidation}
+            onChange={() => {
+              setIsLoadingNewValidation(true);
+              setCount(5);
+            }}
+          />
+        </CarbonProvider>
+      </Box>
+
+      <Box m="2">
+        {(isLoading || isLoadingValidation || isLoadingNewValidation) &&
+          `Loading will finish in ${count} ...`}
+      </Box>
+    </>
+  );
+};
+WithLoading.storyName = "With Loading";
+WithLoading.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
 };

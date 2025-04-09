@@ -7,7 +7,7 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import React, { useMemo } from "react";
 
 import { TextEditorProps } from "../text-editor.component";
-import { createFromHTML } from "./utils";
+import { createFromHTML } from "../utils";
 import { markdownNodes, theme } from "./constants";
 
 const wrapLinksInAnchors = (value: string) => {

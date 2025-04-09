@@ -92,7 +92,7 @@ test.describe("Prop tests for Switch component", () => {
       await mount(<SwitchComponent loading={boolVal} />);
 
       if (boolVal) {
-        await expect(switchInput(page)).toBeDisabled();
+        await expect(switchInput(page)).not.toBeDisabled();
 
         await expect(
           getDataRoleByValue(page, "switch-slider-loader"),

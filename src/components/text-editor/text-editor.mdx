@@ -85,7 +85,7 @@ the JSON and HTML content of the editor. The `onCancel` function callback will b
 
 To handle changes to the content of the editor, you can set the `onChange` property to a function. The function will be called whenever the
 editor state changes, and provides a string representation of the editor content. This function is debounced by 500ms to prevent excessive
-calls to the callback function.
+calls to the callback function. The second argument passed to the `onChange` callback contains the `htmlString` and `JSON` content of the editor.
 
 <Canvas of={TextEditorStories.OnChange} />
 

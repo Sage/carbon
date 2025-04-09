@@ -31,7 +31,7 @@ export interface ModalProps extends TagProps {
   onCancel?: (ev: React.KeyboardEvent<HTMLElement> | KeyboardEvent) => void;
   /** Sets the open state of the modal */
   open: boolean;
-  /** Transition time */
+  /** @deprecated Transition time */
   timeout?: number;
   /** Manually override the internal modal stacking order to set this as top */
   topModalOverride?: boolean;
