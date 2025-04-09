@@ -129,6 +129,7 @@ export const LoaderSpinner = ({
             <circle data-role="outer-arc" />
             <circle data-role="inner-arc" />
           </StyledSpinnerCircleSvg>
+
           {showSpinnerLabel ? (
             renderSpinnerLabel
           ) : (
@@ -142,7 +143,9 @@ export const LoaderSpinner = ({
           )}
         </>
       ) : (
-        renderSpinnerLabel
+        <Typography data-role="hidden-label" variant="span" screenReaderOnly>
+          {spinnerLabel || locale.loaderSpinner.loading()}
+        </Typography>
       )}
     </StyledSpinnerWrapper>
   );

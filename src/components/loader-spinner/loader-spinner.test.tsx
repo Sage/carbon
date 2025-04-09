@@ -46,7 +46,7 @@ test("the component wrapper renders with a role of status", () => {
 });
 
 test("should return null and render nothing when useMediaQuery returns undefined", () => {
-  mockUseMediaQuery.mockReturnValueOnce(false);
+  mockUseMediaQuery.mockReturnValueOnce(undefined);
 
   render(<LoaderSpinner />);
 
@@ -106,6 +106,7 @@ describe("when custom props are passed", () => {
     const status = screen.getByRole("status");
     const hiddenLabelElement = within(status).getByText("bar");
 
+    expect(hiddenLabelElement).toBeInTheDocument();
     expect(hiddenLabelElement).not.toBeVisible();
   });
 
@@ -219,6 +220,7 @@ describe("when custom props are passed", () => {
     const hiddenLabelElement = screen.getByTestId("hidden-label");
 
     expect(wrapperElement).toHaveTextContent("Loading...");
+    expect(hiddenLabelElement).toBeInTheDocument();
     expect(hiddenLabelElement).not.toBeVisible();
   });
 

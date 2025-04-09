@@ -57,7 +57,6 @@ test("when `size` prop is set to large, the expected width, height, and margin s
 
 // These styling tests required for coverage
 test("when `size` prop is set to small, the expected width, height, and margin styles are applied", () => {
-  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<Loader size="small" />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
@@ -79,7 +78,6 @@ test("when `size` prop is set to small, the expected width, height, and margin s
 
 // These styling tests required for coverage
 test("when inside button, the expected white background colour is applied", () => {
-  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<Loader isInsideButton />);
 
   const loaderSquares = screen.getAllByTestId("loader-square");
