@@ -1,3 +1,9 @@
+## [153.1.1](https://github.com/Sage/carbon/compare/v153.1.0...v153.1.1) (2025-04-09)
+
+### Bug Fixes
+
+* **grouped-character:** ensure Delete key works as expected ([958d3ab](https://github.com/Sage/carbon/commit/958d3abda06c4d58a1be440fc38088fd5debdf5c))
+
 ## [153.1.0](https://github.com/Sage/carbon/compare/v153.0.3...v153.1.0) (2025-04-04)
 
 ### Features
