@@ -2,6 +2,7 @@ import React from "react";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 import { StyledVerticalMenu, StyledList } from "./vertical-menu.style";
+import { VerticalMenuProvider } from "./__internal__/vertical-menu.context";
 
 export interface VerticalMenuProps extends TagProps {
   /** An aria-label attribute for the menu */
@@ -38,7 +39,11 @@ export const VerticalMenu = ({
       aria-labelledby={ariaLabelledBy}
       {...tagComponent("vertical-menu", rest)}
     >
-      <StyledList>{children}</StyledList>
+      <StyledList>
+        <VerticalMenuProvider value={{ isFullScreen: false }}>
+          {children}
+        </VerticalMenuProvider>
+      </StyledList>
     </StyledVerticalMenu>
   );
 };

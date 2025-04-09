@@ -1,10 +1,52 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { render, screen } from "@testing-library/react";
 
 import { VerticalMenu, VerticalMenuItem } from ".";
+import logger from "../../__internal__/utils/logger";
 
 describe("VerticalMenu", () => {
+  it("logs error if not within VerticalMenu or VerticalMenuFullscreen", () => {
+    const loggerSpy = jest.spyOn(logger, "error").mockImplementation(() => {});
+
+    render(<VerticalMenuItem title="Item1" />);
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      expect.stringContaining(
+        "Carbon VerticalMenu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+      ),
+    );
+
+    loggerSpy.mockRestore();
+  });
+
+  it("does not log error if within VerticalMenu", () => {
+    const loggerSpy = jest.spyOn(logger, "error").mockImplementation(() => {});
+
+    render(
+      <VerticalMenu>
+        <VerticalMenuItem title="Item1" />
+      </VerticalMenu>,
+    );
+
+    expect(loggerSpy).not.toHaveBeenCalled();
+
+    loggerSpy.mockRestore();
+  });
+
+  it("does not log error if within VerticalMenuFullScreen", () => {
+    const loggerSpy = jest.spyOn(logger, "error").mockImplementation(() => {});
+
+    render(
+      <VerticalMenu>
+        <VerticalMenuItem title="Item1" />
+      </VerticalMenu>,
+    );
+
+    expect(loggerSpy).not.toHaveBeenCalled();
+
+    loggerSpy.mockRestore();
+  });
+
   it("should accept aria-label prop", () => {
     render(
       <VerticalMenu aria-label="test">

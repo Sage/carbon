@@ -6,7 +6,7 @@ import { ThemeProvider } from "styled-components";
 import sageTheme from "../../../style/themes/sage";
 import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 import Icon from "../../icon";
-import { VerticalMenuItem, VerticalMenuFullScreen } from "..";
+import { VerticalMenuItem, VerticalMenuFullScreen, VerticalMenu } from "..";
 
 jest.mock("../../icon", () => {
   return jest.fn(() => null);
@@ -18,9 +18,11 @@ describe("VerticalMenuItem", () => {
   testStyledSystemPadding(
     (props) => (
       <ThemeProvider theme={sageTheme}>
-        <VerticalMenuItem title="Item1" {...props}>
-          foo
-        </VerticalMenuItem>
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" {...props}>
+            foo
+          </VerticalMenuItem>
+        </VerticalMenu>
       </ThemeProvider>
     ),
     () => screen.getByRole("button"),
@@ -29,11 +31,13 @@ describe("VerticalMenuItem", () => {
   describe("when is rendered without children", () => {
     it("should render with a custom height", () => {
       render(
-        <VerticalMenuItem
-          data-role="item-wrapper"
-          title="Item1"
-          height="100px"
-        />,
+        <VerticalMenu>
+          <VerticalMenuItem
+            data-role="item-wrapper"
+            title="Item1"
+            height="100px"
+          />
+        </VerticalMenu>,
       );
 
       expect(screen.getByTestId("item-wrapper")).toHaveStyle({
@@ -42,20 +46,28 @@ describe("VerticalMenuItem", () => {
     });
 
     it("should render passed title", () => {
-      render(<VerticalMenuItem title="Item1" />);
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" />
+        </VerticalMenu>,
+      );
       expect(screen.getByText("Item1")).toBeVisible();
     });
 
     it("should render adornment passed as a node", () => {
       render(
-        <VerticalMenuItem title="Item1" adornment={<div>Adornment</div>} />,
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" adornment={<div>Adornment</div>} />
+        </VerticalMenu>,
       );
       expect(screen.getByText("Adornment")).toBeVisible();
     });
 
     it("should render passed active state as boolean", () => {
       render(
-        <VerticalMenuItem data-role="item-wrapper" title="Item1" active />,
+        <VerticalMenu>
+          <VerticalMenuItem data-role="item-wrapper" title="Item1" active />
+        </VerticalMenu>,
       );
       expect(screen.getByTestId("item-wrapper")).toHaveStyleRule(
         "background",
@@ -69,7 +81,9 @@ describe("VerticalMenuItem", () => {
     it("should override active state when mouseover detected", async () => {
       const user = userEvent.setup();
       render(
-        <VerticalMenuItem data-role="item-wrapper" title="Item1" active />,
+        <VerticalMenu>
+          <VerticalMenuItem data-role="item-wrapper" title="Item1" active />
+        </VerticalMenu>,
       );
 
       await user.hover(screen.getByRole("listitem"));
@@ -84,7 +98,11 @@ describe("VerticalMenuItem", () => {
     });
 
     it("should render proper Icon when iconType prop is passed", () => {
-      render(<VerticalMenuItem title="Item1" iconType="add" />);
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" iconType="add" />
+        </VerticalMenu>,
+      );
       expect(Icon).toHaveBeenCalledWith(
         expect.objectContaining({ type: "add" }),
         {},
@@ -94,7 +112,11 @@ describe("VerticalMenuItem", () => {
     });
 
     it('should render as an anchor when "href" prop is passed', () => {
-      render(<VerticalMenuItem title="Item1" href="http://www.sage.com" />);
+      render(
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" href="http://www.sage.com" />
+        </VerticalMenu>,
+      );
       const link = screen.getByRole("link");
       expect(link).toHaveAttribute("href", "http://www.sage.com");
       expect(link).toBeVisible();
@@ -117,11 +139,13 @@ describe("VerticalMenuItem", () => {
       );
 
       render(
-        <VerticalMenuItem
-          title="Item1"
-          component={CustomComponent}
-          customComponentTitle="Custom component"
-        />,
+        <VerticalMenu>
+          <VerticalMenuItem
+            title="Item1"
+            component={CustomComponent}
+            customComponentTitle="Custom component"
+          />
+        </VerticalMenu>,
       );
       expect(screen.getByText("Custom component")).toBeVisible();
     });
@@ -130,18 +154,22 @@ describe("VerticalMenuItem", () => {
   describe("when is rendered with children", () => {
     it("should render as a button", () => {
       render(
-        <VerticalMenuItem title="Item1">
-          <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>,
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1">
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
       );
       expect(screen.getByRole("button")).toBeVisible();
     });
 
     it("should not render children by default", () => {
       render(
-        <VerticalMenuItem title="Item1">
-          <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>,
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1">
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
       );
       expect(screen.queryByText("ChildItem1")).not.toBeInTheDocument();
     });
@@ -150,9 +178,11 @@ describe("VerticalMenuItem", () => {
       const user = userEvent.setup();
 
       render(
-        <VerticalMenuItem title="Item1">
-          <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>,
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1">
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
       );
       expect(screen.queryByText("ChildItem1")).not.toBeInTheDocument();
       await user.click(screen.getByText("Item1"));
@@ -168,9 +198,11 @@ describe("VerticalMenuItem", () => {
         const user = userEvent.setup();
 
         render(
-          <VerticalMenuItem title="Item1">
-            <VerticalMenuItem title="ChildItem1" />
-          </VerticalMenuItem>,
+          <VerticalMenu>
+            <VerticalMenuItem title="Item1">
+              <VerticalMenuItem title="ChildItem1" />
+            </VerticalMenuItem>
+          </VerticalMenu>,
         );
 
         expect(screen.queryByText("ChildItem1")).not.toBeInTheDocument();
@@ -184,9 +216,11 @@ describe("VerticalMenuItem", () => {
       const user = userEvent.setup();
 
       render(
-        <VerticalMenuItem title="Item1">
-          <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>,
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1">
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
       );
 
       expect(Icon).toHaveBeenCalledWith(
@@ -206,14 +240,16 @@ describe("VerticalMenuItem", () => {
       const user = userEvent.setup();
 
       render(
-        <VerticalMenuItem data-role="item" title="Item1">
-          <VerticalMenuItem data-role="child-item" title="ChildItem1">
-            <VerticalMenuItem
-              data-role="grand-child-item"
-              title="GrandChildItem1"
-            />
+        <VerticalMenu>
+          <VerticalMenuItem data-role="item" title="Item1">
+            <VerticalMenuItem data-role="child-item" title="ChildItem1">
+              <VerticalMenuItem
+                data-role="grand-child-item"
+                title="GrandChildItem1"
+              />
+            </VerticalMenuItem>
           </VerticalMenuItem>
-        </VerticalMenuItem>,
+        </VerticalMenu>,
       );
 
       expect(screen.getByTestId("item")).toHaveStyle({
@@ -238,12 +274,14 @@ describe("VerticalMenuItem", () => {
       const user = userEvent.setup();
 
       render(
-        <VerticalMenuItem
-          title="Item1"
-          adornment={(isOpen) => !isOpen && <div>Adornment</div>}
-        >
-          <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>,
+        <VerticalMenu>
+          <VerticalMenuItem
+            title="Item1"
+            adornment={(isOpen) => !isOpen && <div>Adornment</div>}
+          >
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
       );
 
       expect(screen.getByText("Adornment")).toBeVisible();
@@ -255,13 +293,15 @@ describe("VerticalMenuItem", () => {
       const user = userEvent.setup();
 
       render(
-        <VerticalMenuItem
-          data-role="item"
-          title="Item1"
-          active={(isOpen) => !isOpen}
-        >
-          <VerticalMenuItem data-role="child-item" title="ChildItem1" />
-        </VerticalMenuItem>,
+        <VerticalMenu>
+          <VerticalMenuItem
+            data-role="item"
+            title="Item1"
+            active={(isOpen) => !isOpen}
+          >
+            <VerticalMenuItem data-role="child-item" title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
       );
 
       expect(screen.getByTestId("item")).toHaveStyleRule(
@@ -286,13 +326,15 @@ describe("VerticalMenuItem", () => {
   describe("when rendered inside of VerticalMenuFullScreen", () => {
     it("always render VerticalMenuItems open on all levels", () => {
       render(
-        <VerticalMenuFullScreen isOpen onClose={() => {}}>
-          <VerticalMenuItem title="Item1">
-            <VerticalMenuItem title="ChildItem1">
-              <VerticalMenuItem title="GrandChildItem1" />
+        <VerticalMenu>
+          <VerticalMenuFullScreen isOpen onClose={() => {}}>
+            <VerticalMenuItem title="Item1">
+              <VerticalMenuItem title="ChildItem1">
+                <VerticalMenuItem title="GrandChildItem1" />
+              </VerticalMenuItem>
             </VerticalMenuItem>
-          </VerticalMenuItem>
-        </VerticalMenuFullScreen>,
+          </VerticalMenuFullScreen>
+        </VerticalMenu>,
       );
 
       expect(screen.getByText("Item1")).toBeVisible();
@@ -304,9 +346,11 @@ describe("VerticalMenuItem", () => {
   describe("when the defaultOpen prop is set", () => {
     it("then the item content should be rendered", () => {
       render(
-        <VerticalMenuItem title="Item1" defaultOpen>
-          <VerticalMenuItem title="ChildItem1" />
-        </VerticalMenuItem>,
+        <VerticalMenu>
+          <VerticalMenuItem title="Item1" defaultOpen>
+            <VerticalMenuItem title="ChildItem1" />
+          </VerticalMenuItem>
+        </VerticalMenu>,
       );
 
       expect(screen.getByText("ChildItem1")).toBeVisible();
@@ -315,12 +359,14 @@ describe("VerticalMenuItem", () => {
 
   it("should have the expected data attributes", () => {
     render(
-      <VerticalMenuItem
-        title="Item1"
-        data-element="foo"
-        data-role="bar"
-        href="foo"
-      />,
+      <VerticalMenu>
+        <VerticalMenuItem
+          title="Item1"
+          data-element="foo"
+          data-role="bar"
+          href="foo"
+        />
+      </VerticalMenu>,
     );
 
     const anchor = within(screen.getByRole("listitem")).getByRole("link");
@@ -331,7 +377,11 @@ describe("VerticalMenuItem", () => {
   });
 
   it("renders with the expected border radius styling when the item is active", () => {
-    render(<VerticalMenuItem data-role="item-wrapper" title="Item1" active />);
+    render(
+      <VerticalMenu>
+        <VerticalMenuItem data-role="item-wrapper" title="Item1" active />
+      </VerticalMenu>,
+    );
 
     const itemWrapper = screen.getByTestId("item-wrapper");
     expect(itemWrapper).toHaveStyleRule(

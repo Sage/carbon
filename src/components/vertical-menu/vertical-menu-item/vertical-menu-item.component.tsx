@@ -6,7 +6,6 @@ import tagComponent, {
 
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import { IconType } from "../../icon";
-import VerticalMenuFullScreenContext from "../vertical-menu-full-screen/__internal__/vertical-menu-full-screen.context";
 import {
   StyledVerticalMenuItem,
   StyledTitle,
@@ -16,6 +15,7 @@ import {
   StyledTitleIcon,
 } from "../vertical-menu.style";
 import MenuItemContext from "./__internal__/menu-item.context";
+import { useVerticalMenuContext } from "../__internal__/vertical-menu.context";
 
 export interface VerticalMenuItemProps<T = React.ElementType>
   extends PaddingProps,
@@ -67,7 +67,7 @@ export const VerticalMenuItem = <T,>({
 
   const { level } = useContext(MenuItemContext);
 
-  const { isFullScreen } = useContext(VerticalMenuFullScreenContext);
+  const { isFullScreen } = useVerticalMenuContext();
 
   const renderAdornment = () =>
     typeof adornment === "function" ? adornment(isOpen) : adornment;
