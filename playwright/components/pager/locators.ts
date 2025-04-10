@@ -1,8 +1,7 @@
 // component preview locators
 export const PAGER_SUMMARY = '[data-component="pager"]';
 export const PAGE_SELECT = '[data-component="simple-select"]';
-export const MAX_PAGES =
-  'div[data-component="pager"] > div:nth-child(2) > div > div:nth-child(3)';
+export const MAX_PAGES = '[data-element="max-pages"]';
 export const PAGER_PREVIOUS_ARROW = "previous";
 export const PAGER_NEXT_ARROW = "next";
 export const PAGER_FIRST_ARROW = "first";
