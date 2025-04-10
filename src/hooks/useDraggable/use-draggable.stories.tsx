@@ -1,8 +1,22 @@
-import React, { useRef, useEffect, useMemo, useCallback, useState } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+  useState,
+} from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import useDraggable, { UseDraggableHandle, DraggableProvider, DraggableProviderHandle } from ".";
+import useDraggable, {
+  UseDraggableHandle,
+  DraggableProvider,
+  DraggableProviderHandle,
+} from ".";
 import Box from "../../components/box";
-import { ActionPopover, ActionPopoverItem } from "../../components/action-popover";
+import {
+  ActionPopover,
+  ActionPopoverItem,
+} from "../../components/action-popover";
+import { ContainerOrderType } from "./draggable-provider";
 
 /**
  * This file is used primarily as a means to generate the props table.
@@ -14,12 +28,14 @@ const meta: Meta<typeof useDraggable> = {
   argTypes: {
     draggableItems: {
       type: { summary: "React.ReactNode[] | React.ReactNode" },
-      description: "The items to be made draggable. Can be an array of ReactNodes or a single ReactNode.",
+      description:
+        "The items to be made draggable. Can be an array of ReactNodes or a single ReactNode.",
       required: true,
     },
     ref: {
       type: { summary: "Ref<UseDraggableHandle>" },
-      description: "Reference to access the draggable handle for programmatic control.",
+      description:
+        "Reference to access the draggable handle for programmatic control.",
       required: false,
     },
     containerId: {
@@ -29,22 +45,30 @@ const meta: Meta<typeof useDraggable> = {
     },
     draggableItemStylingOptOut: {
       type: { summary: "boolean" },
-      description: "When true, disables the default styling for draggable items.",
+      description:
+        "When true, disables the default styling for draggable items.",
       required: false,
     },
     containerNode: {
-      type: { summary: "keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>" },
+      type: {
+        summary:
+          "keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>",
+      },
       description: "Node to use as the container element.",
       required: false,
     },
     itemsNode: {
-      type: { summary: "keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>" },
+      type: {
+        summary:
+          "keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>",
+      },
       description: "Node to use for the draggable items.",
       required: false,
     },
     getOrder: {
       type: { summary: "function" },
-      description: "Callback function triggered when item order changes. Receives the current order of draggable item IDs and the ID of the moved item.",
+      description:
+        "Callback function triggered when item order changes. Receives the current order of draggable item IDs and the ID of the moved item.",
       required: false,
     },
   },
@@ -68,7 +92,10 @@ BasicImplementation.storyName = "Basic Implementation";
 export const DragType: Story = () => {
   const items = ["item1", "item2", "item3", "item4", "item5", "item6"];
 
-  const { draggableElement } = useDraggable({ draggableItems: items, dragType: "onDrop" });
+  const { draggableElement } = useDraggable({
+    draggableItems: items,
+    dragType: "onDrop",
+  });
 
   return draggableElement;
 };
@@ -84,7 +111,10 @@ export const WithIds: Story = () => {
     <div id="6">item6</div>,
   ];
 
-  const { draggableElement } = useDraggable({ draggableItems: items, containerId: "foo" });
+  const { draggableElement } = useDraggable({
+    draggableItems: items,
+    containerId: "foo",
+  });
 
   return draggableElement;
 };
@@ -102,7 +132,8 @@ export const GetOrderCallback: Story = () => {
 
   const { draggableElement } = useDraggable({
     draggableItems: items,
-    getOrder: (draggableItemIds, movedItemId) => console.log(draggableItemIds, movedItemId),
+    getOrder: (draggableItemIds, movedItemId) =>
+      console.log(draggableItemIds, movedItemId),
   });
 
   return draggableElement;
@@ -111,29 +142,36 @@ GetOrderCallback.storyName = "getOrder callback";
 
 export const ManualReOrdering: Story = () => {
   const draggableHandle = useRef<UseDraggableHandle | null>(null);
-  const [currentOrder, setCurrentOrder] = useState<number[]>([1, 2, 3, 4, 5, 6]);
+  const [currentOrder, setCurrentOrder] = useState<number[]>([
+    1, 2, 3, 4, 5, 6,
+  ]);
   const previousOrderRef = useRef(currentOrder);
 
   useEffect(() => {
     previousOrderRef.current = currentOrder;
-    console.log("Current Order:", currentOrder);
-    console.log("Previous Order:", previousOrderRef.current);
   }, [currentOrder]);
 
   const getIndex = (id: number) => previousOrderRef.current.indexOf(id);
-  const moveItem = (id: number, targetIndex: number) => draggableHandle.current?.reOrder(id, targetIndex);
+  const moveItem = (id: number, targetIndex: number) =>
+    draggableHandle.current?.reOrder(id, targetIndex);
 
   const MOVE_ACTIONS = [
     { label: "Move Top", getTargetIndex: () => 0 },
     { label: "Move Up", getTargetIndex: (id: number) => getIndex(id) - 1 },
     { label: "Move Down", getTargetIndex: (id: number) => getIndex(id) + 1 },
-    { label: "Move Bottom", getTargetIndex: () => previousOrderRef.current.length - 1 },
+    {
+      label: "Move Bottom",
+      getTargetIndex: () => previousOrderRef.current.length - 1,
+    },
   ];
 
   const actionPopover = (id: number) => (
     <ActionPopover m={0}>
       {MOVE_ACTIONS.map(({ label, getTargetIndex }) => (
-        <ActionPopoverItem key={`${id}-${label}`} onClick={() => moveItem(id, getTargetIndex(id))}>
+        <ActionPopoverItem
+          key={`${id}-${label}`}
+          onClick={() => moveItem(id, getTargetIndex(id))}
+        >
           {label}
         </ActionPopoverItem>
       ))}
@@ -169,7 +207,11 @@ ManualReOrdering.storyName = "Manual Re-Ordering";
 export const ContainerAndItemsNode: Story = () => {
   const items = ["item1", "item2", "item3", "item4", "item5", "item6"];
 
-  const { draggableElement } = useDraggable({ draggableItems: items, itemsNode: "li", containerNode: "ul" });
+  const { draggableElement } = useDraggable({
+    draggableItems: items,
+    itemsNode: "li",
+    containerNode: "ul",
+  });
 
   return draggableElement;
 };
@@ -185,7 +227,10 @@ export const DefaultStylingOptOut: Story = () => {
     <div id="6">item6</div>,
   ];
 
-  const { draggableElement } = useDraggable({ draggableItems: items, draggableItemStylingOptOut: true });
+  const { draggableElement } = useDraggable({
+    draggableItems: items,
+    draggableItemStylingOptOut: true,
+  });
 
   return draggableElement;
 };
@@ -367,7 +412,7 @@ export const DraggedNode: Story = () => {
       const draggedId = draggedNode.getAttribute("data-item-id");
       const draggedNodeContent = draggedNode.textContent;
       const draggedRect = draggedNode.getBoundingClientRect();
-      
+
       setDragInfo({
         id: draggedId,
         content: draggedNodeContent,
@@ -393,7 +438,7 @@ export const DraggedNode: Story = () => {
   // Memoize the info card to prevent unnecessary re-renders
   const infoCard = useMemo(() => {
     if (!dragInfo.id) return null;
-    
+
     return (
       <div className="item-info-card">
         <h3 style={{ margin: "0 0 8px 0", color: "rgb(0, 126, 69)" }}>
@@ -429,7 +474,7 @@ export const DraggableProviderStory: Story = () => {
     <div>Igor</div>,
     <div>Kuba</div>,
     <div>Alexander</div>,
-    <div>Maciek</div>
+    <div>Maciek</div>,
   ];
 
   const group2 = [
@@ -437,14 +482,14 @@ export const DraggableProviderStory: Story = () => {
     <div>Dan</div>,
     <div>James</div>,
     <div>Ian</div>,
-    <div>Robin</div>
+    <div>Robin</div>,
   ];
 
   const group3 = [
     <div>Nuria</div>,
     <div>Chris</div>,
     <div>Iga</div>,
-    <div>Damian</div>
+    <div>Damian</div>,
   ];
 
   const group4 = [
@@ -454,7 +499,7 @@ export const DraggableProviderStory: Story = () => {
     <div>Michael</div>,
     <div>Stephen</div>,
     <div>John</div>,
-    <div>Harpal</div>
+    <div>Harpal</div>,
   ];
 
   const cssRules = `
@@ -619,7 +664,7 @@ export const DraggableProviderDragType: Story = () => {
     <div>Igor</div>,
     <div>Kuba</div>,
     <div>Alexander</div>,
-    <div>Maciek</div>
+    <div>Maciek</div>,
   ];
 
   const group2 = [
@@ -627,14 +672,14 @@ export const DraggableProviderDragType: Story = () => {
     <div>Dan</div>,
     <div>James</div>,
     <div>Ian</div>,
-    <div>Robin</div>
+    <div>Robin</div>,
   ];
 
   const group3 = [
     <div>Nuria</div>,
     <div>Chris</div>,
     <div>Iga</div>,
-    <div>Damian</div>
+    <div>Damian</div>,
   ];
 
   const group4 = [
@@ -644,7 +689,7 @@ export const DraggableProviderDragType: Story = () => {
     <div>Michael</div>,
     <div>Stephen</div>,
     <div>John</div>,
-    <div>Harpal</div>
+    <div>Harpal</div>,
   ];
 
   const cssRules = `
@@ -809,7 +854,7 @@ export const DraggableProviderGetOrderCallback: Story = () => {
     <div>Igor</div>,
     <div>Kuba</div>,
     <div>Alexander</div>,
-    <div>Maciek</div>
+    <div>Maciek</div>,
   ];
 
   const group2 = [
@@ -817,14 +862,14 @@ export const DraggableProviderGetOrderCallback: Story = () => {
     <div>Dan</div>,
     <div>James</div>,
     <div>Ian</div>,
-    <div>Robin</div>
+    <div>Robin</div>,
   ];
 
   const group3 = [
     <div>Nuria</div>,
     <div>Chris</div>,
     <div>Iga</div>,
-    <div>Damian</div>
+    <div>Damian</div>,
   ];
 
   const group4 = [
@@ -834,7 +879,7 @@ export const DraggableProviderGetOrderCallback: Story = () => {
     <div>Michael</div>,
     <div>Stephen</div>,
     <div>John</div>,
-    <div>Harpal</div>
+    <div>Harpal</div>,
   ];
 
   const cssRules = `
@@ -966,7 +1011,11 @@ export const DraggableProviderGetOrderCallback: Story = () => {
   });
 
   return (
-    <DraggableProvider getOrder={(containerIdOrder, movedItemId) => console.log(containerIdOrder, movedItemId)}>
+    <DraggableProvider
+      getOrder={(containerIdOrder, movedItemId) =>
+        console.log(containerIdOrder, movedItemId)
+      }
+    >
       <style>{cssRules}</style>
       <div id="kanban-board" className="kanban-board">
         <div className="column column-contributors-1">
@@ -990,93 +1039,603 @@ export const DraggableProviderGetOrderCallback: Story = () => {
   );
 };
 
-DraggableProviderGetOrderCallback.storyName = "Draggable Provider getOrder callback";
+DraggableProviderGetOrderCallback.storyName =
+  "Draggable Provider getOrder callback";
 
 export const DraggableProviderManualReOrdering: Story = () => {
   const draggableProviderHandle = useRef<DraggableProviderHandle | null>(null);
-  const [currentOrder, setCurrentOrder] = useState<number[]>([1, 2, 3, 4, 5, 6]);
-  const previousOrderRef = useRef(currentOrder);
 
-  useEffect(() => {
-    previousOrderRef.current = currentOrder;
-    console.log("Current Order:", currentOrder);
-    console.log("Previous Order:", previousOrderRef.current);
-  }, [currentOrder]);
-
-  const getIndex = (id: number) => previousOrderRef.current.indexOf(id);
-
-  const moveItem = (id: number, targetIndex: number, toListId?: string) => 
-    draggableProviderHandle.current?.reOrder({itemId: id, toIndex: targetIndex, toListId});
-  
-  const MOVE_ACTIONS = [
-    { label: "Move Up", getTargetIndex: (id: number) => getIndex(id) - 1, toListId: undefined },
-    { label: "Move Down", getTargetIndex: (id: number) => getIndex(id) + 1, toListId: undefined },
-    { label: "Move To Carbon Contributors 1", getTargetIndex: () => 0, toListId: "group1" },
-    { label: "Move To Carbon Contributors 2", getTargetIndex: () => 0, toListId: "group2" },
-    { label: "Move To Carbon Contributors 3", getTargetIndex: () => 0, toListId: "group3" },
-    { label: "Move To Carbon Contributors 4", getTargetIndex: () => 0, toListId: "group4" },
-  ];
-  
-  const actionPopover = (id: number) => (
-    <ActionPopover m={0}>
-      {MOVE_ACTIONS.map(({ label, getTargetIndex, toListId }) => (
-        <ActionPopoverItem 
-          key={`${id}-${label}`} 
-          onClick={() => moveItem(id, getTargetIndex(id), toListId)}
-        >
-          {label}
-        </ActionPopoverItem>
-      ))}
-    </ActionPopover>
-  );
-  
-  // Modified card component with inline popover
-  const createCardWithPopover = (content: React.ReactNode, id: number) => {
-    // Extract the id and text content from the div
-    const divId = content.props.id;
-    const textContent = content.props.children;
-    
-    // Return a single div with text and popover side by side
+  const actionPopover = (id: string) => {
     return (
-      <div id={divId} className="draggable-card">
-        {textContent}
-        <span className="card-actions">{actionPopover(id)}</span>
-      </div>
+      <ActionPopover m={0} aria-label="Actions">
+        <ActionPopoverItem
+          onClick={() =>
+            draggableProviderHandle.current?.reOrder({
+              itemId: id,
+              toIndex: 0,
+              toListId: "group1",
+            })
+          }
+        >
+          Move to Group 1
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          onClick={() =>
+            draggableProviderHandle.current?.reOrder({
+              itemId: id,
+              toIndex: 0,
+              toListId: "group2",
+            })
+          }
+        >
+          Move to Group 2
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          onClick={() =>
+            draggableProviderHandle.current?.reOrder({
+              itemId: id,
+              toIndex: 0,
+              toListId: "group3",
+            })
+          }
+        >
+          Move to Group 3
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          onClick={() =>
+            draggableProviderHandle.current?.reOrder({
+              itemId: id,
+              toIndex: 0,
+              toListId: "group4",
+            })
+          }
+        >
+          Move to Group 4
+        </ActionPopoverItem>
+      </ActionPopover>
     );
   };
-  
+
   const group1 = [
-    createCardWithPopover("ed", 1),
-    createCardWithPopover(<div id="2">Andrew</div>, 2),
-    createCardWithPopover(<div id="3">Igor</div>, 3),
-    createCardWithPopover(<div id="4">Kuba</div>, 4),
-    createCardWithPopover(<div id="5">Alexander</div>, 5),
-    createCardWithPopover(<div id="6">Maciek</div>, 6)
+    <div id="g1-1" className="cards">
+      <span>Ed</span>
+      <span>{actionPopover("g1-1")}</span>
+    </div>,
+    <div id="g1-2" className="cards">
+      <span>Andrew</span>
+      <span>{actionPopover("g1-2")}</span>
+    </div>,
+    <div id="g1-3" className="cards">
+      <span>Igor</span>
+      <span>{actionPopover("g1-3")}</span>
+    </div>,
+    <div id="g1-4" className="cards">
+      <span>Kuba</span>
+      <span>{actionPopover("g1-4")}</span>
+    </div>,
+    <div id="g1-5" className="cards">
+      <span>Alexander</span>
+      <span>{actionPopover("g1-5")}</span>
+    </div>,
+    <div id="g1-6" className="cards">
+      <span>Maciek</span>
+      <span>{actionPopover("g1-6")}</span>
+    </div>,
   ];
-  
+
   const group2 = [
-    createCardWithPopover(<div id="7">Sam</div>, 7),
-    createCardWithPopover(<div id="8">Dan</div>, 8),
-    createCardWithPopover(<div id="9">James</div>, 9),
-    createCardWithPopover(<div id="10">Ian</div>, 10),
-    createCardWithPopover(<div id="11">Robin</div>, 11)
+    <div id="g2-1" className="cards">
+      <span>Sam</span>
+      <span>{actionPopover("g2-1")}</span>
+    </div>,
+    <div id="g2-2" className="cards">
+      <span>Dan</span>
+      <span>{actionPopover("g2-2")}</span>
+    </div>,
+    <div id="g2-3" className="cards">
+      <span>James</span>
+      <span>{actionPopover("g2-3")}</span>
+    </div>,
+    <div id="g2-4" className="cards">
+      <span>Ian</span>
+      <span>{actionPopover("g2-4")}</span>
+    </div>,
+    <div id="g2-5" className="cards">
+      <span>Robin</span>
+      <span>{actionPopover("g2-5")}</span>
+    </div>,
   ];
-  
+
   const group3 = [
-    createCardWithPopover(<div id="12">Nuria</div>, 12),
-    createCardWithPopover(<div id="13">Chris</div>, 13),
-    createCardWithPopover(<div id="14">Iga</div>, 14),
-    createCardWithPopover(<div id="15">Damian</div>, 15)
+    <div id="g3-1" className="cards">
+      <span>Nuria</span>
+      <span>{actionPopover("g3-1")}</span>
+    </div>,
+    <div id="g3-2" className="cards">
+      <span>Chris</span>
+      <span>{actionPopover("g3-2")}</span>
+    </div>,
+    <div id="g3-3" className="cards">
+      <span>Iga</span>
+      <span>{actionPopover("g3-3")}</span>
+    </div>,
+    <div id="g3-4" className="cards">
+      <span>Damian</span>
+      <span>{actionPopover("g3-4")}</span>
+    </div>,
   ];
-  
+
   const group4 = [
-    createCardWithPopover(<div id="16">Katarzyna</div>, 16),
-    createCardWithPopover(<div id="17">Tom</div>, 17),
-    createCardWithPopover(<div id="18">Ian</div>, 18),
-    createCardWithPopover(<div id="19">Michael</div>, 19),
-    createCardWithPopover(<div id="20">Stephen</div>, 20),
-    createCardWithPopover(<div id="21">John</div>, 21),
-    createCardWithPopover(<div id="22">Harpal</div>, 22)
+    <div id="g4-1" className="cards">
+      <span>Katarzyna</span>
+      <span>{actionPopover("g4-1")}</span>
+    </div>,
+    <div id="g4-2" className="cards">
+      <span>Tom</span>
+      <span>{actionPopover("g4-2")}</span>
+    </div>,
+    <div id="g4-3" className="cards">
+      <span>Ian</span>
+      <span>{actionPopover("g4-3")}</span>
+    </div>,
+    <div id="g4-4" className="cards">
+      <span>Michael</span>
+      <span>{actionPopover("g4-4")}</span>
+    </div>,
+    <div id="g4-5" className="cards">
+      <span>Stephen</span>
+      <span>{actionPopover("g4-5")}</span>
+    </div>,
+    <div id="g4-6" className="cards">
+      <span>John</span>
+      <span>{actionPopover("g4-6")}</span>
+    </div>,
+    <div id="g4-7" className="cards">
+      <span>Harpal</span>
+      <span>{actionPopover("g4-7")}</span>
+    </div>,
+  ];
+
+  const cssRules = `
+   /* Board layout */
+   #kanban-board {
+     display: flex;
+     gap: 16px;
+     padding: 20px;
+     background-color: #f5f5f5;
+     border-radius: 8px;
+     min-height: 600px;
+   }
+   
+   /* Make sure useDraggableContainer takes full size */
+   #kanban-board [data-element="use-draggable-container"] {
+     height: 550px;
+     overflow-y: auto;
+     width: 100%;
+   }
+ 
+   /* Column styling */
+   #kanban-board .column {
+     display: flex;
+     flex-direction: column;
+     width: 280px;
+     min-height: 560px;
+     background-color: #f9f9f9;
+     border-radius: 8px;
+     overflow: hidden;
+   }
+   
+   /* Column header */
+   #kanban-board .column-header {
+     font-weight: 600;
+     padding: 12px 16px;
+     border-bottom: 1px solid #eaeaea;
+     background-color: #f0f0f0;
+     margin: 0;
+   }
+   
+   /* Container styling */
+   #kanban-board [data-parent-container-id] {
+     display: flex;
+     flex-direction: column;
+     gap: 8px;
+     padding: 12px;
+     flex: 1;
+     overflow-y: auto;
+     max-height: 520px;
+     min-height: 40px;
+   }
+
+   .cards {
+   display: flex;
+   justify-content: space-between;
+   }
+ 
+   /* Column color indicators */
+   #kanban-board .column-contributors-1 {
+     border-top: 3px solid #1890ff;
+   }
+ 
+   #kanban-board .column-contributors-2 {
+     border-top: 3px solid #722ed1;
+   }
+ 
+   #kanban-board .column-contributors-3 {
+     border-top: 3px solid #fa8c16;
+   }
+ 
+   #kanban-board .column-contributors-4 {
+     border-top: 3px solid #52c41a;
+   }
+ 
+   /* Container states */
+   #kanban-board [data-parent-container-id][data-drag-state="is-dragging"] {
+     background-color: #edf5ff;
+   }
+ 
+   #kanban-board [data-parent-container-id][data-drag-state="is-dragging-over"] {
+     background-color: #f2faf3;
+   }
+ 
+   /* Card styling - items within containers */
+   #kanban-board [data-parent-container-id] > div {
+     padding: 10px 12px;
+     background-color: white;
+     border-radius: 6px;
+     border: 1px solid #e0e0e0;
+     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+     cursor: grab;
+     font-weight: 500;
+     user-select: none;
+     font-size: 14px;
+   }
+ 
+   /* Card states */
+   #kanban-board [data-parent-container-id] > div[data-is-dragging="true"] {
+     background-color: #f0f8ff;
+     border-color: #1890ff;
+     box-shadow: 0 2px 8px rgba(24, 144, 255, 0.15);
+     transform: scale(1.02);
+     z-index: 10;
+   }
+ 
+   /* Card hover effect */
+   #kanban-board [data-parent-container-id] > div:hover:not([data-is-dragging="true"]) {
+     background-color: #fafafa;
+     border-color: #d9d9d9;
+   }`;
+
+  const { draggableElement: group1Container } = useDraggable({
+    draggableItems: group1,
+    containerId: "group1",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group2Container } = useDraggable({
+    draggableItems: group2,
+    containerId: "group2",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group3Container } = useDraggable({
+    draggableItems: group3,
+    containerId: "group3",
+    draggableItemStylingOptOut: true,
+  });
+
+  const { draggableElement: group4Container } = useDraggable({
+    draggableItems: group4,
+    containerId: "group4",
+    draggableItemStylingOptOut: true,
+  });
+
+  return (
+    <DraggableProvider dragType="onDrop" ref={draggableProviderHandle}>
+      <style>{cssRules}</style>
+      <div id="kanban-board" className="kanban-board">
+        <div className="column column-contributors-1">
+          <div className="column-header">Carbon Contributors 1</div>
+          {group1Container}
+        </div>
+        <div className="column column-contributors-2">
+          <div className="column-header">Carbon Contributors 2</div>
+          {group2Container}
+        </div>
+        <div className="column column-contributors-3">
+          <div className="column-header">Carbon Contributors 3</div>
+          {group3Container}
+        </div>
+        <div className="column column-contributors-4">
+          <div className="column-header">Carbon Contributors 4</div>
+          {group4Container}
+        </div>
+      </div>
+    </DraggableProvider>
+  );
+};
+
+DraggableProviderManualReOrdering.storyName =
+  "Draggable Provider manual re-order";
+
+export const DraggableProviderAdvancedManualReOrdering = () => {
+  const draggableProviderHandle = useRef<DraggableProviderHandle | null>(null);
+  // Use a ref to track the current state of the containers for immediate access in callbacks
+  const containerStateRef = useRef<ContainerOrderType>({
+    group1: ["g1-1", "g1-2", "g1-3", "g1-4", "g1-5", "g1-6"],
+    group2: ["g2-1", "g2-2", "g2-3", "g2-4", "g2-5"],
+    group3: ["g3-1", "g3-2", "g3-3", "g3-4"],
+    group4: ["g4-1", "g4-2", "g4-3", "g4-4", "g4-5", "g4-6", "g4-7"],
+  });
+
+  // Function to move an item to the top of its container
+  const moveToTop = (itemId: string) => {
+    let sourceContainerId = null;
+
+    // Find which container the item is in
+    for (const [containerId, items] of Object.entries(
+      containerStateRef.current,
+    )) {
+      if (items.includes(itemId)) {
+        sourceContainerId = containerId;
+        break;
+      }
+    }
+
+    if (sourceContainerId) {
+      draggableProviderHandle.current?.reOrder({
+        itemId,
+        toIndex: 0,
+        toListId: sourceContainerId,
+      });
+    }
+  };
+
+  // Function to move an item to the bottom of its container
+  const moveToBottom = (itemId: string) => {
+    let sourceContainerId = null;
+    let containerLength = 0;
+
+    // Find which container the item is in
+    for (const [containerId, items] of Object.entries(
+      containerStateRef.current,
+    )) {
+      if (items.includes(itemId)) {
+        sourceContainerId = containerId;
+        containerLength = items.length;
+        break;
+      }
+    }
+
+    if (sourceContainerId) {
+      draggableProviderHandle.current?.reOrder({
+        itemId,
+        toIndex: containerLength - 1,
+        toListId: sourceContainerId,
+      });
+    }
+  };
+
+  // Function to move an item up one position
+  const moveUp = (itemId: string) => {
+    let sourceContainerId = null;
+    let currentIndex = -1;
+
+    // Find which container the item is in and its current index
+    for (const [containerId, items] of Object.entries(
+      containerStateRef.current,
+    )) {
+      currentIndex = items.indexOf(itemId);
+      if (currentIndex !== -1) {
+        sourceContainerId = containerId;
+        break;
+      }
+    }
+
+    // If the item is found and not already at the top
+    if (sourceContainerId && currentIndex > 0) {
+      draggableProviderHandle.current?.reOrder({
+        itemId,
+        toIndex: currentIndex - 1,
+        toListId: sourceContainerId,
+      });
+    }
+  };
+
+  // Function to move an item down one position
+  const moveDown = (itemId: string) => {
+    let sourceContainerId = null;
+    let currentIndex = -1;
+    let containerLength = 0;
+
+    // Find which container the item is in and its current index
+    for (const [containerId, items] of Object.entries(
+      containerStateRef.current,
+    )) {
+      currentIndex = items.indexOf(itemId);
+      if (currentIndex !== -1) {
+        sourceContainerId = containerId;
+        containerLength = items.length;
+        break;
+      }
+    }
+
+    // If the item is found and not already at the bottom
+    if (sourceContainerId && currentIndex < containerLength - 1) {
+      draggableProviderHandle.current?.reOrder({
+        itemId,
+        toIndex: currentIndex + 1,
+        toListId: sourceContainerId,
+      });
+    }
+  };
+
+  // Function to handle drag & drop order changes
+  const handleOrderChange = (newContainerOrder?: ContainerOrderType) => {
+    // Update the ref when items are reordered to ensure movement functions have the latest data
+    containerStateRef.current = newContainerOrder as ContainerOrderType;
+  };
+
+  const actionPopover = (id: string) => {
+    return (
+      <ActionPopover m={0} aria-label="Actions">
+        <ActionPopoverItem
+          onClick={() =>
+            draggableProviderHandle.current?.reOrder({
+              itemId: id,
+              toIndex: 0,
+              toListId: "group1",
+            })
+          }
+        >
+          Move to Group 1
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          onClick={() =>
+            draggableProviderHandle.current?.reOrder({
+              itemId: id,
+              toIndex: 0,
+              toListId: "group2",
+            })
+          }
+        >
+          Move to Group 2
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          onClick={() =>
+            draggableProviderHandle.current?.reOrder({
+              itemId: id,
+              toIndex: 0,
+              toListId: "group3",
+            })
+          }
+        >
+          Move to Group 3
+        </ActionPopoverItem>
+        <ActionPopoverItem
+          onClick={() =>
+            draggableProviderHandle.current?.reOrder({
+              itemId: id,
+              toIndex: 0,
+              toListId: "group4",
+            })
+          }
+        >
+          Move to Group 4
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => moveToTop(id)}>
+          Move Top
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => moveToBottom(id)}>
+          Move Bottom
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => moveUp(id)}>
+          Move Up
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => moveDown(id)}>
+          Move Down
+        </ActionPopoverItem>
+      </ActionPopover>
+    );
+  };
+
+  const group1 = [
+    <div id="g1-1" className="cards">
+      <span>Ed</span>
+      <span>{actionPopover("g1-1")}</span>
+    </div>,
+    <div id="g1-2" className="cards">
+      <span>Andrew</span>
+      <span>{actionPopover("g1-2")}</span>
+    </div>,
+    <div id="g1-3" className="cards">
+      <span>Igor</span>
+      <span>{actionPopover("g1-3")}</span>
+    </div>,
+    <div id="g1-4" className="cards">
+      <span>Kuba</span>
+      <span>{actionPopover("g1-4")}</span>
+    </div>,
+    <div id="g1-5" className="cards">
+      <span>Alexander</span>
+      <span>{actionPopover("g1-5")}</span>
+    </div>,
+    <div id="g1-6" className="cards">
+      <span>Maciek</span>
+      <span>{actionPopover("g1-6")}</span>
+    </div>,
+  ];
+
+  const group2 = [
+    <div id="g2-1" className="cards">
+      <span>Sam</span>
+      <span>{actionPopover("g2-1")}</span>
+    </div>,
+    <div id="g2-2" className="cards">
+      <span>Dan</span>
+      <span>{actionPopover("g2-2")}</span>
+    </div>,
+    <div id="g2-3" className="cards">
+      <span>James</span>
+      <span>{actionPopover("g2-3")}</span>
+    </div>,
+    <div id="g2-4" className="cards">
+      <span>Ian</span>
+      <span>{actionPopover("g2-4")}</span>
+    </div>,
+    <div id="g2-5" className="cards">
+      <span>Robin</span>
+      <span>{actionPopover("g2-5")}</span>
+    </div>,
+  ];
+
+  const group3 = [
+    <div id="g3-1" className="cards">
+      <span>Nuria</span>
+      <span>{actionPopover("g3-1")}</span>
+    </div>,
+    <div id="g3-2" className="cards">
+      <span>Chris</span>
+      <span>{actionPopover("g3-2")}</span>
+    </div>,
+    <div id="g3-3" className="cards">
+      <span>Iga</span>
+      <span>{actionPopover("g3-3")}</span>
+    </div>,
+    <div id="g3-4" className="cards">
+      <span>Damian</span>
+      <span>{actionPopover("g3-4")}</span>
+    </div>,
+  ];
+
+  const group4 = [
+    <div id="g4-1" className="cards">
+      <span>Katarzyna</span>
+      <span>{actionPopover("g4-1")}</span>
+    </div>,
+    <div id="g4-2" className="cards">
+      <span>Tom</span>
+      <span>{actionPopover("g4-2")}</span>
+    </div>,
+    <div id="g4-3" className="cards">
+      <span>Ian</span>
+      <span>{actionPopover("g4-3")}</span>
+    </div>,
+    <div id="g4-4" className="cards">
+      <span>Michael</span>
+      <span>{actionPopover("g4-4")}</span>
+    </div>,
+    <div id="g4-5" className="cards">
+      <span>Stephen</span>
+      <span>{actionPopover("g4-5")}</span>
+    </div>,
+    <div id="g4-6" className="cards">
+      <span>John</span>
+      <span>{actionPopover("g4-6")}</span>
+    </div>,
+    <div id="g4-7" className="cards">
+      <span>Harpal</span>
+      <span>{actionPopover("g4-7")}</span>
+    </div>,
   ];
 
   const cssRules = `
@@ -1129,6 +1688,11 @@ export const DraggableProviderManualReOrdering: Story = () => {
     min-height: 40px;
   }
 
+  .cards {
+    display: flex;
+    justify-content: space-between;
+  }
+
   /* Column color indicators */
   #kanban-board .column-contributors-1 {
     border-top: 3px solid #1890ff;
@@ -1156,7 +1720,7 @@ export const DraggableProviderManualReOrdering: Story = () => {
   }
 
   /* Card styling - items within containers */
-  #kanban-board [data-parent-container-id] > div.draggable-card {
+  #kanban-board [data-parent-container-id] > div {
     padding: 10px 12px;
     background-color: white;
     border-radius: 6px;
@@ -1166,56 +1730,6 @@ export const DraggableProviderManualReOrdering: Story = () => {
     font-weight: 500;
     user-select: none;
     font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  /* Card actions */
-  #kanban-board .card-actions {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 8px;
-  }
-
-  /* ActionPopover styling */
-  #kanban-board .card-actions [data-component="action-popover"] {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    background-color: transparent;
-    transition: background-color 0.2s ease;
-  }
-
-  #kanban-board .card-actions [data-component="action-popover"]:hover {
-    background-color: #f0f0f0;
-  }
-
-  #kanban-board .card-actions [data-component="action-popover"] svg {
-    color: #666;
-    width: 16px;
-    height: 16px;
-  }
-
-  /* ActionPopoverItem styling */
-  #kanban-board [data-component="action-popover-menu"] {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-radius: 4px;
-    border: 1px solid #eaeaea;
-  }
-
-  #kanban-board [data-component="action-popover-item"] {
-    padding: 8px 12px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-
-  #kanban-board [data-component="action-popover-item"]:hover {
-    background-color: #f5f5f5;
   }
 
   /* Card states */
@@ -1258,7 +1772,11 @@ export const DraggableProviderManualReOrdering: Story = () => {
   });
 
   return (
-    <DraggableProvider ref={draggableProviderHandle}>
+    <DraggableProvider
+      dragType="onDrop"
+      ref={draggableProviderHandle}
+      getOrder={handleOrderChange}
+    >
       <style>{cssRules}</style>
       <div id="kanban-board" className="kanban-board">
         <div className="column column-contributors-1">
@@ -1282,4 +1800,5 @@ export const DraggableProviderManualReOrdering: Story = () => {
   );
 };
 
-DraggableProviderManualReOrdering.storyName = "Draggable Provider Manual Re-Ordering";
+DraggableProviderAdvancedManualReOrdering.storyName =
+  "Draggable Provider advanced manual re-order";

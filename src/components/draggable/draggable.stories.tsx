@@ -54,8 +54,7 @@ export const ManualReOrdering: Story = () => {
   const [currentOrder, setCurrentOrder] = useState<number[]>([0, 1, 2, 3]);
   const previousOrderRef = useRef(currentOrder);
   useEffect(() => {
-    (previousOrderRef.current = currentOrder),
-      console.log(currentOrder, previousOrderRef.current);
+    previousOrderRef.current = currentOrder
   }, [currentOrder]);
   const labels = ["first", "second", "third", "fourth"];
 
