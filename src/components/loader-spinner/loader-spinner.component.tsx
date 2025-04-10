@@ -143,9 +143,7 @@ export const LoaderSpinner = ({
           )}
         </>
       ) : (
-        <Typography data-role="hidden-label" variant="span" screenReaderOnly>
-          {spinnerLabel || locale.loaderSpinner.loading()}
-        </Typography>
+        renderSpinnerLabel
       )}
     </StyledSpinnerWrapper>
   );

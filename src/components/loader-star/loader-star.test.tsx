@@ -49,7 +49,6 @@ test("component should have a visually hidden label for assistive technologies b
 });
 
 test("renders a custom visually hidden label for assistive technologies to use, when loaderStarLabel prop is provided", () => {
-  mockUseMediaQuery.mockReturnValueOnce(false);
   render(<LoaderStar loaderStarLabel="Responding..." />);
 
   const hiddenLabelElement = screen.getByTestId("hidden-label");

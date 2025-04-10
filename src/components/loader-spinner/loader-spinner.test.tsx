@@ -105,9 +105,10 @@ describe("when custom props are passed", () => {
 
     const status = screen.getByRole("status");
     const hiddenLabelElement = within(status).getByText("bar");
+    const visibleLabelElement = screen.queryByTestId("visible-label");
 
     expect(hiddenLabelElement).toBeInTheDocument();
-    expect(hiddenLabelElement).not.toBeVisible();
+    expect(visibleLabelElement).not.toBeInTheDocument();
   });
 
   it("when the 'size' prop is passed as 'extra-small' the component wrapper has a flex-direction of row", () => {
@@ -218,10 +219,11 @@ describe("when custom props are passed", () => {
 
     const wrapperElement = screen.getByRole("status");
     const hiddenLabelElement = screen.getByTestId("hidden-label");
+    const visibleLabelElement = screen.queryByTestId("visible-label");
 
     expect(wrapperElement).toHaveTextContent("Loading...");
     expect(hiddenLabelElement).toBeInTheDocument();
-    expect(hiddenLabelElement).not.toBeVisible();
+    expect(visibleLabelElement).not.toBeInTheDocument();
   });
 
   it.each(LOADER_SPINNER_VARIANTS)(
