@@ -119,6 +119,7 @@ const esES: Partial<Locale> = {
     success: () => "Acción realizada",
     warning: () => "Aviso",
     neutral: () => "Información",
+    ai: () => "Información generada por IA",
   },
   numeralDate: {
     validation: {

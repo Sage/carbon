@@ -158,6 +158,7 @@ test("renders close button aria-label with custom value from translations", () =
           warning: () => "Warning",
           neutral: () => "Neutral",
           error: () => "Error",
+          ai: () => "AI Information",
           closeButtonAriaLabel: () => "test close button",
         },
       }}
