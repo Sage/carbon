@@ -1,8 +1,6 @@
-import React, { Ref, useState, useContext, CSSProperties } from "react";
+import React, { Ref, useState } from "react";
 import guid from "../../__internal__/utils/helpers/guid";
-import DraggableProvider from "./draggable-provider";
 import DraggableContainer from "../../__internal__/draggable/draggable-container";
-import DraggableProviderContext from "./draggable-provider-context";
 import DraggableItem from "../../__internal__/draggable/draggable-item";
 import { Edge } from "../../__internal__/draggable/draggable-utils";
 
@@ -16,51 +14,58 @@ export interface UseDraggableHandle {
   reOrder: (itemId: number | string, toIndex: number) => void;
 }
 
-interface UseDraggableOptions {
+export interface UseDraggableOptions {
   draggableItems: React.ReactNode[] | React.ReactNode;
-  ref?: Ref<UseDraggableHandle>;
-  dragType?: "continuous" | "onDrop";
   containerId?: string | number;
-  draggableItemStylingOptOut?: boolean;
   containerNode?: string;
-  itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+  containerRole?: string;
+  dragType?: "continuous" | "onDrop";
+  stylingOptOut?: boolean;
   getOrder?: (
     draggableItemIds?: (string | number | undefined)[],
     movedItemId?: string | number | undefined,
   ) => void;
+  itemsNode?:
+    | keyof JSX.IntrinsicElements
+    | React.JSXElementConstructor<unknown>;
+  itemsRole?: string;
+  ref?: Ref<UseDraggableHandle>;
 }
 
 const useDraggable = ({
   draggableItems,
-  ref,
-  dragType = "continuous",
   containerId,
-  draggableItemStylingOptOut,
   containerNode,
-  itemsNode,
+  containerRole,
+  dragType = "continuous",
+  stylingOptOut = false,
   getOrder,
+  itemsNode,
+  itemsRole,
+  ref,
 }: UseDraggableOptions) => {
   const items = Array.isArray(draggableItems)
     ? draggableItems
     : [draggableItems];
-
   const [draggedNode, setDraggedNode] = useState<Element | null>(null);
 
   const draggableElement = (
     <DraggableContainer
-      id={containerId}
-      ref={ref}
+      containerNode={containerNode}
+      data-role={containerRole}
       dragType={dragType}
       getOrder={getOrder}
-      containerNode={containerNode}
+      id={containerId}
+      ref={ref}
       setDraggedNode={setDraggedNode}
     >
       {items.map((item) => (
         <DraggableItem
+          data-role={itemsRole}
+          stylingOptOut={stylingOptOut}
+          itemsNode={itemsNode}
           key={guid()}
           uniqueId={`${guid()}`}
-          draggableItemStylingOptOut={draggableItemStylingOptOut}
-          itemsNode={itemsNode}
         >
           {item}
         </DraggableItem>

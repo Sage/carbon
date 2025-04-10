@@ -20,7 +20,6 @@ import { isDraggableItemData } from "./draggable-utils";
 
 import { UseDraggableHandle } from "../../hooks/useDraggable/useDraggable";
 import DraggableProviderContext from "../../hooks/useDraggable/draggable-provider-context";
-import useDebounce from "../../hooks/__internal__/useDebounce";
 import guid from "../../__internal__/utils/helpers/guid";
 import DraggableContainerContext from "./draggable-container-context";
 import DraggableItemContext from "./draggable-item-context";
@@ -29,7 +28,6 @@ export interface DraggableContainerProps {
   id?: string | number;
   children?: React.ReactNode;
   dragType?: "continuous" | "onDrop";
-  dragDelay?: number;
   getOrder?: (
     draggableItemIds?: (string | number | undefined)[],
     movedItemId?: string | number | undefined,
@@ -59,16 +57,22 @@ const DraggableContainer = forwardRef<
     }: DraggableContainerProps,
     ref,
   ): JSX.Element => {
-    const { register, lists, move, containerDragState, uniqueId: providerId } = useContext(
-      DraggableProviderContext,
-    );
+    const {
+      register,
+      lists,
+      move,
+      containerDragState,
+      uniqueId: providerId,
+    } = useContext(DraggableProviderContext);
     const [list, setList] = useState<React.ReactNode[]>([]);
 
     const localGuid = useRef(guid());
     const uniqueId = id || localGuid.current;
     const containerRef = useRef<HTMLDivElement>();
     const hasMounted = useRef(false);
-    const [localDraggedNode, setLocalDraggedNode] = useState<Element | null>(null);
+    const [localDraggedNode, setLocalDraggedNode] = useState<Element | null>(
+      null,
+    );
 
     const effectiveList = useMemo(() => {
       return list.length > 0 ? list : lists?.[uniqueId] || [];
@@ -118,8 +122,8 @@ const DraggableContainer = forwardRef<
           setDraggedNode(element);
         }
 
-        if(element && setLocalDraggedNode){
-          setLocalDraggedNode(element)
+        if (element && setLocalDraggedNode) {
+          setLocalDraggedNode(element);
         }
 
         copy.splice(toIndex, 0, nodeToMove);
@@ -157,7 +161,7 @@ const DraggableContainer = forwardRef<
       },
       [list, getOrder, uniqueId, setDraggedNode, setLocalDraggedNode],
     );
-    
+
     useLayoutEffect(() => {
       if (!hasMounted.current) {
         if (register) {
@@ -241,7 +245,7 @@ const DraggableContainer = forwardRef<
               if (target) {
                 const indexOfTarget = Number(target.data.itemIndex);
                 const destinationId = source.data.itemId as string | number;
-  
+
                 if (
                   !Number.isNaN(indexOfTarget) &&
                   indexOfTarget >= 0 &&
@@ -261,12 +265,12 @@ const DraggableContainer = forwardRef<
             },
           }),
           onDrop({ location, source }) {
-            if(dragType === "onDrop") {
+            if (dragType === "onDrop") {
               const target = location.current.dropTargets[0];
               if (target) {
                 const indexOfTarget = Number(target.data.itemIndex);
                 const destinationId = source.data.itemId as string | number;
-  
+
                 if (
                   !Number.isNaN(indexOfTarget) &&
                   indexOfTarget >= 0 &&
@@ -282,12 +286,11 @@ const DraggableContainer = forwardRef<
                   }
                 }
               }
-
             }
-          lastMoveRef.current = {
+            lastMoveRef.current = {
               indexOfTarget: null,
               destinationId: null,
-            }
+            };
           },
         }),
       );
@@ -309,7 +312,9 @@ const DraggableContainer = forwardRef<
     };
 
     return (
-      <DraggableContainerContext.Provider value={{ columnId: uniqueId, localDraggedNode, dragType }}>
+      <DraggableContainerContext.Provider
+        value={{ columnId: uniqueId, localDraggedNode, dragType }}
+      >
         {React.createElement(
           containerNode,
           {

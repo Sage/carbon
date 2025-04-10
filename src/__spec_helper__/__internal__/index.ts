@@ -8,6 +8,8 @@ import setupScrollToMock from "../mock-element-scrollto";
 
 import "@testing-library/jest-dom";
 import "jest-styled-components";
+import '@atlaskit/pragmatic-drag-and-drop-unit-testing/drag-event-polyfill';
+import '@atlaskit/pragmatic-drag-and-drop-unit-testing/dom-rect-polyfill';
 
 const isNotCI = process.env.CI !== "true";
 

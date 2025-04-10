@@ -36,8 +36,8 @@ import StyledFlatTableRow from "../../components/flat-table/flat-table-row/flat-
 export interface DraggableItemProps {
   children?: React.ReactNode;
   uniqueId: string | number;
-  draggableItemStylingOptOut?: boolean;
-  itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+  stylingOptOut?: boolean;
+  itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<unknown>;
 }
 
 const DraggableItem = forwardRef(
@@ -45,15 +45,15 @@ const DraggableItem = forwardRef(
     {
       children,
       uniqueId,
-      draggableItemStylingOptOut = false,
+      stylingOptOut = false,
       itemsNode = "div",
       ...rest
     }: DraggableItemProps,
     ref,
   ): JSX.Element => {
-    const { columnId, localDraggedNode, dragType } = useContext(DraggableContainerContext);
-
-
+    const { columnId, localDraggedNode, dragType } = useContext(
+      DraggableContainerContext,
+    );
 
     const index = useContext(DraggableItemContext)?.index;
     const { setClosestEdge } = useContext(DraggableProviderContext);
@@ -94,13 +94,21 @@ const DraggableItem = forwardRef(
 
     // written to help ease the transition from the old drag and drop to the new one - prevents a post flash of newly rendered items before opacity can be changed
     useEffect(() => {
-      if (dragType === "onDrop" || !localDraggedNode || columnId !== localDraggedNode.getAttribute("data-parent-container-id") || id !== localDraggedNode.getAttribute("data-item-id")) {
+      if (
+        dragType === "onDrop" ||
+        !localDraggedNode ||
+        columnId !==
+          localDraggedNode.getAttribute("data-parent-container-id") ||
+        id !== localDraggedNode.getAttribute("data-item-id")
+      ) {
         return;
       }
 
       const container = document.getElementById(columnId);
       if (container) {
-        const nodeToChange = container.querySelector(`[data-item-id="${id}"]`) as HTMLElement;
+        const nodeToChange = container.querySelector(
+          `[data-item-id="${id}"]`,
+        ) as HTMLElement;
         if (nodeToChange) {
           nodeToChange.style.opacity = "0";
         }
@@ -169,7 +177,6 @@ const DraggableItem = forwardRef(
                 }
                 return { type: "is-dragging-over", closestEdge, id };
               });
-              
             }
           },
           onDragLeave() {
@@ -191,7 +198,14 @@ const DraggableItem = forwardRef(
       return () => {
         cleanup();
       };
-    }, [id, draggableItemData, setDragState, setClosestEdge, itemRef, localDraggedNode]);
+    }, [
+      id,
+      draggableItemData,
+      setDragState,
+      setClosestEdge,
+      itemRef,
+      localDraggedNode,
+    ]);
 
     return React.createElement(
       itemsNode,
@@ -207,14 +221,17 @@ const DraggableItem = forwardRef(
         }),
         ...rest,
         style: {
-          ...(!draggableItemStylingOptOut && { cursor: "grab" }),
-          ...(!draggableItemStylingOptOut && {
-            opacity: dragState.type === "is-dragging-over" && dragState.id === id ? 0 : 1,
+          ...(!stylingOptOut && { cursor: "grab" }),
+          ...(!stylingOptOut && {
+            opacity:
+              dragState.type === "is-dragging-over" && dragState.id === id
+                ? 0
+                : 1,
           }),
           position: "relative",
-        }
+        },
       },
-      children
+      children,
     );
   },
 );

@@ -1,5 +1,4 @@
 import { createContext } from "react";
-import { Edge } from "../../__internal__/draggable/draggable-utils";
 import { ContainerDragState } from "./draggable-provider";
 
 interface DraggableProviderContextType {
@@ -11,7 +10,6 @@ interface DraggableProviderContextType {
     toIndex: number,
   ) => void;
   lists?: Record<string, React.ReactNode[]>;
-  setClosestEdge?: React.Dispatch<React.SetStateAction<Edge | null>>;
   containerDragState?: ContainerDragState;
   uniqueId?: string | number;
 }

@@ -55,6 +55,7 @@
     "styled-components": "^5.3.11"
   },
   "devDependencies": {
+    "@atlaskit/pragmatic-drag-and-drop-unit-testing": "^1.1.0",
     "@axe-core/playwright": "~4.10.1",
     "@babel/cli": "^7.23.4",
     "@babel/core": "^7.23.3",
