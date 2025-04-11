@@ -249,21 +249,21 @@ test.describe("Accessibility tests for Batch Selection", () => {
     await checkAccessibility(page);
   });
 
-  // FE-4609
-  test.skip("should pass accessibility test for disabled BatchSelection", async ({
+  // Due to the colour of the disabled styling, this fails the colour contrast checker. No reason we cannot check the rest of the accessibility though.
+  test("should pass accessibility test for disabled BatchSelection", async ({
     mount,
     page,
   }) => {
     await mount(<BatchSelectionComponent disabled selectedCount={3} />);
-    await checkAccessibility(page);
+    await checkAccessibility(page, undefined, "color-contrast");
   });
 
-  // FE-4609
-  test.skip("should pass accessibility test for disabled BatchSelection with all supported disabled button children", async ({
+  // Same again here, due to the colour of the disabled styling, this fails the colour contrast checker. No reason we cannot check the rest of the accessibility though.
+  test("should pass accessibility test for disabled BatchSelection with all supported disabled button children", async ({
     mount,
     page,
   }) => {
     await mount(<BatchSelectionComponent disabled selectedCount={3} />);
-    await checkAccessibility(page);
+    await checkAccessibility(page, undefined, "color-contrast");
   });
 });
