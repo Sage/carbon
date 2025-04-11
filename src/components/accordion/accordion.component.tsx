@@ -1,46 +1,43 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useRef, useState } from "react";
 import { SpaceProps } from "styled-system";
-import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+import Box from "../box";
+import Typography from "../typography";
+import useMediaQuery from "../../hooks/useMediaQuery";
 import createGuid from "../../__internal__/utils/helpers/guid";
-import Events from "../../__internal__/utils/helpers/events";
-import {
-  StyledAccordionContainer,
-  StyledAccordionHeadingsContainer,
-  StyledAccordionTitleContainer,
-  StyledAccordionTitle,
-  StyledAccordionSubTitle,
-  StyledAccordionIcon,
-  StyledAccordionContentContainer,
-  StyledAccordionContent,
-  StyledAccordionContainerProps,
-} from "./accordion.style";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import ValidationIcon from "../../__internal__/validations";
 
-export interface AccordionProps
-  extends StyledAccordionContainerProps,
-    SpaceProps,
-    TagProps {
-  /** Content of the Accordion component */
+import {
+  StyledContent,
+  StyledDetails,
+  StyledSummary,
+  StyledWrapper,
+  StyledSummaryTitle,
+  StyledSummaryTitleWrapper,
+  StyledIcon,
+} from "./accordion.style";
+
+export interface AccordionProps extends SpaceProps, TagProps {
+  /** Toggles left and right borders, set to none when variant is subtle */
+  borders?: "default" | "full" | "none";
   children?: React.ReactNode;
-  /** Set the default state of expansion of the Accordion if component is meant to be used as uncontrolled */
-  defaultExpanded?: boolean;
   /** Disable padding for the content */
   disableContentPadding?: boolean;
-  /** Sets the expansion state of the Accordion if component is meant to be used as controlled */
-  expanded?: boolean;
   /** An error message to be displayed in the tooltip */
   error?: string;
+  /** Sets default expanded state */
+  expanded?: boolean;
+  /** Specifies a group name — give multiple accordions the same name value to group them. Only one of the group can be open at a time — opening one will cause the others to close */
+  groupName?: string;
   /** Styled system spacing props provided to Accordion Title */
   headerSpacing?: SpaceProps;
-  id?: string;
-  /** Sets icon type */
-  iconType?: "chevron_down" | "chevron_down_thick" | "dropdown";
   /** Sets icon alignment */
   iconAlign?: "left" | "right";
-  /** Sets accordion title */
-  title: React.ReactNode;
+  /** Sets icon type */
+  iconType?: "chevron_down" | "chevron_down_thick" | "dropdown";
+  /** The ID for this accordion */
+  id?: string;
   /** An info message to be displayed in the tooltip */
   info?: string;
   /** Callback fired when expansion state changes */
@@ -54,198 +51,213 @@ export interface AccordionProps
   size?: "large" | "small";
   /** Sets accordion sub title */
   subTitle?: string;
+  /** Sets accordion title */
+  title: React.ReactNode;
+  /** Sets accordion variant */
+  variant?: "standard" | "subtle";
   /** A warning message to be displayed in the tooltip */
   warning?: string;
+  /** Sets accordion width */
+  width?: string;
 }
 
-export interface AccordionInternalProps {
-  /** @ignore @private */
-  handleKeyboardAccessibility?: (
-    ev: React.KeyboardEvent<HTMLElement>,
-    index?: number,
-  ) => void;
-  /** @ignore @private */
-  index?: number;
-}
-
-export const Accordion = React.forwardRef<
-  HTMLDivElement,
-  AccordionProps & AccordionInternalProps
->(
+export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
   (
     {
       borders = "default",
-      defaultExpanded,
-      expanded,
-      onChange,
       children,
-      handleKeyboardAccessibility,
-      id,
-      index,
+      disableContentPadding = false,
+      error,
+      expanded,
+      groupName,
+      headerSpacing,
+      iconAlign = "right",
       iconType,
-      iconAlign,
+      id,
+      info,
+      onChange,
+      openTitle,
       size = "large",
       subTitle,
       title,
-      width,
-      headerSpacing,
-      disableContentPadding = false,
-      error,
-      warning,
-      info,
-      openTitle,
       variant = "standard",
+      warning,
+      width,
       ...rest
-    }: AccordionProps & AccordionInternalProps,
+    }: AccordionProps,
     ref,
   ) => {
-    const isControlled = expanded !== undefined;
-
-    const [isExpandedInternal, setIsExpandedInternal] = useState(
-      defaultExpanded || false,
+    const reduceMotion = !useMediaQuery(
+      "screen and (prefers-reduced-motion: no-preference)",
     );
-
-    const [contentHeight, setContentHeight] = useState<string | number>(
-      isExpandedInternal ? "auto" : 0,
-    );
-
-    const accordionContent = useRef<HTMLDivElement>(null);
-
-    const isExpanded = isControlled ? expanded : isExpandedInternal;
-
-    useResizeObserver(accordionContent, () => {
-      setContentHeight(accordionContent.current?.scrollHeight as number);
-    });
-
-    useEffect(() => {
-      setContentHeight(accordionContent.current?.scrollHeight as number);
-    }, [isExpanded]);
-
-    const toggleAccordion = useCallback(
-      (
-        ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
-      ) => {
-        if (!isControlled) {
-          setIsExpandedInternal(!isExpanded);
-        }
-        onChange?.(ev, !isExpanded);
-      },
-      [isControlled, isExpanded, onChange],
-    );
-
-    const handleKeyDown = useCallback(
-      (ev: React.KeyboardEvent<HTMLElement>) => {
-        if (handleKeyboardAccessibility) {
-          handleKeyboardAccessibility(ev, index);
-        }
-
-        if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
-          toggleAccordion(ev);
-        }
-      },
-      [handleKeyboardAccessibility, index, toggleAccordion],
-    );
-
+    const contentRef = useRef<HTMLDivElement>(null);
+    const detailsRef = useRef<HTMLDetailsElement>(null);
     const guid = useRef(createGuid());
+
+    const [currentState, setCurrentState] = useState(expanded || false);
+
     const accordionId = id || `Accordion_${guid.current}`;
     const headerId = `AccordionHeader_${guid.current}`;
     const contentId = `AccordionContent_${guid.current}`;
     const showValidationIcon = !!(error || warning || info);
-
-    const getTitle = () => (isExpanded ? openTitle || title : title);
 
     const getIconType = () =>
       size === "small" || variant === "subtle"
         ? "chevron_down_thick"
         : "chevron_down";
 
+    const getTitle = () => (expanded ? openTitle || title : title);
+
+    const getIconAlignment = () => {
+      if (variant === "subtle") {
+        return "left";
+      }
+
+      return iconAlign;
+    };
+
     return (
-      <StyledAccordionContainer
-        id={accordionId}
-        width={width}
+      <StyledWrapper
         borders={variant === "subtle" ? "none" : borders}
+        data-element="accordion"
+        data-role="accordion-wrapper"
+        expanded={currentState}
+        headerSpacing={headerSpacing}
+        id={accordionId}
+        onKeyDown={(e) => {
+          /* istanbul ignore else */
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setCurrentState(!currentState);
+            onChange?.(e, !currentState);
+          }
+        }}
+        ref={ref}
+        size={size}
+        subTitle={subTitle}
+        width={width}
         variant={variant}
         {...rest}
         {...tagComponent("accordion", rest)}
       >
-        <StyledAccordionTitleContainer
-          data-element="accordion-title-container"
-          id={headerId}
-          aria-expanded={isExpanded}
+        <StyledDetails
           aria-controls={contentId}
-          onClick={toggleAccordion}
-          onKeyDown={handleKeyDown}
-          tabIndex={0}
-          iconAlign={iconAlign || (variant === "standard" ? "right" : "left")}
-          ref={ref}
+          aria-expanded={currentState}
+          data-element="accordion-details"
+          data-role="accordion-details"
+          disableContentPadding={disableContentPadding}
+          iconAlign={getIconAlignment()}
+          id={headerId}
+          name={groupName}
+          open={currentState}
+          reduceMotion={reduceMotion}
+          ref={detailsRef}
           size={size}
-          isExpanded={isExpanded}
+          tabIndex={0}
           variant={variant}
-          role="button"
-          {...headerSpacing}
         >
-          <StyledAccordionHeadingsContainer
-            data-element="accordion-headings-container"
-            hasValidationIcon={showValidationIcon}
-          >
-            {typeof title === "string" ? (
-              <StyledAccordionTitle
-                data-element="accordion-title"
-                size={size}
-                variant={variant}
-              >
-                {isExpanded ? openTitle || title : title}
-              </StyledAccordionTitle>
-            ) : (
-              getTitle()
-            )}
+          <StyledSummary
+            data-element="accordion-summary"
+            data-role="accordion-summary"
+            onClick={(e) => {
+              e.preventDefault();
 
-            {variant !== "subtle" && (
-              <>
+              /* istanbul ignore else */
+              if (detailsRef.current) {
+                detailsRef.current.focus();
+              }
+
+              setCurrentState(!currentState);
+              onChange?.(e, !currentState);
+            }}
+            tabIndex={-1}
+            {...headerSpacing}
+          >
+            <StyledSummaryTitleWrapper
+              alignItems="center"
+              color={
+                variant === "subtle" ? "var(--colorsActionMajor500)" : undefined
+              }
+              data-element="accordion-summary-title-wrapper"
+              data-role="accordion-summary-title-wrapper"
+              display="flex"
+              flexDirection={
+                getIconAlignment() === "right" ? "row" : "row-reverse"
+              }
+              gap={variant === "subtle" ? 1 : 2}
+              justifyContent={
+                getIconAlignment() === "right" ? "space-between" : "flex-end"
+              }
+              size={size}
+              variant={variant}
+            >
+              <Box
+                alignItems="center"
+                data-element="accordion-title-content"
+                data-role="accordion-title-content"
+                display="flex"
+                flexDirection="row"
+              >
+                <Box>
+                  {typeof title === "string" ? (
+                    <StyledSummaryTitle
+                      data-element="accordion-title"
+                      data-role="accordion-title"
+                      size={size}
+                      variant={variant}
+                    >
+                      {currentState ? openTitle || title : title}
+                    </StyledSummaryTitle>
+                  ) : (
+                    getTitle()
+                  )}
+                  {subTitle && size !== "small" && variant !== "subtle" && (
+                    <Typography
+                      data-element="accordion-subtitle"
+                      data-role="accordion-subtitle"
+                      fontWeight="normal"
+                      mb={0}
+                      mt={1}
+                    >
+                      {subTitle}
+                    </Typography>
+                  )}
+                </Box>
                 {showValidationIcon && (
                   <ValidationIcon
                     error={error}
-                    warning={warning}
                     info={info}
-                    tooltipPosition="top"
-                    tabIndex={0}
                     ml={1}
+                    tabIndex={0}
+                    tooltipPosition="top"
+                    warning={warning}
                   />
                 )}
+              </Box>
+              <StyledIcon
+                data-element="accordion-marker"
+                data-role="accordion-marker"
+                type={iconType || getIconType()}
+                variant={variant}
+              />
+            </StyledSummaryTitleWrapper>
+          </StyledSummary>
+        </StyledDetails>
 
-                {subTitle && size === "large" && variant === "standard" && (
-                  <StyledAccordionSubTitle>{subTitle}</StyledAccordionSubTitle>
-                )}
-              </>
-            )}
-          </StyledAccordionHeadingsContainer>
-
-          <StyledAccordionIcon
-            data-element="accordion-icon"
-            type={iconType || getIconType()}
-            isExpanded={isExpanded}
-            iconAlign={iconAlign || (variant === "standard" ? "right" : "left")}
-          />
-        </StyledAccordionTitleContainer>
-        <StyledAccordionContentContainer
-          isExpanded={isExpanded}
-          maxHeight={contentHeight}
-          data-role="accordion-content-container"
+        <StyledContent
+          aria-labelledby={headerId}
+          className="content"
+          data-element="accordion-content"
+          data-role="accordion-content"
+          expanded={currentState}
+          id={contentId}
+          reduceMotion={reduceMotion}
+          ref={contentRef}
+          variant={variant}
         >
-          <StyledAccordionContent
-            role="region"
-            data-element="accordion-content"
-            data-role="accordion-content"
-            id={contentId}
-            aria-labelledby={headerId}
-            ref={accordionContent}
-            disableContentPadding={disableContentPadding}
-            variant={variant}
-          >
-            {children}
-          </StyledAccordionContent>
-        </StyledAccordionContentContainer>
-      </StyledAccordionContainer>
+          {children}
+        </StyledContent>
+      </StyledWrapper>
     );
   },
 );

@@ -24,7 +24,10 @@ import {
   mainButton,
   splitMainButton,
 } from "../../../playwright/components/split-button";
-import { accordionDefaultTitle } from "../../../playwright/components/accordion";
+import {
+  accordionDetails,
+  accordionSummary,
+} from "../../../playwright/components/accordion";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -313,7 +316,7 @@ test.describe("Functional tests", () => {
       </Accordion>,
     );
 
-    await accordionDefaultTitle(page).click();
+    await accordionSummary(page).click();
     await getDataElementByValue(page, "dropdown").click();
     await expect(additionalButton(page, 0)).toBeVisible();
     await expect(additionalButton(page, 1)).toBeVisible();
@@ -334,7 +337,7 @@ test.describe("Functional tests", () => {
       </Accordion>,
     );
 
-    await accordionDefaultTitle(page).press("Enter");
+    await accordionDetails(page).press("Enter");
     await getDataElementByValue(page, "dropdown").click();
     await expect(additionalButton(page, 0)).toBeVisible();
     await expect(additionalButton(page, 1)).toBeVisible();
@@ -569,7 +572,7 @@ test.describe("Accessibility tests", () => {
       </Accordion>,
     );
 
-    await accordionDefaultTitle(page).click();
+    await accordionSummary(page).click();
     await splitToggleButton(page).nth(0).click();
 
     await checkAccessibility(page);

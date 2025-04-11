@@ -1,56 +1,103 @@
 import styled, { css } from "styled-components";
+import { space, margin, MarginProps } from "styled-system";
 
-import { space, margin } from "styled-system";
-
+import Box from "../box";
 import Icon from "../icon";
-import { baseTheme } from "../../style/themes";
-import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
+import { baseTheme } from "../../style/themes";
+import { AccordionProps } from "./accordion.component";
 
-const StyledAccordionGroup = styled.div`
-  ${margin}
-`;
+interface StyledWrapperProps
+  extends Pick<
+      AccordionProps,
+      | "borders"
+      | "expanded"
+      | "headerSpacing"
+      | "size"
+      | "subTitle"
+      | "variant"
+      | "width"
+    >,
+    MarginProps {}
 
-export interface StyledAccordionContainerProps {
-  /** Toggles left and right borders, set to none when variant is subtle */
-  borders?: "default" | "full" | "none";
-  /** Sets accordion width */
+interface StyledDetailsProps {
+  disableContentPadding?: boolean;
+  iconAlign?: "left" | "right";
+  reduceMotion?: boolean;
+  size?: "large" | "small";
+  variant?: "standard" | "subtle";
+}
+interface StyledSummaryTitleProps {
+  size?: "large" | "small";
+  variant?: "standard" | "subtle";
+}
+export interface StyledContentProps {
+  expanded?: boolean;
+  reduceMotion?: boolean;
+  variant?: "standard" | "subtle";
   width?: string;
-  /** Sets accordion variant */
+}
+interface StyledIconProps {
   variant?: "standard" | "subtle";
 }
 
-const StyledAccordionContainer = styled.div<StyledAccordionContainerProps>`
-  ${space}
-  display: flex;
-  ${({ variant }) =>
-    variant &&
-    css`
-      align-items: stretch;
-    `};
-  justify-content: center;
-  flex-direction: column;
-  box-sizing: border-box;
+const calculatePadding = (
+  size?: string,
+  variant?: string,
+  subtleToken = "var(--spacing025)",
+) => {
+  if (size && size === "small") {
+    return "var(--spacing200)";
+  }
+  if (variant && variant === "subtle") {
+    return subtleToken;
+  }
+  return "var(--spacing300)";
+};
+
+const getMaxHeight = (
+  expanded?: boolean,
+  headerSpacing?: boolean,
+  size?: string,
+  subtitle?: string,
+) => {
+  if (expanded || headerSpacing) {
+    return "auto";
+  }
+
+  if (subtitle) return "97px";
+
+  return size === "small" ? "56px" : "72px";
+};
+
+const StyledWrapper = styled.div<StyledWrapperProps>`
+  ${margin}
+
+  border: 1px solid var(--colorsActionMinor100);
   width: ${({ width }) => width || "100%"};
+  max-height: ${({ expanded, headerSpacing, size, subTitle }) =>
+    getMaxHeight(expanded, !!headerSpacing, size, subTitle)};
+
   color: var(--colorsUtilityYin090);
   background-color: ${({ variant }) =>
     variant !== "subtle"
       ? "var(--colorsUtilityYang100)"
       : "var(--colorsUtilityMajorTransparent)"};
-  border: 1px solid var(--colorsUtilityMajor100);
+
   ${({ borders }) =>
     borders === "default" &&
     css`
       border-left: none;
       border-right: none;
     `}
+
   ${({ borders }) =>
     borders === "none" &&
     css`
       border: none;
     `}
 
-  ${({ variant }) =>
+    ${({ variant }) =>
     variant !== "subtle" &&
     css`
       & + & {
@@ -61,12 +108,82 @@ const StyledAccordionContainer = styled.div<StyledAccordionContainerProps>`
     `}
 `;
 
-interface StyledAccordionTitleProps {
-  size?: "large" | "small";
-  variant?: "standard" | "subtle";
-}
+const StyledDetails = styled.details<StyledDetailsProps>`
+  overflow: hidden;
 
-const StyledAccordionTitle = styled.h3<StyledAccordionTitleProps>`
+  &:active,
+  &:focus {
+    ${addFocusStyling()}
+  }
+
+  &[open] + div.content {
+    max-height: 800px;
+    padding-top: ${({ disableContentPadding, size, variant }) =>
+      disableContentPadding
+        ? "0"
+        : calculatePadding(size, variant, "var(--spacing100)")};
+    padding-bottom: ${({ disableContentPadding, size }) =>
+      disableContentPadding
+        ? "0"
+        : calculatePadding(size, undefined, "var(--spacing100)")};
+    padding-left: ${({ disableContentPadding, size }) =>
+      disableContentPadding
+        ? "0"
+        : calculatePadding(size, undefined, "var(--spacing100)")};
+    padding-right: ${({ disableContentPadding, size }) =>
+      disableContentPadding
+        ? "0"
+        : calculatePadding(size, undefined, "var(--spacing100)")};
+
+    &:active,
+    &:focus {
+      ${addFocusStyling()}
+    }
+  }
+
+  span[data-element="accordion-marker"] {
+    rotate: 0deg;
+    /* istanbul ignore next */
+    transition: rotate ${({ reduceMotion }) => (reduceMotion ? 0 : "200ms")}
+      ease-in;
+  }
+
+  &[open] span[data-element="accordion-marker"] {
+    rotate: ${({ iconAlign }) =>
+      iconAlign === "right" ? "180deg" : "-180deg"};
+    /* istanbul ignore next */
+    transition: rotate ${({ reduceMotion }) => (reduceMotion ? 0 : "200ms")}
+      ease-out;
+  }
+`;
+
+const StyledSummary = styled.summary`
+  ${space}
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  ::-webkit-details-marker {
+    display: none;
+  }
+  ::marker {
+    display: none;
+  }
+`;
+
+const StyledSummaryTitleWrapper = styled(Box)<StyledSummaryTitleProps>`
+  ${({ size, variant }) => css`
+    padding: ${calculatePadding(size, variant)};
+
+    ${variant !== "subtle" &&
+    css`
+      &:hover {
+        background-color: var(--colorsUtilityMajor050);
+      }
+    `};
+  `}
+`;
+
+const StyledSummaryTitle = styled.h3<StyledSummaryTitleProps>`
   font-size: ${({ size, variant }) =>
     size === "small" || variant === "subtle"
       ? "var(--fontSizes200)"
@@ -77,185 +194,44 @@ const StyledAccordionTitle = styled.h3<StyledAccordionTitleProps>`
   margin: 0;
 `;
 
-const StyledAccordionSubTitle = styled.span`
-  margin-top: 8px;
-`;
-
-interface StyledAccordionIconProps {
-  isExpanded?: boolean;
-  iconAlign?: "left" | "right";
-}
-
-const StyledAccordionIcon = styled(Icon)<StyledAccordionIconProps>`
-  transition: transform 0.3s;
-  transform: rotate(0deg);
-  margin-right: ${({ iconAlign }) =>
-    iconAlign === "left" ? "var(--spacing200)" : "var(--spacing000)"};
-
-  ${({ isExpanded, iconAlign }) => {
-    return (
-      isExpanded &&
-      (iconAlign === "right"
-        ? "transform: rotate(180deg);"
-        : "transform: rotate(-180deg);")
-    );
-  }}
-
-  color: var(--colorsActionMinor500);
-`;
-
-interface StyledAccordionHeadingsContainerProps {
-  hasValidationIcon?: boolean;
-}
-
-const StyledAccordionHeadingsContainer = styled.div<StyledAccordionHeadingsContainerProps>`
-  padding-right: var(--sizing300);
-  ${({ hasValidationIcon }) => css`
-    display: grid;
-    ${hasValidationIcon &&
-    css`
-      grid-template-columns: min-content auto;
-
-      ${StyledAccordionSubTitle} {
-        grid-column: span 3;
-      }
-    `}
-
-    ${!hasValidationIcon &&
-    css`
-      grid-template-rows: auto auto;
-    `}
-
-    ${ValidationIconStyle} {
-      height: 20px;
-      position: relative;
-      top: 2px;
-    }
-  `}
-`;
-
-interface StyledAccordionTitleContainerProps {
-  hasButtonProps?: boolean;
-  iconAlign?: "left" | "right";
-  size?: "large" | "small";
-  isExpanded?: boolean;
-  variant?: "standard" | "subtle";
-}
-
-const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerProps>`
-  ${({ iconAlign, size, isExpanded, variant }) => css`
-    padding: ${size === "small" ? "var(--spacing200)" : "var(--spacing300)"};
-    ${space}
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    ${iconAlign === "left" &&
-    css`
-      justify-content: flex-end;
-      flex-direction: row-reverse;
-    `}
-
-    cursor: pointer;
-    z-index: 1;
-
-    &:focus {
-      ${addFocusStyling()}
-    }
-
-    ${variant === "subtle" &&
-    css`
-      color: var(--colorsActionMajor500);
-      padding: var(--spacing025);
-      margin-bottom: ${isExpanded && "var(--spacing200)"};
-      width: fit-content;
-
-      ${StyledAccordionIcon} {
-        color: var(--colorsActionMajor500);
-        ${iconAlign === "left" && "margin-right: var(--spacing050)"};
-      }
-
-      :hover {
-        color: var(--colorsActionMajor600);
-        ${StyledAccordionIcon} {
-          color: var(--colorsActionMajor600);
-        }
-      }
-    `}
-
-    ${variant !== "subtle" &&
-    css`
-      &:hover {
-        background-color: var(--colorsUtilityMajor050);
-      }
-    `}
-  `}
-`;
-
-export interface StyledAccordionContentContainerProps {
-  isExpanded?: boolean;
-  maxHeight?: string | number;
-}
-
-const StyledAccordionContentContainer = styled.div<StyledAccordionContentContainerProps>`
-  flex-grow: 1;
+const StyledContent = styled.div<StyledContentProps>`
+  max-width: ${({ width }) => width || "100%"};
   box-sizing: border-box;
+  padding-top: 0;
+  padding-bottom: 0;
+  max-height: 0;
   overflow: hidden;
-  transition: all 0.3s;
-  ${({ maxHeight, isExpanded }) => css`
-    max-height: ${isExpanded ? `${maxHeight}px` : "0px"};
-    height: ${isExpanded ? `${maxHeight}px` : "0px"};
+  border: 2px solid transparent;
 
-    ${!isExpanded &&
-    `
-      visibility: hidden;
+  ${({ expanded, variant }) =>
+    variant === "subtle" &&
+    expanded &&
+    css`
+      border-left: 2px solid var(--colorsUtilityMajor100);
+      margin-left: var(--spacing150);
+      margin-top: var(--spacing200);
+      padding: var(--spacing100) var(--spacing200) var(--spacing300);
     `}
-  `}
 `;
 
-export interface StyledAccordionContentProps {
-  disableContentPadding?: boolean;
-  variant?: "standard" | "subtle";
-}
-
-const StyledAccordionContent = styled.div<StyledAccordionContentProps>`
-  padding: var(--spacing300);
-  padding-top: var(--spacing100);
-  overflow: hidden;
-
+const StyledIcon = styled(Icon)<StyledIconProps>`
   ${({ variant }) =>
     variant === "subtle" &&
     css`
-      margin-left: var(--spacing150);
-      padding: var(--spacing100) var(--spacing200) var(--spacing300);
-      border-left: 2px solid var(--colorsUtilityMajor100);
-    `}
-
-  ${({ disableContentPadding }) =>
-    disableContentPadding &&
-    css`
-      padding: 0;
+      color: var(--colorsActionMajor500);
     `}
 `;
 
-StyledAccordionGroup.defaultProps = {
-  theme: baseTheme,
-};
-StyledAccordionContainer.defaultProps = {
-  theme: baseTheme,
-};
-StyledAccordionTitleContainer.defaultProps = {
+StyledWrapper.defaultProps = {
   theme: baseTheme,
 };
 
 export {
-  StyledAccordionGroup,
-  StyledAccordionContainer,
-  StyledAccordionHeadingsContainer,
-  StyledAccordionSubTitle,
-  StyledAccordionTitleContainer,
-  StyledAccordionTitle,
-  StyledAccordionIcon,
-  StyledAccordionContent,
-  StyledAccordionContentContainer,
+  StyledContent,
+  StyledDetails,
+  StyledIcon,
+  StyledSummary,
+  StyledSummaryTitle,
+  StyledSummaryTitleWrapper,
+  StyledWrapper,
 };
