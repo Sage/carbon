@@ -122,8 +122,8 @@ const StyledFlatTableRowHeaderContent = styled.div<{ expandable?: boolean }>`
       line-height: 1em;
 
       ${StyledIcon} {
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
       }
     `}
 `;
