@@ -1,3 +1,9 @@
+## [153.3.0](https://github.com/Sage/carbon/compare/v153.2.1...v153.3.0) (2025-04-11)
+
+### Features
+
+* **message:** add de-DE, es-ES, fr-CA and fr-FR locale support for the ai variant ([923d3a8](https://github.com/Sage/carbon/commit/923d3a84ae0721f3a6e3c39314ce1c8d062426b5))
+
 ## [153.2.1](https://github.com/Sage/carbon/compare/v153.2.0...v153.2.1) (2025-04-11)
 
 ### Bug Fixes
