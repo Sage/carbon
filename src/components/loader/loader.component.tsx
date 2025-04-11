@@ -51,9 +51,13 @@ export const Loader = ({
 
   const l = useLocale();
 
-  const reduceMotion = !useMediaQuery(
+  const allowMotion = useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
+
+  if (allowMotion === undefined) {
+    return null;
+  }
 
   const loaderSquareProps = {
     isInsideButton,
@@ -68,9 +72,7 @@ export const Loader = ({
       {...tagComponent("loader", rest)}
       {...filterStyledSystemMarginProps(rest)}
     >
-      {reduceMotion ? (
-        loaderLabel || ariaLabel || l.loader.loading()
-      ) : (
+      {allowMotion ? (
         <>
           {["#13A038", "#0092DB", "#8F49FE"].map((color) => (
             <StyledLoaderSquare
@@ -88,6 +90,8 @@ export const Loader = ({
             {loaderLabel || ariaLabel || l.loader.loading()}
           </Typography>
         </>
+      ) : (
+        loaderLabel || ariaLabel || l.loader.loading()
       )}
     </StyledLoader>
   );

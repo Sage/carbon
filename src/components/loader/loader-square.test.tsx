@@ -1,9 +1,24 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Loader from ".";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
-jest.mock("../../hooks/useMediaQuery", () => {
-  return jest.fn(() => true);
+jest.mock("../../hooks/useMediaQuery", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+  typeof useMediaQuery
+>;
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockUseMediaQuery.mockReturnValue(true);
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
 });
 
 it.each([0, 1, 2])("each loader square renders as expected", (index) => {
@@ -84,15 +99,10 @@ test("when inside button and `isActive` prop is false, the expected background c
 
   const loaderSquares = screen.getAllByTestId("loader-square");
 
-  expect(loaderSquares[0]).toHaveStyleRule(
-    "backgroundColor: var(--colorsSemanticNeutral500)",
-  );
-
-  expect(loaderSquares[1]).toHaveStyleRule(
-    "backgroundColor: var(--colorsSemanticNeutral500)",
-  );
-
-  expect(loaderSquares[2]).toHaveStyleRule(
-    "backgroundColor: var(--colorsSemanticNeutral500)",
-  );
+  loaderSquares.forEach((square) => {
+    expect(square).toHaveStyleRule(
+      "background-color",
+      "var(--colorsSemanticNeutral500)",
+    );
+  });
 });

@@ -65,9 +65,13 @@ export const LoaderSpinner = ({
 }: LoaderSpinnerProps) => {
   const locale = useLocale();
 
-  const reduceMotion = !useMediaQuery(
+  const allowMotion = useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
+
+  if (allowMotion === undefined) {
+    return null;
+  }
 
   const isLabelDark = variant !== "inverse" && variant !== "gradient-white";
 
@@ -100,7 +104,6 @@ export const LoaderSpinner = ({
     if (animationTime) {
       return animationTime;
     }
-
     return isGradientVariant ? 2 : 1;
   };
 
@@ -111,9 +114,7 @@ export const LoaderSpinner = ({
       {...tagComponent("loader-spinner", rest)}
       {...filterStyledSystemMarginProps(rest)}
     >
-      {reduceMotion ? (
-        renderSpinnerLabel
-      ) : (
+      {allowMotion ? (
         <>
           <StyledSpinnerCircleSvg
             role="presentation"
@@ -128,6 +129,7 @@ export const LoaderSpinner = ({
             <circle data-role="outer-arc" />
             <circle data-role="inner-arc" />
           </StyledSpinnerCircleSvg>
+
           {showSpinnerLabel ? (
             renderSpinnerLabel
           ) : (
@@ -140,6 +142,8 @@ export const LoaderSpinner = ({
             </Typography>
           )}
         </>
+      ) : (
+        renderSpinnerLabel
       )}
     </StyledSpinnerWrapper>
   );
