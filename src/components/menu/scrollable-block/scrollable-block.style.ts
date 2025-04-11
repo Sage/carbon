@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import StyledMenuItemWrapper from "../menu-item/menu-item.style";
 import menuConfigVariants from "../menu.config";
-import { MenuType } from "../__internal__/menu.context";
+import { MenuType } from "../__internal__/strict-menu.context";
 import { VariantType } from "../menu-item";
 import StyledBox from "../../box/box.style";
 import { StyledMenuItem } from "../menu.style";

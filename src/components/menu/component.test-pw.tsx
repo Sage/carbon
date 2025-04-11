@@ -13,7 +13,7 @@ import {
   MenuDividerProps,
   ScrollableBlockProps,
 } from ".";
-import { MenuType } from "./__internal__/menu.context";
+import { MenuType } from "./__internal__/strict-menu.context";
 import Search, { SearchEvent } from "../search";
 import GlobalHeader from "../global-header";
 import Box from "../box/box.component";

@@ -4,7 +4,7 @@ import { padding, PaddingProps } from "styled-system";
 
 import menuConfigVariants from "../menu.config";
 import Link from "../../link";
-import { MenuType } from "../__internal__/menu.context";
+import { MenuType } from "../__internal__/strict-menu.context";
 import StyledButton from "../../button/button.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import StyledIcon from "../../icon/icon.style";

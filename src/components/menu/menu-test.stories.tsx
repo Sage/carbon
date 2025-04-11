@@ -13,7 +13,7 @@ import {
   ScrollableBlock,
   MenuDivider,
 } from ".";
-import { MenuType } from "./__internal__/menu.context";
+import { MenuType } from "./__internal__/strict-menu.context";
 import Search from "../search";
 import Box from "../box";
 import NavigationBar, { NavigationBarProps } from "../navigation-bar";
@@ -344,43 +344,48 @@ InNavigationBarStory.story = {
   },
 };
 
-const UpdatingSubmenu = () => {
-  const [counter, setCounter] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCounter((prev) => (prev >= 2 ? prev : prev + 1));
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-  return (
-    <MenuItem submenu={`submenu 2 - count ${counter}`}>
-      <MenuItem href="#">Item One</MenuItem>
-      <MenuItem href="#">Item Two</MenuItem>
-    </MenuItem>
-  );
-};
 export const MenuFullScreenKeysTest = () => {
+  const UpdatingSubmenu = () => {
+    const [counter, setCounter] = useState(0);
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setCounter((prev) => (prev >= 2 ? prev : prev + 1));
+      }, 2000);
+      return () => clearInterval(interval);
+    }, []);
+    return (
+      <MenuItem submenu={`submenu 2 - count ${counter}`}>
+        <MenuItem href="#">Item One</MenuItem>
+        <MenuItem href="#">Item Two</MenuItem>
+      </MenuItem>
+    );
+  };
+
   const [extraItem, setExtraItem] = useState(false);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setExtraItem(true);
     }, 5000);
     return () => clearTimeout(timeout);
   }, []);
+
   return (
-    <MenuFullscreen onClose={() => {}} isOpen>
-      {extraItem ? (
-        <MenuItem submenu="extra submenu">
+    <Menu>
+      <MenuFullscreen onClose={() => {}} isOpen>
+        {extraItem ? (
+          <MenuItem submenu="extra submenu">
+            <MenuItem href="#">Item One</MenuItem>
+            <MenuItem href="#">Item Two</MenuItem>
+          </MenuItem>
+        ) : null}
+        <MenuItem submenu="submenu 1">
           <MenuItem href="#">Item One</MenuItem>
           <MenuItem href="#">Item Two</MenuItem>
         </MenuItem>
-      ) : null}
-      <MenuItem submenu="submenu 1">
-        <MenuItem href="#">Item One</MenuItem>
-        <MenuItem href="#">Item Two</MenuItem>
-      </MenuItem>
-      <UpdatingSubmenu />
-    </MenuFullscreen>
+        <UpdatingSubmenu />
+      </MenuFullscreen>
+    </Menu>
   );
 };
 
