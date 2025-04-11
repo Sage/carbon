@@ -305,7 +305,7 @@ export const FlatTableSpanComponent = (props: Partial<FlatTableProps>) => {
               Code - Sticky <Icon type="business" color="white" />
             </FlatTableRowHeader>
             <FlatTableHeader colspan={2}>Jun 21</FlatTableHeader>
-            <FlatTableHeader rowspan={2} />
+            <FlatTableHeader rowspan={2}>Zeros</FlatTableHeader>
             <FlatTableHeader colspan={2}>YTD</FlatTableHeader>
           </FlatTableRow>
           <FlatTableRow>
@@ -834,10 +834,12 @@ export const FlatTableColorRowSelectableComponent = (
           <Icon type="pdf" />
         </IconButton>
       </BatchSelection>
+      <span id={CHARACTERS.STANDARD}>Use the checkbox to Select all</span>
       <FlatTable {...props}>
         <FlatTableHead>
           <FlatTableRow>
             <FlatTableCheckbox
+              id="select-all-checkbox"
               ariaLabelledBy={CHARACTERS.STANDARD}
               onClick={(e) => e.stopPropagation()}
               as="th"
@@ -2512,7 +2514,7 @@ export const FlatTableDraggableComponent = (
     <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
-          <FlatTableHeader />
+          <FlatTableHeader>Click to Drag</FlatTableHeader>
           <FlatTableHeader>Country</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>

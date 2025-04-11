@@ -2265,8 +2265,7 @@ test.describe("Prop tests", () => {
     }
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`should navigate to previous page by clicking Previous link with the Spacebar`, async ({
+  test(`should navigate to previous page by clicking Previous link with the Spacebar`, async ({
     mount,
     page,
   }) => {
@@ -2410,8 +2409,7 @@ test.describe("Accessibility tests", () => {
     },
   );
 
-  // a11y error!scrollable-region-focusable on 1 Node. Ticket FE-5764 logged to investigate
-  test.skip(`should render row with cell nodes as children for accessibility tests`, async ({
+  test(`should render row with cell nodes as children for accessibility tests`, async ({
     mount,
     page,
   }) => {
@@ -2429,13 +2427,14 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  // a11y error!color-contrast on 1 Node. Ticket FE-5766 logged to investigate
-  test.skip(`should render checkbox with ariaLabelledBy for accessibility tests`, async ({
+  test(`should render checkbox with ariaLabelledBy for accessibility tests`, async ({
     mount,
     page,
   }) => {
     await mount(<FlatTableColorRowSelectableComponent />);
-
+    // We need this to be checked so that the BatchSelection disabled styling doesn't cause colour contrast failures.
+    const checkboxHeader = flatTableCheckboxHeader(page).locator("input");
+    await checkboxHeader.click();
     await checkAccessibility(page);
   });
 
@@ -2549,8 +2548,7 @@ test.describe("Accessibility tests", () => {
     });
   });
 
-  // a11y error!scrollable-region-focusable on 1 Node. Ticket FE-5764 logged to investigate
-  test.skip(`should render with rowSpan set to make header cells span 2 rows for accessibility tests`, async ({
+  test(`should render with rowSpan set to make header cells span 2 rows for accessibility tests`, async ({
     mount,
     page,
   }) => {
@@ -2633,13 +2631,14 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  // a11y error!color-contrast on 1 Node. Ticket FE-5766 logged to investigate
-  test.skip(`should render with rows highlightable with the mouse for accessibility tests`, async ({
+  test(`should render with rows highlightable with the mouse for accessibility tests`, async ({
     mount,
     page,
   }) => {
     await mount(<FlatTableHighlightableComponent />);
-
+    // We need this to be checked so that the BatchSelection disabled styling doesn't cause colour contrast failures.
+    const checkboxHeader = flatTableCheckboxHeader(page).locator("input");
+    await checkboxHeader.click();
     await checkAccessibility(page);
   });
 
@@ -2700,38 +2699,41 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  // a11y error!color-contrast on 1 Node. Ticket FE-5766 logged to investigate
-  test.skip(`should render with parent expandable and child subrows selectable for accessibility tests`, async ({
+  test(`should render with parent expandable and child subrows selectable for accessibility tests`, async ({
     mount,
     page,
   }) => {
     await mount(<FlatTableAllSubrowSelectableComponent />);
-
+    // We need this to be checked so that the BatchSelection disabled styling doesn't cause colour contrast failures.
+    const checkboxHeader = flatTableCheckboxHeader(page).locator("input");
+    await checkboxHeader.click();
     await checkAccessibility(page);
   });
 
-  // a11y error!color-contrast on 1 Node. Ticket FE-5766 logged to investigate
-  test.skip(`should render with parent expandable row only selectable for accessibility tests`, async ({
+  test(`should render with parent expandable row only selectable for accessibility tests`, async ({
     mount,
     page,
   }) => {
     await mount(<FlatTableParentSubrowSelectableComponent />);
-
+    // We need this to be checked so that the BatchSelection disabled styling doesn't cause colour contrast failures.
+    const checkboxHeader = flatTableCheckboxHeader(page).locator("input");
+    await checkboxHeader.click();
     await checkAccessibility(page);
   });
 
   // a11y error!color-contrast on 1 Node. Ticket FE-5766 logged to investigate
-  test.skip(`should render with child subrow only selectable for accessibility tests`, async ({
+  test(`should render with child subrow only selectable for accessibility tests`, async ({
     mount,
     page,
   }) => {
     await mount(<FlatTableChildSubrowSelectableComponent />);
-
+    // We need this to be checked so that the BatchSelection disabled styling doesn't cause colour contrast failures.
+    const checkboxHeader = flatTableCheckboxHeader(page).locator("input");
+    await checkboxHeader.click();
     await checkAccessibility(page);
   });
 
-  // a11y error! empty-table-header on 1 Node. Ticket FE-5767 logged to investigate
-  test.skip(`should render with FlatTableDraggableComponent for accessibility tests`, async ({
+  test(`should render with FlatTableDraggableComponent for accessibility tests`, async ({
     mount,
     page,
   }) => {
