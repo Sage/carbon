@@ -6,7 +6,7 @@ import StyledSearch from "../../search/search.style";
 import StyledIcon from "../../icon/icon.style";
 import StyledButton from "../../button/button.style";
 import menuConfigVariants from "../menu.config";
-import { MenuType } from "../__internal__/menu.context";
+import { MenuType } from "../__internal__/strict-menu.context";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 import { StyledLink } from "../../link/link.style";
 

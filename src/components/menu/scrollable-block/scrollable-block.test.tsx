@@ -2,32 +2,40 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 
 import ScrollableBlock from ".";
+
+import Logger from "../../../__internal__/utils/logger";
+import Menu from "../menu.component";
 import MenuItem from "../menu-item";
-import MenuContext from "../__internal__/menu.context";
 import menuConfigVariants from "../menu.config";
-import SubmenuContext from "../__internal__/submenu/submenu.context";
 import Search from "../../search";
+
+test("logs error if not used within Menu", () => {
+  const loggerErrorSpy = jest
+    .spyOn(Logger, "error")
+    .mockImplementation(() => {});
+
+  render(
+    <ScrollableBlock data-role="scrollable-block" variant="default">
+      <MenuItem href="#">Apple</MenuItem>
+    </ScrollableBlock>,
+  );
+
+  expect(loggerErrorSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
+  );
+
+  loggerErrorSpy.mockRestore();
+});
 
 test("should have the correct styling when `menuType` is 'light' passed by MenuContext", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
-      >
-        <ScrollableBlock data-role="scrollable-block" variant="default">
-          <MenuItem href="#">Apple</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+    <Menu menuType="light">
+      <ScrollableBlock data-role="scrollable-block" variant="default">
+        <MenuItem href="#">Apple</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
 
   expect(screen.getByTestId("scrollable-block")).toHaveStyle({
@@ -37,24 +45,11 @@ test("should have the correct styling when `menuType` is 'light' passed by MenuC
 
 test("should have the correct styling when `menuType` is 'dark' passed by MenuContext", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "dark",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
-      >
-        <ScrollableBlock data-role="scrollable-block" variant="default">
-          <MenuItem href="#">Apple</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+    <Menu menuType="dark">
+      <ScrollableBlock data-role="scrollable-block" variant="default">
+        <MenuItem href="#">Apple</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
 
   expect(screen.getByTestId("scrollable-block")).toHaveStyle({
@@ -64,25 +59,11 @@ test("should have the correct styling when `menuType` is 'dark' passed by MenuCo
 
 test("should have the correct styling when `menuType` is 'white' passed by MenuContext", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "white",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
-      >
-        <ScrollableBlock data-role="scrollable-block" variant="default">
-          <MenuItem href="#">Apple</MenuItem>
-          <MenuItem href="#">Broccoli</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+    <Menu menuType="white">
+      <ScrollableBlock data-role="scrollable-block" variant="default">
+        <MenuItem href="#">Apple</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
 
   expect(screen.getByTestId("scrollable-block")).toHaveStyle({
@@ -92,24 +73,11 @@ test("should have the correct styling when `menuType` is 'white' passed by MenuC
 
 test("should have the correct styling when `menuType` is 'black' passed by MenuContext", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "black",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
-      >
-        <ScrollableBlock data-role="scrollable-block" variant="default">
-          <MenuItem href="#">Apple</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+    <Menu menuType="black">
+      <ScrollableBlock data-role="scrollable-block" variant="default">
+        <MenuItem href="#">Apple</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
 
   expect(screen.getByTestId("scrollable-block")).toHaveStyle({
@@ -119,25 +87,12 @@ test("should have the correct styling when `menuType` is 'black' passed by MenuC
 
 test("should apply the expected styling on the last menu item when they have `href` set", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
-      >
-        <ScrollableBlock data-role="scrollable-block" variant="default">
-          <MenuItem href="#">Apple</MenuItem>
-          <MenuItem href="#">Pear</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+    <Menu menuType="light">
+      <ScrollableBlock data-role="scrollable-block" variant="default">
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Pear</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
   const links = screen.getAllByRole("link");
   const firstLink = links.shift();
@@ -155,25 +110,12 @@ test("should apply the expected styling on the last menu item when they have `hr
 
 test("should apply the expected styling on the last menu item when they have `onClick` set", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
-      >
-        <ScrollableBlock data-role="scrollable-block" variant="default">
-          <MenuItem onClick={() => {}}>Apple</MenuItem>
-          <MenuItem onClick={() => {}}>Pear</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+    <Menu menuType="light">
+      <ScrollableBlock data-role="scrollable-block" variant="default">
+        <MenuItem onClick={() => {}}>Apple</MenuItem>
+        <MenuItem onClick={() => {}}>Pear</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
   const buttons = screen.getAllByRole("button");
   const firstButton = buttons.shift();
@@ -191,25 +133,12 @@ test("should apply the expected styling on the last menu item when they have `on
 
 test("should apply the expected styling on the last menu item when it has `href` and others have `onClick`", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
-      >
-        <ScrollableBlock data-role="scrollable-block" variant="default">
-          <MenuItem onClick={() => {}}>Apple</MenuItem>
-          <MenuItem href="#">Pear</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+    <Menu menuType="light">
+      <ScrollableBlock data-role="scrollable-block" variant="default">
+        <MenuItem onClick={() => {}}>Apple</MenuItem>
+        <MenuItem href="#">Pear</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
   const button = screen.getByRole("button");
   const link = screen.getByRole("link");
@@ -226,25 +155,12 @@ test("should apply the expected styling on the last menu item when it has `href`
 
 test("should apply the expected styling on the last menu item when it has `onClick` and others have `href`", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
-      >
-        <ScrollableBlock data-role="scrollable-block" variant="default">
-          <MenuItem href="#">Apple</MenuItem>
-          <MenuItem onClick={() => {}}>Pear</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+    <Menu menuType="light">
+      <ScrollableBlock data-role="scrollable-block" variant="default">
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem onClick={() => {}}>Pear</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
   const link = screen.getByRole("link");
   const button = screen.getByRole("button");
@@ -261,29 +177,16 @@ test("should apply the expected styling on the last menu item when it has `onCli
 
 test("should render the `parent` item, wrapped in a MenuItem", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
+    <Menu menuType="light">
+      <ScrollableBlock
+        data-role="scrollable-block"
+        variant="default"
+        parent={<Search value="search" onChange={() => {}} />}
       >
-        <ScrollableBlock
-          data-role="scrollable-block"
-          variant="default"
-          parent={<Search value="search" onChange={() => {}} />}
-        >
-          <MenuItem href="#">Apple</MenuItem>
-          <MenuItem onClick={() => {}}>Pear</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem onClick={() => {}}>Pear</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
   const firstMenuItem = screen.getByTestId("scrollable-block-parent-menu-item");
 
@@ -292,28 +195,15 @@ test("should render the `parent` item, wrapped in a MenuItem", () => {
 
 test("should render the parent menu-item with the correct styling when `variant` is not defined", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
+    <Menu menuType="light">
+      <ScrollableBlock
+        data-role="scrollable-block"
+        parent={<Search value="search" onChange={() => {}} />}
       >
-        <ScrollableBlock
-          data-role="scrollable-block"
-          parent={<Search value="search" onChange={() => {}} />}
-        >
-          <MenuItem href="#">Apple</MenuItem>
-          <MenuItem onClick={() => {}}>Pear</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem onClick={() => {}}>Pear</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
   const parentMenuItem = screen.getByTestId(
     "scrollable-block-parent-menu-item",
@@ -326,29 +216,16 @@ test("should render the parent menu-item with the correct styling when `variant`
 
 test("should render the parent menu-item with the correct styling when `variant` is 'default'", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
+    <Menu menuType="light">
+      <ScrollableBlock
+        data-role="scrollable-block"
+        variant="default"
+        parent={<Search value="search" onChange={() => {}} />}
       >
-        <ScrollableBlock
-          data-role="scrollable-block"
-          variant="default"
-          parent={<Search value="search" onChange={() => {}} />}
-        >
-          <MenuItem href="#">Apple</MenuItem>
-          <MenuItem onClick={() => {}}>Pear</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem onClick={() => {}}>Pear</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
   const parentMenuItem = screen.getByTestId(
     "scrollable-block-parent-menu-item",
@@ -361,29 +238,16 @@ test("should render the parent menu-item with the correct styling when `variant`
 
 test("should render the parent menu-item with the correct styling when `variant` is 'alternate'", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
+    <Menu menuType="light">
+      <ScrollableBlock
+        data-role="scrollable-block"
+        variant="alternate"
+        parent={<Search value="search" onChange={() => {}} />}
       >
-        <ScrollableBlock
-          data-role="scrollable-block"
-          variant="alternate"
-          parent={<Search value="search" onChange={() => {}} />}
-        >
-          <MenuItem href="#">Apple</MenuItem>
-          <MenuItem onClick={() => {}}>Pear</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem onClick={() => {}}>Pear</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
   const parentMenuItem = screen.getByTestId(
     "scrollable-block-parent-menu-item",
@@ -396,29 +260,16 @@ test("should render the parent menu-item with the correct styling when `variant`
 
 test("should apply the `data-` tag props as attributes on the expected element", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        openSubmenuId: null,
-        inMenu: true,
-        setOpenSubmenuId: () => {},
-      }}
-    >
-      <SubmenuContext.Provider
-        value={{
-          handleKeyDown: jest.fn(),
-        }}
+    <Menu menuType="light">
+      <ScrollableBlock
+        data-role="scrollable-block"
+        variant="default"
+        data-element="foo"
       >
-        <ScrollableBlock
-          data-role="scrollable-block"
-          variant="default"
-          data-element="foo"
-        >
-          <MenuItem href="#">Apple</MenuItem>
-          <MenuItem href="#">Pear</MenuItem>
-        </ScrollableBlock>
-      </SubmenuContext.Provider>
-    </MenuContext.Provider>,
+        <MenuItem href="#">Apple</MenuItem>
+        <MenuItem href="#">Pear</MenuItem>
+      </ScrollableBlock>
+    </Menu>,
   );
   const scrollableBlock = screen.getByTestId("scrollable-block");
 

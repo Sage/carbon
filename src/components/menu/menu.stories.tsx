@@ -8,7 +8,7 @@ import Box from "../box";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Search, { SearchEvent } from "../search";
 import Typography from "../typography";
-import { MenuType } from "./__internal__/menu.context";
+import { MenuType } from "./__internal__/strict-menu.context";
 
 import {
   Menu,
