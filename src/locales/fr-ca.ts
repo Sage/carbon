@@ -121,6 +121,7 @@ const frCA: Partial<Locale> = {
     success: () => "Opération réussie",
     warning: () => "Avertissement",
     neutral: () => "Information",
+    ai: () => "Information générée par l'IA",
   },
   numeralDate: {
     validation: {

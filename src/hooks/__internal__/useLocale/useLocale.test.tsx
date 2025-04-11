@@ -29,6 +29,7 @@ test("when I18nProvider exists, it should return a translation function that pro
           warning: () => "Warning",
           neutral: () => "Neutral",
           error: () => "Error",
+          ai: () => "AI Information",
           closeButtonAriaLabel: () => "test",
         },
       }}

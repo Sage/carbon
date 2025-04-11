@@ -112,6 +112,7 @@ const deDE: Partial<Locale> = {
     success: () => "Erfolg",
     warning: () => "Warnung",
     neutral: () => "Informationen",
+    ai: () => "Von KI generierte Informationen",
   },
   numeralDate: {
     validation: {

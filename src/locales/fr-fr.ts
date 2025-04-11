@@ -121,6 +121,7 @@ const frFR: Partial<Locale> = {
     success: () => "Action réussie",
     warning: () => "Avertissement",
     neutral: () => "Information",
+    ai: () => "Information générée par IA",
   },
   numeralDate: {
     validation: {
