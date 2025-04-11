@@ -13,7 +13,6 @@ import {
   ScrollableBlock,
   MenuDivider,
 } from ".";
-import { MenuType } from "./__internal__/strict-menu.context";
 import Search from "../search";
 import Box from "../box";
 import NavigationBar, { NavigationBarProps } from "../navigation-bar";
@@ -21,6 +20,8 @@ import GlobalHeader from "../global-header";
 import PopoverContainer from "../popover-container";
 import Button from "../button";
 import Icon from "../icon";
+
+import type { MenuType } from "./menu.types";
 
 const defaultOpenState = isChromatic();
 
