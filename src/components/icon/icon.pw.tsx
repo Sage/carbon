@@ -11,7 +11,13 @@ import { SIZE, COLOR, CHARACTERS } from "../../../playwright/support/constants";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const colorData = [COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN];
+
+const colorData = [
+  [COLOR.ORANGE, COLOR.BLACK],
+  [COLOR.RED, COLOR.WHITE],
+  [COLOR.BLACK, COLOR.WHITE],
+  [COLOR.BROWN, COLOR.WHITE],
+];
 
 test.describe("should check Icon component properties", () => {
   [true, false].forEach((boolVal) => {
@@ -94,7 +100,7 @@ test.describe("should check Icon component properties", () => {
     await expect(tooltip).not.toBeVisible();
   });
 
-  colorData.forEach((tooltipBgColor) => {
+  colorData.forEach(([tooltipBgColor]) => {
     test(`should check tooltip background color as ${tooltipBgColor}`, async ({
       mount,
       page,
@@ -106,7 +112,7 @@ test.describe("should check Icon component properties", () => {
     });
   });
 
-  colorData.forEach((tooltipFontColor) => {
+  colorData.forEach(([tooltipFontColor]) => {
     test(`should check tooltip font color as ${tooltipFontColor}`, async ({
       mount,
       page,
@@ -156,7 +162,7 @@ test.describe("should check Icon component properties", () => {
     });
   });
 
-  colorData.forEach((backgroundColor) => {
+  colorData.forEach(([backgroundColor]) => {
     test(`should check background color as ${backgroundColor}`, async ({
       mount,
       page,
@@ -168,7 +174,7 @@ test.describe("should check Icon component properties", () => {
     });
   });
 
-  colorData.forEach((iconColor) => {
+  colorData.forEach(([iconColor]) => {
     test(`should check icon color as ${iconColor}`, async ({ mount, page }) => {
       await mount(<IconComponent color={iconColor} />);
 
@@ -319,13 +325,17 @@ test.describe("should check accessibility for Icon component", () => {
     });
   });
 
+  // Icon component needs a role of img to pass accessibility tests.
+  // This is because the icon is a span element and cannot have an `aria-role` of none, null or presentation
+  // and also have an aria-label.
   testData.forEach((ariaLabel) => {
-    test.skip(`should pass accessibility tests when ariaLabel prop is set as ${ariaLabel}`, async ({
+    test(`should pass accessibility tests when ariaLabel prop is set as ${ariaLabel}`, async ({
+      page,
       mount,
     }) => {
-      await mount(<IconComponent ariaLabel={ariaLabel} />);
-      // FE-4643
-      //  await checkAccessibility(page);
+      await mount(<IconComponent role="img" ariaLabel={ariaLabel} />);
+
+      await checkAccessibility(page);
     });
   });
 
@@ -384,27 +394,42 @@ test.describe("should check accessibility for Icon component", () => {
     await checkAccessibility(page);
   });
 
-  colorData.forEach((tooltipBgColor) => {
+  colorData.forEach(([tooltipBgColor, contrastColor]) => {
     test(`should pass accessibility tests when tooltip background color is set as ${tooltipBgColor}`, async ({
       mount,
       page,
     }) => {
-      await mount(<IconTooltipComponent tooltipBgColor={tooltipBgColor} />);
+      await mount(
+        <IconTooltipComponent
+          tooltipFontColor={contrastColor}
+          tooltipBgColor={tooltipBgColor}
+        />,
+      );
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      const iconLocator = page.getByTestId("icon");
+      await iconLocator.hover();
+
+      const tooltip = getDataElementByValue(page, "tooltip");
+      await checkAccessibility(page, tooltip);
     });
   });
 
-  colorData.forEach((tooltipFontColor) => {
+  colorData.forEach(([tooltipFontColor, contrastColor]) => {
     test(`should pass accessibility tests when tooltip font color is set as ${tooltipFontColor}`, async ({
       mount,
       page,
     }) => {
-      await mount(<IconTooltipComponent tooltipFontColor={tooltipFontColor} />);
+      await mount(
+        <IconTooltipComponent
+          tooltipBgColor={contrastColor}
+          tooltipFontColor={tooltipFontColor}
+        />,
+      );
+      const iconLocator = page.getByTestId("icon");
+      await iconLocator.hover();
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      const tooltip = getDataElementByValue(page, "tooltip");
+      await checkAccessibility(page, tooltip);
     });
   });
 
@@ -445,7 +470,7 @@ test.describe("should check accessibility for Icon component", () => {
     });
   });
 
-  colorData.forEach((backgroundColor) => {
+  colorData.forEach(([backgroundColor]) => {
     test(`should pass accessibility tests when background color is set as ${backgroundColor}`, async ({
       mount,
       page,
@@ -456,7 +481,7 @@ test.describe("should check accessibility for Icon component", () => {
     });
   });
 
-  colorData.forEach((iconColor) => {
+  colorData.forEach(([iconColor]) => {
     test(`should pass accessibility tests when icon color is set as ${iconColor}`, async ({
       mount,
       page,

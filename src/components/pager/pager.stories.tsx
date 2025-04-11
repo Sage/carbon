@@ -225,6 +225,7 @@ export const UsingCustomResponsiveSettings: Story = () => {
       currentPage={1}
       onPagination={() => {}}
       {...responsiveProps()}
+      smallScreenBreakpoint="375px"
       pageSizeSelectionOptions={[
         { id: "10", name: 10 },
         { id: "25", name: 25 },
@@ -236,5 +237,31 @@ export const UsingCustomResponsiveSettings: Story = () => {
 };
 UsingCustomResponsiveSettings.storyName = "Using Custom Responsive Settings";
 UsingCustomResponsiveSettings.parameters = {
-  chromatic: { disableSnapshot: true },
+  chromatic: { viewports: [1200, 920, 320] },
+};
+
+export const SmallScreenBreakpoint: Story = () => {
+  const shouldShowExtraLinks = useMediaQuery("(min-width: 375px)");
+
+  return (
+    <Pager
+      smallScreenBreakpoint="705px"
+      totalRecords={1000}
+      showPageSizeSelection
+      showFirstAndLastButtons={shouldShowExtraLinks}
+      pageSize={10}
+      currentPage={1}
+      onPagination={() => {}}
+      pageSizeSelectionOptions={[
+        { id: "10", name: 10 },
+        { id: "25", name: 25 },
+        { id: "50", name: 50 },
+        { id: "100", name: 100 },
+      ]}
+    />
+  );
+};
+SmallScreenBreakpoint.storyName = "Small Screen Breakpoint";
+SmallScreenBreakpoint.parameters = {
+  chromatic: { viewports: [1200, 675, 375, 320] },
 };

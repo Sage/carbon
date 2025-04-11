@@ -1,3 +1,15 @@
+## [153.2.0](https://github.com/Sage/carbon/compare/v153.1.1...v153.2.0) (2025-04-10)
+
+### Features
+
+* **pager:** add small screen styling ([97c589c](https://github.com/Sage/carbon/commit/97c589cb2ae8d8dd69f3717ba6775dae147172a0)), closes [#7184](https://github.com/Sage/carbon/issues/7184) [#5704](https://github.com/Sage/carbon/issues/5704)
+
+## [153.1.1](https://github.com/Sage/carbon/compare/v153.1.0...v153.1.1) (2025-04-09)
+
+### Bug Fixes
+
+* **grouped-character:** ensure Delete key works as expected ([958d3ab](https://github.com/Sage/carbon/commit/958d3abda06c4d58a1be440fc38088fd5debdf5c))
+
 ## [153.1.0](https://github.com/Sage/carbon/compare/v153.0.3...v153.1.0) (2025-04-04)
 
 ### Features
