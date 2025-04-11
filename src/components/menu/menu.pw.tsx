@@ -1627,7 +1627,8 @@ test.describe("Accessibility tests for Menu component", () => {
     });
   });
 
-  test.skip(`should pass accessibility tests when search component is focused`, async ({
+  // We can allow the accessibility checks with exception to the heading-order violation.
+  test(`should pass accessibility tests when search component is focused`, async ({
     mount,
     page,
   }) => {
@@ -1638,7 +1639,7 @@ test.describe("Accessibility tests for Menu component", () => {
     await page.keyboard.press("Tab");
     const subMenu = getComponent(page, "submenu").first();
     await waitForAnimationEnd(subMenu);
-    await checkAccessibility(page);
+    await checkAccessibility(page, undefined, "heading-order");
   });
 
   test(`should pass accessibility tests when a submenu has a long label`, async ({
@@ -2014,8 +2015,8 @@ test.describe("Accessibility tests for Menu component", () => {
     await checkAccessibility(page);
   });
 
-  // Test skipped because of issue FE-5731
-  test.skip(`should pass accessibility tests for Menu with icon`, async ({
+  // Looks like this now passes.
+  test(`should pass accessibility tests for Menu with icon`, async ({
     mount,
     page,
   }) => {
@@ -2045,8 +2046,7 @@ test(`should verify that submenu item text wraps when it would overflow the cont
 });
 
 test.describe("Accessibility tests for Menu Fullscreen component", () => {
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`should pass accessibility tests for Menu Fullscreen`, async ({
+  test(`should pass accessibility tests for Menu Fullscreen`, async ({
     mount,
     page,
   }) => {
@@ -2081,8 +2081,7 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
     await checkAccessibility(page);
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`should pass accessibility tests when menu item is highlighted`, async ({
+  test(`should pass accessibility tests when menu item is highlighted`, async ({
     mount,
     page,
   }) => {
@@ -2100,7 +2099,7 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
   (["left", "right"] as MenuFullscreenProps["startPosition"][]).forEach(
     (side) => {
       // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-      test.skip(`should pass accessibility tests when start position is ${side}`, async ({
+      test(`should pass accessibility tests when start position is ${side}`, async ({
         mount,
         page,
       }) => {
