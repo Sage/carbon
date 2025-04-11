@@ -661,13 +661,15 @@ test.describe(`Accessibility tests for Duelling-Picklist component`, () => {
     await checkAccessibility(page, tooltipPreview(page));
   });
 
-  test.skip(`should pass accessibility tests when disabled`, async ({
+  test(`should pass accessibility tests when disabled`, async ({
     mount,
     page,
   }) => {
     await mount(<DuellingPicklistComponent disabled />);
 
-    await checkAccessibility(page);
+    // I have opted to allow the accessibility checks here but omitted the colour contrast checks as it's the same as elsewhere,
+    // the disabled styling doesn't comply.
+    await checkAccessibility(page, undefined, "color-contrast");
   });
 });
 
