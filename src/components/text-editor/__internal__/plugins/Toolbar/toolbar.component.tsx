@@ -25,13 +25,15 @@ import SaveButton, { EditorFormattedValues } from "./buttons/save.component";
 interface ToolbarProps {
   /** The namespace of the editor that this toolbar belongs to */
   namespace: string;
+  /** Determines if the Text Editor has a header */
+  hasHeader?: boolean;
   /** The callback to call when the cancel button is clicked */
   onCancel?: () => void;
   /** The callback to call when the save button is clicked */
   onSave?: (value: EditorFormattedValues) => void;
 }
 
-const Toolbar = ({ namespace, onCancel, onSave }: ToolbarProps) => {
+const Toolbar = ({ namespace, hasHeader, onCancel, onSave }: ToolbarProps) => {
   // Get the editor instance
   const [editor] = useLexicalComposerContext();
 
@@ -107,6 +109,7 @@ const Toolbar = ({ namespace, onCancel, onSave }: ToolbarProps) => {
   return (
     <StyledToolbar
       role="toolbar"
+      hasHeader={hasHeader}
       aria-label={locale.textEditor.toolbarAriaLabel()}
       data-role={`${namespace}-toolbar`}
       id={`${namespace}-toolbar`}

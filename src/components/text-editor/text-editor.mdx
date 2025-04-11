@@ -44,6 +44,24 @@ All instances of the Text Editor should have a label that describes the purpose 
 
 <Canvas of={TextEditorStories.Default} />
 
+### With Header
+
+The Text Editor accepts a header property, which can be any valid React node and is rendered above the toolbar, providing space for custom elements such as titles, controls, 
+or contextual information.
+
+<Canvas of={TextEditorStories.Header} />
+
+### With Footer
+
+The Text Editor accepts a footer property, which can be any valid React node and is rendered below the editor, providing space for custom elements such as titles, controls, 
+or contextual information.
+
+<Canvas of={TextEditorStories.Footer} />
+
+### With Header and Footer
+
+<Canvas of={TextEditorStories.HeaderAndFooter} />
+
 ### Using CreateEmpty
 
 You can use the `CreateEmpty` function to create an empty editor state. This function should be called with no arguments, and the result should
