@@ -29,6 +29,8 @@ import {
   ActionPopover,
   ActionPopoverItem,
   ActionPopoverDivider,
+  ActionPopoverMenuButton,
+  ActionPopoverMenuButtonProps,
 } from "../../components/action-popover";
 import SplitButton from "../../components/split-button";
 import MultiActionButton from "../../components/multi-action-button";
@@ -40,6 +42,7 @@ export default {
   includeStories: [
     "FlatTableStory",
     "ExpandableWithLink",
+    "ExpandableWithActionPopover",
     "SortableStory",
     "SubRowsAsAComponentStory",
     "FlatTableSizeFocus",
@@ -419,6 +422,90 @@ export const ExpandableWithLink = () => {
           <FlatTableCell>Newcastle</FlatTableCell>
           <FlatTableCell>Married</FlatTableCell>
           <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+
+export const ExpandableWithActionPopover = () => {
+  const SubRows = [
+    <FlatTableRow key="subrow-1">
+      <FlatTableRowHeader>Child one</FlatTableRowHeader>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="subrow-2">
+      <FlatTableRowHeader>Child two</FlatTableRowHeader>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>1</FlatTableCell>
+    </FlatTableRow>,
+  ];
+
+  const renderMenuButton = (props: ActionPopoverMenuButtonProps) => (
+    <ActionPopoverMenuButton
+      buttonType="tertiary"
+      iconType="ellipsis_vertical"
+      iconPosition="after"
+      size="small"
+      {...props}
+    >
+      Action
+    </ActionPopoverMenuButton>
+  );
+
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableRowHeader>Name</FlatTableRowHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Actions</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right" px={1}>
+            <ActionPopover renderButton={renderMenuButton}>
+              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableRowHeader>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right" px={1}>
+            <ActionPopover renderButton={renderMenuButton}>
+              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableRowHeader>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableRowHeader>John Smith</FlatTableRowHeader>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right" px={1}>
+            <ActionPopover renderButton={renderMenuButton}>
+              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableRowHeader>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right" px={1}>
+            <ActionPopover renderButton={renderMenuButton}>
+              <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+            </ActionPopover>
+          </FlatTableRowHeader>
         </FlatTableRow>
       </FlatTableBody>
     </FlatTable>

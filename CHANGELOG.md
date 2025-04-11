@@ -1,3 +1,9 @@
+## [153.2.1](https://github.com/Sage/carbon/compare/v153.2.0...v153.2.1) (2025-04-11)
+
+### Bug Fixes
+
+* **flat-table-row-header:** correct icon size for expandable rows ([1cce2f3](https://github.com/Sage/carbon/commit/1cce2f3fede73a8ed06b99f8e5237acdf1dca09d)), closes [#6774](https://github.com/Sage/carbon/issues/6774)
+
 ## [153.2.0](https://github.com/Sage/carbon/compare/v153.1.1...v153.2.0) (2025-04-10)
 
 ### Features
