@@ -17,7 +17,9 @@ export interface UseDraggableHandle {
 export interface UseDraggableOptions {
   draggableItems: React.ReactNode[] | React.ReactNode;
   containerId?: string | number;
-  containerNode?: string;
+  containerNode?:
+  | keyof JSX.IntrinsicElements
+  | React.JSXElementConstructor<unknown>;
   containerRole?: string;
   dragType?: "continuous" | "onDrop";
   stylingOptOut?: boolean;

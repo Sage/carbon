@@ -33,7 +33,9 @@ export interface DraggableContainerProps {
     movedItemId?: string | number | undefined,
   ) => void;
   containerStyle?: CSSProperties;
-  containerNode?: string;
+    containerNode?:
+    | keyof JSX.IntrinsicElements
+    | React.JSXElementConstructor<unknown>;
   setDraggedNode?: (element: Element) => void;
   "data-role"?: string;
   "data-component"?: string;
