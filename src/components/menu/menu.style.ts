@@ -13,8 +13,9 @@ import {
   StyledDivider,
 } from "../vertical-divider/vertical-divider.style";
 import { StyledLink } from "../link/link.style";
-import { MenuProps } from "./menu.component";
 import { baseTheme } from "../../style/themes";
+
+import type { MenuProps } from "./menu.types";
 
 interface StyledMenuProps
   extends Pick<MenuProps, "menuType">,

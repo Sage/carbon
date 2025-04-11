@@ -11,7 +11,7 @@ import { MaxWidthProps } from "styled-system";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu, StyledSubmenuWrapper } from "./submenu.style";
 import Events from "../../../../__internal__/utils/helpers/events";
-import MenuContext from "../menu.context";
+import { useStrictMenuContext } from "../strict-menu.context";
 import { characterNavigation } from "../keyboard-navigation";
 import SubmenuContext from "./submenu.context";
 import guid from "../../../../__internal__/utils/helpers/guid";
@@ -105,9 +105,10 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
       HTMLUListElement | HTMLDivElement | null
     >(null);
     const submenuId = useRef(guid());
-    const menuContext = useContext(MenuContext);
+
     const { inFullscreenView, openSubmenuId, setOpenSubmenuId, menuType } =
-      menuContext;
+      useStrictMenuContext();
+
     const [submenuOpen, setSubmenuOpen] = useState(false);
     const [submenuFocusId, setSubmenuFocusId] = useState<string | null>(null);
     const [submenuItemIds, setSubmenuItemIds] = useState<(string | null)[]>([]);
@@ -451,7 +452,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
           data-component="submenu-wrapper"
           inFullscreenView={inFullscreenView}
           asPassiveItem={asPassiveItem}
-          menuType={menuContext.menuType}
+          menuType={menuType}
         >
           <StyledMenuItemWrapper
             {...rest}

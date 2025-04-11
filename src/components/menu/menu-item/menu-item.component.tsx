@@ -12,11 +12,12 @@ import {
   PaddingProps,
 } from "styled-system";
 import invariant from "invariant";
+
 import { defaultFocusableSelectors as focusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import StyledMenuItemWrapper from "./menu-item.style";
 import Events from "../../../__internal__/utils/helpers/events";
-import MenuContext, { MenuContextProps } from "../__internal__/menu.context";
+import { useStrictMenuContext } from "../__internal__/strict-menu.context";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext, {
   SubmenuContextProps,
@@ -170,7 +171,7 @@ export const MenuItem = ({
     focusId,
     updateFocusId,
     menuType,
-  } = useContext<MenuContextProps>(MenuContext);
+  } = useStrictMenuContext();
 
   const submenuContext = useContext<SubmenuContextProps>(SubmenuContext);
   const isInSubmenu = Object.keys(submenuContext).length > 0;
@@ -196,7 +197,7 @@ export const MenuItem = ({
     if (firstFocusable !== firstFocusableChild) {
       setFirstFocusableChild(firstFocusable);
     }
-  }, [ref]);
+  }, [firstFocusableChild, ref]);
 
   useEffect(() => {
     const id = menuItemId.current;
@@ -223,7 +224,7 @@ export const MenuItem = ({
 
       ref?.focus();
     }
-  }, [firstFocusableChild, focusFromMenu, focusFromSubmenu]);
+  }, [firstFocusableChild, focusFromMenu, focusFromSubmenu, ref]);
 
   const handleFocus = (
     event: React.FocusEvent<HTMLDivElement | HTMLLIElement>,

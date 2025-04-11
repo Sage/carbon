@@ -8,8 +8,9 @@ import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import StyledIcon from "../../../icon/icon.style";
 import menuConfigVariants from "../../menu.config";
 import { SubmenuProps } from "./submenu.component";
-import { MenuType } from "../menu.context";
 import { StyledSegmentChildren } from "../../menu-segment-title/menu-segment-title.style";
+
+import type { MenuType } from "../../menu.types";
 
 interface SharedStyleProps {
   inFullscreenView?: boolean;

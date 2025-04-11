@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 
-import MenuContext from "../__internal__/menu.context";
+import { useStrictMenuContext } from "../__internal__/strict-menu.context";
 import MenuItem, { VariantType } from "../menu-item";
 import StyledScrollableBlock from "./scrollable-block.style";
 import Box from "../../box";
@@ -32,7 +32,7 @@ export const ScrollableBlock = ({
   parentVariant,
   ...rest
 }: ScrollableBlockProps) => {
-  const { menuType } = useContext(MenuContext);
+  const { menuType } = useStrictMenuContext();
 
   const scrollVariants: Record<string, ScrollVariant> = {
     light: "light",

@@ -13,7 +13,6 @@ import {
   MenuDividerProps,
   ScrollableBlockProps,
 } from ".";
-import { MenuType } from "./__internal__/menu.context";
 import Search, { SearchEvent } from "../search";
 import GlobalHeader from "../global-header";
 import Box from "../box/box.component";
@@ -22,6 +21,8 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 import Button from "../button";
 import PopoverContainer from "../popover-container";
 import Icon from "../icon";
+
+import type { MenuType } from "./menu.types";
 
 const menuTypes: MenuType[] = ["white", "light", "dark", "black"];
 

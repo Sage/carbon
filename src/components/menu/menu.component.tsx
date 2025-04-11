@@ -1,29 +1,13 @@
 import React, { useCallback, useState, useRef } from "react";
-import { LayoutProps, FlexboxProps } from "styled-system";
 
+import tagComponent from "../../__internal__/utils/helpers/tags";
 import { StyledMenuWrapper } from "./menu.style";
-import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import MenuContext, { MenuType } from "./__internal__/menu.context";
+import { StrictMenuProvider } from "./__internal__/strict-menu.context";
+import MenuContext from "../menu/__internal__/menu.context";
 import { menuKeyboardNavigation } from "./__internal__/keyboard-navigation";
 import { MENU_ITEM_CHILDREN_LOCATOR } from "./__internal__/locators";
 
-export interface MenuProps
-  extends TagProps,
-    Pick<
-      LayoutProps,
-      | "width"
-      | "minWidth"
-      | "maxWidth"
-      | "overflow"
-      | "overflowX"
-      | "verticalAlign"
-    >,
-    FlexboxProps {
-  /** Children elements */
-  children: React.ReactNode;
-  /** Defines the color scheme of the component */
-  menuType?: MenuType;
-}
+import type { MenuProps } from "./menu.types";
 
 export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
   const [openSubmenuId, setOpenSubmenuId] = useState<string | null>(null);
@@ -74,10 +58,9 @@ export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
       role="list"
       onKeyDown={handleKeyDown}
     >
-      <MenuContext.Provider
+      <StrictMenuProvider
         value={{
           menuType,
-          inMenu: true,
           openSubmenuId,
           setOpenSubmenuId,
           focusId,
@@ -86,8 +69,10 @@ export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
           unregisterItem,
         }}
       >
-        {children}
-      </MenuContext.Provider>
+        <MenuContext.Provider value={{ inMenu: true }}>
+          {children}
+        </MenuContext.Provider>
+      </StrictMenuProvider>
     </StyledMenuWrapper>
   );
 };

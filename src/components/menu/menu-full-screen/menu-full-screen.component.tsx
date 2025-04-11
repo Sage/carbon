@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 
 import { CSSTransition } from "react-transition-group";
 import {
@@ -7,7 +7,10 @@ import {
   StyledMenuFullscreenHeader,
 } from "./menu-full-screen.style";
 import { StyledMenuWrapper } from "../menu.style";
-import MenuContext from "../__internal__/menu.context";
+import {
+  useStrictMenuContext,
+  StrictMenuProvider,
+} from "../__internal__/strict-menu.context";
 import Events from "../../../__internal__/utils/helpers/events";
 import Box from "../../box";
 import IconButton from "../../icon-button";
@@ -55,7 +58,9 @@ export const MenuFullscreen = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLUListElement>(null);
   const isTopModal = useModalAria(modalRef);
-  const { menuType } = useContext(MenuContext);
+
+  const { menuType } = useStrictMenuContext();
+
   const isDarkVariant = ["dark", "black"].includes(menuType);
   const transitionDuration = 200;
   const locale = useLocale();
@@ -150,17 +155,16 @@ export const MenuFullscreen = ({
                     role="list"
                     inFullscreenView
                   >
-                    <MenuContext.Provider
+                    <StrictMenuProvider
                       value={{
                         inFullscreenView: true,
                         menuType,
-                        inMenu: true,
                         openSubmenuId: null,
                         setOpenSubmenuId: /* istanbul ignore next */ () => {},
                       }}
                     >
                       {childArray}
-                    </MenuContext.Provider>
+                    </StrictMenuProvider>
                   </StyledMenuWrapper>
                 </Box>
               </StyledMenuModal>

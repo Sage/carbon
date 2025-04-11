@@ -3,37 +3,44 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import MenuSegmentTitle from "./menu-segment-title.component";
-import MenuContext, {
-  MenuContextProps,
-  MenuType,
-} from "../__internal__/menu.context";
-import { MenuItem } from "..";
-import menuConfigVariants from "../menu.config";
 
-const menuContextValues = (
-  menuType: MenuType,
-  inFullscreenView = false,
-): MenuContextProps => ({
-  menuType,
-  setOpenSubmenuId: () => null,
-  openSubmenuId: null,
-  inMenu: true,
-  inFullscreenView,
+import Logger from "../../../__internal__/utils/logger";
+
+import { Menu, MenuItem } from "..";
+import menuConfigVariants from "../menu.config";
+import MenuFullScreen from "../menu-full-screen";
+
+test("logs error if not used within Menu", () => {
+  const loggerErrorSpy = jest
+    .spyOn(Logger, "error")
+    .mockImplementation(() => {});
+
+  render(
+    <MenuSegmentTitle text="foo">
+      <li>bar</li>
+    </MenuSegmentTitle>,
+  );
+
+  expect(loggerErrorSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
+  );
+
+  loggerErrorSpy.mockRestore();
 });
 
 test("should render with correct colour when 'light' `menuType` received from context", async () => {
   const user = userEvent.setup();
   const { title: color } = menuConfigVariants.light;
   render(
-    <MenuContext.Provider value={menuContextValues("light")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle text="foo">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu menuType="light">
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle text="foo">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -47,15 +54,13 @@ test("should render with correct colour when 'dark' `menuType` received from con
   const user = userEvent.setup();
   const { title: color } = menuConfigVariants.dark;
   render(
-    <MenuContext.Provider value={menuContextValues("dark")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle text="foo">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu menuType="dark">
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle text="foo">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -69,15 +74,13 @@ test("should render with correct colour when 'white' `menuType` received from co
   const user = userEvent.setup();
   const { title: color } = menuConfigVariants.white;
   render(
-    <MenuContext.Provider value={menuContextValues("white")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle text="foo">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu menuType="white">
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle text="foo">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -91,15 +94,13 @@ test("should render with correct colour when 'black' `menuType` received from co
   const user = userEvent.setup();
   const { title: color } = menuConfigVariants.black;
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle text="foo">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu menuType="black">
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle text="foo">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -112,15 +113,13 @@ test("should render with correct colour when 'black' `menuType` received from co
 test("should render title as an h2 heading element by default and render list items as children of the ul", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle text="Title">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu>
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle text="Title">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -135,15 +134,13 @@ test("should render title as an h2 heading element by default and render list it
 test("should render title `as` an 'h2' heading element and render list items as children of the ul", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle as="h2" text="Title">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu>
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle as="h2" text="Title">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -158,15 +155,13 @@ test("should render title `as` an 'h2' heading element and render list items as 
 test("should render title `as` an 'h3' heading element and render list items as children of the ul", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle as="h3" text="Title">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu>
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle as="h3" text="Title">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -181,15 +176,13 @@ test("should render title `as` an 'h3' heading element and render list items as 
 test("should render title `as` an 'h4' heading element and render list items as children of the ul", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle as="h4" text="Title">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu>
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle as="h4" text="Title">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -204,15 +197,13 @@ test("should render title `as` an 'h4' heading element and render list items as 
 test("should render title `as` an 'h5' heading element and render list items as children of the ul", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle as="h5" text="Title">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu>
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle as="h5" text="Title">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -227,15 +218,13 @@ test("should render title `as` an 'h5' heading element and render list items as 
 test("should render title `as` an 'h6' heading element and render list items as children of the ul", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle as="h6" text="Title">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu>
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle as="h6" text="Title">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -251,15 +240,13 @@ test("should render title with expected styling when `variant` is 'alternate' an
   const user = userEvent.setup();
   const { alternate: backgroundColor } = menuConfigVariants.light;
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle text="foo" variant="alternate">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu menuType="light">
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle text="foo" variant="alternate">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -273,15 +260,13 @@ test("should render title with expected styling when `variant` is 'alternate' an
   const user = userEvent.setup();
   const { alternate: backgroundColor } = menuConfigVariants.dark;
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle text="foo" variant="alternate">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu menuType="dark">
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle text="foo" variant="alternate">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -295,15 +280,13 @@ test("should render title with expected styling when `variant` is 'alternate' an
   const user = userEvent.setup();
   const { alternate: backgroundColor } = menuConfigVariants.white;
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle text="foo" variant="alternate">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu menuType="white">
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle text="foo" variant="alternate">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -317,15 +300,13 @@ test("should render title with expected styling when `variant` is 'alternate' an
   const user = userEvent.setup();
   const { alternate: backgroundColor } = menuConfigVariants.black;
   render(
-    <MenuContext.Provider value={menuContextValues("black")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle text="foo" variant="alternate">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu menuType="black">
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle text="foo" variant="alternate">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
 
   await user.click(screen.getByText("Item One"));
@@ -337,9 +318,11 @@ test("should render title with expected styling when `variant` is 'alternate' an
 
 test("should apply expected `data-` attributes", () => {
   render(
-    <MenuSegmentTitle text="foo" data-element="bar" data-role="baz">
-      <li>bar</li>
-    </MenuSegmentTitle>,
+    <Menu>
+      <MenuSegmentTitle text="foo" data-element="bar" data-role="baz">
+        <li>bar</li>
+      </MenuSegmentTitle>
+    </Menu>,
   );
 
   expect(screen.getByText("foo")).toHaveAttribute(
@@ -353,15 +336,13 @@ test("should apply expected `data-` attributes", () => {
 test("should not wrap when the submenu parent has no max-width set", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues("light")}>
-      <ul>
-        <MenuItem submenu="Item One">
-          <MenuSegmentTitle text="Title">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu>
+      <MenuItem submenu="Item One">
+        <MenuSegmentTitle text="Title">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
   await user.click(screen.getByText("Item One"));
 
@@ -373,15 +354,13 @@ test("should not wrap when the submenu parent has no max-width set", async () =>
 test("should wrap when the submenu parent has a max-width set", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues("light")}>
-      <ul>
-        <MenuItem submenuMaxWidth="200px" submenu="Item One">
-          <MenuSegmentTitle text="Title">
-            <li>bar</li>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </ul>
-    </MenuContext.Provider>,
+    <Menu>
+      <MenuItem submenuMaxWidth="200px" submenu="Item One">
+        <MenuSegmentTitle text="Title">
+          <li>bar</li>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </Menu>,
   );
   await user.click(screen.getByText("Item One"));
 
@@ -393,13 +372,15 @@ test("should wrap when the submenu parent has a max-width set", async () => {
 // coverage
 test("should set the correct colour when a child of `MenuSegmentTitle` and `variant` is 'alternate'", async () => {
   render(
-    <MenuContext.Provider value={menuContextValues("black", true)}>
-      <MenuSegmentTitle text="Title" variant="alternate">
-        <MenuItem variant="alternate" href="#">
-          Item One
-        </MenuItem>
-      </MenuSegmentTitle>
-    </MenuContext.Provider>,
+    <Menu menuType="black">
+      <MenuFullScreen onClose={() => {}} isOpen>
+        <MenuSegmentTitle text="Title" variant="alternate">
+          <MenuItem variant="alternate" href="#">
+            Item One
+          </MenuItem>
+        </MenuSegmentTitle>
+      </MenuFullScreen>
+    </Menu>,
   );
 
   expect(screen.getByTestId("menu-item-wrapper")).toHaveStyle({

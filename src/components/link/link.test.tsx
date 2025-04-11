@@ -5,7 +5,7 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Link from "./link.component";
-import MenuContext from "../menu/__internal__/menu.context";
+import { Menu } from "../menu";
 
 test("should render `Skip to main content` text inside of Link when `isSkipLink` prop is provided", () => {
   render(
@@ -528,16 +528,9 @@ describe("isDarkBackground", () => {
 describe("link display styling", () => {
   it("when inside a menu, link element has display inline-block", () => {
     render(
-      <MenuContext.Provider
-        value={{
-          inMenu: true,
-          menuType: "light",
-          openSubmenuId: null,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu menuType="light">
         <Link href="foo.com" />
-      </MenuContext.Provider>,
+      </Menu>,
     );
 
     const linkElement = screen.getByRole("link");
