@@ -1,6 +1,5 @@
 import createStrictContext from "../../../__internal__/utils/createStrictContext";
-
-export type MenuType = "light" | "dark" | "white" | "black";
+import type { MenuType } from "../menu.types";
 
 export interface StrictMenuContextType {
   menuType: MenuType;
