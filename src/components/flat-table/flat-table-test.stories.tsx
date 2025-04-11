@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, waitFor, within, expect } from "@storybook/test";
+
 import {
   FlatTable,
   FlatTableHead,
@@ -36,6 +39,8 @@ import SplitButton from "../../components/split-button";
 import MultiActionButton from "../../components/multi-action-button";
 import DateRange, { DateRangeChangeEvent } from "../date-range";
 import PopoverContainer from "../popover-container";
+import Icon from "../icon";
+import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 export default {
   title: "Flat Table/Test",
@@ -51,6 +56,7 @@ export default {
     "FlatTableThemesWithAlternateHeaderBackground",
     "FlatTableThemesWithStickyHead",
     "FlatTableWithStickyHeadAndFooter",
+    "FlatTableFocus",
   ],
   parameters: {
     info: { disable: true },
@@ -1173,4 +1179,115 @@ export const FlatTableWithStickyHeadAndFooter = () => {
 
 FlatTableWithStickyHeadAndFooter.parameters = {
   chromatic: { disableSnapshot: true },
+};
+
+// Play Functions
+const meta: Meta<typeof FlatTable> = {
+  title: "FlatTable",
+  component: FlatTable,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+
+type Story = StoryObj<typeof FlatTable>;
+
+export const FlatTableComponent = () => {
+  return (
+    <FlatTable title="Table for Default Story">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Name <Icon type="individual" color="white" />
+            </Box>
+          </FlatTableHeader>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Location <Icon type="location" color="white" />
+            </Box>
+          </FlatTableHeader>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Relationship Status <Icon type="person_info" color="white" />
+            </Box>
+          </FlatTableHeader>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Dependents <Icon type="people" color="white" />
+            </Box>
+          </FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+
+export const FlatTableFocus: Story = {
+  render: () => <FlatTableComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const flatTable = canvas.getByTestId("flat-table-container");
+
+    await userEvent.tab();
+    await userInteractionPause(300);
+
+    await waitFor(() => {
+      expect(flatTable).toHaveFocus();
+    });
+  },
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "97vh", width: "95vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+
+FlatTableFocus.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
 };
