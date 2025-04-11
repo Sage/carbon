@@ -40,7 +40,6 @@ test("should return null and render nothing when useMediaQuery returns undefined
 });
 
 test("component should have a visually hidden label for assistive technologies by default", () => {
-  mockUseMediaQuery.mockReturnValueOnce(undefined);
   render(<LoaderStar />);
 
   const hiddenLabelElement = screen.getByTestId("hidden-label");

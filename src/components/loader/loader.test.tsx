@@ -97,7 +97,6 @@ test("when the user disallows animations or their preference cannot be determine
 
 describe("when the user allows animations", () => {
   test("renders three square animation", () => {
-    mockUseMediaQuery.mockReturnValue(undefined);
     render(<Loader />);
     const squares = screen.getAllByTestId("loader-square");
     expect(squares).toHaveLength(3);
