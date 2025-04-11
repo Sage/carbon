@@ -5,7 +5,7 @@ const HiddenCheckableInputStyle = styled.input`
   opacity: 0;
   margin: 0;
   position: relative;
-  z-index: 999;
+  z-index: 2;
 `;
 
 export default HiddenCheckableInputStyle;
