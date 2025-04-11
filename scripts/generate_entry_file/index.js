@@ -154,6 +154,33 @@ indexFiles.flatMap((indexFile) => {
   });
 });
 
+const specificFilePath = path.join(rootDir, "src/style/global-style.ts");
+if (fs.existsSync(specificFilePath)) {
+  const { defaultExportName, hasNamedExport } = getExportInfo(specificFilePath);
+  const relativePath = path
+    .relative(path.dirname(outputFile), specificFilePath)
+    .replace(/\.[tj]sx?$/, "") // Remove .ts, .tsx, .js, .jsx
+    .replace(/\\/g, "/");
+
+  if (defaultExportName) {
+    exportStatements.add(
+      `export { default as ${defaultExportName} } from "./${relativePath}";`,
+    );
+    console.log(
+      `✅ Added default export from specific file: ${specificFilePath}`,
+    );
+  } else if (hasNamedExport) {
+    exportStatements.add(`export * from "./${relativePath}";`);
+    console.log(
+      `✅ Added named exports from specific file: ${specificFilePath}`,
+    );
+  } else {
+    console.warn(`⚠️ No exports found in specific file: ${specificFilePath}`);
+  }
+} else {
+  console.error(`❌ Specific file not found: ${specificFilePath}`);
+}
+
 // Write to index.ts
 fs.writeFileSync(outputFile, Array.from(exportStatements).join("\n"), "utf-8");
 
