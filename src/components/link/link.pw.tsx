@@ -18,6 +18,7 @@ import Link, { LinkProps } from "../../../src/components/link";
 import {
   LinkComponent,
   LinkComponentAsButton,
+  LinkComponentWithDarkBackground,
 } from "../../../src/components/link/components.test-pw";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -363,11 +364,11 @@ test.describe("should check accessibility for Link component", () => {
     await checkAccessibility(page);
   });
 
-  test.skip("should pass accessibility tests with dark background", async ({
+  test("should pass accessibility tests with dark background", async ({
     mount,
     page,
   }) => {
-    await mount(<LinkComponent isDarkBackground />);
+    await mount(<LinkComponentWithDarkBackground isDarkBackground />);
 
     await checkAccessibility(page);
   });
@@ -379,7 +380,7 @@ test.describe("should check accessibility for Link component", () => {
   });
 
   (["left", "right"] as LinkProps["iconAlign"][]).forEach((iconAlign) => {
-    test(`sshould pass accessibility tests with iconAlign prop set to ${iconAlign}`, async ({
+    test(`should pass accessibility tests with iconAlign prop set to ${iconAlign}`, async ({
       mount,
       page,
     }) => {

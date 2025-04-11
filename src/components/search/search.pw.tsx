@@ -18,7 +18,11 @@ import {
   checkAccessibility,
 } from "../../../playwright/support/helper";
 import Box from "../box";
-import { SearchComponent } from "./components.test-pw";
+import {
+  SearchComponent,
+  SearchComponentDarkBackground,
+  SearchComponentLightBackground,
+} from "./components.test-pw";
 import Search, { SearchProps } from "./search.component";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -774,21 +778,21 @@ test.describe("Accessibility tests for Search", () => {
     });
   });
 
-  // FE-4670
-  test.skip("should render Search component", () => {
-    (["default", "dark"] as SearchProps["variant"][]).forEach((variant) => {
-      test(`should check accessibility with variant prop set to ${variant}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <Box width="700px" height="108px" bg="#003349">
-            <SearchComponent variant={variant} />
-          </Box>,
-        );
+  test("should check accessibility with variant prop set to default", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponentLightBackground />);
 
-        await checkAccessibility(page);
-      });
-    });
+    await checkAccessibility(page);
+  });
+
+  test("should check accessibility with variant prop set to dark", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponentDarkBackground />);
+
+    await checkAccessibility(page);
   });
 });

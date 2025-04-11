@@ -14,7 +14,6 @@ import {
 import {
   checkAccessibility,
   assertCssValueIsApproximately,
-  waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import { SIZE, COLOR, CHARACTERS } from "../../../playwright/support/constants";
 import { TooltipProps } from "../../../src/components/tooltip/tooltip.component";
@@ -389,43 +388,40 @@ test.describe("Tooltip component", () => {
 });
 
 test.describe("Accessibility tests for Tooltip component", () => {
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`should pass accessibility tests for Default example`, async ({
+  test(`should pass accessibility tests for Default example`, async ({
     mount,
     page,
   }) => {
     await mount(<TooltipComponent />);
 
     await getDataElementByValue(page, "main-text").nth(0).click();
+
     await expect(page.getByRole("tooltip")).toBeVisible();
-    await waitForAnimationEnd(page.getByRole("tooltip"));
-    await checkAccessibility(page);
+    await checkAccessibility(page, page.getByRole("tooltip"));
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`should pass accessibility tests for Controlled story`, async ({
+  test(`should pass accessibility tests for Controlled story`, async ({
     mount,
     page,
   }) => {
     await mount(<Controlled />);
 
     await getDataElementByValue(page, "main-text").nth(0).click();
+
     await expect(page.getByRole("tooltip")).toBeVisible();
-    await waitForAnimationEnd(page.getByRole("tooltip"));
-    await checkAccessibility(page);
+    await checkAccessibility(page, page.getByRole("tooltip"));
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`should pass accessibility tests for FlipBehaviourOverrides story`, async ({
+  test(`should pass accessibility tests for FlipBehaviourOverrides story`, async ({
     mount,
     page,
   }) => {
     await mount(<FlipBehaviourOverrides />);
 
     await getDataElementByValue(page, "main-text").nth(0).click();
+
     await expect(page.getByRole("tooltip")).toBeVisible();
-    await waitForAnimationEnd(page.getByRole("tooltip"));
-    await checkAccessibility(page);
+    await checkAccessibility(page, page.getByRole("tooltip"));
   });
 
   (
@@ -436,58 +432,54 @@ test.describe("Accessibility tests for Tooltip component", () => {
       ["right", 3],
     ] as [string, number][]
   ).forEach(([position, button]) => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip(`should pass accessibility tests for Positioning story when position is set to ${position}`, async ({
+    test(`should pass accessibility tests for Positioning story when position is set to ${position}`, async ({
       mount,
       page,
     }) => {
       await mount(<Positioning />);
 
       await getDataElementByValue(page, "main-text").nth(button).click();
+
       await expect(page.getByRole("tooltip")).toBeVisible();
-      await waitForAnimationEnd(page.getByRole("tooltip"));
-      await checkAccessibility(page);
+      await checkAccessibility(page, page.getByRole("tooltip"));
     });
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`should pass accessibility tests for LargeTooltip story`, async ({
+  test(`should pass accessibility tests for LargeTooltip story`, async ({
     mount,
     page,
   }) => {
     await mount(<LargeTooltip />);
 
     await getDataElementByValue(page, "main-text").click();
+
     await expect(page.getByRole("tooltip")).toBeVisible();
-    await waitForAnimationEnd(page.getByRole("tooltip"));
-    await checkAccessibility(page);
+    await checkAccessibility(page, page.getByRole("tooltip"));
   });
 
   ["undefined", "error"].forEach((type) => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip(`should pass accessibility tests when type is set to ${type}`, async ({
+    test(`should pass accessibility tests when type is set to ${type}`, async ({
       mount,
       page,
     }) => {
       await mount(<TooltipComponent type={type} />);
 
       await page.getByText("target").click();
+
       await expect(page.getByRole("tooltip")).toBeVisible();
-      await waitForAnimationEnd(page.getByRole("tooltip"));
-      await checkAccessibility(page);
+      await checkAccessibility(page, page.getByRole("tooltip"));
     });
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip(`should pass accessibility tests for ColorOverrides story`, async ({
+  test(`should pass accessibility tests for ColorOverrides story`, async ({
     mount,
     page,
   }) => {
     await mount(<ColorOverrides />);
 
     await getDataElementByValue(page, "main-text").click();
+
     await expect(page.getByRole("tooltip")).toBeVisible();
-    await waitForAnimationEnd(page.getByRole("tooltip"));
-    await checkAccessibility(page);
+    await checkAccessibility(page, page.getByRole("tooltip"));
   });
 });
