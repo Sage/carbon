@@ -9,3 +9,9 @@ export type { VerticalMenuFullScreenProps } from "./vertical-menu-full-screen/ve
 
 export { default as VerticalMenuTrigger } from "./vertical-menu-trigger/vertical-menu-trigger.component";
 export type { VerticalMenuTriggerProps } from "./vertical-menu-trigger/vertical-menu-trigger.component";
+
+export {
+  ResponsiveVerticalMenu,
+  ResponsiveVerticalMenuItem,
+  ResponsiveVerticalMenuProvider,
+} from "./responsive-vertical-menu";
