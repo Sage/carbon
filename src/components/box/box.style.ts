@@ -18,7 +18,7 @@ const calculatePosition = (props: Omit<PositionProps, "zIndex">) => {
 
   return {
     position,
-    zIndex: ["sticky", "fixed"].includes(position) ? 1 : undefined,
+    zIndex: ["sticky", "fixed"].includes(position) ? 3 : undefined,
     ...rest,
   };
 };
