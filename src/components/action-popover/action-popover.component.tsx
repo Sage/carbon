@@ -35,9 +35,7 @@ import {
   getItems,
   checkChildrenForString,
 } from "./__internal__/action-popover-utils";
-import FlatTableContext, {
-  FlatTableContextProps,
-} from "../flat-table/__internal__/flat-table.context";
+import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 
 export interface RenderButtonProps {
   tabIndex: number;
@@ -114,8 +112,7 @@ export const ActionPopover = forwardRef<
     const [guid] = useState(createGuid());
     const buttonRef = useRef<HTMLDivElement>(null);
     const menu = useRef<HTMLUListElement>(null);
-    const { isInFlatTable } =
-      useContext<FlatTableContextProps>(FlatTableContext);
+    const { isInFlatTable } = useContext(FlatTableContext);
 
     const hasProperChildren = useMemo(() => {
       const incorrectChild = React.Children.toArray(children).find(

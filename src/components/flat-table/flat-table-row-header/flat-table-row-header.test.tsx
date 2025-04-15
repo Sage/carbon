@@ -11,15 +11,37 @@ import FlatTableRow from "../flat-table-row/flat-table-row.component";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 import Button from "../../button/button.component";
 
+test("logs error if used outside of FlatTable", () => {
+  const loggerSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+  render(
+    <table>
+      <thead>
+        <tr>
+          <FlatTableRowHeader>Foo</FlatTableRowHeader>
+        </tr>
+      </thead>
+    </table>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
+  );
+
+  loggerSpy.mockRestore();
+});
+
 testStyledSystemPadding(
   (props) => (
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader {...props} />
         </tr>
       </thead>
-    </table>
+    </FlatTable>
   ),
   () => screen.getByRole("columnheader"),
   { modifier: "&&&& > div" },
@@ -27,13 +49,13 @@ testStyledSystemPadding(
 
 test("should render with the default padding if no padding props are passed", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -53,7 +75,7 @@ test("should render with the default padding if no padding props are passed", ()
 
 test("should render with the expected `data-` attributes when props are passed", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader
@@ -62,7 +84,7 @@ test("should render with the expected `data-` attributes when props are passed",
           />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -76,13 +98,13 @@ test("should render with the expected `data-` attributes when props are passed",
 
 test("should render with proper 'width' styling on cell and first child when prop is passed", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader width={40} />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
   const content = screen.getByTestId("flat-table-row-header-content");
@@ -93,13 +115,13 @@ test("should render with proper 'width' styling on cell and first child when pro
 
 test("should render with expected 'colspan' attribute when prop is passed", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader colspan={2} />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -108,13 +130,13 @@ test("should render with expected 'colspan' attribute when prop is passed", () =
 
 test("should render with expected 'rowspan' attribute when prop is passed", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader rowspan={2} />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -124,7 +146,7 @@ test("should render with expected 'rowspan' attribute when prop is passed", () =
 describe("when the `expandable` context prop is set", () => {
   it("should render the expected icon when cell is in the first column", () => {
     render(
-      <table>
+      <FlatTable>
         <thead>
           <tr>
             <FlatTableRowContext.Provider
@@ -140,7 +162,7 @@ describe("when the `expandable` context prop is set", () => {
             </FlatTableRowContext.Provider>
           </tr>
         </thead>
-      </table>,
+      </FlatTable>,
     );
     const icon = screen.getByTestId("icon");
 
@@ -151,7 +173,7 @@ describe("when the `expandable` context prop is set", () => {
     const onClick = jest.fn();
     const user = userEvent.setup();
     render(
-      <table>
+      <FlatTable>
         <thead>
           <tr>
             <FlatTableRowContext.Provider
@@ -168,7 +190,7 @@ describe("when the `expandable` context prop is set", () => {
             </FlatTableRowContext.Provider>
           </tr>
         </thead>
-      </table>,
+      </FlatTable>,
     );
     const cell = screen.getByRole("columnheader");
     await user.click(cell);
@@ -180,7 +202,7 @@ describe("when the `expandable` context prop is set", () => {
     const onKeyDown = jest.fn();
     const user = userEvent.setup();
     render(
-      <table>
+      <FlatTable>
         <thead>
           <tr>
             <FlatTableRowContext.Provider
@@ -197,7 +219,7 @@ describe("when the `expandable` context prop is set", () => {
             </FlatTableRowContext.Provider>
           </tr>
         </thead>
-      </table>,
+      </FlatTable>,
     );
     const cell = screen.getByRole("columnheader");
     await user.type(cell, "{enter}");
@@ -209,7 +231,7 @@ describe("when the `expandable` context prop is set", () => {
 describe("when the `expandable` context prop is not set", () => {
   it("does not render the icon in the cell in the first column", () => {
     render(
-      <table>
+      <FlatTable>
         <thead>
           <tr>
             <FlatTableRowContext.Provider
@@ -223,7 +245,7 @@ describe("when the `expandable` context prop is not set", () => {
             </FlatTableRowContext.Provider>
           </tr>
         </thead>
-      </table>,
+      </FlatTable>,
     );
     const icon = screen.queryByTestId("icon");
 
@@ -234,7 +256,7 @@ describe("when the `expandable` context prop is not set", () => {
     const onClick = jest.fn();
     const user = userEvent.setup();
     render(
-      <table>
+      <FlatTable>
         <thead>
           <tr>
             <FlatTableRowContext.Provider
@@ -249,7 +271,7 @@ describe("when the `expandable` context prop is not set", () => {
             </FlatTableRowContext.Provider>
           </tr>
         </thead>
-      </table>,
+      </FlatTable>,
     );
     const cell = screen.getByRole("columnheader");
     await user.click(cell);
@@ -261,13 +283,13 @@ describe("when the `expandable` context prop is not set", () => {
 describe("when the `truncate` prop is set", () => {
   it("should apply expected styling", () => {
     render(
-      <table>
+      <FlatTable>
         <thead>
           <tr>
             <FlatTableRowHeader truncate>Foo</FlatTableRowHeader>
           </tr>
         </thead>
-      </table>,
+      </FlatTable>,
     );
     const content = screen.getByTestId("flat-table-row-header-content");
 
@@ -278,13 +300,13 @@ describe("when the `truncate` prop is set", () => {
 
   it("should set the title if children is string", () => {
     render(
-      <table>
+      <FlatTable>
         <thead>
           <tr>
             <FlatTableRowHeader truncate>Foo</FlatTableRowHeader>
           </tr>
         </thead>
-      </table>,
+      </FlatTable>,
     );
 
     expect(screen.getByTestId("flat-table-row-header-content")).toHaveAttribute(
@@ -295,7 +317,7 @@ describe("when the `truncate` prop is set", () => {
 
   it("should override the default behaviour when `title` prop is set", () => {
     render(
-      <table>
+      <FlatTable>
         <thead>
           <tr>
             <FlatTableRowHeader truncate title="Bar">
@@ -303,7 +325,7 @@ describe("when the `truncate` prop is set", () => {
             </FlatTableRowHeader>
           </tr>
         </thead>
-      </table>,
+      </FlatTable>,
     );
 
     expect(screen.getByTestId("flat-table-row-header-content")).toHaveAttribute(
@@ -315,13 +337,13 @@ describe("when the `truncate` prop is set", () => {
 
 test("sets the data-sticky-align attribute to 'left' to match the `stickyAlignment` prop value", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader stickyAlignment="left">Foo</FlatTableRowHeader>
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
 
   expect(screen.getByRole("columnheader")).toHaveAttribute(
@@ -332,13 +354,13 @@ test("sets the data-sticky-align attribute to 'left' to match the `stickyAlignme
 
 test("sets the data-sticky-align attribute to 'right' to match the `stickyAlignment` prop value", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader stickyAlignment="right">Foo</FlatTableRowHeader>
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
 
   expect(screen.getByRole("columnheader")).toHaveAttribute(
@@ -413,7 +435,7 @@ test("should increase the z-index of the sticky TH or TD if `stickyAlignment` pr
 
 test("should not increase the z-index of the sticky TH or TD if the `stickyAlignment` prop is set but they are not part of a FlatTableBody", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <FlatTableRow>
           <FlatTableCell data-role="cell">
@@ -429,7 +451,7 @@ test("should not increase the z-index of the sticky TH or TD if the `stickyAlign
           <FlatTableCell>text content</FlatTableCell>
         </FlatTableRow>
       </thead>
-    </table>,
+    </FlatTable>,
   );
 
   const headerOne = screen.getByTestId("header-one");
@@ -444,13 +466,13 @@ test("should not increase the z-index of the sticky TH or TD if the `stickyAlign
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'small' and the `stickyAlignment` prop is 'left`", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader verticalBorder="small" stickyAlignment="left" />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -459,13 +481,13 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'small' and the `stickyAlignment` prop is 'right`", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader verticalBorder="small" stickyAlignment="right" />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -474,13 +496,13 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'medium' and the `stickyAlignment` prop is 'left`", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader verticalBorder="medium" stickyAlignment="left" />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -489,13 +511,13 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'medium' and the `stickyAlignment` prop is 'right`", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader verticalBorder="medium" stickyAlignment="right" />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -504,13 +526,13 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'large' and the `stickyAlignment` prop is 'left`", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader verticalBorder="large" stickyAlignment="left" />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -519,13 +541,13 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'large' and the `stickyAlignment` prop is 'right`", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader verticalBorder="large" stickyAlignment="right" />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -534,7 +556,7 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render with the expected border color when `verticalBorderColor` prop is passed '#FF113344' and the `stickyAlignment` prop is 'left`", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader
@@ -543,7 +565,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
           />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -552,7 +574,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
 
 test("should render with the expected border color when `verticalBorderColor` prop is passed '#FF113344' and the `stickyAlignment` prop is 'right`", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader
@@ -561,7 +583,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
           />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -570,7 +592,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
 
 test("should render with the expected border color when `verticalBorderColor` prop is passed 'rgb(1,1,1)' and the `stickyAlignment` prop is 'left`", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader
@@ -579,7 +601,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
           />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -588,7 +610,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
 
 test("should render with the expected border color when `verticalBorderColor` prop is passed 'rgb(1,1,1)' and the `stickyAlignment` prop is 'right`", () => {
   render(
-    <table>
+    <FlatTable>
       <thead>
         <tr>
           <FlatTableRowHeader
@@ -597,7 +619,7 @@ test("should render with the expected border color when `verticalBorderColor` pr
           />
         </tr>
       </thead>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
