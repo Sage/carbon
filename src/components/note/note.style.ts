@@ -10,27 +10,15 @@ const StyledNoteContent = styled.div<{
   position: relative;
   width: 100%;
 
-  ${({ hasPreview }) => css`
-    div.DraftEditor-root {
-      min-height: inherit;
-    }
-
-    div.DraftEditor-editorContainer,
-    div.public-DraftEditor-content {
-      min-height: inherit;
-      background-color: var(--colorsUtilityYang100);
-      line-height: 21px;
-    }
-
-    &:last-of-type:not(:first-of-type) {
-      border-top: solid 1px var(--colorsUtilityMajor050);
-    }
-
-    ${hasPreview &&
-    `
+  ${({ hasPreview }) =>
+    hasPreview &&
+    css`
       margin-top: var(--spacing200);
     `}
-  `}
+
+  &:last-of-type:not(:first-of-type) {
+    border-top: solid 1px var(--colorsUtilityMajor050);
+  }
 `;
 
 const StyledNoteMain = styled.div`
