@@ -914,6 +914,41 @@ test.describe("Styling tests", () => {
       expect(displayedWarning).toBe(0);
     });
   });
+
+  test("should render links with expected styling", async ({ mount, page }) => {
+    const previews = [
+      <a
+        href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
+        rel="noreferrer"
+        dir="ltr"
+      >
+        <span data-lexical-text="true">Carbon</span>
+      </a>,
+    ];
+    await mount(<TextEditorDefaultComponent previews={previews} />);
+
+    const link = page.getByRole("link", { name: "Carbon" });
+
+    await expect(link).toHaveCSS("color", "rgb(0, 126, 69)");
+    await expect(link).toHaveCSS("cursor", "pointer");
+
+    await link.hover();
+    await expect(link).toHaveCSS("color", "rgb(0, 103, 56)");
+
+    await link.focus();
+    await expect(link).toHaveCSS("outline", "rgba(0, 0, 0, 0.9) none 0px");
+    await expect(link).toHaveCSS(
+      "text-decoration",
+      "none solid rgba(0, 0, 0, 0.9)",
+    );
+    await expect(link).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
+    await expect(link).toHaveCSS("background-color", "rgb(255, 218, 128)");
+    await expect(link).toHaveCSS("border-radius", "2px");
+    await expect(link).toHaveCSS(
+      "box-shadow",
+      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+    );
+  });
 });
 
 test.describe("Accessibility tests", () => {

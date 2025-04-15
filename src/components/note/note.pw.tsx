@@ -134,6 +134,32 @@ test.describe("check styling for Note component", () => {
 
     await expect(noteComponent(page)).toHaveCSS("border-radius", "8px");
   });
+
+  test("should render links with expected styling", async ({ mount, page }) => {
+    await mount(<NoteComponent text="https://carbon.sage.com" />);
+
+    const link = page.getByRole("link");
+
+    await expect(link).toHaveCSS("color", "rgb(0, 126, 69)");
+    await expect(link).toHaveCSS("cursor", "pointer");
+
+    await link.hover();
+    await expect(link).toHaveCSS("color", "rgb(0, 103, 56)");
+
+    await link.focus();
+    await expect(link).toHaveCSS("outline", "rgba(0, 0, 0, 0.9) none 0px");
+    await expect(link).toHaveCSS(
+      "text-decoration",
+      "none solid rgba(0, 0, 0, 0.9)",
+    );
+    await expect(link).toHaveCSS("color", "rgba(0, 0, 0, 0.9)");
+    await expect(link).toHaveCSS("background-color", "rgb(255, 218, 128)");
+    await expect(link).toHaveCSS("border-radius", "2px");
+    await expect(link).toHaveCSS(
+      "box-shadow",
+      "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
+    );
+  });
 });
 
 test.describe("Accessibility tests for Note component", () => {
