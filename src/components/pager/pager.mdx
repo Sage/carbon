@@ -58,7 +58,7 @@ In the example below the `First` and `Last` buttons and `totalRecords` label hav
 ### Smart elements
 
 The examples below demonstrate the `Pager`'s smart functionality. In the first there are only enough records for one page,
-and as such the navigation buttons are not neccessary and therefore not rendered. In the second example there are only enough
+and as such the navigation buttons are not necessary and therefore not rendered. In the second example there are only enough
 records for two pages, the `First` and `Last` buttons are not needed and as a result will not render.
 
 <Canvas of={PagerStories.SmartFunctionality} />
@@ -87,11 +87,19 @@ Due to the fact that it is last page, next and last links are disabled.
 
 ### Custom responsive example
 
-The`show...` props can also be used to implement responsive behaviour in the `Pager`. Below is an example that will
+The`show...` props can be used to implement responsive behaviour in the `Pager`. Below is an example that will
 conditionally render the internal elements as the screen size is adjusted. This example is best viewed in the Canvas tab
 using full-screen mode with device or viewport emulation.
 
 <Canvas of={PagerStories.UsingCustomResponsiveSettings} />
+
+### Small screen breakpoint
+The `smallScreenBreakpoint` prop allows you to set the screen size at which the `Pager` will switch to small screen layout. 
+This will cause the navigation links to wrap onto a new line if `showPageSizeSelection` or `showTotalRecords` is set to `true`, as well as reduce the spacing around the elements.
+
+**Note:** This prop does not guarantee that the elements within `Pager` do not overflow, it is up to consumers to ensure they set the appropriate props and breakpoints.
+
+<Canvas of={PagerStories.SmallScreenBreakpoint} />
 
 ## Props
 
