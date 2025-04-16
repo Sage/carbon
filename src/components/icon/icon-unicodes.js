@@ -265,6 +265,21 @@ const misc = {
   stop: "\\f068",
   stop_circle: "\\f069",
   worldwide_location: "\\f072",
+  airplay: "\\f073",
+  batch: "\\f074",
+  chromecast: "\\f075",
+  framerate: "\\f076",
+  fullscreen: "\\f077",
+  mute: "\\f078",
+  normalscreen: "\\f079",
+  page: "\\f080",
+  picture_in_picture: "\\f081",
+  replay: "\\f082",
+  speaker: "\\f083",
+  subtitles: "\\f084",
+  volume_high: "\\f087",
+  volume_low: "\\f085",
+  volume_medium: "\\f086",
 };
 
 const legacyNames = {
