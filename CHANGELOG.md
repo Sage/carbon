@@ -1,3 +1,9 @@
+## [153.3.1](https://github.com/Sage/carbon/compare/v153.3.0...v153.3.1) (2025-04-15)
+
+### Bug Fixes
+
+* **checkable-input, box:** can interact with input elements behind a Box ([e16d18f](https://github.com/Sage/carbon/commit/e16d18f72622f086925cfaa827c806523a65bc70)), closes [#6306](https://github.com/Sage/carbon/issues/6306)
+
 ## [153.3.0](https://github.com/Sage/carbon/compare/v153.2.1...v153.3.0) (2025-04-11)
 
 ### Features
