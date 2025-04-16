@@ -1,3 +1,10 @@
+## [153.4.0](https://github.com/Sage/carbon/compare/v153.3.1...v153.4.0) (2025-04-16)
+
+### Features
+
+* **text-editor:** add de-DE, es-ES, fr-CA and fr-FR locale support ([d118e79](https://github.com/Sage/carbon/commit/d118e79b03d18f503a237889392f67614843e4b4))
+* **text-editor:** add header and footer support and align with DS ([7d60ed3](https://github.com/Sage/carbon/commit/7d60ed3e736bd239ec85199a2c4dcd68f1d1b98d))
+
 ## [153.3.1](https://github.com/Sage/carbon/compare/v153.3.0...v153.3.1) (2025-04-15)
 
 ### Bug Fixes
