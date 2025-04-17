@@ -100,6 +100,9 @@ const enGB: Locale = {
   heading: {
     backLinkAriaLabel: () => "Back",
   },
+  label: {
+    optional: () => "optional",
+  },
   link: {
     skipLinkLabel: () => "Skip to main content",
   },

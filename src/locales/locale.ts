@@ -74,6 +74,9 @@ interface Locale {
   heading: {
     backLinkAriaLabel: () => string;
   };
+  label: {
+    optional: () => string;
+  };
   link: {
     skipLinkLabel: () => string;
   };

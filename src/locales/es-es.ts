@@ -97,6 +97,9 @@ const esES: Partial<Locale> = {
   heading: {
     backLinkAriaLabel: () => "Volver",
   },
+  label: {
+    optional: () => "opcional",
+  },
   link: {
     skipLinkLabel: () => "Ir al contenido principal",
   },

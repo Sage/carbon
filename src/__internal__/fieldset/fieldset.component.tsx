@@ -14,6 +14,7 @@ import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
 import Help from "../../components/help";
 import Typography from "../../components/typography";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 export interface FieldsetProps extends MarginProps {
   /** Role */
@@ -87,6 +88,8 @@ const Fieldset = ({
   const marginProps = filterStyledSystemMarginProps(rest);
   const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
   const [isFocused, setFocus] = useState(false);
+  const locale = useLocale();
+  const optionalLabel = locale.label.optional();
 
   useEffect(() => {
     if (ref && isRequired) {
@@ -162,6 +165,7 @@ const Fieldset = ({
                 <StyledLegendContent
                   isRequired={isRequired}
                   isOptional={isOptional}
+                  optionalLabel={optionalLabel}
                   isDisabled={isDisabled}
                 >
                   {legend}
