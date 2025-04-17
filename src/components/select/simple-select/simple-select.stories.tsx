@@ -9,7 +9,7 @@ import {
   CustomSelectChangeEvent,
 } from "..";
 import Button from "../../button";
-import Icon from "../../icon";
+import Icon, { IconType } from "../../icon";
 import CarbonProvider from "../../carbon-provider";
 import Box from "../../box";
 import Typography from "../../typography";
@@ -524,23 +524,54 @@ export const TransparentDisabled: Story = () => {
 TransparentDisabled.storyName = "Transparent disabled";
 
 export const CustomOptionChildren: Story = () => {
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  const options = [
+    { value: "1", text: "Orange", iconType: "favourite", iconColor: "orange" },
+    { value: "2", text: "Black", iconType: "bin", iconColor: "black" },
+    { value: "3", text: "Blue", iconType: "individual", iconColor: "blue" },
+    { value: "4", text: "Green", iconType: "tick_circle", iconColor: "green" },
+  ];
+
+  const renderLeftChildren = () => {
+    const option = options.find((opt) => opt.value === value);
+    return (
+      option && (
+        <Icon type={option.iconType as IconType} color={option.iconColor} />
+      )
+    );
+  };
+
   return (
-    <Box height={220}>
+    <Box height={250}>
       <Select
         name="customOptionChildren"
         id="customOptionChildren"
-        defaultValue="4"
         label="Pick your favourite color"
+        value={value}
+        onChange={onChangeHandler}
+        leftChildren={
+          value && (
+            <Box display="flex" alignItems="center" ml={1}>
+              {renderLeftChildren()}
+            </Box>
+          )
+        }
       >
-        <Option text="Orange" value="1">
-          <Icon type="favourite" color="orange" mr={1} /> Orange
-        </Option>
-        <Option text="Black" value="2">
-          <Icon type="favourite" color="black" mr={1} /> Black
-        </Option>
-        <Option text="Blue" value="3">
-          <Icon type="favourite" color="blue" mr={1} /> Blue
-        </Option>
+        {options.map((option) => (
+          <Option key={option.value} text={option.text} value={option.value}>
+            <Icon
+              type={option.iconType as IconType}
+              color={option.iconColor}
+              mr={1}
+            />
+            {option.text}
+          </Option>
+        ))}
       </Select>
     </Box>
   );
