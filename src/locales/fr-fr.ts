@@ -164,6 +164,24 @@ const frFR: Partial<Locale> = {
   pod: {
     undo: () => "Annuler",
   },
+  textEditor: {
+    boldAria: () => "Gras",
+    cancelButton: () => "Annuler",
+    cancelButtonAria: () => "Annuler",
+    characterCounter(count: number | string) {
+      return `${typeof count === "number" ? count.toString() : count} caractères restants`;
+    },
+    characterLimit(count: number) {
+      return `Vous avez dépassé de ${count} caractères la limite autorisée`;
+    },
+    contentEditorAria: () => "Éditeur de texte enrichi",
+    italicAria: () => "Italique",
+    orderedListAria: () => "Liste ordonnée",
+    saveButton: () => "Enregistrer",
+    saveButtonAria: () => "Enregistrer",
+    toolbarAriaLabel: () => "Mise en forme",
+    unorderedListAria: () => "Liste non ordonnée",
+  },
   search: {
     searchButtonText: () => "Rechercher",
   },

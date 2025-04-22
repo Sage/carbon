@@ -209,6 +209,59 @@ test("character limit is not rendered when characterLimit prop is provided with 
   expect(characterCounter).not.toBeInTheDocument();
 });
 
+test("renders header content wrapped in a container when the `header` prop is provided", () => {
+  render(
+    <TextEditor
+      characterLimit={0}
+      labelText="Example"
+      namespace="test"
+      header={<span>foo</span>}
+    />,
+  );
+
+  const headerWrapper = screen.getByTestId("test-header-wrapper");
+
+  expect(headerWrapper).toBeVisible();
+  expect(headerWrapper).toHaveTextContent("foo");
+});
+
+test("renders footer content wrapped in a container when the `footer` prop is provided", () => {
+  render(
+    <TextEditor
+      characterLimit={0}
+      labelText="Example"
+      namespace="test"
+      footer={<span>foo</span>}
+    />,
+  );
+
+  const footerWrapper = screen.getByTestId("test-footer-wrapper");
+
+  expect(footerWrapper).toBeVisible();
+  expect(footerWrapper).toHaveTextContent("foo");
+});
+
+test("allows the simultaneous rendering of header and footer content wrapped in respective containers when the `header` and `footer` props are provided", () => {
+  render(
+    <TextEditor
+      characterLimit={0}
+      labelText="Example"
+      namespace="test"
+      header={<span>foo</span>}
+      footer={<span>bar</span>}
+    />,
+  );
+
+  const footerWrapper = screen.getByTestId("test-footer-wrapper");
+  const headerWrapper = screen.getByTestId("test-header-wrapper");
+
+  expect(headerWrapper).toBeVisible();
+  expect(headerWrapper).toHaveTextContent("foo");
+
+  expect(footerWrapper).toBeVisible();
+  expect(footerWrapper).toHaveTextContent("bar");
+});
+
 test("required prop renders correctly when required prop is provided", () => {
   // render the TextEditor component with the required prop
   render(<TextEditor labelText="Example" required />);
