@@ -552,7 +552,6 @@ test.describe("Accessibility tests for Portrait component", () => {
   });
 
   ["top", "bottom", "left", "right"].forEach((tooltipPosition) => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
     test(`should pass accessibility checks with tooltip positioned ${tooltipPosition}`, async ({
       mount,
       page,
