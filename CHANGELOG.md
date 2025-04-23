@@ -1,3 +1,9 @@
+## [153.5.1](https://github.com/Sage/carbon/compare/v153.5.0...v153.5.1) (2025-04-23)
+
+### Bug Fixes
+
+* **text-editor, note:** ensure links have correct styles ([ac9e0b8](https://github.com/Sage/carbon/commit/ac9e0b899f40366d25b28621c10d528efbf639e4))
+
 ## [153.5.0](https://github.com/Sage/carbon/compare/v153.4.0...v153.5.0) (2025-04-23)
 
 ### Features
