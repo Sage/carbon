@@ -1,3 +1,9 @@
+## [153.5.2](https://github.com/Sage/carbon/compare/v153.5.1...v153.5.2) (2025-04-23)
+
+### Bug Fixes
+
+* ensure there is no flash of reduce motion text in Loader components when page is reloaded ([c65e0b2](https://github.com/Sage/carbon/commit/c65e0b20c259973eb11c5e09e3ae460b5cc823a1)), closes [#7240](https://github.com/Sage/carbon/issues/7240)
+
 ## [153.5.1](https://github.com/Sage/carbon/compare/v153.5.0...v153.5.1) (2025-04-23)
 
 ### Bug Fixes
