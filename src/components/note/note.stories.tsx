@@ -31,7 +31,7 @@ type Story = StoryObj<typeof Note>;
 export const Default: Story = () => {
   const noteContent = "Here is some plain text content";
   return (
-    <Box height={200} width="50%">
+    <Box width="50%">
       <Note
         name="Lauren Smith"
         noteContent={noteContent}
@@ -50,7 +50,7 @@ export const WithRichText: Story = () => {
   <p>Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>`;
 
   return (
-    <Box height={300} width="50%">
+    <Box width="50%">
       <Note
         noteContent={html}
         name="Lauren Smith"
@@ -70,7 +70,7 @@ export const WithTitle: Story = () => {
   const titleNode = <Typography variant="h3">Here is a Title Node</Typography>;
 
   return (
-    <Box height={300} width="50%">
+    <Box width="50%">
       <Note
         title={titleNode}
         noteContent={html}
@@ -97,7 +97,7 @@ export const WithInlineControls: Story = () => {
     </ActionPopover>
   );
   return (
-    <Box height={300} width="50%">
+    <Box width="50%">
       <Note
         title="Here is a Title"
         inlineControl={inlineControl}
@@ -125,7 +125,7 @@ export const WithStatus: Story = () => {
     </ActionPopover>
   );
   return (
-    <Box height={300} width="50%">
+    <Box width="50%">
       <Note
         title="Here is a Title"
         inlineControl={inlineControl}
@@ -196,7 +196,7 @@ export const WithPreviews: Story = () => {
           direction: "ltr",
           format: "",
           indent: 0,
-          type: "code",
+          type: "paragraph",
           version: 1,
         },
       ],
@@ -288,7 +288,7 @@ export const PlainTextWithLinks: Story = () => {
   const noteContent =
     "Hello, World! www.bbc.co.uk http://www.google.com https://www.sage.com";
   return (
-    <Box height={200} width="50%">
+    <Box width="50%">
       <Note
         name="Lauren Smith"
         noteContent={noteContent}

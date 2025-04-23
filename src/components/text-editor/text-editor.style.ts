@@ -59,6 +59,24 @@ export const StyledWrapper = styled.div<StyledWrapperProps>`
       }
     `}
   `};
+
+  a:not([data-component="link-preview"]) {
+    color: var(--colorsActionMajor500);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--colorsActionMajor600);
+    }
+
+    &:focus {
+      outline: none;
+      text-decoration: none;
+      color: var(--colorsActionMajorYin090);
+      background-color: var(--colorsSemanticFocus250);
+      border-radius: var(--borderRadius025);
+      box-shadow: 0 var(--spacing050) 0 0 var(--colorsUtilityYin090);
+    }
+  }
 `;
 
 export const StyledEditorToolbarWrapper = styled.div<StyledEditorToolbarWrapperProps>`
