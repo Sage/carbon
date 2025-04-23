@@ -1,3 +1,9 @@
+## [153.5.0](https://github.com/Sage/carbon/compare/v153.4.0...v153.5.0) (2025-04-23)
+
+### Features
+
+* **fieldset, label:** add de-DE, es-ES, fr-CA and fr-FR support for optional indicators ([e78e212](https://github.com/Sage/carbon/commit/e78e212463177348e23a0961264d54bf10390cc8))
+
 ## [153.4.0](https://github.com/Sage/carbon/compare/v153.3.1...v153.4.0) (2025-04-16)
 
 ### Features
