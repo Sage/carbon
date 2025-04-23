@@ -23,12 +23,16 @@ export interface LoaderStarProps extends TagProps {
 const LoaderStar = ({
   loaderStarLabel,
   ...rest
-}: LoaderStarProps): JSX.Element => {
+}: LoaderStarProps): JSX.Element | null => {
   const locale = useLocale();
 
-  const reduceMotion = !useMediaQuery(
+  const allowMotion = useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
+
+  if (allowMotion === undefined) {
+    return null;
+  }
 
   const label = (
     <StyledLabel data-role="visible-label" variant="span" fontWeight="400">
@@ -41,9 +45,7 @@ const LoaderStar = ({
       role="status"
       {...tagComponent("loader-star", rest)}
     >
-      {reduceMotion ? (
-        label
-      ) : (
+      {allowMotion ? (
         <>
           <StyledStars>
             <Star starContainerClassName="star-1" gradientId="gradient1" />
@@ -54,6 +56,8 @@ const LoaderStar = ({
             {loaderStarLabel || locale.loaderStar.loading()}
           </Typography>
         </>
+      ) : (
+        label
       )}
     </StyledLoaderStarWrapper>
   );
