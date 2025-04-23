@@ -2015,7 +2015,6 @@ test.describe("Accessibility tests for Menu component", () => {
     await checkAccessibility(page);
   });
 
-  // Looks like this now passes.
   test(`should pass accessibility tests for Menu with icon`, async ({
     mount,
     page,
@@ -2098,7 +2097,6 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
 
   (["left", "right"] as MenuFullscreenProps["startPosition"][]).forEach(
     (side) => {
-      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
       test(`should pass accessibility tests when start position is ${side}`, async ({
         mount,
         page,
