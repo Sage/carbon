@@ -611,15 +611,12 @@ test.describe("Accessibility for DialogFullScreen", () => {
     await checkAccessibility(page, page.getByRole("dialog"));
   });
 
-  // This test now seems to pass.
   test("should check accessibility with header children", async ({
     mount,
     page,
   }) => {
     await mount(<DialogFullScreenWithHeaderChildren />);
 
-    // We will still need to skip the colour contrast check as the check is running before the animation is completely finished.
-    // This is because the Pill's bg colour is deemed too light compared to the text colour as the animation is fading in.
     // color-contrast ignored until we can investigate and fix FE-6245
     await checkAccessibility(page, page.getByRole("dialog"), "color-contrast");
   });
