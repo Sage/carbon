@@ -131,9 +131,8 @@ This prop will be called every time a user scrolls to the bottom of the list.
 
 ### Custom Option content
 
-It is also possible to render non-interactive content within the `Option` component.
-This can be achieved by passing `children` with no `value` or `text` props set. However,
-we recommend checking that there are no accessibility issues with this approach before using it.
+The `Option` component accepts any valid React node as children, which allows for custom content to be rendered inside the option. 
+The `text` value will be used as the displayed value in the input field when selected. You can also use the `leftChildren` prop to render a node to the left of the option text. 
 
 <Canvas of={SimpleSelectStories.CustomOptionChildren} />
 

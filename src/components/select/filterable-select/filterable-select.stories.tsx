@@ -835,6 +835,13 @@ export const CustomFilterAndOptionStyle: Story = () => {
         id="custom-filter-and-option-styles"
         label="Color"
         disableDefaultFiltering
+        leftChildren={
+          selectedColor && (
+            <Box display="flex" alignItems="center" ml={1}>
+              <Icon type="favourite" color={selectedColor} />
+            </Box>
+          )
+        }
       >
         {data.map(({ text, color }) => (
           <Option text={text} value={color} key={color}>
