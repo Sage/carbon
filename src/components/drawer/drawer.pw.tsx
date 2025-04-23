@@ -319,7 +319,6 @@ test.describe("Accessibility tests for Drawer component", () => {
   });
 
   ["3s", "15s"].forEach((animationDuration) => {
-    // It looks like these are now working as expected.
     test(`should pass accessibility tests when animation time is set to ${animationDuration}`, async ({
       mount,
       page,
