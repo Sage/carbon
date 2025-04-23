@@ -565,15 +565,12 @@ test.describe("Accessibility tests for Tile Select", () => {
     await checkAccessibility(page);
   });
 
-  // Yet again, we have two options here. We can either omit the colour contrast check as the mock component
-  // used in the test has a disabled tile select, which is causing this failure.
-  // Or we can remove the disabled tile select from the mock component.
   test("should pass accessibility tests for WithCustomSpacing example", async ({
     mount,
     page,
   }) => {
     await mount(<WithCustomSpacing />);
 
-    await checkAccessibility(page, undefined, "color-contrast");
+    await checkAccessibility(page);
   });
 });
