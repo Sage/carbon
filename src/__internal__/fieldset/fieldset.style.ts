@@ -25,6 +25,7 @@ type StyledLegendContentProps = {
   isRequired?: boolean;
   isOptional?: boolean;
   isDisabled?: boolean;
+  optionalLabel?: string;
 };
 const StyledLegendContent = styled.span<StyledLegendContentProps>`
   display: flex;
@@ -44,11 +45,11 @@ const StyledLegendContent = styled.span<StyledLegendContentProps>`
       }
     `}
 
-  ${({ isOptional }) =>
+  ${({ isOptional, optionalLabel }) =>
     isOptional &&
     css`
       ::after {
-        content: "(optional)";
+        content: "(${optionalLabel})";
         color: var(--colorsUtilityYin055);
         font-weight: var(--fontWeights400);
         margin-left: var(--spacing050);
