@@ -90,6 +90,9 @@ const deDE: Partial<Locale> = {
   heading: {
     backLinkAriaLabel: () => "Zurück",
   },
+  label: {
+    optional: () => "optional",
+  },
   link: {
     skipLinkLabel: () => "Zum Hauptinhalt springen",
   },
@@ -154,6 +157,24 @@ const deDE: Partial<Locale> = {
   },
   pod: {
     undo: () => "Rückgängig",
+  },
+  textEditor: {
+    boldAria: () => "Fett",
+    cancelButton: () => "Abbrechen",
+    cancelButtonAria: () => "Abbrechen",
+    characterCounter(count: number | string) {
+      return `Noch ${typeof count === "number" ? count.toString() : count} Zeichen`;
+    },
+    characterLimit(count: number) {
+      return `Sie sind ${count} Zeichen über dem Zeichenlimit`;
+    },
+    contentEditorAria: () => "Editor für Rich-Text-Inhalte",
+    italicAria: () => "Kursiv",
+    orderedListAria: () => "Sortierte Liste",
+    saveButton: () => "Speichern",
+    saveButtonAria: () => "Speichern",
+    toolbarAriaLabel: () => "Formatierung",
+    unorderedListAria: () => "Unsortierte Liste",
   },
   search: {
     searchButtonText: () => "Suchen",

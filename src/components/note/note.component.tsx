@@ -84,7 +84,7 @@ export const Note = ({
   };
 
   return (
-    <TextEditorContext.Provider value={{ onLinkAdded, readOnly: true }}>
+    <TextEditorContext.Provider value={{ onLinkAdded }}>
       <StyledNote width={width} {...rest} {...tagComponent("note", rest)}>
         <StyledNoteMain>
           <StyledNoteContent>

@@ -49,6 +49,8 @@ export interface StyledLabelContainerProps {
   pl?: 1 | 2;
   /** Label width */
   width?: number;
+  /** Text used for the optional label */
+  optionalLabel?: string;
 }
 
 export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
@@ -76,11 +78,11 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
       width: ${width}%;
     `}
 
-  ${({ optional }) =>
+  ${({ optional, optionalLabel }) =>
     optional &&
     css`
       ::after {
-        content: "(optional)";
+        content: "(${optionalLabel})";
         font-weight: var(--fontWeights400);
         margin-left: var(--spacing050);
         color: var(--colorsUtilityYin055);

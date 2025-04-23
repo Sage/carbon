@@ -17,6 +17,7 @@ interface StyledValidationMessageProps {
 
 interface StyledEditorToolbarWrapperProps {
   focused?: boolean;
+  hasWarningOrError?: boolean;
 }
 
 export const StyledTextEditor = styled(Box)`
@@ -55,10 +56,6 @@ export const StyledWrapper = styled.div<StyledWrapperProps>`
         .${namespace}-editable, #${namespace}-toolbar {
           outline: none;
         }
-
-        #${namespace}-toolbar {
-          border-top: 1px solid var(--colorsUtilityMajor200);
-        }
       }
     `}
   `};
@@ -83,12 +80,23 @@ export const StyledWrapper = styled.div<StyledWrapperProps>`
 `;
 
 export const StyledEditorToolbarWrapper = styled.div<StyledEditorToolbarWrapperProps>`
-  ${({ focused }) => css`
+  ${({ focused, hasWarningOrError }) => css`
     border-radius: var(--borderRadius100);
-    outline: none;
+    outline: ${hasWarningOrError
+      ? "none"
+      : "1px solid var(--colorsUtilityMajor200)"};
 
     ${focused && addFocusStyling()}
   `}
+`;
+
+export const StyledHeaderWrapper = styled.div`
+  padding: var(--spacing200);
+`;
+
+export const StyledFooterWrapper = styled.div`
+  border-top: 1px solid var(--colorsUtilityMajor200);
+  padding: var(--spacing200);
 `;
 
 export const StyledValidationMessage = styled.div<StyledValidationMessageProps>`

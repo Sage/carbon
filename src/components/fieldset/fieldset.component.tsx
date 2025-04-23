@@ -5,6 +5,7 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { FieldsetStyle, StyledLegend } from "./fieldset.style";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 export interface FieldsetProps extends MarginProps, TagProps {
   /** Child elements */
@@ -27,6 +28,8 @@ export const Fieldset = ({
   const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
   const marginProps = filterStyledSystemMarginProps(rest);
   const { validationRedesignOptIn } = useContext(NewValidationContext);
+  const locale = useLocale();
+  const optionalLabel = locale.label.optional();
 
   useEffect(() => {
     if (ref && required) {
@@ -51,6 +54,7 @@ export const Fieldset = ({
           data-element="legend"
           isRequired={required}
           isOptional={isOptional}
+          optionalLabel={optionalLabel}
         >
           {legend}
         </StyledLegend>
