@@ -9,6 +9,7 @@ import tagComponent, {
 import StyledLoader from "./loader.style";
 import StyledLoaderSquare, {
   StyledLoaderSquareProps,
+  StyledLoaderPlaceholder,
 } from "./loader-square.style";
 import Typography from "../typography";
 import Logger from "../../__internal__/utils/logger";
@@ -51,9 +52,13 @@ export const Loader = ({
 
   const l = useLocale();
 
-  const reduceMotion = !useMediaQuery(
+  const allowMotion = useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
+
+  if (allowMotion === undefined) {
+    return <StyledLoaderPlaceholder />;
+  }
 
   const loaderSquareProps = {
     isInsideButton,
@@ -68,9 +73,7 @@ export const Loader = ({
       {...tagComponent("loader", rest)}
       {...filterStyledSystemMarginProps(rest)}
     >
-      {reduceMotion ? (
-        loaderLabel || ariaLabel || l.loader.loading()
-      ) : (
+      {allowMotion ? (
         <>
           {["#13A038", "#0092DB", "#8F49FE"].map((color) => (
             <StyledLoaderSquare
@@ -88,6 +91,8 @@ export const Loader = ({
             {loaderLabel || ariaLabel || l.loader.loading()}
           </Typography>
         </>
+      ) : (
+        loaderLabel || ariaLabel || l.loader.loading()
       )}
     </StyledLoader>
   );

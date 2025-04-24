@@ -643,7 +643,7 @@ export const WithMultipleLinkPreviews: Story = () => {
 WithMultipleLinkPreviews.storyName = "Multiple Link Previews";
 
 export const ReadOnly: Story = () => {
-  const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p>`;
+  const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is an HTML example.</span><br><a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" dir="ltr"><span data-lexical-text="true">Carbon</span></a></p>`;
   const value = createFromHTML(initialValue);
   return (
     <TextEditor
