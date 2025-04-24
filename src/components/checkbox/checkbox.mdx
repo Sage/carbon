@@ -1,8 +1,6 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as CheckboxStories from "./checkbox.stories";
-import * as CheckboxGroupStories from "./checkbox-group/checkbox-group.stories";
-import * as ValidationStories from "./validations.stories";
 
 <Meta of={CheckboxStories} />
 
@@ -17,7 +15,7 @@ import * as ValidationStories from "./validations.stories";
   Product Design System component
 </a>
 
-- Checkbox provides a way to efficiently select more than one item from a list.
+Checkbox provides a way to check an individual option are selected, or check multiple options from a list.
 
 ## Contents
 
@@ -30,7 +28,7 @@ import * as ValidationStories from "./validations.stories";
 ## Quick Start
 
 ```javascript
-import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
+import { Checkbox } from "carbon-react/lib/components/checkbox";
 ```
 
 ## Designer Notes
@@ -47,8 +45,6 @@ import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 
 ## Examples
 
-### Default
-
 <Canvas of={CheckboxStories.Default} />
 
 ### Sizes
@@ -61,72 +57,31 @@ import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 
 ### Reversed
 
+Place input box to the right of the label.
+
 <Canvas of={CheckboxStories.Reversed} />
+
+### Required
+
+<Canvas of={CheckboxStories.Required} />
+
+### Optional
+
+<Canvas of={CheckboxStories.Optional} />
 
 ### With fieldHelp
 
 <Canvas of={CheckboxStories.WithFieldHelp} />
 
-### With labelHelp
+### Custom label width
 
-<Canvas of={CheckboxStories.WithLabelHelp} />
+<Canvas of={CheckboxStories.CustomLabelWidth} />
 
-### With custom labelWidth
+### With labelHelp (legacy)
 
-<Canvas of={CheckboxStories.WithCustomLabelWidth} />
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
 
-### Checkbox Group
-
-<Canvas of={CheckboxStories.CheckboxGroupStory} />
-
-### With inline legend
-
-The legend can be made inline by passing the `legendInline` prop to `CheckboxGroup`. Its width can be changed with the `legendWidth` prop and its text alignment with `legendAlign`.
-
-The spacing between the legend and the checkboxes can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, 
-so therefore `8px` or `16px`. The default is `2` for this prop.
-
-**Note:** The `legendInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
-
-<Canvas of={CheckboxStories.CheckboxGroupWithInlineLegend} />
-
-## Validations
-
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
-
-This is an example of `Checkbox` in a `CheckboxGroup` with validations passed as a string.
-
-You can use the `legendHelp` prop to provide a hint text for the group.
-
-<Canvas of={ValidationStories.NewStringValidation} />
-
-This is an example of `Checkbox` in a `CheckboxGroup` displayed inline using the `inline` prop. 
-
-<Canvas of={ValidationStories.NewInline} />
-
-This is an example of `Checkbox` in a `CheckboxGroup` with validations passed as a string displayed inline.
-
-<Canvas of={ValidationStories.NewStringValidationInline} />
-
-### Required
-
-You can use the `required` prop to indicate if the fields are mandatory. This can be done on 
-an individual checkbox input or on the group level.
-
-<Canvas of={CheckboxStories.Required} />
-
-<Canvas of={CheckboxStories.CheckboxGroupRequired} />
-
-### IsOptional
-
-You can use the `isOptional` prop to indicate if the fields are optional. This can be done on 
-an individual checkbox input or on the group level.
-
-<Canvas of={CheckboxStories.IsOptional} />
-
-<Canvas of={CheckboxStories.CheckboxGroupIsOptional} />
+<Canvas of={CheckboxStories.LegacyLabelHelp} />
 
 ## Props
 
@@ -135,7 +90,3 @@ an individual checkbox input or on the group level.
 <ArgTypes of={CheckboxStories} />
 
 **Any other supplied props will be provided to the underlying HTML input element**
-
-### CheckboxGroup
-
-<ArgTypes of={CheckboxGroupStories} />
