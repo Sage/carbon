@@ -6,6 +6,7 @@ export type Alignment = "left" | "right";
 type ActionPopoverContextType = {
   setOpenPopover: (isOpen: boolean) => void;
   focusButton: () => void;
+  horizontalAlignment: Alignment;
   submenuPosition: Alignment;
 };
 

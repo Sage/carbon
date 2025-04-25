@@ -333,6 +333,7 @@ export const ActionPopover = forwardRef<
             setOpenPopover: setOpen,
             focusButton,
             submenuPosition,
+            horizontalAlignment,
           }}
         >
           {isOpen && (
@@ -351,7 +352,6 @@ export const ActionPopover = forwardRef<
                 isOpen={isOpen}
                 setOpen={setOpen}
                 placement={placement}
-                horizontalAlignment={horizontalAlignment}
               >
                 {children}
               </ActionPopoverMenu>
