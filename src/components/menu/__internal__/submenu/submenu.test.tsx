@@ -4,15 +4,17 @@ import userEvent from "@testing-library/user-event";
 
 import FixedNavigationBarContext from "components/navigation-bar/__internal__/fixed-navigation-bar.context";
 import { Menu, MenuItem, MenuSegmentTitle } from "../..";
-import MenuContext, { MenuContextProps } from "../menu.context";
+import {
+  StrictMenuContextType,
+  StrictMenuProvider,
+} from "../strict-menu.context";
 import Submenu from "./submenu.component";
 import ScrollableBlock from "../../scrollable-block";
 
-const menuContextValues: MenuContextProps = {
+const menuContextValues: StrictMenuContextType = {
   menuType: "light",
   setOpenSubmenuId: () => {},
   openSubmenuId: null,
-  inMenu: true,
 };
 
 test("should render the last menu item with the correct styles", async () => {
@@ -137,12 +139,12 @@ test("should render the scrollable block with the correct styles on the last men
 
 test("should not render submenu when closed", () => {
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
 
   expect(screen.queryByRole("menu")).not.toBeInTheDocument();
@@ -151,12 +153,12 @@ test("should not render submenu when closed", () => {
 test("should render submenu when user hovers over on parent menu item", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title" variant="alternate">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.hover(menuItem);
@@ -168,12 +170,12 @@ test("should render submenu when user hovers over on parent menu item", async ()
 test("should remove submenu element from the document when it's closed by the user moving the mouse away", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.hover(menuItem);
@@ -186,12 +188,12 @@ test("should remove submenu element from the document when it's closed by the us
 test("should render submenu when parent item is clicked", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -203,12 +205,12 @@ test("should render submenu when parent item is clicked", async () => {
 test("should not display submenu when user hovers over parent menu item and `clickToOpen` is set", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title" clickToOpen>
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.hover(menuItem);
@@ -221,12 +223,12 @@ test("should call the `onSubmenuOpen` callback when the submenu opens and prop h
   const user = userEvent.setup();
   const mockCallback = jest.fn();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title" onSubmenuOpen={mockCallback}>
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -238,12 +240,12 @@ test("should call the `onSubmenuClose` callback when the submenu closes and prop
   const user = userEvent.setup();
   const mockCallback = jest.fn();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title" onSubmenuClose={mockCallback}>
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -255,12 +257,12 @@ test("should call the `onSubmenuClose` callback when the submenu closes and prop
 test("should render submenu with the correct styles when `submenuDirection` is set to `left`", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title" submenuDirection="left">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -274,12 +276,12 @@ test("should render submenu with the correct styles when `submenuDirection` is s
 test("should render submenu with the correct styles when `submenuDirection` is set to `right`", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title" submenuDirection="right">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -293,12 +295,12 @@ test("should render submenu with the correct styles when `submenuDirection` is s
 test("should close submenu when the user clicks outside of the component boundary", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -312,7 +314,7 @@ test("should support focusing elements via the user typing a search string", asy
   jest.useFakeTimers();
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
@@ -320,7 +322,7 @@ test("should support focusing elements via the user typing a search string", asy
         <MenuItem href="#">Orange</MenuItem>
         <MenuItem href="#">Strawberry</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -341,7 +343,7 @@ test("resets search string after 1.5s and focuses the correct item on next chara
 
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
@@ -349,7 +351,7 @@ test("resets search string after 1.5s and focuses the correct item on next chara
         <MenuItem href="#">Orange</MenuItem>
         <MenuItem href="#">Strawberry</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -375,7 +377,7 @@ test("should focus the first item that matches when the search string matches mu
   jest.useFakeTimers();
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Mango</MenuItem>
@@ -383,7 +385,7 @@ test("should focus the first item that matches when the search string matches mu
         <MenuItem href="#">Melon</MenuItem>
         <MenuItem href="#">Strawberry</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -411,7 +413,7 @@ test("should not focus a menu item when the search string does not match any ite
   jest.useFakeTimers();
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
@@ -419,7 +421,7 @@ test("should not focus a menu item when the search string does not match any ite
         <MenuItem href="#">Orange</MenuItem>
         <MenuItem href="#">Strawberry</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -439,7 +441,7 @@ test("should not focus a menu item when the search string does not match any ite
 test("should render submenu with role list when a ScrollableBlock with a `parent` is passed with `children`", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
@@ -450,7 +452,7 @@ test("should render submenu with role list when a ScrollableBlock with a `parent
         <MenuItem href="#">Mango</MenuItem>
         <MenuItem href="#">Melon</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
@@ -465,7 +467,7 @@ test("should render the menu with a max-height set when the `maxHeight` prop is 
   const user = userEvent.setup();
   render(
     <FixedNavigationBarContext.Provider value={{ submenuMaxHeight: "80px" }}>
-      <MenuContext.Provider value={menuContextValues}>
+      <StrictMenuProvider value={menuContextValues}>
         <Submenu title="title">
           <MenuItem href="#">Item 1</MenuItem>
           <MenuItem href="#">Item 2</MenuItem>
@@ -478,7 +480,7 @@ test("should render the menu with a max-height set when the `maxHeight` prop is 
           <MenuItem href="#">Item 9</MenuItem>
           <MenuItem href="#">Item 10</MenuItem>
         </Submenu>
-      </MenuContext.Provider>
+      </StrictMenuProvider>
     </FixedNavigationBarContext.Provider>,
   );
   const parentMenuItem = screen.getByRole("button", { name: "title" });
@@ -493,7 +495,7 @@ test("should render the menu with a max-height set when the `maxHeight` prop is 
 test("should override submenu children's `maxWidth` if `submenuMaxWidth` is set", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="title" submenuMaxWidth="300px">
         <MenuItem maxWidth="400px" href="#">
           Apple
@@ -502,7 +504,7 @@ test("should override submenu children's `maxWidth` if `submenuMaxWidth` is set"
           Banana
         </MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.hover(menuItem);
@@ -517,12 +519,12 @@ test("should override submenu children's `maxWidth` if `submenuMaxWidth` is set"
 test("sets minimum width for submenu when `submenuMinWidth` is set", async () => {
   const user = userEvent.setup();
   render(
-    <MenuContext.Provider value={menuContextValues}>
+    <StrictMenuProvider value={menuContextValues}>
       <Submenu title="Fruits" submenuMinWidth="300px">
         <MenuItem href="#">Apple</MenuItem>
         <MenuItem href="#">Banana</MenuItem>
       </Submenu>
-    </MenuContext.Provider>,
+    </StrictMenuProvider>,
   );
   const menuItem = screen.getByRole("button", { name: "Fruits" });
   await user.hover(menuItem);

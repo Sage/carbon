@@ -2,28 +2,38 @@ import React, { useState, useEffect } from "react";
 import { render, screen, within, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { MenuItem } from "..";
+import { Menu, MenuItem } from "..";
 import MenuFullscreen from ".";
-import MenuContext from "../__internal__/menu.context";
+
+import Logger from "../../../__internal__/utils/logger";
+import { sageTheme } from "../../../style/themes";
 
 import CarbonProvider from "../../carbon-provider";
-import { sageTheme } from "../../../style/themes";
+
+test("logs error if not used within Menu", () => {
+  const loggerErrorSpy = jest
+    .spyOn(Logger, "error")
+    .mockImplementation(() => {});
+
+  render(<MenuFullscreen onClose={() => {}} />);
+
+  expect(loggerErrorSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon Menu: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
+  );
+
+  loggerErrorSpy.mockRestore();
+});
 
 test("should not render the menu when `isOpen` is falsy", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "light",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu>
         <MenuFullscreen onClose={() => {}}>
           <MenuItem href="#">Item one</MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
 
@@ -33,21 +43,14 @@ test("should not render the menu when `isOpen` is falsy", () => {
 test("should have the expected `data-` tags when menu is open", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "light",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu>
         <MenuFullscreen
           data-element="bar"
           data-role="baz"
           isOpen
           onClose={() => {}}
         />
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
   const menu = screen.getByRole("dialog");
@@ -60,16 +63,9 @@ test("should have the expected `data-` tags when menu is open", () => {
 test("should have the expected ARIA properties when menu is open", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "light",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu>
         <MenuFullscreen isOpen onClose={() => {}} aria-label="My menu" />
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
   const menu = screen.getByRole("dialog");
@@ -80,14 +76,7 @@ test("should have the expected ARIA properties when menu is open", () => {
 test("should render the children with the expected divider elements added", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "light",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu>
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem maxWidth="200px" href="#">
             Menu Item One
@@ -123,7 +112,7 @@ test("should render the children with the expected divider elements added", () =
             Menu Item Six
           </MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
 
@@ -134,14 +123,7 @@ test("should render the children with the expected divider elements added", () =
 test("should set any `maxWidth` values passed to items to undefined", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "light",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu>
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem maxWidth="200px" href="#">
             Menu Item One
@@ -177,7 +159,7 @@ test("should set any `maxWidth` values passed to items to undefined", () => {
             Menu Item Six
           </MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
   const items = screen.getAllByRole("listitem");
@@ -190,18 +172,11 @@ test("should set any `maxWidth` values passed to items to undefined", () => {
 test("should apply the expected color to the close icon when `menuType` is 'light'", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "light",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu menuType="light">
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem href="#">Item one</MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
   const closeButton = screen.getByRole("button", { name: "Close" });
@@ -213,18 +188,11 @@ test("should apply the expected color to the close icon when `menuType` is 'ligh
 test("should apply the expected color to the close icon when `menuType` is 'dark'", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "dark",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu menuType="dark">
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem href="#">Item one</MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
   const closeButton = screen.getByRole("button", { name: "Close" });
@@ -236,18 +204,11 @@ test("should apply the expected color to the close icon when `menuType` is 'dark
 test("should apply the expected color to the close icon when `menuType` is 'white'", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "white",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu menuType="white">
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem href="#">Item one</MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
   const closeButton = screen.getByRole("button", { name: "Close" });
@@ -259,18 +220,11 @@ test("should apply the expected color to the close icon when `menuType` is 'whit
 test("should apply the expected color to the close icon when `menuType` is 'black'", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "black",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu menuType="black">
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem href="#">Item one</MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
   const closeButton = screen.getByRole("button", { name: "Close" });
@@ -284,18 +238,11 @@ test("should call the passed `onClose` callback when the close button is clicked
   const user = userEvent.setup();
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "light",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu>
         <MenuFullscreen isOpen onClose={onClose}>
           <MenuItem href="#">Item 1</MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
   await user.click(screen.getByRole("button", { name: "Close" }));
@@ -308,18 +255,11 @@ test("should call the passed `onClose` callback when the 'Escape' key is pressed
   const user = userEvent.setup();
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "black",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu>
         <MenuFullscreen isOpen onClose={onClose}>
           <MenuItem href="#">Item 1</MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
   await user.keyboard("{Escape}");
@@ -332,20 +272,13 @@ test("should call the passed `onClick` callback when the menu item is clicked", 
   const user = userEvent.setup();
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "black",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu>
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem onClick={onClick} href="#">
             Item 1
           </MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
   await user.click(screen.getByRole("link"));
@@ -358,20 +291,13 @@ test("should call the passed `onClick` callback when the submenu item is clicked
   const user = userEvent.setup();
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "black",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu>
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem submenu="Submenu" onClick={onClick} href="#">
             <MenuItem href="#">Item 1</MenuItem>
           </MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
   await user.click(screen.getByRole("link", { name: "Submenu" }));
@@ -382,20 +308,13 @@ test("should call the passed `onClick` callback when the submenu item is clicked
 test("should focus the root container, when menu is opened", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "black",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu>
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem submenu="Submenu">
             <MenuItem href="#">Item 1</MenuItem>
           </MenuItem>
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
 
@@ -405,21 +324,14 @@ test("should focus the root container, when menu is opened", () => {
 test("should not render a divider when menu contains a falsy values", () => {
   render(
     <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-      <MenuContext.Provider
-        value={{
-          menuType: "black",
-          openSubmenuId: null,
-          inMenu: true,
-          setOpenSubmenuId: () => {},
-        }}
-      >
+      <Menu>
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem maxWidth="200px" href="#">
             Submenu Item One
           </MenuItem>
           {false && <MenuItem href="#">Product Item One</MenuItem>}
         </MenuFullscreen>
-      </MenuContext.Provider>
+      </Menu>
     </CarbonProvider>,
   );
 
@@ -448,14 +360,7 @@ test("should maintain the state of any child items if items are added or removed
 
     return (
       <CarbonProvider validationRedesignOptIn theme={sageTheme}>
-        <MenuContext.Provider
-          value={{
-            menuType: "light",
-            openSubmenuId: null,
-            inMenu: true,
-            setOpenSubmenuId: () => {},
-          }}
-        >
+        <Menu>
           <MenuFullscreen onClose={() => {}} isOpen>
             {extraItem ? (
               <MenuItem submenu="extra submenu">
@@ -472,7 +377,7 @@ test("should maintain the state of any child items if items are added or removed
               <MenuItem href="#">Item Two</MenuItem>
             </MenuItem>
           </MenuFullscreen>
-        </MenuContext.Provider>
+        </Menu>
       </CarbonProvider>
     );
   };
