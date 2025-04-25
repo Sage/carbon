@@ -9,6 +9,40 @@ import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-
 import CarbonProvider from "../carbon-provider";
 import I18nProvider from "../i18n-provider";
 
+import Logger from "../../__internal__/utils/logger";
+
+jest.mock("../../__internal__/utils/logger");
+
+test("should display deprecation warning once when rendered as optional", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <DateRange
+        startLabel="start"
+        endLabel="end"
+        value={["2016-10-10", "2016-11-11"]}
+        onChange={() => {}}
+        isOptional
+      />
+      <DateRange
+        startLabel="start"
+        endLabel="end"
+        value={["2016-10-10", "2016-11-11"]}
+        onChange={() => {}}
+        isOptional
+      />
+    </>,
+  );
+
+  expect(loggerSpy).toHaveBeenNthCalledWith(
+    1,
+    "`isOptional` is deprecated in DateRange and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+  );
+
+  loggerSpy.mockRestore();
+});
+
 testStyledSystemMargin(
   (props) => (
     <DateRange

@@ -6,6 +6,8 @@ import React from "react";
 import TextEditor, { createEmpty, createFromHTML } from ".";
 import { COMPONENT_PREFIX } from "./__internal__/constants";
 
+import Logger from "../../__internal__/utils/logger";
+
 /**
  * Mock the OnChangePlugin whilst testing the full editor. This is to prevent
  * the editor from attempting to repeatedly create update listeners when the
@@ -16,6 +18,8 @@ import { COMPONENT_PREFIX } from "./__internal__/constants";
 jest.mock("./__internal__/plugins/OnChange/on-change.plugin", () => {
   return jest.fn().mockReturnValue(null);
 });
+
+jest.mock("../../__internal__/utils/logger");
 
 // Reusable JSON object for testing the default state
 const initialValue = {
@@ -49,6 +53,27 @@ const initialValue = {
     version: 1,
   },
 };
+
+test("should display deprecation warning once when rendered as optional", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <TextEditor labelText="label" isOptional />
+      <TextEditor labelText="label" isOptional />
+    </>,
+  );
+
+  // Ensure the deprecation warning is logged only once
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  expect(loggerSpy).toHaveBeenNthCalledWith(
+    1,
+    "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+  );
+
+  loggerSpy.mockRestore();
+});
 
 test("rendering and basic functionality", async () => {
   const user = userEvent.setup();

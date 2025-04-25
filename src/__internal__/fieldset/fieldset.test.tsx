@@ -6,7 +6,7 @@ import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-
 test("renders with provided `children`", () => {
   render(
     <Fieldset>
-      <input />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
 
@@ -18,7 +18,7 @@ test("renders with provided `children`", () => {
 test("renders fieldset with provided `legend`", () => {
   render(
     <Fieldset legend="Legend">
-      <input />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
 
@@ -30,8 +30,8 @@ test("renders fieldset with provided `legend`", () => {
 test("sets child inputs as required when `isRequired` is true", () => {
   render(
     <Fieldset isRequired>
-      <input />
-      <input />
+      <input title="Test" placeholder="Placeholder" />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
 
@@ -44,7 +44,7 @@ test("sets child inputs as required when `isRequired` is true", () => {
 test("renders validation icon and hidden message when `legend` and `error` are provided", () => {
   render(
     <Fieldset legend="Legend" error="error message">
-      <input />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
 
@@ -58,7 +58,7 @@ test("renders validation icon and hidden message when `legend` and `error` are p
 test("renders validation icon and hidden message when `legend` and `warning` are provided", () => {
   render(
     <Fieldset legend="Legend" warning="warning message">
-      <input />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
 
@@ -72,7 +72,7 @@ test("renders validation icon and hidden message when `legend` and `warning` are
 test("renders validation icon and hidden message when `legend` and `info` are provided", () => {
   render(
     <Fieldset legend="Legend" info="info message">
-      <input />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
 
@@ -86,7 +86,7 @@ test("renders validation icon and hidden message when `legend` and `info` are pr
 test("renders help icon when `labelHelp` is provided", () => {
   render(
     <Fieldset legend="Legend" labelHelp="label help">
-      <input />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
 
@@ -99,7 +99,7 @@ test("renders help icon when `labelHelp` is provided", () => {
 test("sets `aria-describedby` on help icon as tooltip content when focused and removes it on blur", () => {
   render(
     <Fieldset legend="Legend" labelHelp="label help">
-      <input />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
   const help = screen.getByRole("button", { name: "help" });
@@ -119,7 +119,7 @@ test("sets `aria-describedby` on help icon as tooltip content when focused and r
 test("renders legend with provided `legendWidth` when `inline` is true", () => {
   render(
     <Fieldset legend="Legend" inline legendWidth={30}>
-      <input />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
 
@@ -132,7 +132,7 @@ test("renders legend with provided `legendWidth` when `inline` is true", () => {
 test("renders with expected styles when `inline` is true and `legendAlign` is 'left'", () => {
   render(
     <Fieldset legend="Legend" inline legendAlign="left">
-      <input />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
 
@@ -145,7 +145,7 @@ test("renders with expected styles when `inline` is true and `legendAlign` is 'l
 test("renders with expected padding when `inline` is true and `legendSpacing` is 1", () => {
   render(
     <Fieldset legend="Legend" inline legendSpacing={1}>
-      <input />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
 
@@ -157,7 +157,7 @@ test("renders with expected padding when `inline` is true and `legendSpacing` is
 testStyledSystemMargin(
   (props) => (
     <Fieldset {...props}>
-      <input />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>
   ),
   () => screen.getByRole("group"),

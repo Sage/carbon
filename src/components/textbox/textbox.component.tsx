@@ -120,7 +120,10 @@ export interface CommonTextboxProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** [Legacy] Aria label for rendered help component. */
   helpAriaLabel?: string;
-  /** Flag to configure component as optional. */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** The id attribute for the validation tooltip */
   tooltipId?: string;
@@ -137,8 +140,9 @@ export interface TextboxProps extends CommonTextboxProps {
   characterLimit?: number;
 }
 
-let deprecateUncontrolledWarnTriggered = false;
 let deprecatedAriaDescribedByWarnTriggered = false;
+let deprecateOptionalWarnTriggered = false;
+let deprecateUncontrolledWarnTriggered = false;
 
 export const Textbox = React.forwardRef(
   (
@@ -200,6 +204,12 @@ export const Textbox = React.forwardRef(
     }: TextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
+    if (!deprecateOptionalWarnTriggered && isOptional) {
+      deprecateOptionalWarnTriggered = true;
+      Logger.deprecate(
+        "`isOptional` is deprecated in Textbox and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+      );
+    }
     const characterCountValue = typeof value === "string" ? value : "";
 
     const [uniqueId, uniqueName] = useUniqueId(id, name);

@@ -23,6 +23,7 @@ import { SerializeLexical, validateUrl } from "./__internal__/helpers";
 import Label from "../../__internal__/label";
 import useDebounce from "../../hooks/__internal__/useDebounce";
 import useLocale from "../../hooks/__internal__/useLocale";
+import Logger from "../../__internal__/utils/logger";
 
 import {
   COMPONENT_PREFIX,
@@ -66,7 +67,10 @@ export interface TextEditorProps extends MarginProps, TagProps {
   header?: React.ReactNode;
   /** A hint string rendered before the editor but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: string;
-  /** Whether the content of the editor can be empty */
+  /**
+   * [Legacy] Whether the content of the editor can be empty
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** The label to display above the editor */
   labelText: string;
@@ -96,6 +100,8 @@ export interface TextEditorProps extends MarginProps, TagProps {
   value?: string | undefined;
 }
 
+let deprecateOptionalWarnTriggered = false;
+
 export const TextEditor = ({
   characterLimit = 3000,
   error,
@@ -118,6 +124,12 @@ export const TextEditor = ({
   value,
   ...rest
 }: TextEditorProps) => {
+  if (!deprecateOptionalWarnTriggered && isOptional) {
+    deprecateOptionalWarnTriggered = true;
+    Logger.deprecate(
+      "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+    );
+  }
   const editorRef = useRef<LexicalEditor | undefined>(undefined);
   const locale = useLocale();
   const [characterLimitWarning, setCharacterLimitWarning] = useState<

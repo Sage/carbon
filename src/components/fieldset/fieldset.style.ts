@@ -42,7 +42,10 @@ FieldsetStyle.defaultProps = {
 export interface StyledLegendProps {
   /** Flag to configure fields as mandatory. */
   isRequired?: boolean;
-  /** Flag to configure fields as optional. */
+  /**
+   * [Legacy] Flag to configure fields as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** Text used for the optional label */
   optionalLabel?: string;

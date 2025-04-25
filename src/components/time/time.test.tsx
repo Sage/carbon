@@ -13,6 +13,10 @@ import I18nProvider from "../i18n-provider";
 import { TimeInputEvent, TimeValue } from "./time.component";
 import Button from "../button";
 
+import Logger from "../../__internal__/utils/logger";
+
+jest.mock("../../__internal__/utils/logger");
+
 const localeMock = {
   time: {
     amText: () => "foo-toggle",
@@ -167,6 +171,27 @@ testStyledSystemMargin(
   ),
   () => screen.getByRole("group"),
 );
+
+test("should display deprecation warning once when rendered as optional", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <Time value={{ hours: "", minutes: "" }} onChange={() => {}} isOptional />
+      <Time value={{ hours: "", minutes: "" }} onChange={() => {}} isOptional />
+    </>,
+  );
+
+  // Ensure the deprecation warning is logged only once
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  expect(loggerSpy).toHaveBeenNthCalledWith(
+    1,
+    "`isOptional` is deprecated in Time and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+  );
+
+  loggerSpy.mockRestore();
+});
 
 test("should not display the AM/PM toggle by default", () => {
   render(<Time value={{ hours: "", minutes: "" }} onChange={() => {}} />);
