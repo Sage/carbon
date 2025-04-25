@@ -44,8 +44,6 @@ export interface ActionPopoverItemProps {
   /** @ignore @private */
   focusItem?: boolean;
   /** @ignore @private */
-  horizontalAlignment?: Alignment;
-  /** @ignore @private */
   currentSubmenuPosition?: Alignment;
   /** @ignore @private */
   setCurrentSubmenuPosition?: (value: Alignment) => void;
@@ -95,7 +93,6 @@ export const ActionPopoverItem = ({
   focusItem,
   download,
   href,
-  horizontalAlignment,
   currentSubmenuPosition,
   setCurrentSubmenuPosition,
   ...rest
@@ -348,7 +345,6 @@ export const ActionPopoverItem = ({
               setOpen,
               setFocusIndex,
               focusIndex,
-              horizontalAlignment,
             },
           )
         : null}
