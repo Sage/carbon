@@ -41,8 +41,6 @@ export interface ActionPopoverMenuBaseProps {
   setOpen?: (args: boolean) => void;
   /** Unique ID for the menu's parent */
   parentID?: string;
-  /** Horizontal alignment of menu items content */
-  horizontalAlignment?: Alignment;
   /** Set whether the menu should open above or below the button */
   placement?: "bottom" | "top";
   /** @ignore @private */
@@ -76,12 +74,12 @@ const ActionPopoverMenu = React.forwardRef<
       setOpen,
       setFocusIndex,
       placement = "bottom",
-      horizontalAlignment = "left",
       ...rest
     }: ActionPopoverMenuBaseProps,
     ref,
   ) => {
-    const { focusButton, submenuPosition } = useActionPopoverContext();
+    const { focusButton, submenuPosition, horizontalAlignment } =
+      useActionPopoverContext();
 
     invariant(
       setOpen && setFocusIndex && typeof focusIndex !== "undefined",
@@ -218,7 +216,6 @@ const ActionPopoverMenu = React.forwardRef<
             {
               focusItem: isOpen && focusIndex === index - 1,
               placement: child.props.submenu ? placement : undefined,
-              horizontalAlignment,
               currentSubmenuPosition,
               setCurrentSubmenuPosition,
             },
@@ -227,14 +224,7 @@ const ActionPopoverMenu = React.forwardRef<
 
         return child;
       });
-    }, [
-      children,
-      focusIndex,
-      isOpen,
-      placement,
-      horizontalAlignment,
-      currentSubmenuPosition,
-    ]);
+    }, [children, focusIndex, isOpen, placement, currentSubmenuPosition]);
 
     return (
       <Menu
