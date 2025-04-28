@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import { StyledTitle, StyledSegmentChildren } from "./menu-segment-title.style";
 
-import MenuContext from "../__internal__/menu.context";
+import { useStrictMenuContext } from "../__internal__/strict-menu.context";
 import { StyledMenuItem } from "../menu.style";
 import { VariantType } from "../menu-item";
 import tagComponent, {
@@ -27,25 +27,25 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
     { children, variant = "default", text, as = "h2", ...rest }: MenuTitleProps,
     ref,
   ) => {
-    const menuContext = useContext(MenuContext);
+    const { menuType, inFullscreenView } = useStrictMenuContext();
     const { submenuHasMaxWidth } = useContext(SubmenuContext);
 
-    const isChildOfFullscreenMenu = menuContext?.inFullscreenView || false;
+    const isChildOfFullscreenMenu = !!inFullscreenView;
 
     const overriddenVariant = useMemo(() => {
       return isChildOfFullscreenMenu &&
         variant === "alternate" &&
-        ["white", "black"].includes(menuContext.menuType)
+        ["white", "black"].includes(menuType)
         ? "default"
         : variant;
-    }, [isChildOfFullscreenMenu, menuContext.menuType, variant]);
+    }, [isChildOfFullscreenMenu, menuType, variant]);
 
     return (
       <StyledMenuItem inSubmenu>
         <StyledTitle
           as={AS_VALUES.includes(as) ? as : /* istanbul ignore next */ "h2"}
           {...tagComponent("menu-segment-title", rest)}
-          menuType={menuContext.menuType}
+          menuType={menuType}
           ref={ref}
           variant={overriddenVariant}
           shouldWrap={submenuHasMaxWidth}
@@ -55,7 +55,7 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
         {children && (
           <StyledSegmentChildren
             data-role="menu-segment-children"
-            menuType={menuContext.menuType}
+            menuType={menuType}
             variant={overriddenVariant}
           >
             <MenuSegmentContext.Provider

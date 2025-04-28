@@ -4,7 +4,6 @@ import { padding, PaddingProps } from "styled-system";
 
 import menuConfigVariants from "../menu.config";
 import Link from "../../link";
-import { MenuType } from "../__internal__/menu.context";
 import StyledButton from "../../button/button.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import StyledIcon from "../../icon/icon.style";
@@ -13,6 +12,8 @@ import { baseTheme } from "../../../style/themes";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 
 import { MenuWithChildren } from "./menu-item.component";
+
+import type { MenuType } from "../menu.types";
 
 interface StyledMenuItemWrapperProps
   extends Pick<

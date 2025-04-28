@@ -1,3 +1,9 @@
+## [153.7.0](https://github.com/Sage/carbon/compare/v153.6.0...v153.7.0) (2025-04-25)
+
+### Features
+
+* **menu:** subcomponents log console warning when used outside Menu ([a167915](https://github.com/Sage/carbon/commit/a1679153b399ead1595ad519df5316a713ae1d9e))
+
 ## [153.6.0](https://github.com/Sage/carbon/compare/v153.5.2...v153.6.0) (2025-04-24)
 
 ### Features

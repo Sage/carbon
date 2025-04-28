@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 
 import { characterNavigation, menuKeyboardNavigation } from ".";
-import MenuItem from "../../menu-item";
+import { Menu, MenuItem } from "../..";
 import Box from "../../../box";
 import Logger from "../../../../__internal__/utils/logger";
 
@@ -19,7 +19,7 @@ const getMockEvent = (key: string, which?: number) => {
 };
 
 const MockMenu = () => (
-  <ul>
+  <Menu>
     <MenuItem href="#">Apple</MenuItem>
     <MenuItem data-role="banana" href="#">
       Banana
@@ -35,7 +35,7 @@ const MockMenu = () => (
       <span>Rhubarb</span> <Box>and</Box> Ginger
     </MenuItem>
     <li>Not a menu item</li>
-  </ul>
+  </Menu>
 );
 
 beforeAll(() => loggerSpy.mockImplementation(() => {}));
