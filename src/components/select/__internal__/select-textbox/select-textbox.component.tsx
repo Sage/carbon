@@ -67,7 +67,10 @@ export interface FormInputPropTypes
    *
    */
   labelId?: string;
-  /** Flag to configure component as optional in Form */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
 }
 

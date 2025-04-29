@@ -6,6 +6,7 @@ import { FieldsetStyle, StyledLegend } from "./fieldset.style";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
+import Logger from "../../__internal__/utils/logger";
 
 export interface FieldsetProps extends MarginProps, TagProps {
   /** Child elements */
@@ -14,9 +15,14 @@ export interface FieldsetProps extends MarginProps, TagProps {
   legend?: string;
   /** Flag to configure fields as mandatory. */
   required?: boolean;
-  /** Flag to configure fields as optional. */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
 }
+
+let deprecateOptionalWarnTriggered = false;
 
 export const Fieldset = ({
   children,
@@ -25,6 +31,12 @@ export const Fieldset = ({
   isOptional,
   ...rest
 }: FieldsetProps) => {
+  if (!deprecateOptionalWarnTriggered && isOptional) {
+    deprecateOptionalWarnTriggered = true;
+    Logger.deprecate(
+      "`isOptional` is deprecated in Fieldset and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+    );
+  }
   const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
   const marginProps = filterStyledSystemMarginProps(rest);
   const { validationRedesignOptIn } = useContext(NewValidationContext);

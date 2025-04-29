@@ -106,7 +106,10 @@ export interface TextareaProps
   placeholder?: string;
   /** Adds readOnly property */
   readOnly?: boolean;
-  /** Flag to configure component as optional */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** The number of visible text lines for the control. When set, this determines the height of the textarea, and the minHeight property is ignored. */
   rows?: number;
@@ -130,8 +133,9 @@ export interface TextareaProps
   minHeight?: number;
 }
 
-let deprecateUncontrolledWarnTriggered = false;
 let deprecatedAriaDescribedByWarnTriggered = false;
+let deprecateOptionalWarnTriggered = false;
+let deprecateUncontrolledWarnTriggered = false;
 let warnBorderRadiusArrayTooLarge = false;
 
 export const Textarea = React.forwardRef(
@@ -183,6 +187,12 @@ export const Textarea = React.forwardRef(
     }: TextareaProps,
     ref: React.ForwardedRef<HTMLTextAreaElement>,
   ) => {
+    if (!deprecateOptionalWarnTriggered && isOptional) {
+      deprecateOptionalWarnTriggered = true;
+      Logger.deprecate(
+        "`isOptional` is deprecated in TextArea and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+      );
+    }
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
     const labelInlineWithNewValidation = validationRedesignOptIn

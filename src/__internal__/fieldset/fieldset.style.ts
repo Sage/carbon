@@ -23,6 +23,10 @@ StyledFieldset.defaultProps = {
 
 type StyledLegendContentProps = {
   isRequired?: boolean;
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `isRequired` prop and set it to false instead.
+   */
   isOptional?: boolean;
   isDisabled?: boolean;
   optionalLabel?: string;

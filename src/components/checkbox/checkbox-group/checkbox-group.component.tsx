@@ -16,6 +16,7 @@ import CheckboxGroupContext from "./__internal__/checkbox-group.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility";
 import HintText from "../../../__internal__/hint-text";
+import Logger from "../../../__internal__/utils/logger";
 
 export interface CheckboxGroupProps
   extends ValidationProps,
@@ -47,13 +48,18 @@ export interface CheckboxGroupProps
   labelSpacing?: 1 | 2;
   /** Flag to configure component as mandatory */
   required?: boolean;
-  /** Flag to configure component as optional. */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** [Legacy] Overrides the default tooltip */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** When true, Checkboxes are inline */
   inline?: boolean;
 }
+
+let deprecateOptionalWarnTriggered = false;
 
 export const CheckboxGroup = ({
   children,
@@ -73,6 +79,12 @@ export const CheckboxGroup = ({
   id,
   ...rest
 }: CheckboxGroupProps) => {
+  if (!deprecateOptionalWarnTriggered && isOptional) {
+    deprecateOptionalWarnTriggered = true;
+    Logger.deprecate(
+      "`isOptional` is deprecated in CheckboxGroup and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+    );
+  }
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const internalId = useRef(guid());
   const uniqueId = id || internalId.current;

@@ -24,6 +24,29 @@ test("logs a deprecation warning for uncontrolled behaviour", () => {
   loggerSpy.mockRestore();
 });
 
+test("logs a deprecation warning for optional prop", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+  render(
+    <>
+      <RadioButtonGroup name="group" isOptional>
+        <RadioButton value="radio1" label="Radio Button 1" />
+      </RadioButtonGroup>
+      <RadioButtonGroup name="group2" isOptional>
+        <RadioButton value="radio2" label="Radio Button 2" />
+      </RadioButtonGroup>
+    </>,
+  );
+
+  expect(loggerSpy).toHaveBeenNthCalledWith(
+    1,
+    "`isOptional` is deprecated in RadioButtonGroup and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+  );
+
+  loggerSpy.mockRestore();
+});
+
 test("renders with provided `RadioButton` children", () => {
   render(
     <RadioButtonGroup name="group" onChange={() => {}}>
