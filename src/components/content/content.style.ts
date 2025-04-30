@@ -15,10 +15,12 @@ export interface StyledContentProps extends MarginProps {
    * Sometimes we need the body to be full width while keeping a title width similar to other widths
    */
   bodyFullWidth?: boolean;
+  disableContentPadding?: boolean;
 }
 
 const StyledContent = styled.div<StyledContentProps>`
-  ${({ bodyFullWidth, align }) => css`
+  ${({ bodyFullWidth, align, disableContentPadding }) => css`
+    overflow-y: auto;
     ${margin}
 
     & + & {
@@ -32,6 +34,11 @@ const StyledContent = styled.div<StyledContentProps>`
     ${bodyFullWidth &&
     css`
       text-align: left;
+    `}
+
+    ${disableContentPadding &&
+    css`
+      padding: 0;
     `}
   `}
 `;

@@ -5,7 +5,7 @@ import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
 import StyledDialogFullScreen from "./dialog-full-screen.style";
-import StyledContent from "./content.style";
+import Content from "../content/content.component";
 import FocusTrap, { CustomRefObject } from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
@@ -203,17 +203,16 @@ export const DialogFullScreen = ({
           pagesStyling={pagesStyling}
           role={role}
         >
-          {title || headerChildren ? dialogTitle() : null}
+          {title ? dialogTitle() : null}
           {closeIcon()}
-          <StyledContent
-            hasHeader={title !== undefined}
+          <Content
             data-element="content"
             data-role="dialog-full-screen-content"
             ref={contentRef}
             disableContentPadding={disableContentPadding}
           >
             {children}
-          </StyledContent>
+          </Content>
         </StyledDialogFullScreen>
       </FocusTrap>
     </Modal>

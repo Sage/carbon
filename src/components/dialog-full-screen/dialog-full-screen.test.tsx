@@ -231,9 +231,11 @@ test("renders the element given in the `headerChildren` prop", () => {
   render(
     <DialogFullScreen
       open
+      title="Test Title"
       headerChildren={<a href="/foo">link as header child</a>}
     />,
   );
+
   expect(
     screen.getByRole("link", { name: "link as header child" }),
   ).toBeVisible();
@@ -256,9 +258,7 @@ test("padding is removed from the content when the `disableContentPadding` prop 
   );
 
   const content = screen.getByTestId("dialog-full-screen-content");
-  expect(content).toHaveStyle({
-    padding: "0px 0px 0px 0px",
-  });
+  expect(content).toHaveStyleRule("padding", "0");
 });
 
 /** Remove this when after Pages is re-written */
@@ -320,10 +320,9 @@ test("when a Form child does not have a sticky footer, overflow styling is set o
     </DialogFullScreen>,
   );
 
-  expect(screen.getByTestId("dialog-full-screen-content")).toHaveStyleRule(
-    "overflow-y",
-    "auto",
-  );
+  const content = screen.getByTestId("dialog-full-screen-content");
+
+  expect(content).toHaveStyle({ overflowY: "auto" });
 });
 
 test("when the `title` prop is a string, this value is set as the dialog's accessible name", () => {
