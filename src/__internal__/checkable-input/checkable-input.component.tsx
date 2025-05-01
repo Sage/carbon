@@ -41,7 +41,10 @@ export interface CommonCheckableInputProps
   labelWidth?: number;
   /** Flag to configure component as mandatory */
   required?: boolean;
-  /** Flag to configure component as optional. */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** If true the label switches position with the input */
   reverse?: boolean;

@@ -23,8 +23,13 @@ StyledFieldset.defaultProps = {
 
 type StyledLegendContentProps = {
   isRequired?: boolean;
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `isRequired` prop and set it to false instead.
+   */
   isOptional?: boolean;
   isDisabled?: boolean;
+  optionalLabel?: string;
 };
 const StyledLegendContent = styled.span<StyledLegendContentProps>`
   display: flex;
@@ -44,11 +49,11 @@ const StyledLegendContent = styled.span<StyledLegendContentProps>`
       }
     `}
 
-  ${({ isOptional }) =>
+  ${({ isOptional, optionalLabel }) =>
     isOptional &&
     css`
       ::after {
-        content: "(optional)";
+        content: "(${optionalLabel})";
         color: var(--colorsUtilityYin055);
         font-weight: var(--fontWeights400);
         margin-left: var(--spacing050);

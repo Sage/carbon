@@ -7,16 +7,18 @@ interface FormattingButtonProps extends ButtonProps {
   isActive?: boolean;
 }
 
-const StyledToolbar = styled.div`
+const StyledToolbar = styled.div<{ hasHeader?: boolean }>`
   display: flex;
   flex-direction: row;
   gap: 8px;
-  background-color: var(--colorsUtilityMajor025);
-  outline: 1px solid var(--colorsUtilityMajor200);
+  background-color: var(--colorsActionMajorYang100);
   padding: 12px;
-  border-radius: var(--borderRadius100);
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-top-left-radius: ${({ hasHeader }) =>
+    hasHeader ? "0" : "var(--borderRadius100)"};
+  border-top-right-radius: ${({ hasHeader }) =>
+    hasHeader ? "0" : "var(--borderRadius100)"};
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   justify-content: space-between;
   align-items: center;
   margin-left: 1px;

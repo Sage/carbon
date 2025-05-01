@@ -12,6 +12,7 @@ import { InputContext, InputGroupContext } from "../input-behaviour";
 import { ValidationProps } from "../validations";
 import { IconType } from "../../components/icon";
 import createGuid from "../../__internal__/utils/helpers/guid";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 export interface LabelProps
   extends ValidationProps,
@@ -95,6 +96,8 @@ export const Label = ({
   const { onMouseEnter: onGroupMouseEnter, onMouseLeave: onGroupMouseLeave } =
     useContext(InputGroupContext);
   const guid = useRef(createGuid());
+  const locale = useLocale();
+  const optionalLabel = locale.label.optional();
 
   const handleMouseEnter = () => {
     if (onMouseEnter) onMouseEnter();
@@ -172,6 +175,7 @@ export const Label = ({
       pr={pr}
       pl={pl}
       className={className}
+      optionalLabel={optionalLabel}
     >
       <StyledLabel
         data-element="label"

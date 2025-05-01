@@ -8,6 +8,7 @@ import Button from "../button";
 import I18nProvider from "../i18n-provider";
 import EditorLinkPreview from "../link-preview";
 import Typography from "../typography";
+import Link from "../link";
 
 import enGB from "../../locales/en-gb";
 
@@ -40,6 +41,56 @@ export const Default: Story = () => {
   return <TextEditor namespace="storybook-default" labelText="Text Editor" />;
 };
 Default.storyName = "Default";
+
+export const Header: Story = () => {
+  return (
+    <TextEditor
+      namespace="storybook-header"
+      labelText="Text Editor"
+      header={<Button buttonType="gradient-white">Button</Button>}
+    />
+  );
+};
+Header.storyName = "With Header";
+
+export const Footer: Story = () => {
+  return (
+    <TextEditor
+      namespace="storybook-footer"
+      labelText="Text Editor"
+      footer={
+        <Typography color="--colorsUtilityYin055">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text{" "}
+          <Link href="https://carbon.sage.com/?path=/story/welcome--welcome-page">
+            ever since the 1500s
+          </Link>
+        </Typography>
+      }
+    />
+  );
+};
+Footer.storyName = "With Footer";
+
+export const HeaderAndFooter: Story = () => {
+  return (
+    <TextEditor
+      namespace="storybook-header-and-footer"
+      labelText="Text Editor"
+      header={<Button buttonType="gradient-white">Button</Button>}
+      footer={
+        <Typography color="--colorsUtilityYin055">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text{" "}
+          <Link href="https://carbon.sage.com/?path=/story/welcome--welcome-page">
+            ever since the 1500s
+          </Link>
+        </Typography>
+      }
+    />
+  );
+};
+HeaderAndFooter.storyName = "With Header and Footer";
 
 export const UsingCreateEmpty: Story = () => {
   const value = createEmpty();
@@ -592,7 +643,7 @@ export const WithMultipleLinkPreviews: Story = () => {
 WithMultipleLinkPreviews.storyName = "Multiple Link Previews";
 
 export const ReadOnly: Story = () => {
-  const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p>`;
+  const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is an HTML example.</span><br><a href="https://carbon.sage.com/?path=/story/welcome--welcome-page" rel="noreferrer" dir="ltr"><span data-lexical-text="true">Carbon</span></a></p>`;
   const value = createFromHTML(initialValue);
   return (
     <TextEditor

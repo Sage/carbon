@@ -14,6 +14,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import Logger from "../../__internal__/utils/logger";
 
 import Fieldset from "../../__internal__/fieldset";
 import Box from "../box";
@@ -85,7 +86,10 @@ export interface TimeProps extends TagProps, MarginProps {
   onBlur?: (ev?: React.FocusEvent<HTMLInputElement>, value?: TimeValue) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
-  /** Flag to configure component as optional */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** If true, the component will be disabled */
   disabled?: boolean;
@@ -101,6 +105,8 @@ export type TimeHandle = {
   /** Programmatically focus the minutes input. */
   focusMinutesInput: () => void;
 } | null;
+
+let deprecateOptionalWarnTriggered = false;
 
 const Time = React.forwardRef<TimeHandle, TimeProps>(
   (
@@ -125,6 +131,12 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
     },
     ref,
   ) => {
+    if (!deprecateOptionalWarnTriggered && isOptional) {
+      deprecateOptionalWarnTriggered = true;
+      Logger.deprecate(
+        "`isOptional` is deprecated in Time and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+      );
+    }
     const {
       id: hoursInputId,
       label: hoursLabel,

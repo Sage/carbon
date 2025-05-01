@@ -1,3 +1,58 @@
+## [153.7.0](https://github.com/Sage/carbon/compare/v153.6.0...v153.7.0) (2025-04-25)
+
+### Features
+
+* **menu:** subcomponents log console warning when used outside Menu ([a167915](https://github.com/Sage/carbon/commit/a1679153b399ead1595ad519df5316a713ae1d9e))
+
+## [153.6.0](https://github.com/Sage/carbon/compare/v153.5.2...v153.6.0) (2025-04-24)
+
+### Features
+
+* **icon:** 15 new icons added - 2 updated ([c2b3320](https://github.com/Sage/carbon/commit/c2b332041c4301b18c0d64f1bf2130f4f2089a70))
+
+## [153.5.2](https://github.com/Sage/carbon/compare/v153.5.1...v153.5.2) (2025-04-23)
+
+### Bug Fixes
+
+* ensure there is no flash of reduce motion text in Loader components when page is reloaded ([c65e0b2](https://github.com/Sage/carbon/commit/c65e0b20c259973eb11c5e09e3ae460b5cc823a1)), closes [#7240](https://github.com/Sage/carbon/issues/7240)
+
+## [153.5.1](https://github.com/Sage/carbon/compare/v153.5.0...v153.5.1) (2025-04-23)
+
+### Bug Fixes
+
+* **text-editor, note:** ensure links have correct styles ([ac9e0b8](https://github.com/Sage/carbon/commit/ac9e0b899f40366d25b28621c10d528efbf639e4))
+
+## [153.5.0](https://github.com/Sage/carbon/compare/v153.4.0...v153.5.0) (2025-04-23)
+
+### Features
+
+* **fieldset, label:** add de-DE, es-ES, fr-CA and fr-FR support for optional indicators ([e78e212](https://github.com/Sage/carbon/commit/e78e212463177348e23a0961264d54bf10390cc8))
+
+## [153.4.0](https://github.com/Sage/carbon/compare/v153.3.1...v153.4.0) (2025-04-16)
+
+### Features
+
+* **text-editor:** add de-DE, es-ES, fr-CA and fr-FR locale support ([d118e79](https://github.com/Sage/carbon/commit/d118e79b03d18f503a237889392f67614843e4b4))
+* **text-editor:** add header and footer support and align with DS ([7d60ed3](https://github.com/Sage/carbon/commit/7d60ed3e736bd239ec85199a2c4dcd68f1d1b98d))
+
+## [153.3.1](https://github.com/Sage/carbon/compare/v153.3.0...v153.3.1) (2025-04-15)
+
+### Bug Fixes
+
+* **checkable-input, box:** can interact with input elements behind a Box ([e16d18f](https://github.com/Sage/carbon/commit/e16d18f72622f086925cfaa827c806523a65bc70)), closes [#6306](https://github.com/Sage/carbon/issues/6306)
+
+## [153.3.0](https://github.com/Sage/carbon/compare/v153.2.1...v153.3.0) (2025-04-11)
+
+### Features
+
+* **message:** add de-DE, es-ES, fr-CA and fr-FR locale support for the ai variant ([923d3a8](https://github.com/Sage/carbon/commit/923d3a84ae0721f3a6e3c39314ce1c8d062426b5))
+
+## [153.2.1](https://github.com/Sage/carbon/compare/v153.2.0...v153.2.1) (2025-04-11)
+
+### Bug Fixes
+
+* **flat-table-row-header:** correct icon size for expandable rows ([1cce2f3](https://github.com/Sage/carbon/commit/1cce2f3fede73a8ed06b99f8e5237acdf1dca09d)), closes [#6774](https://github.com/Sage/carbon/issues/6774)
+
 ## [153.2.0](https://github.com/Sage/carbon/compare/v153.1.1...v153.2.0) (2025-04-10)
 
 ### Features

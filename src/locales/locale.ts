@@ -74,6 +74,9 @@ interface Locale {
   heading: {
     backLinkAriaLabel: () => string;
   };
+  label: {
+    optional: () => string;
+  };
   link: {
     skipLinkLabel: () => string;
   };
@@ -98,7 +101,7 @@ interface Locale {
     success: () => string;
     warning: () => string;
     neutral: () => string;
-    ai?: () => string;
+    ai: () => string;
   };
   numeralDate: {
     validation: {

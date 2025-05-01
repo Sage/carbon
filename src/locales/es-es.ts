@@ -97,6 +97,9 @@ const esES: Partial<Locale> = {
   heading: {
     backLinkAriaLabel: () => "Volver",
   },
+  label: {
+    optional: () => "opcional",
+  },
   link: {
     skipLinkLabel: () => "Ir al contenido principal",
   },
@@ -119,6 +122,7 @@ const esES: Partial<Locale> = {
     success: () => "Acción realizada",
     warning: () => "Aviso",
     neutral: () => "Información",
+    ai: () => "Información generada por IA",
   },
   numeralDate: {
     validation: {
@@ -160,6 +164,24 @@ const esES: Partial<Locale> = {
   },
   pod: {
     undo: () => "Deshacer",
+  },
+  textEditor: {
+    boldAria: () => "Negrita",
+    cancelButton: () => "Cancelar",
+    cancelButtonAria: () => "Cancelar",
+    characterCounter(count: number | string) {
+      return `Quedan ${typeof count === "number" ? count.toString() : count} caracteres`;
+    },
+    characterLimit(count: number) {
+      return `El límite de ${count} caracteres se ha superado.`;
+    },
+    contentEditorAria: () => "Editor de contenidos de texto enriquecido",
+    italicAria: () => "Cursiva",
+    orderedListAria: () => "Lista ordenada",
+    saveButton: () => "Guardar",
+    saveButtonAria: () => "Guardar",
+    toolbarAriaLabel: () => "Formato",
+    unorderedListAria: () => "Lista no ordenada",
   },
   search: {
     searchButtonText: () => "Buscar",

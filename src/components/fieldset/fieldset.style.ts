@@ -42,8 +42,13 @@ FieldsetStyle.defaultProps = {
 export interface StyledLegendProps {
   /** Flag to configure fields as mandatory. */
   isRequired?: boolean;
-  /** Flag to configure fields as optional. */
+  /**
+   * [Legacy] Flag to configure fields as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
+  /** Text used for the optional label */
+  optionalLabel?: string;
 }
 
 const StyledLegend = styled.legend<StyledLegendProps>`
@@ -70,11 +75,11 @@ const StyledLegend = styled.legend<StyledLegendProps>`
       }
     `}
 
-  ${({ isOptional }) =>
+  ${({ isOptional, optionalLabel }) =>
     isOptional &&
     css`
       ::after {
-        content: "(optional)";
+        content: "(${optionalLabel})";
         color: var(--colorsUtilityYin055);
         font-weight: var(--fontWeights400);
         margin-left: var(--spacing050);

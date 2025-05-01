@@ -109,9 +109,7 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
           )}
         </TypeIconStyle>
 
-        <Typography screenReaderOnly>
-          {locale.message?.[variant]?.()}
-        </Typography>
+        <Typography screenReaderOnly>{locale.message[variant]()}</Typography>
         <MessageContent
           data-element="message-content"
           data-role="message-content"

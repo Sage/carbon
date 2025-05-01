@@ -28,6 +28,7 @@ import DateRangeContext, {
   SetInputRefMapValue,
 } from "./__internal__/date-range.context";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
+import Logger from "../../__internal__/utils/logger";
 
 interface DateInputValue {
   formattedValue: string;
@@ -114,7 +115,10 @@ export interface DateRangeProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Flag to configure component as mandatory. */
   required?: boolean;
-  /** Flag to configure component as optional. */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** Date format string to be applied to the date inputs */
   dateFormatOverride?: string;
@@ -127,6 +131,8 @@ export interface DateRangeProps
   /** Prop to specify the aria-labelledby attribute of the end date picker */
   datePickerEndAriaLabelledBy?: string;
 }
+
+let deprecateOptionalWarnTriggered = false;
 
 export const DateRange = ({
   endDateProps = {},
@@ -149,6 +155,12 @@ export const DateRange = ({
   datePickerEndAriaLabelledBy,
   ...rest
 }: DateRangeProps) => {
+  if (!deprecateOptionalWarnTriggered && isOptional) {
+    deprecateOptionalWarnTriggered = true;
+    Logger.deprecate(
+      "`isOptional` is deprecated in DateRange and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+    );
+  }
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const labelsInlineWithNewValidation = validationRedesignOptIn
     ? false

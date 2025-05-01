@@ -6,6 +6,8 @@ import React from "react";
 import TextEditor, { createEmpty, createFromHTML } from ".";
 import { COMPONENT_PREFIX } from "./__internal__/constants";
 
+import Logger from "../../__internal__/utils/logger";
+
 /**
  * Mock the OnChangePlugin whilst testing the full editor. This is to prevent
  * the editor from attempting to repeatedly create update listeners when the
@@ -16,6 +18,8 @@ import { COMPONENT_PREFIX } from "./__internal__/constants";
 jest.mock("./__internal__/plugins/OnChange/on-change.plugin", () => {
   return jest.fn().mockReturnValue(null);
 });
+
+jest.mock("../../__internal__/utils/logger");
 
 // Reusable JSON object for testing the default state
 const initialValue = {
@@ -49,6 +53,27 @@ const initialValue = {
     version: 1,
   },
 };
+
+test("should display deprecation warning once when rendered as optional", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <TextEditor labelText="label" isOptional />
+      <TextEditor labelText="label" isOptional />
+    </>,
+  );
+
+  // Ensure the deprecation warning is logged only once
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  expect(loggerSpy).toHaveBeenNthCalledWith(
+    1,
+    "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+  );
+
+  loggerSpy.mockRestore();
+});
 
 test("rendering and basic functionality", async () => {
   const user = userEvent.setup();
@@ -207,6 +232,59 @@ test("character limit is not rendered when characterLimit prop is provided with 
     `${COMPONENT_PREFIX}-character-limit`,
   );
   expect(characterCounter).not.toBeInTheDocument();
+});
+
+test("renders header content wrapped in a container when the `header` prop is provided", () => {
+  render(
+    <TextEditor
+      characterLimit={0}
+      labelText="Example"
+      namespace="test"
+      header={<span>foo</span>}
+    />,
+  );
+
+  const headerWrapper = screen.getByTestId("test-header-wrapper");
+
+  expect(headerWrapper).toBeVisible();
+  expect(headerWrapper).toHaveTextContent("foo");
+});
+
+test("renders footer content wrapped in a container when the `footer` prop is provided", () => {
+  render(
+    <TextEditor
+      characterLimit={0}
+      labelText="Example"
+      namespace="test"
+      footer={<span>foo</span>}
+    />,
+  );
+
+  const footerWrapper = screen.getByTestId("test-footer-wrapper");
+
+  expect(footerWrapper).toBeVisible();
+  expect(footerWrapper).toHaveTextContent("foo");
+});
+
+test("allows the simultaneous rendering of header and footer content wrapped in respective containers when the `header` and `footer` props are provided", () => {
+  render(
+    <TextEditor
+      characterLimit={0}
+      labelText="Example"
+      namespace="test"
+      header={<span>foo</span>}
+      footer={<span>bar</span>}
+    />,
+  );
+
+  const footerWrapper = screen.getByTestId("test-footer-wrapper");
+  const headerWrapper = screen.getByTestId("test-header-wrapper");
+
+  expect(headerWrapper).toBeVisible();
+  expect(headerWrapper).toHaveTextContent("foo");
+
+  expect(footerWrapper).toBeVisible();
+  expect(footerWrapper).toHaveTextContent("bar");
 });
 
 test("required prop renders correctly when required prop is provided", () => {

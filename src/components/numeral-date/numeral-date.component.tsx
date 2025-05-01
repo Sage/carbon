@@ -136,7 +136,10 @@ export interface NumeralDateProps
    * A React ref to pass to the input corresponding to the year
    */
   yearRef?: React.ForwardedRef<HTMLInputElement>;
-  /** Flag to configure component as optional. */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
 }
 
@@ -222,6 +225,8 @@ const getDateLabel = (datePart: string, locale: Locale) => {
   }
 };
 
+let deprecateOptionalWarnTriggered = false;
+
 export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
   (
     {
@@ -261,6 +266,12 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
     },
     ref,
   ) => {
+    if (!deprecateOptionalWarnTriggered && isOptional) {
+      deprecateOptionalWarnTriggered = true;
+      Logger.deprecate(
+        "`isOptional` is deprecated in NumeralDate and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+      );
+    }
     const locale = useLocale();
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 

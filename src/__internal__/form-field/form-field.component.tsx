@@ -72,7 +72,10 @@ export interface FormFieldProps extends CommonFormFieldProps, TagProps {
   fieldHelpInline?: boolean;
   /** Id of the element a label should be bound to */
   id: string;
-  /** Flag to configure component as optional in Form */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `isRequired` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** Flag to configure component as mandatory */
   isRequired?: boolean;

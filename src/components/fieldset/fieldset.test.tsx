@@ -4,6 +4,36 @@ import Fieldset from "./fieldset.component";
 import Textbox from "../textbox";
 import CarbonProvider from "../carbon-provider";
 
+import Logger from "../../__internal__/utils/logger";
+
+jest.mock("../../__internal__/utils/logger");
+
+test("should display deprecation warning once when rendered as optional", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <Fieldset isOptional>
+        <input title="Test" placeholder="Placeholder" />
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>
+      <Fieldset isOptional>
+        <input title="Test" placeholder="Placeholder" />
+        <input title="Test" placeholder="Placeholder" />
+      </Fieldset>
+    </>,
+  );
+
+  // Ensure the deprecation warning is logged only once
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+  expect(loggerSpy).toHaveBeenNthCalledWith(
+    1,
+    "`isOptional` is deprecated in Fieldset and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+  );
+
+  loggerSpy.mockRestore();
+});
+
 test("Fieldset Legend is rendered if supplied", () => {
   render(<Fieldset legend="Legend" />);
   expect(screen.getByText("Legend")).toBeVisible();
@@ -17,8 +47,8 @@ test("Fieldset Legend is not rendered if omitted", () => {
 test("Fieldset adds the required attribute to any child inputs when isRequired is true", () => {
   render(
     <Fieldset required>
-      <input />
-      <input />
+      <input title="Test" placeholder="Placeholder" />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
   const inputs = screen.getAllByRole("textbox");
@@ -28,8 +58,8 @@ test("Fieldset adds the required attribute to any child inputs when isRequired i
 test("Fieldset does not add the required attribute to any child inputs when isRequired is falsy", () => {
   render(
     <Fieldset>
-      <input />
-      <input />
+      <input title="Test" placeholder="Placeholder" />
+      <input title="Test" placeholder="Placeholder" />
     </Fieldset>,
   );
   const inputs = screen.getAllByRole("textbox");

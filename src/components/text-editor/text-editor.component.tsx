@@ -23,6 +23,7 @@ import { SerializeLexical, validateUrl } from "./__internal__/helpers";
 import Label from "../../__internal__/label";
 import useDebounce from "../../hooks/__internal__/useDebounce";
 import useLocale from "../../hooks/__internal__/useLocale";
+import Logger from "../../__internal__/utils/logger";
 
 import {
   COMPONENT_PREFIX,
@@ -41,6 +42,8 @@ import {
 import TextEditorContext from "./text-editor.context";
 import StyledTextEditor, {
   StyledEditorToolbarWrapper,
+  StyledHeaderWrapper,
+  StyledFooterWrapper,
   StyledTextEditorWrapper,
   StyledValidationMessage,
   StyledWrapper,
@@ -58,9 +61,16 @@ export interface TextEditorProps extends MarginProps, TagProps {
   characterLimit?: number;
   /** The message to be shown when the editor is in an error state */
   error?: string;
+  /** Custom footer content to be displayed below the editor */
+  footer?: React.ReactNode;
+  /** Custom header content to be displayed above the editor */
+  header?: React.ReactNode;
   /** A hint string rendered before the editor but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: string;
-  /** Whether the content of the editor can be empty */
+  /**
+   * [Legacy] Whether the content of the editor can be empty
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** The label to display above the editor */
   labelText: string;
@@ -90,9 +100,13 @@ export interface TextEditorProps extends MarginProps, TagProps {
   value?: string | undefined;
 }
 
+let deprecateOptionalWarnTriggered = false;
+
 export const TextEditor = ({
   characterLimit = 3000,
   error,
+  footer,
+  header,
   inputHint,
   isOptional = false,
   labelText,
@@ -110,12 +124,42 @@ export const TextEditor = ({
   value,
   ...rest
 }: TextEditorProps) => {
+  if (!deprecateOptionalWarnTriggered && isOptional) {
+    deprecateOptionalWarnTriggered = true;
+    Logger.deprecate(
+      "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+    );
+  }
   const editorRef = useRef<LexicalEditor | undefined>(undefined);
   const locale = useLocale();
   const [characterLimitWarning, setCharacterLimitWarning] = useState<
     string | undefined
   >(undefined);
+  const hasWarningOrError = Boolean(error || characterLimitWarning || warning);
+  const contentEditorRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
+
+  useEffect(() => {
+    const editorElement = contentEditorRef?.current;
+
+    const handleFocus = () => {
+      setIsFocused(true);
+    };
+    const handleBlur = () => {
+      setIsFocused(false);
+    };
+
+    editorElement?.addEventListener("focus", handleFocus);
+    editorElement?.addEventListener("blur", handleBlur);
+
+    const cleanup = () => {
+      editorElement?.removeEventListener("focus", handleFocus);
+      editorElement?.removeEventListener("blur", handleBlur);
+    };
+
+    return cleanup;
+  }, [contentEditorRef]);
+
   const [cancelTrigger, setCancelTrigger] = useState<boolean>(false);
 
   const debounceWaitTime = 500;
@@ -196,7 +240,7 @@ export const TextEditor = ({
       {...filterStyledSystemMarginProps(rest)}
       {...tagComponent("text-editor", rest)}
     >
-      <TextEditorContext.Provider value={{ onLinkAdded, readOnly }}>
+      <TextEditorContext.Provider value={{ onLinkAdded }}>
         <Label
           isRequired={required}
           optional={isOptional}
@@ -232,20 +276,27 @@ export const TextEditor = ({
             <StyledEditorToolbarWrapper
               data-role={`${namespace}-editor-toolbar-wrapper`}
               id={`${namespace}-editor-toolbar-wrapper`}
-              onBlur={() => setIsFocused(false)}
-              onFocus={() => setIsFocused(true)}
               focused={isFocused}
+              hasWarningOrError={hasWarningOrError}
             >
+              {header && (
+                <StyledHeaderWrapper data-role={`${namespace}-header-wrapper`}>
+                  {header}
+                </StyledHeaderWrapper>
+              )}
+              {!readOnly && (
+                <ToolbarPlugin hasHeader={Boolean(header)} {...toolbarProps} />
+              )}
               <StyledTextEditor data-role={`${namespace}-editor`}>
                 <RichTextPlugin
                   contentEditable={
                     <ContentEditor
-                      error={error}
+                      ref={contentEditorRef}
                       inputHint={inputHint}
                       namespace={namespace}
                       previews={previews}
                       rows={rows}
-                      warning={warning}
+                      readOnly={readOnly}
                     />
                   }
                   placeholder={
@@ -261,7 +312,11 @@ export const TextEditor = ({
                 <ClickableLinkPlugin newTab />
                 <AutoLinkerPlugin />
               </StyledTextEditor>
-              {!readOnly && <ToolbarPlugin {...toolbarProps} />}
+              {footer && (
+                <StyledFooterWrapper data-role={`${namespace}-footer-wrapper`}>
+                  {footer}
+                </StyledFooterWrapper>
+              )}
               <LinkMonitorPlugin />
             </StyledEditorToolbarWrapper>
 

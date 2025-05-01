@@ -63,13 +63,18 @@ export interface RadioButtonGroupProps
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
-  /** Flag to configure component as optional. */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** value of the selected RadioButton */
   value?: string;
   /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
+
+let deprecateOptionalWarnTriggered = false;
 
 export const RadioButtonGroup = ({
   children,
@@ -96,6 +101,12 @@ export const RadioButtonGroup = ({
   tooltipPosition,
   ...rest
 }: RadioButtonGroupProps) => {
+  if (!deprecateOptionalWarnTriggered && isOptional) {
+    deprecateOptionalWarnTriggered = true;
+    Logger.deprecate(
+      "`isOptional` is deprecated in RadioButtonGroup and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+    );
+  }
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const internalId = useRef(guid());
   const uniqueId = id || internalId.current;

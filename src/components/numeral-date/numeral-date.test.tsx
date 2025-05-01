@@ -39,6 +39,35 @@ test("should display deprecation warning once when used in an uncontrolled manne
   loggerSpy.mockClear();
 });
 
+test("should display deprecation warning once when rendered as optional", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <NumeralDate
+        isOptional
+        value={{ dd: "", mm: "", yyyy: "" }}
+        onChange={() => {}}
+      />
+      <NumeralDate
+        isOptional
+        value={{ dd: "", mm: "", yyyy: "" }}
+        onChange={() => {}}
+      />
+    </>,
+  );
+
+  // Ensure the deprecation warning is logged only once
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  expect(loggerSpy).toHaveBeenNthCalledWith(
+    1,
+    "`isOptional` is deprecated in NumeralDate and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+  );
+
+  loggerSpy.mockRestore();
+});
+
 test("should display an error when invalid `dateFormat` prop passed", () => {
   const consoleSpy = jest
     .spyOn(global.console, "error")

@@ -89,7 +89,10 @@ export interface MultiSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
-  /** Flag to configure component as optional. */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** Specify a callback triggered on change */
   onChange?: (
@@ -98,6 +101,8 @@ export interface MultiSelectProps
   /** Override the default width of the list element. Number passed is converted into pixel value */
   listWidth?: number;
 }
+
+let deprecateOptionalWarnTriggered = false;
 
 export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
   (
@@ -143,6 +148,12 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     },
     ref,
   ) => {
+    if (!deprecateOptionalWarnTriggered && isOptional) {
+      deprecateOptionalWarnTriggered = true;
+      Logger.deprecate(
+        "`isOptional` is deprecated in MultiSelect and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+      );
+    }
     const [activeDescendantId, setActiveDescendantId] = useState<string>("");
     const selectListId = useRef(guid());
     const accessibilityLabelId = useRef(guid());

@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 import VerticalDivider from ".";
-import MenuContext from "../menu/__internal__/menu.context";
+import { Menu } from "../menu";
 
 testStyledSystemSpacing(
   (props) => <VerticalDivider {...props} />,
@@ -56,16 +56,9 @@ test("should apply the expected tint when `tint` prop is passed a value of `90`"
 
 test("should render as an `li` element with `aria-hidden` when inside a Menu", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        inMenu: true,
-        openSubmenuId: null,
-        setOpenSubmenuId: () => {},
-      }}
-    >
+    <Menu>
       <VerticalDivider />
-    </MenuContext.Provider>,
+    </Menu>,
   );
   const verticalDividerElement = screen.getByTestId("vertical-divider");
 
@@ -82,16 +75,9 @@ test("should allow the `aria-hidden` attribute to be set when not in a menu", ()
 
 test("should not allow the `aria-hidden` attribute to be overridden when in a menu", () => {
   render(
-    <MenuContext.Provider
-      value={{
-        menuType: "light",
-        inMenu: true,
-        openSubmenuId: null,
-        setOpenSubmenuId: () => {},
-      }}
-    >
+    <Menu>
       <VerticalDivider aria-hidden={false} />
-    </MenuContext.Provider>,
+    </Menu>,
   );
   const verticalDividerElement = screen.getByTestId("vertical-divider");
 

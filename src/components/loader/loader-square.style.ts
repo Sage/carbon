@@ -48,6 +48,11 @@ const getDimensions = (size: StyledLoaderSquareProps["size"]) => {
   `;
 };
 
+export const StyledLoaderPlaceholder = styled.div`
+  display: inline-block;
+  min-width: var(--sizing800);
+`;
+
 const StyledLoaderSquare = styled.div<StyledLoaderSquareProps>`
   ${({ size, isInsideButton, isActive, backgroundColor }) => css`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
@@ -55,22 +60,18 @@ const StyledLoaderSquare = styled.div<StyledLoaderSquareProps>`
     display: inline-block;
     ${getDimensions(size)}
     border-radius: var(--borderRadiusCircle);
-
     ${isInsideButton &&
     css`
       background-color: ${isActive
         ? "var(--colorsUtilityYang100)"
         : "var(--colorsSemanticNeutral500)"};
     `}
-
     &:nth-of-type(1) {
       animation-delay: 0s;
     }
-
     &:nth-of-type(2) {
       animation-delay: 0.2s;
     }
-
     &:nth-of-type(3) {
       animation-delay: 0.4s;
       margin-right: 0px;
@@ -79,7 +80,6 @@ const StyledLoaderSquare = styled.div<StyledLoaderSquareProps>`
 `;
 
 StyledLoaderSquare.defaultProps = {
-  size: "small",
   isInsideButton: false,
   isActive: true,
   theme: baseTheme,

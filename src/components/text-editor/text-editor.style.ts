@@ -17,6 +17,7 @@ interface StyledValidationMessageProps {
 
 interface StyledEditorToolbarWrapperProps {
   focused?: boolean;
+  hasWarningOrError?: boolean;
 }
 
 export const StyledTextEditor = styled(Box)`
@@ -55,22 +56,47 @@ export const StyledWrapper = styled.div<StyledWrapperProps>`
         .${namespace}-editable, #${namespace}-toolbar {
           outline: none;
         }
-
-        #${namespace}-toolbar {
-          border-top: 1px solid var(--colorsUtilityMajor200);
-        }
       }
     `}
   `};
+
+  a:not([data-component="link-preview"]) {
+    color: var(--colorsActionMajor500);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--colorsActionMajor600);
+    }
+
+    &:focus {
+      outline: none;
+      text-decoration: none;
+      color: var(--colorsActionMajorYin090);
+      background-color: var(--colorsSemanticFocus250);
+      border-radius: var(--borderRadius025);
+      box-shadow: 0 var(--spacing050) 0 0 var(--colorsUtilityYin090);
+    }
+  }
 `;
 
 export const StyledEditorToolbarWrapper = styled.div<StyledEditorToolbarWrapperProps>`
-  ${({ focused }) => css`
+  ${({ focused, hasWarningOrError }) => css`
     border-radius: var(--borderRadius100);
-    outline: none;
+    outline: ${hasWarningOrError
+      ? "none"
+      : "1px solid var(--colorsUtilityMajor200)"};
 
     ${focused && addFocusStyling()}
   `}
+`;
+
+export const StyledHeaderWrapper = styled.div`
+  padding: var(--spacing200);
+`;
+
+export const StyledFooterWrapper = styled.div`
+  border-top: 1px solid var(--colorsUtilityMajor200);
+  padding: var(--spacing200);
 `;
 
 export const StyledValidationMessage = styled.div<StyledValidationMessageProps>`

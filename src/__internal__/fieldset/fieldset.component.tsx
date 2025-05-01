@@ -14,6 +14,7 @@ import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
 import Help from "../../components/help";
 import Typography from "../../components/typography";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 export interface FieldsetProps extends MarginProps {
   /** Role */
@@ -50,7 +51,10 @@ export interface FieldsetProps extends MarginProps {
   legendMargin?: Pick<MarginProps, "mb">;
   /** Any valid CSS string to set the component's width */
   width?: string;
-  /** Flag to configure component as optional in Form */
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `isRequired` prop and set it to false instead.
+   */
   isOptional?: boolean;
   /** Apply disabled styling to the legend content */
   isDisabled?: boolean;
@@ -87,6 +91,8 @@ const Fieldset = ({
   const marginProps = filterStyledSystemMarginProps(rest);
   const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
   const [isFocused, setFocus] = useState(false);
+  const locale = useLocale();
+  const optionalLabel = locale.label.optional();
 
   useEffect(() => {
     if (ref && isRequired) {
@@ -162,6 +168,7 @@ const Fieldset = ({
                 <StyledLegendContent
                   isRequired={isRequired}
                   isOptional={isOptional}
+                  optionalLabel={optionalLabel}
                   isDisabled={isDisabled}
                 >
                   {legend}

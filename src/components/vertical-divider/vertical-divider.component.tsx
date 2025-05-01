@@ -143,7 +143,7 @@ export const VerticalDivider = ({
       displayInline={displayInline}
       {...props}
       as={inMenu ? "li" : "div"}
-      aria-hidden={inMenu ?? ariaHidden}
+      aria-hidden={inMenu || ariaHidden}
       {...tagComponent("vertical-divider", props)}
     >
       <StyledDivider data-role="divider" tint={tint} />
