@@ -229,7 +229,7 @@
         "playwright/no-wait-for-timeout": "error",
         "no-return-await": "warn",
         "no-return-assign": "warn",
-        "no-await-in-loop": "warn",
+        "no-await-in-loop": "off",
         "@typescript-eslint/no-floating-promises": "error"
       },
       "settings": {
