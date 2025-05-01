@@ -8,18 +8,15 @@ import { ContentWrapper } from "../common.style";
 const sellingPoints = {
   point: {
     heading: "Easy, fast, powerful",
-    text:
-      "Over 50 components and 340 configurations bring your killer app to life.",
+    text: "Over 50 components and 340 configurations bring your killer app to life.",
   },
   flexible: {
     heading: "Beautifully flexible",
-    text:
-      "Carbon is beautiful out-of-the-box, down to colours, icons, and style.",
+    text: "Carbon is beautiful out-of-the-box, down to colours, icons, and style.",
   },
   brush: {
     heading: "Designed for UX",
-    text:
-      "Meet your users’ needs with a simple, elegant, delightful experience.",
+    text: "Meet your users’ needs with a simple, elegant, delightful experience.",
   },
   hammer: {
     heading: "Build smarter",
@@ -27,13 +24,11 @@ const sellingPoints = {
   },
   plug: {
     heading: "Powered by you",
-    text:
-      "Carbon powers your app. Contribute your code, so you can power Carbon too.",
+    text: "Carbon powers your app. Contribute your code, so you can power Carbon too.",
   },
   collaborate: {
     heading: "Seamlessly collaborative",
-    text:
-      "With Carbon’s UI Kit, designers and developers speak the same language.",
+    text: "With Carbon’s UI Kit, designers and developers speak the same language.",
   },
 };
 
@@ -70,7 +65,7 @@ const Items = () => {
           />
         </Item>
       );
-    }
+    },
   );
 };
 
