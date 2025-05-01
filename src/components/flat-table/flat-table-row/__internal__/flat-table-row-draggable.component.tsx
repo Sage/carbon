@@ -16,7 +16,7 @@ const FlatTableRowDraggable = forwardRef<
   return (
     <DraggableItem
       uniqueId={id}
-      draggableItemStylingOptOut
+      stylingOptOut
       itemsNode={StyledFlatTableRow}
       ref={ref}
       {...rest}

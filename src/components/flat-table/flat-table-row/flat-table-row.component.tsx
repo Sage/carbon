@@ -74,8 +74,8 @@ export const FlatTableRow = React.forwardRef<
     }: FlatTableRowProps,
     ref,
   ) => {
-    const internalId = useRef(id ? String(id) : guid());
-    const [isExpanded, setIsExpanded] = useState(expanded);
+    const internalId = useRef(id !== undefined && id !== null ? String(id) : guid());
+        const [isExpanded, setIsExpanded] = useState(expanded);
     let rowRef = useRef<HTMLTableRowElement>(null);
     if (ref) {
       rowRef = ref as React.MutableRefObject<HTMLTableRowElement | null>;
@@ -266,7 +266,7 @@ export const FlatTableRow = React.forwardRef<
     );
 
     const sharedRowProps = {
-      isInSidebar,
+      id: internalId.current,
       expandable,
       isSubRow,
       isFirstSubRow,
@@ -296,7 +296,7 @@ export const FlatTableRow = React.forwardRef<
     };
 
     const rowComponent = () => (
-      <StyledFlatTableRow id={internalId.current} {...sharedRowProps}>
+      <StyledFlatTableRow {...sharedRowProps}>
         <FlatTableRowContext.Provider
           value={{
             firstCellId,
@@ -316,7 +316,7 @@ export const FlatTableRow = React.forwardRef<
     );
 
     const draggableComponent = () => (
-      <FlatTableRowDraggable id={id || internalId.current} {...sharedRowProps}>
+      <FlatTableRowDraggable {...sharedRowProps}>
         <FlatTableRowContext.Provider
           value={{
             firstCellId,

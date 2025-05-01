@@ -120,7 +120,6 @@ interface StyledFlatTableRowProps
   isInSidebar?: boolean;
   size: FlatTableProps["size"];
   draggable?: boolean;
-  isDragging?: boolean;
   horizontalBorderSize: NonNullable<FlatTableRowProps["horizontalBorderSize"]>;
   isSubRow?: boolean;
   isFirstSubRow?: boolean;
@@ -150,7 +149,6 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
     isFirstSubRow,
     size,
     theme,
-    isDragging,
     draggable,
     rowHeight,
   }) => {
@@ -402,20 +400,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
           padding-left: ${size === "compact" ? "32px" : "40px"};
         }
       `}
-
-      ${isDragging &&
-      css`
-        border: ${isInSidebar
-            ? "var(--colorsUtilityMajor300)"
-            : "var(--colorsUtilityMajor200)"}
-          2px solid;
-        ${allCellTypes} {
-          background-color: ${isInSidebar
-            ? "var(--colorsUtilityMajor200)"
-            : "var(--colorsUtilityMajor150)"};
-        }
-      `}
-
+      
       ${draggable &&
       css`
         ${StyledIcon}:first-of-type {

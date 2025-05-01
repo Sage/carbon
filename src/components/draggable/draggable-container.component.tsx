@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from "react";
+import React, { forwardRef, useEffect, useMemo } from "react";
 import { MarginProps } from "styled-system";
 
 import invariant from "invariant";
@@ -56,6 +56,10 @@ const DraggableContainer = forwardRef<
       );
       return !invalidChild;
     }, [children]);
+
+    useEffect(() => {
+      console.log(children)
+    }, [children])
 
     // `<DraggableItem />` is required to make `Draggable` work
     invariant(

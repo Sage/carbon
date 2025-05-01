@@ -43,7 +43,7 @@ const meta: Meta<typeof useDraggable> = {
       description: "Optional ID for the container element.",
       required: false,
     },
-    draggableItemStylingOptOut: {
+    stylingOptOut: {
       type: { summary: "boolean" },
       description:
         "When true, disables the default styling for draggable items.",
@@ -132,6 +132,7 @@ export const GetOrderCallback: Story = () => {
 
   const { draggableElement } = useDraggable({
     draggableItems: items,
+    /* eslint-disable no-console */
     getOrder: (draggableItemIds, movedItemId) =>
       console.log(draggableItemIds, movedItemId),
   });
@@ -229,7 +230,7 @@ export const DefaultStylingOptOut: Story = () => {
 
   const { draggableElement } = useDraggable({
     draggableItems: items,
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   return draggableElement;
@@ -301,7 +302,7 @@ export const DragState: Story = () => {
   const { draggableElement } = useDraggable({
     draggableItems: items,
     containerId: "bar",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   return (
@@ -388,7 +389,7 @@ export const DraggedNode: Story = () => {
   const { draggableElement, draggedNode } = useDraggable({
     draggableItems: items,
     containerId: "baz",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   type Position = {
@@ -609,25 +610,25 @@ export const DraggableProviderStory: Story = () => {
   const { draggableElement: group1Container } = useDraggable({
     draggableItems: group1,
     containerId: "group1",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group2Container } = useDraggable({
     draggableItems: group2,
     containerId: "group2",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group3Container } = useDraggable({
     draggableItems: group3,
     containerId: "group3",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group4Container } = useDraggable({
     draggableItems: group4,
     containerId: "group4",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   return (
@@ -799,25 +800,25 @@ export const DraggableProviderDragType: Story = () => {
   const { draggableElement: group1Container } = useDraggable({
     draggableItems: group1,
     containerId: "group1",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group2Container } = useDraggable({
     draggableItems: group2,
     containerId: "group2",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group3Container } = useDraggable({
     draggableItems: group3,
     containerId: "group3",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group4Container } = useDraggable({
     draggableItems: group4,
     containerId: "group4",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   return (
@@ -989,33 +990,29 @@ export const DraggableProviderGetOrderCallback: Story = () => {
   const { draggableElement: group1Container } = useDraggable({
     draggableItems: group1,
     containerId: "group1",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group2Container } = useDraggable({
     draggableItems: group2,
     containerId: "group2",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group3Container } = useDraggable({
     draggableItems: group3,
     containerId: "group3",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group4Container } = useDraggable({
     draggableItems: group4,
     containerId: "group4",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   return (
-    <DraggableProvider
-      getOrder={(containerIdOrder, movedItemId) =>
-        console.log(containerIdOrder, movedItemId)
-      }
-    >
+    <DraggableProvider>
       <style>{cssRules}</style>
       <div id="kanban-board" className="kanban-board">
         <div className="column column-contributors-1">
@@ -1308,25 +1305,25 @@ export const DraggableProviderManualReOrdering: Story = () => {
   const { draggableElement: group1Container } = useDraggable({
     draggableItems: group1,
     containerId: "group1",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group2Container } = useDraggable({
     draggableItems: group2,
     containerId: "group2",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group3Container } = useDraggable({
     draggableItems: group3,
     containerId: "group3",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group4Container } = useDraggable({
     draggableItems: group4,
     containerId: "group4",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   return (
@@ -1750,25 +1747,25 @@ export const DraggableProviderAdvancedManualReOrdering = () => {
   const { draggableElement: group1Container } = useDraggable({
     draggableItems: group1,
     containerId: "group1",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group2Container } = useDraggable({
     draggableItems: group2,
     containerId: "group2",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group3Container } = useDraggable({
     draggableItems: group3,
     containerId: "group3",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   const { draggableElement: group4Container } = useDraggable({
     draggableItems: group4,
     containerId: "group4",
-    draggableItemStylingOptOut: true,
+    stylingOptOut: true,
   });
 
   return (

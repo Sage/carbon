@@ -15,8 +15,6 @@ import {
 import guid from "../../__internal__/utils/helpers/guid";
 import { isDraggableItemData } from "../../__internal__/draggable/draggable-utils";
 import DraggableProviderContext from "./draggable-provider-context";
-import useThrottle from "../../hooks/__internal__/useThrottle";
-import { last } from "lodash";
 
 export type ContainerOrderType = Record<
   string | number,
@@ -151,7 +149,7 @@ console.log("Current move:", {
   fromList: fromListId,
   toList: toListId,
   itemId: destinationId,
-  toIndex: toIndex
+  toIndex,
 });
 
 // Different source container
@@ -207,9 +205,6 @@ if(differentSourceContainer ||
   console.log("MOVE BLOCKED: Duplicate of previous move");
   // Block the move
 }
-
-
-      
 
       // Get the moved ID outside the state update
       const movedId = elements

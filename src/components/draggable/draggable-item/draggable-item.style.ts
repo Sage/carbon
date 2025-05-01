@@ -22,6 +22,16 @@ const StyledDraggableItem = styled.div<StyledDraggableItemProps>`
 const StyledDraggableContainer = styled.div<
   Pick<StyledDraggableItemProps, "flexDirection">
 >`
+
+
+[data-drag-state="is-dragging"] {
+  visibility: hidden;
+}
+
+[data-drag-state="is-dragging-over"] {
+  visibility: hidden;
+}
+
   ${margin}
 
   ${StyledDraggableItem} {
