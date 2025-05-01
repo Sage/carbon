@@ -33,12 +33,17 @@ export interface DraggableContainerProps {
     movedItemId?: string | number | undefined,
   ) => void;
   containerStyle?: CSSProperties;
-    containerNode?:
-    | keyof JSX.IntrinsicElements
-    | React.JSXElementConstructor<unknown>;
+  containerNode?: keyof JSX.IntrinsicElements | React.ElementType;
   setDraggedNode?: (element: Element) => void;
   "data-role"?: string;
   "data-component"?: string;
+  "data-element"?: string;
+     /**
+   * @private
+   * @ignore
+   * @internal
+   * Sets className for component. INTERNAL USE ONLY. */
+     className?: string;
 }
 
 const DraggableContainer = forwardRef<
@@ -56,6 +61,8 @@ const DraggableContainer = forwardRef<
       setDraggedNode,
       "data-role": dataRole,
       "data-component": dataComponent,
+      "data-element": dataElement = "user-draggable-container",
+      className,
     }: DraggableContainerProps,
     ref,
   ): JSX.Element => {
@@ -67,6 +74,10 @@ const DraggableContainer = forwardRef<
       uniqueId: providerId,
     } = useContext(DraggableProviderContext);
     const [list, setList] = useState<React.ReactNode[]>([]);
+    const [originalList, setOriginalList] = useState<React.ReactNode[]>([]);
+
+    // creates a ref to store the original list of items on first render
+    const hasStoredOriginal = useRef(false);
 
     const localGuid = useRef(guid());
     const uniqueId = id || localGuid.current;
@@ -80,11 +91,38 @@ const DraggableContainer = forwardRef<
       return list.length > 0 ? list : lists?.[uniqueId] || [];
     }, [list, lists, uniqueId]);
 
-    const localRegister = (items: React.ReactNode | React.ReactNode[]) => {
-      setList((prevList) =>
-        Array.isArray(items) ? [...prevList, ...items] : [...prevList, items],
-      );
-    };
+    // Modified useEffect to store the effectiveList instead of list
+    useEffect(() => {
+      if (effectiveList.length > 0 && !hasStoredOriginal.current) {
+        setOriginalList(effectiveList);
+        hasStoredOriginal.current = true;
+      }
+    }, [effectiveList]);
+
+    const droppedList = useRef<React.ReactNode[]>([]);
+    const prevChildrenCountRef = useRef(0);
+
+    // handles for the initial register of items, and if items are dynamically added
+    const localRegister = useCallback((items: React.ReactNode | React.ReactNode[]) => {
+      const itemsArray = Array.isArray(items) ? items : [items];
+      const currentCount = itemsArray.length;
+      const prevCount = prevChildrenCountRef.current;
+      
+      // If this is the first time or there are new items
+      if (prevCount === 0 || currentCount > prevCount) {
+        // For first time, use the whole array
+        if (prevCount === 0) {
+          setList(itemsArray);
+        } 
+        // For updates, only add the new items
+        else {
+          const newItems = itemsArray.slice(prevCount);
+          setList(prevList => [...prevList, ...newItems]);
+          console.log(`Added ${newItems.length} new items`);
+        }
+      }
+            prevChildrenCountRef.current = currentCount;
+    }, []);
 
     const localMove = useCallback(
       (itemId: string | number, toIndex: number) => {
@@ -99,8 +137,8 @@ const DraggableContainer = forwardRef<
         // supports finding passed Id's from consumers, specifically for the getOrder callback
         const movedId = (() => {
           const element = elements.find(
-            (element) =>
-              element.getAttribute("data-item-id") === String(itemId),
+            (el) =>
+              el.getAttribute("data-item-id") === String(itemId),
           );
           // checks to see if a passed Id can be found from the initial item, or the first child of the item
           const foundId = element?.getAttribute("data-item-id") as string;
@@ -141,16 +179,14 @@ const DraggableContainer = forwardRef<
 
           // supports finding the new list of passed Id's from consumers, specifically for the getOrder callback
           const allIds = updatedElements
-            .map((element) => {
-              // checks to see if a passed Id can be found from the initial item, or the first child of the item
-              const foundId = element.getAttribute("data-item-id") as string;
-
-              if (foundId === null || foundId === undefined) return null;
-
-              return foundId;
-            })
-            .filter((id) => id !== null && id !== undefined) as string[];
-
+          .map((el) => {
+            // checks to see if a passed Id can be found from the initial item, or the first child of the item
+            const foundId = el.getAttribute("data-item-id") as string;
+            if (foundId === null || foundId === undefined) return null;
+            return foundId;
+          })
+          .filter((potentialId) => potentialId !== null && potentialId !== undefined) as string[];
+          
           if (
             allIds.length > 0 &&
             movedId !== undefined &&
@@ -165,14 +201,11 @@ const DraggableContainer = forwardRef<
     );
 
     useLayoutEffect(() => {
-      if (!hasMounted.current) {
         if (register) {
           register(uniqueId, React.Children.toArray(children));
         } else {
           localRegister(React.Children.toArray(children));
         }
-        hasMounted.current = true;
-      }
     }, [children, register, uniqueId]);
 
     const findParentItemId = (
@@ -226,8 +259,23 @@ const DraggableContainer = forwardRef<
       destinationId: null,
     });
 
+    const [state, setState] = useState<number>(0);
+
+    useEffect(() => {
+      if (state) {
+        if(droppedList.current.length > 0) {
+          setList(droppedList.current);
+        } else if (originalList.length > 0) {
+          // Use the stored originalList instead of logging it
+          setList(originalList);
+        }
+      }
+    }, [state, setList, originalList]);
+
     useEffect(() => {
       const element = containerRef.current as Element;
+      if (!element) return;
+            
       const cleanup = combine(
         dropTargetForElements({
           element,
@@ -248,6 +296,13 @@ const DraggableContainer = forwardRef<
                 const indexOfTarget = Number(target.data.itemIndex);
                 const destinationId = source.data.itemId as string | number;
 
+                // early return to stop drags on other containers resulting in a move on current container
+                // unlikely to happen, but worth checking. Is possible if two draggable containers are used 
+                // next to each other, and the user drags from one to the other
+                if(target.data.parentContainerId !== uniqueId) {
+                  return;
+                }
+            
                 if (
                   !Number.isNaN(indexOfTarget) &&
                   indexOfTarget >= 0 &&
@@ -258,7 +313,6 @@ const DraggableContainer = forwardRef<
                     lastMoveRef.current.indexOfTarget !== indexOfTarget ||
                     lastMoveRef.current.destinationId !== destinationId
                   ) {
-                    console.log("continuous move");
                     localMove(destinationId, indexOfTarget);
                     lastMoveRef.current = { indexOfTarget, destinationId };
                   }
@@ -267,6 +321,18 @@ const DraggableContainer = forwardRef<
             },
           }),
           onDrop({ location, source }) {
+            // if any drop takes place outside of a drop target or on an unrelated drop target
+            if(!location.current.dropTargets.length || location.current.dropTargets[0].data.parentContainerId !== uniqueId) {
+              // every time a drop occurs outside of the drop target
+              // this triggers an effect which will then set the list order to the last 
+              // saved order which was captured on drop
+              setState(state => state + 1);
+          } else {
+            // creates a new list every time a drop occurs
+            // this ensures that the list can be reset to the original order of the last drop 
+            // and not the original order on render, as this may have changed
+            droppedList.current = effectiveList
+          }
             if (dragType === "onDrop") {
               const target = location.current.dropTargets[0];
               if (target) {
@@ -297,20 +363,18 @@ const DraggableContainer = forwardRef<
         }),
       );
       return () => cleanup();
-    }, [localMove, move, uniqueId, dragType]);
+    }, [localMove, move, uniqueId, dragType, effectiveList]); // Removed setState from dependencies
 
     const dataDragState = () => {
       if (!move) {
-        return;
+        return undefined;
       }
-
       if (containerDragState?.targetContainerId === uniqueId) {
         return containerDragState.draggingBetweenContainers
           ? "dragging-over-between-containers"
           : "dragging-over";
       }
-
-      return;
+      return undefined;
     };
 
     return (
@@ -320,11 +384,12 @@ const DraggableContainer = forwardRef<
         {React.createElement(
           containerNode,
           {
-            "data-element": "use-draggable-container",
+            "data-element": dataElement,
             "data-role": dataRole,
             ...(dataDragState() && { "data-drag-state": dataDragState() }),
             "data-component": dataComponent,
             ...(providerId && { "data-provider-id": providerId }),
+            className,
             id: uniqueId,
             style: containerStyle,
             ref: containerRef,

@@ -12,7 +12,6 @@ import Event from "../../../__internal__/utils/helpers/events";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import { TableBorderSize } from "..";
 import StyledFlatTableRow from "./flat-table-row.style";
-import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
 import FlatTableRowHeader from "../flat-table-row-header";
 import FlatTableRowDraggable from "./__internal__/flat-table-row-draggable.component";
 import FlatTableContext from "../__internal__/flat-table.context";
@@ -73,8 +72,8 @@ export const FlatTableRow = React.forwardRef<
     }: FlatTableRowProps,
     ref,
   ) => {
-    const internalId = useRef(id ? String(id) : guid());
-    const [isExpanded, setIsExpanded] = useState(expanded);
+    const internalId = useRef(id !== undefined && id !== null ? String(id) : guid());
+        const [isExpanded, setIsExpanded] = useState(expanded);
     let rowRef = useRef<HTMLTableRowElement>(null);
     if (ref) {
       rowRef = ref as React.MutableRefObject<HTMLTableRowElement | null>;
@@ -177,7 +176,6 @@ export const FlatTableRow = React.forwardRef<
 
     const { colorTheme, size, getTabStopElementId } =
       useContext(FlatTableContext);
-    const { isInSidebar } = useContext(DrawerSidebarContext);
     const { stickyOffsets } = useContext(FlatTableHeadContext);
     const toggleExpanded = () => setIsExpanded(!isExpanded);
 
@@ -265,7 +263,7 @@ export const FlatTableRow = React.forwardRef<
     );
 
     const sharedRowProps = {
-      isInSidebar,
+      id: internalId.current,
       expandable,
       isSubRow,
       isFirstSubRow,
@@ -295,7 +293,7 @@ export const FlatTableRow = React.forwardRef<
     };
 
     const rowComponent = () => (
-      <StyledFlatTableRow id={internalId.current} {...sharedRowProps}>
+      <StyledFlatTableRow {...sharedRowProps}>
         <FlatTableRowContext.Provider
           value={{
             firstCellId,
@@ -315,7 +313,7 @@ export const FlatTableRow = React.forwardRef<
     );
 
     const draggableComponent = () => (
-      <FlatTableRowDraggable id={id || internalId.current} {...sharedRowProps}>
+      <FlatTableRowDraggable {...sharedRowProps}>
         <FlatTableRowContext.Provider
           value={{
             firstCellId,

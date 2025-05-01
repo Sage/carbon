@@ -1,4 +1,4 @@
-import React, { Ref, useState } from "react";
+import React, { Ref, useEffect, useState } from "react";
 import guid from "../../__internal__/utils/helpers/guid";
 import DraggableContainer from "../../__internal__/draggable/draggable-container";
 import DraggableItem from "../../__internal__/draggable/draggable-item";
@@ -17,9 +17,7 @@ export interface UseDraggableHandle {
 export interface UseDraggableOptions {
   draggableItems: React.ReactNode[] | React.ReactNode;
   containerId?: string | number;
-  containerNode?:
-  | keyof JSX.IntrinsicElements
-  | React.JSXElementConstructor<unknown>;
+  containerNode?: keyof JSX.IntrinsicElements | React.ElementType;
   containerRole?: string;
   dragType?: "continuous" | "onDrop";
   stylingOptOut?: boolean;
@@ -27,9 +25,7 @@ export interface UseDraggableOptions {
     draggableItemIds?: (string | number | undefined)[],
     movedItemId?: string | number | undefined,
   ) => void;
-  itemsNode?:
-    | keyof JSX.IntrinsicElements
-    | React.JSXElementConstructor<unknown>;
+  itemsNode?: keyof JSX.IntrinsicElements | React.ElementType;
   itemsRole?: string;
   ref?: Ref<UseDraggableHandle>;
 }
@@ -50,6 +46,10 @@ const useDraggable = ({
     ? draggableItems
     : [draggableItems];
   const [draggedNode, setDraggedNode] = useState<Element | null>(null);
+
+  useEffect(() => {
+    console.log("Draggable items updated:", draggableItems);
+  }, [draggableItems])
 
   const draggableElement = (
     <DraggableContainer

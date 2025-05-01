@@ -755,23 +755,24 @@ export const WithDraggable: Story = () => {
     });
 
     useEffect(() => {
-      const element = document.getElementById(id);
-      if (!element) return;
-
+      const element = document?.getElementById(id);
       const updateDragState = () => {
-        const dragState = element.getAttribute("data-drag-state");
+        const dragState = element?.getAttribute("data-drag-state");
         setIsDragging(dragState === "dragging-over-between-containers");
       };
-
       updateDragState();
-
       const observer = new MutationObserver(updateDragState);
-
-      observer.observe(element, {
-        attributes: true,
-        attributeFilter: ["data-drag-state"],
-      });
-      return () => observer.disconnect();
+      if(element){
+        observer.observe(element, {
+          attributes: true,
+          attributeFilter: ["data-drag-state"],
+        });
+      }
+      
+      // Cleanup function to disconnect the observer when component unmounts
+      return () => {
+        observer.disconnect();
+      };
     }, [id]);
 
     return (

@@ -1,5 +1,4 @@
-import guid from ".";
-import { isGuid } from ".";
+import guid, { isGuid } from ".";
 
 test("should generate a guid with a length of 36 characters", () => {
   expect(guid().length).toEqual(36);
@@ -65,28 +64,33 @@ describe('isGuid', () => {
   });
 
   describe('non-string inputs', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const guidTest = (props: any) => {
+      return isGuid(props);
+    }
+
     it('returns false for null input', () => {
-      expect(isGuid(null as any)).toBe(false);
+      expect(guidTest(null)).toBe(false);
     });
-
+    
     it('returns false for undefined input', () => {
-      expect(isGuid(undefined as any)).toBe(false);
+      expect(guidTest(undefined)).toBe(false);
     });
-
+    
     it('returns false for number input', () => {
-      expect(isGuid(123 as any)).toBe(false);
+      expect(guidTest(123)).toBe(false);
     });
-
+    
     it('returns false for object input', () => {
-      expect(isGuid({} as any)).toBe(false);
+      expect(guidTest({})).toBe(false);
     });
-
+    
     it('returns false for array input', () => {
-      expect(isGuid([] as any)).toBe(false);
+      expect(guidTest([])).toBe(false);
     });
-
+    
     it('returns false for boolean input', () => {
-      expect(isGuid(true as any)).toBe(false);
+      expect(guidTest(true)).toBe(false);
     });
   });
 

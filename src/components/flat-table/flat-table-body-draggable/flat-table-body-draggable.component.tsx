@@ -1,9 +1,10 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useContext } from "react";
 
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
-import DraggableContainer from "../../../__internal__/draggable/draggable-container";
 import FlatTableBodyDraggableContext from "./__internal__/flat-table-body-draggable-context";
 import { FlatTableBodyDraggableHandle } from "..";
+import StyledFlatTableBodyDraggable from "./flat-table-body-draggable.style";
+import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
 
 export interface FlatTableBodyDraggableProps extends TagProps {
   /** Array of FlatTableRow. */
@@ -19,20 +20,24 @@ const FlatTableBodyDraggable = forwardRef<
   FlatTableBodyDraggableHandle,
   FlatTableBodyDraggableProps
 >(({ children, getOrder, ...rest }, ref) => {
+
+  const { isInSidebar } = useContext(DrawerSidebarContext);
+
   return (
     <FlatTableBodyDraggableContext.Provider
       value={{ isInFlatTableBodyDraggable: true }}
     >
-      <DraggableContainer
+      <StyledFlatTableBodyDraggable
         data-component="flat-table-body-draggable"
         data-role="flat-table-body-draggable"
         getOrder={getOrder}
         containerNode="tbody"
         ref={ref}
+        isInSidebar={isInSidebar}        
         {...rest}
       >
         {children}
-      </DraggableContainer>
+      </StyledFlatTableBodyDraggable>
     </FlatTableBodyDraggableContext.Provider>
   );
 });

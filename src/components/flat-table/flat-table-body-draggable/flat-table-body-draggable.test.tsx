@@ -2,23 +2,17 @@ import React from "react";
 import { fireEvent, render, screen, waitFor, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import "../../../__spec_helper__/__internal__/drag-event-polyfill"
-
 import {
   FlatTable,
   FlatTableRow,
   FlatTableCell,
   FlatTableBodyDraggable,
 } from "..";
-
-// Set up fake timers for the tests
-beforeEach(() => {
-  jest.useFakeTimers();
-});
+import "../../../__spec_helper__/__internal__/drag-event-polyfill"
 
 afterEach(() => {
-  jest.runOnlyPendingTimers();
-  jest.useRealTimers();
+  fireEvent.dragEnd(window);
+  fireEvent.pointerMove(window);
 });
 
 const WithDraggableRows = () => (
@@ -127,54 +121,40 @@ const WithDynamicRow = () => {
 };
 
 test("should set the expected data- attributes on the table body", () => {
-  act(() => {
-    render(
-      <FlatTable>
-        <FlatTableBodyDraggable
-          data-element="ft-draggable-data-element"
-          data-role="ft-draggable-data-role"
-        >
-          <FlatTableRow key={0} id={0}>
-            <FlatTableCell>UK</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow key={1} id={1}>
-            <FlatTableCell>Germany</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBodyDraggable>
-      </FlatTable>
-    );
-  });
-  
-  act(() => {
-    jest.runAllTimers();
-  });
-  
+  render(
+    <FlatTable>
+      <FlatTableBodyDraggable
+        data-element="ft-draggable-data-element"
+        data-role="ft-draggable-data-role"
+      >
+        <FlatTableRow key={0} id={0}>
+          <FlatTableCell>UK</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow key={1} id={1}>
+          <FlatTableCell>Germany</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBodyDraggable>
+    </FlatTable>,
+  );
   const ftDraggableBody = screen.getByRole("rowgroup");
 
   expect(ftDraggableBody).toHaveAttribute(
     "data-component",
-    "flat-table-body-draggable"
+    "flat-table-body-draggable",
   );
   expect(ftDraggableBody).toHaveAttribute(
     "data-element",
-    "ft-draggable-data-element"
+    "ft-draggable-data-element",
   );
   expect(ftDraggableBody).toHaveAttribute(
     "data-role",
-    "ft-draggable-data-role"
+    "ft-draggable-data-role",
   );
 });
 
 describe("drag and drop functionality", () => {
   it("should have rows in correct order on initial render", () => {
-    act(() => {
-      render(<WithDraggableRows />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
+    render(<WithDraggableRows />);
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row one",
       "Row two",
@@ -183,99 +163,36 @@ describe("drag and drop functionality", () => {
   });
 
   it("can drag-and-drop downwards", () => {
-    act(() => {
-      render(<WithDraggableRows />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    render(<WithDraggableRows />);
 
     const dropTarget = screen.getByRole("row", { name: "Row three" });
     const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.dragEnter(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(dropTarget);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.drop(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragEnd(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    fireEvent.dragStart(elementToDrag);
+    fireEvent.dragEnter(dropTarget);
+    fireEvent.dragOver(dropTarget);
+    fireEvent.drop(dropTarget);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row two",
       "Row three",
-      "Row one",
+      "Row one", 
     ]);
   });
 
   it("can drag without drop", () => {
-    act(() => {
-      render(<WithDraggableRows />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    render(<WithDraggableRows />);
 
     const dropTarget = screen.getByRole("row", { name: "Row three" });
     const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.dragEnter(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(dropTarget);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.drop(window);
-    });
-    
-    act(() => {
-      fireEvent.dragEnd(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    fireEvent.dragStart(elementToDrag);
+    fireEvent.dragEnter(dropTarget);
+    fireEvent.dragOver(dropTarget);
+    fireEvent.dragEnter(window);
+    fireEvent.dragOver(window);
+    fireEvent.drop(window);
+    fireEvent.dragEnd(elementToDrag);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row one",
@@ -284,78 +201,42 @@ describe("drag and drop functionality", () => {
     ]);
   });
 
-  it("sets the cursor correctly when dragging", async () => {
-    jest.useRealTimers(); // Need real timers for waitFor
+  it("sets the cursor correctly", async () => {
+    render(<WithDraggableRows />);
+    const draggableFlatTableRow = screen.getByRole("row", { name: "Row one" });
     
-    act(() => {
-      render(<WithDraggableRows />);
-    });
-
-    const elementToDrag = screen.getByRole("row", { name: "Row one" });
-
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
+    // Make sure the row has draggable attribute set to true
+    expect(draggableFlatTableRow).toHaveAttribute("draggable", "true");
     
-    act(() => {
-      fireEvent.dragEnter(elementToDrag);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(elementToDrag);
-    });
-
+    // Wait for styles to be applied, then use toHaveStyle
     await waitFor(() => {
-      expect(screen.getByTestId("flat-table-body-draggable")).toHaveStyle(
-        "cursor: grabbing"
-      );
+      expect(draggableFlatTableRow).toHaveStyle({ cursor: "grabbing" });
     });
+  });
+
+  it("sets the cursor correctly whilst dragging", async () => {
+    render(<WithDraggableRows />);
+    const draggableFlatTableRow = screen.getByRole("row", { name: "Row one" });
     
-    jest.useFakeTimers(); // Switch back to fake timers
+    // Make sure the row has draggable attribute set to true
+    expect(draggableFlatTableRow).toHaveAttribute("draggable", "true");
+    fireEvent.dragStart(draggableFlatTableRow);
+    
+    // Wait for styles to be applied, then use toHaveStyle
+    await waitFor(() => {
+      expect(draggableFlatTableRow).toHaveStyle({ cursor: "grabbing" });
+    });
   });
 
   it("can drop on the same item", () => {
-    act(() => {
-      render(<WithDraggableRows />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    render(<WithDraggableRows />);
 
     const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.dragEnter(elementToDrag);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.drop(elementToDrag);
-    });
-    
-    act(() => {
-      fireEvent.dragEnd(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    fireEvent.dragStart(elementToDrag);
+    fireEvent.dragEnter(elementToDrag);
+    fireEvent.dragOver(elementToDrag);
+    fireEvent.drop(elementToDrag);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row one",
@@ -365,48 +246,15 @@ describe("drag and drop functionality", () => {
   });
 
   it("can drag-and-drop upwards", () => {
-    act(() => {
-      render(<WithDraggableRows />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    render(<WithDraggableRows />);
 
     const dropTarget = screen.getByRole("row", { name: "Row one" });
     const elementToDrag = screen.getByRole("row", { name: "Row three" });
 
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.dragEnter(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(dropTarget);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.drop(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragEnd(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    fireEvent.dragStart(elementToDrag);
+    fireEvent.dragEnter(dropTarget);
+    fireEvent.dragOver(dropTarget);
+    fireEvent.drop(dropTarget);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row three",
@@ -416,61 +264,30 @@ describe("drag and drop functionality", () => {
   });
 
   it("should allow a dynamically added row to be dragged and dropped", async () => {
-    jest.useRealTimers(); // Need real timers for userEvent
-    
     const user = userEvent.setup({ delay: null });
-    
-    act(() => {
-      render(<WithDynamicRow />);
-    });
+    render(<WithDynamicRow />);
 
-    await act(async () => {
-      await user.click(screen.getByRole("button", { name: /Add row/i }));
-    });
+    await user.click(screen.getByRole("button", { name: /Add row/i }));
 
-    const rowThree = screen.getByRole("row", { name: "Row three" });
     const rowOne = screen.getByRole("row", { name: "Row one" });
+    const rowThree = screen.getByRole("row", { name: "Row three" });
 
-    act(() => {
-      fireEvent.dragStart(rowThree);
-    });
-    
-    act(() => {
-      fireEvent.dragEnter(rowOne);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(rowOne);
-    });
-    
-    act(() => {
-      fireEvent.drop(rowOne);
-    });
-    
-    act(() => {
-      fireEvent.dragEnd(rowThree);
-    });
+    fireEvent.dragStart(rowThree);
+    fireEvent.dragEnter(rowOne);
+    fireEvent.dragOver(rowOne);
+    fireEvent.drop(rowOne);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row three",
       "Row one",
       "Row two",
     ]);
-    
-    jest.useFakeTimers(); // Switch back to fake timers
   });
 });
 
 describe("with sub rows", () => {
   test("on initial render the rows are in the correct order", () => {
-    act(() => {
-      render(<ComplexTableWithDraggableRows />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
+    render(<ComplexTableWithDraggableRows />);
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row one",
       "Row two",
@@ -479,48 +296,15 @@ describe("with sub rows", () => {
   });
 
   it("can drag-and-drop downwards", () => {
-    act(() => {
-      render(<ComplexTableWithDraggableRows />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    render(<ComplexTableWithDraggableRows />);
 
     const dropTarget = screen.getByRole("row", { name: "Row three" });
     const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.dragEnter(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(dropTarget);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.drop(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragEnd(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    fireEvent.dragStart(elementToDrag);
+    fireEvent.dragEnter(dropTarget);
+    fireEvent.dragOver(dropTarget);
+    fireEvent.drop(dropTarget);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row two",
@@ -530,23 +314,11 @@ describe("with sub rows", () => {
   });
 
   it("can drag without drop", () => {
-    act(() => {
-      render(<ComplexTableWithDraggableRows />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    render(<ComplexTableWithDraggableRows />);
 
     const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    fireEvent.dragStart(elementToDrag);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row one",
@@ -556,47 +328,14 @@ describe("with sub rows", () => {
   });
 
   it("can drop on the same item", () => {
-    act(() => {
-      render(<ComplexTableWithDraggableRows />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    render(<ComplexTableWithDraggableRows />);
 
     const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.dragEnter(elementToDrag);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.drop(elementToDrag);
-    });
-    
-    act(() => {
-      fireEvent.dragEnd(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    fireEvent.dragStart(elementToDrag);
+    fireEvent.dragEnter(elementToDrag);
+    fireEvent.dragOver(elementToDrag);
+    fireEvent.drop(elementToDrag);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row one",
@@ -606,48 +345,15 @@ describe("with sub rows", () => {
   });
 
   it("can drag-and-drop upwards", () => {
-    act(() => {
-      render(<ComplexTableWithDraggableRows />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    render(<ComplexTableWithDraggableRows />);
 
     const dropTarget = screen.getByRole("row", { name: "Row one" });
     const elementToDrag = screen.getByRole("row", { name: "Row three" });
 
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.dragEnter(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(dropTarget);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.drop(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragEnd(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    fireEvent.dragStart(elementToDrag);
+    fireEvent.dragEnter(dropTarget);
+    fireEvent.dragOver(dropTarget);
+    fireEvent.drop(dropTarget);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row three",
@@ -659,110 +365,53 @@ describe("with sub rows", () => {
 
 it("calls getOrder callback when the order is changed and getOrder prop is set", () => {
   const getOrder = jest.fn();
+  jest.useFakeTimers();
 
-  act(() => {
-    render(
-      <FlatTable>
-        <FlatTableBodyDraggable getOrder={getOrder}>
-          <FlatTableRow key="0" id={0}>
-            <FlatTableCell>Row one</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow key="1" id={1}>
-            <FlatTableCell>Row two</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow key="2" id={2}>
-            <FlatTableCell>Row three</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBodyDraggable>
-      </FlatTable>
-    );
-  });
-  
-  act(() => {
-    jest.runAllTimers();
-  });
-  
+  render(
+    <FlatTable>
+      <FlatTableBodyDraggable getOrder={getOrder}>
+        <FlatTableRow key="0" id={0}>
+          <FlatTableCell>Row one</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow key="1" id={1}>
+          <FlatTableCell>Row two</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow key="2" id={2}>
+          <FlatTableCell>Row three</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBodyDraggable>
+    </FlatTable>,
+  );
+
+  const dropTarget = screen.getByRole("row", { name: "Row two" });
   const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
-  act(() => {
-    fireEvent.dragStart(elementToDrag);
-  });
-  
-  act(() => {
-    jest.runAllTimers();
-  });
-  
-  act(() => {
-    fireEvent.dragEnter(elementToDrag);
-  });
-  
-  act(() => {
-    fireEvent.dragOver(elementToDrag);
-  });
-  
-  act(() => {
-    jest.runAllTimers();
-  });
-  
-  act(() => {
-    fireEvent.drop(elementToDrag);
-  });
-  
-  act(() => {
-    fireEvent.dragEnd(elementToDrag);
-  });
-  
-  act(() => {
-    jest.runAllTimers();
-  });
 
-  expect(getOrder).toHaveBeenCalledWith([0, 1, 2]);
+  fireEvent.dragStart(elementToDrag);
+  fireEvent.dragEnter(dropTarget);
+  fireEvent.dragOver(elementToDrag);
+  fireEvent.drop(dropTarget);
+  fireEvent.dragEnd(elementToDrag);
+
+  act(() => {
+    jest.runAllTimers();
+  });
+  
+  expect(getOrder).toHaveBeenCalledWith(["1", "0", "2"], "0");
 });
 
 describe("multiple draggable tables", () => {
   it("should drag items within table 1", () => {
-    act(() => {
-      render(<MultipleDraggableTables />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    render(<MultipleDraggableTables />);
 
     const dropTarget = screen.getByRole("row", { name: "Row three" });
     const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.dragEnter(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(dropTarget);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.drop(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragEnd(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    fireEvent.dragStart(elementToDrag);
+    fireEvent.dragEnter(dropTarget);
+    fireEvent.dragOver(dropTarget);
+    fireEvent.drop(dropTarget);
+    fireEvent.dragEnd(elementToDrag);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row two",
@@ -775,48 +424,16 @@ describe("multiple draggable tables", () => {
   });
 
   it("should drag items within table 2", () => {
-    act(() => {
-      render(<MultipleDraggableTables />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    render(<MultipleDraggableTables />);
 
     const dropTarget = screen.getByRole("row", { name: "Row six" });
     const elementToDrag = screen.getByRole("row", { name: "Row four" });
 
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.dragEnter(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(dropTarget);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.drop(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragEnd(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    fireEvent.dragStart(elementToDrag);
+    fireEvent.dragEnter(dropTarget);
+    fireEvent.dragOver(dropTarget);
+    fireEvent.drop(dropTarget);
+    fireEvent.dragEnd(elementToDrag);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row one",
@@ -829,48 +446,15 @@ describe("multiple draggable tables", () => {
   });
 
   it("should not drag item from one table to another", () => {
-    act(() => {
-      render(<MultipleDraggableTables />);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    render(<MultipleDraggableTables />);
 
     const dropTarget = screen.getByRole("row", { name: "Row one" });
     const elementToDrag = screen.getByRole("row", { name: "Row six" });
 
-    act(() => {
-      fireEvent.dragStart(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.dragEnter(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragOver(dropTarget);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
-    
-    act(() => {
-      fireEvent.drop(dropTarget);
-    });
-    
-    act(() => {
-      fireEvent.dragEnd(elementToDrag);
-    });
-    
-    act(() => {
-      jest.runAllTimers();
-    });
+    fireEvent.dragStart(elementToDrag);
+    fireEvent.dragEnter(dropTarget);
+    fireEvent.dragOver(dropTarget);
+    fireEvent.drop(dropTarget);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row one",

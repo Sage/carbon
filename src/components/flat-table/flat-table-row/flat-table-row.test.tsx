@@ -5,6 +5,7 @@ import {
   within,
   fireEvent,
   waitFor,
+  act,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -14,7 +15,7 @@ import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.conte
 import FlatTableCheckbox from "../flat-table-checkbox";
 import FlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.component";
 import FlatTableHeader from "../flat-table-header/flat-table-header.component";
-import { FlatTableBodyDraggable } from "..";
+import { FlatTableBody, FlatTableBodyDraggable } from "..";
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import FlatTableContext from "../__internal__/flat-table.context";
 
@@ -1546,14 +1547,14 @@ describe("with a ref", () => {
 
     render(
       <table>
-        <FlatTableBodyDraggable>
+        <FlatTableBody>
           <FlatTableRow id={0} ref={mockRef}>
             <FlatTableHeader>cell1</FlatTableHeader>
             <FlatTableCell>cell2</FlatTableCell>
             <FlatTableRowHeader>cell3</FlatTableRowHeader>
             <FlatTableHeader>cell4</FlatTableHeader>
           </FlatTableRow>
-        </FlatTableBodyDraggable>
+        </FlatTableBody>
       </table>,
     );
 
@@ -1567,14 +1568,14 @@ describe("with a ref", () => {
 
     render(
       <table>
-        <FlatTableBodyDraggable>
+        <FlatTableBody>
           <FlatTableRow id={0} ref={mockRef}>
             <FlatTableHeader>cell1</FlatTableHeader>
             <FlatTableCell>cell2</FlatTableCell>
             <FlatTableRowHeader>cell3</FlatTableRowHeader>
             <FlatTableHeader>cell4</FlatTableHeader>
           </FlatTableRow>
-        </FlatTableBodyDraggable>
+        </FlatTableBody>
       </table>,
     );
 
@@ -1665,8 +1666,9 @@ test("should apply the expected border styling when row is dragged and table is 
           </FlatTableRow>
         </FlatTableBodyDraggable>
       </table>
-    </DrawerSidebarContext.Provider>,
+    </DrawerSidebarContext.Provider>
   );
+  
   const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
   fireEvent.dragStart(elementToDrag);
@@ -1676,7 +1678,7 @@ test("should apply the expected border styling when row is dragged and table is 
   await waitFor(() => {
     expect(elementToDrag).toHaveStyleRule(
       "border",
-      "var(--colorsUtilityMajor300) 2px solid",
+      "var(--colorsUtilityMajor300) 2px solid"
     );
   });
 });

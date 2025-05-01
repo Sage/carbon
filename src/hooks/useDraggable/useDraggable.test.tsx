@@ -10,7 +10,8 @@ let guidCounter = 0;
 const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => {
-  return `${mockedGuid}-${guidCounter++}`;
+  guidCounter += 1;
+  return `${mockedGuid}-${guidCounter}`;
 });
 
 afterEach(() => {
@@ -65,8 +66,7 @@ test("renders a container", () => {
     
     const container = screen.getByTestId("draggable-container");
     expect(container).toBeVisible();
-
-})
+});
 
 test("accepts a node and wraps it in a draggable item", () => {
     render(
@@ -76,14 +76,14 @@ test("accepts a node and wraps it in a draggable item", () => {
     );
     
     const container = screen.getByTestId("draggable-container");
-    const draggableItem= screen.getByTestId("draggable-item");
+    const draggableItem = screen.getByTestId("draggable-item");
     const draggableItemText = screen.getByText("Item 1");
 
-    expect (container).toContainElement(draggableItem);
+    expect(container).toContainElement(draggableItem);
     expect(draggableItem).toBeVisible();
-    expect (draggableItem).toContainElement(draggableItemText);
+    expect(draggableItem).toContainElement(draggableItemText);
     expect(draggableItemText).toBeVisible();
-})
+});
 
 test("accepts an array of nodes and wraps each node in a a draggable item", () => {
     render(
@@ -105,7 +105,7 @@ test("accepts an array of nodes and wraps each node in a a draggable item", () =
       expect(item).toContainElement(draggableItemText[index]);
       expect(draggableItemText[index]).toBeVisible();
     });
-})
+});
 
 test('returns the last dragged node', () => {
   jest.useFakeTimers();
@@ -116,35 +116,27 @@ test('returns the last dragged node', () => {
     />
   );
   
-  const item1 = screen.getByText('Item 1');
-  const item2 = screen.getByText('Item 2');
-  const item1DraggableWrapper = item1.parentElement as HTMLElement;
-  const item2DraggableWrapper = item2.parentElement as HTMLElement;
+  const draggableItems = screen.getAllByTestId("draggable-item");
+  const draggableItem1 = draggableItems[0];
+  const draggableItem2 = draggableItems[1];
   
- act(() => {
-  fireEvent.dragStart(item1DraggableWrapper);
+  fireEvent.dragStart(draggableItem1);
+
+  act(() => {
+    jest.runAllTimers();
+  });
+
+  fireEvent.dragEnter(draggableItem2);
+
+  fireEvent.dragOver(draggableItem2);
+
+  act(() => {
+    jest.runAllTimers();
+  });
+
+  const lastDraggedNode = screen.getByTestId("last-dragged-node");
+  expect(lastDraggedNode).toHaveTextContent("Last dragged node is: Item 1");
 });
-
-act(() => {
-  jest.runAllTimers();
-});
-
-act(() => {
-  fireEvent.dragEnter(item2DraggableWrapper);
-});
-
-act(() => {
-  fireEvent.dragOver(item2DraggableWrapper);
-});
-
-act(() => {
-  jest.runAllTimers();
-});
-
-const lastDraggedNode = screen.getByTestId("last-dragged-node");
-expect(lastDraggedNode).toHaveTextContent("Last dragged node is: Item 1");
-})
-
 
 test("renders a container with a custom id attribute via the `containerId`", () => {
     render(
@@ -156,7 +148,7 @@ test("renders a container with a custom id attribute via the `containerId`", () 
     
     const container = screen.getByTestId("draggable-container");
     expect(container).toHaveAttribute("id", "custom-id");
-})
+});
 
 test("renders a container with a node via `containerNode`", () => {
   render(
@@ -165,11 +157,11 @@ test("renders a container with a node via `containerNode`", () => {
     draggableItems={<span>Item 1</span>}
     containerNode="article"
     />
-);
+  );
 
-const container = screen.getByTestId("draggable-container");
-expect(container.tagName).toBe("ARTICLE");
-})
+  const container = screen.getByTestId("draggable-container");
+  expect(container.tagName).toBe("ARTICLE");
+});
 
 test("renders a container with a custom data-role attribute node via `containerRole`", () => {
   render(
@@ -178,12 +170,11 @@ test("renders a container with a custom data-role attribute node via `containerR
     containerRole="custom-role"
     draggableItems={<span>Item 1</span>}
     />
-);
+  );
 
-const container = screen.getByTestId("custom-role");
-expect(container).toBeVisible();
-})
-
+  const container = screen.getByTestId("custom-role");
+  expect(container).toBeVisible();
+});
 
 test('changes the dragging behavior to be onDrop when `dragType` is `"onDrop"`', () => {
   jest.useFakeTimers();
@@ -197,26 +188,19 @@ test('changes the dragging behavior to be onDrop when `dragType` is `"onDrop"`',
     />
   );
   
-  const item1 = screen.getByText('Item 1');
-  const item2 = screen.getByText('Item 2');
-  const item1DraggableWrapper = item1.parentElement as HTMLElement;
-  const item2DraggableWrapper = item2.parentElement as HTMLElement;
+  const draggableItems = screen.getAllByTestId("draggable-item");
+  const draggableItem1 = draggableItems[0];
+  const draggableItem2 = draggableItems[1];
   
-  act(() => {
-    fireEvent.dragStart(item1DraggableWrapper);
-  });
+  fireEvent.dragStart(draggableItem1);
   
   act(() => {
     jest.runAllTimers();
   });
   
-  act(() => {
-    fireEvent.dragEnter(item2DraggableWrapper);
-  });
+  fireEvent.dragEnter(draggableItem2);
   
-  act(() => {
-    fireEvent.dragOver(item2DraggableWrapper);
-  });
+  fireEvent.dragOver(draggableItem2);
   
   act(() => {
     jest.runAllTimers();
@@ -224,144 +208,120 @@ test('changes the dragging behavior to be onDrop when `dragType` is `"onDrop"`',
   
   expect(mockGetOrder).toHaveBeenCalledTimes(0);
   
-  act(() => {
-    fireEvent.drop(item2DraggableWrapper);
-  });
+  fireEvent.drop(draggableItem2);
   
   act(() => {
     jest.runAllTimers();
   });
   
-  act(() => {
-    fireEvent.dragEnd(item1DraggableWrapper);
-  });
+  fireEvent.dragEnd(draggableItem1);
   
   act(() => {
     jest.runAllTimers();
   });
   
   expect(mockGetOrder).toHaveBeenCalledTimes(1);
-})
-
+});
 
 test('verifies the getOrder callback is called once after a complete drag and drop operation', () => {
-    jest.useFakeTimers();
-    const mockGetOrder = jest.fn();
-    
-    render(
-      <TestComponent
-        draggableItems={[<span>Item 1</span>, <span>Item 2</span>]}
-        getOrder={mockGetOrder}
-      />
-    );
-    
-    const item1 = screen.getByText('Item 1');
-    const item2 = screen.getByText('Item 2');
-    const item1DraggableWrapper = item1.parentElement as HTMLElement;
-    const item2DraggableWrapper = item2.parentElement as HTMLElement;
-    
-   act(() => {
-    fireEvent.dragStart(item1DraggableWrapper);
-  });
+  jest.useFakeTimers();
+  const mockGetOrder = jest.fn();
+  
+  render(
+    <TestComponent
+      draggableItems={[<span>Item 1</span>, <span>Item 2</span>]}
+      getOrder={mockGetOrder}
+    />
+  );
+  
+  const draggableItems = screen.getAllByTestId("draggable-item");
+  const draggableItem1 = draggableItems[0];
+  const draggableItem2 = draggableItems[1];
+  
+  fireEvent.dragStart(draggableItem1);
   
   act(() => {
     jest.runAllTimers();
   });
   
-  act(() => {
-    fireEvent.dragEnter(item2DraggableWrapper);
-  });
+  fireEvent.dragEnter(draggableItem2);
   
-  act(() => {
-    fireEvent.dragOver(item2DraggableWrapper);
-  });
+  fireEvent.dragOver(draggableItem2);
   
   act(() => {
     jest.runAllTimers();
   });
   
   expect(mockGetOrder).toHaveBeenCalledTimes(1);
-  });
+});
   
-  test('verifies the getOrder callback receives the correct reordered array of ids and the dragged item id', () => {
-    jest.useFakeTimers();
-    const mockGetOrder = jest.fn();
-    
-    render(
-      <TestComponent
-        containerId="containerid"
-        draggableItems={[
-          <span id="foo" key="1">Item 1</span>, 
-          <span id="bar" key="2">Item 2</span>
-        ]}
-        getOrder={mockGetOrder}
-      />
-    );
-    
-    const item1 = screen.getByText('Item 1');
-    const item2 = screen.getByText('Item 2');
-    const item1DraggableWrapper = item1.parentElement as HTMLElement;
-    const item2DraggableWrapper = item2.parentElement as HTMLElement;
-    
-    act(() => {
-        fireEvent.dragStart(item1DraggableWrapper);
-      });
-      
-      act(() => {
-        jest.runAllTimers();
-      });
-      
-      act(() => {
-        fireEvent.dragEnter(item2DraggableWrapper);
-      });
-      
-      act(() => {
-        fireEvent.dragOver(item2DraggableWrapper);
-      });
-      
-      act(() => {
-        jest.runAllTimers();
-      });
-      
-    expect(mockGetOrder).toHaveBeenCalledWith(["bar", "foo"], "foo");
-  });
+test('verifies the getOrder callback receives the correct reordered array of ids and the dragged item id', () => {
+  jest.useFakeTimers();
+  const mockGetOrder = jest.fn();
+  
+  render(
+    <TestComponent
+      containerId="containerid"
+      draggableItems={[
+        <span id="foo" key="1">Item 1</span>, 
+        <span id="bar" key="2">Item 2</span>
+      ]}
+      getOrder={mockGetOrder}
+    />
+  );
+  
+  const draggableItems = screen.getAllByTestId("draggable-item");
+  const draggableItem1 = draggableItems[0];
+  const draggableItem2 = draggableItems[1];
+  
+  fireEvent.dragStart(draggableItem1);
+  
+  act(() => { jest.runAllTimers(); });
+  
+  fireEvent.dragEnter(draggableItem2);
+  
+  fireEvent.dragOver(draggableItem2);
+  
+  act(() => { jest.runAllTimers(); });
+  
+  expect(mockGetOrder).toHaveBeenCalledWith(["bar", "foo"], "foo");
+});
 
-  test("renders a draggable item with a custom data-role attribute node via `itemRole`", () => {
-    render(
-      <TestComponent
-      containerId="custom-id"
-      itemsRole="custom-role"
-      draggableItems={<span>Item 1</span>}
-      />
+test("renders a draggable item with a custom data-role attribute node via `itemRole`", () => {
+  render(
+    <TestComponent
+    containerId="custom-id"
+    itemsRole="custom-role"
+    draggableItems={<span>Item 1</span>}
+    />
   );
   
   const draggableItem = screen.getByTestId("custom-role");
   expect(draggableItem).toBeVisible();
+});
 
-  })
+test("accepts a ref and allows imperative reordering of draggable items", () => {
+  jest.useFakeTimers();
+  const mockGetOrder = jest.fn();
+  const ref = React.createRef<UseDraggableHandle>();
 
-  test("accepts a ref and allows imperative reordering of draggable items", () => {
-    jest.useFakeTimers();
-    const mockGetOrder = jest.fn();
-    const ref = React.createRef<UseDraggableHandle>();
+  render(
+    <TestComponent
+      ref={ref}
+      draggableItems={[<span id='foo'>Item 1</span>, <span id='bar'>Item 2</span>]}
+      getOrder={mockGetOrder}
+    />
+  );
 
-    render(
-      <TestComponent
-        ref={ref}
-        draggableItems={[<span id='foo'>Item 1</span>, <span id='bar'>Item 2</span>]}
-        getOrder={mockGetOrder}
-      />
-    );
+  expect(ref.current).not.toBeNull();
+  
+  act(() => {
+    ref.current?.reOrder("foo", 1);
+  });
 
-    expect(ref.current).not.toBeNull();
-    
-    act(() => {
-      ref.current?.reOrder("foo", 1);
-    });
+  act(() => {
+    jest.runAllTimers();
+  });
 
-    act(() => {
-      jest.runAllTimers();
-    });
-
-    expect(mockGetOrder).toHaveBeenCalledWith(["bar", "foo"], "foo");
-  })
+  expect(mockGetOrder).toHaveBeenCalledWith(["bar", "foo"], "foo");
+});

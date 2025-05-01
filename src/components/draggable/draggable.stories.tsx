@@ -31,22 +31,42 @@ const meta: Meta<typeof DraggableContainer> = {
 export default meta;
 type Story = StoryObj<typeof DraggableContainer>;
 
-export const DefaultStory: Story = () => (
-  <DraggableContainer>
-    <DraggableItem key="1" id={1}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="2" id={2}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="3" id={3}>
-      Some content goes here
-    </DraggableItem>
-    <DraggableItem key="4" id={4}>
-      Some content goes here
-    </DraggableItem>
-  </DraggableContainer>
-);
+export const DefaultStory = () => {
+  const [items, setItems] = useState([
+    { id: "apple", content: "Apple" },
+    { id: "mercury", content: "Mercury" },
+    { id: "venus", content: "Venus" }
+  ]);
+  
+  const [nextItemId, setNextItemId] = useState(1);
+  
+  const addItem = () => {
+    const newItem = { 
+      id: `new-item-${nextItemId}`, 
+      content: `New Item ${nextItemId}` 
+    };
+    setItems([...items, newItem]);
+    setNextItemId(nextItemId + 1);
+  };
+  
+  return (
+    <>
+      <button
+        type="button"
+        onClick={addItem}
+      >
+        Add Draggable Item
+      </button>
+      <DraggableContainer>
+        {items.map((item) => (
+          <DraggableItem key={item.id} id={item.id}>
+            {item.content}
+          </DraggableItem>
+        ))}
+      </DraggableContainer>
+    </>
+  );
+};
 DefaultStory.storyName = "Default";
 
 export const ManualReOrdering: Story = () => {

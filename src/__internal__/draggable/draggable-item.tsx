@@ -23,7 +23,6 @@ import { isGuid } from "../../__internal__/utils/helpers/guid";
 
 import DraggableItemContext from "./draggable-item-context";
 import DraggableContainerContext from "./draggable-container-context";
-import DraggableProviderContext from "../../hooks/useDraggable/draggable-provider-context";
 
 import {
   getDraggableItemData,
@@ -37,7 +36,16 @@ export interface DraggableItemProps {
   children?: React.ReactNode;
   uniqueId: string | number;
   stylingOptOut?: boolean;
-  itemsNode?: keyof JSX.IntrinsicElements | React.JSXElementConstructor<unknown>;
+  itemsNode?: keyof JSX.IntrinsicElements | React.ElementType;
+    /**
+   * @private
+   * @ignore
+   * @internal
+   * Sets className for component. INTERNAL USE ONLY. */
+    className?: string;
+    "data-role"?: string;
+    "data-component"?: string;
+    "data-element"?: string;
 }
 
 const DraggableItem = forwardRef(
@@ -47,6 +55,10 @@ const DraggableItem = forwardRef(
       uniqueId,
       stylingOptOut = false,
       itemsNode = "div",
+      className,
+      "data-role": dataRole = "draggable-item",
+      "data-component": dataComponent,
+      "data-element": dataElement,
       ...rest
     }: DraggableItemProps,
     ref,
@@ -56,7 +68,6 @@ const DraggableItem = forwardRef(
     );
 
     const index = useContext(DraggableItemContext)?.index;
-    const { setClosestEdge } = useContext(DraggableProviderContext);
 
     const [firstChildId, setFirstChildId] = useState<string | null>(null);
     const internalRef = useRef<HTMLDivElement | null>(null);
@@ -93,35 +104,33 @@ const DraggableItem = forwardRef(
     );
 
     // written to help ease the transition from the old drag and drop to the new one - prevents a post flash of newly rendered items before opacity can be changed
-    useEffect(() => {
-      if (
-        dragType === "onDrop" ||
-        !localDraggedNode ||
-        columnId !==
-          localDraggedNode.getAttribute("data-parent-container-id") ||
-        id !== localDraggedNode.getAttribute("data-item-id")
-      ) {
-        return;
-      }
+    // useEffect(() => {
+    //   if (
+    //     dragType === "onDrop" ||
+    //     !localDraggedNode ||
+    //     columnId !==
+    //       localDraggedNode.getAttribute("data-parent-container-id") ||
+    //     id !== localDraggedNode.getAttribute("data-item-id")
+    //   ) {
+    //     return;
+    //   }
 
-      const container = document.getElementById(columnId);
-      if (container) {
-        const nodeToChange = container.querySelector(
-          `[data-item-id="${id}"]`,
-        ) as HTMLElement;
-        if (nodeToChange) {
-          nodeToChange.style.opacity = "0";
-        }
-      }
-    }, [localDraggedNode, columnId, id, dragType]);
+    //   const container = document.getElementById(columnId);
+    //   if (container) {
+    //     const nodeToChange = container.querySelector(
+    //       `[data-item-id="${id}"]`,
+    //     ) as HTMLElement;
+    //     if (nodeToChange) {
+    //       nodeToChange.style.opacity = "0";
+    //     }
+    //   }
+    // }, [localDraggedNode, columnId, id, dragType]);
+
 
     useEffect(() => {
       const idle: DragState = { type: "idle" };
-      const element = itemRef.current;
-      if (!element) {
-        return;
-      }
-
+      const element = itemRef?.current as unknown as HTMLElement;
+   
       const cleanup = combine(
         draggable({
           element,
@@ -184,25 +193,18 @@ const DraggableItem = forwardRef(
               setDragState(idle);
             }
           },
-          onDrop({ self }) {
-            const closestEdge = extractClosestEdge(self.data);
-            if (setClosestEdge) {
-              setClosestEdge(closestEdge);
-            }
+          onDrop() {
             if (setDragState) {
               setDragState(idle);
             }
           },
         }),
       );
-      return () => {
-        cleanup();
-      };
+      return () => cleanup();
     }, [
       id,
       draggableItemData,
       setDragState,
-      setClosestEdge,
       itemRef,
       localDraggedNode,
     ]);
@@ -214,6 +216,10 @@ const DraggableItem = forwardRef(
         "data-parent-container-id": columnId,
         "data-item-id": id,
         "data-drag-state": dragState.type,
+        "data-component": dataComponent,
+        "data-role": dataRole,
+        "data-element": dataElement,
+        className,
         ...(itemsNode === StyledFlatTableRow && {
           isDragging:
             dragState.type === "is-dragging-over" ||
@@ -222,12 +228,12 @@ const DraggableItem = forwardRef(
         ...rest,
         style: {
           ...(!stylingOptOut && { cursor: "grab" }),
-          ...(!stylingOptOut && {
-            opacity:
-              dragState.type === "is-dragging-over" && dragState.id === id
-                ? 0
-                : 1,
-          }),
+          // ...(!stylingOptOut && {
+          //   opacity:
+          //     (dragState.type === "is-dragging-over" || dragState.type === "is-dragging") && dragState.id === id
+          //       ? 1
+          //       : 1,
+          // }),
           position: "relative",
         },
       },
