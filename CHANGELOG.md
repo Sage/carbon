@@ -1,3 +1,9 @@
+## [153.7.1](https://github.com/Sage/carbon/compare/v153.7.0...v153.7.1) (2025-05-02)
+
+### Bug Fixes
+
+* **button:** ensure button focuses on click for Safari compatibility ([66e7a32](https://github.com/Sage/carbon/commit/66e7a3232264ebccfcd81789472a0922a157518c))
+
 ## [153.7.0](https://github.com/Sage/carbon/compare/v153.6.0...v153.7.0) (2025-04-25)
 
 ### Features
