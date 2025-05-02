@@ -1,3 +1,16 @@
+## [154.0.0](https://github.com/Sage/carbon/compare/v153.8.0...v154.0.0) (2025-05-02)
+
+### ⚠ BREAKING CHANGES
+
+* **text-editor:** The onChange handler is no longer debounced internally. Consumers should implement
+their own debounce handlers when using TextEditor to ensure that e.g. performance is not affected.
+
+Addresses 7295
+
+### Features
+
+* **text-editor:** adds onBlur and onFocus support to Text Editor ([ee29ec4](https://github.com/Sage/carbon/commit/ee29ec44f26584a4a7bd1963f7c8f16f9313e78a))
+
 ## [153.8.0](https://github.com/Sage/carbon/compare/v153.7.1...v153.8.0) (2025-05-02)
 
 ### Features
