@@ -1,3 +1,18 @@
+## [153.8.0](https://github.com/Sage/carbon/compare/v153.7.1...v153.8.0) (2025-05-02)
+
+### Features
+
+* **button-toggle:** deprecate pressed prop ([7e5ced0](https://github.com/Sage/carbon/commit/7e5ced0b09803eb9058fe404f0ba07f8b18fc1af))
+* **button-toggle:** log error when used outside ButtonToggleGroup ([9404b76](https://github.com/Sage/carbon/commit/9404b769967a040f3e79915361deb2ad3da8a8a5))
+* **card-row, card-footer:** log error when used outside Card ([78feeef](https://github.com/Sage/carbon/commit/78feeefadf0eb6629d49f719eb0832fcc1255ca4))
+* **crumb:** log error when used outside Breadcrumbs ([5c73e6e](https://github.com/Sage/carbon/commit/5c73e6e044acab7a988965bd57c36084feebc6f0))
+* **dd, dt:** log error when used outside Dl ([94bdf30](https://github.com/Sage/carbon/commit/94bdf3084145c5b476e5d01052b3171e5aabfeff))
+* **flat-table:** subcomponents log console warning when used outside FlatTable ([b2732e5](https://github.com/Sage/carbon/commit/b2732e5bc3fdebbbea674eb31c1cc8c22bd33907))
+* **step-flow-title:** log console error when used outside StepFlow ([80fe34d](https://github.com/Sage/carbon/commit/80fe34d884555ad701b80ced266087a7f1386110))
+* **step-sequence-item:** log console error when used outside StepSequence ([31e6fcd](https://github.com/Sage/carbon/commit/31e6fcdf2bf2f0d74bcefba9af1465513a451975))
+* **tile-content:** log error when used outside Tile ([d31da68](https://github.com/Sage/carbon/commit/d31da68042adc32ff16d117cb83f770176c2d2c1))
+* **vertical-menu-item:** log console error when used outside VerticalMenu or VerticalMenuFullscreen ([b2bab30](https://github.com/Sage/carbon/commit/b2bab30edb09a90fc2e18f33f537f19c122ef1ed))
+
 ## [153.7.1](https://github.com/Sage/carbon/compare/v153.7.0...v153.7.1) (2025-05-02)
 
 ### Bug Fixes
