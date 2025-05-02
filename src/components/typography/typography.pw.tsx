@@ -56,14 +56,14 @@ const getAs = (variant: VariantTypes) => {
 const getSize = (variant: VariantTypes) => {
   switch (variant) {
     case "h1-large":
-      return "32px";
+      return "40px";
     case "h1":
-      return "24px";
+      return "30px";
     case "h2":
-      return "22px";
+      return "24px";
     case "h3":
     case "segment-header":
-      return "20px";
+      return "21px";
     case "h4":
     case "segment-header-small":
       return "18px";
@@ -89,19 +89,19 @@ const getSize = (variant: VariantTypes) => {
 const getLineHeight = (variant: VariantTypes) => {
   switch (variant) {
     case "h1-large":
-      return "40px";
+      return "50px";
     case "h1":
-      return "30px";
+      return "37.5px";
     case "h2":
-      return "27.5px";
+      return "30px";
     case "h3":
-      return "25px";
+      return "26.25px";
     case "h4":
       return "22.5px";
     case "h5":
       return "20px";
     case "segment-header":
-      return "25px";
+      return "26.25px";
     case "segment-header-small":
       return "22.5px";
     case "segment-subheader":
@@ -127,10 +127,10 @@ const getWeight = (variant: VariantTypes) => {
   switch (variant) {
     case "h1-large":
     case "h1":
+    case "h2":
     case "segment-header":
     case "segment-header-small":
       return "700";
-    case "h2":
     case "h3":
     case "segment-subheader":
     case "segment-subheader-alt":
