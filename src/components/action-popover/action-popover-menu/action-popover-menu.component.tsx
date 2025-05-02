@@ -16,7 +16,7 @@ import {
   findLastFocusableItem,
   getItems,
   isItemDisabled,
-} from "../__internal__/action-popover-utils";
+} from "../__internal__/action-popover.utils";
 
 export interface ActionPopoverMenuBaseProps {
   /** Children for the menu */
