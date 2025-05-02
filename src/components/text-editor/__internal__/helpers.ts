@@ -18,7 +18,7 @@ const SerializeLexical = (editor: LexicalEditor) => {
   let htmlString;
   let json;
 
-  editor.update(() => {
+  editor.read(() => {
     // Get the current editor state
     const editorState = editor.getEditorState();
     // Serialize the editor state to JSON

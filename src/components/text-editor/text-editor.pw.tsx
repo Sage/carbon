@@ -634,14 +634,35 @@ test.describe("Functionality tests", () => {
     });
   });
 
+  test.describe("onBlur", () => {
+    test("fires when the editor loses focus", async ({ mount, page }) => {
+      let currentValue = false;
+
+      await mount(
+        <TextEditorDefaultComponent
+          onBlur={() => {
+            currentValue = true;
+          }}
+        />,
+      );
+      const textbox = await page.locator("div[role='textbox']");
+      await textbox.click();
+      await textbox.pressSequentially(" This is some text", { delay: 100 });
+
+      await textbox.press("Tab");
+
+      expect(currentValue).toBe(true);
+    });
+  });
+
   test.describe("onChange", () => {
     test("fires when the content of the editor changes", async ({
       mount,
       page,
     }) => {
-      let _value;
-      let _htmlString;
-      let _json;
+      let currentValue;
+      let currentHtmlValue;
+      let currentJSON;
 
       await mount(
         <TextEditorDefaultComponent
@@ -649,9 +670,9 @@ test.describe("Functionality tests", () => {
             value: string,
             { htmlString, json }: EditorFormattedValues,
           ) => {
-            _value = value;
-            _htmlString = htmlString;
-            _json = json;
+            currentValue = value;
+            currentHtmlValue = htmlString;
+            currentJSON = json;
           }}
         />,
       );
@@ -665,11 +686,11 @@ test.describe("Functionality tests", () => {
       // eslint-disable-next-line playwright/no-wait-for-timeout
       await page.waitForTimeout(3000);
 
-      expect(_value).toBe(" This is some text");
-      expect(_htmlString).toBe(
+      expect(currentValue).toBe(" This is some text");
+      expect(currentHtmlValue).toBe(
         '<p dir="ltr"><span style="white-space: pre-wrap;"> This is some text</span></p>',
       );
-      expect(_json).toEqual({
+      expect(currentJSON).toEqual({
         root: {
           children: [
             {
@@ -700,6 +721,23 @@ test.describe("Functionality tests", () => {
           version: 1,
         },
       });
+    });
+  });
+
+  test.describe("onFocus", () => {
+    test("fires when the editor gains focus", async ({ mount, page }) => {
+      let currentValue = false;
+
+      await mount(
+        <TextEditorDefaultComponent
+          onFocus={() => {
+            currentValue = true;
+          }}
+        />,
+      );
+      const textbox = await page.locator("div[role='textbox']");
+      await textbox.click();
+      expect(currentValue).toBe(true);
     });
   });
 

@@ -154,85 +154,21 @@ export const CommandButtons: Story = () => {
 };
 CommandButtons.storyName = "Command Buttons";
 
-export const OnChange: Story = () => {
-  const [valueString, setValueString] = React.useState<string | undefined>(
-    undefined,
-  );
-  const [valueHTML, setValueHTML] = React.useState<string | undefined>(
-    undefined,
-  );
+export const OnBlur: Story = () => {
+  const [blurred, setBlurred] = React.useState<number>(0);
   return (
     <>
       <TextEditor
         namespace="storybook-onchange"
         labelText="Text Editor"
-        onChange={(value, { htmlString }) => {
-          setValueString(value);
-          setValueHTML(htmlString);
-        }}
+        onBlur={() => setBlurred((prev) => prev + 1)}
       />
-      <div>Unformatted content: {valueString || "No content"}</div>
-      <div>
-        HTML formatted content:{" "}
-        {valueHTML === "<p><br></p>" ? "No content" : valueHTML}
-      </div>
+      <div>Times blurred: {blurred}</div>
     </>
   );
 };
-OnChange.storyName = "onChange Handler";
-OnChange.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const OnSave: Story = () => {
-  const [data, setData] = useState<EditorFormattedValues>({
-    htmlString: "<p><br></p>",
-    json: undefined,
-  });
-  const [showData, setShowData] = useState(false);
-  return (
-    <>
-      <>
-        <TextEditor
-          namespace="storybook-onsave"
-          labelText="Text Editor"
-          onSave={({ htmlString, json }) => setData({ htmlString, json })}
-        />
-      </>
-      <Button
-        buttonType="primary"
-        size="small"
-        my={2}
-        onClick={() => setShowData(!showData)}
-      >
-        Show Data Formats
-      </Button>
-      {showData && (
-        <Box
-          display="flex"
-          flexDirection="row"
-          gap={4}
-          justifyContent="space-around"
-        >
-          <Box maxWidth="30%">
-            <Typography variant="h4" mb={1}>
-              HTML
-            </Typography>
-            {data?.htmlString || "No content"}
-          </Box>
-          <Box maxWidth="30%">
-            <Typography variant="h4" mb={1}>
-              JSON
-            </Typography>
-            {JSON.stringify(data?.json, null, 2) || "No content"}
-          </Box>
-        </Box>
-      )}
-    </>
-  );
-};
-OnSave.storyName = "onSave Handler";
-OnSave.parameters = {
+OnBlur.storyName = "onBlur Handler";
+OnBlur.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
@@ -298,6 +234,112 @@ export const onCancel: Story = () => {
 };
 onCancel.storyName = "onCancel Handler";
 onCancel.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const OnChange: Story = () => {
+  const [valueString, setValueString] = React.useState<string | undefined>(
+    undefined,
+  );
+  const [valueHTML, setValueHTML] = React.useState<string | undefined>(
+    undefined,
+  );
+
+  const handleChange = useCallback(
+    (value: string, formattedValues: EditorFormattedValues) => {
+      setValueString(value);
+      setValueHTML(formattedValues.htmlString);
+    },
+    [],
+  );
+
+  return (
+    <>
+      <TextEditor
+        namespace="storybook-onchange"
+        labelText="Text Editor"
+        onChange={handleChange}
+      />
+      <div>Unformatted content: {valueString || "No content"}</div>
+      <div>
+        HTML formatted content:{" "}
+        {valueHTML === "<p><br></p>" ? "No content" : valueHTML}
+      </div>
+    </>
+  );
+};
+OnChange.storyName = "onChange Handler";
+OnChange.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const OnFocus: Story = () => {
+  const [focused, setFocused] = React.useState<number>(0);
+  return (
+    <>
+      <TextEditor
+        namespace="storybook-onchange"
+        labelText="Text Editor"
+        onFocus={() => setFocused((prev) => prev + 1)}
+      />
+      <div>Times focused: {focused}</div>
+    </>
+  );
+};
+OnFocus.storyName = "onFocus Handler";
+OnFocus.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const OnSave: Story = () => {
+  const [data, setData] = useState<EditorFormattedValues>({
+    htmlString: "<p><br></p>",
+    json: undefined,
+  });
+  const [showData, setShowData] = useState(false);
+  return (
+    <>
+      <>
+        <TextEditor
+          namespace="storybook-onsave"
+          labelText="Text Editor"
+          onSave={({ htmlString, json }) => setData({ htmlString, json })}
+        />
+      </>
+      <Button
+        buttonType="primary"
+        size="small"
+        my={2}
+        onClick={() => setShowData(!showData)}
+      >
+        Show Data Formats
+      </Button>
+      {showData && (
+        <Box
+          display="flex"
+          flexDirection="row"
+          gap={4}
+          justifyContent="space-around"
+        >
+          <Box maxWidth="30%">
+            <Typography variant="h4" mb={1}>
+              HTML
+            </Typography>
+            {data?.htmlString || "No content"}
+          </Box>
+          <Box maxWidth="30%">
+            <Typography variant="h4" mb={1}>
+              JSON
+            </Typography>
+            {JSON.stringify(data?.json, null, 2) || "No content"}
+          </Box>
+        </Box>
+      )}
+    </>
+  );
+};
+OnSave.storyName = "onSave Handler";
+OnSave.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
@@ -535,9 +577,10 @@ export const WithLinkPreviews: Story = () => {
   const value = createFromHTML(initialValue);
   const previews = [
     <a
-      href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
-      rel="noreferrer"
       dir="ltr"
+      href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
+      key="key-0"
+      rel="noreferrer"
     >
       <span data-lexical-text="true">Carbon</span>
     </a>,
@@ -576,7 +619,7 @@ export const WithComplexLinkPreviews: Story = () => {
         title="Han Shot First"
         url="https://en.wikipedia.org/wiki/Han_shot_first"
         description="Had a slight weapons malfunction but, uh everything's perfectly all right now. We're fine. We're all fine here now. Thank you. How are you?"
-        key="key - 1"
+        key="key-1"
       />,
     );
   }
@@ -610,10 +653,10 @@ export const WithMultipleLinkPreviews: Story = () => {
     if (previews && previews.length === 0) {
       setPreviews([
         <a
-          href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
-          rel="noreferrer"
           dir="ltr"
-          key="key - 0"
+          href="https://carbon.sage.com/?path=/story/welcome--welcome-page"
+          key="key-0"
+          rel="noreferrer"
         >
           <span data-lexical-text="true">Carbon</span>
         </a>,
@@ -622,7 +665,7 @@ export const WithMultipleLinkPreviews: Story = () => {
           title="Han Shot First"
           url="https://en.wikipedia.org/wiki/Han_shot_first"
           description="Had a slight weapons malfunction but, uh everything's perfectly all right now. We're fine. We're all fine here now. Thank you. How are you?"
-          key="key - 1"
+          key="key-1"
           as="div"
         />,
       ]);
