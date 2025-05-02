@@ -6,13 +6,13 @@ import {
   StyledButtonToggleProps,
 } from "./button-toggle.style";
 import guid from "../../__internal__/utils/helpers/guid";
-import ButtonToggleGroupContext from "./button-toggle-group/__internal__/button-toggle-group.context";
+import { useButtonToggleGroupContext } from "./button-toggle-group/__internal__/button-toggle-group.context";
 import ButtonToggleIcon from "./button-toggle-icon.component";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
-import Logger from "../../__internal__/utils/logger";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
+import Logger from "../../__internal__/utils/logger";
 
-let deprecateUncontrolledWarnTriggered = false;
+let deprecatePressedWarnTriggered = false;
 
 export interface ButtonToggleProps
   extends Partial<StyledButtonToggleProps>,
@@ -29,7 +29,10 @@ export interface ButtonToggleProps
   onFocus?: (ev: React.FocusEvent<HTMLButtonElement>) => void;
   /** Callback triggered by click event on the button. */
   onClick?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
-  /** Set the pressed state of the toggle button */
+  /**
+   * Set the pressed state of the toggle button
+   * @deprecated
+   * */
   pressed?: boolean;
   /** An optional string by which to identify the button in either an onClick handler, or an onChange handler on the parent ButtonToggleGroup. */
   value?: string;
@@ -59,6 +62,11 @@ export const ButtonToggle = ({
     "Either prop `buttonIcon` must be defined, or this node must have children",
   );
 
+  if (pressed && !deprecatePressedWarnTriggered) {
+    Logger.deprecate("The `pressed` prop is deprecated.");
+    deprecatePressedWarnTriggered = true;
+  }
+
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const {
@@ -67,6 +75,7 @@ export const ButtonToggle = ({
     onBlur: inputGroupOnBlur,
     onFocus: inputGroupOnFocus,
   } = useContext(InputGroupContext);
+
   const {
     onButtonClick,
     handleKeyDown,
@@ -78,12 +87,11 @@ export const ButtonToggle = ({
     firstButton,
     childButtonCallbackRef,
     hintTextId,
-  } = useContext(ButtonToggleGroupContext);
+  } = useButtonToggleGroupContext();
+
   const callbackRef = (element: HTMLButtonElement | null) => {
     buttonRef.current = element;
-    if (childButtonCallbackRef) {
-      childButtonCallbackRef(element);
-    }
+    childButtonCallbackRef?.(element);
   };
 
   const inputGuid = useRef(guid());
@@ -92,44 +100,31 @@ export const ButtonToggle = ({
     if (onClick) {
       onClick(ev);
     }
-    if (onChange) {
-      let newValue = value;
-      if (allowDeselect && pressedButtonValue === value) {
-        newValue = undefined;
-      }
-      onChange(ev, newValue);
-    }
+
+    const newValue =
+      allowDeselect && pressedButtonValue && pressedButtonValue === value
+        ? undefined
+        : value;
+    onChange?.(ev, newValue);
+
     if (value) {
       onButtonClick(value);
     }
   }
 
-  if (!deprecateUncontrolledWarnTriggered && !onChange) {
-    deprecateUncontrolledWarnTriggered = true;
-    Logger.deprecate(
-      "Uncontrolled behaviour in `Button Toggle` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-    );
-  }
-
   function handleFocus(ev: React.FocusEvent<HTMLButtonElement>) {
-    if (onFocus) {
-      onFocus(ev);
-    }
-    if (inputGroupOnFocus) {
-      inputGroupOnFocus();
-    }
+    onFocus?.(ev);
+    inputGroupOnFocus?.();
   }
 
   function handleBlur(ev: React.FocusEvent<HTMLButtonElement>) {
-    if (onBlur) {
-      onBlur(ev);
-    }
-    if (inputGroupOnBlur) {
-      inputGroupOnBlur();
-    }
+    onBlur?.(ev);
+    inputGroupOnBlur?.();
   }
 
-  const isPressed = isInGroup ? pressedButtonValue === value : pressed;
+  const isPressed = isInGroup
+    ? pressedButtonValue && pressedButtonValue === value
+    : pressed;
   const isFirstButton = buttonRef.current === firstButton;
 
   // if we're in a ButtonToggleGroup, only one button should be tabbable - the pressed button if there is one, or
@@ -146,7 +141,7 @@ export const ButtonToggle = ({
       <StyledButtonToggle
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
-        aria-describedby={hintTextId || undefined}
+        aria-describedby={hintTextId}
         aria-pressed={!!isPressed}
         buttonIcon={buttonIcon}
         buttonIconSize={buttonIconSize}

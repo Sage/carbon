@@ -1,11 +1,11 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import Event from "../../../__internal__/utils/helpers/events";
 import Typography from "../../typography";
 import { StyledSort, StyledSpaceHolder, StyledSortIcon } from "./sort.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useLocale from "../../../hooks/__internal__/useLocale";
-import FlatTableContext from "../__internal__/flat-table.context";
+import { useStrictFlatTableContext } from "../__internal__/strict-flat-table.context";
 
 export interface SortProps extends TagProps {
   /** if `asc` it will show `sort_up` icon, if `desc` it will show `sort_down` */
@@ -38,7 +38,7 @@ export const Sort = ({
     return null;
   };
 
-  const { colorTheme } = useContext(FlatTableContext);
+  const { colorTheme } = useStrictFlatTableContext();
 
   return (
     <>

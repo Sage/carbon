@@ -1,10 +1,12 @@
 import React from "react";
 import { SpaceProps } from "styled-system";
 import { StyledDl } from "./definition-list.style";
-import DlContext, { DlContextProps } from "./__internal__/dl.context";
+import { DlProvider } from "./__internal__/dl.context";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface DlProps extends SpaceProps, DlContextProps, TagProps {
+type ElementAlignment = "left" | "center" | "right";
+
+export interface DlProps extends SpaceProps, TagProps {
   /** HTML id attribute of the input */
   id?: string;
   /** prop to render children. */
@@ -13,6 +15,12 @@ export interface DlProps extends SpaceProps, DlContextProps, TagProps {
     by the `StyledDdDiv`. This prop has no effect when `asSingleColumn` is set.
   */
   w?: number;
+  /** Render the DefinitionList as a single column */
+  asSingleColumn?: boolean;
+  /** This string will specify the text align styling of the `<dt></dt>`. */
+  dtTextAlign?: ElementAlignment;
+  /** This string will specify the text align styling of the `<dd></dd>`. */
+  ddTextAlign?: ElementAlignment;
 }
 
 const Dl = ({
@@ -30,9 +38,9 @@ const Dl = ({
       {...rest}
       {...tagComponent("dl", rest)}
     >
-      <DlContext.Provider value={{ asSingleColumn, dtTextAlign, ddTextAlign }}>
+      <DlProvider value={{ asSingleColumn, dtTextAlign, ddTextAlign }}>
         {children}
-      </DlContext.Provider>
+      </DlProvider>
     </StyledDl>
   );
 };

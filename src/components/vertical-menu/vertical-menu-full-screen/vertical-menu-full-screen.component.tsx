@@ -13,7 +13,7 @@ import {
   StyledList,
   StyledVerticalMenuFullScreen,
 } from "../vertical-menu.style";
-import VerticalMenuFullScreenContext from "./__internal__/vertical-menu-full-screen.context";
+import { VerticalMenuProvider } from "../__internal__/vertical-menu.context";
 import { getDocument } from "../../../__internal__/dom/globals";
 import Events from "../../../__internal__/utils/helpers/events/events";
 import useModalManager from "../../../hooks/__internal__/useModalManager";
@@ -106,11 +106,9 @@ export const VerticalMenuFullScreen = ({
               />
             </IconButton>
           </Box>
-          <VerticalMenuFullScreenContext.Provider
-            value={{ isFullScreen: true }}
-          >
+          <VerticalMenuProvider value={{ isFullScreen: true }}>
             <StyledList>{children}</StyledList>
-          </VerticalMenuFullScreenContext.Provider>
+          </VerticalMenuProvider>
         </StyledVerticalMenuFullScreen>
       </FocusTrap>
     </Portal>

@@ -1,18 +1,43 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import Logger from "__internal__/utils/logger";
+import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 
 import FlatTableCell from "./flat-table-cell.component";
-import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
+
+import FlatTable from "../flat-table.component";
+
+test("logs error if used outside of FlatTable", () => {
+  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
+
+  render(
+    <table>
+      <tbody>
+        <tr>
+          <FlatTableCell>Foo</FlatTableCell>
+        </tr>
+      </tbody>
+    </table>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
+  );
+
+  loggerSpy.mockRestore();
+});
 
 testStyledSystemPadding(
   (props) => (
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell {...props} />
         </tr>
       </tbody>
-    </table>
+    </FlatTable>
   ),
   () => screen.getByRole("cell"),
   { modifier: "&&&& > div" },
@@ -20,13 +45,13 @@ testStyledSystemPadding(
 
 test("should render with proper `width` styling on cell and first child when prop is passed", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell width={40} />
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("cell");
   const content = screen.getByTestId("flat-table-cell-content");
@@ -37,7 +62,7 @@ test("should render with proper `width` styling on cell and first child when pro
 
 test("should render with expected `data-` attributes on root element", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell
@@ -48,7 +73,7 @@ test("should render with expected `data-` attributes on root element", () => {
           </FlatTableCell>
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
   const cell = screen.getByRole("cell");
 
@@ -59,13 +84,13 @@ test("should render with expected `data-` attributes on root element", () => {
 
 test("should apply expected styling and set the `title` attribute when `truncate` prop is true and children prop is a string", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell truncate>Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
   const content = screen.getByTestId("flat-table-cell-content");
 
@@ -79,7 +104,7 @@ test("should apply expected styling and set the `title` attribute when `truncate
 
 test("should override the default behaviour when `title` and `truncate` props are set", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell truncate title="Bar">
@@ -87,7 +112,7 @@ test("should override the default behaviour when `title` and `truncate` props ar
           </FlatTableCell>
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
 
   expect(screen.getByTestId("flat-table-cell-content")).toHaveAttribute(
@@ -98,13 +123,13 @@ test("should override the default behaviour when `title` and `truncate` props ar
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'small'", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell verticalBorder="small">Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyleRule(
@@ -116,13 +141,13 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'medium'", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell verticalBorder="medium">Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyleRule(
@@ -134,13 +159,13 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'large'", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell verticalBorder="large">Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyleRule(
@@ -152,7 +177,7 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render the expected border colour when `verticalBorderColor` is passed a valid palette value", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell
@@ -163,7 +188,7 @@ test("should render the expected border colour when `verticalBorderColor` is pas
           </FlatTableCell>
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyle("border-right-color: #FFBC1A");
@@ -171,7 +196,7 @@ test("should render the expected border colour when `verticalBorderColor` is pas
 
 test("should render the expected border colour when `verticalBorderColor` is passed a valid hex value", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell
@@ -182,7 +207,7 @@ test("should render the expected border colour when `verticalBorderColor` is pas
           </FlatTableCell>
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyle("border-right-color: #000000");
@@ -190,7 +215,7 @@ test("should render the expected border colour when `verticalBorderColor` is pas
 
 test("should render the expected border colour when `verticalBorderColor` is passed a valid rgb value", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell
@@ -201,7 +226,7 @@ test("should render the expected border colour when `verticalBorderColor` is pas
           </FlatTableCell>
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
 
   expect(screen.getByRole("cell")).toHaveStyle(
@@ -211,13 +236,13 @@ test("should render the expected border colour when `verticalBorderColor` is pas
 
 test("should set the expected attribute when the `colspan` prop is passed", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell colspan={2}>Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
 
   expect(screen.getByRole("cell")).toHaveAttribute("colspan", "2");
@@ -225,13 +250,13 @@ test("should set the expected attribute when the `colspan` prop is passed", () =
 
 test("should set the expected attribute when the `rowspan` prop is passed", () => {
   render(
-    <table>
+    <FlatTable>
       <tbody>
         <tr>
           <FlatTableCell rowspan={2}>Foo</FlatTableCell>
         </tr>
       </tbody>
-    </table>,
+    </FlatTable>,
   );
 
   expect(screen.getByRole("cell")).toHaveAttribute("rowspan", "2");

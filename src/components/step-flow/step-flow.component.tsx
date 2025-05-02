@@ -15,7 +15,7 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import Typography from "../typography";
 import useLocale from "../../hooks/__internal__/useLocale";
-import StepFlowContext from "./__internal__/step-flow.context";
+import { StepFlowProvider } from "./__internal__/step-flow.context";
 import StepFlowTitle from "./step-flow-title/step-flow-title.component";
 
 export type Steps = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -164,7 +164,7 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
     );
 
     const stepFlowTitle = (
-      <StepFlowContext.Provider
+      <StepFlowProvider
         value={{
           validatedCurrentStep,
           totalSteps,
@@ -178,7 +178,7 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
         ) : (
           title
         )}
-      </StepFlowContext.Provider>
+      </StepFlowProvider>
     );
 
     const stepFlowLabel = (

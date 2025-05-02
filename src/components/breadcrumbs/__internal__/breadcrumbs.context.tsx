@@ -1,11 +1,17 @@
-import React from "react";
+import createStrictContext from "../../../__internal__/utils/createStrictContext";
 
 export type BreadcrumbsContextType = {
   isDarkBackground: boolean;
 };
 
-const BreadcrumbsContext = React.createContext<BreadcrumbsContextType>({
-  isDarkBackground: false,
-});
+const [BreadcrumbsProvider, useBreadcrumbsContext] =
+  createStrictContext<BreadcrumbsContextType>({
+    name: "BreadcrumbsContext",
+    errorMessage:
+      "Carbon Breadcrumbs: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    defaultValue: {
+      isDarkBackground: false,
+    },
+  });
 
-export default BreadcrumbsContext;
+export { BreadcrumbsProvider, useBreadcrumbsContext };

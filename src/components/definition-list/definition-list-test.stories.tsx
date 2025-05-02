@@ -7,7 +7,6 @@ import Icon from "../icon";
 import Pill from "../pill";
 import Typography from "../typography";
 import Box from "../box";
-import { ElementAlignment } from "./__internal__/dl.context";
 
 export default {
   title: "Definition-list/Test",
@@ -136,20 +135,18 @@ UsingBoxToOverrideBackgroundColor.parameters = {
 export const TextAlignExamples = () => {
   return (
     <>
-      {(["left", "center", "right"] as ElementAlignment[]).map(
-        (textAlignValue) => {
-          return (
-            <Dl
-              dtTextAlign={textAlignValue}
-              ddTextAlign={textAlignValue}
-              key={textAlignValue}
-            >
-              <Dt>Title</Dt>
-              <Dd>Description</Dd>
-            </Dl>
-          );
-        },
-      )}
+      {(["left", "center", "right"] as const).map((textAlignValue) => {
+        return (
+          <Dl
+            dtTextAlign={textAlignValue}
+            ddTextAlign={textAlignValue}
+            key={textAlignValue}
+          >
+            <Dt>Title</Dt>
+            <Dd>Description</Dd>
+          </Dl>
+        );
+      })}
     </>
   );
 };
