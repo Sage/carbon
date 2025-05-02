@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
-import { ThemeProvider } from "styled-components";
-import * as floatingUi from "@floating-ui/dom";
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { ThemeProvider } from "styled-components";
+import * as floatingUi from "@floating-ui/dom";
+
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import sageTheme from "../../style/themes/sage";
+
 import {
   ActionPopover,
   ActionPopoverDivider,
@@ -13,7 +15,8 @@ import {
   ActionPopoverMenuButton,
   ActionPopoverProps,
   ActionPopoverHandle,
-} from "./index";
+} from ".";
+
 import Button from "../button";
 import iconUnicodes from "../icon/icon-unicodes";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -33,6 +36,30 @@ afterAll(() => {
 
 afterEach(() => {
   jest.runOnlyPendingTimers();
+});
+
+test("error is thrown when an item is not rendered within ActionPopover", () => {
+  jest.spyOn(global.console, "error").mockImplementation(() => {});
+
+  expect(() =>
+    render(<ActionPopoverItem href="#">Item 1</ActionPopoverItem>),
+  ).toThrow(
+    "Carbon ActionPopover: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  );
+});
+
+test("error is thrown when a menu is not rendered within ActionPopover", () => {
+  jest.spyOn(global.console, "error").mockImplementation(() => {});
+
+  expect(() =>
+    render(
+      <ActionPopoverMenu>
+        <ActionPopoverItem href="#">Item 1</ActionPopoverItem>
+      </ActionPopoverMenu>,
+    ),
+  ).toThrow(
+    "Carbon ActionPopover: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  );
 });
 
 testStyledSystemMargin(

@@ -1,27 +1,33 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { ButtonToggleGroup, ButtonToggle } from ".";
 import Logger from "../../__internal__/utils/logger";
-import { ButtonToggle } from ".";
-import { InputGroupContext } from "../../__internal__/input-behaviour";
 
-test("should display a deprecation warning for uncontrolled behaviour which is triggered only once", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
+test("logs warning if not used within ButtonToggleGroup", () => {
+  const loggerErrorSpy = jest
+    .spyOn(Logger, "error")
     .mockImplementation(() => {});
+
   render(<ButtonToggle>Button</ButtonToggle>);
 
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Button Toggle` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
+  expect(loggerErrorSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon ButtonToggleGroup: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
   );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-  loggerSpy.mockRestore();
+
+  loggerErrorSpy.mockRestore();
 });
 
 test("should call `onClick` when the button is clicked", async () => {
   const onClick = jest.fn();
   const user = userEvent.setup();
-  render(<ButtonToggle onClick={onClick}>Button</ButtonToggle>);
+  render(
+    <ButtonToggleGroup id="test" onChange={() => {}}>
+      <ButtonToggle onClick={onClick}>Button</ButtonToggle>
+    </ButtonToggleGroup>,
+  );
 
   await user.click(screen.getByRole("button"));
   expect(onClick).toHaveBeenCalledTimes(1);
@@ -30,7 +36,11 @@ test("should call `onClick` when the button is clicked", async () => {
 test("should call `onFocus` when the button is focused", async () => {
   const onFocus = jest.fn();
   const user = userEvent.setup();
-  render(<ButtonToggle onFocus={onFocus}>Button</ButtonToggle>);
+  render(
+    <ButtonToggleGroup id="test" onChange={() => {}}>
+      <ButtonToggle onFocus={onFocus}>Button</ButtonToggle>
+    </ButtonToggleGroup>,
+  );
 
   await user.click(screen.getByRole("button"));
   expect(onFocus).toHaveBeenCalledTimes(1);
@@ -39,96 +49,48 @@ test("should call `onFocus` when the button is focused", async () => {
 test("should call `onBlur` when the button is blurred", async () => {
   const onBlur = jest.fn();
   const user = userEvent.setup();
-  render(<ButtonToggle onBlur={onBlur}>Button</ButtonToggle>);
+  render(
+    <ButtonToggleGroup id="test" onChange={() => {}}>
+      <ButtonToggle onBlur={onBlur}>Button</ButtonToggle>
+    </ButtonToggleGroup>,
+  );
 
   await user.click(screen.getByRole("button"));
   await user.tab();
   expect(onBlur).toHaveBeenCalledTimes(1);
 });
 
-test("should call `onFocus` passed via InputGroupContext when the button is focused", async () => {
-  const contextOnFocus = jest.fn();
-  const user = userEvent.setup();
-  render(
-    <InputGroupContext.Provider value={{ onFocus: contextOnFocus }}>
-      <ButtonToggle>Button</ButtonToggle>
-    </InputGroupContext.Provider>,
-  );
+test("logs deprecation warning if pressed prop is used", () => {
+  jest.spyOn(Logger, "error").mockImplementation(() => {});
 
-  await user.click(screen.getByRole("button"));
-  expect(contextOnFocus).toHaveBeenCalledTimes(1);
-});
+  const loggerDeprecateSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
 
-test("should call `onBlur` passed via InputGroupContext when the button is blurred", async () => {
-  const contextOnBlur = jest.fn();
-  const user = userEvent.setup();
-  render(
-    <InputGroupContext.Provider value={{ onBlur: contextOnBlur }}>
-      <ButtonToggle>Button</ButtonToggle>
-    </InputGroupContext.Provider>,
-  );
-
-  await user.click(screen.getByRole("button"));
-  await user.tab();
-  expect(contextOnBlur).toHaveBeenCalledTimes(1);
-});
-
-test("should call `onMouseEnter` passed via InputGroupContext when the button is hovered", async () => {
-  const contextOnMouseEnter = jest.fn();
-  const user = userEvent.setup();
-  render(
-    <InputGroupContext.Provider value={{ onMouseEnter: contextOnMouseEnter }}>
-      <ButtonToggle>Button</ButtonToggle>
-    </InputGroupContext.Provider>,
-  );
-
-  await user.hover(screen.getByRole("button"));
-  expect(contextOnMouseEnter).toHaveBeenCalledTimes(1);
-});
-
-test("should call `onMouseLeave` passed via InputGroupContext when the button is un-hovered", async () => {
-  const contextOnMouseLeave = jest.fn();
-  const user = userEvent.setup();
-  render(
-    <InputGroupContext.Provider value={{ onMouseLeave: contextOnMouseLeave }}>
-      <ButtonToggle>Button</ButtonToggle>
-    </InputGroupContext.Provider>,
-  );
-
-  await user.hover(screen.getByRole("button"));
-  await user.unhover(screen.getByRole("button"));
-  expect(contextOnMouseLeave).toHaveBeenCalledTimes(1);
-});
-
-test("should render with aria-pressed set to true when pressed is set", () => {
   render(<ButtonToggle pressed>Button</ButtonToggle>);
 
-  expect(screen.getByRole("button")).toHaveAttribute("aria-pressed", "true");
+  expect(loggerDeprecateSpy).toHaveBeenCalledWith(
+    expect.stringContaining("The `pressed` prop is deprecated."),
+  );
 });
 
 test("should render disabled button with expected styles", () => {
-  render(<ButtonToggle disabled>Button</ButtonToggle>);
+  render(
+    <ButtonToggleGroup id="test" onChange={() => {}}>
+      <ButtonToggle disabled>Button</ButtonToggle>
+    </ButtonToggleGroup>,
+  );
 
   expect(screen.getByRole("button")).toBeDisabled();
   expect(screen.getByRole("button")).toHaveStyle({ cursor: "not-allowed" });
 });
 
-test("should render disabled button with expected styles when pressed is set", () => {
-  render(
-    <ButtonToggle disabled pressed>
-      Button
-    </ButtonToggle>,
-  );
-
-  expect(screen.getByRole("button")).toBeDisabled();
-  expect(screen.getByRole("button")).toHaveStyle({
-    cursor: "not-allowed",
-    backgroundColor: "var(--colorsActionMinorYin030)",
-  });
-});
-
 test("should render with expected styles when buttonIcon is set", () => {
-  render(<ButtonToggle buttonIcon="add">Button</ButtonToggle>);
+  render(
+    <ButtonToggleGroup id="test" onChange={() => {}}>
+      <ButtonToggle buttonIcon="add">Button</ButtonToggle>
+    </ButtonToggleGroup>,
+  );
 
   expect(screen.getByTestId("button-toggle-icon")).toHaveStyle({
     marginRight: "8px",
@@ -137,9 +99,11 @@ test("should render with expected styles when buttonIcon is set", () => {
 
 test("should render with expected styles when buttonIcon is set and buttonIconSize is large'", () => {
   render(
-    <ButtonToggle buttonIcon="add" buttonIconSize="large">
-      Button
-    </ButtonToggle>,
+    <ButtonToggleGroup id="test" onChange={() => {}}>
+      <ButtonToggle buttonIcon="add" buttonIconSize="large">
+        Button
+      </ButtonToggle>
+    </ButtonToggleGroup>,
   );
 
   expect(screen.getByTestId("button-toggle-icon")).toHaveStyle({
@@ -159,7 +123,13 @@ test("should render with expected styles when buttonIcon is set and buttonIconSi
 test("should throw an error when neither children or a `buttonIcon` is provided", () => {
   const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
-  expect(() => render(<ButtonToggle />)).toThrow(
+  expect(() =>
+    render(
+      <ButtonToggleGroup id="test" onChange={() => {}}>
+        <ButtonToggle />
+      </ButtonToggleGroup>,
+    ),
+  ).toThrow(
     "Either prop `buttonIcon` must be defined, or this node must have children",
   );
 

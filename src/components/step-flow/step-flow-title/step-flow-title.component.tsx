@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import Typography from "../../typography";
 import useLocale from "../../../hooks/__internal__/useLocale";
-import StepFlowContext from "../__internal__/step-flow.context";
+import { useStepFlowContext } from "../__internal__/step-flow.context";
 import { StyledTitleFocusWrapper } from "../step-flow.style";
 
 export interface StepFlowTitleProps {
@@ -30,7 +30,7 @@ export const StepFlowTitle = ({
     totalSteps,
     category,
     titleVariant: titleVariantContext,
-  } = useContext(StepFlowContext);
+  } = useStepFlowContext();
 
   return (
     <StyledTitleFocusWrapper

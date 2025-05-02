@@ -17,7 +17,7 @@ import FlatTableRowHeader from "../flat-table-row-header";
 import FlatTableRowDraggable, {
   FlatTableRowDraggableProps,
 } from "./__internal__/flat-table-row-draggable.component";
-import FlatTableContext from "../__internal__/flat-table.context";
+import { useStrictFlatTableContext } from "../__internal__/strict-flat-table.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 import FlatTableRowContext from "./__internal__/flat-table-row.context";
 import SubRowProvider, { SubRowContext } from "./__internal__/sub-row-provider";
@@ -192,7 +192,7 @@ export const FlatTableRow = React.forwardRef<
     );
 
     const { colorTheme, size, getTabStopElementId } =
-      useContext(FlatTableContext);
+      useStrictFlatTableContext();
     const { isInSidebar } = useContext(DrawerSidebarContext);
     const { stickyOffsets } = useContext(FlatTableHeadContext);
     const toggleExpanded = () => setIsExpanded(!isExpanded);

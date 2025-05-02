@@ -1,0 +1,84 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as CheckboxGroupStories from "./checkbox-group.stories";
+
+<Meta of={CheckboxGroupStories} />
+
+# CheckboxGroup
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/5937c7-checkbox/b/317d8f"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+CheckboxGroup provides a way to check one or more items from a list of options.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
+```
+
+## Examples
+
+<Canvas of={CheckboxGroupStories.Default} />
+
+### Required
+
+<Canvas of={CheckboxGroupStories.RequiredGroup} />
+
+### Optional
+
+<Canvas of={CheckboxGroupStories.OptionalGroup} />
+
+### Inline
+
+Use the `inline` prop to display the grouped checkboxes side by side horizontally. Requires enabling the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) to work.
+
+<Canvas of={CheckboxGroupStories.Inline} />
+
+### Error state
+
+Requires enabling the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) to work.
+
+<Canvas of={CheckboxGroupStories.ErrorState} />
+
+### Warning state
+
+Requires enabling the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) to work.
+
+<Canvas of={CheckboxGroupStories.WarningState} />
+
+### Error state (legacy)
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
+
+<Canvas of={CheckboxGroupStories.LegacyErrorState} />
+
+### Warning state (legacy)
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
+
+<Canvas of={CheckboxGroupStories.LegacyWarningState} />
+
+### Inline legend (legacy)
+
+Use the `legendInline` prop to display the group legend on the same horizontal row as the grouped checkboxes. You can adjust its appearance using the `legendWidth` and `legendAlign` props to control the width and text alignment of the legend. The `legendSpacing` prop can be used to control the spacing between the legend and the grouped checkboxes.
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
+
+<Canvas of={CheckboxGroupStories.LegacyInlineLegend} />
+
+## Props
+
+<ArgTypes of={CheckboxGroupStories} />

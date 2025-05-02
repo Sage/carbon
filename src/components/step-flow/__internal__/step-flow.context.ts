@@ -1,4 +1,4 @@
-import React from "react";
+import createStrictContext from "../../../__internal__/utils/createStrictContext";
 
 export type StepFlowContextType = {
   validatedCurrentStep?: number;
@@ -8,6 +8,12 @@ export type StepFlowContextType = {
   titleRef?: React.RefObject<HTMLDivElement>;
 };
 
-const StepFlowContext = React.createContext<StepFlowContextType>({});
+const [StepFlowProvider, useStepFlowContext] =
+  createStrictContext<StepFlowContextType>({
+    name: "StepFlowContext",
+    errorMessage:
+      "Carbon StepFlow: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    defaultValue: {},
+  });
 
-export default StepFlowContext;
+export { StepFlowProvider, useStepFlowContext };

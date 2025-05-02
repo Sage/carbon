@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row.context";
-import FlatTableContext from "./flat-table.context";
+import { useStrictFlatTableContext } from "./strict-flat-table.context";
 
 export default (id: string) => {
-  const { getTabStopElementId } = useContext(FlatTableContext);
+  const { getTabStopElementId } = useStrictFlatTableContext();
   const [tabIndex, setTabIndex] = useState(-1);
   const {
     expandable,

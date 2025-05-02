@@ -24,7 +24,8 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import ActionPopoverMenu from "./action-popover-menu/action-popover-menu.component";
 import ActionPopoverItem from "./action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "./action-popover-divider/action-popover-divider.component";
-import ActionPopoverContext, {
+import {
+  ActionPopoverProvider,
   Alignment,
 } from "./__internal__/action-popover.context";
 import useModalManager from "../../hooks/__internal__/useModalManager";
@@ -34,9 +35,7 @@ import {
   getItems,
   checkChildrenForString,
 } from "./__internal__/action-popover-utils";
-import FlatTableContext, {
-  FlatTableContextProps,
-} from "../flat-table/__internal__/flat-table.context";
+import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 
 export interface RenderButtonProps {
   tabIndex: number;
@@ -113,8 +112,7 @@ export const ActionPopover = forwardRef<
     const [guid] = useState(createGuid());
     const buttonRef = useRef<HTMLDivElement>(null);
     const menu = useRef<HTMLUListElement>(null);
-    const { isInFlatTable } =
-      useContext<FlatTableContextProps>(FlatTableContext);
+    const { isInFlatTable } = useContext(FlatTableContext);
 
     const hasProperChildren = useMemo(() => {
       const incorrectChild = React.Children.toArray(children).find(
@@ -342,7 +340,7 @@ export const ActionPopover = forwardRef<
         {...tagComponent("action-popover-wrapper", rest)}
       >
         {menuButton(menuID)}
-        <ActionPopoverContext.Provider
+        <ActionPopoverProvider
           value={{
             setOpenPopover: setOpen,
             focusButton,
@@ -365,7 +363,7 @@ export const ActionPopover = forwardRef<
               </ActionPopoverMenu>
             </Popover>
           )}
-        </ActionPopoverContext.Provider>
+        </ActionPopoverProvider>
       </MenuButton>
     );
   },

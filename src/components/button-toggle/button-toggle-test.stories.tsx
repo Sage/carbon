@@ -5,7 +5,6 @@ import Box from "../box";
 
 export default {
   title: "Button Toggle/Test",
-  includeStories: ["DefaultStory", "WithoutGroup", "LargeIconWithLongText"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -112,51 +111,6 @@ DefaultStory.story = {
     size: "medium",
     buttonIcon: "",
     buttonIconSize: "",
-  },
-};
-
-export const WithoutGroup = (args: Partial<ButtonToggleProps>) => (
-  <div>
-    <ButtonToggle
-      key="button-toggle-1"
-      onFocus={() => action("onFocus")("foo")}
-      onBlur={() => action("onBlur")("foo")}
-      {...args}
-    >
-      Foo
-    </ButtonToggle>
-    <ButtonToggle
-      key="button-toggle-2"
-      onFocus={() => action("onFocus")("bar")}
-      onBlur={() => action("onBlur")("bar")}
-      {...args}
-    >
-      Bar
-    </ButtonToggle>
-    <ButtonToggle
-      key="button-toggle-3"
-      onFocus={() => action("onFocus")("baz")}
-      onBlur={() => action("onBlur")("baz")}
-      {...args}
-    >
-      Baz
-    </ButtonToggle>
-  </div>
-);
-
-WithoutGroup.storyName = "without group";
-WithoutGroup.argTypes = {
-  fullWidth: {
-    control: false,
-  },
-  value: {
-    control: false,
-  },
-  allowDeselect: {
-    control: false,
-  },
-  disabled: {
-    control: false,
   },
 };
 

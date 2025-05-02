@@ -23,9 +23,7 @@ import Weekday from "../weekday";
 import { getDisabledDays } from "../utils";
 import { defaultFocusableSelectors } from "../../../../__internal__/focus-trap/focus-trap-utils";
 import Events from "../../../../__internal__/utils/helpers/events";
-import FlatTableContext, {
-  FlatTableContextProps,
-} from "../../../flat-table/__internal__/flat-table.context";
+import FlatTableContext from "../../../flat-table/__internal__/flat-table.context";
 
 import StyledDayPicker from "./day-picker.style";
 
@@ -197,8 +195,7 @@ export const DatePicker = ({
     }, 0);
   };
 
-  const { isInFlatTable, setHasOpenDatePicker } =
-    useContext<FlatTableContextProps>(FlatTableContext);
+  const { isInFlatTable, setHasOpenDatePicker } = useContext(FlatTableContext);
 
   useEffect(() => {
     setHasOpenDatePicker?.(!!open);

@@ -1,14 +1,19 @@
-import React from "react";
+import createStrictContext from "../../../__internal__/utils/createStrictContext";
+import { DlProps } from "../dl.component";
 
-export type ElementAlignment = "left" | "center" | "right";
+type DlContextType = Required<
+  Pick<DlProps, "asSingleColumn" | "dtTextAlign" | "ddTextAlign">
+>;
 
-export interface DlContextProps {
-  /** Render the DefinitionList as a single column */
-  asSingleColumn?: boolean;
-  /** This string will specify the text align styling of the `<dt></dt>`. */
-  dtTextAlign?: ElementAlignment;
-  /** This string will specify the text align styling of the `<dd></dd>`. */
-  ddTextAlign?: ElementAlignment;
-}
+const [DlProvider, useDlContext] = createStrictContext<DlContextType>({
+  name: "DlContext",
+  errorMessage:
+    "Carbon DefinitionList: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+  defaultValue: {
+    asSingleColumn: false,
+    dtTextAlign: "right",
+    ddTextAlign: "left",
+  },
+});
 
-export default React.createContext<DlContextProps>({});
+export { DlProvider, useDlContext };

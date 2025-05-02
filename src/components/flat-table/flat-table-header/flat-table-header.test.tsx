@@ -1,18 +1,46 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import FlatTableHeader from "./flat-table-header.component";
-import getAlternativeBackgroundColor from "./flat-table-header-utils";
-import FlatTableContext from "../__internal__/flat-table.context";
+import Logger from "../../../__internal__/utils/logger";
 
-test("should render with proper `width` styling on cell and first child when prop is passed", () => {
+import FlatTableHeader from "./flat-table-header.component";
+
+import getAlternativeBackgroundColor from "./flat-table-header-utils";
+import FlatTable from "../flat-table.component";
+import FlatTableRow from "../flat-table-row";
+import FlatTableHead from "../flat-table-head/flat-table-head.component";
+import FlatTableBody from "../flat-table-body";
+
+test("logs error when not used within FlatTable", () => {
+  const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
+
   render(
     <table>
       <tbody>
         <tr>
-          <FlatTableHeader width={40} />
+          <FlatTableHeader>Foo</FlatTableHeader>
         </tr>
       </tbody>
     </table>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Carbon FlatTable: Context not found. Have you wrapped your Carbon subcomponents properly? See stack trace for more details.",
+    ),
+  );
+
+  loggerSpy.mockRestore();
+});
+
+test("should render with proper `width` styling on cell and first child when prop is passed", () => {
+  render(
+    <FlatTable>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableHeader width={40} />
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
   const content = screen.getByTestId("flat-table-header-content");
@@ -23,18 +51,18 @@ test("should render with proper `width` styling on cell and first child when pro
 
 test("should render with expected `data-` attributes on root element", () => {
   render(
-    <table>
-      <tbody>
-        <tr>
+    <FlatTable>
+      <FlatTableBody>
+        <FlatTableRow>
           <FlatTableHeader
             data-element="table-header-data-element"
             data-role="table-header-data-role"
           >
             Foo
           </FlatTableHeader>
-        </tr>
-      </tbody>
-    </table>,
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -45,13 +73,13 @@ test("should render with expected `data-` attributes on root element", () => {
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'small'", () => {
   render(
-    <table>
-      <thead>
-        <tr>
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
           <FlatTableHeader verticalBorder="small" />
-        </tr>
-      </thead>
-    </table>,
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -60,13 +88,13 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'medium'", () => {
   render(
-    <table>
-      <thead>
-        <tr>
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
           <FlatTableHeader verticalBorder="medium" />
-        </tr>
-      </thead>
-    </table>,
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -75,13 +103,13 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render with the expected border width when `verticalBorder` prop is passed 'large'", () => {
   render(
-    <table>
-      <thead>
-        <tr>
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
           <FlatTableHeader verticalBorder="large" />
-        </tr>
-      </thead>
-    </table>,
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -90,13 +118,13 @@ test("should render with the expected border width when `verticalBorder` prop is
 
 test("should render with the expected border color when `verticalBorderColor` prop is passed '#000000'", () => {
   render(
-    <table>
-      <thead>
-        <tr>
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
           <FlatTableHeader verticalBorderColor="#000000" />
-        </tr>
-      </thead>
-    </table>,
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -105,28 +133,28 @@ test("should render with the expected border color when `verticalBorderColor` pr
 
 test("should render with the expected border color when `verticalBorderColor` prop is passed 'rgb(1,1,1)'", () => {
   render(
-    <table>
-      <thead>
-        <tr>
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
           <FlatTableHeader verticalBorderColor="rgb(1,1,1)" />
-        </tr>
-      </thead>
-    </table>,
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
   expect(cell).toHaveStyle("border-right-color: rgb(1,1,1)");
 });
 
-test("should render the element witht the `rowspan` attribute when prop is set", () => {
+test("should render the element with the `rowspan` attribute when prop is set", () => {
   render(
-    <table>
-      <thead>
-        <tr>
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
           <FlatTableHeader rowspan={2} />
-        </tr>
-      </thead>
-    </table>,
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -135,13 +163,13 @@ test("should render the element witht the `rowspan` attribute when prop is set",
 
 test("should render the element with the `colspan` attribute when prop is set", () => {
   render(
-    <table>
-      <thead>
-        <tr>
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
           <FlatTableHeader colspan={2} />
-        </tr>
-      </thead>
-    </table>,
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -151,17 +179,13 @@ test("should render the element with the `colspan` attribute when prop is set", 
 // test added for coverage
 test("should render with the expected background-color when `alternativeBgColor` prop is passed and `colorTheme` is 'dark'", () => {
   render(
-    <FlatTableContext.Provider
-      value={{ colorTheme: "dark", getTabStopElementId: () => "" }}
-    >
-      <table>
-        <thead>
-          <tr>
-            <FlatTableHeader alternativeBgColor>test 1</FlatTableHeader>
-          </tr>
-        </thead>
-      </table>
-    </FlatTableContext.Provider>,
+    <FlatTable colorTheme="dark">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader alternativeBgColor>test 1</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -175,17 +199,13 @@ test("should render with the expected background-color when `alternativeBgColor`
 // test added for coverage
 test("should render with the expected background-color when `alternativeBgColor` prop is passed and `colorTheme` is 'light'", () => {
   render(
-    <FlatTableContext.Provider
-      value={{ colorTheme: "light", getTabStopElementId: () => "" }}
-    >
-      <table>
-        <thead>
-          <tr>
-            <FlatTableHeader alternativeBgColor>test 1</FlatTableHeader>
-          </tr>
-        </thead>
-      </table>
-    </FlatTableContext.Provider>,
+    <FlatTable colorTheme="light">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader alternativeBgColor>test 1</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -199,17 +219,13 @@ test("should render with the expected background-color when `alternativeBgColor`
 // test added for coverage
 test("should render with the expected background-color when `alternativeBgColor` prop is passed and `colorTheme` is 'transparent-white'", () => {
   render(
-    <FlatTableContext.Provider
-      value={{ colorTheme: "transparent-white", getTabStopElementId: () => "" }}
-    >
-      <table>
-        <thead>
-          <tr>
-            <FlatTableHeader alternativeBgColor>test 1</FlatTableHeader>
-          </tr>
-        </thead>
-      </table>
-    </FlatTableContext.Provider>,
+    <FlatTable colorTheme="transparent-white">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader alternativeBgColor>test 1</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
@@ -223,17 +239,13 @@ test("should render with the expected background-color when `alternativeBgColor`
 // test added for coverage
 test("should render with the expected background-color when `alternativeBgColor` prop is passed and `colorTheme` is 'transparent-base'", () => {
   render(
-    <FlatTableContext.Provider
-      value={{ colorTheme: "transparent-base", getTabStopElementId: () => "" }}
-    >
-      <table>
-        <thead>
-          <tr>
-            <FlatTableHeader alternativeBgColor>test 1</FlatTableHeader>
-          </tr>
-        </thead>
-      </table>
-    </FlatTableContext.Provider>,
+    <FlatTable colorTheme="transparent-base">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader alternativeBgColor>test 1</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+    </FlatTable>,
   );
   const cell = screen.getByRole("columnheader");
 
