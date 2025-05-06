@@ -273,6 +273,18 @@ const Button = React.forwardRef<
       }
     };
 
+    const handleClick = (
+      event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+    ) => {
+      internalRef?.focus();
+
+      if (inSplitButton) {
+        onChildButtonClick?.(onClick)?.(event);
+      } else if (onClick) {
+        onClick(event);
+      }
+    };
+
     switch (size) {
       case "small":
         paddingX = 2;
@@ -305,7 +317,7 @@ const Button = React.forwardRef<
         aria-describedby={ariaDescribedBy}
         as={!isDisabled && href ? "a" : "button"}
         onKeyDown={href ? handleLinkKeyDown : undefined}
-        onClick={inSplitButton ? onChildButtonClick?.(onClick) : onClick}
+        onClick={handleClick}
         draggable={false}
         buttonType={buttonType}
         disabled={isDisabled}

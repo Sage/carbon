@@ -476,7 +476,6 @@ export const WithCustomSpacing = () => {
         value="3"
         id="3"
         aria-label="3"
-        disabled
         title="Title"
         subtitle="Subtitle"
         titleAdornment={

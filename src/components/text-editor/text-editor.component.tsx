@@ -9,7 +9,7 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 
-import { $getRoot, LexicalEditor } from "lexical";
+import { $getRoot, EditorState, LexicalEditor } from "lexical";
 import React, {
   useCallback,
   useEffect,
@@ -21,7 +21,6 @@ import { MarginProps } from "styled-system";
 import { SerializeLexical, validateUrl } from "./__internal__/helpers";
 
 import Label from "../../__internal__/label";
-import useDebounce from "../../hooks/__internal__/useDebounce";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Logger from "../../__internal__/utils/logger";
 
@@ -76,10 +75,14 @@ export interface TextEditorProps extends MarginProps, TagProps {
   labelText: string;
   /** The identifier for the Text Editor. This allows for the using of multiple Text Editors on a screen */
   namespace?: string;
+  /** The callback to fire when the editor loses focus */
+  onBlur?: (ev: React.FocusEvent<HTMLElement>) => void;
   /** The callback to fire when the Cancel button within the editor is pressed */
   onCancel?: () => void;
   /** The callback to fire when a change is registered within the editor */
   onChange?: (value: string, formattedValues: EditorFormattedValues) => void;
+  /** The callback to fire when the editor gains focus */
+  onFocus?: (ev: React.FocusEvent<HTMLElement>) => void;
   /** The callback to fire when a link is added into the editor */
   onLinkAdded?: (link: string, state: string) => void;
   /** The callback to fire when the Save button within the editor is pressed */
@@ -111,8 +114,10 @@ export const TextEditor = ({
   isOptional = false,
   labelText,
   namespace = COMPONENT_PREFIX,
+  onBlur,
   onCancel,
   onChange,
+  onFocus,
   onLinkAdded,
   onSave,
   placeholder,
@@ -162,8 +167,6 @@ export const TextEditor = ({
 
   const [cancelTrigger, setCancelTrigger] = useState<boolean>(false);
 
-  const debounceWaitTime = 500;
-
   const initialConfig = useMemo(() => {
     return {
       namespace,
@@ -177,32 +180,36 @@ export const TextEditor = ({
 
   // OnChangePlugin is tested separately
   /* istanbul ignore next */
-  const handleChange = useDebounce((newState) => {
-    const currentTextContent = newState.read(() => $getRoot().getTextContent());
-
-    if (onChange) {
-      const formattedValues = editorRef.current
-        ? SerializeLexical(editorRef.current)
-        : {};
-      onChange?.(currentTextContent, formattedValues);
-    }
-
-    // If the character limit is set, check if the limit has been exceeded
-    if (characterLimit > 0) {
-      const currentDiff = characterLimit - currentTextContent.length;
-      // If the character limit has been exceeded, show the character limit warning
-      setCharacterLimitWarning(
-        currentDiff < 0
-          ? locale.textEditor.characterLimit(Math.abs(currentDiff))
-          : undefined,
+  const handleChange = useCallback(
+    (newState: EditorState) => {
+      const currentTextContent = newState.read(() =>
+        $getRoot().getTextContent(),
       );
-    }
-  }, debounceWaitTime);
+
+      if (onChange) {
+        const formattedValues = editorRef.current
+          ? SerializeLexical(editorRef.current)
+          : {};
+        onChange?.(currentTextContent, formattedValues);
+      }
+
+      // If the character limit is set, check if the limit has been exceeded
+      if (characterLimit > 0) {
+        const currentDiff = characterLimit - currentTextContent.length;
+        // If the character limit has been exceeded, show the character limit warning
+        setCharacterLimitWarning(
+          currentDiff < 0
+            ? locale.textEditor.characterLimit(Math.abs(currentDiff))
+            : undefined,
+        );
+      }
+    },
+    [characterLimit, locale.textEditor, onChange],
+  );
 
   const handleCancel = useCallback(() => {
-    const editor = editorRef.current;
     /* istanbul ignore next */
-    const isEditable = editor?.isEditable() || false;
+    const isEditable = editorRef.current?.isEditable() || false;
     /* istanbul ignore if */
     if (!isEditable) return;
 
@@ -215,13 +222,12 @@ export const TextEditor = ({
 
   // Reset the value of the editor when the cancel trigger is updated (implements reset on cancel)
   useEffect(() => {
-    const editor = editorRef.current;
     const safeValue = value || createEmpty();
 
     /* istanbul ignore else */
-    if (editor) {
-      const newEditorState = editor.parseEditorState(safeValue);
-      editor.setEditorState(newEditorState);
+    if (editorRef.current) {
+      const newEditorState = editorRef.current.parseEditorState(safeValue);
+      editorRef.current.setEditorState(newEditorState);
     }
   }, [cancelTrigger, value]);
 
@@ -237,6 +243,16 @@ export const TextEditor = ({
   return (
     <StyledTextEditorWrapper
       data-role={`${namespace}-editor-wrapper`}
+      onBlur={(ev) => {
+        if (!ev.currentTarget.contains(ev.relatedTarget)) {
+          onBlur?.(ev);
+        }
+      }}
+      onFocus={(ev) => {
+        if (!ev.currentTarget.contains(ev.relatedTarget)) {
+          onFocus?.(ev);
+        }
+      }}
       {...filterStyledSystemMarginProps(rest)}
       {...tagComponent("text-editor", rest)}
     >

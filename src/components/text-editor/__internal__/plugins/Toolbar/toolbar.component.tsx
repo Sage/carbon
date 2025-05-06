@@ -113,7 +113,6 @@ const Toolbar = ({ namespace, hasHeader, onCancel, onSave }: ToolbarProps) => {
       aria-label={locale.textEditor.toolbarAriaLabel()}
       data-role={`${namespace}-toolbar`}
       id={`${namespace}-toolbar`}
-      onFocus={(e) => e.stopPropagation()}
       ref={toolbarRef}
     >
       <FormattingButtons data-role={`${namespace}-formatting-buttons`}>

@@ -21,9 +21,7 @@ import {
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
-import FlatTableContext, {
-  FlatTableContextProps,
-} from "../flat-table/__internal__/flat-table.context";
+import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 
 export interface MultiActionButtonProps
   extends WidthProps,
@@ -62,8 +60,7 @@ export const MultiActionButton = forwardRef<
     ref,
   ) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
-    const { isInFlatTable } =
-      useContext<FlatTableContextProps>(FlatTableContext);
+    const { isInFlatTable } = useContext(FlatTableContext);
 
     useImperativeHandle<MultiActionButtonHandle, MultiActionButtonHandle>(
       ref,

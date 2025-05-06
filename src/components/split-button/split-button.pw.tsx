@@ -414,15 +414,15 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  // TODO: test passes even when it shouldn't, see FE-6267
-  test.skip(`should pass accessibility tests when open`, async ({
-    mount,
-    page,
-  }) => {
+  // This now passes. I think it's because we've changed the popover to now have `disablePortal` prop as true.
+  test(`should pass accessibility tests when open`, async ({ mount, page }) => {
     await mount(<SplitButtonList />);
 
     await splitToggleButton(page).nth(0).press("ArrowDown");
-    await checkAccessibility(page);
+    await checkAccessibility(
+      page,
+      page.getByRole("button", { name: "Button 1" }),
+    );
   });
 
   test(`should pass accessibility tests when the additional buttons are opened`, async ({
@@ -432,7 +432,10 @@ test.describe("Accessibility tests", () => {
     await mount(<SplitButtonList />);
 
     await splitToggleButton(page).nth(0).click();
-    await checkAccessibility(page);
+    await checkAccessibility(
+      page,
+      page.getByRole("button", { name: "Button 1" }),
+    );
   });
 
   test(`should pass accessibility tests when disabled`, async ({

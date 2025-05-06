@@ -10,8 +10,9 @@ import {
 } from "./flat-table.style";
 import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import Events from "../../__internal__/utils/helpers/events/events";
-import FlatTableContext from "./__internal__/flat-table.context";
+import { StrictFlatTableProvider } from "./__internal__/strict-flat-table.context";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
+import FlatTableContext from "./__internal__/flat-table.context";
 
 export interface FlatTableProps extends MarginProps, TagProps {
   /** The HTML id of the element that contains a description of this table. */
@@ -289,17 +290,22 @@ export const FlatTable = ({
           {...tableStylingProps}
         >
           {caption ? <caption>{caption}</caption> : null}
-          <FlatTableContext.Provider
+          <StrictFlatTableProvider
             value={{
               colorTheme,
               size,
               getTabStopElementId,
-              isInFlatTable: true,
-              setHasOpenDatePicker,
             }}
           >
-            {children}
-          </FlatTableContext.Provider>
+            <FlatTableContext.Provider
+              value={{
+                isInFlatTable: true,
+                setHasOpenDatePicker,
+              }}
+            >
+              {children}
+            </FlatTableContext.Provider>
+          </StrictFlatTableProvider>
         </StyledFlatTable>
       </StyledTableContainer>
       {footer && (

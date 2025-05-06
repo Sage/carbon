@@ -15,7 +15,6 @@ import {
 } from "../../../playwright/support/constants";
 import {
   checkAccessibility,
-  waitForAnimationEnd,
   getDesignTokensByCssProperty,
 } from "../../../playwright/support/helper";
 import Box from "../../../src/components/box";
@@ -509,8 +508,7 @@ test.describe("Accessibility tests for Portrait component", () => {
   });
 
   testData.forEach((tooltipMessage) => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip(`should pass accessibility checks when toolTipMessage is ${tooltipMessage}`, async ({
+    test(`should pass accessibility checks when toolTipMessage is ${tooltipMessage}`, async ({
       mount,
       page,
     }) => {
@@ -518,21 +516,18 @@ test.describe("Accessibility tests for Portrait component", () => {
         <PortraitComponent tooltipIsVisible tooltipMessage={tooltipMessage} />,
       );
 
-      await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
-      await checkAccessibility(page);
+      await checkAccessibility(page, getDataElementByValue(page, "tooltip"));
     });
   });
 
   testData.forEach((tooltipId) => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip(`should pass accessibility checks when tooltipId is ${tooltipId}`, async ({
+    test(`should pass accessibility checks when tooltipId is ${tooltipId}`, async ({
       mount,
       page,
     }) => {
       await mount(<PortraitComponent tooltipId={tooltipId} />);
 
-      await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
-      await checkAccessibility(page);
+      await checkAccessibility(page, getDataElementByValue(page, "tooltip"));
     });
   });
 
@@ -547,52 +542,50 @@ test.describe("Accessibility tests for Portrait component", () => {
     await checkAccessibility(page);
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should pass accessibility checks with a tooltip, when visibility prop is true", async ({
+  test("should pass accessibility checks with a tooltip, when visibility prop is true", async ({
     mount,
     page,
   }) => {
     await mount(<PortraitComponent tooltipMessage="foo" tooltipIsVisible />);
 
-    await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
-
-    await checkAccessibility(page);
+    await checkAccessibility(page, getDataElementByValue(page, "tooltip"));
   });
 
   ["top", "bottom", "left", "right"].forEach((tooltipPosition) => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip(`should pass accessibility checks with tooltip positioned ${tooltipPosition}`, async ({
+    test(`should pass accessibility checks with tooltip positioned ${tooltipPosition}`, async ({
       mount,
       page,
     }) => {
-      await mount(<PortraitComponent tooltipPosition={tooltipPosition} />);
+      await mount(
+        <PortraitComponent
+          tooltipPosition={tooltipPosition}
+          tooltipIsVisible
+        />,
+      );
 
-      await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
-      await checkAccessibility(page);
+      await checkAccessibility(page, getDataElementByValue(page, "tooltip"));
     });
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should pass accessibility checks with a tooltip error", async ({
+  test("should pass accessibility checks with a tooltip error", async ({
     mount,
     page,
   }) => {
-    await mount(<PortraitComponent tooltipType="error" />);
+    await mount(<PortraitComponent tooltipType="error" tooltipIsVisible />);
 
-    await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
-    await checkAccessibility(page);
+    await checkAccessibility(page, getDataElementByValue(page, "tooltip"));
   });
 
   [SIZE.MEDIUM, SIZE.LARGE].forEach((tooltipSize) => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip(`should pass accessibility checks with a ${tooltipSize} size tooltip`, async ({
+    test(`should pass accessibility checks with a ${tooltipSize} size tooltip`, async ({
       mount,
       page,
     }) => {
-      await mount(<PortraitComponent tooltipSize={tooltipSize} />);
+      await mount(
+        <PortraitComponent tooltipSize={tooltipSize} tooltipIsVisible />,
+      );
 
-      await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
-      await checkAccessibility(page);
+      await checkAccessibility(page, getDataElementByValue(page, "tooltip"));
     });
   });
 

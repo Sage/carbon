@@ -1,10 +1,10 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
 import { PaddingProps } from "styled-system";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import { TableBorderSize, TableCellAlign } from "..";
 
 import StyledFlatTableHeader from "./flat-table-header.style";
-import FlatTableContext from "../__internal__/flat-table.context";
+import { useStrictFlatTableContext } from "../__internal__/strict-flat-table.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useTableCell from "../__internal__/use-table-cell";
 
@@ -44,7 +44,7 @@ export const FlatTableHeader = ({
 }: FlatTableHeaderProps) => {
   const ref = useRef<HTMLTableCellElement>(null);
   const internalId = useRef(id || guid());
-  const { colorTheme } = useContext(FlatTableContext);
+  const { colorTheme } = useStrictFlatTableContext();
   const { leftPosition, rightPosition, makeCellSticky } = useTableCell(
     internalId.current,
   );

@@ -3,7 +3,7 @@ import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { SpaceProps, WidthProps } from "styled-system";
 
 import StyledTile from "./tile.style";
-import TileContext from "./__internal__/tile.context";
+import { TileProvider } from "./__internal__/tile.context";
 import filterStyledSystemPaddingProps from "../../style/utils/filter-styled-system-padding-props";
 import filterStyledSystemMarginProps from "../../style/utils/filter-styled-system-margin-props";
 import computeContentPadding from "./__internal__/compute-content-padding";
@@ -84,11 +84,11 @@ export const Tile = ({
       {...marginProps}
       {...tagComponent("tile", rest)}
     >
-      <TileContext.Provider
+      <TileProvider
         value={{ isHorizontal, paddingPropsFromTile: contentPaddingProps }}
       >
         {children}
-      </TileContext.Provider>
+      </TileProvider>
     </StyledTile>
   );
 };

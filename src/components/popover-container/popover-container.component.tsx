@@ -34,9 +34,7 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
-import FlatTableContext, {
-  FlatTableContextProps,
-} from "../flat-table/__internal__/flat-table.context";
+import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 
 export interface RenderOpenProps {
   tabIndex: number;
@@ -227,8 +225,7 @@ export const PopoverContainer = forwardRef<
     );
 
     const popoverMiddleware = usePopoverMiddleware(shouldCoverButton);
-    const { isInFlatTable } =
-      useContext<FlatTableContextProps>(FlatTableContext);
+    const { isInFlatTable } = useContext(FlatTableContext);
 
     const closePopover = useCallback(
       (

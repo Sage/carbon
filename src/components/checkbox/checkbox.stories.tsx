@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
-import { Checkbox, CheckboxGroup } from ".";
+import { Meta, StoryFn } from "@storybook/react";
+import { Checkbox } from ".";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
 });
 
-const meta: Meta<typeof Checkbox> = {
+const meta = {
   title: "Checkbox",
   component: Checkbox,
   argTypes: {
     ...styledSystemProps,
   },
-};
+} satisfies Meta<typeof Checkbox>;
 
 export default meta;
-type Story = StoryObj<typeof Checkbox>;
+type Story = StoryFn<typeof Checkbox>;
 
 export const Default: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -65,6 +65,34 @@ export const Reversed: Story = () => {
 };
 Reversed.storyName = "Reversed";
 
+export const Required: Story = () => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  return (
+    <Checkbox
+      label="Checkbox"
+      name="checkbox-required"
+      required
+      checked={isChecked}
+      onChange={(e) => setIsChecked(e.target.checked)}
+    />
+  );
+};
+
+export const Optional: Story = () => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  return (
+    <Checkbox
+      label="Checkbox"
+      name="checkbox-is-optional"
+      isOptional
+      checked={isChecked}
+      onChange={(e) => setIsChecked(e.target.checked)}
+    />
+  );
+};
+
 export const WithFieldHelp: Story = () => {
   return (
     <>
@@ -86,7 +114,17 @@ export const WithFieldHelp: Story = () => {
 };
 WithFieldHelp.storyName = "With fieldHelp";
 
-export const WithLabelHelp: Story = () => {
+export const CustomLabelWidth: Story = () => {
+  return (
+    <Checkbox
+      label="With custom labelWidth"
+      labelWidth={100}
+      name="checkbox-custom-label"
+    />
+  );
+};
+
+export const LegacyLabelHelp: Story = () => {
   return (
     <Checkbox
       helpAriaLabel="This text provides more information for the label."
@@ -96,110 +134,4 @@ export const WithLabelHelp: Story = () => {
     />
   );
 };
-WithLabelHelp.storyName = "With labelHelp";
-
-export const WithCustomLabelWidth: Story = () => {
-  return (
-    <Checkbox
-      label="With custom labelWidth"
-      labelWidth={100}
-      name="checkbox-custom-label"
-    />
-  );
-};
-WithCustomLabelWidth.storyName = "With custom labelWidth";
-
-export const CheckboxGroupStory: Story = () => {
-  return (
-    <CheckboxGroup legend="Checkbox Group">
-      {["One", "Two", "Three"].map((label) => (
-        <Checkbox
-          id={`checkbox-group-${label}`}
-          key={`checkbox-group-${label}`}
-          name={`checkbox-group-${label}`}
-          label={label}
-        />
-      ))}
-    </CheckboxGroup>
-  );
-};
-CheckboxGroupStory.storyName = "CheckboxGroup";
-
-export const CheckboxGroupWithInlineLegend: Story = () => {
-  return (
-    <CheckboxGroup
-      legend="Checkbox Group"
-      legendSpacing={2}
-      legendWidth={10}
-      legendInline
-    >
-      {["One", "Two", "Three"].map((label) => (
-        <Checkbox
-          id={`checkbox-group-${label}`}
-          key={`checkbox-group-${label}`}
-          name={`checkbox-group-${label}`}
-          label={label}
-        />
-      ))}
-    </CheckboxGroup>
-  );
-};
-CheckboxGroupWithInlineLegend.storyName = "CheckboxGroup with inline legend";
-
-export const Required: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  return (
-    <Checkbox
-      label="Checkbox"
-      name="checkbox-required"
-      required
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-    />
-  );
-};
-Required.storyName = "Required";
-
-export const CheckboxGroupRequired: Story = () => (
-  <CheckboxGroup required legend="Checkbox Group">
-    {["One", "Two", "Three"].map((label) => (
-      <Checkbox
-        id={`checkbox-group-required-${label}`}
-        key={`checkbox-group-required-${label}`}
-        name={`checkbox-group-required-${label}`}
-        label={label}
-      />
-    ))}
-  </CheckboxGroup>
-);
-CheckboxGroupRequired.storyName = "CheckboxGroupRequired";
-
-export const IsOptional: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  return (
-    <Checkbox
-      label="Checkbox"
-      name="checkbox-is-optional"
-      isOptional
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-    />
-  );
-};
-IsOptional.storyName = "IsOptional";
-
-export const CheckboxGroupIsOptional: Story = () => (
-  <CheckboxGroup isOptional legend="Checkbox Group">
-    {["One", "Two", "Three"].map((label) => (
-      <Checkbox
-        id={`checkbox-group-is-optional-${label}`}
-        key={`checkbox-group-is-optional-${label}`}
-        name={`checkbox-group-is-optional-${label}`}
-        label={label}
-      />
-    ))}
-  </CheckboxGroup>
-);
-CheckboxGroupIsOptional.storyName = "CheckboxGroupIsOptional";
+LegacyLabelHelp.storyName = "With labelHelp";

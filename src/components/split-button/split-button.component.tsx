@@ -24,9 +24,7 @@ import { baseTheme } from "../../style/themes";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
 import SplitButtonContext from "./__internal__/split-button.context";
 import useLocale from "../../hooks/__internal__/useLocale";
-import FlatTableContext, {
-  FlatTableContextProps,
-} from "../flat-table/__internal__/flat-table.context";
+import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 
 const CONTENT_WIDTH_RATIO = 0.75;
@@ -97,8 +95,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     const mainButtonRef = useRef<HTMLButtonElement>(null);
     const toggleButtonRef = useRef<HTMLButtonElement>(null);
 
-    const { isInFlatTable } =
-      useContext<FlatTableContextProps>(FlatTableContext);
+    const { isInFlatTable } = useContext(FlatTableContext);
 
     const shouldRenderIsWhiteVariant = buttonType === "secondary" && isWhite;
 

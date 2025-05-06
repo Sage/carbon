@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { SpaceProps } from "styled-system";
 import StyledTileContent from "./tile-content.style";
-import TileContext from "../__internal__/tile.context";
+import { useTileContext } from "../__internal__/tile.context";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
@@ -20,7 +20,7 @@ const TileContent = ({
   height,
   ...rest
 }: TileContentProps) => {
-  const { isHorizontal, paddingPropsFromTile } = useContext(TileContext);
+  const { isHorizontal, paddingPropsFromTile } = useTileContext();
 
   if (!children) {
     return null;

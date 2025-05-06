@@ -46,15 +46,13 @@ All instances of the Text Editor should have a label that describes the purpose 
 
 ### With Header
 
-The Text Editor accepts a header property, which can be any valid React node and is rendered above the toolbar, providing space for custom elements such as titles, controls, 
-or contextual information.
+The Text Editor accepts a header property, which can be any valid React node and is rendered above the toolbar, providing space for custom elements such as titles, controls, or contextual information.
 
 <Canvas of={TextEditorStories.Header} />
 
 ### With Footer
 
-The Text Editor accepts a footer property, which can be any valid React node and is rendered below the editor, providing space for custom elements such as titles, controls, 
-or contextual information.
+The Text Editor accepts a footer property, which can be any valid React node and is rendered below the editor, providing space for custom elements such as titles, controls, or contextual information.
 
 <Canvas of={TextEditorStories.Footer} />
 
@@ -64,8 +62,7 @@ or contextual information.
 
 ### Using CreateEmpty
 
-You can use the `CreateEmpty` function to create an empty editor state. This function should be called with no arguments, and the result should
-be passed to the `value` property of the editor.
+You can use the `CreateEmpty` function to create an empty editor state. This function should be called with no arguments, and the result should be passed to the `value` property of the editor.
 
 <Canvas of={TextEditorStories.UsingCreateEmpty} />
 
@@ -99,13 +96,36 @@ the JSON and HTML content of the editor. The `onCancel` function callback will b
 
 <Canvas of={TextEditorStories.CommandButtons} />
 
+### onBlur Handler
+
+To handle focus loss, you can set the `onBlur` property to a function. The function will be called whenever the editor loses focus.
+
+<Canvas of={TextEditorStories.OnBlur} />
+
+### onCancel Handler
+
+To cancel changes made to the content of the editor when the `Cancel` button is clicked, you can set the `onCancel` property to a function. This
+function will be called when the user clicks the `Cancel` button.
+
+If `value` is provided, the `Cancel` button will reset the editor to the initial value when pressed.
+
+If the `onCancel` property is not provided, the `Cancel` button will not be displayed.
+
+<Canvas of={TextEditorStories.onCancel} />
+
 ### onChange Handler
 
 To handle changes to the content of the editor, you can set the `onChange` property to a function. The function will be called whenever the
-editor state changes, and provides a string representation of the editor content. This function is debounced by 500ms to prevent excessive
-calls to the callback function. The second argument passed to the `onChange` callback contains the `htmlString` and `JSON` content of the editor.
+editor state changes, and provides a string representation of the editor content. The second argument passed to the `onChange` callback contains
+the `htmlString` and `JSON` content of the editor.
 
 <Canvas of={TextEditorStories.OnChange} />
+
+### onFocus Handler
+
+To handle focus gain, you can set the `onFocus` property to a function. The function will be called whenever the editor gains focus.
+
+<Canvas of={TextEditorStories.OnFocus} />
 
 ### onSave Handler
 
@@ -119,17 +139,6 @@ If the `onSave` property is not provided, the `Save` button will not be displaye
 Type into the editor and the click the **Show Data Formats** button in the example below to see the JSON and HTML content of the editor.
 
 <Canvas of={TextEditorStories.OnSave} />
-
-### onCancel Handler
-
-To cancel changes made to the content of the editor when the `Cancel` button is clicked, you can set the `onCancel` property to a function. This
-function will be called when the user clicks the `Cancel` button.
-
-If `value` is provided, the `Cancel` button will reset the editor to the initial value when pressed.
-
-If the `onCancel` property is not provided, the `Cancel` button will not be displayed.
-
-<Canvas of={TextEditorStories.onCancel} />
 
 ### With Error
 

@@ -6,7 +6,7 @@ import tagComponent, {
 
 export interface CardColumnProps
   extends Partial<StyledCardColumnProps>,
-    Pick<TagProps, "data-element" | "data-role"> {
+    TagProps {
   /** Child elements */
   children: React.ReactNode;
 }

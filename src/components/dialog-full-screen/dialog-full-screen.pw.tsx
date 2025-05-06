@@ -611,8 +611,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
     await checkAccessibility(page, page.getByRole("dialog"));
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should check accessibility with header children", async ({
+  test("should check accessibility with header children", async ({
     mount,
     page,
   }) => {
@@ -633,8 +632,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
     await checkAccessibility(page, page.getByRole("dialog"));
   });
 
-  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-  test.skip("should check accessibility with hideable header children", async ({
+  test("should check accessibility with hideable header children", async ({
     mount,
     page,
   }) => {
@@ -645,6 +643,8 @@ test.describe("Accessibility for DialogFullScreen", () => {
       .filter({ hasText: "Open DialogFullScreen" });
     await openButton.click();
 
+    // We will still need to skip the colour contrast check as the check is running before the animation is completely finished.
+    // This is because the Pill's bg colour is deemed too light compared to the text colour as the animation is fading in.
     // color-contrast ignored until we can investigate and fix FE-6245
     await checkAccessibility(page, page.getByRole("dialog"), "color-contrast");
   });

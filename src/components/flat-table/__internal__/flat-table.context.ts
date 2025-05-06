@@ -1,14 +1,13 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { FlatTableProps } from "../flat-table.component";
+import { createContext } from "react";
 
-export interface FlatTableContextProps
-  extends Pick<FlatTableProps, "colorTheme" | "size"> {
-  getTabStopElementId: () => string;
-  isInFlatTable?: boolean;
-  setHasOpenDatePicker?: Dispatch<SetStateAction<boolean>>;
+interface FlatTableContextType {
+  isInFlatTable: boolean;
+  setHasOpenDatePicker?: (value: boolean) => void;
 }
 
-export default React.createContext<FlatTableContextProps>({
-  getTabStopElementId: () => "",
+const FlatTableContext = createContext<FlatTableContextType>({
   isInFlatTable: false,
+  setHasOpenDatePicker: undefined,
 });
+
+export default FlatTableContext;

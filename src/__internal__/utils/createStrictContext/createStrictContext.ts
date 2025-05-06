@@ -1,5 +1,5 @@
 import React from "react";
-import Logger from "./logger";
+import Logger from "../logger";
 
 type CreateStrictContextArgs<ContextType> = {
   /** The display name of the context. */
