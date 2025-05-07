@@ -8,6 +8,7 @@ import Box from "../../box";
 import Icon from "../../icon";
 import Dialog from "../../dialog";
 import { Select, Option, SimpleSelectProps } from "..";
+import CarbonProvider from "../../carbon-provider";
 
 export default {
   component: Select,
@@ -70,26 +71,169 @@ export default {
 };
 
 export const Default = (args: SimpleSelectProps) => {
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
-    <Box width={400}>
-      <Select name="simple" id="simple" label="label" labelInline {...args}>
-        <Option
-          text="Like a lot of intelligent animals, most crows are quite social. 
-          For instance, American crows spend most of the year living in pairs or small family groups.
-          During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night."
-          value="1"
-        />
-      </Select>
-    </Box>
+    <SimpleSelect
+      label="simple select"
+      value={value}
+      onChange={onChangeHandler}
+      {...args}
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option
+        text="Like a lot of intelligent animals, most crows are quite social. For instance, American crows spend most of the year living in pairs or small family groups. During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night"
+        value="8"
+      />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </SimpleSelect>
   );
 };
+Default.storyName = "Default";
 
-Default.storyName = "default";
-Default.args = {
-  mt: 0,
-  listPlacement: undefined,
-  flipEnabled: true,
-  listWidth: undefined,
+export const Validation = () => {
+  return (
+    <>
+      <Select
+        name="simple"
+        id="simple"
+        label="Simple Select"
+        error="Error message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select
+        name="simple"
+        id="simple"
+        label="Simple Select"
+        warning="Warning message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select
+        name="simple"
+        id="simple"
+        label="Simple Select"
+        info="Info message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+
+      <Select
+        name="simple"
+        id="simple"
+        label="Simple Select"
+        error="Error message"
+        validationOnLabel
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select
+        name="simple"
+        id="simple"
+        label="Simple Select"
+        warning="Warning message"
+        validationOnLabel
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select
+        name="simple"
+        id="simple"
+        label="Simple Select"
+        info="Info message"
+        validationOnLabel
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+
+      <Select name="simple" id="simple" label="Simple Select" error mb={2}>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select name="simple" id="simple" label="Simple Select" warning mb={2}>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select name="simple" id="simple" label="Simple Select" info mb={2}>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+    </>
+  );
+};
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: true },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidation = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Select
+        name="simple"
+        id="simple"
+        label="Simple Select"
+        error="Error message"
+        inputHint="Hint text"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select
+        name="simple"
+        id="simple"
+        label="Simple Select"
+        warning="Warning message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+    </CarbonProvider>
+  );
+};
+NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: true },
+  themeProvider: { chromatic: { theme: "sage" } },
 };
 
 export const DelayedReposition = () => {
@@ -148,40 +292,7 @@ export const DelayedReposition = () => {
   );
 };
 
-DelayedReposition.storyName = "delayed reposition";
-
-export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
-  const [value, setValue] = useState("");
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
-
-  return (
-    <SimpleSelect
-      label="simple select"
-      labelInline
-      value={value}
-      onChange={onChangeHandler}
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option
-        text="Like a lot of intelligent animals, most crows are quite social. For instance, American crows spend most of the year living in pairs or small family groups. During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night"
-        value="8"
-      />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </SimpleSelect>
-  );
-};
+DelayedReposition.storyName = "Delayed Reposition";
 
 export const SimpleSelectWithLazyLoadingComponent = (
   props: Partial<SimpleSelectProps>,

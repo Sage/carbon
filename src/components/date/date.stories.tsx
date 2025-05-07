@@ -4,7 +4,6 @@ import { zhCN, de } from "date-fns/locale";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import DateInput, { DateChangeEvent } from "./date.component";
 import Box from "../box";
 import Button from "../button";
@@ -42,6 +41,23 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 Default.parameters = { chromatic: { disableSnapshot: true } };
 
+export const InputHint: Story = () => {
+  const [state, setState] = useState("04/04/2019");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <DateInput
+      label="Date"
+      inputHint="Hint text"
+      name="date-input"
+      value={state}
+      onChange={setValue}
+    />
+  );
+};
+InputHint.storyName = "Input Hint";
+
 export const Sizes: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
@@ -69,11 +85,7 @@ export const AutoFocus: Story = () => {
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
-  return (
-    <div style={{ height: 450, width: 450 }}>
-      <DateInput label="Date" value={state} onChange={setValue} autoFocus />
-    </div>
-  );
+  return <DateInput label="Date" value={state} onChange={setValue} autoFocus />;
 };
 AutoFocus.storyName = "Auto Focus";
 AutoFocus.parameters = {
@@ -204,9 +216,6 @@ export const WithCustomWidth: Story = () => {
       label="Date"
       value={state}
       onChange={setValue}
-      labelInline
-      labelWidth={20}
-      inputWidth={70}
       maxWidth="300px"
     />
   );
@@ -279,246 +288,6 @@ export const IsOptional: Story = () => {
   );
 };
 IsOptional.storyName = "IsOptional";
-
-export const ValidationsStringComponent: Story = () => {
-  const [state1, setState1] = useState("01/10/2016");
-  const setValue1 = (ev: DateChangeEvent) => {
-    setState1(ev.target.value.formattedValue);
-  };
-  const [state2, setState2] = useState("01/10/2016");
-  const setValue2 = (ev: DateChangeEvent) => {
-    setState2(ev.target.value.formattedValue);
-  };
-  return (
-    <>
-      {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <DateInput
-            label="Date"
-            value={state1}
-            onChange={setValue1}
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <DateInput
-            label="Date - readOnly"
-            value={state2}
-            onChange={setValue2}
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ))}
-    </>
-  );
-};
-ValidationsStringComponent.storyName = "Validations - String - Component";
-
-export const ValidationsStringWithTooltipPositionOverriddenComponent: Story =
-  () => {
-    const [state, setState] = useState("01/10/2016");
-    const setValue = (ev: DateChangeEvent) => {
-      setState(ev.target.value.formattedValue);
-    };
-    return (
-      <>
-        {["error", "warning", "info"].map((validationType) => (
-          <div key={`${validationType}-string-component`}>
-            <DateInput
-              label="Date"
-              value={state}
-              onChange={setValue}
-              {...{ [validationType]: "Message" }}
-              mb={2}
-              tooltipPosition="top"
-            />
-          </div>
-        ))}
-      </>
-    );
-  };
-ValidationsStringWithTooltipPositionOverriddenComponent.storyName =
-  "Validations - String - With Tooltip Position Overridden";
-ValidationsStringWithTooltipPositionOverriddenComponent.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const ValidationsStringLabel: Story = () => {
-  const [state1, setState1] = useState("01/10/2016");
-  const setValue1 = (ev: DateChangeEvent) => {
-    setState1(ev.target.value.formattedValue);
-  };
-  const [state2, setState2] = useState("01/10/2016");
-  const setValue2 = (ev: DateChangeEvent) => {
-    setState2(ev.target.value.formattedValue);
-  };
-  return (
-    <>
-      {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <DateInput
-            label="Date"
-            value={state1}
-            onChange={setValue1}
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <DateInput
-            label="Date"
-            value={state2}
-            onChange={setValue2}
-            validationOnLabel
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ))}
-    </>
-  );
-};
-ValidationsStringLabel.storyName = "Validations - String - Label";
-
-export const ValidationsStringWithTooltipPositionOverriddenLabel: Story =
-  () => {
-    const [state, setState] = useState("01/10/2016");
-    const setValue = (ev: DateChangeEvent) => {
-      setState(ev.target.value.formattedValue);
-    };
-    return (
-      <>
-        {["error", "warning", "info"].map((validationType) => (
-          <div key={`${validationType}-string-component`}>
-            <DateInput
-              label="Date"
-              value={state}
-              onChange={setValue}
-              validationOnLabel
-              {...{ [validationType]: "Message" }}
-              mb={2}
-              tooltipPosition="top"
-            />
-          </div>
-        ))}
-      </>
-    );
-  };
-ValidationsStringWithTooltipPositionOverriddenLabel.storyName =
-  "Validations - String - With Tooltip Position Overridden";
-ValidationsStringWithTooltipPositionOverriddenLabel.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const ValidationsStringNewDesign: Story = () => {
-  const [state1, setState1] = useState("01/10/2016");
-  const setValue1 = (ev: DateChangeEvent) => {
-    setState1(ev.target.value.formattedValue);
-  };
-  const [state2, setState2] = useState("01/10/2016");
-  const setValue2 = (ev: DateChangeEvent) => {
-    setState2(ev.target.value.formattedValue);
-  };
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      {["error", "warning"].map((validationType) =>
-        (["small", "medium", "large"] as const).map((size) => (
-          <div
-            style={{ width: "296px" }}
-            key={`${size}-${validationType}-string-label`}
-          >
-            <DateInput
-              label={`${size} - ${validationType}`}
-              value={state1}
-              onChange={setValue1}
-              size={size}
-              {...{ [validationType]: "Message" }}
-              m={4}
-            />
-            <DateInput
-              label={`readOnly - ${size} - ${validationType}`}
-              value={state2}
-              onChange={setValue2}
-              size={size}
-              readOnly
-              {...{ [validationType]: "Message" }}
-              m={4}
-            />
-          </div>
-        )),
-      )}
-    </CarbonProvider>
-  );
-};
-ValidationsStringNewDesign.storyName = "Validations - String - New Design";
-
-export const ValidationsBoolean: Story = () => {
-  const [state1, setState1] = useState("01/10/2016");
-  const setValue1 = (ev: DateChangeEvent) => {
-    setState1(ev.target.value.formattedValue);
-  };
-  const [state2, setState2] = useState("01/10/2016");
-  const setValue2 = (ev: DateChangeEvent) => {
-    setState2(ev.target.value.formattedValue);
-  };
-  return (
-    <>
-      {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
-          <DateInput
-            label="Date"
-            value={state1}
-            onChange={setValue1}
-            {...{ [validationType]: true }}
-          />
-          <DateInput
-            label="Date"
-            value={state2}
-            onChange={setValue2}
-            readOnly
-            {...{ [validationType]: true }}
-          />
-        </div>
-      ))}
-    </>
-  );
-};
-ValidationsBoolean.storyName = "Validations - Boolean";
-
-export const ValidationsExampleImplementation: Story = () => {
-  const [state, setState] = useState("05/04/2022");
-  const [validationState, setValidationState] = useState("");
-  const handleChange = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  const handleBlur = (ev: DateChangeEvent) => {
-    if (!ev.target.value.rawValue) {
-      setValidationState("Error Invalid Date");
-    } else if (new Date(ev.target.value.rawValue).getFullYear() <= 2020) {
-      setValidationState("Warning Date before 2020");
-    }
-  };
-  return (
-    <div>
-      <DateInput
-        label="Date"
-        value={state}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={validationState.includes("Error") ? validationState : undefined}
-        warning={
-          validationState.includes("Warning") ? validationState : undefined
-        }
-      />
-    </div>
-  );
-};
-ValidationsExampleImplementation.storyName =
-  "Validations - Example Implementation";
-ValidationsExampleImplementation.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const LocaleOverrideExampleImplementation: Story = () => {
   const [state, setState] = useState("2022-04-05");

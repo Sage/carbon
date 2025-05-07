@@ -29,9 +29,23 @@ CheckboxGroup provides a way to check one or more items from a list of options.
 import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 ```
 
+### Validation
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
+
 ## Examples
 
+### Default
+
 <Canvas of={CheckboxGroupStories.Default} />
+
+### With legend Help
+
+To add an input hint to the legend, use the `legendHelp` prop.
+
+**Note:** The `legendHelp` prop will only render when the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *enabled*.
+
+<Canvas of={CheckboxGroupStories.WithLegendHelp} />
 
 ### Required
 
@@ -46,30 +60,6 @@ import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 Use the `inline` prop to display the grouped checkboxes side by side horizontally. Requires enabling the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) to work.
 
 <Canvas of={CheckboxGroupStories.Inline} />
-
-### Error state
-
-Requires enabling the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) to work.
-
-<Canvas of={CheckboxGroupStories.ErrorState} />
-
-### Warning state
-
-Requires enabling the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) to work.
-
-<Canvas of={CheckboxGroupStories.WarningState} />
-
-### Error state (legacy)
-
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
-
-<Canvas of={CheckboxGroupStories.LegacyErrorState} />
-
-### Warning state (legacy)
-
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
-
-<Canvas of={CheckboxGroupStories.LegacyWarningState} />
 
 ### Inline legend (legacy)
 

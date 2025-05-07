@@ -25,11 +25,22 @@ Import `NumeralDate` into the project.
 import NumeralDate, { NumeralDateProps } from "carbon-react/lib/components/numeral-date";
 ```
 
+### Validation
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
+
 ## Examples
 
 ### Default
 
 <Canvas of={NumeralDateStories.Default} />
+
+### With Input Hint
+
+**Note:** The `labelHelp` prop will only render as hint text when the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *enabled*, 
+otherwise it will render as a Help tooltip (see the [With labelHelp (legacy)](#with-labelhelp-legacy) example).
+
+<Canvas of={NumeralDateStories.WithInputHint} />
 
 ### Controlled
 
@@ -39,31 +50,12 @@ import NumeralDate, { NumeralDateProps } from "carbon-react/lib/components/numer
 
 <Canvas of={NumeralDateStories.AllowedDateFormats} />
 
-### Validation
-
-Validation status can be set by passing `error`, `warning` or `info` prop to the component.
-
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
-
-Passing a boolean to these props will display only a properly colored border.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
-
-<Canvas of={NumeralDateStories.Validation} />
-
-#### New designs validation
-
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-You can use the `legendHelp` prop to provide a hint text for the group.
-
-<Canvas of={NumeralDateStories.NewValidation} />
 
 ### Internal validation
 
 `NumeralDate` has an optional internal validation mechanism implemented to check if the date partial values are correct.
-To enable `error` internal validation pass `enableInternalError` and to enable `warning` pass `enableInternalWarning`.
-To override default messages translations can be provided with following keys: `numeralDate.day`, `numeralDate.month`, `numeralDate.year`.
+To enable `error` internal validation, pass `enableInternalError` and to enable `warning`, pass `enableInternalWarning`.
+To override the default messages, translations can be provided with following keys: `numeralDate.day`, `numeralDate.month`, `numeralDate.year`.
 
 #### As error
 
@@ -77,25 +69,6 @@ When using the internal validations as warning the external validation is not ne
 
 <Canvas of={NumeralDateStories.InternalValidationWarning} />
 
-### With inline label
-
-**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
-
-<Canvas of={NumeralDateStories.InlineLabel} />
-
-### Enabling the adaptive behaviour
-
-The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
-
-<Canvas of={NumeralDateStories.EnablingAdaptiveBehaviour} />
-
-### With label help
-
-<Canvas of={NumeralDateStories.WithLabelHelp} />
-
-### With field help
-
-<Canvas of={NumeralDateStories.WithFieldHelp} />
 
 ### Size
 
@@ -116,6 +89,33 @@ You can use the `size` prop to set the size of the field.
 It is possible to focus the `NumeralDate` component programmatically by passing a ref to the component and calling the `focus` method on it.
 
 <Canvas of={NumeralDateStories.ProgrammaticFocus} />
+
+### With labelInline (legacy)
+
+Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and 
+`labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
+
+<Canvas of={NumeralDateStories.InlineLabel} />
+
+### Enabling the adaptive behaviour
+
+The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
+
+<Canvas of={NumeralDateStories.EnablingAdaptiveBehaviour} />
+
+### With labelHelp (legacy)
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
+
+<Canvas of={NumeralDateStories.WithLabelHelp} />
+
+### With fieldHelp (legacy)
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
+
+<Canvas of={NumeralDateStories.WithFieldHelp} />
 
 ## Props
 

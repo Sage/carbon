@@ -5,7 +5,6 @@ import Dialog from "../dialog";
 import Form from "../form";
 import Button from "../button";
 import isChromatic from "../../../.storybook/isChromatic";
-import Box from "../box";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 interface TextareaTestProps extends TextareaProps {
@@ -14,13 +13,6 @@ interface TextareaTestProps extends TextareaProps {
 
 export default {
   title: "Textarea/Test",
-  includeStories: [
-    "Default",
-    "InScrollableContainer",
-    "WithExpandableAndRows",
-    "NewDesignValidationStoryWithLableInline",
-    "WithHintText",
-  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -171,8 +163,54 @@ export const Default = ({
     />
   );
 };
+Default.storyName = "Default";
 
-Default.storyName = "default";
+export const Validation = () => {
+  return (
+    <>
+      <Textarea label="Textarea" error="Error Message" mb={2} />
+      <Textarea label="Textarea" warning="Warning Message" mb={2} />
+      <Textarea label="Textarea" info="Info Message" mb={2} />
+
+      <Textarea
+        label="Textarea"
+        error="Error Message"
+        validationOnLabel
+        mb={2}
+      />
+      <Textarea
+        label="Textarea"
+        warning="Warning Message"
+        validationOnLabel
+        mb={2}
+      />
+      <Textarea label="Textarea" info="Info Message" validationOnLabel mb={2} />
+
+      <Textarea label="Textarea" error mb={2} />
+      <Textarea label="Textarea" warning mb={2} />
+      <Textarea label="Textarea" info mb={2} />
+    </>
+  );
+};
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidation = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Textarea label="Textarea" error="Error Message" mb={2} />
+      <Textarea label="Textarea" warning="Warning Message" />
+    </CarbonProvider>
+  );
+};
+NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
 export const InScrollableContainer = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -266,35 +304,7 @@ WithExpandableAndRows.parameters = {
   chromatic: { disableSnapshot: false },
 };
 
-export const NewDesignValidationStoryWithLableInline: StoryType = () => {
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      {["error", "warning"].map((validationType) => (
-        <Box width={296} key={`${validationType}-string-component`}>
-          <Textarea
-            label={`${validationType}`}
-            inputHint="Hint text (optional)."
-            {...{ [validationType]: "Message" }}
-            m={4}
-            labelInline
-          />
-          <Textarea
-            label={`readOnly - ${validationType}`}
-            inputHint="Hint text (optional)."
-            readOnly
-            {...{ [validationType]: "Message" }}
-            m={4}
-            labelInline
-          />
-        </Box>
-      ))}
-    </CarbonProvider>
-  );
-};
-NewDesignValidationStoryWithLableInline.storyName =
-  "Validations - String - New Design - Label Inline";
-
-export const WithHintText: StoryType = () => {
+export const LabelAlign: StoryType = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       {["left", "right"].map((labelAlign) => (
@@ -309,5 +319,8 @@ export const WithHintText: StoryType = () => {
     </CarbonProvider>
   );
 };
-
-WithHintText.storyName = "With hint text";
+LabelAlign.storyName = "With Label Align";
+LabelAlign.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

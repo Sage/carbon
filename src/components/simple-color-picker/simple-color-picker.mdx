@@ -30,6 +30,10 @@ import * as SimpleColorPickerStories from "./simple-color-picker.stories.tsx";
 import SimpleColorPicker from "carbon-react/lib/components/simple-color-picker";
 ```
 
+### Validation
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
+
 ## Examples
 
 ### Default
@@ -49,16 +53,6 @@ You can use the `required` prop to indicate if the field is mandatory.
 #### With margin
 
 <Canvas of={SimpleColorPickerStories.WithMargin} />
-
-### Validations
-
-Validation status can be set by passing `error`, `warning` or `info` prop to the component
-
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
-
-Passing a boolean to these props will display only a properly colored border.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs#grouped-inputs) documentation page
 
 ## Props
 

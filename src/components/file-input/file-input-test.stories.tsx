@@ -96,3 +96,29 @@ export const LongFilenameStatus = (args: Partial<FileInputProps>) => {
     />
   );
 };
+
+export const Validation = () => {
+  return (
+    <>
+      <FileInput
+        m={4}
+        label="error as string"
+        inputHint="Hint text (optional)"
+        error="error message"
+        onChange={() => {}}
+      />
+      <FileInput
+        m={4}
+        label="error as boolean"
+        inputHint="Hint text (optional)"
+        error
+        onChange={() => {}}
+      />
+    </>
+  );
+};
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

@@ -36,6 +36,22 @@ export const Default: Story = {
   },
 };
 
+export const WithLegendHelp: Story = {
+  render: (args) => (
+    <CarbonProvider validationRedesignOptIn>
+      <CheckboxGroup {...args}>
+        {["Apple", "Banana", "Cherry", "Date"].map((label) => (
+          <Checkbox key={label} name="fruits" label={label} />
+        ))}
+      </CheckboxGroup>
+    </CarbonProvider>
+  ),
+  args: {
+    legend: "What fruits do you have?",
+    legendHelp: "Legend Help",
+  },
+};
+
 export const RequiredGroup: Story = {
   ...Default,
   args: {
@@ -66,55 +82,6 @@ export const Inline: Story = {
     inline: true,
     required: true,
     legend: "What fruits do you have?",
-  },
-};
-
-export const ErrorState: Story = {
-  render: (args) => (
-    <CarbonProvider validationRedesignOptIn>
-      <CheckboxGroup {...args}>
-        <Checkbox label="Apple" name="Apple" />
-        <Checkbox label="Banana" name="Banana" />
-        <Checkbox label="Cherry" name="Cherry" />
-      </CheckboxGroup>
-    </CarbonProvider>
-  ),
-  args: {
-    error: "One or more fruits must be selected",
-    legend: "What fruits do you have?",
-    required: true,
-  },
-};
-
-export const WarningState: Story = {
-  render: (args) => (
-    <CarbonProvider validationRedesignOptIn>
-      <CheckboxGroup {...args}>
-        <Checkbox label="Apple" name="Apple" />
-        <Checkbox label="Banana" name="Banana" />
-        <Checkbox label="Cherry" name="Cherry" />
-      </CheckboxGroup>
-    </CarbonProvider>
-  ),
-  args: {
-    warning: "One or more fruits are recommended",
-    legend: "What fruits do you have?",
-  },
-};
-
-export const LegacyErrorState: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    error: "One or more fruits must be selected",
-  },
-};
-
-export const LegacyWarningState: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    warning: "One or more fruits are recommended",
   },
 };
 

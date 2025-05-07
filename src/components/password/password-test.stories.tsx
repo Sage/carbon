@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Password, { PasswordProps } from ".";
+import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Password/Test",
-  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -97,19 +97,120 @@ export const Default = (props: PasswordProps) => {
   );
 };
 
-Default.storyName = "default";
+Default.storyName = "Default";
 
-export const PasswordComponent = ({ onChange, ...props }: PasswordProps) => {
-  const [state, setState] = React.useState("test");
-
-  const setValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setState(ev.target.value);
-    if (onChange) {
-      onChange(ev);
-    }
+export const Validation = () => {
+  const [state, setState] = useState("Password");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
   };
 
   return (
-    <Password label="Password" value={state} onChange={setValue} {...props} />
+    <>
+      <Password
+        label="Password"
+        error="Error Message"
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Password
+        label="Password"
+        warning="Warning Message"
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Password
+        label="Password"
+        info="Info Message"
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+
+      <Password
+        label="Password"
+        error="Error Message"
+        validationOnLabel
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Password
+        label="Password"
+        warning="Warning Message"
+        validationOnLabel
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Password
+        label="Password"
+        info="Info Message"
+        validationOnLabel
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+
+      <Password
+        label="Password"
+        error
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Password
+        label="Password"
+        warning
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Password
+        label="Password"
+        info
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+    </>
   );
+};
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidation = () => {
+  const [state, setState] = useState("Password");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Password
+        label="Password"
+        error="Error Message"
+        inputHint="Hint text (optional)."
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Password
+        label="Password"
+        warning="Warning Message"
+        value={state}
+        onChange={setValue}
+      />
+    </CarbonProvider>
+  );
+};
+NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };

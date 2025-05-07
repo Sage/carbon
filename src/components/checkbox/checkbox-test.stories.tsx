@@ -33,7 +33,7 @@ export const Default = ({ ...args }: CheckboxProps) => {
   );
 };
 
-Default.storyName = "default";
+Default.storyName = "Default";
 
 Default.args = {
   id: "default",
@@ -92,10 +92,20 @@ WithLongLabel.args = {
 
 export const Validation = ({ ...args }: CheckboxGroupProps) => {
   return (
-    <CheckboxGroup {...args}>
-      <Checkbox label="Checkbox 1" />
-      <Checkbox label="Checkbox 2" />
-    </CheckboxGroup>
+    <>
+      <CheckboxGroup error="Error Message" mb={2} {...args}>
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+      </CheckboxGroup>
+      <CheckboxGroup warning="Warning Message" mb={2} {...args}>
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+      </CheckboxGroup>
+      <CheckboxGroup info="Info Message" {...args}>
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+      </CheckboxGroup>
+    </>
   );
 };
 Validation.storyName = "Validation";
@@ -106,8 +116,6 @@ Validation.args = {
   legendWidth: 0,
   legendAlign: "left",
   legendSpacing: 1,
-  error: "error message",
-  warning: "",
   required: false,
   isOptional: false,
   inline: false,
@@ -120,29 +128,75 @@ Validation.argTypes = {
     },
   },
 };
+Validation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
-export const NewValidation = ({ ...args }: CheckboxGroupProps) => {
+export const NewValidation = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
-      <CheckboxGroup {...args}>
+      <CheckboxGroup
+        error="Error message (Fix is required)"
+        legend="Label"
+        legendHelp="Hint Text"
+        required
+      >
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+      </CheckboxGroup>
+      <CheckboxGroup
+        mt={2}
+        warning="Warning message (Fix is optional)"
+        legend="Label"
+        legendHelp="Hint text"
+        required
+      >
         <Checkbox label="Checkbox 1" />
         <Checkbox label="Checkbox 2" />
       </CheckboxGroup>
     </CarbonProvider>
   );
 };
-NewValidation.storyName = "New validation";
-NewValidation.args = {
-  id: "new-validation",
-  legend: "Checkbox Group",
-  legendHelp: "Legend help text",
-  legendInline: false,
-  legendAlign: "left",
-  error: "error message",
-  warning: "",
-  required: false,
-  isOptional: false,
-  inline: false,
+NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidationInline = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <CheckboxGroup
+        error="Error message (Fix is required)"
+        legend="Label"
+        legendHelp="Hint Text"
+        required
+        inline
+      >
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+        <Checkbox label="Checkbox 3" />
+      </CheckboxGroup>
+      <CheckboxGroup
+        mt={2}
+        warning="Warning message (Fix is optional)"
+        legend="Label"
+        legendHelp="Hint text"
+        required
+        inline
+      >
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+        <Checkbox label="Checkbox 3" />
+      </CheckboxGroup>
+    </CarbonProvider>
+  );
+};
+NewValidationInline.storyName = "New Validation Inline";
+NewValidationInline.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };
 
 export const WithLegendAlignment = ({ ...args }: CheckboxGroupProps) => {
@@ -170,4 +224,8 @@ WithLegendAlignment.args = {
   validationIconId: "",
   error: "Error message",
   warning: "",
+};
+WithLegendAlignment.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };

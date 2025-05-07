@@ -25,6 +25,28 @@ export default meta;
 
 type Story = StoryObj<typeof TextEditor>;
 
+export const NewValidation: Story = () => {
+  return (
+    <>
+      <TextEditor
+        namespace="storybook-witherror"
+        labelText="Text Editor"
+        inputHint="Hint text"
+        error="error"
+        characterLimit={100}
+        mb={2}
+      />
+      <TextEditor
+        namespace="storybook-withwarning"
+        labelText="Text Editor"
+        warning="warning"
+        characterLimit={100}
+      />
+    </>
+  );
+};
+NewValidation.storyName = "New Validation";
+
 export const Playground: Story = {
   args: {
     characterLimit: 3000,

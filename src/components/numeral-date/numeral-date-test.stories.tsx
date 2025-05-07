@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
-import Textbox from "../textbox";
 import NumeralDate from ".";
 import Box from "../box";
-import { NumeralDateHandle, NumeralDateProps } from "./numeral-date.component";
+import { NumeralDateProps } from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider";
-import Button from "../button";
 
 export default {
   title: "Numeral Date/Test",
@@ -71,7 +68,7 @@ export const Default = (args: NumeralDateProps) => {
     action("blur")(event.target.value);
   };
   return (
-    <Box mt="120px">
+    <Box>
       <NumeralDate
         onChange={handleChange}
         label="Numeral date"
@@ -84,163 +81,79 @@ export const Default = (args: NumeralDateProps) => {
     </Box>
   );
 };
-
-Default.storyName = "default";
+Default.storyName = "Default";
 Default.args = {
   dateFormat: ["dd", "mm", "yyyy"],
 };
 
-export const DefaultWithOtherInputs = (args: NumeralDateProps) => {
-  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  const handleChange: NumeralDateProps["onChange"] = (event) => {
-    setDateValue(event.target.value);
-    action("change")(event.target.value);
-  };
-  const handleBlur: NumeralDateProps["onBlur"] = (event) => {
-    action("blur")(event.target.value);
-  };
-  return (
-    <Box display="flex" margin="56px 25px">
-      <Textbox mr={1} label="Textbox One" />
-      <Textbox mr={1} mt={0} label="Textbox Two" />
-      <NumeralDate
-        mr={1}
-        mt={0}
-        onChange={handleChange}
-        label="Numeral date"
-        onBlur={handleBlur}
-        value={dateValue}
-        name="numeralDate_name"
-        id="numeralDate_id"
-        {...args}
-      />
-      <Textbox mr={1} mt={0} label="Textbox Three" />
-    </Box>
-  );
-};
-
-DefaultWithOtherInputs.storyName = "with other inputs";
-DefaultWithOtherInputs.args = {
-  dateFormat: ["dd", "mm", "yyyy"],
-};
-DefaultWithOtherInputs.story = {
-  parameters: {
-    chromatic: {
-      disableSnapshot: false,
-    },
-    themeProvider: { chromatic: { theme: "sage" } },
-  },
-};
-
 export const Validations = (args: NumeralDateProps) => {
-  const validationTypes = ["error", "warning", "info"];
-  const [dateValue, setDateValue] = useState({ dd: "", mm: "" });
-  const handleChange: NumeralDateProps["onChange"] = (event) => {
-    setDateValue({ ...dateValue });
-    action("change")(event.target.value);
-  };
-  const handleBlur: NumeralDateProps["onBlur"] = (event) => {
-    action("blur")(event.target.value);
-  };
   return (
     <>
-      <h4>Validations as string</h4>
-      {validationTypes.map((validation) => (
-        <NumeralDate
-          key={`${validation}-string`}
-          onChange={handleChange}
-          label="Numeral date"
-          {...{ [validation]: "Message" }}
-          onBlur={handleBlur}
-          value={dateValue}
-          name="numeralDate_name"
-          id={`numeralDate_id_${validation}-string`}
-          {...args}
-        />
-      ))}
-      <h4>Validations as string on label</h4>
-      {validationTypes.map((validation) => (
-        <NumeralDate
-          key={`${validation}-string-on-label`}
-          onChange={handleChange}
-          label="Numeral date"
-          {...{ [validation]: "Message" }}
-          onBlur={handleBlur}
-          value={dateValue}
-          name="numeralDate_name"
-          id={`numeralDate_id_${validation}-string-label`}
-          validationOnLabel
-          {...args}
-        />
-      ))}
-      <h4>Validations as boolean</h4>
-      {validationTypes.map((validation) => (
-        <NumeralDate
-          key={`${validation}-boolean`}
-          onChange={handleChange}
-          label="Numeral date"
-          {...{ [validation]: true }}
-          onBlur={handleBlur}
-          value={dateValue}
-          name="numeralDate_name"
-          id={`numeralDate_id_${validation}-boolean`}
-          {...args}
-        />
-      ))}
+      <NumeralDate
+        label="Numeral date"
+        error="Error Message"
+        mb={2}
+        {...args}
+      />
+      <NumeralDate
+        label="Numeral date"
+        warning="Warning Message"
+        mb={2}
+        {...args}
+      />
+      <NumeralDate label="Numeral date" info="Info Message" mb={2} {...args} />
+      <NumeralDate
+        label="Numeral date"
+        error="Error Message"
+        validationOnLabel
+        mb={2}
+        {...args}
+      />
+      <NumeralDate
+        label="Numeral date"
+        warning="Warning Message"
+        validationOnLabel
+        mb={2}
+        {...args}
+      />
+      <NumeralDate
+        label="Numeral date"
+        info="Info Message"
+        validationOnLabel
+        mb={2}
+        {...args}
+      />
+      <NumeralDate label="Numeral date" error mb={2} {...args} />
+      <NumeralDate label="Numeral date" warning mb={2} {...args} />
+      <NumeralDate label="Numeral date" info mb={2} {...args} />
     </>
   );
 };
+Validations.storyName = "Validations";
+Validations.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
-Validations.storyName = "validations";
-
-export const NewDesignValidations = (args: NumeralDateProps) => {
+export const NewValidations = (args: NumeralDateProps) => {
   return (
     <CarbonProvider validationRedesignOptIn>
-      <h4>New designs validation</h4>
-      {["error", "warning"].map((validationType) =>
-        (["small", "medium", "large"] as const).map((size) => (
-          <Box width="296px" key={`${validationType}-${size}`}>
-            <NumeralDate
-              label={`${size} - ${validationType}`}
-              {...{ [validationType]: "Message" }}
-              size={size}
-              m={4}
-              {...args}
-            />
-          </Box>
-        )),
-      )}
+      <NumeralDate
+        label="Numeral date"
+        error="Error Message"
+        labelHelp="Hint text"
+        {...args}
+      />
+      <NumeralDate label="Numeral date" warning="Warning Message" {...args} />
     </CarbonProvider>
   );
 };
 
-NewDesignValidations.storyName = "new design validations";
-
-export const TooltipPosition = () => {
-  return (
-    <>
-      <NumeralDate
-        dateFormat={["dd", "mm", "yyyy"]}
-        error="Tooltip position set to top"
-        label="As string"
-        tooltipPosition="top"
-      />
-      <NumeralDate
-        dateFormat={["dd", "mm", "yyyy"]}
-        error="Tooltip position set to right"
-        label="As string - displayed on a label"
-        validationOnLabel
-        tooltipPosition="right"
-      />
-    </>
-  );
+NewValidations.storyName = "New validations";
+NewValidations.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };
-
-TooltipPosition.storyName = "tooltip position";
 
 export const InForm = () => {
   return (
@@ -252,18 +165,26 @@ export const InForm = () => {
   );
 };
 
-InForm.storyName = "in form";
+InForm.storyName = "In form";
 
 export const LabelAlign = ({ ...args }) => {
   return (
     <Box ml={2}>
-      <NumeralDate mb={2} label="labelAlign left" {...args} />
-      <NumeralDate
-        mb={2}
-        label="labelAlign right"
-        labelAlign="right"
-        {...args}
-      />
+      <CarbonProvider validationRedesignOptIn>
+        <NumeralDate
+          mb={2}
+          label="labelAlign left"
+          labelHelp="labelHelp"
+          {...args}
+        />
+        <NumeralDate
+          mb={2}
+          label="labelAlign right"
+          labelHelp="labelHelp"
+          labelAlign="right"
+          {...args}
+        />
+      </CarbonProvider>
       <NumeralDate
         mb={2}
         label="labelAlign right and fieldLabelsAlign right"
@@ -288,8 +209,7 @@ export const LabelAlign = ({ ...args }) => {
     </Box>
   );
 };
-
-LabelAlign.storyName = "label align";
+LabelAlign.storyName = "Label align";
 LabelAlign.args = {
   dateFormat: ["dd", "mm", "yyyy"],
 };
@@ -308,7 +228,7 @@ export const InlineLabelsSizes = ({ ...args }) => {
   );
 };
 
-InlineLabelsSizes.storyName = "inline labels sizes";
+InlineLabelsSizes.storyName = "Inline labels sizes";
 InlineLabelsSizes.args = {
   dateFormat: ["dd", "mm", "yyyy"],
   labelInline: true,
@@ -316,61 +236,4 @@ InlineLabelsSizes.args = {
 InlineLabelsSizes.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
-};
-
-export const WithHintText = ({ ...args }) => {
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Box ml={2} width="320px">
-        {(["left", "right"] as const).map((labelAlign) => (
-          <NumeralDate
-            label="Numeral date"
-            labelAlign={labelAlign}
-            labelHelp="Hint text."
-            {...args}
-          />
-        ))}
-      </Box>
-    </CarbonProvider>
-  );
-};
-
-export const ProgrammaticFocus = () => {
-  const ndRef = React.useRef<NumeralDateHandle>(null);
-  const [dateValue, setDateValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  const handleChange: NumeralDateProps["onChange"] = (event) => {
-    setDateValue(event.target.value);
-    action("change")(event.target.value);
-  };
-  const handleBlur: NumeralDateProps["onBlur"] = (event) => {
-    action("blur")(event.target.value);
-  };
-  const handleClick = () => {
-    ndRef.current?.focus();
-  };
-  return (
-    <>
-      <Button onClick={handleClick}>Click me to focus NumeralDate</Button>
-      <Box mt="120px">
-        <NumeralDate
-          ref={ndRef}
-          onChange={handleChange}
-          label="Numeral date"
-          onBlur={handleBlur}
-          value={dateValue}
-          name="numeralDate_name"
-          id="numeralDate_id"
-        />
-      </Box>
-    </>
-  );
-};
-
-ProgrammaticFocus.storyName = "Programmatic Focus";
-ProgrammaticFocus.args = {
-  dateFormat: ["dd", "mm", "yyyy"],
 };

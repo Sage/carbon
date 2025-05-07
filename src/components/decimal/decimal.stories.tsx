@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { ArgTypes, Meta, StoryObj } from "@storybook/react";
 
 import Decimal, { DecimalProps, CustomEvent } from ".";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -125,17 +124,6 @@ export const LabelInline: Story = {
   name: "Label Inline",
 };
 
-export const WithCustomLabelWidthAndInputWidth: Story = {
-  ...DefaultStory,
-  args: {
-    ...DefaultStory.args,
-    labelWidth: 10,
-    inputWidth: 90,
-    labelInline: true,
-  },
-  name: "With Custom Label Width and Input Width",
-};
-
 export const WithCustomMaxWidth: Story = {
   ...DefaultStory,
   args: { ...DefaultStory.args, maxWidth: "50%" },
@@ -180,149 +168,4 @@ export const LeftAligned: Story = {
   ...DefaultStory,
   args: { ...DefaultStory.args, required: true, align: "left" },
   name: "Left Aligned",
-};
-
-type Validation = "error" | "warning" | "info";
-type StoryWithMessage = Story & {
-  args: Partial<DecimalProps> & { message?: string | boolean };
-};
-
-export const Validations: StoryWithMessage = {
-  render: (args: Partial<DecimalProps> & { message?: string | boolean }) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [state, setState] = useState({
-      error: "0.01",
-      warning: "0.01",
-      info: "0.01",
-    });
-
-    const handleChange = (validation: Validation) => (e: CustomEvent) => {
-      setState({ ...state, [validation]: e.target.value.rawValue });
-    };
-
-    return (
-      <>
-        {(["error", "warning", "info"] as const).map((validationType) => (
-          <div key={`${validationType}`}>
-            <Decimal
-              label="Decimal"
-              value={state[validationType]}
-              onChange={handleChange(validationType)}
-              {...{ [validationType]: args.message }}
-              mb={2}
-              {...args}
-            />
-            <Decimal
-              label="Decimal - readOnly"
-              value="0.01"
-              readOnly
-              {...{ [validationType]: args.message }}
-              mb={2}
-              {...args}
-            />
-          </div>
-        ))}
-      </>
-    );
-  },
-  args: { message: "Message" },
-  name: "Validations",
-  parameters: { chromatic: { disableSnapshot: true } },
-};
-
-export const ValidationsStringComponent: StoryWithMessage = {
-  ...Validations,
-  args: { ...Validations.args, message: "Message" },
-  name: "Validations - String Component",
-};
-
-export const ValidationsStringLabel: StoryWithMessage = {
-  ...Validations,
-  args: { ...Validations.args, message: "Message", validationOnLabel: true },
-  name: "Validations - String Label",
-};
-
-export const ValidationsBoolean: StoryWithMessage = {
-  ...Validations,
-  args: { ...Validations.args, message: true },
-  name: "Validation - Boolean",
-};
-
-export const ValidationsRedesign: Story = () => {
-  const [state, setState] = useState({
-    error: "0.01",
-    warning: "0.01",
-  });
-  const handleChange = (validation: Validation) => (e: CustomEvent) => {
-    setState({ ...state, [validation]: e.target.value.rawValue });
-  };
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      {(["error", "warning"] as const).map((validationType) =>
-        (["small", "medium", "large"] as const).map((size) => (
-          <div style={{ width: "296px" }} key={`${size}-${validationType}`}>
-            <Decimal
-              label={`${size} - ${validationType}`}
-              value={state[validationType]}
-              size={size}
-              onChange={handleChange(validationType)}
-              {...{ [validationType]: "Message" }}
-              m={4}
-            />
-            <Decimal
-              label={`readOnly - ${size} - ${validationType}`}
-              value="0.01"
-              size={size}
-              readOnly
-              {...{ [validationType]: "Message" }}
-              m={4}
-            />
-          </div>
-        )),
-      )}
-    </CarbonProvider>
-  );
-};
-ValidationsRedesign.storyName = "Validations - Redesign";
-
-export const ValidationsTooltip: Story = {
-  render: (args: DecimalProps = {}) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [state, setState] = useState({
-      error: "0.01",
-      warning: "0.01",
-      info: "0.01",
-    });
-
-    const handleChange = (validation: Validation) => (e: CustomEvent) => {
-      setState({ ...state, [validation]: e.target.value.rawValue });
-    };
-
-    return (
-      <>
-        {(["error", "warning", "info"] as const).map((validationType) => (
-          <div key={`${validationType}`}>
-            <Decimal
-              label="Decimal"
-              value={state[validationType]}
-              onChange={handleChange(validationType)}
-              {...{ [validationType]: "Message" }}
-              mb={2}
-              tooltipPosition="bottom"
-              {...args}
-            />
-          </div>
-        ))}
-      </>
-    );
-  },
-  name: "Validations - Tooltip",
-  parameters: { chromatic: { disableSnapshot: true } },
-};
-
-export const ValidationsTooltipLabel: StoryWithMessage = {
-  ...ValidationsTooltip,
-  args: { ...ValidationsTooltip.args, validationOnLabel: true },
-  name: "Validations - Tooltip - Label",
-  parameters: { chromatic: { disableSnapshot: true } },
 };
