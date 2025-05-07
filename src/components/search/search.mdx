@@ -27,118 +27,62 @@ This search component should be used if you require the user to conduct a search
 
 ## Quick Start
 
-Import `Search` into the project.
-
 ```javascript
 import Search from "carbon-react/lib/components/search";
 ```
 
 ## Examples
 
-### Search without Search Button and default width
+### Default
 
 <Canvas of={SearchStories.Default} />
 
-### Search can be controlled
+### Controlled
 
 <Canvas of={SearchStories.Controlled} />
 
-### Search with Search Button and default width
+### With Search Button
 
-Please note, if you need to apply your own custom aria-label for the search button, this can be done by using the `searchButtonAriaLabel` prop. By default the aria-label is `search button`.
+You can pass the `searchButton` prop to render a search button. 
+This will render a button with the text "Search" and an aria-label of "search button".
+To override the the default aria-label, you can pass a string value to the `searchButtonAriaLabel` prop.
 
 <Canvas of={SearchStories.WithSearchButton} />
 
-You can also override the text of the search button by passing a string value to the `searchButton` prop.
-Please note that any string passed here will take precedence over the locale string value passed via the 
-`searchButtonText` translation key.
+You can override the text of the search button by passing a string value to the `searchButton` prop:
+
+
+<Canvas of={SearchStories.WithSearchButtonPropTextOverride} />
+
+Or, by using the locale provider to override the button's text via the `searchButtonText` translation key. 
+Please note that the `searchButton` prop will take precedence over the locale value.
 
 <Canvas of={SearchStories.WithSearchButtonLocaleOverride} />
 
-You can also use the locale provider to override the button's text via the `searchButtonText` translation key.
+### Custom width
 
-<Canvas of={SearchStories.WithSearchButtonLocaleOverride} />
+You can set a custom width for the search input by passing any valid CSS string value to the `searchWidth` prop.
 
-### Search without Search Button, default width and colour background
+<Canvas of={SearchStories.CustomWidth} />
 
-<Canvas of={SearchStories.DefaultWithColourBackground} />
+### Custom MaxWidth
 
-### Search with Search Button, default width and colour background
-
-<Canvas of={SearchStories.WithSearchButtonAndColourBackground} />
-
-### Search without Search Button and custom width
-
-In this example the `searchWidth` prop is 375px.
-
-<Canvas of={SearchStories.CustomWidthUsingPx} />
-
-### Search with Search Button and custom width
-
-In this example the `searchWidth` prop is 375px.
-
-<Canvas of={SearchStories.WithSearchButtonAndCustomWidthUsingPx} />
-
-### Search without Search Button and custom width
-
-In this example the `searchWidth` prop is 70%.
-
-<Canvas of={SearchStories.CustomWidthUsingPercentage} />
-
-### Search with Search Button and custom width
-
-In this example the `searchWidth` prop is 70%.
-
-<Canvas of={SearchStories.WithSearchButtonAndCustomWidthUsingPercentage} />
-
-### With custom maxWidth
-
-In this example the `maxWidth` prop is 50%.
+You can set a custom max-width for the search input by passing any valid CSS string value to the `maxWidth` prop.
 
 <Canvas of={SearchStories.WithCustomMaxWidth} />
 
-### Search with Alternative Styling
+### Dark Background Styling
 
-In this example the `variant` prop is "dark" and `searchButton` is true.
+The search component can be styled to render on dark backgrounds by passing the `variant` prop with the value "dark".
 
 <Canvas of={SearchStories.WithAltStyling} />
 
-### Search with Alternative Styling and No Button
-
-In this example the `variant` prop is "dark" and no search button is present.
-
-<Canvas of={SearchStories.WithAltStylingAndNoButton} />
-
-### Validations
-
-Validation status can be set by passing `error`, `warning` or `info` prop to the component
-
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
-
-Passing a boolean to these props will display only a properly colored border.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
-
-#### As a string
-
-<Canvas of={SearchStories.ValidationsStringComponent} />
-
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
-
-<Canvas
-  of={SearchStories.ValidationsStringWithTooltipPositionOverridenComponent}
-/>
-
-#### As a boolean
-
-<Canvas of={SearchStories.ValidationsBoolean} />
-
-#### When cross icon clicked
+### Trigger actions on clear
 
 It is possible to trigger actions such as filtering the search results when the cross icon is clicked. 
 When the `triggerOnClear` prop is set to `true`, the `onClick` callback will be called when the cross icon is clicked.
 
-<Canvas of={SearchStories.WhenCrossIconClicked} />
+<Canvas of={SearchStories.TriggerOnClear} />
 
 ## Props
 

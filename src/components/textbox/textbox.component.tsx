@@ -92,7 +92,7 @@ export interface CommonTextboxProps
   labelInline?: boolean;
   /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). */
   labelSpacing?: 1 | 2;
-  /** [Legacy] Label width. */
+  /** [Legacy] Label width as a percentage when label is inline. */
   labelWidth?: number;
   /** Specify a callback triggered on change */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;

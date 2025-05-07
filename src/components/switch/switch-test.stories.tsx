@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useState, useEffect } from "react";
 import I18nProvider from "../i18n-provider/i18n-provider.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -7,13 +6,6 @@ import Box from "../box/box.component";
 
 export default {
   title: "Switch/Test",
-  includeStories: [
-    "Default",
-    "NewDefault",
-    "WithLongTextStrings",
-    "WithMargin",
-    "WithLoading",
-  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -66,14 +58,12 @@ export const Default = ({
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = ev.target;
     setIsChecked(checked);
-    console.log("change", `checked: ${checked}`);
   };
   return (
     <Switch
       onChange={handleChange}
       name="switch-default"
       checked={isChecked}
-      onBlur={() => console.log("onBlur")}
       fieldHelp={fieldHelp}
       label={label}
       {...args}
@@ -81,7 +71,7 @@ export const Default = ({
   );
 };
 
-Default.storyName = "default";
+Default.storyName = "Default";
 Default.args = {
   fieldHelp: "This text provides help for the input.",
   fieldHelpInline: false,
@@ -101,39 +91,27 @@ Default.args = {
   isOptional: false,
 };
 
-export const NewDefault = ({
-  fieldHelp,
-  label,
-  ...args
-}: Partial<SwitchProps>) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked } = ev.target;
-    setIsChecked(checked);
-    console.log("change", `checked: ${checked}`);
-  };
+export const Validation = ({ ...args }: Partial<SwitchProps>) => {
   return (
-    <CarbonProvider validationRedesignOptIn>
-      <Switch
-        m={2}
-        onChange={handleChange}
-        name="switch-default"
-        checked={isChecked}
-        onBlur={() => console.log("onBlur")}
-        fieldHelp={fieldHelp}
-        label={label}
-        error="Error Message (Fix is required)"
-        {...args}
-      />
-    </CarbonProvider>
+    <>
+      <Switch error="Error Message" mb={2} {...args} />
+      <Switch warning="Warning Message" mb={2} {...args} />
+      <Switch info="Info Message" mb={2} {...args} />
+
+      <Switch error="Error Message" validationOnLabel mb={2} {...args} />
+      <Switch warning="Warning Message" validationOnLabel mb={2} {...args} />
+      <Switch info="Info Message" validationOnLabel mb={2} {...args} />
+
+      <Switch error mb={2} {...args} />
+      <Switch warning mb={2} {...args} />
+      <Switch info mb={2} {...args} />
+    </>
   );
 };
-
-NewDefault.storyName = "new validation";
-NewDefault.args = {
+Validation.storyName = "Validation";
+Validation.args = {
   label: "Label",
-  labelHelp: "Hint text",
-  labelInline: false,
+  labelHelp: "",
   loading: false,
   inputWidth: 0,
   labelWidth: 0,
@@ -144,6 +122,94 @@ NewDefault.args = {
   size: "small",
   required: false,
   isOptional: false,
+};
+Validation.parameters = {
+  chromatic: { disableSnapshot: true },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidation = ({ ...args }: Partial<SwitchProps>) => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Switch error="Error Message (Fix is required)" mb={2} {...args} />
+      <Switch warning="Warning Message (Fix is optional)" mb={2} {...args} />
+    </CarbonProvider>
+  );
+};
+
+NewValidation.storyName = "New Validation";
+NewValidation.args = {
+  label: "Label",
+  labelHelp: "Hint text",
+  loading: false,
+  inputWidth: 0,
+  labelWidth: 0,
+  labelSpacing: 1,
+  reverse: true,
+  value: "test-value",
+  disabled: false,
+  size: "small",
+  required: false,
+  isOptional: false,
+};
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: true },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidationInline = ({ ...args }: Partial<SwitchProps>) => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Switch labelInline mb={2} {...args} />
+      <Switch labelInline labelHelp="Hint text" mb={2} {...args} />
+      <Switch
+        labelInline
+        labelHelp="Hint text"
+        fieldHelp="fieldHelp"
+        {...args}
+      />
+      <Switch
+        label="Example switch"
+        labelInline
+        labelHelp="Really long hint text that should wrap to the next line if it gets too long"
+        fieldHelp="Field help"
+        mt={2}
+      />
+
+      <Switch
+        labelHelp="Hint text"
+        error="Error Message (Fix is required)"
+        labelInline
+        my={2}
+        {...args}
+      />
+      <Switch
+        warning="Warning Message (Fix is optional)"
+        labelInline
+        fieldHelp="fieldHelp"
+        mb={2}
+        {...args}
+      />
+    </CarbonProvider>
+  );
+};
+NewValidationInline.storyName = "New Validation Inline";
+NewValidationInline.args = {
+  label: "Label",
+  loading: false,
+  inputWidth: 0,
+  labelWidth: 0,
+  labelSpacing: 1,
+  reverse: true,
+  value: "test-value",
+  disabled: false,
+  size: "small",
+  required: false,
+  isOptional: false,
+};
+NewValidationInline.parameters = {
+  chromatic: { disableSnapshot: true },
+  themeProvider: { chromatic: { theme: "sage" } },
 };
 
 export const WithLongTextStrings = () => (
@@ -307,4 +373,39 @@ WithLoading.parameters = {
   chromatic: {
     disableSnapshot: true,
   },
+};
+
+export const LabelHelpAndFieldHelp = () => {
+  return (
+    <>
+      <Switch
+        label="With fieldHelp and labelHelp"
+        labelInline
+        labelHelp="labelHelp"
+        fieldHelp="This text provides help for the input."
+      />
+      <Switch
+        label="With inline fieldHelp and labelHelp"
+        labelInline
+        labelHelp="labelHelp"
+        fieldHelp="This text provides help for the input."
+        fieldHelpInline
+        mt={2}
+      />
+      <Switch
+        label="With inline fieldHelp and labelHelp not reversed"
+        labelInline
+        labelHelp="labelHelp"
+        fieldHelp="This text provides help for the input."
+        fieldHelpInline
+        reverse={false}
+        mt={2}
+      />
+    </>
+  );
+};
+LabelHelpAndFieldHelp.storyName = "With labelHelp and fieldHelp";
+LabelHelpAndFieldHelp.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };

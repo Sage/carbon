@@ -24,6 +24,7 @@ Used to filter a Table of data according to a start and end date, or to set two 
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Validation states](#validation-states)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -38,54 +39,6 @@ import DateRange from "carbon-react/lib/components/date-range";
 ### Default
 
 <Canvas of={DateRangeStories.DefaultStory} />
-
-### LabelsInline
-
-**Note:** The `labelsInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
-
-<Canvas of={DateRangeStories.LabelsInline} />
-
-### Validations
-
-Validation status can be set by passing `startError`, `startWarning`, `startInfo`, `endError`, `endWarning` and `endInfo` props to the component.
-
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
-
-Passing a boolean to these props will display only a properly colored border.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
-
-#### As a string
-
-<Canvas of={DateRangeStories.ValidationsStringComponent} />
-
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
-
-<Canvas
-  of={DateRangeStories.ValidationsStringWithTooltipPositionOverriddenComponent}
-/>
-
-#### As a string, displayed on label
-
-<Canvas of={DateRangeStories.ValidationsStringLabel} />
-
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
-
-<Canvas
-  of={DateRangeStories.ValidationsStringWithTooltipPositionOverriddenLabel}
-/>
-
-#### As a boolean
-
-<Canvas of={DateRangeStories.ValidationsBoolean} />
-
-#### New designs validation
-
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-Labels and validation strings that exceed the width of the input will wrap to a new line - inputs will remain aligned, however this may cause text to be misaligned.
-
-<Canvas of={DateRangeStories.ValidationsStringNewDesign} />
 
 ### Allow Empty Value
 
@@ -124,6 +77,19 @@ You can also override the format used to display dates in the date picker via th
 but the date format has been overridden to `y-m-ddd` as opposed to the default `dd.MM.yyyy`.
 
 <Canvas of={DateRangeStories.LocaleFormatOverrideExampleImplementation} />
+
+### Labels Inline (legacy)
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+
+<Canvas of={DateRangeStories.LabelsInline} />
+
+## Validation States
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
+
+**Note:** Validation states are applied to individual date inputs to indicate the state of the start and end date separately, this can be achieved by
+passing the `startError`, `endError`, `startWarning` and `endWarning` props.
 
 ## Props
 

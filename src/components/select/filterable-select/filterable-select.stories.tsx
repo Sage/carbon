@@ -5,7 +5,6 @@ import generateStyledSystemProps from "../../../../.storybook/utils/styled-syste
 
 import Button from "../../button";
 import Dialog from "../../dialog";
-import CarbonProvider from "../../carbon-provider";
 import Box from "../../box";
 import Icon from "../../icon";
 import Typography from "../../typography";
@@ -35,7 +34,7 @@ type Story = StoryObj<typeof FilterableSelect>;
 export const Default: Story = () => {
   return (
     <Box height={220}>
-      <FilterableSelect name="simple" id="simple" label="color" labelInline>
+      <FilterableSelect name="simple" id="simple" label="color">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -54,30 +53,47 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 
 export const ListPlacement: Story = () => {
+  const [listPlacement, setListPlacement] =
+    useState<FilterableSelectProps["listPlacement"]>("bottom-end");
+  const [value, setValue] = useState<string>("");
+  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(ev.target.value);
+  };
   return (
-    <FilterableSelect
-      name="simple"
-      id="simple"
-      label="color"
-      labelInline
-      listPlacement="top"
-      mt={200}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </FilterableSelect>
+    <>
+      <Button mr={1} onClick={() => setListPlacement("top-end")}>
+        Top end
+      </Button>
+      <Button mr={1} onClick={() => setListPlacement("bottom-end")}>
+        Bottom end
+      </Button>
+      <Button mr={1} onClick={() => setListPlacement("top-start")}>
+        Top start
+      </Button>
+      <Button onClick={() => setListPlacement("bottom-start")}>
+        Bottom start
+      </Button>
+      <Box my="150px" ml="200px" width="200px">
+        <FilterableSelect
+          name="listWidth"
+          id="listWidth"
+          label="color"
+          labelInline
+          listWidth={350}
+          listPlacement={listPlacement}
+          value={value}
+          onChange={handleChange}
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+        </FilterableSelect>
+      </Box>
+    </>
   );
 };
 ListPlacement.storyName = "List Placement";
+ListPlacement.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ListHeight: Story = () => {
   return (
@@ -104,6 +120,33 @@ export const ListHeight: Story = () => {
   );
 };
 ListHeight.storyName = "List Height";
+
+export const ListWidth: Story = () => {
+  const [value, setValue] = useState<string>("");
+  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(ev.target.value);
+  };
+  return (
+    <Box height={200} width={200}>
+      <FilterableSelect
+        name="listWidth"
+        id="listWidth"
+        label="color"
+        labelInline
+        listWidth={350}
+        listPlacement="bottom-start"
+        value={value}
+        onChange={handleChange}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+    </Box>
+  );
+};
+ListWidth.storyName = "List Width";
+ListWidth.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Controlled: Story = () => {
   const [value, setValue] = useState("");
@@ -647,61 +690,6 @@ export const WithObjectAsValue: Story = () => {
 WithObjectAsValue.storyName = "With Object as Value";
 WithObjectAsValue.parameters = { chromatic: { disableSnapshot: true } };
 
-export const ValidationsStringNewDesign: Story = () => {
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      {["error", "warning"].map((validationType) =>
-        (["small", "medium", "large"] as const).map((size) => (
-          <Box width="296px" key={`${validationType}-${size}`}>
-            <FilterableSelect
-              name="filterable"
-              id={`${size}-${validationType}`}
-              label={`${size} - ${validationType}`}
-              size={size}
-              {...{ [validationType]: "Message" }}
-              m={4}
-            >
-              <Option text="Amber" value="1" />
-              <Option text="Black" value="2" />
-              <Option text="Blue" value="3" />
-              <Option text="Brown" value="4" />
-              <Option text="Green" value="5" />
-              <Option text="Orange" value="6" />
-              <Option text="Pink" value="7" />
-              <Option text="Purple" value="8" />
-              <Option text="Red" value="9" />
-              <Option text="White" value="10" />
-              <Option text="Yellow" value="11" />
-            </FilterableSelect>
-            <FilterableSelect
-              name="filterable - readOnly"
-              id={`readOnly-${size}-${validationType}`}
-              label={`readOnly - ${size} - ${validationType}`}
-              size={size}
-              {...{ [validationType]: "Message" }}
-              readOnly
-              m={4}
-            >
-              <Option text="Amber" value="1" />
-              <Option text="Black" value="2" />
-              <Option text="Blue" value="3" />
-              <Option text="Brown" value="4" />
-              <Option text="Green" value="5" />
-              <Option text="Orange" value="6" />
-              <Option text="Pink" value="7" />
-              <Option text="Purple" value="8" />
-              <Option text="Red" value="9" />
-              <Option text="White" value="10" />
-              <Option text="Yellow" value="11" />
-            </FilterableSelect>
-          </Box>
-        )),
-      )}
-    </CarbonProvider>
-  );
-};
-ValidationsStringNewDesign.storyName = "Validations String New Design";
-
 export const Virtualised: Story = () => {
   const colors = [
     "Amber",
@@ -857,46 +845,3 @@ CustomFilterAndOptionStyle.storyName = "Custom Filter and Option Style";
 CustomFilterAndOptionStyle.parameters = {
   chromatic: { disableSnapshot: true },
 };
-
-export const ListWidth: Story = () => {
-  const [listPlacement, setListPlacement] =
-    useState<FilterableSelectProps["listPlacement"]>("bottom-end");
-  const [value, setValue] = useState<string>("");
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(ev.target.value);
-  };
-  return (
-    <>
-      <Button mr={1} onClick={() => setListPlacement("top-end")}>
-        Top end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("bottom-end")}>
-        Bottom end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("top-start")}>
-        Top start
-      </Button>
-      <Button onClick={() => setListPlacement("bottom-start")}>
-        Bottom start
-      </Button>
-      <Box mt="200px" ml="200px" width="200px">
-        <FilterableSelect
-          name="listWidth"
-          id="listWidth"
-          label="color"
-          labelInline
-          listWidth={350}
-          listPlacement={listPlacement}
-          value={value}
-          onChange={handleChange}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-        </FilterableSelect>
-      </Box>
-    </>
-  );
-};
-ListWidth.storyName = "List width";
-ListWidth.parameters = { chromatic: { disableSnapshot: true } };

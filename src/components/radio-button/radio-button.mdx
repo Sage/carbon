@@ -23,6 +23,7 @@ Used to provide a group of selectable radio buttons.
 - [Quick Start](#quick-start)
 - [Related Components](#related-components)
 - [Examples](#examples)
+- [Validation states](#validation-states)
 - [Props](#props)
 
 ## Quick Start
@@ -48,36 +49,21 @@ import {
 
 <Canvas of={RadioButtonStories.Default} />
 
-### With legend and labels
+### With legend
 
-A legend can be set for the group, and each radio button can have a label.
+A legend can be set for the group of radio buttons with the `legend` prop on `RadioButtonGroup`
 
 <Canvas of={RadioButtonStories.WithLegendAndLabels} />
 
-### With inline legend
+### With legend Help
 
-The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`.
+To add an input hint to the legend, use the `legendHelp` prop.
 
-The spacing between the legend and the radio buttons can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, 
-so therefore `8px` or `16px`. The default is `2` for this prop.
+**Note:** The `legendHelp` prop will only render when the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *true*.
 
-**Note:** The `legendInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+<Canvas of={RadioButtonStories.WithLegendHelp} />
 
-<Canvas of={RadioButtonStories.WithInlineLegend} />
-
-### With left margin
-
-A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below components. This prop is a CSS string.
-
-<Canvas of={RadioButtonStories.WithLeftMargin} />
-
-### Enable adaptive behaviour
-
-Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props will enable the adaptive behaviour.
-
-<Canvas of={RadioButtonStories.EnableAdaptiveBehaviour} />
-
-### Different label spacing
+### Label spacing
 
 The spacing between radio buttons and their labels can be changed with the `labelSpacing` prop. Similarly to the `legendSpacing` prop, this is a number which is multiplied by the base theme spacing constant. It defaults to `1` which is therefore `8px`.
 
@@ -133,25 +119,24 @@ You can use the `IsOptional` prop to indicate if the fields are optional.
 
 <Canvas of={RadioButtonStories.IsOptional} />
 
-### Validations
+### With inline legend (legacy)
 
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+Use the `legendInline` prop to display the group legend on the same horizontal row as the grouped radio buttons. You can adjust its appearance using the `legendWidth` and 
+`legendAlign` props to control the width and text alignment of the legend. The `legendSpacing` prop can be used to control the spacing between the legend and the grouped radio buttons.
 
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
-This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string.
+<Canvas of={RadioButtonStories.WithInlineLegend} />
 
-You can use the `legendHelp` prop to provide a hint text for the group.
+### Enable adaptive behaviour
 
-<Canvas of={RadioButtonStories.NewValidationDefaultGroup} />
+Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props will enable the adaptive behaviour.
 
-This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string displayed inline.
+<Canvas of={RadioButtonStories.EnableAdaptiveBehaviour} />
 
-<Canvas of={RadioButtonStories.NewValidationDefaultGroupInline} />
+## Validation States
 
-This is an example of `RadioButton` with validations passed as boolean values.
-
-<Canvas of={RadioButtonStories.NewValidationDefault} />
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
 ## Props
 

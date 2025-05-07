@@ -112,7 +112,7 @@ FullBorder.storyName = "Full Border";
 
 export const NoBorder: Story = () => {
   return (
-    <Accordion title="Heading" variant="subtle" borders="none">
+    <Accordion title="Heading" borders="none">
       <Box>Content</Box>
       <Box>Content</Box>
       <Box>Content</Box>

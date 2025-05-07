@@ -27,6 +27,7 @@ Consider ‘smart default’ selections, based on what your user is likely to ch
 - [Quick Start](#quick-start)
 - [Related Components](#related-components)
 - [Examples](#examples)
+- [Validation states](#validation-states)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -52,6 +53,13 @@ The switch component uses `switch.on` and `switch.off` to retrieve the translati
 ### Default
 
 <Canvas of={SwitchStories.Default} name="default" />
+
+### With Input Hint
+
+**Note:** The `labelHelp` prop will only render as hint text when the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *true*, 
+otherwise it will render as a Help tooltip (see the [With labelHelp (legacy)](#with-labelhelp-legacy) example).
+
+<Canvas of={SwitchStories.WithInputHint} />
 
 ### Sizes
 
@@ -83,123 +91,32 @@ You can use the `isOptional` prop to indicate if the field is optional.
 
 ### With labelInline
 
+Use the `labelInline` prop to display the label on the same horizontal row as the input. You can set the `reversed` prop to `false` to display the label on the right side of the switch.
+
+
 <Canvas of={SwitchStories.WithLabelInline} name="With labelInline" />
 
 ### With fieldHelp
 
 <Canvas of={SwitchStories.WithFieldHelp} name="with fieldHelp" />
 
-### With labelHelp
+### Dark Background
+
+You can use the `isDarkBackground` prop to set the style of the switch to be rendered on a dark background.
+
+**Note:** This prop is only supported when the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *true*.
+
+<Canvas of={SwitchStories.WithDarkBackground}/>
+
+### With labelHelp (legacy)
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
 <Canvas of={SwitchStories.WithLabelHelp} name="with labelHelp" />
 
-### With margin
+## Validation States
 
-Margins can be applied to the `Switch` component using styled-system. To see a full list of available margin props,
-please visit the props table at the bottom of this page.
-
-[Visit Props Table](#props)
-
-<Canvas of={SwitchStories.WithMargin} name="with margin" />
-
-### Validations
-
-Validation status can be set by passing `error`, `warning` or `info` prop to the component.
-
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
-
-Passing a boolean to these props will display only a properly colored border.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
-
-#### As a string
-
-<Canvas
-  of={SwitchStories.ValidationString}
-  name="single switch - string validation"
-/>
-
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
-
-<Canvas
-  of={SwitchStories.ValidationStringTooltip}
-  name="single switch - string validation - tooltipPosition overridden"
-/>
-
-#### As a string with validationOnLabel
-
-<Canvas
-  of={SwitchStories.ValidationStringLabel}
-  name="single switch - string validation - validationOnLabel"
-/>
-
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
-
-<Canvas
-  of={SwitchStories.ValidationStringLabelTooltip}
-  name="single switch - string validation - validationOnLabel - tooltipPosition overridden"
-/>
-
-#### As a boolean
-
-<Canvas
-  of={SwitchStories.ValidationBoolean}
-  name="single switch - boolean validation"
-/>
-
-### New Validation
-
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-**Note:** The `legendHelp` will be rendered as "Hint text".
-
-<Canvas
-  of={SwitchStories.NewValidationString}
-  name="single switch - new string validation"
-/>
-
-### Inline field layout with new validation
-#### Default usage
-
-<Canvas
-  of={SwitchStories.NewValidationInlineDefault}
-  name="single switch - inline validation"
-/>
-
-#### With optional props
-
-<Canvas
-  of={SwitchStories.NewValidationInlineDefaultWithOptions}
-  name="single switch - inline validation with options"
-/>
-
-#### With error
-
-<Canvas
-  of={SwitchStories.NewValidationInlineError}
-  name="single switch - inline validation with error"
-/>
-
-#### With overflowing hint text
-
-<Canvas
-  of={SwitchStories.NewValidationInlineWithOverflowHintText}
-  name="single switch - inline validation with overflowing hint text"
-/>
-
-#### On a dark background
-
-<Canvas
-  of={SwitchStories.NewValidationInlineWithDarkMode}
-  name="single switch - inline validation with dark background support"
-/>
-
-#### On a dark background and with an error
-
-<Canvas
-  of={SwitchStories.NewValidationInlineWithDarkModeAndError}
-  name="single switch - inline validation with dark background support and error"
-/>
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
 ## Props
 
