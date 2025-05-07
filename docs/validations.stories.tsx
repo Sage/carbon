@@ -2,14 +2,10 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import Textbox from "../src/components/textbox";
-import DateRange from "../src/components/date-range";
 import { RadioButton, RadioButtonGroup } from "../src/components/radio-button";
+import { Checkbox, CheckboxGroup } from "../src/components/checkbox";
 import CarbonProvider from "../src/components/carbon-provider";
-
-/**
- * This file is used primarily as a means to generate the props table.
- * It contains the tag: ["hideInSidebar"] so that it is not included in the sidebar.
- */
+import Form, { RequiredFieldsIndicator } from "../src/components/form";
 
 const meta: Meta = {
   title: "Documentation/Validations",
@@ -22,48 +18,60 @@ const meta: Meta = {
 export default meta;
 
 export const StringValidation: StoryObj = () => {
-  return <Textbox name="name" value="value" error="Message" />;
+  return (
+    <>
+      <Textbox label="Textbox" value="" error="Error Message" />
+      <Textbox label="Textbox" value="" warning="Warning Message" />
+      <Textbox label="Textbox" value="" info="Info Message" />
+    </>
+  );
 };
 StringValidation.storyName = "String Validation";
 
 export const BooleanValidation: StoryObj = () => {
-  return <Textbox name="name" value="value" error />;
+  return <Textbox label="Textbox" value="" error />;
 };
 BooleanValidation.storyName = "Boolean Validation";
 
-export const DateRangeValidation: StoryObj = () => {
+export const ValidationOnLabel: StoryObj = () => {
   return (
-    <DateRange
-      name="name"
-      onChange={() => {}}
-      startError="Start message"
-      endError="End message"
-      value={["01/10/2016", "30/10/2016"]}
+    <Textbox label="Textbox" value="" error="Error Message" validationOnLabel />
+  );
+};
+ValidationOnLabel.storyName = "Validation on Label";
+
+export const TooltipPosition: StoryObj = () => {
+  return (
+    <Textbox
+      label="Textbox"
+      value=""
+      error="Error Message"
+      tooltipPosition="bottom"
     />
   );
 };
-DateRangeValidation.storyName = "Date Range Validation";
+TooltipPosition.storyName = "Tooltip Position";
 
 export const GroupedInputValidation: StoryObj = () => {
   return (
-    <RadioButtonGroup legend="Validation on buttons" name="name1">
+    <RadioButtonGroup legend="Radio Button Group" name="errorRadioGroup">
       <RadioButton
-        id="validations-on-buttons-radio-1"
+        id="error-radio-1"
         value="radio1"
         label="Radio Option 1"
-        error="message"
+        error="Error Message"
       />
       <RadioButton
-        id="validations-on-buttons-radio-2"
+        id="warning-radio-2"
         value="radio2"
         label="Radio Option 2"
-        warning="message"
+        warning="Warning Message"
       />
       <RadioButton
-        id="validations-on-buttons-radio-3"
+        id="info-radio-2"
         value="radio3"
         label="Radio Option 3"
-        info="message"
+        info="Information Message"
       />
     </RadioButtonGroup>
   );
@@ -73,92 +81,82 @@ GroupedInputValidation.storyName = "Grouped Input Validation";
 export const GroupedLegendValidation: StoryObj = () => {
   return (
     <RadioButtonGroup
-      legend="Validation on the legend"
-      name="name2"
-      error="Validation on group legend"
+      legend="Radio Button Group"
+      name="errorRadioGroup"
+      required
+      error="Error Message"
     >
-      <RadioButton
-        id="validations-on-legend-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="validations-on-legend-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="validations-on-legend-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-      />
+      <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
+      <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
+      <RadioButton id="radio-2" value="radio3" label="Radio Option 3" />
     </RadioButtonGroup>
   );
 };
 GroupedLegendValidation.storyName = "Grouped Legend Validation";
 
-export const GroupedRequired: StoryObj = () => {
-  return (
-    <RadioButtonGroup name="required" legend="Example of required" required>
-      <RadioButton
-        id="required-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="required-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="required-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  );
-};
-GroupedRequired.storyName = "Grouped Required";
-
 export const ValidationRedesign: StoryObj = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
-      <Textbox
-        label="Textbox label"
-        inputHint="Hint text"
-        value="value"
-        error="Error Message (Fix is required)"
-      />
-
-      <Textbox
-        label="Textbox label"
-        inputHint="Hint text"
-        value="value"
-        warning="Warning Message (Fix is optional)"
-      />
-
-      <RadioButtonGroup
-        legend="Radio Button Group legend"
-        legendHelp="Legend help"
-        name="errorRadioGroup"
-        error="Error Message (Fix is required)"
-        mt={2}
-      >
-        <RadioButton id="error-1" value="radio1" label="Radio Option 1" />
-        <RadioButton id="error-2" value="radio2" label="Radio Option 2" />
-      </RadioButtonGroup>
-
-      <RadioButtonGroup
-        legend="Radio Button Group legend"
-        legendHelp="Legend help"
-        name="warningRadioGroup"
-        warning="Warning Message (Fix is optional)"
-        mt={2}
-      >
-        <RadioButton id="warning-1" value="radio1" label="Radio Option 1" />
-        <RadioButton id="warning-2" value="radio2" label="Radio Option 2" />
-      </RadioButtonGroup>
+      <Form>
+        <RequiredFieldsIndicator mb={2}>
+          Fill in all fields marked with
+        </RequiredFieldsIndicator>
+        <Textbox
+          label="Textbox"
+          inputHint="Hint text"
+          value=""
+          required
+          error="Error Message (Fix is required)"
+        />
+        <Textbox
+          label="Textbox"
+          inputHint="Hint text"
+          value=""
+          warning="Warning Message (Fix is optional)"
+        />
+      </Form>
     </CarbonProvider>
   );
 };
 ValidationRedesign.storyName = "Validation Redesign";
+
+export const ValidationRedesignWithGroupedInputs: StoryObj = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Form>
+        <RequiredFieldsIndicator mb={2}>
+          Fill in all fields marked with
+        </RequiredFieldsIndicator>
+        <RadioButtonGroup
+          legend="Radio Button Group"
+          legendHelp="Legend help"
+          name="errorRadioGroup"
+          required
+          error="Error Message (Fix is required)"
+        >
+          <RadioButton id="new-radio-1" value="radio1" label="Radio Option 1" />
+          <RadioButton id="new-radio-2" value="radio2" label="Radio Option 2" />
+        </RadioButtonGroup>
+
+        <CheckboxGroup
+          legend="Checkbox Group"
+          legendHelp="Legend help"
+          warning="Warning Message (Fix is optional)"
+        >
+          <Checkbox
+            id="new-checkbox-1"
+            value="checkbox1"
+            label="Checkbox Option 1"
+          />
+          <Checkbox
+            id="new-checkbox-2"
+            value="checkbox2"
+            label="Checkbox Option 2"
+          />
+        </CheckboxGroup>
+      </Form>
+    </CarbonProvider>
+  );
+};
+ValidationRedesignWithGroupedInputs.storyName =
+  "Validation Redesign with Grouped Inputs";
