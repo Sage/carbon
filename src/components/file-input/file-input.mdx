@@ -125,9 +125,12 @@ file.
 
 ### Tracking upload status
 
-The `uploadStatus` prop is used to indicate when one or more files have been added, as well as the current status/progress of
-the upload - and allowing users to cancel or remove uploaded files. It is required to set this (to an actual props object, or to
-a non-empty array for multiple files) in order for the users to see any indication of the uploaded file(s).
+The `uploadStatus` prop is used to indicate when a file has been added, as well as to display the current status or progress of its upload — 
+including options to cancel or remove the uploaded file. You must provide this prop (as a `FileUploadStatusProps` object) in order for users 
+to see any visual indication of the uploaded file.
+
+Note, that this component supports uploading a single file at a time. While the `uploadStatus` prop accepts an array, this is intended for 
+reuse of the component across uploads — not for handling multiple files in a single selection.
 
 For this reason the `onChange` function prop is mandatory - without providing an implementation for this event handler that updates the
 components `uploadStatus`, there will be no visual change once a file has been added to the input.
