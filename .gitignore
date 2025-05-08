@@ -16,6 +16,8 @@ lib
 esm
 src/style-config/assets.scss
 storybook-static/
+.swc/
+bundle-stats/
 
 playwright/test-results
 playwright/test-report
