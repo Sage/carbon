@@ -6,7 +6,7 @@ type StyledContentProps = {
   disableContentPadding?: boolean;
 };
 
-function computePadding({ disableContentPadding }: StyledContentProps) {
+export function computePadding({ disableContentPadding }: StyledContentProps) {
   if (disableContentPadding) {
     return "padding: 0;";
   }

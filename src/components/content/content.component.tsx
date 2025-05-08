@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 import {
   StyledContent,
@@ -19,50 +19,61 @@ export interface ContentProps
   children?: React.ReactNode;
   /** The title of the content component */
   title?: React.ReactNode;
+  disableContentPadding?: boolean;
+  hasHeader?: boolean;
 }
 
-export const Content = ({
-  variant = "primary",
-  children,
-  title,
-  inline = false,
-  align = "left",
-  titleWidth,
-  bodyFullWidth = false,
-  ...rest
-}: ContentProps) => {
-  return (
-    <StyledContent
-      align={align}
-      bodyFullWidth={bodyFullWidth}
-      {...rest}
-      {...tagComponent("content", rest)}
-    >
-      <StyledContentTitle
-        variant={variant}
-        inline={inline}
-        data-element="content-title"
-        data-role="content-title"
-        titleWidth={titleWidth}
+export const Content = forwardRef<HTMLDivElement, ContentProps>(
+  (
+    {
+      variant = "primary",
+      children,
+      title,
+      inline = false,
+      align = "left",
+      titleWidth,
+      bodyFullWidth = false,
+      disableContentPadding,
+      ...rest
+    },
+    ref,
+  ) => {
+    return (
+      <StyledContent
+        ref={ref}
         align={align}
-      >
-        {title}
-      </StyledContentTitle>
-
-      <StyledContentBody
-        variant={variant}
-        inline={inline}
-        data-element="content-body"
-        data-role="content-body"
+        hasHeader={rest.hasHeader}
         bodyFullWidth={bodyFullWidth}
-        titleWidth={titleWidth}
-        align={align}
+        disableContentPadding={disableContentPadding}
+        {...rest}
+        {...tagComponent("content", rest)}
       >
-        {children}
-      </StyledContentBody>
-    </StyledContent>
-  );
-};
+        <StyledContentTitle
+          variant={variant}
+          inline={inline}
+          data-element="content-title"
+          data-role="content-title"
+          titleWidth={titleWidth}
+          align={align}
+        >
+          {title}
+        </StyledContentTitle>
+
+        <StyledContentBody
+          variant={variant}
+          inline={inline}
+          data-element="content-body"
+          data-role="content-body"
+          bodyFullWidth={bodyFullWidth}
+          titleWidth={titleWidth}
+          align={align}
+        >
+          {children}
+        </StyledContentBody>
+      </StyledContent>
+    );
+  },
+);
 
 Content.displayName = "Content";
 export default Content;

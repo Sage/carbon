@@ -2,6 +2,9 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import Content from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
+import StyledContent, {
+  computePadding,
+} from "../dialog-full-screen/content.style";
 
 test("renders the provided `title` as a string", () => {
   render(<Content title="Title" />);
@@ -81,6 +84,37 @@ test("renders with expected styles when `titleWidth` is set", () => {
 
   expect(title).toHaveStyle({ width: "calc(70% - 30px)" });
   expect(body).toHaveStyle({ width: "30%" });
+});
+
+// coverage
+test("returns 0 padding when disableContentPadding is true", () => {
+  expect(computePadding({ disableContentPadding: true, hasHeader: true })).toBe(
+    "padding: 0;",
+  );
+});
+
+test("returns responsive padding when disableContentPadding is false", () => {
+  const result = computePadding({
+    disableContentPadding: false,
+    hasHeader: true,
+  });
+
+  expect(result.toString()).toContain("padding: 0 16px");
+  expect(result.toString()).toContain("min-width: 600px");
+});
+
+// coverage
+it("applies padding-top: 0 when hasHeader is false", () => {
+  const { container } = render(<StyledContent hasHeader={false} />);
+  // eslint-disable-next-line testing-library/no-node-access
+  const content = container.firstChild;
+  expect(content).toHaveStyleRule("padding-top", "0");
+});
+
+it("does not set padding-top: 0 when hasHeader is true", () => {
+  render(<Content hasHeader />);
+  const title = screen.getByTestId("content-title");
+  expect(title).not.toHaveStyle("padding-top: 0");
 });
 
 // coverage
