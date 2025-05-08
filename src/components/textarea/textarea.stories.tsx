@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import Box from "../box";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import I18nProvider from "../i18n-provider";
 
@@ -47,6 +46,7 @@ export const LabelAlignStory: Story = () => {
           inputWidth={50}
           key={alignment}
           labelAlign={alignment}
+          mb={2}
         />
       ))}
     </>
@@ -167,143 +167,6 @@ export const IsOptionalStory: Story = () => {
   return <Textarea label="Textarea" isOptional />;
 };
 IsOptionalStory.storyName = "isOptional";
-
-export const ValidationStringStory: Story = () => {
-  return (
-    <>
-      {["error", "warning", "info"].map((validationType) => (
-        <Box key={`${validationType}-string-component`}>
-          <Textarea
-            label="Textarea"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Textarea
-            label="Textarea - readOnly"
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </Box>
-      ))}
-    </>
-  );
-};
-ValidationStringStory.storyName = "Validations - String - Component";
-
-export const ValidationStringPositionStory: Story = () => {
-  return (
-    <>
-      {["error", "warning", "info"].map((validationType) => (
-        <Box key={`${validationType}-string-component`}>
-          <Textarea
-            label="Textarea"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </Box>
-      ))}
-    </>
-  );
-};
-ValidationStringPositionStory.storyName =
-  "Validations - String - With Tooltip Position Overriden - Component";
-ValidationStringPositionStory.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const ValidationLabelStory: Story = () => {
-  return (
-    <>
-      {["error", "warning", "info"].map((validationType) => (
-        <Box key={`${validationType}-string-label`}>
-          <Textarea
-            label="Textarea"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Textarea
-            label="Textarea - readOnly"
-            validationOnLabel
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </Box>
-      ))}
-    </>
-  );
-};
-ValidationLabelStory.storyName = "Validations - String - Label";
-
-export const ValidationLabelPositionStory: Story = () => {
-  return (
-    <>
-      {["error", "warning", "info"].map((validationType) => (
-        <Box key={`${validationType}-string-label`}>
-          <Textarea
-            label="Textarea"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="top"
-          />
-        </Box>
-      ))}
-    </>
-  );
-};
-ValidationLabelPositionStory.storyName =
-  "Validations - String - With Tooltip Position Overriden - Label";
-ValidationLabelPositionStory.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const NewDesignValidationStory: Story = () => {
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      {["error", "warning"].map((validationType) => (
-        <Box width={296} key={`${validationType}-string-component`}>
-          <Textarea
-            label={`${validationType}`}
-            inputHint="Hint text (optional)."
-            {...{ [validationType]: "Message" }}
-            m={4}
-          />
-          <Textarea
-            label={`readOnly - ${validationType}`}
-            inputHint="Hint text (optional)."
-            readOnly
-            {...{ [validationType]: "Message" }}
-            m={4}
-          />
-        </Box>
-      ))}
-    </CarbonProvider>
-  );
-};
-NewDesignValidationStory.storyName = "Validations - String - New Design";
-
-export const ValidationBooleanStory: Story = () => {
-  return (
-    <>
-      {["error", "warning", "info"].map((validationType) => (
-        <Box key={`${validationType}-boolean-component`}>
-          <Textarea label="Textarea" {...{ [validationType]: true }} mb={2} />
-          <Textarea
-            label="Textarea - readOnly"
-            readOnly
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-        </Box>
-      ))}
-    </>
-  );
-};
-ValidationBooleanStory.storyName = "Validations - Boolean";
 
 export const BorderRadiusStory: Story = () => {
   const [stateOne, setStateOne] = useState("");

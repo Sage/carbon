@@ -32,6 +32,10 @@ Allows a single file to be uploaded.
 import FileInput from "carbon-react/lib/components/file-input";
 ```
 
+### Validation
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
+
 ## Examples
 
 ### Default
@@ -89,20 +93,6 @@ One common variation is to have the text vertically stacked below the button, wh
 Note that this will automatically be the case if the button and text no longer fit onto a single line, even if the `isVertical` prop is set to `false`.
 
 <Canvas of={FileInputStories.Vertical} />
-
-### Validations
-
-Validation status can be set by passing an `error` or prop to the component.
-
-Passing a string will display a properly colored border and error message.
-
-Passing a boolean to these props will display only a properly colored border.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
-
-NOTE: old-style tooltip validation is not supported for this component - no matter whether the nearest wrapping `CarbonProvider` sets the `validationRedesignOptIn` flag or not.
-
-<Canvas of={FileInputStories.Validation} />
 
 ### Accept
 

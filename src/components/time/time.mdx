@@ -21,6 +21,10 @@ import * as TimeStories from "./time.stories";
 import { Time } from "carbon-react/lib/components/time";
 ```
 
+### Validation
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
+
 ## Examples
 
 ### Default
@@ -61,13 +65,6 @@ Passing a string to the `inputHint` prop will render some additional hint text a
 ### Sizes
 
 <Canvas of={TimeStories.Sizes} />
-
-### Validation
-
-It is possible to set the validation states on either both or individual inputs by using the `error`
-and `warning` props passed via the `hoursInputProps` and `minutesInputProps` respectively.
-
-<Canvas of={TimeStories.Validation} />
 
 ### Focusing the inputs programmatically
 

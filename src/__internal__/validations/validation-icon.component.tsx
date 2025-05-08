@@ -12,20 +12,11 @@ import {
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export interface ValidationProps {
-  /** Indicate that error has occurred
-   * Pass string to display icon, tooltip and red border
-   * Pass true boolean to only display red border
-   */
+  /** Indicate that error has occurred. */
   error?: boolean | string;
-  /** Indicate additional information
-   * Pass string to display icon, tooltip and blue border
-   * Pass true boolean to only display blue border
-   */
+  /** [Legacy] Indicate additional information. */
   info?: boolean | string;
-  /** Indicate that warning has occurred
-   * Pass string to display icon, tooltip and orange border
-   * Pass true boolean to only display orange border
-   */
+  /** Indicate that warning has occurred. */
   warning?: boolean | string;
 }
 

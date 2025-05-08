@@ -36,6 +36,10 @@ To use the Text Editor, import the `TextEditor` component. If your content is st
 function to convert it to a format that the editor can understand. If you do not work with HTML, the `createFromHTML` function is not required
 and can be omitted from the imports. The `CreateEmpty` function can be used to create an empty editor state, should you require one.
 
+### Validation
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
+
 ## Examples
 
 ### Default
@@ -139,19 +143,6 @@ If the `onSave` property is not provided, the `Save` button will not be displaye
 Type into the editor and the click the **Show Data Formats** button in the example below to see the JSON and HTML content of the editor.
 
 <Canvas of={TextEditorStories.OnSave} />
-
-### With Error
-
-When the editor is in an error state, you can use the `error` property to display messages to the user.
-
-<Canvas of={TextEditorStories.WithError} />
-
-### With Warning
-
-When the editor is in a warning state, you can use the `warning` property to display messages to the user. Exceeding the character limit will
-trigger a warning message automatically.
-
-<Canvas of={TextEditorStories.WithWarning} />
 
 ### With HTML As Initial Value
 

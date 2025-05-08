@@ -4,7 +4,6 @@ import { Meta, StoryObj } from "@storybook/react";
 import { RadioButtonGroup, RadioButton } from ".";
 import Typography from "../typography";
 import CarbonProvider from "../carbon-provider";
-import Box from "../box";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -42,28 +41,30 @@ export const WithLegendAndLabels: Story = () => {
       legend="Radio group legend"
       value={value}
     >
-      <RadioButton
-        id="radio-1"
-        value="radio1"
-        label="Radio Option 1"
-        labelHelp="first option"
-      />
-      <RadioButton
-        id="radio-2"
-        value="radio2"
-        label="Radio Option 2"
-        labelHelp="second option"
-      />
-      <RadioButton
-        id="radio-3"
-        value="radio3"
-        label="Radio Option 3"
-        labelHelp="third option"
-      />
+      <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
+      <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
+      <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
     </RadioButtonGroup>
   );
 };
-WithLegendAndLabels.storyName = "With Legend and Labels";
+WithLegendAndLabels.storyName = "With Legend";
+
+export const WithLegendHelp: Story = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <RadioButtonGroup
+        name="input-hint-group"
+        legend="With legendHelp"
+        legendHelp="Legend Help"
+      >
+        <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
+        <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
+        <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
+      </RadioButtonGroup>
+    </CarbonProvider>
+  );
+};
+WithLegendHelp.storyName = "With Legend Help";
 
 export const WithInlineLegend: Story = () => {
   return (
@@ -81,34 +82,6 @@ export const WithInlineLegend: Story = () => {
   );
 };
 WithInlineLegend.storyName = "With Inline Legend";
-
-export const WithLeftMargin: Story = () => {
-  return (
-    <RadioButtonGroup
-      name="left-margin-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-      ml="20%"
-    >
-      <RadioButton
-        id="left-margin-radio-1"
-        value="radio1"
-        label="Radio Option 1"
-      />
-      <RadioButton
-        id="left-margin-radio-2"
-        value="radio2"
-        label="Radio Option 2"
-      />
-      <RadioButton
-        id="left-margin-radio-3"
-        value="radio3"
-        label="Radio Option 3"
-      />
-    </RadioButtonGroup>
-  );
-};
-WithLeftMargin.storyName = "With Left Margin";
 
 export const EnableAdaptiveBehaviour: Story = () => {
   return (
@@ -167,7 +140,7 @@ export const DifferentLabelSpacing: Story = () => {
     </RadioButtonGroup>
   );
 };
-DifferentLabelSpacing.storyName = "Different Label Spacing";
+DifferentLabelSpacing.storyName = "Label Spacing";
 
 export const InlineRadioButtons: Story = () => {
   return (
@@ -352,145 +325,6 @@ export const WithCustomStyledLabels: Story = () => {
   );
 };
 WithCustomStyledLabels.storyName = "With Custom Styled Labels";
-
-export const NewValidationDefault: Story = () => {
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <RadioButton
-        id="radio-error-1"
-        value="radioError1"
-        label="Radio Option 1 - Error"
-        error
-      />
-      <RadioButton
-        id="radio-default-2"
-        value="radioDefault2"
-        label="Radio Option 2 - Default"
-      />
-      <RadioButton
-        id="radio-warning-3"
-        value="radioWarning3"
-        label="Radio Option 3 - Warning"
-        warning
-      />
-    </CarbonProvider>
-  );
-};
-NewValidationDefault.storyName = "New Validation";
-
-export const NewValidationDefaultGroup: Story = () => {
-  return (
-    <Box m={2}>
-      <CarbonProvider validationRedesignOptIn>
-        <RadioButtonGroup
-          legend="Label"
-          legendHelp="Hint Text"
-          name="error-validations-group"
-          error="Error Message (Fix is required)"
-        >
-          <RadioButton
-            id="radio-one-1"
-            value="radioOne1"
-            label="Radio Option 1"
-          />
-          <RadioButton
-            id="radio-one-2"
-            value="radioOne2"
-            label="Radio Option 2"
-          />
-          <RadioButton
-            id="radio-one-3"
-            value="radioOne3"
-            label="Radio Option 3"
-          />
-        </RadioButtonGroup>
-
-        <RadioButtonGroup
-          mt={2}
-          legend="Label"
-          legendHelp="Hint Text"
-          name="warning-validations-group"
-          warning="Warning Message (Fix is optional)"
-        >
-          <RadioButton
-            id="radio-two-1"
-            value="radioTwo1"
-            label="Radio Option 1"
-          />
-          <RadioButton
-            id="radio-two-2"
-            value="radioTwo2"
-            label="Radio Option 2"
-          />
-          <RadioButton
-            id="radio-two-3"
-            value="radioTwo3"
-            label="Radio Option 3"
-          />
-        </RadioButtonGroup>
-      </CarbonProvider>
-    </Box>
-  );
-};
-NewValidationDefaultGroup.storyName = "New Validation Group - String";
-
-export const NewValidationDefaultGroupInline: Story = () => {
-  return (
-    <Box m={2}>
-      <CarbonProvider validationRedesignOptIn>
-        <RadioButtonGroup
-          legend="Label"
-          legendHelp="Hint Text"
-          name="error-validations-group-inline"
-          error="Error Message (Fix is required)"
-          inline
-        >
-          <RadioButton
-            id="radio-one-1"
-            value="radioOne1"
-            label="Radio Option 1"
-          />
-          <RadioButton
-            id="radio-one-2"
-            value="radioOne2"
-            label="Radio Option 2"
-          />
-          <RadioButton
-            id="radio-one-3"
-            value="radioOne3"
-            label="Radio Option 3"
-          />
-        </RadioButtonGroup>
-
-        <RadioButtonGroup
-          mt={2}
-          legend="Label"
-          legendHelp="Hint Text"
-          name="warning-validations-group-inline"
-          warning="Warning Message (Fix is optional)"
-          inline
-        >
-          <RadioButton
-            id="radio-two-1"
-            value="radioTwo1"
-            label="Radio Option 1"
-          />
-          <RadioButton
-            id="radio-two-2"
-            value="radioTwo2"
-            label="Radio Option 2"
-          />
-          <RadioButton
-            id="radio-two-3"
-            value="radioTwo3"
-            label="Radio Option 3"
-          />
-        </RadioButtonGroup>
-      </CarbonProvider>
-    </Box>
-  );
-};
-NewValidationDefaultGroupInline.storyName = "New Validation Group - Inline";
 
 export const Required: Story = () => (
   <RadioButtonGroup name="radio-group-required" required legend="Required">

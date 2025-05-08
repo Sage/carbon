@@ -114,22 +114,14 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 
 <Canvas of={TabsStories.WithNoSidesPositionedLeft} />
 
-### With validations
-
-<Canvas of={TabsStories.WithValidationsPositionedTop} />
-
-<Canvas of={TabsStories.WithValidationsSizedLargePositionedTop} />
-
-<Canvas of={TabsStories.WithValidationsPositionedLeft} />
-
-<Canvas of={TabsStories.WithValidationsSizedLargePositionedLeft} />
-
 ### With additional title siblings
 
 It is possible to add additional elements to the a TabTitle by using the `siblings` prop. The `titlePosition` prop
 can be used to render the `title` "before" (default) or "after" the additional elements.
 
 <Canvas of={TabsStories.WithAdditionalTitleSiblings} />
+
+#### Large tabs with siblings
 
 <Canvas of={TabsStories.WithAdditionalTitleSiblingsSizeLarge} />
 
@@ -177,10 +169,6 @@ respective navigation button will not appear.
 
 <Canvas of={TabsStories.Responsive} />
 
-#### Horizontal with validation
-
-<Canvas of={TabsStories.ResponsiveValidation} />
-
 #### Vertical
 
 __Note: This story is best viewed in the `canvas` view and by adjusting the size of the window.__
@@ -189,15 +177,6 @@ The `Tabs` component is also responsive when oriented vertically. Please note th
 when the `position` prop is set to `left`.
 
 <Canvas of={TabsStories.ResponsiveVertical} />
-
-### With string validations summarised
-
-By default the strings passed to `errorMessage`, `warningMessage` and `infoMessage` props are what is
-used in the validation tooltip. However, setting the `showValidationsSummary` prop allows for the
-summarising of validation messages from the children of a given `Tab`. You can see an example of this
-by hovering your mouse pointer over the `ValidationIcon`s in the example below.
-
-<Canvas of={TabsStories.WithStringValidationsSummarised} />
 
 ### Integrating with an external history
 
@@ -263,14 +242,14 @@ const App = () => {
 };
 ```
 
-### New Validation
+### Validation
 
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+This component uses context to detect if an input within a `Tab` has a validation error or warning. If so, the `Tab` will render with the corresponding validation state.
+You can also use the `errorMessage` and/or `warningMessage` props on the `Tab` component to set a descriptive message for assistive technology users when the `Tab` is in an error or warning state.
 
-<Canvas
-  of={TabsStories.WithNewValidationRedesign}
-  name="tabs positioned top"
-/>
+See our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information about input validation.
+
+<Canvas of={TabsStories.WithValidationState} />
 
 ## Props
 

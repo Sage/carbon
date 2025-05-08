@@ -63,7 +63,7 @@ export const DecimalStory = (args: CommonTextboxArgs) => {
     />
   );
 };
-DecimalStory.storyName = "default";
+DecimalStory.storyName = "Default";
 DecimalStory.args = commonArgs;
 
 export const UncontrolledDecimalStory = (args: CommonTextboxArgs) => {
@@ -83,7 +83,7 @@ export const UncontrolledDecimalStory = (args: CommonTextboxArgs) => {
     />
   );
 };
-UncontrolledDecimalStory.storyName = "uncontrolled default";
+UncontrolledDecimalStory.storyName = "Uncontrolled Default";
 UncontrolledDecimalStory.args = commonArgs;
 
 type Locale = {
@@ -93,7 +93,7 @@ type Locale = {
 
 export const Locale: StoryFn<CommonTextboxArgs & { locale: Locale }> =
   DecimalStory.bind({});
-Locale.storyName = "locale";
+Locale.storyName = "Locale";
 Locale.args = { ...commonArgs, locale: undefined };
 Locale.argTypes = {
   locale: {
@@ -131,32 +131,111 @@ export const PostStory = ({
     </form>
   );
 };
-PostStory.storyName = "post";
+PostStory.storyName = "Post";
 PostStory.args = { ...commonArgs, action: "" };
 
-export const NewValidationStory = (args: CommonTextboxArgs) => {
-  const [state, setState] = useState("0.05");
-  const handleChange = (ev: CustomEvent) => {
-    action("onChange")(ev.target.value);
-    setState(ev.target.value.rawValue);
+export const Validation = () => {
+  const [state, setState] = useState("0.01");
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
   };
-  const handleBlur = (event: CustomEvent) => {
-    action("onBlur")(event.target.value);
+
+  return (
+    <>
+      <Decimal
+        label="Decimal"
+        error="Error Message"
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Decimal
+        label="Decimal"
+        warning="Warning Message"
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Decimal
+        label="Decimal"
+        info="Info Message"
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+
+      <Decimal
+        label="Decimal"
+        error="Error Message"
+        validationOnLabel
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Decimal
+        label="Decimal"
+        warning="Warning Message"
+        validationOnLabel
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Decimal
+        label="Decimal"
+        info="Info Message"
+        validationOnLabel
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+
+      <Decimal label="Decimal" error value={state} onChange={setValue} mb={2} />
+      <Decimal
+        label="Decimal"
+        warning
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Decimal label="Decimal" info value={state} onChange={setValue} mb={2} />
+    </>
+  );
+};
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidation = () => {
+  const [state, setState] = useState("0.01");
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
   };
+
   return (
     <CarbonProvider validationRedesignOptIn>
       <Decimal
+        label="Decimal"
+        error="Error Message"
         value={state}
-        m={2}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        {...getCommonTextboxArgsWithSpecialCharacters(args)}
+        onChange={setValue}
+        mb={2}
+      />
+      <Decimal
+        label="Decimal"
+        warning="Warning Message"
+        value={state}
+        onChange={setValue}
       />
     </CarbonProvider>
   );
 };
-NewValidationStory.storyName = "new validation";
-NewValidationStory.args = commonArgs;
+NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
 export const DecimalCustomOnChangeStory = (args: CommonTextboxArgs) => {
   const [state, setState] = useState("0.01");
@@ -185,5 +264,5 @@ export const DecimalCustomOnChangeStory = (args: CommonTextboxArgs) => {
     </div>
   );
 };
-DecimalCustomOnChangeStory.storyName = "custom onChange";
+DecimalCustomOnChangeStory.storyName = "Custom onChange";
 DecimalCustomOnChangeStory.args = commonArgs;

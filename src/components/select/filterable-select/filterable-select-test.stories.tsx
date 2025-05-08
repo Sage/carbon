@@ -5,6 +5,7 @@ import OptionRow from "../option-row/option-row.component";
 import Dialog from "../../dialog";
 import Button from "../../button";
 import Typography from "../../typography";
+import CarbonProvider from "../../carbon-provider";
 
 export default {
   component: FilterableSelect,
@@ -69,39 +70,7 @@ export default {
   },
 };
 
-export const DefaultStory = () => (
-  <FilterableSelect
-    name="simple"
-    id="simple"
-    label="color"
-    labelInline
-    onOpen={partialAction("onOpen")}
-    onChange={partialAction("onChange")}
-    onClick={partialAction("onClick")}
-    onFilterChange={partialAction("onFilterChange")}
-    onFocus={partialAction("onFocus")}
-    onBlur={partialAction("onBlur")}
-    onKeyDown={partialAction("onKeyDown")}
-  >
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </FilterableSelect>
-);
-
-DefaultStory.storyName = "default";
-
-export const FilterableSelectComponent = (
-  props: Partial<FilterableSelectProps>,
-) => {
+export const Default = (props: Partial<FilterableSelectProps>) => {
   const [value, setValue] = useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -135,6 +104,157 @@ export const FilterableSelectComponent = (
       <Option text="Yellow" value="11" />
     </FilterableSelect>
   );
+};
+Default.storyName = "Default";
+
+export const Validation = () => {
+  return (
+    <>
+      <FilterableSelect
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        error="Error Message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+      <FilterableSelect
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        warning="Warning Message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+      <FilterableSelect
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        info="Info Message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+
+      <FilterableSelect
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        error="Error Message"
+        validationOnLabel
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+      <FilterableSelect
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        warning="Warning Message"
+        validationOnLabel
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+      <FilterableSelect
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        info="Info Message"
+        validationOnLabel
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+
+      <FilterableSelect
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        error
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+      <FilterableSelect
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        warning
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+      <FilterableSelect
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        info
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+    </>
+  );
+};
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: true },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidation = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <FilterableSelect
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        error="Error Message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+      <FilterableSelect
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        warning="Warning Message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+    </CarbonProvider>
+  );
+};
+NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: true },
+  themeProvider: { chromatic: { theme: "sage" } },
 };
 
 export const FilterableSelectWithLazyLoadingComponent = (

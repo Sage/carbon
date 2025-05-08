@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
-
-import Box from "../box/box.component";
-import CarbonProvider from "../carbon-provider";
 import Password from ".";
 
 const styledSystemProps = generateStyledSystemProps({
@@ -22,9 +19,6 @@ const meta: Meta<typeof Password> = {
 
 export default meta;
 type Story = StoryObj<typeof Password>;
-
-const SIZES = ["small", "medium", "large"] as const;
-const VALIDATIONS = ["error", "warning", "info"] as const;
 
 export const Default: Story = () => {
   const [state, setState] = useState("Password");
@@ -249,26 +243,6 @@ export const WithLabelAlign: Story = () => {
 };
 WithLabelAlign.storyName = "With Label Align";
 
-export const WithCustomLabelWidthAndInputWidth: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Password
-      labelWidth={50}
-      inputWidth={50}
-      labelInline
-      label="Password"
-      value={state}
-      onChange={setValue}
-    />
-  );
-};
-WithCustomLabelWidthAndInputWidth.storyName =
-  "With Custom labelWidth and inputWidth";
-
 export const WithCustomMaxWidth: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -331,196 +305,3 @@ export const WithRequired: Story = () => {
   );
 };
 WithRequired.storyName = "With Required";
-
-export const ValidationsAsAString: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Box>
-      {VALIDATIONS.map((validationType) => (
-        <Box key={`${validationType}-string-component`}>
-          <Password
-            label="Password"
-            value={state}
-            onChange={setValue}
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Password
-            label="Password - readOnly"
-            value="Password"
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-ValidationsAsAString.storyName = "Validations - String - Component";
-
-export const ValidationsAsAStringWithTooltipCustom: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Box>
-      {VALIDATIONS.map((validationType) => (
-        <Box key={`${validationType}-string-component`}>
-          <Password
-            label="Password"
-            value={state}
-            onChange={setValue}
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-ValidationsAsAStringWithTooltipCustom.storyName =
-  "Validations - String - With tooltipPosition Overriden - Component";
-ValidationsAsAStringWithTooltipCustom.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const ValidationsAsAStringDisplayedOnLabel: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Box>
-      {VALIDATIONS.map((validationType) => (
-        <Box key={`${validationType}-string-label`}>
-          <Password
-            label="Password"
-            value={state}
-            onChange={setValue}
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Password
-            label="Password - readOnly"
-            value="Password"
-            validationOnLabel
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-ValidationsAsAStringDisplayedOnLabel.storyName = "Validations - String - Label";
-
-export const NewDesignsValidation: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Box>
-      <CarbonProvider validationRedesignOptIn>
-        {(["error", "warning"] as const).map((validationType) =>
-          SIZES.map((size) => (
-            <Box width="296px" key={`${validationType}-${size}`}>
-              <Password
-                m={4}
-                label={`${size} - ${validationType}`}
-                value={state}
-                onChange={setValue}
-                inputHint="Hint text (optional)"
-                size={size}
-                {...{ [validationType]: "Message" }}
-              />
-              <Password
-                m={4}
-                label={`readOnly - ${size} - ${validationType}`}
-                value="Password"
-                size={size}
-                inputHint="Hint text (optional)."
-                readOnly
-                {...{ [validationType]: "Message" }}
-              />
-            </Box>
-          )),
-        )}
-      </CarbonProvider>
-    </Box>
-  );
-};
-NewDesignsValidation.storyName = "Validations - String - New Design";
-
-export const ValidationsAsAStringWithTooltipDefault: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Box>
-      {VALIDATIONS.map((validationType) => (
-        <Box key={`${validationType}-string-label`}>
-          <Password
-            label="Password"
-            value={state}
-            onChange={setValue}
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-ValidationsAsAStringWithTooltipDefault.storyName =
-  "Validations - String - With tooltipPosition overriden - Label";
-ValidationsAsAStringWithTooltipDefault.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const ValidationsAsABoolean: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Box>
-      {VALIDATIONS.map((validationType) => (
-        <Box key={`${validationType}-boolean-component`}>
-          <Password
-            label="Password"
-            value={state}
-            onChange={setValue}
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-          <Password
-            label="Password - readOnly"
-            value="Password"
-            readOnly
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-ValidationsAsABoolean.storyName = "Validations - Boolean";

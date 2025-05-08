@@ -343,30 +343,6 @@ OnSave.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const WithError: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-witherror"
-      labelText="Text Editor"
-      error="error"
-      characterLimit={100}
-    />
-  );
-};
-WithError.storyName = "Error";
-
-export const WithWarning: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-withwarning"
-      labelText="Text Editor"
-      warning="warning"
-      characterLimit={100}
-    />
-  );
-};
-WithWarning.storyName = "Warning";
-
 export const WithHTMLValue: Story = () => {
   const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
   const value = createFromHTML(initialValue);
