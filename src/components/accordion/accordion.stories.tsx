@@ -37,6 +37,9 @@ export const Default: Story = () => {
   );
 };
 Default.storyName = "Default";
+Default.parameters = {
+  chromatic: { disable: false },
+};
 
 export const WithTitle: Story = () => {
   return (
