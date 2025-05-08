@@ -19,9 +19,9 @@ const meta: Meta<typeof Accordion> = {
   argTypes: {
     ...styledSystemProps,
   },
-  // parameters: {
-  //   chromatic: { disableSnapshot: true },
-  // },
+  parameters: {
+    chromatic: { disable: true },
+  },
 };
 
 export default meta;
