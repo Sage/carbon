@@ -17,7 +17,8 @@ export default {
     info: { disable: true },
     layout: "fullscreen",
     chromatic: {
-      disableSnapshot: true,
+      // disableSnapshot: true,
+      disable: true,
     },
   },
   argTypes: {
