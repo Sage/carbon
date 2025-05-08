@@ -15,6 +15,7 @@ export default {
   title: "Accordion/Test",
   parameters: {
     info: { disable: true },
+    layout: "fullscreen",
     chromatic: {
       disableSnapshot: true,
     },

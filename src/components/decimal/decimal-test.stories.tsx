@@ -15,6 +15,7 @@ export default {
   title: "Decimal Input/Test",
   parameters: {
     info: { disable: true },
+    layout: "fullscreen",
     chromatic: {
       disableSnapshot: true,
     },
