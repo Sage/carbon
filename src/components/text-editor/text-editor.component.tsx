@@ -101,6 +101,8 @@ export interface TextEditorProps extends MarginProps, TagProps {
   warning?: string;
   /** The initial value of the editor, as a HTML string, or JSON */
   value?: string | undefined;
+  // Allows the injection of one or more Lexical-compatible React components into the editor to extend its functionality
+  customPlugins?: React.ReactNode;
 }
 
 let deprecateOptionalWarnTriggered = false;
@@ -127,6 +129,7 @@ export const TextEditor = ({
   rows,
   warning,
   value,
+  customPlugins,
   ...rest
 }: TextEditorProps) => {
   if (!deprecateOptionalWarnTriggered && isOptional) {
@@ -327,6 +330,7 @@ export const TextEditor = ({
                 <LinkPlugin validateUrl={validateUrl} />
                 <ClickableLinkPlugin newTab />
                 <AutoLinkerPlugin />
+                {customPlugins}
               </StyledTextEditor>
               {footer && (
                 <StyledFooterWrapper data-role={`${namespace}-footer-wrapper`}>
