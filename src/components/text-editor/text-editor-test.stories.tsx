@@ -25,21 +25,43 @@ export default meta;
 
 type Story = StoryObj<typeof TextEditor>;
 
-export const Playground: Story = {
-  args: {
-    characterLimit: 3000,
-    error: "",
-    inputHint: "",
-    isOptional: false,
-    labelText: "Text Editor",
-    namespace: "carbon-storybook-rte",
-    placeholder: "Enter text here",
-    readOnly: false,
-    required: false,
-    rows: 10,
-    warning: "",
+export const Playground: Story = (
+  args: TextEditorProps & { customPlugins: string },
+) => {
+  const { customPlugins, ...rest } = args;
+
+  const pluginOptions: Record<string, React.ReactNode> = {
+    none: null,
+    customPlugin: <div>Custom Plugin</div>,
+  };
+
+  return <TextEditor {...rest} customPlugins={pluginOptions[customPlugins]} />;
+};
+
+Playground.args = {
+  characterLimit: 3000,
+  error: "",
+  inputHint: "",
+  isOptional: false,
+  labelText: "Text Editor",
+  namespace: "carbon-storybook-rte",
+  placeholder: "Enter text here",
+  readOnly: false,
+  required: false,
+  rows: 10,
+  warning: "",
+  customPlugins: "none",
+};
+
+Playground.argTypes = {
+  customPlugins: {
+    options: ["none", "customPlugin"],
+    control: {
+      type: "select",
+    },
   },
 };
+
 Playground.parameters = {
   chromatic: { disableSnapshot: true },
 };
