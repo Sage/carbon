@@ -1,0 +1,14 @@
+export const RESPONSIVE_VERTICAL_MENU_LAUNCHER =
+  '[data-component="responsive-vertical-menu-launcher"]';
+export const RESPONSIVE_VERTICAL_MENU_WRAPPER =
+  '[data-component="responsive-vertical-menu"]';
+export const RESPONSIVE_VERTICAL_MENU_PRIMARY =
+  '[data-component="responsive-vertical-menu-primary"]';
+export const RESPONSIVE_VERTICAL_MENU_SECONDARY =
+  '[data-component="responsive-vertical-menu-secondary"]';
+export const RESPONSIVE_VERTICAL_MENU_ITEM_CUSTOM_ICON =
+  '[data-component="responsive-vertical-menu-custom-icon"]';
+export const RESPONSIVE_VERTICAL_MENU_ITEM_ICON =
+  '[data-component="responsive-vertical-menu-icon"]';
+export const RESPONSIVE_VERTICAL_MENU_ITEM_EXPANDER =
+  '[data-component="responsive-vertical-menu-expander-icon"]';

@@ -1,0 +1,203 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as ResponsiveVerticalMenuStories from "./responsive-vertical-menu.stories";
+import * as ResponsiveVerticalMenuDividerStories from "./responsive-vertical-menu-divider/responsive-vertical-menu-divider.stories";
+import * as ResponsiveVerticalMenuItemStories from "./responsive-vertical-menu-item/responsive-vertical-menu-item.stories";
+
+<Meta of={ResponsiveVerticalMenuStories} />
+
+# ResponsiveVerticalMenu
+
+A vertical menu that is responsive to the screen size. It can be used as a menu in one of two modes: a dual-column layout (default) or a single-column layout (responsive mode).
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Usage](#usage)
+- [Examples](#examples)
+- [Props](#props)
+
+
+## Quick Start
+
+To use `ResponsiveVerticalMenu`, you need to import the `ResponsiveVerticalMenu` and `ResponsiveVerticalMenuItem` components. These
+should be wrapped in the `ResponsiveVerticalMenuProvider` component, which should also be imported.
+
+```javascript
+import {
+  ResponsiveVerticalMenu,
+  ResponsiveVerticalMenuDivider,
+  ResponsiveVerticalMenuItem,
+  ResponsiveVerticalMenuProvider,
+} from "carbon-react/lib/components/vertical-menu";
+```
+
+## Usage
+
+In order to render a `ResponsiveVerticalMenu`, you need to wrap it in a `ResponsiveVerticalMenuProvider` component. This component provides the context for the menu and its items.
+
+Two modes are available for the `ResponsiveVerticalMenu`: default and responsive. The default mode is used when the screen size is large enough to accommodate two columns; the
+responsive mode is used when the screen size is small enough to require a single column (see the [Responsive](#responsive) example below).
+
+```javascript
+  <ResponsiveVerticalMenuProvider>
+    <ResponsiveVerticalMenu height="100%" />
+  </ResponsiveVerticalMenuProvider>
+```
+
+You can then add `ResponsiveVerticalMenuItem` components as children of the `ResponsiveVerticalMenu` component. Each item must have at the very least an individual `id` and `label` prop.
+The `icon` and `customIcon` props are optional; if you wish to render a [Carbon icon](../?path=/story/icon--list-of-icons), use the `icon` property. Custom icons, such as `SVG` graphics,
+should be passed to the `customIcon` prop (note that if both are provided, as in the below example, then the `customIcon` will be used over the `icon`).
+
+```javascript
+  <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenuItem
+      customIcon={<MyIcon />}
+      icon="home"
+      id="item-1"
+      label="Item 1"
+    />
+    <ResponsiveVerticalMenuItem
+      customIcon={<MyIcon />}
+      icon="business"
+      id="item-2"
+      label="Item 2"
+    />
+  </ResponsiveVerticalMenu>
+```
+
+You can also add a `href` prop to the `ResponsiveVerticalMenuItem` component, which will render the item as a link. The `href` prop should be a valid URL.
+
+```javascript
+  <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenuItem
+      customIcon={<MyIcon />}
+      icon="home"
+      id="item-1"
+      label="Item 1"
+      href="https://www.example.com"
+    />
+  </ResponsiveVerticalMenu>
+```
+
+Finally, if you nest a `ResponsiveVerticalMenuItem` inside another `ResponsiveVerticalMenuItem`, the parent will be rendered as a button which, on click, will toggle the visibility of the child item(s).
+In default mode, the child item(s) will be rendered in a second column, to the right of the first. In responsive mode, the child item(s) will be rendered in a "dropdown" below the parent item.
+
+```javascript
+  <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenuItem
+      customIcon={<MyIcon />}
+      icon="home"
+      id="item-1"
+      label="Item 1"
+    >
+      <ResponsiveVerticalMenuItem
+        customIcon={<MyIcon />}
+        icon="business"
+        id="item-2"
+        label="Item 2"
+        href="https://www.example.com"
+      />
+    </ResponsiveVerticalMenuItem>
+  </ResponsiveVerticalMenu>
+```
+
+A tertiary menu can be rendered if the nesting extends to three levels. In this case, the first two levels will act as described above. The third level of items will be rendered in a "dropdown" below the
+second level item if viewed in the default mode. In responsive mode, the third level of items will be rendered in a "dropdown" below the second level item, and the second level item will be rendered as a button
+which, on click, will toggle the visibility of the third level item(s).
+
+```javascript
+  <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenuItem
+      customIcon={<MyIcon />}
+      icon="home"
+      id="item-1"
+      label="Item 1"
+    >
+      <ResponsiveVerticalMenuItem
+        customIcon={<MyIcon />}
+        icon="business"
+        id="item-2"
+        label="Item 2"
+      >
+        <ResponsiveVerticalMenuItem
+          customIcon={<MyIcon />}
+          icon="three_boxes"
+          id="item-3"
+          label="Item 3"
+          href="https://www.example.com"
+        />
+      </ResponsiveVerticalMenuItem>
+    </ResponsiveVerticalMenuItem>
+  </ResponsiveVerticalMenu>
+```
+
+It is strongly recommended that you do not extend beyond two levels of nesting, as this will make the menu difficult to navigate both from a usability perspective, and from an accessibility perspective.
+
+If you need to split options out to improve readability, use the `ResponsiveVerticalMenuDivider` component. This component will render a divider between the items in the menu, and can be used to separate groups of items.
+
+```javascript
+  <ResponsiveVerticalMenu>
+    <ResponsiveVerticalMenuItem
+      icon="home"
+      id="item-1"
+      label="Item 1"
+    />
+    <ResponsiveVerticalMenuDivider />
+    <ResponsiveVerticalMenuItem
+      icon="business"
+      id="item-2"
+      label="Item 2"
+    />
+  </ResponsiveVerticalMenu>
+```
+
+## Examples
+
+For the best experience, these examples should be in Canvas mode.
+
+### Default
+
+<Canvas of={ResponsiveVerticalMenuStories.Default} />
+
+### With Divider
+
+<Canvas of={ResponsiveVerticalMenuStories.WithDivider} />
+
+### Custom Height
+
+You can specify a custom height for the `ResponsiveVerticalMenu` component. This can be done by passing a `height` prop to the component. The value of the `height` prop should be a valid CSS height value, such as `100%`, `50px`, or `auto`, and will be applied to both menus when in default mode.
+
+<Canvas of={ResponsiveVerticalMenuStories.CustomHeight} />
+
+### Custom Width
+
+You can specify a custom width for the `ResponsiveVerticalMenu` component. This can be done by passing a `width` prop to the component. The value of the `width` prop should be a valid CSS width value, such as `100%`, `50px`, or `auto`, and will be applied to both menus when in default mode.
+
+<Canvas of={ResponsiveVerticalMenuStories.CustomWidth} />
+
+### Responsive
+
+Use the `responsiveBreakpoint` prop to specify the screen size at which the menu will switch from the default mode to the responsive mode. The value of the `responsiveBreakpoint` prop should be a valid number.
+
+<Canvas of={ResponsiveVerticalMenuStories.Responsive} />
+
+### Custom Icon
+
+You can use the `customIcon` prop to specify a custom icon for the `ResponsiveVerticalMenuItem` component. The value of the `customIcon` prop should be a valid React element, such as an SVG graphic or a custom icon component.
+
+<Canvas of={ResponsiveVerticalMenuStories.CustomIcon} />
+
+## Props
+
+### ResponsiveVerticalMenu
+
+<ArgTypes of={ResponsiveVerticalMenuStories} />
+
+### ResponsiveVerticalMenuDivider
+
+<ArgTypes of={ResponsiveVerticalMenuDividerStories} />
+
+### ResponsiveVerticalMenuItem
+
+<ArgTypes of={ResponsiveVerticalMenuItemStories} />
