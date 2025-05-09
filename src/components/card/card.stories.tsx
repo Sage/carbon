@@ -762,13 +762,13 @@ export const WithDraggable: Story = () => {
       };
       updateDragState();
       const observer = new MutationObserver(updateDragState);
-      if(element){
+      if (element) {
         observer.observe(element, {
           attributes: true,
           attributeFilter: ["data-drag-state"],
         });
       }
-      
+
       // Cleanup function to disconnect the observer when component unmounts
       return () => {
         observer.disconnect();

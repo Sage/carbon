@@ -6,9 +6,8 @@ import { Edge } from "../../__internal__/draggable/draggable-utils";
 
 export type DragState =
   | { type: "idle"; id?: string | number }
-  | { type: "preview"; container: HTMLElement; id?: string | number }
   | { type: "is-dragging"; id: string | number }
-  | { type: "is-dragging-over"; closestEdge: Edge | null; id: string | number };
+  | { type: "is-being-dragged-over"; closestEdge: Edge | null; id: string | number };
 
 export interface UseDraggableHandle {
   reOrder: (itemId: number | string, toIndex: number) => void;
@@ -46,10 +45,6 @@ const useDraggable = ({
     ? draggableItems
     : [draggableItems];
   const [draggedNode, setDraggedNode] = useState<Element | null>(null);
-
-  useEffect(() => {
-    console.log("Draggable items updated:", draggableItems);
-  }, [draggableItems])
 
   const draggableElement = (
     <DraggableContainer

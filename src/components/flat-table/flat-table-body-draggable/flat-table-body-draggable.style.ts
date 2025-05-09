@@ -4,27 +4,28 @@ import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-ro
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 
-
 const allCellTypes = `${StyledFlatTableRowHeader}, ${StyledFlatTableCell}, ${StyledFlatTableCheckbox}`;
 
-const StyledFlatTableBodyDraggable = styled(DraggableContainer)<{ isInSidebar: boolean }>`
-  
+const StyledFlatTableBodyDraggable = styled(DraggableContainer)<{
+  isInSidebar: boolean;
+}>`
   & tr[draggable="true"] {
     cursor: grabbing;
   }
 
-    ${({ isInSidebar }) => isInSidebar && `
-     & tr[data-drag-state="is-dragging"]{
-        border: ${isInSidebar
-            ? "var(--colorsUtilityMajor300)"
-            : "var(--colorsUtilityMajor200)"}
-          2px solid;
-        ${allCellTypes} {
-          background-color: ${isInSidebar
-            ? "var(--colorsUtilityMajor200)"
-            : "var(--colorsUtilityMajor150)"};
-        }
-    `}
+  & tr[data-drag-state="is-dragging"] {
+    border: ${({ isInSidebar }) =>
+        isInSidebar
+          ? "var(--colorsUtilityMajor300)"
+          : "var(--colorsUtilityMajor200)"}
+      2px solid;
+
+    ${allCellTypes} {
+      background-color: ${({ isInSidebar }) =>
+        isInSidebar
+          ? "var(--colorsUtilityMajor200)"
+          : "var(--colorsUtilityMajor150)"};
+    }
   }
 `;
 

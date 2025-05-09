@@ -86,18 +86,18 @@ const DraggableProvider = forwardRef<
     return containerData;
   }, []);
 
-    // Track the last move operation to prevent redundant updates
-    const lastMoveRef = useRef<{
-      indexOfTarget: null | number;
-      destinationId: null | string | number;
-      targetContainerId: null | string | number;
-      destinationContainerId: null | string | number;
-    }>({
-      indexOfTarget: null,
-      destinationId: null,
-      targetContainerId: null,
-      destinationContainerId: null,
-    });
+  // Track the last move operation to prevent redundant updates
+  const lastMoveRef = useRef<{
+    indexOfTarget: null | number;
+    destinationId: null | string | number;
+    targetContainerId: null | string | number;
+    destinationContainerId: null | string | number;
+  }>({
+    indexOfTarget: null,
+    destinationId: null,
+    targetContainerId: null,
+    destinationContainerId: null,
+  });
 
   const move = useCallback(
     (
@@ -122,7 +122,6 @@ const DraggableProvider = forwardRef<
 
       // set a ref based on passed values
 
-
       const elements = Array.from(
         document.querySelectorAll(
           `[data-provider-id="${uniqueId}"] [data-parent-container-id="${fromListId}"]`,
@@ -138,73 +137,77 @@ const DraggableProvider = forwardRef<
       if (fromIndex === -1) return;
 
       // Logging previous move data for reference
-console.log("Previous move:", {
-  fromList: lastMoveRef.current.destinationContainerId,
-  toList: lastMoveRef.current.targetContainerId,
-  itemId: lastMoveRef.current.destinationId,
-  toIndex: lastMoveRef.current.indexOfTarget
-});
+      console.log("Previous move:", {
+        fromList: lastMoveRef.current.destinationContainerId,
+        toList: lastMoveRef.current.targetContainerId,
+        itemId: lastMoveRef.current.destinationId,
+        toIndex: lastMoveRef.current.indexOfTarget,
+      });
 
-console.log("Current move:", {
-  fromList: fromListId,
-  toList: toListId,
-  itemId: destinationId,
-  toIndex,
-});
+      console.log("Current move:", {
+        fromList: fromListId,
+        toList: toListId,
+        itemId: destinationId,
+        toIndex,
+      });
 
-// Different source container
-const differentSourceContainer = lastMoveRef.current.destinationContainerId !== fromListId;
-console.log("Different source container?", differentSourceContainer);
+      // Different source container
+      const differentSourceContainer =
+        lastMoveRef.current.destinationContainerId !== fromListId;
+      console.log("Different source container?", differentSourceContainer);
 
-// Different target container
-const differentTargetContainer = lastMoveRef.current.targetContainerId !== toListId;
-console.log("Different target container?", differentTargetContainer);
+      // Different target container
+      const differentTargetContainer =
+        lastMoveRef.current.targetContainerId !== toListId;
+      console.log("Different target container?", differentTargetContainer);
 
-// Different item being moved
-const differentItem = lastMoveRef.current.destinationId !== destinationId;
-console.log("Different item?", differentItem);
+      // Different item being moved
+      const differentItem = lastMoveRef.current.destinationId !== destinationId;
+      console.log("Different item?", differentItem);
 
-// Different target index
-const differentIndex = lastMoveRef.current.indexOfTarget !== toIndex;
-console.log("Different target index?", differentIndex);
+      // Different target index
+      const differentIndex = lastMoveRef.current.indexOfTarget !== toIndex;
+      console.log("Different target index?", differentIndex);
 
-// Same container move with either different item or different index
-const sameContainersDifferentMove = (
-  lastMoveRef.current.destinationContainerId === fromListId &&
-  lastMoveRef.current.targetContainerId === toListId && 
-  (differentItem || differentIndex)
-);
-console.log("Same containers but different item/index?", sameContainersDifferentMove);
+      // Same container move with either different item or different index
+      const sameContainersDifferentMove =
+        lastMoveRef.current.destinationContainerId === fromListId &&
+        lastMoveRef.current.targetContainerId === toListId &&
+        (differentItem || differentIndex);
+      console.log(
+        "Same containers but different item/index?",
+        sameContainersDifferentMove,
+      );
 
-// A move is valid if ANY of these conditions are true
-if(differentSourceContainer || 
-   differentTargetContainer || 
-   sameContainersDifferentMove) {
-  
-  console.log("MOVE ALLOWED: Different enough from previous move");
+      // A move is valid if ANY of these conditions are true
+      if (
+        differentSourceContainer ||
+        differentTargetContainer ||
+        sameContainersDifferentMove
+      ) {
+        console.log("MOVE ALLOWED: Different enough from previous move");
 
-  setLists((prevLists) => {
-    const copy = { ...prevLists };
+        setLists((prevLists) => {
+          const copy = { ...prevLists };
 
-    // Check if lists exist before manipulating them
-    if (!copy[fromListId] || !copy[toListId]) return prevLists;
+          // Check if lists exist before manipulating them
+          if (!copy[fromListId] || !copy[toListId]) return prevLists;
 
-    const [nodeToMove] = copy[fromListId].splice(fromIndex, 1);
-    copy[toListId].splice(toIndex, 0, nodeToMove);
-    return copy;
-  });
+          const [nodeToMove] = copy[fromListId].splice(fromIndex, 1);
+          copy[toListId].splice(toIndex, 0, nodeToMove);
+          return copy;
+        });
 
-
-  lastMoveRef.current = {
-    indexOfTarget: toIndex,
-    destinationId,
-    targetContainerId: toListId,
-    destinationContainerId: fromListId,
-  }
-} else {
-  console.log("MOVE BLOCKED: Duplicate of previous move");
-  // Block the move
-}
+        lastMoveRef.current = {
+          indexOfTarget: toIndex,
+          destinationId,
+          targetContainerId: toListId,
+          destinationContainerId: fromListId,
+        };
+      } else {
+        console.log("MOVE BLOCKED: Duplicate of previous move");
+        // Block the move
+      }
 
       // Get the moved ID outside the state update
       const movedId = elements
@@ -382,12 +385,12 @@ if(differentSourceContainer ||
             targetContainerId: null,
           });
 
-          lastMoveRef.current= {
+          lastMoveRef.current = {
             indexOfTarget: null,
             destinationId: null,
             targetContainerId: null,
             destinationContainerId: null,
-          }
+          };
         },
       }),
     );

@@ -57,10 +57,6 @@ const DraggableContainer = forwardRef<
       return !invalidChild;
     }, [children]);
 
-    useEffect(() => {
-      console.log(children)
-    }, [children])
-
     // `<DraggableItem />` is required to make `Draggable` work
     invariant(
       hasProperChildren,
@@ -71,6 +67,7 @@ const DraggableContainer = forwardRef<
 
     const { draggableElement: draggableHookContainer } = useDraggable({
       draggableItems: children,
+      id: "test",
       ref,
       getOrder,
     });

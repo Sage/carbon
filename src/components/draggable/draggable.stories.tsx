@@ -35,26 +35,23 @@ export const DefaultStory = () => {
   const [items, setItems] = useState([
     { id: "apple", content: "Apple" },
     { id: "mercury", content: "Mercury" },
-    { id: "venus", content: "Venus" }
+    { id: "venus", content: "Venus" },
   ]);
-  
+
   const [nextItemId, setNextItemId] = useState(1);
-  
+
   const addItem = () => {
-    const newItem = { 
-      id: `new-item-${nextItemId}`, 
-      content: `New Item ${nextItemId}` 
+    const newItem = {
+      id: `new-item-${nextItemId}`,
+      content: `New Item ${nextItemId}`,
     };
     setItems([...items, newItem]);
     setNextItemId(nextItemId + 1);
   };
-  
+
   return (
     <>
-      <button
-        type="button"
-        onClick={addItem}
-      >
+      <button type="button" onClick={addItem}>
         Add Draggable Item
       </button>
       <DraggableContainer>
@@ -64,6 +61,7 @@ export const DefaultStory = () => {
           </DraggableItem>
         ))}
       </DraggableContainer>
+      <p>Outer content</p>
     </>
   );
 };
@@ -74,7 +72,7 @@ export const ManualReOrdering: Story = () => {
   const [currentOrder, setCurrentOrder] = useState<number[]>([0, 1, 2, 3]);
   const previousOrderRef = useRef(currentOrder);
   useEffect(() => {
-    previousOrderRef.current = currentOrder
+    previousOrderRef.current = currentOrder;
   }, [currentOrder]);
   const labels = ["first", "second", "third", "fourth"];
 
