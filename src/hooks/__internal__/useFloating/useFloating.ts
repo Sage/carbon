@@ -6,7 +6,7 @@ import {
   Strategy,
   Middleware,
   Placement,
-} from "@floating-ui/dom";
+} from "@floating-ui/react-dom";
 
 type CustomRefObject<T> = {
   current?: T | null;

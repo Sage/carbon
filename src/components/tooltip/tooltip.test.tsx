@@ -226,14 +226,20 @@ describe("Tooltip", () => {
         const originalUseFloating = jest.requireActual(
           "@floating-ui/react-dom",
         ).useFloating;
-        const useFloatingSpy = jest
+
+        const useFloatingSpy: jest.SpyInstance<
+          ReturnType<typeof floatingUi.useFloating>,
+          [Parameters<typeof floatingUi.useFloating>[0]]
+        > = jest
           .spyOn(floatingUi, "useFloating")
-          .mockImplementation((props) => {
-            return {
-              ...originalUseFloating(props),
-              placement: floatingUiPlacement,
-            };
-          });
+          .mockImplementation(
+            (props: Parameters<typeof floatingUi.useFloating>[0]) => {
+              return {
+                ...originalUseFloating(props),
+                placement: floatingUiPlacement,
+              };
+            },
+          );
 
         renderTooltip({ isVisible: true });
 

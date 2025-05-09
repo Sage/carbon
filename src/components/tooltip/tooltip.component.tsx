@@ -186,7 +186,11 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
         shift({
           padding: 5,
           limiter: limitShift({
-            offset: ({ rects }) => ({
+            offset: ({
+              rects,
+            }: {
+              rects: { reference: DOMRect; floating: DOMRect };
+            }) => ({
               mainAxis: rects.reference.height,
             }),
           }),
@@ -199,8 +203,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
     const {
       x,
       y,
-      reference,
-      floating,
+      refs: { reference, floating },
       strategy,
       placement: currentPlacement,
       middlewareData,
@@ -217,7 +220,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
 
     const handleTargetRef = useCallback(
       (node: HTMLElement) => {
-        reference(target || node);
+        reference.current = target || node;
         targetInternalRef.current = node;
         preserveRef(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -230,7 +233,9 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
 
     const handleFloatingRef = useCallback(
       (node: HTMLDivElement) => {
-        floating(node);
+        if (floating.current) {
+          floating.current = node;
+        }
         preserveRef(ref, node);
       },
       [floating, ref],

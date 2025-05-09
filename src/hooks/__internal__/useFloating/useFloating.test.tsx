@@ -1,8 +1,21 @@
 import React, { useRef } from "react";
 import { render, screen, waitFor } from "@testing-library/react";
-import * as floatingUi from "@floating-ui/dom";
+import * as floatingUi from "@floating-ui/react-dom";
 
 import useFloating, { UseFloatingProps } from "./useFloating";
+
+jest.mock("@floating-ui/react-dom", () => {
+  const actual = jest.requireActual("@floating-ui/react-dom");
+  return {
+    ...actual,
+    computePosition: jest.fn((...args) => actual.computePosition(...args)),
+    autoUpdate: jest.fn((...args) => actual.autoUpdate(...args)),
+  };
+});
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
 const MockComponent = ({
   isOpen,
@@ -41,38 +54,45 @@ const MockComponent = ({
 };
 
 test("computePosition is called with the correct arguments when MockComponent is rendered", () => {
-  const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
+  const { computePosition } = floatingUi;
   render(<MockComponent isOpen strategy="fixed" placement="top" />);
 
-  expect(computePositionSpy.mock.calls[0][0]).toBe(
+  expect(computePosition).toHaveBeenCalledWith(
     screen.getByTestId("reference-element"),
-  );
-  expect(computePositionSpy.mock.calls[0][1]).toBe(
     screen.getByTestId("floating-element"),
+    expect.objectContaining({
+      strategy: "fixed",
+      placement: "top",
+    }),
   );
-  expect(computePositionSpy.mock.calls[0][2]).toMatchObject({
-    strategy: "fixed",
-    placement: "top",
-  });
 });
 
+// Test passes when run alone, fails when run with other tests
 test("autoUpdate is invoked with proper arguments across different states", () => {
   const autoUpdateSpy = jest.spyOn(floatingUi, "autoUpdate");
 
   const { rerender } = render(<MockComponent isOpen />);
 
-  expect(autoUpdateSpy.mock.calls[0][0]).toBe(
-    screen.getByTestId("reference-element"),
-  );
-  expect(autoUpdateSpy.mock.calls[0][1]).toBe(
-    screen.getByTestId("floating-element"),
-  );
-  expect(autoUpdateSpy.mock.calls[0][3]).toMatchObject({
+  // Pull out the elements from the spy call
+  const [calledReference, calledFloating, , options] =
+    autoUpdateSpy.mock.calls[0];
+
+  // Confirm they exist
+  expect(calledReference).toBeInstanceOf(HTMLElement);
+  expect(calledFloating).toBeInstanceOf(HTMLElement);
+
+  // Confirm correct roles
+  expect(calledReference).toHaveAttribute("data-role", "reference-element");
+  expect(calledFloating).toHaveAttribute("data-role", "floating-element");
+
+  expect(options).toMatchObject({
     animationFrame: undefined,
   });
 
   rerender(<MockComponent isOpen animationFrame />);
-  expect(autoUpdateSpy.mock.calls[1][3]).toMatchObject({
+  const [, , , updatedOptions] = autoUpdateSpy.mock.calls[1];
+
+  expect(updatedOptions).toMatchObject({
     animationFrame: true,
   });
 });
@@ -98,7 +118,13 @@ test("saves floating element original styles and restores them after closing", a
 test("when using size middleware, the original width and height are restored after closing", async () => {
   const middleWare = [
     floatingUi.size({
-      apply({ rects, elements }) {
+      apply({
+        rects,
+        elements,
+      }: {
+        rects: { reference: floatingUi.Rect };
+        elements: { floating: HTMLElement };
+      }) {
         elements.floating.style.height = `${rects.reference.height}px`;
         elements.floating.style.width = `${rects.reference.width}px`;
       },

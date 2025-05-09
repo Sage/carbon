@@ -1,4 +1,4 @@
-import { flip, offset } from "@floating-ui/dom";
+import { flip, offset } from "@floating-ui/react-dom";
 import type { Day, Month } from "date-fns";
 import React, {
   useCallback,

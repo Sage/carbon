@@ -17,6 +17,12 @@ jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
+jest.mock("@floating-ui/react-dom", () => ({
+  __esModule: true,
+  ...jest.requireActual("@floating-ui/react-dom"),
+  computePosition: jest.fn(() => Promise.resolve({ x: 0, y: 0 })),
+}));
+
 test("should display deprecation warning once when rendered as uncontrolled", () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");
 

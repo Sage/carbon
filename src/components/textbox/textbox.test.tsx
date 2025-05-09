@@ -15,6 +15,12 @@ jest.mock("../../__internal__/utils/logger");
 const mockedGuid = "mocked-guid";
 jest.mock("../../__internal__/utils/helpers/guid");
 
+jest.mock("@floating-ui/react-dom", () => ({
+  __esModule: true,
+  ...jest.requireActual("@floating-ui/react-dom"),
+  computePosition: jest.fn(() => Promise.resolve({ x: 0, y: 0 })),
+}));
+
 (createGuid as jest.MockedFunction<typeof createGuid>).mockReturnValue(
   mockedGuid,
 );

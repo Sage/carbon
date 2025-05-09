@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useContext, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { flip, Placement, Middleware } from "@floating-ui/dom";
+import { flip, Placement, Middleware } from "@floating-ui/react-dom";
 
 import useFloating from "../../hooks/__internal__/useFloating";
 import { StyledBackdrop, StyledPopoverContent } from "./popover.style";

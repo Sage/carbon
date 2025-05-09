@@ -5,7 +5,7 @@ import React, {
   useContext,
 } from "react";
 import { WidthProps } from "styled-system";
-import { flip, offset } from "@floating-ui/dom";
+import { flip, offset } from "@floating-ui/react-dom";
 
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { SplitButtonProps } from "../split-button";

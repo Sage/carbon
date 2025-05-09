@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import { ThemeContext } from "styled-components";
 import { MarginProps } from "styled-system";
-import { flip, offset } from "@floating-ui/dom";
+import { flip, offset } from "@floating-ui/react-dom";
 
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import Icon, { IconType } from "../icon";

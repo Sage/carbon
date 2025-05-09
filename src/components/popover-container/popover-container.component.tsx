@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import { PaddingProps } from "styled-system";
 import { CSSTransition } from "react-transition-group";
-import { flip, offset } from "@floating-ui/dom";
+import { flip, offset } from "@floating-ui/react-dom";
 
 import useMediaQuery from "../../hooks/useMediaQuery";
 import {

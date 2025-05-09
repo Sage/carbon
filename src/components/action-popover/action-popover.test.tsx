@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import { ThemeProvider } from "styled-components";
-import * as floatingUi from "@floating-ui/dom";
+import * as floatingUi from "@floating-ui/react-dom";
+// import { computePosition } from "@floating-ui/react-dom";
+
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
@@ -22,6 +24,20 @@ jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
   () => "guid-12345",
 );
+
+jest.mock("@floating-ui/react-dom", () => ({
+  __esModule: true,
+  ...jest.requireActual("@floating-ui/react-dom"),
+  computePosition: jest.fn(() =>
+    Promise.resolve({ x: 0, y: 0, placement: "bottom-end" }),
+  ),
+}));
+
+const mockComputePosition = floatingUi.computePosition as jest.Mock;
+
+beforeEach(() => {
+  mockComputePosition.mockClear();
+});
 
 beforeAll(() => {
   jest.useFakeTimers();
@@ -258,7 +274,9 @@ test.each<["top" | "bottom", boolean, string]>([
 ])(
   "applies proper %s prop to Popover component when rightAlignMenu is %s",
   async (placement, rightAlignMenu, result) => {
-    const computePositionSpy = jest.spyOn(floatingUi, "computePosition");
+    mockComputePosition.mockImplementation(() =>
+      Promise.resolve({ x: 0, y: 0, placement: result }),
+    );
 
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
@@ -268,14 +286,12 @@ test.each<["top" | "bottom", boolean, string]>([
 
     await user.click(screen.getByRole("button"));
 
-    const placements = computePositionSpy.mock.calls.map(
+    const placements = mockComputePosition.mock.calls.map(
       (call) => call[2]?.placement,
     );
 
     expect(placements.length).toBeGreaterThan(0);
     expect(placements.every((p) => p === result)).toBe(true);
-
-    computePositionSpy.mockRestore();
   },
 );
 

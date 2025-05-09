@@ -10,6 +10,12 @@ import userEvent from "@testing-library/user-event";
 import * as floatingUi from "@floating-ui/react-dom";
 import InputIconToggle, { InputIconToggleProps } from ".";
 
+jest.mock("@floating-ui/react-dom", () => ({
+  __esModule: true,
+  ...jest.requireActual("@floating-ui/react-dom"),
+  computePosition: jest.fn(() => Promise.resolve({ x: 0, y: 0 })),
+}));
+
 test.each(["error", "warning", "info"])(
   "renders only a validation icon when the validation prop is set to %s as a string and `useValidationIcon` is true",
   (validationProp) => {
