@@ -72,8 +72,10 @@ export const FlatTableRow = React.forwardRef<
     }: FlatTableRowProps,
     ref,
   ) => {
-    const internalId = useRef(id !== undefined && id !== null ? String(id) : guid());
-        const [isExpanded, setIsExpanded] = useState(expanded);
+    const internalId = useRef(
+      id !== undefined && id !== null ? String(id) : guid(),
+    );
+    const [isExpanded, setIsExpanded] = useState(expanded);
     let rowRef = useRef<HTMLTableRowElement>(null);
     if (ref) {
       rowRef = ref as React.MutableRefObject<HTMLTableRowElement | null>;

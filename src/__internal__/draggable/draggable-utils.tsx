@@ -3,7 +3,7 @@ type DragState =
   | { type: "idle"; id?: string | number }
   | { type: "preview"; container: HTMLElement; id?: string | number }
   | { type: "is-dragging"; id: string | number }
-  | { type: "is-dragging-over"; closestEdge: Edge | null; id: string | number };
+  | { type: "is-being-dragged-over"; closestEdge: Edge | null; id: string | number };
 interface DraggableItemData {
   id: string | number;
   index: number | string | void;

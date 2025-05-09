@@ -20,7 +20,6 @@ const FlatTableBodyDraggable = forwardRef<
   FlatTableBodyDraggableHandle,
   FlatTableBodyDraggableProps
 >(({ children, getOrder, ...rest }, ref) => {
-
   const { isInSidebar } = useContext(DrawerSidebarContext);
 
   return (
@@ -33,7 +32,7 @@ const FlatTableBodyDraggable = forwardRef<
         getOrder={getOrder}
         containerNode="tbody"
         ref={ref}
-        isInSidebar={isInSidebar}        
+        isInSidebar={isInSidebar}
         {...rest}
       >
         {children}

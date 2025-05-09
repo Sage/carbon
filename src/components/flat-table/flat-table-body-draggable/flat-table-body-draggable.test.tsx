@@ -1,5 +1,11 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor, act } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {
@@ -8,7 +14,7 @@ import {
   FlatTableCell,
   FlatTableBodyDraggable,
 } from "..";
-import "../../../__spec_helper__/__internal__/drag-event-polyfill"
+import "../../../__spec_helper__/__internal__/drag-event-polyfill";
 
 afterEach(() => {
   fireEvent.dragEnd(window);
@@ -176,7 +182,7 @@ describe("drag and drop functionality", () => {
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row two",
       "Row three",
-      "Row one", 
+      "Row one",
     ]);
   });
 
@@ -204,10 +210,10 @@ describe("drag and drop functionality", () => {
   it("sets the cursor correctly", async () => {
     render(<WithDraggableRows />);
     const draggableFlatTableRow = screen.getByRole("row", { name: "Row one" });
-    
+
     // Make sure the row has draggable attribute set to true
     expect(draggableFlatTableRow).toHaveAttribute("draggable", "true");
-    
+
     // Wait for styles to be applied, then use toHaveStyle
     await waitFor(() => {
       expect(draggableFlatTableRow).toHaveStyle({ cursor: "grabbing" });
@@ -217,11 +223,11 @@ describe("drag and drop functionality", () => {
   it("sets the cursor correctly whilst dragging", async () => {
     render(<WithDraggableRows />);
     const draggableFlatTableRow = screen.getByRole("row", { name: "Row one" });
-    
+
     // Make sure the row has draggable attribute set to true
     expect(draggableFlatTableRow).toHaveAttribute("draggable", "true");
     fireEvent.dragStart(draggableFlatTableRow);
-    
+
     // Wait for styles to be applied, then use toHaveStyle
     await waitFor(() => {
       expect(draggableFlatTableRow).toHaveStyle({ cursor: "grabbing" });
@@ -386,7 +392,6 @@ it("calls getOrder callback when the order is changed and getOrder prop is set",
   const dropTarget = screen.getByRole("row", { name: "Row two" });
   const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
-
   fireEvent.dragStart(elementToDrag);
   fireEvent.dragEnter(dropTarget);
   fireEvent.dragOver(elementToDrag);
@@ -396,7 +401,7 @@ it("calls getOrder callback when the order is changed and getOrder prop is set",
   act(() => {
     jest.runAllTimers();
   });
-  
+
   expect(getOrder).toHaveBeenCalledWith(["1", "0", "2"], "0");
 });
 

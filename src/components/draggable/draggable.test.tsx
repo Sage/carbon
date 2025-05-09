@@ -5,7 +5,7 @@ import {
   testStyledSystemMargin,
   testStyledSystemPadding,
 } from "../../__spec_helper__/__internal__/test-utils";
-import "../../__spec_helper__/__internal__/drag-event-polyfill"
+import "../../__spec_helper__/__internal__/drag-event-polyfill";
 import { UseDraggableHandle } from "../../hooks/useDraggable/useDraggable";
 
 import { DraggableContainer, DraggableItem } from ".";
@@ -52,7 +52,7 @@ test("dragging an item and dropping it outside of the target container should no
         <DraggableItem id="venus">Venus</DraggableItem>
       </DraggableContainer>
       <p>Outer content</p>
-    </>
+    </>,
   );
 
   // eslint-disable-next-line testing-library/no-node-access
@@ -145,8 +145,12 @@ test("the actual rendered item element is hidden from view while the item is dra
   fireEvent.dragStart(apple);
   await user.pointer({ target: apple, coords: { x: 0, y: 0 } });
 
+  screen.debug();
+
   await waitFor(() => {
-    expect(screen.getByTestId("draggable-item").parentElement as Element).not.toBeVisible();
+    expect(
+      screen.getByTestId("draggable-item").parentElement as Element,
+    ).not.toBeVisible();
   });
 
   fireEvent.dragEnd(apple);
@@ -157,38 +161,38 @@ test("the actual rendered item element is hidden from view while the item is dra
 
 test("items are reordered when their order is manually changed", () => {
   jest.useFakeTimers();
- const mockGetOrder = jest.fn();
- const ref = React.createRef<UseDraggableHandle>();
- 
- act(() => {
-   render(
-     <DraggableContainer ref={ref} getOrder={mockGetOrder}>
-       <DraggableItem id="apple">Apple</DraggableItem>
-       <DraggableItem id="mercury">Mercury</DraggableItem>
-     </DraggableContainer>
-   );
- });
- 
- // Verify ref is properly connected
- expect(ref.current).not.toBeNull();
- 
- // Use imperative handle to reorder items
- act(() => {
-   ref.current?.reOrder("apple", 1);
- });
- 
- act(() => {
-   jest.runAllTimers();
- });
- 
- // Verify callback was called with correct parameters
- expect(mockGetOrder).toHaveBeenCalledWith(["mercury", "apple"], "apple");
- 
- // Verify DOM reflects the new order
- const allItems = screen.getAllByTestId("draggable-item");
- expect(allItems).toHaveLength(2);
- expect(allItems[0]).toHaveTextContent("Mercury");
- expect(allItems[1]).toHaveTextContent("Apple");
+  const mockGetOrder = jest.fn();
+  const ref = React.createRef<UseDraggableHandle>();
+
+  act(() => {
+    render(
+      <DraggableContainer ref={ref} getOrder={mockGetOrder}>
+        <DraggableItem id="apple">Apple</DraggableItem>
+        <DraggableItem id="mercury">Mercury</DraggableItem>
+      </DraggableContainer>,
+    );
+  });
+
+  // Verify ref is properly connected
+  expect(ref.current).not.toBeNull();
+
+  // Use imperative handle to reorder items
+  act(() => {
+    ref.current?.reOrder("apple", 1);
+  });
+
+  act(() => {
+    jest.runAllTimers();
+  });
+
+  // Verify callback was called with correct parameters
+  expect(mockGetOrder).toHaveBeenCalledWith(["mercury", "apple"], "apple");
+
+  // Verify DOM reflects the new order
+  const allItems = screen.getAllByTestId("draggable-item");
+  expect(allItems).toHaveLength(2);
+  expect(allItems[0]).toHaveTextContent("Mercury");
+  expect(allItems[1]).toHaveTextContent("Apple");
 });
 
 test("throws error when DraggableContainer contains a child which is not DraggableItem", () => {
@@ -233,39 +237,39 @@ test("renders with provided data-attributes", () => {
   );
 });
 
-// testStyledSystemMargin(
-//   (props) => (
-//     <DraggableContainer {...props}>
-//       <DraggableItem id="apple">Apple</DraggableItem>
-//     </DraggableContainer>
-//   ),
-//   () => screen.getByTestId("draggable-container"),
-// );
+testStyledSystemMargin(
+  (props) => (
+    <DraggableContainer {...props}>
+      <DraggableItem id="apple">Apple</DraggableItem>
+    </DraggableContainer>
+  ),
+  () => screen.getByTestId("draggable-container"),
+);
 
-// testStyledSystemPadding(
-//   (props) => (
-//     <DraggableContainer>
-//       <DraggableItem id="apple" {...props}>
-//         Apple
-//       </DraggableItem>
-//     </DraggableContainer>
-//   ),
-//   () => screen.getByTestId("draggable-item"),
-// );
+testStyledSystemPadding(
+  (props) => (
+    <DraggableContainer>
+      <DraggableItem id="apple" {...props}>
+        Apple
+      </DraggableItem>
+    </DraggableContainer>
+  ),
+  () => screen.getByTestId("draggable-item"),
+);
 
-// test("should render with default padding when no padding props are passed", () => {
-//   render(
-//     <DraggableContainer>
-//       <DraggableItem id="apple">Apple</DraggableItem>
-//     </DraggableContainer>,
-//   );
+test("should render with default padding when no padding props are passed", () => {
+  render(
+    <DraggableContainer>
+      <DraggableItem id="apple">Apple</DraggableItem>
+    </DraggableContainer>,
+  );
 
-//   expect(screen.getByTestId("draggable-item")).toHaveStyleRule(
-//     "padding-top",
-//     "var(--spacing100)",
-//   );
-//   expect(screen.getByTestId("draggable-item")).toHaveStyleRule(
-//     "padding-bottom",
-//     "var(--spacing100)",
-//   );
-// });
+  expect(screen.getByTestId("draggable-item")).toHaveStyleRule(
+    "padding-top",
+    "var(--spacing100)",
+  );
+  expect(screen.getByTestId("draggable-item")).toHaveStyleRule(
+    "padding-bottom",
+    "var(--spacing100)",
+  );
+});

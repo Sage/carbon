@@ -277,7 +277,7 @@ export const DragState: Story = () => {
     border-color: #d0e2ff;
   }
   
-  [data-parent-container-id="bar"][data-drag-state="is-dragging-over"] {
+  [data-parent-container-id="bar"][data-drag-state="is-being-dragged-over"] {
     background-color: #f2faf3;
     border-color: #c2e7c9;
   }
@@ -358,7 +358,7 @@ export const DraggedNode: Story = () => {
     border-color: #d0e2ff;
   }
   
-  [data-parent-container-id="baz"][data-drag-state="is-dragging-over"] {
+  [data-parent-container-id="baz"][data-drag-state="is-being-dragged-over"] {
     background-color: #f2faf3;
     border-color: #c2e7c9;
   }
@@ -575,7 +575,7 @@ export const DraggableProviderStory: Story = () => {
     background-color: #edf5ff;
   }
 
-  #kanban-board [data-parent-container-id][data-drag-state="is-dragging-over"] {
+  #kanban-board [data-parent-container-id][data-drag-state="is-being-dragged-over"] {
     background-color: #f2faf3;
   }
 
@@ -765,7 +765,7 @@ export const DraggableProviderDragType: Story = () => {
     background-color: #edf5ff;
   }
 
-  #kanban-board [data-parent-container-id][data-drag-state="is-dragging-over"] {
+  #kanban-board [data-parent-container-id][data-drag-state="is-being-dragged-over"] {
     background-color: #f2faf3;
   }
 
@@ -955,7 +955,7 @@ export const DraggableProviderGetOrderCallback: Story = () => {
     background-color: #edf5ff;
   }
 
-  #kanban-board [data-parent-container-id][data-drag-state="is-dragging-over"] {
+  #kanban-board [data-parent-container-id][data-drag-state="is-being-dragged-over"] {
     background-color: #f2faf3;
   }
 
@@ -1270,7 +1270,7 @@ export const DraggableProviderManualReOrdering: Story = () => {
      background-color: #edf5ff;
    }
  
-   #kanban-board [data-parent-container-id][data-drag-state="is-dragging-over"] {
+   #kanban-board [data-parent-container-id][data-drag-state="is-being-dragged-over"] {
      background-color: #f2faf3;
    }
  
@@ -1712,7 +1712,7 @@ export const DraggableProviderAdvancedManualReOrdering = () => {
     background-color: #edf5ff;
   }
 
-  #kanban-board [data-parent-container-id][data-drag-state="is-dragging-over"] {
+  #kanban-board [data-parent-container-id][data-drag-state="is-being-dragged-over"] {
     background-color: #f2faf3;
   }
 

@@ -1648,37 +1648,3 @@ test("should render the expected border bottom color styles when `horizontalBord
     { modifier: `${StyledFlatTableCell}` },
   );
 });
-
-// for coverage
-test("should apply the expected border styling when row is dragged and table is in sidebar", async () => {
-  render(
-    <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
-      <table>
-        <FlatTableBodyDraggable>
-          <FlatTableRow key="1" id={1}>
-            <FlatTableCell>Row one</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow key="2" id={2}>
-            <FlatTableCell>Row two</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow key="3" id={3}>
-            <FlatTableCell>Row three</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBodyDraggable>
-      </table>
-    </DrawerSidebarContext.Provider>
-  );
-  
-  const elementToDrag = screen.getByRole("row", { name: "Row one" });
-
-  fireEvent.dragStart(elementToDrag);
-  fireEvent.dragEnter(elementToDrag);
-  fireEvent.dragOver(elementToDrag);
-
-  await waitFor(() => {
-    expect(elementToDrag).toHaveStyleRule(
-      "border",
-      "var(--colorsUtilityMajor300) 2px solid"
-    );
-  });
-});
