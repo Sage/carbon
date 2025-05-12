@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 
 import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/test";
 
 import Textbox from "../textbox";
 import Button from "../button";
@@ -10,10 +11,15 @@ import {
   AnchorSectionDivider,
   AnchorNavigationItem,
 } from ".";
+import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
 const meta: Meta<typeof AnchorNavigation> = {
   component: AnchorNavigation,
-  includeStories: ["DefaultStory", "InFullScreenDialogStory"],
+  includeStories: [
+    "DefaultStory",
+    "InFullScreenDialogStory",
+    "InDialogAnchorNavClick",
+  ],
   title: "Anchor Navigation/Test",
   parameters: {
     info: { disable: true },
@@ -185,4 +191,99 @@ export const AnchorNavigationComponent = () => {
       </div>
     </AnchorNavigation>
   );
+};
+
+// Play Functions
+
+export { meta };
+
+export const InDialogAnchorNavComponent = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const ref1 = useRef<HTMLDivElement>(null);
+  const ref2 = useRef<HTMLDivElement>(null);
+  const ref3 = useRef<HTMLDivElement>(null);
+  const ref4 = useRef<HTMLDivElement>(null);
+  const ref5 = useRef<HTMLDivElement>(null);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open AnchorNavigation</Button>
+      <DialogFullScreen
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Title"
+        subtitle="Subtitle"
+      >
+        <AnchorNavigation
+          stickyNavigation={
+            <>
+              <AnchorNavigationItem target={ref1}>First</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref2}>Second</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref3}>Third</AnchorNavigationItem>
+              <AnchorNavigationItem target={ref4}>
+                Navigation item with very long label
+              </AnchorNavigationItem>
+              <AnchorNavigationItem target={ref5}>Fifth</AnchorNavigationItem>
+            </>
+          }
+        >
+          <div ref={ref1}>
+            <Content title="First section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref2}>
+            <Content title="Second section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref3}>
+            <Content noTextbox title="Third section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref4}>
+            <Content title="Fourth section" />
+          </div>
+          <AnchorSectionDivider />
+          <div ref={ref5}>
+            <Content title="Fifth section" />
+          </div>
+        </AnchorNavigation>
+      </DialogFullScreen>
+    </>
+  );
+};
+
+export const InDialogAnchorNavClick: Story = {
+  render: () => <InDialogAnchorNavComponent />,
+  play: async ({ canvasElement }) => {
+    // This is required due to a known issue with the canvasElement not being the parent of the component when a Portal is used.
+    // https://github.com/storybookjs/storybook/issues/26963
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const canvas = within(canvasElement.parentElement!);
+    const ButtonComponent = canvas.getByRole("button");
+
+    await userEvent.click(ButtonComponent);
+    await userInteractionPause(300);
+    await userEvent.click(canvas.getByRole("link", { name: "Second" }));
+    await userInteractionPause(300);
+    await userEvent.click(canvas.getByRole("link", { name: "Third" }));
+    await userInteractionPause(300);
+    await userEvent.click(
+      canvas.getByRole("link", {
+        name: "Navigation item with very long label",
+      }),
+    );
+    await userInteractionPause(300);
+    await userEvent.click(canvas.getByRole("link", { name: "Fifth" }));
+  },
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "100vh", width: "100vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+
+InDialogAnchorNavComponent.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
 };
