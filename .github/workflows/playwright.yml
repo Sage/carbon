@@ -44,7 +44,7 @@ jobs:
       - name: Run Playwright tests
         run: |
           PLAYWRIGHT_JSON_OUTPUT_NAME=results.json
-          PW_OUTPUT_JSON=$(npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=json 2>&1) || true
+          PW_OUTPUT_JSON=$(npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=json) || true
 
           # Check for incomplete tests
           INCOMPLETE_TESTS=$(echo "$PW_OUTPUT_JSON" | jq '.entries[] | select(.result.status == "incomplete") | .result')
