@@ -1,3 +1,9 @@
+## [154.1.0](https://github.com/Sage/carbon/compare/v154.0.0...v154.1.0) (2025-05-08)
+
+### Features
+
+* **vertical-menu:** implements updates required for Global Nav v2 ([b04c85b](https://github.com/Sage/carbon/commit/b04c85b6dfd9f376a41ad8911886dce9e23d56d9))
+
 ## [154.0.0](https://github.com/Sage/carbon/compare/v153.8.0...v154.0.0) (2025-05-02)
 
 ### ⚠ BREAKING CHANGES
