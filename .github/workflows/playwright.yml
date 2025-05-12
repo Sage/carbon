@@ -34,7 +34,9 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install jq
-        run: sudo apt-get install jq
+        run: |
+          apt update
+          apt install -y jq
 
       - name: Install dependencies
         run: |
