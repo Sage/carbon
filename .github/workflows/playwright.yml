@@ -51,7 +51,7 @@ jobs:
           PLAYWRIGHT_JSON_OUTPUT_NAME=results.json
           PW_OUTPUT_JSON=$(npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=json) || true
 
-          echo '${{ toJSON($PW_OUTPUT_JSON) }}'
+          echo "$PW_OUTPUT_JSON"
 
           # Check for incomplete tests
           INCOMPLETE_TESTS=$(echo "$PW_OUTPUT_JSON" | jq '.entries[] | select(.result.status == "incomplete") | .result')
