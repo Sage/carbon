@@ -48,19 +48,49 @@ jobs:
 
       - name: Run Playwright tests
         run: |
-          npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=json > test-results.json || true
+          npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=json:test-results.json || true
 
       - name: Process test results for annotations
         if: always() # Run even if the test step fails
         run: |
-          if [ -f "test-results.json" ]; then
+          echo "Checking test results file content:"
+          head -20 test-results.json
+
+          echo "Validating JSON format:"
+          if jq empty test-results.json 2>/dev/null; then
+            echo "JSON is valid, processing annotations..."
+            # Extract tests that need review and create GitHub annotations
             jq -r '.suites[].specs[] | select(.status == "expected" and .annotations.needsReview == true) |
               "::warning file=\(.file),line=\(.line),title=Test Needs Review::\(.title) - This test passed but is flagged for review."' \
-              test-results.json
+              test-results.json || echo "No tests needing review found"
 
+            # Extract incomplete tests and create GitHub annotations
             jq -r '.suites[].specs[] | select(.status == "incomplete") |
               "::warning file=\(.file),line=\(.line),title=Incomplete Test::\(.title) - This test is incomplete and needs attention."' \
-              test-results.json
+              test-results.json || echo "No incomplete tests found"
+          else
+            echo "Invalid JSON format detected. Examining the file:"
+            echo "File size: $(wc -c < test-results.json) bytes"
+            echo "First 50 characters:"
+            head -c 50 test-results.json | cat -A
+            echo "This could be due to error output mixing with JSON or Playwright output format differences."
+
+            # Try to fix common issues - extract just the JSON part if possible
+            echo "Attempting to extract valid JSON..."
+            grep -o '{.*}' test-results.json > fixed-results.json || true
+            if [ -s fixed-results.json ] && jq empty fixed-results.json 2>/dev/null; then
+              echo "Successfully extracted valid JSON!"
+              mv fixed-results.json test-results.json
+              # Process the fixed JSON (repeat the processing code)
+              jq -r '.suites[].specs[] | select(.status == "expected" and .annotations.needsReview == true) |
+                "::warning file=\(.file),line=\(.line),title=Test Needs Review::\(.title) - This test passed but is flagged for review."' \
+                test-results.json || echo "No tests needing review found"
+              jq -r '.suites[].specs[] | select(.status == "incomplete") |
+                "::warning file=\(.file),line=\(.line),title=Incomplete Test::\(.title) - This test is incomplete and needs attention."' \
+                test-results.json || echo "No incomplete tests found"
+            else
+              echo "Could not extract valid JSON. Consider adjusting your Playwright reporter configuration."
+            fi
           fi
 
       - name: Upload blob report to Artifacts
