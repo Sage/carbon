@@ -647,7 +647,8 @@ export const SecondaryButtonWhite = () => {
       display="flex"
       flexDirection="row"
       gap={2}
-      backgroundColor="var(--colorsUtilityYin100)"
+      // backgroundColor="var(--colorsUtilityYin100)"
+      backgroundColor="white"
     >
       <Button size="small" isWhite>
         Small

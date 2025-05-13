@@ -64,7 +64,7 @@ export const checkAccessibility = async (
   if (accessibilityScanResults.incomplete.length > 0) {
     console.warn(
       `The following rules were not run due to incomplete results`,
-      JSON.stringify(accessibilityScanResults.incomplete, null, 2),
+      JSON.stringify(accessibilityScanResults, null, 2),
     );
   }
 

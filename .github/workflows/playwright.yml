@@ -48,17 +48,19 @@ jobs:
 
       - name: Run Playwright tests
         run: |
-          PLAYWRIGHT_JSON_OUTPUT_NAME=results.json
-          PW_OUTPUT_JSON=$(npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=json) || true
+          npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=json > test-results.json || true
 
-          echo "$PW_OUTPUT_JSON"
+      - name: Process test results for annotations
+        if: always() # Run even if the test step fails
+        run: |
+          if [ -f "test-results.json" ]; then
+            jq -r '.suites[].specs[] | select(.status == "expected" and .annotations.needsReview == true) |
+              "::warning file=\(.file),line=\(.line),title=Test Needs Review::\(.title) - This test passed but is flagged for review."' \
+              test-results.json
 
-          # Check for incomplete tests
-          INCOMPLETE_TESTS=$(echo "$PW_OUTPUT_JSON" | jq '.entries[] | select(.result.status == "incomplete") | .result')
-
-          if [ -n "$INCOMPLETE_TESTS" ]; then
-            echo "::error::Detected incomplete tests:"
-            echo "$INCOMPLETE_TESTS" | jq .
+            jq -r '.suites[].specs[] | select(.status == "incomplete") |
+              "::warning file=\(.file),line=\(.line),title=Incomplete Test::\(.title) - This test is incomplete and needs attention."' \
+              test-results.json
           fi
 
       - name: Upload blob report to Artifacts
