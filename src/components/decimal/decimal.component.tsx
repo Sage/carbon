@@ -278,15 +278,9 @@ export const Decimal = React.forwardRef(
     };
 
     const isControlled = value !== undefined;
-    const prevControlledRef = useRef<boolean>();
-    const isFirstRender = useRef(true);
+    const prevControlledRef = useRef<boolean | null>();
 
     useEffect(() => {
-      if (isFirstRender.current) {
-        isFirstRender.current = false;
-        return;
-      }
-
       const message =
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
         "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
@@ -294,6 +288,10 @@ export const Decimal = React.forwardRef(
       invariant(prevControlledRef.current !== isControlled, message);
 
       prevControlledRef.current = isControlled;
+
+      return () => {
+        prevControlledRef.current = null;
+      };
     }, [isControlled]);
 
     const prevValue = usePrevious(value);
