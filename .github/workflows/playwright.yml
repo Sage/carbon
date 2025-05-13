@@ -48,7 +48,7 @@ jobs:
 
       - name: Run Playwright tests
         run: |
-          npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=json:test-results.json || true
+          npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=json > test-results.json 2>test-errors.log || true
 
       - name: Process test results for annotations
         if: always() # Run even if the test step fails
