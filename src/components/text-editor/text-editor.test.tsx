@@ -93,7 +93,7 @@ test("rendering and basic functionality", async () => {
   );
 
   // expect the editor to be rendered with the default value
-  expect(screen.getByText("Sample text")).toBeInTheDocument();
+  expect(screen.getByText("Sample text")).toBeVisible();
 
   // Click the editor space and send a few key presses
   const editor = screen.getByRole(`textbox`);
@@ -101,20 +101,20 @@ test("rendering and basic functionality", async () => {
   await user.keyboard(" abc");
 
   // expect the edited value to be visible
-  expect(screen.getByText("Sample text abc")).toBeInTheDocument();
+  expect(screen.getByText("Sample text abc")).toBeVisible();
 
   // expect the label to be rendered
-  expect(screen.getByText("Example")).toBeInTheDocument();
+  expect(screen.getByText("Example")).toBeVisible();
 
   // expect the toolbar to be rendered
-  expect(screen.getByTestId(`${COMPONENT_PREFIX}-toolbar`)).toBeInTheDocument();
+  expect(screen.getByTestId(`${COMPONENT_PREFIX}-toolbar`)).toBeVisible();
 
   // expect the character counter to be rendered
   const characterCounter = screen.getByTestId(
     `${COMPONENT_PREFIX}-character-limit`,
   );
 
-  expect(characterCounter).toBeInTheDocument();
+  expect(characterCounter).toBeVisible();
   expect(characterCounter).toHaveTextContent("5 characters remaining");
 
   await user.click(editor);
@@ -166,11 +166,11 @@ test("rendering and basic functionality", async () => {
   expect(list).toBeInstanceOf(HTMLOListElement);
   expect(
     within(list).getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).toBeInTheDocument();
+  ).toBeVisible();
 
   // click the ordered list button again and expect the text to be normal
   await user.click(olButton);
-  expect(list).not.toBeInTheDocument();
+  expect(list).not.toBeVisible();
 
   // click the unordered list button
   const ulButton = screen.getByTestId(
@@ -183,11 +183,11 @@ test("rendering and basic functionality", async () => {
   expect(list).toBeInstanceOf(HTMLUListElement);
   expect(
     within(list).getByText("Sample text abcdefghijklmnopqrstuvwxyz"),
-  ).toBeInTheDocument();
+  ).toBeVisible();
 
   // click the unordered list button again and expect the text to be normal
   await user.click(ulButton);
-  expect(list).not.toBeInTheDocument();
+  expect(list).not.toBeVisible();
 
   // get both command buttons
   const cancelButton = screen.getByText("Cancel");
@@ -200,15 +200,18 @@ test("rendering and basic functionality", async () => {
   expect(mockCancel).toHaveBeenCalledTimes(1);
 
   // expect the text to have been reset to the default value because of the above Cancel click
-  expect(screen.getByText("Sample text")).toBeInTheDocument();
+  expect(screen.getByText("Sample text")).toBeVisible();
 });
 
 test("input hint renders correctly when inputHint prop is provided", () => {
   // render the TextEditor component with an input hint
   render(<TextEditor inputHint="This is an input hint" labelText="Example" />);
 
+  const editor = screen.getByRole("textbox", { name: "Example" });
+
   // expect the input hint to be rendered
-  expect(screen.getByText("This is an input hint")).toBeInTheDocument();
+  expect(screen.getByText("This is an input hint")).toBeVisible();
+  expect(editor).toHaveAccessibleDescription("This is an input hint");
 });
 
 test("character limit renders correctly when characterLimit prop is provided", () => {
@@ -219,7 +222,7 @@ test("character limit renders correctly when characterLimit prop is provided", (
   const characterCounter = screen.getByTestId(
     `${COMPONENT_PREFIX}-character-limit`,
   );
-  expect(characterCounter).toBeInTheDocument();
+  expect(characterCounter).toBeVisible();
   expect(characterCounter).toHaveTextContent("100 characters remaining");
 });
 
@@ -291,11 +294,9 @@ test("required prop renders correctly when required prop is provided", () => {
   // render the TextEditor component with the required prop
   render(<TextEditor labelText="Example" required />);
 
-  const label = screen.getByText("Example");
-  // expect the required indicator to be rendered
-  expect(label).toHaveStyleRule("content", '"*"', {
-    modifier: "::after",
-  });
+  const editor = screen.getByRole("textbox", { name: "Example" });
+
+  expect(editor).toBeRequired();
 });
 
 test("optional prop renders correctly when optional prop is provided", () => {
@@ -317,7 +318,7 @@ test("placeholder prop renders correctly when placeholder prop is provided", () 
   );
 
   // expect the placeholder to be rendered
-  expect(screen.getByText("This is a nice placeholder")).toBeInTheDocument();
+  expect(screen.getByText("This is a nice placeholder")).toBeVisible();
 });
 
 test("rows prop renders correctly when rows prop is provided", () => {
@@ -333,22 +334,40 @@ test("validation renders correctly when error prop is provided", () => {
   // render the TextEditor component with an error
   render(<TextEditor error="This is an error" labelText="Example" />);
 
+  const editor = screen.getByRole("textbox", { name: "Example" });
   const errorMessage = screen.getByText("This is an error");
 
-  // expect the error message to be rendered
-  expect(errorMessage).toBeInTheDocument();
-  expect(errorMessage).toHaveStyle("color: var(--colorsSemanticNegative500)");
+  expect(errorMessage).toBeVisible();
+  expect(editor).toHaveAccessibleDescription("This is an error");
+  expect(editor).not.toBeValid();
 });
 
 test("validation renders correctly when warning prop is provided", () => {
   // render the TextEditor component with an error
   render(<TextEditor warning="This is a warning" labelText="Example" />);
 
+  const editor = screen.getByRole("textbox", { name: "Example" });
   const warningMessage = screen.getByText("This is a warning");
 
-  // expect the warning message to be rendered
-  expect(warningMessage).toBeInTheDocument();
-  expect(warningMessage).toHaveStyle("color: var(--colorsSemanticCaution500)");
+  expect(warningMessage).toBeVisible();
+  expect(editor).toHaveAccessibleDescription("This is a warning");
+});
+
+test("renders with expected accessible description when both inputHint and error props are provided", () => {
+  // render the TextEditor component with an input hint and error
+  render(
+    <TextEditor
+      inputHint="This is an input hint."
+      error="This is an error."
+      labelText="Example"
+    />,
+  );
+
+  const editor = screen.getByRole("textbox", { name: "Example" });
+
+  expect(editor).toHaveAccessibleDescription(
+    "This is an error. This is an input hint.",
+  );
 });
 
 test("serialisation of editor", async () => {
@@ -459,7 +478,7 @@ test("valid state is created when the CreateEmpty function is called", async () 
     },
   });
   render(<TextEditor labelText="Text Editor" value={value} />);
-  expect(screen.getByRole("textbox")).toBeInTheDocument();
+  expect(screen.getByRole("textbox")).toBeVisible();
   expect(screen.getByRole("textbox")).toHaveTextContent("");
 });
 
@@ -470,7 +489,7 @@ test("previews are rendered correctly if provided", () => {
   const preview = screen.getByText("Preview 1");
 
   // expect the preview to be rendered
-  expect(preview).toBeInTheDocument();
+  expect(preview).toBeVisible();
 });
 
 test("no previews are rendered if the prop is not provided", () => {
@@ -504,14 +523,14 @@ test("should reset the content to the default if the Cancel button is pressed", 
   await user.keyboard(" abc");
 
   // expect the edited value to be visible
-  expect(screen.getByText("Sample text abc")).toBeInTheDocument();
+  expect(screen.getByText("Sample text abc")).toBeVisible();
 
   // Click the cancel button
   const cancelButton = screen.getByText("Cancel");
   await user.click(cancelButton);
 
   // expect the editor to be rendered with the default value
-  expect(screen.getByText("Sample text")).toBeInTheDocument();
+  expect(screen.getByText("Sample text")).toBeVisible();
 });
 
 test("readOnly prop renders correctly when readOnly prop is provided", () => {
@@ -532,9 +551,9 @@ test("should toggle the list type when a list is active and the alternate list t
   render(<TextEditor labelText="Example" namespace="test" value={value} />);
   const olButton = screen.getByTestId(`test-ordered-list-button`);
   const ulButton = screen.getByTestId(`test-unordered-list-button`);
-  expect(olButton).toBeInTheDocument();
-  expect(ulButton).toBeInTheDocument();
-  expect(screen.getByRole("list")).toBeInTheDocument();
+  expect(olButton).toBeVisible();
+  expect(ulButton).toBeVisible();
+  expect(screen.getByRole("list")).toBeVisible();
   expect(screen.getByRole("list").tagName).toBe("UL");
   const listText = screen.getByText("Example List");
   await user.click(listText);
@@ -545,7 +564,7 @@ test("should toggle the list type when a list is active and the alternate list t
   expect(screen.getByRole("list").tagName).toBe("UL");
 });
 
-test("should toggle the an indiviual list item's type when a list is active and the alternate list type is clicked", async () => {
+test("should toggle the an individual list item's type when a list is active and the alternate list type is clicked", async () => {
   const user = userEvent.setup();
   const value = createFromHTML(
     `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li><li value="2"><span style="white-space: pre-wrap;">Change Me</span></li><li value="3"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
@@ -554,9 +573,9 @@ test("should toggle the an indiviual list item's type when a list is active and 
   render(<TextEditor labelText="Example" namespace="test" value={value} />);
   const olButton = screen.getByTestId(`test-ordered-list-button`);
   const ulButton = screen.getByTestId(`test-unordered-list-button`);
-  expect(olButton).toBeInTheDocument();
-  expect(ulButton).toBeInTheDocument();
-  expect(screen.getByRole("list")).toBeInTheDocument();
+  expect(olButton).toBeVisible();
+  expect(ulButton).toBeVisible();
+  expect(screen.getByRole("list")).toBeVisible();
   expect(screen.getByRole("list").tagName).toBe("UL");
   const listText = screen.getByText("Change Me");
   await user.click(listText);
@@ -591,7 +610,7 @@ describe("shortcut keys", () => {
     await user.keyboard(" not bold");
 
     // expect the edited value to be visible
-    expect(screen.getByText("Sample text not bold")).toBeInTheDocument();
+    expect(screen.getByText("Sample text not bold")).toBeVisible();
     await user.tripleClick(editor);
     await user.keyboard(`{Control>}b{/Control>}`);
 
@@ -630,7 +649,7 @@ describe("shortcut keys", () => {
     await user.keyboard(" not italic");
 
     // expect the edited value to be visible
-    expect(screen.getByText("Sample text not italic")).toBeInTheDocument();
+    expect(screen.getByText("Sample text not italic")).toBeVisible();
     await user.tripleClick(editor);
     await user.keyboard(`{Control>}i{/Control>}`);
 
