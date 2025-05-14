@@ -1470,4 +1470,5 @@ test("component should render without invariant firing in strict mode", () => {
   );
 
   consoleErrorSpy.mockRestore();
+  configure({ reactStrictMode: false });
 });
