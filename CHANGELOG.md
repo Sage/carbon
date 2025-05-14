@@ -1,3 +1,15 @@
+## [154.1.1](https://github.com/Sage/carbon/compare/v154.1.0...v154.1.1) (2025-05-12)
+
+### Bug Fixes
+
+* **switch:** correct z-index in switch-slider ([f57a427](https://github.com/Sage/carbon/commit/f57a427f7ccad6075c688fdab61a055d5c65aada)), closes [#7326](https://github.com/Sage/carbon/issues/7326)
+
+## [154.1.0](https://github.com/Sage/carbon/compare/v154.0.0...v154.1.0) (2025-05-08)
+
+### Features
+
+* **vertical-menu:** implements updates required for Global Nav v2 ([b04c85b](https://github.com/Sage/carbon/commit/b04c85b6dfd9f376a41ad8911886dce9e23d56d9))
+
 ## [154.0.0](https://github.com/Sage/carbon/compare/v153.8.0...v154.0.0) (2025-05-02)
 
 ### ⚠ BREAKING CHANGES

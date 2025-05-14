@@ -33,26 +33,22 @@ const StyledSwitchSlider = styled.div`
     position: relative;
     text-transform: uppercase;
     top: 0;
-    width: 100%
-    z-index: 2;
+    width: 100%;
+    z-index: 1;
     border-radius: var(--borderRadius400);
     border-style: solid;
-    border-color: ${
-      isDarkBackground
-        ? "var(--colorsUtilityYang100)"
-        : "var(--colorsActionMinor400)"
-    };
+    border-color: ${isDarkBackground
+      ? "var(--colorsUtilityYang100)"
+      : "var(--colorsActionMinor400)"};
     border-width: var(--borderWidth200);
     box-sizing: border-box;
     margin-top: ${size === "large" ? "-47px" : "-28px"};
     align-items: center;
 
     &::before {
-      background-color: ${
-        isDarkBackground
-          ? "var(--colorsUtilityYang100)"
-          : "var(--colorsActionMinor400)"
-      };
+      background-color: ${isDarkBackground
+        ? "var(--colorsUtilityYang100)"
+        : "var(--colorsActionMinor400)"};
       bottom: 4px;
       content: "";
       height: ${size === "large" ? "var(--spacing400)" : "var(--spacing200)"};
@@ -64,80 +60,69 @@ const StyledSwitchSlider = styled.div`
       border-radius: 50%;
     }
 
-    ${
-      checked &&
-      css`
+    ${checked &&
+    css`
+      background-color: ${isDarkBackground
+        ? "var(--colorsUtilityYang100)"
+        : "var(--colorsActionMinor500)"};
+      border-color: var(--colorsActionMinorTransparent);
+
+      &::before {
+        margin-left: calc(
+          100% - ${size === "large" ? "var(--spacing500)" : "var(--spacing300)"}
+        );
         background-color: ${isDarkBackground
-          ? "var(--colorsUtilityYang100)"
-          : "var(--colorsActionMinor500)"};
+          ? "var(--colorsUtilityYin100)"
+          : "var(--colorsActionMinorYang100)"};
+      }
+    `}
+
+    ${disabled &&
+    !isLoading &&
+    css`
+      border-color: var(--colorsActionDisabled600);
+
+      &::before {
+        background-color: var(--colorsActionDisabled600);
+      }
+
+      ${SwitchSliderPanel} {
+        color: var(--colorsUtilityYin030);
+      }
+
+      ${checked &&
+      css`
+        background-color: var(--colorsActionDisabled500);
         border-color: var(--colorsActionMinorTransparent);
 
         &::before {
-          margin-left: calc(
-            100% -
-              ${size === "large" ? "var(--spacing500)" : "var(--spacing300)"}
-          );
-          background-color: ${isDarkBackground
-            ? "var(--colorsUtilityYin100)"
-            : "var(--colorsActionMinorYang100)"};
-        }
-      `
-    }
-
-    ${
-      disabled &&
-      !isLoading &&
-      css`
-        border-color: var(--colorsActionDisabled600);
-
-        &::before {
-          background-color: var(--colorsActionDisabled600);
+          background-color: var(--colorsActionMinorYang100);
         }
 
         ${SwitchSliderPanel} {
           color: var(--colorsUtilityYin030);
         }
+      `}
+    `}
 
-        ${checked &&
-        css`
-          background-color: var(--colorsActionDisabled500);
-          border-color: var(--colorsActionMinorTransparent);
+    ${isLoading &&
+    css`
+      &::before {
+        display: none;
+      }
+    `}
 
-          &::before {
-            background-color: var(--colorsActionMinorYang100);
-          }
+    ${warning &&
+    !disabled &&
+    css`
+      border-color: var(--colorsSemanticCaution500);
+    `}
 
-          ${SwitchSliderPanel} {
-            color: var(--colorsUtilityYin030);
-          }
-        `}
-      `
-    }
-
-    ${
-      isLoading &&
-      css`
-        &::before {
-          display: none;
-        }
-      `
-    }
-
-    ${
-      warning &&
-      !disabled &&
-      css`
-        border-color: var(--colorsSemanticCaution500);
-      `
-    }
-
-    ${
-      error &&
-      !disabled &&
-      css`
-        border-color: var(--colorsSemanticNegative500);
-      `
-    }
+    ${error &&
+    !disabled &&
+    css`
+      border-color: var(--colorsSemanticNegative500);
+    `}
 
     ${StyledValidationIcon} {
       position: absolute;
