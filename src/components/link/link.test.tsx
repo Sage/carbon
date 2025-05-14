@@ -100,9 +100,10 @@ test("should render an `Icon` on the left side of the component by default", () 
 test("should render an `Icon` on the right", () => {
   render(<Link icon="basket" iconAlign="right" />);
 
-  const iconElement = screen.getByTestId("icon");
+  // Icon is wrapped in a span — that's where the styles are
+  const iconWrapper = screen.getByTestId("icon").parentElement;
 
-  expect(iconElement).toHaveStyle({
+  expect(iconWrapper).toHaveStyle({
     marginRight: "0",
     marginLeft: "var(--spacing100)",
     position: "relative",
@@ -112,9 +113,9 @@ test("should render an `Icon` on the right", () => {
 test("should render an `Icon` on the right with no margin when no children", () => {
   render(<Link icon="home" iconAlign="right" />);
 
-  const iconElement = screen.getByTestId("icon");
+  const iconWrapper = screen.getByTestId("icon-wrapper");
 
-  expect(iconElement).toHaveStyle({
+  expect(iconWrapper).toHaveStyle({
     marginRight: "0",
     marginLeft: "0",
     position: "relative",
