@@ -48,21 +48,23 @@ jobs:
 
       - name: Run Playwright tests
         run: |
+          TEMP_JSON=$(mktemp)
+
           npm run test:ct -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --reporter=json > "$TEMP_JSON" || true
           PW_JSON=$(cat "$TEMP_JSON")
           rm "$TEMP_JSON"
 
           echo "Test titles:"
-          echo "$playwright_json" | jq '.suites[].specs[].tests[].title'
+          echo "$PW_JSON" | jq '.suites[].specs[].tests[].title'
 
           echo -e "\nTest results:"
-          echo "$playwright_json" | jq '.suites[].specs[].tests[] | {title: .title, status: .results[0].status}'
+          echo "$PW_JSON" | jq '.suites[].specs[].tests[] | {title: .title, status: .results[0].status}'
 
           echo -e "\nTest summary:"
-          echo "$playwright_json" | jq '[.suites[].specs[].tests[].results[0].status] | group_by(.) | map({status: .[0], count: length}) | from_entries'
+          echo "$PW_JSON" | jq '[.suites[].specs[].tests[].results[0].status] | group_by(.) | map({status: .[0], count: length}) | from_entries'
 
           echo -e "\nDetailed test information:"
-          echo "$playwright_json" | jq '.suites[].specs[].tests[] | select(.results[0].status == "passed") | {name: .title, duration: .results[0].duration}'
+          echo "$PW_JSON" | jq '.suites[].specs[].tests[] | select(.results[0].status == "passed") | {name: .title, duration: .results[0].duration}'
 
       - name: Upload blob report to Artifacts
         if: ${{ !cancelled() }}
