@@ -23,18 +23,16 @@ import Fieldset from "carbon-react/lib/components/fieldset";
 
 ## Examples
 
-### Default
+**Note:** The following examples use the `Fieldset` component wrapped within a `Form` as this is its intended use case, as well as the `validationRedesignOptIn` 
+feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) set to *true*.
 
-Note that this example is using the `validationRedesignOptIn` flag and is wrapped within a `Form`, which will provide the spacing for the inputs within the Fieldset.
-The legacy layout for the `Fieldset` component is still available as seen in the Validation examples below. 
+### Default
 
 <Canvas of={FieldsetStories.Default} />
 
 ### With `fieldSpacing`
 
-You can use the `fieldSpacing` prop on Form to adjust the spacing between inputs.
-
-**Note:** This example is using the `validationRedesignOptIn` flag.  
+You can use the `fieldSpacing` prop on Form to adjust the spacing between inputs within the `Fieldset`. See the [Form - With Field Spacing](../?path=/docs/form--docs#field-spacing) example.
 
 <Canvas of={FieldsetStories.InFormFieldSpacing} />
 
@@ -42,35 +40,11 @@ You can use the `fieldSpacing` prop on Form to adjust the spacing between inputs
 
 The `required` prop will add an asterisk to the legend and set all fields within the Fieldset to be required.
 
-**Note:** This example is using the `validationRedesignOptIn` flag.
-
 <Canvas of={FieldsetStories.Required} />
 
 ### Optional
 
-**Note:** This example is using the `validationRedesignOptIn` flag.
-
 <Canvas of={FieldsetStories.IsOptional} />
-
-### New Validation
-
-The following example uses the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-<Canvas of={FieldsetStories.NewValidation} />
-
-### Validations
-
-#### As a string
-
-<Canvas of={FieldsetStories.ValidationsStringComponent} />
-
-#### As a string, displayed on label
-
-<Canvas of={FieldsetStories.ValidationsStringLabel} />
-
-#### As a boolean
-
-<Canvas of={FieldsetStories.ValidationsBoolean} />
 
 ## Props
 

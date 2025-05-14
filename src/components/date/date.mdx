@@ -24,6 +24,7 @@ import * as DateStories from "./date.stories";
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Validation states](#validation-states)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -43,6 +44,10 @@ in the backend and for running validations: it will either return a valid ISO st
 be used to set the input value like in the example below, although the component can be initialised with an ISO formatted string.
 
 <Canvas of={DateStories.Default} />
+
+### Input Hint
+
+<Canvas of={DateStories.InputHint} />
 
 ### Sizes
 
@@ -70,27 +75,15 @@ You can configure the available dates by passing a `minDate` and `maxDate` prop 
 
 <Canvas of={DateStories.DisabledDates} />
 
-Another way to disable dates is by passing the `disabled` prop throught the `pickerProps` prop directly to the DayPicker. The `disabled` prop accepts either a matcher or an array of [matchers](https://daypicker.dev/api/type-aliases/Matcher#example).
+Another way to disable dates is by passing the `disabled` prop through the `pickerProps` prop directly to the DayPicker. The `disabled` prop accepts either a matcher or an array of [matchers](https://daypicker.dev/api/type-aliases/Matcher#example).
 
 <Canvas of={DateStories.DisabledDatesUsingPickerProps} />
 
-### With labelInline
-
-**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
-
-<Canvas of={DateStories.WithLabelInline} />
-
 ### With custom width
 
+You can use the `maxWidth` prop to set a custom width for the date input, with accepts any valid CSS string.
+
 <Canvas of={DateStories.WithCustomWidth} />
-
-### With fieldHelp
-
-<Canvas of={DateStories.WithFieldHelp} />
-
-### With labelHelp
-
-<Canvas of={DateStories.WithLabelHelp} />
 
 ### With disabled portal
 
@@ -108,50 +101,6 @@ You can use the `isOptional` prop to indicate if the field is optional.
 
 <Canvas of={DateStories.IsOptional} />
 
-### Validations
-
-Validation status can be set by passing `error`, `warning` or `info` prop to the component.
-
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
-
-Passing a boolean to these props will display only a properly colored border.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
-
-#### As a string
-
-<Canvas of={DateStories.ValidationsStringComponent} />
-
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
-
-<Canvas
-  of={DateStories.ValidationsStringWithTooltipPositionOverriddenComponent}
-/>
-
-#### As a string, displayed on label
-
-<Canvas of={DateStories.ValidationsStringLabel} />
-
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
-
-<Canvas of={DateStories.ValidationsStringWithTooltipPositionOverriddenLabel} />
-
-#### As a boolean
-
-<Canvas of={DateStories.ValidationsBoolean} />
-
-#### New designs validation
-
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-<Canvas of={DateStories.ValidationsStringNewDesign} />
-
-#### Example implementation
-
-The example below will display an error if an invalid date or a date with a year value less than 2020 is passed to the input.
-
-<Canvas of={DateStories.ValidationsExampleImplementation} />
-
 ### Locale override
 
 The examples below illustrate how to override the locale passed into the Date component. The first example has been set up for
@@ -165,6 +114,31 @@ You can also override the format used to display dates in the date picker via th
 but the date format has been overridden to `yyyy-M-d` as opposed to the default `dd.MM.yyyy`.
 
 <Canvas of={DateStories.LocaleFormatOverrideExampleImplementation} />
+
+### With labelInline (legacy)
+
+Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and 
+`labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+
+<Canvas of={DateStories.WithLabelInline} />
+
+### With fieldHelp (legacy)
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+
+<Canvas of={DateStories.WithFieldHelp} />
+
+### With labelHelp (legacy)
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+
+<Canvas of={DateStories.WithLabelHelp} />
+
+## Validation States
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
 ## Props
 

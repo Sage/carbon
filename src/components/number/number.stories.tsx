@@ -91,20 +91,6 @@ export const WithLabelAlign: Story = () => {
 };
 WithLabelAlign.storyName = "With Label Align";
 
-export const WithCustomLabelWidthAndInputWidth: Story = () => {
-  return (
-    <Number
-      label="Number"
-      value="123456"
-      labelInline
-      labelWidth={50}
-      inputWidth={50}
-    />
-  );
-};
-WithCustomLabelWidthAndInputWidth.storyName =
-  "With Custom Label Width and Input Width";
-
 export const WithCustomMaxWidth: Story = () => {
   return <Number label="Number" value="123456" maxWidth="50%" />;
 };

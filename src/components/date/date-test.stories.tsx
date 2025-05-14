@@ -57,40 +57,129 @@ DateStory.args = {
   ...getCommonTextboxArgs(),
 };
 
-export const NewValidationStory = (args: CommonTextboxArgs) => {
-  const [state, setState] = useState("2019-04-04");
+export const Validation = () => {
+  const [state, setState] = useState("04/04/2019");
   const setValue = (ev: DateChangeEvent) => {
-    action("onChange")(ev.target.value);
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <>
+      <DateInput
+        label="Date"
+        name="date-input"
+        error="Error Message"
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <DateInput
+        label="Date"
+        name="date-input"
+        warning="Warning Message"
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <DateInput
+        label="Date"
+        name="date-input"
+        info="Info Message"
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+
+      <DateInput
+        label="Date"
+        name="date-input"
+        error="Error Message"
+        validationOnLabel
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <DateInput
+        label="Date"
+        name="date-input"
+        warning="Warning Message"
+        validationOnLabel
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <DateInput
+        label="Date"
+        name="date-input"
+        info="Info Message"
+        validationOnLabel
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+
+      <DateInput
+        label="Date"
+        name="date-input"
+        error
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <DateInput
+        label="Date"
+        name="date-input"
+        warning
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <DateInput
+        label="Date"
+        name="date-input"
+        info
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+    </>
+  );
+};
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidation = () => {
+  const [state, setState] = useState("04/04/2019");
+  const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
   return (
     <CarbonProvider validationRedesignOptIn>
       <DateInput
-        name="dateinput"
-        m={2}
+        label="Date"
+        name="date-input"
+        inputHint="Input hint"
+        error="Error Message"
         value={state}
         onChange={setValue}
-        onBlur={(ev) => {
-          action("onBlur")(ev.target.value);
-        }}
-        onKeyDown={(ev) =>
-          action("onKeyDown")((ev.target as HTMLInputElement).value)
-        }
-        onClick={(ev) =>
-          action("onClick")((ev.target as HTMLInputElement).value)
-        }
-        {...getCommonTextboxArgsWithSpecialCharacters(args)}
+        mb={2}
+      />
+      <DateInput
+        label="Date"
+        name="date-input"
+        warning="Warning Message"
+        value={state}
+        onChange={setValue}
       />
     </CarbonProvider>
   );
 };
-
-NewValidationStory.args = {
-  minDate: "",
-  maxDate: "",
-  allowEmptyValue: false,
-  mt: 0,
-  ...getCommonTextboxArgs(),
+NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };
 
 export const MultipleDates: StoryObj<typeof DateInput> = () => {

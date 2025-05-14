@@ -118,7 +118,7 @@ export default {
   },
   includeStories: [
     "Default",
-    "Multiple",
+    "Validation",
     "NewValidation",
     "PrefixWithSizes",
     "LabelAndHintTextAlign",
@@ -137,7 +137,6 @@ export const Default = (args: CommonTextboxArgs) => {
       <Textbox
         m={2}
         onClick={action("onClick")}
-        maxWidth="70%"
         iconOnClick={action("iconOnClick")}
         value={state}
         onChange={setValue}
@@ -146,45 +145,46 @@ export const Default = (args: CommonTextboxArgs) => {
     </div>
   );
 };
-Default.storyName = "default";
+Default.storyName = "Default";
 Default.argTypes = commonTextboxArgTypes();
 Default.args = getCommonTextboxArgs();
 
-export const Multiple = (args: CommonTextboxArgs) => (
-  <div style={{ width: "296px" }}>
-    <Textbox m={2} {...getCommonTextboxArgsWithSpecialCharacters(args)} />
-    <Textbox m={2} {...getCommonTextboxArgsWithSpecialCharacters(args)} />
-  </div>
-);
-
-Multiple.storyName = "multiple";
-Multiple.argTypes = commonTextboxArgTypes();
-Multiple.args = getCommonTextboxArgs();
-
-export const NewValidation = (args: CommonTextboxArgs) => {
-  const [state, setState] = useState("");
-  const setValue = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(value);
-  };
+export const Validation = () => {
   return (
-    <div style={{ width: "296px" }}>
-      <CarbonProvider validationRedesignOptIn>
-        <Textbox
-          m={2}
-          {...getCommonTextboxArgsWithSpecialCharacters(args)}
-          value={state}
-          onChange={setValue}
-        />
-      </CarbonProvider>
-    </div>
+    <>
+      <Textbox label="Textbox" error="Error Message" />
+      <Textbox label="Textbox" warning="Warning Message" />
+      <Textbox label="Textbox" info="Info Message" />
+
+      <Textbox label="Textbox" error="Error Message" validationOnLabel />
+      <Textbox label="Textbox" warning="Warning Message" validationOnLabel />
+      <Textbox label="Textbox" info="Info Message" validationOnLabel />
+
+      <Textbox label="Textbox" error />
+      <Textbox label="Textbox" warning />
+      <Textbox label="Textbox" info />
+    </>
   );
 };
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
-NewValidation.storyName = "new validation";
-NewValidation.argTypes = commonTextboxArgTypes(true);
-NewValidation.args = getCommonTextboxArgs(true);
+export const NewValidation = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Textbox label="Textbox" error="Error Message" />
+      <Textbox label="Textbox" warning="Warning Message" />
+    </CarbonProvider>
+  );
+};
+NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
 export const PrefixWithSizes = () => {
   return (
@@ -202,8 +202,7 @@ export const PrefixWithSizes = () => {
     </>
   );
 };
-
-PrefixWithSizes.storyName = "prefix with sizes";
+PrefixWithSizes.storyName = "Prefix with sizes";
 
 export const LabelAndHintTextAlign = () => {
   const variants = [
@@ -253,4 +252,9 @@ export const LabelAndHintTextAlign = () => {
       </CarbonProvider>
     </Box>
   );
+};
+LabelAndHintTextAlign.storyName = "Label and hint text align";
+LabelAndHintTextAlign.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };

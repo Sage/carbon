@@ -18,11 +18,11 @@ import TranslationKeysTable from "../../../.storybook/utils/translation-keys-tab
 
 Provides an interactive Text Editor that allows users to format text with various styles and save the content as JSON or HTML. For further documentation on this component, please read [our documentation regarding Lexical](../?path=/docs/documentation-using-lexical--docs)
 
-
 ## Contents
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Validation states](#validation-states)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -140,19 +140,6 @@ Type into the editor and the click the **Show Data Formats** button in the examp
 
 <Canvas of={TextEditorStories.OnSave} />
 
-### With Error
-
-When the editor is in an error state, you can use the `error` property to display messages to the user.
-
-<Canvas of={TextEditorStories.WithError} />
-
-### With Warning
-
-When the editor is in a warning state, you can use the `warning` property to display messages to the user. Exceeding the character limit will
-trigger a warning message automatically.
-
-<Canvas of={TextEditorStories.WithWarning} />
-
 ### With HTML As Initial Value
 
 In order to set the initial value of the editor as HTML, you can use the `createFromHTML` function to convert the HTML content to a format that
@@ -245,6 +232,10 @@ You can render multiple instances of the Text Editor on the same page. Each edit
 the editor when monitoring for formatting changes, accessible navigation, etc.
 
 <Canvas of={TextEditorStories.MultipleEditors} />
+
+## Validation States
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
 ## Props
 

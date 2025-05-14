@@ -4,170 +4,162 @@ import * as ValidationsStories from "./validations.stories";
 
 <Meta title="Documentation/Validations" />
 
-# Getting started with validations, Formik and Yup
+# Getting started with Validations
 
 ## Contents
 
-- [Carbon validation overview](#carbon-validation-overview)
-  - [Validation redesign](#validation-redesign)
-  - [Validation states](#validation-states)
-  - [Input validation](#input-validation)
-  - [Grouped inputs validation](#grouped-inputs-validation)
-  - [Validation icon placement](#validation-icon-placement)
-- [Formik overview](#formik-overview)
+- [Validating Carbon Inputs](#validating-carbon-inputs)
+  - [Validation Redesign](#validation-redesign)
+  - [Legacy Validation](#legacy-validation)
+- [Form Validation](#form-validation)
+  - [React Hook Form](#using-react-hook-form-with-carbon)
+  - [Formik](#using-formik-with-carbon)
 
-## Carbon validation overview
+## Validating Carbon Inputs
 
 Input components in Carbon have built-in validation states, which can be used to provide feedback to users about the state of their input. 
 These states can indicate whether the input is valid or not, and can also prevent form submission if the input is invalid.
 
-### Validation redesign
+### Validation Redesign
 
 Carbon is in the process of implementing a new validation pattern to our input components. To opt into this new pattern, you can set the 
-`validationRedesignOptIn` flag to true in the [CarbonProvider](../?path=/docs/carbon-provider--docs).
+`validationRedesignOptIn` flag to true on the [CarbonProvider](../?path=/docs/carbon-provider--docs).
 
-Component props that are not supported if the opt-in flag is set to true are labelled as [Legacy] in their corresponding prop tables. 
-These props should not be used if the new validation pattern is being used.
+The new validation pattern is designed to be more consistent and user-friendly, providing a clearer indication of the input's state and we encourage its use over the legacy pattern using tooltips.
 
-**Note:** This new pattern **does not** support inline labels/legends, this means that any related props will not have any effect or may have unexpected behaviour. 
+#### States
 
-In components where the new validation pattern has not been implemented, the default validation pattern is still available, even if the opt in flag has been set to true.
-
-#### Validation redesign states
+Each input component that supports validations accepts the following props - `error` and `warning`:
 
 - **error** - meant to be a blocking validation, styles the input with a 2px wide red border along with a red border on the left side of the component and a validation message if provided.
 - **warning** - meant to be a non-blocking validation, displays an orange border on the left side of the component and a validation message if provided.
 
-Input hints are used instead of Help tooltips to provide additional information about the input. A new `inputHint` prop has been added to support this, however, 
-in some components the `labelHelp` prop has been repurposed to function as an input hint. 
+Certain components, such as `DateRange`, may use slightly different prop names to indicate the validation state (e.g. `startError`, `endError`, etc.), 
+therefore please always refer to the input's prop table to check what props are available.
+
+#### Input Hints
+
+The new validation pattern also introduces the concept of input hints, which are used to provide additional information about the input and are intended to replace the Help and Information tooltips.
+A new `inputHint` prop has been added to our inputs to support this, however, in some components the `labelHelp` prop has been repurposed and will render as an input hint instead of the Help 
+tooltip when the `validationRedesignOptIn` flag is set to true. 
 
 <Canvas of={ValidationsStories.ValidationRedesign} />
 
-### Validation states
+#### Grouped Inputs
+The new validation pattern also supports grouped inputs, such as `RadioButtonGroup` and `CheckboxGroup`.
+These components can be validated using the same `error` and `warning` props, and the validation will be applied to the group as a whole.
 
-Carbon supports three validation states:
+<Canvas of={ValidationsStories.ValidationRedesignWithGroupedInputs} />
 
-- **error** - meant to be a blocking validation, displays 2px wide red border and validation icon if message is provided.
-- **warning** - meant to be a non-blocking validation, displays 1px wide orange border and validation icon if message is provided.
-- **info** - meant to be a non-blocking validation, displays 1px wide blue border and validation icon if message is provided.
+**Note:** The new validation redesign pattern **does not** currently support inline labels/legends (with the exception of `Switch`), this means that any related props will not have any effect or may have unexpected behaviour. 
+Component props that are not supported if the opt-in flag is set to true are labelled as [Legacy] in their corresponding prop tables. 
 
-### Input validation
+### Legacy Validation
 
-Each input component that supports validations accepts the following props - `error`, `warning` or `info`.
+The legacy validation pattern is still available for use, but we recommend using the new validation pattern for a more consistent and user-friendly experience.
+This pattern uses tooltips to provide feedback to users about the state of their input.
+
+#### States
+
+Each input component that supports validations accepts the following props - `error`, `warning` and `info`.
+
+- **error** - meant to be a blocking validation, displays 2px wide red border and validation icon with a tooltip if an error message is provided.
+- **warning** - meant to be a non-blocking validation, displays 1px wide orange border and validation icon with a tooltip if a warning message is provided.
+- **info** - meant to be a non-blocking validation, displays 1px wide blue border and validation icon with a tooltip if an information message is provided.
 
 Passing a `string` to these props will display a border along with a validation icon and tooltip; this `string` value will be displayed as the tooltip message.
 
 <Canvas of={ValidationsStories.StringValidation} />
 
-Passing a `boolean` to these props will display a border and validation icon without the additional tooltip information.
+Passing a `boolean` to these props will display a border without the additional validation icon and tooltip information.
 
 <Canvas of={ValidationsStories.BooleanValidation} />
 
-The only exception from this is the `DateRange` component which displays separate validation statuses on either `start` or `end` dates - 
-to achieve this the `DateRange` component accepts `startError`, `endError`, `startWarning`, `endWarning`, `startInfo` and `endInfo` props.
+#### Icon Placement
 
-<Canvas of={ValidationsStories.DateRangeValidation} />
+Most input components that support validations accept the `validationOnLabel` or `validationOnLegend` props, which will display the validation icon next to the label or legend of the input component 
+instead of within the input itself.
 
-### Grouped inputs validation
+<Canvas of={ValidationsStories.ValidationOnLabel} />
 
-Grouping components like `RadioButtonGroup`, `CheckboxGroup` and `SimpleColorPicker` support validations too.
+#### Tooltip Position
+The position of the tooltip can be controlled using the `tooltipPosition` prop, which accepts the following values - `top`, `bottom`, `left` and `right`.
+By default, the tooltip will be displayed to the right and will adjust its position based on the available space.
 
-<Canvas of={ValidationsStories.GroupedInputValidation} />
+<Canvas of={ValidationsStories.TooltipPosition} />
 
-Passing validation props on a group component will display a validation icon on the group label/legend and apply proper styles to the grouped inputs.
+#### Grouped Inputs
+
+Group components such as `RadioButtonGroup` and `CheckboxGroup` also accept the validation props, and they will be applied to the group as a whole and the validation icon will be displayed 
+next to the group legend.
 
 <Canvas of={ValidationsStories.GroupedLegendValidation} />
 
-The `required` prop can also be passed to the group component and the required attribute will be passed down to the child components.
+`RadioButton` and `Checkbox` also accept the validation props, and they will be applied to the individual input components within the group.
 
-<Canvas of={ValidationsStories.GroupedRequired} />
+<Canvas of={ValidationsStories.GroupedInputValidation} />
 
-### Validation icon placement
+## Form Validation
 
-Most of the input components support two variants of validation icon placement:
+### Using React Hook Form with Carbon
 
-- by the component or next to it - default behaviour
-- next to the component label or legend
+Carbon components can be integrated with React Hook Form, a lightweight form validation library which aligns with the HTML standard for form validation.
+The simple example below demonstrates how the `Controller` component from React Hook Form can be used with controlled Carbon components to create a form with validation.
 
-To decide which placement is preferred `validationOnLabel` or `validationOnLegend` props can be used.
+For more information on how to use React Hook Form, please refer to the [React Hook Form documentation](https://react-hook-form.com/).
 
-### Form component
+```tsx
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import Button from 'carbon-react/lib/components/button';
+import Form from 'carbon-react/lib/components/form';
+import Textbox from 'carbon-react/lib/components/textbox';
 
-Carbon provides a Form component which augments an HTML `<form>` element with:
+interface FormValues {
+  name: string;
+}
 
-- footer - a container for rendering "Save", "Cancel" and other custom buttons; it can also be made sticky if wanted
-- validation summary - graphical indicator of errors and warnings
+const MyForm = () => {
+  const { control, handleSubmit } = useForm<FormValues>({
+    defaultValues: {
+      name: '',
+    },
+  });
 
-For more information check [Form in Storybook](../?path=/docs/form--docs)
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    // Handle form submission here
+  };
 
-## Formik overview
+  return (
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      saveButton={<Button type="submit">Register</Button>}
+    >
+      <Controller
+        name="name"
+        control={control}
+        rules={{
+          required: 'Name is required',
+        }}
+        render={({ field: { onChange, onBlur, value }, fieldState }) => (
+          <Textbox
+            label="Name"
+            required
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
+            error={fieldState.error?.message}
+          />
+        )}
+      />
+    </Form>
+  );
+};
 
-> Formik keeps track of your form's state, and then exposes it (plus a few reusable methods and event handlers) to your
-> form via props. [🔗](https://jaredpalmer.com/formik/docs/overview#the-gist)
+export default MyForm;
+```
 
-Formik provides a small set of React components and hooks, of which the key ones are:
+### Using Formik with Carbon
 
-- [**Formik**](https://jaredpalmer.com/formik/docs/api/formik) - The central component of Formik, which wraps an
-  HTML form, and accepts props such as
-  [initialValues](https://jaredpalmer.com/formik/docs/api/formik#initialvalues-values),
-  [onSubmit()](https://jaredpalmer.com/formik/docs/api/formik#onsubmit-values-values-formikbag-formikbag-void),
-  [validate()](https://jaredpalmer.com/formik/docs/api/formik#validate-values-values-formikerrors-values-promise-any)
-  and [validationSchema()](https://jaredpalmer.com/formik/docs/api/formik#validationschema-schema-schema). It
-  provides form state information (such as
-  [values](https://jaredpalmer.com/formik/docs/api/formik#values-field-string-any),
-  [dirty](https://jaredpalmer.com/formik/docs/api/formik#dirty-boolean),
-  [errors](https://jaredpalmer.com/formik/docs/api/formik#errors-field-string-string) and
-  [isValid](https://jaredpalmer.com/formik/docs/api/formik#isvalid-boolean)) and action methods (such as
-  [validateForm()](https://jaredpalmer.com/formik/docs/api/formik#validateform-values-any-promise-formikerrors-values),
-  [validateField()](https://jaredpalmer.com/formik/docs/api/formik#validatefield-field-string-void) and
-  [setValues()](https://jaredpalmer.com/formik/docs/api/formik#setvalues-fields-field-string-any-void)).
-- [**Form**](https://jaredpalmer.com/formik/docs/api/form),
-  [**Field**](https://jaredpalmer.com/formik/docs/api/field),
-  [**ErrorMessage**](https://jaredpalmer.com/formik/docs/api/errormessage) - Helper components (powered by
-  [React Context](https://reactjs.org/docs/context.html)) which reduce boilerplate code.
-- [**useField()**](https://jaredpalmer.com/formik/docs/api/useField) - A hook to help with building reusable input
-  primitive components.
+For legacy projects who still use Formik, please refer to our previous documentation on using 
+[Formik](https://carbon.sage.com/v/154.0.0/index.html?path=/docs/documentation-validations--docs#formik-overview) with Carbon components.
 
-**Note:** Formik is only intended to be used with
-[controlled components](https://reactjs.org/docs/forms.html#controlled-components), where the component's state is
-controlled by supplying a `value` prop (or a `checked` prop for `radio` and `checkbox`). Technically it's possible to
-use Formik with [uncontrolled components](https://reactjs.org/docs/uncontrolled-components.html) (by not supplying a
-controlling `value`/`checked` prop, and only supplying `name` `onChange` `onBlur` props), but this is strongly
-**discouraged** ⚠️.
-
-### Form validation using Formik
-
-Formik supports three kinds of validation:
-
-1. [**Form-level: plain**](https://jaredpalmer.com/formik/docs/guides/validation#validate) - A `values` object is
-   passed to a `validate()` function which implements its own custom validation logic and returns an `errors` object.
-2. [**Form-level: schema-based**](https://jaredpalmer.com/formik/docs/guides/validation#validationschema) - Performs
-   validation using a [Yup](https://github.com/jquense/yup) schema.
-3. [**Field-level**](https://jaredpalmer.com/formik/docs/guides/validation#field-level-validation) - Separate
-   `validate()` functions are supplied for each form field.
-
-## Code examples
-
-### Form validation using Field-level validation with Formik and Yup
-
-See the [example codesandbox code](https://codesandbox.io/s/carbon-with-formik-new-example-2cqdxm?file=/src/App.tsx) showing how to
-integrate various different Carbon components into Formik/Yup.
-
-Note the following points about the implementation:
-
-- Carbon components are wrapped in [Formik's Field component](https://formik.org/docs/api/field), passing the actual Carbon component as the `as` prop.
-- A `validate` prop is also required as well as warning/error/info props as appropriate to pass to the Carbon component. In the example these have been
-  returned from a custom Hook that takes the Yup validation schemas - this should be adapted to your actual use case if not appropriate.
-- Note the use of an explicit `checked` prop on the checkbox and switch components, with `value` set to a hardcoded string. This is required for these
-  checkbox-based components to work properly (Formik `Field` by default will try to pass `value` but `checked` is the important property on these components,
-  with `value` having no purpose other than allowing the field to be identified on the server side after form submission).
-- Date-related components require more careful handling - an explicit `onChange` is required that calls Formik's `setFieldValue` function with the
-  `formattedValue` property of the custom event object's `target`.
-- There is also a custom Yup transform to ensure the date is parsed in `dd/MM/yyyy` format, which is the default for Carbon date components but not accepted
-  by Yup. The implementation in the sandbox uses the `date-fns` library but you can use whichever date-parsing library you choose, and of course use whichever
-  date-format is appropriate to the locale you're using.
-- `DateRange` requires particularly special handling, as this is a single Carbon component which renders 2 separate HTML input fields. In the example
-  this is done by using a modified form of the custom hook mentioned above that returns two separate prop objects, one for each input, and passes them
-  down using `startDateProps` and `endDateProps`. Note the way these prop objects are generated to ensure validation messages, possibly of different types,
-  can be supplied to each input where appropriate (this is also why the `abortEarly` Yup validation option is set to false).
-  Similarly, the validation function and the custom `onChange` need to ensure they cover both fields individually.
