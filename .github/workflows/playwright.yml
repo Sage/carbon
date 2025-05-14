@@ -54,6 +54,8 @@ jobs:
           PW_JSON=$(cat "$TEMP_JSON")
           rm "$TEMP_JSON"
 
+          echo "$PW_JSON"
+
           echo "Test titles:"
           echo "$PW_JSON" | jq '.suites[].specs[].tests[].title'
 
