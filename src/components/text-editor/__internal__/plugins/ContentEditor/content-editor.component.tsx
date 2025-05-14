@@ -18,11 +18,34 @@ export interface ContentEditorProps {
   rows?: number;
   /** Whether the editor is read-only */
   readOnly?: boolean;
+  /** Whether the editor is required */
+  required?: boolean;
+  /** Editor has an error */
+  error?: boolean;
+  /** Editor has a warning */
+  warning?: boolean;
 }
 
 const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
-  ({ inputHint, namespace, previews = [], rows, readOnly }, ref) => {
+  (
+    {
+      inputHint,
+      namespace,
+      previews = [],
+      rows,
+      readOnly,
+      required,
+      error,
+      warning,
+    },
+    ref,
+  ) => {
     const focusAtEnd = useCursorAtEnd();
+
+    const validationMessageId =
+      error || warning ? `${namespace}-validation-message` : "";
+    const inputHintId = inputHint ? `${namespace}-input-hint` : "";
+    const ariaDescribedBy = `${validationMessageId} ${inputHintId}`.trim();
 
     return (
       <StyledContentEditable
@@ -33,8 +56,10 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
       >
         <ContentEditable
           ref={ref}
-          aria-describedby={inputHint && `${namespace}-input-hint`}
+          aria-describedby={ariaDescribedBy}
           aria-labelledby={`${namespace}-label`}
+          aria-required={required}
+          aria-invalid={error}
           className={`${namespace}-editable`}
           data-role={`${namespace}-editable`}
           onFocus={(event) => {
@@ -47,7 +72,7 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
               focusAtEnd(event);
             }
           }}
-          /** The following are automatically added by Lexical but violate WCAG 4.1.2 Name, Role, Value and so have been overriden */
+          /** The following are automatically added by Lexical but violate WCAG 4.1.2 Name, Role, Value and so have been overridden */
           aria-autocomplete={undefined}
           aria-readonly={undefined}
         />

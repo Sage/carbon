@@ -68,7 +68,9 @@ You can use the `CreateEmpty` function to create an empty editor state. This fun
 
 ### Required
 
-You can set the `required` property to `true` to indicate that the content of the editor is mandatory.
+You can set the `required` property to `true` to indicate to users that the content of the editor is mandatory. 
+
+**Note:** Since the editor input is not a conventional HTML form element, the `required` property does not enforce any default validation. It is up to the developer to ensure that the content is validated before submission.
 
 <Canvas of={TextEditorStories.Required} />
 

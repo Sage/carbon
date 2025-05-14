@@ -284,6 +284,7 @@ export const TextEditor = ({
             {(error || characterLimitWarning || warning) && (
               <StyledValidationMessage
                 error={error}
+                id={`${namespace}-validation-message`}
                 data-role={`${namespace}-validation-message`}
               >
                 {error || characterLimitWarning || warning}
@@ -313,6 +314,9 @@ export const TextEditor = ({
                       previews={previews}
                       rows={rows}
                       readOnly={readOnly}
+                      required={required}
+                      error={!!error}
+                      warning={!!warning || !!characterLimitWarning}
                     />
                   }
                   placeholder={
