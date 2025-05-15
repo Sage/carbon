@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { act, configure, render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Decimal from "./decimal.component";
@@ -1451,13 +1451,11 @@ test("the `required` prop is not passed to the hidden input", () => {
 });
 
 test("component should render without invariant firing in strict mode", () => {
-  configure({ reactStrictMode: true });
-
   const consoleErrorSpy = jest
     .spyOn(console, "error")
     .mockImplementation(() => {});
 
-  render(<ControlledDecimal startingValue="123" />);
+  render(<ControlledDecimal startingValue="123" />, { reactStrictMode: true });
 
   expect(screen.getByRole("textbox")).toHaveValue("123.00");
   expect(screen.getByTestId("hidden-input")).toHaveValue("123.00");
@@ -1470,5 +1468,4 @@ test("component should render without invariant firing in strict mode", () => {
   );
 
   consoleErrorSpy.mockRestore();
-  configure({ reactStrictMode: false });
 });
