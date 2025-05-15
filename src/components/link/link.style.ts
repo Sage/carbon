@@ -3,7 +3,7 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 
-type Variants = "default" | "negative" | "neutral";
+export type Variants = "default" | "negative" | "neutral";
 export interface StyledLinkProps {
   /** The disabled state of the link. */
   disabled?: boolean;
