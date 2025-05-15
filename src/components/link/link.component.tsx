@@ -3,7 +3,6 @@ import { StyledLink } from "./link.style";
 import type { Variants } from "./link.style";
 import MenuContext from "../menu/__internal__/menu.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
-import { IconType } from "../icon";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
@@ -11,6 +10,7 @@ import BaseLink from "./link-base.component";
 
 export interface LinkProps extends React.AriaAttributes, TagProps {
   href?: string;
+  icon?: string;
   iconAlign?: "left" | "right";
   tooltipMessage?: string;
   tooltipPosition?: "bottom" | "left" | "right" | "top";
@@ -23,7 +23,6 @@ export interface LinkProps extends React.AriaAttributes, TagProps {
   onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   removeAriaLabelOnIcon?: boolean;
   isSkipLink?: boolean;
-  icon?: IconType;
   disabled?: boolean;
   className?: string;
   variant?: Variants;
@@ -35,6 +34,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
     {
       children,
       className,
+      icon,
       iconAlign,
       variant = "default",
       isDarkBackground,
@@ -49,7 +49,6 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
     const [hasFocus, setHasFocus] = useState(false);
     const { inMenu } = useContext(MenuContext);
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
-
     const isDisabled = disabled || batchSelectionDisabled;
 
     useEffect(() => {
@@ -57,6 +56,23 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         setHasFocus(false);
       }
     }, [isDisabled, href, onClick]);
+
+    const createLinkBasedOnType = () => (
+      <BaseLink
+        {...rest}
+        ref={ref}
+        href={href}
+        onClick={onClick}
+        disabled={isDisabled}
+        icon={icon}
+        iconAlign={iconAlign}
+        isSkipLink={isSkipLink}
+        onFocus={() => setHasFocus(true)}
+        onBlur={() => setHasFocus(false)}
+      >
+        {children}
+      </BaseLink>
+    );
 
     return (
       <StyledLink
@@ -72,18 +88,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         {...(isSkipLink && { "data-element": "skip-link" })}
         hasFocus={hasFocus}
       >
-        <BaseLink
-          {...rest}
-          ref={ref}
-          href={href}
-          onClick={onClick}
-          disabled={isDisabled}
-          isSkipLink={isSkipLink}
-          onFocus={() => setHasFocus(true)}
-          onBlur={() => setHasFocus(false)}
-        >
-          {children}
-        </BaseLink>
+        {createLinkBasedOnType()}
       </StyledLink>
     );
   },
