@@ -198,6 +198,9 @@
     "react-transition-group": "^4.4.5",
     "styled-system": "^5.1.5"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.9.5"
+  },
   "overrides": {
     "playwright-core": "$@playwright/experimental-ct-react",
     "jsdom": "$jsdom"
