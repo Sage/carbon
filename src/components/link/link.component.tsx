@@ -1,107 +1,93 @@
-import React, { forwardRef, useContext, useState, useMemo } from "react";
-import styled from "styled-components";
-import LinkBase, { LinkBaseProps } from "./link-base.component";
-import Icon, { IconType } from "../icon";
+import React, { useContext, useEffect, useState } from "react";
+import { StyledLink } from "./link.style";
+import type { Variants } from "./link.style";
 import MenuContext from "../menu/__internal__/menu.context";
+import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+import { IconType } from "../icon";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
+import BaseLink from "./link-base.component";
 
-const StyledLink = styled.a<{ hasChildren: boolean; iconAlign: "left" | "right" }>`
-  text-decoration: ${(props) => (props.hasChildren ? "underline" : "none")};
-  display: inline-flex;
-  align-items: center;
-  ${(props) =>
-    props.iconAlign === "left"
-      ? `
-      margin-right: var(--spacing100);
-      `
-      : `
-      margin-left: var(--spacing100);
-      `}
-`;
-
-const LinkIconWrapper = styled.span`
-  position: relative;
-`;
-
-export interface LinkProps extends LinkBaseProps {
-  icon?: IconType;
+export interface LinkProps extends React.AriaAttributes, TagProps {
+  href?: string;
   iconAlign?: "left" | "right";
   tooltipMessage?: string;
-  tooltipPosition?: "top" | "right" | "bottom" | "left";
-  removeAriaLabelOnIcon?: boolean;
+  tooltipPosition?: "bottom" | "left" | "right" | "top";
+  children?: React.ReactNode;
+  target?: string;
+  rel?: string;
   ariaLabel?: string;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  removeAriaLabelOnIcon?: boolean;
+  isSkipLink?: boolean;
+  icon?: IconType;
+  disabled?: boolean;
+  className?: string;
+  variant?: Variants;
   isDarkBackground?: boolean;
 }
 
-const Link = forwardRef<
-  HTMLAnchorElement | HTMLButtonElement,
-  LinkProps
->(({
-  icon,
-  iconAlign = "left",
-  tooltipMessage,
-  tooltipPosition,
-  removeAriaLabelOnIcon,
-  ariaLabel,
-  children,
-  ...rest
-}, ref) => {
-  const { inMenu } = useContext(MenuContext);
-  const [ setHasFocus] = useState(false);
-  const hasChildren = !!children;
-
-  const isDisabled = rest.disabled || false;
-
-  const ariaProps = useMemo(() => {
-    const restObject = rest as Record<string, unknown>;
-
-    return Object.keys(restObject)
-      .filter((key) => key.startsWith("aria"))
-      .reduce((obj: Record<string, unknown>, key: string) => {
-        obj[key] = restObject[key];
-        return obj;
-      }, {});
-  }, [rest]);
-
-  const componentProps = {
+const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
+  (
+    {
+      children,
+      className,
+      iconAlign,
+      variant = "default",
+      isDarkBackground,
+      isSkipLink,
+      href,
+      onClick,
+      disabled,
+      ...rest
+    },
     ref,
-    ...ariaProps,
-    ...rest,
-    onFocus: () => setHasFocus(true),
-    onBlur: () => setHasFocus(false),
-  };
+  ) => {
+    const [hasFocus, setHasFocus] = useState(false);
+    const { inMenu } = useContext(MenuContext);
+    const { batchSelectionDisabled } = useContext(BatchSelectionContext);
 
-  return (
-    <LinkBase {...componentProps}>
-      <StyledLink hasChildren={hasChildren} iconAlign={iconAlign}>
-        {iconAlign === "left" && icon && (
-          <LinkIconWrapper>
-            <Icon
-              type={icon}
-              disabled={isDisabled}
-              ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
-              tooltipMessage={tooltipMessage}
-              tooltipPosition={tooltipPosition}
-              data-testid="icon"
-            />
-          </LinkIconWrapper>
-        )}
-        {hasChildren && <span>{children}</span>}
-        {iconAlign === "right" && icon && (
-          <LinkIconWrapper>
-            <Icon
-              type={icon}
-              disabled={isDisabled}
-              ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
-              tooltipMessage={tooltipMessage}
-              tooltipPosition={tooltipPosition}
-              data-testid="icon"
-            />
-          </LinkIconWrapper>
-        )}
+    const isDisabled = disabled || batchSelectionDisabled;
+
+    useEffect(() => {
+      if (isDisabled || !(href || onClick)) {
+        setHasFocus(false);
+      }
+    }, [isDisabled, href, onClick]);
+
+    return (
+      <StyledLink
+        isSkipLink={isSkipLink}
+        disabled={isDisabled}
+        iconAlign={iconAlign}
+        className={className}
+        hasContent={Boolean(children)}
+        variant={variant}
+        isDarkBackground={isDarkBackground}
+        isMenuItem={inMenu}
+        {...tagComponent("link", rest)}
+        {...(isSkipLink && { "data-element": "skip-link" })}
+        hasFocus={hasFocus}
+      >
+        <BaseLink
+          {...rest}
+          ref={ref}
+          href={href}
+          onClick={onClick}
+          disabled={isDisabled}
+          isSkipLink={isSkipLink}
+          onFocus={() => setHasFocus(true)}
+          onBlur={() => setHasFocus(false)}
+        >
+          {children}
+        </BaseLink>
       </StyledLink>
-    </LinkBase>
-  );
-});
+    );
+  },
+);
 
 Link.displayName = "Link";
 export default Link;
