@@ -1,113 +1,108 @@
-import React, { forwardRef, useMemo } from "react";
+import React, { useMemo } from "react";
 import Icon, { IconType } from "../icon";
-import { StyledContent } from "./link.style";
 import useLocale from "../../hooks/__internal__/useLocale";
+import { StyledContent } from "./link.style";
 
 export interface BaseLinkProps extends React.AriaAttributes {
   href?: string;
   icon?: IconType;
   iconAlign?: "left" | "right";
   tooltipMessage?: string;
-  tooltipPosition?: "top" | "right" | "bottom" | "left";
+  tooltipPosition?: "bottom" | "left" | "right" | "top";
+  children?: React.ReactNode;
   target?: string;
   rel?: string;
   ariaLabel?: string;
-  removeAriaLabelOnIcon?: boolean;
-  isSkipLink?: boolean;
-  disabled?: boolean;
-  className?: string;
-  children?: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
-  onFocus?: () => void;
-  onBlur?: () => void;
+  removeAriaLabelOnIcon?: boolean;
+  isSkipLink?: boolean;
+  disabled?: boolean;
+  onFocus?: React.FocusEventHandler;
+  onBlur?: React.FocusEventHandler;
+  ref?: React.Ref<HTMLAnchorElement | HTMLButtonElement>;
 }
 
-const BaseLink = forwardRef<
+const BaseLink = React.forwardRef<
   HTMLAnchorElement | HTMLButtonElement,
   BaseLinkProps
 >(
   (
     {
+      href,
       icon,
       iconAlign = "left",
       tooltipMessage,
       tooltipPosition,
-      rel,
+      children,
       target,
-      href,
+      rel,
+      ariaLabel,
       onClick,
       onKeyDown,
       onMouseDown,
-      ariaLabel,
       removeAriaLabelOnIcon,
       isSkipLink,
       disabled,
-      className,
-      children,
       onFocus,
       onBlur,
       ...rest
     },
     ref,
   ) => {
-    const locale = useLocale();
+    const l = useLocale();
+
+    const renderIcon = (align: "left" | "right") =>
+      icon && iconAlign === align ? (
+        <Icon
+          type={icon}
+          disabled={disabled}
+          ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
+          tooltipMessage={tooltipMessage}
+          tooltipPosition={tooltipPosition}
+          data-testid="icon"
+        />
+      ) : null;
 
     const ariaProps = useMemo(() => {
-      const props: Record<string, unknown> = {};
-      for (const [key, value] of Object.entries(rest)) {
-        if (key.startsWith("aria-") || key.startsWith("data-")) {
-          props[key] = value;
-        }
-      }
-      return props;
+      return Object.entries(rest).reduce<Record<string, unknown>>(
+        (acc, [key, value]) => {
+          if (key.startsWith("aria-") || key.startsWith("data-")) {
+            acc[key] = value;
+          }
+          return acc;
+        },
+        {},
+      );
     }, [rest]);
 
-    const renderIcon = (position: "left" | "right") => {
-      if (icon && iconAlign === position) {
-        return (
-          <Icon
-            type={icon}
-            disabled={disabled}
-            ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
-            tooltipMessage={tooltipMessage}
-            tooltipPosition={tooltipPosition}
-          />
-        );
-      }
-      return null;
-    };
-
-    const isButton = onClick && !href;
-    const tag = isButton ? "button" : "a";
-
+    const Element = onClick && !href ? "button" : "a";
     const commonProps = {
       ref,
       onClick: disabled ? undefined : onClick,
       onKeyDown,
       onMouseDown,
-      "aria-label": ariaLabel,
-      className,
-      disabled,
-      target,
-      href,
-      rel,
       onFocus,
       onBlur,
-      "data-disabled": disabled ? "true" : undefined,
-      ...(isButton ? { type: "button" } : { "data-role": "link-anchor" }),
+      target,
+      rel,
+      href,
+      disabled,
+      "aria-label": ariaLabel,
       ...ariaProps,
     };
 
+    const content = isSkipLink ? l.link.skipLinkLabel() : children;
+
     return React.createElement(
-      tag,
-      commonProps,
+      Element,
+      Element === "button"
+        ? { ...commonProps, type: "button" }
+        : { ...commonProps, "data-role": "link-anchor" },
       <>
         {renderIcon("left")}
-        <StyledContent>
-          {isSkipLink ? locale.link.skipLinkLabel() : children}
-        </StyledContent>
+        <StyledContent data-testid="link-content">{content}</StyledContent>
         {renderIcon("right")}
       </>,
     );
