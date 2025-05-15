@@ -1,112 +1,118 @@
-import React, { useCallback, useContext, useMemo, useState, ForwardedRef } from "react";
-import MenuContext from "../menu/__internal__/menu.context";
-import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
-import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
+import React, { forwardRef, useMemo } from "react";
+import Icon, { IconType } from "../icon";
+import { StyledContent } from "./link.style";
 import useLocale from "../../hooks/__internal__/useLocale";
 
-export interface LinkBaseProps extends TagProps {
+export interface BaseLinkProps extends React.AriaAttributes {
   href?: string;
-  isSkipLink?: boolean;
-  disabled?: boolean;
-  onClick?: (
-    ev:
-      | React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
-      | React.KeyboardEvent<HTMLAnchorElement | HTMLButtonElement>
-  ) => void;
-  onKeyDown?: (
-    ev: React.KeyboardEvent<HTMLAnchorElement | HTMLButtonElement>
-  ) => void;
-  onMouseDown?: (
-    ev: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
-  ) => void;
+  icon?: IconType;
+  iconAlign?: "left" | "right";
+  tooltipMessage?: string;
+  tooltipPosition?: "top" | "right" | "bottom" | "left";
   target?: string;
   rel?: string;
   ariaLabel?: string;
+  removeAriaLabelOnIcon?: boolean;
+  isSkipLink?: boolean;
+  disabled?: boolean;
   className?: string;
   children?: React.ReactNode;
-  "data-role"?: string;
-  "data-element"?: string;
-  style?: React.CSSProperties;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
-export const LinkBase = React.forwardRef<
+const BaseLink = forwardRef<
   HTMLAnchorElement | HTMLButtonElement,
-  LinkBaseProps
->((props, ref: ForwardedRef<HTMLAnchorElement | HTMLButtonElement>) => {
-  const {
-    href,
-    onClick,
-    onKeyDown,
-    onMouseDown,
-    isSkipLink,
-    disabled,
-    target,
-    rel,
-    ariaLabel,
-    className,
-    style,
-    children,
-    ...rest
-  } = props;
-
-  const locale = useLocale();
-  const { inMenu } = useContext(MenuContext);
-  const { batchSelectionDisabled } = useContext(BatchSelectionContext);
-
-  const isDisabled = disabled || batchSelectionDisabled;
-  const [hasFocus, setHasFocus] = useState(false);
-
-  const setRefs = useCallback(
-    (node: HTMLAnchorElement | null) => {
-      if (!ref) return;
-      if (typeof ref === "function") ref(node);
-      else if (ref) ref.current = node;
+  BaseLinkProps
+>(
+  (
+    {
+      icon,
+      iconAlign = "left",
+      tooltipMessage,
+      tooltipPosition,
+      rel,
+      target,
+      href,
+      onClick,
+      onKeyDown,
+      onMouseDown,
+      ariaLabel,
+      removeAriaLabelOnIcon,
+      isSkipLink,
+      disabled,
+      className,
+      children,
+      onFocus,
+      onBlur,
+      ...rest
     },
-    [ref]
-  );
+    ref,
+  ) => {
+    const locale = useLocale();
 
-  const ariaAndDataProps = useMemo(() => {
-    return Object.entries(rest).reduce<Record<string, unknown>>((acc, [key, value]) => {
-      if (key.startsWith("aria-") || key.startsWith("data-")) {
-        acc[key] = value;
+    const ariaProps = useMemo(() => {
+      const props: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries(rest)) {
+        if (key.startsWith("aria-") || key.startsWith("data-")) {
+          props[key] = value;
+        }
       }
-      return acc;
-    }, {});
-  }, [rest]);
+      return props;
+    }, [rest]);
 
-  const commonProps = {
-    ref: setRefs,
-    onClick: isDisabled ? undefined : onClick,
-    onKeyDown,
-    onMouseDown,
-    disabled: isDisabled,
-    target,
-    href,
-    rel,
-    className,
-    "aria-label": ariaLabel,
-    "data-disabled": isDisabled ? "true" : undefined,
-    onFocus: () => setHasFocus(true),
-    onBlur: () => setHasFocus(false),
-    ...ariaAndDataProps,
-  };
+    const renderIcon = (position: "left" | "right") => {
+      if (icon && iconAlign === position) {
+        return (
+          <Icon
+            type={icon}
+            disabled={disabled}
+            ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
+            tooltipMessage={tooltipMessage}
+            tooltipPosition={tooltipPosition}
+          />
+        );
+      }
+      return null;
+    };
 
-  const content = isSkipLink ? locale.link.skipLinkLabel() : children;
+    const isButton = onClick && !href;
+    const tag = isButton ? "button" : "a";
 
-  if (onClick && !href) {
-    return (
-      <button type="button" {...commonProps}>
-        {content}
-      </button>
+    const commonProps = {
+      ref,
+      onClick: disabled ? undefined : onClick,
+      onKeyDown,
+      onMouseDown,
+      "aria-label": ariaLabel,
+      className,
+      disabled,
+      target,
+      href,
+      rel,
+      onFocus,
+      onBlur,
+      "data-disabled": disabled ? "true" : undefined,
+      ...(isButton ? { type: "button" } : { "data-role": "link-anchor" }),
+      ...ariaProps,
+    };
+
+    return React.createElement(
+      tag,
+      commonProps,
+      <>
+        {renderIcon("left")}
+        <StyledContent>
+          {isSkipLink ? locale.link.skipLinkLabel() : children}
+        </StyledContent>
+        {renderIcon("right")}
+      </>,
     );
-  }
+  },
+);
 
-  return (
-    <a data-role="link-anchor" {...commonProps}>
-      {content}
-    </a>
-  );
-});
-
-LinkBase.displayName = "LinkBase";
-export default LinkBase;
+BaseLink.displayName = "BaseLink";
+export default BaseLink;
