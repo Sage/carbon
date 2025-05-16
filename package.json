@@ -13,7 +13,7 @@
     "test-update": "jest --config=./jest.config.ts --updateSnapshot",
     "format": "prettier --write './{src,playwright}/**/*.{js,jsx,ts,tsx}'",
     "lint": "eslint ./src ./playwright",
-    "precompile": "npm run type-check && npm run clean-lib && npm run build && npm run build:types && npm run copy-files",
+    "precompile": "npm run type-check && npm run build",
     "prepublishOnly": "npm run precompile",
     "build-storybook": "dotenvx run -- storybook build -c .storybook",
     "build-storybook:prod": "dotenvx run -f .env.production -- storybook build -c .storybook",
