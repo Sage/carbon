@@ -1,3 +1,9 @@
+## [154.2.0](https://github.com/Sage/carbon/compare/v154.1.1...v154.2.0) (2025-05-16)
+
+### Features
+
+* **password:** add translation keys for Hide/Show button ([44676c2](https://github.com/Sage/carbon/commit/44676c293727db776055a266fd600dff4a7251fc)), closes [#7329](https://github.com/Sage/carbon/issues/7329)
+
 ## [154.1.1](https://github.com/Sage/carbon/compare/v154.1.0...v154.1.1) (2025-05-12)
 
 ### Bug Fixes
