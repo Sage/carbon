@@ -1449,3 +1449,23 @@ test("the `required` prop is not passed to the hidden input", () => {
 
   expect(screen.getByTestId("hidden-input")).not.toBeRequired();
 });
+
+test("component should render without invariant firing in strict mode", () => {
+  const consoleErrorSpy = jest
+    .spyOn(console, "error")
+    .mockImplementation(() => {});
+
+  render(<ControlledDecimal startingValue="123" />, { reactStrictMode: true });
+
+  expect(screen.getByRole("textbox")).toHaveValue("123.00");
+  expect(screen.getByTestId("hidden-input")).toHaveValue("123.00");
+
+  expect(consoleErrorSpy).not.toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
+        "Decide between using a controlled or uncontrolled input element for the lifetime of the component",
+    ),
+  );
+
+  consoleErrorSpy.mockRestore();
+});
