@@ -53,6 +53,14 @@ const BaseLink = React.forwardRef<
   ) => {
     const l = useLocale();
 
+    const { "data-role": _dataRole, ...cleanedRest } = rest;
+
+    if (process.env.NODE_ENV !== "production" && _dataRole) {
+      console.warn(
+        "BaseLink: `data-role` prop was ignored to prevent duplication in the DOM.",
+      );
+    }
+
     const renderIcon = (align: "left" | "right") =>
       icon && iconAlign === align ? (
         <Icon
@@ -66,7 +74,7 @@ const BaseLink = React.forwardRef<
       ) : null;
 
     const ariaProps = useMemo(() => {
-      return Object.entries(rest).reduce<Record<string, unknown>>(
+      return Object.entries(cleanedRest).reduce<Record<string, unknown>>(
         (acc, [key, value]) => {
           if (key.startsWith("aria-") || key.startsWith("data-")) {
             acc[key] = value;
@@ -75,7 +83,7 @@ const BaseLink = React.forwardRef<
         },
         {},
       );
-    }, [rest]);
+    }, [cleanedRest]);
 
     const Element = onClick && !href ? "button" : "a";
     const commonProps = {
