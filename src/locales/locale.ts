@@ -126,6 +126,10 @@ interface Locale {
     ofY: (count: string | number) => string;
   };
   password: {
+    buttonLabelHide?: () => string;
+    buttonLabelShow?: () => string;
+    ariaLabelHide?: () => string;
+    ariaLabelShow?: () => string;
     ariaLiveShownMessage: () => string;
     ariaLiveHiddenMessage: () => string;
   };
