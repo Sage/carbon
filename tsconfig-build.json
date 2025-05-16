@@ -11,6 +11,7 @@
     "./src/**/*.pw.ts*",
     "./src/**/*.test-pw.ts*",
     "./src/__spec_helper__/__internal__/**",
-    "./jest.config.ts"
+    "./jest.config.ts",
+    "./src/style/themes/test-utils.ts",
   ]
 }

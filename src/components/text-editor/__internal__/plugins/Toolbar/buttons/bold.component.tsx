@@ -8,7 +8,7 @@ import { FormattingButton } from "../toolbar.style";
 import { TextEditorActionTypes } from "../../../constants";
 import useLocale from "../../../../../../hooks/__internal__/useLocale";
 
-import { FormattingButtonProps } from "./common";
+import { FormattingButtonProps } from "./common.types";
 
 // The `BoldButton` component is a button that applies bold formatting to the selected text in the editor.
 const BoldButton = ({ isActive, namespace }: FormattingButtonProps) => {
