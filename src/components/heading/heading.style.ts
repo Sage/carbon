@@ -92,7 +92,6 @@ type StyledHeadingTitleProps = {
 };
 
 const StyledHeadingTitle = styled(Typography)<StyledHeadingTitleProps>`
-  line-height: 32px;
   ${({ withMargin }) =>
     withMargin
       ? css`

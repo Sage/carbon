@@ -20,8 +20,8 @@ test("should render with expected styles when variant is 'h1-large'", () => {
   render(<Typography variant="h1-large">Test</Typography>);
 
   expect(screen.getByText("Test")).toHaveStyle({
-    fontSize: "32px",
-    lineHeight: "40px",
+    fontSize: "40px",
+    lineHeight: "50px",
     fontWeight: "700",
     textTransform: "none",
     textDecoration: "none",
@@ -33,8 +33,8 @@ test("should render with expected styles when variant is 'h1'", () => {
   render(<Typography variant="h1">Test</Typography>);
 
   expect(screen.getByText("Test")).toHaveStyle({
-    fontSize: "24px",
-    lineHeight: "30px",
+    fontSize: "30px",
+    lineHeight: "37.5px",
     fontWeight: "700",
     textTransform: "none",
     textDecoration: "none",
@@ -46,9 +46,9 @@ test("should render with expected styles when variant is 'h2'", () => {
   render(<Typography variant="h2">Test</Typography>);
 
   expect(screen.getByText("Test")).toHaveStyle({
-    fontSize: "22px",
-    lineHeight: "27.5px",
-    fontWeight: "500",
+    fontSize: "24px",
+    lineHeight: "30px",
+    fontWeight: "700",
     textTransform: "none",
     textDecoration: "none",
     margin: "0",
@@ -59,8 +59,8 @@ test("should render with expected styles when variant is 'h3'", () => {
   render(<Typography variant="h3">Test</Typography>);
 
   expect(screen.getByText("Test")).toHaveStyle({
-    fontSize: "20px",
-    lineHeight: "25px",
+    fontSize: "21px",
+    lineHeight: "26.25px",
     fontWeight: "500",
     textTransform: "none",
     textDecoration: "none",
@@ -98,8 +98,8 @@ test("should render with expected styles when variant is 'segment-header'", () =
   render(<Typography variant="segment-header">Test</Typography>);
 
   expect(screen.getByText("Test")).toHaveStyle({
-    fontSize: "20px",
-    lineHeight: "25px",
+    fontSize: "21px",
+    lineHeight: "26.25px",
     fontWeight: "700",
     textTransform: "none",
     textDecoration: "none",
