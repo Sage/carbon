@@ -10,8 +10,15 @@ import Box from "../box";
 import GlobalHeader from "../global-header";
 import { Select, Option } from "../select";
 import Typography from "../typography";
-
+import MultiActionButton from "../multi-action-button";
 import Button from "../button";
+import {
+  ActionPopover,
+  ActionPopoverDivider,
+  ActionPopoverItem,
+} from "../action-popover";
+import Dialog from "../dialog";
+
 import Hr from "../hr";
 import { Menu, MenuItem } from "../menu";
 
@@ -75,6 +82,7 @@ type Story = StoryObj<typeof AdaptiveSidebar>;
 export const Basic: Story = () => {
   const [adaptiveSidebarOpen, setAdaptiveSidebarOpen] =
     useState(defaultOpenState);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <Box display="flex" flexDirection="row">
@@ -93,15 +101,80 @@ export const Basic: Story = () => {
           auctor aliquam. Sed eu metus sit amet est tempor ullamcorper. Praesent
           eu elit eget lacus fermentum porta at ut dui.
         </Typography>
+
+        <Select label="foo" labelInline>
+          <Option text="foo" value="foo" />
+          <Option text="bar" value="bar" />
+          <Option text="baz" value="baz" />
+        </Select>
+        <Box display="flex" flexDirection="row" justifyContent="end">
+          <MultiActionButton text="foo">
+            <Button>FOo</Button>
+          </MultiActionButton>
+          <ActionPopover
+            onOpen={() => console.log("popover opened")}
+            onClose={() => console.log("popover closed")}
+          >
+            <ActionPopoverItem
+              disabled
+              icon="graph"
+              onClick={() => console.log("email")}
+            >
+              Business
+            </ActionPopoverItem>
+            <ActionPopoverItem
+              icon="email"
+              onClick={() => console.log("email")}
+            >
+              Email Invoice
+            </ActionPopoverItem>
+            <ActionPopoverItem
+              icon="print"
+              onClick={() => console.log("print")}
+            >
+              Print Invoice
+            </ActionPopoverItem>
+            <ActionPopoverItem icon="pdf" onClick={() => console.log("pdf")}>
+              Download PDF
+            </ActionPopoverItem>
+            <ActionPopoverItem icon="csv" onClick={() => console.log("csv")}>
+              Download CSV
+            </ActionPopoverItem>
+            <ActionPopoverDivider />
+            <ActionPopoverItem
+              icon="delete"
+              onClick={() => console.log("delete")}
+            >
+              Delete
+            </ActionPopoverItem>
+          </ActionPopover>
+        </Box>
       </Box>
       <AdaptiveSidebar open={adaptiveSidebarOpen} width="300px">
         <Box p={2} display="flex" flexDirection="column">
-          <Button onClick={() => setAdaptiveSidebarOpen(false)} mb={2}>
+          <Button
+            iconType="export"
+            onClick={() => setAdaptiveSidebarOpen(false)}
+            mb={2}
+          >
             Close
           </Button>
           Adaptive sidebar content
+          <Select label="foo" labelInline>
+            <Option text="foo" value="foo" />
+            <Option text="bar" value="bar" />
+            <Option text="baz" value="baz" />
+          </Select>
         </Box>
       </AdaptiveSidebar>
+      <Button onClick={() => setDialogOpen(true)}>ffoofofo</Button>
+      <Dialog open={dialogOpen}>
+        <Select label="foo">
+          <Option text="foo" value="foo" />
+          <Option text="bar" value="bar" />
+          <Option text="baz" value="baz" />
+        </Select>
+      </Dialog>
     </Box>
   );
 };

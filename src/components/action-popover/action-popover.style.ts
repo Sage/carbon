@@ -8,6 +8,9 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
 
 const Menu = styled.ul`
+  // TODO (tokens): implement elevation tokens - FE-4437
+  --zindex-default-value: ${({ theme }) => theme.zIndex.popover};
+
   ${({ isOpen }: { isOpen?: boolean }) =>
     isOpen ? "display: block;" : "visibility: hidden;"}
   margin: 0;
@@ -17,9 +20,15 @@ const Menu = styled.ul`
   position: absolute;
   border-radius: var(--borderRadius100);
   background-color: var(--colorsUtilityYang100);
-  z-index: ${({ theme }) =>
-    `${theme.zIndex?.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
+  z-index: var(
+    --adaptive-sidebar-modal-open-zindex-reduced,
+    var(--zindex-default-value)
+  );
 `;
+
+Menu.defaultProps = {
+  theme: baseTheme,
+};
 
 function getPaddingValues(
   childHasSubmenu?: boolean,

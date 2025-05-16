@@ -16,6 +16,8 @@ export interface StyledSelectProps
 
 const StyledSelect = styled.div<StyledSelectProps>`
   ${({ hasTextCursor, disabled, readOnly, theme, transparent, isOpen }) => css`
+    --zindex-default-value: ${theme.zIndex.aboveAll};
+
     margin-bottom: var(--fieldSpacing);
     ${margin}
 
@@ -45,7 +47,10 @@ const StyledSelect = styled.div<StyledSelectProps>`
 
       ${isOpen &&
       css`
-        z-index: ${theme.zIndex.aboveAll};
+        z-index: var(
+          --adaptive-sidebar-modal-open-zindex-reduced,
+          var(--zindex-default-value)
+        );
       `}
 
       ${disabled &&

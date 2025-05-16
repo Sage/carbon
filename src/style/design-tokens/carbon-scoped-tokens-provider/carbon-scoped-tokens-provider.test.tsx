@@ -6,23 +6,40 @@ import CarbonScopedTokensProvider from "./carbon-scoped-tokens-provider.componen
 
 jest.mock("../../../__internal__/utils/helpers/guid", () => () => "guid");
 
-describe("CarbonScopedTokensProvider", () => {
-  it("should render css variables for all themes", () => {
-    render(
-      <>
-        <ThemeProvider theme={noTheme}>
-          <CarbonScopedTokensProvider />
-        </ThemeProvider>
-        <ThemeProvider theme={sageTheme}>
-          <CarbonScopedTokensProvider />
-        </ThemeProvider>
-      </>,
-    );
+test("should render css variables for all themes when no adaptive sidebar as a modal is open", () => {
+  render(
+    <>
+      <ThemeProvider theme={noTheme}>
+        <CarbonScopedTokensProvider />
+      </ThemeProvider>
+      <ThemeProvider theme={sageTheme}>
+        <CarbonScopedTokensProvider />
+      </ThemeProvider>
+    </>,
+  );
 
-    // Collect all the CSS stylesheets content for snapshot testing
-    const cssRules = Array.from(document.styleSheets).flatMap((sheet) =>
-      Array.from(sheet.cssRules).map((rule) => rule.cssText),
-    );
-    expect(cssRules).toMatchSnapshot();
-  });
+  // Collect all the CSS stylesheets content for snapshot testing
+  const cssRules = Array.from(document.styleSheets).flatMap((sheet) =>
+    Array.from(sheet.cssRules).map((rule) => rule.cssText),
+  );
+  expect(cssRules).toMatchSnapshot();
+});
+
+test("should render css variables for all themes when adaptive sidebar as a modal is open", () => {
+  render(
+    <>
+      <ThemeProvider theme={noTheme}>
+        <CarbonScopedTokensProvider hasAdaptiveSidebarModalOpen />
+      </ThemeProvider>
+      <ThemeProvider theme={sageTheme}>
+        <CarbonScopedTokensProvider hasAdaptiveSidebarModalOpen />
+      </ThemeProvider>
+    </>,
+  );
+
+  // Collect all the CSS stylesheets content for snapshot testing
+  const cssRules = Array.from(document.styleSheets).flatMap((sheet) =>
+    Array.from(sheet.cssRules).map((rule) => rule.cssText),
+  );
+  expect(cssRules).toMatchSnapshot();
 });

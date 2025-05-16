@@ -106,6 +106,8 @@ interface StyledSelectListContainerProps {
 }
 
 const StyledSelectListContainer = styled.div<StyledSelectListContainerProps>`
+  --zindex-default-value: ${({ theme }) => theme.zIndex.popover};
+
   background-color: white;
 
   box-shadow: var(--boxShadow100);
@@ -118,7 +120,11 @@ const StyledSelectListContainer = styled.div<StyledSelectListContainerProps>`
 
   animation: fadeIn 250ms ease-out;
   position: absolute;
-  z-index: ${({ theme }) => theme.zIndex.popover};
+  z-index: var(
+    --adaptive-sidebar-modal-open-zindex-reduced,
+    var(--zindex-default-value)
+  );
+
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;

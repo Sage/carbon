@@ -73,10 +73,16 @@ type StyledButtonChildrenContainerProps = {
 
 const StyledButtonChildrenContainer = styled.ul<StyledButtonChildrenContainerProps>`
   ${({ theme, align, minWidth }) => css`
+    --zindex-container-default-value: ${theme.zIndex.popover};
+    --zindex-child-button-default-value: ${theme.zIndex.overlay};
+
     background-color: var(--colorsActionMajorYang100);
     min-width: ${minWidth}px;
     white-space: nowrap;
-    z-index: ${theme.zIndex.popover};
+    z-index: var(
+      --adaptive-sidebar-modal-open-zindex-reduced,
+      var(--zindex-popover)
+    );
     box-shadow: var(--boxShadow100);
     border-radius: var(--borderRadius100);
     list-style: none;
@@ -92,7 +98,10 @@ const StyledButtonChildrenContainer = styled.ul<StyledButtonChildrenContainerPro
       margin-left: 0;
       min-width: 100%;
       text-align: ${align};
-      z-index: ${theme.zIndex.overlay};
+      z-index: var(
+        --adaptive-sidebar-modal-open-zindex-reduced,
+        var(--zindex-child-button-default-value)
+      );
 
       & + & {
         margin-top: 3px;

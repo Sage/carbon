@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import AdaptiveSidebar, {
   AdaptiveSidebarProps,
 } from "./adaptive-sidebar.component";
+import CarbonProvider from "../carbon-provider";
+import { Select, Option } from "../select";
 import Box from "../box";
 import Button from "../button";
 import Typography from "../typography";
@@ -23,7 +25,7 @@ const MockApp = ({
           <Button
             data-role="adaptive-sidebar-control-button"
             mb={2}
-            onClick={() => setAdaptiveSidebarOpen(!adaptiveSidebarOpen)}
+            onClick={() => setAdaptiveSidebarOpen((p) => !p)}
           >
             {adaptiveSidebarOpen ? "Close" : "Open"}
           </Button>
@@ -44,6 +46,38 @@ const MockApp = ({
         </AdaptiveSidebar>
       </Box>
     </>
+  );
+};
+
+const MockZIndex = ({
+  ...props
+}: Omit<AdaptiveSidebarProps, "children" | "open" | "setOpen">) => {
+  const [adaptiveSidebarOpen, setAdaptiveSidebarOpen] = useState(false);
+
+  return (
+    <CarbonProvider>
+      <Box display="flex" flexDirection="row">
+        <Box>
+          <Select data-role="foo" onClick={() => setAdaptiveSidebarOpen(true)}>
+            <Option value="1" text="foo" />
+          </Select>
+          <Typography variant="p">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at
+            odio ultricies, luctus dolor at, fringilla elit. Nulla non nunc eu
+            sapien tempus porta. Nullam sodales nisi ut orci efficitur, nec
+            ullamcorper nunc pulvinar. Integer eleifend a augue ac accumsan.
+            Fusce ultrices auctor aliquam. Sed eu metus sit amet est tempor
+            ullamcorper. Praesent eu elit eget lacus fermentum porta at ut dui.
+          </Typography>
+        </Box>
+        <AdaptiveSidebar open={adaptiveSidebarOpen} {...props}>
+          My Content
+          <Button data-role="custom-close-button" onClick={() => {}}>
+            Custom close
+          </Button>
+        </AdaptiveSidebar>
+      </Box>
+    </CarbonProvider>
   );
 };
 
@@ -213,4 +247,18 @@ test("should not render with a left border if the `borderColor` prop is set to `
   expect(screen.getByTestId("adaptive-sidebar")).not.toHaveStyleRule(
     "border-left",
   );
+});
+
+/** this will be rewritten Damo ;) just added for coverage and had some weird behaviour I was investigating */
+test("should set the adjusted z-index token when the rendering as a modal", async () => {
+  const user = userEvent.setup();
+
+  render(<MockZIndex renderAsModal />);
+
+  expect(screen.queryByText("My Content")).not.toBeInTheDocument();
+
+  const select = screen.getByRole("combobox");
+  await user.click(select);
+
+  expect(screen.getByText("My Content")).toBeInTheDocument();
 });

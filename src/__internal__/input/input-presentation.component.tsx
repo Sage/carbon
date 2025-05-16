@@ -85,6 +85,7 @@ const InputPresentation = ({
       <InputPresentationStyle
         hasFocus={hasFocus}
         role="presentation"
+        data-role="input-presentation"
         onMouseDown={onMouseDown}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
