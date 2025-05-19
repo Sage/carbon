@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StyledLink } from "./link.style";
 import type { Variants } from "./link.style";
+import type { IconType } from "../icon";
 import MenuContext from "../menu/__internal__/menu.context";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
-import BaseLink from "./link-base.component";
+import BaseLink from "./base-link.component";
 
 export interface LinkProps extends React.AriaAttributes, TagProps {
   href?: string;
@@ -49,13 +50,15 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
     const [hasFocus, setHasFocus] = useState(false);
     const { inMenu } = useContext(MenuContext);
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
+
     const isDisabled = disabled || batchSelectionDisabled;
+    const isInteractive = !!href || !!onClick;
 
     useEffect(() => {
-      if (isDisabled || !(href || onClick)) {
+      if (isDisabled || !isInteractive) {
         setHasFocus(false);
       }
-    }, [isDisabled, href, onClick]);
+    }, [isDisabled, isInteractive]);
 
     const createLinkBasedOnType = () => (
       <BaseLink
@@ -64,7 +67,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         href={href}
         onClick={onClick}
         disabled={isDisabled}
-        icon={icon}
+        icon={icon as IconType}
         iconAlign={iconAlign}
         isSkipLink={isSkipLink}
         onFocus={() => setHasFocus(true)}

@@ -53,13 +53,10 @@ const BaseLink = React.forwardRef<
   ) => {
     const l = useLocale();
 
-    const { "data-role": _dataRole, ...cleanedRest } = rest;
-
-    if (process.env.NODE_ENV !== "production" && _dataRole) {
-      console.warn(
-        "BaseLink: `data-role` prop was ignored to prevent duplication in the DOM.",
-      );
-    }
+    // Remove data-role from rest to prevent duplicates
+    const cleanedRest = Object.fromEntries(
+      Object.entries(rest).filter(([key]) => key !== "data-role"),
+    );
 
     const renderIcon = (align: "left" | "right") =>
       icon && iconAlign === align ? (
