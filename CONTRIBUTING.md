@@ -47,6 +47,10 @@ We accept two standard workflows for raised pull requests:
 - **Feature branch** workflow - for internal Sage contributors with access rights to the repository. Features should be developed in a branch off `master` and a pull request raised to merge into back into `master`.
 - **Forking** workflow - for third-party contributors outside Sage. You should fork the repository and make your changes there, then raise a pull request to merge back into the Carbon `master` branch.
 
+## Updating a Pull Request
+
+When updating your pull request after receiving comments as part of a pier review we recommended avoiding `amend`ing existing commits. When a reviewer compares the changes, if you have also rebased with `master`, the diff will include all the changes that have been added to `master` since you last updated your branch with it. This can make reviewing the new changes more difficult so it is better to add a new commit with just the small subset of changes requested as part of the review, these additional commits can then be squashed into the main commit once the pull request has been approved.
+
 ## Semantic Versioning
 
 Carbon uses [semantic versioning](https://semver.org/) - we release major versions for breaking changes, minor versions for new features or non-essential changes, and patch versions for critical bugfixes.

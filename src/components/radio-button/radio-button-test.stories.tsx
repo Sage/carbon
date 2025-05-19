@@ -1,9 +1,6 @@
-/* eslint-disable no-console */
 import React from "react";
-import { StoryFn } from "@storybook/react";
 import { RadioButtonGroup, RadioButton } from ".";
 import { RadioButtonGroupProps } from "./radio-button-group/radio-button-group.component";
-import { RadioButtonProps } from "./radio-button.component";
 import CarbonProvider from "../carbon-provider";
 import { Checkbox } from "../checkbox";
 import Switch from "../switch";
@@ -33,35 +30,41 @@ export default {
   },
 };
 
-export const WithLabelHelp: StoryFn<typeof RadioButton> = () => (
+export const WithLabelHelp = ({ ...args }) => (
   <RadioButtonGroup name="labelHelp" legend="Radio group legend">
     <RadioButton
       id="radio-1"
       value="radio1"
       label="Radio Option 1"
       labelHelp="Radio 1"
+      {...args}
     />
     <RadioButton
       id="radio-2"
       value="radio2"
       label="Radio Option 2"
       labelHelp="Radio 2"
+      {...args}
     />
     <RadioButton
       id="radio-3"
       value="radio3"
       label="Radio Option 3"
       labelHelp="Radio 3"
+      {...args}
     />
   </RadioButtonGroup>
 );
-
-WithLabelHelp.storyName = "with labelHelp";
+WithLabelHelp.storyName = "With labelHelp";
+WithLabelHelp.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
 export const WithValidationsOnButtons = ({ ...args }) => (
   <RadioButtonGroup
     name="validations-on-buttons-group"
-    onChange={() => console.log("change")}
+    onChange={() => {}}
     {...args}
   >
     <RadioButton
@@ -85,127 +88,129 @@ export const WithValidationsOnButtons = ({ ...args }) => (
     />
   </RadioButtonGroup>
 );
-
-WithValidationsOnButtons.storyName = "with validations on RadioButton";
+WithValidationsOnButtons.storyName = "Validations on RadioButton";
 WithValidationsOnButtons.args = {
   legend: "Radio group legend",
   legendInline: false,
   required: false,
   inline: false,
 };
+WithValidationsOnButtons.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
 export const WithValidationsOnRadioGroup = ({ ...args }) => (
-  <RadioButtonGroup
-    name="validations-on-group"
-    onChange={() => console.log("change")}
-    {...args}
-  >
-    <RadioButton
-      id="validations-on-group-radio-1"
-      value="radio1"
-      label="Radio Option 1"
-    />
-    <RadioButton
-      id="validations-on-group-radio-2"
-      value="radio2"
-      label="Radio Option 2"
-    />
-    <RadioButton
-      id="validations-on-group-radio-3"
-      value="radio3"
-      label="Radio Option 3"
-    />
-  </RadioButtonGroup>
-);
+  <>
+    <RadioButtonGroup
+      name="validations-on-group"
+      onChange={() => {}}
+      error="Error message"
+      mb={2}
+      {...args}
+    >
+      <RadioButton
+        id="validations-on-group-radio-1"
+        value="radio1"
+        label="Radio Option 1"
+      />
+      <RadioButton
+        id="validations-on-group-radio-2"
+        value="radio2"
+        label="Radio Option 2"
+      />
+      <RadioButton
+        id="validations-on-group-radio-3"
+        value="radio3"
+        label="Radio Option 3"
+      />
+    </RadioButtonGroup>
 
-WithValidationsOnRadioGroup.storyName = "with validations on RadioGroup";
+    <RadioButtonGroup
+      name="validations-on-group"
+      onChange={() => {}}
+      warning="Warning message"
+      mb={2}
+      {...args}
+    >
+      <RadioButton
+        id="validations-on-group-radio-1"
+        value="radio1"
+        label="Radio Option 1"
+      />
+      <RadioButton
+        id="validations-on-group-radio-2"
+        value="radio2"
+        label="Radio Option 2"
+      />
+      <RadioButton
+        id="validations-on-group-radio-3"
+        value="radio3"
+        label="Radio Option 3"
+      />
+    </RadioButtonGroup>
+
+    <RadioButtonGroup
+      name="validations-on-group"
+      onChange={() => {}}
+      info="Info message"
+      mb={2}
+      {...args}
+    >
+      <RadioButton
+        id="validations-on-group-radio-1"
+        value="radio1"
+        label="Radio Option 1"
+      />
+      <RadioButton
+        id="validations-on-group-radio-2"
+        value="radio2"
+        label="Radio Option 2"
+      />
+      <RadioButton
+        id="validations-on-group-radio-3"
+        value="radio3"
+        label="Radio Option 3"
+      />
+    </RadioButtonGroup>
+  </>
+);
+WithValidationsOnRadioGroup.storyName = "Validations on RadioButtonGroup";
 WithValidationsOnRadioGroup.args = {
-  error: "Error message",
-  warning: "",
   legend: "Radio group legend",
   legendInline: false,
   required: false,
   inline: false,
   legendAlign: "left",
 };
-
-export const WithTooltipPosition: StoryFn<typeof RadioButton> = () => (
-  <RadioButtonGroup
-    name="tooltip-position"
-    onChange={() => console.log("change")}
-    legend="Radio group legend"
-  >
-    <RadioButton
-      id="radio-1"
-      value="radio1"
-      label="Radio Option 1"
-      error="message"
-      tooltipPosition="right"
-    />
-  </RadioButtonGroup>
-);
-
-WithTooltipPosition.storyName = "with tooltip position";
-
-export const WithTooltipPositionOnRadioGroup: StoryFn<
-  typeof RadioButton
-> = () => (
-  <RadioButtonGroup
-    name="validations-on-group-group-tooltip-position-override"
-    onChange={() => console.log("change")}
-    legend="Radio group legend"
-    error="Error message"
-    tooltipPosition="top"
-  >
-    <RadioButton
-      id="validations-on-group-radio-1-tooltip-position-override"
-      value="radio1"
-      label="Radio Option 1"
-    />
-    <RadioButton
-      id="validations-on-group-radio-2-tooltip-position-override"
-      value="radio2"
-      label="Radio Option 2"
-    />
-    <RadioButton
-      id="validations-on-group-radio-3-tooltip-position-override"
-      value="radio3"
-      label="Radio Option 3"
-    />
-  </RadioButtonGroup>
-);
-
-WithTooltipPositionOnRadioGroup.storyName =
-  "with tooltip position on RadioGroup";
-
-export const WithNewValidation = (props: Partial<RadioButtonProps>) => {
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <RadioButton id="radio-1" value="radio1" {...props} />
-    </CarbonProvider>
-  );
+WithValidationsOnRadioGroup.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };
 
-WithNewValidation.args = {
-  label: "Radiobutton 1",
-  error: true,
-  warning: false,
-  fieldHelp: "",
-  labelHelp: "",
-  required: false,
-  checked: false,
-  disabled: false,
-  labelSpacing: 1,
-  reverse: false,
-  size: "small",
-};
-
-export const WithNewValidationGroup = ({
-  ...props
-}: Partial<RadioButtonGroupProps>) => {
+export const NewValidation = ({ ...props }: Partial<RadioButtonGroupProps>) => {
   return (
     <CarbonProvider validationRedesignOptIn>
-      <RadioButtonGroup name="radio-button-group" {...props}>
+      <RadioButtonGroup
+        name="radio-button-group"
+        error="Error Message"
+        mb={2}
+        {...props}
+      >
+        <RadioButton id="radio-1" value="radio1" label="Yes" />
+        <RadioButton id="radio-2" value="radio2" label="No" />
+        <RadioButton
+          id="radio-3"
+          value="radio3"
+          label="Maybe"
+          fieldHelp="fieldHelp text"
+        />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        name="radio-button-group"
+        warning="Warning Message"
+        {...props}
+      >
         <RadioButton id="radio-1" value="radio1" label="Yes" />
         <RadioButton id="radio-2" value="radio2" label="No" />
         <RadioButton
@@ -218,20 +223,18 @@ export const WithNewValidationGroup = ({
     </CarbonProvider>
   );
 };
-
-WithNewValidationGroup.args = {
+NewValidation.args = {
   id: "new-validation",
   legend: "Radio group legend",
-  error: "Error message",
-  warning: "",
   legendHelp: "Legend help text",
   legendAlign: "left",
   required: true,
   isOptional: false,
   inline: false,
 };
-WithNewValidationGroup.parameters = {
+NewValidation.parameters = {
   chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };
 
 export const WithLegendAlignment = ({

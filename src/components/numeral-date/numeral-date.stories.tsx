@@ -4,7 +4,6 @@ import { Meta, StoryObj } from "@storybook/react";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import CarbonProvider from "../carbon-provider";
-import Box from "../box";
 import NumeralDate, { NumeralDateHandle, NumeralDateProps } from ".";
 import Button from "../button";
 
@@ -33,6 +32,15 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 
+export const WithInputHint: Story = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <NumeralDate label="With label help" labelHelp="Label help" />
+    </CarbonProvider>
+  );
+};
+WithInputHint.storyName = "With Input Hint";
+
 export const Controlled: Story = () => {
   const [value, setValue] = useState<NumeralDateProps["value"]>({
     dd: "",
@@ -53,12 +61,20 @@ Controlled.storyName = "Controlled";
 export const AllowedDateFormats: Story = () => {
   return (
     <>
-      <NumeralDate label="DD/MM/YYYY - default" />
-      <NumeralDate label="MM/DD/YYYY" dateFormat={["mm", "dd", "yyyy"]} />
-      <NumeralDate label="YYYY/MM/DD" dateFormat={["yyyy", "mm", "dd"]} />
-      <NumeralDate label="DD/MM" dateFormat={["dd", "mm"]} />
-      <NumeralDate label="MM/DD" dateFormat={["mm", "dd"]} />
-      <NumeralDate label="MM/YYYY" dateFormat={["mm", "yyyy"]} />
+      <NumeralDate label="DD/MM/YYYY - default" mb={2} />
+      <NumeralDate
+        label="MM/DD/YYYY"
+        dateFormat={["mm", "dd", "yyyy"]}
+        mb={2}
+      />
+      <NumeralDate
+        label="YYYY/MM/DD"
+        dateFormat={["yyyy", "mm", "dd"]}
+        mb={2}
+      />
+      <NumeralDate label="DD/MM" dateFormat={["dd", "mm"]} mb={2} />
+      <NumeralDate label="MM/DD" dateFormat={["mm", "dd"]} mb={2} />
+      <NumeralDate label="MM/YYYY" dateFormat={["mm", "yyyy"]} mb={2} />
     </>
   );
 };
@@ -66,14 +82,14 @@ AllowedDateFormats.storyName = "Allowed Date Formats";
 
 export const InternalValidationError: Story = () => {
   const [valueOld, setValueOld] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
+    dd: "33",
+    mm: "01",
+    yyyy: "1999",
   });
   const [valueNew, setValueNew] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
+    dd: "01",
+    mm: "13",
+    yyyy: "1999",
   });
   return (
     <>
@@ -99,14 +115,14 @@ InternalValidationError.storyName = "Internal Validation Error";
 
 export const InternalValidationWarning: Story = () => {
   const [valueOld, setValueOld] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
+    dd: "33",
+    mm: "01",
+    yyyy: "1999",
   });
   const [valueNew, setValueNew] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
+    dd: "01",
+    mm: "13",
+    yyyy: "1999",
   });
   return (
     <>
@@ -129,116 +145,6 @@ export const InternalValidationWarning: Story = () => {
   );
 };
 InternalValidationWarning.storyName = "Internal Validation Warning";
-
-export const Validation: Story = () => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  return (
-    <>
-      <NumeralDate
-        mb={2}
-        label="Validation as string"
-        error="Error Message (Fix is required)"
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
-
-      <NumeralDate
-        mb={2}
-        label="Validation as string on label"
-        error="Error Message (Fix is required)"
-        validationOnLabel
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
-
-      <NumeralDate
-        mb={2}
-        label="Validation as boolean"
-        error
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
-
-      <NumeralDate
-        mb={2}
-        label="Validation as string"
-        warning="Warning Message (Fix is optional)"
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
-
-      <NumeralDate
-        mb={2}
-        label="Validation as string on label"
-        warning="Warning Message (Fix is optional)"
-        validationOnLabel
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
-
-      <NumeralDate
-        label="Validation as boolean"
-        warning
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
-    </>
-  );
-};
-Validation.storyName = "Validation";
-
-export const NewValidation: Story = () => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      <Box m={2}>
-        <NumeralDate
-          mb={2}
-          label="Validation as string - Error"
-          labelHelp="Label help"
-          error="Error Message (Fix is required)"
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-        />
-
-        <NumeralDate
-          mb={2}
-          label="Validation as boolean - Error"
-          labelHelp="Label help"
-          error
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-        />
-
-        <NumeralDate
-          mb={2}
-          label="Validation as string - Warning"
-          labelHelp="Label help"
-          warning="Warning Message (Fix is optional)"
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-        />
-
-        <NumeralDate
-          label="Validation as boolean - Warning"
-          labelHelp="Label help"
-          warning
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-        />
-      </Box>
-    </CarbonProvider>
-  );
-};
-NewValidation.storyName = "New Validation";
 
 export const InlineLabel: Story = () => {
   const [value, setValue] = useState<NumeralDateProps["value"]>({
@@ -324,11 +230,13 @@ export const Size: Story = () => {
         label="Date of Birth"
         dateFormat={["dd", "mm", "yyyy"]}
         size="small"
+        mb={2}
       />
       <NumeralDate
         label="Date of Birth"
         dateFormat={["dd", "mm", "yyyy"]}
         size="medium"
+        mb={2}
       />
       <NumeralDate
         label="Date of Birth"
@@ -395,17 +303,17 @@ export const ProgrammaticFocus = () => {
   };
   return (
     <>
-      <Button onClick={handleClick}>Click me to focus NumeralDate</Button>
-      <Box mt="120px">
-        <NumeralDate
-          ref={ndRef}
-          onChange={handleChange}
-          label="Numeral date"
-          value={dateValue}
-          name="numeralDate_name"
-          id="numeralDate_id"
-        />
-      </Box>
+      <Button mb={2} onClick={handleClick}>
+        Click me to focus NumeralDate
+      </Button>
+      <NumeralDate
+        ref={ndRef}
+        onChange={handleChange}
+        label="Numeral date"
+        value={dateValue}
+        name="numeralDate_name"
+        id="numeralDate_id"
+      />
     </>
   );
 };

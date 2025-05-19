@@ -12,6 +12,7 @@ Capture whole numbers - without a decimal point.
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Validation states](#validation-states)
 - [Props](#props)
 
 ## Quick Start
@@ -25,6 +26,13 @@ import Number from "carbon-react/lib/components/number";
 ### Default
 
 <Canvas of={NumberStories.Default} />
+
+### With Input Hint
+
+When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
+before any other announcements, this well help screen reader users understand the hint fully.
+
+<Canvas of={NumberStories.WithInputHint} />
 
 ### Sizes
 
@@ -42,54 +50,42 @@ import Number from "carbon-react/lib/components/number";
 
 <Canvas of={NumberStories.AutoFocus} />
 
-### With labelInline
-
-**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
-
-<Canvas of={NumberStories.WithLabelInline} />
-
-### With label Align
-
-<Canvas of={NumberStories.WithLabelAlign} />
-
-### With custom labelWidth and inputWidth
-
-<Canvas of={NumberStories.WithCustomLabelWidthAndInputWidth} />
-
 ### With custom maxWidth
 
 <Canvas of={NumberStories.WithCustomMaxWidth} />
 
-### With fieldHelp
+### With labelInline (legacy)
+
+Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and 
+`labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
+
+<Canvas of={NumberStories.WithLabelInline} />
+
+<Canvas of={NumberStories.WithLabelAlign} />
+
+### With fieldHelp (legacy)
+
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
 <Canvas of={NumberStories.WithFieldHelp} />
 
-### With inputHint
+### With labelHelp (legacy)
 
-When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
-before any other announcements, this well help screen reader users understand the hint fully.
-
-<Canvas of={NumberStories.WithInputHint} />
-
-### With labelHelp
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
 <Canvas of={NumberStories.WithLabelHelp} />
 
-### Validations
+## Validation States
 
-Validation status can be set by passing `error`, `warning` or `info` prop to the component.
-
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
-
-Passing a boolean to these props will display only a properly colored border.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
 ## Props
 
 ### Number
 
-Due to the `Textbox` component being used internally by the `Number` component all the props of `Textbox` can be applied to `Number` as well.
+Due to the `Textbox` component being used internally by the `Number` component, all of the props supported by `Textbox` can be applied to `Number` as well.
 
 <ArgTypes of={NumberStories} />
 

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import Pill from "../pill/pill.component";
-import Search, { SearchProps } from ".";
+import Search from ".";
 import { SearchEvent } from "./search.component";
 
 export default {
   title: "Search/Test",
-  includeStories: ["Default", "FilterOnClear"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -49,7 +48,6 @@ export const Default = ({ placeholder, ...args }: { placeholder?: string }) => {
       onClick={handleClick}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
-      error="error message"
       value={value}
       placeholder={placeholder}
       name="search_name"
@@ -59,7 +57,7 @@ export const Default = ({ placeholder, ...args }: { placeholder?: string }) => {
   );
 };
 
-Default.storyName = "default";
+Default.storyName = "Default";
 
 Default.args = {
   placeholder: "Search...",
@@ -67,19 +65,6 @@ Default.args = {
   searchWidth: "",
   threshold: 3,
   variant: undefined,
-};
-
-export const SearchComponent = (props: SearchProps) => {
-  const [value, setValue] = React.useState("");
-
-  return (
-    <Search
-      placeholder="Search..."
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-      {...props}
-    />
-  );
 };
 
 export const FilterOnClear = () => {
@@ -116,3 +101,22 @@ export const FilterOnClear = () => {
   );
 };
 FilterOnClear.storyName = "Filter on clear";
+
+export const Validation = () => {
+  return (
+    <>
+      <Search defaultValue="" searchButton error="Error Message" mb={2} />
+      <Search defaultValue="" searchButton warning="Warning Message" mb={2} />
+      <Search defaultValue="" searchButton info="Info Message" mb={2} />
+
+      <Search defaultValue="" searchButton error mb={2} />
+      <Search defaultValue="" searchButton warning mb={2} />
+      <Search defaultValue="" searchButton info />
+    </>
+  );
+};
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

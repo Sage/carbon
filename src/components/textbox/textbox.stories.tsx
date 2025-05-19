@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import I18nProvider from "../i18n-provider";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -24,7 +23,6 @@ export default meta;
 type Story = StoryObj<typeof Textbox>;
 
 const SIZES = ["small", "medium", "large"] as const;
-const VALIDATIONS = ["error", "warning", "info"] as const;
 
 export const Default: Story = () => {
   const [state, setState] = useState("Textbox");
@@ -230,161 +228,3 @@ export const LabelAlign: Story = () => {
   );
 };
 LabelAlign.storyName = "Label Align";
-
-export const ValidationsAsAString: Story = () => {
-  return (
-    <Box>
-      {VALIDATIONS.map((validationType) => (
-        <Box key={`${validationType}-string-component`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Textbox
-            label="Textbox - readOnly"
-            value="Textbox"
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-ValidationsAsAString.storyName = "Validations - String - Component";
-
-export const ValidationsAsAStringWithTooltipCustom: Story = () => {
-  return (
-    <Box>
-      {VALIDATIONS.map((validationType) => (
-        <Box key={`${validationType}-string-component`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-ValidationsAsAStringWithTooltipCustom.storyName =
-  "Validations - String - With Tooltip Position Overriden - Component";
-ValidationsAsAStringWithTooltipCustom.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const ValidationsAsAStringDisplayedOnLabel: Story = () => {
-  return (
-    <Box>
-      {VALIDATIONS.map((validationType) => (
-        <Box key={`${validationType}-string-label`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Textbox
-            label="Textbox - readOnly"
-            value="Textbox"
-            validationOnLabel
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-ValidationsAsAStringDisplayedOnLabel.storyName =
-  "Validations - String - Displayed On Label";
-
-export const NewDesignsValidation: Story = () => {
-  return (
-    <Box>
-      <CarbonProvider validationRedesignOptIn>
-        {(["error", "warning"] as const).map((validationType) =>
-          SIZES.map((size) => (
-            <Box width={296} key={`${validationType}-${size}`}>
-              <Textbox
-                m={4}
-                label={`${size} - ${validationType}`}
-                defaultValue="Textbox"
-                inputHint="Hint text (optional)."
-                size={size}
-                {...{ [validationType]: "Message" }}
-              />
-              <Textbox
-                m={4}
-                label={`readOnly - ${size} - ${validationType}`}
-                defaultValue="Textbox"
-                size={size}
-                inputHint="Hint text (optional)."
-                readOnly
-                {...{ [validationType]: "Message" }}
-              />
-            </Box>
-          )),
-        )}
-      </CarbonProvider>
-    </Box>
-  );
-};
-NewDesignsValidation.storyName = "New Designs - Validation";
-
-export const ValidationsAsAStringWithTooltipDefault: Story = () => {
-  return (
-    <Box>
-      {VALIDATIONS.map((validationType) => (
-        <Box key={`${validationType}-string-label`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-ValidationsAsAStringWithTooltipDefault.storyName =
-  "Validations - String - With Tooltip Position Overriden - Default";
-ValidationsAsAStringWithTooltipDefault.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const ValidationsAsABoolean: Story = () => {
-  return (
-    <Box>
-      {VALIDATIONS.map((validationType) => (
-        <Box key={`${validationType}-boolean-component`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-          <Textbox
-            label="Textbox - readOnly"
-            value="Textbox"
-            readOnly
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-        </Box>
-      ))}
-    </Box>
-  );
-};
-ValidationsAsABoolean.storyName = "Validations - Boolean - Component";

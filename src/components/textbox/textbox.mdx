@@ -22,6 +22,7 @@ Captures a single line of text.
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Validation states](#validation-states)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -44,6 +45,13 @@ import Textbox from "carbon-react/lib/components/textbox";
 ### Default
 
 <Canvas of={TextboxStories.Default} />
+
+### With inputHint
+
+When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
+before any other announcements, this well help screen reader users understand the hint fully.
+
+<Canvas of={TextboxStories.WithInputHint} />
 
 ### Character counter
 
@@ -87,38 +95,9 @@ Include the formatted number count wherever makes sense for the language you're 
 
 <Canvas of={TextboxStories.ReadOnly} />
 
-### With labelInline
-
-**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
-
-<Canvas of={TextboxStories.WithLabelInline} />
-
-### LabelAlign
-
-<Canvas of={TextboxStories.LabelAlign} />
-
-### With custom labelWidth and inputWidth
-
-<Canvas of={TextboxStories.WithCustomLabelWidthAndInputWidth} />
-
 ### With custom maxWidth
 
 <Canvas of={TextboxStories.WithCustomMaxWidth} />
-
-### With fieldHelp
-
-<Canvas of={TextboxStories.WithFieldHelp} />
-
-### With inputHint
-
-When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
-before any other announcements, this well help screen reader users understand the hint fully.
-
-<Canvas of={TextboxStories.WithInputHint} />
-
-### With labelHelp
-
-<Canvas of={TextboxStories.WithLabelHelp} />
 
 ### Required
 
@@ -132,41 +111,36 @@ You can use the `isOptional` prop to indicate if the field is mandatory.
 
 <Canvas of={TextboxStories.IsOptional} />
 
-### Validations
+### With labelInline (legacy)
 
-Validation status can be set by passing `error`, `warning` or `info` prop to the component.
+Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and 
+`labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
 
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
-Passing a boolean to these props will display only a properly colored border.
+<Canvas of={TextboxStories.WithLabelInline} />
 
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
+<Canvas of={TextboxStories.LabelAlign} />
 
-#### As a string
+### With custom labelWidth and inputWidth
 
-<Canvas of={TextboxStories.ValidationsAsAString} />
+<Canvas of={TextboxStories.WithCustomLabelWidthAndInputWidth} />
 
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+### With labelHelp (legacy)
 
-<Canvas of={TextboxStories.ValidationsAsAStringWithTooltipCustom} />
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
-#### As a string, displayed on label
+<Canvas of={TextboxStories.WithLabelHelp} />
 
-<Canvas of={TextboxStories.ValidationsAsAStringDisplayedOnLabel} />
+### With fieldHelp (legacy)
 
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
-<Canvas of={TextboxStories.ValidationsAsAStringWithTooltipDefault} />
+<Canvas of={TextboxStories.WithFieldHelp} />
 
-#### As a boolean
+## Validation States
 
-<Canvas of={TextboxStories.ValidationsAsABoolean} />
-
-#### New designs validation
-
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-<Canvas of={TextboxStories.NewDesignsValidation} />
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
 ## Props
 
