@@ -7,7 +7,11 @@ import { Edge } from "../../__internal__/draggable/draggable-utils";
 export type DragState =
   | { type: "idle"; id?: string | number }
   | { type: "is-dragging"; id: string | number }
-  | { type: "is-being-dragged-over"; closestEdge: Edge | null; id: string | number };
+  | {
+      type: "is-being-dragged-over";
+      closestEdge: Edge | null;
+      id: string | number;
+    };
 
 export interface UseDraggableHandle {
   reOrder: (itemId: number | string, toIndex: number) => void;

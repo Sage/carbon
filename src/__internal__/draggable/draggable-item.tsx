@@ -112,10 +112,10 @@ const DraggableItem = forwardRef(
             return getDraggableItemData(draggableItemData);
           },
           onDragStart() {
-              setDragState({ type: "is-dragging", id });
+            setDragState({ type: "is-dragging", id });
           },
           onDrop() {
-              setDragState(idle);
+            setDragState(idle);
           },
         }),
         dropTargetForElements({
@@ -136,17 +136,17 @@ const DraggableItem = forwardRef(
           },
           onDragEnter({ self }) {
             const closestEdge = extractClosestEdge(self.data);
-              setDragState({ type: "is-being-dragged-over", closestEdge, id });
+            setDragState({ type: "is-being-dragged-over", closestEdge, id });
           },
           onDrag({ self }) {
             const closestEdge = extractClosestEdge(self.data);
-              setDragState({ type: "is-being-dragged-over", closestEdge, id });
+            setDragState({ type: "is-being-dragged-over", closestEdge, id });
           },
           onDragLeave() {
-              setDragState(idle);
+            setDragState(idle);
           },
           onDrop() {
-              setDragState(idle);
+            setDragState(idle);
           },
         }),
       );
@@ -160,8 +160,9 @@ const DraggableItem = forwardRef(
         "data-parent-container-id": columnId,
         "data-item-id": id,
         "data-drag-state": dragState.type,
-        ...dragState.type === "is-being-dragged-over" && {
-        "data-closest-edge": dragState.closestEdge,},
+        ...(dragState.type === "is-being-dragged-over" && {
+          "data-closest-edge": dragState.closestEdge,
+        }),
         "data-component": dataComponent,
         "data-role": dataRole,
         "data-element": dataElement,

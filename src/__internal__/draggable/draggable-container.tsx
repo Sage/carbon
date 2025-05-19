@@ -114,19 +114,19 @@ const DraggableContainer = forwardRef<
         `#${escapedId}`,
       );
 
-      if(container && element){
-      let currentElement: HTMLElement | null = element;
-      while (
-        currentElement &&
-        currentElement !== container &&
-        currentElement !== document.documentElement
-      ) {
-        if (currentElement.hasAttribute("data-item-id")) {
-          return currentElement.getAttribute("data-item-id");
+      if (container && element) {
+        let currentElement: HTMLElement | null = element;
+        while (
+          currentElement &&
+          currentElement !== container &&
+          currentElement !== document.documentElement
+        ) {
+          if (currentElement.hasAttribute("data-item-id")) {
+            return currentElement.getAttribute("data-item-id");
+          }
+          currentElement = currentElement.parentElement;
         }
-        currentElement = currentElement.parentElement;
       }
-    }
       return null;
     };
 
@@ -154,27 +154,26 @@ const DraggableContainer = forwardRef<
       }
     }, [effectiveList, setOriginalList]);
 
-    // Handle drops outside target - having to use playwright to test the first if 
-    // as I was unable to get the list to update to the last move due to 
+    // Handle drops outside target - having to use playwright to test the first if
+    // as I was unable to get the list to update to the last move due to
     // jest not being able to properly replicate a browser environment
-useEffect(() => {
-  if (dropOutsideTargetCount) {
-      /* istanbul ignore if */
-    if (droppedList.current.length > 0) {
-      /* istanbul ignore next */
-      setList(droppedList.current);
-    } else {
-      setList(originalList);
-    }
-  }
-}, [dropOutsideTargetCount, setList, originalList]);
+    useEffect(() => {
+      if (dropOutsideTargetCount) {
+        /* istanbul ignore if */
+        if (droppedList.current.length > 0) {
+          /* istanbul ignore next */
+          setList(droppedList.current);
+        } else {
+          setList(originalList);
+        }
+      }
+    }, [dropOutsideTargetCount, setList, originalList]);
 
     // Register items
     const localRegister = useCallback(
       (items: React.ReactNode[]) => {
         const currentCount = items.length;
         const prevCount = prevChildrenCountRef.current;
-    
         // First-time registration
         if (prevCount === 0) {
           setList(items);
@@ -188,19 +187,18 @@ useEffect(() => {
         else if (prevCount > currentCount) {
           setList(items); // Simply use the new items array directly
         } else {
-          // No change in items length we return instead of updating the list 
-          // this is to prevent performance issues as a change in children 
+          // No change in items length we return instead of updating the list
+          // this is to prevent performance issues as a change in children
           // will cause this callback to be called
           // and we don't want to update the list if there is no change
           // which is not an addition or
           return;
         }
-        
+
         prevChildrenCountRef.current = currentCount;
       },
-      [setList] // Add setList as a dependency
+      [setList], // Add setList as a dependency
     );
-
 
     // Move items within the list
     const localMove = useCallback(
@@ -213,6 +211,25 @@ useEffect(() => {
         const elements = Array.from(
           document.querySelectorAll(`[data-parent-container-id="${uniqueId}"]`),
         );
+
+        const itemIds: string[] = [];
+        elements.forEach((item) => {
+          const itemId = item.getAttribute("data-item-id");
+          if (itemId) {
+            itemIds.push(itemIds.length === 0 ? itemId : ` ${itemId}`);
+          }
+        });
+
+        const duplicateIds = itemIds.filter(
+          (item, index) => itemIds.indexOf(item) !== index,
+        );
+
+        if(duplicateIds.length > 0) {
+        // eslint-disable-next-line no-console
+            console.warn(
+        `[WARNING] There are draggable item(s) with duplicate unique identifiers (${itemIds}), therefore a move could not be completed.`);
+          return;
+        }
 
         // supports finding passed Id's from consumers, specifically for the getOrder callback
         const movedId = (() => {
@@ -311,93 +328,79 @@ useEffect(() => {
             onDropTargetChange({ location, source }) {
               const target = location.current.dropTargets[0];
 
-              if(!target){
+              if (!target) {
                 return;
               }
 
-                const indexOfTarget = Number(target.data.itemIndex);
-                const destinationId = source.data.itemId as string | number;
+              const indexOfTarget = Number(target.data.itemIndex);
+              const destinationId = source.data.itemId as string | number;
 
-                // early return to stop drags on other containers resulting in a move on current container
-                // unlikely to happen, but worth checking. Is possible if two draggable containers are used
-                // next to each other, and the user drags from one to the other
-                if (target.data.parentContainerId !== uniqueId) {
-                  return;
-                }
+              // early return to stop drags on other containers resulting in a move on current container
+              // unlikely to happen, but worth checking. Is possible if two draggable containers are used
+              // next to each other, and the user drags from one to the other
+              if (target.data.parentContainerId !== uniqueId) {
+                return;
+              }
 
-                console.log("destinationId", destinationId);
-                console.log("destinationId ref", lastMoveRef.current.destinationId);
-                
-                // need to istanbul ignore as this is not possible to test in jest
-                // as the jest enviroment cannot easily replicate a scenario where
-                // the user can drag to a destination where it is the same as the previous 
-                // an item cannot drag on itself, and every other item is a different position 
-                // however, we need to have this condition as in a browser a move event can fire 
-                // quickly, which can cause an infinite move loop, this can be observed in master
-                // with our current dnd implementation under specific conditions
-              
-                //  /* istanbul ignore if */
-                if (
-                  !Number.isNaN(indexOfTarget) &&
-                  indexOfTarget >= 0 &&
-                  destinationId !== undefined &&
-                  destinationId !== null &&
-                  (
-                    lastMoveRef.current.indexOfTarget !== indexOfTarget ||
-                    lastMoveRef.current.destinationId !== destinationId
-                  )
-                ) {
-                    localMove(destinationId, indexOfTarget);
-                    lastMoveRef.current = { indexOfTarget, destinationId };
-                }
-              
+              // need to istanbul ignore as this is not possible to test in jest
+              // as the jest enviroment cannot easily replicate a scenario where
+              // the user can drag to a destination where it is the same as the previous
+              // an item cannot drag on itself, and every other item is a different position
+              // however, we need to have this condition as in a browser a move event can fire
+              // quickly, which can cause an infinite move loop, this can be observed in master
+              // with our current dnd implementation under specific conditions
+
+              //  /* istanbul ignore if */
+              if (
+                !Number.isNaN(indexOfTarget) &&
+                indexOfTarget >= 0 &&
+                destinationId !== undefined &&
+                destinationId !== null &&
+                (lastMoveRef.current.indexOfTarget !== indexOfTarget ||
+                  lastMoveRef.current.destinationId !== destinationId)
+              ) {
+                localMove(destinationId, indexOfTarget);
+                lastMoveRef.current = { indexOfTarget, destinationId };
+              }
             },
           }),
           onDrop({ location, source }) {
-
-
             // if any drop takes place outside of a drop target or on an unrelated drop target
             if (
               !location.current.dropTargets.length ||
               location.current.dropTargets[0].data.parentContainerId !==
                 uniqueId
             ) {
-
-
               // every time a drop occurs outside of the drop target
               // this triggers an effect which will then set the list order to the last
               // saved order which was captured on drop
               updateDropOutsideTargetCount((currentCount) => currentCount + 1);
             } else {
-
               // creates a new list every time a drop occurs
               // this ensures that the list can be reset to the original order of the last drop
               // and not the original order on render, as this may have changed
 
-
               droppedList.current = effectiveList;
-
             }
             if (dragType === "onDrop") {
               const target = location.current.dropTargets[0];
-  
-                if(!target){
-                  return;
-                }
 
-                const indexOfTarget = Number(target.data.itemIndex);
-                const destinationId = source.data.itemId as string | number;
+              if (!target) {
+                return;
+              }
 
-                if (
-                  !Number.isNaN(indexOfTarget) &&
-                  indexOfTarget >= 0 &&
-                  destinationId !== undefined &&
-                  destinationId !== null
-                  && lastMoveRef.current.indexOfTarget !== indexOfTarget
-                ) {
-                    localMove(destinationId, indexOfTarget);
-                } 
-              
+              const indexOfTarget = Number(target.data.itemIndex);
+              const destinationId = source.data.itemId as string | number;
+
+              if (
+                !Number.isNaN(indexOfTarget) &&
+                indexOfTarget >= 0 &&
+                destinationId !== undefined &&
+                destinationId !== null &&
+                lastMoveRef.current.indexOfTarget !== indexOfTarget
+              ) {
+                localMove(destinationId, indexOfTarget);
+              }
             }
             lastMoveRef.current = {
               indexOfTarget: null,
@@ -438,7 +441,7 @@ useEffect(() => {
             id: uniqueId,
             ref: containerRef,
           },
-          (effectiveList).map((child: React.ReactNode, index: number) => (
+          effectiveList.map((child: React.ReactNode, index: number) => (
             <DraggableItemContext.Provider
               key={`${uniqueId}-${guid()}`}
               value={{ index }}

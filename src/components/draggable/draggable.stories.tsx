@@ -34,8 +34,9 @@ type Story = StoryObj<typeof DraggableContainer>;
 export const DefaultStory = () => {
   const [items, setItems] = useState([
     { id: "apple", content: "Apple" },
-    { id: "mercury", content: "Mercury" },
+    { id: "apple", content: "Apple" },
     { id: "venus", content: "Venus" },
+        { id: "venus", content: "Venus" },
   ]);
 
   const [nextItemId, setNextItemId] = useState(1);
