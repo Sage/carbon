@@ -97,6 +97,32 @@ test("should render an `Icon` on the left side of the component by default", () 
   });
 });
 
+test("should render an `Icon` on the left with no margin when no children", () => {
+  render(<Link icon="home" iconAlign="left" />);
+
+  const iconElement = screen.getByTestId("icon");
+
+  expect(iconElement).toHaveStyle({
+    marginRight: "0",
+    position: "relative",
+  });
+});
+
+test("should render an `Icon` on the left with spacing when content exists", () => {
+  render(
+    <Link icon="basket" iconAlign="left">
+      Link Text
+    </Link>,
+  );
+
+  const iconElement = screen.getByTestId("icon");
+
+  expect(iconElement).toHaveStyle({
+    marginRight: "var(--spacing050)",
+    position: "relative",
+  });
+});
+
 test("should render an `Icon` on the right", () => {
   render(<Link icon="basket" iconAlign="right" />);
 
