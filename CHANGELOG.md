@@ -1,3 +1,10 @@
+## [154.3.0](https://github.com/Sage/carbon/compare/v154.2.0...v154.3.0) (2025-05-19)
+
+### Features
+
+* **typography:** updated font sizes and weights ([c1689bf](https://github.com/Sage/carbon/commit/c1689bf6e202aa8f4b876836f483f4960504d0ad))
+* **typography:** updated font sizes and weights ([84e6b41](https://github.com/Sage/carbon/commit/84e6b418f585f7d5f7be7762ba9b3bc05b354f97))
+
 ## [154.2.0](https://github.com/Sage/carbon/compare/v154.1.1...v154.2.0) (2025-05-16)
 
 ### Features
