@@ -11,12 +11,6 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
   title: "Grouped Character/Test",
-  includeStories: [
-    "Default",
-    "NewValidation",
-    "IsOptionalExample",
-    "MaxWidthExample",
-  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -57,69 +51,142 @@ Default.args = {
   ...getCommonTextboxArgs(),
 };
 
-export const NewValidation = ({ separator, groups, ...args }: StoryArgs) => {
-  const [state, setState] = useState("");
-  const onChange = (ev: CustomEvent) => {
-    setState(ev.target.value.rawValue);
-    action("change")(ev.target.value);
+export const Validation = () => {
+  const [state, setState] = useState("1231231");
+
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
   };
+
+  return (
+    <>
+      <GroupedCharacter
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        error="Error Message"
+        mb={2}
+      />
+      <GroupedCharacter
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        warning="Warning Message"
+        mb={2}
+      />
+      <GroupedCharacter
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        info="Info Message"
+        mb={2}
+      />
+
+      <GroupedCharacter
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        error="Error Message"
+        validationOnLabel
+        mb={2}
+      />
+      <GroupedCharacter
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        warning="Warning Message"
+        validationOnLabel
+        mb={2}
+      />
+      <GroupedCharacter
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        info="Info Message"
+        validationOnLabel
+        mb={2}
+      />
+
+      <GroupedCharacter
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        error
+        mb={2}
+      />
+      <GroupedCharacter
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        warning
+        mb={2}
+      />
+      <GroupedCharacter
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        info
+        mb={2}
+      />
+    </>
+  );
+};
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidation = () => {
+  const [state, setState] = useState("1231231");
+
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
+  };
+
   return (
     <CarbonProvider validationRedesignOptIn>
       <GroupedCharacter
+        label="GroupedCharacter"
+        inputHint="Hint text (optional)."
         value={state}
-        m={2}
-        onChange={onChange}
-        groups={groups}
-        separator={separator || " "}
-        {...getCommonTextboxArgsWithSpecialCharacters(args)}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        error="Error Message"
+        mb={2}
+      />
+      <GroupedCharacter
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        warning="Warning Message"
       />
     </CarbonProvider>
   );
 };
-
-NewValidation.storyName = "new validation";
-NewValidation.args = {
-  groups: [2, 2, 4],
-  separator: "-",
-  ...getCommonTextboxArgs(),
+NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };
-
-export const IsOptionalExample = () => {
-  const [state, setState] = useState("12345678");
-  const onChange = (ev: CustomEvent) => {
-    setState(ev.target.value.rawValue);
-    action("change")(ev.target.value);
-  };
-  return (
-    <GroupedCharacter
-      value={state}
-      onChange={onChange}
-      groups={[2, 2, 4]}
-      separator="-"
-      label="Grouped Character"
-      isOptional
-    />
-  );
-};
-IsOptionalExample.storyName = "is optional example";
-IsOptionalExample.parameters = { chromatic: { disableSnaphot: false } };
-
-export const MaxWidthExample = () => {
-  const [state, setState] = useState("12345678");
-  const onChange = (ev: CustomEvent) => {
-    setState(ev.target.value.rawValue);
-    action("change")(ev.target.value);
-  };
-  return (
-    <GroupedCharacter
-      label="Grouped Character with max width"
-      value={state}
-      onChange={onChange}
-      groups={[2, 2, 4]}
-      separator="-"
-      maxWidth="200px"
-    />
-  );
-};
-MaxWidthExample.storyName = "max width example";
-MaxWidthExample.parameters = { chromatic: { disableSnaphot: false } };

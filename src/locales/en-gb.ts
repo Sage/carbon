@@ -158,6 +158,10 @@ const enGB: Locale = {
     ofY: (count) => `of ${count}`,
   },
   password: {
+    buttonLabelHide: () => "Hide",
+    buttonLabelShow: () => "Show",
+    ariaLabelHide: () => "Hide password",
+    ariaLabelShow: () => "Show password",
     ariaLiveShownMessage: () =>
       "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so.",
     ariaLiveHiddenMessage: () => "Your password is currently hidden.",

@@ -112,77 +112,151 @@ export const DateRangeCustom = ({
   );
 };
 
-export const DateRangeNewValidation = () => {
-  const [state, setState] = React.useState(["01/10/2016", "30/10/2016"]);
+export const Validation = () => {
+  const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
 
-  const handleChange = ({ target }: DateRangeChangeEvent) => {
+  const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
-      target.value[0].formattedValue,
-      target.value[1].formattedValue,
+      ev.target.value[0].formattedValue,
+      ev.target.value[1].formattedValue,
+    ];
+    setState(newValue);
+  };
+
+  return (
+    <>
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        startError="Start Error"
+        endError="End Error"
+        onChange={handleChange}
+        value={state}
+        mb={2}
+      />
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        startWarning="Start Warning"
+        endWarning="End Warning"
+        onChange={handleChange}
+        value={state}
+        mb={2}
+      />
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        startInfo="Start Info"
+        endInfo="End Info"
+        onChange={handleChange}
+        value={state}
+        mb={2}
+      />
+
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        startError="Start Error"
+        endError="End Error"
+        validationOnLabel
+        onChange={handleChange}
+        value={state}
+        mb={2}
+      />
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        startWarning="Start Warning"
+        endWarning="End Warning"
+        validationOnLabel
+        onChange={handleChange}
+        value={state}
+        mb={2}
+      />
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        startInfo="Start Info"
+        endInfo="End Info"
+        validationOnLabel
+        onChange={handleChange}
+        value={state}
+        mb={2}
+      />
+
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        startError
+        endError
+        onChange={handleChange}
+        value={state}
+        mb={2}
+      />
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        startWarning
+        endWarning
+        onChange={handleChange}
+        value={state}
+        mb={2}
+      />
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        startInfo
+        endInfo
+        onChange={handleChange}
+        value={state}
+        mb={2}
+      />
+    </>
+  );
+};
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidation = () => {
+  const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
+
+  const handleChange = (ev: DateRangeChangeEvent) => {
+    const newValue = [
+      ev.target.value[0].formattedValue,
+      ev.target.value[1].formattedValue,
     ];
     setState(newValue);
   };
 
   return (
     <CarbonProvider validationRedesignOptIn>
-      {[
-        {
-          startError: "Start error with long text string",
-          endError: "End error",
-        },
-        {
-          startWarning: "Start warning",
-          endWarning: "End warning with long text string",
-        },
-      ].map((validation) => (
-        <DateRange
-          key={`${Object.keys(validation)[0]}-string-component`}
-          startLabel="Start"
-          endLabel="End"
-          onChange={handleChange}
-          value={state}
-          {...validation}
-          m={4}
-        />
-      ))}
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        startError="Start Error with long text"
+        endError="End Error"
+        onChange={handleChange}
+        value={state}
+        mb={2}
+        startDateProps={{ inputHint: "Start Date Hint" }}
+        endDateProps={{ inputHint: "End Date Hint" }}
+      />
+      <DateRange
+        startLabel="Start"
+        endLabel="End"
+        startWarning="Start Warning"
+        endWarning="End Warning with long text"
+        onChange={handleChange}
+        value={state}
+      />
     </CarbonProvider>
   );
 };
-
-export const DateRangeNewValidationWithLabelsInline = () => {
-  const [state, setState] = React.useState(["01/10/2016", "30/10/2016"]);
-
-  const handleChange = ({ target }: DateRangeChangeEvent) => {
-    const newValue = [
-      target.value[0].formattedValue,
-      target.value[1].formattedValue,
-    ];
-    setState(newValue);
-  };
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      {[
-        {
-          startError: "Start error with long text string",
-          endError: "End error",
-        },
-        {
-          startWarning: "Start warning",
-          endWarning: "End warning with long text string",
-        },
-      ].map((validation) => (
-        <DateRange
-          key={`${Object.keys(validation)[0]}-string-component`}
-          startLabel="Start"
-          endLabel="End"
-          onChange={handleChange}
-          value={state}
-          {...validation}
-          labelsInline
-          m={4}
-        />
-      ))}
-    </CarbonProvider>
-  );
+NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };

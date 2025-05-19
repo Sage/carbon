@@ -69,7 +69,7 @@ export default {
   },
 };
 
-export const Default = () => {
+export const Default = (props: Partial<MultiSelectProps>) => {
   const MAX_SELECTIONS_ALLOWED = 2;
   const [selectedPills, setSelectedPills] = useState([] as string[]);
   const handleActivityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,6 +92,7 @@ export const Default = () => {
       openOnFocus
       label="Test"
       placeholder=" "
+      {...props}
     >
       <Option value="1" text="One" />
       <Option value="2" text="Two" />
@@ -106,62 +107,130 @@ export const Default = () => {
     </MultiSelect>
   );
 };
+Default.storyName = "Default";
 
-Default.storyName = "default";
-
-export const MultiSelectComponent = (props: Partial<MultiSelectProps>) => {
-  const [value, setValue] = useState<string[]>([]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value as unknown as string[]);
-  }
-
+export const Validation = () => {
   return (
-    <MultiSelect
-      label="color"
-      labelInline
-      value={value}
-      onChange={onChangeHandler}
-      {...props}
-    >
-      <Option
-        id="option1"
-        text="Amber"
-        value="1"
-        data-role="option1"
-        data-element="option1"
-      />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
+    <>
+      <MultiSelect
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        error="Error Message"
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+      <MultiSelect
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        warning="Warning Message"
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+      <MultiSelect
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        info="Info Message"
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+
+      <MultiSelect
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        error="Error Message"
+        validationOnLabel
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+      <MultiSelect
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        warning="Warning Message"
+        validationOnLabel
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+      <MultiSelect
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        info="Info Message"
+        validationOnLabel
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+
+      <MultiSelect name="multi" id="multi" label="MultiSelect" error>
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+      <MultiSelect name="multi" id="multi" label="MultiSelect" warning>
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+      <MultiSelect name="multi" id="multi" label="MultiSelect" info>
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+    </>
   );
 };
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: true },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
-export const MultiSelectDefaultValueComponent = (
-  props: Partial<MultiSelectProps>,
-) => {
+export const NewValidation = () => {
   return (
-    <MultiSelect label="color" labelInline {...props}>
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
+    <CarbonProvider validationRedesignOptIn>
+      <MultiSelect
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        error="Error Message"
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+      <MultiSelect
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        warning="Warning Message"
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+    </CarbonProvider>
   );
+};
+NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: true },
+  themeProvider: { chromatic: { theme: "sage" } },
 };
 
 export const MultiSelectLongPillComponent = (

@@ -4,7 +4,6 @@ import { Meta, StoryObj } from "@storybook/react";
 import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 
 import Button from "../../button";
-import CarbonProvider from "../../carbon-provider";
 import Box from "../../box";
 import { MultiSelect, MultiSelectProps, Option, OptionRow } from "..";
 
@@ -26,7 +25,7 @@ type Story = StoryObj<typeof MultiSelect>;
 export const Default: Story = () => {
   return (
     <Box height={220}>
-      <MultiSelect name="simple" id="simple" label="color" labelInline>
+      <MultiSelect name="simple" id="simple" label="color">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -45,30 +44,51 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 
 export const ListPlacement: Story = () => {
+  const [listPlacement, setListPlacement] =
+    useState<MultiSelectProps["listPlacement"]>("bottom-end");
+  const [value, setValue] = useState<string[]>([]);
+  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    const { value: updatedValue } = ev.target;
+
+    if (Array.isArray(updatedValue)) {
+      setValue(updatedValue);
+    }
+  };
   return (
-    <MultiSelect
-      name="simple"
-      id="simple"
-      label="color"
-      labelInline
-      listPlacement="top"
-      mt={200}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
+    <>
+      <Button mr={1} onClick={() => setListPlacement("top-end")}>
+        Top end
+      </Button>
+      <Button mr={1} onClick={() => setListPlacement("bottom-end")}>
+        Bottom end
+      </Button>
+      <Button mr={1} onClick={() => setListPlacement("top-start")}>
+        Top start
+      </Button>
+      <Button onClick={() => setListPlacement("bottom-start")}>
+        Bottom start
+      </Button>
+      <Box my="150px" ml="200px" width="200px">
+        <MultiSelect
+          name="listWidth"
+          id="listWidth"
+          label="color"
+          labelInline
+          listWidth={350}
+          listPlacement={listPlacement}
+          value={value}
+          onChange={handleChange}
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+        </MultiSelect>
+      </Box>
+    </>
   );
 };
 ListPlacement.storyName = "List Placement";
+ListPlacement.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ListHeight: Story = () => {
   return (
@@ -96,13 +116,49 @@ export const ListHeight: Story = () => {
 };
 ListHeight.storyName = "List Height";
 
+export const ListWidth: Story = () => {
+  const [value, setValue] = useState<string[]>([]);
+  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    const { value: updatedValue } = ev.target;
+
+    if (Array.isArray(updatedValue)) {
+      setValue(updatedValue);
+    }
+  };
+  return (
+    <Box height={200} width={200}>
+      <MultiSelect
+        name="listWidth"
+        id="listWidth"
+        label="color"
+        listWidth={350}
+        listPlacement="bottom-start"
+        value={value}
+        onChange={handleChange}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </MultiSelect>
+    </Box>
+  );
+};
+ListWidth.storyName = "List Width";
+ListWidth.parameters = { chromatic: { disableSnapshot: true } };
+
 export const Controlled: Story = () => {
   const [value, setValue] = useState<string[]>([]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value as unknown as string[]);
   }
+  function clearValue() {
+    setValue([]);
+  }
   return (
-    <Box height={250}>
+    <Box height={300}>
+      <Button onClick={clearValue} mb={2}>
+        clear
+      </Button>
       <MultiSelect
         id="controlled"
         name="controlled"
@@ -543,61 +599,6 @@ export const WithCustomMaxWidth: Story = () => {
 };
 WithCustomMaxWidth.storyName = "With Custom Max Width";
 
-export const ValidationsStringNewDesign: Story = () => {
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      {["error", "warning"].map((validationType) =>
-        (["small", "medium", "large"] as const).map((size) => (
-          <Box width="296px" key={`${validationType}-${size}`}>
-            <MultiSelect
-              name="multi"
-              id={`${size}-${validationType}`}
-              label={`${size} - ${validationType}`}
-              size={size}
-              {...{ [validationType]: "Message" }}
-              m={4}
-            >
-              <Option text="Amber" value="1" />
-              <Option text="Black" value="2" />
-              <Option text="Blue" value="3" />
-              <Option text="Brown" value="4" />
-              <Option text="Green" value="5" />
-              <Option text="Orange" value="6" />
-              <Option text="Pink" value="7" />
-              <Option text="Purple" value="8" />
-              <Option text="Red" value="9" />
-              <Option text="White" value="10" />
-              <Option text="Yellow" value="11" />
-            </MultiSelect>
-            <MultiSelect
-              name="multi - readOnly"
-              id={`readOnly-${size}-${validationType}`}
-              label={`readOnly - ${size} - ${validationType}`}
-              size={size}
-              {...{ [validationType]: "Message" }}
-              readOnly
-              m={4}
-            >
-              <Option text="Amber" value="1" />
-              <Option text="Black" value="2" />
-              <Option text="Blue" value="3" />
-              <Option text="Brown" value="4" />
-              <Option text="Green" value="5" />
-              <Option text="Orange" value="6" />
-              <Option text="Pink" value="7" />
-              <Option text="Purple" value="8" />
-              <Option text="Red" value="9" />
-              <Option text="White" value="10" />
-              <Option text="Yellow" value="11" />
-            </MultiSelect>
-          </Box>
-        )),
-      )}
-    </CarbonProvider>
-  );
-};
-ValidationsStringNewDesign.storyName = "Validations String New Design";
-
 export const PillsWithLongText: Story = () => {
   return (
     <Box height={250} maxWidth="200px">
@@ -658,50 +659,3 @@ export const Virtualised: Story = () => {
   );
 };
 Virtualised.storyName = "Virtualised";
-
-export const ListWidth: Story = () => {
-  const [listPlacement, setListPlacement] =
-    useState<MultiSelectProps["listPlacement"]>("bottom-end");
-  const [value, setValue] = useState<string[]>([]);
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: updatedValue } = ev.target;
-
-    if (Array.isArray(updatedValue)) {
-      setValue(updatedValue);
-    }
-  };
-  return (
-    <>
-      <Button mr={1} onClick={() => setListPlacement("top-end")}>
-        Top end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("bottom-end")}>
-        Bottom end
-      </Button>
-      <Button mr={1} onClick={() => setListPlacement("top-start")}>
-        Top start
-      </Button>
-      <Button onClick={() => setListPlacement("bottom-start")}>
-        Bottom start
-      </Button>
-      <Box mt="200px" ml="200px" width="200px">
-        <MultiSelect
-          name="listWidth"
-          id="listWidth"
-          label="color"
-          labelInline
-          listWidth={350}
-          listPlacement={listPlacement}
-          value={value}
-          onChange={handleChange}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-        </MultiSelect>
-      </Box>
-    </>
-  );
-};
-ListWidth.storyName = "List width";
-ListWidth.parameters = { chromatic: { disableSnapshot: true } };

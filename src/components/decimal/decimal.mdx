@@ -13,6 +13,7 @@ Captures a number with a decimal point, or a currency value.
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Validation states](#validation-states)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -27,6 +28,10 @@ import Decimal from "carbon-react/lib/components/decimal";
 ### Default
 
 <Canvas of={DecimalStories.DefaultStory} />
+
+### With Input Hint
+
+<Canvas of={DecimalStories.WithInputHint} />
 
 ### Sizes
 
@@ -48,39 +53,14 @@ import Decimal from "carbon-react/lib/components/decimal";
 
 <Canvas of={DecimalStories.Empty} />
 
-### With custom precision
+### With Custom Precision
 
 <Canvas of={DecimalStories.WithCustomPrecision} />
-
-### With labelInline
-
-**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
-
-<Canvas of={DecimalStories.LabelInline} />
-
-### LabelAlign
-
-<Canvas of={DecimalStories.LabelAlign} />
-
-### With custom labelWidth and inputWidth
-
-<Canvas of={DecimalStories.WithCustomLabelWidthAndInputWidth} />
 
 ### With custom maxWidth
 
 <Canvas of={DecimalStories.WithCustomMaxWidth} />
 
-### With fieldHelp
-
-<Canvas of={DecimalStories.WithFieldHelp} />
-
-### With inputHint
-
-<Canvas of={DecimalStories.WithInputHint} />
-
-### With labelHelp
-
-<Canvas of={DecimalStories.WithLabelHelp} />
 
 ### Required
 
@@ -95,41 +75,32 @@ In this example, `align` has been assigned the value `left`.
 
 <Canvas of={DecimalStories.LeftAligned} />
 
-### Validations
+### With labelInline (legacy)
 
-Validation status can be set by passing `error`, `warning` or `info` prop to the component.
+Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and 
+`labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
 
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
-Passing a boolean to these props will display only a properly colored border.
+<Canvas of={DecimalStories.LabelInline} />
 
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
+<Canvas of={DecimalStories.LabelAlign} />
 
-#### As a string
+### With fieldHelp (legacy)
 
-<Canvas of={DecimalStories.ValidationsStringComponent} />
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+<Canvas of={DecimalStories.WithFieldHelp} />
 
-<Canvas of={DecimalStories.ValidationsTooltip} />
+### With labelHelp (legacy)
 
-#### As a string, displayed on label
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
-<Canvas of={DecimalStories.ValidationsStringLabel} />
+<Canvas of={DecimalStories.WithLabelHelp} />
 
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+## Validation States
 
-<Canvas of={DecimalStories.ValidationsTooltipLabel} />
-
-#### As a boolean
-
-<Canvas of={DecimalStories.ValidationsBoolean} />
-
-#### New designs validation
-
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-<Canvas of={DecimalStories.ValidationsRedesign} />
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
 ## Props
 

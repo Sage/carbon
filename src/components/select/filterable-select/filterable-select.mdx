@@ -16,6 +16,8 @@ Filterable Select is a Carbon styled implementation of WAI-ARIA Combobox with In
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Validation states](#validation-states)
+- [Testing with React Testing Library](#testing-with-react-testing-library-rtl)
 - [Props](#props)
 - [Translation keys](#translation-keys)
 
@@ -37,7 +39,8 @@ If you type printable characters in the Textbox, you can filter through the exis
 
 ### List placement
 
-You can use `listPlacement` prop to set the position of the select list relative to the input element.
+By default, the placement of the select list is below the input element and will automatically adjust its position if there is not enough space.
+However, you can use `listPlacement` prop to manually set the initial position of the select list relative to the input element.
 
 <Canvas of={FilterableSelectStories.ListPlacement} />
 
@@ -52,10 +55,7 @@ You can use `listMaxHeight` prop to override default max height value of select 
 You can use `listWidth` prop to override the width of the select list. By default the list
 will have the same width as the input.
 
-<Canvas
-  name="list width"
-  of={FilterableSelectStories.ListWidth}
-/>
+<Canvas of={FilterableSelectStories.ListWidth}/>
 
 ### Controlled Usage
 
@@ -128,16 +128,6 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 
 <Canvas of={FilterableSelectStories.WithObjectAsValue} />
 
-### New Validation Designs
-
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
-
-**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
-
-<Canvas of={FilterableSelectStories.ValidationsStringNewDesign} />
-
 ### Virtual scrolling
 
 The `enableVirtualScroll` prop can be used to enable "virtual scrolling" to only render a few options into the DOM at any one time.
@@ -165,9 +155,14 @@ This allows use-cases like server-side filtering of options, or rich formatting 
 
 <Canvas of={FilterableSelectStories.CustomFilterAndOptionStyle} />
 
+## Validation States
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
+
 ## Testing with React Testing Library (RTL)
 
-Please consult the [Testing with RTL](../?path=/docs/select--docs#testing-with-rtl) is supported for the `FilterableSelect` component.
+Testing with RTL is supported for the `FilterableSelect` component, please consult the [Testing with RTL](../?path=/docs/select--docs#testing-with-react-testing-library-rtl) 
+section in `SimpleSelect` for more information.
 
 ## Props
 
