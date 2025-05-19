@@ -13,6 +13,7 @@ import Link from "../link";
 import enGB from "../../locales/en-gb";
 
 import TextEditor, {
+  TextEditorHandle,
   createEmpty,
   createFromHTML,
   EditorFormattedValues,
@@ -41,6 +42,25 @@ export const Default: Story = () => {
   return <TextEditor namespace="storybook-default" labelText="Text Editor" />;
 };
 Default.storyName = "Default";
+
+export const ProgrammaticFocus = () => {
+  const editorRef = useRef<TextEditorHandle>(null);
+
+  return (
+    <>
+      <Button mb="30px" onClick={() => editorRef.current?.focus()}>
+        Focus the editor
+      </Button>
+
+      <TextEditor
+        ref={editorRef}
+        namespace="storybook-default"
+        labelText="Text Editor"
+      />
+    </>
+  );
+};
+ProgrammaticFocus.storyName = "Focusing the Text Editor Programmatically";
 
 export const Header: Story = () => {
   return (
