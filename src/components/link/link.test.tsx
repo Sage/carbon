@@ -223,7 +223,7 @@ describe("when the `onKeyDown` event is triggered", () => {
 });
 
 test("component should render a button element when `onClick` prop is passed", () => {
-  render(<Link onClick={() => {}} />);
+  render(<Link onClick={() => { }} />);
 
   const buttonElement = screen.getByRole("button");
 
@@ -239,7 +239,7 @@ test("when rendered as an `<a>` element, it should set the expected aria attribu
 });
 
 test("when rendered as a `button` element, it should set the aria attributes on the button", () => {
-  render(<Link onClick={() => {}} aria-label="test" />);
+  render(<Link onClick={() => { }} aria-label="test" />);
 
   const buttonElement = screen.getByRole("button");
 
