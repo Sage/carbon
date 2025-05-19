@@ -1,3 +1,9 @@
+## [154.3.1](https://github.com/Sage/carbon/compare/v154.3.0...v154.3.1) (2025-05-19)
+
+### Bug Fixes
+
+* **decimal:** ensure invariant message is not thrown when using strict mode ([aff2ca8](https://github.com/Sage/carbon/commit/aff2ca8c78d8725968328552d866b69c35e978f5))
+
 ## [154.3.0](https://github.com/Sage/carbon/compare/v154.2.0...v154.3.0) (2025-05-19)
 
 ### Features
