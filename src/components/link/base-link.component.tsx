@@ -53,9 +53,10 @@ const BaseLink = React.forwardRef<
   ) => {
     const l = useLocale();
 
-    // Remove data-role from rest to prevent duplicates
     const cleanedRest = Object.fromEntries(
-      Object.entries(rest).filter(([key]) => key !== "data-role"),
+      Object.entries(rest).filter(
+        ([key]) => key !== "data-role" && key !== "data-element",
+      ),
     );
 
     const renderIcon = (align: "left" | "right") =>
@@ -83,6 +84,7 @@ const BaseLink = React.forwardRef<
     }, [cleanedRest]);
 
     const Element = onClick && !href ? "button" : "a";
+
     const commonProps = {
       ref,
       onClick: disabled ? undefined : onClick,
