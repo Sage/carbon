@@ -60,22 +60,12 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       }
     }, [isDisabled, isInteractive]);
 
-    const createLinkBasedOnType = () => (
-      <BaseLink
-        {...rest}
-        ref={ref}
-        href={href}
-        onClick={onClick}
-        disabled={isDisabled}
-        icon={icon as IconType}
-        iconAlign={iconAlign}
-        isSkipLink={isSkipLink}
-        onFocus={() => setHasFocus(true)}
-        onBlur={() => setHasFocus(false)}
-      >
-        {children}
-      </BaseLink>
-    );
+    // Strip `data-element` and `data-role` from rest so we can assign them explicitly
+    const {
+      "data-element": dataElement,
+      "data-role": dataRole,
+      ...cleanedRest
+    } = rest;
 
     return (
       <StyledLink
@@ -87,11 +77,25 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         variant={variant}
         isDarkBackground={isDarkBackground}
         isMenuItem={inMenu}
-        {...tagComponent("link", rest)}
-        {...(isSkipLink && { "data-element": "skip-link" })}
         hasFocus={hasFocus}
+        data-element={dataElement}
+        data-role={dataRole}
+        {...tagComponent("link", cleanedRest)}
       >
-        {createLinkBasedOnType()}
+        <BaseLink
+          {...cleanedRest}
+          ref={ref}
+          href={href}
+          onClick={onClick}
+          disabled={isDisabled}
+          icon={icon as IconType}
+          iconAlign={iconAlign}
+          isSkipLink={isSkipLink}
+          onFocus={() => setHasFocus(true)}
+          onBlur={() => setHasFocus(false)}
+        >
+          {children}
+        </BaseLink>
       </StyledLink>
     );
   },
