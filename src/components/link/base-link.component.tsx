@@ -22,6 +22,7 @@ export interface BaseLinkProps extends React.AriaAttributes {
   onFocus?: React.FocusEventHandler;
   onBlur?: React.FocusEventHandler;
   ref?: React.Ref<HTMLAnchorElement | HTMLButtonElement>;
+  "data-element"?: string;
 }
 
 const BaseLink = React.forwardRef<
@@ -100,7 +101,7 @@ const BaseLink = React.forwardRef<
       Element,
       Element === "button"
         ? { ...commonProps, type: "button" }
-        : { ...commonProps, "data-role": "link-anchor" },
+        : { ...commonProps },
       <>
         {renderIcon("left")}
         <StyledContent data-testid="link-content">{content}</StyledContent>

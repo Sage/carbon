@@ -28,6 +28,7 @@ export interface LinkProps extends React.AriaAttributes, TagProps {
   className?: string;
   variant?: Variants;
   isDarkBackground?: boolean;
+  "data-element"?: string;
 }
 
 const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
@@ -43,6 +44,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       href,
       onClick,
       disabled,
+      "data-element": dataElement,
       ...rest
     },
     ref,
@@ -60,13 +62,6 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       }
     }, [isDisabled, isInteractive]);
 
-    // Strip `data-element` and `data-role` from rest so we can assign them explicitly
-    const {
-      "data-element": dataElement,
-      "data-role": dataRole,
-      ...cleanedRest
-    } = rest;
-
     return (
       <StyledLink
         isSkipLink={isSkipLink}
@@ -78,12 +73,10 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         isDarkBackground={isDarkBackground}
         isMenuItem={inMenu}
         hasFocus={hasFocus}
-        data-element={dataElement}
-        data-role={dataRole}
-        {...tagComponent("link", cleanedRest)}
+        {...tagComponent("link", rest)}
       >
         <BaseLink
-          {...cleanedRest}
+          {...rest}
           ref={ref}
           href={href}
           onClick={onClick}
@@ -93,6 +86,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
           isSkipLink={isSkipLink}
           onFocus={() => setHasFocus(true)}
           onBlur={() => setHasFocus(false)}
+          data-element={dataElement}
         >
           {children}
         </BaseLink>
