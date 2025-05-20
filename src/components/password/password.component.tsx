@@ -34,7 +34,11 @@ export const Password = ({
         {...tagComponent("password", rest)}
       >
         <ButtonMinor
-          aria-label={visibleInput ? "Hide password" : "Show password"}
+          aria-label={
+            visibleInput
+              ? l.password?.ariaLabelHide?.()
+              : l.password?.ariaLabelShow?.()
+          }
           aria-controls={internalInputId.current}
           onClick={() => setPasswordShown(!passwordShown)}
           pr={1}
@@ -45,7 +49,9 @@ export const Password = ({
           disabled={forceObscurity || disabled}
           isInPassword
         >
-          {visibleInput ? "Hide" : "Show"}
+          {visibleInput
+            ? l.password?.buttonLabelHide?.()
+            : l.password?.buttonLabelShow?.()}
         </ButtonMinor>
       </StyledPassword>
       <HiddenAriaLive role="status" aria-live="polite">

@@ -14,6 +14,7 @@ Fields can have punctuation within them (most commonly characters like - or /). 
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Validation states](#validation-states)
 - [Props](#props)
 
 ## Quick Start
@@ -27,6 +28,13 @@ import GroupedCharacter from "carbon-react/lib/components/grouped-character";
 ### Default
 
 <Canvas of={GroupedCharacterStories.DefaultStory} />
+
+### With Input Hint
+
+When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
+before any other announcements, this well help screen reader users understand the hint fully.
+
+<Canvas of={GroupedCharacterStories.InputHint} />
 
 ### Sizes
 
@@ -49,38 +57,9 @@ import GroupedCharacter from "carbon-react/lib/components/grouped-character";
 
 <Canvas of={GroupedCharacterStories.VariousGroups} />
 
-### With labelInline
-
-**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
-
-<Canvas of={GroupedCharacterStories.LabelInline} />
-
-### LabelAlign
-
-<Canvas of={GroupedCharacterStories.LabelAlign} />
-
-### With custom labelWidth and inputWidth
-
-<Canvas of={GroupedCharacterStories.LabelInputWidth} />
-
 ### With custom maxWidth
 
 <Canvas of={GroupedCharacterStories.WithCustomMaxWidth} />
-
-### With fieldHelp
-
-<Canvas of={GroupedCharacterStories.FieldHelp} />
-
-### With inputHint
-
-When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
-before any other announcements, this well help screen reader users understand the hint fully.
-
-<Canvas of={GroupedCharacterStories.InputHint} />
-
-### With labelHelp
-
-<Canvas of={GroupedCharacterStories.LabelHelp} />
 
 ### Required
 
@@ -88,41 +67,32 @@ You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas of={GroupedCharacterStories.Required} />
 
-### Validations
+### With labelInline (legacy)
 
-Validation status can be set by passing `error`, `warning` or `info` prop to the component.
+Use the `labelInline` prop to display the label on the same horizontal row as the input. You can adjust its appearance using the `labelWidth` and 
+`labelAlign` props to control the width and text alignment of the label and the `inputWidth` prop to control the width of the input.
 
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
-Passing a boolean to these props will display only a properly colored border.
+<Canvas of={GroupedCharacterStories.LabelInline} />
 
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
+<Canvas of={GroupedCharacterStories.LabelAlign} />
 
-#### As a string
+### With fieldHelp (legacy)
 
-<Canvas of={GroupedCharacterStories.ValidationsStringComponent} />
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+<Canvas of={GroupedCharacterStories.FieldHelp} />
 
-<Canvas of={GroupedCharacterStories.ValidationsTooltip} />
+### With labelHelp (legacy)
 
-#### As a string, displayed on label
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
-<Canvas of={GroupedCharacterStories.ValidationsStringLabel} />
+<Canvas of={GroupedCharacterStories.LabelHelp} />
 
-It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+## Validation States
 
-<Canvas of={GroupedCharacterStories.ValidationsTooltipLabel} />
-
-#### As a boolean
-
-<Canvas of={GroupedCharacterStories.ValidationsBoolean} />
-
-#### New designs validation
-
-The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
-
-<Canvas of={GroupedCharacterStories.ValidationsRedesign} />
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
 ## Props
 

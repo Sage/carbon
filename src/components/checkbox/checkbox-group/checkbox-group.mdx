@@ -21,6 +21,7 @@ CheckboxGroup provides a way to check one or more items from a list of options.
 
 - [Quick Start](#quick-start)
 - [Examples](#examples)
+- [Validation states](#validation-states)
 - [Props](#props)
 
 ## Quick Start
@@ -31,7 +32,17 @@ import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 
 ## Examples
 
+### Default
+
 <Canvas of={CheckboxGroupStories.Default} />
+
+### With legend Help
+
+To add an input hint to the legend, use the `legendHelp` prop.
+
+**Note:** The `legendHelp` prop will only render when the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *true*.
+
+<Canvas of={CheckboxGroupStories.WithLegendHelp} />
 
 ### Required
 
@@ -47,37 +58,17 @@ Use the `inline` prop to display the grouped checkboxes side by side horizontall
 
 <Canvas of={CheckboxGroupStories.Inline} />
 
-### Error state
-
-Requires enabling the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) to work.
-
-<Canvas of={CheckboxGroupStories.ErrorState} />
-
-### Warning state
-
-Requires enabling the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) to work.
-
-<Canvas of={CheckboxGroupStories.WarningState} />
-
-### Error state (legacy)
-
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
-
-<Canvas of={CheckboxGroupStories.LegacyErrorState} />
-
-### Warning state (legacy)
-
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
-
-<Canvas of={CheckboxGroupStories.LegacyWarningState} />
-
 ### Inline legend (legacy)
 
 Use the `legendInline` prop to display the group legend on the same horizontal row as the grouped checkboxes. You can adjust its appearance using the `legendWidth` and `legendAlign` props to control the width and text alignment of the legend. The `legendSpacing` prop can be used to control the spacing between the legend and the grouped checkboxes.
 
-**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *disabled*.
+**Note:** This is a legacy feature and will only render if the `validationRedesignOptIn` feature flag on an ancestor [CarbonProvider](../?path=/docs/carbon-provider--docs) is *false*.
 
 <Canvas of={CheckboxGroupStories.LegacyInlineLegend} />
+
+## Validation States
+
+This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.
 
 ## Props
 

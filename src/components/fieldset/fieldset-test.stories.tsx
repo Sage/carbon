@@ -55,7 +55,7 @@ export const Default: Story = ({ ...args }) => {
     </Fieldset>
   );
 };
-Default.storyName = "default";
+Default.storyName = "Default";
 Default.args = {
   legend: "Personal Information",
 };
@@ -75,6 +75,46 @@ export const InFormFieldSpacing: Story = () => (
   </Form>
 );
 InFormFieldSpacing.storyName = "In Form with fieldSpacing (legacy)";
+
+export const Validation: Story = () => (
+  <Form>
+    <Fieldset>
+      <Textbox label="Error String" labelInline error="Error Message" />
+      <Textbox label="Warning String" labelInline warning="Warning Message" />
+      <Textbox label="Info String" labelInline info="Info Message" />
+    </Fieldset>
+    <Fieldset>
+      <Textbox
+        label="Error on Label"
+        labelInline
+        error="Error Message"
+        validationOnLabel
+      />
+      <Textbox
+        label="Warning on Label"
+        labelInline
+        warning="Warning Message"
+        validationOnLabel
+      />
+      <Textbox
+        label="Info on Label"
+        labelInline
+        info="Info Message"
+        validationOnLabel
+      />
+    </Fieldset>
+    <Fieldset>
+      <Textbox label="Error Boolean" labelInline error />
+      <Textbox label="Warning Boolean" labelInline warning />
+      <Textbox label="Info Boolean" labelInline info />
+    </Fieldset>
+  </Form>
+);
+Validation.storyName = "Validation";
+Validation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
 export const NewValidation: Story = ({ ...args }) => (
   <CarbonProvider validationRedesignOptIn>
@@ -98,3 +138,7 @@ export const NewValidation: Story = ({ ...args }) => (
   </CarbonProvider>
 );
 NewValidation.storyName = "New Validation";
+NewValidation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

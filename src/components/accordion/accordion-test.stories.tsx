@@ -355,3 +355,56 @@ WithBoxComponentAndDifferentPaddings.storyName =
 WithBoxComponentAndDifferentPaddings.parameters = {
   chromatic: { disableSnapshot: false },
 };
+
+export const WithValidationIcon = () => {
+  const [firstAccordionExpanded, setFirstAccordionExpanded] =
+    useState<boolean>(true);
+  const [secondAccordionExpanded, setSecondAccordionExpanded] =
+    useState<boolean>(true);
+  const [thirdAccordionExpanded, setThirdAccordionExpanded] =
+    useState<boolean>(true);
+
+  const toggleFirstAccordion = () => {
+    setFirstAccordionExpanded(!firstAccordionExpanded);
+  };
+  const toggleSecondAccordion = () => {
+    setSecondAccordionExpanded(!secondAccordionExpanded);
+  };
+  const toggleThirdAccordion = () => {
+    setThirdAccordionExpanded(!thirdAccordionExpanded);
+  };
+
+  return (
+    <AccordionGroup>
+      <Accordion
+        title="First Heading"
+        expanded={firstAccordionExpanded}
+        onChange={toggleFirstAccordion}
+        error="This is an error state"
+      >
+        <Box>Content</Box>
+      </Accordion>
+      <Accordion
+        title="Second Heading"
+        expanded={secondAccordionExpanded}
+        onChange={toggleSecondAccordion}
+        warning="This is a warning state"
+      >
+        <Box>Content</Box>
+      </Accordion>
+      <Accordion
+        title="Third Heading"
+        expanded={thirdAccordionExpanded}
+        onChange={toggleThirdAccordion}
+        info="This is an info state"
+      >
+        <Box>Content</Box>
+      </Accordion>
+    </AccordionGroup>
+  );
+};
+WithValidationIcon.storyName = "With Validation Icon";
+WithBoxComponentAndDifferentPaddings.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
