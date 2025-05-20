@@ -53,11 +53,17 @@ const BaseLink = React.forwardRef<
   ) => {
     const l = useLocale();
 
-    const cleanedRest = Object.fromEntries(
-      Object.entries(rest).filter(
-        ([key]) => key !== "data-role" && key !== "data-element",
-      ),
-    );
+    const ariaProps = useMemo(() => {
+      return Object.entries(rest).reduce<Record<string, unknown>>(
+        (acc, [key, value]) => {
+          if (key.startsWith("aria-") || key.startsWith("data-")) {
+            acc[key] = value;
+          }
+          return acc;
+        },
+        {},
+      );
+    }, [rest]);
 
     const renderIcon = (align: "left" | "right") =>
       icon && iconAlign === align ? (
@@ -70,18 +76,6 @@ const BaseLink = React.forwardRef<
           data-testid="icon"
         />
       ) : null;
-
-    const ariaProps = useMemo(() => {
-      return Object.entries(cleanedRest).reduce<Record<string, unknown>>(
-        (acc, [key, value]) => {
-          if (key.startsWith("aria-") || key.startsWith("data-")) {
-            acc[key] = value;
-          }
-          return acc;
-        },
-        {},
-      );
-    }, [cleanedRest]);
 
     const Element = onClick && !href ? "button" : "a";
 
