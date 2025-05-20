@@ -5,6 +5,7 @@ import { action } from "@storybook/addon-actions";
 import Dialog, { DialogProps } from "./dialog.component";
 import { DIALOG_SIZES } from "./dialog.config";
 
+import AdaptiveSidebar from "../adaptive-sidebar";
 import Form from "../form";
 import Textbox from "../textbox";
 import Button from "../button";
@@ -494,3 +495,44 @@ export const WithButton = {
     );
   },
 };
+
+export const WithStackedModals: StoryType = () => {
+  const [adaptiveSidebarOpen, setAdaptiveSidebarOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <Box display="flex" flexDirection="row">
+      <Box>
+        <Button onClick={() => setAdaptiveSidebarOpen((p) => !p)} mb={2}>
+          {adaptiveSidebarOpen ? "Close" : "Open"} Sidebar
+        </Button>
+
+        <Button onClick={() => setIsOpen((p) => !p)} mb={2}>
+          {isOpen ? "Close" : "Open"} Dialog
+        </Button>
+
+        <Dialog
+          open={isOpen}
+          title="Example Dialog"
+          subtitle="Example Subtitle"
+          size="medium"
+          showCloseIcon
+          disableEscKey={false}
+          onCancel={() => setIsOpen(false)}
+        >
+          Some text
+        </Dialog>
+      </Box>
+      <AdaptiveSidebar open={adaptiveSidebarOpen} width="300px">
+        <Box p={2} display="flex" flexDirection="column">
+          <Button onClick={() => setAdaptiveSidebarOpen(false)} mb={2}>
+            Close
+          </Button>
+          <Typography variant="h1">Adaptive Sidebar</Typography>
+        </Box>
+      </AdaptiveSidebar>
+    </Box>
+  );
+};
+
+WithStackedModals.storyName = "With Stacked Modals";

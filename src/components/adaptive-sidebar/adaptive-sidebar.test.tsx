@@ -8,6 +8,7 @@ import AdaptiveSidebar, {
 import Box from "../box";
 import Button from "../button";
 import Typography from "../typography";
+import TopModalContext from "../../components/carbon-provider/__internal__/top-modal.context";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
@@ -44,6 +45,56 @@ const MockApp = ({
         </AdaptiveSidebar>
       </Box>
     </>
+  );
+};
+
+const AdaptiveSidebarWithTopModalContext = ({
+  ...props
+}: Omit<AdaptiveSidebarProps, "open">) => {
+  const [adaptiveSidebarOpen, setAdaptiveSidebarOpen] = useState(false);
+  const [topModal, setTopModal] = useState<HTMLElement | null>(null);
+
+  const modalRef = (element: HTMLElement | null) => {
+    setTopModal(element);
+  };
+
+  return (
+    <TopModalContext.Provider
+      value={{
+        topModal,
+        hasAdaptiveSidebarModalOpen: false,
+        setHasAdaptiveSidebarModalOpen: () => {},
+      }}
+    >
+      <div ref={modalRef}>
+        <Box display="flex" flexDirection="row">
+          <Box>
+            <Button
+              data-role="adaptive-sidebar-control-button"
+              mb={2}
+              onClick={() => setAdaptiveSidebarOpen(!adaptiveSidebarOpen)}
+            >
+              {adaptiveSidebarOpen ? "Close" : "Open"}
+            </Button>
+            <Typography variant="p">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at
+              odio ultricies, luctus dolor at, fringilla elit. Nulla non nunc eu
+              sapien tempus porta. Nullam sodales nisi ut orci efficitur, nec
+              ullamcorper nunc pulvinar. Integer eleifend a augue ac accumsan.
+              Fusce ultrices auctor aliquam. Sed eu metus sit amet est tempor
+              ullamcorper. Praesent eu elit eget lacus fermentum porta at ut
+              dui.
+            </Typography>
+          </Box>
+          <AdaptiveSidebar open={adaptiveSidebarOpen} renderAsModal {...props}>
+            My Content
+            <Button data-role="custom-close-button" onClick={() => {}}>
+              Custom close
+            </Button>
+          </AdaptiveSidebar>
+        </Box>
+      </div>
+    </TopModalContext.Provider>
   );
 };
 
@@ -213,4 +264,19 @@ test("should not render with a left border if the `borderColor` prop is set to `
   expect(screen.getByTestId("adaptive-sidebar")).not.toHaveStyleRule(
     "border-left",
   );
+});
+
+test("should render as a modal when in responsive view", async () => {
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+  const user = userEvent.setup();
+
+  render(<AdaptiveSidebarWithTopModalContext />);
+
+  expect(screen.queryByText("My Content")).not.toBeInTheDocument();
+
+  const openButton = screen.getByTestId("adaptive-sidebar-control-button");
+  await user.click(openButton);
+
+  expect(screen.getByText("My Content")).toBeInTheDocument();
+  expect(screen.getByTestId("modal-background")).toBeInTheDocument();
 });

@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef, ReactNode } from "react";
 import TopModalContext from "./top-modal.context";
 
-export const TopModalProvider = ({ children }: { children: ReactNode }) => {
+export const TopModalProvider = ({
+  children,
+  setHasAdaptiveSidebarModalOpen,
+  hasAdaptiveSidebarModalOpen,
+}: {
+  children: ReactNode;
+  setHasAdaptiveSidebarModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  hasAdaptiveSidebarModalOpen: boolean;
+}) => {
   const [topModal, setTopModal] = useState<HTMLElement | null>(null);
 
   // can't add the setter to the global list inside useEffect because that doesn't run until
@@ -28,7 +36,13 @@ export const TopModalProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <TopModalContext.Provider value={{ topModal }}>
+    <TopModalContext.Provider
+      value={{
+        topModal,
+        setHasAdaptiveSidebarModalOpen,
+        hasAdaptiveSidebarModalOpen,
+      }}
+    >
       {children}
     </TopModalContext.Provider>
   );

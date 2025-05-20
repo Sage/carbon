@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider";
@@ -21,18 +21,30 @@ export const CarbonProvider = ({
   children,
   theme = sageTheme,
   validationRedesignOptIn = false,
-}: CarbonProviderProps) => (
-  <ThemeProvider theme={theme}>
-    <CarbonScopedTokensProvider>
-      <NewValidationContext.Provider
-        value={{
-          validationRedesignOptIn,
-        }}
+}: CarbonProviderProps) => {
+  const [hasAdaptiveSidebarModalOpen, setHasAdaptiveSidebarModalOpen] =
+    useState(false);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CarbonScopedTokensProvider
+        hasAdaptiveSidebarModalOpen={hasAdaptiveSidebarModalOpen}
       >
-        <TopModalProvider>{children}</TopModalProvider>
-      </NewValidationContext.Provider>
-    </CarbonScopedTokensProvider>
-  </ThemeProvider>
-);
+        <NewValidationContext.Provider
+          value={{
+            validationRedesignOptIn,
+          }}
+        >
+          <TopModalProvider
+            hasAdaptiveSidebarModalOpen={hasAdaptiveSidebarModalOpen}
+            setHasAdaptiveSidebarModalOpen={setHasAdaptiveSidebarModalOpen}
+          >
+            {children}
+          </TopModalProvider>
+        </NewValidationContext.Provider>
+      </CarbonScopedTokensProvider>
+    </ThemeProvider>
+  );
+};
 
 export default CarbonProvider;
