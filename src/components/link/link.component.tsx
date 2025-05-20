@@ -28,7 +28,6 @@ export interface LinkProps extends React.AriaAttributes, TagProps {
   className?: string;
   variant?: Variants;
   isDarkBackground?: boolean;
-  "data-element"?: string;
 }
 
 const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
@@ -44,7 +43,6 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       href,
       onClick,
       disabled,
-      "data-element": dataElement,
       ...rest
     },
     ref,
@@ -72,8 +70,9 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         variant={variant}
         isDarkBackground={isDarkBackground}
         isMenuItem={inMenu}
-        hasFocus={hasFocus}
         {...tagComponent("link", rest)}
+        {...(isSkipLink && { "data-element": "skip-link" })}
+        hasFocus={hasFocus}
       >
         <BaseLink
           {...rest}
@@ -86,7 +85,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
           isSkipLink={isSkipLink}
           onFocus={() => setHasFocus(true)}
           onBlur={() => setHasFocus(false)}
-          data-element={dataElement}
+          data-element={rest["data-element"] || "link"}
         >
           {children}
         </BaseLink>
