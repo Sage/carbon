@@ -477,3 +477,14 @@ export { default as useCharacterCount } from "./hooks/useCharacterCount/useChara
 export { default as useMediaQuery } from "./hooks/useMediaQuery/useMediaQuery";
 
 export { default as GlobalStyle } from "./style/global-style";
+
+export { default as mockDOMRect } from "./__spec_helper__/mock-dom-rect";
+
+export { default as setupScrollToMock } from "./__spec_helper__/mock-element-scrollto";
+
+export {
+  mockMatchMedia,
+  setupMatchMediaMock,
+} from "./__spec_helper__/mock-match-media";
+
+export { default as setupResizeObserverMock } from "./__spec_helper__/mock-resize-observer";

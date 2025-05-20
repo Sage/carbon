@@ -36,6 +36,8 @@ export default {
           /* Ignores SVGs, they are moved in post-build */
           "**/*.svg",
           "**/test-utils.ts",
+          /* We only want to include the mocks and spec helpers intended for public use */
+          "**/__spec_helper__/__internal__/**"
         ],
       })
       .map((file) => [
@@ -141,6 +143,8 @@ export default {
       targets: [
         { src: "src/style/assets/**/*", dest: "lib/style/assets" },
         { src: "src/style/assets/**/*", dest: "esm/style/assets" },
+        { src: "src/components/icon/fonts/*.{woff,woff2}", dest: "lib/components/icon/fonts" },
+        { src: "src/components/icon/fonts/*.{woff,woff2}", dest: "esm/components/icon/fonts" },
         { src: "src/style/fonts.css", dest: "lib/style/" },
         { src: "src/style/fonts.css", dest: "esm/style/" },
         { src: "src/global.d.ts", dest: "lib/" },
