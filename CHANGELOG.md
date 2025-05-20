@@ -1,3 +1,9 @@
+## [154.3.2](https://github.com/Sage/carbon/compare/v154.3.1...v154.3.2) (2025-05-20)
+
+### Bug Fixes
+
+* **text-editor:** ensure required and invalid states are semantically conveyed to users ([41e73bd](https://github.com/Sage/carbon/commit/41e73bd9ba8ddc2814b011ae9c2966ddbf40bf9b)), closes [#7105](https://github.com/Sage/carbon/issues/7105)
+
 ## [154.3.1](https://github.com/Sage/carbon/compare/v154.3.0...v154.3.1) (2025-05-19)
 
 ### Bug Fixes
