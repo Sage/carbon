@@ -66,27 +66,6 @@ export const Sizes: Story = () => {
 };
 Sizes.storyName = "Sizes";
 
-export const AutoFocus: Story = () => {
-  const [state, setState] = useState("1231231");
-
-  const setValue = ({ target }: CustomEvent) => {
-    setState(target.value.rawValue);
-  };
-
-  return (
-    <GroupedCharacter
-      label="GroupedCharacter"
-      value={state}
-      onChange={setValue}
-      groups={[2, 2, 3]}
-      separator="-"
-      autoFocus
-    />
-  );
-};
-AutoFocus.storyName = "Auto Focus";
-AutoFocus.parameters = { chromatic: { disableSnapshot: true } };
-
 export const Disabled: Story = () => {
   const [state, setState] = useState("1231231");
 

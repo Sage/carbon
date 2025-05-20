@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { zhCN, de } from "date-fns/locale";
@@ -79,19 +80,6 @@ export const Sizes: Story = () => {
   );
 };
 Sizes.storyName = "Sizes";
-
-export const AutoFocus: Story = () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return <DateInput label="Date" value={state} onChange={setValue} autoFocus />;
-};
-AutoFocus.storyName = "Auto Focus";
-AutoFocus.parameters = {
-  themeProvider: { chromatic: { fourColumnLayout: true } },
-  chromatic: { viewports: [1800] },
-};
 
 export const Disabled: Story = () => {
   const [state, setState] = useState("01/10/2016");
@@ -299,7 +287,7 @@ export const LocaleOverrideExampleImplementation: Story = () => {
     setState2(ev.target.value.formattedValue);
   };
   return (
-    <div style={{ display: "flex", justifyContent: "space-around" }}>
+    <Box display="flex" justifyContent="space-around">
       <I18nProvider
         locale={{
           locale: () => "de-DE",
@@ -336,7 +324,7 @@ export const LocaleOverrideExampleImplementation: Story = () => {
           onChange={handleChange2}
         />
       </I18nProvider>
-    </div>
+    </Box>
   );
 };
 LocaleOverrideExampleImplementation.storyName =
@@ -354,7 +342,7 @@ export const LocaleFormatOverrideExampleImplementation: Story = ({
     setState(ev.target.value.formattedValue);
   };
   return (
-    <div style={{ display: "flex" }}>
+    <Box display="flex">
       <I18nProvider
         locale={{
           locale: () => "de-DE",
@@ -374,7 +362,7 @@ export const LocaleFormatOverrideExampleImplementation: Story = ({
           onChange={handleChange}
         />
       </I18nProvider>
-    </div>
+    </Box>
   );
 };
 LocaleFormatOverrideExampleImplementation.storyName =

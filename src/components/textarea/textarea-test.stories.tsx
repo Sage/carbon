@@ -3,6 +3,7 @@ import { StoryObj } from "@storybook/react/*";
 import Textarea, { TextareaProps } from ".";
 import Dialog from "../dialog";
 import Form from "../form";
+import Box from "../box";
 import Button from "../button";
 import isChromatic from "../../../.storybook/isChromatic";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -295,9 +296,9 @@ WithExpandableAndRows.storyName =
   "With expandable and rows in a dialog with form";
 WithExpandableAndRows.decorators = [
   (Story) => (
-    <div style={{ height: "100vh", width: "100vw" }}>
+    <Box height="100vh" width="100vw">
       <Story />
-    </div>
+    </Box>
   ),
 ];
 WithExpandableAndRows.parameters = {
@@ -321,6 +322,15 @@ export const LabelAlign: StoryType = () => {
 };
 LabelAlign.storyName = "With Label Align";
 LabelAlign.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const AutoFocusStory = () => {
+  return <Textarea label="Textarea" autoFocus />;
+};
+AutoFocusStory.storyName = "Auto Focus";
+AutoFocusStory.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };

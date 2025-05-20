@@ -214,3 +214,19 @@ NewValidation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
+
+export const AutoFocus = () => {
+  const [state, setState] = useState("Password");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+
+  return (
+    <Password autoFocus label="Password" value={state} onChange={setValue} />
+  );
+};
+AutoFocus.storyName = "Auto Focus";
+AutoFocus.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

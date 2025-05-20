@@ -116,13 +116,6 @@ export default {
       disableSnapshot: true,
     },
   },
-  includeStories: [
-    "Default",
-    "Validation",
-    "NewValidation",
-    "PrefixWithSizes",
-    "LabelAndHintTextAlign",
-  ],
 };
 
 export const Default = (args: CommonTextboxArgs) => {
@@ -255,6 +248,19 @@ export const LabelAndHintTextAlign = () => {
 };
 LabelAndHintTextAlign.storyName = "Label and hint text align";
 LabelAndHintTextAlign.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const AutoFocus = () => {
+  return (
+    <Box>
+      <Textbox label="Textbox" value="Textbox" autoFocus />
+    </Box>
+  );
+};
+AutoFocus.storyName = "Auto Focus";
+AutoFocus.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
