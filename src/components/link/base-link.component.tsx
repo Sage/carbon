@@ -21,8 +21,8 @@ export interface BaseLinkProps extends React.AriaAttributes {
   disabled?: boolean;
   onFocus?: React.FocusEventHandler;
   onBlur?: React.FocusEventHandler;
-  ref?: React.Ref<HTMLAnchorElement | HTMLButtonElement>;
   "data-element"?: string;
+  ref?: React.Ref<HTMLAnchorElement | HTMLButtonElement>;
 }
 
 const BaseLink = React.forwardRef<
@@ -54,17 +54,9 @@ const BaseLink = React.forwardRef<
   ) => {
     const l = useLocale();
 
-    const ariaProps = useMemo(() => {
-      return Object.entries(rest).reduce<Record<string, unknown>>(
-        (acc, [key, value]) => {
-          if (key.startsWith("aria-") || key.startsWith("data-")) {
-            acc[key] = value;
-          }
-          return acc;
-        },
-        {},
-      );
-    }, [rest]);
+    const cleanedRest = Object.fromEntries(
+      Object.entries(rest).filter(([key]) => key !== "data-role"),
+    );
 
     const renderIcon = (align: "left" | "right") =>
       icon && iconAlign === align ? (
@@ -77,6 +69,18 @@ const BaseLink = React.forwardRef<
           data-testid="icon"
         />
       ) : null;
+
+    const ariaProps = useMemo(() => {
+      return Object.entries(cleanedRest).reduce<Record<string, unknown>>(
+        (acc, [key, value]) => {
+          if (key.startsWith("aria-") || key.startsWith("data-")) {
+            acc[key] = value;
+          }
+          return acc;
+        },
+        {},
+      );
+    }, [cleanedRest]);
 
     const Element = onClick && !href ? "button" : "a";
 
@@ -93,6 +97,7 @@ const BaseLink = React.forwardRef<
       disabled,
       "aria-label": ariaLabel,
       ...ariaProps,
+      "data-element": rest["data-element"] || "link", // default fallback
     };
 
     const content = isSkipLink ? l.link.skipLinkLabel() : children;
@@ -101,7 +106,7 @@ const BaseLink = React.forwardRef<
       Element,
       Element === "button"
         ? { ...commonProps, type: "button" }
-        : { ...commonProps },
+        : { ...commonProps, "data-role": "link-anchor" },
       <>
         {renderIcon("left")}
         <StyledContent data-testid="link-content">{content}</StyledContent>
