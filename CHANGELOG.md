@@ -1,3 +1,9 @@
+## [154.4.0](https://github.com/Sage/carbon/compare/v154.3.2...v154.4.0) (2025-05-21)
+
+### Features
+
+* **text-editor:** add programmatic focus support for the text editor ([84b7b39](https://github.com/Sage/carbon/commit/84b7b398b2bb8dfb36da6371ecd7a52f4eda8334)), closes [#7320](https://github.com/Sage/carbon/issues/7320)
+
 ## [154.3.2](https://github.com/Sage/carbon/compare/v154.3.1...v154.3.2) (2025-05-20)
 
 ### Bug Fixes
