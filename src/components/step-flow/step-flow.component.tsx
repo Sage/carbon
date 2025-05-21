@@ -1,5 +1,6 @@
 import React, { useImperativeHandle, useRef, forwardRef } from "react";
-import { MarginProps } from "styled-system";
+import { MarginProps } from "../dips-box/utils/spacing-types";
+
 import Icon from "../icon";
 import IconButton from "../icon-button";
 import {

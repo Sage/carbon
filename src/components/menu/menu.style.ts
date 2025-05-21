@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
+
 import {
-  layout,
-  flexbox,
   FlexboxProps,
   LayoutProps,
   PaddingProps,
-} from "styled-system";
+} from "../dips-box/utils/spacing-types";
+import { flexboxCss, layoutCss } from "../dips-box/utils/spacing";
 import menuConfigVariants from "./menu.config";
 
 import {
@@ -33,8 +33,8 @@ const StyledMenuWrapper = styled.ul<StyledMenuProps>`
   align-items: stretch;
   min-height: 40px;
 
-  ${layout}
-  ${flexbox}
+  ${(props) => layoutCss(props)}
+  ${(props) => flexboxCss(props)}
 
   ${StyledVerticalWrapper} {
     ${({ menuType }) =>
@@ -71,8 +71,8 @@ const StyledMenuItem = styled.li.attrs(applyBaseTheme)<StyledMenuItemProps>`
       align-items: stretch;
     `}
 
-  ${layout}
-  ${flexbox}
+  ${(props) => flexboxCss(props)}
+  ${(props) => layoutCss(props)}
 
   ${StyledLink} a:focus, ${StyledLink} button:focus {
     border-radius: var(--borderRadius000);
