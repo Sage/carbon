@@ -30,6 +30,13 @@ export const StyledTextEditorWrapper = styled.div<StyledTextEditorWrapperProps>`
 `;
 
 export const StyledWrapper = styled.div<StyledWrapperProps>`
+  .textBold {
+    font-weight: bold;
+  }
+  .textItalic {
+    font-style: italic;
+  }
+
   ${({ error, namespace, warning }) => css`
     min-height: 120px;
     min-width: 300px;
