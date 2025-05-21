@@ -61,6 +61,27 @@ export const checkAccessibility = async (
     .disableRules([...preDisabledRules, ...disableRules])
     .analyze();
 
+  const isCI = process.env.CI === "true";
+
+  if (accessibilityScanResults.incomplete.length > 0 && !isCI) {
+    // Capture the calling stack
+    const { stack } = new Error();
+
+    // Parse stack to find the test file name
+    const testFileMatch = stack?.match(/at .*?(\/[^\s]+\.pw\.tsx):(\d+):(\d+)/);
+    const componentName = testFileMatch
+      ? testFileMatch[1].split("/").slice(-2, -1)[0]
+      : "Unknown component";
+
+    // eslint-disable-next-line no-console
+    console.warn(
+      `\nACCESSIBILITY SCAN INCOMPLETE. Incomplete rules: ${accessibilityScanResults.incomplete.map(
+        (rule) =>
+          `\n\t- ${rule.id}: this is a ${rule.impact} accessibility issue. ${rule.description}`,
+      )}\nPlease check and ensure that the "${componentName}" component meets accessibility criteria manually.\n`,
+    );
+  }
+
   expect(accessibilityScanResults.violations).toEqual([]);
 };
 
