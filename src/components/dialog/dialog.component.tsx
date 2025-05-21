@@ -1,9 +1,15 @@
-import React, { useRef, useImperativeHandle, forwardRef } from "react";
+import React, {
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+  useContext,
+} from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import TopModalContext from "../carbon-provider/__internal__/top-modal.context";
 
 import {
   StyledDialog,
@@ -19,6 +25,7 @@ import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 import Logger from "../../__internal__/utils/logger";
+import useInert from "./__internal__/useInert";
 
 const PADDING_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
 type PaddingValues = (typeof PADDING_VALUES)[number];
@@ -155,6 +162,15 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 
     const isTopModal = useModalAria(containerRef);
 
+    const { hasAdaptiveSidebarModalOpen } = useContext(TopModalContext);
+    const { localTopOverride } = useInert({
+      containerRef,
+      defaultValue: topModalOverride || false,
+      open,
+      isTopModal: isTopModal || false,
+      hasAdaptiveSidebarModalOpen,
+    });
+
     if (!deprecatedTimeoutTrigger && rest?.timeout) {
       deprecatedTimeoutTrigger = true;
       Logger.deprecate(
@@ -231,7 +247,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         disableEscKey={disableEscKey}
         disableClose={disableClose}
         className={className ? `${className} carbon-dialog` : "carbon-dialog"}
-        topModalOverride={topModalOverride}
+        topModalOverride={localTopOverride}
         restoreFocusOnClose={restoreFocusOnClose}
         {...rest}
       >

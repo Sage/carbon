@@ -3,7 +3,16 @@ import { render } from "@testing-library/react";
 import TopModalProvider from "./top-modal-provider.component";
 
 const MockComponent = ({ providerOpen }: { providerOpen: boolean }) => (
-  <>{providerOpen && <TopModalProvider>some children</TopModalProvider>}</>
+  <>
+    {providerOpen && (
+      <TopModalProvider
+        setHasAdaptiveSidebarModalOpen={() => {}}
+        hasAdaptiveSidebarModalOpen={false}
+      >
+        some children
+      </TopModalProvider>
+    )}
+  </>
 );
 
 beforeEach(() => {

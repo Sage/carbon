@@ -1374,7 +1374,13 @@ describe("when focus is lost to the document body and `topModalContext` has a va
     const trapWrapper = useRef(null);
 
     return (
-      <TopModalContext.Provider value={{ topModal }}>
+      <TopModalContext.Provider
+        value={{
+          topModal,
+          hasAdaptiveSidebarModalOpen: false,
+          setHasAdaptiveSidebarModalOpen: () => {},
+        }}
+      >
         <p>I am some irrelevant text</p>
         <button type="button">Outside button</button>
         <div ref={trapModalRef}>

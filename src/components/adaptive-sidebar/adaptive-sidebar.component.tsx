@@ -1,17 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 
 import { PaddingProps, MarginProps } from "styled-system";
 
 import { getColors, kebabToCamelCase } from "./__internal__/utils";
 
 import Box from "../box";
+import TopModalContext from "../carbon-provider/__internal__/top-modal.context";
 import {
   filterStyledSystemMarginProps,
   filterStyledSystemPaddingProps,
 } from "../../style/utils";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
-
 import { StyledAdaptiveSidebar, StyledSidebar } from "./adaptive-sidebar.style";
 
 export interface AdaptiveSidebarProps
@@ -60,6 +60,11 @@ export const AdaptiveSidebar = ({
     {} as Record<string, string>,
   );
 
+  const shouldRenderAsModal = renderAsModal || !largeScreen;
+  const { setHasAdaptiveSidebarModalOpen, topModal } =
+    useContext(TopModalContext);
+  const isTopModal = !!topModal?.contains(adaptiveSidebarRef.current);
+
   useEffect(() => {
     /* istanbul ignore next */
     if (adaptiveSidebarRef.current) {
@@ -67,10 +72,21 @@ export const AdaptiveSidebar = ({
     }
   }, [open]);
 
-  if (renderAsModal || !largeScreen) {
+  useEffect(() => {
+    setHasAdaptiveSidebarModalOpen(open && shouldRenderAsModal && isTopModal);
+  }, [
+    setHasAdaptiveSidebarModalOpen,
+    open,
+    isTopModal,
+    topModal,
+    shouldRenderAsModal,
+  ]);
+
+  if (shouldRenderAsModal) {
     return (
       <StyledSidebar
         backgroundColor={backgroundColor}
+        data-element="adaptive-sidebar-modal"
         open={open}
         p={0}
         ref={adaptiveSidebarRef}
