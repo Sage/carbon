@@ -59,12 +59,6 @@ export const ReadOnlyStory: Story = () => {
 };
 ReadOnlyStory.storyName = "Read Only";
 
-export const AutoFocusStory: Story = () => {
-  return <Textarea label="Textarea" autoFocus />;
-};
-AutoFocusStory.storyName = "Auto Focus";
-AutoFocusStory.parameters = { chromatic: { disableSnapshot: true } };
-
 export const ExpandableStory: Story = () => {
   const [value, setValue] = useState("");
   return (

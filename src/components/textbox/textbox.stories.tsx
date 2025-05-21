@@ -127,17 +127,6 @@ export const Margins: Story = () => {
 };
 Margins.storyName = "Margins";
 
-export const AutoFocus: Story = () => {
-  return (
-    <Box>
-      <Textbox label="Textbox" value="Textbox" autoFocus />
-      <Textbox label="Textbox" value="Textbox" autoFocus />
-    </Box>
-  );
-};
-AutoFocus.storyName = "Auto Focus";
-AutoFocus.parameters = { chromatic: { disableSnapshot: true } };
-
 export const Disabled: Story = () => {
   return <Textbox label="Textbox" value="Textbox" disabled />;
 };

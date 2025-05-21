@@ -59,12 +59,6 @@ export const ReadOnly: Story = () => {
 };
 ReadOnly.storyName = "Read Only";
 
-export const AutoFocus: Story = () => {
-  return <Number label="Number" value="123456" autoFocus />;
-};
-AutoFocus.storyName = "Auto Focus";
-AutoFocus.parameters = { chromatic: { disableSnapshot: true } };
-
 export const WithLabelInline: Story = () => {
   return <Number label="Number" value="123456" labelInline />;
 };
