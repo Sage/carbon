@@ -44,6 +44,17 @@ All instances of the Text Editor should have a label that describes the purpose 
 
 <Canvas of={TextEditorStories.Default} />
 
+### Focusing the Text Editor Programmatically
+
+```javascript
+import { TextEditorHandle } from "carbon-react/lib/components/text-editor";
+```
+
+The `TextEditorHandle` type provides an imperative handle for programmatic control over the Text Editor. 
+Using a `ref`, you can access its `focus()` method to set focus on the Text Editor as needed.
+
+<Canvas of={TextEditorStories.ProgrammaticFocus} />
+
 ### With Header
 
 The Text Editor accepts a header property, which can be any valid React node and is rendered above the toolbar, providing space for custom elements such as titles, controls, or contextual information.

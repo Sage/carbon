@@ -1,9 +1,9 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import React from "react";
+import React, { act, createRef } from "react";
 
-import TextEditor, { createEmpty, createFromHTML } from ".";
+import TextEditor, { TextEditorHandle, createEmpty, createFromHTML } from ".";
 import { COMPONENT_PREFIX } from "./__internal__/constants";
 
 import Logger from "../../__internal__/utils/logger";
@@ -387,6 +387,19 @@ test("serialisation of editor", async () => {
   // click the save button and expect the callback to be called
   await user.click(saveButton);
   expect(mockSave).toHaveBeenCalledTimes(1);
+});
+
+test("editor is focused when the focus method is invoked via imperative handle", () => {
+  const editorRef = createRef<TextEditorHandle>();
+
+  render(<TextEditor labelText="Text Editor" ref={editorRef} />);
+
+  act(() => {
+    editorRef.current?.focus();
+  });
+
+  const editor = screen.getByRole("textbox");
+  expect(editor).toHaveFocus();
 });
 
 test("valid data is parsed when HTML is passed into the createFromHTML function", async () => {

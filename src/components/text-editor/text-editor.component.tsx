@@ -13,9 +13,11 @@ import { $getRoot, EditorState, LexicalEditor } from "lexical";
 import React, {
   useCallback,
   useEffect,
+  useImperativeHandle,
   useMemo,
   useRef,
   useState,
+  forwardRef,
 } from "react";
 import { MarginProps } from "styled-system";
 import { SerializeLexical, validateUrl } from "./__internal__/helpers";
@@ -52,6 +54,11 @@ import { createEmpty } from "./utils";
 import HintText from "../../__internal__/hint-text";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+
+export interface TextEditorHandle {
+  /** Programmatically focus on the text editor. */
+  focus: () => void;
+}
 
 export type EditorFormattedValues = SaveCallbackProps;
 
@@ -105,252 +112,276 @@ export interface TextEditorProps extends MarginProps, TagProps {
 
 let deprecateOptionalWarnTriggered = false;
 
-export const TextEditor = ({
-  characterLimit = 3000,
-  error,
-  footer,
-  header,
-  inputHint,
-  isOptional = false,
-  labelText,
-  namespace = COMPONENT_PREFIX,
-  onBlur,
-  onCancel,
-  onChange,
-  onFocus,
-  onLinkAdded,
-  onSave,
-  placeholder,
-  previews = [],
-  readOnly = false,
-  required = false,
-  rows,
-  warning,
-  value,
-  ...rest
-}: TextEditorProps) => {
-  if (!deprecateOptionalWarnTriggered && isOptional) {
-    deprecateOptionalWarnTriggered = true;
-    Logger.deprecate(
-      "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-    );
-  }
-  const editorRef = useRef<LexicalEditor | undefined>(undefined);
-  const locale = useLocale();
-  const [characterLimitWarning, setCharacterLimitWarning] = useState<
-    string | undefined
-  >(undefined);
-  const hasWarningOrError = Boolean(error || characterLimitWarning || warning);
-  const contentEditorRef = useRef<HTMLDivElement>(null);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-
-  useEffect(() => {
-    const editorElement = contentEditorRef?.current;
-
-    const handleFocus = () => {
-      setIsFocused(true);
-    };
-    const handleBlur = () => {
-      setIsFocused(false);
-    };
-
-    editorElement?.addEventListener("focus", handleFocus);
-    editorElement?.addEventListener("blur", handleBlur);
-
-    const cleanup = () => {
-      editorElement?.removeEventListener("focus", handleFocus);
-      editorElement?.removeEventListener("blur", handleBlur);
-    };
-
-    return cleanup;
-  }, [contentEditorRef]);
-
-  const [cancelTrigger, setCancelTrigger] = useState<boolean>(false);
-
-  const initialConfig = useMemo(() => {
-    return {
-      namespace,
-      nodes: markdownNodes,
-      onError: console.error,
-      theme,
-      editorState: value,
-      editable: !readOnly,
-    };
-  }, [namespace, readOnly, value]);
-
-  // OnChangePlugin is tested separately
-  /* istanbul ignore next */
-  const handleChange = useCallback(
-    (newState: EditorState) => {
-      const currentTextContent = newState.read(() =>
-        $getRoot().getTextContent(),
-      );
-
-      if (onChange) {
-        const formattedValues = editorRef.current
-          ? SerializeLexical(editorRef.current)
-          : {};
-        onChange?.(currentTextContent, formattedValues);
-      }
-
-      // If the character limit is set, check if the limit has been exceeded
-      if (characterLimit > 0) {
-        const currentDiff = characterLimit - currentTextContent.length;
-        // If the character limit has been exceeded, show the character limit warning
-        setCharacterLimitWarning(
-          currentDiff < 0
-            ? locale.textEditor.characterLimit(Math.abs(currentDiff))
-            : undefined,
-        );
-      }
-    },
-    [characterLimit, locale.textEditor, onChange],
-  );
-
-  const handleCancel = useCallback(() => {
-    /* istanbul ignore next */
-    const isEditable = editorRef.current?.isEditable() || false;
-    /* istanbul ignore if */
-    if (!isEditable) return;
-
-    /* istanbul ignore else */
-    if (onCancel) {
-      setCancelTrigger((prev) => !prev);
-      onCancel();
-    }
-  }, [onCancel]);
-
-  // Reset the value of the editor when the cancel trigger is updated (implements reset on cancel)
-  useEffect(() => {
-    const safeValue = value || createEmpty();
-
-    /* istanbul ignore else */
-    if (editorRef.current) {
-      const newEditorState = editorRef.current.parseEditorState(safeValue);
-      editorRef.current.setEditorState(newEditorState);
-    }
-  }, [cancelTrigger, value]);
-
-  const toolbarProps = useMemo(
-    () => ({
-      namespace,
-      onCancel: onCancel ? handleCancel : undefined,
+export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
+  (
+    {
+      characterLimit = 3000,
+      error,
+      footer,
+      header,
+      inputHint,
+      isOptional = false,
+      labelText,
+      namespace = COMPONENT_PREFIX,
+      onBlur,
+      onCancel,
+      onChange,
+      onFocus,
+      onLinkAdded,
       onSave,
-    }),
-    [handleCancel, namespace, onCancel, onSave],
-  );
+      placeholder,
+      previews = [],
+      readOnly = false,
+      required = false,
+      rows,
+      warning,
+      value,
+      ...rest
+    },
+    ref,
+  ) => {
+    if (!deprecateOptionalWarnTriggered && isOptional) {
+      deprecateOptionalWarnTriggered = true;
+      Logger.deprecate(
+        "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+      );
+    }
+    const editorRef = useRef<LexicalEditor | undefined>(undefined);
+    const locale = useLocale();
+    const [characterLimitWarning, setCharacterLimitWarning] = useState<
+      string | undefined
+    >(undefined);
+    const hasWarningOrError = Boolean(
+      error || characterLimitWarning || warning,
+    );
+    const contentEditorRef = useRef<HTMLDivElement>(null);
+    const [isFocused, setIsFocused] = useState<boolean>(false);
 
-  return (
-    <StyledTextEditorWrapper
-      data-role={`${namespace}-editor-wrapper`}
-      onBlur={(ev) => {
-        if (!ev.currentTarget.contains(ev.relatedTarget)) {
-          onBlur?.(ev);
-        }
-      }}
-      onFocus={(ev) => {
-        if (!ev.currentTarget.contains(ev.relatedTarget)) {
-          onFocus?.(ev);
-        }
-      }}
-      {...filterStyledSystemMarginProps(rest)}
-      {...tagComponent("text-editor", rest)}
-    >
-      <TextEditorContext.Provider value={{ onLinkAdded }}>
-        <Label
-          isRequired={required}
-          optional={isOptional}
-          labelId={`${namespace}-label`}
-        >
-          {labelText}
-        </Label>
+    useImperativeHandle<TextEditorHandle, TextEditorHandle>(
+      ref,
+      () => ({
+        focus() {
+          contentEditorRef.current?.focus();
+        },
+      }),
+      [],
+    );
 
-        {inputHint && (
-          <HintText
-            id={`${namespace}-input-hint`}
-            marginBottom="var(--spacing100)"
+    useEffect(() => {
+      const editorElement = contentEditorRef?.current;
+
+      const handleFocus = () => {
+        setIsFocused(true);
+      };
+      const handleBlur = () => {
+        setIsFocused(false);
+      };
+
+      editorElement?.addEventListener("focus", handleFocus);
+      editorElement?.addEventListener("blur", handleBlur);
+
+      const cleanup = () => {
+        editorElement?.removeEventListener("focus", handleFocus);
+        editorElement?.removeEventListener("blur", handleBlur);
+      };
+
+      return cleanup;
+    }, [contentEditorRef]);
+
+    const [cancelTrigger, setCancelTrigger] = useState<boolean>(false);
+
+    const initialConfig = useMemo(() => {
+      return {
+        namespace,
+        nodes: markdownNodes,
+        onError: console.error,
+        theme,
+        editorState: value,
+        editable: !readOnly,
+      };
+    }, [namespace, readOnly, value]);
+
+    // OnChangePlugin is tested separately
+    /* istanbul ignore next */
+    const handleChange = useCallback(
+      (newState: EditorState) => {
+        const currentTextContent = newState.read(() =>
+          $getRoot().getTextContent(),
+        );
+
+        if (onChange) {
+          const formattedValues = editorRef.current
+            ? SerializeLexical(editorRef.current)
+            : {};
+          onChange?.(currentTextContent, formattedValues);
+        }
+
+        // If the character limit is set, check if the limit has been exceeded
+        if (characterLimit > 0) {
+          const currentDiff = characterLimit - currentTextContent.length;
+          // If the character limit has been exceeded, show the character limit warning
+          setCharacterLimitWarning(
+            currentDiff < 0
+              ? locale.textEditor.characterLimit(Math.abs(currentDiff))
+              : undefined,
+          );
+        }
+      },
+      [characterLimit, locale.textEditor, onChange],
+    );
+
+    const handleCancel = useCallback(() => {
+      /* istanbul ignore next */
+      const isEditable = editorRef.current?.isEditable() || false;
+      /* istanbul ignore if */
+      if (!isEditable) return;
+
+      /* istanbul ignore else */
+      if (onCancel) {
+        setCancelTrigger((prev) => !prev);
+        onCancel();
+      }
+    }, [onCancel]);
+
+    // Reset the value of the editor when the cancel trigger is updated (implements reset on cancel)
+    useEffect(() => {
+      const safeValue = value || createEmpty();
+
+      /* istanbul ignore else */
+      if (editorRef.current) {
+        const newEditorState = editorRef.current.parseEditorState(safeValue);
+        editorRef.current.setEditorState(newEditorState);
+      }
+    }, [cancelTrigger, value]);
+
+    const toolbarProps = useMemo(
+      () => ({
+        namespace,
+        onCancel: onCancel ? handleCancel : undefined,
+        onSave,
+      }),
+      [handleCancel, namespace, onCancel, onSave],
+    );
+
+    return (
+      <StyledTextEditorWrapper
+        data-role={`${namespace}-editor-wrapper`}
+        onBlur={(ev) => {
+          if (!ev.currentTarget.contains(ev.relatedTarget)) {
+            onBlur?.(ev);
+          }
+        }}
+        onFocus={(ev) => {
+          if (!ev.currentTarget.contains(ev.relatedTarget)) {
+            onFocus?.(ev);
+          }
+        }}
+        {...filterStyledSystemMarginProps(rest)}
+        {...tagComponent("text-editor", rest)}
+      >
+        <TextEditorContext.Provider value={{ onLinkAdded }}>
+          <Label
+            isRequired={required}
+            optional={isOptional}
+            labelId={`${namespace}-label`}
           >
-            {inputHint}
-          </HintText>
-        )}
-        <LexicalComposer initialConfig={initialConfig}>
-          <EditorRefPlugin editorRef={editorRef} />
-          <StyledWrapper
-            data-role={`${namespace}-wrapper`}
-            error={error || undefined}
-            namespace={namespace}
-            warning={characterLimitWarning || warning || undefined}
-          >
-            {(error || characterLimitWarning || warning) && (
-              <StyledValidationMessage
-                error={error}
-                id={`${namespace}-validation-message`}
-                data-role={`${namespace}-validation-message`}
-              >
-                {error || characterLimitWarning || warning}
-              </StyledValidationMessage>
-            )}
-            <StyledEditorToolbarWrapper
-              data-role={`${namespace}-editor-toolbar-wrapper`}
-              id={`${namespace}-editor-toolbar-wrapper`}
-              focused={isFocused}
-              hasWarningOrError={hasWarningOrError}
+            {labelText}
+          </Label>
+
+          {inputHint && (
+            <HintText
+              id={`${namespace}-input-hint`}
+              marginBottom="var(--spacing100)"
             >
-              {header && (
-                <StyledHeaderWrapper data-role={`${namespace}-header-wrapper`}>
-                  {header}
-                </StyledHeaderWrapper>
+              {inputHint}
+            </HintText>
+          )}
+          <LexicalComposer initialConfig={initialConfig}>
+            <EditorRefPlugin editorRef={editorRef} />
+            <StyledWrapper
+              data-role={`${namespace}-wrapper`}
+              error={error || undefined}
+              namespace={namespace}
+              warning={characterLimitWarning || warning || undefined}
+            >
+              {(error || characterLimitWarning || warning) && (
+                <StyledValidationMessage
+                  error={error}
+                  id={`${namespace}-validation-message`}
+                  data-role={`${namespace}-validation-message`}
+                >
+                  {error || characterLimitWarning || warning}
+                </StyledValidationMessage>
               )}
-              {!readOnly && (
-                <ToolbarPlugin hasHeader={Boolean(header)} {...toolbarProps} />
-              )}
-              <StyledTextEditor data-role={`${namespace}-editor`}>
-                <RichTextPlugin
-                  contentEditable={
-                    <ContentEditor
-                      ref={contentEditorRef}
-                      inputHint={inputHint}
-                      namespace={namespace}
-                      previews={previews}
-                      rows={rows}
-                      readOnly={readOnly}
-                      required={required}
-                      error={!!error}
-                      warning={!!warning || !!characterLimitWarning}
-                    />
-                  }
-                  placeholder={
-                    <Placeholder namespace={namespace} text={placeholder} />
-                  }
-                  ErrorBoundary={LexicalErrorBoundary}
-                />
-                <ListPlugin />
-                <HistoryPlugin />
-                <MarkdownShortcutPlugin />
-                <OnChangePlugin onChange={handleChange} />
-                <LinkPlugin validateUrl={validateUrl} />
-                <ClickableLinkPlugin newTab />
-                <AutoLinkerPlugin />
-              </StyledTextEditor>
-              {footer && (
-                <StyledFooterWrapper data-role={`${namespace}-footer-wrapper`}>
-                  {footer}
-                </StyledFooterWrapper>
-              )}
-              <LinkMonitorPlugin />
-            </StyledEditorToolbarWrapper>
+              <StyledEditorToolbarWrapper
+                data-role={`${namespace}-editor-toolbar-wrapper`}
+                id={`${namespace}-editor-toolbar-wrapper`}
+                focused={isFocused}
+                hasWarningOrError={hasWarningOrError}
+              >
+                {header && (
+                  <StyledHeaderWrapper
+                    data-role={`${namespace}-header-wrapper`}
+                  >
+                    {header}
+                  </StyledHeaderWrapper>
+                )}
+                {!readOnly && (
+                  <ToolbarPlugin
+                    hasHeader={Boolean(header)}
+                    {...toolbarProps}
+                  />
+                )}
+                <StyledTextEditor data-role={`${namespace}-editor`}>
+                  <RichTextPlugin
+                    contentEditable={
+                      <ContentEditor
+                        ref={contentEditorRef}
+                        inputHint={inputHint}
+                        namespace={namespace}
+                        previews={previews}
+                        rows={rows}
+                        readOnly={readOnly}
+                        required={required}
+                        error={!!error}
+                        warning={!!warning || !!characterLimitWarning}
+                      />
+                    }
+                    placeholder={
+                      <Placeholder namespace={namespace} text={placeholder} />
+                    }
+                    ErrorBoundary={LexicalErrorBoundary}
+                  />
+                  <ListPlugin />
+                  <HistoryPlugin />
+                  <MarkdownShortcutPlugin />
+                  <OnChangePlugin onChange={handleChange} />
+                  <LinkPlugin validateUrl={validateUrl} />
+                  <ClickableLinkPlugin newTab />
+                  <AutoLinkerPlugin />
+                </StyledTextEditor>
+                {footer && (
+                  <StyledFooterWrapper
+                    data-role={`${namespace}-footer-wrapper`}
+                  >
+                    {footer}
+                  </StyledFooterWrapper>
+                )}
+                <LinkMonitorPlugin />
+              </StyledEditorToolbarWrapper>
 
-            {characterLimit > 0 && !readOnly && (
-              <CharacterCounterPlugin
-                maxChars={characterLimit}
-                namespace={namespace}
-              />
-            )}
-          </StyledWrapper>
-        </LexicalComposer>
-      </TextEditorContext.Provider>
-    </StyledTextEditorWrapper>
-  );
-};
+              {characterLimit > 0 && !readOnly && (
+                <CharacterCounterPlugin
+                  maxChars={characterLimit}
+                  namespace={namespace}
+                />
+              )}
+            </StyledWrapper>
+          </LexicalComposer>
+        </TextEditorContext.Provider>
+      </StyledTextEditorWrapper>
+    );
+  },
+);
 
 export default TextEditor;
