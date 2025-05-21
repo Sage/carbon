@@ -1,3 +1,28 @@
+## [154.3.2](https://github.com/Sage/carbon/compare/v154.3.1...v154.3.2) (2025-05-20)
+
+### Bug Fixes
+
+* **text-editor:** ensure required and invalid states are semantically conveyed to users ([41e73bd](https://github.com/Sage/carbon/commit/41e73bd9ba8ddc2814b011ae9c2966ddbf40bf9b)), closes [#7105](https://github.com/Sage/carbon/issues/7105)
+
+## [154.3.1](https://github.com/Sage/carbon/compare/v154.3.0...v154.3.1) (2025-05-19)
+
+### Bug Fixes
+
+* **decimal:** ensure invariant message is not thrown when using strict mode ([aff2ca8](https://github.com/Sage/carbon/commit/aff2ca8c78d8725968328552d866b69c35e978f5))
+
+## [154.3.0](https://github.com/Sage/carbon/compare/v154.2.0...v154.3.0) (2025-05-19)
+
+### Features
+
+* **typography:** updated font sizes and weights ([c1689bf](https://github.com/Sage/carbon/commit/c1689bf6e202aa8f4b876836f483f4960504d0ad))
+* **typography:** updated font sizes and weights ([84e6b41](https://github.com/Sage/carbon/commit/84e6b418f585f7d5f7be7762ba9b3bc05b354f97))
+
+## [154.2.0](https://github.com/Sage/carbon/compare/v154.1.1...v154.2.0) (2025-05-16)
+
+### Features
+
+* **password:** add translation keys for Hide/Show button ([44676c2](https://github.com/Sage/carbon/commit/44676c293727db776055a266fd600dff4a7251fc)), closes [#7329](https://github.com/Sage/carbon/issues/7329)
+
 ## [154.1.1](https://github.com/Sage/carbon/compare/v154.1.0...v154.1.1) (2025-05-12)
 
 ### Bug Fixes
