@@ -1,4 +1,5 @@
-import { FlexboxProps, LayoutProps } from "styled-system";
+// import { FlexboxProps, LayoutProps } from "styled-system";
+import { FlexboxProps, LayoutProps } from "../dips-box/utils/spacing-types";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export type MenuType = "light" | "dark" | "white" | "black";
