@@ -38,6 +38,16 @@ interface BaseItemProps extends MarginProps, PaddingProps {
   id: string;
   /** The label for the menu item. */
   label: string;
+  /** onClick handler */
+  onClick?: (
+    event:
+      | React.MouseEvent<HTMLAnchorElement>
+      | React.MouseEvent<HTMLButtonElement>,
+  ) => void;
+  /** The rel attribute to be used for the underlying <a> tag */
+  rel?: string;
+  /** The target to use for the menu item. */
+  target?: string;
 }
 
 // Standard TS pattern for overriding props
@@ -102,7 +112,18 @@ const MenuItemContent = ({
 // Base component for the menu item
 const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
   (
-    { children, customIcon, icon, id, href, label, ...rest }: BaseItemProps,
+    {
+      children,
+      customIcon,
+      icon,
+      id,
+      href,
+      label,
+      onClick,
+      rel,
+      target,
+      ...rest
+    }: BaseItemProps,
     ref,
   ) => {
     const {
@@ -341,6 +362,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
             depth={depth}
             href={href}
             id={id}
+            onClick={(e) => onClick?.(e as React.MouseEvent<HTMLAnchorElement>)}
             onFocus={() => focusItem(id)}
             onKeyDown={(e) => {
               /* istanbul ignore else */
@@ -349,8 +371,10 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
               }
             }}
             ref={ref as RefObject<HTMLAnchorElement>}
+            rel={rel}
             responsive={responsiveMode}
             tabIndex={0}
+            target={target}
             {...rest}
           >
             <MenuItemContent

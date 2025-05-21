@@ -303,3 +303,26 @@ export const CustomIcon: Story = () => {
   );
 };
 CustomIcon.storyName = "Custom Icon";
+
+export const ItemWithOnClickHandler: Story = () => {
+  return (
+    <>
+      <GlobalHeader>
+        <ResponsiveVerticalMenuProvider>
+          <ResponsiveVerticalMenu height="100%">
+            <ResponsiveVerticalMenuItem
+              icon="home"
+              id="primary-menu"
+              label="Primary Menu Item"
+              onClick={() => {
+                alert("Primary Menu Item clicked");
+              }}
+            />
+          </ResponsiveVerticalMenu>
+        </ResponsiveVerticalMenuProvider>
+      </GlobalHeader>
+      <Box m="50px">This text will be hidden by the menu when opened</Box>
+    </>
+  );
+};
+ItemWithOnClickHandler.storyName = "Item With OnClick Handler";

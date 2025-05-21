@@ -1172,3 +1172,95 @@ test("renders with the correct margin in nested menus when parent icon is presen
   const nestedMenu = screen.getByTestId("menu-item-2-nested-menu");
   expect(nestedMenu).toHaveStyleRule("margin-left", "80px");
 });
+
+test("should allow an onClick handler to be passed to items", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const onClick = jest.fn();
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          id="menu-item-1"
+          label="Menu Item 1"
+          onClick={onClick}
+        />
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+
+  await user.click(menuItem);
+
+  expect(onClick).toHaveBeenCalled();
+});
+
+test("items without children correctly pass `target` and `rel` props to the underlying anchor link", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          id="menu-item-1"
+          label="Menu Item 1"
+          href="https://example.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        />
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+  expect(menuItem).toHaveAttribute("href", "https://example.com");
+  expect(menuItem).toHaveAttribute("target", "_blank");
+  expect(menuItem).toHaveAttribute("rel", "noopener noreferrer");
+});
+
+test("items with children do not pass `target` and `rel` props to the underlying button", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          id="menu-item-1"
+          label="Menu Item 1"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <ResponsiveVerticalMenuItem
+            data-role="menu-item-2"
+            id="menu-item-2"
+            label="Menu Item 2"
+          />
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+  expect(menuItem).not.toHaveAttribute("href", "https://example.com");
+  expect(menuItem).not.toHaveAttribute("target", "_blank");
+  expect(menuItem).not.toHaveAttribute("rel", "noopener noreferrer");
+});
