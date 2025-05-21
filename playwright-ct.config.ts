@@ -8,7 +8,7 @@ const playwrightDir = resolve(__dirname, "./playwright");
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: resolve(__dirname, "./src/components"),
+  testDir: resolve(__dirname, "./src/"),
 
   snapshotDir: resolve(playwrightDir, "./__snapshots__"),
 
