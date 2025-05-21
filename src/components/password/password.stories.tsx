@@ -177,19 +177,6 @@ export const ReadOnly: Story = () => {
 };
 ReadOnly.storyName = "Read Only";
 
-export const AutoFocus: Story = () => {
-  const [state, setState] = useState("Password");
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return (
-    <Password autoFocus label="Password" value={state} onChange={setValue} />
-  );
-};
-AutoFocus.storyName = "Auto Focus";
-AutoFocus.parameters = { chromatic: { disable: true } };
-
 export const WithLabelInline: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {

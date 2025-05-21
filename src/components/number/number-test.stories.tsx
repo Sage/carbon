@@ -122,3 +122,12 @@ NewValidation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
+
+export const AutoFocus = () => {
+  return <Number label="Number" value="123456" autoFocus />;
+};
+AutoFocus.storyName = "Auto Focus";
+AutoFocus.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

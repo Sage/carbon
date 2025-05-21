@@ -291,3 +291,16 @@ I18NStory.args = {
   dateFormatOverride: "dd/MM/yyyy",
   ...getCommonTextboxArgs(),
 };
+
+export const AutoFocus = () => {
+  const [state, setState] = useState("01/10/2016");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return <DateInput label="Date" value={state} onChange={setValue} autoFocus />;
+};
+AutoFocus.storyName = "Auto Focus";
+AutoFocus.parameters = {
+  themeProvider: { chromatic: { fourColumnLayout: true, theme: "sage" } },
+  chromatic: { viewports: [1800], disableSnapshot: false },
+};
