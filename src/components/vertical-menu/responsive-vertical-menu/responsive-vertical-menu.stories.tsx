@@ -11,6 +11,7 @@ import {
   ResponsiveVerticalMenuProvider,
 } from ".";
 import Box from "../../box";
+import Icon from "../../icon";
 import GlobalHeader from "../../global-header";
 
 const defaultOpenState = isChromatic();
@@ -326,3 +327,28 @@ export const ItemWithOnClickHandler: Story = () => {
   );
 };
 ItemWithOnClickHandler.storyName = "Item With OnClick Handler";
+
+export const ItemWithCustomLabel: Story = () => {
+  return (
+    <>
+      <GlobalHeader>
+        <ResponsiveVerticalMenuProvider>
+          <ResponsiveVerticalMenu height="100%">
+            <ResponsiveVerticalMenuItem
+              icon="home"
+              id="primary-menu"
+              label={
+                <Box display="flex" width="100%" alignItems="center" gap={1}>
+                  <span>Primary Menu Item</span>
+                  <Icon type="link" />
+                </Box>
+              }
+            />
+          </ResponsiveVerticalMenu>
+        </ResponsiveVerticalMenuProvider>
+      </GlobalHeader>
+      <Box m="50px">This text will be hidden by the menu when opened</Box>
+    </>
+  );
+};
+ItemWithCustomLabel.storyName = "Item With Custom Label";

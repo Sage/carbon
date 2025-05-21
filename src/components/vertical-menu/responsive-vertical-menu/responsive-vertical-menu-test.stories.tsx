@@ -8,7 +8,11 @@ import {
   ResponsiveVerticalMenuProvider,
 } from ".";
 
+import Box from "../../box";
+import Button from "../../button";
 import GlobalHeader from "../../global-header";
+import Icon from "../../icon";
+import Loader from "../../loader";
 
 export default {
   title: "Vertical Menu/Responsive/Test",
@@ -136,7 +140,15 @@ export const Default = (props: Partial<ResponsiveVerticalMenuProps>) => {
           <ResponsiveVerticalMenuItem id="manage-users" label="Manage Users" />
           <ResponsiveVerticalMenuDivider />
           <ResponsiveVerticalMenuItem id="help" label="Help">
-            <ResponsiveVerticalMenuItem id="help-centre" label="Help Centre" />
+            <ResponsiveVerticalMenuItem
+              id="help-centre"
+              label={
+                <Box display="flex" width="100%" alignItems="center" gap={1}>
+                  <span>Help Centre</span>
+                  <Icon type="link" />
+                </Box>
+              }
+            />
             <ResponsiveVerticalMenuItem id="help-chat" label="Chat" />
             <ResponsiveVerticalMenuItem
               id="help-feedback"
@@ -150,3 +162,59 @@ export const Default = (props: Partial<ResponsiveVerticalMenuProps>) => {
 };
 
 Default.storyName = "Default";
+
+export const SecondMenuLoading = (
+  props: Partial<ResponsiveVerticalMenuProps>,
+) => {
+  const [loading, setLoading] = React.useState(true);
+
+  return (
+    <>
+      <GlobalHeader>
+        <ResponsiveVerticalMenuProvider>
+          <ResponsiveVerticalMenu {...props}>
+            <ResponsiveVerticalMenuItem icon="home" id="home" label="Home">
+              {loading ? (
+                <ResponsiveVerticalMenuItem
+                  id="loading"
+                  label={
+                    <Box
+                      display="flex"
+                      width="100%"
+                      alignItems="center"
+                      gap={1}
+                      flexDirection="column"
+                    >
+                      <Loader />
+                      <span>Loading...</span>
+                    </Box>
+                  }
+                />
+              ) : (
+                <ResponsiveVerticalMenuItem
+                  id="menu-item"
+                  label={
+                    <Box
+                      display="flex"
+                      width="100%"
+                      alignItems="center"
+                      gap={1}
+                    >
+                      <span>Menu Item</span>
+                      <Icon type="link" />
+                    </Box>
+                  }
+                />
+              )}
+            </ResponsiveVerticalMenuItem>
+          </ResponsiveVerticalMenu>
+        </ResponsiveVerticalMenuProvider>
+        <Button onClick={() => setLoading(!loading)}>
+          Toggle loading state {loading ? "off" : "on"}
+        </Button>
+      </GlobalHeader>
+    </>
+  );
+};
+
+SecondMenuLoading.storyName = "Second Menu Loading";

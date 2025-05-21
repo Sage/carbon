@@ -37,7 +37,7 @@ interface BaseItemProps extends MarginProps, PaddingProps {
   /** The unique identifier for the menu item. */
   id: string;
   /** The label for the menu item. */
-  label: string;
+  label: React.ReactNode;
   /** onClick handler */
   onClick?: (
     event:
