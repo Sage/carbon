@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { margin } from "styled-system";
+import { spacingCss } from "../dips-box/utils/spacing";
 
 const StyledStepFlow = styled.div`
-  ${margin}
+  ${(props) => spacingCss(props)}
 `;
 
 const StyledStepContent = styled.div`

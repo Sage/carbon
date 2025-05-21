@@ -1,0 +1,141 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Documentation/styled-system-replacement" />
+
+# Styled-System Replacement POC
+
+This is a proof of concept for replacing `styled-system` with custom style functions and utilities. <br />
+The goal is to reduce bundle size and improve performance by eliminating the dependency on `styled-system` while maintaining similar functionality.
+
+## Motivation
+
+`styled-system` was a library for handling styling as props, but it comes with some drawbacks:
+- Increased bundle size due to its large footprint (especially with Box).
+- Difficulty in tree-shaking unused styles.
+- No longer supported or maintained (Website seems to have been hijacked by a casino/gambling scam).
+
+By creating custom style functions using just plain old JavaScript, we can tailor the implementation to our specific needs and optimise for performance.
+
+## Implementation
+
+The implementation involves creating utility functions that mimic the behavior of `styled-system` for common use cases, such as spacing, layout, and flexbox.
+These functions will parse props and apply styles directly to components without the overhead of a full library.
+
+For now, we have created utilities for spacing props (margin, padding), layout and flexbox as a starting point. These have been selected as
+they are among the most commonly used features of `styled-system` that we have. <br />
+
+The default spacing multiplier is set as 8 to align with Carbon's current spacing scale, but this can be overridden by passing a custom value to the util function. The idea being that if DS
+want to use design tokens, or another value for spacing values, we can do so easily. When I spoke to DS about this, it was mentioned that they would like to see both options available to them, as
+some components may require `layout spacing` (using 8 as multiplier) while others may need `component spacing` (using design tokens and probably for our internal-use only). 
+
+### Sizing Letter Support
+We have also added support for sizing letters (e.g., 'S', 'M', 'L', 'XL') as this was a request from the DS. These map to number values as follows:
+
+| Letter | Value |
+|--------|-------|
+| none   | 0     |
+| 3XS    | 1     |
+| 2XS    | 2     |
+| XS     | 3     |
+| S      | 4     |
+| M      | 5     |
+| L      | 6     |
+| XL     | 7     |
+| 2XL    | 8     |
+| 3XL    | 9     |
+| 4XL    | 10    |
+
+This allows consumers to use sizing letters in their props, which will be converted to the corresponding numeric values for spacing calculations.
+If the consumer passes a value of `ml="XS"`, it will be interpreted as `ml={3}` internally and the appropriate spacing will be applied based on the multiplier; `3 * 8 = 24px` in this case.
+The end result will be a style of `margin-left: 24px;` applied to the component. <br />
+Seeing as this is a POC, support for negative values has been included as well, so `-XS` would be interpreted as `-3`. The rationale behind this is that negative CSS values do exist. 
+As a team, we can have a discussion on this and whether we want to support negative sizing letters or not, or we support it but do not advertise or advocate the use.
+
+### Example: Spacing
+
+Component file: 
+```tsx
+import { paddingProps } from "../utils/spacing-types";
+
+interface ComponentProps extends paddingProps {
+  // other props...
+}
+
+export const MockComponent = {(props: ComponentProps) => {
+  return <StyledMockComponent {...props}>Content</StyledMockComponent>;
+}}; 
+```
+
+Style file:
+```tsx
+import styled from "styled-components";
+import { SpacingCSS } from "../utils/spacing";
+
+const StyledMockComponent = styled.div`
+  ${(props) => SpacingCSS(props)} // default use cases with 8 as multiplier
+  ${(props) => SpacingCSS(props, var(--spacing200))} // custom spacing value using design token
+  ${(props) => SpacingCSS(props, 6)} // custom spacing value using 6 as multiplier
+`;
+```
+
+Consumers can then use the component like:
+```tsx
+import { MockComponent } from "carbon/lib/esm/components/MockComponent";
+
+const App = () => {
+  return (
+    <>
+      <MockComponent p={2} m="54px" />
+    </>
+  );
+};
+
+```
+
+### What is Supported?
+
+- Spacing props (margin, padding).
+- Layout props (width, height, display etc).
+- Flexbox props (alignItems, justifyContent, flexDirection etc).
+
+The values that these support are aligned with our design tokens (e.g., spacing scales), or valid CSS strings and numbers.
+
+### Examples In Action
+
+A new box component called `dips-box` (apologies for the name, I couldn't think of a better name at the time and it stuck) that uses these new utilities instead of `styled-system`. The final name for the component can be decided come refinement time,
+but the idea was to create a component that demonstrates the proof of concept in action. Examples can be seen in Storybook.
+
+`styled-system` has been replaced in Flat Table and Menu components with these new utilities as further proof of concept of how we could
+implement it in our existing components. These two components were picked as they are widely used and would give a good indication of how well the new utilities work in practice,
+especially in our more complex components.
+
+## Rationale
+
+The custom utilities are designed to be lightweight (using just JavaScript) and focused on our specific, unique requirements in Carbon.
+We needed something that could drop in place of `styled-system` with minimal impact to our consumers, while also being easy to maintain and extend. 
+We also needed something flexible so that different spacing values can be passed to these functions to apply either layout 
+styling or component styling, as per the DS' request/needs.
+
+This work will be a breaking change regardless, so the idea was to keep the API as similar as possible to `styled-system` to reduce the learning curve for our consumers.
+The idea was also trying to minimise the amount of dev time it'll take our consumers to migrate, so they can focus their energy on building new features rather than refactoring.
+
+## Caveats
+
+For now, we are passing `...rest` in to various components, so this POC works as a drop-in replacement for styled-system. However, in the long term, we may want to consider explicitly defining the props that each component accepts
+to avoid passing unnecessary props to DOM elements. To pre-empt this, we could utilise the existing `filterStyledSystemProps` utility to filter out any unsupported props before they reach the DOM.
+We could rename this to suit the actual name we decide to call our replacement of `styled-system`. <br/>
+
+Some commented out code in this POC; mainly styled-system imports. This is to make it easier to see what has changed for the purposes of this POC.
+
+## Next Steps
+- Come up with a better name than `styled-dips-box`. Suggestions welcome.
+- Expand the utility functions to cover more `styled-system` features as needed.
+- Thoroughly test the new implementation to ensure parity with `styled-system`.
+- Measure performance and bundle size improvements.
+- Improve folder structure and organization of the utilities (open to suggestions or do we even move it to a different repo altogether?).
+- Receive feedback from the team and make improvements to the POC if required.
+
+## Potential Names
+- `carbon-style` - might be a bit vague.
+- `styled` - sounds similar to `styled-system` and `styled-components` and might also imply a connection to those libraries.
+- `Styley McStyleFace` - just to see who actually read this far.

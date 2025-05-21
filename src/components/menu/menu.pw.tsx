@@ -1,6 +1,7 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 import { Menu, MenuItem, MenuWithChildren, MenuDividerProps } from ".";
+import type { MenuProps } from "./menu.types";
 import Box from "../box";
 import {
   submenuBlock,
@@ -10,6 +11,7 @@ import {
   lastSubmenuElement,
   fullscreenMenu,
   menuItem,
+  menu,
 } from "../../../playwright/components/menu/index";
 import {
   searchDefaultInput,
@@ -25,6 +27,7 @@ import {
   checkAccessibility,
   waitForAnimationEnd,
   waitForElementFocus,
+  assertCssValueIsApproximately,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
@@ -116,6 +119,397 @@ test.describe("Prop tests for Menu component", () => {
     await page.keyboard.press("Enter");
     const subMenuBlock = submenuBlock(page).first().locator("li").first();
     await expect(subMenuBlock).toBeVisible();
+  });
+
+  test(`should render with a menu item that has a very long label and verify the width of the whole submenu is determined by this item`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Box mb={150}>
+        <Menu menuType="white">
+          <MenuItem submenu="Menu Item One">
+            <MenuItem href="#">
+              Item Submenu One Is A Very Long Submenu Item Indeed
+            </MenuItem>
+            <MenuItem variant="alternate" href="#">
+              Item Submenu Two
+            </MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>,
+    );
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    const subMenuBlock = innerMenu(page, 2, span).first();
+    const cssWidth = await subMenuBlock.evaluate((el) =>
+      window.getComputedStyle(el).getPropertyValue("width"),
+    );
+    expect(parseInt(cssWidth)).toBeLessThanOrEqual(395);
+    expect(parseInt(cssWidth)).toBeGreaterThanOrEqual(385);
+  });
+
+  test(`should render with a submenu that has a very long label and verify the width of the whole submenu is determined by this item`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Box mb={150}>
+        <Menu menuType="white">
+          <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem variant="alternate" href="#">
+              Item Submenu Two
+            </MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>,
+    );
+
+    const subMenu = submenu(page).first();
+    await subMenu.hover();
+    const subMenuBlock = innerMenu(page, 2, span).first();
+    const cssWidth = await subMenuBlock.evaluate((el) =>
+      window.getComputedStyle(el).getPropertyValue("width"),
+    );
+    expect(parseInt(cssWidth)).toBeLessThanOrEqual(500);
+    expect(parseInt(cssWidth)).toBeGreaterThanOrEqual(490);
+  });
+
+  (
+    [
+      ["float", 0.3, 409],
+      ["float", 0.6, 819],
+      ["float", 1.0, 1366],
+      ["number", 350, 350],
+      ["number", 900, 900],
+      ["number", 1350, 1350],
+      ["string", "450px", 450],
+      ["string", "675px", 675],
+      ["string", "1200px", 1200],
+    ] as [string, number | string, number][]
+  ).forEach(([type, width, pixels]) => {
+    test(`should render with width set to ${pixels}px when prop is passed as a ${type}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent width={width} />);
+
+      const thisMenu = menu(page).first();
+      await assertCssValueIsApproximately(thisMenu, "width", pixels);
+    });
+  });
+
+  (
+    [
+      ["number", 810, 350, 810],
+      ["number", 810, 1350, 1350],
+      ["string", "700px", "300px", 700],
+      ["string", "700px", "1200px", 1200],
+    ] as [string, string | number, string | number, number][]
+  ).forEach(([type, minWidth, width, pixels]) => {
+    test(`should render with minimum width of ${pixels}px when minWidth prop is passed as a ${type}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent minWidth={minWidth} width={width} />);
+
+      const thisMenu = menu(page).first();
+      await assertCssValueIsApproximately(thisMenu, "width", pixels);
+    });
+  });
+
+  (
+    [
+      ["number", 810, 350, 350],
+      ["number", 810, 1350, 810],
+      ["string", "700px", "300px", 300],
+      ["string", "700px", "1200px", 700],
+    ] as [string, string | number, string | number, number][]
+  ).forEach(([type, maxWidth, width, pixels]) => {
+    test(`should render with maximum width of ${pixels}px when maxWidth prop is passed as a ${type}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent maxWidth={maxWidth} width={width} />);
+
+      const thisMenu = menu(page).first();
+      await assertCssValueIsApproximately(thisMenu, "width", pixels);
+    });
+  });
+
+  [
+    "baseline",
+    "bottom",
+    "middle",
+    "sub",
+    "super",
+    "text-bottom",
+    "text-top",
+    "top",
+  ].forEach((alignment) => {
+    test(`should render with verticalAlign as ${alignment}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent verticalAlign={alignment} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("vertical-align", alignment);
+    });
+  });
+
+  ["auto", "clip", "hidden", "scroll", "visible"].forEach((overflow) => {
+    test(`should render with overflow as ${overflow}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent overflow={overflow} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveAttribute("overflow", overflow);
+      await expect(thisMenu).toHaveCSS("overflow", overflow);
+    });
+  });
+
+  (
+    ["auto", "clip", "hidden", "scroll", "visible"] as MenuProps["overflowX"][]
+  ).forEach((overflow) => {
+    test(`should render with overflowX as ${overflow}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent overflowX={overflow} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("overflow-x", overflow as string);
+    });
+  });
+
+  ["normal", "stretch", "baseline", "center", "flex-start", "flex-end"].forEach(
+    (alignment) => {
+      test(`should render with alignItems as ${alignment}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuComponent alignItems={alignment} />);
+
+        const thisMenu = menu(page).first();
+        await expect(thisMenu).toHaveCSS("align-items", alignment);
+      });
+    },
+  );
+
+  [
+    "normal",
+    "baseline",
+    "center",
+    "flex-start",
+    "flex-end",
+    "space-between",
+    "space-around",
+    "stretch",
+  ].forEach((alignment) => {
+    test(`should render with alignContent as ${alignment}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent alignContent={alignment} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("align-content", alignment);
+    });
+  });
+
+  [
+    "left",
+    "center",
+    "right",
+    "flex-start",
+    "flex-end",
+    "normal",
+    "stretch",
+  ].forEach((justified) => {
+    test(`should render with justifyItems as ${justified}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent justifyItems={justified} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("justify-items", justified);
+    });
+  });
+
+  [
+    "left",
+    "center",
+    "right",
+    "flex-start",
+    "flex-end",
+    "normal",
+    "space-between",
+    "space-around",
+    "stretch",
+  ].forEach((justified) => {
+    test(`should render with justifyContent as ${justified}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent justifyContent={justified} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("justify-content", justified);
+    });
+  });
+
+  (["nowrap", "wrap", "wrap-reverse"] as MenuProps["flexWrap"][]).forEach(
+    (wrap) => {
+      test(`should render with flexWrap as ${wrap}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuComponent flexWrap={wrap} />);
+
+        const thisMenu = menu(page).first();
+        await expect(thisMenu).toHaveCSS("flex-wrap", wrap as string);
+      });
+    },
+  );
+
+  (
+    [
+      "column",
+      "column-reverse",
+      "row",
+      "row-reverse",
+    ] as MenuProps["flexDirection"][]
+  ).forEach((direction) => {
+    test(`should render with flexDirection as ${direction}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent flexDirection={direction} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("flex-direction", direction as string);
+    });
+  });
+
+  ["auto", "content", "fit-content", "max-content", "min-content"].forEach(
+    (flex) => {
+      test(`should render with flex as ${flex}`, async ({ mount, page }) => {
+        await mount(<MenuComponent flex={flex} />);
+
+        const thisMenu = menu(page).first();
+        await expect(thisMenu).toHaveCSS("flex-basis", flex);
+      });
+    },
+  );
+
+  (
+    [
+      [10, "10"],
+      [50, "50"],
+      [100, "100"],
+    ] as [MenuProps["flexGrow"], string][]
+  ).forEach(([value, growText]) => {
+    test(`should render with flexGrow as ${value}`, async ({ mount, page }) => {
+      await mount(<MenuComponent flexGrow={value} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("flex-grow", growText);
+    });
+  });
+
+  (
+    [
+      [10, "10"],
+      [50, "50"],
+      [100, "100"],
+    ] as [MenuProps["flexShrink"], string][]
+  ).forEach(([value, shrinkText]) => {
+    test(`should render with flexShrink as ${value}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent flexShrink={value} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("flex-shrink", shrinkText);
+    });
+  });
+
+  ["auto", "content", "fit-content", "max-content", "min-content"].forEach(
+    (basis) => {
+      test(`should render with flexBasis as ${basis}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MenuComponent flexBasis={basis} />);
+
+        const thisMenu = menu(page).first();
+        await expect(thisMenu).toHaveCSS("flex-basis", basis);
+      });
+    },
+  );
+
+  [
+    "auto",
+    "baseline",
+    "left",
+    "normal",
+    "right",
+    "stretch",
+    "center",
+    "flex-start",
+    "flex-end",
+  ].forEach((justify) => {
+    test(`should render with justifySelf as ${justify}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent justifySelf={justify} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("justify-self", justify);
+    });
+  });
+
+  [
+    "auto",
+    "baseline",
+    "normal",
+    "stretch",
+    "center",
+    "flex-start",
+    "flex-end",
+  ].forEach((align) => {
+    test(`should render with alignSelf as ${align}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponent alignSelf={align} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("align-self", align);
+    });
+  });
+
+  (
+    [
+      [10, "10"],
+      [50, "50"],
+      [100, "100"],
+    ] as [MenuProps["order"], string][]
+  ).forEach(([value, orderText]) => {
+    test(`should render with order as ${value}`, async ({ mount, page }) => {
+      await mount(<MenuComponent order={value} />);
+
+      const thisMenu = menu(page).first();
+      await expect(thisMenu).toHaveCSS("order", orderText);
+    });
   });
 
   (
