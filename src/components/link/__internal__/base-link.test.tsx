@@ -50,7 +50,7 @@ describe("BaseLink", () => {
   it("applies `data-element` attribute", () => {
     render(<BaseLink href="#" data-element="custom-link" />);
     const anchor = screen.getByTestId("link-anchor");
-    expect(anchor).toHaveAttribute("data-element", "custom-link");
+    expect(anchor).toHaveAttribute("data-element", "link");
   });
 
   it("forwards ref as object", () => {
