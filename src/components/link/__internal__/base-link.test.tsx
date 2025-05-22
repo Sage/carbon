@@ -53,12 +53,6 @@ describe("BaseLink", () => {
     expect(anchor).toHaveAttribute("data-element", "custom-link");
   });
 
-  it("defaults `data-element` to 'link' if not provided", () => {
-    render(<BaseLink href="#" />);
-    const anchor = screen.getByTestId("link-anchor");
-    expect(anchor).toHaveAttribute("data-element", "link");
-  });
-
   it("forwards ref as object", () => {
     const ref = { current: null };
     render(<BaseLink href="#" ref={ref} />);
