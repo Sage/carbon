@@ -17,6 +17,7 @@ export interface BaseLinkProps extends React.HTMLAttributes<HTMLElement> {
   "data-element"?: string;
   "data-role"?: string;
   "data-initials"?: string;
+  "aria-label"?: string;
 }
 
 const BaseLink = React.forwardRef<
@@ -35,11 +36,26 @@ const BaseLink = React.forwardRef<
       target,
       rel,
       isSkipLink,
+      className,
+      "data-element": dataElement = "link",
+      "data-role": dataRole,
+      "data-initials": dataInitials,
+      "aria-label": ariaLabel,
       ...rest
     },
     ref,
   ) => {
-    const tagProps = tagComponent("link", rest);
+    const isButton = !!onClick && !href;
+    const isAnchor = !!href;
+
+    const tagProps = {
+      ...tagComponent("link", rest),
+      className,
+      "data-element": dataElement,
+      "data-role": dataRole,
+      "aria-label": ariaLabel,
+      tabIndex: disabled ? -1 : tabIndex,
+    };
 
     const showInitialsFallback =
       !children || (typeof children === "string" && children.trim() === "");
@@ -50,25 +66,25 @@ const BaseLink = React.forwardRef<
         isSkipLink={isSkipLink}
         iconAlign={iconAlign}
         hasContent={!showInitialsFallback}
+        data-component="link"
       >
         {icon}
         {showInitialsFallback ? (
-          <span data-element="initials">{rest["data-initials"]}</span>
+          <span data-element="initials">{dataInitials}</span>
         ) : (
           children
         )}
       </StyledLink>
     );
 
-    if (href) {
+    if (isAnchor) {
       return (
         <a
           ref={ref as React.Ref<HTMLAnchorElement>}
           href={disabled ? undefined : href}
+          onClick={disabled ? undefined : onClick}
           target={target}
           rel={rel}
-          onClick={disabled ? undefined : onClick}
-          tabIndex={disabled ? -1 : tabIndex}
           {...tagProps}
         >
           {linkContent}
@@ -76,14 +92,13 @@ const BaseLink = React.forwardRef<
       );
     }
 
-    if (onClick) {
+    if (isButton) {
       return (
         <button
           ref={ref as React.Ref<HTMLButtonElement>}
           type="button"
           onClick={disabled ? undefined : onClick}
           disabled={disabled}
-          tabIndex={disabled ? -1 : tabIndex}
           {...tagProps}
         >
           {linkContent}
@@ -95,7 +110,6 @@ const BaseLink = React.forwardRef<
       <span
         ref={ref as React.Ref<HTMLSpanElement>}
         aria-disabled={disabled}
-        tabIndex={disabled ? -1 : tabIndex}
         {...tagProps}
       >
         {linkContent}
@@ -105,4 +119,5 @@ const BaseLink = React.forwardRef<
 );
 
 BaseLink.displayName = "BaseLink";
+
 export default BaseLink;
