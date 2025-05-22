@@ -1,123 +1,124 @@
-import React from "react";
-import { StyledLink } from "../link.style";
-import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
+import React, { useMemo } from "react";
+import Icon, { IconType } from "../../icon";
+import useLocale from "../../../hooks/__internal__/useLocale";
+import { StyledContent } from "../link.style";
 
-export interface BaseLinkProps extends React.HTMLAttributes<HTMLElement> {
-  children?: React.ReactNode;
-  disabled?: boolean;
-  onClick?: React.MouseEventHandler<HTMLElement>;
+export interface BaseLinkProps extends React.AriaAttributes {
   href?: string;
-  icon?: React.ReactNode;
+  icon?: IconType;
   iconAlign?: "left" | "right";
-  tabIndex?: number;
+  tooltipMessage?: string;
+  tooltipPosition?: "bottom" | "left" | "right" | "top";
+  children?: React.ReactNode;
   target?: string;
   rel?: string;
+  ariaLabel?: string;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  removeAriaLabelOnIcon?: boolean;
   isSkipLink?: boolean;
-  className?: string;
-  "data-element"?: string;
-  "data-role"?: string;
-  "data-initials"?: string;
-  "aria-label"?: string;
+  disabled?: boolean;
+  onFocus?: React.FocusEventHandler;
+  onBlur?: React.FocusEventHandler;
+  ref?: React.Ref<HTMLAnchorElement | HTMLButtonElement>;
 }
 
 const BaseLink = React.forwardRef<
-  HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement,
+  HTMLAnchorElement | HTMLButtonElement,
   BaseLinkProps
 >(
   (
     {
-      children,
-      disabled,
-      onClick,
       href,
       icon,
-      iconAlign,
-      tabIndex,
+      iconAlign = "left",
+      tooltipMessage,
+      tooltipPosition,
+      children,
       target,
       rel,
+      ariaLabel,
+      onClick,
+      onKeyDown,
+      onMouseDown,
+      removeAriaLabelOnIcon,
       isSkipLink,
-      className,
-      "data-element": dataElement = "link",
-      "data-role": dataRole,
-      "data-initials": dataInitials,
-      "aria-label": ariaLabel,
+      disabled,
+      onFocus,
+      onBlur,
       ...rest
     },
     ref,
   ) => {
-    const isButton = !!onClick && !href;
-    const isAnchor = !!href;
+    const l = useLocale();
 
-    const tagProps = {
-      ...tagComponent("link", rest),
-      className,
-      "data-element": dataElement,
-      "data-role": dataRole,
-      "aria-label": ariaLabel,
-      tabIndex: disabled ? -1 : tabIndex,
+    const { "data-role": _dataRole, ...cleanedRest } = rest as {
+      [key: string]: unknown;
+      "data-role"?: string;
     };
 
-    const showInitialsFallback =
-      !children || (typeof children === "string" && children.trim() === "");
-
-    const linkContent = (
-      <StyledLink
-        disabled={disabled}
-        isSkipLink={isSkipLink}
-        iconAlign={iconAlign}
-        hasContent={!showInitialsFallback}
-        data-component="link"
-      >
-        {icon}
-        {showInitialsFallback ? (
-          <span data-element="initials">{dataInitials}</span>
-        ) : (
-          children
-        )}
-      </StyledLink>
-    );
-
-    if (isAnchor) {
-      return (
-        <a
-          ref={ref as React.Ref<HTMLAnchorElement>}
-          href={disabled ? undefined : href}
-          onClick={disabled ? undefined : onClick}
-          target={target}
-          rel={rel}
-          {...tagProps}
-        >
-          {linkContent}
-        </a>
+    if (process.env.NODE_ENV !== "production" && _dataRole) {
+      console.warn(
+        "⚠️ BaseLink: `data-role` prop was ignored to prevent duplication in the DOM.",
       );
     }
 
-    if (isButton) {
-      return (
-        <button
-          ref={ref as React.Ref<HTMLButtonElement>}
-          type="button"
-          onClick={disabled ? undefined : onClick}
+    const renderIcon = (align: "left" | "right") =>
+      icon && iconAlign === align ? (
+        <Icon
+          type={icon}
           disabled={disabled}
-          {...tagProps}
-        >
-          {linkContent}
-        </button>
-      );
-    }
+          ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
+          tooltipMessage={tooltipMessage}
+          tooltipPosition={tooltipPosition}
+          data-testid="icon"
+        />
+      ) : null;
 
-    return (
-      <span
-        ref={ref as React.Ref<HTMLSpanElement>}
-        aria-disabled={disabled}
-        {...tagProps}
-      >
-        {linkContent}
-      </span>
+    const ariaProps = useMemo(() => {
+      return Object.entries(cleanedRest).reduce<Record<string, unknown>>(
+        (acc, [key, value]) => {
+          if (key.startsWith("aria-") || key.startsWith("data-")) {
+            acc[key] = value;
+          }
+          return acc;
+        },
+        {},
+      );
+    }, [cleanedRest]);
+
+    const Element = onClick && !href ? "button" : "a";
+    const commonProps = {
+      ref,
+      onClick: disabled ? undefined : onClick,
+      onKeyDown,
+      onMouseDown,
+      onFocus,
+      onBlur,
+      target,
+      rel,
+      href,
+      disabled,
+      "aria-label": ariaLabel,
+      ...ariaProps,
+    };
+
+    const content = isSkipLink ? l.link.skipLinkLabel() : children;
+
+    return React.createElement(
+      Element,
+      Element === "button"
+        ? { ...commonProps, type: "button" }
+        : { ...commonProps, "data-role": "link-anchor" },
+      <>
+        {renderIcon("left")}
+        <StyledContent data-testid="link-content">{content}</StyledContent>
+        {renderIcon("right")}
+      </>,
     );
   },
 );
 
 BaseLink.displayName = "BaseLink";
-
 export default BaseLink;
