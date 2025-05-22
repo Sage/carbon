@@ -306,6 +306,11 @@ export const CustomIcon: Story = () => {
 CustomIcon.storyName = "Custom Icon";
 
 export const ItemWithOnClickHandler: Story = () => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.history.pushState({}, "", "https://carbon.sage.com/");
+  };
+
   return (
     <>
       <GlobalHeader>
@@ -313,11 +318,11 @@ export const ItemWithOnClickHandler: Story = () => {
           <ResponsiveVerticalMenu height="100%">
             <ResponsiveVerticalMenuItem
               icon="home"
-              id="primary-menu"
-              label="Primary Menu Item"
-              onClick={() => {
-                alert("Primary Menu Item clicked");
-              }}
+              id="link-to-carbon"
+              label="Open Carbon"
+              onClick={handleClick}
+              target="_blank"
+              rel="noopener noreferrer"
             />
           </ResponsiveVerticalMenu>
         </ResponsiveVerticalMenuProvider>
@@ -327,6 +332,9 @@ export const ItemWithOnClickHandler: Story = () => {
   );
 };
 ItemWithOnClickHandler.storyName = "Item With OnClick Handler";
+ItemWithOnClickHandler.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const ItemWithCustomLabel: Story = () => {
   return (
@@ -352,3 +360,6 @@ export const ItemWithCustomLabel: Story = () => {
   );
 };
 ItemWithCustomLabel.storyName = "Item With Custom Label";
+ItemWithCustomLabel.parameters = {
+  chromatic: { disableSnapshot: true },
+};

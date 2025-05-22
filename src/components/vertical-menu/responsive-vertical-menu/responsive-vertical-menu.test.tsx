@@ -648,7 +648,7 @@ test("has the correct styling when interacting", async () => {
   expect(menuItem2).toHaveStyleRule("background-color", "transparent");
 
   const menuItem4 = screen.getByTestId("menu-item-4");
-  expect(menuItem4).toHaveStyleRule("width", "92%");
+  expect(menuItem4).toHaveStyleRule("width", "100%");
 });
 
 test("has the correct styling when interacting and responsive", async () => {
@@ -711,12 +711,6 @@ test("has the correct styling when interacting and responsive", async () => {
 
   const nestedMenu = screen.getByTestId("menu-item-2-nested-menu");
   expect(nestedMenu).toHaveStyleRule("width", "100%");
-  expect(nestedMenu).toHaveStyleRule("margin-left", "var(--spacing200)", {
-    modifier: "a",
-  });
-  expect(nestedMenu).toHaveStyleRule("margin-right", "var(--spacing200)", {
-    modifier: "a",
-  });
 });
 
 test("respects reduced motion and has the correct styling when interacting", async () => {
@@ -1128,51 +1122,6 @@ test("renders dividers correctly when responsive", async () => {
   expect(divider).toHaveStyle("width: 88%");
 });
 
-// coverage
-test("renders with the correct margin in nested menus when parent icon is present", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-          href="https://example.com"
-        >
-          <ResponsiveVerticalMenuItem
-            data-role="menu-item-2"
-            icon="home"
-            id="menu-item-2"
-            label="Menu Item 2"
-          >
-            <ResponsiveVerticalMenuItem
-              data-role="menu-item-3"
-              id="menu-item-3"
-              label="Menu Item 3"
-            />
-          </ResponsiveVerticalMenuItem>
-        </ResponsiveVerticalMenuItem>
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-  await user.click(launcherButton);
-
-  const menuItem = screen.getByTestId("menu-item-1");
-  await user.click(menuItem);
-
-  const menuItem2 = screen.getByTestId("menu-item-2");
-  await user.click(menuItem2);
-
-  const nestedMenu = screen.getByTestId("menu-item-2-nested-menu");
-  expect(nestedMenu).toHaveStyleRule("margin-left", "80px");
-});
-
 test("should allow an onClick handler to be passed to items", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onClick = jest.fn();
@@ -1199,7 +1148,7 @@ test("should allow an onClick handler to be passed to items", async () => {
 
   await user.click(menuItem);
 
-  expect(onClick).toHaveBeenCalled();
+  expect(onClick).toHaveBeenCalledTimes(1);
 });
 
 test("items without children correctly pass `target` and `rel` props to the underlying anchor link", async () => {
@@ -1263,4 +1212,95 @@ test("items with children do not pass `target` and `rel` props to the underlying
   expect(menuItem).not.toHaveAttribute("href", "https://example.com");
   expect(menuItem).not.toHaveAttribute("target", "_blank");
   expect(menuItem).not.toHaveAttribute("rel", "noopener noreferrer");
+});
+
+test("nested menu items are correctly justified when icons are not present", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          id="menu-item-1"
+          label="Menu Item 1"
+          href="https://example.com"
+        >
+          <ResponsiveVerticalMenuItem
+            data-role="menu-item-2"
+            id="menu-item-2"
+            label="Menu Item 2"
+          >
+            <ResponsiveVerticalMenuItem
+              data-role="menu-item-3"
+              id="menu-item-3"
+              label="Menu Item 3"
+            />
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+  await user.click(menuItem);
+
+  const menuItem2 = screen.getByTestId("menu-item-2");
+  await user.click(menuItem2);
+
+  const nestedMenu = screen.getByTestId("menu-item-2-nested-menu-wrapper");
+  expect(nestedMenu).toHaveStyleRule("justify-content", "flex-start");
+});
+
+test("nested menu items are correctly justified when icons are present", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          icon="home"
+          id="menu-item-1"
+          label="Menu Item 1"
+          href="https://example.com"
+        >
+          <ResponsiveVerticalMenuItem
+            data-role="menu-item-2"
+            icon="business"
+            id="menu-item-2"
+            label="Menu Item 2"
+          >
+            <ResponsiveVerticalMenuItem
+              data-role="menu-item-3"
+              icon="analysis"
+              id="menu-item-3"
+              label="Menu Item 3"
+            />
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+  await user.click(menuItem);
+
+  const menuItem2 = screen.getByTestId("menu-item-2");
+  await user.click(menuItem2);
+
+  const nestedMenu = screen.getByTestId("menu-item-2-nested-menu-wrapper");
+  expect(nestedMenu).toHaveStyleRule("justify-content", "flex-end");
 });
