@@ -1,4 +1,8 @@
-import { StorybookConfig } from "@storybook/react-webpack5";
+import { StorybookConfig } from "@storybook/react-vite";
+
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 import path from "path";
 
@@ -19,12 +23,12 @@ const getStories = () =>
 
 const config: StorybookConfig = {
   framework: {
-    name: "@storybook/react-webpack5",
+    name: "@storybook/react-vite",
     options: { strictMode: enableReactStrictMode },
   },
 
   stories: [
-    "./welcome-page/welcome.stories.js",
+    "./welcome-page/welcome.stories.jsx",
     "../docs/*.mdx",
     "../docs/*.stories.tsx",
     ...getStories(),
@@ -32,6 +36,7 @@ const config: StorybookConfig = {
 
   core: {
     disableTelemetry: true,
+    builder: "@storybook/builder-vite",
   },
 
   addons: [
@@ -48,30 +53,53 @@ const config: StorybookConfig = {
         },
       },
     },
+    "@storybook/addon-essentials",
     "@storybook/addon-toolbars",
     "@storybook/addon-viewport",
     "@chromatic-com/storybook",
-    "@storybook/addon-webpack5-compiler-babel",
   ],
 
   staticDirs: ["../.assets", "../logo"],
 
-  webpackFinal: async (config) => ({
-    ...config,
-    module: {
-      ...config?.module,
-      rules: [
-        ...(config?.module?.rules ?? []),
-        {
-          test: /\.(woff(2)?|eot|ttf|otf|svg|png)$/,
-          type: "asset/resource",
-          generator: {
-            filename: "static/media/[name][ext]",
+  viteFinal: async (config) => {
+    return defineConfig({
+      ...config,
+      plugins: [
+        ...(config.plugins || []),
+        react(),
+        viteStaticCopy({
+          targets: [
+            {
+              src: path.resolve(
+                __dirname,
+                "../node_modules/@sage/design-tokens/assets/fonts/*",
+              ),
+              dest: "static/media",
+            },
+            {
+              src: path.resolve(__dirname, "../src/style/assets/*"),
+              dest: "static/media",
+            },
+          ],
+        }),
+      ],
+      resolve: {
+        ...(config.resolve || []),
+        alias: {
+          ...(config.resolve?.alias || []),
+          // Required to load font assets correctly from @sage/design-tokens package
+          "~@sage": path.resolve(__dirname, "../node_modules/@sage/"),
+        },
+      },
+      build: {
+        rollupOptions: {
+          output: {
+            assetFileNames: "static/media/[name][ext]",
           },
         },
-      ],
-    },
-  }),
+      },
+    });
+  },
 
   ...(isChromatic && {
     previewHead: (head) => `
