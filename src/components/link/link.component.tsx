@@ -7,7 +7,7 @@ import BatchSelectionContext from "../batch-selection/__internal__/batch-selecti
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
-import BaseLink from "./base-link.component";
+import BaseLink from "./__internal__/base-link.component";
 
 export interface LinkProps extends React.AriaAttributes, TagProps {
   href?: string;
@@ -60,6 +60,8 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       }
     }, [isDisabled, isInteractive]);
 
+    const { "data-element": dataElement, ...restWithoutDataElement } = rest;
+
     return (
       <StyledLink
         isSkipLink={isSkipLink}
@@ -70,9 +72,8 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         variant={variant}
         isDarkBackground={isDarkBackground}
         isMenuItem={inMenu}
-        {...tagComponent("link", rest)}
-        {...(isSkipLink && { "data-element": "skip-link" })}
         hasFocus={hasFocus}
+        {...tagComponent("link", restWithoutDataElement)}
       >
         <BaseLink
           {...rest}
@@ -85,7 +86,8 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
           isSkipLink={isSkipLink}
           onFocus={() => setHasFocus(true)}
           onBlur={() => setHasFocus(false)}
-          data-element={rest["data-element"] || "link"}
+          data-element={dataElement || "link"}
+          data-initials={typeof children === "string" ? children : undefined}
         >
           {children}
         </BaseLink>
