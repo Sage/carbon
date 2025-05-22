@@ -109,8 +109,12 @@ const BaseLink = React.forwardRef<
     return React.createElement(
       Element,
       Element === "button"
-        ? { ...commonProps, type: "button" }
-        : { ...commonProps, "data-role": "link-anchor" },
+        ? { ...commonProps, type: "button", "data-element": "link" }
+        : {
+            ...commonProps,
+            "data-role": "link-anchor",
+            "data-element": "link",
+          },
       <>
         {renderIcon("left")}
         <StyledContent data-testid="link-content">{content}</StyledContent>
