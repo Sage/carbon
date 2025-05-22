@@ -2,15 +2,32 @@ import React from "react";
 import { render, screen, within, fireEvent } from "@testing-library/react";
 import PortalContext from "./__internal__/portal.context";
 import Portal from ".";
+import * as guid from "../../__internal__/utils/helpers/guid";
 
-import guid from "../../__internal__/utils/helpers/guid";
+test("creates DOM container and attaches it to the document body", () => {
+  render(<Portal>Content</Portal>);
 
-const mockedGuid = "guid-12345";
-jest.mock("../../__internal__/utils/helpers/guid");
+  const portalExit = screen.getByTestId("carbon-portal-exit");
+  expect(portalExit).toBeInTheDocument();
+});
 
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
+test("does not recreate DOM container if it already exists", () => {
+  const { rerender } = render(<Portal />);
+  rerender(<Portal />);
 
-test("renders and appends to an element with the 'id' attribute set to `root`", () => {
+  expect(screen.getAllByTestId("carbon-portal-exit")).toHaveLength(1);
+});
+
+test("removes DOM container from the document body on unmount", () => {
+  const { unmount } = render(<Portal />);
+  const portalExit = screen.getByTestId("carbon-portal-exit");
+
+  unmount();
+
+  expect(portalExit).not.toBeInTheDocument();
+});
+
+test("creates DOM container and attaches it to element with an id of `root`, when `renderInRoot` is true", () => {
   const rootDiv = document.createElement("div");
   rootDiv.setAttribute("id", "root");
   rootDiv.setAttribute("data-role", "root-element");
@@ -29,14 +46,19 @@ test("renders and appends to an element with the 'id' attribute set to `root`", 
   document.body.removeChild(rootDiv);
 });
 
-test("renders a portal entrance and exit with a unique matching ID", () => {
+test("renders a portal entrance and exit with a unique matching id", () => {
+  const id = "mocked-guid";
+  const mockedGuid = jest.spyOn(guid, "default").mockReturnValue(id);
+
   render(<Portal />);
 
   const portalEntrance = screen.getByTestId("data-portal-entrance");
   const portalExit = screen.getByTestId("carbon-portal-exit");
 
-  expect(portalEntrance).toHaveAttribute("data-portal-entrance", mockedGuid);
-  expect(portalExit).toHaveAttribute("data-portal-exit", mockedGuid);
+  expect(portalEntrance).toHaveAttribute("data-portal-entrance", id);
+  expect(portalExit).toHaveAttribute("data-portal-exit", id);
+
+  mockedGuid.mockRestore();
 });
 
 test("renders children within portal exit", () => {
@@ -63,7 +85,7 @@ test("renders with the 'id' attribute on the portal exit, via the `id` prop", ()
   expect(portalExit).toHaveAttribute("id", "1973");
 });
 
-test("renders one portal exit parent which contains all passed children, when multiple `Portal`'s are rendered with matching 'id' attributes", () => {
+test("renders content from multiple Portals in the same container, if they have matching ids", () => {
   render(
     <>
       <Portal id="foo">Portal Content</Portal>
