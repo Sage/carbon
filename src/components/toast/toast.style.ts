@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import StyledIconButton from "../icon-button/icon-button.style";
-import Portal from "../portal/portal";
+import Portal from "../portal";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import { MessageVariant } from "../message/message.component";

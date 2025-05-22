@@ -1,2 +1,2 @@
-export { default } from "./portal";
-export type { PortalProps } from "./portal";
+export { default } from "./portal.component";
+export type { PortalProps } from "./portal.component";

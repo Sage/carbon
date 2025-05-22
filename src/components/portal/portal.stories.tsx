@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Portal from "./portal";
+import Portal from ".";
 
 /**
  * This file is used primarily as a means to generate the props table.
