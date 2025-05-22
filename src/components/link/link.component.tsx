@@ -79,6 +79,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
 
     return (
       <StyledLink
+        data-component="link"
         isSkipLink={isSkipLink}
         disabled={isDisabled}
         iconAlign={iconAlign}
