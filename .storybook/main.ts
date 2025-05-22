@@ -12,6 +12,7 @@ import remarkGfm from "remark-gfm";
 
 const projectRoot = path.resolve(__dirname, "../");
 const ignoreTests = process.env.IGNORE_TESTS === "true";
+const enableReactStrictMode = process.env.ENABLE_REACT_STRICT_MODE === "true";
 const isChromatic = !ignoreTests;
 const getStories = () =>
   glob.sync(`${projectRoot}/src/**/*.{mdx,stories.@(js|jsx|ts|tsx)}`, {
@@ -21,7 +22,10 @@ const getStories = () =>
   });
 
 const config: StorybookConfig = {
-  framework: "@storybook/react-vite",
+  framework: {
+    name: "@storybook/react-vite",
+    options: { strictMode: enableReactStrictMode },
+  },
 
   stories: [
     "./welcome-page/welcome.stories.jsx",
