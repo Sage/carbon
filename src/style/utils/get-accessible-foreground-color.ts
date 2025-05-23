@@ -27,6 +27,13 @@ const calculateLuminance = (hexColor: string): number => {
   return luminance;
 };
 
+/**
+ * Get the accessible foreground color based on the background color and text size.
+ * Returns either white or black based on the contrast ratio.
+ * @param backgroundColor the background color in hex format
+ * @param largeText whether the text is large
+ * @param strict whether to use strict contrast (i.e. WCAG AA or AAA)
+ */
 function getAccessibleForegroundColor(
   backgroundColor: string,
   largeText: boolean,
@@ -43,12 +50,10 @@ function getAccessibleForegroundColor(
   const nonStrictThreshold = largeText ? 3.0 : 4.5;
   const minContrast = strict ? strictThreshold : nonStrictThreshold;
 
-  /* istanbul ignore else */
   if (whiteContrast >= minContrast && whiteContrast > blackContrast) {
-    return "#FFFFFF";
+    return "var(--colorsUtilityYang100)";
   }
 
-  /* istanbul ignore else */
   if (blackContrast >= minContrast) {
     return "var(--colorsUtilityYin090)";
   }
@@ -59,44 +64,8 @@ function getAccessibleForegroundColor(
   // is highly unlikely.
   /* istanbul ignore next */
   return whiteContrast > blackContrast
-    ? "#FFFFFF"
+    ? "var(--colorsUtilityYang100)"
     : "var(--colorsUtilityYin090)";
 }
 
-const getColoursForPortrait = (
-  // The custom background colour, if any
-  backgroundColour: string | undefined,
-  // Whether the portrait is on a dark background
-  darkBackground = false,
-  // Whether the text is large
-  largeText = false,
-  /**
-   * Whether to use strict contrast (i.e., WCAG AAA). If this is false, it uses WCAG AA contrast
-   * ratios (4.5:1 for normal text, 3:1 for large text). If true, it uses 7:1 for normal text and
-   * 4.5:1 for large text.
-   */
-  strict = false,
-  // The custom foreground colour, if any
-  foregroundColor: string | undefined = undefined,
-): string => {
-  let fgColor = "var(--colorsUtilityYin090)";
-  let bgColor = "var(--colorsUtilityReadOnly400)";
-
-  if (darkBackground && !backgroundColour && !foregroundColor) {
-    bgColor = "var(--colorsUtilityYin090)";
-    fgColor = "var(--colorsUtilityReadOnly600)";
-  }
-
-  if (backgroundColour) {
-    bgColor = backgroundColour;
-    fgColor = getAccessibleForegroundColor(backgroundColour, largeText, strict);
-  }
-
-  if (foregroundColor) {
-    fgColor = foregroundColor;
-  }
-
-  return `background-color: ${bgColor}; color: ${fgColor};`;
-};
-
-export default getColoursForPortrait;
+export default getAccessibleForegroundColor;
