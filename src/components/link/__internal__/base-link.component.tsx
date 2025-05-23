@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, KeyboardEvent, MouseEvent } from "react";
 import Icon, { IconType } from "../../icon";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import { StyledContent } from "../link.style";
@@ -58,12 +58,6 @@ const BaseLink = React.forwardRef<
       "data-role"?: string;
     };
 
-    if (process.env.NODE_ENV !== "production" && _dataRole) {
-      console.warn(
-        "⚠️ BaseLink: `data-role` prop was ignored to prevent duplication in the DOM.",
-      );
-    }
-
     const renderIcon = (align: "left" | "right") =>
       icon && iconAlign === align ? (
         <Icon
@@ -89,17 +83,34 @@ const BaseLink = React.forwardRef<
     }, [cleanedRest]);
 
     const Element = onClick && !href ? "button" : "a";
+
+    const handleClick = (
+      event: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+    ) => {
+      if (!disabled && onClick) {
+        onClick(event);
+      }
+    };
+
+    const handleKeyDown = (
+      event: KeyboardEvent<HTMLAnchorElement | HTMLButtonElement>,
+    ) => {
+      if (onKeyDown) {
+        onKeyDown(event);
+      }
+    };
+
     const commonProps = {
       ref,
-      onClick: disabled ? undefined : onClick,
-      onKeyDown,
+      href,
+      target,
+      rel,
+      disabled,
+      onClick: handleClick,
+      onKeyDown: handleKeyDown,
       onMouseDown,
       onFocus,
       onBlur,
-      target,
-      rel,
-      href,
-      disabled,
       "aria-label": ariaLabel,
       ...ariaProps,
     };
