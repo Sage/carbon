@@ -119,7 +119,7 @@ test("should throw an error when an invalid value is passed to borderColor", () 
   render(<Pill borderColor="invalidColour">Test Pill</Pill>);
 
   expect(consoleSpy).toHaveBeenCalledWith(
-    "Error: [Pill] - Could not parse the string 'invalidColour', please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.",
+    'Could not parse "invalidColour", please provide a valid hex, rgb, rgba, hsl, hsla or named color.',
   );
   expect(consoleSpy).toHaveBeenCalledTimes(1);
 

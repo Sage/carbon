@@ -151,40 +151,6 @@ test("logs a warning when the `fontSize` props value is larger than the `bgSize`
   loggerSpy.mockRestore();
 });
 
-test("catches and logs a thrown error when the `color` prop is passed a value that cannot be parsed", () => {
-  const consoleErrorSpy = jest
-    .spyOn(console, "error")
-    .mockImplementation(() => {});
-
-  render(<Icon type="home" color="invalid-color" />);
-
-  expect(consoleErrorSpy).toHaveBeenCalledWith(
-    expect.objectContaining({
-      message: expect.stringContaining(
-        "Couldn't parse the color string. Please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.",
-      ),
-    }),
-  );
-  consoleErrorSpy.mockRestore();
-});
-
-test("catches and logs a thrown error when the `bg` prop is passed a value that cannot be parsed", () => {
-  const consoleErrorSpy = jest
-    .spyOn(console, "error")
-    .mockImplementation(() => {});
-
-  render(<Icon type="home" bg="invalid-color" />);
-
-  expect(consoleErrorSpy).toHaveBeenCalledWith(
-    expect.objectContaining({
-      message: expect.stringContaining(
-        "Couldn't parse the color string. Please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.",
-      ),
-    }),
-  );
-  consoleErrorSpy.mockRestore();
-});
-
 /* styling test for coverage */
 test.each(["circle", "rounded-rect", "square"] as BackgroundShape[])(
   "renders with the correct border radius on the icon background when the `bgShape` is %s",

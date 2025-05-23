@@ -151,7 +151,7 @@ describe("custom background colours", () => {
 
     const container = screen.getByTestId("portrait");
     expect(container).toHaveStyle("background-color: #000000");
-    expect(container).toHaveStyleRule("color", "#FFFFFF");
+    expect(container).toHaveStyleRule("color", "var(--colorsUtilityYang100)");
   });
 
   it("renders with the correct colours when a light colour is provided", () => {

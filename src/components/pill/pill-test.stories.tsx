@@ -1,10 +1,11 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import Pill, { PillProps } from "./pill.component";
+import Pill from "./pill.component";
 import Box from "../box";
 
 export default {
   title: "Pill/Test",
+  component: Pill,
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -12,27 +13,9 @@ export default {
     },
   },
   argTypes: {
-    pillRole: {
-      options: ["tag", "status"],
+    onDelete: {
       control: {
-        type: "select",
-      },
-    },
-    size: {
-      options: ["S", "M", "L", "XL"],
-      control: {
-        type: "select",
-      },
-    },
-    colorVariant: {
-      options: ["neutral", "negative", "positive", "warning", "information"],
-      control: {
-        type: "select",
-      },
-    },
-    borderColor: {
-      control: {
-        type: "text",
+        type: "boolean",
       },
     },
   },
@@ -50,12 +33,17 @@ export const Default = ({ children, onDelete, ...args }: PillStoryArgs) => {
     </Pill>
   );
 };
-
-export const PillComponent = ({
-  children = "noop",
-  ...args
-}: Partial<PillProps>) => {
-  return <Pill {...args}>{children}</Pill>;
+Default.story = {
+  name: "default",
+  args: {
+    children: "Pill",
+    borderColor: undefined,
+    fill: false,
+    onDelete: false,
+    size: "M",
+    pillRole: "tag",
+    colorVariant: "neutral",
+  },
 };
 
 export const StatusDarkBackground = ({
@@ -74,23 +62,6 @@ export const StatusDarkBackground = ({
       </Pill>
     </Box>
   );
-};
-
-Default.story = {
-  name: "default",
-  args: {
-    ml: 0,
-    mr: 0,
-    mt: 0,
-    mb: 0,
-    children: "Pill",
-    borderColor: undefined,
-    fill: false,
-    onDelete: false,
-    size: "M",
-    pillRole: "tag",
-    colorVariant: "neutral",
-  },
 };
 
 StatusDarkBackground.story = {
