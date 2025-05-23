@@ -15,6 +15,7 @@ import {
   StyledIcon,
   StyledMenuItemContent,
   StyledNestedMenu,
+  StyledNestedMenuWrapper,
   StyledResponsiveMenuAction,
   StyledResponsiveMenuItem,
 } from "./responsive-vertical-menu-item.style";
@@ -30,14 +31,20 @@ interface BaseItemProps extends MarginProps, PaddingProps {
   children?: ReactNode;
   /** Custom icon to be displayed. Takes precedence over `icon` if both are specified. */
   customIcon?: ReactNode;
-  /** The destination URL. Providing this will render the menu item as an anchor link. */
+  /** External URL or anchor link for standard HTML navigation. Providing this will render the menu item as an anchor link. */
   href?: string;
   /** The Carbon icon to be displayed. Defers to `customIcon` if both are defined. */
   icon?: IconType;
   /** The unique identifier for the menu item. */
   id: string;
   /** The label for the menu item. */
-  label: string;
+  label: React.ReactNode;
+  /** A custom click handler to run when an anchor link is clicked */
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  /** The rel attribute to be used for the underlying <a> tag */
+  rel?: string;
+  /** The target to use for the menu item. */
+  target?: string;
 }
 
 // Standard TS pattern for overriding props
@@ -102,7 +109,18 @@ const MenuItemContent = ({
 // Base component for the menu item
 const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
   (
-    { children, customIcon, icon, id, href, label, ...rest }: BaseItemProps,
+    {
+      children,
+      customIcon,
+      icon,
+      id,
+      href,
+      label,
+      onClick,
+      rel,
+      target,
+      ...rest
+    }: BaseItemProps,
     ref,
   ) => {
     const {
@@ -319,18 +337,26 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
               )}
             </StyledResponsiveMenuItem>
             {expanded && (
-              <StyledNestedMenu
-                data-component={`${id}-nested-menu`}
-                data-role={`${id}-nested-menu`}
+              <StyledNestedMenuWrapper
+                data-component={`${id}-nested-menu-wrapper`}
+                data-role={`${id}-nested-menu-wrapper`}
                 depth={depth}
                 hasIcon={!!icon || !!customIcon}
-                id={`${id}-nested-menu`}
                 responsive={responsiveMode}
               >
-                <ParentItemContext.Provider value={id}>
-                  {children}
-                </ParentItemContext.Provider>
-              </StyledNestedMenu>
+                <StyledNestedMenu
+                  data-component={`${id}-nested-menu`}
+                  data-role={`${id}-nested-menu`}
+                  depth={depth}
+                  hasIcon={!!icon || !!customIcon}
+                  id={`${id}-nested-menu`}
+                  responsive={responsiveMode}
+                >
+                  <ParentItemContext.Provider value={id}>
+                    {children}
+                  </ParentItemContext.Provider>
+                </StyledNestedMenu>
+              </StyledNestedMenuWrapper>
             )}
           </>
         ) : (
@@ -341,6 +367,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
             depth={depth}
             href={href}
             id={id}
+            onClick={onClick}
             onFocus={() => focusItem(id)}
             onKeyDown={(e) => {
               /* istanbul ignore else */
@@ -349,8 +376,10 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
               }
             }}
             ref={ref as RefObject<HTMLAnchorElement>}
+            rel={rel}
             responsive={responsiveMode}
             tabIndex={0}
+            target={target}
             {...rest}
           >
             <MenuItemContent

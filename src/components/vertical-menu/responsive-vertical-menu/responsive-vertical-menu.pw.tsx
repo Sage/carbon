@@ -178,19 +178,19 @@ test.describe("functional tests", () => {
         return el.getBoundingClientRect().x;
       });
 
-    await expect(clientOffsetTertiaryIconMenuItem).toBeGreaterThanOrEqual(420);
-    await expect(clientOffsetTertiaryIconMenuItem).toBeLessThanOrEqual(424);
+    await expect(clientOffsetTertiaryIconMenuItem).toBeGreaterThanOrEqual(437);
+    await expect(clientOffsetTertiaryIconMenuItem).toBeLessThanOrEqual(441);
 
     await expect(clientOffsetTertiaryIconlessMenuItem).toBeGreaterThanOrEqual(
-      420,
+      437,
     );
-    await expect(clientOffsetTertiaryIconlessMenuItem).toBeLessThanOrEqual(424);
+    await expect(clientOffsetTertiaryIconlessMenuItem).toBeLessThanOrEqual(441);
 
     await expect(clientOffsetTertiaryCustomIconMenuItem).toBeGreaterThanOrEqual(
-      420,
+      437,
     );
     await expect(clientOffsetTertiaryCustomIconMenuItem).toBeLessThanOrEqual(
-      424,
+      441,
     );
   });
 });

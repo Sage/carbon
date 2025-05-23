@@ -8,7 +8,10 @@ import {
   ResponsiveVerticalMenuProvider,
 } from ".";
 
+import Box from "../../box";
 import GlobalHeader from "../../global-header";
+import Icon from "../../icon";
+import Loader from "../../loader";
 
 export default {
   title: "Vertical Menu/Responsive/Test",
@@ -136,7 +139,15 @@ export const Default = (props: Partial<ResponsiveVerticalMenuProps>) => {
           <ResponsiveVerticalMenuItem id="manage-users" label="Manage Users" />
           <ResponsiveVerticalMenuDivider />
           <ResponsiveVerticalMenuItem id="help" label="Help">
-            <ResponsiveVerticalMenuItem id="help-centre" label="Help Centre" />
+            <ResponsiveVerticalMenuItem
+              id="help-centre"
+              label={
+                <Box display="flex" width="100%" alignItems="center" gap={1}>
+                  <span>Help Centre</span>
+                  <Icon type="link" />
+                </Box>
+              }
+            />
             <ResponsiveVerticalMenuItem id="help-chat" label="Chat" />
             <ResponsiveVerticalMenuItem
               id="help-feedback"
@@ -148,5 +159,165 @@ export const Default = (props: Partial<ResponsiveVerticalMenuProps>) => {
     </GlobalHeader>
   );
 };
-
 Default.storyName = "Default";
+
+export const WithFullIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
+  return (
+    <GlobalHeader>
+      <ResponsiveVerticalMenuProvider>
+        <ResponsiveVerticalMenu {...props}>
+          <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem
+            customIcon={<CustomAccountingIcon />}
+            id="accounting"
+            label="Accounting"
+          />
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem
+            id="payroll"
+            label="Payroll"
+            icon="business"
+          >
+            <ResponsiveVerticalMenuItem id="payroll-summary" label="Summary" />
+            <ResponsiveVerticalMenuItem id="payroll-sales" label="Sales" />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem
+            icon="home"
+            id="primary-menu"
+            label={
+              <Box display="flex" width="100%" alignItems="center" gap={1}>
+                <span>Primary Menu Item</span>
+                <Icon type="link" />
+              </Box>
+            }
+          >
+            <ResponsiveVerticalMenuItem id="sales" label="Sales" />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem
+            icon="question"
+            id="loading-menu"
+            label="Loading"
+          >
+            <Box
+              display="flex"
+              width="100%"
+              alignItems="center"
+              gap={1}
+              flexDirection="column"
+              justifyContent="center"
+              color="white"
+            >
+              <Loader />
+              <span>Loading, please wait...</span>
+            </Box>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenu>
+      </ResponsiveVerticalMenuProvider>
+    </GlobalHeader>
+  );
+};
+WithFullIcons.storyName = "Full Icons";
+
+export const NoIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
+  return (
+    <GlobalHeader>
+      <ResponsiveVerticalMenuProvider>
+        <ResponsiveVerticalMenu {...props}>
+          <ResponsiveVerticalMenuItem id="home" label="Home" />
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem id="accounting" label="Accounting" />
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem id="payroll" label="Payroll">
+            <ResponsiveVerticalMenuItem id="payroll-summary" label="Summary" />
+            <ResponsiveVerticalMenuItem id="payroll-sales" label="Sales" />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem
+            id="primary-menu"
+            label={
+              <Box display="flex" width="100%" alignItems="center" gap={1}>
+                <span>Primary Menu Item</span>
+                <Icon type="link" />
+              </Box>
+            }
+          >
+            <ResponsiveVerticalMenuItem id="sales" label="Sales" />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem id="loading-menu" label="Loading">
+            <Box
+              display="flex"
+              width="100%"
+              alignItems="center"
+              gap={1}
+              flexDirection="column"
+              justifyContent="center"
+              color="white"
+            >
+              <Loader />
+              <span>Loading, please wait...</span>
+            </Box>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenu>
+      </ResponsiveVerticalMenuProvider>
+    </GlobalHeader>
+  );
+};
+NoIcons.storyName = "No Icons";
+
+export const MixedIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
+  return (
+    <GlobalHeader>
+      <ResponsiveVerticalMenuProvider>
+        <ResponsiveVerticalMenu {...props}>
+          <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem id="accounting" label="Accounting" />
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem
+            id="payroll"
+            label="Payroll"
+            icon="business"
+          >
+            <ResponsiveVerticalMenuItem id="payroll-summary" label="Summary" />
+            <ResponsiveVerticalMenuItem id="payroll-sales" label="Sales" />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem
+            id="primary-menu"
+            label={
+              <Box
+                display="flex"
+                width="100%"
+                alignItems="center"
+                gap={1}
+                color="white"
+              >
+                <span>Primary Menu Item</span>
+                <Icon type="link" />
+              </Box>
+            }
+          >
+            <ResponsiveVerticalMenuItem id="sales" label="Sales" />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem id="loading-menu" label="Loading">
+            <Box
+              display="flex"
+              width="100%"
+              alignItems="center"
+              gap={1}
+              flexDirection="column"
+              justifyContent="center"
+              color="white"
+            >
+              <Loader />
+              <span>Loading, please wait...</span>
+            </Box>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenu>
+      </ResponsiveVerticalMenuProvider>
+    </GlobalHeader>
+  );
+};
+MixedIcons.storyName = "Mixed Icons";

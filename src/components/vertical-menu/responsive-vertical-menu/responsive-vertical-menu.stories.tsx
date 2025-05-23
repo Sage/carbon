@@ -11,6 +11,7 @@ import {
   ResponsiveVerticalMenuProvider,
 } from ".";
 import Box from "../../box";
+import Icon from "../../icon";
 import GlobalHeader from "../../global-header";
 
 const defaultOpenState = isChromatic();
@@ -303,3 +304,62 @@ export const CustomIcon: Story = () => {
   );
 };
 CustomIcon.storyName = "Custom Icon";
+
+export const ItemWithOnClickHandler: Story = () => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.history.pushState({}, "", "https://carbon.sage.com/");
+  };
+
+  return (
+    <>
+      <GlobalHeader>
+        <ResponsiveVerticalMenuProvider>
+          <ResponsiveVerticalMenu height="100%">
+            <ResponsiveVerticalMenuItem
+              icon="home"
+              id="link-to-carbon"
+              label="Open Carbon"
+              onClick={handleClick}
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+          </ResponsiveVerticalMenu>
+        </ResponsiveVerticalMenuProvider>
+      </GlobalHeader>
+      <Box m="50px">This text will be hidden by the menu when opened</Box>
+    </>
+  );
+};
+ItemWithOnClickHandler.storyName = "Item With OnClick Handler";
+ItemWithOnClickHandler.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const ItemWithCustomLabel: Story = () => {
+  return (
+    <>
+      <GlobalHeader>
+        <ResponsiveVerticalMenuProvider>
+          <ResponsiveVerticalMenu height="100%">
+            <ResponsiveVerticalMenuItem
+              icon="home"
+              id="primary-menu"
+              label={
+                <Box display="flex" width="100%" alignItems="center" gap={1}>
+                  <span>Primary Menu Item</span>
+                  <Icon type="link" />
+                </Box>
+              }
+            />
+          </ResponsiveVerticalMenu>
+        </ResponsiveVerticalMenuProvider>
+      </GlobalHeader>
+      <Box m="50px">This text will be hidden by the menu when opened</Box>
+    </>
+  );
+};
+ItemWithCustomLabel.storyName = "Item With Custom Label";
+ItemWithCustomLabel.parameters = {
+  chromatic: { disableSnapshot: true },
+};
