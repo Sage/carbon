@@ -53,10 +53,10 @@ const BaseLink = React.forwardRef<
   ) => {
     const l = useLocale();
 
-    const { "data-role": _dataRole, ...cleanedRest } = rest as {
-      [key: string]: unknown;
-      "data-role"?: string;
-    };
+    const { "data-role": _dataRole, ...cleanedRest } = rest as Record<
+      string,
+      string | number | boolean | undefined
+    >;
 
     const renderIcon = (align: "left" | "right") =>
       icon && iconAlign === align ? (
