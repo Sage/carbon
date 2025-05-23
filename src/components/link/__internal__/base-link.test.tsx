@@ -91,4 +91,34 @@ describe("BaseLink", () => {
     render(<BaseLink href="#main" isSkipLink />);
     expect(screen.getByText("Skip to main content")).toBeInTheDocument();
   });
+
+  it("calls `onKeyDown` when a key is pressed", async () => {
+    const user = userEvent.setup();
+    const handleKeyDown = jest.fn();
+
+    render(
+      <BaseLink href="#" onKeyDown={handleKeyDown}>
+        Link Text
+      </BaseLink>,
+    );
+
+    const link = screen.getByRole("link");
+
+    link.focus();
+    await user.keyboard("{Enter}");
+
+    expect(handleKeyDown).toHaveBeenCalled();
+  });
+
+  it("does not throw when `onKeyDown` is undefined", async () => {
+    const user = userEvent.setup();
+
+    render(<BaseLink href="#">Link Text</BaseLink>);
+    const link = screen.getByRole("link");
+
+    link.focus();
+    await user.keyboard("{Enter}");
+
+    expect(true).toBe(true);
+  });
 });
