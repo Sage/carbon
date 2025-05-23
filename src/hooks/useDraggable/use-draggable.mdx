@@ -1,0 +1,228 @@
+import { ArgTypes, Meta, Canvas } from "@storybook/addon-docs"
+
+import * as useDraggableStories from "./use-draggable.stories";
+
+<Meta title="Documentation/Hooks/useDraggable" />
+
+# useDraggable
+
+The `useDraggable` hook is a custom React hook designed to facilitate the creation of draggable elements and containers. 
+It provides a way to manage the state and behavior of draggable items, allowing for easy implementation of drag-and-drop functionality, as well as 
+control and flexibility.
+
+The `useDraggable` hook is supported and maintained by Carbon, use it for your draggable functionality instead of using third-party libraries to enjoy 
+an easier implementation and no additional dependencies.
+
+## Contents
+
+- [Import path](#import-path)
+- [Examples](#examples)
+- [Parameters](#parameters)
+
+## Import path
+
+```javascript
+import useDraggable, { UseDraggableHandle } from "carbon-react/lib/hooks/useDraggable";
+```
+
+## The Anatomy of the `useDraggable` hook
+
+### Container and Item Relationship
+
+Every draggable item exists within a container.
+
+- **Container**: Defines the area where dragging operations are valid
+- **Draggable Item**: Wraps whatever content needs to be draggable
+
+### Content Wrapping Behavior
+
+The draggable item component acts as a wrapper around any children passed to it:
+
+- If text is passed, it becomes a direct child of the draggable item
+- If components or elements are passed, they're wrapped by the draggable item
+- The draggable item preserves the structure of its children while adding the necessary drag functionality
+
+### Key Attributes
+
+Based on the HTML structure shown in the examples, these are the key attributes used:
+
+### Container Attributes
+
+```jsx
+<div 
+  id="8bdb2819-42ad-74f8-f42e-225b3b7dfeca"
+  data-element="use-draggable-container"
+  data-drop-target-for-element="true"
+>
+  {/* Draggable items go here */}
+</div>
+```
+
+- `id`: Unique identifier for the container
+- `data-element="use-draggable-container"`: Marks this div as a draggable container
+- `data-drop-target-for-element="true"`: Indicates this container can receive dropped elements
+
+### Draggable Item Attributes
+
+```jsx
+<div
+  data-parent-container-id="8bdb2819-42ad-74f8-f42e-225b3b7dfeca"
+  data-item-id="1"
+  data-drag-state="idle"
+  draggable="true"
+  data-drop-target-for-element="true"
+>
+  <div id="1">item1</div>
+</div>
+```
+
+- `data-parent-container-id`: References the ID of the parent container
+- `data-item-id`: Unique identifier for the item within its container
+- `data-drag-state`: Tracks the current state of the draggable item (e.g., "idle")
+- `data-closest-edge="top/bottom"`: Tracks the closest edge of the item to the mouse cursor during drag over operations
+- `draggable="true"`: Native HTML attribute that enables drag operations
+- `data-drop-target-for-element="true"`: Allows the item itself to be a drop target
+
+### ID Management and Specificity
+
+An important detail to note is how IDs are handled in `useDraggable`:
+
+- **IDs are entirely optional** - `useDraggable` works out of the box without requiring manual ID assignment
+- GUIDs are assigned to containers and items automatically when no IDs are provided
+- When a draggable item wraps another element, it will use its child node's ID if available (as seen in the examples where `<div id="1">item1</div>` is wrapped)
+
+This approach provides maximum flexibility:
+
+- You can provide explicit IDs via `containerId` prop for containers when you need predictable references
+- You can let items inherit IDs from their children for simpler implementation
+- Or you can rely entirely on the automatic GUID generation when IDs aren't important to your use case (for containers and items)
+
+### Complete Example
+
+Here's what a typical draggable item implementation looks like in JSX, including both the container and items.
+
+```jsx
+<div
+  id="my-container-123"
+  data-element="use-draggable-container"
+  data-drop-target-for-element="true"
+>
+  {/* First draggable item */}
+  <div
+    data-parent-container-id="my-container-123"
+    data-item-id="item1"
+    data-drag-state="idle"
+    draggable="true"
+    data-drop-target-for-element="true"
+  >
+    <div id="item1">Simple text content</div>
+  </div>
+  
+  {/* Second draggable item */}
+  <div
+    data-parent-container-id="my-container-123"
+    data-item-id="item2"
+    data-drag-state="idle"
+    draggable="true"
+    data-drop-target-for-element="true"
+  >
+    <div id="item2">
+      <CustomComponent>
+        <h3>Complex Content</h3>
+        <p>This entire component is draggable</p>
+      </CustomComponent>
+    </div>
+  </div>
+</div>
+```
+
+## Examples
+
+### Basic implementation
+
+An array of items is passed to the `useDraggable` hook via the `draggableItems` prop, which returns a container with the items now wrapped in a draggable item.
+
+<Canvas of={useDraggableStories.BasicImplementation} />
+
+### With dragType
+
+The drag type can be controlled with the `dragType` prop which can be either `"continuous"` or `"onDrop"`, the default is `"continuous"`.
+When `"continuous"` is set, the item will be dragged as soon as the user starts dragging it. When `"onDrop"` is set, the item will only be dragged when the user drops it.
+
+<Canvas of={useDraggableStories.DragType} />
+
+### With Id's
+
+The `useDraggable` hook will work as is, but an `id` can be passed to the container via the `containerId` prop.
+
+Each individual draggable item will use any id which is present on its respective item when passed.
+
+<Canvas of={useDraggableStories.WithIds} />
+
+### getOrder callback
+
+The `getOrder` callback can be passed to the `useDraggable` hook, which returns the order of the draggable items (`draggableItemIds`), and the individually moved item (`movedItemId`) via their `id`'s.
+This is especially useful when an up to date order of the items is needed.
+
+```jsx
+getOrder?: (
+    draggableItemIds?: (string | number | undefined)[],
+    movedItemId?: string | number | undefined,
+  ) => void;
+```
+`draggableItemIds` will return an array of the draggable items `id`'s in the order they have been dragged/re-ordered.
+
+```jsx
+["item1", "item2", "item3", "item4", "item5"]
+```
+
+<Canvas of={useDraggableStories.GetOrderCallback} />
+
+### Manual re-ordering
+
+The `UseDraggableHandle` type provides an imperative handle for control over the draggable item's movement. 
+Using a `ref`, you can access its `reOrder()` method to set manually re-order elements. 
+Pass two arguments: the `id` of the draggable item you want to move and the destination index.
+
+We recommend using the `getOrder` callback to access the current order of items. 
+This provides an up-to-date reference that's essential when implementing precise positioning,
+beyond simple top/bottom movements in your draggable lists.
+
+This functionality gives users alternative ways to reposition elements when direct dragging isn't desired or possible.
+
+<Canvas of={useDraggableStories.ManualReOrdering} />
+
+### Container and Items Node Control
+
+When customisation over the node type of the draggable items and container are needed, the `containerNode` and `itemsNode` props can be passed to the `useDraggable` hook.
+Both props accept any valid HTML node type.
+
+<Canvas of={useDraggableStories.ContainerAndItemsNode} />
+
+### Drag State
+
+Every draggable item has an attribute `data-drag-state` that reflects the current state of the drag operation:
+
+- **idle**: The default state when no dragging is happening. 
+- **is-dragging**: Indicates an active drag operation.
+- **is-being-dragged-over**: Triggered when a potential drop location is hovered over.
+
+When draggable items are being dragged over, they also have a `data-closest-edge` attribute that indicates the closest edge of the item to the mouse cursor during drag over operations.
+
+We recommend  using the `data-drag-state` attribute to access the current drag state, and where applicable the `data-closest-edge` attribute to access the closest edge of the item. 
+These attributes can then be used to implement specific styling or behavior.
+
+To specify styling you can use the `data-item-id` and/or the `data-parent-container-id` attributes.
+
+<Canvas of={useDraggableStories.DragState} />
+
+### Dragged Node
+
+The `useDraggable` hook also returns a `draggedNode` element reference, which can be used to access the dragged item's node.
+This can be used to implement custom behavior or styling when an item has been dragged.
+
+<Canvas of={useDraggableStories.DraggedNode} />
+
+## Parameters
+
+<ArgTypes of={useDraggableStories} />
