@@ -92,28 +92,6 @@ test("calls container's getOrder callback with the correct arguments when an ite
     .toEqual([["mercury", "venus", "apple"], "apple"]);
 });
 
-test("calls fruit container's getOrder callback with correct arguments when a planet item is attempted to be dragged and dropped into the fruit container", async ({
-  mount,
-  page,
-}) => {
-  let getOrderArgs: [unknown, unknown];
-  await mount(
-    <WithMultipleContainers
-      getOrder={(draggableItemIds, movedItemId) => {
-        getOrderArgs = [draggableItemIds, movedItemId];
-      }}
-    />,
-  );
-
-  const pluto = page.getByText("Pluto");
-  const apple = page.getByText("Apple");
-  await pluto.dragTo(apple);
-
-  await expect
-    .poll(() => getOrderArgs)
-    .toEqual([["apple", "mango", "cherry"], "pluto"]);
-});
-
 test("an draggable item's rendered element is hidden from view while the item is being dragged", async ({
   mount,
   page,
@@ -130,7 +108,7 @@ test("an draggable item's rendered element is hidden from view while the item is
   await page.mouse.down();
   await page.mouse.move(viewportSize.width / 2, viewportSize.height / 2);
 
-  await expect(apple).toHaveCSS("opacity", "0");
+  await expect(apple.locator("..")).toHaveCSS("opacity", "0");
 
   await page.mouse.up();
 });

@@ -24,6 +24,7 @@ To use the Draggable component you have to import two components: `<DraggableCon
 import {
   DraggableContainer,
   DraggableItem,
+  DraggableHandle,
 } from "carbon-react/lib/components/draggable";
 ```
 
@@ -39,6 +40,20 @@ import {
 ### Simple text as a content
 
 <Canvas of={DraggableStories.DefaultStory} />
+
+### With Manual Re-Ordering
+
+The `DraggableHandle` type provides an imperative handle for control over the `DraggableItem`'s movement. 
+Using a `ref`, you can access its `reOrder()` method to set manually re-order elements. 
+Pass two arguments: the `id` of the `DraggableItem` you want to move and the destination index.
+
+We recommend using the `getOrder` callback to access the current order of items. 
+This provides an up-to-date reference that's essential when implementing precise positioning,
+beyond simple top/bottom movements in your draggable lists.
+
+This functionality gives users alternative ways to reposition elements when direct dragging isn't desired or possible.
+
+<Canvas of={DraggableStories.ManualReOrdering} />
 
 ### With flex direction
 
