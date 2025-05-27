@@ -13,7 +13,15 @@ export interface BaseLinkProps extends React.AriaAttributes {
   target?: string;
   rel?: string;
   ariaLabel?: string;
-  onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+
+  onClick?: (
+    ev:
+      | React.MouseEvent<HTMLAnchorElement>
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
+  ) => void;
+
   onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   removeAriaLabelOnIcon?: boolean;
@@ -88,7 +96,13 @@ const BaseLink = React.forwardRef<
       event: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
     ) => {
       if (!disabled && onClick) {
-        onClick(event);
+        onClick(
+          event as
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.MouseEvent<HTMLButtonElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLButtonElement>,
+        );
       }
     };
 
