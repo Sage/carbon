@@ -19,7 +19,15 @@ export interface LinkProps extends React.AriaAttributes, TagProps {
   target?: string;
   rel?: string;
   ariaLabel?: string;
-  onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+
+  onClick?: (
+    ev:
+      | React.MouseEvent<HTMLAnchorElement>
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
+  ) => void;
+
   onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   removeAriaLabelOnIcon?: boolean;
@@ -42,6 +50,8 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       isSkipLink,
       href,
       onClick,
+      onKeyDown,
+      onMouseDown,
       disabled,
       ...rest
     },
@@ -52,30 +62,12 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
 
     const isDisabled = disabled || batchSelectionDisabled;
-    const isInteractive = !!href || !!onClick;
 
     useEffect(() => {
-      if (isDisabled || !isInteractive) {
+      if (isDisabled || !(href || onClick)) {
         setHasFocus(false);
       }
-    }, [isDisabled, isInteractive]);
-
-    const createLinkBasedOnType = () => (
-      <BaseLink
-        {...rest}
-        ref={ref}
-        href={href}
-        onClick={onClick}
-        disabled={isDisabled}
-        icon={icon as IconType}
-        iconAlign={iconAlign}
-        isSkipLink={isSkipLink}
-        onFocus={() => setHasFocus(true)}
-        onBlur={() => setHasFocus(false)}
-      >
-        {children}
-      </BaseLink>
-    );
+    }, [isDisabled, href, onClick]);
 
     return (
       <StyledLink
@@ -92,7 +84,22 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         {...(isSkipLink && { "data-element": "skip-link" })}
         hasFocus={hasFocus}
       >
-        {createLinkBasedOnType()}
+        <BaseLink
+          {...rest}
+          ref={ref}
+          href={href}
+          onClick={onClick}
+          onKeyDown={onKeyDown}
+          onMouseDown={onMouseDown}
+          disabled={isDisabled}
+          icon={icon as IconType}
+          iconAlign={iconAlign}
+          isSkipLink={isSkipLink}
+          onFocus={() => setHasFocus(true)}
+          onBlur={() => setHasFocus(false)}
+        >
+          {children}
+        </BaseLink>
       </StyledLink>
     );
   },
