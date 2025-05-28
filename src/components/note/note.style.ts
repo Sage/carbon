@@ -53,13 +53,11 @@ const StyledInlineControl = styled.div`
 const StyledTitleWrapper = styled.div`
   ${VARIANT_TYPES.map(
     (variant) => `
-      ${variant}{
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 21px;
-        padding-bottom: 16px;
-      }
-    `,
+${variant}{
+  line-height: 21px;
+  padding-bottom: 16px;
+}
+  `,
   )}
 `;
 
