@@ -246,6 +246,58 @@ the editor when monitoring for formatting changes, accessible navigation, etc.
 
 <Canvas of={TextEditorStories.MultipleEditors} />
 
+### With Custom Plugins
+
+The `customPlugins` prop allows consumers of the `TextEditor` component to inject one or more custom [Lexical](https://lexical.dev/) plugins. This provides flexibility to extend the editor with features like mentions, emoji pickers, custom toolbars, and more — without modifying the core editor. This prop is optional and supports a single plugin, multiple plugins (via fragments or arrays), or `null`.
+
+#### Example: Creating and Using a Custom Plugin
+
+```tsx
+// CustomWordCountPlugin.tsx
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { useEffect } from 'react';
+import { $getRoot } from 'lexical';
+
+const CustomWordCountPlugin = () => {
+  // Get the Lexical editor instance from context
+  const [editor] = useLexicalComposerContext();
+  // Local state to store the current word count
+  const [wordCount, setWordCount] = useState(0);
+  useEffect(() => {
+    // Register a listener to run every time the editor updates
+    return editor.registerUpdateListener(({ editorState }) => {
+      // Read the editor state in a read-only context
+      editorState.read(() => {
+        // Get the full text content from the root of the editor
+        const text = $getRoot().getTextContent();
+        // Split the text by whitespace and count non-empty words
+        const count = text.trim().split(/\s+/).filter(Boolean).length;
+        // Update local word count state
+        setWordCount(count);
+      });
+    });
+  }, [editor]); // Only run this effect once per editor instance
+  // Render the word count UI with styled container
+  return (
+    <Typography ml={1} mb={0}>
+      Word Count: {wordCount}
+    </Typography>
+  );
+};
+```
+
+```tsx
+// Using it with TextEditor
+import TextEditor from './TextEditor';
+import { CustomWordCountPlugin } from './CustomWordCountPlugin';
+
+const App = () => (
+  <TextEditor labelText="Text Editor" customPlugins={<CustomWordCountPlugin />} />
+);
+```
+
+<Canvas of={TextEditorStories.WithCustomPlugins} />
+
 ## Validation States
 
 This component supports input validation, see our [Validations](../?path=/docs/documentation-validations--docs) documentation page for more information.

@@ -677,4 +677,19 @@ describe("shortcut keys", () => {
       "font-style: italic",
     );
   });
+
+  it("should load a custom plugin correctly", async () => {
+    const MockPlugin = () => <div data-role="mock-plugin">Plugin loaded</div>;
+
+    // render the TextEditor component
+    render(
+      <TextEditor
+        labelText="Example"
+        characterLimit={20}
+        customPlugins={<MockPlugin />}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-plugin")).toBeInTheDocument();
+  });
 });

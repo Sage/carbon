@@ -108,6 +108,8 @@ export interface TextEditorProps extends MarginProps, TagProps {
   warning?: string;
   /** The initial value of the editor, as a HTML string, or JSON */
   value?: string | undefined;
+  // Allows the injection of one or more Lexical-compatible React components into the editor to extend its functionality. This prop is optional and supports a single plugin, multiple plugins (via fragments or arrays), or `null`.
+  customPlugins?: React.ReactNode;
 }
 
 let deprecateOptionalWarnTriggered = false;
@@ -136,6 +138,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       rows,
       warning,
       value,
+      customPlugins,
       ...rest
     },
     ref,
@@ -359,6 +362,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                   <LinkPlugin validateUrl={validateUrl} />
                   <ClickableLinkPlugin newTab />
                   <AutoLinkerPlugin />
+                  {customPlugins}
                 </StyledTextEditor>
                 {footer && (
                   <StyledFooterWrapper
