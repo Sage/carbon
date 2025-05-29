@@ -207,10 +207,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
 
         ${disabled &&
         css`
-          &:hover,
-          &:focus {
-            cursor: not-allowed;
-          }
+          cursor: not-allowed;
         `}
       }
 

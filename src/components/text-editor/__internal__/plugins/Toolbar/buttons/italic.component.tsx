@@ -3,7 +3,7 @@ import { FORMAT_TEXT_COMMAND } from "lexical";
 import React from "react";
 
 import { FormattingButton } from "../toolbar.style";
-import { FormattingButtonProps } from "./common";
+import { FormattingButtonProps } from "./common.types";
 
 import { TextEditorActionTypes } from "../../../constants";
 import useLocale from "../../../../../../hooks/__internal__/useLocale";

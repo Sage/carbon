@@ -53,13 +53,13 @@ const StyledInlineControl = styled.div`
 const StyledTitleWrapper = styled.div`
   ${VARIANT_TYPES.map(
     (variant) => `
-${variant}{
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 21px;
-  padding-bottom: 16px;
-}
-  `,
+      ${variant}{
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 21px;
+        padding-bottom: 16px;
+      }
+    `,
   )}
 `;
 
@@ -138,6 +138,13 @@ const StyledNote = styled.div<{ width: number }>`
     :not(:first-of-type) {
       margin-top: 8px;
     }
+  }
+
+  .textBold {
+    font-weight: bold;
+  }
+  .textItalic {
+    font-style: italic;
   }
 
   ${margin}
