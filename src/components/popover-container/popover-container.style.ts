@@ -36,6 +36,7 @@ const PopoverContainerHeaderStyle = styled.div`
 type PopoverContainerContentStyleProps = {
   animationState?: TransitionStatus;
   disableAnimation?: boolean;
+  zIndex?: number;
 };
 
 const PopoverContainerContentStyle = styled.div<PopoverContainerContentStyleProps>`
@@ -46,7 +47,7 @@ const PopoverContainerContentStyle = styled.div<PopoverContainerContentStyleProp
   box-shadow: var(--boxShadow100);
   min-width: 300px;
   position: absolute;
-  z-index: 2000;
+  z-index: ${({ zIndex }) => zIndex};
 
   ${({ disableAnimation }) =>
     disableAnimation

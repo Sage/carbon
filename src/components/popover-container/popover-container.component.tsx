@@ -35,6 +35,7 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
+import { useGlobalHeader } from "../global-header/__internal__/global-header.context";
 
 export interface RenderOpenProps {
   tabIndex: number;
@@ -318,8 +319,8 @@ export const PopoverContainer = forwardRef<
 
         filteredElements[openButtonRefIndex + 1].focus();
         closePopover(ev);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [],
     );
 
@@ -366,6 +367,8 @@ export const PopoverContainer = forwardRef<
     const handleClick = useClickAwayListener(handleClickAway, "mousedown");
     const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
+    const { isWithinGlobalHeader } = useGlobalHeader();
+
     useImperativeHandle<PopoverContainerHandle, PopoverContainerHandle>(
       ref,
       () => ({
@@ -387,6 +390,7 @@ export const PopoverContainer = forwardRef<
         ref={popoverContentNodeRef}
         tabIndex={-1}
         disableAnimation={disableAnimation || reduceMotion}
+        zIndex={isWithinGlobalHeader ? 10000 : 2000}
         {...filterStyledSystemPaddingProps(rest)}
       >
         <PopoverContainerHeaderStyle>
