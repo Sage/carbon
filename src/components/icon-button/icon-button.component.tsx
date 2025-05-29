@@ -61,6 +61,11 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       }
     };
 
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      internalRef?.focus();
+      onClick?.(event);
+    };
+
     const setRefs = useCallback(
       (reference: HTMLButtonElement) => {
         setInternalRef(reference);
@@ -77,7 +82,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         {...rest}
         aria-label={ariaLabelValue}
         onKeyDown={handleKeyDown}
-        onClick={onClick}
+        onClick={handleClick}
         ref={setRefs}
         disabled={isDisabled}
         {...tagComponent(rest["data-component"] ?? "icon-button", rest)}
