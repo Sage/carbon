@@ -1,3 +1,9 @@
+## [154.4.1](https://github.com/Sage/carbon/compare/v154.4.0...v154.4.1) (2025-05-29)
+
+### Bug Fixes
+
+* **text-editor:** allow custom plugins to be passed to the text editor ([9bd9361](https://github.com/Sage/carbon/commit/9bd9361c1aecce99aed05faf388f663efe548cb6)), closes [#7261](https://github.com/Sage/carbon/issues/7261)
+
 ## [154.4.0](https://github.com/Sage/carbon/compare/v154.3.2...v154.4.0) (2025-05-21)
 
 ### Features
