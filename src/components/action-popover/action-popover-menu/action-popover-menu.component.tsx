@@ -215,7 +215,6 @@ const ActionPopoverMenu = React.forwardRef<
             child as React.ReactElement<ActionPopoverItemProps>,
             {
               focusItem: isOpen && focusIndex === index - 1,
-              placement: child.props.submenu ? placement : undefined,
               currentSubmenuPosition,
               setCurrentSubmenuPosition,
             },
@@ -224,11 +223,12 @@ const ActionPopoverMenu = React.forwardRef<
 
         return child;
       });
-    }, [children, focusIndex, isOpen, placement, currentSubmenuPosition]);
+    }, [children, focusIndex, isOpen, currentSubmenuPosition]);
 
     return (
       <Menu
         data-component="action-popover"
+        data-submenu-placement={placement}
         isOpen={!!isOpen}
         onKeyDown={onKeyDown}
         id={menuID}

@@ -45,6 +45,16 @@ const Menu = styled.ul<{
   background-color: var(--colorsUtilityYang100);
   z-index: ${({ theme }) =>
     `${theme.zIndex?.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
+
+  &[data-submenu-placement="top"] & {
+    bottom: calc(-1 * var(--spacing100));
+    top: auto;
+  }
+
+  &[data-submenu-placement="bottom"] & {
+    top: calc(-1 * var(--spacing100));
+    bottom: auto;
+  }
 `;
 
 const StyledMenuItemInnerText = styled.div`
