@@ -3,6 +3,9 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { $getRoot } from "lexical";
+
 import Box from "../box";
 import Button from "../button";
 import I18nProvider from "../i18n-provider";
@@ -707,3 +710,34 @@ export const MultipleEditors: Story = () => {
   );
 };
 MultipleEditors.storyName = "Multiple Editors";
+
+export const WithCustomPlugins: Story = () => {
+  const CustomWordCountPlugin = () => {
+    const [editor] = useLexicalComposerContext();
+    const [wordCount, setWordCount] = useState(0);
+    useEffect(() => {
+      return editor.registerUpdateListener(({ editorState }) => {
+        editorState.read(() => {
+          const text = $getRoot().getTextContent();
+          const count = text.trim().split(/\s+/).filter(Boolean).length;
+          setWordCount(count);
+        });
+      });
+    }, [editor]);
+    return (
+      <Typography ml={1} mb={0}>
+        Word Count: {wordCount}
+      </Typography>
+    );
+  };
+
+  return (
+    <TextEditor
+      placeholder="Example of a custom word count plugin that updates in real time, showing the number of words at the bottom left of the editor as you type."
+      namespace="storybook-default"
+      labelText="Text Editor"
+      customPlugins={<CustomWordCountPlugin />}
+    />
+  );
+};
+WithCustomPlugins.storyName = "With Custom Plugin";
