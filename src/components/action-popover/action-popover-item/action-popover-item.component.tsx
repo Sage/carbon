@@ -40,8 +40,6 @@ export interface ActionPopoverItemProps {
   /** Submenu component for item */
   submenu?: React.ReactNode;
   /** @ignore @private */
-  placement?: "top" | "bottom";
-  /** @ignore @private */
   focusItem?: boolean;
   /** @ignore @private */
   currentSubmenuPosition?: Alignment;
@@ -89,7 +87,6 @@ export const ActionPopoverItem = ({
   disabled = false,
   onClick: onClickProp,
   submenu,
-  placement = "bottom",
   focusItem,
   download,
   href,
@@ -145,19 +142,14 @@ export const ActionPopoverItem = ({
       const leftAlignedSubmenu = currentSubmenuPosition === "left";
       const leftValue = leftAlignedSubmenu ? -submenuWidth : "auto";
       const rightValue = leftAlignedSubmenu ? "auto" : -submenuWidth;
-      const yPositionName =
-        placement === "top"
-          ? /* istanbul ignore next - tested in Playwright */ "bottom"
-          : "top";
 
       return {
         left: leftValue,
-        [yPositionName]: "calc(-1 * var(--spacing100))",
         right: rightValue,
       };
     };
     setContainerPosition(getContainerPosition);
-  }, [submenu, currentSubmenuPosition, placement]);
+  }, [submenu, currentSubmenuPosition]);
 
   useEffect(() => {
     if (submenu) {
