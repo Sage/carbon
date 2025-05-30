@@ -1,7 +1,6 @@
 import { StorybookConfig } from "@storybook/react-vite";
 
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 import path from "path";
@@ -64,10 +63,10 @@ const config: StorybookConfig = {
   staticDirs: ["../.assets", "../logo"],
 
   viteFinal: async (config) => {
-    return defineConfig({
-      ...config,
+    const { mergeConfig } = await import("vite");
+
+    return mergeConfig(config, {
       plugins: [
-        ...(config.plugins || []),
         react(),
         viteStaticCopy({
           targets: [
@@ -86,9 +85,7 @@ const config: StorybookConfig = {
         }),
       ],
       resolve: {
-        ...(config.resolve || []),
         alias: {
-          ...(config.resolve?.alias || []),
           // Required to load font assets correctly from @sage/design-tokens package
           "~@sage": path.resolve(__dirname, "../node_modules/@sage/"),
         },
@@ -96,7 +93,7 @@ const config: StorybookConfig = {
       build: {
         rollupOptions: {
           output: {
-            assetFileNames: "static/media/[name][ext]",
+            assetFileNames: "static/media/[name][extname]",
           },
         },
       },
