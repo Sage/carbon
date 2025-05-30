@@ -26,22 +26,13 @@ import Dialog from "../dialog";
 import Form from "../form";
 import DateRange, { DateRangeChangeEvent } from "../date-range";
 import DateInput, { DateChangeEvent } from "../date";
+import GlobalHeader from "../global-header";
+
 import isChromatic from "../../../.storybook/isChromatic";
 
 export default {
   title: "Popover Container/Test",
-  includeStories: [
-    "Default",
-    "WithSelect",
-    "WithMultiSelect",
-    "InAScrollableBlock",
-    "InsideMenu",
-    "InsideMenuWithOpenButton",
-    "WithFullWidthButton",
-    "WithRadioButtons",
-    "WithDateRange",
-    "InsideDialog",
-  ],
+  component: PopoverContainer,
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -458,4 +449,47 @@ export const InsideDialog = () => {
 InsideDialog.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const WithinGlobalHeader = ({
+  shouldCoverButton,
+}: PopoverContainerProps) => {
+  const [popoverOpen, setPopoverOpen] = useState(defaultOpenState);
+
+  return (
+    <>
+      <GlobalHeader>
+        <Menu menuType="black" flex="1">
+          <MenuItem flex="1" submenu="Product Switcher">
+            <MenuItem href="#">Product A</MenuItem>
+          </MenuItem>
+
+          <PopoverContainer
+            open={popoverOpen}
+            onOpen={() => setPopoverOpen(true)}
+            onClose={() => setPopoverOpen(false)}
+            shouldCoverButton={shouldCoverButton}
+            renderOpenComponent={() => (
+              <MenuItem
+                flex="0 0 auto"
+                onClick={() => setPopoverOpen(true)}
+                icon="alert"
+              >
+                Notifications
+              </MenuItem>
+            )}
+          >
+            Contents
+          </PopoverContainer>
+        </Menu>
+      </GlobalHeader>
+    </>
+  );
+};
+WithinGlobalHeader.storyName = "Within Global Header";
+WithinGlobalHeader.story = {
+  name: "within-global-header",
+  args: {
+    shouldCoverButton: true,
+  },
 };
