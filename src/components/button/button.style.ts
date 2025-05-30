@@ -76,7 +76,10 @@ type StyledButtonProps = SpaceProps &
     buttonType: Required<ButtonProps>["buttonType"];
   };
 
-const StyledButton = styled.button<StyledButtonProps>`
+const StyledButton = styled.button.attrs(({ theme }) => ({
+  // istanbul ignore next
+  theme: theme || BaseTheme,
+}))<StyledButtonProps>`
   ${space}
   ${({ disabled, noWrap }) => css`
     align-items: center;
@@ -147,8 +150,5 @@ export const StyledButtonMainText = styled.span`
   display: flex;
   align-items: center;
 `;
-StyledButton.defaultProps = {
-  theme: BaseTheme,
-};
 
 export default StyledButton;
