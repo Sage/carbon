@@ -2,6 +2,8 @@ import styled, { css } from "styled-components";
 
 import { margin } from "styled-system";
 
+import Logger from "../../__internal__/utils/logger";
+
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { ThemeObject } from "../../style/themes/theme.types";
 import addFocusStyling from "../../style/utils/add-focus-styling";
@@ -67,8 +69,7 @@ function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
     const bgSizeValue = sizeValues[bgSize];
 
     if (bgSizeValue < fontSizeValue) {
-      // eslint-disable-next-line no-console
-      console.warn(
+      Logger.warn(
         `[WARNING - Icon] The "${bgSize}" \`bgSize\` is smaller than "${fontSize}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`,
       );
       return iconConfig.backgroundSize[fontSize];

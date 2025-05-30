@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from "react";
 
 import Box from "../box";
@@ -18,7 +17,6 @@ export const Required = () => (
 export const WithValidationsOnButtons = () => (
   <RadioButtonGroup
     name="validations-on-buttons-group"
-    onChange={() => console.log("change")}
     legend="Radio group legend"
   >
     <RadioButton
@@ -46,7 +44,6 @@ export const WithValidationsOnButtons = () => (
 export const WithValidationsOnRadioGroup = () => (
   <RadioButtonGroup
     name="validations-on-group"
-    onChange={() => console.log("change")}
     legend="Radio group legend"
     error="Error message"
   >
@@ -69,11 +66,7 @@ export const WithValidationsOnRadioGroup = () => (
 );
 
 export const WithTooltipPosition = () => (
-  <RadioButtonGroup
-    name="tooltip-position"
-    onChange={() => console.log("change")}
-    legend="Radio group legend"
-  >
+  <RadioButtonGroup name="tooltip-position" legend="Radio group legend">
     <RadioButton
       id="radio-1"
       value="radio1"
@@ -87,7 +80,6 @@ export const WithTooltipPosition = () => (
 export const WithTooltipPositionOnRadioGroup = () => (
   <RadioButtonGroup
     name="validations-on-group-group-tooltip-position-override"
-    onChange={() => console.log("change")}
     legend="Radio group legend"
     error="Error message"
     tooltipPosition="top"
@@ -163,7 +155,6 @@ export const WithLegendAndLabels = () => {
   return (
     <RadioButtonGroup
       name="legend-and-labels-group"
-      onChange={() => console.log("change")}
       legend="Radio group legend"
     >
       <RadioButton
@@ -192,7 +183,6 @@ export const WithInlineLegend = () => {
   return (
     <RadioButtonGroup
       name="inline-legend-group"
-      onChange={() => console.log("change")}
       legend="Radio group legend"
       legendInline
       legendWidth={10}
@@ -208,7 +198,6 @@ export const WithLeftMargin = () => {
   return (
     <RadioButtonGroup
       name="left-margin-group"
-      onChange={() => console.log("change")}
       legend="Radio group legend"
       ml="20%"
     >
@@ -235,7 +224,6 @@ export const EnableAdaptiveBehaviour = () => {
   return (
     <RadioButtonGroup
       name="enable-adaptive-behaviour-group"
-      onChange={() => console.log("change")}
       legend="Radio group legend"
       ml="20%"
       adaptiveLegendBreakpoint={960}
@@ -266,7 +254,6 @@ export const DifferentLabelSpacing = () => {
   return (
     <RadioButtonGroup
       name="different-label-spacing-group"
-      onChange={() => console.log("change")}
       legend="Radio group legend"
       labelSpacing={2}
     >
@@ -291,12 +278,7 @@ export const DifferentLabelSpacing = () => {
 
 export const InlineRadioButtons = () => {
   return (
-    <RadioButtonGroup
-      name="inline-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-      inline
-    >
+    <RadioButtonGroup name="inline-group" legend="Radio group legend" inline>
       <RadioButton id="inline-radio-1" value="radio1" label="Radio Option 1" />
       <RadioButton id="inline-radio-2" value="radio2" label="Radio Option 2" />
       <RadioButton id="inline-radio-3" value="radio3" label="Radio Option 3" />
@@ -306,11 +288,7 @@ export const InlineRadioButtons = () => {
 
 export const ReverseRadioButtons = () => {
   return (
-    <RadioButtonGroup
-      name="reverse-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
+    <RadioButtonGroup name="reverse-group" legend="Radio group legend">
       <RadioButton
         id="reverse-radio-1"
         value="radio1"
@@ -335,11 +313,7 @@ export const ReverseRadioButtons = () => {
 
 export const DisableRadioButtons = () => {
   return (
-    <RadioButtonGroup
-      name="disable-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
+    <RadioButtonGroup name="disable-group" legend="Radio group legend">
       <RadioButton
         id="disable-radio-1"
         value="radio1"
@@ -364,11 +338,7 @@ export const DisableRadioButtons = () => {
 
 export const WithFieldHelp = () => {
   return (
-    <RadioButtonGroup
-      name="field-help-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
+    <RadioButtonGroup name="field-help-group" legend="Radio group legend">
       <RadioButton
         id="field-help-radio-1"
         value="radio1"
@@ -393,11 +363,7 @@ export const WithFieldHelp = () => {
 
 export const WithLargeRadioButtons = () => {
   return (
-    <RadioButtonGroup
-      name="large-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
+    <RadioButtonGroup name="large-group" legend="Radio group legend">
       <RadioButton
         id="large-radio-1"
         value="radio1"
@@ -427,7 +393,6 @@ export const WithCustomStyledLabels = () => {
   return (
     <RadioButtonGroup
       name="custom-styled-label-group"
-      onChange={() => console.log("change")}
       legend="Radio group legend"
     >
       <RadioButton

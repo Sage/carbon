@@ -4,18 +4,17 @@ import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
 import { createHeadlessEditor } from "@lexical/headless";
 
 import CharacterCounterPlugin from "./__test__/character-counter.component";
+import Logger from "../../../../../__internal__/utils/logger";
 
 describe("CharacterCounterPlugin", () => {
   let editor: ReturnType<typeof createHeadlessEditor>;
 
   beforeEach(() => {
-    const config = {
+    editor = createHeadlessEditor({
       namespace: "test",
       nodes: [],
-      // eslint-disable-next-line no-console
-      onError: console.error,
-    };
-    editor = createHeadlessEditor(config);
+      onError: (error) => Logger.error(error.message),
+    });
   });
 
   it("correctly updates character count when text is added", async () => {
