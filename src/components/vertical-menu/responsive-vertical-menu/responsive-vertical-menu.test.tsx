@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { act } from "react";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -112,8 +111,7 @@ test("renders correctly", async () => {
 });
 
 test("throws if not wrapped in provider", async () => {
-  const originalError = console.error;
-  console.error = jest.fn();
+  const consoleSpy = jest.spyOn(console, "error").mockImplementation();
 
   expect(() => {
     render(<ResponsiveVerticalMenu />);
@@ -121,7 +119,7 @@ test("throws if not wrapped in provider", async () => {
     "useResponsiveVerticalMenu must be used within a ResponsiveVerticalMenuProvider",
   );
 
-  console.error = originalError;
+  consoleSpy.mockRestore();
 });
 
 test("items without children are rendered as anchor links", async () => {
