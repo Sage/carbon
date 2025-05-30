@@ -35,7 +35,7 @@ export const StyledColorSampleBox = styled.div<{ color: string }>`
     color === "transparent" &&
     css`
       background-color: #eeeeee;
-      background-image: url(${checkerBoardSvg});
+      background-image: url("${checkerBoardSvg}");
       background-size: 14px 14px;
       background-position: -2px -2px;
     `}

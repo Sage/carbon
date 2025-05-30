@@ -2,21 +2,27 @@ import React from "react";
 
 import { Panel, Image, Heading, Text } from "./selling-points.style";
 
+import flexible from "../../../.assets/flexible.svg";
+import hammer from "../../../.assets/hammer.svg";
+import plug from "../../../.assets/plug.svg";
+import point from "../../../.assets/point.svg";
+import brush from "../../../.assets/brush.svg";
+import collaborate from "../../../.assets/collaborate.svg";
+
 const images = {
-  flexible: require("../../../.assets/flexible.svg"),
-  hammer: require("../../../.assets/hammer.svg"),
-  plug: require("../../../.assets/plug.svg"),
-  point: require("../../../.assets/point.svg"),
-  brush: require("../../../.assets/brush.svg"),
-  collaborate: require("../../../.assets/collaborate.svg"),
+  flexible,
+  hammer,
+  plug,
+  point,
+  brush,
+  collaborate,
 };
 
 const imagesAltText = {
   flexible:
     "Carbon is beautiful out-of-the-box, down to colours, icons, and style.",
   hammer: "Hundreds of thousands of users worldwide help Carbon evolve.",
-  plug:
-    "Carbon powers your app. Contribute your code, so you can power Carbon too.",
+  plug: "Carbon powers your app. Contribute your code, so you can power Carbon too.",
   point:
     "Over 50 components and 340 configurations bring your killer app to life.",
   brush:
