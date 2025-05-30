@@ -1,16 +1,10 @@
-/* eslint-disable no-console */
 import { Meta, StoryObj } from "@storybook/react";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 
-import TextEditor, {
-  createFromHTML,
-  TextEditorProps,
-  EditorFormattedValues,
-} from ".";
+import TextEditor, { createFromHTML } from ".";
 import Box from "../box";
 import Typography from "../typography";
 
-import useDebounce from "../../hooks/__internal__/useDebounce";
 import ReadOnlyEditor from "./__internal__";
 
 const meta: Meta<typeof TextEditor> = {
@@ -63,54 +57,6 @@ export const Playground: Story = {
   },
 };
 Playground.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
-export const Functions = ({ ...props }: Partial<TextEditorProps>) => {
-  const initialValue = `<p dir="ltr"><span style="white-space: pre-wrap;">This is a HTML example.</span></p><ol><li value="1"><span style="white-space: pre-wrap;">Look, it has lists!</span></li></ol>`;
-  const defaultValue = createFromHTML(initialValue);
-
-  const [debouncedValue, setDebouncedValue] = useState(null);
-  const debounceWaitTime = 2000;
-
-  const handleChange = useDebounce((newValue) => {
-    setDebouncedValue(newValue);
-  }, debounceWaitTime);
-
-  const handleCancel = useCallback(() => {
-    console.log("Cancel");
-  }, []);
-  const handleSave = useCallback(
-    ({ htmlString, json }: EditorFormattedValues) => {
-      console.log("Save", { htmlString, json });
-    },
-    [],
-  );
-  const handleLinkAdded = useCallback((value: string) => {
-    console.log("Link Added", value);
-  }, []);
-
-  useEffect(() => {
-    console.log("Debounced Value (via onChange)", debouncedValue);
-  }, [debouncedValue]);
-
-  return (
-    <Box p={1}>
-      <TextEditor
-        labelText="Text Editor"
-        {...props}
-        onCancel={handleCancel}
-        onChange={handleChange}
-        onLinkAdded={handleLinkAdded}
-        onSave={handleSave}
-        value={defaultValue}
-      />
-    </Box>
-  );
-};
-
-Functions.storyName = "Functions";
-Functions.parameters = {
   chromatic: { disableSnapshot: true },
 };
 

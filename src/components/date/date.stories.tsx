@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { zhCN, de } from "date-fns/locale";
@@ -137,7 +136,6 @@ export const DisabledDates: Story = () => {
       minDate="2019-04-04"
       maxDate="2019-05-31"
       onChange={setValue}
-      onBlur={(ev) => console.log("blur", ev)}
     />
   );
 };
@@ -338,7 +336,6 @@ export const LocaleFormatOverrideExampleImplementation: Story = ({
 }) => {
   const [state, setState] = useState("2022-04-05");
   const handleChange = (ev: DateChangeEvent) => {
-    console.log(ev.target.value);
     setState(ev.target.value.formattedValue);
   };
   return (
