@@ -25,6 +25,13 @@ const Logger = {
       console.error(message);
     }
   },
+
+  /** Logs warning-level message to browser console */
+  warn: (message: string) => {
+    if (enabled) {
+      console.warn(message);
+    }
+  },
 };
 
 export default Logger;
