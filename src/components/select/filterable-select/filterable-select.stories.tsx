@@ -1,4 +1,5 @@
 import React, { useState, useRef, useMemo, useCallback } from "react";
+import { action } from "@storybook/addon-actions";
 import { Meta, StoryObj } from "@storybook/react";
 
 import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
@@ -334,8 +335,7 @@ export const WithMultipleColumnsAndNested: Story = () => {
             Add a New Element
           </Button>
         }
-        // eslint-disable-next-line no-console
-        onListAction={() => console.log("Action")}
+        onListAction={action("onListAction")}
       >
         <OptionRow id="1" value="1" text="John Doe">
           <td>John</td>

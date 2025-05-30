@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import partialAction from "../../../../.storybook/utils/partial-action";
+import { action } from "@storybook/addon-actions";
 import { FilterableSelect, Option, FilterableSelectProps } from "..";
 import OptionRow from "../option-row/option-row.component";
 import Dialog from "../../dialog";
@@ -533,13 +533,13 @@ export const FilterableSelectMultiColumnsComponent = (
 };
 
 export const FilterableSelectMultiColumnsNestedComponent = (
-  props: Partial<FilterableSelectProps>,
+  args: Partial<FilterableSelectProps>,
 ) => {
   return (
     <FilterableSelect
+      {...args}
       multiColumn
       defaultValue="2"
-      {...props}
       tableHeader={
         <tr>
           <th>Name</th>
@@ -552,8 +552,7 @@ export const FilterableSelectMultiColumnsNestedComponent = (
           Add a New Element
         </Button>
       }
-      // eslint-disable-next-line no-console
-      onListAction={() => console.log("Action")}
+      onListAction={action("onListAction")}
     >
       <OptionRow id="1" value="1" text="John Doe">
         <td>John</td>
@@ -790,13 +789,13 @@ export const SingleOption = () => (
     id="simple"
     label="color"
     labelInline
-    onOpen={partialAction("onOpen")}
-    onChange={partialAction("onChange")}
-    onClick={partialAction("onClick")}
-    onFilterChange={partialAction("onFilterChange")}
-    onFocus={partialAction("onFocus")}
-    onBlur={partialAction("onBlur")}
-    onKeyDown={partialAction("onKeyDown")}
+    onOpen={action("onOpen")}
+    onChange={action("onChange")}
+    onClick={action("onClick")}
+    onFilterChange={action("onFilterChange")}
+    onFocus={action("onFocus")}
+    onBlur={action("onBlur")}
+    onKeyDown={action("onKeyDown")}
   >
     <Option text="Amber" value="1" />
   </FilterableSelect>
@@ -838,13 +837,13 @@ export const AriaDescribedByExample = () => (
       label="color"
       aria-describedby="combo-box-description"
       labelInline
-      onOpen={partialAction("onOpen")}
-      onChange={partialAction("onChange")}
-      onClick={partialAction("onClick")}
-      onFilterChange={partialAction("onFilterChange")}
-      onFocus={partialAction("onFocus")}
-      onBlur={partialAction("onBlur")}
-      onKeyDown={partialAction("onKeyDown")}
+      onOpen={action("onOpen")}
+      onChange={action("onChange")}
+      onClick={action("onClick")}
+      onFilterChange={action("onFilterChange")}
+      onFocus={action("onFocus")}
+      onBlur={action("onBlur")}
+      onKeyDown={action("onKeyDown")}
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />

@@ -1,10 +1,11 @@
-/* eslint-disable no-console */
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import { RadioButtonGroup, RadioButton } from ".";
+
 import Typography from "../typography";
 import CarbonProvider from "../carbon-provider";
-import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -70,7 +71,6 @@ export const WithInlineLegend: Story = () => {
   return (
     <RadioButtonGroup
       name="inline-legend-group"
-      onChange={() => console.log("change")}
       legend="Radio group legend"
       legendInline
       legendWidth={10}
@@ -87,7 +87,6 @@ export const EnableAdaptiveBehaviour: Story = () => {
   return (
     <RadioButtonGroup
       name="enable-adaptive-behaviour-group"
-      onChange={() => console.log("change")}
       legend="Radio group legend"
       ml="20%"
       adaptiveLegendBreakpoint={960}
@@ -118,7 +117,6 @@ export const DifferentLabelSpacing: Story = () => {
   return (
     <RadioButtonGroup
       name="different-label-spacing-group"
-      onChange={() => console.log("change")}
       legend="Radio group legend"
       labelSpacing={2}
     >
@@ -144,12 +142,7 @@ DifferentLabelSpacing.storyName = "Label Spacing";
 
 export const InlineRadioButtons: Story = () => {
   return (
-    <RadioButtonGroup
-      name="inline-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-      inline
-    >
+    <RadioButtonGroup name="inline-group" legend="Radio group legend" inline>
       <RadioButton id="inline-radio-1" value="radio1" label="Radio Option 1" />
       <RadioButton id="inline-radio-2" value="radio2" label="Radio Option 2" />
       <RadioButton id="inline-radio-3" value="radio3" label="Radio Option 3" />
@@ -160,11 +153,7 @@ InlineRadioButtons.storyName = "Inline Radio Buttons";
 
 export const ReverseRadioButtons: Story = () => {
   return (
-    <RadioButtonGroup
-      name="reverse-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
+    <RadioButtonGroup name="reverse-group" legend="Radio group legend">
       <RadioButton
         id="reverse-radio-1"
         value="radio1"
@@ -190,11 +179,7 @@ ReverseRadioButtons.storyName = "Reverse Radio Buttons";
 
 export const DisableRadioButtons: Story = () => {
   return (
-    <RadioButtonGroup
-      name="disable-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
+    <RadioButtonGroup name="disable-group" legend="Radio group legend">
       <RadioButton
         id="disable-radio-1"
         value="radio1"
@@ -220,11 +205,7 @@ DisableRadioButtons.storyName = "Disable Radio Buttons";
 
 export const WithFieldHelp: Story = () => {
   return (
-    <RadioButtonGroup
-      name="field-help-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
+    <RadioButtonGroup name="field-help-group" legend="Radio group legend">
       <RadioButton
         id="field-help-radio-1"
         value="radio1"
@@ -250,11 +231,7 @@ WithFieldHelp.storyName = "With Field Help";
 
 export const WithLargeRadioButtons: Story = () => {
   return (
-    <RadioButtonGroup
-      name="large-group"
-      onChange={() => console.log("change")}
-      legend="Radio group legend"
-    >
+    <RadioButtonGroup name="large-group" legend="Radio group legend">
       <RadioButton
         id="large-radio-1"
         value="radio1"
@@ -285,7 +262,6 @@ export const WithCustomStyledLabels: Story = () => {
   return (
     <RadioButtonGroup
       name="custom-styled-label-group"
-      onChange={() => console.log("change")}
       legend="Radio group legend"
     >
       <RadioButton

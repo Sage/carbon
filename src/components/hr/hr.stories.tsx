@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -55,10 +54,7 @@ DifferentHeights.storyName = "Different Heights";
 export const InsideForm: Story = () => {
   return (
     <Form
-      onSubmit={() => console.log("submit")}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
-      }
+      leftSideButtons={<Button>Cancel</Button>}
       saveButton={
         <Button buttonType="primary" type="submit">
           Save
@@ -78,10 +74,7 @@ InsideForm.storyName = "Inside Form";
 export const InsideFormInlineLabels: Story = () => {
   return (
     <Form
-      onSubmit={() => console.log("submit")}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
-      }
+      leftSideButtons={<Button>Cancel</Button>}
       saveButton={
         <Button buttonType="primary" type="submit">
           Save
