@@ -1,5 +1,7 @@
-/* eslint-disable no-console */
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import {
+  LexicalComposer,
+  type InitialConfigType,
+} from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
@@ -9,6 +11,7 @@ import React, { useMemo } from "react";
 import { TextEditorProps } from "../text-editor.component";
 import { createFromHTML } from "../utils";
 import { markdownNodes, theme } from "./constants";
+import Logger from "../../../__internal__/utils/logger";
 
 const wrapLinksInAnchors = (value: string) => {
   const urlRegex = /((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/g;
@@ -45,11 +48,11 @@ const ReadOnlyEditor = ({
   namespace = "carbon-rte-readonly",
   value,
 }: Partial<TextEditorProps>) => {
-  const initialConfig = useMemo(() => {
+  const initialConfig = useMemo<InitialConfigType>(() => {
     return {
       namespace,
       nodes: markdownNodes,
-      onError: console.error,
+      onError: /* istanbul ignore next */ (e) => Logger.error(e.message),
       theme,
       editorState: determineFormat(value),
       editable: false,
