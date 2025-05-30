@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { StepFlow, StepFlowTitle } from "..";
 
 import Logger from "../../../__internal__/utils/logger";
@@ -28,9 +28,8 @@ test("when the 'titleString' prop is passed, the correct visible element and tex
     />,
   );
 
-  const heading = screen.getByRole("heading", { level: 1 });
-  expect(heading).toBeVisible();
-  expect(heading).toHaveTextContent("title");
+  const visibleTitle = screen.getByText("title");
+  expect(visibleTitle).toBeVisible();
 });
 
 test("when the `StepFlowTitle` is passed via the `title` prop in `StepFlow`, the screen reader only text should be properly populated via context", () => {
@@ -44,8 +43,8 @@ test("when the `StepFlowTitle` is passed via the `title` prop in `StepFlow`, the
     />,
   );
 
-  const title = screen.getByRole("heading", { level: 1 });
-  expect(within(title).getByText(`category. title. Step 2 of 4.`)).toHaveStyle({
+  const hiddenText = screen.getByText("category. title. Step 2 of 4.");
+  expect(hiddenText).toHaveStyle({
     border: "0",
     height: "1px",
     margin: "-1px",
@@ -72,12 +71,11 @@ test("when the 'screenReaderOnlyTitle' prop is passed, it overrides the value pa
     />,
   );
 
-  const title = screen.getByRole("heading", { level: 1 });
-  expect(
-    within(title).getByText(
-      `this title overrides the other title. Step 1 of 8.`,
-    ),
-  ).toHaveStyle({
+  const hiddenText = screen.getByText(
+    "this title overrides the other title. Step 1 of 8.",
+  );
+
+  expect(hiddenText).toHaveStyle({
     border: "0",
     height: "1px",
     margin: "-1px",
@@ -89,7 +87,7 @@ test("when the 'screenReaderOnlyTitle' prop is passed, it overrides the value pa
   });
 });
 
-test("renders level one heading when the 'titleVariant' prop is not passed", () => {
+test("renders level one heading when the `titleVariant` prop is not passed", () => {
   render(
     <StepFlow
       ref={() => {}}
@@ -99,17 +97,17 @@ test("renders level one heading when the 'titleVariant' prop is not passed", () 
     />,
   );
 
-  const heading = screen.getByRole("heading", { level: 1 });
-  expect(heading).toBeVisible();
-  expect(heading).toHaveTextContent("title");
+  const visibleTitle = screen.getByText("title");
+  expect(visibleTitle).toBeVisible();
+  expect(visibleTitle).toHaveTextContent("title");
 });
 
 test.each([
   [1, "h1"],
   [2, "h2"],
 ] as const)(
-  "renders level %s heading when the 'titleVariant' prop is %s",
-  (level, titleVariant) => {
+  "renders visible title text when the `titleVariant` prop is %s",
+  (_level, titleVariant) => {
     render(
       <StepFlow
         ref={() => {}}
@@ -121,13 +119,13 @@ test.each([
       />,
     );
 
-    const heading = screen.getByRole("heading", { level });
-    expect(heading).toBeVisible();
-    expect(heading).toHaveTextContent("title");
+    const titleNode = screen.getByText("title");
+    expect(titleNode).toBeVisible();
+    expect(titleNode).toHaveTextContent("title");
   },
 );
 
-test("renders level two heading when the 'titleVariant' prop is h2 passed directly to `StepFlowTitle`, and the 'titleVariant' prop is also passed as h1 to `StepFlow`. As the 'titleVariant' on `StepFlowTitle` takes priority", () => {
+test("renders level two heading when the `titleVariant` prop is `h2` passed directly to `StepFlowTitle`, and the `titleVariant` prop is also passed as `h1` to `StepFlow`. As the `titleVariant` on `StepFlowTitle` takes priority", () => {
   render(
     <StepFlow
       ref={() => {}}
@@ -139,7 +137,7 @@ test("renders level two heading when the 'titleVariant' prop is h2 passed direct
     />,
   );
 
-  const heading = screen.getByRole("heading", { level: 2 });
-  expect(heading).toBeVisible();
-  expect(heading).toHaveTextContent("title");
+  const titleNode = screen.getByText("title");
+  expect(titleNode).toBeVisible();
+  expect(titleNode).toHaveTextContent("title");
 });

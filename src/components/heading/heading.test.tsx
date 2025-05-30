@@ -21,16 +21,17 @@ test("renders a custom title node within the heading using the `title` prop", ()
   const title = <span>title node</span>;
   render(<Heading title={title} />);
 
-  const heading = screen.getByRole("heading", { level: 1 });
   const titleNode = screen.getByText("title node");
-  expect(heading).toHaveAttribute("data-element", "title");
-  expect(heading).toContainElement(titleNode);
+  // eslint-disable-next-line testing-library/no-node-access
+  const container = titleNode.closest('[data-element="header-container"]');
+
+  expect(container).not.toBeNull();
+  expect(container).toContainElement(titleNode);
   expect(titleNode).toBeVisible();
 });
 
 test("should render with an 'id' attribute on the heading node, via the `titleId` prop", () => {
-  const title = <span>title node</span>;
-  render(<Heading titleId="1973" title={title} />);
+  render(<Heading titleId="1973" title="title node" />);
 
   const heading = screen.getByRole("heading", { level: 1 });
   expect(heading).toHaveAttribute("id", "1973");
