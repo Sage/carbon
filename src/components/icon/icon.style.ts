@@ -4,6 +4,8 @@ import { shade } from "polished";
 
 import { margin } from "styled-system";
 
+import Logger from "../../__internal__/utils/logger";
+
 import baseTheme, { ThemeObject } from "../../style/themes/base";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import styledColor from "../../style/utils/color";
@@ -69,8 +71,7 @@ function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
     const bgSizeValue = sizeValues[bgSize];
 
     if (bgSizeValue < fontSizeValue) {
-      // eslint-disable-next-line no-console
-      console.warn(
+      Logger.warn(
         `[WARNING - Icon] The "${bgSize}" \`bgSize\` is smaller than "${fontSize}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`,
       );
       return iconConfig.backgroundSize[fontSize];
@@ -123,8 +124,7 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
         bgHoverColor = shade(0.2, getColorValue(backgroundColor));
       }
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
+      Logger.error(e as string);
     }
     return css`
       position: relative;

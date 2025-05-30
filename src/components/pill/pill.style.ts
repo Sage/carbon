@@ -10,6 +10,8 @@ import StyledIconButton from "../icon-button/icon-button.style";
 import { toColor } from "../../style/utils/color";
 import getColorValue from "../../style/utils/get-color-value";
 
+import Logger from "../../__internal__/utils/logger";
+
 export interface StyledPillProps extends MarginProps {
   /** Override color variant, provide any color from palette or any valid css color value. */
   borderColor?: string;
@@ -76,8 +78,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
         contentColor = content;
       }
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(
+      Logger.error(
         `Error: [Pill] - Could not parse the string '${borderColor}', please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.`,
       );
     }

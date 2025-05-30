@@ -5,6 +5,7 @@ import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
 import { $getRoot, $getSelection, LexicalEditor } from "lexical";
 
 import { markdownNodes, theme } from "./constants";
+import Logger from "../../../__internal__/utils/logger";
 
 /**
  * This helper takes the current state of the editor and serializes it into two formats:
@@ -39,8 +40,7 @@ const DeserializeHTML = (html: string) => {
   // without needing to render the editor itself.
   const editor = createHeadlessEditor({
     namespace: "html-to-json",
-    // eslint-disable-next-line no-console
-    onError: console.error,
+    onError: (e) => Logger.error(e.message),
     theme,
     nodes: markdownNodes,
   });

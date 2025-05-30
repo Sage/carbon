@@ -4,6 +4,7 @@ import Icon from "../icon";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
+import Logger from "../../__internal__/utils/logger";
 import IconButton from "../icon-button";
 
 export interface PillProps extends StyledPillProps, TagProps {
@@ -61,8 +62,8 @@ export const Pill = ({
     !fill
   ) {
     neutralWhiteWarnTriggered = true;
-    // eslint-disable-next-line no-console
-    console.warn(
+
+    Logger.warn(
       "[WARNING] The `neutralWhite` variant should only be used on dark backgrounds with fill set to true. " +
         "Please set the `isDarkBackground` and `fill` props to true or use another color variant.",
     );
