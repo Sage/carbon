@@ -3,7 +3,7 @@ import getNodeEnv from "./get-node-env";
 
 /**
  * Utility for dispatching messages to the browser console.
- * By default, logging is disabled in production mode.
+ * Messages are only logged in *non-production* environments.
  */
 const Logger = {
   /** Logs warning-level message to browser console with [Deprecation] prefix */
