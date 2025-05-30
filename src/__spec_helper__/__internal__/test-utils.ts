@@ -1,8 +1,4 @@
-/* eslint-disable jest/no-conditional-expect */
-/* eslint-disable jest/no-identical-title */
-/* eslint-disable jest/no-export */
 import { render } from "@testing-library/react";
-import { sprintf } from "sprintf-js";
 import {
   LayoutProps,
   FlexboxProps,
@@ -210,44 +206,6 @@ const testStyledSystemPosition = (
   );
 };
 
-// this util will catch that a console output occurred without polluting the output when running the unit tests
-const expectConsoleOutput = (
-  message: string,
-  type: "warn" | "error" = "error",
-) => {
-  if (!message) {
-    throw new Error(`no ${type} message provided`);
-  }
-
-  expect.assertions(1);
-
-  const consoleType = global.console[type];
-  let consoleArgs: string[];
-
-  jest.spyOn(global.console, type).mockImplementation((...args) => {
-    if (!args.length) return;
-
-    const msg = args.join(" ");
-    const params = args.slice(1, args.length);
-
-    if (sprintf(msg, ...params).includes(message)) {
-      consoleArgs = args;
-      return;
-    }
-
-    consoleType(...args);
-  });
-
-  return () => {
-    if (consoleArgs) {
-      // eslint-disable-next-line no-console
-      expect(console[type]).toHaveBeenCalledWith(...consoleArgs);
-    }
-
-    global.console[type] = consoleType;
-  };
-};
-
 const testStyledSystemMargin = (
   component: (spacingProps?: MarginProps) => JSX.Element,
   elementQuery: () => HTMLElement,
@@ -397,7 +355,6 @@ export {
   testStyledSystemGrid,
   testStyledSystemBackground,
   testStyledSystemPosition,
-  expectConsoleOutput,
   testStyledSystemSpacing,
   testStyledSystemMargin,
   testStyledSystemPadding,
