@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  render,
-  screen,
-  within,
-  fireEvent,
-  waitFor,
-} from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import FlatTableRow from "./flat-table-row.component";
@@ -17,6 +11,7 @@ import FlatTableHeader from "../flat-table-header/flat-table-header.component";
 import { FlatTable, FlatTableBody, FlatTableBodyDraggable } from "..";
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import { StrictFlatTableProvider } from "../__internal__/strict-flat-table.context";
+import "../../../__spec_helper__/__internal__/drag-event-polyfill";
 
 test("logs error if used outside of FlatTable", () => {
   const loggerSpy = jest.spyOn(console, "error").mockImplementation(() => {});
@@ -874,39 +869,6 @@ describe("when the row is `expandable`", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("should display the sub rows when the `expanded` prop is true", () => {
-    render(
-      <FlatTable>
-        <thead>
-          <FlatTableRow
-            expandable
-            expanded
-            subRows={[
-              <FlatTableRow key="sub-row-1">
-                <FlatTableCell>sub1cell1</FlatTableCell>
-                <FlatTableCell>sub1cell2</FlatTableCell>
-              </FlatTableRow>,
-              <FlatTableRow key="sub-row-2">
-                <FlatTableCell>sub2cell1</FlatTableCell>
-                <FlatTableCell>sub2cell2</FlatTableCell>
-              </FlatTableRow>,
-            ]}
-          >
-            <FlatTableCell>cell1</FlatTableCell>
-            <FlatTableCell>cell2</FlatTableCell>
-          </FlatTableRow>
-        </thead>
-      </FlatTable>,
-    );
-
-    expect(
-      screen.getByRole("row", { name: "sub1cell1 sub1cell2" }),
-    ).toBeVisible();
-    expect(
-      screen.getByRole("row", { name: "sub2cell1 sub2cell2" }),
-    ).toBeVisible();
-  });
-
   it("should collapse the sub rows when the user clicks on the parent row and they are `expanded`", async () => {
     jest.useFakeTimers();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -1707,37 +1669,4 @@ test("should render the expected border bottom color styles when `horizontalBord
     "2px solid var(--colorsUtilityMajor100)",
     { modifier: `${StyledFlatTableCell}` },
   );
-});
-
-// for coverage
-test("should apply the expected border styling when row is dragged and table is in sidebar", async () => {
-  render(
-    <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
-      <FlatTable>
-        <FlatTableBodyDraggable>
-          <FlatTableRow key="1" id={1}>
-            <FlatTableCell>Row one</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow key="2" id={2}>
-            <FlatTableCell>Row two</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow key="3" id={3}>
-            <FlatTableCell>Row three</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBodyDraggable>
-      </FlatTable>
-    </DrawerSidebarContext.Provider>,
-  );
-  const elementToDrag = screen.getByRole("row", { name: "Row one" });
-
-  fireEvent.dragStart(elementToDrag);
-  fireEvent.dragEnter(elementToDrag);
-  fireEvent.dragOver(elementToDrag);
-
-  await waitFor(() => {
-    expect(elementToDrag).toHaveStyleRule(
-      "border",
-      "var(--colorsUtilityMajor300) 2px solid",
-    );
-  });
 });

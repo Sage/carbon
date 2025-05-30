@@ -27,6 +27,8 @@ import {
   FlatTableChildSubrowSelectableComponent,
   FlatTablePartiallySelectedOrHighlightedRows,
   FlatTableDraggableComponent,
+  FlatTableDraggingRows,
+  FlatTableDraggingRowsWithSidebarContext,
   FlatTablePagerStickyHeaderComponent,
   FlatTableCheckboxComponent,
   FlatTableFirstColumnHasRowspan,
@@ -79,6 +81,7 @@ import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   checkCSSOutline,
   assertCssValueIsApproximately,
+  getDesignTokensByCssProperty,
   getRotationAngle,
   checkAccessibility,
   getStyle,
@@ -2097,6 +2100,90 @@ test.describe("Prop tests", () => {
         flatTableDraggableItemByPosition(page, destinationId),
       ).toHaveText(record);
     });
+  });
+
+  test("should apply correct specific dragging background colour", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableDraggingRows data-drag-state="is-dragging" />);
+    const draggableItem = page.locator("td").filter({
+      hasText: "UK",
+    });
+
+    const colorToken = (
+      await getDesignTokensByCssProperty(
+        page,
+        draggableItem,
+        "background-color",
+      )
+    ).pop();
+
+    expect(colorToken).toBe("--colorsUtilityMajor150");
+  });
+
+  test("should apply correct specific dragging background colour when draggable rows are in a drawer sidebar", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <FlatTableDraggingRowsWithSidebarContext data-drag-state="is-dragging" />,
+    );
+    const draggableItem = page.locator("td").filter({
+      hasText: "UK",
+    });
+
+    const colorToken = (
+      await getDesignTokensByCssProperty(
+        page,
+        draggableItem,
+        "background-color",
+      )
+    ).pop();
+
+    expect(colorToken).toBe("--colorsUtilityMajor200");
+  });
+
+  test("should apply correct specific idle background colour", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FlatTableDraggingRows data-drag-state="idle" />);
+    const draggableItem = page.locator("td").filter({
+      hasText: "UK",
+    });
+
+    const colorToken = (
+      await getDesignTokensByCssProperty(
+        page,
+        draggableItem,
+        "background-color",
+      )
+    ).pop();
+
+    expect(colorToken).toBe("--colorsUtilityYang100");
+  });
+
+  test("should apply correct specific idle background colour when draggable rows are in a drawer sidebar", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <FlatTableDraggingRowsWithSidebarContext data-drag-state="idle" />,
+    );
+    const draggableItem = page.locator("td").filter({
+      hasText: "UK",
+    });
+
+    const colorToken = (
+      await getDesignTokensByCssProperty(
+        page,
+        draggableItem,
+        "background-color",
+      )
+    ).pop();
+
+    expect(colorToken).toBe("--colorsUtilityYang100");
   });
 
   (

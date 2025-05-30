@@ -14,15 +14,14 @@ import { TableBorderSize } from "..";
 import StyledFlatTableRow from "./flat-table-row.style";
 import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
 import FlatTableRowHeader from "../flat-table-row-header";
-import FlatTableRowDraggable, {
-  FlatTableRowDraggableProps,
-} from "./__internal__/flat-table-row-draggable.component";
+import FlatTableRowDraggable from "./__internal__/flat-table-row-draggable.component";
 import { useStrictFlatTableContext } from "../__internal__/strict-flat-table.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 import FlatTableRowContext from "./__internal__/flat-table-row.context";
 import SubRowProvider, { SubRowContext } from "./__internal__/sub-row-provider";
 import { buildPositionMap } from "../__internal__";
 import FlatTableHeadContext from "../flat-table-head/__internal__/flat-table-head.context";
+import FlatTableBodyDraggableContext from "../flat-table-body-draggable/flat-table-body-draggable-context";
 
 export interface FlatTableRowProps extends TagProps {
   /** Overrides default cell color, provide design token, any color from palette or any valid css color value. */
@@ -48,18 +47,6 @@ export interface FlatTableRowProps extends TagProps {
   /** Sub rows to be shown when the row is expanded, must be used with the `expandable` prop. */
   subRows?: React.ReactNode;
   id?: string | number;
-  /**
-   * @private
-   * @ignore
-   */
-  findItem?: FlatTableRowDraggableProps["findItem"];
-  /**
-   * @private
-   * @ignore
-   */
-  moveItem?: FlatTableRowDraggableProps["moveItem"];
-  /** @ignore @private position in header if multiple rows */
-  draggable?: boolean;
 }
 
 export const FlatTableRow = React.forwardRef<
@@ -80,16 +67,15 @@ export const FlatTableRow = React.forwardRef<
       horizontalBorderColor,
       horizontalBorderSize = "small",
       id,
-      draggable,
-      findItem,
-      moveItem,
       "data-element": dataElement,
       "data-role": dataRole,
       ...rest
     }: FlatTableRowProps,
     ref,
   ) => {
-    const internalId = useRef(id ? String(id) : guid());
+    const internalId = useRef(
+      id !== undefined && id !== null ? String(id) : guid(),
+    );
     const [isExpanded, setIsExpanded] = useState(expanded);
     let rowRef = useRef<HTMLTableRowElement>(null);
     if (ref) {
@@ -191,9 +177,9 @@ export const FlatTableRow = React.forwardRef<
       `Do not render a right hand side \`${FlatTableRowHeader.displayName}\` before left hand side \`${FlatTableRowHeader.displayName}\``,
     );
 
+    const { isInSidebar } = useContext(DrawerSidebarContext);
     const { colorTheme, size, getTabStopElementId } =
       useStrictFlatTableContext();
-    const { isInSidebar } = useContext(DrawerSidebarContext);
     const { stickyOffsets } = useContext(FlatTableHeadContext);
     const toggleExpanded = () => setIsExpanded(!isExpanded);
 
@@ -276,69 +262,63 @@ export const FlatTableRow = React.forwardRef<
       return isSubRow ? "flat-table-sub-row" : "flat-table-row";
     };
 
-    const rowComponent = () => (
-      <StyledFlatTableRow
-        isInSidebar={isInSidebar}
-        expandable={expandable}
-        isSubRow={isSubRow}
-        isFirstSubRow={isFirstSubRow}
-        data-element={getDataElement()}
-        data-role={dataRole}
-        highlighted={highlighted}
-        selected={selected}
-        onClick={handleClick}
-        firstCellIndex={firstCellIndex}
-        ref={rowRef}
-        lhsRowHeaderIndex={lhsRowHeaderIndex}
-        rhsRowHeaderIndex={rhsRowHeaderIndex}
-        colorTheme={colorTheme}
-        size={size}
-        stickyOffset={stickyOffsets[internalId.current]}
-        bgColor={bgColor}
-        horizontalBorderColor={horizontalBorderColor}
-        horizontalBorderSize={horizontalBorderSize}
-        draggable={draggable}
-        totalChildren={cellsArray.length}
-        id={internalId.current}
-        data-selected={selected && expandableArea === "wholeRow"}
-        data-highlighted={highlighted && expandableArea === "wholeRow"}
-        rowHeight={rowRef?.current?.offsetHeight}
-        {...interactiveRowProps}
-        {...rest}
-        data-component="flat-table-row"
-      >
-        <FlatTableRowContext.Provider
-          value={{
-            firstCellId,
-            expandable,
-            leftPositions,
-            rightPositions,
-            firstColumnExpandable,
-            onKeyDown: handleCellKeyDown,
-            onClick: () => toggleExpanded(),
-            highlighted,
-            selected,
-          }}
-        >
-          {children}
-        </FlatTableRowContext.Provider>
-      </StyledFlatTableRow>
+    const { isInFlatTableBodyDraggable: draggable } = useContext(
+      FlatTableBodyDraggableContext,
     );
 
-    const draggableComponent = () => (
-      <FlatTableRowDraggable
-        id={internalId.current}
-        moveItem={moveItem}
-        findItem={findItem}
-        rowRef={rowRef}
-      >
-        {rowComponent()}
-      </FlatTableRowDraggable>
-    );
+    const sharedRowProps = {
+      id: internalId.current,
+      isInSidebar,
+      expandable,
+      isSubRow,
+      isFirstSubRow,
+      "data-element": getDataElement(),
+      "data-role": dataRole,
+      highlighted,
+      selected,
+      ref: draggable ? ref : rowRef,
+      onClick: handleClick,
+      firstCellIndex,
+      lhsRowHeaderIndex,
+      rhsRowHeaderIndex,
+      colorTheme,
+      size,
+      stickyOffset: stickyOffsets[internalId.current],
+      bgColor,
+      horizontalBorderColor,
+      horizontalBorderSize,
+      draggable,
+      totalChildren: cellsArray.length,
+      "data-selected": selected && expandableArea === "wholeRow",
+      "data-highlighted": highlighted && expandableArea === "wholeRow",
+      rowHeight: rowRef?.current?.offsetHeight,
+      ...interactiveRowProps,
+      ...rest,
+      "data-component": "flat-table-row",
+    };
+
+    // Use conditional component selection to eliminate duplication
+    const RowWrapper = draggable ? FlatTableRowDraggable : StyledFlatTableRow;
 
     return (
       <>
-        {draggable ? draggableComponent() : rowComponent()}
+        <RowWrapper {...sharedRowProps}>
+          <FlatTableRowContext.Provider
+            value={{
+              firstCellId,
+              expandable,
+              leftPositions,
+              rightPositions,
+              firstColumnExpandable,
+              onKeyDown: handleCellKeyDown,
+              onClick: () => toggleExpanded(),
+              highlighted,
+              selected,
+            }}
+          >
+            {children}
+          </FlatTableRowContext.Provider>
+        </RowWrapper>
         {isExpanded && subRows && <SubRowProvider>{subRows}</SubRowProvider>}
       </>
     );
