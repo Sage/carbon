@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 
 import { TimeInputEvent, TimeValue } from "./time.component";
 import { Time } from ".";
-import Box from "../box";
 
+import Box from "../box";
 import InlineInputs from "../inline-inputs";
 import Textbox from "../textbox";
 import Button from "../button";
@@ -104,45 +105,42 @@ export const LabelAlign: Story = ({ ...args }) => {
     period: "AM",
   });
 
-  const handleChange = (ev: TimeInputEvent) => {
-    console.log("onChange:", ev);
-    setValue(ev.target.value);
-  };
-
-  const handleBlur = (
-    ev?: React.FocusEvent<HTMLInputElement>,
-    timeValue?: TimeValue,
-  ) => {
-    console.log("onBlur:", ev, timeValue);
-  };
-
   return (
     <Box ml={2}>
       <Time
+        {...args}
         mb={2}
         value={value}
-        onChange={handleChange}
-        onBlur={handleBlur}
+        onChange={(ev) => {
+          setValue(ev.target.value);
+          action("onChange")(ev);
+        }}
+        onBlur={action("onBlur")}
         label="labelAlign left"
-        {...args}
       />
       <Time
+        {...args}
         mb={2}
         value={value}
-        onChange={handleChange}
-        onBlur={handleBlur}
+        onChange={(ev) => {
+          setValue(ev.target.value);
+          action("onChange")(ev);
+        }}
+        onBlur={action("onBlur")}
         label="labelAlign right"
         labelAlign="right"
-        {...args}
       />
       <Time
+        {...args}
         value={value}
-        onChange={handleChange}
-        onBlur={handleBlur}
+        onChange={(ev) => {
+          setValue(ev.target.value);
+          action("onChange")(ev);
+        }}
+        onBlur={action("onBlur")}
         label="labelAlign right and fieldLabelsAlign right"
         labelAlign="right"
         fieldLabelsAlign="right"
-        {...args}
       />
     </Box>
   );

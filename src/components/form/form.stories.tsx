@@ -1,10 +1,10 @@
-/* eslint-disable no-console */
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import isChromatic from "../../../.storybook/isChromatic";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import Form, { RequiredFieldsIndicator } from ".";
+import Form, { FormProps, RequiredFieldsIndicator } from ".";
 import Button from "../button";
 import Box from "../box";
 import Textbox from "../textbox";
@@ -30,6 +30,12 @@ const defaultOpenState = isChromatic();
 const meta: Meta<typeof Form> = {
   title: "Form",
   component: Form,
+  args: {
+    onSubmit: (ev: React.FormEvent) => {
+      ev.preventDefault();
+      action("onSubmit")(ev);
+    },
+  },
   argTypes: {
     ...styledSystemProps,
   },
@@ -54,12 +60,10 @@ const meta: Meta<typeof Form> = {
 export default meta;
 type Story = StoryObj<typeof Form>;
 
-export const DefaultWithStickyFooter: Story = () => (
+export const DefaultWithStickyFooter: Story = (args: FormProps) => (
   <Form
-    onSubmit={() => console.log("submit")}
-    leftSideButtons={
-      <Button onClick={() => console.log("cancel")}>Cancel</Button>
-    }
+    {...args}
+    leftSideButtons={<Button>Cancel</Button>}
     saveButton={
       <Button buttonType="primary" type="submit">
         Save
@@ -82,17 +86,13 @@ DefaultWithStickyFooter.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const WithFullWidthButtons: Story = () => (
+export const WithFullWidthButtons: Story = (args: FormProps) => (
   <CarbonProvider validationRedesignOptIn>
     <Form
+      {...args}
       fullWidthButtons
-      onSubmit={() => console.log("submit")}
       stickyFooter
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")} fullWidth>
-          Cancel
-        </Button>
-      }
+      leftSideButtons={<Button fullWidth>Cancel</Button>}
       saveButton={
         <Button buttonType="primary" type="submit" fullWidth>
           Save
@@ -116,7 +116,7 @@ WithFullWidthButtons.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const FieldSpacing: Story = () => {
+export const FieldSpacing: Story = (args: FormProps) => {
   const [state, setState] = useState("");
 
   const setValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,10 +125,8 @@ export const FieldSpacing: Story = () => {
 
   return (
     <Form
-      onSubmit={() => console.log("submit")}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
-      }
+      {...args}
+      leftSideButtons={<Button>Cancel</Button>}
       saveButton={
         <Button buttonType="primary" type="submit">
           Save
@@ -150,12 +148,10 @@ export const FieldSpacing: Story = () => {
 };
 FieldSpacing.storyName = "Field Spacing";
 
-export const OverrideFieldSpacing: Story = () => (
+export const OverrideFieldSpacing: Story = (args: FormProps) => (
   <Form
-    onSubmit={() => console.log("submit")}
-    leftSideButtons={
-      <Button onClick={() => console.log("cancel")}>Cancel</Button>
-    }
+    {...args}
+    leftSideButtons={<Button>Cancel</Button>}
     saveButton={
       <Button buttonType="primary" type="submit">
         Save
@@ -170,12 +166,10 @@ export const OverrideFieldSpacing: Story = () => (
 );
 OverrideFieldSpacing.storyName = "Override field spacing";
 
-export const WithErrorsSummary: Story = () => (
+export const WithErrorsSummary: Story = (args: FormProps) => (
   <Form
-    onSubmit={() => console.log("submit")}
-    leftSideButtons={
-      <Button onClick={() => console.log("cancel")}>Cancel</Button>
-    }
+    {...args}
+    leftSideButtons={<Button>Cancel</Button>}
     saveButton={
       <Button buttonType="primary" type="submit">
         Save
@@ -191,12 +185,10 @@ WithErrorsSummary.parameters = {
   chromatic: { viewports: [1200, 900, 320] },
 };
 
-export const WithWarningsSummary: Story = () => (
+export const WithWarningsSummary: Story = (args: FormProps) => (
   <Form
-    onSubmit={() => console.log("submit")}
-    leftSideButtons={
-      <Button onClick={() => console.log("cancel")}>Cancel</Button>
-    }
+    {...args}
+    leftSideButtons={<Button>Cancel</Button>}
     saveButton={
       <Button buttonType="primary" type="submit">
         Save
@@ -212,12 +204,10 @@ WithWarningsSummary.parameters = {
   chromatic: { viewports: [1200, 900, 320] },
 };
 
-export const WithBothErrorsAndWarningsSummary: Story = () => (
+export const WithBothErrorsAndWarningsSummary: Story = (args: FormProps) => (
   <Form
-    onSubmit={() => console.log("submit")}
-    leftSideButtons={
-      <Button onClick={() => console.log("cancel")}>Cancel</Button>
-    }
+    {...args}
+    leftSideButtons={<Button>Cancel</Button>}
     saveButton={
       <Button buttonType="primary" type="submit">
         Save
@@ -235,13 +225,13 @@ WithBothErrorsAndWarningsSummary.parameters = {
   chromatic: { viewports: [1200, 900, 320] },
 };
 
-export const WithAdditionalButtons: Story = () => (
+export const WithAdditionalButtons: Story = (args: FormProps) => (
   <Form
-    onSubmit={() => console.log("submit")}
+    {...args}
     leftSideButtons={
       <>
-        <Button onClick={() => console.log("cancel")}>Other</Button>
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+        <Button>Other</Button>
+        <Button>Cancel</Button>
       </>
     }
     saveButton={
@@ -251,8 +241,8 @@ export const WithAdditionalButtons: Story = () => (
     }
     rightSideButtons={
       <>
-        <Button onClick={() => console.log("cancel")}>Reset</Button>
-        <Button onClick={() => console.log("cancel")}>Other</Button>
+        <Button>Reset</Button>
+        <Button>Other</Button>
       </>
     }
   >
@@ -261,13 +251,13 @@ export const WithAdditionalButtons: Story = () => (
 );
 WithAdditionalButtons.storyName = "With Additional Buttons";
 
-export const WithButtonsAlignedToTheLeft: Story = () => (
+export const WithButtonsAlignedToTheLeft: Story = (args: FormProps) => (
   <Form
-    onSubmit={() => console.log("submit")}
+    {...args}
     leftSideButtons={
       <>
-        <Button onClick={() => console.log("cancel")}>Other</Button>
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+        <Button>Other</Button>
+        <Button>Cancel</Button>
       </>
     }
     saveButton={
@@ -277,8 +267,8 @@ export const WithButtonsAlignedToTheLeft: Story = () => (
     }
     rightSideButtons={
       <>
-        <Button onClick={() => console.log("cancel")}>Reset</Button>
-        <Button onClick={() => console.log("cancel")}>Other</Button>
+        <Button>Reset</Button>
+        <Button>Other</Button>
       </>
     }
     buttonAlignment="left"
@@ -288,16 +278,14 @@ export const WithButtonsAlignedToTheLeft: Story = () => (
 );
 WithButtonsAlignedToTheLeft.storyName = "With Buttons Aligned to the Left";
 
-export const WithBothOptionalOrRequired: Story = () => (
+export const WithBothOptionalOrRequired: Story = (args: FormProps) => (
   <Box m={1}>
     <RequiredFieldsIndicator mb={2}>
       <Typography variant="b">Fill in all fields marked with</Typography>
     </RequiredFieldsIndicator>
     <Form
-      onSubmit={() => console.log("submit")}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
-      }
+      {...args}
+      leftSideButtons={<Button>Cancel</Button>}
       saveButton={
         <Button buttonType="primary" type="submit">
           Save
@@ -348,7 +336,6 @@ export const WithBothOptionalOrRequired: Story = () => (
       </MultiSelect>
       <RadioButtonGroup
         name="radio group optional"
-        onChange={() => console.log("RADIO CHANGE")}
         legend="RadioGroup"
         isOptional
       >
@@ -367,7 +354,6 @@ export const WithBothOptionalOrRequired: Story = () => (
       </RadioButtonGroup>
       <RadioButtonGroup
         name="radio group required"
-        onChange={() => console.log("RADIO CHANGE")}
         legend="RadioGroup"
         required
       >
@@ -384,18 +370,8 @@ export const WithBothOptionalOrRequired: Story = () => (
           labelWidth={10}
         />
       </RadioButtonGroup>
-      <Checkbox
-        name="checkbox"
-        onChange={() => console.log("CHECKBOX OPTIONAL")}
-        label="Checkbox"
-        isOptional
-      />
-      <Checkbox
-        name="checkbox"
-        onChange={() => console.log("CHECKBOX REQUIRED")}
-        label="Checkbox"
-        required
-      />
+      <Checkbox name="checkbox" label="Checkbox" isOptional />
+      <Checkbox name="checkbox" label="Checkbox" required />
     </Form>
   </Box>
 );
@@ -419,11 +395,7 @@ export const InDialog = () => {
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
-          saveButton={
-            <Button buttonType="primary" onClick={() => console.log("save")}>
-              Submit
-            </Button>
-          }
+          saveButton={<Button buttonType="primary">Submit</Button>}
         >
           <Textbox label="Textbox" />
         </Form>
@@ -449,11 +421,7 @@ export const InDialogWithStickyFooter = () => {
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
-          saveButton={
-            <Button buttonType="primary" onClick={() => console.log("save")}>
-              Submit
-            </Button>
-          }
+          saveButton={<Button buttonType="primary">Submit</Button>}
           stickyFooter
         >
           {Array.from({ length: 10 }).map((_, index) => (
@@ -558,11 +526,7 @@ export const InDialogFullScreen = () => {
             leftSideButtons={
               <Button onClick={() => setIsOpen(false)}>Cancel</Button>
             }
-            saveButton={
-              <Button buttonType="primary" onClick={() => console.log("save")}>
-                Submit
-              </Button>
-            }
+            saveButton={<Button buttonType="primary">Submit</Button>}
           >
             <Textbox label="Textbox" />
           </Form>
@@ -589,11 +553,7 @@ export const InDialogFullScreenWithStickyFooter = () => {
           leftSideButtons={
             <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           }
-          saveButton={
-            <Button buttonType="primary" onClick={() => console.log("save")}>
-              Submit
-            </Button>
-          }
+          saveButton={<Button buttonType="primary">Submit</Button>}
           stickyFooter
         >
           {Array.from({ length: 15 }).map((_, index) => (
@@ -635,14 +595,12 @@ InDialogFullScreenWithStickyFooter.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const FormAlignmentExample: Story = () => {
+export const FormAlignmentExample: Story = (args: FormProps) => {
   const [date, setDate] = useState("04/04/2019");
   return (
     <Form
-      onSubmit={() => console.log("submit")}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
-      }
+      {...args}
+      leftSideButtons={<Button>Cancel</Button>}
       saveButton={
         <Button buttonType="primary" type="submit">
           Save
@@ -672,7 +630,6 @@ export const FormAlignmentExample: Story = () => {
       />
       <RadioButtonGroup
         name="legend"
-        onChange={() => console.log("RADIO CHANGE")}
         legend="Legend"
         legendInline
         legendWidth={10}
@@ -702,12 +659,7 @@ export const FormAlignmentExample: Story = () => {
           setDate(ev.target.value.formattedValue)
         }
       />
-      <RadioButtonGroup
-        name="nolegend"
-        onChange={() => console.log("RADIO CHANGE")}
-        legend="Legend above"
-        ml="10%"
-      >
+      <RadioButtonGroup name="nolegend" legend="Legend above" ml="10%">
         <RadioButton
           id="group-2-input-1"
           value="group-2-input-1"
@@ -730,18 +682,8 @@ export const FormAlignmentExample: Story = () => {
         labelWidth={10}
         inputWidth={30}
       />
-      <Checkbox
-        name="checkbox1"
-        onChange={() => console.log("CHECKBOX 1")}
-        label="Checkbox 1"
-        ml="10%"
-      />
-      <Checkbox
-        name="checkbox2"
-        onChange={() => console.log("CHECKBOX 2")}
-        label="Checkbox 2"
-        ml="10%"
-      />
+      <Checkbox name="checkbox1" label="Checkbox 1" ml="10%" />
+      <Checkbox name="checkbox2" label="Checkbox 2" ml="10%" />
       <Box ml="10%" mr="60%">
         <Hr mb={7} />
       </Box>
@@ -761,7 +703,6 @@ export const FormAlignmentExample: Story = () => {
         name="switch"
         label="Switch"
         labelInline
-        onChange={() => console.log("SWITCH")}
         labelWidth={10}
         labelSpacing={2}
         mb={4}
@@ -821,7 +762,7 @@ export const WithLabelsInline: Story = () => (
 );
 WithLabelsInline.storyName = "With Labels Inline";
 
-export const WithCustomFooterPadding: Story = () => {
+export const WithCustomFooterPadding: Story = (args: FormProps) => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -833,10 +774,8 @@ export const WithCustomFooterPadding: Story = () => {
         subtitle="With custom footer padding"
       >
         <Form
-          onSubmit={() => console.log("submit")}
-          leftSideButtons={
-            <Button onClick={() => console.log("cancel")}>Cancel</Button>
-          }
+          {...args}
+          leftSideButtons={<Button>Cancel</Button>}
           saveButton={
             <Button buttonType="primary" type="submit">
               Save
