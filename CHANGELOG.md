@@ -1,3 +1,9 @@
+## [154.4.2](https://github.com/Sage/carbon/compare/v154.4.1...v154.4.2) (2025-05-31)
+
+### Bug Fixes
+
+* **icon-button:** fixes missing focus styling when using icon buttons in Safari ([723a2b0](https://github.com/Sage/carbon/commit/723a2b00433e93893ad9d35f129d4ba5839f8a32))
+
 ## [154.4.1](https://github.com/Sage/carbon/compare/v154.4.0...v154.4.1) (2025-05-29)
 
 ### Bug Fixes
