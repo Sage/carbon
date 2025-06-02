@@ -145,51 +145,30 @@ const getFormatData = (
   dateFormatOverride?: string,
 ): LocaleFormats => {
   const code = locale?.code || "en-GB";
-  if (dateFormatOverride) {
-    const { format } = getOutputFormatForLocale(code);
-    let formatFromLocale;
 
-    switch (code) {
-      case "en-CA":
-      case "en-US":
-        formatFromLocale = "MM/dd/yyyy";
-        break;
-      case "ar-EG":
-      case "en-ZA":
-      case "fr-CA":
-        formatFromLocale = "dd/MM/yyyy";
-        break;
-      default:
-        formatFromLocale = format;
-    }
+  const dateFnsFormatOverrides: Record<
+    string,
+    { format: string; separator?: Separator }
+  > = {
+    "en-CA": { format: "MM/dd/yyyy", separator: "/" },
+    "en-US": { format: "MM/dd/yyyy", separator: "/" },
+    "fr-CA": { format: "dd/MM/yyyy" },
+    "en-ZA": { format: "dd/MM/yyyy" },
+    "ar-EG": { format: "dd/MM/yyyy" },
+  };
 
-    const formatsForLocale = getInputFormatsArrayForLocale(formatFromLocale);
+  const { format: defaultFormat, separator: defaultSeparator } =
+    getOutputFormatForLocale(code);
 
-    return {
-      format: dateFormatOverride,
-      formats: generateFormats(formatsForLocale, "/"),
-    };
-  }
+  const override = dateFnsFormatOverrides[code] || {};
 
-  if (["en-CA", "en-US"].includes(code)) {
-    const format = "MM/dd/yyyy";
-    const formats = getInputFormatsArrayForLocale(format);
-    return {
-      format,
-      formats: generateFormats(formats, "/"),
-    };
-  }
-
-  const { format, separator } = getOutputFormatForLocale(code);
-  const outputFormat = ["fr-CA", "en-ZA", "ar-EG"].includes(code)
-    ? "dd/MM/yyyy"
-    : format;
-  const formatsForLocale = getInputFormatsArrayForLocale(outputFormat);
+  const format = dateFormatOverride ?? override.format ?? defaultFormat;
+  const separator = override.separator ?? defaultSeparator;
 
   return {
-    format: outputFormat,
+    format,
     formats: generateFormats(
-      formatsForLocale,
+      getInputFormatsArrayForLocale(format),
       separator,
       getTrailingChar(format),
     ),
