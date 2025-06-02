@@ -10,9 +10,10 @@ import generateCssVariables from "../generate-css-variables.util";
  *
  */
 
-const CarbonScopedTokensProvider = styled.div.attrs(
-  applyBaseTheme,
-)<ThemeObject>`
+const CarbonScopedTokensProvider = styled.div.attrs({
+  ...applyBaseTheme,
+  "data-component": "carbon-scoped-tokens-provider",
+})<ThemeObject>`
   margin: 0;
   padding: 0;
   width: auto;
