@@ -1,4 +1,4 @@
-import tokens from "@sage/design-tokens/js/base/common";
+import tokens from "@sage/design-tokens-legacy/js/base/common";
 
 export default (color: string): string => {
   if (color.startsWith("var")) {

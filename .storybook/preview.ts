@@ -9,6 +9,7 @@ import withGlobalStyles from "./with-global-styles";
 import withLocaleSelector from "./with-locale-selector";
 import withPortalProvider from "./with-portal-provider";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
+import { globalModeTypes, modeDecorator } from "./with-mode-selector";
 
 // Configure the testIdAttribute to look for data-role when querying elements using `getByTestId`.
 configure({ testIdAttribute: "data-role" });
@@ -63,6 +64,7 @@ const globalTypes = {
     },
   },
   ...globalThemeProvider,
+  ...globalModeTypes,
 };
 
 const decorators = [
@@ -70,6 +72,7 @@ const decorators = [
   withThemeProvider,
   withLocaleSelector,
   withPortalProvider,
+  modeDecorator,
 ];
 
 const loaders =

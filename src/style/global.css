@@ -1,0 +1,62 @@
+/* themes/base/modes/light/all.css */
+:root {
+  --background-light: var(--modes-color-custom-default-alt-light);
+  --foreground-light: var(--modes-color-colorcode-blue-deep-light);
+}
+
+/* themes/base/modes/dark/all.css */
+:root {
+  --background-dark: var(--modes-color-colorcode-blue-muted-dark);
+  --foreground-dark: var(--modes-color-custom-default-alt-dark);
+}
+
+/* themes/high-contrast/modes/light/all.css */
+.theme-high-contrast {
+  --background-light: red;
+  --foreground-light: #000000;
+}
+
+/* themes/high-contrast/modes/dark/all.css */
+.theme-high-contrast {
+  --background-dark: #000000;
+  --foreground-dark: red;
+}
+
+/* themes/high-contrast/modes/light/all.css */
+.small-business-context {
+ --business-context-font-size: 14px;
+}
+
+/* themes/high-contrast/modes/dark/all.css */
+.large-business-context {
+   --business-context-font-size: 20px;
+}
+
+/* global/all.css */
+body { /* Set on body to allow theme overrides to function */
+  --global-background-color: light-dark(var(--background-light), var(--background-dark));
+  --global-foreground-color: light-dark(var(--foreground-light), var(--foreground-dark));
+  --global-container-size: 100%; /* Mobile size */
+  --font-size: calc(var(--business-context-font-size, 12px) - 2px);
+  
+  @media only screen and (min-width: 600px) {
+    --global-container-size: 50%; /* desktop size */
+    --font-size: var(--business-context-font-size, 12px);
+  }
+}
+
+a {
+  background-color: var(--global-background-color) !important;
+  color: var(--global-foreground-color) !important;
+  font-size: var(--font-size) !important;
+}
+
+.mode-dark,
+.dark {
+	color-scheme: only dark;
+}
+
+.mode-light,
+.light {
+	color-scheme: only light;
+}

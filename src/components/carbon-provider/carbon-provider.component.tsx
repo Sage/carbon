@@ -9,6 +9,8 @@ import NewValidationContext, {
   NewValidationContextProps,
 } from "./__internal__/new-validation.context";
 import TopModalProvider from "./__internal__/top-modal-provider.component";
+import "@sage/design-tokens/css/product/all.css";
+import "../../style/global.css";
 
 export interface CarbonProviderProps extends NewValidationContextProps {
   /* Content for the provider to wrap */
@@ -21,6 +23,8 @@ export const CarbonProvider = ({
   children,
   theme = sageTheme,
   validationRedesignOptIn = false,
+  // mode = "light",
+  // contrast = "normal",
 }: CarbonProviderProps) => (
   <ThemeProvider theme={theme}>
     <CarbonScopedTokensProvider>

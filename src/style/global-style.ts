@@ -5,6 +5,10 @@ import {
 } from "../__internal__/focus-trap/focus-trap.component";
 
 const GlobalStyle = createGlobalStyle`
+  :root {
+    --carbon-global-styles-loaded: true;
+  }
+
   body {
     color: rgba(0, 0, 0, 0.9);
     font-family: "Sage UI", sans-serif;
