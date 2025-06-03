@@ -11,7 +11,7 @@ import Icon from ".";
 
 export default {
   title: "Icon/Test",
-  includeStories: ["Default", "All"],
+  component: Icon,
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -19,50 +19,15 @@ export default {
     },
   },
   argTypes: {
-    type: {
-      options: ICONS,
-      control: {
-        type: "select",
-      },
-    },
     tooltipMessage: {
       control: {
         type: "text",
-      },
-    },
-    tooltipPosition: {
-      options: ICON_TOOLTIP_POSITIONS,
-      control: {
-        type: "select",
       },
     },
     tooltipFlipOverrides: {
       options: [undefined, ...ICON_TOOLTIP_POSITIONS],
       control: {
         type: "select",
-      },
-    },
-    fontSize: {
-      options: ICON_FONT_SIZES,
-      control: {
-        type: "select",
-      },
-    },
-    bgSize: {
-      options: ICON_SIZES,
-      control: {
-        type: "select",
-      },
-    },
-    bgShape: {
-      options: ICON_SHAPES,
-      control: {
-        type: "select",
-      },
-    },
-    bg: {
-      control: {
-        type: "text",
       },
     },
   },

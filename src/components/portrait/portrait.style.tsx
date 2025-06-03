@@ -11,7 +11,7 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { PortraitSizes, PortraitShapes } from "./portrait.component";
 import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 
-import getColoursForPortrait from "./__internal__/utils";
+import getColoursForPortrait from "./__internal__/get-colors";
 
 type StyledPortraitProps = {
   backgroundColor?: string;
