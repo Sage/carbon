@@ -293,16 +293,16 @@ testStyledSystemSpacing(
 );
 
 describe("Lists", () => {
-  test("should render List with variant set to 'ol' and listStyleType set to 'decimal'", () => {
+  test("should render List with variant as 'ul' by default and listStyleType set to 'square", () => {
     render(
-      <List as="ol">
+      <List>
         <ListItem>List Item 1</ListItem>
         <ListItem>List Item 2</ListItem>
         <ListItem>List Item 3</ListItem>
       </List>,
     );
 
-    expect(screen.getByRole("list")).toHaveStyle({ listStyleType: "decimal" });
+    expect(screen.getByRole("list")).toHaveStyle({ listStyleType: "square" });
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });
 

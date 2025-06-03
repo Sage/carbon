@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import enGB from "../../locales/en-gb";
 import { StepFlow, StepFlowHandle, StepFlowTitle, Steps } from ".";
@@ -159,23 +159,22 @@ test("when the 'title' prop is passed via the `StepFlowTitle` sub component, the
   expect(screen.getByText("node")).toBeVisible();
 });
 
-test("renders title text when the 'titleVariant' prop is not passed", () => {
+test("renders level one heading when the 'titleVariant' prop is not passed", () => {
   render(
     <StepFlow title="Title" currentStep={5} totalSteps={6} ref={() => {}} />,
   );
 
-  const visibleTitle = screen.getByText("Title");
-
-  expect(visibleTitle).toBeVisible();
-  expect(visibleTitle).toHaveTextContent("Title");
+  const heading = screen.getByRole("heading", { level: 1 });
+  expect(heading).toBeVisible();
+  expect(heading).toHaveTextContent("Title");
 });
 
 it.each([
   [1, "h1"],
   [2, "h2"],
 ] as const)(
-  "renders visible title text when the 'titleVariant' prop is %s",
-  (_, titleVariant) => {
+  "renders level %s heading when the 'titleVariant' prop is %s",
+  (level, titleVariant) => {
     render(
       <StepFlow
         title="foo"
@@ -186,10 +185,9 @@ it.each([
       />,
     );
 
-    const visibleTitle = screen.getByText("foo");
-
-    expect(visibleTitle).toBeVisible();
-    expect(visibleTitle).toHaveTextContent("foo");
+    const heading = screen.getByRole("heading", { level });
+    expect(heading).toBeVisible();
+    expect(heading).toHaveTextContent("foo");
   },
 );
 
@@ -252,7 +250,7 @@ it.each(generateCurrentStepOverTotalStepsVariations())(
   },
 );
 
-test.each(generateLimitedVariations())(
+it.each(generateLimitedVariations())(
   "renders correct visually hidden text when 'totalSteps' prop is %s and 'currentStep' prop is %s",
   (totalSteps, currentStep) => {
     render(
@@ -270,11 +268,12 @@ test.each(generateLimitedVariations())(
       },
     );
 
-    const visuallyHiddenText = screen.getByText(
-      `foo. bar. Step ${currentStep} of ${totalSteps}.`,
-    );
-
-    expect(visuallyHiddenText).toHaveStyle({
+    const title = screen.getByRole("heading", { level: 1 });
+    expect(
+      within(title).getByText(
+        `foo. bar. Step ${currentStep} of ${totalSteps}.`,
+      ),
+    ).toHaveStyle({
       border: "0",
       height: "1px",
       margin: "-1px",
@@ -305,11 +304,10 @@ it.each(generateCurrentStepOverTotalStepsVariations())(
       },
     );
 
-    const visuallyHiddenText = screen.getByText(
-      `foo. bar. Step ${totalSteps} of ${totalSteps}.`,
-    );
-
-    expect(visuallyHiddenText).toHaveStyle({
+    const title = screen.getByRole("heading", { level: 1 });
+    expect(
+      within(title).getByText(`foo. bar. Step ${totalSteps} of ${totalSteps}.`),
+    ).toHaveStyle({
       border: "0",
       height: "1px",
       margin: "-1px",
