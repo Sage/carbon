@@ -253,3 +253,27 @@ test("when both `aria-describedby` and `ariaDescribedBy` are provided, `aria-des
   const input = screen.getByRole("textbox");
   expect(input).toHaveAttribute("aria-describedby", "description");
 });
+
+test("does not call onClick handler when input is disabled and is clicked", async () => {
+  const onClickMock = jest.fn();
+  const user = userEvent.setup();
+
+  render(<Input onClick={onClickMock} disabled />);
+
+  const input = screen.getByRole("textbox");
+  await user.click(input);
+
+  expect(onClickMock).not.toHaveBeenCalled();
+});
+
+test("does not call onClick handler when input is readOnly and is clicked", async () => {
+  const onClickMock = jest.fn();
+  const user = userEvent.setup();
+
+  render(<Input onClick={onClickMock} readOnly />);
+
+  const input = screen.getByRole("textbox");
+  await user.click(input);
+
+  expect(onClickMock).not.toHaveBeenCalled();
+});
