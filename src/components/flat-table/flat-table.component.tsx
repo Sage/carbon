@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState, useContext } from "react";
 import { MarginProps } from "styled-system";
-import * as DesignTokens from "@sage/design-tokens-legacy/js/base/common";
+import * as DesignTokens from "@sage/design-tokens/js/base/common";
 
 import {
   StyledFlatTableWrapper,

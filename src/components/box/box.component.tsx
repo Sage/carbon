@@ -6,7 +6,7 @@ import {
   PositionProps,
   GridProps,
 } from "styled-system";
-import * as DesignTokens from "@sage/design-tokens-legacy/js/base/common";
+import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { Gap } from "style/utils/box-gap";
 import {
   filterStyledSystemMarginProps,

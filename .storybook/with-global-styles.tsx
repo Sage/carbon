@@ -4,13 +4,13 @@ import GlobalStyle from "../src/style/global-style";
 
 const withGlobalStyles: Decorator = (Story) => {
   // Check if CSS custom property exists
-  const hasGlobalStyles = getComputedStyle(
-    document.documentElement,
-  ).getPropertyValue("--carbon-global-styles-loaded");
+  // const hasGlobalStyles = getComputedStyle(
+  //   document.documentElement,
+  // ).getPropertyValue("--carbon-global-styles-loaded");
 
-  if (hasGlobalStyles) {
-    return <Story />;
-  }
+  // if (hasGlobalStyles) {
+  //   return <Story />;
+  // }
 
   return (
     <>

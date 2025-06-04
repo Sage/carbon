@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MarginProps } from "styled-system";
-import * as DesignTokens from "@sage/design-tokens-legacy/js/base/common";
+import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { CardProvider, CardContextProps } from "./__internal__/card.context";
 import { StyledCard, StyledCardContent } from "./card.style";

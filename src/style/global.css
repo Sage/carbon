@@ -23,13 +23,13 @@
 }
 
 /* themes/high-contrast/modes/light/all.css */
-.small-business-context {
- --business-context-font-size: 14px;
+.product-small {
+ --product-font-size: 14px;
 }
 
 /* themes/high-contrast/modes/dark/all.css */
-.large-business-context {
-   --business-context-font-size: 20px;
+.product-large {
+   --product-font-size: 20px;
 }
 
 /* global/all.css */
@@ -37,11 +37,11 @@ body { /* Set on body to allow theme overrides to function */
   --global-background-color: light-dark(var(--background-light), var(--background-dark));
   --global-foreground-color: light-dark(var(--foreground-light), var(--foreground-dark));
   --global-container-size: 100%; /* Mobile size */
-  --font-size: calc(var(--business-context-font-size, 12px) - 2px);
+  --font-size: calc(var(--product-font-size, 12px) - 2px);
   
   @media only screen and (min-width: 600px) {
     --global-container-size: 50%; /* desktop size */
-    --font-size: var(--business-context-font-size, 12px);
+    --font-size: var(--product-font-size, 12px);
   }
 }
 

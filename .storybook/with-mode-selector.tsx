@@ -1,7 +1,7 @@
 import React from "react";
 
 type Modes = "dark" | "light" | "system";
-type BusinessContexts = "small" | "large";
+type ProductContexts = "small" | "large";
 
 function setMode(mode: Modes) {
   document.body.classList.remove("mode-dark");
@@ -16,15 +16,15 @@ function setMode(mode: Modes) {
   }
 }
 
-function setContext(businessContext: BusinessContexts) {
-  document.body.classList.remove("small-business-context");
-  document.body.classList.remove("large-business-context");
+function setProductContext(product: ProductContexts) {
+  document.body.classList.remove("product-small");
+  document.body.classList.remove("product-large");
 
-  if (businessContext === "small") {
-    document.body.classList.add("small-business-context");
+  if (product === "small") {
+    document.body.classList.add("product-small");
   }
-  if (businessContext === "large") {
-    document.body.classList.add("large-business-context");
+  if (product === "large") {
+    document.body.classList.add("product-large");
   }
 }
 
@@ -43,15 +43,15 @@ export const globalModeTypes = {
       dynamicTitle: true,
     },
   },
-  businessContext: {
-    name: "Business context",
-    description: "Set the business context",
+  product: {
+    name: "Product",
+    description: "Set the product context",
     defaultValue: "small",
     toolbar: {
       icon: "wrench",
       items: [
-        { value: "small", title: "Small business context" },
-        { value: "large", title: "Large business context" },
+        { value: "small", title: "Small product" },
+        { value: "large", title: "Large product" },
       ],
       showName: true,
       dynamicTitle: true,
@@ -61,7 +61,7 @@ export const globalModeTypes = {
 
 interface StoryContextGlobals {
   mode?: Modes;
-  businessContext?: BusinessContexts;
+  product?: ProductContexts;
 }
 
 interface StoryContext {
@@ -71,21 +71,21 @@ interface StoryContext {
 type StoryFn = () => React.ReactNode;
 
 let lastMode: Modes | undefined;
-let lastContext: BusinessContexts | undefined;
+let lastContext: ProductContexts | undefined;
 
 export const modeDecorator = (Story: StoryFn, context: StoryContext) => {
-  const { mode = "light", businessContext = "small" } = context.globals;
+  // const { mode = "light", product = "small" } = context.globals;
 
   // Only apply changes if values actually changed
-  if (lastMode !== mode) {
-    setMode(mode);
-    lastMode = mode;
-  }
+  // if (lastMode !== mode) {
+  //   setMode(mode);
+  //   lastMode = mode;
+  // }
 
-  if (lastContext !== businessContext) {
-    setContext(businessContext);
-    lastContext = businessContext;
-  }
+  // if (lastContext !== product) {
+  //   setProductContext(product);
+  //   lastContext = product;
+  // }
 
   return <Story />;
 };
