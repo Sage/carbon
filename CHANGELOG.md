@@ -1,3 +1,9 @@
+## [154.4.3](https://github.com/Sage/carbon/compare/v154.4.2...v154.4.3) (2025-06-04)
+
+### Bug Fixes
+
+* **input:** nvda announces click when input disabled ([f593af4](https://github.com/Sage/carbon/commit/f593af43dd38e0d3172e991f5d8b70cb34b019df)), closes [#6671](https://github.com/Sage/carbon/issues/6671)
+
 ## [154.4.2](https://github.com/Sage/carbon/compare/v154.4.1...v154.4.2) (2025-05-31)
 
 ### Bug Fixes
