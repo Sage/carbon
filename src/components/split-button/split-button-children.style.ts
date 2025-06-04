@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import BaseTheme, { ThemeObject } from "../../style/themes/base";
+import BaseTheme from "../../style/themes/base";
+import type { ThemeObject } from "../../style/themes/theme.types";
 import StyledButton from "../button/button.style";
 
 export const borderRadiusStyling = `

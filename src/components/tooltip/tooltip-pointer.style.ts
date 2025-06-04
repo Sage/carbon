@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
-import baseTheme, { ThemeObject } from "../../style/themes/base";
+import baseTheme from "../../style/themes/base";
+import type { ThemeObject } from "../../style/themes/theme.types";
 import { toColor } from "../../style/utils/color";
 import { TooltipProps } from "./tooltip.component";
 

@@ -1,4 +1,4 @@
-import { ThemeObject } from "../base";
+import type { ThemeObject } from "../theme.types";
 
 export default (): Partial<ThemeObject> => {
   return {

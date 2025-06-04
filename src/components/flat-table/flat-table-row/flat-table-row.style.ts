@@ -6,7 +6,7 @@ import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 import StyledIcon from "../../icon/icon.style";
 import { toColor } from "../../../style/utils/color";
-import { ThemeObject } from "../../../style/themes/base";
+import type { ThemeObject } from "../../../style/themes/theme.types";
 import { FlatTableProps } from "..";
 import { FlatTableRowProps } from "./flat-table-row.component";
 import addFocusStyling from "../../../style/utils/add-focus-styling";

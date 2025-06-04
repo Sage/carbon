@@ -3,8 +3,8 @@ import { shade, meetsContrastGuidelines } from "polished";
 import { margin, MarginProps } from "styled-system";
 
 import styleConfig from "./pill.style.config";
-import { baseTheme } from "../../style/themes";
-import { ThemeObject } from "../../style/themes/base/base-theme.config";
+import baseTheme from "../../style/themes/base";
+import type { ThemeObject } from "../../style/themes/theme.types";
 import StyledIcon from "../icon/icon.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { toColor } from "../../style/utils/color";
