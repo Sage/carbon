@@ -6,6 +6,9 @@ import {
   TileSelectProps,
   TileSelectGroupProps,
 } from ".";
+
+import flexibleSvg from "../../../.assets/flexible.svg";
+
 import Pill from "../pill";
 import Button from "../button";
 import Box from "../box";
@@ -399,8 +402,7 @@ export const WithAccordionFooter = () => {
         <Image
           height="40px"
           width="40px"
-          // eslint-disable-next-line global-require
-          backgroundImage={`url(${require("../../../.assets/flexible.svg")})`}
+          backgroundImage={`url("${flexibleSvg}")`}
         />
       }
       accordionContent={

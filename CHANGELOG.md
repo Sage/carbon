@@ -1,3 +1,27 @@
+## [154.5.0](https://github.com/Sage/carbon/compare/v154.4.3...v154.5.0) (2025-06-05)
+
+### Features
+
+* **action-popover-menu:** remove horizontalAlignment prop ([cdb840b](https://github.com/Sage/carbon/commit/cdb840b5e2a6e8546bf70c965223cadd95089506))
+
+## [154.4.3](https://github.com/Sage/carbon/compare/v154.4.2...v154.4.3) (2025-06-04)
+
+### Bug Fixes
+
+* **input:** nvda announces click when input disabled ([f593af4](https://github.com/Sage/carbon/commit/f593af43dd38e0d3172e991f5d8b70cb34b019df)), closes [#6671](https://github.com/Sage/carbon/issues/6671)
+
+## [154.4.2](https://github.com/Sage/carbon/compare/v154.4.1...v154.4.2) (2025-05-31)
+
+### Bug Fixes
+
+* **icon-button:** fixes missing focus styling when using icon buttons in Safari ([723a2b0](https://github.com/Sage/carbon/commit/723a2b00433e93893ad9d35f129d4ba5839f8a32))
+
+## [154.4.1](https://github.com/Sage/carbon/compare/v154.4.0...v154.4.1) (2025-05-29)
+
+### Bug Fixes
+
+* **text-editor:** allow custom plugins to be passed to the text editor ([9bd9361](https://github.com/Sage/carbon/commit/9bd9361c1aecce99aed05faf388f663efe548cb6)), closes [#7261](https://github.com/Sage/carbon/issues/7261)
+
 ## [154.4.0](https://github.com/Sage/carbon/compare/v154.3.2...v154.4.0) (2025-05-21)
 
 ### Features

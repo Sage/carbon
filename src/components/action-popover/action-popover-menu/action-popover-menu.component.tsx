@@ -16,7 +16,7 @@ import {
   findLastFocusableItem,
   getItems,
   isItemDisabled,
-} from "../__internal__/action-popover-utils";
+} from "../__internal__/action-popover.utils";
 
 export interface ActionPopoverMenuBaseProps {
   /** Children for the menu */
@@ -41,14 +41,10 @@ export interface ActionPopoverMenuBaseProps {
   setOpen?: (args: boolean) => void;
   /** Unique ID for the menu's parent */
   parentID?: string;
-  /** Horizontal alignment of menu items content */
-  horizontalAlignment?: Alignment;
   /** Set whether the menu should open above or below the button */
   placement?: "bottom" | "top";
   /** @ignore @private */
   role?: string;
-  /** @ignore @private */
-  isASubmenu?: boolean;
   /** @ignore @private */
   "data-element"?: string;
   /** @ignore @private */
@@ -78,13 +74,12 @@ const ActionPopoverMenu = React.forwardRef<
       setOpen,
       setFocusIndex,
       placement = "bottom",
-      horizontalAlignment,
-      isASubmenu,
       ...rest
     }: ActionPopoverMenuBaseProps,
     ref,
   ) => {
-    const { focusButton, submenuPosition } = useActionPopoverContext();
+    const { focusButton, submenuPosition, horizontalAlignment } =
+      useActionPopoverContext();
 
     invariant(
       setOpen && setFocusIndex && typeof focusIndex !== "undefined",
@@ -208,8 +203,6 @@ const ActionPopoverMenu = React.forwardRef<
       ],
     );
 
-    const [childHasSubmenu, setChildHasSubmenu] = useState(false);
-    const [childHasIcon, setChildHasIcon] = useState(false);
     const [currentSubmenuPosition, setCurrentSubmenuPosition] =
       useState<Alignment>(submenuPosition);
 
@@ -222,42 +215,28 @@ const ActionPopoverMenu = React.forwardRef<
             child as React.ReactElement<ActionPopoverItemProps>,
             {
               focusItem: isOpen && focusIndex === index - 1,
-              placement: child.props.submenu ? placement : undefined,
-              horizontalAlignment,
-              childHasSubmenu,
-              setChildHasSubmenu,
-              childHasIcon,
-              setChildHasIcon,
               currentSubmenuPosition,
               setCurrentSubmenuPosition,
-              isASubmenu,
             },
           );
         }
 
         return child;
       });
-    }, [
-      children,
-      focusIndex,
-      isOpen,
-      placement,
-      horizontalAlignment,
-      childHasSubmenu,
-      childHasIcon,
-      currentSubmenuPosition,
-      isASubmenu,
-    ]);
+    }, [children, focusIndex, isOpen, currentSubmenuPosition]);
 
     return (
       <Menu
         data-component="action-popover"
-        isOpen={isOpen}
+        data-submenu-placement={placement}
+        isOpen={!!isOpen}
         onKeyDown={onKeyDown}
         id={menuID}
         aria-labelledby={parentID}
         ref={ref}
         role="list"
+        submenuLeft={currentSubmenuPosition === "left"}
+        iconLeft={horizontalAlignment === "left"}
         {...rest}
       >
         {clonedChildren}

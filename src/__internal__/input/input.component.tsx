@@ -251,7 +251,7 @@ const Input = React.forwardRef<
         data-element="input"
         onFocus={handleFocus}
         onBlur={handleBlur}
-        onClick={handleClick}
+        onClick={disabled || readOnly ? undefined : handleClick}
         onChange={handleChange}
         inputBorderRadius={inputBorderRadius}
       />
