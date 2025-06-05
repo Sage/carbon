@@ -7,11 +7,11 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 
-import StyledLinkStyles, { StyledLinkProps, StyledContent } from "./link.style";
+import type { StyledLinkProps, Variants } from "./link.style.types";
+import StyledLinkStyles, { StyledContent } from "./link.style";
 import BaseLink from "./__internal__/base-link.component";
 
 import type { IconType } from "../icon";
-import type { Variants } from "./link.style.types";
 
 export interface LinkProps
   extends React.AriaAttributes,
@@ -35,12 +35,12 @@ export interface LinkProps
   rel?: string;
   /** Accessible label for screen readers, applied via `aria-label`. */
   ariaLabel?: string;
-  /** Called when the link is clicked (mouse or keyboard). */
-  onClick?: React.MouseEventHandler | React.KeyboardEventHandler;
+  /** Called when the link is clicked (mouse only). */
+  onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   /** Called when a key is pressed while the link is focused. */
-  onKeyDown?: React.KeyboardEventHandler;
+  onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   /** Called when the mouse is pressed down on the link. */
-  onMouseDown?: React.MouseEventHandler;
+  onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   /** Prevents `ariaLabel` from being applied to the icon when true. */
   removeAriaLabelOnIcon?: boolean;
   /** Allows the link to function as a skip link for accessibility. */
@@ -93,8 +93,8 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       }
     }, [isDisabled, href, onClick]);
 
-    const renderIcon = (align: "left" | "right") => {
-      return icon && iconAlign === align ? (
+    const renderIcon = (align: "left" | "right") =>
+      icon && iconAlign === align ? (
         <Icon
           type={icon as IconType}
           disabled={isDisabled}
@@ -104,7 +104,6 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
           data-testid="icon"
         />
       ) : null;
-    };
 
     const styles = StyledLinkStyles({
       variant,
@@ -117,13 +116,15 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       isDarkBackground,
     });
 
+    const fallbackLabel = ariaLabel || "Back";
+
     return (
       <BaseLink
         ref={ref}
         href={href}
         rel={rel}
         target={target}
-        aria-label={ariaLabel}
+        aria-label={children ? undefined : fallbackLabel}
         className={className}
         onClick={onClick}
         onKeyDown={onKeyDown}
@@ -137,7 +138,9 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       >
         {renderIcon("left")}
         <StyledContent data-testid="link-content">
-          {isSkipLink ? locale.link.skipLinkLabel() : children}
+          {isSkipLink
+            ? locale.link.skipLinkLabel()
+            : (children ?? fallbackLabel)}
         </StyledContent>
         {renderIcon("right")}
       </BaseLink>
