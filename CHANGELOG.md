@@ -1,3 +1,9 @@
+## [154.5.0](https://github.com/Sage/carbon/compare/v154.4.3...v154.5.0) (2025-06-05)
+
+### Features
+
+* **action-popover-menu:** remove horizontalAlignment prop ([cdb840b](https://github.com/Sage/carbon/commit/cdb840b5e2a6e8546bf70c965223cadd95089506))
+
 ## [154.4.3](https://github.com/Sage/carbon/compare/v154.4.2...v154.4.3) (2025-06-04)
 
 ### Bug Fixes
