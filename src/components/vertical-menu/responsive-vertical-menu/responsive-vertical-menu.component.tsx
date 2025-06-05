@@ -16,8 +16,8 @@ import {
 } from "./responsive-vertical-menu.style";
 
 import Box from "../../box";
-
 import Modal from "../../modal";
+
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
@@ -32,6 +32,8 @@ export interface ResponsiveVerticalMenuProps extends TagProps {
   children?: ReactNode;
   /** The height of the primary and secondary menus */
   height?: string;
+  /** The label to be read out by screen readers when the launcher button has focus */
+  launcherButtonAriaLabel?: string;
   /** The value (in pixels) at which the ResponsiveVerticalMenu will become responsive/modal */
   responsiveBreakpoint?: number;
   /** The width of the primary and secondary menus when in default mode */
@@ -41,6 +43,7 @@ export interface ResponsiveVerticalMenuProps extends TagProps {
 const BaseMenu = ({
   children,
   height,
+  launcherButtonAriaLabel = "Main menu",
   responsiveBreakpoint = 700,
   width,
   ...rest
@@ -164,6 +167,9 @@ const BaseMenu = ({
     <div ref={containerRef}>
       <StyledButton
         active={active}
+        aria-controls="responsive-vertical-menu-primary"
+        aria-expanded={active}
+        aria-label={launcherButtonAriaLabel}
         buttonType="tertiary"
         data-component="responsive-vertical-menu-launcher"
         data-role="responsive-vertical-menu-launcher"
