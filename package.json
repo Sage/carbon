@@ -186,7 +186,7 @@
     "url-loader": "^4.1.1",
     "uuid": "^8.3.2",
     "vite": "^6.3.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^5.2.1"
   },
   "dependencies": {
     "@floating-ui/dom": "~1.2.9",
