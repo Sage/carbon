@@ -16,8 +16,8 @@ import {
 } from "./responsive-vertical-menu.style";
 
 import Box from "../../box";
-
 import Modal from "../../modal";
+
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
@@ -26,6 +26,7 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags";
 import { DepthProvider } from "./__internal__/depth.context";
 import { MenuFocusProvider } from "./__internal__/focus.context";
+import useLocale from "../../../hooks/__internal__/useLocale";
 
 export interface ResponsiveVerticalMenuProps extends TagProps {
   /** The content of the menu */
@@ -45,6 +46,7 @@ const BaseMenu = ({
   width,
   ...rest
 }: ResponsiveVerticalMenuProps) => {
+  const locale = useLocale();
   const {
     activeMenuItem,
     buttonRef,
@@ -164,6 +166,9 @@ const BaseMenu = ({
     <div ref={containerRef}>
       <StyledButton
         active={active}
+        aria-controls="responsive-vertical-menu-primary"
+        aria-expanded={active}
+        aria-label={locale.verticalMenu.ariaLabels?.responsiveMenuLauncher()}
         buttonType="tertiary"
         data-component="responsive-vertical-menu-launcher"
         data-role="responsive-vertical-menu-launcher"
@@ -183,7 +188,7 @@ const BaseMenu = ({
               p={1}
             >
               <StyledCloseButton
-                aria-label="close-menu"
+                aria-label={locale.verticalMenu.ariaLabels?.responsiveMenuCloseButton()}
                 data-component="responsive-vertical-menu-close"
                 data-role="responsive-vertical-menu-close"
                 iconType="close"

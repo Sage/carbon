@@ -211,6 +211,12 @@ interface Locale {
     neutral: () => string;
     notification: () => string;
   };
+  verticalMenu: {
+    ariaLabels: {
+      responsiveMenuLauncher: () => string;
+      responsiveMenuCloseButton: () => string;
+    };
+  };
   verticalMenuFullScreen: {
     ariaLabels: {
       close: () => string;
