@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import BaseTheme from "../../../../style/themes/base";
+import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 
 import { TabHeaderProps } from "./tabs-header.component";
 
@@ -43,7 +43,9 @@ export type StyledTabsHeaderListProps = Pick<
   "align" | "extendedLine" | "noRightBorder" | "isInSidebar" | "position"
 >;
 
-const StyledTabsHeaderList = styled.div<StyledTabsHeaderListProps>`
+const StyledTabsHeaderList = styled.div.attrs(
+  applyBaseTheme,
+)<StyledTabsHeaderListProps>`
   display: flex;
   ${({ extendedLine = true }) =>
     !extendedLine &&
@@ -80,10 +82,6 @@ const StyledTabsHeaderList = styled.div<StyledTabsHeaderListProps>`
       `}
     `}
 `;
-
-StyledTabsHeaderList.defaultProps = {
-  theme: BaseTheme,
-};
 
 type StyledVerticalTabsWrapperProps = Pick<TabHeaderProps, "isInSidebar">;
 

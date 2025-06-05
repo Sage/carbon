@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import StyledPill from "../../pill/pill.style";
-import { baseTheme } from "../../../style/themes";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledSelect from "../select.style";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import StyledInput from "../../../__internal__/input/input.style";
 import sizes from "../../../__internal__/input/input-sizes.style";
 
-const StyledSelectPillContainer = styled.div`
+const StyledSelectPillContainer = styled.div.attrs(applyBaseTheme)`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,10 +41,6 @@ const StyledSelectMultiSelect = styled(StyledSelect)`
 const StyledAccessibilityLabelContainer = styled.div`
   display: none;
 `;
-
-StyledSelectPillContainer.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledSelectPillContainer,

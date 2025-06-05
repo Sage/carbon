@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import baseTheme from "../../../../style/themes/base";
+import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 import addFocusStyling from "../../../../style/utils/add-focus-styling";
 
 const officialReactDayPickerStyling = () => css`
@@ -301,7 +301,7 @@ const officialReactDayPickerStyling = () => css`
   }
 `;
 
-const StyledDayPicker = styled.div`
+const StyledDayPicker = styled.div.attrs(applyBaseTheme)`
   ${officialReactDayPickerStyling}
 
   .rdp-root {
@@ -459,9 +459,5 @@ const StyledDayPicker = styled.div`
     }
   }
 `;
-
-StyledDayPicker.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledDayPicker;

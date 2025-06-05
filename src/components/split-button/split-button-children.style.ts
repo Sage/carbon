@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import BaseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import type { ThemeObject } from "../../style/themes/theme.types";
 import StyledButton from "../button/button.style";
 
@@ -35,7 +35,9 @@ type StyledSplitButtonChildrenContainerProps = {
   minWidth: number;
 };
 
-const StyledSplitButtonChildrenContainer = styled.ul<StyledSplitButtonChildrenContainerProps>`
+const StyledSplitButtonChildrenContainer = styled.ul.attrs(
+  applyBaseTheme,
+)<StyledSplitButtonChildrenContainerProps>`
   border-radius: var(--borderRadius100);
   ${({ theme, align, minWidth }) => css`
     background-color: var(--colorsActionMajorYang100);
@@ -64,9 +66,5 @@ const StyledSplitButtonChildrenContainer = styled.ul<StyledSplitButtonChildrenCo
     }
   `}
 `;
-
-StyledSplitButtonChildrenContainer.defaultProps = {
-  theme: BaseTheme,
-};
 
 export default StyledSplitButtonChildrenContainer;

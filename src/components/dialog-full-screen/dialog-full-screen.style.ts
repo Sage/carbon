@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledContent from "./content.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import StyledFullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
@@ -9,7 +9,9 @@ import {
   StyledHeading,
 } from "../heading/heading.style";
 
-const StyledDialogFullScreen = styled.div<{ pagesStyling?: boolean }>`
+const StyledDialogFullScreen = styled.div.attrs(applyBaseTheme)<{
+  pagesStyling?: boolean;
+}>`
   :focus {
     outline: none;
   }
@@ -73,9 +75,5 @@ const StyledDialogFullScreen = styled.div<{ pagesStyling?: boolean }>`
       }
     `}
 `;
-
-StyledDialogFullScreen.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledDialogFullScreen;

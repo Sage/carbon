@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import Icon from "../icon";
 
 const iconSize = "16px";
 
-const StyledDetail = styled.div`
+const StyledDetail = styled.div.attrs(applyBaseTheme)`
   position: relative;
   ${margin};
 
@@ -58,10 +58,6 @@ const StyledDetailFootnote = styled.div<{ hasIcon: boolean }>`
     `}
   `}
 `;
-
-StyledDetail.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledDetail,

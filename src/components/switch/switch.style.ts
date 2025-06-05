@@ -8,7 +8,7 @@ import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import type { ThemeObject } from "../../style/themes/theme.types";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
@@ -52,7 +52,7 @@ export const ErrorBorder = styled.span`
   }}
 `;
 
-const StyledSwitch = styled.div`
+const StyledSwitch = styled.div.attrs(applyBaseTheme)`
   ${({ fieldHelpInline, labelInline, reverse, size }: StyledSwitchProps) => css`
     margin-bottom: var(--fieldSpacing);
     ${margin}
@@ -223,9 +223,5 @@ const StyledSwitch = styled.div`
     `}
   `}
 `;
-
-StyledSwitch.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledSwitch;

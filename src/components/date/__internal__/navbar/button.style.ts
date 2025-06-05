@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import addFocusStyling from "../../../../style/utils/add-focus-styling";
-import { baseTheme } from "../../../../style/themes";
+import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 
-const StyledButton = styled.button.attrs({ type: "button" })`
+const StyledButton = styled.button
+  .attrs(applyBaseTheme)
+  .attrs({ type: "button" })`
   justify-content: center;
   align-items: center;
   display: flex;
@@ -20,9 +22,5 @@ const StyledButton = styled.button.attrs({ type: "button" })`
     ${addFocusStyling()}
   }
 `;
-
-StyledButton.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledButton;

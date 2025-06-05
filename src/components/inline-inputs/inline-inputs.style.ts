@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import InputPresentation from "../../__internal__/input/input-presentation.style";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { InlineInputsProps } from "./inline-inputs.component";
 
 type GutterOptions =
@@ -90,7 +90,7 @@ const StyledContentContainer = styled.div<InlineInputsProps>`
     `}
 `;
 
-const StyledInlineInputs = styled.div<InlineInputsProps>`
+const StyledInlineInputs = styled.div.attrs(applyBaseTheme)<InlineInputsProps>`
   margin-bottom: var(--fieldSpacing);
   ${margin}
 
@@ -112,10 +112,6 @@ const StyledInlineInputs = styled.div<InlineInputsProps>`
     width: 30px;
   }
 `;
-
-StyledInlineInputs.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledContentContainer, StyledInlineInput };
 export default StyledInlineInputs;

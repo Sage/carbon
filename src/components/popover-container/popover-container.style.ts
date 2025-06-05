@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { padding } from "styled-system";
 import { TransitionStatus } from "react-transition-group";
 
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
 import {
@@ -39,7 +39,9 @@ type PopoverContainerContentStyleProps = {
   zIndex?: number;
 };
 
-const PopoverContainerContentStyle = styled.div<PopoverContainerContentStyleProps>`
+const PopoverContainerContentStyle = styled.div.attrs(
+  applyBaseTheme,
+)<PopoverContainerContentStyleProps>`
   ${padding}
 
   background: var(--colorsUtilityYang100);
@@ -132,10 +134,6 @@ const PopoverContainerTitleStyle = styled.div`
   font-size: 16px;
   font-weight: 500;
 `;
-
-PopoverContainerContentStyle.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   PopoverContainerWrapperStyle,

@@ -1,9 +1,9 @@
 import styled, { css, keyframes } from "styled-components";
 import { margin } from "styled-system";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { Shapes } from "./preview.component";
 
-const StyledPreview = styled.div`
+const StyledPreview = styled.div.attrs(applyBaseTheme)`
   ${margin}
 `;
 
@@ -95,9 +95,5 @@ const StyledPreviewPlaceholder = styled.span<StyledPreviewPlaceholderProps>`
     `;
   }}
 `;
-
-StyledPreview.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledPreview, StyledPreviewPlaceholder };

@@ -4,7 +4,7 @@ import { margin } from "styled-system";
 import InputPresentationStyle from "../../__internal__/input/input-presentation.style";
 import StyledInput from "../../__internal__/input/input.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { SimpleSelectProps } from "./simple-select";
 
 export interface StyledSelectProps
@@ -14,7 +14,9 @@ export interface StyledSelectProps
   size?: string;
 }
 
-const StyledSelect = styled.div<StyledSelectProps>`
+const StyledSelect = styled.div
+  .attrs(applyBaseTheme)
+  .attrs({ size: "medium" })<StyledSelectProps>`
   ${({ hasTextCursor, disabled, readOnly, theme, transparent, isOpen }) => css`
     margin-bottom: var(--fieldSpacing);
     ${margin}
@@ -86,10 +88,5 @@ const StyledSelect = styled.div<StyledSelectProps>`
     `}
   `}
 `;
-
-StyledSelect.defaultProps = {
-  size: "medium",
-  theme: baseTheme,
-};
 
 export default StyledSelect;

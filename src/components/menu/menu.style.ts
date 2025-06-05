@@ -13,7 +13,7 @@ import {
   StyledDivider,
 } from "../vertical-divider/vertical-divider.style";
 import { StyledLink } from "../link/link.style";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 import type { MenuProps } from "./menu.types";
 
@@ -62,7 +62,7 @@ interface StyledMenuItemProps
   inSubmenu?: boolean;
 }
 
-const StyledMenuItem = styled.li<StyledMenuItemProps>`
+const StyledMenuItem = styled.li.attrs(applyBaseTheme)<StyledMenuItemProps>`
   display: flex;
   list-style: none;
   ${({ maxWidth }) =>
@@ -110,9 +110,5 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
       }
     `}
 `;
-
-StyledMenuItem.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledMenuWrapper, StyledMenuItem };

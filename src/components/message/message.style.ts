@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
-import BaseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { MessageVariant, TypeIconProps } from "./message.component";
 
 const messageVariants = {
@@ -18,7 +18,9 @@ type MessageStyleProps = {
   width?: string;
 };
 
-const MessageStyle = styled.div<MessageStyleProps & MarginProps>`
+const MessageStyle = styled.div.attrs(applyBaseTheme)<
+  MessageStyleProps & MarginProps
+>`
   position: relative;
   display: flex;
   border-radius: var(--borderRadius100);
@@ -75,10 +77,6 @@ const TypeIconStyle = styled.div<TypeIconProps>`
       }
     `}
 `;
-
-MessageStyle.defaultProps = {
-  theme: BaseTheme,
-};
 
 export default MessageStyle;
 export { MessageContent, TypeIconStyle };

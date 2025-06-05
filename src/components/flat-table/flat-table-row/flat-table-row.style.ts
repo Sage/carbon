@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../../style/themes";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
@@ -128,7 +128,9 @@ interface StyledFlatTableRowProps
   rowHeight?: number;
 }
 
-const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
+const StyledFlatTableRow = styled.tr.attrs(
+  applyBaseTheme,
+)<StyledFlatTableRowProps>`
   ${({
     bgColor,
     horizontalBorderColor,
@@ -464,9 +466,5 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
     `;
   }}
 `;
-
-StyledFlatTableRow.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledFlatTableRow;

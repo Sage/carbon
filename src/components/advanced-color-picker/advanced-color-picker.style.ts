@@ -7,11 +7,11 @@ import { StyledDialogContent } from "../dialog/dialog.style";
 import Dialog from "../dialog/dialog.component";
 import StyledIconButton from "../icon-button/icon-button.style";
 import checkerBoardSvg from "../simple-color-picker/simple-color/checker-board.svg";
-import baseTheme from "../../style/themes/base";
 import visuallyHiddenStyles from "../../style/utils/visually-hidden";
 import { Dl } from "../definition-list";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-const StyledAdvancedColorPickerWrapper = styled.div`
+const StyledAdvancedColorPickerWrapper = styled.div.attrs(applyBaseTheme)`
   ${margin}
   display: inline-block;
 `;
@@ -20,10 +20,6 @@ const StyledAdvancedColorPickerWrapper = styled.div`
 const HiddenCurrentColorList = styled(Dl)`
   ${visuallyHiddenStyles}
 `;
-
-StyledAdvancedColorPickerWrapper.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledAdvancedColorPickerPreview = styled.div`
   width: 25px;

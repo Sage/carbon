@@ -4,9 +4,9 @@ import {
   StyledPreviewPlaceholder,
 } from "../preview/preview.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
+const StyledLinkPreview = styled.a.attrs(applyBaseTheme)<{ as?: "a" | "div" }>`
   display: flex;
   margin: 8px;
   text-decoration: none;
@@ -31,8 +31,6 @@ const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
     `}
   `}
 `;
-
-StyledLinkPreview.defaultProps = { theme: baseTheme };
 
 const StyledCloseIconWrapper = styled.div`
   padding: 16px;

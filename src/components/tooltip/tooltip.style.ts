@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import type { ThemeObject } from "../../style/themes/theme.types";
 import { toColor } from "../../style/utils/color";
 import { TooltipProps } from "./tooltip.component";
@@ -22,7 +22,7 @@ const tooltipColor = (theme: ThemeObject, bgColor?: string, type?: string) => {
     : "var(--colorsSemanticNeutral500)";
 };
 
-const StyledTooltip = styled.div<
+const StyledTooltip = styled.div.attrs(applyBaseTheme)<
   Pick<TooltipProps, "size" | "type" | "bgColor" | "fontColor">
 >`
   ${({ size, theme, type, bgColor, fontColor }) => css`
@@ -49,9 +49,5 @@ const StyledTooltip = styled.div<
     background-color: ${tooltipColor(theme, bgColor, type)};
   `}
 `;
-
-StyledTooltip.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledTooltip;

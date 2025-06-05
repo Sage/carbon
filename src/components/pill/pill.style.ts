@@ -3,7 +3,7 @@ import { shade, meetsContrastGuidelines } from "polished";
 import { margin, MarginProps } from "styled-system";
 
 import styleConfig from "./pill.style.config";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import type { ThemeObject } from "../../style/themes/theme.types";
 import StyledIcon from "../icon/icon.style";
 import StyledIconButton from "../icon-button/icon-button.style";
@@ -37,7 +37,7 @@ interface AllStyledPillProps extends StyledPillProps {
   pillRole: "tag" | "status";
 }
 
-const StyledPill = styled.span<AllStyledPillProps>`
+const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
   ${margin}
   ${({
     wrapText,
@@ -258,11 +258,5 @@ const StyledPill = styled.span<AllStyledPillProps>`
     `;
   }}
 `;
-
-StyledPill.defaultProps = {
-  inFill: false,
-  isDeletable: false,
-  theme: baseTheme,
-};
 
 export default StyledPill;
