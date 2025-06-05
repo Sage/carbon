@@ -11,12 +11,9 @@ export interface StyledSelectProps
   extends Pick<SimpleSelectProps, "disabled" | "readOnly" | "transparent"> {
   hasTextCursor?: boolean;
   isOpen: boolean;
-  size?: string;
 }
 
-const StyledSelect = styled.div
-  .attrs(applyBaseTheme)
-  .attrs({ size: "medium" })<StyledSelectProps>`
+const StyledSelect = styled.div.attrs(applyBaseTheme)<StyledSelectProps>`
   ${({ hasTextCursor, disabled, readOnly, theme, transparent, isOpen }) => css`
     margin-bottom: var(--fieldSpacing);
     ${margin}

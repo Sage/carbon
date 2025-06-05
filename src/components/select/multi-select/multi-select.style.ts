@@ -2,7 +2,7 @@ import styled from "styled-components";
 import StyledPill from "../../pill/pill.style";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import StyledSelect from "../select.style";
+import StyledSelect, { type StyledSelectProps } from "../select.style";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import StyledInput from "../../../__internal__/input/input.style";
 import sizes from "../../../__internal__/input/input-sizes.style";
@@ -19,7 +19,13 @@ const StyledSelectPillContainer = styled.div.attrs(applyBaseTheme)`
   }
 `;
 
-const StyledSelectMultiSelect = styled(StyledSelect)`
+interface StyledSelectMultiSelectProps extends StyledSelectProps {
+  size: string;
+}
+
+const StyledSelectMultiSelect = styled(
+  StyledSelect,
+)<StyledSelectMultiSelectProps>`
   ${InputIconToggleStyle} {
     position: absolute;
     right: 0;
@@ -27,9 +33,8 @@ const StyledSelectMultiSelect = styled(StyledSelect)`
   }
 
   ${InputPresentationStyle} {
-    // size has a default value of "medium" defined in StyledSelect, but TS can't see this
-    padding-right: ${({ size }) => sizes[size as string].height};
-    padding-left: ${({ size }) => sizes[size as string].horizontalPadding};
+    padding-right: ${({ size }) => sizes[size].height};
+    padding-left: ${({ size }) => sizes[size].horizontalPadding};
     position: relative;
 
     ${StyledInput} {
