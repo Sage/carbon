@@ -16,7 +16,7 @@ export interface ResponsiveVerticalMenuButtonItem {
   href?: string;
   icon?: IconType;
   id: string;
-  label?: string;
+  label?: React.ReactNode;
 }
 
 export interface MenuContextType {
