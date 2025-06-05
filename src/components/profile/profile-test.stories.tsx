@@ -1,61 +1,41 @@
 import React from "react";
 import Profile, { ProfileProps } from "./profile.component";
-import { PROFILE_SIZES } from "./profile.config";
+import Box from "../box";
 
 export default {
   title: "Profile/Test",
-  includeStories: ["DefaultStory"],
+  component: Profile,
   parameters: {
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
     },
   },
-  argTypes: {
-    size: {
-      control: {
-        type: "select",
-      },
-      options: PROFILE_SIZES,
-    },
-    mx: {
-      control: {
-        type: "text",
-      },
-    },
-    my: {
-      control: {
-        type: "text",
-      },
-    },
-  },
 };
 
-export const DefaultStory = ({ email, name, ...args }: ProfileProps) => (
-  <Profile email={email} name={name} {...args} />
+export const DefaultStory = ({ ...args }: ProfileProps) => (
+  <Profile {...args} />
 );
-
 DefaultStory.story = {
-  name: "default",
   args: {
     email: "johnsmith@sage.com",
     initials: "JS",
-    size: PROFILE_SIZES[0],
+    size: "S",
     name: "John Smith",
     text: "Some other text about John here",
-    src: "",
-    m: "",
-    mt: "",
-    mr: "",
-    mb: "",
-    ml: "",
-    mx: undefined,
-    my: undefined,
   },
 };
 
-export const ProfileComponentTest = (props: Partial<ProfileProps>) => {
+export const WithLongText = ({ ...args }) => {
   return (
-    <Profile email="email@email.com" initials="JD" name="John Doe" {...props} />
+    <Box width="320px" backgroundColor="#d7d7d7">
+      <Profile
+        email="email@email.com"
+        initials="JD"
+        name="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+        text="+33 657 22 34 71"
+        {...args}
+      />
+    </Box>
   );
 };
