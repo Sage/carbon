@@ -1,3 +1,9 @@
+## [154.6.1](https://github.com/Sage/carbon/compare/v154.6.0...v154.6.1) (2025-06-05)
+
+### Bug Fixes
+
+* **profile:** allow text to wrap ([1c9dd50](https://github.com/Sage/carbon/commit/1c9dd50974680e130cfc6d2a32afa0ac837bfe12))
+
 ## [154.6.0](https://github.com/Sage/carbon/compare/v154.5.0...v154.6.0) (2025-06-05)
 
 ### Features
