@@ -266,7 +266,6 @@ export const ExampleImplementation: StoryObj = () => {
       >
         <Box
           p={2}
-          borderRadius="borderRadius200"
           m={2}
           backgroundColor="var(--colorsUtilityMajor025)"
           color="var(--colorsUtilityYin090)"

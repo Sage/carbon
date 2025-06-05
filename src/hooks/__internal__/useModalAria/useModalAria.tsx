@@ -8,34 +8,42 @@ export default function useModalAria(
   const isTopModal = topModal?.contains(containerRef.current);
 
   useEffect(() => {
-    const originalValues: {
-      element: Element;
-      "aria-hidden": string | null;
-      inert: string | null;
-    }[] = [];
+    // If this modal is not the top modal, do not process aria-hidden or inert attributes
+    if (!isTopModal) {
+      return () => {};
+    }
+
+    // Store original aria-hidden and inert values for elements that are not the top modal
+    const originalValuesAsMap = new Map();
+
+    // Function to hide all elements that are not the top modal
     const hideNonTopModalElements = (rootElement: HTMLElement) => {
+      // If the root element has a data-not-inert attribute set to true, skip it
       if (rootElement.dataset.notInert === "true") {
-        // stop recursing, and do nothing, if the container has the "data-not-inert" flag
         return;
       }
+
+      // If the root element is not the top modal, hide it
       if (!rootElement.contains(topModal)) {
-        originalValues.push({
-          element: rootElement,
+        // Store original aria-hidden and inert values
+        originalValuesAsMap.set(rootElement, {
           "aria-hidden": rootElement.getAttribute("aria-hidden"),
           inert: rootElement.getAttribute("inert"),
         });
-        // need to manually call the blur event on any currently-focused element that might be inside the element
-        // we're making inert, since Firefox fails to do this, which can result in the focus styles remaining on
-        // an input that is no longer focused
+
+        // Blur the active element if it is inside the root element
         if (
           rootElement.contains(document.activeElement) &&
           document.activeElement instanceof HTMLElement
         ) {
           document.activeElement.blur();
         }
+
+        // Set aria-hidden and inert attributes to hide the element
         rootElement.setAttribute("aria-hidden", "true");
         rootElement.setAttribute("inert", "");
       } else if (rootElement !== topModal) {
+        // If the root element isn't the top modal, do not hide it, but still process its children
         Array.from(rootElement.children).forEach((node) => {
           // istanbul ignore else
           if (node instanceof HTMLElement) {
@@ -45,26 +53,26 @@ export default function useModalAria(
       }
     };
 
-    if (isTopModal) {
-      hideNonTopModalElements(document.body);
-    }
+    // Start hiding elements from the body
+    hideNonTopModalElements(document.body);
 
-    return () =>
-      originalValues.forEach(
-        ({ element, "aria-hidden": ariaHidden, inert }) => {
-          if (ariaHidden === null) {
-            element.removeAttribute("aria-hidden");
-          } else {
-            element.setAttribute("aria-hidden", ariaHidden);
-          }
-          if (inert === null) {
-            element.removeAttribute("inert");
-          } else {
-            element.setAttribute("inert", inert);
-          }
-        },
-      );
-  }, [topModal, isTopModal]);
+    // Cleanup function to restore original aria-hidden and inert values
+    return () => {
+      originalValuesAsMap.forEach((values, element) => {
+        if (values["aria-hidden"] === null) {
+          element.removeAttribute("aria-hidden");
+        } else {
+          element.setAttribute("aria-hidden", values["aria-hidden"]);
+        }
+
+        if (values.inert === null) {
+          element.removeAttribute("inert");
+        } else {
+          element.setAttribute("inert", values.inert);
+        }
+      });
+    };
+  }, [isTopModal, topModal]);
 
   return isTopModal;
 }
