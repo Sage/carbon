@@ -3,6 +3,8 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
+import flexibleSvg from "../../../.assets/flexible.svg";
+
 import Pill from "../pill";
 import Icon from "../icon";
 import Button from "../button";
@@ -407,8 +409,7 @@ export const WithAPrefixAdornment: Story = () => {
         <Image
           height="40px"
           width="40px"
-          // eslint-disable-next-line global-require
-          backgroundImage={`url(${require("../../../.assets/flexible.svg")})`}
+          backgroundImage={`url("${flexibleSvg}")`}
         />
       }
       titleAdornment={<Pill>Message</Pill>}
@@ -481,8 +482,7 @@ export const WithAccordionFooter: Story = () => {
         <Image
           height="40px"
           width="40px"
-          // eslint-disable-next-line global-require
-          backgroundImage={`url(${require("../../../.assets/flexible.svg")})`}
+          backgroundImage={`url("${flexibleSvg}")`}
         />
       }
       accordionContent={
