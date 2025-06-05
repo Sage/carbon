@@ -1,30 +1,11 @@
-import styled, { css } from "styled-components";
+import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 import StyledIcon from "../icon/icon.style";
-import StyledButton from "../button/button.style";
+import type { StyledLinkProps } from "./link.style.types";
 
-import type { Variants } from "./link.style.types";
-
-export interface StyledLinkProps {
-  /** The disabled state of the link. */
-  disabled?: boolean;
-  /** Which side of the link to render the icon. */
-  iconAlign?: "left" | "right";
-  /** Allows the link to act as a skip link for accessibility. */
-  isSkipLink?: boolean;
-  /** Whether the link is rendered on a dark background. */
-  isDarkBackground?: boolean;
-  /** Variant that affects link color scheme (default, negative, neutral). */
-  variant?: Variants;
-  /** Indicates if the link is currently focused (for styling). */
-  hasFocus?: boolean;
-  /** Whether the link contains visible content (affects spacing). */
-  hasContent: boolean;
-  /** If true, the link is rendered inside a menu (affects layout). */
-  isMenuItem?: boolean;
-}
+export const StyledContent = styled.span``;
 
 const colorMap = {
-  light: (variant?: Variants) => {
+  light: (variant?: StyledLinkProps["variant"]) => {
     let color = "var(--colorsActionMajor500)";
     let hoverColor = "var(--colorsActionMajor600)";
 
@@ -41,7 +22,7 @@ const colorMap = {
       disabledColor: "var(--colorsActionMajorYin030)",
     };
   },
-  dark: (variant?: Variants) => {
+  dark: (variant?: StyledLinkProps["variant"]) => {
     let color = "var(--colorsActionMajor350)";
     let hoverColor = "var(--colorsActionMajor450)";
 
@@ -60,19 +41,21 @@ const colorMap = {
   },
 };
 
-/**
- * Returns the style object to be injected into the BaseLink wrapper via `$styles`.
- */
-const StyledLinkStyles = ({
-  variant = "default",
-  disabled = false,
-  isMenuItem,
-  isSkipLink,
-  iconAlign = "left",
-  hasContent,
-  hasFocus,
-  isDarkBackground,
-}: StyledLinkProps) => {
+const StyledLinkStyles = (
+  props: StyledLinkProps,
+): FlattenSimpleInterpolation => {
+  const {
+    variant = "default",
+    disabled = false,
+    isMenuItem,
+    isSkipLink,
+    iconAlign = "left",
+    hasContent,
+    hasFocus,
+    isDarkBackground,
+    maxWidth,
+  } = props;
+
   const themeKey = isDarkBackground ? "dark" : "light";
   const { color, hoverColor, disabledColor } = colorMap[themeKey](variant);
 
@@ -86,12 +69,25 @@ const StyledLinkStyles = ({
       > button {
         font-size: var(--fontSizes100);
         text-decoration: ${hasContent ? "underline" : "none"};
-        ${isMenuItem && "display: inline-block;"}
+        color: ${disabled ? disabledColor : color};
+
+        ${isMenuItem &&
+        css`
+          display: inline-block;
+          padding: 11px 16px 12px;
+
+          ${maxWidth &&
+          css`
+            max-width: inherit;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: bottom;
+            white-space: nowrap;
+          `}
+        `}
 
         ${!disabled &&
-      css`
-          color: ${color};
-
+        css`
           &:hover {
             color: ${hoverColor};
             cursor: pointer;
@@ -101,24 +97,16 @@ const StyledLinkStyles = ({
             background-color: var(--colorsSemanticFocus250);
             border-radius: var(--borderRadius025);
           }
-
-          > ${StyledIcon} {
-            color: ${color};
-
-            &:hover {
-              color: ${hoverColor};
-            }
-          }
         `}
 
         ${disabled &&
-      css`
-          color: ${disabledColor};
+        css`
           cursor: not-allowed;
 
           &:hover,
           &:focus {
             color: ${disabledColor};
+            cursor: not-allowed;
           }
         `}
 
@@ -128,15 +116,24 @@ const StyledLinkStyles = ({
           vertical-align: middle;
 
           ${iconAlign === "left" &&
-      css`
+          css`
             margin-right: ${hasContent ? "var(--spacing050)" : 0};
           `}
 
           ${iconAlign === "right" &&
-      css`
+          css`
             margin-left: ${hasContent ? "var(--spacing100)" : 0};
           `}
         }
+      }
+
+      a[aria-disabled="true"] {
+        color: ${disabledColor};
+        pointer-events: none;
+        cursor: not-allowed;
+        text-decoration: none;
+        user-select: none;
+        tab-index: -1;
       }
     `}
 
@@ -148,16 +145,7 @@ const StyledLinkStyles = ({
       border-bottom-left-radius: var(--borderRadius025);
       border-bottom-right-radius: var(--borderRadius025);
     `}
-
-    > button,
-    ${StyledButton}:not(.search-button) {
-      background-color: transparent;
-      border: none;
-      padding: 0;
-    }
   `;
 };
 
-
-export const StyledContent = styled.span``;
 export default StyledLinkStyles;
