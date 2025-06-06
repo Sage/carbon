@@ -193,21 +193,21 @@ describe("When MenuItem has no submenu", () => {
   });
 
   it("should add the correct styles when `maxWidth` prop is set", () => {
-    render(
-      <Menu>
-        <MenuItem href="#" maxWidth="100px">
-          Item One
-        </MenuItem>
-      </Menu>,
-    );
+  render(
+    <Menu>
+      <MenuItem href="#" maxWidth>
+        Item One
+      </MenuItem>
+    </Menu>,
+  );
 
-    expect(screen.getByRole("link", { name: "Item One" })).toHaveStyle({
-      maxWidth: "inherit",
-      textOverflow: "ellipsis",
-      overflow: "hidden",
-      whiteSpace: "nowrap",
-      verticalAlign: "bottom",
-    });
+  expect(screen.getByTestId("link-content")).toHaveStyle({
+    maxWidth: "inherit",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    verticalAlign: "bottom",
+  });
   });
 
   it("should apply the expected styles when `menuType` is set to 'light'", () => {
