@@ -1,4 +1,4 @@
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import React from "react";
 
 function partialAction(actionName: string) {
@@ -7,7 +7,7 @@ function partialAction(actionName: string) {
       typeof eventObj === "string"
         ? { view: undefined }
         : { ...eventObj, view: undefined },
-      ...args
+      ...args,
     );
   };
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Accordion } from ".";
 import Box from "../box/box.component";
 import Typography from "../typography";

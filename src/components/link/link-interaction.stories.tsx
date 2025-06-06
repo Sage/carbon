@@ -1,6 +1,6 @@
 import React from "react";
 import { StoryObj } from "@storybook/react";
-import { within, expect, userEvent, waitFor } from "@storybook/test";
+import { within, expect, userEvent, waitFor } from "storybook/test";
 
 import Link from ".";
 import Box from "../box";

@@ -4,7 +4,7 @@ import {
   WithTooltip,
   TooltipLinkList,
   TooltipLinkListLink,
-} from "@storybook/components";
+} from "storybook/internal/components";
 import compareBuild from "semver/functions/compare-build";
 
 import { TOOL_ID } from "./constants";

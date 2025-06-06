@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import Switch from "./switch.component";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 

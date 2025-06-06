@@ -2,7 +2,7 @@ import React from "react";
 import { StoryObj } from "@storybook/react";
 import LinkPreview from ".";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 type Story = StoryObj<typeof LinkPreview>;
 
 export default {
