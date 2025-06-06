@@ -1,4 +1,4 @@
-import { Meta, Canvas } from "@storybook/blocks";
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
 
 import * as ExtendingStylesStories from "./extending-styles-using-styled-components.stories";
 
