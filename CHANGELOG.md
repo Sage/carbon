@@ -1,3 +1,9 @@
+## [154.7.0](https://github.com/Sage/carbon/compare/v154.6.1...v154.7.0) (2025-06-06)
+
+### Features
+
+* **popover-container:** ensure popover containers appear in front of global nav ([1847c76](https://github.com/Sage/carbon/commit/1847c765bab26ca9a364b9ccbe1fbfe4e70bbe4a)), closes [#7252](https://github.com/Sage/carbon/issues/7252)
+
 ## [154.6.1](https://github.com/Sage/carbon/compare/v154.6.0...v154.6.1) (2025-06-05)
 
 ### Bug Fixes
