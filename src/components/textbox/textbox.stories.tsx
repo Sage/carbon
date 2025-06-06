@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import I18nProvider from "../i18n-provider";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";

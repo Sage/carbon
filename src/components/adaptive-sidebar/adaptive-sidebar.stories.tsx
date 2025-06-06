@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useMemo, useState } from "react";
 import { allModes } from "../../../.storybook/modes";
 import isChromatic from "../../../.storybook/isChromatic";
