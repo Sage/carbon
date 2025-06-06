@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { padding, margin, PaddingProps } from "styled-system";
 
-import { baseTheme } from "../../../style/themes";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 
-const StyledDraggableContainer = styled.div`
+const StyledDraggableContainer = styled.div.attrs(applyBaseTheme)`
   ${margin}
 `;
 
@@ -12,7 +12,9 @@ interface StyledDraggableItemProps extends PaddingProps {
   flexDirection?: "row" | "row-reverse";
 }
 
-const StyledDraggableItem = styled.div<StyledDraggableItemProps>`
+const StyledDraggableItem = styled.div.attrs(
+  applyBaseTheme,
+)<StyledDraggableItemProps>`
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--colorsUtilityMajor050);
@@ -22,13 +24,5 @@ const StyledDraggableItem = styled.div<StyledDraggableItemProps>`
   flex-direction: ${({ flexDirection }) => flexDirection};
   opacity: ${({ isDragging }) => (isDragging ? "0" : "1")};
 `;
-
-StyledDraggableContainer.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledDraggableItem.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledDraggableContainer, StyledDraggableItem };

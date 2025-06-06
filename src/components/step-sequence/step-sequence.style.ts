@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { StepSequenceProps } from "./step-sequence.component";
 
-const StyledStepSequence = styled.ol<
+const StyledStepSequence = styled.ol.attrs(applyBaseTheme)<
   Pick<StepSequenceProps, "orientation"> & SpaceProps
 >`
   display: flex;
@@ -19,9 +19,5 @@ const StyledStepSequence = styled.ol<
 
   ${space}
 `;
-
-StyledStepSequence.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledStepSequence;

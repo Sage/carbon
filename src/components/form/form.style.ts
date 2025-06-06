@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 import { space, padding } from "styled-system";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { FormButtonAlignment } from "./form.config";
 import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
 import StyledSelect from "../select/select.style";
@@ -50,7 +50,9 @@ interface StyledFormFooterProps {
   buttonAlignment?: FormButtonAlignment;
 }
 
-export const StyledFormFooter = styled.div<StyledFormFooterProps>`
+export const StyledFormFooter = styled.div.attrs(
+  applyBaseTheme,
+)<StyledFormFooterProps>`
   align-items: center;
   display: flex;
   flex-wrap: wrap;
@@ -90,15 +92,11 @@ export const StyledFormFooter = styled.div<StyledFormFooterProps>`
   ${padding}
 `;
 
-StyledFormFooter.defaultProps = {
-  theme: baseTheme,
-};
-
 interface StyledFormProps extends StyledFormContentProps {
   height?: string;
 }
 
-export const StyledForm = styled.form<StyledFormProps>`
+export const StyledForm = styled.form.attrs(applyBaseTheme)<StyledFormProps>`
   ${space}
 
   ${({ height }) =>
@@ -141,7 +139,3 @@ export const StyledLeftButtons = styled.div<{
 
   ${({ buttonAlignment }) => buttonAlignment === "right" && "flex-grow: 1;"}
 `;
-
-StyledForm.defaultProps = {
-  theme: baseTheme,
-};

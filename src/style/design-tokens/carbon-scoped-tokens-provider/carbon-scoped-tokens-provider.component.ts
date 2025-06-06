@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { baseTheme } from "../../themes";
-import { ThemeObject } from "../../themes/base";
+import applyBaseTheme from "../../themes/apply-base-theme";
+import type { ThemeObject } from "../../themes/theme.types";
 import generateCssVariables from "../generate-css-variables.util";
 
 /**
@@ -10,7 +10,9 @@ import generateCssVariables from "../generate-css-variables.util";
  *
  */
 
-const CarbonScopedTokensProvider = styled.div<ThemeObject>`
+const CarbonScopedTokensProvider = styled.div.attrs(
+  applyBaseTheme,
+)<ThemeObject>`
   margin: 0;
   padding: 0;
   width: auto;
@@ -18,9 +20,5 @@ const CarbonScopedTokensProvider = styled.div<ThemeObject>`
 
   ${({ theme }) => generateCssVariables(theme.compatibility)}
 `;
-
-CarbonScopedTokensProvider.defaultProps = {
-  theme: baseTheme,
-};
 
 export default CarbonScopedTokensProvider;

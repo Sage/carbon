@@ -8,10 +8,10 @@ import {
   PositionProps,
 } from "styled-system";
 import boxGap from "../../style/utils/box-gap";
-import BaseTheme from "../../style/themes/base";
 import styledColor from "../../style/utils/color";
 import { BoxProps } from "./box.component";
 import boxConfig from "./box.config";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 const calculatePosition = (props: Omit<PositionProps, "zIndex">) => {
   const { position, ...rest } = positionFn(props);
@@ -23,7 +23,7 @@ const calculatePosition = (props: Omit<PositionProps, "zIndex">) => {
   };
 };
 
-const StyledBox = styled.div<
+const StyledBox = styled.div.attrs(applyBaseTheme)<
   BoxProps & {
     cssProps?: {
       color?: string;
@@ -121,9 +121,5 @@ const StyledBox = styled.div<
       box-shadow: var(--${boxShadow});
     `}
 `;
-
-StyledBox.defaultProps = {
-  theme: BaseTheme,
-};
 
 export default StyledBox;

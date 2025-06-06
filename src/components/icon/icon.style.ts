@@ -4,7 +4,8 @@ import { shade } from "polished";
 
 import { margin } from "styled-system";
 
-import baseTheme, { ThemeObject } from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
+import { ThemeObject } from "../../style/themes/theme.types";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import styledColor from "../../style/utils/color";
 import getColorValue from "../../style/utils/get-color-value";
@@ -85,7 +86,9 @@ function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
   return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
 }
 
-const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
+const StyledIcon = styled.span.attrs(applyBaseTheme)<
+  StyledIconProps & StyledIconInternalProps
+>`
   ${({
     theme,
     color,
@@ -191,9 +194,5 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
     `;
   }}
 `;
-
-StyledIcon.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledIcon;

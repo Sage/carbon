@@ -1,4 +1,4 @@
-import { ThemeObject } from "../themes/base";
+import type { ThemeObject } from "../themes/theme.types";
 
 /**
  *

@@ -4,7 +4,7 @@ import { margin } from "styled-system";
 import StyledInput from "../../__internal__/input/input.style";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import BaseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { TextareaProps } from "./textarea.component";
 
 export const DEFAULT_MIN_HEIGHT = 64;
@@ -16,7 +16,7 @@ export interface StyledTextAreaProps extends Pick<TextareaProps, "minHeight"> {
   hasIcon?: boolean;
 }
 
-const StyledTextarea = styled.div<StyledTextAreaProps>`
+const StyledTextarea = styled.div.attrs(applyBaseTheme)<StyledTextAreaProps>`
   margin-bottom: var(--fieldSpacing);
   ${margin};
 
@@ -46,9 +46,5 @@ const StyledTextarea = styled.div<StyledTextAreaProps>`
     right: 4px;
   }
 `;
-
-StyledTextarea.defaultProps = {
-  theme: BaseTheme,
-};
 
 export default StyledTextarea;

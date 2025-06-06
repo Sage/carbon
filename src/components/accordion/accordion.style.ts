@@ -3,11 +3,11 @@ import styled, { css } from "styled-components";
 import { space, margin } from "styled-system";
 
 import Icon from "../icon";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
-const StyledAccordionGroup = styled.div`
+const StyledAccordionGroup = styled.div.attrs(applyBaseTheme)`
   ${margin}
 `;
 
@@ -20,7 +20,9 @@ export interface StyledAccordionContainerProps {
   variant?: "standard" | "subtle";
 }
 
-const StyledAccordionContainer = styled.div<StyledAccordionContainerProps>`
+const StyledAccordionContainer = styled.div.attrs(
+  applyBaseTheme,
+)<StyledAccordionContainerProps>`
   ${space}
   display: flex;
   ${({ variant }) =>
@@ -142,7 +144,9 @@ interface StyledAccordionTitleContainerProps {
   variant?: "standard" | "subtle";
 }
 
-const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerProps>`
+const StyledAccordionTitleContainer = styled.div.attrs(
+  applyBaseTheme,
+)<StyledAccordionTitleContainerProps>`
   ${({ iconAlign, size, isExpanded, variant }) => css`
     padding: ${size === "small" ? "var(--spacing200)" : "var(--spacing300)"};
     ${space}
@@ -237,16 +241,6 @@ const StyledAccordionContent = styled.div<StyledAccordionContentProps>`
       padding: 0;
     `}
 `;
-
-StyledAccordionGroup.defaultProps = {
-  theme: baseTheme,
-};
-StyledAccordionContainer.defaultProps = {
-  theme: baseTheme,
-};
-StyledAccordionTitleContainer.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledAccordionGroup,

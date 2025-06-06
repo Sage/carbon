@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import { margin, MarginProps } from "styled-system";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 export interface StyledLoaderBarProps {
   /** Size of the LoaderBar. */
@@ -20,7 +20,9 @@ function getHeight(size: StyledLoaderBarProps["size"]) {
 
 const INNER_BAR_LENGTH = "128px";
 
-const StyledLoader = styled.div<StyledLoaderBarProps & MarginProps>`
+const StyledLoader = styled.div.attrs(applyBaseTheme)<
+  StyledLoaderBarProps & MarginProps
+>`
   ${margin}
   text-align: center;
 `;
@@ -54,10 +56,6 @@ const InnerBar = styled.div<StyledLoaderBarProps>`
     animation: 2s ${innerBarAnimation} linear 0s infinite normal none running;
   `}
 `;
-
-StyledLoader.defaultProps = {
-  theme: baseTheme,
-};
 
 export { InnerBar, StyledLoader };
 export default StyledLoaderBar;

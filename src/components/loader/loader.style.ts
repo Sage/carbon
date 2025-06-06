@@ -1,15 +1,11 @@
 import styled from "styled-components";
 import { margin } from "styled-system";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-const StyledLoader = styled.div`
+const StyledLoader = styled.div.attrs(applyBaseTheme)`
   ${margin}
   text-align: center;
   white-space: nowrap;
 `;
-
-StyledLoader.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledLoader;

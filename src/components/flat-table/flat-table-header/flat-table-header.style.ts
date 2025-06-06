@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { PaddingProps, padding } from "styled-system";
 import getAlternativeBackgroundColor from "./flat-table-header-utils";
-import baseTheme from "../../../style/themes/base";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import { toColor } from "../../../style/utils/color";
 import { FlatTableHeaderProps } from "./flat-table-header.component";
 import { FlatTableProps } from "..";
@@ -25,7 +25,9 @@ interface StyledFlatTableHeaderProps
   rightPosition: number;
 }
 
-const StyledFlatTableHeader = styled.th<StyledFlatTableHeaderProps>`
+const StyledFlatTableHeader = styled.th.attrs(
+  applyBaseTheme,
+)<StyledFlatTableHeaderProps>`
   ${({
     align,
     alternativeBgColor,
@@ -131,9 +133,5 @@ const StyledFlatTableHeader = styled.th<StyledFlatTableHeaderProps>`
     }
   `}
 `;
-
-StyledFlatTableHeader.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledFlatTableHeader;

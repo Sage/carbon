@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { ProgressTrackerProps } from "./progress-tracker.component";
 
 function getHeight(size?: string) {
@@ -32,7 +32,7 @@ function getBorderColour({
   return "var(--colorsSemanticNeutral500)";
 }
 
-const StyledProgressTracker = styled.div<
+const StyledProgressTracker = styled.div.attrs(applyBaseTheme)<
   Pick<ProgressTrackerProps, "margin" | "length" | "labelsPosition">
 >`
   ${margin}
@@ -50,7 +50,7 @@ const StyledProgressTracker = styled.div<
     `}
 `;
 
-const StyledProgressBar = styled.span<
+const StyledProgressBar = styled.span.attrs(applyBaseTheme)<
   Pick<ProgressTrackerProps, "progress" | "error">
 >`
   ${({ progress, error }) => css`
@@ -120,18 +120,6 @@ const InnerBar = styled.span<
     height: ${getHeight(size)};
   `}
 `;
-
-InnerBar.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledProgressBar.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledProgressTracker.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledProgressBar,

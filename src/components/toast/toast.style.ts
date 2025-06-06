@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
 import StyledIconButton from "../icon-button/icon-button.style";
 import Portal from "../portal/portal";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import { MessageVariant } from "../message/message.component";
 
-const StyledPortal = styled(Portal)<{
+const StyledPortal = styled(Portal).attrs(applyBaseTheme)<{
   align?: "left" | "center" | "right";
   alignY?: "top" | "center" | "bottom";
   isNotice?: boolean;
@@ -61,10 +61,6 @@ const StyledPortal = styled(Portal)<{
     `}
   `}
 `;
-
-StyledPortal.defaultProps = {
-  theme: baseTheme,
-};
 
 const animationName = ".toast";
 const alternativeAnimationName = ".toast-alternative";

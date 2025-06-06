@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { margin, MarginProps } from "styled-system";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 const heightMap = {
   small: 1,
@@ -8,7 +8,7 @@ const heightMap = {
   large: 3,
 };
 
-const StyledHr = styled.hr<
+const StyledHr = styled.hr.attrs(applyBaseTheme)<
   MarginProps & { height: "small" | "medium" | "large" }
 >`
   ${margin}
@@ -17,9 +17,5 @@ const StyledHr = styled.hr<
   height: ${({ height }) => heightMap[height]}px;
   background: var(--colorsUtilityMajor100);
 `;
-
-StyledHr.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledHr;

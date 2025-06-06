@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 
@@ -72,7 +72,9 @@ const colorMap: ColorMap = {
   },
 };
 
-const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
+const StyledLink = styled.span.attrs(applyBaseTheme)<
+  StyledLinkProps & PrivateStyledLinkProps
+>`
   ${({
     isSkipLink,
     theme,
@@ -236,12 +238,6 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
     `;
   }}
 `;
-
-StyledLink.defaultProps = {
-  theme: baseTheme,
-  disabled: false,
-  hasContent: true,
-};
 
 const StyledContent = styled.span``;
 

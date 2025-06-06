@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import computeSizing from "../../style/utils/element-sizing";
 import { TileProps } from "./tile.component";
 import StyledTileContent from "./tile-content/tile-content.style";
@@ -75,7 +75,7 @@ const getHighlightVariant = (variant: TileProps["highlightVariant"]) => {
   }
 };
 
-const StyledTile = styled.div<StyledTileProps>`
+const StyledTile = styled.div.attrs(applyBaseTheme)<StyledTileProps>`
   ${({
     borderVariant,
     borderWidth = "borderWidth100",
@@ -148,9 +148,5 @@ const StyledTile = styled.div<StyledTileProps>`
     })}
   `}
 `;
-
-StyledTile.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledTile;

@@ -132,7 +132,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       tableHeader,
       multiColumn,
       tooltipPosition,
-      size,
+      size = "medium",
       "data-element": dataElement,
       "data-role": dataRole,
       listPlacement = "bottom",

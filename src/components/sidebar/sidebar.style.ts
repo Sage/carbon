@@ -3,7 +3,7 @@ import { PaddingProps, padding as paddingFn } from "styled-system";
 import computeSizing from "../../style/utils/element-sizing";
 
 import { SidebarProps } from "./sidebar.component";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIconButton from "../icon-button/icon-button.style";
 
 import { SIDEBAR_SIZES_CSS } from "./sidebar.config";
@@ -14,7 +14,7 @@ type StyledSidebarProps = Pick<
   "onCancel" | "position" | "size" | "width"
 >;
 
-const StyledSidebar = styled.div<StyledSidebarProps>`
+const StyledSidebar = styled.div.attrs(applyBaseTheme)<StyledSidebarProps>`
   // prevents outline being added in safari
   :focus {
     outline: none;
@@ -79,9 +79,5 @@ const StyledSidebarContent = styled.div<PaddingProps>`
     }
   }
 `;
-
-StyledSidebar.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledSidebar, StyledSidebarContent };

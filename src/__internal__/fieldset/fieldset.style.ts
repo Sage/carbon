@@ -1,12 +1,14 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import BaseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 type StyledFieldsetProps = {
   width?: string;
 };
 
-const StyledFieldset = styled.fieldset<StyledFieldsetProps>`
+const StyledFieldset = styled.fieldset.attrs(
+  applyBaseTheme,
+)<StyledFieldsetProps>`
   margin: 0;
   margin-bottom: var(--fieldSpacing);
   ${margin}
@@ -16,10 +18,6 @@ const StyledFieldset = styled.fieldset<StyledFieldsetProps>`
   min-inline-size: 0;
   ${({ width }) => width && `width: ${width};`}
 `;
-
-StyledFieldset.defaultProps = {
-  theme: BaseTheme,
-};
 
 type StyledLegendContentProps = {
   isRequired?: boolean;

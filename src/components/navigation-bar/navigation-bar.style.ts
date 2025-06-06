@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { padding, flexbox, PaddingProps, FlexboxProps } from "styled-system";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import {
   Position,
   Orientation,
@@ -21,7 +21,9 @@ export type StyledNavigationBarProps = PaddingProps &
     isGlobal?: boolean;
   };
 
-const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
+const StyledNavigationBar = styled.nav.attrs(
+  applyBaseTheme,
+)<StyledNavigationBarProps>`
   display: flex;
   align-items: center;
   padding: 0 40px;
@@ -99,9 +101,5 @@ const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
     `}
   `}
 `;
-
-StyledNavigationBar.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledNavigationBar;

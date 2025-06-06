@@ -4,7 +4,7 @@ import Fieldset from "../fieldset";
 import { Input } from "../../__internal__/input";
 import { StyledLegend } from "../fieldset/fieldset.style";
 import StyledIcon from "../icon/icon.style";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const StyledTitle = styled.h3`
@@ -88,7 +88,7 @@ const StyledFocusWrapper = styled.div<{
   `}
 `;
 
-const StyledTileSelectContainer = styled.div<{
+const StyledTileSelectContainer = styled.div.attrs(applyBaseTheme)<{
   checked?: boolean;
   disabled?: boolean;
 }>`
@@ -179,7 +179,7 @@ const StyledDeselectWrapper = styled.div<{
   `}
 `;
 
-const StyledTileSelectFieldset = styled(Fieldset)<{
+const StyledTileSelectFieldset = styled(Fieldset).attrs(applyBaseTheme)<{
   multiSelect: boolean;
 }>`
   ${margin}
@@ -204,14 +204,6 @@ const StyledGroupDescription = styled.p`
   margin: 0;
   margin-bottom: 16px;
 `;
-
-StyledTileSelectFieldset.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledTileSelectContainer.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledTileSelectFieldset,

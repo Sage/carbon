@@ -1,11 +1,9 @@
 import React, { useRef } from "react";
 import { render, screen, act, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { ThemeProvider } from "styled-components";
 import * as floatingUi from "@floating-ui/dom";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import sageTheme from "../../style/themes/sage";
 
 import {
   ActionPopover,
@@ -63,13 +61,11 @@ test("error is thrown when a menu is not rendered within ActionPopover", () => {
 
 testStyledSystemMargin(
   (props) => (
-    <ThemeProvider theme={sageTheme}>
-      <ActionPopover data-role="action-popover-wrapper" {...props}>
-        <ActionPopoverItem href="#" download>
-          test download
-        </ActionPopoverItem>
-      </ActionPopover>
-    </ThemeProvider>
+    <ActionPopover data-role="action-popover-wrapper" {...props}>
+      <ActionPopoverItem href="#" download>
+        test download
+      </ActionPopoverItem>
+    </ActionPopover>
   ),
   () => screen.getByTestId("action-popover-wrapper"),
 );

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import BaseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import StyledTab from "./tab/tab.style";
 import { TabsProps } from ".";
@@ -10,7 +10,7 @@ export interface StyledTabsProps
   isInSidebar?: boolean;
 }
 
-const StyledTabs = styled.div<StyledTabsProps>`
+const StyledTabs = styled.div.attrs(applyBaseTheme)<StyledTabsProps>`
   ${({ position, isInSidebar, headerWidth }) => css`
     color: var(--colorsActionMinorYin090);
 
@@ -42,9 +42,5 @@ const StyledTabs = styled.div<StyledTabsProps>`
 
   ${margin}
 `;
-
-StyledTabs.defaultProps = {
-  theme: BaseTheme,
-};
 
 export default StyledTabs;

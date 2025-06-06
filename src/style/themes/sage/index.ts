@@ -1,6 +1,6 @@
 import tokens from "@sage/design-tokens/js/base/common";
 import { mergeWithBase } from "../base";
-import { BasePalette } from "../base/base-theme.config";
+import { BasePalette } from "../theme.types";
 
 export default {
   ...mergeWithBase((palette: BasePalette) => ({

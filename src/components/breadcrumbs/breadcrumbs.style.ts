@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { space } from "styled-system";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-const StyledBreadcrumbs = styled.nav`
+const StyledBreadcrumbs = styled.nav.attrs(applyBaseTheme)`
   ${space}
 
   ol {
@@ -13,7 +13,5 @@ const StyledBreadcrumbs = styled.nav`
     flex-wrap: wrap;
   }
 `;
-
-StyledBreadcrumbs.defaultProps = { theme: baseTheme };
 
 export default StyledBreadcrumbs;
