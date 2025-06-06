@@ -54,7 +54,7 @@ export const LinkBase = React.forwardRef<
   const { batchSelectionDisabled } = useContext(BatchSelectionContext);
 
   const isDisabled = disabled || batchSelectionDisabled;
-  const [setHasFocus] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false);
 
   const setRefs = useCallback(
     (node: HTMLAnchorElement | null) => {
