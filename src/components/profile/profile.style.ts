@@ -36,7 +36,6 @@ const ProfileStyle = styled.div<
   Pick<ProfileSProps, "hasSrc" | "darkBackground">
 >`
   border-radius: inherit;
-  white-space: nowrap;
   color: ${({ darkBackground }) =>
     darkBackground
       ? "var(--colorsUtilityReadOnly600)"
@@ -45,6 +44,7 @@ const ProfileStyle = styled.div<
     darkBackground ? "var(--colorsUtilityYin090)" : "transparent"};
   display: flex;
   flex-direction: row;
+  align-items: center;
   ${margin}
 
   ${StyledPortraitContainer} {
@@ -53,7 +53,6 @@ const ProfileStyle = styled.div<
 `;
 
 const ProfileDetailsStyle = styled.div<Pick<ProfileSProps, "hasSrc" | "size">>`
-  vertical-align: middle;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -42,7 +42,7 @@ const StyledAdvancedColorPickerPreview = styled.div`
     color === "transparent" &&
     css`
       background-color: #eeeeee;
-      background-image: url(${checkerBoardSvg});
+      background-image: url("${checkerBoardSvg}");
       background-size: 10px 10px;
     `}
 
