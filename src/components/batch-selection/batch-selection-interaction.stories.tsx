@@ -1,6 +1,6 @@
 import React from "react";
 import { StoryFn, StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within } from "storybook/test";
 import BatchSelection from ".";
 import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import IconButton from "../icon-button";

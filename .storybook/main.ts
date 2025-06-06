@@ -43,8 +43,6 @@ const config: StorybookConfig = {
 
   addons: [
     "@storybook/addon-a11y",
-    "@storybook/addon-actions",
-    "@storybook/addon-controls",
     {
       name: "@storybook/addon-docs",
       options: {
@@ -55,11 +53,7 @@ const config: StorybookConfig = {
         },
       },
     },
-    "@storybook/addon-interactions",
     "storybook-addon-pseudo-states",
-    "@storybook/addon-essentials",
-    "@storybook/addon-toolbars",
-    "@storybook/addon-viewport",
     "@chromatic-com/storybook",
   ],
 

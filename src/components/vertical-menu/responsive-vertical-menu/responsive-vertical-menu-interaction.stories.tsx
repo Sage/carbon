@@ -1,5 +1,5 @@
 import { StoryObj } from "@storybook/react";
-import { userEvent, within, expect } from "@storybook/test";
+import { userEvent, within, expect } from "storybook/test";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import React from "react";
 
