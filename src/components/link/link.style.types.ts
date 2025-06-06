@@ -1,4 +1,6 @@
-export type Variants = "default" | "negative" | "neutral";
+import { LINK_VARIANTS } from "../link/link.config";
+
+export type Variants = (typeof LINK_VARIANTS)[number];
 
 export interface StyledLinkProps {
   /** Disables the link visually and functionally. */

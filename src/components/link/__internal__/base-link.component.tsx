@@ -5,7 +5,7 @@ import type {
   KeyboardEvent,
   FocusEvent,
 } from "react";
-import type { FlattenSimpleInterpolation } from "styled-components";
+import type { SimpleInterpolation } from "styled-components";
 import StyledBaseLinkWrapper from "./base-link.style";
 
 export interface BaseLinkProps extends AriaAttributes {
@@ -69,7 +69,7 @@ export interface BaseLinkProps extends AriaAttributes {
    * @ignore
    */
   "data-role"?: string;
-  styles?: FlattenSimpleInterpolation;
+  styles?: SimpleInterpolation;
 }
 
 export const BaseLink = React.forwardRef<

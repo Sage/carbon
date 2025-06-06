@@ -9,7 +9,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 
 import type { StyledLinkProps, Variants } from "./link.style.types";
 import StyledLinkStyles, { StyledContent } from "./link.style";
-import BaseLink from "./__internal__/base-link.component";
+import { BaseLink } from "./__internal__/base-link.component";
 
 import type { IconType } from "../icon";
 
@@ -116,7 +116,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       isDarkBackground,
     });
 
-    const fallbackLabel = ariaLabel || "Back";
+    const accessibleLabel = ariaLabel;
 
     return (
       <BaseLink
@@ -124,7 +124,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         href={href}
         rel={rel}
         target={target}
-        aria-label={fallbackLabel}
+        aria-label={children ? undefined : accessibleLabel}
         className={className}
         onClick={onClick}
         onKeyDown={onKeyDown}
@@ -138,9 +138,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       >
         {renderIcon("left")}
         <StyledContent data-testid="link-content">
-          {isSkipLink
-            ? locale.link.skipLinkLabel()
-            : (children ?? fallbackLabel)}
+          {isSkipLink ? locale.link.skipLinkLabel() : children}
         </StyledContent>
         {renderIcon("right")}
       </BaseLink>
