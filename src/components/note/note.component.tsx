@@ -92,11 +92,8 @@ export const Note = ({
               (typeof title === "string" ? (
                 <Typography
                   data-role="note-title"
-                  fontWeight="700"
-                  fontSize="16px"
-                  lineHeight="21px"
+                  variant="h3"
                   paddingBottom="16px"
-                  variant="h2"
                 >
                   {title}
                 </Typography>
