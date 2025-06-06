@@ -161,6 +161,57 @@ export const Default = (props: Partial<ResponsiveVerticalMenuProps>) => {
 };
 Default.storyName = "Default";
 
+export const WithoutGlobalHeader = (
+  props: Partial<ResponsiveVerticalMenuProps>,
+) => {
+  return (
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu {...props}>
+        <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          customIcon={<CustomAccountingIcon />}
+          id="accounting"
+          label="Accounting"
+        >
+          <ResponsiveVerticalMenuItem id="summary" label="Summary" />
+          <ResponsiveVerticalMenuItem
+            id="sales-invoices"
+            label="Sales Invoices"
+          >
+            <ResponsiveVerticalMenuItem
+              id="quotes-and-estimates"
+              label="Quotes & Estimates"
+              href="#"
+            />
+            <ResponsiveVerticalMenuItem
+              id="new-sales-invoice"
+              label="New Sales Invoice"
+              href="#"
+            />
+            <ResponsiveVerticalMenuItem
+              id="sales-summary"
+              label="Sales Summary"
+              href="#"
+            />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem id="contacts" label="Contacts">
+            <ResponsiveVerticalMenuItem
+              id="nested-menu-item-1"
+              label="Nested Menu Item 1"
+            />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem
+            id="products-and-services"
+            label="Products & Services"
+          />
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>
+  );
+};
+WithoutGlobalHeader.storyName = "Without Global Header";
+
 export const WithFullIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
   return (
     <GlobalHeader>

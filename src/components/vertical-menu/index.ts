@@ -12,6 +12,7 @@ export type { VerticalMenuTriggerProps } from "./vertical-menu-trigger/vertical-
 
 export {
   ResponsiveVerticalMenu,
+  ResponsiveVerticalMenuDivider,
   ResponsiveVerticalMenuItem,
   ResponsiveVerticalMenuProvider,
 } from "./responsive-vertical-menu";
