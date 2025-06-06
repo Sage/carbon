@@ -27,12 +27,6 @@ const neutralWhite = "rgb(255, 255, 255)";
 const tag = "rgb(0, 126, 69)";
 const status = "rgb(51, 91, 112)";
 const transparent = "rgba(0, 0, 0, 0)";
-const colorsSemanticCaution500 = "rgb(239, 103, 0)";
-const blackOpacity65 = "rgba(0, 0, 0, 0.65)";
-const brilliantGreenShade20 = "rgb(0, 176, 0)";
-const red = "rgb(255, 0, 0)";
-const hexBlue = "#123456";
-const green = "rgb(0, 123, 10)";
 const small = "S";
 const medium = "M";
 const large = "L";
@@ -207,17 +201,14 @@ test.describe("should render Pill component with props", () => {
     });
   });
 
-  (
-    [
-      [colorsSemanticCaution500, "rgb(239, 103, 0)"],
-      [blackOpacity65, "rgba(0, 0, 0, 0.65)"],
-      [brilliantGreenShade20, "rgb(0, 176, 0)"],
-      [red, "rgb(255, 0, 0)"],
-      [green, "rgb(0, 123, 10)"],
-      [hexBlue, "rgb(18, 52, 86)"],
-    ] as const
-  ).forEach(([color, output]) => {
-    test(`should render borderColor prop set as ${output}`, async ({
+  [
+    ["--colorsSemanticCaution500", "rgb(239, 103, 0)"],
+    ["var(--colorsActionMajor500)", "rgb(0, 126, 69)"],
+    ["brilliantGreenShade20", "rgb(0, 176, 0)"],
+    ["red", "rgb(255, 0, 0)"],
+    ["#2525c2", "rgb(37, 37, 194)"],
+  ].forEach(([color, output]) => {
+    test(`should render borderColor prop set as ${color}`, async ({
       mount,
       page,
     }) => {
@@ -502,16 +493,15 @@ test.describe("should check for Accessibility tests", () => {
     });
   });
 
-  (
-    [
-      colorsSemanticCaution500,
-      blackOpacity65,
-      brilliantGreenShade20,
-      red,
-      hexBlue,
-      green,
-    ] as const
-  ).forEach((color) => {
+  [
+    "--colorsSemanticCaution500",
+    "var(--colorsActionMajor500)",
+    "brilliantGreenShade20",
+    "red",
+    "#0000ff",
+    "rgb(125, 70, 120)",
+    "hsl(120, 100%, 50%)",
+  ].forEach((color) => {
     test(`should render borderColor set as ${color} for accessibility`, async ({
       mount,
       page,
