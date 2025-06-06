@@ -136,7 +136,7 @@ const TabTitle = React.forwardRef(
       // safari does not focus buttons by default
       // istanbul ignore else (ref is always passed as an object from Tabs component, if was only added to satisfy Typescript compiler)
       if (typeof ref === "object") {
-        ref?.current?.focus();
+        ref?.current?.focus({ preventScroll: true });
       }
 
       return onClick(ev);

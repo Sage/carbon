@@ -276,7 +276,7 @@ const Button = React.forwardRef<
     const handleClick = (
       event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
-      internalRef?.focus();
+      internalRef?.focus({ preventScroll: true });
 
       if (inSplitButton) {
         onChildButtonClick?.(onClick)?.(event);

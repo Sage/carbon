@@ -98,7 +98,7 @@ export const Heading = ({
         aria-label={l.heading.backLinkAriaLabel()}
         data-element="back"
         data-role="heading-back-button"
-        onMouseDown={(e) => e.currentTarget.focus()}
+        onMouseDown={(e) => e.currentTarget.focus({ preventScroll: true })}
         {...backButtonProps}
       >
         <StyledHeadingIcon type="chevron_left" />

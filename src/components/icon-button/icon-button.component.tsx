@@ -62,7 +62,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     };
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      internalRef?.focus();
+      internalRef?.focus({ preventScroll: true });
       onClick?.(event);
     };
 
