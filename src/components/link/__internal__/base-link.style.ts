@@ -1,7 +1,7 @@
-import styled, { FlattenSimpleInterpolation } from "styled-components";
+import styled, { SimpleInterpolation } from "styled-components";
 
 interface StyledBaseLinkProps {
-    $styles?: FlattenSimpleInterpolation;
+  $styles?: SimpleInterpolation;
 }
 
 const StyledBaseLinkWrapper = styled.span<StyledBaseLinkProps>`
