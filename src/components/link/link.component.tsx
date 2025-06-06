@@ -1,109 +1,64 @@
-import React, { useContext, useEffect, useState } from "react";
-import { StyledLink } from "./link.style";
-import type { Variants } from "./link.style";
-import type { IconType } from "../icon";
-import MenuContext from "../menu/__internal__/menu.context";
-import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
-import tagComponent, {
-  TagProps,
-} from "../../__internal__/utils/helpers/tags/tags";
-import BaseLink from "../link/__internal__/base-link.component";
+import React from "react";
+import type { FlattenSimpleInterpolation } from "styled-components";
+import StyledBaseLinkWrapper from "./__internal__/base-link.style";
 
-export interface LinkProps extends React.AriaAttributes, TagProps {
+export interface BaseLinkProps extends React.AriaAttributes {
+  /** The `href` for anchor links. If provided, an `<a>` is rendered. */
   href?: string;
-  icon?: string;
-  iconAlign?: "left" | "right";
-  tooltipMessage?: string;
-  tooltipPosition?: "bottom" | "left" | "right" | "top";
+  /** The child elements or text content inside the link. */
   children?: React.ReactNode;
+  /** The `target` attribute for anchor links (e.g. `_blank`, `_self`). */
   target?: string;
+  /** The `rel` attribute for anchor links (e.g. `"noopener"`). */
   rel?: string;
-  ariaLabel?: string;
-
-  onClick?: (
-    ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>,
-  ) => void;
-
-  onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
-  onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
-  removeAriaLabelOnIcon?: boolean;
-  isSkipLink?: boolean;
-  disabled?: boolean;
+  /** Optional class name to apply to the rendered element. */
   className?: string;
-  variant?: Variants;
-  isDarkBackground?: boolean;
+  /** Disables the button/link visually and functionally. */
+  disabled?: boolean;
+  /** Specifies the button type when rendered as a `<button>`. */
+  type?: "button" | "submit" | "reset";
+  /** Defines the tab order. */
+  tabIndex?: number;
+  /** Optional inline styles. */
+  style?: React.CSSProperties;
+  /** Data-role for internal testing/targeting. */
+  "data-role"?: string;
+  /** Data-element identifier, commonly used in testing. */
+  "data-element"?: string;
+  /** Called on mouse click. */
+  onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  /** Called when a key is pressed down. */
+  onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  /** Called when mouse button is pressed down. */
+  onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  /** Called when the element receives focus. */
+  onFocus?: React.FocusEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  /** Called when the element loses focus. */
+  onBlur?: React.FocusEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  /** CSS styles passed from the parent component, injected via styled-components. */
+  $styles?: FlattenSimpleInterpolation;
 }
 
-const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
-  (
-    {
-      children,
-      className,
-      icon,
-      iconAlign,
-      variant = "default",
-      isDarkBackground,
-      isSkipLink,
-      href,
-      onClick,
-      onKeyDown,
-      onMouseDown,
-      disabled,
-      ...rest
-    },
-    ref,
-  ) => {
-    const [hasFocus, setHasFocus] = useState(false);
-    const { inMenu } = useContext(MenuContext);
-    const { batchSelectionDisabled } = useContext(BatchSelectionContext);
+const BaseLink = React.forwardRef<
+  HTMLAnchorElement | HTMLButtonElement,
+  BaseLinkProps
+>(({ href, children, $styles, type = "button", ...rest }, ref) => {
+  const Element = href ? "a" : "button";
 
-    const isDisabled = disabled || batchSelectionDisabled;
-
-    useEffect(() => {
-      if (isDisabled || !(href || onClick)) {
-        setHasFocus(false);
-      }
-    }, [isDisabled, href, onClick]);
-
-    return (
-      <StyledLink
-        data-component="link"
-        isSkipLink={isSkipLink}
-        disabled={isDisabled}
-        iconAlign={iconAlign}
-        className={className}
-        hasContent={Boolean(children)}
-        variant={variant}
-        isDarkBackground={isDarkBackground}
-        isMenuItem={inMenu}
-        {...tagComponent("link", rest)}
-        {...(isSkipLink && { "data-element": "skip-link" })}
-        hasFocus={hasFocus}
-      >
-        <BaseLink
-          {...rest}
-          ref={ref}
-          href={href}
-          onClick={onClick}
-          onKeyDown={onKeyDown}
-          onMouseDown={onMouseDown}
-          disabled={isDisabled}
-          icon={icon as IconType}
-          iconAlign={iconAlign}
-          isSkipLink={isSkipLink}
-          onFocus={() => setHasFocus(true)}
-          onBlur={() => setHasFocus(false)}
-        >
+  return (
+    <StyledBaseLinkWrapper $styles={$styles}>
+      {Element === "a" ? (
+        <a href={href} ref={ref as React.Ref<HTMLAnchorElement>} {...rest}>
           {children}
-        </BaseLink>
-      </StyledLink>
-    );
-  },
-);
+        </a>
+      ) : (
+        <button ref={ref as React.Ref<HTMLButtonElement>} type={type} {...rest}>
+          {children}
+        </button>
+      )}
+    </StyledBaseLinkWrapper>
+  );
+});
 
-Link.displayName = "Link";
-export default Link;
+BaseLink.displayName = "BaseLink";
+export default BaseLink;
