@@ -21,6 +21,7 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 import Button from "../button";
 import PopoverContainer from "../popover-container";
 import Icon from "../icon";
+import Portrait from "../portrait";
 
 import type { MenuType } from "./menu.types";
 
@@ -57,6 +58,67 @@ export const MenuComponent = (props: Partial<MenuProps> & MenuDividerProps) => {
     </Box>
   );
 };
+
+export const MenuComponentWithSubmenuNodes = () => (
+  <Box mb={150}>
+    {menuTypes.map((menuType) => {
+      const submenuNode = (initials: string, name: string) => (
+        <Box display="flex" alignItems="baseline" gap="10px">
+          <Portrait initials={initials} />
+          <Typography
+            variant="b"
+            color={
+              menuType === "black" || menuType === "dark" ? "white" : "black"
+            }
+          >
+            {name}
+          </Typography>
+        </Box>
+      );
+      return (
+        <Box key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem
+              href="#"
+              submenu={submenuNode("JD", "John Doe")}
+              ariaLabel="John Doe"
+            >
+              <MenuItem>Item Submenu One</MenuItem>
+              <MenuItem>Item Submenu Two</MenuItem>
+            </MenuItem>
+            <MenuItem
+              href="#"
+              submenu={submenuNode("JS", "Jane Smith")}
+              ariaLabel="Jane Smith"
+            >
+              <MenuItem>Item Submenu One</MenuItem>
+              <MenuItem>Item Submenu Two</MenuItem>
+            </MenuItem>
+            <MenuItem
+              href="#"
+              submenu={submenuNode("AB", "Alice Brown")}
+              ariaLabel="Alice Brown"
+            >
+              <MenuItem>Item Submenu One</MenuItem>
+              <MenuItem>Item Submenu Two</MenuItem>
+            </MenuItem>
+            <MenuItem
+              href="#"
+              submenu={submenuNode("BC", "Bob Clark")}
+              ariaLabel="Bob Clark"
+            >
+              <MenuItem>Item Submenu One</MenuItem>
+              <MenuItem>Item Submenu Two</MenuItem>
+            </MenuItem>
+          </Menu>
+        </Box>
+      );
+    })}
+  </Box>
+);
 
 export const MenuComponentScrollable = (
   props: Partial<ScrollableBlockProps>,
