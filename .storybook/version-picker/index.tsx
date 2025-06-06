@@ -4,7 +4,7 @@ import {
   WithTooltip,
   TooltipLinkList,
   TooltipLinkListLink,
-} from "@storybook/components";
+} from "storybook/internal/components";
 import compareBuild from "semver/functions/compare-build";
 
 import { TOOL_ID } from "./constants";
@@ -12,7 +12,7 @@ import fetchData from "./fetch-data";
 
 const getDisplayedItems = (
   versions: Record<string, string>,
-  onClick: TooltipLinkListLink["onClick"]
+  onClick: TooltipLinkListLink["onClick"],
 ) => {
   let formattedVersions: TooltipLinkListLink[] = [];
 
@@ -36,7 +36,7 @@ const getDisplayedItems = (
 
 export const VersionPicker = () => {
   const [versions, setVersions] = useState<Record<string, string> | undefined>(
-    undefined
+    undefined,
   );
   const [currentVersion, setCurrentVersion] = useState("Latest");
 
