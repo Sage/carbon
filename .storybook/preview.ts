@@ -1,5 +1,5 @@
-import { Preview } from "@storybook/react";
-import { configure } from "@storybook/test";
+import { Preview } from "@storybook/react-vite";
+import { configure } from "storybook/test";
 
 import "../src/style/fonts.css";
 

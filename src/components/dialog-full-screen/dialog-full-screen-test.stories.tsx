@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
-import { StoryObj } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { StoryObj } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 import DialogFullScreen, { DialogFullScreenProps } from ".";
 import Dialog from "../dialog";
 import Button from "../button";
