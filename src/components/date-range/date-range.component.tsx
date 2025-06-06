@@ -149,6 +149,7 @@ export const DateRange = ({
   endRef,
   required,
   isOptional,
+  dateFormatOverride: dateFormatOverrideProp,
   datePickerStartAriaLabel,
   datePickerStartAriaLabelledBy,
   datePickerEndAriaLabel,
@@ -169,8 +170,12 @@ export const DateRange = ({
   const l = useLocale();
   const { dateFnsLocale, dateFormatOverride } = l.date;
   const { format } = useMemo(
-    () => getFormatData(dateFnsLocale(), dateFormatOverride),
-    [dateFnsLocale, dateFormatOverride],
+    () =>
+      getFormatData(
+        dateFnsLocale(),
+        dateFormatOverrideProp || dateFormatOverride,
+      ),
+    [dateFnsLocale, dateFormatOverrideProp, dateFormatOverride],
   );
   const inlineLabelWidth = 40;
   const [lastChangedDate, setLastChangedDate] = useState("");

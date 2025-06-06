@@ -511,39 +511,65 @@ test("should default to en-GB locale if no locale code string passed to `getForm
 });
 
 describe("dateFormatOverride tests", () => {
-  const localeCodes = [
-    // handled locales
-    "en-CA",
-    "en-US",
-    "en-ZA",
-    "fr-CA",
-    "ar-EG",
-    // random locale to cover default switch scenario
-    "zh-HK",
-  ];
-  const dateFormatOverride = "dd Mo yyyy";
+  it("should return the expected formats when `dateFormatOverride` is passed as NA locale", () => {
+    const dateFormatOverride = "MM/dd/yyyy";
+    const { formats, format } = getFormatData(
+      { code: "en-GB" },
+      dateFormatOverride,
+    );
 
-  test.each(localeCodes)(
-    "should support %s locale code string passed to `getFormatData` when dateFormatOverride is provided",
-    (code: string) => {
-      const { formats, format } = getFormatData({ code }, dateFormatOverride);
+    // since the dateFormatOverride starts with the month, it should be treated as a NA locale
+    const expectedFormats = getExpectedFormatForLocale("en-US");
 
-      const expectedFormats = getExpectedFormatForLocale(code);
+    expect(
+      expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
+        formats.length === expectedFormats.length,
+    ).toEqual(true);
 
-      expect(
-        expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
-          formats.length === expectedFormats.length,
-      ).toEqual(true);
+    expect(format).toEqual(dateFormatOverride);
+  });
 
-      expect(format).toEqual(dateFormatOverride);
-    },
-  );
+  it("should return the expected formats when `dateFormatOverride` is passed as EU locale", () => {
+    const dateFormatOverride = "dd/MM/yyyy";
+    const { formats, format } = getFormatData(
+      { code: "en-US" },
+      dateFormatOverride,
+    );
+
+    // since the dateFormatOverride starts with the day, it should be treated as a EU locale
+    const expectedFormats = getExpectedFormatForLocale("en-GB");
+
+    expect(
+      expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
+        formats.length === expectedFormats.length,
+    ).toEqual(true);
+
+    expect(format).toEqual(dateFormatOverride);
+  });
+
+  it("should return the expected formats when `dateFormatOverride` is passed as CN locale", () => {
+    const dateFormatOverride = "yyyy/MM/dd";
+    const { formats, format } = getFormatData(
+      { code: "en-GB" },
+      dateFormatOverride,
+    );
+
+    // since the dateFormatOverride starts with the year, it should be treated as a CN locale
+    const expectedFormats = getExpectedFormatForLocale("zh");
+
+    expect(
+      expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
+        formats.length === expectedFormats.length,
+    ).toEqual(true);
+
+    expect(format).toEqual(dateFormatOverride);
+  });
 });
 
 describe.each(euLocales)(
   "when EU locales are passed to `getFormatData`",
   (locale: string) => {
-    test(`should return the expected object shape for ${locale} locale`, () => {
+    it(`should return the expected object shape for ${locale} locale`, () => {
       const { formats } = getFormatData({ code: locale });
 
       const expectedFormats = getExpectedFormatForLocale(locale);
@@ -559,7 +585,7 @@ describe.each(euLocales)(
 describe.each(naLocales)(
   "when NA locales are passed to `getFormatData`",
   (locale: string) => {
-    test(`should return the expected object shape for ${locale} locale`, () => {
+    it(`should return the expected object shape for ${locale} locale`, () => {
       const { formats } = getFormatData({ code: locale });
 
       const expectedFormats = getExpectedFormatForLocale(locale);
@@ -575,7 +601,7 @@ describe.each(naLocales)(
 describe.each(cnLocales)(
   "when CN locales are passed to `getFormatData`",
   (locale: string) => {
-    test(`should return the expected object shape for ${locale} locale`, () => {
+    it(`should return the expected object shape for ${locale} locale`, () => {
       const { formats } = getFormatData({ code: locale });
 
       const expectedFormats = getExpectedFormatForLocale(locale);

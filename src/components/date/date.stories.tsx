@@ -327,22 +327,26 @@ export const LocaleOverrideExampleImplementation: Story = () => {
     </Box>
   );
 };
-LocaleOverrideExampleImplementation.storyName =
-  "Locale Override - Example Implementation";
+LocaleOverrideExampleImplementation.storyName = "Locale Override";
 LocaleOverrideExampleImplementation.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const LocaleFormatOverrideExampleImplementation: Story = ({
-  ...args
-}) => {
-  const [state, setState] = useState("2022-04-05");
-  const handleChange = (ev: DateChangeEvent) => {
+export const LocaleFormatOverrideExampleImplementation: Story = () => {
+  const [stateKey, setStateKey] = useState("2019-04-05");
+  const handleChangeKey = (ev: DateChangeEvent) => {
     console.log(ev.target.value);
-    setState(ev.target.value.formattedValue);
+    setStateKey(ev.target.value.formattedValue);
   };
+
+  const [stateProp, setStateProp] = useState("05/04/2019");
+  const handleChangeProp = (ev: DateChangeEvent) => {
+    console.log(ev.target.value);
+    setStateProp(ev.target.value.formattedValue);
+  };
+
   return (
-    <Box display="flex">
+    <Box display="flex" justifyContent="space-around">
       <I18nProvider
         locale={{
           locale: () => "de-DE",
@@ -352,24 +356,28 @@ export const LocaleFormatOverrideExampleImplementation: Story = ({
               previousMonthButton: () => "Vorheriger Monat",
               nextMonthButton: () => "Nächster Monat",
             },
-            dateFormatOverride: args.dateFormatOverride || "dd-MM-yyyy",
+            dateFormatOverride: "yyyy-MM-dd",
           },
         }}
       >
         <DateInput
-          label="Date `DE` locale"
-          value={state}
-          onChange={handleChange}
+          label="With dateFormatOverride translation key"
+          value={stateKey}
+          onChange={handleChangeKey}
+          mb={2}
+        />
+
+        <DateInput
+          label="With dateFormatOverride prop"
+          value={stateProp}
+          onChange={handleChangeProp}
+          dateFormatOverride="dd/MM/yyyy"
         />
       </I18nProvider>
     </Box>
   );
 };
-LocaleFormatOverrideExampleImplementation.storyName =
-  "Locale Format Override - Example Implementation";
+LocaleFormatOverrideExampleImplementation.storyName = "Locale Format Override";
 LocaleFormatOverrideExampleImplementation.parameters = {
   chromatic: { disableSnapshot: true },
-};
-LocaleFormatOverrideExampleImplementation.args = {
-  dateFormatOverride: "d-M-yyyy",
 };

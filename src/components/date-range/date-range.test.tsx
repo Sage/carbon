@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { enGB as enGBLocale } from "date-fns/locale/en-GB";
-import { de as deLocale } from "date-fns/locale/de";
 
 import DateRange, { DateRangeChangeEvent } from "./date-range.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
@@ -1219,39 +1218,7 @@ test("should have the default styling when the `labelsInline` prop is set and `v
 });
 
 describe("Locale formatting overrides", () => {
-  test("should render with the input value matching the expected format when `dateFormatOverride` is set and the language is `de-DE`", () => {
-    render(
-      <I18nProvider
-        locale={{
-          locale: () => "de-DE",
-          date: {
-            ariaLabels: {
-              nextMonthButton: () => "foo",
-              previousMonthButton: () => "foo",
-            },
-            dateFnsLocale: () => deLocale,
-            dateFormatOverride: "y-m-ddd",
-          },
-        }}
-      >
-        <DateRange
-          startLabel="start"
-          endLabel="end"
-          value={["2016-10-10", "2016-11-11"]}
-          onChange={() => {}}
-        />
-      </I18nProvider>,
-    );
-
-    expect(screen.getByRole("textbox", { name: "start" })).toHaveValue(
-      "2016-0-010",
-    );
-    expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
-      "2016-0-011",
-    );
-  });
-
-  test("should render with the input value matching the expected format when `dateFormatOverride` is set and the language is `en-GB`", () => {
+  it("should render with the input value matching the expected format when `dateFormatOverride` is passed as a translation key", () => {
     render(
       <I18nProvider
         locale={{
@@ -1273,6 +1240,25 @@ describe("Locale formatting overrides", () => {
           onChange={() => {}}
         />
       </I18nProvider>,
+    );
+
+    expect(screen.getByRole("textbox", { name: "start" })).toHaveValue(
+      "2016-0-010",
+    );
+    expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
+      "2016-0-011",
+    );
+  });
+
+  it("should render with the input value matching the expected format when `dateFormatOverride` is passed as a prop", () => {
+    render(
+      <DateRange
+        startLabel="start"
+        endLabel="end"
+        value={["2016-10-10", "2016-11-11"]}
+        onChange={() => {}}
+        dateFormatOverride="y-m-ddd"
+      />,
     );
 
     expect(screen.getByRole("textbox", { name: "start" })).toHaveValue(

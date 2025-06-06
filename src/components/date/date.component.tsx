@@ -145,6 +145,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       inputName,
       onPickerClose,
       onPickerOpen,
+      dateFormatOverride: dateFormatOverrideProp,
       datePickerAriaLabel,
       datePickerAriaLabelledBy,
       ...rest
@@ -160,8 +161,12 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const locale = useLocale();
     const { dateFnsLocale, dateFormatOverride } = locale.date;
     const { format, formats } = useMemo(
-      () => getFormatData(dateFnsLocale(), dateFormatOverride),
-      [dateFnsLocale, dateFormatOverride],
+      () =>
+        getFormatData(
+          dateFnsLocale(),
+          dateFormatOverrideProp || dateFormatOverride,
+        ),
+      [dateFnsLocale, dateFormatOverride, dateFormatOverrideProp],
     );
     const { inputRefMap, setInputRefMap } = useContext(DateRangeContext);
     const [open, setOpen] = useState(false);

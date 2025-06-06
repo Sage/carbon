@@ -795,6 +795,37 @@ describe("when the `locale` is 'en-GB''", () => {
 
     expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
   });
+
+  test("should call onChange with expected values when `dateFormatOverride` is set", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onChange = jest.fn();
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "en-GB",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => enGBLocale,
+            dateFormatOverride: "MM/dd/yyyy",
+          },
+        }}
+      >
+        <MockComponent onChange={onChange} initialValue="" />
+      </I18nProvider>,
+    );
+
+    const input = screen.getByRole("textbox");
+
+    await user.click(input);
+    await user.type(input, "3/16/2019");
+    await user.click(document.body);
+
+    expect(input).toHaveValue("03/16/2019");
+    expect(onChange).toHaveBeenCalledWith({
+      formattedValue: "03/16/2019",
+      rawValue: "2019-03-16",
+    });
+  });
 });
 
 describe("when the `locale` is 'de-DE'", () => {
@@ -872,6 +903,37 @@ describe("when the `locale` is 'de-DE'", () => {
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
+
+  test("should call onChange with expected values when `dateFormatOverride` is set", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onChange = jest.fn();
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "de-DE",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => deLocale,
+            dateFormatOverride: "MM/dd/yyyy",
+          },
+        }}
+      >
+        <MockComponent onChange={onChange} initialValue="" />
+      </I18nProvider>,
+    );
+
+    const input = screen.getByRole("textbox");
+
+    await user.click(input);
+    await user.type(input, "3/16/2019");
+    await user.click(document.body);
+
+    expect(input).toHaveValue("03/16/2019");
+    expect(onChange).toHaveBeenCalledWith({
+      formattedValue: "03/16/2019",
+      rawValue: "2019-03-16",
+    });
   });
 });
 
@@ -951,6 +1013,37 @@ describe("when the `locale` is 'es'", () => {
 
     expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
   });
+
+  test("should call onChange with expected values when `dateFormatOverride` is set", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onChange = jest.fn();
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "es",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => esLocale,
+            dateFormatOverride: "MM-dd-yyyy",
+          },
+        }}
+      >
+        <MockComponent onChange={onChange} initialValue="" />
+      </I18nProvider>,
+    );
+
+    const input = screen.getByRole("textbox");
+
+    await user.click(input);
+    await user.type(input, "3-16-2019");
+    await user.click(document.body);
+
+    expect(input).toHaveValue("03-16-2019");
+    expect(onChange).toHaveBeenCalledWith({
+      formattedValue: "03-16-2019",
+      rawValue: "2019-03-16",
+    });
+  });
 });
 
 describe("when the `locale` is 'en-ZA'", () => {
@@ -1028,6 +1121,37 @@ describe("when the `locale` is 'en-ZA'", () => {
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
+
+  test("should call onChange with expected values when `dateFormatOverride` is set", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onChange = jest.fn();
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "en-ZA",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => enZALocale,
+            dateFormatOverride: "MM-dd-yyyy",
+          },
+        }}
+      >
+        <MockComponent onChange={onChange} initialValue="" />
+      </I18nProvider>,
+    );
+
+    const input = screen.getByRole("textbox");
+
+    await user.click(input);
+    await user.type(input, "3-16-2019");
+    await user.click(document.body);
+
+    expect(input).toHaveValue("03-16-2019");
+    expect(onChange).toHaveBeenCalledWith({
+      formattedValue: "03-16-2019",
+      rawValue: "2019-03-16",
+    });
   });
 });
 
@@ -1107,6 +1231,37 @@ describe("when the `locale` is 'fr-FR'", () => {
 
     expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
   });
+
+  test("should call onChange with expected values when `dateFormatOverride` is set", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onChange = jest.fn();
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "fr-FR",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => frLocale,
+            dateFormatOverride: "MM-dd-yyyy",
+          },
+        }}
+      >
+        <MockComponent onChange={onChange} initialValue="" />
+      </I18nProvider>,
+    );
+
+    const input = screen.getByRole("textbox");
+
+    await user.click(input);
+    await user.type(input, "3-16-2019");
+    await user.click(document.body);
+
+    expect(input).toHaveValue("03-16-2019");
+    expect(onChange).toHaveBeenCalledWith({
+      formattedValue: "03-16-2019",
+      rawValue: "2019-03-16",
+    });
+  });
 });
 
 describe("when the `locale` is 'fr-CA'", () => {
@@ -1184,6 +1339,37 @@ describe("when the `locale` is 'fr-CA'", () => {
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
+
+  test("should call onChange with expected values when `dateFormatOverride` is set", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onChange = jest.fn();
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "fr-CA",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => frCALocale,
+            dateFormatOverride: "MM-dd-yyyy",
+          },
+        }}
+      >
+        <MockComponent onChange={onChange} initialValue="" />
+      </I18nProvider>,
+    );
+
+    const input = screen.getByRole("textbox");
+
+    await user.click(input);
+    await user.type(input, "3-16-2019");
+    await user.click(document.body);
+
+    expect(input).toHaveValue("03-16-2019");
+    expect(onChange).toHaveBeenCalledWith({
+      formattedValue: "03-16-2019",
+      rawValue: "2019-03-16",
+    });
   });
 });
 
@@ -1263,6 +1449,37 @@ describe("when the `locale` is 'en-CA'", () => {
 
     expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
   });
+
+  test("should call onChange with expected values when `dateFormatOverride` is set", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onChange = jest.fn();
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "en-CA",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => enCALocale,
+            dateFormatOverride: "MM-dd-yyyy",
+          },
+        }}
+      >
+        <MockComponent onChange={onChange} initialValue="" />
+      </I18nProvider>,
+    );
+
+    const input = screen.getByRole("textbox");
+
+    await user.click(input);
+    await user.type(input, "3-16-2019");
+    await user.click(document.body);
+
+    expect(input).toHaveValue("03-16-2019");
+    expect(onChange).toHaveBeenCalledWith({
+      formattedValue: "03-16-2019",
+      rawValue: "2019-03-16",
+    });
+  });
 });
 
 describe("when the `locale` is 'en-US'", () => {
@@ -1340,6 +1557,37 @@ describe("when the `locale` is 'en-US'", () => {
     );
 
     expect(screen.getByRole("textbox")).toHaveValue("2019-0-005");
+  });
+
+  test("should call onChange with expected values when `dateFormatOverride` is set", async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onChange = jest.fn();
+    render(
+      <I18nProvider
+        locale={{
+          locale: () => "en-US",
+          date: {
+            ariaLabels,
+            dateFnsLocale: () => enUSLocale,
+            dateFormatOverride: "dd/MM/yyyy",
+          },
+        }}
+      >
+        <MockComponent onChange={onChange} initialValue="" />
+      </I18nProvider>,
+    );
+
+    const input = screen.getByRole("textbox");
+
+    await user.click(input);
+    await user.type(input, "16/3/2019");
+    await user.click(document.body);
+
+    expect(input).toHaveValue("16/03/2019");
+    expect(onChange).toHaveBeenCalledWith({
+      formattedValue: "16/03/2019",
+      rawValue: "2019-03-16",
+    });
   });
 });
 
