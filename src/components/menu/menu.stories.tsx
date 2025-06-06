@@ -8,6 +8,7 @@ import Box from "../box";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Search, { SearchEvent } from "../search";
 import Typography from "../typography";
+import Portrait from "../portrait";
 
 import {
   Menu,
@@ -238,6 +239,68 @@ export const AlternateColourStory: MenuStory = () => {
 };
 AlternateColourStory.storyName = "Alternate Colour";
 AlternateColourStory.parameters = { chromatic: { disableSnapshot: true } };
+
+export const SubmenuNodes: MenuStory = () => (
+  <Box mb={150}>
+    {menuTypes.map((menuType) => {
+      const submenuNode = (initials: string, name: string) => (
+        <Box display="flex" alignItems="baseline" gap="10px">
+          <Portrait initials={initials} />
+          <Typography
+            variant="b"
+            color={
+              menuType === "black" || menuType === "dark" ? "white" : "black"
+            }
+          >
+            {name}
+          </Typography>
+        </Box>
+      );
+      return (
+        <Box key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem
+              href="#"
+              submenu={submenuNode("JD", "John Doe")}
+              ariaLabel="John Doe"
+            >
+              <MenuItem>Item Submenu One</MenuItem>
+              <MenuItem>Item Submenu Two</MenuItem>
+            </MenuItem>
+            <MenuItem
+              href="#"
+              submenu={submenuNode("JS", "Jane Smith")}
+              ariaLabel="Jane Smith"
+            >
+              <MenuItem>Item Submenu One</MenuItem>
+              <MenuItem>Item Submenu Two</MenuItem>
+            </MenuItem>
+            <MenuItem
+              href="#"
+              submenu={submenuNode("AB", "Alice Brown")}
+              ariaLabel="Alice Brown"
+            >
+              <MenuItem>Item Submenu One</MenuItem>
+              <MenuItem>Item Submenu Two</MenuItem>
+            </MenuItem>
+            <MenuItem
+              href="#"
+              submenu={submenuNode("BC", "Bob Clark")}
+              ariaLabel="Bob Clark"
+            >
+              <MenuItem>Item Submenu One</MenuItem>
+              <MenuItem>Item Submenu Two</MenuItem>
+            </MenuItem>
+          </Menu>
+        </Box>
+      );
+    })}
+  </Box>
+);
+SubmenuNodes.storyName = "Submenu Nodes";
 
 export const SubmenuOptionsStory: MenuStory = () => {
   return (
@@ -686,7 +749,19 @@ export const FullscreenViewStory: MenuStory = () => {
           </MenuItem>
           <MenuItem href="#">Menu Item Three</MenuItem>
           <MenuItem href="#">Menu Item Four</MenuItem>
-          <MenuItem submenu="Menu Item Five">
+          <MenuItem
+            href="#"
+            submenu={
+              <Typography
+                variant="big"
+                fontWeight="500"
+                lineHeight="40px"
+                color={menu === "black" || menu === "dark" ? "white" : "black"}
+              >
+                Menu Item Five
+              </Typography>
+            }
+          >
             <MenuItem href="#">Submenu Item One</MenuItem>
             <MenuItem href="#">Submenu Item Two</MenuItem>
           </MenuItem>

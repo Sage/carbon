@@ -71,6 +71,16 @@ import {
 
 <Canvas of={MenuStories.AlternateColourStory} />
 
+### Submenu Nodes
+
+The `submenu` prop on `MenuItem` accepts a node, which allows the creation of complex composition for the title with **non-interactive elements only**, when the `MenuItem` has a submenu. It is recommended to also pass the 
+`ariaLabel` prop when the composition is especially complex, to ensure screen readers can provide the correct context to users.
+
+<Canvas of={MenuStories.SubmenuNodes} />
+
+> **Note**: Also, if a complex composition is used, proceed with caution when using the `maxWidth` prop, the onus is now on the consumer to ensure the content of the `submenu` is properly communicated to users. 
+
+
 ### Submenu options
 
 <Canvas of={MenuStories.SubmenuOptionsStory} />
