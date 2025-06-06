@@ -1,4 +1,4 @@
-import styled, { css, FlattenSimpleInterpolation } from "styled-components";
+import styled, { css, SimpleInterpolation } from "styled-components";
 import StyledIcon from "../icon/icon.style";
 import type { StyledLinkProps } from "./link.style.types";
 
@@ -41,9 +41,7 @@ const colorMap = {
   },
 };
 
-const StyledLinkStyles = (
-  props: StyledLinkProps,
-): FlattenSimpleInterpolation => {
+const StyledLinkStyles = (props: StyledLinkProps): SimpleInterpolation => {
   const {
     variant = "default",
     disabled = false,
