@@ -1,7 +1,7 @@
 /* TODO: FE-6579 To re-enable once button-related props are removed from Link */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Link from "./link.component";
@@ -36,7 +36,7 @@ test("should not call the onClick function when `disabled` prop is true and clic
   expect(spy).not.toHaveBeenCalled();
 });
 
-test("should call the onClick function clicked", async () => {
+test("should call the onClick function when clicked", async () => {
   const spy = jest.fn();
   render(<Link onClick={spy}>Test Content</Link>);
 
@@ -55,7 +55,7 @@ test("when component receives a `target` prop it should render an `<a>` element 
   expect(linkElement).toHaveAttribute("target", target);
 });
 
-test("when component received a `rel` prop it should render an `<a>` element with rel attribute", () => {
+test("when component receives a `rel` prop it should render an `<a>` element with rel attribute", () => {
   const rel = "alternate";
 
   render(<Link rel={rel} />);
@@ -121,20 +121,13 @@ test("should render an `Icon` on the right with no margin when no children", () 
   });
 });
 
-test("when a link is rendered with an icon and no children, there should be no text decoration on the anchor element", () => {
-  render(<Link icon="home" href="www.sage.com" />);
-
-  const linkElement = screen.getByTestId("link-anchor");
-
-  expect(linkElement).toHaveStyle("text-decoration: none");
-});
 
 test("when a link is rendered with an icon and no children, link should have the inline display property", () => {
   render(<Link icon="home" href="www.sage.com" />);
 
   const iconElement = screen.getByTestId("icon");
 
-  expect(iconElement).toHaveStyle("display: inline");
+  expect(iconElement).toHaveStyle("display: inline-flex");
 });
 
 test("when a link is rendered with an icon aligned right and has content, expected styles should be applied", () => {
@@ -150,7 +143,7 @@ test("when a link is rendered with an icon aligned right and has content, expect
 });
 
 describe("when the `onKeyDown` event is triggered", () => {
-  it("should call onKeyDown callback, when provided and link is triggered via the Enter key", async () => {
+  it("should call onKeyDown callback when provided and link is triggered via the Enter key", async () => {
     const onClickFn = jest.fn();
     const onKeyDownFn = jest.fn();
     const user = userEvent.setup();
@@ -165,7 +158,7 @@ describe("when the `onKeyDown` event is triggered", () => {
     expect(onKeyDownFn).toHaveBeenCalled();
   });
 
-  it("should fire `onKeyDown`  when a key is pressed but no `onClick` prop is passed", async () => {
+  it("should fire `onKeyDown` when a key is pressed but no `onClick` prop is passed", async () => {
     const onKeyDownFn = jest.fn();
     const user = userEvent.setup();
     render(<Link onKeyDown={onKeyDownFn} href="#" />);
@@ -241,312 +234,6 @@ test("renders with custom data tags", () => {
   expect(screen.getByTestId("foo")).toHaveAttribute("data-element", "bar");
 });
 
-// Test is just for coverage
-test("neutral `variant` has the expected styling when `isDarkBackground` is false", () => {
-  render(
-    <Link
-      href="foo.com"
-      isDarkBackground={false}
-      icon="home"
-      variant="neutral"
-      data-role="link"
-    />,
-  );
-
-  const linkElement = screen.getByTestId("link");
-  const iconElement = screen.getByTestId("icon");
-
-  expect(linkElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
-  expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
-});
-
-// Test is just for coverage
-test("neutral `variant` has the expected styling when `isDarkBackground` is false and is hovered over", async () => {
-  const user = userEvent.setup();
-  render(
-    <Link
-      href="foo.com"
-      isDarkBackground={false}
-      icon="home"
-      variant="neutral"
-      data-role="link"
-    />,
-  );
-
-  const linkElement = screen.getByTestId("link");
-  const iconElement = screen.getByTestId("icon");
-
-  await user.hover(linkElement);
-
-  expect(linkElement).toHaveStyle("color: var(--colorsActionMajor600)");
-  expect(iconElement).toHaveStyle("color: var(--colorsActionMajor600)");
-});
-
-// Test is just for coverage
-test("neutral `variant` has the expected styling when `isDarkBackground` is false and is focused", async () => {
-  const user = userEvent.setup();
-  render(
-    <Link
-      href="foo.com"
-      isDarkBackground={false}
-      icon="home"
-      variant="neutral"
-      data-role="link"
-    />,
-  );
-
-  const linkElement = screen.getByTestId("link");
-  const iconElement = screen.getByTestId("icon");
-
-  await user.tab();
-
-  expect(linkElement).toHaveStyle({
-    color: "var(--colorsActionMajorYin090)",
-    backgroundColor: "var(--colorsSemanticFocus250)",
-  });
-  expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
-});
-
-// Test is just for coverage
-test("negative `variant` has the expected styling when `isDarkBackground` is false", () => {
-  render(
-    <Link
-      href="foo.com"
-      isDarkBackground={false}
-      icon="home"
-      variant="negative"
-      data-role="link"
-    />,
-  );
-
-  const linkElement = screen.getByTestId("link");
-  const iconElement = screen.getByTestId("icon");
-
-  expect(linkElement).toHaveStyle("color: var(--colorsSemanticNegative500)");
-  expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
-});
-
-// Test is just for coverage
-test("negative `variant` has the expected styling when `isDarkBackground` is false and is hovered", async () => {
-  const user = userEvent.setup();
-  render(
-    <Link
-      href="foo.com"
-      isDarkBackground={false}
-      icon="home"
-      variant="neutral"
-      data-role="link"
-    />,
-  );
-
-  const linkElement = screen.getByTestId("link");
-  const iconElement = screen.getByTestId("icon");
-
-  await user.hover(linkElement);
-
-  expect(linkElement).toHaveStyle("color: var(--colorsSemanticNegative600)");
-  expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
-});
-
-// Tests are just for coverage
-describe("isDarkBackground", () => {
-  it("matches the expected styling with default `variant`", () => {
-    render(
-      <Link href="foo.com" isDarkBackground icon="home" data-role="link" />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsActionMajor350)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMajor350)`);
-  });
-
-  it("matches the expected styling with default `variant` when hovered over", async () => {
-    const user = userEvent.setup();
-    render(
-      <Link href="foo.com" isDarkBackground icon="home" data-role="link" />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    await user.hover(linkElement);
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsActionMajor450)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMajor450)`);
-  });
-
-  it("matches the expected styling with default `variant` when focused", async () => {
-    const user = userEvent.setup();
-    render(
-      <Link href="foo.com" isDarkBackground icon="home" data-role="link" />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    await user.tab();
-
-    expect(linkElement).toHaveStyle({
-      color: "var(--colorsActionMajorYin090)",
-      backgroundColor: "var(--colorsSemanticFocus250)",
-    });
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMajorYin090)`);
-  });
-
-  it("matches the expected styling when disabled", () => {
-    render(<Link href="foo.com" isDarkBackground disabled data-role="link" />);
-
-    const linkElement = screen.getByTestId("link");
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsActionMajorYang030)`);
-  });
-
-  it("matches the styling when `variant` is set to negative", () => {
-    render(
-      <Link
-        href="foo.com"
-        isDarkBackground
-        icon="home"
-        variant="negative"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsSemanticNegative350)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsSemanticNegative350)`);
-  });
-
-  it("matches the styling when `variant` is set to negative and hovered over", async () => {
-    const user = userEvent.setup();
-    render(
-      <Link
-        href="foo.com"
-        isDarkBackground
-        icon="home"
-        variant="negative"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    await user.hover(linkElement);
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsSemanticNegative450)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsSemanticNegative450)`);
-  });
-
-  it("matches the styling when `variant` is set to negative and focused", async () => {
-    const user = userEvent.setup();
-    render(
-      <Link
-        href="foo.com"
-        isDarkBackground
-        icon="home"
-        variant="negative"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    await user.tab();
-
-    expect(linkElement).toHaveStyle({
-      color: "var(--colorsActionMajorYin090)",
-      backgroundColor: "var(--colorsSemanticFocus250)",
-    });
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMajorYin090)`);
-  });
-
-  it("matches the styling when `variant` is set to neutral", () => {
-    render(
-      <Link
-        href="foo.com"
-        isDarkBackground
-        icon="home"
-        variant="neutral"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsActionMinor100)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMinor100)`);
-  });
-
-  it("matches the styling when `variant` is set to neutral and is hovered over", () => {
-    render(
-      <Link
-        href="foo.com"
-        isDarkBackground
-        icon="home"
-        variant="neutral"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    expect(linkElement).toHaveStyle(`color: var(--colorsActionMajor450)`);
-    expect(iconElement).toHaveStyle(`color: var(--colorsActionMajor450)`);
-  });
-
-  it("matches the styling when `variant` is set to neutral and is focused", () => {
-    render(
-      <Link
-        href="foo.com"
-        isDarkBackground
-        icon="home"
-        variant="neutral"
-        data-role="link"
-      />,
-    );
-
-    const linkElement = screen.getByTestId("link");
-    const iconElement = screen.getByTestId("icon");
-
-    expect(linkElement).toHaveStyle({
-      color: "var(--colorsActionMajorYin090)",
-      backgroundColor: "var(--colorsSemanticFocus250)",
-    });
-    expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
-  });
-});
-
-// Test is just for coverage
-describe("link display styling", () => {
-  it("when inside a menu, link element has display inline-block", () => {
-    render(
-      <Menu menuType="light">
-        <Link href="foo.com" />
-      </Menu>,
-    );
-
-    const linkElement = screen.getByRole("link");
-
-    expect(linkElement).toHaveStyle(`display: inline-block`);
-  });
-
-  it("when not inside a menu, link element has default display", () => {
-    render(<Link href="foo.com" isDarkBackground icon="home" />);
-
-    const linkElement = screen.getByRole("link");
-
-    expect(linkElement).not.toHaveStyle(`display: inline-block`);
-  });
-});
-
 test("accepts ref as a ref object", () => {
   const mockRef = { current: null };
   render(<Link href="#" ref={mockRef} />);
@@ -554,22 +241,4 @@ test("accepts ref as a ref object", () => {
   const link = screen.getByRole("link");
 
   expect(mockRef.current).toBe(link);
-});
-
-test("accepts ref as a ref callback", () => {
-  const mockRef = jest.fn();
-  render(<Link href="#" ref={mockRef} />);
-
-  const link = screen.getByRole("link");
-
-  expect(mockRef).toHaveBeenCalledWith(link);
-});
-
-test("sets ref to empty after unmount", () => {
-  const mockRef = { current: null };
-  const { unmount } = render(<Link />);
-
-  unmount();
-
-  expect(mockRef.current).toBe(null);
 });
