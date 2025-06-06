@@ -1,17 +1,17 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import styled from "styled-components";
 import Box from "../src/components/box";
 
 /**
  * This file is used primarily as a means to generate the props table.
- * It contains the tag: ["hideInSidebar"] so that it is not included in the sidebar.
+ * It contains the tag: ["dev"] so that it is not included in the sidebar.
  */
 
 const meta: Meta = {
   title: "Documentation/Extending Styles of Carbon Components",
-  tags: ["hideInSidebar"],
+  tags: ["!dev"],
 };
 
 export default meta;

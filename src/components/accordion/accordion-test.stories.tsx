@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { Accordion, AccordionGroup } from ".";
 import Box from "../box";
 import MultiActionButton from "../multi-action-button";

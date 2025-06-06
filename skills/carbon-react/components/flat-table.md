@@ -1477,11 +1477,9 @@ description: Carbon FlatTable component props and usage examples.
       { client: "Blake Sutton", total: 3840 },
       { client: "Tyler Webb", total: 280 },
     ];
-    /* eslint-disable react-hooks/rules-of-hooks */
     const [headData, setHeadData] = useState(headDataItems);
     const [sortType, setSortType] = useState<SortType>("ascending");
     const [sortValue, setSortValue] = useState<SortValue>("client");
-    /* eslint-enable react-hooks/rules-of-hooks */
 
     const sortByNumber = (
       dataToSort: BodyDataItems,
@@ -1608,11 +1606,9 @@ description: Carbon FlatTable component props and usage examples.
       { client: "Blake Sutton", total: 3840 },
       { client: "Tyler Webb", total: 280 },
     ];
-    /* eslint-disable react-hooks/rules-of-hooks */
     const [headData, setHeadData] = useState(headDataItems);
     const [sortType, setSortType] = useState<SortType>("ascending");
     const [sortValue, setSortValue] = useState<SortValue>("client");
-    /* eslint-enable react-hooks/rules-of-hooks */
 
     const sortByNumber = (
       dataToSort: BodyDataItems,

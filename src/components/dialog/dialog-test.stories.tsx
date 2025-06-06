@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { StoryObj } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { StoryObj } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 
 import Dialog, { DialogProps } from "./dialog.component";
 import { DIALOG_SIZES } from "./dialog.config";

@@ -2,34 +2,38 @@ import React, { useEffect, useState } from "react";
 import {
   IconButton,
   WithTooltip,
-  TooltipLinkList,
-  TooltipLinkListLink,
-} from "@storybook/components";
+  ActionList,
+} from "storybook/internal/components";
 import compareBuild from "semver/functions/compare-build";
 
 import { TOOL_ID } from "./constants";
 import fetchData from "./fetch-data";
 
+interface VersionLink {
+  id: string;
+  title: string;
+  onClick: () => void;
+  active: boolean;
+  href: string;
+}
+
 const getDisplayedItems = (
   versions: Record<string, string>,
   onHide: () => void,
-): TooltipLinkListLink[] => {
+): VersionLink[] => {
   const formattedVersions = Object.entries(versions)
-    .reduce<(TooltipLinkListLink & { title: string })[]>(
-      (acc, [key, value]) => {
-        if (!key.match(/-beta\.\d+$/)) {
-          acc.push({
-            id: key,
-            title: key,
-            onClick: onHide,
-            active: false,
-            href: value,
-          });
-        }
-        return acc;
-      },
-      [],
-    )
+    .reduce<(VersionLink & { title: string })[]>((acc, [key, value]) => {
+      if (!key.match(/-beta\.\d+$/)) {
+        acc.push({
+          id: key,
+          title: key,
+          onClick: onHide,
+          active: false,
+          href: value,
+        });
+      }
+      return acc;
+    }, [])
     .sort((a, b) => compareBuild(b.id, a.id));
 
   formattedVersions[0].title = `${formattedVersions[0].title} (latest)`;
@@ -76,14 +80,32 @@ const VersionPicker = () => {
         trigger="click"
         closeOnOutsideClick
         tooltip={({ onHide }) => {
+          const items = getDisplayedItems(versions, onHide);
           return (
-            <TooltipLinkList links={getDisplayedItems(versions, onHide)} />
+            <div style={{ maxHeight: 400, overflowY: "auto" }}>
+              <ActionList>
+                {items.map((item) => (
+                  <ActionList.Item key={item.id}>
+                    <ActionList.Button
+                      ariaLabel={false}
+                      onClick={() => {
+                        window.location.href = item.href;
+                        item.onClick();
+                      }}
+                    >
+                      {item.title}
+                    </ActionList.Button>
+                  </ActionList.Item>
+                ))}
+              </ActionList>
+            </div>
           );
         }}
       >
         <IconButton
           key={TOOL_ID}
           active={false}
+          ariaLabel={false}
           title="Open docs for a different version"
         >
           {`${currentVersion}`}

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Textbox from "../textbox";
 import Button from "../button";
