@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   Select,

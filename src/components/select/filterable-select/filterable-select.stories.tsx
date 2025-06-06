@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo, useCallback } from "react";
-import { action } from "@storybook/addon-actions";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 
 import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 

@@ -1,5 +1,5 @@
 import React, { forwardRef, useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Button, { ButtonProps } from "../button";
 import Box from "../box";

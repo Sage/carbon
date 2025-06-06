@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import LoaderBar, { LoaderBarProps } from ".";
 import { LOADER_BAR_SIZES } from "./loader-bar.config";
 import Box from "../box";

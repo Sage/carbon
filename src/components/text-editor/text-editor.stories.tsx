@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 

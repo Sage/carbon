@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react-vite";
 import { Checkbox } from ".";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 

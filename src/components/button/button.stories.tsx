@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import Button from ".";
 import Box from "../box";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";

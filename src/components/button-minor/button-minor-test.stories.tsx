@@ -1,5 +1,5 @@
 import React from "react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import ButtonMinor, { ButtonMinorProps } from "./button-minor.component";
 import { ICONS } from "../icon/icon-config";
 import {

@@ -1,4 +1,4 @@
-import { makeDecorator } from "@storybook/preview-api";
+import { makeDecorator } from "storybook/preview-api";
 import isChromatic from "./isChromatic";
 import React from "react";
 import styled from "styled-components";

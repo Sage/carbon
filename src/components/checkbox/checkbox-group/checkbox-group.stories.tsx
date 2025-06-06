@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import CarbonProvider from "../../carbon-provider";
 

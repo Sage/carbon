@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { IconButton } from "@storybook/components";
+import { IconButton } from "storybook/internal/components";
 import { CheckIcon, CrossIcon } from "@storybook/icons";
 import { INTERACTION_TOGGLE_TOOL_ID } from "./constants";
 

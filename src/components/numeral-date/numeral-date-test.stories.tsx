@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import NumeralDate from ".";
 import Box from "../box";
 import { NumeralDateProps } from "./numeral-date.component";

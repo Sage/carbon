@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import Textbox from "../src/components/textbox";
 import { RadioButton, RadioButtonGroup } from "../src/components/radio-button";

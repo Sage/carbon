@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useRef } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import FileInput, { FileUploadStatusProps } from ".";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 

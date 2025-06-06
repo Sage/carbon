@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { action } from "@storybook/addon-actions";
-import { StoryObj } from "@storybook/react";
+import { action } from "storybook/actions";
+import { StoryObj } from "@storybook/react-vite";
 import { zhCN, de, enUS, enGB } from "date-fns/locale";
 
 import DateInput, { DateChangeEvent, DateInputProps } from "./date.component";
