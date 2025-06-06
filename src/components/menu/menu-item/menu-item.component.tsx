@@ -48,7 +48,7 @@ interface MenuItemBaseProps
   /** Is the menu item the currently selected item. */
   selected?: boolean;
   /** A title for the menu item that has a submenu. */
-  submenu?: string | boolean;
+  submenu?: React.ReactNode;
   /** The href to use for the menu item. */
   href?: string;
   /** onKeyDown handler */
@@ -148,13 +148,17 @@ export const MenuItem = ({
   );
 
   invariant(
-    children || ariaLabel || typeof submenu === "string",
-    "If no text is provided an `ariaLabel` should be given to facilitate accessibility.",
+    children ||
+      ariaLabel ||
+      submenu ||
+      (typeof submenu === "string" && submenu.length),
+    "If no text or node is provided via the `submenu` prop, an `ariaLabel` should be given to facilitate accessibility.",
   );
 
   invariant(
     typeof submenu === "boolean" ||
       submenu === undefined ||
+      React.isValidElement(submenu) ||
       (children && typeof submenu === "string" && submenu.length),
     "You should not pass `children` when `submenu` is an empty string",
   );
