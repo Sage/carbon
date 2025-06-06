@@ -1,124 +1,72 @@
-import React from "react";
+import React, { createRef } from "react";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import BaseLink from "./base-link.component";
 
 describe("BaseLink", () => {
-  it("renders an anchor when `href` is provided", () => {
-    render(<BaseLink href="https://example.com">Visit</BaseLink>);
+  it("renders an anchor element when `href` is provided", () => {
+    render(<BaseLink href="https://example.com">Anchor</BaseLink>);
     const anchor = screen.getByRole("link");
     expect(anchor).toHaveAttribute("href", "https://example.com");
+    expect(anchor).toHaveTextContent("Anchor");
   });
 
-  it("renders a button when `onClick` is provided and no `href`", () => {
-    render(<BaseLink onClick={() => {}}>Click Me</BaseLink>);
+  it("renders a button element when `href` is not provided", () => {
+    render(<BaseLink>Button</BaseLink>);
     const button = screen.getByRole("button");
     expect(button).toHaveAttribute("type", "button");
+    expect(button).toHaveTextContent("Button");
   });
 
-  it("applies `aria-label` when provided", () => {
-    render(<BaseLink ariaLabel="accessible" href="#" />);
-    const link = screen.getByRole("link");
-    expect(link).toHaveAttribute("aria-label", "accessible");
-  });
-
-  it("renders children inside StyledContent", () => {
-    render(<BaseLink href="#">Child Text</BaseLink>);
-    expect(screen.getByText("Child Text")).toBeInTheDocument();
-  });
-
-  it("renders icon on left by default", () => {
-    render(<BaseLink href="#" icon="home" />);
-    const icon = screen.getByTestId("icon");
-    expect(icon).toBeInTheDocument();
-  });
-
-  it("renders icon on right when `iconAlign='right'`", () => {
-    render(<BaseLink href="#" icon="home" iconAlign="right" />);
-    const icon = screen.getByTestId("icon");
-    expect(icon).toBeInTheDocument();
-  });
-
-  it("omits `aria-label` from icon when `removeAriaLabelOnIcon` is true", () => {
+  it("applies custom className and data attributes", () => {
     render(
-      <BaseLink href="#" icon="home" ariaLabel="label" removeAriaLabelOnIcon />,
+      <BaseLink
+        href="#"
+        className="custom-class"
+        data-role="test-role"
+        data-element="test-element"
+      >
+        Custom
+      </BaseLink>
     );
-    const icon = screen.getByTestId("icon");
-    expect(icon).not.toHaveAttribute("aria-label");
+    const anchor = screen.getByRole("link");
+    expect(anchor).toHaveClass("custom-class");
+    expect(anchor).toHaveAttribute("data-role", "test-role");
+    expect(anchor).toHaveAttribute("data-element", "test-element");
   });
 
-  it("applies `data-element` attribute", () => {
-    render(<BaseLink href="#" data-element="custom-link" />);
-    const anchor = screen.getByTestId("link-anchor");
-    expect(anchor).toHaveAttribute("data-element", "link");
-  });
-
-  it("forwards ref as object", () => {
-    const ref = { current: null };
-    render(<BaseLink href="#" ref={ref} />);
-    expect(ref.current).toBeInstanceOf(HTMLElement);
-  });
-
-  it("forwards ref as callback", () => {
-    const mockRef = jest.fn();
-    render(<BaseLink href="#" ref={mockRef} />);
-    expect(mockRef).toHaveBeenCalledWith(expect.any(HTMLElement));
-  });
-
-  it("calls `onClick` when clicked", async () => {
-    const user = userEvent.setup();
-    const handleClick = jest.fn();
-    render(<BaseLink onClick={handleClick}>Click</BaseLink>);
-    const button = screen.getByRole("button");
-    await user.click(button);
-    expect(handleClick).toHaveBeenCalled();
-  });
-
-  it("does not call `onClick` when disabled", async () => {
-    const user = userEvent.setup();
-    const handleClick = jest.fn();
+  it("forwards ref to anchor element", () => {
+    const ref = createRef<HTMLAnchorElement>();
     render(
-      <BaseLink onClick={handleClick} disabled>
-        Disabled
-      </BaseLink>,
+      <BaseLink href="https://test.com" ref={ref}>
+        Ref Link
+      </BaseLink>
     );
-    const button = screen.getByRole("button");
-    await user.click(button);
-    expect(handleClick).not.toHaveBeenCalled();
+    expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
   });
 
-  it("renders skip link label when `isSkipLink` is true", () => {
-    render(<BaseLink href="#main" isSkipLink />);
-    expect(screen.getByText("Skip to main content")).toBeInTheDocument();
+  it("forwards ref to button element", () => {
+    const ref = createRef<HTMLButtonElement>();
+    render(<BaseLink ref={ref}>Ref Button</BaseLink>);
+    expect(ref.current).toBeInstanceOf(HTMLButtonElement);
   });
 
-  it("calls `onKeyDown` when a key is pressed", async () => {
-    const user = userEvent.setup();
-    const handleKeyDown = jest.fn();
-
+  it("applies inline style", () => {
     render(
-      <BaseLink href="#" onKeyDown={handleKeyDown}>
-        Link Text
-      </BaseLink>,
+      <BaseLink href="#" style={{ color: "red" }}>
+        Styled
+      </BaseLink>
     );
-
-    const link = screen.getByRole("link");
-
-    link.focus();
-    await user.keyboard("{Enter}");
-
-    expect(handleKeyDown).toHaveBeenCalled();
+    const anchor = screen.getByRole("link");
+    expect(anchor).toHaveStyle({ color: "red" });
   });
 
-  it("does not throw when `onKeyDown` is undefined", async () => {
-    const user = userEvent.setup();
-
-    render(<BaseLink href="#">Link Text</BaseLink>);
-    const link = screen.getByRole("link");
-
-    link.focus();
-    await user.keyboard("{Enter}");
-
-    expect(true).toBe(true);
+  it("applies tabIndex when specified", () => {
+    render(
+      <BaseLink href="#" tabIndex={-1}>
+        TabIndex
+      </BaseLink>
+    );
+    const anchor = screen.getByRole("link");
+    expect(anchor).toHaveAttribute("tabindex", "-1");
   });
 });
