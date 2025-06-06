@@ -1,3 +1,9 @@
+## [154.7.1](https://github.com/Sage/carbon/compare/v154.7.0...v154.7.1) (2025-06-06)
+
+### Bug Fixes
+
+* **pill:** ensure content colour does not fail color contrast ([db17d1d](https://github.com/Sage/carbon/commit/db17d1d9cc3e5ba0511dfadbd13cc95522537cdf))
+
 ## [154.7.0](https://github.com/Sage/carbon/compare/v154.6.1...v154.7.0) (2025-06-06)
 
 ### Features
