@@ -46,6 +46,7 @@ import {
 import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   MenuComponent,
+  MenuComponentWithSubmenuNodes,
   MenuComponentScrollable,
   MenuComponentSearch,
   MenuWithChildrenUpdating,
@@ -1599,6 +1600,15 @@ test.describe("Accessibility tests for Menu component", () => {
     page,
   }) => {
     await mount(<MenuComponent />);
+
+    await checkAccessibility(page);
+  });
+
+  test(`should pass accessibility tests when submenu's are passed as a node`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuComponentWithSubmenuNodes />);
 
     await checkAccessibility(page);
   });
