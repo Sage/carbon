@@ -16,7 +16,7 @@ export interface StyledLinkProps {
   /** Indicates whether the link currently has keyboard focus. */
   hasFocus?: boolean;
   /** Indicates whether the link has visible textual or icon content. */
-  hasContent: boolean;
+  hasContent?: boolean;
   /** Applies styling specific to links used inside a MenuItem. */
   isMenuItem?: boolean;
   /** Constrains the maximum width of the link; applies ellipsis to overflowing text. */

@@ -6,27 +6,24 @@ import Link from "./link.component";
 
 describe("Link component", () => {
   test("renders with text and calls `onClick` when clicked", async () => {
+    const user = userEvent.setup();
     const onClick = jest.fn();
-    render(
-      <Link onClick={onClick} hasContent={false}>
-        Click me
-      </Link>,
-    );
-    await userEvent.click(screen.getByRole("button", { name: "Click me" }));
+
+    render(<Link onClick={onClick}>Click me</Link>);
+
+    const button = screen.getByRole("button", { name: "Click me" });
+    await user.click(button);
+
     expect(onClick).toHaveBeenCalled();
   });
 
   test("renders as <a> with href, rel and target", () => {
     render(
-      <Link
-        href="https://example.com"
-        rel="noopener"
-        target="_blank"
-        hasContent={false}
-      >
+      <Link href="https://example.com" rel="noopener" target="_blank">
         Go
-      </Link>,
+      </Link>
     );
+
     const link = screen.getByRole("link", { name: "Go" });
     expect(link).toHaveAttribute("href", "https://example.com");
     expect(link).toHaveAttribute("rel", "noopener");
@@ -34,52 +31,59 @@ describe("Link component", () => {
   });
 
   test("renders disabled button when `onClick` is provided and `disabled` is true", async () => {
+    const user = userEvent.setup();
     const onClick = jest.fn();
+
     render(
-      <Link onClick={onClick} disabled hasContent={false}>
+      <Link onClick={onClick} disabled>
         Don't click
-      </Link>,
+      </Link>
     );
+
     const button = screen.getByRole("button", { name: "Don't click" });
     expect(button).toBeDisabled();
-    await userEvent.click(button);
+    await user.click(button);
     expect(onClick).not.toHaveBeenCalled();
   });
 
   test("calls both `onKeyDown` and `onClick` when Enter is pressed", async () => {
-    const onKeyDown = jest.fn();
-    const onClick = jest.fn();
     const user = userEvent.setup();
+    const onClick = jest.fn();
+    const onKeyDown = jest.fn();
+
     render(
       <Link
         href="#"
-        onKeyDown={onKeyDown}
-        onClick={onClick}
         aria-label="Back"
-        hasContent={false}
-      />,
+        onClick={onClick}
+        onKeyDown={onKeyDown}
+      >
+        Back
+      </Link>
     );
+
     const link = screen.getByRole("link", { name: "Back" });
-    act(() => link.focus());
+
+    await act(async () => {
+      link.focus();
+    });
+
     await user.keyboard("{Enter}");
+
     expect(onKeyDown).toHaveBeenCalled();
     expect(onClick).toHaveBeenCalled();
   });
 
   test("renders button when no href is provided but onClick is", () => {
-    render(
-      <Link onClick={() => {}} hasContent={false}>
-        Click
-      </Link>,
-    );
+    render(<Link onClick={() => {}}>Click</Link>);
     expect(screen.getByRole("button", { name: "Click" })).toBeInTheDocument();
   });
 
   test("renders icon with correct type", () => {
     render(
-      <Link href="#" icon="home" hasContent={false}>
+      <Link href="#" icon="home">
         Home
-      </Link>,
+      </Link>
     );
     const icon = screen.getByTestId("icon");
     expect(icon).toHaveAttribute("type", "home");
@@ -92,8 +96,7 @@ describe("Link component", () => {
         icon="home"
         aria-label="Home"
         removeAriaLabelOnIcon
-        hasContent={false}
-      />,
+      />
     );
     expect(screen.getByTestId("icon")).not.toHaveAttribute("aria-label");
   });
@@ -101,9 +104,9 @@ describe("Link component", () => {
   test("forwards ref correctly", () => {
     const ref = React.createRef<HTMLAnchorElement>();
     render(
-      <Link href="#" ref={ref} hasContent={false}>
+      <Link href="#" ref={ref}>
         Ref Link
-      </Link>,
+      </Link>
     );
     expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
   });
@@ -111,9 +114,9 @@ describe("Link component", () => {
   test("supports ref as callback", () => {
     const ref = jest.fn();
     render(
-      <Link href="#" ref={ref} hasContent={false}>
+      <Link href="#" ref={ref}>
         Ref Callback
-      </Link>,
+      </Link>
     );
     expect(ref).toHaveBeenCalledWith(expect.any(HTMLAnchorElement));
   });
