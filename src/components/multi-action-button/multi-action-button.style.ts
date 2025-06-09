@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import StyledButton from "../button/button.style";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import { MultiActionButtonProps } from "./multi-action-button.component";
 import computeSizing from "../../style/utils/element-sizing";
@@ -11,7 +11,9 @@ type StyledMultiActionButtonProps = Pick<MultiActionButtonProps, "width"> & {
   displayed: boolean;
 };
 
-const StyledMultiActionButton = styled.div<StyledMultiActionButtonProps>`
+const StyledMultiActionButton = styled.div.attrs(
+  applyBaseTheme,
+)<StyledMultiActionButtonProps>`
   ${margin}
 
   display: inline-block;
@@ -71,7 +73,9 @@ type StyledButtonChildrenContainerProps = {
   minWidth: number;
 };
 
-const StyledButtonChildrenContainer = styled.ul<StyledButtonChildrenContainerProps>`
+const StyledButtonChildrenContainer = styled.ul.attrs(
+  applyBaseTheme,
+)<StyledButtonChildrenContainerProps>`
   ${({ theme, align, minWidth }) => css`
     background-color: var(--colorsActionMajorYang100);
     min-width: ${minWidth}px;
@@ -100,13 +104,5 @@ const StyledButtonChildrenContainer = styled.ul<StyledButtonChildrenContainerPro
     }
   `}
 `;
-
-StyledButtonChildrenContainer.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledMultiActionButton.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledButtonChildrenContainer, StyledMultiActionButton };

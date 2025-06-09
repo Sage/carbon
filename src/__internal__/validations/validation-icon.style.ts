@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import BaseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../../components/icon/icon.style";
 import { ValidationIconProps } from "./validation-icon.component";
 import addFocusStyling from "../../style/utils/add-focus-styling";
@@ -13,7 +13,7 @@ const validationIconTypes = {
 
 type ValidationType = "error" | "warning" | "info";
 
-const ValidationIconStyle = styled.span<
+const ValidationIconStyle = styled.span.attrs(applyBaseTheme)<
   ValidationIconProps & { validationType: ValidationType }
 >`
   background: none;
@@ -41,10 +41,5 @@ const ValidationIconStyle = styled.span<
 
   ${margin}
 `;
-
-ValidationIconStyle.defaultProps = {
-  validationType: "error",
-  theme: BaseTheme,
-};
 
 export default ValidationIconStyle;

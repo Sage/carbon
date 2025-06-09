@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { CardContextProps } from "./__internal__/card.context";
 import { CardProps } from "./card.component";
 import addFocusStyling from "../../style/utils/add-focus-styling";
@@ -33,7 +33,7 @@ export interface StyledCardProps
   hoverBoxShadow?: BoxShadowsType;
 }
 
-const StyledCard = styled.div<StyledCardProps>`
+const StyledCard = styled.div.attrs(applyBaseTheme)<StyledCardProps>`
   ${({
     cardWidth,
     interactive,
@@ -92,8 +92,9 @@ interface StyledCardContentProps
   rel?: string;
 }
 
-const StyledCardContent = styled.div.attrs(
-  ({ href, onClick }: Pick<StyledCardProps, "href" | "onClick">) => {
+const StyledCardContent = styled.div
+  .attrs(applyBaseTheme)
+  .attrs(({ href, onClick }: Pick<StyledCardProps, "href" | "onClick">) => {
     if (href) {
       return { as: "a" };
     }
@@ -103,8 +104,7 @@ const StyledCardContent = styled.div.attrs(
     }
 
     return {};
-  },
-)<StyledCardContentProps>`
+  })<StyledCardContentProps>`
   ${({ interactive }) =>
     interactive &&
     css`
@@ -155,13 +155,5 @@ const StyledCardContent = styled.div.attrs(
     `}
   `}
 `;
-
-StyledCard.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledCardContent.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledCard, StyledCardContent };

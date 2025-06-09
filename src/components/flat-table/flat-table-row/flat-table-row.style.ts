@@ -1,12 +1,12 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../../style/themes";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 import StyledIcon from "../../icon/icon.style";
 import { toColor } from "../../../style/utils/color";
-import { ThemeObject } from "../../../style/themes/base";
+import type { ThemeObject } from "../../../style/themes/theme.types";
 import { FlatTableProps } from "..";
 import { FlatTableRowProps } from "./flat-table-row.component";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
@@ -128,7 +128,9 @@ interface StyledFlatTableRowProps
   rowHeight?: number;
 }
 
-const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
+const StyledFlatTableRow = styled.tr.attrs(
+  applyBaseTheme,
+)<StyledFlatTableRowProps>`
   ${({
     bgColor,
     horizontalBorderColor,
@@ -464,9 +466,5 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
     `;
   }}
 `;
-
-StyledFlatTableRow.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledFlatTableRow;

@@ -1,13 +1,13 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { StyledHeader, StyledSeparator } from "../heading/heading.style";
 
 interface DividerProps {
   hasDivider: boolean;
 }
 
-export const StyledSettingsRow = styled.div<DividerProps>`
+export const StyledSettingsRow = styled.div.attrs(applyBaseTheme)<DividerProps>`
   ${margin}
 
   clear: both;
@@ -37,10 +37,6 @@ export const StyledSettingsRow = styled.div<DividerProps>`
     padding-top: 30px;
   }
 `;
-
-StyledSettingsRow.defaultProps = {
-  theme: baseTheme,
-};
 
 export const StyledSettingsRowHeader = styled.div`
   box-sizing: border-box;

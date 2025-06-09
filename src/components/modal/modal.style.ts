@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 const backgroundOpacity = "0.6";
 
@@ -39,7 +39,7 @@ const StyledModalBackground = styled.div<TransitionProps>`
   `};
 `;
 
-const StyledModal = styled.div<
+const StyledModal = styled.div.attrs(applyBaseTheme)<
   TransitionProps & { topModalOverride?: boolean }
 >`
   position: absolute;
@@ -68,7 +68,4 @@ const StyledModal = styled.div<
   `}
 `;
 
-StyledModal.defaultProps = {
-  theme: baseTheme,
-};
 export { StyledModal, StyledModalBackground };

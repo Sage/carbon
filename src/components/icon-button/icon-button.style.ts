@@ -2,10 +2,12 @@ import styled, { css } from "styled-components";
 import { space } from "styled-system";
 
 import StyledIcon from "../icon/icon.style";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
-const StyledIconButton = styled.button.attrs({ type: "button" })`
+const StyledIconButton = styled.button
+  .attrs(applyBaseTheme)
+  .attrs({ type: "button" })`
   ${({ disabled }: { disabled?: boolean }) => css`
     && {
       ${space}
@@ -40,9 +42,5 @@ const StyledIconButton = styled.button.attrs({ type: "button" })`
     }
   `}
 `;
-
-StyledIconButton.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledIconButton;

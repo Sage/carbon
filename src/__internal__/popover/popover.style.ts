@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
-export const StyledBackdrop = styled.div`
+export const StyledBackdrop = styled.div.attrs(applyBaseTheme)`
   bottom: 0;
   left: 0;
   position: fixed;
@@ -10,10 +10,6 @@ export const StyledBackdrop = styled.div`
   z-index: ${({ theme }) => theme.zIndex.popover};
   background: transparent;
 `;
-
-StyledBackdrop.defaultProps = {
-  theme: baseTheme,
-};
 
 type StyledPopoverContentProps = {
   isOpen?: boolean;

@@ -603,20 +603,6 @@ export const CustomColors: Story = () => {
         </Pill>
       </Box>
       <Box mb={1}>
-        <Pill borderColor="blackOpacity65" mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="blackOpacity65" fill mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="blackOpacity65" onDelete={noop} mr={1}>
-          tag
-        </Pill>
-        <Pill borderColor="blackOpacity65" onDelete={noop} fill>
-          tag
-        </Pill>
-      </Box>
-      <Box mb={1}>
         <Pill borderColor="brilliantGreenShade20" mr={1}>
           tag
         </Pill>
@@ -658,7 +644,7 @@ export const CustomColors: Story = () => {
           tag
         </Pill>
       </Box>
-      <Box>
+      <Box mb={1}>
         <Pill borderColor="rgb(0, 123, 10)" mr={1}>
           tag
         </Pill>
@@ -669,6 +655,20 @@ export const CustomColors: Story = () => {
           tag
         </Pill>
         <Pill borderColor="rgb(0, 123, 10)" onDelete={noop} fill>
+          tag
+        </Pill>
+      </Box>
+      <Box mb={1}>
+        <Pill borderColor="hsl(317, 40%, 64%)" mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="hsl(317, 40%, 64%)" fill mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="hsl(317, 40%, 64%)" onDelete={noop} mr={1}>
+          tag
+        </Pill>
+        <Pill borderColor="hsl(317, 40%, 64%)" onDelete={noop} fill>
           tag
         </Pill>
       </Box>

@@ -4,7 +4,7 @@ import { space, SpaceProps } from "styled-system";
 
 import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
-import BaseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
 import buttonTypes from "./button-types.style";
@@ -76,7 +76,7 @@ type StyledButtonProps = SpaceProps &
     buttonType: Required<ButtonProps>["buttonType"];
   };
 
-const StyledButton = styled.button<StyledButtonProps>`
+const StyledButton = styled.button.attrs(applyBaseTheme)<StyledButtonProps>`
   ${space}
   ${({ disabled, noWrap }) => css`
     align-items: center;
@@ -147,8 +147,5 @@ export const StyledButtonMainText = styled.span`
   display: flex;
   align-items: center;
 `;
-StyledButton.defaultProps = {
-  theme: BaseTheme,
-};
 
 export default StyledButton;

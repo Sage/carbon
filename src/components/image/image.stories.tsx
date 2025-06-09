@@ -34,7 +34,7 @@ type Story = StoryObj<typeof Image>;
 
 export const DefaultStory: Story = () => {
   return (
-    <Image m={3} height="700px" backgroundImage={`url(${flexibleSvg})`}>
+    <Image m={3} height="700px" backgroundImage={`url("${flexibleSvg}")`}>
       <Box
         height="700px"
         display="flex"
@@ -90,7 +90,7 @@ export const CustomResponsiveBehaviour: Story = () => {
     if (query3) {
       return {
         backgroundSize: "contain",
-        backgroundImage: `url(${pointSvg})`,
+        backgroundImage: `url("${pointSvg}")`,
         m: 1,
       };
     }
@@ -98,17 +98,17 @@ export const CustomResponsiveBehaviour: Story = () => {
       return {
         backgroundSize: "30%",
         backgroundRepeat: "repeat",
-        backgroundImage: `url(${brushSvg})`,
+        backgroundImage: `url("${brushSvg}")`,
       };
     }
     if (query1) {
       return {
-        backgroundImage: `url(${collaborateSvg})`,
+        backgroundImage: `url("${collaborateSvg}")`,
         m: 3,
       };
     }
     return {
-      backgroundImage: `url(${flexibleSvg})`,
+      backgroundImage: `url("${flexibleSvg}")`,
       m: 4,
     };
   };
@@ -143,7 +143,7 @@ export const ImageWithPosition: Story = () => (
   <Image
     m={3}
     height="700px"
-    backgroundImage={`url(${flexibleSvg})`}
+    backgroundImage={`url("${flexibleSvg}")`}
     position="static"
   >
     <Box

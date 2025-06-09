@@ -5,7 +5,7 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import Page from "./page";
 import { PagesWrapperStyle, PagesContent } from "./pages.style";
-import { ThemeObject } from "../../style/themes/base";
+import type { ThemeObject } from "../../style/themes/theme.types";
 
 export interface PagesProps extends TagProps {
   /** The selected tab on page load */

@@ -1,15 +1,41 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
-import baseTheme from "../../style/themes/base";
 
-const Menu = styled.ul`
-  ${({ isOpen }: { isOpen?: boolean }) =>
-    isOpen ? "display: block;" : "visibility: hidden;"}
+const Menu = styled.ul.attrs(applyBaseTheme)<{
+  isOpen: boolean;
+  submenuLeft: boolean;
+  iconLeft: boolean;
+}>`
+  visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
+
+  display: grid;
+
+  ${({ submenuLeft, iconLeft }) => {
+    const chevronColumn = "[chevron_column] auto";
+    const iconColumn = "[icon_column] auto";
+    const textColumn = "[text_column] auto";
+
+    return css`
+      grid-template-columns:
+        ${submenuLeft ? chevronColumn : ""}
+        ${iconLeft
+          ? `${iconColumn} ${textColumn}`
+          : `${textColumn} ${iconColumn}`}
+        ${!submenuLeft ? chevronColumn : ""};
+    `;
+  }}
+
+  align-items: center;
+  min-width: fit-content;
+  text-align: ${({ iconLeft }) => (iconLeft ? "left" : "right")};
+  justify-content: ${({ iconLeft }) => (iconLeft ? "left" : "right")};
+
   margin: 0;
   list-style: none;
   padding: var(--spacing100) 0;
@@ -19,141 +45,37 @@ const Menu = styled.ul`
   background-color: var(--colorsUtilityYang100);
   z-index: ${({ theme }) =>
     `${theme.zIndex?.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
+
+  &[data-submenu-placement="top"] & {
+    bottom: calc(-1 * var(--spacing100));
+    top: auto;
+  }
+
+  &[data-submenu-placement="bottom"] & {
+    top: calc(-1 * var(--spacing100));
+    bottom: auto;
+  }
 `;
 
-function getPaddingValues(
-  childHasSubmenu?: boolean,
-  childHasIcon?: boolean,
-  hasIcon?: boolean,
-  hasSubmenu?: boolean,
-) {
-  // computing padding for "inner text" element of a menu item.
-  // childHasSubmenu - ANY sibling (including itself?) has the 'submenu' prop
-  // childHasIcon - ANY sibling (including itself?) has the 'icon' prop
-  // hasIcon - has the 'icon' prop
-  // hasSubmenu - has the 'submenu' prop
-  if (!childHasIcon && childHasSubmenu && !hasIcon && !hasSubmenu) {
-    return "var(--spacing400)";
-  }
-  if (childHasIcon && childHasSubmenu && !hasIcon && hasSubmenu) {
-    return "var(--spacing600)";
-  }
-  if (childHasIcon && childHasSubmenu && !hasIcon && !hasSubmenu) {
-    return "var(--spacing900)";
-  }
-  return "var(--spacing100)";
-}
+const StyledMenuItemInnerText = styled.div`
+  grid-column: text_column;
 
-function getIconPaddingValues(
-  index: 1 | 2,
-  horizontalAlignment?: "left" | "right",
-  submenuPosition?: "left" | "right",
-  siblingsHaveIconAndSubmenu?: boolean,
-  isASubmenu?: boolean,
-) {
-  const sameAlignment =
-    (horizontalAlignment === "left" && submenuPosition === "left") ||
-    (horizontalAlignment === "right" && submenuPosition === "right");
-
-  if (siblingsHaveIconAndSubmenu && sameAlignment) {
-    if (horizontalAlignment === "left") {
-      return index === 1 ? "var(--spacing100)" : "var(--spacing400)";
-    }
-    return index === 1 ? "var(--spacing400)" : "var(--spacing100)";
+  &:only-child {
+    padding: 0;
   }
 
-  if (isASubmenu) {
-    if (horizontalAlignment === "left") {
-      return index === 1 ? "var(--spacing100)" : "var(--spacing000)";
-    }
-    return index === 1 ? "var(--spacing000)" : "var(--spacing100)";
-  }
-
-  return "var(--spacing100)";
-}
-
-type StyledMenuItemProps = {
-  isDisabled: boolean;
-  horizontalAlignment?: "left" | "right";
-  submenuPosition?: "left" | "right";
-  childHasSubmenu?: boolean;
-  childHasIcon?: boolean;
-  hasSubmenu?: boolean;
-  hasIcon?: boolean;
-  isASubmenu?: boolean;
-};
-
-const StyledMenuItemInnerText = styled.div<
-  Omit<StyledMenuItemProps, "isDisabled">
->`
-  ${({
-    childHasSubmenu,
-    childHasIcon,
-    hasIcon,
-    hasSubmenu,
-    submenuPosition,
-    horizontalAlignment,
-    isASubmenu,
-  }) => css`
-    padding-left: ${isASubmenu ? `var(--spacing000)` : `var(--spacing100)`};
-    padding-right: ${isASubmenu ? `var(--spacing000)` : `var(--spacing100)`};
-
-    ${horizontalAlignment === "left" &&
-    submenuPosition === "left" &&
-    !isASubmenu &&
-    css`
-      padding-left: ${getPaddingValues(
-        childHasSubmenu,
-        childHasIcon,
-        hasIcon,
-        hasSubmenu,
-      )};
-    `}
-
-    ${horizontalAlignment === "right" &&
-    submenuPosition === "right" &&
-    !isASubmenu &&
-    css`
-      padding-right: ${getPaddingValues(
-        childHasSubmenu,
-        childHasIcon,
-        hasIcon,
-        hasSubmenu,
-      )};
-    `}
-  `}
+  padding: 0 var(--spacing100);
 `;
 
-const StyledMenuItemOuterContainer = styled.div`
-  display: inherit;
-`;
-const StyledMenuItem = styled.button<Omit<StyledMenuItemProps, "variant">>`
-  ${({
-    horizontalAlignment,
-    submenuPosition,
-    childHasSubmenu,
-    hasSubmenu,
-  }) => css`
-    justify-content: ${horizontalAlignment === "left"
-      ? "flex-start"
-      : "flex-end"};
+const StyledMenuItem = styled.button<{ isDisabled: boolean }>`
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+  grid-column: span 3;
 
-    ${horizontalAlignment === "left" &&
-    submenuPosition === "right" &&
-    css`
-      justify-content: space-between;
-    `}
-
-    ${horizontalAlignment === "right" &&
-    submenuPosition === "left" &&
-    css`
-      ${childHasSubmenu &&
-      hasSubmenu &&
-      css`
-        justify-content: space-between;
-      `}
-    `}
-  `}
+  align-items: inherit;
+  text-align: inherit;
+  justify-content: inherit;
 
   text-decoration: none;
   background-color: var(--colorsActionMajorYang100);
@@ -164,10 +86,7 @@ const StyledMenuItem = styled.button<Omit<StyledMenuItemProps, "variant">>`
   line-height: 40px;
   white-space: nowrap;
   user-select: none;
-  display: flex;
-  align-items: center;
   border: none;
-  width: 100%;
   color: var(--colorsUtilityYin090);
   font-size: 14px;
   font-weight: 500;
@@ -211,23 +130,30 @@ const StyledMenuItem = styled.button<Omit<StyledMenuItemProps, "variant">>`
     `}
 `;
 
-StyledMenuItem.defaultProps = {
-  theme: baseTheme,
-};
-
 const StyledMenuItemWrapper = styled.li`
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+  grid-column: span 3;
+
+  text-align: inherit;
+  align-items: inherit;
+  justify-content: inherit;
+
   position: relative;
 `;
 
 const MenuItemDivider = styled.li.attrs({
   "data-element": "action-popover-divider",
 })`
+  grid-column: span 3;
+
   background-color: var(--colorsUtilityMajor050);
   height: var(--borderWidth100);
   margin: var(--spacing100) var(--spacing150);
 `;
 
-const MenuButton = styled.div`
+const MenuButton = styled.div.attrs(applyBaseTheme)`
   position: relative;
   && ${StyledIcon} {
     cursor: pointer;
@@ -252,42 +178,17 @@ const StyledButtonIcon = styled.div`
   border-radius: var(--borderRadius050);
 `;
 
-const MenuItemIcon = styled(Icon)<Omit<StyledMenuItemProps, "isDisabled">>`
-  ${({
-    horizontalAlignment,
-    submenuPosition,
-    childHasIcon,
-    childHasSubmenu,
-    hasIcon,
-    hasSubmenu,
-    isASubmenu,
-  }) => css`
-    justify-content: ${horizontalAlignment};
-    padding: var(--spacing100)
-      ${getIconPaddingValues(
-        1,
-        horizontalAlignment,
-        submenuPosition,
-        childHasIcon && childHasSubmenu && hasIcon && !hasSubmenu,
-        isASubmenu,
-      )}
-      var(--spacing100)
-      ${getIconPaddingValues(
-        2,
-        horizontalAlignment,
-        submenuPosition,
-        childHasIcon && childHasSubmenu && hasIcon && !hasSubmenu,
-        isASubmenu,
-      )};
-    color: var(--colorsUtilityYin065);
-  `}
+const MenuItemIcon = styled(Icon)`
+  justify-content: inherit;
+  grid-column: icon_column;
+
+  padding: var(--spacing100);
+  color: var(--colorsUtilityYin065);
 `;
 
-StyledButtonIcon.defaultProps = {
-  theme: baseTheme,
-};
-
 const SubMenuItemIcon = styled(ButtonIcon)`
+  grid-column: chevron_column;
+
   ${({ type }) => css`
     ${type === "chevron_left_thick" &&
     css`
@@ -328,7 +229,6 @@ export {
   SubMenuItemIcon,
   MenuButtonOverrideWrapper,
   StyledMenuItemInnerText,
-  StyledMenuItemOuterContainer,
   StyledMenuItem,
   StyledMenuItemWrapper,
 };

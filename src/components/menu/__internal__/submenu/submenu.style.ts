@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import StyledScrollableBlock from "../../../menu/scrollable-block/scrollable-block.style";
-import { baseTheme } from "../../../../style/themes";
+import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 import { StyledLink } from "../../../link/link.style";
 import { StyledMenuItem } from "../../menu.style";
 import StyledBox from "../../../box/box.style";
@@ -31,7 +31,9 @@ interface StyledSubmenuProps
   applyFocusRadiusStylingToLastItem: boolean;
 }
 
-const StyledSubmenuWrapper = styled.div<StyledSubmenuWrapperProps>`
+const StyledSubmenuWrapper = styled.div.attrs(
+  applyBaseTheme,
+)<StyledSubmenuWrapperProps>`
   position: relative;
   width: fit-content;
   max-width: inherit;
@@ -262,9 +264,5 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     `}
   `}
 `;
-
-StyledSubmenuWrapper.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledSubmenu, StyledSubmenuWrapper };

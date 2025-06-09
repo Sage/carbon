@@ -1,14 +1,15 @@
 import styled, { css } from "styled-components";
-import { shade, meetsContrastGuidelines } from "polished";
 import { margin, MarginProps } from "styled-system";
 
 import styleConfig from "./pill.style.config";
-import { baseTheme } from "../../style/themes";
-import { ThemeObject } from "../../style/themes/base/base-theme.config";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
+import type { ThemeObject } from "../../style/themes/theme.types";
 import StyledIcon from "../icon/icon.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { toColor } from "../../style/utils/color";
 import getColorValue from "../../style/utils/get-color-value";
+import getHexValue from "../../style/utils/get-hex-value";
+import getAccessibleForegroundColor from "../../style/utils/get-accessible-foreground-color";
 
 export interface StyledPillProps extends MarginProps {
   /** Override color variant, provide any color from palette or any valid css color value. */
@@ -37,7 +38,7 @@ interface AllStyledPillProps extends StyledPillProps {
   pillRole: "tag" | "status";
 }
 
-const StyledPill = styled.span<AllStyledPillProps>`
+const StyledPill = styled.span.attrs(applyBaseTheme)<AllStyledPillProps>`
   ${margin}
   ${({
     wrapText,
@@ -52,34 +53,28 @@ const StyledPill = styled.span<AllStyledPillProps>`
     theme,
   }) => {
     const isStatus = pillRole === "status";
-    let pillColor;
-    let buttonFocusColor;
-    let contentColor;
+    let pillColor: string;
+    let buttonFocusColor: string | undefined;
+    let contentColor: string;
 
-    try {
-      if (borderColor) {
-        pillColor = toColor(theme, borderColor);
-        buttonFocusColor = shade(0.2, getColorValue(pillColor));
-        contentColor = meetsContrastGuidelines(
-          getColorValue(pillColor),
-          theme.compatibility.colorsUtilityYin090,
-        ).AAA
-          ? "var(--colorsUtilityYin090)"
-          : "var(--colorsUtilityYang100)";
-      } else {
-        const { status, tag } = styleConfig(isDarkBackground);
-        const { varietyColor, buttonFocus, content } = isStatus
-          ? status[colorVariant]
-          : tag.primary;
-        pillColor = varietyColor;
-        buttonFocusColor = buttonFocus;
-        contentColor = content;
-      }
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(
-        `Error: [Pill] - Could not parse the string '${borderColor}', please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.`,
+    if (borderColor) {
+      pillColor = toColor(theme, borderColor);
+
+      // get token value in rgb
+      const colorVal = getColorValue(pillColor);
+      contentColor = getAccessibleForegroundColor(
+        getHexValue(colorVal),
+        false,
+        true,
       );
+    } else {
+      const { status, tag } = styleConfig(isDarkBackground);
+      const { varietyColor, buttonFocus, content } = isStatus
+        ? status[colorVariant]
+        : tag.primary;
+      pillColor = varietyColor;
+      buttonFocusColor = buttonFocus;
+      contentColor = content;
     }
 
     return css`
@@ -168,7 +163,6 @@ const StyledPill = styled.span<AllStyledPillProps>`
           line-height: 16px;
 
           &:focus {
-            background-color: ${buttonFocusColor};
             border-radius: var(--borderRadius000) var(--borderRadius025)
               var(--borderRadius025) var(--borderRadius000);
             ::-moz-focus-inner {
@@ -178,17 +172,44 @@ const StyledPill = styled.span<AllStyledPillProps>`
             ${StyledIcon} {
               color: ${contentColor};
             }
+
+            ${borderColor
+              ? css`
+                  &::before {
+                    border-radius: var(--borderRadius000) var(--borderRadius025)
+                      var(--borderRadius025) var(--borderRadius000);
+                  }
+                `
+              : css`
+                  background-color: ${buttonFocusColor};
+                `}
           }
 
           &:hover {
             background-color: ${buttonFocusColor};
-            color: ${contentColor};
             cursor: pointer;
 
             ${StyledIcon} {
               color: ${contentColor};
             }
           }
+
+          ${borderColor &&
+          css`
+            &:hover,
+            &:focus {
+              &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: ${pillColor};
+                filter: brightness(0.9);
+              }
+            }
+          `}
 
           ${StyledIcon} {
             height: unset;
@@ -258,11 +279,5 @@ const StyledPill = styled.span<AllStyledPillProps>`
     `;
   }}
 `;
-
-StyledPill.defaultProps = {
-  inFill: false,
-  isDeletable: false,
-  theme: baseTheme,
-};
 
 export default StyledPill;

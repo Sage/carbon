@@ -1,11 +1,9 @@
 import React, { useRef } from "react";
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, act, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { ThemeProvider } from "styled-components";
 import * as floatingUi from "@floating-ui/dom";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import sageTheme from "../../style/themes/sage";
 
 import {
   ActionPopover,
@@ -13,7 +11,6 @@ import {
   ActionPopoverItem,
   ActionPopoverMenu,
   ActionPopoverMenuButton,
-  ActionPopoverProps,
   ActionPopoverHandle,
 } from ".";
 
@@ -64,13 +61,11 @@ test("error is thrown when a menu is not rendered within ActionPopover", () => {
 
 testStyledSystemMargin(
   (props) => (
-    <ThemeProvider theme={sageTheme}>
-      <ActionPopover data-role="action-popover-wrapper" {...props}>
-        <ActionPopoverItem href="#" download>
-          test download
-        </ActionPopoverItem>
-      </ActionPopover>
-    </ThemeProvider>
+    <ActionPopover data-role="action-popover-wrapper" {...props}>
+      <ActionPopoverItem href="#" download>
+        test download
+      </ActionPopoverItem>
+    </ActionPopover>
   ),
   () => screen.getByTestId("action-popover-wrapper"),
 );
@@ -1035,7 +1030,7 @@ test("should call the exposed `focusButton` method and focus the toggle button",
 });
 
 describe("when an item has a submenu with default (left) alignment", () => {
-  it("renders the appropriate icon with the correct alignment", async () => {
+  it("renders a chevron icon that points left", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
@@ -1057,16 +1052,12 @@ describe("when an item has a submenu with default (left) alignment", () => {
 
     await user.click(screen.getByRole("button"));
 
-    // there are 2 elements with data-role="icon", the other being the main menu button.
-    // Unfortunately there seems to be no way with the RTL options for getByTestId to select the correct one, so we have to index
-    // into the array of all such elements
-    const submenuIcon = screen.getAllByTestId("icon")[1];
-    expect(submenuIcon).toHaveStyleRule(
+    const chevronIcon = screen.getByTestId("chevron-icon");
+    expect(chevronIcon).toHaveStyleRule(
       "content",
       `"${iconUnicodes.chevron_left_thick}"`,
       { modifier: "&::before" },
     );
-    expect(submenuIcon).toHaveStyle({ left: "-5px" });
   });
 
   it("opens the submenu on mouseenter", async () => {
@@ -1090,7 +1081,6 @@ describe("when an item has a submenu with default (left) alignment", () => {
     );
 
     await user.click(screen.getByRole("button"));
-
     expect(
       screen.queryByRole("button", { name: "submenu item 1" }),
     ).not.toBeInTheDocument();
@@ -1616,7 +1606,7 @@ describe("when there isn't enough space on the screen to render a submenu on the
     getBoundingClientRectSpy.mockRestore();
   });
 
-  it("renders the appropriate icon with the correct alignment", async () => {
+  it("renders a chevron icon that points right", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
@@ -1638,16 +1628,12 @@ describe("when there isn't enough space on the screen to render a submenu on the
 
     await user.click(screen.getByRole("button"));
 
-    // there are 2 elements with data-role="icon", the other being the main menu button.
-    // Unfortunately there seems to be no way with the RTL options for getByTestId to select the correct one, so we have to index
-    // into the array of all such elements
-    const submenuIcon = screen.getAllByTestId("icon")[1];
-    expect(submenuIcon).toHaveStyleRule(
+    const chevronIcon = screen.getByTestId("chevron-icon");
+    expect(chevronIcon).toHaveStyleRule(
       "content",
       `"${iconUnicodes.chevron_right_thick}"`,
       { modifier: "&::before" },
     );
-    expect(submenuIcon).toHaveStyle({ right: "-5px" });
   });
 
   it("opens the submenu and focuses the first item when right arrow key is pressed", async () => {
@@ -1725,7 +1711,7 @@ describe("when there isn't enough space on the screen to render a submenu on the
 });
 
 describe("when the submenuPosition prop is set to 'right'", () => {
-  it("renders the appropriate icon with the correct alignment", async () => {
+  it("renders a chevron icon that points right", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
@@ -1747,16 +1733,12 @@ describe("when the submenuPosition prop is set to 'right'", () => {
 
     await user.click(screen.getByRole("button"));
 
-    // there are 2 elements with data-role="icon", the other being the main menu button.
-    // Unfortunately there seems to be no way with the RTL options for getByTestId to select the correct one, so we have to index
-    // into the array of all such elements
-    const submenuIcon = screen.getAllByTestId("icon")[1];
-    expect(submenuIcon).toHaveStyleRule(
+    const chevronIcon = screen.getByTestId("chevron-icon");
+    expect(chevronIcon).toHaveStyleRule(
       "content",
       `"${iconUnicodes.chevron_right_thick}"`,
       { modifier: "&::before" },
     );
-    expect(submenuIcon).toHaveStyle({ right: "-5px" });
   });
 
   it("opens the submenu and focuses the first item when right arrow key is pressed", async () => {
@@ -1851,7 +1833,7 @@ describe("when the submenuPosition prop is set to 'right' and there isn't enough
     getBoundingClientRectSpy.mockRestore();
   });
 
-  it("renders the appropriate icon with the correct alignment", async () => {
+  it("renders a chevron icon that points left", async () => {
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
@@ -1873,16 +1855,12 @@ describe("when the submenuPosition prop is set to 'right' and there isn't enough
 
     await user.click(screen.getByRole("button"));
 
-    // there are 2 elements with data-role="icon", the other being the main menu button.
-    // Unfortunately there seems to be no way with the RTL options for getByTestId to select the correct one, so we have to index
-    // into the array of all such elements
-    const submenuIcon = screen.getAllByTestId("icon")[1];
-    expect(submenuIcon).toHaveStyleRule(
+    const chevronIcon = screen.getByTestId("chevron-icon");
+    expect(chevronIcon).toHaveStyleRule(
       "content",
       `"${iconUnicodes.chevron_left_thick}"`,
       { modifier: "&::before" },
     );
-    expect(submenuIcon).toHaveStyle({ left: "-5px" });
   });
 
   it("opens the submenu and focuses the first item when left arrow key is pressed", async () => {
@@ -2301,347 +2279,74 @@ describe("When ActionPopoverMenu contains multiple disabled items", () => {
   });
 });
 
-// The styling checks in the rest of this file are purely for coverage - these styles are already tested with Playwright
+test("when horizontalAlignment is set to 'left', menu displays icon before text", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-describe("padding checks on 'StyledMenuItemInnerText'", () => {
-  it.each([
-    ["left", "left"],
-    ["left", "right"],
-    ["right", "left"],
-    ["right", "right"],
-  ] as const)(
-    "should render menu items with left and right padding as var(--spacing100) when horizontalAlignment is %s and submenuPosition is %, if there are no submenus anywhere in the menu",
-    async (alignment, position) => {
-      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-      render(
-        <ActionPopover
-          horizontalAlignment={alignment}
-          submenuPosition={position}
-        >
-          <ActionPopoverItem>example item 1</ActionPopoverItem>
-          <ActionPopoverItem>example item 2</ActionPopoverItem>
-          <ActionPopoverItem>example item 3</ActionPopoverItem>
-          <ActionPopoverItem>example item 4</ActionPopoverItem>
-        </ActionPopover>,
-      );
-
-      await user.click(screen.getByRole("button"));
-
-      expect(screen.getByText("example item 1")).toHaveStyleRule(
-        "padding-left",
-        "var(--spacing100)",
-      );
-      expect(screen.getByText("example item 1")).toHaveStyleRule(
-        "padding-right",
-        "var(--spacing100)",
-      );
-    },
+  render(
+    <ActionPopover horizontalAlignment="left">
+      <ActionPopoverItem icon="add">Apple</ActionPopoverItem>
+    </ActionPopover>,
   );
 
-  it.each([
-    ["var(--spacing400)", "var(--spacing100)", "left", "left"],
-    ["var(--spacing100)", "var(--spacing400)", "right", "right"],
-  ] as [
-    string,
-    string,
-    ActionPopoverProps["horizontalAlignment"],
-    ActionPopoverProps["submenuPosition"],
-  ][])(
-    "should render a menu item with no icon or submenu with padding-left as %s and padding-right as %s when horizontalAlignment is %s, submenuPosition is %s and some other menu items have a submenu",
-    async (paddingLeft, paddingRight, alignment, position) => {
-      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const menuButton = screen.getByRole("button");
+  await user.click(menuButton);
 
-      render(
-        <ActionPopover
-          horizontalAlignment={alignment}
-          submenuPosition={position}
-        >
-          <ActionPopoverItem>example item 1</ActionPopoverItem>
-          <ActionPopoverItem
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-                <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            example item 2
-          </ActionPopoverItem>
-          <ActionPopoverItem>example item 3</ActionPopoverItem>
-          <ActionPopoverItem
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-                <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            example item 4
-          </ActionPopoverItem>
-        </ActionPopover>,
-      );
+  const menu = await screen.findByRole("list");
 
-      await user.click(screen.getByRole("button"));
-
-      expect(screen.getByText("example item 1")).toHaveStyleRule(
-        "padding-left",
-        paddingLeft,
-      );
-      expect(screen.getByText("example item 1")).toHaveStyleRule(
-        "padding-right",
-        paddingRight,
-      );
-    },
-  );
-
-  it.each([
-    ["var(--spacing600)", "var(--spacing100)", "left", "left"],
-    ["var(--spacing100)", "var(--spacing600)", "right", "right"],
-  ] as [
-    string,
-    string,
-    ActionPopoverProps["horizontalAlignment"],
-    ActionPopoverProps["submenuPosition"],
-  ][])(
-    "should render a menu item with a submenu but no icon with padding-left as %s and padding-right as %s when horizontalAlignment is %s, submenuPosition is %s and some other menu items have an icon",
-    async (paddingLeft, paddingRight, alignment, position) => {
-      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-      render(
-        <ActionPopover
-          horizontalAlignment={alignment}
-          submenuPosition={position}
-        >
-          <ActionPopoverItem
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="bin">submenu item 1</ActionPopoverItem>
-                <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            example item 1
-          </ActionPopoverItem>
-          <ActionPopoverItem>example item 2</ActionPopoverItem>
-          <ActionPopoverItem icon="alert">example item 3</ActionPopoverItem>
-          <ActionPopoverItem
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-                <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            example item 4
-          </ActionPopoverItem>
-        </ActionPopover>,
-      );
-
-      await user.click(screen.getByRole("button"));
-
-      expect(screen.getByText("example item 1")).toHaveStyleRule(
-        "padding-left",
-        paddingLeft,
-      );
-      expect(screen.getByText("example item 1")).toHaveStyleRule(
-        "padding-right",
-        paddingRight,
-      );
-    },
-  );
-
-  it.each([
-    ["var(--spacing900)", "var(--spacing100)", "left", "left"],
-    ["var(--spacing100)", "var(--spacing900)", "right", "right"],
-  ] as [
-    string,
-    string,
-    ActionPopoverProps["horizontalAlignment"],
-    ActionPopoverProps["submenuPosition"],
-  ][])(
-    "should render a menu item with no icon or submenu with padding-left as %s and padding-right as %s when horizontalAlignment is %s submenuPosition is %s and both icons and submenus exist elsewhere in the menu",
-    async (paddingLeft, paddingRight, alignment, position) => {
-      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-      render(
-        <ActionPopover
-          horizontalAlignment={alignment}
-          submenuPosition={position}
-        >
-          <ActionPopoverItem>example item 1</ActionPopoverItem>
-          <ActionPopoverItem
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="bin">submenu item 1</ActionPopoverItem>
-                <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            example item 2
-          </ActionPopoverItem>
-          <ActionPopoverItem icon="alert">example item 3</ActionPopoverItem>
-          <ActionPopoverItem
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-                <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            example item 4
-          </ActionPopoverItem>
-        </ActionPopover>,
-      );
-
-      await user.click(screen.getByRole("button"));
-
-      expect(screen.getByText("example item 1")).toHaveStyleRule(
-        "padding-left",
-        paddingLeft,
-      );
-      expect(screen.getByText("example item 1")).toHaveStyleRule(
-        "padding-right",
-        paddingRight,
-      );
-    },
-  );
-
-  it.each([
-    ["left", "left"],
-    ["left", "right"],
-    ["right", "left"],
-    ["right", "right"],
-  ] as const)(
-    "should render a menu item in a submenu with left and right padding as var(--spacing000), when horizontalAlignment is %s, submenuPosition is %s and child is a submenu",
-    async (alignment, position) => {
-      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-      render(
-        <ActionPopover
-          horizontalAlignment={alignment}
-          submenuPosition={position}
-        >
-          <ActionPopoverItem>example item 1</ActionPopoverItem>
-          <ActionPopoverItem
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-                <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            example item 2
-          </ActionPopoverItem>
-          <ActionPopoverItem>example item 3</ActionPopoverItem>
-          <ActionPopoverItem>example item 4</ActionPopoverItem>
-        </ActionPopover>,
-      );
-
-      await user.click(screen.getByRole("button"));
-
-      expect(screen.getByText("submenu item 1")).toHaveStyleRule(
-        "padding-left",
-        "var(--spacing000)",
-      );
-      expect(screen.getByText("submenu item 1")).toHaveStyleRule(
-        "padding-right",
-        "var(--spacing000)",
-      );
-    },
+  const { gridTemplateColumns } = getComputedStyle(menu);
+  expect(gridTemplateColumns).toContain(
+    "[icon_column] auto [text_column] auto",
   );
 });
 
-describe("justify-content checks on 'StyledMenuItem'", () => {
-  it.each([
-    ["flex-start", "left", "left"],
-    ["flex-end", "right", "left"],
-    ["space-between", "left", "right"],
-    ["flex-end", "right", "right"],
-  ] as const)(
-    "renders menu item with justify-content %s when horizontalAlignment is %s and submenuPosition is %s",
-    async (justifyContent, alignment, position) => {
-      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+test("when horizontalAlignment is set to 'right', menu displays icon after text", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-      render(
-        <ActionPopover
-          horizontalAlignment={alignment}
-          submenuPosition={position}
-        >
-          <ActionPopoverItem>example item 1</ActionPopoverItem>
-          <ActionPopoverItem>example item 2</ActionPopoverItem>
-          <ActionPopoverItem>example item 3</ActionPopoverItem>
-          <ActionPopoverItem>example item 4</ActionPopoverItem>
-        </ActionPopover>,
-      );
-
-      await user.click(screen.getByRole("button"));
-
-      expect(
-        screen.getByRole("button", { name: "example item 1" }),
-      ).toHaveStyle({ justifyContent });
-    },
+  render(
+    <ActionPopover horizontalAlignment="right">
+      <ActionPopoverItem icon="add">Apple</ActionPopoverItem>
+    </ActionPopover>,
   );
 
-  it("renders menu with justify-content space-between when horizontalAlignment is left, submenuPosition is right and any menu item has a submenu", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const menuButton = screen.getByRole("button");
+  await user.click(menuButton);
 
-    render(
-      <ActionPopover horizontalAlignment="left" submenuPosition="right">
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item 1
-        </ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem>example item 3</ActionPopoverItem>
-        <ActionPopoverItem>example item 4</ActionPopoverItem>
-      </ActionPopover>,
-    );
+  const menu = await screen.findByRole("list");
 
-    await user.click(screen.getByRole("button"));
+  const { gridTemplateColumns } = getComputedStyle(menu);
+  expect(gridTemplateColumns).toContain(
+    "[text_column] auto [icon_column] auto",
+  );
+});
 
-    expect(screen.getByRole("button", { name: "example item 1" })).toHaveStyle({
-      justifyContent: "space-between",
-    });
-    expect(screen.getByRole("button", { name: "example item 2" })).toHaveStyle({
-      justifyContent: "space-between",
-    });
+test("a menu item's icons are hidden from assistive technologies", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ActionPopover>
+      <ActionPopoverItem
+        icon="favourite"
+        submenu={
+          <ActionPopoverMenu>
+            <ActionPopoverItem>Apple</ActionPopoverItem>
+          </ActionPopoverMenu>
+        }
+      >
+        Fruits
+      </ActionPopoverItem>
+    </ActionPopover>,
+  );
+
+  const menuButton = screen.getByRole("button");
+  await user.click(menuButton);
+
+  const menuItem = await screen.findByRole("button", {
+    name: "Fruits",
   });
 
-  it("renders menu with justify-content space-between when horizontalAlignment is right, submenuPosition is left and that specific menu item has a submenu", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const chevronIcon = within(menuItem).getByTestId("chevron-icon");
+  const itemIcon = within(menuItem).getByTestId("item-icon");
 
-    render(
-      <ActionPopover horizontalAlignment="right" submenuPosition="left">
-        <ActionPopoverItem
-          submenu={
-            <ActionPopoverMenu>
-              <ActionPopoverItem>submenu item 1</ActionPopoverItem>
-              <ActionPopoverItem>submenu item 2</ActionPopoverItem>
-            </ActionPopoverMenu>
-          }
-        >
-          example item 1
-        </ActionPopoverItem>
-        <ActionPopoverItem>example item 2</ActionPopoverItem>
-        <ActionPopoverItem>example item 3</ActionPopoverItem>
-        <ActionPopoverItem>example item 4</ActionPopoverItem>
-      </ActionPopover>,
-    );
-
-    await user.click(screen.getByRole("button"));
-
-    expect(screen.getByRole("button", { name: "example item 1" })).toHaveStyle({
-      justifyContent: "space-between",
-    });
-    expect(screen.getByRole("button", { name: "example item 2" })).toHaveStyle({
-      justifyContent: "flex-end",
-    });
-  });
+  expect(chevronIcon).toHaveAttribute("aria-hidden", "true");
+  expect(itemIcon).toHaveAttribute("aria-hidden", "true");
 });

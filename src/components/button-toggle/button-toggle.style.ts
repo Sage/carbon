@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
 export type ButtonToggleIconSizes = "small" | "large";
@@ -59,7 +59,9 @@ export interface StyledButtonToggleProps {
   allowDeselect?: boolean;
 }
 
-const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
+const StyledButtonToggle = styled.button.attrs(
+  applyBaseTheme,
+)<StyledButtonToggleProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -173,8 +175,6 @@ const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
       }
     `}
 `;
-
-StyledButtonToggle.defaultProps = { theme: baseTheme };
 
 const StyledButtonToggleWrapper = styled.div`
   display: inline-block;

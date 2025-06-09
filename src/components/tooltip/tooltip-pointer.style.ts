@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
-import baseTheme, { ThemeObject } from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
+import type { ThemeObject } from "../../style/themes/theme.types";
 import { toColor } from "../../style/utils/color";
 import { TooltipProps } from "./tooltip.component";
 
@@ -11,7 +12,9 @@ const pointerColor = (theme: ThemeObject, bgColor?: string, type?: string) => {
     : "var(--colorsSemanticNeutral500)";
 };
 
-const StyledTooltipPointer = styled.div<Pick<TooltipProps, "type" | "bgColor">>`
+const StyledTooltipPointer = styled.div.attrs(applyBaseTheme)<
+  Pick<TooltipProps, "type" | "bgColor">
+>`
   ${({ theme, type, bgColor }) => css`
     z-index: ${theme.zIndex
       .popover}; // TODO (tokens): implement elevation tokens - FE-4437
@@ -22,9 +25,5 @@ const StyledTooltipPointer = styled.div<Pick<TooltipProps, "type" | "bgColor">>`
     transform: rotate(45deg);
   `}
 `;
-
-StyledTooltipPointer.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledTooltipPointer;

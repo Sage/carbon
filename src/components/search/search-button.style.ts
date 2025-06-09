@@ -2,7 +2,7 @@ import styled from "styled-components";
 import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
 
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 export const StyledButtonIcon = styled.div`
   &&& ${StyledIcon} {
@@ -11,7 +11,7 @@ export const StyledButtonIcon = styled.div`
   }
 `;
 
-const StyledSearchButton = styled.div`
+const StyledSearchButton = styled.div.attrs(applyBaseTheme)`
   display: inline-flex;
   border-bottom: none;
 
@@ -41,7 +41,5 @@ const StyledSearchButton = styled.div`
     }
   }
 `;
-
-StyledSearchButton.defaultProps = { theme: baseTheme };
 
 export default StyledSearchButton;

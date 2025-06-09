@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import styledColor from "../../style/utils/color";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { TypographyProps, VariantTypes } from "./typography.component";
 import visuallyHidden from "../../style/utils/visually-hidden";
 
@@ -117,7 +117,7 @@ const getDecoration = (variant?: VariantTypes) => {
   return "none";
 };
 
-const StyledTypography = styled.span<TypographyProps>`
+const StyledTypography = styled.span.attrs(applyBaseTheme)<TypographyProps>`
   ${({
     fontSize,
     fontWeight,
@@ -178,10 +178,6 @@ const StyledTypography = styled.span<TypographyProps>`
       color: var(--colorsUtilityYin030);
     `}
 `;
-
-StyledTypography.defaultProps = {
-  theme: baseTheme,
-};
 
 StyledTypography.displayName = "Typography";
 export default StyledTypography;

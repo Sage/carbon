@@ -3,9 +3,11 @@ import Icon from "../../icon";
 import { StyledIconProps } from "../../icon/icon.style";
 import { SortProps } from "./sort.component";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
-import baseTheme from "../../../style/themes/base";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 
-const StyledSort = styled.div<Pick<SortProps, "sortType">>`
+const StyledSort = styled.div.attrs(applyBaseTheme)<
+  Pick<SortProps, "sortType">
+>`
   display: inline-flex;
   align-items: center;
   padding-left: 2px;
@@ -23,8 +25,6 @@ const StyledSort = styled.div<Pick<SortProps, "sortType">>`
     border-radius: var(--borderRadius025);
   }
 `;
-
-StyledSort.defaultProps = { theme: baseTheme };
 
 const StyledSpaceHolder = styled.div`
   display: inline-block;

@@ -1,10 +1,12 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import StyledButton from "../button/button.style";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { DlProps } from "./dl.component";
 
-export const StyledDl = styled.dl<Omit<DlProps, "dtTextAlign" | "ddTextAlign">>`
+export const StyledDl = styled.dl.attrs(applyBaseTheme)<
+  Omit<DlProps, "dtTextAlign" | "ddTextAlign">
+>`
   ${space}
 
   ${({ asSingleColumn, w }) => css`
@@ -25,11 +27,7 @@ export const StyledDl = styled.dl<Omit<DlProps, "dtTextAlign" | "ddTextAlign">>`
   background-color: transparent;
 `;
 
-StyledDl.defaultProps = {
-  theme: baseTheme,
-};
-
-export const StyledDt = styled.dt<
+export const StyledDt = styled.dt.attrs(applyBaseTheme)<
   Pick<DlProps, "asSingleColumn" | "dtTextAlign">
 >`
   ${space}
@@ -45,10 +43,6 @@ export const StyledDt = styled.dt<
     text-align: ${dtTextAlign};
   `}
 `;
-
-StyledDt.defaultProps = {
-  theme: baseTheme,
-};
 
 export const StyledDd = styled.dd<
   Pick<DlProps, "asSingleColumn" | "ddTextAlign">

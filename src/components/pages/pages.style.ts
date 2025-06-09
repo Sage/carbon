@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { slideAnimation, fadeAnimation } from "./pages.config";
-import BaseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { StyledDivider, StyledHeading } from "../heading/heading.style";
 
-const PagesContent = styled.div`
+const PagesContent = styled.div.attrs(applyBaseTheme)`
   border: none;
 
   ${StyledHeading} {
@@ -23,9 +23,5 @@ const PagesWrapperStyle = styled.div`
   ${slideAnimation}
   ${fadeAnimation}
 `;
-
-PagesContent.defaultProps = {
-  theme: BaseTheme,
-};
 
 export { PagesWrapperStyle, PagesContent };

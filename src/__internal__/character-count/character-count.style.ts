@@ -1,11 +1,13 @@
 import styled, { css } from "styled-components";
 
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import visuallyHidden from "../../style/utils/visually-hidden";
 
 const StyledCharacterCountWrapper = styled.div``;
 
-const StyledCharacterCount = styled.div<{ isOverLimit: boolean }>`
+const StyledCharacterCount = styled.div.attrs(applyBaseTheme)<{
+  isOverLimit: boolean;
+}>`
   text-align: left;
   font-size: var(--fontSizes100);
   margin-top: var(--spacing050);
@@ -41,10 +43,6 @@ const VisuallyHiddenHint = styled.div`
 
   ${visuallyHidden}
 `;
-
-StyledCharacterCount.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledCharacterCountWrapper,

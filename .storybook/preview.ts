@@ -40,7 +40,7 @@ const parameters = {
   },
   chromatic: { disableSnapshot: false },
   viewport: { viewports: customViewports },
-  viewMode: process.env.STORYBOOK_VIEW_MODE,
+  viewMode: import.meta.env.STORYBOOK_VIEW_MODE,
 };
 
 const globalTypes = {

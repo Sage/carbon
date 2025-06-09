@@ -1,3 +1,35 @@
+## [154.7.1](https://github.com/Sage/carbon/compare/v154.7.0...v154.7.1) (2025-06-06)
+
+### Bug Fixes
+
+* **pill:** ensure content colour does not fail color contrast ([db17d1d](https://github.com/Sage/carbon/commit/db17d1d9cc3e5ba0511dfadbd13cc95522537cdf))
+
+## [154.7.0](https://github.com/Sage/carbon/compare/v154.6.1...v154.7.0) (2025-06-06)
+
+### Features
+
+* **popover-container:** ensure popover containers appear in front of global nav ([1847c76](https://github.com/Sage/carbon/commit/1847c765bab26ca9a364b9ccbe1fbfe4e70bbe4a)), closes [#7252](https://github.com/Sage/carbon/issues/7252)
+
+## [154.6.1](https://github.com/Sage/carbon/compare/v154.6.0...v154.6.1) (2025-06-05)
+
+### Bug Fixes
+
+* **profile:** allow text to wrap ([1c9dd50](https://github.com/Sage/carbon/commit/1c9dd50974680e130cfc6d2a32afa0ac837bfe12))
+
+## [154.6.0](https://github.com/Sage/carbon/compare/v154.5.0...v154.6.0) (2025-06-05)
+
+### Features
+
+* **responsive-vertical-menu-item:** adds routing props to the ResponsiveVerticalMenuItem component ([c940b72](https://github.com/Sage/carbon/commit/c940b728c7f254789da2b39289bdaa998509a58d)), closes [#7339](https://github.com/Sage/carbon/issues/7339)
+* **responsive-vertical-menu-item:** fix styling issues ([09ddfe2](https://github.com/Sage/carbon/commit/09ddfe2e277b14de54074b37b01a79a15d842aef)), closes [#7336](https://github.com/Sage/carbon/issues/7336) [#7340](https://github.com/Sage/carbon/issues/7340)
+* **responsive-vertical-menu-item:** support custom labels ([37a5287](https://github.com/Sage/carbon/commit/37a52871262b8f43ece3588ca48b0fd32e8b75af)), closes [#7262](https://github.com/Sage/carbon/issues/7262)
+
+## [154.5.0](https://github.com/Sage/carbon/compare/v154.4.3...v154.5.0) (2025-06-05)
+
+### Features
+
+* **action-popover-menu:** remove horizontalAlignment prop ([cdb840b](https://github.com/Sage/carbon/commit/cdb840b5e2a6e8546bf70c965223cadd95089506))
+
 ## [154.4.3](https://github.com/Sage/carbon/compare/v154.4.2...v154.4.3) (2025-06-04)
 
 ### Bug Fixes

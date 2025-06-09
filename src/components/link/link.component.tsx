@@ -74,7 +74,7 @@ export const Link = React.forwardRef<
       icon,
       iconAlign = "left",
       isSkipLink,
-      disabled,
+      disabled = false,
       ariaLabel,
       rel,
       tooltipMessage,

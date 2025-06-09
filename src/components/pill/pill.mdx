@@ -37,25 +37,23 @@ import Pill from "carbon-react/lib/components/pill";
 
 ### Wrapped
 
-By default the text within a Pill will not wrap. You can override this behavior by setting the `wrapText`
+By default the text within a Pill will not wrap, however you can override this behavior by setting the `wrapText`
 and `maxWidth` props. It is also possible to hyphenate the words but you may need to define where to place
 the hyphens using `&shy;` if they are not automatically added: this is because the rules for adding them are
-language-specific and support for every `lang` attrribute is not universal.
+language-specific and support for every `lang` attribute is not universal.
 
 <Canvas of={PillStories.Wrapped} />
 
 ### With remove button
 
-When a callback in the onDelete prop is provided, a remove button will be rendered
-and click on it will trigger that callback.
+When a callback in the `onDelete` prop is provided, a remove button will be rendered and clicking on it will trigger that callback.
 
 <Canvas of={PillStories.WithRemoveButton} />
 
 ### With custom remove button aria-label
 
 By default the aria-label of the remove button will be set to "remove pill".
-That attribute could be customized to increase accessibility by providing unique button descriptions
-in the `ariaLabelOfRemoveButton` prop.
+That attribute can be customized by passing a string to the `ariaLabelOfRemoveButton` prop.
 
 <Canvas of={PillStories.WithCustomRemoveButtonAriaLabel} />
 
@@ -73,15 +71,17 @@ Applied by the user, and indicate something in common. Change the theme to see t
 
 ### Custom colors
 
-It's possible to change the color of the Pill by using the `borderColor` prop. It will override `colorVariant` value.
-See [Colors](../?path=/docs/documentation-colors--docs) for more information.
+You can pass a custom color to Pill by using the `borderColor` prop, which will be set as the background color if `fill` is true. 
+This prop will take precedence over the `colorVariant` value.
+See our [Colors](../?path=/docs/documentation-colors--docs) documentation for more information.
 
 <Canvas of={PillStories.CustomColors} />
 
 ### Dark background
 
 Color variants for dark theme, to apply these set `isDarkBackground` to `true`.
-Note: `"neutralWhite"` can only be used on dark backgrounds with `fill` also set to true.
+
+**Note:** `"neutralWhite"` can only be used on dark backgrounds with `fill` also set to true.
 
 <Canvas of={PillStories.DarkBackground} />
 

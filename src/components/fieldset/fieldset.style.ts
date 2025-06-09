@@ -2,14 +2,16 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import CheckboxStyle from "../checkbox/checkbox.style";
 
 export interface StyledFieldsetProps {
   newValidation?: boolean;
 }
 
-const FieldsetStyle = styled.fieldset<StyledFieldsetProps>`
+const FieldsetStyle = styled.fieldset.attrs(
+  applyBaseTheme,
+)<StyledFieldsetProps>`
   margin: 0;
   margin-bottom: var(--fieldSpacing);
   ${margin}
@@ -34,10 +36,6 @@ const FieldsetStyle = styled.fieldset<StyledFieldsetProps>`
       }
     `}
 `;
-
-FieldsetStyle.defaultProps = {
-  theme: baseTheme,
-};
 
 export interface StyledLegendProps {
   /** Flag to configure fields as mandatory. */
