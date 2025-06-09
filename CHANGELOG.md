@@ -1,3 +1,9 @@
+## [154.7.2](https://github.com/Sage/carbon/compare/v154.7.1...v154.7.2) (2025-06-09)
+
+### Bug Fixes
+
+* **button, heading, icon-button, tab-title:** add preventScroll to progrommatic focus ([a1b8b07](https://github.com/Sage/carbon/commit/a1b8b07024333b2fd4cbe93ebb139860d0a1e498))
+
 ## [154.7.1](https://github.com/Sage/carbon/compare/v154.7.0...v154.7.1) (2025-06-06)
 
 ### Bug Fixes
