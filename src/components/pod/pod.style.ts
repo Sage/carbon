@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
 
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { StyledContent as StyledLinkContent } from "../link/link.style";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
@@ -12,7 +12,7 @@ import { PodSize, PodVariant } from "./pod.config";
 type StyledPodProps = MarginProps &
   Pick<PodProps, "alignTitle" | "internalEditButton" | "height">;
 
-const StyledPod = styled.div<StyledPodProps>`
+const StyledPod = styled.div.attrs(applyBaseTheme)<StyledPodProps>`
   ${margin}
   display: flex;
   align-items: flex-start;
@@ -407,10 +407,6 @@ const StyledTitle = styled.h4`
   font-size: 18px;
   font-weight: 500;
 `;
-
-StyledPod.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledBlock,

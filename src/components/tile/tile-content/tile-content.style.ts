@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
-import baseTheme from "../../../style/themes/base";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import computeSizing from "../../../style/utils/element-sizing";
 import { TileContentProps } from "./tile-content.component";
 
@@ -11,7 +11,9 @@ interface StyledTileContentProps extends TileContentProps {
   height?: string | number;
 }
 
-const StyledTileContent = styled.div<StyledTileContentProps>`
+const StyledTileContent = styled.div.attrs(
+  applyBaseTheme,
+)<StyledTileContentProps>`
   ${({ isHorizontal, isVertical, width, height }) => css`
     ${space}
 
@@ -65,9 +67,5 @@ const StyledTileContent = styled.div<StyledTileContentProps>`
     `}
   `}
 `;
-
-StyledTileContent.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledTileContent;

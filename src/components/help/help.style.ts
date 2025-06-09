@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
@@ -8,7 +8,7 @@ interface StyledHelpProps {
   href?: string;
 }
 
-const StyledHelp = styled.div<StyledHelpProps>`
+const StyledHelp = styled.div.attrs(applyBaseTheme)<StyledHelpProps>`
   background: none;
   cursor: default;
   border: none;
@@ -44,9 +44,5 @@ const StyledHelp = styled.div<StyledHelpProps>`
 
   ${margin}
 `;
-
-StyledHelp.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledHelp;

@@ -8,7 +8,7 @@ import StyledButton from "../../button/button.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import StyledIcon from "../../icon/icon.style";
 import { StyledContent, StyledLink } from "../../link/link.style";
-import { baseTheme } from "../../../style/themes";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 
 import { MenuWithChildren } from "./menu-item.component";
@@ -81,7 +81,7 @@ const parsePadding = (props: Partial<PaddingProps>) => {
   }
 };
 
-const StyledMenuItemWrapper = styled.a.attrs({
+const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
   as: Link,
 })<StyledMenuItemWrapperProps>`
   ${({
@@ -507,7 +507,5 @@ const StyledMenuItemWrapper = styled.a.attrs({
     }
   }
 `;
-
-StyledMenuItemWrapper.defaultProps = { theme: baseTheme };
 
 export default StyledMenuItemWrapper;

@@ -6,7 +6,6 @@ import {
 } from "../../__spec_helper__/__internal__/test-utils";
 
 import Hr from "./hr.component";
-import CarbonProvider from "../carbon-provider";
 
 testStyledSystemMargin(
   (props) => <Hr {...props} />,
@@ -43,11 +42,7 @@ test("should render with a large height", () => {
 });
 
 test("should apply the expected margin top", () => {
-  render(
-    <CarbonProvider validationRedesignOptIn>
-      <Hr mt={7} />
-    </CarbonProvider>,
-  );
+  render(<Hr mt={7} />);
   const hr = screen.getByRole("separator");
 
   expect(hr).toHaveStyleRule("margin-top", "var(--spacing700)");

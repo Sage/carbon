@@ -6,12 +6,12 @@ import { margin, MarginProps } from "styled-system";
 
 import Icon from "../icon";
 import profileConfigSizes from "../profile/profile.config";
-import BaseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 import { PortraitSizes, PortraitShapes } from "./portrait.component";
 import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 
-import getColoursForPortrait from "./__internal__/utils";
+import getColoursForPortrait from "./__internal__/get-colors";
 
 type StyledPortraitProps = {
   backgroundColor?: string;
@@ -54,7 +54,7 @@ export const StyledIcon = styled(Icon)<Pick<StyledPortraitProps, "size">>`
   }
 `;
 
-export const StyledPortraitContainer = styled.div<
+export const StyledPortraitContainer = styled.div.attrs(applyBaseTheme)<
   StyledPortraitProps & MarginProps
 >`
   ${({ darkBackground, backgroundColor, size, foregroundColor }) =>
@@ -78,7 +78,3 @@ export const StyledPortraitContainer = styled.div<
   ${({ onClick }) => onClick && "cursor: pointer"}
   ${margin}
 `;
-
-StyledPortraitContainer.defaultProps = {
-  theme: BaseTheme,
-};

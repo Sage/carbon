@@ -1,7 +1,5 @@
 import React from "react";
 import { render, screen, within, fireEvent } from "@testing-library/react";
-import { ThemeProvider } from "styled-components";
-import sageTheme from "../../style/themes/sage";
 import PortalContext from "./__internal__/portal.context";
 import Portal from ".";
 
@@ -88,11 +86,7 @@ test("allows a custom function to be triggered via the `onReposition` prop on wi
 });
 
 test("renders with the 'data-not-inert' attribute set to true on the portal exit, when the `inertOptOut` prop is true", () => {
-  render(
-    <ThemeProvider theme={sageTheme}>
-      <Portal inertOptOut />
-    </ThemeProvider>,
-  );
+  render(<Portal inertOptOut />);
 
   const portalExit = screen.getByTestId("carbon-portal-exit");
   expect(portalExit).toHaveAttribute("data-not-inert", "true");

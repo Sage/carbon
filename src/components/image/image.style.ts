@@ -9,7 +9,7 @@ import {
   LayoutProps,
   PaddingProps,
 } from "styled-system";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 
 export type PositionProps =
@@ -46,28 +46,36 @@ export interface StyledImageProps
   left?: string;
 }
 
-const StyledImage = styled.div.attrs(
-  ({
-    src,
-    children,
-    hidden = false,
-    position,
-    top,
-    right,
-    bottom,
-    left,
-  }: StyledImageProps) => ({
-    ...(src && { as: "img" }),
-    children: src ? undefined : children,
-    src,
-    hidden,
-    position,
-    top,
-    right,
-    bottom,
-    left,
-  }),
-)<StyledImageProps>`
+const StyledImage = styled.div
+  .attrs(applyBaseTheme)
+  .attrs(
+    ({
+      backgroundPosition = "center",
+      backgroundRepeat = "no-repeat",
+      backgroundSize = "cover",
+      src,
+      children,
+      hidden = false,
+      position,
+      top,
+      right,
+      bottom,
+      left,
+    }: StyledImageProps) => ({
+      backgroundPosition,
+      backgroundRepeat,
+      backgroundSize,
+      ...(src && { as: "img" }),
+      children: src ? undefined : children,
+      src,
+      hidden,
+      position,
+      top,
+      right,
+      bottom,
+      left,
+    }),
+  )<StyledImageProps>`
   ${margin}
   ${layout}
   ${padding}
@@ -86,12 +94,5 @@ const StyledImage = styled.div.attrs(
       ${background}
     `}
 `;
-
-StyledImage.defaultProps = {
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  theme: baseTheme,
-};
 
 export { StyledImage };

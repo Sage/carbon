@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { padding, PaddingProps } from "styled-system";
 import addFocusStyling from "../../style/utils/add-focus-styling";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
@@ -18,7 +18,9 @@ interface StyledVerticalMenuProps extends PaddingProps {
   height: string;
 }
 
-export const StyledVerticalMenuItem = styled.div<StyledVerticalMenuProps>`
+export const StyledVerticalMenuItem = styled.div.attrs(
+  applyBaseTheme,
+)<StyledVerticalMenuProps>`
   min-height: ${({ height }) => height};
   width: 100%;
   display: flex;
@@ -69,8 +71,6 @@ export const StyledVerticalMenuItem = styled.div<StyledVerticalMenuProps>`
     width: 20px;
   }
 `;
-
-StyledVerticalMenuItem.defaultProps = { theme: baseTheme };
 
 export const StyledTitle = styled.h3`
   font-weight: 500;

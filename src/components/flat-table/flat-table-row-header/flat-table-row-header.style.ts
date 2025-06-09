@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { padding } from "styled-system";
 
-import baseTheme from "../../../style/themes/base";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import { toColor } from "../../../style/utils/color";
 import { FlatTableRowHeaderProps } from "./flat-table-row-header.component";
 import StyledIcon from "../../icon/icon.style";
@@ -12,13 +12,15 @@ const verticalBorderSizes = {
   large: "4px",
 };
 
-const StyledFlatTableRowHeader = styled.th.attrs(
-  ({
-    stickyAlignment,
-  }: {
-    stickyAlignment: FlatTableRowHeaderProps["stickyAlignment"];
-  }) => ({ "data-sticky-align": stickyAlignment }),
-)<
+const StyledFlatTableRowHeader = styled.th
+  .attrs(applyBaseTheme)
+  .attrs(
+    ({
+      stickyAlignment,
+    }: {
+      stickyAlignment: FlatTableRowHeaderProps["stickyAlignment"];
+    }) => ({ "data-sticky-align": stickyAlignment }),
+  )<
   FlatTableRowHeaderProps & {
     expandable?: boolean;
     leftPosition?: number;
@@ -48,7 +50,7 @@ const StyledFlatTableRowHeader = styled.th.attrs(
     top: auto;
     vertical-align: middle;
     padding: 0;
-    z-index: ${baseTheme.zIndex.overlay};
+    z-index: ${theme.zIndex.overlay};
 
     ${width &&
     css`
@@ -108,10 +110,6 @@ const StyledFlatTableRowHeader = styled.th.attrs(
     `}
   `}
 `;
-
-StyledFlatTableRowHeader.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledFlatTableRowHeaderContent = styled.div<{ expandable?: boolean }>`
   ${({ expandable }) =>

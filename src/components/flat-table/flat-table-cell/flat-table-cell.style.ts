@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { PaddingProps, padding } from "styled-system";
 import { FlatTableCellProps } from "./flat-table-cell.component";
-import baseTheme from "../../../style/themes/base";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import { toColor } from "../../../style/utils/color";
 
 const verticalBorderSizes = {
@@ -24,7 +24,9 @@ interface StyledFlatTableCellProps
   expandable?: boolean;
 }
 
-const StyledFlatTableCell = styled.td<StyledFlatTableCellProps>`
+const StyledFlatTableCell = styled.td.attrs(
+  applyBaseTheme,
+)<StyledFlatTableCellProps>`
   ${({
     align,
     theme,
@@ -123,9 +125,5 @@ const StyledCellContent = styled.div<{ expandable?: boolean }>`
       line-height: 1em;
     `}
 `;
-
-StyledFlatTableCell.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledFlatTableCell, StyledCellContent };

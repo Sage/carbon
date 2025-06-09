@@ -38,7 +38,7 @@ export const Loader = ({
   variant = "default",
   "aria-label": ariaLabel,
   size = "medium",
-  isInsideButton,
+  isInsideButton = false,
   isActive = true,
   loaderLabel,
   ...rest

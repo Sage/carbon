@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { padding as paddingFn } from "styled-system";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import {
   StyledHeaderContent,
   StyledHeading,
@@ -31,7 +31,7 @@ type StyledDialogProps = Required<Pick<DialogProps, "size">> & {
   highlightVariant?: string;
 };
 
-const DialogPositioner = styled.div`
+const DialogPositioner = styled.div.attrs(applyBaseTheme)`
   position: fixed;
   inset: 0;
   display: flex;
@@ -135,7 +135,9 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   }
 `;
 
-const StyledDialogContent = styled.div<ContentPaddingInterface>`
+const StyledDialogContent = styled.div.attrs(
+  applyBaseTheme,
+)<ContentPaddingInterface>`
   box-sizing: border-box;
   display: block;
   overflow-y: auto;
@@ -163,14 +165,6 @@ const StyledDialogContent = styled.div<ContentPaddingInterface>`
     }
   }
 `;
-
-DialogPositioner.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledDialogContent.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   DialogPositioner,

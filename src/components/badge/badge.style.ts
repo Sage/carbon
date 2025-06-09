@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import StyledIcon from "../icon/icon.style";
 import Button from "../button";
 import Icon from "../icon";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { toColor } from "../../style/utils/color";
 
 const commonStyles = `
@@ -33,7 +33,7 @@ interface StyledBadgeProps {
   isHovered?: boolean;
 }
 
-const StyledBadge = styled.span.attrs(({ onClick }) => ({
+const StyledBadge = styled.span.attrs(applyBaseTheme).attrs(({ onClick }) => ({
   as: onClick ? Button : undefined,
 }))<StyledBadgeProps>`
   ${commonStyles}
@@ -103,9 +103,5 @@ const StyledCrossIcon = styled(Icon)`
   margin: 0;
   display: none;
 `;
-
-StyledBadge.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledBadge, StyledBadgeWrapper, StyledCrossIcon, StyledCounter };

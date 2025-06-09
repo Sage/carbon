@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../../style/themes";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import StyledBox from "../../box/box.style";
 import StyledSearch from "../../search/search.style";
@@ -11,7 +11,7 @@ import { StyledLink } from "../../link/link.style";
 
 import type { MenuType } from "../menu.types";
 
-const StyledMenuFullscreen = styled.div<{
+const StyledMenuFullscreen = styled.div.attrs(applyBaseTheme)<{
   transitionDuration: number;
   startPosition: "left" | "right";
 }>`
@@ -48,7 +48,9 @@ const StyledMenuFullscreen = styled.div<{
   `}
 `;
 
-const StyledMenuModal = styled.div<{ menuType: MenuType }>`
+const StyledMenuModal = styled.div.attrs(applyBaseTheme)<{
+  menuType: MenuType;
+}>`
   height: 100vh;
   width: 100vw;
   outline: none;
@@ -122,13 +124,5 @@ const StyledMenuFullscreenHeader = styled.div<{
     background-color: ${menuConfigVariants[menuType].submenuItemBackground};
   `}
 `;
-
-StyledMenuFullscreen.defaultProps = {
-  theme: baseTheme,
-};
-
-StyledMenuModal.defaultProps = {
-  theme: baseTheme,
-};
 
 export { StyledMenuModal, StyledMenuFullscreen, StyledMenuFullscreenHeader };

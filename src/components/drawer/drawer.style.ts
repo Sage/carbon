@@ -3,7 +3,7 @@ import StyledTabs from "../tabs/tabs.style";
 import Box from "../box";
 import StyledStickyFooter from "../../__internal__/sticky-footer/sticky-footer.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 const defaultExpandedWidth = "var(--sizing500)";
 
@@ -175,7 +175,7 @@ interface StyledSidebarToggleButtonProps {
   isExpanded?: boolean;
 }
 
-const StyledSidebarToggleButton = styled.button.attrs({
+const StyledSidebarToggleButton = styled.button.attrs(applyBaseTheme).attrs({
   type: "button",
 })<StyledSidebarToggleButtonProps>`
   ${({ animationDuration, isExpanded }) => css`
@@ -210,10 +210,6 @@ const StyledSidebarToggleButton = styled.button.attrs({
     `}
   `}
 `;
-
-StyledSidebarToggleButton.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledDrawerWrapper = styled.div<{ height: string }>`
   display: flex;
