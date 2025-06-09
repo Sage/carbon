@@ -11,7 +11,7 @@ describe("BaseLink", () => {
   });
 
   it("renders a button element when `href` is not provided", () => {
-    render(<BaseLink>Button</BaseLink>);
+    render(<BaseLink onClick={() => { }}>Button</BaseLink>);
     const button = screen.getByRole("button");
     expect(button).toHaveAttribute("type", "button");
     expect(button).toHaveTextContent("Button");
@@ -36,7 +36,7 @@ describe("BaseLink", () => {
 
   it("forwards ref to button element", () => {
     const ref = createRef<HTMLButtonElement>();
-    render(<BaseLink ref={ref}>Ref Button</BaseLink>);
+    render(<BaseLink ref={ref} onClick={() => { }}>Ref Button</BaseLink>);
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
   });
 

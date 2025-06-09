@@ -75,7 +75,9 @@ export interface BaseLinkProps extends AriaAttributes {
 export const BaseLink = React.forwardRef<
   HTMLAnchorElement | HTMLButtonElement,
   BaseLinkProps
->(({ href, children, styles, onClick, ...rest }, ref) => {
+>(({ href, children, styles, onClick, onKeyDown, ariaLabel, ...rest }, ref) => {
+  const { $styles, ...cleanedRest } = rest as any; 
+
   const setAnchorRef = useCallback(
     (reference: HTMLAnchorElement | null) => {
       if (!ref) return;
@@ -102,16 +104,45 @@ export const BaseLink = React.forwardRef<
     [ref],
   );
 
+  const handleKeyDown = useCallback(
+    (ev: KeyboardEvent<HTMLAnchorElement> | KeyboardEvent<HTMLButtonElement>) => {
+      onKeyDown?.(ev);
+      
+      // For button-like behavior, trigger onClick on Enter or Space
+      if (!href && onClick && (ev.key === 'Enter' || ev.key === ' ')) {
+        ev.preventDefault();
+        onClick(ev);
+      }
+    },
+    [onKeyDown, onClick, href]
+  );
+
   return (
     <StyledBaseLinkWrapper $styles={styles}>
-      {onClick && !href ? (
-        <button ref={setButtonRef} type="button" {...rest}>
-          {children}
-        </button>
-      ) : (
-        <a ref={setAnchorRef} href={href} {...rest} data-role="link-anchor">
+      {href ? (
+        <a 
+          ref={setAnchorRef} 
+          href={href} 
+          onClick={onClick}
+          onKeyDown={handleKeyDown}
+          aria-label={ariaLabel}
+          data-testid="link-anchor"
+          {...cleanedRest}
+        >
           {children}
         </a>
+      ) : (
+        <button 
+          ref={setButtonRef} 
+          type="button" 
+          onClick={onClick}
+          onKeyDown={handleKeyDown}
+          aria-label={ariaLabel}
+          data-testid="link-anchor"
+          {...cleanedRest}
+        >
+          {children}
+        </button>
       )}
     </StyledBaseLinkWrapper>
   );
