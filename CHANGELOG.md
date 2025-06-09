@@ -1,3 +1,15 @@
+## [154.7.3](https://github.com/Sage/carbon/compare/v154.7.2...v154.7.3) (2025-06-09)
+
+### Bug Fixes
+
+* **date, date-range:** ensure date format override returns correct formatted value ([5f8fa0c](https://github.com/Sage/carbon/commit/5f8fa0ca6980bc66e97af9d90b5a6bf4384f4eee)), closes [#7345](https://github.com/Sage/carbon/issues/7345)
+
+## [154.7.2](https://github.com/Sage/carbon/compare/v154.7.1...v154.7.2) (2025-06-09)
+
+### Bug Fixes
+
+* **button, heading, icon-button, tab-title:** add preventScroll to progrommatic focus ([a1b8b07](https://github.com/Sage/carbon/commit/a1b8b07024333b2fd4cbe93ebb139860d0a1e498))
+
 ## [154.7.1](https://github.com/Sage/carbon/compare/v154.7.0...v154.7.1) (2025-06-06)
 
 ### Bug Fixes

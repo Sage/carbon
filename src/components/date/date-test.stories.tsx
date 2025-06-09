@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { StoryObj } from "@storybook/react";
-import { de as deLocale } from "date-fns/locale/de";
+import { zhCN, de, enUS, enGB } from "date-fns/locale";
 
-import DateInput, { DateChangeEvent } from "./date.component";
-import {
-  CommonTextboxArgs,
-  commonTextboxArgTypes,
-  getCommonTextboxArgs,
-  getCommonTextboxArgsWithSpecialCharacters,
-} from "../textbox/textbox-test.stories";
+import DateInput, { DateChangeEvent, DateInputProps } from "./date.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Box from "../box";
 import Confirm from "../confirm";
@@ -17,16 +11,55 @@ import I18nProvider from "../i18n-provider";
 
 export default {
   title: "Date Input/Test",
+  component: DateInput,
   parameters: {
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
     },
+    controls: {
+      exclude: [
+        "onPickerOpen",
+        "onPickerClose",
+        "onClick",
+        "onKeyDown",
+        "onFocus",
+        "onBlur",
+        "onChange",
+        "as",
+      ],
+    },
   },
-  argTypes: commonTextboxArgTypes(),
+  argTypes: {
+    fieldHelp: {
+      control: {
+        type: "text",
+      },
+    },
+    labelHelp: {
+      control: {
+        type: "text",
+      },
+    },
+    error: {
+      control: {
+        type: "text",
+      },
+    },
+    warning: {
+      control: {
+        type: "text",
+      },
+    },
+    info: {
+      control: {
+        type: "text",
+      },
+    },
+  },
 };
 
-export const DateStory = (args: CommonTextboxArgs) => {
+export const DateStory = ({ ...args }) => {
   const [state, setState] = useState("2019-04-04");
   const setValue = (ev: DateChangeEvent) => {
     action("onChange")(ev.target.value);
@@ -44,18 +77,11 @@ export const DateStory = (args: CommonTextboxArgs) => {
         action("onKeyDown")((ev.target as HTMLInputElement).value)
       }
       onClick={(ev) => action("onClick")((ev.target as HTMLInputElement).value)}
-      {...getCommonTextboxArgsWithSpecialCharacters(args)}
+      {...args}
     />
   );
 };
-
-DateStory.args = {
-  minDate: "",
-  maxDate: "",
-  allowEmptyValue: false,
-  mt: 0,
-  ...getCommonTextboxArgs(),
-};
+DateStory.storyName = "Date Input";
 
 export const Validation = () => {
   const [state, setState] = useState("04/04/2019");
@@ -240,12 +266,18 @@ MultipleDates.storyName =
   "Multiple Dates with onPickerOpen and onPickerClose callbacks";
 MultipleDates.parameters = { chromatic: { disableSnapshot: true } };
 
-interface I18nArgs extends CommonTextboxArgs {
-  /** The format used to override te displayed date format */
-  dateFormatOverride?: string;
+interface DateInputI80NProps extends DateInputProps {
+  locale: "en-US" | "en-GB" | "zh-CN" | "de-DE";
 }
 
-export const I18NStory = (args: I18nArgs) => {
+const locales = {
+  "en-US": enUS,
+  "en-GB": enGB,
+  "zh-CN": zhCN,
+  "de-DE": de,
+};
+
+export const I18NStory = ({ locale, ...args }: DateInputI80NProps) => {
   const [state, setState] = useState("2019-04-05");
   const setValue = (ev: DateChangeEvent) => {
     action("onChange")(ev.target.value);
@@ -255,20 +287,21 @@ export const I18NStory = (args: I18nArgs) => {
     <CarbonProvider validationRedesignOptIn>
       <I18nProvider
         locale={{
-          locale: () => "de-DE",
+          locale: () => locale,
           date: {
             ariaLabels: {
               nextMonthButton: () => "foo",
               previousMonthButton: () => "foo",
             },
-            dateFnsLocale: () => deLocale,
-            dateFormatOverride: args.dateFormatOverride || "dd/MM/yyyy",
+            dateFnsLocale: () => locales[locale],
           },
         }}
       >
         <DateInput
           name="dateinput"
+          label={locale}
           m={2}
+          {...args}
           value={state}
           onChange={setValue}
           onBlur={(ev) => {
@@ -280,16 +313,23 @@ export const I18NStory = (args: I18nArgs) => {
           onClick={(ev) =>
             action("onClick")((ev.target as HTMLInputElement).value)
           }
-          {...getCommonTextboxArgsWithSpecialCharacters(args)}
         />
       </I18nProvider>
     </CarbonProvider>
   );
 };
 I18NStory.storyName = "i18n Story";
+I18NStory.argTypes = {
+  locale: {
+    control: {
+      type: "select",
+    },
+    options: ["en-US", "en-GB", "zh-CN", "de-DE"],
+  },
+};
 I18NStory.args = {
+  locale: "en-US",
   dateFormatOverride: "dd/MM/yyyy",
-  ...getCommonTextboxArgs(),
 };
 
 export const AutoFocus = () => {
