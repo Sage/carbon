@@ -2,7 +2,7 @@ import { makeDecorator } from "@storybook/preview-api";
 import isChromatic from "./isChromatic";
 import React from "react";
 import styled from "styled-components";
-import CarbonProvider from "../src/components/carbon-provider";
+import CarbonStoryWrapper from "./story-wrapper";
 import { noTheme, sageTheme } from "../src/style/themes";
 import { config } from "react-transition-group";
 
@@ -12,9 +12,9 @@ const themes = [noTheme, sageTheme].reduce((themesObject, theme) => {
 }, {});
 
 const render = (Story, themeName) => (
-  <CarbonProvider theme={themes[themeName]}>
+  <CarbonStoryWrapper theme={themes[themeName]}>
     <Story themeName={themeName} />
-  </CarbonProvider>
+  </CarbonStoryWrapper>
 );
 
 const FourColumnLayout = styled.div`

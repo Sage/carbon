@@ -23,12 +23,12 @@
 }
 
 /* themes/high-contrast/modes/light/all.css */
-.product-small {
+.screen-small {
  --product-font-size: 14px;
 }
 
 /* themes/high-contrast/modes/dark/all.css */
-.product-large {
+.screen-large {
    --product-font-size: 20px;
 }
 
@@ -45,7 +45,7 @@ body { /* Set on body to allow theme overrides to function */
   }
 }
 
-a {
+*:not(button) {
   background-color: var(--global-background-color) !important;
   color: var(--global-foreground-color) !important;
   font-size: var(--font-size) !important;
