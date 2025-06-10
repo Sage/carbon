@@ -1,75 +1,14 @@
-import React, { useCallback } from "react";
-import type {
-  AriaAttributes,
-  MouseEvent,
-  KeyboardEvent,
-  FocusEvent,
-} from "react";
-import type { SimpleInterpolation } from "styled-components";
+import React from "react";
+import { SimpleInterpolation } from "styled-components";
 import StyledBaseLinkWrapper from "./base-link.style";
 
-export interface BaseLinkProps extends AriaAttributes {
-  /** An href for an anchor tag. */
+export interface BaseLinkProps {
   href?: string;
-  /** Function called when the mouse is clicked. */
-  onClick?: (
-    ev:
-      | MouseEvent<HTMLAnchorElement>
-      | MouseEvent<HTMLButtonElement>
-      | KeyboardEvent<HTMLAnchorElement>
-      | KeyboardEvent<HTMLButtonElement>,
-  ) => void;
-  /** Function called when a key is pressed. */
-  onKeyDown?: (
-    ev: KeyboardEvent<HTMLAnchorElement> | KeyboardEvent<HTMLButtonElement>,
-  ) => void;
-  /** Function called when a mouse down event triggers. */
-  onMouseDown?: (
-    ev: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLButtonElement>,
-  ) => void;
-  /** Function called when focus is received. */
-  onFocus?: (
-    ev: FocusEvent<HTMLAnchorElement> | FocusEvent<HTMLButtonElement>,
-  ) => void;
-  /** Function called when focus is lost. */
-  onBlur?: (
-    ev: FocusEvent<HTMLAnchorElement> | FocusEvent<HTMLButtonElement>,
-  ) => void;
-  /** Set the component to disabled */
-  disabled?: boolean;
-  /** Child content to render in the link. */
-  children?: React.ReactNode;
-  /** Target property in which link should open ie: _blank, _self, _parent, _top */
-  target?: string;
-  /** Aria label for accessibility purposes */
-  ariaLabel?: string;
-  /** allows to set rel property in <a> tag */
-  rel?: string;
-  /**
-   * @private
-   * @internal
-   * @ignore
-   * Sets className for component. INTERNAL USE ONLY. */
-  className?: string;
-  /**
-   * @private
-   * @internal
-   * @ignore
-   */
-  "data-component"?: string;
-  /**
-   * @private
-   * @internal
-   * @ignore
-   */
-  "data-element"?: string;
-  /**
-   * @private
-   * @internal
-   * @ignore
-   */
-  "data-role"?: string;
+  children: React.ReactNode;
   styles?: SimpleInterpolation;
+  onClick?: (e: React.MouseEvent) => void;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
+  ariaLabel?: string;
 }
 
 export const BaseLink = React.forwardRef<
@@ -77,45 +16,49 @@ export const BaseLink = React.forwardRef<
   BaseLinkProps
 >(({ href, children, styles, onClick, onKeyDown, ariaLabel, ...rest }, ref) => {
   const { $styles, ...cleanedRest } = rest as any; 
+  
+  const { 
+    'aria-label': ariaLabelFromRest, 
+    'data-role': dataRoleFromRest,
+    'data-testid': providedTestId,
+    ...restWithoutExtractedProps 
+  } = cleanedRest;
+  
+  const finalAriaLabel = ariaLabel || ariaLabelFromRest;
+  const finalTestId = providedTestId || "link-anchor";
+  const finalDataRole = dataRoleFromRest === "crumb" ? "link-anchor" : (dataRoleFromRest || "link-anchor");
+ 
+  const isBackButton = restWithoutExtractedProps["data-role"] === "heading-back-button";
+  const autoAriaLabel = isBackButton ? "Back" : undefined;
+  const resolvedAriaLabel = finalAriaLabel || autoAriaLabel;
 
-  const setAnchorRef = useCallback(
-    (reference: HTMLAnchorElement | null) => {
-      if (!ref) return;
-      if (typeof ref === "object" && ref !== null) {
-        (ref as React.MutableRefObject<HTMLAnchorElement | null>).current =
-          reference;
-      } else if (typeof ref === "function") {
-        ref(reference);
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (onClick) {
+        onClick(e as any);
       }
-    },
-    [ref],
-  );
+    }
+    if (onKeyDown) {
+      onKeyDown(e);
+    }
+  };
 
-  const setButtonRef = useCallback(
-    (reference: HTMLButtonElement | null) => {
-      if (!ref) return;
-      if (typeof ref === "object" && ref !== null) {
-        (ref as React.MutableRefObject<HTMLButtonElement | null>).current =
-          reference;
-      } else if (typeof ref === "function") {
-        ref(reference);
-      }
-    },
-    [ref],
-  );
+  const setAnchorRef = (element: HTMLAnchorElement | null) => {
+    if (typeof ref === "function") {
+      ref(element);
+    } else if (ref) {
+      ref.current = element;
+    }
+  };
 
-  const handleKeyDown = useCallback(
-    (ev: KeyboardEvent<HTMLAnchorElement> | KeyboardEvent<HTMLButtonElement>) => {
-      onKeyDown?.(ev);
-      
-      // For button-like behavior, trigger onClick on Enter or Space
-      if (!href && onClick && (ev.key === 'Enter' || ev.key === ' ')) {
-        ev.preventDefault();
-        onClick(ev);
-      }
-    },
-    [onKeyDown, onClick, href]
-  );
+  const setButtonRef = (element: HTMLButtonElement | null) => {
+    if (typeof ref === "function") {
+      ref(element);
+    } else if (ref) {
+      ref.current = element;
+    }
+  };
 
   return (
     <StyledBaseLinkWrapper $styles={styles}>
@@ -125,9 +68,10 @@ export const BaseLink = React.forwardRef<
           href={href} 
           onClick={onClick}
           onKeyDown={handleKeyDown}
-          aria-label={ariaLabel}
-          data-testid="link-anchor"
-          {...cleanedRest}
+          aria-label={resolvedAriaLabel}
+          data-testid={finalTestId}
+          data-role={finalDataRole}
+          {...restWithoutExtractedProps}
         >
           {children}
         </a>
@@ -137,9 +81,10 @@ export const BaseLink = React.forwardRef<
           type="button" 
           onClick={onClick}
           onKeyDown={handleKeyDown}
-          aria-label={ariaLabel}
-          data-testid="link-anchor"
-          {...cleanedRest}
+          aria-label={resolvedAriaLabel}
+          data-testid={finalTestId}
+          data-role={finalDataRole}
+          {...restWithoutExtractedProps}
         >
           {children}
         </button>
