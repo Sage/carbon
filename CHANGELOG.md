@@ -1,3 +1,9 @@
+## [154.7.4](https://github.com/Sage/carbon/compare/v154.7.3...v154.7.4) (2025-06-10)
+
+### Bug Fixes
+
+* **icon:** address react 18.3.0 warning regarding spreading keys ([d42b0d2](https://github.com/Sage/carbon/commit/d42b0d20085e0e2c47b1c659dfe9770cda67aa85))
+
 ## [154.7.3](https://github.com/Sage/carbon/compare/v154.7.2...v154.7.3) (2025-06-09)
 
 ### Bug Fixes
