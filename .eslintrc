@@ -1,7 +1,14 @@
 {
   "root": true,
-  "parser": "@babel/eslint-parser",
-  "rules": {
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+    "rules": {
     "strict": 0,
     "class-methods-use-this": "off",
     "func-names": "off",
