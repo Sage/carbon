@@ -2,19 +2,27 @@ import React, { useEffect, useState } from "react";
 import {
   IconButton,
   WithTooltip,
-  TooltipLinkList,
-  TooltipLinkListLink,
-} from "@storybook/components";
+  TooltipLinkList
+} from "storybook/internal/components";
 import compareBuild from "semver/functions/compare-build";
 
 import { TOOL_ID } from "./constants";
 import fetchData from "./fetch-data";
 
+type VersionLink = {
+  id: string;
+  title: string;
+  onClick: () => void;
+  active: boolean;
+  href: string;
+  target: string;
+};
+
 const getDisplayedItems = (
   versions: Record<string, string>,
-  onClick: TooltipLinkListLink["onClick"]
+  onClick: VersionLink["onClick"],
 ) => {
-  let formattedVersions: TooltipLinkListLink[] = [];
+  let formattedVersions: VersionLink[] = [];
 
   for (const [key, value] of Object.entries(versions)) {
     formattedVersions.push({
@@ -36,7 +44,7 @@ const getDisplayedItems = (
 
 export const VersionPicker = () => {
   const [versions, setVersions] = useState<Record<string, string> | undefined>(
-    undefined
+    undefined,
   );
   const [currentVersion, setCurrentVersion] = useState("Latest");
 

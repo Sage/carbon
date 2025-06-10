@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { RadioButtonGroup, RadioButton } from ".";
 import Typography from "../typography";
 import CarbonProvider from "../carbon-provider";

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Checkbox } from "../checkbox";
 import Drawer, { DrawerProps } from ".";
