@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 import Events from "../../../__internal__/utils/helpers/events";
 import useMenuKeyboardNavigation from "../useMenuKeyboardNavigation";
 
@@ -34,13 +34,6 @@ const useChildButtons = (
       ) as NodeListOf<HTMLButtonElement>,
     [],
   );
-
-  // focus first child button when opened
-  useEffect(() => {
-    if (showAdditionalButtons) {
-      getButtonChildren()?.[0]?.focus();
-    }
-  }, [showAdditionalButtons, getButtonChildren]);
 
   const handleToggleButtonKeyDown = (
     ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
