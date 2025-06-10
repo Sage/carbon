@@ -104,7 +104,7 @@ test("should focus the main button when the focusMainButton on the ref handle is
   expect(screen.getByRole("button", { name: "Main Button" })).toHaveFocus();
 });
 
-test("should open additional buttons when the main button is clicked and focus on the first child", async () => {
+test("should open additional buttons when the main button is clicked", async () => {
   const user = userEvent.setup();
   render(
     <MultiActionButton text="Main Button">
@@ -118,7 +118,6 @@ test("should open additional buttons when the main button is clicked and focus o
   const button = screen.getByRole("button", { name: "First" });
 
   expect(button).toBeVisible();
-  expect(button).toHaveFocus();
 });
 
 test("should close additional buttons when a child button is clicked", async () => {

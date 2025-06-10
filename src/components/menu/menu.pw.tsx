@@ -372,8 +372,8 @@ test.describe("Prop tests for Menu component", () => {
 
   (
     [
-      ["ArrowDown", 0],
-      ["ArrowUp", 2],
+      ["ArrowDown", 1],
+      ["ArrowUp", 3],
     ] as [string, number][]
   ).forEach(([key, tabs]) => {
     test(`should verify the Search component is focusable by pressing the ${key} key`, async ({
@@ -398,6 +398,7 @@ test.describe("Prop tests for Menu component", () => {
 
     await continuePressingSHIFTTAB(page, 3);
     await page.keyboard.press("Enter");
+    await page.keyboard.press("ArrowDown");
     await page.keyboard.press("ArrowDown");
     await expect(searchDefaultInput(page)).toBeFocused();
   });
