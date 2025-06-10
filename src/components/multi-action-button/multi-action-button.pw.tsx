@@ -116,9 +116,11 @@ test.describe("Prop tests", () => {
     }) => {
       await mount(<MultiActionButtonList ml="200px" position={position} />);
 
-      const actionButton = getComponent(page, "multi-action-button");
+      const actionButton = page.getByRole("button", {
+        name: "Multi Action Button",
+      });
       await actionButton.click();
-      const listContainer = getDataElementByValue(page, "additional-buttons");
+      const listContainer = page.getByRole("list");
       await expect(listContainer).toHaveCSS("position", "fixed");
       await assertCssValueIsApproximately(listContainer, "top", 46);
       await assertCssValueIsApproximately(listContainer, "left", value);
@@ -128,7 +130,9 @@ test.describe("Prop tests", () => {
   test(`should render with button disabled`, async ({ mount, page }) => {
     await mount(<MultiActionButtonList disabled />);
 
-    await expect(page.getByRole("button").first()).toBeDisabled();
+    await expect(
+      page.getByRole("button", { name: "Multi Action Button" }),
+    ).toBeDisabled();
   });
 
   test(`should render with specific background colour when hovering`, async ({
@@ -137,9 +141,9 @@ test.describe("Prop tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button").locator(
-      "button",
-    );
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.hover();
     await expect(actionButton).toHaveCSS("background-color", "rgb(0, 103, 56)");
   });
@@ -150,9 +154,9 @@ test.describe("Prop tests", () => {
   }) => {
     await mount(<MultiActionButtonList width="70%" />);
 
-    const actionButton = getComponent(page, "multi-action-button").locator(
-      "button",
-    );
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.hover();
     await expect(actionButton).toHaveCSS("justify-content", "space-between");
   });
@@ -163,9 +167,9 @@ test.describe("Prop tests", () => {
   }) => {
     await mount(<MultiActionButtonList width="70%" />);
 
-    const actionButton = getComponent(page, "multi-action-button").locator(
-      "button",
-    );
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.hover();
     await assertCssValueIsApproximately(actionButton, "width", 956);
   });
@@ -183,7 +187,9 @@ test.describe("Prop tests", () => {
     }) => {
       await mount(<MultiActionButtonList buttonType={buttonType} />);
 
-      const actionButton = page.getByRole("button");
+      const actionButton = page.getByRole("button", {
+        name: "Multi Action Button",
+      });
       await expect(actionButton).toHaveCSS("background-color", backgroundColor);
       await expect(actionButton).toHaveCSS("color", color);
       await expect(actionButton).toHaveCSS("border-color", borderColor);
@@ -192,32 +198,31 @@ test.describe("Prop tests", () => {
 });
 
 test.describe("Functional tests", () => {
-  test(`should verify that clicking the main button opens the additional buttons and focuses the first button`, async ({
+  test(`should verify that clicking the main button opens the additional buttons`, async ({
     mount,
     page,
   }) => {
     await mount(<MultiActionButtonList />);
 
-    await getComponent(page, "multi-action-button")
-      .first()
-      .locator("button")
-      .click();
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
+    await actionButton.click();
     const additionalButtons = getDataElementByValue(page, "additional-buttons");
 
     await expect(additionalButtons).toBeVisible();
-    await expect(additionalButtons.getByRole("button").first()).toBeFocused();
   });
 
   [...keysToTrigger].forEach((key) => {
-    test(`should verify pressing ${key} key on the main button opens MultiActionButton list and focuses first button`, async ({
+    test(`should verify pressing ${key} key on the main button opens MultiActionButton list`, async ({
       mount,
       page,
     }) => {
       await mount(<MultiActionButtonList />);
 
-      const actionButton = getComponent(page, "multi-action-button").locator(
-        "button",
-      );
+      const actionButton = page.getByRole("button", {
+        name: "Multi Action Button",
+      });
       await actionButton.focus();
       await page.keyboard.press(key);
       const additionalButtons = getDataElementByValue(
@@ -226,7 +231,6 @@ test.describe("Functional tests", () => {
       );
 
       await expect(additionalButtons).toBeVisible();
-      await expect(additionalButtons.getByRole("button").first()).toBeFocused();
     });
   });
 
@@ -257,16 +261,16 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    await page.keyboard.press("ArrowUp");
-    await expect(listButton1).toBeFocused();
-    await page.keyboard.press("ArrowUp");
+    await page.keyboard.press("Tab");
+
+    const listButton1 = page.getByRole("button", {
+      name: "Example Button",
+      exact: true,
+    });
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("ArrowUp");
     await expect(listButton1).toBeFocused();
@@ -278,24 +282,24 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton2 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(1);
+    const listButton1 = page.getByRole("button", {
+      name: "Example Button",
+      exact: true,
+    });
+    const listButton2 = page.getByRole("button", {
+      name: "Example Button with long text",
+      exact: true,
+    });
 
     await listButton2.focus();
     await page.keyboard.press("Shift+Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("Shift+Tab");
-    await expect(
-      getComponent(page, "multi-action-button").locator("button"),
-    ).toBeFocused();
+    await expect(actionButton).toBeFocused();
     await expect(listButton1).not.toBeVisible();
     await expect(listButton2).not.toBeVisible();
   });
@@ -306,13 +310,11 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton3 = page.getByRole("button", { name: "Short" });
 
     await listButton3.focus();
     await page.keyboard.press("ArrowDown");
@@ -325,29 +327,33 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionTwoButtons />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
-    await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton2 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(1);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const actionButton1 = page.getByRole("button", {
+      name: "Multi Action Button 1",
+    });
+    await actionButton1.click();
 
+    const listButton1 = page.getByRole("button", {
+      name: "Example Button",
+      exact: true,
+    });
+    const listButton2 = page.getByRole("button", {
+      name: "Example Button with long text",
+      exact: true,
+    });
+    const listButton3 = page.getByRole("button", { name: "Short" });
+
+    await page.keyboard.press("Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(listButton2).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(listButton3).toBeFocused();
     await page.keyboard.press("Tab");
-    await expect(
-      getComponent(page, "multi-action-button").nth(1).locator("button"),
-    ).toBeFocused();
+
+    const actionButton2 = page.getByRole("button", {
+      name: "Multi Action Button 2",
+    });
+    await expect(actionButton2).toBeFocused();
     await expect(listButton1).not.toBeVisible();
     await expect(listButton2).not.toBeVisible();
     await expect(listButton3).not.toBeVisible();
@@ -359,16 +365,15 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton1 = page.getByRole("button", {
+      name: "Example Button",
+      exact: true,
+    });
+    const listButton3 = page.getByRole("button", { name: "Short" });
 
     await listButton3.focus();
     await page.keyboard.down("Meta");
@@ -383,16 +388,15 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton1 = page.getByRole("button", {
+      name: "Example Button",
+      exact: true,
+    });
+    const listButton3 = page.getByRole("button", { name: "Short" });
 
     await listButton3.focus();
     await page.keyboard.down("Control");
@@ -407,16 +411,15 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton1 = page.getByRole("button", {
+      name: "Example Button",
+      exact: true,
+    });
+    const listButton3 = page.getByRole("button", { name: "Short" });
 
     await listButton3.focus();
     await page.keyboard.press("Home");
@@ -429,17 +432,17 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton1 = page.getByRole("button", {
+      name: "Example Button",
+      exact: true,
+    });
+    const listButton3 = page.getByRole("button", { name: "Short" });
 
+    await page.keyboard.press("Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.down("Meta");
     await page.keyboard.press("ArrowDown");
@@ -453,17 +456,17 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton1 = page.getByRole("button", {
+      name: "Example Button",
+      exact: true,
+    });
+    const listButton3 = page.getByRole("button", { name: "Short" });
 
+    await page.keyboard.press("Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.down("Control");
     await page.keyboard.press("ArrowDown");
@@ -477,17 +480,17 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton1 = page.getByRole("button", {
+      name: "Example Button",
+      exact: true,
+    });
+    const listButton3 = page.getByRole("button", { name: "Short" });
 
+    await page.keyboard.press("Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("End");
     await expect(listButton3).toBeFocused();
@@ -499,17 +502,15 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    await expect(getDataElementByValue(page, "additional-buttons")).toHaveCount(
-      1,
-    );
+
+    const additionalButtons = page.getByRole("list");
+    await expect(additionalButtons).toBeVisible();
     await page.keyboard.press("Escape");
-    await expect(getDataElementByValue(page, "additional-buttons")).toHaveCount(
-      0,
-    );
+    await expect(additionalButtons).not.toBeVisible();
   });
 
   test(`should verify that clicking one of the child buttons closes MultiActionButton`, async ({
@@ -518,20 +519,18 @@ test.describe("Functional tests", () => {
   }) => {
     await mount(<MultiActionButtonList />);
 
-    await getComponent(page, "multi-action-button")
-      .first()
-      .locator("button")
-      .click();
-    await expect(getDataElementByValue(page, "additional-buttons")).toHaveCount(
-      1,
-    );
-    await getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0)
-      .click();
-    await expect(getDataElementByValue(page, "additional-buttons")).toHaveCount(
-      0,
-    );
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
+    await actionButton.click();
+
+    const additionalButtons = page.getByRole("list");
+    await expect(additionalButtons).toBeVisible();
+
+    const listButton3 = page.getByRole("button", { name: "Short" });
+    await listButton3.click();
+
+    await expect(additionalButtons).not.toBeVisible();
   });
 });
 
@@ -542,17 +541,13 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapper />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .locator("button")
-      .first();
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
+    await page.keyboard.press("Tab");
 
-    await page.keyboard.press("ArrowUp");
-    await expect(listButton1).toBeFocused();
-    await page.keyboard.press("ArrowUp");
+    const listButton1 = page.getByRole("button", { name: "Button 1" });
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("ArrowUp");
     await expect(listButton1).toBeFocused();
@@ -564,24 +559,18 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapper />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton2 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(1);
+    const listButton1 = page.getByRole("button", { name: "Button 1" });
+    const listButton2 = page.getByRole("button", { name: "Button 2" });
 
     await listButton2.focus();
     await page.keyboard.press("Shift+Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("Shift+Tab");
-    await expect(
-      getComponent(page, "multi-action-button").locator("button"),
-    ).toBeFocused();
+    await expect(actionButton).toBeFocused();
     await expect(listButton1).not.toBeVisible();
     await expect(listButton2).not.toBeVisible();
   });
@@ -592,13 +581,11 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapper />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .locator("button")
-      .first();
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton3 = page.getByRole("button", { name: "Button 3" });
 
     await listButton3.focus();
     await page.keyboard.press("ArrowDown");
@@ -611,29 +598,33 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapperTwoButtons />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .first()
-      .locator("button");
-    await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton2 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(1);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const actionButton1 = page.getByRole("button", {
+      name: "Multi Action Button 1",
+    });
+    await actionButton1.click();
 
+    const listButton1 = page.getByRole("button", {
+      name: "Button 1",
+      exact: true,
+    });
+    const listButton2 = page.getByRole("button", {
+      name: "Button 2",
+      exact: true,
+    });
+    const listButton3 = page.getByRole("button", { name: "Button 3" });
+
+    await page.keyboard.press("Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(listButton2).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(listButton3).toBeFocused();
     await page.keyboard.press("Tab");
-    await expect(
-      getComponent(page, "multi-action-button").nth(1).locator("button"),
-    ).toBeFocused();
+
+    const actionButton2 = page.getByRole("button", {
+      name: "Multi Action Button 2",
+    });
+    await expect(actionButton2).toBeFocused();
     await expect(listButton1).not.toBeVisible();
     await expect(listButton2).not.toBeVisible();
     await expect(listButton3).not.toBeVisible();
@@ -645,16 +636,12 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapper />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .locator("button")
-      .first();
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton1 = page.getByRole("button", { name: "Button 1" });
+    const listButton3 = page.getByRole("button", { name: "Button 3" });
 
     await listButton3.focus();
     await page.keyboard.down("Meta");
@@ -669,16 +656,12 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapper />);
 
-    const actionButtonComp = getComponent(page, "multi-action-button")
-      .locator("button")
-      .first();
-    await actionButtonComp.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
+    await actionButton.click();
+    const listButton1 = page.getByRole("button", { name: "Button 1" });
+    const listButton3 = page.getByRole("button", { name: "Button 3" });
 
     await listButton3.focus();
     await page.keyboard.down("Control");
@@ -693,16 +676,12 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapper />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .locator("button")
-      .first();
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton1 = page.getByRole("button", { name: "Button 1" });
+    const listButton3 = page.getByRole("button", { name: "Button 3" });
 
     await listButton3.focus();
     await page.keyboard.press("Home");
@@ -715,17 +694,14 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapper />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .locator("button")
-      .first();
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton1 = page.getByRole("button", { name: "Button 1" });
+    const listButton3 = page.getByRole("button", { name: "Button 3" });
 
+    await page.keyboard.press("Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.down("Meta");
     await page.keyboard.press("ArrowDown");
@@ -739,17 +715,14 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapper />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .locator("button")
-      .first();
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton1 = page.getByRole("button", { name: "Button 1" });
+    const listButton3 = page.getByRole("button", { name: "Button 3" });
 
+    await page.keyboard.press("Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.down("Control");
     await page.keyboard.press("ArrowDown");
@@ -763,17 +736,14 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapper />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .locator("button")
-      .first();
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0);
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(2);
+    const listButton1 = page.getByRole("button", { name: "Button 1" });
+    const listButton3 = page.getByRole("button", { name: "Button 3" });
 
+    await page.keyboard.press("Tab");
     await expect(listButton1).toBeFocused();
     await page.keyboard.press("End");
     await expect(listButton3).toBeFocused();
@@ -785,17 +755,15 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapper />);
 
-    const actionButton = getComponent(page, "multi-action-button")
-      .locator("button")
-      .first();
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.click();
-    await expect(getDataElementByValue(page, "additional-buttons")).toHaveCount(
-      1,
-    );
+
+    const additionalButtons = page.getByRole("list");
+    await expect(additionalButtons).toBeVisible();
     await page.keyboard.press("Escape");
-    await expect(getDataElementByValue(page, "additional-buttons")).toHaveCount(
-      0,
-    );
+    await expect(additionalButtons).not.toBeVisible();
   });
 
   test(`should verify that clicking one of the child buttons closes MultiActionButton`, async ({
@@ -804,20 +772,18 @@ test.describe("Functional tests with child buttons wrapped in a custom component
   }) => {
     await mount(<WithWrapper />);
 
-    await getComponent(page, "multi-action-button")
-      .locator("button")
-      .first()
-      .click();
-    await expect(getDataElementByValue(page, "additional-buttons")).toHaveCount(
-      1,
-    );
-    await getDataElementByValue(page, "additional-buttons")
-      .getByRole("button")
-      .nth(0)
-      .click();
-    await expect(getDataElementByValue(page, "additional-buttons")).toHaveCount(
-      0,
-    );
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
+    await actionButton.click();
+
+    const additionalButtons = page.getByRole("list");
+    await expect(additionalButtons).toBeVisible();
+
+    const listButton3 = page.getByRole("button", { name: "Button 3" });
+    await listButton3.click();
+
+    await expect(additionalButtons).not.toBeVisible();
   });
 });
 
@@ -828,7 +794,6 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  // TODO: test passes even when it shouldn't, see FE-6267
   test(`should pass tests when open`, async ({ mount, page }) => {
     await mount(<MultiActionButtonList />);
 

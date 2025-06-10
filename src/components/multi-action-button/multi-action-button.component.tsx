@@ -66,7 +66,7 @@ export const MultiActionButton = forwardRef<
       ref,
       () => ({
         focusMainButton() {
-          buttonRef.current?.focus();
+          buttonRef.current?.focus({ preventScroll: true });
         },
       }),
       [],
@@ -87,7 +87,12 @@ export const MultiActionButton = forwardRef<
     const handleClick = (
       ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
-      showButtons();
+      if (showAdditionalButtons) {
+        hideButtons();
+      } else {
+        showButtons();
+      }
+
       handleInsideClick();
       if (onClick) {
         onClick(ev as React.MouseEvent<HTMLButtonElement>);
