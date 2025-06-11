@@ -2,46 +2,9 @@ import styled, { css, SimpleInterpolation } from "styled-components";
 import StyledIcon from "../icon/icon.style";
 import type { StyledLinkProps } from "./link.style.types";
 
-export const StyledContent = styled.span``;
-
-const colorMap = {
-  light: (variant?: StyledLinkProps["variant"]) => {
-    let color = "var(--colorsActionMajor500)";
-    let hoverColor = "var(--colorsActionMajor600)";
-
-    if (variant === "negative") {
-      color = "var(--colorsSemanticNegative500)";
-      hoverColor = "var(--colorsSemanticNegative600)";
-    } else if (variant === "neutral") {
-      color = "var(--colorsActionMajorYin090)";
-    }
-
-    return {
-      color,
-      hoverColor,
-      disabledColor: "var(--colorsActionMajorYin030)",
-    };
-  },
-  dark: (variant?: StyledLinkProps["variant"]) => {
-    let color = "var(--colorsActionMajor350)";
-    let hoverColor = "var(--colorsActionMajor450)";
-
-    if (variant === "negative") {
-      color = "var(--colorsSemanticNegative350)";
-      hoverColor = "var(--colorsSemanticNegative450)";
-    } else if (variant === "neutral") {
-      color = "var(--colorsActionMinor100)";
-    }
-
-    return {
-      color,
-      hoverColor,
-      disabledColor: "var(--colorsActionMajorYang030)",
-    };
-  },
-};
-
-const StyledLinkStyles = (props: StyledLinkProps): SimpleInterpolation => {
+export const StyledLinkStyles = (
+  props: StyledLinkProps,
+): SimpleInterpolation => {
   const {
     variant = "default",
     disabled = false,
@@ -53,6 +16,43 @@ const StyledLinkStyles = (props: StyledLinkProps): SimpleInterpolation => {
     isDarkBackground,
     maxWidth,
   } = props;
+
+  const colorMap = {
+    light: (v?: StyledLinkProps["variant"]) => {
+      let color = "var(--colorsActionMajor500)";
+      let hoverColor = "var(--colorsActionMajor600)";
+
+      if (v === "negative") {
+        color = "var(--colorsSemanticNegative500)";
+        hoverColor = "var(--colorsSemanticNegative600)";
+      } else if (v === "neutral") {
+        color = "var(--colorsActionMajorYin090)";
+      }
+
+      return {
+        color,
+        hoverColor,
+        disabledColor: "var(--colorsActionMajorYin030)",
+      };
+    },
+    dark: (v?: StyledLinkProps["variant"]) => {
+      let color = "var(--colorsActionMajor350)";
+      let hoverColor = "var(--colorsActionMajor450)";
+
+      if (v === "negative") {
+        color = "var(--colorsSemanticNegative350)";
+        hoverColor = "var(--colorsSemanticNegative450)";
+      } else if (v === "neutral") {
+        color = "var(--colorsActionMinor100)";
+      }
+
+      return {
+        color,
+        hoverColor,
+        disabledColor: "var(--colorsActionMajorYang030)",
+      };
+    },
+  };
 
   const themeKey = isDarkBackground ? "dark" : "light";
   const { color, hoverColor, disabledColor } = colorMap[themeKey](variant);
@@ -73,15 +73,16 @@ const StyledLinkStyles = (props: StyledLinkProps): SimpleInterpolation => {
         css`
           display: inline-block;
           padding: 11px 16px 12px;
+        `}
 
-          ${maxWidth &&
-          css`
-            max-width: inherit;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            vertical-align: bottom;
-            white-space: nowrap;
-          `}
+        ${maxWidth &&
+        css`
+          max-width: inherit;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          vertical-align: bottom;
+          white-space: nowrap;
+          display: inline-block;
         `}
 
         ${!disabled &&
@@ -146,4 +147,10 @@ const StyledLinkStyles = (props: StyledLinkProps): SimpleInterpolation => {
   `;
 };
 
-export default StyledLinkStyles;
+export const StyledContent = styled.span``;
+
+export const StyledLink = styled.div<StyledLinkProps>`
+  ${StyledLinkStyles}
+`;
+
+export default StyledLink;

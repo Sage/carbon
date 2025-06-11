@@ -8,50 +8,61 @@ import tagComponent, {
 import useLocale from "../../hooks/__internal__/useLocale";
 
 import type { StyledLinkProps, Variants } from "./link.style.types";
-import StyledLinkStyles, { StyledContent } from "./link.style";
+import { StyledLinkStyles, StyledContent } from "./link.style";
 import { BaseLink } from "./__internal__/base-link.component";
-
 import type { IconType } from "../icon";
 
 export interface LinkProps
   extends React.AriaAttributes,
     TagProps,
     Omit<StyledLinkProps, "variant"> {
-  /** An href value for the link. If provided, renders an anchor tag. */
+  /** The href attribute. If provided, renders an anchor (<a>) tag; otherwise, renders a button. */
   href?: string;
-  /** The name of the icon to display alongside the link content. */
+  /** The name of the icon to render (must correspond to a valid Icon type). */
   icon?: string;
-  /** Which side of the link to render the icon. */
+  /** Position of the icon relative to the content (left or right). Defaults to "left". */
   iconAlign?: "left" | "right";
-  /** Tooltip text displayed when hovering over the link. */
+  /** Message shown in a tooltip on hover. */
   tooltipMessage?: string;
-  /** The position of the tooltip relative to the link. */
+  /** Position of the tooltip relative to the link. */
   tooltipPosition?: "bottom" | "left" | "right" | "top";
-  /** The content to be rendered inside the link. */
+  /** The inner content of the link. */
   children?: React.ReactNode;
   /** Specifies where to open the linked document (e.g., _blank, _self). */
   target?: string;
-  /** Sets the `rel` attribute on the anchor element (e.g., "noopener"). */
+  /** Specifies the relationship between the current document and the linked one. */
   rel?: string;
-  /** Accessible label for screen readers, applied via `aria-label`. */
+  /** Accessible label for screen readers. Applied as aria-label. */
   ariaLabel?: string;
-  /** Called when the link is clicked (mouse only). */
-  onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
-  /** Called when a key is pressed while the link is focused. */
+  /** Called when the link or button is clicked (mouse or keyboard-triggered). */
+  onClick?:
+    | React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
+    | ((
+        ev:
+          | React.MouseEvent<HTMLAnchorElement>
+          | React.MouseEvent<HTMLButtonElement>
+          | React.KeyboardEvent<HTMLAnchorElement>
+          | React.KeyboardEvent<HTMLButtonElement>,
+      ) => void);
+  /** Called when a key is pressed while the link or button is focused. */
   onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
-  /** Called when the mouse is pressed down on the link. */
+  /** Called when the mouse is pressed down on the link or button. */
   onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
-  /** Prevents `ariaLabel` from being applied to the icon when true. */
+  /** Called when the link or button receives focus. */
+  onFocus?: React.FocusEventHandler<HTMLElement>;
+  /** Called when the link or button loses focus. */
+  onBlur?: React.FocusEventHandler<HTMLElement>;
+  /** If true, prevents aria-label from being applied to the icon. */
   removeAriaLabelOnIcon?: boolean;
-  /** Allows the link to function as a skip link for accessibility. */
+  /** If true, renders the link as a "skip to content" link for accessibility. */
   isSkipLink?: boolean;
-  /** The disabled state of the link. */
+  /** Whether the link is disabled. */
   disabled?: boolean;
-  /** Sets a custom class name on the component. */
+  /** Custom CSS class for the component. */
   className?: string;
-  /** Allows link styling to be updated for light or dark backgrounds. */
+  /** Visual style variant for the link (e.g., "default", "negative", "neutral"). */
   variant?: Variants;
-  /** Sets the colour styling when the component is rendered on a dark background. */
+  /** If true, adjusts colors for rendering on a dark background. */
   isDarkBackground?: boolean;
 }
 
@@ -69,6 +80,8 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       onClick,
       onKeyDown,
       onMouseDown,
+      onFocus,
+      onBlur,
       disabled,
       rel,
       target,
@@ -93,6 +106,16 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       }
     }, [isDisabled, href, onClick]);
 
+    const handleFocus: React.FocusEventHandler<HTMLElement> = (e) => {
+      setHasFocus(true);
+      onFocus?.(e);
+    };
+
+    const handleBlur: React.FocusEventHandler<HTMLElement> = (e) => {
+      setHasFocus(false);
+      onBlur?.(e);
+    };
+
     const renderIcon = (align: "left" | "right") =>
       icon && iconAlign === align ? (
         <Icon
@@ -105,7 +128,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         />
       ) : null;
 
-    const styles = StyledLinkStyles({
+    const customStyles = StyledLinkStyles({
       variant,
       disabled: isDisabled,
       isMenuItem: inMenu,
@@ -130,10 +153,10 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         onClick={onClick}
         onKeyDown={onKeyDown}
         onMouseDown={onMouseDown}
-        onFocus={() => setHasFocus(true)}
-        onBlur={() => setHasFocus(false)}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         disabled={isDisabled}
-        styles={styles}
+        customStyles={customStyles}
         {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
       >
