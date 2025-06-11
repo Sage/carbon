@@ -91,6 +91,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     const locale = useLocale();
     const theme = useContext(ThemeContext) || baseTheme;
     const buttonLabelId = useRef(guid());
+    const submenuId = useRef(guid());
 
     const mainButtonRef = useRef<HTMLButtonElement>(null);
     const toggleButtonRef = useRef<HTMLButtonElement>(null);
@@ -147,6 +148,8 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
     };
 
     const handleToggleClick = () => {
+      // ensure button is focused when clicked (Safari)
+      toggleButtonRef.current?.focus();
       showButtons();
     };
 
@@ -189,8 +192,8 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
           {text}
         </Button>,
         <StyledSplitButtonToggle
-          aria-haspopup="true"
           aria-expanded={showAdditionalButtons}
+          aria-controls={submenuId.current}
           aria-label={ariaLabel || locale.splitButton.ariaLabel()}
           data-element="toggle-button"
           key="toggle-button"
@@ -229,7 +232,11 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
             }),
           ]}
         >
-          <StyledSplitButtonChildrenContainer {...wrapperProps} align={align}>
+          <StyledSplitButtonChildrenContainer
+            id={submenuId.current}
+            {...wrapperProps}
+            align={align}
+          >
             <SplitButtonContext.Provider value={contextValue}>
               {React.Children.map(children, (child) => (
                 <li>{child}</li>
