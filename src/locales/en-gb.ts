@@ -249,6 +249,12 @@ const enGB: Locale = {
     neutral: () => "Information",
     notification: () => "Notification",
   },
+  verticalMenu: {
+    ariaLabels: {
+      responsiveMenuLauncher: () => "Product menu",
+      responsiveMenuCloseButton: () => "Close product menu",
+    },
+  },
   verticalMenuFullScreen: {
     ariaLabels: {
       close: () => "Close",
