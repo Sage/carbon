@@ -15,8 +15,8 @@ import type { IconType } from "../icon";
 
 export interface LinkProps
   extends React.AriaAttributes,
-  TagProps,
-  Omit<StyledLinkProps, "variant"> {
+    TagProps,
+    Omit<StyledLinkProps, "variant"> {
   /** An href value for the link. If provided, renders an anchor tag. */
   href?: string;
   /** The name of the icon to display alongside the link content. */
@@ -78,7 +78,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       tooltipPosition,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const [hasFocus, setHasFocus] = useState(false);
     const { inMenu } = useContext(MenuContext);
@@ -141,12 +141,12 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         <StyledContent>
           {isSkipLink
             ? locale.link.skipLinkLabel()
-            : children ?? <span aria-hidden="true">{ariaLabel}</span>}
+            : (children ?? <span aria-hidden="true">{ariaLabel}</span>)}
         </StyledContent>
         {renderIcon("right")}
       </BaseLink>
     );
-  }
+  },
 );
 
 Link.displayName = "Link";

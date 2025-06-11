@@ -21,7 +21,7 @@ describe("Link component", () => {
     render(
       <Link href="https://example.com" rel="noopener" target="_blank">
         Go
-      </Link>
+      </Link>,
     );
 
     const link = screen.getByRole("link", { name: "Go" });
@@ -37,7 +37,7 @@ describe("Link component", () => {
     render(
       <Link onClick={onClick} disabled>
         Don't click
-      </Link>
+      </Link>,
     );
 
     const button = screen.getByRole("button", { name: "Don't click" });
@@ -52,14 +52,9 @@ describe("Link component", () => {
     const onKeyDown = jest.fn();
 
     render(
-      <Link
-        href="#"
-        aria-label="Back"
-        onClick={onClick}
-        onKeyDown={onKeyDown}
-      >
+      <Link href="#" aria-label="Back" onClick={onClick} onKeyDown={onKeyDown}>
         Back
-      </Link>
+      </Link>,
     );
 
     const link = screen.getByRole("link", { name: "Back" });
@@ -83,7 +78,7 @@ describe("Link component", () => {
     render(
       <Link href="#" icon="home">
         Home
-      </Link>
+      </Link>,
     );
     const icon = screen.getByTestId("icon");
     expect(icon).toHaveAttribute("type", "home");
@@ -96,7 +91,7 @@ describe("Link component", () => {
         icon="home"
         aria-label="Home"
         removeAriaLabelOnIcon
-      />
+      />,
     );
     expect(screen.getByTestId("icon")).not.toHaveAttribute("aria-label");
   });
@@ -106,7 +101,7 @@ describe("Link component", () => {
     render(
       <Link href="#" ref={ref}>
         Ref Link
-      </Link>
+      </Link>,
     );
     expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
   });
@@ -116,7 +111,7 @@ describe("Link component", () => {
     render(
       <Link href="#" ref={ref}>
         Ref Callback
-      </Link>
+      </Link>,
     );
     expect(ref).toHaveBeenCalledWith(expect.any(HTMLAnchorElement));
   });
