@@ -260,6 +260,23 @@ of the button control.
 
 <Canvas of={FlatTableStories.WithDraggableRows} />
 
+### With Manual Re-Ordering
+
+```javascript
+import { FlatTableBodyDraggableHandle } from "carbon-react/lib/components/flat-table";
+```
+The `FlatTableBodyDraggableHandle` type provides an imperative handle for control over the `FlatTableRow`'s movement. 
+By passing a `ref` to the `FlatTableBodyDraggable` you can access its `reOrder()` method to set manually re-order elements. 
+Pass two arguments: the `id` of the `FlatTableRow` you want to move and the destination index.
+
+We recommend using the `getOrder` callback to access the current order of items. 
+This provides an up-to-date reference that's essential when implementing precise positioning,
+beyond simple top/bottom movements in your draggable rows.
+
+This functionality gives users alternative ways to reposition elements when direct dragging isn't desired or possible.
+
+<Canvas of={FlatTableStories.WithDraggableRowsAndManualReOrdering} />
+
 ## Wrapping FlatTableRowHeaders
 
 The `FlatTableRow` relies on specific child composition to identify sticky columns. If you need to wrap the `FlatTableRowHeader` you will need to set the `displayName` of the wrapper to `FlatTableRowHeader.displayName`.
