@@ -7,7 +7,10 @@ import Link from "../../link";
 import StyledButton from "../../button/button.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import StyledIcon from "../../icon/icon.style";
-import { StyledContent, StyledLink } from "../../link/link.style";
+import {
+  StyledContent as StyledLinkContent,
+  StyledLink,
+} from "../../link/link.style";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 
@@ -122,7 +125,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
       ${addFocusStyling(true)}
     }
 
-    :has([data-element="input"]) ${StyledContent} {
+    :has([data-element="input"]) ${StyledLinkContent} {
       width: 100%;
     }
 
@@ -216,7 +219,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
         > a:has(${StyledButton}:not(.search-button)) {
           height: 100%;
 
-          ${StyledContent} {
+          ${StyledLinkContent} {
             height: inherit;
 
             div {
