@@ -413,8 +413,10 @@ export const ResponsiveVerticalMenuItem = ({
 
   // Register the menu item with the focus context
   useEffect(() => {
-    registerMenuItem(uniqueId.current, itemRef, parentId);
-  }, [id, registerMenuItem, parentId]);
+    const currentId = uniqueId.current;
+
+    registerMenuItem(currentId, itemRef, parentId);
+  }, [parentId, registerMenuItem]);
 
   return (
     <BaseItem

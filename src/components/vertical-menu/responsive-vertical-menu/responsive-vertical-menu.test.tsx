@@ -1362,3 +1362,61 @@ test("correct aria-label values are set", async () => {
     "Test product menu close button",
   );
 });
+
+// coverage: children is an empty array
+test("children populated by empty map", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          icon="home"
+          id="menu-item-1"
+          label="Menu Item 1"
+        >
+          {[].map((item) => item)}
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+  expect(menuItem).toBeInTheDocument();
+});
+
+// coverage: children is a list of non-React elements
+test("children populated by map of non-React elements", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          icon="home"
+          id="menu-item-1"
+          label="Menu Item 1"
+        >
+          {["a", "b", "c"].map((item) => item)}
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+  expect(menuItem).toBeInTheDocument();
+});
