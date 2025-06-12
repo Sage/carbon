@@ -106,8 +106,10 @@ test.describe("should render Badge component", () => {
     mount,
     page,
   }) => {
-    await mount(<BadgeComponent counter={9} aria-label="foobar" />);
-    await expect(badge(page)).toHaveAttribute("aria-label", "foobar");
+    await mount(
+      <BadgeComponent counter={9} onClick={() => {}} aria-label="foobar" />,
+    );
+    await expect(badge(page)).toHaveAccessibleName("foobar");
   });
 
   test("should pass accessibility tests for Badge default story", async ({
