@@ -107,23 +107,6 @@ const Modal = ({
         : undefined,
   });
 
-  let background;
-  let content;
-
-  if (open) {
-    background = !enableBackgroundUI ? (
-      <StyledModalBackground
-        ref={backgroundNodeRef}
-        data-element="modal-background"
-        data-role="modal-background"
-        transitionName="modal-background"
-        transitionTime={timeout}
-      />
-    ) : null;
-
-    content = children;
-  }
-
   return (
     <Portal>
       <StyledModal
@@ -138,7 +121,7 @@ const Modal = ({
         {...rest}
       >
         <TransitionGroup>
-          {background && (
+          {open && !enableBackgroundUI && (
             <CSSTransition
               nodeRef={backgroundNodeRef}
               key="modal"
@@ -148,12 +131,18 @@ const Modal = ({
               onEntered={() => setAnimationComplete(true)}
               onExiting={() => setAnimationComplete(false)}
             >
-              {background}
+              <StyledModalBackground
+                ref={backgroundNodeRef}
+                data-element="modal-background"
+                data-role="modal-background"
+                transitionName="modal-background"
+                transitionTime={timeout}
+              />
             </CSSTransition>
           )}
         </TransitionGroup>
         <TransitionGroup>
-          {content && (
+          {open && (
             <CSSTransition
               nodeRef={contentNodeRef}
               appear
@@ -167,7 +156,7 @@ const Modal = ({
                   isInModal: true,
                 }}
               >
-                <div ref={contentNodeRef}>{content}</div>
+                <div ref={contentNodeRef}>{children}</div>
               </ModalContext.Provider>
             </CSSTransition>
           )}
