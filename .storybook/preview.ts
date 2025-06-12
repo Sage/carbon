@@ -7,7 +7,6 @@ import isChromatic from "./isChromatic";
 import sageStorybookTheme from "./sage-storybook-theme";
 import withGlobalStyles from "./with-global-styles";
 import withLocaleSelector from "./with-locale-selector";
-import withPortalProvider from "./with-portal-provider";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
 
 // Configure the testIdAttribute to look for data-role when querying elements using `getByTestId`.
@@ -65,12 +64,7 @@ const globalTypes = {
   ...globalThemeProvider,
 };
 
-const decorators = [
-  withGlobalStyles,
-  withThemeProvider,
-  withLocaleSelector,
-  withPortalProvider,
-];
+const decorators = [withGlobalStyles, withThemeProvider, withLocaleSelector];
 
 const loaders =
   isChromatic() && document.fonts

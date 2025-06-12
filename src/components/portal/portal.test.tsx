@@ -1,6 +1,5 @@
 import React from "react";
 import { render, screen, within, fireEvent } from "@testing-library/react";
-import PortalContext from "./__internal__/portal.context";
 import Portal from ".";
 import * as guid from "../../__internal__/utils/helpers/guid";
 
@@ -25,25 +24,6 @@ test("removes DOM container from the document body on unmount", () => {
   unmount();
 
   expect(portalExit).not.toBeInTheDocument();
-});
-
-test("creates DOM container and attaches it to element with an id of `root`, when `renderInRoot` is true", () => {
-  const rootDiv = document.createElement("div");
-  rootDiv.setAttribute("id", "root");
-  rootDiv.setAttribute("data-role", "root-element");
-  document.body.appendChild(rootDiv);
-
-  render(
-    <PortalContext.Provider value={{ renderInRoot: true }}>
-      <Portal />
-    </PortalContext.Provider>,
-  );
-
-  const rootElement = screen.getByTestId("root-element");
-  const portalExit = within(rootElement).getByTestId("carbon-portal-exit");
-  expect(portalExit).toBeInTheDocument();
-
-  document.body.removeChild(rootDiv);
 });
 
 test("renders a portal entrance and exit with a unique matching id", () => {
