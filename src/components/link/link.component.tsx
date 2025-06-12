@@ -9,7 +9,7 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
-import { ThemeObject } from "../../style/themes/base";
+import type { ThemeObject } from "../../style/themes/theme.types";
 import BaseLink from "./__internal__/base-link.component";
 
 export interface LinkProps
@@ -150,7 +150,9 @@ export const Link = React.forwardRef<
       <BaseLink {...props} styles={styles}>
         <>
           {renderLinkIcon()}
-          <span>{isSkipLink ? l.link.skipLinkLabel() : children}</span>
+          <span data-component="link-content">
+            {isSkipLink ? l.link.skipLinkLabel() : children}
+          </span>
           {renderLinkIcon("right")}
         </>
       </BaseLink>

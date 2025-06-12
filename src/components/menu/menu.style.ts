@@ -12,10 +12,13 @@ import {
   StyledVerticalWrapper,
   StyledDivider,
 } from "../vertical-divider/vertical-divider.style";
-import { StyledLink } from "../link/link.style";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 import type { MenuProps } from "./menu.types";
+
+import Link from "../link";
+
+const StyledLink = styled(Link)``;
 
 interface StyledMenuProps
   extends Pick<MenuProps, "menuType">,
