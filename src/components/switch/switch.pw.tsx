@@ -949,3 +949,17 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 });
+
+test(`should render fieldText with correct colors when isDarkBackground is set`, async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <SwitchComponent fieldHelp="Inline fieldhelp" isDarkBackground />,
+  );
+
+  await expect(switchFieldHelp(page)).toHaveCSS(
+    "color",
+    "rgba(255, 255, 255, 0.8)",
+  );
+});
