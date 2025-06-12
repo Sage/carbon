@@ -18,6 +18,8 @@ export interface BadgeProps extends TagProps {
   color?: string;
   /** Callback fired when badge is clicked */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** Unique identifier for the component. */
+  id?: string;
 }
 
 export const Badge = ({
@@ -26,6 +28,7 @@ export const Badge = ({
   counter = 0,
   color = "--colorsActionMajor500",
   onClick,
+  id,
   "data-element": dataElement,
   "data-role": dataRole,
 }: BadgeProps) => {
@@ -35,14 +38,7 @@ export const Badge = ({
   const [isHovered, setIsHovered] = useState(false);
 
   const renderCorrectBadge = () => {
-    const props = onClick
-      ? {
-          buttonType: "secondary",
-          onClick,
-        }
-      : {
-          "aria-label": ariaLabel,
-        };
+    const buttonProps = { buttonType: "secondary", onClick };
 
     if (shouldDisplayCounter) {
       return (
@@ -51,7 +47,8 @@ export const Badge = ({
           data-element={dataElement}
           data-role={dataRole}
           color={color}
-          {...props}
+          id={id}
+          aria-label={ariaLabel}
           onFocus={() => {
             setIsFocused(true);
           }}
@@ -66,6 +63,7 @@ export const Badge = ({
           }}
           isFocused={isFocused}
           isHovered={isHovered}
+          {...(onClick && buttonProps)}
         >
           {onClick && (
             <StyledCrossIcon data-element="badge-cross-icon" type="cross" />
