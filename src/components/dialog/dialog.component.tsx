@@ -56,8 +56,6 @@ export interface DialogProps extends ModalProps, TagProps {
   "aria-labelledby"?: string;
   /* Disables auto focus functionality on child elements */
   disableAutoFocus?: boolean;
-  /* Disables the focus trap when the dialog is open */
-  disableFocusTrap?: boolean;
   /**
    * Function to replace focus trap
    * @ignore
