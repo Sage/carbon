@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import StyledScrollableBlock from "../../../menu/scrollable-block/scrollable-block.style";
 import applyBaseTheme from "../../../../style/themes/apply-base-theme";
-import { StyledLink } from "../../../link/link.style";
 import { StyledMenuItem } from "../../menu.style";
 import StyledBox from "../../../box/box.style";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
@@ -11,6 +10,10 @@ import { SubmenuProps } from "./submenu.component";
 import { StyledSegmentChildren } from "../../menu-segment-title/menu-segment-title.style";
 
 import type { MenuType } from "../../menu.types";
+
+import Link from "../../../link";
+
+const StyledLink = styled(Link)``;
 
 interface SharedStyleProps {
   inFullscreenView?: boolean;

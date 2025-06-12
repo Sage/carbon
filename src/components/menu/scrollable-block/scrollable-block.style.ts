@@ -4,9 +4,11 @@ import menuConfigVariants from "../menu.config";
 import { VariantType } from "../menu-item";
 import StyledBox from "../../box/box.style";
 import { StyledMenuItem } from "../menu.style";
-import { StyledLink } from "../../link/link.style";
+import Link from "../../link";
 
 import type { MenuType } from "../menu.types";
+
+const StyledLink = styled(Link)``;
 
 interface StyledScrollableBlockProps {
   menuType: MenuType;
