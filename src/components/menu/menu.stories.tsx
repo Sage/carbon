@@ -246,7 +246,7 @@ export const SubmenuNodes: MenuStory = () => (
       const submenuNode = (initials: string, name: string) => (
         <Box
           height="40px"
-          width="90px"
+          width="60px"
           display="flex"
           alignItems="center"
           gap="2px"
@@ -272,7 +272,6 @@ export const SubmenuNodes: MenuStory = () => (
           </Typography>
           <Menu menuType={menuType}>
             <MenuItem
-              href="#"
               submenu={submenuNode("JD", "John")}
               p={0}
               ariaLabel="John Doe"
@@ -281,7 +280,6 @@ export const SubmenuNodes: MenuStory = () => (
               <MenuItem href="#">Item Submenu Two</MenuItem>
             </MenuItem>
             <MenuItem
-              href="#"
               submenu={submenuNode("JS", "Jane")}
               p={0}
               ariaLabel="Jane Smith"
@@ -290,7 +288,6 @@ export const SubmenuNodes: MenuStory = () => (
               <MenuItem href="#">Item Submenu Two</MenuItem>
             </MenuItem>
             <MenuItem
-              href="#"
               submenu={submenuNode("AB", "Alice")}
               p={0}
               ariaLabel="Alice Brown"
@@ -299,7 +296,6 @@ export const SubmenuNodes: MenuStory = () => (
               <MenuItem href="#">Item Submenu Two</MenuItem>
             </MenuItem>
             <MenuItem
-              href="#"
               submenu={submenuNode("BC", "Bob")}
               p={0}
               ariaLabel="Bob Clark"
