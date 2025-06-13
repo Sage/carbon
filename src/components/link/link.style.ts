@@ -134,7 +134,7 @@ export default ({
     css`
       > a,
       > button {
-        font-size: var(--fontSizes100);
+        font-size: var(--fontSizes200);
 
         ${!disabled &&
         css`
@@ -160,9 +160,11 @@ export default ({
         ${disabled &&
         css`
           color: ${disabledColor};
+          cursor: not-allowed;
           &:hover,
           &:focus {
             color: ${disabledColor};
+            cursor: not-allowed;
           }
         `}
       }
@@ -207,7 +209,12 @@ export default ({
 
       ${disabled &&
       css`
-        &:hover,
+        > a:any-link,
+        > button,
+        > a:any-link:hover,
+        > button:hover,
+        > a:any-link:focus,
+        > button:focus &:hover,
         &:focus {
           cursor: not-allowed;
         }

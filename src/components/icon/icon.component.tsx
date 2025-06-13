@@ -58,6 +58,8 @@ export interface IconProps
   inputSize?: "small" | "medium" | "large";
   /** @ignore @private */
   tabIndex?: number;
+  /** @ignore @private */
+  "data-icon-align"?: "left" | "right";
 }
 
 const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
@@ -88,6 +90,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       tooltipId,
       type,
       role,
+      "data-icon-align": dataIconAlign,
       ...rest
     }: IconProps,
     ref,
@@ -169,6 +172,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       role,
       tabIndex: computedTabIndex,
       type: iconType,
+      "data-icon-align": dataIconAlign,
       ...filterStyledSystemMarginProps(rest),
     };
 

@@ -7,12 +7,9 @@ import StyledIcon from "../../icon/icon.style";
 import StyledButton from "../../button/button.style";
 import menuConfigVariants from "../menu.config";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
+import StyledLink from "../../link/__internal__/base-link.style";
 
 import type { MenuType } from "../menu.types";
-
-import Link from "../../link";
-
-const StyledLink = styled(Link)``;
 
 const StyledMenuFullscreen = styled.div.attrs(applyBaseTheme)<{
   transitionDuration: number;

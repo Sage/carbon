@@ -1,10 +1,15 @@
 import React from "react";
+import { useTheme } from "styled-components";
+
+import { ThemeObject } from "../../../style/themes";
 import { LinkProps } from "../../link";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
-import { StyledCrumb, Divider } from "./crumb.style";
+import { styledCrumb, Divider } from "./crumb.style";
 import { useBreadcrumbsContext } from "../__internal__/breadcrumbs.context";
+import addLinkStyles from "../../link/link.style";
+import BaseLink from "../../link/__internal__/base-link.component";
 
 export interface CrumbProps
   extends Omit<
@@ -31,14 +36,19 @@ export interface CrumbProps
 const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
   ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => {
     const { isDarkBackground } = useBreadcrumbsContext();
+    const theme = useTheme();
+    const baseStyles = addLinkStyles({
+      theme: theme as ThemeObject,
+      hasContent: !!children,
+    });
+    const styles = styledCrumb(baseStyles, isDarkBackground, isCurrent);
 
     return (
       <li>
-        <StyledCrumb
+        <BaseLink
+          styles={styles}
           ref={ref}
-          isCurrent={isCurrent}
           aria-current={isCurrent ? "page" : undefined}
-          isDarkBackground={isDarkBackground}
           {...rest}
           {...tagComponent("crumb", rest)}
           {...(!isCurrent && {
@@ -47,7 +57,7 @@ const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
           })}
         >
           {children}
-        </StyledCrumb>
+        </BaseLink>
         {!isCurrent && (
           <Divider
             data-role="crumb-divider"
