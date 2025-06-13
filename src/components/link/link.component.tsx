@@ -16,25 +16,25 @@ export interface LinkProps
   extends React.AriaAttributes,
     TagProps,
     Omit<StyledLinkProps, "variant"> {
-  /** The href attribute. If provided, renders an anchor (<a>) tag; otherwise, renders a button. */
+  /** If provided, renders an anchor (`<a>`) tag; otherwise, renders a button */
   href?: string;
-  /** The name of the icon to render (must correspond to a valid Icon type). */
+  /** Icon name (must match a valid `Icon` type) to display next to the link */
   icon?: string;
-  /** Position of the icon relative to the content (left or right). Defaults to "left". */
+  /** Position of the icon relative to the content ("left" or "right"). Defaults to "left" */
   iconAlign?: "left" | "right";
-  /** Message shown in a tooltip on hover. */
+  /** Optional tooltip text to show when hovering over the icon */
   tooltipMessage?: string;
-  /** Position of the tooltip relative to the link. */
+  /** Position of the tooltip ("top", "bottom", "left", or "right"). Defaults to "top" */
   tooltipPosition?: "bottom" | "left" | "right" | "top";
-  /** The inner content of the link. */
+  /** Inner content (usually text) of the link */
   children?: React.ReactNode;
-  /** Specifies where to open the linked document (e.g., _blank, _self). */
+  /** Where to open the linked document (e.g., "_blank" to open in a new tab) */
   target?: string;
-  /** Specifies the relationship between the current document and the linked one. */
+  /** Relationship between the current document and the linked one (e.g., "noopener noreferrer") */
   rel?: string;
-  /** Accessible label for screen readers. Applied as aria-label. */
+  /** Aria label for screen readers. Required if no visible content is present */
   ariaLabel?: string;
-  /** Called when the link or button is clicked (mouse or keyboard-triggered). */
+  /** Click event handler (mouse or keyboard). Accepts both mouse and keyboard events */
   onClick?:
     | React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
     | ((
@@ -44,25 +44,26 @@ export interface LinkProps
           | React.KeyboardEvent<HTMLAnchorElement>
           | React.KeyboardEvent<HTMLButtonElement>,
       ) => void);
-  /** Called when a key is pressed while the link or button is focused. */
+
+  /** KeyDown event handler (e.g., for keyboard navigation or shortcuts) */
   onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
-  /** Called when the mouse is pressed down on the link or button. */
+  /** MouseDown event handler */
   onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
-  /** Called when the link or button receives focus. */
+  /** Focus event handler (when the link/button receives focus) */
   onFocus?: React.FocusEventHandler<HTMLElement>;
-  /** Called when the link or button loses focus. */
+  /** Blur event handler (when the link/button loses focus) */
   onBlur?: React.FocusEventHandler<HTMLElement>;
-  /** If true, prevents aria-label from being applied to the icon. */
+  /** If true, prevents `aria-label` from being applied to the icon */
   removeAriaLabelOnIcon?: boolean;
-  /** If true, renders the link as a "skip to content" link for accessibility. */
+  /** If true, renders a visually hidden "Skip to content" link for accessibility */
   isSkipLink?: boolean;
-  /** Whether the link is disabled. */
+  /** If true, disables the link or button and applies disabled styles */
   disabled?: boolean;
-  /** Custom CSS class for the component. */
+  /** Optional class name for custom styling */
   className?: string;
-  /** Visual style variant for the link (e.g., "default", "negative", "neutral"). */
+  /** Visual styling variant (e.g., "default", "neutral", "negative") */
   variant?: Variants;
-  /** If true, adjusts colors for rendering on a dark background. */
+  /** If true, adjusts styles for use on a dark background */
   isDarkBackground?: boolean;
 }
 
@@ -142,6 +143,9 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
     const isBackButton = rest["data-role"] === "heading-back-button";
     const accessibleLabel = ariaLabel || (isBackButton ? "Back" : undefined);
 
+    const mouseOnClick = onClick as
+      | React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
+      | undefined;
     return (
       <BaseLink
         ref={ref}
@@ -150,7 +154,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         target={target}
         aria-label={accessibleLabel}
         className={className}
-        onClick={onClick}
+        onClick={mouseOnClick}
         onKeyDown={onKeyDown}
         onMouseDown={onMouseDown}
         onFocus={handleFocus}
@@ -173,5 +177,4 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
 );
 
 Link.displayName = "Link";
-
 export default Link;

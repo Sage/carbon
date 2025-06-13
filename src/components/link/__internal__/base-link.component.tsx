@@ -1,15 +1,20 @@
-import React from "react";
-import { SimpleInterpolation } from "styled-components";
-import StyledBaseLinkWrapper from "./base-link.style";
+import React, {
+  forwardRef,
+  useCallback,
+  MutableRefObject,
+  ReactNode,
+} from "react";
+import type { SimpleInterpolation } from "styled-components";
+import StyledBaseLinkWrapper from "../__internal__/base-link.style";
 
 export interface BaseLinkProps {
   /** The href attribute. If provided, renders an anchor (<a>) tag; otherwise, renders a button. */
   href?: string;
   /** The content inside the link or button. */
-  children: React.ReactNode;
-  /** Custom styled-components CSS passed to the wrapper (used with styled-components). */
+  children: ReactNode;
+  /** Custom styled-components CSS passed to the wrapper. */
   customStyles?: SimpleInterpolation;
-  /** Called when the link or button is clicked (includes support for keyboard-based clicks). */
+  /** Called when the link or button is clicked. */
   onClick?:
     | React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
     | ((
@@ -37,94 +42,78 @@ export interface BaseLinkProps {
   disabled?: boolean;
   /** Optional CSS class to apply to the component. */
   className?: string;
+  /** Role for automation/testing (e.g., 'link-anchor', 'menu-item-wrapper'). */
+  "data-role"?: string;
+  /** Test ID for testing utilities. */
+  "data-testid"?: string;
+  /** Allows passing additional custom data attributes. */
+  [key: `data-${string}`]: string | undefined;
+  /** Allows passing additional custom aria attributes. */
+  [key: `aria-${string}`]: string | undefined;
 }
 
-type DataAndAriaAttributes = Partial<Record<`data-${string}`, string>> &
-  Partial<Record<`aria-${string}`, string>>;
-
-type InternalBaseLinkProps = BaseLinkProps &
-  Omit<
-    React.AnchorHTMLAttributes<HTMLAnchorElement> &
-      React.ButtonHTMLAttributes<HTMLButtonElement>,
-    keyof BaseLinkProps | "style"
-  > &
-  DataAndAriaAttributes;
-
-export const BaseLink = React.forwardRef<
+export const BaseLink = forwardRef<
   HTMLAnchorElement | HTMLButtonElement,
-  InternalBaseLinkProps
->(
-  (
-    { href, children, customStyles, onClick, onKeyDown, ariaLabel, ...rest },
-    ref,
-  ) => {
-    const {
-      "aria-label": ariaLabelFromRest,
-      "data-role": dataRoleFromRest,
-      "data-testid": providedTestId,
-      ...restWithoutExtractedProps
-    } = rest;
+  BaseLinkProps
+>((props, ref) => {
+  const {
+    href,
+    children,
+    customStyles,
+    onClick,
+    onKeyDown,
+    onMouseDown,
+    onFocus,
+    onBlur,
+    "data-role": dataRole = "link-anchor",
+    ariaLabel,
+    ...rest
+  } = props;
 
-    const finalAriaLabel = ariaLabel || ariaLabelFromRest;
-    const finalTestId = providedTestId || "link-anchor";
-    const finalDataRole =
-      dataRoleFromRest === "crumb"
-        ? "link-anchor"
-        : dataRoleFromRest || "link-anchor";
+  const componentProps = {
+    onClick,
+    onKeyDown,
+    onMouseDown,
+    onFocus,
+    onBlur,
+    "aria-label": ariaLabel,
+    "data-role": dataRole,
+    ...rest,
+  };
 
-    const isBackButton =
-      restWithoutExtractedProps["data-role"] === "heading-back-button";
-    const autoAriaLabel = isBackButton ? "Back" : undefined;
-    const resolvedAriaLabel = finalAriaLabel || autoAriaLabel;
+  const setAnchorRef = useCallback(
+    (node: HTMLAnchorElement | null) => {
+      if (!ref) return;
+      if (typeof ref === "function") ref(node);
+      else (ref as MutableRefObject<HTMLAnchorElement | null>).current = node;
+    },
+    [ref],
+  );
 
-    const setAnchorRef = (element: HTMLAnchorElement | null) => {
-      if (typeof ref === "function") {
-        ref(element);
-      } else if (ref) {
-        ref.current = element;
-      }
-    };
+  const setButtonRef = useCallback(
+    (node: HTMLButtonElement | null) => {
+      if (!ref) return;
+      if (typeof ref === "function") ref(node);
+      else (ref as MutableRefObject<HTMLButtonElement | null>).current = node;
+    },
+    [ref],
+  );
 
-    const setButtonRef = (element: HTMLButtonElement | null) => {
-      if (typeof ref === "function") {
-        ref(element);
-      } else if (ref) {
-        ref.current = element;
-      }
-    };
+  const isButton = onClick && !href;
 
-    return (
-      <StyledBaseLinkWrapper $styles={customStyles}>
-        {href ? (
-          <a
-            ref={setAnchorRef}
-            href={href}
-            onClick={onClick}
-            onKeyDown={onKeyDown}
-            aria-label={resolvedAriaLabel}
-            data-testid={finalTestId}
-            data-role={finalDataRole}
-            {...restWithoutExtractedProps}
-          >
-            {children}
-          </a>
-        ) : (
-          <button
-            ref={setButtonRef}
-            type="button"
-            onClick={onClick}
-            onKeyDown={onKeyDown}
-            aria-label={resolvedAriaLabel}
-            data-testid={finalTestId}
-            data-role={finalDataRole}
-            {...restWithoutExtractedProps}
-          >
-            {children}
-          </button>
-        )}
-      </StyledBaseLinkWrapper>
-    );
-  },
-);
+  return (
+    <StyledBaseLinkWrapper $styles={customStyles}>
+      {isButton ? (
+        <button type="button" ref={setButtonRef} {...componentProps}>
+          {children}
+        </button>
+      ) : (
+        <a href={href} ref={setAnchorRef} {...componentProps}>
+          {children}
+        </a>
+      )}
+    </StyledBaseLinkWrapper>
+  );
+});
 
 BaseLink.displayName = "BaseLink";
