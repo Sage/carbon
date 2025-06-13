@@ -1,3 +1,9 @@
+## [154.8.0](https://github.com/Sage/carbon/compare/v154.7.4...v154.8.0) (2025-06-11)
+
+### Features
+
+* **responsive-vertical-menu:** allows custom aria-label for vertical menu launcher ([8826e66](https://github.com/Sage/carbon/commit/8826e66aed0778022a8ae9e0bbf8ea92578b5ae3))
+
 ## [154.7.4](https://github.com/Sage/carbon/compare/v154.7.3...v154.7.4) (2025-06-10)
 
 ### Bug Fixes
