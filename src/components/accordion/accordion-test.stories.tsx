@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { action } from "@storybook/addon-actions";
+
 import { Accordion, AccordionGroup } from ".";
 import Textbox from "../textbox";
 import Box from "../box";
@@ -62,6 +63,7 @@ export const Default = ({ ...args }) => (
   <Accordion
     onChange={action("expansionToggled")}
     {...{
+      "data-role": "accordion",
       customPadding: 0,
       title: "Title",
       subTitle: "Sub Title",
