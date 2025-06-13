@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { SimpleInterpolation, css } from "styled-components";
 import Link, { LinkProps } from "../../link";
 
 interface StyleCrumbProps extends LinkProps {
@@ -11,6 +11,29 @@ const getCurrentCrumbColor = (isDarkBackground: boolean) => {
     ? "var(--colorsUtilityYang100)"
     : "var(--colorsUtilityYin090)";
 };
+
+export const styledCrumb = (
+  baseStyles: SimpleInterpolation,
+  isDarkBackground: boolean,
+  isCurrent?: boolean,
+) => css`
+  ${baseStyles}
+
+  font: var(--typographyLinkTextM);
+  ${isCurrent &&
+  `
+    a {
+      color: ${getCurrentCrumbColor(isDarkBackground)};
+      text-decoration: none;
+      font: var(--typographyBreadcrumbCurrentPageM);
+      :hover {
+        color: ${getCurrentCrumbColor(isDarkBackground)};
+        text-decoration: none;
+        cursor: text;
+      }
+    }
+  `}
+`;
 
 export const StyledCrumb = styled(Link)<StyleCrumbProps>`
   font: var(--typographyLinkTextM);

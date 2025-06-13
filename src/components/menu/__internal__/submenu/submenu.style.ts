@@ -87,9 +87,14 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       box-shadow: var(--boxShadow100);
       position: absolute;
       top: 100%;
-      background-color: ${variant === "default"
-        ? menuConfigVariants[menuType].submenuItemBackground
-        : menuConfigVariants[menuType].background};
+      &,
+      a,
+      button,
+      ${StyledMenuItem} {
+        background-color: ${variant === "default"
+          ? menuConfigVariants[menuType].submenuItemBackground
+          : menuConfigVariants[menuType].background};
+      }
 
       min-width: ${submenuMinWidth ?? "100%"};
 

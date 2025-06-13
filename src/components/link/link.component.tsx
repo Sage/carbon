@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useTheme } from "styled-components";
 
-import Icon, { IconType } from "../icon";
+import { IconType } from "../icon";
 import MenuContext from "../menu/__internal__/menu.context";
 import addLinkStyle, { StyledLinkProps } from "./link.style";
 import tagComponent, {
@@ -97,20 +97,6 @@ export const Link = React.forwardRef<
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
     const isDisabled = disabled || batchSelectionDisabled;
 
-    const renderLinkIcon = (currentAlignment = "left") => {
-      const hasProperAlignment = icon && iconAlign === currentAlignment;
-
-      return hasProperAlignment ? (
-        <Icon
-          type={icon}
-          disabled={isDisabled}
-          ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
-          tooltipMessage={tooltipMessage}
-          tooltipPosition={tooltipPosition}
-        />
-      ) : null;
-    };
-
     const props = {
       onKeyDown,
       onMouseDown,
@@ -124,6 +110,11 @@ export const Link = React.forwardRef<
       onFocus: () => setHasFocus(true),
       onBlur: () => setHasFocus(false),
       ...tagComponent("link", rest),
+      icon,
+      iconAlign,
+      tooltipMessage,
+      tooltipPosition,
+      removeAriaLabelOnIcon,
       ...rest,
     };
 
@@ -138,7 +129,7 @@ export const Link = React.forwardRef<
       isSkipLink,
       iconAlign,
       hasContent: !!children,
-      disabled,
+      disabled: isDisabled,
       variant,
       isDarkBackground,
       isMenuItem: inMenu,
@@ -148,13 +139,7 @@ export const Link = React.forwardRef<
 
     return (
       <BaseLink {...props} styles={styles}>
-        <>
-          {renderLinkIcon()}
-          <span data-component="link-content">
-            {isSkipLink ? l.link.skipLinkLabel() : children}
-          </span>
-          {renderLinkIcon("right")}
-        </>
+        {isSkipLink ? l.link.skipLinkLabel() : children}
       </BaseLink>
     );
   },

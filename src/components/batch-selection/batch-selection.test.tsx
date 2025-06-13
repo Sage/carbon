@@ -91,7 +91,7 @@ test("`Link` children should be automatically disabled via context", () => {
   render(
     <BatchSelection selectedCount={0} disabled>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-      <Link>Link as an anchor</Link>
+      <Link data-role="link">Link as an anchor</Link>
     </BatchSelection>,
   );
 

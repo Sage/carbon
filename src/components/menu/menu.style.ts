@@ -16,9 +16,7 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 import type { MenuProps } from "./menu.types";
 
-import Link from "../link";
-
-const StyledLink = styled(Link)``;
+import StyledLink from "../link/__internal__/base-link.style";
 
 interface StyledMenuProps
   extends Pick<MenuProps, "menuType">,

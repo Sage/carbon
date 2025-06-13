@@ -1,10 +1,9 @@
-import styled from "styled-components";
+import styled, { SimpleInterpolation, css } from "styled-components";
 import { margin } from "styled-system";
 
 import Portrait from "../portrait";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import profileConfigSizes, { ProfileSize } from "./profile.config";
-import Link from "../link";
 import { StyledPortraitContainer } from "../portrait/portrait.style";
 
 interface ProfileSProps {
@@ -18,13 +17,15 @@ const ProfileNameStyle = styled.span<ProfileSProps>`
   font-size: ${({ size = "M" }) => profileConfigSizes[size].nameSize};
 `;
 
-const ProfileEmailStyle = styled(Link)<
-  Pick<ProfileSProps, "size" | "darkBackground">
->`
+const profileEmailStyle = (
+  baseStyles: SimpleInterpolation,
+  size?: ProfileSize,
+  darkBackground?: boolean,
+) => css`
+  ${baseStyles}
   a {
-    font-size: ${({ size = "M" }) => profileConfigSizes[size].emailSize};
-    color: ${({ darkBackground }) =>
-      darkBackground && "var(--colorsActionMajor350)"};
+    ${size && `font-size: ${profileConfigSizes[size].emailSize}`};
+    ${darkBackground && "color: var(--colorsActionMajor350)"};
   }
 `;
 
@@ -69,6 +70,6 @@ export {
   ProfileNameStyle,
   ProfileDetailsStyle,
   ProfileAvatarStyle,
-  ProfileEmailStyle,
+  profileEmailStyle,
   ProfileTextStyle,
 };

@@ -3,18 +3,17 @@ import styled, { css } from "styled-components";
 import { padding, PaddingProps } from "styled-system";
 
 import menuConfigVariants from "../menu.config";
-import Link from "../../link";
+import BaseLink from "../../link/__internal__/base-link.component";
 import StyledButton from "../../button/button.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import StyledIcon from "../../icon/icon.style";
+import StyledLink from "../../link/__internal__/base-link.style";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 
 import { MenuWithChildren } from "./menu-item.component";
 
 import type { MenuType } from "../menu.types";
-
-const StyledLink = styled(Link)``;
 
 interface StyledMenuItemWrapperProps
   extends Pick<
@@ -83,7 +82,7 @@ const parsePadding = (props: Partial<PaddingProps>) => {
 };
 
 const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
-  as: Link,
+  as: BaseLink,
 })<StyledMenuItemWrapperProps>`
   ${({
     menuType,
@@ -105,17 +104,18 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
   }) => css`
     display: flex;
     align-items: center;
-    font-size: 14px;
     font-weight: 500;
     min-height: 40px;
     position: relative;
     box-shadow: none;
 
     a,
-    button {
+    button:not(.search-button) {
       min-height: 40px;
       height: 100%;
       box-sizing: border-box;
+      border: none;
+      font-size: var(--fontSizes100);
     }
 
     a:focus,
@@ -123,13 +123,36 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
       ${addFocusStyling(true)}
     }
 
-    :has([data-element="input"]) span[data-component="link-content"] {
+    > a,
+    > button {
+      [data-icon-align="left"] {
+        display: "inline-block";
+        position: relative;
+        vertical-align: middle;
+        margin-right: var(--spacing050);
+      }
+
+      [data-icon-align="right"] {
+        display: "inline-block";
+        position: relative;
+        vertical-align: middle;
+        margin-right: 0;
+        margin-left: var(--spacing100);
+      }
+    }
+
+    :has([data-element="input"]) [data-component="link-content"] {
       width: 100%;
     }
 
     ${!overrideColor &&
     css`
-      background-color: ${menuConfigVariants[menuType].background};
+      &,
+      ${StyledLink}, > button,
+      > a {
+        background-color: ${menuConfigVariants[menuType].background};
+        cursor: pointer;
+      }
     `}
 
     ${overrideColor &&
@@ -217,7 +240,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
         > a:has(${StyledButton}:not(.search-button)) {
           height: 100%;
 
-          span[data-component="link-content"] {
+          [data-component="link-content"] {
             height: inherit;
 
             div {
@@ -309,8 +332,10 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
 
     ${selected &&
     css`
-      background-color: ${menuConfigVariants[menuType].selected};
-
+      a,
+      button {
+        background-color: ${menuConfigVariants[menuType].selected};
+      }
       a:focus,
       button:focus {
         background-color: ${menuConfigVariants[menuType].selected};
@@ -326,7 +351,10 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
     !inFullscreenView &&
     css`
       &&& {
-        background-color: ${menuConfigVariants[menuType].alternate};
+        a,
+        button {
+          background-color: ${menuConfigVariants[menuType].alternate};
+        }
       }
 
       &&& a:focus,
@@ -394,8 +422,10 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
 
       ${selected &&
       css`
-        background-color: ${menuConfigVariants[menuType].submenuSelected};
-
+        a,
+        button {
+          background-color: ${menuConfigVariants[menuType].submenuSelected};
+        }
         a:focus,
         button:focus {
           background-color: ${menuConfigVariants[menuType].submenuSelected};

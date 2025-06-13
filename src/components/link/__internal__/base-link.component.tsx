@@ -3,6 +3,7 @@ import { SimpleInterpolation } from "styled-components";
 
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
 import StyledBaseLinkWrapper from "./base-link.style";
+import Icon, { IconType } from "../../icon";
 
 export interface BaseLinkProps extends React.AriaAttributes {
   /** An href for an anchor tag. */
@@ -74,6 +75,15 @@ export interface BaseLinkProps extends React.AriaAttributes {
    */
   "data-role"?: string;
   styles?: SimpleInterpolation;
+
+  icon?: IconType;
+
+  removeAriaLabelOnIcon?: boolean;
+
+  iconAlign?: "left" | "right";
+
+  tooltipMessage?: string;
+  tooltipPosition?: "bottom" | "left" | "right" | "top";
 }
 
 export const BaseLink = React.forwardRef<
@@ -96,6 +106,11 @@ export const BaseLink = React.forwardRef<
       onBlur,
       "data-component": dataComponent,
       styles,
+      icon,
+      removeAriaLabelOnIcon = false,
+      iconAlign = "left",
+      tooltipMessage,
+      tooltipPosition = "bottom",
       ...rest
     }: BaseLinkProps,
     ref,
@@ -157,6 +172,44 @@ export const BaseLink = React.forwardRef<
       onBlur,
     };
 
+    const childrenToRender = useMemo(
+      () => (
+        <>
+          {icon && iconAlign === "left" && (
+            <Icon
+              type={icon}
+              disabled={disabled}
+              ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
+              tooltipMessage={tooltipMessage}
+              tooltipPosition={tooltipPosition}
+              data-icon-align={iconAlign}
+            />
+          )}
+          <span data-component="link-content">{children}</span>
+          {icon && iconAlign === "right" && (
+            <Icon
+              type={icon}
+              disabled={disabled}
+              ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
+              tooltipMessage={tooltipMessage}
+              tooltipPosition={tooltipPosition}
+              data-icon-align={iconAlign}
+            />
+          )}
+        </>
+      ),
+      [
+        children,
+        icon,
+        iconAlign,
+        disabled,
+        ariaLabel,
+        tooltipMessage,
+        tooltipPosition,
+        removeAriaLabelOnIcon,
+      ],
+    );
+
     return (
       <StyledBaseLinkWrapper
         $styles={styles}
@@ -165,11 +218,11 @@ export const BaseLink = React.forwardRef<
       >
         {onClick && !href ? (
           <button ref={setButtonRef} type="button" {...componentProps}>
-            {children}
+            {childrenToRender}
           </button>
         ) : (
           <a ref={setAnchorRef} {...componentProps} data-role="link-anchor">
-            {children}
+            {childrenToRender}
           </a>
         )}
       </StyledBaseLinkWrapper>

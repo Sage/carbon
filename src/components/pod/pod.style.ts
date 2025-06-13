@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
 
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import { StyledContent as StyledLinkContent } from "../link/link.style";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
 
@@ -257,7 +256,7 @@ const StyledEditAction = styled(IconButton)<StyledEditActionProps>`
     `};
   }
 
-  ${StyledLinkContent} {
+  [data-component="link-content"] {
     clip: rect(1px, 1px, 1px, 1px);
     position: absolute;
   }
