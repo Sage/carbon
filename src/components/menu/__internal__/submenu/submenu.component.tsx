@@ -40,7 +40,7 @@ export interface SubmenuProps {
   /** Defines which direction the submenu will hang eg. left/right */
   submenuDirection?: string;
   /** A title for the menu item that has a submenu. */
-  title?: string;
+  title?: React.ReactNode;
   /** onKeyDown handler */
   onKeyDown?: (
     event:

@@ -393,7 +393,119 @@ describe("When MenuItem has no submenu", () => {
         </Menu>,
       );
     }).toThrow(
-      "If no text is provided an `ariaLabel` should be given to facilitate accessibility.",
+      "If no text or node is provided via the `submenu` prop, an `ariaLabel` should be given to facilitate accessibility",
+    );
+
+    consoleSpy.mockRestore();
+  });
+
+  it("should throw an error when menu item has empty children", () => {
+    const consoleSpy = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => {});
+
+    expect(() => {
+      render(
+        <Menu>
+          <MenuItem icon="settings" href="#" />
+        </Menu>,
+      );
+    }).toThrow(
+      "If no text or node is provided via the `submenu` prop, an `ariaLabel` should be given to facilitate accessibility",
+    );
+
+    consoleSpy.mockRestore();
+  });
+
+  it("should throw an error when menu item has null children", () => {
+    const consoleSpy = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => {});
+
+    expect(() => {
+      render(
+        <Menu>
+          <MenuItem icon="settings" href="#">
+            {null}
+          </MenuItem>
+        </Menu>,
+      );
+    }).toThrow(
+      "If no text or node is provided via the `submenu` prop, an `ariaLabel` should be given to facilitate accessibility",
+    );
+
+    consoleSpy.mockRestore();
+  });
+
+  it("should throw an error when menu item has undefined children", () => {
+    const consoleSpy = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => {});
+
+    expect(() => {
+      render(
+        <Menu>
+          <MenuItem icon="settings" href="#">
+            {undefined}
+          </MenuItem>
+        </Menu>,
+      );
+    }).toThrow(
+      "If no text or node is provided via the `submenu` prop, an `ariaLabel` should be given to facilitate accessibility",
+    );
+
+    consoleSpy.mockRestore();
+  });
+
+  it("should throw an error when ariaLabel is empty string", () => {
+    const consoleSpy = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => {});
+
+    expect(() => {
+      render(
+        <Menu>
+          <MenuItem icon="settings" href="#" ariaLabel="" />
+        </Menu>,
+      );
+    }).toThrow(
+      "If no text or node is provided via the `submenu` prop, an `ariaLabel` should be given to facilitate accessibility",
+    );
+
+    consoleSpy.mockRestore();
+  });
+
+  it("should throw an error when submenu is null", () => {
+    const consoleSpy = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => {});
+
+    expect(() => {
+      render(
+        <Menu>
+          <MenuItem icon="settings" href="#" submenu={null} />
+        </Menu>,
+      );
+    }).toThrow(
+      "If no text or node is provided via the `submenu` prop, an `ariaLabel` should be given to facilitate accessibility",
+    );
+
+    consoleSpy.mockRestore();
+  });
+
+  it("should throw an error when submenu is empty string", () => {
+    const consoleSpy = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => {});
+
+    expect(() => {
+      render(
+        <Menu>
+          <MenuItem icon="settings" href="#" submenu="" />
+        </Menu>,
+      );
+    }).toThrow(
+      "If no text or node is provided via the `submenu` prop, an `ariaLabel` should be given to facilitate accessibility",
     );
 
     consoleSpy.mockRestore();
@@ -466,6 +578,44 @@ describe("When MenuItem has no submenu", () => {
 });
 
 describe("when MenuItem has a submenu", () => {
+  it("should render correctly when `submenu` is passed as a React node", () => {
+    const submenuNode = <span>Custom Submenu Title</span>;
+    render(
+      <Menu>
+        <MenuItem submenu={submenuNode}>
+          <MenuItem href="#">Submenu Item One</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+
+    expect(
+      screen.getByRole("button", { name: "Custom Submenu Title" }),
+    ).toBeVisible();
+  });
+
+  it("should render correctly when `submenu` is passed as a complex composition", () => {
+    const submenuNode = (
+      <div>
+        <>
+          <div>
+            <span>Custom Submenu Title</span>
+          </div>
+        </>
+      </div>
+    );
+    render(
+      <Menu>
+        <MenuItem submenu={submenuNode}>
+          <MenuItem href="#">Submenu Item One</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+
+    expect(
+      screen.getByRole("button", { name: "Custom Submenu Title" }),
+    ).toBeVisible();
+  });
+
   /** START OF TESTS ADDED FOR CODE COVERAGE */
   it("should apply the expected spacing on the pseudo element when custom padding is passed value of '5px'", () => {
     render(
