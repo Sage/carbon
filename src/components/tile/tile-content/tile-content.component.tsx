@@ -36,7 +36,6 @@ const TileContent = ({
       width={width}
       height={height}
       isHorizontal={isHorizontal}
-      isVertical={!isHorizontal}
       {...paddingPropsFromTile}
       {...spacingProps}
       {...tagComponent("tile-content", rest)}
