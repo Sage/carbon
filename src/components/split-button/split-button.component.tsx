@@ -149,7 +149,7 @@ export const SplitButton = forwardRef<SplitButtonHandle, SplitButtonProps>(
 
     const handleToggleClick = () => {
       // ensure button is focused when clicked (Safari)
-      toggleButtonRef.current?.focus();
+      toggleButtonRef.current?.focus({ preventScroll: true });
       showButtons();
     };
 

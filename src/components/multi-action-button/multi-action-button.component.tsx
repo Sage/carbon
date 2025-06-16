@@ -68,7 +68,7 @@ export const MultiActionButton = forwardRef<
       ref,
       () => ({
         focusMainButton() {
-          buttonRef.current?.focus();
+          buttonRef.current?.focus({ preventScroll: true });
         },
       }),
       [],

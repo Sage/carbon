@@ -44,9 +44,14 @@ const useChildButtons = (
       Events.isDownKey(ev) ||
       Events.isUpKey(ev);
 
-    if (isToggleKey) {
+    if (isToggleKey && !showAdditionalButtons) {
       ev.preventDefault();
       showButtons();
+    }
+
+    if (Events.isDownKey(ev) && showAdditionalButtons) {
+      ev.preventDefault();
+      getButtonChildren()?.[0]?.focus({ preventScroll: true });
     }
   };
 

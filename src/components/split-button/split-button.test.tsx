@@ -723,7 +723,7 @@ test("should support navigating the additional buttons via down arrow key but st
     name: "Extra Button 3",
   });
 
-  await user.tab();
+  await user.keyboard("{arrowDown}");
   expect(button1).toHaveFocus();
   await user.keyboard("{arrowDown}");
   expect(button2).toHaveFocus();
@@ -756,7 +756,7 @@ test("should support navigating the additional buttons via up arrow key but stop
     name: "Extra Button 3",
   });
 
-  await user.tab();
+  await user.keyboard("{arrowDown}");
   await user.keyboard("{end}");
   expect(button3).toHaveFocus();
   await user.keyboard("{arrowUp}");
