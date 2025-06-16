@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
 import { padding } from "styled-system";
-import { baseTheme } from "../../../../style/themes";
+import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 import StyledIconButton from "../../../icon-button/icon-button.style";
 
-const StyledSidebarHeader = styled.div<{ hasClose?: boolean }>`
+const StyledSidebarHeader = styled.div.attrs(applyBaseTheme)<{
+  hasClose?: boolean;
+}>`
   background-color: var(--colorsUtilityYang100);
   box-shadow: inset 0 -1px 0 0 var(--colorsUtilityMajor100);
   box-sizing: border-box;
@@ -30,9 +32,5 @@ const StyledSidebarHeader = styled.div<{ hasClose?: boolean }>`
     width: 100%;
   }
 `;
-
-StyledSidebarHeader.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledSidebarHeader;

@@ -4,7 +4,7 @@ import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import { StyledFlatTableRowHeader } from "./flat-table-row-header/flat-table-row-header.style";
 import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
 import StyledFlatTableCheckbox from "./flat-table-checkbox/flat-table-checkbox.style";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import cellSizes from "./cell-sizes.style";
 import StyledBox from "../box/box.style";
@@ -118,7 +118,9 @@ interface StyledFlatTableWrapperProps
   bottomBorderRadius: NonNullable<FlatTableProps["bottomBorderRadius"]>;
 }
 
-const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
+const StyledFlatTableWrapper = styled(StyledBox).attrs(
+  applyBaseTheme,
+)<StyledFlatTableWrapperProps>`
   border-top-left-radius: var(--borderRadius100);
   border-top-right-radius: var(--borderRadius100);
 
@@ -360,11 +362,7 @@ const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
     `}
 `;
 
-StyledFlatTableWrapper.defaultProps = {
-  theme: baseTheme,
-};
-
-const StyledFlatTableFooter = styled.div<
+const StyledFlatTableFooter = styled.div.attrs(applyBaseTheme)<
   Pick<FlatTableProps, "hasStickyFooter">
 >`
   & > ${StyledPagerContainer} {
@@ -386,10 +384,6 @@ const StyledFlatTableFooter = styled.div<
       }
     `}
 `;
-
-StyledFlatTableFooter.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledFlatTableWrapper,

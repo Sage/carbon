@@ -1,13 +1,13 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
-import baseTheme from "../../style/themes/base";
 
-const Menu = styled.ul<{
+const Menu = styled.ul.attrs(applyBaseTheme)<{
   isOpen: boolean;
   submenuLeft: boolean;
   iconLeft: boolean;
@@ -130,10 +130,6 @@ const StyledMenuItem = styled.button<{ isDisabled: boolean }>`
     `}
 `;
 
-StyledMenuItem.defaultProps = {
-  theme: baseTheme,
-};
-
 const StyledMenuItemWrapper = styled.li`
   display: grid;
   grid-template-columns: subgrid;
@@ -157,7 +153,7 @@ const MenuItemDivider = styled.li.attrs({
   margin: var(--spacing100) var(--spacing150);
 `;
 
-const MenuButton = styled.div`
+const MenuButton = styled.div.attrs(applyBaseTheme)`
   position: relative;
   && ${StyledIcon} {
     cursor: pointer;
@@ -189,10 +185,6 @@ const MenuItemIcon = styled(Icon)`
   padding: var(--spacing100);
   color: var(--colorsUtilityYin065);
 `;
-
-StyledButtonIcon.defaultProps = {
-  theme: baseTheme,
-};
 
 const SubMenuItemIcon = styled(ButtonIcon)`
   grid-column: chevron_column;

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import { baseTheme } from "../../../style/themes";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import {
   StyledButtonToggle,
   StyledButtonToggleWrapper,
@@ -13,7 +13,9 @@ type StyledButtonToggleGroupProps = Pick<
   "inputWidth" | "fullWidth" | "disabled" | "labelInline"
 >;
 
-const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
+const StyledButtonToggleGroup = styled.div
+  .attrs(applyBaseTheme)
+  .attrs({ type: "button" })<StyledButtonToggleGroupProps>`
   ${margin}
 
   display: flex;
@@ -50,9 +52,5 @@ const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
       width: ${`${inputWidth}%`};
     `}
 `;
-
-StyledButtonToggleGroup.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledButtonToggleGroup;

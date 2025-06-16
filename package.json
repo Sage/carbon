@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "154.6.1",
+  "version": "154.9.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -207,7 +207,6 @@
     "invariant": "^2.2.4",
     "lexical": "^0.21.0",
     "lodash": "^4.17.21",
-    "polished": "^4.2.2",
     "prop-types": "^15.8.1",
     "react-day-picker": "~9.3.2",
     "react-dnd": "^16.0.1",

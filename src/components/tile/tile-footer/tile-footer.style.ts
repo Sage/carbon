@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { padding } from "styled-system";
-import { baseTheme } from "../../../style/themes";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import { TileFooterProps } from "./tile-footer.component";
 
 const getBackgroundColor = (variant: TileFooterProps["variant"]) => {
@@ -16,7 +16,9 @@ const getBackgroundColor = (variant: TileFooterProps["variant"]) => {
   }
 };
 
-const StyledTileFooter = styled.div<{ variant: TileFooterProps["variant"] }>`
+const StyledTileFooter = styled.div.attrs(applyBaseTheme)<{
+  variant: TileFooterProps["variant"];
+}>`
   ${padding}
   border-bottom-left-radius: calc(var(--tileBorderRadius) - 1px);
   border-bottom-right-radius: calc(var(--tileBorderRadius) - 1px);
@@ -29,9 +31,5 @@ const StyledTileFooter = styled.div<{ variant: TileFooterProps["variant"] }>`
         : "var(--colorsUtilityMajor100)"};
   `}
 `;
-
-StyledTileFooter.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledTileFooter;

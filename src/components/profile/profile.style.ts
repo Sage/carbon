@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { margin } from "styled-system";
 
 import Portrait from "../portrait";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import profileConfigSizes, { ProfileSize } from "./profile.config";
 import Link from "../link";
 import { StyledPortraitContainer } from "../portrait/portrait.style";
@@ -32,7 +32,7 @@ const ProfileTextStyle = styled.span<ProfileSProps>`
   font-size: ${({ size = "M" }) => profileConfigSizes[size].emailSize};
 `;
 
-const ProfileStyle = styled.div<
+const ProfileStyle = styled.div.attrs(applyBaseTheme)<
   Pick<ProfileSProps, "hasSrc" | "darkBackground">
 >`
   border-radius: inherit;
@@ -63,10 +63,6 @@ const ProfileDetailsStyle = styled.div<Pick<ProfileSProps, "hasSrc" | "size">>`
 const ProfileAvatarStyle = styled(Portrait)`
   display: inline-block;
 `;
-
-ProfileStyle.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   ProfileStyle,

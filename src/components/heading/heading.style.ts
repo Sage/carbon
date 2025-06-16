@@ -3,21 +3,17 @@ import { margin } from "styled-system";
 
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import Help from "../help";
 import Typography from "../typography";
 import Hr from "../hr";
 import Link from "../link";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
-const StyledHeading = styled.div`
+const StyledHeading = styled.div.attrs(applyBaseTheme)`
   width: 100%;
   ${margin}
 `;
-
-StyledHeading.defaultProps = {
-  theme: baseTheme,
-};
 
 const StyledHeaderContent = styled.div`
   display: inline-flex;
@@ -84,8 +80,6 @@ const StyledHeadingBackButton = styled(Link)`
     }
   }
 `;
-
-StyledHeadingBackButton.defaultProps = { theme: baseTheme };
 
 type StyledHeadingTitleProps = {
   withMargin?: boolean;

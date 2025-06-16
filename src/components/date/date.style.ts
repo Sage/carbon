@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledInput from "../../__internal__/input/input.style";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
@@ -21,7 +21,7 @@ interface StyledDateInputProps
   size: Required<DateInputProps>["size"];
 }
 
-const StyledDateInput = styled.div<StyledDateInputProps>`
+const StyledDateInput = styled.div.attrs(applyBaseTheme)<StyledDateInputProps>`
   margin-bottom: var(--fieldSpacing);
   ${margin}
 
@@ -48,9 +48,5 @@ const StyledDateInput = styled.div<StyledDateInputProps>`
       }
     `}
 `;
-
-StyledDateInput.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledDateInput;

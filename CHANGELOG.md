@@ -1,3 +1,45 @@
+## [154.9.0](https://github.com/Sage/carbon/compare/v154.8.0...v154.9.0) (2025-06-16)
+
+### Features
+
+* **responsive-vertical-menu:** fix stale menu bug when child items change ([af33cc8](https://github.com/Sage/carbon/commit/af33cc8bd28a141158bd6db52ce2226072f265d2))
+
+## [154.8.0](https://github.com/Sage/carbon/compare/v154.7.4...v154.8.0) (2025-06-11)
+
+### Features
+
+* **responsive-vertical-menu:** allows custom aria-label for vertical menu launcher ([8826e66](https://github.com/Sage/carbon/commit/8826e66aed0778022a8ae9e0bbf8ea92578b5ae3))
+
+## [154.7.4](https://github.com/Sage/carbon/compare/v154.7.3...v154.7.4) (2025-06-10)
+
+### Bug Fixes
+
+* **icon:** address react 18.3.0 warning regarding spreading keys ([d42b0d2](https://github.com/Sage/carbon/commit/d42b0d20085e0e2c47b1c659dfe9770cda67aa85))
+
+## [154.7.3](https://github.com/Sage/carbon/compare/v154.7.2...v154.7.3) (2025-06-09)
+
+### Bug Fixes
+
+* **date, date-range:** ensure date format override returns correct formatted value ([5f8fa0c](https://github.com/Sage/carbon/commit/5f8fa0ca6980bc66e97af9d90b5a6bf4384f4eee)), closes [#7345](https://github.com/Sage/carbon/issues/7345)
+
+## [154.7.2](https://github.com/Sage/carbon/compare/v154.7.1...v154.7.2) (2025-06-09)
+
+### Bug Fixes
+
+* **button, heading, icon-button, tab-title:** add preventScroll to progrommatic focus ([a1b8b07](https://github.com/Sage/carbon/commit/a1b8b07024333b2fd4cbe93ebb139860d0a1e498))
+
+## [154.7.1](https://github.com/Sage/carbon/compare/v154.7.0...v154.7.1) (2025-06-06)
+
+### Bug Fixes
+
+* **pill:** ensure content colour does not fail color contrast ([db17d1d](https://github.com/Sage/carbon/commit/db17d1d9cc3e5ba0511dfadbd13cc95522537cdf))
+
+## [154.7.0](https://github.com/Sage/carbon/compare/v154.6.1...v154.7.0) (2025-06-06)
+
+### Features
+
+* **popover-container:** ensure popover containers appear in front of global nav ([1847c76](https://github.com/Sage/carbon/commit/1847c765bab26ca9a364b9ccbe1fbfe4e70bbe4a)), closes [#7252](https://github.com/Sage/carbon/issues/7252)
+
 ## [154.6.1](https://github.com/Sage/carbon/compare/v154.6.0...v154.6.1) (2025-06-05)
 
 ### Bug Fixes

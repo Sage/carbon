@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { padding } from "styled-system";
-import baseTheme from "../../../style/themes/base";
+import applyBaseTheme from "../../../style/themes/apply-base-theme";
+
 import { CardSpacing } from "../card.config";
 import { CardRowProps } from "./card-row.component";
 
@@ -14,7 +15,7 @@ const paddingSizes = {
   large: "var(--spacing400)",
 };
 
-const StyledCardRow = styled.div<StyledCardRowProps>`
+const StyledCardRow = styled.div.attrs(applyBaseTheme)<StyledCardRowProps>`
   display: flex;
   ${({ spacing }) => css`
     padding-top: ${paddingSizes[spacing]};
@@ -34,9 +35,5 @@ const StyledCardRow = styled.div<StyledCardRowProps>`
     ${padding}
   }
 `;
-
-StyledCardRow.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledCardRow;

@@ -165,7 +165,6 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       hasTooltip,
       id,
       isInteractive,
-      key: "icon",
       ref,
       role,
       tabIndex: computedTabIndex,

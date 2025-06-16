@@ -8,13 +8,21 @@ import PopoverContainer, {
 } from "./popover-container.component";
 import { Select, Option } from "../select";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import { useGlobalHeader } from "../global-header/__internal__/global-header.context";
+
 import Button from "../button";
 import RadioButton, { RadioButtonGroup } from "../radio-button";
 
 jest.mock("../../hooks/useMediaQuery");
+jest.mock("../global-header/__internal__/global-header.context");
+
+let mockedUseGlobalHeader: jest.MockedFunction<typeof useGlobalHeader>;
 
 beforeEach(() => {
   jest.useFakeTimers();
+
+  mockedUseGlobalHeader = jest.mocked(useGlobalHeader);
+  mockedUseGlobalHeader.mockReturnValue({ isWithinGlobalHeader: false });
 });
 
 afterEach(() => {
@@ -750,4 +758,32 @@ test("should render with default padding when no padding props are passed", () =
   );
 
   expect(screen.getByRole("dialog")).toHaveStyle("padding: 16px 24px;");
+});
+
+test("should render with a z-index of 2000 if not within global header", () => {
+  render(
+    <PopoverContainer open title="My popup">
+      Ta da!
+    </PopoverContainer>,
+  );
+
+  expect(screen.getByRole("dialog")).toHaveStyle({
+    zIndex: "2000",
+  });
+});
+
+test("should render with a z-index of 10000 if within global header", () => {
+  mockedUseGlobalHeader.mockReturnValue({ isWithinGlobalHeader: true });
+
+  render(
+    <PopoverContainer open title="My popup">
+      Ta da!
+    </PopoverContainer>,
+  );
+
+  expect(screen.getByRole("dialog")).toHaveStyle({
+    zIndex: "10000",
+  });
+
+  mockedUseGlobalHeader.mockReset();
 });

@@ -1,4 +1,4 @@
-import getColoursForPortrait from "./utils";
+import getColoursForPortrait from "./get-colors";
 
 test("returns the default string if no arguments are passed", () => {
   const result = getColoursForPortrait(undefined);
@@ -66,7 +66,9 @@ test("returns a string with the custom background color if the `backgroundColor`
 describe("Contrast ratio tests", () => {
   it("uses a white foreground colour if the white contrast ratio meets the minimum contrast threshold and is higher than the black contrast ratio", () => {
     const result = getColoursForPortrait("#0000FF");
-    expect(result).toBe("background-color: #0000FF; color: #FFFFFF;");
+    expect(result).toBe(
+      "background-color: #0000FF; color: var(--colorsUtilityYang100);",
+    );
   });
 
   it("uses a black foreground colour if the  black contrast ratio meets the minimum contrast threshold", () => {
@@ -79,7 +81,9 @@ describe("Contrast ratio tests", () => {
 
 test("returns a string with the custom background color and light text if the `backgroundColor` argument is set to a colour with poor contrast ratios (higher white contrast)", () => {
   const result = getColoursForPortrait("#0000FF");
-  expect(result).toBe("background-color: #0000FF; color: #FFFFFF;");
+  expect(result).toBe(
+    "background-color: #0000FF; color: var(--colorsUtilityYang100);",
+  );
 });
 
 test("returns a string with the custom colors if the `backgroundColor` and `foregroundColor` arguments are provided and all others are false", () => {

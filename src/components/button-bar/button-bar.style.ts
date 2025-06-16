@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
-import BaseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import { ButtonBarProps } from "./button-bar.component";
 import StyledIconButton from "../icon-button/icon-button.style";
@@ -8,7 +8,7 @@ import StyledIconButton from "../icon-button/icon-button.style";
 type StyledButtonBarProps = SpaceProps &
   Pick<ButtonBarProps, "size" | "fullWidth">;
 
-const StyledButtonBar = styled.div<StyledButtonBarProps>`
+const StyledButtonBar = styled.div.attrs(applyBaseTheme)<StyledButtonBarProps>`
   ${space}
   ${({ fullWidth, size }) => css`
     ${fullWidth &&
@@ -85,10 +85,5 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
     }
   `}
 `;
-
-StyledButtonBar.defaultProps = {
-  theme: BaseTheme,
-  size: "medium",
-};
 
 export default StyledButtonBar;

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { PaddingProps, FlexboxProps } from "styled-system";
-import Box from "../box";
 import NavigationBar from "../navigation-bar";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
+import { GlobalHeaderProvider } from "./__internal__/global-header.context";
 
 export interface GlobalHeaderProps
   extends PaddingProps,
@@ -15,7 +15,7 @@ export interface GlobalHeaderProps
   logo?: React.ReactNode;
 }
 
-const StyledLogo = styled(Box)`
+const StyledLogo = styled.div`
   display: flex;
   align-items: center;
   margin-left: var(--spacing200);
@@ -44,7 +44,7 @@ const GlobalHeader = ({ children, logo, ...rest }: GlobalHeaderProps) => {
           {logo}
         </StyledLogo>
       )}
-      {children}
+      <GlobalHeaderProvider>{children}</GlobalHeaderProvider>
     </NavigationBar>
   );
 };

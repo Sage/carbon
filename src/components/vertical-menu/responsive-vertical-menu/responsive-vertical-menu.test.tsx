@@ -12,6 +12,7 @@ import {
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 import guid from "../../../__internal__/utils/helpers/guid";
+import I18nProvider from "../../../components/i18n-provider";
 
 jest.mock("../../../hooks/__internal__/useIsAboveBreakpoint");
 jest.mock("../../../hooks/useMediaQuery");
@@ -1303,4 +1304,119 @@ test("nested menu items are correctly justified when icons are present", async (
 
   const nestedMenu = screen.getByTestId("menu-item-2-nested-menu-wrapper");
   expect(nestedMenu).toHaveStyleRule("justify-content", "flex-end");
+});
+
+test("correct aria-label values are set", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <I18nProvider
+      locale={{
+        locale: () => "en-GB",
+        verticalMenu: {
+          ariaLabels: {
+            responsiveMenuLauncher: () => "Test menu launcher",
+            responsiveMenuCloseButton: () => "Test product menu close button",
+          },
+        },
+      }}
+    >
+      <ResponsiveVerticalMenuProvider>
+        <ResponsiveVerticalMenu>
+          <ResponsiveVerticalMenuItem
+            data-role="menu-item-1"
+            icon="home"
+            id="menu-item-1"
+            label="Menu Item 1"
+            href="https://example.com"
+          >
+            <ResponsiveVerticalMenuItem
+              data-role="menu-item-2"
+              icon="business"
+              id="menu-item-2"
+              label="Menu Item 2"
+            >
+              <ResponsiveVerticalMenuItem
+                data-role="menu-item-3"
+                icon="analysis"
+                id="menu-item-3"
+                label="Menu Item 3"
+              />
+            </ResponsiveVerticalMenuItem>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenu>
+      </ResponsiveVerticalMenuProvider>
+    </I18nProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  expect(launcherButton).toHaveAttribute("aria-label", "Test menu launcher");
+  await user.click(launcherButton);
+
+  const closeButton = screen.getByTestId("responsive-vertical-menu-close");
+  expect(closeButton).toHaveAttribute(
+    "aria-label",
+    "Test product menu close button",
+  );
+});
+
+// coverage: children is an empty array
+test("children populated by empty map", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          icon="home"
+          id="menu-item-1"
+          label="Menu Item 1"
+        >
+          {[].map((item) => item)}
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+  expect(menuItem).toBeInTheDocument();
+});
+
+// coverage: children is a list of non-React elements
+test("children populated by map of non-React elements", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          data-role="menu-item-1"
+          icon="home"
+          id="menu-item-1"
+          label="Menu Item 1"
+        >
+          {["a", "b", "c"].map((item) => item)}
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+  expect(menuItem).toBeInTheDocument();
 });

@@ -5,7 +5,7 @@ import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-ic
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import StyledInput from "../../__internal__/input/input.style";
 import StyledIcon from "../icon/icon.style";
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 
 interface StyledSearchProps {
@@ -18,7 +18,7 @@ interface StyledSearchProps {
   variant?: string;
 }
 
-const StyledSearch = styled.div<StyledSearchProps>`
+const StyledSearch = styled.div.attrs(applyBaseTheme)<StyledSearchProps>`
   ${({
     isFocused,
     searchWidth,
@@ -199,7 +199,5 @@ const StyledSearch = styled.div<StyledSearchProps>`
     `;
   }}
 `;
-
-StyledSearch.defaultProps = { theme: baseTheme };
 
 export default StyledSearch;

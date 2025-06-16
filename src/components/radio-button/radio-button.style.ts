@@ -6,11 +6,11 @@ import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
 import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import { RadioButtonProps } from "./radio-button.component";
 
-const RadioButtonStyle = styled(CheckboxStyle)<
+const RadioButtonStyle = styled(CheckboxStyle).attrs(applyBaseTheme)<
   Pick<
     RadioButtonProps,
     "disabled" | "fieldHelpInline" | "reverse" | "size"
@@ -117,9 +117,5 @@ const RadioButtonStyle = styled(CheckboxStyle)<
 
   ${margin};
 `;
-
-RadioButtonStyle.defaultProps = {
-  theme: baseTheme,
-};
 
 export default RadioButtonStyle;

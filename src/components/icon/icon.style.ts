@@ -1,13 +1,11 @@
 import styled, { css } from "styled-components";
 
-import { shade } from "polished";
-
 import { margin } from "styled-system";
 
-import baseTheme, { ThemeObject } from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
+import { ThemeObject } from "../../style/themes/theme.types";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import styledColor from "../../style/utils/color";
-import getColorValue from "../../style/utils/get-color-value";
 import { getNavigator, getWindow } from "../../__internal__/dom/globals";
 import browserTypeCheck, {
   isSafari,
@@ -85,7 +83,9 @@ function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
   return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
 }
 
-const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
+const StyledIcon = styled.span.attrs(applyBaseTheme)<
+  StyledIconProps & StyledIconInternalProps
+>`
   ${({
     theme,
     color,
@@ -99,33 +99,24 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
     hasTooltip,
   }) => {
     let finalColor = "var(--colorsYin090)";
-    let finalHoverColor = "var(--colorsYin090)";
     let bgColor = "transparent";
-    let bgHoverColor = "transparent";
 
     const win = getWindow();
     const nav = getNavigator();
     const adjustedBgSize = adjustIconBgSize(fontSize, bgSize);
 
-    try {
-      if (disabled) {
-        finalColor = "var(--colorsYin030)";
-        finalHoverColor = "var(--colorsYin030)";
-      } else if (color) {
-        const { color: renderedColor } = styledColor({ color, theme });
-        finalColor = renderedColor;
-        finalHoverColor = shade(0.2, getColorValue(renderedColor));
-      }
-
-      if (bg) {
-        const { backgroundColor } = styledColor({ bg, theme });
-        bgColor = backgroundColor;
-        bgHoverColor = shade(0.2, getColorValue(backgroundColor));
-      }
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
+    if (disabled) {
+      finalColor = "var(--colorsYin030)";
+    } else if (color) {
+      const { color: renderedColor } = styledColor({ color, theme });
+      finalColor = renderedColor;
     }
+
+    if (bg) {
+      const { backgroundColor } = styledColor({ bg, theme });
+      bgColor = backgroundColor;
+    }
+
     return css`
       position: relative;
       color: ${finalColor};
@@ -140,9 +131,8 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
 
       ${isInteractive &&
       css`
-        &:hover {
-          color: ${finalHoverColor};
-          background-color: ${bgHoverColor};
+        &:not(:focus):hover {
+          filter: brightness(0.9);
         }
       `}
 
@@ -191,9 +181,5 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
     `;
   }}
 `;
-
-StyledIcon.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledIcon;

@@ -9,7 +9,7 @@ import StyledLabel, {
   StyledLabelContainer,
 } from "../../__internal__/label/label.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { ValidationProps } from "../../__internal__/validations";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
@@ -24,7 +24,7 @@ export interface StyledCheckboxProps extends ValidationProps, MarginProps {
   applyNewValidation?: boolean;
 }
 
-const StyledCheckbox = styled.div<StyledCheckboxProps>`
+const StyledCheckbox = styled.div.attrs(applyBaseTheme)<StyledCheckboxProps>`
   margin-bottom: var(--fieldSpacing);
   ${margin}
   ${({
@@ -208,9 +208,5 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
     `}
   `}
 `;
-
-StyledCheckbox.defaultProps = {
-  theme: baseTheme,
-};
 
 export default StyledCheckbox;

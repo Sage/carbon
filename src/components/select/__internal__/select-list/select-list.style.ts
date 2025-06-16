@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../../../style/themes";
+import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 
 interface StyledSelectListProps {
   listHeight?: number;
@@ -105,7 +105,9 @@ interface StyledSelectListContainerProps {
   placement?: string;
 }
 
-const StyledSelectListContainer = styled.div<StyledSelectListContainerProps>`
+const StyledSelectListContainer = styled.div.attrs(
+  applyBaseTheme,
+)<StyledSelectListContainerProps>`
   background-color: white;
 
   box-shadow: var(--boxShadow100);
@@ -152,10 +154,6 @@ const StyledScrollableContainer = styled.div<{
       border-bottom-right-radius: var(--borderRadius050);
     `}
 `;
-
-StyledSelectListContainer.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledSelectList,

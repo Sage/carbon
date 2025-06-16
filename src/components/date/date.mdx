@@ -100,14 +100,17 @@ You can use the `isOptional` prop to indicate if the field is optional.
 ### Locale override
 
 The examples below illustrate how to override the locale passed into the Date component. The first example has been set up for
-the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale. Required locales can be imported like so `import { de, zhCN } from 'date-fns/locale';`
+the German (`de`) locale whilst the second is for a Chinese (`zh-CN`) locale. 
+
+Required locales can be imported from date-fns like so: `import { de, zhCN } from 'date-fns/locale';`
 
 <Canvas of={DateStories.LocaleOverrideExampleImplementation} />
 
 ### Locale format override
 
-You can also override the format used to display dates in the date picker via the `dateFormatOverride` property. In the example below, the German locale is used
-but the date format has been overridden to `yyyy-M-d` as opposed to the default `dd.MM.yyyy`.
+You can also override the default date format for a specific locale by passing a `dateFormatOverride` prop to the `DateInput` component or alternatively, 
+you can use the `date.dateFormatOverride` translation key. 
+The example below demonstrates how you can override the default date format for the German locale (`dd.MM.yyyy`), please note that the prop will take precedence over the translation key.
 
 <Canvas of={DateStories.LocaleFormatOverrideExampleImplementation} />
 
@@ -184,6 +187,13 @@ The following keys are available to override the translations for this component
       name: "date.ariaLabels.nextMonthButton",
       description:
         "Aria label text for the next month navigation button in the date picker",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "date.dateFormatOverride",
+      description:
+        "Override the default date format for a specific locale.",
       type: "func",
       returnType: "string",
     },

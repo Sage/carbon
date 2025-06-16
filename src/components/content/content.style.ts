@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 import { MarginProps, margin } from "styled-system";
 
-import { baseTheme } from "../../style/themes";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 export type AlignOptions = "left" | "center" | "right";
 export type VariantOptions = "primary" | "secondary";
@@ -17,7 +17,7 @@ export interface StyledContentProps extends MarginProps {
   bodyFullWidth?: boolean;
 }
 
-const StyledContent = styled.div<StyledContentProps>`
+const StyledContent = styled.div.attrs(applyBaseTheme)<StyledContentProps>`
   ${({ bodyFullWidth, align }) => css`
     ${margin}
 
@@ -35,8 +35,6 @@ const StyledContent = styled.div<StyledContentProps>`
     `}
   `}
 `;
-
-StyledContent.defaultProps = { theme: baseTheme };
 
 export interface StyledContentTitleProps {
   /** Aligns the content (left, center or right) */
