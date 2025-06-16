@@ -2,6 +2,14 @@ import styled, { css, SimpleInterpolation } from "styled-components";
 import StyledIcon from "../icon/icon.style";
 import type { StyledLinkProps } from "./link.style.types";
 
+export const StyledAnchor = styled.a<{ $styles?: SimpleInterpolation }>`
+  ${({ $styles }) => $styles}
+`;
+
+export const StyledButton = styled.button<{ $styles?: SimpleInterpolation }>`
+  ${({ $styles }) => $styles}
+`;
+
 export const StyledLinkStyles = (
   props: StyledLinkProps,
 ): SimpleInterpolation => {
@@ -73,16 +81,15 @@ export const StyledLinkStyles = (
         css`
           display: inline-block;
           padding: 11px 16px 12px;
-        `}
 
-        ${maxWidth &&
-        css`
-          max-width: inherit;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          vertical-align: bottom;
-          white-space: nowrap;
-          display: inline-block;
+          ${maxWidth &&
+          css`
+            max-width: inherit;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: bottom;
+            white-space: nowrap;
+          `}
         `}
 
         ${!disabled &&

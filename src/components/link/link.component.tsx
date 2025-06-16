@@ -44,7 +44,6 @@ export interface LinkProps
           | React.KeyboardEvent<HTMLAnchorElement>
           | React.KeyboardEvent<HTMLButtonElement>,
       ) => void);
-
   /** KeyDown event handler (e.g., for keyboard navigation or shortcuts) */
   onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   /** MouseDown event handler */
@@ -65,6 +64,8 @@ export interface LinkProps
   variant?: Variants;
   /** If true, adjusts styles for use on a dark background */
   isDarkBackground?: boolean;
+  /** When set, applies text overflow styles (for use in e.g., MenuItem) */
+  maxWidth?: StyledLinkProps["maxWidth"];
 }
 
 const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
@@ -90,6 +91,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       removeAriaLabelOnIcon,
       tooltipMessage,
       tooltipPosition,
+      maxWidth,
       ...rest
     },
     ref,
@@ -138,6 +140,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       hasContent: Boolean(children),
       hasFocus,
       isDarkBackground,
+      maxWidth,
     });
 
     const isBackButton = rest["data-role"] === "heading-back-button";
@@ -146,6 +149,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
     const mouseOnClick = onClick as
       | React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
       | undefined;
+
     return (
       <BaseLink
         ref={ref}
@@ -177,4 +181,5 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
 );
 
 Link.displayName = "Link";
+
 export default Link;

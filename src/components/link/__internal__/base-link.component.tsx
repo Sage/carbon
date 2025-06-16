@@ -1,9 +1,4 @@
-import React, {
-  forwardRef,
-  useCallback,
-  MutableRefObject,
-  ReactNode,
-} from "react";
+import React, { forwardRef, useCallback, MutableRefObject } from "react";
 import type { SimpleInterpolation } from "styled-components";
 import StyledBaseLinkWrapper from "../__internal__/base-link.style";
 
@@ -11,10 +6,10 @@ export interface BaseLinkProps {
   /** The href attribute. If provided, renders an anchor (<a>) tag; otherwise, renders a button. */
   href?: string;
   /** The content inside the link or button. */
-  children: ReactNode;
-  /** Custom styled-components CSS passed to the wrapper. */
+  children: React.ReactNode;
+  /** Custom styled-components CSS passed to the wrapper (used with styled-components). */
   customStyles?: SimpleInterpolation;
-  /** Called when the link or button is clicked. */
+  /** Called when the link or button is clicked (supports mouse and keyboard triggers). */
   onClick?:
     | React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
     | ((
@@ -42,14 +37,10 @@ export interface BaseLinkProps {
   disabled?: boolean;
   /** Optional CSS class to apply to the component. */
   className?: string;
-  /** Role for automation/testing (e.g., 'link-anchor', 'menu-item-wrapper'). */
-  "data-role"?: string;
-  /** Test ID for testing utilities. */
+  /** Optional test ID for querying the link in tests. */
   "data-testid"?: string;
-  /** Allows passing additional custom data attributes. */
-  [key: `data-${string}`]: string | undefined;
-  /** Allows passing additional custom aria attributes. */
-  [key: `aria-${string}`]: string | undefined;
+  /** Optional data-role attribute used for automation or styling. */
+  "data-role"?: string;
 }
 
 export const BaseLink = forwardRef<
@@ -65,19 +56,35 @@ export const BaseLink = forwardRef<
     onMouseDown,
     onFocus,
     onBlur,
-    "data-role": dataRole = "link-anchor",
+    rel,
+    target,
+    disabled,
+    className,
     ariaLabel,
+    "data-testid": providedTestId,
+    "data-role": providedDataRole,
     ...rest
   } = props;
 
-  const componentProps = {
+  const finalTestId = providedTestId || "link-anchor";
+  const finalDataRole =
+    providedDataRole === "crumb"
+      ? "link-anchor"
+      : (providedDataRole ?? "link-anchor");
+
+  const commonProps = {
     onClick,
     onKeyDown,
     onMouseDown,
     onFocus,
     onBlur,
+    rel,
+    target,
+    disabled,
+    className,
     "aria-label": ariaLabel,
-    "data-role": dataRole,
+    "data-testid": finalTestId,
+    "data-role": finalDataRole,
     ...rest,
   };
 
@@ -99,16 +106,16 @@ export const BaseLink = forwardRef<
     [ref],
   );
 
-  const isButton = onClick && !href;
+  const renderAsButton = onClick && !href;
 
   return (
     <StyledBaseLinkWrapper $styles={customStyles}>
-      {isButton ? (
-        <button type="button" ref={setButtonRef} {...componentProps}>
+      {renderAsButton ? (
+        <button type="button" ref={setButtonRef} {...commonProps}>
           {children}
         </button>
       ) : (
-        <a href={href} ref={setAnchorRef} {...componentProps}>
+        <a href={href} ref={setAnchorRef} {...commonProps}>
           {children}
         </a>
       )}
@@ -117,3 +124,4 @@ export const BaseLink = forwardRef<
 });
 
 BaseLink.displayName = "BaseLink";
+export default BaseLink;
