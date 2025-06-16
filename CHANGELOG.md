@@ -1,3 +1,9 @@
+## [154.10.0](https://github.com/Sage/carbon/compare/v154.9.0...v154.10.0) (2025-06-16)
+
+### Features
+
+* **menu-item:** allow nodes to be passed to the submenu prop ([d97094c](https://github.com/Sage/carbon/commit/d97094c32c9e3b733baba70586433533cc1cc2c7)), closes [#7353](https://github.com/Sage/carbon/issues/7353)
+
 ## [154.9.0](https://github.com/Sage/carbon/compare/v154.8.0...v154.9.0) (2025-06-16)
 
 ### Features
