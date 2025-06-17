@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import applyBaseTheme from "../../style/themes/apply-base-theme";
+import applyBaseTheme from "../../style/themes/base/index";
 import { StyledLinkPreview } from "../link-preview/link-preview.style";
 import { VARIANT_TYPES } from "../typography/typography.component";
 
