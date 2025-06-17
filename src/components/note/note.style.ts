@@ -61,7 +61,7 @@ const StyledTitleWrapper = styled.div`
   }
 
   ${VARIANT_TYPES.map(
-  (variant) => `
+    (variant) => `
       ${variant}{
         font-weight: 700;
         font-size: 16px;
@@ -69,7 +69,7 @@ const StyledTitleWrapper = styled.div`
         padding-bottom: 16px;
       }
     `,
-)}
+  )}
 `;
 
 const StyledFooterContent = styled.div<{ hasName: boolean }>`
@@ -123,7 +123,7 @@ const StyledFooter = styled.div`
   flex-wrap: wrap;
 `;
 
-const StyledNote = styled.div.attrs(applyBaseTheme) <{ width: number }>`
+const StyledNote = styled.div.attrs(applyBaseTheme)<{ width: number }>`
   ${({ width }) => css`
     background-color: var(--colorsUtilityYang100);
     border: 1px solid var(--colorsUtilityMajor100);
