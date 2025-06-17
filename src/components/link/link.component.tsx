@@ -7,13 +7,13 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 
-import type { StyledLinkProps, Variants } from "./link.style.types";
+import type { StyledLinkProps, Variants } from "./link.style";
 import { StyledLinkStyles, StyledContent } from "./link.style";
 import { BaseLink } from "./__internal__/base-link.component";
 import type { IconType } from "../icon";
 
 export interface LinkProps
-  extends React.AriaAttributes,
+  extends Omit<React.AriaAttributes, "aria-current">,
     TagProps,
     Omit<StyledLinkProps, "variant"> {
   /** If provided, renders an anchor (`<a>`) tag; otherwise, renders a button */
@@ -34,6 +34,20 @@ export interface LinkProps
   rel?: string;
   /** Aria label for screen readers. Required if no visible content is present */
   ariaLabel?: string;
+  /** Indicates if this link represents the current page (used in breadcrumbs) */
+  isCurrent?: boolean;
+  /** Indicates the current item within a set of elements (e.g., "page" for current page in breadcrumbs). */
+  "aria-current"?:
+    | boolean
+    | "false"
+    | "true"
+    | "page"
+    | "step"
+    | "location"
+    | "date"
+    | "time";
+  /** @private @internal @ignore */
+  "data-component"?: string;
   /** Click event handler (mouse or keyboard). Accepts both mouse and keyboard events */
   onClick?:
     | React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
@@ -92,6 +106,8 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
       tooltipMessage,
       tooltipPosition,
       maxWidth,
+      isCurrent,
+      "data-component": dataComponent,
       ...rest
     },
     ref,
@@ -144,7 +160,13 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
     });
 
     const isBackButton = rest["data-role"] === "heading-back-button";
+    const isCrumb = rest["data-role"] === "crumb";
     const accessibleLabel = ariaLabel || (isBackButton ? "Back" : undefined);
+
+    const ariaCurrent =
+      isCrumb && (isCurrent || rest["aria-current"])
+        ? "page"
+        : rest["aria-current"];
 
     const mouseOnClick = onClick as
       | React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
@@ -157,6 +179,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         rel={rel}
         target={target}
         aria-label={accessibleLabel}
+        aria-current={ariaCurrent}
         className={className}
         onClick={mouseOnClick}
         onKeyDown={onKeyDown}
@@ -165,7 +188,7 @@ const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
         onBlur={handleBlur}
         disabled={isDisabled}
         customStyles={customStyles}
-        {...tagComponent("link", rest)}
+        {...tagComponent(dataComponent || "link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
       >
         {renderIcon("left")}

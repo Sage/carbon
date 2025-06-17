@@ -1,14 +1,18 @@
 import type { Page } from "@playwright/test";
-import { link } from "..";
 import { SKIP_LINK } from "./locators";
 
-// component preview locators
+export const link = (page: Page) => {
+  return page.locator('[data-component="link"]');
+};
+
 export const linkChildren = (page: Page) => {
-  return link(page).locator("a, button");
+  return link(page);
 };
 
 export const skipLink = (page: Page) => {
-  return page.locator(SKIP_LINK).locator("a");
+  return page.locator(SKIP_LINK).locator('[data-component="link"]');
 };
 
-export const relLink = (page: Page) => link(page).locator("a");
+export const relLink = (page: Page) => {
+  return page.locator('a[data-component="link"]');
+};
