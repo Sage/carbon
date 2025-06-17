@@ -29,16 +29,6 @@ export interface BaseLinkProps {
   onBlur?: React.FocusEventHandler<HTMLElement>;
   /** Sets an accessible label via aria-label for screen readers. */
   ariaLabel?: string;
-  /** Indicates the current item within a set of elements (e.g., "page" for current page in breadcrumbs). */
-  "aria-current"?:
-    | boolean
-    | "false"
-    | "true"
-    | "page"
-    | "step"
-    | "location"
-    | "date"
-    | "time";
   /** Specifies the relationship between the current document and the linked one. */
   rel?: string;
   /** Specifies where to open the linked document (e.g., _blank, _self). */
@@ -51,8 +41,6 @@ export interface BaseLinkProps {
   "data-testid"?: string;
   /** Optional data-role attribute used for automation or styling. */
   "data-role"?: string;
-  /** @private @internal @ignore */
-  "data-component"?: string;
 }
 
 export const BaseLink = forwardRef<
@@ -73,10 +61,8 @@ export const BaseLink = forwardRef<
     disabled,
     className,
     ariaLabel,
-    "aria-current": ariaCurrent,
     "data-testid": providedTestId,
     "data-role": providedDataRole,
-    "data-component": dataComponent,
     ...rest
   } = props;
 
@@ -97,10 +83,8 @@ export const BaseLink = forwardRef<
     disabled,
     className,
     "aria-label": ariaLabel,
-    "aria-current": ariaCurrent,
     "data-testid": finalTestId,
     "data-role": finalDataRole,
-    "data-component": "link",
     ...rest,
   };
 
@@ -127,12 +111,7 @@ export const BaseLink = forwardRef<
   return (
     <StyledBaseLinkWrapper $styles={customStyles}>
       {renderAsButton ? (
-        <button
-          type="button"
-          ref={setButtonRef}
-          {...commonProps}
-          aria-label={ariaLabel || "link-button"}
-        >
+        <button type="button" ref={setButtonRef} {...commonProps}>
           {children}
         </button>
       ) : (

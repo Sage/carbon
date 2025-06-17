@@ -92,6 +92,55 @@ export const StyledLinkStyles = (
     display: inline-flex;
     align-items: center;
 
+    ${isSkipLink &&
+    css`
+      > a,
+      > button {
+        position: absolute;
+        top: 8px;
+        left: 0px;
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+        font-size: var(--fontSizes100);
+        text-decoration: underline 4px solid;
+        text-decoration-thickness: 4px;
+        text-underline-offset: 3px;
+        color: var(--colorsActionMajorYin090);
+        background-color: rgb(255, 188, 25);
+        padding: 12px 24px;
+        border-radius: var(--borderRadius025);
+        box-shadow:
+          rgba(0, 20, 30, 0.1) 0px 10px 30px 0px,
+          rgba(0, 20, 30, 0.1) 0px 30px 60px 0px;
+        transition:
+          transform 0.2s ease,
+          opacity 0.2s ease;
+
+        &:focus {
+          transform: translateY(0);
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        > ${StyledIcon} {
+          display: ${hasContent ? "inline-block" : "inline"};
+          position: relative;
+          vertical-align: middle;
+
+          ${iconAlign === "left" &&
+          css`
+            margin-right: ${hasContent ? "var(--spacing050)" : 0};
+          `}
+
+          ${iconAlign === "right" &&
+          css`
+            margin-left: ${hasContent ? "var(--spacing100)" : 0};
+          `}
+        }
+      }
+    `}
+
     ${!isSkipLink &&
     css`
       > a,
