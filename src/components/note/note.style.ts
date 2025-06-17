@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import baseTheme from "../../style/themes/base";
+import applyBaseTheme from "../../style/themes/apply-base-theme";
 import { StyledLinkPreview } from "../link-preview/link-preview.style";
 import { VARIANT_TYPES } from "../typography/typography.component";
 
@@ -53,11 +53,13 @@ const StyledInlineControl = styled.div`
 const StyledTitleWrapper = styled.div`
   ${VARIANT_TYPES.map(
     (variant) => `
-${variant}{
-  line-height: 21px;
-  padding-bottom: 16px;
-}
-  `,
+      ${variant}{
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 21px;
+        padding-bottom: 16px;
+      }
+    `,
   )}
 `;
 
@@ -112,7 +114,7 @@ const StyledFooter = styled.div`
   flex-wrap: wrap;
 `;
 
-const StyledNote = styled.div<{ width: number }>`
+const StyledNote = styled.div.attrs(applyBaseTheme)<{ width: number }>`
   ${({ width }) => css`
     background-color: var(--colorsUtilityYang100);
     border: 1px solid var(--colorsUtilityMajor100);
@@ -147,10 +149,6 @@ const StyledNote = styled.div<{ width: number }>`
 
   ${margin}
 `;
-
-StyledNote.defaultProps = {
-  theme: baseTheme,
-};
 
 export {
   StyledNote,
