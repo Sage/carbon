@@ -51,6 +51,15 @@ const StyledInlineControl = styled.div`
 `;
 
 const StyledTitleWrapper = styled.div`
+  h3 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: 0px;
+    margin: 0px;
+    padding: 0px 0px var(--spacing200);
+  }
+
   ${VARIANT_TYPES.map(
     (variant) => `
       ${variant}{
@@ -136,7 +145,7 @@ const StyledNote = styled.div.attrs(applyBaseTheme)<{ width: number }>`
     margin: 0px;
 
     :not(:first-of-type) {
-      margin-top: 8px;
+      margin-top: var(--spacing100); // FIXED: Use CSS custom property
     }
   }
 
