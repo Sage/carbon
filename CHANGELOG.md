@@ -1,3 +1,15 @@
+## [154.10.0](https://github.com/Sage/carbon/compare/v154.9.0...v154.10.0) (2025-06-16)
+
+### Features
+
+* **menu-item:** allow nodes to be passed to the submenu prop ([d97094c](https://github.com/Sage/carbon/commit/d97094c32c9e3b733baba70586433533cc1cc2c7)), closes [#7353](https://github.com/Sage/carbon/issues/7353)
+
+## [154.9.0](https://github.com/Sage/carbon/compare/v154.8.0...v154.9.0) (2025-06-16)
+
+### Features
+
+* **responsive-vertical-menu:** fix stale menu bug when child items change ([af33cc8](https://github.com/Sage/carbon/commit/af33cc8bd28a141158bd6db52ce2226072f265d2))
+
 ## [154.8.0](https://github.com/Sage/carbon/compare/v154.7.4...v154.8.0) (2025-06-11)
 
 ### Features
