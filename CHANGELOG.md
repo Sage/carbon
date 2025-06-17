@@ -1,3 +1,9 @@
+## [154.10.1](https://github.com/Sage/carbon/compare/v154.10.0...v154.10.1) (2025-06-17)
+
+### Bug Fixes
+
+* **popover-container:** aria hidden elements must not be focusable ([44cd2bb](https://github.com/Sage/carbon/commit/44cd2bb374ebe8fc54bee24a3bb9c9ddea2ccbf8)), closes [#7350](https://github.com/Sage/carbon/issues/7350)
+
 ## [154.10.0](https://github.com/Sage/carbon/compare/v154.9.0...v154.10.0) (2025-06-16)
 
 ### Features
