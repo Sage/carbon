@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 
 import { StoryObj } from "@storybook/react/*";
 import AdaptiveSidebar from ".";
@@ -451,6 +451,77 @@ ExampleImplementation.decorators = [
 
 ExampleImplementation.parameters = {
   chromatic: { disableSnapshot: false, viewports: [1200, 900] },
+  layout: "fullscreen",
+  themeProvider: {
+    chromatic: { theme: "sage" },
+  },
+};
+
+export const WithDropdown: StoryObj = () => {
+  // This is to ensure the select dropdown opens when the page loads
+  const selectRef = React.useRef<HTMLInputElement>(null);
+  useLayoutEffect(() => {
+    selectRef.current?.focus();
+  }, []);
+
+  return (
+    <Box margin="var(--spacing200)" display="flex" flexDirection="row">
+      <Box width="50%" display="flex" flexDirection="column">
+        <Typography variant="h1">Page content</Typography>
+        <Select
+          ref={selectRef}
+          openOnFocus
+          name="simple"
+          id="simple"
+          label="open dropdown and decrease screen size until sidebar changes to modal"
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </Select>
+      </Box>
+      <AdaptiveSidebar open width="50%">
+        <Typography variant="h1">Sidebar content</Typography>
+        <Select
+          name="simple-2"
+          id="simple-2"
+          label="open to test that the input and dropdowns show when the adaptive sidebar is open & triggered"
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </Select>
+      </AdaptiveSidebar>
+    </Box>
+  );
+};
+
+WithDropdown.decorators = [
+  (Story) => (
+    <Box height="100vh" width="100vw">
+      <Story />
+    </Box>
+  ),
+];
+
+WithDropdown.parameters = {
+  chromatic: { disableSnapshot: false, viewports: [767, 900] },
   layout: "fullscreen",
   themeProvider: {
     chromatic: { theme: "sage" },

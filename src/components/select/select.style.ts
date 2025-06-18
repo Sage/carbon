@@ -44,7 +44,8 @@ const StyledSelect = styled.div.attrs(applyBaseTheme)<StyledSelectProps>`
 
       ${isOpen &&
       css`
-        z-index: ${theme.zIndex.aboveAll};
+        /* If behind an adaptive sidebar, use the backdrop z-index value, if not default to original z-index value */
+        z-index: var(--adaptiveSidebarModalBackdrop, ${theme.zIndex.aboveAll});
       `}
 
       ${disabled &&

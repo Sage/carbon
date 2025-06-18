@@ -3,6 +3,7 @@ import {
   TAB_GUARD_TOP,
   TAB_GUARD_BOTTOM,
 } from "../__internal__/focus-trap/focus-trap.component";
+import { baseTheme } from "./themes";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -28,6 +29,11 @@ const GlobalStyle = createGlobalStyle`
 
   [data-element=${TAB_GUARD_TOP}], [data-element=${TAB_GUARD_BOTTOM}] {
     position: fixed;
+  }
+
+  body:has(.adaptive-sidebar-modal-view) {
+  --adaptiveSidebarModalBackdrop: ${baseTheme.zIndex.overlay};
+  
   }
 `;
 
