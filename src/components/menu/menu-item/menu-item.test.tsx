@@ -749,7 +749,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[2]).toHaveFocus();
   });
 
-  it("opens the submenu when the 'ArrowUp' key is pressed, then moves focus to the previous submenu items on subsequent presses", async () => {
+  it("moves focus to the previous submenu item when 'ArrowUp' key is pressed", async () => {
     const user = userEvent.setup();
     render(
       <Menu>
@@ -762,7 +762,7 @@ describe("when MenuItem has a submenu", () => {
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
     await user.tab();
-    await user.keyboard("{arrowup}");
+    await user.keyboard("{Enter}");
     const submenuItems = screen.getAllByRole("link");
 
     expect(submenuParentItem).toHaveFocus();
@@ -1158,27 +1158,6 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItem).toHaveFocus();
   });
 
-  it("should focus the first item when parent has `href` user presses 'arrowup' key twice", async () => {
-    const user = userEvent.setup();
-    render(
-      <Menu>
-        <MenuItem href="#" submenu="Item One">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
-          <MenuItem href="#">Submenu Item Three</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-    const submenuParentItem = screen.getByRole("link", { name: "Item One" });
-    await user.click(submenuParentItem);
-    await user.unhover(submenuParentItem);
-    await user.keyboard("{arrowup}");
-    await user.keyboard("{arrowup}");
-    const submenuItem = screen.getByRole("link", { name: "Submenu Item One" });
-
-    expect(submenuItem).toHaveFocus();
-  });
-
   it("maintains focus on the menu item when `submenu` is initially opened via click, closed via mouseout and then 'arrowdown' key pressed", async () => {
     const user = userEvent.setup();
     render(
@@ -1199,33 +1178,6 @@ describe("when MenuItem has a submenu", () => {
     await user.click(submenuParentButton);
     await user.unhover(submenuParentButton);
     await user.keyboard("{arrowdown}");
-
-    const submenu = await within(submenuParentItem).findByRole("list");
-    const menuItem = screen.getByRole("button", { name: "Item One" });
-
-    expect(submenu).toBeVisible();
-    expect(menuItem).toHaveFocus();
-  });
-
-  it("maintains focus on the menu item when `submenu` is initially initially opened via click, closed via mouseout and then 'arrowup' key pressed", async () => {
-    const user = userEvent.setup();
-    render(
-      <Menu>
-        <MenuItem submenu="Item One">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
-          <MenuItem href="#">Submenu Item Three</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-    const submenuParentItem = screen.getByRole("listitem");
-    const submenuParentButton = screen.getByRole("button", {
-      name: "Item One",
-    });
-
-    await user.click(submenuParentButton);
-    await user.unhover(submenuParentButton);
-    await user.keyboard("{arrowup}");
 
     const submenu = await within(submenuParentItem).findByRole("list");
     const menuItem = screen.getByRole("button", { name: "Item One" });

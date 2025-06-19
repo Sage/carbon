@@ -23,7 +23,7 @@ import {
 } from "../../../playwright/components";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const;
-const keysToTrigger = ["Enter", "Space", "ArrowDown", "ArrowUp"] as const;
+const keysToTrigger = ["Enter", "Space", "ArrowDown"] as const;
 
 test.describe("Prop tests", () => {
   testData.forEach((text) => {

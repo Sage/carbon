@@ -285,8 +285,7 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
           if (
             Events.isEnterKey(event) ||
             Events.isSpaceKey(event) ||
-            Events.isDownKey(event) ||
-            Events.isUpKey(event)
+            Events.isDownKey(event)
           ) {
             event.preventDefault();
             openSubmenu();

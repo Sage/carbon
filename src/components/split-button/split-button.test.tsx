@@ -492,25 +492,6 @@ test("should render the child buttons when a 'ArrowDown' keydown event detected 
   expect(toggle).toHaveFocus();
 });
 
-test("should render the child buttons when a 'ArrowUp' keydown event detected and toggle button is focused", async () => {
-  const user = userEvent.setup();
-  render(
-    <SplitButton text="Main">
-      <Button>Single Button</Button>
-    </SplitButton>,
-  );
-
-  const toggle = screen.getByRole("button", { name: "Show more" });
-  toggle.focus();
-  await user.keyboard("{arrowUp}");
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
-  });
-
-  expect(childButton).toBeVisible();
-  expect(toggle).toHaveFocus();
-});
-
 test("should not render the child buttons when a keydown event detected with unrelated key and toggle button is focused", async () => {
   const user = userEvent.setup();
   render(

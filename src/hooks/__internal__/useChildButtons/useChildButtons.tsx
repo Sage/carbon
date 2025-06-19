@@ -39,10 +39,7 @@ const useChildButtons = (
     ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
     const isToggleKey =
-      Events.isEnterKey(ev) ||
-      Events.isSpaceKey(ev) ||
-      Events.isDownKey(ev) ||
-      Events.isUpKey(ev);
+      Events.isEnterKey(ev) || Events.isSpaceKey(ev) || Events.isDownKey(ev);
 
     if (isToggleKey && !showAdditionalButtons) {
       ev.preventDefault();

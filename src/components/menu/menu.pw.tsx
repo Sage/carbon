@@ -112,24 +112,6 @@ test.describe("Prop tests for Menu component", () => {
     await expect(menuItemFour).toHaveCSS("box-shadow", "none");
   });
 
-  test(`should verify a submenu can be navigated using keyboard down arrow after an item was clicked`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MenuComponent />);
-
-    const subMenu = submenu(page).first();
-    await subMenu.hover();
-    const menuItemThree = innerMenu(page, 2, span).first();
-    await menuItemThree.click();
-    await page.keyboard.press("ArrowDown");
-    const focusedElement1 = page.locator("*:focus");
-    await expect(focusedElement1).toContainText("Item Submenu Three");
-    await page.keyboard.press("ArrowDown");
-    const focusedElement2 = page.locator("*:focus");
-    await expect(focusedElement2).toContainText("Item Submenu Four");
-  });
-
   test(`should verify a submenu can be navigated using keyboard shift + tabbing after an item was clicked`, async ({
     mount,
     page,
@@ -346,7 +328,7 @@ test.describe("Prop tests for Menu component", () => {
     );
   });
 
-  ["Enter", "Space", "ArrowDown", "ArrowUp"].forEach((key) => {
+  ["Enter", "Space", "ArrowDown"].forEach((key) => {
     test(`should verify menu opens using ${key} key when clickToOpen prop is true`, async ({
       mount,
       page,
@@ -1495,7 +1477,7 @@ test.describe("Event tests for Menu component", () => {
     expect(callbackCount).toBe(1);
   });
 
-  ["Space", "Enter", "ArrowDown", "ArrowUp"].forEach((key) => {
+  ["Space", "Enter", "ArrowDown"].forEach((key) => {
     test(`should call onSubmenuOpen callback when a ${key} keyboard event is triggered`, async ({
       mount,
       page,
