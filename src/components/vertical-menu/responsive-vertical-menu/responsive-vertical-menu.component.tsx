@@ -124,7 +124,14 @@ const BaseMenu = ({
   }, [active, measureDimensions, menu, responsiveMode]);
 
   useEffect(() => {
-    const handleBlur = () => {
+    const handleBlur = (event: FocusEvent) => {
+      /* If the blur event's composed path includes the button return early as it is not a valid focusout event.
+      The focusout event is sometimes triggered within Safari during programmatic focus, which currently occurs 
+      in the Button component. */
+      if (event.composedPath().includes(buttonRef.current as EventTarget)) {
+        return;
+      }
+
       setTimeout(() => {
         if (
           containerRef.current &&
