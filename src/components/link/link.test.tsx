@@ -241,6 +241,26 @@ describe("StyledLinkStyles Function Tests", () => {
     expect(result).toBeDefined();
   });
 
+  test("StyledLinkStyles skip link right icon margin conditions", () => {
+    const withContentResult = StyledLinkStyles({
+      isSkipLink: true,
+      iconAlign: "right",
+      hasContent: true,
+    });
+
+    const withoutContentResult = StyledLinkStyles({
+      isSkipLink: true,
+      iconAlign: "right",
+      hasContent: false,
+    });
+
+    expect(withContentResult).toBeDefined();
+    expect(withoutContentResult).toBeDefined();
+
+    expect(typeof withContentResult).toBe("object");
+    expect(typeof withoutContentResult).toBe("object");
+  });
+
   test("StyledLinkStyles variants", () => {
     const variants = ["default", "negative", "neutral"];
 

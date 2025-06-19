@@ -67,14 +67,15 @@ export const StyledLinkStyles = (
       };
     },
     dark: (v?: StyledLinkProps["variant"]) => {
-      let color = "var(--colorsActionMajor350)";
-      let hoverColor = "var(--colorsActionMajor450)";
+      let color = "var(--colorsActionMajorYang100)"; // White/very light for dark backgrounds
+      let hoverColor = "var(--colorsActionMajorYang100)";
 
       if (v === "negative") {
-        color = "var(--colorsSemanticNegative350)";
-        hoverColor = "var(--colorsSemanticNegative450)";
+        color = "var(--colorsSemanticNegative100)";
+        hoverColor = "var(--colorsSemanticNegative200)";
       } else if (v === "neutral") {
         color = "var(--colorsActionMinor100)";
+        hoverColor = "var(--colorsActionMajorYang100)";
       }
 
       return {

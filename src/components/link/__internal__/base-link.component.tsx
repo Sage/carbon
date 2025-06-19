@@ -41,6 +41,8 @@ export interface BaseLinkProps {
   "data-testid"?: string;
   /** Optional data-role attribute used for automation or styling. */
   "data-role"?: string;
+  /** Indicates the current item in a set of related links. */
+  "aria-current"?: "page" | "step" | "location" | "date" | "time" | boolean;
 }
 
 export const BaseLink = forwardRef<
