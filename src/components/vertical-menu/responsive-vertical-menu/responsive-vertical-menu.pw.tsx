@@ -265,3 +265,18 @@ test.describe("accessibility tests", () => {
     await checkAccessibility(page);
   });
 });
+
+test.describe("focus tests", () => {
+  test(`closes menu when focus is lost`, async ({ mount, page }) => {
+    await mount(<ResponsiveVerticalMenuDefaultComponent />);
+
+    await expect(responsiveVerticalMenuLauncher(page)).toBeVisible();
+    await responsiveVerticalMenuLauncher(page).click();
+
+    await page.keyboard.press("Tab", { delay: 100 });
+    await page.keyboard.press("Tab", { delay: 100 });
+    await page.keyboard.press("Tab", { delay: 100 });
+
+    await expect(page.locator("[id='primary-menu']")).not.toBeVisible();
+  });
+});

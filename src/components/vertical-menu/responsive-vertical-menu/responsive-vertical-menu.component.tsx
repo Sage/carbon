@@ -58,7 +58,6 @@ const BaseMenu = ({
     setResponsiveMode,
   } = useResponsiveVerticalMenu();
   const [active, setActive] = useState(false);
-  const [childItemCount, setChildItemCount] = useState(0);
   const largeScreen = useIsAboveBreakpoint(responsiveBreakpoint);
   const [left, setLeft] = useState("auto");
   const [responsiveWidth, setResponsiveWidth] = useState("100%");
@@ -67,6 +66,7 @@ const BaseMenu = ({
   const reduceMotion = !useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );
+  const previousChildCountRef = useRef(0);
 
   const { current: menu } = menuRef;
   const { current: button } = buttonRef;
@@ -124,21 +124,31 @@ const BaseMenu = ({
   }, [active, measureDimensions, menu, responsiveMode]);
 
   useEffect(() => {
-    const handleBlur = () => {
-      setTimeout(() => {
-        if (
-          containerRef.current &&
-          !containerRef.current.contains(document.activeElement)
-        ) {
-          setActive(false);
+    const handleBlur = (event: FocusEvent) => {
+      /* istanbul ignore if */
+      if (!containerRef.current) {
+        return;
+      }
+
+      const relatedTargetIsWithinContainer = containerRef.current.contains(
+        event.relatedTarget as Node,
+      );
+
+      if (!relatedTargetIsWithinContainer) {
+        /* istanbul ignore if */
+        if (event.relatedTarget === null) {
+          setTimeout(() => {
+            if (!activeMenuItem) {
+              setActive(false);
+            }
+          }, 10);
         }
-      }, 0);
+      }
     };
 
     const handleClose = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
-
         setActive(false);
       }
     };
@@ -156,7 +166,13 @@ const BaseMenu = ({
       window.removeEventListener("click", handleOutsideClick);
       currentContainer?.removeEventListener("focusout", handleBlur);
     };
-  }, [active, containerRef, handleOutsideClick, responsiveMode]);
+  }, [
+    active,
+    activeMenuItem,
+    containerRef,
+    handleOutsideClick,
+    responsiveMode,
+  ]);
 
   useEffect(() => {
     setReducedMotion?.(reduceMotion);
@@ -201,14 +217,14 @@ const BaseMenu = ({
   }, []);
 
   useEffect(() => {
-    const previousChildCount = childItemCount;
     const newChildCount = countChildren(children);
 
-    if (previousChildCount !== newChildCount) {
-      setChildItemCount(newChildCount);
+    /* istanbul ignore else */
+    if (previousChildCountRef.current !== newChildCount) {
+      previousChildCountRef.current = newChildCount;
       setActiveMenuItem(null);
     }
-  }, [childItemCount, children, countChildren, setActiveMenuItem]);
+  }, [children, countChildren, setActiveMenuItem]);
 
   return (
     <div ref={containerRef}>
