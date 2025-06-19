@@ -123,12 +123,39 @@ const BaseMenu = ({
     measureDimensions();
   }, [active, measureDimensions, menu, responsiveMode]);
 
+  const isResizingRef = useRef(false);
+  const resizeTimeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      isResizingRef.current = true;
+
+      if (resizeTimeoutRef.current !== null) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+
+      resizeTimeoutRef.current = window.setTimeout(() => {
+        isResizingRef.current = false;
+      }, 100);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (resizeTimeoutRef.current !== null) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     const handleBlur = () => {
       setTimeout(() => {
         if (
           containerRef.current &&
-          !containerRef.current.contains(document.activeElement)
+          !containerRef.current.contains(document.activeElement) &&
+          !isResizingRef.current
         ) {
           setActive(false);
         }
