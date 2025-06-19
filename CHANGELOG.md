@@ -1,3 +1,9 @@
+## [154.11.0](https://github.com/Sage/carbon/compare/v154.10.1...v154.11.0) (2025-06-19)
+
+### Features
+
+* **storybook:** introduce Play functions ([d22163f](https://github.com/Sage/carbon/commit/d22163fda8d0ef3b5a04b8c33939499f65fa6e26))
+
 ## [154.10.1](https://github.com/Sage/carbon/compare/v154.10.0...v154.10.1) (2025-06-17)
 
 ### Bug Fixes
