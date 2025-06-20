@@ -1,3 +1,9 @@
+## [154.11.2](https://github.com/Sage/carbon/compare/v154.11.1...v154.11.2) (2025-06-20)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure menu position is re-calculated on window resize ([eadf60f](https://github.com/Sage/carbon/commit/eadf60f93f656fb1763461cfbc79728cc2622b3f))
+
 ## [154.11.1](https://github.com/Sage/carbon/compare/v154.11.0...v154.11.1) (2025-06-20)
 
 ### Bug Fixes
