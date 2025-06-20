@@ -1,3 +1,9 @@
+## [154.11.1](https://github.com/Sage/carbon/compare/v154.11.0...v154.11.1) (2025-06-20)
+
+### Bug Fixes
+
+* **checkable-input:** fieldHelp is not supported with dark background ([a560d09](https://github.com/Sage/carbon/commit/a560d090a8c75602eaebb8aeb74a20bfc6ec24d7))
+
 ## [154.11.0](https://github.com/Sage/carbon/compare/v154.10.1...v154.11.0) (2025-06-19)
 
 ### Features
