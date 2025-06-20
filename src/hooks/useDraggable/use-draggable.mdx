@@ -1,0 +1,127 @@
+import { ArgTypes, Meta, Canvas } from "@storybook/addon-docs"
+
+import * as useDraggableStories from "./use-draggable.stories";
+
+<Meta title="Documentation/Hooks/useDraggable" />
+
+# useDraggable
+
+A React hook that makes any element draggable with zero dependencies. Built and maintained by Carbon for seamless drag-and-drop functionality.
+
+## Import
+
+```javascript
+import useDraggable, { UseDraggableHandle } from "carbon-react/lib/hooks/useDraggable";
+```
+
+## How it Works
+
+**Simple concept**: Every draggable item lives in a container. Pass an array of items to `useDraggable`, and it returns a container with those items now draggable.
+
+**Smart wrapping**: The hook wraps content while preserving its structure—text, components, or complex elements all work seamlessly.
+
+**Zero configuration**: IDs are optional. The hook auto-generates GUIDs or uses existing element IDs.
+
+## Key Attributes
+
+Draggable elements get these data attributes automatically:
+
+**Container**
+```jsx
+<div 
+  id="draggable-container"
+  data-drop-target-for-element="true"
+>
+```
+
+**Draggable Items**
+```jsx
+<div
+  data-parent-container-id="draggable-container"
+  data-item-id="1"
+  data-drag-state="idle" // idle, is-dragging, is-being-dragged-over
+  data-closest-edge="top" // top/bottom during drag-over
+  draggable="true"
+  data-drop-target-for-element="true"
+>
+```
+
+Use these attributes for custom styling and behavior.
+
+## Examples
+
+### Basic Usage
+
+<Canvas of={useDraggableStories.BasicImplementation} />
+
+### Drag Behavior
+
+Control when dragging happens with `dragType`:
+- `"continuous"` (default): Drag immediately on mouse down
+- `"onDrop"`: Only reorder on drop
+
+<Canvas of={useDraggableStories.DragType} />
+
+### Track Changes
+
+Get notified when items are reordered:
+
+```jsx
+const getOrder = (itemIds, movedItemId) => {
+  console.log('New order:', itemIds); // ["item1", "item3", "item2"]
+  console.log('Item moved:', movedItemId); // "item3"
+};
+```
+
+<Canvas of={useDraggableStories.GetOrderCallback} />
+
+### Programmatic Control
+
+Move items with code using a ref:
+
+```jsx
+const draggableRef = useRef();
+
+// Move item with id "item1" to position 2
+draggableRef.current?.reOrder("item1", 2);
+```
+
+<Canvas of={useDraggableStories.ManualReOrdering} />
+
+### Custom Elements
+
+Change the container and item HTML elements:
+
+<Canvas of={useDraggableStories.ContainerAndItemsNode} />
+
+### Visual Feedback
+
+Style based on drag state using the auto-generated attributes:
+
+```css
+[data-drag-state="is-dragging"] {
+  opacity: 0.5;
+}
+
+[data-drag-state="is-being-dragged-over"][data-closest-edge="top"] {
+  border-top: 2px solid blue;
+}
+```
+
+<Canvas of={useDraggableStories.DragState} />
+
+### Access Dragged Element
+
+Get a reference to the currently dragged element:
+
+<Canvas of={useDraggableStories.DraggedNode} />
+
+### With Custom IDs
+
+Provide your own container ID for predictable references:
+
+<Canvas of={useDraggableStories.WithIds} />
+
+## Parameters
+
+<ArgTypes of={useDraggableStories} />
