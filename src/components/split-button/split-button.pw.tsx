@@ -414,7 +414,6 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  // This now passes. I think it's because we've changed the popover to now have `disablePortal` prop as true.
   test(`should pass accessibility tests when open`, async ({ mount, page }) => {
     await mount(<SplitButtonList />);
 

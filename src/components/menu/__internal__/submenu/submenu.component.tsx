@@ -116,7 +116,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
     const [applyFocusRadius, setApplyFocusRadius] = useState<boolean>(false);
     const [applyFocusRadiusToLastItem, setApplyFocusRadiusToLastItem] =
       useState<boolean>(false);
-    const focusFirstMenuItemOnOpen = useRef(false);
 
     const numberOfChildren = submenuItemIds.length;
 
@@ -286,12 +285,10 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
           if (
             Events.isEnterKey(event) ||
             Events.isSpaceKey(event) ||
-            Events.isDownKey(event) ||
-            Events.isUpKey(event)
+            Events.isDownKey(event)
           ) {
             event.preventDefault();
             openSubmenu();
-            focusFirstMenuItemOnOpen.current = !href;
           }
         }
 
@@ -407,18 +404,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
         }
       }
     }, [children, submenuOpen, submenuRef]);
-
-    useEffect(() => {
-      if (
-        focusFirstMenuItemOnOpen.current &&
-        submenuOpen &&
-        !submenuFocusId &&
-        submenuItemIds.length
-      ) {
-        focusFirstMenuItemOnOpen.current = false;
-        setSubmenuFocusId(submenuItemIds[0]);
-      }
-    }, [submenuOpen, submenuFocusId, submenuItemIds]);
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
       openSubmenu();
