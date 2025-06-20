@@ -5,6 +5,7 @@ import {
   ResponsiveVerticalMenuItem,
   ResponsiveVerticalMenuProps,
   ResponsiveVerticalMenuProvider,
+  ResponsiveVerticalMenuDivider,
 } from ".";
 
 import Box from "../../box";
@@ -35,6 +36,7 @@ export const ResponsiveVerticalMenuDefaultComponent = (
               label="Secondary Menu Item"
             />
           </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuDivider />
           <ResponsiveVerticalMenuItem
             icon="home"
             id="primary-menu-no-children"
