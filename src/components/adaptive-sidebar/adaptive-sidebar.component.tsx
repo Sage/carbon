@@ -70,6 +70,7 @@ export const AdaptiveSidebar = ({
   if (renderAsModal || !largeScreen) {
     return (
       <StyledSidebar
+        className="adaptive-sidebar"
         backgroundColor={backgroundColor}
         open={open}
         p={0}

@@ -29,6 +29,11 @@ const GlobalStyle = createGlobalStyle`
   [data-element=${TAB_GUARD_TOP}], [data-element=${TAB_GUARD_BOTTOM}] {
     position: fixed;
   }
+
+  body:has(.adaptive-sidebar) {
+  --adaptiveSidebarBackdrop: 1000;
+  
+  }
 `;
 
 export default GlobalStyle;
