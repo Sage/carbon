@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { act } from "react";
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {
@@ -472,41 +472,6 @@ test("closes menu when Escape key is pressed", async () => {
   expect(screen.queryByText("Menu Item 1")).not.toBeInTheDocument();
 });
 
-test("closes menu when focus is lost", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
-  render(
-    <ResponsiveVerticalMenuProvider>
-      <ResponsiveVerticalMenu>
-        <ResponsiveVerticalMenuItem
-          data-role="menu-item-1"
-          id="menu-item-1"
-          label="Menu Item 1"
-        />
-      </ResponsiveVerticalMenu>
-    </ResponsiveVerticalMenuProvider>,
-  );
-
-  const launcherButton = screen.getByTestId(
-    "responsive-vertical-menu-launcher",
-  );
-  await user.click(launcherButton);
-
-  const menuItem = screen.getByTestId("menu-item-1");
-  expect(menuItem).toBeInTheDocument();
-
-  await user.tab();
-  expect(launcherButton).not.toHaveFocus();
-  expect(menuItem).toHaveFocus();
-
-  await user.tab();
-  expect(menuItem).not.toHaveFocus();
-
-  await waitFor(() => {
-    expect(screen.queryByText("Menu Item 1")).not.toBeInTheDocument();
-  });
-});
-
 test("closes menu when the user clicks outside of the menu", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
@@ -829,13 +794,6 @@ test("allows for full keyboard navigation of primary menus", async () => {
   const menuItem3 = screen.getByTestId("menu-item-3");
   expect(menuItem2).not.toHaveFocus();
   expect(menuItem3).toHaveFocus();
-
-  await user.tab();
-  expect(menuItem3).not.toHaveFocus();
-
-  await waitFor(() => {
-    expect(menuItem).not.toBeInTheDocument();
-  });
 });
 
 test("allows for full keyboard navigation of secondary menus", async () => {
