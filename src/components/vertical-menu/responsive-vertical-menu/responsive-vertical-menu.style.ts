@@ -57,7 +57,9 @@ export const StyledGlobalVerticalMenuWrapper = styled.div`
   width: fit-content;
 `;
 
-export const StyledResponsiveMenu = styled.div<StyledResponsiveMenuProps>`
+export const StyledResponsiveMenu = styled.ul<StyledResponsiveMenuProps>`
+  margin: 0;
+  padding: 0;
   align-items: center;
   background-color: var(--colorsUtilityYin100);
   box-sizing: border-box;

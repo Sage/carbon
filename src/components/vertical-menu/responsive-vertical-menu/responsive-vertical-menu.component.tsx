@@ -63,7 +63,7 @@ const BaseMenu = ({
   const [left, setLeft] = useState("auto");
   const [responsiveWidth, setResponsiveWidth] = useState("100%");
   const [top, setTop] = useState("auto");
-  const subMenuRef = useRef<HTMLDivElement>(null);
+  const subMenuRef = useRef<HTMLUListElement>(null);
   const reduceMotion = !useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)",
   );

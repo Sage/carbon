@@ -23,7 +23,7 @@ export interface MenuContextType {
   activeMenuItem: ResponsiveVerticalMenuButtonItem | null;
   buttonRef: RefObject<HTMLButtonElement>;
   containerRef: RefObject<HTMLDivElement>;
-  menuRef: RefObject<HTMLDivElement>;
+  menuRef: RefObject<HTMLUListElement>;
   reducedMotion?: boolean;
   responsiveMode?: boolean;
   setActiveMenuItem: (item: ResponsiveVerticalMenuButtonItem | null) => void;
@@ -56,7 +56,7 @@ export const ResponsiveVerticalMenuProvider = ({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const menuRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLUListElement>(null);
   const [responsiveMode, setResponsiveMode] = useState<boolean>(false);
   const [reducedMotion, setReducedMotion] = useState<boolean>(false);
 

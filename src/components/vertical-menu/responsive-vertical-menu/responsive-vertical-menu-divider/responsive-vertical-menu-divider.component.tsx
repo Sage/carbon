@@ -24,6 +24,7 @@ export const ResponsiveVerticalMenuDivider = (
       data-role="responsive-vertical-menu-divider"
       depth={depth}
       responsive={responsiveMode}
+      aria-hidden="true"
     >
       <StyledHr {...filterStyledSystemMarginProps(props)} />
     </StyledResponsiveVerticalMenuDivider>
