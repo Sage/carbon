@@ -16,8 +16,8 @@ import {
 } from "./responsive-vertical-menu.style";
 
 import Box from "../../box";
-
 import Modal from "../../modal";
+
 import useIsAboveBreakpoint from "../../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../../hooks/useMediaQuery";
 
@@ -26,6 +26,7 @@ import tagComponent, {
 } from "../../../__internal__/utils/helpers/tags";
 import { DepthProvider } from "./__internal__/depth.context";
 import { MenuFocusProvider } from "./__internal__/focus.context";
+import useLocale from "../../../hooks/__internal__/useLocale";
 
 export interface ResponsiveVerticalMenuProps extends TagProps {
   /** The content of the menu */
@@ -45,6 +46,7 @@ const BaseMenu = ({
   width,
   ...rest
 }: ResponsiveVerticalMenuProps) => {
+  const locale = useLocale();
   const {
     activeMenuItem,
     buttonRef,
@@ -56,6 +58,7 @@ const BaseMenu = ({
     setResponsiveMode,
   } = useResponsiveVerticalMenu();
   const [active, setActive] = useState(false);
+  const [childItemCount, setChildItemCount] = useState(0);
   const largeScreen = useIsAboveBreakpoint(responsiveBreakpoint);
   const [left, setLeft] = useState("auto");
   const [responsiveWidth, setResponsiveWidth] = useState("100%");
@@ -160,10 +163,60 @@ const BaseMenu = ({
     setResponsiveMode?.(!largeScreen);
   }, [largeScreen, reduceMotion, setReducedMotion, setResponsiveMode]);
 
+  const countChildren = useCallback((currentChildren: React.ReactNode) => {
+    // If there are no children, return 0
+    if (!currentChildren) {
+      return 0;
+    }
+
+    // If the content of children is a single React element, count it and check its children
+    if (React.isValidElement(currentChildren)) {
+      const nodeChildren: number = countChildren(
+        currentChildren.props.children,
+      );
+      return 1 + nodeChildren;
+    }
+
+    // If the content of children is an array of React elements, iterate through them
+    const childrenAsArray = React.Children.toArray(currentChildren);
+
+    /* istanbul ignore else */
+    if (childrenAsArray.length) {
+      const reducedChildren: number = childrenAsArray.reduce(
+        (acc: number, child: React.ReactNode) => {
+          /* istanbul ignore else */
+          if (React.isValidElement(child)) {
+            const total = acc + 1;
+            const childrenCount = countChildren(child.props.children);
+            return total + childrenCount;
+          }
+          return acc;
+        },
+        0,
+      );
+
+      return reducedChildren;
+    }
+    return 0;
+  }, []);
+
+  useEffect(() => {
+    const previousChildCount = childItemCount;
+    const newChildCount = countChildren(children);
+
+    if (previousChildCount !== newChildCount) {
+      setChildItemCount(newChildCount);
+      setActiveMenuItem(null);
+    }
+  }, [childItemCount, children, countChildren, setActiveMenuItem]);
+
   return (
     <div ref={containerRef}>
       <StyledButton
         active={active}
+        aria-controls="responsive-vertical-menu-primary"
+        aria-expanded={active}
+        aria-label={locale.verticalMenu.ariaLabels?.responsiveMenuLauncher()}
         buttonType="tertiary"
         data-component="responsive-vertical-menu-launcher"
         data-role="responsive-vertical-menu-launcher"
@@ -183,7 +236,7 @@ const BaseMenu = ({
               p={1}
             >
               <StyledCloseButton
-                aria-label="close-menu"
+                aria-label={locale.verticalMenu.ariaLabels?.responsiveMenuCloseButton()}
                 data-component="responsive-vertical-menu-close"
                 data-role="responsive-vertical-menu-close"
                 iconType="close"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   ResponsiveVerticalMenu,
@@ -161,6 +161,57 @@ export const Default = (props: Partial<ResponsiveVerticalMenuProps>) => {
 };
 Default.storyName = "Default";
 
+export const WithoutGlobalHeader = (
+  props: Partial<ResponsiveVerticalMenuProps>,
+) => {
+  return (
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu {...props}>
+        <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
+        <ResponsiveVerticalMenuDivider />
+        <ResponsiveVerticalMenuItem
+          customIcon={<CustomAccountingIcon />}
+          id="accounting"
+          label="Accounting"
+        >
+          <ResponsiveVerticalMenuItem id="summary" label="Summary" />
+          <ResponsiveVerticalMenuItem
+            id="sales-invoices"
+            label="Sales Invoices"
+          >
+            <ResponsiveVerticalMenuItem
+              id="quotes-and-estimates"
+              label="Quotes & Estimates"
+              href="#"
+            />
+            <ResponsiveVerticalMenuItem
+              id="new-sales-invoice"
+              label="New Sales Invoice"
+              href="#"
+            />
+            <ResponsiveVerticalMenuItem
+              id="sales-summary"
+              label="Sales Summary"
+              href="#"
+            />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem id="contacts" label="Contacts">
+            <ResponsiveVerticalMenuItem
+              id="nested-menu-item-1"
+              label="Nested Menu Item 1"
+            />
+          </ResponsiveVerticalMenuItem>
+          <ResponsiveVerticalMenuItem
+            id="products-and-services"
+            label="Products & Services"
+          />
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>
+  );
+};
+WithoutGlobalHeader.storyName = "Without Global Header";
+
 export const WithFullIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
   return (
     <GlobalHeader>
@@ -321,3 +372,94 @@ export const MixedIcons = (props: Partial<ResponsiveVerticalMenuProps>) => {
   );
 };
 MixedIcons.storyName = "Mixed Icons";
+
+type MenuItem = {
+  productName: string;
+  menuItems?: MenuItem[];
+};
+
+const useGetData = () => {
+  const [data] = useState<MenuItem[]>([
+    {
+      productName: "foo",
+      menuItems: [{ productName: "bar" }, { productName: "baz" }],
+    },
+  ]);
+  return data;
+};
+
+const usePostData = () => {
+  const [postData, setPostData] = useState<MenuItem[]>([]);
+
+  useEffect(() => {
+    const handle = setTimeout(() => {
+      setPostData([
+        {
+          productName: "accounting",
+          menuItems: [
+            {
+              productName: "payroll",
+              menuItems: [{ productName: "payroll-summary" }],
+            },
+            { productName: "hr" },
+            { productName: "clientmanage" },
+          ],
+        },
+      ]);
+    }, 5000);
+    return () => {
+      clearTimeout(handle);
+    };
+  }, []);
+  return postData;
+};
+
+const TestMenu = ({ data }: { data: MenuItem[] }) => {
+  const postData = usePostData();
+
+  const products = postData.length === 0 ? data : postData;
+
+  return (
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu height="100%">
+        <>
+          <ResponsiveVerticalMenuItem
+            label="Home"
+            id="home"
+            icon="home"
+            href="#"
+          />
+          {products.map((p) => (
+            <ResponsiveVerticalMenuItem
+              key={p.productName}
+              id={p.productName}
+              label={p.productName}
+            >
+              {p?.menuItems?.map((s) => (
+                <ResponsiveVerticalMenuItem
+                  key={s.productName}
+                  id={s.productName}
+                  label={s.productName}
+                >
+                  {s?.menuItems?.map((t) => (
+                    <ResponsiveVerticalMenuItem
+                      key={t.productName}
+                      id={t.productName}
+                      label={t.productName}
+                    />
+                  ))}
+                </ResponsiveVerticalMenuItem>
+              ))}
+            </ResponsiveVerticalMenuItem>
+          ))}
+        </>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>
+  );
+};
+
+export const DelayedMenuItems = () => {
+  const data = useGetData();
+  return <TestMenu data={data} />;
+};
+DelayedMenuItems.storyName = "Delayed Menu Items";

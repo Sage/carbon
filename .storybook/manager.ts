@@ -1,5 +1,6 @@
 import { addons, types } from "@storybook/manager-api";
 import sageTheme from "./sage-docs-theme";
+import { InteractionToggle } from "./reduced-motion";
 import { ADDON_ID, TOOL_ID } from "./version-picker/constants";
 import { VersionPicker } from "./version-picker";
 import { API_PreparedIndexEntry, API_StatusObject } from "@storybook/types";
@@ -16,6 +17,15 @@ if (useVersionPicker) {
     });
   });
 }
+
+addons.register(ADDON_ID, () => {
+  addons.add(TOOL_ID, {
+    type: types.TOOL,
+    title: "Interaction toggle",
+    match: ({ viewMode, tabId }) => viewMode === "story" && !tabId,
+    render: InteractionToggle,
+  });
+});
 
 addons.setConfig({
   theme: sageTheme,

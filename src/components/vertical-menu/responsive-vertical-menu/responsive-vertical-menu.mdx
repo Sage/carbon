@@ -1,4 +1,5 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
 
 import * as ResponsiveVerticalMenuStories from "./responsive-vertical-menu.stories";
 import * as ResponsiveVerticalMenuDividerStories from "./responsive-vertical-menu-divider/responsive-vertical-menu-divider.stories";
@@ -213,3 +214,20 @@ You can pass any valid `ReactNode` to the `label` prop of the `ResponsiveVertica
 ### ResponsiveVerticalMenuItem
 
 <ArgTypes of={ResponsiveVerticalMenuItemStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "verticalMenu.ariaLabels.responsiveMenuLauncher",
+      description:
+        "An accessible label for the launcher of the `ResponsiveVerticalMenu`.",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

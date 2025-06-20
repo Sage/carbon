@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "154.7.4",
+  "version": "154.11.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -90,6 +90,7 @@
     "@storybook/addon-viewport": "~8.6.12",
     "@storybook/builder-vite": "~8.6.12",
     "@storybook/components": "~8.6.12",
+    "@storybook/icons": "1.4.0",
     "@storybook/manager-api": "~8.6.12",
     "@storybook/preview-api": "~8.6.12",
     "@storybook/react": "~8.6.12",
