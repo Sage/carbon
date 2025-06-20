@@ -215,7 +215,7 @@ test.describe("check props for Link component", () => {
     await expect(skipLinkElement).toHaveCSS("left", "0px");
     await expect(skipLinkElement).toHaveCSS(
       "text-decoration",
-      "underline 4px solid rgb(0, 0, 0)",
+      "underline 4px solid rgba(0, 0, 0, 0.9)",
     );
     await expect(skipLinkElement).toHaveCSS("text-decoration-thickness", "4px");
     await expect(skipLinkElement).toHaveCSS("text-underline-offset", "3px");
@@ -225,7 +225,7 @@ test.describe("check props for Link component", () => {
     [
       ["default", "rgb(0, 126, 69)"],
       ["negative", "rgb(203, 55, 74)"],
-      ["neutral", "rgba(0, 0, 0, 0.9)"],
+      ["neutral", "rgb(0, 126, 69)"],
     ] as [LinkProps["variant"], string][]
   ).forEach(([variant, defaultColor]) => {
     test(`should render with variant prop set to ${variant}`, async ({
@@ -388,6 +388,20 @@ test.describe("should check accessibility for Link component", () => {
 
       await checkAccessibility(page);
     });
+  });
+
+  test("should render skip link with right-aligned icon and no content", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<LinkComponent isSkipLink icon="add" iconAlign="right" />);
+
+    await page.keyboard.press("Tab");
+    const skipLinkElement = skipLink(page);
+    await expect(skipLinkElement).toBeVisible();
+
+    const iconElement = skipLinkElement.locator('[data-component="icon"]');
+    await expect(iconElement).toHaveCSS("margin-left", "0px");
   });
 
   test("should pass accessibility tests with href", async ({ mount, page }) => {

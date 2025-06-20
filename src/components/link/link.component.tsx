@@ -1,206 +1,185 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-
-import Icon, { IconType } from "../icon";
+import React, { useContext, useEffect, useState } from "react";
+import Icon from "../icon";
 import MenuContext from "../menu/__internal__/menu.context";
-import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
+import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
-import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+
+import {
+  StyledLinkStyles,
+  StyledContent,
+  StyledLinkProps,
+  Variants,
+} from "./link.style";
+import { BaseLink } from "./__internal__/base-link.component";
+import type { IconType } from "../icon";
 
 export interface LinkProps
-  extends StyledLinkProps,
-    React.AriaAttributes,
-    TagProps {
-  /** An href for an anchor tag. */
+  extends React.AriaAttributes,
+    TagProps,
+    Omit<StyledLinkProps, "variant"> {
+  /** If provided, renders an anchor (`<a>`) tag; otherwise, renders a button */
   href?: string;
-  /** An icon to display next to the link. */
-  icon?: IconType;
-  /** Function called when the mouse is clicked. */
-  onClick?: (
-    ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>,
-  ) => void;
-  /** Function called when a key is pressed. */
-  onKeyDown?: (
-    ev:
-      | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>,
-  ) => void;
-  /** Function called when a mouse down event triggers. */
-  onMouseDown?: (
-    ev:
-      | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>,
-  ) => void;
-
-  /** [Legacy] A message to display as a tooltip to the link. */
+  /** Icon name (must match a valid `Icon` type) to display next to the link */
+  icon?: string;
+  /** Position of the icon relative to the content ("left" or "right"). Defaults to "left" */
+  iconAlign?: "left" | "right";
+  /** Optional tooltip text to show when hovering over the icon */
   tooltipMessage?: string;
-  /** [Legacy] Positions the tooltip with the link. */
+  /** Position of the tooltip ("top", "bottom", "left", or "right"). Defaults to "top" */
   tooltipPosition?: "bottom" | "left" | "right" | "top";
-  /** Child content to render in the link. */
+  /** Inner content (usually text) of the link */
   children?: React.ReactNode;
-  /** Target property in which link should open ie: _blank, _self, _parent, _top */
+  /** Where to open the linked document (e.g., "_blank" to open in a new tab) */
   target?: string;
-  /** Aria label for accessibility purposes */
-  ariaLabel?: string;
-  /** allows to set rel property in <a> tag */
+  /** Relationship between the current document and the linked one (e.g., "noopener noreferrer") */
   rel?: string;
-  /** @ignore @private internal prop to be set when no aria-label should be specified */
+  /** Aria label for screen readers. Required if no visible content is present */
+  ariaLabel?: string;
+  /** Click event handler (mouse or keyboard). Accepts both mouse and keyboard events */
+  onClick?:
+    | React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
+    | ((
+        ev:
+          | React.MouseEvent<HTMLAnchorElement>
+          | React.MouseEvent<HTMLButtonElement>
+          | React.KeyboardEvent<HTMLAnchorElement>
+          | React.KeyboardEvent<HTMLButtonElement>,
+      ) => void);
+  /** KeyDown event handler (e.g., for keyboard navigation or shortcuts) */
+  onKeyDown?: React.KeyboardEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  /** MouseDown event handler */
+  onMouseDown?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+  /** Focus event handler (when the link/button receives focus) */
+  onFocus?: React.FocusEventHandler<HTMLElement>;
+  /** Blur event handler (when the link/button loses focus) */
+  onBlur?: React.FocusEventHandler<HTMLElement>;
+  /** If true, prevents `aria-label` from being applied to the icon */
   removeAriaLabelOnIcon?: boolean;
-  /**
-   * @private
-   * @internal
-   * @ignore
-   * Sets className for component. INTERNAL USE ONLY. */
+  /** If true, renders a visually hidden "Skip to content" link for accessibility */
+  isSkipLink?: boolean;
+  /** If true, disables the link or button and applies disabled styles */
+  disabled?: boolean;
+  /** Optional class name for custom styling */
   className?: string;
+  /** Visual styling variant (e.g., "default", "neutral", "negative") */
+  variant?: Variants;
+  /** If true, adjusts styles for use on a dark background */
+  isDarkBackground?: boolean;
+  /** When set, applies text overflow styles (for use in e.g., MenuItem) */
+  maxWidth?: StyledLinkProps["maxWidth"];
 }
 
-export const Link = React.forwardRef<
-  HTMLAnchorElement | HTMLButtonElement,
-  LinkProps
->(
+const Link = React.forwardRef<HTMLAnchorElement | HTMLButtonElement, LinkProps>(
   (
     {
       children,
-      onKeyDown,
-      href,
-      onClick,
-      onMouseDown,
+      className,
       icon,
       iconAlign = "left",
-      isSkipLink,
-      disabled = false,
-      ariaLabel,
-      rel,
-      tooltipMessage,
-      tooltipPosition,
-      target,
       variant = "default",
       isDarkBackground,
+      isSkipLink,
+      href,
+      onClick,
+      onKeyDown,
+      onMouseDown,
+      onFocus,
+      onBlur,
+      disabled,
+      rel,
+      target,
+      ariaLabel,
       removeAriaLabelOnIcon,
-      className,
+      tooltipMessage,
+      tooltipPosition,
+      maxWidth,
       ...rest
-    }: LinkProps,
+    },
     ref,
   ) => {
     const [hasFocus, setHasFocus] = useState(false);
-    const l = useLocale();
     const { inMenu } = useContext(MenuContext);
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
+    const locale = useLocale();
+
     const isDisabled = disabled || batchSelectionDisabled;
 
-    const setRefs = React.useCallback(
-      (reference: HTMLAnchorElement) => {
-        if (!ref) return;
-        if (typeof ref === "object") ref.current = reference;
-        if (typeof ref === "function") {
-          ref(reference);
-        }
-      },
-      [ref],
-    );
+    useEffect(() => {
+      if (isDisabled || !(href || onClick)) {
+        setHasFocus(false);
+      }
+    }, [isDisabled, href, onClick]);
 
-    const renderLinkIcon = (currentAlignment = "left") => {
-      const hasProperAlignment = icon && iconAlign === currentAlignment;
+    const handleFocus: React.FocusEventHandler<HTMLElement> = (e) => {
+      setHasFocus(true);
+      onFocus?.(e);
+    };
 
-      return hasProperAlignment ? (
+    const handleBlur: React.FocusEventHandler<HTMLElement> = (e) => {
+      setHasFocus(false);
+      onBlur?.(e);
+    };
+
+    const renderIcon = (align: "left" | "right") =>
+      icon && iconAlign === align ? (
         <Icon
-          type={icon}
+          type={icon as IconType}
           disabled={isDisabled}
           ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
           tooltipMessage={tooltipMessage}
           tooltipPosition={tooltipPosition}
+          data-testid="icon"
         />
       ) : null;
-    };
 
-    const ariaProps = useMemo(() => {
-      const restObject = rest as Record<string, unknown>;
-
-      return Object.keys(restObject)
-        .filter((key) => key.startsWith("aria"))
-        .reduce((obj: Record<string, unknown>, key: string) => {
-          obj[key] = restObject[key];
-          return obj;
-        }, {});
-    }, [rest]);
-
-    const componentProps = {
-      onKeyDown,
-      onMouseDown,
-      onClick,
+    const customStyles = StyledLinkStyles({
+      variant,
       disabled: isDisabled,
-      target,
-      ref: setRefs,
-      href,
-      rel,
-      "aria-label": ariaLabel,
-      ...ariaProps,
-      onFocus: () => setHasFocus(true),
-      onBlur: () => setHasFocus(false),
-    };
+      isMenuItem: inMenu,
+      isSkipLink,
+      iconAlign,
+      hasContent: Boolean(children),
+      hasFocus,
+      isDarkBackground,
+      maxWidth,
+    });
 
-    const buttonProps = {
-      type: "button",
-    };
+    const isBackButton = rest["data-role"] === "heading-back-button";
+    const accessibleLabel = ariaLabel || (isBackButton ? "Back" : undefined);
 
-    const createLinkBasedOnType = () => {
-      let type = "a";
-
-      if (onClick && !href) {
-        type = "button";
-      }
-
-      return React.createElement(
-        type,
-        type === "button"
-          ? {
-              ...componentProps,
-              ...buttonProps,
-            }
-          : {
-              ...componentProps,
-              "data-role": "link-anchor",
-            },
-        <>
-          {renderLinkIcon()}
-
-          <StyledContent>
-            {isSkipLink ? l.link.skipLinkLabel() : children}
-          </StyledContent>
-
-          {renderLinkIcon("right")}
-        </>,
-      );
-    };
-
-    useEffect(() => {
-      if (disabled || !(href || onClick)) {
-        setHasFocus(false);
-      }
-    }, [disabled, href, onClick]);
+    const mouseOnClick = onClick as
+      | React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
+      | undefined;
 
     return (
-      <StyledLink
-        isSkipLink={isSkipLink}
-        disabled={isDisabled}
-        iconAlign={iconAlign}
+      <BaseLink
+        ref={ref}
+        href={href}
+        rel={rel}
+        target={target}
+        aria-label={accessibleLabel}
         className={className}
-        hasContent={Boolean(children)}
-        variant={variant}
-        isDarkBackground={isDarkBackground}
-        isMenuItem={inMenu}
+        onClick={mouseOnClick}
+        onKeyDown={onKeyDown}
+        onMouseDown={onMouseDown}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        disabled={isDisabled}
+        customStyles={customStyles}
         {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
-        hasFocus={hasFocus}
       >
-        {createLinkBasedOnType()}
-      </StyledLink>
+        {renderIcon("left")}
+        <StyledContent>
+          {isSkipLink
+            ? locale.link.skipLinkLabel()
+            : (children ?? <span aria-hidden="true">{ariaLabel}</span>)}
+        </StyledContent>
+        {renderIcon("right")}
+      </BaseLink>
     );
   },
 );

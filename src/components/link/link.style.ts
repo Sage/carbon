@@ -1,244 +1,236 @@
-import styled, { css } from "styled-components";
-import applyBaseTheme from "../../style/themes/apply-base-theme";
+import styled, { css, SimpleInterpolation } from "styled-components";
 import StyledIcon from "../icon/icon.style";
-import StyledButton from "../button/button.style";
+import { LINK_VARIANTS } from "./link.config";
 
-type Variants = "default" | "negative" | "neutral";
+export type Variants = (typeof LINK_VARIANTS)[number];
+
 export interface StyledLinkProps {
-  /** The disabled state of the link. */
+  /** Disables the link visually and functionally. */
   disabled?: boolean;
-  /** Which side of the link to the render the link. */
+  /** Determines the alignment of the icon relative to the link content. */
   iconAlign?: "left" | "right";
-  /** Allows to create skip link */
+  /** Applies accessibility styles used for skip links (e.g., "Skip to content"). */
   isSkipLink?: boolean;
-  /** Sets the colour styling when component is rendered on a dark background */
+  /** Adjusts the color theme for rendering on a dark background. */
   isDarkBackground?: boolean;
-  /** Allows link styling to be updated for light or dark backgrounds */
+  /** Defines the visual variant of the link (e.g., "default", "negative", "neutral"). */
   variant?: Variants;
+  /** Indicates whether the link currently has keyboard focus. */
   hasFocus?: boolean;
-}
-interface PrivateStyledLinkProps {
-  hasContent: boolean;
+  /** Indicates whether the link has visible textual or icon content. */
+  hasContent?: boolean;
+  /** Applies styling specific to links used inside a MenuItem. */
   isMenuItem?: boolean;
+  /** Constrains the maximum width of the link; applies ellipsis to overflowing text. */
+  maxWidth?: string;
 }
 
-interface LinkColors {
-  color: string;
-  hoverColor: string;
-  disabledColor: string;
-}
+export const StyledAnchor = styled.a<{ $styles?: SimpleInterpolation }>`
+  ${({ $styles }) => $styles}
+`;
 
-type ColorMapProp = (variant?: Variants) => LinkColors;
+export const StyledButton = styled.button<{ $styles?: SimpleInterpolation }>`
+  ${({ $styles }) => $styles}
+`;
 
-interface ColorMap {
-  light: ColorMapProp;
-  dark: ColorMapProp;
-}
-
-const colorMap: ColorMap = {
-  light: (variant) => {
-    let color = "var(--colorsActionMajor500)";
-    let hoverColor = "var(--colorsActionMajor600)";
-
-    if (variant === "negative") {
-      color = "var(--colorsSemanticNegative500)";
-      hoverColor = "var(--colorsSemanticNegative600)";
-    } else if (variant === "neutral") {
-      color = "var(--colorsActionMajorYin090)";
-    }
-
-    return {
-      color,
-      hoverColor,
-      disabledColor: "var(--colorsActionMajorYin030)",
-    };
-  },
-  dark: (variant) => {
-    let color = "var(--colorsActionMajor350)";
-    let hoverColor = "var(--colorsActionMajor450)";
-
-    if (variant === "negative") {
-      color = "var(--colorsSemanticNegative350)";
-      hoverColor = "var(--colorsSemanticNegative450)";
-    } else if (variant === "neutral") {
-      color = "var(--colorsActionMinor100)";
-    }
-
-    return {
-      color,
-      hoverColor,
-      disabledColor: "var(--colorsActionMajorYang030)",
-    };
-  },
-};
-
-const StyledLink = styled.span.attrs(applyBaseTheme)<
-  StyledLinkProps & PrivateStyledLinkProps
->`
-  ${({
-    isSkipLink,
-    theme,
-    iconAlign,
-    hasContent,
-    disabled,
-    variant,
-    isDarkBackground,
+export const StyledLinkStyles = (
+  props: StyledLinkProps,
+): SimpleInterpolation => {
+  const {
+    variant = "default",
+    disabled = false,
     isMenuItem,
+    isSkipLink,
+    iconAlign = "left",
+    hasContent,
     hasFocus,
-  }) => {
-    const colorMapKey = isDarkBackground ? "dark" : "light";
-    const { color, hoverColor, disabledColor } = colorMap[colorMapKey](variant);
+    isDarkBackground,
+    maxWidth,
+  } = props;
 
-    return css`
-      ${isSkipLink &&
-      css`
-        a {
-          position: absolute;
-          padding-left: var(--spacing300);
-          padding-right: var(--spacing300);
-          line-height: var(--sizing600);
-          left: -999em;
-          z-index: ${theme.zIndex.aboveAll};
-          border: 3px solid var(--colorsUtilityYin100);
-          box-shadow: var(--boxShadow300);
-          border-radius: var(--spacing000) var(--spacing100) var(--spacing100)
-            var(--spacing000);
-          font-size: var(--fontSizes100);
-          color: var(--colorsUtilityYin090);
+  const colorMap = {
+    light: (v?: StyledLinkProps["variant"]) => {
+      let color = "var(--colorsActionMajor500)";
+      let hoverColor = "var(--colorsActionMajor600)";
 
-          &:hover {
-            cursor: pointer;
-            color: var(--colorsUtilityYin090);
+      if (v === "negative") {
+        color = "var(--colorsSemanticNegative500)";
+        hoverColor = "var(--colorsSemanticNegative600)";
+      } else if (v === "neutral") {
+        color = "var(--colorsActionMajorYin090)";
+      }
 
-            ${StyledIcon} {
-              color: var(--colorsActionMajor600);
-            }
-          }
+      return {
+        color,
+        hoverColor,
+        disabledColor: "var(--colorsActionMajorYin030)",
+      };
+    },
+    dark: (v?: StyledLinkProps["variant"]) => {
+      let color = "var(--colorsActionMajorYang100)"; // White/very light for dark backgrounds
+      let hoverColor = "var(--colorsActionMajorYang100)";
 
-          &:focus {
-            background-color: var(--colorsSemanticFocus500);
-            text-decoration: underline var(--colorsUtilityYin100);
-            text-decoration-thickness: 4px;
-            text-underline-offset: 3px;
-            -webkit-text-decoration: underline var(--colorsUtilityYin100);
-            -webkit-text-decoration-thickness: 4px;
-            -webkit-text-underline-offset: 3px;
-          }
-        }
+      if (v === "negative") {
+        color = "var(--colorsSemanticNegative100)";
+        hoverColor = "var(--colorsSemanticNegative200)";
+      } else if (v === "neutral") {
+        color = "var(--colorsActionMinor100)";
+        hoverColor = "var(--colorsActionMajorYang100)";
+      }
 
-        a:focus {
-          top: var(--spacing100);
-          left: var(--spacing000);
-        }
-      `}
+      return {
+        color,
+        hoverColor,
+        disabledColor: "var(--colorsActionMajorYang030)",
+      };
+    },
+  };
 
-      ${!isSkipLink &&
-      css`
-        > a,
-        > button {
-          font-size: var(--fontSizes100);
+  const themeKey = isDarkBackground ? "dark" : "light";
+  const { color, hoverColor, disabledColor } = colorMap[themeKey](variant);
 
-          ${!disabled &&
-          css`
-            color: ${color};
-            ${StyledIcon} {
-              color: ${color};
-            }
+  return css`
+    display: inline-flex;
+    align-items: center;
 
-            &:hover {
-              color: ${hoverColor};
-
-              > ${StyledIcon} {
-                color: ${hoverColor};
-              }
-            }
-
-            &:focus {
-              background-color: var(--colorsSemanticFocus250);
-              border-radius: var(--borderRadius025);
-            }
-          `}
-
-          ${disabled &&
-          css`
-            color: ${disabledColor};
-            &:hover,
-            &:focus {
-              color: ${disabledColor};
-            }
-          `}
-        }
-      `}
-
-      ${!disabled &&
-      css`
-        > a:any-link:hover,
-        > button:hover {
-          cursor: pointer;
-        }
-      `}
-
+    ${isSkipLink &&
+    css`
       > a,
       > button {
-        text-decoration: ${hasContent ? "underline" : "none"};
-        ${isMenuItem && "display: inline-block;"}
+        position: absolute;
+        top: 8px;
+        left: 0px;
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+        font-size: var(--fontSizes100);
+        text-decoration: underline 4px solid;
+        text-decoration-thickness: 4px;
+        text-underline-offset: 3px;
+        color: var(--colorsActionMajorYin090);
+        background-color: rgb(255, 188, 25);
+        padding: 12px 24px;
+        border-radius: var(--borderRadius025);
+        box-shadow:
+          rgba(0, 20, 30, 0.1) 0px 10px 30px 0px,
+          rgba(0, 20, 30, 0.1) 0px 30px 60px 0px;
+        transition:
+          transform 0.2s ease,
+          opacity 0.2s ease;
+
+        &:focus {
+          transform: translateY(0);
+          opacity: 1;
+          pointer-events: auto;
+        }
 
         > ${StyledIcon} {
           display: ${hasContent ? "inline-block" : "inline"};
           position: relative;
           vertical-align: middle;
+
           ${iconAlign === "left" &&
           css`
             margin-right: ${hasContent ? "var(--spacing050)" : 0};
           `}
+
           ${iconAlign === "right" &&
           css`
-            margin-right: 0;
             margin-left: ${hasContent ? "var(--spacing100)" : 0};
           `}
         }
+      }
+    `}
 
-        &:focus {
-          color: var(--colorsActionMajorYin090);
-          outline: none;
+    ${!isSkipLink &&
+    css`
+      > a,
+      > button {
+        font-size: var(--fontSizes100);
+        text-decoration: ${hasContent ? "underline" : "none"};
+        color: ${disabled ? disabledColor : color};
 
-          ${StyledIcon} {
-            color: var(--colorsActionMajorYin090);
+        ${isMenuItem &&
+        css`
+          display: inline-block;
+          padding: 11px 16px 12px;
+
+          ${maxWidth &&
+          css`
+            max-width: inherit;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: bottom;
+            white-space: nowrap;
+          `}
+        `}
+
+        ${!disabled &&
+        css`
+          &:hover {
+            color: ${hoverColor};
+            cursor: pointer;
           }
-        }
+
+          &:focus {
+            background-color: var(--colorsSemanticFocus250);
+            border-radius: var(--borderRadius025);
+          }
+        `}
 
         ${disabled &&
         css`
           cursor: not-allowed;
+
+          &:hover,
+          &:focus {
+            color: ${disabledColor};
+            cursor: not-allowed;
+          }
         `}
-      }
 
-      ${!isSkipLink &&
-      !disabled &&
-      hasFocus &&
-      css`
-        > a,
-        > button {
-          outline: none;
-          text-decoration: none;
-          border-bottom-left-radius: var(--borderRadius000);
-          border-bottom-right-radius: var(--borderRadius000);
+        > ${StyledIcon} {
+          display: ${hasContent ? "inline-block" : "inline"};
+          position: relative;
+          vertical-align: middle;
+
+          ${iconAlign === "left" &&
+          css`
+            margin-right: ${hasContent ? "var(--spacing050)" : 0};
+          `}
+
+          ${iconAlign === "right" &&
+          css`
+            margin-left: ${hasContent ? "var(--spacing100)" : 0};
+          `}
         }
-        max-width: fit-content;
-        box-shadow: 0 var(--spacing050) 0 0 var(--colorsUtilityYin090);
-        border-bottom-left-radius: var(--borderRadius025);
-        border-bottom-right-radius: var(--borderRadius025);
-      `}
-
-      > button, ${StyledButton}:not(.search-button) {
-        background-color: transparent;
-        border: none;
-        padding: 0;
       }
-    `;
-  }}
+
+      a[aria-disabled="true"] {
+        color: ${disabledColor};
+        pointer-events: none;
+        cursor: not-allowed;
+        text-decoration: none;
+        user-select: none;
+        tab-index: -1;
+      }
+    `}
+
+    ${!isSkipLink &&
+    !disabled &&
+    hasFocus &&
+    css`
+      box-shadow: 0 var(--spacing050) 0 0 var(--colorsUtilityYin090);
+      border-bottom-left-radius: var(--borderRadius025);
+      border-bottom-right-radius: var(--borderRadius025);
+    `}
+  `;
+};
+
+export const StyledContent = styled.span``;
+
+export const StyledLink = styled.div<StyledLinkProps>`
+  ${StyledLinkStyles}
 `;
 
-const StyledContent = styled.span``;
-
-export { StyledLink, StyledContent };
+export default StyledLink;
