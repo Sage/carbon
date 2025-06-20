@@ -20,6 +20,7 @@ export interface StyledCheckableInputWrapperProps {
   labelWidth?: number;
   labelInline?: boolean;
   reverse?: boolean;
+  isDarkBackground?: boolean;
 }
 
 const StyledCheckableInputWrapper = styled.div<StyledCheckableInputWrapperProps>`
@@ -30,6 +31,7 @@ const StyledCheckableInputWrapper = styled.div<StyledCheckableInputWrapperProps>
     labelWidth,
     labelInline,
     reverse,
+    isDarkBackground,
   }) => css`
     width: 100% !important;
 
@@ -57,6 +59,11 @@ const StyledCheckableInputWrapper = styled.div<StyledCheckableInputWrapperProps>
     }
 
     ${FieldHelpStyle} {
+      ${isDarkBackground &&
+      css`
+        color: var(--colorsUtilityYang080);
+      `}
+
       flex-basis: 100%;
     }
 

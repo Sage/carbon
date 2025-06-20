@@ -1,3 +1,33 @@
+## [154.11.1](https://github.com/Sage/carbon/compare/v154.11.0...v154.11.1) (2025-06-20)
+
+### Bug Fixes
+
+* **checkable-input:** fieldHelp is not supported with dark background ([a560d09](https://github.com/Sage/carbon/commit/a560d090a8c75602eaebb8aeb74a20bfc6ec24d7))
+
+## [154.11.0](https://github.com/Sage/carbon/compare/v154.10.1...v154.11.0) (2025-06-19)
+
+### Features
+
+* **storybook:** introduce Play functions ([d22163f](https://github.com/Sage/carbon/commit/d22163fda8d0ef3b5a04b8c33939499f65fa6e26))
+
+## [154.10.1](https://github.com/Sage/carbon/compare/v154.10.0...v154.10.1) (2025-06-17)
+
+### Bug Fixes
+
+* **popover-container:** aria hidden elements must not be focusable ([44cd2bb](https://github.com/Sage/carbon/commit/44cd2bb374ebe8fc54bee24a3bb9c9ddea2ccbf8)), closes [#7350](https://github.com/Sage/carbon/issues/7350)
+
+## [154.10.0](https://github.com/Sage/carbon/compare/v154.9.0...v154.10.0) (2025-06-16)
+
+### Features
+
+* **menu-item:** allow nodes to be passed to the submenu prop ([d97094c](https://github.com/Sage/carbon/commit/d97094c32c9e3b733baba70586433533cc1cc2c7)), closes [#7353](https://github.com/Sage/carbon/issues/7353)
+
+## [154.9.0](https://github.com/Sage/carbon/compare/v154.8.0...v154.9.0) (2025-06-16)
+
+### Features
+
+* **responsive-vertical-menu:** fix stale menu bug when child items change ([af33cc8](https://github.com/Sage/carbon/commit/af33cc8bd28a141158bd6db52ce2226072f265d2))
+
 ## [154.8.0](https://github.com/Sage/carbon/compare/v154.7.4...v154.8.0) (2025-06-11)
 
 ### Features
