@@ -13,6 +13,7 @@ import { frCA as frCALocale } from "date-fns/locale/fr-CA";
 import { zhCN as zhCNLocale } from "date-fns/locale/zh-CN";
 import type { Locale } from "react-day-picker";
 
+import Logger from "../../../../__internal__/utils/logger";
 import I18nProvider from "../../../i18n-provider";
 import DatePicker, { DatePickerProps } from "./date-picker.component";
 
@@ -46,6 +47,26 @@ const getWeekdayTranslations = (
     ?.day(((index + startDay) % 7) as Day, { width: "abbreviated" })
     .substring(0, substringLimit);
 };
+
+test("logs a deprecation warning when disablePortal is used", async () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+
+  render(
+    <>
+      <DatePickerWithInput setOpen={() => {}} open disablePortal />
+      <DatePickerWithInput setOpen={() => {}} open disablePortal />
+    </>,
+  );
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "`disablePortal` is deprecated in DateInput and DateRange, and support will soon be removed.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
 
 test("should not render the date picker when `open` is false", () => {
   render(<DatePickerWithInput setOpen={() => {}} />);

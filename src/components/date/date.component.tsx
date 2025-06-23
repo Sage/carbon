@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import React, {
   useContext,
   useEffect,
@@ -124,7 +125,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       "data-element": dataElement,
       "data-role": dataRole,
       disabled,
-      disablePortal = false,
+      disablePortal = true,
       helpAriaLabel,
       labelInline,
       minDate,
@@ -346,13 +347,16 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         if (Events.isShiftKey(ev)) {
           setOpen(false);
           onPickerClose?.();
-        } else if (!disablePortal) {
-          ev.preventDefault();
-          (
-            document?.querySelector(
-              `[id="${pickerTabGuardId.current}"]`,
-            ) as HTMLElement
-          )?.focus();
+        } else {
+          /* istanbul ignore if */
+          if (!disablePortal) {
+            ev.preventDefault();
+            (
+              document?.querySelector(
+                `[id="${pickerTabGuardId.current}"]`,
+              ) as HTMLElement
+            )?.focus();
+          }
         }
         alreadyFocused.current = false;
       }

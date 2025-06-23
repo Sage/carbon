@@ -665,7 +665,14 @@ test("should render the picker as a descendant of the main presentation element 
 
 test("should not render the picker as a descendant of the main presentation element when `disablePortal` is false", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput label="label" onChange={() => {}} value="" />);
+  render(
+    <DateInput
+      disablePortal={false}
+      label="label"
+      onChange={() => {}}
+      value=""
+    />,
+  );
   const input = screen.getByRole("textbox");
   await user.click(input);
 
