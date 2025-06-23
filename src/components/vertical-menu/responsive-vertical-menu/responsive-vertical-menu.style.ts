@@ -84,6 +84,10 @@ export const StyledResponsiveMenu = styled.div<StyledResponsiveMenuProps>`
       ? "2px solid var(--colorsGray850)"
       : "1px solid var(--colorsGray850)"};
 
+  & > :last-child {
+    margin-bottom: 40px;
+  }
+
   ${({ childOpen }) =>
     childOpen &&
     css`
@@ -95,13 +99,5 @@ export const StyledResponsiveMenu = styled.div<StyledResponsiveMenuProps>`
     css`
       left: ${left};
       min-height: ${height};
-    `}
-
-    ${({ responsive }) =>
-    !responsive &&
-    css`
-      & > :last-child {
-        margin-bottom: 40px;
-      }
     `}
 `;
