@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
+import { TokensContextProps } from "../tokens-wrapper/tokens-context";
 
 type Variants = "default" | "negative" | "neutral";
 export interface StyledLinkProps {
@@ -16,6 +17,8 @@ export interface StyledLinkProps {
   /** Allows link styling to be updated for light or dark backgrounds */
   variant?: Variants;
   hasFocus?: boolean;
+
+  $screenSize: TokensContextProps["screenSize"];
 }
 interface PrivateStyledLinkProps {
   hasContent: boolean;
@@ -37,7 +40,7 @@ interface ColorMap {
 
 const colorMap: ColorMap = {
   light: (variant) => {
-    let color = "var(--colorsActionMajor500)";
+    let color = "var(--link-color-typical-label-default)";
     let hoverColor = "var(--colorsActionMajor600)";
 
     if (variant === "negative") {
@@ -85,6 +88,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
     isDarkBackground,
     isMenuItem,
     hasFocus,
+    $screenSize,
   }) => {
     const colorMapKey = isDarkBackground ? "dark" : "light";
     const { color, hoverColor, disabledColor } = colorMap[colorMapKey](variant);
@@ -103,7 +107,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
           box-shadow: var(--boxShadow300);
           border-radius: var(--spacing000) var(--spacing100) var(--spacing100)
             var(--spacing000);
-          font-size: var(--fontSizes100);
+          font-size: var(--product-font-size);
           color: var(--colorsUtilityYin090);
 
           &:hover {
@@ -136,11 +140,13 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
       css`
         > a,
         > button {
-          font-size: var(--fontSizes100);
+          /* font-size: var(--product-font-size); */
+
+          font-size: ${$screenSize === "large" ? "20px" : "12px"};
 
           ${!disabled &&
           css`
-            color: ${color};
+            color: var(--link-color-typical-label-default);
             ${StyledIcon} {
               color: ${color};
             }

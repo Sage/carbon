@@ -16,5 +16,6 @@ declare global {
       originalValues: string[];
       restoreValues?: (() => void) | null;
     };
+    __CARBON_TOKENS_WRAPPER_ID__?: string;
   }
 }

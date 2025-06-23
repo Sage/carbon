@@ -8,6 +8,7 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
 import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+import TokensContext from "../tokens-wrapper/tokens-context";
 
 export interface LinkProps
   extends StyledLinkProps,
@@ -93,6 +94,9 @@ export const Link = React.forwardRef<
     const { inMenu } = useContext(MenuContext);
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
     const isDisabled = disabled || batchSelectionDisabled;
+    const { screenSize } = useContext(TokensContext);
+
+    console.log("Link component rendered with screen size:", screenSize);
 
     const setRefs = React.useCallback(
       (reference: HTMLAnchorElement) => {
@@ -198,6 +202,7 @@ export const Link = React.forwardRef<
         {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
         hasFocus={hasFocus}
+        $screenSize={screenSize}
       >
         {createLinkBasedOnType()}
       </StyledLink>

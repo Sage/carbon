@@ -1,3 +1,5 @@
+@import "@sage/design-tokens-fusion/css/product/all.css";
+
 /* themes/base/modes/light/all.css */
 :root {
   --background-light: var(--modes-color-custom-default-alt-light);
@@ -11,25 +13,13 @@
 }
 
 /* themes/high-contrast/modes/light/all.css */
-.theme-high-contrast {
-  --background-light: red;
-  --foreground-light: #000000;
-}
-
-/* themes/high-contrast/modes/dark/all.css */
-.theme-high-contrast {
-  --background-dark: #000000;
-  --foreground-dark: red;
-}
-
-/* themes/high-contrast/modes/light/all.css */
 .screen-small {
- --product-font-size: 14px;
+  --product-font-size: 14px;
 }
 
 /* themes/high-contrast/modes/dark/all.css */
 .screen-large {
-   --product-font-size: 20px;
+  --product-font-size: 20px;
 }
 
 /* global/all.css */
@@ -46,9 +36,9 @@ body { /* Set on body to allow theme overrides to function */
 }
 
 *:not(button) {
-  background-color: var(--global-background-color) !important;
-  color: var(--global-foreground-color) !important;
-  font-size: var(--font-size) !important;
+  /* background-color: var(--global-background-color) !important; */
+  /* color: var(--global-foreground-color) !important; */
+  /* font-size: var(--font-size) !important; */
 }
 
 .mode-dark,
