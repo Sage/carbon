@@ -1,3 +1,9 @@
+## [154.11.3](https://github.com/Sage/carbon/compare/v154.11.2...v154.11.3) (2025-06-23)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** fix issue that stopped off-screen menu items from scrolling into view ([5fd31c0](https://github.com/Sage/carbon/commit/5fd31c03b21a4b2f4740c8cc88490b2102f6bb32))
+
 ## [154.11.2](https://github.com/Sage/carbon/compare/v154.11.1...v154.11.2) (2025-06-20)
 
 ### Bug Fixes
