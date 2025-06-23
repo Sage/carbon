@@ -121,6 +121,13 @@ const BaseMenu = ({
 
   useLayoutEffect(() => {
     measureDimensions();
+
+    // Measure dimensions when the window is resized
+    window.addEventListener("resize", measureDimensions);
+
+    return () => {
+      window?.removeEventListener("resize", measureDimensions);
+    };
   }, [active, measureDimensions, menu, responsiveMode]);
 
   useEffect(() => {
