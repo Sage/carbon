@@ -1,3 +1,9 @@
+## [154.11.4](https://github.com/Sage/carbon/compare/v154.11.3...v154.11.4) (2025-06-24)
+
+### Bug Fixes
+
+* **tile:** ensure no additional borders render with multiple tiles ([aa6e4c8](https://github.com/Sage/carbon/commit/aa6e4c84ba6fb56a34161af521a64521c9e81071))
+
 ## [154.11.3](https://github.com/Sage/carbon/compare/v154.11.2...v154.11.3) (2025-06-23)
 
 ### Bug Fixes
