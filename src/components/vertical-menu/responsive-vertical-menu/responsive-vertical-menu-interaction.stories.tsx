@@ -1,5 +1,5 @@
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within, expect } from "@storybook/test";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import React from "react";
 
@@ -145,7 +145,7 @@ export const ToggleOpenOnClick: Story = {
     const menuToggle = canvas.getByRole("button");
 
     await userEvent.click(menuToggle);
-    await userInteractionPause(100);
+    await userInteractionPause(1000);
   },
   decorators: [
     (StoryToRender) => (
@@ -161,18 +161,28 @@ ToggleOpenOnClick.parameters = { chromatic: { viewports: [1200, 500] } };
 
 export const NavigateToSecondary: Story = {
   render: () => <DefaultResponsiveVerticalMenu />,
-  play: async () => {
+  play: async ({ canvasElement }) => {
     if (!allowInteractions()) {
       return;
     }
 
+    const canvas = within(canvasElement);
+
     await userEvent.tab(); // focus toggle
     await userEvent.keyboard("{Enter}"); // open menu
-    await userInteractionPause(100);
+    await userInteractionPause(1000);
+
+    await expect(
+      canvas.getByRole("button", { name: "Primary Menu With Children" }),
+    ).toBeVisible();
 
     await userEvent.tab(); // primary item
     await userEvent.keyboard("{Enter}"); // open secondary menu
-    await userInteractionPause(100);
+    await userInteractionPause(1000);
+
+    await expect(
+      canvas.getByRole("button", { name: "Secondary Menu With Children" }),
+    ).toBeVisible();
 
     await userEvent.tab(); // secondary item
   },
@@ -196,7 +206,7 @@ export const NavigateToSecondaryResponsive: Story = {
 
     await userEvent.tab(); // focus toggle
     await userEvent.keyboard("{Enter}"); // open menu
-    await userInteractionPause(100);
+    await userInteractionPause(1000);
 
     await userEvent.tab(); // close button
     await userEvent.tab(); // secondary item
@@ -220,24 +230,36 @@ NavigateToSecondaryResponsive.parameters = {
 
 export const NavigateToTertiary: Story = {
   render: () => <DefaultResponsiveVerticalMenu />,
-  play: async () => {
+  play: async ({ canvasElement }) => {
     if (!allowInteractions()) {
       return;
     }
 
+    const canvas = within(canvasElement);
+
     await userEvent.tab(); // focus toggle
     await userEvent.keyboard("{Enter}"); // open menu
-    await userInteractionPause(100);
+    await userInteractionPause(1000);
+
+    await expect(
+      canvas.getByRole("button", { name: "Primary Menu With Children" }),
+    ).toBeVisible();
 
     await userEvent.tab(); // primary item
     await userEvent.keyboard("{Enter}"); // open secondary menu
-    await userInteractionPause(100);
+    await userInteractionPause(1000);
+
+    await expect(
+      canvas.getByRole("button", { name: "Secondary Menu With Children" }),
+    ).toBeVisible();
 
     await userEvent.tab(); // secondary item
     await userEvent.keyboard("{Enter}"); // open tertiary menu
-    await userInteractionPause(100);
+    await userInteractionPause(1000);
 
     await userEvent.tab(); // tertiary item
+
+    await expect(canvas.getByText("Tertiary Menu")).toBeVisible();
   },
   decorators: [
     (StoryToRender) => (
@@ -259,12 +281,12 @@ export const NavigateToTertiaryResponsive: Story = {
 
     await userEvent.tab(); // focus toggle
     await userEvent.keyboard("{Enter}"); // open menu
-    await userInteractionPause(100);
+    await userInteractionPause(1000);
 
     await userEvent.tab(); // close button
     await userEvent.tab(); // secondary item
     await userEvent.keyboard("{Enter}"); // open tertiary menu
-    await userInteractionPause(100);
+    await userInteractionPause(1000);
 
     await userEvent.tab(); // tertiary item
   },
