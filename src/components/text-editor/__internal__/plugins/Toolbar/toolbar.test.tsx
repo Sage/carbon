@@ -73,6 +73,38 @@ const MockToolbar = ({
   );
 };
 
+const initialValue = {
+  root: {
+    children: [
+      {
+        children: [
+          {
+            detail: 0,
+            format: 0,
+            mode: "normal",
+            style: "",
+            text: "Sample text",
+            type: "text",
+            version: 1,
+          },
+        ],
+        direction: "ltr",
+        format: "",
+        indent: 0,
+        type: "paragraph",
+        version: 1,
+        textFormat: 0,
+        textStyle: "",
+      },
+    ],
+    direction: "ltr",
+    format: "",
+    indent: 0,
+    type: "root",
+    version: 1,
+  },
+};
+
 /** This test renders the actual toolbar instead of using the mocked one to ensure
  * that the toolbar renders correctly with the default buttons.
  */
@@ -183,18 +215,28 @@ describe("Events", () => {
 
   /** Have to assert that the onChange mock count has increased by 1 due to the editor attempting to repeatedly create update listeners when the
    * tests are run, causing the onChange to be fired during initial render. */
+
   it("dispatches an 'onChange' event when the bold button is clicked within the TextEditor", async () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
+    render(
+      <TextEditor
+        labelText="bar"
+        onChange={mockOnChange}
+        value={JSON.stringify(initialValue)}
+      />,
+    );
+    const textEditor = screen.getByRole("textbox");
 
-    render(<TextEditor labelText="foo" onChange={mockOnChange} />);
-
-    const callCountBefore = mockOnChange.mock.calls.length;
+    await user.click(textEditor);
+    await user.tripleClick(textEditor);
 
     const boldButton = screen.getByRole("button", { name: "Bold" });
-    await user.click(boldButton);
 
-    expect(mockOnChange).toHaveBeenCalledTimes(callCountBefore + 1);
+    expect(mockOnChange).not.toHaveBeenCalled();
+
+    await user.click(boldButton);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);
   });
 
   /** Using the mocked toolbar, test that clicking the italic button fires the correct event */
@@ -232,14 +274,25 @@ describe("Events", () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
 
-    render(<TextEditor labelText="foo" onChange={mockOnChange} />);
+    render(
+      <TextEditor
+        labelText="foo"
+        onChange={mockOnChange}
+        value={JSON.stringify(initialValue)}
+      />,
+    );
 
-    const callCountBefore = mockOnChange.mock.calls.length;
+    const textEditor = screen.getByRole("textbox");
+
+    await user.click(textEditor);
+    await user.tripleClick(textEditor);
 
     const italicButton = screen.getByRole("button", { name: "Italic" });
-    await user.click(italicButton);
 
-    expect(mockOnChange).toHaveBeenCalledTimes(callCountBefore + 1);
+    expect(mockOnChange).not.toHaveBeenCalled();
+
+    await user.click(italicButton);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);
   });
 
   /** Using the mocked toolbar, test that clicking the ordered list button fires the correct event */
@@ -277,16 +330,23 @@ describe("Events", () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
 
-    render(<TextEditor labelText="foo" onChange={mockOnChange} />);
-
-    const callCountBefore = mockOnChange.mock.calls.length;
+    render(
+      <TextEditor
+        labelText="foo"
+        onChange={mockOnChange}
+        value={JSON.stringify(initialValue)}
+      />,
+    );
 
     const orderedListButton = screen.getByRole("button", {
       name: "Ordered list",
     });
+
+    expect(mockOnChange).not.toHaveBeenCalled();
+
     await user.click(orderedListButton);
 
-    expect(mockOnChange).toHaveBeenCalledTimes(callCountBefore + 1);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);
   });
 
   /** Using the mocked toolbar, test that clicking the unordered list button fires the correct event */
@@ -324,15 +384,22 @@ describe("Events", () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
 
-    render(<TextEditor labelText="foo" onChange={mockOnChange} />);
-
-    const callCountBefore = mockOnChange.mock.calls.length;
+    render(
+      <TextEditor
+        labelText="foo"
+        onChange={mockOnChange}
+        value={JSON.stringify(initialValue)}
+      />,
+    );
 
     const unorderedListButton = screen.getByRole("button", {
       name: "Unordered list",
     });
+
+    expect(mockOnChange).not.toHaveBeenCalled();
+
     await user.click(unorderedListButton);
 
-    expect(mockOnChange).toHaveBeenCalledTimes(callCountBefore + 1);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);
   });
 });

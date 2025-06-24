@@ -10,6 +10,7 @@ import TextEditorDefaultComponent, {
   TextEditorWithFooter,
   TextEditorWithFooterOnSave,
   TextEditorWithFooterOnCancel,
+  TextEditorControlled,
 } from "./components.test-pw";
 import { EditorFormattedValues } from "./text-editor.component";
 
@@ -721,6 +722,90 @@ test.describe("Functionality tests", () => {
           version: 1,
         },
       });
+    });
+
+    // We are testing onChange calls here due to inconsistent behaviour in CI unit tests regarding onChange firing.
+    test("should call onChange when the editor is typed into in a controlled component", async ({
+      mount,
+      page,
+    }) => {
+      let count = 0;
+
+      await mount(<TextEditorControlled onChange={() => (count += 1)} />);
+
+      const textbox = page.locator("div[role='textbox']");
+
+      await textbox.click();
+      await expect(textbox).toBeFocused();
+
+      const messageToType = "Hello World!";
+
+      // Type each character individually and verify focus is maintained
+      for (let i = 0; i < messageToType.length; i++) {
+        const char = messageToType[i];
+
+        await textbox.press(char === " " ? "Space" : char);
+
+        await expect(textbox).toBeFocused();
+
+        const currentText = await textbox.textContent();
+        expect(currentText).toContain(messageToType.substring(0, i + 1));
+      }
+
+      const finalText = await textbox.textContent();
+      expect(finalText).toContain(messageToType);
+      await expect(textbox).toBeFocused();
+      expect(count).toBe(messageToType.length);
+    });
+
+    test("maintains focus after every character is typed in controlled mode", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorControlled />);
+
+      const textbox = page.locator("div[role='textbox']");
+
+      await textbox.click();
+      await expect(textbox).toBeFocused();
+
+      const messageToType = "Hello World!";
+
+      // Type each character individually and verify focus is maintained
+      for (let i = 0; i < messageToType.length; i++) {
+        const char = messageToType[i];
+
+        await textbox.press(char === " " ? "Space" : char);
+
+        await expect(textbox).toBeFocused();
+
+        const currentText = await textbox.textContent();
+        expect(currentText).toContain(messageToType.substring(0, i + 1));
+      }
+
+      const finalText = await textbox.textContent();
+      expect(finalText).toContain(messageToType);
+      await expect(textbox).toBeFocused();
+    });
+
+    test("maintains focus during rapid typing in controlled mode", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorControlled />);
+
+      const textbox = page.locator("div[role='textbox']");
+
+      await textbox.click();
+      await expect(textbox).toBeFocused();
+
+      const rapidText = "QuickTyping123";
+      await textbox.pressSequentially(rapidText, { delay: 10 });
+
+      await expect(textbox).toBeFocused();
+
+      const finalText = await textbox.textContent();
+      expect(finalText).toContain(rapidText);
     });
   });
 

@@ -1,23 +1,12 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, within, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import React, { act, createRef } from "react";
+import React, { act, createRef, useState } from "react";
 
 import TextEditor, { TextEditorHandle, createEmpty, createFromHTML } from ".";
 import { COMPONENT_PREFIX } from "./__internal__/constants";
 
 import Logger from "../../__internal__/utils/logger";
-
-/**
- * Mock the OnChangePlugin whilst testing the full editor. This is to prevent
- * the editor from attempting to repeatedly create update listeners when the
- * tests are run, which causes errors to be thrown by Jest.
- *
- * The onChange prop is tested in the OnChangePlugin tests.
- */
-jest.mock("./__internal__/plugins/OnChange/on-change.plugin", () => {
-  return jest.fn().mockReturnValue(null);
-});
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -53,6 +42,10 @@ const initialValue = {
     version: 1,
   },
 };
+
+const secondaryValue = JSON.parse(JSON.stringify(initialValue));
+// eslint-disable-next-line testing-library/no-node-access
+secondaryValue.root.children[0].children[0].text = "Sample text!";
 
 test("should display deprecation warning once when rendered as optional", () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -420,7 +413,7 @@ test("valid data is parsed when HTML is passed into the createFromHTML function"
               version: 1,
             },
           ],
-          direction: null,
+          direction: "ltr",
           format: "",
           indent: 0,
           textFormat: 0,
@@ -476,7 +469,7 @@ test("valid state is created when the CreateEmpty function is called", async () 
       children: [
         {
           children: [],
-          direction: null,
+          direction: "ltr",
           format: "",
           indent: 0,
           type: "paragraph",
@@ -691,5 +684,138 @@ describe("shortcut keys", () => {
     );
 
     expect(screen.getByTestId("mock-plugin")).toBeInTheDocument();
+  });
+});
+
+describe("onChange behaviour", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should not call onChange when rendered", async () => {
+    const mockOnChange = jest.fn();
+
+    render(<TextEditor labelText="Example" onChange={mockOnChange} />);
+
+    expect(mockOnChange).not.toHaveBeenCalled();
+  });
+
+  it("should not call onChange when rendered with the value prop", async () => {
+    const mockOnChange = jest.fn();
+    const value = JSON.stringify(initialValue);
+
+    render(
+      <TextEditor value={value} labelText="Example" onChange={mockOnChange} />,
+    );
+
+    await waitFor(() => {
+      expect(mockOnChange).not.toHaveBeenCalled();
+    });
+  });
+
+  it("should not call onChange when value prop is updated programmatically", async () => {
+    const mockOnChange = jest.fn();
+
+    const TestComponent = () => {
+      const [value, setValue] = useState<string>(JSON.stringify(initialValue));
+
+      return (
+        <div>
+          <TextEditor
+            labelText="Example"
+            value={value}
+            onChange={mockOnChange}
+          />
+          <button
+            onClick={() => setValue(JSON.stringify(secondaryValue))}
+            type="button"
+          >
+            Change Value
+          </button>
+        </div>
+      );
+    };
+
+    const user = userEvent.setup();
+    render(<TestComponent />);
+
+    const changeButton = screen.getByRole("button", { name: "Change Value" });
+    await user.click(changeButton);
+
+    expect(mockOnChange).not.toHaveBeenCalled();
+  });
+
+  it("should not call onChange when the editor is clicked", async () => {
+    const user = userEvent.setup();
+    const mockOnChange = jest.fn();
+
+    render(<TextEditor labelText="Example" onChange={mockOnChange} />);
+
+    const editor = screen.getByRole(`textbox`);
+    await user.click(editor);
+
+    expect(mockOnChange).not.toHaveBeenCalled();
+  });
+
+  it("should call onChange when the editor is typed into", async () => {
+    const user = userEvent.setup();
+    const mockOnChange = jest.fn();
+    const value = JSON.stringify(initialValue);
+
+    render(
+      <TextEditor labelText="Example" onChange={mockOnChange} value={value} />,
+    );
+
+    const editor = screen.getByRole(`textbox`);
+    await user.click(editor);
+
+    const messageToType = " foobarbaz";
+    await user.keyboard(messageToType);
+
+    await waitFor(() => {
+      expect(mockOnChange).toHaveBeenCalledTimes(messageToType.length);
+    });
+  });
+
+  it("should call onChange when typing after a programmatic value change", async () => {
+    const user = userEvent.setup();
+    const mockOnChange = jest.fn();
+
+    const TestComponent = () => {
+      const [value, setValue] = useState<string>(JSON.stringify(initialValue));
+
+      return (
+        <div>
+          <TextEditor
+            labelText="Example"
+            value={value}
+            onChange={mockOnChange}
+          />
+          <button
+            onClick={() => setValue(JSON.stringify(secondaryValue))}
+            type="button"
+          >
+            Change Value
+          </button>
+        </div>
+      );
+    };
+
+    render(<TestComponent />);
+
+    const changeButton = screen.getByRole("button", { name: "Change Value" });
+    await user.click(changeButton);
+
+    expect(mockOnChange).not.toHaveBeenCalled();
+
+    const editor = screen.getByRole("textbox");
+    await user.click(editor);
+
+    const messageToType = " foobarbaz";
+    await user.keyboard(messageToType);
+
+    await waitFor(() => {
+      expect(mockOnChange).toHaveBeenCalledTimes(messageToType.length);
+    });
   });
 });
