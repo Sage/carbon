@@ -1,3 +1,9 @@
+## [154.12.0](https://github.com/Sage/carbon/compare/v154.11.4...v154.12.0) (2025-06-24)
+
+### Features
+
+* **badge:** add ID prop ([7597a50](https://github.com/Sage/carbon/commit/7597a50275620c959c2cf8a0a3441e96797d2410)), closes [#7351](https://github.com/Sage/carbon/issues/7351)
+
 ## [154.11.4](https://github.com/Sage/carbon/compare/v154.11.3...v154.11.4) (2025-06-24)
 
 ### Bug Fixes
