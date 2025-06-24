@@ -58,6 +58,7 @@ const BaseMenu = ({
     setResponsiveMode,
   } = useResponsiveVerticalMenu();
   const [active, setActive] = useState(false);
+  const [childItemCount, setChildItemCount] = useState(0);
   const largeScreen = useIsAboveBreakpoint(responsiveBreakpoint);
   const [left, setLeft] = useState("auto");
   const [responsiveWidth, setResponsiveWidth] = useState("100%");
@@ -120,6 +121,13 @@ const BaseMenu = ({
 
   useLayoutEffect(() => {
     measureDimensions();
+
+    // Measure dimensions when the window is resized
+    window.addEventListener("resize", measureDimensions);
+
+    return () => {
+      window?.removeEventListener("resize", measureDimensions);
+    };
   }, [active, measureDimensions, menu, responsiveMode]);
 
   useEffect(() => {
@@ -161,6 +169,53 @@ const BaseMenu = ({
     setReducedMotion?.(reduceMotion);
     setResponsiveMode?.(!largeScreen);
   }, [largeScreen, reduceMotion, setReducedMotion, setResponsiveMode]);
+
+  const countChildren = useCallback((currentChildren: React.ReactNode) => {
+    // If there are no children, return 0
+    if (!currentChildren) {
+      return 0;
+    }
+
+    // If the content of children is a single React element, count it and check its children
+    if (React.isValidElement(currentChildren)) {
+      const nodeChildren: number = countChildren(
+        currentChildren.props.children,
+      );
+      return 1 + nodeChildren;
+    }
+
+    // If the content of children is an array of React elements, iterate through them
+    const childrenAsArray = React.Children.toArray(currentChildren);
+
+    /* istanbul ignore else */
+    if (childrenAsArray.length) {
+      const reducedChildren: number = childrenAsArray.reduce(
+        (acc: number, child: React.ReactNode) => {
+          /* istanbul ignore else */
+          if (React.isValidElement(child)) {
+            const total = acc + 1;
+            const childrenCount = countChildren(child.props.children);
+            return total + childrenCount;
+          }
+          return acc;
+        },
+        0,
+      );
+
+      return reducedChildren;
+    }
+    return 0;
+  }, []);
+
+  useEffect(() => {
+    const previousChildCount = childItemCount;
+    const newChildCount = countChildren(children);
+
+    if (previousChildCount !== newChildCount) {
+      setChildItemCount(newChildCount);
+      setActiveMenuItem(null);
+    }
+  }, [childItemCount, children, countChildren, setActiveMenuItem]);
 
   return (
     <div ref={containerRef}>
