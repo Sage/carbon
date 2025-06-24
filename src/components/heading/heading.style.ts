@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, SimpleInterpolation } from "styled-components";
 import { margin } from "styled-system";
 
 import Icon from "../icon";
@@ -7,7 +7,6 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 import Help from "../help";
 import Typography from "../typography";
 import Hr from "../hr";
-import Link from "../link";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const StyledHeading = styled.div.attrs(applyBaseTheme)`
@@ -52,7 +51,9 @@ const StyledHeader = styled.div<StyledHeaderProps>`
   `}
 `;
 
-const StyledHeadingBackButton = styled(Link)`
+export const styledHeadingBackButton = (baseStyles: SimpleInterpolation) => css`
+  ${baseStyles}
+
   margin-right: 5px;
   margin-top: 2px;
   box-shadow: none;
@@ -164,6 +165,5 @@ export {
   StyledHeadingTitle,
   StyledDivider,
   StyledHeaderContent,
-  StyledHeadingBackButton,
   StyledHeadingPills,
 };

@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 import { StyledComponentHeader } from "../components-demo/component-heading/component-heading.style";
-import { StyledLink } from "../../../src/components/link/link.style";
+import Link from "../../../src/components/link";
+
+const StyledLink = styled(Link)``;
 
 export const Wrapper = styled.div`
   margin: 0 auto;

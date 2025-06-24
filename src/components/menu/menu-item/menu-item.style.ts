@@ -4,10 +4,10 @@ import { padding, PaddingProps } from "styled-system";
 
 import menuConfigVariants from "../menu.config";
 import Link from "../../link";
+import { BaseLink } from "../../link/__internal__/base-link";
 import StyledButton from "../../button/button.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import StyledIcon from "../../icon/icon.style";
-import { StyledContent, StyledLink } from "../../link/link.style";
 import applyBaseTheme from "../../../style/themes/apply-base-theme";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 
@@ -81,8 +81,10 @@ const parsePadding = (props: Partial<PaddingProps>) => {
   }
 };
 
+const StyledLink = styled(Link)``;
+
 const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
-  as: Link,
+  as: BaseLink,
 })<StyledMenuItemWrapperProps>`
   ${({
     menuType,
@@ -111,10 +113,12 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
     box-shadow: none;
 
     a,
-    button {
+    button:not(.search-button) {
       min-height: 40px;
       height: 100%;
       box-sizing: border-box;
+      border: none;
+      font-size: var(--fontSizes100);
     }
 
     a:focus,
@@ -122,13 +126,35 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
       ${addFocusStyling(true)}
     }
 
-    :has([data-element="input"]) ${StyledContent} {
+    > a,
+    > button {
+      [data-icon-align="left"] {
+        display: "inline-block";
+        position: relative;
+        vertical-align: middle;
+        margin-right: var(--spacing050);
+      }
+      [data-icon-align="right"] {
+        display: "inline-block";
+        position: relative;
+        vertical-align: middle;
+        margin-right: 0;
+        margin-left: var(--spacing100);
+      }
+    }
+
+    :has([data-element="input"]) [data-component="link-content"] {
       width: 100%;
     }
 
     ${!overrideColor &&
     css`
-      background-color: ${menuConfigVariants[menuType].background};
+      &,
+      ${StyledLink}, > button,
+      > a {
+        background-color: ${menuConfigVariants[menuType].background};
+        cursor: pointer;
+      }
     `}
 
     ${overrideColor &&
@@ -216,7 +242,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
         > a:has(${StyledButton}:not(.search-button)) {
           height: 100%;
 
-          ${StyledContent} {
+          [data-component="link-content"] {
             height: inherit;
 
             div {
@@ -309,6 +335,10 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
     ${selected &&
     css`
       background-color: ${menuConfigVariants[menuType].selected};
+      a,
+      button {
+        background-color: ${menuConfigVariants[menuType].selected};
+      }
 
       a:focus,
       button:focus {
@@ -325,7 +355,10 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
     !inFullscreenView &&
     css`
       &&& {
-        background-color: ${menuConfigVariants[menuType].alternate};
+        a,
+        button {
+          background-color: ${menuConfigVariants[menuType].alternate};
+        }
       }
 
       &&& a:focus,
@@ -393,7 +426,10 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
 
       ${selected &&
       css`
-        background-color: ${menuConfigVariants[menuType].submenuSelected};
+        a,
+        button {
+          background-color: ${menuConfigVariants[menuType].submenuSelected};
+        }
 
         a:focus,
         button:focus {

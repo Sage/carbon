@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Crumb from "./crumb.component";
 import Logger from "../../../__internal__/utils/logger";
@@ -89,4 +89,29 @@ test("renders with provided data- attributes", () => {
   );
 
   expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
+});
+
+test("renders `isCurrent` correctly", () => {
+  render(
+    <Breadcrumbs aria-label="Default breadcrumbs">
+      <Crumb href="#" data-role="bc-1">
+        Breadcrumb 1
+      </Crumb>
+      <Crumb href="#" data-role="bc-2">
+        Breadcrumb 2
+      </Crumb>
+      <Crumb href="#" data-role="bc-3">
+        Breadcrumb 3
+      </Crumb>
+      <Crumb href="#" data-role="bc-4" isCurrent>
+        Current Page
+      </Crumb>
+    </Breadcrumbs>,
+  );
+
+  const currentCrumb = screen.getByTestId("bc-4");
+  const anchor = within(currentCrumb).getByTestId("link-anchor");
+
+  expect(currentCrumb).toHaveTextContent("Current Page");
+  expect(anchor).toHaveStyle("text-decoration: none");
 });

@@ -138,3 +138,5 @@ export const LinkComponent = (props: LinkProps) => {
     </div>
   );
 };
+
+export const Test = () => <Link icon="basket" iconAlign="right" />;

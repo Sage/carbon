@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
-import StyledMenuItemWrapper from "../menu-item/menu-item.style";
+
 import menuConfigVariants from "../menu.config";
 import { VariantType } from "../menu-item";
 import StyledBox from "../../box/box.style";
 import { StyledMenuItem } from "../menu.style";
-import { StyledLink } from "../../link/link.style";
+import StyledLink from "../../link/__internal__/base-link/base-link.style";
 
 import type { MenuType } from "../menu.types";
 
@@ -15,11 +15,13 @@ interface StyledScrollableBlockProps {
 
 const StyledScrollableBlock = styled.li<StyledScrollableBlockProps>`
   ${({ menuType, variant }) => css`
-    && ${StyledMenuItemWrapper} {
-      background-color: ${variant === "default"
-        ? menuConfigVariants[menuType].submenuItemBackground
-        : menuConfigVariants[menuType].alternate};
-      padding-right: var(--spacing150);
+    ${StyledMenuItem} ${StyledLink} {
+      Add comment More actions a,
+      button {
+        background-color: ${variant === "default"
+          ? menuConfigVariants[menuType].submenuItemBackground
+          : menuConfigVariants[menuType].alternate};
+      }
     }
 
     ${StyledBox} {

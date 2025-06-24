@@ -5,7 +5,6 @@ import StyledInputPresentation from "../../__internal__/input/input-presentation
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import { StyledSelectText } from "../select/__internal__/select-textbox/select-textbox.style";
-import Link from "../link";
 
 const StyledSelectContainer = styled.div`
   height: 26px;
@@ -142,20 +141,6 @@ const StyledPagerNavLabel = styled.label`
   white-space: nowrap;
 `;
 
-interface StyledPagerLinkProps {
-  hideDisabledButtons?: boolean;
-}
-
-const StyledPagerLink = styled(Link)<StyledPagerLinkProps>`
-  ${({ hideDisabledButtons }) =>
-    hideDisabledButtons &&
-    css`
-      & {
-        visibility: hidden;
-      }
-    `}
-`;
-
 const StyledPagerNoSelect = styled.div`
   user-select: none;
   white-space: nowrap;
@@ -183,7 +168,6 @@ export {
   StyledPagerNavigation,
   StyledPagerNavInner,
   StyledPagerNavLabel,
-  StyledPagerLink,
   StyledPagerNoSelect,
   StyledPagerSummary,
   StyledSelectContainer,

@@ -1,10 +1,11 @@
 /* TODO: FE-6579 To re-enable once button-related props are removed from Link */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import React from "react";
 
 import Link from "./link.component";
+
 import { Menu } from "../menu";
 
 test("should render `Skip to main content` text inside of Link when `isSkipLink` prop is provided", () => {
@@ -572,4 +573,45 @@ test("sets ref to empty after unmount", () => {
   unmount();
 
   expect(mockRef.current).toBe(null);
+});
+
+// Coverage: blur focus styling
+test("the correct focus styling is applied on focus and removed on blur", async () => {
+  const user = userEvent.setup();
+  render(
+    <>
+      <Link href="foo.com" data-role="link" />
+      <button type="button" data-role="button">
+        Button
+      </button>
+    </>,
+  );
+
+  const linkElement = screen.getByTestId("link-anchor");
+
+  await user.tab();
+  expect(linkElement).toHaveFocus();
+
+  await user.tab();
+
+  expect(linkElement).not.toHaveFocus();
+  expect(screen.getByTestId("button")).toHaveFocus();
+});
+
+// coverage: correct styling with no children
+test("has the correct content styling when no children are present", () => {
+  render(<Link href="#" data-role="link" />);
+  const linkElement = screen.getByTestId("link-anchor");
+  expect(linkElement).toHaveStyle("text-decoration: none");
+});
+
+// coverage: correct styling with children
+test("has the correct content styling when children are present", () => {
+  render(
+    <Link href="#" data-role="link">
+      Text
+    </Link>,
+  );
+  const linkElement = screen.getByTestId("link-anchor");
+  expect(linkElement).toHaveStyle("text-decoration: underline");
 });

@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useTheme } from "styled-components";
 import { MarginProps } from "styled-system";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -13,9 +13,15 @@ import {
   ProfileNameStyle,
   ProfileDetailsStyle,
   ProfileAvatarStyle,
-  ProfileEmailStyle,
+  profileEmailStyle,
   ProfileTextStyle,
 } from "./profile.style";
+
+import addLinkStyle from "../link/link.style";
+
+import { BaseLink } from "../link/__internal__/base-link";
+
+import { ThemeObject } from "../../style/themes";
 
 function acronymize(str?: string) {
   if (!str) return "";
@@ -105,6 +111,15 @@ export const Profile = ({
         " Please use the `name` prop as well as `email` or `text`.",
     );
   }
+  const theme = useTheme();
+
+  const baseStyles = addLinkStyle({
+    hasContent: !!email,
+
+    theme: theme as ThemeObject,
+  });
+
+  const styles = profileEmailStyle(baseStyles, size, darkBackground);
 
   const children = () => {
     if (name)
@@ -114,15 +129,14 @@ export const Profile = ({
             {name}
           </ProfileNameStyle>
           {email && (
-            <ProfileEmailStyle
+            <BaseLink
+              styles={styles}
               href={`mailto: ${email}`}
-              size={size}
               data-role="email-link"
-              darkBackground={darkBackground}
               data-element="email"
             >
               {email}
-            </ProfileEmailStyle>
+            </BaseLink>
           )}
           {text && (
             <ProfileTextStyle size={size} data-element="text">

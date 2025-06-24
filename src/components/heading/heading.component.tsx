@@ -1,5 +1,6 @@
 import React from "react";
 import { MarginProps } from "styled-system";
+import { useTheme } from "styled-components";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent, {
@@ -15,10 +16,13 @@ import {
   StyledHeadingTitle,
   StyledDivider,
   StyledHeaderContent,
-  StyledHeadingBackButton,
+  styledHeadingBackButton,
   StyledHeadingPills,
 } from "./heading.style";
 import useLocale from "../../hooks/__internal__/useLocale";
+import { BaseLink } from "../link/__internal__";
+import addLinkStyles from "../link/link.style";
+import { ThemeObject } from "../../style/themes";
 
 export type HeadingType = "h1" | "h2" | "h3" | "h4" | "h5";
 export interface HeadingProps extends MarginProps, TagProps {
@@ -74,6 +78,14 @@ export const Heading = ({
   titleId,
   ...rest
 }: HeadingProps) => {
+  const theme = useTheme();
+
+  const baseStyles = addLinkStyles({
+    theme: theme as ThemeObject,
+
+    hasContent: !!children,
+  });
+
   const getHelp = () => {
     return (
       <StyledHeaderHelp
@@ -92,8 +104,11 @@ export const Heading = ({
     const backButtonProps =
       typeof backLink === "string" ? { href: backLink } : { onClick: backLink };
 
+    const styles = styledHeadingBackButton(baseStyles);
+
     return (
-      <StyledHeadingBackButton
+      <BaseLink
+        styles={styles}
         // this event allows an element to be focusable on click event on IE
         aria-label={l.heading.backLinkAriaLabel()}
         data-element="back"
@@ -102,7 +117,7 @@ export const Heading = ({
         {...backButtonProps}
       >
         <StyledHeadingIcon type="chevron_left" />
-      </StyledHeadingBackButton>
+      </BaseLink>
     );
   };
 

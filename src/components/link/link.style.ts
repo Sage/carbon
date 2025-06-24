@@ -1,9 +1,11 @@
-import styled, { css } from "styled-components";
-import applyBaseTheme from "../../style/themes/apply-base-theme";
+import { css } from "styled-components";
+import baseTheme from "../../style/themes/base";
+import type { ThemeObject } from "../../style/themes/theme.types";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 
 type Variants = "default" | "negative" | "neutral";
+
 export interface StyledLinkProps {
   /** The disabled state of the link. */
   disabled?: boolean;
@@ -72,173 +74,166 @@ const colorMap: ColorMap = {
   },
 };
 
-const StyledLink = styled.span.attrs(applyBaseTheme)<
-  StyledLinkProps & PrivateStyledLinkProps
->`
-  ${({
-    isSkipLink,
-    theme,
-    iconAlign,
-    hasContent,
-    disabled,
-    variant,
-    isDarkBackground,
-    isMenuItem,
-    hasFocus,
-  }) => {
-    const colorMapKey = isDarkBackground ? "dark" : "light";
-    const { color, hoverColor, disabledColor } = colorMap[colorMapKey](variant);
+export default ({
+  disabled,
+  hasContent,
+  hasFocus,
+  iconAlign,
+  isDarkBackground,
+  isMenuItem,
+  isSkipLink,
+  theme = baseTheme,
+  variant,
+}: StyledLinkProps & PrivateStyledLinkProps & { theme: ThemeObject }) => {
+  const colorMapKey = isDarkBackground ? "dark" : "light";
+  const { color, hoverColor, disabledColor } = colorMap[colorMapKey](variant);
+  const isDisabled = disabled || false;
 
-    return css`
-      ${isSkipLink &&
-      css`
-        a {
-          position: absolute;
-          padding-left: var(--spacing300);
-          padding-right: var(--spacing300);
-          line-height: var(--sizing600);
-          left: -999em;
-          z-index: ${theme.zIndex.aboveAll};
-          border: 3px solid var(--colorsUtilityYin100);
-          box-shadow: var(--boxShadow300);
-          border-radius: var(--spacing000) var(--spacing100) var(--spacing100)
-            var(--spacing000);
-          font-size: var(--fontSizes100);
+  return css`
+    ${isSkipLink &&
+    css`
+      a {
+        position: absolute;
+        padding-left: var(--spacing300);
+        padding-right: var(--spacing300);
+        line-height: var(--sizing600);
+        left: -999em;
+        z-index: ${theme.zIndex.aboveAll};
+        border: 3px solid var(--colorsUtilityYin100);
+        box-shadow: var(--boxShadow300);
+        border-radius: var(--spacing000) var(--spacing100) var(--spacing100)
+          var(--spacing000);
+        font-size: var(--fontSizes100);
+        color: var(--colorsUtilityYin090);
+
+        &:hover {
+          cursor: pointer;
           color: var(--colorsUtilityYin090);
 
-          &:hover {
-            cursor: pointer;
-            color: var(--colorsUtilityYin090);
+          ${StyledIcon} {
+            color: var(--colorsActionMajor600);
+          }
+        }
 
-            ${StyledIcon} {
-              color: var(--colorsActionMajor600);
+        &:focus {
+          background-color: var(--colorsSemanticFocus500);
+          text-decoration: underline var(--colorsUtilityYin100);
+          text-decoration-thickness: 4px;
+          text-underline-offset: 3px;
+          -webkit-text-decoration: underline var(--colorsUtilityYin100);
+          -webkit-text-decoration-thickness: 4px;
+          -webkit-text-underline-offset: 3px;
+        }
+      }
+
+      a:focus {
+        top: var(--spacing100);
+        left: var(--spacing000);
+      }
+    `}
+
+    ${!isSkipLink &&
+    css`
+      > a,
+      > button {
+        font-size: var(--fontSizes100);
+
+        ${!isDisabled &&
+        css`
+          color: ${color};
+          ${StyledIcon} {
+            color: ${color};
+          }
+
+          &:hover {
+            color: ${hoverColor};
+
+            > ${StyledIcon} {
+              color: ${hoverColor};
             }
           }
 
           &:focus {
-            background-color: var(--colorsSemanticFocus500);
-            text-decoration: underline var(--colorsUtilityYin100);
-            text-decoration-thickness: 4px;
-            text-underline-offset: 3px;
-            -webkit-text-decoration: underline var(--colorsUtilityYin100);
-            -webkit-text-decoration-thickness: 4px;
-            -webkit-text-underline-offset: 3px;
+            background-color: var(--colorsSemanticFocus250);
+            border-radius: var(--borderRadius025);
           }
-        }
+        `}
 
-        a:focus {
-          top: var(--spacing100);
-          left: var(--spacing000);
-        }
-      `}
-
-      ${!isSkipLink &&
-      css`
-        > a,
-        > button {
-          font-size: var(--fontSizes100);
-
-          ${!disabled &&
-          css`
-            color: ${color};
-            ${StyledIcon} {
-              color: ${color};
-            }
-
-            &:hover {
-              color: ${hoverColor};
-
-              > ${StyledIcon} {
-                color: ${hoverColor};
-              }
-            }
-
-            &:focus {
-              background-color: var(--colorsSemanticFocus250);
-              border-radius: var(--borderRadius025);
-            }
-          `}
-
-          ${disabled &&
-          css`
+        ${isDisabled &&
+        css`
+          color: ${disabledColor};
+          &:hover,
+          &:focus {
             color: ${disabledColor};
-            &:hover,
-            &:focus {
-              color: ${disabledColor};
-            }
-          `}
-        }
-      `}
+          }
+        `}
+      }
+    `}
 
-      ${!disabled &&
-      css`
-        > a:any-link:hover,
-        > button:hover {
-          cursor: pointer;
-        }
-      `}
+      ${!isDisabled &&
+    css`
+      > a:any-link:hover,
+      > button:hover {
+        cursor: pointer;
+      }
+    `}
 
       > a,
       > button {
-        text-decoration: ${hasContent ? "underline" : "none"};
-        ${isMenuItem && "display: inline-block;"}
+      text-decoration: ${hasContent ? "underline" : "none"};
+      ${isMenuItem && "display: inline-block;"}
 
-        > ${StyledIcon} {
-          display: ${hasContent ? "inline-block" : "inline"};
-          position: relative;
-          vertical-align: middle;
-          ${iconAlign === "left" &&
-          css`
-            margin-right: ${hasContent ? "var(--spacing050)" : 0};
-          `}
-          ${iconAlign === "right" &&
-          css`
-            margin-right: 0;
-            margin-left: ${hasContent ? "var(--spacing100)" : 0};
-          `}
-        }
-
-        &:focus {
-          color: var(--colorsActionMajorYin090);
-          outline: none;
-
-          ${StyledIcon} {
-            color: var(--colorsActionMajorYin090);
-          }
-        }
-
-        ${disabled &&
+      ${StyledIcon} {
+        display: ${hasContent ? "inline-block" : "inline"};
+        position: relative;
+        vertical-align: middle;
+        ${iconAlign === "left" &&
         css`
-          cursor: not-allowed;
+          margin-right: ${hasContent ? "var(--spacing050)" : 0};
+        `}
+        ${iconAlign === "right" &&
+        css`
+          margin-right: 0;
+          margin-left: ${hasContent ? "var(--spacing100)" : 0};
         `}
       }
 
-      ${!isSkipLink &&
-      !disabled &&
-      hasFocus &&
-      css`
-        > a,
-        > button {
-          outline: none;
-          text-decoration: none;
-          border-bottom-left-radius: var(--borderRadius000);
-          border-bottom-right-radius: var(--borderRadius000);
+      &:focus {
+        color: var(--colorsActionMajorYin090);
+        outline: none;
+
+        ${StyledIcon} {
+          color: var(--colorsActionMajorYin090);
         }
-        max-width: fit-content;
-        box-shadow: 0 var(--spacing050) 0 0 var(--colorsUtilityYin090);
-        border-bottom-left-radius: var(--borderRadius025);
-        border-bottom-right-radius: var(--borderRadius025);
-      `}
-
-      > button, ${StyledButton}:not(.search-button) {
-        background-color: transparent;
-        border: none;
-        padding: 0;
       }
-    `;
-  }}
-`;
 
-const StyledContent = styled.span``;
+      ${isDisabled &&
+      css`
+        cursor: not-allowed;
+      `}
+    }
 
-export { StyledLink, StyledContent };
+    ${!isSkipLink &&
+    !isDisabled &&
+    hasFocus &&
+    css`
+      > a,
+      > button {
+        outline: yellow;
+        text-decoration: none;
+        border-bottom-left-radius: var(--borderRadius000);
+        border-bottom-right-radius: var(--borderRadius000);
+      }
+      max-width: fit-content;
+      box-shadow: 0 var(--spacing050) 0 0 var(--colorsUtilityYin090);
+      border-bottom-left-radius: var(--borderRadius025);
+      border-bottom-right-radius: var(--borderRadius025);
+    `}
+
+    > button, ${StyledButton}:not(.search-button) {
+      background-color: transparent;
+      border: none;
+      padding: 0;
+    }
+  `;
+};

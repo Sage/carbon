@@ -9,7 +9,7 @@ import StyledLoaderBar, {
   StyledLoader,
   InnerBar as LoaderBarInnerBar,
 } from "../../../loader-bar/loader-bar.style";
-import { StyledLink, StyledContent } from "../../../link/link.style";
+import StyledLink from "../../../link/__internal__/base-link/base-link.style";
 
 export const StyledFileLinkContainer = styled.div`
   color: var(--colorsActionMajorYin090);
@@ -29,7 +29,7 @@ export const StyledFileLinkContainer = styled.div`
     text-decoration: none;
   }
 
-  ${StyledContent} {
+  [data-component="link-content"] {
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: underline;
