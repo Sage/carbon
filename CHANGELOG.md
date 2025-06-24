@@ -1,3 +1,51 @@
+## [154.11.4](https://github.com/Sage/carbon/compare/v154.11.3...v154.11.4) (2025-06-24)
+
+### Bug Fixes
+
+* **tile:** ensure no additional borders render with multiple tiles ([aa6e4c8](https://github.com/Sage/carbon/commit/aa6e4c84ba6fb56a34161af521a64521c9e81071))
+
+## [154.11.3](https://github.com/Sage/carbon/compare/v154.11.2...v154.11.3) (2025-06-23)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** fix issue that stopped off-screen menu items from scrolling into view ([5fd31c0](https://github.com/Sage/carbon/commit/5fd31c03b21a4b2f4740c8cc88490b2102f6bb32))
+
+## [154.11.2](https://github.com/Sage/carbon/compare/v154.11.1...v154.11.2) (2025-06-20)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure menu position is re-calculated on window resize ([eadf60f](https://github.com/Sage/carbon/commit/eadf60f93f656fb1763461cfbc79728cc2622b3f))
+
+## [154.11.1](https://github.com/Sage/carbon/compare/v154.11.0...v154.11.1) (2025-06-20)
+
+### Bug Fixes
+
+* **checkable-input:** fieldHelp is not supported with dark background ([a560d09](https://github.com/Sage/carbon/commit/a560d090a8c75602eaebb8aeb74a20bfc6ec24d7))
+
+## [154.11.0](https://github.com/Sage/carbon/compare/v154.10.1...v154.11.0) (2025-06-19)
+
+### Features
+
+* **storybook:** introduce Play functions ([d22163f](https://github.com/Sage/carbon/commit/d22163fda8d0ef3b5a04b8c33939499f65fa6e26))
+
+## [154.10.1](https://github.com/Sage/carbon/compare/v154.10.0...v154.10.1) (2025-06-17)
+
+### Bug Fixes
+
+* **popover-container:** aria hidden elements must not be focusable ([44cd2bb](https://github.com/Sage/carbon/commit/44cd2bb374ebe8fc54bee24a3bb9c9ddea2ccbf8)), closes [#7350](https://github.com/Sage/carbon/issues/7350)
+
+## [154.10.0](https://github.com/Sage/carbon/compare/v154.9.0...v154.10.0) (2025-06-16)
+
+### Features
+
+* **menu-item:** allow nodes to be passed to the submenu prop ([d97094c](https://github.com/Sage/carbon/commit/d97094c32c9e3b733baba70586433533cc1cc2c7)), closes [#7353](https://github.com/Sage/carbon/issues/7353)
+
+## [154.9.0](https://github.com/Sage/carbon/compare/v154.8.0...v154.9.0) (2025-06-16)
+
+### Features
+
+* **responsive-vertical-menu:** fix stale menu bug when child items change ([af33cc8](https://github.com/Sage/carbon/commit/af33cc8bd28a141158bd6db52ce2226072f265d2))
+
 ## [154.8.0](https://github.com/Sage/carbon/compare/v154.7.4...v154.8.0) (2025-06-11)
 
 ### Features
