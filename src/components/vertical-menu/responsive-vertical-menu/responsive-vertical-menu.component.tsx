@@ -81,9 +81,7 @@ const BaseMenu = ({
         document.querySelector("[id='responsive-vertical-menu-primary']");
       /* istanbul ignore else */
       if (menuContainer) {
-        setResponsiveWidth(
-          `${menuContainer.getBoundingClientRect().width - 16}px`,
-        );
+        setResponsiveWidth(`${menuContainer.getBoundingClientRect().width}px`);
       }
     }
 
@@ -279,6 +277,7 @@ const BaseMenu = ({
         <Modal open={active}>
           <Box position="fixed" top={0} width={responsiveWidth}>
             <Box
+              boxSizing="border-box"
               display="flex"
               justifyContent="flex-end"
               width="100%"
