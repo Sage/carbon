@@ -42,7 +42,7 @@ describe("Badge", () => {
     expect(screen.getByRole("button")).toBeVisible();
   });
 
-  it("should hide the counter text when the badge is focused and it shows it when it is not focused", () => {
+  it("should hide the counter text when the badge is focused and displays it when blurred", () => {
     renderComponent({ counter: 9, onClick: () => {} });
 
     const badgeButton = screen.getByRole("button");
@@ -61,7 +61,7 @@ describe("Badge", () => {
     expect(badgeText).toBeVisible();
   });
 
-  it("should hide the counter text when the badge is hovered and it shows it when it is unhovered", async () => {
+  it("should hide the counter text when the badge is hovered and displays it when unhovered", async () => {
     const user = userEvent.setup();
 
     renderComponent({ counter: 9, onClick: () => {} });
@@ -86,19 +86,14 @@ describe("Badge", () => {
   });
 
   it("should have the relevant aria-label when aria-label is specified", () => {
-    renderComponent({ counter: 9, "aria-label": "Generic aria message" });
-
-    expect(screen.getByLabelText("Generic aria message")).toBeVisible();
-  });
-
-  it("should not have an aria-label when onClick is set", () => {
     renderComponent({
       counter: 9,
       onClick: () => {},
       "aria-label": "Generic aria message",
     });
 
-    expect(screen.getByRole("button")).not.toHaveAttribute("aria-label");
+    const badgeButton = screen.getByRole("button");
+    expect(badgeButton).toHaveAccessibleName("Generic aria message");
   });
 
   it("should render with provided data- attributes", () => {
@@ -119,6 +114,13 @@ describe("Badge", () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
+  it("should render with provided id", () => {
+    renderComponent({ counter: 9, id: "custom-id" });
+
+    const badge = screen.getByTestId("badge");
+    expect(badge).toHaveAttribute("id", "custom-id");
+  });
+
   it("should apply the correct cursor style when onClick is not specified", () => {
     renderComponent({ counter: 9 });
 
@@ -130,26 +132,29 @@ describe("Badge", () => {
     renderComponent({ counter: 9 });
 
     const badge = screen.getByTestId("badge");
-    expect(badge).toHaveStyle({ borderRadius: "var(--borderRadiusCircle)" });
+    expect(badge).toHaveStyleRule("border-radius", "var(--borderRadiusCircle)");
   });
 
   it("should render badge with default style when color prop is not specified", () => {
     renderComponent({ counter: 9 });
 
     const badge = screen.getByTestId("badge");
-    expect(badge).toHaveStyle({
-      borderColor: "var(--colorsActionMajor500)",
-      color: "var(--colorsActionMajor500)",
-    });
+    expect(badge).toHaveStyleRule(
+      "border-color",
+      "var(--colorsActionMajor500)",
+    );
+    expect(badge).toHaveStyleRule("color", "var(--colorsActionMajor500)");
   });
 
   it("should render badge with correct style when color prop is specified", () => {
     renderComponent({ counter: 9, color: "--colorsSemanticNegative500" });
 
     const badge = screen.getByTestId("badge");
-    expect(badge).toHaveStyle({
-      borderColor: "var(--colorsSemanticNegative500)",
-      color: "var(--colorsSemanticNegative500)",
-    });
+
+    expect(badge).toHaveStyleRule(
+      "border-color",
+      "var(--colorsSemanticNegative500)",
+    );
+    expect(badge).toHaveStyleRule("color", "var(--colorsSemanticNegative500)");
   });
 });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   StyledBadgeWrapper,
   StyledCrossIcon,
@@ -6,6 +6,7 @@ import {
   StyledBadge,
 } from "./badge.style";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
+import guid from "../../__internal__/utils/helpers/guid";
 
 export interface BadgeProps extends TagProps {
   /** Prop to specify an aria-label for the component */
@@ -18,6 +19,8 @@ export interface BadgeProps extends TagProps {
   color?: string;
   /** Callback fired when badge is clicked */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
+  /** Unique identifier for the component. */
+  id?: string;
 }
 
 export const Badge = ({
@@ -26,6 +29,7 @@ export const Badge = ({
   counter = 0,
   color = "--colorsActionMajor500",
   onClick,
+  id,
   "data-element": dataElement,
   "data-role": dataRole,
 }: BadgeProps) => {
@@ -33,16 +37,10 @@ export const Badge = ({
   const counterToDisplay = +counter > 99 ? 99 : counter;
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const { current: uniqueId } = useRef(id || guid());
 
   const renderCorrectBadge = () => {
-    const props = onClick
-      ? {
-          buttonType: "secondary",
-          onClick,
-        }
-      : {
-          "aria-label": ariaLabel,
-        };
+    const buttonProps = { buttonType: "secondary", onClick };
 
     if (shouldDisplayCounter) {
       return (
@@ -51,7 +49,8 @@ export const Badge = ({
           data-element={dataElement}
           data-role={dataRole}
           color={color}
-          {...props}
+          id={uniqueId}
+          aria-label={ariaLabel}
           onFocus={() => {
             setIsFocused(true);
           }}
@@ -66,6 +65,7 @@ export const Badge = ({
           }}
           isFocused={isFocused}
           isHovered={isHovered}
+          {...(onClick && buttonProps)}
         >
           {onClick && (
             <StyledCrossIcon data-element="badge-cross-icon" type="cross" />
