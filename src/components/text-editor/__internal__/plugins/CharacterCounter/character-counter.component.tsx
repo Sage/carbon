@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getRoot } from "lexical";
 import {
@@ -20,21 +20,40 @@ const CharacterCounterPlugin = ({
   maxChars,
   namespace,
 }: CharacterCounterPluginProps) => {
-  const [rawContent, setRawContent] = useState<string>("");
+  const [charactersRemaining, setCharactersRemaining] = useState(0);
 
   const [editor] = useLexicalComposerContext();
   useEffect(() => {
-    // The character counter plugin listens for updates to the editor state
-    // independently to ensure updates do not conflict/interrupt other state
-    // changes
-    editor.registerUpdateListener(({ editorState }) => {
-      editorState.read(() => {
-        const newContent = $getRoot().getTextContent();
+    const updateCharCount = () => {
+      editor.getEditorState().read(() => {
+        const root = $getRoot();
+        const paragraphs = root.getChildren();
 
-        setRawContent(newContent);
+        if (
+          paragraphs.length === 1 &&
+          paragraphs[0].getTextContent().length === 0
+        ) {
+          setCharactersRemaining(maxChars);
+        }
+
+        const count = paragraphs.reduce((acc, node, index) => {
+          const textLength = node.getTextContent().length;
+          const isLast = index === paragraphs.length - 1;
+
+          return acc + textLength + (isLast ? 0 : 2);
+        }, 0);
+        setCharactersRemaining(maxChars - count > 0 ? maxChars - count : 0);
+      });
+    };
+
+    updateCharCount();
+
+    return editor.registerUpdateListener(({ editorState }) => {
+      editorState.read(() => {
+        updateCharCount();
       });
     });
-  }, [editor]);
+  }, [editor, maxChars]);
 
   // Get the locale to enable translations
   const locale = useLocale();
@@ -48,14 +67,6 @@ const CharacterCounterPlugin = ({
   );
   const [debouncedValue, setDebouncedValue] = useState<number>(0);
 
-  // Calculate the number of characters remaining
-  const rawCharactersRemaining = useMemo(() => {
-    // Calculate the number of characters remaining
-    const activeCount = maxChars - (rawContent ? rawContent.length : 0);
-    // Return the active count if it is greater than 0, otherwise return 0
-    return activeCount >= 0 ? activeCount : 0;
-  }, [rawContent, maxChars]);
-
   // Use a debounced value to update the remaining character count for screen readers to use
   /* istanbul ignore next */
   const debouncedText = useDebounce((newValue) => {
@@ -63,14 +74,14 @@ const CharacterCounterPlugin = ({
   }, 2000);
 
   useEffect(() => {
-    debouncedText(rawCharactersRemaining);
-  }, [rawCharactersRemaining, debouncedText]);
+    debouncedText(charactersRemaining);
+  }, [charactersRemaining, debouncedText]);
 
   return (
     <>
       <StyledCharacterCounter data-role={`${namespace}-character-limit`}>
         {locale.textEditor.characterCounter(
-          getFormatNumber(rawCharactersRemaining),
+          getFormatNumber(charactersRemaining),
         )}
       </StyledCharacterCounter>
       <VisuallyHiddenCharacterCounter aria-live="polite">
