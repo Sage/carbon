@@ -120,6 +120,23 @@ test("should open additional buttons when the main button is clicked", async () 
   expect(button).toBeVisible();
 });
 
+test("should close additional buttons when the toggle button is clicked", async () => {
+  const user = userEvent.setup();
+  render(
+    <MultiActionButton text="Main Button">
+      <Button>First</Button>
+    </MultiActionButton>,
+  );
+
+  await user.click(screen.getByRole("button", { name: "Main Button" }));
+  expect(screen.getByRole("button", { name: "First" })).toBeVisible();
+
+  await user.click(screen.getByRole("button", { name: "Main Button" }));
+  expect(
+    screen.queryByRole("button", { name: "First" }),
+  ).not.toBeInTheDocument();
+});
+
 test("should close additional buttons when a child button is clicked", async () => {
   const user = userEvent.setup();
   render(

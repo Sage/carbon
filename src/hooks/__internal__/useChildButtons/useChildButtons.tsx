@@ -38,10 +38,9 @@ const useChildButtons = (
   const handleToggleButtonKeyDown = (
     ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
-    const isToggleKey =
-      Events.isEnterKey(ev) || Events.isSpaceKey(ev) || Events.isDownKey(ev);
+    const isToggleKey = Events.isEnterKey(ev) || Events.isSpaceKey(ev);
 
-    if (isToggleKey && !showAdditionalButtons) {
+    if ((isToggleKey || Events.isDownKey(ev)) && !showAdditionalButtons) {
       ev.preventDefault();
       showButtons();
     }
@@ -49,6 +48,11 @@ const useChildButtons = (
     if (Events.isDownKey(ev) && showAdditionalButtons) {
       ev.preventDefault();
       getButtonChildren()?.[0]?.focus({ preventScroll: true });
+    }
+
+    if (isToggleKey && showAdditionalButtons) {
+      ev.preventDefault();
+      hideButtons();
     }
   };
 

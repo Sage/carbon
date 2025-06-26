@@ -598,6 +598,46 @@ test("should hide the additional buttons when a click event detected outside the
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
+test("should hide the additional buttons when the list is open and 'Enter' key is pressed on the toggle button", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  toggle.focus();
+  await user.keyboard("{Enter}");
+  const childButton = await screen.findByRole("button", {
+    name: "Single Button",
+  });
+
+  expect(childButton).toBeVisible();
+  await user.keyboard("{Enter}");
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
+test("should hide the additional buttons when the list is open and 'Space' key is pressed on the toggle button", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  toggle.focus();
+  await user.keyboard(" ");
+  const childButton = await screen.findByRole("button", {
+    name: "Single Button",
+  });
+
+  expect(childButton).toBeVisible();
+  await user.keyboard(" ");
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
 test("should hide the additional buttons when a 'Escape' keydown event detected and focus is within component", async () => {
   const user = userEvent.setup();
   render(
@@ -679,6 +719,27 @@ test("should hide the additional buttons when the main button is clicked", async
   await user.click(main);
 
   expect(childButton).not.toBeInTheDocument();
+});
+
+test("should hide the additional buttons when the list is open the toggle button is clicked", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  await user.click(toggle);
+  const childButton = await screen.findByRole("button", {
+    name: "Single Button",
+  });
+
+  expect(childButton).toBeVisible();
+
+  await user.click(toggle);
+
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
 test("should support navigating the additional buttons via down arrow key but stop on last button", async () => {

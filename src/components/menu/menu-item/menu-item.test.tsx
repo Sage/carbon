@@ -1330,6 +1330,58 @@ describe("when MenuItem has a submenu", () => {
     });
   });
 
+  it.each([
+    ["Enter", "{Enter}"],
+    ["Space", " "],
+  ])(
+    "should close when the focus is on a button parent item and '%s' key is pressed",
+    async (_, key) => {
+      const user = userEvent.setup();
+      render(
+        <Menu>
+          <MenuItem submenu="Item One">
+            <MenuItem href="#">Submenu Item One</MenuItem>
+            <MenuItem href="#">Submenu Item Two</MenuItem>
+            <MenuItem href="#">Submenu Item Three</MenuItem>
+          </MenuItem>
+        </Menu>,
+      );
+      const parentItem = screen.getByRole("listitem");
+
+      await user.tab();
+      await user.keyboard(key);
+      const submenu = within(parentItem).queryByRole("list");
+
+      expect(submenu).toBeVisible();
+
+      await user.keyboard(key);
+      expect(submenu).not.toBeInTheDocument();
+    },
+  );
+
+  it("should close when the parent is a link parent item and 'Space' key is pressed", async () => {
+    const user = userEvent.setup();
+    render(
+      <Menu>
+        <MenuItem href="#" submenu="Item One">
+          <MenuItem href="#">Submenu Item One</MenuItem>
+          <MenuItem href="#">Submenu Item Two</MenuItem>
+          <MenuItem href="#">Submenu Item Three</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+    const parentItem = screen.getByRole("listitem");
+
+    await user.tab();
+    await user.keyboard(" ");
+    const submenu = within(parentItem).queryByRole("list");
+
+    expect(submenu).toBeVisible();
+
+    await user.keyboard(" ");
+    expect(submenu).not.toBeInTheDocument();
+  });
+
   it("should not throw an error when a passed null `children`", () => {
     expect(() => {
       render(
