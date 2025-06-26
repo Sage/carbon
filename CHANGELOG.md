@@ -1,3 +1,9 @@
+## [154.12.1](https://github.com/Sage/carbon/compare/v154.12.0...v154.12.1) (2025-06-26)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** ensure all elements are indexed behind the component when rendered as a modal ([a1e203b](https://github.com/Sage/carbon/commit/a1e203bf7ea6539f6d262d4b6867a906f050642b))
+
 ## [154.12.0](https://github.com/Sage/carbon/compare/v154.11.4...v154.12.0) (2025-06-24)
 
 ### Features
