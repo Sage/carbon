@@ -51,15 +51,6 @@ const StyledInlineControl = styled.div`
 `;
 
 const StyledTitleWrapper = styled.div`
-  h3 {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 21px;
-    letter-spacing: 0px;
-    margin: 0px;
-    padding: 0px 0px var(--spacing200);
-  }
-
   ${VARIANT_TYPES.map(
     (variant) => `
       ${variant}{
