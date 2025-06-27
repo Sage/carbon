@@ -204,6 +204,9 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       };
     }, [namespace, readOnly, value]);
 
+    const lastStateRef = useRef<string | null>(null);
+    const programmaticUpdateRef = useRef<boolean>(false);
+
     // OnChangePlugin is tested separately
     /* istanbul ignore next */
     const handleChange = useCallback(
@@ -212,7 +215,25 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
           $getRoot().getTextContent(),
         );
 
-        if (onChange) {
+        const currentStateJSON = JSON.stringify(newState.toJSON());
+        const lastStateJSON = lastStateRef.current;
+
+        if (currentStateJSON === lastStateJSON) {
+          return; // No actual change, prevents unnecessary onChange calls
+        }
+
+        if (programmaticUpdateRef.current === true) {
+          // This is a programmatic update, so we don't want to trigger onChange
+          // but we still want to update the lastStateRef, and reset the flag
+          lastStateRef.current = currentStateJSON;
+          programmaticUpdateRef.current = false;
+          return;
+        }
+        lastStateRef.current = currentStateJSON;
+
+        // only call onChange once the lastStateJson has been initialised
+        // this is to prevent the onChange callback being called on the first render
+        if (lastStateJSON !== null && onChange) {
           const formattedValues = editorRef.current
             ? SerializeLexical(editorRef.current)
             : {};
@@ -233,6 +254,24 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       [characterLimit, locale.textEditor, onChange],
     );
 
+    useEffect(() => {
+      if (value && editorRef.current) {
+        const currentEditorState = editorRef.current.getEditorState();
+        const currentStateJSON = JSON.stringify(currentEditorState.toJSON());
+
+        // if the current state does not match the value prop, we need to update the editor state
+        // this supports use cases where the value is updated programmatically
+        if (currentStateJSON !== value) {
+          // Set a flag to indicate that this is a programmatic update
+          // This prevents the onChange callback from being called
+          programmaticUpdateRef.current = true;
+
+          const newEditorState = editorRef.current.parseEditorState(value);
+          editorRef.current.setEditorState(newEditorState);
+        }
+      }
+    }, [value]);
+
     const handleCancel = useCallback(() => {
       /* istanbul ignore next */
       const isEditable = editorRef.current?.isEditable() || false;
@@ -248,12 +287,11 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
 
     // Reset the value of the editor when the cancel trigger is updated (implements reset on cancel)
     useEffect(() => {
-      const safeValue = value || createEmpty();
-
-      /* istanbul ignore else */
-      if (editorRef.current) {
+      const safeValue = value || createEmpty(); /* istanbul ignore else */
+      if (cancelTrigger && editorRef.current) {
         const newEditorState = editorRef.current.parseEditorState(safeValue);
         editorRef.current.setEditorState(newEditorState);
+        setCancelTrigger(false);
       }
     }, [cancelTrigger, value]);
 

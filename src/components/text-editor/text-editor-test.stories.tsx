@@ -186,3 +186,29 @@ OnChangeFormattedValues.storyName = "Change Handler With Formatted Values";
 OnChangeFormattedValues.parameters = {
   chromatic: { disableSnapshot: true },
 };
+
+export const ControlledOnChange: Story = () => {
+  const [value, setValue] = useState(() => {
+    return createFromHTML("<p>Hello world</p>");
+  });
+
+  const handleChange = (msg: string) => {
+    console.log("onChange executed", { msg });
+    setValue(createFromHTML(msg));
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setValue(createFromHTML("<p>Message Changed</p>"));
+    }, 3000);
+  }, []);
+
+  return (
+    <TextEditor onChange={handleChange} labelText="Message" value={value} />
+  );
+};
+ControlledOnChange.storyName =
+  "Controlled Editor with Timed Programmatic Updates";
+ControlledOnChange.parameters = {
+  chromatic: { disableSnapshot: true },
+};
