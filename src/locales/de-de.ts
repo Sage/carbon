@@ -148,6 +148,10 @@ const deDE: Partial<Locale> = {
     ofY: (count) => `von ${count}`,
   },
   password: {
+    buttonLabelHide: () => "Ausblenden",
+    buttonLabelShow: () => "Anzeigen",
+    ariaLabelHide: () => "Passwort ausblenden",
+    ariaLabelShow: () => "Passwort anzeigen",
     ariaLiveShownMessage: () =>
       "Ihr Passwort wurde angezeigt. Bewegen Sie den Cursor über das Passwort, um es sich vorlesen zu lassen, wenn dies sicher ist.",
     ariaLiveHiddenMessage: () => "Ihr Passwort ist derzeit ausgeblendet.",
