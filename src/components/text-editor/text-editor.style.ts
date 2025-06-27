@@ -4,19 +4,10 @@ import { margin, MarginProps } from "styled-system";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
 type StyledTextEditorWrapperProps = MarginProps;
-interface StyledWrapperProps {
-  error?: string;
-  namespace: string;
-  warning?: string;
-}
-
-interface StyledValidationMessageProps {
-  error?: string;
-}
 
 interface StyledEditorToolbarWrapperProps {
   focused?: boolean;
-  hasWarningOrError?: boolean;
+  error?: boolean;
 }
 
 export const StyledTextEditor = styled.div`
@@ -28,43 +19,15 @@ export const StyledTextEditorWrapper = styled.div<StyledTextEditorWrapperProps>`
   ${margin}
 `;
 
-export const StyledWrapper = styled.div<StyledWrapperProps>`
+export const StyledWrapper = styled.div`
+  position: relative;
+
   .textBold {
     font-weight: bold;
   }
   .textItalic {
     font-style: italic;
   }
-
-  ${({ error, namespace, warning }) => css`
-    min-height: 120px;
-    min-width: 300px;
-
-    ${(error || warning) &&
-    css`
-      padding-left: 8px;
-      border-left: 2px solid
-        var(
-          ${error
-            ? "--colorsSemanticNegative500"
-            : "--colorsSemanticCaution500"}
-        );
-
-      #${namespace}-editor-toolbar-wrapper {
-        border-radius: var(--borderRadius100);
-        border: 2px solid
-          var(
-            ${error
-              ? "--colorsSemanticNegative500"
-              : "--colorsSemanticCaution500"}
-          );
-
-        .${namespace}-editable, #${namespace}-toolbar {
-          outline: none;
-        }
-      }
-    `}
-  `};
 
   a:not([data-component="link-preview"]) {
     color: var(--colorsActionMajor500);
@@ -86,11 +49,15 @@ export const StyledWrapper = styled.div<StyledWrapperProps>`
 `;
 
 export const StyledEditorToolbarWrapper = styled.div<StyledEditorToolbarWrapperProps>`
-  ${({ focused, hasWarningOrError }) => css`
+  ${({ focused, error }) => css`
     border-radius: var(--borderRadius100);
-    outline: ${hasWarningOrError
-      ? "none"
-      : "1px solid var(--colorsUtilityMajor200)"};
+    outline: 1px solid var(--colorsUtilityMajor200);
+
+    ${error &&
+    css`
+      outline: none;
+      border: 2px solid var(--colorsSemanticNegative500);
+    `}
 
     ${focused && addFocusStyling()}
   `}
@@ -103,17 +70,6 @@ export const StyledHeaderWrapper = styled.div`
 export const StyledFooterWrapper = styled.div`
   border-top: 1px solid var(--colorsUtilityMajor200);
   padding: var(--spacing200);
-`;
-
-export const StyledValidationMessage = styled.div<StyledValidationMessageProps>`
-  ${({ error }) => css`
-    color: var(
-      ${error ? "--colorsSemanticNegative500" : "--colorsSemanticCaution600"}
-    );
-    font-weight: ${error ? 500 : "normal"};
-    margin-top: 0px;
-    margin-bottom: 8px;
-  `}
 `;
 
 export default StyledTextEditor;
