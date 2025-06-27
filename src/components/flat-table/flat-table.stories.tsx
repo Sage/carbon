@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import BatchSelection from "../batch-selection";
@@ -24,6 +24,7 @@ import {
   FlatTableCheckbox,
   Sort,
   FlatTableBodyDraggable,
+  FlatTableBodyDraggableHandle,
   FlatTableRowHeaderProps,
   FlatTableProps,
 } from ".";
@@ -2761,6 +2762,9 @@ export const WithDraggableRows: Story = () => {
       <FlatTableBodyDraggable>
         {rows.map((row) => (
           <FlatTableRow key={row.id} id={row.id}>
+            <FlatTableCell key={row.id}>
+              <Icon type="drag" />
+            </FlatTableCell>
             <FlatTableCell>{row.name}</FlatTableCell>
           </FlatTableRow>
         ))}
@@ -2769,6 +2773,100 @@ export const WithDraggableRows: Story = () => {
   );
 };
 WithDraggableRows.storyName = "With Draggable Rows";
+
+export const WithDraggableRowsAndManualReOrdering: Story = () => {
+  const draggableHandle = useRef<FlatTableBodyDraggableHandle | null>(null);
+  const rows = [
+    {
+      id: "0",
+      name: "UK",
+    },
+    {
+      id: "1",
+      name: "Germany",
+    },
+    {
+      id: "2",
+      name: "China",
+    },
+    {
+      id: "3",
+      name: "US",
+    },
+  ];
+
+  const [currentOrder, setCurrentOrder] = useState<(string | number)[]>([
+    "0",
+    "1",
+    "2",
+    "3",
+  ]);
+  const previousOrderRef = useRef(currentOrder);
+
+  useEffect(() => {
+    previousOrderRef.current = currentOrder;
+  }, [currentOrder]);
+
+  const getIndex = (id: string) => previousOrderRef.current.indexOf(id);
+  const moveItem = (id: string, targetIndex: number) =>
+    draggableHandle.current?.reOrder(id, targetIndex);
+
+  return (
+    <FlatTable title="Table for draggable rows">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader />
+          <FlatTableHeader>Country</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBodyDraggable
+        getOrder={(ids) =>
+          setCurrentOrder(
+            (ids || []).filter((id): id is string | number => id !== undefined),
+          )
+        }
+        ref={draggableHandle}
+      >
+        {rows.map((row) => (
+          <FlatTableRow key={row.id} id={row.id}>
+            <FlatTableCell>
+              <Icon type="drag" />
+            </FlatTableCell>
+            <FlatTableCell>
+              <Box display="flex" justifyContent="space-between">
+                {row.name}
+                <ActionPopover m={0}>
+                  <ActionPopoverItem onClick={() => moveItem(row.id, 0)}>
+                    Move Top
+                  </ActionPopoverItem>
+                  <ActionPopoverItem
+                    onClick={() => moveItem(row.id, getIndex(row.id) - 1)}
+                  >
+                    Move Up
+                  </ActionPopoverItem>
+                  <ActionPopoverItem
+                    onClick={() => moveItem(row.id, getIndex(row.id) + 1)}
+                  >
+                    Move Down
+                  </ActionPopoverItem>
+                  <ActionPopoverItem
+                    onClick={() =>
+                      moveItem(row.id, previousOrderRef.current.length - 1)
+                    }
+                  >
+                    Move Bottom
+                  </ActionPopoverItem>
+                </ActionPopover>
+              </Box>
+            </FlatTableCell>
+          </FlatTableRow>
+        ))}
+      </FlatTableBodyDraggable>
+    </FlatTable>
+  );
+};
+WithDraggableRowsAndManualReOrdering.storyName =
+  "With Draggable Rows and Manual Re-Ordering";
 
 export const WrappingRowHeaders: Story = () => {
   const FlatTableRowHeaderWrapper = ({

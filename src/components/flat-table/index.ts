@@ -16,6 +16,7 @@ export type { FlatTableHeadProps } from "./flat-table-head";
 export type { FlatTableHeaderProps } from "./flat-table-header";
 export type { FlatTableBodyProps } from "./flat-table-body";
 export type { FlatTableBodyDraggableProps } from "./flat-table-body-draggable";
+export type { UseDraggableHandle as FlatTableBodyDraggableHandle } from "../../hooks/useDraggable";
 export type { FlatTableRowProps } from "./flat-table-row";
 export type { FlatTableRowHeaderProps } from "./flat-table-row-header";
 export type { FlatTableCellProps } from "./flat-table-cell";
