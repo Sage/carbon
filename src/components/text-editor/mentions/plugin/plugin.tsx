@@ -10,8 +10,9 @@ import { TextNode } from "lexical";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom";
 
-import $createMentionNode from "../node/create-mention-node";
 import dummyMentionsData from "./dummy-data";
+import $createMentionNode from "../node/create-mention-node";
+import Icon from "../../../icon";
 
 import "./style.css";
 
@@ -198,7 +199,7 @@ const MentionsPlugin = () => {
       results
         .map(
           (result) =>
-            new MentionTypeaheadOption(result, <i className="icon user" />),
+            new MentionTypeaheadOption(result, <Icon type="question" />),
         )
         .slice(0, SUGGESTION_LIST_LENGTH_LIMIT),
     [results],
@@ -211,7 +212,7 @@ const MentionsPlugin = () => {
       closeMenu: () => void,
     ) => {
       editor.update(() => {
-        const mentionNode = $createMentionNode(selectedOption.name);
+        const mentionNode = $createMentionNode(`@${selectedOption.name}`);
         if (nodeToReplace) {
           nodeToReplace.replace(mentionNode);
         }
