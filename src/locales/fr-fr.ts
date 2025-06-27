@@ -157,6 +157,10 @@ const frFR: Partial<Locale> = {
     ofY: (count) => `de ${count}`,
   },
   password: {
+    buttonLabelHide: () => "Masquer",
+    buttonLabelShow: () => "Afficher",
+    ariaLabelHide: () => "Masquer le mot de passe",
+    ariaLabelShow: () => "Afficher le mot de passe",
     ariaLiveShownMessage: () =>
       "Votre mot de passe s'affiche. Assurez-vous d'être dans un environnement sûr puis survolez la zone avec votre souris et vous pourrez écouter le mot de passe.",
     ariaLiveHiddenMessage: () => "Votre mot de passe est actuellement caché.",
