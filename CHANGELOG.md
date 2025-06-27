@@ -1,3 +1,9 @@
+## [154.12.2](https://github.com/Sage/carbon/compare/v154.12.1...v154.12.2) (2025-06-27)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure blur behaviour is correct across browsers ([9f4e832](https://github.com/Sage/carbon/commit/9f4e83291969ae6cf745bf7eca766ef88ce92059))
+
 ## [154.12.1](https://github.com/Sage/carbon/compare/v154.12.0...v154.12.1) (2025-06-26)
 
 ### Bug Fixes
