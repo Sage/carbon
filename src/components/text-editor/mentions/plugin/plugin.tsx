@@ -7,10 +7,9 @@ import {
   useBasicTypeaheadTriggerMatch,
 } from "@lexical/react/LexicalTypeaheadMenuPlugin";
 import { TextNode } from "lexical";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import ReactDOM from "react-dom";
 
-import dummyMentionsData from "./dummy-data";
 import $createMentionNode from "../node/create-mention-node";
 import Icon from "../../../icon";
 
@@ -63,48 +62,6 @@ const AtSignMentionsRegexAliasRegex = new RegExp(
 
 // At most, 5 suggestions are shown in the popup.
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
-
-const mentionsCache = new Map();
-
-const dummyLookupService = {
-  search(string: string, callback: (results: Array<string>) => void): void {
-    setTimeout(() => {
-      const results = dummyMentionsData.filter((mention) =>
-        mention.toLowerCase().includes(string.toLowerCase()),
-      );
-      callback(results);
-    }, 500);
-  },
-};
-
-function useMentionLookupService(mentionString: string | null) {
-  const [results, setResults] = useState<Array<string>>([]);
-
-  useEffect(() => {
-    const cachedResults = mentionsCache.get(mentionString);
-
-    if (mentionString == null) {
-      setResults([]);
-      return;
-    }
-
-    if (cachedResults === null) {
-      return;
-    }
-    if (cachedResults !== undefined) {
-      setResults(cachedResults);
-      return;
-    }
-
-    mentionsCache.set(mentionString, null);
-    dummyLookupService.search(mentionString, (newResults) => {
-      mentionsCache.set(mentionString, newResults);
-      setResults(newResults);
-    });
-  }, [mentionString]);
-
-  return results;
-}
 
 function checkForAtSignMentions(
   text: string,
@@ -183,12 +140,14 @@ const MentionsTypeaheadMenuItem = ({
   );
 };
 
-const MentionsPlugin = () => {
+const MentionsPlugin = ({
+  results,
+  setQueryString,
+}: {
+  results: Array<string>;
+  setQueryString: (query: string | null) => void;
+}) => {
   const [editor] = useLexicalComposerContext();
-
-  const [queryString, setQueryString] = useState<string | null>(null);
-
-  const results = useMentionLookupService(queryString);
 
   const checkForSlashTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
     minLength: 0,

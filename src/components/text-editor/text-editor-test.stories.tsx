@@ -189,13 +189,79 @@ OnChangeFormattedValues.parameters = {
 };
 
 export const Mentions: Story = () => {
+  const mentionsCache = new Map();
+  const [queryString, setQueryString] = useState<string | null>(null);
+
+  const dummyMentionsData = [
+    "Damien Robson",
+    "Daniel Dipper",
+    "Darius Bercea",
+    "Debra Toranska",
+    "Divya Jindel",
+    "Ed Leeks",
+    "James Parslow",
+    "Mihai Albu",
+    "Nick Titchmarsh",
+    "Nuria Torres Ramon",
+    "Paul Robinson",
+    "Robin Zigmond",
+    "Sian Ford",
+    "Stephen O'Gorman",
+    "Tom Davies",
+    "Will Seabrook",
+  ];
+
+  const dummyLookupService = {
+    search(string: string, callback: (results: Array<string>) => void): void {
+      setTimeout(() => {
+        const results = dummyMentionsData.filter((mention) =>
+          mention.toLowerCase().includes(string.toLowerCase()),
+        );
+        callback(results);
+      }, 500);
+    },
+  };
+
+  function useMentionLookupService(mentionString: string | null) {
+    const [results, setResults] = useState<Array<string>>([]);
+
+    useEffect(() => {
+      const cachedResults = mentionsCache.get(mentionString);
+
+      if (mentionString == null) {
+        setResults([]);
+        return;
+      }
+
+      if (cachedResults === null) {
+        return;
+      }
+      if (cachedResults !== undefined) {
+        setResults(cachedResults);
+        return;
+      }
+
+      mentionsCache.set(mentionString, null);
+      dummyLookupService.search(mentionString, (newResults) => {
+        mentionsCache.set(mentionString, newResults);
+        setResults(newResults);
+      });
+    }, [mentionString]);
+
+    return results;
+  }
+
+  const results = useMentionLookupService(queryString);
+
   return (
     <>
       <TextEditor
         namespace="storybook-mentions"
         labelText="Text Editor"
         inputHint="Hint text"
-        customPlugins={[<MentionsPlugin />]}
+        customPlugins={[
+          <MentionsPlugin results={results} setQueryString={setQueryString} />,
+        ]}
       />
     </>
   );
