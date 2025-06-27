@@ -6,6 +6,7 @@ import TextEditor, {
   createFromHTML,
   TextEditorProps,
   EditorFormattedValues,
+  MentionsPlugin,
 } from ".";
 import Box from "../box";
 import Typography from "../typography";
@@ -186,3 +187,17 @@ OnChangeFormattedValues.storyName = "Change Handler With Formatted Values";
 OnChangeFormattedValues.parameters = {
   chromatic: { disableSnapshot: true },
 };
+
+export const Mentions: Story = () => {
+  return (
+    <>
+      <TextEditor
+        namespace="storybook-mentions"
+        labelText="Text Editor"
+        inputHint="Hint text"
+        customPlugins={[<MentionsPlugin />]}
+      />
+    </>
+  );
+};
+Mentions.storyName = "Mentions";

@@ -5,6 +5,7 @@ import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 
 import { EditorThemeClasses, TextFormatType } from "lexical";
+import MentionNode from "../mentions/node/node";
 
 /** The default prefix applied to the editor's internal class names, IDs, etc. */
 const COMPONENT_PREFIX = "carbon-rte";
@@ -29,12 +30,13 @@ const TextEditorActionTypes = {
 const markdownNodes = [
   AutoLinkNode,
   CodeNode,
-  LinkNode,
-  ListNode,
-  ListItemNode,
   HeadingNode,
-  QuoteNode,
   HorizontalRuleNode,
+  LinkNode,
+  ListItemNode,
+  ListNode,
+  MentionNode,
+  QuoteNode,
 ];
 
 export { COMPONENT_PREFIX, markdownNodes, TextEditorActionTypes, theme };

@@ -5,3 +5,5 @@ export type {
   TextEditorProps,
   EditorFormattedValues,
 } from "./text-editor.component";
+
+export { MentionsPlugin, MentionNode } from "./mentions";
