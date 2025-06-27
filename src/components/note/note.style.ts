@@ -136,7 +136,7 @@ const StyledNote = styled.div.attrs(applyBaseTheme)<{ width: number }>`
     margin: 0px;
 
     :not(:first-of-type) {
-      margin-top: 8px;
+      margin-top: var(--spacing100); // FIXED: Use CSS custom property
     }
   }
 
