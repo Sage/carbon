@@ -8,7 +8,7 @@ import {
   commonTextboxArgTypes,
   getCommonTextboxArgs,
   getCommonTextboxArgsWithSpecialCharacters,
-} from "../textbox/textbox-test.stories";
+} from "../textbox/utils";
 
 export default {
   title: "Number Input/Test",

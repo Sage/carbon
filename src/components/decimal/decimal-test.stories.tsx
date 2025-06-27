@@ -8,7 +8,7 @@ import {
   commonTextboxArgTypes,
   getCommonTextboxArgs,
   getCommonTextboxArgsWithSpecialCharacters,
-} from "../textbox/textbox-test.stories";
+} from "../textbox/utils";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {

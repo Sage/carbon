@@ -5,7 +5,7 @@ import {
   getCommonTextboxArgs,
   getCommonTextboxArgsWithSpecialCharacters,
   CommonTextboxArgs,
-} from "../textbox/textbox-test.stories";
+} from "../textbox/utils";
 import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
