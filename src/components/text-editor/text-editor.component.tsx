@@ -46,12 +46,13 @@ import StyledTextEditor, {
   StyledHeaderWrapper,
   StyledFooterWrapper,
   StyledTextEditorWrapper,
-  StyledValidationMessage,
   StyledWrapper,
 } from "./text-editor.style";
 import { EditorFormattedValues as SaveCallbackProps } from "./__internal__/plugins/Toolbar/buttons/save.component";
 import { createEmpty } from "./utils";
 import HintText from "../../__internal__/hint-text";
+import ValidationMessage from "../../__internal__/validation-message";
+import ErrorBorder from "../textbox/textbox.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
@@ -108,7 +109,10 @@ export interface TextEditorProps extends MarginProps, TagProps {
   warning?: string;
   /** The initial value of the editor, as a HTML string, or JSON */
   value?: string | undefined;
-  // Allows the injection of one or more Lexical-compatible React components into the editor to extend its functionality. This prop is optional and supports a single plugin, multiple plugins (via fragments or arrays), or `null`.
+  /**
+   * Allows the injection of one or more Lexical-compatible React components into the editor to extend its functionality.
+   * This prop is optional and supports a single plugin, multiple plugins (via fragments or arrays), or `null`.
+   */
   customPlugins?: React.ReactNode;
 }
 
@@ -154,9 +158,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
     const [characterLimitWarning, setCharacterLimitWarning] = useState<
       string | undefined
     >(undefined);
-    const hasWarningOrError = Boolean(
-      error || characterLimitWarning || warning,
-    );
     const contentEditorRef = useRef<HTMLDivElement>(null);
     const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -266,6 +267,8 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       [handleCancel, namespace, onCancel, onSave],
     );
 
+    const warningMessage = warning || characterLimitWarning;
+
     return (
       <StyledTextEditorWrapper
         data-role={`${namespace}-editor-wrapper`}
@@ -301,26 +304,21 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
           )}
           <LexicalComposer initialConfig={initialConfig}>
             <EditorRefPlugin editorRef={editorRef} />
-            <StyledWrapper
-              data-role={`${namespace}-wrapper`}
-              error={error || undefined}
-              namespace={namespace}
-              warning={characterLimitWarning || warning || undefined}
-            >
-              {(error || characterLimitWarning || warning) && (
-                <StyledValidationMessage
-                  error={error}
-                  id={`${namespace}-validation-message`}
-                  data-role={`${namespace}-validation-message`}
-                >
-                  {error || characterLimitWarning || warning}
-                </StyledValidationMessage>
+            <StyledWrapper data-role={`${namespace}-wrapper`}>
+              <ValidationMessage
+                error={error}
+                warning={warningMessage}
+                validationId={`${namespace}-validation-message`}
+                data-role={`${namespace}-validation-message`}
+              />
+              {(error || warningMessage) && (
+                <ErrorBorder warning={!!(!error && warningMessage)} />
               )}
               <StyledEditorToolbarWrapper
                 data-role={`${namespace}-editor-toolbar-wrapper`}
                 id={`${namespace}-editor-toolbar-wrapper`}
                 focused={isFocused}
-                hasWarningOrError={hasWarningOrError}
+                error={!!error}
               >
                 {header && (
                   <StyledHeaderWrapper

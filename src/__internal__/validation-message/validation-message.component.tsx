@@ -1,7 +1,8 @@
 import React from "react";
 import StyledValidationMessage from "./validation-message.style";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface ValidationMessageProps {
+export interface ValidationMessageProps extends TagProps {
   /** Indicate that error has occurred
   Pass string to display hint with error */
   error?: boolean | string;
@@ -19,6 +20,8 @@ const ValidationMessage = ({
   validationId,
   warning,
   isDarkBackground,
+  "data-element": dataElement,
+  "data-role": dataRole = "validation-message",
 }: ValidationMessageProps) => {
   const validation = error || warning;
   const isStringValidation = typeof validation === "string";
@@ -27,8 +30,11 @@ const ValidationMessage = ({
     <StyledValidationMessage
       id={validationId}
       isWarning={!!(!error && warning)}
-      data-role="validation-message"
       isDarkBackground={isDarkBackground}
+      {...tagComponent("validation-message", {
+        "data-element": dataElement,
+        "data-role": dataRole,
+      })}
     >
       {validation}
     </StyledValidationMessage>

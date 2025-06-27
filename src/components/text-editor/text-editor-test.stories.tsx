@@ -9,6 +9,8 @@ import TextEditor, {
 } from ".";
 import Box from "../box";
 import Typography from "../typography";
+import CarbonProvider from "../carbon-provider";
+import Textbox from "../textbox";
 
 import useDebounce from "../../hooks/__internal__/useDebounce";
 import ReadOnlyEditor from "./__internal__";
@@ -46,6 +48,30 @@ export const NewValidation: Story = () => {
   );
 };
 NewValidation.storyName = "New Validation";
+
+export const MultipleInputs: Story = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Textbox mb={2} label="Textbox" inputHint="Hint Text" error="error" />
+      <TextEditor
+        namespace="storybook-witherror"
+        labelText="Text Editor"
+        inputHint="Hint text"
+        error="error"
+        characterLimit={100}
+        mb={2}
+      />
+      <Textbox mb={2} label="Textbox" inputHint="Hint Text" />
+      <TextEditor
+        namespace="storybook"
+        labelText="Text Editor"
+        inputHint="Hint text"
+        characterLimit={100}
+      />
+    </CarbonProvider>
+  );
+};
+MultipleInputs.storyName = "Multiple Inputs";
 
 export const Playground: Story = {
   args: {

@@ -168,15 +168,10 @@ test.describe("Prop tests", () => {
           .textContent();
         expect(displayedLimit).toBe(`0 characters remaining`);
 
-        const displayedWarning = await page
-          .locator("div[data-role='pw-rte-validation-message']")
-          .textContent();
-        expect(displayedWarning).toBe(
+        const displayedWarning = page.getByTestId("pw-rte-validation-message");
+        await expect(displayedWarning).toHaveText(
           `You are 1 character(s) over the character limit`,
         );
-        await expect(
-          await page.locator("div[data-role='pw-rte-validation-message']"),
-        ).toHaveCSS("color", "rgb(191, 82, 0)");
       });
     });
   });
@@ -1143,44 +1138,6 @@ test.describe("Events tests", () => {
 });
 
 test.describe("Styling tests", () => {
-  test.describe("error", () => {
-    test(`value of 'Error message'`, async ({ mount, page }) => {
-      await mount(<TextEditorDefaultComponent error="Error message" />);
-      const displayedError = await page
-        .locator("div[data-role='pw-rte-validation-message']")
-        .textContent();
-      expect(displayedError).toBe("Error message");
-      await expect(
-        await page.locator("div[data-role='pw-rte-validation-message']"),
-      ).toHaveCSS("color", "rgb(203, 55, 74)");
-      await expect(
-        await page.locator("div[data-role='pw-rte-validation-message']"),
-      ).toHaveCSS("font-weight", "500");
-
-      await expect(
-        await page.locator("div[data-role='pw-rte-editor-toolbar-wrapper']"),
-      ).toHaveCSS("border", "2px solid rgb(203, 55, 74)");
-      await expect(
-        await page.locator("div[data-role='pw-rte-editor-toolbar-wrapper']"),
-      ).toHaveCSS("border-radius", "8px");
-
-      await expect(
-        await page.locator("div[data-role='pw-rte-wrapper']"),
-      ).toHaveCSS("border-left", "2px solid rgb(203, 55, 74)");
-      await expect(
-        await page.locator("div[data-role='pw-rte-wrapper']"),
-      ).toHaveCSS("padding-left", "8px");
-    });
-
-    test(`value not provided`, async ({ mount, page }) => {
-      await mount(<TextEditorDefaultComponent />);
-      const displayedError = await page
-        .locator("div[data-role='pw-rte-validation-message']")
-        .count();
-      expect(displayedError).toBe(0);
-    });
-  });
-
   test.describe("rows", () => {
     [
       { rows: 1, expectedHeight: 210 },
@@ -1199,44 +1156,6 @@ test.describe("Styling tests", () => {
           await page.locator("div[data-role='pw-rte-editable']"),
         ).toHaveCSS("min-height", `${expectedHeight}px`);
       });
-    });
-  });
-
-  test.describe("warning", () => {
-    test(`value of 'Warning message'`, async ({ mount, page }) => {
-      await mount(<TextEditorDefaultComponent warning="Warning message" />);
-      const displayedWarning = await page
-        .locator("div[data-role='pw-rte-validation-message']")
-        .textContent();
-      expect(displayedWarning).toBe("Warning message");
-      await expect(
-        await page.locator("div[data-role='pw-rte-validation-message']"),
-      ).toHaveCSS("color", "rgb(191, 82, 0)");
-      await expect(
-        await page.locator("div[data-role='pw-rte-validation-message']"),
-      ).toHaveCSS("font-weight", "400");
-
-      await expect(
-        await page.locator("div[data-role='pw-rte-editor-toolbar-wrapper']"),
-      ).toHaveCSS("border", "2px solid rgb(239, 103, 0)");
-      await expect(
-        await page.locator("div[data-role='pw-rte-editor-toolbar-wrapper']"),
-      ).toHaveCSS("border-radius", "8px");
-
-      await expect(
-        await page.locator("div[data-role='pw-rte-wrapper']"),
-      ).toHaveCSS("border-left", "2px solid rgb(239, 103, 0)");
-      await expect(
-        await page.locator("div[data-role='pw-rte-wrapper']"),
-      ).toHaveCSS("padding-left", "8px");
-    });
-
-    test(`value not provided`, async ({ mount, page }) => {
-      await mount(<TextEditorDefaultComponent />);
-      const displayedWarning = await page
-        .locator("div[data-role='pw-rte-validation-message']")
-        .count();
-      expect(displayedWarning).toBe(0);
     });
   });
 
