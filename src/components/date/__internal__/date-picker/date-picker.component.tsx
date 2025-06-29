@@ -24,6 +24,7 @@ import { getDisabledDays } from "../utils";
 import { defaultFocusableSelectors } from "../../../../__internal__/focus-trap/focus-trap-utils";
 import Events from "../../../../__internal__/utils/helpers/events";
 import FlatTableContext from "../../../flat-table/__internal__/flat-table.context";
+import Logger from "../../../../__internal__/utils/logger";
 
 import StyledDayPicker from "./day-picker.style";
 
@@ -37,7 +38,10 @@ export interface PickerProps
 }
 
 export interface DatePickerProps {
-  /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
+  /**
+   * [Legacy] Boolean to toggle where DatePicker is rendered in relation to the Date Input
+   * @deprecated
+   */
   disablePortal?: boolean;
   /** Minimum possible date YYYY-MM-DD */
   minDate?: string;
@@ -78,13 +82,14 @@ const popoverMiddleware = [
 ];
 
 const Nav = Navbar;
+let deprecateDisablePortalWarnTriggered = false;
 
 export const DatePicker = ({
   inputElement,
   minDate,
   maxDate,
   selectedDays,
-  disablePortal,
+  disablePortal = true,
   onDayClick,
   pickerMouseDown,
   pickerProps,
@@ -95,6 +100,13 @@ export const DatePicker = ({
   ariaLabel: datePickerAriaLabel,
   ariaLabelledBy: datePickerAriaLabelledBy,
 }: DatePickerProps) => {
+  if (!deprecateDisablePortalWarnTriggered && !!disablePortal) {
+    deprecateDisablePortalWarnTriggered = true;
+    Logger.deprecate(
+      "`disablePortal` is deprecated in DateInput and DateRange, and support will soon be removed.",
+    );
+  }
+
   const [focusedMonth, setFocusedMonth] = useState<Date | undefined>(
     selectedDays || new Date(),
   );

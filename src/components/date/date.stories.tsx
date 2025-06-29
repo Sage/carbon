@@ -20,6 +20,11 @@ const meta: Meta<typeof DateInput> = {
   argTypes: {
     ...styledSystemProps,
   },
+  decorators: (StoryToRender) => (
+    <Box minHeight="460px" p={4}>
+      <StoryToRender />
+    </Box>
+  ),
 };
 
 export default meta;
