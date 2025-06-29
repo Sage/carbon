@@ -49,7 +49,6 @@ export default defineConfig({
         ...devices["Desktop Chrome"],
         testIdAttribute: "data-role",
         viewport: { width: 1366, height: 768 },
-        trace: "on-first-retry",
       },
     },
   ],

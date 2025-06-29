@@ -347,16 +347,13 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         if (Events.isShiftKey(ev)) {
           setOpen(false);
           onPickerClose?.();
-        } else {
-          /* istanbul ignore if */
-          if (!disablePortal) {
-            ev.preventDefault();
-            (
-              document?.querySelector(
-                `[id="${pickerTabGuardId.current}"]`,
-              ) as HTMLElement
-            )?.focus();
-          }
+        } else if (!disablePortal) {
+          ev.preventDefault();
+          (
+            document?.querySelector(
+              `[id="${pickerTabGuardId.current}"]`,
+            ) as HTMLElement
+          )?.focus();
         }
         alreadyFocused.current = false;
       }
@@ -548,7 +545,5 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     );
   },
 );
-
-DateInput.displayName = "DateInput";
 
 export default DateInput;
