@@ -22,6 +22,7 @@ import {
 } from "../../style/utils";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
+import guid from "../../__internal__/utils/helpers/guid";
 
 export interface MultiActionButtonProps
   extends WidthProps,
@@ -61,12 +62,13 @@ export const MultiActionButton = forwardRef<
   ) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const { isInFlatTable } = useContext(FlatTableContext);
+    const submenuId = useRef(guid());
 
     useImperativeHandle<MultiActionButtonHandle, MultiActionButtonHandle>(
       ref,
       () => ({
         focusMainButton() {
-          buttonRef.current?.focus();
+          buttonRef.current?.focus({ preventScroll: true });
         },
       }),
       [],
@@ -87,7 +89,12 @@ export const MultiActionButton = forwardRef<
     const handleClick = (
       ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
-      showButtons();
+      if (showAdditionalButtons) {
+        hideButtons();
+      } else {
+        showButtons();
+      }
+
       handleInsideClick();
       if (onClick) {
         onClick(ev as React.MouseEvent<HTMLButtonElement>);
@@ -124,7 +131,11 @@ export const MultiActionButton = forwardRef<
           }),
         ]}
       >
-        <StyledButtonChildrenContainer {...wrapperProps} align={align}>
+        <StyledButtonChildrenContainer
+          id={submenuId.current}
+          {...wrapperProps}
+          align={align}
+        >
           <SplitButtonContext.Provider value={contextValue}>
             {React.Children.map(children, (child) => (
               <li>{child}</li>
@@ -147,8 +158,8 @@ export const MultiActionButton = forwardRef<
         {...marginProps}
       >
         <Button
-          aria-haspopup="true"
           aria-expanded={showAdditionalButtons}
+          aria-controls={submenuId.current}
           data-element="toggle-button"
           key="toggle-button"
           {...mainButtonProps}
