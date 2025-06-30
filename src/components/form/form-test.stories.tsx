@@ -1,8 +1,8 @@
-/* eslint-disable no-console */
 import React, { useState } from "react";
+import { StoryObj } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 
-import { StoryObj } from "@storybook/react/*";
-import Form from ".";
+import Form, { FormProps } from ".";
 import Button from "../button";
 import { Tab, Tabs } from "../tabs";
 import Box from "../box";
@@ -31,11 +31,17 @@ import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Form/Test",
-  excludeStories: ["FormComponent"],
+  component: Form,
   parameters: {
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
+    },
+  },
+  args: {
+    onSubmit: (ev: React.FormEvent) => {
+      ev.preventDefault();
+      action("onSubmit")(ev);
     },
   },
   argTypes: {
@@ -50,22 +56,19 @@ export default {
 
 type StoryType = StoryObj<typeof Form>;
 
-export const AllInputs: StoryType = ({ ...props }) => (
+export const AllInputs: StoryType = (args: FormProps) => (
   <CarbonProvider validationRedesignOptIn>
     <Textbox label="Outside of Form" characterLimit={100} />
     <Textbox label="Outside of Form" characterLimit={100} />
     <Hr />
     <Form
-      onSubmit={() => console.log("submit")}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
-      }
+      {...args}
+      leftSideButtons={<Button>Cancel</Button>}
       saveButton={
         <Button buttonType="primary" type="submit">
           Save
         </Button>
       }
-      {...props}
     >
       <Box>
         <Textbox label="Textbox" characterLimit={100} />
@@ -191,14 +194,9 @@ AllInputs.parameters = {
   },
 };
 
-export const FormAlignmentCustomMarginsTextInputs = ({ ...props }) => {
+export const FormAlignmentCustomMarginsTextInputs = (args: FormProps) => {
   return (
-    <Form
-      onSubmit={() => console.log("submit")}
-      fieldSpacing={4}
-      px="25%"
-      {...props}
-    >
+    <Form {...args} fieldSpacing={4} px="25%">
       <Fieldset legend="Fieldset" mb={1}>
         <Textbox
           label="Textbox in Fieldset"
@@ -358,17 +356,11 @@ FormAlignmentCustomMarginsTextInputs.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const FormAlignmentCustomMarginNonTextInputs = ({ ...props }) => {
+export const FormAlignmentCustomMarginNonTextInputs = (args: FormProps) => {
   return (
-    <Form
-      onSubmit={() => console.log("submit")}
-      fieldSpacing={4}
-      px="25%"
-      {...props}
-    >
+    <Form {...args} fieldSpacing={4} px="25%">
       <RadioButtonGroup
         name="legend"
-        onChange={() => console.log("RADIO CHANGE")}
         legend="Radio group"
         legendInline
         legendWidth={10}
@@ -388,12 +380,7 @@ export const FormAlignmentCustomMarginNonTextInputs = ({ ...props }) => {
           labelWidth={10}
         />
       </RadioButtonGroup>
-      <Checkbox
-        name="checkbox1"
-        onChange={() => console.log("CHECKBOX 1")}
-        label="Checkbox 1"
-        mb={1}
-      />
+      <Checkbox name="checkbox1" label="Checkbox 1" mb={1} />
       <CheckboxGroup legend="Checkbox Group" mb={1}>
         {["One", "Two", "Three"].map((label) => (
           <Checkbox
@@ -408,7 +395,6 @@ export const FormAlignmentCustomMarginNonTextInputs = ({ ...props }) => {
         name="switch"
         label="Switch"
         labelInline
-        onChange={() => console.log("SWITCH")}
         labelWidth={10}
         labelSpacing={2}
         mb={1}
@@ -446,12 +432,10 @@ FormAlignmentCustomMarginNonTextInputs.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const DefaultWithPager = () => (
+export const DefaultWithPager = (args: FormProps) => (
   <Form
-    onSubmit={() => console.log("submit")}
-    leftSideButtons={
-      <Button onClick={() => console.log("cancel")}>Cancel</Button>
-    }
+    {...args}
+    leftSideButtons={<Button>Cancel</Button>}
     saveButton={
       <Button buttonType="primary" type="submit">
         Save
@@ -483,24 +467,14 @@ export const DefaultWithPager = () => (
       pageSize={5}
       showPageSizeSelection={false}
       showFirstAndLastButtons={false}
-      onNext={(e) => {
-        console.log("on next");
-        e.preventDefault();
-      }}
-      onPrevious={(e) => {
-        console.log("on prev");
-        e.preventDefault();
-      }}
-      onPagination={(page) => {
-        console.log("on pagination", page);
-      }}
+      onPagination={() => {}}
     />
   </Form>
 );
 
 DefaultWithPager.storyName = "default with pager";
 
-export const MockFormForAriaLiveDemo = () => {
+export const MockFormForAriaLiveDemo = ({ onSubmit, ...args }: FormProps) => {
   const [textareaValue, setTextareaValue] = useState("");
   const [textboxValue, setTextboxValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
@@ -511,19 +485,20 @@ export const MockFormForAriaLiveDemo = () => {
     setPasswordValue("");
   };
 
-  const handleSubmit = (event: { preventDefault: () => void }) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event?.preventDefault(); // prevents the page from changing
-    console.log("Form has been submitted");
     resetValues();
   };
 
   return (
     <Form
+      {...args}
       fieldSpacing={0}
-      onSubmit={handleSubmit}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")}>Cancel</Button>
-      }
+      onSubmit={(ev) => {
+        handleSubmit(ev);
+        onSubmit?.(ev);
+      }}
+      leftSideButtons={<Button>Cancel</Button>}
       saveButton={
         <Button buttonType="primary" type="submit">
           Save
@@ -602,26 +577,18 @@ MarginTest.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const FullWidthWithLeftAndRight = () => {
+export const FullWidthWithLeftAndRight = (args: FormProps) => {
   return (
     <Form
+      {...args}
       fullWidthButtons
-      onSubmit={() => console.log("submit")}
-      leftSideButtons={
-        <Button onClick={() => console.log("cancel")} fullWidth>
-          Cancel
-        </Button>
-      }
+      leftSideButtons={<Button fullWidth>Cancel</Button>}
       saveButton={
         <Button buttonType="primary" type="submit" fullWidth>
           Save
         </Button>
       }
-      rightSideButtons={
-        <Button onClick={() => console.log("other")} fullWidth>
-          Other
-        </Button>
-      }
+      rightSideButtons={<Button fullWidth>Other</Button>}
       errorCount={1}
       warningCount={2}
     >

@@ -134,16 +134,15 @@ describe("when the component is uncontrolled", () => {
   });
 
   it("fires a console error if precision is changed", () => {
-    const consoleSpy = jest
-      .spyOn(global.console, "error")
-      .mockImplementation(() => {});
+    const loggerSpy = jest.spyOn(Logger, "error").mockImplementation(() => {});
+
     const { rerender } = render(<Decimal defaultValue="12345" precision={2} />);
 
     rerender(<Decimal precision={1} />);
-    expect(consoleSpy).toHaveBeenCalledWith(
+    expect(loggerSpy).toHaveBeenCalledWith(
       "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect.",
     );
-    consoleSpy.mockRestore();
+    loggerSpy.mockRestore();
   });
 
   it("supports having a precision of 0", () => {

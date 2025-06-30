@@ -174,8 +174,7 @@ export const Decimal = React.forwardRef(
 
     useEffect(() => {
       if (prevPrecisionValue && prevPrecisionValue !== precision) {
-        // eslint-disable-next-line no-console
-        console.error(
+        Logger.error(
           "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect.",
         );
       }

@@ -1,10 +1,10 @@
 import { createHeadlessEditor } from "@lexical/headless";
-
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
-
 import { $getRoot, $getSelection, LexicalEditor } from "lexical";
 
 import { markdownNodes, theme } from "./constants";
+
+import Logger from "../../../__internal__/utils/logger";
 
 /**
  * This helper takes the current state of the editor and serializes it into two formats:
@@ -13,7 +13,7 @@ import { markdownNodes, theme } from "./constants";
  * This allows the editor state to be saved and restored at a later time, in a format suitable
  * for the majority of customers' use cases.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const SerializeLexical = (editor: LexicalEditor) => {
   let htmlString;
   let json;
@@ -39,8 +39,7 @@ const DeserializeHTML = (html: string) => {
   // without needing to render the editor itself.
   const editor = createHeadlessEditor({
     namespace: "html-to-json",
-    // eslint-disable-next-line no-console
-    onError: console.error,
+    onError: /* istanbul ignore next */ (e) => Logger.error(e.message),
     theme,
     nodes: markdownNodes,
   });
