@@ -131,21 +131,31 @@ const BaseMenu = ({
   }, [active, measureDimensions, menu, responsiveMode]);
 
   useEffect(() => {
-    const handleBlur = () => {
-      setTimeout(() => {
-        if (
-          containerRef.current &&
-          !containerRef.current.contains(document.activeElement)
-        ) {
-          setActive(false);
+    const handleBlur = ({ relatedTarget, target }: FocusEvent) => {
+      /* istanbul ignore if */
+      if (!containerRef.current) {
+        return;
+      }
+
+      const relatedTargetIsWithinContainer = containerRef.current.contains(
+        relatedTarget as Node,
+      );
+
+      if (!relatedTargetIsWithinContainer) {
+        /* istanbul ignore if */
+        if (relatedTarget === null && target !== buttonRef.current) {
+          setTimeout(() => {
+            if (!activeMenuItem) {
+              setActive(false);
+            }
+          }, 10);
         }
-      }, 0);
+      }
     };
 
     const handleClose = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
-
         setActive(false);
       }
     };
@@ -163,7 +173,13 @@ const BaseMenu = ({
       window.removeEventListener("click", handleOutsideClick);
       currentContainer?.removeEventListener("focusout", handleBlur);
     };
-  }, [active, containerRef, handleOutsideClick, responsiveMode]);
+  }, [
+    active,
+    activeMenuItem,
+    containerRef,
+    handleOutsideClick,
+    responsiveMode,
+  ]);
 
   useEffect(() => {
     setReducedMotion?.(reduceMotion);

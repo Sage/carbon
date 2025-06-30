@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Popover, { PopoverProps } from "./popover.component";
-import { baseTheme } from "../../style/themes";
 import Dialog from "../../components/dialog";
 
 const PopoverWithButton = (
@@ -144,15 +143,22 @@ test("renders popup within a transparent backdrop to prevent scrolling outside t
   );
 
   const backdrop = screen.getByTestId("popup-backdrop");
+
   expect(backdrop).toHaveStyle({
     background: "transparent",
-    zIndex: baseTheme.zIndex.popover,
     position: "fixed",
     top: 0,
     right: 0,
     bottom: 0,
     left: 0,
   });
+
+  const backdropIndex = getComputedStyle(backdrop).getPropertyValue("z-index");
+
+  // non-default value
+  expect(backdropIndex).toContain("--adaptiveSidebarModalBackdrop");
+  // default value
+  expect(backdropIndex).toContain("6000");
 });
 
 test("does not render a backdrop when disableBackgroundUI is false", () => {
