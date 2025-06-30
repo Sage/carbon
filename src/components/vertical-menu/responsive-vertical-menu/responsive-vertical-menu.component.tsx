@@ -130,6 +130,42 @@ const BaseMenu = ({
     };
   }, [active, measureDimensions, menu, responsiveMode]);
 
+  const isResizingRef = useRef(false);
+  const resizeTimeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      isResizingRef.current = true;
+
+      if (resizeTimeoutRef.current !== null) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+
+      resizeTimeoutRef.current = window.setTimeout(() => {
+        isResizingRef.current = false;
+      }, 100);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (resizeTimeoutRef.current !== null) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+    };
+  }, []);
+  /**
+ * 
+ *         if (
+          containerRef.current &&
+          !containerRef.current.contains(document.activeElement) &&
+          !isResizingRef.current
+        ) {
+          setActive(false);
+ * 
+ */
+
   useEffect(() => {
     const handleBlur = ({ relatedTarget, target }: FocusEvent) => {
       /* istanbul ignore if */
@@ -145,7 +181,7 @@ const BaseMenu = ({
         /* istanbul ignore if */
         if (relatedTarget === null && target !== buttonRef.current) {
           setTimeout(() => {
-            if (!activeMenuItem) {
+            if (!activeMenuItem && !isResizingRef.current) {
               setActive(false);
             }
           }, 10);
