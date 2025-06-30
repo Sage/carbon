@@ -463,3 +463,48 @@ export const DelayedMenuItems = () => {
   return <TestMenu data={data} />;
 };
 DelayedMenuItems.storyName = "Delayed Menu Items";
+
+const styles = `
+  a:hover {
+    color: darkgreen;
+    text-decoration: underline;
+  }
+  `;
+
+export const WithExternalLinkStyles = () => {
+  return (
+    <>
+      <style>{styles}</style>
+      <GlobalHeader>
+        <ResponsiveVerticalMenuProvider>
+          <ResponsiveVerticalMenu height="100%">
+            <ResponsiveVerticalMenuItem
+              icon="home"
+              id="primary-menu"
+              label="Primary Menu With Children"
+            >
+              <ResponsiveVerticalMenuItem
+                id="secondary-menu"
+                label="Secondary Menu With Children"
+              >
+                <ResponsiveVerticalMenuItem
+                  id="tertiary-menu"
+                  label="Tertiary Menu"
+                />
+              </ResponsiveVerticalMenuItem>
+              <ResponsiveVerticalMenuItem
+                id="secondary-menu-no-children"
+                label="Secondary Menu Item"
+              />
+            </ResponsiveVerticalMenuItem>
+            <ResponsiveVerticalMenuItem
+              icon="home"
+              id="primary-menu-no-children"
+              label="Primary Menu Item"
+            />
+          </ResponsiveVerticalMenu>
+        </ResponsiveVerticalMenuProvider>
+      </GlobalHeader>
+    </>
+  );
+};
