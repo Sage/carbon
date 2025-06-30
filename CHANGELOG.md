@@ -1,3 +1,10 @@
+## [154.13.1](https://github.com/Sage/carbon/compare/v154.13.0...v154.13.1) (2025-06-30)
+
+### Bug Fixes
+
+* **menu, multi-action-button, split-button:** remove focus first list item on submenu open ([00657d3](https://github.com/Sage/carbon/commit/00657d38e817b4af8fe138697830f93eaac2c40c)), closes [#7264](https://github.com/Sage/carbon/issues/7264)
+* **multi-action-button, split-button:** add aria-controls and fix menu hover style ([7aac7d6](https://github.com/Sage/carbon/commit/7aac7d69042b9ca8c4ee12abfb5f3ed55fdb80d0))
+
 ## [154.13.0](https://github.com/Sage/carbon/compare/v154.12.2...v154.13.0) (2025-06-30)
 
 ### Features
