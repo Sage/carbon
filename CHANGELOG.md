@@ -1,3 +1,51 @@
+## [154.13.0](https://github.com/Sage/carbon/compare/v154.12.2...v154.13.0) (2025-06-30)
+
+### Features
+
+* **password:** add de-DE, es-ES, fr-CA and fr-FR show/hide related translations ([34c06a6](https://github.com/Sage/carbon/commit/34c06a66b9a988b10bb28620c0e8421385d8e17b))
+
+## [154.12.2](https://github.com/Sage/carbon/compare/v154.12.1...v154.12.2) (2025-06-27)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure blur behaviour is correct across browsers ([9f4e832](https://github.com/Sage/carbon/commit/9f4e83291969ae6cf745bf7eca766ef88ce92059))
+
+## [154.12.1](https://github.com/Sage/carbon/compare/v154.12.0...v154.12.1) (2025-06-26)
+
+### Bug Fixes
+
+* **adaptive-sidebar:** ensure all elements are indexed behind the component when rendered as a modal ([a1e203b](https://github.com/Sage/carbon/commit/a1e203bf7ea6539f6d262d4b6867a906f050642b))
+
+## [154.12.0](https://github.com/Sage/carbon/compare/v154.11.4...v154.12.0) (2025-06-24)
+
+### Features
+
+* **badge:** add ID prop ([7597a50](https://github.com/Sage/carbon/commit/7597a50275620c959c2cf8a0a3441e96797d2410)), closes [#7351](https://github.com/Sage/carbon/issues/7351)
+
+## [154.11.4](https://github.com/Sage/carbon/compare/v154.11.3...v154.11.4) (2025-06-24)
+
+### Bug Fixes
+
+* **tile:** ensure no additional borders render with multiple tiles ([aa6e4c8](https://github.com/Sage/carbon/commit/aa6e4c84ba6fb56a34161af521a64521c9e81071))
+
+## [154.11.3](https://github.com/Sage/carbon/compare/v154.11.2...v154.11.3) (2025-06-23)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** fix issue that stopped off-screen menu items from scrolling into view ([5fd31c0](https://github.com/Sage/carbon/commit/5fd31c03b21a4b2f4740c8cc88490b2102f6bb32))
+
+## [154.11.2](https://github.com/Sage/carbon/compare/v154.11.1...v154.11.2) (2025-06-20)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure menu position is re-calculated on window resize ([eadf60f](https://github.com/Sage/carbon/commit/eadf60f93f656fb1763461cfbc79728cc2622b3f))
+
+## [154.11.1](https://github.com/Sage/carbon/compare/v154.11.0...v154.11.1) (2025-06-20)
+
+### Bug Fixes
+
+* **checkable-input:** fieldHelp is not supported with dark background ([a560d09](https://github.com/Sage/carbon/commit/a560d090a8c75602eaebb8aeb74a20bfc6ec24d7))
+
 ## [154.11.0](https://github.com/Sage/carbon/compare/v154.10.1...v154.11.0) (2025-06-19)
 
 ### Features
