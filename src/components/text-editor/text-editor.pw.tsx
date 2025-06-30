@@ -587,6 +587,52 @@ test.describe("Prop tests", () => {
     });
   });
 
+  test("counts characters correclty after pasting new line characters and interacting with it", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TextEditorDefaultComponent />);
+
+    const textToPaste = "1\n\n2\n\n3\n\n\n\n4"; // each new line will be counted as two characters
+    const remainingCharactersAfterPasting = "2,980";
+    const textToType = "5";
+    const remainingCharsAfterTyping = "2,979";
+    const textbox = await page.locator("div[role='textbox']");
+
+    await textbox.click();
+
+    await textbox.evaluate((_, text) => {
+      const clipboardData = new DataTransfer();
+      clipboardData.setData("text/plain", text);
+
+      const event = new ClipboardEvent("paste", {
+        clipboardData,
+        bubbles: true,
+        cancelable: true,
+      });
+
+      _.dispatchEvent(event);
+    }, textToPaste);
+
+    const displayedLimitAfterPastingText = await page
+      .locator("div[data-role='pw-rte-character-limit']")
+      .textContent();
+
+    expect(displayedLimitAfterPastingText).toBe(
+      `${remainingCharactersAfterPasting} characters remaining`,
+    );
+
+    await page.keyboard.type(textToType);
+
+    const displayedLimitAfterKeyboardUpdate = await page
+      .locator("div[data-role='pw-rte-character-limit']")
+      .textContent();
+
+    expect(displayedLimitAfterKeyboardUpdate).toBe(
+      `${remainingCharsAfterTyping} characters remaining`,
+    );
+  });
+
   test("should correctly apply margin prop as a number", async ({
     mount,
     page,
