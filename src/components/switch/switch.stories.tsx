@@ -176,11 +176,17 @@ export const WithDarkBackground: Story = () => {
   return (
     <Box m={2} padding={3} backgroundColor="#000000">
       <CarbonProvider validationRedesignOptIn>
-        <Switch label="Example Switch" isDarkBackground mb="2" />
+        <Switch
+          label="Example Switch"
+          isDarkBackground
+          mb="2"
+          fieldHelp="Field help text"
+        />
         <Switch
           label="Example Switch"
           labelHelp="Hint text"
           error="Error message"
+          fieldHelp="Field help text"
           isDarkBackground
         />
       </CarbonProvider>

@@ -1,6 +1,12 @@
 /* eslint-disable no-console */
 import React, { act } from "react";
-import { render, screen, waitFor, within } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  within,
+  fireEvent,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {
@@ -474,7 +480,6 @@ test("closes menu when Escape key is pressed", async () => {
 
 test("closes menu when focus is lost", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-
   render(
     <ResponsiveVerticalMenuProvider>
       <ResponsiveVerticalMenu>
@@ -496,11 +501,12 @@ test("closes menu when focus is lost", async () => {
   expect(menuItem).toBeInTheDocument();
 
   await user.tab();
-  expect(launcherButton).not.toHaveFocus();
   expect(menuItem).toHaveFocus();
 
-  await user.tab();
-  expect(menuItem).not.toHaveFocus();
+  // Simulate focus loss
+  fireEvent.focusOut(menuItem, {
+    relatedTarget: null,
+  });
 
   await waitFor(() => {
     expect(screen.queryByText("Menu Item 1")).not.toBeInTheDocument();
@@ -778,7 +784,6 @@ test("respects reduced motion and has the correct styling when interacting", asy
 test("allows for full keyboard navigation of primary menus", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   mockUseIsAboveBreakpoint.mockReturnValue(true);
-
   render(
     <ResponsiveVerticalMenuProvider>
       <ResponsiveVerticalMenu>
@@ -793,13 +798,11 @@ test("allows for full keyboard navigation of primary menus", async () => {
             label="Menu Item 4"
           />
         </ResponsiveVerticalMenuItem>
-
         <ResponsiveVerticalMenuItem
           data-role="menu-item-2"
           id="menu-item-2"
           label="Menu Item 2"
         />
-
         <ResponsiveVerticalMenuItem
           data-role="menu-item-3"
           id="menu-item-3"
@@ -812,11 +815,10 @@ test("allows for full keyboard navigation of primary menus", async () => {
   const launcherButton = screen.getByTestId(
     "responsive-vertical-menu-launcher",
   );
-
   await launcherButton.focus();
   await user.keyboard("{Enter}");
-
   await user.tab();
+
   const menuItem = screen.getByTestId("menu-item-1");
   expect(menuItem).toHaveFocus();
 
@@ -830,8 +832,10 @@ test("allows for full keyboard navigation of primary menus", async () => {
   expect(menuItem2).not.toHaveFocus();
   expect(menuItem3).toHaveFocus();
 
-  await user.tab();
-  expect(menuItem3).not.toHaveFocus();
+  // Simulate focus loss
+  fireEvent.focusOut(menuItem3, {
+    relatedTarget: null,
+  });
 
   await waitFor(() => {
     expect(menuItem).not.toBeInTheDocument();

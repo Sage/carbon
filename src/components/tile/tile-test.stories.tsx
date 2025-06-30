@@ -12,7 +12,6 @@ import Button from "../button";
 
 export default {
   title: "Tile/Test",
-  includeStories: ["DefaultStory", "GreyWithTextArea"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -153,4 +152,25 @@ export const GreyWithTextArea = () => {
       </TileContent>
     </Tile>
   );
+};
+
+export const MultipleTiles = () => {
+  return (
+    <Box p={2} display="flex" flexDirection="column" gap="20px">
+      <Tile>
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+      <Tile orientation="vertical">
+        <TileContent>Test Body One</TileContent>
+        <TileContent>Test Body Two</TileContent>
+        <TileContent>Test Body Three</TileContent>
+      </Tile>
+    </Box>
+  );
+};
+MultipleTiles.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
 };

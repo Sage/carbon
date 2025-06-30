@@ -65,6 +65,8 @@ export interface CheckableInputProps extends CommonCheckableInputProps {
   value?: string;
   /** When true label is inline */
   labelInline?: boolean;
+  /** Whether this component resides on a dark background */
+  isDarkBackground?: boolean;
 }
 
 const CheckableInput = React.forwardRef(
@@ -98,6 +100,7 @@ const CheckableInput = React.forwardRef(
       reverse = false,
       validationOnLabel,
       warning,
+      isDarkBackground = false,
       ...props
     }: CheckableInputProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -167,6 +170,7 @@ const CheckableInput = React.forwardRef(
         labelWidth={labelWidth}
         labelInline={labelInline}
         reverse={reverse}
+        isDarkBackground={isDarkBackground}
       >
         <InputBehaviour>
           <FormField {...formFieldProps} my={0}>
