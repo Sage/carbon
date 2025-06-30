@@ -1,3 +1,9 @@
+## [154.13.2](https://github.com/Sage/carbon/compare/v154.13.1...v154.13.2) (2025-06-30)
+
+### Bug Fixes
+
+* **text-editor:** ensure validation style is inline with other inputs ([53ffc90](https://github.com/Sage/carbon/commit/53ffc905881c0f322ab02171faeef5e8a985d981)), closes [#7381](https://github.com/Sage/carbon/issues/7381)
+
 ## [154.13.1](https://github.com/Sage/carbon/compare/v154.13.0...v154.13.1) (2025-06-30)
 
 ### Bug Fixes
