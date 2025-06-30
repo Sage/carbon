@@ -1,3 +1,9 @@
+## [154.13.0](https://github.com/Sage/carbon/compare/v154.12.2...v154.13.0) (2025-06-30)
+
+### Features
+
+* **password:** add de-DE, es-ES, fr-CA and fr-FR show/hide related translations ([34c06a6](https://github.com/Sage/carbon/commit/34c06a66b9a988b10bb28620c0e8421385d8e17b))
+
 ## [154.12.2](https://github.com/Sage/carbon/compare/v154.12.1...v154.12.2) (2025-06-27)
 
 ### Bug Fixes
