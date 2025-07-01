@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DateInput, { DateChangeEvent, DateInputProps } from "./date.component";
-import { CommonTextboxArgs } from "../textbox/textbox-test.stories";
+import { CommonTextboxArgs } from "../textbox/utils";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Dialog from "../dialog";
 
