@@ -155,6 +155,10 @@ const esES: Partial<Locale> = {
     ofY: (count) => `de ${count}`,
   },
   password: {
+    buttonLabelHide: () => "Ocultar",
+    buttonLabelShow: () => "Mostrar",
+    ariaLabelHide: () => "Ocultar contraseña",
+    ariaLabelShow: () => "Mostrar contraseña",
     ariaLiveShownMessage: () =>
       "Tu contraseña se muestra en pantalla. Si estás en un entorno seguro, coloca el cursor sobre ella para que se te lea en voz alta.",
     ariaLiveHiddenMessage: () => "La contraseña está oculta.",

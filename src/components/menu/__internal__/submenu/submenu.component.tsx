@@ -116,7 +116,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
     const [applyFocusRadius, setApplyFocusRadius] = useState<boolean>(false);
     const [applyFocusRadiusToLastItem, setApplyFocusRadiusToLastItem] =
       useState<boolean>(false);
-    const focusFirstMenuItemOnOpen = useRef(false);
 
     const numberOfChildren = submenuItemIds.length;
 
@@ -282,28 +281,24 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
           | React.KeyboardEvent<HTMLAnchorElement>
           | React.KeyboardEvent<HTMLButtonElement>,
       ) => {
-        if (!submenuOpen) {
-          if (
-            Events.isEnterKey(event) ||
-            Events.isSpaceKey(event) ||
-            Events.isDownKey(event) ||
-            Events.isUpKey(event)
-          ) {
-            event.preventDefault();
-            openSubmenu();
-            focusFirstMenuItemOnOpen.current = !href;
-          }
+        const isToggleKey =
+          Events.isEnterKey(event) || Events.isSpaceKey(event);
+
+        if ((isToggleKey || Events.isDownKey(event)) && !submenuOpen) {
+          event.preventDefault();
+          openSubmenu();
         }
 
         if (submenuOpen) {
           const index = findCurrentIndex(submenuFocusId);
           let nextIndex = index;
 
-          if (href && !submenuFocusId) {
-            if (Events.isDownKey(event) || Events.isUpKey(event)) {
+          if (!submenuFocusId) {
+            // toggle close when Space/Enter is pressed on the parent item
+            // when parent is a link, allow default behaviour on Enter once submenu is open
+            if ((isToggleKey && !href) || (Events.isSpaceKey(event) && href)) {
               event.preventDefault();
-              setSubmenuFocusId(submenuItemIds[0]);
-              return;
+              closeSubmenu();
             }
           }
 
@@ -407,18 +402,6 @@ const Submenu = React.forwardRef<HTMLAnchorElement, SubmenuProps>(
         }
       }
     }, [children, submenuOpen, submenuRef]);
-
-    useEffect(() => {
-      if (
-        focusFirstMenuItemOnOpen.current &&
-        submenuOpen &&
-        !submenuFocusId &&
-        submenuItemIds.length
-      ) {
-        focusFirstMenuItemOnOpen.current = false;
-        setSubmenuFocusId(submenuItemIds[0]);
-      }
-    }, [submenuOpen, submenuFocusId, submenuItemIds]);
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
       openSubmenu();

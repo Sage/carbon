@@ -720,7 +720,7 @@ describe("when MenuItem has a submenu", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("focuses succeeding submenu item when 'ArrowDown' key is pressed", async () => {
+  it("opens the submenu when the 'ArrowDown' key is pressed, then moves focus to the next submenu items on subsequent presses", async () => {
     const user = userEvent.setup();
     render(
       <Menu>
@@ -732,12 +732,14 @@ describe("when MenuItem has a submenu", () => {
       </Menu>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
+    await user.tab();
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
+    expect(submenuParentItem).toHaveFocus();
+    expect(submenuItems[0]).toBeVisible();
+
+    await user.keyboard("{arrowdown}");
     expect(submenuItems[0]).toHaveFocus();
     await user.keyboard("{arrowdown}");
     expect(submenuItems[1]).toHaveFocus();
@@ -747,7 +749,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[2]).toHaveFocus();
   });
 
-  it("focuses preceeding submenu item when 'ArrowUp' key is pressed", async () => {
+  it("moves focus to the previous submenu item when 'ArrowUp' key is pressed", async () => {
     const user = userEvent.setup();
     render(
       <Menu>
@@ -759,13 +761,13 @@ describe("when MenuItem has a submenu", () => {
       </Menu>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
-    await user.keyboard("{arrowup}");
+    await user.tab();
+    await user.keyboard("{Enter}");
     const submenuItems = screen.getAllByRole("link");
 
-    expect(submenuItems[0]).toHaveFocus();
+    expect(submenuParentItem).toHaveFocus();
+    expect(submenuItems[0]).toBeVisible();
+
     await user.keyboard("{End}");
     expect(submenuItems[2]).toHaveFocus();
     await user.keyboard("{arrowup}");
@@ -788,14 +790,9 @@ describe("when MenuItem has a submenu", () => {
       </Menu>,
     );
 
-    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
+    await user.tab();
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
-
-    expect(submenuItems[0]).toHaveFocus();
 
     await user.keyboard("{End}");
 
@@ -814,14 +811,9 @@ describe("when MenuItem has a submenu", () => {
       </Menu>,
     );
 
-    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
+    await user.tab();
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
-
-    expect(submenuItems[0]).toHaveFocus();
 
     await user.keyboard("{End}");
     await user.keyboard("{Home}");
@@ -841,12 +833,12 @@ describe("when MenuItem has a submenu", () => {
       </Menu>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
+    await user.tab();
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
+    expect(submenuParentItem).toHaveFocus();
+    await user.tab();
     expect(submenuItems[0]).toHaveFocus();
     await user.tab();
     expect(submenuItems[1]).toHaveFocus();
@@ -856,7 +848,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[2]).not.toHaveFocus();
   });
 
-  it("focuses preceding submenu item when shift tabbing", async () => {
+  it("focuses preceding submenu item when shift tabbing, then focuses on the parent menu item", async () => {
     const user = userEvent.setup();
     render(
       <Menu>
@@ -868,9 +860,7 @@ describe("when MenuItem has a submenu", () => {
       </Menu>,
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
+    await user.tab();
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
     await user.keyboard("{End}");
@@ -880,6 +870,8 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[1]).toHaveFocus();
     await user.tab({ shift: true });
     expect(submenuItems[0]).toHaveFocus();
+    await user.tab({ shift: true });
+    expect(submenuParentItem).toHaveFocus();
   });
 
   it("allows focus on the last submenu item to be lost, when tabbing on it", async () => {
@@ -893,10 +885,7 @@ describe("when MenuItem has a submenu", () => {
         </MenuItem>
       </Menu>,
     );
-    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
+    await user.tab();
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
     await user.keyboard("{End}");
@@ -904,27 +893,6 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItems[2]).toHaveFocus();
     await user.tab();
     expect(submenuItems[2]).not.toHaveFocus();
-  });
-
-  it("focuses parent menu item when shift tabbing from first submenu item", async () => {
-    const user = userEvent.setup();
-    render(
-      <Menu>
-        <MenuItem submenu="Item One">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
-    await user.keyboard("{arrowdown}");
-    const submenuItems = screen.getAllByRole("link");
-
-    expect(submenuItems[0]).toHaveFocus();
-    await user.tab({ shift: true });
-    expect(submenuParentItem).toHaveFocus();
   });
 
   it("skips any non-focusable submenu items when moving focus cursor with down arrow key", async () => {
@@ -942,6 +910,7 @@ describe("when MenuItem has a submenu", () => {
 
     await user.tab();
     await user.keyboard("{ArrowDown}");
+    await user.tab();
 
     const appleItem = await screen.findByRole("link", { name: "Apple" });
     expect(appleItem).toHaveFocus();
@@ -994,6 +963,7 @@ describe("when MenuItem has a submenu", () => {
 
     await user.tab();
     await user.keyboard("{ArrowDown}");
+    await user.tab();
 
     const appleItem = await screen.findByRole("link", { name: "Apple" });
     expect(appleItem).toHaveFocus();
@@ -1019,6 +989,7 @@ describe("when MenuItem has a submenu", () => {
 
     await user.tab();
     await user.keyboard("{ArrowDown}");
+    await user.tab();
 
     const bananaItem = await screen.findByRole("link", { name: "Banana" });
     expect(bananaItem).toHaveFocus();
@@ -1042,13 +1013,12 @@ describe("when MenuItem has a submenu", () => {
         </MenuItem>
       </Menu>,
     );
-    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
+
+    await user.tab();
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
+    await user.keyboard("{arrowdown}");
     expect(submenuItems[0]).toHaveFocus();
     await user.keyboard("{arrowdown}");
     expect(screen.getByDisplayValue("foo")).toHaveFocus();
@@ -1069,10 +1039,8 @@ describe("when MenuItem has a submenu", () => {
         </MenuItem>
       </Menu>,
     );
-    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
+
+    await user.tab();
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
     await user.keyboard("{End}");
@@ -1097,13 +1065,12 @@ describe("when MenuItem has a submenu", () => {
         </MenuItem>
       </Menu>,
     );
-    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
+
+    await user.tab();
     await user.keyboard("{arrowdown}");
     const submenuItems = screen.getAllByRole("link");
 
+    await user.tab();
     expect(submenuItems[0]).toHaveFocus();
     await user.tab();
     expect(screen.getByDisplayValue("foo")).toHaveFocus();
@@ -1123,10 +1090,8 @@ describe("when MenuItem has a submenu", () => {
         </MenuItem>
       </Menu>,
     );
-    const submenuParentItem = screen.getByRole("link", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
+
+    await user.tab();
     await user.keyboard("{arrowdown}");
     await user.tab();
 
@@ -1146,10 +1111,8 @@ describe("when MenuItem has a submenu", () => {
         </MenuItem>
       </Menu>,
     );
-    const submenuParentItem = screen.getByRole("link", { name: "Item One" });
-    act(() => {
-      submenuParentItem.focus();
-    });
+
+    await user.tab();
     await user.keyboard("{arrowdown}");
     await user.keyboard("{a}");
 
@@ -1195,28 +1158,7 @@ describe("when MenuItem has a submenu", () => {
     expect(submenuItem).toHaveFocus();
   });
 
-  it("should focus the first item when parent has `href` user presses 'arrowup' key twice", async () => {
-    const user = userEvent.setup();
-    render(
-      <Menu>
-        <MenuItem href="#" submenu="Item One">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
-          <MenuItem href="#">Submenu Item Three</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-    const submenuParentItem = screen.getByRole("link", { name: "Item One" });
-    await user.click(submenuParentItem);
-    await user.unhover(submenuParentItem);
-    await user.keyboard("{arrowup}");
-    await user.keyboard("{arrowup}");
-    const submenuItem = screen.getByRole("link", { name: "Submenu Item One" });
-
-    expect(submenuItem).toHaveFocus();
-  });
-
-  it("should focus the first item when `submenu` is initially opened via click, closed via mouseout and then 'arrowdown' key pressed", async () => {
+  it("maintains focus on the menu item when `submenu` is initially opened via click, closed via mouseout and then 'arrowdown' key pressed", async () => {
     const user = userEvent.setup();
     render(
       <Menu>
@@ -1227,53 +1169,21 @@ describe("when MenuItem has a submenu", () => {
         </MenuItem>
       </Menu>,
     );
-    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    await user.click(submenuParentItem);
-    await user.unhover(submenuParentItem);
+
+    const submenuParentItem = screen.getByRole("listitem");
+    const submenuParentButton = screen.getByRole("button", {
+      name: "Item One",
+    });
+
+    await user.click(submenuParentButton);
+    await user.unhover(submenuParentButton);
     await user.keyboard("{arrowdown}");
-    const submenuItem = screen.getByRole("link", { name: "Submenu Item One" });
 
-    expect(submenuItem).toHaveFocus();
-  });
+    const submenu = await within(submenuParentItem).findByRole("list");
+    const menuItem = screen.getByRole("button", { name: "Item One" });
 
-  it("should focus the first item when `submenu` is initially initially opened via click, closed via mouseout and then 'arrowup' key pressed", async () => {
-    const user = userEvent.setup();
-    render(
-      <Menu>
-        <MenuItem submenu="Item One">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
-          <MenuItem href="#">Submenu Item Three</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    await user.click(submenuParentItem);
-    await user.unhover(submenuParentItem);
-    await user.keyboard("{arrowup}");
-    const submenuItem = screen.getByRole("link", { name: "Submenu Item One" });
-
-    expect(submenuItem).toHaveFocus();
-  });
-
-  it("should focus the first item when initially opened via click, closed via mouseout and then 'tab' key pressed", async () => {
-    const user = userEvent.setup();
-    render(
-      <Menu>
-        <MenuItem submenu="Item One">
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
-          <MenuItem href="#">Submenu Item Three</MenuItem>
-        </MenuItem>
-      </Menu>,
-    );
-    const submenuParentItem = screen.getByRole("button", { name: "Item One" });
-    await user.click(submenuParentItem);
-    await user.unhover(submenuParentItem);
-    await user.keyboard("{arrowdown}");
-    const submenuItem = screen.getByRole("link", { name: "Submenu Item One" });
-
-    expect(submenuItem).toHaveFocus();
+    expect(submenu).toBeVisible();
+    expect(menuItem).toHaveFocus();
   });
 
   it("focus moves to the first available focusable item, when a submenu opens and the first item isn't focusable", async () => {
@@ -1290,6 +1200,7 @@ describe("when MenuItem has a submenu", () => {
     );
 
     await user.tab();
+    await user.keyboard("{Enter}");
     await user.keyboard("{ArrowDown}");
 
     const bananaItem = await screen.findByRole("link", { name: "Banana" });
@@ -1356,9 +1267,8 @@ describe("when MenuItem has a submenu", () => {
     const parentItem = screen.getByRole("listitem");
     const parentItemButton = within(parentItem).getByRole("button");
 
-    act(() => {
-      parentItemButton.focus();
-    });
+    await user.tab();
+    await user.keyboard("{arrowdown}");
     await user.keyboard("{arrowdown}");
     await user.keyboard("{Escape}");
 
@@ -1381,17 +1291,18 @@ describe("when MenuItem has a submenu", () => {
       </Menu>,
     );
     const parentItem = screen.getByRole("listitem");
-    const parentItemButton = within(parentItem).getByRole("button");
 
-    act(() => {
-      parentItemButton.focus();
-    });
+    await user.tab();
     await user.keyboard("{arrowdown}");
     await user.keyboard("{arrowdown}");
+    await user.keyboard("{arrowdown}");
+
+    expect(screen.getByDisplayValue("foo")).toHaveFocus();
     await user.keyboard("{Enter}");
 
     const submenu = within(parentItem).queryByRole("list");
     expect(submenu).toBeVisible();
+    expect(screen.getByDisplayValue("foo")).toHaveFocus();
   });
 
   it("should close when the user presses 'Enter' and focus is not on input", async () => {
@@ -1407,19 +1318,68 @@ describe("when MenuItem has a submenu", () => {
         </MenuItem>
       </Menu>,
     );
-    const parentItem = screen.getByRole("listitem");
-    const parentItemButton = within(parentItem).getByRole("button");
 
-    act(() => {
-      parentItemButton.focus();
-    });
+    await user.tab();
     await user.keyboard("{arrowdown}");
     await user.keyboard("{Enter}");
 
     await waitFor(() => {
+      const parentItem = screen.getByRole("listitem");
       const submenu = within(parentItem).queryByRole("list");
       expect(submenu).not.toBeInTheDocument();
     });
+  });
+
+  it.each([
+    ["Enter", "{Enter}"],
+    ["Space", " "],
+  ])(
+    "should close when the focus is on a button parent item and '%s' key is pressed",
+    async (_, key) => {
+      const user = userEvent.setup();
+      render(
+        <Menu>
+          <MenuItem submenu="Item One">
+            <MenuItem href="#">Submenu Item One</MenuItem>
+            <MenuItem href="#">Submenu Item Two</MenuItem>
+            <MenuItem href="#">Submenu Item Three</MenuItem>
+          </MenuItem>
+        </Menu>,
+      );
+      const parentItem = screen.getByRole("listitem");
+
+      await user.tab();
+      await user.keyboard(key);
+      const submenu = within(parentItem).queryByRole("list");
+
+      expect(submenu).toBeVisible();
+
+      await user.keyboard(key);
+      expect(submenu).not.toBeInTheDocument();
+    },
+  );
+
+  it("should close when the parent is a link parent item and 'Space' key is pressed", async () => {
+    const user = userEvent.setup();
+    render(
+      <Menu>
+        <MenuItem href="#" submenu="Item One">
+          <MenuItem href="#">Submenu Item One</MenuItem>
+          <MenuItem href="#">Submenu Item Two</MenuItem>
+          <MenuItem href="#">Submenu Item Three</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+    const parentItem = screen.getByRole("listitem");
+
+    await user.tab();
+    await user.keyboard(" ");
+    const submenu = within(parentItem).queryByRole("list");
+
+    expect(submenu).toBeVisible();
+
+    await user.keyboard(" ");
+    expect(submenu).not.toBeInTheDocument();
   });
 
   it("should not throw an error when a passed null `children`", () => {
@@ -1448,11 +1408,8 @@ describe("when MenuItem has a submenu", () => {
     );
 
     const parentItem = screen.getByRole("listitem");
-    const parentItemLink = within(parentItem).getByRole("link");
 
-    act(() => {
-      parentItemLink.focus();
-    });
+    await user.tab();
     await user.keyboard("{arrowdown}");
 
     const subitems = within(parentItem).getAllByRole("listitem");
