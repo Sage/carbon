@@ -1,3 +1,9 @@
+## [154.13.3](https://github.com/Sage/carbon/compare/v154.13.2...v154.13.3) (2025-07-01)
+
+### Bug Fixes
+
+* **textbox:** test stories load to error ([c30069b](https://github.com/Sage/carbon/commit/c30069b2d423692773355bd833646c64fd85393c))
+
 ## [154.13.2](https://github.com/Sage/carbon/compare/v154.13.1...v154.13.2) (2025-06-30)
 
 ### Bug Fixes
