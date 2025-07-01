@@ -1,4 +1,10 @@
-import React, { MutableRefObject, useContext, useEffect, useRef } from "react";
+import React, {
+  MutableRefObject,
+  useContext,
+  useEffect,
+  useRef,
+  RefObject,
+} from "react";
 import ReactDOM from "react-dom";
 import { flip, Placement, Middleware } from "@floating-ui/dom";
 
@@ -8,10 +14,6 @@ import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-
 import ModalContext, {
   ModalContextProps,
 } from "../../components/modal/__internal__/modal.context";
-
-type CustomRefObject<T> = {
-  current?: T | null;
-};
 
 export interface PopoverProps {
   /**
@@ -38,7 +40,7 @@ export interface PopoverProps {
   /**
    * Reference element, children will be positioned in relation to this element - should be a ref shaped object.
    */
-  reference: CustomRefObject<HTMLElement>;
+  reference: RefObject<HTMLElement>;
   /**
    * Determines if the popover is currently open/visible or not. Defaults to true.
    */
