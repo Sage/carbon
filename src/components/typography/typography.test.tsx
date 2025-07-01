@@ -287,7 +287,6 @@ test("should override 'display' property when passed", () => {
   expect(screen.getByText("Test")).toHaveStyle({ display: "block" });
 });
 
-// Styled-system spacing tests - replaced with actual style tests
 describe("Styled System Spacing", () => {
   test("should apply margin when m prop is provided", () => {
     render(<Typography m="10px">Test</Typography>);
