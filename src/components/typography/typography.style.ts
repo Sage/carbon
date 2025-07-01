@@ -80,10 +80,10 @@ const getWeight = (variant?: VariantTypes) => {
     case "h1-large":
     case "h1":
     case "h2":
+    case "h3":
     case "segment-header":
     case "segment-header-small":
       return "700";
-    case "h3":
     case "segment-subheader":
     case "segment-subheader-alt":
     case "b":
@@ -117,6 +117,13 @@ const getDecoration = (variant?: VariantTypes) => {
   return "none";
 };
 
+const getPadding = (variant?: VariantTypes) => {
+  if (variant === "h3") {
+    return "0 0 16px 0"; // padding-bottom: 16px for h3
+  }
+  return "0";
+};
+
 const StyledTypography = styled.span.attrs(applyBaseTheme)<TypographyProps>`
   ${({
     fontSize,
@@ -141,8 +148,10 @@ const StyledTypography = styled.span.attrs(applyBaseTheme)<TypographyProps>`
     const textDecoration = decoration || getDecoration(variant);
     const lineHeight = lHeight || getLineHeight(variant);
     const defaultMargin = variant === "p" ? "0 0 16px" : "0";
+    const defaultPadding = getPadding(variant);
 
     return css`
+      && {
       font-style: normal;
       font-size: ${size};
       font-weight: ${weight};
@@ -150,16 +159,18 @@ const StyledTypography = styled.span.attrs(applyBaseTheme)<TypographyProps>`
       text-decoration: ${textDecoration};
       line-height: ${lineHeight};
       margin: ${defaultMargin};
-      padding: 0;
+      padding: ${defaultPadding};
       white-space: ${truncate ? "nowrap" : whiteSpace};
       word-break: ${wordBreak};
       word-wrap: ${wordWrap};
       text-align: ${textAlign};
       text-overflow: ${textOverflow || (truncate && "ellipsis")};
-      ${truncate &&
-      `
+      ${
+        truncate &&
+        `
         overflow: hidden;
-      `};
+      `
+      };
       ${screenReaderOnly && visuallyHidden}
       ${variant === "sup" && "vertical-align: super;"}
       ${variant === "sub" && "vertical-align: sub;"}
