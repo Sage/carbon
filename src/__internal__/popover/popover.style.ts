@@ -7,7 +7,12 @@ export const StyledBackdrop = styled.div.attrs(applyBaseTheme)`
   position: fixed;
   right: 0;
   top: 0;
-  z-index: ${({ theme }) => theme.zIndex.popover};
+  /* If behind an adaptive sidebar, use the backdrop z-index value, if not default to original z-index value */
+  z-index: var(
+    --adaptiveSidebarModalBackdrop,
+    ${({ theme }) => theme.zIndex.popover}
+  );
+
   background: transparent;
 `;
 

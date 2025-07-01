@@ -134,23 +134,6 @@ test("should focus the toggle button when the focusToggleButton on the ref handl
   expect(screen.getByRole("button", { name: "Show more" })).toHaveFocus();
 });
 
-test("focuses first child button when toggle button is clicked", async () => {
-  const user = userEvent.setup();
-  render(
-    <SplitButton text="Main">
-      <Button>Single Button</Button>
-    </SplitButton>,
-  );
-
-  await user.click(screen.getByRole("button", { name: "Show more" }));
-
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
-  });
-
-  expect(childButton).toHaveFocus();
-});
-
 test("should render with the correct styles when 'size' is 'small''", async () => {
   const { fontSize, minHeight, paddingLeft, paddingRight } =
     buildSizeConfig("small");
@@ -469,7 +452,7 @@ test("should render the child buttons when a 'Enter' keydown event detected and 
   });
 
   expect(childButton).toBeVisible();
-  expect(childButton).toHaveFocus();
+  expect(toggle).toHaveFocus();
 });
 
 test("should render the child buttons when a ' ' (space) keydown event detected and toggle button is focused", async () => {
@@ -487,7 +470,7 @@ test("should render the child buttons when a ' ' (space) keydown event detected 
   });
 
   expect(childButton).toBeVisible();
-  expect(childButton).toHaveFocus();
+  expect(toggle).toHaveFocus();
 });
 
 test("should render the child buttons when a 'ArrowDown' keydown event detected and toggle button is focused", async () => {
@@ -498,30 +481,15 @@ test("should render the child buttons when a 'ArrowDown' keydown event detected 
     </SplitButton>,
   );
 
-  const toggle = await screen.findByRole("button", { name: "Show more" });
+  const toggle = screen.getByRole("button", { name: "Show more" });
   toggle.focus();
-  expect(toggle).toHaveFocus();
-  await user.keyboard("{arrowdown}");
-  const child = await screen.findByRole("button", { name: "Single Button" });
-  expect(child).toBeVisible();
-  expect(child).toHaveFocus();
-});
+  await user.keyboard("{arrowDown}");
+  const childButton = await screen.findByRole("button", {
+    name: "Single Button",
+  });
 
-test("should render the child buttons when a 'ArrowUp' keydown event detected and toggle button is focused", async () => {
-  const user = userEvent.setup();
-  render(
-    <SplitButton text="Main">
-      <Button>Single Button</Button>
-    </SplitButton>,
-  );
-
-  const toggle = await screen.findByRole("button", { name: "Show more" });
-  toggle.focus();
+  expect(childButton).toBeVisible();
   expect(toggle).toHaveFocus();
-  await user.keyboard("{arrowup}");
-  const child = await screen.findByRole("button", { name: "Single Button" });
-  expect(child).toBeVisible();
-  expect(child).toHaveFocus();
 });
 
 test("should not render the child buttons when a keydown event detected with unrelated key and toggle button is focused", async () => {
@@ -630,6 +598,46 @@ test("should hide the additional buttons when a click event detected outside the
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
+test("should hide the additional buttons when the list is open and 'Enter' key is pressed on the toggle button", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  toggle.focus();
+  await user.keyboard("{Enter}");
+  const childButton = await screen.findByRole("button", {
+    name: "Single Button",
+  });
+
+  expect(childButton).toBeVisible();
+  await user.keyboard("{Enter}");
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
+test("should hide the additional buttons when the list is open and 'Space' key is pressed on the toggle button", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  toggle.focus();
+  await user.keyboard(" ");
+  const childButton = await screen.findByRole("button", {
+    name: "Single Button",
+  });
+
+  expect(childButton).toBeVisible();
+  await user.keyboard(" ");
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
 test("should hide the additional buttons when a 'Escape' keydown event detected and focus is within component", async () => {
   const user = userEvent.setup();
   render(
@@ -713,6 +721,27 @@ test("should hide the additional buttons when the main button is clicked", async
   expect(childButton).not.toBeInTheDocument();
 });
 
+test("should hide the additional buttons when the list is open the toggle button is clicked", async () => {
+  const user = userEvent.setup();
+  render(
+    <SplitButton text="Main">
+      <Button>Single Button</Button>
+    </SplitButton>,
+  );
+
+  const toggle = screen.getByRole("button", { name: "Show more" });
+  await user.click(toggle);
+  const childButton = await screen.findByRole("button", {
+    name: "Single Button",
+  });
+
+  expect(childButton).toBeVisible();
+
+  await user.click(toggle);
+
+  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+});
+
 test("should support navigating the additional buttons via down arrow key but stop on last button", async () => {
   const user = userEvent.setup();
   render(
@@ -736,6 +765,7 @@ test("should support navigating the additional buttons via down arrow key but st
     name: "Extra Button 3",
   });
 
+  await user.keyboard("{arrowDown}");
   expect(button1).toHaveFocus();
   await user.keyboard("{arrowDown}");
   expect(button2).toHaveFocus();
@@ -767,9 +797,9 @@ test("should support navigating the additional buttons via up arrow key but stop
   const button3 = await screen.findByRole("button", {
     name: "Extra Button 3",
   });
-  await user.keyboard("{arrowDown}");
-  await user.keyboard("{arrowDown}");
 
+  await user.keyboard("{arrowDown}");
+  await user.keyboard("{end}");
   expect(button3).toHaveFocus();
   await user.keyboard("{arrowUp}");
   expect(button2).toHaveFocus();
@@ -799,6 +829,7 @@ test("focuses last child button when End key is pressed", async () => {
     name: "Extra Button 3",
   });
 
+  await user.tab();
   expect(button1).toHaveFocus();
   await user.keyboard("{end}");
   expect(button3).toHaveFocus();
@@ -820,6 +851,7 @@ test("focuses last child button when Control and ArrowDown key are pressed toget
     name: "Extra Button 3",
   });
 
+  await user.tab();
   await user.keyboard("{Control>}{ArrowDown}{/Control}");
 
   expect(button3).toHaveFocus();
@@ -841,6 +873,7 @@ test("focuses last child button when Meta and ArrowDown key are pressed together
     name: "Extra Button 3",
   });
 
+  await user.tab();
   await user.keyboard("{Meta>}{ArrowDown}{/Meta}");
 
   expect(button3).toHaveFocus();
@@ -864,8 +897,8 @@ test("focuses first child button when Home key is pressed", async () => {
   const button3 = await screen.findByRole("button", {
     name: "Extra Button 3",
   });
-  expect(button1).toHaveFocus();
 
+  await user.tab();
   await user.keyboard("{End}");
   expect(button3).toHaveFocus();
 
@@ -887,9 +920,14 @@ test("focuses first child button when Control and ArrowUp key are pressed togeth
   const button1 = await screen.findByRole("button", {
     name: "Extra Button 1",
   });
+  const button3 = await screen.findByRole("button", {
+    name: "Extra Button 3",
+  });
+
+  await user.tab();
   await user.keyboard("{End}");
 
-  expect(screen.getByRole("button", { name: "Extra Button 3" })).toHaveFocus();
+  expect(button3).toHaveFocus();
 
   await user.keyboard("{Control>}{ArrowUp}{/Control}");
 
@@ -910,9 +948,14 @@ test("focuses first child button when Meta and ArrowUp key are pressed together"
   const button1 = await screen.findByRole("button", {
     name: "Extra Button 1",
   });
+  const button3 = await screen.findByRole("button", {
+    name: "Extra Button 3",
+  });
+
+  await user.tab();
   await user.keyboard("{End}");
 
-  expect(screen.getByRole("button", { name: "Extra Button 3" })).toHaveFocus();
+  expect(button3).toHaveFocus();
 
   await user.keyboard("{Meta>}{ArrowUp}{/Meta}");
 
@@ -931,7 +974,7 @@ test("should support navigating the additional buttons via tab key", async () =>
 
   const toggle = screen.getByRole("button", { name: "Show more" });
   toggle.focus();
-  await user.keyboard("{arrowDown}");
+  await user.keyboard("{Enter}");
   const button1 = await screen.findByRole("button", {
     name: "Extra Button 1",
   });
@@ -942,6 +985,7 @@ test("should support navigating the additional buttons via tab key", async () =>
     name: "Extra Button 3",
   });
 
+  await user.tab();
   expect(button1).toHaveFocus();
   await user.tab();
   expect(button2).toHaveFocus();
@@ -961,7 +1005,7 @@ test("should support navigating the additional buttons via shift+tab key, hide t
 
   const toggle = screen.getByRole("button", { name: "Show more" });
   toggle.focus();
-  await user.keyboard("{arrowDown}");
+  await user.keyboard("{Enter}");
   const button1 = await screen.findByRole("button", {
     name: "Extra Button 1",
   });
@@ -972,6 +1016,7 @@ test("should support navigating the additional buttons via shift+tab key, hide t
     name: "Extra Button 3",
   });
 
+  await user.tab();
   expect(button1).toHaveFocus();
   await user.keyboard("{end}");
   expect(button3).toHaveFocus();

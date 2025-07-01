@@ -63,12 +63,12 @@ export const WithWrapperTwoButtons = (
   props: Partial<MultiActionButtonProps>,
 ) => (
   <Box>
-    <MultiActionButton text="Multi Action Button" {...props}>
+    <MultiActionButton text="Multi Action Button 1" {...props}>
       <ButtonWrapper>Button 1</ButtonWrapper>
       <ButtonWrapper>Button 2</ButtonWrapper>
       <ButtonWrapper>Button 3</ButtonWrapper>
     </MultiActionButton>
-    <MultiActionButton text="Multi Action Button" {...props}>
+    <MultiActionButton text="Multi Action Button 2" {...props}>
       <ButtonWrapper>Button 1</ButtonWrapper>
       <ButtonWrapper>Button 2</ButtonWrapper>
       <ButtonWrapper>Button 3</ButtonWrapper>
@@ -81,12 +81,12 @@ export const MultiActionTwoButtons = (
 ) => {
   return (
     <Box>
-      <MultiActionButton text="Multi Action Button" {...props}>
+      <MultiActionButton text="Multi Action Button 1" {...props}>
         <Button>Example Button</Button>
         <Button>Example Button with long text</Button>
         <Button>Short</Button>
       </MultiActionButton>
-      <MultiActionButton text="Multi Action Button" {...props}>
+      <MultiActionButton text="Multi Action Button 2" {...props}>
         <Button>Example Button</Button>
         <Button>Example Button with long text</Button>
         <Button>Short</Button>

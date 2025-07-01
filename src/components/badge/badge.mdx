@@ -40,20 +40,20 @@ import Badge from "carbon-react/lib/components/badge";
 
 ### Badge with counter > 99
 
-Badge doesn't support more than 2 digits
+If the `counter` value greater than 2 digits, the displayed value will be truncated to "99".
 
 <Canvas of={BadgeStories.WithThreeDigits} />
 
 ### Badge with counter 0
 
-If the counter is less than 1 badge will not show itself
+If the `counter` value is `0`, the badge will not be displayed.
 
 <Canvas of={BadgeStories.WithCounterZero} />
 
 ### Display Only
 
-To achieve a `display only` version of this component, you can simply not pass an `onClick` function to the component. This means that instead of rendering as a `button` element,
-the component will render as a `span`.
+By not providing an `onClick` prop, the badge will be rendered as a display-only element. 
+To ensure they are accessible to screen readers, you can pass the `Badge`'s `id` to the `aria-describedby` prop of the element that it is describing.
 
 <Canvas of={BadgeStories.DisplayOnly} />
 

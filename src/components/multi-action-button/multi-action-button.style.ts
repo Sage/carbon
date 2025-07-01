@@ -96,10 +96,14 @@ const StyledButtonChildrenContainer = styled.ul.attrs(
       margin-left: 0;
       min-width: 100%;
       text-align: ${align};
-      z-index: ${theme.zIndex.overlay};
 
       & + & {
         margin-top: 3px;
+      }
+
+      &:focus {
+        position: relative;
+        z-index: 1;
       }
     }
   `}
