@@ -61,6 +61,26 @@ test("renders with provided `aria-label` as its accessible name", () => {
   expect(screen.getByRole("navigation")).toHaveAccessibleName("test label");
 });
 
+test("renders `aria-label` as its accessible name when isGlobal is set and ariaLabel is set", () => {
+  render(
+    <NavigationBar ariaLabel="test label" isGlobal>
+      <div>test content</div>
+    </NavigationBar>,
+  );
+
+  expect(screen.getByRole("navigation")).toHaveAccessibleName("test label");
+});
+
+test("renders `aria-label` with default `Global Header` value when isGlobal is set and aria label is not set", () => {
+  render(
+    <NavigationBar isGlobal>
+      <div>test content</div>
+    </NavigationBar>,
+  );
+
+  expect(screen.getByRole("navigation")).toHaveAccessibleName("Global Header");
+});
+
 // coverage
 test("renders with correct styles when `navigationType` is 'light'", () => {
   render(
