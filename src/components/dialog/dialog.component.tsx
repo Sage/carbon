@@ -1,4 +1,9 @@
-import React, { useRef, useImperativeHandle, forwardRef } from "react";
+import React, {
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+  RefObject,
+} from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
@@ -13,7 +18,7 @@ import {
 } from "./dialog.style";
 import { DialogSizes } from "./dialog.config";
 
-import FocusTrap, { CustomRefObject } from "../../__internal__/focus-trap";
+import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -64,7 +69,7 @@ export interface DialogProps extends ModalProps, TagProps {
     lastElement?: HTMLElement,
   ) => void;
   /** Optional reference to an element meant to be focused on open */
-  focusFirstElement?: CustomRefObject<HTMLElement> | HTMLElement | null;
+  focusFirstElement?: RefObject<HTMLElement> | HTMLElement | null;
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** Allows developers to specify a specific height for the dialog. */
@@ -97,7 +102,7 @@ export interface DialogProps extends ModalProps, TagProps {
   /** Change the background color of the content to grey */
   greyBackground?: boolean;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
-  focusableContainers?: CustomRefObject<HTMLElement>[];
+  focusableContainers?: RefObject<HTMLElement>[];
   /** @private @internal @ignore */
   "data-component"?: string;
 }
