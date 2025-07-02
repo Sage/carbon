@@ -117,6 +117,7 @@ export interface TextEditorProps extends MarginProps, TagProps {
 }
 
 let deprecateOptionalWarnTriggered = false;
+let deprecateUncontrolledWarnTriggered = false;
 
 export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
   (
@@ -153,6 +154,17 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
         "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
       );
     }
+
+    if (
+      !deprecateUncontrolledWarnTriggered &&
+      !(onChange && value !== undefined)
+    ) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `TextEditor` is deprecated and support will soon be removed. Please use `onChange` and `value`.",
+      );
+    }
+
     const editorRef = useRef<LexicalEditor | undefined>(undefined);
     const locale = useLocale();
     const [characterLimitWarning, setCharacterLimitWarning] = useState<
