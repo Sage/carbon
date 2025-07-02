@@ -665,7 +665,14 @@ test("should render the picker as a descendant of the main presentation element 
 
 test("should not render the picker as a descendant of the main presentation element when `disablePortal` is false", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput label="label" onChange={() => {}} value="" />);
+  render(
+    <DateInput
+      disablePortal={false}
+      label="label"
+      onChange={() => {}}
+      value=""
+    />,
+  );
   const input = screen.getByRole("textbox");
   await user.click(input);
 
@@ -1892,4 +1899,32 @@ test("should select the correct date when the locale is overridden and a date is
 
   const caption = screen.getByRole("status");
   expect(caption).toHaveTextContent("April 2019");
+});
+
+// coverage
+test("should correctly focus when disablePortal is false and Tab is used to navigate", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const onFocus = jest.fn();
+  const onClick = jest.fn();
+  render(
+    <DateInput
+      label="label"
+      onChange={() => {}}
+      value="2019-04-04"
+      onFocus={onFocus}
+      onClick={onClick}
+      disablePortal={false}
+    />,
+  );
+  const input = screen.getByRole("textbox");
+  await user.click(input);
+
+  expect(screen.getByRole("grid")).toBeVisible();
+  await user.tab();
+  await user.tab();
+  await user.tab();
+
+  expect(
+    screen.getByLabelText("Thursday, April 4th, 2019", { exact: false }),
+  ).toHaveFocus();
 });
