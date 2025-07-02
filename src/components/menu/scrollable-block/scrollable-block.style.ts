@@ -16,7 +16,7 @@ interface StyledScrollableBlockProps {
 const StyledScrollableBlock = styled.li<StyledScrollableBlockProps>`
   ${({ menuType, variant }) => css`
     ${StyledMenuItem} ${StyledLink} {
-      Add comment More actions a,
+      a,
       button {
         background-color: ${variant === "default"
           ? menuConfigVariants[menuType].submenuItemBackground

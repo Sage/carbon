@@ -49,8 +49,6 @@ const Crumb = React.forwardRef<HTMLAnchorElement, CrumbProps>(
 
     const styles = styledCrumb(baseStyles, isDarkBackground, isCurrent);
 
-    console.log({ isCurrent, href, onClick, rest });
-
     return (
       <li>
         <BaseLink
