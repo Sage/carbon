@@ -1,3 +1,9 @@
+## [154.13.5](https://github.com/Sage/carbon/compare/v154.13.4...v154.13.5) (2025-07-03)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure menu item hover styles are not overridden ([e3bb55a](https://github.com/Sage/carbon/commit/e3bb55af43615c069f8c239e59cf6e9e1bf915e7))
+
 ## [154.13.4](https://github.com/Sage/carbon/compare/v154.13.3...v154.13.4) (2025-07-03)
 
 ### Bug Fixes
