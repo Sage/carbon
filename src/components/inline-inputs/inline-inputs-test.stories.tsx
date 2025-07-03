@@ -21,19 +21,9 @@ export const Default = (props: InlineInputsProps) => {
     <InlineInputs label="Inline Input" {...props}>
       <Textbox warning inputIcon="warning" />
 
-      <Decimal
-        onChange={function noRefCheck() {
-          ("");
-        }}
-        value="0.00"
-      />
+      <Decimal onChange={() => {}} value="0.00" />
 
-      <SimpleSelect
-        onChange={function noRefCheck() {
-          ("");
-        }}
-        value=""
-      >
+      <SimpleSelect onChange={() => {}} value="">
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
