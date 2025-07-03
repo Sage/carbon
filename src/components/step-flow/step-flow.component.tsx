@@ -13,6 +13,7 @@ import {
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
+import Logger from "../../__internal__/utils/logger";
 import Typography from "../typography";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { StepFlowProvider } from "./__internal__/step-flow.context";
@@ -96,10 +97,9 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
     let currentStepWarnTriggered = false;
     let noRefWarnTriggered = false;
 
-    /* eslint-disable no-console */
     if (!currentStepWarnTriggered && currentStep > totalSteps) {
       currentStepWarnTriggered = true;
-      console.warn(
+      Logger.warn(
         "[WARNING] The `currentStep` prop should not be higher than the `totalSteps`prop in `StepFlow`." +
           " Please ensure `currentStep`s value does not exceed that of `totalSteps`, in the meantime" +
           " we have set `currentStep` value to that of `totalSteps`, and all indicators have been marked as completed.",
@@ -107,7 +107,7 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
     }
     if (!noRefWarnTriggered && !ref) {
       noRefWarnTriggered = true;
-      console.warn(
+      Logger.warn(
         "[WARNING] A `ref` should be provided to ensure focus is programmatically focused back to a title div," +
           " this ensures screen reader users are informed regarding any changes and can navigate back down the page.",
       );

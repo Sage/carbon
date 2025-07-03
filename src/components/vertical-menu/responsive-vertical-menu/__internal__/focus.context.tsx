@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /**
  * Provides context for managing focus within a menu component.
  * This context allows for tracking expanded items, focusing on specific items,
@@ -13,6 +12,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import Logger from "../../../../__internal__/utils/logger";
 
 interface MenuFocusContextType {
   expandedItems: string[];
@@ -47,7 +47,7 @@ export const useMenuFocus = () => {
   // If context is undefined, it means the hook is being used outside of a MenuFocusProvider
   /* istanbul ignore next */
   if (!context) {
-    console.error("useMenuFocus must be used within a MenuFocusProvider");
+    Logger.error("useMenuFocus must be used within a MenuFocusProvider");
     // Return a default value to avoid breakages
     return {
       expandedItems: [],
