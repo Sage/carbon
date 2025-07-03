@@ -1,5 +1,5 @@
-import React from "react";
-import TextEditor from "./text-editor.component";
+import React, { useState } from "react";
+import TextEditor, { createFromHTML } from ".";
 
 const TextEditorDefaultComponent = ({ ...props }) => {
   return (
@@ -9,6 +9,29 @@ const TextEditorDefaultComponent = ({ ...props }) => {
 
 export default TextEditorDefaultComponent;
 
+export const TextEditorControlled = ({
+  onChange,
+}: {
+  onChange?: () => void;
+}) => {
+  const [value, setValue] = useState<string>(
+    createFromHTML("<p>Initial controlled text</p>"),
+  );
+
+  const handleChange = (newValue: string) => {
+    if (onChange) onChange();
+    setValue(createFromHTML(newValue));
+  };
+
+  return (
+    <TextEditor
+      labelText="Playwright Example (Controlled)"
+      namespace="pw-rte"
+      value={value}
+      onChange={handleChange}
+    />
+  );
+};
 export const TextEditorWithHeader = () => {
   const headerButtons = (
     <>
@@ -17,6 +40,7 @@ export const TextEditorWithHeader = () => {
       <button type="button">baz</button>
     </>
   );
+
   return (
     <TextEditor
       labelText="Playwright Example"
@@ -34,6 +58,7 @@ export const TextEditorWithHeaderOnSave = () => {
       <button type="button">baz</button>
     </>
   );
+
   return (
     <TextEditor
       labelText="Playwright Example"
@@ -52,6 +77,7 @@ export const TextEditorWithHeaderOnCancel = () => {
       <button type="button">baz</button>
     </>
   );
+
   return (
     <TextEditor
       labelText="Playwright Example"
@@ -70,6 +96,7 @@ export const TextEditorWithFooter = () => {
       <button type="button">baz</button>
     </>
   );
+
   return (
     <TextEditor
       labelText="Playwright Example"
@@ -87,6 +114,7 @@ export const TextEditorWithFooterOnSave = () => {
       <button type="button">baz</button>
     </>
   );
+
   return (
     <TextEditor
       labelText="Playwright Example"
@@ -105,6 +133,7 @@ export const TextEditorWithFooterOnCancel = () => {
       <button type="button">baz</button>
     </>
   );
+
   return (
     <TextEditor
       labelText="Playwright Example"
