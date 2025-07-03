@@ -9,11 +9,7 @@ import { filterStyledSystemMarginProps } from "../../../../style/utils";
 import { useDepth } from "../__internal__/depth.context";
 import { useResponsiveVerticalMenu } from "../responsive-vertical-menu.context";
 
-export interface ResponsiveVerticalMenuDividerProps extends MarginProps {}
-
-export const ResponsiveVerticalMenuDivider = (
-  props: ResponsiveVerticalMenuDividerProps,
-) => {
+export const ResponsiveVerticalMenuDivider = (props: MarginProps) => {
   const depth = useDepth();
   const { responsiveMode } = useResponsiveVerticalMenu();
 

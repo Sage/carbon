@@ -565,15 +565,7 @@ test.describe("Accessibility tests for Decimal component", () => {
     mount,
     page,
   }) => {
-    await mount(
-      <Decimal
-        label="Decimal"
-        onChange={function noRefCheck() {
-          ("");
-        }}
-        value="0.01"
-      />,
-    );
+    await mount(<Decimal label="Decimal" onChange={() => {}} value="0.01" />);
 
     await checkAccessibility(page);
   });
@@ -583,14 +575,7 @@ test.describe("Accessibility tests for Decimal component", () => {
     page,
   }) => {
     await mount(
-      <Decimal
-        label="Decimal"
-        onChange={function noRefCheck() {
-          ("");
-        }}
-        value="0.01"
-        readOnly
-      />,
+      <Decimal label="Decimal" onChange={() => {}} value="0.01" readOnly />,
     );
 
     await checkAccessibility(page);
