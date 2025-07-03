@@ -46,7 +46,6 @@ const commonAttributes = css`
   min-height: var(--sizing500);
   padding: 0 var(--spacing200);
   width: 100%;
-  max-width: 340px;
 
   ${margin}
   ${padding}
@@ -102,7 +101,6 @@ export const StyledNestedMenuWrapper = styled.div<{
   display: flex;
   justify-content: ${({ hasIcon, responsive }) =>
     hasIcon && responsive ? "flex-end" : "flex-start"};
-  padding: 0 16px;
   width: 100%;
 
   ${({ depth, responsive }) =>
@@ -113,27 +111,36 @@ export const StyledNestedMenuWrapper = styled.div<{
     `}
 `;
 
-export const StyledNestedMenu = styled.div<{
+export const StyledNestedMenu = styled.ul<{
   depth: number;
   hasIcon?: boolean;
   responsive?: boolean;
 }>`
-  ${({ depth, hasIcon }) => css`
+  padding: 0;
+
+  ${({ depth, hasIcon, responsive }) => css`
     width: ${depth < 2 && !hasIcon ? "100%" : "88%"};
-  `}
+    margin-left: var(--spacing400);
 
-  > a {
-    ${({ depth }) => css`
-      font-weight: var(--fontWeights500);
-
-      ${depth === 1 &&
-      css`
-        font-weight: var(--fontWeights400);
-        margin-left: var(--spacing200);
-        margin-right: var(--spacing200);
-      `};
+    ${responsive &&
+    css`
+      margin-left: ${hasIcon || depth === 1 ? "var(--spacing200)" : "0"};
     `}
-  }
+
+    li > a {
+      font-weight: ${depth === 1
+        ? "var(--fontWeights400)"
+        : "var(--fontWeights500)"};
+    }
+  `}
+`;
+
+export const StyledResponsiveMenuListItem = styled.li`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 340px;
 `;
 
 export const StyledResponsiveMenuItem = styled.button<StyledResponsiveMenuItemProps>`
