@@ -1,3 +1,9 @@
+## [154.13.4](https://github.com/Sage/carbon/compare/v154.13.3...v154.13.4) (2025-07-03)
+
+### Bug Fixes
+
+* **responsive-vertial-menu:** menu closes when shrinking the size ([8143dd4](https://github.com/Sage/carbon/commit/8143dd42c22312211e9168607d89d34c564ff5c7))
+
 ## [154.13.3](https://github.com/Sage/carbon/compare/v154.13.2...v154.13.3) (2025-07-01)
 
 ### Bug Fixes
