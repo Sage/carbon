@@ -44,6 +44,20 @@ test("sets the 'id' attribute to the value of the `validationId` prop", () => {
   expect(validationMessage).toHaveAttribute("id", "foo");
 });
 
+test("renders with the correct data attributes", () => {
+  render(
+    <ValidationMessage
+      error="error"
+      data-element="test-element"
+      data-role="test-role"
+    />,
+  );
+
+  const validationMessage = screen.getByText("error");
+  expect(validationMessage).toHaveAttribute("data-element", "test-element");
+  expect(validationMessage).toHaveAttribute("data-role", "test-role");
+});
+
 // coverage
 test("renders with the correct colour when `isDarkBackground` is true", () => {
   render(<ValidationMessage error="error" isDarkBackground />);

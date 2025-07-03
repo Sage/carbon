@@ -8,6 +8,7 @@ import React, {
   useRef,
   useState,
   useContext,
+  RefObject,
 } from "react";
 import {
   DayPicker,
@@ -27,10 +28,6 @@ import FlatTableContext from "../../../flat-table/__internal__/flat-table.contex
 
 import StyledDayPicker from "./day-picker.style";
 
-type CustomRefObject<T> = {
-  current?: T | null;
-};
-
 export interface PickerProps
   extends Omit<DayPickerProps, "mode" | "modifiers"> {
   modifiers?: Partial<Modifiers>;
@@ -49,7 +46,7 @@ export interface DatePickerProps {
    * */
   pickerProps?: PickerProps;
   /** Element that the DatePicker will be displayed under */
-  inputElement: CustomRefObject<HTMLElement>;
+  inputElement: RefObject<HTMLElement>;
   /** Currently selected date */
   selectedDays?: Date | undefined;
   /** Callback to handle mousedown event on picker container */

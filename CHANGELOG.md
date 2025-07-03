@@ -1,3 +1,28 @@
+## [154.13.3](https://github.com/Sage/carbon/compare/v154.13.2...v154.13.3) (2025-07-01)
+
+### Bug Fixes
+
+* **textbox:** test stories load to error ([c30069b](https://github.com/Sage/carbon/commit/c30069b2d423692773355bd833646c64fd85393c))
+
+## [154.13.2](https://github.com/Sage/carbon/compare/v154.13.1...v154.13.2) (2025-06-30)
+
+### Bug Fixes
+
+* **text-editor:** ensure validation style is inline with other inputs ([53ffc90](https://github.com/Sage/carbon/commit/53ffc905881c0f322ab02171faeef5e8a985d981)), closes [#7381](https://github.com/Sage/carbon/issues/7381)
+
+## [154.13.1](https://github.com/Sage/carbon/compare/v154.13.0...v154.13.1) (2025-06-30)
+
+### Bug Fixes
+
+* **menu, multi-action-button, split-button:** remove focus first list item on submenu open ([00657d3](https://github.com/Sage/carbon/commit/00657d38e817b4af8fe138697830f93eaac2c40c)), closes [#7264](https://github.com/Sage/carbon/issues/7264)
+* **multi-action-button, split-button:** add aria-controls and fix menu hover style ([7aac7d6](https://github.com/Sage/carbon/commit/7aac7d69042b9ca8c4ee12abfb5f3ed55fdb80d0))
+
+## [154.13.0](https://github.com/Sage/carbon/compare/v154.12.2...v154.13.0) (2025-06-30)
+
+### Features
+
+* **password:** add de-DE, es-ES, fr-CA and fr-FR show/hide related translations ([34c06a6](https://github.com/Sage/carbon/commit/34c06a66b9a988b10bb28620c0e8421385d8e17b))
+
 ## [154.12.2](https://github.com/Sage/carbon/compare/v154.12.1...v154.12.2) (2025-06-27)
 
 ### Bug Fixes
