@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, RefObject } from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
@@ -6,7 +6,7 @@ import Heading from "../heading";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
 import StyledDialogFullScreen from "./dialog-full-screen.style";
 import StyledContent from "./content.style";
-import FocusTrap, { CustomRefObject } from "../../__internal__/focus-trap";
+import FocusTrap from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -38,7 +38,7 @@ export interface DialogFullScreenProps
   /** remove padding from content */
   disableContentPadding?: boolean;
   /** Optional reference to an element meant to be focused on open */
-  focusFirstElement?: CustomRefObject<HTMLElement> | HTMLElement | null;
+  focusFirstElement?: RefObject<HTMLElement> | HTMLElement | null;
   /**
    * Function to replace focus trap
    * @ignore
@@ -66,7 +66,7 @@ export interface DialogFullScreenProps
   /** The ARIA role to be applied to the DialogFullscreen container */
   role?: string;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
-  focusableContainers?: CustomRefObject<HTMLElement>[];
+  focusableContainers?: RefObject<HTMLElement>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** A custom close event handler */

@@ -1,3 +1,21 @@
+## [154.13.4](https://github.com/Sage/carbon/compare/v154.13.3...v154.13.4) (2025-07-03)
+
+### Bug Fixes
+
+* **responsive-vertial-menu:** menu closes when shrinking the size ([8143dd4](https://github.com/Sage/carbon/commit/8143dd42c22312211e9168607d89d34c564ff5c7))
+
+## [154.13.3](https://github.com/Sage/carbon/compare/v154.13.2...v154.13.3) (2025-07-01)
+
+### Bug Fixes
+
+* **textbox:** test stories load to error ([c30069b](https://github.com/Sage/carbon/commit/c30069b2d423692773355bd833646c64fd85393c))
+
+## [154.13.2](https://github.com/Sage/carbon/compare/v154.13.1...v154.13.2) (2025-06-30)
+
+### Bug Fixes
+
+* **text-editor:** ensure validation style is inline with other inputs ([53ffc90](https://github.com/Sage/carbon/commit/53ffc905881c0f322ab02171faeef5e8a985d981)), closes [#7381](https://github.com/Sage/carbon/issues/7381)
+
 ## [154.13.1](https://github.com/Sage/carbon/compare/v154.13.0...v154.13.1) (2025-06-30)
 
 ### Bug Fixes

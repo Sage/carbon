@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useLayoutEffect, RefObject } from "react";
 
 import {
   computePosition,
@@ -8,13 +8,9 @@ import {
   Placement,
 } from "@floating-ui/dom";
 
-type CustomRefObject<T> = {
-  current?: T | null;
-};
-
 export interface UseFloatingProps {
   isOpen?: boolean;
-  reference: CustomRefObject<HTMLElement | null>;
+  reference: RefObject<HTMLElement | null>;
   floating: React.RefObject<HTMLElement | null>;
   strategy?: Strategy;
   middleware?: Middleware[];
