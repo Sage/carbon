@@ -370,9 +370,7 @@ test.describe("should render Confirm component", () => {
       <Confirm
         open
         aria-labelledby={CHARACTERS.STANDARD}
-        onConfirm={() => {
-          ("");
-        }}
+        onConfirm={() => {}}
       />,
     );
 
@@ -390,9 +388,7 @@ test.describe("should render Confirm component", () => {
       <Confirm
         open
         aria-describedby={CHARACTERS.STANDARD}
-        onConfirm={() => {
-          ("");
-        }}
+        onConfirm={() => {}}
       />,
     );
 

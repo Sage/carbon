@@ -1,4 +1,4 @@
 node_modules/
 coverage/
 package-lock.json
-.eslintrc
+.eslint.config.mjs
