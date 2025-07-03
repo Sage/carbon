@@ -13,37 +13,13 @@ export const ButtonToggleComponent = ({
 }: ButtonToggleProps) => {
   return (
     <Box>
-      <ButtonToggle
-        onBlur={function noRefCheck() {
-          ("");
-        }}
-        onFocus={function noRefCheck() {
-          ("");
-        }}
-        {...props}
-      >
+      <ButtonToggle onBlur={() => {}} onFocus={() => {}} {...props}>
         {children}
       </ButtonToggle>
-      <ButtonToggle
-        onBlur={function noRefCheck() {
-          ("");
-        }}
-        onFocus={function noRefCheck() {
-          ("");
-        }}
-        {...props}
-      >
+      <ButtonToggle onBlur={() => {}} onFocus={() => {}} {...props}>
         Second
       </ButtonToggle>
-      <ButtonToggle
-        onBlur={function noRefCheck() {
-          ("");
-        }}
-        onFocus={function noRefCheck() {
-          ("");
-        }}
-        {...props}
-      >
+      <ButtonToggle onBlur={() => {}} onFocus={() => {}} {...props}>
         Third
       </ButtonToggle>
     </Box>
@@ -60,9 +36,7 @@ export const ButtonToggleGroupComponent = (
       labelHelp="help message"
       helpAriaLabel="Help"
       fieldHelp="field help message"
-      onChange={function noRefCheck() {
-        ("");
-      }}
+      onChange={() => {}}
       {...props}
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
