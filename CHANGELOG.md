@@ -1,3 +1,9 @@
+## [154.13.6](https://github.com/Sage/carbon/compare/v154.13.5...v154.13.6) (2025-07-03)
+
+### Bug Fixes
+
+* **logger:** add warn method ([7d1648f](https://github.com/Sage/carbon/commit/7d1648f2cdbf2d4cef9f9d0ef32ad356d1b4be57))
+
 ## [154.13.5](https://github.com/Sage/carbon/compare/v154.13.4...v154.13.5) (2025-07-03)
 
 ### Bug Fixes
