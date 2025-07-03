@@ -17,6 +17,7 @@ import FlatTableCheckbox, {
 import FlatTableBodyDraggable, {
   FlatTableBodyDraggableProps,
 } from "./flat-table-body-draggable/flat-table-body-draggable.component";
+import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import Sort from "./sort/sort.component";
 import Box from "../box";
 import Pager from "../pager";
@@ -2521,8 +2522,107 @@ export const FlatTableDraggableComponent = (
       <FlatTableBodyDraggable {...props}>
         {rows.map((row) => (
           <FlatTableRow key={row.id} id={row.id}>
+            <FlatTableCell key={row.id}>
+              <Icon type="drag" />
+            </FlatTableCell>
             <FlatTableCell>{row.name}</FlatTableCell>
           </FlatTableRow>
+        ))}
+      </FlatTableBodyDraggable>
+    </FlatTable>
+  );
+};
+
+export const FlatTableDraggingRowsWithSidebarContext = (
+  props: Partial<FlatTableBodyDraggableProps> & {
+    "data-drag-state": string;
+  },
+) => {
+  const { "data-drag-state": dataDragState } = props;
+  const rows = [
+    {
+      id: "0",
+      name: "UK",
+    },
+    {
+      id: "1",
+      name: "Germany",
+    },
+    {
+      id: "2",
+      name: "China",
+    },
+    {
+      id: "3",
+      name: "US",
+    },
+  ];
+  return (
+    <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+      <FlatTable>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>Click to Drag</FlatTableHeader>
+            <FlatTableHeader>Country</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBodyDraggable {...props}>
+          {/* data-drag-state has to be manually applied due to issues issues asserting against styling triggered by the attribute */}
+          {rows.map((row) => (
+            <tr data-drag-state={dataDragState} key={row.id} id={row.id}>
+              <FlatTableCell key={row.id}>
+                <Icon type="drag" />
+              </FlatTableCell>
+              <FlatTableCell>{row.name}</FlatTableCell>
+            </tr>
+          ))}
+        </FlatTableBodyDraggable>
+      </FlatTable>
+    </DrawerSidebarContext.Provider>
+  );
+};
+
+export const FlatTableDraggingRows = (
+  props: Partial<FlatTableBodyDraggableProps> & {
+    "data-drag-state": string;
+  },
+) => {
+  const { "data-drag-state": dataDragState } = props;
+  const rows = [
+    {
+      id: "0",
+      name: "UK",
+    },
+    {
+      id: "1",
+      name: "Germany",
+    },
+    {
+      id: "2",
+      name: "China",
+    },
+    {
+      id: "3",
+      name: "US",
+    },
+  ];
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Click to Drag</FlatTableHeader>
+          <FlatTableHeader>Country</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBodyDraggable {...props}>
+        {/* data-drag-state has to be manually applied due to issues issues asserting against styling triggered by the attribute */}
+        {rows.map((row) => (
+          <tr data-drag-state={dataDragState} key={row.id} id={row.id}>
+            <FlatTableCell key={row.id}>
+              <Icon type="drag" />
+            </FlatTableCell>
+            <FlatTableCell>{row.name}</FlatTableCell>
+          </tr>
         ))}
       </FlatTableBodyDraggable>
     </FlatTable>
