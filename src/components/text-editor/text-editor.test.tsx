@@ -54,6 +54,39 @@ const initialValue = {
   },
 };
 
+test("should not log a deprecation warning when the component is controlled", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  const mockOnChange = jest.fn();
+  const value = JSON.stringify(initialValue);
+
+  render(
+    <TextEditor labelText="label" onChange={mockOnChange} value={value} />,
+  );
+  expect(loggerSpy).not.toHaveBeenCalled();
+  loggerSpy.mockRestore();
+});
+
+/*
+ * This test checks that the deprecation warning is logged only once when a value & an onChange are not provided.
+ * However, we can't test any more onChange/value cases than this because of the flag outside the component
+ * that prevents the warning from being logged more than once.
+ */
+test("should log a deprecation warning once when the component is uncontrolled", () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <TextEditor labelText="label" />
+      <TextEditor labelText="label" />
+    </>,
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "Uncontrolled behaviour in `TextEditor` is deprecated and support will soon be removed. Please use `onChange` and `value`.",
+  );
+  loggerSpy.mockRestore();
+});
+
 test("should display deprecation warning once when rendered as optional", () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");
 
