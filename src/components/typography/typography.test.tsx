@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Typography, { List, ListItem } from ".";
+import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should render with variant as 'p' by default", () => {
   render(<Typography>Test</Typography>);
@@ -60,11 +61,10 @@ test("should render with expected styles when variant is 'h3'", () => {
   expect(screen.getByText("Test")).toHaveStyle({
     fontSize: "21px",
     lineHeight: "26.25px",
-    fontWeight: "700",
+    fontWeight: "500",
     textTransform: "none",
     textDecoration: "none",
     margin: "0",
-    padding: "0 0 16px 0",
   });
 });
 
@@ -287,89 +287,10 @@ test("should override 'display' property when passed", () => {
   expect(screen.getByText("Test")).toHaveStyle({ display: "block" });
 });
 
-describe("Styled System Spacing", () => {
-  test("should apply margin when m prop is provided", () => {
-    render(<Typography m="10px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({ margin: "10px" });
-  });
-
-  test("should apply marginLeft when ml prop is provided", () => {
-    render(<Typography ml="5px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({ marginLeft: "5px" });
-  });
-
-  test("should apply marginRight when mr prop is provided", () => {
-    render(<Typography mr="5px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({ marginRight: "5px" });
-  });
-
-  test("should apply marginTop when mt prop is provided", () => {
-    render(<Typography mt="5px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({ marginTop: "5px" });
-  });
-
-  test("should apply marginBottom when mb prop is provided", () => {
-    render(<Typography mb="5px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({ marginBottom: "5px" });
-  });
-
-  test("should apply horizontal margins when mx prop is provided", () => {
-    render(<Typography mx="8px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({
-      marginLeft: "8px",
-      marginRight: "8px",
-    });
-  });
-
-  test("should apply vertical margins when my prop is provided", () => {
-    render(<Typography my="8px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({
-      marginTop: "8px",
-      marginBottom: "8px",
-    });
-  });
-
-  test("should apply padding when p prop is provided", () => {
-    render(<Typography p="10px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({ padding: "10px" });
-  });
-
-  test("should apply paddingLeft when pl prop is provided", () => {
-    render(<Typography pl="5px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({ paddingLeft: "5px" });
-  });
-
-  test("should apply paddingRight when pr prop is provided", () => {
-    render(<Typography pr="5px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({ paddingRight: "5px" });
-  });
-
-  test("should apply paddingTop when pt prop is provided", () => {
-    render(<Typography pt="5px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({ paddingTop: "5px" });
-  });
-
-  test("should apply paddingBottom when pb prop is provided", () => {
-    render(<Typography pb="5px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({ paddingBottom: "5px" });
-  });
-
-  test("should apply horizontal padding when px prop is provided", () => {
-    render(<Typography px="8px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({
-      paddingLeft: "8px",
-      paddingRight: "8px",
-    });
-  });
-
-  test("should apply vertical padding when py prop is provided", () => {
-    render(<Typography py="8px">Test</Typography>);
-    expect(screen.getByText("Test")).toHaveStyle({
-      paddingTop: "8px",
-      paddingBottom: "8px",
-    });
-  });
-});
+testStyledSystemSpacing(
+  (props) => <Typography {...props}>Test</Typography>,
+  () => screen.getByText("Test"),
+);
 
 describe("Lists", () => {
   test("should render List with variant as 'ul' by default and listStyleType set to 'square", () => {

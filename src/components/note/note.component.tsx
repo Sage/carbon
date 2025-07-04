@@ -88,17 +88,21 @@ export const Note = ({
       <StyledNote width={width} {...rest} {...tagComponent("note", rest)}>
         <StyledNoteMain>
           <StyledNoteContent>
-            {title && (
-              <StyledTitleWrapper>
-                {typeof title === "string" ? (
-                  <Typography data-role="note-title" variant="h3">
-                    {title}
-                  </Typography>
-                ) : (
-                  title
-                )}
-              </StyledTitleWrapper>
-            )}
+            {title &&
+              (typeof title === "string" ? (
+                <Typography
+                  data-role="note-title"
+                  fontWeight="700"
+                  fontSize="16px"
+                  lineHeight="21px"
+                  paddingBottom="16px"
+                  variant="h3"
+                >
+                  {title}
+                </Typography>
+              ) : (
+                <StyledTitleWrapper>{title}</StyledTitleWrapper>
+              ))}
             <ReadOnlyEditor value={noteContent} />
           </StyledNoteContent>
           {inlineControl && (
