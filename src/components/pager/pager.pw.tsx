@@ -408,8 +408,14 @@ test.describe("Functional tests", () => {
 
     await lastArrow(page).click();
 
-    await expect(nextArrow(page)).toHaveAttribute("disabled", /.*/);
-    await expect(lastArrow(page)).toHaveAttribute("disabled", /.*/);
+    await expect(nextArrow(page).locator("button")).toHaveAttribute(
+      "disabled",
+      "",
+    );
+    await expect(lastArrow(page).locator("button")).toHaveAttribute(
+      "disabled",
+      "",
+    );
   });
 
   test(`should disable firstArrow and previousArrow buttons after clicking on firstArrow button`, async ({
@@ -420,8 +426,14 @@ test.describe("Functional tests", () => {
 
     await firstArrow(page).click();
 
-    await expect(firstArrow(page)).toHaveAttribute("disabled", /.*/);
-    await expect(previousArrow(page)).toHaveAttribute("disabled", /.*/);
+    await expect(firstArrow(page).locator("button")).toHaveAttribute(
+      "disabled",
+      "",
+    );
+    await expect(previousArrow(page).locator("button")).toHaveAttribute(
+      "disabled",
+      "",
+    );
   });
 
   test(`should disable firstArrow and previousArrow buttons after clicking on previousArrow button`, async ({
@@ -432,8 +444,14 @@ test.describe("Functional tests", () => {
 
     await previousArrow(page).click();
 
-    await expect(firstArrow(page)).toHaveAttribute("disabled", /.*/);
-    await expect(previousArrow(page)).toHaveAttribute("disabled", /.*/);
+    await expect(firstArrow(page).locator("button")).toHaveAttribute(
+      "disabled",
+      "",
+    );
+    await expect(previousArrow(page).locator("button")).toHaveAttribute(
+      "disabled",
+      "",
+    );
   });
 
   test(`should disable firstArrow and previousArrow buttons after clicking on nextArrow button`, async ({
@@ -444,8 +462,14 @@ test.describe("Functional tests", () => {
 
     await nextArrow(page).click();
 
-    await expect(nextArrow(page)).toHaveAttribute("disabled", /.*/);
-    await expect(lastArrow(page)).toHaveAttribute("disabled", /.*/);
+    await expect(nextArrow(page).locator("button")).toHaveAttribute(
+      "disabled",
+      "",
+    );
+    await expect(lastArrow(page).locator("button")).toHaveAttribute(
+      "disabled",
+      "",
+    );
   });
 
   [1001, 901, 701, 601, 450].forEach((viewportWidth) => {

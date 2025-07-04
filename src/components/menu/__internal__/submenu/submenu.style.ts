@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import StyledScrollableBlock from "../../../menu/scrollable-block/scrollable-block.style";
 import applyBaseTheme from "../../../../style/themes/apply-base-theme";
-import { StyledLink } from "../../../link/link.style";
+import Link from "../../../link";
 import { StyledMenuItem } from "../../menu.style";
 import StyledBox from "../../../box/box.style";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
@@ -30,6 +30,8 @@ interface StyledSubmenuProps
   applyFocusRadiusStyling: boolean;
   applyFocusRadiusStylingToLastItem: boolean;
 }
+
+const StyledLink = styled(Link)``;
 
 const StyledSubmenuWrapper = styled.div.attrs(
   applyBaseTheme,
@@ -84,9 +86,14 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       box-shadow: var(--boxShadow100);
       position: absolute;
       top: 100%;
-      background-color: ${variant === "default"
-        ? menuConfigVariants[menuType].submenuItemBackground
-        : menuConfigVariants[menuType].background};
+      &,
+      a,
+      button,
+      ${StyledMenuItem} {
+        background-color: ${variant === "default"
+          ? menuConfigVariants[menuType].submenuItemBackground
+          : menuConfigVariants[menuType].background};
+      }
 
       min-width: ${submenuMinWidth ?? "100%"};
 

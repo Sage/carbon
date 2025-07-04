@@ -1,13 +1,16 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useTheme } from "styled-components";
 
+import addLinkStyle, { StyledLinkProps } from "./link.style";
+import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 import Icon, { IconType } from "../icon";
 import MenuContext from "../menu/__internal__/menu.context";
-import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
-import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
+import type { ThemeObject } from "../../style/themes/theme.types";
+import { BaseLink } from "./__internal__";
 
 export interface LinkProps
   extends StyledLinkProps,
@@ -94,17 +97,6 @@ export const Link = React.forwardRef<
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
     const isDisabled = disabled || batchSelectionDisabled;
 
-    const setRefs = React.useCallback(
-      (reference: HTMLAnchorElement) => {
-        if (!ref) return;
-        if (typeof ref === "object") ref.current = reference;
-        if (typeof ref === "function") {
-          ref(reference);
-        }
-      },
-      [ref],
-    );
-
     const renderLinkIcon = (currentAlignment = "left") => {
       const hasProperAlignment = icon && iconAlign === currentAlignment;
 
@@ -119,64 +111,23 @@ export const Link = React.forwardRef<
       ) : null;
     };
 
-    const ariaProps = useMemo(() => {
-      const restObject = rest as Record<string, unknown>;
-
-      return Object.keys(restObject)
-        .filter((key) => key.startsWith("aria"))
-        .reduce((obj: Record<string, unknown>, key: string) => {
-          obj[key] = restObject[key];
-          return obj;
-        }, {});
-    }, [rest]);
-
-    const componentProps = {
+    const props = {
       onKeyDown,
       onMouseDown,
       onClick,
       disabled: isDisabled,
       target,
-      ref: setRefs,
+      ref,
       href,
       rel,
       "aria-label": ariaLabel,
-      ...ariaProps,
+      className,
       onFocus: () => setHasFocus(true),
       onBlur: () => setHasFocus(false),
-    };
 
-    const buttonProps = {
-      type: "button",
-    };
-
-    const createLinkBasedOnType = () => {
-      let type = "a";
-
-      if (onClick && !href) {
-        type = "button";
-      }
-
-      return React.createElement(
-        type,
-        type === "button"
-          ? {
-              ...componentProps,
-              ...buttonProps,
-            }
-          : {
-              ...componentProps,
-              "data-role": "link-anchor",
-            },
-        <>
-          {renderLinkIcon()}
-
-          <StyledContent>
-            {isSkipLink ? l.link.skipLinkLabel() : children}
-          </StyledContent>
-
-          {renderLinkIcon("right")}
-        </>,
-      );
+      ...tagComponent("link", rest),
+      ...(isSkipLink && { "data-element": "skip-link" }),
+      ...rest,
     };
 
     useEffect(() => {
@@ -185,22 +136,30 @@ export const Link = React.forwardRef<
       }
     }, [disabled, href, onClick]);
 
+    const theme = useTheme();
+
+    const styles = addLinkStyle({
+      disabled: isDisabled,
+      hasContent: !!children,
+      hasFocus,
+      iconAlign,
+      isDarkBackground,
+      isMenuItem: inMenu,
+      isSkipLink,
+      theme: theme as ThemeObject,
+      variant,
+    });
+
     return (
-      <StyledLink
-        isSkipLink={isSkipLink}
-        disabled={isDisabled}
-        iconAlign={iconAlign}
-        className={className}
-        hasContent={Boolean(children)}
-        variant={variant}
-        isDarkBackground={isDarkBackground}
-        isMenuItem={inMenu}
-        {...tagComponent("link", rest)}
-        {...(isSkipLink && { "data-element": "skip-link" })}
-        hasFocus={hasFocus}
-      >
-        {createLinkBasedOnType()}
-      </StyledLink>
+      <BaseLink {...props} styles={styles}>
+        <>
+          {renderLinkIcon()}
+          <span data-component="link-content">
+            {isSkipLink ? l.link.skipLinkLabel() : children}
+          </span>
+          {renderLinkIcon("right")}
+        </>
+      </BaseLink>
     );
   },
 );

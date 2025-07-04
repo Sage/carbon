@@ -1,8 +1,12 @@
 import React, { useRef, useEffect, useCallback } from "react";
+import { useTheme } from "styled-components";
 
-import { StyledPagerLink } from "../pager.style";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import { LinkProps } from "../../../components/link";
+import addLinkStyle from "../../link/link.style";
+import pagerLinkStyles from "./pager-navigation-link.style";
+import { BaseLink } from "../../link/__internal__/base-link";
+import { ThemeObject } from "../../../style/themes";
 
 interface PagerNavigationLinkProps {
   /** Type of Pagination link to be allowed for navigation */
@@ -89,21 +93,32 @@ const PagerNavigationLink = ({
   const { text } = navLinkConfig[type];
 
   const hideDisabledButtons = hideDisabledElements && disabled();
+  const theme = useTheme();
+
+  const baseStyles = addLinkStyle({
+    hasContent: true,
+
+    disabled: disabled(),
+
+    theme: theme as ThemeObject,
+  });
+
+  const styles = pagerLinkStyles(!!hideDisabledButtons, baseStyles);
 
   return (
-    <StyledPagerLink
-      hideDisabledButtons={hideDisabledButtons}
+    <BaseLink
+      styles={styles}
       data-element={`pager-link-${type}`}
       disabled={disabled()}
       onClick={
-        // Type assertion due to the fact that StyledPagerLink
+        // Type assertion due to the fact that Link
         // will always return a button element
         handleOnClick as LinkProps["onClick"]
       }
       ref={linkRef}
     >
       {text}
-    </StyledPagerLink>
+    </BaseLink>
   );
 };
 

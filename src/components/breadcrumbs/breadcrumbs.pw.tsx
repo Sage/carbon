@@ -57,7 +57,7 @@ test.describe("should render Breadcrumbs component", async () => {
       "background-color",
       "rgb(255, 218, 128)",
     );
-    await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
+    await expect(crumbAtIndex(page, 0).locator("button")).toHaveCSS(
       "box-shadow",
       "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
     );
@@ -74,7 +74,7 @@ test.describe("should render Breadcrumbs component", async () => {
       "background-color",
       "rgb(255, 218, 128)",
     );
-    await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
+    await expect(crumbAtIndex(page, 0).locator("a")).toHaveCSS(
       "box-shadow",
       "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
     );
@@ -160,7 +160,7 @@ test.describe("should render Breadcrumbs component", async () => {
       "background-color",
       "rgb(255, 218, 128)",
     );
-    await expect(crumbAtIndex(page, 0).locator("span").first()).toHaveCSS(
+    await expect(crumbAtIndex(page, 0).locator("a")).toHaveCSS(
       "box-shadow",
       "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px",
     );
@@ -222,18 +222,19 @@ test("when Crumb's isCurrent prop is true, Crumb divider should not exist", asyn
   await mount(<DefaultCrumb isCurrent />);
 
   const crumbElement = crumbAtIndex(page, 0);
+
   await expect(crumbElement.locator("a")).toHaveAttribute(
     "aria-current",
     "page",
   );
-  await expect(crumbElement.locator("span").nth(1)).toHaveCSS(
+  await expect(crumbElement.locator("span").nth(0)).toHaveCSS(
     "color",
     "rgba(0, 0, 0, 0.9)",
   );
 });
 
 test.describe("Accessibility tests for Breadcrumbs component", async () => {
-  test("should pass accessibility tests for Breadcrumbs default story", async ({
+  test("should pass accessibility tests for default breadcrumbs", async ({
     mount,
     page,
   }) => {
@@ -241,7 +242,7 @@ test.describe("Accessibility tests for Breadcrumbs component", async () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility tests for Crumb default story", async ({
+  test("should pass accessibility tests for default crumbs", async ({
     mount,
     page,
   }) => {
@@ -249,7 +250,7 @@ test.describe("Accessibility tests for Breadcrumbs component", async () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility tests for Breadcrumbs dark background story", async ({
+  test("should pass accessibility tests for breadcrumbs on a dark background", async ({
     mount,
     page,
   }) => {

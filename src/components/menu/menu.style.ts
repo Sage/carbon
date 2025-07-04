@@ -12,7 +12,8 @@ import {
   StyledVerticalWrapper,
   StyledDivider,
 } from "../vertical-divider/vertical-divider.style";
-import { StyledLink } from "../link/link.style";
+import StyledLink from "../link/__internal__/base-link/base-link.style";
+
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 
 import type { MenuProps } from "./menu.types";
@@ -35,6 +36,7 @@ const StyledMenuWrapper = styled.ul<StyledMenuProps>`
 
   ${layout}
   ${flexbox}
+
 
   ${StyledVerticalWrapper} {
     ${({ menuType }) =>

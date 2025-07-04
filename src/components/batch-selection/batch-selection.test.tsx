@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import BatchSelection from ".";
 import Button from "../button";
@@ -87,19 +88,21 @@ test("`ButtonMinor` children should be automatically disabled via context", () =
   expect(minorButton).toBeDisabled();
 });
 
-test("`Link` children should be automatically disabled via context", () => {
+test("`Link` children should be automatically disabled via context", async () => {
+  const user = userEvent.setup();
+
   render(
     <BatchSelection selectedCount={0} disabled>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-      <Link>Link as an anchor</Link>
+      <Link data-role="link">Link as an anchor</Link>
     </BatchSelection>,
   );
 
   const link = screen.getByTestId("link-anchor");
 
-  expect(link).toHaveStyle("cursor: not-allowed");
+  expect(link).toHaveAttribute("aria-disabled", "true");
 
-  link.focus();
+  await user.tab();
 
   expect(link).not.toHaveFocus();
 });

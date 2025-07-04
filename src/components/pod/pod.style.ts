@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
 
 import applyBaseTheme from "../../style/themes/apply-base-theme";
-import { StyledContent as StyledLinkContent } from "../link/link.style";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
 
@@ -237,7 +236,7 @@ const StyledEditAction = styled(IconButton)<StyledEditActionProps>`
         border: none;
         background: var(--colorsActionMajorTransparent);
       `}
-    
+
       ${(isHovered || isFocused) &&
       !internalEditButton &&
       css`
@@ -248,7 +247,7 @@ const StyledEditAction = styled(IconButton)<StyledEditActionProps>`
           color: var(--colorsActionMajorYang100);
         }
       `}
-      
+
       ${isFocused &&
       css`
         outline: 3px solid var(--colorsSemanticFocus500);
@@ -257,7 +256,7 @@ const StyledEditAction = styled(IconButton)<StyledEditActionProps>`
     `};
   }
 
-  ${StyledLinkContent} {
+  [data-component="link-content"] {
     clip: rect(1px, 1px, 1px, 1px);
     position: absolute;
   }
@@ -306,7 +305,7 @@ const StyledDeleteButton = styled(IconButton)<CommonPodButtonProps>`
           color: var(--colorsActionMajorYang100);
         }
       `}
-  
+
       ${isFocused &&
       css`
         outline: 3px solid var(--colorsSemanticFocus500);
@@ -350,7 +349,7 @@ const StyledUndoButton = styled(IconButton)<CommonPodButtonProps>`
         border: none;
         background: var(--colorsActionMajorTransparent);
       `}
-    
+
     ${(isHovered || isFocused) &&
       !internalEditButton &&
       css`
@@ -361,7 +360,7 @@ const StyledUndoButton = styled(IconButton)<CommonPodButtonProps>`
           color: var(--colorsActionMajorYang100);
         }
       `}
-    
+
     ${isFocused &&
       css`
         outline: 3px solid var(--colorsSemanticFocus500);

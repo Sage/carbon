@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Profile from "./profile.component";
+import { ProfileSize } from "./profile.config";
 
 testStyledSystemMargin(
   (props) => <Profile data-role="profile" name="John Doe" {...props} />,
@@ -204,4 +205,25 @@ test("renders with custom avatar foreground and background colouring when both `
   expect(avatar).toHaveAttribute("type", "individual");
   expect(portrait).toHaveStyleRule("background-color", "#00FF00");
   expect(portrait).toHaveStyleRule("color", "#FF00FF");
+});
+
+// coverage: email address size styling
+["XS", "S", "M", "ML", "L", "XL", "XXL"].forEach((size) => {
+  test(`renders with email text when 'email' and 'size' prop is of ${size} passed`, () => {
+    const emailAddress = "john.doe@sage.com";
+    render(
+      <Profile
+        name="John Doe"
+        email={emailAddress}
+        size={size as ProfileSize}
+      />,
+    );
+
+    const emailText = screen.getByRole("link", { name: emailAddress });
+    const emailLink = screen.getByTestId("email-link");
+
+    expect(emailText).toBeVisible();
+    expect(emailText).toHaveAttribute("href", `mailto: ${emailAddress}`);
+    expect(emailLink).toHaveAttribute("data-element", "email");
+  });
 });
