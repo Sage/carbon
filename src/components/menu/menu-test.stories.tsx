@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Meta } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { allModes } from "../../../.storybook/modes";
 import isChromatic from "../../../.storybook/isChromatic";
 import {
   Menu,
@@ -15,10 +14,7 @@ import {
 } from ".";
 import Search from "../search";
 import Box from "../box";
-import NavigationBar, { NavigationBarProps } from "../navigation-bar";
 import GlobalHeader from "../global-header";
-import PopoverContainer from "../popover-container";
-import Button from "../button";
 import Icon from "../icon";
 
 import type { MenuType } from "./menu.types";
@@ -30,25 +26,9 @@ const meta: Meta<typeof Menu> = {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disableSnapshot: false,
-      modes: {
-        desktop: allModes.chromatic,
-      },
+      disableSnapshot: true,
     },
   },
-  decorators: [
-    (Story) => (
-      <>
-        {defaultOpenState ? (
-          <Box width="100%" height={900}>
-            <Story />
-          </Box>
-        ) : (
-          <Story />
-        )}
-      </>
-    ),
-  ],
 };
 export default meta;
 
@@ -58,7 +38,9 @@ interface MenuFullScreenStoryProps extends MenuFullscreenProps {
   searchButton?: boolean;
 }
 
-export const MenuFullScreenStory = ({
+type StoryFullScreen = StoryObj<MenuFullScreenStoryProps>;
+
+export const MenuFullScreenStory: StoryFullScreen = ({
   menuType,
   startPosition,
   searchVariant,
@@ -149,98 +131,73 @@ export const MenuFullScreenStory = ({
     </Menu>
   );
 };
-
-export const AsLinkWithAlternateVariant = () => {
-  return (
-    <Menu menuType="black">
-      <MenuItem href="#">Menu Item One</MenuItem>
-      <MenuItem onClick={() => {}} submenu="Menu Item Two">
-        <MenuItem
-          href="#"
-          onClick={() => {
-            // eslint-disable-next-line no-alert
-            alert("clicked");
-          }}
-          variant="alternate"
-        >
-          Link
-        </MenuItem>
-        <MenuItem href="#">Submenu Item Two</MenuItem>
-      </MenuItem>
-      <MenuItem submenu="Search">
-        <MenuSegmentTitle text="My Title" variant="alternate">
-          <MenuItem>
-            <Search
-              key="business-search"
-              defaultValue=""
-              variant="dark"
-              placeholder="Search all businesses"
-              searchWidth="100%"
-            />
-          </MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
-        </MenuSegmentTitle>
-      </MenuItem>
-      <MenuItem>
-        <PopoverContainer
-          disableAnimation
-          containerAriaLabel="notifications"
-          closeButtonAriaLabel="closeContainerAriaLabel"
-          position="left"
-          shouldCoverButton
-          renderOpenComponent={() => (
-            <Box data-role="gblnav-notificationui-bell">
-              <Button aria-label="Notifications">
-                <Box alignItems="center" display="flex" px={2}>
-                  <Icon type="alert" />
-                  notifications
-                </Box>
-              </Button>
-            </Box>
-          )}
-        />
-      </MenuItem>
-      <MenuItem href="#">Menu Item Six</MenuItem>
-    </Menu>
-  );
-};
-AsLinkWithAlternateVariant.storyName = "as link with alternate variant";
-
-MenuFullScreenStory.storyName = "fullscreen menu";
-MenuFullScreenStory.story = {
-  args: {
-    menuType: "light",
-    startPosition: "left",
-    searchVariant: "default",
-    searchButton: true,
-  },
-  argTypes: {
-    menuType: {
-      options: ["light", "dark"],
-      control: {
-        type: "select",
+MenuFullScreenStory.storyName = "Fullscreen Menu";
+MenuFullScreenStory.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: {
+    disableSnapshot: false,
+    modes: {
+      "1200px": {
+        viewport: {
+          width: 1200,
+          height: 1200,
+        },
       },
-    },
-    startPosition: {
-      options: ["left", "right"],
-      control: {
-        type: "select",
-      },
-    },
-    searchVariant: {
-      options: ["default", "dark"],
-      control: {
-        type: "select",
-      },
-    },
-    searchButton: {
-      options: [true, false],
-      control: {
-        type: "boolean",
+      "600px": {
+        viewport: {
+          width: 600,
+          height: 1350,
+        },
       },
     },
   },
 };
+MenuFullScreenStory.args = {
+  menuType: "light",
+  startPosition: "left",
+  searchVariant: "default",
+  searchButton: true,
+};
+MenuFullScreenStory.argTypes = {
+  menuType: {
+    options: ["light", "dark", "white", "black"],
+    control: {
+      type: "select",
+    },
+  },
+  startPosition: {
+    options: ["left", "right"],
+    control: {
+      type: "select",
+    },
+  },
+  searchVariant: {
+    options: ["default", "dark"],
+    control: {
+      type: "select",
+    },
+  },
+  searchButton: {
+    options: [true, false],
+    control: {
+      type: "boolean",
+    },
+  },
+};
+
+MenuFullScreenStory.decorators = [
+  (Story) => (
+    <>
+      {defaultOpenState ? (
+        <Box width="100%" height="1350px">
+          <Story />
+        </Box>
+      ) : (
+        <Story />
+      )}
+    </>
+  ),
+];
 
 export const LongLabelsStory = () => {
   return (
@@ -265,7 +222,11 @@ export const LongLabelsStory = () => {
   );
 };
 
-LongLabelsStory.storyName = "submenus with long item labels";
+LongLabelsStory.storyName = "With Long MenuItem Labels";
+LongLabelsStory.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
+};
 
 export const InGlobalHeaderStory = () => {
   return (
@@ -297,52 +258,10 @@ export const InGlobalHeaderStory = () => {
     </GlobalHeader>
   );
 };
-
-InGlobalHeaderStory.storyName = "long submenu in global header";
-
-type InNavigationBarStoryProps = Pick<
-  NavigationBarProps,
-  "orientation" | "offset"
->;
-
-export const InNavigationBarStory = (props: InNavigationBarStoryProps) => {
-  return (
-    <NavigationBar position="fixed" {...props}>
-      <Menu menuType="dark">
-        <MenuItem submenu="I'm long" clickToOpen>
-          <MenuItem onClick={() => {}}>Foo 1</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 2</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 3</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 4</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 5</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 6</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 7</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 8</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 9</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 10</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 11</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 12</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 13</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 14</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 15</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 16</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 17</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 18</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 19</MenuItem>
-          <MenuItem onClick={() => {}}>Foo 20</MenuItem>
-        </MenuItem>
-      </Menu>
-    </NavigationBar>
-  );
-};
-
-InNavigationBarStory.storyName = "long submenu in navigation bar";
-
-InNavigationBarStory.story = {
-  args: {
-    orientation: "top",
-    offset: "calc(75vh - 100px)",
-  },
+InGlobalHeaderStory.storyName = "In GlobalHeader";
+InGlobalHeaderStory.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
 };
 
 export const MenuFullScreenKeysTest = () => {
@@ -389,6 +308,7 @@ export const MenuFullScreenKeysTest = () => {
     </Menu>
   );
 };
+MenuFullScreenKeysTest.storyName = "Menu Fullscreen with dynamic submenus";
 
 export const MenuWithTwoSegments = () => {
   return (
@@ -454,6 +374,7 @@ export const MenuWithTwoSegments = () => {
     </Box>
   );
 };
+MenuWithTwoSegments.storyName = "Menu with Two Segments";
 
 export const MenuWithSubmenuCustomPadding = () => (
   <>
@@ -471,7 +392,11 @@ export const MenuWithSubmenuCustomPadding = () => (
     ))}
   </>
 );
-MenuWithSubmenuCustomPadding.storyName = "Menu with submenu custom padding";
+MenuWithSubmenuCustomPadding.storyName = "MenuItem with Custom Padding";
+MenuWithSubmenuCustomPadding.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
+};
 
 export const WhenMenuItemsWrap = () => {
   return (
@@ -507,9 +432,13 @@ export const WhenMenuItemsWrap = () => {
     </Box>
   );
 };
-WhenMenuItemsWrap.storyName = "When menu items wrap";
+WhenMenuItemsWrap.storyName = "MenuItems with Wrapped Text";
+WhenMenuItemsWrap.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
+};
 
-export const MenuFullScreenWithMaxWidth = () => {
+export const MenuFullScreenWithMaxWidth: StoryFullScreen = () => {
   return (
     <Menu menuType="black">
       <MenuFullscreen isOpen onClose={() => {}}>
@@ -536,47 +465,20 @@ export const MenuFullScreenWithMaxWidth = () => {
   );
 };
 MenuFullScreenWithMaxWidth.storyName = "Menu Full Screen with Max Width";
-
-export const IconAlignment = () => {
-  return (
-    <Menu menuType="black">
-      <MenuItem href="#" icon="home">
-        Alpha
-      </MenuItem>
-      <MenuItem href="#">Beta</MenuItem>
-      <MenuItem href="#" icon="print">
-        Charlie
-      </MenuItem>
-    </Menu>
-  );
+MenuFullScreenWithMaxWidth.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+  chromatic: { disableSnapshot: false },
 };
-IconAlignment.storyName = "Icon & Icon-less Text Alignment";
-
-export const TabbingOrder = () => {
-  return (
-    <Box>
-      <Menu menuType="white">
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuDivider size="large" />
-          <MenuSegmentTitle text="segment title" variant="alternate">
-            <MenuItem variant="alternate" p="2px 16px">
-              <Search
-                placeholder="Dark variant"
-                variant="dark"
-                defaultValue=""
-              />
-            </MenuItem>
-            <MenuItem variant="alternate" href="#">
-              Item Submenu Two
-            </MenuItem>
-            <MenuItem variant="alternate" href="#">
-              Item Submenu Three
-            </MenuItem>
-          </MenuSegmentTitle>
-        </MenuItem>
-      </Menu>
-    </Box>
-  );
-};
-TabbingOrder.storyName = "Tabbing Order";
+MenuFullScreenWithMaxWidth.decorators = [
+  (Story) => (
+    <>
+      {defaultOpenState ? (
+        <Box width="100%" height="600px">
+          <Story />
+        </Box>
+      ) : (
+        <Story />
+      )}
+    </>
+  ),
+];
