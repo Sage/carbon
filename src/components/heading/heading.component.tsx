@@ -94,11 +94,10 @@ export const Heading = ({
 
     return (
       <StyledHeadingBackButton
-        // this event allows an element to be focusable on click event on IE
         aria-label={l.heading.backLinkAriaLabel()}
         data-element="back"
         data-role="heading-back-button"
-        onMouseDown={(e) => e.currentTarget.focus({ preventScroll: true })}
+        onClick={(e) => e.currentTarget.focus({ preventScroll: true })}
         {...backButtonProps}
       >
         <StyledHeadingIcon type="chevron_left" />
