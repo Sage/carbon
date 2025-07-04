@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { act } from "react";
 import {
   render,
@@ -119,8 +118,7 @@ test("renders correctly", async () => {
 });
 
 test("throws if not wrapped in provider", async () => {
-  const originalError = console.error;
-  console.error = jest.fn();
+  const consoleSpy = jest.spyOn(console, "error").mockImplementation();
 
   expect(() => {
     render(<ResponsiveVerticalMenu />);
@@ -128,7 +126,7 @@ test("throws if not wrapped in provider", async () => {
     "useResponsiveVerticalMenu must be used within a ResponsiveVerticalMenuProvider",
   );
 
-  console.error = originalError;
+  consoleSpy.mockRestore();
 });
 
 test("items without children are rendered as anchor links", async () => {
@@ -1423,4 +1421,121 @@ test("children populated by map of non-React elements", async () => {
 
   const menuItem = screen.getByTestId("menu-item-1");
   expect(menuItem).toBeInTheDocument();
+});
+
+test("adds and removes resize event listener on mount/unmount", async () => {
+  const addEventListenerSpy = jest.spyOn(window, "addEventListener");
+  const removeEventListenerSpy = jest.spyOn(window, "removeEventListener");
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  const { unmount } = render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+        <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+        <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  expect(addEventListenerSpy).toHaveBeenCalledWith(
+    "resize",
+    expect.any(Function),
+  );
+  unmount();
+  expect(removeEventListenerSpy).toHaveBeenCalledWith(
+    "resize",
+    expect.any(Function),
+  );
+});
+
+test("sets and clears resize timeout on window resize", async () => {
+  const setTimeoutSpy = jest.spyOn(window, "setTimeout");
+  const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+        <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+        <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+  await user.click(launcherButton);
+
+  // Fire first resize event
+  window.dispatchEvent(new Event("resize"));
+  // Should have set a timeout
+  expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), 100);
+  // Fast-forward time to simulate debounce completion
+  jest.advanceTimersByTime(100);
+  expect(clearTimeoutSpy).not.toHaveBeenCalled(); // no clear yet on first call
+});
+
+test("clears previous timeout on rapid resizes", async () => {
+  const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+        <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+        <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+
+  await user.click(launcherButton);
+  // First resize
+  window.dispatchEvent(new Event("resize"));
+  // Second resize
+  window.dispatchEvent(new Event("resize"));
+
+  expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
+});
+
+test("clears timeout on unmount if it exists", async () => {
+  const setTimeoutSpy = jest.spyOn(window, "setTimeout");
+  const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  const { unmount } = render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+        <ResponsiveVerticalMenuItem id="menu-item-2" label="Menu Item 2" />
+        <ResponsiveVerticalMenuItem id="menu-item-3" label="Menu Item 3" />
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+
+  await user.click(launcherButton);
+
+  window.dispatchEvent(new Event("resize"));
+
+  expect(setTimeoutSpy).toHaveBeenCalled();
+
+  unmount();
+
+  expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
 });

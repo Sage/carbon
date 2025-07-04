@@ -757,8 +757,7 @@ test("renders with the expected custom border radius styling as an array", () =>
 });
 
 test("fires a console warning if more than four border-radius values are passed", () => {
-  const consoleSpy = jest.spyOn(console, "warn");
-  consoleSpy.mockImplementation(() => {});
+  const loggerSpy = jest.spyOn(Logger, "warn");
 
   render(
     <Textarea
@@ -772,11 +771,11 @@ test("fires a console warning if more than four border-radius values are passed"
     />,
   );
 
-  expect(consoleSpy).toHaveBeenCalledWith(
+  expect(loggerSpy).toHaveBeenCalledWith(
     "The `borderRadius` prop in `Textarea` component only supports up to 4 values.",
   );
 
-  consoleSpy.mockRestore();
+  loggerSpy.mockRestore();
 });
 
 test("should render component without borders when hideBorders prop is true", () => {

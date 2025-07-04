@@ -6,6 +6,7 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
+import Logger from "../../__internal__/utils/logger";
 
 import { ProfileSize } from "./profile.config";
 import {
@@ -100,7 +101,7 @@ export const Profile = ({
 
   if (!useOfNoNameWarnTriggered && !name && (email || text)) {
     useOfNoNameWarnTriggered = true;
-    console.warn(
+    Logger.warn(
       "[WARNING] The `email` or `text` prop should not be used without the `name` prop in `Profile`." +
         " Please use the `name` prop as well as `email` or `text`.",
     );

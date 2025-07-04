@@ -1,3 +1,21 @@
+## [154.13.6](https://github.com/Sage/carbon/compare/v154.13.5...v154.13.6) (2025-07-03)
+
+### Bug Fixes
+
+* **logger:** add warn method ([7d1648f](https://github.com/Sage/carbon/commit/7d1648f2cdbf2d4cef9f9d0ef32ad356d1b4be57))
+
+## [154.13.5](https://github.com/Sage/carbon/compare/v154.13.4...v154.13.5) (2025-07-03)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure menu item hover styles are not overridden ([e3bb55a](https://github.com/Sage/carbon/commit/e3bb55af43615c069f8c239e59cf6e9e1bf915e7))
+
+## [154.13.4](https://github.com/Sage/carbon/compare/v154.13.3...v154.13.4) (2025-07-03)
+
+### Bug Fixes
+
+* **responsive-vertial-menu:** menu closes when shrinking the size ([8143dd4](https://github.com/Sage/carbon/commit/8143dd42c22312211e9168607d89d34c564ff5c7))
+
 ## [154.13.3](https://github.com/Sage/carbon/compare/v154.13.2...v154.13.3) (2025-07-01)
 
 ### Bug Fixes
