@@ -46,7 +46,7 @@ export const NavigationBar = ({
   return (
     <StyledNavigationBar
       role="navigation"
-      aria-label={isGlobal ? "Global Header" : ariaLabel}
+      aria-label={isGlobal ? ariaLabel || "Global Header" : ariaLabel}
       navigationType={isGlobal ? "black" : navigationType}
       orientation={isGlobal ? "top" : orientation}
       offset={isGlobal ? "0px" : offset}
