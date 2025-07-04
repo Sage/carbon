@@ -96,7 +96,7 @@ export const Note = ({
                   fontSize="16px"
                   lineHeight="21px"
                   paddingBottom="16px"
-                  variant="h2"
+                  variant="h3"
                 >
                   {title}
                 </Typography>
