@@ -314,29 +314,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
       isBlurBlocked.current = false;
 
-      if (!open && !alreadyFocused.current) {
-        setOpen(true);
-        onPickerOpen?.();
-      } else {
-        alreadyFocused.current = false;
-      }
-
       if (onFocus) {
         onFocus(ev);
       }
     };
-
-    const handleKeyUp = useCallback(
-      (ev: React.KeyboardEvent<HTMLInputElement>) => {
-        /* istanbul ignore else */
-        if (open && Events.isEscKey(ev)) {
-          setOpen(false);
-          onPickerClose?.();
-          ev.stopPropagation();
-        }
-      },
-      [onPickerClose, open],
-    );
 
     const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
       if (onKeyDown) {
@@ -375,7 +356,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       }
 
       if (!open) {
-        setOpen(true);
         onPickerOpen?.();
       }
     };
@@ -505,7 +485,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           onChange={handleChange}
           onClick={handleClick}
           onFocus={handleFocus}
-          onKeyUp={handleKeyUp}
           onKeyDown={handleKeyDown}
           iconOnClick={handleClick}
           onMouseDown={handleMouseDown}

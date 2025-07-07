@@ -1676,7 +1676,8 @@ test("when a DateInput is opened inside the FlatTable that has sticky footer, ke
     </FlatTable>,
   );
   const input = screen.getAllByRole("textbox")[5];
-  await user.click(input);
+  const calendarIcon = screen.getAllByTestId("input-icon-toggle")[5];
+  await user.click(calendarIcon);
 
   expect(screen.getByRole("grid")).toBeVisible();
 
@@ -1816,7 +1817,8 @@ test("when a DateInput is opened inside the FlatTable that has sticky footer, sc
   expect(preventDefaultSpy).not.toHaveBeenCalled();
 
   const input = screen.getAllByRole("textbox")[5];
-  await user.click(input);
+  const calendarIcon = screen.getAllByTestId("input-icon-toggle")[5];
+  await user.click(calendarIcon);
 
   expect(screen.getByRole("grid")).toBeVisible();
 
