@@ -18,6 +18,7 @@ import {
   StyledNestedMenuWrapper,
   StyledResponsiveMenuAction,
   StyledResponsiveMenuItem,
+  StyledResponsiveMenuListItem,
 } from "./responsive-vertical-menu-item.style";
 import { IncreaseDepth, useDepth } from "../__internal__/depth.context";
 import { useMenuFocus } from "../__internal__/focus.context";
@@ -289,7 +290,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
     };
 
     return (
-      <>
+      <StyledResponsiveMenuListItem>
         {hasChildren ? (
           <>
             <StyledResponsiveMenuItem
@@ -392,7 +393,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
             />
           </StyledResponsiveMenuAction>
         )}
-      </>
+      </StyledResponsiveMenuListItem>
     );
   },
 );
