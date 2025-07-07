@@ -265,8 +265,7 @@ export const Textarea = React.forwardRef(
       borderRadius.length > 4 &&
       !warnBorderRadiusArrayTooLarge
     ) {
-      // eslint-disable-next-line no-console
-      console.warn(
+      Logger.warn(
         "The `borderRadius` prop in `Textarea` component only supports up to 4 values.",
       );
       warnBorderRadiusArrayTooLarge = true;

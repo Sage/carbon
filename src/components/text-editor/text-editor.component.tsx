@@ -1,5 +1,7 @@
-/* eslint-disable no-console */
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import {
+  type InitialConfigType,
+  LexicalComposer,
+} from "@lexical/react/LexicalComposer";
 import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
 import { EditorRefPlugin } from "@lexical/react/LexicalEditorRefPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
@@ -194,11 +196,11 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
 
     const [cancelTrigger, setCancelTrigger] = useState<boolean>(false);
 
-    const initialConfig = useMemo(() => {
+    const initialConfig = useMemo<InitialConfigType>(() => {
       return {
         namespace,
         nodes: markdownNodes,
-        onError: console.error,
+        onError: /* istanbul ignore next */ (e) => Logger.error(e.message),
         theme,
         editorState: value,
         editable: !readOnly,
