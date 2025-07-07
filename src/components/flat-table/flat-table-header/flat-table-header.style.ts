@@ -48,7 +48,6 @@ const StyledFlatTableHeader = styled.th.attrs(
     text-align: ${align};
     user-select: none;
     vertical-align: middle;
-    white-space: nowrap;
     word-break: keep-all;
     padding: 0;
     ${
