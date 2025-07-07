@@ -155,8 +155,7 @@ export const FilterableSelectMultiColumnsNestedComponent = (
           Add a New Element
         </Button>
       }
-      // eslint-disable-next-line no-console
-      onListAction={() => console.log("Action")}
+      onListAction={() => {}}
     >
       <OptionRow id="1" value="1" text="John Doe">
         <td>John</td>

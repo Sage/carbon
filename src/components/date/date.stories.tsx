@@ -1,11 +1,11 @@
-/* eslint-disable no-console */
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import { zhCN, de } from "date-fns/locale";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-import DateInput, { DateChangeEvent } from "./date.component";
+import DateInput, { DateChangeEvent, DateInputProps } from "./date.component";
 import Box from "../box";
 import Button from "../button";
 import I18nProvider from "../i18n-provider";
@@ -19,6 +19,10 @@ const meta: Meta<typeof DateInput> = {
   component: DateInput,
   argTypes: {
     ...styledSystemProps,
+  },
+  args: {
+    onBlur: action("onBlur"),
+    onChange: action("onChange"),
   },
 };
 
@@ -124,20 +128,23 @@ export const Empty: Story = () => {
 };
 Empty.storyName = "Empty";
 
-export const DisabledDates: Story = () => {
+export const DisabledDates: Story = ({ onChange, ...args }: DateInputProps) => {
   const [state, setState] = useState("04/04/2019");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
   return (
     <DateInput
+      {...args}
       label="Date"
       name="date-input"
       value={state}
       minDate="2019-04-04"
       maxDate="2019-05-31"
-      onChange={setValue}
-      onBlur={(ev) => console.log("blur", ev)}
+      onChange={(ev) => {
+        setValue(ev);
+        onChange?.(ev);
+      }}
     />
   );
 };
@@ -332,16 +339,17 @@ LocaleOverrideExampleImplementation.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const LocaleFormatOverrideExampleImplementation: Story = () => {
+export const LocaleFormatOverrideExampleImplementation: Story = ({
+  onChange,
+  ...args
+}: DateInputProps) => {
   const [stateKey, setStateKey] = useState("2019-04-05");
   const handleChangeKey = (ev: DateChangeEvent) => {
-    console.log(ev.target.value);
     setStateKey(ev.target.value.formattedValue);
   };
 
   const [stateProp, setStateProp] = useState("05/04/2019");
   const handleChangeProp = (ev: DateChangeEvent) => {
-    console.log(ev.target.value);
     setStateProp(ev.target.value.formattedValue);
   };
 
@@ -361,16 +369,24 @@ export const LocaleFormatOverrideExampleImplementation: Story = () => {
         }}
       >
         <DateInput
+          {...args}
           label="With dateFormatOverride translation key"
           value={stateKey}
-          onChange={handleChangeKey}
+          onChange={(ev) => {
+            handleChangeKey(ev);
+            onChange?.(ev);
+          }}
           mb={2}
         />
 
         <DateInput
+          {...args}
           label="With dateFormatOverride prop"
           value={stateProp}
-          onChange={handleChangeProp}
+          onChange={(ev) => {
+            handleChangeProp(ev);
+            onChange?.(ev);
+          }}
           dateFormatOverride="dd/MM/yyyy"
         />
       </I18nProvider>

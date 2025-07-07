@@ -1,10 +1,10 @@
-/* eslint-disable no-console */
 /**
  * Provides context which can be used to dynamcally track the depth of a component
  * in the component tree. This is useful for components that need to know their depth
  * in the tree for styling or layout purposes.
  */
 import React, { createContext, ReactNode, useContext } from "react";
+import Logger from "../../../../__internal__/utils/logger";
 
 // Context to hold the current depth
 const DepthContext = createContext<number>(0);
@@ -17,7 +17,7 @@ export const useDepth = (): number => {
   // If context is undefined, it means the hook is being used outside of a DepthProvider
   /* istanbul ignore next */
   if (context === undefined) {
-    console.error(
+    Logger.error(
       "useDepth must be used within a DepthProvider. Please ensure you are using the correct context.",
     );
     // Return a default value to avoid breakages

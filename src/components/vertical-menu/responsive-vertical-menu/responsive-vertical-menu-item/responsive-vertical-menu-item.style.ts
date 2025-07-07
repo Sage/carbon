@@ -53,6 +53,8 @@ const commonAttributes = css`
 
   &:hover {
     background-color: var(--colorsActionMajor500);
+    color: var(--colorsUtilityYang100);
+    text-decoration: none;
   }
 
   [data-component="icon"] {

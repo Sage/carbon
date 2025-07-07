@@ -8,6 +8,7 @@ import Icon from "../icon";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
+import Logger from "../../__internal__/utils/logger";
 
 type DesignTokensType = keyof typeof DesignTokens;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
@@ -80,8 +81,8 @@ const Card = ({
     contentRef?.querySelector("[data-component='card-footer']")
   ) {
     footerWarningFired = true;
-    // eslint-disable-next-line no-console
-    console.warn(
+
+    Logger.warn(
       "This `Card` is interactive you should use the `footer` prop to render a `CardFooter` to avoid potential accessibility issues",
     );
   }

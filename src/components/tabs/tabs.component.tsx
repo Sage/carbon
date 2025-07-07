@@ -17,6 +17,7 @@ import Event from "../../__internal__/utils/helpers/events";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
+import Logger from "../../__internal__/utils/logger";
 import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
@@ -82,8 +83,7 @@ const Tabs = ({
   ...rest
 }: TabsProps) => {
   if (position !== "left" && headerWidth !== undefined) {
-    // eslint-disable-next-line no-console
-    console.error(
+    Logger.error(
       "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left",
     );
   }
