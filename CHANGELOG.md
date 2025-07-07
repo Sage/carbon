@@ -1,3 +1,9 @@
+## [154.13.7](https://github.com/Sage/carbon/compare/v154.13.6...v154.13.7) (2025-07-07)
+
+### Bug Fixes
+
+* **navigation-bar:** has fixed aria-label that can't be changed ([0200014](https://github.com/Sage/carbon/commit/0200014bd31ab2e5c8fd78a01c3b0b6d882669fe))
+
 ## [154.13.6](https://github.com/Sage/carbon/compare/v154.13.5...v154.13.6) (2025-07-03)
 
 ### Bug Fixes
