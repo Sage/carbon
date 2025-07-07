@@ -109,6 +109,7 @@ const RadioButtonStyle = styled(CheckboxStyle).attrs(applyBaseTheme)<
 
     ${inline &&
     `
+      margin: 0;
       &:not(:first-of-type) {
         margin-left: 32px;
       }

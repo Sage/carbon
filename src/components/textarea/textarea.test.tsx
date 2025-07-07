@@ -655,11 +655,32 @@ describe("when rendered with new validations", () => {
     (validationType) => {
       render(
         <CarbonProvider validationRedesignOptIn>
-          <Textarea {...{ [validationType]: "bar" }} />
+          <Textarea inputHint="Hint" {...{ [validationType]: "Validation" }} />
         </CarbonProvider>,
       );
 
-      expect(screen.getByRole("textbox")).toHaveAccessibleDescription("bar");
+      expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+        "Validation Hint",
+      );
+    },
+  );
+
+  it.each(["error", "warning"])(
+    "the validation text is assigned as the accessible description for textarea element when validationMessagePositionTop is false",
+    (validationType) => {
+      render(
+        <CarbonProvider validationRedesignOptIn>
+          <Textarea
+            inputHint="Hint"
+            {...{ [validationType]: "Validation" }}
+            validationMessagePositionTop={false}
+          />
+        </CarbonProvider>,
+      );
+
+      expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+        "Hint Validation",
+      );
     },
   );
 

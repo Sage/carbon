@@ -306,7 +306,7 @@ describe("when `validationRedesignOptIn` flag is true", () => {
     expect(hintText).toHaveStyleRule("font-size", "14px");
   });
 
-  it("renders ErrorBorder with expected styles when `inline` is true", () => {
+  it("renders with expected styles when `inline` is true", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <RadioButtonGroup
@@ -320,10 +320,10 @@ describe("when `validationRedesignOptIn` flag is true", () => {
       </CarbonProvider>,
     );
 
-    const errorBorder = screen.getByTestId("radio-error-border");
+    const radioButtons = screen.getByRole("radiogroup");
 
-    expect(errorBorder).toHaveStyle({
-      bottom: "10px",
+    expect(radioButtons).toHaveStyle({
+      flexDirection: "row",
     });
   });
 
@@ -344,5 +344,53 @@ describe("when `validationRedesignOptIn` flag is true", () => {
 
     expect(screen.getAllByRole("radio")).toHaveLength(2);
     expect(screen.getByText("foo")).toBeVisible();
+  });
+
+  it("renders with provided `error` message and `labelHelp` describing the group when `validationMessagePositionTop` is false", () => {
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <RadioButtonGroup
+          name="group"
+          legend="legend"
+          legendHelp="Legend help text"
+          error="Error message"
+          onChange={() => {}}
+          validationMessagePositionTop={false}
+        >
+          <RadioButton value="radio1" label="Radio Button 1" />
+        </RadioButtonGroup>
+      </CarbonProvider>,
+    );
+
+    const fieldset = screen.getByRole("group", { name: "legend" });
+
+    expect(screen.getByText("Error message")).toBeVisible();
+    expect(fieldset).toHaveAccessibleDescription(
+      "Legend help text Error message",
+    );
+  });
+
+  it("renders with provided `warning` message and `labelHelp` describing the group when `validationMessagePositionTop` is false", () => {
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <RadioButtonGroup
+          name="group"
+          legend="legend"
+          legendHelp="Legend help text"
+          warning="Warning message"
+          onChange={() => {}}
+          validationMessagePositionTop={false}
+        >
+          <RadioButton value="radio1" label="Radio Button 1" />
+        </RadioButtonGroup>
+      </CarbonProvider>,
+    );
+
+    const fieldset = screen.getByRole("group", { name: "legend" });
+
+    expect(screen.getByText("Warning message")).toBeVisible();
+    expect(fieldset).toHaveAccessibleDescription(
+      "Legend help text Warning message",
+    );
   });
 });
