@@ -120,62 +120,9 @@ export const WithMargin: Story = () => {
 WithMargin.storyName = "With Margin";
 
 export const CustomColors: Story = () => {
-  const fgColors = [
-    { value: "#000000", label: "black" },
-    { value: "#FFFFFF", label: "white" },
-    { value: "#007e45", label: "sagegreen" },
-  ];
-  const bgColors = [
-    { value: "#A3CAF0", label: "paleblue" },
-    { value: "#FD9BA3", label: "palepink" },
-    { value: "#B4AEEA", label: "palepurple" },
-    { value: "#ECE6AF", label: "palegoldenrod" },
-    { value: "#EBAEDE", label: "paleorchid" },
-    { value: "#EBC7AE", label: "paledesert" },
-    { value: "#AEECEB", label: "paleturquoise" },
-    { value: "#AEECD6", label: "palemint" },
-    { value: "#000000", label: "black" },
-    { value: "#FFFFFF", label: "white" },
-    { value: "#2F4F4F", label: "darkslategray" },
-    { value: "#696969", label: "dimgray" },
-    { value: "#808080", label: "gray" },
-    { value: "#A9A9A9", label: "darkgray" },
-    { value: "#C0C0C0", label: "silver" },
-    { value: "#D3D3D3", label: "lightgray" },
-    { value: "#DCDCDC", label: "gainsboro" },
-    { value: "#F5F5F5", label: "whitesmoke" },
-    { value: "#FFFFE0", label: "lightyellow" },
-    { value: "#FFFACD", label: "lemonchiffon" },
-    { value: "#FAFAD2", label: "lightgoldenrodyellow" },
-    { value: "#FFE4B5", label: "moccasin" },
-    { value: "#FFDAB9", label: "peachpuff" },
-    { value: "#FFDEAD", label: "navajowhite" },
-    { value: "#F5DEB3", label: "wheat" },
-    { value: "#FFF8DC", label: "cornsilk" },
-    { value: "#FFFFF0", label: "ivory" },
-    { value: "#0000FF", label: "blue" },
-    { value: "#0000CD", label: "mediumblue" },
-    { value: "#00008B", label: "darkblue" },
-    { value: "#000080", label: "navy" },
-    { value: "#191970", label: "midnightblue" },
-    { value: "#4169E1", label: "royalblue" },
-    { value: "#4682B4", label: "steelblue" },
-    { value: "#5F9EA0", label: "cadetblue" },
-    { value: "#6495ED", label: "cornflowerblue" },
-    { value: "#87CEFA", label: "lightskyblue" },
-    { value: "#87CEEB", label: "skyblue" },
-    { value: "#00BFFF", label: "deepskyblue" },
-    { value: "#1E90FF", label: "dodgerblue" },
-    { value: "#ADD8E6", label: "lightblue" },
-    { value: "#B0C4DE", label: "lightsteelblue" },
-    { value: "#708090", label: "slateblue" },
-    { value: "#6A5ACD", label: "slateblue2" },
-    { value: "#7B68EE", label: "mediumslateblue" },
-    { value: "#8A2BE2", label: "blueviolet" },
-    { value: "#9370DB", label: "mediumpurple" },
-  ];
-  const [colour, setColour] = useState(fgColors[0].value);
-  const [bgColour, setBgColour] = useState(bgColors[0].value);
+  const [colour, setColour] = useState("#000000");
+  const [bgColour, setBgColour] = useState("#A3CAF0");
+
   return (
     <>
       <Box display="flex" flexDirection="column" gap={2} mb={1}>
@@ -187,9 +134,9 @@ export const CustomColors: Story = () => {
           onChange={(e) => setColour(e.target.value)}
           value={colour}
         >
-          {fgColors.map(({ label, value }) => (
-            <Option text={label} value={value} />
-          ))}
+          <Option text="black" value="#000000" />
+          <Option text="white" value="#FFFFFF" />
+          <Option text="sagegreen" value="#007e45" />
         </Select>
         <Select
           name="background-color"
@@ -199,9 +146,53 @@ export const CustomColors: Story = () => {
           onChange={(e) => setBgColour(e.target.value)}
           value={bgColour}
         >
-          {bgColors.map(({ label, value }) => (
-            <Option text={label} value={value} />
-          ))}
+          <Option text="paleblue" value="#A3CAF0" />
+          <Option text="palepink" value="#FD9BA3" />
+          <Option text="palepurple" value="#B4AEEA" />
+          <Option text="palegoldenrod" value="#ECE6AF" />
+          <Option text="paleorchid" value="#EBAEDE" />
+          <Option text="paledesert" value="#EBC7AE" />
+          <Option text="paleturquoise" value="#AEECEB" />
+          <Option text="palemint" value="#AEECD6" />
+          <Option text="black" value="#000000" />
+          <Option text="white" value="#FFFFFF" />
+          <Option text="darkslategray" value="#2F4F4F" />
+          <Option text="dimgray" value="#696969" />
+          <Option text="gray" value="#808080" />
+          <Option text="darkgray" value="#A9A9A9" />
+          <Option text="silver" value="#C0C0C0" />
+          <Option text="lightgray" value="#D3D3D3" />
+          <Option text="gainsboro" value="#DCDCDC" />
+          <Option text="whitesmoke" value="#F5F5F5" />
+          <Option text="lightyellow" value="#FFFFE0" />
+          <Option text="lemonchiffon" value="#FFFACD" />
+          <Option text="lightgoldenrodyellow" value="#FAFAD2" />
+          <Option text="moccasin" value="#FFE4B5" />
+          <Option text="peachpuff" value="#FFDAB9" />
+          <Option text="navajowhite" value="#FFDEAD" />
+          <Option text="wheat" value="#F5DEB3" />
+          <Option text="cornsilk" value="#FFF8DC" />
+          <Option text="ivory" value="#FFFFF0" />
+          <Option text="blue" value="#0000FF" />
+          <Option text="mediumblue" value="#0000CD" />
+          <Option text="darkblue" value="#00008B" />
+          <Option text="navy" value="#000080" />
+          <Option text="midnightblue" value="#191970" />
+          <Option text="royalblue" value="#4169E1" />
+          <Option text="steelblue" value="#4682B4" />
+          <Option text="cadetblue" value="#5F9EA0" />
+          <Option text="cornflowerblue" value="#6495ED" />
+          <Option text="lightskyblue" value="#87CEFA" />
+          <Option text="skyblue" value="#87CEEB" />
+          <Option text="deepskyblue" value="#00BFFF" />
+          <Option text="dodgerblue" value="#1E90FF" />
+          <Option text="lightblue" value="#ADD8E6" />
+          <Option text="lightsteelblue" value="#B0C4DE" />
+          <Option text="slateblue" value="#708090" />
+          <Option text="slateblue2" value="#6A5ACD" />
+          <Option text="mediumslateblue" value="#7B68EE" />
+          <Option text="blueviolet" value="#8A2BE2" />
+          <Option text="mediumpurple" value="#9370DB" />
         </Select>
       </Box>
       <Box display="flex" mb={1} gap={1}>
