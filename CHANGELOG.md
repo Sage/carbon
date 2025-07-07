@@ -1,3 +1,10 @@
+## [154.13.8](https://github.com/Sage/carbon/compare/v154.13.7...v154.13.8) (2025-07-07)
+
+### Bug Fixes
+
+* **responsive-vertical-menu:** ensure border-box style does not affect menu width in responsive mode ([191f6a4](https://github.com/Sage/carbon/commit/191f6a43c3bdec268e57bc0a6a8b0cd0619c1e8b))
+* **responsive-vertical-menu:** ensure items are rendered within an unordered list ([8357602](https://github.com/Sage/carbon/commit/83576027235ea1163f001f536ee66e8d9ec8b7b6)), closes [#7374](https://github.com/Sage/carbon/issues/7374)
+
 ## [154.13.7](https://github.com/Sage/carbon/compare/v154.13.6...v154.13.7) (2025-07-07)
 
 ### Bug Fixes
