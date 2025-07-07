@@ -7,7 +7,7 @@ import { Accordion, AccordionGroup } from ".";
 import Box from "../box";
 import Textbox from "../textbox";
 
-import { allowInteractions } from "../../../.storybook/reduced-motion";
+import { allowInteractions } from "../../../.storybook/interaction-toggle/reduced-motion";
 import DefaultDecorator from "../../../.storybook/utils/default-decorator";
 import userInteractionPause from "../../../.storybook/utils/user-interaction-pause";
 
