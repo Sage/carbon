@@ -97,6 +97,8 @@ export interface TimeProps extends TagProps, MarginProps {
   readOnly?: boolean;
   /** Set custom data- attributes on the toggle elements */
   toggleProps?: ToggleDataProps;
+  /** Render the ValidationMessage above the Time inputs */
+  validationMessagePositionTop?: boolean;
 }
 
 export type TimeHandle = {
@@ -127,6 +129,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       disabled,
       readOnly,
       toggleProps = {},
+      validationMessagePositionTop = true,
       ...rest
     },
     ref,
@@ -241,9 +244,10 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       warning,
     });
 
-    const combinedAriaDescribedBy = [ariaDescribedBy, inputHintId.current]
-      .filter(Boolean)
-      .join(" ");
+    const describedByArray = validationMessagePositionTop
+      ? [ariaDescribedBy, inputHintId.current]
+      : [inputHintId.current, ariaDescribedBy];
+    const combinedAriaDescribedBy = describedByArray.filter(Boolean).join(" ");
 
     useImperativeHandle<TimeHandle, TimeHandle>(
       ref,
@@ -350,13 +354,18 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
           </HintText>
         )}
         <Box position="relative" mt={inputHint ? 0 : 1}>
-          <ValidationMessage
-            validationId={validationId}
-            error={error}
-            warning={warning}
-          />
-          {hasValidationFailure && (
-            <ErrorBorder warning={!!(!error && warning)} />
+          {validationMessagePositionTop && (
+            <>
+              <ValidationMessage
+                validationId={validationId}
+                error={error}
+                warning={warning}
+                validationMessagePositionTop={validationMessagePositionTop}
+              />
+              {hasValidationFailure && (
+                <ErrorBorder warning={!!(!error && warning)} />
+              )}
+            </>
           )}
           <Box display="flex">
             <div>
@@ -440,6 +449,19 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
               </Box>
             )}
           </Box>
+          {!validationMessagePositionTop && (
+            <>
+              <ValidationMessage
+                error={error}
+                validationId={validationId}
+                warning={warning}
+                validationMessagePositionTop={validationMessagePositionTop}
+              />
+              {hasValidationFailure && (
+                <ErrorBorder warning={!!(!error && warning)} />
+              )}
+            </>
+          )}
         </Box>
       </Fieldset>
     );

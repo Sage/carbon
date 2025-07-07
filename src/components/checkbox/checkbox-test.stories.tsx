@@ -155,6 +155,27 @@ export const NewValidation = () => {
         <Checkbox label="Checkbox 1" />
         <Checkbox label="Checkbox 2" />
       </CheckboxGroup>
+      <CheckboxGroup
+        validationMessagePositionTop={false}
+        error="Error message (Fix is required)"
+        legend="Label"
+        legendHelp="Hint Text"
+        required
+      >
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+      </CheckboxGroup>
+      <CheckboxGroup
+        validationMessagePositionTop={false}
+        mt={2}
+        warning="Warning message (Fix is optional)"
+        legend="Label"
+        legendHelp="Hint text"
+        required
+      >
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+      </CheckboxGroup>
     </CarbonProvider>
   );
 };

@@ -182,6 +182,26 @@ export const NewValidation = () => {
         separator="-"
         warning="Warning Message"
       />
+      <GroupedCharacter
+        validationMessagePositionTop={false}
+        label="GroupedCharacter"
+        inputHint="Hint text (optional)."
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        error="Error Message"
+        mb={2}
+      />
+      <GroupedCharacter
+        validationMessagePositionTop={false}
+        label="GroupedCharacter"
+        value={state}
+        onChange={setValue}
+        groups={[2, 2, 3]}
+        separator="-"
+        warning="Warning Message"
+      />
     </CarbonProvider>
   );
 };

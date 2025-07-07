@@ -123,6 +123,20 @@ describe("rendering with no file uploaded", () => {
     expect(screen.getByText("error text")).toBeVisible();
   });
 
+  it("renders the error message element under the input area when error prop is passed as a string and validationMessagePositionTop is false", () => {
+    render(
+      <FileInput
+        error="error text"
+        validationMessagePositionTop={false}
+        onChange={() => {}}
+      />,
+    );
+
+    const errorMessage = screen.getByTestId("validation-message-bottom");
+
+    expect(errorMessage).toBeVisible();
+  });
+
   it("accepts a name prop and passes it to the underlying input", () => {
     render(
       <FileInput label="file input" name="input-name" onChange={() => {}} />,

@@ -194,6 +194,46 @@ describe("when the `validationRedesignOptIn` flag is true", () => {
     expect(fieldset).toHaveAccessibleDescription("warning message");
   });
 
+  it("should describe the group with the error and legendHelp text when the validationMessagePositionTop is false", () => {
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <CheckboxGroup
+          legend="legend"
+          error="error message"
+          legendHelp="Legend Help"
+          validationMessagePositionTop={false}
+        >
+          <Checkbox value="1" label="label" onChange={() => {}} />
+        </CheckboxGroup>
+      </CarbonProvider>,
+    );
+
+    const fieldset = screen.getByRole("group", { name: "legend" });
+
+    expect(screen.getByText("error message")).toBeVisible();
+    expect(fieldset).toHaveAccessibleDescription("Legend Help error message");
+  });
+
+  it("should describe the group with the warning and lengendHelp text when the validationMessagePositionTop is false", () => {
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <CheckboxGroup
+          legend="legend"
+          warning="warning message"
+          legendHelp="Legend Help"
+          validationMessagePositionTop={false}
+        >
+          <Checkbox value="1" label="label" onChange={() => {}} />
+        </CheckboxGroup>
+      </CarbonProvider>,
+    );
+
+    const fieldset = screen.getByRole("group", { name: "legend" });
+
+    expect(screen.getByText("warning message")).toBeVisible();
+    expect(fieldset).toHaveAccessibleDescription("Legend Help warning message");
+  });
+
   it("should render with combined validation and legendHelp messages as the fieldset's accessible description", () => {
     render(
       <CarbonProvider validationRedesignOptIn>

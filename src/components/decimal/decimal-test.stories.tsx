@@ -228,6 +228,21 @@ export const NewValidation = () => {
         value={state}
         onChange={setValue}
       />
+      <Decimal
+        validationMessagePositionTop={false}
+        label="Decimal"
+        error="Error Message"
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Decimal
+        validationMessagePositionTop={false}
+        label="Decimal"
+        warning="Warning Message"
+        value={state}
+        onChange={setValue}
+      />
     </CarbonProvider>
   );
 };

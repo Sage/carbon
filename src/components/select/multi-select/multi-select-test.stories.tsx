@@ -224,6 +224,28 @@ export const NewValidation = () => {
         <Option value="2" text="Two" />
         <Option value="3" text="Three" />
       </MultiSelect>
+      <MultiSelect
+        validationMessagePositionTop={false}
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        error="Error Message"
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+      <MultiSelect
+        validationMessagePositionTop={false}
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        warning="Warning Message"
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
     </CarbonProvider>
   );
 };

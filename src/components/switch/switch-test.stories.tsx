@@ -133,6 +133,18 @@ export const NewValidation = ({ ...args }: Partial<SwitchProps>) => {
     <CarbonProvider validationRedesignOptIn>
       <Switch error="Error Message (Fix is required)" mb={2} {...args} />
       <Switch warning="Warning Message (Fix is optional)" mb={2} {...args} />
+      <Switch
+        validationMessagePositionTop={false}
+        error="Error Message (Fix is required)"
+        mb={2}
+        {...args}
+      />
+      <Switch
+        validationMessagePositionTop={false}
+        warning="Warning Message (Fix is optional)"
+        mb={2}
+        {...args}
+      />
     </CarbonProvider>
   );
 };

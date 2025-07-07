@@ -148,6 +148,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       dateFormatOverride: dateFormatOverrideProp,
       datePickerAriaLabel,
       datePickerAriaLabelledBy,
+      validationMessagePositionTop = true,
       ...rest
     }: DateInputProps,
     ref,
@@ -168,7 +169,11 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         ),
       [dateFnsLocale, dateFormatOverride, dateFormatOverrideProp],
     );
-    const { inputRefMap, setInputRefMap } = useContext(DateRangeContext);
+    const {
+      inputRefMap,
+      setInputRefMap,
+      validationMessagePositionTop: validationMessagePositionTopContext,
+    } = useContext(DateRangeContext);
     const [open, setOpen] = useState(false);
     const [selectedDays, setSelectedDays] = useState(() => {
       const isValidDate = isValidLocaleDate(value, dateFnsLocale());
@@ -182,6 +187,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     });
     const isInitialValue = useRef(true);
     const pickerTabGuardId = useRef(guid());
+    const showValidationMessageOnTop =
+      validationMessagePositionTopContext ?? validationMessagePositionTop;
 
     const computeInvalidRawValue = (inputValue: string) =>
       allowEmptyValue && !inputValue.length ? inputValue : null;
@@ -523,6 +530,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           labelWidth={labelWidth}
           maxWidth={maxWidth}
           m={0}
+          validationMessagePositionTop={showValidationMessageOnTop}
         />
         <DatePicker
           disablePortal={disablePortal}

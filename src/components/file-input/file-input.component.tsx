@@ -62,6 +62,8 @@ export interface FileInputProps
    * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
    */
   isOptional?: boolean;
+  /** Render the ValidationMessage above the FileInput */
+  validationMessagePositionTop?: boolean;
 }
 
 let deprecateOptionalWarnTriggered = false;
@@ -88,6 +90,7 @@ export const FileInput = React.forwardRef(
       required,
       isOptional,
       uploadStatus = [],
+      validationMessagePositionTop = true,
       ...rest
     }: FileInputProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -194,8 +197,17 @@ export const FileInput = React.forwardRef(
       <>
         {inputHint && <HintText>{inputHint}</HintText>}
         <Box position="relative">
-          <ValidationMessage error={error} validationId={validationId} />
-          {error && <ErrorBorder warning={false} />}
+          {validationMessagePositionTop && (
+            <>
+              <ValidationMessage
+                error={error}
+                validationId={validationId}
+                validationMessagePositionTop={validationMessagePositionTop}
+                data-role="validation-message-top"
+              />
+              {error && <ErrorBorder warning={false} />}
+            </>
+          )}
           <StyledHiddenFileInput
             {...(required && { required })}
             accept={accept}
@@ -223,6 +235,17 @@ export const FileInput = React.forwardRef(
             </ButtonMinor>
             <Typography m={0}>{mainText}</Typography>
           </StyledFileInputPresentation>
+          {!validationMessagePositionTop && (
+            <>
+              <ValidationMessage
+                error={error}
+                validationId={validationId}
+                validationMessagePositionTop={validationMessagePositionTop}
+                data-role="validation-message-bottom"
+              />
+              {error && <ErrorBorder warning={false} />}
+            </>
+          )}
         </Box>
       </>
     );

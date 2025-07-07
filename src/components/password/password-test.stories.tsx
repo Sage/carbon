@@ -206,6 +206,22 @@ export const NewValidation = () => {
         value={state}
         onChange={setValue}
       />
+      <Password
+        validationMessagePositionTop={false}
+        label="Password"
+        error="Error Message"
+        inputHint="Hint text (optional)."
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <Password
+        validationMessagePositionTop={false}
+        label="Password"
+        warning="Warning Message"
+        value={state}
+        onChange={setValue}
+      />
     </CarbonProvider>
   );
 };

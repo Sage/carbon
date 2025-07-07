@@ -3,10 +3,11 @@ import styled, { css } from "styled-components";
 interface StyledValidationMessageProps {
   isWarning?: boolean;
   isDarkBackground?: boolean;
+  validationMessagePositionTop?: boolean;
 }
 
 const StyledValidationMessage = styled.p<StyledValidationMessageProps>`
-  ${({ isWarning, isDarkBackground }) => {
+  ${({ isWarning, isDarkBackground, validationMessagePositionTop }) => {
     const darkBgColour = isDarkBackground
       ? "var(--colorsSemanticNegative450)"
       : "var(--colorsSemanticNegative500)";
@@ -14,7 +15,7 @@ const StyledValidationMessage = styled.p<StyledValidationMessageProps>`
       color: ${isWarning ? "var(--colorsSemanticCaution600)" : darkBgColour};
       font-weight: ${isWarning ? "normal" : "500"};
       margin-top: 0px;
-      margin-bottom: 8px;
+      margin-${validationMessagePositionTop ? "bottom" : "top"}: 8px;
     `;
   }}
 `;

@@ -40,6 +40,22 @@ export const NewValidation: Story = () => {
         warning="warning"
         characterLimit={100}
       />
+      <TextEditor
+        validationMessagePositionTop={false}
+        namespace="storybook-witherror"
+        labelText="Text Editor"
+        inputHint="Hint text"
+        error="error"
+        characterLimit={100}
+        mb={2}
+      />
+      <TextEditor
+        validationMessagePositionTop={false}
+        namespace="storybook-withwarning"
+        labelText="Text Editor"
+        warning="warning"
+        characterLimit={100}
+      />
     </>
   );
 };

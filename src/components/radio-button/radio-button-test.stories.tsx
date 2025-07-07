@@ -220,6 +220,37 @@ export const NewValidation = ({ ...props }: Partial<RadioButtonGroupProps>) => {
           fieldHelp="fieldHelp text"
         />
       </RadioButtonGroup>
+      <RadioButtonGroup
+        validationMessagePositionTop={false}
+        name="radio-button-group"
+        error="Error Message"
+        mb={2}
+        {...props}
+      >
+        <RadioButton id="radio-1" value="radio1" label="Yes" />
+        <RadioButton id="radio-2" value="radio2" label="No" />
+        <RadioButton
+          id="radio-3"
+          value="radio3"
+          label="Maybe"
+          fieldHelp="fieldHelp text"
+        />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        validationMessagePositionTop={false}
+        name="radio-button-group"
+        warning="Warning Message"
+        {...props}
+      >
+        <RadioButton id="radio-1" value="radio1" label="Yes" />
+        <RadioButton id="radio-2" value="radio2" label="No" />
+        <RadioButton
+          id="radio-3"
+          value="radio3"
+          label="Maybe"
+          fieldHelp="fieldHelp text"
+        />
+      </RadioButtonGroup>
     </CarbonProvider>
   );
 };

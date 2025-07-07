@@ -145,6 +145,19 @@ export const NewValidations = (args: NumeralDateProps) => {
         {...args}
       />
       <NumeralDate label="Numeral date" warning="Warning Message" {...args} />
+      <NumeralDate
+        validationMessagePositionTop={false}
+        label="Numeral date"
+        error="Error Message"
+        labelHelp="Hint text"
+        {...args}
+      />
+      <NumeralDate
+        validationMessagePositionTop={false}
+        label="Numeral date"
+        warning="Warning Message"
+        {...args}
+      />
     </CarbonProvider>
   );
 };
