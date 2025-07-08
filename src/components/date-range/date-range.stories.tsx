@@ -6,6 +6,7 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 import I18nProvider from "../i18n-provider";
 
 import DateRange, { DateRangeChangeEvent } from "./date-range.component";
+import Box from "../box";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -17,6 +18,11 @@ const meta: Meta<typeof DateRange> = {
   argTypes: {
     ...styledSystemProps,
   },
+  decorators: (StoryToRender) => (
+    <Box minHeight="460px" p={4}>
+      <StoryToRender />
+    </Box>
+  ),
 };
 
 export default meta;

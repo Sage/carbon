@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import React, {
   useContext,
   useEffect,
@@ -124,7 +125,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       "data-element": dataElement,
       "data-role": dataRole,
       disabled,
-      disablePortal = false,
+      disablePortal = true,
       helpAriaLabel,
       labelInline,
       minDate,
@@ -544,7 +545,5 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     );
   },
 );
-
-DateInput.displayName = "DateInput";
 
 export default DateInput;
