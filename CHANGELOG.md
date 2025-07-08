@@ -1,3 +1,9 @@
+## [154.13.9](https://github.com/Sage/carbon/compare/v154.13.8...v154.13.9) (2025-07-07)
+
+### Bug Fixes
+
+* **version-picker:** ensure version-picker has its own addon/tool_id for Storybook registry ([09f6121](https://github.com/Sage/carbon/commit/09f61213f447bba5cf00cd04184324bffa357be8))
+
 ## [154.13.8](https://github.com/Sage/carbon/compare/v154.13.7...v154.13.8) (2025-07-07)
 
 ### Bug Fixes
