@@ -29,7 +29,10 @@ const CharacterCounterPlugin = ({
     // changes
     editor.registerUpdateListener(({ editorState }) => {
       editorState.read(() => {
-        const newContent = $getRoot().getTextContent();
+        const newContent = $getRoot()
+          .getChildren()
+          .map((node) => node.getTextContent())
+          .join("\n\n");
 
         setRawContent(newContent);
       });
