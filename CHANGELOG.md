@@ -1,3 +1,16 @@
+## [155.0.0](https://github.com/Sage/carbon/compare/v154.13.9...v155.0.0) (2025-07-08)
+
+### ⚠ BREAKING CHANGES
+
+* **date:** Previously, disablePortal was false, meaning date picker popovers appeared outside
+of the natural DOM ordering. Whilst visually fine, keyboard control was impacted when using the
+DateRange component. All date components have now been updated to render inline unless disablePortal
+is explicitly set to false.
+
+### Features
+
+* **date:** deprecate disablePortal and set default value to true ([d26b642](https://github.com/Sage/carbon/commit/d26b642c6894299c66bf4060e5b784c20c5415dd)), closes [#7386](https://github.com/Sage/carbon/issues/7386)
+
 ## [154.13.9](https://github.com/Sage/carbon/compare/v154.13.8...v154.13.9) (2025-07-07)
 
 ### Bug Fixes
