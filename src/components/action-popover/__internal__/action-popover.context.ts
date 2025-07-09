@@ -8,6 +8,8 @@ type ActionPopoverContextType = {
   focusButton: () => void;
   horizontalAlignment: Alignment;
   submenuPosition: Alignment;
+  selectedSubmenuRef: HTMLUListElement | null;
+  setSelectedSubmenuRef: (ref: HTMLUListElement | null) => void;
 };
 
 const ActionPopoverContext = createContext<ActionPopoverContextType | null>(
