@@ -9,14 +9,10 @@ import swc from "rollup-plugin-swc3";
 import copy from "rollup-plugin-copy";
 import { visualizer } from "rollup-plugin-visualizer";
 
-// Use process.cwd() for cross-platform compatibility
-const rootDir = process.cwd();
-
 export default {
   input: Object.fromEntries(
     glob
       .sync("src/**/*.{ts,tsx}", {
-        cwd: rootDir,
         ignore: [
           "**/*.types.ts",
           /** This is just a type file so ignored to avoid an empty chunk */
@@ -54,25 +50,29 @@ export default {
           ),
           /**
            * This creates absolute paths using path.resolve for cross-platform compatibility
-           * e.g. src/components/foo becomes /project/src/components/foo.js
            * */
-          path.resolve(rootDir, file),
+          path.resolve(file),
         ];
       }),
   ),
   external: (id) => {
+    // Externalise SVGs
+    if (id.endsWith(".svg")) {
+      return true;
+    }
+
     // Don't externalise entry modules (resolved absolute paths)
     if (path.isAbsolute(id)) {
       return false;
     }
     
-    // Externalise node_modules
-    if (id.includes("node_modules")) {
-      return true;
+    // Don't externalise relative paths
+    if (id.startsWith("./") || id.startsWith("../")) {
+      return false;
     }
     
-    // Externalise SVGs
-    if (id.endsWith(".svg")) {
+    // Externalise node_modules
+    if (id.includes("node_modules")) {
       return true;
     }
     
@@ -100,12 +100,7 @@ export default {
       preferBuiltins: true,
       browser: true,
       moduleDirectories: ["node_modules"],
-      resolveOnly: [
-        /* Exclude @swc/helpers from custom resolution */
-        /^(?!@swc\/helpers)/,
-        /* Exclude styled-components from custom resolution */
-        /^(?!styled-components)/,
-      ],
+      exportConditions: ['node', 'default'],
     }),
     commonjs({
       include: "node_modules/**",
@@ -189,7 +184,7 @@ export default {
   ],
   output: [
     {
-      dir: path.join(rootDir, "lib"),
+      dir: "lib",
       format: "cjs",
       preserveModules: true,
       preserveModulesRoot: "src",
@@ -200,7 +195,7 @@ export default {
       interop: 'auto',
     },
     {
-      dir: path.join(rootDir, "esm"),
+      dir: "esm",
       format: "esm",
       preserveModules: true,
       preserveModulesRoot: "src",
