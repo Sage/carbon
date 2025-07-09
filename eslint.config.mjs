@@ -1,5 +1,6 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import { fixupPluginRules } from "@eslint/compat";
+import { defineConfig } from "eslint/config";
+import { fixupPluginRules, includeIgnoreFile } from "@eslint/compat";
+import { fileURLToPath } from 'url';
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import importPlugin from "eslint-plugin-import";
@@ -15,19 +16,18 @@ import jest from "eslint-plugin-jest";
 import testingLibrary from "eslint-plugin-testing-library";
 import jestDom from "eslint-plugin-jest-dom";
 import playwright from "eslint-plugin-playwright";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const cleanGlobals = (globalObj) => Object.entries(globalObj).reduce((cleaned, [key, value]) => {
     cleaned[key.trim()] = value;
     return cleaned;
   }, {});
 
+  const gitIgnorePath = fileURLToPath(
+    new URL(".gitignore", import.meta.url));
+
 export default defineConfig([
+  includeIgnoreFile(gitIgnorePath),
   {
     ...js.configs.recommended,
     plugins: {
@@ -348,6 +348,7 @@ export default defineConfig([
     files: ["**/*.pw.ts*", "**/*.test-pw.ts*", "playwright/**/*.ts*"],
     plugins: {
       playwright: fixupPluginRules(playwright),
+      "@typescript-eslint": fixupPluginRules(typescriptEslint),
     },
     settings: {
       playwright: {
