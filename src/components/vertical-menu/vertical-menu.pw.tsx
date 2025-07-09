@@ -282,19 +282,15 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     mount,
     page,
   }) => {
-    let closeCallbackInvoked = false;
-    await mount(
-      <VerticalMenuFullScreenCustom
-        onClose={() => {
-          closeCallbackInvoked = true;
-        }}
-      />,
-    );
+    await mount(<VerticalMenuFullScreenCustom />);
 
     await verticalMenuTrigger(page).click();
+    const verticalMenu = verticalMenuFullScreen(page);
+    await verticalMenu.waitFor();
+
     await page.keyboard.press("Escape");
 
-    await expect(closeCallbackInvoked).toBe(true);
+    await expect(verticalMenu).not.toBeVisible();
   });
 
   test(`should render Vertical Menu Full Screen with isOpen prop`, async ({
