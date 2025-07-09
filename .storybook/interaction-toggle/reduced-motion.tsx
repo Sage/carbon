@@ -2,9 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { IconButton } from "@storybook/components";
 import { CheckIcon, CrossIcon } from "@storybook/icons";
+import { INTERACTION_TOGGLE_TOOL_ID } from "./constants";
 
-export const ADDON_ID = "toggle-interaction";
-export const TOOL_ID = `${ADDON_ID}/tool`;
 export const STORAGE_KEY = "storybook:reducedMotion";
 
 export const allowInteractions = () => {
@@ -36,7 +35,7 @@ export const InteractionToggle = () => {
 
   return (
     <IconButton
-      key={TOOL_ID}
+      key={INTERACTION_TOGGLE_TOOL_ID}
       aria-label={`Turn interactions ${disableInteractions ? "on" : "off"}`}
       onClick={toggleInteractions}
       active={disableInteractions}
