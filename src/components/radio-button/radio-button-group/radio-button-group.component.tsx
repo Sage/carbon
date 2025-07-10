@@ -193,7 +193,6 @@ export const RadioButtonGroup = ({
                 {(error || warning) && (
                   <ErrorBorder
                     data-role="radio-error-border"
-                    inline={inline}
                     warning={!!(!error && warning)}
                   />
                 )}
@@ -237,7 +236,6 @@ export const RadioButtonGroup = ({
                 {(error || warning) && (
                   <ErrorBorder
                     data-role="radio-error-border"
-                    inline={inline}
                     warning={!!(!error && warning)}
                   />
                 )}

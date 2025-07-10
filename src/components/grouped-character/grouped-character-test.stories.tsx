@@ -181,6 +181,7 @@ export const NewValidation = () => {
         groups={[2, 2, 3]}
         separator="-"
         warning="Warning Message"
+        mb={2}
       />
       <GroupedCharacter
         validationMessagePositionTop={false}

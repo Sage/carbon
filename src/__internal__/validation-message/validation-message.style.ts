@@ -14,7 +14,7 @@ const StyledValidationMessage = styled.p<StyledValidationMessageProps>`
     return css`
       color: ${isWarning ? "var(--colorsSemanticCaution600)" : darkBgColour};
       font-weight: ${isWarning ? "normal" : "500"};
-      margin-top: 0px;
+      margin: 0px;
       margin-${validationMessagePositionTop ? "bottom" : "top"}: 8px;
     `;
   }}

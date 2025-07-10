@@ -157,6 +157,7 @@ export const NewValidation = () => {
       </CheckboxGroup>
       <CheckboxGroup
         validationMessagePositionTop={false}
+        mt={2}
         error="Error message (Fix is required)"
         legend="Label"
         legendHelp="Hint Text"
@@ -201,6 +202,32 @@ export const NewValidationInline = () => {
       </CheckboxGroup>
       <CheckboxGroup
         mt={2}
+        warning="Warning message (Fix is optional)"
+        legend="Label"
+        legendHelp="Hint text"
+        required
+        inline
+      >
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+        <Checkbox label="Checkbox 3" />
+      </CheckboxGroup>
+      <CheckboxGroup
+        mt={2}
+        validationMessagePositionTop={false}
+        error="Error message (Fix is required)"
+        legend="Label"
+        legendHelp="Hint Text"
+        required
+        inline
+      >
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+        <Checkbox label="Checkbox 3" />
+      </CheckboxGroup>
+      <CheckboxGroup
+        mt={2}
+        validationMessagePositionTop={false}
         warning="Warning message (Fix is optional)"
         legend="Label"
         legendHelp="Hint text"

@@ -306,7 +306,7 @@ describe("when `validationRedesignOptIn` flag is true", () => {
     expect(hintText).toHaveStyleRule("font-size", "14px");
   });
 
-  it("renders ErrorBorder with expected styles when `inline` is true", () => {
+  it("renders with expected styles when `inline` is true", () => {
     render(
       <CarbonProvider validationRedesignOptIn>
         <RadioButtonGroup
@@ -320,10 +320,10 @@ describe("when `validationRedesignOptIn` flag is true", () => {
       </CarbonProvider>,
     );
 
-    const errorBorder = screen.getByTestId("radio-error-border");
+    const radioButtons = screen.getByRole("radiogroup");
 
-    expect(errorBorder).toHaveStyle({
-      bottom: "10px",
+    expect(radioButtons).toHaveStyle({
+      flexDirection: "row",
     });
   });
 

@@ -160,3 +160,44 @@ export const ValidationRedesignWithGroupedInputs: StoryObj = () => {
 };
 ValidationRedesignWithGroupedInputs.storyName =
   "Validation Redesign with Grouped Inputs";
+
+export const ValidationRedesignMessageBottom: StoryObj = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Form>
+        <RequiredFieldsIndicator mb={2}>
+          Fill in all fields marked with
+        </RequiredFieldsIndicator>
+
+        <Textbox
+          label="Textbox"
+          inputHint="Hint text"
+          value=""
+          required
+          error="Error Message (Fix is required)"
+          validationMessagePositionTop={false}
+        />
+
+        <CheckboxGroup
+          legend="Checkbox Group"
+          legendHelp="Legend help"
+          warning="Warning Message (Fix is optional)"
+          validationMessagePositionTop={false}
+        >
+          <Checkbox
+            id="new-checkbox-1-bottom"
+            value="checkbox1"
+            label="Checkbox Option 1"
+          />
+          <Checkbox
+            id="new-checkbox-2-bottom"
+            value="checkbox2"
+            label="Checkbox Option 2"
+          />
+        </CheckboxGroup>
+      </Form>
+    </CarbonProvider>
+  );
+};
+ValidationRedesignMessageBottom.storyName =
+  "Validation Redesign with Message Below Input";

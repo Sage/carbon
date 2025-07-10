@@ -202,6 +202,22 @@ export const NewValidationInline = ({ ...args }: Partial<SwitchProps>) => {
         mb={2}
         {...args}
       />
+      <Switch
+        labelHelp="Hint text"
+        error="Error Message (Fix is required)"
+        labelInline
+        validationMessagePositionTop={false}
+        my={2}
+        {...args}
+      />
+      <Switch
+        warning="Warning Message (Fix is optional)"
+        labelInline
+        fieldHelp="fieldHelp"
+        validationMessagePositionTop={false}
+        mb={2}
+        {...args}
+      />
     </CarbonProvider>
   );
 };

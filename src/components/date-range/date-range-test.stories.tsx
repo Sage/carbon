@@ -251,6 +251,7 @@ export const NewValidation = () => {
         endWarning="End Warning with long text"
         onChange={handleChange}
         value={state}
+        mb={2}
         startDateProps={{ inputHint: "Start Date Hint" }}
         endDateProps={{ inputHint: "End Date Hint" }}
       />

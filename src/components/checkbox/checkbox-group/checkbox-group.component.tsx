@@ -141,10 +141,7 @@ export const CheckboxGroup = ({
                   validationMessagePositionTop={validationMessagePositionTop}
                 />
                 {(error || warning) && (
-                  <ErrorBorder
-                    warning={!!(!error && warning)}
-                    inline={inline}
-                  />
+                  <ErrorBorder warning={!!(!error && warning)} />
                 )}
               </>
             )}
@@ -171,10 +168,7 @@ export const CheckboxGroup = ({
                   validationMessagePositionTop={validationMessagePositionTop}
                 />
                 {(error || warning) && (
-                  <ErrorBorder
-                    warning={!!(!error && warning)}
-                    inline={inline}
-                  />
+                  <ErrorBorder warning={!!(!error && warning)} />
                 )}
               </>
             )}

@@ -88,6 +88,7 @@ export const Validation: Story = () => {
         minutesInputProps={{
           warning: "Minutes value must be in  AM/PM format.",
         }}
+        mb={1}
       />
       <Time
         validationMessagePositionTop={false}

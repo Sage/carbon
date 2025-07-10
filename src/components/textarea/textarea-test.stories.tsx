@@ -203,7 +203,7 @@ export const NewValidation = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <Textarea label="Textarea" error="Error Message" mb={2} />
-      <Textarea label="Textarea" warning="Warning Message" />
+      <Textarea label="Textarea" warning="Warning Message" mb={2} />
       <Textarea
         validationMessagePositionTop={false}
         label="Textarea"
