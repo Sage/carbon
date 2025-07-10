@@ -160,7 +160,7 @@ MenuFullScreenStory.args = {
 };
 MenuFullScreenStory.argTypes = {
   menuType: {
-    options: ["light", "dark"],
+    options: ["light", "dark", "white", "black"],
     control: {
       type: "select",
     },

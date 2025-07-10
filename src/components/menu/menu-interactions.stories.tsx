@@ -8,6 +8,7 @@ import {
   MenuDivider,
   MenuSegmentTitle,
   ScrollableBlock,
+  MenuFullscreen,
   MenuProps,
 } from ".";
 import Box from "../box";
@@ -162,6 +163,56 @@ const MenuInNavigationBar = () => (
       </MenuItem>
     </Menu>
   </NavigationBar>
+);
+
+const FullScreenWithSegmentTitle = () => (
+  <Menu menuType="dark">
+    <MenuFullscreen isOpen onClose={() => {}}>
+      <MenuItem data-role="target" href="#">
+        Item One
+      </MenuItem>
+      <MenuItem href="#">Item Two</MenuItem>
+      <MenuItem href="#">Item Three</MenuItem>
+      <MenuItem submenu="Item Three With Submenu">
+        <MenuItem data-role="target" onClick={() => {}} p={2}>
+          Item Submenu One with padding
+        </MenuItem>
+        <MenuItem onClick={() => {}}>Item Submenu Two</MenuItem>
+        <MenuSegmentTitle text="segment title">
+          <MenuItem data-role="target" onClick={() => {}}>
+            Item Segment One
+          </MenuItem>
+          <MenuItem onClick={() => {}}>Item Segment Two</MenuItem>
+        </MenuSegmentTitle>
+      </MenuItem>
+    </MenuFullscreen>
+  </Menu>
+);
+
+const FullScreenWithScrollableBlock = () => (
+  <Menu menuType="white">
+    <MenuFullscreen isOpen onClose={() => {}}>
+      <MenuItem>
+        <Search placeholder="Search..." defaultValue="" searchButton />
+      </MenuItem>
+      <MenuItem submenu="Item Three With Submenu">
+        <MenuItem data-role="target" href="#">
+          Item Submenu One
+        </MenuItem>
+        <MenuItem href="#">Item Submenu Two</MenuItem>
+        <ScrollableBlock height="150px">
+          <MenuItem onClick={() => {}}>Item Scrollable One</MenuItem>
+          <MenuItem onClick={() => {}}>Item Scrollable Two</MenuItem>
+          <MenuItem onClick={() => {}}>Item Scrollable Three</MenuItem>
+          <MenuItem data-role="target" onClick={() => {}}>
+            Item Scrollable Four
+          </MenuItem>
+          <MenuItem onClick={() => {}}>Item Scrollable Five</MenuItem>
+          <MenuItem onClick={() => {}}>Item Scrollable Six</MenuItem>
+        </ScrollableBlock>
+      </MenuItem>
+    </MenuFullscreen>
+  </Menu>
 );
 
 export const WithSearch: Story = {
@@ -377,3 +428,59 @@ export const InNavigationBarStory: Story = {
   ],
 };
 InNavigationBarStory.storyName = "In NavigationBar";
+
+export const MenuFullScreenWithSegmentTitle: Story = {
+  render: () => <FullScreenWithSegmentTitle />,
+  play: async () => {
+    if (!allowInteractions()) {
+      return;
+    }
+
+    await userEvent.tab(); // focus close button
+    await userInteractionPause(1000);
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+MenuFullScreenWithSegmentTitle.storyName = "MenuFullScreen With Segment Title";
+MenuFullScreenWithSegmentTitle.parameters = {
+  pseudo: {
+    hover: "[data-role='target'] button",
+    focus: "[data-role='target'] a",
+    rootSelector: "body",
+  },
+};
+
+export const MenuFullScreenWithScrollableBlock: Story = {
+  render: () => <FullScreenWithScrollableBlock />,
+  play: async () => {
+    if (!allowInteractions()) {
+      return;
+    }
+
+    await userEvent.tab();
+    await userEvent.tab(); // focus search input
+    await userInteractionPause(1000);
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+MenuFullScreenWithScrollableBlock.storyName =
+  "MenuFullScreen With Scrollable Block";
+MenuFullScreenWithScrollableBlock.parameters = {
+  pseudo: {
+    hover: "[data-role='target'] a",
+    focus: "[data-role='target'] button",
+    rootSelector: "body",
+  },
+};
