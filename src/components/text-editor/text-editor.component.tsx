@@ -162,6 +162,13 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
     >(undefined);
     const contentEditorRef = useRef<HTMLDivElement>(null);
     const [isFocused, setIsFocused] = useState<boolean>(false);
+    const initialValue = useRef<string | undefined>();
+
+    useEffect(() => {
+      if(value && editorRef.current){
+        initialValue.current = value;
+      }
+    }, []);
 
     useImperativeHandle<TextEditorHandle, TextEditorHandle>(
       ref,
@@ -194,7 +201,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       return cleanup;
     }, [contentEditorRef]);
 
-    const [cancelTrigger, setCancelTrigger] = useState<boolean>(false);
 
     const initialConfig = useMemo<InitialConfigType>(() => {
       return {
@@ -242,26 +248,61 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
     const handleCancel = useCallback(() => {
       /* istanbul ignore next */
       const isEditable = editorRef.current?.isEditable() || false;
+      const editor = editorRef.current;
+      
       /* istanbul ignore if */
       if (!isEditable) return;
 
       /* istanbul ignore else */
       if (onCancel) {
-        setCancelTrigger((prev) => !prev);
+        // Reset the editor state to the initial rendered value or an empty state
+        const safeValue = initialValue.current || createEmpty();
+        if (editor) {
+      editor.update(() => {
+          const newEditorState = editor.parseEditorState(safeValue);
+          editor.setEditorState(newEditorState);
+      })
+        }
         onCancel();
       }
     }, [onCancel]);
+    
+    const isProgrammaticallyUpdating = useRef(false);
 
-    // Reset the value of the editor when the cancel trigger is updated (implements reset on cancel)
-    useEffect(() => {
-      const safeValue = value || createEmpty();
+    /* This effect is used to allow the programmatic setting of the editor value.
+    From an external method, e.g. not typing into the editor. Maintains focus 
+    and places the cursor at the end of the editor.
+    */
+useEffect(() => {
+  const editor = editorRef.current;
 
-      /* istanbul ignore else */
-      if (editorRef.current) {
-        const newEditorState = editorRef.current.parseEditorState(safeValue);
-        editorRef.current.setEditorState(newEditorState);
+  if (value && editor) {
+    const currentEditorState = editor.getEditorState();
+    const currentStateJSON = JSON.stringify(currentEditorState.toJSON());
+    
+    if (isProgrammaticallyUpdating.current) {
+      if (value === currentStateJSON) {
+        isProgrammaticallyUpdating.current = false;
       }
-    }, [cancelTrigger, value]);
+      return;
+    }
+    
+    if (value !== currentStateJSON) {
+      isProgrammaticallyUpdating.current = true;
+      
+
+      editor.update(() => {
+        const newEditorState = editor.parseEditorState(value);
+        editorRef.current?.setEditorState(newEditorState);
+      });
+
+      // Ensures the editor is focused after updating the value
+       requestAnimationFrame(() => {
+        editor.focus();
+      });
+    }
+  }
+}, [value]);
 
     const toolbarProps = useMemo(
       () => ({

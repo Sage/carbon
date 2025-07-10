@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -189,5 +189,32 @@ export const OnChangeFormattedValues: Story = () => {
 };
 OnChangeFormattedValues.storyName = "Change Handler With Formatted Values";
 OnChangeFormattedValues.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const ControlledOnChange: Story = () => {
+  const [value, setValue] = useState(() => {
+    return createFromHTML("<p>Hello world</p>");
+  });
+
+  const handleChange = (msg: string) => {
+    // eslint-disable-next-line no-console
+    console.log("onChange executed", { msg });
+    setValue(createFromHTML(msg));
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setValue(createFromHTML("<p>Message Changed</p>"));
+    }, 3000);
+  }, []);
+
+  return (
+    <TextEditor onChange={handleChange} labelText="Message" value={value} />
+  );
+};
+ControlledOnChange.storyName =
+  "Controlled Editor with Timed Programmatic Updates";
+ControlledOnChange.parameters = {
   chromatic: { disableSnapshot: true },
 };

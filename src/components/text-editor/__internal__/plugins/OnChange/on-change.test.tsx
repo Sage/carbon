@@ -1,45 +1,121 @@
-/** The OnChangePlugin is a plugin for the LexicalComposer that calls a callback function when the content of the editor changes.
- * As this functionality is directly related to the LexicalComposer, it is not possible to test it in isolation. The unit tests
- * below are testing the OnChangePlugin in the context of the LexicalComposer to ensure that invoking the callback function when
- * the content of the editor changes behaves as expected. Actual content of the OnChangePlugin is not here.
- *
- * Content-based tests should/will be handled by the Playwright tests.
- */
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import React from "react";
-import OnChangePlugin from "./on-change.plugin";
+import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
+import { render, act } from '@testing-library/react';
+import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import React, { useEffect } from 'react';
+import OnChangePlugin from './on-change.plugin';
 
-describe("OnChangePlugin", () => {
-  it("should handle changes correctly", async () => {
-    const user = userEvent.setup();
-    const mockOnChange = jest.fn();
+const mockOnChange = jest.fn();
 
-    render(
-      <LexicalComposer
-        initialConfig={{
-          nodes: [],
-          onError: () => {},
-          namespace: "test",
-        }}
-      >
-        <RichTextPlugin
-          contentEditable={
-            <div role="textbox" contentEditable aria-label="test" />
-          }
-          ErrorBoundary={LexicalErrorBoundary}
-        />
-        <OnChangePlugin onChange={mockOnChange} />
-      </LexicalComposer>,
-    );
-    expect(mockOnChange).not.toHaveBeenCalled();
-    const tb = screen.getByRole("textbox");
-    await user.click(tb);
-    await user.keyboard("abcdefghijklmnopqrstuvwxyz0123456789");
+type MockEditorWithUpdatesProps = {
+  updates: Array<() => void>;
+  delay?: number;
+};
+
+const MockEditorWithUpdates = ({ updates, delay = 20 }: MockEditorWithUpdatesProps) => {
+  const [editor] = useLexicalComposerContext();
+  
+  useEffect(() => {
+    updates.forEach((updateFn, index) => {
+      setTimeout(() => {
+        editor.update(updateFn);
+      }, index * delay);
+    });
+  }, [editor, updates, delay]);
+  
+  return null;
+};
+
+type MockEditorProps = {
+  updates: Array<() => void>;
+};
+
+const MockEditor = ({ updates }: MockEditorProps) => {
+  const config = {
+    namespace: 'test-editor',
+    nodes: []
+  };
+  
+  return (
+    <LexicalComposer initialConfig={config}>
+      <RichTextPlugin
+        contentEditable={<ContentEditable />}
+        placeholder={<div>Enter text...</div>}
+        ErrorBoundary={LexicalErrorBoundary}
+      />
+      <OnChangePlugin onChange={mockOnChange} />
+      <MockEditorWithUpdates updates={updates} />
+    </LexicalComposer>
+  );
+};
+
+describe('OnChangePlugin', () => {
+  beforeEach(() => {
+    mockOnChange.mockClear();
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  it('should call onChange when text content changes', async () => {
+    const updates = [() => {
+      const root = $getRoot();
+      const paragraph = $createParagraphNode();
+      const textNode = $createTextNode('Hello world');
+      paragraph.append(textNode);
+      root.append(paragraph);
+    }];
+
+    render(<MockEditor updates={updates} />);
+
+    await act(async () => {
+      jest.advanceTimersByTime(50);
+    });
+
     expect(mockOnChange).toHaveBeenCalled();
-    expect(tb).toHaveTextContent("abcdefghijklmnopqrstuvwxyz0123456789");
+  });
+
+  it('should pass the correct editor state to the onChange callback', async () => {
+    const expectedText = 'Test content for onChange';
+
+    const updates = [() => {
+      const root = $getRoot();
+      const paragraph = $createParagraphNode();
+      const textNode = $createTextNode(expectedText);
+      paragraph.append(textNode);
+      root.append(paragraph);
+    }];
+
+    render(<MockEditor updates={updates} />);
+
+    await act(async () => {
+      jest.advanceTimersByTime(50);
+    });
+
+    const [[editorState]] = mockOnChange.mock.calls;
+    const serializedState = JSON.stringify(editorState);
+    
+    expect(serializedState).toContain(expectedText);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);  
+  });
+
+  it('should not fire when updated with empty text content', async () => {
+    const updates = [() => {
+      const root = $getRoot();
+      root.clear();
+    }];
+
+    render(<MockEditor updates={updates} />);
+
+    await act(async () => {
+      jest.advanceTimersByTime(50);
+    });
+
+    expect(mockOnChange).not.toHaveBeenCalled();
   });
 });
