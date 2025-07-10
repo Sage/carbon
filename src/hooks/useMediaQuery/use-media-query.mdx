@@ -1,4 +1,4 @@
-import { ArgTypes, Meta } from "@storybook/addon-docs";
+import { ArgTypes, Meta } from "@storybook/addon-docs/blocks";
 
 import * as useMediaQueryStories from "./use-media-query.stories";
 
