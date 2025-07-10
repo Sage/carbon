@@ -1,3 +1,9 @@
+## [155.0.1](https://github.com/Sage/carbon/compare/v155.0.0...v155.0.1) (2025-07-09)
+
+### Bug Fixes
+
+* **flat-table-header:** allow table headers to wrap ([d664157](https://github.com/Sage/carbon/commit/d66415799eeca0219a50c86a52a4ffe9cc557a6c)), closes [#6660](https://github.com/Sage/carbon/issues/6660)
+
 ## [155.0.0](https://github.com/Sage/carbon/compare/v154.13.9...v155.0.0) (2025-07-08)
 
 ### ⚠ BREAKING CHANGES
