@@ -1,7 +1,6 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
-
 import { RadioButtonGroup, RadioButton } from ".";
 
 import Typography from "../typography";

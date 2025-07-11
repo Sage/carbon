@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { action } from "@storybook/addon-actions";
-
+import { action } from "storybook/actions";
 import { Accordion, AccordionGroup } from ".";
 import Textbox from "../textbox";
 import Box from "../box";

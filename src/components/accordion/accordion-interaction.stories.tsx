@@ -1,6 +1,6 @@
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import { userEvent, within } from "storybook/test";
 import React from "react";
 
 import { Accordion, AccordionGroup } from ".";
