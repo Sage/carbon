@@ -1,3 +1,9 @@
+## [155.0.3](https://github.com/Sage/carbon/compare/v155.0.2...v155.0.3) (2025-07-11)
+
+### Bug Fixes
+
+* **note:** render title semantically with h3 when passed as text ([8c40d21](https://github.com/Sage/carbon/commit/8c40d2144d85174825182899c4524d4078cb3efd))
+
 ## [155.0.2](https://github.com/Sage/carbon/compare/v155.0.1...v155.0.2) (2025-07-11)
 
 ### Bug Fixes
