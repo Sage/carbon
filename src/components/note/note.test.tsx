@@ -31,7 +31,7 @@ test("renders a Typography component with h2 `variant` and `title` as its child 
     <Note createdDate="23 May 2020, 12:08 PM" noteContent="" title="Title" />,
   );
 
-  const titleElement = screen.getByRole("heading", { level: 2 });
+  const titleElement = screen.getByRole("heading", { level: 3 });
 
   expect(titleElement).toHaveTextContent("Title");
   expect(titleElement).toHaveAttribute("data-role", "note-title");
