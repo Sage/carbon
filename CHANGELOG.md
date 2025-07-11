@@ -1,3 +1,9 @@
+## [155.0.2](https://github.com/Sage/carbon/compare/v155.0.1...v155.0.2) (2025-07-11)
+
+### Bug Fixes
+
+* **text-editor:** character count behaving inconsistently when pasting ([d2290b6](https://github.com/Sage/carbon/commit/d2290b62f249bd4de63b28469a50deeebc92934b)), closes [#7380](https://github.com/Sage/carbon/issues/7380)
+
 ## [155.0.1](https://github.com/Sage/carbon/compare/v155.0.0...v155.0.1) (2025-07-09)
 
 ### Bug Fixes
