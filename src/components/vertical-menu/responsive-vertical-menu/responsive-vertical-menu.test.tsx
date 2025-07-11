@@ -1539,3 +1539,42 @@ test("clears timeout on unmount if it exists", async () => {
 
   expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
 });
+
+test("renders menu with provided data tags", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu data-role="test-role" data-element="test-element">
+        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByRole("button", { name: "Product menu" });
+  await user.click(launcherButton);
+
+  const menu = screen.getByTestId("test-role");
+  expect(menu).toHaveAttribute("data-element", "test-element");
+});
+
+test("renders with provided menu launcher data tags", async () => {
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu
+        launcherButtonDataProps={{
+          "data-role": "test-launcher-role",
+          "data-element": "test-launcher-element",
+        }}
+      >
+        <ResponsiveVerticalMenuItem id="menu-item-1" label="Menu Item 1" />
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByRole("button", { name: "Product menu" });
+  expect(launcherButton).toHaveAttribute("data-role", "test-launcher-role");
+  expect(launcherButton).toHaveAttribute(
+    "data-element",
+    "test-launcher-element",
+  );
+});
