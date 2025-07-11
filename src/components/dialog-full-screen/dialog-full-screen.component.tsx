@@ -53,8 +53,6 @@ export interface DialogFullScreenProps
   headerChildren?: React.ReactNode;
   /** Adds Help tooltip to Header */
   help?: string;
-  /** For legacy styling when used with Pages component. Do not use this unless using Pages within a DialogFullScreen */
-  pagesStyling?: boolean;
   /** Determines if the close icon is shown */
   showCloseIcon?: boolean;
   /** Data tag prop bag for close Button */
@@ -78,10 +76,13 @@ export interface DialogFullScreenProps
   ) => void;
   /** @deprecated Determines if the Dialog can be closed */
   disableClose?: boolean;
+  /** @deprecated For legacy styling when used with Pages component. Do not use this unless using Pages within a DialogFullScreen */
+  pagesStyling?: boolean;
 }
 
 let deprecatedDisableCloseTrigger = false;
 let deprecatedTimeoutTrigger = false;
+let deprecatedPagesStylingTrigger = false;
 
 export const DialogFullScreen = ({
   "aria-describedby": ariaDescribedBy,
@@ -130,6 +131,13 @@ export const DialogFullScreen = ({
     deprecatedTimeoutTrigger = true;
     Logger.deprecate(
       "The timeout prop in DialogFullScreen is deprecated and will soon be removed.",
+    );
+  }
+
+  if (!deprecatedPagesStylingTrigger && pagesStyling) {
+    deprecatedPagesStylingTrigger = true;
+    Logger.deprecate(
+      "The pagesStyling prop in DialogFullScreen is deprecated and will soon be removed.",
     );
   }
 
