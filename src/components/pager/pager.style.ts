@@ -9,7 +9,7 @@ import Link from "../link";
 
 const StyledSelectContainer = styled.div`
   height: 26px;
-  width: 55px;
+  width: 64px;
   margin-left: 8px;
   margin-right: 8px;
   ${StyledInputPresentation} {
@@ -65,7 +65,7 @@ const StyledPagerSizeOptions = styled.div`
   grid-area: 1 / 1 / 1 / 1;
 
   ${StyledInputPresentation} {
-    width: 55px;
+    width: 64px;
     height: 26px;
     min-height: 26px;
     min-width: 10px;
