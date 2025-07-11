@@ -198,6 +198,25 @@ export const NewValidation = () => {
         warning="Warning Message"
         value={state}
         onChange={setValue}
+        mb={2}
+      />
+      <DateInput
+        validationMessagePositionTop={false}
+        label="Date"
+        name="date-input"
+        inputHint="Input hint"
+        error="Error Message"
+        value={state}
+        onChange={setValue}
+        mb={2}
+      />
+      <DateInput
+        validationMessagePositionTop={false}
+        label="Date"
+        name="date-input"
+        warning="Warning Message"
+        value={state}
+        onChange={setValue}
       />
     </CarbonProvider>
   );

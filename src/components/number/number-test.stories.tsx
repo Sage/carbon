@@ -114,6 +114,21 @@ export const NewValidation = () => {
         mb={2}
       />
       <Number label="Number" value="123456" warning="Warning Message" mb={2} />
+      <Number
+        validationMessagePositionTop={false}
+        label="Number"
+        value="123456"
+        error="Error Message"
+        inputHint="Hint text"
+        mb={2}
+      />
+      <Number
+        validationMessagePositionTop={false}
+        label="Number"
+        value="123456"
+        warning="Warning Message"
+        mb={2}
+      />
     </CarbonProvider>
   );
 };

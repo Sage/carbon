@@ -15,6 +15,7 @@ interface DateInputRefMap {
 export interface DateRangeContextProps {
   inputRefMap?: Partial<Record<InputName, DateInputRefMap>>;
   setInputRefMap?: (value: SetInputRefMapValue) => void;
+  validationMessagePositionTop?: boolean;
 }
 
 export default React.createContext<DateRangeContextProps>({});

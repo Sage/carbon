@@ -133,6 +133,18 @@ export const NewValidation = ({ ...args }: Partial<SwitchProps>) => {
     <CarbonProvider validationRedesignOptIn>
       <Switch error="Error Message (Fix is required)" mb={2} {...args} />
       <Switch warning="Warning Message (Fix is optional)" mb={2} {...args} />
+      <Switch
+        validationMessagePositionTop={false}
+        error="Error Message (Fix is required)"
+        mb={2}
+        {...args}
+      />
+      <Switch
+        validationMessagePositionTop={false}
+        warning="Warning Message (Fix is optional)"
+        mb={2}
+        {...args}
+      />
     </CarbonProvider>
   );
 };
@@ -187,6 +199,22 @@ export const NewValidationInline = ({ ...args }: Partial<SwitchProps>) => {
         warning="Warning Message (Fix is optional)"
         labelInline
         fieldHelp="fieldHelp"
+        mb={2}
+        {...args}
+      />
+      <Switch
+        labelHelp="Hint text"
+        error="Error Message (Fix is required)"
+        labelInline
+        validationMessagePositionTop={false}
+        my={2}
+        {...args}
+      />
+      <Switch
+        warning="Warning Message (Fix is optional)"
+        labelInline
+        fieldHelp="fieldHelp"
+        validationMessagePositionTop={false}
         mb={2}
         {...args}
       />

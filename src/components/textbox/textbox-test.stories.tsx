@@ -72,6 +72,16 @@ export const NewValidation = () => {
     <CarbonProvider validationRedesignOptIn>
       <Textbox label="Textbox" error="Error Message" />
       <Textbox label="Textbox" warning="Warning Message" />
+      <Textbox
+        validationMessagePositionTop={false}
+        label="Textbox"
+        error="Error Message"
+      />
+      <Textbox
+        validationMessagePositionTop={false}
+        label="Textbox"
+        warning="Warning Message"
+      />
     </CarbonProvider>
   );
 };

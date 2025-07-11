@@ -57,6 +57,8 @@ export interface CheckboxGroupProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** When true, Checkboxes are inline */
   inline?: boolean;
+  /** Render the ValidationMessage above the Checkbox inputs when validationRedesignOptIn flag is set */
+  validationMessagePositionTop?: boolean;
 }
 
 let deprecateOptionalWarnTriggered = false;
@@ -77,6 +79,7 @@ export const CheckboxGroup = ({
   tooltipPosition,
   inline,
   id,
+  validationMessagePositionTop = true,
   ...rest
 }: CheckboxGroupProps) => {
   if (!deprecateOptionalWarnTriggered && isOptional) {
@@ -98,9 +101,11 @@ export const CheckboxGroup = ({
     info,
   });
 
-  const combinedAriaDescribedBy = [ariaDescribedBy, inputHintId]
-    .filter(Boolean)
-    .join(" ");
+  const describedByArray =
+    validationRedesignOptIn && validationMessagePositionTop
+      ? [ariaDescribedBy, inputHintId]
+      : [inputHintId, ariaDescribedBy];
+  const combinedAriaDescribedBy = describedByArray.filter(Boolean).join(" ");
 
   return (
     <>
@@ -127,13 +132,18 @@ export const CheckboxGroup = ({
             </HintText>
           )}
           <Box position="relative">
-            <ValidationMessage
-              error={error}
-              warning={warning}
-              validationId={validationId}
-            />
-            {(error || warning) && (
-              <ErrorBorder warning={!!(!error && warning)} inline={inline} />
+            {validationMessagePositionTop && (
+              <>
+                <ValidationMessage
+                  error={error}
+                  warning={warning}
+                  validationId={validationId}
+                  validationMessagePositionTop={validationMessagePositionTop}
+                />
+                {(error || warning) && (
+                  <ErrorBorder warning={!!(!error && warning)} />
+                )}
+              </>
             )}
             <StyledCheckboxGroup
               data-component="checkbox-group"
@@ -149,6 +159,19 @@ export const CheckboxGroup = ({
                 {children}
               </CheckboxGroupContext.Provider>
             </StyledCheckboxGroup>
+            {!validationMessagePositionTop && (
+              <>
+                <ValidationMessage
+                  error={error}
+                  warning={warning}
+                  validationId={validationId}
+                  validationMessagePositionTop={validationMessagePositionTop}
+                />
+                {(error || warning) && (
+                  <ErrorBorder warning={!!(!error && warning)} />
+                )}
+              </>
+            )}
           </Box>
         </Fieldset>
       ) : (

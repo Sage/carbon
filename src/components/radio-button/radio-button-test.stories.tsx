@@ -192,7 +192,7 @@ export const NewValidation = ({ ...props }: Partial<RadioButtonGroupProps>) => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <RadioButtonGroup
-        name="radio-button-group"
+        name="radio-button-group-error"
         error="Error Message"
         mb={2}
         {...props}
@@ -207,7 +207,39 @@ export const NewValidation = ({ ...props }: Partial<RadioButtonGroupProps>) => {
         />
       </RadioButtonGroup>
       <RadioButtonGroup
-        name="radio-button-group"
+        name="radio-button-group-warning"
+        warning="Warning Message"
+        mb={2}
+        {...props}
+      >
+        <RadioButton id="radio-1" value="radio1" label="Yes" />
+        <RadioButton id="radio-2" value="radio2" label="No" />
+        <RadioButton
+          id="radio-3"
+          value="radio3"
+          label="Maybe"
+          fieldHelp="fieldHelp text"
+        />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        validationMessagePositionTop={false}
+        name="radio-button-group-error-bottom"
+        error="Error Message"
+        mb={2}
+        {...props}
+      >
+        <RadioButton id="radio-1" value="radio1" label="Yes" />
+        <RadioButton id="radio-2" value="radio2" label="No" />
+        <RadioButton
+          id="radio-3"
+          value="radio3"
+          label="Maybe"
+          fieldHelp="fieldHelp text"
+        />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        validationMessagePositionTop={false}
+        name="radio-button-group-warning-bottom"
         warning="Warning Message"
         {...props}
       >
@@ -233,6 +265,73 @@ NewValidation.args = {
   inline: false,
 };
 NewValidation.parameters = {
+  chromatic: { disableSnapshot: false },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NewValidationInline = ({
+  ...props
+}: Partial<RadioButtonGroupProps>) => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <RadioButtonGroup
+        name="radio-button-group-error"
+        error="Error Message"
+        inline
+        mb={2}
+        {...props}
+      >
+        <RadioButton id="radio-1" value="radio1" label="Yes" />
+        <RadioButton id="radio-2" value="radio2" label="No" />
+        <RadioButton id="radio-3" value="radio3" label="Maybe" />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        name="radio-button-group-warning"
+        warning="Warning Message"
+        inline
+        mb={2}
+        {...props}
+      >
+        <RadioButton id="radio-1" value="radio1" label="Yes" />
+        <RadioButton id="radio-2" value="radio2" label="No" />
+        <RadioButton id="radio-3" value="radio3" label="Maybe" />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        validationMessagePositionTop={false}
+        name="radio-button-group-error-bottom"
+        error="Error Message"
+        inline
+        mb={2}
+        {...props}
+      >
+        <RadioButton id="radio-1" value="radio1" label="Yes" />
+        <RadioButton id="radio-2" value="radio2" label="No" />
+        <RadioButton id="radio-3" value="radio3" label="Maybe" />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        validationMessagePositionTop={false}
+        name="radio-button-group-warning-bottom"
+        warning="Warning Message"
+        inline
+        mb={2}
+        {...props}
+      >
+        <RadioButton id="radio-1" value="radio1" label="Yes" />
+        <RadioButton id="radio-2" value="radio2" label="No" />
+        <RadioButton id="radio-3" value="radio3" label="Maybe" />
+      </RadioButtonGroup>
+    </CarbonProvider>
+  );
+};
+NewValidationInline.args = {
+  id: "new-validation",
+  legend: "Radio group legend",
+  legendHelp: "Legend help text",
+  legendAlign: "left",
+  required: true,
+  isOptional: false,
+};
+NewValidationInline.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };

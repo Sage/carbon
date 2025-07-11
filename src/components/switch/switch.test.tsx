@@ -285,6 +285,25 @@ test("the `info` prop should not throw an error if `loading` is true", () => {
   }).not.toThrow();
 });
 
+test.each(["error", "warning"])(
+  "should render the validation message under the input when %s passed as string and validationMessagePositionTop is false",
+  (validationType) => {
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          label="label"
+          validationMessagePositionTop={false}
+          {...{ [validationType]: "This is a validation message" }}
+        />
+      </CarbonProvider>,
+    );
+
+    const validationMessage = screen.getByTestId("validation-message-bottom");
+
+    expect(validationMessage).toBeVisible();
+  },
+);
+
 test("`helpAriaLabel` prop should set the aria-label on the Help component", () => {
   render(<Switch label="foo" labelHelp="fooHelp" helpAriaLabel="text" />);
 
@@ -600,7 +619,7 @@ test("renders with the correct error colour when `isDarkBackground` is false", (
     </CarbonProvider>,
   );
 
-  expect(screen.getByTestId("validation-message")).toHaveStyleRule(
+  expect(screen.getByTestId("validation-message-top")).toHaveStyleRule(
     "color: var(--colorsSemanticNegative500)",
   );
 });
@@ -618,7 +637,7 @@ test("renders with the correct error colour when `isDarkBackground` is true", ()
     </CarbonProvider>,
   );
 
-  expect(screen.getByTestId("validation-message")).toHaveStyleRule(
+  expect(screen.getByTestId("validation-message-top")).toHaveStyleRule(
     "color: var(--colorsSemanticNegative450)",
   );
 });

@@ -24,6 +24,8 @@ export interface ContentEditorProps {
   error?: boolean;
   /** Editor has a warning */
   warning?: boolean;
+  /** Render the ValidationMessage above the Editor */
+  validationMessagePositionTop?: boolean;
 }
 
 const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
@@ -37,6 +39,7 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
       required,
       error,
       warning,
+      validationMessagePositionTop,
     },
     ref,
   ) => {
@@ -45,7 +48,10 @@ const ContentEditor = forwardRef<HTMLDivElement, ContentEditorProps>(
     const validationMessageId =
       error || warning ? `${namespace}-validation-message` : "";
     const inputHintId = inputHint ? `${namespace}-input-hint` : "";
-    const ariaDescribedBy = `${validationMessageId} ${inputHintId}`.trim();
+    const describedByString = validationMessagePositionTop
+      ? `${validationMessageId} ${inputHintId}`
+      : `${inputHintId} ${validationMessageId}`;
+    const ariaDescribedBy = describedByString.trim();
 
     return (
       <StyledContentEditable

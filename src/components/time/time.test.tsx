@@ -1262,13 +1262,46 @@ test("should apply the correct aria-describedby attribute to fieldset when input
     <Time
       value={{ hours: "", minutes: "" }}
       onChange={() => {}}
-      inputHint="hint"
+      inputHint="Hint"
+      hoursInputProps={{ error: "Validation" }}
     />,
   );
 
   const fieldset = screen.getByRole("group");
 
-  expect(fieldset).toHaveAccessibleDescription("hint");
+  expect(fieldset).toHaveAccessibleDescription("Hrs. Hint");
+});
+
+test("should apply the correct aria-describedby attribute to fieldset when inputHint is provided and validationMessagePositionTop is false", () => {
+  render(
+    <Time
+      value={{ hours: "", minutes: "" }}
+      onChange={() => {}}
+      inputHint="Hint"
+      hoursInputProps={{ error: "Validation" }}
+      validationMessagePositionTop={false}
+    />,
+  );
+
+  const fieldset = screen.getByRole("group");
+
+  expect(fieldset).toHaveAccessibleDescription("Hint Hrs.");
+});
+
+test("should apply the correct aria-describedby attribute to fieldset when inputHint is provided with a warning and validationMessagePositionTop is false", () => {
+  render(
+    <Time
+      value={{ hours: "", minutes: "" }}
+      onChange={() => {}}
+      inputHint="Hint"
+      hoursInputProps={{ warning: "Validation" }}
+      validationMessagePositionTop={false}
+    />,
+  );
+
+  const fieldset = screen.getByRole("group");
+
+  expect(fieldset).toHaveAccessibleDescription("Hint Hrs.");
 });
 
 test("should not apply the aria-describedby attribute to fieldset when inputHint is not provided", () => {

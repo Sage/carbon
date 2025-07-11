@@ -209,6 +209,7 @@ export const NewValidation = () => {
         id="multi"
         label="MultiSelect"
         error="Error Message"
+        mb={2}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -219,6 +220,31 @@ export const NewValidation = () => {
         id="multi"
         label="MultiSelect"
         warning="Warning Message"
+        mb={2}
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+      <MultiSelect
+        validationMessagePositionTop={false}
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        error="Error Message"
+        mb={2}
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+      </MultiSelect>
+      <MultiSelect
+        validationMessagePositionTop={false}
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        warning="Warning Message"
+        mb={2}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />

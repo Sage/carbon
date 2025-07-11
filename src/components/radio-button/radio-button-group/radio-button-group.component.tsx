@@ -72,6 +72,8 @@ export interface RadioButtonGroupProps
   value?: string;
   /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Render the ValidationMessage above the RadioButton inputs when validationRedesignOptIn flag is set */
+  validationMessagePositionTop?: boolean;
 }
 
 let deprecateOptionalWarnTriggered = false;
@@ -99,6 +101,7 @@ export const RadioButtonGroup = ({
   required,
   isOptional,
   tooltipPosition,
+  validationMessagePositionTop = true,
   ...rest
 }: RadioButtonGroupProps) => {
   if (!deprecateOptionalWarnTriggered && isOptional) {
@@ -147,9 +150,12 @@ export const RadioButtonGroup = ({
     info,
   });
 
-  const combinedAriaDescribedBy = [ariaDescribedBy, inputHintId]
-    .filter(Boolean)
-    .join(" ");
+  const describedByArray =
+    validationRedesignOptIn && validationMessagePositionTop
+      ? [ariaDescribedBy, inputHintId]
+      : [inputHintId, ariaDescribedBy];
+
+  const combinedAriaDescribedBy = describedByArray.filter(Boolean).join(" ");
 
   return (
     <>
@@ -176,17 +182,21 @@ export const RadioButtonGroup = ({
             </HintText>
           )}
           <Box position="relative">
-            <ValidationMessage
-              error={error}
-              warning={warning}
-              validationId={validationId}
-            />
-            {(error || warning) && (
-              <ErrorBorder
-                data-role="radio-error-border"
-                inline={inline}
-                warning={!!(!error && warning)}
-              />
+            {validationMessagePositionTop && (
+              <>
+                <ValidationMessage
+                  error={error}
+                  warning={warning}
+                  validationId={validationId}
+                  validationMessagePositionTop={validationMessagePositionTop}
+                />
+                {(error || warning) && (
+                  <ErrorBorder
+                    data-role="radio-error-border"
+                    warning={!!(!error && warning)}
+                  />
+                )}
+              </>
             )}
             <RadioButtonGroupStyle
               data-component="radio-button-group"
@@ -215,6 +225,22 @@ export const RadioButtonGroup = ({
                 })}
               </RadioButtonMapper>
             </RadioButtonGroupStyle>
+            {!validationMessagePositionTop && (
+              <>
+                <ValidationMessage
+                  error={error}
+                  warning={warning}
+                  validationId={validationId}
+                  validationMessagePositionTop={validationMessagePositionTop}
+                />
+                {(error || warning) && (
+                  <ErrorBorder
+                    data-role="radio-error-border"
+                    warning={!!(!error && warning)}
+                  />
+                )}
+              </>
+            )}
           </Box>
         </Fieldset>
       ) : (

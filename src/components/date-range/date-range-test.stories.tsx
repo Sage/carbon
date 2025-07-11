@@ -251,6 +251,32 @@ export const NewValidation = () => {
         endWarning="End Warning with long text"
         onChange={handleChange}
         value={state}
+        mb={2}
+        startDateProps={{ inputHint: "Start Date Hint" }}
+        endDateProps={{ inputHint: "End Date Hint" }}
+      />
+      <DateRange
+        validationMessagePositionTop={false}
+        startLabel="Start"
+        endLabel="End"
+        startError="Start Error with long text"
+        endError="End Error"
+        onChange={handleChange}
+        value={state}
+        mb={2}
+        startDateProps={{ inputHint: "Start Date Hint" }}
+        endDateProps={{ inputHint: "End Date Hint" }}
+      />
+      <DateRange
+        validationMessagePositionTop={false}
+        startLabel="Start"
+        endLabel="End"
+        startWarning="Start Warning"
+        endWarning="End Warning with long text"
+        onChange={handleChange}
+        value={state}
+        startDateProps={{ inputHint: "Start Date Hint" }}
+        endDateProps={{ inputHint: "End Date Hint" }}
       />
     </CarbonProvider>
   );
