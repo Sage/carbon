@@ -1,3 +1,34 @@
+## [155.0.3](https://github.com/Sage/carbon/compare/v155.0.2...v155.0.3) (2025-07-11)
+
+### Bug Fixes
+
+* **note:** render title semantically with h3 when passed as text ([8c40d21](https://github.com/Sage/carbon/commit/8c40d2144d85174825182899c4524d4078cb3efd))
+
+## [155.0.2](https://github.com/Sage/carbon/compare/v155.0.1...v155.0.2) (2025-07-11)
+
+### Bug Fixes
+
+* **text-editor:** character count behaving inconsistently when pasting ([d2290b6](https://github.com/Sage/carbon/commit/d2290b62f249bd4de63b28469a50deeebc92934b)), closes [#7380](https://github.com/Sage/carbon/issues/7380)
+
+## [155.0.1](https://github.com/Sage/carbon/compare/v155.0.0...v155.0.1) (2025-07-09)
+
+### Bug Fixes
+
+* **flat-table-header:** allow table headers to wrap ([d664157](https://github.com/Sage/carbon/commit/d66415799eeca0219a50c86a52a4ffe9cc557a6c)), closes [#6660](https://github.com/Sage/carbon/issues/6660)
+
+## [155.0.0](https://github.com/Sage/carbon/compare/v154.13.9...v155.0.0) (2025-07-08)
+
+### ⚠ BREAKING CHANGES
+
+* **date:** Previously, disablePortal was false, meaning date picker popovers appeared outside
+of the natural DOM ordering. Whilst visually fine, keyboard control was impacted when using the
+DateRange component. All date components have now been updated to render inline unless disablePortal
+is explicitly set to false.
+
+### Features
+
+* **date:** deprecate disablePortal and set default value to true ([d26b642](https://github.com/Sage/carbon/commit/d26b642c6894299c66bf4060e5b784c20c5415dd)), closes [#7386](https://github.com/Sage/carbon/issues/7386)
+
 ## [154.13.9](https://github.com/Sage/carbon/compare/v154.13.8...v154.13.9) (2025-07-07)
 
 ### Bug Fixes

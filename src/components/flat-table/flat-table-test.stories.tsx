@@ -51,6 +51,7 @@ export default {
     "FlatTableThemesWithAlternateHeaderBackground",
     "FlatTableThemesWithStickyHead",
     "FlatTableWithStickyHeadAndFooter",
+    "WithLongRowHeader",
   ],
   parameters: {
     info: { disable: true },
@@ -1174,3 +1175,31 @@ export const FlatTableWithStickyHeadAndFooter = () => {
 FlatTableWithStickyHeadAndFooter.parameters = {
   chromatic: { disableSnapshot: true },
 };
+
+export const WithLongRowHeader = () => {
+  return (
+    <Box p={2} width="300px" backgroundColor="red">
+      <FlatTable title="With Long Row Header">
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>
+              Really long table header that should wrap
+            </FlatTableHeader>
+            <FlatTableRowHeader>Name</FlatTableRowHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableCell>000001</FlatTableCell>
+            <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>000002</FlatTableCell>
+            <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </Box>
+  );
+};
+WithLongRowHeader.storyName = "With Long Row Header";

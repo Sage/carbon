@@ -24,6 +24,11 @@ const meta: Meta<typeof DateInput> = {
     onBlur: action("onBlur"),
     onChange: action("onChange"),
   },
+  decorators: (StoryToRender) => (
+    <Box minHeight="460px" p={4}>
+      <StoryToRender />
+    </Box>
+  ),
 };
 
 export default meta;
