@@ -25,8 +25,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 import Logger from "../../__internal__/utils/logger";
 
-const PADDING_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
-type PaddingValues = (typeof PADDING_VALUES)[number];
+type PaddingValues = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export interface ContentPaddingInterface {
   p?: PaddingValues;
