@@ -470,7 +470,7 @@ export const ResponsiveLarge = () => {
   );
 };
 ResponsiveLarge.storyName = "Responsive Large with error";
-ResponsiveValidation.parameters = {
+ResponsiveLarge.parameters = {
   chromatic: { disableSnapshot: false, viewports: [1200, 600] },
   themeProvider: { chromatic: { theme: "sage" } },
 };
