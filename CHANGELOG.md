@@ -1,3 +1,9 @@
+## [155.1.0](https://github.com/Sage/carbon/compare/v155.0.3...v155.1.0) (2025-07-11)
+
+### Features
+
+* **responsive-vertical-menu:** add launcherButtonDataProps ([bf721dd](https://github.com/Sage/carbon/commit/bf721dd8bcefe9cd3ebd005bfb2261389cb6a4bd)), closes [#7396](https://github.com/Sage/carbon/issues/7396)
+
 ## [155.0.3](https://github.com/Sage/carbon/compare/v155.0.2...v155.0.3) (2025-07-11)
 
 ### Bug Fixes
