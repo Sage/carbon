@@ -97,6 +97,9 @@ test.describe("Functionality tests", () => {
     const input = getDataElementByValue(page, "input");
     await input.fill(MIN_DATE);
 
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
+
     const dayPicker = page.locator(
       `button[aria-label="${DAY_BEFORE_MIN_DATE}"]`,
     );
@@ -108,6 +111,9 @@ test.describe("Functionality tests", () => {
 
     const input = getDataElementByValue(page, "input");
     await input.fill(MIN_DATE);
+
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
 
     const dayPicker = page.locator(
       `button[aria-label="${DAY_AFTER_MAX_DATE}"]`,
@@ -125,6 +131,9 @@ test.describe("Functionality tests", () => {
     const input = getDataElementByValue(page, "input");
     await input.fill(TODAY_DATE_INPUT);
 
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
+
     const todayButton = page.getByRole("button", { name: `Today, ${TODAY}` });
     const todayCell = page.getByRole("gridcell").filter({
       has: todayButton,
@@ -134,7 +143,7 @@ test.describe("Functionality tests", () => {
     await containsClass(todayCell, dayClass);
   });
 
-  test(`should open dayPicker after click on input`, async ({
+  test(`should not open dayPicker after click on input`, async ({
     mount,
     page,
   }) => {
@@ -144,7 +153,7 @@ test.describe("Functionality tests", () => {
     await inputParent.click();
 
     const wrapper = dayPickerWrapper(page);
-    await expect(wrapper).toBeVisible();
+    await expect(wrapper).not.toBeVisible();
   });
 
   test(`should not close dayPicker after double click on input`, async ({
@@ -152,6 +161,9 @@ test.describe("Functionality tests", () => {
     page,
   }) => {
     await mount(<DateInputCustom />);
+
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
 
     const inputParent = getDataElementByValue(page, "input").locator("..");
     await inputParent.click();
@@ -164,7 +176,7 @@ test.describe("Functionality tests", () => {
   test(`should open dayPicker after click on icon`, async ({ mount, page }) => {
     await mount(<DateInputCustom />);
 
-    const calendarIcon = getDataElementByValue(page, "calendar");
+    const calendarIcon = page.getByTestId("icon");
     await calendarIcon.click();
     const wrapper = dayPickerWrapper(page);
     await expect(wrapper).toBeVisible();
@@ -178,6 +190,7 @@ test.describe("Functionality tests", () => {
 
     const calendarIcon = getDataElementByValue(page, "calendar");
     await calendarIcon.click();
+
     await calendarIcon.click();
     const wrapper = dayPickerWrapper(page);
     await expect(wrapper).toBeHidden();
@@ -193,8 +206,9 @@ test.describe("Functionality tests", () => {
     }) => {
       await mount(<DateInputCustom mt={`${margin}px`} />);
 
-      const inputParent = getDataElementByValue(page, "input").locator("..");
-      await inputParent.click();
+      const calendarIcon = page.getByTestId("icon");
+      await calendarIcon.click();
+
       const wrapperParent = dayPickerWrapper(page).locator("..");
       await expect(wrapperParent).toHaveAttribute(
         "data-floating-placement",
@@ -216,8 +230,10 @@ test.describe("Functionality tests", () => {
 
       const input = getDataElementByValue(page, "input");
       await input.fill(DATE_INPUT);
-      const inputParent = getDataElementByValue(page, "input").locator("..");
-      await inputParent.click();
+
+      const calendarIcon = page.getByTestId("icon");
+      await calendarIcon.click();
+
       const arrowElement = getDataElementByValue(page, arrow);
       await arrowElement.click();
       const pickerHeading = dayPickerHeading(page);
@@ -236,8 +252,8 @@ test.describe("Functionality tests", () => {
     }) => {
       await mount(<DateInputCustom value="01/05/2022" />);
 
-      const input = page.getByLabel("Date");
-      await input.click();
+      const calendarIcon = page.getByTestId("icon");
+      await calendarIcon.click();
 
       const datePicker = page.getByTestId("date-picker");
       await datePicker.waitFor();
@@ -257,8 +273,8 @@ test.describe("Functionality tests", () => {
     }) => {
       await mount(<DateInputCustom value="01/05/2022" />);
 
-      const dateInput = page.getByLabel("Date");
-      await dateInput.click();
+      const calendarIcon = page.getByTestId("icon");
+      await calendarIcon.click();
 
       const nextMonthButton = page.getByRole("button", { name: "Next month" });
       await nextMonthButton.waitFor();
@@ -278,8 +294,8 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom value="12/12/2022" />);
 
-    const input = page.getByLabel("Date");
-    await input.click();
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
 
     const dayPicker = page.getByTestId("date-picker");
     await dayPicker.waitFor();
@@ -309,8 +325,8 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<WithSiblingButton value="01/05/2022" />);
 
-    const dateInput = page.getByRole("textbox");
-    await dateInput.click();
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
 
     const dayPicker = page.getByTestId("date-picker");
     await dayPicker.waitFor();
@@ -331,6 +347,9 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom value="" />);
 
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
+
     await page.getByLabel("Date").press("Tab");
 
     const todayButton = page.getByRole("button", { name: `Today, ${TODAY}` });
@@ -349,6 +368,8 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom value="14/04/2022" />);
 
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
     await page.getByLabel("Date").press("Tab");
 
     const datePicker = page.getByTestId("date-picker");
@@ -390,6 +411,8 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom value="01/04/2022" />);
 
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
     await page.getByLabel("Date").press("Tab");
 
     const datePicker = page.getByTestId("date-picker");
@@ -417,6 +440,8 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom value="04/04/2022" />);
 
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
     await page.getByLabel("Date").press("Tab");
 
     const datePicker = page.getByTestId("date-picker");
@@ -444,6 +469,8 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom value="24/04/2022" />);
 
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
     await page.getByLabel("Date").press("Tab");
 
     const datePicker = page.getByTestId("date-picker");
@@ -472,6 +499,9 @@ test.describe("Functionality tests", () => {
     }) => {
       await mount(<DateInputCustom value="14/04/2022" />);
 
+      const calendarIcon = page.getByTestId("icon");
+      await calendarIcon.click();
+
       const dateInput = page.getByLabel("Date");
       await dateInput.press("Tab");
 
@@ -493,6 +523,9 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom />);
 
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
+
     const dateInput = page.getByLabel("Date");
     await dateInput.press("Tab");
 
@@ -511,6 +544,9 @@ test.describe("Functionality tests", () => {
     page,
   }) => {
     await mount(<DateInputCustom />);
+
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
 
     const dateInput = page.getByLabel("Date");
     await dateInput.press("Tab");
@@ -532,6 +568,9 @@ test.describe("Functionality tests", () => {
     page,
   }) => {
     await mount(<DateInputCustom value="31/05/2022" />);
+
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
 
     await page.getByLabel("Date").press("Tab");
 
@@ -566,8 +605,9 @@ test.describe("Functionality tests", () => {
     }) => {
       await mount(<DateInputCustom />);
 
-      const inputParent = getDataElementByValue(page, "input").locator("..");
-      await inputParent.click();
+      const calendarIcon = page.getByTestId("icon");
+      await calendarIcon.click();
+
       const arrowParent = getDataElementByValue(page, arrow).locator("..");
       await arrowParent.focus();
       const arrowElement = getDataElementByValue(page, arrow);
@@ -662,7 +702,7 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom disabled />);
 
-    const calendarIcon = getDataElementByValue(page, "calendar");
+    const calendarIcon = page.getByTestId("icon");
     await expect(calendarIcon).toBeVisible();
     await expect(calendarIcon).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
   });
@@ -680,7 +720,7 @@ test.describe("Functionality tests", () => {
   }) => {
     await mount(<DateInputCustom readOnly />);
 
-    const calendarIcon = getDataElementByValue(page, "calendar");
+    const calendarIcon = page.getByTestId("icon");
     await expect(calendarIcon).toBeVisible();
     await expect(calendarIcon).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
   });
@@ -688,8 +728,9 @@ test.describe("Functionality tests", () => {
   test(`should check the pickerProps prop`, async ({ mount, page }) => {
     await mount(<DateInputCustom pickerProps={{ numberOfMonths: 2 }} />);
 
-    const input = getDataElementByValue(page, "input");
-    await input.click();
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
+
     const months = page.locator("div[class=rdp-month]");
     await expect(months).toHaveCount(2);
     const pickerHeading1 = page
@@ -715,8 +756,6 @@ test.describe("Functionality tests", () => {
   test(`should check the autofocus prop`, async ({ mount, page }) => {
     await mount(<DateInputCustom autoFocus />);
 
-    const wrapper = dayPickerWrapper(page);
-    await expect(wrapper).toBeVisible();
     const input = getDataElementByValue(page, "input");
     await expect(input).toBeFocused();
   });
@@ -743,6 +782,7 @@ test.describe("Functionality tests", () => {
     const datePicker = dayPickerWrapper(page);
     await expect(datePicker).not.toBeInViewport();
   });
+
   test("date picker floats above the rest of the page, when disablePortal prop is false", async ({
     mount,
     page,
@@ -759,8 +799,10 @@ test.describe("Functionality tests", () => {
         <DateInputCustom disablePortal={false} />
       </div>,
     );
-    const input = page.getByLabel("Date");
-    await input.click();
+
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
+
     const datePicker = dayPickerWrapper(page);
     await expect(datePicker).toBeInViewport();
   });
@@ -770,6 +812,9 @@ test.describe("Functionality tests", () => {
     page,
   }) => {
     await mount(<DateInputCustom />);
+
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
 
     const input = getDataElementByValue(page, "input");
     await input.click();
@@ -800,6 +845,9 @@ test.describe("Functionality tests", () => {
       "outline",
       "rgba(0, 0, 0, 0) solid 3px",
     );
+
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
 
     await page.keyboard.press("Tab");
     const dayPickerNavButton1 = page.getByLabel("Previous month");
@@ -877,8 +925,8 @@ test.describe("When nested inside of a Dialog component", () => {
   }) => {
     await mount(<DateInputInsideDialog />);
 
-    const dateInput = page.getByLabel("Date");
-    await dateInput.click();
+    const calendarIcon = getDataElementByValue(page, "calendar");
+    await calendarIcon.click();
 
     const datePicker = page.getByTestId("date-picker");
     await datePicker.waitFor();
@@ -897,6 +945,9 @@ test.describe("Accessibility tests", () => {
   }) => {
     await mount(<DateInputCustom />);
 
+    const calendarIcon = page.getByTestId("icon");
+    await calendarIcon.click();
+
     await checkAccessibility(page);
   });
 
@@ -908,7 +959,7 @@ test.describe("Accessibility tests", () => {
       }) => {
         await mount(<DateInputCustom size={size} />);
 
-        const calendarIcon = getDataElementByValue(page, "calendar");
+        const calendarIcon = page.getByTestId("icon");
         await calendarIcon.click();
 
         await checkAccessibility(page);

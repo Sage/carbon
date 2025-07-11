@@ -476,38 +476,19 @@ test.describe("Functionality tests for DateRange component", () => {
     await page.keyboard.press("Tab");
     await page.keyboard.press("Tab");
 
-    const startDayPicker = page.getByTestId("date-picker");
-    await startDayPicker.waitFor();
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-
-    const startDayButton = page.getByRole("button", {
-      name: "Saturday, October 1st, 2016",
-    });
-    await expect(startDayButton).toBeFocused();
-
-    await page.keyboard.press("Tab");
+    const startDateInput = page.getByLabel("Start");
+    await expect(startDateInput).toBeFocused();
 
     const endDateInput = page.getByLabel("End");
+    await expect(endDateInput).not.toBeFocused();
+
+    await page.keyboard.press("Tab");
+
+    await expect(startDateInput).not.toBeFocused();
     await expect(endDateInput).toBeFocused();
 
-    const endDayPicker = page.getByTestId("date-picker");
-    await endDayPicker.waitFor();
-
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
     await page.keyboard.press("Tab");
 
-    const endDayButton = page.getByRole("button", {
-      name: "Friday, December 30th, 2016",
-    });
-    await expect(endDayButton).toBeFocused();
-
-    await page.keyboard.press("Tab");
-
-    await expect(endDayPicker).not.toBeVisible();
     await expect(popoverContainer).not.toBeVisible();
     await expect(popoverButton).toBeFocused();
   });

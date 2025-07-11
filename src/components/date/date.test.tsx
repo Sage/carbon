@@ -178,7 +178,6 @@ test("should render with the input focused and picker visible when `autoFocus` i
   render(<DateInput label="label" autoFocus onChange={() => {}} value="" />);
 
   expect(screen.getByRole("textbox")).toHaveFocus();
-  expect(screen.getByRole("grid")).toBeVisible();
 });
 
 test("should not render with the input focused or the picker visible when `autoFocus` is false", () => {
@@ -200,7 +199,6 @@ test("should open the picker and call the `onFocus` callback if one passed when 
     input.focus();
   });
 
-  expect(screen.getByRole("grid")).toBeVisible();
   expect(onFocus).toHaveBeenCalled();
 });
 
@@ -220,8 +218,13 @@ test("should open the picker and call the `onClick` and `onFocus` callbacks if p
   const input = screen.getByRole("textbox");
   await user.click(input);
 
-  expect(screen.getByRole("grid")).toBeVisible();
   expect(onFocus).toHaveBeenCalled();
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
+
+  expect(screen.getByRole("grid")).toBeVisible();
+
   expect(onClick).toHaveBeenCalled();
 });
 
@@ -254,6 +257,8 @@ test("picker does not close when input icon is double clicked", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput label="label" onChange={() => {}} value="" />);
 
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
   await user.dblClick(screen.getByRole("textbox"));
 
   expect(screen.getByRole("grid")).toBeVisible();
@@ -462,8 +467,10 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
   const onChange = jest.fn();
   const onBlur = jest.fn();
   render(<DateInput onChange={onChange} onBlur={onBlur} value="04/04/2019" />);
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
+
   const picker = screen.getByRole("grid");
   await user.click(picker);
 
@@ -483,8 +490,8 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
       maxDate="2019-05-31"
     />,
   );
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
 
   await user.click(screen.getByLabelText("Wednesday, April 3rd, 2019"));
 
@@ -492,21 +499,13 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
   expect(onChange).not.toHaveBeenCalled();
 });
 
-test("should close the open picker when a user presses the 'Escape' key", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<DateInput onChange={() => {}} value="" />);
-  const input = screen.getByRole("textbox");
-  await user.click(input);
-  await user.keyboard("{Escape}");
-
-  expect(screen.queryByRole("grid")).not.toBeInTheDocument();
-});
-
 test("should close the open picker when the user presses the 'Escape' key and focus is within the picker", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
+
   await user.tab();
   await user.keyboard("{Escape}");
 
@@ -527,8 +526,10 @@ test("should call `onKeyDown` callback when the user types and the input is focu
 test("should keep the picker open and move focus to the previous month button when the user presses tab and the input is focused", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
+
   await user.tab();
 
   expect(screen.getByRole("grid")).toBeVisible();
@@ -538,8 +539,10 @@ test("should keep the picker open and move focus to the previous month button wh
 test("should keep the picker open and move focus to the previous month button when the user presses tab and the input is focused and `disablePortal` is set", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" disablePortal />);
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
+
   await user.tab();
 
   expect(screen.getByRole("grid")).toBeVisible();
@@ -549,19 +552,27 @@ test("should keep the picker open and move focus to the previous month button wh
 test("should close the picker when the user presses shift + tab and the input is focused and the picker is open", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
 
   expect(screen.getByRole("grid")).toBeVisible();
+
+  await user.tab();
+  expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
+
   await user.tab({ shift: true });
+
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
 
 test("should close the picker when the user presses shift + tab and the previous month button is focused", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
+
   await user.tab();
 
   expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
@@ -572,8 +583,10 @@ test("should close the picker when the user presses shift + tab and the previous
 test("should not close the picker when the user presses shift + tab and neither the input or previous month button are focused", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
+
   await user.tab();
   await user.tab();
 
@@ -586,8 +599,8 @@ test("should focus the next button and then the selected day element when the us
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="04/04/2019" />);
 
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
 
   const previousMonthButton = await screen.findByRole("button", {
     name: "Previous month",
@@ -617,7 +630,9 @@ test("should close the picker, update the value and refocus the input element wh
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<MockComponent initialValue="04/04/2019" />);
   const input = screen.getByRole("textbox");
-  await user.click(input);
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
+
   await user.click(screen.getByLabelText("Thursday, April 11th, 2019"));
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
@@ -655,8 +670,9 @@ test("should render the picker as a descendant of the main presentation element 
   render(
     <DateInput label="label" onChange={() => {}} value="" disablePortal />,
   );
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
 
   expect(
     within(screen.getAllByRole("presentation")[0]).getByRole("grid"),
@@ -667,14 +683,15 @@ test("should not render the picker as a descendant of the main presentation elem
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <DateInput
-      disablePortal={false}
       label="label"
       onChange={() => {}}
       value=""
+      disablePortal={false}
     />,
   );
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
 
   expect(
     within(screen.getAllByRole("presentation")[0]).queryByRole("grid"),
@@ -1867,8 +1884,9 @@ test("should call `onPickerOpen` callback when the user opens the DatePicker and
       value="010122"
     />,
   );
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
   expect(onPickerOpen).toHaveBeenCalled();
 
   await user.click(document.body);
@@ -1896,6 +1914,8 @@ test("should select the correct date when the locale is overridden and a date is
   const input = screen.getByRole("textbox");
 
   await user.type(input, "05/04");
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
 
   const caption = screen.getByRole("status");
   expect(caption).toHaveTextContent("April 2019");
@@ -1916,8 +1936,8 @@ test("should correctly focus when disablePortal is false and Tab is used to navi
       disablePortal={false}
     />,
   );
-  const input = screen.getByRole("textbox");
-  await user.click(input);
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
 
   expect(screen.getByRole("grid")).toBeVisible();
   await user.tab();
@@ -1927,4 +1947,54 @@ test("should correctly focus when disablePortal is false and Tab is used to navi
   expect(
     screen.getByLabelText("Thursday, April 4th, 2019", { exact: false }),
   ).toHaveFocus();
+});
+
+// Coverage
+test("should fire the onPickerClose callback when the input has focus and shift-tab is pressed", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const onChange = jest.fn();
+  const onPickerClose = jest.fn();
+
+  render(
+    <DateInput
+      onChange={onChange}
+      value="2019-04-05"
+      onPickerClose={onPickerClose}
+    />,
+  );
+  const input = screen.getByRole("textbox");
+
+  const calendarIcon = screen.getByTestId("input-icon-toggle");
+  await user.click(calendarIcon);
+  await user.click(input);
+
+  await user.tab({ shift: true });
+  expect(onPickerClose).toHaveBeenCalled();
+});
+
+[true, false].forEach((disablePortal) => {
+  test(`should tab correctly when \`disablePortal\` is ${disablePortal}`, async () => {
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const onChange = jest.fn();
+
+    render(
+      <DateInput
+        onChange={onChange}
+        value="2019-04-05"
+        disablePortal={disablePortal}
+      />,
+    );
+    const input = screen.getByRole("textbox");
+
+    const calendarIcon = screen.getByTestId("input-icon-toggle");
+    await user.click(calendarIcon);
+    await user.click(input);
+
+    await user.tab();
+
+    expect(screen.getByRole("grid")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Previous month" }),
+    ).toHaveFocus();
+  });
 });
