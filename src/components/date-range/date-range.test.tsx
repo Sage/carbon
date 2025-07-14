@@ -701,12 +701,14 @@ test("should close the open 'start' picker when the user moves focus to the `end
   const startDate = screen.getByTestId("start");
   const endDate = screen.getByTestId("end");
 
-  await user.click(screen.getByRole("textbox", { name: "start" }));
+  const startCalendarIcon = screen.getAllByTestId("input-icon-toggle")[0];
+  await user.click(startCalendarIcon);
 
   expect(within(startDate).getByRole("grid")).toBeVisible();
   expect(within(endDate).queryByRole("grid")).not.toBeInTheDocument();
 
-  await user.click(screen.getByRole("textbox", { name: "end" }));
+  const endCalendarIcon = screen.getAllByTestId("input-icon-toggle")[1];
+  await user.click(endCalendarIcon);
 
   expect(within(endDate).getByRole("grid")).toBeVisible();
   expect(within(startDate).queryByRole("grid")).not.toBeInTheDocument();
@@ -731,7 +733,8 @@ test("should apply aria-label and aria-labelledby to the date picker region", as
   const startDate = screen.getByTestId("start");
   const endDate = screen.getByTestId("end");
 
-  await user.click(screen.getByRole("textbox", { name: "start" }));
+  const startCalendarIcon = screen.getAllByTestId("input-icon-toggle")[0];
+  await user.click(startCalendarIcon);
 
   expect(within(startDate).getByRole("region")).toBeVisible();
   expect(within(startDate).getByRole("region")).toHaveAttribute(
@@ -743,7 +746,8 @@ test("should apply aria-label and aria-labelledby to the date picker region", as
     "start aria-labelledby",
   );
 
-  await user.click(screen.getByRole("textbox", { name: "end" }));
+  const endCalendarIcon = screen.getAllByTestId("input-icon-toggle")[1];
+  await user.click(endCalendarIcon);
 
   expect(within(endDate).getByRole("region")).toBeVisible();
   expect(within(endDate).getByRole("region")).toHaveAttribute(
@@ -771,12 +775,14 @@ test("should close the open 'end' picker when the user moves focus to the `start
   const startDate = screen.getByTestId("start");
   const endDate = screen.getByTestId("end");
 
-  await user.click(screen.getByRole("textbox", { name: "end" }));
+  const endCalendarIcon = screen.getAllByTestId("input-icon-toggle")[1];
+  await user.click(endCalendarIcon);
 
   expect(within(endDate).getByRole("grid")).toBeVisible();
   expect(within(startDate).queryByRole("grid")).not.toBeInTheDocument();
 
-  await user.click(screen.getByRole("textbox", { name: "start" }));
+  const startCalendarIcon = screen.getAllByTestId("input-icon-toggle")[0];
+  await user.click(startCalendarIcon);
 
   expect(within(startDate).getByRole("grid")).toBeVisible();
   expect(within(endDate).queryByRole("grid")).not.toBeInTheDocument();
