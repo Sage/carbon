@@ -86,6 +86,33 @@ DefaultWithStickyFooter.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
+export const StickyFooterVariant: Story = (args: FormProps) => (
+  <Form
+    {...args}
+    leftSideButtons={<Button>Cancel</Button>}
+    saveButton={
+      <Button buttonType="primary" type="submit">
+        Save
+      </Button>
+    }
+    stickyFooter
+    stickyFooterVariant="grey"
+  >
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+  </Form>
+);
+StickyFooterVariant.storyName = "Sticky footer with grey variant";
+StickyFooterVariant.parameters = {
+  chromatic: { viewports: [1200, 320] },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
 export const WithFullWidthButtons: Story = (args: FormProps) => (
   <CarbonProvider validationRedesignOptIn>
     <Form

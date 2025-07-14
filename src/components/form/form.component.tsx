@@ -34,6 +34,8 @@ export interface FormProps extends SpaceProps, TagProps {
   saveButton?: React.ReactNode;
   /** Enables the sticky footer. */
   stickyFooter?: boolean;
+  /** Background variant for the sticky footer. */
+  stickyFooterVariant?: "light" | "grey";
   /** The total number of warnings present in the form */
   warningCount?: number;
   /** Height of the form (any valid CSS value) */
@@ -54,6 +56,7 @@ export const Form = ({
   onSubmit,
   buttonAlignment = "right",
   stickyFooter,
+  stickyFooterVariant = "light",
   fieldSpacing = 3,
   noValidate = true,
   height,
@@ -102,6 +105,7 @@ export const Form = ({
           data-role="form-footer"
           ref={formFooterRef}
           stickyFooter={stickyFooter}
+          {...(stickyFooter && { stickyFooterVariant })}
           buttonAlignment={buttonAlignment}
           fullWidthButtons={fullWidthButtons}
           {...footerPadding}

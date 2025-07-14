@@ -7,6 +7,7 @@ import {
   FormWithRightSidedButtons,
   FormWithFullWidthButtons,
   DefaultWithStickyFooter,
+  StickyFooterVariant,
   FormAlignmentExample,
   InDialog,
   InDialogFullScreen,
@@ -241,6 +242,15 @@ test.describe("Accessibility tests for Form component", () => {
     page,
   }) => {
     await mount(<DefaultWithStickyFooter />);
+
+    await checkAccessibility(page);
+  });
+
+  test(`should pass tests with the grey sticky footer variant`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<StickyFooterVariant />);
 
     await checkAccessibility(page);
   });

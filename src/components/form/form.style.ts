@@ -46,6 +46,7 @@ export const StyledFormContent = styled.div<StyledFormContentProps>(
 
 interface StyledFormFooterProps {
   stickyFooter?: boolean;
+  stickyFooterVariant?: "light" | "grey";
   fullWidthButtons?: boolean;
   buttonAlignment?: FormButtonAlignment;
 }
@@ -64,7 +65,7 @@ export const StyledFormFooter = styled.div.attrs(
       justify-content: flex-end;
     `}
 
-  ${({ stickyFooter, fullWidthButtons }) => css`
+  ${({ stickyFooter, stickyFooterVariant, fullWidthButtons }) => css`
     ${!stickyFooter &&
     css`
       margin-top: 48px;
@@ -72,9 +73,13 @@ export const StyledFormFooter = styled.div.attrs(
 
     ${stickyFooter &&
     css`
-      background-color: var(--colorsUtilityYang100);
+      background-color: ${stickyFooterVariant === "light"
+        ? "var(--colorsUtilityYang100)"
+        : "var(--colorsUtilityMajor025)"};
       box-shadow: var(--boxShadow150);
       box-sizing: border-box;
+      ${stickyFooterVariant === "grey" &&
+      "border-top: 1px solid var(--colorsUtilityMajor050);"}
       padding: 16px 32px;
       width: 100%;
       z-index: 1000;

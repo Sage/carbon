@@ -118,6 +118,39 @@ export const DefaultWithStickyFooter = () => (
   </Form>
 );
 
+export const StickyFooterVariant = () => (
+  <Form
+    onSubmit={() => "submit"}
+    leftSideButtons={<Button onClick={() => "cancel"}>Cancel</Button>}
+    saveButton={
+      <Button buttonType="primary" type="submit">
+        Save
+      </Button>
+    }
+    stickyFooter
+    stickyFooterVariant="grey"
+  >
+    <Tabs mb={2}>
+      <Tab
+        pl="3px"
+        customLayout={
+          <Box mx="16px" my="10px">
+            Tab1
+          </Box>
+        }
+        tabId="tab1"
+      />
+    </Tabs>
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+  </Form>
+);
+
 export const WithFullWidthButtons = () => (
   <CarbonProvider validationRedesignOptIn>
     <Form

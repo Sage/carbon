@@ -250,3 +250,46 @@ test("renders with correct styles when `buttonAlignment` prop is set to `left`",
     "flex-grow": "1",
   });
 });
+
+// for coverage - the `stickyFooterVariant` prop will be captured by Chromatic`
+test('renders with correct styles when `stickyFooterVariant` is "light"', () => {
+  render(
+    <Form
+      stickyFooter
+      stickyFooterVariant="light"
+      buttonAlignment="left"
+      rightSideButtons={
+        <>
+          <Button>Right1</Button>
+          <Button>Right2</Button>
+        </>
+      }
+    />,
+  );
+
+  expect(screen.getByTestId("form-footer")).toHaveStyle({
+    "background-color": "var(--colorsUtilityYang100)",
+    "border-top": "1px solid var(--colorsUtilityMajor050)",
+  });
+});
+
+// for coverage - the `stickyFooterVariant prop` will be captured by Chromatic`
+test('renders with correct styles when `stickyFooterVariant` is "grey"', () => {
+  render(
+    <Form
+      stickyFooter
+      stickyFooterVariant="grey"
+      buttonAlignment="left"
+      rightSideButtons={
+        <>
+          <Button>Right1</Button>
+          <Button>Right2</Button>
+        </>
+      }
+    />,
+  );
+
+  expect(screen.getByTestId("form-footer")).toHaveStyle({
+    "background-color": "var(--colorsUtilityMajor025)",
+  });
+});
