@@ -37,6 +37,8 @@ export interface ResponsiveVerticalMenuProps extends TagProps {
   responsiveBreakpoint?: number;
   /** The width of the primary and secondary menus when in default mode */
   width?: string;
+  /** Set Menu launcher button data tag props */
+  launcherButtonDataProps?: TagProps;
 }
 
 const BaseMenu = ({
@@ -44,6 +46,7 @@ const BaseMenu = ({
   height,
   responsiveBreakpoint = 700,
   width,
+  launcherButtonDataProps,
   ...rest
 }: ResponsiveVerticalMenuProps) => {
   const locale = useLocale();
@@ -266,12 +269,14 @@ const BaseMenu = ({
         aria-expanded={active}
         aria-label={locale.verticalMenu.ariaLabels?.responsiveMenuLauncher()}
         buttonType="tertiary"
-        data-component="responsive-vertical-menu-launcher"
-        data-role="responsive-vertical-menu-launcher"
         iconType="squares_nine"
         id="responsive-vertical-menu-launcher"
         onClick={handleActiveToggle}
         ref={buttonRef}
+        {...tagComponent("responsive-vertical-menu-launcher", {
+          "data-role": "responsive-vertical-menu-launcher",
+          ...launcherButtonDataProps,
+        })}
       />
       {responsiveMode ? (
         <Modal open={active}>

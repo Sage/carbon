@@ -211,9 +211,12 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
     /* istanbul ignore next */
     const handleChange = useCallback(
       (newState: EditorState) => {
-        const currentTextContent = newState.read(() =>
-          $getRoot().getTextContent(),
-        );
+        const currentTextContent = newState.read(() => {
+          return $getRoot()
+            .getChildren()
+            .map((node) => node.getTextContent())
+            .join("\n\n");
+        });
 
         if (onChange) {
           const formattedValues = editorRef.current
