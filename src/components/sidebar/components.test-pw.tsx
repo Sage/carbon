@@ -143,6 +143,36 @@ export const SidebarComponentWithHeading = (props: Partial<SidebarProps>) => {
   );
 };
 
+export const SidebarComponentWithDarkHeading = (
+  props: Partial<SidebarProps>,
+) => {
+  return (
+    <>
+      <Sidebar
+        aria-label="sidebar"
+        open
+        position="right"
+        size="medium"
+        header={
+          <Typography variant="h3" color="white">
+            Sidebar Header
+          </Typography>
+        }
+        headerVariant="dark"
+        {...props}
+      >
+        <Box mb={2}>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </Box>
+        <Box mb="3000px">Main content</Box>
+      </Sidebar>
+    </>
+  );
+};
+
 export const SidebarBackgroundScrollTestComponent = () => {
   return (
     <Box height="2000px" position="relative">

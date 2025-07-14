@@ -2,11 +2,16 @@ import styled, { css } from "styled-components";
 import { padding } from "styled-system";
 import applyBaseTheme from "../../../../style/themes/apply-base-theme";
 import StyledIconButton from "../../../icon-button/icon-button.style";
+import StyledIcon from "../../../icon/icon.style";
 
 const StyledSidebarHeader = styled.div.attrs(applyBaseTheme)<{
   hasClose?: boolean;
+  headerVariant?: "light" | "dark";
 }>`
-  background-color: var(--colorsUtilityYang100);
+  background-color: ${({ headerVariant }) =>
+    headerVariant === "light"
+      ? "var(--colorsUtilityYang100)"
+      : "var(--colorsUtilityYin100)"};
   box-shadow: inset 0 -1px 0 0 var(--colorsUtilityMajor100);
   box-sizing: border-box;
   width: 100%;
@@ -15,13 +20,20 @@ const StyledSidebarHeader = styled.div.attrs(applyBaseTheme)<{
 
   ${padding}
 
-  ${({ hasClose }) =>
+  ${({ hasClose, headerVariant }) =>
     hasClose &&
     css`
       display: flex;
       justify-content: space-between;
 
       > ${StyledIconButton}:first-of-type {
+        ${headerVariant === "dark" &&
+        css`
+          ${StyledIcon} {
+            color: var(--colorsUtilityYang080);
+          }
+        `}
+
         position: absolute;
         z-index: 1;
         right: 25px;

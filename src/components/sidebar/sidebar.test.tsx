@@ -332,3 +332,29 @@ testStyledSystemPadding(
     return sidebars[sidebars.length - 1];
   },
 );
+
+// for coverage - the `headerVariant` prop will be captured by Chromatic`
+test('renders with correct styles when `headerVariant` is "light"', () => {
+  render(<Sidebar open header="foo" headerVariant="light" />);
+
+  const sidebarHeader = screen.getByTestId("sidebar-header");
+
+  expect(sidebarHeader).toHaveStyle({
+    "background-color": "var(--colorsUtilityYang100)",
+  });
+});
+
+// for coverage - the `headerVariant` prop will be captured by Chromatic`
+test('renders with correct styles when `headerVariant` is "dark"', () => {
+  render(
+    <Sidebar open header="foo" headerVariant="dark" onCancel={() => {}} />,
+  );
+
+  const sidebarHeader = screen.getByTestId("sidebar-header");
+  const closeIcon = screen.getByTestId("icon");
+
+  expect(sidebarHeader).toHaveStyle(
+    "background-color: var(--colorsUtilityYin100)",
+  );
+  expect(closeIcon).toHaveStyle("color: var(--colorsUtilityYang080)");
+});

@@ -54,6 +54,8 @@ export interface SidebarProps
   ) => void;
   /** Node that will be used as sidebar header. */
   header?: React.ReactNode;
+  /** Header background variant for the sidebar. */
+  headerVariant?: "light" | "dark";
   /** A custom close event handler */
   onCancel?: (
     ev:
@@ -104,6 +106,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       disableEscKey = false,
       enableBackgroundUI = false,
       header,
+      headerVariant = "light",
       position = "right",
       size = "medium",
       children,
@@ -172,6 +175,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       >
         {header && (
           <SidebarHeader
+            headerVariant={headerVariant}
             closeIcon={closeIcon()}
             {...headerPadding}
             id={headerId}
