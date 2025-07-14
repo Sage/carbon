@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -139,17 +139,25 @@ IsOptional.parameters = { controls: { disable: true } };
 export const LabelAlign: Story = () => {
   return (
     <Box>
-      {(["right", "left"] as const).map((alignment) => (
-        <InlineInputs
-          label="My Inline Inputs"
-          labelAlign={alignment}
-          labelId="inline-inputs-align"
-          labelWidth={30}
-        >
-          <Textbox aria-labelledby="inline-inputs-align" />
-          <Textbox aria-labelledby="inline-inputs-align" />
-        </InlineInputs>
-      ))}
+      <InlineInputs
+        label="My Inline Inputs"
+        labelAlign="left"
+        labelId="inline-inputs-align"
+        labelWidth={30}
+      >
+        <Textbox aria-labelledby="inline-inputs-align" />
+        <Textbox aria-labelledby="inline-inputs-align" />
+      </InlineInputs>
+
+      <InlineInputs
+        label="My Inline Inputs"
+        labelAlign="right"
+        labelId="inline-inputs-align"
+        labelWidth={30}
+      >
+        <Textbox aria-labelledby="inline-inputs-align" />
+        <Textbox aria-labelledby="inline-inputs-align" />
+      </InlineInputs>
     </Box>
   );
 };

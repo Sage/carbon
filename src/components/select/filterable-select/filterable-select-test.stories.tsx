@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { FilterableSelect, Option, FilterableSelectProps } from "..";
 import OptionRow from "../option-row/option-row.component";
 import Dialog from "../../dialog";

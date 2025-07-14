@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { allModes } from "../../../.storybook/modes";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import isChromatic from "../../../.storybook/isChromatic";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import Box from "../box";
 import { Dd, Dl, Dt } from "../definition-list";
 import Link from "../link";

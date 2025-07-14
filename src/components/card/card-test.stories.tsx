@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta } from "@storybook/react";
+import { Meta } from "@storybook/react-vite";
 import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
 
 import Link from "../link";

@@ -1,4 +1,4 @@
-import { ArgTypes } from "@storybook/react";
+import { ArgTypes } from "@storybook/react-vite";
 import {
   SpaceProps,
   LayoutProps,
@@ -77,7 +77,7 @@ type Props = {
 };
 
 const generateStyledSystemMarginProps = (
-  defaults: StyledSystemDefaults
+  defaults: StyledSystemDefaults,
 ): ArgTypes[] => {
   return [
     {
@@ -843,7 +843,7 @@ const generateStyledSystemGridProps = (defaults: StyledSystemDefaults) => {
 };
 
 const generateStyledSystemBackgroundProps = (
-  defaults: StyledSystemDefaults
+  defaults: StyledSystemDefaults,
 ) => {
   return [
     {
@@ -994,13 +994,13 @@ const generateStyledSystemPositionProps = (defaults: StyledSystemDefaults) => {
 
 const filterProps = (
   props: Record<string, unknown>[],
-  excludes: string[] = []
+  excludes: string[] = [],
 ) => props.filter((prop) => !excludes.includes(Object.keys(prop)[0]));
 
 const generateStyledSystemProps = (
   props: StyledSystemProps,
   defaults?: StyledSystemDefaults,
-  excludes?: string[]
+  excludes?: string[],
 ): ArgTypes<StyledSystemProps> => {
   const {
     spacing,
@@ -1019,49 +1019,58 @@ const generateStyledSystemProps = (
   if (spacing) {
     Object.assign(
       result,
-      ...filterProps(generateStyledSystemSpacingProps(defaults || {}), excludes)
+      ...filterProps(
+        generateStyledSystemSpacingProps(defaults || {}),
+        excludes,
+      ),
     );
   }
   if (margin) {
     Object.assign(
       result,
-      ...filterProps(generateStyledSystemMarginProps(defaults || {}), excludes)
+      ...filterProps(generateStyledSystemMarginProps(defaults || {}), excludes),
     );
   }
   if (padding) {
     Object.assign(
       result,
-      ...filterProps(generateStyledSystemPaddingProps(defaults || {}), excludes)
+      ...filterProps(
+        generateStyledSystemPaddingProps(defaults || {}),
+        excludes,
+      ),
     );
   }
   if (color) {
     Object.assign(
       result,
-      ...filterProps(generateStyledSystemColorProps(defaults || {}), excludes)
+      ...filterProps(generateStyledSystemColorProps(defaults || {}), excludes),
     );
   }
   if (layout) {
     Object.assign(
       result,
-      ...filterProps(generateStyledSystemLayoutProps(defaults || {}), excludes)
+      ...filterProps(generateStyledSystemLayoutProps(defaults || {}), excludes),
     );
   }
   if (width) {
     Object.assign(
       result,
-      ...filterProps(generateStyledSystemWidthProps(defaults || {}), excludes)
+      ...filterProps(generateStyledSystemWidthProps(defaults || {}), excludes),
     );
   }
   if (flexBox) {
     Object.assign(
       result,
-      ...filterProps(generateStyledSystemFlexBoxProps(defaults || {}), excludes)
+      ...filterProps(
+        generateStyledSystemFlexBoxProps(defaults || {}),
+        excludes,
+      ),
     );
   }
   if (grid) {
     Object.assign(
       result,
-      ...filterProps(generateStyledSystemGridProps(defaults || {}), excludes)
+      ...filterProps(generateStyledSystemGridProps(defaults || {}), excludes),
     );
   }
   if (background) {
@@ -1069,8 +1078,8 @@ const generateStyledSystemProps = (
       result,
       ...filterProps(
         generateStyledSystemBackgroundProps(defaults || {}),
-        excludes
-      )
+        excludes,
+      ),
     );
   }
   if (position) {
@@ -1078,8 +1087,8 @@ const generateStyledSystemProps = (
       result,
       ...filterProps(
         generateStyledSystemPositionProps(defaults || {}),
-        excludes
-      )
+        excludes,
+      ),
     );
   }
 

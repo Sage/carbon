@@ -1,4 +1,4 @@
-import { Decorator } from "@storybook/react";
+import { Decorator } from "@storybook/react-vite";
 import React from "react";
 import PortalContext from "../src/components/portal/__internal__/portal.context";
 import isChromatic from "./isChromatic";

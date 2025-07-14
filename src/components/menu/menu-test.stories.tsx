@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Meta } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { Meta } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 
 import { allModes } from "../../../.storybook/modes";
 import isChromatic from "../../../.storybook/isChromatic";

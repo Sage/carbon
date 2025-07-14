@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -213,22 +213,29 @@ export const Subtext: Story = {
 export const WithChildrenButtonsWithIcons: Story = () => {
   return (
     <>
-      {(["before", "after"] as const).map((iconPosition) => (
-        <MultiActionButton
-          align={iconPosition === "before" ? "left" : "right"}
-          text="Multi Action Button"
-        >
-          <Button iconPosition={iconPosition} iconType="add">
-            Child Button 1
-          </Button>
-          <Button iconPosition={iconPosition} iconType="upload">
-            Child Button 2
-          </Button>
-          <Button iconPosition={iconPosition} iconType="clock">
-            Child Button 3
-          </Button>
-        </MultiActionButton>
-      ))}
+      <MultiActionButton align="left" text="Multi Action Button">
+        <Button iconPosition="before" iconType="add">
+          Child Button 1
+        </Button>
+        <Button iconPosition="before" iconType="upload">
+          Child Button 2
+        </Button>
+        <Button iconPosition="before" iconType="clock">
+          Child Button 3
+        </Button>
+      </MultiActionButton>
+
+      <MultiActionButton align="right" text="Multi Action Button">
+        <Button iconPosition="after" iconType="add">
+          Child Button 1
+        </Button>
+        <Button iconPosition="after" iconType="upload">
+          Child Button 2
+        </Button>
+        <Button iconPosition="after" iconType="clock">
+          Child Button 3
+        </Button>
+      </MultiActionButton>
     </>
   );
 };

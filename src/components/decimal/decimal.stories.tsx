@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArgTypes, Meta, StoryObj } from "@storybook/react";
+import { ArgTypes, Meta, StoryObj } from "@storybook/react-vite";
 
 import Decimal, { DecimalProps, CustomEvent } from ".";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
