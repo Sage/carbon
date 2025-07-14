@@ -1,3 +1,9 @@
+## [155.2.0](https://github.com/Sage/carbon/compare/v155.1.0...v155.2.0) (2025-07-14)
+
+### Features
+
+* **date-input, date-range:** remove support for opening date picker via keyboard ([5ffc42c](https://github.com/Sage/carbon/commit/5ffc42cc2784d1b6d3905d724f715f45bcc7639a))
+
 ## [155.1.0](https://github.com/Sage/carbon/compare/v155.0.3...v155.1.0) (2025-07-11)
 
 ### Features
