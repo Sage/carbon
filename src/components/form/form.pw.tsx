@@ -169,7 +169,7 @@ test.describe("check props for Form component", () => {
 
   (
     [
-      [true, "rgba(0, 0, 0, 0.05) 0px -4px 12px 0px"],
+      [true, "rgba(0, 20, 30, 0.05) 0px -4px 12px 0px"],
       [false, "none"],
     ] as [FormProps["stickyFooter"], string][]
   ).forEach(([bool, boxShadow]) => {
@@ -271,7 +271,9 @@ test.describe("Accessibility tests for Form component", () => {
     const dialogButton = dataComponentButtonByText(page, "Open Preview");
     await dialogButton.click();
 
-    await checkAccessibility(page, page.getByRole("dialog"));
+    /* The colour contrast accessiiblity check has been omitted here due to a false positive
+    where the box-shadow is incorrectly compared to the sticky footer background colour */
+    await checkAccessibility(page, page.getByRole("dialog"), "color-contrast");
   });
 
   test(`should pass tests for InDialogFullScreenWithStickyFooter example`, async ({
@@ -283,7 +285,9 @@ test.describe("Accessibility tests for Form component", () => {
     const dialogButton = dataComponentButtonByText(page, "Open Preview");
     await dialogButton.click();
 
-    await checkAccessibility(page, page.getByRole("dialog"));
+    /* The colour contrast accessiiblity check has been omitted here due to a false positive
+    where the box-shadow is incorrectly compared to the sticky footer background colour */
+    await checkAccessibility(page, page.getByRole("dialog"), "color-contrast");
   });
 
   test(`should pass tests for InDialogWithStickyFooter example`, async ({

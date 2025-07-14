@@ -73,7 +73,7 @@ export const StyledFormFooter = styled.div.attrs(
     ${stickyFooter &&
     css`
       background-color: var(--colorsUtilityYang100);
-      box-shadow: 0 -4px 12px 0 rgba(0, 0, 0, 0.05);
+      box-shadow: var(--boxShadow150);
       box-sizing: border-box;
       padding: 16px 32px;
       width: 100%;
