@@ -17,15 +17,12 @@ const StyledSidebarHeader = styled.div.attrs(applyBaseTheme)<{
   width: 100%;
   color: var(--colorsActionMinorYin090);
   transition: all 0.2s ease;
-
   ${padding}
-
   ${({ hasClose, headerVariant }) =>
     hasClose &&
     css`
       display: flex;
       justify-content: space-between;
-
       > ${StyledIconButton}:first-of-type {
         ${headerVariant === "dark" &&
         css`
@@ -33,16 +30,25 @@ const StyledSidebarHeader = styled.div.attrs(applyBaseTheme)<{
             color: var(--colorsUtilityYang080);
           }
         `}
-
         position: absolute;
         z-index: 1;
         right: 25px;
       }
     `}
-
-    div[data-element="sidebar-heading"] {
+  div[data-element="sidebar-heading"] {
     width: 100%;
   }
 `;
 
+const StyledSidebarSubHeader = styled.div.attrs(applyBaseTheme)`
+  box-sizing: border-box;
+  width: 100%;
+  color: var(--colorsActionMinorYin090);
+  background-color: var(--colorsUtilityMajor050);
+  border-bottom: 1px solid var(--colorsUtilityMajor075);
+  ${padding}
+  transition: all 0.2s ease;
+`;
+
 export default StyledSidebarHeader;
+export { StyledSidebarSubHeader };

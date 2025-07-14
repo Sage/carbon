@@ -1,6 +1,8 @@
 import React from "react";
 import { PaddingProps } from "styled-system";
-import StyledSidebarHeader from "./sidebar-header.style";
+import StyledSidebarHeader, {
+  StyledSidebarSubHeader,
+} from "./sidebar-header.style";
 
 export interface SidebarHeaderProps extends PaddingProps {
   /** This component supports children. */
@@ -11,6 +13,13 @@ export interface SidebarHeaderProps extends PaddingProps {
   closeIcon?: React.ReactNode;
   /** Header background variant for the sidebar. */
   headerVariant?: "light" | "dark";
+}
+
+export interface SidebarSubHeaderProps extends PaddingProps {
+  /** This component supports children. */
+  children?: React.ReactNode;
+  /** A custom id. */
+  id: string;
 }
 
 const SidebarHeader = ({
@@ -35,6 +44,19 @@ const SidebarHeader = ({
   </StyledSidebarHeader>
 );
 
+const SidebarSubHeader = ({ children, id, ...rest }: SidebarSubHeaderProps) => (
+  <StyledSidebarSubHeader
+    data-component="sidebar-subheader"
+    p="var(--sizing100) var(--sizing400)"
+    id={id}
+    {...rest}
+  >
+    {children}
+  </StyledSidebarSubHeader>
+);
+
 SidebarHeader.displayName = "SidebarHeader";
+SidebarSubHeader.displayName = "SidebarSubHeader";
 
 export default SidebarHeader;
+export { SidebarSubHeader };
