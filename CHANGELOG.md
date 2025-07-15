@@ -1,3 +1,27 @@
+## [155.2.0](https://github.com/Sage/carbon/compare/v155.1.0...v155.2.0) (2025-07-14)
+
+### Features
+
+* **date-input, date-range:** remove support for opening date picker via keyboard ([5ffc42c](https://github.com/Sage/carbon/commit/5ffc42cc2784d1b6d3905d724f715f45bcc7639a))
+
+## [155.1.0](https://github.com/Sage/carbon/compare/v155.0.3...v155.1.0) (2025-07-11)
+
+### Features
+
+* **responsive-vertical-menu:** add launcherButtonDataProps ([bf721dd](https://github.com/Sage/carbon/commit/bf721dd8bcefe9cd3ebd005bfb2261389cb6a4bd)), closes [#7396](https://github.com/Sage/carbon/issues/7396)
+
+## [155.0.3](https://github.com/Sage/carbon/compare/v155.0.2...v155.0.3) (2025-07-11)
+
+### Bug Fixes
+
+* **note:** render title semantically with h3 when passed as text ([8c40d21](https://github.com/Sage/carbon/commit/8c40d2144d85174825182899c4524d4078cb3efd))
+
+## [155.0.2](https://github.com/Sage/carbon/compare/v155.0.1...v155.0.2) (2025-07-11)
+
+### Bug Fixes
+
+* **text-editor:** character count behaving inconsistently when pasting ([d2290b6](https://github.com/Sage/carbon/commit/d2290b62f249bd4de63b28469a50deeebc92934b)), closes [#7380](https://github.com/Sage/carbon/issues/7380)
+
 ## [155.0.1](https://github.com/Sage/carbon/compare/v155.0.0...v155.0.1) (2025-07-09)
 
 ### Bug Fixes

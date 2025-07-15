@@ -9,7 +9,6 @@ import MultiActionButton, {
 } from ".";
 import Button from "../button";
 import Box from "../box";
-import { Accordion } from "../accordion";
 
 const styledSystemProps = generateStyledSystemProps({
   width: true,
@@ -209,30 +208,6 @@ export const Subtext: Story = {
     ),
   },
   name: "Subtext",
-};
-
-export const InOverflowHiddenContainer: Story = () => {
-  return (
-    <Accordion title="Heading">
-      <Box p={4}>
-        <MultiActionButton
-          size="large"
-          subtext="subtext"
-          text="Multi Action Button"
-        >
-          <Button size="large" href="#">
-            Button 1
-          </Button>
-          <Button size="large">Button 2</Button>
-          <Button size="large">Button 3</Button>
-        </MultiActionButton>
-      </Box>
-    </Accordion>
-  );
-};
-InOverflowHiddenContainer.storyName = "In Overflow Hidden Container";
-InOverflowHiddenContainer.parameters = {
-  chromatic: { disableSnapshot: true },
 };
 
 export const WithChildrenButtonsWithIcons: Story = () => {
