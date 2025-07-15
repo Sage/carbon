@@ -1,3 +1,9 @@
+## [155.2.1](https://github.com/Sage/carbon/compare/v155.2.0...v155.2.1) (2025-07-15)
+
+### Bug Fixes
+
+* **dialog-full-screen:** deprecate pagesStyling prop ([c391edc](https://github.com/Sage/carbon/commit/c391edc863a69057742373d936c8a7dba8e8621c))
+
 ## [155.2.0](https://github.com/Sage/carbon/compare/v155.1.0...v155.2.0) (2025-07-14)
 
 ### Features
