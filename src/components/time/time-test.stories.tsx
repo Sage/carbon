@@ -88,6 +88,60 @@ export const Validation: Story = () => {
         minutesInputProps={{
           warning: "Minutes value must be in  AM/PM format.",
         }}
+        mb={1}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidHours}
+        onChange={() => {}}
+        label="Time - with error on hours"
+        hoursInputProps={{ error: "Hours value must be in AM/PM format." }}
+        mb={1}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidMinutes}
+        onChange={() => {}}
+        label="Time - with error on minutes"
+        minutesInputProps={{ error: "Minutes value must be in  AM/PM format." }}
+        mb={1}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidBoth}
+        onChange={() => {}}
+        label="Time - with error on both"
+        hoursInputProps={{ error: "Hours value must be in AM/PM format." }}
+        minutesInputProps={{ error: "Minutes value must be in  AM/PM format." }}
+        mb={2}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidHours}
+        onChange={() => {}}
+        label="Time - with warning on hours"
+        hoursInputProps={{ warning: "Hours value must be in AM/PM format." }}
+        mb={1}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidMinutes}
+        onChange={() => {}}
+        label="Time - with warning on minutes"
+        minutesInputProps={{
+          warning: "Minutes value must be in  AM/PM format.",
+        }}
+        mb={1}
+      />
+      <Time
+        validationMessagePositionTop={false}
+        value={valueInvalidBoth}
+        onChange={() => {}}
+        label="Time - with warning on both"
+        hoursInputProps={{ warning: "Hours value must be in AM/PM format." }}
+        minutesInputProps={{
+          warning: "Minutes value must be in  AM/PM format.",
+        }}
       />
     </Box>
   );

@@ -40,6 +40,8 @@ export interface SwitchProps
   helpAriaLabel?: string;
   /** Whether this component resides on a dark background */
   isDarkBackground?: boolean;
+  /** Render the ValidationMessage above the Switch input when validationRedesignOptIn flag is set */
+  validationMessagePositionTop?: boolean;
 }
 
 let deprecateUncontrolledWarnTriggered = false;
@@ -77,6 +79,7 @@ export const Switch = React.forwardRef(
       "data-role": dataRole,
       helpAriaLabel,
       isDarkBackground = false,
+      validationMessagePositionTop = true,
       ...rest
     }: SwitchProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -312,19 +315,25 @@ export const Switch = React.forwardRef(
               id="input-wrapper"
               data-role="input-wrapper"
             >
-              <ValidationMessage
-                error={error}
-                warning={warning}
-                validationId={validationMessageId.current}
-                isDarkBackground={isDarkBackground}
-              />
-              {applyValidation && (
-                <ErrorBorder
-                  data-role="error-border"
-                  warning={!!(!error && warning)}
-                  reverse={!reverse}
-                  isDarkBackground={isDarkBackground}
-                />
+              {validationMessagePositionTop && (
+                <>
+                  <ValidationMessage
+                    error={error}
+                    warning={warning}
+                    validationId={validationMessageId.current}
+                    isDarkBackground={isDarkBackground}
+                    validationMessagePositionTop={validationMessagePositionTop}
+                    data-role="validation-message-top"
+                  />
+                  {applyValidation && (
+                    <ErrorBorder
+                      data-role="error-border"
+                      warning={!!(!error && warning)}
+                      reverse={!reverse}
+                      isDarkBackground={isDarkBackground}
+                    />
+                  )}
+                </>
               )}
               <CheckableInput
                 ariaLabelledBy={`${label && labelId.current}`}
@@ -334,6 +343,26 @@ export const Switch = React.forwardRef(
               >
                 <SwitchSlider {...switchSliderPropsForNewValidation} />
               </CheckableInput>
+              {!validationMessagePositionTop && (
+                <>
+                  <ValidationMessage
+                    error={error}
+                    warning={warning}
+                    validationId={validationMessageId.current}
+                    isDarkBackground={isDarkBackground}
+                    validationMessagePositionTop={validationMessagePositionTop}
+                    data-role="validation-message-bottom"
+                  />
+                  {applyValidation && (
+                    <ErrorBorder
+                      data-role="error-border"
+                      warning={!!(!error && warning)}
+                      reverse={!reverse}
+                      isDarkBackground={isDarkBackground}
+                    />
+                  )}
+                </>
+              )}
             </Box>
           </Box>
         </StyledSwitch>

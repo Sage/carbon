@@ -2184,6 +2184,26 @@ test.each(["error", "warning"])(
   },
 );
 
+test.each(["error", "warning"])(
+  "should render with expected accessible description when '%s' and 'labelHelp' props are passed, 'validationRedesignOptIn' is true and validationMessagePositionTop is false",
+  (validation) => {
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <NumeralDate
+          value={{ dd: "", mm: "", yyyy: "" }}
+          onChange={() => {}}
+          labelHelp="labelHelp"
+          validationMessagePositionTop={false}
+          {...{ [validation]: "Message" }}
+        />
+      </CarbonProvider>,
+    );
+
+    const fieldset = screen.getByRole("group");
+    expect(fieldset).toHaveAccessibleDescription("labelHelp Message");
+  },
+);
+
 test("should focus the first textbox when the component is programmatically focused when the date format is dd/mm/yyyy", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const MockComponent = () => {
