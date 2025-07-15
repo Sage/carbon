@@ -45,6 +45,7 @@ export const StyledFormContent = styled.div<StyledFormContentProps>(
 );
 
 interface StyledFormFooterProps {
+  hasFooterChildren?: boolean;
   stickyFooter?: boolean;
   stickyFooterVariant?: "light" | "grey";
   fullWidthButtons?: boolean;
@@ -54,10 +55,14 @@ interface StyledFormFooterProps {
 export const StyledFormFooter = styled.div.attrs(
   applyBaseTheme,
 )<StyledFormFooterProps>`
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sizing200);
+  ${({ hasFooterChildren }) =>
+    !hasFooterChildren &&
+    css`
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sizing200);
+    `}
 
   ${({ buttonAlignment }) =>
     buttonAlignment === "right" &&

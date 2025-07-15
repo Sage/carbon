@@ -32,6 +32,8 @@ export interface FormProps extends SpaceProps, TagProps {
   rightSideButtons?: React.ReactNode;
   /** Save button to be rendered */
   saveButton?: React.ReactNode;
+  /** Custom content to render in the form's footer */
+  footerChildren?: React.ReactNode;
   /** Enables the sticky footer. */
   stickyFooter?: boolean;
   /** Background variant for the sticky footer. */
@@ -55,6 +57,7 @@ export const Form = ({
   warningCount,
   onSubmit,
   buttonAlignment = "right",
+  footerChildren,
   stickyFooter,
   stickyFooterVariant = "light",
   fieldSpacing = 3,
@@ -69,6 +72,7 @@ export const Form = ({
   const { isInModal } = useContext(ModalContext);
 
   const renderFooter = !!(
+    footerChildren ||
     saveButton ||
     leftSideButtons ||
     rightSideButtons ||
@@ -104,36 +108,41 @@ export const Form = ({
           data-element="form-footer"
           data-role="form-footer"
           ref={formFooterRef}
+          hasFooterChildren={!!footerChildren}
           stickyFooter={stickyFooter}
           {...(stickyFooter && { stickyFooterVariant })}
           buttonAlignment={buttonAlignment}
           fullWidthButtons={fullWidthButtons}
           {...footerPadding}
         >
-          {leftSideButtons && (
-            <StyledLeftButtons
-              data-role="form-left-buttons"
-              buttonAlignment={buttonAlignment}
-            >
-              {leftSideButtons}
-            </StyledLeftButtons>
-          )}
+          {footerChildren || (
+            <>
+              {leftSideButtons && (
+                <StyledLeftButtons
+                  data-role="form-left-buttons"
+                  buttonAlignment={buttonAlignment}
+                >
+                  {leftSideButtons}
+                </StyledLeftButtons>
+              )}
 
-          <FormSummary
-            fullWidth={fullWidthButtons}
-            errorCount={errorCount}
-            warningCount={warningCount}
-          >
-            {saveButton}
-          </FormSummary>
+              <FormSummary
+                fullWidth={fullWidthButtons}
+                errorCount={errorCount}
+                warningCount={warningCount}
+              >
+                {saveButton}
+              </FormSummary>
 
-          {rightSideButtons && (
-            <StyledRightButtons
-              data-role="form-right-buttons"
-              buttonAlignment={buttonAlignment}
-            >
-              {rightSideButtons}
-            </StyledRightButtons>
+              {rightSideButtons && (
+                <StyledRightButtons
+                  data-role="form-right-buttons"
+                  buttonAlignment={buttonAlignment}
+                >
+                  {rightSideButtons}
+                </StyledRightButtons>
+              )}
+            </>
           )}
         </StyledFormFooter>
       )}

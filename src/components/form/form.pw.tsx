@@ -6,6 +6,7 @@ import {
   FormWithLeftSidedButtons,
   FormWithRightSidedButtons,
   FormWithFullWidthButtons,
+  WithFooterChildren,
   DefaultWithStickyFooter,
   StickyFooterVariant,
   FormAlignmentExample,
@@ -237,6 +238,15 @@ test.describe("check props for Form component", () => {
 });
 
 test.describe("Accessibility tests for Form component", () => {
+  test(`should pass tests when children are passed to the footer`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithFooterChildren />);
+
+    await checkAccessibility(page);
+  });
+
   test(`should pass tests for DefaultWithStickyFooter example`, async ({
     mount,
     page,
@@ -251,6 +261,15 @@ test.describe("Accessibility tests for Form component", () => {
     page,
   }) => {
     await mount(<StickyFooterVariant />);
+
+    await checkAccessibility(page);
+  });
+
+  test(`should pass tests when children are passed to the footer with the grey sticky footer variant`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithFooterChildren stickyFooterVariant="grey" />);
 
     await checkAccessibility(page);
   });

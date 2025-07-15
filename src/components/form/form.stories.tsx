@@ -20,6 +20,7 @@ import Hr from "../hr";
 import Switch from "../switch";
 import InlineInputs from "../inline-inputs";
 import Typography from "../typography";
+import Link from "../link";
 
 const styledSystemProps = generateStyledSystemProps({
   spacing: true,
@@ -59,6 +60,37 @@ const meta: Meta<typeof Form> = {
 
 export default meta;
 type Story = StoryObj<typeof Form>;
+
+export const WithFooterNode: Story = (args: FormProps) => {
+  const footerNode = (
+    <Box>
+      <Typography>
+        This is the footer text that will be added to provide information about
+        the form content.
+      </Typography>
+      <Link icon="square_dot" href="#">
+        This is a link
+      </Link>
+    </Box>
+  );
+
+  return (
+    <Form {...args} footerChildren={footerNode}>
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+    </Form>
+  );
+};
+WithFooterNode.storyName = "With footer node";
+WithFooterNode.parameters = {
+  chromatic: { viewports: [1200, 320] },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
 export const DefaultWithStickyFooter: Story = (args: FormProps) => (
   <Form
