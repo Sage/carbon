@@ -129,6 +129,8 @@ export interface CommonTextboxProps
   tooltipId?: string;
   /** @private @internal @ignore */
   "data-component"?: string;
+  /** Render the ValidationMessage above the Textbox input when validationRedesignOptIn flag is set */
+  validationMessagePositionTop?: boolean;
 }
 
 export interface TextboxProps extends CommonTextboxProps {
@@ -200,6 +202,7 @@ export const Textbox = React.forwardRef(
       characterLimit,
       helpAriaLabel,
       tooltipId,
+      validationMessagePositionTop = true,
       ...props
     }: TextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
@@ -270,9 +273,12 @@ export const Textbox = React.forwardRef(
     const hintId = useRef(guid());
     const inputHintId = inputHint ? hintId.current : undefined;
 
+    const describedByArray =
+      validationRedesignOptIn && validationMessagePositionTop
+        ? [ariaDescribedBy, inputHintId]
+        : [inputHintId, ariaDescribedBy];
     const combinedAriaDescribedBy = [
-      ariaDescribedBy,
-      inputHintId,
+      ...describedByArray,
       visuallyHiddenHintId,
       ariaDescribedByProp || ariaDescribedByDeprecated,
     ]
@@ -401,15 +407,37 @@ export const Textbox = React.forwardRef(
             )}
             {validationRedesignOptIn ? (
               <Box position="relative">
-                <ValidationMessage
-                  error={error}
-                  validationId={validationId}
-                  warning={warning}
-                />
-                {!disableErrorBorder && (error || warning) && (
-                  <ErrorBorder warning={!!(!error && warning)} />
+                {validationMessagePositionTop && (
+                  <>
+                    <ValidationMessage
+                      error={error}
+                      validationId={validationId}
+                      warning={warning}
+                      validationMessagePositionTop={
+                        validationMessagePositionTop
+                      }
+                    />
+                    {!disableErrorBorder && (error || warning) && (
+                      <ErrorBorder warning={!!(!error && warning)} />
+                    )}
+                  </>
                 )}
                 {input}
+                {!validationMessagePositionTop && (
+                  <>
+                    <ValidationMessage
+                      error={error}
+                      validationId={validationId}
+                      warning={warning}
+                      validationMessagePositionTop={
+                        validationMessagePositionTop
+                      }
+                    />
+                    {!disableErrorBorder && (error || warning) && (
+                      <ErrorBorder warning={!!(!error && warning)} />
+                    )}
+                  </>
+                )}
               </Box>
             ) : (
               input

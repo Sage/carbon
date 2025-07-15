@@ -248,6 +248,30 @@ export const NewValidation = () => {
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </FilterableSelect>
+      <FilterableSelect
+        validationMessagePositionTop={false}
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        error="Error Message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
+      <FilterableSelect
+        validationMessagePositionTop={false}
+        name="filterable"
+        id="filterable"
+        label="Filterable Select"
+        warning="Warning Message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </FilterableSelect>
     </CarbonProvider>
   );
 };

@@ -1,3 +1,9 @@
+## [155.3.0](https://github.com/Sage/carbon/compare/v155.2.1...v155.3.0) (2025-07-15)
+
+### Features
+
+* add support for rendering the validation message under the input or input group ([7fff048](https://github.com/Sage/carbon/commit/7fff0485c3e72a8941c287c3ed7fa7f1b74abad1))
+
 ## [155.2.1](https://github.com/Sage/carbon/compare/v155.2.0...v155.2.1) (2025-07-15)
 
 ### Bug Fixes
