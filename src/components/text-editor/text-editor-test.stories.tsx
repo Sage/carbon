@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -188,6 +188,7 @@ export const OnChangeFormattedValues: Story = () => {
         onChange={(_, { htmlString, json }) => {
           setValueJSON(JSON.stringify(json, null, 2));
           setValueHTML(htmlString);
+          action("onChange")({ htmlString, json });
         }}
       />
       <div>
@@ -206,5 +207,33 @@ export const OnChangeFormattedValues: Story = () => {
 };
 OnChangeFormattedValues.storyName = "Change Handler With Formatted Values";
 OnChangeFormattedValues.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const ExternalOverwrite: Story = () => {
+  const [, setValue] = useState("");
+  const [resetKey, setResetKey] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setValue(createFromHTML("<p>Message Changed</p>"));
+      setResetKey((prevKey) => prevKey + 1); // Force re-render when changing component key
+    }, 3000);
+  }, []);
+
+  return (
+    <TextEditor
+      key={resetKey}
+      labelText="Message"
+      value={createFromHTML("<p>Hello world</p>")}
+      onChange={(value, formattedValues) => {
+        action("onChange")({ value, formattedValues });
+        setValue(createFromHTML(value));
+      }}
+    />
+  );
+};
+ExternalOverwrite.storyName = "Externally overwrite editor content";
+ExternalOverwrite.parameters = {
   chromatic: { disableSnapshot: true },
 };
