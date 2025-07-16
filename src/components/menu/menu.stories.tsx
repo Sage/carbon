@@ -102,7 +102,6 @@ export const DefaultStory: MenuStory = () => {
   );
 };
 DefaultStory.storyName = "Default";
-DefaultStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const SelectedStory: MenuStory = () => {
   return (

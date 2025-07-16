@@ -1,3 +1,15 @@
+## [155.3.0](https://github.com/Sage/carbon/compare/v155.2.1...v155.3.0) (2025-07-15)
+
+### Features
+
+* add support for rendering the validation message under the input or input group ([7fff048](https://github.com/Sage/carbon/commit/7fff0485c3e72a8941c287c3ed7fa7f1b74abad1))
+
+## [155.2.1](https://github.com/Sage/carbon/compare/v155.2.0...v155.2.1) (2025-07-15)
+
+### Bug Fixes
+
+* **dialog-full-screen:** deprecate pagesStyling prop ([c391edc](https://github.com/Sage/carbon/commit/c391edc863a69057742373d936c8a7dba8e8621c))
+
 ## [155.2.0](https://github.com/Sage/carbon/compare/v155.1.0...v155.2.0) (2025-07-14)
 
 ### Features
