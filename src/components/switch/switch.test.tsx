@@ -690,6 +690,17 @@ test("when `labelInline` is true and `reverse` is true no margin right is applie
   expect(inputWrapper).toHaveStyleRule("margin-right: var(--spacing000)");
 });
 
+test("when `labelInline` is true, the provided `labelWidth` is applied to the label-wrapper", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch label="label" labelInline labelWidth={50} />
+    </CarbonProvider>,
+  );
+
+  const labelWrapper = screen.getByTestId("label-wrapper");
+  expect(labelWrapper).toHaveStyle("width: 50%");
+});
+
 test("when component is uncontrolled and loading, it doesn't change internal state and the provided onChange is not called", async () => {
   const user = userEvent.setup({ delay: null });
   const onChangeMock = jest.fn();
