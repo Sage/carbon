@@ -12,6 +12,7 @@ import Box from "../../box";
 import GlobalHeader from "../../global-header";
 import Icon from "../../icon";
 import Loader from "../../loader";
+import Typography from "../../typography";
 
 export default {
   title: "Vertical Menu/Responsive/Test",
@@ -508,3 +509,46 @@ export const WithExternalLinkStyles = () => {
     </>
   );
 };
+
+export const CustomLinkAction = (
+  props: Partial<ResponsiveVerticalMenuProps>,
+) => {
+  const [toggled, setToggled] = useState<boolean>(false);
+  return (
+    <>
+      <GlobalHeader>
+        <ResponsiveVerticalMenuProvider>
+          <ResponsiveVerticalMenu {...props}>
+            <ResponsiveVerticalMenuItem
+              icon="home"
+              id="home"
+              label="Home"
+              onClick={() => setToggled(true)}
+            />
+            <ResponsiveVerticalMenuDivider />
+            <ResponsiveVerticalMenuItem id="help" label="Help">
+              <ResponsiveVerticalMenuItem
+                id="help-centre"
+                label={
+                  <Box display="flex" width="100%" alignItems="center" gap={1}>
+                    <span>Help Centre</span>
+                    <Icon type="link" />
+                  </Box>
+                }
+              />
+              <ResponsiveVerticalMenuItem id="help-chat" label="Chat" />
+              <ResponsiveVerticalMenuItem
+                id="help-feedback"
+                label="Give feedback"
+              />
+            </ResponsiveVerticalMenuItem>
+          </ResponsiveVerticalMenu>
+        </ResponsiveVerticalMenuProvider>
+      </GlobalHeader>
+      <Typography my={3}>
+        HOME action fired: {toggled ? "Yes" : "No"}
+      </Typography>
+    </>
+  );
+};
+Default.storyName = "Default";
