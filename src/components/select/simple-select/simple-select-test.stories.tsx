@@ -227,6 +227,31 @@ export const NewValidation = () => {
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
+      <Select
+        validationMessagePositionTop={false}
+        name="simple"
+        id="simple"
+        label="Simple Select"
+        error="Error message"
+        inputHint="Hint text"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select
+        validationMessagePositionTop={false}
+        name="simple"
+        id="simple"
+        label="Simple Select"
+        warning="Warning message"
+        mb={2}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
     </CarbonProvider>
   );
 };

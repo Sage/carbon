@@ -141,6 +141,8 @@ export interface NumeralDateProps
    * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
    */
   isOptional?: boolean;
+  /** Render the ValidationMessage above the NumeralDate inputs when validationRedesignOptIn flag is set */
+  validationMessagePositionTop?: boolean;
 }
 
 export type ValidDateFormat = (typeof ALLOWED_DATE_FORMATS)[number];
@@ -262,6 +264,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
       dayRef,
       monthRef,
       yearRef,
+      validationMessagePositionTop = true,
       ...rest
     },
     ref,
@@ -442,9 +445,11 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
         fieldHelp,
       });
 
-    const combinedAriaDescribedBy = [ariaDescribedBy, inputHintId.current]
-      .filter(Boolean)
-      .join(" ");
+    const describedByArray =
+      validationRedesignOptIn && validationMessagePositionTop
+        ? [ariaDescribedBy, inputHintId.current]
+        : [inputHintId.current, ariaDescribedBy];
+    const combinedAriaDescribedBy = describedByArray.filter(Boolean).join(" ");
 
     const renderInputs = () => {
       return (
@@ -575,17 +580,31 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
         )}
 
         <Box position="relative" mt={labelHelp ? 0 : 1}>
-          {(internalError || internalWarning) && (
-            <>
-              <ValidationMessage
-                error={internalError}
-                warning={internalWarning}
-                validationId={validationId}
-              />
-              <ErrorBorder warning={!!(!internalError && internalWarning)} />
-            </>
-          )}
+          {validationMessagePositionTop &&
+            (internalError || internalWarning) && (
+              <>
+                <ValidationMessage
+                  error={internalError}
+                  warning={internalWarning}
+                  validationId={validationId}
+                  validationMessagePositionTop={validationMessagePositionTop}
+                />
+                <ErrorBorder warning={!!(!internalError && internalWarning)} />
+              </>
+            )}
           {renderInputs()}
+          {!validationMessagePositionTop &&
+            (internalError || internalWarning) && (
+              <>
+                <ValidationMessage
+                  error={internalError}
+                  warning={internalWarning}
+                  validationId={validationId}
+                  validationMessagePositionTop={validationMessagePositionTop}
+                />
+                <ErrorBorder warning={!!(!internalError && internalWarning)} />
+              </>
+            )}
         </Box>
       </StyledFieldset>
     );

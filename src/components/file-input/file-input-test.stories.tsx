@@ -113,6 +113,14 @@ export const Validation = () => {
         error
         onChange={() => {}}
       />
+      <FileInput
+        validationMessagePositionTop={false}
+        m={4}
+        label="error as string"
+        inputHint="Hint text (optional)"
+        error="error message"
+        onChange={() => {}}
+      />
     </>
   );
 };

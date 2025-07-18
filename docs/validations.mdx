@@ -51,6 +51,11 @@ These components can be validated using the same `error` and `warning` props, an
 
 <Canvas of={ValidationsStories.ValidationRedesignWithGroupedInputs} />
 
+#### Validation Message Position
+By default, the validation message will be displayed above the input, however you can set `validationMessagePositionTop` to `false` to display the validation message below the input.
+
+<Canvas of={ValidationsStories.ValidationRedesignMessageBottom} />
+
 **Note:** The new validation redesign pattern **does not** currently support inline labels/legends (with the exception of `Switch`), this means that any related props will not have any effect or may have unexpected behaviour. 
 Component props that are not supported if the opt-in flag is set to true are labelled as [Legacy] in their corresponding prop tables. 
 

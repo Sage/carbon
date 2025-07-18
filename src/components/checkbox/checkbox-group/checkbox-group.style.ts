@@ -50,8 +50,13 @@ const StyledCheckboxGroup = styled.div<{
     inline &&
     css`
       flex-direction: row;
-      ${CheckboxStyle}:not(:first-of-type) {
-        margin-left: 32px;
+
+      ${CheckboxStyle} {
+        margin: 0;
+
+        :not(:first-of-type) {
+          margin-left: 32px;
+        }
       }
     `}
 `;

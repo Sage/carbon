@@ -701,12 +701,14 @@ test("should close the open 'start' picker when the user moves focus to the `end
   const startDate = screen.getByTestId("start");
   const endDate = screen.getByTestId("end");
 
-  await user.click(screen.getByRole("textbox", { name: "start" }));
+  const startCalendarIcon = screen.getAllByTestId("input-icon-toggle")[0];
+  await user.click(startCalendarIcon);
 
   expect(within(startDate).getByRole("grid")).toBeVisible();
   expect(within(endDate).queryByRole("grid")).not.toBeInTheDocument();
 
-  await user.click(screen.getByRole("textbox", { name: "end" }));
+  const endCalendarIcon = screen.getAllByTestId("input-icon-toggle")[1];
+  await user.click(endCalendarIcon);
 
   expect(within(endDate).getByRole("grid")).toBeVisible();
   expect(within(startDate).queryByRole("grid")).not.toBeInTheDocument();
@@ -731,7 +733,8 @@ test("should apply aria-label and aria-labelledby to the date picker region", as
   const startDate = screen.getByTestId("start");
   const endDate = screen.getByTestId("end");
 
-  await user.click(screen.getByRole("textbox", { name: "start" }));
+  const startCalendarIcon = screen.getAllByTestId("input-icon-toggle")[0];
+  await user.click(startCalendarIcon);
 
   expect(within(startDate).getByRole("region")).toBeVisible();
   expect(within(startDate).getByRole("region")).toHaveAttribute(
@@ -743,7 +746,8 @@ test("should apply aria-label and aria-labelledby to the date picker region", as
     "start aria-labelledby",
   );
 
-  await user.click(screen.getByRole("textbox", { name: "end" }));
+  const endCalendarIcon = screen.getAllByTestId("input-icon-toggle")[1];
+  await user.click(endCalendarIcon);
 
   expect(within(endDate).getByRole("region")).toBeVisible();
   expect(within(endDate).getByRole("region")).toHaveAttribute(
@@ -771,12 +775,14 @@ test("should close the open 'end' picker when the user moves focus to the `start
   const startDate = screen.getByTestId("start");
   const endDate = screen.getByTestId("end");
 
-  await user.click(screen.getByRole("textbox", { name: "end" }));
+  const endCalendarIcon = screen.getAllByTestId("input-icon-toggle")[1];
+  await user.click(endCalendarIcon);
 
   expect(within(endDate).getByRole("grid")).toBeVisible();
   expect(within(startDate).queryByRole("grid")).not.toBeInTheDocument();
 
-  await user.click(screen.getByRole("textbox", { name: "start" }));
+  const startCalendarIcon = screen.getAllByTestId("input-icon-toggle")[0];
+  await user.click(startCalendarIcon);
 
   expect(within(startDate).getByRole("grid")).toBeVisible();
   expect(within(endDate).queryByRole("grid")).not.toBeInTheDocument();
@@ -1137,6 +1143,30 @@ test("should not display the error message for both inputs when booleans are pas
   expect(within(end).queryByText("end error")).not.toBeInTheDocument();
 });
 
+// for coverage
+test("should display the error message below both inputs when strings are passed to the error props, `validationRedesignOptIn` is true and `validationMessagePositionTop` is false", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <DateRange
+        validationMessagePositionTop={false}
+        startLabel="start"
+        onChange={() => {}}
+        endLabel="end"
+        value={["10/10/2016", "11/11/2016"]}
+        startError="start error"
+        endError="end error"
+        startDateProps={{ "data-role": "start" }}
+        endDateProps={{ "data-role": "end" }}
+      />
+    </CarbonProvider>,
+  );
+  const start = screen.getByTestId("start");
+  const end = screen.getByTestId("end");
+
+  expect(within(start).getByText("start error")).toBeVisible();
+  expect(within(end).getByText("end error")).toBeVisible();
+});
+
 test("should display the warning message for both inputs when strings are passed to the warning props and `validationRedesignOptIn` is set", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
@@ -1179,6 +1209,30 @@ test("should not display the warning message for both inputs when booleans are p
 
   expect(within(start).queryByText("start warning")).not.toBeInTheDocument();
   expect(within(end).queryByText("end warning")).not.toBeInTheDocument();
+});
+
+// for coverage
+test("should display the warning message below both inputs when strings are passed to the error props, `validationRedesignOptIn` is true and `validationMessagePositionTop` is false", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <DateRange
+        validationMessagePositionTop={false}
+        startLabel="start"
+        onChange={() => {}}
+        endLabel="end"
+        value={["10/10/2016", "11/11/2016"]}
+        startWarning="start warning"
+        endWarning="end warning"
+        startDateProps={{ "data-role": "start" }}
+        endDateProps={{ "data-role": "end" }}
+      />
+    </CarbonProvider>,
+  );
+  const start = screen.getByTestId("start");
+  const end = screen.getByTestId("end");
+
+  expect(within(start).getByText("start warning")).toBeVisible();
+  expect(within(end).getByText("end warning")).toBeVisible();
 });
 
 test("should have the expected styling when the `labelsInline` prop is set", () => {

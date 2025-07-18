@@ -205,12 +205,7 @@ test.describe("rounded corners", () => {
       await mount(
         <InlineInputs label="Inline Input" gutter={gutter}>
           <Textbox warning inputIcon="warning" />
-          <Decimal
-            onChange={function noRefCheck() {
-              ("");
-            }}
-            value="0.00"
-          />
+          <Decimal onChange={() => {}} value="0.00" />
         </InlineInputs>,
       );
 
