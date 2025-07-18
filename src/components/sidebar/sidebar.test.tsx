@@ -53,6 +53,14 @@ test("renders with header when prop is provided", () => {
   ).toBeVisible();
 });
 
+test("renders with a subheader when the `subHeader` prop is provided", () => {
+  render(<Sidebar open subHeader={<h2>My subheader</h2>} />);
+
+  expect(
+    screen.getByRole("heading", { level: 2, name: "My subheader" }),
+  ).toBeVisible();
+});
+
 test("sidebar uses header prop as accessible name when an HTML element is provided as header", () => {
   render(<Sidebar open header={<h1>My sidebar</h1>} />);
 
@@ -63,6 +71,22 @@ test("sidebar uses header prop as accessible name when a string is provided", ()
   render(<Sidebar open header="My sidebar" />);
 
   expect(screen.getByRole("dialog")).toHaveAccessibleName("My sidebar");
+});
+
+test("sidebar uses `subHeader` prop as accessible description when an HTML element is provided", () => {
+  render(<Sidebar open subHeader={<h1>My subheader</h1>} />);
+
+  expect(screen.getByRole("dialog")).toHaveAccessibleDescription(
+    "My subheader",
+  );
+});
+
+test("sidebar uses `subHeader` prop as accessible description when a string is provided", () => {
+  render(<Sidebar open subHeader="My subheader" />);
+
+  expect(screen.getByRole("dialog")).toHaveAccessibleDescription(
+    "My subheader",
+  );
 });
 
 test("sidebar uses aria-labelledby prop as accessible name when passed", () => {
@@ -332,3 +356,29 @@ testStyledSystemPadding(
     return sidebars[sidebars.length - 1];
   },
 );
+
+// for coverage - the `headerVariant` prop will be captured by Chromatic`
+test('renders with correct styles when `headerVariant` is "light"', () => {
+  render(<Sidebar open header="foo" headerVariant="light" />);
+
+  const sidebarHeader = screen.getByTestId("sidebar-header");
+
+  expect(sidebarHeader).toHaveStyle({
+    "background-color": "var(--colorsUtilityYang100)",
+  });
+});
+
+// for coverage - the `headerVariant` prop will be captured by Chromatic`
+test('renders with correct styles when `headerVariant` is "dark"', () => {
+  render(
+    <Sidebar open header="foo" headerVariant="dark" onCancel={() => {}} />,
+  );
+
+  const sidebarHeader = screen.getByTestId("sidebar-header");
+  const closeIcon = screen.getByTestId("icon");
+
+  expect(sidebarHeader).toHaveStyle(
+    "background-color: var(--colorsUtilityYin100)",
+  );
+  expect(closeIcon).toHaveStyle("color: var(--colorsUtilityYang080)");
+});
