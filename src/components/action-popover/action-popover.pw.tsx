@@ -57,10 +57,79 @@ import {
   ActionPopoverNestedInDialog,
   LongMenuExample,
   ActionPopoverWithSomeSubmenusAndNoIcons,
+  ActionPopoverWithDifferentSubmenus,
 } from "../../../src/components/action-popover/components.test-pw";
 
 const keyToTrigger = ["Enter", " ", "End", "ArrowDown", "ArrowUp"] as const;
 const subMenuOption = ["Sub Menu 1", "Sub Menu 2", "Sub Menu 3"] as const;
+
+test("should close opened submenu by keyboard event when another submenu is opened by click event", async ({
+  mount,
+  page,
+}) => {
+  await mount(<ActionPopoverWithDifferentSubmenus />);
+
+  const openButton = page.getByRole("button");
+  await openButton.click();
+
+  const businessItem = page
+    .getByRole("listitem")
+    .filter({ hasText: "Business" });
+
+  const businessSubmenuItem = businessItem
+    .getByRole("listitem")
+    .filter({ hasText: "Business Sub Menu Item" });
+
+  await businessItem.press("Enter");
+
+  await expect(businessSubmenuItem).toBeVisible();
+
+  const emailItem = page.getByRole("listitem").filter({ hasText: "Email" });
+
+  const emailSubmenuItem = emailItem
+    .getByRole("listitem")
+    .filter({ hasText: "Email Sub Menu Item" });
+
+  await emailItem.click();
+
+  await expect(emailSubmenuItem).toBeVisible();
+
+  await expect(businessSubmenuItem).not.toBeVisible();
+});
+
+test("should close opened submenu by keyboard event when another submenu is opened by hover event", async ({
+  mount,
+  page,
+}) => {
+  await mount(<ActionPopoverWithDifferentSubmenus />);
+
+  const openButton = page.getByRole("button");
+  await openButton.click();
+
+  const businessItem = page
+    .getByRole("listitem")
+    .filter({ hasText: "Business" });
+
+  const businessSubmenuItem = businessItem
+    .getByRole("listitem")
+    .filter({ hasText: "Business Sub Menu Item" });
+
+  await businessItem.press("Enter");
+
+  await expect(businessSubmenuItem).toBeVisible();
+
+  const emailItem = page.getByRole("listitem").filter({ hasText: "Email" });
+
+  const emailSubmenuItem = emailItem
+    .getByRole("listitem")
+    .filter({ hasText: "Email Sub Menu Item" });
+
+  await emailItem.hover();
+
+  await expect(emailSubmenuItem).toBeVisible();
+
+  await expect(businessSubmenuItem).not.toBeVisible();
+});
 
 test.describe("check functionality for ActionPopover component", () => {
   test("should render component", async ({ mount, page }) => {
