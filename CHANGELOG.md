@@ -1,3 +1,16 @@
+## [155.4.0](https://github.com/Sage/carbon/compare/v155.3.1...v155.4.0) (2025-07-18)
+
+### Features
+
+* **form:** add footerChildren prop ([b6d09cf](https://github.com/Sage/carbon/commit/b6d09cf9bdaf14f436cd2e08d889bdbec0c61a5f))
+* **form:** add stickyFooterVariant prop ([587c739](https://github.com/Sage/carbon/commit/587c739027ebc389921cfce71ab5046d8c7d0eca))
+* **sidebar:** add headerVariant prop ([a3b94c8](https://github.com/Sage/carbon/commit/a3b94c89d5009281e71ee150f8d6e64e125e4bb1))
+* **sidebar:** add subHeader and subHeaderPadding props ([b2780a1](https://github.com/Sage/carbon/commit/b2780a1891e0c0d9b83c068ceba2696c45dd06ce))
+
+### Bug Fixes
+
+* **form:** correct box-shadow on sticky footer ([548fe22](https://github.com/Sage/carbon/commit/548fe2295e5fdef9a83add657f0b65eca745f2be))
+
 ## [155.3.1](https://github.com/Sage/carbon/compare/v155.3.0...v155.3.1) (2025-07-18)
 
 ### Bug Fixes
