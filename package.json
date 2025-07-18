@@ -259,5 +259,14 @@
       ],
       "@semantic-release/github"
     ]
+  },
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    },
+    "./lib/style/*": "./lib/style/*",
+    "./esm/style/*": "./esm/style/*"
   }
 }
