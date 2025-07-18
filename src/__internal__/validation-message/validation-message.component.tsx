@@ -13,6 +13,8 @@ export interface ValidationMessageProps extends TagProps {
   warning?: boolean | string;
   /** Whether this component resides on a dark background */
   isDarkBackground?: boolean;
+  /** Render the validation message above the input */
+  validationMessagePositionTop?: boolean;
 }
 
 const ValidationMessage = ({
@@ -22,6 +24,7 @@ const ValidationMessage = ({
   isDarkBackground,
   "data-element": dataElement,
   "data-role": dataRole = "validation-message",
+  validationMessagePositionTop,
 }: ValidationMessageProps) => {
   const validation = error || warning;
   const isStringValidation = typeof validation === "string";
@@ -35,6 +38,7 @@ const ValidationMessage = ({
         "data-element": dataElement,
         "data-role": dataRole,
       })}
+      validationMessagePositionTop={validationMessagePositionTop}
     >
       {validation}
     </StyledValidationMessage>

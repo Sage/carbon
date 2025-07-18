@@ -18,11 +18,7 @@ type AccordionGroupChild =
   | boolean
   | null
   | undefined
-  | AccordionGroupChildArray;
-// typescript-to-proptypes breaks on recursive type references so it has to be an interface
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface AccordionGroupChildArray extends Array<AccordionGroupChild> {}
-
+  | Array<AccordionGroupChild>;
 export interface AccordionGroupProps extends MarginProps, TagProps {
   /** An Accordion or list of Accordion components to be rendered inside the AccordionGroup */
   children?: AccordionGroupChild;

@@ -261,6 +261,18 @@ test("padding is removed from the content when the `disableContentPadding` prop 
   });
 });
 
+test("logs a deprecation warning when pagesStyling is used", async () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+  render(<DialogFullScreen pagesStyling open />);
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The pagesStyling prop in DialogFullScreen is deprecated and will soon be removed.",
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+  loggerSpy.mockRestore();
+});
+
 /** Remove this when after Pages is re-written */
 // TODO: in for coverage only. Prop appears not to be used - to be removed (FE-6774)
 test("applies the appropriate styles when the `pagesStyling` prop is set", () => {

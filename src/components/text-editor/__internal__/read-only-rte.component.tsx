@@ -29,7 +29,7 @@ const determineFormat = (value: string | undefined) => {
     const isValidJSON = JSON.parse(value);
     /* istanbul ignore else */
     if (isValidJSON) isJson = true;
-  } catch (e) {
+  } catch {
     isJson = false;
   }
 

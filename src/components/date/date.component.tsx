@@ -149,6 +149,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       dateFormatOverride: dateFormatOverrideProp,
       datePickerAriaLabel,
       datePickerAriaLabelledBy,
+      validationMessagePositionTop = true,
       ...rest
     }: DateInputProps,
     ref,
@@ -169,7 +170,11 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         ),
       [dateFnsLocale, dateFormatOverride, dateFormatOverrideProp],
     );
-    const { inputRefMap, setInputRefMap } = useContext(DateRangeContext);
+    const {
+      inputRefMap,
+      setInputRefMap,
+      validationMessagePositionTop: validationMessagePositionTopContext,
+    } = useContext(DateRangeContext);
     const [open, setOpen] = useState(false);
     const [selectedDays, setSelectedDays] = useState(() => {
       const isValidDate = isValidLocaleDate(value, dateFnsLocale());
@@ -183,6 +188,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     });
     const isInitialValue = useRef(true);
     const pickerTabGuardId = useRef(guid());
+    const showValidationMessageOnTop =
+      validationMessagePositionTopContext ?? validationMessagePositionTop;
 
     const computeInvalidRawValue = (inputValue: string) =>
       allowEmptyValue && !inputValue.length ? inputValue : null;
@@ -314,29 +321,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
       isBlurBlocked.current = false;
 
-      if (!open && !alreadyFocused.current) {
-        setOpen(true);
-        onPickerOpen?.();
-      } else {
-        alreadyFocused.current = false;
-      }
-
       if (onFocus) {
         onFocus(ev);
       }
     };
-
-    const handleKeyUp = useCallback(
-      (ev: React.KeyboardEvent<HTMLInputElement>) => {
-        /* istanbul ignore else */
-        if (open && Events.isEscKey(ev)) {
-          setOpen(false);
-          onPickerClose?.();
-          ev.stopPropagation();
-        }
-      },
-      [onPickerClose, open],
-    );
 
     const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
       if (onKeyDown) {
@@ -375,7 +363,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       }
 
       if (!open) {
-        setOpen(true);
         onPickerOpen?.();
       }
     };
@@ -505,7 +492,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           onChange={handleChange}
           onClick={handleClick}
           onFocus={handleFocus}
-          onKeyUp={handleKeyUp}
           onKeyDown={handleKeyDown}
           iconOnClick={handleClick}
           onMouseDown={handleMouseDown}
@@ -524,6 +510,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           labelWidth={labelWidth}
           maxWidth={maxWidth}
           m={0}
+          validationMessagePositionTop={showValidationMessageOnTop}
         />
         <DatePicker
           disablePortal={disablePortal}
