@@ -1,3 +1,9 @@
+## [155.3.1](https://github.com/Sage/carbon/compare/v155.3.0...v155.3.1) (2025-07-18)
+
+### Bug Fixes
+
+* **pager:** increase width to prevent text truncation ([e89ba91](https://github.com/Sage/carbon/commit/e89ba9155836fef8b492557c93863590c4c4cd80))
+
 ## [155.3.0](https://github.com/Sage/carbon/compare/v155.2.1...v155.3.0) (2025-07-15)
 
 ### Features
