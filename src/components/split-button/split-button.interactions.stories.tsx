@@ -26,10 +26,54 @@ const Wrapper = (props: { children: React.ReactNode }) => (
   </Box>
 );
 
+export const ButtonTypes: Story = {
+  render: () => (
+    <Wrapper>
+      {(["primary", "secondary"] as const).map((buttonType) => (
+        <Box key={buttonType} mb={3}>
+          <SplitButton
+            buttonType={buttonType}
+            text={`Split button - ${buttonType}`}
+          >
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+            <Button>Button 3</Button>
+          </SplitButton>
+        </Box>
+      ))}
+      <Box p={2} width="298px" backgroundColor="#000">
+        <SplitButton
+          buttonType="secondary"
+          text="Split button - secondary - white"
+          isWhite
+        >
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
+    </Wrapper>
+  ),
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) return;
+    const canvas = within(canvasElement);
+    const toggleButtons = canvas.getAllByRole('button', { name: /show more/i });
+
+    for (const toggle of toggleButtons) {
+      await userEvent.click(toggle);
+      await userInteractionPause(500);
+      await userEvent.keyboard("{Escape}");
+      await userInteractionPause(300);
+    }
+  },
+  decorators: [(StoryToRender) => <DefaultDecorator><StoryToRender /></DefaultDecorator>],
+};
+ButtonTypes.storyName = "Button Types";
+
 export const OpenPopover: Story = {
   render: () => (
     <Wrapper>
-      <SplitButton buttonType="primary" text="Primary Action">
+      <SplitButton buttonType="primary" text="Split button">
         <Button>Option 1</Button>
         <Button data-role="target">Option 2</Button>
       </SplitButton>
@@ -38,7 +82,7 @@ export const OpenPopover: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const toggleButton = canvas.getByTestId(/toggle-button/i);
+    const toggleButton = canvas.getByRole('button', { name: /show more/i });
 
     await userEvent.click(toggleButton);
     await userInteractionPause(600);
@@ -56,7 +100,7 @@ OpenPopover.storyName = "Open Popover";
 export const FocusStates: Story = {
   render: () => (
     <Wrapper>
-      <SplitButton text="Focus Test">
+      <SplitButton text="Split button">
         <Button data-role="focus-target">Focus Me</Button>
         <Button>Another Button</Button>
       </SplitButton>
@@ -65,7 +109,7 @@ export const FocusStates: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const toggleButton = canvas.getByTestId(/toggle-button/i);
+    const toggleButton = canvas.getByRole('button', { name: /show more/i });
 
     await userEvent.click(toggleButton);
     await userInteractionPause(500);
@@ -86,20 +130,33 @@ FocusStates.storyName = "Focus Management";
 export const DisabledState: Story = {
   render: () => (
     <Wrapper>
-      <SplitButton text="With Disabled">
+      <SplitButton disabled text="Split button">
         <Button>Enabled</Button>
-        <Button disabled data-role="focus-disabled">Disabled</Button>
+        <Button data-role="focus-disabled">Disabled</Button>
       </SplitButton>
+
+       <Box p={2} width="298px" backgroundColor="#000">
+        <SplitButton
+          buttonType="secondary"
+          text="Split button - secondary - white"
+          isWhite
+          disabled
+        >
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </SplitButton>
+      </Box>
     </Wrapper>
   ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const toggleButton = canvas.getByTestId(/toggle-button/i);
+    const toggleButton = canvas.getByRole('button', { name: /show more/i });
     await userEvent.click(toggleButton);
     await userInteractionPause(500);
 
-    const disabledButton = canvas.getByText("Disabled");
+    const disabledButton = canvas.getByRole('button', { name: 'Disabled' });
     await userEvent.hover(disabledButton);
     await userInteractionPause(500);
 
@@ -112,7 +169,7 @@ DisabledState.storyName = "Disabled Child Buttons";
 export const ButtonsWithIcons: Story = {
   render: () => (
     <Wrapper>
-      <SplitButton text="With Icons">
+      <SplitButton text="Split button">
         <Button iconType="add">Add</Button>
         <Button iconType="delete" destructive>Delete</Button>
         <Button iconType="info" aria-label="Info" />
@@ -122,7 +179,7 @@ export const ButtonsWithIcons: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const toggleButton = canvas.getByTestId(/toggle-button/i);
+    const toggleButton = canvas.getByRole('button', { name: /show more/i });
     await userEvent.click(toggleButton);
     await userInteractionPause(500);
 
@@ -140,10 +197,10 @@ ButtonsWithIcons.storyName = "Child Buttons with Icons";
 export const PopoverPositioning: Story = {
   render: () => (
     <Box display="flex" justifyContent="space-between">
-      <SplitButton position="left" align="left" text="Left Aligned">
+      <SplitButton position="left" align="left" text="Split button">
         <Button data-role="target">Left</Button>
       </SplitButton>
-      <SplitButton position="right" align="right" text="Right Aligned">
+      <SplitButton position="right" align="right" text="Split button">
         <Button data-role="target">Right</Button>
       </SplitButton>
     </Box>
@@ -151,7 +208,7 @@ export const PopoverPositioning: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const toggleButtons = canvas.getAllByTestId(/toggle-button/i);
+    const toggleButtons = canvas.getAllByRole('button', { name: /show more/i });
 
     await userEvent.click(toggleButtons[0]);
     await userInteractionPause(500);
@@ -168,13 +225,13 @@ PopoverPositioning.storyName = "Popover Positioning";
 export const SizeVariations: Story = {
   render: () => (
     <Wrapper>
-      <SplitButton size="small" text="Small">
+      <SplitButton size="small" text="Split button = small">
         <Button size="small">Small Option</Button>
       </SplitButton>
-      <SplitButton size="medium" text="Medium">
+      <SplitButton size="medium" text="Split button = medium">
         <Button size="medium">Medium Option</Button>
       </SplitButton>
-      <SplitButton size="large" text="Large">
+      <SplitButton size="large" text="Split button = large">
         <Button size="large">Large Option</Button>
       </SplitButton>
     </Wrapper>
@@ -182,7 +239,7 @@ export const SizeVariations: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const toggleButtons = canvas.getAllByTestId(/toggle-button/i);
+    const toggleButtons = canvas.getAllByRole('button', { name: /show more/i });
 
     for (const toggle of toggleButtons) {
       await userEvent.click(toggle);
@@ -193,12 +250,12 @@ export const SizeVariations: Story = {
   },
   decorators: [(StoryToRender) => <DefaultDecorator><StoryToRender /></DefaultDecorator>],
 };
-SizeVariations.storyName = "Size Variations";
+SizeVariations.storyName = "Sizes";
 
 export const Accessibility: Story = {
   render: () => (
     <Wrapper>
-      <SplitButton buttonType="primary" text="Accessible Split">
+      <SplitButton buttonType="primary" text="Split button">
         <Button data-role="target" aria-label="Save">Save</Button>
         <Button iconType="info" aria-label="More Info" />
       </SplitButton>
@@ -207,7 +264,7 @@ export const Accessibility: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const toggleButton = canvas.getByTestId(/toggle-button/i);
+    const toggleButton = canvas.getByRole('button', { name: /show more/i });
     await userEvent.click(toggleButton);
     await userInteractionPause(600);
 
