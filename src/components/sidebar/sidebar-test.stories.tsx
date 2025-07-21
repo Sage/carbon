@@ -5,6 +5,7 @@ import isChromatic from "../../../.storybook/isChromatic";
 import { allModes } from "../../../.storybook/modes";
 
 import Box from "../box";
+import Icon from "../icon";
 import Button from "../button";
 import Form from "../form";
 import Sidebar, { SidebarProps } from ".";
@@ -12,6 +13,7 @@ import { SIDEBAR_ALIGNMENTS, SIDEBAR_SIZES } from "./sidebar.config";
 import { StepFlow } from "../step-flow";
 import Textbox from "../textbox";
 import Typography from "../typography";
+import Link from "../link";
 
 const meta: Meta<typeof Sidebar> = {
   component: Sidebar,
@@ -231,4 +233,46 @@ export const WithStepFlow: StoryObj<typeof Sidebar> = {
       },
     },
   },
+};
+
+export const DarkHeaderExampleImplementation = () => {
+  const headerNode = (
+    <Box display="flex" alignItems="center" gap="8px">
+      <Icon type="chat" color="white" />
+      <Typography variant="h2" color="white">
+        Sidebar header
+      </Typography>
+    </Box>
+  );
+  const footerNode = (
+    <Box>
+      <Typography>
+        This is the footer text that will be added to provide information about
+        the form content.
+      </Typography>
+      <Link icon="square_dot" href="#">
+        This is a link
+      </Link>
+    </Box>
+  );
+
+  return (
+    <Sidebar
+      header={headerNode}
+      headerVariant="dark"
+      subHeader={
+        <Button iconType="chevron_left_thick" buttonType="tertiary">
+          Action
+        </Button>
+      }
+      open
+      onCancel={() => {}}
+    >
+      <Form
+        stickyFooterVariant="grey"
+        footerChildren={footerNode}
+        stickyFooter
+      />
+    </Sidebar>
+  );
 };

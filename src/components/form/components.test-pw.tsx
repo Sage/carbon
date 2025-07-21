@@ -15,6 +15,8 @@ import { Checkbox } from "../checkbox";
 import Hr from "../../components/hr";
 import Switch from "../switch";
 import InlineInputs from "../inline-inputs";
+import Typography from "../typography";
+import Link from "../link";
 
 export const FormComponent = (props: Partial<FormProps>) => {
   return (
@@ -86,6 +88,32 @@ export const FormWithFullWidthButtons = (props: Partial<FormProps>) => (
   </Form>
 );
 
+export const WithFooterChildren = (props: Partial<FormProps>) => {
+  const footerNode = (
+    <Box>
+      <Typography>
+        This is the footer text that will be added to provide information about
+        the form content.
+      </Typography>
+      <Link icon="square_dot" href="#">
+        This is a link
+      </Link>
+    </Box>
+  );
+
+  return (
+    <Form {...props} footerChildren={footerNode}>
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+      <Textbox label="Textbox" />
+    </Form>
+  );
+};
+
 export const DefaultWithStickyFooter = () => (
   <Form
     onSubmit={() => "submit"}
@@ -96,6 +124,39 @@ export const DefaultWithStickyFooter = () => (
       </Button>
     }
     stickyFooter
+  >
+    <Tabs mb={2}>
+      <Tab
+        pl="3px"
+        customLayout={
+          <Box mx="16px" my="10px">
+            Tab1
+          </Box>
+        }
+        tabId="tab1"
+      />
+    </Tabs>
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+  </Form>
+);
+
+export const StickyFooterVariant = () => (
+  <Form
+    onSubmit={() => "submit"}
+    leftSideButtons={<Button onClick={() => "cancel"}>Cancel</Button>}
+    saveButton={
+      <Button buttonType="primary" type="submit">
+        Save
+      </Button>
+    }
+    stickyFooter
+    stickyFooterVariant="grey"
   >
     <Tabs mb={2}>
       <Tab
