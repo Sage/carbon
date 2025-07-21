@@ -1,6 +1,7 @@
 import React from "react";
 import { StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/test";
+import "@testing-library/jest-dom";
 
 import SplitButton from ".";
 import Button from "../button";
@@ -20,20 +21,25 @@ export default {
     },
 };
 
-const SplitButtonAllVariations = () => (
+const SplitButtonTypes = () => (
     <Box display="flex" flexDirection="column" gap="24px">
+        {/* Primary SplitButton */}
         <SplitButton buttonType="primary" text="Primary Action">
             <Button data-role="target">Save</Button>
             <Button buttonType="primary" destructive>Delete</Button>
             <Button disabled>Disabled Option</Button>
             <Button iconType="download">Download</Button>
         </SplitButton>
+
+        {/* Secondary SplitButton */}
         <SplitButton buttonType="secondary" text="Secondary Action">
             <Button buttonType="secondary">Edit</Button>
             <Button data-role="target" buttonType="secondary" destructive>Remove</Button>
             <Button buttonType="secondary" disabled>Unavailable</Button>
             <Button buttonType="secondary" iconType="settings">Configure</Button>
         </SplitButton>
+
+        {/* White variant */}
         <Box p={3} backgroundColor="#000" width="fit-content">
             <SplitButton buttonType="secondary" isWhite text="White Variant">
                 <Button buttonType="secondary">Edit</Button>
@@ -42,10 +48,25 @@ const SplitButtonAllVariations = () => (
                 <Button buttonType="secondary" iconType="settings">Configure</Button>
             </SplitButton>
         </Box>
+
+        {/* Additional buttonType variations */}
+        <SplitButton buttonType="secondary" text="Tertiary & Gradient Types">
+            <Button data-role="target" buttonType="tertiary">Tertiary Button</Button>
+            <Button buttonType="gradient-grey">Grey Gradient</Button>
+            <Button buttonType="gradient-white">White Gradient</Button>
+        </SplitButton>
+
+        {/* Advanced child options */}
+        <SplitButton buttonType="primary" text="Advanced Options">
+            <Button href="https://example.com" target="_blank">Visit Site</Button>
+            <Button noWrap>VeryLongUnwrappableLabelText</Button>
+            <Button iconType="info" aria-label="Info" />
+            <Button iconType="add" iconPosition="after">Add Item</Button>
+        </SplitButton>
     </Box>
 );
 
-const SplitButtonAllSizes = () => (
+const SplitButtonSizes = () => (
     <Box display="flex" flexDirection="column" gap="24px">
         <SplitButton size="small" text="Small Actions">
             <Button data-role="target" size="small">Quick Save</Button>
@@ -111,11 +132,9 @@ const SplitButtonChildFocusStates = () => (
 );
 
 export const AllButtonVariations: Story = {
-    render: () => <SplitButtonAllVariations />,
+    render: () => <SplitButtonTypes />,
     play: async ({ canvasElement }) => {
-        if (!allowInteractions()) {
-            return;
-        }
+        if (!allowInteractions()) return;
 
         const canvas = within(canvasElement);
         const toggleButtons = canvas.getAllByTestId(/toggle-button/i);
@@ -154,7 +173,69 @@ export const AllButtonVariations: Story = {
                 whiteVariantButton.focus();
                 await userInteractionPause(800);
             }
+
+            await userEvent.keyboard("{Escape}");
+            await userInteractionPause(300);
         }
+
+        if (toggleButtons[3]) {
+            await userEvent.click(toggleButtons[3]);
+            await userInteractionPause(1000);
+
+            const tertiaryButton = canvas.getByText("Tertiary Button");
+            tertiaryButton.focus();
+            await userInteractionPause(600);
+
+            const greyGradientButton = canvas.getByText("Grey Gradient");
+            await userEvent.hover(greyGradientButton);
+            await userInteractionPause(600);
+
+            const whiteGradientButton = canvas.getByText("White Gradient");
+            whiteGradientButton.focus();
+            await userInteractionPause(600);
+
+            await userEvent.keyboard("{Escape}");
+            await userInteractionPause(300);
+        }
+
+        if (toggleButtons[4]) {
+            await userEvent.click(toggleButtons[4]);
+            await userInteractionPause(1000);
+
+            const linkButton = canvas.getByText("Visit Site");
+            linkButton.focus();
+            await userInteractionPause(600);
+
+            const noWrapButton = canvas.getByText(/VeryLongUnwrappableLabelText/);
+            noWrapButton.focus();
+            await userInteractionPause(600);
+
+            const iconOnlyButton = canvas.getByLabelText("Info");
+            await userEvent.hover(iconOnlyButton);
+            await userInteractionPause(600);
+
+            const toggleButton = toggleButtons[4];
+            expect(toggleButton).toHaveAttribute("aria-expanded", "true");
+            expect(toggleButton).toHaveAttribute("aria-controls");
+
+            expect(iconOnlyButton).toHaveAccessibleName("Info");
+            expect(iconOnlyButton).toHaveAttribute("aria-label", "Info");
+            expect(iconOnlyButton).toHaveAttribute("role", "button");
+
+            const allButtons = canvas.getAllByRole("button");
+            expect(allButtons.length).toBeGreaterThan(0);
+
+            await userEvent.tab();
+            expect(document.activeElement).toHaveAttribute("data-element", "main-button");
+
+            await userEvent.tab();
+            expect(document.activeElement).toHaveAttribute("data-element", "toggle-button");
+
+            await userEvent.keyboard("{Escape}");
+            await userInteractionPause(300);
+            expect(document.activeElement).toHaveAttribute("data-element", "toggle-button");
+        }
+
     },
     decorators: [
         (StoryToRender) => (
@@ -164,16 +245,18 @@ export const AllButtonVariations: Story = {
         ),
     ],
 };
+
 AllButtonVariations.storyName = "All Button Variations";
 AllButtonVariations.parameters = {
     pseudo: {
-        hover: "[data-role='target']",
-        focus: "[data-role='target']",
+        hover: "[data-role='target'], [aria-label='Info']",
+        focus: "[data-role='target'], [aria-label='Info']",
     },
 };
 
+
 export const AllSizeVariations: Story = {
-    render: () => <SplitButtonAllSizes />,
+    render: () => <SplitButtonSizes />,
     play: async ({ canvasElement }) => {
         if (!allowInteractions()) {
             return;
