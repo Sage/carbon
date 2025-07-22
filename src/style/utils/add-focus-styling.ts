@@ -8,7 +8,6 @@ export default (inset = false) => {
   }
 
   return `
-    -webkit-appearance: none;
     -webkit-box-shadow: ${focusStyling};
     box-shadow: ${focusStyling};
 

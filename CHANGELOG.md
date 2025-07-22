@@ -1,3 +1,9 @@
+## [155.4.1](https://github.com/Sage/carbon/compare/v155.4.0...v155.4.1) (2025-07-22)
+
+### Bug Fixes
+
+* **button, button-minor:** fixes a scrolling bug in Chrome when clicking buttons ([4541eae](https://github.com/Sage/carbon/commit/4541eaecede8d216ed44c1c3b5d61015f8879606)), closes [#7412](https://github.com/Sage/carbon/issues/7412)
+
 ## [155.4.0](https://github.com/Sage/carbon/compare/v155.3.1...v155.4.0) (2025-07-18)
 
 ### Features
