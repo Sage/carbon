@@ -19,6 +19,10 @@ export const TextboxComponent = (props: Partial<TextboxProps>) => {
 
 export const TextboxComponentRef = () => {
   const ref = useRef<HTMLInputElement | null>(null);
+  const [state, setState] = useState("");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
 
   return (
     <Box margin="0 25px">
@@ -29,7 +33,7 @@ export const TextboxComponentRef = () => {
       >
         Focus Textbox
       </Button>
-      <Textbox ref={ref} />
+      <Textbox ref={ref} value={state} onChange={setValue} />
     </Box>
   );
 };
@@ -65,68 +69,145 @@ export const TextboxComponentWithPositionedChildren = () => {
 };
 
 export const TextboxValidationsAsAStringWithTooltipDefault = () => {
+  const [errorState, setErrorState] = useState("Textbox");
+  const [warningState, setWarningState] = useState("Textbox");
+  const [infoState, setInfoState] = useState("Textbox");
+  const setValue = (
+    { target }: React.ChangeEvent<HTMLInputElement>,
+    size: string,
+  ) => {
+    if (size === "error") setErrorState(target.value);
+    else if (size === "warning") setWarningState(target.value);
+    else if (size === "info") setInfoState(target.value);
+  };
+
   return (
     <Box>
-      {VALIDATIONS.map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </div>
-      ))}
+      <div key={`error-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={errorState}
+          onChange={(e) => setValue(e, "error")}
+          validationOnLabel
+          error="Message"
+          mb={2}
+          tooltipPosition="bottom"
+        />
+      </div>
+      <div key={`warning-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={warningState}
+          onChange={(e) => setValue(e, "warning")}
+          validationOnLabel
+          warning="Message"
+          mb={2}
+          tooltipPosition="bottom"
+        />
+      </div>
+      <div key={`info-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={infoState}
+          onChange={(e) => setValue(e, "info")}
+          validationOnLabel
+          info="Message"
+          mb={2}
+          tooltipPosition="bottom"
+        />
+      </div>
     </Box>
   );
 };
 
 export const TextboxValidationsAsABoolean = () => {
+  const [errorState, setErrorState] = useState("Textbox");
+  const [warningState, setWarningState] = useState("Textbox");
+  const [infoState, setInfoState] = useState("Textbox");
+  const setValue = (
+    { target }: React.ChangeEvent<HTMLInputElement>,
+    size: string,
+  ) => {
+    if (size === "error") setErrorState(target.value);
+    else if (size === "warning") setWarningState(target.value);
+    else if (size === "info") setInfoState(target.value);
+  };
+
   return (
     <Box>
-      {VALIDATIONS.map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-          <Textbox
-            label="Textbox - readOnly"
-            value="Textbox"
-            readOnly
-            {...{ [validationType]: true }}
-            mb={2}
-          />
-        </div>
-      ))}
+      <div key={`error-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={errorState}
+          onChange={(e) => setValue(e, "error")}
+          error
+          mb={2}
+        />
+      </div>
+      <div key={`warning-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={warningState}
+          onChange={(e) => setValue(e, "warning")}
+          warning
+          mb={2}
+        />
+      </div>
+      <div key={`info-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={infoState}
+          onChange={(e) => setValue(e, "info")}
+          info
+          mb={2}
+        />
+      </div>
     </Box>
   );
 };
 
 export const TextboxValidationsAsAString = () => {
+  const [errorState, setErrorState] = useState("Textbox");
+  const [warningState, setWarningState] = useState("Textbox");
+  const [infoState, setInfoState] = useState("Textbox");
+  const setValue = (
+    { target }: React.ChangeEvent<HTMLInputElement>,
+    size: string,
+  ) => {
+    if (size === "error") setErrorState(target.value);
+    else if (size === "warning") setWarningState(target.value);
+    else if (size === "info") setInfoState(target.value);
+  };
+
   return (
     <Box>
-      {VALIDATIONS.map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Textbox
-            label="Textbox - readOnly"
-            value="Textbox"
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ))}
+      <div key={`error-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={errorState}
+          onChange={(e) => setValue(e, "error")}
+          error
+          mb={2}
+        />
+      </div>
+      <div key={`warning-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={warningState}
+          onChange={(e) => setValue(e, "warning")}
+          warning
+          mb={2}
+        />
+      </div>
+      <div key={`info-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={infoState}
+          onChange={(e) => setValue(e, "info")}
+          info
+          mb={2}
+        />
+      </div>
     </Box>
   );
 };
@@ -158,50 +239,140 @@ export const TextboxNewValidationsAsAStringOnGreyBackground = () => {
 };
 
 export const TextboxValidationsAsAStringWithTooltipCustom = () => {
+  const [errorState, setErrorState] = useState("Textbox");
+  const [warningState, setWarningState] = useState("Textbox");
+  const [infoState, setInfoState] = useState("Textbox");
+  const setValue = (
+    { target }: React.ChangeEvent<HTMLInputElement>,
+    size: string,
+  ) => {
+    if (size === "error") setErrorState(target.value);
+    else if (size === "warning") setWarningState(target.value);
+    else if (size === "info") setInfoState(target.value);
+  };
+
   return (
     <Box>
-      {VALIDATIONS.map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-          />
-        </div>
-      ))}
+      <div key={`error-string-component`}>
+        <Textbox
+          label="Textbox"
+          error="Message"
+          value={errorState}
+          onChange={(e) => setValue(e, "error")}
+          mb={2}
+          tooltipPosition="bottom"
+        />
+      </div>
+
+      <div key={`warning-string-component`}>
+        <Textbox
+          label="Textbox"
+          warning="Message"
+          value={warningState}
+          onChange={(e) => setValue(e, "error")}
+          mb={2}
+          tooltipPosition="bottom"
+        />
+      </div>
+
+      <div key={`info-string-component`}>
+        <Textbox
+          label="Textbox"
+          info="Message"
+          value={infoState}
+          onChange={(e) => setValue(e, "info")}
+          mb={2}
+          tooltipPosition="bottom"
+        />
+      </div>
     </Box>
   );
 };
 
 export const TextboxValidationsAsAStringDisplayedOnLabel = () => {
+  const [errorState, setErrorState] = useState("Textbox");
+  const [warningState, setWarningState] = useState("Textbox");
+  const [infoState, setInfoState] = useState("Textbox");
+  const setValue = (
+    { target }: React.ChangeEvent<HTMLInputElement>,
+    size: string,
+  ) => {
+    if (size === "error") setErrorState(target.value);
+    else if (size === "warning") setWarningState(target.value);
+    else if (size === "info") setInfoState(target.value);
+  };
+
   return (
     <Box>
-      {VALIDATIONS.map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <Textbox
-            label="Textbox"
-            value="Textbox"
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-          <Textbox
-            label="Textbox - readOnly"
-            value="Textbox"
-            validationOnLabel
-            readOnly
-            {...{ [validationType]: "Message" }}
-            mb={2}
-          />
-        </div>
-      ))}
+      <div key={`error-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={errorState}
+          onChange={(e) => setValue(e, "error")}
+          validationOnLabel
+          error="Message"
+          mb={2}
+        />
+        <Textbox
+          label="Textbox - readOnly"
+          value={errorState}
+          onChange={(e) => setValue(e, "error")}
+          validationOnLabel
+          readOnly
+          error="Message"
+          mb={2}
+        />
+      </div>
+
+      <div key={`warning-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={warningState}
+          onChange={(e) => setValue(e, "warning")}
+          validationOnLabel
+          warning="Message"
+          mb={2}
+        />
+        <Textbox
+          label="Textbox - readOnly"
+          value={warningState}
+          onChange={(e) => setValue(e, "warning")}
+          validationOnLabel
+          readOnly
+          warning="Message"
+          mb={2}
+        />
+      </div>
+
+      <div key={`info-string-label`}>
+        <Textbox
+          label="Textbox"
+          value={infoState}
+          onChange={(e) => setValue(e, "info")}
+          validationOnLabel
+          info="Message"
+          mb={2}
+        />
+        <Textbox
+          label="Textbox - readOnly"
+          value={infoState}
+          onChange={(e) => setValue(e, "info")}
+          validationOnLabel
+          readOnly
+          info="Message"
+          mb={2}
+        />
+      </div>
     </Box>
   );
 };
 
 export const TextboxNewDesignsValidation = () => {
+  const [state, setState] = useState("Textbox");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+
   return (
     <Box>
       <CarbonProvider validationRedesignOptIn>
@@ -211,7 +382,8 @@ export const TextboxNewDesignsValidation = () => {
               <Textbox
                 m={4}
                 label={`${size} - ${validationType}`}
-                defaultValue="Textbox"
+                value={state}
+                onChange={setValue}
                 labelHelp="Hint text (optional)"
                 size={size}
                 {...{ [validationType]: "Message" }}
@@ -219,7 +391,8 @@ export const TextboxNewDesignsValidation = () => {
               <Textbox
                 m={4}
                 label={`readOnly - ${size} - ${validationType}`}
-                defaultValue="Textbox"
+                value={state}
+                onChange={setValue}
                 size={size}
                 labelHelp="Hint text (optional)"
                 readOnly
