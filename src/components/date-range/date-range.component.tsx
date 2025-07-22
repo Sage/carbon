@@ -130,6 +130,8 @@ export interface DateRangeProps
   datePickerEndAriaLabel?: string;
   /** Prop to specify the aria-labelledby attribute of the end date picker */
   datePickerEndAriaLabelledBy?: string;
+  /** Render the ValidationMessage above the Date inputs when validationRedesignOptIn flag is set */
+  validationMessagePositionTop?: boolean;
 }
 
 let deprecateOptionalWarnTriggered = false;
@@ -154,6 +156,7 @@ export const DateRange = ({
   datePickerStartAriaLabelledBy,
   datePickerEndAriaLabel,
   datePickerEndAriaLabelledBy,
+  validationMessagePositionTop = true,
   ...rest
 }: DateRangeProps) => {
   if (!deprecateOptionalWarnTriggered && isOptional) {
@@ -389,9 +392,14 @@ export const DateRange = ({
       {...tagComponent("date-range", rest)}
       labelsInline={labelsInlineWithNewValidation}
       {...filterStyledSystemMarginProps(rest)}
+      validationMessagePositionTop={validationMessagePositionTop}
     >
       <DateRangeContext.Provider
-        value={{ inputRefMap, setInputRefMap: updateInputMap }}
+        value={{
+          inputRefMap,
+          setInputRefMap: updateInputMap,
+          validationMessagePositionTop,
+        }}
       >
         <DateInput
           my={0} // prevents any form spacing being applied

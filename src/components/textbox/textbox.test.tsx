@@ -571,6 +571,62 @@ test.each(validationTypes)(
   },
 );
 
+test("describes the input with the inputHint and error message when validationMessagePositionTop is true", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Textbox inputHint="input hint" error="validation message" />
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+    "validation message input hint",
+  );
+});
+
+test("describes the input with the inputHint and warning when validationMessagePositionTop is true", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Textbox inputHint="input hint" warning="validation message" />
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+    "validation message input hint",
+  );
+});
+
+test("describes the input with the inputHint and error message when validationMessagePositionTop is false", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Textbox
+        inputHint="input hint"
+        error="validation message"
+        validationMessagePositionTop={false}
+      />
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+    "input hint validation message",
+  );
+});
+
+test("describes the input with the inputHint and warning when validationMessagePositionTop is false", () => {
+  render(
+    <CarbonProvider validationRedesignOptIn>
+      <Textbox
+        inputHint="input hint"
+        warning="validation message"
+        validationMessagePositionTop={false}
+      />
+    </CarbonProvider>,
+  );
+
+  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
+    "input hint validation message",
+  );
+});
+
 test("renders validation tooltip with provided 'tooltipId' prop", async () => {
   render(<Textbox label="bar" error="baz" tooltipId="foo" />);
 

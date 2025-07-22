@@ -712,7 +712,9 @@ test.describe("Accessibility for DialogFullScreen", () => {
       "Dialog Title",
     );
 
-    await checkAccessibility(page, page.getByRole("dialog"));
+    /* The colour contrast accessiiblity check has been omitted here due to a false positive
+    where the box-shadow is incorrectly compared to the sticky footer background colour */
+    await checkAccessibility(page, page.getByRole("dialog"), "color-contrast");
   });
 });
 

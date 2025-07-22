@@ -626,11 +626,11 @@ test.describe("Testing RadioButtonGroup component", () => {
   }) => {
     await mount(<RadioButtonGroupComponent inline />);
     const firstRadiobuttonElement = radiobutton(page, 0);
-    await expect(firstRadiobuttonElement).toHaveCSS("margin-bottom", "12px");
+    await expect(firstRadiobuttonElement).toHaveCSS("margin-bottom", "0px");
     await expect(firstRadiobuttonElement).toHaveCSS("margin-left", "0px");
 
     const secondRadiobuttonElement = radiobutton(page, 1);
-    await expect(secondRadiobuttonElement).toHaveCSS("margin-bottom", "12px");
+    await expect(secondRadiobuttonElement).toHaveCSS("margin-bottom", "0px");
     await expect(secondRadiobuttonElement).toHaveCSS("margin-left", "32px");
 
     const thirdRadiobuttonElement = radiobutton(page, 2);

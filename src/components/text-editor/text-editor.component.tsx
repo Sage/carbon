@@ -116,6 +116,8 @@ export interface TextEditorProps extends MarginProps, TagProps {
    * This prop is optional and supports a single plugin, multiple plugins (via fragments or arrays), or `null`.
    */
   customPlugins?: React.ReactNode;
+  /** Render the ValidationMessage above the TextEditor */
+  validationMessagePositionTop?: boolean;
 }
 
 let deprecateOptionalWarnTriggered = false;
@@ -145,6 +147,7 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       warning,
       value,
       customPlugins,
+      validationMessagePositionTop = true,
       ...rest
     },
     ref,
@@ -310,14 +313,19 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
           <LexicalComposer initialConfig={initialConfig}>
             <EditorRefPlugin editorRef={editorRef} />
             <StyledWrapper data-role={`${namespace}-wrapper`}>
-              <ValidationMessage
-                error={error}
-                warning={warningMessage}
-                validationId={`${namespace}-validation-message`}
-                data-role={`${namespace}-validation-message`}
-              />
-              {(error || warningMessage) && (
-                <ErrorBorder warning={!!(!error && warningMessage)} />
+              {validationMessagePositionTop && (
+                <>
+                  <ValidationMessage
+                    error={error}
+                    warning={warningMessage}
+                    validationId={`${namespace}-validation-message`}
+                    data-role={`${namespace}-validation-message`}
+                    validationMessagePositionTop={validationMessagePositionTop}
+                  />
+                  {(error || warningMessage) && (
+                    <ErrorBorder warning={!!(!error && warningMessage)} />
+                  )}
+                </>
               )}
               <StyledEditorToolbarWrapper
                 data-role={`${namespace}-editor-toolbar-wrapper`}
@@ -351,6 +359,9 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                         required={required}
                         error={!!error}
                         warning={!!warning || !!characterLimitWarning}
+                        validationMessagePositionTop={
+                          validationMessagePositionTop
+                        }
                       />
                     }
                     placeholder={
@@ -376,6 +387,20 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                 )}
                 <LinkMonitorPlugin />
               </StyledEditorToolbarWrapper>
+              {!validationMessagePositionTop && (
+                <>
+                  <ValidationMessage
+                    error={error}
+                    warning={warningMessage}
+                    validationId={`${namespace}-validation-message`}
+                    data-role={`${namespace}-validation-message`}
+                    validationMessagePositionTop={validationMessagePositionTop}
+                  />
+                  {(error || warningMessage) && (
+                    <ErrorBorder warning={!!(!error && warningMessage)} />
+                  )}
+                </>
+              )}
 
               {characterLimit > 0 && !readOnly && (
                 <CharacterCounterPlugin

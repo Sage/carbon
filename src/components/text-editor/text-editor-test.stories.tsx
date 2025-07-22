@@ -27,7 +27,7 @@ export const NewValidation: Story = () => {
   return (
     <>
       <TextEditor
-        namespace="storybook-witherror"
+        namespace="storybook-error-top"
         labelText="Text Editor"
         inputHint="Hint text"
         error="error"
@@ -35,7 +35,24 @@ export const NewValidation: Story = () => {
         mb={2}
       />
       <TextEditor
-        namespace="storybook-withwarning"
+        namespace="storybook-warning-top"
+        labelText="Text Editor"
+        warning="warning"
+        characterLimit={100}
+        mb={2}
+      />
+      <TextEditor
+        validationMessagePositionTop={false}
+        namespace="storybook-error-bottom"
+        labelText="Text Editor"
+        inputHint="Hint text"
+        error="error"
+        characterLimit={100}
+        mb={2}
+      />
+      <TextEditor
+        validationMessagePositionTop={false}
+        namespace="storybook-warning-bottom"
         labelText="Text Editor"
         warning="warning"
         characterLimit={100}
