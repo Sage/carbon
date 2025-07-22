@@ -95,7 +95,7 @@ export interface CommonTextboxProps
   /** [Legacy] Label width as a percentage when label is inline. */
   labelWidth?: number;
   /** Specify a callback triggered on change */
-  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Deferred callback to be called after the onChange event */
   onChangeDeferred?: () => void;
   /** Specify a callback triggered on click */
@@ -133,7 +133,7 @@ export interface CommonTextboxProps
   validationMessagePositionTop?: boolean;
 }
 
-export interface TextboxProps extends CommonTextboxProps {
+export interface TextboxProps extends Omit<CommonTextboxProps, "defaultValue"> {
   /** Content to be rendered next to the input */
   children?: React.ReactNode;
   /** Container for DatePicker or SelectList components */
@@ -144,7 +144,6 @@ export interface TextboxProps extends CommonTextboxProps {
 
 let deprecatedAriaDescribedByWarnTriggered = false;
 let deprecateOptionalWarnTriggered = false;
-let deprecateUncontrolledWarnTriggered = false;
 
 export const Textbox = React.forwardRef(
   (
@@ -244,13 +243,6 @@ export const Textbox = React.forwardRef(
     const { disableErrorBorder } = useContext(NumeralDateContext);
     const computeLabelPropValues = <T,>(prop: T): undefined | T =>
       validationRedesignOptIn ? undefined : prop;
-
-    if (!deprecateUncontrolledWarnTriggered && !onChange) {
-      deprecateUncontrolledWarnTriggered = true;
-      Logger.deprecate(
-        "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
 
     if (!deprecatedAriaDescribedByWarnTriggered && ariaDescribedByDeprecated) {
       deprecatedAriaDescribedByWarnTriggered = true;
