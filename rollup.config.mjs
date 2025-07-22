@@ -1,4 +1,3 @@
-import { fileURLToPath } from "url";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
@@ -10,14 +9,10 @@ import swc from "rollup-plugin-swc3";
 import copy from "rollup-plugin-copy";
 import { visualizer } from "rollup-plugin-visualizer";
 
-/* Convert import.meta.url to a file path and get the directory name */
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 export default {
   input: Object.fromEntries(
     glob
-      .sync(path.join(__dirname, "src/**/*.{ts,tsx}"), {
+      .sync("src/**/*.{ts,tsx}", {
         ignore: [
           "**/*.types.ts",
           /** This is just a type file so ignored to avoid an empty chunk */
@@ -40,44 +35,72 @@ export default {
           "**/__spec_helper__/__internal__/**"
         ],
       })
-      .map((file) => [
-        /** 
-         * Removes `src/` as well as the file extension from each file
-         * e.g. src/components/foo.js becomes components/foo
-         * */
-        path.relative(
-          path.join(__dirname, "src"),
-          file.slice(0, file.length - path.extname(file).length),
-        ),
-        /**
-         * This expands the relative paths to absolute paths
-         * e.g. src/components/foo becomes /project/src/components/foo.js
-         * */
-        fileURLToPath(new URL(file, import.meta.url)),
-      ]),
+      .map((file) => {
+        // Normalize path separators for cross-platform compatibility
+        const normalizedFile = file.replace(/\\/g, '/');
+        
+        return [
+          /** 
+           * Removes `src/` as well as the file extension from each file
+           * e.g. src/components/foo.js becomes components/foo
+           * */
+          path.posix.relative(
+            "src",
+            normalizedFile.slice(0, normalizedFile.length - path.extname(normalizedFile).length),
+          ),
+          /**
+           * This creates absolute paths using path.resolve for cross-platform compatibility
+           * */
+          path.resolve(file),
+        ];
+      }),
   ),
-  external: [
-    /node_modules/,
-    /^[^./]|^\.[^./]|^\.\.[^/]/,
-    /* Treat all SVGs as external */
-    /\.svg$/,
-    "styled-components",
-    "@swc/helpers",
-    "react",
-    "react-dom",
-  ],
+  external: (id) => {
+    // Externalise SVGs
+    if (id.endsWith(".svg")) {
+      return true;
+    }
+
+    // Don't externalise entry modules (resolved absolute paths)
+    if (path.isAbsolute(id)) {
+      return false;
+    }
+    
+    // Don't externalise relative paths
+    if (id.startsWith("./") || id.startsWith("../")) {
+      return false;
+    }
+    
+    // Externalise node_modules
+    if (id.includes("node_modules")) {
+      return true;
+    }
+    
+    // Externalise specific packages
+    if ([
+      "styled-components",
+      "@swc/helpers",
+      "react",
+      "react-dom"
+    ].includes(id)) {
+      return true;
+    }
+    
+    // Externalise bare module imports (packages from node_modules)
+    // This regex matches imports that don't start with ./ or ../ or /
+    if (/^[^./]/.test(id)) {
+      return true;
+    }
+    
+    return false;
+  },
   plugins: [
     resolve({
       extensions: [".js", ".jsx", ".ts", ".tsx"],
       preferBuiltins: true,
       browser: true,
       moduleDirectories: ["node_modules"],
-      resolveOnly: [
-        /* Exclude @swc/helpers from custom resolution */
-        /^(?!@swc\/helpers)/,
-        /* Exclude styled-components from custom resolution */
-        /^(?!styled-components)/,
-      ],
+      exportConditions: ['node', 'default'],
     }),
     commonjs({
       include: "node_modules/**",
@@ -161,7 +184,7 @@ export default {
   ],
   output: [
     {
-      dir: path.join(__dirname, "lib"),
+      dir: "lib",
       format: "cjs",
       preserveModules: true,
       preserveModulesRoot: "src",
@@ -172,7 +195,7 @@ export default {
       interop: 'auto',
     },
     {
-      dir: path.join(__dirname, "esm"),
+      dir: "esm",
       format: "esm",
       preserveModules: true,
       preserveModulesRoot: "src",

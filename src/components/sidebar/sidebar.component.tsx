@@ -6,7 +6,7 @@ import { StyledSidebar, StyledSidebarContent } from "./sidebar.style";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import FocusTrap from "../../__internal__/focus-trap";
-import SidebarHeader from "./__internal__/sidebar-header";
+import SidebarHeader, { SidebarSubHeader } from "./__internal__/sidebar-header";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
@@ -54,6 +54,10 @@ export interface SidebarProps
   ) => void;
   /** Node that will be used as sidebar header. */
   header?: React.ReactNode;
+  /** Node that will be used as sidebar subheader. */
+  subHeader?: React.ReactNode;
+  /** Header background variant for the sidebar. */
+  headerVariant?: "light" | "dark";
   /** A custom close event handler */
   onCancel?: (
     ev:
@@ -82,6 +86,8 @@ export interface SidebarProps
   focusableSelectors?: string;
   /** Padding to be set on the Sidebar header */
   headerPadding?: PaddingProps;
+  /** Padding to be set on the Sidebar subheader */
+  subHeaderPadding?: PaddingProps;
   /**
    * @private
    * @ignore
@@ -104,6 +110,8 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       disableEscKey = false,
       enableBackgroundUI = false,
       header,
+      headerVariant = "light",
+      subHeader,
       position = "right",
       size = "medium",
       children,
@@ -114,6 +122,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       focusableSelectors,
       width,
       headerPadding = {},
+      subHeaderPadding = {},
       topModalOverride,
       restoreFocusOnClose = true,
       className,
@@ -123,6 +132,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
   ) => {
     const locale = useLocale();
     const { current: headerId } = useRef<string>(createGuid());
+    const { current: subHeaderId } = useRef<string>(createGuid());
 
     const sidebarRef = useRef<HTMLDivElement | null>(null);
 
@@ -154,7 +164,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
     const sidebar = (
       <StyledSidebar
         aria-modal={!enableBackgroundUI && isTopModal}
-        aria-describedby={ariaDescribedBy}
+        aria-describedby={!ariaDescribedBy ? subHeaderId : ariaDescribedBy}
         aria-label={ariaLabel}
         aria-labelledby={
           !ariaLabelledBy && !ariaLabel ? headerId : ariaLabelledBy
@@ -172,12 +182,18 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       >
         {header && (
           <SidebarHeader
+            headerVariant={headerVariant}
             closeIcon={closeIcon()}
             {...headerPadding}
             id={headerId}
           >
             {header}
           </SidebarHeader>
+        )}
+        {subHeader && (
+          <SidebarSubHeader {...subHeaderPadding} id={subHeaderId}>
+            {subHeader}
+          </SidebarSubHeader>
         )}
         {!header && closeIcon()}
         <StyledSidebarContent
