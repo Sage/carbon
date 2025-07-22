@@ -1,3 +1,9 @@
+## [155.5.0](https://github.com/Sage/carbon/compare/v155.4.1...v155.5.0) (2025-07-22)
+
+### Features
+
+* **responsive-vertical-menu:** allow responsive menu items to close the menu ([701c144](https://github.com/Sage/carbon/commit/701c144a530d37be551772fccbebfb5b3caad7a9))
+
 ## [155.4.1](https://github.com/Sage/carbon/compare/v155.4.0...v155.4.1) (2025-07-22)
 
 ### Bug Fixes
