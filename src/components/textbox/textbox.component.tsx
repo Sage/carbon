@@ -95,7 +95,7 @@ export interface CommonTextboxProps
   /** [Legacy] Label width as a percentage when label is inline. */
   labelWidth?: number;
   /** Specify a callback triggered on change */
-  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Deferred callback to be called after the onChange event */
   onChangeDeferred?: () => void;
   /** Specify a callback triggered on click */
@@ -120,6 +120,11 @@ export interface CommonTextboxProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** [Legacy] Aria label for rendered help component. */
   helpAriaLabel?: string;
+  /**
+   * [Legacy] Flag to configure component as optional.
+   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
+   */
+  isOptional?: boolean;
   /** The id attribute for the validation tooltip */
   tooltipId?: string;
   /** @private @internal @ignore */
@@ -128,7 +133,7 @@ export interface CommonTextboxProps
   validationMessagePositionTop?: boolean;
 }
 
-export interface TextboxProps extends CommonTextboxProps {
+export interface TextboxProps extends Omit<CommonTextboxProps, "defaultValue"> {
   /** Content to be rendered next to the input */
   children?: React.ReactNode;
   /** Container for DatePicker or SelectList components */
@@ -137,7 +142,7 @@ export interface TextboxProps extends CommonTextboxProps {
   characterLimit?: number;
 }
 
-let deprecateUncontrolledWarnTriggered = false;
+let deprecateOptionalWarnTriggered = false;
 
 export const Textbox = React.forwardRef(
   (
@@ -175,6 +180,7 @@ export const Textbox = React.forwardRef(
       onMouseDown,
       onChangeDeferred,
       deferTimeout,
+      isOptional,
       iconOnClick,
       iconOnMouseDown,
       iconTabIndex,
@@ -198,6 +204,12 @@ export const Textbox = React.forwardRef(
     }: TextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
+    if (!deprecateOptionalWarnTriggered && isOptional) {
+      deprecateOptionalWarnTriggered = true;
+      Logger.deprecate(
+        "`isOptional` is deprecated in Textbox and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
+      );
+    }
     const characterCountValue = typeof value === "string" ? value : "";
 
     const [uniqueId, uniqueName] = useUniqueId(id, name);
@@ -229,13 +241,6 @@ export const Textbox = React.forwardRef(
     const { disableErrorBorder } = useContext(NumeralDateContext);
     const computeLabelPropValues = <T,>(prop: T): undefined | T =>
       validationRedesignOptIn ? undefined : prop;
-
-    if (!deprecateUncontrolledWarnTriggered && !onChange) {
-      deprecateUncontrolledWarnTriggered = true;
-      Logger.deprecate(
-        "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
 
     const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
       useInputAccessibility({
