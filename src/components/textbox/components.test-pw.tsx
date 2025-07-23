@@ -378,7 +378,7 @@ export const TextboxNewDesignsValidation = () => {
       <CarbonProvider validationRedesignOptIn>
         {(["error", "warning"] as const).map((validationType) =>
           SIZES.map((size) => (
-            <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
+            <Box width="296px" key={`${validationType}-${size}`}>
               <Textbox
                 m={4}
                 label={`${size} - ${validationType}`}
@@ -398,7 +398,7 @@ export const TextboxNewDesignsValidation = () => {
                 readOnly
                 {...{ [validationType]: "Message" }}
               />
-            </div>
+            </Box>
           )),
         )}
       </CarbonProvider>
