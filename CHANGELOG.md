@@ -1,3 +1,9 @@
+## [155.5.2](https://github.com/Sage/carbon/compare/v155.5.1...v155.5.2) (2025-07-23)
+
+### Bug Fixes
+
+* **accordion:** prevent scroll on Space key press ([89de70a](https://github.com/Sage/carbon/commit/89de70a8f3af2603a84dae00d55c1f6ab61aa4a4)), closes [#7429](https://github.com/Sage/carbon/issues/7429)
+
 ## [155.5.1](https://github.com/Sage/carbon/compare/v155.5.0...v155.5.1) (2025-07-23)
 
 ### Bug Fixes
