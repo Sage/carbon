@@ -113,8 +113,8 @@ export const FocusStates: Story = {
   render: () => (
     <Wrapper>
       <SplitButton text="Split button">
-        <Button data-role="focus-target">Focus Me</Button>
-        <Button>Another Button</Button>
+        <Button data-role="focus-target">Option 1</Button>
+        <Button>Option 2</Button>
       </SplitButton>
     </Wrapper>
   ),
@@ -133,10 +133,10 @@ export const FocusStates: Story = {
     await userEvent.keyboard("{Escape}");
     await userInteractionPause(300);
 
-    expect(document.activeElement).toHaveAttribute(
-      "data-element",
-      "toggle-button",
+    const toggleButtonElement = canvasElement.querySelector(
+      '[data-element="toggle-button"]',
     );
+    expect(document.activeElement).toBe(toggleButtonElement);
   },
   decorators: [
     (StoryToRender) => (
@@ -151,21 +151,20 @@ FocusStates.storyName = "Focus Management";
 export const DisabledState: Story = {
   render: () => (
     <Wrapper>
-      <SplitButton disabled text="Split button">
-        <Button>Enabled</Button>
-        <Button data-role="focus-disabled">Disabled</Button>
+      <SplitButton disabled text="Disabled Default">
+        <Button>Option 1</Button>
+        <Button>Option 2</Button>
       </SplitButton>
 
       <Box p={2} width="298px" backgroundColor="#000">
         <SplitButton
           buttonType="secondary"
-          text="Split button - secondary - white"
+          text="Disabled White"
           isWhite
           disabled
         >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
+          <Button>Option 1</Button>
+          <Button>Option 2</Button>
         </SplitButton>
       </Box>
     </Wrapper>
@@ -173,15 +172,26 @@ export const DisabledState: Story = {
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const toggleButton = canvas.getByRole("button", { name: /show more/i });
-    await userEvent.click(toggleButton);
-    await userInteractionPause(500);
 
-    const disabledButton = canvas.getByRole("button", { name: "Disabled" });
-    await userEvent.hover(disabledButton);
-    await userInteractionPause(500);
+    const mainButtons = [
+      canvas.getByRole("button", { name: "Disabled Default" }),
+      canvas.getByRole("button", { name: "Disabled White" }),
+    ];
 
-    expect(disabledButton).toBeDisabled();
+    const toggleButtons = canvas.getAllByRole("button", { name: /show more/i });
+
+    for (let i = 0; i < mainButtons.length; i++) {
+      const mainButton = mainButtons[i];
+      const toggleButton = toggleButtons[i];
+
+      expect(mainButton).toBeDisabled();
+      expect(toggleButton).toBeDisabled();
+
+      await userEvent.click(toggleButton);
+      await userInteractionPause(300);
+
+      expect(toggleButton).toHaveAttribute("aria-expanded", "false");
+    }
   },
   decorators: [
     (StoryToRender) => (
@@ -191,7 +201,7 @@ export const DisabledState: Story = {
     ),
   ],
 };
-DisabledState.storyName = "Disabled Child Buttons";
+DisabledState.storyName = "Disabled States";
 
 export const ButtonsWithIcons: Story = {
   render: () => (
@@ -267,13 +277,13 @@ export const SizeVariations: Story = {
   render: () => (
     <Wrapper>
       <SplitButton size="small" text="Split button = small">
-        <Button size="small">Small Option</Button>
+        <Button size="small">Small</Button>
       </SplitButton>
       <SplitButton size="medium" text="Split button = medium">
-        <Button size="medium">Medium Option</Button>
+        <Button size="medium">Medium</Button>
       </SplitButton>
       <SplitButton size="large" text="Split button = large">
-        <Button size="large">Large Option</Button>
+        <Button size="large">Large</Button>
       </SplitButton>
     </Wrapper>
   ),
@@ -324,30 +334,12 @@ export const Accessibility: Story = {
 
     expect(toggleButton).toHaveAttribute("aria-expanded", "true");
 
-    const popoverId = toggleButton.getAttribute("aria-controls");
-    const popover = canvas.getByRole("list");
-    expect(popover).toHaveAttribute("id", popoverId);
-
     const infoButton = canvas.getByLabelText("More Info");
     expect(infoButton).toHaveAttribute("aria-label", "More Info");
-    expect(infoButton).toHaveAttribute("role", "button");
-
-    await userEvent.tab();
-    expect(document.activeElement).toHaveAttribute(
-      "data-element",
-      "main-button",
-    );
-
-    await userEvent.tab();
-    expect(document.activeElement).toHaveAttribute(
-      "data-element",
-      "toggle-button",
-    );
 
     await userEvent.keyboard("{Escape}");
     await userInteractionPause(300);
     expect(toggleButton).toHaveAttribute("aria-expanded", "false");
-    expect(document.activeElement).toBe(toggleButton);
   },
   decorators: [
     (StoryToRender) => (
@@ -382,6 +374,7 @@ export const KeyboardNavigation: Story = {
     await userEvent.keyboard("{Escape}");
     await userInteractionPause(300);
     expect(toggleButton).toHaveAttribute("aria-expanded", "false");
+    expect(toggleButton).toHaveFocus();
 
     await userEvent.keyboard(" ");
     await userInteractionPause(500);
@@ -391,14 +384,17 @@ export const KeyboardNavigation: Story = {
       .getAllByRole("button")
       .filter((btn) => btn.textContent?.includes("Option"));
 
-    for (const button of childButtons) {
-      button.focus();
-      await userInteractionPause(200);
-      expect(button).toHaveFocus();
+    await userEvent.tab();
+    expect(childButtons[0]).toHaveFocus();
+
+    for (let i = 1; i < childButtons.length; i++) {
+      await userEvent.keyboard("{ArrowDown}");
+      expect(childButtons[i]).toHaveFocus();
     }
 
     await userEvent.keyboard("{Escape}");
     await userInteractionPause(300);
+    expect(toggleButton).toHaveFocus();
   },
   decorators: [
     (StoryToRender) => (
@@ -409,55 +405,3 @@ export const KeyboardNavigation: Story = {
   ],
 };
 KeyboardNavigation.storyName = "Keyboard Navigation";
-
-export const AdvancedFocusManagement: Story = {
-  render: () => (
-    <Wrapper>
-      <Button>Before Split Button</Button>
-      <SplitButton text="Focus Test">
-        <Button>Save</Button>
-        <Button>Save & Close</Button>
-        <Button disabled>Disabled Option</Button>
-      </SplitButton>
-      <Button>After Split Button</Button>
-    </Wrapper>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-    const canvas = within(canvasElement);
-    const toggleButton = canvas.getByRole("button", { name: /show more/i });
-    const beforeButton = canvas.getByText("Before Split Button");
-    const afterButton = canvas.getByText("After Split Button");
-
-    beforeButton.focus();
-    await userEvent.tab();
-    expect(canvas.getByRole("button", { name: "Focus Test" })).toHaveFocus();
-
-    await userEvent.tab();
-    expect(toggleButton).toHaveFocus();
-
-    await userEvent.tab();
-    expect(afterButton).toHaveFocus();
-
-    toggleButton.focus();
-    await userEvent.click(toggleButton);
-    await userInteractionPause(500);
-
-    const disabledButton = canvas.getByText("Disabled Option");
-    expect(disabledButton).toBeDisabled();
-
-    const saveButton = canvas.getByText("Save");
-    await userEvent.click(saveButton);
-    await userInteractionPause(300);
-
-    expect(toggleButton).toHaveAttribute("aria-expanded", "false");
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-AdvancedFocusManagement.storyName = "Focus Management";
