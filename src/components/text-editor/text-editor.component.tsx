@@ -3,13 +3,13 @@ import {
   LexicalComposer,
 } from "@lexical/react/LexicalComposer";
 import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
-import { EditorRefPlugin } from "@lexical/react/LexicalEditorRefPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 
 import { $getRoot, EditorState, LexicalEditor } from "lexical";
 import React, {
@@ -38,7 +38,6 @@ import {
   CharacterCounterPlugin,
   ContentEditor,
   LinkMonitorPlugin,
-  OnChangePlugin,
   Placeholder,
   ToolbarPlugin,
 } from "./__internal__/plugins";
@@ -161,7 +160,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
     const value = rest.value ?? createEmpty();
     const initialValue = useRef(value);
 
-    const editorRef = useRef<LexicalEditor | undefined>(undefined);
     const locale = useLocale();
     const [characterLimitWarning, setCharacterLimitWarning] = useState<
       string | undefined
@@ -211,11 +209,9 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       };
     }, [namespace, readOnly]);
 
-    // OnChangePlugin is tested separately
-    /* istanbul ignore next */
     const handleChange = useCallback(
-      (newState: EditorState) => {
-        const currentTextContent = newState.read(() => {
+      (editorState: EditorState, editor: LexicalEditor) => {
+        const currentTextContent = editorState.read(() => {
           return $getRoot()
             .getChildren()
             .map((node) => node.getTextContent())
@@ -223,13 +219,12 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
         });
 
         if (onChange) {
-          const formattedValues = editorRef.current
-            ? SerializeLexical(editorRef.current)
-            : {};
+          const formattedValues = SerializeLexical(editor);
           onChange?.(currentTextContent, formattedValues);
         }
 
         // If the character limit is set, check if the limit has been exceeded
+        /* istanbul ignore else */
         if (characterLimit > 0) {
           const currentDiff = characterLimit - currentTextContent.length;
           // If the character limit has been exceeded, show the character limit warning
@@ -308,7 +303,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
             </HintText>
           )}
           <LexicalComposer initialConfig={initialConfig}>
-            <EditorRefPlugin editorRef={editorRef} />
             <StyledWrapper data-role={`${namespace}-wrapper`}>
               {validationMessagePositionTop && (
                 <>
@@ -369,7 +363,11 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
                   <ListPlugin />
                   <HistoryPlugin />
                   <MarkdownShortcutPlugin />
-                  <OnChangePlugin onChange={handleChange} />
+                  <OnChangePlugin
+                    onChange={handleChange}
+                    ignoreHistoryMergeTagChange
+                    ignoreSelectionChange
+                  />
                   <LinkPlugin validateUrl={validateUrl} />
                   <ClickableLinkPlugin newTab />
                   <AutoLinkerPlugin />

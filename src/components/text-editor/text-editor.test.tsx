@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import React, { act, createRef } from "react";
@@ -7,17 +7,6 @@ import TextEditor, { TextEditorHandle, createEmpty, createFromHTML } from ".";
 import { COMPONENT_PREFIX } from "./__internal__/constants";
 
 import Logger from "../../__internal__/utils/logger";
-
-/**
- * Mock the OnChangePlugin whilst testing the full editor. This is to prevent
- * the editor from attempting to repeatedly create update listeners when the
- * tests are run, which causes errors to be thrown by Jest.
- *
- * The onChange prop is tested in the OnChangePlugin tests.
- */
-jest.mock("./__internal__/plugins/OnChange/on-change.plugin", () => {
-  return jest.fn().mockReturnValue(null);
-});
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -201,6 +190,83 @@ test("rendering and basic functionality", async () => {
 
   // expect the text to have been reset to the default value because of the above Cancel click
   expect(screen.getByText("Sample text")).toBeVisible();
+});
+
+test("does not call onChange on initial render", async () => {
+  const onChange = jest.fn();
+
+  render(
+    <TextEditor
+      labelText="foo"
+      onChange={onChange}
+      value={JSON.stringify(initialValue)}
+    />,
+  );
+
+  await waitFor(() => {
+    expect(onChange).not.toHaveBeenCalled();
+  });
+});
+
+test("does not call onChange when editor is focused", async () => {
+  const user = userEvent.setup();
+  const onChange = jest.fn();
+
+  render(
+    <TextEditor
+      labelText="foo"
+      onChange={onChange}
+      value={JSON.stringify(initialValue)}
+    />,
+  );
+
+  const editor = screen.getByRole("textbox", { name: "foo" });
+  await user.click(editor);
+
+  await waitFor(() => {
+    expect(onChange).not.toHaveBeenCalled();
+  });
+});
+
+test("calls onChange each time a character is typed", async () => {
+  const user = userEvent.setup();
+  const onChange = jest.fn();
+
+  render(
+    <TextEditor
+      labelText="foo"
+      onChange={onChange}
+      value={JSON.stringify(initialValue)}
+    />,
+  );
+
+  const editor = screen.getByRole("textbox", { name: "foo" });
+  await user.type(editor, "bar");
+
+  await waitFor(() => {
+    expect(onChange).toHaveBeenCalledTimes(3);
+  });
+});
+
+test("calls onChange once when selected text content is removed", async () => {
+  const user = userEvent.setup();
+  const onChange = jest.fn();
+
+  render(
+    <TextEditor
+      labelText="foo"
+      onChange={onChange}
+      value={JSON.stringify(initialValue)}
+    />,
+  );
+
+  const editor = screen.getByRole("textbox", { name: "foo" });
+  await user.tripleClick(editor); // Select all text
+  await user.keyboard("{Delete}");
+
+  await waitFor(() => {
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
 });
 
 test("input hint renders correctly when inputHint prop is provided", () => {
