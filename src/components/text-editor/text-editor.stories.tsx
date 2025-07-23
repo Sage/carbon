@@ -11,6 +11,7 @@ import I18nProvider from "../i18n-provider";
 import EditorLinkPreview from "../link-preview";
 import Typography from "../typography";
 import Link from "../link";
+import Form, { FormProps } from "../form";
 
 import enGB from "../../locales/en-gb";
 
@@ -292,6 +293,45 @@ export const OnChange: Story = () => {
 };
 OnChange.storyName = "onChange Handler";
 OnChange.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+const saveContent = async (content: string) => content;
+const generateGuid = () => crypto.randomUUID();
+
+export const ExternallyOverwriting: Story = () => {
+  const [content, setContent] = useState("");
+  const [resetKey, setResetKey] = useState(generateGuid); // Use a guid string as a key for the editor
+
+  const handleSubmit: FormProps["onSubmit"] = async (ev) => {
+    ev.preventDefault();
+
+    await saveContent(content); // Saving content to a server or local storage
+
+    setResetKey(generateGuid()); // Reset editor by changing the key
+    setContent("");
+  };
+
+  return (
+    <Form
+      onSubmit={handleSubmit}
+      saveButton={
+        <Button type="submit" buttonType="primary">
+          Save
+        </Button>
+      }
+    >
+      <TextEditor
+        key={resetKey}
+        labelText="Feedback"
+        initialValue={createEmpty()}
+        onChange={(value) => setContent(createFromHTML(value))}
+      />
+    </Form>
+  );
+};
+ExternallyOverwriting.storyName = "Externally overwriting the editor's content";
+ExternallyOverwriting.parameters = {
   chromatic: { disableSnapshot: true },
 };
 

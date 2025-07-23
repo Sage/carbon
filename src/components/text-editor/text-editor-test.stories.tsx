@@ -10,6 +10,7 @@ import Textbox from "../textbox";
 
 import useDebounce from "../../hooks/__internal__/useDebounce";
 import ReadOnlyEditor from "./__internal__";
+import createGuid from "../../__internal__/utils/helpers/guid";
 
 const meta: Meta<typeof TextEditor> = {
   title: "Text Editor/Test",
@@ -212,12 +213,12 @@ OnChangeFormattedValues.parameters = {
 
 export const ExternalOverwrite: Story = () => {
   const [, setValue] = useState("");
-  const [resetKey, setResetKey] = useState(0);
+  const [resetKey, setResetKey] = useState(createGuid);
 
   useEffect(() => {
     setTimeout(() => {
       setValue(createFromHTML("<p>Message Changed</p>"));
-      setResetKey((prevKey) => prevKey + 1); // Force re-render when changing component key
+      setResetKey(createGuid()); // Reset editor by changing its key
     }, 3000);
   }, []);
 
