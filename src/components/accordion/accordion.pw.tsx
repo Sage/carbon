@@ -104,6 +104,30 @@ test.describe("should render Accordion component", () => {
     await expect(accordionContent(page)).toBeVisible();
   });
 
+  test("should check Accordion is expanded using Space key and does not trigger scroll", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<AccordionComponent />);
+
+    await accordionTitleContainer(page).press("Space");
+
+    await expect(accordionTitleContainer(page)).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+    await expect(accordionTitleContainer(page)).toBeVisible();
+
+    await expect(accordionContent(page)).toHaveAttribute(
+      "data-element",
+      "accordion-content",
+    );
+    await expect(accordionContent(page)).toBeVisible();
+
+    const scrollPosition = await page.evaluate(() => window.scrollY);
+    expect(scrollPosition).toBe(0);
+  });
+
   (["chevron_down", "dropdown", "chevron_down_thick"] as const).forEach(
     (iconType) => {
       test(`should set iconType to ${iconType} and transform when Accordion row is closed`, async ({
