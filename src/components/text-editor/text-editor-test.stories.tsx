@@ -125,7 +125,7 @@ export const Functions = ({ ...props }: Partial<TextEditorProps>) => {
         onChange={handleChange}
         onLinkAdded={action("onLinkAdded")}
         onSave={action("onSave")}
-        value={defaultValue}
+        initialValue={defaultValue}
       />
     </Box>
   );
@@ -156,10 +156,10 @@ export const ReadOnlyEditorForNotes = () => {
       </Typography>
       <Box p={1} display="flex" gap={2} flexDirection="column">
         <Box p={1} backgroundColor="lightgray">
-          <ReadOnlyEditor value={defaultValue} />
+          <ReadOnlyEditor initialValue={defaultValue} />
         </Box>
         <Box p={1} backgroundColor="lightgray">
-          <ReadOnlyEditor value={htmlValue} />
+          <ReadOnlyEditor initialValue={htmlValue} />
         </Box>
       </Box>
     </Box>
@@ -225,7 +225,7 @@ export const ExternalOverwrite: Story = () => {
     <TextEditor
       key={resetKey}
       labelText="Message"
-      value={createFromHTML("<p>Hello world</p>")}
+      initialValue={createFromHTML("<p>Hello world</p>")}
       onChange={(value, formattedValues) => {
         action("onChange")({ value, formattedValues });
         setValue(createFromHTML(value));

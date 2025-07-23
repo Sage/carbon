@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import { Meta, StoryObj } from "@storybook/react";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -121,7 +120,7 @@ export const UsingCreateEmpty: Story = () => {
     <TextEditor
       namespace="storybook-usingcreateempty"
       labelText="Text Editor"
-      value={value}
+      initialValue={value}
     />
   );
 };
@@ -250,7 +249,7 @@ export const onCancel: Story = () => {
     <TextEditor
       namespace="storybook-oncancel"
       labelText="Text Editor"
-      value={value}
+      initialValue={value}
       onCancel={() => {}}
     />
   );
@@ -373,7 +372,7 @@ export const WithHTMLValue: Story = () => {
     <TextEditor
       namespace="storybook-withhtmlvalue"
       labelText="Text Editor"
-      value={value}
+      initialValue={value}
     />
   );
 };
@@ -455,7 +454,7 @@ export const WithJSONValue: Story = () => {
     <TextEditor
       namespace="storybook-withjsonvalue"
       labelText="Text Editor"
-      value={value}
+      initialValue={value}
     />
   );
 };
@@ -535,7 +534,7 @@ export const Links: Story = () => {
     <TextEditor
       namespace="storybook-links"
       labelText="Text Editor"
-      value={value}
+      initialValue={value}
     />
   );
 };
@@ -591,7 +590,7 @@ export const WithLinkPreviews: Story = () => {
         namespace="storybook-linkpreviews"
         labelText="Text Editor"
         previews={previews}
-        value={value}
+        initialValue={value}
       />
     </>
   );
@@ -629,7 +628,7 @@ export const WithComplexLinkPreviews: Story = () => {
         namespace="storybook-complexlinkpreviews"
         labelText="Text Editor"
         previews={previews.current}
-        value={value}
+        initialValue={value}
       />
     </>
   );
@@ -677,7 +676,7 @@ export const WithMultipleLinkPreviews: Story = () => {
         namespace="storybook-multiplinkpreviews"
         labelText="Text Editor"
         previews={previews}
-        value={value}
+        initialValue={value}
       />
     </>
   );
@@ -692,7 +691,7 @@ export const ReadOnly: Story = () => {
       namespace="storybook-readonly"
       labelText="Text Editor"
       readOnly
-      value={value}
+      initialValue={value}
     />
   );
 };

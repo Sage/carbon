@@ -186,12 +186,11 @@ describe("Events", () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
 
-    const initialValue = createFromHTML("<p>Hello world!</p>");
     render(
       <TextEditor
         labelText="foo"
         onChange={mockOnChange}
-        value={initialValue}
+        initialValue={createFromHTML("<p>Hello world!</p>")}
       />,
     );
 
@@ -239,12 +238,11 @@ describe("Events", () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
 
-    const initialValue = createFromHTML("<p>Hello world!</p>");
     render(
       <TextEditor
         labelText="foo"
         onChange={mockOnChange}
-        value={initialValue}
+        initialValue={createFromHTML("<p>Hello world!</p>")}
       />,
     );
 
@@ -292,12 +290,11 @@ describe("Events", () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
 
-    const initialValue = createFromHTML("<p>Hello world!</p>");
     render(
       <TextEditor
         labelText="foo"
         onChange={mockOnChange}
-        value={initialValue}
+        initialValue={createFromHTML("<p>Hello world!</p>")}
       />,
     );
 
@@ -342,12 +339,11 @@ describe("Events", () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
 
-    const initialValue = createFromHTML("<p>Hello world!</p>");
     render(
       <TextEditor
         labelText="foo"
         onChange={mockOnChange}
-        value={initialValue}
+        initialValue={createFromHTML("<p>Hello world!</p>")}
       />,
     );
 
