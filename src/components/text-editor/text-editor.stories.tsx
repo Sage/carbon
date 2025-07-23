@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import { Meta, StoryObj } from "@storybook/react";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -12,6 +11,7 @@ import I18nProvider from "../i18n-provider";
 import EditorLinkPreview from "../link-preview";
 import Typography from "../typography";
 import Link from "../link";
+import Form, { FormProps } from "../form";
 
 import enGB from "../../locales/en-gb";
 
@@ -121,7 +121,7 @@ export const UsingCreateEmpty: Story = () => {
     <TextEditor
       namespace="storybook-usingcreateempty"
       labelText="Text Editor"
-      value={value}
+      initialValue={value}
     />
   );
 };
@@ -250,7 +250,7 @@ export const onCancel: Story = () => {
     <TextEditor
       namespace="storybook-oncancel"
       labelText="Text Editor"
-      value={value}
+      initialValue={value}
       onCancel={() => {}}
     />
   );
@@ -293,6 +293,45 @@ export const OnChange: Story = () => {
 };
 OnChange.storyName = "onChange Handler";
 OnChange.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+const saveContent = async (content: string) => content;
+const generateGuid = () => crypto.randomUUID();
+
+export const ExternallyOverwriting: Story = () => {
+  const [content, setContent] = useState("");
+  const [resetKey, setResetKey] = useState(generateGuid); // Use a guid string as a key for the editor
+
+  const handleSubmit: FormProps["onSubmit"] = async (ev) => {
+    ev.preventDefault();
+
+    await saveContent(content); // Saving content to a server or local storage
+
+    setResetKey(generateGuid()); // Reset editor by changing the key
+    setContent("");
+  };
+
+  return (
+    <Form
+      onSubmit={handleSubmit}
+      saveButton={
+        <Button type="submit" buttonType="primary">
+          Save
+        </Button>
+      }
+    >
+      <TextEditor
+        key={resetKey}
+        labelText="Feedback"
+        initialValue={createEmpty()}
+        onChange={(value) => setContent(createFromHTML(value))}
+      />
+    </Form>
+  );
+};
+ExternallyOverwriting.storyName = "Externally overwriting the editor's content";
+ExternallyOverwriting.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
@@ -373,7 +412,7 @@ export const WithHTMLValue: Story = () => {
     <TextEditor
       namespace="storybook-withhtmlvalue"
       labelText="Text Editor"
-      value={value}
+      initialValue={value}
     />
   );
 };
@@ -455,7 +494,7 @@ export const WithJSONValue: Story = () => {
     <TextEditor
       namespace="storybook-withjsonvalue"
       labelText="Text Editor"
-      value={value}
+      initialValue={value}
     />
   );
 };
@@ -535,7 +574,7 @@ export const Links: Story = () => {
     <TextEditor
       namespace="storybook-links"
       labelText="Text Editor"
-      value={value}
+      initialValue={value}
     />
   );
 };
@@ -591,7 +630,7 @@ export const WithLinkPreviews: Story = () => {
         namespace="storybook-linkpreviews"
         labelText="Text Editor"
         previews={previews}
-        value={value}
+        initialValue={value}
       />
     </>
   );
@@ -629,7 +668,7 @@ export const WithComplexLinkPreviews: Story = () => {
         namespace="storybook-complexlinkpreviews"
         labelText="Text Editor"
         previews={previews.current}
-        value={value}
+        initialValue={value}
       />
     </>
   );
@@ -677,7 +716,7 @@ export const WithMultipleLinkPreviews: Story = () => {
         namespace="storybook-multiplinkpreviews"
         labelText="Text Editor"
         previews={previews}
-        value={value}
+        initialValue={value}
       />
     </>
   );
@@ -692,7 +731,7 @@ export const ReadOnly: Story = () => {
       namespace="storybook-readonly"
       labelText="Text Editor"
       readOnly
-      value={value}
+      initialValue={value}
     />
   );
 };

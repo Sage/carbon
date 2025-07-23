@@ -108,8 +108,13 @@ export interface TextEditorProps extends MarginProps, TagProps {
   rows?: number;
   /** The message to be shown when the editor is in an warning state */
   warning?: string;
-  /** The initial value of the editor, as a HTML string, or JSON */
+  /**
+   * Alias of `initialValue` prop.
+   * @deprecated Please use `initialValue` instead.
+   */
   value?: string | undefined;
+  /** The initial value of the editor, as a HTML string, or JSON */
+  initialValue?: string | undefined;
   /**
    * Allows the injection of one or more Lexical-compatible React components into the editor to extend its functionality.
    * This prop is optional and supports a single plugin, multiple plugins (via fragments or arrays), or `null`.
@@ -119,6 +124,7 @@ export interface TextEditorProps extends MarginProps, TagProps {
   validationMessagePositionTop?: boolean;
 }
 
+let deprecateValueTriggered = false;
 let deprecateOptionalWarnTriggered = false;
 
 export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
@@ -156,10 +162,16 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
         "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
       );
     }
+    if (!deprecateValueTriggered && rest.value) {
+      deprecateValueTriggered = true;
+      Logger.deprecate(
+        "`value` is deprecated in TextEditor and support will soon be removed. Please use `initialValue` instead.",
+      );
+    }
 
-    const value = rest.value ?? createEmpty();
-    const initialValue = useRef(value);
-
+    const initialValue = useRef(
+      rest.initialValue ?? rest.value ?? createEmpty(),
+    );
     const locale = useLocale();
     const [characterLimitWarning, setCharacterLimitWarning] = useState<
       string | undefined

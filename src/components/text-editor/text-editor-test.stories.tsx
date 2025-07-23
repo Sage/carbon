@@ -10,6 +10,7 @@ import Textbox from "../textbox";
 
 import useDebounce from "../../hooks/__internal__/useDebounce";
 import ReadOnlyEditor from "./__internal__";
+import createGuid from "../../__internal__/utils/helpers/guid";
 
 const meta: Meta<typeof TextEditor> = {
   title: "Text Editor/Test",
@@ -125,7 +126,7 @@ export const Functions = ({ ...props }: Partial<TextEditorProps>) => {
         onChange={handleChange}
         onLinkAdded={action("onLinkAdded")}
         onSave={action("onSave")}
-        value={defaultValue}
+        initialValue={defaultValue}
       />
     </Box>
   );
@@ -156,10 +157,10 @@ export const ReadOnlyEditorForNotes = () => {
       </Typography>
       <Box p={1} display="flex" gap={2} flexDirection="column">
         <Box p={1} backgroundColor="lightgray">
-          <ReadOnlyEditor value={defaultValue} />
+          <ReadOnlyEditor initialValue={defaultValue} />
         </Box>
         <Box p={1} backgroundColor="lightgray">
-          <ReadOnlyEditor value={htmlValue} />
+          <ReadOnlyEditor initialValue={htmlValue} />
         </Box>
       </Box>
     </Box>
@@ -212,12 +213,12 @@ OnChangeFormattedValues.parameters = {
 
 export const ExternalOverwrite: Story = () => {
   const [, setValue] = useState("");
-  const [resetKey, setResetKey] = useState(0);
+  const [resetKey, setResetKey] = useState(createGuid);
 
   useEffect(() => {
     setTimeout(() => {
       setValue(createFromHTML("<p>Message Changed</p>"));
-      setResetKey((prevKey) => prevKey + 1); // Force re-render when changing component key
+      setResetKey(createGuid()); // Reset editor by changing its key
     }, 3000);
   }, []);
 
@@ -225,7 +226,7 @@ export const ExternalOverwrite: Story = () => {
     <TextEditor
       key={resetKey}
       labelText="Message"
-      value={createFromHTML("<p>Hello world</p>")}
+      initialValue={createFromHTML("<p>Hello world</p>")}
       onChange={(value, formattedValues) => {
         action("onChange")({ value, formattedValues });
         setValue(createFromHTML(value));

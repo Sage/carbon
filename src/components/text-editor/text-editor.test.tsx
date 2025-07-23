@@ -64,11 +64,30 @@ test("should display deprecation warning once when rendered as optional", () => 
   loggerSpy.mockRestore();
 });
 
+test("should display deprecation warning once when rendered with value prop", async () => {
+  const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+  render(
+    <>
+      <TextEditor labelText="label" value={JSON.stringify(initialValue)} />
+      <TextEditor labelText="label" value={JSON.stringify(initialValue)} />
+    </>,
+  );
+
+  await waitFor(() =>
+    expect(loggerSpy).toHaveBeenNthCalledWith(
+      1,
+      "`value` is deprecated in TextEditor and support will soon be removed. Please use `initialValue` instead.",
+    ),
+  );
+
+  loggerSpy.mockRestore();
+});
+
 test("rendering and basic functionality", async () => {
   const user = userEvent.setup();
   const mockCancel = jest.fn();
   const mockSave = jest.fn();
-  const value = JSON.stringify(initialValue);
 
   // render the TextEditor component
   render(
@@ -76,7 +95,7 @@ test("rendering and basic functionality", async () => {
       labelText="Example"
       onCancel={() => mockCancel()}
       onSave={() => mockSave()}
-      value={value}
+      initialValue={JSON.stringify(initialValue)}
       characterLimit={20}
     />,
   );
@@ -199,7 +218,7 @@ test("does not call onChange on initial render", async () => {
     <TextEditor
       labelText="foo"
       onChange={onChange}
-      value={JSON.stringify(initialValue)}
+      initialValue={JSON.stringify(initialValue)}
     />,
   );
 
@@ -216,7 +235,7 @@ test("does not call onChange when editor is focused", async () => {
     <TextEditor
       labelText="foo"
       onChange={onChange}
-      value={JSON.stringify(initialValue)}
+      initialValue={JSON.stringify(initialValue)}
     />,
   );
 
@@ -236,7 +255,7 @@ test("calls onChange each time a character is typed", async () => {
     <TextEditor
       labelText="foo"
       onChange={onChange}
-      value={JSON.stringify(initialValue)}
+      initialValue={JSON.stringify(initialValue)}
     />,
   );
 
@@ -256,7 +275,7 @@ test("calls onChange once when selected text content is removed", async () => {
     <TextEditor
       labelText="foo"
       onChange={onChange}
-      value={JSON.stringify(initialValue)}
+      initialValue={JSON.stringify(initialValue)}
     />,
   );
 
@@ -479,7 +498,7 @@ test("serialisation of editor", async () => {
     <TextEditor
       labelText="Text Editor"
       onSave={(values) => mockSave(values)}
-      value={JSON.stringify(initialValue)}
+      initialValue={JSON.stringify(initialValue)}
     />,
   );
 
@@ -591,7 +610,7 @@ test("valid state is created when the CreateEmpty function is called", async () 
       version: 1,
     },
   });
-  render(<TextEditor labelText="Text Editor" value={value} />);
+  render(<TextEditor labelText="Text Editor" initialValue={value} />);
   expect(screen.getByRole("textbox")).toBeVisible();
   expect(screen.getByRole("textbox")).toHaveTextContent("");
 });
@@ -627,7 +646,7 @@ test("should reset the content to the default if the Cancel button is pressed", 
       labelText="Example"
       onCancel={() => mockCancel()}
       onSave={() => mockSave()}
-      value={value}
+      initialValue={value}
     />,
   );
 
@@ -662,7 +681,9 @@ test("should toggle the list type when a list is active and the alternate list t
     `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
   );
   // render the TextEditor component
-  render(<TextEditor labelText="Example" namespace="test" value={value} />);
+  render(
+    <TextEditor labelText="Example" namespace="test" initialValue={value} />,
+  );
   const olButton = screen.getByTestId(`test-ordered-list-button`);
   const ulButton = screen.getByTestId(`test-unordered-list-button`);
   expect(olButton).toBeVisible();
@@ -684,7 +705,9 @@ test("should toggle the an individual list item's type when a list is active and
     `<ul><li value="1"><span style="white-space: pre-wrap;">Example List</span></li><li value="2"><span style="white-space: pre-wrap;">Change Me</span></li><li value="3"><span style="white-space: pre-wrap;">Example List</span></li></ul>`,
   );
   // render the TextEditor component
-  render(<TextEditor labelText="Example" namespace="test" value={value} />);
+  render(
+    <TextEditor labelText="Example" namespace="test" initialValue={value} />,
+  );
   const olButton = screen.getByTestId(`test-ordered-list-button`);
   const ulButton = screen.getByTestId(`test-unordered-list-button`);
   expect(olButton).toBeVisible();
@@ -713,7 +736,7 @@ describe("shortcut keys", () => {
         labelText="Example"
         onCancel={() => mockCancel()}
         onSave={() => mockSave()}
-        value={value}
+        initialValue={value}
         characterLimit={20}
       />,
     );
@@ -752,7 +775,7 @@ describe("shortcut keys", () => {
         labelText="Example"
         onCancel={() => mockCancel()}
         onSave={() => mockSave()}
-        value={value}
+        initialValue={value}
         characterLimit={20}
       />,
     );
