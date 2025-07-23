@@ -193,7 +193,8 @@ describe("Toolbar buttons", () => {
 
 describe("Command buttons", () => {
   describe("Save button", () => {
-    it("invokes the onSave callback with the serialized editor value", () => {
+    it("invokes the onSave callback with the serialized editor value", async () => {
+      const user = userEvent.setup();
       const mockSerialize = jest.fn(() => mockedSerializeRespone);
       jest.mock("../../../helpers", () => ({
         SerializeLexical: mockSerialize,
@@ -217,7 +218,7 @@ describe("Command buttons", () => {
         </LexicalComposer>,
       );
       const saveButton = screen.getByRole("button");
-      saveButton.click();
+      await user.click(saveButton);
       expect(onSave).toHaveBeenCalledTimes(1);
       expect(onSave.mock.calls[0][0].htmlString).toEqual("<p><br></p>");
     });

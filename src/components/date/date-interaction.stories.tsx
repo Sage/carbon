@@ -74,7 +74,7 @@ export const DateTyping: Story = {
     const canvas = within(canvasElement);
     const input = canvas.getByRole("textbox");
     await userEvent.click(input);
-    await userEvent.keyboard("05/12/2025");
+    await userEvent.keyboard("05/12/2024");
     const calendarIcon = canvas.getByTestId("icon");
     await userEvent.click(calendarIcon);
   },
@@ -93,10 +93,10 @@ export const MinMaxDate: Story = {
     <DateInput
       label="Date"
       name="date-input"
-      value="17/07/2025"
+      value="17/07/2024"
       onChange={() => {}}
-      minDate="2025-07-14"
-      maxDate="2025-07-20"
+      minDate="2024-07-14"
+      maxDate="2024-07-20"
     />
   ),
   play: async ({ canvasElement }) => {
@@ -124,17 +124,17 @@ export const DisabledDate: Story = {
       <DateInput
         label="Date"
         name="date-input"
-        value="10/07/2025"
+        value="10/07/2024"
         onChange={() => {}}
         pickerProps={{
           disabled: [
             isWeekend,
             {
-              from: new Date(2025, 6, 15),
-              to: new Date(2025, 6, 18),
+              from: new Date(2024, 6, 15),
+              to: new Date(2024, 6, 18),
             },
-            { before: new Date(2025, 6, 3) },
-            { after: new Date(2025, 6, 29) },
+            { before: new Date(2024, 6, 3) },
+            { after: new Date(2024, 6, 29) },
           ],
         }}
       />
@@ -175,7 +175,7 @@ export const WeekStartDay: Story = {
       >
         <DateInput
           label="`en-US` locale - First week day: Sunday"
-          value="17/07/2025"
+          value="17/07/2024"
           onChange={() => {}}
           data-role="enUsDate"
         />
@@ -194,7 +194,7 @@ export const WeekStartDay: Story = {
       >
         <DateInput
           label="`de-DE` locale - first week day: Monday"
-          value="17/07/2025"
+          value="17/07/2024"
           onChange={() => {}}
           data-role="deDate"
         />
