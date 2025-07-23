@@ -1,3 +1,9 @@
+## [155.5.1](https://github.com/Sage/carbon/compare/v155.5.0...v155.5.1) (2025-07-23)
+
+### Bug Fixes
+
+* revert updates to package.json exports ([7e7d8b2](https://github.com/Sage/carbon/commit/7e7d8b2de04a4e4700cc2c83479a6499b2aea4e6))
+
 ## [155.5.0](https://github.com/Sage/carbon/compare/v155.4.1...v155.5.0) (2025-07-22)
 
 ### Features
