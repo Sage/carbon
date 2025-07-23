@@ -174,7 +174,7 @@ test("has the correct styles when the `stickyFooter` prop is set", () => {
   );
 
   expect(screen.getByTestId("form-footer")).toHaveStyle({
-    "box-shadow": "0 -4px 12px 0 rgba(0,0,0,0.05)",
+    "box-shadow": "var(--boxShadow150)",
     "box-sizing": "border-box",
     padding: "16px 32px",
     width: "100%",
@@ -248,5 +248,48 @@ test("renders with correct styles when `buttonAlignment` prop is set to `left`",
 
   expect(screen.getByTestId("form-right-buttons")).toHaveStyle({
     "flex-grow": "1",
+  });
+});
+
+// for coverage - the `stickyFooterVariant` prop will be captured by Chromatic`
+test('renders with correct styles when `stickyFooterVariant` is "light"', () => {
+  render(
+    <Form
+      stickyFooter
+      stickyFooterVariant="light"
+      buttonAlignment="left"
+      rightSideButtons={
+        <>
+          <Button>Right1</Button>
+          <Button>Right2</Button>
+        </>
+      }
+    />,
+  );
+
+  expect(screen.getByTestId("form-footer")).toHaveStyle({
+    "background-color": "var(--colorsUtilityYang100)",
+    "border-top": "1px solid var(--colorsUtilityMajor050)",
+  });
+});
+
+// for coverage - the `stickyFooterVariant prop` will be captured by Chromatic`
+test('renders with correct styles when `stickyFooterVariant` is "grey"', () => {
+  render(
+    <Form
+      stickyFooter
+      stickyFooterVariant="grey"
+      buttonAlignment="left"
+      rightSideButtons={
+        <>
+          <Button>Right1</Button>
+          <Button>Right2</Button>
+        </>
+      }
+    />,
+  );
+
+  expect(screen.getByTestId("form-footer")).toHaveStyle({
+    "background-color": "var(--colorsUtilityMajor025)",
   });
 });
