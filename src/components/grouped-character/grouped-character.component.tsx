@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Textbox, { TextboxProps } from "../textbox";
 import { generateGroups, toSum } from "./grouped-character.utils";
-import Logger from "../../__internal__/utils/logger";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 
 type EventValue = {
@@ -35,58 +34,40 @@ const buildCustomTarget = (
 
 export interface GroupedCharacterProps
   extends Omit<TextboxProps, "onChange" | "onBlur" | "data-component"> {
-  /** Default input value if component is meant to be used as an uncontrolled component */
-  defaultValue?: string;
   /** pattern by which input value should be grouped */
   groups: number[];
   /** Handler for blur event */
   onBlur?: (ev: CustomEvent) => void;
-  /** Handler for change event if input is meant to be used as a controlled component */
-  onChange?: (ev: CustomEvent) => void;
+  /** Handler for change event */
+  onChange: (ev: CustomEvent) => void;
   /** character to be used as separator - has to be a 1 character string */
   separator: string;
-  /** Input value if component is meant to be used as a controlled component */
-  value?: string;
+  /** Input value */
+  value: string;
 }
-
-let deprecateUncontrolledWarnTriggered = false;
 
 export const GroupedCharacter = React.forwardRef(
   (
     {
-      defaultValue,
       groups,
       onBlur,
       onChange,
       onKeyDown,
       separator: rawSeparator,
-      value: externalValue,
+      value,
       ...rest
     }: GroupedCharacterProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
-    const [internalValue, setInternalValue] = useState(defaultValue || "");
-
-    const isControlled = externalValue !== undefined;
-
     const separator = rawSeparator.substring(0, 1); // Ensure max length is 1
 
     const maxRawLength = groups.reduce(toSum);
-
-    if (!deprecateUncontrolledWarnTriggered && !isControlled) {
-      deprecateUncontrolledWarnTriggered = true;
-      Logger.deprecate(
-        "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
 
     const formatValue = (val: string) =>
       generateGroups(groups, val).join(separator);
 
     const sanitizeValue = (val: string) =>
       val.split(separator).join("").substring(0, maxRawLength);
-
-    const value = isControlled ? externalValue : internalValue;
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
       const { target } = ev;
@@ -122,9 +103,7 @@ export const GroupedCharacter = React.forwardRef(
       });
 
       onChange?.(modifiedEvent);
-      if (!isControlled) {
-        setInternalValue(rawValue);
-      }
+
       setTimeout(() => target.setSelectionRange(newCursorPos, newCursorPos));
     };
 
