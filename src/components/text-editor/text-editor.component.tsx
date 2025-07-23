@@ -145,7 +145,6 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       required = false,
       rows,
       warning,
-      value,
       customPlugins,
       validationMessagePositionTop = true,
       ...rest
@@ -158,6 +157,10 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
         "`isOptional` is deprecated in TextEditor and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
       );
     }
+
+    const value = rest.value ?? createEmpty();
+    const initialValue = useRef(value);
+
     const editorRef = useRef<LexicalEditor | undefined>(undefined);
     const locale = useLocale();
     const [characterLimitWarning, setCharacterLimitWarning] = useState<
@@ -197,18 +200,16 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       return cleanup;
     }, [contentEditorRef]);
 
-    const [cancelTrigger, setCancelTrigger] = useState<boolean>(false);
-
     const initialConfig = useMemo<InitialConfigType>(() => {
       return {
         namespace,
         nodes: markdownNodes,
         onError: /* istanbul ignore next */ (e) => Logger.error(e.message),
         theme,
-        editorState: value,
+        editorState: initialValue.current,
         editable: !readOnly,
       };
-    }, [namespace, readOnly, value]);
+    }, [namespace, readOnly]);
 
     // OnChangePlugin is tested separately
     /* istanbul ignore next */
@@ -242,29 +243,25 @@ export const TextEditor = forwardRef<TextEditorHandle, TextEditorProps>(
       [characterLimit, locale.textEditor, onChange],
     );
 
-    const handleCancel = useCallback(() => {
-      /* istanbul ignore next */
-      const isEditable = editorRef.current?.isEditable() || false;
-      /* istanbul ignore if */
-      if (!isEditable) return;
+    const handleCancel = useCallback(
+      (editor: LexicalEditor) => {
+        const isEditable = editor.isEditable();
+        /* istanbul ignore if */
+        if (!isEditable) {
+          return;
+        }
 
-      /* istanbul ignore else */
-      if (onCancel) {
-        setCancelTrigger((prev) => !prev);
+        /* istanbul ignore if */
+        if (!onCancel) {
+          return;
+        }
+
+        const newEditorState = editor.parseEditorState(initialValue.current);
+        editor.setEditorState(newEditorState);
         onCancel();
-      }
-    }, [onCancel]);
-
-    // Reset the value of the editor when the cancel trigger is updated (implements reset on cancel)
-    useEffect(() => {
-      const safeValue = value || createEmpty();
-
-      /* istanbul ignore else */
-      if (editorRef.current) {
-        const newEditorState = editorRef.current.parseEditorState(safeValue);
-        editorRef.current.setEditorState(newEditorState);
-      }
-    }, [cancelTrigger, value]);
+      },
+      [onCancel],
+    );
 
     const toolbarProps = useMemo(
       () => ({
