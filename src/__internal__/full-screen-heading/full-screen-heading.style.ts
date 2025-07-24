@@ -6,6 +6,7 @@ import {
 
 export interface StyledFullScreenHeadingProps {
   hasContent?: boolean;
+  hasCloseButton?: boolean;
 }
 
 export const StyledHeaderContainer = styled.div`
@@ -35,6 +36,15 @@ const StyledFullScreenHeading = styled.div<StyledFullScreenHeadingProps>`
   @media screen and (min-width: 1260px) {
     padding: 0 40px;
   }
+
+  ${({ hasCloseButton }) =>
+    hasCloseButton &&
+    css`
+      & {
+        // prevent the close button from overlapping the title
+        padding-right: 64px;
+      }
+    `}
 
   ${StyledHeading} {
     width: auto;
