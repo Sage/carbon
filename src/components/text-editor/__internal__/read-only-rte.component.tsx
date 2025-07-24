@@ -46,7 +46,7 @@ const determineFormat = (value: string | undefined) => {
 
 const ReadOnlyEditor = ({
   namespace = "carbon-rte-readonly",
-  value,
+  initialValue,
 }: Partial<TextEditorProps>) => {
   const initialConfig = useMemo<InitialConfigType>(() => {
     return {
@@ -54,10 +54,10 @@ const ReadOnlyEditor = ({
       nodes: markdownNodes,
       onError: /* istanbul ignore next */ (e) => Logger.error(e.message),
       theme,
-      editorState: determineFormat(value),
+      editorState: determineFormat(initialValue),
       editable: false,
     };
-  }, [namespace, value]);
+  }, [namespace, initialValue]);
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
