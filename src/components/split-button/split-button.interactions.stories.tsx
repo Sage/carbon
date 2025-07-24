@@ -77,21 +77,21 @@ export const ButtonTypes: Story = {
 ButtonTypes.storyName = "Button Types";
 
 export const SizeVariations: Story = {
-  render: () => (
-    <Wrapper>
-      <Box mb={3}>
-        <SplitButton size="small" text="Split button = small">
-          <Button size="small">Small Option</Button>
-        </SplitButton>
-        <SplitButton size="medium" text="Split button = medium">
-          <Button size="medium">Medium Option</Button>
-        </SplitButton>
-        <SplitButton size="large" text="Split button = large">
-          <Button size="large">Large Option</Button>
-        </SplitButton>
-      </Box>
-    </Wrapper>
-  ),
+  render: () => {
+    return (
+      <>
+        {(["small", "medium", "large"] as const).map((size) => (
+          <Box key={size} mb={3}>
+            <SplitButton size={size} text={`Split button - ${size}`}>
+              <Button size={size}>Button 1</Button>
+              <Button size={size}>Button 2</Button>
+              <Button size={size}>Button 3</Button>
+            </SplitButton>
+          </Box>
+        ))}
+      </>
+    );
+  },
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
