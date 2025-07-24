@@ -67,17 +67,56 @@ Default.args = {
 export const Validation: Story = ({ ...args }: Partial<SwitchProps>) => {
   return (
     <>
-      <Switch error="Error Message" mb={2} {...args} />
-      <Switch warning="Warning Message" mb={2} {...args} />
-      <Switch info="Info Message" mb={2} {...args} />
+      <Switch
+        error="Error Message"
+        mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        warning="Warning Message"
+        mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        info="Info Message"
+        mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
 
-      <Switch error="Error Message" validationOnLabel mb={2} {...args} />
-      <Switch warning="Warning Message" validationOnLabel mb={2} {...args} />
-      <Switch info="Info Message" validationOnLabel mb={2} {...args} />
+      <Switch
+        error="Error Message"
+        validationOnLabel
+        mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        warning="Warning Message"
+        validationOnLabel
+        mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        info="Info Message"
+        validationOnLabel
+        mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
 
-      <Switch error mb={2} {...args} />
-      <Switch warning mb={2} {...args} />
-      <Switch info mb={2} {...args} />
+      <Switch error mb={2} checked={false} onChange={() => {}} {...args} />
+      <Switch warning mb={2} checked={false} onChange={() => {}} {...args} />
+      <Switch info mb={2} checked={false} onChange={() => {}} {...args} />
     </>
   );
 };
@@ -93,18 +132,34 @@ Validation.parameters = {
 export const NewValidation: Story = ({ ...args }: Partial<SwitchProps>) => {
   return (
     <CarbonProvider validationRedesignOptIn>
-      <Switch error="Error Message (Fix is required)" mb={2} {...args} />
-      <Switch warning="Warning Message" mb={2} {...args} />
       <Switch
-        validationMessagePositionTop={false}
         error="Error Message (Fix is required)"
         mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        warning="Warning Message (Fix is optional)"
+        mb={2}
+        checked={false}
+        onChange={() => {}}
         {...args}
       />
       <Switch
         validationMessagePositionTop={false}
-        warning="Warning Message"
+        error="Error Message (Fix is required)"
         mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        validationMessagePositionTop={false}
+        warning="Warning Message (Fix is optional)"
+        mb={2}
+        checked={false}
+        onChange={() => {}}
         {...args}
       />
     </CarbonProvider>
@@ -126,51 +181,77 @@ export const NewValidationInline: Story = ({
 }: Partial<SwitchProps>) => {
   return (
     <CarbonProvider validationRedesignOptIn>
-      <Box maxWidth="400px" backgroundColor="#f5f5f5" p={2}>
-        <Switch {...args} />
-        <Switch labelHelp="Hint text" mt={2} {...args} />
-        <Switch labelHelp="Hint text" fieldHelp="fieldHelp" mt={2} {...args} />
-        <Switch
-          labelHelp="Really long hint text that should wrap to the next line if it gets too long because labelWidth is set to 50%"
-          fieldHelp="fieldHelp"
-          labelWidth={50}
-          mt={2}
-          {...args}
-        />
-        <Switch
-          labelHelp="Hint text"
-          error="Error Message (Fix is required)"
-          mt={2}
-          {...args}
-        />
-        <Switch
-          warning="Warning Message"
-          fieldHelp="fieldHelp"
-          my={2}
-          {...args}
-        />
-        <Switch
-          labelHelp="Hint text"
-          error="Error Message (Fix is required)"
-          validationMessagePositionTop={false}
-          mt={2}
-          {...args}
-        />
-        <Switch
-          warning="Warning Message"
-          fieldHelp="fieldHelp"
-          validationMessagePositionTop={false}
-          my={2}
-          {...args}
-        />
-        <Switch
-          reverse={false}
-          labelHelp="Hint text"
-          error="Error Message (Fix is required)"
-          mt={2}
-          {...args}
-        />
-      </Box>
+      <Switch
+        labelInline
+        mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        labelInline
+        labelHelp="Hint text"
+        mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        labelInline
+        labelHelp="Hint text"
+        fieldHelp="fieldHelp"
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        label="Example switch"
+        labelInline
+        labelHelp="Really long hint text that should wrap to the next line if it gets too long"
+        fieldHelp="Field help"
+        mt={2}
+        checked={false}
+        onChange={() => {}}
+      />
+
+      <Switch
+        labelHelp="Hint text"
+        error="Error Message (Fix is required)"
+        labelInline
+        my={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        warning="Warning Message (Fix is optional)"
+        labelInline
+        fieldHelp="fieldHelp"
+        mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        labelHelp="Hint text"
+        error="Error Message (Fix is required)"
+        labelInline
+        validationMessagePositionTop={false}
+        my={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
+      <Switch
+        warning="Warning Message (Fix is optional)"
+        labelInline
+        fieldHelp="fieldHelp"
+        validationMessagePositionTop={false}
+        mb={2}
+        checked={false}
+        onChange={() => {}}
+        {...args}
+      />
     </CarbonProvider>
   );
 };
@@ -194,7 +275,7 @@ export const WithLongTextStrings = () => (
       },
     }}
   >
-    <Switch />
+    <Switch checked={false} onChange={() => {}} />
   </I18nProvider>
 );
 
@@ -221,7 +302,8 @@ export const WithMargin = ({ ...args }: Partial<SwitchProps>) => {
             label="Some text"
             labelInline
             reverse={args.reverse}
-            defaultChecked
+            checked
+            onChange={() => {}}
           />
         </Box>
       </Box>
@@ -242,6 +324,7 @@ WithMargin.args = {
 
 export const WithLoading = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const [isLoadingValidation, setIsLoadingValidation] = useState(false);
   const [isLoadingNewValidation, setIsLoadingNewValidation] = useState(false);
   const [count, setCount] = useState(5);
@@ -302,7 +385,9 @@ export const WithLoading = () => {
           onChange={() => {
             setIsLoading(true);
             setCount(5);
+            setIsChecked((state) => !state);
           }}
+          checked={isChecked}
         />
       </Box>
 
@@ -315,7 +400,9 @@ export const WithLoading = () => {
           onChange={() => {
             setIsLoadingValidation(true);
             setCount(5);
+            setIsChecked((state) => !state);
           }}
+          checked={isChecked}
         />
       </Box>
 
@@ -328,7 +415,9 @@ export const WithLoading = () => {
             onChange={() => {
               setIsLoadingNewValidation(true);
               setCount(5);
+              setIsChecked((state) => !state);
             }}
+            checked={isChecked}
           />
         </CarbonProvider>
       </Box>
@@ -350,6 +439,8 @@ export const LabelHelpAndFieldHelp = () => {
         labelInline
         labelHelp="labelHelp"
         fieldHelp="This text provides help for the input."
+        checked={false}
+        onChange={() => {}}
       />
       <Switch
         label="With inline fieldHelp and labelHelp"
@@ -358,6 +449,8 @@ export const LabelHelpAndFieldHelp = () => {
         fieldHelp="This text provides help for the input."
         fieldHelpInline
         mt={2}
+        checked={false}
+        onChange={() => {}}
       />
       <Switch
         label="With inline fieldHelp and labelHelp not reversed"
@@ -367,6 +460,8 @@ export const LabelHelpAndFieldHelp = () => {
         fieldHelpInline
         reverse={false}
         mt={2}
+        checked={false}
+        onChange={() => {}}
       />
     </>
   );

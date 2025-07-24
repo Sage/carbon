@@ -51,20 +51,46 @@ export const WithInputHint: Story = () => {
 WithInputHint.storyName = "With Input Hint";
 
 export const Sizes: Story = () => {
+  const [isChecked, setIsChecked] = useState(false);
   return (
     <>
-      <Switch label="small" name="switch-small" size="small" mb={2} />
-      <Switch label="large" name="switch-large" size="large" />
+      <Switch
+        label="small"
+        name="switch-small"
+        size="small"
+        mb={2}
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+      />
+      <Switch
+        label="large"
+        name="switch-large"
+        size="large"
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+      />
     </>
   );
 };
 Sizes.storyName = "Sizes";
 
 export const Disabled: Story = () => {
+  const [isChecked, setIsChecked] = useState(false);
   return (
     <>
-      <Switch label="Disabled switch" disabled />
-      <Switch label="Disabled switch" disabled checked mt={2} />
+      <Switch
+        label="Disabled switch"
+        disabled
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+      />
+      <Switch
+        label="Disabled switch"
+        disabled
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+        mt={2}
+      />
     </>
   );
 };
@@ -99,25 +125,63 @@ export const Reversed: Story = () => {
 Reversed.storyName = "Reversed";
 
 export const Loading: Story = () => {
+  const [isChecked, setIsChecked] = useState(true);
   return (
     <>
-      <Switch checked label="small on" size="small" loading mb={2} />
-      <Switch label="small off" size="small" loading mb={2} />
-      <Switch checked label="large on" size="large" loading mb={2} />
-      <Switch label="large off" size="large" loading mb={2} />
+      <Switch
+        label="small on"
+        size="small"
+        loading
+        mb={2}
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+      />
+      <Switch
+        label="small off"
+        size="small"
+        loading
+        mb={2}
+        checked={false}
+        onChange={(e) => setIsChecked(e.target.checked)}
+      />
+      <Switch
+        checked={false}
+        onChange={(e) => setIsChecked(e.target.checked)}
+        label="large on"
+        size="large"
+        loading
+        mb={2}
+      />
+      <Switch
+        label="large off"
+        size="large"
+        checked={false}
+        onChange={(e) => setIsChecked(e.target.checked)}
+        loading
+        mb={2}
+      />
     </>
   );
 };
 Loading.storyName = "Loading";
 
 export const WithLabelInline: Story = () => {
+  const [isChecked, setIsChecked] = useState(true);
   return (
     <>
-      <Switch label="With labelInline" labelInline mb={2} />
+      <Switch
+        label="With labelInline"
+        labelInline
+        mb={2}
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
+      />
       <Switch
         label="With labelInline and reversed"
         labelInline
         reverse={false}
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
       />
     </>
   );
@@ -125,11 +189,14 @@ export const WithLabelInline: Story = () => {
 WithLabelInline.storyName = "With labelInline";
 
 export const WithFieldHelp: Story = () => {
+  const [isChecked, setIsChecked] = useState(true);
   return (
     <>
       <Switch
         label="With fieldHelp"
         fieldHelp="This text provides help for the input."
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
       />
       <Switch
         label="With inline fieldHelp"
@@ -137,6 +204,8 @@ export const WithFieldHelp: Story = () => {
         fieldHelp="This text provides help for the input."
         fieldHelpInline
         mt={2}
+        checked={isChecked}
+        onChange={(e) => setIsChecked(e.target.checked)}
       />
     </>
   );
@@ -159,6 +228,7 @@ export const WithLabelHelp: Story = () => {
 WithLabelHelp.storyName = "With labelHelp";
 
 export const WithDarkBackground: Story = () => {
+  const [isChecked, setIsChecked] = useState(true);
   return (
     <Box m={2} padding={3} backgroundColor="#000000">
       <CarbonProvider validationRedesignOptIn>
@@ -167,6 +237,8 @@ export const WithDarkBackground: Story = () => {
           isDarkBackground
           mb="2"
           fieldHelp="Field help text"
+          checked={isChecked}
+          onChange={(e) => setIsChecked(e.target.checked)}
         />
         <Switch
           label="Example Switch"
@@ -174,6 +246,8 @@ export const WithDarkBackground: Story = () => {
           error="Error message"
           fieldHelp="Field help text"
           isDarkBackground
+          checked={isChecked}
+          onChange={(e) => setIsChecked(e.target.checked)}
         />
       </CarbonProvider>
     </Box>
