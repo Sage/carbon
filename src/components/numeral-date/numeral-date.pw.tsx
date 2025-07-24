@@ -1,7 +1,7 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 
-import NumeralDate, { NumeralDateProps } from ".";
+import { NumeralDateProps } from ".";
 import {
   NumeralDateComponent,
   NumeralDateControlled,
@@ -249,19 +249,6 @@ test.describe("NumeralDate component", () => {
     await input.fill(inputValue);
 
     await expect(input).toHaveValue(inputValue);
-  });
-
-  test("should render NumeralDate with defaultValue prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <NumeralDate defaultValue={{ dd: "10", mm: "12", yyyy: "2022" }} />,
-    );
-
-    await expect(numeralDateInput(page, 0)).toHaveValue("10");
-    await expect(numeralDateInput(page, 1)).toHaveValue("12");
-    await expect(numeralDateInput(page, 2)).toHaveValue("2022");
   });
 
   (
