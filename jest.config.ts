@@ -17,7 +17,7 @@ const baseProjectConfig: Config = {
   rootDir,
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "mjs"],
   transform: {
-    "^.+\\.(js|mjs|jsx|ts|tsx)$": "babel-jest",
+    "^.+\\.(js|mjs|jsx|ts|tsx)$": "@swc/jest",
     "^.+\\.svg$": "<rootDir>/svgTransform.mjs",
   },
   transformIgnorePatterns: [

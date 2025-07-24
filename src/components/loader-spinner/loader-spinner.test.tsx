@@ -307,7 +307,7 @@ describe("when custom props are passed", () => {
       const innerArcSvgElement = screen.getByTestId("inner-arc");
 
       expect(innerArcSvgElement).toHaveStyle(
-        "animation-name: untrackedAnimation, gradientAnimation",
+        "animation-name: untrackedAnimation,gradientAnimation",
       );
     },
   );
@@ -319,7 +319,7 @@ describe("when custom props are passed", () => {
       const innerArcSvgElement = screen.getByTestId("inner-arc");
 
       expect(innerArcSvgElement).toHaveStyle(
-        "animation-name: untrackedAnimation, gradientAnimation",
+        "animation-name: untrackedAnimation,gradientAnimation",
       );
     },
   );
@@ -329,7 +329,7 @@ describe("when custom props are passed", () => {
     const innerArcSvgElement = screen.getByTestId("inner-arc");
 
     expect(innerArcSvgElement).toHaveStyle(
-      "animation-name: trackedAnimation, none",
+      "animation-name: trackedAnimation,none",
     );
   });
 
@@ -338,7 +338,7 @@ describe("when custom props are passed", () => {
     const innerArcSvgElement = screen.getByTestId("inner-arc");
 
     expect(innerArcSvgElement).toHaveStyle(
-      "animation-name: untrackedAnimation, none",
+      "animation-name: untrackedAnimation,none",
     );
   });
 
