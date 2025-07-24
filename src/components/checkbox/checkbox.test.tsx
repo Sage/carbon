@@ -11,7 +11,7 @@ import {
 test("should call onChange when checkbox is clicked", async () => {
   const user = userEvent.setup();
   const onChange = jest.fn();
-  render(<Checkbox onChange={onChange} />);
+  render(<Checkbox checked onChange={onChange} />);
 
   await user.click(screen.getByRole("checkbox"));
   expect(onChange).toHaveBeenCalledTimes(1);
@@ -20,7 +20,7 @@ test("should call onChange when checkbox is clicked", async () => {
 test("should call onClick when checkbox is clicked", async () => {
   const user = userEvent.setup();
   const onClick = jest.fn();
-  render(<Checkbox onChange={() => {}} onClick={onClick} />);
+  render(<Checkbox checked onChange={() => {}} onClick={onClick} />);
 
   await user.click(screen.getByRole("checkbox"));
   expect(onClick).toHaveBeenCalledTimes(1);
@@ -29,7 +29,7 @@ test("should call onClick when checkbox is clicked", async () => {
 test("should call onFocus when checkbox is focused", async () => {
   const user = userEvent.setup();
   const onFocus = jest.fn();
-  render(<Checkbox onChange={() => {}} onFocus={onFocus} />);
+  render(<Checkbox checked onChange={() => {}} onFocus={onFocus} />);
 
   await user.tab();
   expect(onFocus).toHaveBeenCalledTimes(1);
@@ -38,7 +38,7 @@ test("should call onFocus when checkbox is focused", async () => {
 test("should call onBlur when checkbox is blurred", async () => {
   const user = userEvent.setup();
   const onBlur = jest.fn();
-  render(<Checkbox onChange={() => {}} onBlur={onBlur} />);
+  render(<Checkbox checked onChange={() => {}} onBlur={onBlur} />);
 
   await user.tab();
   await user.tab();
@@ -47,34 +47,36 @@ test("should call onBlur when checkbox is blurred", async () => {
 
 test("should accept ref as an object", () => {
   const ref = { current: null };
-  render(<Checkbox onChange={() => {}} ref={ref} />);
+  render(<Checkbox checked onChange={() => {}} ref={ref} />);
 
   expect(ref.current).not.toBeNull();
 });
 
 test("should accept ref as a callback", () => {
   const ref = jest.fn();
-  render(<Checkbox onChange={() => {}} ref={ref} />);
+  render(<Checkbox checked onChange={() => {}} ref={ref} />);
 
   expect(ref).toHaveBeenCalledTimes(1);
 });
 
 test("should set ref to empty after unmount", () => {
   const ref = { current: null };
-  const { unmount } = render(<Checkbox onChange={() => {}} ref={ref} />);
+  const { unmount } = render(
+    <Checkbox checked onChange={() => {}} ref={ref} />,
+  );
 
   unmount();
   expect(ref.current).toBeNull();
 });
 
 test("should render with provided label", () => {
-  render(<Checkbox label="label" onChange={() => {}} />);
+  render(<Checkbox label="label" checked onChange={() => {}} />);
 
   expect(screen.getByText("label")).toBeVisible();
 });
 
 test("should render with provided aria-labelledby", () => {
-  render(<Checkbox aria-labelledby="labelId" onChange={() => {}} />);
+  render(<Checkbox aria-labelledby="labelId" checked onChange={() => {}} />);
 
   expect(screen.getByRole("checkbox")).toHaveAttribute(
     "aria-labelledby",
@@ -89,6 +91,7 @@ test("should render tooltip with provided labelHelp and helpAriaLabel", async ()
       label="label"
       labelHelp="labelHelp"
       helpAriaLabel="helpAriaLabel"
+      checked
       onChange={() => {}}
     />,
   );
@@ -102,7 +105,7 @@ test("should render tooltip with provided labelHelp and helpAriaLabel", async ()
 
 test("should render input with validation tooltip as its accessible description when the input is focused", async () => {
   const user = userEvent.setup();
-  render(<Checkbox label="label" onChange={() => {}} error="error" />);
+  render(<Checkbox label="label" checked onChange={() => {}} error="error" />);
 
   const checkbox = screen.getByRole("checkbox");
   expect(checkbox).not.toHaveAttribute("aria-describedby");
@@ -116,6 +119,7 @@ test("should append the validation tooltip to the input's accessible description
   render(
     <Checkbox
       label="label"
+      checked
       onChange={() => {}}
       fieldHelp="fieldHelp"
       error="error"
@@ -130,13 +134,13 @@ test("should append the validation tooltip to the input's accessible description
 });
 
 test("should render a required checkbox when the required prop is true", () => {
-  render(<Checkbox label="label" onChange={() => {}} required />);
+  render(<Checkbox label="label" checked onChange={() => {}} required />);
 
   expect(screen.getByRole("checkbox")).toBeRequired();
 });
 
 test("should render a disabled checkbox when disabled prop is true", () => {
-  render(<Checkbox label="label" onChange={() => {}} disabled />);
+  render(<Checkbox label="label" checked onChange={() => {}} disabled />);
 
   expect(screen.getByRole("checkbox")).toBeDisabled();
 });
@@ -152,6 +156,7 @@ test("should render fieldHelp with expected styles when inputWidth is set", () =
     <Checkbox
       label="label"
       fieldHelp="fieldHelp"
+      checked
       onChange={() => {}}
       inputWidth={50}
     />,
@@ -167,6 +172,7 @@ test("should render fieldHelp with expected styles when inputWidth is set and re
     <Checkbox
       label="label"
       fieldHelp="fieldHelp"
+      checked
       onChange={() => {}}
       inputWidth={50}
       reverse
@@ -183,6 +189,7 @@ test("should render fieldHelp with expected styles when labelSpacing is 2", () =
     <Checkbox
       label="label"
       fieldHelp="fieldHelp"
+      checked
       onChange={() => {}}
       labelSpacing={2}
     />,
@@ -198,6 +205,7 @@ test("should render with expected styles when fieldHelpInline is true", () => {
     <Checkbox
       label="label"
       fieldHelp="fieldHelp"
+      checked
       onChange={() => {}}
       fieldHelpInline
     />,
@@ -212,6 +220,7 @@ test("should render with expected styles when fieldHelpInline is true and revers
     <Checkbox
       label="label"
       fieldHelp="fieldHelp"
+      checked
       onChange={() => {}}
       fieldHelpInline
       reverse
@@ -226,6 +235,7 @@ test("should render with expected styles when size is large", () => {
     <Checkbox
       label="label"
       fieldHelp="fieldHelp"
+      checked
       onChange={() => {}}
       size="large"
     />,
@@ -244,6 +254,7 @@ test("should render with expected styles when size is large and fieldHelpInline 
     <Checkbox
       label="label"
       fieldHelp="fieldHelp"
+      checked
       onChange={() => {}}
       size="large"
       fieldHelpInline
@@ -259,9 +270,9 @@ test("should render with expected styles when size is large and fieldHelpInline 
 test("should render checkbox svg with expected styles when validation props are true", () => {
   render(
     <>
-      <Checkbox label="label-1" onChange={() => {}} error />
-      <Checkbox label="label-2" onChange={() => {}} warning />
-      <Checkbox label="label-3" onChange={() => {}} info />
+      <Checkbox label="label-1" checked onChange={() => {}} error />
+      <Checkbox label="label-2" checked onChange={() => {}} warning />
+      <Checkbox label="label-3" checked onChange={() => {}} info />
     </>,
   );
 
@@ -280,8 +291,8 @@ test("should render checkbox svg with expected styles when validation props are 
 test("should render checkbox svg with expected styles when validationRedesignOptIn is true", () => {
   render(
     <CarbonProvider validationRedesignOptIn>
-      <Checkbox label="label-1" onChange={() => {}} warning />
-      <Checkbox label="label-2" onChange={() => {}} info />
+      <Checkbox label="label-1" checked onChange={() => {}} warning />
+      <Checkbox label="label-2" checked onChange={() => {}} info />
     </CarbonProvider>,
   );
 
@@ -300,6 +311,7 @@ test("should render with expected styles when adaptiveSpacingBreakpoint set and 
     <Checkbox
       data-role="checkbox-1"
       label="label"
+      checked
       onChange={() => {}}
       adaptiveSpacingBreakpoint={1000}
       ml="10%"
@@ -315,6 +327,7 @@ test("should render with expected styles when adaptiveSpacingBreakpoint set and 
     <Checkbox
       data-role="checkbox-1"
       label="label"
+      checked
       onChange={() => {}}
       adaptiveSpacingBreakpoint={1000}
       ml="10%"
@@ -328,6 +341,7 @@ testStyledSystemMargin(
   (props) => (
     <Checkbox
       label="label"
+      checked
       onChange={() => {}}
       data-role="checkbox-1"
       {...props}
