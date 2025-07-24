@@ -15,6 +15,7 @@ import DialogFullScreen from "../confirm";
 import Message from "../message";
 
 import Sidebar from ".";
+import Icon from "../icon";
 
 const styledSystemProps = generateStyledSystemProps({
   padding: true,
@@ -175,6 +176,68 @@ export const WithHeader: Story = () => {
   );
 };
 WithHeader.storyName = "With Header";
+
+export const WithHeaderAndSubheader: Story = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header={<Typography variant="h3">Sidebar header</Typography>}
+        subHeader={
+          <Button iconType="chevron_left_thick" buttonType="tertiary">
+            Action
+          </Button>
+        }
+      >
+        <Box mb={2}>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </Box>
+        Main Content
+      </Sidebar>
+    </>
+  );
+};
+WithHeaderAndSubheader.storyName = "With Header And Subheader";
+
+export const WithDarkHeader: Story = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+  const headerNode = (
+    <Box display="flex" alignItems="center" gap="8px">
+      <Icon type="chat" color="white" />
+      <Typography variant="h2" color="white">
+        Sidebar header
+      </Typography>
+    </Box>
+  );
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
+      <Sidebar
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        header={headerNode}
+        headerVariant="dark"
+      >
+        <Box mb={2}>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </Box>
+        Main Content
+      </Sidebar>
+    </>
+  );
+};
+WithDarkHeader.storyName = "With Dark Header";
 
 export const WithScroll: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);

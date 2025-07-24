@@ -27,6 +27,8 @@ import {
   SidebarComponent,
   SidebarComponentFocusable,
   SidebarComponentWithHeading,
+  SidebarComponentWithDarkHeading,
+  SidebarComponentWithSubHeading,
   SidebarComponentWithOnCancel,
   TopModalOverride,
 } from "./components.test-pw";
@@ -433,6 +435,24 @@ test.describe("Accessibility tests for Sidebar component", () => {
     page,
   }) => {
     await mount(<SidebarComponentWithHeading />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should check accessibility when sidebar has a dark header", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SidebarComponentWithDarkHeading />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should check accessibility when sidebar has subheader", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SidebarComponentWithSubHeading />);
 
     await checkAccessibility(page);
   });

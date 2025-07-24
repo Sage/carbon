@@ -1,3 +1,46 @@
+## [155.5.2](https://github.com/Sage/carbon/compare/v155.5.1...v155.5.2) (2025-07-23)
+
+### Bug Fixes
+
+* **accordion:** prevent scroll on Space key press ([89de70a](https://github.com/Sage/carbon/commit/89de70a8f3af2603a84dae00d55c1f6ab61aa4a4)), closes [#7429](https://github.com/Sage/carbon/issues/7429)
+
+## [155.5.1](https://github.com/Sage/carbon/compare/v155.5.0...v155.5.1) (2025-07-23)
+
+### Bug Fixes
+
+* revert updates to package.json exports ([7e7d8b2](https://github.com/Sage/carbon/commit/7e7d8b2de04a4e4700cc2c83479a6499b2aea4e6))
+
+## [155.5.0](https://github.com/Sage/carbon/compare/v155.4.1...v155.5.0) (2025-07-22)
+
+### Features
+
+* **responsive-vertical-menu:** allow responsive menu items to close the menu ([701c144](https://github.com/Sage/carbon/commit/701c144a530d37be551772fccbebfb5b3caad7a9))
+
+## [155.4.1](https://github.com/Sage/carbon/compare/v155.4.0...v155.4.1) (2025-07-22)
+
+### Bug Fixes
+
+* **button, button-minor:** fixes a scrolling bug in Chrome when clicking buttons ([4541eae](https://github.com/Sage/carbon/commit/4541eaecede8d216ed44c1c3b5d61015f8879606)), closes [#7412](https://github.com/Sage/carbon/issues/7412)
+
+## [155.4.0](https://github.com/Sage/carbon/compare/v155.3.1...v155.4.0) (2025-07-18)
+
+### Features
+
+* **form:** add footerChildren prop ([b6d09cf](https://github.com/Sage/carbon/commit/b6d09cf9bdaf14f436cd2e08d889bdbec0c61a5f))
+* **form:** add stickyFooterVariant prop ([587c739](https://github.com/Sage/carbon/commit/587c739027ebc389921cfce71ab5046d8c7d0eca))
+* **sidebar:** add headerVariant prop ([a3b94c8](https://github.com/Sage/carbon/commit/a3b94c89d5009281e71ee150f8d6e64e125e4bb1))
+* **sidebar:** add subHeader and subHeaderPadding props ([b2780a1](https://github.com/Sage/carbon/commit/b2780a1891e0c0d9b83c068ceba2696c45dd06ce))
+
+### Bug Fixes
+
+* **form:** correct box-shadow on sticky footer ([548fe22](https://github.com/Sage/carbon/commit/548fe2295e5fdef9a83add657f0b65eca745f2be))
+
+## [155.3.1](https://github.com/Sage/carbon/compare/v155.3.0...v155.3.1) (2025-07-18)
+
+### Bug Fixes
+
+* **pager:** increase width to prevent text truncation ([e89ba91](https://github.com/Sage/carbon/commit/e89ba9155836fef8b492557c93863590c4c4cd80))
+
 ## [155.3.0](https://github.com/Sage/carbon/compare/v155.2.1...v155.3.0) (2025-07-15)
 
 ### Features
