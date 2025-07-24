@@ -1,7 +1,9 @@
 import React, {
   createContext,
+  Dispatch,
   ReactNode,
   RefObject,
+  SetStateAction,
   useContext,
   useRef,
   useState,
@@ -20,12 +22,14 @@ export interface ResponsiveVerticalMenuButtonItem {
 }
 
 export interface MenuContextType {
+  active: boolean;
   activeMenuItem: ResponsiveVerticalMenuButtonItem | null;
   buttonRef: RefObject<HTMLButtonElement>;
   containerRef: RefObject<HTMLDivElement>;
   menuRef: RefObject<HTMLUListElement>;
   reducedMotion?: boolean;
   responsiveMode?: boolean;
+  setActive: Dispatch<SetStateAction<boolean>>; // This allows both value and function
   setActiveMenuItem: (item: ResponsiveVerticalMenuButtonItem | null) => void;
   setReducedMotion?: (reducedMotion: boolean) => void;
   setResponsiveMode?: (responsiveMode: boolean) => void;
@@ -51,6 +55,7 @@ export interface ResponsiveVerticalMenuProviderProps {
 export const ResponsiveVerticalMenuProvider = ({
   children,
 }: ResponsiveVerticalMenuProviderProps) => {
+  const [active, setActive] = useState<boolean>(false);
   const [activeMenuItem, setActiveMenuItem] =
     useState<ResponsiveVerticalMenuButtonItem | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -63,12 +68,14 @@ export const ResponsiveVerticalMenuProvider = ({
   return (
     <ResponsiveVerticalMenuContext.Provider
       value={{
+        active,
         activeMenuItem,
         buttonRef,
         containerRef,
         menuRef,
         reducedMotion,
         responsiveMode,
+        setActive,
         setActiveMenuItem,
         setReducedMotion,
         setResponsiveMode,

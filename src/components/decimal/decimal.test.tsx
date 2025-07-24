@@ -412,10 +412,10 @@ describe("when the component is uncontrolled", () => {
       const user = userEvent.setup();
       render(<Decimal onChange={onChange} />);
 
-      act(() => {
-        screen.getByRole("textbox").focus();
-      });
-      (screen.getByRole("textbox") as HTMLInputElement).select();
+      const textbox = screen.getByRole("textbox");
+
+      await user.click(textbox);
+      await user.keyboard("{Control>}{a}{/Control}");
       await user.paste(pastedText);
 
       expect(onChange).toHaveBeenCalledWith(

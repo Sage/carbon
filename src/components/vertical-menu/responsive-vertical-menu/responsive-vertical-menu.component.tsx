@@ -51,16 +51,18 @@ const BaseMenu = ({
 }: ResponsiveVerticalMenuProps) => {
   const locale = useLocale();
   const {
+    active,
     activeMenuItem,
     buttonRef,
     containerRef,
     menuRef,
     responsiveMode,
+    setActive,
     setActiveMenuItem,
     setReducedMotion,
     setResponsiveMode,
   } = useResponsiveVerticalMenu();
-  const [active, setActive] = useState(false);
+
   const [childItemCount, setChildItemCount] = useState(0);
   const largeScreen = useIsAboveBreakpoint(responsiveBreakpoint);
   const [left, setLeft] = useState("auto");
@@ -115,10 +117,10 @@ const BaseMenu = ({
   );
 
   const handleActiveToggle = useCallback(() => {
-    setActive((previousState) => !previousState);
+    setActive((previous) => !previous);
     // Make sure the menu is closed when the button is clicked (prevents historic menu items being retained in memory)
     setActiveMenuItem(null);
-  }, [setActiveMenuItem]);
+  }, [active, setActive, setActiveMenuItem]);
 
   useLayoutEffect(() => {
     measureDimensions();
