@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import {
   act,
   fireEvent,
@@ -9,7 +9,7 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { Menu, MenuItem, MenuSegmentTitle } from "..";
+import { Menu, MenuItem, MenuItemHandle, MenuSegmentTitle } from "..";
 import {
   StrictMenuContextType,
   StrictMenuProvider,
@@ -1205,6 +1205,72 @@ describe("when MenuItem has a submenu", () => {
 
     const bananaItem = await screen.findByRole("link", { name: "Banana" });
     expect(bananaItem).toHaveFocus();
+  });
+
+  it("should focus an interactive MenuItem when the focus method on the ref handle is invoked", async () => {
+    const menuItemHandle = createRef<MenuItemHandle>();
+    render(
+      <Menu>
+        <MenuItem href="#" ref={menuItemHandle}>
+          Apple
+        </MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
+        <MenuItem href="#">Cherry</MenuItem>
+        <MenuItem href="#">Dates</MenuItem>
+      </Menu>,
+    );
+
+    act(() => {
+      menuItemHandle.current?.focus();
+    });
+
+    const appleItem = await screen.findByRole("link", { name: "Apple" });
+    expect(appleItem).toHaveFocus();
+  });
+
+  it("does not focus an non-interactive MenuItem when the focus method on the ref handle is invoked", () => {
+    const menuItemHandle = createRef<MenuItemHandle>();
+    render(
+      <Menu>
+        <MenuItem ref={menuItemHandle}>Apple</MenuItem>
+        <MenuItem href="#">Banana</MenuItem>
+        <MenuItem href="#">Cherry</MenuItem>
+        <MenuItem href="#">Dates</MenuItem>
+      </Menu>,
+    );
+
+    act(() => {
+      menuItemHandle.current?.focus();
+    });
+
+    const appleItem = screen.getByText("Apple");
+    expect(appleItem).not.toHaveFocus();
+  });
+
+  it("should focus an interactive Submenu when the focus method on the ref handle is invoked", async () => {
+    const user = userEvent.setup();
+    const menuItemHandle = createRef<MenuItemHandle>();
+    render(
+      <Menu>
+        <MenuItem submenu="Fruit">
+          <MenuItem ref={menuItemHandle} href="#">
+            Apple
+          </MenuItem>
+          <MenuItem href="#">Banana</MenuItem>
+          <MenuItem href="#">Cherry</MenuItem>
+          <MenuItem href="#">Dates</MenuItem>
+        </MenuItem>
+      </Menu>,
+    );
+    await user.tab();
+    await user.keyboard("{Enter}");
+
+    act(() => {
+      menuItemHandle.current?.focus();
+    });
+
+    const appleItem = await screen.findByRole("link", { name: "Apple" });
+    expect(appleItem).toHaveFocus();
   });
 
   it("should not open the `submenu` when initially opened via click, closed via mouseout and then non-related key pressed", async () => {
