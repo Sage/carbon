@@ -1,23 +1,20 @@
 import React, { useState } from "react";
 import { Checkbox, CheckboxProps, CheckboxGroup, CheckboxGroupProps } from ".";
 import CarbonProvider from "../carbon-provider";
+import Box from "../box";
 
 export const CheckboxComponent = (props: Partial<CheckboxProps>) => {
   const [isChecked, setIsChecked] = useState(false);
   return (
     <>
-      <div
-        style={{
-          marginTop: "64px",
-        }}
-      >
+      <Box mt={8}>
         <Checkbox
           label="Checkbox 1"
           checked={isChecked}
           onChange={(e) => setIsChecked(e.target.checked)}
           {...props}
         />
-      </div>
+      </Box>
     </>
   );
 };
@@ -28,12 +25,7 @@ export const CheckboxGroupComponent = ({
 }: Partial<CheckboxGroupProps>) => {
   const [isChecked, setIsChecked] = useState(false);
   return (
-    <div
-      style={{
-        marginTop: "64px",
-        marginLeft: "64px",
-      }}
-    >
+    <Box mt={8} ml={8}>
       <CheckboxGroup legend="Test CheckboxGroup Label" {...props}>
         {children || (
           <>
@@ -50,7 +42,7 @@ export const CheckboxGroupComponent = ({
           </>
         )}
       </CheckboxGroup>
-    </div>
+    </Box>
   );
 };
 
@@ -60,12 +52,7 @@ export const CheckboxGroupComponentNewValidation = ({
 }: Partial<CheckboxGroupProps>) => {
   const [isChecked, setIsChecked] = useState(false);
   return (
-    <div
-      style={{
-        marginTop: "64px",
-        marginLeft: "64px",
-      }}
-    >
+    <Box mt={8} ml={8}>
       <CarbonProvider validationRedesignOptIn>
         <CheckboxGroup
           legend="Checkbox Group Label"
@@ -89,7 +76,7 @@ export const CheckboxGroupComponentNewValidation = ({
           )}
         </CheckboxGroup>
       </CarbonProvider>
-    </div>
+    </Box>
   );
 };
 
@@ -101,19 +88,31 @@ export const Sizes = () => {
         key="checkbox-small"
         name="checkbox-small"
         size="small"
+        checked
+        onChange={() => {}}
       />
       <Checkbox
         label="Large"
         key="checkbox-large"
         name="checkbox-large"
         size="large"
+        checked
+        onChange={() => {}}
       />
     </>
   );
 };
 
 export const Reversed = () => {
-  return <Checkbox label="Reversed checkbox" name="checkbox-reverse" reverse />;
+  return (
+    <Checkbox
+      label="Reversed checkbox"
+      name="checkbox-reverse"
+      reverse
+      checked
+      onChange={() => {}}
+    />
+  );
 };
 
 export const WithCustomLabelWidth = () => {
@@ -122,6 +121,8 @@ export const WithCustomLabelWidth = () => {
       label="With custom labelWidth and label aligned to right"
       labelWidth={100}
       name="checkbox-custom-label"
+      checked
+      onChange={() => {}}
     />
   );
 };
