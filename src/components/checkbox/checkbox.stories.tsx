@@ -42,6 +42,7 @@ export const Sizes: Story = () => {
         name="checkbox-small"
         size="small"
         onChange={() => {}}
+        checked
       />
       <Checkbox
         label="Large"
@@ -49,6 +50,7 @@ export const Sizes: Story = () => {
         name="checkbox-large"
         size="large"
         onChange={() => {}}
+        checked
       />
     </>
   );
@@ -62,6 +64,7 @@ export const Disabled: Story = () => {
       label="Disabled checkbox"
       name="checkbox-disabled"
       onChange={() => {}}
+      checked
     />
   );
 };
@@ -74,6 +77,7 @@ export const Reversed: Story = () => {
       name="checkbox-reverse"
       reverse
       onChange={() => {}}
+      checked
     />
   );
 };
@@ -102,6 +106,7 @@ export const WithFieldHelp: Story = () => {
         key="checkbox-fieldhelp"
         name="checkbox-fieldhelp"
         onChange={() => {}}
+        checked
       />
       <Checkbox
         fieldHelp="This text provides help for the input."
@@ -110,6 +115,7 @@ export const WithFieldHelp: Story = () => {
         key="checkbox-fieldhelp-inline"
         name="checkbox-fieldhelp-inline"
         onChange={() => {}}
+        checked
       />
     </>
   );
@@ -123,6 +129,7 @@ export const CustomLabelWidth: Story = () => {
       labelWidth={100}
       name="checkbox-custom-label"
       onChange={() => {}}
+      checked
     />
   );
 };
@@ -135,6 +142,7 @@ export const LegacyLabelHelp: Story = () => {
       labelHelp="This text provides more information for the label."
       name="checkbox-labelHelp"
       onChange={() => {}}
+      checked
     />
   );
 };

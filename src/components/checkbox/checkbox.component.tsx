@@ -33,6 +33,8 @@ export interface CheckboxProps
   value?: string;
   /** Handler for change events */
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /** Checked state of the input */
+  checked: boolean;
 }
 
 export const Checkbox = React.forwardRef(
