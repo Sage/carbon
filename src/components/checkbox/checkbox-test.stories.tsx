@@ -15,7 +15,9 @@ export default {
   },
 };
 
-export const Default = ({ ...args }: Omit<CheckboxProps, "onChange">) => {
+export const Default = ({
+  ...args
+}: Omit<CheckboxProps, "checked" | "onChange">) => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = event.target;
@@ -94,16 +96,16 @@ export const Validation = ({ ...args }: CheckboxGroupProps) => {
   return (
     <>
       <CheckboxGroup error="Error Message" mb={2} {...args}>
-        <Checkbox label="Checkbox 1" onChange={() => {}} />
-        <Checkbox label="Checkbox 2" onChange={() => {}} />
+        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
       </CheckboxGroup>
       <CheckboxGroup warning="Warning Message" mb={2} {...args}>
-        <Checkbox label="Checkbox 1" onChange={() => {}} />
-        <Checkbox label="Checkbox 2" onChange={() => {}} />
+        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
       </CheckboxGroup>
       <CheckboxGroup info="Info Message" {...args}>
-        <Checkbox label="Checkbox 1" onChange={() => {}} />
-        <Checkbox label="Checkbox 2" onChange={() => {}} />
+        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
       </CheckboxGroup>
     </>
   );
@@ -142,8 +144,8 @@ export const NewValidation = () => {
         legendHelp="Hint Text"
         required
       >
-        <Checkbox label="Checkbox 1" onChange={() => {}} />
-        <Checkbox label="Checkbox 2" onChange={() => {}} />
+        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
       </CheckboxGroup>
       <CheckboxGroup
         mt={2}
@@ -152,8 +154,8 @@ export const NewValidation = () => {
         legendHelp="Hint text"
         required
       >
-        <Checkbox label="Checkbox 1" onChange={() => {}} />
-        <Checkbox label="Checkbox 2" onChange={() => {}} />
+        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
       </CheckboxGroup>
       <CheckboxGroup
         validationMessagePositionTop={false}
@@ -163,8 +165,8 @@ export const NewValidation = () => {
         legendHelp="Hint Text"
         required
       >
-        <Checkbox label="Checkbox 1" onChange={() => {}} />
-        <Checkbox label="Checkbox 2" onChange={() => {}} />
+        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
       </CheckboxGroup>
       <CheckboxGroup
         validationMessagePositionTop={false}
@@ -174,8 +176,8 @@ export const NewValidation = () => {
         legendHelp="Hint text"
         required
       >
-        <Checkbox label="Checkbox 1" onChange={() => {}} />
-        <Checkbox label="Checkbox 2" onChange={() => {}} />
+        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
       </CheckboxGroup>
     </CarbonProvider>
   );
@@ -196,9 +198,9 @@ export const NewValidationInline = () => {
         required
         inline
       >
-        <Checkbox label="Checkbox 1" onChange={() => {}} />
-        <Checkbox label="Checkbox 2" onChange={() => {}} />
-        <Checkbox label="Checkbox 3" onChange={() => {}} />
+        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 3" checked onChange={() => {}} />
       </CheckboxGroup>
       <CheckboxGroup
         mt={2}
@@ -208,9 +210,9 @@ export const NewValidationInline = () => {
         required
         inline
       >
-        <Checkbox label="Checkbox 1" onChange={() => {}} />
-        <Checkbox label="Checkbox 2" onChange={() => {}} />
-        <Checkbox label="Checkbox 3" onChange={() => {}} />
+        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 3" checked onChange={() => {}} />
       </CheckboxGroup>
       <CheckboxGroup
         mt={2}
@@ -221,9 +223,9 @@ export const NewValidationInline = () => {
         required
         inline
       >
-        <Checkbox label="Checkbox 1" onChange={() => {}} />
-        <Checkbox label="Checkbox 2" onChange={() => {}} />
-        <Checkbox label="Checkbox 3" onChange={() => {}} />
+        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 3" checked onChange={() => {}} />
       </CheckboxGroup>
       <CheckboxGroup
         mt={2}
@@ -234,9 +236,9 @@ export const NewValidationInline = () => {
         required
         inline
       >
-        <Checkbox label="Checkbox 1" onChange={() => {}} />
-        <Checkbox label="Checkbox 2" onChange={() => {}} />
-        <Checkbox label="Checkbox 3" onChange={() => {}} />
+        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
+        <Checkbox label="Checkbox 3" checked onChange={() => {}} />
       </CheckboxGroup>
     </CarbonProvider>
   );
@@ -251,18 +253,20 @@ export const WithLegendAlignment = ({ ...args }: CheckboxGroupProps) => {
   return (
     <CarbonProvider validationRedesignOptIn>
       <CheckboxGroup {...args} legendAlign="left" mb={2}>
-        <Checkbox label="Checkbox option 1" onChange={() => {}} />
+        <Checkbox label="Checkbox option 1" checked onChange={() => {}} />
         <Checkbox
           label="Checkbox option 2"
           fieldHelp="fieldHelp Text"
+          checked
           onChange={() => {}}
         />
       </CheckboxGroup>
       <CheckboxGroup {...args} legendAlign="right">
-        <Checkbox label="Checkbox option 1" onChange={() => {}} />
+        <Checkbox label="Checkbox option 1" checked onChange={() => {}} />
         <Checkbox
           label="Checkbox option 2"
           fieldHelp="fieldHelp Text"
+          checked
           onChange={() => {}}
         />
       </CheckboxGroup>
