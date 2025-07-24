@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { MarginProps } from "styled-system";
 
 import Box from "../box";
@@ -9,7 +9,6 @@ import { TagProps } from "../../__internal__/utils/helpers/tags";
 import Label from "../../__internal__/label";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
-import Logger from "../../__internal__/utils/logger";
 import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import StyledSwitch, { ErrorBorder } from "./switch.style";
@@ -19,14 +18,12 @@ import HintText from "../../__internal__/hint-text";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 
 export interface SwitchProps
-  extends CommonCheckableInputProps,
+  extends Omit<CommonCheckableInputProps, "defaultChecked">,
     MarginProps,
     TagProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
-  /** Set the default value of the Switch if component is meant to be used as uncontrolled */
-  defaultChecked?: boolean;
-  /** When true label is inline */
+  /** [Legacy] When true label is inline */
   labelInline?: boolean;
   /** Triggers loading animation */
   loading?: boolean;
@@ -44,9 +41,11 @@ export interface SwitchProps
   validationMessagePositionTop?: boolean;
   /** Label width, as a percentage, when labelInline is true */
   labelWidth?: number;
+  /** OnChange event handler */
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  /** Checked state of the input */
+  checked: boolean;
 }
-
-let deprecateUncontrolledWarnTriggered = false;
 
 export const Switch = React.forwardRef(
   (
@@ -59,7 +58,6 @@ export const Switch = React.forwardRef(
       onFocus,
       value,
       checked,
-      defaultChecked,
       disabled,
       loading,
       reverse = true,
@@ -86,35 +84,11 @@ export const Switch = React.forwardRef(
     }: SwitchProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
-    const isControlled = checked !== undefined;
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
     const labelId = useRef(`${guid()}-label`);
     const inputHintId = useRef(`${guid()}-hint`);
     const validationMessageId = useRef(`${guid()}-message`);
-
-    const [checkedInternal, setCheckedInternal] = useState(
-      defaultChecked || false,
-    );
-
-    if (!deprecateUncontrolledWarnTriggered && !onChange) {
-      deprecateUncontrolledWarnTriggered = true;
-      Logger.deprecate(
-        "Uncontrolled behaviour in `Switch` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
-
-    const onChangeInternal = useCallback(
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (loading) {
-          e.preventDefault();
-        } else {
-          setCheckedInternal(e.target.checked);
-          onChange?.(e);
-        }
-      },
-      [setCheckedInternal, onChange, loading],
-    );
 
     const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
     let shouldLabelBeInline: boolean | undefined = labelInline;
@@ -133,7 +107,7 @@ export const Switch = React.forwardRef(
       "data-component": "switch",
       "data-role": dataRole,
       "data-element": dataElement,
-      checked: isControlled ? checked : checkedInternal,
+      checked,
       isDarkBackground,
       fieldHelpInline,
       labelInline: shouldLabelBeInline,
@@ -144,7 +118,7 @@ export const Switch = React.forwardRef(
     };
 
     const switchSliderProps = {
-      checked: isControlled ? checked : checkedInternal,
+      checked,
       disabled,
       loading,
       isDarkBackground,
@@ -163,7 +137,7 @@ export const Switch = React.forwardRef(
       info,
       disabled,
       loading,
-      checked: isControlled ? checked : checkedInternal,
+      checked,
       label,
       labelHelp,
       labelWidth,
@@ -173,7 +147,7 @@ export const Switch = React.forwardRef(
       onBlur,
       isDarkBackground,
       onFocus,
-      onChange: isControlled ? onChange : onChangeInternal,
+      onChange,
       id,
       name,
       value,
@@ -193,7 +167,7 @@ export const Switch = React.forwardRef(
       "data-component": "switch",
       "data-role": dataRole,
       "data-element": dataElement,
-      checked: isControlled ? checked : checkedInternal,
+      checked,
       labelInline: shouldLabelBeInline,
       isDarkBackground,
       size,
@@ -203,7 +177,7 @@ export const Switch = React.forwardRef(
     };
 
     const switchSliderPropsForNewValidation = {
-      checked: isControlled ? checked : checkedInternal,
+      checked,
       disabled,
       loading,
       isDarkBackground,
@@ -219,11 +193,11 @@ export const Switch = React.forwardRef(
       warning,
       disabled,
       loading,
-      checked: isControlled ? checked : checkedInternal,
+      checked,
       onBlur,
       isDarkBackground,
       onFocus,
-      onChange: isControlled ? onChange : onChangeInternal,
+      onChange,
       id,
       name,
       value,
