@@ -103,15 +103,52 @@ export const FilterOnClear = () => {
 FilterOnClear.storyName = "Filter on clear";
 
 export const Validation = () => {
+  const [value, setValue] = useState("");
+
   return (
     <>
-      <Search defaultValue="" searchButton error="Error Message" mb={2} />
-      <Search defaultValue="" searchButton warning="Warning Message" mb={2} />
-      <Search defaultValue="" searchButton info="Info Message" mb={2} />
+      <Search
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchButton
+        error="Error Message"
+        mb={2}
+      />
+      <Search
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchButton
+        warning="Warning Message"
+        mb={2}
+      />
+      <Search
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchButton
+        info="Info Message"
+        mb={2}
+      />
 
-      <Search defaultValue="" searchButton error mb={2} />
-      <Search defaultValue="" searchButton warning mb={2} />
-      <Search defaultValue="" searchButton info />
+      <Search
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchButton
+        error
+        mb={2}
+      />
+      <Search
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchButton
+        warning
+        mb={2}
+      />
+      <Search
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchButton
+        info
+      />
     </>
   );
 };
