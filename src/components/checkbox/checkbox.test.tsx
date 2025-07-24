@@ -1,26 +1,12 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Logger from "../../__internal__/utils/logger";
 import { Checkbox } from ".";
 import CarbonProvider from "../carbon-provider";
 import {
   mockMatchMedia,
   testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";
-
-test("should display a deprecation warning for uncontrolled behaviour which is triggered only once", () => {
-  const loggerSpy = jest
-    .spyOn(Logger, "deprecate")
-    .mockImplementation(() => {});
-  render(<Checkbox />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Checkbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-  loggerSpy.mockRestore();
-});
 
 test("should call onChange when checkbox is clicked", async () => {
   const user = userEvent.setup();
