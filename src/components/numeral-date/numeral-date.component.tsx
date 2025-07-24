@@ -1,7 +1,6 @@
 import React, {
   useContext,
   useState,
-  useEffect,
   useRef,
   useMemo,
   forwardRef,
@@ -34,8 +33,6 @@ import FieldHelp from "../../__internal__/field-help";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import HintText from "../../__internal__/hint-text";
-
-let deprecateUncontrolledWarnTriggered = false;
 
 export const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
@@ -79,10 +76,8 @@ export interface NumeralDateProps
   ['mm', 'dd'],
   ['mm', 'yyyy'] */
   dateFormat?: ValidDateFormat;
-  /** Default value for use in uncontrolled mode  */
-  defaultValue?: NumeralDateValue;
-  /**  Value for use in controlled mode  */
-  value?: NumeralDateValue;
+  /**  Value  */
+  value: NumeralDateValue;
   /** When true, enables the internal errors to be displayed */
   enableInternalError?: boolean;
   /** When true, enables the internal warnings to be displayed */
@@ -113,7 +108,7 @@ export interface NumeralDateProps
   /** Blur event handler */
   onBlur?: (ev: NumeralDateEvent) => void;
   /** Change event handler */
-  onChange?: (ev: NumeralDateEvent) => void;
+  onChange: (ev: NumeralDateEvent) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** Size of an input */
@@ -226,7 +221,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
   (
     {
       dateFormat = ["dd", "mm", "yyyy"],
-      defaultValue,
       disabled,
       error = "",
       warning = "",
@@ -267,8 +261,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
     const { current: uniqueId } = useRef(id || guid());
     const inputIds = useRef({ dd: guid(), mm: guid(), yyyy: guid() });
     const inputHintId = useRef(guid());
-    const isControlled = useRef(value !== undefined);
-    const initialValue = isControlled.current ? value : defaultValue;
 
     const refs = useRef<(HTMLInputElement | null)[]>(
       dateFormat.map(() => null),
@@ -296,21 +288,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
 
     invariant(hasCorrectDateFormat, incorrectDateFormatMessage);
 
-    useEffect(() => {
-      const modeSwitchedMessage =
-        "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-        "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
-
-      invariant(
-        isControlled.current === (value !== undefined),
-        modeSwitchedMessage,
-      );
-    }, [value]);
-
-    const [dateValue, setDateValue] = useState<NumeralDateValue>({
-      ...(initialValue ||
-        Object.fromEntries(dateFormat.map((datePart) => [datePart, ""]))),
-    });
+    const [dateValue, setDateValue] = useState<NumeralDateValue>(value);
 
     const createCustomEventObject = (
       newValue: NumeralDateValue,
@@ -390,13 +368,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
     const internalWarning = enableInternalWarning
       ? internalMessage + warning
       : warning;
-
-    if (!deprecateUncontrolledWarnTriggered && !isControlled.current) {
-      deprecateUncontrolledWarnTriggered = true;
-      Logger.deprecate(
-        "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
 
     const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
     let inline: boolean | undefined = labelInline;

@@ -8,13 +8,23 @@ import {
 
 import NumeralDate from "./numeral-date.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import Logger from "../../__internal__/utils/logger";
 import Button from "../button";
 
 jest.mock("../../__internal__/utils/logger");
 
 testStyledSystemMargin(
-  (props) => <NumeralDate data-role="numeral-date" {...props} />,
+  (props) => (
+    <NumeralDate
+      data-role="numeral-date"
+      value={{
+        dd: "",
+        mm: "",
+        yyyy: "",
+      }}
+      onChange={jest.fn}
+      {...props}
+    />
+  ),
   () => screen.getByRole("group"),
 );
 
@@ -25,18 +35,6 @@ beforeEach(() => {
 afterEach(() => {
   jest.runOnlyPendingTimers();
   jest.useRealTimers();
-});
-
-test("should display deprecation warning once when used in an uncontrolled manner", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(<NumeralDate />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-  );
-
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-  loggerSpy.mockClear();
 });
 
 test("should display an error when invalid `dateFormat` prop passed", () => {
@@ -70,36 +68,6 @@ test("should not throw an error if no `dateFormat` is passed", () => {
   );
 
   expect(consoleSpy).not.toHaveBeenCalled();
-  consoleSpy.mockReset();
-});
-
-test("should throw when component changes from uncontrolled to controlled", () => {
-  const consoleSpy = jest
-    .spyOn(global.console, "error")
-    .mockImplementation(() => undefined);
-  const { rerender } = render(<NumeralDate value={undefined} />);
-  expect(() => {
-    rerender(<NumeralDate value={{ dd: "02", mm: "01", yyyy: "2020" }} />);
-  }).toThrow(
-    "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-      "Decide between using a controlled or uncontrolled input element for the lifetime of the component",
-  );
-  consoleSpy.mockReset();
-});
-
-test("should throw when component changes from controlled to uncontrolled", () => {
-  const consoleSpy = jest
-    .spyOn(global.console, "error")
-    .mockImplementation(() => undefined);
-  const { rerender } = render(
-    <NumeralDate value={{ dd: "02", mm: "01", yyyy: "2020" }} />,
-  );
-  expect(() => {
-    rerender(<NumeralDate value={undefined} />);
-  }).toThrow(
-    "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-      "Decide between using a controlled or uncontrolled input element for the lifetime of the component",
-  );
   consoleSpy.mockReset();
 });
 
@@ -751,7 +719,17 @@ test("should not render with `labelInline` when `adaptiveLabelBreakpoint` set an
   mockMatchMedia(false);
   render(
     <CarbonProvider>
-      <NumeralDate label="label" labelInline adaptiveLabelBreakpoint={1000} />
+      <NumeralDate
+        label="label"
+        labelInline
+        adaptiveLabelBreakpoint={1000}
+        value={{
+          dd: "",
+          mm: "",
+          yyyy: "",
+        }}
+        onChange={jest.fn}
+      />
     </CarbonProvider>,
   );
 
@@ -766,7 +744,17 @@ test("should render with `labelInline` when `adaptiveLabelBreakpoint` set and sc
   mockMatchMedia(true);
   render(
     <CarbonProvider>
-      <NumeralDate label="label" labelInline adaptiveLabelBreakpoint={1000} />
+      <NumeralDate
+        label="label"
+        labelInline
+        adaptiveLabelBreakpoint={1000}
+        value={{
+          dd: "",
+          mm: "",
+          yyyy: "",
+        }}
+        onChange={jest.fn}
+      />
     </CarbonProvider>,
   );
 
