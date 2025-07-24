@@ -84,17 +84,17 @@ export interface TextEditorProps extends MarginProps, TagProps {
   labelText: string;
   /** The identifier for the Text Editor. This allows for the using of multiple Text Editors on a screen */
   namespace?: string;
-  /** The callback to fire when the editor loses focus */
+  /** Callback that is triggered when the editor loses focus. */
   onBlur?: (ev: React.FocusEvent<HTMLElement>) => void;
-  /** The callback to fire when the Cancel button within the editor is pressed */
+  /** Callback that is triggered when the editor's cancel button is activated. The cancel button is rendered when this function is provided.  */
   onCancel?: () => void;
-  /** The callback to fire when a change is registered within the editor */
+  /** Callback that is triggered when the editor's text content is modified or styled. */
   onChange?: (value: string, formattedValues: EditorFormattedValues) => void;
-  /** The callback to fire when the editor gains focus */
+  /** Callback that is triggered when the editor gains focus. */
   onFocus?: (ev: React.FocusEvent<HTMLElement>) => void;
-  /** The callback to fire when a link is added into the editor */
+  /** Callback that is triggered when a link is added in the editor's content. */
   onLinkAdded?: (link: string, state: string) => void;
-  /** The callback to fire when the Save button within the editor is pressed */
+  /** Callback that is triggered when the editor's save button is activated. The save button is rendered when this function is provided. */
   onSave?: (value: SaveCallbackProps) => void;
   /** The placeholder to display when the editor is empty */
   placeholder?: string;
