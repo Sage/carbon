@@ -253,7 +253,7 @@ test.describe("NumeralDate component", () => {
 
   (
     [
-      [0, "Day should be a number within a 1-31 range.", "Day"],
+      [0, "Day in January should be a number within 1-31.", "Day"],
       [1, "Month should be a number within a 1-12 range.", "Month"],
       [2, "Year should be a number within a 1800-2200 range.", "Year"],
     ] as [number, string, string][]
@@ -372,7 +372,7 @@ test.describe("NumeralDate component", () => {
 
   (
     [
-      [0, "Day should be a number within a 1-31 range.", "Day"],
+      [0, "Day in January should be a number within 1-31.", "Day"],
       [1, "Month should be a number within a 1-12 range.", "Month"],
       [2, "Year should be a number within a 1800-2200 range.", "Year"],
     ] as [number, string, string][]
