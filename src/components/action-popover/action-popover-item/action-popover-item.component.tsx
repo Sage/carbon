@@ -99,8 +99,13 @@ export const ActionPopoverItem = ({
     "ActionPopoverItem only accepts submenu of type `ActionPopoverMenu`",
   );
 
-  const { setOpenPopover, focusButton, submenuPosition } =
-    useActionPopoverContext();
+  const {
+    setOpenPopover,
+    focusButton,
+    submenuPosition,
+    selectedSubmenuRef,
+    setSelectedSubmenuRef,
+  } = useActionPopoverContext();
   const isHref = !!href;
   const [containerPosition, setContainerPosition] = useState<
     ContainerPosition | undefined
@@ -131,6 +136,12 @@ export const ActionPopoverItem = ({
     submenuPosition,
     currentSubmenuPosition,
   ]);
+
+  useEffect(() => {
+    if (!disabled && submenuRef.current) {
+      setOpen(selectedSubmenuRef === submenuRef.current);
+    }
+  }, [disabled, selectedSubmenuRef]);
 
   useEffect(() => {
     const getContainerPosition = () => {
@@ -214,6 +225,7 @@ export const ActionPopoverItem = ({
           if (currentSubmenuPosition === "left") {
             // LEFT: open if has submenu and left aligned otherwise close submenu
             if (Events.isLeftKey(e) || Events.isEnterKey(e)) {
+              setSelectedSubmenuRef(submenuRef.current);
               setOpen(true);
               setFocusIndex(0);
               e.stopPropagation();
@@ -248,12 +260,21 @@ export const ActionPopoverItem = ({
         e.stopPropagation();
       }
     },
-    [disabled, download, isHref, onClick, submenu, currentSubmenuPosition],
+    [
+      disabled,
+      submenu,
+      currentSubmenuPosition,
+      setSelectedSubmenuRef,
+      isHref,
+      download,
+      onClick,
+    ],
   );
 
   const itemSubmenuProps = {
     ...(!disabled && {
       onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+        setSelectedSubmenuRef(submenuRef.current);
         setOpen(true);
         ref.current?.focus();
         e.preventDefault();
@@ -273,6 +294,7 @@ export const ActionPopoverItem = ({
         setFocusIndex(-1);
         mouseEnterTimer.current = setTimeout(() => {
           setOpen(true);
+          setSelectedSubmenuRef(submenuRef.current);
         }, INTERVAL);
         e.stopPropagation();
       },
