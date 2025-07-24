@@ -23,7 +23,7 @@ import {
   SearchComponentDarkBackground,
   SearchComponentLightBackground,
 } from "./components.test-pw";
-import Search, { SearchProps } from "./search.component";
+import { SearchProps } from "./search.component";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testDataStandard = CHARACTERS.STANDARD;
@@ -91,20 +91,6 @@ test.describe("Prop tests for Search component", () => {
     });
   });
 
-  test("should render Search with defaultValue prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<Search defaultValue={testDataStandard} />);
-
-    const searchDefaultInputElement = searchDefaultInput(page);
-
-    await expect(searchDefaultInputElement).toHaveAttribute(
-      "value",
-      testDataStandard,
-    );
-  });
-
   test("should render Search with value prop", async ({ mount, page }) => {
     await mount(<SearchComponent value={testDataStandard} />);
 
@@ -169,12 +155,7 @@ test.describe("Prop tests for Search component", () => {
       mount,
       page,
     }) => {
-      await mount(
-        <Search
-          searchButton={searchButtonBool}
-          defaultValue={testDataStandard}
-        />,
-      );
+      await mount(<SearchComponent searchButton={searchButtonBool} />);
 
       const searchFindIconElement = searchIcon(page);
 
@@ -190,7 +171,7 @@ test.describe("Prop tests for Search component", () => {
     mount,
     page,
   }) => {
-    await mount(<Search searchButton="foo" defaultValue={testDataStandard} />);
+    await mount(<SearchComponent searchButton="foo" />);
 
     await expect(page.getByText("foo")).toBeVisible();
   });
@@ -278,14 +259,9 @@ test.describe("Prop tests for Search component", () => {
   }) => {
     await mount(
       <Box width="700px" height="108px">
-        <div
-          style={{
-            padding: "32px",
-            backgroundColor: "#003349",
-          }}
-        >
+        <Box p={4} backgroundColor="#003349">
           <SearchComponent variant={variant} />
-        </div>
+        </Box>
       </Box>,
     );
 
@@ -310,14 +286,9 @@ test.describe("Prop tests for Search component", () => {
   }) => {
     await mount(
       <Box width="700px" height="108px">
-        <div
-          style={{
-            padding: "32px",
-            backgroundColor: "#003349",
-          }}
-        >
+        <Box p={4} backgroundColor="#003349">
           <SearchComponent variant={variant} />
-        </div>
+        </Box>
       </Box>,
     );
 
@@ -409,7 +380,7 @@ test("should have the expected border radius styling when search button enabled"
   mount,
   page,
 }) => {
-  await mount(<SearchComponent searchButton value="foo" />);
+  await mount(<SearchComponent searchButton />);
 
   const searchDefaultInputElementParent =
     searchDefaultInput(page).locator("..");
@@ -513,11 +484,10 @@ test.describe("Event tests for Search component", () => {
   }) => {
     let callbackCount = 0;
     await mount(
-      <Search
+      <SearchComponent
         onClick={() => {
           callbackCount += 1;
         }}
-        defaultValue={testDataStandard}
         searchButton
       />,
     );
@@ -618,15 +588,6 @@ test.describe("Accessibility tests for Search", () => {
 
       await checkAccessibility(page);
     });
-  });
-
-  test("should check accessibility with defaultValue prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<Search defaultValue={testDataStandard} />);
-
-    await checkAccessibility(page);
   });
 
   test("should check accessibility with value prop", async ({
