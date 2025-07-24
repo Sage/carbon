@@ -4,6 +4,8 @@ import React, {
   useContext,
   useState,
   useLayoutEffect,
+  forwardRef,
+  useImperativeHandle,
 } from "react";
 import {
   FlexboxProps,
@@ -116,248 +118,275 @@ export interface MenuWithIcon extends MenuItemBaseProps {
   children?: React.ReactNode;
 }
 
-export const MenuItem = ({
-  submenu,
-  submenuMaxWidth,
-  submenuMinWidth,
-  children,
-  href,
-  onClick,
-  target,
-  submenuDirection = "right",
-  icon,
-  selected,
-  onKeyDown,
-  variant = "default",
-  showDropdownArrow = true,
-  ariaLabel,
-  clickToOpen,
-  maxWidth,
-  onSubmenuOpen,
-  onSubmenuClose,
-  overrideColor,
-  rel,
-  as,
-  "data-element": dataElement,
-  "data-role": dataRole,
-  ...rest
-}: MenuWithChildren | MenuWithIcon) => {
-  invariant(
-    icon || children,
-    "Either prop `icon` must be defined or this node must have `children`.",
-  );
+export type MenuItemHandle = {
+  /** Programmatically focus the MenuItem. */
+  focus: () => void;
+} | null;
 
-  invariant(
-    children ||
-      ariaLabel ||
-      submenu ||
-      (typeof submenu === "string" && submenu.length),
-    "If no text or node is provided via the `submenu` prop, an `ariaLabel` should be given to facilitate accessibility.",
-  );
+export const MenuItem = forwardRef<
+  MenuItemHandle,
+  MenuWithChildren | MenuWithIcon
+>(
+  (
+    {
+      submenu,
+      submenuMaxWidth,
+      submenuMinWidth,
+      children,
+      href,
+      onClick,
+      target,
+      submenuDirection = "right",
+      icon,
+      selected,
+      onKeyDown,
+      variant = "default",
+      showDropdownArrow = true,
+      ariaLabel,
+      clickToOpen,
+      maxWidth,
+      onSubmenuOpen,
+      onSubmenuClose,
+      overrideColor,
+      rel,
+      as,
+      "data-element": dataElement,
+      "data-role": dataRole,
+      ...rest
+    },
+    forwardedRef,
+  ) => {
+    invariant(
+      icon || children,
+      "Either prop `icon` must be defined or this node must have `children`.",
+    );
 
-  invariant(
-    typeof submenu === "boolean" ||
-      submenu === undefined ||
-      React.isValidElement(submenu) ||
-      (children && typeof submenu === "string" && submenu.length),
-    "You should not pass `children` when `submenu` is an empty string",
-  );
+    invariant(
+      children ||
+        ariaLabel ||
+        submenu ||
+        (typeof submenu === "string" && submenu.length),
+      "If no text or node is provided via the `submenu` prop, an `ariaLabel` should be given to facilitate accessibility.",
+    );
 
-  const menuItemId = useRef(guid());
+    invariant(
+      typeof submenu === "boolean" ||
+        submenu === undefined ||
+        React.isValidElement(submenu) ||
+        (children && typeof submenu === "string" && submenu.length),
+      "You should not pass `children` when `submenu` is an empty string",
+    );
 
-  const { isChildOfSegment, overriddenVariant } =
-    useContext<MenuSegmentContextProps>(MenuSegmentContext);
+    const menuItemId = useRef(guid());
 
-  const {
-    inFullscreenView,
-    registerItem,
-    unregisterItem,
-    focusId,
-    updateFocusId,
-    menuType,
-  } = useStrictMenuContext();
+    const { isChildOfSegment, overriddenVariant } =
+      useContext<MenuSegmentContextProps>(MenuSegmentContext);
 
-  const submenuContext = useContext<SubmenuContextProps>(SubmenuContext);
-  const isInSubmenu = Object.keys(submenuContext).length > 0;
-  const {
-    submenuFocusId,
-    updateFocusId: updateSubmenuFocusId,
-    handleKeyDown: handleSubmenuKeyDown,
-    submenuHasMaxWidth,
-  } = submenuContext;
+    const {
+      inFullscreenView,
+      registerItem,
+      unregisterItem,
+      focusId,
+      updateFocusId,
+      menuType,
+    } = useStrictMenuContext();
 
-  const focusFromMenu = focusId === menuItemId.current;
-  const focusFromSubmenu = submenuFocusId
-    ? submenuFocusId === menuItemId.current
-    : undefined;
+    const submenuContext = useContext<SubmenuContextProps>(SubmenuContext);
+    const isInSubmenu = Object.keys(submenuContext).length > 0;
+    const {
+      submenuFocusId,
+      updateFocusId: updateSubmenuFocusId,
+      handleKeyDown: handleSubmenuKeyDown,
+      submenuHasMaxWidth,
+    } = submenuContext;
 
-  const [ref, setRef] = useState<HTMLAnchorElement | null>(null);
-  const [firstFocusableChild, setFirstFocusableChild] =
-    useState<HTMLElement | null>(null);
+    const focusFromMenu = focusId === menuItemId.current;
+    const focusFromSubmenu = submenuFocusId
+      ? submenuFocusId === menuItemId.current
+      : undefined;
 
-  useLayoutEffect(() => {
-    const firstFocusable =
-      ref?.querySelector<HTMLElement>(focusableSelectors) ?? null;
-    if (firstFocusable !== firstFocusableChild) {
-      setFirstFocusableChild(firstFocusable);
-    }
-  }, [firstFocusableChild, ref]);
+    const [ref, setRef] = useState<HTMLAnchorElement | null>(null);
+    const [firstFocusableChild, setFirstFocusableChild] =
+      useState<HTMLElement | null>(null);
 
-  useEffect(() => {
-    const id = menuItemId.current;
+    useLayoutEffect(() => {
+      const firstFocusable =
+        ref?.querySelector<HTMLElement>(focusableSelectors) ?? null;
+      if (firstFocusable !== firstFocusableChild) {
+        setFirstFocusableChild(firstFocusable);
+      }
+    }, [firstFocusableChild, ref]);
 
-    /* istanbul ignore else */
-    if (registerItem) {
-      registerItem(id);
-    }
+    useEffect(() => {
+      const id = menuItemId.current;
 
-    return () => {
       /* istanbul ignore else */
-      if (unregisterItem) {
-        unregisterItem(id);
+      if (registerItem) {
+        registerItem(id);
+      }
+
+      return () => {
+        /* istanbul ignore else */
+        if (unregisterItem) {
+          unregisterItem(id);
+        }
+      };
+    }, [registerItem, unregisterItem]);
+
+    useEffect(() => {
+      if ((focusFromMenu && !focusFromSubmenu) || focusFromSubmenu) {
+        if (firstFocusableChild) {
+          firstFocusableChild.focus();
+          return;
+        }
+
+        ref?.focus();
+      }
+    }, [firstFocusableChild, focusFromMenu, focusFromSubmenu, ref]);
+
+    useImperativeHandle<MenuItemHandle, MenuItemHandle>(
+      forwardedRef,
+      () => ({
+        focus() {
+          ref?.focus();
+        },
+      }),
+      [ref],
+    );
+
+    const handleFocus = (
+      event: React.FocusEvent<HTMLDivElement | HTMLLIElement>,
+    ) => {
+      if (isInSubmenu) {
+        event.stopPropagation();
+        updateSubmenuFocusId?.(menuItemId.current);
+      } else {
+        updateFocusId?.(menuItemId.current);
       }
     };
-  }, [registerItem, unregisterItem]);
 
-  useEffect(() => {
-    if ((focusFromMenu && !focusFromSubmenu) || focusFromSubmenu) {
-      if (firstFocusableChild) {
-        firstFocusableChild.focus();
-        return;
+    const handleKeyDown = (
+      event:
+        | React.KeyboardEvent<HTMLAnchorElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
+    ) => {
+      onKeyDown?.(event);
+
+      if (Events.isEscKey(event)) {
+        ref?.focus();
       }
 
-      ref?.focus();
+      handleSubmenuKeyDown?.(event);
+    };
+
+    const elementProps = {
+      className: href || onClick ? "carbon-menu-item--has-link" : "",
+      href: firstFocusableChild ? undefined : href,
+      onClick: firstFocusableChild ? undefined : onClick,
+      target,
+      rel,
+      icon,
+      removeAriaLabelOnIcon: true,
+      selected,
+      onKeyDown: !inFullscreenView ? handleKeyDown : undefined,
+      overrideColor,
+      ref: setRef,
+    };
+
+    if (
+      overriddenVariant === "alternate" &&
+      isChildOfSegment &&
+      variant === "alternate" &&
+      ["white", "black"].includes(menuType)
+    ) {
+      elementProps.overrideColor = true;
     }
-  }, [firstFocusableChild, focusFromMenu, focusFromSubmenu, ref]);
 
-  const handleFocus = (
-    event: React.FocusEvent<HTMLDivElement | HTMLLIElement>,
-  ) => {
-    if (isInSubmenu) {
-      event.stopPropagation();
-      updateSubmenuFocusId?.(menuItemId.current);
-    } else {
-      updateFocusId?.(menuItemId.current);
+    const getTitle = (title: React.ReactNode) =>
+      maxWidth && typeof title === "string" ? title : undefined;
+
+    const itemMaxWidth = !inFullscreenView ? maxWidth : undefined;
+    const asPassiveItem = !(onClick || href || firstFocusableChild);
+
+    if (submenu) {
+      return (
+        <StyledMenuItem
+          data-component="menu-item"
+          data-element={dataElement}
+          data-role={dataRole}
+          menuType={menuType}
+          title={getTitle(submenu)}
+          maxWidth={itemMaxWidth}
+          {...rest}
+          inFullscreenView={inFullscreenView}
+          id={menuItemId.current}
+          as={as}
+          onFocus={handleFocus}
+        >
+          <Submenu
+            {...(typeof submenu !== "boolean" && { title: submenu })}
+            submenuDirection={submenuDirection}
+            showDropdownArrow={showDropdownArrow}
+            clickToOpen={clickToOpen}
+            maxWidth={maxWidth}
+            asPassiveItem={asPassiveItem}
+            ariaLabel={ariaLabel}
+            onSubmenuOpen={onSubmenuOpen}
+            onSubmenuClose={onSubmenuClose}
+            submenuMaxWidth={submenuMaxWidth}
+            submenuMinWidth={submenuMinWidth}
+            {...elementProps}
+            variant={variant}
+            {...rest}
+          >
+            {children}
+          </Submenu>
+        </StyledMenuItem>
+      );
     }
-  };
 
-  const handleKeyDown = (
-    event:
-      | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>,
-  ) => {
-    onKeyDown?.(event);
+    const paddingProps = filterStyledSystemPaddingProps(rest);
+    const hasInput = !!ref?.querySelector<HTMLElement>(
+      "[data-element='input']",
+    );
 
-    if (Events.isEscKey(event)) {
-      ref?.focus();
-    }
-
-    handleSubmenuKeyDown?.(event);
-  };
-
-  const elementProps = {
-    className: href || onClick ? "carbon-menu-item--has-link" : "",
-    href: firstFocusableChild ? undefined : href,
-    onClick: firstFocusableChild ? undefined : onClick,
-    target,
-    rel,
-    icon,
-    removeAriaLabelOnIcon: true,
-    selected,
-    onKeyDown: !inFullscreenView ? handleKeyDown : undefined,
-    overrideColor,
-    ref: setRef,
-  };
-
-  if (
-    overriddenVariant === "alternate" &&
-    isChildOfSegment &&
-    variant === "alternate" &&
-    ["white", "black"].includes(menuType)
-  ) {
-    elementProps.overrideColor = true;
-  }
-
-  const getTitle = (title: React.ReactNode) =>
-    maxWidth && typeof title === "string" ? title : undefined;
-
-  const itemMaxWidth = !inFullscreenView ? maxWidth : undefined;
-  const asPassiveItem = !(onClick || href || firstFocusableChild);
-
-  if (submenu) {
     return (
       <StyledMenuItem
         data-component="menu-item"
         data-element={dataElement}
         data-role={dataRole}
         menuType={menuType}
-        title={getTitle(submenu)}
+        inSubmenu={isInSubmenu}
+        title={getTitle(children)}
         maxWidth={itemMaxWidth}
         {...rest}
-        inFullscreenView={inFullscreenView}
+        inFullscreenView={
+          inFullscreenView && !Object.keys(submenuContext).length
+        }
         id={menuItemId.current}
         as={as}
         onFocus={handleFocus}
       >
-        <Submenu
-          {...(typeof submenu !== "boolean" && { title: submenu })}
-          submenuDirection={submenuDirection}
-          showDropdownArrow={showDropdownArrow}
-          clickToOpen={clickToOpen}
-          maxWidth={maxWidth}
-          asPassiveItem={asPassiveItem}
-          ariaLabel={ariaLabel}
-          onSubmenuOpen={onSubmenuOpen}
-          onSubmenuClose={onSubmenuClose}
-          submenuMaxWidth={submenuMaxWidth}
-          submenuMinWidth={submenuMinWidth}
+        <StyledMenuItemWrapper
+          menuType={menuType}
+          data-role="menu-item-wrapper"
           {...elementProps}
-          variant={variant}
-          {...rest}
+          menuItemVariant={variant}
+          ariaLabel={ariaLabel}
+          maxWidth={!submenuHasMaxWidth ? itemMaxWidth : undefined}
+          inFullscreenView={inFullscreenView}
+          asPassiveItem={asPassiveItem}
+          {...paddingProps}
+          asDiv={hasInput || as === "div"}
+          hasFocusableChild={!!firstFocusableChild}
+          hasInput={hasInput}
+          inSubmenu={isInSubmenu}
         >
           {children}
-        </Submenu>
+        </StyledMenuItemWrapper>
       </StyledMenuItem>
     );
-  }
-
-  const paddingProps = filterStyledSystemPaddingProps(rest);
-  const hasInput = !!ref?.querySelector<HTMLElement>("[data-element='input']");
-
-  return (
-    <StyledMenuItem
-      data-component="menu-item"
-      data-element={dataElement}
-      data-role={dataRole}
-      menuType={menuType}
-      inSubmenu={isInSubmenu}
-      title={getTitle(children)}
-      maxWidth={itemMaxWidth}
-      {...rest}
-      inFullscreenView={inFullscreenView && !Object.keys(submenuContext).length}
-      id={menuItemId.current}
-      as={as}
-      onFocus={handleFocus}
-    >
-      <StyledMenuItemWrapper
-        menuType={menuType}
-        data-role="menu-item-wrapper"
-        {...elementProps}
-        menuItemVariant={variant}
-        ariaLabel={ariaLabel}
-        maxWidth={!submenuHasMaxWidth ? itemMaxWidth : undefined}
-        inFullscreenView={inFullscreenView}
-        asPassiveItem={asPassiveItem}
-        {...paddingProps}
-        asDiv={hasInput || as === "div"}
-        hasFocusableChild={!!firstFocusableChild}
-        hasInput={hasInput}
-        inSubmenu={isInSubmenu}
-      >
-        {children}
-      </StyledMenuItemWrapper>
-    </StyledMenuItem>
-  );
-};
+  },
+);
 
 export default MenuItem;
