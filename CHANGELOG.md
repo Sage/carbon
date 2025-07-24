@@ -1,3 +1,9 @@
+## [155.5.3](https://github.com/Sage/carbon/compare/v155.5.2...v155.5.3) (2025-07-24)
+
+### Bug Fixes
+
+* **button, icon-button, link:** ensure onClick types are consistent and correct ([c191596](https://github.com/Sage/carbon/commit/c191596daba7608d7c8ea313f45324288a7eafb0)), closes [#7416](https://github.com/Sage/carbon/issues/7416)
+
 ## [155.5.2](https://github.com/Sage/carbon/compare/v155.5.1...v155.5.2) (2025-07-23)
 
 ### Bug Fixes
