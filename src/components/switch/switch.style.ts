@@ -147,7 +147,7 @@ const StyledSwitch = styled.div.attrs(applyBaseTheme)`
       }
 
       ${FieldLineStyle} {
-        ${!reverse &&
+        ${reverse &&
         validationRedesignOptIn &&
         css`
           justify-content: flex-end;

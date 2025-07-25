@@ -71,7 +71,7 @@ export const Switch = React.forwardRef(
       labelHelp,
       labelWidth,
       fieldHelpInline,
-      size,
+      size = "small",
       name,
       adaptiveLabelBreakpoint,
       tooltipPosition,
@@ -199,7 +199,7 @@ export const Switch = React.forwardRef(
       labelInline: shouldLabelBeInline,
       isDarkBackground,
       size,
-      reverse,
+      reverse: !reverse,
       validationRedesignOptIn,
       ...marginProps,
     };
