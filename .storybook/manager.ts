@@ -6,7 +6,7 @@ import {
   INTERACTION_TOGGLE_TOOL_ID,
 } from "./interaction-toggle/constants";
 import { InteractionToggle } from "./interaction-toggle/reduced-motion";
-import { VersionPicker } from "./version-picker";
+import VersionPicker from "./version-picker";
 import { API_PreparedIndexEntry, API_StatusObject } from "@storybook/types";
 
 const useVersionPicker = process.env.USE_VERSION_PICKER === "true";
