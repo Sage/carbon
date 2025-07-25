@@ -26,7 +26,7 @@ export interface SwitchProps
   adaptiveLabelBreakpoint?: number;
   /** Set the default value of the Switch if component is meant to be used as uncontrolled */
   defaultChecked?: boolean;
-  /** [Legacy] When true label is inline */
+  /** When true label is inline */
   labelInline?: boolean;
   /** Triggers loading animation */
   loading?: boolean;
@@ -42,6 +42,8 @@ export interface SwitchProps
   isDarkBackground?: boolean;
   /** Render the ValidationMessage above the Switch input when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
+  /** Label width, as a percentage, when labelInline is true */
+  labelWidth?: number;
 }
 
 let deprecateUncontrolledWarnTriggered = false;
@@ -67,8 +69,9 @@ export const Switch = React.forwardRef(
       labelInline = false,
       labelSpacing,
       labelHelp,
+      labelWidth,
       fieldHelpInline,
-      size,
+      size = "small",
       name,
       adaptiveLabelBreakpoint,
       tooltipPosition,
@@ -164,6 +167,7 @@ export const Switch = React.forwardRef(
       checked: isControlled ? checked : checkedInternal,
       label,
       labelHelp,
+      labelWidth,
       fieldHelpInline,
       labelInline: shouldLabelBeInline,
       labelSpacing,
@@ -195,6 +199,8 @@ export const Switch = React.forwardRef(
       labelInline: shouldLabelBeInline,
       isDarkBackground,
       size,
+      reverse: !reverse,
+      validationRedesignOptIn,
       ...marginProps,
     };
 
@@ -271,12 +277,15 @@ export const Switch = React.forwardRef(
           <Box
             data-role="field-reverse-wrapper"
             display="flex"
-            flexWrap="wrap"
             alignItems={error || warning ? "flex-start" : undefined}
             flexDirection={!reverse ? reverseDirection : direction}
             width={labelInline ? "100%" : "auto"}
           >
-            <Box data-role="label-wrapper" alignSelf={labelWrapperAlignSelf}>
+            <Box
+              data-role="label-wrapper"
+              alignSelf={labelWrapperAlignSelf}
+              {...(labelWidth && { width: `${labelWidth}%` })}
+            >
               <Label
                 isDarkBackground={isDarkBackground}
                 labelId={labelId.current}
@@ -288,19 +297,13 @@ export const Switch = React.forwardRef(
               </Label>
 
               {labelHelp && (
-                <Box
-                  data-role="hint-text-wrapper"
-                  mb={labelInline ? 0 : 1}
-                  mr={reverse ? 0 : 1}
-                  ml={reverse ? 0 : 1}
-                >
+                <Box data-role="hint-text-wrapper" mb={labelInline ? 0 : 1}>
                   <HintText
                     data-role="hint-text"
                     fontWeight="400"
                     id={inputHintId.current}
                     isDarkBackground={isDarkBackground}
                     marginTop="8px"
-                    maxWidth="160px"
                   >
                     {labelHelp}
                   </HintText>
