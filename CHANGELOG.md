@@ -1,3 +1,9 @@
+## [155.5.5](https://github.com/Sage/carbon/compare/v155.5.4...v155.5.5) (2025-07-28)
+
+### Bug Fixes
+
+* **switch:** ensure inline hint text takes full width of label container ([dc1f495](https://github.com/Sage/carbon/commit/dc1f4956cd67d3508a12bf71e6f92361e0678dbd)), closes [#7411](https://github.com/Sage/carbon/issues/7411)
+
 ## [155.5.4](https://github.com/Sage/carbon/compare/v155.5.3...v155.5.4) (2025-07-28)
 
 ### Bug Fixes
