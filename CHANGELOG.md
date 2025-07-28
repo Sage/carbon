@@ -1,3 +1,9 @@
+## [155.6.0](https://github.com/Sage/carbon/compare/v155.5.5...v155.6.0) (2025-07-28)
+
+### Features
+
+* **menu-item:** add programmatic focus support ([632b784](https://github.com/Sage/carbon/commit/632b7849768fd03c156231366a9b4de49dde73fc)), closes [#7450](https://github.com/Sage/carbon/issues/7450)
+
 ## [155.5.5](https://github.com/Sage/carbon/compare/v155.5.4...v155.5.5) (2025-07-28)
 
 ### Bug Fixes
