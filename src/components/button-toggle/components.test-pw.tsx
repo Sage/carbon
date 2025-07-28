@@ -37,6 +37,7 @@ export const ButtonToggleGroupComponent = (
       helpAriaLabel="Help"
       fieldHelp="field help message"
       onChange={() => {}}
+      value=""
       {...props}
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
@@ -52,6 +53,8 @@ export const ButtonToggleGroupNotInBox = (
   <ButtonToggleGroup
     id="button-toggle-group-id"
     label="Grouped example"
+    onChange={() => {}}
+    value=""
     {...props}
   >
     <ButtonToggle value="foo">Foo</ButtonToggle>
@@ -60,7 +63,7 @@ export const ButtonToggleGroupNotInBox = (
   </ButtonToggleGroup>
 );
 
-export const WithOutsideButtons = () => {
+export const WithOutsideButtons = ({ value = "" }: { value: string }) => {
   return (
     <>
       <button type="button" id="button-before">
@@ -69,6 +72,8 @@ export const WithOutsideButtons = () => {
       <ButtonToggleGroup
         id="button-toggle-group"
         label="Button Toggle Group test"
+        onChange={() => {}}
+        value={value}
       >
         <ButtonToggle value="foo">Foo</ButtonToggle>
         <ButtonToggle value="bar">Bar</ButtonToggle>
