@@ -1,3 +1,9 @@
+## [155.5.4](https://github.com/Sage/carbon/compare/v155.5.3...v155.5.4) (2025-07-28)
+
+### Bug Fixes
+
+* **action-popover:** submenu stays open when another submenu is clicked ([18f1692](https://github.com/Sage/carbon/commit/18f16922f255bc4a5638946b41a9a282a0905b05))
+
 ## [155.5.3](https://github.com/Sage/carbon/compare/v155.5.2...v155.5.3) (2025-07-24)
 
 ### Bug Fixes
