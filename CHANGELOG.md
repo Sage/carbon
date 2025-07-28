@@ -1,3 +1,9 @@
+## [155.6.1](https://github.com/Sage/carbon/compare/v155.6.0...v155.6.1) (2025-07-28)
+
+### Bug Fixes
+
+* **dialog-full-screen:** ensure title does not overlap with close button ([4954d1c](https://github.com/Sage/carbon/commit/4954d1c41d093def185e96aeba50fef3adcba41d)), closes [#7434](https://github.com/Sage/carbon/issues/7434)
+
 ## [155.6.0](https://github.com/Sage/carbon/compare/v155.5.5...v155.6.0) (2025-07-28)
 
 ### Features
