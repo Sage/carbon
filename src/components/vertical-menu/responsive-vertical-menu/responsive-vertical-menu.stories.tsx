@@ -308,7 +308,7 @@ CustomIcon.storyName = "Custom Icon";
 export const ItemWithOnClickHandler: Story = () => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    window.history.pushState({}, "", "https://carbon.sage.com/");
+    window.open("https://carbon.sage.com", "_blank", "noopener noreferrer");
   };
 
   return (
@@ -318,8 +318,8 @@ export const ItemWithOnClickHandler: Story = () => {
           <ResponsiveVerticalMenu height="100%">
             <ResponsiveVerticalMenuItem
               icon="home"
-              id="link-to-carbon"
-              label="Open Carbon"
+              id="toggle-click-handler"
+              label="Toggle Click Handler"
               onClick={handleClick}
               target="_blank"
               rel="noopener noreferrer"

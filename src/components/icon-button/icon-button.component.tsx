@@ -2,7 +2,6 @@ import React, { useState, useCallback, useContext } from "react";
 import { SpaceProps } from "styled-system";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-import Events from "../../__internal__/utils/helpers/events";
 import StyledIconButton from "./icon-button.style";
 import { IconProps } from "../icon";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
@@ -24,11 +23,7 @@ export interface IconButtonProps extends SpaceProps, TagProps {
   /** Set the button to disabled */
   disabled?: boolean;
   /** Callback triggered on click */
-  onClick?: (
-    e:
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>,
-  ) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /** @private @internal @ignore */
   "data-component"?: string;
 }
@@ -54,13 +49,6 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       )?.getAttribute("type") ||
       "";
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-      if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {
-        e.preventDefault();
-        onClick?.(e);
-      }
-    };
-
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       internalRef?.focus({ preventScroll: true });
       onClick?.(event);
@@ -81,7 +69,6 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         p={0}
         {...rest}
         aria-label={ariaLabelValue}
-        onKeyDown={handleKeyDown}
         onClick={handleClick}
         ref={setRefs}
         disabled={isDisabled}

@@ -21,9 +21,7 @@ export interface LinkProps
   onClick?: (
     ev:
       | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>,
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Function called when a key is pressed. */
   onKeyDown?: (

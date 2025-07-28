@@ -162,7 +162,7 @@ test.describe("check events for Link Preview component", () => {
       );
 
       await page.keyboard.press("Tab");
-      await page.keyboard.down(key);
+      await page.keyboard.press(key);
 
       await linkPreviewCloseIcon(page).waitFor();
       expect(callbackCount).toEqual(1);

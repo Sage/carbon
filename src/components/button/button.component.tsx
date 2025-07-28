@@ -85,7 +85,9 @@ export interface ButtonProps extends SpaceProps, TagProps {
   ) => void;
   /** onClick handler */
   onClick?: (
-    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+    ev:
+      | React.MouseEvent<HTMLAnchorElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Assigns a size to the button: "small" | "medium" | "large" */
   size?: SizeOptions;
@@ -274,7 +276,9 @@ const Button = React.forwardRef<
     };
 
     const handleClick = (
-      event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+      event:
+        | React.MouseEvent<HTMLAnchorElement>
+        | React.MouseEvent<HTMLButtonElement>,
     ) => {
       internalRef?.focus({ preventScroll: true });
 

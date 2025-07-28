@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, StoryObj } from "@storybook/react";
 import { userEvent, waitFor, within, expect } from "@storybook/test";
@@ -12,6 +12,9 @@ import {
   BUTTON_VARIANTS,
 } from "./button.config";
 import { ButtonIconPosition, ButtonTypes } from "./button.component";
+import { Tile, TileContent } from "../tile";
+import Hr from "../hr";
+import Typography from "../typography";
 
 export default {
   title: "Button/Test",
@@ -1272,3 +1275,113 @@ ButtonHover.parameters = {
     hover: true,
   },
 };
+
+const Tiles = () => {
+  const defaultButtonRef = useRef<HTMLButtonElement>(null);
+  const handleClick = () => {
+    defaultButtonRef.current?.focus();
+  };
+
+  return (
+    <Tile orientation="vertical" p={0} width="288px">
+      <TileContent>
+        <Box display="flex" flexDirection="column" height="100%">
+          <Box
+            display="flex"
+            flexDirection="column"
+            flexGrow={1}
+            gap={2}
+            justifyContent="space-between"
+            p={2}
+          >
+            <button
+              className="htmlButton"
+              type="button"
+              ref={defaultButtonRef}
+              onClick={handleClick}
+            >
+              Default button
+            </button>
+            <Button onClick={() => {}} fullWidth>
+              Carbon Button
+            </Button>
+          </Box>
+        </Box>
+      </TileContent>
+    </Tile>
+  );
+};
+
+const Groups = () => {
+  return (
+    <Box display="flex" flexDirection="column" maxWidth="900px">
+      <Box>
+        <Hr my={3} />
+      </Box>
+      <Typography variant="h3">Some Title</Typography>
+      <Typography variant="p">Some Description</Typography>
+      <Box gap={2} my={2}>
+        <Box display="flex" flexDirection="row" flexWrap="wrap" gap={2} my={2}>
+          <Tiles />
+          <Tiles />
+          <Tiles />
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+export const ButtonFocusNoScroll: Story = {
+  render: () => (
+    <>
+      <p>
+        This story can be used to check that the focus indicator styling doesn't
+        cause the page to scroll when a button is clicked. It can also be used
+        to check that FE-7404 has not regressed.
+      </p>
+      <div style={{ display: "flex" }}>
+        <div
+          style={{
+            display: "flex",
+            height: "calc(100vh - 40px)",
+          }}
+        >
+          <div style={{ overflowY: "auto" }}>
+            <Box ml={7} mr={5} mb={2}>
+              <Box display="flex" alignItems="flex-start">
+                <Box
+                  flexDirection="column"
+                  display="flex"
+                  alignItems="flex-start"
+                  flexGrow={1}
+                  flexWrap="wrap"
+                  mr={5}
+                >
+                  <Box {...{ width: "100%" }} mb={4}>
+                    <Groups />
+                    <Groups />
+                    <Groups />
+                    <Groups />
+                    <Groups />
+                    <Groups />
+                    <Box>
+                      <Hr my={3} />
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </div>
+        </div>
+      </div>
+    </>
+  ),
+  decorators: [
+    (StoryToRender) => (
+      <div style={{ height: "100vh", width: "100vw" }}>
+        <StoryToRender />
+      </div>
+    ),
+  ],
+};
+ButtonFocusNoScroll.storyName = "Button Focuses Without Scrolling";

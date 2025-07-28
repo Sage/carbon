@@ -164,11 +164,8 @@ test.describe("Check events", () => {
       );
 
       await page.keyboard.press("Tab");
-      await page.keyboard.down(key);
-      // This assertion is here purely to help prevent any flakiness.
-      // We need to provide a small timeout between the key down and the assertion for `callbackCount` taking place.
-      // The default `waitFor` argument is "visible".
-      await dismissibleBoxDataComponent(page).waitFor();
+      await page.keyboard.press(key);
+
       expect(callbackCount).toEqual(1);
     });
   });

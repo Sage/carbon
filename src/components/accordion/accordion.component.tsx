@@ -140,6 +140,7 @@ export const Accordion = React.forwardRef<
         }
 
         if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
+          ev.preventDefault();
           toggleAccordion(ev);
         }
       },
