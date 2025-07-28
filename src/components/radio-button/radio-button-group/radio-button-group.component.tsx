@@ -19,8 +19,6 @@ import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibi
 import ErrorBorder from "../../textbox/textbox.style";
 import HintText from "../../../__internal__/hint-text";
 
-let deprecateUncontrolledWarnTriggered = false;
-
 export interface RadioButtonGroupProps
   extends ValidationProps,
     MarginProps,
@@ -60,11 +58,11 @@ export interface RadioButtonGroupProps
   /** Callback fired when each RadioButton is blurred */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Callback fired when the user selects a RadioButton */
-  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** value of the selected RadioButton */
-  value?: string;
+  value: string;
   /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Render the ValidationMessage above the RadioButton inputs when validationRedesignOptIn flag is set */
@@ -100,13 +98,6 @@ export const RadioButtonGroup = ({
   const internalId = useRef(guid());
   const uniqueId = id || internalId.current;
   const inputHintId = legendHelp ? `${uniqueId}-hint` : undefined;
-
-  if (!deprecateUncontrolledWarnTriggered && !onChange) {
-    deprecateUncontrolledWarnTriggered = true;
-    Logger.deprecate(
-      "Uncontrolled behaviour in `Radio Button` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-    );
-  }
 
   const marginProps = filterStyledSystemMarginProps(rest);
 
