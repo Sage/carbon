@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "155.5.3",
+  "version": "155.6.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
