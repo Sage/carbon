@@ -135,9 +135,6 @@ export const OpenPopover: Story = {
 
     expect(toggleButton).toHaveAttribute("aria-expanded", "true");
     expect(toggleButton).toHaveAttribute("aria-controls");
-
-    await userEvent.keyboard("{Escape}");
-    await userInteractionPause(300);
   },
   decorators: [
     (StoryToRender) => (
