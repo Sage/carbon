@@ -46,7 +46,6 @@ export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
       name,
       checked = false,
       id,
-      defaultChecked,
       className,
       ...rest
     } = props;
@@ -69,7 +68,6 @@ export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
           value={value}
           ref={ref}
           id={inputId}
-          defaultChecked={defaultChecked}
           {...rest}
         />
         <StyledColorSampleBox color={value}>
