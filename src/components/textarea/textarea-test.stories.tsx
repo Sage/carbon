@@ -167,29 +167,77 @@ export const Default = ({
 Default.storyName = "Default";
 
 export const Validation = () => {
+  const [value, setValue] = useState("");
   return (
     <>
-      <Textarea label="Textarea" error="Error Message" mb={2} />
-      <Textarea label="Textarea" warning="Warning Message" mb={2} />
-      <Textarea label="Textarea" info="Info Message" mb={2} />
+      <Textarea
+        label="Textarea"
+        error="Error Message"
+        mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <Textarea
+        label="Textarea"
+        warning="Warning Message"
+        mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <Textarea
+        label="Textarea"
+        info="Info Message"
+        mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
 
       <Textarea
         label="Textarea"
         error="Error Message"
         validationOnLabel
         mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
       <Textarea
         label="Textarea"
         warning="Warning Message"
         validationOnLabel
         mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
-      <Textarea label="Textarea" info="Info Message" validationOnLabel mb={2} />
+      <Textarea
+        label="Textarea"
+        info="Info Message"
+        validationOnLabel
+        mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
 
-      <Textarea label="Textarea" error mb={2} />
-      <Textarea label="Textarea" warning mb={2} />
-      <Textarea label="Textarea" info mb={2} />
+      <Textarea
+        label="Textarea"
+        error
+        mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <Textarea
+        label="Textarea"
+        warning
+        mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <Textarea
+        label="Textarea"
+        info
+        mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
     </>
   );
 };
@@ -200,20 +248,38 @@ Validation.parameters = {
 };
 
 export const NewValidation = () => {
+  const [value, setValue] = useState("");
+
   return (
     <CarbonProvider validationRedesignOptIn>
-      <Textarea label="Textarea" error="Error Message" mb={2} />
-      <Textarea label="Textarea" warning="Warning Message" mb={2} />
+      <Textarea
+        label="Textarea"
+        error="Error Message"
+        mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <Textarea
+        label="Textarea"
+        warning="Warning Message"
+        mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
       <Textarea
         validationMessagePositionTop={false}
         label="Textarea"
         error="Error Message"
         mb={2}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
       <Textarea
         validationMessagePositionTop={false}
         label="Textarea"
         warning="Warning Message"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
     </CarbonProvider>
   );
@@ -317,6 +383,8 @@ WithExpandableAndRows.parameters = {
 };
 
 export const LabelAlign: StoryType = () => {
+  const [value, setValue] = useState("");
+
   return (
     <CarbonProvider validationRedesignOptIn>
       {["left", "right"].map((labelAlign) => (
@@ -326,6 +394,8 @@ export const LabelAlign: StoryType = () => {
           inputHint="help text"
           labelAlign={labelAlign as TextareaProps["labelAlign"]}
           mb={2}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
         />
       ))}
     </CarbonProvider>
@@ -338,7 +408,16 @@ LabelAlign.parameters = {
 };
 
 export const AutoFocusStory = () => {
-  return <Textarea label="Textarea" autoFocus />;
+  const [value, setValue] = useState("");
+
+  return (
+    <Textarea
+      label="Textarea"
+      autoFocus
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
 };
 AutoFocusStory.storyName = "Auto Focus";
 AutoFocusStory.parameters = {
