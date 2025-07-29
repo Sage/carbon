@@ -1,3 +1,9 @@
+## [155.7.0](https://github.com/Sage/carbon/compare/v155.6.1...v155.7.0) (2025-07-29)
+
+### Features
+
+* **version-picker:** remove beta releases from version-picker ([e0b259d](https://github.com/Sage/carbon/commit/e0b259dfb4663df117965b135975fc4fa1c50a18))
+
 ## [155.6.1](https://github.com/Sage/carbon/compare/v155.6.0...v155.6.1) (2025-07-28)
 
 ### Bug Fixes
