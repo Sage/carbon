@@ -279,7 +279,6 @@ export const KeyboardNavigation: Story = {
         if (!allowInteractions()) {
             return;
         }
-        const canvas = within(canvasElement);
 
         const startInput = canvasElement.querySelector('[data-element="start-date"] input');
         const endInput = canvasElement.querySelector('[data-element="end-date"] input');
