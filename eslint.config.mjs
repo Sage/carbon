@@ -181,7 +181,7 @@ export default defineConfig([
       camelcase: [
         "error",
         {
-          allow: ["^UNSAFE_"],
+          allow: ["^UNSAFE_", "^API_"],
           properties: "never",
           ignoreDestructuring: false,
         },

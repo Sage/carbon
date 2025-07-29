@@ -1,3 +1,33 @@
+## [155.7.0](https://github.com/Sage/carbon/compare/v155.6.1...v155.7.0) (2025-07-29)
+
+### Features
+
+* **version-picker:** remove beta releases from version-picker ([e0b259d](https://github.com/Sage/carbon/commit/e0b259dfb4663df117965b135975fc4fa1c50a18))
+
+## [155.6.1](https://github.com/Sage/carbon/compare/v155.6.0...v155.6.1) (2025-07-28)
+
+### Bug Fixes
+
+* **dialog-full-screen:** ensure title does not overlap with close button ([4954d1c](https://github.com/Sage/carbon/commit/4954d1c41d093def185e96aeba50fef3adcba41d)), closes [#7434](https://github.com/Sage/carbon/issues/7434)
+
+## [155.6.0](https://github.com/Sage/carbon/compare/v155.5.5...v155.6.0) (2025-07-28)
+
+### Features
+
+* **menu-item:** add programmatic focus support ([632b784](https://github.com/Sage/carbon/commit/632b7849768fd03c156231366a9b4de49dde73fc)), closes [#7450](https://github.com/Sage/carbon/issues/7450)
+
+## [155.5.5](https://github.com/Sage/carbon/compare/v155.5.4...v155.5.5) (2025-07-28)
+
+### Bug Fixes
+
+* **switch:** ensure inline hint text takes full width of label container ([dc1f495](https://github.com/Sage/carbon/commit/dc1f4956cd67d3508a12bf71e6f92361e0678dbd)), closes [#7411](https://github.com/Sage/carbon/issues/7411)
+
+## [155.5.4](https://github.com/Sage/carbon/compare/v155.5.3...v155.5.4) (2025-07-28)
+
+### Bug Fixes
+
+* **action-popover:** submenu stays open when another submenu is clicked ([18f1692](https://github.com/Sage/carbon/commit/18f16922f255bc4a5638946b41a9a282a0905b05))
+
 ## [155.5.3](https://github.com/Sage/carbon/compare/v155.5.2...v155.5.3) (2025-07-24)
 
 ### Bug Fixes

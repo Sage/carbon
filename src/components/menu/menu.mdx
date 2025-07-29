@@ -51,6 +51,19 @@ import {
 
 > **Note**: To ensure a `MenuItem` is interactive, it should either have an `href`, `onClick` or `submenu` prop, or contain another focusable Carbon component like Button. Without one of these, the item will not be keyboard-focusable or interactive, affecting accessibility for keyboard and screen reader users.
 
+### Focusing MenuItem's Programmatically
+
+```javascript
+import { MenuItemHandle } from "carbon-react/lib/components/menu";
+```
+
+The `MenuItemHandle` type provides an imperative handle for programmatic control over `MenuItem`. 
+Using a `ref`, you can access its `focus()` method to set focus on the `MenuItem` as needed.
+
+> **Note**: The `focus()` method will only work on interactive elements. 
+
+<Canvas of={MenuStories.ProgrammaticFocus} />
+
 ### Selected
 
 <Canvas of={MenuStories.SelectedStory} />
