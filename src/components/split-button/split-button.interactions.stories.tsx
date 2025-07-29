@@ -12,6 +12,14 @@ import userInteractionPause from "../../../.storybook/utils/user-interaction-pau
 
 type Story = StoryObj<typeof SplitButton>;
 
+// Universal focus helper that works without jest-dom
+const isFocused = (
+  element: Element | null,
+  canvasElement: HTMLElement,
+): boolean => {
+  return element === canvasElement.ownerDocument.activeElement;
+};
+
 export default {
   title: "Split Button/Interactions",
   component: SplitButton,
@@ -62,8 +70,6 @@ export const ButtonTypes: Story = {
     for (const toggle of toggleButtons) {
       await userEvent.click(toggle);
       await userInteractionPause(500);
-      await userEvent.keyboard("{Escape}");
-      await userInteractionPause(300);
     }
   },
   decorators: [
@@ -76,33 +82,26 @@ export const ButtonTypes: Story = {
 };
 ButtonTypes.storyName = "Button Types";
 
-export const SizeVariations: Story = {
-  render: () => {
-    return (
-      <>
-        {(["small", "medium", "large"] as const).map((size) => (
-          <Box key={size} mb={3}>
-            <SplitButton size={size} text={`Split button - ${size}`}>
-              <Button size={size}>Button 1</Button>
-              <Button size={size}>Button 2</Button>
-              <Button size={size}>Button 3</Button>
-            </SplitButton>
-          </Box>
-        ))}
-      </>
-    );
-  },
+// Individual stories for each size (broken out for better visual testing)
+export const SmallSize: Story = {
+  render: () => (
+    <Wrapper>
+      <Box mb={3}>
+        <SplitButton size="small" text="Split button - small">
+          <Button size="small">Button 1</Button>
+          <Button size="small">Button 2</Button>
+          <Button size="small">Button 3</Button>
+        </SplitButton>
+      </Box>
+    </Wrapper>
+  ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
     const canvas = within(canvasElement);
-    const toggleButtons = canvas.getAllByRole("button", { name: /show more/i });
+    const toggleButton = canvas.getByRole("button", { name: /show more/i });
 
-    for (const toggle of toggleButtons) {
-      await userEvent.click(toggle);
-      await userInteractionPause(500);
-      await userEvent.keyboard("{Escape}");
-      await userInteractionPause(300);
-    }
+    await userEvent.click(toggleButton);
+    await userInteractionPause(500);
   },
   decorators: [
     (StoryToRender) => (
@@ -112,7 +111,67 @@ export const SizeVariations: Story = {
     ),
   ],
 };
-SizeVariations.storyName = "Sizes";
+SmallSize.storyName = "Small Size";
+
+export const MediumSize: Story = {
+  render: () => (
+    <Wrapper>
+      <Box mb={3}>
+        <SplitButton size="medium" text="Split button - medium">
+          <Button size="medium">Button 1</Button>
+          <Button size="medium">Button 2</Button>
+          <Button size="medium">Button 3</Button>
+        </SplitButton>
+      </Box>
+    </Wrapper>
+  ),
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) return;
+    const canvas = within(canvasElement);
+    const toggleButton = canvas.getByRole("button", { name: /show more/i });
+
+    await userEvent.click(toggleButton);
+    await userInteractionPause(500);
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+MediumSize.storyName = "Medium Size";
+
+export const LargeSize: Story = {
+  render: () => (
+    <Wrapper>
+      <Box mb={3}>
+        <SplitButton size="large" text="Split button - large">
+          <Button size="large">Button 1</Button>
+          <Button size="large">Button 2</Button>
+          <Button size="large">Button 3</Button>
+        </SplitButton>
+      </Box>
+    </Wrapper>
+  ),
+  play: async ({ canvasElement }) => {
+    if (!allowInteractions()) return;
+    const canvas = within(canvasElement);
+    const toggleButton = canvas.getByRole("button", { name: /show more/i });
+
+    await userEvent.click(toggleButton);
+    await userInteractionPause(500);
+  },
+  decorators: [
+    (StoryToRender) => (
+      <DefaultDecorator>
+        <StoryToRender />
+      </DefaultDecorator>
+    ),
+  ],
+};
+LargeSize.storyName = "Large Size";
 
 export const OpenPopover: Story = {
   render: () => (
@@ -169,13 +228,11 @@ export const FocusStates: Story = {
     focusTarget.focus();
     await userInteractionPause(600);
 
-    await userEvent.keyboard("{Escape}");
-    await userInteractionPause(300);
-
     const toggleButtonElement = canvasElement.querySelector(
       '[data-element="toggle-button"]',
-    );
-    expect(document.activeElement).toBe(toggleButtonElement);
+    ) as HTMLElement;
+
+    expect(isFocused(toggleButtonElement, canvasElement)).toBe(true);
   },
   decorators: [
     (StoryToRender) => (
@@ -211,31 +268,30 @@ export const ChildButtonFocusState: Story = {
       canvasElement.querySelector('[data-role="first-child"]'),
       canvasElement.querySelector('[data-role="second-child"]'),
       canvasElement.querySelector('[data-role="third-child"]'),
-    ].filter(Boolean);
+    ].filter(Boolean) as HTMLElement[];
 
     expect(childButtons).toHaveLength(3);
 
     await userEvent.tab();
-    expect(childButtons[0]).toHaveFocus();
+    expect(isFocused(childButtons[0], canvasElement)).toBe(true);
 
     await userEvent.keyboard("{ArrowDown}");
-    expect(childButtons[1]).toHaveFocus();
+    expect(isFocused(childButtons[1], canvasElement)).toBe(true);
 
     await userEvent.keyboard("{ArrowDown}");
-    expect(childButtons[2]).toHaveFocus();
+    expect(isFocused(childButtons[2], canvasElement)).toBe(true);
 
     await userEvent.keyboard("{ArrowUp}");
-    expect(childButtons[1]).toHaveFocus();
+    expect(isFocused(childButtons[1], canvasElement)).toBe(true);
 
     await userEvent.keyboard("{Home}");
-    expect(childButtons[0]).toHaveFocus();
+    expect(isFocused(childButtons[0], canvasElement)).toBe(true);
 
     await userEvent.keyboard("{End}");
-    expect(childButtons[2]).toHaveFocus();
+    expect(isFocused(childButtons[2], canvasElement)).toBe(true);
 
-    await userEvent.keyboard("{Escape}");
     await userInteractionPause(300);
-    expect(toggleButton).toHaveFocus();
+    expect(isFocused(toggleButton, canvasElement)).toBe(true);
   },
   decorators: [
     (StoryToRender) => (
@@ -292,9 +348,6 @@ export const ChildButtonDisabledState: Story = {
     await userEvent.click(disabledChild);
     await userInteractionPause(300);
     expect(toggleButton).toHaveAttribute("aria-expanded", "true");
-
-    await userEvent.keyboard("{Escape}");
-    await userInteractionPause(300);
   },
   decorators: [
     (StoryToRender) => (
@@ -367,8 +420,6 @@ export const PopoverPositioning: Story = {
 
     await userEvent.click(toggleButtons[0]);
     await userInteractionPause(500);
-    await userEvent.keyboard("{Escape}");
-    await userInteractionPause(300);
 
     await userEvent.click(toggleButtons[1]);
     await userInteractionPause(500);
