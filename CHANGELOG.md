@@ -1,3 +1,9 @@
+## [155.7.1](https://github.com/Sage/carbon/compare/v155.7.0...v155.7.1) (2025-07-29)
+
+### Bug Fixes
+
+* **filterable-select:** remove useRef from object as value story ([9c2cb3c](https://github.com/Sage/carbon/commit/9c2cb3cb23ba44c986192add90444d7a441bfd9e))
+
 ## [155.7.0](https://github.com/Sage/carbon/compare/v155.6.1...v155.7.0) (2025-07-29)
 
 ### Features
