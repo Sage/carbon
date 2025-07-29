@@ -642,7 +642,7 @@ export const IsOptional: Story = () => (
 IsOptional.storyName = "IsOptional";
 
 export const WithObjectAsValue: Story = () => {
-  const optionListValues = useRef([
+  const optionListValues = [
     { id: "Amber", value: 1, text: "Amber" },
     { id: "Black", value: 2, text: "Black" },
     { id: "Blue", value: 3, text: "Blue" },
@@ -654,10 +654,10 @@ export const WithObjectAsValue: Story = () => {
     { id: "Red", value: 9, text: "Red" },
     { id: "White", value: 10, text: "White" },
     { id: "Yellow", value: 11, text: "Yellow" },
-  ]);
+  ];
 
   const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues.current[4],
+    optionListValues[4],
   );
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -680,7 +680,7 @@ export const WithObjectAsValue: Story = () => {
         value={value}
         onChange={onChangeHandler}
       >
-        {optionListValues.current.map((option) => (
+        {optionListValues.map((option) => (
           <Option key={option.id} text={option.text} value={option} />
         ))}
       </FilterableSelect>
