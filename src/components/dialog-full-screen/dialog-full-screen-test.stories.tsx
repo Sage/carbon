@@ -246,3 +246,26 @@ export const WithWrappedStickyForm: StoryType = {
   },
   parameters: { chromatic: { disableSnapshot: true } },
 };
+
+export const WithLongTitle: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return <DialogFullScreen {...rest}>{children}</DialogFullScreen>;
+  },
+  args: {
+    children:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias labore nostrum quo deserunt repellendus accusamus facilis voluptatem? Dicta illo esse non! Corrupti suscipit reprehenderit ea nesciunt delectus. Non voluptate expedita, repellendus ea vitae dolor nobis aperiam ullam unde ducimus aliquam quidem veniam necessitatibus, suscipit eaque exercitationem aut corrupti, qui ipsa.",
+    open: true,
+    title:
+      "Really long title for Dialog Full Screen that should wrap in small screens",
+    subtitle: "Subtitle",
+    showCloseIcon: true,
+    onCancel: () => {},
+  },
+};
+
+WithLongTitle.storyName = "With Long Title";
+WithLongTitle.parameters = {
+  chromatic: { disableSnapshot: false, viewports: [500] },
+  themeProvider: { chromatic: { theme: "sage" } },
+};

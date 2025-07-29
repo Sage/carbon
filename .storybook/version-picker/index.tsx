@@ -12,31 +12,32 @@ import fetchData from "./fetch-data";
 
 const getDisplayedItems = (
   versions: Record<string, string>,
-  onClick: TooltipLinkListLink["onClick"]
+  onClick: TooltipLinkListLink["onClick"],
 ) => {
-  let formattedVersions: TooltipLinkListLink[] = [];
-
-  for (const [key, value] of Object.entries(versions)) {
-    formattedVersions.push({
-      id: key,
-      title: key,
-      onClick,
-      active: false,
-      href: value,
-      target: "_blank",
-    });
-  }
-
-  formattedVersions.sort((a, b) => compareBuild(b.id, a.id));
+  const formattedVersions = Object.entries(versions)
+    .reduce<TooltipLinkListLink[]>((acc, [key, value]) => {
+      if (!key.match(/-beta\.\d+$/)) {
+        acc.push({
+          id: key,
+          title: key,
+          onClick,
+          active: false,
+          href: value,
+          target: "_blank",
+        });
+      }
+      return acc;
+    }, [])
+    .sort((a, b) => compareBuild(b.id, a.id));
 
   formattedVersions[0].title = `${formattedVersions[0].title} (latest)`;
 
   return formattedVersions;
 };
 
-export const VersionPicker = () => {
+const VersionPicker = () => {
   const [versions, setVersions] = useState<Record<string, string> | undefined>(
-    undefined
+    undefined,
   );
   const [currentVersion, setCurrentVersion] = useState("Latest");
 
@@ -57,6 +58,7 @@ export const VersionPicker = () => {
           throw new Error("Failed to fetch metadata");
         }
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("Failed to retrieve version data:", error);
         setVersions(undefined);
       }
@@ -90,3 +92,5 @@ export const VersionPicker = () => {
 
   return null;
 };
+
+export default VersionPicker;

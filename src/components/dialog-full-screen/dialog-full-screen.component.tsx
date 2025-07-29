@@ -159,7 +159,11 @@ export const DialogFullScreen = ({
   };
 
   const dialogTitle = () => (
-    <FullScreenHeading hasContent={!!title} ref={headingRef}>
+    <FullScreenHeading
+      hasContent={!!title}
+      hasCloseButton={showCloseIcon}
+      ref={headingRef}
+    >
       {typeof title === "string" ? (
         <Heading
           data-element="dialog-title"
