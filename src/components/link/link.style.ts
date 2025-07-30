@@ -3,7 +3,7 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 
-type Variants = "default" | "negative" | "neutral";
+type Variants = "default" | "negative" | "neutral" | "subtle";
 export interface StyledLinkProps {
   /** The disabled state of the link. */
   disabled?: boolean;
@@ -64,6 +64,9 @@ const colorMap: ColorMap = {
       hoverColor = "var(--colorsSemanticNegative450)";
     } else if (variant === "neutral") {
       color = "var(--colorsActionMinor100)";
+    } else if (variant === "subtle") {
+      color = "var(--colorsUtilityYang100)";
+      hoverColor = "var(--colorsUtilityYang100)";
     }
 
     return {

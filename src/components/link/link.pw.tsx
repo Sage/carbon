@@ -340,6 +340,27 @@ test.describe("check props for Link component", () => {
 
   (
     [
+      ["default", "rgb(77, 167, 126)"],
+      ["negative", "rgb(219, 115, 128)"],
+      ["neutral", "rgb(230, 235, 237)"],
+      ["subtle", "rgb(255, 255, 255)"],
+    ] as [LinkProps["variant"], string][]
+  ).forEach(([variant, defaultColor]) => {
+    test(`should render with variant prop set to ${variant} and isDarkBackground`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <LinkComponentWithDarkBackground variant={variant} isDarkBackground />,
+      );
+
+      const linkElement = linkChildren(page);
+      await expect(linkElement).toHaveCSS("color", defaultColor);
+    });
+  });
+
+  (
+    [
       ["default", "rgb(0, 103, 56)"],
       ["negative", "rgb(162, 44, 59)"],
       ["neutral", "rgb(0, 103, 56)"],
@@ -362,13 +383,16 @@ test.describe("check props for Link component", () => {
       ["default", "rgb(25, 142, 89)"],
       ["negative", "rgb(208, 75, 92)"],
       ["neutral", "rgb(25, 142, 89)"],
+      ["subtle", "rgb(255, 255, 255)"],
     ] as [LinkProps["variant"], string][]
   ).forEach(([variant, hoverColor]) => {
     test(`should render with correct hover state with isDarkBackground prop set with ${variant} variant`, async ({
       mount,
       page,
     }) => {
-      await mount(<LinkComponent variant={variant} isDarkBackground />);
+      await mount(
+        <LinkComponentWithDarkBackground variant={variant} isDarkBackground />,
+      );
 
       const linkElement = linkChildren(page);
       await linkElement.hover();
@@ -554,6 +578,24 @@ test.describe("should check accessibility for Link component", () => {
         page,
       }) => {
         await mount(<LinkComponent variant={variant} />);
+
+        await checkAccessibility(page);
+      });
+    },
+  );
+
+  (["default", "negative", "neutral"] as LinkProps["variant"][]).forEach(
+    (variant) => {
+      test(`should pass accessibility tests with variant prop set to ${variant} and isDarkBackground`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <LinkComponentWithDarkBackground
+            variant={variant}
+            isDarkBackground
+          />,
+        );
 
         await checkAccessibility(page);
       });
