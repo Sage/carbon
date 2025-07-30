@@ -7,7 +7,11 @@ import Box from "../box";
 
 export default {
   title: "Link/Test",
-  includeStories: ["DefaultStory", "FlexContainer"],
+  includeStories: [
+    "DefaultStory",
+    "FlexContainer",
+    "NoUnderlineAndWhiteVariant",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -124,6 +128,26 @@ export const FlexContainer = () => {
 };
 
 FlexContainer.parameters = { chromatic: { disableSnapshot: false } };
+
+export const NoUnderlineAndWhiteVariant = () => {
+  const link = (
+    <Link href="#foo" variant="white" isDarkBackground underline="never">
+      Link without underline and white variant.
+    </Link>
+  );
+  return (
+    <div
+      style={{
+        margin: "64px",
+        backgroundColor: "#000000",
+        width: "fit-content",
+        padding: "8px",
+      }}
+    >
+      {link}
+    </div>
+  );
+};
 
 export const LinkComponent = (props: LinkProps) => {
   return (
