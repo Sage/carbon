@@ -4,6 +4,9 @@ import Content from "../../../components/content";
 import {
   CustomSelectChangeEvent,
   Select as SimpleSelect,
+  Select,
+  Option,
+  SimpleSelectProps,
 } from "../../../../src/components/select";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
@@ -11,13 +14,13 @@ import Box from "../../box";
 import Icon from "../../icon";
 import Dialog from "../../dialog";
 import Button from "../../button";
-import { Select, Option, SimpleSelectProps } from "..";
 
 export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
   const [value, setValue] = useState("");
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
   }
+
   return (
     <SimpleSelect
       label="simple select"
@@ -86,12 +89,19 @@ export const SimpleSelectObjectAsValueComponent = (
 export const SimpleSelectMultipleColumnsComponent = (
   props: Partial<SimpleSelectProps>,
 ) => {
+  const [value, setValue] = useState("");
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
     <SimpleSelect
       name="withMultipleColumns"
       id="withMultipleColumns"
       label="Clients"
       multiColumn
+      value={value}
+      onChange={onChangeHandler}
       {...props}
       tableHeader={
         <tr>
@@ -140,11 +150,17 @@ export const SimpleSelectMultipleColumnsComponent = (
 export const SimpleSelectCustomOptionChildrenComponent = (
   props: Partial<SimpleSelectProps>,
 ) => {
+  const [value, setValue] = useState("4");
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
     <SimpleSelect
       name="customOptionChildren"
       id="customOptionChildren"
-      defaultValue="4"
+      value={value}
+      onChange={onChangeHandler}
       label="Pick your favourite color"
       {...props}
     >
@@ -171,8 +187,19 @@ export const SimpleSelectCustomOptionChildrenComponent = (
 export const SimpleSelectGroupComponent = (
   props: Partial<SimpleSelectProps>,
 ) => {
+  const [value, setValue] = useState("");
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
-    <SimpleSelect name="optGroups" id="optGroups" {...props}>
+    <SimpleSelect
+      name="optGroups"
+      id="optGroups"
+      value={value}
+      onChange={onChangeHandler}
+      {...props}
+    >
       <OptionGroupHeader
         id="groupHeader1"
         label="Group one"
@@ -197,45 +224,72 @@ export const SimpleSelectGroupComponent = (
   );
 };
 
-export const SimpleSelectWithLongWrappingTextComponent = () => (
-  <Box width={400}>
-    <SimpleSelect name="simple" id="simple" label="label" labelInline>
-      <Option
-        text="Like a lot of intelligent animals, most crows are quite social. 
+export const SimpleSelectWithLongWrappingTextComponent = () => {
+  const [value, setValue] = useState("");
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  return (
+    <Box width={400}>
+      <SimpleSelect
+        name="simple"
+        id="simple"
+        label="label"
+        labelInline
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <Option
+          text="Like a lot of intelligent animals, most crows are quite social.
         For instance, American crows spend most of the year living in pairs or small family groups.
         During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night."
-        value="1"
-      />
-    </SimpleSelect>
-  </Box>
-);
-
-export const WithVirtualScrolling = () => (
-  <SimpleSelect
-    name="Virtualised"
-    id="Virtualised"
-    onChange={() => {}}
-    label="Choose an option"
-    enableVirtualScroll
-    virtualScrollOverscan={1}
-  >
-    {Array(20)
-      .fill(undefined)
-      .map((_, index) => (
-        <Option
-          key={`Option-${index + 1}`}
-          value={index.toString()}
-          text={`Option ${index + 1}`}
+          value="1"
         />
-      ))}
-  </SimpleSelect>
-);
+      </SimpleSelect>
+    </Box>
+  );
+};
+
+export const WithVirtualScrolling = () => {
+  const [value, setValue] = useState("");
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  return (
+    <SimpleSelect
+      name="Virtualised"
+      id="Virtualised"
+      value={value}
+      onChange={onChangeHandler}
+      label="Choose an option"
+      enableVirtualScroll
+      virtualScrollOverscan={1}
+    >
+      {Array(20)
+        .fill(undefined)
+        .map((_, index) => (
+          <Option
+            key={`Option-${index + 1}`}
+            value={index.toString()}
+            text={`Option ${index + 1}`}
+          />
+        ))}
+    </SimpleSelect>
+  );
+};
 
 export const SimpleSelectNestedInDialog = ({
   openOnFocus = false,
   autofocus = false,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [value, setValue] = useState("");
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
       <SimpleSelect
@@ -244,6 +298,8 @@ export const SimpleSelectNestedInDialog = ({
         name="testSelect"
         id="testSelect"
         label="choose an option"
+        value={value}
+        onChange={onChangeHandler}
       >
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
@@ -272,9 +328,18 @@ export const SelectWithOptionGroupHeader = () => {
       content: "content",
     },
   ];
+  const [value, setValue] = useState("");
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
   return (
     <Box p={10}>
-      <Select placeholder="Scroll does not reach the last option">
+      <Select
+        placeholder="Scroll does not reach the last option"
+        value={value}
+        onChange={onChangeHandler}
+      >
         <OptionGroupHeader label="Scroll does not reach the last option" />
         {reportGroup.map(({ id, title, content }) => {
           return (
