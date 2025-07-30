@@ -241,6 +241,52 @@ test("renders with custom data tags", () => {
   expect(screen.getByTestId("foo")).toHaveAttribute("data-element", "bar");
 });
 
+describe("when using the underline prop", () => {
+  it("should display an underline for all states when the prop is `always`", () => {
+    render(
+      <Link href="foo.com" underline="always">
+        Test Content
+      </Link>,
+    );
+    const linkElement = screen.getByRole("link");
+    expect(linkElement).toHaveStyle("text-decoration: underline");
+  });
+
+  it("should maintain an underline on hover when the prop is `always`", async () => {
+    const user = userEvent.setup();
+    render(
+      <Link href="foo.com" underline="always">
+        Test Content
+      </Link>,
+    );
+    const linkElement = screen.getByRole("link");
+    await user.hover(linkElement);
+    expect(linkElement).toHaveStyle("text-decoration: underline");
+  });
+
+  it("should not display an underline for all states when the prop is `never`", () => {
+    render(
+      <Link href="foo.com" underline="never">
+        Test Content
+      </Link>,
+    );
+    const linkElement = screen.getByRole("link");
+    expect(linkElement).toHaveStyle("text-decoration: none");
+  });
+
+  it("should not display an underline on hover when the prop is `never`", async () => {
+    const user = userEvent.setup();
+    render(
+      <Link href="foo.com" underline="never">
+        Test Content
+      </Link>,
+    );
+    const linkElement = screen.getByRole("link");
+    await user.hover(linkElement);
+    expect(linkElement).toHaveStyle("text-decoration: none");
+  });
+});
+
 // Test is just for coverage
 test("neutral `variant` has the expected styling when `isDarkBackground` is false", () => {
   render(

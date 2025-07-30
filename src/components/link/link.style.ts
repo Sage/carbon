@@ -7,6 +7,8 @@ type Variants = "default" | "negative" | "neutral";
 export interface StyledLinkProps {
   /** The disabled state of the link. */
   disabled?: boolean;
+  /** Specifies when the link underline should be displayed. */
+  underline?: "always" | "hover" | "never";
   /** Which side of the link to the render the link. */
   iconAlign?: "left" | "right";
   /** Allows to create skip link */
@@ -81,6 +83,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
     iconAlign,
     hasContent,
     disabled,
+    underline,
     variant,
     isDarkBackground,
     isMenuItem,
@@ -180,7 +183,19 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
 
       > a,
       > button {
-        text-decoration: ${hasContent ? "underline" : "none"};
+        text-decoration: ${hasContent && underline === "always"
+          ? "underline"
+          : "none"};
+
+        :hover {
+          text-decoration: ${
+            /* istanbul ignore next - having issues testing CSS :hover pseudo-states in jsdom */
+            hasContent && (underline === "hover" || underline === "always")
+              ? "underline"
+              : "none"
+          };
+        }
+
         ${isMenuItem && "display: inline-block;"}
 
         > ${StyledIcon} {
