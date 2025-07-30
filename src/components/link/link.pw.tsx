@@ -64,6 +64,43 @@ test.describe("check props for Link component", () => {
     await expect(linkElement).toHaveCSS("cursor", "not-allowed");
   });
 
+  test("when `underline` prop is 'hover' and component is not hovered over, it should apply no text-decoration", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <LinkComponent underline="hover" href="#">
+        Test Content
+      </LinkComponent>,
+    );
+
+    const linkElement = linkChildren(page);
+
+    await expect(linkElement).toHaveCSS(
+      "text-decoration",
+      "none solid rgb(0, 126, 69)",
+    );
+  });
+
+  test("when `underline` prop is 'hover' and component is hovered over, it should apply the text-decoration underline", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <LinkComponent underline="hover" href="#">
+        Test Content
+      </LinkComponent>,
+    );
+
+    const linkElement = linkChildren(page);
+    await linkElement.hover();
+
+    await expect(linkElement).toHaveCSS(
+      "text-decoration",
+      "underline solid rgb(0, 103, 56)",
+    );
+  });
+
   test("should render with icon prop", async ({ mount, page }) => {
     await mount(<LinkComponent icon="add" />);
 

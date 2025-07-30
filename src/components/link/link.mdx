@@ -53,6 +53,18 @@ Setting the `disabled` prop to true disables the link.
 
 <Canvas of={LinkStories.WithDisabled} />
 
+### Underline
+
+Setting the `underline` prop to `"hover"` will render the link with no underline by default, but will add an underline when the link is hovered over.
+
+<Canvas of={LinkStories.WithUnderlineOnlyOnHover} />
+
+Setting the `underline` prop to `"never"` removes the underline from the link.
+
+<Canvas of={LinkStories.WithNoUnderline} />
+
+**Please note**: Without the underline, context must be provided to the user to indicate that the text is a link.
+
 ### Icon
 
 The `icon` prop allows you to render an icon.

@@ -241,6 +241,60 @@ test("renders with custom data tags", () => {
   expect(screen.getByTestId("foo")).toHaveAttribute("data-element", "bar");
 });
 
+describe("underline prop", () => {
+  test("always shows underline text-decoration", () => {
+    render(
+      <Link href="foo.com" underline="always">
+        Test Content
+      </Link>,
+    );
+
+    const linkElement = screen.getByRole("link");
+
+    expect(linkElement).toHaveStyle("text-decoration: underline");
+  });
+
+  test("always maintains underline on hover", async () => {
+    const user = userEvent.setup();
+    render(
+      <Link href="foo.com" underline="always">
+        Test Content
+      </Link>,
+    );
+
+    const linkElement = screen.getByRole("link");
+    await user.hover(linkElement);
+
+    expect(linkElement).toHaveStyle("text-decoration: underline");
+  });
+
+  test("never shows text-decoration", () => {
+    render(
+      <Link href="foo.com" underline="never">
+        Test Content
+      </Link>,
+    );
+
+    const linkElement = screen.getByRole("link");
+
+    expect(linkElement).toHaveStyle("text-decoration: none");
+  });
+
+  test("never shows underline on hover", async () => {
+    const user = userEvent.setup();
+    render(
+      <Link href="foo.com" underline="never">
+        Test Content
+      </Link>,
+    );
+
+    const linkElement = screen.getByRole("link");
+    await user.hover(linkElement);
+
+    expect(linkElement).toHaveStyle("text-decoration: none");
+  });
+});
+
 // Test is just for coverage
 test("neutral `variant` has the expected styling when `isDarkBackground` is false", () => {
   render(
