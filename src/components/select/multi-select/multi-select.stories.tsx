@@ -23,9 +23,20 @@ export default meta;
 type Story = StoryObj<typeof MultiSelect>;
 
 export const Default: Story = () => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
   return (
     <Box height={220}>
-      <MultiSelect name="simple" id="simple" label="color">
+      <MultiSelect
+        name="simple"
+        id="simple"
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+      >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
@@ -91,6 +102,11 @@ ListPlacement.storyName = "List Placement";
 ListPlacement.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ListHeight: Story = () => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
   return (
     <Box height={500}>
       <MultiSelect
@@ -98,6 +114,8 @@ export const ListHeight: Story = () => {
         name="list height"
         id="list-height"
         label="List height"
+        value={value}
+        onChange={onChangeHandler}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -185,6 +203,10 @@ Controlled.storyName = "Controlled";
 Controlled.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OpenOnFocus: Story = () => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
   return (
     <Box height={250}>
       <MultiSelect
@@ -192,6 +214,8 @@ export const OpenOnFocus: Story = () => {
         id="openOnFocus"
         openOnFocus
         label="color"
+        value={value}
+        onChange={onChangeHandler}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -212,12 +236,17 @@ OpenOnFocus.storyName = "Open on Focus";
 OpenOnFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled: Story = () => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
   return (
     <MultiSelect
       aria-label="disabled"
       name="disabled"
       id="select-disabled"
-      defaultValue={["1", "3"]}
+      value={value}
+      onChange={onChangeHandler}
       disabled
     >
       <Option text="Amber" value="1" />
@@ -237,12 +266,17 @@ export const Disabled: Story = () => {
 Disabled.storyName = "Disabled";
 
 export const Readonly: Story = () => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
   return (
     <MultiSelect
       aria-label="readonly"
       name="readonly"
       id="readonly"
-      defaultValue={["1", "3"]}
+      value={value}
+      onChange={onChangeHandler}
       readOnly
     >
       <Option text="Amber" value="1" />
@@ -262,6 +296,11 @@ export const Readonly: Story = () => {
 Readonly.storyName = "Read Only";
 
 export const WithMultipleColumns: Story = () => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
   return (
     <Box height={250}>
       <MultiSelect
@@ -276,6 +315,8 @@ export const WithMultipleColumns: Story = () => {
           </tr>
         }
         label="With multiple columns"
+        value={value}
+        onChange={onChangeHandler}
       >
         <OptionRow id="1" value="1" text="John Doe">
           <td>John</td>
@@ -310,6 +351,11 @@ WithMultipleColumns.storyName = "With Multiple Columns";
 WithMultipleColumns.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Required: Story = () => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
   return (
     <Box height={250}>
       <MultiSelect
@@ -317,6 +363,8 @@ export const Required: Story = () => {
         id="required-select"
         label="Foreground Color"
         required
+        value={value}
+        onChange={onChangeHandler}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -334,6 +382,39 @@ export const Required: Story = () => {
   );
 };
 Required.storyName = "Required";
+
+export const IsOptional: Story = () => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
+  return (
+    <Box height={250}>
+      <MultiSelect
+        name="optional-select"
+        id="optional-select"
+        label="Foreground Color"
+        isOptional
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
+  );
+};
+IsOptional.storyName = "IsOptional";
 
 export const WithObjectAsValue: Story = () => {
   const optionListValues = [
@@ -437,13 +518,19 @@ WithIsLoadingProp.storyName = "With isLoading prop";
 WithIsLoadingProp.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomColoredPills: Story = () => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
   return (
     <Box height={250}>
       <MultiSelect
         name="simple"
         id="simple"
         label="color"
-        defaultValue={["1", "3"]}
+        value={value}
+        onChange={onChangeHandler}
       >
         <Option text="Amber" value="1" borderColor="#FFBF00" fill />
         <Option text="Black" value="2" borderColor="blackOpacity65" fill />
@@ -553,9 +640,21 @@ WithInfiniteScroll.storyName = "With infinite scroll";
 WithInfiniteScroll.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomMaxWidth: Story = () => {
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
   return (
     <Box height={250}>
-      <MultiSelect name="simple" id="simple" maxWidth="50%" label="color">
+      <MultiSelect
+        name="simple"
+        id="simple"
+        maxWidth="50%"
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+      >
         <Option text="Amber" value="1" borderColor="#FFBF00" fill />
         <Option text="Black" value="2" borderColor="blackOpacity65" fill />
         <Option text="Blue" value="3" borderColor="productBlue" />
@@ -574,6 +673,11 @@ export const WithCustomMaxWidth: Story = () => {
 WithCustomMaxWidth.storyName = "With Custom Max Width";
 
 export const PillsWithLongText: Story = () => {
+  const [value, setValue] = useState<string[]>(["1"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
   return (
     <Box height={250} maxWidth="200px">
       <MultiSelect
@@ -581,7 +685,8 @@ export const PillsWithLongText: Story = () => {
         id="long-pill-text-wrapped"
         label="long pill text wrapped"
         wrapPillText
-        defaultValue={["1"]}
+        value={value}
+        onChange={onChangeHandler}
       >
         <Option text="Amber is the colour" value="1" />
         <Option text="Black is the colour" value="2" />
@@ -617,6 +722,11 @@ export const Virtualised: Story = () => {
         text={`${colors[index % colors.length]} - option ${index + 1}`}
       />
     ));
+  const [value, setValue] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value as unknown as string[]);
+  }
+
   return (
     <Box height={220}>
       <MultiSelect
@@ -626,6 +736,8 @@ export const Virtualised: Story = () => {
         labelInline
         enableVirtualScroll
         virtualScrollOverscan={20}
+        value={value}
+        onChange={onChangeHandler}
       >
         {options}
       </MultiSelect>
