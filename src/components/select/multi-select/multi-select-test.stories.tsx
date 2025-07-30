@@ -3,7 +3,7 @@ import { MultiSelect, Option, MultiSelectProps } from "..";
 import partialAction from "../../../../.storybook/utils/partial-action";
 import OptionRow from "../option-row/option-row.component";
 import Button from "../../button/button.component";
-import Dialog from "../../dialog";
+
 import Box from "../../box";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 import Typography from "../../typography";
@@ -110,6 +110,10 @@ export const Default = (props: Partial<MultiSelectProps>) => {
 Default.storyName = "Default";
 
 export const Validation = () => {
+  const [values, setValues] = useState<string[]>(["1", "2"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValues(event.target.value as unknown as string[]);
+  }
   return (
     <>
       <MultiSelect
@@ -117,6 +121,8 @@ export const Validation = () => {
         id="multi"
         label="MultiSelect"
         error="Error Message"
+        value={values}
+        onChange={onChangeHandler}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -127,6 +133,8 @@ export const Validation = () => {
         id="multi"
         label="MultiSelect"
         warning="Warning Message"
+        value={values}
+        onChange={onChangeHandler}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -137,6 +145,8 @@ export const Validation = () => {
         id="multi"
         label="MultiSelect"
         info="Info Message"
+        value={values}
+        onChange={onChangeHandler}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -149,6 +159,8 @@ export const Validation = () => {
         label="MultiSelect"
         error="Error Message"
         validationOnLabel
+        value={values}
+        onChange={onChangeHandler}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -160,6 +172,8 @@ export const Validation = () => {
         label="MultiSelect"
         warning="Warning Message"
         validationOnLabel
+        value={values}
+        onChange={onChangeHandler}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -171,23 +185,46 @@ export const Validation = () => {
         label="MultiSelect"
         info="Info Message"
         validationOnLabel
+        value={values}
+        onChange={onChangeHandler}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
         <Option value="3" text="Three" />
       </MultiSelect>
 
-      <MultiSelect name="multi" id="multi" label="MultiSelect" error>
+      <MultiSelect
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        error
+        value={values}
+        onChange={onChangeHandler}
+      >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
         <Option value="3" text="Three" />
       </MultiSelect>
-      <MultiSelect name="multi" id="multi" label="MultiSelect" warning>
+      <MultiSelect
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        warning
+        value={values}
+        onChange={onChangeHandler}
+      >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
         <Option value="3" text="Three" />
       </MultiSelect>
-      <MultiSelect name="multi" id="multi" label="MultiSelect" info>
+      <MultiSelect
+        name="multi"
+        id="multi"
+        label="MultiSelect"
+        info
+        value={values}
+        onChange={onChangeHandler}
+      >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
         <Option value="3" text="Three" />
@@ -202,6 +239,11 @@ Validation.parameters = {
 };
 
 export const NewValidation = () => {
+  const [values, setValues] = useState<string[]>(["1", "2"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValues(event.target.value as unknown as string[]);
+  }
+
   return (
     <CarbonProvider validationRedesignOptIn>
       <MultiSelect
@@ -210,6 +252,8 @@ export const NewValidation = () => {
         label="MultiSelect"
         error="Error Message"
         mb={2}
+        value={values}
+        onChange={onChangeHandler}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -221,6 +265,8 @@ export const NewValidation = () => {
         label="MultiSelect"
         warning="Warning Message"
         mb={2}
+        value={values}
+        onChange={onChangeHandler}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -233,6 +279,8 @@ export const NewValidation = () => {
         label="MultiSelect"
         error="Error Message"
         mb={2}
+        value={values}
+        onChange={onChangeHandler}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -245,6 +293,8 @@ export const NewValidation = () => {
         label="MultiSelect"
         warning="Warning Message"
         mb={2}
+        value={values}
+        onChange={onChangeHandler}
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -268,11 +318,7 @@ export const MultiSelectLongPillComponent = (
   }
 
   return (
-    <div
-      style={{
-        maxWidth: "200px",
-      }}
-    >
+    <Box maxWidth="200px">
       <MultiSelect
         label="color"
         labelInline
@@ -292,7 +338,7 @@ export const MultiSelectLongPillComponent = (
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
       </MultiSelect>
-    </div>
+    </Box>
   );
 };
 
@@ -516,10 +562,15 @@ export const MultiSelectObjectAsValueComponent = (
 export const MultiSelectMultiColumnsComponent = (
   props: Partial<MultiSelectProps>,
 ) => {
+  const [values, setValues] = useState<string[]>(["2"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValues(event.target.value as unknown as string[]);
+  }
   return (
     <MultiSelect
       multiColumn
-      defaultValue={["2"]}
+      value={values}
+      onChange={onChangeHandler}
       {...props}
       tableHeader={
         <tr>
@@ -633,8 +684,18 @@ export const MultiSelectOnFilterChangeEventComponent = ({
 export const MultiSelectCustomColorComponent = (
   props: Partial<MultiSelectProps>,
 ) => {
+  const [values, setValues] = useState<string[]>(["1", "3"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValues(event.target.value as unknown as string[]);
+  }
   return (
-    <MultiSelect label="color" labelInline defaultValue={["1", "3"]} {...props}>
+    <MultiSelect
+      label="color"
+      labelInline
+      value={values}
+      onChange={onChangeHandler}
+      {...props}
+    >
       <Option text="Amber" value="1" borderColor="#FFBF00" fill />
       <Option text="Black" value="2" borderColor="blackOpacity65" fill />
       <Option text="Blue" value="3" borderColor="productBlue" />
@@ -650,46 +711,33 @@ export const MultiSelectCustomColorComponent = (
   );
 };
 
-export const MultiSelectWithManyOptionsAndVirtualScrolling = () => (
-  <MultiSelect
-    name="virtualised"
-    id="virtualised"
-    label="choose an option"
-    labelInline
-    enableVirtualScroll
-    virtualScrollOverscan={10}
-  >
-    {Array(10000)
-      .fill(undefined)
-      .map((_, index) => (
-        <Option
-          key={`option-${index + 1}`}
-          value={`${index}`}
-          text={`Option ${index + 1}.`}
-        />
-      ))}
-  </MultiSelect>
-);
+export const MultiSelectWithManyOptionsAndVirtualScrolling = () => {
+  const [values, setValues] = useState<string[]>(["1", "2"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValues(event.target.value as unknown as string[]);
+  }
 
-export const MultiSelectNestedInDialog = ({
-  openOnFocus = false,
-  autofocus = false,
-}) => {
-  const [isOpen, setIsOpen] = useState(true);
   return (
-    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <MultiSelect
-        openOnFocus={openOnFocus}
-        autoFocus={autofocus}
-        name="testSelect"
-        id="testSelect"
-      >
-        <Option value="opt1" text="red" />
-        <Option value="opt2" text="green" />
-        <Option value="opt3" text="blue" />
-        <Option value="opt4" text="black" />
-      </MultiSelect>
-    </Dialog>
+    <MultiSelect
+      name="virtualised"
+      id="virtualised"
+      label="choose an option"
+      labelInline
+      enableVirtualScroll
+      virtualScrollOverscan={10}
+      value={values}
+      onChange={onChangeHandler}
+    >
+      {Array(10000)
+        .fill(undefined)
+        .map((_, index) => (
+          <Option
+            key={`option-${index + 1}`}
+            value={`${index}`}
+            text={`Option ${index + 1}.`}
+          />
+        ))}
+    </MultiSelect>
   );
 };
 
@@ -809,11 +857,17 @@ const optionListValues = [
 ];
 
 export const OptionsWithSameName = () => {
+  const [values, setValues] = useState<string[]>(["1", "2"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValues(event.target.value as unknown as string[]);
+  }
   return (
     <MultiSelect
       name="multi-options-with-same-name"
       id="multi-options-with-same-name"
       label="multi options with same name"
+      value={values}
+      onChange={onChangeHandler}
     >
       {optionListValues.map((option) => (
         <Option key={option.id} text={option.text} value={option} />

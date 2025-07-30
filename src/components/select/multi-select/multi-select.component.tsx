@@ -5,8 +5,6 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import invariant from "invariant";
-
 import {
   filterOutStyledSystemSpacingProps,
   filterStyledSystemMarginProps,
@@ -34,8 +32,6 @@ import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import { CustomSelectChangeEvent } from "../simple-select";
 
-let deprecateUncontrolledWarnTriggered = false;
-
 const FilterableSelectList = withFilter(SelectList);
 
 export interface MultiSelectProps
@@ -48,8 +44,6 @@ export interface MultiSelectProps
   size?: "small" | "medium" | "large";
   /** Child components (such as Option or OptionRow) for the SelectList */
   children: React.ReactNode;
-  /** The default selected value(s), when the component is operating in uncontrolled mode */
-  defaultValue?: string[] | Record<string, unknown>[];
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
   /** When true component will work in multi column mode.
@@ -70,8 +64,8 @@ export interface MultiSelectProps
    * Works only in multiColumn mode
    */
   tableHeader?: React.ReactNode;
-  /** The selected value(s), when the component is operating in controlled mode */
-  value?: string[] | Record<string, unknown>[];
+  /** The selected value(s) */
+  value: string[] | Record<string, unknown>[];
   /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Maximum list height - defaults to 180 */
@@ -90,7 +84,7 @@ export interface MultiSelectProps
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
   /** Specify a callback triggered on change */
-  onChange?: (
+  onChange: (
     ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
   ) => void;
   /** Override the default width of the list element. Number passed is converted into pixel value */
@@ -103,7 +97,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledby,
       value,
-      defaultValue,
       id,
       label,
       name,
@@ -150,13 +143,9 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     const isMouseDownReported = useRef(false);
     const isMouseDownOnInput = useRef(false);
     const isOpenedByFocus = useRef(false);
-    const isControlled = useRef(value !== undefined);
     const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
     const [isOpen, setOpenState] = useState(false);
     const [textValue, setTextValue] = useState("");
-    const [selectedValue, setSelectedValue] = useState<
-      (string | Record<string, unknown>)[]
-    >(value || defaultValue || []);
     const [highlightedValue, setHighlightedValue] = useState<
       string | Record<string, unknown>
     >("");
@@ -168,18 +157,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       label,
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
-
-    const actualValue = isControlled.current ? value : selectedValue;
-
-    const componentIsUncontrolled =
-      !isControlled || (!onChange && defaultValue);
-
-    if (!deprecateUncontrolledWarnTriggered && componentIsUncontrolled) {
-      deprecateUncontrolledWarnTriggered = true;
-      Logger.deprecate(
-        "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
 
     const setOpen = useCallback(() => {
       setOpenState((isAlreadyOpen) => {
@@ -210,8 +187,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       [name, id],
     );
 
-    /* generic value update function which can be used for both controlled and uncontrolled
-     * components, both with and without onChange.
+    /* generic value update function
      * It accepts a function to update the value, which is assumed to be have no side effects and therefore
      * be safe to run more than once if needed. */
     const updateValue = useCallback(
@@ -222,19 +198,14 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         selectionConfirmed?: boolean,
       ) => {
         const newValue = updateFunction(
-          actualValue as (string | Record<string, unknown>)[],
+          value as (string | Record<string, unknown>)[],
         );
         // only call onChange if an option has been selected or deselected
-        if (newValue.length !== actualValue?.length) {
-          onChange?.(createCustomEvent(newValue, selectionConfirmed));
-        }
-
-        // no need to update selectedValue if the component is controlled: onChange should take care of updating the value
-        if (!isControlled.current) {
-          setSelectedValue(updateFunction);
+        if (newValue.length !== value?.length) {
+          onChange(createCustomEvent(newValue, selectionConfirmed));
         }
       },
-      [createCustomEvent, onChange, actualValue],
+      [createCustomEvent, onChange, value],
     );
 
     function findElementWithMatchingText(
@@ -317,10 +288,10 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
     );
 
     const accessibilityLabel = useMemo(() => {
-      return actualValue && actualValue.length
+      return value && value.length
         ? React.Children.map(children, (child) => {
             return React.isValidElement(child) &&
-              actualValue.includes(child.props.value)
+              value.includes(child.props.value)
               ? child.props.text
               : false;
           })
@@ -329,7 +300,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
               return acc ? `${acc}, ${item}` : item;
             }, "")
         : null;
-    }, [children, actualValue]);
+    }, [children, value]);
 
     const handleGlobalClick = useCallback(
       (event: MouseEvent) => {
@@ -363,11 +334,11 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
       const canDelete = !disabled && !readOnly;
       let matchingOptionValue: string;
 
-      if (!actualValue?.length) {
+      if (!value?.length) {
         return "";
       }
 
-      return actualValue.map((singleValue, index) => {
+      return value.map((singleValue, index) => {
         const matchingOption = React.Children.toArray(children).find(
           (child) =>
             React.isValidElement(child) && isExpectedOption(child, singleValue),
@@ -412,36 +383,18 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         );
       });
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [children, disabled, readOnly, actualValue]);
-
-    useEffect(() => {
-      const modeSwitchedMessage =
-        "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-        "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
-      const onChangeMissingMessage =
-        "onChange prop required when using a controlled input element";
-
-      invariant(
-        isControlled.current === (value !== undefined),
-        modeSwitchedMessage,
-      );
-      invariant(
-        !isControlled.current || (isControlled.current && onChange),
-        onChangeMissingMessage,
-      );
-    }, [value, onChange]);
+    }, [children, disabled, readOnly, value]);
 
     // removes placeholder when a value is present
     useEffect(() => {
       const hasValue = value?.length;
-      const hasSelectedValue = actualValue?.length;
 
-      if (hasValue || hasSelectedValue) {
+      if (hasValue) {
         setPlaceholderOverride(" ");
       } else {
         setPlaceholderOverride(placeholder);
       }
-    }, [value, actualValue, placeholder]);
+    }, [value, placeholder]);
 
     useEffect(() => {
       const clickEvent = "click";
@@ -606,8 +559,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         setTextValue("");
 
         const isAlreadySelected =
-          actualValue?.findIndex((val) => isExpectedValue(val, newValue)) !==
-          -1;
+          value?.findIndex((val) => isExpectedValue(val, newValue)) !== -1;
 
         textboxRef?.focus();
         isMouseDownReported.current = false;
@@ -620,7 +572,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
           return [...previousValue, newValue];
         }, selectionConfirmed);
       },
-      [textboxRef, actualValue, updateValue],
+      [textboxRef, value, updateValue],
     );
 
     const onSelectListClose = useCallback(() => {
@@ -654,7 +606,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         placeholder: placeholderOverride,
         leftChildren: mapValuesToPills,
         formattedValue: textValue,
-        selectedValue: actualValue,
+        selectedValue: value,
         onClick: handleTextboxClick,
         onMouseDown: handleTextboxMouseDown,
         onFocus: handleTextboxFocus,
@@ -703,7 +655,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         listPlacement={listWidth !== undefined ? placement : listPlacement}
         listMaxHeight={listMaxHeight}
         flipEnabled={flipEnabled}
-        multiselectValues={actualValue}
+        multiselectValues={value}
         isOpen={isOpen}
         enableVirtualScroll={enableVirtualScroll}
         virtualScrollOverscan={virtualScrollOverscan}
@@ -745,6 +697,7 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
             hasTextCursor
             isOpen={isOpen}
             labelId={labelId}
+            value={getTextboxProps().formattedValue}
             {...getTextboxProps()}
           />
         </div>
