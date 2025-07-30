@@ -576,6 +576,63 @@ describe("isDarkBackground", () => {
     });
     expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
   });
+
+  it("matches the styling when `variant` is set to white", () => {
+    render(
+      <Link
+        href="foo.com"
+        isDarkBackground
+        icon="home"
+        variant="white"
+        data-role="link"
+      />,
+    );
+
+    const linkElement = screen.getByTestId("link");
+    const iconElement = screen.getByTestId("icon");
+
+    expect(linkElement).toHaveStyle(`color: var(--colorsUtilityYang100)`);
+    expect(iconElement).toHaveStyle(`color: var(--colorsUtilityYang100)`);
+  });
+
+  it("matches the styling when `variant` is set to white and is hovered over", () => {
+    render(
+      <Link
+        href="foo.com"
+        isDarkBackground
+        icon="home"
+        variant="white"
+        data-role="link"
+      />,
+    );
+
+    const linkElement = screen.getByTestId("link");
+    const iconElement = screen.getByTestId("icon");
+
+    expect(linkElement).toHaveStyle(`color: var(--colorsActionMajor450)`);
+    expect(iconElement).toHaveStyle(`color: var(--colorsActionMajor450)`);
+  });
+
+  it("matches the styling when `variant` is set to white and is focused", () => {
+    render(
+      <Link
+        href="foo.com"
+        isDarkBackground
+        icon="home"
+        variant="white"
+        data-role="link"
+      />,
+    );
+
+    const linkElement = screen.getByTestId("link");
+    const iconElement = screen.getByTestId("icon");
+
+    expect(linkElement).toHaveStyle({
+      color: "var(--colorsActionMajorYin090)",
+      backgroundColor: "var(--colorsSemanticFocus250)",
+    });
+    expect(iconElement).toHaveStyle("color: var(--colorsActionMajorYin090)");
+  });
 });
 
 // Test is just for coverage

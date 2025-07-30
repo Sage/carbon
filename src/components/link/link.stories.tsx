@@ -240,6 +240,30 @@ export const OnADarkBackground: Story = () => {
         </React.Fragment>
       ))}
       <br />
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        isDarkBackground
+        variant="white"
+      >
+        This is a link
+      </Link>
+      {(["left", "right"] as const).map((align) => (
+        <React.Fragment key={`${align}-white-variant`}>
+          <br />
+          <Link
+            icon="settings"
+            isDarkBackground
+            variant="white"
+            iconAlign={align}
+            href="#foo"
+          >
+            This is a link
+          </Link>
+        </React.Fragment>
+      ))}
+      <br />
       <Link isDarkBackground disabled>
         This is a link
       </Link>

@@ -109,7 +109,9 @@ perform client-side routing, but still provide the `href` to render an HTML link
 
 ### variants
 
-Setting the `variant` prop to either `negative` or `neutral` enables overriding of the `default` styling of the `Link` component.
+Setting the `variant` prop to either `negative`, `neutral` or `white` enables overriding of the `default` styling of the `Link` component.
+
+> **Note**: The `white` variant is designed to be used on dark backgrounds, and is only applied when the `isDarkBackground` prop is `“true”`.
 
 <Canvas of={LinkStories.Variants} />
 
