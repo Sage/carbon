@@ -144,13 +144,13 @@ export const WithStickyForm: StoryObj<typeof Sidebar> = {
         stickyFooter
         onSubmit={(ev) => ev.preventDefault()}
       >
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
       </Form>
     </Sidebar>
   ),
@@ -170,13 +170,13 @@ export const WithForm: StoryObj<typeof Sidebar> = {
         saveButton={<Button buttonType="primary">Save</Button>}
         onSubmit={(ev) => ev.preventDefault()}
       >
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
-        <Textbox label="Textbox" />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
+        <Textbox label="Textbox" value="" onChange={() => {}} />
       </Form>
     </Sidebar>
   ),

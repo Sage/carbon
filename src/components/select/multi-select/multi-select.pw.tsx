@@ -888,25 +888,6 @@ test.describe("MultiSelect component", () => {
     ).toBeVisible();
   });
 
-  [
-    ["3", "Blue"],
-    ["7", "Pink"],
-  ].forEach(([value, option]) => {
-    test(`should set defaultValue prop to ${value} and show option pill ${option} preselected`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <MultiSelectDefaultValueComponent
-          onChange={() => {}}
-          value={[value]}
-        />,
-      );
-
-      await expect(multiSelectPill(page)).toHaveAttribute("title", option);
-    });
-  });
-
   test("should have no pill option preselected if defaultValue prop is not set", async ({
     mount,
     page,
@@ -1823,21 +1804,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
 
     await dropdownButton(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  ["3", "7"].forEach((value) => {
-    test(`should pass accessibility tests with defaultValue prop set to ${value}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <MultiSelectDefaultValueComponent
-          onChange={() => {}}
-          value={[value]}
-        />,
-      );
-      await checkAccessibility(page);
-    });
   });
 
   test("should pass accessibility tests with custom coloured pills", async ({

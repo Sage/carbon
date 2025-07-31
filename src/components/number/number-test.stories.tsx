@@ -157,7 +157,7 @@ export const NewValidation = () => {
       />
       <Number
         label="Number"
-        value="123456"
+        value={state}
         warning="Warning Message"
         mb={2}
         onChange={(e) => setState(e.target.value)}

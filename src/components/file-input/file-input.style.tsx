@@ -3,7 +3,14 @@ import type { InputProps } from "../../__internal__/input";
 import type { ValidationProps } from "../../__internal__/validations";
 import StyledTypography from "../typography/typography.style";
 
-export const StyledHiddenFileInput = styled.input<InputProps>`
+// Because inputs with type="file" cannot have a value, we need to omit it from the InputProps type.
+// This is a workaround to avoid TypeScript errors when using the InputProps type.
+// The value prop is not used in the FileInput component, so we can safely omit it
+type CustomFileInputProps = Omit<InputProps, "value"> & {
+  value?: string;
+};
+
+export const StyledHiddenFileInput = styled.input<CustomFileInputProps>`
   display: none;
 `;
 

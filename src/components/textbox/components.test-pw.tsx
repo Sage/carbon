@@ -223,6 +223,7 @@ export const TextboxNewValidationsAsAStringOnGreyBackground = () => {
               value="Textbox"
               {...{ [validationType]: "Message" }}
               mb={2}
+              onChange={() => {}}
             />
             <Textbox
               label="Textbox - readOnly"
@@ -230,6 +231,7 @@ export const TextboxNewValidationsAsAStringOnGreyBackground = () => {
               readOnly
               {...{ [validationType]: "Message" }}
               mb={2}
+              onChange={() => {}}
             />
           </div>
         ))}

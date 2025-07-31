@@ -23,7 +23,7 @@ export interface SwitchProps
     TagProps {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
-  /** [Legacy] When true label is inline */
+  /** When true label is inline */
   labelInline?: boolean;
   /** Triggers loading animation */
   loading?: boolean;

@@ -22,7 +22,6 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
-import Logger from "../../../__internal__/utils/logger";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 
 export interface CustomSelectChangeEvent
@@ -503,6 +502,7 @@ export const SimpleSelect = React.forwardRef<
             isOpen={isOpen}
             value={textValue}
             {...getTextboxProps()}
+            onChange={() => {}}
           />
         </div>
         {selectList}

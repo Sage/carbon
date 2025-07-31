@@ -11,7 +11,6 @@ import Box from "../../box";
 import Button from "../../button";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
-import Logger from "../../../__internal__/utils/logger";
 
 import SimpleSelect, { CustomSelectChangeEvent, SimpleSelectProps } from ".";
 import Option from "../option";
@@ -856,29 +855,6 @@ describe("forwarded ref", () => {
     );
 
     expect(mockRef.current).toBe(screen.getByRole("combobox"));
-  });
-});
-
-describe("deprecation warnings", () => {
-  it("raises deprecation warning when component is used with optional prop", () => {
-    jest.spyOn(console, "warn").mockImplementation(() => {});
-
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(
-      <>
-        <SimpleSelect label="Colour" isOptional value="" onChange={() => {}}>
-          <Option text="amber" value="amber" />
-        </SimpleSelect>
-        <SimpleSelect label="Colour" isOptional value="" onChange={() => {}}>
-          <Option text="amber" value="amber" />
-        </SimpleSelect>
-      </>,
-    );
-
-    expect(loggerSpy).toHaveBeenNthCalledWith(
-      1,
-      "`isOptional` is deprecated in SimpleSelect and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-    );
   });
 });
 

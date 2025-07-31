@@ -12,9 +12,9 @@ export interface FlatTableCheckboxProps extends TagProps {
   /** Prop to polymorphically render either a 'th' or 'td' element */
   as?: "td" | "th";
   /** Prop to set checked prop on Checkbox */
-  checked?: boolean;
+  checked: boolean;
   /** Callback to be called onChange in Checkbox */
-  onChange?: (ev: React.ChangeEvent<HTMLElement>) => void;
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Whether to render the checkbox or not, defaults to true */
   selectable?: boolean;
   /** Callback function to be called when click event received */

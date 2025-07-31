@@ -242,7 +242,7 @@ test.describe("NumeralDate component", () => {
     mount,
     page,
   }) => {
-    await mount(<NumeralDateComponent />);
+    await mount(<NumeralDateControlled />);
 
     const inputValue = "15";
     const input = numeralDateInput(page, 0);
@@ -253,7 +253,7 @@ test.describe("NumeralDate component", () => {
 
   (
     [
-      [0, "Day in January should be a number within 1-31.", "Day"],
+      [0, "Day should be a number within a 1-31 range.", "Day"],
       [1, "Month should be a number within a 1-12 range.", "Month"],
       [2, "Year should be a number within a 1800-2200 range.", "Year"],
     ] as [number, string, string][]
@@ -262,7 +262,7 @@ test.describe("NumeralDate component", () => {
       mount,
       page,
     }) => {
-      await mount(<NumeralDateComponent enableInternalError />);
+      await mount(<NumeralDateControlled enableInternalError />);
 
       const errorInput = "55";
 
@@ -284,9 +284,9 @@ test.describe("NumeralDate component", () => {
       page,
     }) => {
       await mount(
-        <NumeralDateComponent
+        <NumeralDateControlled
           enableInternalError
-          value={{ dd: "", mm: month, yyyy: year }}
+          initialValue={{ dd: "", mm: month, yyyy: year }}
         />,
       );
 
@@ -308,9 +308,9 @@ test.describe("NumeralDate component", () => {
       page,
     }) => {
       await mount(
-        <NumeralDateComponent
+        <NumeralDateControlled
           enableInternalWarning
-          value={{ dd: "", mm: month, yyyy: year }}
+          initialValue={{ dd: "", mm: month, yyyy: year }}
         />,
       );
 
@@ -332,9 +332,9 @@ test.describe("NumeralDate component", () => {
       page,
     }) => {
       await mount<HooksConfig>(
-        <NumeralDateComponent
+        <NumeralDateControlled
           enableInternalError
-          value={{ dd: "", mm: month, yyyy: year }}
+          initialValue={{ dd: "", mm: month, yyyy: year }}
         />,
         { hooksConfig: { validationRedesignOptIn: true } },
       );
@@ -354,9 +354,9 @@ test.describe("NumeralDate component", () => {
       page,
     }) => {
       await mount<HooksConfig>(
-        <NumeralDateComponent
+        <NumeralDateControlled
           enableInternalWarning
-          value={{ dd: "", mm: month, yyyy: year }}
+          initialValue={{ dd: "", mm: month, yyyy: year }}
         />,
         { hooksConfig: { validationRedesignOptIn: true } },
       );
@@ -372,7 +372,7 @@ test.describe("NumeralDate component", () => {
 
   (
     [
-      [0, "Day in January should be a number within 1-31.", "Day"],
+      [0, "Day should be a number within a 1-31 range.", "Day"],
       [1, "Month should be a number within a 1-12 range.", "Month"],
       [2, "Year should be a number within a 1800-2200 range.", "Year"],
     ] as [number, string, string][]
@@ -381,7 +381,7 @@ test.describe("NumeralDate component", () => {
       mount,
       page,
     }) => {
-      await mount(<NumeralDateComponent enableInternalWarning />);
+      await mount(<NumeralDateControlled enableInternalWarning />);
 
       const warningInput = "55";
 

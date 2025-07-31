@@ -207,12 +207,20 @@ export const Grouped: Story = () => {
     <AccordionGroup>
       <Accordion title="First Accordion">
         <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
+          <Textbox
+            label="Textbox in an Accordion"
+            value=""
+            onChange={() => {}}
+          />
         </Box>
       </Accordion>
       <Accordion title="Second Accordion">
         <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
+          <Textbox
+            label="Textbox in an Accordion"
+            value=""
+            onChange={() => {}}
+          />
         </Box>
       </Accordion>
       <Accordion title="Third Accordion">

@@ -129,10 +129,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     let buttonProps = {};
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      /* istanbul ignore else */
-      if (onChange) {
-        onChange(event);
-      }
+      onChange(event);
     };
 
     const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -277,7 +274,5 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
     );
   },
 );
-
-Search.displayName = "Search";
 
 export default Search;

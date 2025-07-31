@@ -19,7 +19,6 @@ import { ValidationProps } from "../../__internal__/validations";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import NumeralDateContext from "../numeral-date/__internal__/numeral-date.context";
-import Logger from "../../__internal__/utils/logger";
 import useCharacterCount from "../../hooks/useCharacterCount";
 import useUniqueId from "../../hooks/__internal__/useUniqueId";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -120,11 +119,6 @@ export interface CommonTextboxProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** [Legacy] Aria label for rendered help component. */
   helpAriaLabel?: string;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** The id attribute for the validation tooltip */
   tooltipId?: string;
   /** @private @internal @ignore */
@@ -141,8 +135,6 @@ export interface TextboxProps extends Omit<CommonTextboxProps, "defaultValue"> {
   /** Character limit of the textarea */
   characterLimit?: number;
 }
-
-let deprecateOptionalWarnTriggered = false;
 
 export const Textbox = React.forwardRef(
   (
@@ -180,7 +172,6 @@ export const Textbox = React.forwardRef(
       onMouseDown,
       onChangeDeferred,
       deferTimeout,
-      isOptional,
       iconOnClick,
       iconOnMouseDown,
       iconTabIndex,
@@ -204,12 +195,6 @@ export const Textbox = React.forwardRef(
     }: TextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
-    if (!deprecateOptionalWarnTriggered && isOptional) {
-      deprecateOptionalWarnTriggered = true;
-      Logger.deprecate(
-        "`isOptional` is deprecated in Textbox and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-      );
-    }
     const characterCountValue = typeof value === "string" ? value : "";
 
     const [uniqueId, uniqueName] = useUniqueId(id, name);
@@ -431,7 +416,5 @@ export const Textbox = React.forwardRef(
     );
   },
 );
-
-Textbox.displayName = "Textbox";
 
 export default Textbox;

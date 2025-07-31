@@ -280,9 +280,7 @@ export const IsOptional: Story = () => {
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
-  return (
-    <Textbox label="Textbox" value={state} onChange={setValue} isOptional />
-  );
+  return <Textbox label="Textbox" value={state} onChange={setValue} />;
 };
 IsOptional.storyName = "IsOptional";
 

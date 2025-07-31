@@ -227,6 +227,7 @@ export const MenuComponentScrollableWithSearch = () => {
 };
 
 export const MenuComponentSearch = () => {
+  const [searchValue, setSearchValue] = useState("");
   return (
     <Box mb={150}>
       {menuTypes.map((menuType) => (
@@ -243,7 +244,8 @@ export const MenuComponentSearch = () => {
                 <Search
                   placeholder="Dark variant"
                   variant="dark"
-                  defaultValue=""
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
                 />
               </MenuItem>
               <MenuItem href="#">Item Submenu Two</MenuItem>
@@ -573,22 +575,27 @@ export const MenuFullScreenWithSearchButton = ({
   searchValue,
 }: {
   searchValue?: string;
-}) => (
-  <MenuFullscreen isOpen onClose={() => {}}>
-    <MenuItem href="#">Menu Item before Search</MenuItem>
-    <MenuItem variant="alternate">
-      <Search
-        placeholder="Dark variant"
-        variant="dark"
-        defaultValue={searchValue}
-        searchButton
-      />
-    </MenuItem>
-    <MenuItem variant="alternate" href="#">
-      Menu Item after Search
-    </MenuItem>
-  </MenuFullscreen>
-);
+}) => {
+  const [value, setValue] = useState(searchValue || "");
+
+  return (
+    <MenuFullscreen isOpen onClose={() => {}}>
+      <MenuItem href="#">Menu Item before Search</MenuItem>
+      <MenuItem variant="alternate">
+        <Search
+          placeholder="Dark variant"
+          variant="dark"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          searchButton
+        />
+      </MenuItem>
+      <MenuItem variant="alternate" href="#">
+        Menu Item after Search
+      </MenuItem>
+    </MenuFullscreen>
+  );
+};
 
 export const MenuComponentScrollableParent = (
   props: Partial<ScrollableBlockProps>,

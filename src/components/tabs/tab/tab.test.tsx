@@ -106,7 +106,7 @@ test("calls the `updateErrors` function prop when an error is present in a child
   const updateErrors = jest.fn();
   render(
     <Tab tabId="foo" updateErrors={updateErrors}>
-      <Textbox onChange={() => {}} id="bar" error />
+      <Textbox onChange={() => {}} id="bar" error value="" />
     </Tab>,
   );
 
@@ -117,7 +117,7 @@ test("calls the `updateWarnings` function prop when a warning is present in a ch
   const updateWarnings = jest.fn();
   render(
     <Tab tabId="foo" updateWarnings={updateWarnings}>
-      <Textbox onChange={() => {}} id="bar" warning />
+      <Textbox onChange={() => {}} id="bar" warning value="" />
     </Tab>,
   );
 

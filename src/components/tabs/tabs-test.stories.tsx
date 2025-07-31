@@ -123,7 +123,7 @@ export const ValidationPositionTop = () => {
   return (
     <Tabs position="top">
       <Tab errorMessage="Error Message" tabId="tab-1" title="Tab 1" key="tab-1">
-        <Textbox label="textbox" error />
+        <Textbox label="textbox" error onChange={() => {}} value="" />
       </Tab>
       <Tab
         warningMessage="Warning Message"
@@ -131,10 +131,10 @@ export const ValidationPositionTop = () => {
         title="Tab 2"
         key="tab-2"
       >
-        <Textbox label="textbox" warning />
+        <Textbox label="textbox" warning onChange={() => {}} value="" />
       </Tab>
       <Tab infoMessage="Info Message" tabId="tab-3" title="Tab 3" key="tab-3">
-        <Textbox label="textbox" info />
+        <Textbox label="textbox" info onChange={() => {}} value="" />
       </Tab>
     </Tabs>
   );
@@ -149,7 +149,7 @@ export const ValidationPositionLeft = () => {
   return (
     <Tabs position="left">
       <Tab errorMessage="Error Message" tabId="tab-1" title="Tab 1" key="tab-1">
-        <Textbox label="textbox" error />
+        <Textbox label="textbox" error onChange={() => {}} value="" />
       </Tab>
       <Tab
         warningMessage="Warning Message"
@@ -157,10 +157,10 @@ export const ValidationPositionLeft = () => {
         title="Tab 2"
         key="tab-2"
       >
-        <Textbox label="textbox" warning />
+        <Textbox label="textbox" warning onChange={() => {}} value="" />
       </Tab>
       <Tab infoMessage="Info Message" tabId="tab-3" title="Tab 3" key="tab-3">
-        <Textbox label="textbox" info />
+        <Textbox label="textbox" info onChange={() => {}} value="" />
       </Tab>
     </Tabs>
   );
@@ -181,7 +181,13 @@ export const NewValidationPositionTop = () => {
           title="Tab 1"
           key="tab-1"
         >
-          <Textbox label="textbox" error="Error Message" m={2} />
+          <Textbox
+            label="textbox"
+            error="Error Message"
+            m={2}
+            onChange={() => {}}
+            value=""
+          />
         </Tab>
         <Tab
           warningMessage="Tab Warning Message"
@@ -189,7 +195,13 @@ export const NewValidationPositionTop = () => {
           title="Tab 2"
           key="tab-2"
         >
-          <Textbox label="textbox" warning="Warning Message" m={2} />
+          <Textbox
+            label="textbox"
+            warning="Warning Message"
+            m={2}
+            onChange={() => {}}
+            value=""
+          />
         </Tab>
       </Tabs>
     </CarbonProvider>
@@ -211,7 +223,13 @@ export const NewValidationPositionLeft = () => {
           title="Tab 1"
           key="tab-1"
         >
-          <Textbox label="textbox" error="Error Message" m={2} />
+          <Textbox
+            label="textbox"
+            error="Error Message"
+            m={2}
+            onChange={() => {}}
+            value=""
+          />
         </Tab>
         <Tab
           warningMessage="Tab Warning Message"
@@ -219,7 +237,13 @@ export const NewValidationPositionLeft = () => {
           title="Tab 2"
           key="tab-2"
         >
-          <Textbox label="textbox" warning="Warning Message" m={2} />
+          <Textbox
+            label="textbox"
+            warning="Warning Message"
+            m={2}
+            onChange={() => {}}
+            value=""
+          />
         </Tab>
       </Tabs>
     </CarbonProvider>
@@ -272,6 +296,7 @@ export const WithAdditionalTitleSiblingsRedesign = () => {
             <Checkbox
               label="Add error"
               error={errors.two}
+              checked={errors.two}
               onChange={() => setErrors({ ...errors, two: !errors.two })}
               m={2}
             />
@@ -292,6 +317,7 @@ export const WithAdditionalTitleSiblingsRedesign = () => {
             <Checkbox
               label="Add error"
               error={errors.three}
+              checked={errors.three}
               onChange={() => setErrors({ ...errors, three: !errors.three })}
               m={2}
             />

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
-import Logger from "../../../__internal__/utils/logger";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 
 import MultiSelect, { MultiSelectProps } from ".";
@@ -378,9 +377,9 @@ describe("dropdown list", () => {
     test(`opens when input is focused and ${key} key is pressed`, async () => {
       const user = userEvent.setup();
       render(
-        <MultiSelect label="Colour" onChange={() => {}} value={["amber"]}>
+        <InteractiveComponent label="Colour" onChange={() => {}}>
           <Option text="amber" value="amber" />
-        </MultiSelect>,
+        </InteractiveComponent>,
       );
 
       await user.tab();
@@ -1118,30 +1117,6 @@ describe("forwarded ref", () => {
     );
 
     expect(mockRef.current).toBe(screen.getByRole("combobox"));
-  });
-});
-
-describe("deprecation warnings", () => {
-  it("raises deprecation warning when component is used with optional prop", () => {
-    jest.spyOn(console, "warn").mockImplementation(() => {});
-
-    const loggerSpy = jest.spyOn(Logger, "deprecate");
-    render(
-      <>
-        <InteractiveComponent onChange={() => {}} label="Colour" isOptional>
-          <Option text="amber" value="amber" />
-        </InteractiveComponent>
-        <InteractiveComponent label="Colour" isOptional onChange={() => {}}>
-          <Option text="amber" value="amber" />
-        </InteractiveComponent>
-      </>,
-    );
-
-    expect(loggerSpy).toHaveBeenNthCalledWith(
-      1,
-
-      "`isOptional` is deprecated in MultiSelect and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-    );
   });
 });
 

@@ -342,9 +342,7 @@ test("component should render without invariant firing in strict mode", () => {
   consoleErrorSpy.mockRestore();
 });
 
-// Skipped coverage test - Logger.error not being called in this test despite the precision prop changing
-// and the useEffect being hit (line 164 of decimal.component.tsx).
-test.skip("logs an error when precision changes", () => {
+test("logs an error when precision changes", () => {
   const loggerSpy = jest.spyOn(Logger, "error");
 
   const { rerender } = render(
@@ -356,4 +354,44 @@ test.skip("logs an error when precision changes", () => {
   expect(loggerSpy).toHaveBeenCalledWith(
     "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect.",
   );
+});
+
+describe("check events for Decimal component", () => {
+  (
+    [
+      ["1", "1.00"],
+      ["12", "12.00"],
+      ["123", "123.00"],
+    ] as [string, string][]
+  ).forEach(([rawValueTest, formattedValueTest]) => {
+    it(`should call onChange callback when a type event is triggered with ${rawValueTest} value`, async () => {
+      const user = userEvent.setup();
+      render(<ControlledDecimal startingValue="" />);
+
+      const decimalInput = screen.getByRole("textbox");
+      await user.type(decimalInput, rawValueTest);
+      act(() => {
+        decimalInput.blur();
+      });
+      expect(decimalInput).toHaveValue(formattedValueTest);
+    });
+  });
+
+  test("should call onBlur callback when a blur event is triggered", async () => {
+    let callbackCount = 0;
+    const callback: DecimalProps["onBlur"] = () => {
+      callbackCount += 1;
+    };
+    const user = userEvent.setup();
+    render(<ControlledDecimal startingValue="" onBlur={callback} />);
+
+    const decimalInput = screen.getByRole("textbox");
+    await user.type(decimalInput, "123");
+    act(() => {
+      decimalInput.blur();
+    });
+
+    expect(decimalInput).toHaveValue("123.00");
+    expect(callbackCount).toBe(1);
+  });
 });

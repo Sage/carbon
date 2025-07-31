@@ -2,9 +2,13 @@ import React, { useRef, useState } from "react";
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
-import { FilterableSelect, Option, FilterableSelectProps } from "..";
+import {
+  FilterableSelect,
+  Option,
+  FilterableSelectProps,
+  CustomSelectChangeEvent,
+} from "..";
 import guid from "../../../__internal__/utils/helpers/guid";
-import Logger from "../../../__internal__/utils/logger";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 
 const mockedGuid = "mocked-guid";
@@ -18,7 +22,12 @@ beforeAll(() => {
 
 testStyledSystemMargin(
   (props) => (
-    <FilterableSelect data-role="my-select" {...props}>
+    <FilterableSelect
+      data-role="my-select"
+      value=""
+      onChange={() => {}}
+      {...props}
+    >
       <Option text="Amber" value="1" />
     </FilterableSelect>
   ),
@@ -63,6 +72,7 @@ const FilterableSelectWithStateAndObjects = ({
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value as unknown as Record<string, unknown>);
   }
+
   return (
     <FilterableSelect
       label={label}
@@ -79,9 +89,14 @@ const FilterableSelectWithStateAndObjects = ({
 
 const FilterableSelectWithDefaultValueStateAndObjects = ({
   label,
-  defaultValue,
+  value,
   ...props
 }: Partial<FilterableSelectProps>) => {
+  const [internalValue, setInternalValue] = useState(value || "");
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInternalValue(event.target.value as unknown as Record<string, unknown>);
+  };
+
   const optionListValues = [
     { id: "Black", value: 1, text: "Black" },
     { id: "Blue", value: 2, text: "Blue" },
@@ -90,8 +105,8 @@ const FilterableSelectWithDefaultValueStateAndObjects = ({
   return (
     <FilterableSelect
       label={label}
-      defaultValue={defaultValue}
-      onChange={() => {}}
+      value={internalValue}
+      onChange={onChangeHandler}
       {...props}
     >
       {optionListValues.map((option) => (
@@ -101,92 +116,37 @@ const FilterableSelectWithDefaultValueStateAndObjects = ({
   );
 };
 
-test("should display a deprecation warning only once for all instances of component when they are uncontrolled", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(
-    <>
-      <FilterableSelect label="one" defaultValue="opt1">
-        <Option value="opt1" text="red" />
-      </FilterableSelect>
-      <FilterableSelect label="two" defaultValue="opt1">
-        <Option value="opt1" text="red" />
-      </FilterableSelect>
-    </>,
-  );
+type InteractiveComponentProps = Omit<
+  FilterableSelectProps,
+  "onChange" | "value"
+> & {
+  children: React.ReactNode;
+  onChange: (
+    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
+  ) => void;
+  value?: string;
+};
 
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Filterable Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-  );
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-  loggerSpy.mockClear();
-});
-
-test("should not display deprecation warning about uncontrolled Textbox when parent component is controlled", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(
+const InteractiveComponent = ({
+  children,
+  onChange,
+  value = "",
+  ...props
+}: InteractiveComponentProps) => {
+  const [internalValue, setValue] = useState(value);
+  return (
     <FilterableSelect
-      label="Colour"
-      onChange={() => {}}
-      value="1"
-      placeholder="Select a colour"
+      onChange={(event) => {
+        setValue(event.target.value);
+        onChange(event);
+      }}
+      value={internalValue}
+      {...props}
     >
-      <Option text="Amber" value="1" />
-    </FilterableSelect>,
+      {children}
+    </FilterableSelect>
   );
-
-  expect(loggerSpy).not.toHaveBeenCalled();
-  loggerSpy.mockClear();
-});
-
-test("should not display deprecation warning about uncontrolled Textbox when parent component is not controlled", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  render(
-    <FilterableSelect label="Colour" placeholder="Select a colour">
-      <Option text="Amber" value="1" />
-    </FilterableSelect>,
-  );
-
-  expect(loggerSpy).not.toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-  );
-  loggerSpy.mockClear();
-});
-
-test("should update the input value when user clicks an option and the component is uncontrolled", async () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  const user = userEvent.setup();
-  render(
-    <FilterableSelect>
-      <Option value="opt1" text="red" />
-    </FilterableSelect>,
-  );
-
-  const input = screen.getByRole("combobox");
-  await user.click(input);
-  const option = await screen.findByRole("option", { name: "red" });
-  await user.click(option);
-
-  expect(input).toHaveValue("red");
-  loggerSpy.mockClear();
-});
-
-test("should update the input value to highlight any matching option text when user types and the component is uncontrolled", async () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-  const user = userEvent.setup();
-  render(
-    <FilterableSelect>
-      <Option value="opt1" text="green" />
-    </FilterableSelect>,
-  );
-
-  const input = screen.getByRole("combobox") as HTMLInputElement;
-  await user.type(input, "gre");
-
-  expect(input.selectionStart).toBe(3);
-  expect(input.selectionEnd).toBe(5);
-
-  loggerSpy.mockClear();
-});
+};
 
 test("should render combobox without text overlay", () => {
   render(
@@ -233,7 +193,7 @@ test("should initially render combobox with custom `placeholder` when prop is pa
 test("should initially render default value text when prop is passed", () => {
   render(
     <FilterableSelectWithDefaultValueStateAndObjects
-      defaultValue={{ id: "Blue", value: 2, text: "Blue" }}
+      value={{ id: "Blue", value: 2, text: "Blue" }}
     />,
   );
 
@@ -636,7 +596,7 @@ test("should call `onChange` callback when the user types in the input", async (
   const onChangeFn = jest.fn();
   const user = userEvent.setup();
   render(
-    <FilterableSelect
+    <InteractiveComponent
       id="foo"
       name="bar"
       label="filterable-select"
@@ -644,7 +604,7 @@ test("should call `onChange` callback when the user types in the input", async (
       value=""
     >
       <Option value="opt1" text="red" />
-    </FilterableSelect>,
+    </InteractiveComponent>,
   );
   await user.type(screen.getByRole("combobox"), "r");
 
@@ -746,9 +706,9 @@ describe("when the input is focused", () => {
   it("should display the list and update the input value when the user types a character that matches an option", async () => {
     const user = userEvent.setup();
     render(
-      <FilterableSelect label="filterable-select" onChange={() => {}} value="">
+      <InteractiveComponent label="filterable-select" onChange={() => {}}>
         <Option value="opt1" text="red" />
-      </FilterableSelect>,
+      </InteractiveComponent>,
     );
     await user.type(screen.getByRole("combobox"), "r");
 
@@ -769,9 +729,10 @@ describe("when the input is focused", () => {
     await user.click(input);
 
     await user.type(input, "{Backspace}");
+
     expect(input).toHaveValue("Blu");
 
-    await user.type(input, "{Backspace}");
+    await user.keyboard("{Backspace}");
     expect(input).toHaveValue("Black");
   });
 
@@ -1315,9 +1276,9 @@ describe("when the user types in the input", () => {
   it("should highlight the remaining part after matching with the relevant option text", async () => {
     const user = userEvent.setup();
     render(
-      <FilterableSelect label="filterable-select" onChange={() => {}} value="">
+      <InteractiveComponent label="filterable-select" onChange={() => {}}>
         <Option value="opt1" text="green" />
-      </FilterableSelect>,
+      </InteractiveComponent>,
     );
     const input = screen.getByRole("combobox") as HTMLInputElement;
     await user.type(screen.getByRole("combobox"), "gree");
@@ -1343,9 +1304,9 @@ describe("when the user types in the input", () => {
   it("should trim any preceding whitespace and set the input selection correctly", async () => {
     const user = userEvent.setup();
     render(
-      <FilterableSelect label="filterable-select" onChange={() => {}} value="">
+      <InteractiveComponent label="filterable-select" onChange={() => {}}>
         <Option value="opt1" text="green" />
-      </FilterableSelect>,
+      </InteractiveComponent>,
     );
     const input = screen.getByRole("combobox") as HTMLInputElement;
     await user.type(screen.getByRole("combobox"), "   gre");
@@ -1373,9 +1334,9 @@ describe("when the user types in the input", () => {
   it("should not trim any following whitespace that matches an option text", async () => {
     const user = userEvent.setup();
     render(
-      <FilterableSelect label="filterable-select" onChange={() => {}} value="">
+      <InteractiveComponent label="filterable-select" onChange={() => {}}>
         <Option value="opt1" text="black and white" />
-      </FilterableSelect>,
+      </InteractiveComponent>,
     );
     const input = screen.getByRole("combobox") as HTMLInputElement;
     await user.type(screen.getByRole("combobox"), "black ");
@@ -1472,6 +1433,37 @@ describe("when the user types in the input", () => {
     await user.type(screen.getByRole("combobox"), "bla");
 
     expect(input).toHaveValue("black");
+  });
+
+  // coverage
+  it("fills the last filter character correctly", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <InteractiveComponent label="filterable-select" onChange={() => {}}>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </InteractiveComponent>,
+    );
+
+    const input = screen.getByRole("combobox");
+    await user.type(input, "Amber");
+
+    expect(input).toHaveValue("Amber");
+    expect(await screen.findByRole("listbox")).toBeVisible();
+    expect(screen.getByRole("option", { name: "Amber" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
   });
 });
 

@@ -165,22 +165,22 @@ function getRowWithInputs(onClickFn: OnClick, hasHeaderRow?: boolean) {
     <FlatTableRow key="rowWithInputs" onClick={onClickFn}>
       {firstRow}
       <FlatTableCell>
-        <input />
+        <input title="input 1" />
       </FlatTableCell>
       <FlatTableCell>
-        <input />
+        <input title="input 2" />
       </FlatTableCell>
       <FlatTableCell>
-        <input />
+        <input title="input 3" />
       </FlatTableCell>
       <FlatTableCell>
-        <input />
+        <input title="input 4" />
       </FlatTableCell>
       <FlatTableCell>
-        <input />
+        <input title="input 5" />
       </FlatTableCell>
       <FlatTableCell>
-        <input />
+        <input title="input 6" />
       </FlatTableCell>
     </FlatTableRow>
   );
@@ -722,7 +722,13 @@ export const FlatRowHeaderWithNoPaddingAndButtons = () => {
       <FlatTableCell>subrow content</FlatTableCell>
       <FlatTableCell>subrow content</FlatTableCell>
       <FlatTableCell>
-        <Textbox label="" labelInline labelAlign="right" />
+        <Textbox
+          label=""
+          labelInline
+          labelAlign="right"
+          value=""
+          onChange={() => {}}
+        />
       </FlatTableCell>
       <FlatTableCell>subrow content</FlatTableCell>
       <FlatTableCell>subrow content</FlatTableCell>
@@ -741,7 +747,13 @@ export const FlatRowHeaderWithNoPaddingAndButtons = () => {
       </FlatTableCell>
       <FlatTableCell>subrow content</FlatTableCell>
       <FlatTableCell>
-        <Textbox label="" labelInline labelAlign="right" />
+        <Textbox
+          label=""
+          labelInline
+          labelAlign="right"
+          value=""
+          onChange={() => {}}
+        />
       </FlatTableCell>
       <FlatTableCell>subrow content</FlatTableCell>
       <FlatTableCell>subrow content</FlatTableCell>
@@ -775,7 +787,13 @@ export const FlatRowHeaderWithNoPaddingAndButtons = () => {
       <FlatTableBody>
         <FlatTableRow>
           <FlatTableCell>
-            <Textbox label="" labelInline labelAlign="right" />
+            <Textbox
+              label=""
+              labelInline
+              labelAlign="right"
+              value=""
+              onChange={() => {}}
+            />
           </FlatTableCell>
           <FlatTableRowHeader p={0} stickyAlignment="left">
             <Button>Button</Button>
@@ -820,7 +838,13 @@ export const FlatRowHeaderWithNoPaddingAndButtons = () => {
           </FlatTableRowHeader>
           <FlatTableCell>text content</FlatTableCell>
           <FlatTableCell>
-            <Textbox label="" labelInline labelAlign="right" />
+            <Textbox
+              label=""
+              labelInline
+              labelAlign="right"
+              value=""
+              onChange={() => {}}
+            />
           </FlatTableCell>
           <FlatTableCell>text content</FlatTableCell>
           <FlatTableCell>text content</FlatTableCell>
@@ -841,11 +865,23 @@ export const FlatRowHeaderWithNoPaddingAndButtons = () => {
           <FlatTableCell>text content</FlatTableCell>
           <FlatTableCell>text content</FlatTableCell>
           <FlatTableCell>
-            <Textbox label="" labelInline labelAlign="right" />
+            <Textbox
+              label=""
+              labelInline
+              labelAlign="right"
+              value=""
+              onChange={() => {}}
+            />
           </FlatTableCell>
           <FlatTableCell>text content</FlatTableCell>
           <FlatTableCell>
-            <Textbox label="" labelInline labelAlign="right" />
+            <Textbox
+              label=""
+              labelInline
+              labelAlign="right"
+              value=""
+              onChange={() => {}}
+            />
           </FlatTableCell>
           <FlatTableCell>text content</FlatTableCell>
           <FlatTableRowHeader p={0} stickyAlignment="right">
