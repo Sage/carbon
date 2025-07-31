@@ -50,7 +50,6 @@ click in the nav bar, and positions itself accordingly. This example is best vie
 
 <Canvas of={AdaptiveSidebarStories.Complex} />
 
-
 ### With Custom Width
 
 The width of the `AdaptiveSidebar` component can be customised by passing a `width` prop. The width can be set to a specific value, or omitted to use the
@@ -95,6 +94,15 @@ By default, no separator is rendered between the main content and the sidebar. I
 a `borderColor` prop. The following example demonstrates the use of a custom border color.
 
 <Canvas of={AdaptiveSidebarStories.WithCustomBorderColor} />
+
+### Hidden
+
+By using the `hidden` prop, the `AdaptiveSidebar` component can be hidden from view. This is useful for cases where the sidebar should not be displayed, but
+the component should still be rendered in the DOM. The following example demonstrates the use of the `hidden` prop. The sidebar is closed by default, and can
+be opened by clicking the "Open" button in the main content. The sidebar can be closed by clicking the "Close" button within the sidebar itself, or hidden by
+clicking the "Hide" button in the sidebar itself. The sidebar can be revealed again by clicking the "Show" button in the main content.
+
+<Canvas of={AdaptiveSidebarStories.Hidden} />
 
 ## Props
 

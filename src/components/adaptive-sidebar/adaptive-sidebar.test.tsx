@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import AdaptiveSidebar, {
   AdaptiveSidebarProps,
@@ -10,6 +10,8 @@ import Button from "../button";
 import Typography from "../typography";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import SplitButton from "../split-button";
+import Hr from "../hr";
 
 const MockApp = ({
   ...props
@@ -44,6 +46,83 @@ const MockApp = ({
         </AdaptiveSidebar>
       </Box>
     </>
+  );
+};
+
+const MockWithHiddenSupport = () => {
+  const [adaptiveSidebarOpen, setAdaptiveSidebarOpen] = useState(false);
+  const [adaptiveSidebarHidden, setAdaptiveSidebarHidden] = useState(false);
+
+  const buttonText = useMemo(() => {
+    if (adaptiveSidebarHidden) {
+      return "Show";
+    } else if (adaptiveSidebarOpen) {
+      return "Close";
+    } else {
+      return "Open";
+    }
+  }, [adaptiveSidebarHidden, adaptiveSidebarOpen]);
+
+  return (
+    <Box display="flex" flexDirection="row">
+      <Box>
+        <Button
+          data-role="adaptive-sidebar-control-button"
+          onClick={() => {
+            if (adaptiveSidebarHidden) {
+              setAdaptiveSidebarHidden(false);
+              return;
+            }
+            if (adaptiveSidebarOpen) {
+              setAdaptiveSidebarOpen(false);
+              return;
+            }
+            setAdaptiveSidebarOpen(true);
+          }}
+          mb={2}
+        >
+          {buttonText}
+        </Button>
+        <Typography variant="p">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at odio
+          ultricies, luctus dolor at, fringilla elit. Nulla non nunc eu sapien
+          tempus porta. Nullam sodales nisi ut orci efficitur, nec ullamcorper
+          nunc pulvinar. Integer eleifend a augue ac accumsan. Fusce ultrices
+          auctor aliquam. Sed eu metus sit amet est tempor ullamcorper. Praesent
+          eu elit eget lacus fermentum porta at ut dui.
+        </Typography>
+      </Box>
+      <AdaptiveSidebar
+        hidden={adaptiveSidebarHidden}
+        open={adaptiveSidebarOpen}
+        width="300px"
+      >
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          p={1}
+        >
+          <Typography variant="h3">Content</Typography>
+          <SplitButton
+            text="Hide"
+            onClick={() => setAdaptiveSidebarHidden(true)}
+          >
+            <Button
+              onClick={() => {
+                setAdaptiveSidebarOpen(false);
+              }}
+            >
+              Close
+            </Button>
+          </SplitButton>
+        </Box>
+        <Hr my={0} mx={0} />
+        <Box display="flex" flexDirection="column" p={1}>
+          <Typography>My content</Typography>
+        </Box>
+      </AdaptiveSidebar>
+    </Box>
   );
 };
 
@@ -213,4 +292,84 @@ test("should not render with a left border if the `borderColor` prop is set to `
   expect(screen.getByTestId("adaptive-sidebar")).not.toHaveStyleRule(
     "border-left",
   );
+});
+
+test("hides the sidebar when the `hidden` prop is set to `true`", async () => {
+  const user = userEvent.setup();
+  mockUseIsAboveBreakpoint.mockReturnValue(true);
+
+  render(<MockWithHiddenSupport />);
+
+  expect(screen.queryByText("My content")).not.toBeInTheDocument();
+
+  const openButton = screen.getByTestId("adaptive-sidebar-control-button");
+  await user.click(openButton);
+
+  expect(screen.getByTestId("adaptive-sidebar")).not.toHaveStyleRule(
+    "display",
+    "none",
+  );
+  expect(screen.getByText("My content")).toBeInTheDocument();
+
+  expect(openButton).toHaveTextContent("Close");
+  const hideButton = screen.getByText("Hide");
+
+  await user.click(hideButton);
+
+  expect(openButton).toHaveTextContent("Show");
+
+  expect(screen.getByTestId("adaptive-sidebar")).toHaveStyleRule(
+    "display",
+    "none",
+  );
+  expect(screen.getByText("My content")).toBeInTheDocument();
+  expect(screen.getByText("My content")).not.toBeVisible();
+
+  await user.click(openButton);
+
+  expect(screen.getByTestId("adaptive-sidebar")).not.toHaveStyleRule(
+    "display",
+    "none",
+  );
+  expect(screen.getByText("My content")).toBeVisible();
+});
+
+test("hides the sidebar when the `hidden` prop is set to `true` and below the scren breakpoint", async () => {
+  const user = userEvent.setup();
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(<MockWithHiddenSupport />);
+
+  expect(screen.queryByText("My content")).not.toBeInTheDocument();
+
+  const openButton = screen.getByTestId("adaptive-sidebar-control-button");
+  await user.click(openButton);
+
+  let sidebar = screen.getByRole("dialog");
+
+  expect(sidebar).not.toHaveStyleRule("display", "block");
+
+  const withinSidebar = within(sidebar);
+  expect(withinSidebar.getByText("My content")).toBeInTheDocument();
+
+  expect(openButton).toHaveTextContent("Close");
+  const hideButton = screen.getByText("Hide");
+
+  await user.click(hideButton);
+
+  expect(openButton).toHaveTextContent("Show");
+
+  sidebar = screen.getByTestId("adaptive-sidebar-modal-view");
+
+  expect(sidebar).toHaveStyleRule("display", "none");
+
+  expect(screen.getByText("My content")).toBeInTheDocument();
+  expect(screen.getByText("My content")).not.toBeVisible();
+
+  await user.click(openButton);
+
+  sidebar = screen.getByRole("dialog");
+
+  expect(sidebar).not.toHaveStyleRule("display", "block");
+  expect(screen.getByText("My content")).toBeVisible();
 });

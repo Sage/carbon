@@ -19,11 +19,15 @@ type StyledAdaptiveSidebarProps = Pick<
   };
 
 const StyledAdaptiveSidebar = styled(Box)<StyledAdaptiveSidebarProps>`
-  ${({ backgroundColor, borderColor, height, width }) => css`
+  ${({ backgroundColor, borderColor, height, hidden, width }) => css`
     ${getColors(backgroundColor)}
     ${borderColor &&
     css`
       border-left: 1px solid var(${borderColor});
+    `}
+    ${hidden &&
+    css`
+      display: none;
     `}
     max-height: ${height};
     max-width: ${width};
@@ -37,9 +41,16 @@ const StyledAdaptiveSidebar = styled(Box)<StyledAdaptiveSidebarProps>`
 
 interface StyledSidebarProps extends SidebarProps {
   backgroundColor: "app" | "black" | "white";
+  hidden?: boolean;
 }
 
 const StyledSidebar = styled(Sidebar)<StyledSidebarProps>`
+  ${({ hidden }) => css`
+    ${hidden &&
+    css`
+      display: none;
+    `}
+  `}
   ${({ backgroundColor }) => css`
     div[data-element="sidebar-content"] {
       ${getColors(backgroundColor)}
