@@ -13,11 +13,12 @@ const FullScreenHeading = React.forwardRef<
   HTMLDivElement,
   FullScreenHeadingProps
 >((props: FullScreenHeadingProps, ref) => {
-  const { children, hasContent } = props;
+  const { children, hasContent, hasCloseButton } = props;
 
   return (
     <StyledFullScreenHeading
       hasContent={hasContent}
+      hasCloseButton={hasCloseButton}
       {...tagComponent("full-screen-heading", props)}
       ref={ref}
     >
