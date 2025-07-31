@@ -29,7 +29,7 @@ export const DefaultStory: Story = {
     const setValue = ({ target }: CustomEvent) => {
       setState(target.value.rawValue);
     };
-    return <Decimal value={state} onChange={setValue} {...args} />;
+    return <Decimal {...args} value={state} onChange={setValue} />;
   },
   args: { label: "Decimal" },
   name: "Default",

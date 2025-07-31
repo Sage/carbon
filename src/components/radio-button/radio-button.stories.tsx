@@ -17,13 +17,16 @@ const meta: Meta<typeof RadioButton> = {
   argTypes: {
     ...styledSystemProps,
   },
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof RadioButton>;
 
 export const Default: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
 
   return (
     <RadioButtonGroup
@@ -40,7 +43,7 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 
 export const WithLegendAndLabels: Story = () => {
-  const [value, setValue] = React.useState("radio1");
+  const [value, setValue] = React.useState("");
   return (
     <RadioButtonGroup
       name="legend-and-labels-group"
@@ -57,7 +60,7 @@ export const WithLegendAndLabels: Story = () => {
 WithLegendAndLabels.storyName = "With Legend";
 
 export const WithLegendHelp: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
   return (
     <CarbonProvider validationRedesignOptIn>
       <RadioButtonGroup
@@ -77,7 +80,7 @@ export const WithLegendHelp: Story = () => {
 WithLegendHelp.storyName = "With Legend Help";
 
 export const WithInlineLegend: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="inline-legend-group"
@@ -96,7 +99,7 @@ export const WithInlineLegend: Story = () => {
 WithInlineLegend.storyName = "With Inline Legend";
 
 export const EnableAdaptiveBehaviour: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="enable-adaptive-behaviour-group"
@@ -129,7 +132,7 @@ EnableAdaptiveBehaviour.storyName = "Enable Adaptive Behaviour";
 EnableAdaptiveBehaviour.parameters = { chromatic: { disableSnapshot: true } };
 
 export const DifferentLabelSpacing: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="different-label-spacing-group"
@@ -159,7 +162,7 @@ export const DifferentLabelSpacing: Story = () => {
 DifferentLabelSpacing.storyName = "Label Spacing";
 
 export const InlineRadioButtons: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="inline-group"
@@ -177,7 +180,7 @@ export const InlineRadioButtons: Story = () => {
 InlineRadioButtons.storyName = "Inline Radio Buttons";
 
 export const ReverseRadioButtons: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="reverse-group"
@@ -209,7 +212,7 @@ export const ReverseRadioButtons: Story = () => {
 ReverseRadioButtons.storyName = "Reverse Radio Buttons";
 
 export const DisableRadioButtons: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="disable-group"
@@ -241,7 +244,7 @@ export const DisableRadioButtons: Story = () => {
 DisableRadioButtons.storyName = "Disable Radio Buttons";
 
 export const WithFieldHelp: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="field-help-group"
@@ -273,7 +276,7 @@ export const WithFieldHelp: Story = () => {
 WithFieldHelp.storyName = "With Field Help";
 
 export const WithLargeRadioButtons: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="large-group"
@@ -308,7 +311,7 @@ export const WithLargeRadioButtons: Story = () => {
 WithLargeRadioButtons.storyName = "With Large Radio Buttons";
 
 export const WithCustomStyledLabels: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="custom-styled-label-group"
@@ -355,7 +358,7 @@ export const WithCustomStyledLabels: Story = () => {
 WithCustomStyledLabels.storyName = "With Custom Styled Labels";
 
 export const Required: Story = () => {
-  const [value, setValue] = useState("radio1");
+  const [value, setValue] = useState("");
   return (
     <RadioButtonGroup
       name="radio-group-required"

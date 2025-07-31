@@ -27,7 +27,6 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import NumeralDateContext from "./__internal__/numeral-date.context";
-import Logger from "../../__internal__/utils/logger";
 import Locale from "../../locales/locale";
 import FieldHelp from "../../__internal__/field-help";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
@@ -288,8 +287,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
 
     invariant(hasCorrectDateFormat, incorrectDateFormatMessage);
 
-    const [dateValue, setDateValue] = useState<NumeralDateValue>(value);
-
     const createCustomEventObject = (
       newValue: NumeralDateValue,
     ): NumeralDateEvent => ({
@@ -321,15 +318,11 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
 
       if (newValue.length <= datePart.length) {
         const newDateValue = {
-          ...dateValue,
+          ...value,
           [datePart]: newValue,
         };
-        setDateValue(newDateValue);
 
-        /* istanbul ignore else */
-        if (onChange) {
-          onChange(createCustomEventObject(newDateValue));
-        }
+        onChange(createCustomEventObject(newDateValue));
       }
     };
 
@@ -340,7 +333,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
       if (internalValidationEnabled) {
         setInternalMessages((prev) => ({
           ...prev,
-          ...validate(locale, dateValue),
+          ...validate(locale, value),
         }));
       }
       setTimeout(() => {
@@ -349,7 +342,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
         );
         /* istanbul ignore else */
         if (onBlur && hasBlurred) {
-          onBlur(createCustomEventObject(dateValue));
+          onBlur(createCustomEventObject(value));
         }
       }, 5);
     };
@@ -459,7 +452,7 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
                     warning={!!internalWarning}
                     info={!!info}
                     size={size}
-                    value={dateValue[datePart]}
+                    value={value[datePart]}
                     onChange={(e) => handleChange(e, datePart)}
                     onBlur={handleBlur}
                     ref={(element) => handleRef(element, index, inputRef)}

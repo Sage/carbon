@@ -7,6 +7,7 @@ import Button from "../../button/button.component";
 import Box from "../../box";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 import Typography from "../../typography";
+import Dialog from "../../dialog";
 
 export default {
   component: MultiSelect,
@@ -110,10 +111,16 @@ export const Default = (props: Partial<MultiSelectProps>) => {
 Default.storyName = "Default";
 
 export const Validation = () => {
-  const [values, setValues] = useState<string[]>(["1", "2"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValues(event.target.value as unknown as string[]);
-  }
+  const [values, setValues] = useState<string[]>([]);
+  const [values2, setValues2] = useState<string[]>([]);
+  const [values3, setValues3] = useState<string[]>([]);
+  const [values4, setValues4] = useState<string[]>([]);
+  const [values5, setValues5] = useState<string[]>([]);
+  const [values6, setValues6] = useState<string[]>([]);
+  const [values7, setValues7] = useState<string[]>([]);
+  const [values8, setValues8] = useState<string[]>([]);
+  const [values9, setValues9] = useState<string[]>([]);
+
   return (
     <>
       <MultiSelect
@@ -122,7 +129,9 @@ export const Validation = () => {
         label="MultiSelect"
         error="Error Message"
         value={values}
-        onChange={onChangeHandler}
+        onChange={(event) =>
+          setValues(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -133,8 +142,10 @@ export const Validation = () => {
         id="multi"
         label="MultiSelect"
         warning="Warning Message"
-        value={values}
-        onChange={onChangeHandler}
+        value={values2}
+        onChange={(event) =>
+          setValues2(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -145,8 +156,10 @@ export const Validation = () => {
         id="multi"
         label="MultiSelect"
         info="Info Message"
-        value={values}
-        onChange={onChangeHandler}
+        value={values3}
+        onChange={(event) =>
+          setValues3(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -159,8 +172,10 @@ export const Validation = () => {
         label="MultiSelect"
         error="Error Message"
         validationOnLabel
-        value={values}
-        onChange={onChangeHandler}
+        value={values4}
+        onChange={(event) =>
+          setValues4(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -172,8 +187,10 @@ export const Validation = () => {
         label="MultiSelect"
         warning="Warning Message"
         validationOnLabel
-        value={values}
-        onChange={onChangeHandler}
+        value={values5}
+        onChange={(event) =>
+          setValues5(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -185,8 +202,10 @@ export const Validation = () => {
         label="MultiSelect"
         info="Info Message"
         validationOnLabel
-        value={values}
-        onChange={onChangeHandler}
+        value={values6}
+        onChange={(event) =>
+          setValues6(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -198,8 +217,10 @@ export const Validation = () => {
         id="multi"
         label="MultiSelect"
         error
-        value={values}
-        onChange={onChangeHandler}
+        value={values7}
+        onChange={(event) =>
+          setValues7(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -210,8 +231,10 @@ export const Validation = () => {
         id="multi"
         label="MultiSelect"
         warning
-        value={values}
-        onChange={onChangeHandler}
+        value={values8}
+        onChange={(event) =>
+          setValues8(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -222,8 +245,10 @@ export const Validation = () => {
         id="multi"
         label="MultiSelect"
         info
-        value={values}
-        onChange={onChangeHandler}
+        value={values9}
+        onChange={(event) =>
+          setValues9(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -239,10 +264,10 @@ Validation.parameters = {
 };
 
 export const NewValidation = () => {
-  const [values, setValues] = useState<string[]>(["1", "2"]);
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValues(event.target.value as unknown as string[]);
-  }
+  const [values, setValues] = useState<string[]>([]);
+  const [values2, setValues2] = useState<string[]>([]);
+  const [values3, setValues3] = useState<string[]>([]);
+  const [values4, setValues4] = useState<string[]>([]);
 
   return (
     <CarbonProvider validationRedesignOptIn>
@@ -253,7 +278,9 @@ export const NewValidation = () => {
         error="Error Message"
         mb={2}
         value={values}
-        onChange={onChangeHandler}
+        onChange={(event) =>
+          setValues(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -265,8 +292,10 @@ export const NewValidation = () => {
         label="MultiSelect"
         warning="Warning Message"
         mb={2}
-        value={values}
-        onChange={onChangeHandler}
+        value={values2}
+        onChange={(event) =>
+          setValues2(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -279,8 +308,10 @@ export const NewValidation = () => {
         label="MultiSelect"
         error="Error Message"
         mb={2}
-        value={values}
-        onChange={onChangeHandler}
+        value={values3}
+        onChange={(event) =>
+          setValues3(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -293,8 +324,10 @@ export const NewValidation = () => {
         label="MultiSelect"
         warning="Warning Message"
         mb={2}
-        value={values}
-        onChange={onChangeHandler}
+        value={values4}
+        onChange={(event) =>
+          setValues4(event.target.value as unknown as string[])
+        }
       >
         <Option value="1" text="One" />
         <Option value="2" text="Two" />
@@ -741,6 +774,34 @@ export const MultiSelectWithManyOptionsAndVirtualScrolling = () => {
   );
 };
 
+export const MultiSelectNestedInDialog = ({
+  openOnFocus = false,
+  autofocus = false,
+}) => {
+  const [values, setValues] = useState<string[]>(["1", "2"]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValues(event.target.value as unknown as string[]);
+  }
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <MultiSelect
+        openOnFocus={openOnFocus}
+        autoFocus={autofocus}
+        name="testSelect"
+        id="testSelect"
+        value={values}
+        onChange={onChangeHandler}
+      >
+        <Option value="opt1" text="red" />
+        <Option value="opt2" text="green" />
+        <Option value="opt3" text="blue" />
+        <Option value="opt4" text="black" />
+      </MultiSelect>
+    </Dialog>
+  );
+};
+
 export const MultiSelectErrorOnChangeNewValidation = () => {
   const [selectedPills, setSelectedPills] = useState<string[]>([]);
   const [showError, setShowError] = useState(false);
@@ -857,7 +918,7 @@ const optionListValues = [
 ];
 
 export const OptionsWithSameName = () => {
-  const [values, setValues] = useState<string[]>(["1", "2"]);
+  const [values, setValues] = useState<string[]>([]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValues(event.target.value as unknown as string[]);
   }

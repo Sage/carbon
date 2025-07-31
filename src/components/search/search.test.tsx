@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { enGB } from "locales";
+import { enGB } from "../../locales";
 import Search, { SearchEvent, SearchHandle } from "./search.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 

@@ -12,6 +12,7 @@ export default {
     chromatic: {
       disableSnapshot: false,
     },
+    themeProvider: { chromatic: { theme: "sage" } },
   },
 };
 
@@ -92,19 +93,50 @@ WithLongLabel.args = {
 };
 
 export const Validation = ({ ...args }: CheckboxGroupProps) => {
+  const [state1, setState1] = useState(false);
+  const [state2, setState2] = useState(false);
+  const [state3, setState3] = useState(false);
+  const [state4, setState4] = useState(false);
+  const [state5, setState5] = useState(false);
+  const [state6, setState6] = useState(false);
+
   return (
     <>
       <CheckboxGroup error="Error Message" mb={2} {...args}>
-        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox 1"
+          checked={state1}
+          onChange={(e) => setState1(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 2"
+          checked={state2}
+          onChange={(e) => setState2(e.target.checked)}
+        />
       </CheckboxGroup>
       <CheckboxGroup warning="Warning Message" mb={2} {...args}>
-        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox 1"
+          checked={state3}
+          onChange={(e) => setState3(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 2"
+          checked={state4}
+          onChange={(e) => setState4(e.target.checked)}
+        />
       </CheckboxGroup>
       <CheckboxGroup info="Info Message" {...args}>
-        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox 1"
+          checked={state5}
+          onChange={(e) => setState5(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 2"
+          checked={state6}
+          onChange={(e) => setState6(e.target.checked)}
+        />
       </CheckboxGroup>
     </>
   );
@@ -134,6 +166,15 @@ Validation.parameters = {
 };
 
 export const NewValidation = () => {
+  const [state1, setState1] = useState(false);
+  const [state2, setState2] = useState(false);
+  const [state3, setState3] = useState(false);
+  const [state4, setState4] = useState(false);
+  const [state5, setState5] = useState(false);
+  const [state6, setState6] = useState(false);
+  const [state7, setState7] = useState(false);
+  const [state8, setState8] = useState(false);
+
   return (
     <CarbonProvider validationRedesignOptIn>
       <CheckboxGroup
@@ -142,8 +183,16 @@ export const NewValidation = () => {
         legendHelp="Hint Text"
         required
       >
-        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox 1"
+          checked={state1}
+          onChange={(e) => setState1(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 2"
+          checked={state2}
+          onChange={(e) => setState2(e.target.checked)}
+        />
       </CheckboxGroup>
       <CheckboxGroup
         mt={2}
@@ -152,8 +201,16 @@ export const NewValidation = () => {
         legendHelp="Hint text"
         required
       >
-        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox 1"
+          checked={state3}
+          onChange={(e) => setState3(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 2"
+          checked={state4}
+          onChange={(e) => setState4(e.target.checked)}
+        />
       </CheckboxGroup>
       <CheckboxGroup
         validationMessagePositionTop={false}
@@ -163,8 +220,16 @@ export const NewValidation = () => {
         legendHelp="Hint Text"
         required
       >
-        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox 1"
+          checked={state5}
+          onChange={(e) => setState5(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 2"
+          checked={state6}
+          onChange={(e) => setState6(e.target.checked)}
+        />
       </CheckboxGroup>
       <CheckboxGroup
         validationMessagePositionTop={false}
@@ -174,8 +239,16 @@ export const NewValidation = () => {
         legendHelp="Hint text"
         required
       >
-        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox 1"
+          checked={state7}
+          onChange={(e) => setState7(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 2"
+          checked={state8}
+          onChange={(e) => setState8(e.target.checked)}
+        />
       </CheckboxGroup>
     </CarbonProvider>
   );
@@ -187,6 +260,19 @@ NewValidation.parameters = {
 };
 
 export const NewValidationInline = () => {
+  const [state1, setState1] = useState(false);
+  const [state2, setState2] = useState(false);
+  const [state3, setState3] = useState(false);
+  const [state4, setState4] = useState(false);
+  const [state5, setState5] = useState(false);
+  const [state6, setState6] = useState(false);
+  const [state7, setState7] = useState(false);
+  const [state8, setState8] = useState(false);
+  const [state9, setState9] = useState(false);
+  const [state10, setState10] = useState(false);
+  const [state11, setState11] = useState(false);
+  const [state12, setState12] = useState(false);
+
   return (
     <CarbonProvider validationRedesignOptIn>
       <CheckboxGroup
@@ -196,9 +282,21 @@ export const NewValidationInline = () => {
         required
         inline
       >
-        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 3" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox 1"
+          checked={state1}
+          onChange={(e) => setState1(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 2"
+          checked={state2}
+          onChange={(e) => setState2(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 3"
+          checked={state3}
+          onChange={(e) => setState3(e.target.checked)}
+        />
       </CheckboxGroup>
       <CheckboxGroup
         mt={2}
@@ -208,9 +306,21 @@ export const NewValidationInline = () => {
         required
         inline
       >
-        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 3" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox 1"
+          checked={state4}
+          onChange={(e) => setState4(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 2"
+          checked={state5}
+          onChange={(e) => setState5(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 3"
+          checked={state6}
+          onChange={(e) => setState6(e.target.checked)}
+        />
       </CheckboxGroup>
       <CheckboxGroup
         mt={2}
@@ -221,9 +331,21 @@ export const NewValidationInline = () => {
         required
         inline
       >
-        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 3" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox 1"
+          checked={state7}
+          onChange={(e) => setState7(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 2"
+          checked={state8}
+          onChange={(e) => setState8(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 3"
+          checked={state9}
+          onChange={(e) => setState9(e.target.checked)}
+        />
       </CheckboxGroup>
       <CheckboxGroup
         mt={2}
@@ -234,9 +356,21 @@ export const NewValidationInline = () => {
         required
         inline
       >
-        <Checkbox label="Checkbox 1" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 2" checked onChange={() => {}} />
-        <Checkbox label="Checkbox 3" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox 1"
+          checked={state10}
+          onChange={(e) => setState10(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 2"
+          checked={state11}
+          onChange={(e) => setState11(e.target.checked)}
+        />
+        <Checkbox
+          label="Checkbox 3"
+          checked={state12}
+          onChange={(e) => setState12(e.target.checked)}
+        />
       </CheckboxGroup>
     </CarbonProvider>
   );
@@ -248,24 +382,37 @@ NewValidationInline.parameters = {
 };
 
 export const WithLegendAlignment = ({ ...args }: CheckboxGroupProps) => {
+  const [state1, setState1] = useState(false);
+  const [state2, setState2] = useState(false);
+  const [state3, setState3] = useState(false);
+  const [state4, setState4] = useState(false);
+
   return (
     <CarbonProvider validationRedesignOptIn>
       <CheckboxGroup {...args} legendAlign="left" mb={2}>
-        <Checkbox label="Checkbox option 1" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox option 1"
+          checked={state1}
+          onChange={(ev) => setState1(ev.target.checked)}
+        />
         <Checkbox
           label="Checkbox option 2"
           fieldHelp="fieldHelp Text"
-          checked
-          onChange={() => {}}
+          checked={state2}
+          onChange={(ev) => setState2(ev.target.checked)}
         />
       </CheckboxGroup>
       <CheckboxGroup {...args} legendAlign="right">
-        <Checkbox label="Checkbox option 1" checked onChange={() => {}} />
+        <Checkbox
+          label="Checkbox option 1"
+          checked={state3}
+          onChange={(ev) => setState3(ev.target.checked)}
+        />
         <Checkbox
           label="Checkbox option 2"
           fieldHelp="fieldHelp Text"
-          checked
-          onChange={() => {}}
+          checked={state4}
+          onChange={(ev) => setState4(ev.target.checked)}
         />
       </CheckboxGroup>
     </CarbonProvider>

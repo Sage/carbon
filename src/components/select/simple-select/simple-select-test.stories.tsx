@@ -13,6 +13,7 @@ import Box from "../../box";
 import Icon from "../../icon";
 import Dialog from "../../dialog";
 import CarbonProvider from "../../carbon-provider";
+import useMultiInput from "../../../hooks/use-multi-input";
 
 export default {
   component: Select,
@@ -108,48 +109,44 @@ export const Default = (args: SimpleSelectProps) => {
 Default.storyName = "Default";
 
 export const Validation = () => {
-  const [value, setValue] = useState("");
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
+  const { state, setValue } = useMultiInput();
 
   return (
     <>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-error"
+        id="simple-error"
         label="Simple Select"
         error="Error message"
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-error"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-warning"
+        id="simple-warning"
         label="Simple Select"
         warning="Warning message"
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-warning"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-info"
+        id="simple-info"
         label="Simple Select"
         info="Info message"
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-info"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -157,42 +154,42 @@ export const Validation = () => {
       </Select>
 
       <Select
-        name="simple"
-        id="simple"
+        name="simple-error-vol"
+        id="simple-error-vol"
         label="Simple Select"
         error="Error message"
         validationOnLabel
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-error-vol"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-warning-vol"
+        id="simple-warning-vol"
         label="Simple Select"
         warning="Warning message"
         validationOnLabel
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-warning-vol"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-info-vol"
+        id="simple-info-vol"
         label="Simple Select"
         info="Info message"
         validationOnLabel
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-info-vol"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -200,39 +197,39 @@ export const Validation = () => {
       </Select>
 
       <Select
-        name="simple"
-        id="simple"
+        name="simple-error-bool"
+        id="simple-error-bool"
         label="Simple Select"
         error
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-error-bool"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-warning-bool"
+        id="simple-warning-bool"
         label="Simple Select"
         warning
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-warning-bool"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-info-bool"
+        id="simple-info-bool"
         label="Simple Select"
         info
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-info-bool"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -248,36 +245,32 @@ Validation.parameters = {
 };
 
 export const NewValidation = () => {
-  const [value, setValue] = useState("");
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-  }
+  const { state, setValue } = useMultiInput();
 
   return (
     <CarbonProvider validationRedesignOptIn>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-error"
+        id="simple-error"
         label="Simple Select"
         error="Error message"
         inputHint="Hint text"
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-error"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />
       </Select>
       <Select
-        name="simple"
-        id="simple"
+        name="simple-warning"
+        id="simple-warning"
         label="Simple Select"
         warning="Warning message"
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-warning"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -285,14 +278,14 @@ export const NewValidation = () => {
       </Select>
       <Select
         validationMessagePositionTop={false}
-        name="simple"
-        id="simple"
+        name="simple-error-bottom"
+        id="simple-error-bottom"
         label="Simple Select"
         error="Error message"
         inputHint="Hint text"
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-error-bottom"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -300,13 +293,13 @@ export const NewValidation = () => {
       </Select>
       <Select
         validationMessagePositionTop={false}
-        name="simple"
-        id="simple"
+        name="simple-warning-bottom"
+        id="simple-warning-bottom"
         label="Simple Select"
         warning="Warning message"
         mb={2}
-        value={value}
-        onChange={onChangeHandler}
+        value={state["simple-warning-bottom"] || ""}
+        onChange={setValue}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />

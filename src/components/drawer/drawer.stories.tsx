@@ -247,48 +247,64 @@ export const WithStickyHeader: Story = (args: DrawerProps) => (
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
@@ -296,6 +312,8 @@ export const WithStickyHeader: Story = (args: DrawerProps) => (
             ml="40px"
             mt="30px"
             mb={4}
+            checked={false}
+            onChange={() => {}}
           />
         </>
       }
@@ -334,48 +352,64 @@ export const WithFooter: Story = (args: DrawerProps) => (
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
@@ -383,6 +417,8 @@ export const WithFooter: Story = (args: DrawerProps) => (
             ml="40px"
             mt="30px"
             mb={4}
+            checked={false}
+            onChange={() => {}}
           />
         </>
       }
@@ -421,48 +457,64 @@ export const WithStickyFooter: Story = (args: DrawerProps) => (
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="30px"
+            checked={false}
+            onChange={() => {}}
           />
           <Checkbox
             label="Example checkbox"
@@ -470,6 +522,8 @@ export const WithStickyFooter: Story = (args: DrawerProps) => (
             ml="40px"
             mt="30px"
             mb={4}
+            checked={false}
+            onChange={() => {}}
           />
         </>
       }
@@ -1110,6 +1164,7 @@ export const WithTabControls: Story = () => {
               label="Add error"
               error={errors.four}
               onChange={() => setErrors({ ...errors, four: !errors.four })}
+              checked
             />
             <Checkbox
               label="Add warning"
@@ -1117,11 +1172,13 @@ export const WithTabControls: Story = () => {
               onChange={() =>
                 setWarnings({ ...warnings, four: !warnings.four })
               }
+              checked
             />
             <Checkbox
               label="Add info"
               info={infos.four}
               onChange={() => setInfos({ ...infos, four: !infos.four })}
+              checked
             />
           </Box>
           <Box display={active === "tab-5" ? "block" : "none"}>

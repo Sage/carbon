@@ -35,7 +35,7 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 
 export const WithSearchButton: Story = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("Here is some text");
   return (
     <Box m={1}>
       <Search
@@ -50,7 +50,7 @@ export const WithSearchButton: Story = () => {
 WithSearchButton.storyName = "With Search Button";
 
 export const WithSearchButtonPropTextOverride: Story = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("Here is some text");
   return (
     <Box m={1}>
       <Search
@@ -65,7 +65,7 @@ WithSearchButtonPropTextOverride.storyName =
   "With Search Button text override via prop";
 
 export const WithSearchButtonLocaleOverride: Story = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("Here is some text");
   return (
     <Box m={1}>
       <I18nProvider locale={{ search: { searchButtonText: () => "Find" } }}>
@@ -95,7 +95,7 @@ export const CustomWidth: Story = () => {
 CustomWidth.storyName = "Custom Width";
 
 export const WithCustomMaxWidth: Story = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("Here is some text");
   return (
     <Box m={1}>
       <Search
@@ -110,7 +110,7 @@ export const WithCustomMaxWidth: Story = () => {
 WithCustomMaxWidth.storyName = "Custom Max Width";
 
 export const WithAltStyling: Story = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("Here is some text");
   return (
     <Box width="700px" height="108px" p={4} backgroundColor="#000000">
       <Search

@@ -30,23 +30,57 @@ export const Default: Story = ({ ...args }) => {
         labelInline
         labelAlign="right"
         labelWidth={30}
+        value={""}
+        onChange={() => {}}
       />
       <Textbox
         label="Last Name"
         labelInline
         labelAlign="right"
         labelWidth={30}
+        value={""}
+        onChange={() => {}}
       />
-      <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
-      <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
-      <Checkbox label="Checkbox" labelWidth={30} labelSpacing={2} reverse />
-      <Select label="Country" labelInline labelAlign="right" labelWidth={30}>
+      <Textbox
+        label="Address"
+        labelInline
+        labelAlign="right"
+        labelWidth={30}
+        value={""}
+        onChange={() => {}}
+      />
+      <Textbox
+        label="City"
+        labelInline
+        labelAlign="right"
+        labelWidth={30}
+        value={""}
+        onChange={() => {}}
+      />
+      <Checkbox
+        label="Checkbox"
+        labelWidth={30}
+        labelSpacing={2}
+        reverse
+        checked={false}
+        onChange={() => {}}
+      />
+      <Select
+        label="Country"
+        labelInline
+        labelAlign="right"
+        labelWidth={30}
+        value={""}
+        onChange={() => {}}
+      >
         <Option text="United Kingdom" value="uk" />
         <Option text="Spain" value="sp" />
         <Option text="France" value="fr" />
         <Option text="Germany" value="ge" />
       </Select>
       <Textbox
+        value={""}
+        onChange={() => {}}
         label="Telephone"
         labelInline
         labelAlign="right"
@@ -62,16 +96,46 @@ Default.args = {
 
 export const InFormFieldSpacing: Story = () => (
   <Form fieldSpacing={1}>
-    <Textbox label="Separate Field" labelInline />
+    <Textbox
+      label="Separate Field"
+      labelInline
+      value={""}
+      onChange={() => {}}
+    />
     <Fieldset>
-      <Textbox label="Fieldset 1 Field 1" labelInline />
-      <Textbox label="Fieldset 1 Field 2" labelInline />
+      <Textbox
+        label="Fieldset 1 Field 1"
+        labelInline
+        value={""}
+        onChange={() => {}}
+      />
+      <Textbox
+        label="Fieldset 1 Field 2"
+        labelInline
+        value={""}
+        onChange={() => {}}
+      />
     </Fieldset>
     <Fieldset>
-      <Textbox label="Fieldset 2 Field 1" labelInline />
-      <Textbox label="Fieldset 2 Field 2" labelInline />
+      <Textbox
+        label="Fieldset 2 Field 1"
+        labelInline
+        value={""}
+        onChange={() => {}}
+      />
+      <Textbox
+        label="Fieldset 2 Field 2"
+        labelInline
+        value={""}
+        onChange={() => {}}
+      />
     </Fieldset>
-    <Textbox label="Separate Field" labelInline />
+    <Textbox
+      label="Separate Field"
+      labelInline
+      value={""}
+      onChange={() => {}}
+    />
   </Form>
 );
 InFormFieldSpacing.storyName = "In Form with fieldSpacing (legacy)";
@@ -79,9 +143,27 @@ InFormFieldSpacing.storyName = "In Form with fieldSpacing (legacy)";
 export const Validation: Story = () => (
   <Form>
     <Fieldset>
-      <Textbox label="Error String" labelInline error="Error Message" />
-      <Textbox label="Warning String" labelInline warning="Warning Message" />
-      <Textbox label="Info String" labelInline info="Info Message" />
+      <Textbox
+        label="Error String"
+        labelInline
+        error="Error Message"
+        value={""}
+        onChange={() => {}}
+      />
+      <Textbox
+        label="Warning String"
+        labelInline
+        warning="Warning Message"
+        value={""}
+        onChange={() => {}}
+      />
+      <Textbox
+        label="Info String"
+        labelInline
+        info="Info Message"
+        value={""}
+        onChange={() => {}}
+      />
     </Fieldset>
     <Fieldset>
       <Textbox
@@ -89,24 +171,48 @@ export const Validation: Story = () => (
         labelInline
         error="Error Message"
         validationOnLabel
+        value={""}
+        onChange={() => {}}
       />
       <Textbox
         label="Warning on Label"
         labelInline
         warning="Warning Message"
         validationOnLabel
+        value={""}
+        onChange={() => {}}
       />
       <Textbox
         label="Info on Label"
         labelInline
         info="Info Message"
         validationOnLabel
+        value={""}
+        onChange={() => {}}
       />
     </Fieldset>
     <Fieldset>
-      <Textbox label="Error Boolean" labelInline error />
-      <Textbox label="Warning Boolean" labelInline warning />
-      <Textbox label="Info Boolean" labelInline info />
+      <Textbox
+        label="Error Boolean"
+        labelInline
+        error
+        value={""}
+        onChange={() => {}}
+      />
+      <Textbox
+        label="Warning Boolean"
+        labelInline
+        warning
+        value={""}
+        onChange={() => {}}
+      />
+      <Textbox
+        label="Info Boolean"
+        labelInline
+        info
+        value={""}
+        onChange={() => {}}
+      />
     </Fieldset>
   </Form>
 );
@@ -119,21 +225,47 @@ Validation.parameters = {
 export const NewValidation: Story = ({ ...args }) => (
   <CarbonProvider validationRedesignOptIn>
     <Form>
-      <Textbox label="Separate Field" />
+      <Textbox label="Separate Field" value={""} onChange={() => {}} />
       <Fieldset legend="Fieldset" {...args}>
-        <Textbox label="Address Line 1" error="Message" />
-        <Textbox label="Address Line 2" error="Message" />
-        <Checkbox label="Checkbox" />
-        <Textbox label="City" warning="Message" />
-        <Select label="Country" warning="Message">
+        <Textbox
+          label="Address Line 1"
+          error="Message"
+          value={""}
+          onChange={() => {}}
+        />
+        <Textbox
+          label="Address Line 2"
+          error="Message"
+          value={""}
+          onChange={() => {}}
+        />
+        <Checkbox label="Checkbox" checked={false} onChange={() => {}} />
+        <Textbox
+          label="City"
+          warning="Message"
+          value={""}
+          onChange={() => {}}
+        />
+        <Select
+          label="Country"
+          warning="Message"
+          value={""}
+          onChange={() => {}}
+        >
           <Option text="United Kingdom" value="uk" />
           <Option text="Spain" value="sp" />
           <Option text="France" value="fr" />
           <Option text="Germany" value="ge" />
         </Select>
-        <Textbox label="Postcode" maxWidth="100px" warning="Message" />
+        <Textbox
+          label="Postcode"
+          maxWidth="100px"
+          warning="Message"
+          value={""}
+          onChange={() => {}}
+        />
       </Fieldset>
-      <Textbox label="Separate Field" />
+      <Textbox label="Separate Field" value={""} onChange={() => {}} />
     </Form>
   </CarbonProvider>
 );

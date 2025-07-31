@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import isChromatic from "../../../.storybook/isChromatic";
 import { ButtonToggle, ButtonToggleGroup } from ".";
 import Box from "../box";
 
@@ -12,8 +11,6 @@ const meta: Meta<typeof ButtonToggle> = {
 
 export default meta;
 type Story = StoryObj<typeof ButtonToggle>;
-
-const inChromatic = isChromatic();
 
 export const Default: Story = () => {
   const [value, setValue] = useState("");
@@ -42,7 +39,7 @@ export const Default: Story = () => {
 Default.storyName = "Default";
 
 export const InputHint: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -96,7 +93,7 @@ export const AriaLabel: Story = () => {
 AriaLabel.storyName = "Aria Label";
 
 export const FullWidth: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -151,7 +148,7 @@ export const AllowDeselection: Story = () => {
 AllowDeselection.storyName = "Allow Deselection";
 
 export const DefaultSmallIcon: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -183,7 +180,7 @@ export const DefaultSmallIcon: Story = () => {
 DefaultSmallIcon.storyName = "Small Icon";
 
 export const DefaultLargeIcon: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -215,7 +212,7 @@ export const DefaultLargeIcon: Story = () => {
 DefaultLargeIcon.storyName = "Large Icon";
 
 export const IconOnly: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -241,7 +238,7 @@ export const IconOnly: Story = () => {
 IconOnly.storyName = "Icon Only";
 
 export const Small: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -273,7 +270,7 @@ export const Small: Story = () => {
 Small.storyName = "Small";
 
 export const SmallSmallIcon: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -305,7 +302,7 @@ export const SmallSmallIcon: Story = () => {
 SmallSmallIcon.storyName = "Small with Small Icon";
 
 export const SmallLargeIcon: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -352,7 +349,7 @@ export const SmallLargeIcon: Story = () => {
 SmallLargeIcon.storyName = "Small with Large Icon";
 
 export const Large: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -384,7 +381,7 @@ export const Large: Story = () => {
 Large.storyName = "Large";
 
 export const LargeSmallIcon: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -416,7 +413,7 @@ export const LargeSmallIcon: Story = () => {
 LargeSmallIcon.storyName = "Large with Small Icon";
 
 export const LargeLargeIcon: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -463,7 +460,7 @@ export const LargeLargeIcon: Story = () => {
 LargeLargeIcon.storyName = "Large Large Icon";
 
 export const DisabledButton: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -491,7 +488,7 @@ export const DisabledButton: Story = () => {
 DisabledButton.storyName = "Disabled Button";
 
 export const DisabledGroup: Story = () => {
-  const [value, setValue] = useState("bar");
+  const [value, setValue] = useState("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedValue?: string,
@@ -528,11 +525,7 @@ export const WrappedButtons: Story = () => {
   }
 
   return (
-    <Box
-      width={inChromatic ? "175px" : "375px"}
-      display="flex"
-      flexWrap="nowrap"
-    >
+    <Box width={"375px"} display="flex" flexWrap="nowrap">
       <ButtonToggleGroup
         m={4}
         id="button-toggle-group-wrapped-id"

@@ -403,53 +403,6 @@ test.describe("allowEmptyValue", () => {
   });
 });
 
-test.describe("check events for Decimal component", () => {
-  (
-    [
-      ["1", "1.00"],
-      ["12", "12.00"],
-      ["123", "123.00"],
-    ] as [string, string][]
-  ).forEach(([rawValueTest, formattedValueTest]) => {
-    test(`should call onChange callback when a type event is triggered with ${rawValueTest} value`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<DefaultStory precision={2} />);
-
-      const commonDataElementInputPreviewElement =
-        commonDataElementInputPreview(page);
-
-      await commonDataElementInputPreviewElement.fill(rawValueTest);
-
-      await commonDataElementInputPreviewElement.blur();
-
-      await expect(commonDataElementInputPreviewElement).toHaveAttribute(
-        "value",
-        formattedValueTest,
-      );
-    });
-  });
-
-  test("should call onBlur callback when a blur event is triggered", async ({
-    mount,
-    page,
-  }) => {
-    let callbackCount = 0;
-    const callback: DecimalProps["onBlur"] = () => {
-      callbackCount += 1;
-    };
-    await mount(<DefaultStory onBlur={callback} />);
-
-    const inputValue = "123";
-    const commonDataElementInputPreviewElement =
-      commonDataElementInputPreview(page);
-    await commonDataElementInputPreviewElement.fill(inputValue);
-    await commonDataElementInputPreviewElement.blur();
-    expect(callbackCount).toBe(1);
-  });
-});
-
 test.describe("Accessibility tests for Decimal component", () => {
   (["small", "medium", "large"] as DecimalProps["size"][]).forEach((size) => {
     test(`should pass accessibility tests for Decimal with ${size} input size`, async ({

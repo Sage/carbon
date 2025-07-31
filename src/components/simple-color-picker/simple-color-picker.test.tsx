@@ -183,6 +183,36 @@ test("pressing the right arrow key changes selection to the next color", async (
   expect(screen.getAllByRole("radio")[0]).toHaveFocus();
 });
 
+// coverage
+test("pressing the right arrow key when the middle colour is focused changes selection to the next color", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const onChange = jest.fn();
+  render(
+    <SimpleColorPicker
+      value=""
+      onChange={onChange}
+      legend="SimpleColorPicker Legend"
+      name="test"
+    >
+      <SimpleColor value="#00A376" />
+      <SimpleColor value="#0073C1" />
+      <SimpleColor value="#582C83" />
+    </SimpleColorPicker>,
+  );
+  act(() => {
+    screen.getAllByRole("radio")[1].focus();
+  });
+  await user.keyboard("{ArrowRight}");
+
+  expect(onChange).toHaveBeenCalledTimes(1);
+  expect(onChange).toHaveBeenCalledWith(
+    expect.objectContaining({
+      target: expect.objectContaining({ value: "#582C83" }),
+    }),
+  );
+  expect(screen.getAllByRole("radio")[2]).toHaveFocus();
+});
+
 test("when the input has multiple rows, pressing the up arrow key changes selection to the color immediately above", async () => {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
@@ -517,3 +547,22 @@ test.each(["error", "warning", "info"])(
     ).toBeVisible();
   },
 );
+
+// coverage for transparent sample
+test("renders a transparent color sample when value is 'transparent'", () => {
+  render(
+    <SimpleColorPicker
+      legend="SimpleColorPicker Legend"
+      name="test"
+      data-role="bar"
+      data-element="baz"
+      value="transparent"
+      onChange={jest.fn}
+    >
+      <SimpleColor value="transparent" aria-label="transparent" />
+      <SimpleColor value="#00A376" />
+    </SimpleColorPicker>,
+  );
+
+  expect(screen.getByRole("radio", { name: "transparent" })).toBeChecked();
+});

@@ -162,8 +162,6 @@ export const Decimal = React.forwardRef(
     const prevPrecisionValue = usePrevious(precision);
 
     useEffect(() => {
-      // Skipped coverage test - see notes in test file
-      /* istanbul ignore if */
       if (prevPrecisionValue && prevPrecisionValue !== precision) {
         Logger.error(
           "Decimal `precision` prop has changed value. Changing the Decimal `precision` prop has no effect.",
@@ -244,8 +242,7 @@ export const Decimal = React.forwardRef(
     const handleOnChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
       const { value: val } = ev.target;
       setStateValue(val);
-      /* istanbul ignore else */
-      if (onChange) onChange(createEvent(val));
+      onChange(createEvent(val));
     };
 
     const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
@@ -268,8 +265,6 @@ export const Decimal = React.forwardRef(
       if (onBlur) onBlur(event);
     };
 
-    const isControlled = value !== undefined;
-
     const prevValue = usePrevious(value);
 
     useEffect(() => {
@@ -287,7 +282,6 @@ export const Decimal = React.forwardRef(
       emptyValue,
       formatValue,
       getSafeValueProp,
-      isControlled,
       prevValue,
       stateValue,
       toStandardDecimal,

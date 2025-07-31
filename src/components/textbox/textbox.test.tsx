@@ -35,23 +35,6 @@ afterAll(() => {
   loggerSpy.mockClear();
 });
 
-test("should display deprecation warning once for optional prop", () => {
-  render(
-    <>
-      <Textbox value="foo" onChange={() => {}} isOptional />
-      <Textbox value="foo" onChange={() => {}} isOptional />
-    </>,
-  );
-
-  // Ensure the deprecation warning is logged only once
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  expect(loggerSpy).toHaveBeenNthCalledWith(
-    1,
-    "`isOptional` is deprecated in Textbox and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-  );
-});
-
 testStyledSystemMargin(
   (props) => (
     <Textbox
@@ -472,20 +455,6 @@ test("appends the provided `aria-describedby` to the accessible description", ()
         value="foo"
         onChange={() => {}}
       />
-    </>
-  );
-  render(<Component />);
-
-  expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-    "hint text description",
-  );
-});
-
-test("appends the provided `ariaDescribedBy` to the accessible description", () => {
-  const Component = () => (
-    <>
-      <p id="test">description</p>
-      <Textbox inputHint="hint text" value="foo" onChange={() => {}} />
     </>
   );
   render(<Component />);

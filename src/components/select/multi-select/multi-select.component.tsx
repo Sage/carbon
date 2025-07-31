@@ -27,7 +27,6 @@ import Pill, { PillProps } from "../../pill";
 import isExpectedOption from "../__internal__/utils/is-expected-option";
 import isExpectedValue from "../__internal__/utils/is-expected-value";
 import isNavigationKey from "../__internal__/utils/is-navigation-key";
-import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import { CustomSelectChangeEvent } from "../simple-select";

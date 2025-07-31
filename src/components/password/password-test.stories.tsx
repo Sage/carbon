@@ -93,7 +93,7 @@ export const Default = (props: PasswordProps) => {
   };
 
   return (
-    <Password label="Password" value={state} onChange={setValue} {...props} />
+    <Password label="Password" {...props} value={state} onChange={setValue} />
   );
 };
 

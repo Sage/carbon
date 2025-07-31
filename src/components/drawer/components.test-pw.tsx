@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Drawer, { DrawerProps } from ".";
 import Typography from "../typography";
@@ -36,6 +36,7 @@ export const DrawerCustomFooterHeader = (props: Partial<DrawerProps>) => {
   const onChangeHandler = React.useCallback(() => {
     setIsExpanded(!isExpanded);
   }, [isExpanded]);
+  const [checked, setChecked] = useState(false);
 
   return (
     <Drawer
@@ -48,90 +49,120 @@ export const DrawerCustomFooterHeader = (props: Partial<DrawerProps>) => {
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <Checkbox
             label="Example checkbox"
             name="checkbox-default"
             ml="40px"
             mt="40px"
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
           />
         </Box>
       }

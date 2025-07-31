@@ -6,6 +6,7 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 import I18nProvider from "../i18n-provider";
 
 import Textarea from ".";
+import useMultiInput from "../../hooks/use-multi-input";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -45,7 +46,8 @@ export const DisabledStory: Story = () => {
 DisabledStory.storyName = "Disabled";
 
 export const LabelAlignStory: Story = () => {
-  const [value, setValue] = useState("");
+  const { state, setValue } = useMultiInput();
+
   return (
     <>
       {(["right", "left"] as const).map((alignment) => (
@@ -56,8 +58,9 @@ export const LabelAlignStory: Story = () => {
           key={alignment}
           labelAlign={alignment}
           mb={2}
-          value={value}
-          onChange={({ target }) => setValue(target.value)}
+          name={`ta-${alignment}`}
+          value={state[`ta-${alignment}`] || ""}
+          onChange={setValue}
         />
       ))}
     </>

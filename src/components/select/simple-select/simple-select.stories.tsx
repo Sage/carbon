@@ -89,36 +89,6 @@ export const Required: Story = () => {
 };
 Required.storyName = "Required";
 
-export const IsOptional = () => {
-  const [value, setValue] = useState("");
-
-  return (
-    <Box height={250}>
-      <Select
-        name="optional"
-        id="optional"
-        label="Foreground Color"
-        isOptional
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </Select>
-    </Box>
-  );
-};
-IsOptional.storyName = "IsOptional";
-
 export const ListPlacement: Story = () => {
   const [listPlacement, setListPlacement] =
     useState<SimpleSelectProps["listPlacement"]>("bottom-end");
@@ -219,6 +189,8 @@ ListWidth.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Sizes: Story = () => {
   const [value, setValue] = useState("");
+  const [value2, setValue2] = useState("");
+  const [value3, setValue3] = useState("");
   return (
     <Box height={350}>
       <Select
@@ -240,8 +212,8 @@ export const Sizes: Story = () => {
         label="Medium"
         size="medium"
         mb={2}
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
+        value={value2}
+        onChange={(ev) => setValue2(ev.target.value)}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -252,8 +224,8 @@ export const Sizes: Story = () => {
         id="size-large"
         label="Large"
         size="large"
-        value={value}
-        onChange={(ev) => setValue(ev.target.value)}
+        value={value3}
+        onChange={(ev) => setValue3(ev.target.value)}
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
