@@ -9,14 +9,12 @@ import * as BadgeStories from "./badge.stories";
 
 <a
   target="_blank"
-  href="https://zeroheight.com/2ccf2b601/p/112938-badge/b/97debf"
+  href="https://zeroheight.com/35ee2cc26/v/latest/p/8249bb-badge"
   style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
   rel="noreferrer"
 >
   Product Design System component
 </a>
-
-Compact visual indicators that help things in common stand out.
 
 ## Contents
 
@@ -26,7 +24,7 @@ Compact visual indicators that help things in common stand out.
 
 ## Quick Start
 
-To use Badge component you need to import `Badge` and use another component as a child.
+To use Badge component, import `Badge` and use as a standalone component or wrap it around another component to position it relatively.
 
 ```javascript
 import Badge from "carbon-react/lib/components/badge";
@@ -34,30 +32,50 @@ import Badge from "carbon-react/lib/components/badge";
 
 ## Examples
 
-### Default Badge
+### Default
+
+To render a `Badge`, pass the `counter` prop with a number or string value.
+
+If the value is a number greater than `999`, it will be displayed as `999+`.
+If the value is a string, the displayed value will be limited to 4 characters, therefore please ensure to format the string accordingly.
+
+If the `counter` prop is not provided or its value is `0`, the `Badge` will not render.
 
 <Canvas of={BadgeStories.Default} />
 
-### Badge with counter > 99
+### With Children
 
-If the `counter` value greater than 2 digits, the displayed value will be truncated to "99".
+To position a `Badge` relative to another component, for example a `Button`, you can pass it as a child of `Badge`.
 
-<Canvas of={BadgeStories.WithThreeDigits} />
+Please make sure you associate the `Badge` to the component it relates to, this can be done by setting the `Badge`'s `id` to the child component's `aria-describedby`.
 
-### Badge with counter 0
+<Canvas of={BadgeStories.WithChildren} />
 
-If the `counter` value is `0`, the badge will not be displayed.
+### Sizes
 
-<Canvas of={BadgeStories.WithCounterZero} />
+You can use the `size` prop to change the size of the `Badge` to "small", "medium" (default), or "large".
 
-### Display Only
+The "small" size will not visually display the `counter` value, however the prop will still be needed for the badge to render.
 
-By not providing an `onClick` prop, the badge will be rendered as a display-only element. 
-To ensure they are accessible to screen readers, you can pass the `Badge`'s `id` to the `aria-describedby` prop of the element that it is describing.
+<Canvas of={BadgeStories.Sizes} />
 
-<Canvas of={BadgeStories.DisplayOnly} />
+### Subtle Variant
 
-### Custom Color
+By default, the `Badge` is rendered as the "typical" variant, however you can use the `variant` prop to change the appearance to "subtle".
+
+<Canvas of={BadgeStories.SubtleVariant} />
+
+### Inverse
+
+You can use the `inverse` prop to render the `Badge` with the inverse color scheme.
+
+<Canvas of={BadgeStories.Inverse} />
+
+### (Deprecated) Badge with onClick
+
+<Canvas of={BadgeStories.WithOnClick} />
+
+### (Deprecated) Custom Color
 
 You can use the `color` prop to override the default color of the component.
 
