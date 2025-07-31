@@ -126,19 +126,21 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
       width: 100%;
     }
 
-    ${!overrideColor &&
-    css`
-      background-color: ${menuConfigVariants[menuType].background};
-    `}
+    :not(:has(.persist-styling)) {
+      ${!overrideColor &&
+      css`
+        background-color: ${menuConfigVariants[menuType].background};
+      `}
 
-    ${overrideColor &&
-    css`
-      &&&& {
-        background-color: ${menuItemVariant === "alternate"
-          ? menuConfigVariants[menuType].alternate
-          : menuConfigVariants[menuType].submenuItemBackground};
-      }
-    `}
+      ${overrideColor &&
+      css`
+        &&&& {
+          background-color: ${menuItemVariant === "alternate"
+            ? menuConfigVariants[menuType].alternate
+            : menuConfigVariants[menuType].submenuItemBackground};
+        }
+      `}
+    }
 
     ${!inFullscreenView &&
     css`
@@ -155,16 +157,18 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
         max-width: inherit;
       }
 
-      && {
-        a:focus,
-        button:focus {
-          background-color: ${menuConfigVariants[menuType].background};
-          color: ${menuConfigVariants[menuType].color};
-          z-index: 1;
-          position: relative;
+      :not(:has(.persist-styling)) {
+        && {
+          a:focus,
+          button:focus {
+            background-color: ${menuConfigVariants[menuType].background};
+            color: ${menuConfigVariants[menuType].color};
+            z-index: 1;
+            position: relative;
+          }
         }
       }
-
+  
       &&& {
         a,
         button {
@@ -179,7 +183,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
             display: block;
           `}
         }
-
+      :not(:has(.persist-styling)) {
         a:hover,
         button:hover {
           ${StyledButton} {
@@ -202,6 +206,7 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
             border-top-color: var(--colorsComponentsMenuYang100);
           }
         }
+      }
       }
     `}
 
@@ -226,9 +231,22 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
 
           ${StyledButton} {
             min-height: 40px;
-            padding: 10px 0px;
             box-sizing: border-box;
             height: 100%;
+
+            :not(.persist-styling) {
+              padding: 10px 0px;
+            }
+          }
+
+          ${StyledButton}.persist-styling {
+            border-radius: 0;
+            border: none;
+
+            :focus {
+              z-index: 1;
+              position: relative;
+            }
           }
         }
       `}

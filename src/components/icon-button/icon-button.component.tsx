@@ -26,6 +26,8 @@ export interface IconButtonProps extends SpaceProps, TagProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /** @private @internal @ignore */
   "data-component"?: string;
+  /** @private @internal @ignore */
+  className?: string;
 }
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(

@@ -150,38 +150,34 @@ export const InsideMenu = () => {
   const [open, setOpen] = useState(false);
   return (
     <Menu menuType="black">
+      <MenuItem href="#">Menu Item One</MenuItem>
+      <MenuItem onClick={() => {}} submenu="Menu Item Two">
+        <MenuItem href="#">Submenu Item One</MenuItem>
+        </MenuItem>
       <MenuItem flex="0 0 auto">
         <PopoverContainer
           position="left"
-          shouldCoverButton
+          // shouldCoverButton
           onOpen={() => setOpen(true)}
           onClose={() => setOpen(false)}
+          renderCloseComponent={() => <></>}
           open={open}
-          renderOpenComponent={({ ref, onClick }) => (
-            <IconButton aria-label="Notifications" ref={ref} onClick={onClick}>
-              <Icon type="alert" />
-            </IconButton>
+          renderOpenComponent={({ ref, onClick, className }) => (
+            <Button px={2} buttonType="primary" aria-label="Notifications" className={className} ref={ref} onClick={onClick}>
+              <Icon type="plus" mr={1} />
+              Create
+            </Button>
           )}
           p={0}
         >
-          <Box mt="-8px" backgroundColor="#f2f5f6ff">
-            <Heading
-              title={
-                <Box mt={2} ml={2}>
-                  Notifications
-                </Box>
-              }
-              subheader={<Typography ml={2}>99 red balloons</Typography>}
-            />
+          <Box borderRadius="borderRadius100" mt="-14px" backgroundColor="--colorsComponentsMenuAutumnStandard600" pb={2}>
+          <Box width="400px" backgroundColor="--colorsComponentsMenuAutumnStandard600" display="flex" justifyContent="space-between" p={2}>
+            <Typography color="white">HARPAL</Typography>
           </Box>
-          <Box display="flex" justifyContent="space-between" p={2}>
-            <Button size="small">Mark all as read</Button>
-            <Button buttonType="primary" size="small">
-              View all notifications
-            </Button>
           </Box>
         </PopoverContainer>
       </MenuItem>
+      <MenuItem href="#">Menu Item Three</MenuItem>
     </Menu>
   );
 };

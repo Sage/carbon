@@ -49,6 +49,7 @@ export interface RenderOpenProps {
   id?: string;
   "aria-expanded": boolean;
   "aria-haspopup": "dialog";
+  className?: string;
 }
 
 export const renderOpen = ({
@@ -348,6 +349,7 @@ export const PopoverContainer = forwardRef<
       ref: openButtonRef,
       "aria-label": openButtonAriaLabel || title,
       id: isOpen ? undefined : popoverContainerId,
+      className: "persist-styling",
     };
 
     const renderCloseComponentProps = {
@@ -458,7 +460,7 @@ export const PopoverContainer = forwardRef<
         >
           <Popover
             reference={popoverReference}
-            placement={position === "right" ? "bottom-start" : "bottom-end"}
+            placement={"bottom"}
             popoverStrategy={
               disableAnimation || reduceMotion ? "fixed" : "absolute"
             }

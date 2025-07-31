@@ -230,7 +230,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
         border-bottom-right-radius: var(--borderRadius025);
       `}
 
-      > button, ${StyledButton}:not(.search-button) {
+      > button, ${StyledButton}:not(.search-button):not(.persist-styling) {
         background-color: transparent;
         border: none;
         padding: 0;
