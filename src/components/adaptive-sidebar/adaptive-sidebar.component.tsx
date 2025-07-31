@@ -70,6 +70,18 @@ export const AdaptiveSidebar = ({
     }
   }, [open]);
 
+  // Remove inert attribute from elements when sidebar is hidden
+  /* istanbul ignore next */
+  useEffect(() => {
+    if (!hidden || !open) return;
+
+    const inertElements = document.querySelectorAll("[inert]");
+
+    inertElements.forEach((element) => {
+      element.removeAttribute("inert");
+    });
+  }, [hidden, open]);
+
   if (renderAsModal || !largeScreen) {
     return (
       <StyledSidebar
@@ -78,6 +90,8 @@ export const AdaptiveSidebar = ({
         open={open}
         p={0}
         ref={adaptiveSidebarRef}
+        enableBackgroundUI={open && hidden}
+        hidden={hidden}
       >
         <Box
           height="100%"

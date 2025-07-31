@@ -38,9 +38,13 @@ const StyledAdaptiveSidebar = styled(Box)<StyledAdaptiveSidebarProps>`
 
 interface StyledSidebarProps extends SidebarProps {
   backgroundColor: "app" | "black" | "white";
+  hidden?: boolean;
 }
 
 const StyledSidebar = styled(Sidebar)<StyledSidebarProps>`
+  ${({ hidden }) => css`
+    display: ${hidden ? "none" : "block"};
+  `}
   ${({ backgroundColor }) => css`
     div[data-element="sidebar-content"] {
       ${getColors(backgroundColor)}
