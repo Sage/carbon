@@ -233,16 +233,16 @@ export const Complex: Story = () => {
           </Select>
         </Box>
         <DraggableContainer>
-          <DraggableItem key="1" id={1}>
+          <DraggableItem key="1" id="1">
             <Checkbox name="one" label="Draggable Label One" />
           </DraggableItem>
-          <DraggableItem key="2" id={2}>
+          <DraggableItem key="2" id="2">
             <Checkbox name="two" label="Draggable Label Two" />
           </DraggableItem>
-          <DraggableItem key="3" id={3}>
+          <DraggableItem key="3" id="3">
             <Checkbox name="three" label="Draggable Label Three" />
           </DraggableItem>
-          <DraggableItem key="4" id={4}>
+          <DraggableItem key="4" id="4">
             <Checkbox name="four" label="Draggable Label Four" />
           </DraggableItem>
         </DraggableContainer>

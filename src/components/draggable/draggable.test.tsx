@@ -1,4 +1,4 @@
-import React from "react";
+import React, { act } from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
@@ -6,7 +6,13 @@ import {
   testStyledSystemPadding,
 } from "../../__spec_helper__/__internal__/test-utils";
 
-import { DraggableContainer, DraggableItem } from ".";
+import { DraggableContainer, DraggableItem, DraggableHandle } from ".";
+import "../../__spec_helper__/__internal__/drag-event-polyfill";
+
+afterEach(() => {
+  fireEvent.dragEnd(window);
+  fireEvent.pointerMove(window);
+});
 
 test("dragging an item and dropping it after another item within the target container should reorder the items", () => {
   render(
@@ -17,8 +23,10 @@ test("dragging an item and dropping it after another item within the target cont
     </DraggableContainer>,
   );
 
-  const apple = screen.getByText("Apple");
-  const venus = screen.getByText("Venus");
+  // eslint-disable-next-line testing-library/no-node-access
+  const apple = screen.getByText("Apple").parentElement as Element;
+  // eslint-disable-next-line testing-library/no-node-access
+  const venus = screen.getByText("Venus").parentElement as Element;
   const draggableContainer = screen.getByTestId("draggable-container");
   fireEvent.dragStart(apple);
   fireEvent.dragEnter(venus);
@@ -34,7 +42,7 @@ test("dragging an item and dropping it after another item within the target cont
   expect(allItems[2]).toHaveTextContent("Apple");
 });
 
-test("dragging an item and dropping it outside of the target container should not reorder the items", () => {
+test("dragging an item and dropping it outside of the target container should not reorder the items", async () => {
   render(
     <>
       <DraggableContainer>
@@ -46,13 +54,18 @@ test("dragging an item and dropping it outside of the target container should no
     </>,
   );
 
-  const apple = screen.getByText("Apple");
-  const venus = screen.getByText("Venus");
+  // eslint-disable-next-line testing-library/no-node-access
+  const apple = screen.getByText("Apple").parentElement as Element;
+  // eslint-disable-next-line testing-library/no-node-access
+  const venus = screen.getByText("Venus").parentElement as Element;
+  const outerContent = screen.getByText("Outer content");
   fireEvent.dragStart(apple);
   fireEvent.dragEnter(venus);
   fireEvent.dragOver(venus);
   fireEvent.dragLeave(venus);
-  fireEvent.drop(screen.getByText("Outer content"));
+  fireEvent.dragEnter(outerContent);
+  fireEvent.dragOver(outerContent);
+  fireEvent.drop(outerContent);
   fireEvent.dragEnd(apple);
 
   const allItems = screen.getAllByTestId("draggable-item");
@@ -71,7 +84,8 @@ test("dragging and dropping an item in its current location does not change the 
     </DraggableContainer>,
   );
 
-  const apple = screen.getByText("Apple");
+  // eslint-disable-next-line testing-library/no-node-access
+  const apple = screen.getByText("Apple").parentElement as Element;
   fireEvent.dragStart(apple);
   fireEvent.dragEnter(apple);
   fireEvent.dragOver(apple);
@@ -87,6 +101,7 @@ test("dragging and dropping an item in its current location does not change the 
 
 test("calls getOrder callback, with an array of the new item order and the dragged item as arguments, when the getOrder prop is provided and the order item changes", () => {
   const getOrder = jest.fn();
+  jest.useFakeTimers();
   render(
     <DraggableContainer getOrder={getOrder}>
       <DraggableItem id="apple">Apple</DraggableItem>
@@ -95,8 +110,10 @@ test("calls getOrder callback, with an array of the new item order and the dragg
     </DraggableContainer>,
   );
 
-  const apple = screen.getByText("Apple");
-  const venus = screen.getByText("Venus");
+  // eslint-disable-next-line testing-library/no-node-access
+  const apple = screen.getByText("Apple").parentElement as Element;
+  // eslint-disable-next-line testing-library/no-node-access
+  const venus = screen.getByText("Venus").parentElement as Element;
   const draggableContainer = screen.getByTestId("draggable-container");
   fireEvent.dragStart(apple);
   fireEvent.dragEnter(venus);
@@ -104,6 +121,10 @@ test("calls getOrder callback, with an array of the new item order and the dragg
   fireEvent.dragLeave(venus);
   fireEvent.drop(draggableContainer);
   fireEvent.dragEnd(apple);
+
+  act(() => {
+    jest.runAllTimers();
+  });
 
   expect(getOrder).toHaveBeenCalledTimes(1);
   expect(getOrder).toHaveBeenCalledWith(["mercury", "venus", "apple"], "apple");
@@ -117,7 +138,8 @@ test("the actual rendered item element is hidden from view while the item is dra
     </DraggableContainer>,
   );
 
-  const apple = screen.getByText("Apple");
+  // eslint-disable-next-line testing-library/no-node-access
+  const apple = screen.getByText("Apple").parentElement as Element;
   await user.pointer({ keys: "[MouseLeft>]", target: apple });
   fireEvent.dragStart(apple);
   await user.pointer({ target: apple, coords: { x: 0, y: 0 } });
@@ -130,7 +152,7 @@ test("the actual rendered item element is hidden from view while the item is dra
   await user.pointer("[/MouseLeft]");
 });
 
-test("items are reordered when their order is manually changed", () => {
+test("items are reordered when their order is manually changed via a re-render", () => {
   const { rerender } = render(
     <DraggableContainer>
       <DraggableItem id="apple">Apple</DraggableItem>
@@ -144,6 +166,36 @@ test("items are reordered when their order is manually changed", () => {
       <DraggableItem id="mercury">Apple</DraggableItem>
     </DraggableContainer>,
   );
+
+  const allItems = screen.getAllByTestId("draggable-item");
+  expect(allItems).toHaveLength(2);
+  expect(allItems[0]).toHaveTextContent("Mercury");
+  expect(allItems[1]).toHaveTextContent("Apple");
+});
+
+test("items are reordered when their order is manually changed via imperative reo-order", () => {
+  jest.useFakeTimers();
+  const mockGetOrder = jest.fn();
+  const ref = React.createRef<DraggableHandle>();
+
+  render(
+    <DraggableContainer ref={ref} getOrder={mockGetOrder}>
+      <DraggableItem id="apple">Apple</DraggableItem>
+      <DraggableItem id="mercury">Mercury</DraggableItem>
+    </DraggableContainer>,
+  );
+
+  expect(ref.current).not.toBeNull();
+
+  act(() => {
+    ref.current?.reOrder("apple", 1);
+  });
+
+  act(() => {
+    jest.runAllTimers();
+  });
+
+  expect(mockGetOrder).toHaveBeenCalledWith(["mercury", "apple"], "apple");
 
   const allItems = screen.getAllByTestId("draggable-item");
   expect(allItems).toHaveLength(2);
