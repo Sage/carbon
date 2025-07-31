@@ -1,6 +1,5 @@
 import React from "react";
-import FilterableSelect, { FilterableSelectProps } from ".";
-import Option from "../option";
+import { FilterableSelectProps } from ".";
 import { test, expect } from "../../../../playwright/helpers/base-test";
 import {
   FilterableSelectComponent,
@@ -566,15 +565,7 @@ test.describe("FilterableSelect component", () => {
     page,
   }) => {
     const { update } = await mount(
-      <FilterableSelect label="Colour">
-        <Option text="Amber" value="Amber" />
-        <Option text="Black" value="Black" />
-        <Option text="Cyan" value="Cyan" />
-        <Option text="Dark Blue" value="Dark Blue" />
-        <Option text="Emerald" value="Emerald" />
-        <Option text="Fuchsia" value="Fuchsia" />
-        <Option text="Gold" value="Gold" />
-      </FilterableSelect>,
+      <FilterableSelectComponent label="Colour" />,
     );
 
     const input = page.getByRole("combobox");
@@ -591,21 +582,9 @@ test.describe("FilterableSelect component", () => {
       (element) => element.scrollTop,
     );
 
-    await update(
-      <FilterableSelect label="Colour">
-        <Option text="Amber" value="Amber" />
-        <Option text="Black" value="Black" />
-        <Option text="Cyan" value="Cyan" />
-        <Option text="Dark Blue" value="Dark Blue" />
-        <Option text="Emerald" value="Emerald" />
-        <Option text="Fuchsia" value="Fuchsia" />
-        <Option text="Gold" value="Gold" />
-        <Option text="Hot Pink" value="Hot Pink" />
-        <Option text="Indigo" value="Indigo" />
-      </FilterableSelect>,
-    );
+    await update(<FilterableSelectComponent label="Colour" />);
 
-    await expect(page.getByRole("option")).toHaveCount(9);
+    await expect(page.getByRole("option")).toHaveCount(11);
 
     // check that the scroll position hasn't changed
     const newScrollPosition = await dropdownList.evaluate(
@@ -859,13 +838,11 @@ test.describe("FilterableSelect component", () => {
     const headerElements = multiColumnsSelectListHeader(page);
     await expect(headerElements).toHaveCount(columns);
     for (let i = 0; i < columns; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await expect(headerElements.nth(i)).toBeVisible();
     }
     const bodyElements = multiColumnsSelectListBody(page);
     await expect(bodyElements).toHaveCount(columns);
     for (let i = 0; i < columns; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await expect(bodyElements.nth(i)).toBeVisible();
     }
     await expect(multiColumnsSelectListRow(page)).toHaveCSS(
@@ -1019,9 +996,8 @@ test.describe("FilterableSelect component", () => {
     await dropdownButton(page).click();
     const inputElement = commonDataElementInputPreview(page);
     for (let i = 0; i < 5; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await inputElement.focus();
-      // eslint-disable-next-line no-await-in-loop
+
       await inputElement.press("ArrowDown");
     }
     await expect(selectOptionByText(page, "Green").nth(0)).toBeInViewport();
