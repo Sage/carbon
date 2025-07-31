@@ -13,6 +13,8 @@ export interface HrProps extends MarginProps, TagProps {
   adaptiveMxBreakpoint?: number;
   /** Set the height of the component. Accepts one of "small", "medium", or "large" */
   height?: "small" | "medium" | "large";
+  /** Set the color variant of the horizontal rule. Use "typical" for standard styling or "inverse" for use in darker backgrounds */
+  variant?: "typical" | "inverse";
 }
 
 export const Hr = ({
@@ -20,6 +22,7 @@ export const Hr = ({
   ml,
   mr,
   "aria-hidden": ariaHidden,
+  variant = "typical",
   height = "small",
   ...rest
 }: HrProps): JSX.Element => {
@@ -35,6 +38,7 @@ export const Hr = ({
     <StyledHr
       aria-hidden={ariaHidden}
       height={height}
+      variant={variant}
       ml={marginLeft}
       mr={marginRight}
       mt={rest.mt || 3}
