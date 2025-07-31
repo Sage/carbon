@@ -32,9 +32,9 @@ export const DialogComponent = (props: Partial<DialogProps>) => {
       onCancel={() => setIsOpen(false)}
       {...props}
     >
-      <Textbox label="Textbox1" value="Textbox1" />
-      <Textbox label="Textbox2" value="Textbox2" />
-      <Textbox label="Textbox3" value="Textbox3" />
+      <Textbox onChange={() => {}} label="Textbox1" value="Textbox1" />
+      <Textbox onChange={() => {}} label="Textbox2" value="Textbox2" />
+      <Textbox onChange={() => {}} label="Textbox3" value="Textbox3" />
     </Dialog>
   );
 };
@@ -49,9 +49,9 @@ export const DialogWithFirstFocusableElement = (
       <Button ref={ref} onClick={() => {}}>
         Press me
       </Button>
-      <Textbox label="Textbox1" value="Textbox1" />
-      <Textbox label="Textbox2" value="Textbox2" />
-      <Textbox label="Textbox3" value="Textbox3" />
+      <Textbox onChange={() => {}} label="Textbox1" value="Textbox1" />
+      <Textbox onChange={() => {}} label="Textbox2" value="Textbox2" />
+      <Textbox onChange={() => {}} label="Textbox3" value="Textbox3" />
     </Dialog>
   );
 };
@@ -82,7 +82,7 @@ export const DialogBackgroundScrollTest = () => {
         I should not be scrolled into view
       </Box>
       <Dialog open title="My dialog" onCancel={() => {}}>
-        <Textbox label="textbox" />
+        <Textbox value="" onChange={() => {}} label="textbox" />
       </Dialog>
     </Box>
   );
@@ -102,7 +102,7 @@ export const DialogWithOpenToastsBackgroundScrollTest = () => {
         onCancel={() => {}}
         focusableContainers={[toast1Ref, toast2Ref]}
       >
-        <Textbox label="textbox" />
+        <Textbox value="" onChange={() => {}} label="textbox" />
       </Dialog>
       <Toast open onDismiss={() => {}} ref={toast1Ref} targetPortalId="stacked">
         Toast message 1
@@ -132,7 +132,7 @@ export const TopModalOverride = () => {
         onCancel={() => setIsOpenDialogFullSreen(false)}
         title="Dialog fullscreen"
       >
-        <Textbox label="Fullscreen textbox" />
+        <Textbox value="" onChange={() => {}} label="Fullscreen textbox" />
       </DialogFullScreen>
       <Dialog
         open={isOpenDialog}
@@ -140,14 +140,14 @@ export const TopModalOverride = () => {
         title="Dialog"
         topModalOverride
       >
-        <Textbox label="Dialog textbox" />
+        <Textbox value="" onChange={() => {}} label="Dialog textbox" />
       </Dialog>
       <Sidebar
         open={isOpenSidebar}
         onCancel={() => setIsOpenSidebar(false)}
         header="sidebar"
       >
-        <Textbox label="Sidebar textbox" />
+        <Textbox value="" onChange={() => {}} label="Sidebar textbox" />
       </Sidebar>
     </>
   );
@@ -156,10 +156,10 @@ export const TopModalOverride = () => {
 export const DialogWithAutoFocusSelect = () => {
   return (
     <Dialog open title="My dialog" onCancel={() => {}}>
-      <Select autoFocus label="select">
+      <Select autoFocus label="select" value="1" onChange={() => {}}>
         <Option value="1" text="one" />
       </Select>
-      <Textbox label="textbox" />
+      <Textbox value="" onChange={() => {}} label="textbox" />
     </Dialog>
   );
 };
@@ -182,10 +182,10 @@ export const DialogComponentFocusableSelectors = (
         {...props}
       >
         <Box className="focusable-container">
-          <Textbox label="First Name" />
+          <Textbox value="" onChange={() => {}} label="First Name" />
         </Box>
         <Box>
-          <Textbox label="Surname" />
+          <Textbox value="" onChange={() => {}} label="Surname" />
         </Box>
         <Box className="focusable-container">
           <Button
@@ -242,18 +242,18 @@ export const DefaultStory = ({
           <Typography>
             This is an example of a dialog with a Form as content
           </Typography>
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
+          <Textbox value="" onChange={() => {}} label="First Name" />
+          <Textbox value="" onChange={() => {}} label="Middle Name" />
+          <Textbox value="" onChange={() => {}} label="Surname" />
+          <Textbox value="" onChange={() => {}} label="Birth Place" />
+          <Textbox value="" onChange={() => {}} label="Favourite Colour" />
+          <Textbox value="" onChange={() => {}} label="Address" />
+          <Textbox value="" onChange={() => {}} label="First Name" />
+          <Textbox value="" onChange={() => {}} label="Middle Name" />
+          <Textbox value="" onChange={() => {}} label="Surname" />
+          <Textbox value="" onChange={() => {}} label="Birth Place" />
+          <Textbox value="" onChange={() => {}} label="Favourite Colour" />
+          <Textbox value="" onChange={() => {}} label="Address" />
         </Form>
       </Dialog>
     </>
@@ -282,7 +282,7 @@ export const DefaultNestedStory = () => {
           onCancel={() => setIsNestedDialogOpen(false)}
           title="Nested Dialog"
         >
-          <Textbox label="Nested Dialog Textbox" />
+          <Textbox value="" onChange={() => {}} label="Nested Dialog Textbox" />
         </Dialog>
       </Dialog>
     </>
@@ -341,13 +341,33 @@ export const Editable = () => {
             />
           </RadioButtonGroup>
           <Box p="24px" bg="slateTint90" ml="88px">
-            <Textbox labelInline label="Property Name" />
+            <Textbox
+              value=""
+              onChange={() => {}}
+              labelInline
+              label="Property Name"
+            />
             <Fieldset>
-              <Textbox labelInline label="Address Line 1" />
-              <Textbox labelInline label="Address Line 2" />
-              <Textbox labelInline label="Town" />
-              <Textbox labelInline label="City" />
-              <Textbox labelInline label="Postcode" />
+              <Textbox
+                value=""
+                onChange={() => {}}
+                labelInline
+                label="Address Line 1"
+              />
+              <Textbox
+                value=""
+                onChange={() => {}}
+                labelInline
+                label="Address Line 2"
+              />
+              <Textbox value="" onChange={() => {}} labelInline label="Town" />
+              <Textbox value="" onChange={() => {}} labelInline label="City" />
+              <Textbox
+                value=""
+                onChange={() => {}}
+                labelInline
+                label="Postcode"
+              />
             </Fieldset>
           </Box>
         </Form>
@@ -379,13 +399,33 @@ export const WithHelp = () => {
           }
         >
           <Box p="24px" bg="slateTint90" ml="88px">
-            <Textbox labelInline label="Property Name" />
+            <Textbox
+              value=""
+              onChange={() => {}}
+              labelInline
+              label="Property Name"
+            />
             <Fieldset>
-              <Textbox labelInline label="Address Line 1" />
-              <Textbox labelInline label="Address Line 2" />
-              <Textbox labelInline label="Town" />
-              <Textbox labelInline label="City" />
-              <Textbox labelInline label="Postcode" />
+              <Textbox
+                value=""
+                onChange={() => {}}
+                labelInline
+                label="Address Line 1"
+              />
+              <Textbox
+                value=""
+                onChange={() => {}}
+                labelInline
+                label="Address Line 2"
+              />
+              <Textbox value="" onChange={() => {}} labelInline label="Town" />
+              <Textbox value="" onChange={() => {}} labelInline label="City" />
+              <Textbox
+                value=""
+                onChange={() => {}}
+                labelInline
+                label="Postcode"
+              />
             </Fieldset>
           </Box>
         </Form>
@@ -419,13 +459,49 @@ export const LoadingContent = () => {
           <Loader isActive isInsideButton={false} size="small" />
         ) : (
           <>
-            <Textbox label="Textbox 1" labelInline autoFocus />
-            <Textbox label="Textbox 2" labelInline />
-            <Textbox label="Textbox 3" labelInline />
-            <Textbox label="Textbox 4" labelInline />
-            <Textbox label="Textbox 5" labelInline />
-            <Textbox label="Textbox 6" labelInline />
-            <Textbox label="Textbox 7" labelInline />
+            <Textbox
+              value=""
+              onChange={() => {}}
+              label="Textbox 1"
+              labelInline
+              autoFocus
+            />
+            <Textbox
+              value=""
+              onChange={() => {}}
+              label="Textbox 2"
+              labelInline
+            />
+            <Textbox
+              value=""
+              onChange={() => {}}
+              label="Textbox 3"
+              labelInline
+            />
+            <Textbox
+              value=""
+              onChange={() => {}}
+              label="Textbox 4"
+              labelInline
+            />
+            <Textbox
+              value=""
+              onChange={() => {}}
+              label="Textbox 5"
+              labelInline
+            />
+            <Textbox
+              value=""
+              onChange={() => {}}
+              label="Textbox 6"
+              labelInline
+            />
+            <Textbox
+              value=""
+              onChange={() => {}}
+              label="Textbox 7"
+              labelInline
+            />
           </>
         )}
       </Dialog>
@@ -462,7 +538,7 @@ export const FocusingADifferentFirstElement = () => {
             This should be focused first now
           </Button>
         </Box>
-        <Textbox label="Not focused" />
+        <Textbox value="" onChange={() => {}} label="Not focused" />
       </Dialog>
       <Button ml={2} onClick={() => setIsOpenTwo(true)}>
         Open Demo using autoFocus
@@ -483,7 +559,12 @@ export const FocusingADifferentFirstElement = () => {
           <Button onClick={() => setIsOpenTwo(false)}>Not focused</Button>
           <Button onClick={() => setIsOpenTwo(false)}>Not focused</Button>
         </Box>
-        <Textbox autoFocus label="This should be focused first now" />
+        <Textbox
+          value=""
+          onChange={() => {}}
+          autoFocus
+          label="This should be focused first now"
+        />
       </Dialog>
     </>
   );
@@ -515,18 +596,18 @@ export const OverridingContentPadding = () => {
           <Typography>
             This is an example of a dialog with a Form as content
           </Typography>
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
+          <Textbox value="" onChange={() => {}} label="First Name" />
+          <Textbox value="" onChange={() => {}} label="Middle Name" />
+          <Textbox value="" onChange={() => {}} label="Surname" />
+          <Textbox value="" onChange={() => {}} label="Birth Place" />
+          <Textbox value="" onChange={() => {}} label="Favourite Colour" />
+          <Textbox value="" onChange={() => {}} label="Address" />
+          <Textbox value="" onChange={() => {}} label="First Name" />
+          <Textbox value="" onChange={() => {}} label="Middle Name" />
+          <Textbox value="" onChange={() => {}} label="Surname" />
+          <Textbox value="" onChange={() => {}} label="Birth Place" />
+          <Textbox value="" onChange={() => {}} label="Favourite Colour" />
+          <Textbox value="" onChange={() => {}} label="Address" />
         </Form>
       </Dialog>
     </>
@@ -564,9 +645,9 @@ export const OtherFocusableContainers = () => {
           <Typography>
             This is an example of a dialog with a Form as content
           </Typography>
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
+          <Textbox value="" onChange={() => {}} label="First Name" />
+          <Textbox value="" onChange={() => {}} label="Middle Name" />
+          <Textbox value="" onChange={() => {}} label="Surname" />
           <Button onClick={() => setIsToast1Open(true)}>
             Show first toast
           </Button>
@@ -635,12 +716,12 @@ export const Responsive = () => {
           <Typography>
             This is an example of a dialog with a Form as content
           </Typography>
-          <Textbox label="First Name" />
-          <Textbox label="Middle Name" />
-          <Textbox label="Surname" />
-          <Textbox label="Birth Place" />
-          <Textbox label="Favourite Colour" />
-          <Textbox label="Address" />
+          <Textbox value="" onChange={() => {}} label="First Name" />
+          <Textbox value="" onChange={() => {}} label="Middle Name" />
+          <Textbox value="" onChange={() => {}} label="Surname" />
+          <Textbox value="" onChange={() => {}} label="Birth Place" />
+          <Textbox value="" onChange={() => {}} label="Favourite Colour" />
+          <Textbox value="" onChange={() => {}} label="Address" />
         </Form>
       </Dialog>
     </>
@@ -682,6 +763,8 @@ export const UsingHandle = () => {
             <Textarea
               label="What would you like to tell us?"
               characterLimit={1000}
+              value=""
+              onChange={() => {}}
             />
           </Form>
         )}

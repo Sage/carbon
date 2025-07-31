@@ -518,6 +518,7 @@ export const SimpleSelect = React.forwardRef<
             isOpen={isOpen}
             value={textValue}
             {...getTextboxProps()}
+            onChange={() => {}}
           />
         </div>
         {selectList}

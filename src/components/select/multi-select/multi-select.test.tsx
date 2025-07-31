@@ -378,9 +378,9 @@ describe("dropdown list", () => {
     test(`opens when input is focused and ${key} key is pressed`, async () => {
       const user = userEvent.setup();
       render(
-        <InteractiveComponent label="Colour" onChange={() => {}}>
+        <MultiSelect label="Colour" onChange={() => {}}>
           <Option text="amber" value="amber" />
-        </InteractiveComponent>,
+        </MultiSelect>,
       );
 
       await user.tab();
