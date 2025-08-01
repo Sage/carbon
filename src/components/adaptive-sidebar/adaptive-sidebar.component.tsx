@@ -30,6 +30,8 @@ export interface AdaptiveSidebarProps
   children?: React.ReactNode;
   /** The height of the sidebar, relative to the wrapping component */
   height?: string;
+  /** Whether the sidebar is hidden */
+  hidden?: boolean;
   /** Whether the sidebar is open or closed */
   open: boolean;
   /** Whether to render the sidebar as a modal component instead of as an inline sidebar */
@@ -44,6 +46,7 @@ export const AdaptiveSidebar = ({
   borderColor = "none",
   children,
   height = "100%",
+  hidden = false,
   open,
   renderAsModal = false,
   width = "320px",
@@ -67,6 +70,18 @@ export const AdaptiveSidebar = ({
     }
   }, [open]);
 
+  // Remove inert attribute from elements when sidebar is hidden
+  /* istanbul ignore next */
+  useEffect(() => {
+    if (!hidden || !open) return;
+
+    const inertElements = document.querySelectorAll("[inert]");
+
+    inertElements.forEach((element) => {
+      element.removeAttribute("inert");
+    });
+  }, [hidden, open]);
+
   if (renderAsModal || !largeScreen) {
     return (
       <StyledSidebar
@@ -75,6 +90,8 @@ export const AdaptiveSidebar = ({
         open={open}
         p={0}
         ref={adaptiveSidebarRef}
+        enableBackgroundUI={open && hidden}
+        hidden={hidden}
       >
         <Box
           height="100%"
@@ -94,6 +111,7 @@ export const AdaptiveSidebar = ({
       data-element="adaptive-sidebar"
       data-role="adaptive-sidebar"
       height={height}
+      hidden={hidden}
       ref={adaptiveSidebarRef}
       role="region"
       tabIndex={-1}
