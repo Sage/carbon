@@ -551,4 +551,66 @@ export const CustomLinkAction = (
     </>
   );
 };
-Default.storyName = "Default";
+
+export const FourLevels = (props: Partial<ResponsiveVerticalMenuProps>) => {
+  return (
+    <GlobalHeader>
+      <ResponsiveVerticalMenuProvider>
+        <ResponsiveVerticalMenu {...props}>
+          <ResponsiveVerticalMenuItem icon="home" id="home" label="Home" />
+          <ResponsiveVerticalMenuDivider />
+          <ResponsiveVerticalMenuItem
+            customIcon={<CustomAccountingIcon />}
+            id="level-1"
+            label="Level 1"
+          >
+            <ResponsiveVerticalMenuItem
+              id="level-2-item-1"
+              label="Level 2 Item 1"
+            />
+            <ResponsiveVerticalMenuItem
+              id="level-2-item-2"
+              label="Level 2 Item 2"
+            >
+              <ResponsiveVerticalMenuItem
+                id="level-3-item-1"
+                label="Level 3 Item 1"
+                href="#"
+              >
+                <ResponsiveVerticalMenuItem
+                  id="level-4-item-1"
+                  label="Level 4 Item 1"
+                  href="#"
+                />
+              </ResponsiveVerticalMenuItem>
+              <ResponsiveVerticalMenuItem
+                id="level-3-item-2"
+                label="Level 3 Item 2"
+                href="#"
+              />
+              <ResponsiveVerticalMenuItem
+                id="level-3-item-3"
+                label="Level 3 Item 3"
+                href="#"
+              />
+            </ResponsiveVerticalMenuItem>
+            <ResponsiveVerticalMenuItem
+              id="level-2-item-3"
+              label="Level 2 Item 3"
+            >
+              <ResponsiveVerticalMenuItem
+                id="level-3-item-4"
+                label="Level 3 Item 4"
+              />
+            </ResponsiveVerticalMenuItem>
+            <ResponsiveVerticalMenuItem
+              id="level-2-item-4"
+              label="Level 2 Item 4"
+            />
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenu>
+      </ResponsiveVerticalMenuProvider>
+    </GlobalHeader>
+  );
+};
+FourLevels.storyName = "4th Level Menu Items";

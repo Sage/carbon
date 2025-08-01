@@ -160,6 +160,20 @@ export const StyledResponsiveMenuItem = styled.button<StyledResponsiveMenuItemPr
       color: var(--colorsUtilityYang080);
       cursor: default;
     `}
+
+
+  ${({ depth }) =>
+    depth >= 2 &&
+    css`
+      & {
+        color: var(--colorsUtilityYang080);
+        font-weight: var(--fontWeights400);
+
+        [data-component="icon"] {
+          color: var(--colorsUtilityYang080);
+        }
+      }
+    `}
 `;
 
 export const StyledResponsiveMenuAction = styled.a<{
@@ -169,4 +183,19 @@ export const StyledResponsiveMenuAction = styled.a<{
   ${commonAttributes}
   height: 40px;
   text-decoration: none;
+
+  ${({ depth, responsive }) =>
+    depth >= 2 &&
+    css`
+      && {
+        color: var(--colorsUtilityYang080);
+        font-weight: var(--fontWeights400);
+
+        ${responsive &&
+        depth >= 3 &&
+        css`
+          margin-left: var(--spacing300);
+        `}
+      }
+    `}
 `;
