@@ -1469,7 +1469,7 @@ export const Sizes: Story = () => {
   return (
     <Box>
       {sizes.map((size, index) => (
-        <Box mb={3} key={String(index)}>
+        <Box mb={3} key={String(`${index}-${size}`)}>
           <FlatTable size={size} aria-label={`flat-table-${size}`}>
             <FlatTableHead>
               <FlatTableRow>

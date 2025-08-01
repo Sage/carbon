@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import { Meta, StoryObj } from "@storybook/react";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
