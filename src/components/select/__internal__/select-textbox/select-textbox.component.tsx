@@ -182,15 +182,16 @@ const SelectTextbox = React.forwardRef(
           inputIcon="dropdown"
           autoComplete="off"
           size={size}
-          // prevent uncontrolled warning being fired
-          onChange={() => {}}
           formattedValue={formattedValue}
-          value={
-            hasStringValue ? (selectedValue as string | string[]) : undefined
-          }
           placeholder={hasTextCursor ? placeholder : undefined}
           {...inputAriaAttributes}
           {...textboxProps}
+          // prevent uncontrolled warning being fired
+          onChange={() => {}}
+          // ensure value is properly controlled
+          value={
+            hasStringValue ? (selectedValue as string | string[]) : undefined
+          }
           my={0} // prevents any form spacing being applied
         >
           {!hasTextCursor && (

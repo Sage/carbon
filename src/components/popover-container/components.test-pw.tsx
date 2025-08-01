@@ -53,6 +53,8 @@ export const PopoverContainerComponentCoverButton = (
 };
 
 export const PopoverContainerWithSelect = () => {
+  const [value, setValue] = useState("");
+
   return (
     <Box height="100">
       <PopoverContainer
@@ -60,7 +62,11 @@ export const PopoverContainerWithSelect = () => {
         openButtonAriaLabel="open"
         title="select example"
       >
-        <Select label="my select">
+        <Select
+          label="my select"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        >
           <Option value="red" text="red" />
           <Option value="green" text="green" />
           <Option value="blue" text="blue" />
@@ -162,6 +168,8 @@ export const PopoverContainerFocusOrder = (
 
 export const WithRadioButtons = () => {
   const [open1, setOpen1] = useState(false);
+  const [value, setValue] = useState("1");
+
   return (
     <Box padding="25px" display="inline-flex">
       <PopoverContainer
@@ -177,7 +185,11 @@ export const WithRadioButtons = () => {
         p={0}
       >
         <Box display="flex" justifyContent="space-between" p={2}>
-          <RadioButtonGroup name="bar">
+          <RadioButtonGroup
+            name="bar"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          >
             <RadioButton value="1" label="radio 1" />
             <RadioButton value="2" label="radio 2" />
           </RadioButtonGroup>
