@@ -37,13 +37,9 @@ import Search from "carbon-react/lib/components/search";
 
 <Canvas of={SearchStories.Default} />
 
-### Controlled
-
-<Canvas of={SearchStories.Controlled} />
-
 ### With Search Button
 
-You can pass the `searchButton` prop to render a search button. 
+You can pass the `searchButton` prop to render a search button.
 This will render a button with the text "Search" and an aria-label of "search button".
 To override the the default aria-label, you can pass a string value to the `searchButtonAriaLabel` prop.
 
@@ -54,7 +50,7 @@ You can override the text of the search button by passing a string value to the 
 
 <Canvas of={SearchStories.WithSearchButtonPropTextOverride} />
 
-Or, by using the locale provider to override the button's text via the `searchButtonText` translation key. 
+Or, by using the locale provider to override the button's text via the `searchButtonText` translation key.
 Please note that the `searchButton` prop will take precedence over the locale value.
 
 <Canvas of={SearchStories.WithSearchButtonLocaleOverride} />
@@ -79,7 +75,7 @@ The search component can be styled to render on dark backgrounds by passing the 
 
 ### Trigger actions on clear
 
-It is possible to trigger actions such as filtering the search results when the cross icon is clicked. 
+It is possible to trigger actions such as filtering the search results when the cross icon is clicked.
 When the `triggerOnClear` prop is set to `true`, the `onClick` callback will be called when the cross icon is clicked.
 
 <Canvas of={SearchStories.TriggerOnClear} />

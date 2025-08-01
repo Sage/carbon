@@ -24,8 +24,6 @@ import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import { CustomSelectChangeEvent } from "../simple-select";
 
-let deprecateUncontrolledWarnTriggered = false;
-
 const FilterableSelectList = withFilter<SelectListProps>(SelectList);
 
 export interface FilterableSelectProps
@@ -36,8 +34,6 @@ export interface FilterableSelectProps
   "aria-labelledby"?: string;
   /** Child components (such as Option or OptionRow) for the SelectList */
   children: React.ReactNode;
-  /** The default selected value(s), when the component is operating in uncontrolled mode */
-  defaultValue?: string | Record<string, unknown>;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
   /** True for default text button or a Button Component to be rendered */
@@ -62,8 +58,8 @@ export interface FilterableSelectProps
    * Works only in multiColumn mode
    */
   tableHeader?: React.ReactNode;
-  /** The selected value(s), when the component is operating in controlled mode */
-  value?: string | Record<string, unknown>;
+  /** The selected value(s) */
+  value: string | Record<string, unknown>;
   /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Maximum list height - defaults to 180 */
@@ -90,7 +86,7 @@ export interface FilterableSelectProps
   /** Flag to configure component as mandatory */
   required?: boolean;
   /** Specify a callback triggered on change */
-  onChange?: (
+  onChange: (
     ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
   ) => void;
   /** Override the default width of the list element. Number passed is converted into pixel value */
@@ -108,7 +104,6 @@ export const FilterableSelect = React.forwardRef<
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledby,
       value,
-      defaultValue,
       id,
       name,
       label,
@@ -156,16 +151,14 @@ export const FilterableSelect = React.forwardRef<
     const selectListId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
-    const isControlled = useRef(value !== undefined);
+
     const isMouseDownReported = useRef(false);
     const isInputFocused = useRef(false);
     const isMouseDownOnInput = useRef(false);
     const [textboxRef, setTextboxRef] = useState<HTMLInputElement>();
     const [isOpen, setOpen] = useState(false);
     const [textValue, setTextValue] = useState("");
-    const [selectedValue, setSelectedValue] = useState<
-      string | Record<string, unknown> | undefined
-    >(value || defaultValue || "");
+
     const receivedValue = useRef(value);
     const [highlightedValue, setHighlightedValue] = useState<
       string | Record<string, unknown> | undefined
@@ -178,16 +171,6 @@ export const FilterableSelect = React.forwardRef<
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
     const openOnFocusFlagBlock = useRef(false);
-
-    const componentIsUncontrolled =
-      !isControlled || (!onChange && defaultValue);
-
-    if (!deprecateUncontrolledWarnTriggered && componentIsUncontrolled) {
-      deprecateUncontrolledWarnTriggered = true;
-      Logger.deprecate(
-        "Uncontrolled behaviour in `Filterable Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-      );
-    }
 
     const createCustomEvent = useCallback(
       (
@@ -234,48 +217,40 @@ export const FilterableSelect = React.forwardRef<
 
     const updateValues = useCallback(
       (newFilterText: string, isDeleteEvent: boolean) => {
-        setSelectedValue((previousValue) => {
-          const trimmed = newFilterText.trimStart();
-          const match = findElementWithMatchingText(
-            trimmed,
-            children,
-          ) as React.ReactElement;
-          const isFilterCleared = isDeleteEvent && !newFilterText.length;
+        const trimmed = newFilterText.trimStart();
+        const match = findElementWithMatchingText(
+          trimmed,
+          children,
+        ) as React.ReactElement;
+        const isFilterCleared = isDeleteEvent && !newFilterText.length;
 
-          if (!match || isFilterCleared || match.props.disabled) {
-            setTextValue(newFilterText);
-            triggerChange("", false);
+        if (!match || isFilterCleared || match.props.disabled) {
+          setTextValue(newFilterText);
+          triggerChange("", false);
 
-            return "";
-          }
+          return "";
+        }
 
-          if (trimmed.length) {
-            triggerChange(match.props.value, false);
-          }
+        if (trimmed.length) {
+          triggerChange(match.props.value, false);
+        }
 
-          if (isDeleteEvent) {
-            setTextValue(newFilterText);
-
-            return match.props.value;
-          }
-
-          if (
-            trimmed.length &&
-            match.props.text?.toLowerCase().startsWith(trimmed.toLowerCase())
-          ) {
-            setTextValue(match.props.text);
-          } else {
-            setTextValue(newFilterText);
-          }
-
-          if (isControlled.current) {
-            return previousValue;
-          }
-
-          setHighlightedValue(match.props.value);
+        if (isDeleteEvent) {
+          setTextValue(newFilterText);
 
           return match.props.value;
-        });
+        }
+
+        if (
+          trimmed.length &&
+          match.props.text?.toLowerCase().startsWith(trimmed.toLowerCase())
+        ) {
+          setTextValue(match.props.text);
+        } else {
+          setTextValue(newFilterText);
+        }
+
+        setHighlightedValue(match.props.value);
       },
       [children, triggerChange],
     );
@@ -362,8 +337,6 @@ export const FilterableSelect = React.forwardRef<
       [fillLastFilterCharacter, onKeyDown, readOnly],
     );
 
-    const valueToUse = isControlled.current ? value : selectedValue;
-
     const handleGlobalClick = useCallback(
       (event: MouseEvent) => {
         const notInContainer =
@@ -376,49 +349,17 @@ export const FilterableSelect = React.forwardRef<
         isMouseDownReported.current = false;
 
         if (notInContainer && notInList) {
-          setMatchingText(valueToUse, true);
+          setMatchingText(value, true);
           setOpen(false);
         }
       },
-      [setMatchingText, valueToUse],
+      [setMatchingText, value],
     );
 
     useEffect(() => {
-      const modeSwitchedMessage =
-        "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-        "Decide between using a controlled or uncontrolled input element for the lifetime of the component";
-      const onChangeMissingMessage =
-        "onChange prop required when using a controlled input element";
-
-      invariant(
-        isControlled.current === (value !== undefined),
-        modeSwitchedMessage,
-      );
-      invariant(
-        !isControlled.current || (isControlled.current && onChange),
-        onChangeMissingMessage,
-      );
-      if (isControlled.current) {
-        setSelectedValue((prevValue) => {
-          if (value && prevValue !== value) {
-            setMatchingText(value);
-          }
-
-          return value;
-        });
-        setHighlightedValue(value);
-      } else {
-        if (textValue !== selectedValue) {
-          setMatchingText(selectedValue);
-        }
-        if (highlightedValue !== selectedValue) {
-          setHighlightedValue(selectedValue);
-        }
-      }
-      // prevent value update on filter change
-      // selectedValue and highlightedValue omitted from deps, only want uncontrolled change if onChange/children update
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [value, onChange, children]);
+      setMatchingText(value);
+      setHighlightedValue(value);
+    }, [value, children, setMatchingText]);
 
     const onOpen = useStableCallback(onOpenProp);
     useEffect(() => {
@@ -445,23 +386,22 @@ export const FilterableSelect = React.forwardRef<
     useEffect(() => {
       // when we render for the first time, we run setMatchingText to populate the input with the correct text
       if (isFirstRender.current) {
-        setMatchingText(selectedValue);
+        setMatchingText(value);
       }
 
-      if (isControlled.current) {
-        // when value is an object we should only run setMatchingText if the object changes between renders
-        if (
-          typeof value === "object" &&
-          typeof receivedValue.current === "object"
-        ) {
-          if (!areObjectsEqual(value, receivedValue.current)) {
-            setMatchingText(value);
-            receivedValue.current = value;
-          }
-        } else {
+      // when value is an object we should only run setMatchingText if the object changes between renders
+      if (
+        typeof value === "object" &&
+        typeof receivedValue.current === "object"
+      ) {
+        if (!areObjectsEqual(value, receivedValue.current)) {
           setMatchingText(value);
+          receivedValue.current = value;
         }
+      } else {
+        setMatchingText(value);
       }
+
       // update text value only when children are changing
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value, children]);
@@ -520,11 +460,6 @@ export const FilterableSelect = React.forwardRef<
           selectionConfirmed,
         } = optionData;
 
-        if (!isControlled.current) {
-          setSelectedValue(newValue);
-          setHighlightedValue(newValue);
-        }
-
         setTextValue(text);
         triggerChange(newValue, !!selectionConfirmed);
         setActiveDescendantId(selectedOptionId);
@@ -542,8 +477,8 @@ export const FilterableSelect = React.forwardRef<
 
     const onSelectListClose = useCallback(() => {
       setOpen(false);
-      setMatchingText(selectedValue, true);
-    }, [selectedValue, setMatchingText]);
+      setMatchingText(value, true);
+    }, [value, setMatchingText]);
 
     function handleTextboxClick(event: React.MouseEvent<HTMLInputElement>) {
       isMouseDownReported.current = false;
@@ -669,7 +604,7 @@ export const FilterableSelect = React.forwardRef<
         label,
         disabled,
         readOnly,
-        selectedValue,
+        selectedValue: value,
         formattedValue: textValue,
         onClick: handleTextboxClick,
         iconOnClick: handleDropdownIconClick,
@@ -757,6 +692,7 @@ export const FilterableSelect = React.forwardRef<
             aria-controls={selectListId.current}
             isOpen={isOpen}
             hasTextCursor
+            value={getTextboxProps().formattedValue}
             {...getTextboxProps()}
           />
         </div>
