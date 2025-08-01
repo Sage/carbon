@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { allModes } from "../../../.storybook/modes";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import isChromatic from "../../../.storybook/isChromatic";
 
+import Button from "../button";
 import Box from "../box";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Search, { SearchEvent } from "../search";
@@ -13,6 +14,7 @@ import Portrait from "../portrait";
 import {
   Menu,
   MenuItem,
+  MenuItemHandle,
   MenuDivider,
   MenuSegmentTitle,
   ScrollableBlock,
@@ -102,6 +104,45 @@ export const DefaultStory: MenuStory = () => {
   );
 };
 DefaultStory.storyName = "Default";
+
+export const ProgrammaticFocus: MenuStory = () => {
+  const menuItemHandle = useRef<MenuItemHandle>(null);
+
+  return (
+    <Box mb={150}>
+      <Box>
+        <Button mb={2} onClick={() => menuItemHandle.current?.focus()}>
+          Click to focus Menu Item One
+        </Button>
+        <Menu>
+          <MenuItem ref={menuItemHandle} icon="settings" href="#">
+            Menu Item One
+          </MenuItem>
+          <MenuItem icon="settings" onClick={() => {}}>
+            Menu Item Two
+          </MenuItem>
+          <MenuItem submenu="Menu Item Three">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuDivider />
+            <MenuItem icon="entry" href="#">
+              Item Submenu Three
+            </MenuItem>
+            <MenuItem icon="settings" href="#">
+              Item Submenu Four
+            </MenuItem>
+          </MenuItem>
+          <MenuItem submenu="Menu Item Four" onClick={() => {}}>
+            <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>
+    </Box>
+  );
+};
+ProgrammaticFocus.storyName = "Programmatic Focus";
+ProgrammaticFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const SelectedStory: MenuStory = () => {
   return (

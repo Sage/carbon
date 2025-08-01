@@ -22,6 +22,7 @@ interface StyledSwitchProps
     "fieldHelpInline" | "labelInline" | "reverse" | "size"
   > {
   theme: ThemeObject;
+  validationRedesignOptIn?: boolean;
 }
 
 export const ErrorBorder = styled.span`
@@ -53,11 +54,16 @@ export const ErrorBorder = styled.span`
 `;
 
 const StyledSwitch = styled.div.attrs(applyBaseTheme)`
-  ${({ fieldHelpInline, labelInline, reverse, size }: StyledSwitchProps) => css`
+  ${({
+    fieldHelpInline,
+    labelInline,
+    reverse,
+    size,
+    validationRedesignOptIn,
+  }: StyledSwitchProps) => css`
     margin-bottom: var(--fieldSpacing);
     ${margin}
     ${FieldLineStyle} {
-      display: flex;
       flex-flow: ${labelInline ? "row wrap" : "column wrap"};
 
       ${!labelInline &&
@@ -141,7 +147,11 @@ const StyledSwitch = styled.div.attrs(applyBaseTheme)`
       }
 
       ${FieldLineStyle} {
-        display: flex;
+        ${reverse &&
+        validationRedesignOptIn &&
+        css`
+          justify-content: flex-end;
+        `}
       }
 
       ${StyledLabelContainer} {

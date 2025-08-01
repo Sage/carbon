@@ -114,6 +114,9 @@ export const ActionPopover = forwardRef<
     const menu = useRef<HTMLUListElement>(null);
     const { isInFlatTable } = useContext(FlatTableContext);
 
+    const [selectedSubmenuRef, setSelectedSubmenuRef] =
+      useState<HTMLUListElement | null>(null);
+
     const hasProperChildren = useMemo(() => {
       const incorrectChild = React.Children.toArray(children).find(
         (child: React.ReactNode) => {
@@ -334,6 +337,8 @@ export const ActionPopover = forwardRef<
             focusButton,
             submenuPosition,
             horizontalAlignment,
+            selectedSubmenuRef,
+            setSelectedSubmenuRef,
           }}
         >
           {isOpen && (

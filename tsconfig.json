@@ -26,6 +26,7 @@
     "./src/global.d.ts",
     "./src/**/*.ts*",
     "./docs/**/*.ts*",
+    "./.storybook/**/*.ts*",
     "./jest.config.ts"
   ],
   "exclude": ["./node_modules", "./playwright", "./playwright-ct.config.ts"]

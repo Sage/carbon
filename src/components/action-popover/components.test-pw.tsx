@@ -323,6 +323,37 @@ export const ActionPopoverWithIconsAndNoSubmenus = ({ ...props }) => (
   </ActionPopover>
 );
 
+export const ActionPopoverWithDifferentSubmenus = ({ ...props }) => {
+  const businessSubmenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem onClick={() => {}}>
+        Business Sub Menu Item
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+  const emailSubmenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem onClick={() => {}}>
+        Email Sub Menu Item
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem
+        icon="graph"
+        onClick={() => {}}
+        submenu={businessSubmenu}
+      >
+        Business
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="email" onClick={() => {}} submenu={emailSubmenu}>
+        Email
+      </ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+
 export const ActionPopoverWithSubmenusAndIcons = ({ ...props }) => {
   const submenu = (
     <ActionPopoverMenu>

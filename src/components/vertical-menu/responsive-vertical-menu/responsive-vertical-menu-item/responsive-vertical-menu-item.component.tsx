@@ -128,6 +128,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
       activeMenuItem,
       containerRef,
       responsiveMode,
+      setActive,
       setActiveMenuItem,
       reducedMotion,
     } = useResponsiveVerticalMenu();
@@ -289,6 +290,12 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
       focusItem(id);
     };
 
+    const handleActionClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+      onClick?.(event);
+
+      setActive(false);
+    };
+
     return (
       <StyledResponsiveMenuListItem>
         {hasChildren ? (
@@ -368,7 +375,7 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
             depth={depth}
             href={href}
             id={id}
-            onClick={onClick}
+            onClick={handleActionClick}
             onFocus={() => focusItem(id)}
             onKeyDown={(e) => {
               /* istanbul ignore else */
