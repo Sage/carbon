@@ -3,10 +3,12 @@ import applyBaseTheme from "../../style/themes/apply-base-theme";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 
-type Variants = "default" | "negative" | "neutral";
+type Variants = "default" | "negative" | "neutral" | "white";
 export interface StyledLinkProps {
   /** The disabled state of the link. */
   disabled?: boolean;
+  /** Specifies when the link underline should be displayed. */
+  underline?: "always" | "hover" | "never";
   /** Which side of the link to the render the link. */
   iconAlign?: "left" | "right";
   /** Allows to create skip link */
@@ -62,6 +64,8 @@ const colorMap: ColorMap = {
       hoverColor = "var(--colorsSemanticNegative450)";
     } else if (variant === "neutral") {
       color = "var(--colorsActionMinor100)";
+    } else if (variant === "white") {
+      color = "var(--colorsUtilityYang100)";
     }
 
     return {
@@ -81,6 +85,7 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
     iconAlign,
     hasContent,
     disabled,
+    underline,
     variant,
     isDarkBackground,
     isMenuItem,
@@ -180,7 +185,17 @@ const StyledLink = styled.span.attrs(applyBaseTheme)<
 
       > a,
       > button {
-        text-decoration: ${hasContent ? "underline" : "none"};
+        text-decoration: ${hasContent && underline === "always"
+          ? "underline"
+          : "none"};
+
+        :hover {
+          text-decoration: ${
+            /* istanbul ignore next - having issues testing CSS :hover pseudo-states in jsdom */
+            hasContent && underline === "hover" ? "underline" : "none"
+          };
+        }
+
         ${isMenuItem && "display: inline-block;"}
 
         > ${StyledIcon} {
