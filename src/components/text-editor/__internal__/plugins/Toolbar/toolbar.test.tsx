@@ -5,13 +5,14 @@ import { createHeadlessEditor } from "@lexical/headless";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { FORMAT_TEXT_COMMAND, LexicalEditor, TextFormatType } from "lexical";
 import React from "react";
 
 import userEvent from "@testing-library/user-event";
 import { ToolbarPlugin } from "..";
 import TextEditor from "../../../text-editor.component";
+import { createFromHTML } from "../../../utils";
 
 function headlessEditor() {
   const editor = createHeadlessEditor({
@@ -181,20 +182,27 @@ describe("Events", () => {
     expect(dispatchSpy).toHaveBeenCalledWith(FORMAT_TEXT_COMMAND, "bold");
   });
 
-  /** Have to assert that the onChange mock count has increased by 1 due to the editor attempting to repeatedly create update listeners when the
-   * tests are run, causing the onChange to be fired during initial render. */
-  it("dispatches an 'onChange' event when the bold button is clicked within the TextEditor", async () => {
+  it("calls 'onChange' when the bold button is clicked while text is selected", async () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
 
-    render(<TextEditor labelText="foo" onChange={mockOnChange} />);
+    render(
+      <TextEditor
+        labelText="foo"
+        onChange={mockOnChange}
+        initialValue={createFromHTML("<p>Hello world!</p>")}
+      />,
+    );
 
-    const callCountBefore = mockOnChange.mock.calls.length;
+    const editor = screen.getByRole("textbox");
+    await user.tripleClick(editor); // Select the text
 
     const boldButton = screen.getByRole("button", { name: "Bold" });
     await user.click(boldButton);
 
-    expect(mockOnChange).toHaveBeenCalledTimes(callCountBefore + 1);
+    await waitFor(() => {
+      expect(mockOnChange).toHaveBeenCalledTimes(1);
+    });
   });
 
   /** Using the mocked toolbar, test that clicking the italic button fires the correct event */
@@ -226,20 +234,27 @@ describe("Events", () => {
     expect(dispatchSpy).toHaveBeenCalledWith(FORMAT_TEXT_COMMAND, "italic");
   });
 
-  /** Have to assert that the onChange mock count has increased by 1 due to the editor attempting to repeatedly create update listeners when the
-   * tests are run, causing the onChange to be fired during initial render. */
-  it("dispatches an 'onChange' event when the italic button is clicked within the TextEditor", async () => {
+  it("calls 'onChange' when the italic button is clicked while text is selected", async () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
 
-    render(<TextEditor labelText="foo" onChange={mockOnChange} />);
+    render(
+      <TextEditor
+        labelText="foo"
+        onChange={mockOnChange}
+        initialValue={createFromHTML("<p>Hello world!</p>")}
+      />,
+    );
 
-    const callCountBefore = mockOnChange.mock.calls.length;
+    const editor = screen.getByRole("textbox");
+    await user.tripleClick(editor); // Select the text
 
     const italicButton = screen.getByRole("button", { name: "Italic" });
     await user.click(italicButton);
 
-    expect(mockOnChange).toHaveBeenCalledTimes(callCountBefore + 1);
+    await waitFor(() => {
+      expect(mockOnChange).toHaveBeenCalledTimes(1);
+    });
   });
 
   /** Using the mocked toolbar, test that clicking the ordered list button fires the correct event */
@@ -271,22 +286,24 @@ describe("Events", () => {
     expect(dispatchSpy).toHaveBeenCalledWith(FORMAT_TEXT_COMMAND, "number");
   });
 
-  /** Have to assert that the onChange mock count has increased by 1 due to the editor attempting to repeatedly create update listeners when the
-   * tests are run, causing the onChange to be fired during initial render. */
-  it("dispatches an 'onChange' event when the ordered list button is clicked within the TextEditor", async () => {
+  it("calls 'onChange' when the ordered list button is clicked within the TextEditor", async () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
 
-    render(<TextEditor labelText="foo" onChange={mockOnChange} />);
-
-    const callCountBefore = mockOnChange.mock.calls.length;
+    render(
+      <TextEditor
+        labelText="foo"
+        onChange={mockOnChange}
+        initialValue={createFromHTML("<p>Hello world!</p>")}
+      />,
+    );
 
     const orderedListButton = screen.getByRole("button", {
       name: "Ordered list",
     });
     await user.click(orderedListButton);
 
-    expect(mockOnChange).toHaveBeenCalledTimes(callCountBefore + 1);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);
   });
 
   /** Using the mocked toolbar, test that clicking the unordered list button fires the correct event */
@@ -318,21 +335,25 @@ describe("Events", () => {
     expect(dispatchSpy).toHaveBeenCalledWith(FORMAT_TEXT_COMMAND, "bullet");
   });
 
-  /** Have to assert that the onChange mock count has increased by 1 due to the editor attempting to repeatedly create update listeners when the
-   * tests are run, causing the onChange to be fired during initial render. */
-  it("dispatches an 'onChange' event when the unordered ordered list button is clicked within the TextEditor", async () => {
+  it("calls 'onChange' when the unordered ordered list button is clicked within the TextEditor", async () => {
     const user = userEvent.setup();
     const mockOnChange = jest.fn();
 
-    render(<TextEditor labelText="foo" onChange={mockOnChange} />);
-
-    const callCountBefore = mockOnChange.mock.calls.length;
+    render(
+      <TextEditor
+        labelText="foo"
+        onChange={mockOnChange}
+        initialValue={createFromHTML("<p>Hello world!</p>")}
+      />,
+    );
 
     const unorderedListButton = screen.getByRole("button", {
       name: "Unordered list",
     });
     await user.click(unorderedListButton);
 
-    expect(mockOnChange).toHaveBeenCalledTimes(callCountBefore + 1);
+    await waitFor(() => {
+      expect(mockOnChange).toHaveBeenCalledTimes(1);
+    });
   });
 });

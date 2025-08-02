@@ -5,13 +5,13 @@ import ReadOnlyEditor from "./read-only-rte.component";
 import { COMPONENT_PREFIX } from "./constants";
 
 test("should render read-only editor with plain text", () => {
-  render(<ReadOnlyEditor value="Hello, World!" />);
+  render(<ReadOnlyEditor initialValue="Hello, World!" />);
   expect(screen.getByText("Hello, World!")).toBeInTheDocument();
 });
 
 test("should wrap plain-text links with anchors in the editor", () => {
   render(
-    <ReadOnlyEditor value="Hello, World! www.bbc.co.uk http://www.google.com https://www.sage.com" />,
+    <ReadOnlyEditor initialValue="Hello, World! www.bbc.co.uk http://www.google.com https://www.sage.com" />,
   );
   expect(screen.getByText("Hello, World!")).toBeInTheDocument();
   expect(
@@ -30,7 +30,7 @@ test("should render read-only editor with HTML", () => {
     <a href="https://www.bbc.co.uk">www.bbc.co.uk</a>
     <p>This is a paragraph</p>
   </p>`;
-  render(<ReadOnlyEditor value={html} />);
+  render(<ReadOnlyEditor initialValue={html} />);
   expect(
     screen.getByRole("link", { name: "www.bbc.co.uk" }),
   ).toBeInTheDocument();
@@ -81,7 +81,7 @@ test("should render read-only editor with JSON", () => {
       version: 1,
     },
   });
-  render(<ReadOnlyEditor value={json} />);
+  render(<ReadOnlyEditor initialValue={json} />);
   expect(
     screen.getByRole("link", { name: "www.bbc.co.uk" }),
   ).toBeInTheDocument();
