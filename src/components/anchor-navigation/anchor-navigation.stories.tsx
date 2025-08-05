@@ -5,7 +5,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import Box from "../box";
 import Textbox from "../textbox";
 import Button from "../button";
-import DialogFullScreen from "../dialog-full-screen";
+import Dialog from "../dialog";
 import {
   AnchorNavigation,
   AnchorSectionDivider,
@@ -108,7 +108,8 @@ export const InFullScreenDialogStory: Story = () => {
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open AnchorNavigation</Button>
-      <DialogFullScreen
+      <Dialog
+        fullscreen
         open={isOpen}
         onCancel={() => setIsOpen(false)}
         title="Title"
@@ -147,7 +148,7 @@ export const InFullScreenDialogStory: Story = () => {
             <Content title="Fifth section" />
           </Box>
         </AnchorNavigation>
-      </DialogFullScreen>
+      </Dialog>
     </>
   );
 };

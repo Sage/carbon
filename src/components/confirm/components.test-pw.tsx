@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 import Button from "../button";
 import Confirm, { ConfirmProps } from "./confirm.component";
-import DialogFullScreen from "../dialog-full-screen";
+import Dialog from "../dialog";
 import Sidebar from "../sidebar";
 import Textbox from "../textbox";
 
@@ -96,13 +96,14 @@ export const TopModalOverride = () => {
 
   return (
     <>
-      <DialogFullScreen
+      <Dialog
+        fullscreen
         open={isOpenDialogFullScreen}
         onCancel={() => setIsOpenDialogFullScreen(false)}
         title="Dialog fullscreen"
       >
         <Textbox label="Fullscreen textbox" />
-      </DialogFullScreen>
+      </Dialog>
       <Confirm
         open={isOpenConfirm}
         title="Confirm"

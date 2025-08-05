@@ -54,11 +54,6 @@ const enGB: Locale = {
       close: () => "Close",
     },
   },
-  dialogFullScreen: {
-    ariaLabels: {
-      close: () => "Close",
-    },
-  },
   dismissibleBox: {
     ariaLabels: {
       close: () => "Close",

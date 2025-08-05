@@ -5,6 +5,7 @@ import {
   StyledHeaderContent,
   StyledHeading,
   StyledHeadingTitle,
+  StyledHeader,
 } from "../heading/heading.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { ContentPaddingInterface, DialogProps } from "./dialog.component";
@@ -13,6 +14,7 @@ import {
   StyledForm,
   StyledFormFooter,
 } from "../form/form.style";
+import StyledFullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
 
 const dialogSizes = {
   auto: "fit-content",
@@ -25,145 +27,275 @@ const dialogSizes = {
   "extra-large": "1080px",
 };
 
-type StyledDialogProps = Required<Pick<DialogProps, "size">> & {
-  dialogHeight?: string;
-  backgroundColor: string;
-  highlightVariant?: string;
+type StyledContentProps = ContentPaddingInterface & {
+  disableContentPadding?: boolean;
+  fullscreen?: boolean;
+  hasHeader?: boolean;
 };
 
-const DialogPositioner = styled.div.attrs(applyBaseTheme)`
+type StyledDialogProps = Required<Pick<DialogProps, "size">> & {
+  backgroundColor: string;
+  dialogHeight?: string;
+  fullscreen?: boolean;
+  highlightVariant?: string;
+  pagesStyling?: boolean;
+};
+
+type StyledDialogTitleProps = {
+  fullscreen?: boolean;
+  hasSubtitle?: boolean;
+  showCloseIcon?: boolean;
+};
+
+function computePadding({ disableContentPadding }: StyledContentProps) {
+  if (disableContentPadding) {
+    return "padding: 0;";
+  }
+
+  return css`
+    padding: 0 16px;
+    @media screen and (min-width: 600px) {
+      padding: 0 24px;
+    }
+    @media screen and (min-width: 960px) {
+      padding: 0 32px;
+    }
+    @media screen and (min-width: 1260px) {
+      padding: 0 40px;
+    }
+  `;
+}
+
+const DialogPositioner = styled.div.attrs(applyBaseTheme)<{
+  fullscreen?: boolean;
+}>`
   position: fixed;
   inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: ${({ theme }) => theme.zIndex.modal};
+  z-index: ${({ theme, fullscreen }) =>
+    fullscreen ? theme.zIndex.fullScreenModal : theme.zIndex.modal};
+
+  ${({ fullscreen }) =>
+    fullscreen &&
+    css`
+      justify-content: stretch;
+      align-items: stretch;
+    `}
 `;
 
+const StyledDialogContent = styled.div.attrs(applyBaseTheme)<
+  StyledContentProps & ContentPaddingInterface
+>`
+  box-sizing: border-box;
+  display: block;
+  overflow-y: auto;
+  width: 100%;
+
+  ${({ disableContentPadding, fullscreen, hasHeader }) =>
+    fullscreen
+      ? css`
+          flex: 1;
+          ${computePadding}
+
+          &:has(${StyledForm}.sticky) {
+            display: flex;
+            flex-direction: column;
+            overflow-y: hidden;
+            padding: 0;
+
+            ${StyledForm}.sticky {
+              ${StyledFormContent} {
+                ${computePadding({ disableContentPadding })}
+              }
+            }
+          }
+
+          ${!hasHeader &&
+          css`
+            padding-top: 0;
+          `}
+        `
+      : css`
+          flex-grow: 1;
+          padding: 24px 32px 30px;
+          ${paddingFn}
+
+          &:has(${StyledForm}.sticky) {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+
+            ${StyledForm}.sticky {
+              ${StyledFormContent} {
+                padding: 24px 32px 30px;
+                ${paddingFn}
+              }
+
+              ${StyledFormFooter} {
+                border-bottom-right-radius: var(--borderRadius200);
+                border-bottom-left-radius: var(--borderRadius200);
+              }
+            }
+          }
+        `}
+`;
+
+function computePagesStyling({
+  fullscreen,
+  pagesStyling,
+}: Pick<StyledDialogProps, "fullscreen" | "pagesStyling">) {
+  if (fullscreen && pagesStyling) {
+    return css`
+      ${StyledDialogContent} {
+        padding: 0;
+      }
+
+      > ${StyledIconButton} {
+        right: 33px;
+        top: 32px;
+      }
+
+      ${StyledFullScreenHeading} {
+        padding: 32px 32px 0;
+      }
+
+      ${StyledHeading} {
+        width: auto;
+        padding-top: 4px;
+
+        ${StyledHeader} {
+          margin: 0 0 0 3px;
+          box-sizing: content-box;
+          width: 100%;
+        }
+      }
+    `;
+  }
+  return "";
+}
+
 const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
-  box-shadow: var(--boxShadow300);
   display: flex;
   flex-direction: column;
   position: relative;
-  border-radius: var(--borderRadius200);
-
-  ${({ size }) =>
-    size === "maximise"
-      ? css`
-          height: calc(100% - var(--spacing400));
-          width: calc(100% - var(--spacing400));
-
-          @media screen and (min-width: 960px) {
-            height: calc(100% - var(--spacing800));
-            width: calc(100% - var(--spacing800));
-          }
-        `
-      : css`
-          max-height: 90vh;
-          max-width: ${dialogSizes[size]};
-          width: 100%;
-        `};
 
   &:focus {
     outline: none;
   }
 
-  ${({ highlightVariant }) =>
-    highlightVariant === "ai" &&
-    `
-      &::before {
-        content: "";
-        position: absolute;
-        top: -8px;
-        height: 100px;
-        width: 100%;
-        z-index: -1;
-        background: linear-gradient(90deg, #00D639 0%, #00D6DE 40%, #9D60FF 90%);
-        border-radius: var(--borderRadius200) var(--borderRadius200) 0 0;
-      }`}
+  ${({ backgroundColor, dialogHeight, fullscreen, highlightVariant, size }) =>
+    fullscreen
+      ? css`
+          background-color: var(--colorsUtilityMajor025);
+          height: 100%;
+          width: 100%;
+        `
+      : css`
+          box-shadow: var(--boxShadow300);
+          border-radius: var(--borderRadius200);
+          background-color: ${backgroundColor};
 
-  ${({ backgroundColor }) => css`
-    background-color: ${backgroundColor};
-  `}
+          ${size === "maximise"
+            ? css`
+                height: calc(100% - var(--spacing400));
+                width: calc(100% - var(--spacing400));
 
-  ${({ dialogHeight }) =>
-    dialogHeight &&
-    css`
-      height: ${dialogHeight}px;
-    `}
-  
-  > ${StyledIconButton} {
-    margin: 0;
-    position: absolute;
-    right: 33px;
-    top: 32px;
-    z-index: 1;
+                @media screen and (min-width: 960px) {
+                  height: calc(100% - var(--spacing800));
+                  width: calc(100% - var(--spacing800));
+                }
+              `
+            : css`
+                max-height: 90vh;
+                max-width: ${dialogSizes[size]};
+                width: 100%;
+              `};
 
-    &:hover {
-      color: #255bc7;
-    }
-  }
-`;
+          ${highlightVariant &&
+          highlightVariant === "ai" &&
+          css`
+            &::before {
+              content: "";
+              position: absolute;
+              top: -8px;
+              height: 100px;
+              width: 100%;
+              z-index: -1;
+              background: linear-gradient(
+                90deg,
+                #00d639 0%,
+                #00d6de 40%,
+                #9d60ff 90%
+              );
+              border-radius: var(--borderRadius200) var(--borderRadius200) 0 0;
+            }
+          `}
 
-type StyledDialogTitleProps = {
-  showCloseIcon?: boolean;
-  hasSubtitle?: boolean;
-};
-
-const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
-  background-color: var(--colorsUtilityYang100);
-  padding: 23px 32px 0;
-  border-bottom: 1px solid #ccd6db;
-  border-top-right-radius: var(--borderRadius200);
-  border-top-left-radius: var(--borderRadius200);
-  ${({ showCloseIcon }) => showCloseIcon && "padding-right: 85px"};
+          ${dialogHeight &&
+          css`
+            height: ${dialogHeight}px;
+          `}
+        `}
 
   ${StyledHeaderContent} {
     align-items: baseline;
   }
 
-  ${StyledHeading} {
-    margin-bottom: 20px;
+  > ${StyledIconButton} {
+    margin: 0;
+    position: absolute;
+    z-index: 1;
 
-    ${StyledHeadingTitle} {
-      color: var(--colorsUtilityYin090);
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      padding: ${({ hasSubtitle }) => !hasSubtitle && "4px 0px"};
-    }
+    ${({ fullscreen }) =>
+      fullscreen
+        ? css`
+            right: 40px;
+            top: 26px;
+          `
+        : css`
+            right: 33px;
+            top: 32px;
+
+            &:hover {
+              color: #255bc7;
+            }
+          `}
   }
+
+  /* Legacy Pages component styling for fullscreen */
+  ${({ fullscreen, pagesStyling }) =>
+    computePagesStyling({ fullscreen, pagesStyling })}
 `;
 
-const StyledDialogContent = styled.div.attrs(
-  applyBaseTheme,
-)<ContentPaddingInterface>`
-  box-sizing: border-box;
-  display: block;
-  overflow-y: auto;
-  width: 100%;
-  flex-grow: 1;
+const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
+  ${({ fullscreen, hasSubtitle, showCloseIcon }) =>
+    !fullscreen &&
+    css`
+      background-color: var(--colorsUtilityYang100);
+      padding: 23px 32px 0;
+      border-bottom: 1px solid #ccd6db;
+      border-top-right-radius: var(--borderRadius200);
+      border-top-left-radius: var(--borderRadius200);
+      ${showCloseIcon && "padding-right: 85px"};
 
-  padding: 24px 32px 30px;
-  ${paddingFn}
-
-  &:has(${StyledForm}.sticky) {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-
-    ${StyledForm}.sticky {
-      ${StyledFormContent} {
-        padding: 24px 32px 30px;
-        ${paddingFn}
+      ${StyledHeaderContent} {
+        align-items: baseline;
       }
 
-      ${StyledFormFooter} {
-        border-bottom-right-radius: var(--borderRadius200);
-        border-bottom-left-radius: var(--borderRadius200);
+      ${StyledHeading} {
+        margin-bottom: 20px;
+
+        ${StyledHeadingTitle} {
+          color: var(--colorsUtilityYin090);
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          padding: ${!hasSubtitle && "4px 0px"};
+        }
       }
-    }
-  }
+    `}
 `;
 
 export {
