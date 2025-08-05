@@ -115,9 +115,6 @@ export type {
   DialogSizes,
 } from "./components/dialog";
 
-export { default as DialogFullScreen } from "./components/dialog-full-screen";
-export type { DialogFullScreenProps } from "./components/dialog-full-screen";
-
 export { default as DismissibleBox } from "./components/dismissible-box";
 export type { DismissibleBoxProps } from "./components/dismissible-box";
 
