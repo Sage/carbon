@@ -1,18 +1,21 @@
 import React, { useRef, RefObject } from "react";
 
-import createGuid from "../../__internal__/utils/helpers/guid";
-import Modal, { ModalProps } from "../modal";
-import Heading from "../heading";
-import FullScreenHeading from "../../__internal__/full-screen-heading";
-import StyledDialogFullScreen from "./dialog-full-screen.style";
 import StyledContent from "./content.style";
-import FocusTrap from "../../__internal__/focus-trap";
-import IconButton from "../icon-button";
+import StyledDialogFullScreen from "./dialog-full-screen.style";
+
+import Heading from "../heading";
 import Icon from "../icon";
-import useLocale from "../../hooks/__internal__/useLocale";
-import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
+import IconButton from "../icon-button";
+import Modal, { ModalProps } from "../modal";
+
+import FocusTrap from "../../__internal__/focus-trap";
+import FullScreenHeading from "../../__internal__/full-screen-heading";
+import createGuid from "../../__internal__/utils/helpers/guid";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import Logger from "../../__internal__/utils/logger";
+
+import useLocale from "../../hooks/__internal__/useLocale";
+import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 
 export interface DialogFullScreenProps
   extends Omit<ModalProps, "disableClose"> {

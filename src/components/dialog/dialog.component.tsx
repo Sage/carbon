@@ -5,25 +5,27 @@ import React, {
   RefObject,
 } from "react";
 
-import createGuid from "../../__internal__/utils/helpers/guid";
-import Modal, { ModalProps } from "../modal";
-import Heading from "../heading";
-import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-
+import { DialogSizes } from "./dialog.config";
 import {
   StyledDialog,
   StyledDialogTitle,
   StyledDialogContent,
   DialogPositioner,
 } from "./dialog.style";
-import { DialogSizes } from "./dialog.config";
+
+import Heading from "../heading";
+import Icon from "../icon";
+import IconButton from "../icon-button";
+import Modal, { ModalProps } from "../modal";
 
 import FocusTrap from "../../__internal__/focus-trap";
-import IconButton from "../icon-button";
-import Icon from "../icon";
+import FullScreenHeading from "../../__internal__/full-screen-heading";
+import createGuid from "../../__internal__/utils/helpers/guid";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
+import Logger from "../../__internal__/utils/logger";
+
 import useLocale from "../../hooks/__internal__/useLocale";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
-import Logger from "../../__internal__/utils/logger";
 
 type PaddingValues = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -34,12 +36,6 @@ export interface ContentPaddingInterface {
 }
 
 export interface DialogProps extends ModalProps, TagProps {
-  /**
-   * @private
-   * @ignore
-   * @internal
-   * Sets className for component. INTERNAL USE ONLY. */
-  className?: string;
   /** Prop to specify the aria-describedby property of the Dialog component */
   "aria-describedby"?: string;
   /**
@@ -53,10 +49,6 @@ export interface DialogProps extends ModalProps, TagProps {
    * or the component is labelled by an internal element other than the title.
    */
   "aria-labelledby"?: string;
-  /* Disables auto focus functionality on child elements */
-  disableAutoFocus?: boolean;
-  /* Disables the focus trap when the dialog is open */
-  disableFocusTrap?: boolean;
   /**
    * Function to replace focus trap
    * @ignore
@@ -67,10 +59,40 @@ export interface DialogProps extends ModalProps, TagProps {
     firstElement?: HTMLElement,
     lastElement?: HTMLElement,
   ) => void;
-  /** Optional reference to an element meant to be focused on open */
-  focusFirstElement?: RefObject<HTMLElement> | HTMLElement | null;
+  /** Child elements */
+  children?: React.ReactNode;
+  /**
+   * @private
+   * @ignore
+   * @internal
+   * Sets className for component. INTERNAL USE ONLY. */
+  className?: string;
+  /** Data tag prop bag for close Button */
+  closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
+  /** Reference to the scrollable content element */
+  contentRef?: React.ForwardedRef<HTMLDivElement>;
+  /** @private @internal @ignore */
+  "data-component"?: string;
+  /* Disables auto focus functionality on child elements */
+  disableAutoFocus?: boolean;
+  /** @deprecated Determines if the Dialog can be closed */
+  disableClose?: boolean;
+  /** remove padding from content */
+  disableContentPadding?: boolean;
+  /* Disables the focus trap when the dialog is open */
+  disableFocusTrap?: boolean;
+  /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
+  focusableContainers?: RefObject<HTMLElement>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
+  /** Optional reference to an element meant to be focused on open */
+  focusFirstElement?: RefObject<HTMLElement> | HTMLElement | null;
+  /** Whether the dialog is full-screen */
+  fullscreen?: boolean;
+  /** Change the background color of the content to grey */
+  greyBackground?: boolean;
+  /** Container for components to be displayed in the header */
+  headerChildren?: React.ReactNode;
   /** Allows developers to specify a specific height for the dialog. */
   height?: string;
   /** Adds Help tooltip to Header */
@@ -84,26 +106,20 @@ export interface DialogProps extends ModalProps, TagProps {
       | KeyboardEvent
       | React.MouseEvent<HTMLButtonElement>,
   ) => void;
+  /** @deprecated For legacy styling when used with Pages component. Do not use this unless using Pages within a DialogFullScreen */
+  pagesStyling?: boolean;
+  /** The ARIA role to be applied to the Dialog container */
+  role?: string;
   /** Determines if the close icon is shown */
   showCloseIcon?: boolean;
-  /** Data tag prop bag for close Button */
-  closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
   /** Size of dialog, default size is 750px */
   size?: DialogSizes;
   /** Subtitle displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to subtitle prop. */
   subtitle?: React.ReactNode;
   /** Title displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to title prop. */
   title?: React.ReactNode;
-  /** The ARIA role to be applied to the Dialog container */
-  role?: string;
   /** Padding to be set on the Dialog content */
   contentPadding?: ContentPaddingInterface;
-  /** Change the background color of the content to grey */
-  greyBackground?: boolean;
-  /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
-  focusableContainers?: RefObject<HTMLElement>[];
-  /** @private @internal @ignore */
-  "data-component"?: string;
 }
 
 export type DialogHandle = {
@@ -146,6 +162,11 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       "aria-labelledby": ariaLabelledBy,
       "aria-describedby": ariaDescribedBy,
       "aria-label": ariaLabel,
+      pagesStyling,
+      headerChildren,
+      disableContentPadding,
+      contentRef,
+      fullscreen = false,
       ...rest
     },
     ref,
@@ -153,6 +174,8 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const locale = useLocale();
 
     const containerRef = useRef<HTMLDivElement>(null);
+    const dialogRef = useRef(null);
+    const headingRef = useRef(null);
     const titleRef = useRef(null);
     const { current: titleId } = useRef(createGuid());
     const { current: subtitleId } = useRef(createGuid());
@@ -176,41 +199,73 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       [],
     );
 
-    const closeIcon = showCloseIcon && onCancel && (
-      <IconButton
-        aria-label={locale.dialog.ariaLabels.close()}
-        onClick={onCancel}
-        disabled={disableClose}
-        {...tagComponent("close", {
-          "data-element": "close",
-          ...closeButtonDataProps,
-        })}
-      >
-        <Icon type="close" />
-      </IconButton>
-    );
+    const closeIcon = () => {
+      if (!showCloseIcon || !onCancel) return null;
 
-    const dialogTitle = title && (
-      <StyledDialogTitle
-        showCloseIcon={showCloseIcon}
-        hasSubtitle={!!subtitle}
-        ref={titleRef}
-      >
-        {typeof title === "string" ? (
-          <Heading
-            data-element="dialog-title"
-            title={title}
-            titleId={titleId}
-            subheader={subtitle}
-            subtitleId={subtitleId}
-            divider={false}
-            help={help}
-          />
-        ) : (
-          title
-        )}
-      </StyledDialogTitle>
-    );
+      return (
+        <IconButton
+          aria-label={locale.dialogFullScreen.ariaLabels.close()}
+          onClick={onCancel}
+          {...tagComponent("close", {
+            "data-element": "close",
+            ...closeButtonDataProps,
+          })}
+        >
+          <Icon type="close" />
+        </IconButton>
+      );
+    };
+
+    const dialogTitle = () => {
+      if (fullscreen) {
+        <FullScreenHeading
+          hasContent={!!title}
+          hasCloseButton={showCloseIcon}
+          ref={headingRef}
+        >
+          {typeof title === "string" ? (
+            <Heading
+              data-element="dialog-title"
+              title={title}
+              titleId={titleId}
+              subheader={subtitle}
+              subtitleId={subtitleId}
+              divider={false}
+              help={help}
+            />
+          ) : (
+            title
+          )}
+          {headerChildren}
+        </FullScreenHeading>;
+      }
+
+      if (title) {
+        return (
+          <StyledDialogTitle
+            hasSubtitle={!!subtitle}
+            ref={titleRef}
+            showCloseIcon={showCloseIcon}
+          >
+            {typeof title === "string" ? (
+              <Heading
+                data-element="dialog-title"
+                divider={false}
+                help={help}
+                subheader={subtitle}
+                subtitleId={subtitleId}
+                title={title}
+                titleId={titleId}
+              />
+            ) : (
+              title
+            )}
+          </StyledDialogTitle>
+        );
+      }
+
+      return null;
+    };
 
     let dialogHeight = height;
 
@@ -218,60 +273,65 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       dialogHeight = height.replace("px", "");
     }
 
-    const dialogProps = {
-      size,
-      dialogHeight,
-      "aria-labelledby":
-        title && typeof title === "string" ? titleId : ariaLabelledBy,
+    const ariaProps = {
       "aria-describedby":
         subtitle && typeof subtitle === "string" ? subtitleId : ariaDescribedBy,
       "aria-label": ariaLabel,
+      "aria-labelledby":
+        title && typeof title === "string" ? titleId : ariaLabelledBy,
     };
 
     return (
       <Modal
-        open={open}
-        onCancel={onCancel}
-        disableEscKey={disableEscKey}
-        disableClose={disableClose}
         className={className ? `${className} carbon-dialog` : "carbon-dialog"}
-        topModalOverride={topModalOverride}
+        disableClose={disableClose}
+        disableEscKey={disableEscKey}
+        onCancel={onCancel}
+        open={open}
         restoreFocusOnClose={restoreFocusOnClose}
+        topModalOverride={topModalOverride}
+        {...tagComponent("dialog-full-screen", rest)}
         {...rest}
       >
         <FocusTrap
+          additionalWrapperRefs={focusableContainers}
           autoFocus={!disableAutoFocus}
-          focusFirstElement={focusFirstElement}
           bespokeTrap={bespokeFocusTrap}
           focusableSelectors={focusableSelectors}
-          wrapperRef={containerRef}
+          focusFirstElement={focusFirstElement}
           isOpen={open}
-          additionalWrapperRefs={focusableContainers}
+          wrapperRef={containerRef}
         >
           <DialogPositioner>
             <StyledDialog
-              data-component={dataComponent}
-              data-element={dataElement}
-              data-role={dataRole}
-              aria-modal={isTopModal ? true : undefined}
-              ref={containerRef}
-              {...dialogProps}
-              highlightVariant={highlightVariant}
-              role={role}
-              tabIndex={-1}
-              {...contentPadding}
+              aria-modal={role === "dialog" && isTopModal ? true : undefined}
+              {...ariaProps}
               backgroundColor={
                 greyBackground
                   ? "var(--colorsUtilityMajor025)"
                   : "var(--colorsUtilityYang100)"
               }
+              data-component={dataComponent}
+              data-element={dataElement}
+              data-role={dataRole}
+              dialogHeight={dialogHeight}
+              fullscreen={fullscreen}
+              highlightVariant={highlightVariant}
+              ref={dialogRef}
+              role={role}
+              size={size}
+              tabIndex={-1}
+              {...contentPadding}
             >
-              {dialogTitle}
-              {closeIcon}
+              {title || headerChildren ? dialogTitle() : null}
+              {closeIcon()}
               <StyledDialogContent
                 {...contentPadding}
                 data-role="dialog-content"
+                disableContentPadding={disableContentPadding}
+                hasHeader={title !== undefined}
                 tabIndex={-1}
+                ref={contentRef}
               >
                 {children}
               </StyledDialogContent>
