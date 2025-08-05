@@ -110,6 +110,8 @@ export const renderClose = ({
   </PopoverContainerCloseIcon>
 );
 
+type Position = "left" | "right" | "center";
+
 export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** A function that will render the open component
    *
@@ -126,7 +128,7 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** The content of the popover-container */
   children?: React.ReactNode;
   /** Sets rendering position of dialog */
-  position?: "left" | "right";
+  position?: Position;
   /** Sets the popover container dialog header name */
   title?: string;
   /** Callback fires when close icon clicked */
@@ -227,6 +229,13 @@ export const PopoverContainer = forwardRef<
 
     const popoverMiddleware = usePopoverMiddleware(shouldCoverButton);
     const { isInFlatTable } = useContext(FlatTableContext);
+
+    const getPlacement = () => {
+      if (position === "center") {
+        return "bottom";
+      }
+      return position === "right" ? "bottom-start" : "bottom-end";
+    };
 
     const closePopover = useCallback(
       (
@@ -458,7 +467,7 @@ export const PopoverContainer = forwardRef<
         >
           <Popover
             reference={popoverReference}
-            placement={position === "right" ? "bottom-start" : "bottom-end"}
+            placement={getPlacement()}
             popoverStrategy={
               disableAnimation || reduceMotion ? "fixed" : "absolute"
             }

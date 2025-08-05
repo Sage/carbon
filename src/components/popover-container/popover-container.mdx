@@ -41,7 +41,14 @@ of the screen.
 
 **Please note you should supply an `onClose` when controlling the `open` state in order for the `PopoverContainer` to close when clicking outside of the wrapper element**
 
-<Canvas of={PopoverContainerStories.Position} />
+<Canvas of={PopoverContainerStories.RightPosition} />
+
+### Center Aligned
+
+Use `position="center"` to center the `PopoverContainer` below the trigger element. This positioning is ideal when your trigger element is centrally located and you want the popover to appear directly underneath it, maintaining visual alignment.
+The center position automatically calculates the optimal placement to keep the popover centered relative to its trigger, while ensuring it stays within the viewport boundaries.
+
+<Canvas of={PopoverContainerStories.CenterPosition} />
 
 ### Cover Button
 
