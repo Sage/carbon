@@ -293,6 +293,7 @@ test("popup allows outside focus when shouldCoverButton prop is false", async ()
 test.each([
   ["left", "bottom-end"],
   ["right", "bottom-start"],
+  ["center", "bottom"],
 ] as const)(
   "computes popup positioning correctly when position prop is '%s'",
   async (position, placement) => {
