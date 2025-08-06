@@ -149,7 +149,9 @@ const BaseItem = forwardRef<HTMLElement, BaseItemProps>(
       () => responsiveMode && depth === 0,
       [depth, responsiveMode],
     );
-    const [expanded, setExpanded] = useState(responsiveDisplay && hasChildren);
+    const [expanded, setExpanded] = useState(
+      (responsiveDisplay && hasChildren) || depth >= 2,
+    );
 
     // Register the menu item with the focus context
     // We can do this here as well as in the wrapping component to ensure
