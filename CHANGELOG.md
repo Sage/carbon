@@ -1,3 +1,9 @@
+## [155.8.0](https://github.com/Sage/carbon/compare/v155.7.1...v155.8.0) (2025-08-06)
+
+### Features
+
+* **responsive-vertical-menu:** adds proper support for items at 4th level of depth ([252b8eb](https://github.com/Sage/carbon/commit/252b8eb16b8b7761e1c9720249cac5b012ce46af)), closes [#7422](https://github.com/Sage/carbon/issues/7422)
+
 ## [155.7.1](https://github.com/Sage/carbon/compare/v155.7.0...v155.7.1) (2025-07-29)
 
 ### Bug Fixes
