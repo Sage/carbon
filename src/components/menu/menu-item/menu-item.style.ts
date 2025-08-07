@@ -129,6 +129,10 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
     ${!overrideColor &&
     css`
       background-color: ${menuConfigVariants[menuType].background};
+
+      &:has(.quick-action) {
+        background-color: var(--colorsActionMajor500);
+      }
     `}
 
     ${overrideColor &&
@@ -162,6 +166,15 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
           color: ${menuConfigVariants[menuType].color};
           z-index: 1;
           position: relative;
+        }
+      }
+
+      &:has(.quick-action) {
+        && {
+          a:focus,
+          button:focus {
+            background-color: var(--colorsActionMajor500);
+          }
         }
       }
 
@@ -230,6 +243,18 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
             box-sizing: border-box;
             height: 100%;
           }
+
+          &:has(.quick-action) ${StyledButton} {
+            border-radius: 0;
+            border: none;
+            padding-left: var(--spacing200);
+            padding-right: var(--spacing200);
+
+            :focus {
+              z-index: 1;
+              position: relative;
+            }
+          }
         }
       `}
 
@@ -265,6 +290,18 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
             }
           `}
     `}
+
+                &:has(.quick-action) ${StyledButton} {
+      border-radius: 0;
+      border: none;
+      padding-left: var(--spacing200);
+      padding-right: var(--spacing200);
+
+      :focus {
+        z-index: 1;
+        position: relative;
+      }
+    }
 
     button,
     ${StyledLink} button,

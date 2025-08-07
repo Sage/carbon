@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { render, screen, act, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { testStyledSystemPadding } from "../../__spec_helper__/__internal__/test-utils";
 
@@ -165,6 +165,76 @@ test("popup title has correct data tag", () => {
     "data-element",
     "popover-container-title",
   );
+});
+
+test("popover reference element renders with a class-name of quick-action when the `variant` is set to 'quick-action'", () => {
+  render(
+    <PopoverContainer title="Custom Title" open variant="quick-action">
+      Ta da!
+    </PopoverContainer>,
+  );
+
+  expect(screen.getByTestId("popover-reference")).toHaveClass("quick-action");
+});
+
+test("popover container renders with a class-name of quick-action when the `variant` is set to 'quick-action'", () => {
+  render(
+    <PopoverContainer title="Custom Title" open variant="quick-action">
+      Ta da!
+    </PopoverContainer>,
+  );
+
+  const dialog = screen.getByRole("dialog");
+
+  expect(dialog).toHaveClass("quick-action");
+});
+
+test("popover container renders with correct styles when `variant` is set to 'quick-action'", () => {
+  render(
+    <PopoverContainer open title="My popup" variant="quick-action">
+      Content
+    </PopoverContainer>,
+  );
+
+  const dialog = screen.getByRole("dialog");
+
+  expect(dialog).toHaveStyle({
+    background: "var(--colorsActionMajor500)",
+  });
+
+  expect(dialog).toHaveStyle({
+    borderRadius: "0 0 16px 16px",
+  });
+});
+
+test("renders with correct icon colour", () => {
+  render(
+    <PopoverContainer open title="My popup">
+      Content
+    </PopoverContainer>,
+  );
+
+  const dialog = screen.getByRole("dialog");
+  const iconElement = within(dialog).getByTestId("icon");
+
+  expect(iconElement).toHaveStyle({
+    color: "var(--colorsActionMinor500)",
+  });
+});
+
+test("renders with correct icon colour when variant is set to 'quick-action'", () => {
+  render(
+    <PopoverContainer open title="My popup" variant="quick-action">
+      Content
+    </PopoverContainer>,
+  );
+
+  const dialog = screen.getByRole("dialog");
+  const iconElement = within(dialog).getByTestId("icon");
+
+  expect(iconElement).toHaveStyle({
+    color: "var(--colorsActionMajorYang100)",
+  });
 });
 
 describe("close button", () => {

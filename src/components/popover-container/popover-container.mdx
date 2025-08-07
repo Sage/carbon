@@ -34,6 +34,20 @@ Use the `title` prop to set a title within the `PopoverContainer`.
 
 <Canvas of={PopoverContainerStories.Title} />
 
+### With variant
+
+Use the `variant` prop to change the appearance of the `PopoverContainer`.
+When variant is set to `"quick-action"`, the `PopoverContainer` changes to a green background with a white close icon.
+The border radius is removed from the top corners and applied to the bottom corners only. No offset is applied to create a seamless connection with its trigger element.
+
+<Canvas of={PopoverContainerStories.QuickAction} />
+
+When used with a Carbon `Button` via `renderOpenComponent` in a `MenuItem`, the `Button` inherits the same green background styling when the variant is `"quick-action"`. 
+This creates a seamless visual connection where the popover appears as a natural extension of the menu item above,
+with both components sharing the quick-action styling..
+
+<Canvas of={PopoverContainerStories.QuickActionInMenu} />
+
 ### Right Aligned/Open Left
 
 Use the `position` prop to open the `PopoverContainer` to the left, this is useful if your open button is to the right

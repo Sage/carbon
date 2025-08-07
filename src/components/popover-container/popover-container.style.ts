@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { padding } from "styled-system";
 import { TransitionStatus } from "react-transition-group";
 
+import { Variant } from "./popover-container.component";
 import applyBaseTheme from "../../style/themes/apply-base-theme";
 import IconButton from "../icon-button";
 import StyledIcon from "../icon/icon.style";
@@ -37,6 +38,7 @@ type PopoverContainerContentStyleProps = {
   animationState?: TransitionStatus;
   disableAnimation?: boolean;
   zIndex?: number;
+  variant?: Variant;
 };
 
 const PopoverContainerContentStyle = styled.div.attrs(
@@ -44,8 +46,10 @@ const PopoverContainerContentStyle = styled.div.attrs(
 )<PopoverContainerContentStyleProps>`
   ${padding}
 
-  background: var(--colorsUtilityYang100);
-  border-radius: var(--borderRadius100);
+  background: ${({ variant }) =>
+    `var(--${variant === "typical" ? "colorsUtilityYang100" : "colorsActionMajor500"})`};
+  border-radius: ${({ variant }) =>
+    variant === "typical" ? "var(--borderRadius100)" : "0 0 16px 16px"};
   box-shadow: var(--boxShadow100);
   min-width: 300px;
   position: absolute;
@@ -61,6 +65,10 @@ const PopoverContainerContentStyle = styled.div.attrs(
           &.enter {
             opacity: 0;
             transform: translateY(-8px);
+          }
+
+          &.enter.quick-action {
+            transform: translateY(0px);
           }
 
           &.enter-done {
@@ -112,6 +120,7 @@ const PopoverContainerContentStyle = styled.div.attrs(
 type AdditionalIconButtonProps = {
   tabIndex?: number;
   id?: string;
+  popoverVariant?: Variant;
 };
 
 const PopoverContainerOpenIcon = styled(IconButton)<AdditionalIconButtonProps>`
@@ -126,7 +135,8 @@ const PopoverContainerCloseIcon = styled(IconButton)<AdditionalIconButtonProps>`
   right: 24px;
 
   ${StyledIcon} {
-    color: var(--colorsActionMinor500);
+    color: ${({ popoverVariant }) =>
+      `var(--${popoverVariant === "typical" ? "colorsActionMinor500" : "colorsActionMajorYang100"})`};
   }
 `;
 
