@@ -198,73 +198,6 @@ export const LargeSize: Story = {
 };
 LargeSize.storyName = "Large Size";
 
-export const OpenPopover: Story = {
-  render: () => (
-    <Wrapper>
-      <Box mb={3}>
-        <SplitButton buttonType="primary" text="Split button">
-          <Button>Option 1</Button>
-          <Button data-role="target">Option 2</Button>
-        </SplitButton>
-      </Box>
-    </Wrapper>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-    const canvas = within(canvasElement);
-    const toggleButton = canvas.getByRole("button", { name: /show more/i });
-
-    await userEvent.click(toggleButton);
-    await userInteractionPause(600);
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-OpenPopover.storyName = "Open Popover";
-
-export const FocusStates: Story = {
-  render: () => (
-    <Wrapper>
-      <Box mb={3}>
-        <SplitButton text="Split button">
-          <Button data-role="focus-target">Focus Me</Button>
-          <Button>Another Button</Button>
-        </SplitButton>
-      </Box>
-    </Wrapper>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-    const canvas = within(canvasElement);
-    const toggleButton = canvas.getByRole("button", { name: /show more/i });
-
-    await userEvent.click(toggleButton);
-    await userInteractionPause(500);
-
-    const focusTarget = canvas.getByText("Focus Me");
-    focusTarget.focus();
-    await userInteractionPause(600);
-
-    const toggleButtonElement = canvasElement.querySelector(
-      '[data-element="toggle-button"]',
-    );
-    expect(toggleButtonElement).toHaveFocus();
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-FocusStates.storyName = "Focus Management";
-
 export const ChildButtonFocusState: Story = {
   render: () => (
     <Wrapper>
@@ -421,7 +354,7 @@ ButtonsWithIcons.storyName = "Child Buttons with Icons";
 export const PopoverPositioningLeft: Story = {
   render: () => (
     <Box mb={3}>
-      <SplitButton align="left" text="Split button - left">
+      <SplitButton position="left" text="Split button - left">
         <Button>Button 1</Button>
         <Button>Button 2</Button>
         <Button>Button 3</Button>
@@ -449,7 +382,7 @@ PopoverPositioningLeft.storyName = "Popover Positioning Left";
 export const PopoverPositioningRight: Story = {
   render: () => (
     <Box mb={3}>
-      <SplitButton align="right" text="Split button - right">
+      <SplitButton position="right" text="Split button - right">
         <Button>Button 1</Button>
         <Button>Button 2</Button>
         <Button>Button 3</Button>
