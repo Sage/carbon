@@ -27,7 +27,9 @@ import Form from "../form";
 import DateRange, { DateRangeChangeEvent } from "../date-range";
 import DateInput, { DateChangeEvent } from "../date";
 import GlobalHeader from "../global-header";
-
+import carbonLogo from "../../../logo/carbon-logo.png";
+import Hr from "../hr";
+import useMediaQuery from "../../hooks/useMediaQuery";
 import isChromatic from "../../../.storybook/isChromatic";
 
 export default {
@@ -235,6 +237,336 @@ export const InsideMenuWithOpenButton = () => {
       </MenuItem>
       <MenuItem href="#">Menu Item Six</MenuItem>
     </Menu>
+  );
+};
+
+export const QuickActionsResponsive = () => {
+  const Logo = () => <img height={28} src={carbonLogo} alt="Carbon logo" />;
+
+  const [open, setOpen] = useState(false);
+  const isMid = useMediaQuery("(max-width: 1225px)");
+  const isSmall = useMediaQuery("(max-width: 480px)");
+
+  return (
+    <GlobalHeader
+      p={0}
+      logo={<Logo />}
+      aria-label="Global header component with basic menu"
+    >
+      <Menu menuType="black" flex="1">
+        <MenuItem flex="1" submenu="Product Switcher">
+          <MenuItem href="#">Product A</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto">
+          <PopoverContainer
+            position={isSmall ? "center" : !isMid ? "center" : "right"}
+            variant="quick-action"
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
+            open={open}
+            renderOpenComponent={({ ref, onClick }) => (
+              <Button
+                buttonType="primary"
+                aria-label="Notifications"
+                ref={ref}
+                onClick={onClick}
+              >
+                <Box alignSelf="center">
+                  <Icon type="plus" mr={1} />
+                  Create
+                </Box>
+              </Button>
+            )}
+            p={0}
+          >
+            <Box
+              display="flex"
+              flexDirection={!isMid ? "row" : "column"}
+              gap={!isMid ? "64px" : "24px"}
+              padding="24px 32px"
+              boxSizing="border-box"
+              marginLeft="0"
+              {...(isSmall && { width: "100vw", minWidth: "480px" })}
+            >
+              <Box
+                display="flex"
+                flexDirection="column"
+                boxSizing="border-box"
+                margin="0"
+                padding="0"
+              >
+                <Typography variant="segment-subheader" color="white" m={0}>
+                  Accounting
+                </Typography>
+                <Hr variant="inverse" mt={1} mb={2} />
+                <Box display="flex" flexDirection="row" gap="32px">
+                  <Box display="flex" flexDirection="column" gap="8px">
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Sales invoice
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Purchase invoice
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Upload a file
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Quote
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Estimate
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Customer receipt
+                    </Typography>
+                  </Box>
+                  <Box display="flex" flexDirection="column" gap="8px">
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Supplier payment
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Other receipt
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Other payment
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Customer
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Supplier
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Journal
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="column"
+                boxSizing="border-box"
+                margin="0"
+                padding="0"
+              >
+                <Typography variant="segment-subheader" color="white" m={0}>
+                  Payroll and HR
+                </Typography>
+                <Hr variant="inverse" mt={1} mb={2} />
+                <Box display="flex" flexDirection="row" gap="32px">
+                  <Box display="flex" flexDirection="column" gap="8px">
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      New time off
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Quick feedback
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Book a 1-to-1
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      New goal
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      New document
+                    </Typography>
+                  </Box>
+                  <Box display="flex" flexDirection="column" gap="8px">
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      New expense
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      New task
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      New employee
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      Add announcement
+                    </Typography>
+                    <Typography
+                      as="a"
+                      fontWeight="500"
+                      fontSize="14px"
+                      lineHeight="25px"
+                      color="white"
+                      m={0}
+                    >
+                      New training
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </PopoverContainer>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Parent Menu 1">
+          <MenuItem href="#">Child Item</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
+          <MenuItem href="#">Child Item</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Parent Menu 3">
+          <MenuItem href="#">Child Item</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Parent Menu 4">
+          <MenuItem href="#">Child Item</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Parent Menu 5">
+          <MenuItem href="#">Child Item</MenuItem>
+        </MenuItem>
+        <MenuItem flex="0 0 auto" submenu="Parent Menu 6">
+          <MenuItem href="#">Child Item</MenuItem>
+        </MenuItem>
+      </Menu>
+    </GlobalHeader>
   );
 };
 
