@@ -554,7 +554,9 @@ test.describe("Prop tests", () => {
       mount,
       page,
     }) => {
-      await mount(<TextEditorDefaultComponent value={preformattedValue} />);
+      await mount(
+        <TextEditorDefaultComponent initialValue={preformattedValue} />,
+      );
       const defaultText = await page.locator("p").textContent();
       expect(defaultText).toBe("Sample text with some formatting applied.");
 
@@ -705,7 +707,7 @@ test.describe("Functionality tests", () => {
     }) => {
       await mount(
         <TextEditorDefaultComponent
-          value={preformattedValue}
+          initialValue={preformattedValue}
           onCancel={() => {}}
         />,
       );
@@ -895,7 +897,9 @@ test.describe("Functionality tests", () => {
       mount,
       page,
     }) => {
-      await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
       const textbox = await page.locator("div[role='textbox']");
       await textbox.selectText();
       const boldButton = await page.locator(
@@ -913,7 +917,9 @@ test.describe("Functionality tests", () => {
       mount,
       page,
     }) => {
-      await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
 
       const textbox = await page.locator("div[role='textbox']");
 
@@ -957,7 +963,9 @@ test.describe("Functionality tests", () => {
       mount,
       page,
     }) => {
-      await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
       const textbox = await page.locator("div[role='textbox']");
       await textbox.selectText();
       const italicButton = await page.locator(
@@ -975,7 +983,9 @@ test.describe("Functionality tests", () => {
       mount,
       page,
     }) => {
-      await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
 
       const textbox = await page.locator("div[role='textbox']");
 
@@ -1019,7 +1029,9 @@ test.describe("Functionality tests", () => {
       mount,
       page,
     }) => {
-      await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
       const textbox = await page.locator("div[role='textbox']");
       await textbox.selectText();
       const orderedListButton = await page.locator(
@@ -1038,7 +1050,9 @@ test.describe("Functionality tests", () => {
       mount,
       page,
     }) => {
-      await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
       const textbox = await page.locator("div[role='textbox']");
       await textbox.selectText();
       const unorderedListButton = await page.locator(
@@ -1075,7 +1089,6 @@ test.describe("Events tests", () => {
       await textbox.pressSequentially("oogle.com", { delay: 100 });
       expect(_link).toBe("https://www.google.com");
       for (let i = 0; i < 10; i++) {
-        // eslint-disable-next-line no-await-in-loop
         await textbox.press("Backspace");
       }
       expect(await page.locator("a").count()).toBe(0);
@@ -1085,7 +1098,9 @@ test.describe("Events tests", () => {
   test.describe("Shortcut keys", () => {
     test.describe("Bold", () => {
       test("pressing Meta + B toggles bold text", async ({ mount, page }) => {
-        await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+        await mount(
+          <TextEditorDefaultComponent initialValue={unformattedValue} />,
+        );
         const textbox = await page.locator("div[role='textbox']");
         await textbox.selectText();
         await page.keyboard.press("ControlOrMeta+B");
@@ -1112,7 +1127,9 @@ test.describe("Events tests", () => {
 
     test.describe("Italic", () => {
       test("pressing Meta + I toggles italic text", async ({ mount, page }) => {
-        await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+        await mount(
+          <TextEditorDefaultComponent initialValue={unformattedValue} />,
+        );
         const textbox = await page.locator("div[role='textbox']");
         await textbox.selectText();
         await page.keyboard.press("ControlOrMeta+I");
@@ -1142,7 +1159,9 @@ test.describe("Events tests", () => {
         mount,
         page,
       }) => {
-        await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+        await mount(
+          <TextEditorDefaultComponent initialValue={unformattedValue} />,
+        );
         const textbox = await page.locator("div[role='textbox']");
         await textbox.click();
         await textbox.press("Home");
@@ -1150,7 +1169,6 @@ test.describe("Events tests", () => {
         await textbox.pressSequentially(`${ulChar} `, { delay: 100 });
         expect(await page.locator("ul").count()).toBe(1);
         for (let i = 0; i < 2; i++) {
-          // eslint-disable-next-line no-await-in-loop
           await textbox.press("Backspace");
         }
         expect(await page.locator("ul").count()).toBe(0);
@@ -1161,7 +1179,9 @@ test.describe("Events tests", () => {
       mount,
       page,
     }) => {
-      await mount(<TextEditorDefaultComponent value={unformattedValue} />);
+      await mount(
+        <TextEditorDefaultComponent initialValue={unformattedValue} />,
+      );
       const textbox = await page.locator("div[role='textbox']");
       await textbox.click();
       await textbox.press("Home");
@@ -1169,7 +1189,6 @@ test.describe("Events tests", () => {
       await textbox.pressSequentially(`1. `, { delay: 100 });
       expect(await page.locator("ol").count()).toBe(1);
       for (let i = 0; i < 3; i++) {
-        // eslint-disable-next-line no-await-in-loop
         await textbox.press("Backspace");
       }
       expect(await page.locator("ol").count()).toBe(0);
@@ -1207,7 +1226,6 @@ test.describe("Events tests", () => {
         await textbox.pressSequentially(`${headingChar} `, { delay: 100 });
         expect(await page.locator(tag).count()).toBe(1);
         for (let i = 0; i < headingChar.length + 1; i++) {
-          // eslint-disable-next-line no-await-in-loop
           await textbox.press("Backspace");
         }
         expect(await page.locator(tag).count()).toBe(0);
