@@ -1075,7 +1075,6 @@ test.describe("Events tests", () => {
       await textbox.pressSequentially("oogle.com", { delay: 100 });
       expect(_link).toBe("https://www.google.com");
       for (let i = 0; i < 10; i++) {
-        // eslint-disable-next-line no-await-in-loop
         await textbox.press("Backspace");
       }
       expect(await page.locator("a").count()).toBe(0);
@@ -1150,7 +1149,6 @@ test.describe("Events tests", () => {
         await textbox.pressSequentially(`${ulChar} `, { delay: 100 });
         expect(await page.locator("ul").count()).toBe(1);
         for (let i = 0; i < 2; i++) {
-          // eslint-disable-next-line no-await-in-loop
           await textbox.press("Backspace");
         }
         expect(await page.locator("ul").count()).toBe(0);
@@ -1169,7 +1167,6 @@ test.describe("Events tests", () => {
       await textbox.pressSequentially(`1. `, { delay: 100 });
       expect(await page.locator("ol").count()).toBe(1);
       for (let i = 0; i < 3; i++) {
-        // eslint-disable-next-line no-await-in-loop
         await textbox.press("Backspace");
       }
       expect(await page.locator("ol").count()).toBe(0);
@@ -1207,7 +1204,6 @@ test.describe("Events tests", () => {
         await textbox.pressSequentially(`${headingChar} `, { delay: 100 });
         expect(await page.locator(tag).count()).toBe(1);
         for (let i = 0; i < headingChar.length + 1; i++) {
-          // eslint-disable-next-line no-await-in-loop
           await textbox.press("Backspace");
         }
         expect(await page.locator(tag).count()).toBe(0);

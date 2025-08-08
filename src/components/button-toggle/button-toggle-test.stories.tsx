@@ -60,14 +60,15 @@ export const DefaultStory = ({
   buttonIconSize,
   ...args
 }: Partial<ButtonToggleProps>) => {
-  const [value, setValue] = useState<string | undefined>("");
+  const [value, setValue] = useState<string>("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedButtonValue?: string,
   ) {
-    setValue(selectedButtonValue);
+    setValue(selectedButtonValue ?? "");
     action("value set")(selectedButtonValue);
   }
+
   return (
     <ButtonToggleGroup
       id="button-toggle-group"
@@ -115,9 +116,23 @@ DefaultStory.story = {
 };
 
 export const LargeIconWithLongText = () => {
+  const [value, setValue] = useState<string>("");
+  function onChangeHandler(
+    event: React.MouseEvent<HTMLButtonElement>,
+    selectedButtonValue?: string,
+  ) {
+    setValue(selectedButtonValue ?? "");
+    action("value set")(selectedButtonValue);
+  }
+
   return (
     <Box width="135px">
-      <ButtonToggleGroup id="button-toggle-group" fullWidth>
+      <ButtonToggleGroup
+        id="button-toggle-group"
+        fullWidth
+        value={value}
+        onChange={onChangeHandler}
+      >
         <ButtonToggle
           value="foo"
           size="large"

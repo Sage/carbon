@@ -1,7 +1,7 @@
 import React from "react";
 import { test, expect } from "../../../playwright/helpers/base-test";
 
-import NumeralDate, { NumeralDateProps } from ".";
+import { NumeralDateProps } from ".";
 import {
   NumeralDateComponent,
   NumeralDateControlled,
@@ -251,22 +251,9 @@ test.describe("NumeralDate component", () => {
     await expect(input).toHaveValue(inputValue);
   });
 
-  test("should render NumeralDate with defaultValue prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <NumeralDate defaultValue={{ dd: "10", mm: "12", yyyy: "2022" }} />,
-    );
-
-    await expect(numeralDateInput(page, 0)).toHaveValue("10");
-    await expect(numeralDateInput(page, 1)).toHaveValue("12");
-    await expect(numeralDateInput(page, 2)).toHaveValue("2022");
-  });
-
   (
     [
-      [0, "Day should be a number within a 1-31 range.", "Day"],
+      [0, "Day in January should be a number within 1-31.", "Day"],
       [1, "Month should be a number within a 1-12 range.", "Month"],
       [2, "Year should be a number within a 1800-2200 range.", "Year"],
     ] as [number, string, string][]
@@ -385,7 +372,7 @@ test.describe("NumeralDate component", () => {
 
   (
     [
-      [0, "Day should be a number within a 1-31 range.", "Day"],
+      [0, "Day in January should be a number within 1-31.", "Day"],
       [1, "Month should be a number within a 1-12 range.", "Month"],
       [2, "Year should be a number within a 1800-2200 range.", "Year"],
     ] as [number, string, string][]

@@ -4,7 +4,6 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
-import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -49,32 +48,19 @@ afterEach(() => {
 });
 
 testStyledSystemMargin(
-  (props) => (
-    <GroupedCharacter
-      data-role="grouped-character"
-      groups={[2, 2, 3]}
-      separator="-"
-      {...props}
-    />
-  ),
+  (props) => {
+    return (
+      <ControlledGroupedCharacter
+        data-role="grouped-character"
+        groupsConfig={[2, 2, 3]}
+        initialValue="12345678"
+        {...props}
+      />
+    );
+  },
   () => screen.getByTestId("grouped-character"),
   { modifier: "&&&" },
 );
-
-test("deprecation warning for uncontrolled should display warning once", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-  render(<GroupedCharacter groups={[2, 2, 3]} separator="-" />);
-
-  expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
-  );
-
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  loggerSpy.mockRestore();
-  loggerSpy.mockClear();
-});
 
 test("should render with the provided data- attributes", () => {
   render(
@@ -83,56 +69,22 @@ test("should render with the provided data- attributes", () => {
       data-role="baz"
       groups={[2, 2, 3]}
       separator="-"
+      value=""
+      onChange={() => {}}
     />,
   );
 
   expect(screen.getByTestId("baz")).toHaveAttribute("data-element", "bar");
 });
 
-test("when component is uncontrolled, it should set the default input value same as defaultValue provided", () => {
-  render(
-    <GroupedCharacter
-      separator="-"
-      defaultValue="aabbcccc"
-      groups={[2, 2, 4]}
-    />,
-  );
-
-  const input = screen.getByRole("textbox");
-
-  expect(input).toHaveValue("aa-bb-cccc");
-});
-
-test("when component is uncontrolled, it should invoke the provided onChange handler with the expected value", async () => {
-  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  const onChange = jest.fn();
-
-  render(
-    <GroupedCharacter
-      separator="-"
-      defaultValue="aabbcccc"
-      groups={[2, 2, 4]}
-      onChange={onChange}
-    />,
-  );
-
-  await user.type(screen.getByRole("textbox"), "cc-aa-aabb");
-
-  expect(onChange).toHaveBeenLastCalledWith(
-    expect.objectContaining({
-      target: expect.objectContaining({
-        value: {
-          formattedValue: "cc-aa-aabb",
-          rawValue: "ccaaaabb",
-        },
-      }),
-    }),
-  );
-});
-
 test("the component takes configuration for how characters should be grouped", () => {
   render(
-    <GroupedCharacter separator="-" value="12345678" groups={[2, 2, 4]} />,
+    <GroupedCharacter
+      separator="-"
+      value="12345678"
+      groups={[2, 2, 4]}
+      onChange={() => {}}
+    />,
   );
 
   expect(screen.getByRole("textbox")).toHaveValue("12-34-5678");
@@ -237,6 +189,7 @@ test("does nothing if onBlur is not provided", async () => {
       value="12345678"
       groups={[2, 2, 4]}
       onBlur={undefined}
+      onChange={() => {}}
     />,
   );
 
@@ -260,6 +213,7 @@ test("calls provided onKeyDown handler", async () => {
       value="12345678"
       groups={[2, 2, 4]}
       onKeyDown={onKeyDown}
+      onChange={() => {}}
     />,
   );
 
@@ -273,7 +227,12 @@ test("calls provided onKeyDown handler", async () => {
 
 test("does not allow values of length greater than that allowed by the group config", () => {
   render(
-    <GroupedCharacter separator="-" value="1234567890" groups={[2, 2, 4]} />,
+    <GroupedCharacter
+      separator="-"
+      value="1234567890"
+      onChange={() => {}}
+      groups={[2, 2, 4]}
+    />,
   );
 
   expect(screen.getByRole("textbox")).toHaveValue("12-34-5678");
@@ -485,6 +444,7 @@ test("the required prop is passed to the input", () => {
       value="12345678"
       groups={[2, 2, 4]}
       required
+      onChange={() => {}}
     />,
   );
 
@@ -500,6 +460,7 @@ describe("refs", () => {
         value="12345678"
         groups={[2, 2, 4]}
         ref={ref}
+        onChange={() => {}}
       />,
     );
 
@@ -515,6 +476,7 @@ describe("refs", () => {
         value="12345678"
         groups={[2, 2, 4]}
         ref={ref}
+        onChange={() => {}}
       />,
     );
 
@@ -528,6 +490,7 @@ describe("refs", () => {
       <GroupedCharacter
         separator="-"
         value="12345678"
+        onChange={() => {}}
         groups={[2, 2, 4]}
         ref={ref}
       />,
