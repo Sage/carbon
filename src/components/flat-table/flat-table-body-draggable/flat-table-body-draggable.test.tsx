@@ -1,5 +1,11 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {
@@ -7,7 +13,16 @@ import {
   FlatTableRow,
   FlatTableCell,
   FlatTableBodyDraggable,
+  FlatTableHead,
+  FlatTableHeader,
+  FlatTableBodyDraggableHandle,
 } from "..";
+import "../../../__spec_helper__/__internal__/drag-event-polyfill";
+
+afterEach(() => {
+  fireEvent.dragEnd(window);
+  fireEvent.pointerMove(window);
+});
 
 const WithDraggableRows = () => (
   <FlatTable>
@@ -183,7 +198,10 @@ describe("drag and drop functionality", () => {
     fireEvent.dragStart(elementToDrag);
     fireEvent.dragEnter(dropTarget);
     fireEvent.dragOver(dropTarget);
+    fireEvent.dragEnter(window);
+    fireEvent.dragOver(window);
     fireEvent.drop(window);
+    fireEvent.dragEnd(elementToDrag);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row one",
@@ -192,19 +210,26 @@ describe("drag and drop functionality", () => {
     ]);
   });
 
-  it("sets the cursor correctly when dragging", async () => {
+  it("sets the cursor correctly", async () => {
     render(<WithDraggableRows />);
+    const draggableFlatTableRow = screen.getByRole("row", { name: "Row one" });
 
-    const elementToDrag = screen.getByRole("row", { name: "Row one" });
-
-    fireEvent.dragStart(elementToDrag);
-    fireEvent.dragEnter(elementToDrag);
-    fireEvent.dragOver(elementToDrag);
+    expect(draggableFlatTableRow).toHaveAttribute("draggable", "true");
 
     await waitFor(() => {
-      expect(screen.getByTestId("flat-table-body-draggable")).toHaveStyle(
-        "cursor: grabbing",
-      );
+      expect(draggableFlatTableRow).toHaveStyle({ cursor: "grab" });
+    });
+  });
+
+  it("sets the cursor correctly whilst dragging", async () => {
+    render(<WithDraggableRows />);
+    const draggableFlatTableRow = screen.getByRole("row", { name: "Row one" });
+
+    expect(draggableFlatTableRow).toHaveAttribute("draggable", "true");
+    fireEvent.dragStart(draggableFlatTableRow);
+
+    await waitFor(() => {
+      expect(draggableFlatTableRow).toHaveStyle({ cursor: "grabbing" });
     });
   });
 
@@ -249,8 +274,8 @@ describe("drag and drop functionality", () => {
 
     await user.click(screen.getByRole("button", { name: /Add row/i }));
 
-    const rowThree = screen.getByRole("row", { name: "Row three" });
     const rowOne = screen.getByRole("row", { name: "Row one" });
+    const rowThree = screen.getByRole("row", { name: "Row three" });
 
     fireEvent.dragStart(rowThree);
     fireEvent.dragEnter(rowOne);
@@ -345,6 +370,7 @@ describe("with sub rows", () => {
 
 it("calls getOrder callback when the order is changed and getOrder prop is set", () => {
   const getOrder = jest.fn();
+  jest.useFakeTimers();
 
   render(
     <FlatTable>
@@ -361,14 +387,65 @@ it("calls getOrder callback when the order is changed and getOrder prop is set",
       </FlatTableBodyDraggable>
     </FlatTable>,
   );
+
+  const dropTarget = screen.getByRole("row", { name: "Row two" });
   const elementToDrag = screen.getByRole("row", { name: "Row one" });
 
   fireEvent.dragStart(elementToDrag);
-  fireEvent.dragEnter(elementToDrag);
+  fireEvent.dragEnter(dropTarget);
   fireEvent.dragOver(elementToDrag);
-  fireEvent.drop(elementToDrag);
+  fireEvent.drop(dropTarget);
+  fireEvent.dragEnd(elementToDrag);
 
-  expect(getOrder).toHaveBeenCalledWith([0, 1, 2]);
+  act(() => {
+    jest.runAllTimers();
+  });
+
+  expect(getOrder).toHaveBeenCalledWith(["1", "0", "2"], "0");
+});
+
+test("accepts a ref and allows imperative reordering of draggable table rows", () => {
+  jest.useFakeTimers();
+  const mockGetOrder = jest.fn();
+  const ref = React.createRef<FlatTableBodyDraggableHandle>();
+
+  const rows = [
+    { id: "0", name: "UK" },
+    { id: "1", name: "Germany" },
+    { id: "2", name: "China" },
+    { id: "3", name: "US" },
+  ];
+
+  render(
+    <FlatTable title="Table for draggable rows">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader />
+          <FlatTableHeader>Country</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBodyDraggable getOrder={mockGetOrder} ref={ref}>
+        {rows.map((row) => (
+          <FlatTableRow key={row.id} id={row.id}>
+            <FlatTableCell>{row.name}</FlatTableCell>
+          </FlatTableRow>
+        ))}
+      </FlatTableBodyDraggable>
+    </FlatTable>,
+  );
+
+  expect(ref.current).not.toBeNull();
+
+  // Test moving UK (id: "0") to position 2 (should be after Germany and China)
+  act(() => {
+    ref.current?.reOrder("0", 2);
+  });
+
+  act(() => {
+    jest.runAllTimers();
+  });
+
+  expect(mockGetOrder).toHaveBeenCalledWith(["1", "2", "0", "3"], "0");
 });
 
 describe("multiple draggable tables", () => {
@@ -382,6 +459,7 @@ describe("multiple draggable tables", () => {
     fireEvent.dragEnter(dropTarget);
     fireEvent.dragOver(dropTarget);
     fireEvent.drop(dropTarget);
+    fireEvent.dragEnd(elementToDrag);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row two",
@@ -403,6 +481,7 @@ describe("multiple draggable tables", () => {
     fireEvent.dragEnter(dropTarget);
     fireEvent.dragOver(dropTarget);
     fireEvent.drop(dropTarget);
+    fireEvent.dragEnd(elementToDrag);
 
     expect(screen.getAllByRole("row").map((cell) => cell.textContent)).toEqual([
       "Row one",
