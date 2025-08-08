@@ -53,11 +53,6 @@ const frFR: Partial<Locale> = {
       close: () => "Fermer",
     },
   },
-  dialogFullScreen: {
-    ariaLabels: {
-      close: () => "Fermer",
-    },
-  },
   dismissibleBox: {
     ariaLabels: {
       close: () => "Fermer",

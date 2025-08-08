@@ -42,11 +42,6 @@ interface Locale {
       close: () => string;
     };
   };
-  dialogFullScreen: {
-    ariaLabels: {
-      close: () => string;
-    };
-  };
   dismissibleBox: {
     ariaLabels: {
       close: () => string;

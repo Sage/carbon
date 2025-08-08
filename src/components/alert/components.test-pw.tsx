@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Alert from ".";
 import Button from "../button";
-import DialogFullScreen from "../dialog-full-screen";
+import Dialog from "../dialog";
 import Sidebar from "../sidebar";
 import Textbox from "../textbox";
 
@@ -43,13 +43,14 @@ export const TopModalOverride = () => {
 
   return (
     <>
-      <DialogFullScreen
+      <Dialog
+        fullscreen
         open={isOpenDialog}
         onCancel={() => setIsOpenDialog(false)}
         title="Dialog fullscreen"
       >
         <Textbox label="Fullscreen textbox" />
-      </DialogFullScreen>
+      </Dialog>
       <Alert
         open={isOpenAlert}
         onCancel={() => setIsOpenAlert(false)}
