@@ -73,6 +73,7 @@ export const Link = React.forwardRef<
       iconAlign = "left",
       isSkipLink,
       disabled = false,
+      underline = "always",
       ariaLabel,
       rel,
       tooltipMessage,
@@ -187,6 +188,7 @@ export const Link = React.forwardRef<
       <StyledLink
         isSkipLink={isSkipLink}
         disabled={isDisabled}
+        underline={underline}
         iconAlign={iconAlign}
         className={className}
         hasContent={Boolean(children)}
