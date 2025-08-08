@@ -1,3 +1,9 @@
+## [155.9.1](https://github.com/Sage/carbon/compare/v155.9.0...v155.9.1) (2025-08-08)
+
+### Bug Fixes
+
+* **profile:** allow extra long email addresses to wrap ([9f0f450](https://github.com/Sage/carbon/commit/9f0f4507fcf24fae3c1d0de3c5a78a6118ece9e5))
+
 ## [155.9.0](https://github.com/Sage/carbon/compare/v155.8.0...v155.9.0) (2025-08-08)
 
 ### Features
