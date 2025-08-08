@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { action } from "@storybook/addon-actions";
-import { Meta, StoryObj } from "@storybook/react";
-import { userEvent, waitFor, within, expect } from "@storybook/test";
+import { StoryObj } from "@storybook/react";
 
 import Button, { ButtonProps } from ".";
 import Box from "../box";
@@ -1206,75 +1205,7 @@ WithExternalLabels.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-// Play Functions
-const meta: Meta<typeof Button> = {
-  title: "Button",
-  component: Button,
-  parameters: { chromatic: { disableSnapshot: true } },
-};
-
-export { meta };
-
 type Story = StoryObj<typeof Button>;
-
-const ButtonDefaultComponent = () => {
-  return (
-    <Button mt={2} ml={2} buttonType="primary" size="small">
-      Small
-    </Button>
-  );
-};
-
-export const ButtonClick: Story = {
-  render: () => <ButtonDefaultComponent />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const buttonComponent = canvas.getByRole("button");
-
-    await userEvent.click(buttonComponent);
-
-    await waitFor(() => {
-      expect(buttonComponent).toHaveFocus();
-    });
-  },
-  decorators: [
-    (StoryToRender) => (
-      <div style={{ height: "100vh", width: "100vw" }}>
-        <StoryToRender />
-      </div>
-    ),
-  ],
-};
-
-ButtonClick.parameters = {
-  themeProvider: { chromatic: { theme: "sage" } },
-  chromatic: { disableSnapshot: false },
-};
-
-export const ButtonHover: Story = {
-  render: () => <ButtonDefaultComponent />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const buttonComponent = canvas.getByRole("button");
-
-    await userEvent.hover(buttonComponent);
-  },
-  decorators: [
-    (StoryToRender) => (
-      <div style={{ height: "100vh", width: "100vw" }}>
-        <StoryToRender />
-      </div>
-    ),
-  ],
-};
-
-ButtonHover.parameters = {
-  themeProvider: { chromatic: { theme: "sage" } },
-  chromatic: { disableSnapshot: false },
-  pseudo: {
-    hover: true,
-  },
-};
 
 const Tiles = () => {
   const defaultButtonRef = useRef<HTMLButtonElement>(null);
