@@ -32,19 +32,29 @@ const meta: Meta<typeof Badge> = {
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-export const Default: Story = {
-  render: (args: BadgeProps) => <Badge {...args} />,
-  args: { counter: 1 },
-  decorators: [
-    (Story) => (
-      <Box p={3} backgroundColor="--colorsUtilityMajor025">
-        <Story />
-      </Box>
-    ),
-  ],
+interface BadgeTestProps extends BadgeProps {
+  counterAsString?: string;
+  counterAsNumber?: number;
+}
+
+export const Default = ({
+  counterAsString,
+  counterAsNumber,
+  ...args
+}: BadgeTestProps) => {
+  return (
+    <Box p={3} backgroundColor="--colorsUtilityMajor025">
+      <Badge mr={2} counter={counterAsString} {...args} />
+      <Badge counter={counterAsNumber} {...args} />
+    </Box>
+  );
+};
+Default.args = {
+  counterAsString: "99+",
+  counterAsNumber: 99,
 };
 
-export const WithOtherButtons = ({ ...args }) => {
+export const WithOtherButtons: Story = ({ ...args }) => {
   return (
     <>
       <Badge {...args}>

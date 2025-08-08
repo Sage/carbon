@@ -23,13 +23,27 @@ test.describe("should render Badge component", () => {
     });
   });
 
-  [1000, "2000"].forEach((countInput) => {
+  [1000, 12345, 9999].forEach((countInput) => {
     test(`should check Badge counter is set to "999+" when using ${countInput} as counter`, async ({
       mount,
       page,
     }) => {
       await mount(<BadgeComponent counter={countInput} />);
-      await expect(badgeCounter(page)).toContainText("99");
+      await expect(badgeCounter(page)).toContainText("999+");
+    });
+  });
+
+  [
+    ["99+", "99+"],
+    ["999+", "999+"],
+    ["123456", "1234"],
+  ].forEach(([countInput, expectedOutput]) => {
+    test(`should check Badge counter is set to ${expectedOutput} when counter is ${countInput}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<BadgeComponent counter={countInput} />);
+      await expect(badgeCounter(page)).toContainText(`${expectedOutput}`);
     });
   });
 

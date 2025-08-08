@@ -76,10 +76,9 @@ export const Badge = ({
   const isButtonInteraction = isButton && (isFocused || isHovered);
 
   let counterToDisplay = counter;
-  if (
-    (typeof counter === "string" && counter.length > 3) ||
-    (typeof counter === "number" && counter > 999)
-  ) {
+  if (typeof counter === "string" && counter.length > 4) {
+    counterToDisplay = counter.substring(0, 4);
+  } else if (typeof counter === "number" && counter > 999) {
     counterToDisplay = "999+";
   }
 

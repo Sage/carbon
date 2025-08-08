@@ -36,7 +36,8 @@ import Badge from "carbon-react/lib/components/badge";
 
 To render a `Badge`, pass the `counter` prop with a number or string value.
 
-The value of the counter is limited to up to 4 characters, including the "+" sign, therefore a counter value of over `1000` will be displayed as `999+`.
+If the value is a number greater than `999`, it will be displayed as `999+`.
+If the value is a string, the displayed value will be limited to 4 characters, therefore please ensure to format the string accordingly.
 
 If the `counter` prop is not provided or its value is `0`, the `Badge` will not render.
 

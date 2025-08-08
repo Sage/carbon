@@ -68,16 +68,16 @@ test("should render counter as a string", () => {
   expect(screen.getByText("99+")).toBeVisible();
 });
 
-test("should render `999+` when counter is higher than 999", () => {
+test("should render `999+` when counter is a number higher than 999", () => {
   render(<Badge counter={1000} />);
 
   expect(screen.getByText("999+")).toBeVisible();
 });
 
-test("should render `999+` when counter is a string longer than 3 characters", () => {
-  render(<Badge counter="1000" />);
+test("should trim the counter when it is a string longer than 4 characters", () => {
+  render(<Badge counter="12345" />);
 
-  expect(screen.getByText("999+")).toBeVisible();
+  expect(screen.getByText("1234")).toBeVisible();
 });
 
 test("should not render badge when counter is not set", () => {
