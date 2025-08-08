@@ -1,3 +1,9 @@
+## [155.9.0](https://github.com/Sage/carbon/compare/v155.8.0...v155.9.0) (2025-08-08)
+
+### Features
+
+* **adaptive-sidebar:** allow the AdaptiveSidebar to be hidden from view whilst remaining in the DOM ([8a4b790](https://github.com/Sage/carbon/commit/8a4b79002eac549dbd1379d627c52eeb3aa53546))
+
 ## [155.8.0](https://github.com/Sage/carbon/compare/v155.7.1...v155.8.0) (2025-08-06)
 
 ### Features
