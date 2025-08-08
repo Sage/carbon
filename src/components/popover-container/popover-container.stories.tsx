@@ -7,16 +7,19 @@ import Box from "../box";
 import { DraggableContainer, DraggableItem } from "../draggable";
 import { Checkbox } from "../checkbox";
 import Button from "../button";
+import Icon from "../icon";
 import Link from "../link";
 import Pill from "../pill";
 import Badge from "../badge";
 import isChromatic from "../../../.storybook/isChromatic";
 import { Select, Option } from "../select";
+import { Menu, MenuItem } from "../menu";
 import PopoverContainer, {
   PopoverContainerHandle,
 } from "./popover-container.component";
 import Textbox from "../textbox";
 import Form from "../form";
+import Typography from "../typography";
 
 const styledSystemProps = generateStyledSystemProps({
   padding: true,
@@ -65,6 +68,72 @@ export const Default: Story = () => {
 };
 Default.storyName = "Default";
 
+export const QuickAction: Story = () => (
+  <Box height={100}>
+    <PopoverContainer
+      variant="quick-action"
+      containerAriaLabel="popover-container"
+      renderOpenComponent={({ ref, onClick }) => (
+        <Button
+          buttonType="primary"
+          aria-label="Notifications"
+          ref={ref}
+          onClick={onClick}
+        >
+          Open
+        </Button>
+      )}
+    >
+      <Typography fontWeight="500" color="var(--colorsUtilityYang100)">
+        Quick Action
+      </Typography>
+    </PopoverContainer>
+  </Box>
+);
+QuickAction.storyName = "Quick Action Variant";
+QuickAction.parameters = { chromatic: { disableSnapshot: true } };
+
+export const QuickActionInMenu: Story = () => {
+  const [open, setOpen] = useState(defaultOpenState);
+  return (
+    <Menu min-width="1200px" menuType="black">
+      <MenuItem as="div">Menu Item One</MenuItem>
+      <MenuItem onClick={() => {}} submenu="Menu Item Two">
+        <MenuItem href="#">Submenu Item One</MenuItem>
+      </MenuItem>
+      <MenuItem href="#">Menu Item Three</MenuItem>
+      <MenuItem flex="0 0 auto">
+        <PopoverContainer
+          position="center"
+          variant="quick-action"
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          open={open}
+          renderOpenComponent={({ ref, onClick }) => (
+            <Button
+              buttonType="primary"
+              aria-label="Notifications"
+              ref={ref}
+              onClick={onClick}
+            >
+              <Icon type="plus" mr={1} />
+              Create
+            </Button>
+          )}
+        >
+          <Typography fontWeight="500" color="var(--colorsUtilityYang100)">
+            Quick Action
+          </Typography>
+        </PopoverContainer>
+      </MenuItem>
+      <MenuItem href="#">Menu Item Four</MenuItem>
+      <MenuItem href="#">Menu Item Five</MenuItem>
+      <MenuItem href="#">Menu Item Six</MenuItem>
+    </Menu>
+  );
+};
+QuickActionInMenu.storyName = "Quick Action Variant In Menu";
+
 export const Title: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
   const onOpen = () => setOpen(true);
@@ -84,7 +153,7 @@ export const Title: Story = () => {
 };
 Title.storyName = "Title";
 
-export const Position: Story = () => {
+export const RightPosition: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
@@ -102,7 +171,27 @@ export const Position: Story = () => {
     </div>
   );
 };
-Position.storyName = "Position";
+RightPosition.storyName = "Right Position";
+
+export const CenterPosition: Story = () => {
+  const [open, setOpen] = useState(defaultOpenState);
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+  return (
+    <div style={{ height: 150, display: "flex", justifyContent: "center" }}>
+      <PopoverContainer
+        title="Center Aligned"
+        position="center"
+        open={open}
+        onClose={onClose}
+        onOpen={onOpen}
+      >
+        Contents
+      </PopoverContainer>
+    </div>
+  );
+};
+CenterPosition.storyName = "Center Position";
 
 export const CoverButton: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);

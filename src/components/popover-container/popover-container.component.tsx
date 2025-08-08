@@ -88,27 +88,34 @@ export interface RenderCloseProps {
   closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
 }
 
-export const renderClose = ({
-  "data-element": dataElement,
-  tabIndex,
-  onClick,
-  ref,
-  "aria-label": ariaLabel,
-  closeButtonDataProps,
-}: RenderCloseProps) => (
-  <PopoverContainerCloseIcon
-    tabIndex={tabIndex}
-    onClick={onClick}
-    ref={ref}
-    aria-label={ariaLabel}
-    {...tagComponent("close", {
-      "data-element": dataElement,
-      ...closeButtonDataProps,
-    })}
-  >
-    <Icon type="close" />
-  </PopoverContainerCloseIcon>
-);
+export type Variant = "typical" | "quick-action";
+
+export const renderClose =
+  (variant?: Variant) =>
+  ({
+    "data-element": dataElement,
+    tabIndex,
+    onClick,
+    ref,
+    "aria-label": ariaLabel,
+    closeButtonDataProps,
+  }: RenderCloseProps) => (
+    <PopoverContainerCloseIcon
+      popoverVariant={variant}
+      tabIndex={tabIndex}
+      onClick={onClick}
+      ref={ref}
+      aria-label={ariaLabel}
+      {...tagComponent("close", {
+        "data-element": dataElement,
+        ...closeButtonDataProps,
+      })}
+    >
+      <Icon type="close" />
+    </PopoverContainerCloseIcon>
+  );
+
+type Position = "left" | "right" | "center";
 
 export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** A function that will render the open component
@@ -126,7 +133,9 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
   /** The content of the popover-container */
   children?: React.ReactNode;
   /** Sets rendering position of dialog */
-  position?: "left" | "right";
+  position?: Position;
+  /** Sets the variant of the popover-container */
+  variant?: Variant;
   /** Sets the popover container dialog header name */
   title?: string;
   /** Callback fires when close icon clicked */
@@ -165,19 +174,25 @@ export type PopoverContainerHandle = {
   focusButton: () => void;
 } | null;
 
-function usePopoverMiddleware(shouldCoverButton: boolean) {
+export function usePopoverMiddleware(
+  shouldCoverButton: boolean,
+  removeOffset: boolean,
+) {
+  /* When removeOffset is true, we use a 0 value, this will place the popover container
+   directly below the trigger element */
+  const offsetValue = removeOffset ? 0 : 6;
   return useMemo(
     () => [
       offset(
         shouldCoverButton
           ? ({ rects }) => ({ mainAxis: -rects.reference.height })
-          : 6,
+          : offsetValue,
       ),
       flip({
         fallbackStrategy: "initialPlacement",
       }),
     ],
-    [shouldCoverButton],
+    [shouldCoverButton, removeOffset],
   );
 }
 
@@ -190,11 +205,12 @@ export const PopoverContainer = forwardRef<
       children,
       title,
       position = "right",
+      variant = "typical",
       open,
       onOpen,
       onClose,
       renderOpenComponent = renderOpen,
-      renderCloseComponent = renderClose,
+      renderCloseComponent = renderClose(variant),
       shouldCoverButton = false,
       ariaDescribedBy,
       openButtonAriaLabel,
@@ -225,8 +241,18 @@ export const PopoverContainer = forwardRef<
       "screen and (prefers-reduced-motion: no-preference)",
     );
 
-    const popoverMiddleware = usePopoverMiddleware(shouldCoverButton);
+    const popoverMiddleware = usePopoverMiddleware(
+      shouldCoverButton,
+      variant === "quick-action",
+    );
     const { isInFlatTable } = useContext(FlatTableContext);
+
+    const getPlacement = () => {
+      if (position === "center") {
+        return "bottom";
+      }
+      return position === "right" ? "bottom-start" : "bottom-end";
+    };
 
     const closePopover = useCallback(
       (
@@ -383,10 +409,12 @@ export const PopoverContainer = forwardRef<
       <PopoverContainerContentStyle
         data-element="popover-container-content"
         role="dialog"
+        {...(variant === "quick-action" && { className: "quick-action" })}
         aria-labelledby={popoverContainerId}
         aria-label={containerAriaLabel}
         aria-describedby={ariaDescribedBy}
         p="16px 24px"
+        variant={variant}
         ref={popoverContentNodeRef}
         tabIndex={-1}
         disableAnimation={disableAnimation || reduceMotion}
@@ -437,7 +465,11 @@ export const PopoverContainer = forwardRef<
         hasFullWidth={hasFullWidth}
         {...tagComponent("popover-container", rest)}
       >
-        <div ref={popoverReference}>
+        <div
+          ref={popoverReference}
+          data-role="popover-reference"
+          {...(variant === "quick-action" && { className: "quick-action" })}
+        >
           {renderOpenComponent(renderOpenComponentProps)}
         </div>
         <CSSTransition
@@ -458,7 +490,7 @@ export const PopoverContainer = forwardRef<
         >
           <Popover
             reference={popoverReference}
-            placement={position === "right" ? "bottom-start" : "bottom-end"}
+            placement={getPlacement()}
             popoverStrategy={
               disableAnimation || reduceMotion ? "fixed" : "absolute"
             }

@@ -51,6 +51,22 @@ export const DifferentHeights: Story = () => {
 };
 DifferentHeights.storyName = "Different Heights";
 
+export const InverseVariant: Story = () => {
+  const heights = ["small", "medium", "large"] as const;
+  return (
+    <>
+      <Box backgroundColor="var(--colorsActionMajor500)">
+        {heights.map((height) => (
+          <Box key={height} mb={3}>
+            <Hr variant="inverse" height={height} />
+          </Box>
+        ))}
+      </Box>
+    </>
+  );
+};
+InverseVariant.storyName = "Inverse Variant";
+
 export const InsideForm: Story = () => {
   return (
     <Form
