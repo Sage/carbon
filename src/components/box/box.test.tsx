@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/tabindex-no-positive */
 import React from "react";
 import { getGapValue } from "style/utils/box-gap";
 import { render, screen } from "@testing-library/react";
@@ -66,6 +65,22 @@ test("sets the styling for 'column-gap' when it is passed in as a prop", () => {
   const box = screen.getByTestId("box");
   const columnGap = getGapValue("20px");
   expect(box).toHaveStyle(`column-gap: ${columnGap}`);
+});
+
+test("overrides the styling for 'display' when `hidden` is passed in as a prop", () => {
+  render(<Box display="flex" data-role="box" hidden />);
+
+  const box = screen.getByTestId("box");
+  expect(box).toHaveStyle(`display: none`);
+});
+
+[false, undefined].forEach((hidden) => {
+  test(`uses the provided styling for 'display' when 'hidden' is omitted as a prop via value, "${hidden}"`, () => {
+    render(<Box display="flex" data-role="box" hidden={hidden} />);
+
+    const box = screen.getByTestId("box");
+    expect(box).toHaveStyle(`display: flex`);
+  });
 });
 
 it("applies the boxShadow styling correctly when a design token is passed in", () => {
