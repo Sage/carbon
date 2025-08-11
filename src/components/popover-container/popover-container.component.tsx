@@ -420,15 +420,18 @@ export const PopoverContainer = forwardRef<
         zIndex={isWithinGlobalHeader ? 10000 : 2000}
         {...filterStyledSystemPaddingProps(rest)}
       >
-        <PopoverContainerHeaderStyle>
-          <PopoverContainerTitleStyle
-            id={popoverContainerId}
-            data-element="popover-container-title"
-          >
-            {title}
-          </PopoverContainerTitleStyle>
-          {renderCloseComponent(renderCloseComponentProps)}
-        </PopoverContainerHeaderStyle>
+        {title && (
+          <PopoverContainerHeaderStyle>
+            <PopoverContainerTitleStyle
+              id={popoverContainerId}
+              data-element="popover-container-title"
+              data-role="popover-container-title"
+            >
+              {title}
+            </PopoverContainerTitleStyle>
+          </PopoverContainerHeaderStyle>
+        )}
+        {renderCloseComponent(renderCloseComponentProps)}
         {children}
       </PopoverContainerContentStyle>
     );
