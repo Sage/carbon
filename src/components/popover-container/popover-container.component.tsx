@@ -33,6 +33,7 @@ import useFocusPortalContent from "../../hooks/__internal__/useFocusPortalConten
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
+import { BoxProps } from "../box";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 import FlatTableContext from "../flat-table/__internal__/flat-table.context";
 import { useGlobalHeader } from "../global-header/__internal__/global-header.context";
@@ -131,6 +132,8 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
   position?: Position;
   /** Sets the popover container dialog header name */
   title?: string;
+  /** Sets the border radius of the popover container */
+  borderRadius?: BoxProps["borderRadius"];
   /** Callback fires when close icon clicked */
   onClose?: (
     ev:
@@ -192,6 +195,7 @@ export const PopoverContainer = forwardRef<
     {
       children,
       title,
+      borderRadius,
       position = "right",
       open,
       onOpen,
@@ -400,6 +404,7 @@ export const PopoverContainer = forwardRef<
         aria-label={containerAriaLabel}
         aria-describedby={ariaDescribedBy}
         p="16px 24px"
+        $borderRadius={borderRadius}
         ref={popoverContentNodeRef}
         tabIndex={-1}
         disableAnimation={disableAnimation || reduceMotion}

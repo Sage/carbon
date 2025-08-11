@@ -167,6 +167,42 @@ test("popup title has correct data tag", () => {
   );
 });
 
+test("popover renders with the correct default border radius", () => {
+  render(<PopoverContainer open>Ta da!</PopoverContainer>);
+
+  expect(screen.getByRole("dialog")).toHaveStyle({
+    borderRadius: "var(--borderRadius100)",
+  });
+});
+
+test("popover renders with the correct border radius when `borderRadius` is passed", () => {
+  render(
+    <PopoverContainer borderRadius="borderRadius200" open>
+      Ta da!
+    </PopoverContainer>,
+  );
+
+  expect(screen.getByRole("dialog")).toHaveStyle({
+    borderRadius: "var(--borderRadius200)",
+  });
+});
+
+test("popover renders with the correct border radius when `borderRadius` is passed with mutple border radius values", () => {
+  render(
+    <PopoverContainer
+      borderRadius="borderRadius200 borderRadius200 borderRadius100 borderRadius100"
+      open
+    >
+      Ta da!
+    </PopoverContainer>,
+  );
+
+  expect(screen.getByRole("dialog")).toHaveStyle({
+    borderRadius:
+      "var(--borderRadius200) var(--borderRadius200) var(--borderRadius100) var(--borderRadius100)",
+  });
+});
+
 describe("close button", () => {
   it("renders close button in popup when onClose prop is passed", () => {
     render(
