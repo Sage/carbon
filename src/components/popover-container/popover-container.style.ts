@@ -39,6 +39,7 @@ type PopoverContainerContentStyleProps = {
   disableAnimation?: boolean;
   zIndex?: number;
   $borderRadius?: BoxProps["borderRadius"];
+  $popoverOffset?: number;
 };
 
 const PopoverContainerContentStyle = styled.div.attrs(
@@ -60,7 +61,7 @@ const PopoverContainerContentStyle = styled.div.attrs(
   position: absolute;
   z-index: ${({ zIndex }) => zIndex};
 
-  ${({ disableAnimation }) =>
+  ${({ disableAnimation, $popoverOffset }) =>
     disableAnimation
       ? css`
           opacity: 1;
@@ -69,7 +70,12 @@ const PopoverContainerContentStyle = styled.div.attrs(
       : css`
           &.enter {
             opacity: 0;
-            transform: translateY(-8px);
+            transform: translateY(
+              ${
+                /* istanbul ignore next */
+                $popoverOffset ? -8 : 0
+              }px
+            );
           }
 
           &.enter-done {

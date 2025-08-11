@@ -130,6 +130,8 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
   children?: React.ReactNode;
   /** Sets rendering position of dialog */
   position?: Position;
+  /** The popover offset from the reference element */
+  offset?: number;
   /** Sets the popover container dialog header name */
   title?: string;
   /** Sets the border radius of the popover container */
@@ -170,20 +172,24 @@ export type PopoverContainerHandle = {
   focusButton: () => void;
 } | null;
 
-function usePopoverMiddleware(shouldCoverButton: boolean, isCentered: boolean) {
+function usePopoverMiddleware(
+  shouldCoverButton: boolean,
+  isCentered: boolean,
+  popoverOffset: number,
+) {
   return useMemo(
     () => [
       offset(
         shouldCoverButton
           ? ({ rects }) => ({ mainAxis: -rects.reference.height })
-          : 6,
+          : popoverOffset,
       ),
       flip({
         fallbackStrategy: "initialPlacement",
       }),
       ...(isCentered ? [shift()] : []),
     ],
-    [shouldCoverButton, isCentered],
+    [shouldCoverButton, isCentered, popoverOffset],
   );
 }
 
@@ -197,6 +203,7 @@ export const PopoverContainer = forwardRef<
       title,
       borderRadius,
       position = "right",
+      offset = 6,
       open,
       onOpen,
       onClose,
@@ -235,6 +242,7 @@ export const PopoverContainer = forwardRef<
     const popoverMiddleware = usePopoverMiddleware(
       shouldCoverButton,
       position === "center",
+      offset,
     );
     const { isInFlatTable } = useContext(FlatTableContext);
 
@@ -405,6 +413,7 @@ export const PopoverContainer = forwardRef<
         aria-describedby={ariaDescribedBy}
         p="16px 24px"
         $borderRadius={borderRadius}
+        $popoverOffset={offset}
         ref={popoverContentNodeRef}
         tabIndex={-1}
         disableAnimation={disableAnimation || reduceMotion}
