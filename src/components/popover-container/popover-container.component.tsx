@@ -160,25 +160,30 @@ export interface PopoverContainerProps extends PaddingProps, TagProps {
   disableAnimation?: boolean;
   /** Flag to enable fullWidth Button styles */
   hasFullWidth?: boolean;
+  /** The popover offset from the reference element */
+  offset?: number;
 }
 
 export type PopoverContainerHandle = {
   focusButton: () => void;
 } | null;
 
-function usePopoverMiddleware(shouldCoverButton: boolean) {
+function usePopoverMiddleware(
+  shouldCoverButton: boolean,
+  popoverOffset: number,
+) {
   return useMemo(
     () => [
       offset(
         shouldCoverButton
           ? ({ rects }) => ({ mainAxis: -rects.reference.height })
-          : 6,
+          : popoverOffset,
       ),
       flip({
         fallbackStrategy: "initialPlacement",
       }),
     ],
-    [shouldCoverButton],
+    [shouldCoverButton, popoverOffset],
   );
 }
 
@@ -204,6 +209,7 @@ export const PopoverContainer = forwardRef<
       closeButtonDataProps,
       disableAnimation = false,
       hasFullWidth = false,
+      offset = 6,
       ...rest
     },
     ref,
@@ -226,7 +232,7 @@ export const PopoverContainer = forwardRef<
       "screen and (prefers-reduced-motion: no-preference)",
     );
 
-    const popoverMiddleware = usePopoverMiddleware(shouldCoverButton);
+    const popoverMiddleware = usePopoverMiddleware(shouldCoverButton, offset);
     const { isInFlatTable } = useContext(FlatTableContext);
 
     const closePopover = useCallback(
@@ -393,17 +399,20 @@ export const PopoverContainer = forwardRef<
         tabIndex={-1}
         disableAnimation={disableAnimation || reduceMotion}
         zIndex={isWithinGlobalHeader ? 10000 : 2000}
+        popoverOffset={offset}
         {...filterStyledSystemPaddingProps(rest)}
       >
-        <PopoverContainerHeaderStyle>
-          <PopoverContainerTitleStyle
-            id={popoverContainerId}
-            data-element="popover-container-title"
-          >
-            {title}
-          </PopoverContainerTitleStyle>
-          {renderCloseComponent(renderCloseComponentProps)}
-        </PopoverContainerHeaderStyle>
+        {title && (
+          <PopoverContainerHeaderStyle>
+            <PopoverContainerTitleStyle
+              id={popoverContainerId}
+              data-element="popover-container-title"
+            >
+              {title}
+            </PopoverContainerTitleStyle>
+          </PopoverContainerHeaderStyle>
+        )}
+        {renderCloseComponent(renderCloseComponentProps)}
         {children}
       </PopoverContainerContentStyle>
     );
@@ -460,7 +469,7 @@ export const PopoverContainer = forwardRef<
         >
           <Popover
             reference={popoverReference}
-            placement={"bottom"}
+            placement={position}
             popoverStrategy={
               disableAnimation || reduceMotion ? "fixed" : "absolute"
             }

@@ -6,10 +6,10 @@ import PopoverContainer, {
 } from "./popover-container.component";
 import { Select, MultiSelect, Option } from "../select";
 import { Menu, MenuItem, MenuSegmentTitle } from "../menu";
-import Heading from "../heading";
+// import Heading from "../heading";
 import Typography from "../typography";
 import Search from "../search";
-import IconButton from "../icon-button";
+// import IconButton from "../icon-button";
 import Icon from "../icon";
 import RadioButton, { RadioButtonGroup } from "../radio-button";
 import {
@@ -153,9 +153,10 @@ export const InsideMenu = () => {
       <MenuItem href="#">Menu Item One</MenuItem>
       <MenuItem onClick={() => {}} submenu="Menu Item Two">
         <MenuItem href="#">Submenu Item One</MenuItem>
-        </MenuItem>
+      </MenuItem>
       <MenuItem flex="0 0 auto">
         <PopoverContainer
+          offset={0}
           position="left"
           // shouldCoverButton
           onOpen={() => setOpen(true)}
@@ -163,17 +164,34 @@ export const InsideMenu = () => {
           renderCloseComponent={() => <></>}
           open={open}
           renderOpenComponent={({ ref, onClick, className }) => (
-            <Button px={2} buttonType="primary" aria-label="Notifications" className={className} ref={ref} onClick={onClick}>
+            <Button
+              px={2}
+              buttonType="primary"
+              aria-label="Notifications"
+              className={className}
+              ref={ref}
+              onClick={onClick}
+            >
               <Icon type="plus" mr={1} />
               Create
             </Button>
           )}
           p={0}
         >
-          <Box borderRadius="borderRadius100" mt="-14px" backgroundColor="--colorsComponentsMenuAutumnStandard600" pb={2}>
-          <Box width="400px" backgroundColor="--colorsComponentsMenuAutumnStandard600" display="flex" justifyContent="space-between" p={2}>
-            <Typography color="white">HARPAL</Typography>
-          </Box>
+          <Box
+            borderRadius="borderRadius100"
+            backgroundColor="--colorsComponentsMenuAutumnStandard600"
+            pb={2}
+          >
+            <Box
+              width="400px"
+              backgroundColor="--colorsComponentsMenuAutumnStandard600"
+              display="flex"
+              justifyContent="space-between"
+              p={2}
+            >
+              <Typography color="white">HARPAL</Typography>
+            </Box>
           </Box>
         </PopoverContainer>
       </MenuItem>
