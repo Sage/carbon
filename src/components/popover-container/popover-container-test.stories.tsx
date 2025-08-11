@@ -238,6 +238,67 @@ export const InsideMenuWithOpenButton = () => {
   );
 };
 
+export const InsideMenuWithPrimaryOpenButton = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <Menu menuType="black">
+      <MenuItem href="#">Menu Item One</MenuItem>
+      <MenuItem onClick={() => {}} submenu="Menu Item Two">
+        <MenuItem href="#">Submenu Item One</MenuItem>
+        <MenuItem href="#">Submenu Item Two</MenuItem>
+      </MenuItem>
+      <MenuItem submenu="Search">
+        <MenuSegmentTitle text="My Title" variant="alternate">
+          <MenuItem>
+            <Search
+              key="business-search"
+              defaultValue=""
+              variant="dark"
+              placeholder="Search all businesses"
+              searchWidth="100%"
+            />
+          </MenuItem>
+          <MenuItem href="#">Submenu Item Two</MenuItem>
+        </MenuSegmentTitle>
+      </MenuItem>
+      <MenuItem>
+        <PopoverContainer
+          disableAnimation
+          containerAriaLabel="notifications"
+          closeButtonAriaLabel="closeContainerAriaLabel"
+          position="left"
+          shouldCoverButton
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          open={open}
+          renderOpenComponent={({
+            ref,
+            onClick,
+            "data-popover-container-button": dataPopoverContainerButton,
+          }) => (
+            <Box data-role="gblnav-notificationui-bell">
+              <Button
+                aria-label="Notifications"
+                ref={ref}
+                onClick={onClick}
+                data-popover-container-button={dataPopoverContainerButton}
+              >
+                <Box alignItems="center" display="flex" px={2}>
+                  <Icon type="alert" />
+                  notifications
+                </Box>
+              </Button>
+            </Box>
+          )}
+        >
+          Content
+        </PopoverContainer>
+      </MenuItem>
+      <MenuItem href="#">Menu Item Six</MenuItem>
+    </Menu>
+  );
+};
+
 export const WithFullWidthButton = () => {
   return (
     <PopoverContainer
