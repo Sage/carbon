@@ -24,10 +24,13 @@ export type BoxSizing = "content-box" | "border-box";
 
 type DesignTokensType = keyof typeof DesignTokens;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
-export type BorderRadiusType = Extract<
-  DesignTokensType,
-  `borderRadius${string}`
->;
+type BorderRadiusToken = Extract<DesignTokensType, `borderRadius${string}`>;
+
+export type BorderRadiusType =
+  | BorderRadiusToken
+  | `${BorderRadiusToken} ${BorderRadiusToken}`
+  | `${BorderRadiusToken} ${BorderRadiusToken} ${BorderRadiusToken}`
+  | `${BorderRadiusToken} ${BorderRadiusToken} ${BorderRadiusToken} ${BorderRadiusToken}`;
 
 export interface BoxProps
   extends FlexboxProps,
@@ -152,7 +155,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         bg={bg}
         backgroundColor={backgroundColor}
         boxShadow={boxShadow}
-        borderRadius={borderRadius}
+        $borderRadius={borderRadius}
         aria-hidden={ariaHidden}
         hidden={hidden}
         {...tagComponent(dataComponent, rest)}
