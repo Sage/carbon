@@ -1578,3 +1578,118 @@ test("renders with provided menu launcher data tags", async () => {
     "test-launcher-element",
   );
 });
+
+test("applies the correct styling at depth level 4", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          id="menu-item-1"
+          label="Menu Item 1"
+          data-role="menu-item-1"
+        >
+          <ResponsiveVerticalMenuItem
+            id="menu-item-2"
+            label="Menu Item 2"
+            data-role="menu-item-2"
+          >
+            <ResponsiveVerticalMenuItem
+              id="menu-item-3"
+              label="Menu Item 3"
+              data-role="menu-item-3"
+            >
+              <ResponsiveVerticalMenuItem
+                id="menu-item-4"
+                data-role="menu-item-4"
+                label="Menu Item 4"
+              />
+            </ResponsiveVerticalMenuItem>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+  await user.click(menuItem);
+
+  const menuItem2 = screen.getByTestId("menu-item-2");
+  await user.click(menuItem2);
+
+  const menuItem3 = screen.getByTestId("menu-item-3");
+  expect(menuItem3).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
+    modifier: "&",
+  });
+
+  const menuItem4 = screen.getByTestId("menu-item-4");
+
+  expect(menuItem4).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
+    modifier: "&&",
+  });
+});
+
+test("applies the correct styling at depth level 4 when responsive", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  mockUseIsAboveBreakpoint.mockReturnValue(false);
+
+  render(
+    <ResponsiveVerticalMenuProvider>
+      <ResponsiveVerticalMenu>
+        <ResponsiveVerticalMenuItem
+          id="menu-item-1"
+          label="Menu Item 1"
+          data-role="menu-item-1"
+        >
+          <ResponsiveVerticalMenuItem
+            id="menu-item-2"
+            label="Menu Item 2"
+            data-role="menu-item-2"
+          >
+            <ResponsiveVerticalMenuItem
+              id="menu-item-3"
+              label="Menu Item 3"
+              data-role="menu-item-3"
+            >
+              <ResponsiveVerticalMenuItem
+                id="menu-item-4"
+                data-role="menu-item-4"
+                label="Menu Item 4"
+              />
+            </ResponsiveVerticalMenuItem>
+          </ResponsiveVerticalMenuItem>
+        </ResponsiveVerticalMenuItem>
+      </ResponsiveVerticalMenu>
+    </ResponsiveVerticalMenuProvider>,
+  );
+
+  const launcherButton = screen.getByTestId(
+    "responsive-vertical-menu-launcher",
+  );
+
+  await user.click(launcherButton);
+
+  const menuItem = screen.getByTestId("menu-item-1");
+  await user.click(menuItem);
+
+  const menuItem2 = screen.getByTestId("menu-item-2");
+  await user.click(menuItem2);
+
+  const menuItem3 = screen.getByTestId("menu-item-3");
+  expect(menuItem3).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
+    modifier: "&",
+  });
+
+  const menuItem4 = screen.getByTestId("menu-item-4");
+
+  expect(menuItem4).toHaveStyleRule("font-weight", "var(--fontWeights400)", {
+    modifier: "&&",
+  });
+});

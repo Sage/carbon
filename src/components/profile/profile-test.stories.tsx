@@ -28,9 +28,9 @@ DefaultStory.story = {
 
 export const WithLongText = ({ ...args }) => {
   return (
-    <Box width="320px" backgroundColor="#d7d7d7">
+    <Box width="300px" backgroundColor="#d7d7d7">
       <Profile
-        email="email@email.com"
+        email="thisisamuchlongeremailaddresswhichexistsinordertotryandforcewrapping@email.com"
         initials="JD"
         name="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
         text="+33 657 22 34 71"

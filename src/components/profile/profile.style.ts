@@ -58,6 +58,8 @@ const ProfileDetailsStyle = styled.div<Pick<ProfileSProps, "hasSrc" | "size">>`
   justify-content: center;
   line-height: ${({ size = "M" }) => profileConfigSizes[size].lineHeight};
   margin-left: ${({ size = "M" }) => profileConfigSizes[size].marginLeft};
+  min-width: 0;
+  word-wrap: break-word;
 `;
 
 const ProfileAvatarStyle = styled(Portrait)`

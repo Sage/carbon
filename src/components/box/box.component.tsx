@@ -72,6 +72,8 @@ export interface BoxProps
   bg?: string;
   /** Set the backgroundColor attribute of the Box component */
   backgroundColor?: string;
+  /** Whether the component is hidden from view. In this state, the component will not be visible to users but will remain in the HTML document */
+  hidden?: boolean;
   /** Set the opacity attribute of the Box component */
   opacity?: string | number;
   /** Set the container to be hidden from screen readers */
@@ -106,6 +108,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       opacity,
       height,
       width,
+      hidden,
       "aria-hidden": ariaHidden,
       ...rest
     }: BoxProps,
@@ -151,6 +154,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         boxShadow={boxShadow}
         borderRadius={borderRadius}
         aria-hidden={ariaHidden}
+        hidden={hidden}
         {...tagComponent(dataComponent, rest)}
         {...filterStyledSystemMarginProps(rest)}
         {...filterStyledSystemPaddingProps(rest)}

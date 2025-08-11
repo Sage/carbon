@@ -1,3 +1,21 @@
+## [155.9.1](https://github.com/Sage/carbon/compare/v155.9.0...v155.9.1) (2025-08-08)
+
+### Bug Fixes
+
+* **profile:** allow extra long email addresses to wrap ([9f0f450](https://github.com/Sage/carbon/commit/9f0f4507fcf24fae3c1d0de3c5a78a6118ece9e5))
+
+## [155.9.0](https://github.com/Sage/carbon/compare/v155.8.0...v155.9.0) (2025-08-08)
+
+### Features
+
+* **adaptive-sidebar:** allow the AdaptiveSidebar to be hidden from view whilst remaining in the DOM ([8a4b790](https://github.com/Sage/carbon/commit/8a4b79002eac549dbd1379d627c52eeb3aa53546))
+
+## [155.8.0](https://github.com/Sage/carbon/compare/v155.7.1...v155.8.0) (2025-08-06)
+
+### Features
+
+* **responsive-vertical-menu:** adds proper support for items at 4th level of depth ([252b8eb](https://github.com/Sage/carbon/commit/252b8eb16b8b7761e1c9720249cac5b012ce46af)), closes [#7422](https://github.com/Sage/carbon/issues/7422)
+
 ## [155.7.1](https://github.com/Sage/carbon/compare/v155.7.0...v155.7.1) (2025-07-29)
 
 ### Bug Fixes
