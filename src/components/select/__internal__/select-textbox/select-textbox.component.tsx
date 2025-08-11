@@ -67,11 +67,6 @@ export interface FormInputPropTypes
    *
    */
   labelId?: string;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
 }
 
 export interface SelectTextboxProps extends FormInputPropTypes {
@@ -114,7 +109,6 @@ const SelectTextbox = React.forwardRef(
       formattedValue = "",
       selectedValue,
       required,
-      isOptional,
       hasTextCursor,
       transparent = false,
       activeDescendantId,
@@ -143,7 +137,6 @@ const SelectTextbox = React.forwardRef(
       id,
       readOnly,
       required,
-      isOptional,
       onClick: handleTextboxClick,
       onFocus: handleTextboxFocus,
       onBlur,

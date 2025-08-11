@@ -41,16 +41,12 @@ export interface StyledLabelContainerProps {
   align?: "left" | "right";
   /** When true, label is placed in line an input */
   inline?: boolean;
-  /** Flag to configure component as optional in Form */
-  optional?: boolean;
   /** Padding right, integer multiplied by base spacing constant (8) */
   pr?: 1 | 2;
   /** Padding left, integer multiplied by base spacing constant (8) */
   pl?: 1 | 2;
   /** Label width */
   width?: number;
-  /** Text used for the optional label */
-  optionalLabel?: string;
 }
 
 export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
@@ -76,17 +72,6 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
         padding-left: var(${pl === 1 ? "--spacing100" : "--spacing200"});
       `};
       width: ${width}%;
-    `}
-
-  ${({ optional, optionalLabel }) =>
-    optional &&
-    css`
-      ::after {
-        content: "(${optionalLabel})";
-        font-weight: var(--fontWeights400);
-        margin-left: var(--spacing050);
-        color: var(--colorsUtilityYin055);
-      }
     `}
 `;
 
