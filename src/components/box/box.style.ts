@@ -24,13 +24,14 @@ const calculatePosition = (props: Omit<PositionProps, "zIndex">) => {
 };
 
 const StyledBox = styled.div.attrs(applyBaseTheme)<
-  BoxProps & {
+  Omit<BoxProps, "borderRadius"> & {
     cssProps?: {
       color?: string;
       opacity?: string;
       height?: string;
       width?: string;
     };
+    $borderRadius?: BoxProps["borderRadius"];
   }
 >`
   ${space}
@@ -39,9 +40,14 @@ const StyledBox = styled.div.attrs(applyBaseTheme)<
   ${grid}
   ${calculatePosition}
 
-  ${({ borderRadius = "borderRadius000" }) => css`
-    border-radius: var(--${borderRadius});
-  `}
+${({ $borderRadius = "borderRadius000" }) => {
+    const radiusValues = $borderRadius.split(" ");
+    return css`
+      border-radius: ${radiusValues
+        .map((radius) => `var(--${radius})`)
+        .join(" ")};
+    `;
+  }}
 
   ${({ cssProps, bg, backgroundColor, ...rest }) =>
     styledColor({ color: cssProps?.color, bg, backgroundColor, ...rest })}
