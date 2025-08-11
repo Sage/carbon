@@ -129,6 +129,10 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
     ${!overrideColor &&
     css`
       background-color: ${menuConfigVariants[menuType].background};
+
+      &:has([data-popover-container-button="true"]) {
+        background-color: var(--colorsActionMajor500);
+      }
     `}
 
     ${overrideColor &&
@@ -162,6 +166,15 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
           color: ${menuConfigVariants[menuType].color};
           z-index: 1;
           position: relative;
+        }
+      }
+
+      &:has([data-popover-container-button="true"]) {
+        && {
+          a:focus,
+          button:focus {
+            background-color: var(--colorsActionMajor500);
+          }
         }
       }
 
@@ -265,7 +278,6 @@ const StyledMenuItemWrapper = styled.a.attrs(applyBaseTheme).attrs({
             }
           `}
     `}
-
     button,
     ${StyledLink} button,
     a,

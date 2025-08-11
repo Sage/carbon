@@ -50,6 +50,7 @@ export interface RenderOpenProps {
   id?: string;
   "aria-expanded": boolean;
   "aria-haspopup": "dialog";
+  "data-popover-container-button"?: string;
 }
 
 export const renderOpen = ({
@@ -373,6 +374,7 @@ export const PopoverContainer = forwardRef<
       ref: openButtonRef,
       "aria-label": openButtonAriaLabel || title,
       id: isOpen ? undefined : popoverContainerId,
+      "data-popover-container-button": "true",
     };
 
     const renderCloseComponentProps = {
