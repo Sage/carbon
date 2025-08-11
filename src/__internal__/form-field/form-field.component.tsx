@@ -72,11 +72,6 @@ export interface FormFieldProps extends CommonFormFieldProps, TagProps {
   fieldHelpInline?: boolean;
   /** Id of the element a label should be bound to */
   id: string;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `isRequired` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** Flag to configure component as mandatory */
   isRequired?: boolean;
   /** Whether to show the validation icon */
@@ -111,7 +106,6 @@ const FormField = ({
   labelAs,
   id,
   reverse,
-  isOptional,
   useValidationIcon,
   adaptiveLabelBreakpoint,
   isRequired,
@@ -131,17 +125,12 @@ const FormField = ({
     return Object.keys(validationProps).find(
       (propName) => validationProps[propName],
     );
-  }, [error, warning, info, disabled]);
+  }, [error, warning, info, disabled, loading]);
 
   invariant(
     invalidValidationProp === undefined,
     `Prop \`${invalidValidationProp}\` cannot be used in conjunction with \`disabled\`. ` +
       "Use `readOnly` if you require users to see validations with a non-interactive field",
-  );
-
-  invariant(
-    !(isRequired && isOptional),
-    "an input cannot be set to both required and optional at the same time",
   );
 
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
@@ -210,7 +199,6 @@ const FormField = ({
             helpIcon={labelHelpIcon}
             inline={inlineLabel}
             width={labelWidth}
-            optional={isOptional}
             useValidationIcon={useValidationIcon}
             pr={!reverse ? labelSpacing : undefined}
             pl={reverse ? labelSpacing : undefined}

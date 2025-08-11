@@ -99,9 +99,6 @@ const frFR: Partial<Locale> = {
   heading: {
     backLinkAriaLabel: () => "Retour",
   },
-  label: {
-    optional: () => "facultatif",
-  },
   link: {
     skipLinkLabel: () => "Passer au contenu principal",
   },

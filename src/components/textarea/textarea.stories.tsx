@@ -157,11 +157,6 @@ export const RequiredStory: Story = () => {
 };
 RequiredStory.storyName = "Required";
 
-export const IsOptionalStory: Story = () => {
-  return <Textarea label="Textarea" isOptional />;
-};
-IsOptionalStory.storyName = "isOptional";
-
 export const BorderRadiusStory: Story = () => {
   const [stateOne, setStateOne] = useState("");
   const [stateTwo, setStateTwo] = useState("");

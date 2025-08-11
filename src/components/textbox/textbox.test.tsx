@@ -55,23 +55,6 @@ test("should display deprecation warning once for `ariaDescribedby`", () => {
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 });
 
-test("should display deprecation warning once for optional prop", () => {
-  render(
-    <>
-      <Textbox onChange={() => {}} isOptional />
-      <Textbox onChange={() => {}} isOptional />
-    </>,
-  );
-
-  // Ensure the deprecation warning is logged only once
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  expect(loggerSpy).toHaveBeenNthCalledWith(
-    1,
-    "`isOptional` is deprecated in Textbox and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-  );
-});
-
 testStyledSystemMargin(
   (props) => <Textbox data-role="textbox-wrapper" {...props} />,
   () => screen.getByTestId("textbox-wrapper"),

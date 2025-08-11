@@ -80,11 +80,6 @@ export interface SimpleSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `isRequired` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** Flag to configure component as mandatory */
   isRequired?: boolean;
   /** Specify a callback triggered on change */
@@ -94,8 +89,6 @@ export interface SimpleSelectProps
   /** Override the default width of the list element. Number passed is converted into pixel value */
   listWidth?: number;
 }
-
-let deprecateOptionalWarnTriggered = false;
 
 export const SimpleSelect = React.forwardRef<
   HTMLInputElement,
@@ -134,19 +127,12 @@ export const SimpleSelect = React.forwardRef<
       flipEnabled = true,
       enableVirtualScroll,
       virtualScrollOverscan,
-      isOptional,
       required,
       listWidth,
       ...props
     },
     ref,
   ) => {
-    if (!deprecateOptionalWarnTriggered && isOptional) {
-      deprecateOptionalWarnTriggered = true;
-      Logger.deprecate(
-        "`isOptional` is deprecated in SimpleSelect and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-      );
-    }
     const selectListId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
@@ -499,7 +485,6 @@ export const SimpleSelect = React.forwardRef<
         onBlur: handleTextboxBlur,
         tooltipPosition,
         required,
-        isOptional,
         transparent,
         ...filterOutStyledSystemSpacingProps(props),
         "data-component": undefined,

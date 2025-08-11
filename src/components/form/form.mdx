@@ -68,12 +68,11 @@ When either `errorCount` or `warningCount` or both are provided, summary with th
 
 <Canvas of={FormStories.WithBothErrorsAndWarningsSummary} />
 
-### Example with optional and required fields
+### Example with required fields
 
-You can set the `required` or `isOptional` on any `Form` input to make them mandatory or optional. You can also 
-include an indicator within the `Form` by importing the `RequiredFieldsIndicator` component.
+Each input-based component supports a `required` prop that you can use to make it a mandatory form field. All required fields are represented with an asterisk next to their labels. To help explain the meaning of the asterisk, you can also use the `RequiredFieldsIndicator` subcomponent to display one with a supplementary description.
 
-<Canvas name="with optional or required label" of={FormStories.WithBothOptionalOrRequired} />
+<Canvas name="with required fields" of={FormStories.WithRequiredFields} />
 
 ### Buttons variations
 

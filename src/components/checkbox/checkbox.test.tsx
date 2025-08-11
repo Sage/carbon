@@ -149,18 +149,6 @@ test("should render a required checkbox when the required prop is true", () => {
   expect(screen.getByRole("checkbox")).toBeRequired();
 });
 
-test("should append (optional) text on the label when isOptional prop is set", () => {
-  render(<Checkbox label="label" onChange={() => {}} isOptional />);
-
-  expect(screen.getByTestId("label-container")).toHaveStyleRule(
-    "content",
-    '"(optional)"',
-    {
-      modifier: "::after",
-    },
-  );
-});
-
 test("should render a disabled checkbox when disabled prop is true", () => {
   render(<Checkbox label="label" onChange={() => {}} disabled />);
 

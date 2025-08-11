@@ -136,11 +136,6 @@ export interface NumeralDateProps
    * A React ref to pass to the input corresponding to the year
    */
   yearRef?: React.ForwardedRef<HTMLInputElement>;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
   /** Render the ValidationMessage above the NumeralDate inputs when validationRedesignOptIn flag is set */
   validationMessagePositionTop?: boolean;
 }
@@ -227,8 +222,6 @@ const getDateLabel = (datePart: string, locale: Locale) => {
   }
 };
 
-let deprecateOptionalWarnTriggered = false;
-
 export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
   (
     {
@@ -254,7 +247,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
       fieldHelp,
       adaptiveLabelBreakpoint,
       required,
-      isOptional,
       readOnly,
       size = "medium",
       enableInternalError,
@@ -269,12 +261,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
     },
     ref,
   ) => {
-    if (!deprecateOptionalWarnTriggered && isOptional) {
-      deprecateOptionalWarnTriggered = true;
-      Logger.deprecate(
-        "`isOptional` is deprecated in NumeralDate and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-      );
-    }
     const locale = useLocale();
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
@@ -533,7 +519,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
             legend={label}
             legendMargin={{ mb: 0 }}
             isRequired={required}
-            isOptional={isOptional}
             isDisabled={disabled}
             name={name}
             error={validationOnLabel && internalError}
@@ -566,7 +551,6 @@ export const NumeralDate = forwardRef<NumeralDateHandle, NumeralDateProps>(
         legendMargin={{ mb: 0 }}
         legendAlign={labelAlign}
         isRequired={required}
-        isOptional={isOptional}
         isDisabled={disabled}
         name={name}
         aria-describedby={combinedAriaDescribedBy}

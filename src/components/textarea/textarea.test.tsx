@@ -17,27 +17,6 @@ jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
-test("should display deprecation warning once when rendered as optional", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-  render(
-    <>
-      <Textarea name="my-textarea" onChange={() => {}} isOptional />
-      <Textarea name="my-textarea" onChange={() => {}} isOptional />
-    </>,
-  );
-
-  // Ensure the deprecation warning is logged only once
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  expect(loggerSpy).toHaveBeenNthCalledWith(
-    1,
-    "`isOptional` is deprecated in TextArea and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-  );
-
-  loggerSpy.mockRestore();
-});
-
 test("should display deprecation warning once when rendered as uncontrolled", () => {
   const loggerSpy = jest.spyOn(Logger, "deprecate");
 

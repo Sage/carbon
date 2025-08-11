@@ -256,8 +256,7 @@ export const Required: Story = () => {
   });
   return (
     <NumeralDate
-      name="optional"
-      id="optional"
+      name="date-of-birth"
       label="Date of Birth"
       labelWidth={30}
       onChange={(e) => setValue(e.target.value)}
@@ -267,26 +266,6 @@ export const Required: Story = () => {
   );
 };
 Required.storyName = "Required";
-
-export const IsOptional: Story = () => {
-  const [value, setValue] = useState<NumeralDateProps["value"]>({
-    dd: "",
-    mm: "",
-    yyyy: "",
-  });
-  return (
-    <NumeralDate
-      name="optional"
-      id="optional"
-      label="Date of Birth"
-      labelWidth={30}
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-      isOptional
-    />
-  );
-};
-IsOptional.storyName = "IsOptional";
 
 export const ProgrammaticFocus = () => {
   const ndRef = React.useRef<NumeralDateHandle>(null);
