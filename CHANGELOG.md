@@ -1,3 +1,10 @@
+## [155.10.0](https://github.com/Sage/carbon/compare/v155.9.1...v155.10.0) (2025-08-11)
+
+### Features
+
+* **link:** add subtle variant ([f4256d5](https://github.com/Sage/carbon/commit/f4256d56290784d6d0248507c036531bd005b3cf))
+* **link:** add underline prop ([5bb4aa9](https://github.com/Sage/carbon/commit/5bb4aa99a086348886de0793e5766483925face9))
+
 ## [155.9.1](https://github.com/Sage/carbon/compare/v155.9.0...v155.9.1) (2025-08-08)
 
 ### Bug Fixes
