@@ -42,7 +42,7 @@ const StyledBox = styled.div.attrs(applyBaseTheme)<
   ${({ borderRadius = "borderRadius000" }) => css`
     border-radius: var(--${borderRadius});
   `}
-  
+
   ${({ cssProps, bg, backgroundColor, ...rest }) =>
     styledColor({ color: cssProps?.color, bg, backgroundColor, ...rest })}
 
@@ -55,7 +55,7 @@ const StyledBox = styled.div.attrs(applyBaseTheme)<
     css`
       overflow-wrap: ${overflowWrap};
     `}
-  
+
   ${({ cssProps, size }) =>
     cssProps?.height &&
     !size &&
@@ -120,6 +120,10 @@ const StyledBox = styled.div.attrs(applyBaseTheme)<
     css`
       box-shadow: var(--${boxShadow});
     `}
+
+  ${({ display, hidden }) => css`
+    display: ${hidden ? "none" : display};
+  `}
 `;
 
 export default StyledBox;

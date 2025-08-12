@@ -33,6 +33,25 @@ export const WithDisabled = () => {
 };
 WithDisabled.storyName = "With Disabled";
 
+export const WithUnderlineOnlyOnHover = () => {
+  return (
+    <Link underline="hover" href="#foo">
+      This is an anchor link with an underline applied on hover
+    </Link>
+  );
+};
+WithUnderlineOnlyOnHover.storyName = "With Underline Only On Hover";
+WithUnderlineOnlyOnHover.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithNoUnderline = () => {
+  return (
+    <Link underline="never" href="#foo">
+      This is an anchor link with no underline
+    </Link>
+  );
+};
+WithNoUnderline.storyName = "Without Underline";
+
 export const WithIcon: Story = () => {
   return (
     <Link icon="settings" href="#foo">
@@ -213,6 +232,30 @@ export const OnADarkBackground: Story = () => {
             icon="settings"
             isDarkBackground
             variant="neutral"
+            iconAlign={align}
+            href="#foo"
+          >
+            This is a link
+          </Link>
+        </React.Fragment>
+      ))}
+      <br />
+      <Link
+        href="https://carbon.sage.com"
+        target="_blank"
+        rel="noreferrer noopener"
+        isDarkBackground
+        variant="subtle"
+      >
+        This is a link
+      </Link>
+      {(["left", "right"] as const).map((align) => (
+        <React.Fragment key={`${align}-subtle-variant`}>
+          <br />
+          <Link
+            icon="settings"
+            isDarkBackground
+            variant="subtle"
             iconAlign={align}
             href="#foo"
           >

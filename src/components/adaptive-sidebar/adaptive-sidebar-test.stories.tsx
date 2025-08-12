@@ -488,25 +488,27 @@ export const WithDropdown: StoryObj = () => {
           <Option text="Yellow" value="11" />
         </Select>
       </Box>
-      <AdaptiveSidebar open width="50%">
-        <Typography variant="h1">Sidebar content</Typography>
-        <Select
-          name="simple-2"
-          id="simple-2"
-          label="open to test that the input and dropdowns show when the adaptive sidebar is open & triggered"
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-          <Option text="Brown" value="4" />
-          <Option text="Green" value="5" />
-          <Option text="Orange" value="6" />
-          <Option text="Pink" value="7" />
-          <Option text="Purple" value="8" />
-          <Option text="Red" value="9" />
-          <Option text="White" value="10" />
-          <Option text="Yellow" value="11" />
-        </Select>
+      <AdaptiveSidebar open width="50%" p={2}>
+        <Box px={2}>
+          <Typography variant="h1">Sidebar content</Typography>
+          <Select
+            name="simple-2"
+            id="simple-2"
+            label="open to test that the input and dropdowns show when the adaptive sidebar is open & triggered"
+          >
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+            <Option text="Blue" value="3" />
+            <Option text="Brown" value="4" />
+            <Option text="Green" value="5" />
+            <Option text="Orange" value="6" />
+            <Option text="Pink" value="7" />
+            <Option text="Purple" value="8" />
+            <Option text="Red" value="9" />
+            <Option text="White" value="10" />
+            <Option text="Yellow" value="11" />
+          </Select>
+        </Box>
       </AdaptiveSidebar>
     </Box>
   );
