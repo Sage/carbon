@@ -4,6 +4,7 @@ declare global {
   module "*.png";
   module "*.svg";
   module "*.txt";
+  module "*.css";
   interface Window {
     __CARBON_INTERNALS_MODAL_LIST?: ModalList;
     __CARBON_INTERNALS_MODAL_SETTER_LIST?: ((

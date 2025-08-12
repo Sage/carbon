@@ -1,0 +1,32 @@
+.list {
+  background-color: rgb(189, 189, 189);
+  border-radius: 4px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 200px;
+  min-height: 100px;
+}
+
+.item {
+  font-weight: 500;
+  font-family: "Sage UI";
+  text-wrap: wrap;
+  padding: 1rem;
+  border-radius: 4px;
+  background-color: rgb(16, 96, 95);
+  color: rgb(255, 255, 255);
+}
+
+.item:hover {
+  cursor: grab;
+}
+
+.app {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+  height: 300px;
+}

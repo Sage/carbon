@@ -1,0 +1,273 @@
+import { Meta, ArgTypes, Canvas, Source, Unstyled } from "@storybook/blocks";
+import DraggableItems from "./demos/draggable-items"
+import ListeningToEvents from "./demos/listening-to-events"
+import MultipleListWithoutContainer from "./demos/multiple-lists-without-container"
+
+<Meta title="Utilities/Drag and drop/Quickstart"/>
+
+# Quickstart
+
+In this guide, we'll be creating a simple list of items which can be reordered via drag and drop. You will learn how to:
+1. Create draggable items
+2. Listen for specific drag events
+3. Create drop targets for more complex use cases.
+
+## Setup
+
+First, let's set up the structure of our app: We'll be creating three files: `App.jsx`, `Item.jsx`, and `List.jsx` for our components, and apply some basic styling from a separate `styles.css` file.
+
+```jsx
+// Item.jsx
+export default function Item({ text }) {
+  return (
+    <span className="item">{text}</span>
+  );
+}
+```
+
+```jsx
+// List.jsx
+export default function List({ children }) {
+  return (<div className="list">{children}</div>);
+}
+```
+
+```jsx
+// App.jsx
+import { useState } from "react";
+import { DraggableProvider } from "carbon-react/lib/utilities/drag-and-drop";
+import Item from "./Item.jsx";
+import List from "./List.jsx";
+import "./styles.css";
+
+export default function App() {
+  const [fruits] = useState(["Apple", "Banana", "Cherry"]);
+
+  return (
+    <div className="app">
+      <DraggableProvider>
+        <List>
+          {fruits.map((fruit) => (
+            <Item key={fruit} text={fruit} />
+          ))}
+        </List>
+      </DraggableProvider>
+    </div>
+  );
+}
+```
+
+Wrapping our app in a `DraggableProvider` is required, as the hooks we'll be using later will rely on this being present.
+
+## Adding drag and drop functionality
+
+To add drag and drop behaviour to our `Item` component, we'll have it call the `useDragItem` hook.
+This hook returns a `ref` callback that we can attach to the item's root element.
+
+```jsx
+// Item.jsx
+import { useDragItem } from "carbon-react/lib/utilities/drag-and-drop";
+
+export default function Item({ text, id, index }) {
+  const { ref } = useDragItem({
+    id,
+    index,
+    list: "my-list"
+  });
+
+  return (
+    <span ref={ref} className="item">
+      {text}
+    </span>
+  );
+};
+```
+
+```jsx
+// App.jsx
+import { useState } from "react";
+import { DraggableProvider } from "carbon-react/lib/utilities/drag-and-drop";
+import Item from "./Item.jsx";
+import List from "./List.jsx";
+import "./styles.css";
+
+export default function App() {
+  const [fruits] = useState(["Apple", "Banana", "Cherry"]);
+
+  return (
+    <div className="app">
+      <DraggableProvider>
+        <List>
+          {fruits.map((fruit, index) => (
+            <Item key={fruit} id={fruit} index={index} text={fruit} />
+          ))}
+        </List>
+      </DraggableProvider>
+    </div>
+  );
+};
+```
+
+<Unstyled>
+  <div style={{
+    padding: "1rem",
+    border: "1px solid rgba(38.85,115.0.15)",
+    borderRadius: "4px",
+    boxShadow: "rgba(0,0,0,0.1) 0px 1px 3px 0px"
+  }}>
+    <DraggableItems/>
+  </div>
+</Unstyled>
+
+You'll notice that the items cannot be re-arranged yet, since we aren't updating the item order in state based on drag and drop operations. Let's fix this now.
+
+## Listening for drag and drop events
+
+Adding drag and drop behaviour is redundant if we cannot do anything with it. We can use `DraggableProvider` to listen for particular
+drag and drop events, allowing us to update our item state accordingly. Let's reorder the items on a successful drop operation:
+
+```jsx
+// App.jsx
+import { useState } from "react";
+import { DraggableProvider, swap } from "carbon-react/lib/utilities/drag-and-drop"
+import Item from "./Item.jsx";
+import List from "./List.jsx";
+import "./styles.css";
+
+export default function App() {
+  const [fruits, setFruits] = useState(["Apple", "Banana", "Cherry"]);
+
+  const onDrop = ({ source, target }) => {
+    setFruits((prev) => swap(prev, source, target));
+  };
+
+  return (
+    <div className="app">
+      <DraggableProvider onDrop={onDrop}>
+        <List>
+          {fruits.map((fruit, index) => (
+            <Item key={fruit} id={fruit} index={index} text={fruit} />
+          ))}
+        </List>
+      </DraggableProvider>
+    </div>
+  );
+};
+```
+
+`onDrop` is called whenever a successful drop operation occurs, where `source` and `target` represent data about the dragged item and the item it was dropped on.
+`swap` is a simple pure function provided for convenience, that swaps two elements in an array without mutating it.
+
+Now we can reorder items!
+
+<Unstyled>
+  <div style={{
+    padding: "1rem",
+    border: "1px solid rgba(38.85,115.0.15)",
+    borderRadius: "4px",
+    boxShadow: "rgba(0,0,0,0.1) 0px 1px 3px 0px"
+  }}>
+    <ListeningToEvents/>
+  </div>
+</Unstyled>
+
+
+## Moving items between multiple lists
+
+Let's modify our example by adding another list and allow items to be moved in and between the two lists.
+
+We need each `Item` to be aware of which list it belongs to, so we'll pass a `list` prop to the `Item` component and then into the `useDragItem` hook. This will allow us to track the item's original list during drag and drop operations.
+
+```jsx
+// Item.jsx
+import { useDragItem } from "carbon-react/lib/utilities/drag-and-drop";
+
+export default function Item({ text, id, index, list }) {
+  const { ref } = useDragItem({
+    id,
+    index,
+    list,
+  });
+
+  return (
+    <span ref={ref} className="item">
+      {text}
+    </span>
+  );
+};
+```
+
+When considering multiple lists, there is chance one list could become empty if all its items are dragged out of it. Given `useDragItem` only makes `Item` a drop target in our case, we need to ensure that any list can still accept dropped items even when it is empty. We'll fix this by making our `List` component a drop target using the `useDropContainer` hook.
+
+```jsx
+// List.jsx
+import { useDropContainer } from "carbon-react/lib/utilities/drag-and-drop";
+
+export default function List({ id, children }) {
+  const { ref } = useDropContainer({ id });
+
+  return (
+    <div ref={ref} className="list">
+      {children}
+    </div>
+  );
+};
+```
+
+Finally, let's update our `App` component to manage multiple lists and their items. We'll use an object to represent our lists and their corresponding items, and update the `onDrop` handler to move items between lists as needed.
+
+For updating our item state, we can replace `swap` with `move`. This is another pure function provided for convenience, and it allows us to easily move items in the same list, or between different ones.
+
+```jsx
+// App.jsx
+import { useState } from "react";
+import { DraggableProvider, move } from "carbon-react/lib/utilities/drag-and-drop"
+import Item from "./Item.jsx";
+import List from "./List.jsx";
+import "./styles.css";
+
+export default function App() {
+  const [data, setData] = useState({
+    listA: ["Apple", "Banana", "Cherry"],
+    listB: ["Grapefruit", "Honeydew"],
+  });
+
+  const onDrop: DraggableProviderProps["onDrop"] = ({ source, target }) => {
+    setData((prev) => move(prev, source, target));
+  };
+
+  return (
+    <div className={classnames.app}>
+      <DraggableProvider onDrop={onDrop}>
+        {Object.entries(data).map(([list, fruits]) => (
+          <List key={list} id={list}>
+            {fruits.map((fruit, index) => (
+              <Item
+                key={fruit}
+                id={fruit}
+                index={index}
+                list={list}
+                text={fruit}
+              />
+            ))}
+          </List>
+        ))}
+      </DraggableProvider>
+    </div>
+  );
+};
+```
+
+
+Now we drag and drop between lists! 
+
+<Unstyled>
+  <div style={{
+    padding: "1rem",
+    border: "1px solid rgba(38.85,115.0.15)",
+    borderRadius: "4px",
+    boxShadow: "rgba(0,0,0,0.1) 0px 1px 3px 0px"
+  }}>
+    <MultipleListWithoutContainer />
+  </div>
+</Unstyled>

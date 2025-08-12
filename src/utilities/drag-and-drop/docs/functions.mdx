@@ -1,0 +1,41 @@
+import { Meta, Title } from "@storybook/blocks";
+
+<Meta title="Utilities/Drag and drop/Functions"/>
+
+<Title>Functions</Title>
+
+All of these functions are optional and are provided for convenience. You can also substitute them with your own if you wish.
+
+## `swap`
+
+Reorders two items in an array. Returns a new array with the reordered items, without mutating the original array.
+
+```jsx
+const list = ["A", "B", "C"];
+const swapped = swap(
+  list,
+  { index: 0 },
+  { index: 1 }
+);
+
+console.log(swapped) // ["B", "A", "C"]
+```
+
+## `move`
+
+Moves an item from one list to another within an object. Returns a new object with the items moved, without mutating the original object.
+
+```jsx
+const lists = {
+  listA: ["A", "B", "C"],
+  listB: ["D", "E", "F"]
+};
+const moved = move(
+  lists,
+  { index: 0, list: "listA" },
+  { index: 1, list: "listB" }
+);
+
+console.log(moved); // { listA: ["B", "C"], listB: ["D", "A", "E", "F"] }
+```
+
