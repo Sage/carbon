@@ -27,6 +27,18 @@ export default {
   ],
 };
 
+async function ensureAllTogglesOpen(canvasElement: HTMLElement) {
+  const canvas = within(canvasElement);
+  const toggles = canvas.getAllByRole("button", { name: /show more/i });
+  for (const t of toggles) {
+    if (t.getAttribute("aria-expanded") !== "true") {
+      await userEvent.click(t);
+      await userInteractionPause(250);
+      expect(t).toHaveAttribute("aria-expanded", "true");
+    }
+  }
+}
+
 export const ButtonTypesAndInteraction: Story = {
   render: () => (
     <>
@@ -85,6 +97,8 @@ export const ButtonTypesAndInteraction: Story = {
     await userEvent.click(whiteToggle);
     await userInteractionPause(500);
     expect(whiteToggle).toHaveAttribute("aria-expanded", "true");
+
+    await ensureAllTogglesOpen(canvasElement);
   },
 };
 ButtonTypesAndInteraction.storyName = "Button Types And Basic Interaction";
@@ -171,6 +185,8 @@ export const SizesAndKeyboardNavigation: Story = {
     })[2];
     await userEvent.click(largeToggle);
     await userInteractionPause(500);
+
+    await ensureAllTogglesOpen(canvasElement);
   },
 };
 SizesAndKeyboardNavigation.storyName = "Sizes And Keyboard Navigation";
@@ -246,6 +262,8 @@ export const DisabledStatesAndIcons: Story = {
 
     expect(iconOnly).toHaveAccessibleName("Info");
     expect(iconOnly).toHaveAttribute("aria-label", "Info");
+
+    await ensureAllTogglesOpen(canvasElement);
   },
 };
 DisabledStatesAndIcons.storyName = "Disabled States And Icons";
@@ -281,6 +299,8 @@ export const PopoverPositioning: Story = {
     })[1];
     await userEvent.click(rightToggle);
     await userInteractionPause(500);
+
+    await ensureAllTogglesOpen(canvasElement);
   },
 };
 PopoverPositioning.storyName = "Popover Positioning";
