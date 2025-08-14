@@ -7,36 +7,6 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/__internal__/test-utils";
 
-import Logger from "../../__internal__/utils/logger";
-
-jest.mock("../../__internal__/utils/logger");
-
-test("should display deprecation warning once when rendered as optional", () => {
-  const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-  render(
-    <>
-      <InlineInputs isOptional>
-        <Textbox onChange={() => {}} />
-      </InlineInputs>
-      <InlineInputs isOptional>
-        <Textbox onChange={() => {}} />
-      </InlineInputs>
-    </>,
-  );
-
-  // Ensure the deprecation warning is logged only once
-  expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-  expect(loggerSpy).toHaveBeenNthCalledWith(
-    1,
-
-    "`isOptional` is deprecated in InlineInputs and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-  );
-
-  loggerSpy.mockRestore();
-});
-
 test("renders single child", () => {
   render(
     <InlineInputs>

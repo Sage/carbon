@@ -79,20 +79,6 @@ export const Required: Story = () => {
   );
 };
 
-export const Optional: Story = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  return (
-    <Checkbox
-      label="Checkbox"
-      name="checkbox-is-optional"
-      isOptional
-      checked={isChecked}
-      onChange={(e) => setIsChecked(e.target.checked)}
-    />
-  );
-};
-
 export const WithFieldHelp: Story = () => {
   return (
     <>

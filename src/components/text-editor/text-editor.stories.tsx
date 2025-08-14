@@ -141,17 +141,6 @@ export const Required: Story = () => {
 };
 Required.storyName = "Required";
 
-export const Optional: Story = () => {
-  return (
-    <TextEditor
-      namespace="storybook-optional"
-      labelText="Text Editor"
-      isOptional
-    />
-  );
-};
-Optional.storyName = "Optional";
-
 export const CharacterLimit: Story = () => {
   return (
     <TextEditor

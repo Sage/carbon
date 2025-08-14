@@ -261,7 +261,6 @@ NewValidation.args = {
   legendHelp: "Legend help text",
   legendAlign: "left",
   required: true,
-  isOptional: false,
   inline: false,
 };
 NewValidation.parameters = {
@@ -329,7 +328,6 @@ NewValidationInline.args = {
   legendHelp: "Legend help text",
   legendAlign: "left",
   required: true,
-  isOptional: false,
 };
 NewValidationInline.parameters = {
   chromatic: { disableSnapshot: false },
@@ -381,7 +379,6 @@ WithLegendAlignment.args = {
   warning: "",
   legendHelp: "Legend help text",
   required: true,
-  isOptional: false,
   inline: false,
 };
 WithLegendAlignment.parameters = {

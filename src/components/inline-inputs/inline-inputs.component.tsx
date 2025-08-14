@@ -10,7 +10,6 @@ import StyledInlineInputs, {
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import Logger from "../../__internal__/utils/logger";
 
 type GutterOptions =
   | "none"
@@ -50,11 +49,6 @@ export interface InlineInputsProps
   labelId?: string;
   /** Flag to configure component as mandatory. */
   required?: boolean;
-  /**
-   * [Legacy] Flag to configure component as optional.
-   * @deprecated If the value of this component is not required, use the `required` prop and set it to false instead.
-   */
-  isOptional?: boolean;
 }
 
 const columnWrapper = (children: React.ReactNode, gutter: GutterOptions) => {
@@ -66,8 +60,6 @@ const columnWrapper = (children: React.ReactNode, gutter: GutterOptions) => {
     );
   });
 };
-
-let deprecateOptionalWarnTriggered = false;
 
 const InlineInputs = ({
   adaptiveLabelBreakpoint,
@@ -81,15 +73,8 @@ const InlineInputs = ({
   labelInline = true,
   labelWidth,
   required,
-  isOptional,
   ...rest
 }: InlineInputsProps) => {
-  if (!deprecateOptionalWarnTriggered && isOptional) {
-    deprecateOptionalWarnTriggered = true;
-    Logger.deprecate(
-      "`isOptional` is deprecated in InlineInputs and support will soon be removed. If the value of this component is not required, use the `required` prop and set it to false instead.",
-    );
-  }
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
   const ref = useRef<HTMLDivElement>(null);
   let inlineLabel: boolean | undefined = labelInline;
@@ -107,7 +92,6 @@ const InlineInputs = ({
         inline={inlineLabel}
         htmlFor={htmlFor}
         isRequired={required}
-        optional={isOptional}
       >
         {label}
       </Label>

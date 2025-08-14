@@ -278,17 +278,6 @@ export const Required: Story = () => {
 };
 Required.storyName = "Required";
 
-export const IsOptional: Story = () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
-  return (
-    <DateInput label="Date" value={state} onChange={setValue} isOptional />
-  );
-};
-IsOptional.storyName = "IsOptional";
-
 export const LocaleOverrideExampleImplementation: Story = () => {
   const [state, setState] = useState("2022-04-05");
   const handleChange = (ev: DateChangeEvent) => {

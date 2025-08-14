@@ -707,16 +707,14 @@ test.describe("should render CheckboxGroup component and check props", () => {
     page,
   }) => {
     await mount(
-      <CheckboxGroupComponentNewValidation warning="Warning Message (Fix is optional)" />,
+      <CheckboxGroupComponentNewValidation warning="Warning Message" />,
     );
 
     const checkboxGroupElement1 = checkboxGroup(page)
       .locator("div")
       .nth(1)
       .locator("p");
-    await expect(checkboxGroupElement1).toContainText(
-      "Warning Message (Fix is optional)",
-    );
+    await expect(checkboxGroupElement1).toContainText("Warning Message");
     await expect(checkboxGroupElement1).toHaveCSS("color", "rgb(191, 82, 0)");
     const checkboxGroupElement2 = checkboxGroup(page)
       .locator("div")
