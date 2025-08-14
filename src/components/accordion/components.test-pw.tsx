@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Box from "../box";
 import { Checkbox } from "../checkbox";
@@ -50,6 +50,7 @@ export const AccordionWithIcon = () => {
   const [expanded, setExpanded] = React.useState({
     one: false,
   });
+  const [checkboxValue, setCheckboxValue] = useState(false);
 
   return (
     <AccordionGroup>
@@ -65,7 +66,11 @@ export const AccordionWithIcon = () => {
         error={errors.one}
         warning={warnings.one}
       >
-        <Checkbox label="Add error" />
+        <Checkbox
+          label="Add error"
+          checked={checkboxValue}
+          onChange={(e) => setCheckboxValue(e.target.checked)}
+        />
       </Accordion>
     </AccordionGroup>
   );
@@ -77,13 +82,19 @@ export const AccordionGroupWithError = () => {
     two: errorVal,
     three: errorVal,
   });
+  const [checkboxValue, setCheckboxValue] = useState(false);
 
   return (
     <Box mt={2}>
       <AccordionGroup>
         <Accordion title="Heading" error={errors.one}>
           <Box p={1}>
-            <Checkbox label="Add error" error={!!errors.one} />
+            <Checkbox
+              label="Add error"
+              error={!!errors.one}
+              checked={checkboxValue}
+              onChange={(e) => setCheckboxValue(e.target.checked)}
+            />
           </Box>
         </Accordion>
       </AccordionGroup>
@@ -95,13 +106,19 @@ export const AccordionGroupWithWarning = () => {
   const [warnings] = React.useState({
     one: warningVal,
   });
+  const [checkboxValue, setCheckboxValue] = useState(false);
 
   return (
     <Box mt={2}>
       <AccordionGroup>
         <Accordion title="Heading" warning={warnings.one}>
           <Box p={1}>
-            <Checkbox label="Add warning" warning={!!warnings.one} />
+            <Checkbox
+              label="Add warning"
+              warning={!!warnings.one}
+              checked={checkboxValue}
+              onChange={(e) => setCheckboxValue(e.target.checked)}
+            />
           </Box>
         </Accordion>
       </AccordionGroup>
@@ -113,13 +130,19 @@ export const AccordionGroupWithInfo = () => {
   const [infos] = React.useState({
     one: infoVal,
   });
+  const [checkboxValue, setCheckboxValue] = useState(false);
 
   return (
     <Box mt={2}>
       <AccordionGroup>
         <Accordion title="Heading" info={infos.one}>
           <Box p={1}>
-            <Checkbox label="Add info" info={!!infos.one} />
+            <Checkbox
+              label="Add info"
+              info={!!infos.one}
+              checked={checkboxValue}
+              onChange={(e) => setCheckboxValue(e.target.checked)}
+            />
           </Box>
         </Accordion>
       </AccordionGroup>
@@ -128,11 +151,17 @@ export const AccordionGroupWithInfo = () => {
 };
 
 export const AccordionGroupComponent = () => {
+  const [textboxValue, setTextboxValue] = useState("");
+
   return (
     <AccordionGroup>
       <Accordion title="First Accordion" onChange={() => {}} width="100%">
         <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
+          <Textbox
+            label="Textbox in an Accordion"
+            value={textboxValue}
+            onChange={(e) => setTextboxValue(e.target.value)}
+          />
         </Box>
       </Accordion>
       <Accordion title="Second Accordion" onChange={() => {}} width="100%">
@@ -253,16 +282,26 @@ export const AccordionWithBoxAndDifferentPaddings = () => {
 };
 
 export const AccordionGroupDefault = () => {
+  const [textboxValue, setTextboxValue] = useState("");
+
   return (
     <AccordionGroup>
       <Accordion title="First Accordion">
         <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
+          <Textbox
+            label="Textbox in an Accordion"
+            value={textboxValue}
+            onChange={(e) => setTextboxValue(e.target.value)}
+          />
         </Box>
       </Accordion>
       <Accordion title="Second Accordion">
         <Box p={2}>
-          <Textbox label="Textbox in an Accordion" />
+          <Textbox
+            label="Textbox in an Accordion"
+            value={textboxValue}
+            onChange={(e) => setTextboxValue(e.target.value)}
+          />
         </Box>
       </Accordion>
       <Accordion title="Third Accordion">
@@ -297,6 +336,7 @@ export const AccordionGroupValidation = () => {
     two: false,
     three: true,
   });
+  const [checkboxValue, setCheckboxValue] = useState(false);
 
   const handleChange = (
     id: Validations,
@@ -334,14 +374,20 @@ export const AccordionGroupValidation = () => {
             <Checkbox
               label="Add warning"
               warning={!!warnings.one}
-              onChange={() =>
-                handleChange("one", warnings, setWarnings, "warning")
-              }
+              onChange={(e) => {
+                handleChange("one", warnings, setWarnings, "warning");
+                setCheckboxValue(e.target.checked);
+              }}
+              checked={checkboxValue}
             />
             <Checkbox
               label="Add info"
               info={!!infos.one}
-              onChange={() => handleChange("one", infos, setInfos, "info")}
+              onChange={(e) => {
+                handleChange("one", infos, setInfos, "info");
+                setCheckboxValue(e.target.checked);
+              }}
+              checked={checkboxValue}
             />
           </Box>
         </Accordion>
@@ -369,14 +415,21 @@ export const AccordionGroupValidation = () => {
             <Checkbox
               label="Add warning"
               warning={!!warnings.two}
-              onChange={() =>
-                handleChange("two", warnings, setWarnings, "warning")
-              }
+              onChange={(e) => {
+                handleChange("two", warnings, setWarnings, "warning");
+
+                setCheckboxValue(e.target.checked);
+              }}
+              checked={checkboxValue}
             />
             <Checkbox
               label="Add info"
               info={!!infos.two}
-              onChange={() => handleChange("two", infos, setInfos, "info")}
+              onChange={(e) => {
+                handleChange("two", infos, setInfos, "info");
+                setCheckboxValue(e.target.checked);
+              }}
+              checked={checkboxValue}
             />
           </Box>
         </Accordion>
@@ -404,14 +457,21 @@ export const AccordionGroupValidation = () => {
             <Checkbox
               label="Add warning"
               warning={!!warnings.three}
-              onChange={() =>
-                handleChange("three", warnings, setWarnings, "warning")
-              }
+              onChange={(e) => {
+                handleChange("three", warnings, setWarnings, "warning");
+
+                setCheckboxValue(e.target.checked);
+              }}
+              checked={checkboxValue}
             />
             <Checkbox
               label="Add info"
               info={!!infos.three}
-              onChange={() => handleChange("three", infos, setInfos, "info")}
+              onChange={(e) => {
+                handleChange("three", infos, setInfos, "info");
+                setCheckboxValue(e.target.checked);
+              }}
+              checked={checkboxValue}
             />
           </Box>
         </Accordion>
