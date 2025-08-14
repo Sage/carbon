@@ -569,7 +569,7 @@ test.skip("setting the topModalOverride prop should ensure the Confirm is render
   await expect(sidebarClose).toBeFocused();
   await sidebarClose.press("Enter");
 
-  const dialogFullscreen = getDataElementByValue(page, "dialog-full-screen");
+  const dialogFullscreen = getDataElementByValue(page, "dialog");
   const dialogFullscreenClose = dialogFullscreen.getByLabel("Close");
   const dialogFullscreenTextbox = page.getByLabel("Fullscreen textbox");
 

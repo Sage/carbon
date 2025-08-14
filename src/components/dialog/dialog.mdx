@@ -34,7 +34,6 @@ import Dialog from "carbon-react/lib/components/dialog";
 
 ## Related Components
 
-- Complex task that needs more space? [Try Dialog Full Screen](../?path=/docs/dialog-full-screen--docs).
 - Need to refer back to the underlying page? [Try Sidebar](../?path=/docs/sidebar--docs).
 
 ## Examples
@@ -50,7 +49,7 @@ to ensure behaviour is consistent across all browsers.
 ### Preventing focus from being restored when Dialog closes
 
 When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the `Dialog` was opened.
-Focus can instead be programmatically applied to another element if appropriate. 
+Focus can instead be programmatically applied to another element if appropriate.
 
 <Canvas of={DialogStories.RestoreFocusOnCloseStory} />
 
@@ -128,7 +127,7 @@ This may occasionally be useful with things like Toasts where they persist on th
 import { DialogHandle } from "carbon-react/lib/components/dialog";
 ```
 
-The `DialogHandle` type provides an imperative handle for programmatic control over the `Dialog`'s container focus. 
+The `DialogHandle` type provides an imperative handle for programmatic control over the `Dialog`'s container focus.
 Using a `ref`, you can access its `focus()` method to set focus on the container when needed.
 
 <Canvas of={DialogStories.UsingHandle} />
@@ -154,6 +153,76 @@ Please note that setting the background color to grey may cause color contrast a
 Setting the `highlightVariant` prop will add a highlight above the Dialog.
 
 <Canvas of={DialogStories.HighlightVariant} />
+
+## Fullscreen
+
+## Examples
+
+### Default
+
+The call-to-action element should always be focused when the full-screen `Dialog` is closed. However, in some instances it may not receive focus
+due to specific browser design choices. The below example shows how to programmatically focus the call-to-action element when the full-screen `Dialog` is closed
+to ensure behaviour is consistent across all browsers.
+
+<Canvas of={DialogStories.FullScreenDefault} />
+
+### Preventing focus from being restored when a full-screen `Dialog` closes
+
+When the `restoreFocusOnClose` prop is `false`, focus will not be restored to the element that was focused before the full-screen `Dialog` was opened.
+Focus can instead be programmatically applied to another element if appropriate.
+
+<Canvas of={DialogStories.FullScreenRestoreFocusOnCloseStory} />
+
+### With complex example
+
+If you want to use more than one group of `Tabs` remember to put `selectedTabId` prop in every `Tabs` component
+to have a possibility to manage active `Tabs` group
+
+<Canvas of={DialogStories.FullScreenWithComplexExample} />
+
+### With disableContentPadding
+
+<Canvas of={DialogStories.FullScreenWithDisableContentPadding} />
+
+### With header children
+
+<Canvas of={DialogStories.FullScreenWithHeaderChildren} />
+
+### With help
+
+<Canvas of={DialogStories.FullScreenWithHelp} />
+
+### With hideable header children
+
+<Canvas of={DialogStories.FullScreenWithHideableHeaderChildren} />
+
+### Overriding the first focused element
+
+By default, when a dialog is opened it will automatically focus the first element within its children that can be focussed.
+However, there are a couple of ways of overriding this default behaviour. The `focusFirstElement` prop accepts a reference
+to the element you wish to focus on open (an example of this can be seen by clicking the first button below). If the element
+you want to focus supports `autoFocus` then the you can override the default behaviour by using the `disableAutoFocus` prop
+and setting the `autoFocus` on the element you wish to be focused instead (click the second button to see an example).
+
+<Canvas of={DialogStories.FullScreenFocusingADifferentFirstElement} />
+
+### Allowing other elements to be focused
+
+Using the `focusableContainers` prop allows elements that are not DOM children of the Dialog to be reachable with the keyboard while the Dialog is open.
+This may occasionally be useful with things like Toasts where they persist on the page until dismissed by clicking a close icon.
+
+<Canvas of={DialogStories.FullScreenOtherFocusableContainers} />
+
+### Top modal override
+
+When multiple modals are open on a page Carbon manages the order internally so that the last one mounted in the DOM
+is treated as the top one and the focus trap is set on it. However, this can potentially
+create unexpected issues if the loading of the dialogs isn't synchronous. In order to guarantee that a given
+modal is treated as top set the `topModalOverride` prop. Please note that in the scenario where this prop is
+set on multiple modals, the last one mounted with it will be treated as top.
+
+<Canvas of={DialogStories.FullScreenTopModalOverride} />
+
 
 ## Props
 

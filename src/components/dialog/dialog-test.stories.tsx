@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -23,6 +23,8 @@ import {
   Tile,
 } from "../tile";
 import { allModes } from "../../../.storybook/modes";
+import { StepFlow } from "../step-flow";
+import DialogFullScreen from "../dialog-full-screen";
 
 export default {
   title: "Dialog/Test",
@@ -218,7 +220,7 @@ export const WithTwoDifferentNodes: StoryType = (
 
 WithTwoDifferentNodes.storyName = "with two different nodes in subtitle";
 WithTwoDifferentNodes.decorators = [
-  (Story) => (
+  (Story: StoryObj) => (
     <Box height="400px" width="100%">
       <Story />
     </Box>
@@ -257,7 +259,7 @@ export const MaxSizeTest: StoryType = () => {
 
 MaxSizeTest.storyName = "With Maximised Size";
 MaxSizeTest.decorators = [
-  (Story) => (
+  (Story: StoryObj) => (
     <Box height="100vh" width="100vw">
       <Story />
     </Box>
@@ -291,7 +293,7 @@ export const MaxSizeTestNonOverflowedForm: StoryType = () => {
 MaxSizeTestNonOverflowedForm.storyName =
   "With Maximised Size and a Non-Overflowed Form";
 MaxSizeTestNonOverflowedForm.decorators = [
-  (Story) => (
+  (Story: StoryObj) => (
     <Box height="100vh" width="100vw">
       <Story />
     </Box>
@@ -322,13 +324,13 @@ export const DialogWithLongHeaderContent: StoryType = {
     layout: "fullscreen",
   },
   decorators: [
-    (Story) => (
+    (Story: StoryObj) => (
       <Box height="100vh" width="100vw">
         <Story />
       </Box>
     ),
   ],
-  render: ({ size, ...args }) => (
+  render: ({ size, ...args }: Partial<DialogProps>) => (
     <Dialog
       {...args}
       size={size || "maximise"}
@@ -494,3 +496,264 @@ export const WithButton = {
     );
   },
 };
+
+export const WithStickyForm: StoryType = {
+  render: (args) => {
+    const DialogForm = () => (
+      <Form
+        stickyFooter
+        leftSideButtons={<Button onClick={() => {}}>Cancel</Button>}
+        saveButton={
+          <Button buttonType="primary" type="submit">
+            Save
+          </Button>
+        }
+        onSubmit={(ev) => {
+          ev.preventDefault();
+        }}
+      >
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+      </Form>
+    );
+
+    return (
+      <Dialog fullscreen {...args}>
+        <DialogForm />
+      </Dialog>
+    );
+  },
+  args: {
+    open: true,
+    title: "Example Dialog",
+    subtitle: "I have a sticky form!",
+    showCloseIcon: true,
+    onCancel: () => {},
+  },
+  decorators: [
+    (Story: StoryObj) => (
+      <div style={{ height: 900, width: "100%" }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+WithStickyForm.storyName = "Fullscreen: With Sticky Form";
+
+export const Nested: StoryType = () => {
+  const [mainDialogOpen, setMainDialogOpen] = useState(false);
+
+  const [nestedDialogOpen, setNestedDialogOpen] = useState(false);
+
+  const handleMainDialogOpen = () => {
+    setMainDialogOpen(true);
+    action("main dialog open")();
+  };
+
+  const handleMainDialogCancel = () => {
+    setMainDialogOpen(false);
+    action("main dialog cancel")();
+  };
+
+  const handleNestedDialogOpen = () => {
+    setNestedDialogOpen(true);
+    action("nested dialog open")();
+  };
+
+  const handleNestedDialogCancel = () => {
+    setNestedDialogOpen(false);
+    action("nested dialog cancel")();
+  };
+
+  return (
+    <>
+      <Button onClick={handleMainDialogOpen}>Open Main Dialog</Button>
+      <Dialog
+        fullscreen
+        open={mainDialogOpen}
+        onCancel={handleMainDialogCancel}
+        title="Main Dialog"
+      >
+        <Button onClick={handleNestedDialogOpen}>Open Nested Dialog</Button>
+        <Dialog
+          open={nestedDialogOpen}
+          onCancel={handleNestedDialogCancel}
+          title="Nested Dialog"
+        >
+          Nested Dialog Content
+        </Dialog>
+      </Dialog>
+    </>
+  );
+};
+
+Nested.storyName = "Fullscreen: Nested";
+Nested.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};
+
+export const WithStepFlowInHeader: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return (
+      <Dialog fullscreen {...rest}>
+        {children}
+      </Dialog>
+    );
+  },
+  args: {
+    children: "Content",
+    open: true,
+    title: (
+      <Box maxWidth="750px" width="100%" data-testid="test">
+        <StepFlow
+          category="category"
+          title="title"
+          currentStep={1}
+          totalSteps={6}
+          showProgressIndicator
+        />
+      </Box>
+    ),
+    showCloseIcon: false,
+    onCancel: () => {},
+  },
+  decorators: [
+    (Story: StoryObj) => (
+      <Box height="900px" width="100%">
+        <Story />
+      </Box>
+    ),
+  ],
+};
+WithStepFlowInHeader.storyName = "Fullscreen: With StepFlow in header";
+
+export const FullscreenWithTwoDifferentNodes: StoryType = ({
+  ...props
+}: Partial<DialogProps>) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const ref = useRef<HTMLButtonElement | null>(null);
+  return (
+    <>
+      <Dialog
+        fullscreen
+        focusFirstElement={ref}
+        open={isOpen}
+        showCloseIcon
+        title="Example Dialog Full Screen"
+        subtitle={
+          <>
+            <Icon type="add" />
+            <br />
+            Subtitle line 2
+          </>
+        }
+        onCancel={() => setIsOpen(false)}
+        {...props}
+      >
+        <Textbox label="Textbox1" value="Textbox1" />
+        <Textbox label="Textbox2" value="Textbox2" />
+        <Textbox label="Textbox3" value="Textbox3" />
+      </Dialog>
+    </>
+  );
+};
+
+FullscreenWithTwoDifferentNodes.storyName =
+  "Fullscreen: With two different nodes in subtitle";
+FullscreenWithTwoDifferentNodes.decorators = [
+  (Story: StoryObj) => (
+    <div style={{ height: 900, width: "100%" }}>
+      <Story />
+    </div>
+  ),
+];
+FullscreenWithTwoDifferentNodes.parameters = {
+  layout: "fullscreen",
+};
+
+export const WithWrappedStickyForm: StoryType = {
+  args: {
+    children: (
+      <Box p="0px 40px" minHeight="0">
+        <Form
+          stickyFooter
+          leftSideButtons={<Button onClick={() => {}}>Cancel</Button>}
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+        </Form>
+      </Box>
+    ),
+    fullscreen: true,
+    open: true,
+    onCancel: () => {},
+    title: "Title",
+    subtitle: "Subtitle",
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+WithWrappedStickyForm.storyName = "Fullscreen: With Wrapped Sticky Form";
+
+export const WithLongTitle: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return (
+      <Dialog fullscreen {...rest}>
+        {children}
+      </Dialog>
+    );
+  },
+  args: {
+    children:
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias labore nostrum quo deserunt repellendus accusamus facilis voluptatem? Dicta illo esse non! Corrupti suscipit reprehenderit ea nesciunt delectus. Non voluptate expedita, repellendus ea vitae dolor nobis aperiam ullam unde ducimus aliquam quidem veniam necessitatibus, suscipit eaque exercitationem aut corrupti, qui ipsa.",
+    open: true,
+    title:
+      "Really long title for Dialog Full Screen that should wrap in small screens",
+    subtitle: "Subtitle",
+    showCloseIcon: true,
+    onCancel: () => {},
+  },
+};
+
+WithLongTitle.storyName = "Fullscreen: With Long Title";
+WithLongTitle.parameters = {
+  chromatic: { disableSnapshot: false, viewports: [500] },
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const UsingDialogFullScreenAlias: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return <DialogFullScreen {...rest}>{children}</DialogFullScreen>;
+  },
+  args: {
+    children: "If you can see this, the alias is working!",
+    open: true,
+    title: "Dialog Full Screen Alias",
+    subtitle: "Subtitle",
+    showCloseIcon: true,
+    onCancel: () => {},
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+UsingDialogFullScreenAlias.storyName = "Using Via DialogFullScreen Alias";

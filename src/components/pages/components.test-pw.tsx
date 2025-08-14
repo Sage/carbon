@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Typography from "../typography";
 import Pages, { PagesProps } from ".";
 import Page, { PageProps } from "./page/page.component";
-import DialogFullScreen from "../dialog-full-screen";
+import Dialog from "../dialog";
 import Heading from "../heading";
 import Button from "../button";
 import Box from "../box";
@@ -64,7 +64,8 @@ export const DefaultStory = ({
   return (
     <Box>
       <Button onClick={handleOpen}>Open Preview</Button>
-      <DialogFullScreen
+      <Dialog
+        fullscreen
         aria-label="aria-label"
         pagesStyling
         open={isOpen}
@@ -101,7 +102,7 @@ export const DefaultStory = ({
             Third Page
           </Page>
         </Pages>
-      </DialogFullScreen>
+      </Dialog>
     </Box>
   );
 };
@@ -157,7 +158,8 @@ export const PagesComponent = (
   return (
     <Box>
       <Button onClick={handleOpen}>Open Preview</Button>
-      <DialogFullScreen
+      <Dialog
+        fullscreen
         aria-label="aria-label"
         pagesStyling
         open={isOpen}
@@ -184,7 +186,7 @@ export const PagesComponent = (
             Third Page
           </Page>
         </Pages>
-      </DialogFullScreen>
+      </Dialog>
     </Box>
   );
 };

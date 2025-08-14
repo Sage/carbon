@@ -21,7 +21,7 @@ import {
   helpIcon,
   tooltipPreview,
 } from "../../../../playwright/components";
-import { alertDialogPreview } from "../../../../playwright/components/dialog";
+import { dialogWithRole } from "../../../../playwright/components/dialog";
 import { loader } from "../../../../playwright/components/loader";
 import {
   boldedAndUnderlinedValue,
@@ -859,13 +859,11 @@ test.describe("FilterableSelect component", () => {
     const headerElements = multiColumnsSelectListHeader(page);
     await expect(headerElements).toHaveCount(columns);
     for (let i = 0; i < columns; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await expect(headerElements.nth(i)).toBeVisible();
     }
     const bodyElements = multiColumnsSelectListBody(page);
     await expect(bodyElements).toHaveCount(columns);
     for (let i = 0; i < columns; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await expect(bodyElements.nth(i)).toBeVisible();
     }
     await expect(multiColumnsSelectListRow(page)).toHaveCSS(
@@ -988,7 +986,7 @@ test.describe("FilterableSelect component", () => {
     await expect(iconElement).toBeVisible();
     await expect(iconElement).toHaveAttribute("type", icon);
     await addElementButtonElement.click();
-    await expect(alertDialogPreview(page)).toBeVisible();
+    await expect(dialogWithRole(page, "dialog")).toBeVisible();
   });
 
   test("should render list options with an action button that is visible without scrolling and without affecting the list height", async ({
@@ -1019,9 +1017,8 @@ test.describe("FilterableSelect component", () => {
     await dropdownButton(page).click();
     const inputElement = commonDataElementInputPreview(page);
     for (let i = 0; i < 5; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await inputElement.focus();
-      // eslint-disable-next-line no-await-in-loop
+
       await inputElement.press("ArrowDown");
     }
     await expect(selectOptionByText(page, "Green").nth(0)).toBeInViewport();
@@ -1321,7 +1318,7 @@ test.describe("When nested inside of a Dialog component", () => {
 
     await dropdownButton(page).click();
     const inputElement = commonDataElementInputPreview(page);
-    const dialogElement = alertDialogPreview(page);
+    const dialogElement = dialogWithRole(page, "dialog");
     await inputElement.press("Escape");
     await expect(selectList(page)).not.toBeVisible();
     await expect(dialogElement).toBeVisible();
@@ -1336,7 +1333,7 @@ test.describe("When nested inside of a Dialog component", () => {
     await mount(<FilterableSelectNestedInDialog />);
 
     await dropdownButton(page).click();
-    await alertDialogPreview(page).click();
+    await dialogWithRole(page, "dialog").click();
     await expect(selectList(page)).not.toBeVisible();
     await expect(commonDataElementInputPreview(page)).not.toBeFocused();
   });
