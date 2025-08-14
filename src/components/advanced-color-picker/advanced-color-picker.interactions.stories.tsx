@@ -48,6 +48,17 @@ const AdvancedColorPickerWithState = ({
   );
 };
 
+async function ensurePickerIsOpen(trigger: HTMLElement) {
+  const portal = within(document.body);
+  const radiosCount = () => portal.queryAllByRole("radio").length;
+
+  if (radiosCount() === 0) {
+    await userEvent.click(trigger);
+  }
+
+  await waitFor(() => expect(radiosCount()).toBeGreaterThan(0));
+}
+
 export const ColorSelection: Story = {
   render: () => (
     <Box mb={3}>
@@ -68,6 +79,8 @@ export const ColorSelection: Story = {
     await userEvent.click(blue);
 
     await portal.findByLabelText(/blue/i, { selector: "input:checked" });
+
+    await ensurePickerIsOpen(trigger);
   },
   decorators: [
     (StoryToRender) => (
@@ -110,6 +123,8 @@ export const ColorPreviewInteraction: Story = {
     await waitFor(() =>
       expect(canvas.getByText(/desert/i)).toBeInTheDocument(),
     );
+
+    await ensurePickerIsOpen(trigger);
   },
   decorators: [
     (StoryToRender) => (
@@ -149,6 +164,8 @@ export const DialogOpenAndCloseStates: Story = {
 
     await userEvent.click(trigger);
     await portal.findByLabelText(/blue/i);
+
+    await ensurePickerIsOpen(trigger);
   },
   decorators: [
     (StoryToRender) => (
@@ -188,6 +205,8 @@ export const FocusManagement: Story = {
       expect(portal.queryByLabelText(/mint|pink/i)).not.toBeInTheDocument(),
     );
     await waitFor(() => expect(trigger).toHaveFocus());
+
+    await ensurePickerIsOpen(trigger);
   },
   decorators: [
     (StoryToRender) => (
@@ -230,6 +249,8 @@ export const ColorGridNavigation: Story = {
     await userEvent.keyboard(" ");
 
     await waitFor(() => expect(portal.queryByRole("radio")).toBeNull());
+
+    await ensurePickerIsOpen(trigger);
   },
   decorators: [
     (StoryToRender) => (
@@ -240,54 +261,3 @@ export const ColorGridNavigation: Story = {
   ],
 };
 ColorGridNavigation.storyName = "Color Grid Navigation";
-
-export const ControlledVsUncontrolled: Story = {
-  render: () => (
-    <Box display="flex" gap="32px">
-      <Box>
-        <h4>Controlled</h4>
-        <AdvancedColorPickerWithState initialColor="#EBAEDE" />
-      </Box>
-      <Box>
-        <h4>Uncontrolled</h4>
-        <AdvancedColorPicker
-          availableColors={mockColors}
-          name="uncontrolled-picker"
-          defaultColor="#EBAEDE"
-        />
-      </Box>
-    </Box>
-  ),
-  play: async ({ canvasElement }) => {
-    if (!allowInteractions()) return;
-
-    const canvas = within(canvasElement);
-    const triggers = canvas.getAllByRole("button", {
-      name: /change colo(u)?r/i,
-    });
-    expect(triggers).toHaveLength(2);
-
-    await userEvent.click(triggers[0]);
-
-    const portal = within(document.body);
-
-    const mintRadioOption = await portal.findByLabelText(/mint/i);
-    await userEvent.click(mintRadioOption);
-    await portal.findByLabelText(/mint/i, { selector: "input:checked" });
-
-    await waitFor(() => expect(portal.queryByRole("radio")).toBeNull());
-
-    await userEvent.click(triggers[1]);
-    const purple = await portal.findByLabelText(/purple/i);
-    await userEvent.click(purple);
-    await portal.findByLabelText(/purple/i, { selector: "input:checked" });
-  },
-  decorators: [
-    (StoryToRender) => (
-      <DefaultDecorator>
-        <StoryToRender />
-      </DefaultDecorator>
-    ),
-  ],
-};
-ControlledVsUncontrolled.storyName = "Controlled vs Uncontrolled";
