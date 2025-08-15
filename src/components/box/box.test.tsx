@@ -90,6 +90,21 @@ it("applies the boxShadow styling correctly when a design token is passed in", (
   expect(box).toHaveStyle(`box-shadow: var(--boxShadow100)`);
 });
 
+test("sets the correct border radius when `borderRadius` is passed with multiple border radius values", () => {
+  render(
+    <Box
+      borderRadius="borderRadius200 borderRadius200 borderRadius100 borderRadius100"
+      data-role="box"
+    />,
+  );
+
+  const box = screen.getByTestId("box");
+  expect(box).toHaveStyle({
+    borderRadius:
+      "var(--borderRadius200) var(--borderRadius200) var(--borderRadius100) var(--borderRadius100)",
+  });
+});
+
 it("applies the correct styling from the cssProps", () => {
   render(
     <Box

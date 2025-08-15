@@ -41,6 +41,13 @@ test("should render with a large height", () => {
   expect(hr).toHaveStyle("height: 3px");
 });
 
+test("should render with the correct background-color when the type prop is inverse", () => {
+  render(<Hr type="inverse" />);
+  const hr = screen.getByRole("separator");
+
+  expect(hr).toHaveStyle("background-color: var(--colorsActionMajorYang030)");
+});
+
 test("should apply the expected margin top", () => {
   render(<Hr mt={7} />);
   const hr = screen.getByRole("separator");

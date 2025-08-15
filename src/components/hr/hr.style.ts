@@ -9,13 +9,18 @@ const heightMap = {
 };
 
 const StyledHr = styled.hr.attrs(applyBaseTheme)<
-  MarginProps & { height: "small" | "medium" | "large" }
+  MarginProps & { height: "small" | "medium" | "large" } & {
+    $type?: "typical" | "inverse";
+  }
 >`
   ${margin}
   width: 100%;
   border: 0;
   height: ${({ height }) => heightMap[height]}px;
-  background: var(--colorsUtilityMajor100);
+  background-color: ${({ $type }) =>
+    $type === "typical"
+      ? "var(--colorsUtilityMajor100)"
+      : "var(--colorsActionMajorYang030)"};
 `;
 
 export default StyledHr;
