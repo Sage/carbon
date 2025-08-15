@@ -26,20 +26,21 @@ const meta: Meta<typeof ResponsiveVerticalMenu> = {
     },
   },
   decorators: [
-    (Story) => (
+    (Story, { viewMode }) => (
       <>
         {defaultOpenState ? (
           <Box width="100%" height={900}>
             <Story />
           </Box>
         ) : (
-          <Story />
+          <Box {...(viewMode !== "docs" && { height: "100vh" })}>
+            <Story />
+          </Box>
         )}
       </>
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof ResponsiveVerticalMenu>;
 
