@@ -15,6 +15,7 @@ import Icon from "../../icon";
 import GlobalHeader from "../../global-header";
 
 const defaultOpenState = isChromatic();
+const isDocsMode = () => window.location.href.includes("docs");
 
 const meta: Meta<typeof ResponsiveVerticalMenu> = {
   title: "Vertical Menu/Responsive",
@@ -33,13 +34,14 @@ const meta: Meta<typeof ResponsiveVerticalMenu> = {
             <Story />
           </Box>
         ) : (
-          <Story />
+          <Box {...(!isDocsMode() && { height: "100vh" })}>
+            <Story />
+          </Box>
         )}
       </>
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof ResponsiveVerticalMenu>;
 
