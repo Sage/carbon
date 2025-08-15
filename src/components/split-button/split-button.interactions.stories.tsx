@@ -212,6 +212,7 @@ export const ChildButtonFocusState: Story = {
   ),
   play: async ({ canvasElement }) => {
     if (!allowInteractions()) return;
+
     const canvas = within(canvasElement);
     const toggleButton = canvas.getByRole("button", { name: /show more/i });
 
@@ -222,7 +223,7 @@ export const ChildButtonFocusState: Story = {
       canvasElement.querySelector('[data-role="first-child"]'),
       canvasElement.querySelector('[data-role="second-child"]'),
       canvasElement.querySelector('[data-role="third-child"]'),
-    ].filter(Boolean);
+    ].filter(Boolean) as HTMLElement[];
 
     expect(childButtons).toHaveLength(3);
 
@@ -242,10 +243,10 @@ export const ChildButtonFocusState: Story = {
     expect(childButtons[0]).toHaveFocus();
 
     await userEvent.keyboard("{End}");
+    await userInteractionPause(100);
     expect(childButtons[2]).toHaveFocus();
 
-    await userInteractionPause(300);
-    expect(toggleButton).toHaveFocus();
+    expect(toggleButton).toHaveAttribute("aria-expanded", "true");
   },
   decorators: [
     (StoryToRender) => (
