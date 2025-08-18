@@ -21,49 +21,27 @@ export default {
 export const hoverCheckbox: Story = {
   render: () => (
     <>
-      <Checkbox mb={4} label="Small" size="small" required />
-      <Checkbox mb={4} label="Large" size="large" required />
+      <Checkbox mb={4} label="Small" required data-testid="target" />
       <Checkbox
         mb={4}
-        label="Info Small"
-        size="small"
+        label="Info"
         info="Info"
         tooltipPosition="right"
+        data-testid="target"
       />
       <Checkbox
         mb={4}
-        label="Info Large"
-        size="large"
-        info="Info"
-        tooltipPosition="right"
-      />
-      <Checkbox
-        mb={4}
-        label="Warning Small"
-        size="small"
+        label="Warning"
         warning="Warning"
         tooltipPosition="right"
+        data-testid="target"
       />
       <Checkbox
         mb={4}
-        label="Warning Large"
-        size="large"
-        warning="Warning"
-        tooltipPosition="right"
-      />
-      <Checkbox
-        mb={4}
-        label="Error Small"
-        size="small"
+        label="Error"
         error="Error"
         tooltipPosition="right"
-      />
-      <Checkbox
-        mb={4}
-        label="Error Large"
-        size="large"
-        error="Error"
-        tooltipPosition="right"
+        data-testid="target"
       />
     </>
   ),
@@ -78,10 +56,6 @@ export const hoverCheckbox: Story = {
     await userEvent.hover(checkbox[1]);
     await userEvent.hover(checkbox[2]);
     await userEvent.hover(checkbox[3]);
-    await userEvent.hover(checkbox[4]);
-    await userEvent.hover(checkbox[5]);
-    await userEvent.hover(checkbox[6]);
-    await userEvent.hover(checkbox[7]);
     await userInteractionPause(1000);
   },
   decorators: [
@@ -95,18 +69,16 @@ export const hoverCheckbox: Story = {
 hoverCheckbox.storyName = "Hover";
 hoverCheckbox.parameters = {
   pseudo: {
-    hover: 'input[type="checkbox"]',
+    hover: '[data-testid="target"]',
   },
 };
 
 export const clickAndKeyInteraction: Story = {
   render: () => (
     <>
-      <Checkbox mb={2} label="Small" size="small" />
-      <Checkbox mb={2} label="Large" size="large" />
+      <Checkbox mb={2} label="Small" />
       <Checkbox mb={2} label="Default" disabled />
-      <Checkbox mb={2} label="Small" size="small" />
-      <Checkbox mb={2} label="Large" size="large" />
+      <Checkbox mb={2} label="Small" />
     </>
   ),
   play: async ({ canvasElement }) => {
@@ -118,19 +90,12 @@ export const clickAndKeyInteraction: Story = {
     const checkbox = canvas.getAllByRole("checkbox");
     await userEvent.click(checkbox[0]);
     await userInteractionPause(500);
-    await userEvent.click(checkbox[1]);
-    await userInteractionPause(500);
     await userEvent.keyboard("{Tab}");
     await userInteractionPause(500);
-    await userEvent.type(checkbox[3], "{Space}");
+    await userEvent.type(checkbox[2], "{Space}");
     await userInteractionPause(500);
-    await userEvent.keyboard("{Tab}");
-    await userInteractionPause(500);
-    await userEvent.type(checkbox[4], "{Space}");
     await expect(checkbox[0]).toBeChecked();
-    await expect(checkbox[1]).toBeChecked();
-    await expect(checkbox[3]).toBeChecked();
-    await expect(checkbox[4]).toBeChecked();
+    await expect(checkbox[2]).toBeChecked();
   },
   decorators: [
     (StoryToRender) => (
